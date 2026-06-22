@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm config *)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(tee /tmp/drl-dev.log)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s http://localhost:3000/tienda)",
+      "Bash(curl -s -o /dev/null -w \"coleccion:%{http_code}\\\\n\" http://localhost:3000/coleccion)",
+      "Bash(rm -f /tmp/drl-dev.log)",
+      "Bash(node scripts/generate-icons.mjs)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(cat)",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

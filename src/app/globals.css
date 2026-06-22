@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Rajdhani", "Eurostile", "Bahnschrift", system-ui, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(255, 46, 99, 0.12), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(25, 227, 255, 0.08), transparent 55%),
+    #06070d;
+  color: #eef1f8;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  /* Sensación de app: sin rebote ni "pull to refresh", sin resaltado táctil */
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+  -webkit-touch-callout: none;
+}
+
+/* Instalada (standalone): la UI no se selecciona como una web, los campos sí */
+@media all and (display-mode: standalone) {
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+input,
+textarea,
+select,
+[contenteditable] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Tipografía display para títulos y números */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+/* Scrollbar de juego */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0d18;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff2e63, #7b1733);
+  border-radius: 99px;
+}
+
+/* Utilidad: textura de rejilla sutil */
+.bg-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* Efecto holográfico para cartas de alta rareza */
+.holo {
+  background-image: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.35) 38%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.4) 52%,
+    transparent 70%
+  );
+  background-size: 250% 250%;
+  mix-blend-mode: overlay;
+}
+
+/* Brillo de texto neón */
+.text-glow {
+  text-shadow: 0 0 18px currentColor;
+}
+
+@keyframes drl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: drl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Respeto por usuarios que reducen movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
