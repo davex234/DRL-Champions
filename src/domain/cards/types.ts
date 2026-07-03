@@ -73,7 +73,18 @@ export type AccoladeId =
   | "prime"
   | "game-changers"
   | "icon"
-  | "hall-of-fame";
+  | "hall-of-fame"
+  // Generadas por el sistema de torneos (autoría admin)
+  | "tournament-mvp"
+  | "tournament-champion"
+  // Premios del Collection Engine (un torneo genera una colección con estos premios)
+  | "tournament-rookie"
+  | "tournament-clutch"
+  | "tournament-top-acs"
+  | "tournament-top-rating"
+  | "tournament-top-hs"
+  | "tournament-top-kills"
+  | "tournament-top-assists";
 
 /** Nivel de animación de apertura (de menor a mayor espectacularidad). */
 export type AnimationLevel =
@@ -130,7 +141,18 @@ export type VariantId =
   | "prime"
   | "game-changers"
   | "icon-series"
-  | "hall-of-fame";
+  | "hall-of-fame"
+  // Edición de torneo (generadas por el admin)
+  | "mythic"
+  | "champion-edition"
+  // Premios del Collection Engine (cartas premio de torneo)
+  | "rookie"
+  | "clutch"
+  | "top-acs"
+  | "top-rating"
+  | "top-hs"
+  | "top-kills"
+  | "top-assist";
 
 export interface RarityPalette {
   /** Color principal del marco. */

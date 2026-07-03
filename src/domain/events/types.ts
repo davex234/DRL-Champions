@@ -24,6 +24,11 @@ export interface Reward {
   packCount?: number;
   /** Carta concreta otorgada (CardDef.id). */
   cardId?: string;
+  // ── Battle Pass (Collection Fase 6/7) — campos AÑADIDOS, todos opcionales ──
+  /** Materiales de crafting (polvo por rareza). Reutiliza el recurso de `@/craft`. */
+  materials?: Partial<Record<"common" | "uncommon" | "rare" | "epic" | "legendary", number>>;
+  /** Cosméticos de cuenta (títulos/iconos/avatares/marcos/cosméticos de coach o jugador). Ids con prefijo. */
+  cosmetics?: string[];
 }
 
 export interface MissionDef {

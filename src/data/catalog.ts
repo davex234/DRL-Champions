@@ -4,7 +4,7 @@ import { getVariant, baseMetalForOvr } from "@/domain/cards/variants";
 import { PLAYERS } from "./players";
 
 /** Mapea cada accolade a la(s) variante(s) que desbloquea. */
-function variantsForAccolade(acc: AccoladeId, player: Player): VariantId[] {
+export function variantsForAccolade(acc: AccoladeId, player: Player): VariantId[] {
   const regionKey = player.region.toLowerCase() as "emea" | "americas" | "pacific" | "china";
   switch (acc) {
     case "masters":
@@ -37,6 +37,24 @@ function variantsForAccolade(acc: AccoladeId, player: Player): VariantId[] {
       return ["icon-series"];
     case "hall-of-fame":
       return ["hall-of-fame"];
+    case "tournament-mvp":
+      return ["mythic"];
+    case "tournament-champion":
+      return ["champion-edition"];
+    case "tournament-rookie":
+      return ["rookie"];
+    case "tournament-clutch":
+      return ["clutch"];
+    case "tournament-top-acs":
+      return ["top-acs"];
+    case "tournament-top-rating":
+      return ["top-rating"];
+    case "tournament-top-hs":
+      return ["top-hs"];
+    case "tournament-top-kills":
+      return ["top-kills"];
+    case "tournament-top-assists":
+      return ["top-assist"];
     default:
       return [];
   }

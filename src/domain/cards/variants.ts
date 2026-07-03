@@ -64,6 +64,22 @@ const PALETTES = {
     background:
       "linear-gradient(160deg,#2b2b2b 0%,#d9cfae 35%,#fffaf0 55%,#bfb38f 80%,#1a1a1a 100%)",
   },
+  // MYTHIC — la rareza más alta del juego (MVP de torneo). Carmesí incandescente.
+  mythic: {
+    primary: "#ff2e63",
+    secondary: "#ffd1dc",
+    text: "#1a0008",
+    background:
+      "linear-gradient(160deg,#1a0008 0%,#7a0a2e 30%,#ff2e63 55%,#ffd1dc 70%,#3a0518 100%)",
+  },
+  // CHAMPION — edición del equipo ganador. Oro campeón con destello blanco.
+  champion: {
+    primary: "#ffe08a",
+    secondary: "#fffceb",
+    text: "#2a2000",
+    background:
+      "linear-gradient(160deg,#5a4200 0%,#caa64a 35%,#ffe08a 55%,#fffceb 72%,#3a2c00 100%)",
+  },
 } satisfies Record<string, RarityPalette>;
 
 /**
@@ -110,6 +126,20 @@ export const VARIANTS: Record<VariantId, VariantDef> = {
   "game-changers": { id: "game-changers", label: "Game Changers", group: "exclusiva", animation: "extended", rank: 11, statBoost: 3, serialized: true, serialLimit: 250, palette: PALETTES.mvp },
   "icon-series": { id: "icon-series", label: "Icon Series", group: "exclusiva", animation: "icon", rank: 14, statBoost: 6, serialized: true, serialLimit: 100, palette: PALETTES.icon },
   "hall-of-fame": { id: "hall-of-fame", label: "Hall Of Fame", group: "exclusiva", animation: "legendary", rank: 15, statBoost: 6, serialized: true, serialLimit: 50, palette: PALETTES.legendary },
+
+  // ---- Edición de torneo (generadas por el sistema de torneos del admin) ----
+  // CHAMPION: para el roster del equipo ganador. MYTHIC: MVP del torneo (la cima).
+  "champion-edition": { id: "champion-edition", label: "Champion Edition", group: "exclusiva", animation: "legendary", rank: 13, statBoost: 5, serialized: true, serialLimit: 75, palette: PALETTES.champion },
+  mythic: { id: "mythic", label: "Mythic MVP", group: "exclusiva", animation: "icon", rank: 16, statBoost: 7, serialized: true, serialLimit: 25, palette: PALETTES.mythic },
+
+  // ---- Premios del Collection Engine (cada torneo concede estos a sus líderes) ----
+  rookie: { id: "rookie", label: "Rookie", group: "exclusiva", animation: "winner", rank: 10, statBoost: 3, serialized: true, serialLimit: 200, palette: PALETTES.regional },
+  "top-acs": { id: "top-acs", label: "Top ACS", group: "exclusiva", animation: "cinematic", rank: 11, statBoost: 4, serialized: true, serialLimit: 150, palette: PALETTES.cinematic },
+  "top-rating": { id: "top-rating", label: "Top Rating", group: "exclusiva", animation: "legendary", rank: 12, statBoost: 5, serialized: true, serialLimit: 120, palette: PALETTES.legendary },
+  "top-hs": { id: "top-hs", label: "Top HS%", group: "exclusiva", animation: "extended", rank: 11, statBoost: 4, serialized: true, serialLimit: 150, palette: PALETTES.winner },
+  "top-kills": { id: "top-kills", label: "Top Kills", group: "exclusiva", animation: "extended", rank: 11, statBoost: 4, serialized: true, serialLimit: 150, palette: PALETTES.mvp },
+  "top-assist": { id: "top-assist", label: "Top Assist", group: "exclusiva", animation: "extended", rank: 11, statBoost: 4, serialized: true, serialLimit: 150, palette: PALETTES.prime },
+  clutch: { id: "clutch", label: "Clutch King", group: "exclusiva", animation: "special", rank: 12, statBoost: 5, serialized: true, serialLimit: 120, palette: PALETTES.mvp },
 };
 
 export const ALL_VARIANTS: VariantDef[] = Object.values(VARIANTS);
