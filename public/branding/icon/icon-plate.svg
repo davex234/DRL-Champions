@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <radialGradient id="p-pl" cx="0.5" cy="0.42" r="0.75">
+      <stop offset="0" stop-color="#222637"/><stop offset="1" stop-color="#06070d"/>
+    </radialGradient>
+    <radialGradient id="p-gl" cx="0.5" cy="0.82" r="0.5">
+      <stop offset="0" stop-color="#ff2e63" stop-opacity="0.28"/><stop offset="1" stop-color="#ff2e63" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#p-pl)"/>
+  <rect width="256" height="256" rx="56" fill="url(#p-gl)"/>
+  <rect x="1" y="1" width="254" height="254" rx="55" fill="none" stroke="#2b3142" stroke-opacity="0.5"/>
+    <defs>
+      <linearGradient id="m-sh" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#222637"/><stop offset="1" stop-color="#06070d"/>
+      </linearGradient>
+      <linearGradient id="m-cr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#aab4c4"/>
+      </linearGradient>
+      <linearGradient id="m-bl" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ff5c8a"/><stop offset="1" stop-color="#7b1733"/>
+      </linearGradient>
+      <linearGradient id="m-sl" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#ff2e63" stop-opacity="0"/><stop offset="1" stop-color="#ff5c8a" stop-opacity="0.55"/>
+      </linearGradient>
+    </defs>
+    <path d="M60 38 L196 38 L214 72 L214 150 L128 228 L42 150 L42 72 Z" fill="url(#m-sh)"/>
+    <path d="M60 38 L196 38 L214 72 L214 150 L128 228 L42 150 L42 72 Z" fill="none" stroke="#2b3142" stroke-width="3"/>
+    <path d="M70 50 L186 50 L202 77 L202 147 L128 212 L54 147 L54 77 Z" fill="none" stroke="#000" stroke-opacity="0.45" stroke-width="2"/>
+    <path d="M42 132 L214 96 L214 110 L42 146 Z" fill="url(#m-sl)"/>
+    <path d="M128 70 L149 103 L170 88 L177 138 L128 198 L79 138 L86 88 L107 103 Z" fill="url(#m-cr)"/>
+    <path d="M79 138 L177 138 L128 198 Z" fill="url(#m-bl)"/>
+    <path d="M128 70 L149 103 L170 88 L177 138 L128 198 L79 138 L86 88 L107 103 Z" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.4" stroke-linejoin="miter"/></svg>
