@@ -1,0 +1,82 @@
+# BUILD — compila TODO (web, desktop, Tauri, assets) y guarda artefactos. NO publica.
+# Objetivo: comprobar que todo compila + dejar los binarios descargables del workflow.
+name: build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Secrets/vars (preparados aunque aún no se publiquen builds — Fase 2).
+  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+  TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+  UPDATE_ENDPOINT: ${{ vars.UPDATE_ENDPOINT }}
+  RELEASE_CHANNEL: ${{ vars.RELEASE_CHANNEL }}
+  BUILD_CONFIGURATION: ${{ vars.BUILD_CONFIGURATION }}
+
+jobs:
+  build:
+    runs-on: windows-latest # NSIS/MSI; matriz mac/linux se añadirá en fases futuras
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cargo / Rust / Tauri cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Next.js cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**/*.ts','src/**/*.tsx') }}
+          restore-keys: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build assets (branding)
+        run: npm run brand
+
+      - name: Build web
+        run: npm run build
+
+      - name: Build desktop (static export)
+        run: npm run build:desktop
+
+      # Bundle firmado SOLO si hay clave (Fase 2: puede no estar configurada todavía).
+      - name: Build Tauri bundle (signed)
+        if: env.TAURI_SIGNING_PRIVATE_KEY != ''
+        run: npx tauri build --bundles nsis,msi
+
+      # Sin clave: verificación de compilación de Rust (no produce instaladores firmados).
+      - name: Rust compile check (no signing key)
+        if: env.TAURI_SIGNING_PRIVATE_KEY == ''
+        working-directory: src-tauri
+        run: cargo check --locked || cargo check
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: drl-build-${{ github.run_id }}
+          if-no-files-found: ignore
+          retention-days: 14
+          path: |
+            out/**
+            src-tauri/target/release/bundle/**/*.exe
+            src-tauri/target/release/bundle/**/*.msi
+            src-tauri/target/release/bundle/**/*.sig
