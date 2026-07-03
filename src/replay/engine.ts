@@ -15,20 +15,43 @@ import { REPLAY_VERSION, MIN_REPLAY_VERSION, type Replay, type ReplayMeta, type 
 // ── Integridad / versión ──
 function fnv1a(s: string): number { let h = 2166136261 >>> 0; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 
-/** Checksum determinista de una grabación (seed + comandos). */
+/** Checksum determinista de los INPUTS de una grabación (seed + comandos). */
 export function checksumReplay(config: MatchConfig, log: InputLog): number {
   const cmds = log.commands.map((c) => `${c.round}:${c.tick}:${c.kind}:${c.id}:${c.side}`).join("|");
   return fnv1a(`${config.seed}#${log.seed}#${cmds}`);
+}
+
+/**
+ * Checksum del ESTADO FINAL reconstruido (no de los inputs). Resume el resultado determinista del
+ * partido: ganador/marcador/ticks + por ronda (seed/ticks/ganador/motivo de fin). Dos builds/motores
+ * que reconstruyan estados distintos a partir del MISMO input log producen checksums distintos.
+ */
+export function stateChecksumFrom(final: MatchState): number {
+  const sc = matchScalars(final);
+  const rounds = final.rounds.map((r, i) => `${i}:${r.seed}:${r.tick}:${r.winner ?? ""}:${r.endReason ?? ""}`).join("|");
+  return fnv1a(`${sc.winner}#${sc.score.home}-${sc.score.away}#${final.totalTicks ?? 0}#${final.roundNumber}#${rounds}`);
+}
+
+/** Reconstruye y resume el estado final (para grabación/validación). */
+export function stateChecksum(config: MatchConfig, log: InputLog): number {
+  return stateChecksumFrom(reconstruct(config, log));
 }
 
 export function isReplayCompatible(replay: { version: number }): boolean {
   return replay.version >= MIN_REPLAY_VERSION && replay.version <= REPLAY_VERSION;
 }
 
-/** Verifica un replay: versión compatible + checksum íntegro. Detecta replays inválidos. */
+/**
+ * Verifica un replay: versión compatible + integridad de inputs + (v2+) integridad de ESTADO.
+ * La validación de estado reconstruye el partido y compara el resumen del estado final: detecta no
+ * solo corrupción de inputs sino DIVERGENCIA DE RECONSTRUCCIÓN (otro build/motor reconstruye distinto).
+ */
 export function verifyReplay(replay: Replay): { ok: boolean; error?: string } {
   if (!isReplayCompatible(replay)) return { ok: false, error: `versión incompatible (${replay.version})` };
   if (checksumReplay(replay.config, replay.log) !== replay.checksum) return { ok: false, error: "checksum inválido (replay corrupto)" };
+  if (replay.stateChecksum !== undefined && stateChecksum(replay.config, replay.log) !== replay.stateChecksum) {
+    return { ok: false, error: "divergencia de reconstrucción (el estado final no coincide)" };
+  }
   return { ok: true };
 }
 
@@ -43,14 +66,14 @@ export function metaFrom(config: MatchConfig, final: MatchState, matchId: string
 export function recordReplay(config: MatchConfig, log: InputLog, meta: Omit<ReplayMeta, "durationTicks" | "rounds" | "score" | "winner">): Replay {
   const final = reconstruct(config, log);
   const full = metaFrom(config, final, meta.matchId, meta.mode, meta.region, meta.players);
-  return { version: REPLAY_VERSION, build: FULL_VERSION, meta: { ...full, matchId: meta.matchId, createdAt: meta.createdAt, teamNames: meta.teamNames }, config, log, checksum: checksumReplay(config, log), bookmarks: [] };
+  return { version: REPLAY_VERSION, build: FULL_VERSION, meta: { ...full, matchId: meta.matchId, createdAt: meta.createdAt, teamNames: meta.teamNames }, config, log, checksum: checksumReplay(config, log), stateChecksum: stateChecksumFrom(final), bookmarks: [] };
 }
 
 /** Graba desde un servidor online (usa su `config` + `log` autoritativos). */
 export function recordFromServer(server: { config: MatchConfig | null; log: InputLog; match: MatchState | null }, matchId: string, mode: string, region: string, players: ReplayMeta["players"]): Replay | null {
   if (!server.config || !server.match) return null;
   const full = metaFrom(server.config, server.match, matchId, mode, region, players);
-  return { version: REPLAY_VERSION, build: FULL_VERSION, meta: full, config: server.config, log: server.log, checksum: checksumReplay(server.config, server.log), bookmarks: [] };
+  return { version: REPLAY_VERSION, build: FULL_VERSION, meta: full, config: server.config, log: server.log, checksum: checksumReplay(server.config, server.log), stateChecksum: stateChecksumFrom(server.match), bookmarks: [] };
 }
 
 // ── Reconstrucción tick-a-tick de una ronda (playback / seek) ──

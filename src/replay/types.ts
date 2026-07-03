@@ -9,7 +9,7 @@
 import type { MatchConfig } from "@/match";
 import type { InputLog } from "@/online";
 
-export const REPLAY_VERSION = 1;
+export const REPLAY_VERSION = 2; // v2: añade stateChecksum (validación del estado reconstruido)
 export const MIN_REPLAY_VERSION = 1;
 
 export interface ReplayPlayerMeta { id: string; name: string; side: "home" | "away" }
@@ -36,7 +36,10 @@ export interface Replay {
   meta: ReplayMeta;
   config: MatchConfig;
   log: InputLog;        // seed + comandos = la grabación (incremental, sin duplicar snapshots)
-  checksum: number;     // integridad (FNV sobre config.seed + comandos)
+  checksum: number;     // integridad de INPUTS (FNV sobre config.seed + comandos)
+  /** Checksum del ESTADO final reconstruido (v2+). Detecta divergencia de reconstrucción
+   *  (build/motor distinto que reconstruye un partido diferente). Opcional en replays v1. */
+  stateChecksum?: number;
   bookmarks: Bookmark[];
 }
 
