@@ -193,6 +193,7 @@ export const useEngineStore = create<EngineState>()(
     }),
     {
       name: "drl-champions-engine",
+      version: 1,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
         source: s.source,
@@ -203,6 +204,20 @@ export const useEngineStore = create<EngineState>()(
         processed: s.processed,
         lastRun: s.lastRun,
       }),
+      // Saves antiguos (sin versión = 0) → normaliza sin descartar cartas/eventos generados.
+      migrate: (persisted) => {
+        const p = (persisted && typeof persisted === "object" ? persisted : {}) as Record<string, unknown>;
+        const arr = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
+        return {
+          source: p.source === "vlr" ? "vlr" : "mock",
+          generatedCards: arr(p.generatedCards),
+          generatedEvents: arr(p.generatedEvents),
+          notifications: arr(p.notifications),
+          pickems: p.pickems && typeof p.pickems === "object" ? (p.pickems as Record<string, unknown>) : {},
+          processed: arr<string>(p.processed),
+          lastRun: typeof p.lastRun === "number" ? p.lastRun : null,
+        } as Partial<EngineState>;
+      },
     },
   ),
 );

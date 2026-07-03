@@ -33,7 +33,20 @@ export const useNewsStore = create<NewsState>()(
       markSeen: () => set({ seenAt: Date.now() }),
       clear: () => set({ items: [], seenAt: Date.now() }),
     }),
-    { name: "drl-champions-news", storage: createJSONStorage(() => localStorage) },
+    {
+      name: "drl-champions-news",
+      version: 1,
+      storage: createJSONStorage(() => localStorage),
+      partialize: (s) => ({ items: s.items, seenAt: s.seenAt }),
+      // Saves antiguos (sin versión = 0) → normaliza el buzón sin perder noticias.
+      migrate: (persisted) => {
+        const p = (persisted && typeof persisted === "object" ? persisted : {}) as { items?: unknown; seenAt?: unknown };
+        return {
+          items: Array.isArray(p.items) ? (p.items as NewsItem[]) : [],
+          seenAt: typeof p.seenAt === "number" && Number.isFinite(p.seenAt) ? p.seenAt : 0,
+        };
+      },
+    },
   ),
 );
 

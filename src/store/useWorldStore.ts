@@ -32,6 +32,18 @@ function reviveWorld(w: WorldState | null): WorldState | null {
   return w;
 }
 
+/**
+ * Serializa el WorldState para persistir: convierte el Set `cardKeys` a array. Sin esto,
+ * JSON.stringify(Set) → "{}" y la garantía anti-duplicados del Timeline se PERDÍA en cada recarga.
+ * `reviveWorld` reconstruye el Set (array → Set) al cargar. Backward-compatible con saves antiguos.
+ */
+function worldForPersist(w: WorldState | null): unknown {
+  if (!w) return null;
+  const keys = w.timeline?.cardKeys;
+  if (keys instanceof Set) return { ...w, timeline: { ...w.timeline, cardKeys: Array.from(keys) } };
+  return w;
+}
+
 export const useWorldStore = create<WorldStoreState>()(
   persist(
     (set, get) => ({
@@ -68,7 +80,7 @@ export const useWorldStore = create<WorldStoreState>()(
       name: "drl-world-v1",
       version: 1,
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ world: s.world }),
+      partialize: (s) => ({ world: worldForPersist(s.world) }),
       onRehydrateStorage: () => (state) => { if (state?.world) reviveWorld(state.world); },
     },
   ),

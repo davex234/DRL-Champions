@@ -37,8 +37,14 @@ export const useCollectionsStore = create<CollectionsState>()(
     }),
     {
       name: "drl-champions-collections",
+      version: 1,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ claimed: s.claimed }),
+      // Saves antiguos (sin versión = 0) → normaliza sin descartar claims existentes.
+      migrate: (persisted) => {
+        const p = (persisted && typeof persisted === "object" ? persisted : {}) as { claimed?: unknown };
+        return { claimed: Array.isArray(p.claimed) ? (p.claimed as string[]) : [] };
+      },
       onRehydrateStorage: () => (state) => {
         if (state) state.hydrated = true;
       },

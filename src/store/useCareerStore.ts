@@ -180,6 +180,9 @@ export const useCareerStore = create<CareerState>()(
       version: 1,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ season: s.season, innate: s.innate, dev: s.dev, chem: s.chem, events: s.events }),
+      // Red de seguridad para futuros bumps: preserva la carrera persistida (zustand hace merge sobre
+      // los defaults). Sin migrate, un bump de versión DESCARTA la carrera del usuario.
+      migrate: (persisted) => (persisted && typeof persisted === "object" ? (persisted as Partial<CareerState>) : {}),
     },
   ),
 );

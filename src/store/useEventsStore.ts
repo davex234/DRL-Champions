@@ -303,6 +303,10 @@ export const useEventsStore = create<EventsState>()(
       storage: createJSONStorage(() => localStorage),
       // dayKey lo usamos para mostrar; el cálculo de racha usa lastClaimTs.
       version: 1,
+      // Red de seguridad para futuros bumps: preserva el estado persistido (zustand hace merge sobre
+      // los defaults, así que campos nuevos toman su valor inicial). Sin esto, un bump de versión sin
+      // migrate DESCARTA el progreso del usuario (misiones/pases/rachas).
+      migrate: (persisted) => (persisted && typeof persisted === "object" ? (persisted as Partial<EventsState>) : {}),
     },
   ),
 );

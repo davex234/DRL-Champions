@@ -145,6 +145,39 @@ function ingestAcquired(s: GameState, r: OpenResult, now: number): { patch: Part
   };
 }
 
+/**
+ * Versión de esquema de persistencia de la economía (créditos/cartas/pity/materiales/origins).
+ * Los saves antiguos NO tenían versión → zustand los trata como versión 0 y pasan por `migrateGameState`.
+ */
+export const GAME_SCHEMA_VERSION = 1;
+
+/**
+ * Normaliza CUALQUIER estado persistido previo (incl. saves sin versión = 0) rellenando defaults sin
+ * descartar datos del usuario. Es idempotente y defensivo: nunca rompe un save existente ni pierde cartas.
+ */
+function migrateGameState(persisted: unknown): Partial<GameState> {
+  const p = (persisted && typeof persisted === "object" ? persisted : {}) as Record<string, unknown>;
+  const num = (v: unknown, d: number): number => (typeof v === "number" && Number.isFinite(v) ? v : d);
+  const arr = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
+  const rec = <T,>(v: unknown): Record<string, T> => (v && typeof v === "object" ? { ...(v as Record<string, T>) } : {});
+  return {
+    credits: num(p.credits, STARTER_CREDITS),
+    xp: num(p.xp, 0),
+    ownedCards: arr<OwnedCard>(p.ownedCards),
+    unopenedPacks: rec<number>(p.unopenedPacks),
+    mintCounts: rec<number>(p.mintCounts),
+    pityState: p.pityState && typeof p.pityState === "object" ? (p.pityState as PityState) : freshPity(),
+    cardOrigins: rec<CardOrigin>(p.cardOrigins),
+    materials: migrateMaterials(p.materials),
+    cosmetics: arr<string>(p.cosmetics),
+    lockedUids: arr<string>(p.lockedUids),
+    packsOpened: num(p.packsOpened, 0),
+    craftedCount: num(p.craftedCount, 0),
+    claimedAchievements: arr<string>(p.claimedAchievements),
+    record: p.record && typeof p.record === "object" ? { ...ZERO_RECORD, ...(p.record as Partial<MatchRecord>) } : { ...ZERO_RECORD },
+  };
+}
+
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
@@ -393,7 +426,9 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: "drl-champions",
+      version: GAME_SCHEMA_VERSION,
       storage: createJSONStorage(() => localStorage),
+      migrate: (persisted) => migrateGameState(persisted),
       partialize: (s) => ({
         credits: s.credits,
         xp: s.xp,
