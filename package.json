@@ -11,6 +11,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "importer:verify": "tsx scripts/importer-verify.ts",
+    "analyzer:verify": "tsx scripts/analyzer-verify.ts",
     "verify:all": "node scripts/ci/run-verifies.mjs",
     "test": "node scripts/ci/run-tests.mjs",
     "ci:pipeline": "node scripts/ci/run-pipeline.mjs",
