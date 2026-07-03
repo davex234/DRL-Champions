@@ -97,8 +97,16 @@ select,
     transform: translateY(0);
   }
 }
+/*
+ * IMPORTANTE: fill-mode `backwards` (no `both`). Con `both` el elemento conservaba el estado
+ * final del keyframe (`transform: translateY(0)`) de forma PERMANENTE; como `translateY(0)`
+ * NO es `transform: none`, convertía a cada <section> en "containing block" de los
+ * descendientes `position:fixed` y creaba un stacking context — lo que rompía cualquier
+ * overlay/modal fixed dentro de la página. `backwards` solo aplica el estado inicial antes de
+ * arrancar (evita el flash) y, al terminar, el elemento vuelve a SIN transform.
+ */
 .animate-rise {
-  animation: drl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: drl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 /* Respeto por usuarios que reducen movimiento */

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { PlayerCard } from "@/components/cards/PlayerCard";
@@ -23,13 +23,21 @@ import type { Region, VariantId } from "@/domain/cards/types";
 import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import {
-  fetchActiveListings,
   fetchMyListings,
   listCardOnline,
   buyListingOnline,
   cancelListingOnline,
+  searchListings,
+  fetchMyOffers,
+  cancelOffer,
+  fetchMarketConfig,
+  type ListingSearchParams,
 } from "@/lib/supabase/market";
-import type { Listing } from "@/lib/supabase/types";
+import type { Listing, ListingSearchRow, Offer, MarketConfig } from "@/lib/supabase/types";
+import { OnlineCardDetail } from "@/components/market/OnlineCardDetail";
+import { TopCardsRanking } from "@/components/market/TopCardsRanking";
+import { RarityStatsPanel } from "@/components/market/RarityStatsPanel";
+import { applyTax, taxPercent } from "@/domain/market/fees";
 
 type Tab = "comprar" | "ventas" | "compras" | "global";
 const REGIONS: (Region | "Todas")[] = ["Todas", "EMEA", "Americas", "Pacific", "China"];
@@ -143,13 +151,42 @@ function Market() {
 }
 
 /* ----------------------------- MERCADO GLOBAL (jugador ↔ jugador) ----------------------------- */
+type GlobalSub = "comprar" | "ofertas" | "analitica";
+type AnalyticsSub = "ranking" | "rarezas";
+const RANK_BANDS: { label: string; min?: number; max?: number }[] = [
+  { label: "Todas" },
+  { label: "Comunes", min: 1, max: 3 },
+  { label: "Intermedias", min: 4, max: 8 },
+  { label: "Élite", min: 9 },
+];
+const GLOBAL_SORTS: [ListingSearchParams["sort"], string][] = [
+  ["recent", "Más recientes"],
+  ["price_asc", "Precio ↑"],
+  ["price_desc", "Precio ↓"],
+  ["rarity", "Rareza"],
+  ["deal", "Chollos"],
+];
+
 function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?: boolean) => void }) {
   const ownedCards = useGameStore((s) => s.ownedCards);
   const addOwnedCard = useGameStore((s) => s.addOwnedCard);
   const removeOwnedCard = useGameStore((s) => s.removeOwnedCard);
-  const [listings, setListings] = useState<Listing[]>([]);
+
+  const [sub, setSub] = useState<GlobalSub>("comprar");
+  const [analytics, setAnalytics] = useState<AnalyticsSub>("ranking");
+  const [rows, setRows] = useState<ListingSearchRow[]>([]);
   const [mine, setMine] = useState<Listing[]>([]);
+  const [myOffers, setMyOffers] = useState<Offer[]>([]);
+  const [cfg, setCfg] = useState<MarketConfig | null>(null);
   const [loading, setLoading] = useState(true);
+  const [detailCardId, setDetailCardId] = useState<string | null>(null);
+
+  // Filtros de búsqueda server-side.
+  const [query, setQuery] = useState("");
+  const [region, setRegion] = useState<Region | "Todas">("Todas");
+  const [band, setBand] = useState(0);
+  const [sort, setSort] = useState<ListingSearchParams["sort"]>("recent");
+
   const [sellUid, setSellUid] = useState("");
   const [sellPrice, setSellPrice] = useState(1000);
 
@@ -157,32 +194,54 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
     const g = groupCollection(ownedCards);
     return [...g.values()].flatMap((e) => e.instances.map((inst) => ({ inst, def: getCard(e.cardId) }))).filter((x) => x.def);
   }, [ownedCards]);
+  const ownedCardIds = useMemo(() => new Set(ownedCards.map((c) => c.cardId)), [ownedCards]);
 
-  async function refresh() {
+  const taxBps = cfg?.tax_bps ?? 500;
+
+  const search = useCallback(async () => {
     setLoading(true);
-    const [all, my] = await Promise.all([fetchActiveListings(), fetchMyListings(userId)]);
-    setListings(all);
-    setMine(my);
+    const b = RANK_BANDS[band];
+    const data = await searchListings({
+      query: query || undefined,
+      region: region === "Todas" ? undefined : region,
+      rankMin: b.min,
+      rankMax: b.max,
+      sort,
+      limit: 60,
+    });
+    setRows(data);
     setLoading(false);
-  }
-  useEffect(() => {
-    refresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, region, band, sort]);
+
+  const refreshMine = useCallback(async () => {
+    const [my, offers] = await Promise.all([fetchMyListings(userId), fetchMyOffers(userId)]);
+    setMine(my);
+    setMyOffers(offers);
   }, [userId]);
 
-  async function buy(l: Listing) {
-    const res = await buyListingOnline(l.id);
+  useEffect(() => { fetchMarketConfig().then(setCfg); }, []);
+  useEffect(() => { search(); }, [search]);
+  useEffect(() => { refreshMine(); }, [refreshMine]);
+
+  async function buy(row: ListingSearchRow) {
+    const res = await buyListingOnline(row.id);
     if (res.error) return notify(res.error, false);
-    addOwnedCard(l.card_id, l.serial ?? undefined);
+    addOwnedCard(row.card_id, row.serial ?? undefined);
     notify("¡Carta comprada en el mercado global!", true);
-    refresh();
+    search();
   }
-  async function cancel(l: Listing) {
+  async function cancelL(l: Listing) {
     const res = await cancelListingOnline(l.id);
     if (res.error) return notify(res.error, false);
     addOwnedCard(l.card_id, l.serial ?? undefined);
     notify("Listado cancelado", true);
-    refresh();
+    refreshMine();
+  }
+  async function cancelO(o: Offer) {
+    const res = await cancelOffer(o.id);
+    if (res.error) return notify(res.error, false);
+    notify("Oferta cancelada · créditos reembolsados", true);
+    refreshMine();
   }
   async function publish() {
     const sel = owned.find((o) => o.inst.uid === sellUid);
@@ -196,74 +255,183 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
     }
     notify("Carta publicada en el mercado global", true);
     setSellUid("");
-    refresh();
+    refreshMine();
+    search();
   }
 
+  const sellNet = applyTax(sellPrice, taxBps);
+  const subs: [GlobalSub, string][] = [
+    ["comprar", "Comprar"],
+    ["ofertas", `Mis ofertas${myOffers.length ? ` (${myOffers.length})` : ""}`],
+    ["analitica", "Analítica"],
+  ];
+
   return (
-    <div className="space-y-8">
-      {/* Publicar */}
-      <div className="rounded-2xl border border-white/10 bg-base-700/40 p-4">
-        <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Poner a la venta</h2>
-        <div className="flex flex-wrap items-end gap-2">
-          <label className="min-w-[220px] flex-1">
-            <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Carta</span>
-            <select value={sellUid} onChange={(e) => setSellUid(e.target.value)} className="w-full rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none">
-              <option value="">Elige una carta…</option>
-              {owned.map(({ inst, def }) => (
-                <option key={inst.uid} value={inst.uid}>
-                  {getPlayer(def!.playerId)?.nick} · {getVariant(def!.variantId).label}
-                  {inst.serial != null ? ` #${inst.serial}` : ""} (OVR {def!.ovr})
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Precio 🪙</span>
-            <input type="number" min={25} value={sellPrice} onChange={(e) => setSellPrice(Number(e.target.value))} className="w-32 rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none" />
-          </label>
-          <button onClick={publish} className="rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-5 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
-            Publicar
+    <div className="space-y-6">
+      {/* Sub-pestañas del mercado global */}
+      <div className="flex gap-1 rounded-xl border border-white/10 bg-base-700/40 p-1">
+        {subs.map(([id, label]) => (
+          <button key={id} onClick={() => setSub(id)}
+            className={cn("flex-1 rounded-lg px-3 py-1.5 font-display text-xs uppercase tracking-wide transition",
+              sub === id ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white")}>
+            {label}
           </button>
-        </div>
+        ))}
       </div>
 
-      {/* Mis listados globales */}
-      {mine.length > 0 && (
-        <div>
-          <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Tus listados globales ({mine.length})</h2>
-          <div className="space-y-2">
-            {mine.map((l) => (
-              <OnlineRow key={l.id} listing={l} action={
-                <button onClick={() => cancel(l)} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10">Cancelar</button>
-              } />
-            ))}
+      {sub === "comprar" && (
+        <>
+          {/* Publicar */}
+          <div className="rounded-2xl border border-white/10 bg-base-700/40 p-4">
+            <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Poner a la venta</h2>
+            <div className="flex flex-wrap items-end gap-2">
+              <label className="min-w-[220px] flex-1">
+                <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Carta</span>
+                <select value={sellUid} onChange={(e) => setSellUid(e.target.value)} className="w-full rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none">
+                  <option value="">Elige una carta…</option>
+                  {owned.map(({ inst, def }) => (
+                    <option key={inst.uid} value={inst.uid}>
+                      {getPlayer(def!.playerId)?.nick} · {getVariant(def!.variantId).label}
+                      {inst.serial != null ? ` #${inst.serial}` : ""} (OVR {def!.ovr})
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Precio 🪙</span>
+                <input type="number" min={25} value={sellPrice} onChange={(e) => setSellPrice(Number(e.target.value))} className="w-32 rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none" />
+              </label>
+              <button onClick={publish} className="rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-5 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
+                Publicar
+              </button>
+            </div>
+            <p className="mt-2 text-[11px] text-white/40">
+              Recibirás 🪙 {formatCredits(sellNet.net)} tras el impuesto de mercado del {taxPercent(taxBps)}% (🪙 {formatCredits(sellNet.tax)}).
+            </p>
           </div>
+
+          {/* Mis listados globales */}
+          {mine.length > 0 && (
+            <div>
+              <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Tus listados globales ({mine.length})</h2>
+              <div className="space-y-2">
+                {mine.map((l) => (
+                  <OnlineRow key={l.id} listing={l} action={
+                    <button onClick={() => cancelL(l)} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10">Cancelar</button>
+                  } />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Búsqueda server-side */}
+          <div className="space-y-3 rounded-2xl border border-white/10 bg-base-700/40 p-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar jugador o equipo…"
+                className="min-w-[200px] flex-1 rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none" />
+              <select value={sort} onChange={(e) => setSort(e.target.value as ListingSearchParams["sort"])}
+                className="rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none">
+                {GLOBAL_SORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {REGIONS.map((r) => <Chip key={r} active={region === r} onClick={() => setRegion(r)}>{r}</Chip>)}
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {RANK_BANDS.map((b, i) => <Chip key={b.label} active={band === i} onClick={() => setBand(i)}>{b.label}</Chip>)}
+            </div>
+          </div>
+
+          {/* Resultados */}
+          {loading ? (
+            <div className="grid min-h-[20vh] place-items-center"><div className="h-7 w-7 animate-spin rounded-full border-2 border-drl border-t-transparent" /></div>
+          ) : rows.length === 0 ? (
+            <p className="py-10 text-center text-white/40">No hay cartas a la venta con estos filtros.</p>
+          ) : (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {rows.map((row) => {
+                const def = getCard(row.card_id);
+                if (!def) return null;
+                const isMine = row.seller_id === userId;
+                return (
+                  <div key={row.id} className="flex flex-col gap-2">
+                    <button onClick={() => setDetailCardId(row.card_id)} className="transition hover:-translate-y-1">
+                      <PlayerCard card={def} size="sm" interactive={false} serial={row.serial ?? undefined} />
+                    </button>
+                    {row.deal != null && (
+                      <span className={cn("self-start rounded-full px-2 py-0.5 text-[11px]", row.deal < 1 ? "bg-drl-cyan/15 text-drl-cyan" : "bg-white/5 text-white/40")}>
+                        ×{row.deal} vs valor
+                      </span>
+                    )}
+                    {isMine ? (
+                      <span className="rounded-lg border border-white/10 px-2 py-2 text-center text-xs text-white/40">Tuya</span>
+                    ) : (
+                      <button onClick={() => buy(row)} className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-2 py-2 font-display text-xs font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
+                        Comprar 🪙 {formatCredits(row.price)}
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </>
+      )}
+
+      {sub === "ofertas" && (
+        <div>
+          <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Tus ofertas activas ({myOffers.length})</h2>
+          {myOffers.length === 0 ? (
+            <Empty>No tienes ofertas activas. Haz una desde la ficha de una carta.</Empty>
+          ) : (
+            <div className="space-y-2">
+              {myOffers.map((o) => {
+                const def = getCard(o.card_id);
+                const player = def ? getPlayer(def.playerId) : undefined;
+                return (
+                  <div key={o.id} className="flex items-center gap-3 rounded-xl border border-white/10 bg-base-700/50 p-3">
+                    {def && <CardThumb card={def} />}
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-display text-sm font-bold uppercase text-white">{player?.nick ?? o.card_id}</p>
+                      <p className="text-[11px] text-white/40">{o.kind === "listing" ? "Oferta a un listado" : "Orden de compra"} · retenido 🪙 {formatCredits(o.price)}</p>
+                    </div>
+                    <button onClick={() => cancelO(o)} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10">Cancelar</button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
 
-      {/* Mercado global */}
-      <div>
-        <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Mercado global ({listings.length})</h2>
-        {loading ? (
-          <div className="grid min-h-[20vh] place-items-center"><div className="h-7 w-7 animate-spin rounded-full border-2 border-drl border-t-transparent" /></div>
-        ) : listings.length === 0 ? (
-          <p className="py-10 text-center text-white/40">Todavía no hay cartas a la venta. ¡Sé el primero!</p>
-        ) : (
-          <div className="space-y-2">
-            {listings.map((l) => (
-              <OnlineRow key={l.id} listing={l} action={
-                l.seller_id === userId ? (
-                  <span className="text-xs text-white/40">Tuya</span>
-                ) : (
-                  <button onClick={() => buy(l)} className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-3 py-1.5 font-display text-xs font-bold uppercase text-white shadow-glow transition hover:brightness-110">
-                    Comprar 🪙 {formatCredits(l.price)}
-                  </button>
-                )
-              } />
+      {sub === "analitica" && (
+        <div className="space-y-4">
+          <div className="flex gap-1 rounded-xl border border-white/10 bg-base-700/40 p-1">
+            {(["ranking", "rarezas"] as AnalyticsSub[]).map((id) => (
+              <button key={id} onClick={() => setAnalytics(id)}
+                className={cn("flex-1 rounded-lg px-3 py-1.5 font-display text-xs uppercase tracking-wide transition",
+                  analytics === id ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white")}>
+                {id === "ranking" ? "Cartas más valiosas" : "Por rareza"}
+              </button>
             ))}
           </div>
+          {analytics === "ranking" ? <TopCardsRanking /> : <RarityStatsPanel />}
+        </div>
+      )}
+
+      <AnimatePresence>
+        {detailCardId && (
+          <OnlineCardDetail
+            cardId={detailCardId}
+            currentUserId={userId}
+            ownsMatching={ownedCardIds.has(detailCardId)}
+            taxBps={taxBps}
+            onClose={() => setDetailCardId(null)}
+            onChanged={() => { search(); refreshMine(); }}
+            notify={notify}
+          />
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }

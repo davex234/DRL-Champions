@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "DRL Champions",
     short_name: "DRL",
-    description: "Juego de cartas coleccionables de Valorant.",
+    description: "Manager y simulador de esports de Valorant. No disparas: piensas.",
     id: "/",
     start_url: "/",
     scope: "/",
@@ -21,7 +21,7 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: "/icons/maskable-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
     shortcuts: [
-      { name: "Abrir sobres", short_name: "Tienda", url: "/tienda" },
+      { name: "El Entrenador", short_name: "Partido", url: "/entrenador" },
       { name: "Mi colección", short_name: "Colección", url: "/coleccion" },
       { name: "Eventos", short_name: "Eventos", url: "/eventos" },
     ],

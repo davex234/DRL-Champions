@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useGameStore } from "@/store/useGameStore";
 import { useEventsStore, claimableCount } from "@/store/useEventsStore";
+import { useNewsStore, unreadCount } from "@/store/useNewsStore";
 import { useRosterStore } from "@/store/useRosterStore";
 import { levelFromXp } from "@/domain/progression/levels";
 import { formatCredits } from "@/lib/format";
@@ -14,13 +15,24 @@ import { RegisterSW } from "@/components/pwa/RegisterSW";
 import { InstallBanner } from "@/components/pwa/InstallBanner";
 import { PageTransition } from "./PageTransition";
 import { CloudSync } from "@/components/sync/CloudSync";
+import { UpdateWatcher } from "@/components/launcher/UpdateWatcher";
+import { BrandMark } from "@/branding/Logo";
 
 const NAV = [
+  // Jugar (el corazón)
   { href: "/", label: "Inicio", icon: "🏠" },
-  { href: "/eventos", label: "Eventos", icon: "🎉" },
-  { href: "/tienda", label: "Tienda", icon: "🛒" },
+  { href: "/manager", label: "Mánager", icon: "🧠" },
+  { href: "/entrenador", label: "Entrenador", icon: "🎧" },
+  { href: "/carrera", label: "Carrera", icon: "📈" },
+  { href: "/mundo", label: "El Mundo", icon: "🌍" },
+  // Plantilla
   { href: "/coleccion", label: "Colección", icon: "🗂️" },
+  { href: "/colecciones", label: "Colecciones", icon: "📚" },
   { href: "/inventario", label: "Inventario", icon: "🎒" },
+  { href: "/tienda", label: "Tienda", icon: "🛒" },
+  // Meta
+  { href: "/noticias", label: "Noticias", icon: "📰" },
+  { href: "/eventos", label: "Eventos", icon: "🎉" },
   { href: "/mercado", label: "Mercado", icon: "💱" },
   { href: "/ranking", label: "Ranking", icon: "🏅" },
   { href: "/logros", label: "Logros", icon: "🏆" },
@@ -32,6 +44,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const hydrated = useGameStore((s) => s.hydrated);
   // Selector dirigido: solo recalcula la insignia cuando cambia el nº reclamable.
   const claimable = useEventsStore((s) => (hydrated ? claimableCount(s, Date.now()) : 0));
+  const unreadNews = useNewsStore((s) => (hydrated ? unreadCount(s) : 0));
+  const badgeFor = (href: string) => (href === "/eventos" ? claimable : href === "/noticias" ? unreadNews : 0);
 
   // La rehidratación de Zustand (localStorage) es síncrona en cliente; marcamos
   // "hydrated" tras montar para evitar desajustes SSR/cliente.
@@ -42,11 +56,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     useEventsStore.getState().refresh();
   }, []);
 
+  // El LAUNCHER es un cliente independiente: sin barra/nav/splash del juego.
+  if (pathname === "/launcher") return <>{children}</>;
+
   return (
     <div className="relative min-h-screen bg-grid">
       <SplashScreen />
       <RegisterSW />
       <CloudSync />
+      <UpdateWatcher />
       <TopBar />
       <div className="mx-auto flex w-full max-w-[1400px] gap-6 px-4 pb-28 pt-4 md:px-6 md:pb-8">
         {/* Sidebar (desktop) */}
@@ -56,12 +74,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               key={item.href}
               {...item}
               active={isActive(pathname, item.href)}
-              badge={item.href === "/eventos" ? claimable : 0}
+              badge={badgeFor(item.href)}
             />
           ))}
           <div className="mt-auto rounded-xl border border-white/5 bg-base-700/50 p-4 text-xs text-white/40">
             <p className="font-display uppercase tracking-wider text-drl">DRL Champions</p>
-            <p className="mt-1">Versión 0.5 · Beta</p>
+            <p className="mt-1">Alpha jugable · Esports Manager</p>
           </div>
         </aside>
 
@@ -87,9 +105,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           >
             <span className="relative text-lg">
               {item.icon}
-              {item.href === "/eventos" && claimable > 0 && (
+              {badgeFor(item.href) > 0 && (
                 <span className="absolute -right-1.5 -top-1 grid h-3.5 min-w-3.5 place-items-center rounded-full bg-drl px-1 text-[8px] font-bold text-white">
-                  {claimable}
+                  {badgeFor(item.href)}
                 </span>
               )}
             </span>
@@ -155,15 +173,13 @@ function TopBar() {
     >
       <div className="mx-auto flex w-full max-w-[1400px] items-center gap-4 px-4 py-3 md:px-6">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-drl to-[#7b1733] font-display text-lg font-bold text-white shadow-glow">
-            D
-          </div>
+          <BrandMark size={38} className="shrink-0 drop-shadow-[0_0_10px_rgba(255,46,99,0.25)]" />
           <div className="leading-none">
             <p className="font-display text-lg font-bold tracking-wide text-white">
               DRL <span className="text-drl">CHAMPIONS</span>
             </p>
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">
-              Valorant Card Game
+              Esports Manager
             </p>
           </div>
         </Link>

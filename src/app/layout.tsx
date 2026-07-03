@@ -3,11 +3,13 @@ import "./globals.css";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthProvider } from "@/lib/supabase/auth";
 
+const TITLE = "DRL Champions — Manager de esports de Valorant";
+const DESC = "No disparas. Piensas. Dirige a tu equipo profesional de Valorant: estrategia, economía, scouting, composición y lectura del rival.";
+
 export const metadata: Metadata = {
   applicationName: "DRL Champions",
-  title: "DRL Champions — Cartas coleccionables de Valorant",
-  description:
-    "Colecciona a los mejores jugadores profesionales de Valorant. Abre sobres, completa colecciones y domina el mercado.",
+  title: TITLE,
+  description: DESC,
   appleWebApp: {
     capable: true,
     title: "DRL Champions",
@@ -15,10 +17,26 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
       { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
     ],
+    shortcut: ["/favicon.ico"],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    siteName: "DRL Champions",
+    title: TITLE,
+    description: DESC,
+    images: [{ url: "/branding/assets/og.png", width: 1200, height: 630, alt: "DRL Champions" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESC,
+    images: ["/branding/assets/og.png"],
   },
 };
 

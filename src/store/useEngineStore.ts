@@ -11,6 +11,8 @@ import { dueJobs } from "@/engine/scheduler";
 import { dispatchTelegram, isTelegramConfigured, makeNotification } from "@/engine/notifications";
 import { useRosterStore } from "./useRosterStore";
 import { useGameStore } from "./useGameStore";
+import { useNewsStore } from "./useNewsStore";
+import { buildCardNews, abilityLabels, ratingFromCardStats, rarityFor } from "@/intel";
 
 const cardKey = (c: { tournamentId: string; kind: string; playerId: string }) => `${c.tournamentId}:${c.kind}:${c.playerId}`;
 
@@ -77,6 +79,24 @@ export const useEngineStore = create<EngineState>()(
           if (c.status === "applied") applyCard(c);
           appliedTournaments.add(c.tournamentId);
         }
+
+        // INTEL → NOTICIAS automáticas in-game para las cartas aplicadas (datos reales:
+        // rating contextual, rareza y habilidades derivadas). El jugador "se despierta con noticias".
+        const tType = new Map(report.tournaments.map((t) => [t.id, t.type]));
+        const news = fresh
+          .filter((c) => c.status === "applied")
+          .map((c) => {
+            const type = tType.get(c.tournamentId) ?? "other";
+            const rating = ratingFromCardStats(c.player.stats, { type });
+            const special = c.kind === "mvp" || c.kind === "winner" || c.kind === "icon";
+            return buildCardNews({
+              playerNick: c.playerNick, tournamentName: c.tournamentName, rating,
+              tierLabel: rarityFor(rating).label, action: c.kind === "prime" || c.kind === "series" ? "new" : "special",
+              abilities: abilityLabels(c.player.stats), family: c.accolade,
+              won: c.kind === "winner", mvp: c.kind === "mvp" || c.kind === "icon", at: Date.now(),
+            });
+          });
+        if (news.length) useNewsStore.getState().add(news);
 
         const telegramOn = isTelegramConfigured();
         const notifs = report.notifications.map((n) => ({ ...n, sentTelegram: telegramOn }));

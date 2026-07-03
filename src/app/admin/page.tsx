@@ -182,6 +182,18 @@ function Admin() {
           <a href="/admin/data-engine" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
             ⚙ Data Engine
           </a>
+          <a href="/admin/torneos" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
+            🏆 Torneos
+          </a>
+          <a href="/admin/assets" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
+            🖼 Assets
+          </a>
+          <a href="/admin/releases" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
+            🚀 Releases
+          </a>
+          <a href="/admin/control" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
+            🛰 Control Center
+          </a>
         </div>
       </header>
 

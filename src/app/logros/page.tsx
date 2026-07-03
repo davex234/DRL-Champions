@@ -1,9 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { useGameStore, buildAchievementContext } from "@/store/useGameStore";
+import { useRosterStore } from "@/store/useRosterStore";
+import { useCollectionsStore } from "@/store/useCollectionsStore";
 import { ACHIEVEMENTS } from "@/domain/progression/achievements";
+import { collectionAchievements, type AchievementView } from "@/domain/collections/achievements";
+import { mergedCollections } from "@/lib/collections/repos";
+import type { CollectionDef } from "@/domain/collections/types";
+import { rewardSummary } from "@/lib/collections/format";
 import { formatCredits } from "@/lib/format";
 import { cn } from "@/lib/format";
 import { Toast } from "@/components/ui/Toast";
@@ -24,6 +30,19 @@ function Achievements() {
   const ctx = useMemo(() => buildAchievementContext(state), [state]);
 
   const completedCount = ACHIEVEMENTS.filter((a) => a.progress(ctx) >= a.goal).length;
+
+  // Logros automáticos de colección (data-driven, local + Supabase).
+  const rosterVersion = useRosterStore((s) => s.version);
+  const [collDefs, setCollDefs] = useState<CollectionDef[]>([]);
+  useEffect(() => {
+    let alive = true;
+    mergedCollections().then((d) => { if (alive) setCollDefs(d); });
+    return () => { alive = false; };
+  }, [rosterVersion]);
+  const collViews = useMemo(
+    () => collectionAchievements(collDefs, ctx.ownedCardIds),
+    [collDefs, ctx.ownedCardIds],
+  );
 
   return (
     <section className="animate-rise">
@@ -106,7 +125,56 @@ function Achievements() {
         })}
       </div>
 
+      {collViews.length > 0 && (
+        <>
+          <h2 className="mb-4 mt-10 font-display text-2xl font-bold uppercase tracking-wide text-white">
+            Logros de <span className="text-drl">Colección</span>
+          </h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {collViews.map((a) => <CollectionAchievementCard key={a.id} view={a} notify={notify} />)}
+          </div>
+        </>
+      )}
+
       <Toast toast={toast} />
     </section>
+  );
+}
+
+function CollectionAchievementCard({ view, notify }: { view: AchievementView; notify: (m: string, ok?: boolean) => void }) {
+  const claimed = useCollectionsStore((s) => s.claimed.includes(view.id));
+  const claim = useCollectionsStore((s) => s.claim);
+  const pct = view.goal ? Math.round((Math.min(view.current, view.goal) / view.goal) * 100) : 0;
+  return (
+    <div className={cn("relative overflow-hidden rounded-2xl border bg-base-700/50 p-5",
+      view.complete ? "border-drl-cyan/40" : "border-white/10")}>
+      <div className="flex items-start gap-4">
+        <div className={cn("grid h-12 w-12 shrink-0 place-items-center rounded-xl text-2xl",
+          view.complete ? "bg-drl-cyan/20" : "bg-white/5 grayscale")}>{view.icon}</div>
+        <div className="min-w-0 flex-1">
+          <h3 className="font-display text-lg font-bold uppercase text-white">{view.name}</h3>
+          <p className="text-sm text-white/50">{view.description}</p>
+          <div className="mt-3 flex items-center gap-3">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
+              <div className={cn("h-full rounded-full", view.complete ? "bg-gradient-to-r from-drl-cyan to-drl" : "bg-white/30")}
+                style={{ width: `${pct}%` }} />
+            </div>
+            <span className="font-display text-xs tabular-nums text-white/50">{Math.min(view.current, view.goal)}/{view.goal}</span>
+          </div>
+        </div>
+      </div>
+      <div className="mt-4 flex items-center justify-between">
+        <span className="font-display text-sm font-bold text-drl-gold">🎁 {rewardSummary(view.reward)}</span>
+        {claimed ? (
+          <span className="rounded-lg bg-drl-cyan/15 px-3 py-1.5 font-display text-xs uppercase text-drl-cyan">✓ Reclamado</span>
+        ) : (
+          <button disabled={!view.complete}
+            onClick={() => { if (claim(view.id, view.reward)) notify(`¡Logro reclamado! ${rewardSummary(view.reward)}`, true); }}
+            className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-4 py-1.5 font-display text-xs font-bold uppercase tracking-wide text-white shadow-glow transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-30">
+            Reclamar
+          </button>
+        )}
+      </div>
+    </div>
   );
 }

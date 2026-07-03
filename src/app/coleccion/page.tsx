@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { PlayerCard } from "@/components/cards/PlayerCard";
-import { CardInspector } from "@/components/cards/CardInspector";
+import { CardViewer, type CardViewerAction } from "@/components/cards/CardViewer";
 import { useGameStore } from "@/store/useGameStore";
 import { useMarketStore } from "@/store/useMarketStore";
 import { useRosterStore } from "@/store/useRosterStore";
@@ -248,14 +249,22 @@ function Chip({
 }
 
 function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }) {
+  const router = useRouter();
   const ownedCards = useGameStore((s) => s.ownedCards);
   const quickSell = useGameStore((s) => s.quickSell);
   const listForSale = useMarketStore((s) => s.listForSale);
+  const ensureSeeded = useMarketStore((s) => s.ensureSeeded);
+  const priceHistory = useMarketStore((s) => s.priceHistory);
   const [sellUid, setSellUid] = useState<string | null>(null);
   const [sellPrice, setSellPrice] = useState<number>(0);
+  useEffect(() => ensureSeeded(), [ensureSeeded]);
   const def = getCard(cardId);
   const grouped = groupCollection(ownedCards);
   const entry = grouped.get(cardId);
+  const priceSeries = useMemo(
+    () => priceHistory[cardId]?.recent.map((r) => r.price),
+    [priceHistory, cardId],
+  );
   if (!def || !entry) return null;
   const variant = getVariant(def.variantId);
 
@@ -271,8 +280,21 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
     }
   }
 
+  const actions: CardViewerAction[] = [
+    { label: "Mercado", icon: "💱", onClick: () => router.push("/mercado"), variant: "primary" },
+    { label: "Ver colección", icon: "📚", onClick: () => router.push("/colecciones") },
+    { label: "Cerrar", icon: "✕", onClick: onClose },
+  ];
+
   return (
-    <CardInspector card={def} serial={entry.instances[0]?.serial} onClose={onClose}>
+    <CardViewer
+      card={def}
+      serial={entry.instances[0]?.serial}
+      ownership={{ owned: true, count: entry.count, locked: false }}
+      priceSeries={priceSeries}
+      actions={actions}
+      onClose={onClose}
+    >
       <p className="text-[10px] uppercase tracking-widest text-white/40">
         Copias en posesión ({entry.count})
       </p>
@@ -336,6 +358,6 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
               </div>
             ))}
       </div>
-    </CardInspector>
+    </CardViewer>
   );
 }

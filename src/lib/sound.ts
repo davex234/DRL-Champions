@@ -106,3 +106,47 @@ export function playReveal(rank: number) {
     noise(0, 0.6, 0.12);
   }
 }
+
+// ---------------------------------------------------------------------------
+// CUES DE RETRANSMISIÓN — stingers cortos para los momentos del partido.
+// Sintetizados (sin assets). Se disparan desde la capa de presentación.
+// ---------------------------------------------------------------------------
+export type BroadcastCue =
+  | "first_blood" | "kill" | "ace" | "clutch" | "plant" | "defuse"
+  | "round_win" | "round_lose" | "match_point" | "victory" | "defeat"
+  | "ui" | "whoosh";
+
+/** Dispara un cue de retransmisión. No hace nada si está silenciado. */
+export function playCue(cue: BroadcastCue) {
+  switch (cue) {
+    case "first_blood":
+      tone(740, 0, 0.12, "square", 0.07, 540); noise(0, 0.08, 0.05); break;
+    case "kill":
+      tone(420, 0, 0.06, "square", 0.04, 300); break;
+    case "ace":
+      [523, 659, 784, 1046, 1318].forEach((f, i) => tone(f, i * 0.07, 0.45, "sawtooth", 0.09, f * 1.25));
+      noise(0, 0.5, 0.1); break;
+    case "clutch":
+      tone(196, 0, 0.5, "sawtooth", 0.12, 392); tone(294, 0.1, 0.5, "triangle", 0.08, 588); break;
+    case "plant":
+      tone(330, 0, 0.1, "square", 0.08); tone(330, 0.18, 0.1, "square", 0.08); break;
+    case "defuse":
+      tone(660, 0, 0.18, "sine", 0.08, 990); break;
+    case "round_win":
+      [523, 784].forEach((f, i) => tone(f, i * 0.09, 0.25, "triangle", 0.1, f * 1.2)); break;
+    case "round_lose":
+      [392, 294].forEach((f, i) => tone(f, i * 0.1, 0.3, "sine", 0.08, f * 0.85)); break;
+    case "match_point":
+      [523, 659, 784].forEach((f, i) => tone(f, i * 0.12, 0.4, "sawtooth", 0.1, f * 1.1));
+      noise(0, 0.3, 0.06); break;
+    case "victory":
+      [523, 659, 784, 1046, 1318].forEach((f, i) => tone(f, i * 0.11, 0.7, "sawtooth", 0.11, f * 1.3));
+      noise(0, 0.7, 0.12); break;
+    case "defeat":
+      [440, 349, 262].forEach((f, i) => tone(f, i * 0.16, 0.6, "sine", 0.09, f * 0.8)); break;
+    case "ui":
+      tone(880, 0, 0.04, "triangle", 0.05, 1100); break;
+    case "whoosh":
+      noise(0, 0.25, 0.06); tone(200, 0, 0.25, "sine", 0.05, 600); break;
+  }
+}
