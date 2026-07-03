@@ -76,8 +76,8 @@ interface GameState {
   addCredits: (amount: number) => void;
   /** Resta créditos si hay saldo suficiente. Devuelve true si se cobró. */
   spendCredits: (amount: number) => boolean;
-  /** Añade una carta a la colección (compras de mercado). Devuelve el uid. */
-  addOwnedCard: (cardId: string, serial?: number) => string;
+  /** Añade una carta a la colección (compras de mercado), sellando su origen. Devuelve el uid. */
+  addOwnedCard: (cardId: string, serial?: number, origin?: CardOrigin) => string;
   /** Quita una instancia por uid y la devuelve (al poner en venta). */
   removeOwnedCard: (uidToRemove: string) => OwnedCard | null;
   /** Devuelve una instancia exacta a la colección (uid preservado). */
@@ -294,13 +294,16 @@ export const useGameStore = create<GameState>()(
         return true;
       },
 
-      addOwnedCard: (cardId, serial) => {
+      addOwnedCard: (cardId, serial, origin = "market") => {
         const newUid = uid();
         set((s) => ({
           ownedCards: [
             ...s.ownedCards,
             { uid: newUid, cardId, serial, obtainedAt: Date.now() },
           ],
+          // Sella el origen: mantiene el invariante "toda instancia de la colección tiene origen"
+          // (igual que sobres/grant/craft vía ingestAcquired). Antes las compras de mercado no lo hacían.
+          cardOrigins: { ...s.cardOrigins, [newUid]: origin },
         }));
         return newUid;
       },

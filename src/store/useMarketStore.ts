@@ -201,7 +201,13 @@ export const useMarketStore = create<MarketState>()(
 
         analytics: () => engine().analytics(),
 
-        resetMarket: () => set({ seeded: false, listings: [], offers: [], priceHistory: {}, transactions: [], purchases: [], sales: [], lastRefresh: 0 }),
+        resetMarket: () => {
+          // Devuelve a la colección TODO escrow de usuario antes de limpiar: sin esto, resetear el
+          // mercado destruía permanentemente las cartas en venta (restoreOwnedCard es idempotente).
+          const game = useGameStore.getState();
+          for (const l of get().listings) if (l.escrow) game.restoreOwnedCard(l.escrow);
+          set({ seeded: false, listings: [], offers: [], priceHistory: {}, transactions: [], purchases: [], sales: [], lastRefresh: 0 });
+        },
       };
     },
     {
