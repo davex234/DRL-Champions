@@ -7,7 +7,7 @@
  * clásico intacto (muerte por probabilidad). Letal pero con VENTANA DE TRADE. Emergente y
  * determinista (todo el azar entra por el `Rng` del motor).
  */
-import type { Rng } from "./rng";
+import { type Rng, shuffle } from "./rng";
 import { dist } from "./geometry";
 import { nearestZone } from "./map/ascentA";
 import { aimFactor } from "./attributes";
@@ -109,9 +109,9 @@ export function resolveCombat(s: RoundState, rng: Rng): void {
   // Tiempo vivo (estadística persistente de la ronda).
   for (const p of s.players) if (p.alive) ensureStats(p).ticksAlive++;
 
-  // Orden aleatorio sembrado → simultaneidad justa (permite trades).
-  const order = [...s.players].filter((p) => p.alive && p.targetEnemyId)
-    .sort(() => (rng.next() < 0.5 ? -1 : 1));
+  // Orden aleatorio sembrado → simultaneidad justa (permite trades). Fisher–Yates portable
+  // (antes: sort con comparador aleatorio, sesgado y NO determinista entre motores JS).
+  const order = shuffle(s.players.filter((p) => p.alive && p.targetEnemyId), rng);
 
   for (const p of order) {
     if (!p.alive || !p.targetEnemyId) continue;

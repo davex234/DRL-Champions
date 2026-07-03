@@ -20,7 +20,11 @@ function score(world: WorldState, t: WorldTeam, rng: Rng): number {
 /** Resuelve un torneo entre `pool` (bracket sembrado). Devuelve campeón y finalista. */
 function resolve(world: WorldState, pool: WorldTeam[], rng: Rng): { champ: WorldTeam; runner: WorldTeam | null } {
   if (pool.length === 0) return { champ: Object.values(world.teams)[0], runner: null };
-  const ranked = [...pool].sort((a, b) => score(world, b, rng) - score(world, a, rng));
+  // Puntúa UNA vez por club (score() consume rng); ordenar por el comparador anterior llamaba a
+  // score() un nº impredecible de veces → comparador no transitivo y nº de draws no determinista.
+  const scored = pool.map((t) => ({ t, s: score(world, t, rng) }));
+  scored.sort((a, b) => b.s - a.s);
+  const ranked = scored.map((x) => x.t);
   // Bracket simple: el mejor gana con alta probabilidad, con sorpresas sembradas.
   let field = ranked.slice(0, 8);
   let runner: WorldTeam | null = field[1] ?? null;

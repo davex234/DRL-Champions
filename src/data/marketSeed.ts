@@ -6,10 +6,10 @@ import { CARDS } from "@/data/catalog";
 
 type Rng = () => number;
 
-let idCounter = 0;
+// Id derivado SOLO del rng sembrado (antes: contador module-level mutable → ids no reproducibles
+// entre sesiones para la misma semilla). Dos draws de entropía; colisión despreciable en ~54 bots.
 function makeId(prefix: string, rng: Rng): string {
-  idCounter += 1;
-  return `${prefix}_${idCounter}_${Math.floor(rng() * 1e6).toString(36)}`;
+  return `${prefix}_${Math.floor(rng() * 1e6).toString(36)}_${Math.floor(rng() * 1e6).toString(36)}`;
 }
 
 /** Precio plausible para una carta con variación aleatoria. */
@@ -26,7 +26,7 @@ function randomSerial(variantId: string, rng: Rng): number | undefined {
 }
 
 /** Genera el historial de precios inicial de todas las cartas. */
-export function seedPriceHistory(now: number, rng: Rng = Math.random): Record<string, PriceRecord> {
+export function seedPriceHistory(now: number, rng: Rng): Record<string, PriceRecord> {
   const out: Record<string, PriceRecord> = {};
   for (const card of CARDS) {
     const base = marketValue(card);
@@ -47,7 +47,7 @@ export function seedPriceHistory(now: number, rng: Rng = Math.random): Record<st
  * Genera listados de vendedores simulados (bots). Sesga hacia cartas comunes
  * para que las raras escaseen en el mercado.
  */
-export function generateBotListings(count: number, now: number, rng: Rng = Math.random): MarketListing[] {
+export function generateBotListings(count: number, now: number, rng: Rng): MarketListing[] {
   const listings: MarketListing[] = [];
   for (let i = 0; i < count; i++) {
     // Selección sesgada: reintenta una vez si sale una carta muy rara.

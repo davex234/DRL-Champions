@@ -31,6 +31,22 @@ export function makeRng(seed: number): Rng {
   };
 }
 
+/**
+ * Fisher–Yates sembrado: devuelve una COPIA barajada (no muta el input). Determinista y PORTABLE
+ * entre motores JS. Sustituye al anti-patrón `arr.sort(() => rng.next() < 0.5 ? -1 : 1)`, que es
+ * sesgado y NO portable (el orden de `Array.sort` con comparador inconsistente es implementation-defined).
+ */
+export function shuffle<T>(arr: readonly T[], rng: Rng): T[] {
+  const out = arr.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = rng.int(0, i);
+    const tmp = out[i];
+    out[i] = out[j];
+    out[j] = tmp;
+  }
+  return out;
+}
+
 /** Semilla a partir de un texto (estable). */
 export function seedFrom(str: string): number {
   let h = 2166136261;
