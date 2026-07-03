@@ -199,3 +199,6 @@ function project(w: WorldState) {
 
 console.log(`\n${failures === 0 ? "✅ TODAS LAS COMPROBACIONES PASAN" : `❌ ${failures} COMPROBACIÓN(ES) FALLARON`}`);
 process.exit(failures === 0 ? 0 : 1);
+
+// Señal de fallo para CI: sale con código !=0 si alguna comprobación falló.
+if (failures > 0) process.exitCode = 1;

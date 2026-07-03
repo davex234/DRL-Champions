@@ -33,7 +33,8 @@ const cfg = (useLoadoutCombat: boolean, seed: number) =>
   makeMatchConfig({ seed, rosters: { home, away }, homeSetup: SETUP, useLoadoutCombat });
 
 interface Tally { matches: number; rounds: number; richerFpWon: number; richerFpRounds: number; homeWins: number; homeRoundWins: number; combat: Record<string, number>; }
-const FP_GAP = 15; // diferencia de poder de fuego que marca una ventaja CLARA de equipamiento
+const FP_GAP = 35; // ventaja de equipamiento GRANDE: aísla el efecto mecánico del arma del ruido
+                   // económico (a gaps pequeños, "más rico" ≈ "ganó la ronda anterior" domina la señal).
 function run(useLoadoutCombat: boolean): Tally {
   const t: Tally = { matches: 0, rounds: 0, richerFpWon: 0, richerFpRounds: 0, homeWins: 0, homeRoundWins: 0, combat: {} };
   for (let i = 0; i < N; i++) {

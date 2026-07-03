@@ -75,3 +75,6 @@ const su = utilitySummary(m, "ATK");
 console.log(`\n  Utilidad ATK restante: ${su.remaining}/${su.charges} (${Math.round(su.fraction * 100)}% gastada)`);
 
 console.log(`\n${fail === 0 ? "✅" : "❌"} ${pass}/${pass + fail} comprobaciones`);
+
+// Señal de fallo para CI: sale con código !=0 si alguna comprobación falló.
+if (fail > 0) process.exitCode = 1;

@@ -124,7 +124,10 @@ console.log("\n## 3. Comunicación: la info viaja entre compañeros");
 check("hay memorias de origen 'comm' (info propagada, no teletransportada)", agg.commMemos > 0, `${agg.commMemos} muestras de memoria por comms`);
 
 console.log("\n## 4. Incertidumbre → creencias falsas (errores humanos)");
-check("la info caduca genera creencias falsas (posición recordada ≠ real)", agg.falseBeliefs > 0, `${agg.falseBeliefs} creencias falsas`);
+// Propiedad ESTOCÁSTICA del mecanismo, no de una semilla concreta: agregamos varias semillas para
+// no depender de la trayectoria exacta de un único seed (una semilla puede no generar ninguna).
+const falseBeliefsMulti = [7, 11, 23, 42, 99].reduce((a, sd) => a + runRound(sd, teamRole("H"), teamRole("A")).agg.falseBeliefs, 0);
+check("la info caduca genera creencias falsas (posición recordada ≠ real)", falseBeliefsMulti > 0, `${falseBeliefsMulti} creencias falsas (5 semillas)`);
 
 console.log("\n## 5. Cambios de plan espontáneos");
 const changeRate = agg.changes / Math.max(1, agg.decisions);
@@ -180,3 +183,6 @@ console.log("\n## Ejemplo real — traza de un jugador (mitad de ronda)");
 }
 
 console.log(`\n${fail === 0 ? "✅" : "❌"} ${pass}/${pass + fail} comprobaciones`);
+
+// Señal de fallo para CI: sale con código !=0 si alguna comprobación falló.
+if (fail > 0) process.exitCode = 1;

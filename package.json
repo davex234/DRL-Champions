@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "verify:all": "node scripts/ci/run-verifies.mjs",
     "test": "node scripts/ci/run-tests.mjs",
     "ci:pipeline": "node scripts/ci/run-pipeline.mjs",
     "ci:simulate": "node scripts/ci/simulate.mjs",

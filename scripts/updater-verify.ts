@@ -208,3 +208,6 @@ const mk = (be: FakeBackend, current = "0.5.2") => new UpdateController(be, "sta
   console.log(`\n━━━ Resultado: ${pass} ✓ / ${fail} ✗ ━━━\n`);
   process.exit(fail === 0 ? 0 : 1);
 })();
+
+// Señal de fallo para CI: sale con código !=0 si alguna comprobación falló.
+if (fail > 0) process.exitCode = 1;

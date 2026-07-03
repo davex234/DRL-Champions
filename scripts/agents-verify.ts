@@ -108,3 +108,6 @@ check("determinismo: misma config ⇒ mismo marcador", m1.score.home === m2.scor
 check("las rondas llevan composición de ambos lados", m1.rounds.length > 0 && !!m1.rounds[0].composition?.ATK && !!m1.rounds[0].composition?.DEF);
 
 console.log(`\n${fail === 0 ? "✅" : "❌"} ${pass}/${pass + fail} comprobaciones`);
+
+// Señal de fallo para CI: sale con código !=0 si alguna comprobación falló.
+if (fail > 0) process.exitCode = 1;
