@@ -16,7 +16,7 @@ npm run dev      # http://localhost:3000 (el service worker NO se registra en de
 npm run build    # build de producción
 npm run start    # sirve la build — necesario para probar PWA/offline/instalación
 npm run typecheck
-node scripts/generate-icons.mjs   # regenera los iconos PWA (sin dependencias)
+npx tsx scripts/generate-brand.ts # regenera TODA la marca: logo/icono/lockups/favicon/PWA
 ```
 
 > **Probar la instalación**: `npm run build && npm run start`, abre
@@ -29,7 +29,7 @@ node scripts/generate-icons.mjs   # regenera los iconos PWA (sin dependencias)
   equipo + Bandera + OVR + Stats + Serial + Nombre, construidas dinámicamente.
   Soporte de imágenes reales (PNG) con fallback a silueta/monograma. Efectos por
   rareza (metal pulido, reflejos dorados, partículas Winner, aura MVP, rayos
-  legendarios, holo Icon). Vista de **inspección** completa (`CardInspector`).
+  legendarios, holo Icon). Visor AAA completo vía portal (`CardViewer`).
 - **Sistema de cartas**: jugador × variante, OVR calculado, 28 variantes
   (Bronce → Icon), números de serie premium en cartas especiales; el serial bajo
   multiplica el valor (≈5× en #1).
@@ -114,7 +114,7 @@ src/
 supabase/migrations/0001_init.sql  # esquema + RLS + RPC + vistas de ranking
 supabase/README.md                 # cómo desplegar el backend
 public/sw.js                       # service worker (offline)
-public/icons/  public/*.png        # iconos PWA generados por scripts/generate-icons.mjs
+public/branding/ public/icons/ public/favicon.*  # marca generada por scripts/generate-brand.ts
 public/players/  public/teams/     # deja aquí los PNG reales (ver sus README)
 ```
 

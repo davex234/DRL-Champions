@@ -4,6 +4,23 @@
 /build
 *.tsbuildinfo
 next-env.d.ts
-.env*.local
+# Secrets: ignore every .env variant EXCEPT the tracked template.
+.env
+.env.*
+!.env.example
 .DS_Store
 npm-debug.log*
+
+# Verify-script output dumps (regenerated on demand; not source).
+scripts/*.out.md
+
+# Tauri / desktop build
+src-tauri/target/
+src-tauri/gen/
+/out/
+
+src-tauri/.tauri-signing.key
+src-tauri/.tauri-signing.key.pub
+
+# Release output (artefactos firmados; .release SÍ se versiona como registro)
+/dist
