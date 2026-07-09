@@ -1,5 +1,7 @@
 /**
- * LIVE ECOSYSTEM — ORQUESTADOR (el cerebro / pipeline CANÓNICO).
+ * LIVE ECOSYSTEM — ORQUESTADOR (el cerebro / pipeline CANÓNICO del ciclo live).
+ * ⚠️ LEGACY parcial (Card Generator F4, 2026-07-09): la DECISIÓN editorial de cartas canónica
+ * es `src/card-generator` (generateCards sobre AnalyzerResult); este ciclo la precede.
  *
  * Un único flujo, sin bypass, que COMPONE los motores ya existentes (no duplica lógica):
  *   Provider → Normalizer → Identity → Tournament → Stats → Rating → Card Decision →

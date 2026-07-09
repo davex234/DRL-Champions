@@ -1,3 +1,6 @@
+// ⚠️ LEGACY (Card Generator F4, 2026-07-09): pipeline histórico del Data Engine. El cerebro
+// editorial canónico es `src/card-generator` (generateCards sobre AnalyzerResult). Se conserva
+// operativo para useEngineStore; no crecer.
 import type { Tournament, RawTeam, RawResult, GeneratedCard, CardKind, TournamentType } from "./types";
 import { normalizeStatToPlayer } from "./sources/normalize";
 import { identifyMvp, winnerPlayers } from "./tournament";

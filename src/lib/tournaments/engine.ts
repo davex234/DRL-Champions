@@ -1,5 +1,7 @@
 /**
  * DRL TORNEOS — CardGenerationEngine.
+ * ⚠️ LEGACY (Card Generator F4, 2026-07-09): pipeline admin/Supabase histórico. El cerebro
+ * editorial canónico es `src/card-generator` (generateCards sobre AnalyzerResult).
  *
  * Responsabilidades: generar las especificaciones de carta (rareza por rating →
  * variante/accolade), crear las versiones especiales (MVP MYTHIC, Champion
