@@ -8,6 +8,7 @@ import { getCard } from "@/data/catalog";
 import { getPack } from "@/data/packs";
 import { PackEngine, freshPity, type PityState, type OpenResult } from "@/pack";
 import { CraftEngine, freshMaterials, migrateMaterials, addMaterials as addMats, type Materials, type CraftResult, type CraftIssue } from "@/craft";
+import { runtimePackEngine, runtimeCraftEngine } from "@/publisher/runtime";
 import { getRecipe } from "@/data/recipes";
 import type { CardOrigin } from "@/collection";
 import { useEventsStore } from "@/store/useEventsStore";
@@ -114,10 +115,14 @@ function uid(): string {
   return `c_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e9).toString(36)}`;
 }
 
-/** ÚNICO motor de apertura/drop. Decide qué cae; el store solo persiste el resultado. */
-const packEngine = new PackEngine();
-/** ÚNICO motor de crafting/evolución. Devuelve un plan puro; el store lo aplica. */
-const craftEngine = new CraftEngine();
+/**
+ * ÚNICO motor de apertura/drop y de crafting. Antes eran singletons congelados en
+ * import-time (su CardRegistry quedaba obsoleto tras rebuildCatalog); desde el Publisher
+ * (Card Generator F7) se obtienen del runtime, que los recrea automáticamente cuando el
+ * catálogo vivo cambia — publicaciones, rollbacks e imports del admin incluidos.
+ */
+const packEngine = (): PackEngine => runtimePackEngine();
+const craftEngine = (): CraftEngine => runtimeCraftEngine();
 
 /**
  * RUTA ÚNICA de entrada de cartas al store. Toda instancia acuñada por el Pack Engine (abriendo un
@@ -221,7 +226,7 @@ export const useGameStore = create<GameState>()(
         // El Drop Engine DECIDE qué cae (determinista); el store solo persiste el resultado.
         const now = Date.now();
         const seed = seedFrom(`${packId}|${state.packsOpened}|${state.ownedCards.length}`);
-        const result = packEngine.open(pack, {
+        const result = packEngine().open(pack, {
           seed, owned: state.ownedCards, mintCounts: state.mintCounts, pity: state.pityState, now,
         });
 
@@ -350,7 +355,7 @@ export const useGameStore = create<GameState>()(
         // MISMA ruta de acuñación (packEngine.grant → Minter) e ingreso (ingestAcquired) que los sobres.
         const now = Date.now();
         const s0 = get();
-        const r = packEngine.grant([cardId], origin, {
+        const r = packEngine().grant([cardId], origin, {
           seed: 0, owned: s0.ownedCards, mintCounts: s0.mintCounts, pity: s0.pityState, now,
         });
         if (!r.instances.length) return null;
@@ -377,7 +382,7 @@ export const useGameStore = create<GameState>()(
         const tokens = (useEventsStore.getState() as { tokens: number }).tokens;
         const seed = seedFrom(`craft|${recipeId}|${s0.ownedCards.length}|${s0.credits}`);
         // El Craft Engine DECIDE y ACUÑA (vía el único Minter); el store solo aplica el plan puro.
-        const res = craftEngine.craft(recipe, {
+        const res = craftEngine().craft(recipe, {
           owned: s0.ownedCards, materials: s0.materials, credits: s0.credits, tokens,
           mintCounts: s0.mintCounts, locks: new Set(s0.lockedUids), selection, seed, now,
         });

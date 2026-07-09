@@ -16,6 +16,7 @@
     "card-generator:verify": "tsx scripts/card-generator-verify.ts",
     "materializer:verify": "tsx scripts/materializer-verify.ts",
     "catalog-builder:verify": "tsx scripts/catalog-builder-verify.ts",
+    "publisher:verify": "tsx scripts/publisher-verify.ts",
     "verify:all": "node scripts/ci/run-verifies.mjs",
     "test": "node scripts/ci/run-tests.mjs",
     "ci:pipeline": "node scripts/ci/run-pipeline.mjs",
