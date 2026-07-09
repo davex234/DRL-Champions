@@ -14,6 +14,7 @@
     "analyzer:verify": "tsx scripts/analyzer-verify.ts",
     "performance:verify": "tsx scripts/performance-verify.ts",
     "card-generator:verify": "tsx scripts/card-generator-verify.ts",
+    "materializer:verify": "tsx scripts/materializer-verify.ts",
     "verify:all": "node scripts/ci/run-verifies.mjs",
     "test": "node scripts/ci/run-tests.mjs",
     "ci:pipeline": "node scripts/ci/run-pipeline.mjs",
