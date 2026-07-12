@@ -42,9 +42,11 @@ export const totalMaterials = (m: Materials): number => BUCKETS.reduce((s, k) =>
  * reutilizan `quickSellValue`. Determinista.
  */
 export function salvageYield(card: CardDef, variant: VariantDef, serial: number | undefined, opts: { dustByBucket?: boolean; fixed?: Partial<Materials>; credits?: number; valueFromCard?: boolean }): { materials: Materials; credits: number } {
-  let materials = freshMaterials();
-  if (opts.dustByBucket) materials = addMaterials(materials, { [bucketForRank(variant.rank)]: dustForRank(variant.rank) });
-  if (opts.fixed) materials = addMaterials(materials, opts.fixed);
+  // Acumulación in-place sobre un objeto RECIÉN creado (mismo resultado que encadenar
+  // addMaterials, sin alocar un objeto intermedio por paso: esto corre millones de veces).
+  const materials = freshMaterials();
+  if (opts.dustByBucket) materials[bucketForRank(variant.rank)] += dustForRank(variant.rank);
+  if (opts.fixed) for (const k of BUCKETS) materials[k] += opts.fixed[k] ?? 0;
   const credits = (opts.credits ?? 0) + (opts.valueFromCard ? quickSellValue(card, serial) : 0);
   return { materials, credits };
 }

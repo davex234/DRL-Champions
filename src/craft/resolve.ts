@@ -66,6 +66,19 @@ export function resolveInputs(
   }
 
   // Selección AUTOMÁTICA determinista.
+  // Camino rápido (count=1, sin samePlayer): el "peor" candidato en una sola pasada, sin
+  // materializar ni ordenar el array de candidatos (idéntico a filter+sort+slice(0,1); este
+  // caso corre millones de veces en cargas masivas de salvage/upgrade).
+  if (m.count === 1 && !m.samePlayer) {
+    let best: OwnedCard | null = null;
+    for (const o of owned) {
+      if (!(allowLocked || !locks.has(o.uid)) || !matchesInput(registry, own, o, m)) continue;
+      if (!best || worstFirst(registry, o, best) < 0) best = o;
+    }
+    if (!best) { issues.push({ code: "NOT_ENOUGH_INPUTS", message: "Faltan entradas: 0/1" }); return { picked: [], issues }; }
+    return { picked: [best], issues };
+  }
+
   const candidates = owned.filter((o) => (allowLocked || !locks.has(o.uid)) && matchesInput(registry, own, o, m)).sort((a, b) => worstFirst(registry, a, b));
 
   if (m.samePlayer) {

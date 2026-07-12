@@ -10,38 +10,68 @@
  */
 import { CardRegistry, OwnershipIndex } from "@/collection";
 import { PackEngine, freshPity } from "@/pack";
-import { addMaterials, subMaterials, hasMaterials, freshMaterials, salvageYield } from "./materials";
+import { BUCKETS, hasMaterials, freshMaterials, salvageYield } from "./materials";
 import { validateRecipe } from "./recipes";
 import { resolveInputs, resolveOutput } from "./resolve";
 import { craftEvents } from "./events";
-import type { CraftContext, CraftIssue, CraftResult, Materials, Recipe } from "./types";
+import type { CraftContext, CraftIssue, CraftResult, Materials, OwnedCard, Recipe, RecipeValidation } from "./types";
 
 export class CraftEngine {
   readonly registry: CardRegistry;
   private packs: PackEngine;
+  /**
+   * Cache de validación por IDENTIDAD de receta: las recetas son datos inmutables y el
+   * registry es fijo por engine, así que validar la misma receta en cada `craft` era trabajo
+   * redundante (dominaba el coste por operación en cargas masivas). WeakMap ⇒ sin retención.
+   */
+  private validations = new WeakMap<Recipe, RecipeValidation>();
+  /**
+   * Cache del índice de propiedad por IDENTIDAD del array `owned`: el estado del juego es
+   * inmutable (los stores sustituyen el array al cambiar), así que el mismo array ⇒ el mismo
+   * índice. Evita reconstruir groupCollection en cargas masivas sobre el mismo inventario.
+   */
+  private ownIndexes = new WeakMap<OwnedCard[], OwnershipIndex>();
   constructor(registry: CardRegistry = new CardRegistry()) {
     this.registry = registry;
     this.packs = new PackEngine(registry);
   }
 
-  /** Valida una receta contra el catálogo (SEGURIDAD, sin ejecutar). */
-  validateRecipe(recipe: Recipe) { return validateRecipe(this.registry, recipe); }
+  /** Valida una receta contra el catálogo (SEGURIDAD, sin ejecutar). Cacheada por identidad. */
+  validateRecipe(recipe: Recipe): RecipeValidation {
+    const hit = this.validations.get(recipe);
+    if (hit) return hit;
+    const rv = validateRecipe(this.registry, recipe);
+    this.validations.set(recipe, rv);
+    return rv;
+  }
+
+  /** Índice de propiedad del inventario (cacheado por identidad del array, ver arriba). */
+  private ownershipOf(owned: OwnedCard[]): OwnershipIndex {
+    const hit = this.ownIndexes.get(owned);
+    if (hit) return hit;
+    const own = new OwnershipIndex(owned);
+    this.ownIndexes.set(owned, own);
+    return own;
+  }
+
+  /** Resultado de fallo (sin closure por llamada: `craft` corre millones de veces). */
+  private static failResult(recipe: Recipe, ctx: CraftContext, issues: CraftIssue[]): CraftResult {
+    return {
+      ok: false, recipeId: recipe.id, kind: recipe.kind, issues, removedUids: [], instances: [],
+      mintDelta: {}, materialsAfter: ctx.materials, creditsAfter: ctx.credits, tokensAfter: ctx.tokens, events: [],
+    };
+  }
 
   /** Ejecuta una receta sobre el contexto y devuelve el PLAN (no muta nada). Determinista. */
   craft(recipe: Recipe, ctx: CraftContext): CraftResult {
-    const fail = (issues: CraftIssue[]): CraftResult => ({
-      ok: false, recipeId: recipe.id, kind: recipe.kind, issues, removedUids: [], instances: [],
-      mintDelta: {}, materialsAfter: ctx.materials, creditsAfter: ctx.credits, tokensAfter: ctx.tokens, events: [],
-    });
+    const rv = this.validateRecipe(recipe);
+    if (!rv.ok) return CraftEngine.failResult(recipe, ctx, rv.issues);
 
-    const rv = validateRecipe(this.registry, recipe);
-    if (!rv.ok) return fail(rv.issues);
-
-    const own = new OwnershipIndex(ctx.owned);
+    const own = this.ownershipOf(ctx.owned);
 
     // 1) Entradas.
     const { picked, issues: inIssues } = resolveInputs(this.registry, own, ctx.owned, recipe.input, ctx.locks, ctx.selection);
-    if (inIssues.length) return fail(inIssues);
+    if (inIssues.length) return CraftEngine.failResult(recipe, ctx, inIssues);
 
     // 2) Coste (materiales/créditos/tokens).
     const cost = recipe.cost ?? {};
@@ -49,16 +79,16 @@ export class CraftEngine {
     if (cost.materials && !hasMaterials(ctx.materials, cost.materials)) costIssues.push({ code: "INSUFFICIENT_MATERIALS", message: "Materiales insuficientes." });
     if ((cost.credits ?? 0) > ctx.credits) costIssues.push({ code: "INSUFFICIENT_CREDITS", message: "Créditos insuficientes." });
     if ((cost.tokens ?? 0) > ctx.tokens) costIssues.push({ code: "INSUFFICIENT_TOKENS", message: "Tokens insuficientes." });
-    if (costIssues.length) return fail(costIssues);
+    if (costIssues.length) return CraftEngine.failResult(recipe, ctx, costIssues);
 
     // 3) Salida (identidad preservada; debe existir en el catálogo).
     const { cardIds, issues: outIssues } = resolveOutput(this.registry, recipe.output, picked);
-    if (outIssues.length) return fail(outIssues);
+    if (outIssues.length) return CraftEngine.failResult(recipe, ctx, outIssues);
 
     const removedUids = picked.map((o) => o.uid);
 
     // 4) Salvage → materiales/créditos. Otras → acuñar salidas por el ÚNICO Minter.
-    let gained: Materials = freshMaterials();
+    const gained: Materials = freshMaterials();
     let creditsGain = 0;
     let instances: CraftResult["instances"] = [];
     let mintDelta: Record<string, number> = {};
@@ -68,7 +98,7 @@ export class CraftEngine {
         const def = this.registry.card(o.cardId)!;
         const v = this.registry.variant(def.variantId);
         const y = salvageYield(def, v, o.serial, recipe.output);
-        gained = addMaterials(gained, y.materials);
+        for (const k of BUCKETS) gained[k] += y.materials[k] ?? 0;
         creditsGain += y.credits;
       }
     } else {
@@ -78,8 +108,10 @@ export class CraftEngine {
       mintDelta = grant.mintDelta;
     }
 
-    // 5) Recursos finales.
-    const materialsAfter = addMaterials(subMaterials(ctx.materials, cost.materials ?? {}), gained);
+    // 5) Recursos finales (una sola pasada: idéntico a add(sub(base, coste), ganado)).
+    const costM = cost.materials ?? {};
+    const materialsAfter: Materials = { ...ctx.materials };
+    for (const k of BUCKETS) materialsAfter[k] = (materialsAfter[k] ?? 0) - (costM[k] ?? 0) + gained[k];
     const creditsAfter = ctx.credits - (cost.credits ?? 0) + creditsGain;
     const tokensAfter = ctx.tokens - (cost.tokens ?? 0);
 
