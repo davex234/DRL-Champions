@@ -194,6 +194,12 @@ function Admin() {
           <a href="/admin/control" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
             🛰 Control Center
           </a>
+          <a href="/admin/card-review" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
+            🃏 Card Review
+          </a>
+          <a href="/admin/tournament-control" className="rounded-xl border border-drl/40 bg-drl/10 px-4 py-3 font-display text-sm uppercase tracking-wide text-drl transition hover:bg-drl/20">
+            🎛 Tournament Control
+          </a>
         </div>
       </header>
 
