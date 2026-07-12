@@ -17,6 +17,7 @@
     "runtime-review:verify": "tsx scripts/runtime-review-verify.ts",
     "editorial:verify": "tsx scripts/editorial-verify.ts",
     "tournament-control:verify": "tsx scripts/tournament-control-verify.ts",
+    "telegram-control:verify": "tsx scripts/telegram-control-verify.ts",
     "analyzer:verify": "tsx scripts/analyzer-verify.ts",
     "performance:verify": "tsx scripts/performance-verify.ts",
     "card-generator:verify": "tsx scripts/card-generator-verify.ts",
