@@ -29,8 +29,10 @@ const cardIdsForTeam = (team: string) =>
 const cardIdsForRegion = (region: string) =>
   CARDS.filter((c) => getPlayer(c.playerId)?.region === region).map((c) => c.id);
 
-const HERETICS_IDS = cardIdsForTeam("Team Heretics");
-const EMEA_IDS = cardIdsForRegion("EMEA");
+// Los ids se resuelven PEREZOSAMENTE (nunca a import-time): el catálogo vivo cambia con cada
+// publish/import (rebuildCatalog) y estos logros deben ver siempre el catálogo vigente.
+const heretics = () => cardIdsForTeam("Team Heretics");
+const emea = () => cardIdsForRegion("EMEA");
 
 function countOwnedByGroup(owned: Set<string>, group: string): number {
   let n = 0;
@@ -93,8 +95,8 @@ export const ACHIEVEMENTS: AchievementDef[] = [
     description: "Consigue todas las cartas de Team Heretics.",
     icon: "🐉",
     reward: 8000,
-    goal: HERETICS_IDS.length,
-    progress: (c) => ownedInSet(HERETICS_IDS, c.ownedCardIds),
+    get goal() { return heretics().length; },
+    progress: (c) => ownedInSet(heretics(), c.ownedCardIds),
   },
   {
     id: "completa-emea",
@@ -102,7 +104,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
     description: "Consigue todas las cartas de la región EMEA.",
     icon: "🌍",
     reward: 15000,
-    goal: EMEA_IDS.length,
-    progress: (c) => ownedInSet(EMEA_IDS, c.ownedCardIds),
+    get goal() { return emea().length; },
+    progress: (c) => ownedInSet(emea(), c.ownedCardIds),
   },
 ];
