@@ -31,7 +31,7 @@ jobs:
       - name: Architecture (Release System)
         run: npm run release:arch
 
-      # Ejecuta los 52 scripts/*-verify.ts y falla si CUALQUIERA falla (ya no decorativos):
+      # Ejecuta TODOS los scripts/*-verify.ts (glob, sin lista manual) y falla si CUALQUIERA falla:
       # cubre updater/cards/release-flow y todos los motores (gameplay/collection/career/online...).
       - name: Engine verifies (all)
         run: npm run verify:all

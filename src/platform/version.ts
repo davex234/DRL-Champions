@@ -2,7 +2,7 @@
  * PLATFORM — versión y build info (fuente ÚNICA en runtime para launcher/about/logs/updater).
  *
  * Estas constantes las sincroniza automáticamente el release pipeline desde `version.json`
- * (la fuente de verdad del repositorio) vía `scripts/lib/version-manager.mjs`. NO editar a
+ * (la fuente de verdad del repositorio) vía `scripts/release/version-engine.mjs`. NO editar a
  * mano: cualquier release las reescribe. `FULL_VERSION` = `${APP_VERSION}+${BUILD_NUMBER}`
  * (p.ej. 0.6.1+128), donde el build number es un contador interno monótono.
  */

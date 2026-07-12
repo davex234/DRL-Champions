@@ -12,6 +12,7 @@ import { readFileSync, existsSync } from "node:fs";
 import {
   setAdapter, MemoryAdapter, loadConfig, saveConfig, DEFAULT_CONFIG, plannedLayout, DIRS,
   buildInfo, platformName, isOnline, log, getLogs, flushLogs, getAdapter, checkForUpdate, reportCrash,
+  APP_VERSION, BUILD_CHANNEL,
 } from "../src/platform";
 
 let pass = 0, fail = 0;
@@ -40,14 +41,14 @@ void (async () => {
   check("estructura de directorios profesional (10 carpetas)", DIRS.length === 10 && DIRS.every((d) => layout.dirs[d]?.includes(d)), DIRS.join(","));
 
   const b = buildInfo();
-  check("versión / canal / plataforma disponibles", b.version === "0.1.0" && b.channel === "alpha" && platformName() === "node");
+  check("versión / canal / plataforma disponibles", b.version === APP_VERSION && b.channel === BUILD_CHANNEL && platformName() === "node");
 
   console.log("\n## 2. Offline / update / crash (preparados)");
   check("detección de conexión (offline-safe)", typeof isOnline() === "boolean");
   const upd = await checkForUpdate();
-  check("updater no-op fuera de Tauri (no rompe)", upd.available === false && upd.current === "0.1.0");
+  check("updater no-op fuera de Tauri (no rompe)", upd.available === false && upd.current === APP_VERSION);
   const crash = await reportCrash(new Error("boom"));
-  check("crash reporter captura {versión, plataforma, stack, logs}", crash.message === "boom" && crash.version === "0.1.0" && Array.isArray(crash.recentLogs));
+  check("crash reporter captura {versión, plataforma, stack, logs}", crash.message === "boom" && crash.version === APP_VERSION && Array.isArray(crash.recentLogs));
 
   // ── 3) Proyecto Tauri ────────────────────────────────────────────────
   console.log("\n## 3. Proyecto Tauri 2 (config + targets + updater + deep-link)");

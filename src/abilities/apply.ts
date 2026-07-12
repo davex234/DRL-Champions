@@ -8,6 +8,7 @@
  */
 import type { Rng } from "../sim/rng";
 import type { RoundState, SimPlayer, Side } from "../sim/types";
+import { applyBlind } from "../sim/attributes";
 import { dist } from "../sim/geometry";
 import { ZONES, type ZoneId } from "../sim/map/ascentA";
 import type { ActiveUtility, EffectType, MapState } from "../utility/types";
@@ -39,7 +40,7 @@ export function applyAbility(s: RoundState, p: SimPlayer, map: MapState, choice:
     for (const e of s.players) {
       if (e.side === p.side || !e.alive) continue; // solo enemigos vivos
       if (dist(e.pos, ZONES[target]) < 220) {
-        e.flashedUntil = Math.max(e.flashedUntil, s.tick + Math.round(blind * (rng.next() * 0.4 + 0.8)));
+        applyBlind(e, s.tick, blind, rng); // fuente única del efecto flash (sim/attributes)
       }
     }
   }

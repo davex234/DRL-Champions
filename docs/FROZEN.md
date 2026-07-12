@@ -34,6 +34,10 @@ Un módulo FROZEN:
   Generator"): Fase 3 = Performance Analyzer (`analyze()` → `AnalyzerResult`). La API F2
   (`analyzeTournament`) sigue intacta y protegida por analyzer:verify; la F3 la protege
   performance:verify.
+- `src/importer/` — consumo en solo-lectura AMPLIADO el 2026-07-11 por decisión explícita
+  (Tournament Automation F1/5): `src/importer-vlr/` es el primer `ImportProvider` REAL
+  (URL de VLR.gg → `RawSnapshot`). El Importer NO se modificó (cero diffs); importer:verify
+  sigue siendo su red y el conector tiene la suya (importer-vlr:verify).
 
 ## Parciales (parte viva, parte congelada)
 

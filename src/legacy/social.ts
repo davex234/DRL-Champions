@@ -48,10 +48,3 @@ export function applySocial(world: WorldState, trends: SocialTrend[], protectTea
     if (team) team.fanbase = Math.max(0, Math.round(team.fanbase + tr.fanDelta));
   }
 }
-
-/** Popularidad social de un jugador (para el dashboard). */
-export function playerHype(world: WorldState, playerId: string): number {
-  const p = world.players[playerId];
-  if (!p) return 0;
-  return Math.min(100, Math.round(progress(p.dev) * 0.5 + (p.value / Math.max(1, p.prevValue) - 1) * 60 + p.mvps * 5));
-}

@@ -1,23 +1,33 @@
 "use client";
 
 /**
- * CAREER / DEVELOPMENT STORE — la progresión PERSISTENTE de los jugadores.
+ * CAREER / DEVELOPMENT STORE — adaptador sobre el UNIVERSO ÚNICO (Consolidation F1.1).
  *
- * Guarda el perfil innato, el estado de desarrollo, las relaciones (química), la
- * temporada y los eventos de evolución. NO contiene lógica: orquesta el Player
- * Development Engine (puro) y persiste su salida. Tras cada partido evoluciona a TODOS
- * los participantes (incluida la IA); el entrenador entrena; la temporada envejece a
- * todo el mundo. La inyección al sim ocurre en `developRoster` (deltas → RosterEntry).
+ * Antes este store mantenía un universo de desarrollo PARALELO al del Living World
+ * (`useWorldStore`): el mismo jugador evolucionaba en dos verdades desconectadas según la
+ * pantalla (/carrera vs /mundo//manager). Ahora el desarrollo vive en UN solo sitio:
+ * `world.players[id].dev` (WorldPlayer.id === Player.id del catálogo). Este store:
+ *
+ *   · LEE/ESCRIBE el dev/innate de los jugadores DEL MUNDO (fuente autoritativa).
+ *   · Mantiene un fallback local SOLO para ids que no existen en el mundo.
+ *   · La QUÍMICA (pares) sigue aquí: es el único libro de relaciones (no está duplicada).
+ *   · `advanceSeason` DELEGA en el avance unificado del mundo (mercado único + temporada);
+ *     ya no hay dos relojes ni dos envejecimientos. `season` refleja `world.season`.
+ *
+ * Saves legacy: los registros dev/innate antiguos NO se borran; quedan como fallback para
+ * ids fuera del mundo. Para ids del mundo, el mundo (sembrado del nivel de carta) manda.
  */
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { MatchState } from "@/match";
 import type { RosterEntry } from "@/sim";
+import type { WorldState } from "@/world";
+import { useWorldStore } from "@/store/useWorldStore";
 import {
   deriveInnate, freshDevState, extractExperience, evolveAfterMatch, train, advanceSeasonFor, autoProgress,
   applyDevelopment, teamChemistry, relKey, freshRelationship, updateChemistry, scoutPlayer, detectDevelopmentEvents,
-  developmentBroadcast,
-  type InnateProfile, type DevState, type Relationship, type DevelopmentEvent, type DevTransition,
+  developmentBroadcast, progress,
+  type InnateProfile, type DevState, type Relationship, type DevelopmentEvent, type DevTransition, type DevSnapshot,
   type TrainingSession, type ScoutReport, type DevelopmentInfo,
 } from "@/development";
 
@@ -30,8 +40,17 @@ function hashSeason(id: string, season: number): number {
   return h >>> 0;
 }
 
+/** Universo único: el mundo persistido (lo crea determinista si aún no existe). */
+const world = (): WorldState => useWorldStore.getState().ensure();
+/** Publica la mutación del mundo (persist + notificación a suscriptores). */
+const commitWorld = (w: WorldState): void => useWorldStore.setState({ world: { ...w } });
+
+const snapOf = (d: DevState): DevSnapshot => ({ rating: progress(d), age: d.age, condition: { ...d.condition } });
+
 interface CareerState {
+  /** Reloj ÚNICO: espejo de `world.season` (se sincroniza en cada acción). */
   season: number;
+  /** Fallback local SOLO para ids que no existen en el mundo (+ legado de saves antiguos). */
   innate: Record<string, InnateProfile>;
   dev: Record<string, DevState>;
   chem: Record<string, Relationship>;
@@ -43,7 +62,7 @@ interface CareerState {
   processMatch: (match: MatchState) => { transitions: DevTransition[]; events: DevelopmentEvent[] };
   /** Sesión de entrenamiento decidida por el entrenador. */
   runTraining: (playerIds: string[], session: TrainingSession) => { transitions: DevTransition[]; events: DevelopmentEvent[] };
-  /** Cierra temporada: envejece a los seguidos y auto-progresa al resto del mundo. */
+  /** Cierra temporada: avanza el MUNDO (mercado único + desarrollo de todos) — un solo reloj. */
   advanceSeason: (extraPlayerIds?: string[]) => { transitions: DevTransition[]; events: DevelopmentEvent[] };
   /** Lectura de scouting de un jugador (lo crea si no existe). */
   scout: (playerId: string) => ScoutReport;
@@ -62,21 +81,24 @@ export const useCareerStore = create<CareerState>()(
       events: [],
 
       developRoster: (roster) => {
+        const w = world();
         const { dev, chem } = get();
         const ids = roster.map(idOf);
         const chemScore = teamChemistry(chem, ids);
         return roster.map((e, i) => {
-          const d = dev[ids[i]];
+          const d = w.players[ids[i]]?.dev ?? dev[ids[i]];
           return d ? applyDevelopment(e, d, { chemistry: chemScore }) : e;
         });
       },
 
       processMatch: (match) => {
-        const { season } = get();
+        const w = world();
+        const season = w.season;
         const nextDev = { ...get().dev };
         const nextInn = { ...get().innate };
         const nextChem = { ...get().chem };
         const transitions: DevTransition[] = [];
+        let worldTouched = false;
 
         const signals = extractExperience(match);
         const sigById = Object.fromEntries(signals.map((s) => [s.playerId, s]));
@@ -85,19 +107,31 @@ export const useCareerStore = create<CareerState>()(
 
         for (const sig of signals) {
           const id = sig.playerId;
-          if (!nextInn[id]) nextInn[id] = deriveInnate(id);
-          if (!nextDev[id]) nextDev[id] = freshDevState(nextInn[id]);
-          const { state, transition } = evolveAfterMatch(nextDev[id], nextInn[id], sig, season);
-          nextDev[id] = state;
-          transitions.push(transition);
+          const wp = w.players[id];
+          if (wp) {
+            // UNIVERSO ÚNICO: el jugador existe en el mundo ⇒ evoluciona AHÍ.
+            const { state, transition } = evolveAfterMatch(wp.dev, wp.innate, sig, season);
+            wp.dev = state;
+            worldTouched = true;
+            transitions.push(transition);
+          } else {
+            // Fallback local (id fuera del mundo).
+            if (!nextInn[id]) nextInn[id] = deriveInnate(id);
+            if (!nextDev[id]) nextDev[id] = freshDevState(nextInn[id]);
+            const { state, transition } = evolveAfterMatch(nextDev[id], nextInn[id], sig, season);
+            nextDev[id] = state;
+            transitions.push(transition);
+          }
         }
 
-        // Química: cada par del MISMO equipo que jugó junto.
+        // Química: cada par del MISMO equipo que jugó junto (libro único, vive aquí).
         for (const lineup of [match.config.rosters.home, match.config.rosters.away]) {
           const ids = lineup.map(idOf);
           for (let i = 0; i < ids.length; i++) for (let j = i + 1; j < ids.length; j++) {
             const a = ids[i], b = ids[j], key = relKey(a, b);
-            if (!nextChem[key]) nextChem[key] = freshRelationship(a, b, nextInn[a]?.ambition ?? 50, nextInn[b]?.ambition ?? 50);
+            const ambA = w.players[a]?.innate.ambition ?? nextInn[a]?.ambition ?? 50;
+            const ambB = w.players[b]?.innate.ambition ?? nextInn[b]?.ambition ?? 50;
+            if (!nextChem[key]) nextChem[key] = freshRelationship(a, b, ambA, ambB);
             const sa = sigById[a], sb = sigById[b];
             nextChem[key] = updateChemistry(nextChem[key], {
               won: sa?.won ?? sb?.won ?? false,
@@ -107,55 +141,96 @@ export const useCareerStore = create<CareerState>()(
           }
         }
 
+        if (worldTouched) commitWorld(w);
         const names = Object.fromEntries(signals.map((s) => [s.playerId, s.name]));
         const newEvents = detectDevelopmentEvents(transitions, names);
-        set({ dev: nextDev, innate: nextInn, chem: nextChem, events: [...get().events, ...newEvents].slice(-300) });
+        set({ season, dev: nextDev, innate: nextInn, chem: nextChem, events: [...get().events, ...newEvents].slice(-300) });
         return { transitions, events: newEvents };
       },
 
       runTraining: (playerIds, session) => {
-        const { season } = get();
+        const w = world();
+        const season = w.season;
         const nextDev = { ...get().dev };
         const nextInn = { ...get().innate };
         const transitions: DevTransition[] = [];
+        let worldTouched = false;
         for (const id of playerIds) {
-          if (!nextInn[id]) nextInn[id] = deriveInnate(id);
-          if (!nextDev[id]) nextDev[id] = freshDevState(nextInn[id]);
-          const { state, transition } = train(nextDev[id], nextInn[id], session, season);
-          nextDev[id] = state;
-          transitions.push(transition);
+          const wp = w.players[id];
+          if (wp) {
+            const { state, transition } = train(wp.dev, wp.innate, session, season);
+            wp.dev = state;
+            worldTouched = true;
+            transitions.push(transition);
+          } else {
+            if (!nextInn[id]) nextInn[id] = deriveInnate(id);
+            if (!nextDev[id]) nextDev[id] = freshDevState(nextInn[id]);
+            const { state, transition } = train(nextDev[id], nextInn[id], session, season);
+            nextDev[id] = state;
+            transitions.push(transition);
+          }
         }
+        if (worldTouched) commitWorld(w);
         const newEvents = detectDevelopmentEvents(transitions);
-        set({ dev: nextDev, innate: nextInn, events: [...get().events, ...newEvents].slice(-300) });
+        set({ season, dev: nextDev, innate: nextInn, events: [...get().events, ...newEvents].slice(-300) });
         return { transitions, events: newEvents };
       },
 
       advanceSeason: (extraPlayerIds = []) => {
-        const { season } = get();
+        // UN SOLO RELOJ: cerrar temporada = avanzar el MUNDO por el camino unificado
+        // (mercado único + desarrollo de TODOS los jugadores del mundo). Este store solo
+        // envejece su fallback local (ids fuera del mundo) y narra lo ocurrido.
+        const before = world();
+        const playedSeason = before.season;
+        const snapBefore: Record<string, DevSnapshot> = {};
+        const names: Record<string, string> = {};
+        for (const p of Object.values(before.players)) {
+          if (p.status !== "active") continue;
+          snapBefore[p.id] = snapOf(p.dev);
+          names[p.id] = p.nick;
+        }
+
+        useWorldStore.getState().advance();
+        const w = world();
+
+        // Transiciones de temporada sintetizadas (before/after) para la narrativa de /carrera.
+        const transitions: DevTransition[] = [];
+        for (const [id, beforeSnap] of Object.entries(snapBefore)) {
+          const p = w.players[id];
+          if (!p) continue;
+          transitions.push({
+            playerId: id, name: names[id], cause: "season", season: playedSeason,
+            before: beforeSnap, after: snapOf(p.dev),
+            changes: { traits: {}, attrs: {}, skills: {} },
+          });
+        }
+
+        // Fallback local: envejece a los seguidos fuera del mundo y auto-progresa a los extra.
         const nextDev = { ...get().dev };
         const nextInn = { ...get().innate };
-        const transitions: DevTransition[] = [];
-        // Envejece a los seguidos (los que han jugado/entrenado).
         for (const id of Object.keys(nextDev)) {
-          const { state, transition } = advanceSeasonFor(nextDev[id], nextInn[id], season);
+          if (w.players[id]) continue; // el mundo ya lo evolucionó (autoritativo)
+          const { state, transition } = advanceSeasonFor(nextDev[id], nextInn[id] ?? deriveInnate(id), playedSeason);
           nextDev[id] = state;
           transitions.push(transition);
         }
-        // Auto-progresa al resto del mundo (Live Esports: todos progresan).
         for (const id of extraPlayerIds) {
-          if (nextDev[id]) continue;
+          if (w.players[id] || nextDev[id]) continue;
           if (!nextInn[id]) nextInn[id] = deriveInnate(id);
           const fresh = freshDevState(nextInn[id]);
-          const { state, transition } = autoProgress(fresh, nextInn[id], season, hashSeason(id, season));
+          const { state, transition } = autoProgress(fresh, nextInn[id], playedSeason, hashSeason(id, playedSeason));
           nextDev[id] = state;
           transitions.push(transition);
         }
-        const newEvents = detectDevelopmentEvents(transitions);
-        set({ dev: nextDev, innate: nextInn, season: season + 1, events: [...get().events, ...newEvents].slice(-300) });
+
+        const newEvents = detectDevelopmentEvents(transitions, names);
+        set({ season: w.season, dev: nextDev, innate: nextInn, events: [...get().events, ...newEvents].slice(-300) });
         return { transitions, events: newEvents };
       },
 
       scout: (playerId) => {
+        const wp = world().players[playerId];
+        if (wp) return scoutPlayer(wp.innate, wp.dev);
         let inn = get().innate[playerId];
         let d = get().dev[playerId];
         if (!inn || !d) {
@@ -167,13 +242,15 @@ export const useCareerStore = create<CareerState>()(
       },
 
       info: (playerId, name) => {
+        const wp = world().players[playerId];
+        if (wp) return developmentBroadcast(wp.dev, wp.innate, name ?? wp.nick);
         const inn = get().innate[playerId];
         const d = get().dev[playerId];
         if (!inn || !d) return null;
         return developmentBroadcast(d, inn, name);
       },
 
-      reset: () => set({ season: 1, innate: {}, dev: {}, chem: {}, events: [] }),
+      reset: () => set({ season: world().season, innate: {}, dev: {}, chem: {}, events: [] }),
     }),
     {
       name: "drl-career-v1",

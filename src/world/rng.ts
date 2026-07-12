@@ -1,29 +1,28 @@
 /**
- * RNG DETERMINISTA del mundo (mulberry32). Sin `Date`/`Math.random`: el universo entero
- * es reproducible a partir de la semilla del mundo + temporada + clave. Puro.
+ * RNG del mundo — ADAPTADOR sobre el RNG único del proyecto (Consolidation F1.1).
+ *
+ * Antes este archivo duplicaba mulberry32 con una interfaz incompatible (`int(maxExclusive)`
+ * de 1 argumento vs `int(min,max)` del sim): misma firma nominal, semántica distinta — bomba
+ * de relojería. Ahora delega en `@/sim/rng` (fuente única del algoritmo) conservando la
+ * interfaz histórica del mundo Y la secuencia EXACTA (cada operación consume un único
+ * `next()` con la misma fórmula), de modo que los mundos generados no cambian.
  */
+import { makeRng as makeBaseRng, seedFrom } from "@/sim/rng";
+
 export interface Rng { next(): number; int(maxExclusive: number): number; pick<T>(xs: T[]): T; chance(p: number): boolean }
 
 export function makeRng(seed: number): Rng {
-  let a = seed >>> 0;
-  const next = (): number => {
-    a |= 0; a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
+  const base = makeBaseRng(seed);
   return {
-    next,
-    int: (m) => Math.floor(next() * Math.max(1, m)),
-    pick: (xs) => xs[Math.floor(next() * xs.length)],
-    chance: (p) => next() < p,
+    next: base.next,
+    // NB: se implementa sobre next() (no base.int) para preservar el stream y el clamp max(1,m).
+    int: (m) => Math.floor(base.next() * Math.max(1, m)),
+    pick: (xs) => base.pick(xs),
+    chance: (p) => base.chance(p),
   };
 }
 
-/** Hash FNV-1a estable: deriva una semilla reproducible de varias claves. */
+/** Hash FNV-1a estable: deriva una semilla reproducible de varias claves (= seedFrom del sim). */
 export function seedOf(...parts: (string | number)[]): number {
-  let h = 2166136261 >>> 0;
-  const s = parts.join("|");
-  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
-  return h >>> 0;
+  return seedFrom(parts.join("|"));
 }

@@ -1,9 +1,12 @@
 /**
- * TACTICAL INTELLIGENCE ENGINE — Economía estimada.
+ * TACTICAL INTELLIGENCE ENGINE — Economía ESTIMADA (no autoritativa).
  *
- * El sim no tiene dinero: se MODELA aquí (créditos, recompensa de ronda, bono de
- * derrota) para que las decisiones tácticas sean realistas: comprar a tope, forzar,
- * eco o jugar con armas conservadas. Es una estimación, no contabilidad real.
+ * ⚠️ CONSOLIDATION F1.1 — la economía REAL y única del juego es `src/economy/` (createEconomy/
+ * planRound/settleRound); en partido, la táctica se SIEMBRA desde ella vía
+ * `economy/tactical.ts::buildTacticalSetup`. Este archivo queda como estimador ligero:
+ * `pistolEconomy` la usa el runtime táctico como semilla neutra, y la progresión
+ * (`nextEconomy`/`applyBuy`/`buyOf`) SOLO la consumen los reports headless
+ * (`scripts/{tactics,spatial}-report.ts`). NO usar como contabilidad del juego.
  */
 import type { Buy, TeamEconomy } from "./types";
 

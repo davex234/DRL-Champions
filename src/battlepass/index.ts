@@ -1,3 +1,6 @@
+// ❄️ FROZEN (Consolidation F1.1, 2026-07-06): motor completo y verificado SIN consumidores de
+// producto hoy. Se conserva por valor de roadmap (wire before kill). NO crecer ni integrar
+// sin decision explicita. Registro y criterios: docs/FROZEN.md
 /**
  * BATTLE PASS, MISSIONS & SEASONAL PROGRESSION ENGINE — API pública (Collection Fase 6/7).
  *

@@ -7,11 +7,12 @@
  * entrenador ENTRENAR (qué/quién/intensidad) y CERRAR TEMPORADA (envejece a todos y
  * progresa al resto del mundo). Solo CONECTA el Development Engine vía `useCareerStore`.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useGameStore } from "@/store/useGameStore";
 import { useTeamStore } from "@/store/useTeamStore";
 import { useCareerStore } from "@/store/useCareerStore";
+import { useWorldStore } from "@/store/useWorldStore";
 import { buildHomeRoster } from "@/lib/match/roster";
 import { allPlayers } from "@/data/catalog";
 import {
@@ -30,10 +31,16 @@ export default function CarreraPage() {
 
   const dev = useCareerStore((s) => s.dev);
   const innate = useCareerStore((s) => s.innate);
-  const season = useCareerStore((s) => s.season);
+  const storeSeason = useCareerStore((s) => s.season);
   const events = useCareerStore((s) => s.events);
   const runTraining = useCareerStore((s) => s.runTraining);
   const advanceSeason = useCareerStore((s) => s.advanceSeason);
+
+  // UNIVERSO ÚNICO (Consolidation F1.1): el desarrollo vive en el MUNDO; esta pantalla lo
+  // lee de ahí (fallback legacy local para ids fuera del mundo). Un solo reloj de temporada.
+  const worldObj = useWorldStore((s) => s.world);
+  useEffect(() => { useWorldStore.getState().ensure(); }, []);
+  const season = worldObj?.season ?? storeSeason;
 
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
@@ -80,8 +87,9 @@ export default function CarreraPage() {
 
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {players.map((p) => {
-          const inn = innate[p.id] ?? deriveInnate(p.id);
-          const d = dev[p.id];
+          const wp = worldObj?.players[p.id];
+          const inn = wp?.innate ?? innate[p.id] ?? deriveInnate(p.id);
+          const d = wp?.dev ?? dev[p.id];
           const scout = scoutPlayer(inn, d ?? freshDevState(inn));
           const info = d ? developmentBroadcast(d, inn, p.name) : null;
           return (

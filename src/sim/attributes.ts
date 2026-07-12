@@ -32,6 +32,17 @@ export const peekDelayTicks = (gameSense: number): number => Math.round((1 - cla
 /** Duración de ceguera por flash recibido, en ticks (según utility del lanzador, 0..30). */
 export const flashBlindTicks = (utility: number): number => Math.round((clamp(utility) / 99) * 30);
 
+/**
+ * Fuente ÚNICA del efecto flash (Consolidation F1.1): aplica la ceguera a un jugador con el
+ * jitter determinista (0.8–1.2×). Antes la fórmula estaba copiada en el director (×2) y en
+ * abilities/apply — riesgo de divergencia silenciosa. Consume exactamente un `rng.next()`.
+ */
+export const applyBlind = (
+  target: { flashedUntil: number }, tick: number, blindTicks: number, rng: { next(): number },
+): void => {
+  target.flashedUntil = Math.max(target.flashedUntil, tick + Math.round(blindTicks * (rng.next() * 0.4 + 0.8)));
+};
+
 /** Retardo del IGL para transicionar de fase si el coach no interviene (0..50 ticks). */
 export const iglLatencyTicks = (leadership: number): number => Math.round((1 - clamp(leadership) / 99) * 50);
 

@@ -6,13 +6,17 @@ import { AnimatePresence } from "framer-motion";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import { CardViewer, type CardViewerAction } from "@/components/cards/CardViewer";
+import { ForgePanel } from "@/components/craft/ForgePanel";
 import { useGameStore } from "@/store/useGameStore";
 import { useMarketStore } from "@/store/useMarketStore";
 import { useRosterStore } from "@/store/useRosterStore";
-import { CARDS, getCard, getPlayer } from "@/data/catalog";
+import { getCard } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
-import { groupCollection, collectionStats } from "@/store/selectors";
+import { groupCollection } from "@/store/selectors";
 import { regionCollections, collectionProgress } from "@/domain/collections";
+// COLLECTION ENGINE (Consolidation F1.1): la pantalla ya no recalcula filtros/orden a mano;
+// proyecta, filtra y ordena con el motor de colección (fuente única de esa lógica).
+import { CollectionEngine, applyFilter, sortViews, progress as engineProgress, type SortSpec } from "@/collection";
 import { instanceValue, quickSellValue, marketValue } from "@/domain/economy/pricing";
 import { formatCredits } from "@/lib/format";
 import { cn } from "@/lib/format";
@@ -42,8 +46,11 @@ export default function ColeccionPage() {
 function Collection() {
   const ownedCards = useGameStore((s) => s.ownedCards);
   const rosterVersion = useRosterStore((s) => s.version);
-  const grouped = useMemo(() => groupCollection(ownedCards), [ownedCards]);
-  const stats = collectionStats(ownedCards);
+  // El motor proyecta catálogo+propiedad a CardViews (cache interna). rosterVersion fuerza
+  // reconstrucción cuando el catálogo vivo (CARDS) cambia tras un sync de roster.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const engine = useMemo(() => new CollectionEngine(ownedCards), [ownedCards, rosterVersion]);
+  const stats = useMemo(() => engineProgress(engine.registry, engine.ownership()), [engine]);
   const ownedIds = useMemo(() => new Set(ownedCards.map((o) => o.cardId)), [ownedCards]);
   const collections = useMemo(() => regionCollections(), [rosterVersion]);
 
@@ -53,32 +60,23 @@ function Collection() {
   const [ownership, setOwnership] = useState<Ownership>("todas");
   const [sort, setSort] = useState<SortKey>("rarity");
   const [detailId, setDetailId] = useState<string | null>(null);
+  // FORJA (Consolidation F1.1): el Craft Engine, por fin accesible desde la colección.
+  const [view, setView] = useState<"cartas" | "forja">("cartas");
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    let list = CARDS.filter((card) => {
-      const player = getPlayer(card.playerId);
-      const variant = getVariant(card.variantId);
-      if (!player) return false;
-      if (region !== "Todas" && player.region !== region) return false;
-      if (group !== "todos" && variant.group !== group) return false;
-      const isOwned = grouped.has(card.id);
-      if (ownership === "owned" && !isOwned) return false;
-      if (ownership === "missing" && isOwned) return false;
-      if (q && !player.nick.toLowerCase().includes(q) && !player.team.toLowerCase().includes(q))
-        return false;
-      return true;
+    const views = applyFilter(engine.views(), {
+      text: query.trim() || undefined,
+      regions: region !== "Todas" ? [region] : undefined,
+      groups: group !== "todos" ? [group] : undefined,
+      owned: ownership === "owned" ? true : ownership === "missing" ? false : undefined,
+      includeHidden: true, // la rejilla muestra también las no poseídas (en gris)
     });
-
-    list = list.sort((a, b) => {
-      if (sort === "ovr") return b.ovr - a.ovr;
-      if (sort === "rarity") return getVariant(b.variantId).rank - getVariant(a.variantId).rank;
-      const pa = getPlayer(a.playerId)!.nick;
-      const pb = getPlayer(b.playerId)!.nick;
-      return pa.localeCompare(pb);
-    });
-    return list;
-  }, [query, region, group, ownership, sort, grouped, rosterVersion]);
+    const spec: SortSpec =
+      sort === "ovr" ? { key: "ovr", dir: "desc" }
+      : sort === "rarity" ? { key: "rank", dir: "desc" }
+      : { key: "name", dir: "asc" };
+    return sortViews(views, spec);
+  }, [engine, query, region, group, ownership, sort]);
 
   return (
     <section className="animate-rise">
@@ -104,6 +102,17 @@ function Collection() {
           </div>
         </div>
       </header>
+
+      {/* Pestañas Colección / Forja */}
+      <div className="mb-5 flex gap-1.5">
+        <Chip active={view === "cartas"} onClick={() => setView("cartas")}>📚 Cartas</Chip>
+        <Chip active={view === "forja"} onClick={() => setView("forja")}>⚒️ Forja</Chip>
+      </div>
+
+      {view === "forja" && <ForgePanel />}
+
+      {view === "cartas" && (<>
+
 
       {/* Colecciones por región (auto-generadas) */}
       <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -178,34 +187,34 @@ function Collection() {
         <p className="py-16 text-center text-white/40">No hay cartas con estos filtros.</p>
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {filtered.map((card) => {
-            const entry = grouped.get(card.id);
-            const owned = !!entry;
+          {filtered.map((v) => {
+            const def = getCard(v.cardId);
+            if (!def) return null;
             return (
               <button
-                key={card.id}
-                onClick={() => owned && setDetailId(card.id)}
+                key={v.cardId}
+                onClick={() => v.owned && setDetailId(v.cardId)}
                 className={cn(
                   "relative text-left transition",
-                  owned ? "cursor-pointer hover:-translate-y-1" : "cursor-default",
+                  v.owned ? "cursor-pointer hover:-translate-y-1" : "cursor-default",
                 )}
               >
-                <div className={cn(!owned && "opacity-30 grayscale")}>
+                <div className={cn(!v.owned && "opacity-30 grayscale")}>
                   <PlayerCard
-                    card={card}
+                    card={def}
                     size="sm"
                     interactive={false}
-                    serial={entry?.instances[0]?.serial}
+                    serial={v.bestSerial ?? undefined}
                   />
                 </div>
-                {!owned && (
+                {!v.owned && (
                   <div className="absolute inset-0 grid place-items-center">
                     <span className="text-2xl">🔒</span>
                   </div>
                 )}
-                {entry && entry.count > 1 && (
+                {v.count > 1 && (
                   <span className="absolute right-1 top-1 rounded-full bg-drl px-1.5 py-0.5 font-display text-[10px] font-bold text-white shadow-glow">
-                    x{entry.count}
+                    x{v.count}
                   </span>
                 )}
               </button>
@@ -213,6 +222,7 @@ function Collection() {
           })}
         </div>
       )}
+      </>)}
 
       {/* Modal de detalle */}
       <AnimatePresence>
@@ -252,6 +262,9 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
   const router = useRouter();
   const ownedCards = useGameStore((s) => s.ownedCards);
   const quickSell = useGameStore((s) => s.quickSell);
+  const lockedUids = useGameStore((s) => s.lockedUids);
+  const lockCard = useGameStore((s) => s.lockCard);
+  const unlockCard = useGameStore((s) => s.unlockCard);
   const listForSale = useMarketStore((s) => s.listForSale);
   const ensureSeeded = useMarketStore((s) => s.ensureSeeded);
   const priceHistory = useMarketStore((s) => s.priceHistory);
@@ -290,7 +303,7 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
     <CardViewer
       card={def}
       serial={entry.instances[0]?.serial}
-      ownership={{ owned: true, count: entry.count, locked: false }}
+      ownership={{ owned: true, count: entry.count, locked: entry.instances.some((i) => lockedUids.includes(i.uid)) }}
       priceSeries={priceSeries}
       actions={actions}
       onClose={onClose}
@@ -313,8 +326,17 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
                   </span>
                   <div className="flex shrink-0 gap-1.5">
                     <button
+                      onClick={() => (lockedUids.includes(inst.uid) ? unlockCard(inst.uid) : lockCard(inst.uid))}
+                      title={lockedUids.includes(inst.uid) ? "Desbloquear (permitir venta/forja)" : "Bloquear (proteger de venta/forja)"}
+                      aria-label={lockedUids.includes(inst.uid) ? "Desbloquear carta" : "Bloquear carta"}
+                      className="rounded-lg border border-white/15 px-2 py-1 text-xs transition hover:bg-white/10"
+                    >
+                      {lockedUids.includes(inst.uid) ? "🔒" : "🔓"}
+                    </button>
+                    <button
                       onClick={() => startSell(inst.uid, inst.serial)}
-                      className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-3 py-1 font-display text-xs uppercase text-white shadow-glow transition hover:brightness-110"
+                      disabled={lockedUids.includes(inst.uid)}
+                      className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-3 py-1 font-display text-xs uppercase text-white shadow-glow transition hover:brightness-110 disabled:opacity-40"
                     >
                       Vender en Mercado
                     </button>
@@ -323,7 +345,8 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
                         quickSell(inst.uid);
                         if (entry.count <= 1) onClose();
                       }}
-                      className="rounded-lg border border-drl-gold/40 bg-drl-gold/10 px-3 py-1 font-display text-xs uppercase text-drl-gold transition hover:bg-drl-gold/20"
+                      disabled={lockedUids.includes(inst.uid)}
+                      className="rounded-lg border border-drl-gold/40 bg-drl-gold/10 px-3 py-1 font-display text-xs uppercase text-drl-gold transition hover:bg-drl-gold/20 disabled:opacity-40"
                     >
                       Rápida 🪙 {formatCredits(quickSellValue(def, inst.serial))}
                     </button>

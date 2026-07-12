@@ -24,8 +24,10 @@ import { makeRng, seedOf } from "./rng";
  * Avanza el mundo UNA temporada. Devuelve los eventos y noticias generados.
  *
  * `opts.skipTransferMarket`: no ejecuta el mercado interno de fichajes (lo asume la capa
- * interactiva de la carrera, `src/market`, que ya movió el mercado con el club del usuario
- * blindado). ADITIVO: sin opts se comporta EXACTAMENTE igual (mundo autónomo `/mundo`).
+ * completa `src/market::runAiMarket`, que REUTILIZA `runTransferMarket` como mecanismo).
+ * MERCADO ÚNICO (Consolidation F1.1): en producto, TODOS los avances de temporada pasan por
+ * `runAiMarket` + `advanceWorld({skipTransferMarket:true})` (useWorldStore/useManagerStore).
+ * El camino sin opts queda como mecanismo de bajo nivel para verifies/headless.
  * `opts.protectTeamId`: blinda al club del usuario si el mercado interno sí corre.
  */
 export function advanceWorld(

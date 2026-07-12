@@ -15,7 +15,7 @@ export { clubDirectives } from "./directives";
 export { detectRivalries, rivalriesOf, applyRivalryEffects } from "./rivalries";
 export { globalEconomy, applyEconomy } from "./economy";
 export { mediaDigest } from "./media";
-export { socialTrends, applySocial, playerHype } from "./social";
+export { socialTrends, applySocial } from "./social";
 export { deriveCompetitions, runCompetitions } from "./competitions";
 export { runGlobalEcosystem, legacyNews } from "./ecosystem";
 export { legacyDashboard } from "./dashboard";

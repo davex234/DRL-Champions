@@ -5,7 +5,7 @@
  */
 import type { Rng } from "../rng";
 import { dist } from "../geometry";
-import { iglLatencyTicks, flashBlindTicks } from "../attributes";
+import { iglLatencyTicks, flashBlindTicks, applyBlind } from "../attributes";
 import {
   ATTACK_STAGING, DEFENSE_HOLDS, ZONES, type ZoneId,
 } from "../map/ascentA";
@@ -83,7 +83,7 @@ function doExecute(s: RoundState, rng: Rng): void {
   s.events.push({ tick: s.tick, type: "util", data: { by: support.id, kind: "flash", blind } });
   for (const d of alive(s, "DEF")) {
     if (dist(d.pos, ZONES.a_main_choke) < 220 || dist(d.pos, ZONES.site) < 200) {
-      d.flashedUntil = Math.max(d.flashedUntil, s.tick + Math.round(blind * (rng.next() * 0.4 + 0.8)));
+      applyBlind(d, s.tick, blind, rng);
     }
   }
 }
@@ -104,7 +104,7 @@ function handleRetakeUtil(s: RoundState, rng: Rng): void {
   s.events.push({ tick: s.tick, type: "util", data: { by: support.id, kind: "flash-retake", blind } });
   for (const a of alive(s, "ATK")) {
     if (dist(a.pos, s.spike.pos) < 180) {
-      a.flashedUntil = Math.max(a.flashedUntil, s.tick + Math.round(blind * (rng.next() * 0.4 + 0.8)));
+      applyBlind(a, s.tick, blind, rng);
     }
   }
 }
