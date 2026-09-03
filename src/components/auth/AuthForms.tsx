@@ -18,7 +18,9 @@ export function AuthForms() {
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
   const [busy, setBusy] = useState(false);
 
-  async function submit() {
+  async function submit(e?: React.FormEvent) {
+    e?.preventDefault();
+    if (busy) return;
     setBusy(true);
     setMsg(null);
     let res: { error?: string } = {};
@@ -41,6 +43,7 @@ export function AuthForms() {
         ] as [Mode, string][]).map(([m, label]) => (
           <button
             key={m}
+            type="button"
             onClick={() => { setMode(m); setMsg(null); }}
             className={cn(
               "flex-1 rounded-lg px-3 py-2 font-display text-sm uppercase tracking-wide transition",
@@ -52,7 +55,9 @@ export function AuthForms() {
         ))}
       </div>
 
-      <div className="space-y-3">
+      {/* Formulario de verdad: pulsar Intro en cualquier campo envía, que es lo que
+          todo el mundo hace por reflejo al escribir la contraseña. */}
+      <form className="space-y-3" onSubmit={submit}>
         {mode === "register" && (
           <input className={inputCls} placeholder="Nombre de usuario" value={username} onChange={(e) => setUsername(e.target.value)} />
         )}
@@ -66,13 +71,13 @@ export function AuthForms() {
         )}
 
         <button
-          onClick={submit}
+          type="submit"
           disabled={busy}
           className="w-full rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-4 py-3 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition enabled:hover:brightness-110 disabled:opacity-50"
         >
-          {busy ? "…" : mode === "login" ? "Entrar" : mode === "register" ? "Crear cuenta" : "Enviar enlace"}
+          {busy ? "Un momento…" : mode === "login" ? "Entrar" : mode === "register" ? "Crear cuenta" : "Enviar enlace"}
         </button>
-      </div>
+      </form>
     </div>
   );
 }

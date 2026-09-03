@@ -1,4 +1,5 @@
 import type { VariantDef, VariantId, RarityPalette } from "./types";
+import type { StatBoostStep } from "./combat";
 
 /** Paletas reutilizables por familia visual. */
 const PALETTES = {
@@ -141,6 +142,35 @@ export const VARIANTS: Record<VariantId, VariantDef> = {
   "top-assist": { id: "top-assist", label: "Top Assist", group: "exclusiva", animation: "extended", rank: 11, statBoost: 4, serialized: true, serialLimit: 150, palette: PALETTES.prime },
   clutch: { id: "clutch", label: "Clutch King", group: "exclusiva", animation: "special", rank: 12, statBoost: 5, serialized: true, serialLimit: 120, palette: PALETTES.mvp },
 };
+
+/**
+ * ESCALERA DE STATBOOST — configuración ÚNICA (Fase 2).
+ *
+ * El bonus de una variante se DERIVA de su `rank`, nunca se escribe suelto en cada entrada: así
+ * es imposible que dos variantes del mismo prestigio acaben con bonus distintos por descuido, y
+ * añadir una edición nueva solo exige elegir bien su rank.
+ *
+ * Los seis escalones (0/2/4/6/9/12) son decisión de producto K-04, validada en Fase 1.2 §18:
+ * producen saltos de OVR perceptibles (1,1,2,2,2) y dejan la franja 90-99 para la élite.
+ */
+export const STAT_BOOST_BY_RANK: { maxRank: number; boost: StatBoostStep }[] = [
+  { maxRank: 3, boost: 0 },   // metales base: bronce, plata, oro
+  { maxRank: 5, boost: 2 },   // regionales e internacionales de participación
+  { maxRank: 8, boost: 4 },   // ganadores regionales e internacionales
+  { maxRank: 11, boost: 6 },  // MVP regionales, Prime, Rookie, Game Changers, Top-*
+  { maxRank: 13, boost: 9 },  // MVP internacionales, Champions MVP, Champion Edition, Clutch
+  { maxRank: Infinity, boost: 12 }, // Icon Series, Hall of Fame, Mythic
+];
+
+/** Bonus de una variante a partir de su rank. Única función que decide un statBoost. */
+export function statBoostForRank(rank: number): StatBoostStep {
+  for (const step of STAT_BOOST_BY_RANK) if (rank <= step.maxRank) return step.boost;
+  return 12;
+}
+
+// Normalización en el arranque del módulo: el `statBoost` literal de cada entrada queda
+// SUSTITUIDO por el derivado del rank. Es lo que garantiza que no haya valores dispersos.
+for (const v of Object.values(VARIANTS)) v.statBoost = statBoostForRank(v.rank);
 
 export const ALL_VARIANTS: VariantDef[] = Object.values(VARIANTS);
 

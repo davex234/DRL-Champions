@@ -9,6 +9,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ADMIN_ENABLED } from "@/config/admin";
+import { adminFetch, adminDownload } from "@/lib/supabase/adminClient";
 import { cn } from "@/lib/format";
 import type {
   DashboardData, ReleaseEntry, ProviderStatus, HealthItem, HealthLevel, ReleaseStatus, DistributionData,
@@ -84,7 +85,7 @@ function Dashboard() {
   const load = useCallback(async () => {
     setLoading(true); setError(null);
     try {
-      const res = await fetch("/api/admin/releases", { cache: "no-store" });
+      const res = await adminFetch("/api/admin/releases", { cache: "no-store" });
       if (!res.ok) throw new Error(`API ${res.status}`);
       setData(await res.json());
     } catch (e) {
@@ -517,7 +518,7 @@ function DetailDrawer({ release: r, onClose, onRollback }: { release: ReleaseEnt
                   <p className="truncate text-[10px] text-white/35">{fmtBytes(f.size)} · {shortHash(f.sha256)}</p>
                 </div>
                 <div className="flex shrink-0 gap-1">
-                  <a href={dl(f.name)} className="rounded border border-white/15 px-2 py-0.5 text-white/70 hover:bg-white/10">Descargar</a>
+                  <button type="button" onClick={() => adminDownload(dl(f.name), f.name)} className="rounded border border-white/15 px-2 py-0.5 text-white/70 hover:bg-white/10">Descargar</button>
                   <button onClick={() => copyUrl(f)} className="rounded border border-white/15 px-2 py-0.5 text-white/70 hover:bg-white/10">{copied === f.name ? "✓" : "URL"}</button>
                 </div>
               </div>
@@ -552,7 +553,7 @@ function DetailDrawer({ release: r, onClose, onRollback }: { release: ReleaseEnt
               Preparar Rollback
             </button>
           )}
-          <a href={dl("release-report.json")} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">Descargar report</a>
+          <button type="button" onClick={() => adminDownload(dl("release-report.json"), "release-report.json")} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">Descargar report</button>
         </div>
       </motion.aside>
     </motion.div>
@@ -581,7 +582,7 @@ function RollbackModal({ target, current, allReleases, onClose, onDone }: { targ
   const loadPlan = useCallback(async (toFull: string) => {
     setStep("loading"); setErr(null);
     try {
-      const res = await fetch("/api/admin/releases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "plan", channel, toFull }) });
+      const res = await adminFetch("/api/admin/releases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "plan", channel, toFull }) });
       const p = await res.json();
       if (!res.ok) throw new Error(p.error ?? "plan falló");
       setPlan(p); setStep("plan");
@@ -593,7 +594,7 @@ function RollbackModal({ target, current, allReleases, onClose, onDone }: { targ
     setStep("running"); setActivePhase(0);
     const timer = setInterval(() => setActivePhase((i) => Math.min(i + 1, RB_PHASES.length - 2)), 450);
     try {
-      const res = await fetch("/api/admin/releases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "rollback", channel, toFull: selectedFull, reason }) });
+      const res = await adminFetch("/api/admin/releases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "rollback", channel, toFull: selectedFull, reason }) });
       const r: RollbackResult & { error?: string } = await res.json();
       clearInterval(timer);
       setResult(r);

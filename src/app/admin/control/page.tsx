@@ -8,6 +8,7 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ADMIN_ENABLED } from "@/config/admin";
+import { adminFetch, adminDownload } from "@/lib/supabase/adminClient";
 import { cn } from "@/lib/format";
 import type { DashboardData } from "@/server/releases/types";
 import { buildControlCenter, type ControlCenterData, type LogCategory, type CcAlert } from "@/server/releases/control";
@@ -38,7 +39,7 @@ function ControlCenter() {
 
   const load = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/releases", { cache: "no-store" });
+      const res = await adminFetch("/api/admin/releases", { cache: "no-store" });
       if (!res.ok) throw new Error(`API ${res.status}`);
       setData(await res.json()); setError(null);
     } catch (e) { setError(e instanceof Error ? e.message : String(e)); }
@@ -56,7 +57,7 @@ function ControlCenter() {
     if (confirmMsg && !window.confirm(confirmMsg)) return;
     setBusy(label);
     try {
-      const res = await fetch("/api/admin/releases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+      const res = await adminFetch("/api/admin/releases", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
       const r = await res.json();
       const ok = res.ok && (r.ok ?? r.ready ?? true);
       setFlash({ ok, msg: ok ? `${label}: OK` : `${label}: ${r.error ?? r.code ?? "falló"}` });
@@ -378,7 +379,7 @@ function History({ cc, busy, act }: { cc: ControlCenterData; busy: string | null
                 <td className="px-2 py-1.5 font-mono text-[10px] text-white/45">{r.commit ?? "—"}</td>
                 <td className="px-2 py-1.5">
                   <div className="flex gap-1">
-                    {inst && <a href={`/api/admin/releases?download=${encodeURIComponent(r.channel)}/${encodeURIComponent(inst.name)}`} className="rounded border border-white/15 px-1.5 py-0.5 text-[10px] text-white/60 hover:bg-white/10">Ver</a>}
+                    {inst && <button type="button" onClick={() => adminDownload(`/api/admin/releases?download=${encodeURIComponent(r.channel)}/${encodeURIComponent(inst.name)}`, inst.name)} className="rounded border border-white/15 px-1.5 py-0.5 text-[10px] text-white/60 hover:bg-white/10">Ver</button>}
                     {r.rollbackAvailable && <button disabled={!!busy} onClick={() => act("Rollback", { action: "rollback", channel: r.channel, toFull: r.full }, `¿Rollback a ${r.full}?`)} className="rounded border border-amber-400/40 px-1.5 py-0.5 text-[10px] text-amber-200 hover:bg-amber-400/10 disabled:opacity-40">Rollback</button>}
                     {r.channel === "beta" && r.isCurrent && <button disabled={!!busy} onClick={() => act("Promover", { action: "promote", channel: "beta", toChannel: "stable" }, "¿Promover beta → stable?")} className="rounded border border-drl-cyan/40 px-1.5 py-0.5 text-[10px] text-drl-cyan hover:bg-drl-cyan/10 disabled:opacity-40">Promocionar</button>}
                   </div>

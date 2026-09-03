@@ -10,7 +10,10 @@ import { BP_SCHEMA_VERSION, type PassState, type SeasonDef, type ArchivedSeason 
 export function freshPassState(seasonId: string): PassState {
   return {
     version: BP_SCHEMA_VERSION, seasonId, xp: 0, premium: false, boost: 1, autoClaim: false,
-    claimedFree: [], claimedPremium: [], missions: [], missionsCompleted: 0, archive: [],
+    claimedFree: [], claimedCompetitive: [], claimedPremium: [],
+    // El carril competitivo arranca cerrado: lo abre el servidor al comprobar el rango.
+    competitiveUnlocked: false,
+    missions: [], missionsCompleted: 0, archive: [],
   };
 }
 
@@ -19,7 +22,9 @@ export function snapshotSeason(state: PassState, season: SeasonDef, now: number)
   const level = levelProgress(state.xp, season).level;
   return {
     seasonId: state.seasonId, name: season.name, level, xp: state.xp,
-    claimedFree: state.claimedFree.length, claimedPremium: state.claimedPremium.length,
+    claimedFree: state.claimedFree.length,
+    claimedCompetitive: state.claimedCompetitive.length,
+    claimedPremium: state.claimedPremium.length,
     premium: state.premium, missionsCompleted: state.missionsCompleted, endedAt: now,
   };
 }

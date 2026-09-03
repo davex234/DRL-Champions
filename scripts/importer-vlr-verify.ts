@@ -230,7 +230,12 @@ ${rows}
 </table>
 </div>`;
 
-const mapBlock = (gameId: string, mapName: string, sLeft: number, sRight: number, pickedMod: 1 | 2): string => `
+/** Los dos scoreboards (local, visitante) con el markup en <table> de siempre. */
+const legacyScoreboards = (): string =>
+  sbTable(LIONS.map((p, i) => sbRow(9001 + i, p, "LLN", "gb", i === 0 ? "jett" : "kayo", i)).join(""))
+  + "\n" + sbTable(WOLVES.map((p, i) => sbRow(9011 + i, p, "MWV", "es", i === 0 ? "omen" : "sova", 5 + i)).join(""));
+
+const mapBlock = (gameId: string, mapName: string, sLeft: number, sRight: number, pickedMod: 1 | 2, scoreboards: string = legacyScoreboards()): string => `
 <div class="vm-stats-game " data-game-id="${gameId}">
 <div class="vm-stats-game-header">
 <div class="team">
@@ -269,8 +274,7 @@ Madrid Wolves</div>
 <div class="vlr-rounds-row"><div class="vlr-rounds-row-col"><div class="team"><img src="//x.png">LLN</div></div></div>
 </div>
 </div>
-${sbTable(LIONS.map((p, i) => sbRow(9001 + i, p, "LLN", "gb", i === 0 ? "jett" : "kayo", i)).join(""))}
-${sbTable(WOLVES.map((p, i) => sbRow(9011 + i, p, "MWV", "es", i === 0 ? "omen" : "sova", 5 + i)).join(""))}
+${scoreboards}
 </div>`;
 
 const MATCH1_HTML = `<!DOCTYPE html>
@@ -319,6 +323,82 @@ ${mapBlock("777001", "Ascent", 13, 7, 1)}
 ${mapBlock("777002", "Bind", 13, 11, 2)}
 </div>
 </body></html>`;
+
+/*
+ * ─────────────────────── MARKUP ACTUAL DEL SCOREBOARD (div.ovw-*) ───────────────────────
+ *
+ * Todo lo de arriba usa el markup de scoreboard en <table> (mod-overview). vlr.gg lo sustituyó
+ * por uno de <div> —no queda ni un <table> en la página de partido— y como estas verificaciones
+ * son 100% offline, siguieron en verde mientras el conector real devolvía CERO filas de
+ * scoreboard. El pipeline entero terminaba correctamente con todas las métricas por jugador a
+ * cero: sin líderes, sin premios y sin cartas de rendimiento.
+ *
+ * Este bloque fija el markup ACTUAL, copiado de una página real de vlr.gg (los nombres y los
+ * números son de fixture; la ESTRUCTURA es la de la página). Las celdas se identifican por
+ * `data-col` —no por posición— y K/D/A van anidados en spans ovw-kda-stat.
+ */
+const OVW_COLS = ["rating2", "acs", "kd-diff", "kast", "adr", "hsp", "fb", "fd", "fk-diff"] as const;
+
+const ovwCell = (col: string, value: string): string =>
+  `<div class="ovw-cell" data-col="${col}"><span class="stats-sq"><span class="side mod-both">${value}</span><span class="side mod-t">0</span><span class="side mod-ct">0</span></span></div>`;
+
+const ovwKda = (k: number, d: number, a: number): string =>
+  `<div class="ovw-cell mod-kda"><span class="stats-sq mod-kda">`
+  + `<span class="ovw-kda-stat" data-col="kills"><span class="side mod-both">${k}</span><span class="side mod-t">0</span></span><span class="num-space">/</span>`
+  + `<span class="ovw-kda-stat" data-col="deaths"><span class="side mod-both">${d}</span><span class="side mod-t">0</span></span><span class="num-space">/</span>`
+  + `<span class="ovw-kda-stat" data-col="assists"><span class="side mod-both">${a}</span><span class="side mod-t">0</span></span>`
+  + `</span></div>`;
+
+/** Una fila del scoreboard actual. El orden de las celdas se altera a propósito (ver más abajo). */
+const ovwRow = (id: number, nick: string, tag: string, cc: string, agent: string, i: number): string => `
+<div class="ovw-row">
+<div class="ovw-cell mod-player">
+<div class="ovw-player">
+<i class="flag mod-${cc}" title="País"></i>
+<a href="/player/${id}/${nick.toLowerCase()}">
+<div class="ovw-player-name text-of">${nick}</div>
+<div class="ovw-player-tag ge-text-light">${tag}</div>
+</a>
+</div>
+<div class="ovw-agents">
+<span class="stats-sq mod-agent small"><img src="/img/vlr/game/agents/${agent}.png" alt="${agent}" title="${agentName(agent)}"></span>
+</div>
+</div>
+${ovwCell("rating2", `1.${10 + i}`)}
+${ovwCell("acs", String(210 + i * 5))}
+${ovwKda(15 + i, 10 + i, 3 + i)}
+${ovwCell("kd-diff", `+${5 - i}`)}
+${ovwCell("kast", `${68 + i}%`)}
+${ovwCell("adr", `${150 + i}.0`)}
+${ovwCell("hsp", `${22 + i}%`)}
+${ovwCell("fb", String(2 + (i % 3)))}
+${ovwCell("fd", String(1 + (i % 2)))}
+${ovwCell("fk-diff", "+1")}
+</div>`;
+
+const ovwTable = (rows: string): string => `
+<div class="ovw-scroll-wrap"><div class="ovw-scroll js-drag-scroll"><div class="ovw-table">
+<div class="ovw-row mod-head">
+<div class="ovw-th"></div>
+${OVW_COLS.map((c) => `<div class="ovw-th ovw-sort js-ovw-sort" data-col="${c}">${c}</div>`).join("")}
+</div>
+${rows}
+</div></div></div>`;
+
+/** Los dos scoreboards con el markup ACTUAL (div.ovw-table). */
+const ovwScoreboards = (): string =>
+  ovwTable(LIONS.map((p, i) => ovwRow(9001 + i, p, "LLN", "gb", i === 0 ? "jett" : "kayo", i)).join(""))
+  + "\n" + ovwTable(WOLVES.map((p, i) => ovwRow(9011 + i, p, "MWV", "es", i === 0 ? "omen" : "sova", 5 + i)).join(""));
+
+/** Página de partido idéntica a MATCH1 salvo en el markup del scoreboard (div en vez de tabla). */
+const MATCH1_OVW_HTML = MATCH1_HTML
+  .replace(mapBlock("777001", "Ascent", 13, 7, 1), mapBlock("777001", "Ascent", 13, 7, 1, ovwScoreboards()))
+  .replace(mapBlock("777002", "Bind", 13, 11, 2), mapBlock("777002", "Bind", 13, 11, 2, ovwScoreboards()));
+
+/** La misma página SIN ningún scoreboard: mapas sí, filas no (el fallo silencioso a detectar). */
+const MATCH1_NO_SB_HTML = MATCH1_HTML
+  .replace(mapBlock("777001", "Ascent", 13, 7, 1), mapBlock("777001", "Ascent", 13, 7, 1, ""))
+  .replace(mapBlock("777002", "Bind", 13, 11, 2), mapBlock("777002", "Bind", 13, 11, 2, ""));
 
 const EVENTS_LIST_HTML = `<html><body>
 <a href="/event/2765/valorant-masters-london-2026" class="wf-card"></a>
@@ -421,6 +501,35 @@ async function main(): Promise<void> {
   check("porcentajes en [0,100], nunca NaN", stats.every((s) =>
     [s.kast, s.hsPct].every((v) => v == null || (v >= 0 && v <= 100))
     && [s.acs, s.kills, s.deaths, s.assists, s.adr, s.rating, s.fk, s.fd].every((v) => v == null || Number.isFinite(v))));
+
+  /*
+   * 6-bis) EL MARKUP ACTUAL DEL SCOREBOARD, Y EL AVISO CUANDO NO SE ENTIENDE.
+   *
+   * Los checks de arriba usan el scoreboard en <table>. vlr.gg lo cambió a <div> y estas
+   * verificaciones —offline— siguieron en verde mientras el conector real devolvía 0 filas.
+   * Aquí se exige lo único que lo habría detectado: que el markup ACTUAL dé exactamente las
+   * mismas filas, y que "mapas sin scoreboard" deje de ser silencioso.
+   */
+  console.log("\n## 6-bis. Scoreboard: markup actual (div.ovw-*) y aviso de markup no entendido");
+  const outOvw = await importVlrTournament(EVENT_URL, {
+    fetcher: async (url) => (url === M1_URL ? MATCH1_OVW_HTML : fetcher(url)),
+  });
+  const statsOvw = outOvw.snapshot.mapStats ?? [];
+  check("el markup actual también da 10 jugadores × 2 mapas", statsOvw.length === 20, `${statsOvw.length} filas`);
+  check("markup actual ⇒ MISMAS estadísticas que el legacy (celdas por nombre, no por posición)",
+    JSON.stringify(statsOvw) === JSON.stringify(stats));
+  check("markup actual: mapas y marcadores intactos",
+    JSON.stringify(outOvw.snapshot.maps) === JSON.stringify(snap.maps));
+
+  const outNoSb = await importVlrTournament(EVENT_URL, {
+    fetcher: async (url) => (url === M1_URL ? MATCH1_NO_SB_HTML : fetcher(url)),
+  });
+  check("mapas sin scoreboard ⇒ 0 filas (no se inventa nada)", (outNoSb.snapshot.mapStats ?? []).length === 0);
+  check("mapas sin scoreboard ⇒ AVISO explícito (deja de ser un fallo silencioso)",
+    outNoSb.warnings.some((w) => w.includes("NINGUNA fila de scoreboard")),
+    outNoSb.warnings.join(" · "));
+  check("con scoreboards NO se avisa (el aviso no es ruido)",
+    !out.warnings.some((w) => w.includes("NINGUNA fila de scoreboard")));
 
   // 7) RAWSNAPSHOT VÁLIDO + COMPATIBILIDAD CON EL IMPORTER
   console.log("\n## 7. RawSnapshot válido y compatible con el Importer");

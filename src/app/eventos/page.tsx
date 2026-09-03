@@ -1,5 +1,42 @@
 "use client";
 
+/**
+ * EVENTOS — la capa de evento en vivo (estilo FUT), auditada en la Fase 10.
+ *
+ * ────────────────────────── LO QUE LA AUDITORÍA ENCONTRÓ ──────────────────────────
+ *
+ * Esta pantalla funciona sobre `useEventsStore`: un store de zustand **persistido en
+ * `localStorage`** con su propia economía —fichas, misiones, pase de evento y tienda— que
+ * concede recompensas escribiendo en `useGameStore`, que también es local.
+ *
+ * Con sesión iniciada eso NO se sostiene. Desde la Fase B la propiedad de cartas, el saldo
+ * y las fichas viven en el servidor (`user_cards`, `profiles`), y `CloudSync` sobrescribe
+ * el store local con el estado del servidor en cada arranque. Es decir: **una recompensa
+ * de evento reclamada con la cuenta iniciada desaparece en la siguiente sincronización.**
+ *
+ * Es exactamente el mismo fallo que la Fase A documentó para el mercado global (BUG-01) y
+ * que la Fase B resolvió apagando la venta rápida online en lugar de dejarla
+ * desincronizar.
+ *
+ * ────────────────────────── QUÉ SE HACE EN LA FASE 10 ──────────────────────────
+ *
+ * **No se borra nada.** El motor de eventos, sus misiones, su pase, su tienda y su
+ * catálogo (`data/events.ts`) quedan intactos y siguen funcionando en el modo local sin
+ * cuenta, que es un modo legítimo del producto.
+ *
+ * Lo que se hace es DECIRLO: con sesión, las acciones que conceden se deshabilitan con su
+ * motivo escrito y se señala dónde está la progresión que sí es real —el pase de
+ * temporada de `/logros`, que es server-authoritative desde la Fase 9E—.
+ *
+ * Un botón que paga con dinero que se va a borrar es peor que un botón apagado.
+ *
+ * ────────────────────────── LA RUTA DE SALIDA ──────────────────────────
+ *
+ * Está escrita en `docs/product/game-loop.md`: portar el evento al servidor es llevar
+ * misiones y tienda a la ruta única de recompensa (`server/services/rewards`) y sus
+ * métricas a `metricsFor`, igual que se hizo con el pase de temporada. La infraestructura
+ * ya existe; lo que falta es el trabajo de migración, no el diseño.
+ */
 import { useEffect, useState } from "react";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { Toast } from "@/components/ui/Toast";
@@ -15,6 +52,9 @@ import { passProgress, passRewardForLevel } from "@/domain/events/pass";
 import { DAILY_REWARDS } from "@/domain/events/daily";
 import type { EventDef } from "@/domain/events/types";
 import { formatCredits, cn } from "@/lib/format";
+import { useAuth } from "@/lib/supabase/auth";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
+import Link from "next/link";
 
 export default function EventosPage() {
   return (
@@ -23,6 +63,21 @@ export default function EventosPage() {
     </HydrationGate>
   );
 }
+
+/**
+ * ¿Hay cuenta iniciada?
+ *
+ * Un solo sitio lo decide y todos los paneles lo consultan. Con cuenta, este evento —que
+ * vive en `localStorage`— no puede conceder nada: el servidor sobrescribiría el resultado.
+ */
+function useOnline(): boolean {
+  const { user } = useAuth();
+  return isSupabaseConfigured() && !!user;
+}
+
+/** Motivo, escrito una vez, de por qué un botón de reclamar está apagado con cuenta. */
+const OFFLINE_ONLY =
+  "Con tu cuenta iniciada la economía la lleva el servidor: esta recompensa se borraría al sincronizar. Tu progresión real está en Progreso.";
 
 function Events() {
   const { toast, notify } = useToast();
@@ -37,14 +92,51 @@ function Events() {
   const [selId, setSelId] = useState<string | null>(null);
   const selected = getEvent(selId ?? active[0]?.id ?? EVENTS[0].id)!;
 
+  /*
+   * ¿Hay cuenta? Con sesión, la economía la manda el servidor y este evento es local: sus
+   * recompensas se borrarían en la siguiente sincronización. Se apagan las acciones que
+   * conceden y se dice por qué. Sin sesión, el evento funciona entero.
+   */
+  const online = useOnline();
+
   return (
     <section className="animate-rise space-y-8">
       <header>
-        <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
+        <span className="nx-label">Tienda</span>
+        <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
           Centro de <span className="text-drl">Eventos</span>
         </h1>
-        <p className="mt-1 text-white/50">Misiones, recompensas y sobres exclusivos. Vuelve cada día.</p>
+        <p className="mt-2 max-w-2xl text-[15px] text-white/55">
+          Misiones, recompensas y sobres exclusivos. Vuelve cada día.
+        </p>
       </header>
+
+      {/*
+        AVISO DE AUTORIDAD (Fase 10). Con sesión iniciada, la economía la manda el
+        servidor y este evento vive en el navegador: reclamar aquí daría créditos y fichas
+        que la siguiente sincronización borraría. Se dice, y se señala dónde está la
+        progresión que sí cuenta.
+      */}
+      {online && (
+        <div
+          className="nx-clip-sm flex flex-wrap items-center gap-x-4 gap-y-2 border border-warn/35 bg-warn/[0.07] px-4 py-3"
+          role="status"
+        >
+          <span className="nx-label !text-warn">Solo lectura con tu cuenta</span>
+          <p className="min-w-0 flex-1 text-[13px] leading-snug text-white/65">
+            Este evento se guarda en este dispositivo, así que sus recompensas no se pueden
+            conceder mientras juegas con cuenta: el saldo y las cartas los lleva el servidor
+            y las sobrescribiría. Tu progresión real —pase de temporada, misiones y
+            logros— está en Progreso.
+          </p>
+          <Link
+            href="/logros"
+            className="nx-clip-sm shrink-0 border border-white/18 px-4 py-2 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/75 transition hover:border-white/40 hover:text-white"
+          >
+            Ir a Progreso
+          </Link>
+        </div>
+      )}
 
       <DailyStrip notify={notify} />
 
@@ -80,6 +172,7 @@ function Events() {
 
 /* ----------------------------- Recompensas diarias ----------------------------- */
 function DailyStrip({ notify }: { notify: (m: string, ok?: boolean) => void }) {
+  const online = useOnline();
   const daily = useEventsStore((s) => s.daily);
   const claimDaily = useEventsStore((s) => s.claimDaily);
   const now = Date.now();
@@ -101,7 +194,8 @@ function DailyStrip({ notify }: { notify: (m: string, ok?: boolean) => void }) {
           <p className="text-xs text-white/45">Racha actual: {daily.streak} día(s)</p>
         </div>
         <button
-          disabled={!canClaim}
+          disabled={!canClaim || online}
+          title={online ? OFFLINE_ONLY : undefined}
           onClick={() => {
             const res = claimDaily();
             if (res.ok) notify(`¡Día ${res.streak} reclamado!`, true);
@@ -211,6 +305,7 @@ function EventTabs({ event, notify }: { event: EventDef; notify: (m: string, ok?
 }
 
 function MissionsPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?: boolean) => void }) {
+  const online = useOnline();
   const progress = useEventsStore((s) => s.progress[event.id]) ?? {};
   const claimed = useEventsStore((s) => s.claimedMissions);
   const claimMission = useEventsStore((s) => s.claimMission);
@@ -236,7 +331,8 @@ function MissionsPanel({ event, notify }: { event: EventDef; notify: (m: string,
                 <span className="shrink-0 rounded-lg bg-drl-cyan/15 px-3 py-1.5 font-display text-xs uppercase text-drl-cyan">✓ Hecho</span>
               ) : (
                 <button
-                  disabled={!done}
+                  disabled={!done || online}
+                  title={online ? OFFLINE_ONLY : undefined}
                   onClick={() => {
                     claimMission(event.id, m.id);
                     notify("Recompensa de misión reclamada", true);
@@ -256,6 +352,7 @@ function MissionsPanel({ event, notify }: { event: EventDef; notify: (m: string,
 }
 
 function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?: boolean) => void }) {
+  const online = useOnline();
   const xp = useEventsStore((s) => s.passXp[event.id]) ?? 0;
   const claimedLevels = useEventsStore((s) => s.claimedPassLevels[event.id]) ?? [];
   const claimPassLevel = useEventsStore((s) => s.claimPassLevel);
@@ -300,6 +397,8 @@ function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
               <RewardChips reward={passRewardForLevel(event, lvl)} />
               {claimable && (
                 <button
+                  disabled={online}
+                  title={online ? OFFLINE_ONLY : undefined}
                   onClick={() => {
                     claimPassLevel(event.id, lvl);
                     notify(`Nivel ${lvl} del pase reclamado`, true);
@@ -318,6 +417,7 @@ function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
 }
 
 function ShopPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?: boolean) => void }) {
+  const online = useOnline();
   const tokens = useEventsStore((s) => s.tokens);
   const purchases = useEventsStore((s) => s.shopPurchases);
   const buyShopItem = useEventsStore((s) => s.buyShopItem);
@@ -343,7 +443,8 @@ function ShopPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
               <div className="mt-2"><RewardChips reward={item.reward} /></div>
               {item.stock != null && <p className="mt-1 text-[10px] uppercase tracking-widest text-white/35">{bought}/{item.stock} comprado</p>}
               <button
-                disabled={soldOut || !afford}
+                disabled={soldOut || !afford || online}
+                title={online ? OFFLINE_ONLY : undefined}
                 onClick={() => {
                   const res = buyShopItem(event.id, item.id);
                   notify(res.ok ? "¡Comprado!" : res.error ?? "Error", res.ok);
@@ -362,6 +463,7 @@ function ShopPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
 
 /* ----------------------------- Tareas semanales ----------------------------- */
 function WeeklyPanel({ notify }: { notify: (m: string, ok?: boolean) => void }) {
+  const online = useOnline();
   const seasonStart = useEventsStore((s) => s.seasonStart);
   const weeklyProgress = useEventsStore((s) => s.weeklyProgress);
   const claimedWeekly = useEventsStore((s) => s.claimedWeekly);
@@ -389,7 +491,8 @@ function WeeklyPanel({ notify }: { notify: (m: string, ok?: boolean) => void }) 
                   <span className="shrink-0 rounded-lg bg-drl-cyan/15 px-3 py-1.5 font-display text-xs uppercase text-drl-cyan">✓</span>
                 ) : (
                   <button
-                    disabled={!done}
+                    disabled={!done || online}
+                    title={online ? OFFLINE_ONLY : undefined}
                     onClick={() => {
                       claimWeekly(t.id);
                       notify("Tarea semanal reclamada", true);

@@ -29,3 +29,11 @@ export function formatCompact(n: number): string {
   if (n < 1_000_000) return `${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1).replace(".", ",")} K`;
   return `${(n / 1_000_000).toFixed(1).replace(".", ",")} M`;
 }
+
+/**
+ * «1 punto» / «2 puntos». En español el singular no es opcional, y la interfaz
+ * enseñaba «1 pts» en el primer escalón de recompensa, que es el que más se ve.
+ */
+export function plural(n: number, one: string, many: string): string {
+  return `${n} ${Math.abs(n) === 1 ? one : many}`;
+}

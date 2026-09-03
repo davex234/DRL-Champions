@@ -8,6 +8,15 @@ import type {
 
 type Result<T> = { data?: T; error?: string };
 
+/**
+ * BUG-10 — Los filtros `.or()` de PostgREST se construyen concatenando texto, así que un
+ * valor con comas o paréntesis puede alterar la expresión. Hoy `userId` viene siempre de
+ * la sesión y es un UUID, pero se valida igualmente para que el patrón no sea explotable
+ * el día que alguien pase un parámetro de usuario.
+ */
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const isUuid = (v: string): boolean => UUID_RE.test(v);
+
 /** Listados activos del mercado global (de todos los jugadores). */
 export async function fetchActiveListings(limit = 100): Promise<Listing[]> {
   const sb = getSupabase();
@@ -48,7 +57,7 @@ export async function fetchMyListings(userId: string): Promise<Listing[]> {
 
 export async function fetchMyTransactions(userId: string): Promise<Transaction[]> {
   const sb = getSupabase();
-  if (!sb) return [];
+  if (!sb || !isUuid(userId)) return [];
   const { data } = await sb
     .from("transactions")
     .select("*")

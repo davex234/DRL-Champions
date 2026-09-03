@@ -14,13 +14,13 @@ import {
   generateCards, makeGenerationId, DEFAULT_RULESET,
   type GeneratorCtx, type CardGenerationResult, type EditorialOverride, type CardStatus,
 } from "@/card-generator";
-import { cardsForPlayer, variantsForAccolade } from "@/data/catalog";
-import { applyStatBoost, computeOvr } from "@/domain/cards/ovr";
+import { cardsForPlayer, variantsForAccolade, cardOvrFor } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { CardRegistry } from "@/collection/registry";
 import { isEligible } from "@/domain/packs/pool";
 import { getPack } from "@/data/packs";
 import { instanceValue } from "@/domain/economy/pricing";
+import { MIN_ROUNDS } from "@/domain/cards/combat";
 import type { Player } from "@/domain/cards/types";
 
 let pass = 0, fail = 0;
@@ -82,11 +82,28 @@ const history: TournamentFact[] = [{
   playerRatings: [{ playerId: "p:zekken", rating: 60 }],
 }];
 
-/* Roster inyectado: zekken existe en el catálogo; zellsis/ethan NO (drafts). */
+/*
+ * Roster inyectado: zekken existe en el catálogo; zellsis/ethan NO (drafts).
+ *
+ * `metrics` es OBLIGATORIO para que un jugador del roster genere cartas: `cardsForPlayer`
+ * devuelve [] si `playerCombatBase` falla, y esta solo acepta métricas reales con
+ * `rounds >= MIN_ROUNDS` o una autoría `editorial` explícita («cero estadísticas por defecto»).
+ * Sin ellas este fixture producía CERO cartas y una docena de comprobaciones pasaban EN VACÍO
+ * —`[].every()` es `true`— o fallaban por buscar una carta que no existía.
+ *
+ * Son métricas de FIXTURE, como los marcadores del snapshot: viven en este roster inyectado y
+ * no tocan el catálogo del producto.
+ */
+const seedMetrics = (i = 0): Player["metrics"] => ({
+  rounds: 4 * MIN_ROUNDS + i, kills: 300 + 4 * i, deaths: 250 + 2 * i, assists: 90 + 3 * i,
+  fk: 55 + i, fd: 40 + i, acs: 210 + 4 * i, adr: 145 + 2 * i,
+  kd: 1.2 - i * 0.02, kast: 72 + i, hsPct: 24 + i, clutches: 6 + (i % 4),
+});
+
 const seedPlayer = (id: string, nick: string, extra: Partial<Player> = {}): Player => ({
   id, nick, team: "Sentinels", teamTag: "SEN", region: "Americas", role: "Duelista", country: "us",
   stats: { dmg: 80, scr: 82, com: 78, hs: 75, ast: 70, clu: 72 }, accolades: ["champions"],
-  image: `/players/${id}.png`, ...extra,
+  image: `/players/${id}.png`, metrics: seedMetrics(), ...extra,
 });
 const ROSTER: Player[] = [seedPlayer("zekken", "zekken")];
 
@@ -136,7 +153,17 @@ console.log("\n## Editorial Engine");
 const mythic = spec("zekken__mythic");
 check("MVP ⇒ decisión special (decideCard reutilizado)", mythic?.decision === "special", mythic?.decisionReason);
 check("releaseState approved para jugador resuelto con datos completos", mythic?.releaseState === "approved" && (mythic?.confidence ?? 0) >= 0.9);
-check("drafts de jugador nuevo ⇒ releaseState draft", res.cards.filter((c) => c.playerId === pr("p:ethan").playerId).every((c) => c.releaseState === "draft"));
+/*
+ * ANTES: «drafts de jugador nuevo ⇒ releaseState draft», sobre
+ * `res.cards.filter(playerId === ethan)`. Ese filtro es HOY siempre vacío y `[].every()` es
+ * `true`: la comprobación pasaba sin comprobar nada.
+ *
+ * El contrato vigente es más fuerte y merece afirmarse de frente: un jugador nuevo no tiene
+ * `metrics`, así que NO genera ninguna carta. Es la regla de «cero estadísticas por defecto»
+ * vista desde el generador.
+ */
+check("jugador nuevo (draft, sin metrics) ⇒ NINGUNA carta",
+  res.cards.filter((c) => c.playerId === pr("p:ethan").playerId).length === 0);
 check("CardStatus emitido = generated (publicación es F5)", res.cards.every((c) => c.status === "generated"));
 const statuses: CardStatus[] = ["planned", "generated", "approved", "published", "retired", "archived"];
 check("CardStatus: unión completa de 6 estados", statuses.length === 6);
@@ -166,22 +193,51 @@ check("cada spec ∈ cardsForPlayer(jugador+accolades) con ovr/stats IDÉNTICOS"
     const p = predicted.find((x) => x.id === c.cardId);
     return !!p && p.ovr === c.ovr && JSON.stringify(p.stats) === JSON.stringify(c.stats);
   }));
-check("ovr === computeOvr(applyStatBoost(base, boost))",
-  res.cards.filter((c) => c.playerId === "zekken").every((c) => c.ovr === computeOvr(applyStatBoost(zk.stats, getVariant(c.variantId).statBoost))));
+/*
+ * ANTES: `ovr === computeOvr(applyStatBoost(zk.stats, boost))`.
+ *
+ * Esa era la fórmula ANTIGUA: OVR a partir de las 6 estadísticas heredadas. El dominio ya no
+ * lo calcula así — `deriveCard` compone el trío de combate con el boost de la variante— y las 6
+ * estadísticas se conservan solo para el simulador. La aserción no fallaba porque zekken no
+ * generaba ninguna carta y `[].every()` es `true`: pasaba EN VACÍO.
+ *
+ * AHORA se compara contra `cardOvrFor`, que es el ÚNICO punto de entrada que el dominio expone
+ * para el OVR de (jugador, variante) — precisamente para que nadie recomponga boost + OVR por su
+ * cuenta. Misma intención, contrato vigente.
+ */
+check("ovr = el que calcula el dominio para (jugador, variante) — cardOvrFor",
+  res.cards.filter((c) => c.playerId === "zekken").every((c) => c.ovr === cardOvrFor(zk, c.variantId)));
 check("serialLimit desde VARIANTS (mythic=25)", mythic?.serialLimit === 25 && mythic?.serialized === true);
 check("badges/tags en el spec (back-to-back, champion...)", (mythic?.badges.includes("back-to-back-champion") ?? false) && (mythic?.narrativeTags.includes("champion") ?? false));
 
 // ELIGIBILITY (compat Packs / Craft / Marketplace)
 console.log("\n## Eligibility (packs · craft · marketplace)");
 check("familias especiales ⇒ market impossible y fuera de packs", !!mythic && mythic.eligibility.market.impossible && mythic.eligibility.packs.length === 0);
-const ethanBase = res.cards.find((c) => c.playerId === pr("p:ethan").playerId && c.family === "base" && getVariant(c.variantId).group === "base");
-check("carta base de jugador nuevo elegible en packs reales", !!ethanBase && ethanBase.eligibility.packs.length > 0, ethanBase?.eligibility.packs.join(","));
-check("claims de pack confirmados por isEligible (motor real)", !!ethanBase && ethanBase.eligibility.packs.every((pid) => {
+/*
+ * ANTES estas tres usaban `ethanBase`: la carta de familia "base" de un jugador NUEVO.
+ *
+ * Esa carta ya no puede existir. `engine.ts` solo emite specs de familia "base" cuando
+ * `resolution.status === "created"` (jugador nuevo), y las saca de `cardsForPlayer(draft)` — que
+ * para un borrador devuelve [] porque un borrador no lleva `metrics`. Es decir: la rama "base"
+ * es HOY INALCANZABLE, y con ella las tres aserciones pasaban a buscar una carta inexistente.
+ *
+ * Lo que estas tres verifican de verdad no es el borrador: es el CABLEADO de elegibilidad
+ * —qué sobres reclama una carta, que el motor real confirme esos reclamos, y que el craft
+ * apunte hacia arriba—. Ese cableado sigue existiendo, así que se comprueba sobre una carta que
+ * el contrato actual SÍ produce, elegida por su propiedad (elegible en sobres) y no por su id.
+ *
+ * La rama "base" inalcanzable queda anotada como deuda en el informe de la Fase 16; no se toca
+ * el motor para revivirla, que es una decisión de producto.
+ */
+const packable = res.cards.find((c) => c.eligibility.packs.length > 0);
+check("hay carta elegible en sobres reales", !!packable, packable ? `${packable.cardId} → ${packable.eligibility.packs.join(",")}` : "ninguna");
+check("claims de pack confirmados por isEligible (motor real)", !!packable && packable.eligibility.packs.every((pid) => {
   const pk = getPack(pid);
-  const reg = new CardRegistry([], (id) => (id === ethanBase.playerId ? pr("p:ethan").draft : undefined));
-  return !!pk && isEligible(reg, pk, { id: ethanBase.cardId, playerId: ethanBase.playerId, variantId: ethanBase.variantId, ovr: ethanBase.ovr, stats: ethanBase.stats });
+  const reg = new CardRegistry([], (id) => (id === packable.playerId ? zk : undefined));
+  return !!pk && isEligible(reg, pk, { id: packable.cardId, playerId: packable.playerId, variantId: packable.variantId, ovr: packable.ovr, stats: packable.stats });
 }));
-check("craft: salvage siempre + upgradeTargets hacia variantes superiores", res.cards.every((c) => c.eligibility.craft.salvage) && (ethanBase?.eligibility.craft.upgradeTargets.length ?? 0) > 0);
+check("craft: salvage siempre + upgradeTargets hacia variantes superiores",
+  res.cards.every((c) => c.eligibility.craft.salvage) && (packable?.eligibility.craft.upgradeTargets.length ?? 0) > 0);
 check("marketplace: valor estimado = instanceValue (finito, ≥25)", res.cards.every((c) => c.estimatedValue === instanceValue({ id: c.cardId, playerId: c.playerId, variantId: c.variantId, ovr: c.ovr, stats: c.stats }) && c.estimatedValue >= 25));
 
 // COLLECTION (compat domain/collections)
@@ -237,10 +293,21 @@ function bigSnapshot(T: number): RawSnapshot {
   return { tournament: { id: "big", name: "Big Masters 2025", type: "masters", status: "finished" }, teams, players, matches, maps, mapStats, standings: teams.map((t, i) => ({ team: t.name, position: i + 1, wins: 1, losses: 0 })), awards: { champion: teams[0].name } };
 }
 const bigAnalysis = analyze(importSnapshot(bigSnapshot(30), ictx()).model);
+/*
+ * ANTES este caso pasaba `roster: []`, así que los 150 eran borradores. Con el contrato actual
+ * eso da CERO cartas —correctamente— y la comprobación medía el rendimiento de no hacer nada.
+ * Se le da su catálogo: los mismos 150, con métricas de fixture, para que el caso siga midiendo
+ * lo que quería medir (generar a escala) además del tiempo.
+ */
+const bigRoster: Player[] = Array.from({ length: 30 }, (_, ti) =>
+  Array.from({ length: 5 }, (_, pi) => seedPlayer(`p${ti}_${pi}`, `p${ti}_${pi}`, {
+    team: `Team ${ti}`, teamTag: `T${ti}`, accolades: [], metrics: seedMetrics(ti + pi),
+  })),
+).flat();
 const t0 = process.hrtime.bigint();
-const bigRes = generateCards(bigAnalysis, { roster: [], now: 1_700_000_000_000 });
+const bigRes = generateCards(bigAnalysis, { roster: bigRoster, now: 1_700_000_000_000 });
 const ms = Number(process.hrtime.bigint() - t0) / 1e6;
-check("torneo grande (150 jugadores nuevos) generado", bigRes.players.length === 150 && bigRes.cards.length > 0, `${bigRes.cards.length} cartas · ${Math.round(ms)} ms`);
+check("torneo grande (150 jugadores del catálogo) generado", bigRes.players.length === 150 && bigRes.cards.length > 0, `${bigRes.cards.length} cartas · ${Math.round(ms)} ms`);
 check("rendimiento aceptable (sin O(n²) patológico)", ms < 4000, `${Math.round(ms)} ms`);
 
 console.log(`\n${fail === 0 ? "✅ TODAS LAS COMPROBACIONES PASAN" : `❌ ${fail} COMPROBACIÓN(ES) FALLARON`} — ${pass}/${pass + fail}`);

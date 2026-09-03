@@ -65,6 +65,11 @@ export interface RawMapPlayer {
   combatScore?: number;
   damage?: number;
   rounds?: number;
+  /**
+   * ADR ya por ronda. Algunas fuentes (vlr.gg) lo publican medido y NO dan daño total ni
+   * rondas por mapa; sin este campo el valor real se perdería y el mapper devolvería null.
+   */
+  adr?: number;
   kast?: number;
   hsPct?: number;
   fk?: number;

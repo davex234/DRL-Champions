@@ -40,6 +40,7 @@ export class CardRegistry {
   private byVariant = new Map<VariantId, CardDef[]>();
   private byGroup = new Map<VariantGroup, CardDef[]>();
   private byRegion = new Map<Region, CardDef[]>();
+  private byRole = new Map<RoleId, CardDef[]>();
   private playerLookup: (id: string) => Player | undefined;
   private searchIndex: SearchRow[] = [];
   private sets: SetDef[] = [];
@@ -56,7 +57,7 @@ export class CardRegistry {
       const v = getVariant(c.variantId);
       push(this.byGroup, v.group, c);
       const p = playerLookup(c.playerId);
-      if (p) push(this.byRegion, p.region, c);
+      if (p) { push(this.byRegion, p.region, c); push(this.byRole, p.role, c); }
       this.searchIndex.push({ cardId: c.id, hay: `${p?.nick ?? ""} ${p?.team ?? ""} ${p?.teamTag ?? ""} ${v.label}`.toLowerCase() });
     }
     this.sets = this.buildSets();
@@ -71,6 +72,8 @@ export class CardRegistry {
   forVariant(variantId: VariantId): CardDef[] { return this.byVariant.get(variantId) ?? []; }
   forGroup(group: VariantGroup): CardDef[] { return this.byGroup.get(group) ?? []; }
   forRegion(region: Region): CardDef[] { return this.byRegion.get(region) ?? []; }
+  /** Cartas cuyo jugador tiene este rol editorial (Fase 3: composición del mazo de duelos). */
+  forRole(role: RoleId): CardDef[] { return this.byRole.get(role) ?? []; }
   search(): SearchRow[] { return this.searchIndex; }
 
   /** Todos los sets/series/temporadas derivados del catálogo. */

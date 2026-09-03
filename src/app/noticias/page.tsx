@@ -36,7 +36,7 @@ export default function NoticiasPage() {
         <div className="rounded-2xl border border-dashed border-white/15 bg-base-700/30 p-10 text-center">
           <p className="text-3xl">📰</p>
           <p className="mt-2 text-white/55">Aún no hay noticias. Cuando finalice un torneo, las cartas y MVPs aparecerán aquí solos.</p>
-          <Link href="/admin/data-engine" className="mt-3 inline-block text-sm text-drl hover:underline">Abrir el motor de datos (admin)</Link>
+          <Link href="/admin/data-engine" className="nx-action mt-3 !text-sm !normal-case !tracking-normal">Abrir el motor de datos (admin)</Link>
         </div>
       ) : (
         <div className="space-y-3">

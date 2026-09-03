@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * UPDATE WATCHER (app-wide) — montado en el AppShell, vigila actualizaciones MIENTRAS se
+ * UPDATE WATCHER (app-wide) — montado en el GameShell, vigila actualizaciones MIENTRAS se
  * juega (rutas del juego, no el launcher). Si aparece una versión nueva muestra una
  * notificación elegante. Detección de "partido en curso" por ruta (`/entrenador`): nunca
  * interrumpe un partido — solo avisa y deja "Actualizar ahora / Más tarde".

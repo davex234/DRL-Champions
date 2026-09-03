@@ -50,6 +50,22 @@ export interface Player {
   status?: "active" | "inactive";
   /** Métricas reales de origen (permiten regenerar las stats). */
   metrics?: import("./statsFromMetrics").RawMetrics;
+
+  /**
+   * TRÍO EDITORIAL — vía de excepción para jugadores sin métricas reales (retirados, históricos,
+   * ediciones especiales). Debe estar AUTORIZADO explícitamente por una persona y llevar motivo.
+   *
+   * Existe para que un jugador legado pueda seguir en el catálogo SIN falsificar `metrics`: nunca
+   * se rellenan métricas inventadas para que el modelo las derive. Si un jugador no tiene ni
+   * `metrics` válidas ni `editorial`, sencillamente no genera carta (con motivo explícito).
+   */
+  editorial?: {
+    combat: import("./combat").CombatStats;
+    /** Por qué se autoriza a mano. Obligatorio: hace auditable la excepción. */
+    reason: string;
+    /** Quién lo autorizó. */
+    author?: string;
+  };
 }
 
 /**
@@ -184,6 +200,9 @@ export interface VariantDef {
   palette: RarityPalette;
 }
 
+/** De dónde salen las estadísticas de una carta. */
+export type CardStatsSource = "vlr" | "editorial";
+
 /** Una carta concreta del catálogo (definición, sin instancia poseída). */
 export interface CardDef {
   id: string; // `${playerId}__${variantId}`
@@ -192,6 +211,18 @@ export interface CardDef {
   /** OVR final ya calculado para esta combinación jugador+variante. */
   ovr: number;
   stats: PlayerStats;
+
+  // ── Modelo de combate (Fase 2). Los rellena SIEMPRE el constructor del catálogo. ──
+  /** Trío Stronghold/Gamesense/Entryfrag, con el statBoost de la variante YA aplicado. */
+  combat?: import("./combat").CombatStats;
+  /** Bonus de la variante usado para llegar a `combat` y `ovr`. Uno de 0/2/4/6/9/12. */
+  statBoost?: number;
+  /** Calibración con la que se generó (p. ej. "VCT-2026"). Permite reanclajes trazables. */
+  dataVersion?: string;
+  /** Origen de las estadísticas: derivadas de datos reales o autoría editorial. */
+  source?: CardStatsSource;
+  /** Marca de generación (ISO). La inyecta quien construye el catálogo; nunca `Date.now()` interno. */
+  generatedAt?: string;
 }
 
 /**

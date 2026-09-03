@@ -7,16 +7,50 @@
  *   POST { action:"rollback", channel, toFull, reason }      → rollback REAL (Transport Engine)
  *
  * El rollback reutiliza el Rollback Engine (scripts/release/transport/rollback.mjs), que a su vez
- * usa TransportEngine.rollback(). No duplica lógica. Acceso gateado por ADMIN_ENABLED.
+ * usa TransportEngine.rollback(). No duplica lógica.
+ *
+ * SEC-03 (auditoría Fase A) — AUTORIZACIÓN.
+ *   Antes la única guarda era `ADMIN_ENABLED`, es decir
+ *   `process.env.NEXT_PUBLIC_ADMIN === "1" || NODE_ENV !== "production"`: una constante
+ *   PÚBLICA de build, no una sesión. En desarrollo el endpoint estaba siempre abierto, y
+ *   activar el panel en producción lo abría a internet — incluidos `rollback` y `promote`,
+ *   que cambian la versión publicada para todos los usuarios, y la descarga de artefactos.
+ *
+ *   Ahora usa EXACTAMENTE el mismo modelo que /api/admin/{assets,tournaments}: `verifyAdmin`
+ *   (Bearer de Supabase Auth → usuario → `profiles.is_admin`, comprobado con service_role).
+ *   Se aplica a GET y a POST, y por tanto a las cuatro acciones y a la descarga.
+ *   Falla CERRADO: sin Supabase configurado no se sirve nada.
  */
 import { NextResponse } from "next/server";
 import { readFileSync } from "node:fs";
 import { basename } from "node:path";
-import { ADMIN_ENABLED } from "@/config/admin";
+import { verifyAdmin } from "@/lib/supabase/adminAuth";
+import { isAdminConfigured } from "@/lib/supabase/admin";
 import { readDashboard, resolveArtifact, planRollbackServer, executeRollbackServer, promoteServer, retryServer } from "@/server/releases/reader";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+/**
+ * Guarda de administrador para TODOS los métodos de esta ruta.
+ * Devuelve `{ denied }` con la respuesta de error, o `{ userId }` si puede continuar.
+ */
+async function requireAdmin(req: Request): Promise<{ denied: NextResponse } | { userId: string }> {
+  if (!isAdminConfigured()) {
+    // Sin service_role no se puede comprobar `is_admin` → no se sirve nada (fail closed).
+    return {
+      denied: NextResponse.json(
+        { error: "Supabase admin no configurado: la ruta de releases queda cerrada" },
+        { status: 503 },
+      ),
+    };
+  }
+  const admin = await verifyAdmin(req);
+  if (!admin) {
+    return { denied: NextResponse.json({ error: "No autorizado (admin requerido)" }, { status: 401 }) };
+  }
+  return { userId: admin.userId };
+}
 
 const CONTENT_TYPE: Record<string, string> = {
   json: "application/json", md: "text/markdown", exe: "application/octet-stream",
@@ -24,7 +58,8 @@ const CONTENT_TYPE: Record<string, string> = {
 };
 
 export async function GET(req: Request) {
-  if (!ADMIN_ENABLED) return NextResponse.json({ error: "admin deshabilitado" }, { status: 403 });
+  const auth = await requireAdmin(req);
+  if ("denied" in auth) return auth.denied;
   const url = new URL(req.url);
   const root = process.cwd();
 
@@ -60,7 +95,10 @@ export async function GET(req: Request) {
 const CHANNELS = new Set(["stable", "beta", "developer", "nightly"]);
 
 export async function POST(req: Request) {
-  if (!ADMIN_ENABLED) return NextResponse.json({ error: "admin deshabilitado" }, { status: 403 });
+  const auth = await requireAdmin(req);
+  if ("denied" in auth) return auth.denied;
+  // Traza de auditoría real: quién ejecutó el rollback/promote, en vez del literal "admin".
+  const adminUserId = auth.userId;
   const root = process.cwd();
   let body: { action?: string; channel?: string; toChannel?: string; toFull?: string; reason?: string } = {};
   try { body = await req.json(); } catch { /* vacío */ }
@@ -77,7 +115,7 @@ export async function POST(req: Request) {
       return NextResponse.json(await planRollbackServer({ root, env: process.env, channel, toFull: toFull! }), { headers: { "cache-control": "no-store" } });
     }
     if (action === "rollback") {
-      const result = await executeRollbackServer({ root, env: process.env, channel, toFull: toFull!, reason: reason ?? "", user: "admin" });
+      const result = await executeRollbackServer({ root, env: process.env, channel, toFull: toFull!, reason: reason ?? "", user: adminUserId });
       // El motor NO lanza por validación/verify: devuelve ok:false. Reflejamos el status HTTP.
       return NextResponse.json(result, { status: result.ok ? 200 : 422, headers: { "cache-control": "no-store" } });
     }
@@ -86,7 +124,7 @@ export async function POST(req: Request) {
       return NextResponse.json(result, { status: result.ready ? 200 : 422, headers: { "cache-control": "no-store" } });
     }
     if (action === "promote") {
-      const result = await promoteServer({ root, env: process.env, channel, toChannel, user: "admin" });
+      const result = await promoteServer({ root, env: process.env, channel, toChannel, user: adminUserId });
       return NextResponse.json(result, { status: result.ready ? 200 : 422, headers: { "cache-control": "no-store" } });
     }
     return NextResponse.json({ error: `acción desconocida: ${action}` }, { status: 400 });

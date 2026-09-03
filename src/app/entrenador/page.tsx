@@ -1,338 +1,357 @@
 "use client";
 
 /**
- * "El Entrenador" — un PARTIDO como una producción profesional de esports.
+ * ENTRENADOR — el centro de mando (Fase 9H).
  *
- * Cuatro modos: PREPARACIÓN (sala táctica), RONDA (broadcast a pantalla casi completa
- * con HUD VCT + deck de control minimizado), INTERRUPCIÓN (micro/timeout devuelven el
- * foco al entrenador) y FINAL (ceremonia). Solo CONECTA y PRESENTA los motores
- * existentes vía `useCoachMatch`. No toca ninguna lógica de juego.
+ * Antes, `/entrenador` ERA el simulador: al entrar te caía encima un partido en marcha con
+ * su HUD de retransmisión y su deck de control. Todo lo demás del rol de entrenador —los
+ * equipos, las alineaciones, la pizarra— estaba repartido por rutas que no se enlazaban
+ * entre sí. Si no sabías que existían, no existían.
+ *
+ * Ahora la raíz es el vestíbulo del rol y el partido vive en `/entrenador/partido`.
+ *
+ * HONESTIDAD SOBRE LO QUE HAY
+ *   Las secciones que aún no tienen pantalla NO se enseñan como si la tuvieran. Se marcan
+ *   como pendientes, con lo que ya se sabe de ellas. Un botón que lleva a una pantalla que
+ *   no existe es peor que un hueco declarado.
+ *
+ * FASE 9.6 — LA RUTA.
+ *   Lo que faltaba no era ninguna pantalla: estaban las cuatro (plantilla, mapas, pizarra
+ *   y partido) y funcionan. Faltaba decir que son UN RECORRIDO. Presentadas como seis
+ *   tarjetas sueltas, el centro táctico se leía como un índice y no como un método, y por
+ *   eso parecía que faltaba algo que en realidad ya está.
+ *
+ *   La tira de arriba lo dice en cuatro pasos —montar equipo → estudiar mapa → dibujar la
+ *   jugada → dirigirla— con el ESTADO REAL de cada uno: los titulares salen del store de
+ *   equipos y las estrategias guardadas de `/api/game/strats`, que es donde viven. Ningún
+ *   paso se marca como pendiente si su pantalla existe.
  */
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useCoachMatch } from "@/components/sim/useCoachMatch";
-import { MatchSetup } from "@/components/sim/MatchSetup";
-import { MatchCeremony } from "@/components/coach/MatchCeremony";
-import { CoachTacticalPanel } from "@/components/coach/CoachTacticalPanel";
-import { BuyPhasePanel } from "@/components/coach/BuyPhasePanel";
-import { MicroDecisionPrompt, RoundEndBriefing } from "@/components/coach/CoachOverlays";
-import { CoachCommandDeck } from "@/components/coach/CoachCommandDeck";
-import { LivePlayerStrip } from "@/components/coach/LivePlayerStrip";
-import { LiveReadsTicker } from "@/components/coach/LiveReadsTicker";
-import { TimeoutDossierPanel } from "@/components/coach/TimeoutDossierPanel";
-import { RoundBriefingPanel } from "@/components/coach/RoundBriefingPanel";
-import { SpecialMomentBanner } from "@/components/coach/SpecialMomentBanner";
-import { liveCoachReads } from "@/lib/match/coachLive";
-import { detectSpecialMoments } from "@/lib/match/special";
-import { BrainDebugPanel } from "@/components/sim/BrainDebugPanel";
-import { useState, useEffect, useRef } from "react";
-import { useCareerStore } from "@/store/useCareerStore";
-import { BroadcastOverlay } from "@/components/broadcast/BroadcastOverlay";
-import { buildBroadcastState, buildMatchIntro, buildLivePresentation, buildPostMatch, postMatchCasters } from "@/broadcast";
-import { MatchIntro } from "@/components/broadcast/MatchIntro";
-import { CasterFeed } from "@/components/broadcast/CasterFeed";
-import { LiveStatsPanel } from "@/components/broadcast/LiveStatsPanel";
-import { ObserverTag } from "@/components/broadcast/ObserverTag";
-import { PostMatchShow } from "@/components/broadcast/PostMatchShow";
-import { buildRenderFrame, getRenderer, type RenderBackend } from "@/visualizer";
-import type { Side } from "@/sim";
-import { matchBroadcastContext, makeMatchConfig } from "@/match";
-import { economyBroadcastContext } from "@/economy";
-import { coachBroadcastContext } from "@/coach";
-import { prepBroadcastContext } from "@/preparation";
-import { loadoutBroadcastContext } from "@/buy";
-import { useGameStore } from "@/store/useGameStore";
-import { useTeamStore, resolveCardRef } from "@/store/useTeamStore";
-import { validateTeam } from "@/domain/teams/types";
-import { buildHomeRoster, buildRivalRoster, type RivalDifficulty } from "@/lib/match/roster";
-import { cardView } from "@/lib/match/cardView";
-import { primeAudio, playCue } from "@/lib/sound";
+import { HydrationGate } from "@/components/layout/HydrationGate";
+import { useTeamStore } from "@/store/useTeamStore";
+import { TACTICAL_MAPS } from "@/domain/tactics";
+import { MapThumb } from "@/components/tactics/MapThumb";
+import { fetchStrats } from "@/lib/tactics/client";
 import { cn } from "@/lib/format";
 
-const SPEEDS = [1, 2, 4, 8];
-const BACKEND: RenderBackend = "svg";
-const Renderer = getRenderer(BACKEND);
-const RIVAL_NAME: Record<RivalDifficulty, string> = { easy: "Rival (Fácil)", normal: "Rival (Normal)", hard: "Rival (Difícil)" };
-
 export default function EntrenadorPage() {
-  const loop = useCoachMatch();
-  const { phase, snap, view, match } = loop;
-  const [brainDebug, setBrainDebug] = useState(false);
-  const [brainSel, setBrainSel] = useState<string | null>(null);
-  const [showIntro, setShowIntro] = useState(false);
+  return (
+    <HydrationGate>
+      <CoachHub />
+    </HydrationGate>
+  );
+}
 
-  const ownedCards = useGameStore((s) => s.ownedCards);
+function CoachHub() {
   const teams = useTeamStore((s) => s.teams);
   const activeTeamId = useTeamStore((s) => s.activeTeamId);
-  const markUsed = useTeamStore((s) => s.markUsed);
+  const active = teams.find((t) => t.id === activeTeamId) ?? teams[0] ?? null;
+  const ready = active ? active.starters.length : 0;
 
-  const active = teams.find((t) => t.id === activeTeamId) ?? null;
-  const ready = active != null && validateTeam(active, resolveCardRef).length === 0;
-
-  // PLAYER DEVELOPMENT: al terminar el partido, evoluciona a TODOS los participantes
-  // (equipo del usuario + rival IA) una sola vez.
-  const processedRef = useRef<unknown>(null);
+  /*
+   * Cuántas estrategias tienes guardadas. Es la misma lectura que hace `/entrenador/strats`
+   * y falla en silencio: sin sesión o sin red, la ruta se enseña igual con el paso de la
+   * pizarra sin contador. Un vestíbulo no puede quedarse en blanco porque una cifra de
+   * apoyo no haya llegado.
+   */
+  const [strats, setStrats] = useState<number | null>(null);
   useEffect(() => {
-    if (phase === "ended" && match && processedRef.current !== match) {
-      processedRef.current = match;
-      useCareerStore.getState().processMatch(match);
-    }
-  }, [phase, match]);
+    let alive = true;
+    fetchStrats()
+      .then((rows) => { if (alive) setStrats(rows.length); })
+      .catch(() => { if (alive) setStrats(null); });
+    return () => { alive = false; };
+  }, []);
 
-  const play = (side: Side, difficulty: RivalDifficulty) => {
-    if (!active || !ready) return;
-    primeAudio();
-    const seed = ((Date.now() & 0x7fffffff) ^ Math.floor(Math.random() * 0x7fffffff)) >>> 0;
-    const { roster: home, playerIds } = buildHomeRoster(active.starters, ownedCards);
-    const away = buildRivalRoster((seed ^ 0x9e3779b9) >>> 0, playerIds, difficulty);
-    // PLAYER DEVELOPMENT: inyecta la progresión persistida (deltas + química) en los
-    // rosters. El sim consume los valores evolucionados sin cambios.
-    const career = useCareerStore.getState();
-    const config = makeMatchConfig({
-      seed, rosters: { home: career.developRoster(home), away: career.developRoster(away) },
-      homeSetup: { side, approach: "default", tempo: "mid", aggression: "balanced" },
-      teamNames: { home: active.name, away: RIVAL_NAME[difficulty] },
-      coach: { mode: "ai" },
-      useEconomyTactics: true,
-    });
-    markUsed(active.id);
-    setShowIntro(true);   // INTRO de "gran final" antes del primer saque
-    loop.start(config);
-  };
-
-  // Retransmisión: datos REALES del partido.
-  const bs = snap && view && match ? buildBroadcastState({
-    state: snap, decision: view.decision, viewport: view.vp,
-    match: matchBroadcastContext(match),
-    economy: match.economy ? economyBroadcastContext(match.economy, match.currentHomeSide) : undefined,
-    prep: match.currentDecision ? coachBroadcastContext(match.currentDecision)
-      : match.currentPlan ? prepBroadcastContext(match.currentPlan) : undefined,
-    loadout: match.currentLoadouts ? loadoutBroadcastContext(match.currentLoadouts, match.currentHomeSide) : undefined,
-  }) : null;
-  const frame = snap && view ? buildRenderFrame({ state: snap, viewport: view.vp, broadcast: bs }) : null;
-
-  const homeSide = match?.currentHomeSide ?? "ATK";
-  const tn = match?.config.teamNames ?? { home: "Local", away: "Rival" };
-  const names = {
-    atk: homeSide === "ATK" ? tn.home : tn.away,
-    def: homeSide === "ATK" ? tn.away : tn.home,
-  };
-  const creditsByName: Record<string, number> = {};
-  if (match?.economy) Object.assign(creditsByName, match.economy.home.players, match.economy.away.players);
-
-  // MATCH PRESENTATION ENGINE: presentación viva (casters/stats/observer) + intro + post.
-  const live = bs && snap && match ? buildLivePresentation(snap, bs, match, names) : null;
-  const intro = match ? buildMatchIntro(match) : null;
-
-  const showField = (phase === "playing" || phase === "roundEnd") && frame;
+  const steps = [
+    {
+      n: 1,
+      label: "Monta el equipo",
+      href: "/entrenador/equipos",
+      done: ready === 5,
+      state: active ? `${ready} de 5 titulares` : "Sin equipo",
+    },
+    {
+      n: 2,
+      label: "Estudia el mapa",
+      href: "/entrenador/mapas",
+      done: true,
+      state: `${TACTICAL_MAPS.length} trazados propios`,
+    },
+    {
+      n: 3,
+      label: "Dibuja la jugada",
+      href: "/entrenador/strats",
+      done: (strats ?? 0) > 0,
+      state: strats === null
+        ? "Pizarra táctica"
+        : strats === 0
+          ? "Ninguna guardada todavía"
+          : `${strats} ${strats === 1 ? "estrategia guardada" : "estrategias guardadas"}`,
+    },
+    {
+      n: 4,
+      label: "Dirige el partido",
+      href: "/entrenador/partido",
+      done: false,
+      state: ready === 5 ? "Listo para dirigir" : "Necesita cinco titulares",
+    },
+  ];
 
   return (
-    <section className="animate-rise space-y-5">
-      <header className="flex items-center justify-between">
-        <div>
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-            El <span className="text-drl">Entrenador</span>
-          </h1>
-          <p className="mt-1 text-white/50">Diriges, no disparas. <strong className="text-white/70">Tu equipo, tu producción.</strong></p>
-        </div>
-        {phase !== "menu" && phase !== "ended" && (
-          <button onClick={loop.reset}
-            className="rounded-lg border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/60 transition hover:bg-white/10">
-            ← Abandonar
-          </button>
-        )}
+    <div className="space-y-7">
+      <header>
+        <span className="nx-label">Jugar</span>
+        <h1 className="mt-1 font-display text-[clamp(30px,5vw,48px)] font-bold uppercase leading-none text-white">
+          Entrenador
+        </h1>
+        <p className="mt-2 max-w-2xl text-[15px] text-white/55">
+          Tú no disparas: decides. Monta el equipo, estudia el mapa, dibuja la jugada y
+          dirige el partido ronda a ronda.
+        </p>
       </header>
 
-      {/* MENÚ */}
-      {phase === "menu" && (
-        ready && active ? (
-          <div className="space-y-4"><ActiveTeamBar /><MatchSetup onPlay={play} initial={null} /></div>
-        ) : <TeamGate hasTeams={teams.length > 0} />
-      )}
+      {/*
+        ═══ LA RUTA TÁCTICA ═══
+        Cuatro pasos, con su estado real. Es la respuesta a «creo una estrategia, la guardo
+        y la ejecuto»: hasta ahora ese recorrido existía en el producto pero en ninguna
+        pantalla, así que había que deducirlo de una rejilla de herramientas.
+      */}
+      <section className="nx-stage nx-clip relative overflow-hidden px-4 py-5 sm:px-6" aria-label="La ruta táctica">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{ background: "radial-gradient(620px 260px at 8% 120%, rgba(63,192,122,0.20), transparent 68%)" }}
+        />
+        <h2 className="nx-label mb-4">Cómo se dirige un partido en NEXUS</h2>
+        <ol className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {steps.map((st, i) => (
+            <li key={st.n} className="relative">
+              {/* La línea que une un paso con el siguiente: es lo que lo hace recorrido. */}
+              {i < steps.length - 1 && (
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-[-14px] top-[22px] hidden h-px w-[14px] bg-white/15 xl:block"
+                />
+              )}
+              <Link
+                href={st.href}
+                className="group flex items-start gap-3 rounded-card border border-white/[0.09] bg-white/[0.025] p-3 transition duration-fast hover:border-white/25 hover:bg-white/[0.05]"
+              >
+                <span
+                  className={cn(
+                    "nx-clip-sm grid h-9 w-9 shrink-0 place-items-center border font-display text-[15px] font-bold",
+                    st.done
+                      ? "border-ok/60 bg-ok/15 text-ok"
+                      : "border-white/15 bg-white/[0.04] text-white/55",
+                  )}
+                  style={{ ["--nx-chamfer-sm" as string]: "7px" }}
+                >
+                  {st.done ? "✓" : st.n}
+                </span>
+                <span className="min-w-0">
+                  <b className="block font-display text-[14px] font-bold uppercase tracking-[0.06em] text-white">
+                    {st.label}
+                  </b>
+                  <span className={cn("mt-0.5 block text-[12px]", st.done ? "text-ok/80" : "text-white/45")}>
+                    {st.state}
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
 
-      {/* SALA TÁCTICA */}
-      {phase === "preparation" && loop.prep && (
-        <CoachTacticalPanel prep={loop.prep} onConfirm={(i) => { playCue("ui"); loop.confirmPreparation(i); }} />
-      )}
-
-      {/* COMPRA */}
-      {phase === "buy" && loop.buy && (
-        <BuyPhasePanel buy={loop.buy} onConfirm={(t) => { playCue("whoosh"); loop.confirmBuy(t); }} />
-      )}
-
-      {/* RONDA (broadcast + dirección en vivo) */}
-      {phase === "playing" && (
-        <div className="space-y-3">
-          {match && snap && (
-            <SpecialMomentBanner moments={detectSpecialMoments(match, snap)} onCommand={(c) => { playCue("ui"); loop.command(c); }} />
-          )}
-          <div className="grid gap-3 lg:grid-cols-[1fr_300px]">
-            <div className="space-y-3">
-              {live && <ObserverTag live={live} />}
-              <Stage live mapName={bs?.match.map}>
-                {showField && <Renderer frame={frame!} />}
-                {bs && <BroadcastOverlay bs={bs} snap={snap} creditsByName={creditsByName} names={names} momentum={match?.momentum ?? 0} />}
-                {loop.micro && <MicroDecisionPrompt prompt={loop.micro} onRespond={(c) => { playCue("ui"); loop.respondMicro(c); }} />}
-                {loop.timeoutPanel && <TimeoutDossierPanel dossier={loop.timeoutPanel} onRespond={(c) => { playCue("ui"); loop.respondTimeout(c); }} />}
-                {brainDebug && snap && <BrainDebugPanel snap={snap} selectedId={brainSel} onSelect={setBrainSel} onClose={() => setBrainDebug(false)} />}
-              </Stage>
-              <ControlDeck loop={loop} brainDebug={brainDebug} onBrain={() => setBrainDebug((b) => !b)} />
-              {live && <LiveStatsPanel stats={live.stats} />}
-            </div>
-            {/* Panel de dirección + cabina de comentaristas. */}
-            <aside className="space-y-3">
-              {live && <CasterFeed lines={live.casters} />}
-              {snap && <CoachCommandDeck snap={snap} onCommand={(c) => { playCue("ui"); loop.command(c); }} />}
-              {match && snap && <LiveReadsTicker reads={liveCoachReads(match, snap)} vozLeft={snap.voz.left} onCommand={(c) => { playCue("ui"); loop.command(c); }} />}
-            </aside>
-          </div>
-          {snap && <LivePlayerStrip snap={snap} />}
-        </div>
-      )}
-
-      {/* INTERRUPCIÓN: fin de ronda */}
-      {phase === "roundEnd" && loop.roundEnd && (
-        <div className="space-y-3">
-          {showField && (
-            <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-[#070a0f] opacity-60">
-              <Renderer frame={frame!} />
-              {bs && <BroadcastOverlay bs={bs} snap={snap} creditsByName={creditsByName} names={names} momentum={match?.momentum ?? 0} />}
-            </div>
-          )}
-          <RoundEndBriefing view={loop.roundEnd} onContinue={() => { playCue("ui"); loop.continueAfterRound(); }} isLast={loop.roundEnd.isLast} />
-          {!loop.roundEnd.isLast && <RoundBriefingPanel briefing={loop.roundEnd.briefing} />}
-        </div>
-      )}
-
-      {/* FINAL: ceremonia + producción televisiva post-partido */}
-      {phase === "ended" && match && (
-        <div className="space-y-5">
-          <MatchCeremony match={match} reward={loop.reward} onAgain={() => { setShowIntro(true); play(homeSide, "normal"); }} onCollection={loop.reset} />
-          <PostMatchShow post={buildPostMatch(match)} casters={postMatchCasters(match)} />
-        </div>
-      )}
-
-      {/* INTRO DE PARTIDO (overlay cinemático antes del primer saque) */}
-      {showIntro && intro && phase !== "menu" && phase !== "ended" && (
-        <MatchIntro intro={intro} onStart={() => { playCue("whoosh"); setShowIntro(false); }} />
-      )}
-    </section>
-  );
-}
-
-/** Escenario cinemático: marco de retransmisión con viñeta, letterbox y "EN VIVO". */
-function Stage({ children, live, mapName }: { children: React.ReactNode; live?: boolean; mapName?: string }) {
-  return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-[#070a0f] shadow-[0_10px_50px_rgba(0,0,0,0.6)]">
-      {children}
-      {/* viñeta */}
-      <div className="pointer-events-none absolute inset-0" style={{ boxShadow: "inset 0 0 140px rgba(0,0,0,0.75)" }} />
-      {/* letterbox sutil */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-black/60 to-transparent" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-black/60 to-transparent" />
-      {/* EN VIVO */}
-      {live && (
-        <div className="pointer-events-none absolute right-3 top-2 z-10 flex items-center gap-1.5 rounded bg-black/55 px-2 py-0.5 backdrop-blur-sm">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 shadow-[0_0_6px_#ff0000]" />
-          <span className="font-display text-[9px] font-bold uppercase tracking-[0.25em] text-white/80">En vivo</span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-/** Deck de control minimizado durante la ronda (elegante, no debug). */
-function ControlDeck({ loop, brainDebug, onBrain }: { loop: ReturnType<typeof useCoachMatch>; brainDebug: boolean; onBrain: () => void }) {
-  const { match, snap } = loop;
-  return (
-    <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-base-800/60 px-3 py-2 backdrop-blur-sm">
-      <button onClick={() => loop.setPaused(!loop.paused)}
-        className="rounded-lg border border-white/15 bg-white/5 px-4 py-2 font-display text-xs uppercase tracking-wide text-white transition hover:bg-white/10">
-        {loop.paused ? "▶ Reanudar" : "⏸ Pausa"}
-      </button>
-      <div className="flex gap-1 rounded-lg border border-white/10 bg-base-900/60 p-0.5">
-        {SPEEDS.map((sp) => (
-          <button key={sp} onClick={() => loop.setSpeed(sp)}
-            className={cn("rounded-md px-3 py-1.5 font-display text-xs transition", loop.speed === sp ? "bg-drl text-white shadow-glow" : "text-white/50 hover:text-white")}>
-            {sp}×
-          </button>
-        ))}
-      </div>
-      <button onClick={loop.callTimeout} disabled={loop.timeoutsLeft <= 0 || loop.timeoutPanel != null || loop.micro != null}
-        className="rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 font-display text-xs uppercase tracking-wide text-cyan-200 transition enabled:hover:bg-cyan-400/20 disabled:cursor-not-allowed disabled:opacity-30">
-        ⏸ Timeout · {loop.timeoutsLeft}
-      </button>
-      <button onClick={onBrain}
-        className={cn("rounded-lg border px-4 py-2 font-display text-xs uppercase tracking-wide transition",
-          brainDebug ? "border-drl/50 bg-drl/15 text-drl" : "border-white/15 text-white/60 hover:bg-white/10")}>
-        🧠 Cerebro
-      </button>
-      {snap && (
-        <span className="rounded-lg border border-white/10 bg-base-900/60 px-3 py-1.5 font-display text-xs text-white/55">
-          🎙 Voz {snap.voz.left}/{snap.voz.total}
-        </span>
-      )}
-      {match && (
-        <span className="ml-auto rounded-lg border border-white/10 bg-base-900/60 px-3 py-1.5 font-display text-xs text-white/70">
-          Ronda {match.roundNumber} · {match.score.home}-{match.score.away}
-        </span>
-      )}
-    </div>
-  );
-}
-
-/** Cabecera con el equipo activo y su quinteto real (de la colección). */
-function ActiveTeamBar() {
-  const ownedCards = useGameStore((s) => s.ownedCards);
-  const teams = useTeamStore((s) => s.teams);
-  const activeTeamId = useTeamStore((s) => s.activeTeamId);
-  const active = teams.find((t) => t.id === activeTeamId);
-  if (!active) return null;
-
-  const byUid = new Map(ownedCards.map((o) => [o.uid, o]));
-  const starters = active.starters
-    .map((uid) => byUid.get(uid))
-    .map((o) => (o ? cardView(o) : null))
-    .filter((v): v is NonNullable<typeof v> => v != null);
-
-  return (
-    <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-base-700/40 p-4">
-      <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-lg bg-drl/15 text-lg">{active.logo ?? "🛡️"}</span>
+      {/* ── Lo primero: ¿tienes equipo? ── */}
+      <section
+        className={cn(
+          "flex flex-wrap items-center justify-between gap-4 rounded-panel border px-5 py-4",
+          ready === 5 ? "border-ok/35 bg-ok/[0.06]" : "border-drl/35 bg-drl/[0.06]",
+        )}
+      >
         <div>
-          <p className="font-display text-sm font-bold uppercase tracking-wide text-white">{active.name}</p>
-          <p className="text-[11px] text-white/45">Tu quinteto · tus cartas</p>
+          <span className="nx-label block">Equipo activo</span>
+          <b className="font-display text-2xl font-bold text-white">
+            {active ? active.name : "Sin equipo"}
+          </b>
+          <p className="text-[13px] text-white/50">
+            {active
+              ? ready === 5
+                ? "Alineación completa: cinco titulares."
+                : `${ready} de 5 titulares. Completa la alineación para dirigir un partido.`
+              : "Crea un equipo con tus cartas para empezar."}
+          </p>
         </div>
-      </div>
-      <div className="flex flex-wrap gap-1.5">
-        {starters.map((c) => (
-          <span key={c.uid} className="rounded-md border border-white/10 bg-base-800 px-2 py-1 text-[11px] text-white/80">
-            <span className="font-semibold text-white">{c.nick}</span>
-            <span className="ml-1 text-white/40">{c.ovr}</span>
-          </span>
-        ))}
-      </div>
-      <Link href="/entrenador/equipos"
-        className="rounded-lg border border-white/15 px-3 py-1.5 font-display text-[11px] uppercase tracking-wide text-white/70 transition hover:bg-white/10">
-        Cambiar equipo
-      </Link>
+        <Link
+          href="/entrenador/equipos"
+          className="rounded-control bg-drl px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] shadow-glow transition duration-fast hover:brightness-110"
+        >
+          {active ? "Gestionar equipo" : "Crear equipo"}
+        </Link>
+      </section>
+
+      {/*
+        ── Los mapas, primero ──
+        Estaban debajo de seis tarjetas de texto, es decir, fuera de la pantalla. En un
+        centro táctico los mapas SON el contenido y las herramientas son la navegación
+        para llegar a ellos; poner el índice por delante del material dejaba la pantalla
+        pareciendo una tabla de contenidos.
+      */}
+      <section aria-label="Mapas">
+        <div className="mb-3 flex items-baseline justify-between gap-3">
+          <h2 className="nx-label">Mapas</h2>
+          <Link href="/entrenador/mapas" className="nx-action">
+            Verlos en detalle →
+          </Link>
+        </div>
+        <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
+          {TACTICAL_MAPS.map((m) => (
+            <Link
+              key={m.id}
+              href={`/entrenador/mapas#${m.id}`}
+              className="nx-card group overflow-hidden"
+            >
+              {/*
+                El TRAZADO, no un párrafo. Cuatro mapas dibujados y el vestíbulo no enseñaba
+                ninguno: en una herramienta táctica eso es una tienda sin escaparate. La
+                silueta se reconoce antes de leer el nombre, que es como funciona la memoria
+                de un mapa.
+              */}
+              <div className="relative aspect-square w-full overflow-hidden border-b border-white/8 bg-black/40">
+                <MapThumb map={m} className="transition-transform duration-normal ease-out group-hover:scale-[1.06]" />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{ boxShadow: "inset 0 -28px 32px -18px rgba(6,7,13,0.95)" }}
+                />
+              </div>
+              <div className="p-4">
+                <span className="nx-label">{m.sites === 1 ? "Un sitio" : `${m.sites} sitios`}</span>
+                <b className="mt-0.5 block font-display text-xl font-bold uppercase text-white">{m.name}</b>
+                <p className="mt-1 text-[12.5px] leading-snug text-white/50">{m.identity}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+      {/* ── Las herramientas ── */}
+      <section aria-label="Herramientas del entrenador">
+        <h2 className="nx-label mb-3">Herramientas</h2>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <Tool
+            href="/entrenador/equipos"
+            tag="Equipos y alineaciones"
+            title="Plantilla"
+            line="Monta equipos con tus cartas y elige los cinco titulares. Los equipos y las alineaciones son la misma pantalla: una alineación es un equipo con sus titulares marcados."
+            tint="255,46,99"
+          />
+          <Tool
+            href="/entrenador/mapas"
+            tag="Mapas"
+            title="Los cuatro trazados"
+            line={`${TACTICAL_MAPS.length} mapas propios de NEXUS, cada uno con un problema táctico distinto. Estúdialos antes de dibujar nada.`}
+            tint="25,227,255"
+          />
+          <Tool
+            href="/entrenador/strats"
+            tag="Strats"
+            title="Pizarra"
+            line="Coloca a los cinco, marca los movimientos y ordena los pasos. Se guardan en tu cuenta."
+            tint="255,211,92"
+          />
+          <Tool
+            href="/entrenador/partido"
+            tag="Preparación y simulador"
+            title="Dirigir un partido"
+            line="Sala táctica, ronda a ronda con HUD de retransmisión, tiempos muertos y ceremonia final."
+            tint="63,192,122"
+            disabled={ready !== 5}
+            disabledHint="Necesitas una alineación de cinco titulares."
+          />
+          <Tool
+            href="/carrera"
+            tag="Desarrollo"
+            title="Carrera"
+            line="Entrenamiento, fichas de desarrollo, scouting y cierre de temporada."
+            tint="123,92,255"
+          />
+          <Pending
+            tag="Historial"
+            title="Partidos jugados"
+            line="El registro de los partidos dirigidos —resultado, mapa, rondas y decisiones— todavía no se guarda en ningún sitio. Hasta que exista esa persistencia, esta sección no se enseña como si funcionara."
+          />
+        </div>
+      </section>
+
     </div>
   );
 }
 
-/** Pantalla cuando no hay equipo válido: empuja al Roster Builder. */
-function TeamGate({ hasTeams }: { hasTeams: boolean }) {
+function Tool({
+  href, tag, title, line, tint, disabled, disabledHint,
+}: {
+  href: string;
+  tag: string;
+  title: string;
+  line: string;
+  tint: string;
+  disabled?: boolean;
+  disabledHint?: string;
+}) {
+  const body = (
+    <>
+      <span className="nx-label" style={{ color: disabled ? undefined : `rgb(${tint})` }}>{tag}</span>
+      <span className="mt-1 block font-display text-2xl font-bold uppercase tracking-wide text-white">
+        {title}
+      </span>
+      <span className="mt-1.5 block text-[13px] leading-snug text-white/50">{line}</span>
+      {disabled && disabledHint && (
+        <span className="mt-2 block font-display text-[11px] uppercase tracking-wide text-drl-glow">
+          {disabledHint}
+        </span>
+      )}
+    </>
+  );
+
+  // Deshabilitado no es «invisible»: se ve, se entiende y dice qué falta para poder entrar.
+  if (disabled) {
+    return (
+      <div className="rounded-panel border border-white/8 p-5 opacity-60" aria-disabled>
+        {body}
+      </div>
+    );
+  }
+
   return (
-    <div className="mx-auto max-w-xl space-y-4 rounded-2xl border border-white/10 bg-base-700/40 p-8 text-center">
-      <p className="text-3xl">🧩</p>
-      <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">Necesitas un equipo</h2>
-      <p className="text-sm text-white/55">
-        El simulador juega con <strong className="text-white/80">tus cartas</strong>. Crea un equipo de 5 jugadores
-        desde tu colección para poder jugar.
-      </p>
-      <Link href="/entrenador/equipos"
-        className="inline-block rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
-        {hasTeams ? "Gestionar equipos ▸" : "Crear mi primer equipo ▸"}
-      </Link>
+    <Link
+      href={href}
+      className="nx-sweep group relative overflow-hidden rounded-panel border border-white/10 p-5 transition duration-fast hover:border-white/30"
+      style={{ background: `linear-gradient(160deg, rgba(${tint},0.14), rgba(255,255,255,0.02) 62%)` }}
+    >
+      {body}
+      <span
+        aria-hidden
+        className="mt-4 block h-[2px] w-9 rounded-full transition-[width] duration-normal ease-out group-hover:w-16"
+        style={{ background: `rgb(${tint})` }}
+      />
+    </Link>
+  );
+}
+
+/** Una sección que todavía no existe. Se declara, no se disimula. */
+function Pending({ tag, title, line }: { tag: string; title: string; line: string }) {
+  return (
+    <div className="rounded-panel border border-dashed border-white/12 p-5">
+      <span className="nx-label">{tag}</span>
+      <span className="mt-1 block font-display text-2xl font-bold uppercase tracking-wide text-white/45">
+        {title}
+      </span>
+      <span className="mt-1.5 block text-[13px] leading-snug text-white/40">{line}</span>
+      <span className="mt-3 inline-block rounded-chip border border-white/12 px-2 py-1 font-display text-[10px] font-bold uppercase tracking-label text-white/35">
+        Por definir
+      </span>
     </div>
   );
 }

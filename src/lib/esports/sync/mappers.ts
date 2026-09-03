@@ -37,16 +37,38 @@ export function teamRow(r: RawTeam) {
   };
 }
 
-export function matchRow(r: RawMatch, stageId: string | null) {
+/**
+ * Fila de `players`. El sync daba de alta equipos pero NO jugadores, y
+ * `map_player_stats.player_id` tiene FK real contra `players(id)`: sin esta fila, escribir un
+ * scoreboard real falla. Es el paso que faltaba, no una tabla nueva.
+ */
+export function playerRow(r: { id: string; nick: string; full_name?: string | null; team_id?: string | null; region?: string | null; role?: string | null; country?: string | null; status?: string }) {
+  return {
+    id: r.id, nick: r.nick, full_name: r.full_name ?? null, team_id: r.team_id ?? null,
+    region: r.region ?? null, role: r.role ?? null, country: r.country ?? null,
+    status: r.status ?? "active",
+  };
+}
+
+/**
+ * `nameOf` traduce id → nombre legible para las columnas LEGACY `team_a`/`team_b`/`winner_team`.
+ *
+ * No es cosmético: `pickemLifecycle` construye los enunciados leyendo ESAS columnas. Antes se
+ * escribía en ellas el id del equipo, así que un Pick'em real habría preguntado «¿quién gana
+ * vlr-t-2593 vs vlr-t-1001?». La semilla siempre guardó ahí el nombre; esto hace que la
+ * sincronización guarde lo mismo. Pick'ems no se toca: se le entrega el dato correcto.
+ */
+export function matchRow(r: RawMatch, stageId: string | null, nameOf?: (teamId: string) => string | undefined) {
   const best = r.bestOf ?? (r.format === "bo5" ? 5 : r.format === "bo1" ? 1 : 3);
+  const label = (id: string | undefined): string | null => (id ? nameOf?.(id) ?? id : null);
   return {
     id: r.id, event_id: r.eventId, stage_id: stageId,
     team_a_id: r.teamAId, team_b_id: r.teamBId,
-    team_a: r.teamAId, team_b: r.teamBId, // respaldo legacy (0002)
+    team_a: label(r.teamAId), team_b: label(r.teamBId), // legacy (0002): NOMBRE legible
     start_time: iso(r.startTime), status: normalizeStatus(r.status),
     format: r.format ?? "bo3", best_of: best, round: r.round ?? null,
     match_order: r.matchOrder ?? null, score_a: r.scoreA ?? null, score_b: r.scoreB ?? null,
-    winner_team_id: r.winnerTeamId ?? null, winner_team: r.winnerTeamId ?? null,
+    winner_team_id: r.winnerTeamId ?? null, winner_team: label(r.winnerTeamId),
     mvp_player_id: r.mvpPlayerId ?? null, patch: r.patch ?? null,
     vod_url: r.vodUrl ?? null, vlr_url: r.vlrUrl ?? null,
   };
@@ -76,7 +98,9 @@ export function mapPlayerStatRow(matchMapId: string, matchId: string, p: RawMapP
     match_map_id: matchMapId, match_id: matchId, player_id: p.playerId,
     team_id: p.teamId, agent_id: p.agentId ?? null,
     acs: p.acs ?? (d.acs || null), kills: p.kills ?? null, deaths: p.deaths ?? null,
-    assists: p.assists ?? null, kast: p.kast ?? (d.kast || null), adr: d.adr || null,
+    // `adr` medido si la fuente lo publica (vlr.gg lo da por ronda y no da daño total),
+    // derivado si no. Mismo criterio que ya se aplicaba a `acs` y `kast`.
+    assists: p.assists ?? null, kast: p.kast ?? (d.kast || null), adr: p.adr ?? (d.adr || null),
     hs_pct: p.hsPct ?? null, fk: p.fk ?? null, fd: p.fd ?? null,
     clutches: p.clutches ?? null, plus_minus: d.plusMinus, rating: d.rating,
   };

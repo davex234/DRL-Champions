@@ -68,7 +68,14 @@ export function CardRenderer({
   const palette = variant.palette;
   const rich = effects ?? (size === "lg" || size === "xl");
   const showLogo = size !== "sm";
-  const showCardStats = showStats && size !== "sm";
+  /*
+   * Las estadísticas se enseñan TAMBIÉN en el tamaño pequeño, en una tira compacta.
+   * Ocultarlas dejaba un tercio inferior vacío en la rejilla de la colección —el sitio
+   * donde más cartas se ven a la vez— y hacía que la carta pareciera sin terminar. Son
+   * además el dato que se compara al construir un mazo.
+   */
+  const showCardStats = showStats;
+  const compactStats = size === "sm";
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -118,7 +125,7 @@ export function CardRenderer({
         {/* CAPA: foto del jugador */}
         <div className="absolute inset-x-0 bottom-[30%] top-[6%]">
           <div className="relative mx-auto h-full w-[88%]">
-            <PlayerPhoto player={player} palette={palette} />
+            <PlayerPhoto player={player} palette={palette} rank={variant.rank} rich={rich} />
           </div>
         </div>
 
@@ -178,7 +185,26 @@ export function CardRenderer({
             {variant.label}
           </p>
 
-          {showCardStats && (
+          {showCardStats && (compactStats ? (
+            /*
+              En tamaño pequeño, BARRAS en vez de cifras.
+              Son seis estadísticas: seis números con su etiqueta no caben en una carta de
+              150 px —la primera versión se salía por los bordes— y, aunque cupieran, seis
+              cifras diminutas no se leen en una rejilla: son ruido. Un perfil de barras sí
+              se compara de un vistazo, que es justo lo que se hace al mirar la colección.
+              Las cifras exactas están en la carta grande y en el detalle.
+            */
+            <div className="mt-1.5 flex h-4 items-end justify-center gap-[3px]" aria-hidden>
+              {STAT_ORDER.map((key) => (
+                <span
+                  key={key}
+                  title={`${STAT_META[key].label} ${stats[key]}`}
+                  className="w-[7px] rounded-[1px] bg-white/85"
+                  style={{ height: `${Math.max(12, Math.min(100, stats[key]))}%` }}
+                />
+              ))}
+            </div>
+          ) : (
             <div className="mt-2 grid grid-cols-3 gap-x-2 gap-y-1">
               {STAT_ORDER.map((key) => (
                 <div key={key} className="flex items-center justify-between text-[11px] text-white">
@@ -187,7 +213,7 @@ export function CardRenderer({
                 </div>
               ))}
             </div>
-          )}
+          ))}
         </div>
       </div>
     </motion.div>

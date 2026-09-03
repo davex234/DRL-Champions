@@ -20,6 +20,7 @@ import { CardRegistry } from "@/collection/registry";
 import { buildPool } from "@/domain/packs/pool";
 import { getPack } from "@/data/packs";
 import { RECIPE_BY_ID, RECIPES } from "@/data/recipes";
+import { MIN_ROUNDS } from "@/domain/cards/combat";
 import type { Player } from "@/domain/cards/types";
 
 let pass = 0, fail = 0;
@@ -80,10 +81,22 @@ const history: TournamentFact[] = [{
   playerRatings: [{ playerId: "p:zekken", rating: 60 }],
 }];
 
+/*
+ * `metrics` es OBLIGATORIO para que un jugador del roster genere cartas: `cardsForPlayer`
+ * devuelve [] sin métricas reales (`rounds >= MIN_ROUNDS`) ni autoría `editorial` («cero
+ * estadísticas por defecto»). Sin ellas el pipeline F1→F6 llegaba aquí con cero cartas y el
+ * catálogo construido quedaba vacío. Son métricas de FIXTURE: no tocan el catálogo del producto.
+ */
+const seedMetrics = (i = 0): Player["metrics"] => ({
+  rounds: 4 * MIN_ROUNDS + i, kills: 300 + 4 * i, deaths: 250 + 2 * i, assists: 90 + 3 * i,
+  fk: 55 + i, fd: 40 + i, acs: 210 + 4 * i, adr: 145 + 2 * i,
+  kd: 1.2 - i * 0.02, kast: 72 + i, hsPct: 24 + i, clutches: 6 + (i % 4),
+});
+
 const seedPlayer = (id: string, nick: string, extra: Partial<Player> = {}): Player => ({
   id, nick, team: "Sentinels", teamTag: "SEN", region: "Americas", role: "Duelista", country: "us",
   stats: { dmg: 80, scr: 82, com: 78, hs: 75, ast: 70, clu: 72 }, accolades: ["champions"],
-  image: `/players/${id}.png`, ...extra,
+  image: `/players/${id}.png`, metrics: seedMetrics(), ...extra,
 });
 const ROSTER: Player[] = [seedPlayer("zekken", "zekken")];
 const gctx = (): GeneratorCtx => ({ roster: ROSTER, now: 1_700_000_000_000 });
@@ -171,7 +184,19 @@ async function main(): Promise<void> {
   // NEWS
   console.log("\n## Noticias (estructuradas)");
   check("noticia agregada de altas con conteo real", res.news.some((n) => n.id === `news:catalog:add:${gen.generationId.toLowerCase()}` && n.title.includes(`${res.diff.added.length} cartas`)));
-  check("noticia de jugadores nuevos y de colección", res.news.some((n) => n.id.includes("catalog:players")) && res.news.some((n) => n.id.includes("catalog:collection")));
+  /*
+   * ANTES exigía SIEMPRE la noticia «jugadores nuevos». `news.ts` solo la emite si
+   * `catalogPatch.playersAdd` no está vacío, y con el contrato actual los borradores no generan
+   * cartas ni se dan de alta: no hay jugadores nuevos, así que no hay noticia — y es correcto,
+   * publicar «0 jugadores nuevos» sería ruido.
+   *
+   * Se mantiene la de colección (sigue siendo obligatoria) y la de jugadores pasa a comprobarse
+   * como la condición que realmente es: existe SI Y SOLO SI hay altas. Así se sigue cubriendo el
+   * cableado en ambos sentidos en vez de borrar la comprobación.
+   */
+  check("noticia de colección siempre; la de jugadores nuevos si y solo si hay altas",
+    res.news.some((n) => n.id.includes("catalog:collection"))
+    && res.news.some((n) => n.id.includes("catalog:players")) === (mat.catalogPatch.playersAdd.length > 0));
   check("ids deterministas (derivados del GenerationId)", res.news.every((n) => n.id.startsWith("news:catalog:")));
 
   // MANIFEST + VERSION + FINGERPRINT
@@ -242,12 +267,32 @@ async function main(): Promise<void> {
     }
     return { tournament: { id: "big", name: "Big Masters 2025", type: "masters", status: "finished" }, teams, players, matches, maps, mapStats, standings: teams.map((t, i) => ({ team: t.name, position: i + 1, wins: 1, losses: 0 })), awards: { champion: teams[0].name } };
   }
-  const bigGen = generateCards(analyze(importSnapshot(bigSnapshot(30), ictx()).model), { roster: [], now: 1_700_000_000_000 });
-  const bigMat = await materialize(bigGen, { roster: [], now: 1_700_000_000_000 });
+  /*
+   * ANTES: `roster: []`. Los 150 eran borradores, no generaban ninguna carta, y la comprobación
+   * de abajo comparaba `0 === 0`: pasaba EN VACÍO. Se le da su catálogo para que vuelva a medir
+   * construir a escala, y la aserción exige además que haya cartas.
+   */
+  const bigRoster: Player[] = Array.from({ length: 30 }, (_, ti) =>
+    Array.from({ length: 5 }, (_, pi) => seedPlayer(`p${ti}_${pi}`, `p${ti}_${pi}`, {
+      team: `Team ${ti}`, teamTag: `T${ti}`, accolades: [], metrics: seedMetrics(ti + pi),
+    })),
+  ).flat();
+  const bigGen = generateCards(analyze(importSnapshot(bigSnapshot(30), ictx()).model), { roster: bigRoster, now: 1_700_000_000_000 });
+  const bigMat = await materialize(bigGen, { roster: bigRoster, now: 1_700_000_000_000 });
   const t0 = process.hrtime.bigint();
-  const bigRes = await buildCatalog(bigMat, { roster: [], now: 1_700_000_000_000 });
+  const bigRes = await buildCatalog(bigMat, { roster: bigRoster, now: 1_700_000_000_000 });
   const ms = Number(process.hrtime.bigint() - t0) / 1e6;
-  check("torneo grande construido y válido", bigRes.validation.ok && bigRes.catalog.cards.length === bigMat.catalogPatch.cardsAdd.length, `${bigRes.catalog.cards.length} cartas · ${Math.round(ms)} ms`);
+  /*
+   * La igualdad anterior (`catalog.cards.length === catalogPatch.cardsAdd.length`) solo se
+   * cumplía con el roster vacío, comparando 0 con 0. Con catálogo real el construido son las
+   * cartas de los 150 del roster MÁS las nuevas, así que la igualdad es falsa por diseño.
+   * Lo que sí debe cumplirse —y es lo que la comprobación quería decir— es que TODA carta
+   * añadida por el patch esté en el catálogo construido, y que este valide.
+   */
+  check("torneo grande construido y válido",
+    bigRes.validation.ok && bigRes.catalog.cards.length > 0 && bigMat.catalogPatch.cardsAdd.length > 0
+    && bigMat.catalogPatch.cardsAdd.every((a) => bigRes.catalog.cards.some((c) => c.id === a.id)),
+    `${bigRes.catalog.cards.length} cartas (${bigMat.catalogPatch.cardsAdd.length} nuevas) · ${Math.round(ms)} ms`);
   check("rendimiento aceptable (sin O(n²) patológico)", ms < 4000, `${Math.round(ms)} ms`);
 
   console.log(`\n${fail === 0 ? "✅ TODAS LAS COMPROBACIONES PASAN" : `❌ ${fail} COMPROBACIÓN(ES) FALLARON`} — ${pass}/${pass + fail}`);

@@ -74,6 +74,10 @@ async function buildContext(sb: SupabaseClient, matchId: string): Promise<MatchC
   const match = toMatch(mRow as MatchRow);
   const A = match.teamAId, B = match.teamBId;
   if (!A || !B) return null;
+  // Mismo cuidado que en `lib/supabase/market.ts` (BUG-10): los ids de equipo vienen de una
+  // fuente externa (sync VLR) y se concatenan en un filtro `.or()`. Si traen comas o
+  // paréntesis romperían la expresión, así que se rechaza cualquier forma inesperada.
+  if (!/^[\w.-]+$/.test(A) || !/^[\w.-]+$/.test(B)) return null;
 
   // Histórico de ambos equipos (para forma y H2H).
   const { data: histRows } = await sb

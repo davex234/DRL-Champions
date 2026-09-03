@@ -5,7 +5,8 @@
  * vía `verifyAdmin`). Escribe con service_role. Cuerpo: { action, ... }.
  *
  * Acciones: create_tournament | update_tournament | add_team | add_player |
- * import_from_event | set_rule | finish_tournament | eliminate_team.
+ * import_from_event | set_rule | finish_tournament | eliminate_team |
+ * run_pickem_lifecycle.
  * Las generaciones devuelven `specs` para que el cliente aplique las accolades al
  * roster local (cartas jugables).
  */
@@ -17,6 +18,7 @@ import { allPlayers } from "@/data/catalog";
 import {
   generateForFinish, generateForTeamElimination, persistGeneration, persistCollection,
 } from "@/lib/tournaments/engine";
+import { runPickemLifecycle } from "@/server/services/pickemLifecycle";
 import type {
   Tournament, TournamentPlayer, RarityRule, CardPhoto, GenerationResult,
 } from "@/domain/tournaments/types";
@@ -163,6 +165,22 @@ export async function POST(req: Request) {
             .eq("tournament_id", input.tournament.id).eq("team_id", input.tournament.winnerTeamId);
         }
         return NextResponse.json({ ok: true, result, collection: coll });
+      }
+      /*
+       * CICLO DE PICK'EMS (Fase 10).
+       *
+       * Abre las predicciones de los partidos que faltan, fija el resultado de los que ya
+       * acabaron y reparte puntos y recompensas. En producción esto corre solo dentro de
+       * la sincronización competitiva; esta acción existe para forzarlo desde el panel
+       * cuando el origen publica un resultado tarde.
+       *
+       * Es idempotente, así que pulsarlo dos veces no duplica nada.
+       */
+      case "run_pickem_lifecycle": {
+        const eventId = typeof body.eventId === "string" ? body.eventId : "";
+        if (!eventId) return NextResponse.json({ error: "Falta eventId" }, { status: 400 });
+        const result = await runPickemLifecycle(sb, eventId);
+        return NextResponse.json({ ok: true, result });
       }
       case "eliminate_team": {
         const input = await loadGenInput(sb, body.tournamentId as string);

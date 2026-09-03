@@ -1,0 +1,16 @@
+// Proyecto de TIPOS de los scripts de utilidad (`scripts/*.ts`: verifies, generadores, CLIs).
+//
+// Están FUERA de `tsconfig.json` a propósito: no forman parte del bundle web, y antes un error
+// de tipos en un script de utilidad rompía `next build` (BUG-03). Siguen comprobándose igual
+// —`npm run typecheck` ejecuta los dos proyectos— pero ya no bloquean el producto compilado.
+//
+// Hereda toda la configuración del proyecto web (strict, paths `@/*`, etc.).
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["scripts/**/*.ts"],
+  "exclude": ["node_modules"]
+}

@@ -66,6 +66,23 @@ export async function importVlrTournament(url: string, opts: VlrImportOptions = 
   }
 
   const snapshot = toRawSnapshot(ref, info, teams, statsRows, matches);
+
+  /*
+   * Mapas SIN scoreboard es el fallo silencioso de este conector: el pipeline entero termina en
+   * verde —torneo, equipos, partidos y marcadores están— y aguas abajo TODAS las métricas por
+   * jugador salen a cero, así que no hay líderes, ni premios, ni cartas de rendimiento. Ocurrió
+   * de verdad: vlr.gg cambió el scoreboard de <table> a <div> y nada lo dijo. Se avisa aquí, que
+   * es el único punto que sabe a la vez cuántos mapas se leyeron y cuántas filas salieron.
+   */
+  const mapsParsed = snapshot.maps?.length ?? 0;
+  const mapStatRows = snapshot.mapStats?.length ?? 0;
+  if (mapsParsed > 0 && mapStatRows === 0) {
+    warnings.push(
+      `${mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido ` +
+      `probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.`,
+    );
+  }
+
   return {
     ref,
     snapshot,
@@ -77,8 +94,8 @@ export async function importVlrTournament(url: string, opts: VlrImportOptions = 
       pagesFetched,
       matchesListed: matches.length,
       matchDetailsFetched,
-      mapsParsed: snapshot.maps?.length ?? 0,
-      mapStatRows: snapshot.mapStats?.length ?? 0,
+      mapsParsed,
+      mapStatRows,
     },
   };
 }

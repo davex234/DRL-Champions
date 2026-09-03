@@ -14,9 +14,8 @@
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { AccoladeId, Player, VariantId } from "@/domain/cards/types";
-import { getPlayer, variantsForAccolade } from "@/data/catalog";
-import { getVariant, baseMetalForOvr } from "@/domain/cards/variants";
-import { applyStatBoost, computeOvr } from "@/domain/cards/ovr";
+import { getPlayer, variantsForAccolade, cardOvrFor, baseMetalFor } from "@/data/catalog";
+import { getVariant } from "@/domain/cards/variants";
 import { resolveTier, ruleForKind, pickPhoto } from "@/domain/tournaments/rarity";
 import { computeAwards, type AwardPlayer, type AwardWinner } from "@/domain/collections/awards";
 import type {
@@ -26,7 +25,7 @@ import type {
 /** Variante de mayor rank entre las que desbloquea una accolade. */
 function topVariant(accolade: AccoladeId, player: Player): VariantId {
   const vs = variantsForAccolade(accolade, player);
-  if (!vs.length) return baseMetalForOvr(computeOvr(player.stats));
+  if (!vs.length) return baseMetalFor(player) ?? "silver";
   return vs.reduce((best, v) => (getVariant(v).rank > getVariant(best).rank ? v : best), vs[0]);
 }
 
@@ -42,9 +41,10 @@ function buildSpec(
   const accolade = (rule.accolade ?? "").trim();
   const variantId: VariantId = accolade
     ? topVariant(accolade as AccoladeId, player)
-    : baseMetalForOvr(computeOvr(player.stats));
-  const variant = getVariant(variantId);
-  const ovr = computeOvr(applyStatBoost(player.stats, variant.statBoost));
+    : baseMetalFor(player) ?? "silver";
+  // El OVR lo calcula el DOMINIO (trío + statBoost). Aquí no se compone matemática.
+  const ovr = cardOvrFor(player, variantId);
+  if (ovr == null) return null; // jugador sin métricas suficientes: no genera carta
   return {
     playerId: tp.playerId, teamId: tp.teamId, nick: tp.nick ?? player.nick, kind,
     tier: rule.tier, accolade, variantId, cardId: `${tp.playerId}__${variantId}`,
@@ -76,8 +76,8 @@ function awardPlayersFrom(players: TournamentPlayer[]): AwardPlayer[] {
 function buildAwardSpec(w: AwardWinner, input: GenInput): GeneratedCardSpec | null {
   const player = getPlayer(w.playerId);
   if (!player) return null;
-  const variant = getVariant(w.variantId);
-  const ovr = computeOvr(applyStatBoost(player.stats, variant.statBoost));
+  const ovr = cardOvrFor(player, w.variantId);
+  if (ovr == null) return null; // jugador sin métricas suficientes: no genera carta
   const tp = input.players.find((p) => p.playerId === w.playerId);
   return {
     playerId: w.playerId, teamId: w.teamId, nick: w.nick ?? player.nick, kind: w.kind,

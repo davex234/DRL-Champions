@@ -65,7 +65,7 @@ export function InstallBanner() {
       </div>
       <div className="min-w-0 flex-1">
         <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-          Instalar DRL Champions
+          Instalar NEXUS
         </p>
         {isIOS && !deferred ? (
           <p className="text-xs text-white/55">
@@ -84,7 +84,13 @@ export function InstallBanner() {
           Instalar
         </button>
       )}
-      <button onClick={dismiss} className="shrink-0 px-1 text-white/40 hover:text-white" aria-label="Cerrar">
+      {/* 44x44 no: pero por debajo de 32 el pulgar falla, y este aspa está en casi todas
+          las pantallas del producto. */}
+      <button
+        onClick={dismiss}
+        className="grid h-9 w-9 shrink-0 place-items-center rounded-control text-white/40 transition duration-fast hover:bg-white/[0.08] hover:text-white"
+        aria-label="Cerrar"
+      >
         ✕
       </button>
     </div>

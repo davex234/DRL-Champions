@@ -110,15 +110,57 @@ export const PACKS: PackDef[] = [
   {
     id: "china",
     name: "Sobre China",
-    description: "Solo jugadores de la región China.",
+    /*
+     * SIN EPICAS NI LEGENDARIAS, Y AHORA SE DICE (Fase 13).
+     *
+     * Declaraba un 6 % de épicas y un 1 % de legendarias que NO PUEDE entregar: ningún
+     * jugador de la región China tiene un galardón que abra esas rarezas (medido en
+     * `npm run content:audit`: 0 de 89 jugadores, frente a 5 en EMEA y 7 en Americas). Es un
+     * hecho del palmarés real, no un fallo de datos, y fabricar el galardón sería inventar
+     * un resultado deportivo.
+     *
+     * Poner esos pesos a cero NO cambia ni un sorteo —el motor ya renormalizaba sobre los
+     * buckets con cartas—, así que esto es exclusivamente una corrección de honestidad:
+     * el sobre deja de anunciar una probabilidad inalcanzable.
+     *
+     * Y la contrapartida, medida: al no repartir nunca a rarezas que no tiene, es el
+     * regional MÁS BARATO por carta en las tres que sí entrega (común 1.583 frente a 1.704,
+     * poco común 1.399 frente a 1.500, rara 3.123 frente a 3.367). No es un sobre peor: es
+     * un sobre sin premio gordo y con mejor tasa base.
+     */
+    description: "Solo jugadores de la región China. Sin épicas ni legendarias, y mejor tasa base.",
     price: 3000,
     cardCount: 5,
-    weights: { common: 35, uncommon: 40, rare: 18, epic: 6, legendary: 1 },
+    weights: { common: 35, uncommon: 40, rare: 18, epic: 0, legendary: 0 },
     restrictRegion: "China",
     accent: "#19e3ff",
     tag: "Regional",
   },
   {
+    /*
+     * PRIME, RETIRADO DEL ESCAPARATE (Fase 13).
+     *
+     * Medido en `content:audit` y `economy:model`: está DOMINADO en todos los ejes que se
+     * pueden medir.
+     *
+     *   · Coste por rareza: 1,84× el mejor en épicas, 1,38× en legendarias, 6,13× en raras.
+     *   · Coste por carta del grupo `exclusiva` —su único nicho posible, porque no restringe
+     *     grupo—: 10.050 frente a los 8.071 del Premium.
+     *   · Certeza de llevarse una `exclusiva`: 2 sobres para el 90 %, o sea 20.000 créditos,
+     *     exactamente lo mismo que cuestan los 8 Premium que dan la misma certeza.
+     *   · Y es el ÚNICO sobre cuyo percentil 10 (8.850) queda por debajo de su precio.
+     *
+     * La causa es estructural: con 34 raras, 9 épicas y 7 legendarias, el catálogo sostiene
+     * tres sobres de rareza alta (Premium, Masters, Icon) y Prime es el cuarto.
+     *
+     * NO se borra. La variante `prime` tiene 5 cartas, hay recompensas que conceden sobres
+     * Prime y hay jugadores con sobres sin abrir: borrarlo rompería las tres cosas. Se deja
+     * de VENDER, que es lo único que estaba mal.
+     *
+     * Vuelve al escaparate cuando el catálogo tenga cartas suficientes de rareza alta para
+     * que deje de estar dominado — la condición es objetiva y `content:verify` la vigila.
+     */
+    retired: true,
     id: "prime",
     name: "Sobre Prime",
     description: "Cartas Prime exclusivas con stats mejorados.",

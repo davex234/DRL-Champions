@@ -12,13 +12,20 @@ import { AnimatePresence } from "framer-motion";
 import { BrandMark } from "@/branding/Logo";
 import { useNewsStore } from "@/store/useNewsStore";
 import { CIRCUITS } from "@/data/esports/circuits";
-import { buildInfo, isOnline, getLogs, channelInfo, formatBytes, type LogEntry } from "@/platform";
+import { buildInfo, isOnline, getLogs, channelInfo, formatBytes, isTauri, type LogEntry } from "@/platform";
 import type { UpdaterApi } from "./useUpdater";
 import { UpdatePanel } from "./UpdatePanel";
 import { SettingsDrawer } from "./SettingsDrawer";
 import { useUpdateWatcher } from "./useUpdateWatcher";
 
-type Server = "checking" | "online" | "offline";
+/**
+ * Estado del servidor de actualizaciones.
+ *
+ * `desktop-only` no es un fallo: es que en el navegador no hay nada que actualizar, así
+ * que ni se pregunta. Decirlo con un estado propio evita enseñar «Sin conexión» cuando lo
+ * cierto es que la pregunta no aplica.
+ */
+type Server = "checking" | "online" | "offline" | "desktop-only";
 
 export function LauncherHome({ up }: { up: UpdaterApi }) {
   const router = useRouter();
@@ -41,6 +48,27 @@ export function LauncherHome({ up }: { up: UpdaterApi }) {
     const off = () => setOnline(false);
     window.addEventListener("online", on);
     window.addEventListener("offline", off);
+    /*
+     * Estado del servidor de actualizaciones: SOLO en el cliente de escritorio.
+     *
+     * En el navegador esta comprobación no servía para nada y además fallaba siempre:
+     * la CSP de la aplicación no incluye `update.drlchampions.com` en `connect-src`, así
+     * que el navegador bloqueaba la petición y el indicador se quedaba fijo en «offline»,
+     * dejando dos errores en la consola de cada visita al launcher.
+     *
+     * Se resuelve por donde corresponde: el servidor de actualizaciones solo importa
+     * cuando hay algo que actualizar, y eso solo pasa en Tauri. Así se evita el error y,
+     * de paso, la web deja de llamar a un servicio externo que no necesita. En escritorio
+     * no hay CSP (el build estático no emite cabeceras) y sigue funcionando igual.
+     */
+    if (!isTauri()) {
+      setServer("desktop-only");
+      return () => {
+        window.removeEventListener("online", on);
+        window.removeEventListener("offline", off);
+      };
+    }
+
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 4000);
     fetch("https://update.drlchampions.com/health", { method: "HEAD", signal: ctrl.signal, mode: "no-cors" })
@@ -81,8 +109,15 @@ export function LauncherHome({ up }: { up: UpdaterApi }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Badge ok={server === "online"} warn={server === "checking"}>
-              Servidores: {server === "online" ? "Operativos" : server === "checking" ? "Conectando" : "Sin conexión"}
+            <Badge ok={server === "online" || server === "desktop-only"} warn={server === "checking"}>
+              Servidores:{" "}
+              {server === "online"
+                ? "Operativos"
+                : server === "checking"
+                  ? "Conectando"
+                  : server === "desktop-only"
+                    ? "Solo en escritorio"
+                    : "Sin conexión"}
             </Badge>
             <Badge ok={online} warn={false}>{online ? "En línea" : "Offline"}</Badge>
           </div>

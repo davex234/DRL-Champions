@@ -17,6 +17,12 @@ async function upsert(sb: SupabaseClient, table: string, rows: Row[], onConflict
 
 export const upsertCircuits = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "circuits", rows, "id");
 export const upsertTeams = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "teams", rows, "id");
+/**
+ * Alta de jugadores. Faltaba: `map_player_stats.player_id` y `player_stats.player_id` tienen
+ * FK contra `players(id)`, así que sin este upsert cualquier scoreboard real es imposible de
+ * escribir. Debe ejecutarse DESPUÉS de los equipos (`players.team_id` referencia `teams`).
+ */
+export const upsertPlayers = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "players", rows, "id");
 export const upsertEvent = (sb: SupabaseClient, row: Row) => upsert(sb, "events", [row], "id");
 export const upsertMatches = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "matches", rows, "id");
 export const upsertMapStats = (sb: SupabaseClient, rows: Row[]) =>

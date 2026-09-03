@@ -58,8 +58,22 @@ export interface ActiveMission {
 
 // ───────────────────────────── Temporada / pases / tracks ─────────────────────────────
 
-/** Track de recompensas: nivel → recompensa. Libre o premium. */
+/** Track de recompensas: nivel → recompensa. */
 export type Track = Record<number, Reward>;
+
+/**
+ * Los TRES carriles del pase (Fase 9E).
+ *
+ *   · `free`        — para todo el mundo, sin condiciones.
+ *   · `competitive` — se GANA jugando: se abre al alcanzar un rango. No se compra.
+ *   · `premium`     — se PAGA. Y precisamente por eso solo lleva cosmética.
+ *
+ * El reparto no es estético, es la regla §29 de la Fase 9: el dinero no puede comprar
+ * ventaja competitiva. Todo lo que influye en un duelo —cartas, créditos, sobres— vive
+ * en los carriles libre y competitivo, que se consiguen jugando. El de pago lleva
+ * aspecto: avatares, marcos, banderines, títulos.
+ */
+export type PassTrack = "free" | "competitive" | "premium";
 
 export interface SeasonDef {
   id: string;
@@ -69,9 +83,16 @@ export interface SeasonDef {
   xpPerLevel: number;
   /** Recompensas del track gratuito por nivel. */
   free: Track;
-  /** Recompensas del track premium por nivel. */
+  /**
+   * Recompensas del track COMPETITIVO. Se desbloquea por rango, no por dinero.
+   * Opcional: una temporada puede no tenerlo.
+   */
+  competitive?: Track;
+  /** Puntos competitivos necesarios para abrir el carril competitivo. */
+  competitiveMinPoints?: number;
+  /** Recompensas del track premium por nivel. Solo cosmética (§29). */
   premium: Track;
-  /** Coste de desbloquear el premium. */
+  /** Coste de desbloquear el premium DENTRO del juego (fichas de evento, créditos). */
   premiumCost?: { credits?: number; tokens?: number };
   /** Piscina de misiones (por datos). */
   missionPool: MissionDef[];
@@ -85,6 +106,7 @@ export interface ArchivedSeason {
   level: number;
   xp: number;
   claimedFree: number;
+  claimedCompetitive: number;
   claimedPremium: number;
   premium: boolean;
   missionsCompleted: number;
@@ -102,7 +124,13 @@ export interface PassState {
   /** Auto-reclamar recompensas de nivel al subir. */
   autoClaim: boolean;
   claimedFree: number[];
+  claimedCompetitive: number[];
   claimedPremium: number[];
+  /**
+   * ¿Está abierto el carril competitivo? Lo decide QUIEN CONOCE los puntos —el
+   * servidor—, no el motor: el motor es puro y no sabe nada del perfil del jugador.
+   */
+  competitiveUnlocked: boolean;
   missions: ActiveMission[];
   /** Total de misiones completadas esta temporada (para analytics/prestigio). */
   missionsCompleted: number;
@@ -121,7 +149,8 @@ export interface LevelProgress {
 
 export type PassEventType =
   | "xp_gained" | "level_up" | "reward_claimed" | "track_claimed" | "premium_unlocked"
-  | "mission_completed" | "mission_claimed" | "missions_refreshed" | "season_advanced" | "season_archived";
+  | "mission_completed" | "mission_claimed" | "missions_refreshed" | "season_advanced" | "season_archived"
+  | "competitive_unlocked";
 
 export interface PassEvent { type: PassEventType; at: number; data?: unknown }
 
@@ -143,6 +172,7 @@ export interface PassAnalytics {
   percentComplete: number;
   premium: boolean;
   claimedFree: number;
+  claimedCompetitive: number;
   claimedPremium: number;
   missionsActive: number;
   missionsCompleted: number;

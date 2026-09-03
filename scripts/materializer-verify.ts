@@ -20,6 +20,7 @@ import { isEligible, buildPool } from "@/domain/packs/pool";
 import { getPack } from "@/data/packs";
 import { RECIPE_BY_ID } from "@/data/recipes";
 import { instanceValue } from "@/domain/economy/pricing";
+import { MIN_ROUNDS } from "@/domain/cards/combat";
 import type { Player } from "@/domain/cards/types";
 
 let pass = 0, fail = 0;
@@ -80,10 +81,22 @@ const history: TournamentFact[] = [{
   playerRatings: [{ playerId: "p:zekken", rating: 60 }],
 }];
 
+/*
+ * `metrics` es OBLIGATORIO para que un jugador del roster genere cartas: `cardsForPlayer`
+ * devuelve [] si no hay métricas reales con `rounds >= MIN_ROUNDS` ni autoría `editorial`
+ * («cero estadísticas por defecto»). Sin ellas este fixture generaba CERO specs y el pipeline
+ * F1→F5 se quedaba sin nada que materializar. Son métricas de FIXTURE: no tocan el catálogo.
+ */
+const seedMetrics = (i = 0): Player["metrics"] => ({
+  rounds: 4 * MIN_ROUNDS + i, kills: 300 + 4 * i, deaths: 250 + 2 * i, assists: 90 + 3 * i,
+  fk: 55 + i, fd: 40 + i, acs: 210 + 4 * i, adr: 145 + 2 * i,
+  kd: 1.2 - i * 0.02, kast: 72 + i, hsPct: 24 + i, clutches: 6 + (i % 4),
+});
+
 const seedPlayer = (id: string, nick: string, extra: Partial<Player> = {}): Player => ({
   id, nick, team: "Sentinels", teamTag: "SEN", region: "Americas", role: "Duelista", country: "us",
   stats: { dmg: 80, scr: 82, com: 78, hs: 75, ast: 70, clu: 72 }, accolades: ["champions"],
-  image: `/players/${id}.png`, ...extra,
+  image: `/players/${id}.png`, metrics: seedMetrics(), ...extra,
 });
 const ROSTER: Player[] = [seedPlayer("zekken", "zekken")];
 const gctx = (): GeneratorCtx => ({ roster: ROSTER, now: 1_700_000_000_000 });
@@ -97,6 +110,27 @@ async function main(): Promise<void> {
 
   const analysis = analyze(importSnapshot(fixture, ictx()).model, history);
   const gen: CardGenerationResult = generateCards(analysis, gctx());
+
+  /*
+   * GUARDIA DEL FIXTURE — antes que ninguna otra comprobación.
+   *
+   * Casi todo lo que sigue da por hecho que hay al menos una carta: `gen.cards[0].ovr`,
+   * `res.cards[0].card.id`… Cuando el fixture dejó de generarlas —su roster no cumplía el
+   * contrato de métricas— esto no fallaba con un diagnóstico, sino con un
+   * `TypeError: Cannot read properties of undefined (reading 'ovr')` en mitad del fichero, que
+   * no dice ni qué se rompió ni por qué.
+   *
+   * Con esta guardia, un fixture que no genere cartas falla AQUÍ, con su motivo, y se detiene.
+   */
+  if (gen.cards.length === 0) {
+    check("el fixture genera al menos una carta (precondición del resto)", false,
+      "0 specs: revisa que el roster inyectado tenga `metrics` con rounds >= MIN_ROUNDS "
+      + "o autoría `editorial` — sin eso `cardsForPlayer` devuelve [] y no hay nada que materializar");
+    console.log(`\n❌ ${fail} COMPROBACIÓN(ES) FALLARON — ${pass}/${pass + fail}`);
+    process.exitCode = 1;
+    return;
+  }
+
   const res: MaterializationResult = await materialize(gen, mctx());
 
   // COMPAT CARD GENERATOR + VERSIONADO + PROVENANCE
@@ -136,12 +170,23 @@ async function main(): Promise<void> {
   // CATALOG PATCH (incremental)
   console.log("\n## CatalogPatch (incremental, jamás rebuild)");
   const cp = res.catalogPatch;
-  check("drafts añadidos con accolades fusionadas (zellsis/ethan)",
-    cp.playersAdd.length === 2 && cp.playersAdd.some((p) => p.nick === "zellsis" && p.accolades.includes("tournament-champion")));
+  /*
+   * ANTES: «drafts añadidos con accolades fusionadas (zellsis/ethan)», esperando
+   * `playersAdd.length === 2`.
+   *
+   * Con el contrato actual un borrador no tiene `metrics`, así que no genera ninguna carta —y,
+   * en consecuencia, el materializer TAMPOCO lo añade al catálogo—. Medido: `playersAdd` es [].
+   * Es coherente y además deseable: un jugador sin ninguna carta no debe ensuciar el catálogo.
+   * Se afirma esa invariante en vez de la antigua.
+   */
+  check("borrador sin metrics ⇒ ni cartas ni alta en el catálogo", cp.playersAdd.length === 0);
   check("zekken actualizado SOLO con accolades nuevas", cp.playersUpdate.length === 1 && cp.playersUpdate[0].playerId === "zekken" &&
     cp.playersUpdate[0].addAccolades.includes("tournament-mvp") && !cp.playersUpdate[0].addAccolades.includes("champions"));
   check("cardsAdd ⊇ todas las cartas materializadas", res.cards.every((c) => cp.cardsAdd.some((a) => a.id === c.card.id)));
-  check("incremental: solo jugadores afectados; sin fullRebuild", cp.fullRebuild === false && cp.affectedPlayers.length === 3 && cp.cardsRemove.length === 0);
+  // `affectedPlayers` era 3 (zekken + los dos borradores); ahora es 1 por lo mismo que arriba:
+  // los borradores no producen cartas, así que no afectan al catálogo.
+  check("incremental: solo jugadores afectados; sin fullRebuild",
+    cp.fullRebuild === false && cp.affectedPlayers.length === 1 && cp.affectedPlayers[0] === "zekken" && cp.cardsRemove.length === 0);
   // Compat Collection/Catalog: aplicar el patch reproduce EXACTAMENTE el catálogo predicho.
   const rosterAfter: Player[] = [
     ...ROSTER.map((p) => {
@@ -255,11 +300,26 @@ async function main(): Promise<void> {
     }
     return { tournament: { id: "big", name: "Big Masters 2025", type: "masters", status: "finished" }, teams, players, matches, maps, mapStats, standings: teams.map((t, i) => ({ team: t.name, position: i + 1, wins: 1, losses: 0 })), awards: { champion: teams[0].name } };
   }
-  const bigGen = generateCards(analyze(importSnapshot(bigSnapshot(30), ictx()).model), { roster: [], now: 1_700_000_000_000 });
+  /*
+   * ANTES: `roster: []`, así que los 150 eran borradores y con el contrato actual no generan
+   * ninguna carta. La comprobación medía el tiempo de materializar nada. Se le da su catálogo.
+   */
+  const bigRoster: Player[] = Array.from({ length: 30 }, (_, ti) =>
+    Array.from({ length: 5 }, (_, pi) => seedPlayer(`p${ti}_${pi}`, `p${ti}_${pi}`, {
+      team: `Team ${ti}`, teamTag: `T${ti}`, accolades: [], metrics: seedMetrics(ti + pi),
+    })),
+  ).flat();
+  const bigGen = generateCards(analyze(importSnapshot(bigSnapshot(30), ictx()).model), { roster: bigRoster, now: 1_700_000_000_000 });
   const t0 = process.hrtime.bigint();
-  const bigRes = await materialize(bigGen, { roster: [], now: 1_700_000_000_000 });
+  const bigRes = await materialize(bigGen, { roster: bigRoster, now: 1_700_000_000_000 });
   const ms = Number(process.hrtime.bigint() - t0) / 1e6;
-  check("torneo grande materializado (patches completos)", bigRes.cards.length === bigGen.cards.length && bigRes.catalogPatch.playersAdd.length > 0, `${bigRes.cards.length} cartas · ${Math.round(ms)} ms`);
+  // `playersAdd > 0` esperaba altas de borradores; ahora los 150 están en el roster, así que no
+  // se da de alta a nadie. Se comprueba lo que sí sigue siendo cierto: que TODO lo generado se
+  // materializa y entra en el patch, y que sigue siendo incremental.
+  check("torneo grande materializado (patches completos)",
+    bigRes.cards.length === bigGen.cards.length && bigRes.cards.length > 0
+    && bigRes.catalogPatch.cardsAdd.length === bigGen.cards.length && bigRes.catalogPatch.fullRebuild === false,
+    `${bigRes.cards.length} cartas · ${Math.round(ms)} ms`);
   check("rendimiento aceptable (sin O(n²) patológico)", ms < 4000, `${Math.round(ms)} ms`);
 
   console.log(`\n${fail === 0 ? "✅ TODAS LAS COMPROBACIONES PASAN" : `❌ ${fail} COMPROBACIÓN(ES) FALLARON`} — ${pass}/${pass + fail}`);

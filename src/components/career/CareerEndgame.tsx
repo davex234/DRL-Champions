@@ -132,7 +132,7 @@ export function CareerEndgame() {
       <section className="rounded-xl border border-drl-cyan/25 bg-drl-cyan/5 p-4">
         <div className="flex flex-wrap items-center gap-3">
           <div className="min-w-0 flex-1">
-            <h3 className="font-display text-sm font-bold text-white">New Game+</h3>
+            <h3 className="font-display text-sm font-bold text-white">Nueva carrera+</h3>
             <p className="text-[12px] text-white/55">{eg.newGamePlus.worldMemoryNote}</p>
             <p className="mt-1 text-[11px] text-white/40">{eg.newGamePlus.legendsCarried} leyendas · {eg.newGamePlus.recordsCarried} récords permanecen · {eg.newGamePlus.reconversions.length} discípulos se reconvierten</p>
           </div>

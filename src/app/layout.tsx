@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { AppShell } from "@/components/layout/AppShell";
+import { GameShell } from "@/components/layout/GameShell";
 import { AuthProvider } from "@/lib/supabase/auth";
 
 const TITLE = "DRL Champions — Manager de esports de Valorant";
@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <AuthProvider>
-          <AppShell>{children}</AppShell>
+          <GameShell>{children}</GameShell>
         </AuthProvider>
       </body>
     </html>

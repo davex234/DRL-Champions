@@ -24,6 +24,10 @@ export function migratePassState(raw: unknown, fallbackSeasonId: string): PassSt
     boost: typeof r.boost === "number" && r.boost > 0 ? r.boost : 1,
     autoClaim: !!r.autoClaim,
     claimedFree: [...new Set(numArr(r.claimedFree))],
+    // Un estado anterior a la Fase 9E no conoce el carril competitivo: entra vacío y
+    // cerrado, que es exactamente el punto de partida de quien nunca lo ha abierto.
+    claimedCompetitive: [...new Set(numArr(r.claimedCompetitive))],
+    competitiveUnlocked: !!r.competitiveUnlocked,
     claimedPremium: [...new Set(numArr(r.claimedPremium))],
     missions,
     missionsCompleted: typeof r.missionsCompleted === "number" && r.missionsCompleted >= 0 ? Math.floor(r.missionsCompleted) : 0,

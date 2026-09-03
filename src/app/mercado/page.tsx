@@ -22,6 +22,7 @@ import { formatCredits, formatRelative, cn } from "@/lib/format";
 import type { Region, VariantId } from "@/domain/cards/types";
 import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { GLOBAL_MARKET_ENABLED } from "@/config/features";
 import {
   fetchMyListings,
   listCardOnline,
@@ -35,6 +36,7 @@ import {
 } from "@/lib/supabase/market";
 import type { Listing, ListingSearchRow, Offer, MarketConfig } from "@/lib/supabase/types";
 import { OnlineCardDetail } from "@/components/market/OnlineCardDetail";
+import { PlayerMarket, MarketBoundaryNote } from "@/components/market/PlayerMarket";
 import { TopCardsRanking } from "@/components/market/TopCardsRanking";
 import { RarityStatsPanel } from "@/components/market/RarityStatsPanel";
 import { applyTax, taxPercent } from "@/domain/market/fees";
@@ -104,12 +106,21 @@ function Market() {
     <section className="animate-rise">
       <header className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
+          <span className="nx-label">Colección</span>
+          <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
             Mercado
           </h1>
-          <p className="mt-1 text-white/50">
-            {online ? "Local (bots) y Global (jugador ↔ jugador)." : "Compra y vende cartas con DRL Credits."}
+          {/*
+            LA FRONTERA DE LAS TRES PANTALLAS (Fase 11): Colección es el catálogo,
+            Inventario es lo que posees y no has resuelto, y Mercado es comprar y vender.
+            Decirlo aquí evita que las tres se lean como lo mismo con distinto filtro.
+          */}
+          <p className="mt-2 max-w-xl text-[15px] text-white/55">
+            {online
+              ? "Compra y vende cartas. Local contra bots, y Global entre jugadores."
+              : "Compra y vende cartas con DRL Credits."}
           </p>
+          <div className="mt-1"><MarketBoundaryNote /></div>
         </div>
         {tab !== "global" && (
           <button
@@ -143,10 +154,41 @@ function Market() {
       {tab === "comprar" && <BuyTab notify={notify} />}
       {tab === "ventas" && <SalesTab notify={notify} />}
       {tab === "compras" && <PurchasesTab />}
-      {tab === "global" && user && <GlobalTab userId={user.id} notify={notify} />}
+      {/*
+        FASE 11 · El mercado entre jugadores pasa a `PlayerMarket`, que habla con
+        `/api/game/market` en vez de con las RPC de la base de datos desde el navegador.
+        `GlobalTab` reconciliaba a mano dos libros de propiedad y era la causa —no la
+        víctima— del cierre de la Fase A. El escaparate se enseña siempre; comprar y vender
+        siguen gobernados por `GLOBAL_MARKET_ENABLED`, ahora también en el servidor.
+      */}
+      {tab === "global" && <PlayerMarket notify={notify} />}
 
       <Toast toast={toast} />
     </section>
+  );
+}
+
+/**
+ * Estado CONTROLADO del mercado global mientras está desactivado (Fase A).
+ * Ver `src/config/features.ts` y `supabase/migrations/0010_market_lockdown.sql`.
+ */
+function GlobalMarketDisabled() {
+  return (
+    <div className="rounded-2xl border border-drl-gold/30 bg-drl-gold/5 p-8 text-center">
+      <p className="text-4xl">🔒</p>
+      <p className="mt-3 font-display text-lg font-bold uppercase tracking-wide text-white">
+        Mercado global temporalmente cerrado
+      </p>
+      <p className="mx-auto mt-2 max-w-md text-sm text-white/60">
+        Estamos migrando la propiedad de las cartas al servidor para que los intercambios entre
+        jugadores sean seguros y verificables. Mientras tanto, el mercado global no acepta
+        operaciones.
+      </p>
+      <p className="mx-auto mt-3 max-w-md text-sm text-white/45">
+        El <span className="text-white/70">mercado local</span> y tu colección siguen funcionando con
+        normalidad. Ninguna carta ni ningún crédito se pierde.
+      </p>
+    </div>
   );
 }
 
@@ -171,6 +213,7 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
   const ownedCards = useGameStore((s) => s.ownedCards);
   const addOwnedCard = useGameStore((s) => s.addOwnedCard);
   const removeOwnedCard = useGameStore((s) => s.removeOwnedCard);
+  const restoreOwnedCard = useGameStore((s) => s.restoreOwnedCard);
 
   const [sub, setSub] = useState<GlobalSub>("comprar");
   const [analytics, setAnalytics] = useState<AnalyticsSub>("ranking");
@@ -223,6 +266,13 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
   useEffect(() => { search(); }, [search]);
   useEffect(() => { refreshMine(); }, [refreshMine]);
 
+  // DEFERRED TO PHASE E — doble autoridad de propiedad.
+  // `buy`, `cancelL` y `publish` mantienen DOS libros (localStorage + tabla `inventory`)
+  // y los reconcilian a mano, de ahí BUG-01 (compra gratis), BUG-02 (duplicación por
+  // publicar→cancelar) y BUG-06 (`listCardOnline` no es atómica). La corrección real es
+  // un único libro en servidor + una RPC transaccional `list_card`, no un parche aquí.
+  // Hasta entonces esta pestaña está cerrada por partida doble: `GLOBAL_MARKET_ENABLED`
+  // en la UI y `revoke execute` en 0010_market_lockdown.sql.
   async function buy(row: ListingSearchRow) {
     const res = await buyListingOnline(row.id);
     if (res.error) return notify(res.error, false);
@@ -250,7 +300,10 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
     if (!removed) return notify("Carta no disponible", false);
     const res = await listCardOnline(removed.cardId, removed.serial ?? null, sellPrice);
     if (res.error) {
-      addOwnedCard(removed.cardId, removed.serial); // revertir
+      // BUG-07: `addOwnedCard` acuñaba un uid NUEVO y perdía obtainedAt, el origen sellado
+      // en `cardOrigins` y el bloqueo de `lockedUids`. `restoreOwnedCard` devuelve la
+      // instancia EXACTA, que es justo para lo que existe.
+      restoreOwnedCard(removed);
       return notify(res.error, false);
     }
     notify("Carta publicada en el mercado global", true);

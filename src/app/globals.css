@@ -119,3 +119,381 @@ select,
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * SISTEMA DE DISEÑO NEXUS — Fase 9A
+ *
+ * Lo que no puede ser una clase de Tailwind vive aquí: gradientes compuestos,
+ * fondos por contexto y las primitivas que repetían 20 pantallas copiando el
+ * mismo puñado de utilidades. Los valores son los de `src/design/tokens.ts`.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Superficies */
+  --nx-canvas: #06070d;
+  --nx-base: #0b0d18;
+  --nx-raised: #11131f;
+  --nx-elevated: #171a2b;
+  --nx-overlay: #1f2336;
+  /* Acentos */
+  --nx-accent: #ff2e63;
+  --nx-accent-glow: #ff5c8a;
+  --nx-cyan: #19e3ff;
+  --nx-gold: #ffd35c;
+  /* Semántica */
+  --nx-ok: #3fc07a;
+  --nx-warn: #ffb03d;
+  --nx-bad: #ff4d5e;
+  /* Bordes y texto */
+  --nx-edge: rgba(255, 255, 255, 0.1);
+  --nx-edge-strong: rgba(255, 255, 255, 0.18);
+  --nx-ink: #eef1f8;
+  /* Cromo */
+  --nx-topbar: 64px;
+  --nx-mobilebar: 64px;
+  /* Movimiento */
+  --nx-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --nx-fast: 200ms;
+  --nx-normal: 320ms;
+
+  /*
+   * Tinte del contexto activo. Cada sección lo redefine (`data-context`) y todo lo
+   * que se pinta con `--nx-tint` cambia de color sin que ningún componente lo sepa.
+   */
+  --nx-tint: 255 46 99;
+}
+
+/* Fondos por contexto: la sección en la que estás se NOTA antes de leer nada. */
+[data-context="jugar"]     { --nx-tint: 255 46 99; }
+[data-context="coleccion"] { --nx-tint: 123 92 255; }
+[data-context="tienda"]    { --nx-tint: 255 211 92; }
+[data-context="progreso"]  { --nx-tint: 25 227 255; }
+[data-context="mundo"]     { --nx-tint: 63 192 122; }
+
+/*
+ * El fondo ya NO vive en CSS: lo pinta `DynamicGameBackground` (Fase 9B), que necesita
+ * un canvas para el campo de partículas. Lo que queda aquí es el tinte de contexto, del
+ * que beben los acentos, los bordes de las tarjetas y el anillo de foco.
+ */
+
+/* ── Primitivas ─────────────────────────────────────────────────────────── */
+
+/* Panel: el contenedor por defecto de una sección. */
+.nx-panel {
+  border-radius: 22px;
+  border: 1px solid var(--nx-edge);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.55);
+}
+
+/* Tarjeta interactiva: reacciona, y con el tinte de su contexto. */
+.nx-card {
+  border-radius: 16px;
+  border: 1px solid var(--nx-edge);
+  background: rgba(255, 255, 255, 0.03);
+  transition:
+    border-color var(--nx-fast) var(--nx-out),
+    background-color var(--nx-fast) var(--nx-out),
+    transform var(--nx-fast) var(--nx-out);
+}
+.nx-card:hover {
+  border-color: rgb(var(--nx-tint) / 0.55);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+/* Etiqueta en versalitas. Aparecía escrita a mano en 20 pantallas. */
+.nx-label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(238, 241, 248, 0.42);
+}
+
+/*
+ * Acción suelta: el «Ver todas →» de la cabecera de una sección. No es texto dentro de
+ * una frase, es un control, y por eso tiene altura de control. Un enlace de 17 px de alto
+ * se falla con el pulgar una de cada tres veces.
+ */
+.nx-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  border-radius: 8px;
+  padding-inline: 6px;
+  margin-inline: -6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nx-accent);
+  transition: background-color var(--nx-fast) var(--nx-out), color var(--nx-fast) var(--nx-out);
+}
+.nx-action:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--nx-accent-glow);
+}
+
+/* Filo de acento a la izquierda de un bloque destacado. */
+.nx-rail {
+  border-left: 2px solid rgb(var(--nx-tint));
+  background: rgb(var(--nx-tint) / 0.07);
+}
+
+/* Barra superior: cristal, no un bloque opaco pegado. */
+.nx-chrome {
+  background: rgba(6, 7, 13, 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid var(--nx-edge);
+}
+
+/* Barrido de luz sobre un elemento (sobres, cartas legendarias). */
+.nx-sweep {
+  position: relative;
+  overflow: hidden;
+}
+.nx-sweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.14) 48%,
+    transparent 66%
+  );
+  transform: translateX(-120%);
+  transition: transform 700ms var(--nx-out);
+}
+.nx-sweep:hover::before {
+  transform: translateX(120%);
+}
+
+/*
+ * SUELO DE ZONA TÁCTIL (Fase 9J).
+ *
+ * Todo `button` y todo enlace que se presente como control llega a 32 px de alto. La
+ * auditoría de 9J encontró chips de 26 px y botones de reclamar de 28 en media docena de
+ * pantallas: con el pulgar se fallan, y arreglarlos uno a uno habría dejado la siguiente
+ * pantalla nueva con el mismo problema.
+ *
+ * NO se aplica a los enlaces de texto dentro de un párrafo (`display: inline`): ahí la
+ * altura la marca la línea, y estirarla rompería la frase.
+ */
+button:not(:disabled):not([hidden]),
+a[class*="rounded-"] {
+  min-height: 32px;
+}
+/*
+ * Un control con altura FIJA propia manda sobre el suelo (`h-9`, `h-full`…). El
+ * `:not([class*="min-h-"])` no es un detalle: sin él, `min-h-[36px]` también contiene
+ * «h-» y esta regla anulaba justo la altura que alguien había pedido a mano.
+ */
+button[class*="h-"]:not([class*="min-h-"]),
+a[class*="h-"]:not([class*="min-h-"]) {
+  min-height: 0;
+}
+
+/* Foco visible y coherente en todo el producto. */
+:where(a, button, [role="button"], input, select, textarea):focus-visible {
+  outline: 2px solid rgb(var(--nx-tint));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Respeta a quien pide menos movimiento: se apaga, no se degrada. */
+@media (prefers-reduced-motion: reduce) {
+  .nx-card,
+  .nx-sweep::before {
+    transition: none;
+  }
+  .nx-sweep::before {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * FASE 9.6 — VOCABULARIO DE PRESENTACIÓN PREMIUM
+ *
+ * La Fase 9.5 estableció que «una sola pieza no puede servir para todo» y creó el
+ * vocabulario ESCENARIO / OBJETO / PANEL / DATO. Lo que faltaba era la GEOMETRÍA.
+ *
+ * El diagnóstico de 9.6, mirando las 40 capturas: todo NEXUS está construido con
+ * rectángulos de esquina redondeada. Eso no es un defecto de color ni de sombra — es
+ * la forma. Un panel de administración y un menú de videojuego se distinguen antes por
+ * su SILUETA que por su paleta, y la silueta de NEXUS era la de una web.
+ *
+ * Aquí entra el chaflán. Un borde cortado en diagonal es la marca del género (visores,
+ * HUD, placas técnicas) y no pertenece a nadie: es geometría. Se aplica con `clip-path`,
+ * que es composición pura y no cuesta un fotograma.
+ *
+ * REGLA: el chaflán se GASTA. Va en escenarios, puertas de modo y placas de rango. Si
+ * lo lleva cada caja, vuelve a no distinguir nada — que es el error que ya cometimos
+ * con el radio grande.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Tamaño del chaflán. Uno solo: dos medidas distintas se leen como descuido. */
+  --nx-chamfer: 18px;
+  --nx-chamfer-sm: 10px;
+}
+
+/* Chaflán en la esquina superior derecha e inferior izquierda: da DIRECCIÓN a la pieza. */
+.nx-clip {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--nx-chamfer)) 0,
+    100% var(--nx-chamfer),
+    100% 100%,
+    var(--nx-chamfer) 100%,
+    0 calc(100% - var(--nx-chamfer))
+  );
+}
+
+/* Chaflán pequeño, para controles y placas. */
+.nx-clip-sm {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--nx-chamfer-sm)) 0,
+    100% var(--nx-chamfer-sm),
+    100% 100%,
+    var(--nx-chamfer-sm) 100%,
+    0 calc(100% - var(--nx-chamfer-sm))
+  );
+}
+
+/* Solo la esquina superior derecha: para cabeceras y tiras que se leen de izquierda a derecha. */
+.nx-clip-tr {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--nx-chamfer)) 0,
+    100% var(--nx-chamfer),
+    100% 100%,
+    0 100%
+  );
+}
+
+/*
+ * ESCENARIO. La pieza más alta del vocabulario: héroe del vestíbulo, arena, ceremonia.
+ * Tiene luz propia y una base que la asienta; no es un panel más grande.
+ */
+.nx-stage {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid rgb(var(--nx-tint) / 0.22);
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgb(var(--nx-tint) / 0.1), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.25));
+  box-shadow:
+    0 32px 80px -20px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+
+/*
+ * Retícula de escenario. Un plano técnico bajo el contenido: es lo que hace que el fondo
+ * tenga MATERIA en vez de ser un degradado. Se desvanece hacia abajo para no competir.
+ */
+.nx-stage-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(120% 90% at 50% 0%, black, transparent 72%);
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, black, transparent 72%);
+}
+
+/*
+ * PLACA. El soporte de un OBJETO que no es una carta: emblema de rango, nodo del pase,
+ * insignia de logro. Metal oscuro con un filo de luz arriba, para que se lea como algo
+ * troquelado y no como un div con borde.
+ */
+.nx-plate {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 45%, rgba(0, 0, 0, 0.35));
+  box-shadow:
+    0 10px 26px -10px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/*
+ * DATO. Una cifra de HUD no vive en una caja: vive sobre el escenario, con su etiqueta
+ * encima y nada alrededor. Cuatro tarjetitas con un número dentro son lo que hacía que
+ * el vestíbulo y el perfil se leyeran como un cuadro de mando.
+ */
+.nx-readout {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+/*
+ * Entrada de menú de videojuego. Un `<a>` con `hover:text-white` es un navbar; esto es
+ * un menú: el destino activo se marca con una barra de acento y un fondo teñido que
+ * ocupa la altura completa del cromo.
+ */
+.nx-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-inline: 14px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color var(--nx-fast) var(--nx-out), background-color var(--nx-fast) var(--nx-out);
+}
+.nx-menu-item:hover {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.05);
+}
+.nx-menu-item[data-active="true"] {
+  color: #fff;
+  background: linear-gradient(180deg, rgb(var(--nx-tint) / 0.16), transparent 70%);
+}
+.nx-menu-item[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 8px;
+  bottom: 0;
+  height: 2px;
+  background: rgb(var(--nx-tint));
+  box-shadow: 0 0 12px rgb(var(--nx-tint) / 0.9);
+}
+
+/*
+ * Nivel de energía tras un elemento (puertas de modo, nodos de recompensa). Es un halo
+ * ESTÁTICO: el mismo efecto animado en bucle costaría un repintado permanente por cada
+ * pieza de la rejilla, y en el vestíbulo hay seis.
+ */
+.nx-bloom {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(48px);
+  opacity: 0.35;
+  transition: opacity var(--nx-normal) var(--nx-out);
+  pointer-events: none;
+}
+.group:hover > .nx-bloom {
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nx-bloom {
+    transition: none;
+  }
+}

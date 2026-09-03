@@ -1,4 +1,5 @@
-import type { Player } from "@/domain/cards/types";
+import type { Player, Region, RoleId } from "@/domain/cards/types";
+import { statsFromMetrics, type RawMetrics } from "@/domain/cards/statsFromMetrics";
 
 /**
  * Datos semilla de jugadores profesionales de Valorant.
@@ -7,7 +8,7 @@ import type { Player } from "@/domain/cards/types";
  *
  * Ampliar el roster = añadir entradas aquí.
  */
-export const PLAYERS: Player[] = [
+const SEED_PLAYERS: Player[] = [
   // ============ EMEA ============
   {
     id: "benjy",
@@ -330,3 +331,92 @@ export const PLAYERS: Player[] = [
     accolades: ["game-changers", "regional-winner"],
   },
 ];
+
+// ============================================================================
+// ROSTER REAL — VCT 2026 (Fase 2)
+//
+// `players-vct-2026.json` es la descarga real de VLR (13 torneos oficiales, 371 jugadores) ya
+// agregada por jugador y ponderada por rondas. Es la fuente de `metrics`; de ahí el dominio
+// deriva Stronghold/Gamesense/Entryfrag.
+//
+// Los jugadores SEMILLA de arriba son autoría editorial previa. Al fusionar:
+//   · si el semilla existe en VLR  → conserva su ficha editorial (equipo, rol, palmarés) y
+//     RECIBE las métricas reales, que es lo único que el modelo necesita;
+//   · si el semilla NO existe en VLR → se queda sin `metrics` y NO genera carta. No se le
+//     inventan estadísticas: para reincorporarlo hace falta rellenar `editorial` a mano.
+//   · los jugadores de VLR que no estaban en la semilla se añaden al roster.
+// ============================================================================
+import VLR_ROSTER from "./vlr/players-vct-2026.json";
+
+interface VlrRosterRow {
+  id: string; vlrId: string; nick: string; team: string; teamTag: string;
+  region: string; country: string; role: string;
+  metrics: {
+    acs: number | null; adr: number | null; kd: number | null; kast: number | null;
+    hsPct: number | null; kills: number; deaths: number; assists: number;
+    fk: number; fd: number; rounds: number;
+  };
+  maps: number;
+}
+
+const REGIONS: Region[] = ["EMEA", "Americas", "Pacific", "China"];
+const ROLES: RoleId[] = ["Duelista", "Iniciador", "Centinela", "Controlador", "Flex"];
+const asRegion = (r: string): Region => (REGIONS.includes(r as Region) ? (r as Region) : "EMEA");
+const asRole = (r: string): RoleId => (ROLES.includes(r as RoleId) ? (r as RoleId) : "Flex");
+
+/** Convierte una fila de la descarga en métricas de dominio. Los nulos se omiten (no se rellenan). */
+function toMetrics(m: VlrRosterRow["metrics"]): RawMetrics {
+  const out: RawMetrics = {
+    kills: m.kills, deaths: m.deaths, assists: m.assists,
+    fk: m.fk, fd: m.fd, rounds: m.rounds,
+  };
+  if (m.acs != null) out.acs = m.acs;
+  if (m.adr != null) out.adr = m.adr;
+  if (m.kd != null) out.kd = m.kd;
+  if (m.kast != null) out.kast = m.kast;
+  if (m.hsPct != null) out.hsPct = m.hsPct;
+  return out;
+}
+
+const norm = (s: string) => s.trim().toLowerCase();
+
+function buildRoster(): Player[] {
+  const vlr = VLR_ROSTER as VlrRosterRow[];
+  const byNick = new Map(vlr.map((r) => [norm(r.nick), r]));
+  const usedVlrIds = new Set<string>();
+
+  // 1. Los semilla conservan su identidad editorial y reciben las métricas reales si existen.
+  const merged: Player[] = SEED_PLAYERS.map((p) => {
+    const hit = byNick.get(norm(p.nick));
+    if (!hit) return p;
+    usedVlrIds.add(hit.vlrId);
+    return { ...p, metrics: toMetrics(hit.metrics) };
+  });
+
+  // 2. El resto del circuito se incorpora tal cual. `stats` (6 heredadas) se derivan de las
+  //    mismas métricas para que el simulador siga funcionando; no intervienen en el combate.
+  const seedNicks = new Set(SEED_PLAYERS.map((p) => norm(p.nick)));
+  for (const r of vlr) {
+    if (seedNicks.has(norm(r.nick))) continue;
+    const metrics = toMetrics(r.metrics);
+    merged.push({
+      id: r.id,
+      nick: r.nick,
+      team: r.team || r.teamTag,
+      teamTag: r.teamTag,
+      region: asRegion(r.region),
+      role: asRole(r.role),
+      country: r.country,
+      stats: statsFromMetrics(metrics),
+      accolades: [],
+      metrics,
+    });
+  }
+  return merged;
+}
+
+/** Roster completo del juego: semilla editorial + circuito real VCT 2026. */
+export const PLAYERS: Player[] = buildRoster();
+
+/** Solo los jugadores con métricas reales suficientes (>= MIN_ROUNDS). */
+export const VLR_PLAYER_COUNT = (VLR_ROSTER as VlrRosterRow[]).length;

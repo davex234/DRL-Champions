@@ -80,6 +80,13 @@ export interface PackDef {
   restrictGroups?: VariantGroup[];
   /** Restringe el pool a una región concreta (sobres regionales). */
   restrictRegion?: "EMEA" | "Americas" | "Pacific" | "China";
+  /**
+   * Retirado del escaparate (Fase 13). Sigue existiendo y sigue abriéndose —hay
+   * recompensas que lo conceden y jugadores con ejemplares sin abrir—, pero deja de estar
+   * a la venta. Es la salida para un sobre DOMINADO: dejar de venderlo sin romper nada de
+   * lo que ya depende de él.
+   */
+  retired?: boolean;
   /** Color de acento del sobre (para el arte). */
   accent: string;
   /** Etiqueta corta de categoría (Evento, Premium...). */

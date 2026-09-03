@@ -1,48 +1,91 @@
 import type { Config } from "tailwindcss";
+import {
+  SURFACE, BORDER, TEXT, ACCENT, SEMANTIC, RARITY,
+  RADIUS, ELEVATION, GLOW, DURATION, EASING, BREAKPOINT, CHROME,
+} from "./src/design/tokens";
 
+/**
+ * Tailwind CONSUME el sistema de diseño (`src/design/tokens.ts`); no lo redefine.
+ * Los nombres antiguos (`base-*`, `drl`, `rarity-*`) se conservan intactos: 36 pantallas
+ * dependen de ellos y la Fase 9 no rompe nada de lo anterior.
+ */
 const config: Config = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      screens: {
+        xs: `${BREAKPOINT.mobile}px`,
+        "3xl": `${BREAKPOINT.wide}px`,
+      },
       colors: {
-        // Paleta DRL Champions — oscura, esports, neón
+        // — Paleta histórica (no se toca) —
         base: {
-          900: "#06070d",
-          800: "#0b0d18",
-          700: "#11131f",
-          600: "#171a2b",
-          500: "#1f2336",
+          900: SURFACE.canvas,
+          800: SURFACE.base,
+          700: SURFACE.raised,
+          600: SURFACE.elevated,
+          500: SURFACE.overlay,
         },
         drl: {
-          // Acento principal (rojo/magenta esports)
-          DEFAULT: "#ff2e63",
-          glow: "#ff5c8a",
-          cyan: "#19e3ff",
-          gold: "#ffd35c",
+          DEFAULT: ACCENT.primary,
+          glow: ACCENT.primaryGlow,
+          cyan: ACCENT.cyan,
+          gold: ACCENT.gold,
         },
-        // Colores por rareza
-        rarity: {
-          bronze: "#cd7f32",
-          silver: "#c8d2dc",
-          gold: "#ffce4f",
-          prime: "#7b5cff",
-          winner: "#19e3ff",
-          mvp: "#ff2e63",
-          mastersMvp: "#ff8a3d",
-          championsMvp: "#ffd35c",
-          icon: "#f5f0e6",
-        },
+        rarity: RARITY,
+
+        // — Sistema de diseño Fase 9 —
+        surface: SURFACE,
+        ink: TEXT,
+        edge: BORDER,
+        ok: SEMANTIC.success,
+        warn: SEMANTIC.warning,
+        bad: SEMANTIC.danger,
       },
+      borderColor: { DEFAULT: BORDER.DEFAULT },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
+      /*
+       * Los radios del sistema se publican con nombres PROPIOS (`rounded-card`,
+       * `rounded-panel`…) en lugar de sobrescribir `sm/md/lg/xl`. Sobrescribirlos
+       * reflowaría en silencio las 36 pantallas —incluida la de duelo, revisada y
+       * cerrada en la Fase 8.5—. Así la migración es explícita, componente a componente.
+       */
+      borderRadius: {
+        chip: RADIUS.sm,
+        control: RADIUS.md,
+        card: RADIUS.lg,
+        panel: RADIUS.xl,
+        stage: RADIUS["2xl"],
+      },
+      /* La escala numérica de Tailwind ya es base-4 y respeta el rem: no se toca. */
+      spacing: { topbar: `${CHROME.topBar}px`, mobilebar: `${CHROME.mobileBar}px` },
+      letterSpacing: { label: "0.18em", wide2: "0.24em" },
       boxShadow: {
-        glow: "0 0 24px rgba(255,46,99,0.45)",
-        "glow-gold": "0 0 32px rgba(255,211,92,0.5)",
-        card: "0 18px 50px -12px rgba(0,0,0,0.75)",
+        // Históricos
+        glow: GLOW.primary,
+        "glow-gold": GLOW.gold,
+        card: ELEVATION.lg,
+        // Sistema
+        e1: ELEVATION.sm,
+        e2: ELEVATION.md,
+        e3: ELEVATION.lg,
+        e4: ELEVATION.xl,
+        "glow-cyan": GLOW.cyan,
+        "glow-ok": GLOW.success,
+      },
+      transitionTimingFunction: {
+        out: EASING.out,
+        smooth: EASING.inOut,
+        spring: EASING.spring,
+      },
+      transitionDuration: {
+        instant: `${DURATION.instant}ms`,
+        fast: `${DURATION.fast}ms`,
+        normal: `${DURATION.normal}ms`,
+        slow: `${DURATION.slow}ms`,
       },
       keyframes: {
         float: {
@@ -57,11 +100,23 @@ const config: Config = {
           "0%,100%": { opacity: "0.6" },
           "50%": { opacity: "1" },
         },
+        "rise-in": {
+          from: { opacity: "0", transform: "translateY(10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
+        "sweep": {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(120%)" },
+        },
       },
       animation: {
         float: "float 4s ease-in-out infinite",
         shimmer: "shimmer 2.5s linear infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "rise-in": `rise-in ${DURATION.normal}ms ${EASING.out} both`,
+        "fade-in": `fade-in ${DURATION.fast}ms ${EASING.out} both`,
+        sweep: `sweep ${DURATION.slow}ms ${EASING.out}`,
       },
     },
   },

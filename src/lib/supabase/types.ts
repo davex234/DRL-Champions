@@ -13,6 +13,13 @@ export interface Profile {
   rarest_rank: number;
   market_volume: number;
   packs_opened: number;
+  /** Puntos competitivos de Pick'ems. Solo los escribe el corrector del servidor. */
+  points: number;
+  /**
+   * Región competitiva declarada por el usuario (Fase 9D). `null` = sin declarar:
+   * ese jugador cuenta en la clasificación global y no en la regional.
+   */
+  region: "EMEA" | "Americas" | "Pacific" | "China" | null;
   created_at: string;
   updated_at: string;
 }

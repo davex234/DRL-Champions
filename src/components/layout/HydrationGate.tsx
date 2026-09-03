@@ -16,7 +16,7 @@ export function HydrationGate({ children }: { children: React.ReactNode }) {
         <div className="flex flex-col items-center gap-4">
           <div className="h-10 w-10 animate-spin rounded-full border-2 border-drl border-t-transparent" />
           <p className="font-display text-sm uppercase tracking-widest text-white/50">
-            Cargando DRL Champions
+            Cargando NEXUS
           </p>
         </div>
       </div>

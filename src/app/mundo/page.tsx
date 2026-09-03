@@ -1,9 +1,26 @@
 "use client";
 
 /**
- * EL MUNDO — el ecosistema de esports VIVO. Muestra standings, rankings, transferencias,
- * el periódico, los campeones y la crónica histórica. El usuario puede avanzar 1 o N
- * temporadas y volver a un universo distinto. Solo CONECTA el motor `@/world` vía store.
+ * EL MUNDO — el ecosistema de esports VIVO (presentación revisada en 9.6).
+ *
+ * Muestra standings, rankings, transferencias, el periódico, los campeones y la crónica
+ * histórica. El usuario puede avanzar 1 o N temporadas y volver a un universo distinto.
+ * Solo CONECTA el motor `@/world` vía store: aquí no se simula nada.
+ *
+ * QUÉ SE ACLARA EN 9.6.
+ *
+ * La auditoría preguntaba, con razón, para qué sirve esta pantalla: entre «Colección»,
+ * «Inventario» y «Mundo» había riesgo de que las tres se leyeran como lo mismo. Y la
+ * cabecera no ayudaba —«El Mundo · Temporada 1» y una fila de cinco contadores— porque no
+ * decía qué se puede HACER aquí.
+ *
+ * El propósito existe y es distinto al de todo lo demás: **es el universo que sigue
+ * corriendo sin ti**. No se colecciona, no se compra y no se compite; se consulta y se
+ * avanza. Eso es ahora lo primero que se lee.
+ *
+ * Y su peso baja donde tenía que bajar: en el vestíbulo, «Mundo» pasó de puerta de modo de
+ * juego a destino de la tira de gestión (Fase 9.6, `src/app/page.tsx`). La funcionalidad no
+ * se toca; deja de anunciarse como un modo principal, que es lo que pedía el encargo.
  */
 import { useEffect, useState } from "react";
 import { useWorldStore } from "@/store/useWorldStore";
@@ -34,9 +51,20 @@ export default function MundoPage() {
   return (
     <section className="animate-rise space-y-4">
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">El <span className="text-drl">Mundo</span> · Temporada {bc?.season ?? 1}</h1>
-          <p className="mt-1 text-white/50">El ecosistema sigue vivo aunque no juegues. <strong className="text-white/70">Cada universo es irrepetible.</strong></p>
+        <div className="min-w-0">
+          <span className="nx-label">Simulación · Temporada {bc?.season ?? 1}</span>
+          <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
+            El <span className="text-drl">Mundo</span>
+          </h1>
+          {/*
+            Qué es esto y en qué se diferencia del resto. Sin esta frase, «Mundo» era el
+            único destino del producto cuyo propósito había que deducir mirándolo.
+          */}
+          <p className="mt-2 max-w-xl text-[15px] text-white/55">
+            El circuito que corre <strong className="text-white/75">aunque tú no juegues</strong>:
+            equipos, fichajes, campeones y crónica. Aquí no se colecciona ni se compite —se
+            consulta y se avanza en el tiempo. <strong className="text-white/70">Cada universo es irrepetible.</strong>
+          </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button onClick={() => run(advance)} disabled={busy}
@@ -58,12 +86,17 @@ export default function MundoPage() {
         <p className="text-white/50">Cargando universo…</p>
       ) : (
         <>
-          {/* Resumen */}
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+          {/*
+            Resumen del universo. Eran cinco tarjetitas con una cifra dentro —cinco cajas
+            iguales, el patrón que hace que una pantalla parezca un cuadro de mando—. Son
+            datos de contexto, y un dato va sobre la superficie con su etiqueta encima, no
+            dentro de su propio recuadro.
+          */}
+          <div className="flex flex-wrap gap-x-8 gap-y-4 border-y border-white/[0.08] py-4">
             {([["Equipos", bc.counts.teams], ["Jugadores", bc.counts.activePlayers], ["Retirados", bc.counts.retired], ["Agentes libres", bc.counts.freeAgents], ["Coaches", bc.counts.coaches]] as [string, number][]).map(([k, v]) => (
-              <div key={k} className="rounded-xl border border-white/10 bg-base-800/60 px-3 py-2">
-                <p className="text-[9px] uppercase tracking-widest text-white/40">{k}</p>
-                <p className="font-display text-lg font-bold text-white">{v}</p>
+              <div key={k} className="min-w-[86px]">
+                <p className="nx-label">{k}</p>
+                <p className="nx-readout mt-1 text-[22px] text-white">{v}</p>
               </div>
             ))}
           </div>

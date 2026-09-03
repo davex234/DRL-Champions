@@ -4,7 +4,13 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BrandMark } from "@/branding/Logo";
 
-/** Pantalla de carga propia (logo DRL + animación ligera) al arrancar. */
+/**
+ * Pantalla de carga al arrancar.
+ *
+ * Lleva el mismo nombre que el armazón (`GameShell`): antes decía «DRL CHAMPIONS ·
+ * Esports Manager» mientras la barra superior decía «NEXUS», y ver dos nombres en los
+ * dos primeros segundos de uso es lo que hace dudar de si estás en el producto correcto.
+ */
 export function SplashScreen() {
   const [visible, setVisible] = useState(true);
 
@@ -37,10 +43,12 @@ export function SplashScreen() {
               <BrandMark size={104} />
             </motion.div>
             <div className="text-center">
-              <p className="font-display text-2xl font-bold uppercase tracking-[0.15em] text-white">
-                DRL <span className="text-drl">Champions</span>
+              <p className="font-display text-3xl font-bold uppercase tracking-[0.18em] text-white">
+                NE<span className="text-drl">XUS</span>
               </p>
-              <p className="mt-1 text-[10px] uppercase tracking-[0.4em] text-white/40">Esports Manager</p>
+              <p className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">
+                Valorant Cards
+              </p>
             </div>
             <div className="mt-2 h-1 w-40 overflow-hidden rounded-full bg-white/10">
               <motion.div

@@ -73,7 +73,14 @@ interface GameState {
   buyAndOpen: (packId: string) => OpenedResult[] | null;
   quickSell: (uid: string) => void;
   quickSellMany: (uids: string[]) => void;
-  claimAchievement: (id: string) => void;
+  /*
+   * `claimAchievement` se RETIRÓ en la Fase 9E. Sumaba créditos en `localStorage`, que es
+   * justo lo que prohíbe §25 —la economía no puede depender del navegador— y además se
+   * revertía en la siguiente sincronización con el servidor. Los logros los concede ahora
+   * `/api/game/progression`, con su asiento en `credit_transactions`.
+   * `claimedAchievements` se conserva: es progreso ya guardado de partidas anteriores y
+   * borrarlo perdería historial.
+   */
   addCredits: (amount: number) => void;
   /** Resta créditos si hay saldo suficiente. Devuelve true si se cobró. */
   spendCredits: (amount: number) => boolean;
@@ -97,6 +104,23 @@ interface GameState {
   grantCard: (cardId: string, origin?: CardOrigin) => string | null;
   clearLastOpened: () => void;
   resetGame: () => void;
+
+  /**
+   * Vuelca el estado REAL del servidor sobre el store (Fase B).
+   *
+   * Con sesión iniciada, el servidor es la autoridad: este store pasa a ser una
+   * CACHÉ de UI. Las acciones locales de economía (`buyPack`, `openPackFromInventory`,
+   * `quickSell`…) siguen existiendo para el modo local sin cuenta, pero la UI online
+   * no las usa: llama a `/api/game/*` y refresca con esta función.
+   */
+  applyServerState: (s: {
+    credits: number; xp: number; ownedCards: OwnedCard[];
+    origins: Record<string, CardOrigin>; lockedUids: string[];
+    unopenedPacks: Record<string, number>; pityState: PityState;
+    packsOpened: number; mintCounts: Record<string, number>;
+  }) => void;
+  /** Marca el resultado de una apertura de servidor para la pantalla de revelado. */
+  setLastOpened: (results: OpenedResult[]) => void;
 
   // ── Crafting / Evolution (Collection Fase 4/7) ──
   /** Bloquea/desbloquea una instancia (evita venta/salvage accidental). */
@@ -278,19 +302,6 @@ export const useGameStore = create<GameState>()(
         }));
       },
 
-      claimAchievement: (id) => {
-        const def = ACHIEVEMENTS.find((a) => a.id === id);
-        if (!def) return;
-        const state = get();
-        if (state.claimedAchievements.includes(id)) return;
-        const ctx = buildAchievementContext(state);
-        if (def.progress(ctx) < def.goal) return; // todavía no completado
-        set((s) => ({
-          credits: s.credits + def.reward,
-          claimedAchievements: [...s.claimedAchievements, id],
-        }));
-      },
-
       addCredits: (amount) => set((s) => ({ credits: s.credits + amount })),
 
       spendCredits: (amount) => {
@@ -369,6 +380,21 @@ export const useGameStore = create<GameState>()(
       },
 
       clearLastOpened: () => set({ lastOpened: null }),
+
+      applyServerState: (s) =>
+        set({
+          credits: s.credits,
+          xp: s.xp,
+          ownedCards: s.ownedCards,
+          cardOrigins: s.origins,
+          lockedUids: s.lockedUids,
+          unopenedPacks: s.unopenedPacks,
+          pityState: s.pityState,
+          packsOpened: s.packsOpened,
+          mintCounts: s.mintCounts,
+        }),
+
+      setLastOpened: (results) => set({ lastOpened: results }),
 
       lockCard: (uid) => set((s) => (s.lockedUids.includes(uid) ? s : { lockedUids: [...s.lockedUids, uid] })),
       unlockCard: (uid) => set((s) => ({ lockedUids: s.lockedUids.filter((u) => u !== uid) })),

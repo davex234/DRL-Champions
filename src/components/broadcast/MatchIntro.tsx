@@ -33,7 +33,7 @@ export function MatchIntro({ intro, onStart }: { intro: MatchIntro; onStart: () 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-md">
       <div className="w-full max-w-3xl animate-rise space-y-5 rounded-3xl border border-white/10 bg-gradient-to-b from-base-800/90 to-base-900/95 p-6 shadow-2xl">
         <div className="text-center">
-          <p className="font-display text-[11px] uppercase tracking-[0.4em] text-drl">DRL Champions · {intro.map}</p>
+          <p className="font-display text-[11px] uppercase tracking-[0.4em] text-drl">NEXUS · {intro.map}</p>
           <p className="mt-1 font-display text-[10px] uppercase tracking-widest text-white/40">Coach {intro.coachMode === "ai" ? "IA" : "manual"}</p>
         </div>
 

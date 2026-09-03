@@ -24,3 +24,6 @@ src-tauri/.tauri-signing.key.pub
 
 # Release output (artefactos firmados; .release SÍ se versiona como registro)
 /dist
+
+# Artwork Renderer output (regenerado bajo demanda)
+/output/

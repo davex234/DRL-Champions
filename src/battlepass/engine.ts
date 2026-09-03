@@ -15,8 +15,8 @@ import { rollMissions, assignMission, missionProgress } from "./missions";
 import { claimableLevels, isClaimable, trackOf } from "./rewards";
 import { snapshotSeason, advanceToSeason, freshPassState } from "./season";
 import type {
-  PassState, SeasonDef, Reward, PassResult, PassEvent, MetricSnapshot, MissionKind, PassAnalytics,
-  PassValidation, PassIssue, ActiveMission,
+  PassState, PassTrack, SeasonDef, Reward, PassResult, PassEvent, MetricSnapshot, MissionKind,
+  PassAnalytics, PassValidation, PassIssue, ActiveMission,
 } from "./types";
 
 const clampInt = (n: number): number => Math.max(0, Math.floor(Number.isFinite(n) ? n : 0));
@@ -30,20 +30,43 @@ export class PassEngine {
     this.season = season;
   }
 
-  snapshot(): PassState { return { ...this.state, claimedFree: [...this.state.claimedFree], claimedPremium: [...this.state.claimedPremium], missions: this.state.missions.map((m) => ({ ...m })), archive: [...this.state.archive] }; }
+  snapshot(): PassState {
+    return {
+      ...this.state,
+      claimedFree: [...this.state.claimedFree],
+      claimedCompetitive: [...this.state.claimedCompetitive],
+      claimedPremium: [...this.state.claimedPremium],
+      missions: this.state.missions.map((m) => ({ ...m })),
+      archive: [...this.state.archive],
+    };
+  }
   level(): number { return levelProgress(this.state.xp, this.season).level; }
   progress() { return levelProgress(this.state.xp, this.season); }
 
   private ok(rewards: Reward[], events: PassEvent[]): PassResult { return { ok: true, state: this.snapshot(), rewards, events }; }
   private fail(error: string): PassResult { return { ok: false, error, state: this.snapshot(), rewards: [], events: [] }; }
 
+  /** Los niveles ya reclamados de un carril. Devuelve el array VIVO: se muta al reclamar. */
+  private claimedOf(track: PassTrack): number[] {
+    if (track === "premium") return this.state.claimedPremium;
+    if (track === "competitive") return this.state.claimedCompetitive;
+    return this.state.claimedFree;
+  }
+
+  /** ¿Está abierto el carril? El libre siempre; los otros dos, cada uno por su vía. */
+  private trackOpen(track: PassTrack): boolean {
+    if (track === "premium") return this.state.premium;
+    if (track === "competitive") return this.state.competitiveUnlocked;
+    return true;
+  }
+
   // ── Reglas de reclamo (compartidas por auto-claim y claim manual) ──
-  private claimEligible(reached: number, now: number, tracks: ("free" | "premium")[]): { rewards: Reward[]; events: PassEvent[] } {
+  private claimEligible(reached: number, now: number, tracks: PassTrack[]): { rewards: Reward[]; events: PassEvent[] } {
     const rewards: Reward[] = [];
     const events: PassEvent[] = [];
     for (const track of tracks) {
-      if (track === "premium" && !this.state.premium) continue;
-      const claimedArr = track === "free" ? this.state.claimedFree : this.state.claimedPremium;
+      if (!this.trackOpen(track)) continue;
+      const claimedArr = this.claimedOf(track);
       const t = trackOf(this.season, track);
       for (const lvl of claimableLevels(t, reached, claimedArr)) {
         claimedArr.push(lvl);
@@ -64,7 +87,7 @@ export class PassEngine {
     for (let l = before + 1; l <= after; l++) events.push({ type: "level_up", at: now, data: { level: l } });
     let rewards: Reward[] = [];
     if (this.state.autoClaim && after > before) {
-      const c = this.claimEligible(after, now, ["free", "premium"]);
+      const c = this.claimEligible(after, now, ["free", "competitive", "premium"]);
       rewards = c.rewards; events.push(...c.events);
     }
     return this.ok(rewards, events);
@@ -75,18 +98,22 @@ export class PassEngine {
 
   // ─────────────────────── Reclamos ───────────────────────
 
-  claimReward(level: number, track: "free" | "premium", now: number): PassResult {
-    if (track === "premium" && !this.state.premium) return this.fail("Premium no desbloqueado");
+  claimReward(level: number, track: PassTrack, now: number): PassResult {
+    if (!this.trackOpen(track)) {
+      return this.fail(track === "premium" ? "Premium no desbloqueado" : "Carril competitivo no desbloqueado");
+    }
     const t = trackOf(this.season, track);
     const reached = this.level();
-    const claimedArr = track === "free" ? this.state.claimedFree : this.state.claimedPremium;
+    const claimedArr = this.claimedOf(track);
     if (!isClaimable(t, level, reached, claimedArr)) return this.fail("Nivel no reclamable");
     claimedArr.push(level);
     return this.ok([t[level]], [{ type: "reward_claimed", at: now, data: { level, track } }]);
   }
 
-  claimTrack(track: "free" | "premium", now: number): PassResult {
-    if (track === "premium" && !this.state.premium) return this.fail("Premium no desbloqueado");
+  claimTrack(track: PassTrack, now: number): PassResult {
+    if (!this.trackOpen(track)) {
+      return this.fail(track === "premium" ? "Premium no desbloqueado" : "Carril competitivo no desbloqueado");
+    }
     const c = this.claimEligible(this.level(), now, [track]);
     return this.ok(c.rewards, [...c.events, { type: "track_claimed", at: now, data: { track, count: c.rewards.length } }]);
   }
@@ -95,6 +122,17 @@ export class PassEngine {
     if (this.state.premium) return this.fail("Premium ya desbloqueado");
     this.state.premium = true;
     return this.ok([], [{ type: "premium_unlocked", at: now }]);
+  }
+
+  /**
+   * Abre el carril competitivo. Lo llama QUIEN CONOCE los puntos del jugador —el
+   * servidor—, porque el motor es puro y no sabe nada de su perfil. Aquí solo se guarda
+   * la decisión, igual que con el premium.
+   */
+  unlockCompetitive(now: number): PassResult {
+    if (this.state.competitiveUnlocked) return this.fail("Carril competitivo ya desbloqueado");
+    this.state.competitiveUnlocked = true;
+    return this.ok([], [{ type: "competitive_unlocked", at: now }]);
   }
 
   // ─────────────────────── Misiones ───────────────────────
@@ -172,6 +210,8 @@ export class PassEngine {
     if (dupF || dupP) issues.push({ code: "DUP_CLAIM", message: "Nivel reclamado dos veces" });
     if (s.claimedFree.some((l) => l > reached) || s.claimedPremium.some((l) => l > reached)) issues.push({ code: "CLAIM_TOO_HIGH", message: "Reclamado un nivel no alcanzado" });
     if (!s.premium && s.claimedPremium.length > 0) issues.push({ code: "PREMIUM_CLAIM", message: "Reclamo premium sin desbloqueo" });
+    if (!s.competitiveUnlocked && s.claimedCompetitive.length > 0) issues.push({ code: "COMPETITIVE_CLAIM", message: "Reclamo competitivo sin desbloqueo" });
+    if (s.claimedCompetitive.some((l) => l > reached)) issues.push({ code: "CLAIM_TOO_HIGH", message: "Reclamado un nivel no alcanzado" });
     if (new Set(s.missions.map((m) => m.id)).size !== s.missions.length) issues.push({ code: "DUP_MISSION", message: "Misión duplicada" });
     return { ok: issues.length === 0, issues };
   }
@@ -181,7 +221,10 @@ export class PassEngine {
     return {
       seasonId: this.state.seasonId, level: p.level, maxLevel: this.season.maxLevel, xp: this.state.xp,
       percentComplete: Math.round((p.level / this.season.maxLevel) * 100),
-      premium: this.state.premium, claimedFree: this.state.claimedFree.length, claimedPremium: this.state.claimedPremium.length,
+      premium: this.state.premium,
+      claimedFree: this.state.claimedFree.length,
+      claimedCompetitive: this.state.claimedCompetitive.length,
+      claimedPremium: this.state.claimedPremium.length,
       missionsActive: this.state.missions.filter((m) => !m.claimed).length, missionsCompleted: this.state.missionsCompleted,
       seasonsArchived: this.state.archive.length,
     };

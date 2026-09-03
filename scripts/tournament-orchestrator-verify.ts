@@ -18,6 +18,8 @@ import {
   runtimeVersion, runtimeFingerprint, runtimeRegistry, runtimePackEngine, runtimeSnapshots,
 } from "@/publisher";
 import { allPlayers, rebuildCatalog, totalCards, getCard } from "@/data/catalog";
+import type { Player } from "@/domain/cards/types";
+import { MIN_ROUNDS } from "@/domain/cards/combat";
 
 let pass = 0, fail = 0;
 const check = (label: string, cond: boolean, detail = ""): void => {
@@ -34,6 +36,59 @@ const M1_URL = "https://www.vlr.gg/900001/london-lions-vs-madrid-wolves-valorant
 
 const LIONS = ["Lion1", "Lion2", "Lion3", "Lion4", "Lion5"];
 const WOLVES = ["Wolf1", "Wolf2", "Wolf3", "Wolf4", "Wolf5"];
+
+/*
+ * ─────────────────────── ROSTER DEL FIXTURE (y por qué hace falta) ───────────────────────
+ *
+ * El catálogo NO fabrica cartas sin datos: `cardsForPlayer` devuelve [] si el jugador no tiene
+ * ni `metrics` reales (con `rounds >= MIN_ROUNDS`) ni una autoría `editorial` explícita. Es la
+ * regla de «cero estadísticas por defecto», y es deliberada.
+ *
+ * Un jugador que el conector descubre en un torneo llega como BORRADOR y no lleva `metrics`, así
+ * que por sí solo no genera carta — que es exactamente lo que debe pasar. En un torneo de verdad
+ * eso no se nota porque sus jugadores YA están en el catálogo con sus métricas: las 6 cartas que
+ * produjo VCT 2026 EMEA Stage 2 fueron para Kachoww, kamo, sociablEE y al0rante, los cuatro del
+ * roster y con entre 352 y 1.394 rondas registradas.
+ *
+ * Este fixture inventa un torneo, así que debe inventar también su catálogo: sin estos diez
+ * jugadores el pipeline termina correctamente y con CERO cartas, y las comprobaciones de
+ * generación/materialización/publicación no verifican nada. Las métricas de abajo son de FIXTURE
+ * —como los marcadores del HTML—, no entran en el catálogo del producto: viven solo en el roster
+ * que este verify inyecta y se restaura al terminar.
+ */
+const fixturePlayer = (
+  id: string, nick: string, team: string, tag: string, cc: string, role: Player["role"], i: number,
+): Player => ({
+  id, nick, team, teamTag: tag, region: "EMEA", role, country: cc,
+  stats: { dmg: 78 + i, scr: 80 + i, com: 76 + i, hs: 70 + i, ast: 68 + i, clu: 66 + i },
+  accolades: [],
+  // Muestra suficiente (MIN_ROUNDS = 100) y los ocho componentes que `deriveCombat` exige:
+  // sin uno solo de ellos el dominio se niega a derivar, en vez de rellenarlo con un neutro.
+  metrics: {
+    rounds: 4 * MIN_ROUNDS + i, kills: 300 + 4 * i, deaths: 250 + 2 * i, assists: 90 + 3 * i,
+    fk: 55 + i, fd: 40 + i, acs: 210 + 4 * i, adr: 145 + 2 * i,
+    kd: 1.2 - i * 0.02, kast: 72 + i, hsPct: 24 + i, clutches: 6 + (i % 4),
+  },
+});
+
+/** Los diez del fixture, con la misma forma que una fila real del roster VLR. */
+const FIXTURE_ROSTER: Player[] = [
+  ...LIONS.map((nick, i) => fixturePlayer(`fx-lion-${i + 1}`, nick, "London Lions", "LLN", "GB",
+    (["Duelista", "Iniciador", "Centinela", "Controlador", "Flex"] as const)[i], i)),
+  ...WOLVES.map((nick, i) => fixturePlayer(`fx-wolf-${i + 1}`, nick, "Madrid Wolves", "MWV", "ES",
+    (["Controlador", "Flex", "Duelista", "Iniciador", "Centinela"] as const)[i], i + 5)),
+];
+
+/**
+ * El roster que recibe el pipeline: el catálogo vivo MÁS los diez del fixture. Deduplica por id
+ * porque tras publicar el catálogo vivo ya los contiene, y el mismo jugador dos veces haría
+ * ambigua la resolución por nick.
+ */
+const pipelineRoster = (): Player[] => {
+  const byId = new Map<string, Player>();
+  for (const p of [...allPlayers(), ...FIXTURE_ROSTER]) byId.set(p.id, p);
+  return [...byId.values()];
+};
 
 const rosterItem = (id: number, nick: string, cc: string, first: boolean): string => `
 <a href="/player/${id}/${nick.toLowerCase()}" class="wf-module-item ${first ? "mod-first " : " "}event-team-players-item">
@@ -344,7 +399,7 @@ async function main(): Promise<void> {
   const originalPlayers = allPlayers();
   const originalTotal = totalCards();
   resetRuntime();
-  const roster = allPlayers();
+  const roster = pipelineRoster();
 
   // 1) EJECUCIÓN COMPLETA + ORDEN (eventos grabados)
   console.log("## 1. Ejecución completa del pipeline (offline, fixtures)");
@@ -424,9 +479,9 @@ async function main(): Promise<void> {
     },
   });
   resetRuntime(); rebuildCatalog(originalPlayers);
-  const d1 = await runTournamentPipeline(EVENT_URL, { now: NOW, roster: allPlayers(), vlr: { fetcher } });
+  const d1 = await runTournamentPipeline(EVENT_URL, { now: NOW, roster: pipelineRoster(), vlr: { fetcher } });
   resetRuntime(); rebuildCatalog(originalPlayers);
-  const d2 = await runTournamentPipeline(EVENT_URL, { now: NOW, roster: allPlayers(), vlr: { fetcher } });
+  const d2 = await runTournamentPipeline(EVENT_URL, { now: NOW, roster: pipelineRoster(), vlr: { fetcher } });
   check("dos ejecuciones idénticas (sin los tiempos reales)", strip(d1) === strip(d2));
   check("misma huella de catálogo en ambas", d1.metrics.catalogFingerprint === d2.metrics.catalogFingerprint && d1.metrics.catalogFingerprint.length === 64);
 
@@ -450,7 +505,7 @@ async function main(): Promise<void> {
   check("un pipeline fallido JAMÁS toca el catálogo vivo", totalCards() === untouched && runtimeVersion() === 0);
 
   const e3 = await runTournamentPipeline(EVENT_URL, {
-    now: NOW, roster: allPlayers(), vlr: { fetcher },
+    now: NOW, roster: pipelineRoster(), vlr: { fetcher },
     events: { onStageStart: () => { throw new Error("observador roto"); }, onStageEnd: () => { throw new Error("observador roto"); } },
   });
   check("un observador de eventos que lanza NO rompe el pipeline", e3.ok && e3.metrics.stages.length === 8);

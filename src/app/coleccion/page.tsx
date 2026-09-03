@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import { CardViewer, type CardViewerAction } from "@/components/cards/CardViewer";
+import { Card3D, card3DStagger } from "@/components/visual/Card3D";
 import { ForgePanel } from "@/components/craft/ForgePanel";
 import { useGameStore } from "@/store/useGameStore";
 import { useMarketStore } from "@/store/useMarketStore";
@@ -21,6 +22,14 @@ import { instanceValue, quickSellValue, marketValue } from "@/domain/economy/pri
 import { formatCredits } from "@/lib/format";
 import { cn } from "@/lib/format";
 import type { Region, VariantGroup } from "@/domain/cards/types";
+import { useAuth } from "@/lib/supabase/auth";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { fetchMastery, type MasteryView } from "@/lib/game/mastery";
+import { MasteryPanel } from "@/components/collection/MasteryPanel";
+import { fetchPrestige, type PrestigeView } from "@/lib/game/prestige";
+import { PrestigePanel } from "@/components/collection/PrestigePanel";
+import { Toast } from "@/components/ui/Toast";
+import { useToast } from "@/lib/useToast";
 
 const REGIONS: (Region | "Todas")[] = ["Todas", "EMEA", "Americas", "Pacific", "China"];
 const GROUPS: { id: VariantGroup | "todos"; label: string }[] = [
@@ -33,6 +42,16 @@ const GROUPS: { id: VariantGroup | "todos"; label: string }[] = [
   { id: "exclusiva", label: "Exclusivas" },
 ];
 type Ownership = "todas" | "owned" | "missing";
+
+/**
+ * Cartas por tanda.
+ *
+ * Eran 60. Con el arte nuevo cada carta trae su emblema en SVG, y sesenta emblemas
+ * empujaban el documento por encima de los 4.000 nodos que vigila `ux:verify` —el punto
+ * a partir del cual el desplazamiento se nota en un móvil de gama media—. 48 siguen
+ * llenando de sobra una pantalla de 1920 y dejan margen para el arte.
+ */
+const PAGE = 48;
 type SortKey = "ovr" | "rarity" | "name";
 
 export default function ColeccionPage() {
@@ -44,6 +63,8 @@ export default function ColeccionPage() {
 }
 
 function Collection() {
+  const { user } = useAuth();
+  const online = isSupabaseConfigured() && !!user;
   const ownedCards = useGameStore((s) => s.ownedCards);
   const rosterVersion = useRosterStore((s) => s.version);
   // El motor proyecta catálogo+propiedad a CardViews (cache interna). rosterVersion fuerza
@@ -53,6 +74,31 @@ function Collection() {
   const stats = useMemo(() => engineProgress(engine.registry, engine.ownership()), [engine]);
   const ownedIds = useMemo(() => new Set(ownedCards.map((o) => o.cardId)), [ownedCards]);
   const collections = useMemo(() => regionCollections(), [rosterVersion]);
+
+  /*
+   * MAESTRIA (Fase 13). Se pide al servidor y se recarga a mano despues de cobrar: el
+   * progreso lo cuenta `services/mastery` contra `user_cards`, que es donde vive la
+   * propiedad. Calcularlo aqui con el inventario local ensenaria insignias cobrables que
+   * el servidor rechazaria.
+   *
+   * Falla en silencio: la coleccion no puede quedarse en blanco porque una capa de
+   * objetivos no haya llegado.
+   */
+  const { toast, notify } = useToast();
+  const [mastery, setMastery] = useState<MasteryView | null>(null);
+  const [prestige, setPrestige] = useState<PrestigeView | null>(null);
+
+  /*
+   * Las dos van juntas: cobrar una insignia cambia lo que se puede prestigiar, y comprar
+   * un escalon cambia el saldo que la vitrina ensena. Recargar solo una dejaria la otra
+   * mintiendo hasta el siguiente refresco.
+   */
+  const reloadMastery = useCallback(() => {
+    if (!online) { setMastery(null); setPrestige(null); return; }
+    fetchMastery().then(setMastery).catch(() => setMastery(null));
+    fetchPrestige().then(setPrestige).catch(() => setPrestige(null));
+  }, [online]);
+  useEffect(() => { reloadMastery(); }, [reloadMastery]);
 
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState<Region | "Todas">("Todas");
@@ -75,18 +121,54 @@ function Collection() {
       sort === "ovr" ? { key: "ovr", dir: "desc" }
       : sort === "rarity" ? { key: "rank", dir: "desc" }
       : { key: "name", dir: "asc" };
-    return sortViews(views, spec);
+    const sorted = sortViews(views, spec);
+
+    /*
+     * Las cartas EN POSESIÓN van primero. Con el orden por rareza —el de por defecto—
+     * la rejilla abría con una pared de cartas bloqueadas, así que quien acababa de
+     * abrir un sobre no encontraba su carta sin desplazarse. El criterio elegido sigue
+     * mandando dentro de cada grupo: solo se separan las que tienes de las que faltan.
+     */
+    return [...sorted.filter((v) => v.owned), ...sorted.filter((v) => !v.owned)];
   }, [engine, query, region, group, ownership, sort]);
+
+  /*
+   * PAGINADO INCREMENTAL (Fase 9J).
+   *
+   * El catálogo tiene 772 cartas y la rejilla las pintaba TODAS: 17.500 nodos en el DOM,
+   * que en un móvil de gama media se nota al desplazarse y al filtrar. Se pintan 60 y el
+   * resto llega al pulsar. No es virtualización —la posición de scroll no se recicla—, pero
+   * resuelve el problema real con veinte líneas en vez de una librería.
+   *
+   * El contador se reinicia al cambiar cualquier filtro: si no, al pasar de «Todas» a
+   * «Faltan» se seguirían enseñando 400 cartas de una lista que ahora tiene 30.
+   */
+  const [showFilters, setShowFilters] = useState(false);
+  /** Cuántos filtros se apartan de «todo»: se enseña en el botón cuando está plegado. */
+  const activeFilters =
+    (region !== "Todas" ? 1 : 0) + (group !== "todos" ? 1 : 0) + (ownership !== "todas" ? 1 : 0);
+
+  const [shown, setShown] = useState(PAGE);
+  useEffect(() => { setShown(PAGE); }, [query, region, group, ownership, sort]);
+  const visible = useMemo(() => filtered.slice(0, shown), [filtered, shown]);
 
   return (
     <section className="animate-rise">
       <header className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-            Mi <span className="text-drl">Colección</span>
+          {/* Misma jerarquía de cabecera que el resto del producto tras la Fase 9A. */}
+          <span className="nx-label">Colección</span>
+          <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
+            Mis cartas
           </h1>
-          <p className="mt-1 text-white/50">
+          <p className="mt-2 text-[15px] text-white/55">
             {stats.distinct} de {stats.total} cartas · {stats.percent}% completado
+          </p>
+          {/* De dónde salen estas cartas: sin esto, la colección parece un dato local. */}
+          <p className="mt-1 text-[13px] text-white/35">
+            {online
+              ? "Tus cartas están guardadas en el servidor, con su número de serie."
+              : "Modo local: estas cartas se guardan solo en este dispositivo."}
           </p>
         </div>
         <div className="w-full max-w-xs">
@@ -114,30 +196,13 @@ function Collection() {
       {view === "cartas" && (<>
 
 
-      {/* Colecciones por región (auto-generadas) */}
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {collections.map((c) => {
-          const p = collectionProgress(c, ownedIds);
-          return (
-            <button
-              key={c.id}
-              onClick={() => setRegion(c.region)}
-              className="rounded-xl border border-white/10 bg-base-700/50 p-3 text-left transition hover:border-drl-cyan/40"
-            >
-              <p className="font-display text-xs font-bold uppercase tracking-wide text-white">{c.region}</p>
-              <p className="text-[11px] text-white/45">
-                {p.owned}/{p.total} · {p.pct}%
-              </p>
-              <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full rounded-full bg-gradient-to-r from-drl-cyan to-drl" style={{ width: `${p.pct}%` }} />
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Filtros */}
-      <div className="mb-6 space-y-3 rounded-2xl border border-white/10 bg-base-700/40 p-4">
+      {/*
+        Filtros PLEGADOS por defecto. Las dos filas de píldoras siempre desplegadas
+        empujaban la rejilla otros 120 px y hacían que la pantalla se leyera como una tabla
+        con filtros. El buscador y el orden se quedan siempre a la vista, que es lo que se
+        usa el 90 % de las veces; el resto se abre a petición.
+      */}
+      <div className="mb-5 space-y-3 rounded-panel border border-white/10 bg-white/[0.03] p-4">
         <div className="flex flex-wrap items-center gap-2">
           <input
             value={query}
@@ -154,8 +219,24 @@ function Collection() {
             <option value="ovr">OVR ↓</option>
             <option value="name">Nombre A-Z</option>
           </select>
+          <button
+            type="button"
+            onClick={() => setShowFilters((v) => !v)}
+            aria-expanded={showFilters}
+            className="inline-flex min-h-[38px] items-center gap-1.5 rounded-control border border-white/12 px-3.5 font-display text-[12px] font-bold uppercase tracking-wide text-white/70 transition duration-fast hover:bg-white/[0.06]"
+          >
+            Filtros
+            <span aria-hidden className={cn("transition-transform duration-fast", showFilters && "rotate-180")}>▾</span>
+            {activeFilters > 0 && (
+              <span className="grid h-4 min-w-4 place-items-center rounded-full bg-drl px-1 text-[9px] font-bold tabular-nums text-white">
+                {activeFilters}
+              </span>
+            )}
+          </button>
         </div>
 
+        {showFilters && (
+          <>
         <div className="flex flex-wrap gap-1.5">
           {REGIONS.map((r) => (
             <Chip key={r} active={region === r} onClick={() => setRegion(r)}>
@@ -180,6 +261,8 @@ function Collection() {
             Faltan
           </Chip>
         </div>
+          </>
+        )}
       </div>
 
       {/* Rejilla */}
@@ -187,39 +270,102 @@ function Collection() {
         <p className="py-16 text-center text-white/40">No hay cartas con estos filtros.</p>
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {filtered.map((v) => {
+          {/*
+            La rejilla usa `Card3D` en modo `static` (Fase 9.6). Antes dibujaba a mano su
+            hover, su candado (un emoji del sistema encima del arte) y su contador de
+            duplicados; el mismo objeto tenía tres tratamientos distintos segun la pantalla.
+            El modo estatico NO monta framer-motion, asi que el presupuesto de nodos que la
+            Fase 9.5 dejo al limite en esta pantalla no se mueve.
+          */}
+          {visible.map((v, i) => {
             const def = getCard(v.cardId);
             if (!def) return null;
             return (
-              <button
+              <Card3D
                 key={v.cardId}
-                onClick={() => v.owned && setDetailId(v.cardId)}
-                className={cn(
-                  "relative text-left transition",
-                  v.owned ? "cursor-pointer hover:-translate-y-1" : "cursor-default",
-                )}
+                mode="static"
+                status={v.owned ? undefined : "locked"}
+                count={v.count}
+                delay={card3DStagger(i, 0.012, 0.28)}
+                label={v.owned ? `Ver ${def.id}` : `${def.id} — todavía no la tienes`}
+                onClick={() => setDetailId(v.cardId)}
+                disabled={!v.owned}
               >
-                <div className={cn(!v.owned && "opacity-30 grayscale")}>
-                  <PlayerCard
-                    card={def}
-                    size="sm"
-                    interactive={false}
-                    serial={v.bestSerial ?? undefined}
-                  />
-                </div>
-                {!v.owned && (
-                  <div className="absolute inset-0 grid place-items-center">
-                    <span className="text-2xl">🔒</span>
-                  </div>
-                )}
-                {v.count > 1 && (
-                  <span className="absolute right-1 top-1 rounded-full bg-drl px-1.5 py-0.5 font-display text-[10px] font-bold text-white shadow-glow">
-                    x{v.count}
-                  </span>
-                )}
-              </button>
+                <PlayerCard
+                  card={def}
+                  size="sm"
+                  interactive={false}
+                  serial={v.bestSerial ?? undefined}
+                />
+              </Card3D>
             );
           })}
+        </div>
+      )}
+
+      {/*
+        Progreso por región DEBAJO de las cartas.
+        Estaba encima, y entre el aviso de instalación, la cabecera, la barra de progreso,
+        las pestañas, estas cuatro tarjetas y dos filas de filtros había ~640 px de cromo
+        antes de ver una sola carta. En un juego de cartas, las cartas van primero: esto es
+        un resumen, y un resumen se consulta después de mirar.
+      */}
+      <section className="mt-8" aria-label="Progreso por región">
+        <h2 className="nx-label mb-2">Progreso por región</h2>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {collections.map((c) => {
+          const p = collectionProgress(c, ownedIds);
+          return (
+            <button
+              key={c.id}
+              onClick={() => setRegion(c.region)}
+              className="nx-card p-3 text-left"
+            >
+              <p className="font-display text-xs font-bold uppercase tracking-wide text-white">{c.region}</p>
+              <p className="text-[11px] text-white/45">
+                {p.owned}/{p.total} · {p.pct}%
+              </p>
+              <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/10">
+                <div className="h-full rounded-full bg-gradient-to-r from-drl-cyan to-drl" style={{ width: `${p.pct}%` }} />
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      </section>
+
+      {/*
+        MAESTRIA — debajo del progreso por region, que es su version corta. Solo con
+        sesion: los conjuntos se cuentan contra la coleccion del servidor.
+      */}
+      {mastery && (
+        <MasteryPanel view={mastery} onChanged={reloadMastery} notify={notify} />
+      )}
+
+      {/*
+        PRESTIGIO — justo debajo de la maestria, porque es su continuacion: primero te ganas
+        la insignia coleccionando y despues decides cual de todas merece que le dediques
+        creditos. Es el unico sumidero del juego que no es un sobre.
+      */}
+      {prestige && (
+        <PrestigePanel view={prestige} onChanged={reloadMastery} notify={notify} />
+      )}
+
+      {/* El aviso de la insignia recien conseguida. */}
+      <Toast toast={toast} />
+
+      {/* Quedan cartas por pintar: se piden a mano, no al hacer scroll. */}
+      {shown < filtered.length && (
+        <div className="mt-6 flex flex-col items-center gap-1.5">
+          <button
+            type="button"
+            onClick={() => setShown((n) => n + PAGE)}
+            className="rounded-control border border-white/15 px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/[0.07]"
+          >
+            Ver más cartas
+          </button>
+          <span className="nx-label">{visible.length} de {filtered.length}</span>
         </div>
       )}
       </>)}
@@ -247,7 +393,7 @@ function Chip({
     <button
       onClick={onClick}
       className={cn(
-        "rounded-full px-3 py-1 font-display text-xs uppercase tracking-wide transition",
+        "inline-flex min-h-[34px] items-center rounded-full px-3.5 py-1.5 font-display text-xs uppercase tracking-wide transition",
         active
           ? "bg-drl text-white shadow-glow"
           : "border border-white/10 bg-white/5 text-white/55 hover:text-white",
@@ -262,6 +408,9 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
   const router = useRouter();
   const ownedCards = useGameStore((s) => s.ownedCards);
   const quickSell = useGameStore((s) => s.quickSell);
+  // Con cuenta, la economía la lleva el servidor: las acciones locales quedan fuera.
+  const { user } = useAuth();
+  const online = isSupabaseConfigured() && !!user;
   const lockedUids = useGameStore((s) => s.lockedUids);
   const lockCard = useGameStore((s) => s.lockCard);
   const unlockCard = useGameStore((s) => s.unlockCard);
@@ -293,9 +442,16 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
     }
   }
 
+  /*
+   * Con sesión NO se ofrece el mercado: está desactivado en Fase A y llevaría a una
+   * pantalla que solo explica por qué no se puede operar. Se ofrece en su lugar el
+   * recorrido que sí existe: ver la carta dentro de su colección.
+   */
   const actions: CardViewerAction[] = [
-    { label: "Mercado", icon: "💱", onClick: () => router.push("/mercado"), variant: "primary" },
-    { label: "Ver colección", icon: "📚", onClick: () => router.push("/colecciones") },
+    ...(online
+      ? []
+      : [{ label: "Mercado", icon: "💱", onClick: () => router.push("/mercado"), variant: "primary" as const }]),
+    { label: "Ver colección", icon: "📚", onClick: () => router.push("/colecciones"), variant: (online ? "primary" : undefined) as CardViewerAction["variant"] },
     { label: "Cerrar", icon: "✕", onClick: onClose },
   ];
 
@@ -333,20 +489,36 @@ function CardDetail({ cardId, onClose }: { cardId: string; onClose: () => void }
                     >
                       {lockedUids.includes(inst.uid) ? "🔒" : "🔓"}
                     </button>
+                    {/*
+                      Publicar en el mercado LOCAL quita la carta de `useGameStore`, pero
+                      con sesión la propiedad vive en `user_cards`: la carta desaparecía de
+                      la colección y volvía a aparecer en la siguiente sincronización. Se
+                      desactiva por el mismo motivo que la venta rápida, hasta que exista
+                      la operación de servidor (Fase E).
+                    */}
                     <button
                       onClick={() => startSell(inst.uid, inst.serial)}
-                      disabled={lockedUids.includes(inst.uid)}
-                      className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-3 py-1 font-display text-xs uppercase text-white shadow-glow transition hover:brightness-110 disabled:opacity-40"
+                      disabled={online || lockedUids.includes(inst.uid)}
+                      title={online ? "El mercado entre jugadores llegará con el mercado de servidor" : undefined}
+                      className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-3 py-1 font-display text-xs uppercase text-white shadow-glow transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Vender en Mercado
                     </button>
+                    {/*
+                      La venta rápida sigue siendo una operación LOCAL. Con sesión
+                      iniciada la propiedad y el saldo los guarda el servidor, así
+                      que venderla en el cliente daría créditos que la siguiente
+                      sincronización borraría. Se deshabilita hasta que exista la
+                      operación de servidor (Fase E) en lugar de dejarla desincronizar.
+                    */}
                     <button
                       onClick={() => {
                         quickSell(inst.uid);
                         if (entry.count <= 1) onClose();
                       }}
-                      disabled={lockedUids.includes(inst.uid)}
-                      className="rounded-lg border border-drl-gold/40 bg-drl-gold/10 px-3 py-1 font-display text-xs uppercase text-drl-gold transition hover:bg-drl-gold/20 disabled:opacity-40"
+                      disabled={online || lockedUids.includes(inst.uid)}
+                      title={online ? "La venta rápida llegará con el mercado de servidor" : undefined}
+                      className="rounded-lg border border-drl-gold/40 bg-drl-gold/10 px-3 py-1 font-display text-xs uppercase text-drl-gold transition hover:bg-drl-gold/20 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Rápida 🪙 {formatCredits(quickSellValue(def, inst.serial))}
                     </button>
