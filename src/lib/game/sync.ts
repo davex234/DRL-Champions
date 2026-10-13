@@ -23,6 +23,7 @@ import { ns } from "@/i18n/runtime";
 import { beginCriticalOperation } from "@/i18n/critical";
 import { fetchInstancesByUid, toOwnedCard } from "./instances";
 import { useTeamStore } from "@/store/useTeamStore";
+import type { CardOrigin } from "@/collection";
 
 const t = ns("game");
 
@@ -35,6 +36,23 @@ async function pinnedInstances(have: readonly { uid: string }[]) {
   }
   if (wanted.size === 0) return null;
   return fetchInstancesByUid([...wanted]);
+}
+
+/**
+ * COLECCIONES ILIMITADAS · trae a la memoria ejemplares concretos que el estado (un ejemplar por carta) no incluye:
+ * las cartas de un sobre recién abierto que son copias repetidas. Sin esto, el revelado pintaría esas copias sin el
+ * artwork de SU versión (el artwork va por `uid`). Es presentación: si falla, no rompe la apertura, que ya ocurrió.
+ */
+export async function ensureInstances(uids: readonly string[]): Promise<void> {
+  const have = new Set(useGameStore.getState().ownedCards.map((o) => o.uid));
+  const missing = uids.filter((u) => !have.has(u));
+  if (missing.length === 0) return;
+  try {
+    const r = await fetchInstancesByUid(missing);
+    if (!r) return;
+    useArtworkStore.getState().addArtworks(r.artworks);
+    useGameStore.getState().addOwnedInstances(r.items.map(toOwnedCard), Object.fromEntries(r.items.map((i) => [i.uid, i.origin as CardOrigin])));
+  } catch { /* presentación: el sobre ya está abierto */ }
 }
 
 /** Vuelca en el store el estado real del servidor. Devuelve false si no hay sesión. */
@@ -190,6 +208,7 @@ export async function openPackOutcome(packId: string, ref?: string): Promise<{ r
    * de cinco, sin decir por qué.
    */
   await syncFromServer();
+  await ensureInstances(res.opened.map((o) => o.uid));
   const results = toOpenedResults(res.opened);
   useGameStore.getState().setLastOpened(results);
   return { results, repeated: res.repeated === true };
@@ -200,6 +219,7 @@ export async function buyAndOpenOnline(packId: string, ref?: string): Promise<Op
   const res = ref ? await apiBuyAndOpen(packId, ref) : await apiBuyAndOpen(packId);
   // Mismo orden que en `openPackOnline`, y por el mismo motivo.
   await syncFromServer();
+  await ensureInstances(res.opened.map((o) => o.uid));
   const results = toOpenedResults(res.opened);
   useGameStore.getState().setLastOpened(results);
   return results;

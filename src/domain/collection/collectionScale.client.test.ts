@@ -129,6 +129,8 @@ test("CLIENTE · el estado sincronizado y las pantallas no cuentan copias con la
   assert.ok(/resetGame:[\s\S]*?ownedCounts: null/.test(store), "salir de la cuenta borra los recuentos (la demo local cuenta sus ejemplares)");
   const sync = read("src/lib/game/sync.ts");
   assert.ok(sync.includes("ownedCounts: state.ownedCounts ?? null") && sync.includes("pinnedInstances(state.ownedCards)"), "los uid de los equipos del entrenador se piden aparte");
+  assert.equal((sync.match(/await ensureInstances\(res\.opened\.map\(\(o\) => o\.uid\)\);/g) ?? []).length, 2, "tras abrir un sobre se traen sus ejemplares (el artwork va por uid)");
+  assert.ok(/addOwnedInstances: \(list, origins\) =>[\s\S]*?const fresh = list\.filter\(\(o\) => !have\.has\(o\.uid\)\);/.test(store), "añadir ejemplares no duplica ni toca los recuentos");
   assert.ok(read("src/app/cuenta/page.tsx").includes("{ n: ownedTotal }") && !read("src/app/cuenta/page.tsx").includes("n: ownedCards.length"));
   assert.ok(read("src/store/useBattlePassStore.ts").includes("cards_owned: ownedTotalOf(g)"));
   const inv = read("src/app/inventario/page.tsx");

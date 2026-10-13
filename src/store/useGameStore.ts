@@ -147,6 +147,11 @@ interface GameState {
     unopenedPacks: Record<string, number>; pityState: PityState;
     packsOpened: number; mintCounts: Record<string, number>;
   }, ownerId?: string | null) => void;
+  /**
+   * COLECCIONES ILIMITADAS · añade a la memoria ejemplares concretos pedidos aparte (los de un sobre recién abierto, los
+   * de un equipo). No toca los recuentos: esos los da el servidor. El siguiente estado del servidor vuelve a empezar.
+   */
+  addOwnedInstances: (list: OwnedCard[], origins?: Record<string, CardOrigin>) => void;
   /** Marca el resultado de una apertura de servidor para la pantalla de revelado. */
   setLastOpened: (results: OpenedResult[]) => void;
 
@@ -457,6 +462,14 @@ export const useGameStore = create<GameState>()(
           pityState: s.pityState,
           packsOpened: s.packsOpened,
           mintCounts: s.mintCounts,
+        }),
+
+      addOwnedInstances: (list, origins) =>
+        set((s) => {
+          const have = new Set(s.ownedCards.map((o) => o.uid));
+          const fresh = list.filter((o) => !have.has(o.uid));
+          if (fresh.length === 0) return s;
+          return { ownedCards: [...s.ownedCards, ...fresh], cardOrigins: origins ? { ...s.cardOrigins, ...origins } : s.cardOrigins };
         }),
 
       setLastOpened: (results) => set({ lastOpened: results }),
