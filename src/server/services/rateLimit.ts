@@ -54,7 +54,7 @@ export type RateBucket =
   | "season_read"
   | "campaign_read" | "campaign_write"
   | "daily_loop_read"
-  | "collection_read" | "collection_write"
+  | "collection_read" | "collection_write" | "cards_read"
   | "draft_read" | "draft_write"
   | "admin_read" | "admin_write"
   | "onboarding_read" | "onboarding_write"
@@ -162,6 +162,11 @@ export const RATE_POLICY: Record<RateBucket, RatePolicy> = {
   collection_read: {
     limit: 30, windowSeconds: 60,
     why: "La foto personal se lee al entrar en la colección o en la ficha de una carta y tras cambiar un favorito. 30/min es >10× lo normal y corta el rastreo.",
+  },
+  /* COLECCIONES ILIMITADAS · páginas de ejemplares (`/api/game/cards`). Misma tabla y RPC: cubeta nueva, cero migración. */
+  cards_read: {
+    limit: 120, windowSeconds: 60,
+    why: "Recorrer las copias de una carta son páginas de hasta 100 ejemplares al hacer scroll: 120/min deja leer 12.000 copias por minuto a quien de verdad las tiene y corta el rastreo.",
   },
   collection_write: {
     limit: 40, windowSeconds: 60,

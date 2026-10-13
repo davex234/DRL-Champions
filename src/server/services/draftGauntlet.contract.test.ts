@@ -298,6 +298,6 @@ test("K40 · F72 sin migración: la cabeza sigue en 0058 y 0053 no cambia", () =
   const files = readdirSync(join(ROOT, "supabase/migrations")).filter((f) => /^\d{4}_.*\.sql$/.test(f) && !/ROLLBACK|rls_tests/i.test(f)).sort();
   // F73 añade 0059 (crafteo y misiones) y 0060 (desguace atómico, última copia): AUTORIZADAS y APLICADAS el 2026-09-30.
   // F79 · 0061 (Forja 2.0) APLICADA en producción desde F79.1 (2026-10-02): cabeza = 0061 (ops/release).
-  assert.ok(files[files.length - 1].startsWith("0073_"), files[files.length - 1]); // F87.2 · 0073 (launch guard de Pick'ems); antes F87.1 · 0072, F87 · 0071 (Pick'ems 2.0); antes F86.2 · 0070 (feedback de la Closed Alpha); antes F86 · 0069 (torneos de jugadores; 0068 tag público de cuenta, 0067 admins, F85 0066, F84 0065, F83 0064)
+  assert.ok(files[files.length - 1].startsWith("0074_"), files[files.length - 1]); // COLECCIONES ILIMITADAS · 0074 (índices de cursor y resumen por carta; aditiva y opcional: el servidor funciona igual sin ella) es la última; antes F87.2 · 0073 (launch guard de Pick'ems); antes F87.1 · 0072, F87 · 0071 (Pick'ems 2.0); antes F86.2 · 0070 (feedback de la Closed Alpha); antes F86 · 0069 (torneos de jugadores; 0068 tag público de cuenta, 0067 admins, F85 0066, F84 0065, F83 0064)
   assert.deepEqual(files.filter((f) => /^0059_/.test(f)), ["0059_crafting_missions.sql"]);
 });

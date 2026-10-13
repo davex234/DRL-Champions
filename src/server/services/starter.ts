@@ -16,6 +16,7 @@ import {
   STARTER_POLICY, starterEligibility, starterAssistFor, type StarterEligibility,
 } from "@/domain/economy/starter";
 import type { StarterAssist } from "@/domain/packs/openPack";
+import { loadCollectionSummary } from "./userCards";
 
 export interface StarterStatus extends StarterEligibility {
   deckReady: boolean;
@@ -40,14 +41,14 @@ export const STARTER_LEDGER_REASON = `buy_pack:${STARTER_POLICY.packId}`;
 
 export async function readStarterStatus(sb: SupabaseClient, userId: string): Promise<StarterStatus> {
   const [cardsRes, packRes, claimsRes, resolve] = await Promise.all([
-    sb.from("user_cards").select("card_id").eq("user_id", userId),
+    // COLECCIONES ILIMITADAS · cartas DISTINTAS desde el resumen (completo o error): la aptitud pregunta qué cartas hay, no cuántas copias.
+    loadCollectionSummary(sb, userId),
     sb.from("user_packs").select("qty").eq("user_id", userId).eq("pack_id", STARTER_POLICY.packId).maybeSingle(),
     sb.from("credit_transactions").select("id", { count: "exact", head: true }).eq("user_id", userId).eq("reason", STARTER_LEDGER_REASON),
     readinessResolver(sb),
   ]);
-  if (cardsRes.error) throw new Error(cardsRes.error.message);
   if (claimsRes.error) throw new Error(claimsRes.error.message);
-  const ids = ((cardsRes.data ?? []) as { card_id: string }[]).map((r) => r.card_id);
+  const ids = cardsRes.cards.map((c) => c.cardId);
   const r = deckReadiness(ids, resolve);
   const unopenedStarter = Math.max(0, Number((packRes.data as { qty: number } | null)?.qty ?? 0));
   const freeClaims = claimsRes.count ?? 0;

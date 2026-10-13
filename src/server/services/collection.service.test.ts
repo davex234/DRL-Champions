@@ -56,7 +56,9 @@ test("LECTURA · favoritos, vitrina (uids + versión) y equipos con el activo ma
   assert.deepEqual(r.data!.favorites, [A]);
   assert.deepEqual(r.data!.showcase, { uids: ["u2"], version: 4 });
   assert.deepEqual(r.data!.decks, [{ id: "d1", name: "Equipo 2", active: true, cardUids: ["u1", "u3"] }]);
-  assert.equal(r.data!.truncated, false);
+  // COLECCIONES ILIMITADAS · ya no hay techo ni marca de truncado: recuentos exactos por carta y total.
+  assert.equal(r.data!.total, 3);
+  assert.equal(Object.values(r.data!.holdings).reduce((n, h) => n + h.count, 0), 3);
 });
 
 test("LECTURA · no escribe nada (ni favoritos, ni vitrina, ni equipo activo, ni nada)", async () => {

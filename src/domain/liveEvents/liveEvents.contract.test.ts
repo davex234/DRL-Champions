@@ -132,7 +132,8 @@ test("26 · los datos personales de Pick'em salen de mi submission y correct_opt
 test("27–29 · cartas del evento = cartas EXISTENTES del catálogo por jugador real; ids únicos; propiedad por user_cards del usuario", () => {
   assert.ok(SERVICE.includes("const cards = slug ? registry.forPlayer(slug) : [];"));
   assert.ok(SERVICE.includes("const cardIds = [...new Set(playerViews.flatMap((p) => p.cardIds))];"));
-  assert.ok(SERVICE.includes('sb.from("user_cards").select("card_id").eq("user_id", userId).in("card_id", cardIds.slice(i, i + 300))'));
+  // COLECCIONES ILIMITADAS · la propiedad sale del resumen por carta del usuario (completo para cualquier tamaño).
+  assert.ok(SERVICE.includes("loadCollectionSummary(sb, userId).then(ownedCardIdsOf)"));
   assert.ok(SERVICE.includes("await serverCatalog(sb);"), "catálogo del servidor, no cartas inventadas");
 });
 

@@ -21,7 +21,8 @@ const U = "aaaaaaaa-0000-4000-8000-0000000000f1";
 const OTHER = "cccccccc-0000-4000-8000-0000000000f3";
 const D = 86_400_000;
 const NOW = Date.parse(SEASON_CALENDAR[0].startsAt) + 9 * D;
-const READ_ONLY_RPC = new Set(["app_content_distribution_snapshot"]);
+// COLECCIONES ILIMITADAS · `app_collection_summary` es una función SQL `stable` de solo lectura (resumen por carta).
+const READ_ONLY_RPC = new Set(["app_content_distribution_snapshot", "app_collection_summary"]);
 
 /** Dos jugadores DISTINTOS por rol, cartas reales del catálogo con combate y la misma versión de datos. */
 function legalCardIds(): string[] {

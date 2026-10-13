@@ -211,7 +211,8 @@ test("0050 · aplicada en la Fase 35.1, aditiva, sin schema_migrations; tabla so
   // F87 · 0071 (Pick'ems 2.0: cuadros de predicción sobre eventos reales; aditiva, no toca equipos ni duel_decks).
   // F87.1 · 0072 (corte de autoridad de recompensas de Pick'ems; aditiva, no toca equipos).
   // F87.2 · 0073 (launch guard de Pick'ems; no toca equipos).
-  assert.ok(Math.max(...nums) <= 73);
+  // COLECCIONES ILIMITADAS · 0074 (índices de cursor de user_cards + resumen por carta; aditiva, no toca duel_decks).
+  assert.ok(Math.max(...nums) <= 74);
   assert.ok(readdirSync(join(ROOT, "supabase", "migrations")).filter((f) => f.startsWith("0058")).every((f) => f === "0058_hardening_grants.sql"));
   assert.ok(readdirSync(join(ROOT, "supabase", "migrations")).filter((f) => f.startsWith("0057")).every((f) => f.includes("admin_cms")));
   assert.ok(readdirSync(join(ROOT, "supabase", "migrations")).filter((f) => f.startsWith("0056")).every((f) => f.includes("agents_catalog_miks_veto")));
@@ -254,10 +255,14 @@ test("ritmo · deck_read y deck_write en TypeScript, sin migración", () => {
 test("rendimiento · una foto en tres lecturas en paralelo; la propiedad paginada; sin await dentro de bucles", () => {
   const svc = code(SERVICE);
   const ws = svc.slice(svc.indexOf("export async function getDeckWorkspace"), svc.indexOf("const humanHard"));
-  assert.ok(/await Promise\.all\(\[\s*loadOwned\(sb, userId\),\s*sb\.from\("duel_decks"\)/.test(ws));
+  // COLECCIONES ILIMITADAS · la propiedad llega con sus recuentos por carta (`loadOwnership`), en la misma tanda paralela.
+  assert.ok(/await Promise\.all\(\[\s*loadOwnership\(sb, userId\),\s*sb\.from\("duel_decks"\)/.test(ws));
   const collection = svc.slice(svc.indexOf("export function builderCollection"), svc.indexOf("export async function readActive"));
   assert.ok(!/await/.test(collection));
-  assert.ok(code("src/server/services/duels.ts").includes(".range(from, from + OWNED_PAGE - 1)"));
+  // La propiedad ya no se lee entera: un ejemplar por carta (resumen) + los `uid` de los equipos, sin techo de páginas.
+  const duels = code("src/server/services/duels.ts");
+  assert.ok(duels.includes("loadCollectionSummary(sb, userId)") && duels.includes("readUserCardsByUid(sb, userId, [...wanted])"));
+  assert.ok(!/OWNED_MAX|\.range\(from/.test(duels), "sin techo de ejemplares ni paginación por desplazamiento");
 });
 
 test("telemetría · seis contextos en un flujo propio cerrado hasta 0046; el inicio de CREAR se sigue midiendo igual", () => {

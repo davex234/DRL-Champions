@@ -20,7 +20,7 @@ import {
   checkComposition, createTeam, deleteTeam, duplicateTeam, getDeckWorkspace, renameTeam, saveComposition, setActiveTeam,
   STALE_TEXT, NOT_READY_TO_ACTIVATE_TEXT,
 } from "./deckTeams";
-import { loadOwned, MAX_DECKS } from "./duels";
+import { loadOwned, loadOwnership, MAX_DECKS } from "./duels";
 
 /* ───────────────────────── doble de Supabase ───────────────────────── */
 
@@ -52,6 +52,8 @@ class FakeDb {
 
 class FakeQuery implements PromiseLike<unknown> {
   private filters: [string, unknown][] = [];
+  private preds: ((r: Row) => boolean)[] = [];
+  private max: number | null = null;
   private op: "select" | "update" | "insert" | "delete" = "select";
   private payload: Row | null = null;
   private single = false;
@@ -63,6 +65,10 @@ class FakeQuery implements PromiseLike<unknown> {
   eq(c: string, v: unknown) { this.filters.push([c, v]); return this; }
   order(c: string, o?: { ascending?: boolean }) { this.orderBy = [c, o?.ascending !== false]; return this; }
   range(a: number, b: number) { this.span = [a, b]; return this; }
+  // COLECCIONES ILIMITADAS · lo que usa la lectura por cursor: `uid > último`, `in(...)` y `limit`.
+  gt(c: string, v: string) { this.preds.push((r) => String(r[c]) > v); return this; }
+  in(c: string, vs: unknown[]) { this.preds.push((r) => vs.includes(r[c])); return this; }
+  limit(n: number) { this.max = n; return this; }
   update(p: Row) { this.op = "update"; this.payload = p; return this; }
   insert(p: Row) { this.op = "insert"; this.payload = p; return this; }
   delete() { this.op = "delete"; return this; }
@@ -73,7 +79,7 @@ class FakeQuery implements PromiseLike<unknown> {
   private run() {
     const t = this.db.tables[this.name];
     if (!t) return { data: null, error: { code: "PGRST205", message: `Could not find the table 'public.${this.name}'` } };
-    const match = (r: Row) => this.filters.every(([c, v]) => r[c] === v);
+    const match = (r: Row) => this.filters.every(([c, v]) => r[c] === v) && this.preds.every((f) => f(r));
     let rows: Row[];
     if (this.op === "insert") {
       const at = stamp();
@@ -96,11 +102,14 @@ class FakeQuery implements PromiseLike<unknown> {
       const [c, asc] = this.orderBy;
       rows = [...rows].sort((a, b) => (String(a[c]) < String(b[c]) ? -1 : String(a[c]) > String(b[c]) ? 1 : 0) * (asc ? 1 : -1));
     }
+    const matched = rows.length;
     if (this.span) rows = rows.slice(this.span[0], this.span[1] + 1);
+    // Como PostgREST: nunca más de 1.000 filas por respuesta (`max_rows`), sin avisar.
+    rows = rows.slice(0, Math.min(this.max ?? 1000, 1000));
     const copy = rows.map((r) => ({ ...r, card_uids: Array.isArray(r.card_uids) ? [...(r.card_uids as string[])] : r.card_uids }));
     if (this.head) return { data: null, error: null, count: copy.length };
     if (this.single) return { data: copy[0] ?? null, error: null };
-    return { data: copy, error: null };
+    return { data: copy, error: null, count: matched };
   }
 }
 
@@ -386,5 +395,12 @@ test("rendimiento · la propiedad se lee paginada (más de 1.000 ejemplares no s
   const db = new FakeDb();
   const def = playersByRole.get("Flex")![0].cards[0];
   for (let i = 0; i < 2345; i++) db.tables.user_cards.push({ uid: `cccc0000-0000-4000-8000-${String(i).padStart(12, "0")}`, user_id: A, card_id: def.id, serial: null, origin: "pack", locked: false, obtained_at: new Date(clock).toISOString() });
-  assert.equal((await loadOwned(db.sb, A)).length, 2345);
+  // COLECCIONES ILIMITADAS · 2.345 copias de UNA carta: la propiedad para equipos trae un ejemplar (el mejor) y el
+  // recuento exacto, no 2.345 filas; y una copia de más allá de la fila 1.000 sigue siendo válida si se pide por `uid`.
+  const { owned, counts } = await loadOwnership(db.sb, A);
+  assert.equal(owned.length, 1);
+  assert.equal(counts[def.id], 2345);
+  const far = `cccc0000-0000-4000-8000-${String(2000).padStart(12, "0")}`;
+  assert.ok((await loadOwned(db.sb, A, [far])).some((o) => o.uid === far), "un uid lejano se resuelve por consulta directa");
+  assert.ok(!(await loadOwned(db.sb, B, [far])).some((o) => o.uid === far), "y nunca para otra cuenta");
 });

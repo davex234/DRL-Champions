@@ -33,6 +33,11 @@ interface ArtworkState {
    * existir en el servidor tiene que dejar de existir aquí, y fusionar lo dejaría vivo.
    */
   setArtworks: (map: ArtworkByUid) => void;
+  /**
+   * COLECCIONES ILIMITADAS · añade el artwork de ejemplares pedidos aparte (una página de copias, los de un equipo).
+   * Aquí sí se fusiona: son ejemplares que el estado no trae. El siguiente `setArtworks` vuelve a empezar de cero.
+   */
+  addArtworks: (map: ArtworkByUid) => void;
   /** El artwork de UN ejemplar, o `undefined` si esa versión no tiene. */
   artworkOf: (uid: string | undefined | null) => CardArtworkRef | undefined;
 }
@@ -40,5 +45,6 @@ interface ArtworkState {
 export const useArtworkStore = create<ArtworkState>((set, get) => ({
   byUid: {},
   setArtworks: (map) => set({ byUid: map ?? {} }),
+  addArtworks: (map) => { if (map && Object.keys(map).length > 0) set((s) => ({ byUid: { ...s.byUid, ...map } })); },
   artworkOf: (uid) => (uid ? get().byUid[uid] : undefined),
 }));

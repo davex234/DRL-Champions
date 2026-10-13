@@ -56,6 +56,8 @@ export interface BuilderCard {
   dataVersion: string;
   statBoost: number;
   obtainedAt: number;
+  /** Copias de esta carta según el servidor (ver `DeckBuilderCardDTO.copies`). Ausente = se cuentan los ejemplares. */
+  copies?: number;
 }
 
 export type Pool = ReadonlyMap<string, BuilderCard>;

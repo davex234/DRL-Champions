@@ -51,6 +51,12 @@ export class MemSupabase {
   writes = 0;
   writeLog: string[] = [];
   rpcCalls: string[] = [];
+  /**
+   * COLECCIONES ILIMITADAS · `max_rows` de PostgREST (`supabase/config.toml`): una lectura sin paginar se corta aquí EN
+   * SILENCIO, igual que en producción. Con el doble sin tope, un servicio que leía la colección de una vez pasaba
+   * todos los tests y fallaba con la carta 1.001.
+   */
+  maxRows = 1000;
   /** Tablas que responden error (simula «tabla no disponible»: p. ej. `content_cards` → catálogo semilla). */
   failTables = new Set<string>(["content_cards", "content_catalog_versions", "content_pool_versions"]);
   /**
@@ -480,7 +486,8 @@ class MemQuery implements PromiseLike<unknown> {
   private max: number | null = null;
   private from_: number | null = null;
   private to_: number | null = null;
-  private orderBy: { col: string; asc: boolean } | null = null;
+  private orderBy: { col: string; asc: boolean }[] = [];
+  private exact = false;
   private op: "select" | "insert" | "update" | "upsert" | "delete" = "select";
   private payload: Row | Row[] | null = null;
   private upsertConflict: string[] | null = null;
@@ -491,6 +498,7 @@ class MemQuery implements PromiseLike<unknown> {
   select(_cols?: string, opts?: { count?: string; head?: boolean }) {
     if (this.op !== "select") { this.returning = true; return this; }
     if (opts?.head) this.head = true;
+    if (opts?.count === "exact") this.exact = true;
     return this;
   }
   insert(rows: Row | Row[]) { this.op = "insert"; this.payload = rows; return this; }
@@ -513,7 +521,8 @@ class MemQuery implements PromiseLike<unknown> {
   like() { return this; }
   ilike() { return this; }
   or() { return this; }
-  order(col: string, opts?: { ascending?: boolean }) { this.orderBy = { col, asc: opts?.ascending !== false }; return this; }
+  /** Como PostgREST: varios `order()` encadenados ordenan por todas las columnas, en ese orden. */
+  order(col: string, opts?: { ascending?: boolean }) { this.orderBy.push({ col, asc: opts?.ascending !== false }); return this; }
   range(a: number, b: number) { this.from_ = a; this.to_ = b; return this; }
   limit(n: number) { this.max = n; return this; }
   maybeSingle() { this.single = "maybe"; return this; }
@@ -571,14 +580,20 @@ class MemQuery implements PromiseLike<unknown> {
     }
     let rows = this.matches();
     if (this.head) return { data: null, count: rows.length, error: null };
-    if (this.orderBy) { const { col, asc } = this.orderBy; rows = [...rows].sort((a, b) => ((a[col] as never) < (b[col] as never) ? -1 : (a[col] as never) > (b[col] as never) ? 1 : 0) * (asc ? 1 : -1)); }
+    const matched = rows.length;
+    if (this.orderBy.length) {
+      const by = this.orderBy;
+      rows = [...rows].sort((a, b) => { for (const { col, asc } of by) { const d = (a[col] as never) < (b[col] as never) ? -1 : (a[col] as never) > (b[col] as never) ? 1 : 0; if (d) return asc ? d : -d; } return 0; });
+    }
     if (this.from_ !== null && this.to_ !== null) rows = rows.slice(this.from_, this.to_ + 1);
     if (this.max !== null) rows = rows.slice(0, this.max);
+    // COLECCIONES ILIMITADAS · como PostgREST: ninguna respuesta trae más de `max_rows` filas, y no avisa.
+    if (rows.length > this.db.maxRows) rows = rows.slice(0, this.db.maxRows);
     const copy = rows.map((r) => structuredClone(r));
     if (this.single) {
       if (copy.length > 1 && this.single === "one") return { data: null, error: { code: "PGRST116", message: "multiple rows" } };
       return { data: copy[0] ?? null, error: null };
     }
-    return { data: copy, count: copy.length, error: null };
+    return { data: copy, count: this.exact ? matched : copy.length, error: null };
   }
 }

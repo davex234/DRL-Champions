@@ -142,7 +142,8 @@ test("67–68 · se pinta con PlayerCard + Card3D y el CardViewer canónico; sin
 
 test("editor: reutiliza CollectionEngine, applyFilter e instancesOf (sin segunda colección) y ordena con botones", () => {
   const ed = COMP("ShowcaseEditor.tsx");
-  assert.ok(ed.includes("new CollectionEngine(owned).ownedViews()") && ed.includes("applyFilter(views,") && ed.includes("instancesOf(owned, cardId)"));
+  // COLECCIONES ILIMITADAS · mismo motor, con los recuentos del servidor; `known` = lo sincronizado + las copias pedidas aparte.
+  assert.ok(ed.includes("new CollectionEngine(known, undefined, undefined, counts).ownedViews()") && ed.includes("applyFilter(views,") && ed.includes("instancesOf(known, cardId)"));
   for (const l of ["Buscar carta", "Equipo", "Rol", "Rareza", "Duplicadas"]) assert.ok(ed.includes(l), l);
   // I18N · la plantilla pasó a clave con parámetro: mismo texto, mismo `i + 1`, en el mismo aria-label.
   for (const verbo of ["Subir", "Bajar", "Quitar"]) {
@@ -193,7 +194,8 @@ test("60 · id de perfil validado (UUID) en ruta y servicio; me=1 exige sesión"
 });
 
 test("63–65 · consultas acotadas y agrupadas; sin service key en cliente; rate limit de lectura y escritura", () => {
-  assert.ok(SERVICE.includes("const MAX_INSTANCES = 20_000;") && SERVICE.includes(".range(from, from + PAGE - 1)"));
+  // COLECCIONES ILIMITADAS · la colección del perfil sale del resumen por carta (una consulta); el historial sigue paginado.
+  assert.ok(SERVICE.includes("loadCollectionSummary(sb, userId)") && !SERVICE.includes("MAX_INSTANCES") && SERVICE.includes(".range(from, Math.min(from + PAGE, limit) - 1)"));
   assert.ok(SERVICE.includes(".limit(100)") && SERVICE.includes('.in("achievement_id", [...CATALOG_IDS])'));
   assert.ok(!/for \(const [a-z]+ of [a-zA-Z]+\) \{[^}]*await sb\.from/.test(code(SERVICE)), "ninguna consulta por carta, logro o partida");
   assert.ok(!/service_role|SUPABASE_SERVICE|SERVICE_KEY/i.test(CLIENT + UI + PAGE));

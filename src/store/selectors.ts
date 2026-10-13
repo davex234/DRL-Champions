@@ -28,6 +28,25 @@ export function groupCollection(owned: OwnedCard[]): Map<string, CollectionEntry
   return map;
 }
 
+/**
+ * COLECCIONES ILIMITADAS · copias por carta. Con cuenta las da el servidor (`ownedCounts`) y son exactas para
+ * cualquier tamaño; `ownedCards` trae entonces un ejemplar por carta y NO sirve para contar. Sin cuenta (demo local)
+ * `ownedCards` es la colección entera y se cuenta de ahí.
+ */
+export function copiesByCard(s: { ownedCards: OwnedCard[]; ownedCounts?: Record<string, number> | null }): Record<string, number> {
+  if (s.ownedCounts) return s.ownedCounts;
+  const out: Record<string, number> = {};
+  for (const o of s.ownedCards) out[o.cardId] = (out[o.cardId] ?? 0) + 1;
+  return out;
+}
+
+/** Copias totales (ver `copiesByCard`). */
+export function ownedTotalOf(s: { ownedCards: OwnedCard[]; ownedCounts?: Record<string, number> | null; ownedTotal?: number | null }): number {
+  if (typeof s.ownedTotal === "number") return s.ownedTotal;
+  if (s.ownedCounts) { let n = 0; for (const k in s.ownedCounts) n += s.ownedCounts[k]; return n; }
+  return s.ownedCards.length;
+}
+
 export interface CollectionStats {
   distinct: number;
   total: number;

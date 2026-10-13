@@ -42,7 +42,9 @@ export function TeamCollection() {
   useLocale();
   const router = useRouter();
   const owned = useGameStore((s) => s.ownedCards);
-  const entries = useMemo(() => buildTeamCollection(owned), [owned]);
+  // COLECCIONES ILIMITADAS · las copias por carta las da el servidor (`owned` trae un ejemplar por carta).
+  const counts = useGameStore((s) => s.ownedCounts);
+  const entries = useMemo(() => buildTeamCollection(owned, { counts }), [owned, counts]);
 
   const [selected, setSelected] = useState<string | null>(null);
   const [query, setQuery] = useState("");

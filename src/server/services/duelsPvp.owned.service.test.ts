@@ -23,6 +23,8 @@ class CappedDb {
 }
 class CappedQuery implements PromiseLike<unknown> {
   private filters: [string, unknown][] = [];
+  private preds: ((r: Row) => boolean)[] = [];
+  private max: number | null = null;
   private span: [number, number] | null = null;
   private orderBy: string | null = null;
   private single = false;
@@ -31,7 +33,10 @@ class CappedQuery implements PromiseLike<unknown> {
   eq(c: string, v: unknown) { this.filters.push([c, v]); return this; }
   order(c: string) { this.orderBy = c; return this; }
   range(a: number, b: number) { this.span = [a, b]; return this; }
-  limit() { return this; }
+  // COLECCIONES ILIMITADAS · lo que usa la lectura por cursor: `uid > último`, `in(...)` y `limit`.
+  gt(c: string, v: string) { this.preds.push((r) => String(r[c]) > v); return this; }
+  in(c: string, vs: unknown[]) { this.preds.push((r) => vs.includes(r[c])); return this; }
+  limit(n: number) { this.max = n; return this; }
   maybeSingle() { this.single = true; return this; }
   then<A = unknown, B = never>(ok?: ((v: unknown) => A | PromiseLike<A>) | null, ko?: ((e: unknown) => B | PromiseLike<B>) | null): PromiseLike<A | B> {
     return Promise.resolve().then(() => this.run()).then(ok, ko);
@@ -39,11 +44,12 @@ class CappedQuery implements PromiseLike<unknown> {
   private run() {
     const t = this.db.tables[this.name];
     if (!t) return { data: null, error: { code: "PGRST205", message: `Could not find the table 'public.${this.name}'` } };
-    let rows = t.filter((r) => this.filters.every(([c, v]) => r[c] === v));
+    let rows = t.filter((r) => this.filters.every(([c, v]) => r[c] === v) && this.preds.every((f) => f(r)));
     if (this.orderBy) { const c = this.orderBy; rows = [...rows].sort((a, b) => String(a[c]).localeCompare(String(b[c]))); }
-    rows = this.span ? rows.slice(this.span[0], Math.min(this.span[1] + 1, this.span[0] + POSTGREST_MAX_ROWS)) : rows.slice(0, POSTGREST_MAX_ROWS);
+    const matched = rows.length;
+    rows = this.span ? rows.slice(this.span[0], Math.min(this.span[1] + 1, this.span[0] + POSTGREST_MAX_ROWS)) : rows.slice(0, Math.min(this.max ?? POSTGREST_MAX_ROWS, POSTGREST_MAX_ROWS));
     if (this.single) return { data: rows[0] ?? null, error: null };
-    return { data: rows.map((r) => ({ ...r })), error: null };
+    return { data: rows.map((r) => ({ ...r })), error: null, count: matched };
   }
 }
 

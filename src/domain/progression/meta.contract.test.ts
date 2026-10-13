@@ -133,7 +133,8 @@ test("35 · abrir un sobre alimenta el meta sin tocar la apertura: la misma oper
 });
 
 test("36 · la colección alimenta el meta: logros de colección evaluados en servidor con las cartas reales", () => {
-  assert.ok(SERVICE.includes('admin.from("user_cards").select("card_id, obtained_at").eq("user_id", userId)'));
+  // COLECCIONES ILIMITADAS · las cartas reales llegan del resumen por carta (completo o error), no de una lectura sin paginar.
+  assert.ok(SERVICE.includes("loadCollectionSummary(admin, userId)") && SERVICE.includes("const ownedCardIds = ownedCardIdsOf(cards);"));
   assert.ok(SERVICE.includes("const n = def.progress(ctx);"), "misma función que el catálogo");
   assert.ok(SERVICE.includes("distinct_cards: ownedCardIds.size"), "cartas DISTINTAS, no ejemplares");
   // Limpieza de /coleccion (2026-10-07): los objetivos/logros de colección se consultan y reclaman en Progresión y Logros;

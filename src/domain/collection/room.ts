@@ -74,7 +74,13 @@ export interface OwnedInstanceFact { uid: string; cardId: string; serial: number
 export interface DeckUsageFact { id: string; name: string; active: boolean; cardUids: string[] }
 
 export interface CollectionPersonalFacts {
+  /**
+   * Ejemplares conocidos. COLECCIONES ILIMITADAS · con `holdings` NO es la colección entera: es el mejor ejemplar de
+   * cada carta más los que están en la vitrina o en un equipo. Sin `holdings` (demo local) sí son todos.
+   */
   instances: OwnedInstanceFact[];
+  /** Copias por carta (y cuántas numeradas) según el servidor. Manda sobre el recuento de `instances`. */
+  holdings?: Readonly<Record<string, { count: number; numbered: number }>> | null;
   /** `null` = no disponible (p. ej. 0052 sin aplicar): no se inventan favoritos. */
   favorites: string[] | null;
   showcaseUids: string[] | null;
@@ -208,7 +214,11 @@ export function buildCollectionSnapshot(cards: readonly CardDef[], resolvePlayer
     }
     byCard.set(inst.cardId, row);
   }
-  for (const row of byCard.values()) row.instances = sortInstances(row.instances);
+  for (const row of byCard.values()) {
+    row.instances = sortInstances(row.instances);
+    const h = personal.holdings?.[row.cardId];
+    if (h) row.count = Math.max(h.count, row.instances.length);
+  }
 
   const uniqueOwned = byCard.size;
   const totalCopies = [...byCard.values()].reduce((s, r) => s + r.count, 0);
@@ -225,9 +235,13 @@ export function buildCollectionSnapshot(cards: readonly CardDef[], resolvePlayer
       bestKey = key;
       best = { cardId: row.cardId, uid: row.instances[0].uid, serial: row.instances[0].serial };
     }
+    // Con `holdings`, las numeradas se cuentan del servidor; #1 y la serie más baja salen igualmente del mejor ejemplar
+    // (la serie es única por carta y el mejor ejemplar es el de serie más baja).
+    const held = personal.holdings?.[row.cardId];
+    if (held) serialsOwned += held.numbered;
     for (const i of row.instances) {
       if (i.serial === null) continue;
-      serialsOwned++;
+      if (!held) serialsOwned++;
       if (i.serial === 1) number1++;
       if (!lowest || i.serial < lowest.serial || (i.serial === lowest.serial && row.cardId < lowest.cardId)) lowest = { cardId: row.cardId, uid: i.uid, serial: i.serial };
     }

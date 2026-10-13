@@ -58,7 +58,19 @@ interface GameState {
   syncError: string | null;
   credits: number;
   xp: number;
+  /**
+   * Ejemplares en memoria. COLECCIONES ILIMITADAS · con cuenta NO es la colección entera: es el mejor ejemplar de cada
+   * carta (más los que se hayan pedido por `uid`, p. ej. los de un equipo). Sirve para «¿tengo esta carta?» y para
+   * pintarla; para CONTAR copias se usa `ownedCounts` (ver `copiesByCard` / `ownedTotalOf` en `store/selectors`).
+   * Sin cuenta (demo local) sí es la colección entera y `ownedCounts` es `null`.
+   */
   ownedCards: OwnedCard[];
+  /** Copias por carta según el servidor. `null` = demo local: se cuentan los ejemplares de `ownedCards`. */
+  ownedCounts: Record<string, number> | null;
+  /** Copias totales según el servidor. `null` = demo local. */
+  ownedTotal: number | null;
+  /** Copias en venta por carta según el servidor (`null` = demo local). */
+  lockedCounts: Record<string, number> | null;
   /** Sobres sin abrir en el inventario. packId -> cantidad. */
   unopenedPacks: Record<string, number>;
   /** Contador de acuñación por carta serializada (para nº de serie). */
@@ -130,6 +142,7 @@ interface GameState {
    */
   applyServerState: (s: {
     credits: number; xp: number; ownedCards: OwnedCard[];
+    ownedCounts?: Record<string, number> | null; ownedTotal?: number | null; lockedCounts?: Record<string, number> | null;
     origins: Record<string, CardOrigin>; lockedUids: string[];
     unopenedPacks: Record<string, number>; pityState: PityState;
     packsOpened: number; mintCounts: Record<string, number>;
@@ -208,6 +221,9 @@ function migrateGameState(persisted: unknown): Partial<GameState> {
     credits: num(p.credits, STARTER_CREDITS),
     xp: num(p.xp, 0),
     ownedCards: arr<OwnedCard>(p.ownedCards),
+    ownedCounts: p.ownedCounts && typeof p.ownedCounts === "object" ? rec<number>(p.ownedCounts) : null,
+    ownedTotal: typeof p.ownedTotal === "number" && Number.isFinite(p.ownedTotal) ? p.ownedTotal : null,
+    lockedCounts: p.lockedCounts && typeof p.lockedCounts === "object" ? rec<number>(p.lockedCounts) : null,
     unopenedPacks: rec<number>(p.unopenedPacks),
     mintCounts: rec<number>(p.mintCounts),
     pityState: p.pityState && typeof p.pityState === "object" ? (p.pityState as PityState) : freshPity(),
@@ -247,6 +263,9 @@ export const useGameStore = create<GameState>()(
       credits: STARTER_CREDITS,
       xp: 0,
       ownedCards: [],
+      ownedCounts: null,
+      ownedTotal: null,
+      lockedCounts: null,
       unopenedPacks: { ...STARTER_PACKS },
       mintCounts: {},
       pityState: freshPity(),
@@ -428,6 +447,10 @@ export const useGameStore = create<GameState>()(
           credits: s.credits,
           xp: s.xp,
           ownedCards: s.ownedCards,
+          // COLECCIONES ILIMITADAS · los recuentos los da el servidor; un estado antiguo sin ellos (caché, tests) se cuenta de los ejemplares.
+          ownedCounts: s.ownedCounts ?? null,
+          ownedTotal: s.ownedTotal ?? null,
+          lockedCounts: s.lockedCounts ?? null,
           cardOrigins: s.origins,
           lockedUids: s.lockedUids,
           unopenedPacks: s.unopenedPacks,
@@ -485,6 +508,9 @@ export const useGameStore = create<GameState>()(
           credits: STARTER_CREDITS,
           xp: 0,
           ownedCards: [],
+          ownedCounts: null,
+          ownedTotal: null,
+          lockedCounts: null,
           unopenedPacks: { ...STARTER_PACKS },
           mintCounts: {},
           pityState: freshPity(),
@@ -509,6 +535,9 @@ export const useGameStore = create<GameState>()(
         credits: s.credits,
         xp: s.xp,
         ownedCards: s.ownedCards,
+        ownedCounts: s.ownedCounts,
+        ownedTotal: s.ownedTotal,
+        lockedCounts: s.lockedCounts,
         unopenedPacks: s.unopenedPacks,
         mintCounts: s.mintCounts,
         pityState: s.pityState,

@@ -21,8 +21,21 @@ import {
 } from "./client";
 import { ns } from "@/i18n/runtime";
 import { beginCriticalOperation } from "@/i18n/critical";
+import { fetchInstancesByUid, toOwnedCard } from "./instances";
+import { useTeamStore } from "@/store/useTeamStore";
 
 const t = ns("game");
+
+/** `uid` que los equipos del entrenador referencian y que el estado (un ejemplar por carta) no trae. */
+async function pinnedInstances(have: readonly { uid: string }[]) {
+  const known = new Set(have.map((o) => o.uid));
+  const wanted = new Set<string>();
+  for (const t of useTeamStore.getState().teams) {
+    for (const u of [...t.starters, ...t.subs, ...(t.reserves ?? []), t.captainUid, t.iglUid, t.coachUid]) if (typeof u === "string" && !known.has(u)) wanted.add(u);
+  }
+  if (wanted.size === 0) return null;
+  return fetchInstancesByUid([...wanted]);
+}
 
 /** Vuelca en el store el estado real del servidor. Devuelve false si no hay sesión. */
 export async function syncFromServer(): Promise<boolean> {
@@ -44,11 +57,21 @@ export async function syncFromServer(): Promise<boolean> {
    * pinta un ejemplar lo busca por `uid` en cuanto el store notifica, y si el mapa llegara
    * después la colección se pintaría una vez sin artwork y otra con él.
    */
-  useArtworkStore.getState().setArtworks(state.artworks ?? {});
+  /*
+   * COLECCIONES ILIMITADAS · el estado trae UN ejemplar por carta. Los equipos del entrenador guardan `uid` concretos
+   * que pueden no ser ese ejemplar: se piden por `uid` ANTES de volcar el estado, para que ningún equipo se pinte un
+   * instante como «carta inexistente». Si la consulta falla, se sigue sin ellos (el equipo lo dirá) y no se rompe la
+   * sincronización.
+   */
+  const pinned = await pinnedInstances(state.ownedCards).catch(() => null);
+  useArtworkStore.getState().setArtworks({ ...(state.artworks ?? {}), ...(pinned?.artworks ?? {}) });
   useGameStore.getState().applyServerState({
     credits: state.credits,
     xp: state.xp,
-    ownedCards: state.ownedCards,
+    ownedCards: pinned ? [...state.ownedCards, ...pinned.items.map(toOwnedCard)] : state.ownedCards,
+    ownedCounts: state.ownedCounts ?? null,
+    ownedTotal: state.ownedTotal ?? null,
+    lockedCounts: state.lockedCounts ?? null,
     origins: state.origins,
     lockedUids: state.lockedUids,
     unopenedPacks: state.unopenedPacks,

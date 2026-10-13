@@ -32,14 +32,15 @@ export class CollectionEngine {
   private meta: CollectionMeta;
   private viewCache: CardView[] | null = null;
 
-  constructor(owned: OwnedCard[] = [], meta: CollectionMeta = emptyMeta(), registry: CardRegistry = new CardRegistry()) {
+  /** `counts`: copias por carta según el servidor (COLECCIONES ILIMITADAS; ver `OwnershipIndex`). */
+  constructor(owned: OwnedCard[] = [], meta: CollectionMeta = emptyMeta(), registry: CardRegistry = new CardRegistry(), counts: Readonly<Record<string, number>> | null = null) {
     this.registry = registry;
-    this.own = new OwnershipIndex(owned);
+    this.own = new OwnershipIndex(owned, counts);
     this.meta = meta;
   }
 
   /** Reemplaza la instantánea de propiedad (p. ej. tras abrir un sobre) e invalida la caché. */
-  setOwned(owned: OwnedCard[]): void { this.own = new OwnershipIndex(owned); this.viewCache = null; }
+  setOwned(owned: OwnedCard[], counts: Readonly<Record<string, number>> | null = null): void { this.own = new OwnershipIndex(owned, counts); this.viewCache = null; }
   getMeta(): CollectionMeta { return this.meta; }
   ownership(): OwnershipIndex { return this.own; }
 

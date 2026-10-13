@@ -88,7 +88,8 @@ const run = async (db: FakeSupabase | SupabaseClient, userId: string | null, o: 
 };
 
 /** RPC de SOLO LECTURA que ya usaba el catálogo de `listDecks` (foto de distribución de contenido). */
-const READ_ONLY_RPC = new Set(["app_content_distribution_snapshot"]);
+// COLECCIONES ILIMITADAS · `app_collection_summary` es una función SQL `stable` de solo lectura (resumen por carta).
+const READ_ONLY_RPC = new Set(["app_content_distribution_snapshot", "app_collection_summary"]);
 
 const noSideEffects = (db: FakeSupabase) => {
   assert.deepEqual(db.writes, [], `escrituras: ${db.writes.join(", ")}`);
@@ -319,7 +320,9 @@ test("ACOTADO · número de lecturas fijo: no crece con objetivos, logros, sobre
     big.tables.events.push({ id: `e${i}`, name: `E${i}`, status: "upcoming", start_date: iso(NOW + (i + 1) * D).slice(0, 10), end_date: null, source: "vlr" });
   }
   await run(big, U);
-  assert.equal(big.reads.length, small.reads.length, `${small.reads.length} → ${big.reads.length}`);
+  // COLECCIONES ILIMITADAS · el doble ya ORDENA como PostgREST, así que con más eventos el «próximo evento» es otro y
+  // puede no tener Pick'em (menos lecturas). El invariante es el de siempre: más datos NUNCA son más lecturas.
+  assert.ok(big.reads.length <= small.reads.length, `${small.reads.length} → ${big.reads.length}`);
   // SANEAMIENTO POST F47 · 45 → 46: contar las respuestas de pick’em exige leer antes las ENTREGAS del
   // jugador (`pickem_answers` no tiene `user_id`, 0012). Es UNA lectura constante más, no un N+1: la
   // invariante de arriba —el número de lecturas no crece con los datos— es la que sigue mandando.
@@ -327,7 +330,9 @@ test("ACOTADO · número de lecturas fijo: no crece con objetivos, logros, sobre
   // ellos, unas pocas por cuadro con tope de 5 cuadros — no crece con objetivos, logros, sobres, retos ni eventos.
   // CORE GAME LOOP · 47 → 50: «partidas que cuentan» (`matchCounts`) lee los DOS asientos de ranked (jugadas y
   // ganadas: +2 constantes; +1 por recuento de ventana). Siguen siendo lecturas fijas, no crecen con los datos.
-  assert.ok(small.reads.length <= 50, `lecturas: ${small.reads.length}`);
+  // COLECCIONES ILIMITADAS · 50 → 51: la propiedad de los equipos ya no lee la colección entera; lee el resumen por
+  // carta y, UNA vez, los `uid` de los equipos guardados. Constante: no crece con el tamaño de la colección.
+  assert.ok(small.reads.length <= 51, `lecturas: ${small.reads.length}`);
 });
 
 test("ACOTADO · anónimo: pocas lecturas públicas", async () => {

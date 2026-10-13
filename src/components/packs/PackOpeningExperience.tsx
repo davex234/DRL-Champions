@@ -39,7 +39,7 @@ import { useEventsStore } from "@/store/useEventsStore";
 import { getVariant } from "@/domain/cards/variants";
 import type { OwnedInstanceFact } from "@/domain/collection/room";
 import {
-  INITIAL_REVEAL, beforeExcluding, buildRevealPlan, cinematicFor, classifyOpenFailure, hasResult, revealReducer, toInstanceFact, toOpenedInstances,
+  INITIAL_REVEAL, beforeExcluding, buildRevealPlan, holdingsMinus, holdingsPlus, type PriorHoldings, cinematicFor, classifyOpenFailure, hasResult, revealReducer, toInstanceFact, toOpenedInstances,
 } from "@/domain/packs/reveal";
 import { primeAudio, playCutTick, playBurst, playCue } from "@/lib/sound";
 import { dimEnvironment, packChamberDim } from "@/design/environment";
@@ -142,6 +142,7 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
   const packsLeft = useGameStore((s) => Object.values(s.unopenedPacks).reduce((n, c) => n + (c > 0 ? c : 0), 0));
   const openFromInventory = useGameStore((s) => s.openPackFromInventory);
   const storeCards = useGameStore((s) => s.ownedCards);
+  const storeCounts = useGameStore((s) => s.ownedCounts);
   /* Fase 38 · la colección de ANTES (solo presentación: si no llega, la apertura sigue). */
   const personal = useCollectionPersonal({ enabled: online, userKey: user?.id ?? null });
 
@@ -198,7 +199,21 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
   }, [online, personal.data, storeCards]);
 
   const openedInstances = useMemo(() => toOpenedInstances(results), [results]);
-  const plan = useMemo(() => buildRevealPlan(openedInstances, before, CATALOG, { reduced }), [openedInstances, before, reduced]);
+  /*
+   * COLECCIONES ILIMITADAS · copias por carta de la foto previa. Con cuenta, los ejemplares de la foto son uno por
+   * carta: «ahora tienes N» y el total de copias salen de los recuentos del servidor, no de contar ejemplares.
+   */
+  const [beforeHoldings, setBeforeHoldings] = useState<PriorHoldings | null>(null);
+  const nextHoldings = useRef<PriorHoldings | null | undefined>(undefined);
+  const currentHoldings = useCallback((): PriorHoldings | null => {
+    if (!online) return null; // demo local: la foto trae todos los ejemplares
+    if (personal.data?.holdings) return personal.data.holdings;
+    if (!storeCounts) return null;
+    const out: Record<string, { count: number; numbered: number }> = {};
+    for (const id in storeCounts) out[id] = { count: storeCounts[id], numbered: 0 };
+    return out;
+  }, [online, personal.data, storeCounts]);
+  const plan = useMemo(() => buildRevealPlan(openedInstances, before, CATALOG, { reduced, holdings: beforeHoldings }), [openedInstances, before, reduced, beforeHoldings]);
 
   /**
    * Abre el sobre. Con sesión iniciada la tirada la DECIDE EL SERVIDOR (`/api/game/packs`), y aquí solo se presenta
@@ -224,6 +239,8 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
     const snapshot = nextBefore.current !== undefined ? nextBefore.current : currentFacts();
     nextBefore.current = undefined;
     setBefore(snapshot);
+    setBeforeHoldings(nextHoldings.current !== undefined ? nextHoldings.current : currentHoldings());
+    nextHoldings.current = undefined;
 
     let res: OpenedResult[] | null = null;
     let repeated = false;
@@ -261,7 +278,7 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
     trackFlow("pack_ceremony", `pack_opened:${packId}:${res.length}`);
     dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res), ...ceremonyFlow(res) });
     playBurst();
-  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, qaOpen, ceremonyFlow]);
+  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, currentHoldings, qaOpen, ceremonyFlow]);
 
   /* F81 · INTRO (el sobre se rasga y suelta sus cartas) → TENSIÓN. Los relojes solo avisan; manda la máquina. */
   useEffect(() => {
@@ -365,13 +382,14 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
     lastTick.current = 0;
     clearOpenReveal();
     nextBefore.current = before ? [...before, ...openedInstances.map(toInstanceFact)] : undefined;
+    nextHoldings.current = before ? (beforeHoldings ? holdingsPlus(beforeHoldings, openedInstances) : null) : undefined;
     setResults([]);
     setWalkoutItems([]);
     setCutProgress(0);
     resetProgression(); // Fase 27: los deltas eran de la apertura anterior.
     personal.refresh();
     dispatch({ type: "RESET" });
-  }, [before, openedInstances, resetProgression, personal]);
+  }, [before, beforeHoldings, openedInstances, resetProgression, personal]);
   reopenRef.current = openAnother;
 
   /**
@@ -415,8 +433,12 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
   useEffect(() => {
     if (!state.recovered || before !== null || openedInstances.length === 0) return;
     const current = currentFacts();
-    if (current) setBefore(beforeExcluding(current, openedInstances));
-  }, [state.recovered, before, openedInstances, currentFacts]);
+    if (current) {
+      setBefore(beforeExcluding(current, openedInstances));
+      const h = currentHoldings();
+      setBeforeHoldings(h ? holdingsMinus(h, openedInstances) : null);
+    }
+  }, [state.recovered, before, openedInstances, currentFacts, currentHoldings]);
 
   /**
    * TECLADO. Enter/Espacio: abrir; durante la cinemática, avanzar UN paso (nunca se salta la hero); con la hero quieta,

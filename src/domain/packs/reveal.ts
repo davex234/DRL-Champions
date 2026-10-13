@@ -238,6 +238,27 @@ export function beforeExcluding(current: readonly OwnedInstanceFact[], opened: r
   return current.filter((i) => !uids.has(i.uid));
 }
 
+/**
+ * COLECCIONES ILIMITADAS · copias por carta de la foto previa. Con cuenta, la foto de ejemplares trae uno por carta y
+ * no sirve para decir «ahora tienes N»: las copias las da el servidor. Debe ser del MISMO momento que la foto previa
+ * (antes de esta apertura); `holdingsPlus` / `holdingsMinus` la llevan de una apertura a la siguiente o la deshacen.
+ */
+export type PriorHoldings = Readonly<Record<string, { count: number; numbered: number }>>;
+
+function shiftHoldings(h: PriorHoldings, opened: readonly Pick<OpenedInstance, "cardId" | "serial">[], sign: 1 | -1): PriorHoldings {
+  const out: Record<string, { count: number; numbered: number }> = { ...h };
+  for (const o of opened) {
+    const cur = out[o.cardId] ?? { count: 0, numbered: 0 };
+    const next = { count: Math.max(0, cur.count + sign), numbered: Math.max(0, cur.numbered + (o.serial != null ? sign : 0)) };
+    if (next.count === 0) delete out[o.cardId]; else out[o.cardId] = next;
+  }
+  return out;
+}
+/** Las copias tras sumar lo que salió en una apertura (la foto previa de la siguiente). */
+export const holdingsPlus = (h: PriorHoldings, opened: readonly Pick<OpenedInstance, "cardId" | "serial">[]): PriorHoldings => shiftHoldings(h, opened, 1);
+/** Las copias de ANTES a partir de las actuales (recuperación): se restan las de esta apertura. */
+export const holdingsMinus = (h: PriorHoldings, opened: readonly Pick<OpenedInstance, "cardId" | "serial">[]): PriorHoldings => shiftHoldings(h, opened, -1);
+
 function statusText(item: Pick<RevealItem, "status" | "copiesAfter" | "newVariant">): string {
   if (item.status === "new") return item.newVariant ? (" " + t("Nueva variante en tu colección.")) : (" " + t("Nueva en tu colección."));
   if (item.status === "duplicate") return t(" Duplicada, ahora tienes {copiesAfter}.", { copiesAfter: item.copiesAfter });
@@ -248,7 +269,7 @@ export function buildRevealPlan(
   opened: readonly OpenedInstance[],
   before: readonly OwnedInstanceFact[] | null,
   catalog: RevealCatalog,
-  opts: { reduced?: boolean } = {},
+  opts: { reduced?: boolean; holdings?: PriorHoldings | null } = {},
 ): RevealPlan {
   const openedUids = new Set(opened.map((o) => o.uid));
   const prior = before ? before.filter((i) => !openedUids.has(i.uid)) : null;
@@ -259,6 +280,16 @@ export function buildRevealPlan(
     copiesBefore.set(i.cardId, (copiesBefore.get(i.cardId) ?? 0) + 1);
     const c = catalog.getCard(i.cardId);
     if (c) playersBefore.add(c.playerId);
+  }
+  // Con recuentos del servidor, MANDAN: los ejemplares de la foto son uno por carta.
+  const holdings = prior ? opts.holdings ?? null : null;
+  if (holdings) {
+    copiesBefore.clear();
+    for (const id in holdings) {
+      copiesBefore.set(id, holdings[id].count);
+      const c = catalog.getCard(id);
+      if (c) playersBefore.add(c.playerId);
+    }
   }
 
   const seen = new Map<string, number>();
@@ -309,7 +340,7 @@ export function buildRevealPlan(
 
   const hero = selectHero(items);
   const heroItem = hero.ok ? hero.hero : null;
-  return { items, summary: summarize(items, prior, opened, catalog, unresolved, heroItem), hero, order: presentationOrder(items, heroItem?.uid ?? null) };
+  return { items, summary: summarize(items, prior, opened, catalog, unresolved, heroItem, holdings), hero, order: presentationOrder(items, heroItem?.uid ?? null) };
 }
 
 function setDeltas(before: CollectionSnapshot, after: CollectionSnapshot): SetDelta[] {
@@ -328,7 +359,7 @@ function setDeltas(before: CollectionSnapshot, after: CollectionSnapshot): SetDe
     || a.label.localeCompare(b.label, "es"));
 }
 
-function summarize(items: RevealItem[], prior: OwnedInstanceFact[] | null, opened: readonly OpenedInstance[], catalog: RevealCatalog, unresolved: number, hero: RevealItem | null): RevealSummary {
+function summarize(items: RevealItem[], prior: OwnedInstanceFact[] | null, opened: readonly OpenedInstance[], catalog: RevealCatalog, unresolved: number, hero: RevealItem | null, holdings: PriorHoldings | null = null): RevealSummary {
   const known = prior !== null;
   const bestRarity = items.reduce<RarityBucket | null>((best, i) => (best === null || rarityRank(i.rarity) > rarityRank(best) ? i.rarity : best), null);
   /* F81 · la destacada del resumen ES la hero de la apertura (mayor OVR), la misma que protagonizó el revelado. */
@@ -340,8 +371,8 @@ function summarize(items: RevealItem[], prior: OwnedInstanceFact[] | null, opene
   let firstLegendary: boolean | null = null;
   if (prior) {
     const openedFacts: OwnedInstanceFact[] = opened.filter((o) => catalog.getCard(o.cardId)).map((o) => ({ uid: o.uid, cardId: o.cardId, serial: o.serial, mintedVersion: o.mintedVersion }));
-    const b = buildCollectionSnapshot(catalog.cards, catalog.getPlayer, factsOf(prior));
-    const a = buildCollectionSnapshot(catalog.cards, catalog.getPlayer, factsOf([...prior, ...openedFacts]));
+    const b = buildCollectionSnapshot(catalog.cards, catalog.getPlayer, { ...factsOf(prior), holdings });
+    const a = buildCollectionSnapshot(catalog.cards, catalog.getPlayer, { ...factsOf([...prior, ...openedFacts]), holdings: holdings ? holdingsPlus(holdings, openedFacts) : null });
     collection = {
       catalogTotal: a.catalogTotal,
       uniqueBefore: b.uniqueOwned, uniqueAfter: a.uniqueOwned,

@@ -48,6 +48,8 @@ import { formatCredits, cn } from "@/lib/format";
 import { ns, td, getIntlLocale } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 import { fill, slots } from "@/i18n/rich";
+import { LoadMore } from "@/components/ui/LoadMore";
+import { fetchCardInstances } from "@/lib/game/instances";
 
 const tr = ns("market");
 
@@ -63,6 +65,9 @@ export interface SellableInstance {
   serial?: number;
   reference: number;
 }
+
+/** Cartas repetidas cuya copia vendible se resuelve de una vez (una consulta por carta). */
+const SPARE_PAGE = 12;
 
 type Tab = "escaparate" | "mis-ventas" | "historial";
 type Sort = "recent" | "price-asc" | "price-desc" | "ovr";
@@ -119,10 +124,19 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
    * excluyen por partida doble: por `lockedUids` y por tus listados activos, para que una
    * carta recién publicada desaparezca del formulario aunque el estado tarde en sincronizar.
    */
-  const sellable = useMemo<SellableInstance[]>(() => {
-    const listed = new Set(
-      (mine ?? []).filter((l) => l.status === "active" && l.cardUid).map((l) => l.cardUid as string),
-    );
+  const ownedCounts = useGameStore((s) => s.ownedCounts);
+  const lockedCounts = useGameStore((s) => s.lockedCounts);
+  /*
+   * COLECCIONES ILIMITADAS. Sin cuenta sincronizada (`ownedCounts === null`, demo local o harness) `ownedCards` es la
+   * colección entera y las repetidas se sacan de ahí, como siempre. Con cuenta, `ownedCards` trae UN ejemplar por
+   * carta: qué cartas tienen copias de sobra lo dicen los recuentos, y la copia concreta que se ofrece (nunca la mejor,
+   * que se conserva) se pide al servidor carta a carta, SOLO con el mercado abierto y solo de las cartas a la vista.
+   */
+  const listed = useMemo(() => new Set(
+    (mine ?? []).filter((l) => l.status === "active" && l.cardUid).map((l) => l.cardUid as string),
+  ), [mine]);
+  const localSellable = useMemo<SellableInstance[]>(() => {
+    if (ownedCounts) return [];
     const locked = new Set(lockedUids);
     return duplicates(ownedCards)
       .filter((o) => !locked.has(o.uid) && !listed.has(o.uid))
@@ -131,7 +145,46 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
         return def ? { uid: o.uid, def, serial: o.serial, reference: marketValue(def) } : null;
       })
       .filter((c): c is SellableInstance => c !== null);
-  }, [ownedCards, lockedUids, mine]);
+  }, [ownedCards, ownedCounts, lockedUids, listed]);
+  /** Cartas con al menos una copia libre además de la que se conserva, de más a menos valiosa. */
+  const spareCards = useMemo(() => {
+    if (!ownedCounts) return [];
+    return ownedCards
+      .filter((o) => (ownedCounts[o.cardId] ?? 0) >= 2 && (ownedCounts[o.cardId] ?? 0) - (lockedCounts?.[o.cardId] ?? 0) >= 2)
+      .map((o) => ({ rep: o, def: getCard(o.cardId) }))
+      .filter((x): x is { rep: typeof ownedCards[number]; def: CardDef } => !!x.def)
+      .sort((a, b) => marketValue(b.def) - marketValue(a.def) || (a.def.id < b.def.id ? -1 : 1));
+  }, [ownedCards, ownedCounts, lockedCounts]);
+  const [spareShown, setSpareShown] = useState(SPARE_PAGE);
+  const [remoteSellable, setRemoteSellable] = useState<SellableInstance[]>([]);
+  const [spareLoading, setSpareLoading] = useState(false);
+  const [spareError, setSpareError] = useState<string | null>(null);
+  const [spareEpoch, setSpareEpoch] = useState(0);
+  useEffect(() => {
+    if (!GLOBAL_MARKET_ENABLED || !ownedCounts || tab !== "mis-ventas") return;
+    let alive = true;
+    const wanted = spareCards.slice(0, spareShown);
+    setSpareLoading(true); setSpareError(null);
+    void (async () => {
+      const out: SellableInstance[] = [];
+      try {
+        for (const { rep, def } of wanted) {
+          // Las tres primeras copias libres por serie: se descarta la mejor (la que se conserva) y las ya publicadas.
+          const page = await fetchCardInstances({ cardId: def.id, locked: false, sort: "serial", limit: 3 });
+          if (!alive) return;
+          const spare = (page?.items ?? []).find((i) => i.uid !== rep.uid && !listed.has(i.uid));
+          if (spare) out.push({ uid: spare.uid, def, serial: spare.serial ?? undefined, reference: marketValue(def) });
+        }
+        if (alive) setRemoteSellable(out);
+      } catch (e) {
+        if (alive) { setRemoteSellable(out); setSpareError(e instanceof Error ? e.message : tr("No se pudieron cargar tus repetidas")); }
+      } finally {
+        if (alive) setSpareLoading(false);
+      }
+    })();
+    return () => { alive = false; };
+  }, [ownedCounts, spareCards, spareShown, listed, tab, spareEpoch]);
+  const sellable = ownedCounts ? remoteSellable : localSellable;
 
   useEffect(() => { fetchMarketConfig().then(setCfg).catch(() => setCfg(null)); }, []);
 
@@ -367,6 +420,10 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
           <div className="space-y-5">
             {/* Fase 23.1 · publicar una repetida en el mercado, por el camino del servidor. */}
             <SellComposer cards={sellable} cfg={cfg} busy={busy} onPublish={publish} />
+            {ownedCounts && GLOBAL_MARKET_ENABLED && (
+              <LoadMore hasMore={spareCards.length > spareShown} loading={spareLoading} error={spareError}
+                onMore={() => setSpareShown((n) => n + SPARE_PAGE)} onRetry={() => setSpareEpoch((n) => n + 1)} shown={Math.min(spareShown, spareCards.length)} total={spareCards.length} testId="market-spares-more" />
+            )}
 
             {mine.length === 0 ? (
               <EmptyState

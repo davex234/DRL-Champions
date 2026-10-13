@@ -192,10 +192,18 @@ async function dtoFromRows(sb: SupabaseClient, userId: string, rows: CardRow[], 
     isNew = fresh.isNew;
   } else {
     const ids = [...new Set(rows.map((r) => r.card_id))];
-    const { data } = ids.length ? await sb.from("user_cards").select("uid, card_id").eq("user_id", userId).in("card_id", ids) : { data: [] };
-    const mine = new Set(rows.map((r) => r.uid));
+    /*
+     * COLECCIONES ILIMITADAS · «¿tenía ya esta carta?» se responde CONTANDO en la base, carta a carta (un sobre trae
+     * pocas). Antes se traían todas las copias de esas cartas en una lectura: con más de 1.000 se cortaba y una carta
+     * repetida podía salir como nueva en el reintento.
+     */
+    const inThisOpen = new Map<string, number>();
+    for (const r of rows) inThisOpen.set(r.card_id, (inThisOpen.get(r.card_id) ?? 0) + 1);
     const others = new Map<string, number>();
-    for (const r of (data ?? []) as { uid: string; card_id: string }[]) if (!mine.has(r.uid)) others.set(r.card_id, (others.get(r.card_id) ?? 0) + 1);
+    await Promise.all(ids.map(async (id) => {
+      const { count } = await sb.from("user_cards").select("uid", { count: "exact", head: true }).eq("user_id", userId).eq("card_id", id);
+      others.set(id, Math.max(0, (count ?? 0) - (inThisOpen.get(id) ?? 0)));
+    }));
     const seen = new Set<string>();
     isNew = rows.map((r) => { const n = (others.get(r.card_id) ?? 0) === 0 && !seen.has(r.card_id); seen.add(r.card_id); return n; });
   }

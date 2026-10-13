@@ -61,7 +61,7 @@ import {
 } from "@/lib/game/client";
 import { RANK_REGIONS, REGION_LABEL, type RankRegion } from "@/domain/progression/rank";
 import { isReward } from "@/domain/pickems/ledger";
-import { groupCollection } from "@/store/selectors";
+import { groupCollection, ownedTotalOf } from "@/store/selectors";
 import { TOTAL_CARDS } from "@/data/catalog";
 import { PasswordRecoveryForm } from "@/components/auth/PasswordRecoveryForm";
 import { playerMessage } from "@/components/ui/game/GameStates";
@@ -93,6 +93,8 @@ function AccountSettings() {
   // F81.2 · la colección del store solo es de esta cuenta cuando su estado del servidor ya está volcado (ni caché, ni demo).
   const collectionReady = useEconomyView() === "server";
   const storeCards = useGameStore((s) => s.ownedCards);
+  // COLECCIONES ILIMITADAS · el total de copias es el del servidor, no la longitud de la lista (un ejemplar por carta).
+  const ownedTotal = useGameStore((s) => ownedTotalOf(s));
   const ownedCards = collectionReady ? storeCards : NO_CARDS;
 
   const [position, setPosition] = useState<number | null>(null);
@@ -436,7 +438,7 @@ function AccountSettings() {
           <Readout label={t("Recompensas")} value={statsLoading ? "—" : String(rewards)} href="/recompensas" />
           <Readout
             label={t("Colección")} value={collectionReady ? String(distinct) : "—"} suffix={`/${TOTAL_CARDS}`}
-            foot={collectionReady ? t("{n} cartas", { n: ownedCards.length }) : undefined} accent="#7b5cff" href="/coleccion"
+            foot={collectionReady ? t("{n} cartas", { n: ownedTotal }) : undefined} accent="#7b5cff" href="/coleccion"
           />
           <Readout label={t("Sobres")} value={statsLoading ? "—" : String(packs)} href={!statsLoading && packs > 0 ? "/inventario" : "/tienda"} />
           <Readout label={t("DRL Credits")} value={formatCredits(profile.credits)} accent="#ffd35c" />

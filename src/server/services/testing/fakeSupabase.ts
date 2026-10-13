@@ -14,6 +14,8 @@ export class FakeSupabase {
   rpcs: string[] = [];
   reads: string[] = [];
   failTables = new Set<string>();
+  /** `max_rows` de PostgREST: ver `MemSupabase.maxRows`. */
+  maxRows = 1000;
   from(name: string) { this.reads.push(name); return new FakeQuery(this, name); }
   async rpc(name: string) { this.rpcs.push(name); return { data: null, error: { code: "PGRST202", message: "fake rpc" } }; }
   get client(): SupabaseClient { return this as unknown as SupabaseClient; }
@@ -26,8 +28,11 @@ class FakeQuery implements PromiseLike<unknown> {
   private head = false;
   private single = false;
   private max: number | null = null;
+  private orderBy: { col: string; asc: boolean }[] = [];
+  private window: [number, number] | null = null;
+  private exact = false;
   constructor(private db: FakeSupabase, private name: string) {}
-  select(_cols?: string, opts?: { count?: string; head?: boolean }) { if (opts?.head) this.head = true; return this; }
+  select(_cols?: string, opts?: { count?: string; head?: boolean }) { if (opts?.head) this.head = true; if (opts?.count === "exact") this.exact = true; return this; }
   private write(op: string) { this.db.writes.push(`${op}:${this.name}`); return this; }
   insert() { return this.write("insert"); }
   upsert() { return this.write("upsert"); }
@@ -42,8 +47,8 @@ class FakeQuery implements PromiseLike<unknown> {
   in(c: string, vs: unknown[]) { this.filters.push((r) => vs.includes(r[c])); return this; }
   like() { return this; }
   or() { return this; }
-  order() { return this; }
-  range() { return this; }
+  order(col: string, opts?: { ascending?: boolean }) { this.orderBy.push({ col, asc: opts?.ascending !== false }); return this; }
+  range(a: number, b: number) { this.window = [a, b]; return this; }
   limit(n: number) { this.max = n; return this; }
   maybeSingle() { this.single = true; return this; }
   singleRow() { this.single = true; return this; }
@@ -54,7 +59,15 @@ class FakeQuery implements PromiseLike<unknown> {
     if (this.db.failTables.has(this.name)) return { data: null, count: null, error: { code: "XX000", message: `internal detail of ${this.name}: secret_column` } };
     let rows = (this.db.tables[this.name] ?? []).filter((r) => this.filters.every((f) => f(r)));
     if (this.head) return { data: null, count: rows.length, error: null };
+    const matched = rows.length;
+    if (this.orderBy.length) {
+      const by = this.orderBy;
+      rows = [...rows].sort((a, b) => { for (const { col, asc } of by) { const d = (a[col] as never) < (b[col] as never) ? -1 : (a[col] as never) > (b[col] as never) ? 1 : 0; if (d) return asc ? d : -d; } return 0; });
+    }
+    if (this.window) rows = rows.slice(this.window[0], this.window[1] + 1);
     if (this.max !== null) rows = rows.slice(0, this.max);
-    return this.single ? { data: rows[0] ?? null, error: null } : { data: rows, count: rows.length, error: null };
+    // COLECCIONES ILIMITADAS · como PostgREST (`max_rows`): una lectura sin paginar se corta en silencio.
+    if (rows.length > this.db.maxRows) rows = rows.slice(0, this.db.maxRows);
+    return this.single ? { data: rows[0] ?? null, error: null } : { data: rows, count: this.exact ? matched : rows.length, error: null };
   }
 }

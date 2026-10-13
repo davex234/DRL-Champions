@@ -53,6 +53,8 @@ export function PlayerProfileScreen({ id, embedded = false }: { id: string; embe
   // F81.2 · el editor de vitrina elige entre las cartas de ESTA cuenta: nunca las de la caché o la demo mientras carga.
   const ownedReady = useEconomyView() === "server";
   const storeOwned = useGameStore((s) => s.ownedCards);
+  // COLECCIONES ILIMITADAS · copias por carta del servidor: el editor pide las copias de una carta por páginas.
+  const storeCounts = useGameStore((s) => s.ownedCounts);
   const owned = useMemo(() => (ownedReady ? storeOwned : []), [ownedReady, storeOwned]);
   const { toast, notify } = useToast(2600);
   // F89 · la foto lleva la clave (perfil, cuenta) con la que se pidió; solo se pinta si coincide con la actual.
@@ -156,6 +158,7 @@ export function PlayerProfileScreen({ id, embedded = false }: { id: string; embe
           onTab={setEditor}
           onClose={() => { if (!busy) setEditor(null); }}
           owned={owned}
+          counts={ownedReady ? storeCounts : null}
           initialUids={snap.self.showcaseUids}
           claimed={snap.self.claimedAchievements}
           initialFeatured={snap.self.featuredIds}

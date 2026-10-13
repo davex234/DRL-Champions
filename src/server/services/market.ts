@@ -30,6 +30,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { serverCatalog, type ServerCatalog } from "@/server/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { marketValue } from "@/domain/economy/pricing";
+import { chunked } from "@/server/db/keyset";
 
 export type ServiceResult<T> = { ok: true; data: T } | { ok: false; error: string; status: number };
 
@@ -140,9 +141,13 @@ async function mintedVersions(
 ): Promise<Map<string, number | null>> {
   const uids = rows.map((r) => r.card_uid).filter((u): u is string => !!u);
   if (uids.length === 0) return new Map();
-  const { data } = await sb.from("user_cards").select("uid, minted_version").in("uid", uids);
-  return new Map(((data ?? []) as { uid: string; minted_version: number | null }[])
-    .map((r) => [r.uid, r.minted_version]));
+  // COLECCIONES ILIMITADAS · troceado: 600 UUID en un solo `in(...)` son ~22 KB de URL y la pasarela puede rechazarla.
+  const out = new Map<string, number | null>();
+  for (const part of chunked([...new Set(uids)], 100)) {
+    const { data } = await sb.from("user_cards").select("uid, minted_version").in("uid", part);
+    for (const r of (data ?? []) as { uid: string; minted_version: number | null }[]) out.set(r.uid, r.minted_version);
+  }
+  return out;
 }
 
 /**

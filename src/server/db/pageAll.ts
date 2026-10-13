@@ -31,7 +31,7 @@
  * ────────────────────────── CÓMO SE USA ──────────────────────────
  *
  * Se le pasa una función que construye la consulta acotada a un rango, y devuelve todas las
- * páginas concatenadas. `null` significa error de lectura, igual que en el resto del servidor:
+ * páginas concatenadas. `null` significa error de lectura (o tope de páginas alcanzado), igual que en el resto del servidor:
  * quien llama decide si eso es un repliegue o un fallo.
  */
 
@@ -61,5 +61,7 @@ export async function pageAll<T>(
     out.push(...filas);
     if (filas.length < PAGE_SIZE) return out;
   }
-  return out;
+  // COLECCIONES ILIMITADAS · tope alcanzado: lo leído NO es todo. Se responde como un error de lectura (`null`), nunca
+  // como una lista completa: quien suma o decide con ella debe saber que no la tiene entera.
+  return null;
 }

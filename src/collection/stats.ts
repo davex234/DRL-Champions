@@ -34,7 +34,7 @@ export function statistics(registry: CardRegistry, own: OwnershipIndex): Collect
   return {
     progress: prog,
     totalInstances: own.totalInstances(),
-    duplicates: duplicates(own.all()).length,
+    duplicates: Math.max(0, own.totalInstances() - own.distinctCount()),
     squadRating: squadRating(own.all()),
     byRarity, byRegion, byGroup, byRole,
   };

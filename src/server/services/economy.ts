@@ -21,6 +21,7 @@ import { serverCatalog } from "@/server/catalog";
 import { salvageValue, salvageableCount } from "@/domain/economy/salvage";
 import { copyProtection, type Protection } from "@/domain/cards/protection";
 import { GUARD_RPC_ERRORS, isMissingRpc, loadProtection } from "./cardProtection";
+import { readUserCards, readUserCardsByUid } from "./userCards";
 
 export type ServiceResult<T> = { ok: true; data: T } | { ok: false; error: string; status: number; code?: string };
 
@@ -30,21 +31,49 @@ const fail = (error: string, status = 400, code?: string): { ok: false; error: s
 /** Un ejemplar del inventario, tal y como lo guarda `user_cards`. */
 interface OwnedRow { uid: string; card_id: string; locked: boolean; minted_version: number | null }
 
+/** Ejemplares por operación de desguace (tope de la ruta y de `salvageCards`). */
+export const SALVAGE_BATCH = 500;
+/** Copias protegidas que viajan en la vista previa (el resto se cuenta en `protectedTotal`). */
+export const SALVAGE_PROTECTED_LISTED = 200;
+
 export interface SalvagePreview {
-  /** Ejemplares que se pueden desguazar ahora mismo. */
+  /**
+   * Ejemplares que se pueden desguazar ahora mismo. COLECCIONES ILIMITADAS · como mucho `SALVAGE_BATCH`: es la
+   * siguiente TANDA, no la lista entera (con 40.000 repetidas eran 1,5 MB de respuesta y una operación que la ruta
+   * rechazaba por tamaño). `salvageable` dice cuántos hay en total; el cliente desguaza por tandas.
+   */
   uids: string[];
-  /** Lo que pagaría el servidor por ellos. */
+  /** Cuántos ejemplares se pueden desguazar en total (≥ `uids.length`). */
+  salvageable: number;
+  /** Lo que pagaría el servidor por TODOS ellos. */
   total: number;
-  /** Desglose por carta, para que la pantalla pueda explicarlo. */
+  /** Lo que pagaría por los de `uids` (esta tanda). */
+  batchTotal: number;
+  /** Desglose por carta, para que la pantalla pueda explicarlo. Una línea por carta: lo acota el catálogo. */
   lines: { cardId: string; copies: number; salvageable: number; each: number; subtotal: number }[];
   /**
    * F79.1 · copias repetidas PROTEGIDAS (favorita o vitrina): NO están en `uids` ni en `total`. Solo se desguazan si el
-   * jugador las CONFIRMA una a una (`confirmProtected`), como en NEXUS FORGE.
+   * jugador las CONFIRMA una a una (`confirmProtected`), como en NEXUS FORGE. Como mucho `SALVAGE_PROTECTED_LISTED`.
    */
   protectedCopies: { uid: string; cardId: string; protectedBy: Protection[]; each: number }[];
+  /** Copias protegidas en total (≥ `protectedCopies.length`). */
+  protectedTotal: number;
   /** F79.1 · copias repetidas que están en un equipo: nunca se desguazan (bloqueo absoluto). */
   inDeck: number;
 }
+
+/** El plan COMPLETO de desguace sobre unas filas: lo que usa el servidor para decidir. No viaja al cliente tal cual. */
+interface SalvagePlan {
+  uids: string[];
+  total: number;
+  lines: SalvagePreview["lines"];
+  protectedCopies: SalvagePreview["protectedCopies"];
+  inDeck: number;
+  /** Lo que paga cada ejemplar desguazable. */
+  each: Map<string, number>;
+}
+
+const OWNED_COLS = "uid, card_id, locked, minted_version";
 
 /**
  * Qué duplicados tiene el jugador y cuánto valen.
@@ -57,11 +86,39 @@ export interface SalvagePreview {
 export async function previewSalvage(
   sb: SupabaseClient, userId: string,
 ): Promise<ServiceResult<SalvagePreview>> {
-  const { data, error } = await sb
-    .from("user_cards").select("uid, card_id, locked, minted_version").eq("user_id", userId);
-  if (error) return fail(error.message, 500);
+  /*
+   * COLECCIONES ILIMITADAS · la colección se lee ENTERA, por cursor, o la vista falla. Antes era una lectura sin rango
+   * ni orden que PostgREST cortaba en 1.000 filas arbitrarias: las repetidas fuera de esa ventana no se podían
+   * desguazar, los recuentos por carta eran falsos y dos llamadas seguidas podían ver ventanas distintas.
+   */
+  let rows: OwnedRow[];
+  try { rows = await readUserCards<OwnedRow>(sb, userId, OWNED_COLS); }
+  catch (e) { return fail(e instanceof Error ? e.message : "No se pudo leer la colección", 500); }
 
-  const rows = (data ?? []) as OwnedRow[];
+  const plan = await planSalvage(sb, userId, rows);
+  const uids = plan.uids.slice(0, SALVAGE_BATCH);
+  return {
+    ok: true,
+    data: {
+      uids,
+      salvageable: plan.uids.length,
+      total: plan.total,
+      batchTotal: uids.reduce((n, u) => n + (plan.each.get(u) ?? 0), 0),
+      lines: plan.lines,
+      protectedCopies: plan.protectedCopies.slice(0, SALVAGE_PROTECTED_LISTED),
+      protectedTotal: plan.protectedCopies.length,
+      inDeck: plan.inDeck,
+    },
+  };
+}
+
+/**
+ * Qué ejemplares de `rows` se pueden desguazar y cuánto valen. `rows` debe traer TODAS las copias de cada carta que
+ * aparezca (la regla «se conserva una» es por carta): la colección entera para la vista previa, o todas las copias de
+ * las cartas elegidas para un desguace. Cada carta se decide por separado, así que el plan de un subconjunto de cartas
+ * es exactamente el plan completo restringido a ellas.
+ */
+async function planSalvage(sb: SupabaseClient, userId: string, rows: readonly OwnedRow[]): Promise<SalvagePlan> {
   // F79.1 · la regla canónica de carta protegida (`domain/cards/protection`): equipos = bloqueo absoluto; favorita y
   // vitrina = solo confirmándolo.
   const prot = await loadProtection(sb, userId);
@@ -78,6 +135,7 @@ export async function previewSalvage(
   }
 
   const uids: string[] = [];
+  const eachByUid = new Map<string, number>();
   const lines: SalvagePreview["lines"] = [];
   const protectedCopies: SalvagePreview["protectedCopies"] = [];
   let inDeck = 0;
@@ -120,14 +178,14 @@ export async function previewSalvage(
     }
     if (toScrap.length === 0) continue;
 
-    for (const c of toScrap) uids.push(c.uid);
+    for (const c of toScrap) { uids.push(c.uid); eachByUid.set(c.uid, each); }
     const subtotal = each * toScrap.length;
     total += subtotal;
     lines.push({ cardId, copies: copies.length, salvageable: toScrap.length, each, subtotal });
   }
 
-  lines.sort((a, b) => b.subtotal - a.subtotal);
-  return { ok: true, data: { uids, total, lines, protectedCopies, inDeck } };
+  lines.sort((a, b) => b.subtotal - a.subtotal || (a.cardId < b.cardId ? -1 : a.cardId > b.cardId ? 1 : 0));
+  return { uids, total, lines, protectedCopies, inDeck, each: eachByUid };
 }
 
 /**
@@ -171,18 +229,31 @@ export async function salvageCards(
     };
   }
 
-  const preview = await previewSalvage(sb, userId);
-  if (!preview.ok) return preview;
+  /*
+   * COLECCIONES ILIMITADAS · el conjunto desguazable se recalcula sobre TODAS las copias de las cartas elegidas, no
+   * sobre la colección entera: la regla es por carta, así que el resultado es idéntico y el coste ya no crece con el
+   * tamaño de la colección. Primero se resuelven los `uid` pedidos (solo los del usuario vuelven); después se leen,
+   * por cursor y completas, todas las copias de esas cartas. Cualquier fallo de lectura detiene la operación.
+   */
+  let plan: SalvagePlan;
+  try {
+    const asked = await readUserCardsByUid(sb, userId, [...new Set(uids)]);
+    const cardIds = [...new Set(asked.map((i) => i.cardId))];
+    const rows = await readUserCards<OwnedRow>(sb, userId, OWNED_COLS, { cardIds });
+    plan = await planSalvage(sb, userId, rows);
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "No se pudo leer la colección", 500);
+  }
 
   // F79.1 · una copia protegida elegida SIN confirmar rechaza la operación entera: nunca se descarta en silencio ni se
   // desguaza en silencio. Las demás no desguazables (última copia, en venta, en un equipo, ajenas) se descartan como antes.
   const confirmed = new Set(confirmProtected);
-  const protectedUids = new Set(preview.data.protectedCopies.map((c) => c.uid));
+  const protectedUids = new Set(plan.protectedCopies.map((c) => c.uid));
   const unconfirmed = [...new Set(uids)].filter((u) => protectedUids.has(u) && !confirmed.has(u));
   if (unconfirmed.length > 0) {
     return fail("Has elegido cartas protegidas (favoritas o de tu vitrina): confírmalas antes de desguazarlas", 409, "PROTECTED_COPY");
   }
-  const allowed = new Set([...preview.data.uids, ...protectedUids]);
+  const allowed = new Set([...plan.uids, ...protectedUids]);
   const chosen = [...new Set(uids)].filter((u) => allowed.has(u));
   if (chosen.length === 0) {
     return fail("Ninguna de esas cartas se puede desguazar", 409);
@@ -194,15 +265,21 @@ export async function salvageCards(
    * se reutiliza el total de la vista previa: si el jugador desguazó algo entre una y
    * otra, ese total ya no describe esta operación.
    */
-  const { data: rows } = await sb
-    .from("user_cards").select("uid, card_id, minted_version").eq("user_id", userId).in("uid", chosen);
+  /*
+   * COLECCIONES ILIMITADAS · la lectura va troceada (500 UUID en un `in(...)` son ~18 KB de URL) y su error SE MIRA.
+   * Antes se ignoraba: una lectura fallida daba `total = 0` y la RPC borraba las cartas pagando 0 créditos. Y si no
+   * vuelven exactamente los ejemplares elegidos (cambiaron entre medias) no se desguaza nada.
+   */
+  let priced: { uid: string; cardId: string; mintedVersion: number | null }[];
+  try { priced = await readUserCardsByUid(sb, userId, chosen); }
+  catch (e) { return fail(e instanceof Error ? e.message : "No se pudo tasar el desguace", 500); }
+  if (priced.length !== chosen.length) return fail("Tu colección ha cambiado: vuelve a intentarlo", 409, "STALE_SELECTION");
   const catalog = await serverCatalog(sb);
-  const total = ((rows ?? []) as { uid: string; card_id: string; minted_version: number | null }[])
-    .reduce((sum, r) => {
-      // Mismo criterio que la vista previa: la versión acuñada, no la vigente.
-      const def = catalog.instance(r.card_id, r.minted_version);
-      return sum + (def ? salvageValue(def) : 0);
-    }, 0);
+  const total = priced.reduce((sum, r) => {
+    // Mismo criterio que la vista previa: la versión acuñada, no la vigente.
+    const def = catalog.instance(r.cardId, r.mintedVersion);
+    return sum + (def ? salvageValue(def) : 0);
+  }, 0);
 
   // 0061 · RPC GUARDADA: equipos, favoritas/vitrina sin confirmar y última copia, dentro de la transacción.
   const { data, error } = await sb.rpc("app_salvage_cards_guarded", {

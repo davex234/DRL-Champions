@@ -81,15 +81,18 @@ test("API · sin endpoints de precio, venta, mercado ni intercambio", () => {
 
 test("SERVICIO · lectura con columnas propias (uid, carta, serial, versión): sin dueño, correo ni origen", () => {
   const s = code(SERVICE);
-  assert.ok(s.includes('.select("uid, card_id, serial, minted_version")'));
-  assert.ok(s.includes('.eq("user_id", userId)'));
+  // COLECCIONES ILIMITADAS · las instancias salen del resumen por carta (`userCards`): el servicio proyecta SOLO uid, carta,
+  // serial y versión, y la lectura va siempre acotada al usuario.
+  assert.ok(s.includes("({ uid: i.uid, cardId: i.cardId, serial: i.serial, mintedVersion: i.mintedVersion })"));
+  assert.ok(s.includes("loadCollectionSummary(sb, userId)") && s.includes("readUserCardsByUid(sb, userId, extra)"));
+  assert.ok(code(read("src/server/services/userCards.ts")).includes('.eq("user_id", userId)'));
   assert.ok(!/email|is_admin|origin|obtained_at|credits/.test(s));
 });
 
-test("SERVICIO · sin N+1: cuatro lecturas en paralelo, instancias paginadas por rango", () => {
+test("SERVICIO · sin N+1: lecturas en paralelo y la colección RESUMIDA por carta (sin techo de instancias)", () => {
   const s = code(SERVICE);
   assert.ok(s.includes("await Promise.all(["));
-  assert.ok(s.includes(".range(from, from + PAGE - 1)"));
+  assert.ok(!/COLLECTION_MAX_INSTANCES|truncated|\.range\(/.test(s), "ni techo, ni marca de truncado, ni paginación por desplazamiento");
   assert.ok(!/for \(const [a-z]+ of [a-z.]+\) \{[^}]*await sb/.test(s));
 });
 

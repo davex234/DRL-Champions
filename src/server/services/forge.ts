@@ -22,7 +22,7 @@ import { recipeLive } from "@/domain/crafting/types";
 import type { PackCardClass } from "@/domain/packs/packClass";
 import { isForgeRecipeId, type ConsumeSlot, type ForgeConfig } from "@/domain/forge/types";
 import type { CraftOpFact, ForgeFacts, InventorySummary } from "@/domain/forge/progression";
-import { buildMaterials, validateSelection, type OwnedCopy, type SlotMaterials } from "@/domain/forge/selector";
+import { buildMaterials, trimMaterialsForView, validateSelection, type OwnedCopy, type SlotMaterials } from "@/domain/forge/selector";
 import { evaluateForge, recipeGate, type ForgeCore } from "@/domain/forge/snapshot";
 import { forgeHistory, type HistoryEntry } from "@/domain/forge/history";
 import { achievementClaimRef, objectiveClaimRef } from "@/domain/forge/objectives";
@@ -37,6 +37,7 @@ import { getMissionsState, settleMissionsForOp } from "./missionEngine";
 import { craftRef, craftRpcError, publishedOfClass } from "./crafting";
 import { loadForgeConfig, logForge } from "./forgeConfig";
 import { GUARD_RPC_ERRORS, isMissingRpc, loadProtection } from "./cardProtection";
+import { readUserCards } from "./userCards";
 
 export interface ServiceOut<T> { ok: boolean; status: number; error?: string; code?: string; data?: T }
 const fail = <T>(status: number, error: string, code?: string): ServiceOut<T> => ({ ok: false, status, error, code });
@@ -57,7 +58,8 @@ async function pages<T>(q: (from: number, to: number) => PromiseLike<{ data: unk
 }
 
 export async function ownedCopies(sb: SupabaseClient, userId: string): Promise<OwnedCopy[]> {
-  const rows = await pages<{ uid: string; card_id: string; locked: boolean }>((a, b) => sb.from("user_cards").select("uid, card_id, locked").eq("user_id", userId).order("uid").range(a, b));
+  // COLECCIONES ILIMITADAS · por cursor (`uid > último`), completo o error.
+  const rows = await readUserCards<{ uid: string; card_id: string; locked: boolean }>(sb, userId, "uid, card_id, locked");
   return rows.map((r) => ({ uid: r.uid, cardId: r.card_id, locked: !!r.locked }));
 }
 async function craftOps(sb: SupabaseClient, userId: string): Promise<CraftOpFact[]> {
@@ -163,14 +165,17 @@ export async function getForgeState(sb: SupabaseClient, userId: string): Promise
   const exchange: ExchangeView[] = f73.available ? f73.recipes.filter((r) => r.kind === "CARD" && r.status === "ACTIVE" && !isForgeRecipeId(r.id) && r.inputClass && r.outputClass).map((r) => {
     const pool = publishedOfClass(r.outputClass!).length;
     return { id: r.id, name: r.name, inputClass: r.inputClass!, outputClass: r.outputClass!, inputQty: r.inputQty, live: recipeLive(r, now) && pool > 0, outputPoolSize: pool,
-      materials: materialsFn(f)([{ qty: r.inputQty, class: r.inputClass! }]) };
+      materials: trimMaterialsForView(materialsFn(f)([{ qty: r.inputQty, class: r.inputClass! }])) };
   }) : [];
   const history = forgeHistory({
     ops: f.facts.ops,
     projectClaims: f.projectClaims.map((p) => ({ projectId: p.projectId, at: p.at, cardId: f.missions.projects.find((x) => x.id === p.projectId)?.targetCardId })),
     rewardClaims: f.claims,
   }, 40);
-  return done({ available: f73.available, reason: f73.reason, serverNow: now, configStored: cfgLoad.stored, core: core(f, now), exchange, projects: projectViews(f), history });
+  // COLECCIONES ILIMITADAS · la foto no lleva cada copia libre de cada carta: solo las que una receta puede consumir.
+  const full = core(f, now);
+  const view = { ...full, recipes: full.recipes.map((r) => (r.materials ? { ...r, materials: trimMaterialsForView(r.materials) } : r)) };
+  return done({ available: f73.available, reason: f73.reason, serverNow: now, configStored: cfgLoad.stored, core: view, exchange, projects: projectViews(f), history });
 }
 
 /* ═══════════════════════════ FORJAR ═══════════════════════════ */

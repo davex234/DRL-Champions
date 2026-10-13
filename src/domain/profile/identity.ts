@@ -190,8 +190,13 @@ export interface IdentityFacts {
   /** F84 · rango de la temporada competitiva activa (opcional: sin temporada o sin lectura, no se pinta). */
   competitive?: CompetitiveFact | null;
   recentMatches: RecentMatchFact[];
-  /** Ids de carta de TODAS las instancias (para el resumen). */
+  /**
+   * Ids de carta que posee el jugador. COLECCIONES ILIMITADAS · el servidor manda UNO por carta (no uno por
+   * ejemplar) y el total de copias aparte, en `instanceCount`.
+   */
   instanceCardIds: string[];
+  /** Copias totales. Si falta (fixtures antiguos), se cuentan los ids. */
+  instanceCount?: number;
   /** Solo las instancias que la vitrina referencia (y que siguen siendo del jugador). */
   showcaseInstances: OwnedInstanceFact[];
   teams: { total: number; ownedDistinct: number }[];
@@ -396,11 +401,11 @@ export const DEFAULT_ACCENT = "#19e3ff";
 
 const RARITY_ORDER: RarityBucket[] = ["legendary", "epic", "rare", "uncommon", "common"];
 
-export function collectionSummary(instanceCardIds: string[], totalCards: number, teams: { total: number; ownedDistinct: number }[]): CollectionSummary {
+export function collectionSummary(instanceCardIds: string[], totalCards: number, teams: { total: number; ownedDistinct: number }[], instanceCount?: number): CollectionSummary {
   // Fase 27: «distintas» cuenta DEFINICIONES, no ejemplares.
   const distinct = new Set(instanceCardIds).size;
   return {
-    instances: instanceCardIds.length,
+    instances: instanceCount ?? instanceCardIds.length,
     distinct,
     totalCards,
     percent: totalCards > 0 ? Math.round((distinct / totalCards) * 100) : 0,
@@ -530,7 +535,7 @@ export function buildPlayerIdentity(facts: IdentityFacts, ctx: { viewerId: strin
     featured,
     badges: (facts.badges?.featured ?? []).slice(0, FEATURED_MAX),
     achievements: { completed: facts.catalog.filter((a) => claimedSet.has(a.id)).length, total: facts.catalog.length },
-    collection: collectionSummary(facts.instanceCardIds, facts.totalCards, facts.teams),
+    collection: collectionSummary(facts.instanceCardIds, facts.totalCards, facts.teams, facts.instanceCount),
     rarity: raritySummary(facts.instanceCardIds, ctx.rankOf),
     recentMatches: facts.recentMatches.slice(0, 5),
     h2h,

@@ -33,6 +33,7 @@ import {
 } from "@/domain/liveEvents/eventState";
 import { catalogPlayerIdFor } from "@/domain/liveEvents/playerCards";
 import { getEventViewFor, type EventView } from "./events";
+import { loadCollectionSummary, ownedCardIdsOf } from "./userCards";
 
 export interface LiveResult<T> { ok: boolean; status: number; error?: string; code?: string; data?: T }
 const fail = (status: number, error: string, code?: string): LiveResult<never> => ({ ok: false, status, error, code });
@@ -406,10 +407,10 @@ export async function getEventHub(sb: SupabaseClient, userId: string | null, eve
     const cardIds = [...new Set(playerViews.flatMap((p) => p.cardIds))];
     const owned = new Set<string>();
     if (userId && cardIds.length > 0) {
-      for (let i = 0; i < cardIds.length; i += 300) {
-        const { data: oc } = await sb.from("user_cards").select("card_id").eq("user_id", userId).in("card_id", cardIds.slice(i, i + 300));
-        for (const c of (oc ?? []) as { card_id: string }[]) owned.add(c.card_id);
-      }
+      // COLECCIONES ILIMITADAS · «¿la tengo?» sale del resumen por carta: antes, más de 1.000 copias de las cartas de un
+      // trozo cortaban la respuesta y ocultaban cartas que sí se poseen. Si el resumen falla, el bloque se apaga (como antes).
+      const mine = await loadCollectionSummary(sb, userId).then(ownedCardIdsOf).catch(() => new Set<string>());
+      for (const id of cardIds) if (mine.has(id)) owned.add(id);
     }
     const cards: EventCardItem[] = [];
     for (const p of playerViews) for (const id of p.cardIds) {

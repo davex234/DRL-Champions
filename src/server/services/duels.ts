@@ -46,7 +46,6 @@ import {
   createRng, createController, advanceBots, createDuelBot,
   type BotDifficulty, type RngState,
 } from "@/domain/cardgame/opponent";
-import { toOwnedCard, type UserCardRow } from "./inventory";
 import { projectMatchFor } from "@/domain/cardgame/pvp";
 import { rivalHintsFor, rivalRolesFor, committedRivalHint } from "@/domain/cardgame/hints";
 import { visualHintValue } from "@/lib/duel/hintVisuals";
@@ -56,6 +55,7 @@ import type {
   DuelDeckDTO, DuelDeckCardDTO, DuelMatchView, DuelTurnView, DuelReplay, PveMatchContext,
   MatchRewardGrant,
 } from "@/lib/duel/types";
+import { countsOf, loadCollectionSummary, readUserCardsByUid, type OwnedInstance } from "./userCards";
 
 /**
  * BLOQUE 8.1 — el registro sale del catálogo PERSISTIDO, no del derivado en código.
@@ -99,33 +99,42 @@ const done = <T>(data: T): ServiceResult<T> => ({ ok: true, status: 200, data })
 
 // ───────────────────────────── propiedad e inventario ─────────────────────────────
 
-/** Tamaño de página al leer `user_cards` (el tope por petición de PostgREST es 1.000 filas). */
-const OWNED_PAGE = 1000;
-/** Techo de ejemplares leídos: una colección real está muy por debajo; evita un bucle sin fin. */
-const OWNED_MAX = 50_000;
-
 /**
- * Instancias que el usuario posee REALMENTE, según la base de datos.
+ * Las cartas del usuario con las que se construyen y validan sus equipos, según la base de datos.
  *
- * FASE 32 · PAGINADA. Antes era una sola lectura sin rango, y PostgREST corta en 1.000 filas: con
- * más de mil ejemplares, la colección del constructor salía truncada y un mazo con una carta de la
- * fila 1.001 se declaraba «no es tuya» sin serlo. Mismas columnas, mismo filtro: solo se pagina.
+ * COLECCIONES ILIMITADAS · ya no se lee la colección entera (antes: páginas de 1.000 hasta un techo silencioso de
+ * 50.000, en cada validación, arranque de partida y apertura del constructor). Un equipo no puede repetir jugador, así
+ * que para construir basta UN ejemplar por carta; y para validar basta saber si los `uid` del equipo son del usuario.
+ * Se devuelve, por tanto:
+ *
+ *   · el mejor ejemplar de cada carta poseída (resumen por carta: su tamaño lo acota el catálogo),
+ *   · los ejemplares que YA están en alguno de sus equipos, y
+ *   · los `uids` que se pidan expresamente (los de un equipo que llega en la petición),
+ *
+ * siempre filtrados por `user_id` en la base: un `uid` ajeno o inexistente simplemente no vuelve, y el validador lo
+ * rechaza como «no es tuya». Cualquier fallo de lectura LANZA: nunca se valida contra una propiedad parcial.
  */
-export async function loadOwned(sb: SupabaseClient, userId: string): Promise<OwnedCard[]> {
-  const rows: UserCardRow[] = [];
-  for (let from = 0; from < OWNED_MAX; from += OWNED_PAGE) {
-    const { data, error } = await sb
-      .from("user_cards")
-      .select("uid, card_id, serial, origin, locked, obtained_at")
-      .eq("user_id", userId)
-      .order("uid", { ascending: true })
-      .range(from, from + OWNED_PAGE - 1);
-    if (error) throw new Error(error.message);
-    const page = (data as UserCardRow[]) ?? [];
-    rows.push(...page);
-    if (page.length < OWNED_PAGE) break;
-  }
-  return rows.map(toOwnedCard);
+export async function loadOwned(sb: SupabaseClient, userId: string, uids: readonly string[] = []): Promise<OwnedCard[]> {
+  return (await loadOwnership(sb, userId, uids)).owned;
+}
+
+/** Como `loadOwned`, con las copias por carta (para que el constructor enseñe «×N» sin recibir cada copia). */
+export async function loadOwnership(sb: SupabaseClient, userId: string, uids: readonly string[] = []): Promise<{ owned: OwnedCard[]; counts: Record<string, number> }> {
+  const [summary, decks] = await Promise.all([
+    loadCollectionSummary(sb, userId),
+    sb.from("duel_decks").select("card_uids").eq("user_id", userId),
+  ]);
+  if (decks.error) throw new Error(decks.error.message);
+  // `mintedVersion: null`, como hasta ahora: esta lectura nunca trajo la versión acuñada y los equipos se resuelven
+  // contra la definición vigente. No se cambia aquí qué versión juega una carta.
+  const toOwned = (i: OwnedInstance): OwnedCard => ({ uid: i.uid, cardId: i.cardId, serial: i.serial ?? undefined, obtainedAt: i.obtainedAt, mintedVersion: null });
+  const out = new Map<string, OwnedCard>();
+  for (const c of summary.cards) out.set(c.rep.uid, toOwned(c.rep));
+  const wanted = new Set<string>();
+  for (const d of (decks.data ?? []) as { card_uids: string[] | null }[]) for (const u of d.card_uids ?? []) if (typeof u === "string" && !out.has(u)) wanted.add(u);
+  for (const u of uids) if (typeof u === "string" && !out.has(u)) wanted.add(u);
+  if (wanted.size > 0) for (const i of await readUserCardsByUid(sb, userId, [...wanted])) out.set(i.uid, toOwned(i));
+  return { owned: [...out.values()].sort((a, b) => (a.uid < b.uid ? -1 : a.uid > b.uid ? 1 : 0)), counts: countsOf(summary) };
 }
 
 /** Proyección de una carta de duelo para el cliente. Solo datos ya públicos del catálogo. */
@@ -218,7 +227,7 @@ export async function saveDeck(
   if (uids.length > DUEL_DECK_SIZE) return fail(400, `Un mazo tiene como máximo ${DUEL_DECK_SIZE} cartas`);
 
   // FRONTERA: la propiedad la decide la base de datos, no el cuerpo de la petición.
-  const owned = await loadOwned(sb, userId);
+  const owned = await loadOwned(sb, userId, uids);
   const ownedUids = new Set(owned.map((o) => o.uid));
   const alien = uids.find((u) => !ownedUids.has(u));
   if (alien) return fail(403, "Ese mazo contiene una carta que no es tuya");

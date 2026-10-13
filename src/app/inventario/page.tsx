@@ -43,7 +43,7 @@ import { PackOpenStage } from "@/components/packs/PackOpenStage";
 import { useGameStore } from "@/store/useGameStore";
 import { getPack } from "@/data/packs";
 import { getCard } from "@/data/catalog";
-import { duplicates } from "@/store/selectors";
+import { copiesByCard, duplicates } from "@/store/selectors";
 import { salvageValue } from "@/domain/economy/salvage";
 import { formatCredits, cn } from "@/lib/format";
 import { fetchSalvagePreview, salvage, type SalvagePreview } from "@/lib/game/economy";
@@ -61,6 +61,14 @@ import { fill, slots } from "@/i18n/rich";
 
 const t = ns("inventario");
 
+/** Ejemplares por operación de desguace (el tope del servidor). */
+const SALVAGE_BATCH = 500;
+/** Pausa entre tandas: dos peticiones por tanda (desguace + vista previa) dentro de las 30/min de la economía. */
+const SALVAGE_PACE_MS = 4_200;
+/** Cartas repetidas que se pintan de una vez. */
+const LINES_PAGE = 40;
+const pause = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
 export default function InventarioPage() {
   return (
     <HydrationGate>
@@ -74,6 +82,7 @@ function Inventory() {
   const { toast, notify } = useToast();
   const unopenedPacks = useGameStore((s) => s.unopenedPacks);
   const ownedCards = useGameStore((s) => s.ownedCards);
+  const ownedCounts = useGameStore((s) => s.ownedCounts);
   const quickSellMany = useGameStore((s) => s.quickSellMany);
   // Con cuenta, la economía la lleva el servidor: las ventas locales quedan fuera.
   const { user } = useAuth();
@@ -90,7 +99,11 @@ function Inventory() {
   const [confirmed, setConfirmed] = useState<string[]>([]);
   const protectedList = preview?.protectedCopies ?? [];
   const confirmedValue = protectedList.filter((c) => confirmed.includes(c.uid)).reduce((n, c) => n + c.each, 0);
-  const salvageCount = (preview?.uids.length ?? 0) + confirmed.length;
+  // COLECCIONES ILIMITADAS · la vista previa trae la siguiente TANDA (`uids`) y el total (`salvageable`).
+  const salvageCount = (preview?.salvageable ?? 0) + confirmed.length;
+  /** Progreso de un desguace por tandas: ejemplares ya desguazados sobre el total previsto. */
+  const [progress, setProgress] = useState<{ done: number; all: number } | null>(null);
+  const [shownLines, setShownLines] = useState(LINES_PAGE);
 
   const loadPreview = useCallback(async () => {
     if (!online) { setPreview(null); return; }
@@ -103,26 +116,63 @@ function Inventory() {
   async function doSalvage() {
     if (!preview || salvageCount === 0 || busy) return;
     setBusy(true);
+    /*
+     * COLECCIONES ILIMITADAS · POR TANDAS. El servidor acepta como mucho 500 ejemplares por operación (cada una con su
+     * clave, su asiento y sus comprobaciones). Antes se enviaban TODOS de una vez y con más de 500 repetidas el botón
+     * respondía «demasiadas cartas». Ahora se desguaza la tanda que da la vista previa, se vuelve a pedir la vista (el
+     * servidor recalcula sobre lo que queda) y se repite. Si una tanda falla, se para: lo ya desguazado está pagado y lo
+     * demás sigue intacto.
+     */
+    const all = salvageCount;
+    let done = 0, paid = 0, repeated = false;
+    let current: SalvagePreview | null = preview;
+    let pending = confirmed;
+    setProgress({ done: 0, all });
     try {
-      const r = await salvage([...preview.uids, ...confirmed], undefined, confirmed);
+      while (current && (current.uids.length > 0 || pending.length > 0)) {
+        // Las protegidas confirmadas van en la primera tanda que tenga hueco (el tope es por operación).
+        const room = Math.max(0, SALVAGE_BATCH - current.uids.length);
+        const withNow = pending.slice(0, room);
+        const r = await salvage([...current.uids, ...withNow], undefined, withNow);
+        pending = pending.slice(withNow.length);
+        repeated = repeated || r.repeated;
+        done += r.salvaged; paid += r.paid;
+        setProgress({ done, all });
+        if (r.salvaged === 0) break; // nada avanzó: no se insiste en bucle
+        current = await fetchSalvagePreview();
+        if (current.uids.length > 0 || pending.length > 0) await pause(SALVAGE_PACE_MS); // dentro del límite de frecuencia
+      }
       notify(
-        r.repeated
+        repeated && done === 0
           ? t("Ese desguace ya estaba hecho")
-          : t("Desguazadas {salvaged} cartas · {paid} créditos", { salvaged: r.salvaged, paid: formatCredits(r.paid) }),
+          : t("Desguazadas {salvaged} cartas · {paid} créditos", { salvaged: done, paid: formatCredits(paid) }),
         true,
       );
-      // El servidor manda: se recarga el estado en vez de suponer el resultado.
-      await syncFromServer().catch(() => {});
-      await loadPreview();
     } catch (e) {
       notify(e instanceof Error ? e.message : t("No se pudo desguazar"), false);
     } finally {
+      // El servidor manda: se recarga el estado en vez de suponer el resultado (también si una tanda falló a medias).
+      await syncFromServer().catch(() => {});
+      await loadPreview();
+      setProgress(null);
       setBusy(false);
     }
   }
 
   const packEntries = Object.entries(unopenedPacks).filter(([, n]) => n > 0);
-  const dups = useMemo(() => duplicates(ownedCards), [ownedCards]);
+  /*
+   * COLECCIONES ILIMITADAS · con cuenta, `ownedCards` trae un ejemplar por carta: las repetidas NO se pueden contar ni
+   * listar de ahí. El número sale de los recuentos por carta y la lista, del desglose de la vista previa del servidor
+   * (una línea por carta). Sin cuenta, el dispositivo tiene la colección entera y se listan los ejemplares como siempre.
+   */
+  const dups = useMemo(() => (online ? [] : duplicates(ownedCards)), [online, ownedCards]);
+  const dupCount = useMemo(() => {
+    if (!online) return dups.length;
+    const c = copiesByCard({ ownedCards, ownedCounts });
+    let n = 0; for (const id in c) n += Math.max(0, c[id] - 1);
+    return n;
+  }, [online, dups, ownedCards, ownedCounts]);
+  const repOf = useMemo(() => new Map(ownedCards.map((o) => [o.cardId, o])), [ownedCards]);
   const dupsValue = useMemo(
     () =>
       dups.reduce((s, d) => {
@@ -153,7 +203,7 @@ function Inventory() {
         </div>
         <div className="flex gap-2.5">
           <Stat label={t("Sobres")} value={String(totalPacks)} tone="var(--nx-cyan)" />
-          <Stat label={t("Duplicados")} value={String(dups.length)} tone="var(--nx-gold)" />
+          <Stat label={t("Duplicados")} value={String(dupCount)} tone="var(--nx-gold)" />
         </div>
       </header>
 
@@ -243,7 +293,7 @@ function Inventory() {
       {/* Duplicados */}
       <div>
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h2 className="nx-label">{t("Duplicados")} <span className="text-white/25">· {dups.length}</span></h2>
+          <h2 className="nx-label">{t("Duplicados")} <span className="text-white/25">· {dupCount}</span></h2>
 
           {/*
             CON CUENTA: desguace de servidor. El importe lo pone el servidor y llega en la
@@ -255,7 +305,7 @@ function Inventory() {
             ? preview && salvageCount > 0 && (
                 <NxButton variant="primary" accent="gold" onClick={doSalvage} disabled={busy} data-testid="salvage-confirm">
                   {busy
-                    ? t("Desguazando…")
+                    ? progress && progress.all > SALVAGE_BATCH ? t("Desguazando… {done} de {all}", { done: progress.done, all: progress.all }) : t("Desguazando…")
                     : t("Desguazar {salvageCount} · {v} créditos", { salvageCount, v: formatCredits(preview.total + confirmedValue) })}
                 </NxButton>
               )
@@ -279,7 +329,7 @@ function Inventory() {
           a pensar que el juego tasa mal; explicarlo en una línea evita esa lectura y, de
           paso, dice que se conserva siempre un ejemplar.
         */}
-        {((online && preview && preview.uids.length > 0) || (!online && dups.length > 0)) && (
+        {((online && preview && preview.salvageable > 0) || (!online && dups.length > 0)) && (
           <div className="nx-clip-sm mb-4 border border-drl-gold/25 bg-drl-gold/[0.06] px-4 py-3">
             <p className="text-[13px] leading-snug text-white/70">
               {fill(t("El desguace convierte cartas repetidas en créditos y {conserva} de cada una. Paga una pequeña parte del valor de mercado de la carta (un 6 %), pensada para que abrir sobres y desguazarlos no salga rentable.", slots("conserva")), {
@@ -335,10 +385,40 @@ function Inventory() {
             )}
           </div>
         )}
-        {dups.length === 0 ? (
+        {dupCount === 0 ? (
           <p className="nx-clip-sm border border-white/10 bg-white/[0.02] px-5 py-4 text-[15px] text-white/60" data-testid="inventory-no-duplicates">
             {t("Sin cartas repetidas: cada carta que abras suma a tu colección.")}
           </p>
+        ) : online ? (
+          /*
+           * CON CUENTA: una ficha POR CARTA repetida con cuántas copias se pueden desguazar, no una por ejemplar (40.000
+           * repetidas eran 40.000 cartas pintadas). El desglose es el del servidor; las copias concretas de una carta
+           * están en su ficha de la colección.
+           */
+          <>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5" data-testid="inventory-duplicate-lines">
+              {(preview?.lines ?? []).slice(0, shownLines).map((l) => {
+                const def = getCard(l.cardId);
+                if (!def) return null;
+                const rep = repOf.get(l.cardId);
+                return (
+                  <Link key={l.cardId} href={`/coleccion/carta/${encodeURIComponent(l.cardId)}`} className="nx-focus relative block w-[150px]" data-testid="inventory-duplicate-line" data-card={l.cardId} data-salvageable={l.salvageable}>
+                    <CardVisual uid={rep?.uid} alt={t("Carta de {id}", { id: def.id })} chamfer="11px" className="w-[150px]">
+                      <PlayerCard card={def} size="sm" interactive={false} serial={rep?.serial} />
+                    </CardVisual>
+                    <span className="absolute right-1.5 top-1.5 bg-black/80 px-1.5 py-0.5 font-display text-[13px] font-bold text-drl-gold">×{l.salvageable}</span>
+                  </Link>
+                );
+              })}
+            </div>
+            {(preview?.lines.length ?? 0) > shownLines && (
+              <div className="mt-4 flex justify-center">
+                <NxButton variant="ghost" onClick={() => setShownLines((n) => n + LINES_PAGE)} data-testid="inventory-duplicates-more">
+                  {t("Ver {n} cartas más", { n: Math.min(LINES_PAGE, (preview?.lines.length ?? 0) - shownLines) })}
+                </NxButton>
+              </div>
+            )}
+          </>
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {dups.map((d) => {

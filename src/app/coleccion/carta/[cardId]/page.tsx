@@ -20,6 +20,7 @@ import { saveShowcase } from "@/lib/player/client";
 import { NxButton } from "@/components/ui/NxButton";
 import { ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
+import { useCardInstances } from "@/lib/game/useCardInstances";
 
 const t = ns("coleccion");
 
@@ -48,6 +49,9 @@ function CardRoute({ raw }: { raw: string }) {
     if (!def) return null;
     try { return packsThatCanContain(registry, PACKS, def); } catch { return null; }
   }, [registry, def]);
+  // COLECCIONES ILIMITADAS · las copias de ESTA carta se piden por páginas (solo con sesión y si se tiene alguna).
+  const ownsIt = !!def && room.signedIn && (room.snap.byCard.get(def.id)?.count ?? 0) > 0;
+  const copiesState = useCardInstances({ enabled: ownsIt, cardId: def?.id ?? null, sort: "serial", limit: 48, userKey: room.signedIn ? "me" : null });
 
   if (!def || !player) {
     return (
@@ -103,6 +107,7 @@ function CardRoute({ raw }: { raw: string }) {
         loading={room.loading}
         offline={room.access === "server" && room.offline}
         ownership={ownership}
+        copies={room.access === "server" && room.signedIn ? { items: copiesState.items, total: copiesState.total, hasMore: copiesState.hasMore, loading: copiesState.loading, loadingMore: copiesState.loadingMore, error: copiesState.error, onMore: copiesState.loadMore, onRetry: copiesState.retry } : undefined}
         variants={playerVariants(room.cards, def.playerId, room.access === "anon" ? null : room.snap)}
         availability={availability}
         sets={{

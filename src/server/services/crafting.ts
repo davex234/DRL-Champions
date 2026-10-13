@@ -22,6 +22,7 @@ import { loadF73Config, logF73 } from "./f73Config";
 import { GUARD_RPC_ERRORS, deckUids, isMissingRpc, loadProtection } from "./cardProtection";
 import { copyProtection } from "@/domain/cards/protection";
 import { settleMissionsForOp } from "./missionEngine";
+import { readUserCards } from "./userCards";
 
 export interface ServiceOut<T> { ok: boolean; status: number; error?: string; code?: string; data?: T }
 const fail = <T>(status: number, error: string, code?: string): ServiceOut<T> => ({ ok: false, status, error, code });
@@ -57,15 +58,9 @@ function rpcFail<T>(e: { message?: string } | null, scope: string): ServiceOut<T
 /* ═══════════════════════════ LECTURAS ═══════════════════════════ */
 
 async function ownedCopies(sb: SupabaseClient, userId: string): Promise<OwnedCopy[]> {
-  const out: OwnedCopy[] = [];
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await sb.from("user_cards").select("uid, card_id, locked").eq("user_id", userId).order("uid").range(from, from + 999);
-    if (error) throw new Error(error.message);
-    const rows = (data ?? []) as { uid: string; card_id: string; locked: boolean }[];
-    for (const r of rows) out.push({ uid: r.uid, cardId: r.card_id, locked: !!r.locked });
-    if (rows.length < 1000) break;
-  }
-  return out;
+  // COLECCIONES ILIMITADAS · por cursor (`uid > último`): una carta que entra o sale mientras se lee no desplaza páginas.
+  const rows = await readUserCards<{ uid: string; card_id: string; locked: boolean }>(sb, userId, "uid, card_id, locked");
+  return rows.map((r) => ({ uid: r.uid, cardId: r.card_id, locked: !!r.locked }));
 }
 async function packInventory(sb: SupabaseClient, userId: string): Promise<Record<string, number>> {
   const { data, error } = await sb.from("user_packs").select("pack_id, qty").eq("user_id", userId);
@@ -100,7 +95,10 @@ export async function getCraftingState(sb: SupabaseClient, userId: string): Prom
     const available = candidates.reduce((s, c) => s + c.available, 0);
     const pool = publishedOfClass(r.outputClass!).length;
     const live = recipeLive(r, now) && pool > 0;
-    return { id: r.id, name: r.name, inputClass: r.inputClass!, outputClass: r.outputClass!, inputQty: r.inputQty, live, available, canCraft: live && available >= r.inputQty, candidates, outputPoolSize: pool };
+    return { id: r.id, name: r.name, inputClass: r.inputClass!, outputClass: r.outputClass!, inputQty: r.inputQty, live, available, canCraft: live && available >= r.inputQty,
+      // COLECCIONES ILIMITADAS · por carta viajan como mucho las copias que la receta puede pedir (`inputQty`), no todas
+      // las libres: `copies` y `available` siguen siendo los recuentos reales y el servidor valida contra la lista entera.
+      candidates: candidates.map((c) => (c.uids.length > r.inputQty ? { ...c, uids: c.uids.slice(0, r.inputQty) } : c)), outputPoolSize: pool };
   });
   return done({ available: true, reason: "OK", serverNow: now, packs, packRecipes, cardRecipes });
 }

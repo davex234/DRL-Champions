@@ -29,6 +29,7 @@ import { StatBars } from "./StatBars";
 import { ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 import { fill, slots } from "@/i18n/rich";
+import { LoadMore } from "@/components/ui/LoadMore";
 
 const t = ns("collectionRoom");
 
@@ -49,6 +50,11 @@ export interface CardDetailProps {
   favorite: { available: boolean; active: boolean; busy?: boolean; onToggle?: () => void };
   showcase: { available: boolean; count: number; busy?: boolean; onAdd?: (uid: string) => void };
   onAddToDeck?: () => void;
+  /**
+   * COLECCIONES ILIMITADAS · las copias de esta carta, cargadas por páginas. Si falta (demo local, harness) se pintan
+   * las de `ownership.instances`, que con cuenta son solo el mejor ejemplar y los que están en vitrina o equipos.
+   */
+  copies?: { items: { uid: string; serial: number | null }[]; total: number | null; hasMore: boolean; loading: boolean; loadingMore: boolean; error: string | null; onMore: () => void; onRetry: () => void };
   message?: string | null;
   initialFlipped?: boolean;
 }
@@ -164,7 +170,7 @@ export function CardDetailView(p: CardDetailProps) {
             ) : (
               <>
                 <ul className="space-y-2">
-                  {ownership!.instances.map((inst, i) => {
+                  {(p.copies && p.copies.items.length > 0 ? p.copies.items : ownership!.instances).map((inst, i) => {
                     const serial = formatSerial(inst.serial, variant.serialLimit);
                     const prestige = serialPrestige(inst.serial);
                     const inShowcase = ownership!.showcaseUids.includes(inst.uid);
@@ -187,6 +193,10 @@ export function CardDetailView(p: CardDetailProps) {
                     );
                   })}
                 </ul>
+                {p.copies && (
+                  <LoadMore hasMore={p.copies.hasMore} loading={p.copies.loadingMore} error={p.copies.items.length > 0 || !p.copies.loading ? p.copies.error : null}
+                    onMore={p.copies.onMore} onRetry={p.copies.onRetry} shown={p.copies.items.length} total={p.copies.total ?? ownership!.count} testId="card-copies-more" />
+                )}
                 <p className="mt-2 text-caption text-ink-muted">{t("El número de serie es prestigio: no cambia las stats ni da recompensas.")}</p>
                 {p.decks && <p className="mt-1 text-caption text-ink-muted">{ownership!.deckIds.length === 0 ? t("No la usas en ningún equipo.") : (ownership!.inActiveDeck
                   ? t("Usada en {n, plural, one {# equipo} other {# equipos}}, incluido tu equipo activo.", { n: ownership!.deckIds.length })

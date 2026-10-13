@@ -11,7 +11,6 @@
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { CARDS } from "@/data/catalog";
-import { pageAll } from "@/server/db/pageAll";
 import { isMissingRelation } from "@/server/services/f73Config";
 import { badgeFact, badgeIndex, cupSlugOf, type BadgeFact, type CupTrophyInfo } from "@/domain/collectionSets/badges";
 import { buildSetView, type SetView, type TrophyRoomView } from "@/domain/collectionSets/view";
@@ -19,6 +18,7 @@ import { ingestSeasonEvent } from "./seasonTrack";
 
 export type { SetView, TrophyRoomView };
 import { SET_ID_PATTERN, type CollectionSetDef, type SetKind, type SetRequirement, type SetStatus } from "@/domain/collectionSets/types";
+import { loadCollectionSummary, ownedCardIdsOf } from "./userCards";
 
 export interface SetsResult<T> { ok: boolean; status: number; error?: string; code?: string; data?: T }
 const ok = <T,>(data: T): SetsResult<T> => ({ ok: true, status: 200, data });
@@ -63,10 +63,8 @@ async function visibleSets(sb: SupabaseClient): Promise<CollectionSetDef[]> {
 
 /** Ids de carta DISTINTOS del usuario. Paginado con orden estable (PostgREST corta en 1.000). */
 export async function ownedCardIds(sb: SupabaseClient, userId: string): Promise<Set<string>> {
-  const rows = await pageAll<{ card_id: string }>((a, b) =>
-    sb.from("user_cards").select("card_id, uid").eq("user_id", userId).order("uid").range(a, b));
-  if (rows === null) throw new Error("user_cards ilegible");
-  return new Set(rows.map((r) => r.card_id));
+  // COLECCIONES ILIMITADAS · del resumen por carta (sin tope de páginas; completo o error).
+  return ownedCardIdsOf(await loadCollectionSummary(sb, userId));
 }
 
 async function completionsOf(sb: SupabaseClient, userId: string): Promise<Map<string, string>> {

@@ -36,6 +36,7 @@ import { resolvePassWindows, windowNeeds, countKey, newDistinctSince, missionVie
 import { SEASON_CALENDAR } from "@/data/seasonCalendar";
 import { awardMany } from "./rewards";
 import { countPlayedMatches, countWonMatches } from "./matchCounts";
+import { loadCollectionSummary, ownedCardIdsOf } from "./userCards";
 
 export interface ServiceResult<T> {
   ok: boolean;
@@ -66,6 +67,8 @@ export interface PlayerFacts {
   ctx: AchievementContext;
   /** Fase 42 · filas (card_id, obtenida en) para contar cartas distintas nuevas desde el inicio de una ventana. */
   cardRows: { card_id: string; obtainedAt: number | null }[];
+  /** COLECCIONES ILIMITADAS · copias totales (exacto; `cardRows` lleva una fila por carta). */
+  ownedInstances: number;
   /** Fase 42 · alta de la cuenta (ms) o `null`. */
   accountCreatedAt: number | null;
 }
@@ -104,7 +107,12 @@ export async function loadFacts(admin: SupabaseClient, userId: string): Promise<
      * logros de colección (MVP, Icon, Team Heretics, EMEA) necesitan saber QUÉ cartas se poseen para
      * poder reclamarse: hasta hoy devolvían 0 en servidor y eran inreclamables.
      */
-    admin.from("user_cards").select("card_id, obtained_at").eq("user_id", userId),
+    /*
+     * COLECCIONES ILIMITADAS · del resumen por carta, completo o error. Antes era una lectura sin rango ni orden que
+     * PostgREST cortaba en 1.000 filas arbitrarias: «cartas» se quedaba en 1.000, los logros de colección no veían
+     * cartas que sí se tenían y «cartas nuevas» podía contar como nueva una carta cuya copia antigua quedaba fuera.
+     */
+    loadCollectionSummary(admin, userId),
     // Terminada = cualquier estado final del orquestador. Un empate cuenta como
     // partida jugada, que es lo que pregunta la misión.
     // CORE GAME LOOP · «partidas que cuentan» (`matchCounts`): PvE + ranked en los dos asientos; ni privadas, ni
@@ -125,8 +133,7 @@ export async function loadFacts(admin: SupabaseClient, userId: string): Promise<
   ]);
 
   const p = profile.data as { packs_opened: number; points: number; region: string | null; created_at?: string | null } | null;
-  const rows = ((cards.data ?? []) as { card_id: string; obtained_at?: string | null }[]);
-  const ownedCardIds = new Set(rows.map((r) => r.card_id));
+  const ownedCardIds = ownedCardIdsOf(cards);
   const packsOpened = (game.data as { packs_opened: number } | null)?.packs_opened ?? 0;
 
   return {
@@ -135,7 +142,7 @@ export async function loadFacts(admin: SupabaseClient, userId: string): Promise<
       [legacyMetricKey("packs_opened")]: p?.packs_opened ?? 0,
       points: p?.points ?? 0,
       region_set: p?.region ? 1 : 0,
-      owned_cards: rows.length,
+      owned_cards: cards.total,
       distinct_cards: ownedCardIds.size,
       duels_played: duels.count ?? 0,
       duels_won: wins.count ?? 0,
@@ -143,7 +150,10 @@ export async function loadFacts(admin: SupabaseClient, userId: string): Promise<
       picks_made: picks.count ?? 0,
     },
     ctx: { packsOpened, ownedCardIds },
-    cardRows: rows.map((r) => ({ card_id: r.card_id, obtainedAt: r.obtained_at ? Date.parse(r.obtained_at) || null : null })),
+    // Una fila por carta con la fecha de su PRIMERA copia: es todo lo que mira `newDistinctSince` (una carta es
+    // «anterior a la ventana» si alguna copia lo es, o sea, si lo es la primera).
+    cardRows: cards.cards.map((c) => ({ card_id: c.cardId, obtainedAt: c.firstObtainedAt })),
+    ownedInstances: cards.total,
     accountCreatedAt: p?.created_at ? Date.parse(p.created_at) || null : null,
   };
 }
@@ -572,7 +582,7 @@ export async function peekProgression(
     missionsUnassigned: r.resolved.assigned,
   };
   const view = composeView(state, metrics, ctx, await readViewParts(admin, userId), now);
-  return ok({ view, state, metrics, pending, ownedCardIds: [...ctx.ownedCardIds], ownedInstances: r.facts.cardRows.length });
+  return ok({ view, state, metrics, pending, ownedCardIds: [...ctx.ownedCardIds], ownedInstances: r.facts.ownedInstances });
 }
 
 function missionViews(missions: ActiveMission[], metrics: MetricSnapshot): PassMissionView[] {

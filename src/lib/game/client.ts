@@ -25,9 +25,19 @@ export interface ServerGameState {
   ownerId?: string;
   credits: number;
   xp: number;
+  /**
+   * COLECCIONES ILIMITADAS · UN ejemplar por carta poseída (el mejor), no la colección entera. Las copias se cuentan
+   * en `ownedCounts`; los ejemplares concretos se piden paginados (`fetchCardInstances`).
+   */
   ownedCards: OwnedCard[];
+  /** Copias por carta. Exacto para cualquier tamaño de colección. */
+  ownedCounts: Record<string, number>;
+  /** Copias totales. */
+  ownedTotal: number;
   origins: Record<string, CardOrigin>;
   lockedUids: string[];
+  /** Copias en venta por carta (solo cartas con alguna). */
+  lockedCounts: Record<string, number>;
   unopenedPacks: Record<string, number>;
   pity: PityState;
   packsOpened: number;

@@ -32,6 +32,7 @@ import {
 } from "@/domain/collection/mastery";
 import type { Reward } from "@/domain/events/types";
 import { award } from "./rewards";
+import { loadCollectionSummary, ownedCardIdsOf } from "./userCards";
 
 export interface ServiceResult<T> {
   ok: boolean;
@@ -63,22 +64,9 @@ function assertNoCredits(reward: Reward, where: string): void {
 
 /** Ids de carta DISTINTOS que posee el jugador. Es lo único que la maestría necesita saber. */
 async function ownedCardIds(admin: SupabaseClient, userId: string): Promise<Set<string>> {
-  const out = new Set<string>();
-  /*
-   * Se pagina a mano: una colección completa son 772 filas y el cliente de Supabase corta
-   * en 1.000 por defecto. Un tope silencioso aquí haría que a un coleccionista avanzado le
-   * empezaran a faltar conjuntos sin ningún mensaje de error, que es la peor clase de fallo.
-   */
-  const PAGE = 1000;
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await admin
-      .from("user_cards").select("card_id").eq("user_id", userId).range(from, from + PAGE - 1);
-    if (error) throw new Error(error.message);
-    const rows = (data ?? []) as { card_id: string }[];
-    for (const r of rows) out.add(r.card_id);
-    if (rows.length < PAGE) break;
-  }
-  return out;
+  // COLECCIONES ILIMITADAS · del resumen por carta: completo para cualquier tamaño o error (antes se paginaba sin orden
+  // estable, y dos páginas podían repetir una fila y saltarse otra).
+  return ownedCardIdsOf(await loadCollectionSummary(admin, userId));
 }
 
 async function claimedRefs(admin: SupabaseClient, userId: string): Promise<Set<string>> {

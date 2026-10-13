@@ -74,7 +74,7 @@ export function teamTotals(): Map<string, number> {
  * Construye la colección por equipo del usuario. `ownedOnly` (por defecto) devuelve solo los
  * equipos de los que posee al menos una carta; con `false`, todos los equipos del catálogo.
  */
-export function buildTeamCollection(owned: OwnedCard[], opts: { includeEmpty?: boolean } = {}): TeamCollectionEntry[] {
+export function buildTeamCollection(owned: OwnedCard[], opts: { includeEmpty?: boolean; counts?: Readonly<Record<string, number>> | null } = {}): TeamCollectionEntry[] {
   const totals = teamTotals();
 
   // Copias poseídas por cardId.
@@ -100,7 +100,8 @@ export function buildTeamCollection(owned: OwnedCard[], opts: { includeEmpty?: b
         cardId: def.id,
         def,
         uid: rep.uid,
-        count: copies.length,
+        // COLECCIONES ILIMITADAS · con cuenta `owned` trae un ejemplar por carta: las copias las dice `counts`.
+        count: opts.counts ? opts.counts[def.id] ?? copies.length : copies.length,
         serial: rep.serial,
         value: instanceValue(def, rep.serial),
         bucket: bucketForRank(getVariant(def.variantId).rank),

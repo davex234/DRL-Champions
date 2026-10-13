@@ -22,10 +22,12 @@ export interface CollectionRoomModel {
 }
 
 /** Motor de vistas del álbum. `obtainedAt: 0`: campo obligatorio del motor que la sala nunca enseña ni ordena. */
-export function roomEngine(instances: readonly OwnedInstanceFact[], favorites: readonly string[]): CollectionEngine {
+export function roomEngine(instances: readonly OwnedInstanceFact[], favorites: readonly string[], counts: Readonly<Record<string, number>> | null = null): CollectionEngine {
   return new CollectionEngine(
     instances.map((i) => ({ uid: i.uid, cardId: i.cardId, serial: i.serial ?? undefined, obtainedAt: 0, mintedVersion: i.mintedVersion })),
     { ...emptyMeta(), favorites: [...favorites] },
+    undefined,
+    counts,
   );
 }
 

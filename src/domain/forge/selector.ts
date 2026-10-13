@@ -77,6 +77,29 @@ function candidatesByCard(inp: Omit<MaterialInput, "slots">): Map<string, Materi
 
 const unprotectedUsable = (c: MaterialCandidate) => Math.min(c.usable, c.free.filter((f) => f.protectedBy.length === 0).length);
 
+/**
+ * COLECCIONES ILIMITADAS · recorta, SOLO PARA ENVIAR AL CLIENTE, la lista de copias libres de cada carta.
+ *
+ * `free` trae todas las copias libres de la carta: con 9.000 copias eran 9.000 `uid` por carta y por hueco en cada
+ * foto de la Forja. La pantalla nunca necesita más copias de una carta que las que la receta entera puede consumir,
+ * así que se dejan las primeras `need` SIN protección y las primeras `need` protegidas (el orden estable se conserva y
+ * la auto-selección, que salta las protegidas, encuentra lo mismo que antes). Los recuentos (`copies`, `usable`,
+ * `availableUnprotected`, `availableTotal`) no se tocan: se calcularon sobre la colección completa. El servidor valida
+ * SIEMPRE contra los materiales sin recortar.
+ */
+export function trimMaterialsForView(materials: readonly SlotMaterials[]): SlotMaterials[] {
+  const need = materials.reduce((s, m) => s + m.need, 0);
+  return materials.map((m) => ({
+    ...m,
+    candidates: m.candidates.map((c) => {
+      if (c.free.length <= need) return c;
+      let plain = 0, guarded = 0;
+      const free = c.free.filter((f) => (f.protectedBy.length === 0 ? plain++ < need : guarded++ < need));
+      return { ...c, free };
+    }),
+  }));
+}
+
 export function buildMaterials(inp: MaterialInput): SlotMaterials[] {
   const all = candidatesByCard(inp);
   return inp.slots.map((slot, index) => {

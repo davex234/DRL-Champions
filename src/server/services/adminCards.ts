@@ -44,6 +44,7 @@ import { effectiveProbabilities } from "@/domain/packs/weighted";
 import { buildPool } from "@/domain/packs/pool";
 import { PACKS, getPack } from "@/data/packs";
 import type { CardDef, Player, VariantId } from "@/domain/cards/types";
+import { readCardInstances } from "./userCards";
 
 export type Result<T> = { ok: true; data: T } | { ok: false; error: string; status: number };
 const fail = (error: string, status = 400): { ok: false; error: string; status: number } =>
@@ -217,7 +218,8 @@ export async function cardSheet(sb: SupabaseClient, cardId: string): Promise<Res
   const [defR, verR, instR, playerR, poolR, packPoolR, anchorR, auditR] = await Promise.all([
     sb.from("content_cards").select("*").eq("card_id", cardId).maybeSingle(),
     sb.from("content_card_versions").select("*").eq("card_id", cardId).order("version"),
-    sb.from("user_cards").select("user_id, serial, minted_version").eq("card_id", cardId),
+    // COLECCIONES ILIMITADAS · todos los ejemplares de la carta, por cursor (antes se cortaba en 1.000 sin avisar).
+    readCardInstances<{ uid: string; user_id: string; serial: number | null; minted_version: number | null }>(sb, cardId, "uid, user_id, serial, minted_version").then((data) => ({ data, error: null as { message: string } | null }), (e: unknown) => ({ data: null, error: { message: e instanceof Error ? e.message : String(e) } })),
     sb.from("content_cards").select("player_id").eq("card_id", cardId).maybeSingle(),
     sb.from("content_pool_entries").select("pool_id, weight, mode").eq("card_id", cardId),
     sb.from("content_pack_pools").select("pack_id, pool_id").eq("enabled", true),
@@ -349,7 +351,7 @@ export async function cardEditor(sb: SupabaseClient, cardId: string): Promise<Re
 
   const [{ data: pRow }, { data: inst }] = await Promise.all([
     sb.from("content_players").select("*").eq("id", row.player_id as string).maybeSingle(),
-    sb.from("user_cards").select("minted_version").eq("card_id", cardId),
+    readCardInstances<{ uid: string; minted_version: number | null }>(sb, cardId, "uid, minted_version").then((data) => ({ data, error: null as { message: string } | null }), (e: unknown) => ({ data: null, error: { message: e instanceof Error ? e.message : String(e) } })),
   ]);
   if (!pRow) return fail(`El jugador ${String(row.player_id)} no está en el catálogo persistido`, 404);
   const player = fromPlayerRow(pRow as unknown as ContentPlayerRow);

@@ -29,7 +29,7 @@ import {
   checkDeckName, copyName, isIncompleteError, nextTeamName, sameUids, DUPLICATE_PLAYER_TEXT,
 } from "@/domain/deckBuilder/builder";
 import type { DeckBuilderCardDTO, DeckWorkspaceDTO, DuelDeckDTO } from "@/lib/duel/types";
-import { loadOwned, toDeckDTO, DECK_COLS, MAX_DECKS, type DeckRow } from "./duels";
+import { loadOwned, loadOwnership, toDeckDTO, DECK_COLS, MAX_DECKS, type DeckRow } from "./duels";
 
 export type TeamCode =
   | "NOT_FOUND" | "CONFLICT" | "CARD_NOT_OWNED" | "DECK_ILLEGAL" | "DECK_NOT_READY" | "LIMIT"
@@ -61,13 +61,13 @@ const resolverFor = (owned: OwnedCard[]) =>
   makeDeckResolver(cat().registry, ownershipFromList(owned), (cardId, v) => cat().instance(cardId, v));
 
 /** La colección del constructor: cada ejemplar poseído que se puede jugar, ya resuelto. */
-export function builderCollection(owned: OwnedCard[]): DeckBuilderCardDTO[] {
+export function builderCollection(owned: OwnedCard[], counts: Readonly<Record<string, number>> | null = null): DeckBuilderCardDTO[] {
   const resolve = resolverFor(owned);
   const out: DeckBuilderCardDTO[] = [];
   for (const o of owned) {
     const r = resolve(o.uid);
     if (!r.ok) continue;
-    out.push({ ...toCardDTO(r.card, cat().registry), dataVersion: r.card.dataVersion, statBoost: r.card.statBoost, obtainedAt: o.obtainedAt });
+    out.push({ ...toCardDTO(r.card, cat().registry), dataVersion: r.card.dataVersion, statBoost: r.card.statBoost, obtainedAt: o.obtainedAt, ...(counts ? { copies: counts[o.cardId] ?? 1 } : {}) });
   }
   return out.sort((a, b) => b.ovr - a.ovr || a.nick.localeCompare(b.nick));
 }
@@ -91,8 +91,8 @@ async function activeIdOrNull(sb: SupabaseClient, userId: string): Promise<strin
 
 export async function getDeckWorkspace(sb: SupabaseClient, userId: string): Promise<TeamResult<DeckWorkspaceDTO>> {
   await serverCatalog(sb);
-  const [owned, rows, active] = await Promise.all([
-    loadOwned(sb, userId),
+  const [{ owned, counts }, rows, active] = await Promise.all([
+    loadOwnership(sb, userId),
     sb.from("duel_decks").select(DECK_COLS).eq("user_id", userId).order("updated_at", { ascending: false }),
     readActive(sb, userId),
   ]);
@@ -101,7 +101,7 @@ export async function getDeckWorkspace(sb: SupabaseClient, userId: string): Prom
   const activeDeckId = active.deckId && list.some((r) => r.id === active.deckId) ? active.deckId : null;
   return done({
     decks: list.map((r) => toDeckDTO(r, owned, activeDeckId)),
-    collection: builderCollection(owned),
+    collection: builderCollection(owned, counts),
     activeDeckId,
     activeSupported: active.supported,
     maxDecks: MAX_DECKS,
@@ -144,7 +144,7 @@ export async function saveComposition(
   const nm = checkDeckName(input.name);
   if (!nm.ok) return fail(400, "BAD_NAME", nm.reason);
   await serverCatalog(sb);
-  const [owned, activeId] = await Promise.all([loadOwned(sb, userId), activeIdOrNull(sb, userId)]);
+  const [owned, activeId] = await Promise.all([loadOwned(sb, userId, input.cardUids), activeIdOrNull(sb, userId)]);
   const bad = checkComposition(input.cardUids, owned);
   if (bad) return bad;
 
@@ -170,7 +170,7 @@ export async function createTeam(
 ): Promise<TeamResult<{ deck: DuelDeckDTO }>> {
   await serverCatalog(sb);
   const [owned, rows] = await Promise.all([
-    loadOwned(sb, userId),
+    loadOwned(sb, userId, input.cardUids),
     sb.from("duel_decks").select("id, name").eq("user_id", userId),
   ]);
   if (rows.error) return fail(500, "DB", rows.error.message);

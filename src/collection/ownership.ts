@@ -20,13 +20,17 @@ export class OwnershipIndex {
   private grouped: Map<string, CollectionEntry>;
   private byUid = new Map<string, OwnedCard>();
 
-  constructor(private owned: OwnedCard[]) {
+  /**
+   * COLECCIONES ILIMITADAS · `counts` (copias por carta, del servidor) manda sobre el recuento de ejemplares: con
+   * cuenta, `owned` trae un ejemplar por carta, no la colección entera. Sin `counts` (demo local) se cuentan los ejemplares.
+   */
+  constructor(private owned: OwnedCard[], private counts: Readonly<Record<string, number>> | null = null) {
     this.grouped = groupCollection(owned);           // REUTILIZA el selector existente (no duplica)
     for (const o of owned) this.byUid.set(o.uid, o);
   }
 
   owns(cardId: string): boolean { return this.grouped.has(cardId); }
-  countOf(cardId: string): number { return this.grouped.get(cardId)?.count ?? 0; }
+  countOf(cardId: string): number { return this.counts ? this.counts[cardId] ?? 0 : this.grouped.get(cardId)?.count ?? 0; }
   instancesOf(cardId: string): OwnedCard[] { return this.grouped.get(cardId)?.instances ?? []; }
   instance(uid: string): OwnedCard | undefined { return this.byUid.get(uid); }
   /** Menor nº de serie poseído de una carta (la instancia más valiosa). */
@@ -37,7 +41,11 @@ export class OwnershipIndex {
   }
   distinctOwned(): string[] { return [...this.grouped.keys()]; }
   distinctCount(): number { return this.grouped.size; }
-  totalInstances(): number { return this.owned.length; }
+  totalInstances(): number {
+    if (!this.counts) return this.owned.length;
+    let n = 0; for (const k in this.counts) n += this.counts[k];
+    return n;
+  }
   entries(): CollectionEntry[] { return [...this.grouped.values()]; }
   all(): OwnedCard[] { return this.owned; }
 

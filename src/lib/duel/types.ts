@@ -76,6 +76,11 @@ export interface DeckBuilderCardDTO extends DuelDeckCardDTO {
   dataVersion: string;
   statBoost: number;
   obtainedAt: number;
+  /**
+   * COLECCIONES ILIMITADAS · copias que el jugador tiene de esta carta. El constructor recibe UN ejemplar por carta
+   * (un equipo no repite jugador), no cada copia: el «×N» sale de aquí. Ausente = se cuentan los ejemplares recibidos.
+   */
+  copies?: number;
 }
 
 /** FASE 32 · La foto de «Mis equipos» y del constructor, en una sola lectura. */

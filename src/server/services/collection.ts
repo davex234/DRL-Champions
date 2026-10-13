@@ -9,7 +9,7 @@
  *   · El usuario sale del token (lo pasa la ruta); nunca de un parámetro.
  *   · Leer no escribe nada: ni rating, ni misiones, ni campaña, ni equipo activo, ni vitrina, ni favoritos, ni sobres.
  *   · Aislamiento: favoritos, vitrina o equipos caídos → `null` (su bloque se apaga); solo las instancias son esenciales.
- *   · Sin N+1: cuatro consultas en paralelo (las instancias paginadas por rango), ninguna por carta.
+ *   · Sin N+1: favoritos, vitrina y equipos en paralelo y la colección RESUMIDA por carta (una consulta); ninguna por carta.
  *   · Favoritos: solo definiciones del catálogo real, tope 200, idempotente. Sin 0052 aplicada → no disponible.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -17,9 +17,8 @@ import { getCard } from "@/data/catalog";
 import { isValidCardId, type DeckUsageFact, type OwnedInstanceFact } from "@/domain/collection/room";
 import { serverCatalog } from "@/server/catalog";
 import { readActive } from "./deckTeams";
+import { loadCollectionSummary, readUserCardsByUid } from "./userCards";
 
-export const COLLECTION_MAX_INSTANCES = 20_000;
-const PAGE = 1000;
 export const FAVORITES_MAX = 200;
 export const DECKS_MAX = 100;
 
@@ -29,28 +28,37 @@ const fail = (status: number, error: string, code?: string): CollectionResult<ne
 
 export interface CollectionPersonalView {
   serverNow: number;
+  /** El mejor ejemplar de cada carta + los que están en la vitrina o en un equipo. NO es la colección entera. */
   instances: OwnedInstanceFact[];
+  /** Copias por carta (y cuántas numeradas). Exacto para cualquier tamaño. */
+  holdings: Record<string, { count: number; numbered: number }>;
+  /** Copias totales. */
+  total: number;
   /** `null` = no disponible (sin 0052 o error): la interfaz apaga los favoritos, no los inventa. */
   favorites: string[] | null;
   showcase: { uids: string[]; version: number | null } | null;
   decks: DeckUsageFact[] | null;
-  truncated: boolean;
 }
 
 const missingSchema = (e: { code?: string; message?: string } | null | undefined): boolean =>
   !!e && (e.code === "PGRST205" || e.code === "42P01" || /does not exist|schema cache/i.test(e.message ?? ""));
 
-async function readInstances(sb: SupabaseClient, userId: string): Promise<{ rows: OwnedInstanceFact[]; truncated: boolean }> {
-  const rows: OwnedInstanceFact[] = [];
-  for (let from = 0; from < COLLECTION_MAX_INSTANCES; from += PAGE) {
-    const { data, error } = await sb.from("user_cards").select("uid, card_id, serial, minted_version")
-      .eq("user_id", userId).order("uid", { ascending: true }).range(from, from + PAGE - 1);
-    if (error) throw new Error(error.message);
-    const page = (data ?? []) as { uid: string; card_id: string; serial: number | null; minted_version: number | null }[];
-    for (const r of page) rows.push({ uid: r.uid, cardId: r.card_id, serial: r.serial ?? null, mintedVersion: r.minted_version ?? null });
-    if (page.length < PAGE) return { rows, truncated: false };
-  }
-  return { rows, truncated: true };
+/**
+ * COLECCIONES ILIMITADAS · lo que el álbum necesita de la colección, con tamaño acotado por el catálogo:
+ *   · `holdings`: por carta, cuántas copias y cuántas numeradas (exacto para cualquier tamaño),
+ *   · `instances`: el mejor ejemplar de cada carta, más los que estén en la vitrina o en un equipo (para marcarlos).
+ * El resto de copias se piden paginadas por carta (`/api/game/cards?card=`). Antes viajaban TODAS hasta un techo de
+ * 20.000 con una marca `truncated` que nadie leía.
+ */
+async function readCollection(sb: SupabaseClient, userId: string, pinned: readonly string[]): Promise<{ instances: OwnedInstanceFact[]; holdings: Record<string, { count: number; numbered: number }>; total: number }> {
+  const summary = await loadCollectionSummary(sb, userId);
+  const fact = (i: { uid: string; cardId: string; serial: number | null; mintedVersion: number | null }): OwnedInstanceFact => ({ uid: i.uid, cardId: i.cardId, serial: i.serial, mintedVersion: i.mintedVersion });
+  const out = new Map<string, OwnedInstanceFact>();
+  const holdings: Record<string, { count: number; numbered: number }> = {};
+  for (const c of summary.cards) { out.set(c.rep.uid, fact(c.rep)); holdings[c.cardId] = { count: c.count, numbered: c.numbered }; }
+  const extra = [...new Set(pinned)].filter((u) => typeof u === "string" && !out.has(u));
+  if (extra.length > 0) for (const i of await readUserCardsByUid(sb, userId, extra)) out.set(i.uid, fact(i));
+  return { instances: [...out.values()].sort((a, b) => (a.uid < b.uid ? -1 : a.uid > b.uid ? 1 : 0)), holdings, total: summary.total };
 }
 
 async function readFavorites(sb: SupabaseClient, userId: string): Promise<string[] | null> {
@@ -78,13 +86,14 @@ async function readDecks(sb: SupabaseClient, userId: string): Promise<DeckUsageF
 
 export async function getCollectionPersonal(sb: SupabaseClient, userId: string, opts: { now?: number } = {}): Promise<CollectionResult<CollectionPersonalView>> {
   try {
-    const [instances, favorites, showcase, decks] = await Promise.all([
-      readInstances(sb, userId),
+    const [favorites, showcase, decks] = await Promise.all([
       readFavorites(sb, userId).catch(() => null),
       readShowcase(sb, userId).catch(() => null),
       readDecks(sb, userId).catch(() => null),
     ]);
-    return done({ serverNow: opts.now ?? Date.now(), instances: instances.rows, favorites, showcase, decks, truncated: instances.truncated });
+    const pinned = [...(showcase?.uids ?? []), ...(decks ?? []).flatMap((d) => d.cardUids)];
+    const col = await readCollection(sb, userId, pinned);
+    return done({ serverNow: opts.now ?? Date.now(), instances: col.instances, holdings: col.holdings, total: col.total, favorites, showcase, decks });
   } catch (e) {
     console.error("[collection]", e instanceof Error ? e.message : "error");
     return fail(500, "No se pudo leer tu colección", "UNAVAILABLE");

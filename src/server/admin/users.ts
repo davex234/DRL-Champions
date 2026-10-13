@@ -16,6 +16,7 @@ import { getPack } from "@/data/packs";
 import { getCard } from "@/data/catalog";
 import { isPurchasable, packLifecycle } from "@/domain/packs/lifecycle";
 import { looksLikeTagQuery, normalizeTag } from "@/domain/account/tag";
+import { loadCollectionSummary } from "@/server/services/userCards";
 
 export interface UserRow {
   id: string; username: string; email: string | null; createdAt: string | null; lastSignInAt: string | null;
@@ -103,14 +104,15 @@ export async function user360(sb: SupabaseClient, userId: string): Promise<Admin
     listSanctions(sb, { userId, pageSize: 20 }),
     entityActivity(sb, "user", userId, 20),
   ]);
-  const distinctRes = await sb.from("user_cards").select("card_id").eq("user_id", userId).limit(5000);
+  // COLECCIONES ILIMITADAS · cartas distintas desde el resumen (el `limit(5000)` anterior lo cortaba PostgREST en 1.000).
+  const distinctCards = await loadCollectionSummary(sb, userId).then((s) => s.distinct).catch(() => null);
   const i = (ident.data ?? {}) as { email?: string; createdAt?: string; lastSignInAt?: string; confirmedAt?: string; provider?: string };
   const r = rating.data as { rating: number; games_played: number; wins: number; losses: number; draws: number } | null;
 
   return ok({
     identity: { id: p.id, username: p.username, email: i.email ?? null, createdAt: i.createdAt ?? null, lastSignInAt: i.lastSignInAt ?? null, lastSeenAt: p.last_seen_at, confirmedAt: i.confirmedAt ?? null, provider: i.provider ?? null, isAdmin: !!p.is_admin, tag: normalizeTag(p.public_tag ?? null) },
     progress: { level: Number(p.level ?? 1), xp: Number(p.xp ?? 0), points: Number(p.points ?? 0), credits: Number(p.credits ?? 0) },
-    collection: { cards, distinct: new Set(((distinctRes.data ?? []) as { card_id: string }[]).map((x) => x.card_id)).size, favorites: favs },
+    collection: { cards, distinct: distinctCards ?? 0, favorites: favs },
     packs: {
       unopened: ((packsRes.data ?? []) as { pack_id: string; qty: number }[]).map((x) => ({ packId: x.pack_id, name: getPack(x.pack_id)?.name ?? x.pack_id, qty: x.qty })),
       opened: Number((game.data as { packs_opened?: number } | null)?.packs_opened ?? 0),

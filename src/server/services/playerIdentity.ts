@@ -47,6 +47,7 @@ import {
 } from "@/domain/profile/career";
 import type { ProfileCollections } from "@/domain/profile/identity";
 import { seasonSummaryFor } from "./seasonTrack";
+import { loadCollectionSummary } from "./userCards";
 
 /** FASE 56 · tope de asientos leídos para el tramo de temporada del perfil (una consulta acotada). */
 const SEASON_EVENTS_CAP = 500;
@@ -58,7 +59,6 @@ const done = <T>(data: T): IdentityResult<T> => ({ ok: true, status: 200, data }
 const ms = (iso: string | null | undefined): number | null => { if (!iso) return null; const t = Date.parse(iso); return Number.isFinite(t) ? t : null; };
 
 /** Tope de ejemplares leídos para el resumen (páginas de 1.000). Suficiente y acotado. */
-const MAX_INSTANCES = 20_000;
 const PAGE = 1000;
 
 /**
@@ -94,16 +94,13 @@ const rankOf = (cardId: string): number | null => {
   return def ? getVariant(def.variantId as VariantId)?.rank ?? null : null;
 };
 
-async function allInstanceCards(sb: SupabaseClient, userId: string): Promise<{ uid: string; cardId: string }[]> {
-  const out: { uid: string; cardId: string }[] = [];
-  for (let from = 0; from < MAX_INSTANCES; from += PAGE) {
-    const { data, error } = await sb.from("user_cards").select("uid, card_id").eq("user_id", userId).order("uid", { ascending: true }).range(from, from + PAGE - 1);
-    if (error) throw new Error(error.message);
-    const rows = (data ?? []) as { uid: string; card_id: string }[];
-    for (const r of rows) out.push({ uid: r.uid, cardId: r.card_id });
-    if (rows.length < PAGE) break;
-  }
-  return out;
+/**
+ * COLECCIONES ILIMITADAS · lo que el perfil necesita de la colección: qué cartas hay (una por carta) y cuántas copias
+ * en total. Sale del resumen por carta; antes se leían todos los ejemplares hasta un techo silencioso de 20.000.
+ */
+async function collectionFacts(sb: SupabaseClient, userId: string): Promise<{ cards: { uid: string; cardId: string }[]; instances: number }> {
+  const s = await loadCollectionSummary(sb, userId);
+  return { cards: s.cards.map((c) => ({ uid: c.rep.uid, cardId: c.cardId })), instances: s.total };
 }
 
 async function customizationOf(sb: SupabaseClient, userId: string): Promise<IdentityFacts["customization"]> {
@@ -319,7 +316,7 @@ export async function getPlayerIdentity(sb: SupabaseClient, viewerId: string | n
     const [competitive, highestRes, instances, customization, claimedRes, pickemRes, h2hRes, privateRes, gameRes, careerRaw, favoriteTeam, collections, seasonTrack] = await Promise.all([
       getCompetitivePlayer(sb, viewerId ?? playerId, playerId).catch(() => null),
       sb.from("duel_pvp_rating_events").select("new_rating").eq("user_id", playerId).order("new_rating", { ascending: false }).limit(1).maybeSingle(),
-      allInstanceCards(sb, playerId),
+      collectionFacts(sb, playerId),
       customizationOf(sb, playerId),
       sb.from("user_achievements").select("achievement_id, claimed_at").eq("user_id", playerId).in("achievement_id", [...CATALOG_IDS]),
       sb.from("pickem_scores").select("pickem_event_id, points, correct, total, scored_at").eq("user_id", playerId).order("scored_at", { ascending: false }).limit(100),
@@ -378,7 +375,7 @@ export async function getPlayerIdentity(sb: SupabaseClient, viewerId: string | n
         : Promise.resolve({ data: null, error: null }),
     ]);
     const eq = equippedDefs(p.equipped);
-    const teams = buildTeamCollection(instances.map((i) => ({ uid: i.uid, cardId: i.cardId, obtainedAt: 0 })));
+    const teams = buildTeamCollection(instances.cards.map((i) => ({ uid: i.uid, cardId: i.cardId, obtainedAt: 0 })));
     const highest = (highestRes.data as { new_rating: number } | null)?.new_rating ?? null;
 
     // F89 · carrera: estadísticas + momentos + primera página del historial, de las MISMAS filas.
@@ -416,7 +413,8 @@ export async function getPlayerIdentity(sb: SupabaseClient, viewerId: string | n
       // F84 · rango de la temporada competitiva activa (público: rango solo tras la colocación; nunca rating de otros sistemas).
       competitive: comp?.competitive?.season ? { seasonName: comp.competitive.season.name, standing: comp.competitive.standing } : null,
       recentMatches: (comp?.recentMatches ?? []).map((m) => ({ matchId: m.matchId, at: m.at, outcome: m.outcome, letter: m.letter, scoreYou: m.scoreYou, scoreRival: m.scoreRival, rival: m.rival })),
-      instanceCardIds: instances.map((i) => i.cardId),
+      instanceCardIds: instances.cards.map((i) => i.cardId),
+      instanceCount: instances.instances,
       showcaseInstances,
       teams: teams.map((t) => ({ total: t.total, ownedDistinct: t.ownedDistinct })),
       totalCards: serverCatalogSync().cards.length,

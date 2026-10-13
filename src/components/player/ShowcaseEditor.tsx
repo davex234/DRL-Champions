@@ -31,6 +31,10 @@ import type { FavoriteTeamFact } from "@/domain/profile/favoriteTeam";
 import { ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 import { fill, slots } from "@/i18n/rich";
+import { LoadMore } from "@/components/ui/LoadMore";
+import { useCardInstances } from "@/lib/game/useCardInstances";
+import { fetchInstancesByUid, toOwnedCard } from "@/lib/game/instances";
+import { useArtworkStore } from "@/store/useArtworkStore";
 
 const tr = ns("player");
 
@@ -44,6 +48,11 @@ export interface ShowcaseEditorProps {
   onTab: (t: EditorTab) => void;
   onClose: () => void;
   owned: OwnedCard[];
+  /**
+   * COLECCIONES ILIMITADAS · copias por carta según el servidor. Con ellas, `owned` trae un ejemplar por carta y las
+   * copias de la carta elegida se piden por páginas. Sin ellas (demo local, harness) `owned` es la colección entera.
+   */
+  counts?: Readonly<Record<string, number>> | null;
   initialUids: string[];
   claimed: AchievementFact[];
   initialFeatured: string[];
@@ -105,8 +114,31 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  const views = useMemo(() => new CollectionEngine(owned).ownedViews(), [owned]);
-  const byUid = useMemo(() => new Map(owned.map((o) => [o.uid.toLowerCase(), o])), [owned]);
+  const counts = props.counts ?? null;
+  /** Ejemplares que `owned` no trae: los que ya están en la vitrina y los que se elijan en el selector de copias. */
+  const [extra, setExtra] = useState<OwnedCard[]>([]);
+  const known = useMemo(() => {
+    const have = new Set(owned.map((o) => o.uid.toLowerCase()));
+    return [...owned, ...extra.filter((e) => !have.has(e.uid.toLowerCase()))];
+  }, [owned, extra]);
+  useEffect(() => {
+    if (!open || !counts) return;
+    const have = new Set(owned.map((o) => o.uid.toLowerCase()));
+    const missing = props.initialUids.filter((u) => !have.has(u.toLowerCase()));
+    if (missing.length === 0) return;
+    let alive = true;
+    void fetchInstancesByUid(missing).then((r) => {
+      if (!alive || !r) return;
+      useArtworkStore.getState().addArtworks(r.artworks);
+      setExtra((prev) => [...prev, ...r.items.map(toOwnedCard)]);
+    }).catch(() => undefined);
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, counts]);
+  const copiesPage = useCardInstances({ enabled: open && !!counts && !!picker, cardId: picker, sort: "serial", limit: 48 });
+
+  const views = useMemo(() => new CollectionEngine(known, undefined, undefined, counts).ownedViews(), [known, counts]);
+  const byUid = useMemo(() => new Map(known.map((o) => [o.uid.toLowerCase(), o])), [known]);
   const teams = useMemo(() => [...new Set(views.map((v) => v.team).filter(Boolean))].sort((a, b) => a.localeCompare(b)), [views]);
   const filtered = useMemo(() => {
     const base = applyFilter(views, { text: text || undefined, roles: role ? [role] : undefined, owned: true });
@@ -129,13 +161,16 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
     setUids([...uids, uid]);
   };
   const onCard = (cardId: string) => {
-    const copies = instancesOf(owned, cardId);
-    if (copies.length === 1) toggleInstance(copies[0].uid, cardId);
-    else if (copies.length > 1) setPicker(cardId);
+    const copies = instancesOf(known, cardId);
+    const n = counts ? counts[cardId] ?? copies.length : copies.length;
+    if (n <= 1 && copies.length >= 1) toggleInstance(copies[0].uid, cardId);
+    else if (n > 1) setPicker(cardId);
   };
 
   const pickerDef = picker ? getCard(picker) : null;
-  const pickerCopies = picker ? instancesOf(owned, picker) : [];
+  // Con cuenta, las copias llegan por páginas; mientras carga la primera se enseñan las que ya se conocen.
+  const pickerCopies = picker ? (counts && copiesPage.items.length > 0 ? copiesPage.items.map(toOwnedCard) : instancesOf(known, picker)) : [];
+  const pickerTotal = picker ? (counts ? counts[picker] ?? pickerCopies.length : pickerCopies.length) : 0;
 
   return (
     <div className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm" onClick={onClose} data-scene="profile-editor" data-tab={tab}>
@@ -394,7 +429,7 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
             <div className="flex items-start justify-between gap-3 border-b border-white/[0.08] px-5 py-3 sm:px-7">
               <div>
                 <span className="nx-label">{tr("Elige la copia que quieres exponer")}</span>
-                <h3 className="font-display text-h3 font-bold uppercase text-white">{td(getVariant(pickerDef.variantId as VariantId).label)} · {pickerCopies.length} {tr("copias")}</h3>
+                <h3 className="font-display text-h3 font-bold uppercase text-white">{td(getVariant(pickerDef.variantId as VariantId).label)} · {pickerTotal} {tr("copias")}</h3>
               </div>
               <button type="button" onClick={() => setPicker(null)} aria-label={tr("Volver a la colección")} className="nx-focus grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70">✕</button>
             </div>
@@ -410,10 +445,16 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                       <span className="block font-display text-[15px] font-bold text-white">{serialText(c.serial ?? null, v.serialLimit ?? null)}</span>
                       <span className="block text-[11px] text-white/50">{fill(tr("{variante} · {rareza} · obtenida el {fecha}", { variante: td(v.label), ...slots("rareza"), fecha: fmtDay(c.obtainedAt) }), { rareza: <Badge tone={RARITY_TONE[b]}>{td(BUCKET_LABEL[b])}</Badge> })}</span>
                     </span>
-                    <ProfileButton tone={on ? "primary" : "ghost"} aria-pressed={on} onClick={() => { toggleInstance(c.uid, c.cardId); setPicker(null); }}>{on ? tr("Quitar de la vitrina") : tr("Exponer esta copia")}</ProfileButton>
+                    <ProfileButton tone={on ? "primary" : "ghost"} aria-pressed={on} onClick={() => { setExtra((prev) => (prev.some((e) => e.uid === c.uid) ? prev : [...prev, c])); toggleInstance(c.uid, c.cardId); setPicker(null); }}>{on ? tr("Quitar de la vitrina") : tr("Exponer esta copia")}</ProfileButton>
                   </li>
                 );
               })}
+              {counts && (
+                <li>
+                  <LoadMore hasMore={copiesPage.hasMore} loading={copiesPage.loading || copiesPage.loadingMore} error={copiesPage.error}
+                    onMore={copiesPage.loadMore} onRetry={copiesPage.retry} shown={copiesPage.items.length} total={copiesPage.total ?? pickerTotal} testId="showcase-copies-more" />
+                </li>
+              )}
             </ul>
           </div>
         )}

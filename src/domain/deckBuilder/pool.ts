@@ -60,7 +60,13 @@ export function viewOf(c: BuilderCard, count: number): UidView {
 
 export function copiesByCard(cards: readonly BuilderCard[]): Map<string, number> {
   const m = new Map<string, number>();
-  for (const c of cards) m.set(c.cardId, (m.get(c.cardId) ?? 0) + 1);
+  // COLECCIONES ILIMITADAS · si el servidor dice cuántas copias hay, manda; si no, se cuentan los ejemplares del pool.
+  const told = new Map<string, number>();
+  for (const c of cards) {
+    m.set(c.cardId, (m.get(c.cardId) ?? 0) + 1);
+    if (typeof c.copies === "number") told.set(c.cardId, Math.max(told.get(c.cardId) ?? 0, c.copies));
+  }
+  for (const [id, n] of told) m.set(id, Math.max(n, m.get(id) ?? 0));
   return m;
 }
 

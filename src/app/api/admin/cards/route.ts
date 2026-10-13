@@ -70,6 +70,7 @@ import { playerCombatBase } from "@/data/catalog";
 import { renderCardVersion, artworkStatus, artworkDir } from "@/server/services/cardArtwork";
 import { subirArtwork, artworkDeCarta, artworkDeInstancia, MAX_BYTES } from "@/server/services/cardArtworkUpload";
 import { internalError } from "@/server/ops/log";
+import { readCardInstances } from "@/server/services/userCards";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -459,7 +460,8 @@ export async function POST(req: Request): Promise<NextResponse> {
     const [def, versions, instances] = await Promise.all([
       sb.from("content_cards").select("*").eq("card_id", cardId).maybeSingle(),
       sb.from("content_card_versions").select("*").eq("card_id", cardId).order("version"),
-      sb.from("user_cards").select("minted_version").eq("card_id", cardId),
+      // COLECCIONES ILIMITADAS · todos los ejemplares, por cursor: es el número de «a cuánta gente afecta» y no puede quedarse corto.
+      readCardInstances<{ uid: string; minted_version: number | null }>(sb, cardId, "uid, minted_version").then((data) => ({ data, error: null as { message: string } | null }), (e: unknown) => ({ data: null, error: { message: e instanceof Error ? e.message : String(e) } })),
     ]);
     if (!def.data) {
       return NextResponse.json({ error: "Carta no encontrada" }, { status: 404, headers: NO_STORE });

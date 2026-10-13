@@ -20,6 +20,7 @@ import { getVariant } from "@/domain/cards/variants";
 import { bucketForRank } from "@/domain/packs/types";
 import { useGameStore } from "./useGameStore";
 import { useMarketStore } from "./useMarketStore";
+import { copiesByCard, ownedTotalOf } from "./selectors";
 
 const rngFrom = (seed: number) => makeRng(seed);
 
@@ -29,12 +30,14 @@ export function gatherSnapshot(): MetricSnapshot {
   const m = useMarketStore.getState();
   const distinct = new Set(g.ownedCards.map((o) => o.cardId)).size;
   let legendary = 0;
-  for (const o of g.ownedCards) { const c = getCard(o.cardId); if (c && bucketForRank(getVariant(c.variantId).rank) === "legendary") legendary++; }
+  // COLECCIONES ILIMITADAS · se cuentan COPIAS con los recuentos por carta (con cuenta, `ownedCards` trae un ejemplar por carta).
+  const copies = copiesByCard(g);
+  for (const id in copies) { const c = getCard(id); if (c && bucketForRank(getVariant(c.variantId).rank) === "legendary") legendary += copies[id]; }
   return {
     packs_opened: g.packsOpened,
     matches_played: g.record.played,
     matches_won: g.record.won,
-    cards_owned: g.ownedCards.length,
+    cards_owned: ownedTotalOf(g),
     cards_crafted: g.craftedCount,
     collection_completion: CARDS.length ? Math.round((distinct / CARDS.length) * 100) : 0,
     legendary_owned: legendary,
