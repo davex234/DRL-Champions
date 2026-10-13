@@ -22,6 +22,7 @@ import { TeamDetailScreen } from "@/components/trophies/TeamDetailScreen";
 import { MemorySupabase } from "@/server/services/testing/memorySupabase";
 import { getTeamCollection, getTeamCollections, TEAM_ID_PATTERN } from "@/server/services/teamCollections";
 import { resetServerCatalog } from "@/server/catalog";
+import { toCardRow, toPlayerRow } from "@/server/catalog/rows";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 const read = (p: string) => readFileSync(join(process.cwd(), p), "utf8");
@@ -324,6 +325,37 @@ test("SERVIDOR · región completa en la base → insignia desbloqueada; otra cu
   assert.deepEqual(mine.regions.map((r) => r.unlocked), [false, true, false, false]);
   const other = (await getTeamCollections(sb, "bbbbbbbb-0000-4000-8000-0000000000b2")).data!;
   assert.deepEqual([other.totals.owned, other.regions.some((r) => r.unlocked)], [0, false]);
+});
+
+test("4 · SERVIDOR · una carta publicada desde el panel con un equipo nuevo aparece sola; una retirada deja de exigirse", async () => {
+  // El catálogo sale de la BASE (`content_cards`), como en producción: lo que el panel publica es lo que se colecciona.
+  resetServerCatalog();
+  const mem = new MemorySupabase();
+  const m = live();
+  const navi = team(m, "navi");
+  const model = CARDS.find((c) => c.id === navi.cards[0].id)!;
+  const rows: Record<string, unknown>[] = CARDS.map((c, i) => ({ ...toCardRow(c, i), presentation: null }));
+  // Carta del panel (F60): su equipo impreso va en la presentación. Publicada → cuenta. En borrador → no existe.
+  const panel = (id: string, lifecycle: string, teamTag: string) => ({ ...toCardRow({ ...model, id }, rows.length + 1), card_id: id, lifecycle, presentation: { role: "Duelista", printed: { ovr: 80, stats: {} }, team: teamTag } });
+  rows.push(panel("panel-nueva", "PUBLISHED", "Equipo Del Panel"), panel("panel-borrador", "DRAFT", "Equipo En Borrador"), panel("panel-navi", "PUBLISHED", "NAVI"));
+  rows.find((r) => r.card_id === navi.cards[1].id)!.lifecycle = "RETIRED";
+  mem.tables.content_catalog_version = [{ id: true, version: 3 }];
+  mem.tables.content_cards = rows as never;
+  mem.tables.content_players = [...new Set(CARDS.map((c) => c.playerId))].map((id) => toPlayerRow(getPlayer(id)!)) as never;
+  mem.tables.content_card_versions = [];
+  mem.tables.user_cards = [...navi.cards.filter((c) => c.id !== navi.cards[1].id).map((c) => c.id), "panel-navi"].map((card_id, i) => ({ uid: `u${i}`, user_id: U, card_id, serial: null, minted_version: 1, obtained_at: "2026-10-01T00:00:00Z", origin: "pack", locked: false }));
+  const sb = mem as unknown as SupabaseClient;
+  const v = (await getTeamCollections(sb, U)).data!;
+  resetServerCatalog();
+  assert.equal(v.teams.length, m.teams.length + 1, "un equipo más: el del panel (el borrador no)");
+  const nuevo = v.teams.find((t) => t.title === "Equipo Del Panel")!;
+  assert.deepEqual([nuevo.total, nuevo.region, nuevo.state], [1, null, "LOCKED"]);
+  assert.ok(!v.teams.some((t) => t.title === "Equipo En Borrador"));
+  // NAVI: +1 por la carta del panel con su etiqueta, −1 por la retirada. Con las demás y la nueva, está completo.
+  const n = v.teams.find((t) => t.id === "navi")!;
+  assert.deepEqual([n.total, n.owned, n.state], [navi.cards.length, navi.cards.length, "COMPLETED"]);
+  // El equipo sin región no cuenta para ninguna insignia.
+  assert.equal(v.regions.reduce((x, r) => x + r.total, 0), CARDS.length, "331 − 1 retirada + 1 de NAVI; la del equipo sin región, fuera");
 });
 
 test("SERVIDOR · equipo inexistente o clave no válida", async () => {

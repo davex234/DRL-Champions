@@ -44,12 +44,15 @@ export function TeamShield({ team, size, locked }: { team: Pick<TeamTileView, "i
   return <TrophyBadge badge={{ id: team.id, label: team.title, logo: team.logo, color: TEAM_TINT, kind: "TEAM", caption: "" }} size={size} locked={locked} monogram={team.logo ? undefined : team.tag} />;
 }
 
+/** En móvil, una línea por dato (rótulo a la izquierda, valor a la derecha); desde `sm`, la ficha de siempre. */
 function Stat({ label, value, sub, testId }: { label: string; value: string; sub?: string; testId: string }) {
   return (
-    <div className="nx-clip min-w-0 bg-white/[0.035] px-4 py-3 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]" data-testid={testId}>
-      <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">{label}</p>
-      <p className="nx-readout mt-1 font-display text-[26px] font-black leading-none text-white">{value}</p>
-      {sub && <p className="mt-1 text-[12px] text-white/55">{sub}</p>}
+    <div className="nx-clip flex min-w-0 items-center justify-between gap-3 bg-white/[0.035] px-4 py-2.5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)] sm:block sm:py-3" data-testid={testId}>
+      <p className="min-w-0 text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">{label}</p>
+      <p className="nx-readout shrink-0 font-display text-[22px] font-black leading-none text-white sm:mt-1 sm:text-[26px]">
+        {value}{sub && <span className="ml-2 font-sans text-[12px] font-normal text-white/55 sm:hidden">{sub}</span>}
+      </p>
+      {sub && <p className="mt-1 hidden text-[12px] text-white/55 sm:block">{sub}</p>}
     </div>
   );
 }
