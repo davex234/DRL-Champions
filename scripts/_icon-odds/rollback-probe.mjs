@@ -29,7 +29,7 @@ async function api(t, path, body) {
 }
 const icons = (s) => Object.fromEntries(Object.entries(s.json?.unopenedPacks ?? {}).filter(([k, v]) => (k.startsWith("icon") || k === "champions") && v > 0));
 const credits = (s) => s.json?.credits ?? s.json?.profile?.credits ?? s.json?.wallet?.credits ?? null;
-const snap = (s) => JSON.stringify({ creditos: credits(s), sobres: icons(s), cartas: (s.json?.ownedCards ?? []).length });
+const snap = (s) => JSON.stringify({ creditos: credits(s), sobres: icons(s), cartas: s.json?.ownedTotal ?? (s.json?.ownedCards ?? []).length }); // COLECCIONES ILIMITADAS · el total exacto lo da `ownedTotal`; con una build anterior, los ejemplares del estado
 /** Cartas entregadas según la RESPUESTA de la apertura (`opened`): no depende de `ownedCards`, que PostgREST corta en 1.000 filas. */
 const cardsOf = (res) => (res.json?.opened ?? res.json?.data?.opened ?? res.json?.results ?? res.json?.cards ?? []).map((c) => `${c.card?.id ?? c.cardId ?? c.id}`);
 

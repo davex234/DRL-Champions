@@ -38,7 +38,20 @@ async function screen(c: Client, name: string, opts: { allowSpanish?: RegExp } =
   return p;
 }
 
-const state = async (access: string) => (await api(access, "/api/game/state")).json as { credits: number; unopenedPacks: Record<string, number>; ownedCards: { uid: string; cardId: string }[]; packsOpened: number };
+/**
+ * Cartas que el servidor dice que se han ganado entre dos estados. COLECCIONES ILIMITADAS · el estado lleva un ejemplar
+ * por carta y los RECUENTOS (`ownedCounts`): una copia repetida no aparece como ejemplar nuevo, pero sí sube su
+ * recuento, y eso es exacto para cualquier tamaño de colección. Con una build anterior (sin recuentos) se comparan los
+ * ejemplares, como antes.
+ */
+type CardState = { ownedCards: { uid: string; cardId: string }[]; ownedCounts?: Record<string, number>; ownedTotal?: number };
+function gained(before: CardState, after: CardState): string[] {
+  if (!before.ownedCounts || !after.ownedCounts) return after.ownedCards.filter((x) => !before.ownedCards.some((y) => y.uid === x.uid)).map((x) => x.cardId).sort();
+  const out: string[] = [];
+  for (const [id, n] of Object.entries(after.ownedCounts)) for (let i = before.ownedCounts[id] ?? 0; i < n; i++) out.push(id);
+  return out.sort();
+}
+const state = async (access: string) => (await api(access, "/api/game/state")).json as { credits: number; unopenedPacks: Record<string, number>; ownedCards: { uid: string; cardId: string }[]; ownedCounts?: Record<string, number>; ownedTotal?: number; packsOpened: number };
 
 interface StoreShot { prices: Record<string, string>; odds: Record<string, Record<string, string>>; iconLines: Record<string, string> }
 const BASELINE_FILE = join(RAW, "auth-baseline-es.json");
@@ -180,7 +193,7 @@ async function runLocale(l: Loc, baseline: StoreShot | null): Promise<StoreShot>
     const s0 = await state(access);
     const o1 = await openUi(c, "estandar", "abrir-bronce");
     const s1 = await state(access);
-    const new1 = s1.ownedCards.filter((x) => !s0.ownedCards.some((y) => y.uid === x.uid)).map((x) => x.cardId).sort();
+    const new1 = gained(s0, s1);
     check("apertura · Bronce llega al resumen", o1.ready && o1.done, o1.phases);
     check("apertura · Bronce entrega 5 cartas y las del resumen son las del servidor", new1.length === 5 && JSON.stringify([...o1.cards].sort()) === JSON.stringify(new1), { servidor: new1, resumen: o1.cards });
     check("apertura · consume exactamente 1 sobre y no toca los créditos", (s0.unopenedPacks?.estandar ?? 0) - (s1.unopenedPacks?.estandar ?? 0) === 1 && s1.credits === s0.credits, { sobres: [s0.unopenedPacks?.estandar, s1.unopenedPacks?.estandar], creditos: [s0.credits, s1.credits] });
@@ -189,7 +202,7 @@ async function runLocale(l: Loc, baseline: StoreShot | null): Promise<StoreShot>
 
     const o2 = await openUi(c, "icon-single", "abrir-icon");
     const s2 = await state(access);
-    const new2 = s2.ownedCards.filter((x) => !s1.ownedCards.some((y) => y.uid === x.uid)).map((x) => x.cardId);
+    const new2 = gained(s1, s2);
     check("apertura · ICON entrega exactamente 1 carta (la del servidor)", o2.done && new2.length === 1 && o2.cards.length === 1 && o2.cards[0] === new2[0], { servidor: new2, resumen: o2.cards, fases: o2.phases });
     check("WALKOUT · aparece en la apertura ICON", o2.walkout.seen, { stage: o2.walkout.stage, fases: o2.phases });
     check("WALKOUT · en el idioma, sin español ni claves", o2.walkout.seen && o2.walkout.lang === l && o2.walkout.keys.length === 0 && (l === "es" || o2.walkout.spanish.length === 0), { lang: o2.walkout.lang, spanish: o2.walkout.spanish.slice(0, 6), texto: o2.walkout.text.replace(/\n+/g, " | ").slice(0, 220) });
@@ -200,7 +213,7 @@ async function runLocale(l: Loc, baseline: StoreShot | null): Promise<StoreShot>
     await goto(c, "/inventario", 3500);
     const inv = await screen(c, "inventario", { allowSpanish: /^[A-Za-z0-9 .'-]{2,24}$/ });
     void inv;
-    check("colección · el servidor tiene las cartas abiertas (≥ 6)", s2.ownedCards.length >= 6, s2.ownedCards.length);
+    check("colección · el servidor tiene las cartas abiertas (≥ 6)", (s2.ownedTotal ?? s2.ownedCards.length) >= 6, s2.ownedTotal ?? s2.ownedCards.length);
 
     /* 7 · Crafteo de sobres: 4 Bronce → 1 Plata */
     const need = 4 - (s2.unopenedPacks?.estandar ?? 0);

@@ -15,6 +15,20 @@ import { api, chooseLocale, clickTid, collect, goto, loginUi, open, probe, q, sl
 const OUT = join(process.cwd(), "docs/product/qa/i18n-auth");
 const rows: { locale: string; id: string; ok: boolean; detail: string }[] = [];
 
+/**
+ * Cartas que el servidor dice que se han ganado entre dos estados. COLECCIONES ILIMITADAS · el estado lleva un ejemplar
+ * por carta y los RECUENTOS (`ownedCounts`): una copia repetida no aparece como ejemplar nuevo, pero sí sube su
+ * recuento, y eso es exacto para cualquier tamaño de colección. Con una build anterior (sin recuentos) se comparan los
+ * ejemplares, como antes.
+ */
+type CardState = { ownedCards: { uid: string; cardId: string }[]; ownedCounts?: Record<string, number>; ownedTotal?: number };
+function gained(before: CardState, after: CardState): string[] {
+  if (!before.ownedCounts || !after.ownedCounts) return after.ownedCards.filter((x) => !before.ownedCards.some((y) => y.uid === x.uid)).map((x) => x.cardId).sort();
+  const out: string[] = [];
+  for (const [id, n] of Object.entries(after.ownedCounts)) for (let i = before.ownedCounts[id] ?? 0; i < n; i++) out.push(id);
+  return out.sort();
+}
+
 async function run(l: Loc) {
   const check = (id: string, ok: boolean, detail: unknown = "") => { const d = typeof detail === "string" ? detail : JSON.stringify(detail); rows.push({ locale: l, id, ok, detail: d.slice(0, 500) }); console.log(`${ok ? "PASS" : "FAIL"} · ${l} · ${id} — ${d.slice(0, 300)}`); };
   const c = await open(1440, { reduced: false, gpu: true });
@@ -27,7 +41,7 @@ async function run(l: Loc) {
     const t = await token("PLAYER");
     const buy = await api(t.access, "/api/game/packs", { action: "buy", packId: "icon-single", ref: `i18nw3d-${randomUUID()}`, expectedPrice: 30000 });
     check("compra del Sobre ICON (servidor)", buy.status === 200, buy.status);
-    const before = (await api(t.access, "/api/game/state")).json as { ownedCards: { uid: string; cardId: string }[] };
+    const before = (await api(t.access, "/api/game/state")).json as CardState;
     await goto(c, "/cuenta?seccion=cuenta", 1500);
     const pref = await clickTid(c, "opening-animation-cinematic"); await sleep(500);
     await goto(c, "/abrir/icon-single", 2500);
@@ -62,8 +76,8 @@ async function run(l: Loc) {
       await sleep(step.phase === "walkout" ? 300 : 700);
     }
     const done = await c.tab.js<boolean>(q("pack-summary"));
-    const after = (await api(t.access, "/api/game/state")).json as { ownedCards: { uid: string; cardId: string }[] };
-    const got = after.ownedCards.filter((x) => !before.ownedCards.some((y) => y.uid === x.uid)).map((x) => x.cardId);
+    const after = (await api(t.access, "/api/game/state")).json as CardState;
+    const got = gained(before, after);
     collect(c, "walkout 3d");
     check("preferencia «Cinemática 3D» seleccionable", pref);
     check("WALKOUT aparece", seen, { stage, reason, traza: trace.join(" | ").slice(0, 240) });
