@@ -9,8 +9,14 @@ import { randomUUID } from "node:crypto";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const BASE = process.env.BASE_URL ?? "http://127.0.0.1:3005";
 const env = Object.fromEntries(readFileSync(".env.local", "utf8").split(/\r?\n/).filter((l) => /^[A-Z_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1).replace(/^"|"$/g, "")]));
-const SB = process.env.F75_SB || env.SUPABASE_INTERNAL_URL || env.NEXT_PUBLIC_SUPABASE_URL, ANON = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+// F87 · QA_SB / QA_ANON: Supabase público de producción y su clave anon PÚBLICA (la de .env.local es anterior a F77-S1).
+const SB = process.env.QA_SB || process.env.F75_SB || env.SUPABASE_INTERNAL_URL || env.NEXT_PUBLIC_SUPABASE_URL, ANON = process.env.QA_ANON || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 export const USER_ACCOUNT_PREFIX = "2f86cbe8";
+/** F87 · cuentas REALES que ningún instrumento puede usar: davex (#NB2Z9BM), ValoRosters (#H5ND8K7) y la antigua personal. */
+export const REAL_ACCOUNT_PREFIXES = ["2f86cbe8", "3befce61", "b7ccff02"];
+export const isRealAccount = (id: unknown): boolean => REAL_ACCOUNT_PREFIXES.some((p) => String(id ?? "").startsWith(p));
+/** F87 · `QA_CREDS_DIR=<dir>`: credenciales QA nuevas como `<dir>/<persona>.json` (las de A–K se borraron el 2026-10-05). */
+const credFile = (name: string, fallback: string | undefined): string => (process.env.QA_CREDS_DIR ? join(process.env.QA_CREDS_DIR, `${name}.json`) : String(fallback));
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export const uuid = () => randomUUID();
 
@@ -30,8 +36,8 @@ export const QA_FILES: Record<string, string> = {
 export interface Who { name: string; userId: string; email: string; password: string; token: string }
 
 export function creds(name: string): { email: string; password: string; userId: string } {
-  const c = JSON.parse(readFileSync(QA_FILES[name], "utf8"));
-  if (String(c.userId).startsWith(USER_ACCOUNT_PREFIX)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
+  const c = JSON.parse(readFileSync(credFile(name, QA_FILES[name]), "utf8"));
+  if (isRealAccount(c.userId)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
   return c;
 }
 
@@ -41,7 +47,7 @@ export async function login(name: string): Promise<Who> {
   const r = await fetch(`${SB}/auth/v1/token?grant_type=password`, { method: "POST", headers: { apikey: ANON, "content-type": "application/json" }, body: JSON.stringify({ email: c.email, password: c.password }) });
   const j = await r.json() as { access_token?: string; user?: { id: string }; error_description?: string };
   if (!j.access_token) throw new Error(`login ${name}: ${j.error_description ?? r.status}`);
-  if (j.user?.id?.startsWith(USER_ACCOUNT_PREFIX)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
+  if (isRealAccount(j.user?.id)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
   return { name, userId: j.user!.id, email: c.email, password: c.password, token: j.access_token };
 }
 

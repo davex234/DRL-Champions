@@ -16,8 +16,14 @@ export const RAW = join(OUT, "raw");
 export const SHOTS = join(OUT, "screenshots");
 for (const d of [OUT, RAW, SHOTS]) mkdirSync(d, { recursive: true });
 const env = Object.fromEntries(readFileSync(".env.local", "utf8").split(/\r?\n/).filter((l) => /^[A-Z_0-9]+=/.test(l)).map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1).replace(/^"|"$/g, "")]));
-const SB = env.SUPABASE_INTERNAL_URL || env.NEXT_PUBLIC_SUPABASE_URL, ANON = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+// F87 · QA_SB / QA_ANON: Supabase público de producción y su clave anon PÚBLICA (la de .env.local es anterior a F77-S1).
+const SB = process.env.QA_SB || env.SUPABASE_INTERNAL_URL || env.NEXT_PUBLIC_SUPABASE_URL, ANON = process.env.QA_ANON || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 export const USER_ACCOUNT_PREFIX = "2f86cbe8";
+/** F87 · cuentas REALES que ningún instrumento puede usar: davex (#NB2Z9BM), ValoRosters (#H5ND8K7) y la antigua personal. */
+export const REAL_ACCOUNT_PREFIXES = ["2f86cbe8", "3befce61", "b7ccff02"];
+export const isRealAccount = (id: unknown): boolean => REAL_ACCOUNT_PREFIXES.some((p) => String(id ?? "").startsWith(p));
+/** F87 · `QA_CREDS_DIR=<dir>`: credenciales QA nuevas como `<dir>/<persona>.json` (las de A–K se borraron el 2026-10-05). */
+const credFile = (name: string, fallback: string | undefined): string => (process.env.QA_CREDS_DIR ? join(process.env.QA_CREDS_DIR, `${name}.json`) : String(fallback));
 const TMP = process.env.TEMP ?? "C:/Users/david/AppData/Local/Temp";
 export const SCRATCH = join(TMP, "claude/C--NEXUS-CENTRAL-DRLCards/b6d0c3e1-87c4-49c9-928e-6d61dcb353e9/scratchpad");
 export const esc = (s: string) => JSON.stringify(s);
@@ -34,18 +40,18 @@ export const PERSONA_FILES: Record<string, string> = {
 };
 export interface Creds { email: string; password: string; userId: string; username?: string }
 export function creds(p: string): Creds {
-  const c = JSON.parse(readFileSync(PERSONA_FILES[p], "utf8")) as Creds;
-  if (String(c.userId).startsWith(USER_ACCOUNT_PREFIX)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
+  const c = JSON.parse(readFileSync(credFile(p, PERSONA_FILES[p]), "utf8")) as Creds;
+  if (isRealAccount(c.userId)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
   return c;
 }
-export const hasCreds = (p: string) => existsSync(PERSONA_FILES[p]);
+export const hasCreds = (p: string) => existsSync(credFile(p, PERSONA_FILES[p]));
 
 export async function token(p: string): Promise<string> {
   const c = creds(p);
   const r = await fetch(`${SB}/auth/v1/token?grant_type=password`, { method: "POST", headers: { apikey: ANON, "content-type": "application/json" }, body: JSON.stringify({ email: c.email, password: c.password }) });
   const j = await r.json() as any;
   if (!j.access_token) throw new Error(`login ${p}: ${j.error_description ?? r.status}`);
-  if (String(j.user?.id).startsWith(USER_ACCOUNT_PREFIX)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
+  if (isRealAccount(j.user?.id)) throw new Error("ESA ES LA CUENTA DEL USUARIO: prohibido");
   return j.access_token;
 }
 
@@ -212,8 +218,8 @@ export async function registerUi(c: Client, persona: string): Promise<Creds> {
   await waitFor(c.tab, `location.pathname === '/' || !document.querySelector('input[type="password"]')`, 25000);
   await sleep(1500);
   cr.userId = await c.tab.js<string>(`(() => { for (const k of Object.keys(localStorage)) if (k.includes('auth-token')) { try { return JSON.parse(localStorage.getItem(k)).user.id } catch {} } return '' })()`);
-  if (!cr.userId || cr.userId.startsWith(USER_ACCOUNT_PREFIX)) throw new Error("registro sin usuario");
-  writeFileSync(PERSONA_FILES[persona], JSON.stringify(cr), { mode: 0o600 });
+  if (!cr.userId || isRealAccount(cr.userId)) throw new Error("registro sin usuario");
+  writeFileSync(credFile(persona, PERSONA_FILES[persona]), JSON.stringify(cr), { mode: 0o600 });
   return cr;
 }
 

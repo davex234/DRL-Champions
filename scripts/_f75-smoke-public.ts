@@ -12,7 +12,7 @@ import { BASE, api, login, sleep, type Who } from "./multiplayer/_f75-qa";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const env = Object.fromEntries(readFileSync(".env.local", "utf8").split(/\r?\n/).filter((l) => /^[A-Z_]+=/.test(l)).map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1).replace(/^"|"$/g, "").trim()]));
-const SB = process.env.F75_SB || env.SUPABASE_INTERNAL_URL || env.NEXT_PUBLIC_SUPABASE_URL, ANON = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const SB = process.env.QA_SB || process.env.F75_SB || env.SUPABASE_INTERNAL_URL || env.NEXT_PUBLIC_SUPABASE_URL, ANON = process.env.QA_ANON || env.NEXT_PUBLIC_SUPABASE_ANON_KEY; // F87 · QA_SB/QA_ANON
 const rows: { group: string; id: string; ok: boolean; detail: string }[] = [];
 const check = (group: string, id: string, ok: boolean, detail: string) => { rows.push({ group, id, ok, detail }); console.log(`${ok ? "OK  " : "FAIL"} ${group.padEnd(12)} ${id.padEnd(34)} ${detail}`); };
 const LEAK = /at [\w.<>]+ \(|node_modules|\.tsx?:\d+|relation "|column "|syntax error|PGRST|violates|stack/i;

@@ -8,7 +8,7 @@
 # =============================================================================
 set -euo pipefail
 V=/opt/nexus/projects/valorosters
-BASE=drl-0.1.1-1-50b3eb69
+BASE=${F85_BASE:-drl-0.1.1-1-50b3eb69}   # F85.1: F85_BASE=drl-0.1.1-1-6a923c24 (hotfix sobre la release F85 viva)
 W=/tmp/f85
 ST=$W/stage
 rm -rf "$ST"; mkdir -p "$ST"

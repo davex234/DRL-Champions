@@ -24,7 +24,7 @@ const check = (w: number, motion: string, name: string, ok: boolean, detail?: un
 async function open(c: Client, scene: string) {
   c.tab.takeErrors();
   await c.tab.goto(`${BASE}/design-system/fase82?scene=${scene}`, 1500);
-  for (let i = 0; i < 40; i++) { if (await c.tab.js<boolean>(c, `document.querySelector('main[data-harness="fase82"]')?.dataset.scene === ${JSON.stringify(scene)}`).catch(() => false)) break; await sleep(150); }
+  for (let i = 0; i < 40; i++) { if (await c.tab.js<boolean>(`document.querySelector('main[data-harness="fase82"]')?.dataset.scene === ${JSON.stringify(scene)}`).catch(() => false)) break; await sleep(150); }
   await sleep(400);
 }
 const ox = (c: Client) => c.tab.js<number>("document.documentElement.scrollWidth - window.innerWidth");

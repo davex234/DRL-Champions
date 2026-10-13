@@ -117,7 +117,8 @@ export async function launch(
    */
   const ephemeral = !opts.userDataDir;
   const profile = opts.userDataDir ?? mkdtempSync(join(tmpdir(), "nexus-cdp-"));
-  const port = 9800 + Math.floor(Math.random() * 180);
+  // QA_CDP_PORT_BASE: rango propio cuando dos instrumentos comparten espacio de red (contenedores de QA en paralelo).
+  const port = Number(process.env.QA_CDP_PORT_BASE ?? 9800) + Math.floor(Math.random() * 180);
   const proc: ChildProcess = spawn(
     CHROME_PATH,
     [
