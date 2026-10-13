@@ -8,8 +8,8 @@
 #                                                                              en un contenedor desechable, con el entorno
 #                                                                              del STACK DE QA (ni secretos ni red de producción)
 #
-# Es `_collection-rc-stage.sh` con otra base (la release viva, 4b1f4c01), otra carpeta de trabajo y SIN migración: esta
-# candidata no añade ni modifica ninguna. Necesita $W/overlay.tar y $W/overlay.txt (lista exacta del commit de la
+# Es `_collection-rc-stage.sh` con otra base (la release viva, 4b1f4c01), otra carpeta de trabajo y la migración que
+# trae esta candidata: 0075 (aditiva; sin ella el servidor solo deja de guardar compleciones e insignias). Necesita $W/overlay.tar y $W/overlay.txt (lista exacta del commit de la
 # funcionalidad). No escribe en `incoming/`, `releases/` ni `current`, no toca valorosters-app ni la base de producción.
 # =============================================================================
 set -euo pipefail
@@ -26,6 +26,9 @@ case "${1:?stage|gate}" in
     ( cd "$V/releases/$BASE" && tar --exclude=./node_modules --exclude=./.next --exclude=./tsconfig.tsbuildinfo --exclude=./next-env.d.ts --exclude='./.env*' -cf - . ) | tar -xf - -C "$ST"
     ( cd "$ST" && find . -type f -print0 | sort -z | xargs -0 sha256sum ) > $W/base.sha
     tar -xf $W/overlay.tar -C "$ST"
+    # Ficheros que la candidata RETIRA (lista exacta en $W/deleted.txt; vacía o ausente = ninguno).
+    touch $W/deleted.txt
+    while IFS= read -r f; do [ -n "$f" ] && rm -f "$ST/$f"; done < $W/deleted.txt
     ( cd "$ST" && find . -type f -print0 | sort -z | xargs -0 sha256sum ) > $W/staged.sha
     names() { sed 's/^[0-9a-f]*  \.\///' "$1" | sort; }
     comm -13 <(names $W/base.sha) <(names $W/staged.sha) > $W/added.txt
@@ -34,7 +37,8 @@ case "${1:?stage|gate}" in
     echo "base $(wc -l < $W/base.sha) · staged $(wc -l < $W/staged.sha) · añadidos $(wc -l < $W/added.txt) · modificados $(wc -l < $W/modified.txt) · borrados $(wc -l < $W/removed.txt)"
     cat $W/added.txt $W/modified.txt | sort > $W/changed.txt
     diff -q $W/changed.txt <(sort $W/overlay.txt) >/dev/null && echo "BOUNDARY_OK añadidos+modificados = overlay exacto" || { echo "BOUNDARY_FAIL"; diff $W/changed.txt <(sort $W/overlay.txt) | head; exit 1; }
-    [ ! -s $W/removed.txt ] && echo "BOUNDARY_OK ningún fichero borrado" || { echo "BOUNDARY_FAIL borrados"; head $W/removed.txt; exit 1; }
+    diff -q $W/removed.txt <(sort $W/deleted.txt) >/dev/null && echo "BOUNDARY_OK borrados = lista exacta ($(wc -l < $W/removed.txt)): $(tr '
+' ' ' < $W/removed.txt)" || { echo "BOUNDARY_FAIL borrados"; diff $W/removed.txt <(sort $W/deleted.txt) | head; exit 1; }
     for f in scripts/ops/backup-drlcards.sh scripts/ops/backup-offsite.sh scripts/ops/backup-status.sh scripts/ops/backup-cron.sh scripts/ops/backup-schedule.sh scripts/ops/offsite-harness.sh scripts/ops/offsite-drill.sh scripts/ops/b2-provision.mjs scripts/ops/restore-drill.sh src/instrumentation.ts src/domain/ops/backup.ts; do
       if [ -f "$V/releases/$BASE/$f" ]; then
         [ "$(sha256sum < "$V/releases/$BASE/$f")" = "$(sha256sum < "$ST/$f")" ] && echo "F78 = producción: $f" || { echo "F78 LEAK: $f"; exit 1; }
@@ -42,8 +46,10 @@ case "${1:?stage|gate}" in
         [ ! -e "$ST/$f" ] && echo "F78 ausente en producción y en la RC: $f" || { echo "F78 LEAK (nuevo): $f"; exit 1; }
       fi
     done
-    # Ninguna migración: ni nueva ni modificada. La cabeza sigue siendo la de producción.
-    ! grep -q '^supabase/' $W/changed.txt && [ "$(ls "$ST/supabase/migrations" | sort | tail -1)" = "$(ls "$V/releases/$BASE/supabase/migrations" | sort | tail -1)" ]       && echo "MIGRATIONS_OK sin migraciones (cabeza $(ls "$ST/supabase/migrations" | sort | tail -1))" || { echo "MIGRATIONS_FAIL"; exit 1; }
+    # Una sola migración nueva y aditiva: 0075. Las anteriores, byte a byte las de producción (ya lo garantiza la frontera).
+    [ "$(ls "$ST/supabase/migrations" | sort | tail -1)" = "0075_team_collections.sql" ] && [ "$(grep -c '^supabase/migrations/' $W/added.txt)" = "1" ] && ! grep -q '^supabase/migrations/' $W/modified.txt       && echo "MIGRATIONS_OK cabeza 0075 (una migración nueva, ninguna anterior modificada)" || { echo "MIGRATIONS_FAIL"; exit 1; }
+    ! grep -v '^\s*--' "$ST/supabase/migrations/0075_team_collections.sql" | grep -E -i "drop (table|column|function|index)|truncate|delete from|alter table public\.(profiles|user_cards|user_packs|credit_transactions)|insert into public\.(profiles|user_cards|user_packs|credit_transactions)"       && echo "MIGRATION_ADDITIVE_OK 0075 no borra nada ni toca créditos, cartas o sobres" || { echo "MIGRATION_NOT_ADDITIVE"; exit 1; }
+    [ -f "$ST/docs/operations/rollback/0075_team_collections.ROLLBACK.sql" ] && echo "ROLLBACK_PRESENTE" || { echo "falta el rollback de 0075"; exit 1; }
     # Nada de economía: precios, probabilidades, pools, recetas, desguace y sobres, byte a byte los de producción.
     ! grep -E '^src/(data/(packs|recipes|storeCatalog|packStats)|domain/(economy|packs|crafting|forge)/|pack/|server/services/(economy|packs|crafting|forge|inventory|userCards)\.ts)' $W/changed.txt       && echo "ECONOMY_OK el overlay no toca economía, sobres ni lectura de inventario" || { echo "ECONOMY_TOUCHED"; exit 1; }
     ID=$(docker run --rm -v "$ST:/app:ro" -w /app $IMG node --input-type=module -e "const m = await import('/app/next.config.mjs'); console.log(await m.default.generateBuildId())")
