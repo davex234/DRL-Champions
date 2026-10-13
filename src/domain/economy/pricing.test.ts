@@ -23,7 +23,7 @@ import {
   marketValue, instanceValue, serialMultiplier, gameRound, classValue, valueClass, legacyRankValue,
   VALUE_CLASS_MULT, VALUE_GROWTH, VALUE_SCALE, VALUE_OVR_ORIGIN,
 } from "./pricing";
-import { PACK_CLASS_ORDER, MAIN_PACK_LINE, MAIN_PACK_DISTRIBUTION, MAIN_PACK_PLAN, mainPackDistribution, packCardClass, type PackCardClass } from "@/domain/packs/packClass";
+import { effectiveFeatured, PACK_CLASS_ORDER, MAIN_PACK_LINE, MAIN_PACK_DISTRIBUTION, MAIN_PACK_PLAN, mainPackDistribution, packCardClass, type PackCardClass } from "@/domain/packs/packClass";
 import { packEconomy } from "@/domain/packs/packEconomy";
 
 const reg = new CardRegistry();
@@ -155,17 +155,18 @@ test("L · clases del catálogo intactas; la distribución por carta DERIVA del 
   // El plan exacto lo congela economyFinal.test (A) y su identidad tierIdentity.test; aquí, que la media derive de él.
   for (const id of MAIN_PACK_LINE) {
     const pl = MAIN_PACK_PLAN[id], d = MAIN_PACK_DISTRIBUTION[id];
-    for (const k of PACK_CLASS_ORDER) assert.ok(Math.abs(d[k] - ((pl.cards - 1) * pl.regular[k] + pl.featured[k]) / pl.cards / 10) < 1e-9, `${id}/${k}`);
+    // Icon por sobre (2026-10-09): la destacada EFECTIVA (Icon = P configurada; el resto, escalado a 1 − P).
+    const f = effectiveFeatured(pl);
+    for (const k of PACK_CLASS_ORDER) assert.ok(Math.abs(d[k] - ((pl.cards - 1) * pl.regular[k] + f[k]) / pl.cards / 10) < 1e-9, `${id}/${k}`);
   }
   const counts = Object.fromEntries(PACK_CLASS_ORDER.map((k) => [k, inClass(k).length]));
   assert.deepEqual(counts, { base: 75, plata: 60, oro: 34, masters: 119, champions: 20, prime: 20, icon: 3 });
 });
 
-test("M/N · precios F80 y cartas por sobre de F57.4; Icon = 60.000, 3 cartas, solo Prime o Icon", () => {
+test("M/N · precios F80 y cartas por sobre de F57.4; dos sobres ICON (2026-10-09): 30.000 · 1 y 80.000 · 3, siempre Icon", () => {
   const got = Object.fromEntries(MAIN_PACK_LINE.map((id) => [id, [getPack(id)!.price, getPack(id)!.cardCount]]));
-  assert.deepEqual(got, { estandar: [2500, 5], premium: [6000, 6], oro: [12000, 5], masters: [20000, 5], champions: [35000, 5], icon: [60000, 3] });
-  const icon = mainPackDistribution("icon")!;
-  assert.ok(Math.abs(icon.prime + icon.icon - 100) < 1e-9 && icon.prime > icon.icon);
+  assert.deepEqual(got, { estandar: [2500, 5], premium: [6000, 6], oro: [12000, 5], masters: [20000, 5], champions: [35000, 5], "icon-single": [30000, 1], icon: [80000, 3] });
+  for (const id of ["icon-single", "icon"]) { const d = mainPackDistribution(id)!; assert.ok(d.icon === 100 && d.prime === 0, id); }
 });
 
 test("O · catálogo = 331 cartas", () => {

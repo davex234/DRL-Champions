@@ -202,6 +202,8 @@ export function ShopHero({
                   </li>
                 ))}
               </ul>
+              {/* Icon por sobre (2026-10-09): la misma frase que la ficha, del plan que sortea el servidor. */}
+              {classOdds.icon && <p className="mt-2 text-caption font-bold text-white" data-icon-text>{classOdds.icon.text}</p>}
             </div>
           ) : (
           <div className="order-2 mt-5 lg:order-1">

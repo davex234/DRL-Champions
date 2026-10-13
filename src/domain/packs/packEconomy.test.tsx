@@ -24,18 +24,20 @@ import { packEconomy, economyOutliers, VALUE_BAND, ICON_FLOOR } from "./packEcon
 const cards = new CardRegistry().cards;
 const price = (id: string) => getPack(id)!.price;
 
-test("A · precios estrictamente crecientes: Bronce < Plata < Oro < Masters < Champions < Icon (y los decididos)", () => {
+test("A · precios: Bronce < Plata < Oro < Masters < Champions < ICON Premium (80.000) y el Sobre ICON a 30.000 (2026-10-09)", () => {
   const p = MAIN_PACK_LINE.map(price);
-  assert.deepEqual(p, [2500, 6000, 12000, 20000, 35000, 60000]); // F80
-  for (let i = 1; i < p.length; i++) assert.ok(p[i] > p[i - 1], `${MAIN_PACK_LINE[i]} > ${MAIN_PACK_LINE[i - 1]}`);
+  assert.deepEqual(p, [2500, 6000, 12000, 20000, 35000, 30000, 80000]);
+  // La línea va por ESCALÓN, no por precio: el Sobre ICON (1 carta) cuesta menos que Champions (decisión del propietario).
+  const ladder = MAIN_PACK_LINE.filter((id) => id !== "icon-single").map(price);
+  for (let i = 1; i < ladder.length; i++) assert.ok(ladder[i] > ladder[i - 1]);
 });
 
 test("B · el servidor cobra EXACTAMENTE el precio canónico de cada uno de los seis (libro mayor y saldo)", async () => {
   for (const id of MAIN_PACK_LINE) {
     const db = new MemSupabase();
     const U = "aaaaaaaa-0000-4000-8000-000000000574";
-    db.seedUser(U, 100_000);   // F80 · Icon cuesta 60.000
-    const r = await buyPack(db.client, U, id, `g-${id}`);
+    db.seedUser(U, 100_000);   // ICON Premium cuesta 80.000 (2026-10-09)
+    const r = await buyPack(db.client, U, id, `g-${id}`, undefined, { expectedPrice: price(id) });
     assert.ok(r.ok, `${id}: ${r.ok ? "" : r.error}`);
     const tx = db.table("credit_transactions").filter((t) => t.user_id === U && t.reason === `buy_pack:${id}`);
     assert.equal(tx.length, 1, id);
@@ -68,21 +70,25 @@ test("D · sobres especiales: cartas intactas; precios F57.6 + Pack Opening 3.1 
   });
 });
 
-test("E · PACK OPENING 3.0: Prime e Icon por carta (media de las ranuras) estrictamente crecientes en la escalera", () => {
-  const prime = MAIN_PACK_LINE.map((id) => mainPackDistribution(id)!.prime);
-  const icon = MAIN_PACK_LINE.map((id) => mainPackDistribution(id)!.icon);
+test("E · PACK OPENING 3.0 + ICON POR SOBRE: Prime e Icon por carta estrictamente crecientes de Bronce a Champions; ICON = 100 % Icon", () => {
+  const five = MAIN_PACK_LINE.filter((id) => id !== "icon" && id !== "icon-single");
+  const prime = five.map((id) => mainPackDistribution(id)!.prime);
+  const icon = five.map((id) => mainPackDistribution(id)!.icon);
   for (let i = 1; i < prime.length; i++) { assert.ok(prime[i] > prime[i - 1], `prime ${prime}`); assert.ok(icon[i] > icon[i - 1], `icon ${icon}`); }
-  // Bronce: 4 huecos normales (Base 72 % · Plata 25 % · Oro 3 %) + la destacada → media exacta por carta.
+  // 2026-10-09: los dos sobres ICON solo dan Icon.
+  for (const id of ["icon-single", "icon"]) assert.deepEqual([mainPackDistribution(id)!.prime, mainPackDistribution(id)!.icon], [0, 100], id);
+  // Bronce: 4 huecos normales (Base 72 % · Plata 25 % · Oro 3 %) + la destacada (Icon 1 %; el resto, 995 ‰ escalado al 99 %).
   const b = mainPackDistribution("estandar")!;
-  assert.ok(Math.abs(b.base - (4 * 720 + 250) / 50) < 1e-9 && Math.abs(b.prime - 15 / 50) < 1e-9 && Math.abs(b.icon - 5 / 50) < 1e-9, JSON.stringify(b));
+  assert.ok(Math.abs(b.base - (4 * 720 + 990 * 250 / 995) / 50) < 1e-9 && Math.abs(b.prime - (990 * 15 / 995) / 50) < 1e-9 && Math.abs(b.icon - 10 / 50) < 1e-9, JSON.stringify(b));
 });
 
-test("F · Icon: 3 cartas, solo Prime o Icon (dos normales 72/28 y la destacada 50/50)", () => {
-  const icon = getPack("icon")!;
-  assert.equal(icon.cardCount, 3);
-  const d = mainPackDistribution("icon")!;
-  assert.equal(d.base + d.plata + d.oro + d.masters + d.champions, 0);
-  assert.ok(Math.abs(d.prime - 194 / 3) < 1e-9 && Math.abs(d.icon - 106 / 3) < 1e-9);
+test("F · dos sobres ICON (2026-10-09): `icon-single` 1 carta a 30.000 e `icon` 3 cartas a 80.000, siempre Icon", () => {
+  assert.deepEqual([getPack("icon-single")!.cardCount, getPack("icon-single")!.price, getPack("icon")!.cardCount, getPack("icon")!.price], [1, 30000, 3, 80000]);
+  for (const id of ["icon-single", "icon"]) {
+    const d = mainPackDistribution(id)!;
+    assert.equal(d.base + d.plata + d.oro + d.masters + d.champions + d.prime, 0, id);
+    assert.equal(d.icon, 100, id);
+  }
 });
 
 test("G · el catálogo sigue siendo de 331 cartas", () => {
@@ -100,28 +106,32 @@ test("H · EV calculable y coherente para los seis (EV/sobre = EV/carta × carta
 });
 
 test(`I · F80: la banda de F57.4 (±${VALUE_BAND * 100} % de la mediana; Icon ≥ ${ICON_FLOOR} × mediana) ya NO se cumple, y es EXACTAMENTE lo aceptado`, () => {
-  // PACK OPENING 3.0 (2026-10-07): la línea ya no persigue una banda plana. El valor por crédito SUBE estrictamente de
-  // Bronce a Icon (0,50× → 0,83×): ahorrar para un sobre mayor compensa también en valor. La banda F57.4 lo marca (Bronce
-  // y Plata por debajo; Icon «sin prima»): se fija el conjunto exacto para que otro cambio vuelva a romper el test.
+  // PACK OPENING 3.0 (2026-10-07): la línea ya no persigue una banda plana. DOS SOBRES ICON (2026-10-09, precios finales
+  // del propietario): el valor por crédito sube estrictamente de Bronce a Champions (0,54× → 0,79×); el Sobre ICON (0,71×)
+  // entra en la banda; el ICON Premium a 80.000 (0,796×; a 60.000 era 1,06×) queda POR UN 0,6 % por encima de Champions
+  // (0,791×): la regla «sin prima» lo marca por un margen mínimo (a ≥ 80.550 dejaría de marcarlo). Se fija tal cual.
   const out = economyOutliers(cards);
-  assert.deepEqual(out.map((o) => o.split(":")[0]), ["estandar", "premium", "icon"], out.join(" · "));
-  const ratios = MAIN_PACK_LINE.map((id) => packEconomy(id, cards).ratio);
+  assert.deepEqual(out.map((o) => o.split(":")[0]), ["estandar", "icon"], out.join(" · "));
+  assert.match(out[1], /por encima de todos los demás/);
+  const ratios = MAIN_PACK_LINE.filter((id) => id !== "icon" && id !== "icon-single").map((id) => packEconomy(id, cards).ratio);
   for (let i = 1; i < ratios.length; i++) assert.ok(ratios[i] > ratios[i - 1], ratios.map((r) => r.toFixed(3)).join(" < "));
   // (Las comprobaciones con precios F57.4/anteriores se retiraron: medían la distribución F57.3, ya sustituida.)
 });
 
 test("J · coste esperado de top tier: P(≥1) = 1 − (1 − p)^n, no n·p", () => {
-  // Pack Opening 3.0 · con ranuras, P(≥1) = 1 − (1 − p_normal)^(n − 1) · (1 − p_destacada).
+  // Pack Opening 3.0 · con ranuras, P(≥1) = 1 − (1 − p_normal)^(n − 1) · (1 − p_destacada). Icon por sobre (2026-10-09):
+  // la Icon solo vive en la destacada, así que P(≥1 Icon) es EXACTAMENTE la probabilidad configurada por sobre.
+  const want = { estandar: 0.01, premium: 0.05, oro: 0.1, masters: 0.15, champions: 0.2, "icon-single": 1, icon: 1 } as Record<string, number>;
+  for (const id of MAIN_PACK_LINE) assert.ok(Math.abs(packEconomy(id, cards).topTier.icon.pAtLeastOne - want[id]) < 1e-12, `${id}: P(≥1 Icon)`);
   const b = packEconomy("estandar", cards);
-  assert.ok(Math.abs(b.topTier.icon.pAtLeastOne - 0.005) < 1e-12, "Bronce: Icon solo en la destacada (0,5 %)");
-  assert.ok(Math.abs(b.topTier.icon.expectedCost - price("estandar") / 0.005) < 1e-6);
+  assert.ok(Math.abs(b.topTier.icon.expectedCost - price("estandar") / 0.01) < 1e-6);
   const i = packEconomy("icon", cards);
-  assert.ok(Math.abs(i.topTier.prime.pAtLeastOne - (1 - 0.28 * 0.28 * 0.5)) < 1e-12);
-  assert.ok(Math.abs(i.topTier.icon.pAtLeastOne - (1 - 0.72 * 0.72 * 0.5)) < 1e-12);
+  assert.equal(i.topTier.prime.pAtLeastOne, 0);
   assert.equal(i.topTier.primeOrIcon.pAtLeastOne, 1);
-  // El coste por Prime y por Icon BAJA estrictamente al subir de sobre: el camino más barato hacia la élite es Icon.
-  for (const k of ["prime", "icon"] as const) {
-    const cost = MAIN_PACK_LINE.map((id) => packEconomy(id, cards).topTier[k].costPerCard);
-    for (let j = 1; j < cost.length; j++) assert.ok(cost[j] < cost[j - 1], `${k}: ${cost.map(Math.round).join(" > ")}`);
-  }
+  // Coste por Prime: baja estrictamente de Bronce a Champions (los sobres ICON no dan Prime).
+  const primeCost = MAIN_PACK_LINE.filter((id) => id !== "icon" && id !== "icon-single").map((id) => packEconomy(id, cards).topTier.prime.costPerCard);
+  for (let j = 1; j < primeCost.length; j++) assert.ok(primeCost[j] < primeCost[j - 1], `prime: ${primeCost.map(Math.round).join(" > ")}`);
+  // Coste por Icon: los sobres ICON son la vía más barata (Premium 26.667 por Icon < Sobre ICON 30.000); entre los demás ya
+  // no baja: Plata = Oro = 120.000 < Masters 133.333 < Champions 175.000 < Bronce 250.000 (informado, sin cambiar).
+  assert.deepEqual(MAIN_PACK_LINE.map((id) => Math.round(packEconomy(id, cards).topTier.icon.costPerCard)), [250000, 120000, 120000, 133333, 175000, 30000, 26667]);
 });

@@ -25,9 +25,9 @@ const MARKET = read("../../config/features.ts");
 /* ─────────────── 7–8 · idempotencia ─────────────── */
 
 test("7+8 · comprar, abrir y comprar-y-abrir reenvían el `ref` del gesto al servicio (una operación = una clave)", () => {
-  assert.ok(ROUTE.includes("buyPack(session.admin, session.userId, packId, ref)"));
+  assert.ok(ROUTE.includes("buyPack(session.admin, session.userId, packId, ref, undefined, priceOpts)"));
   assert.ok(ROUTE.includes("openPackForUser(session.admin, session.userId, packId, ref)"), "el hueco de 24.x: `open` sin ref");
-  assert.ok(ROUTE.includes("buyAndOpen(session.admin, session.userId, packId, ref)"));
+  assert.ok(ROUTE.includes("buyAndOpen(session.admin, session.userId, packId, ref, undefined, priceOpts)"));
   assert.ok(SERVICE.includes('packOpRef(userId, "open", gesture ?? anonymousGesture())'));
 });
 
@@ -51,8 +51,11 @@ test("12 · saltar solo salta la PRESENTACIÓN: reutiliza `results`, nunca vuelv
 
 test("13+14+45–49 · el cliente no elige carta, serial, rareza ni precio: la ruta solo lee action/packId/ref y el servicio saca el precio del catálogo", () => {
   const bodyFields = [...new Set([...ROUTE.matchAll(/body\.(\w+)/g)].map((m) => m[1]))].sort();
-  assert.deepEqual(bodyFields, ["action", "packId", "ref"]);
-  assert.ok(!/body\.(cardId|serial|rarity|price|credits|seed|cards)/.test(ROUTE));
+  // ICON (2026-10-09) · `expectedPrice`: el precio que el jugador VIO. No decide el cobro (el servicio cobra `pack.price`
+  // del catálogo del servidor); solo lo BLOQUEA con 409 si no coincide (`checkExpectedPrice`).
+  assert.deepEqual(bodyFields, ["action", "expectedPrice", "packId", "ref"]);
+  assert.ok(!/body\.(cardId|serial|rarity|price|credits|seed|cards)\b/.test(ROUTE));
+  assert.ok(SERVICE.includes("const seen = checkExpectedPrice(pack, opts.expectedPrice);") && SERVICE.includes("p_price: pack.price,"));
   assert.ok(SERVICE.includes("randomInt("), "semilla criptográfica en servidor");
   assert.ok(!/seed:\s*body|req\.body/.test(SERVICE));
   assert.ok(SERVICE.includes("guardPublicOpen(pack)"));

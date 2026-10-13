@@ -83,8 +83,9 @@ test("VITRINA · un sobre por rareza enseña el reparto MEDIDO, no el declarado"
 test("VITRINA · Pack Opening 3.0: un sobre de la línea principal enseña su media EXACTA por clase (un decimal), no rarezas", () => {
   const markup = html(<ShopHero pack={PREMIUM} owned={0} credits={0} busy={false} onBuyAndOpen={noop} onBuyOnly={noop} />);
   assert.doesNotMatch(markup, /Reparto real/);
-  // Plata: 5 normales (Plata 82 % · Oro 15 % · Masters 3 %) + la destacada → media por carta; ninguna posible sale como 0 %.
-  for (const [label, p] of [["Plata", "70,8"], ["Oro", "19,1"], ["Masters", "7,3"], ["Champions", "1,7"], ["Prime", "0,8"], ["Icon", "0,3"]] as const) {
+  // Plata: 5 normales (Plata 82 % · Oro 15 % · Masters 3 %) + la destacada (Icon 5 % por sobre desde 2026-10-09) → media
+  // por carta; ninguna posible sale como 0 %.
+  for (const [label, p] of [["Plata", "70,7"], ["Oro", "18,8"], ["Masters", "7,2"], ["Champions", "1,6"], ["Prime", "0,8"], ["Icon", "0,8"]] as const) {
     assert.match(markup, new RegExp(`${label}<span[^>]*>${p} %`), `${label} ${p} %`);
   }
   assert.doesNotMatch(markup, />0 %</);
@@ -95,7 +96,7 @@ test("VITRINA · la garantía se anuncia solo si es verdad", () => {
   assert.match(html(<ShopHero pack={EWC} owned={0} credits={0} busy={false} onBuyAndOpen={noop} onBuyOnly={noop} />), /Champions o Icon garantizada en la carta destacada/);
   assert.match(html(<ShopHero pack={getPack("prime")!} owned={0} credits={0} busy={false} onBuyAndOpen={noop} onBuyOnly={noop} />), /Épica\+ garantizada/);
   assert.doesNotMatch(html(<ShopHero pack={PREMIUM} owned={0} credits={0} busy={false} onBuyAndOpen={noop} onBuyOnly={noop} />), /garantizada/i, "Plata puede dar cualquier clase de Plata a Icon: no garantiza ninguna");
-  assert.match(html(<ShopHero pack={getPack("icon")!} owned={0} credits={0} busy={false} onBuyAndOpen={noop} onBuyOnly={noop} />), /Prime o Icon garantizada/);
+  assert.match(html(<ShopHero pack={getPack("icon")!} owned={0} credits={0} busy={false} onBuyAndOpen={noop} onBuyOnly={noop} />), />Icon garantizada</);
 });
 
 test("VITRINA · la economía se consulta, no abre la tienda", () => {

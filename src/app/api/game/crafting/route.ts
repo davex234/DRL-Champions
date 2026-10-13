@@ -21,7 +21,7 @@ export const dynamic = "force-dynamic";
 
 const NO_STORE = { "cache-control": "no-store" };
 const MAX_BODY = 8_000;
-const ALLOWED = new Set(["action", "recipeId", "uids", "ref"]);
+const ALLOWED = new Set(["action", "recipeId", "uids", "ref", "expectedQty"]);
 const ID = /^[a-z0-9][a-z0-9-]{1,63}$/;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -59,7 +59,10 @@ export async function POST(req: Request) {
     await ensureServerPacks(session.admin);
     if (action === "craftPack") {
       if (body.uids !== undefined) return NextResponse.json({ error: "Campo no permitido", code: "BAD_REQUEST" }, { status: 400, headers: NO_STORE });
-      return send(await craftPack(session.admin, session.userId, recipeId, ref));
+      // ICON (2026-10-09) · la cantidad que el jugador VIO (opcional; entero 2..100): si la receta cambió, 409 sin cobrar.
+      const eq = body.expectedQty;
+      if (eq !== undefined && !(typeof eq === "number" && Number.isInteger(eq) && eq >= 2 && eq <= 100)) return NextResponse.json({ error: "Cantidad inválida", code: "BAD_REQUEST" }, { status: 400, headers: NO_STORE });
+      return send(await craftPack(session.admin, session.userId, recipeId, ref, eq as number | undefined));
     }
     if (action === "craftCard") {
       const uids = Array.isArray(body.uids) && body.uids.length <= 100 && body.uids.every((u) => typeof u === "string" && UUID.test(u)) ? (body.uids as string[]) : null;

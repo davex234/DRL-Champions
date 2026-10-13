@@ -7,6 +7,7 @@
  * servidor (`storeCheckout`). Cualquier otro campo se rechaza —en particular los económicos—, en vez de
  * ignorarlo en silencio. Requiere `Authorization: Bearer <access_token>`; el usuario sale del token.
  */
+import { validExpectedPrice } from "@/domain/packs/priceConfirm";
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
 import { ensureServerPacks } from "@/server/cms/packs";
@@ -18,7 +19,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const MAX_BODY = 1_000;
-const ALLOWED = ["action", "productId", "method", "ref"];
+const ALLOWED = ["action", "productId", "method", "ref", "expectedPrice"];
 const METHODS = new Set(["GAME_CURRENCY", "REAL_MONEY"]);
 const GENERIC = "No se pudo completar la operación";
 const NO_STORE = { "cache-control": "no-store" };
@@ -46,9 +47,11 @@ export async function POST(req: Request) {
   const method = typeof body.method === "string" && METHODS.has(body.method) ? (body.method as "GAME_CURRENCY" | "REAL_MONEY") : null;
   if (!method) return NextResponse.json({ error: "Método de pago inválido" }, { status: 400, headers: NO_STORE });
   const ref = typeof body.ref === "string" && /^[\w:-]{1,128}$/.test(body.ref) ? body.ref : undefined;
+  // ICON (2026-10-09) · el precio que el jugador VIO: si no coincide con el del servidor, 409 sin cobrar.
+  if (!validExpectedPrice(body.expectedPrice)) return NextResponse.json({ error: "Precio inválido" }, { status: 400, headers: NO_STORE });
 
   try {
-    const result = await storeCheckout(session.admin, session.userId, { productId, method, ref });
+    const result = await storeCheckout(session.admin, session.userId, { productId, method, ref, expectedPrice: body.expectedPrice as number | undefined });
     if (!result.ok) {
       if (result.status >= 500 && result.status !== 503) {
         console.error("[store]", result.error);

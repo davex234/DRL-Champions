@@ -33,19 +33,23 @@ test("A · PACK OPENING 3.0: el plan por ranuras (por mil) e inclinación por OV
   // La tabla F57.3 (una sola por carta, uniforme dentro de la clase) se sustituyó el 2026-10-07: el contrato completo vive
   // en `MAIN_PACK_PLAN` y su identidad estadística la fija `src/domain/packs/tierIdentity.test.ts`.
   const z = { base: 0, plata: 0, oro: 0, masters: 0, champions: 0, prime: 0, icon: 0 };
+  // ICON POR SOBRE (2026-10-09): la Icon sale de un sorteo único por sobre (`iconChanceBp`, puntos básicos) y ya no de
+  // las tablas; la destacada es la de 3.0 SIN la Icon (mismos pesos relativos). El Sobre Icon: 1 carta, Icon segura.
   assert.deepEqual(JSON.parse(JSON.stringify(MAIN_PACK_PLAN)), {
-    estandar: { cards: 5, ovrTilt: 0.3, regular: { ...z, base: 720, plata: 250, oro: 30 }, featured: { ...z, base: 250, plata: 400, oro: 200, masters: 100, champions: 30, prime: 15, icon: 5 } },
-    premium: { cards: 6, ovrTilt: 0.22, regular: { ...z, plata: 820, oro: 150, masters: 30 }, featured: { ...z, plata: 150, oro: 395, masters: 290, champions: 100, prime: 50, icon: 15 } },
-    oro: { cards: 5, ovrTilt: 0.12, regular: { ...z, oro: 700, masters: 270, champions: 30 }, featured: { ...z, oro: 200, masters: 350, champions: 220, prime: 150, icon: 80 } },
-    masters: { cards: 5, ovrTilt: 0.03, regular: { ...z, oro: 350, masters: 520, champions: 130 }, featured: { ...z, masters: 300, champions: 290, prime: 260, icon: 150 } },
-    champions: { cards: 5, ovrTilt: 0, regular: { ...z, oro: 200, masters: 330, champions: 400, prime: 70 }, featured: { ...z, champions: 300, prime: 420, icon: 280 } },
-    icon: { cards: 3, ovrTilt: 0, regular: { ...z, prime: 720, icon: 280 }, featured: { ...z, prime: 500, icon: 500 } },
+    estandar: { cards: 5, ovrTilt: 0.3, iconChanceBp: 100, regular: { ...z, base: 720, plata: 250, oro: 30 }, featured: { ...z, base: 250, plata: 400, oro: 200, masters: 100, champions: 30, prime: 15 } },
+    premium: { cards: 6, ovrTilt: 0.22, iconChanceBp: 500, regular: { ...z, plata: 820, oro: 150, masters: 30 }, featured: { ...z, plata: 150, oro: 395, masters: 290, champions: 100, prime: 50 } },
+    oro: { cards: 5, ovrTilt: 0.12, iconChanceBp: 1000, regular: { ...z, oro: 700, masters: 270, champions: 30 }, featured: { ...z, oro: 200, masters: 350, champions: 220, prime: 150 } },
+    masters: { cards: 5, ovrTilt: 0.03, iconChanceBp: 1500, regular: { ...z, oro: 350, masters: 520, champions: 130 }, featured: { ...z, masters: 300, champions: 290, prime: 260 } },
+    champions: { cards: 5, ovrTilt: 0, iconChanceBp: 2000, regular: { ...z, oro: 200, masters: 330, champions: 400, prime: 70 }, featured: { ...z, champions: 300, prime: 420 } },
+    // DOS SOBRES ICON (2026-10-09): todos sus huecos 100 % Icon (la Icon concreta, por la tabla de calidad aprobada).
+    "icon-single": { cards: 1, ovrTilt: 0, regular: { ...z }, featured: { ...z, icon: 1000 } },
+    icon: { cards: 3, ovrTilt: 0, regular: { ...z, icon: 1000 }, featured: { ...z, icon: 1000 } },
   });
 });
 
 test("B · F80: precios y cartas de la línea principal (cartas por sobre de F57.4)", () => {
   assert.deepEqual(MAIN_PACK_LINE.map((id) => [id, getPack(id)!.price, getPack(id)!.cardCount]), [
-    ["estandar", 2500, 5], ["premium", 6000, 6], ["oro", 12000, 5], ["masters", 20000, 5], ["champions", 35000, 5], ["icon", 60000, 3],
+    ["estandar", 2500, 5], ["premium", 6000, 6], ["oro", 12000, 5], ["masters", 20000, 5], ["champions", 35000, 5], ["icon-single", 30000, 1], ["icon", 80000, 3],
   ]);
 });
 
@@ -62,12 +66,10 @@ test("D · desguace = max(5, redondeo(6 % × marketValue)) y ninguna carta lo su
   assert.deepEqual([salvageValue({ variantId: "base", ovr: 70 }), salvageValue({ variantId: "future-star", ovr: 95 }), salvageValue({ variantId: "moments", ovr: 95 })], [5, 1150, 1600]);
 });
 
-test("E · Icon: 60.000 créditos (F80), 3 cartas, solo Prime o Icon (media por carta ≈ 64,7 % / 35,3 %)", () => {
-  const icon = getPack("icon")!;
-  assert.equal(icon.price, 60_000); assert.equal(icon.cardCount, 3);
-  const d = mainPackDistribution("icon")!;
-  assert.ok(Math.abs(d.prime - 194 / 3) < 1e-9 && Math.abs(d.icon - 106 / 3) < 1e-9, JSON.stringify(d));
-  assert.ok(Math.abs(d.prime + d.icon - 100) < 1e-9);
+test("E · dos sobres ICON (2026-10-09): Sobre ICON 30.000 · 1 carta y ICON Premium 80.000 · 3 cartas (id `icon`), 100 % Icon", () => {
+  assert.deepEqual([getPack("icon-single")!.price, getPack("icon-single")!.cardCount], [30_000, 1]);
+  assert.deepEqual([getPack("icon")!.price, getPack("icon")!.cardCount], [80_000, 3]);
+  for (const id of ["icon-single", "icon"]) { const d = mainPackDistribution(id)!; assert.equal(d.icon, 100, id); assert.equal(d.prime, 0, id); }
 });
 
 test("F · catálogo = 331", () => { assert.equal(CARDS.length, 331); });
@@ -146,9 +148,17 @@ test("DOMINANCIA · Pack Opening 3.1: ningún sobre especial comprable domina la
     };
   };
   // PACK OPENING 3.0 (2026-10-07) · la línea ya no busca una banda plana: su valor por crédito sube ESTRICTAMENTE de
-  // Bronce a Icon (ahorrar compensa). Comprobarlo con los precios de F57.4 ya no tiene sentido (otra distribución).
+  // Bronce a Masters (ahorrar compensa). ICON POR SOBRE (2026-10-09) · PENDIENTE DE DECISIÓN DEL PROPIETARIO: con la Icon
+  // de Champions en el 20 % (antes 28 %), Champions rinde lo MISMO que Masters (±1,5 %, medido) y el Sobre Icon de 1 carta a
+  // 60.000 rinde la mitad (≈ 0,40). Se fija lo medido para que cualquier cambio de precio lo haga visible.
   const line = MAIN_PACK_LINE.map((id) => PACK_STATS[id].meanValue / getPack(id)!.price);
-  for (let i = 1; i < line.length; i++) assert.ok(line[i] > line[i - 1], `valor por crédito no creciente en ${MAIN_PACK_LINE[i]}: ${line.map((x) => x.toFixed(3))}`);
+  for (let i = 1; i <= MAIN_PACK_LINE.indexOf("masters"); i++) assert.ok(line[i] > line[i - 1], `valor por crédito no creciente en ${MAIN_PACK_LINE[i]}: ${line.map((x) => x.toFixed(3))}`);
+  const [masters, champions, single, icon] = ["masters", "champions", "icon-single", "icon"].map((id) => line[MAIN_PACK_LINE.indexOf(id)]);
+  assert.ok(Math.abs(champions / masters - 1) < 0.015, `Champions ≈ Masters: ${champions} vs ${masters}`);
+  // DOS SOBRES ICON (2026-10-09, precios finales): Sobre ICON ≈ 0,71; ICON Premium a 80.000 ≈ 0,80 (a 60.000 era 1,06,
+  // el mejor de la tienda): ahora al nivel de Masters/Champions (±2 %). Se fija lo medido.
+  assert.ok(single > 0.69 && single < 0.73, `Sobre ICON: ${single}`);
+  assert.ok(icon > 0.78 && icon < 0.81 && Math.abs(icon / champions - 1) < 0.02, `ICON Premium: ${icon}`);
   // F80 dejó a TODOS los especiales comprables dominando la línea (5–6× su valor por crédito). PACK OPENING 3.1 lo cierra:
   // ninguno domina, y ninguno rinde por crédito más que el Sobre Plata (su ventaja es el targeting, no el valor).
   const now = dominantWith((id) => getPack(id)!.price);

@@ -109,12 +109,21 @@ export async function getCraftingState(sb: SupabaseClient, userId: string): Prom
 
 export interface PackCraftResult { recipeId: string; inputs: { packId: string; qty: number }[]; outputs: { packId: string; qty: number }[]; inventory: Record<string, number>; repeated: boolean }
 
-export async function craftPack(sb: SupabaseClient, userId: string, recipeId: string, gesture?: string): Promise<ServiceOut<PackCraftResult>> {
-  const cfg = await loadF73Config(sb);
+export async function craftPack(sb: SupabaseClient, userId: string, recipeId: string, gesture?: string, expectedQty?: number): Promise<ServiceOut<PackCraftResult>> {
+  // Con `expectedQty`, lectura FRESCA (sin la caché de 5 s): comparar con una receta en caché dejaría pasar una cantidad vieja.
+  const cfg = await loadF73Config(sb, expectedQty !== undefined ? { fresh: true } : undefined);
   if (!cfg.available) return fail(503, "El crafteo aún no está disponible", "MIGRATION_PENDING");
   const recipe = cfg.recipes.find((r) => r.id === recipeId);
   if (!recipe) return fail(404, "Esa receta no existe", "RECIPE_NOT_FOUND");
   if (recipe.kind !== "PACK") return fail(400, "Esa receta no es de sobres", "RECIPE_KIND");
+  /*
+   * ICON (2026-10-09) · la receta se lee de la BD al craftear (`app_craft_pack` descuenta `input_qty` de su fila). Si el
+   * jugador confirmó viendo OTRA cantidad (p. ej. «2 Champions» antes de pasar a 3:1), se rechaza ANTES de tocar nada:
+   * nunca se descuentan más sobres de los que vio. Sin `expectedQty` (clientes antiguos), el comportamiento de siempre.
+   */
+  if (expectedQty !== undefined && expectedQty !== recipe.inputQty) {
+    return fail(409, `La receta ha cambiado: ahora son ${recipe.inputQty} sobres. Revísala y vuelve a confirmar.`, "RECIPE_CHANGED");
+  }
   const ref = craftRef("pack", userId, gesture ?? randomUUID());
   const { data, error } = await sb.rpc("app_craft_pack", { p_user: userId, p_recipe: recipeId, p_ref: ref });
   if (error) return rpcFail(error, "pack");

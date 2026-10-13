@@ -106,7 +106,8 @@ test("contrato: la ruta de estado del starter es GET puro (sin POST) y sale del 
 test("contrato: la ruta de sobres sigue siendo solo POST y su cuerpo no cambia", () => {
   const route = read("src/app/api/game/packs/route.ts");
   assert.doesNotMatch(route, /export async function GET/);
-  assert.match(route, /const ALLOWED = \["action", "packId", "ref"\];/);
+  // ICON (2026-10-09) · `expectedPrice` (el precio visto) solo puede bloquear el cobro, nunca decidirlo.
+  assert.match(route, /const ALLOWED = \["action", "packId", "ref", "expectedPrice"\];/);
 });
 
 test("contrato: la tienda de créditos exige el interruptor de servidor para conceder", () => {

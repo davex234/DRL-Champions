@@ -49,7 +49,8 @@ test("F73 SEC3 · 0059 no toca la economía existente: ni precios, ni desguace, 
 
 test("F73 SEC4 · rutas: el cliente no manda userId, cantidades, carta de salida ni progreso", () => {
   const craft = read("src/app/api/game/crafting/route.ts"), missions = read("src/app/api/game/missions/route.ts");
-  assert.ok(craft.includes('new Set(["action", "recipeId", "uids", "ref"])'));
+  // ICON (2026-10-09) · `expectedQty`: los sobres que el jugador VIO; solo puede BLOQUEAR (409) si la receta cambió.
+  assert.ok(craft.includes('new Set(["action", "recipeId", "uids", "ref", "expectedQty"])'));
   assert.ok(missions.includes('new Set(["action", "missionId", "projectId"])'));
   assert.ok(!/userId|progress|cardId|qty|output/.test(code(craft).replace(/session\.userId/g, "").replace(/recipeId|craftCard|craftPack/g, "")), "sin campos de autoridad en crafteo");
   assert.ok(!/"(addProgress|progress|complete|event)"/.test(missions), "no existe acción para sumar progreso desde el cliente");

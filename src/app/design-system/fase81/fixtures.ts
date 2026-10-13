@@ -8,7 +8,7 @@ import type { OpenedResult } from "@/store/useGameStore";
 
 export type F81Scene = "normal" | "high" | "tie2" | "tieall" | "dup" | "single" | "invalid" | "plata-ref" | "team-g2"
   // WALKOUT 0.5 · aperturas con cartas especiales REALES (identidad = la de la carta: país, equipo, rol, edición, OVR)
-  | "w-tr" | "w-jp" | "w-us" | "w-kr" | "w-mega" | "w-dup" | "w-std" | "w-ph";
+  | "w-tr" | "w-jp" | "w-us" | "w-kr" | "w-mega" | "w-dup" | "w-std" | "w-ph" | "w-icon" | "w-icon3";
 
 /** WALKOUT 0.5 · escenas del walkout en la apertura real (los ids existen en el catálogo; si no, la escena falla en el test). */
 export const WALKOUT_SCENES: Readonly<Record<Extract<F81Scene, `w-${string}`>, { packId: string; ids: readonly string[]; note: string }>> = {
@@ -16,10 +16,15 @@ export const WALKOUT_SCENES: Readonly<Record<Extract<F81Scene, `w-${string}`>, {
   "w-jp": { packId: "oro", ids: ["absol__future-star", "aspas__base", "sato__base", "leaf__base", "trent__base"], note: "Japón · Future Star 87 (WALKOUT) que NO es la hero (Base 90)" },
   "w-us": { packId: "masters", ids: ["reduxx__future-star", "sato__base", "trent__champions-s", "leaf__base", "aspas__base"], note: "EE. UU. · Champions S 92 (RARE, hero) + Future Star 90 (WALKOUT)" },
   "w-kr": { packId: "masters", ids: ["sato__base", "xross__future-star", "leaf__base", "aspas__base", "trent__base"], note: "Corea · Future Star 95 (WALKOUT)" },
-  "w-mega": { packId: "icon", ids: ["xross__future-star", "marteen__record-breaker", "mada__moments"], note: "Icon · 3 especiales: 2 MEGA (CZ, CA) + 1 WALKOUT (KR)" },
+  // Icon por sobre (2026-10-09): un sobre lleva como mucho UNA Icon y el Sobre Icon es de 1 carta, así que la cola de varios
+  // walkouts se enseña con un Champions alcanzable (Prime en huecos normales, Icon en la destacada).
+  "w-mega": { packId: "champions", ids: ["xross__future-star", "timotino__future-star", "buzz__champions-s", "meteor__champions-s", "marteen__record-breaker"], note: "Champions · 5 especiales: 1 MEGA (CZ) + 2 WALKOUT (KR, CA) + 2 RARE (KR)" },
   "w-dup": { packId: "champions", ids: ["s0pp__champions-s", "sato__base", "buzz__champions-s", "s0pp__champions-s", "leaf__base"], note: "Champions · 3 RARE con una repetida (TR ×2, KR)" },
   // WALKOUT 0.8 · el caso reportado en producción (PATMEN Record Breaker 92, Filipinas) seguido de una turca: cada walkout con SU país
-  "w-ph": { packId: "icon", ids: ["patmen__record-breaker", "lar0k__future-star", "mada__moments"], note: "Icon · Filipinas MEGA (el caso reportado) → Turquía WALKOUT → Canadá MEGA" },
+  "w-ph": { packId: "champions", ids: ["patmen__record-breaker", "lar0k__future-star", "timotino__future-star", "s0pp__champions-s", "krostaly__champions-s"], note: "Champions · Filipinas MEGA (el caso reportado) → Turquía WALKOUT → Canadá WALKOUT (+2 RARE TR)" },
+  // ICON (2026-10-09): los dos sobres ICON reales. Sobre ICON (1 carta) → un MEGA; Premium (3) → tres MEGA seguidos.
+  "w-icon": { packId: "icon-single", ids: ["patmen__record-breaker"], note: "Sobre ICON · 1 carta: Filipinas MEGA" },
+  "w-icon3": { packId: "icon", ids: ["patmen__record-breaker", "marteen__record-breaker", "mada__moments"], note: "Sobre ICON Premium · 3 MEGA seguidos (PH, CZ, CA)" },
   "w-std": { packId: "estandar", ids: ["sato__base", "leaf__base", "aspas__base", "trent__base", "suygetsu__base"], note: "Sin especiales: la apertura de siempre (control)" },
 };
 
@@ -38,7 +43,7 @@ const tieGroup = (min: number): CardDef[] => {
 export function f81Scene(scene: F81Scene): { packId: string; cards: CardDef[] } {
   switch (scene) {
     case "normal": return { packId: "estandar", cards: (() => { const d = distinct(70, 5); return [d[1], d[3], d[0], d[4], d[2]]; })() };
-    case "high": return { packId: "icon", cards: byOvr.slice(-3).reverse().slice(0, 3).sort((a, b) => a.id.localeCompare(b.id)) };
+    case "high": return { packId: "champions", cards: byOvr.slice(-5).reverse().slice(0, 5).sort((a, b) => a.id.localeCompare(b.id)) };
     case "tie2": { const t = tieGroup(2); const low = byOvr.filter((c) => c.ovr < t[0].ovr).slice(-3); return { packId: "oro", cards: [low[0], t[0], low[1], t[1], low[2]] }; }
     case "tieall": return { packId: "masters", cards: tieGroup(5).slice(0, 5) };
     case "dup": { const d = distinct(78, 5); return { packId: "premium", cards: [d[0], d[2], d[4], d[2], d[1], d[3]] }; }
@@ -48,7 +53,7 @@ export function f81Scene(scene: F81Scene): { packId: string; cards: CardDef[] } 
     // Pack Opening 3.0 · el Sobre Plata real del 2026-10-07 (mismas 6 cartas, solo para ver el resultado: no es un sorteo).
     // Pack Opening 3.1 · un sobre de EQUIPO (G2): 5 cartas reales de su pool (Americas), dos de ellas de G2.
     case "team-g2": return { packId: "team-g2", cards: ["leaf__base", "trent__base", "valyn__base", "jawgemo__masters-l", "zekken__base"].map((id) => CARDS.find((c) => c.id === id) ?? CARDS.find((c) => c.id.startsWith(id.split("__")[0] + "__"))!).filter(Boolean) };
-    case "w-tr": case "w-jp": case "w-us": case "w-kr": case "w-mega": case "w-dup": case "w-std": case "w-ph": {
+    case "w-tr": case "w-jp": case "w-us": case "w-kr": case "w-mega": case "w-dup": case "w-std": case "w-ph": case "w-icon": case "w-icon3": {
       const w = WALKOUT_SCENES[scene];
       return { packId: w.packId, cards: w.ids.map((id) => { const c = CARDS.find((x) => x.id === id); if (!c) throw new Error(`escena ${scene}: ${id} no está en el catálogo`); return c; }) };
     }
@@ -60,4 +65,4 @@ export function f81Results(scene: F81Scene): OpenedResult[] {
   return f81Scene(scene).cards.map((card, i) => ({ uid: `f81-qa-${scene}-${i}`, card, isNew: true, value: 0, mintedVersion: 1 }));
 }
 
-export const F81_SCENES: F81Scene[] = ["normal", "high", "tie2", "tieall", "dup", "single", "invalid", "plata-ref", "team-g2", "w-tr", "w-jp", "w-us", "w-kr", "w-mega", "w-dup", "w-std", "w-ph"];
+export const F81_SCENES: F81Scene[] = ["normal", "high", "tie2", "tieall", "dup", "single", "invalid", "plata-ref", "team-g2", "w-tr", "w-jp", "w-us", "w-kr", "w-mega", "w-dup", "w-std", "w-ph", "w-icon", "w-icon3"];

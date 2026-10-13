@@ -85,15 +85,53 @@ for (const id of MAIN_PACK_LINE) {
   });
 }
 
-test("SERVIDOR · Icon: cada apertura persiste EXACTAMENTE 3 filas (Fase 57.4), Future Star / Record Breaker / Moments, y consume 1 sobre", async () => {
-  const db = world({ icon: 40 });
-  for (let i = 0; i < 40; i++) {
-    const before = db.rows("user_cards").length;
-    const r = await openPackForUser(db.client, U, "icon", `g-icon-one-${i}`);
-    assert.ok(r.ok, r.ok ? "" : r.error);
-    assert.equal(r.data.opened.length, 3);
-    assert.equal(db.rows("user_cards").length - before, 3);
-    for (const c of r.data.opened) assert.ok(["future-star", "record-breaker", "moments"].includes(getCard(c.cardId)!.variantId));
+for (const [id, n] of [["icon-single", 1], ["icon", 3]] as const) {
+  test(`SERVIDOR · ${id} (2026-10-09): cada apertura persiste EXACTAMENTE ${n} fila(s), todas Record Breaker o Moments, y consume 1 sobre`, async () => {
+    const db = world({ [id]: 40 });
+    for (let i = 0; i < 40; i++) {
+      const before = db.rows("user_cards").length;
+      const r = await openPackForUser(db.client, U, id, `g-${id}-${i}`);
+      assert.ok(r.ok, r.ok ? "" : r.error);
+      assert.equal(r.data.opened.length, n);
+      assert.equal(db.rows("user_cards").length - before, n);
+      for (const c of r.data.opened) {
+        assert.ok(["record-breaker", "moments"].includes(getCard(c.cardId)!.variantId));
+        assert.ok(db.rows("user_cards").some((row) => row.uid === c.uid && row.card_id === c.cardId), "lo devuelto es lo persistido");
+      }
+    }
+    assert.equal(db.rows("user_packs")[0].qty, 0);
+  });
+}
+
+test("SERVIDOR · COMPATIBILIDAD: un sobre `icon` adquirido ANTES (fila user_packs existente) se abre con sus 3 cartas ICON", async () => {
+  // El inventario de producción guarda el id; el id histórico se conserva, así que un sobre comprado a 60.000 (o recibido
+  // por `s-collect` o por la receta Champions → Icon) sigue siendo un ICON Premium de 3 cartas al abrirlo.
+  const db = world({ icon: 2 });
+  const r = await openPackForUser(db.client, U, "icon", "legacy-icon-1");
+  assert.ok(r.ok, r.ok ? "" : r.error);
+  assert.equal(r.data.opened.length, 3);
+  assert.equal(db.rows("user_packs")[0].qty, 1, "consume uno, conserva el otro");
+  const again = await openPackForUser(db.client, U, "icon", "legacy-icon-1");
+  assert.ok(again.ok && again.data.repeated, "reintento idempotente");
+  assert.deepEqual(again.ok ? again.data.opened.map((c) => c.uid) : [], r.data.opened.map((c) => c.uid));
+  assert.equal(db.rows("user_cards").length, 3, "sin cartas de más");
+});
+
+test("SERVIDOR · Icon por sobre (2026-10-09): en Bronce…Champions, como mucho UNA Icon por apertura; lo devuelto = lo persistido en el inventario", async () => {
+  for (const id of MAIN_PACK_LINE.filter((x) => x !== "icon" && x !== "icon-single")) {
+    const db = world({ [id]: 120 });
+    let withIcon = 0;
+    for (let i = 0; i < 120; i++) {
+      const r = await openPackForUser(db.client, U, id, `g-icon-chance-${id}-${i}`);
+      assert.ok(r.ok, r.ok ? "" : r.error);
+      const icons = r.data.opened.filter((c) => packCardClass(getCard(c.cardId)!) === "icon");
+      assert.ok(icons.length <= 1, `${id}: ${icons.length} Icon`);
+      if (icons.length) withIcon++;
+      // Cada carta devuelta es una fila PERSISTIDA del usuario con el mismo uid y la misma carta.
+      for (const c of r.data.opened) assert.ok(db.rows("user_cards").some((row) => row.uid === c.uid && row.card_id === c.cardId && row.user_id === U), `${id}: ${c.uid}`);
+    }
+    assert.equal(db.rows("user_cards").length, 120 * getPack(id)!.cardCount, `${id}: ni una carta de más`);
+    assert.equal(db.rows("user_packs")[0].qty, 0, `${id}: un sobre por apertura`);
+    if (id === "champions") assert.ok(withIcon > 0, "hubo alguna Icon en 120 Champions");
   }
-  assert.equal(db.rows("user_packs")[0].qty, 0);
 });

@@ -67,6 +67,8 @@ export const PACK_ART_AVAILABLE = new Set<string>([
   "inicial", "estandar", "premium", "oro", "prime",
   // Competición / colección
   "masters", "champions", "ewc", "icon",
+  // ICON (2026-10-09) · el Sobre ICON de 1 carta lleva, por ahora, una COPIA del arte del Sobre ICON Premium (sin arte propio).
+  "icon-single",
   // Regionales
   "emea", "americas", "pacific", "china",
   // Equipos — los cuatro de la Fase 20 y los dos que activó el arte oficial (Liquid, Karmine).

@@ -52,6 +52,8 @@ export const STORE_CATALOG: StoreCatalogConfig = {
     /* Oro cierra la gama base, justo detrás de Bronce y Plata. */
     { id: "oro", packId: "oro", enabled: true, sortOrder: 30, purchaseMode: "BOTH", realMoneyPrice: null },
     { id: "champions", packId: "champions", enabled: true, sortOrder: 30, purchaseMode: "BOTH", realMoneyPrice: null, badge: "NEW" },
+    /* ICON (2026-10-09) · dos sobres ICON: 1 carta a 30.000 (nuevo) y 3 cartas a 80.000 (el `icon` de siempre). */
+    { id: "icon-single", packId: "icon-single", enabled: true, sortOrder: 39, purchaseMode: "BOTH", realMoneyPrice: null },
     { id: "icon", packId: "icon", enabled: true, sortOrder: 40, purchaseMode: "BOTH", realMoneyPrice: null },
     { id: "masters", packId: "masters", enabled: true, sortOrder: 50, purchaseMode: "BOTH", realMoneyPrice: null },
     { id: "ewc", packId: "ewc", enabled: true, sortOrder: 60, purchaseMode: "BOTH", realMoneyPrice: null },

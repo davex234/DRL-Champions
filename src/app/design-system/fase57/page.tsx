@@ -21,7 +21,7 @@ import { CardReveal } from "@/components/packs/CardReveal";
 import { PackHand, type HandSlot } from "@/components/packs/PackHand";
 import { PackSummary } from "@/components/packs/PackSummary";
 import { getPack as _gp } from "@/data/packs";
-import { ICON3, LEGENDARY_IN, MIXED, SIX, ALL_DUP, single, ONE_COMMON, RARE, EPIC, LEGEND, type PlanFixture } from "./fixtures";
+import { ICON_PACK, LEGENDARY_IN, MIXED, SIX, ALL_DUP, single, ONE_COMMON, RARE, EPIC, LEGEND, type PlanFixture } from "./fixtures";
 
 const CAT = { cards: CARDS, getCard, getPlayer };
 const STD = _gp("estandar")!;
@@ -38,22 +38,22 @@ const SCENES: Record<string, Scene> = {
   "01c-sealed-team": { kind: "stage", note: "sobre sellado · sobre de equipo", pack: "team-heretics", stage: "ready" },
   "01d-sealed-procedural": { kind: "stage", note: "sobre sin arte (procedimental)", pack: "team-loud", stage: "ready" },
   "02-anticipation": { kind: "stage", note: "anticipación: petición enviada, sin rareza", pack: "icon", stage: "requesting" },
-  "03-tearing": { kind: "stage", note: "apertura: la solapa del propio arte se rasga", pack: "icon", stage: "opening", plan: ICON3, beat: "tear" },
-  "04-emerging": { kind: "stage", note: "las cartas salen del sobre", pack: "icon", stage: "opening", plan: ICON3, beat: "emerge" },
-  "05-face-down": { kind: "stage", note: "cartas boca abajo (la mejor es legendaria: corona)", pack: "icon", stage: "hand", plan: ICON3 },
+  "03-tearing": { kind: "stage", note: "apertura: la solapa del propio arte se rasga", pack: "icon", stage: "opening", plan: ICON_PACK, beat: "tear" },
+  "04-emerging": { kind: "stage", note: "las cartas salen del sobre", pack: "icon", stage: "opening", plan: ICON_PACK, beat: "emerge" },
+  "05-face-down": { kind: "stage", note: "cartas boca abajo (legendarias: corona)", pack: "icon", stage: "hand", plan: ICON_PACK },
   "05b-face-down-6": { kind: "stage", note: "cartas boca abajo · otro tamaño de sobre", pack: "premium", stage: "hand", plan: SIX },
-  "06a-idle": { kind: "reveal", note: "carta boca abajo esperando el gesto", pack: "icon", plan: ICON3, index: 0, revealed: false, armed: false },
+  "06a-idle": { kind: "reveal", note: "carta boca abajo esperando el gesto", pack: "icon", plan: ICON_PACK, index: 0, revealed: false, armed: false },
   "06-reveal-common": { kind: "reveal", note: "común revelada", pack: "estandar", plan: ONE_COMMON, index: 0, revealed: true, armed: true },
   "07-reveal-rare": { kind: "reveal", note: "rara revelada", pack: "premium", plan: single(RARE), index: 0, revealed: true, armed: true },
   "08a-epic-charging": { kind: "reveal", note: "épica: anticipación (sala a oscuras, energía)", pack: "oro", plan: single(EPIC), index: 0, revealed: false, armed: true },
   "08-reveal-epic": { kind: "reveal", note: "épica revelada", pack: "oro", plan: single(EPIC), index: 0, revealed: true, armed: true },
   "09a-max-charging": { kind: "reveal", note: "legendaria: anticipación máxima", pack: "icon", plan: single(LEGEND), index: 0, revealed: false, armed: true },
   "09-reveal-max": { kind: "reveal", note: "legendaria revelada (momento máximo)", pack: "icon", plan: single(LEGEND), index: 0, revealed: true, armed: true },
-  "10-summary": { kind: "summary", note: "resultado del sobre · quedan 2", pack: "icon", plan: ICON3, available: 2 },
+  "10-summary": { kind: "summary", note: "resultado del sobre · quedan 2", pack: "icon", plan: ICON_PACK, available: 2 },
   "11-duplicate": { kind: "reveal", note: "duplicada ×3", pack: "estandar", plan: MIXED, index: 0, revealed: true, armed: true },
   "11b-summary-duplicates": { kind: "summary", note: "resumen con duplicadas", pack: "estandar", plan: ALL_DUP, available: 0 },
   "13-reduced-sealed": { kind: "stage", note: "movimiento reducido · sellado", pack: "icon", stage: "ready", reduced: true },
-  "13b-reduced-hand": { kind: "stage", note: "movimiento reducido · boca abajo", pack: "icon", stage: "hand", plan: ICON3, reduced: true },
+  "13b-reduced-hand": { kind: "stage", note: "movimiento reducido · boca abajo", pack: "icon", stage: "hand", plan: ICON_PACK, reduced: true },
   "13c-reduced-reveal": { kind: "reveal", note: "movimiento reducido · legendaria", pack: "icon", plan: single(LEGEND), index: 0, revealed: true, armed: true, reduced: true },
 };
 

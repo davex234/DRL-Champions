@@ -30,6 +30,7 @@
  *     reintento —cada intento sería una clave distinta— pero garantiza que la RPC nunca
  *     se llama sin ella y que la operación queda registrada en `economy_ops`.
  */
+import { checkExpectedPrice } from "@/domain/packs/priceConfirm";
 import { randomInt, randomUUID } from "node:crypto";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getPack } from "@/data/packs";
@@ -90,6 +91,7 @@ const anonymousGesture = () => randomUUID();
 export async function buyPack(
   sb: SupabaseClient, userId: string, packId: string, gesture?: string,
   resolve: PackResolver = getPack,
+  opts: { expectedPrice?: number } = {},
 ): Promise<ServiceResult<{ credits: number; packId: string; qty: number }>> {
   const pack = resolve(packId);
   // Fase 20.4 — AUTORIDAD DE ESTADO EN SERVIDOR, antes de tocar la economía: solo un sobre
@@ -102,6 +104,9 @@ export async function buyPack(
   // límites derivados de la línea principal no se vende, diga lo que diga la tienda o el cuerpo de la petición.
   const econ = economySellable(pack);
   if (!econ.ok) return fail(econ.reason, 409);
+  // ICON (2026-10-09) · nunca se cobra un precio distinto del que el jugador vio (`./priceConfirm`): 409 sin cobrar.
+  const seen = checkExpectedPrice(pack, opts.expectedPrice);
+  if (!seen.ok) return fail(seen.error, seen.status);
 
   /*
    * FASE 41 · UN SOBRE GRATIS NO ES UN GRIFO. Precio 0 solo existe para la asistencia de primer equipo: el servidor
@@ -320,6 +325,7 @@ export async function openPackForUser(
 export async function buyAndOpen(
   sb: SupabaseClient, userId: string, packId: string, gesture?: string,
   resolve: PackResolver = getPack,
+  opts: { expectedPrice?: number } = {},
 ): Promise<ServiceResult<OpenPackData>> {
   const g = gesture ?? anonymousGesture();
   // Fase 41 · reintento de un gesto ya ABIERTO: se devuelve lo guardado sin volver a comprar (con el Sobre Inicial
@@ -328,7 +334,7 @@ export async function buyAndOpen(
     const prior = await storedOpen(sb, userId, packOpRef(userId, "open", gesture), packId);
     if (prior) return prior;
   }
-  const bought = await buyPack(sb, userId, packId, g, resolve);
+  const bought = await buyPack(sb, userId, packId, g, resolve, opts);
   if (!bought.ok) return bought;
   return openPackForUser(sb, userId, packId, g, resolve);
 }

@@ -21,9 +21,10 @@ import { resolveAntiDup } from "./antidup";
 import { pickWeighted, DEFAULT_WEIGHT } from "./weighted";
 import type { PackDistribution } from "./distribution";
 import {
-  packPlan, packCardClass, ovrTiltWeight, PACK_CLASS_ORDER, EmptyPackClassError,
+  packPlan, planTemplate, packCardClass, ovrTiltWeight, withoutIcon, PACK_CLASS_ORDER, EmptyPackClassError,
   type ClassTable, type MainPackPlan, type PackCardClass,
 } from "./packClass";
+import { iconQualityWeightOf } from "./iconQuality";
 
 /** Una carta DECIDIDA por el drop (aún sin acuñar). */
 export interface DropDecision {
@@ -281,16 +282,58 @@ function openByClass(registry: CardRegistry, pack: PackDef, ctx: DecideContext, 
   const policy = pack.antiDuplicate ?? "allow";
   const drawn = new Set<string>();
 
+  /*
+   * ICON POR SOBRE (2026-10-09) · con `iconChanceBp`, la Icon se decide UNA vez por sobre, antes de los huecos, y solo
+   * puede ocupar la destacada. Ningún hueco sortea Icon por su tabla (`withoutIcon`): un negativo es un sobre sin Icon.
+   * Una Icon posible sin cartas Icon en el pool aborta igual que cualquier clase vacía (fallo cerrado), salga o no.
+   */
+  const iconRuled = plan.iconChanceBp !== undefined;
+  if (iconRuled && plan.iconChanceBp! > 0 && pools.icon.length === 0) throw new EmptyPackClassError(pack.id, "icon");
+  const hasIcon = iconRuled ? rollBasisPoints(rng, plan.iconChanceBp!) : false;
+  // Calidad del Sobre Icon: solo con una tabla APROBADA (`./iconQuality`); si no, la regla de siempre de su clase.
+  // Perezosa: solo cuando de verdad sale una Icon (una clase vacía falla antes, como `EmptyPackClassError`).
+  let iconWeight: ((c: CardDef) => number) | null = null;
+  const iconWeightOf = (c: CardDef) => (iconWeight ??= iconQualityWeightOf(planTemplate(pack.id), pools.icon, weightOf))(c);
+
+  // La cantidad de cartas la fija el PLAN (= `cardCount` en todo sobre de código; un sobre del panel hereda la de su plantilla).
+  const slots = plan.cards;
   const decisions: DropDecision[] = [];
-  for (let i = 0; i < pack.cardCount; i++) {
-    const table = i === pack.cardCount - 1 ? plan.featured : plan.regular;
-    const k = rollClass(pack.id, table, pools, rng);
+  for (let i = 0; i < slots; i++) {
+    const featured = i === slots - 1;
+    const table = featured ? plan.featured : plan.regular;
+    const k: PackCardClass = featured && hasIcon ? "icon" : rollClass(pack.id, iconRuled ? withoutIcon(table) : table, pools, rng);
     const candidates = repeatable ? pools[k] : pools[k].filter((c) => !drawn.has(c.id));
     if (candidates.length === 0) throw new EmptyPackClassError(pack.id, k);
-    const rawCard = pickWeighted(candidates, weightOf, rng);
+    const rawCard = pickWeighted(candidates, k === "icon" ? iconWeightOf : weightOf, rng);
     const { card, compensated } = resolveAntiDup(policy, rawCard, candidates, candidates, ctx.owned, registry, rng);
     drawn.add(card.id);
     decisions.push({ card, bucket: bucketForRank(registry.variant(card.variantId).rank), compensated, byPity: false });
   }
   return { decisions, pityAfter: ctx.pity };
 }
+
+/* ═══════════════════════ ICON POR SOBRE · SORTEO EXACTO (2026-10-09) ═══════════════════════ */
+
+const U32 = 4294967296;
+/** Mayor múltiplo de 10.000 que cabe en 2^32: 429.496 × 10.000. Por encima se rechaza la tirada. */
+export const BP_LIMIT = 4294960000;
+
+/**
+ * `true` con probabilidad EXACTA `bp / 10.000` (bp entero 0..10.000).
+ *
+ * Demostración: `rng.next()` del motor (mulberry32) devuelve k / 2^32 con k entero en [0, 2^32), así que
+ * `x = floor(next() · 2^32) = k` sin redondeo. Si x ≥ BP_LIMIT se vuelve a tirar (probabilidad 7.296 / 2^32 ≈ 1,7·10⁻⁶).
+ * Condicionado a x < BP_LIMIT, x es uniforme en [0, BP_LIMIT) y BP_LIMIT es múltiplo de 10.000, de modo que x mod 10.000
+ * es uniforme en [0, 10.000): P(x mod 10.000 < bp) = bp / 10.000 exactamente (para un generador uniforme). Sin rechazo,
+ * `next() < p` daría ⌈p · 2^32⌉ / 2^32, que no es p (2^32 no es divisible por 100). 0 y 10.000 no consumen tirada.
+ */
+export function rollBasisPoints(rng: Rng, bp: number): boolean {
+  if (!Number.isInteger(bp) || bp < 0 || bp > 10000) throw new RangeError(`probabilidad en puntos básicos inválida: ${bp}`);
+  if (bp === 0) return false;
+  if (bp === 10000) return true;
+  for (;;) {
+    const x = Math.floor(rng.next() * U32);
+    if (x < BP_LIMIT) return x % 10000 < bp;
+  }
+}
+

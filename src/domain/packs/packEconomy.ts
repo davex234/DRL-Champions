@@ -15,8 +15,9 @@ import type { CardDef } from "../cards/types";
 import { marketValue } from "../economy/pricing";
 import { salvageValue } from "../economy/salvage";
 import { getPack } from "@/data/packs";
-import { mainPackDistribution, mainPackPlan, ovrTiltWeight, packCardClass, PACK_CLASS_ORDER, MAIN_PACK_LINE, type PackCardClass } from "./packClass";
+import { effectiveFeatured, mainPackDistribution, mainPackPlan, ovrTiltWeight, packCardClass, PACK_CLASS_ORDER, MAIN_PACK_LINE, ICON_PACK_IDS, isIconPack, type PackCardClass } from "./packClass";
 import { tierIdentity, type ClassPools } from "./tierIdentity";
+import { iconQualityWeightOf } from "./iconQuality";
 
 export interface ValueStats { n: number; min: number; p25: number; median: number; mean: number; p75: number; p90: number; max: number }
 
@@ -73,22 +74,24 @@ export function packEconomy(packId: string, cards: readonly CardDef[], price = g
   const pack = getPack(packId);
   if (!table || !plan || !pack) throw new Error(`${packId} no es de la línea principal`);
   const pools = Object.fromEntries(PACK_CLASS_ORDER.map((k) => [k, cards.filter((c) => packCardClass(c) === k)])) as Record<PackCardClass, CardDef[]>;
+  // Sobre Icon: la tabla de calidad si está APROBADA (`./iconQuality`); si no, peso 1 (la regla de siempre).
+  const quality = iconQualityWeightOf<CardDef>(packId, pools.icon, () => 1);
   // Valor medio de cada clase EN ESTE SOBRE: ponderado por la inclinación por OVR del sobre (λ = 0 → media simple).
   const mv = {} as Record<PackCardClass, number>;
   for (const k of PACK_CLASS_ORDER) {
     const cs = pools[k];
-    const w = cs.map((c) => ovrTiltWeight(plan.ovrTilt, c.ovr));
+    const w = cs.map((c) => ovrTiltWeight(plan.ovrTilt, c.ovr) * quality(c));
     const tw = w.reduce((a, b) => a + b, 0);
     mv[k] = cs.length && tw > 0 ? cs.reduce((a, c, i) => a + w[i] * marketValue(c), 0) / tw : 0;
   }
   const n = pack.cardCount;
-  const ev = tierIdentity(plan, pools as ClassPools, marketValue);
-  const salv = tierIdentity(plan, pools as ClassPools, salvageValue);
+  const ev = tierIdentity(plan, pools as ClassPools, marketValue, quality);
+  const salv = tierIdentity(plan, pools as ClassPools, salvageValue, quality);
   // Al menos una de una clase, exacto con ranuras: 1 − (1 − normal)^(n − 1) · (1 − destacada).
   const sumOf = (t: typeof plan.regular) => PACK_CLASS_ORDER.reduce((a, k) => a + t[k], 0) || 1;
   const atLeast = (ks: PackCardClass[]) => {
     const r = ks.reduce((a, k) => a + plan.regular[k], 0) / sumOf(plan.regular);
-    const f = ks.reduce((a, k) => a + plan.featured[k], 0) / sumOf(plan.featured);
+    const f = ks.reduce((a, k) => a + effectiveFeatured(plan)[k], 0) / sumOf(effectiveFeatured(plan));
     return 1 - Math.pow(1 - r, n - 1) * (1 - f);
   };
   return {
@@ -117,12 +120,15 @@ export const ICON_FLOOR = 0.6;
 
 export function economyOutliers(cards: readonly CardDef[], priceOf: (id: string) => number = (id) => getPack(id)!.price): string[] {
   const ratios = Object.fromEntries(MAIN_PACK_LINE.map((id) => [id, packEconomy(id, cards, priceOf(id)).ratio]));
-  const five = MAIN_PACK_LINE.filter((id) => id !== "icon");
+  const five = MAIN_PACK_LINE.filter((id) => !isIconPack(id));
   const sorted = five.map((id) => ratios[id]).sort((a, b) => a - b);
   const median = sorted[Math.floor(sorted.length / 2)];
   const out: string[] = [];
   for (const id of five) if (Math.abs(ratios[id] / median - 1) > VALUE_BAND) out.push(`${id}: ${ratios[id].toFixed(2)}× fuera de ±${VALUE_BAND * 100} % de la mediana ${median.toFixed(2)}×`);
-  if (ratios.icon < ICON_FLOOR * median) out.push(`icon: ${ratios.icon.toFixed(2)}× < ${ICON_FLOOR} × mediana (${(ICON_FLOOR * median).toFixed(2)}×)`);
-  if (ratios.icon > sorted[sorted.length - 1]) out.push(`icon: ${ratios.icon.toFixed(2)}× por encima de todos los demás (sin prima)`);
+  // Los dos sobres ICON (2026-10-09): la misma regla que tenía el Sobre Icon.
+  for (const id of ICON_PACK_IDS) {
+    if (ratios[id] < ICON_FLOOR * median) out.push(`${id}: ${ratios[id].toFixed(2)}× < ${ICON_FLOOR} × mediana (${(ICON_FLOOR * median).toFixed(2)}×)`);
+    if (ratios[id] > sorted[sorted.length - 1]) out.push(`${id}: ${ratios[id].toFixed(2)}× por encima de todos los demás (sin prima)`);
+  }
   return out;
 }

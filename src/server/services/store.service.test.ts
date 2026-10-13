@@ -93,9 +93,10 @@ test("SALDO INSUFICIENTE · el rechazo de la RPC llega tal cual (el servidor es 
 
 test("RUTA · solo acepta action/productId/method/ref: precio, cantidad, cartas o contenido se RECHAZAN", () => {
   const src = readFileSync(join(process.cwd(), "src/app/api/game/store/route.ts"), "utf8");
-  assert.match(src, /const ALLOWED = \["action", "productId", "method", "ref"\];/);
+  // ICON (2026-10-09) · + `expectedPrice` (precio visto): solo bloquea un cobro distinto; el importe sale del servidor.
+  assert.match(src, /const ALLOWED = \["action", "productId", "method", "ref", "expectedPrice"\];/);
   assert.match(src, /Object\.keys\(body\)\.some\(\(k\) => !ALLOWED\.includes\(k\)\)/);
   assert.match(src, /const session = await getSession\(req\);\s*if \(!session\)/);
-  assert.match(src, /storeCheckout\(session\.admin, session\.userId, \{ productId, method, ref \}\)/);
+  assert.match(src, /storeCheckout\(session\.admin, session\.userId, \{ productId, method, ref, expectedPrice: body\.expectedPrice as number \| undefined \}\)/);
   assert.ok(!/body\.(price|qty|quantity|count|cardId|contents|credits|userId)/.test(src));
 });

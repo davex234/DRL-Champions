@@ -341,22 +341,36 @@ export const PACKS: PackDef[] = [
     tag: "Exclusivo",
   },
   {
-    id: "icon",
-    name: "Sobre Icon",
-    description: "La élite: tres cartas y todas Prime (Future Star) o Icon (Record Breaker o Moments).",
     /*
-     * Fase 57.4 · CONTRATO (decisión de producto): 3 cartas, cada una 70 % Prime / 30 % Icon (`packClass`), a 12.500.
-     * Con 1 carta a 20.000 rendía 0,57× y era la vía más cara hacia cualquier Prime o Icon; con 1 carta NINGÚN precio por
-     * encima de Champions evitaba que quedara dominado (Champions da 1,0 Prime y 0,75 Icon por sobre).
-     * F80 (decisión del propietario): 60.000. Cartas y 70/30 intactos; ya no es la vía más barata hacia una Prime.
+     * ICON (2026-10-09, decisión del propietario) · DOS sobres ICON. Este conserva el id HISTÓRICO `icon` (80.000 desde 2026-10-09): los
+     * sobres que ya tienen los jugadores (compras, recompensa `s-collect`, receta Champions → Icon) siguen dando 3 cartas.
+     * Fase 57.4 · 3 cartas; F80: 60.000. Desde 2026-10-09: las 3 son ICON, cada una sorteada por separado (pueden
+     * repetirse) con la tabla de calidad aprobada (`iconQuality`: 65 / 17,5 / 17,5), a 80.000 (decisión del propietario:
+     * a 60.000 rendía 1,06 de valor por crédito, el mejor de la tienda). El precio NUEVO es el de compra; los sobres ya
+     * adquiridos conservan su derecho (3 ICON) y la compra exige ver el precio actual (`domain/packs/priceConfirm`).
      */
-    price: 60000,
+    id: "icon",
+    name: "Sobre ICON Premium",
+    description: "Tres cartas ICON garantizadas (Record Breaker o Moments), cada una sorteada por separado: pueden repetirse.",
+    price: 80000,
     cardCount: 3,
     weights: { common: 0, uncommon: 0, rare: 30, epic: 45, legendary: 25 },
     // `guaranteedMin` es solo IDENTIDAD (categoría «icono» y arte, `packIdentity`): el sorteo lo decide `packClass`.
     guaranteedMin: "legendary",
     accent: "#f5f0e6",
-    tag: "Prime o Icon",
+    tag: "3 ICON garantizadas",
+  },
+  {
+    /* ICON (2026-10-09) · el sobre ICON de UNA carta, 30.000. Id nuevo: no toca a los `icon` ya adquiridos. */
+    id: "icon-single",
+    name: "Sobre ICON",
+    description: "Una carta ICON garantizada (Record Breaker o Moments).",
+    price: 30000,
+    cardCount: 1,
+    weights: { common: 0, uncommon: 0, rare: 30, epic: 45, legendary: 25 },
+    guaranteedMin: "legendary",
+    accent: "#f5f0e6",
+    tag: "1 ICON garantizada",
   },
   /* ═══════════════════════ TEAM PACKS — OLA 1 (Fase 20.5) ═══════════════════════
    *

@@ -326,7 +326,7 @@ test("D15 · el cliente no decide nada: ninguna acción admite recompensa, victo
 });
 
 test("D16 · nada fuera del modo cambia: precios de sobres, pago de duelos, tope diario y desguace intactos", () => {
-  assert.deepEqual(["estandar", "premium", "oro", "masters", "champions", "icon"].map((id) => getPack(id)?.price), [2_500, 6_000, 12_000, 20_000, 35_000, 60_000]); // F80
+  assert.deepEqual(["estandar", "premium", "oro", "masters", "champions", "icon"].map((id) => getPack(id)?.price), [2_500, 6_000, 12_000, 20_000, 35_000, 80_000]); // F80 + ICON Premium 80.000 (2026-10-09)
   assert.equal(getPack(DRAFT_JACKPOT.packId)?.price, DRAFT_JACKPOT.packPrice);
   const t = duelPayoutTable();
   assert.deepEqual([t.win.EASY.credits, t.win.NORMAL.credits, t.win.HARD.credits, t.loss.HARD.credits], [120, 220, 350, 60]);

@@ -1,0 +1,87 @@
+{
+ "line": {
+  "estandar": {
+   "price": 2500,
+   "cards": 5,
+   "evPerPack": 1253,
+   "ratio": 0.5013,
+   "salvagePerPack": 77,
+   "salvageRatio": 0.0308,
+   "pAtLeastOneIcon": 0.005,
+   "iconPerCard": 0.001,
+   "costPerIcon": 500000,
+   "pAtLeastOnePrime": 0.015,
+   "costPerPrime": 166667
+  },
+  "premium": {
+   "price": 6000,
+   "cards": 6,
+   "evPerPack": 3343,
+   "ratio": 0.5572,
+   "salvagePerPack": 201,
+   "salvageRatio": 0.0336,
+   "pAtLeastOneIcon": 0.015,
+   "iconPerCard": 0.0025,
+   "costPerIcon": 400000,
+   "pAtLeastOnePrime": 0.05,
+   "costPerPrime": 120000
+  },
+  "oro": {
+   "price": 12000,
+   "cards": 5,
+   "evPerPack": 8484,
+   "ratio": 0.707,
+   "salvagePerPack": 509,
+   "salvageRatio": 0.0424,
+   "pAtLeastOneIcon": 0.08,
+   "iconPerCard": 0.016,
+   "costPerIcon": 150000,
+   "pAtLeastOnePrime": 0.15,
+   "costPerPrime": 80000
+  },
+  "masters": {
+   "price": 20000,
+   "cards": 5,
+   "evPerPack": 15808,
+   "ratio": 0.7904,
+   "salvagePerPack": 950,
+   "salvageRatio": 0.0475,
+   "pAtLeastOneIcon": 0.15,
+   "iconPerCard": 0.03,
+   "costPerIcon": 133333,
+   "pAtLeastOnePrime": 0.26,
+   "costPerPrime": 76923
+  },
+  "champions": {
+   "price": 35000,
+   "cards": 5,
+   "evPerPack": 28811,
+   "ratio": 0.8232,
+   "salvagePerPack": 1732,
+   "salvageRatio": 0.0495,
+   "pAtLeastOneIcon": 0.28,
+   "iconPerCard": 0.056,
+   "costPerIcon": 125000,
+   "pAtLeastOnePrime": 0.56613,
+   "costPerPrime": 50000
+  },
+  "icon": {
+   "price": 60000,
+   "cards": 3,
+   "evPerPack": 49720,
+   "ratio": 0.8287,
+   "salvagePerPack": 2985,
+   "salvageRatio": 0.0498,
+   "pAtLeastOneIcon": 0.7408,
+   "iconPerCard": 0.353333,
+   "costPerIcon": 56604,
+   "pAtLeastOnePrime": 0.9608,
+   "costPerPrime": 30928
+  }
+ },
+ "outliers": [
+  "estandar: 0.50× fuera de ±20 % de la mediana 0.71×",
+  "premium: 0.56× fuera de ±20 % de la mediana 0.71×",
+  "icon: 0.83× por encima de todos los demás (sin prima)"
+ ]
+}

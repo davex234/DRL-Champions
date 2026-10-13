@@ -37,7 +37,7 @@ import { STARTER_POLICY } from "@/domain/economy/starter";
 import type { Reward } from "@/domain/events/types";
 import { canonicalCardTeam } from "@/data/teamIdentities";
 import { classPool } from "@/domain/packs/openPack";
-import { mainPackPlan, ovrTiltWeight, PACK_CLASS_ORDER, EmptyPackClassError } from "@/domain/packs/packClass";
+import { effectiveFeatured, mainPackPlan, ovrTiltWeight, PACK_CLASS_ORDER, EmptyPackClassError } from "@/domain/packs/packClass";
 
 export type Archetype = "CASUAL" | "REGULAR" | "ENGAGED" | "HARDCORE";
 export type RuleSet = "baseline" | "fase41";
@@ -158,7 +158,7 @@ export function buildSimCatalog(reg: CardRegistry): SimCatalog {
       pool: BUCKETS.map((b) => Int32Array.from(pool[b].map((c) => index.get(c.id)!))),
       ...(plan && byClass ? {
         classTable: PACK_CLASS_ORDER.map((c) => plan.regular[c]),
-        classTableFeatured: PACK_CLASS_ORDER.map((c) => plan.featured[c]),
+        classTableFeatured: PACK_CLASS_ORDER.map((c) => effectiveFeatured(plan)[c]),
         classPool: PACK_CLASS_ORDER.map((c) => Int32Array.from(byClass[c].map((card) => index.get(card.id)!))),
         classCum: PACK_CLASS_ORDER.map((c) => { let acc = 0; return Float64Array.from(byClass[c].map((card) => (acc += ovrTiltWeight(plan.ovrTilt, card.ovr)))); }),
       } : {}),

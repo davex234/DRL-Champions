@@ -19,7 +19,10 @@ import { PACK_STATS } from "@/data/packStats";
  * F80 · recetas de sobres que, con los precios nuevos y las cantidades de 0059 sin tocar (decisión del propietario), quedan
  * por debajo de la PRIMA de coste del 25 % (no de los suelos de valor ni de desguace). Craftear sigue sin ser más barato.
  */
-const F80_BELOW_COST_FLOOR = new Set(["pack-premium-oro", "pack-oro-masters", "pack-champions-icon"]);
+// Icon por sobre (2026-10-09): el Plata vale más (Icon del 1,5 % al 5 %) y «3 Plata → 1 Oro» alcanza su suelo (ratio 3): sale
+// de las excepciones y pasa a validar como cualquier receta segura.
+// ICON (2026-10-09): Champions → ICON Premium pasa a 3:1 (decisión del propietario) y queda EXACTAMENTE en su suelo (3): sale.
+const F80_BELOW_COST_FLOOR = new Set(["pack-oro-masters"]);
 /**
  * PACK OPENING 3.0 (2026-10-07, decisión del propietario) · cambio de OPERADOR sobre la semilla de 0059 (la migración
  * aplicada no se edita): con la identidad nueva de los sobres, «2 Plata → 1 Oro» CREABA valor (EV 6.682 → 8.439), así que
@@ -27,7 +30,9 @@ const F80_BELOW_COST_FLOOR = new Set(["pack-premium-oro", "pack-oro-masters", "p
  * 2:1) NO crean valor pero quedan bajo el MARGEN de seguridad del suelo; aceptado (como F80 aceptó el de coste) y el admin
  * las sigue marcando BELOW_FLOOR.
  */
-const PACK_OPENING_3_QTY: Readonly<Record<string, number>> = { "pack-premium-oro": 3 };
+// Pack Opening 3.0 (Plata → Oro 3:1, aplicado en BD 2026-10-07) + ICON (2026-10-09, decisión del propietario): Champions →
+// ICON Premium 3:1 — dato de `craft_recipes` PENDIENTE de aplicar en producción (scripts/_icon-odds/recipe-sql.ts).
+const PACK_OPENING_3_QTY: Readonly<Record<string, number>> = { "pack-premium-oro": 3, "pack-champions-icon": 3 };
 /**
  * PACK OPENING 3.0 · «3 cartas Plata → 1 Oro» queda bajo la PRIMA de coste (25 %): el rebalance abarata conseguir una Plata
  * (1.412 frente a 2.000 créditos por carta) y no la Oro (4.000). No crea valor (792 → 450) ni es más barata que la vía
@@ -56,7 +61,10 @@ test("F73 E2 · las 11 semillas de 0059: 5 de sobres (línea principal consecuti
   const s = seeds();
   assert.equal(s.length, 11);
   const packs = s.filter((r) => r.kind === "PACK");
-  assert.deepEqual(packs.map((r) => [r.inputPackId, r.outputPackId]), MAIN_PACK_LINE.slice(0, -1).map((id, i) => [id, MAIN_PACK_LINE[i + 1]]));
+  // ICON (2026-10-09): el Sobre ICON de 1 carta (`icon-single`) entra en la línea pero no tiene receta: la cadena de 0059
+  // sigue siendo Bronce → … → Champions → `icon` (Sobre ICON Premium, id histórico).
+  const chain = MAIN_PACK_LINE.filter((id) => id !== "icon-single");
+  assert.deepEqual(packs.map((r) => [r.inputPackId, r.outputPackId]), chain.slice(0, -1).map((id, i) => [id, chain[i + 1]]));
   for (const r of s) {
     const f = recipeFloor(r)!;
     assert.ok(f, r.id);
@@ -83,7 +91,7 @@ test("F73 E2 · las 11 semillas de 0059: 5 de sobres (línea principal consecuti
 
 test("F73 E3 · sobres: ratios exactos medidos y precio de crafteo SIEMPRE mayor que comprar el destino", () => {
   const byId = Object.fromEntries(seeds().filter((r) => r.kind === "PACK").map((r) => [r.id, r.inputQty]));
-  assert.deepEqual(byId, { "pack-estandar-premium": 4, "pack-premium-oro": 3, "pack-oro-masters": 2, "pack-masters-champions": 3, "pack-champions-icon": 2 });
+  assert.deepEqual(byId, { "pack-estandar-premium": 4, "pack-premium-oro": 3, "pack-oro-masters": 2, "pack-masters-champions": 3, "pack-champions-icon": 3 });
   const premium: Record<string, number> = {};
   for (const r of seeds().filter((x) => x.kind === "PACK")) {
     const craft = r.inputQty * getPack(r.inputPackId!)!.price, buy = getPack(r.outputPackId!)!.price;
@@ -92,8 +100,9 @@ test("F73 E3 · sobres: ratios exactos medidos y precio de crafteo SIEMPRE mayor
     assert.ok(craft >= (F80_BELOW_COST_FLOOR.has(r.id) ? 1 : CRAFT_PREMIUM) * buy, r.id);
   }
   // F80 (precios 2.500/6.000/12.000/20.000/35.000/60.000) + Pack Opening 3.0 (Plata → Oro 3:1): recetas 4/3/2/3/2.
-  assert.deepEqual(premium, { "pack-estandar-premium": 1.6667, "pack-premium-oro": 1.5, "pack-oro-masters": 1.2, "pack-masters-champions": 1.7143, "pack-champions-icon": 1.1667 });
+  assert.deepEqual(premium, { "pack-estandar-premium": 1.6667, "pack-premium-oro": 1.5, "pack-oro-masters": 1.2, "pack-masters-champions": 1.7143, "pack-champions-icon": 1.3125 });
   // Ninguna receta de sobres crea valor esperado de colección con la identidad nueva.
+  // ICON (2026-10-09) · Champions → ICON Premium 3:1: 3 × 27.680 > 63.705, tampoco crea valor (a 2:1 sí lo creaba).
   for (const r of seeds().filter((x) => x.kind === "PACK")) assert.ok(r.inputQty * PACK_STATS[r.inputPackId!].meanValue > PACK_STATS[r.outputPackId!].meanValue, `${r.id} crea valor`);
 });
 

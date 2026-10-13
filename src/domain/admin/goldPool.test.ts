@@ -42,7 +42,9 @@ test("REGLA · el panel distingue sobres por clase de sobres por rareza y detect
 });
 
 test("DATOS (BD real tras F58.1) · todos los sobres públicos tienen su pool pack-<id>; el Sobre Oro incluido", () => {
-  assert.deepEqual(packsMissingEligibilityPool(PACKS, bindings), []);
+  // ICON (2026-10-09): el Sobre ICON nuevo (`icon-single`) aún NO tiene su pool en la foto de la BD: se crea en el despliegue
+  // con `scripts/_icon-odds/pool-sql.ts` (mismo mecanismo que F58.1). Hasta entonces el admin lo marca, y solo a él.
+  assert.deepEqual(packsMissingEligibilityPool(PACKS, bindings), ["icon-single"]);
   assert.deepEqual(SNAP.packPools.filter((p) => p.pack_id === "oro"), [{ pack_id: "oro", pool_id: "pack-oro", priority: 100 }]);
   const oroPool = SNAP.pools.find((p) => p.id === "pack-oro");
   assert.ok(oroPool && oroPool.mode === "EXPLICIT");
@@ -54,7 +56,7 @@ test("DATOS · pack-oro = buildPool(oro) = los pools de los otros cinco sobres d
   const oro = members("pack-oro");
   assert.equal(oro.size, flat.size);
   for (const id of flat) assert.ok(oro.has(id), id);
-  for (const id of MAIN_PACK_LINE.filter((x) => x !== "oro")) {
+  for (const id of MAIN_PACK_LINE.filter((x) => x !== "oro" && x !== "icon-single")) {
     const m = members(`pack-${id}`);
     assert.equal(m.size, oro.size, id);
     for (const c of oro) assert.ok(m.has(c), `${id} sin ${c}`);
@@ -77,7 +79,8 @@ test("EQUIVALENCIA · con el pool real de la BD, Oro reparte EXACTAMENTE lo mism
     assert.deepEqual(withPool.draw(oro, ctx()).instances.map((x) => x.cardId), noPool.draw(oro, ctx()).instances.map((x) => x.cardId), `semilla ${i}`);
   }
   // Pack Opening 3.0 · Oro: 4 normales (Oro 70 % · Masters 27 % · Champions 3 %) + destacada; media exacta por carta.
+  // Icon por sobre (2026-10-09): Icon 10 % en la destacada y el resto de la destacada (920 ‰ sin Icon) escalado al 90 %.
   const d = mainPackDistribution("oro")!;
-  assert.ok(Math.abs(d.oro - (4 * 700 + 200) / 50) < 1e-9 && Math.abs(d.prime - 150 / 50) < 1e-9 && Math.abs(d.icon - 80 / 50) < 1e-9, JSON.stringify(d));
+  assert.ok(Math.abs(d.oro - (4 * 700 + 900 * 200 / 920) / 50) < 1e-9 && Math.abs(d.prime - (900 * 150 / 920) / 50) < 1e-9 && Math.abs(d.icon - 100 / 50) < 1e-9, JSON.stringify(d));
   assert.equal(oro.price, 12000); assert.equal(oro.cardCount, 5); // F80: 4.000 → 12.000
 });

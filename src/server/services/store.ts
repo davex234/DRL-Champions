@@ -29,6 +29,8 @@ export interface StoreCheckoutInput {
   productId: string;
   method: PaymentMethod;
   ref?: string;
+  /** ICON (2026-10-09) · el precio que el jugador vio (`domain/packs/priceConfirm`). */
+  expectedPrice?: number;
 }
 
 export type StoreCheckoutData =
@@ -65,7 +67,7 @@ export async function storeCheckout(
   }
 
   // El precio y la guarda de ciclo de vida los vuelve a aplicar `buyPack` con el catálogo del servidor.
-  const res = await deps.buyPack(sb, userId, product.packId, input.ref);
+  const res = await deps.buyPack(sb, userId, product.packId, input.ref, undefined, { expectedPrice: input.expectedPrice });
   if (!res.ok) return res;
   return { ok: true, data: { kind: "PACK_PURCHASED", productId: product.productId, ...res.data } };
 }

@@ -11,6 +11,7 @@
  *
  * Requiere `Authorization: Bearer <access_token>`. El usuario sale del token.
  */
+import { validExpectedPrice } from "@/domain/packs/priceConfirm";
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
 import { ensureServerPacks } from "@/server/cms/packs";
@@ -24,7 +25,7 @@ export const dynamic = "force-dynamic";
 const ACTIONS = new Set(["buy", "open", "buy_and_open"]);
 /** Fase 38 · el cuerpo legítimo mide ~80 bytes; nada más grande entra. */
 const MAX_BODY = 2_000;
-const ALLOWED = ["action", "packId", "ref"];
+const ALLOWED = ["action", "packId", "ref", "expectedPrice"];
 const GENERIC = "No se pudo completar la operación";
 
 export async function POST(req: Request) {
@@ -34,7 +35,7 @@ export async function POST(req: Request) {
   { const rate = await takeRate(session.admin, session.userId, "economy_write"); if (!rate.allowed) return NextResponse.json({ error: TOO_MANY, code: "RATE_LIMITED" }, { status: 429, headers: rateHeaders(rate.retryAfter) }); }
   await ensureServerPacks(session.admin); // F60: sobres del panel (ACTIVE/RETIRED) visibles para comprar/abrir
 
-  let body: { action?: unknown; packId?: unknown; ref?: unknown } = {};
+  let body: { action?: unknown; packId?: unknown; ref?: unknown; expectedPrice?: unknown } = {};
   let raw = "";
   try { raw = await req.text(); } catch { /* cuerpo ilegible */ }
   if (raw.length > MAX_BODY) return NextResponse.json({ error: "Cuerpo demasiado grande" }, { status: 413 });
@@ -61,17 +62,22 @@ export async function POST(req: Request) {
   if (!packId || !/^[\w-]{1,64}$/.test(packId)) {
     return NextResponse.json({ error: "Sobre inválido" }, { status: 400 });
   }
+  // ICON (2026-10-09) · el precio que el jugador VIO (no decide el cobro: solo lo bloquea si no coincide).
+  if (!validExpectedPrice(body.expectedPrice) || (action === "open" && body.expectedPrice !== undefined)) {
+    return NextResponse.json({ error: "Precio inválido" }, { status: 400 });
+  }
+  const priceOpts = { expectedPrice: body.expectedPrice as number | undefined };
 
   try {
     const result =
-      action === "buy" ? await buyPack(session.admin, session.userId, packId, ref)
+      action === "buy" ? await buyPack(session.admin, session.userId, packId, ref, undefined, priceOpts)
       /*
        * Fase 25 · el `ref` TAMBIÉN viaja en `open`. Sin él, un reintento de la misma apertura
        * (respuesta perdida, doble toque) fabricaba un gesto nuevo en el servidor y consumía un
        * SEGUNDO sobre. Con él, `economy_ops` devuelve el resultado ya guardado.
        */
       : action === "open" ? await openPackForUser(session.admin, session.userId, packId, ref)
-      : await buyAndOpen(session.admin, session.userId, packId, ref);
+      : await buyAndOpen(session.admin, session.userId, packId, ref, undefined, priceOpts);
 
     if (!result.ok) {
       // Fase 38 · los 5xx no filtran mensajes internos (de la RPC o de PostgREST); los 4xx sí dicen qué pasó.

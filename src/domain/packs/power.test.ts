@@ -45,8 +45,9 @@ test("REGRESIÓN 57.2 → 57.3 → 3.0 · brawk__masters-l (OVR 93) es clase Mas
   assert.equal(card.ovr, 93);
   assert.equal(packCardClass(card), "masters");
   assert.equal(isEligible(REG, getPack("estandar")!, card), true, "elegible: la decide el plan, no un techo");
-  // Pack Opening 3.0 · Masters solo en la destacada de Bronce (10 %), y dentro de la clase un 93 pesa e^(−0,3·23).
-  assert.ok(Math.abs(mainPackDistribution("estandar")!.masters - 2) < 1e-9);
+  // Pack Opening 3.0 · Masters solo en la destacada de Bronce (10 % de 995 ‰ sin Icon, escalado al 99 % desde la Icon por
+  // sobre del 2026-10-09), y dentro de la clase un 93 pesa e^(−0,3·23).
+  assert.ok(Math.abs(mainPackDistribution("estandar")!.masters - (990 * 100 / 995) / 50) < 1e-9);
   assert.equal(mainPackDistribution("icon")!.masters, 0, "Icon nunca da Masters");
 });
 

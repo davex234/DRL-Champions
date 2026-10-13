@@ -11,6 +11,7 @@
  *     `service_role` y validan en servidor. El cliente no puede escribir nada.
  */
 import { getSupabase } from "@/lib/supabase/client";
+import { getPack } from "@/data/packs";
 import { fetchOwnProfile } from "@/lib/supabase/ownProfile";
 import type { CardDef, OwnedCard, Player } from "@/domain/cards/types";
 import type { ArtworkByUid } from "@/domain/cards/artwork";
@@ -127,9 +128,18 @@ export function newGesture(): string {
   return `g${Date.now().toString(36)}${Math.random().toString(36).slice(2, 10)}`;
 }
 
+/**
+ * ICON (2026-10-09) · cada compra lleva el PRECIO QUE ESTA PESTAÑA ENSEÑA (`getPack`, el mismo catálogo que pinta la
+ * tienda): si el servidor ya cobra otro, responde 409 sin cobrar. Sobres sin precio conocido aquí (panel): sin campo.
+ */
+const seenPrice = (packId: string): { expectedPrice?: number } => {
+  const p = getPack(packId)?.price;
+  return typeof p === "number" ? { expectedPrice: p } : {};
+};
+
 export const buyPack = (packId: string, ref = newGesture()) =>
   postJson<{ credits: number; packId: string; qty: number }>(
-    "/api/game/packs", { action: "buy", packId, ref });
+    "/api/game/packs", { action: "buy", packId, ref, ...seenPrice(packId) });
 
 export const openPack = (packId: string, ref = newGesture()) =>
   postJson<{ opened: OpenedCardDTO[]; credits: number; xpGained: number; repeated?: boolean }>(
@@ -148,7 +158,7 @@ export async function fetchStarterStatus(): Promise<import("@/server/services/st
 
 export const buyAndOpenPack = (packId: string, ref = newGesture()) =>
   postJson<{ opened: OpenedCardDTO[]; credits: number; xpGained: number }>(
-    "/api/game/packs", { action: "buy_and_open", packId, ref }, OPEN_TIMEOUT_MS);
+    "/api/game/packs", { action: "buy_and_open", packId, ref, ...seenPrice(packId) }, OPEN_TIMEOUT_MS);
 
 /* ────────────────────────────────── Pick'ems ───────────────────────────────── */
 

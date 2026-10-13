@@ -8,7 +8,7 @@
  * frase honesta de probabilidad aumentada. Ni un pool id, ni un peso interno, ni un JSON.
  */
 import type { PackOdds, ClassOdds } from "@/domain/packs/odds";
-import { pct, tablePct, finePct as fine } from "@/domain/packs/odds";
+import { pct, tablePct, finePct as fine, ICON_COPY } from "@/domain/packs/odds";
 import type { RarityBucket } from "@/domain/packs/types";
 import { PACK_CLASS_COLOR } from "@/domain/packs/packClass";
 import { Badge } from "@/components/ui/Badge";
@@ -39,6 +39,31 @@ function ClassOddsPanel({ odds, classOdds }: { odds: PackOdds; classOdds: ClassO
         </p>
       )}
 
+      {/* ICON POR SOBRE (2026-10-09): frase y cifras del plan que sortea el servidor (`iconOddsFor`). */}
+      {classOdds.icon && (
+        <div className="mt-3 nx-clip-sm border border-white/15 bg-white/[0.04] px-3 py-2.5" data-icon-odds data-icon-chance={classOdds.icon.atLeastOne}>
+          <p className="font-display text-[11px] font-bold uppercase tracking-wide2 text-ink-faint">Probabilidades · ICON</p>
+          <p className="mt-1 text-caption font-bold text-white" data-icon-text>{classOdds.icon.text}</p>
+          {classOdds.icon.cards.length > 0 && (
+            <ul aria-label="Probabilidad de cada ICON por carta" className="mt-1.5 space-y-0.5 text-caption text-ink-secondary" data-icon-cards>
+              {classOdds.icon.cards.map((c) => (
+                <li key={c.cardId} data-card={c.cardId}>
+                  <b className="text-white">{c.label}</b> · OVR {c.ovr} · <span className="nx-readout">{tablePct(c.p)}</span> por carta
+                </li>
+              ))}
+            </ul>
+          )}
+          {classOdds.icon.top && (
+            <p className="mt-1 text-caption text-ink-secondary" data-icon-top>{ICON_COPY.topAtLeastOne(classOdds.icon.top.ovr, classOdds.icon.top.atLeastOne)}</p>
+          )}
+          {classOdds.icon.quality && (
+            <p className="mt-1.5 text-caption leading-snug text-ink-faint" data-icon-method>
+              {classOdds.icon.quality.levels.map((l) => `Nivel ${l.value.toLocaleString("es-ES")}: ${fine(l.p)}`).join(" · ")}. {classOdds.icon.quality.method}
+            </p>
+          )}
+        </div>
+      )}
+
       <div className="mt-2 flex h-2.5 overflow-hidden rounded-full" role="img" aria-label="Reparto por clase de cada carta">
         {classOdds.rows.map((r) => (
           <div key={r.cls} title={`${r.label}: ${tablePct(r.perCard)} por carta`} style={{ width: `${r.perCard * 100}%`, background: PACK_CLASS_COLOR[r.cls] }} />
@@ -65,10 +90,12 @@ function ClassOddsPanel({ odds, classOdds }: { odds: PackOdds; classOdds: ClassO
 
       {/* PACK OPENING 3.0 · ranuras, mejor carta e inclinación: lo mismo que decide el servidor, calculado exacto. */}
       <div className="mt-4 grid gap-2 sm:grid-cols-2" data-pack-slots>
-        <div className="nx-clip-sm bg-white/[0.03] px-3 py-2.5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]" data-slot="regular">
-          <p className="font-display text-[11px] font-bold uppercase tracking-wide2 text-ink-faint">{classOdds.slots.regular.count} {classOdds.slots.regular.count === 1 ? "carta normal" : "cartas normales"}</p>
-          <p className="mt-1 text-caption text-ink-secondary">{classOdds.slots.regular.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}</p>
-        </div>
+        {classOdds.slots.regular.count > 0 && (
+          <div className="nx-clip-sm bg-white/[0.03] px-3 py-2.5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]" data-slot="regular">
+            <p className="font-display text-[11px] font-bold uppercase tracking-wide2 text-ink-faint">{classOdds.slots.regular.count} {classOdds.slots.regular.count === 1 ? "carta normal" : "cartas normales"}</p>
+            <p className="mt-1 text-caption text-ink-secondary">{classOdds.slots.regular.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}</p>
+          </div>
+        )}
         <div className="nx-clip-sm border border-drl-gold/30 bg-drl-gold/[0.05] px-3 py-2.5" data-slot="featured">
           <p className="font-display text-[11px] font-bold uppercase tracking-wide2 text-drl-gold">Carta destacada · 1 por sobre</p>
           <p className="mt-1 text-caption text-ink-secondary">{classOdds.slots.featured.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}</p>
@@ -80,8 +107,8 @@ function ClassOddsPanel({ odds, classOdds }: { odds: PackOdds; classOdds: ClassO
       </p>
       <p className="mt-2 text-caption leading-snug text-ink-faint">
         {one
-          ? "Una sola carta: primero se sortea la clase con esta tabla y después una carta de esa clase."
-          : "Cada carta se sortea por separado: las normales con su tabla y la destacada con la suya. «≥1» es la probabilidad de que el sobre traiga al menos una de esa clase."}
+          ? "Una sola carta: primero se sortea la clase y después una carta de esa clase."
+          : `Cada carta se sortea por separado: las normales con su tabla y la destacada con la suya.${classOdds.icon ? " La ICON se sortea una sola vez por sobre y, si sale, ocupa la carta destacada." : ""} «≥1» es la probabilidad de que el sobre traiga al menos una de esa clase.`}
         {classOdds.slots.ovrTilt > 0 && " En este sobre, dentro de cada clase, las cartas de OVR más alto son menos probables que las de OVR más bajo; todas pueden salir."}
       </p>
       {odds.teamBoost && (

@@ -11,7 +11,7 @@ import { getPack } from "@/data/packs";
 import { getCard, getPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { bucketForRank, BUCKET_LABEL, type PackDef, type RarityBucket } from "@/domain/packs/types";
-import { packOddsFor, pct, tablePct, slotLines } from "@/domain/packs/odds";
+import { packOddsFor, pct, tablePct, finePct, slotLines, ICON_COPY, type IconOdds } from "@/domain/packs/odds";
 import { BUCKET_COLOR } from "@/components/packs/PackOdds";
 import { PACK_CLASS_COLOR } from "@/domain/packs/packClass";
 import { packIdentity, teamCardCount } from "@/components/packs/packIdentity";
@@ -54,6 +54,8 @@ export interface OddsGroup {
   guarantee: string | null; teamBoost: string | null;
   /** Pack Opening 3.0 · solo la línea principal: ranuras, mejor carta e inclinación (mismas frases que la ficha). */
   slots?: string[];
+  /** Icon por sobre (2026-10-09): la frase de la ficha y, en el Sobre Icon, la probabilidad exacta de cada Icon. */
+  icon?: { text: string; cards: string[]; method: string | null } | null;
 }
 
 export function packOddsGroup(pack: PackDef): OddsGroup {
@@ -65,13 +67,24 @@ export function packOddsGroup(pack: PackDef): OddsGroup {
       ...base, source: "class-table", guarantee: odds.classOdds.guarantee,
       // Media exacta por carta con un decimal (0,3 % no se redondea a 0 %): el mismo formato que la ficha.
       rows: odds.classOdds.rows.map((r) => ({ key: r.cls, label: r.label, scope: r.scope, pct: tablePct(r.perCard), perCard: r.perCard, color: PACK_CLASS_COLOR[r.cls] })),
-      slots: (() => { const l = slotLines(odds.classOdds.slots); return [l.regular, l.featured, l.best, ...(l.tilt ? [l.tilt] : [])]; })(),
+      slots: (() => { const l = slotLines(odds.classOdds.slots); return [...(l.regular ? [l.regular] : []), l.featured, l.best, ...(l.tilt ? [l.tilt] : [])]; })(),
+      icon: iconView(odds.classOdds.icon),
     };
   }
   const gMin = odds.guaranteedMin;
   return {
     ...base, source: odds.source, guarantee: gMin ? `Garantiza al menos una ${BUCKET_LABEL[gMin].toLowerCase()} o superior` : null,
     rows: odds.rows.filter((r) => !r.impossible && r.perCard > 0).map((r) => ({ key: r.bucket, label: r.label, pct: pct(r.perCard), perCard: r.perCard, color: BUCKET_COLOR[r.bucket] })),
+  };
+}
+
+/** La Icon por sobre, en frases (las mismas cifras exactas que la ficha). */
+export function iconView(icon: IconOdds | null): OddsGroup["icon"] {
+  if (!icon) return null;
+  return {
+    text: icon.text,
+    cards: icon.guaranteed ? [...icon.cards.map((c) => `${c.label} · OVR ${c.ovr}: ${tablePct(c.p)} por carta`), ...(icon.top ? [ICON_COPY.topAtLeastOne(icon.top.ovr, icon.top.atLeastOne)] : [])] : [],
+    method: icon.quality ? `${icon.quality.levels.map((l) => `Nivel ${formatGame(l.value)}: ${finePct(l.p)}`).join(" · ")}. ${icon.quality.method}` : null,
   };
 }
 

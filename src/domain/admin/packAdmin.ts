@@ -15,7 +15,7 @@ import { CARDS } from "@/data/catalog";
 import { marketValue } from "@/domain/economy/pricing";
 import { salvageValue } from "@/domain/economy/salvage";
 import { packLifecycle } from "@/domain/packs/lifecycle";
-import { MAIN_PACK_LINE, mainPackDistribution, mainPackPlan, packPlan, packCardClass } from "@/domain/packs/packClass";
+import { MAIN_PACK_LINE, mainPackDistribution, mainPackPlan, packPlan, packCardClass, planTableIssues, isIconPack } from "@/domain/packs/packClass";
 import { packEconomyReport } from "@/domain/packs/economyGate";
 import { CardRegistry } from "@/collection/registry";
 import { openPack } from "@/domain/packs/openPack";
@@ -58,7 +58,7 @@ export const packRows = (): PackRow[] => PACKS.map(packRow);
 
 /** Banda de la línea principal (F57.6): mediana de Bronce…Champions ±12 %. */
 export function mainBand(): { median: number; lo: number; hi: number } {
-  const r = MAIN_PACK_LINE.filter((id) => id !== "icon").map((id) => PACK_STATS[id].meanValue / getPack(id)!.price).sort((a, b) => a - b);
+  const r = MAIN_PACK_LINE.filter((id) => !isIconPack(id)).map((id) => PACK_STATS[id].meanValue / getPack(id)!.price).sort((a, b) => a - b);
   const median = r[2];
   return { median, lo: median * 0.88, hi: median * 1.12 };
 }
@@ -90,7 +90,8 @@ export function economyHealth(): HealthCheck[] {
   const badPrice = buyable.filter((p) => !(p.price > 0) || !Number.isInteger(p.price));
   out.push({ id: "prices", label: "Precios válidos", level: badPrice.length ? "CRITICAL" : "HEALTHY", detail: badPrice.length ? badPrice.map((p) => p.id).join(", ") : `${buyable.length} sobres comprables con precio entero > 0` });
   // Pack Opening 3.0 · el contrato es el plan por ranuras: cada tabla suma 1000 ‰ y nada negativo.
-  const badDist = MAIN_PACK_LINE.filter((id) => { const pl = mainPackPlan(id)!; return [pl.regular, pl.featured].some((t) => Object.values(t).reduce((a, b) => a + b, 0) !== 1000 || Object.values(t).some((v) => v < 0)); });
+  // Icon por sobre (2026-10-09): la misma regla que el validador (`planTableIssues`).
+  const badDist = MAIN_PACK_LINE.filter((id) => planTableIssues(mainPackPlan(id)!).length > 0);
   out.push({ id: "distribution", label: "Probabilidades F57.3 suman 100", level: badDist.length ? "CRITICAL" : "HEALTHY", detail: badDist.length ? badDist.join(", ") : "Las 6 tablas por clase suman 100" });
   const zero = CARDS.filter((c) => !(marketValue(c) > 0) || !(salvageValue(c) > 0) || salvageValue(c) >= marketValue(c));
   out.push({ id: "values", label: "Valor y desguace de las cartas", level: zero.length ? "CRITICAL" : "HEALTHY", detail: zero.length ? `${zero.length} cartas con valor/desguace inválido` : `${CARDS.length} cartas con valor > 0 y desguace < valor` });
@@ -157,8 +158,8 @@ export function whatIf(packId: string, w: WhatIf, n = 3000): { before: SimSummar
   const warnings: string[] = [];
   if (after.salvageOverPrice >= 0.7) warnings.push("La liquidación llegaría al 70 % del precio: bucle económico. Configuración NO válida.");
   const band = mainBand();
-  if (pack.id !== "icon" && after.evOverPrice > band.hi) warnings.push(`Valor/precio por encima de la banda (${band.hi.toFixed(2)}×): sobre dominante.`);
-  if (pack.id !== "icon" && after.evOverPrice < band.lo && MAIN_PACK_LINE.includes(pack.id)) warnings.push(`Valor/precio por debajo de la banda (${band.lo.toFixed(2)}×).`);
+  if (!isIconPack(pack.id) && after.evOverPrice > band.hi) warnings.push(`Valor/precio por encima de la banda (${band.hi.toFixed(2)}×): sobre dominante.`);
+  if (!isIconPack(pack.id) && after.evOverPrice < band.lo && MAIN_PACK_LINE.includes(pack.id)) warnings.push(`Valor/precio por debajo de la banda (${band.lo.toFixed(2)}×).`);
   warnings.push("La economía de sobres está congelada (F57.6): esta simulación no guarda nada.");
   return { before, after, warnings };
 }

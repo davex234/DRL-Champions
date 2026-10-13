@@ -16,7 +16,7 @@
  * determinista del motor real frente a estos números).
  */
 import type { CardDef } from "../cards/types";
-import { ovrTiltWeight, PACK_CLASS_ORDER, type ClassTable, type MainPackPlan, type PackCardClass } from "./packClass";
+import { effectiveFeatured, ovrTiltWeight, PACK_CLASS_ORDER, type ClassTable, type MainPackPlan, type PackCardClass } from "./packClass";
 
 export type ClassPools = Readonly<Record<PackCardClass, readonly CardDef[]>>;
 
@@ -42,9 +42,10 @@ export function slotCardProbabilities(table: ClassTable, pools: ClassPools, plan
   return out;
 }
 
-/** Las tablas de cada hueco del sobre, en orden (normales y, al final, la destacada). */
+/** Las tablas de cada hueco del sobre, en orden (normales y, al final, la destacada EFECTIVA: con su Icon por sobre). */
 export function slotTables(plan: MainPackPlan): ClassTable[] {
-  return Array.from({ length: plan.cards }, (_, i) => (i === plan.cards - 1 ? plan.featured : plan.regular));
+  const featured = effectiveFeatured(plan);
+  return Array.from({ length: plan.cards }, (_, i) => (i === plan.cards - 1 ? featured : plan.regular));
 }
 
 export interface TierIdentity {

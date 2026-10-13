@@ -168,7 +168,7 @@ test("F73 C6+C8 · la salida la decide el servidor; el mismo gesto devuelve la M
   assert.deepEqual(r2.data!.outputs, r1.data!.outputs, "misma carta, sin volver a sortear ni consumir");
   assert.equal(db.table("user_cards").filter((c) => c.user_id === A && c.card_id === basics[0].id).length, 13);
   const src = readFileSync(join(process.cwd(), "src/app/api/game/crafting/route.ts"), "utf8");
-  assert.ok(src.includes('new Set(["action", "recipeId", "uids", "ref"])'), "el cliente no puede mandar la carta, el OVR ni la semilla");
+  assert.ok(src.includes('new Set(["action", "recipeId", "uids", "ref", "expectedQty"])'), "el cliente no puede mandar la carta, el OVR ni la semilla");
 });
 
 test("F73 · estado: entregables y recetas coherentes con el inventario (lo que ve el cliente lo decide el servidor)", async () => {

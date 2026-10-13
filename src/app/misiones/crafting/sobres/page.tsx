@@ -54,7 +54,7 @@ function PackCrafting() {
     setBusy(true); setFailure(null);
     try {
       // La MISMA clave para este diálogo: si la respuesta se pierde y se reintenta, el servidor devuelve lo mismo.
-      const r = await craftPackReq(open.id, gesture.current);
+      const r = await craftPackReq(open.id, gesture.current, open.inputQty);
       setResult(r);
       await load();
       await syncFromServer().catch(() => undefined);

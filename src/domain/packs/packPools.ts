@@ -16,7 +16,8 @@ import { isTeamPackCard } from "@/data/teamIdentities";
 import type { CardDef } from "../cards/types";
 import type { PackDef } from "./types";
 import { buildPool } from "./pool";
-import { packCardClass, PACK_CLASS_ORDER, type PackCardClass } from "./packClass";
+import { packCardClass, planTemplate, PACK_CLASS_ORDER, type PackCardClass } from "./packClass";
+import { iconQualityWeightOf } from "./iconQuality";
 import type { ClassPools } from "./tierIdentity";
 
 export interface PackClassPools {
@@ -41,7 +42,9 @@ export function packClassPools(pack: Pick<PackDef, "id"> & Partial<PackDef>): Pa
   for (const c of flat) { const k = packCardClass(c); if (k) pools[k].push(c); }
   const team = pack.team ?? null;
   const isTeam = (c: CardDef) => !!team && isTeamPackCard(c, getPlayer(c.playerId), team);
-  const weightOf = team ? (c: CardDef) => (isTeam(c) ? TEAM_BOOST_WEIGHT : 1) : () => 1;
+  const poolWeight = team ? (c: CardDef) => (isTeam(c) ? TEAM_BOOST_WEIGHT : 1) : () => 1;
+  // Sobre Icon: la tabla de calidad, si está APROBADA (`./iconQuality`); si no, el mismo peso de siempre.
+  const weightOf = iconQualityWeightOf(planTemplate(pack.id), pools.icon, poolWeight);
   const size = PACK_CLASS_ORDER.reduce((a, k) => a + pools[k].length, 0);
   const out = { pools, weightOf, size, teamCards: team ? flat.filter(isTeam).length : 0 };
   CACHE.set(pack.id, out);

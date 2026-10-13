@@ -21,17 +21,31 @@ const read = (rel: string) => readFileSync(join(process.cwd(), rel), "utf8");
 /** Igual que la ficha: porcentaje con un decimal y coma (64,7 %). */
 const fmt = (pct: number) => `${(Math.round(pct * 10) / 10).toLocaleString("es-ES")} %`;
 
-test("FICHA · Icon: 3 cartas, media por carta PRIME 64,7 % / ICON 35,3 %, «Prime o Icon garantizada», ninguna rareza", () => {
+test("FICHA · Sobre ICON (2026-10-09, `icon-single`): 1 carta, 100 % Icon, «Icon garantizada», la frase exacta y la probabilidad de cada Icon", () => {
+  const h = panel("icon-single");
+  assert.match(h, /1 carta por sobre/);
+  assert.match(h, /Icon garantizada/);
+  assert.match(h, /data-class="icon"[\s\S]*?100 %/);
+  // Sin huecos normales: no se pinta una caja «0 cartas normales».
+  assert.doesNotMatch(h, /data-slot="regular"/);
+  assert.match(h, /data-slot="featured"[\s\S]*?Icon 100 %/);
+  assert.match(h, /data-best-odds[\s\S]*?OVR 90\+/);
+  assert.equal((h.match(/data-class="/g) ?? []).length, 1, "solo la clase Icon");
+  // Frase del encargo con la tabla APROBADA (65 / 17,5 / 17,5): ahora sí es verdad que las de menor valor son más probables.
+  assert.match(h, /data-icon-text[^>]*>Contiene exactamente 1 carta ICON garantizada\. Las ICON de menor valor tienen mayor probabilidad de aparecer\.</);
+  assert.match(h, /data-icon-method[^>]*>Nivel 18\.400: 65 % · Nivel 26\.500: 35 %\./);
+  assert.doesNotMatch(h, /data-icon-top/, "una carta: sin «al menos una de 95»");
+  assert.equal((h.match(/<li data-card="/g) ?? []).length, 3, "las 3 Icon del catálogo, cada una con su probabilidad");
+  for (const [nick, p] of [["PatMen", "65"], ["marteen", "17,5"], ["mada", "17,5"]]) assert.match(h, new RegExp(`>${nick}</b> · OVR 9[25] · <span[^>]*>${p} %</span> por carta`), nick);
+});
+
+test("FICHA · ICON Premium (2026-10-09, id histórico `icon`): 3 cartas, 3 ICON garantizadas, independientes, pesos por carta y P(≥ 1 de 95) = 72,54 %", () => {
   const h = panel("icon");
   assert.match(h, /3 cartas por sobre/);
-  assert.match(h, /Prime o Icon garantizada/);
-  assert.match(h, /data-class="prime"[\s\S]*?64,7 %/);
-  assert.match(h, /data-class="icon"[\s\S]*?35,3 %/);
-  // Pack Opening 3.0 · la ficha cuenta las dos ranuras y la mejor carta, exacto.
-  assert.match(h, /data-slot="regular"[\s\S]*?2 cartas normales[\s\S]*?Prime 72 % · Icon 28 %/);
-  assert.match(h, /data-slot="featured"[\s\S]*?Carta destacada · 1 por sobre[\s\S]*?Prime 50 % · Icon 50 %/);
-  assert.match(h, /data-best-odds[\s\S]*?OVR 90\+/);
-  assert.equal((h.match(/data-class="/g) ?? []).length, 2, "solo dos clases");
+  assert.match(h, /Icon garantizada/);
+  assert.match(h, /data-icon-text[^>]*>Contiene exactamente 3 cartas ICON garantizadas\. Cada carta se sortea por separado: pueden repetirse\. Las ICON de menor valor tienen mayor probabilidad de aparecer\.</);
+  for (const [nick, p] of [["PatMen", "65"], ["marteen", "17,5"], ["mada", "17,5"]]) assert.match(h, new RegExp(`>${nick}</b> · OVR 9[25] · <span[^>]*>${p} %</span> por carta`), nick);
+  assert.match(h, /data-icon-top[^>]*>Probabilidad de al menos una ICON de 95 OVR: 72,54 %\.</);
   for (const r of ["Común", "Poco común", "Rara", "Épica", "Legendaria"]) assert.ok(!h.includes(`>${r}<`), r);
 });
 
@@ -42,11 +56,14 @@ test("FICHA · cada sobre de la línea pinta SU tabla (cifras exactas) y ninguno
     for (const k of activeClasses(t)) assert.match(h, new RegExp(`data-class="${k}"[\\s\\S]*?>${PACK_CLASS_LABEL[k]}<[\\s\\S]*?${fmt(t[k])}`), `${id}/${k}`);
     assert.match(h, /data-slot="featured"/, id);
     assert.equal((h.match(/data-class="/g) ?? []).length, activeClasses(t).length, id);
-    if (id !== "icon") assert.doesNotMatch(h, /garantizada/i, id);
+    if (id !== "icon" && id !== "icon-single") assert.doesNotMatch(h, /garantizada/i, id);
+    // Icon por sobre (2026-10-09): la frase exacta con la probabilidad CONFIGURADA (no medida, no redondeada).
+    const want = { estandar: "1", premium: "5", oro: "10", masters: "15", champions: "20" }[id as string];
+    if (want) assert.match(h, new RegExp(`data-icon-text[^>]*>Probabilidad de conseguir al menos una carta ICON en este sobre: ${want} %<`), id);
   }
   // Bronce, tal cual el plan: media por carta exacta de 4 normales + la destacada.
   const b = panel("estandar");
-  for (const [k, p] of [["Base", "62,6"], ["Plata", "28"], ["Oro", "6,4"], ["Masters", "2"], ["Champions", "0,6"], ["Prime", "0,3"], ["Icon", "0,1"]] as const) assert.match(b, new RegExp(`>${k}<[\\s\\S]*?${p} %`), `${k}`);
+  for (const [k, p] of [["Base", "62,6"], ["Plata", "28"], ["Oro", "6,4"], ["Masters", "2"], ["Champions", "0,6"], ["Prime", "0,3"], ["Icon", "0,2"]] as const) assert.match(b, new RegExp(`>${k}<[\\s\\S]*?${p} %`), `${k}`);
   assert.match(b, /4 cartas normales[\s\S]*?Base 72 % · Plata 25 % · Oro 3 %/);
   assert.match(b, /dentro de cada clase, las cartas de OVR más alto son menos probables/);
 });

@@ -76,6 +76,18 @@ function OddsTable({ group, titled }: { group: OddsGroup; titled: boolean }) {
           </li>
         ))}
       </ul>
+      {/* Icon por sobre (2026-10-09): la frase y las cifras salen del plan que sortea el servidor. */}
+      {group.icon && (
+        <div className="mt-1.5" data-testid="odds-icon">
+          <p className="text-caption font-bold text-white">{group.icon.text}</p>
+          {group.icon.cards.length > 0 && (
+            <ul className="mt-0.5 space-y-0.5 text-label text-ink-secondary" data-testid="odds-icon-cards">
+              {group.icon.cards.map((line) => <li key={line}>{line}</li>)}
+            </ul>
+          )}
+          {group.icon.method && <p className="mt-0.5 text-label text-ink-faint" data-testid="odds-icon-method">{group.icon.method}</p>}
+        </div>
+      )}
       <p className="mt-1 text-label text-ink-faint">{SOURCE_NOTE[group.source]}{group.guarantee ? ` ${group.guarantee}.` : ""}</p>
       {group.slots && (
         <ul className="mt-1.5 space-y-0.5 text-label text-ink-secondary" data-testid="odds-slots">

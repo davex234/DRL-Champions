@@ -23,7 +23,7 @@ import { CardBack } from "./CardBack";
 import { PackHand } from "./PackHand";
 import { CardReveal } from "./CardReveal";
 import { ceremonyPackWidth, RUPTURE_MS, RUPTURE_REDUCED_MS, OPENING_BEATS } from "./PackStage";
-import { LEGEND, COMMON, RARE, MIXED, ICON3, single } from "@/app/design-system/fase57/fixtures";
+import { LEGEND, COMMON, RARE, MIXED, ICON_PACK, single } from "@/app/design-system/fase57/fixtures";
 
 const ROOT = process.cwd();
 const read = (rel: string) => readFileSync(join(ROOT, rel), "utf8");
@@ -254,5 +254,5 @@ test("M3 · el tema sale del sobre (acento del catálogo): ninguna tabla de colo
   assert.ok(STAGE.includes('const accent = pack.accent ?? "#ff2e63";'));
   assert.ok(CARDS.length === 331 || CARDS.length >= 331, "catálogo intacto");
   assert.ok(getVariant(LEGEND.variantId).palette.primary.startsWith("#"));
-  assert.equal(ICON3.opened.length, PACKS.find((p) => p.id === "icon")!.cardCount, "el arnés del Icon usa sus 3 cartas (Fase 57.4)");
+  assert.equal(ICON_PACK.opened.length, PACKS.find((p) => p.id === "icon")!.cardCount, "el arnés del Icon usa sus 3 cartas");
 });

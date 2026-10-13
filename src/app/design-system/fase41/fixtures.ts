@@ -55,7 +55,7 @@ export const SCENES: Record<Fase41Scene, Scene> = {
   "pack-purchasable": pack("Sobre Estándar con saldo suficiente", "estandar", 6120, 0),
   "pack-insufficient": pack("Sobre Estándar sin saldo: cuánto falta y cómo se gana", "estandar", 420, 0),
   "pack-premium-purchasable": pack("Sobre Premium con saldo", "premium", 12_000, 0),
-  "pack-icon-insufficient": pack("Sobre Icon (60.000) con 9.850", "icon", 9850, 0),
+  "pack-icon-insufficient": pack("Sobre ICON Premium (80.000) con 9.850", "icon", 9850, 0),
   "pack-event": pack("sobre de evento: se obtiene en eventos", "masters", 50_000, 0),
   "pack-owned": pack("Sobre Premium en el inventario: abrir sin comprar", "premium", 100, 1),
   "credits-closed": { kind: "credits", note: "tienda de créditos de prueba cerrada por el servidor" },

@@ -12,6 +12,7 @@
  */
 import { PACKS, getPack } from "@/data/packs";
 import { packLifecycle } from "@/domain/packs/lifecycle";
+import { isIconPack } from "@/domain/packs/packClass";
 import type { PackDef } from "@/domain/packs/types";
 
 export type CmsPackLifecycle = "DRAFT" | "ACTIVE" | "RETIRED";
@@ -102,8 +103,8 @@ export function packPublishGate(s: CmsSimSummary | null, band: { lo: number; hi:
   if (s.error) blockers.push(`La simulación falla: ${s.error}`);
   if (s.eligibleCards <= 0) blockers.push("El pool no deja ninguna carta elegible");
   if (!(s.salvageOverPrice < 0.7)) blockers.push(`Liquidación ${Math.round(s.salvageOverPrice * 100)} % ≥ 70 % del precio: bucle económico`);
-  if (templateId !== "icon" && s.evOverPrice > band.hi) blockers.push(`Valor/precio ${s.evOverPrice.toFixed(2)}× por encima de la banda (${band.hi.toFixed(2)}×): dominaría la línea principal`);
-  if (templateId !== "icon" && s.evOverPrice < band.lo * 0.5) warnings.push(`Valor/precio ${s.evOverPrice.toFixed(2)}× muy por debajo de la banda: poco atractivo`);
+  if (!isIconPack(templateId) && s.evOverPrice > band.hi) blockers.push(`Valor/precio ${s.evOverPrice.toFixed(2)}× por encima de la banda (${band.hi.toFixed(2)}×): dominaría la línea principal`);
+  if (!isIconPack(templateId) && s.evOverPrice < band.lo * 0.5) warnings.push(`Valor/precio ${s.evOverPrice.toFixed(2)}× muy por debajo de la banda: poco atractivo`);
   if (s.eligibleCards < 10) warnings.push(`Sólo ${s.eligibleCards} cartas elegibles: se repetirán mucho`);
   return { ok: blockers.length === 0, blockers, warnings };
 }

@@ -27,11 +27,12 @@ import type { PackDef, RarityBucket } from "./types";
 import { packPowerCap, type PackPowerCap } from "./power";
 import { BUCKET_LABEL } from "./types";
 import {
-  packDistribution, packPlan, featuredGuarantee, classGuarantee, MAIN_PACK_LINE, packCardClass, PACK_CLASS_ORDER, PACK_CLASS_LABEL, PACK_CLASS_SCOPE,
+  effectiveFeatured, guaranteedIcons, iconChanceOf, packDistribution, packPlan, planTemplate, featuredGuarantee, classGuarantee, MAIN_PACK_LINE, packCardClass, PACK_CLASS_ORDER, PACK_CLASS_LABEL, PACK_CLASS_SCOPE,
   type PackCardClass,
 } from "./packClass";
 import { tierIdentity, type ClassPools } from "./tierIdentity";
-import { CARDS } from "@/data/catalog";
+import { CARDS, getPlayer } from "@/data/catalog";
+import { activeIconQuality, iconValueLevels, ICON_QUALITY_PACKS, type IconQualityTable } from "./iconQuality";
 import { marketValue } from "@/domain/economy/pricing";
 import { getPack } from "@/data/packs";
 import { packClassPools } from "./packPools";
@@ -92,9 +93,34 @@ export interface ClassOddsSlots {
   bestAtLeast: { ovr90: number; ovr93: number; ovr95: number };
 }
 
+/**
+ * ICON POR SOBRE (2026-10-09) · lo que la ficha dice de la Icon, derivado del plan que sortea el servidor
+ * (`iconChanceBp`) y del pool real del sobre. Nada escrito a mano.
+ */
+export interface IconOdds {
+  /** Probabilidad EXACTA de al menos una Icon en el sobre (0..1). */
+  atLeastOne: number;
+  /** Todas las cartas del sobre son Icon (sobres ICON). */
+  guaranteed: boolean;
+  /** Cuántas Icon trae seguro (1 en `icon-single`, 3 en `icon`, 0 en el resto). */
+  count: number;
+  /** Sobres ICON de varias cartas: P(al menos una de la Icon de más OVR), exacta. */
+  top: { ovr: number; atLeastOne: number } | null;
+  /** La frase de la ficha. */
+  text: string;
+  /** Solo si `guaranteed`: probabilidad EXACTA de cada Icon POR CARTA (de menor a mayor valor). */
+  cards: { cardId: string; label: string; ovr: number; value: number; p: number }[];
+  /** Las Icon de menor valor son estrictamente más probables (solo entonces se afirma en la ficha). */
+  favorsLowValue: boolean;
+  /** La tabla de calidad APROBADA y su metodología, o `null` mientras esté pendiente. */
+  quality: { table: IconQualityTable; levels: { value: number; p: number; cards: number }[]; method: string } | null;
+}
+
 export interface ClassOdds {
   rows: ClassOddsRow[];
-  /** Solo si el sobre la cumple por construcción (Icon: «Prime o Icon garantizada»). */
+  /** Icon por sobre, o `null` si el sobre no la fija por sobre (especiales: la Icon sale por su tabla). */
+  icon: IconOdds | null;
+  /** Solo si el sobre la cumple por construcción (Icon: «Icon garantizada»). */
   guarantee: string | null;
   /** Pack Opening 3.0 · ranuras, inclinación y mejor carta (exacto). */
   slots: ClassOddsSlots;
@@ -126,9 +152,10 @@ export function finePct(p: number): string {
   return `${r.toLocaleString("es-ES")} %`;
 }
 /** Las tres frases de ranuras y mejor carta que enseñan la ficha y el detalle de compra (mismo texto, mismo cálculo). */
-export function slotLines(slots: ClassOddsSlots): { regular: string; featured: string; best: string; tilt: string | null } {
+export function slotLines(slots: ClassOddsSlots): { regular: string | null; featured: string; best: string; tilt: string | null } {
   return {
-    regular: `${slots.regular.count} ${slots.regular.count === 1 ? "carta normal" : "cartas normales"}: ${slots.regular.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}`,
+    // Un sobre de 1 carta (Icon) no tiene huecos normales: no se enseña una línea vacía.
+    regular: slots.regular.count === 0 ? null : `${slots.regular.count} ${slots.regular.count === 1 ? "carta normal" : "cartas normales"}: ${slots.regular.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}`,
     featured: `Carta destacada (1 por sobre): ${slots.featured.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}`,
     best: `Mejor carta del sobre: OVR 90+ ${finePct(slots.bestAtLeast.ovr90)} · 93+ ${finePct(slots.bestAtLeast.ovr93)} · 95 ${finePct(slots.bestAtLeast.ovr95)}`,
     tilt: slots.ovrTilt > 0 ? "Dentro de cada clase, en este sobre las cartas de OVR más alto son menos probables; todas pueden salir." : null,
@@ -144,13 +171,14 @@ export function classOddsFor(pack: Pick<PackDef, "id" | "cardCount">): ClassOdds
   const table = packDistribution(pack.id);
   const plan = packPlan(pack.id);
   if (!table || !plan) return null;
+  const feat = effectiveFeatured(plan);
   const regTotal = PACK_CLASS_ORDER.reduce((a, c) => a + plan.regular[c], 0) || 1;
-  const featTotal = PACK_CLASS_ORDER.reduce((a, c) => a + plan.featured[c], 0) || 1;
+  const featTotal = PACK_CLASS_ORDER.reduce((a, c) => a + feat[c], 0) || 1;
   const nReg = Math.max(0, plan.cards - 1);
   const rows = PACK_CLASS_ORDER.filter((c) => table[c] > 0).map((c) => ({
     cls: c, label: PACK_CLASS_LABEL[c], scope: PACK_CLASS_SCOPE[c],
     perCard: table[c] / 100,
-    atLeastOne: 1 - Math.pow(1 - plan.regular[c] / regTotal, nReg) * (1 - plan.featured[c] / featTotal),
+    atLeastOne: 1 - Math.pow(1 - plan.regular[c] / regTotal, nReg) * (1 - feat[c] / featTotal),
   }));
   let slots = IDENTITY_CACHE.get(pack.id);
   if (!slots) {
@@ -158,7 +186,7 @@ export function classOddsFor(pack: Pick<PackDef, "id" | "cardCount">): ClassOdds
     const id = tierIdentity(plan, pp.pools, marketValue, pp.weightOf);
     slots = {
       regular: { count: nReg, rows: PACK_CLASS_ORDER.filter((c) => plan.regular[c] > 0).map((c) => ({ cls: c, label: PACK_CLASS_LABEL[c], p: plan.regular[c] / regTotal })) },
-      featured: { rows: PACK_CLASS_ORDER.filter((c) => plan.featured[c] > 0).map((c) => ({ cls: c, label: PACK_CLASS_LABEL[c], p: plan.featured[c] / featTotal })) },
+      featured: { rows: PACK_CLASS_ORDER.filter((c) => feat[c] > 0).map((c) => ({ cls: c, label: PACK_CLASS_LABEL[c], p: feat[c] / featTotal })) },
       ovrTilt: plan.ovrTilt,
       bestAtLeast: { ovr90: id.bestAtLeast[90], ovr93: id.bestAtLeast[93], ovr95: id.bestAtLeast[95] },
     };
@@ -167,7 +195,72 @@ export function classOddsFor(pack: Pick<PackDef, "id" | "cardCount">): ClassOdds
   // Pack Opening 3.1 · la garantía de la carta destacada solo se comunica en los especiales (EWC): la ficha de la línea
   // principal no cambia.
   const featured = MAIN_PACK_LINE.includes(pack.id) ? null : featuredGuarantee(plan)?.label ?? null;
-  return { rows, guarantee: classGuarantee(table)?.label ?? featured, slots };
+  return { rows, guarantee: classGuarantee(table)?.label ?? featured, slots, icon: iconOddsFor(pack) };
+}
+
+/** «1 %», «12,5 %»: puntos básicos con los decimales que tengan (nunca redondeados). */
+export function bpPct(p: number): string {
+  return `${(Math.round(p * 1e6) / 1e4).toLocaleString("es-ES", { maximumFractionDigits: 2 })} %`;
+}
+
+/** Frases EXACTAS de la ficha (el encargo las fija). */
+export const ICON_COPY = {
+  chance: (p: number) => `Probabilidad de conseguir al menos una carta ICON en este sobre: ${bpPct(p)}`,
+  guaranteed: (n: number) => (n === 1 ? "Contiene exactamente 1 carta ICON garantizada." : `Contiene exactamente ${n} cartas ICON garantizadas.`),
+  independent: "Cada carta se sortea por separado: pueden repetirse.",
+  favorsLow: "Las ICON de menor valor tienen mayor probabilidad de aparecer.",
+  topAtLeastOne: (ovr: number, p: number) => `Probabilidad de al menos una ICON de ${ovr} OVR: ${(Math.round(p * 10000) / 100).toLocaleString("es-ES")} %.`,
+} as const;
+
+const ICON_ODDS_CACHE = new Map<string, IconOdds | null>();
+
+/**
+ * La Icon de un sobre de la línea principal (o `null` fuera de ella). Bronce…Champions: su probabilidad POR SOBRE. Sobres
+ * ICON: cuántas garantiza y la probabilidad EXACTA de cada Icon POR CARTA (pool real × tabla de calidad aprobada).
+ */
+export function iconOddsFor(pack: Pick<PackDef, "id">): IconOdds | null {
+  if (ICON_ODDS_CACHE.has(pack.id)) return ICON_ODDS_CACHE.get(pack.id)!;
+  const atLeastOne = iconChanceOf(pack.id);
+  if (atLeastOne === null) { ICON_ODDS_CACHE.set(pack.id, null); return null; }
+  const count = guaranteedIcons(pack.id);
+  const plan = packPlan(pack.id)!;
+  const guaranteed = count > 0 && count === plan.cards;
+  let cards: IconOdds["cards"] = [];
+  let favorsLowValue = false;
+  let quality: IconOdds["quality"] = null;
+  let top: IconOdds["top"] = null;
+  if (guaranteed) {
+    const pp = packClassPools(getPack(pack.id) ?? (pack as PackDef));
+    const icons = pp.pools.icon;
+    const w = icons.map((c) => Math.max(0, pp.weightOf(c)));
+    const tw = w.reduce((a, b) => a + b, 0) || 1;
+    cards = icons.map((c, i) => ({ cardId: c.id, label: `${getPlayer(c.playerId)?.nick ?? c.playerId}`, ovr: c.ovr, value: marketValue(c), p: w[i] / tw }))
+      .sort((a, b) => a.value - b.value || a.cardId.localeCompare(b.cardId));
+    // «Las de menor valor, más probables»: toda carta de valor menor es ESTRICTAMENTE más probable que cualquiera de valor mayor.
+    favorsLowValue = cards.length > 1 && cards.every((a) => cards.every((b) => !(a.value < b.value) || a.p > b.p + 1e-12));
+    const t = planTemplate(pack.id);
+    const table = t !== null && ICON_QUALITY_PACKS.has(t) ? activeIconQuality() : null;
+    if (table) {
+      const levels = iconValueLevels(icons, marketValue);
+      quality = {
+        table,
+        levels: levels.map((lv, i) => ({ value: lv.value, p: table.shares[i] / 1000, cards: lv.cardIds.length })),
+        method: "Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad.",
+      };
+    }
+    // Varias cartas: probabilidad EXACTA de al menos una de la Icon de más OVR (independientes): 1 − (1 − p)^n.
+    if (count > 1 && cards.length) {
+      const maxOvr = Math.max(...cards.map((c) => c.ovr));
+      const pTop = cards.filter((c) => c.ovr === maxOvr).reduce((a, c) => a + c.p, 0);
+      top = { ovr: maxOvr, atLeastOne: 1 - Math.pow(1 - pTop, count) };
+    }
+  }
+  const text = guaranteed
+    ? [ICON_COPY.guaranteed(count), ...(count > 1 ? [ICON_COPY.independent] : []), ...(favorsLowValue ? [ICON_COPY.favorsLow] : [])].join(" ")
+    : ICON_COPY.chance(atLeastOne);
+  const out: IconOdds = { atLeastOne, guaranteed, count, text, cards, favorsLowValue, quality, top };
+  ICON_ODDS_CACHE.set(pack.id, out);
+  return out;
 }
 
 export interface MeasuredStats {

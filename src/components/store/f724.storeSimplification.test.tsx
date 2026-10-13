@@ -20,7 +20,7 @@ import { packStats } from "@/data/packStats";
 import { CardRegistry } from "@/collection/registry";
 import { openPack } from "@/domain/packs/openPack";
 import { freshPity } from "@/domain/packs/pity";
-import { mainPackDistribution, packDistribution, activeClasses, packCardClass, MAIN_PACK_LINE } from "@/domain/packs/packClass";
+import { mainPackDistribution, packDistribution, activeClasses, packCardClass, iconChanceOf, MAIN_PACK_LINE } from "@/domain/packs/packClass";
 import { normalizedWeights, pct } from "@/domain/packs/odds";
 import { formatCredits } from "@/lib/format";
 import type { PackDef } from "@/domain/packs/types";
@@ -93,7 +93,14 @@ test("S3 · CONTRATO: probabilidades del detalle ≡ fuente que usa el servidor,
       assert.deepEqual(g.rows.map((r) => r.pct), activeClasses(table).map((c) => `${(Math.round(table[c] * 10) / 10).toLocaleString("es-ES")} %`), id);
       assert.ok(Math.abs(activeClasses(table).reduce((s, c) => s + table[c], 0) - 100) < 1e-9, id);
       assert.ok(g.rows.every((r) => r.pct !== "0 %"), `${id}: ninguna clase posible se enseña como 0 %`);
-      assert.ok(g.slots && /^Carta destacada \(1 por sobre\): /.test(g.slots[1]) && /^Mejor carta del sobre: OVR 90\+ /.test(g.slots[2]), id);
+      // Un sobre de 1 carta (Icon) no tiene línea de huecos normales: la destacada pasa a ser la primera.
+      const off = getPack(id)!.cardCount === 1 ? 0 : 1;
+      assert.ok(g.slots && /^Carta destacada \(1 por sobre\): /.test(g.slots[off]) && /^Mejor carta del sobre: OVR 90\+ /.test(g.slots[off + 1]), id);
+      // Icon por sobre (2026-10-09): la línea de la Icon sale del mismo plan que sortea el servidor.
+      const chance = iconChanceOf(id);
+      if (chance === null) assert.equal(g.icon ?? null, null, id);
+      else if (chance === 1) assert.match(g.icon!.text, new RegExp(`^Contiene exactamente ${pack.cardCount === 1 ? "1 carta ICON garantizada" : `${pack.cardCount} cartas ICON garantizadas`}\\.`), id);
+      else assert.equal(g.icon?.text, `Probabilidad de conseguir al menos una carta ICON en este sobre: ${(chance * 100).toLocaleString("es-ES")} %`, id);
     } else {
       // Resto: el reparto MEDIDO con el motor real (packStats.test lo revalida contra `openPack`); sin medición (el Sobre
       // Inicial, regalo con su propia regla), los pesos declarados normalizados — la misma rama que `packOddsFor`.

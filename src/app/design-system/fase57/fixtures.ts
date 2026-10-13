@@ -32,9 +32,9 @@ const COMMONS = byRarity("common");
 const BEFORE: OwnedInstanceFact[] = [...COMMONS.slice(0, 20).map(own), own(COMMON), own(COMMON)];
 
 export const LEGENDARY_IN: PlanFixture = { before: BEFORE, opened: [op(COMMONS[40]), op(COMMON), op(UNCOMMON), op(RARE), op(LEGEND)] };
-/** El sobre Icon trae 3 cartas en el catálogo: sus escenas usan 3 (la escena se adapta al número REAL). */
-// Fase 57.4 · 3 cartas, todas Prime (Future Star = rara) o Icon (legendaria): nada de otras clases en el arnés.
-export const ICON3: PlanFixture = { before: BEFORE, opened: [op(RARE), op(pick("rare", 1, LEGEND, EPIC, RARE)), op(LEGEND)] };
+/** El Sobre ICON Premium (`icon`) trae 3 cartas en el catálogo: sus escenas usan 3 (la escena se adapta al número REAL). */
+// 2026-10-09 · 3 cartas, todas Icon (legendarias); repetidas permitidas, como en el motor.
+export const ICON_PACK: PlanFixture = { before: BEFORE, opened: [op(LEGEND), op(LEGEND), op(LEGEND)] };
 export const MIXED: PlanFixture = { before: BEFORE, opened: [op(COMMON), op(COMMONS[41]), op(UNCOMMON), op(RARE), op(EPIC)] };
 export const SIX: PlanFixture = { before: BEFORE, opened: [...MIXED.opened, op(COMMONS[42])] };
 export const ALL_DUP: PlanFixture = { before: BEFORE, opened: COMMONS.slice(0, 5).map(op) };

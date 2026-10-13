@@ -113,25 +113,134 @@ export interface MainPackPlan {
   featured: ClassTable;
   /** λ de la inclinación por OVR dentro de cada clase (≥ 0; 0 = uniforme). */
   ovrTilt: number;
+  /**
+   * ICON POR SOBRE (2026-10-09) · probabilidad, en PUNTOS BÁSICOS (1/10.000, entero 0..10.000), de que el sobre traiga
+   * AL MENOS una carta Icon. Si existe:
+   *
+   *   · el motor la sortea UNA SOLA VEZ por sobre (`rollBasisPoints`, exacta), antes de los huecos;
+   *   · positivo → la ranura destacada ES la Icon (exactamente una por sobre);
+   *   · negativo → ninguna Icon: `regular` y `featured` NO pueden contener Icon (lo fijan el validador y los tests, y el
+   *     motor además la excluye al sortear), así que no hay otra ruta por la que aparezca;
+   *   · `featured` pasa a ser la tabla de la destacada CUANDO NO HAY ICON (pesos relativos; ya no suma 1000). La tabla
+   *     efectiva (la que leen ficha, economía y simulador) es `effectiveFeatured(plan)`.
+   *
+   * Sin este campo (especiales), la Icon sale por las tablas como siempre.
+   */
+  iconChanceBp?: number;
 }
 
 const tbl = (o: Partial<Record<PackCardClass, number>>): ClassTable => ({ base: 0, plata: 0, oro: 0, masters: 0, champions: 0, prime: 0, icon: 0, ...o });
 
+/*
+ * ═══════════════════════ PROBABILIDAD DE ICON POR SOBRE (2026-10-09) ═══════════════════════
+ *
+ * Decisión de producto: «al menos una Icon en el sobre» = 1 % Bronce · 5 % Plata · 10 % Oro · 15 % Masters ·
+ * 20 % Champions. Es una probabilidad POR SOBRE, no por carta: se sortea una vez y, si sale, la Icon ocupa la carta
+ * destacada. Antes salía de la tabla de la destacada (0,5 · 1,5 · 8 · 15 · 28 %).
+ *
+ * El resto de la destacada NO se ha retocado a mano: es la MISMA tabla de antes sin la Icon, así que cuando no hay Icon
+ * las demás clases conservan exactamente sus proporciones relativas (el único ajuste matemáticamente necesario es el
+ * reescalado a 1 − P(Icon)). Los huecos normales no cambian en ningún sobre (ninguno tenía Icon salvo el Sobre Icon).
+ *
+ * DOS SOBRES ICON (2026-10-09, decisión del propietario): `icon-single` (30.000, 1 carta) e `icon` (80.000, id histórico,
+ * 3 cartas). Todas sus cartas son Icon: sus tablas son 100 % Icon en cada hueco (no usan `iconChanceBp`), y CADA carta
+ * se sortea por separado con la tabla de calidad aprobada (`./iconQuality`: 65 / 17,5 / 17,5). Pueden repetirse.
+ */
+export const ICON_CHANCE_BP: Readonly<Record<string, number>> = {
+  estandar: 100, premium: 500, oro: 1000, masters: 1500, champions: 2000,
+};
+
 /** EL PLAN. Clave = `PackDef.id` persistido (`estandar` = Bronce, `premium` = Plata). */
 export const MAIN_PACK_PLAN: Readonly<Record<string, MainPackPlan>> = {
-  estandar: { cards: 5, ovrTilt: 0.3, regular: tbl({ base: 720, plata: 250, oro: 30 }),
-    featured: tbl({ base: 250, plata: 400, oro: 200, masters: 100, champions: 30, prime: 15, icon: 5 }) },
-  premium: { cards: 6, ovrTilt: 0.22, regular: tbl({ plata: 820, oro: 150, masters: 30 }),
-    featured: tbl({ plata: 150, oro: 395, masters: 290, champions: 100, prime: 50, icon: 15 }) },
-  oro: { cards: 5, ovrTilt: 0.12, regular: tbl({ oro: 700, masters: 270, champions: 30 }),
-    featured: tbl({ oro: 200, masters: 350, champions: 220, prime: 150, icon: 80 }) },
-  masters: { cards: 5, ovrTilt: 0.03, regular: tbl({ oro: 350, masters: 520, champions: 130 }),
-    featured: tbl({ masters: 300, champions: 290, prime: 260, icon: 150 }) },
-  champions: { cards: 5, ovrTilt: 0, regular: tbl({ oro: 200, masters: 330, champions: 400, prime: 70 }),
-    featured: tbl({ champions: 300, prime: 420, icon: 280 }) },
-  icon: { cards: 3, ovrTilt: 0, regular: tbl({ prime: 720, icon: 280 }),
-    featured: tbl({ prime: 500, icon: 500 }) },
+  estandar: { cards: 5, ovrTilt: 0.3, iconChanceBp: ICON_CHANCE_BP.estandar, regular: tbl({ base: 720, plata: 250, oro: 30 }),
+    featured: tbl({ base: 250, plata: 400, oro: 200, masters: 100, champions: 30, prime: 15 }) },
+  premium: { cards: 6, ovrTilt: 0.22, iconChanceBp: ICON_CHANCE_BP.premium, regular: tbl({ plata: 820, oro: 150, masters: 30 }),
+    featured: tbl({ plata: 150, oro: 395, masters: 290, champions: 100, prime: 50 }) },
+  oro: { cards: 5, ovrTilt: 0.12, iconChanceBp: ICON_CHANCE_BP.oro, regular: tbl({ oro: 700, masters: 270, champions: 30 }),
+    featured: tbl({ oro: 200, masters: 350, champions: 220, prime: 150 }) },
+  masters: { cards: 5, ovrTilt: 0.03, iconChanceBp: ICON_CHANCE_BP.masters, regular: tbl({ oro: 350, masters: 520, champions: 130 }),
+    featured: tbl({ masters: 300, champions: 290, prime: 260 }) },
+  champions: { cards: 5, ovrTilt: 0, iconChanceBp: ICON_CHANCE_BP.champions, regular: tbl({ oro: 200, masters: 330, champions: 400, prime: 70 }),
+    featured: tbl({ champions: 300, prime: 420 }) },
+  // Sobre ICON (30.000): una carta, 100 % Icon. Sin huecos normales.
+  "icon-single": { cards: 1, ovrTilt: 0, regular: tbl({}), featured: tbl({ icon: 1000 }) },
+  // Sobre ICON Premium (80.000, id histórico `icon`): tres cartas, las tres 100 % Icon, independientes.
+  icon: { cards: 3, ovrTilt: 0, regular: tbl({ icon: 1000 }), featured: tbl({ icon: 1000 }) },
 };
+
+/**
+ * La tabla EFECTIVA de la destacada, en POR MIL (puede llevar decimales): con `iconChanceBp`, Icon = P(Icon) y el resto
+ * = (1 − P(Icon)) × su peso relativo en `featured`. Sin `iconChanceBp`, `featured` tal cual. Es lo que sortea el motor,
+ * en dos pasos; aquí, en uno, para el cálculo exacto.
+ */
+export function effectiveFeatured(plan: MainPackPlan): ClassTable {
+  if (plan.iconChanceBp === undefined) return plan.featured;
+  const hit = EFFECTIVE_CACHE.get(plan);
+  if (hit) return hit;
+  const pIcon = plan.iconChanceBp / 10000;
+  const rest = PACK_CLASS_ORDER.reduce((a, c) => a + (c === "icon" ? 0 : Math.max(0, plan.featured[c])), 0);
+  const out = Object.fromEntries(PACK_CLASS_ORDER.map((c) => [c,
+    c === "icon" ? pIcon * 1000 : rest > 0 ? (1 - pIcon) * 1000 * Math.max(0, plan.featured[c]) / rest : 0])) as ClassTable;
+  EFFECTIVE_CACHE.set(plan, out);
+  return out;
+}
+const EFFECTIVE_CACHE = new WeakMap<MainPackPlan, ClassTable>();
+
+/** La misma tabla sin Icon (lo que sortea un hueco de un plan con `iconChanceBp`: la Icon solo llega por el sorteo único). */
+export function withoutIcon(table: ClassTable): ClassTable {
+  if (table.icon === 0) return table;
+  const hit = NO_ICON_CACHE.get(table);
+  if (hit) return hit;
+  const out = { ...table, icon: 0 };
+  NO_ICON_CACHE.set(table, out);
+  return out;
+}
+const NO_ICON_CACHE = new WeakMap<ClassTable, ClassTable>();
+
+/**
+ * Defectos de las TABLAS de un plan (vacío = válido). Una sola regla para el validador de sobres y la salud del panel:
+ *
+ *   · huecos normales: enteros ≥ 0 que suman 1000 ‰ (un sobre de 1 carta no tiene: tabla a cero);
+ *   · sin `iconChanceBp`: la destacada, enteros ≥ 0 que suman 1000 ‰;
+ *   · con `iconChanceBp` (entero 0..10.000): NINGUNA tabla contiene Icon y la destacada son pesos relativos enteros ≥ 0
+ *     (suma > 0 salvo que la Icon sea segura, 10.000).
+ */
+export function planTableIssues(plan: MainPackPlan): string[] {
+  const out: string[] = [];
+  const sum = (t: ClassTable) => PACK_CLASS_ORDER.reduce((s, c) => s + t[c], 0);
+  const ints = (t: ClassTable) => PACK_CLASS_ORDER.every((c) => Number.isInteger(t[c]) && t[c] >= 0);
+  if (!ints(plan.regular) || (plan.cards > 1 ? sum(plan.regular) !== 1000 : sum(plan.regular) !== 0)) out.push(`tabla normal inválida (suma ${sum(plan.regular)} ‰)`);
+  const bp = plan.iconChanceBp;
+  if (bp === undefined) {
+    if (!ints(plan.featured) || sum(plan.featured) !== 1000) out.push(`tabla destacada inválida (suma ${sum(plan.featured)} ‰)`);
+    return out;
+  }
+  if (!Number.isInteger(bp) || bp < 0 || bp > 10000) out.push(`probabilidad de Icon por sobre inválida (${bp})`);
+  if (plan.regular.icon !== 0 || plan.featured.icon !== 0) out.push("Icon en una tabla de un plan con Icon por sobre (doble ruta)");
+  if (!ints(plan.featured) || (bp < 10000 && sum(plan.featured) <= 0)) out.push(`tabla destacada sin Icon inválida (suma ${sum(plan.featured)})`);
+  return out;
+}
+
+/**
+ * Probabilidad EXACTA (0..1) de al menos una Icon en un sobre de la LÍNEA PRINCIPAL: la configurada por sobre
+ * (`iconChanceBp`) o, en los sobres ICON, la de sus huecos (1). `null` fuera de la línea (los especiales no la fijan).
+ */
+export function iconChanceOf(packId: string): number | null {
+  const plan = mainPackPlan(packId);
+  if (!plan) return null;
+  if (plan.iconChanceBp !== undefined) return plan.iconChanceBp / 10000;
+  const pIcon = (t: ClassTable) => { const s = PACK_CLASS_ORDER.reduce((a, k) => a + t[k], 0); return s > 0 ? t.icon / s : 0; };
+  const slots = Array.from({ length: plan.cards }, (_, i) => pIcon(i === plan.cards - 1 ? plan.featured : plan.regular));
+  return 1 - slots.reduce((a, p) => a * (1 - p), 1);
+}
+
+/** Cuántas cartas Icon trae SEGURO el sobre (huecos con Icon al 100 %): 1 en `icon-single`, 3 en `icon`, 0 en el resto. */
+export function guaranteedIcons(packId: string): number {
+  const plan = mainPackPlan(packId);
+  if (!plan) return 0;
+  const sure = (t: ClassTable) => t.icon > 0 && PACK_CLASS_ORDER.every((k) => k === "icon" || t[k] === 0);
+  return Array.from({ length: plan.cards }, (_, i) => (i === plan.cards - 1 ? effectiveFeatured(plan) : plan.regular)).filter(sure).length;
+}
 
 /*
  * ═══════════════════════ PACK OPENING 3.1 · SOBRES ESPECIALES (2026-10-07) ═══════════════════════
@@ -180,7 +289,8 @@ export const PACK_PLANS: Readonly<Record<string, MainPackPlan>> = { ...MAIN_PACK
 /** Promedio EXACTO por carta de un plan, en porcentaje: ((cards − 1) · regular + featured) / cards / 10. */
 export function averageDistribution(plan: MainPackPlan): ClassDistribution {
   const n = plan.cards;
-  return Object.fromEntries(PACK_CLASS_ORDER.map((c) => [c, ((n - 1) * plan.regular[c] + plan.featured[c]) / n / 10])) as ClassDistribution;
+  const f = effectiveFeatured(plan);
+  return Object.fromEntries(PACK_CLASS_ORDER.map((c) => [c, ((n - 1) * plan.regular[c] + f[c]) / n / 10])) as ClassDistribution;
 }
 
 /** Peso de la inclinación por OVR (relativo dentro de la clase; e^0 = 1 en OVR 70). */
@@ -198,8 +308,12 @@ export const MAIN_PACK_DISTRIBUTION: Readonly<Record<string, ClassDistribution>>
   Object.entries(MAIN_PACK_PLAN).map(([id, plan]) => [id, averageDistribution(plan)]),
 );
 
-/** La línea, de menor a mayor. */
-export const MAIN_PACK_LINE: readonly string[] = ["estandar", "premium", "oro", "masters", "champions", "icon"];
+/** Los dos sobres ICON (2026-10-09): todas sus cartas son Icon. Quedan fuera de la banda de valor de los otros cinco. */
+export const ICON_PACK_IDS: readonly string[] = ["icon-single", "icon"];
+export const isIconPack = (packId: string): boolean => ICON_PACK_IDS.includes(packId);
+
+/** La línea, de menor a mayor ESCALÓN (no precio: el Sobre ICON, 30.000, cuesta menos que Champions, 35.000). */
+export const MAIN_PACK_LINE: readonly string[] = ["estandar", "premium", "oro", "masters", "champions", "icon-single", "icon"];
 
 /**
  * F60 · Un sobre del panel (`cms-…`) usa la tabla de su PLANTILLA: no hay economía nueva. El registro de sobres vivos
@@ -244,7 +358,8 @@ export function packDistribution(packId: string): ClassDistribution | null {
  * en esa carta (EWC: «Champions o Icon garantizada en la carta destacada»). `null` si no hay nada que garantizar con verdad.
  */
 export function featuredGuarantee(plan: MainPackPlan): { classes: PackCardClass[]; label: string } | null {
-  const active = PACK_CLASS_ORDER.filter((c) => plan.featured[c] > 0);
+  const f = effectiveFeatured(plan);
+  const active = PACK_CLASS_ORDER.filter((c) => f[c] > 0);
   if (active.length === 0 || active.some((c) => PACK_CLASS_ORDER.indexOf(c) < PACK_CLASS_ORDER.indexOf("champions"))) return null;
   return { classes: active, label: `${active.map((c) => PACK_CLASS_LABEL[c]).join(" o ")} garantizada en la carta destacada` };
 }

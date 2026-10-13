@@ -54,7 +54,7 @@ test("RUTA · solo POST (sin GET/PUT/DELETE exportados)", () => {
 
 test("RUTA · cuerpo acotado (413) y campos cerrados: el cliente no elige carta, rareza, serial, versión, pool ni odds", () => {
   assert.ok(ROUTE.includes("if (raw.length > MAX_BODY)") && ROUTE.includes("status: 413"));
-  assert.ok(ROUTE.includes('const ALLOWED = ["action", "packId", "ref"];'));
+  assert.ok(ROUTE.includes('const ALLOWED = ["action", "packId", "ref", "expectedPrice"];')); // ICON 2026-10-09: precio visto (solo bloquea)
   assert.ok(ROUTE.includes('return NextResponse.json({ error: "Campo no permitido" }, { status: 400 });'));
 });
 

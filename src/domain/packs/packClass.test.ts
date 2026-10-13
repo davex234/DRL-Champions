@@ -13,7 +13,7 @@ import { validatePack } from "@/pack/validate";
 import { CARDS } from "@/data/catalog";
 import { PACKS, getPack } from "@/data/packs";
 import {
-  packCardClass, mainPackDistribution, packPlan, packDrawMode, classGuarantee, activeClasses,
+  packCardClass, mainPackDistribution, packPlan, planTableIssues, effectiveFeatured, packDrawMode, classGuarantee, activeClasses,
   MAIN_PACK_DISTRIBUTION, MAIN_PACK_PLAN, MAIN_PACK_LINE, PACK_CLASS_ORDER, EmptyPackClassError, type PackCardClass,
 } from "./packClass";
 import { openPack, classPool } from "./openPack";
@@ -74,28 +74,38 @@ test("CLASIFICACIÓN · no toca el catálogo: edición, OVR y rareza siguen sien
 
 /* ───────────────────────────── 2 · TABLA ───────────────────────────── */
 
-test("TABLA · PACK OPENING 3.0: cada tabla del plan suma 1000 ‰, la media por carta suma 100 y las cartas coinciden", () => {
+test("TABLA · PACK OPENING 3.0 + ICON POR SOBRE: tablas válidas, Icon fuera de las tablas, destacada efectiva = 1000 ‰, media 100 y cartas", () => {
   // El plan exacto lo congela economyFinal.test (A); aquí, sus invariantes.
   for (const id of MAIN_PACK_LINE) {
     const pl = MAIN_PACK_PLAN[id];
-    assert.equal(PACK_CLASS_ORDER.reduce((s, k) => s + pl.regular[k], 0), 1000, `${id} normal`);
-    assert.equal(PACK_CLASS_ORDER.reduce((s, k) => s + pl.featured[k], 0), 1000, `${id} destacada`);
+    assert.deepEqual(planTableIssues(pl), [], id);
+    assert.equal(PACK_CLASS_ORDER.reduce((s, k) => s + pl.regular[k], 0), pl.cards > 1 ? 1000 : 0, `${id} normal`);
+    assert.ok(Math.abs(PACK_CLASS_ORDER.reduce((s, k) => s + effectiveFeatured(pl)[k], 0) - 1000) < 1e-9, `${id} destacada efectiva`);
+    if (id === "icon-single" || id === "icon") {
+      // DOS SOBRES ICON (2026-10-09): cada hueco, 100 % Icon; sin sorteo por sobre.
+      assert.equal(pl.iconChanceBp, undefined, id);
+      assert.equal(effectiveFeatured(pl).icon, 1000, id);
+      if (pl.cards > 1) assert.equal(pl.regular.icon, 1000, id);
+      continue;
+    }
+    assert.equal(pl.regular.icon + pl.featured.icon, 0, `${id}: la Icon solo llega por el sorteo único`);
+    assert.equal(effectiveFeatured(pl).icon, pl.iconChanceBp! / 10, `${id}: Icon de la destacada = P(Icon) por sobre`);
     assert.equal(pl.cards, pack(id).cardCount, `${id} cartas`);
     assert.ok(pl.ovrTilt >= 0 && Number.isFinite(pl.ovrTilt), id);
     assert.ok(Math.abs(PACK_CLASS_ORDER.reduce((s, k) => s + mainPackDistribution(id)![k], 0) - 100) < 1e-9, id);
   }
-  // La inclinación baja al subir de sobre (Champions e Icon, uniformes).
+  // La inclinación baja al subir de sobre (Champions y los dos ICON, uniformes; en los ICON manda la tabla de calidad).
   const tilt = MAIN_PACK_LINE.map((id) => MAIN_PACK_PLAN[id].ovrTilt);
   for (let i = 1; i < tilt.length; i++) assert.ok(tilt[i] <= tilt[i - 1], tilt.join(" ≥ "));
-  assert.deepEqual([...MAIN_PACK_LINE], ["estandar", "premium", "oro", "masters", "champions", "icon"]);
+  assert.deepEqual([...MAIN_PACK_LINE], ["estandar", "premium", "oro", "masters", "champions", "icon-single", "icon"]);
 });
 
-test("PROGRESIÓN CRÍTICA · P(Prime) y P(Icon) por carta estrictamente crecientes (Pack Opening 3.0: 0,3·0,83·3·5,2·14·64,7 y 0,1·0,25·1,6·3·5,6·35,3)", () => {
+test("PROGRESIÓN CRÍTICA · P(Prime) y P(Icon) por carta estrictamente crecientes de Bronce a Champions; los dos ICON, 100 % Icon", () => {
   const prime = MAIN_PACK_LINE.map((id) => mainPackDistribution(id)!.prime);
   const icon = MAIN_PACK_LINE.map((id) => mainPackDistribution(id)!.icon);
-  assert.deepEqual(prime.map((x) => Math.round(x * 100) / 100), [0.3, 0.83, 3, 5.2, 14, 64.67]);
-  assert.deepEqual(icon.map((x) => Math.round(x * 100) / 100), [0.1, 0.25, 1.6, 3, 5.6, 35.33]);
-  for (let i = 1; i < MAIN_PACK_LINE.length; i++) {
+  assert.deepEqual(prime.map((x) => Math.round(x * 100) / 100), [0.3, 0.8, 2.93, 5.2, 14.93, 0, 0]);
+  assert.deepEqual(icon.map((x) => Math.round(x * 100) / 100), [0.2, 0.83, 2, 3, 4, 100, 100]);
+  for (let i = 1; i < MAIN_PACK_LINE.indexOf("icon-single"); i++) {
     assert.ok(prime[i] > prime[i - 1], `Prime: ${MAIN_PACK_LINE[i]} > ${MAIN_PACK_LINE[i - 1]}`);
     assert.ok(icon[i] > icon[i - 1], `Icon: ${MAIN_PACK_LINE[i]} > ${MAIN_PACK_LINE[i - 1]}`);
   }
@@ -103,7 +113,7 @@ test("PROGRESIÓN CRÍTICA · P(Prime) y P(Icon) por carta estrictamente crecien
 
 test("TABLA · ids exactos: la línea son los seis; con plan, además los especiales (3.1); ids ajenos o heredados de Object no activan nada", () => {
   const withTable = PACKS.filter((p) => mainPackDistribution(p.id)).map((p) => p.id).sort();
-  assert.deepEqual(withTable, ["champions", "estandar", "icon", "masters", "oro", "premium"]);
+  assert.deepEqual(withTable, ["champions", "estandar", "icon", "icon-single", "masters", "oro", "premium"]);
   for (const id of ["toString", "constructor", "__proto__", "hasOwnProperty", "estandar__x", "", "inicial", "prime"]) {
     assert.equal(packPlan(id), null, id);
     assert.equal(packDrawMode(id), "rarity-weights", id);
@@ -161,7 +171,7 @@ test("MOTOR · determinista: misma semilla, mismas cartas", () => {
 });
 
 test("FAIL CLOSED · una clase > 0 sin cartas aborta la apertura: nunca cae a otra clase ni al catálogo", () => {
-  // El mismo Icon, pero con un pool explícito sin ninguna carta Icon: la clase Icon (30 %) queda vacía.
+  // El mismo Icon, pero con un pool explícito sin ninguna carta Icon: la clase Icon (100 %) queda vacía.
   // (Registro propio: el pool se cachea por `pack.id` dentro de cada registro.)
   const reg = new CardRegistry();
   const noIcon: PackDef = { ...pack("icon"), pool: CARDS.filter((c) => c.variantId === "future-star").map((c) => c.id) };
@@ -186,10 +196,10 @@ test("MOTOR · anti-duplicado y garantías por rareza no sacan la carta de su cl
 
 /* ───────────────────────────── 5 · ICON ───────────────────────────── */
 
-test("ICON · exactamente 3 cartas (Fase 57.4), todas Prime (Future Star) o Icon (Record Breaker/Moments); precio 60.000 (F80)", () => {
+test("ICON PREMIUM (id histórico `icon`) · exactamente 3 cartas, todas Icon (Record Breaker/Moments); precio 80.000 (2026-10-09)", () => {
   const icon = pack("icon");
   assert.equal(icon.cardCount, 3);
-  assert.equal(icon.price, 60000);
+  assert.equal(icon.price, 80000);
   const engine = new PackEngine();
   const all = CARDS.map((c, i) => ({ uid: `o${i}`, cardId: c.id, variantId: c.variantId, obtainedAt: 0 }) as never);
   for (let s = 0; s < 5000; s++) {
@@ -197,16 +207,16 @@ test("ICON · exactamente 3 cartas (Fase 57.4), todas Prime (Future Star) o Icon
     assert.equal(r.instances.length, 3, `seed ${s}`);
     for (const ins of r.instances) {
       const v = REG.card(ins.cardId)!.variantId;
-      assert.ok(["future-star", "record-breaker", "moments"].includes(v), `${v} en Icon`);
+      assert.ok(["record-breaker", "moments"].includes(v), `${v} en Icon`);
     }
   }
 });
 
-test("ICON · nunca base, masters-l, masters-sdc ni champions-s (propiedad sobre el pool por clase)", () => {
+test("ICON · nunca base, masters-l, masters-sdc, champions-s ni future-star (propiedad sobre el pool por clase)", () => {
   const cp = classPool(REG, pack("icon"), null);
   const reachable = activeClasses(mainPackDistribution("icon")!).flatMap((k) => cp[k]);
-  assert.equal(reachable.length, 23);
-  for (const c of reachable) assert.ok(!["base", "masters-l", "masters-sdc", "champions-s"].includes(c.variantId), c.id);
+  assert.equal(reachable.length, 3);
+  for (const c of reachable) assert.ok(["record-breaker", "moments"].includes(c.variantId), c.id);
 });
 
 /* ───────────────────────────── 6 · UI / GARANTÍA ───────────────────────────── */
@@ -224,9 +234,9 @@ test("UI · la ficha de los seis deriva de la tabla: sin filas de rareza, sin te
   for (const p of PACKS.filter((x) => !MAIN_PACK_LINE.includes(x.id))) assert.equal(classOddsFor(p) === null, !packPlan(p.id), p.id);
 });
 
-test("GARANTÍA · solo Icon comunica garantía («Prime o Icon garantizada»); ningún otro de la línea", () => {
-  assert.equal(classGuarantee(mainPackDistribution("icon")!)?.label, "Prime o Icon garantizada");
-  for (const id of MAIN_PACK_LINE.filter((x) => x !== "icon")) assert.equal(classOddsFor(pack(id))!.guarantee, null, id);
+test("GARANTÍA · solo los dos sobres ICON comunican garantía («Icon garantizada»); ningún otro de la línea", () => {
+  for (const id of ["icon-single", "icon"]) assert.equal(classGuarantee(mainPackDistribution(id)!)?.label, "Icon garantizada", id);
+  for (const id of MAIN_PACK_LINE.filter((x) => x !== "icon" && x !== "icon-single")) assert.equal(classOddsFor(pack(id))!.guarantee, null, id);
 });
 
 /* ───────────────────────────── 7 · LOS DEMÁS NO CAMBIAN ───────────────────────────── */

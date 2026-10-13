@@ -39,7 +39,8 @@ export function newGesture(): string {
 }
 
 export const fetchCrafting = () => call<CraftingSnapshot>("/api/game/crafting");
-export const craftPackReq = (recipeId: string, ref: string) => call<PackCraftResult>("/api/game/crafting", { body: { action: "craftPack", recipeId, ref } });
+/** `expectedQty` = los sobres que el jugador VIO en la receta: si cambió en el servidor, 409 sin descontar nada. */
+export const craftPackReq = (recipeId: string, ref: string, expectedQty?: number) => call<PackCraftResult>("/api/game/crafting", { body: { action: "craftPack", recipeId, ref, ...(expectedQty !== undefined ? { expectedQty } : {}) } });
 export const craftCardReq = (recipeId: string, uids: string[], ref: string) => call<CardCraftResult>("/api/game/crafting", { body: { action: "craftCard", recipeId, uids, ref } });
 export const fetchMissions = () => call<MissionsSnapshot>("/api/game/missions");
 export const claimMissionReq = (missionId: string) => call<{ repeated: boolean; snapshot: MissionsSnapshot }>("/api/game/missions", { body: { action: "claimMission", missionId } });

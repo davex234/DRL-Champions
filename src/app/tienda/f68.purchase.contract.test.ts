@@ -35,7 +35,8 @@ test("F68 B002 · la clave llega al servidor: buyPackOnline → buyPack(packId, 
   const sync = code(read("src/lib/game/sync.ts"));
   assert.match(sync, /export async function buyPackOnline\(packId: string, ref\?: string\): Promise<void> \{\s*await apiBuyPack\(packId, ref\);/);
   const client = code(read("src/lib/game/client.ts"));
-  assert.match(client, /export const buyPack = \(packId: string, ref = newGesture\(\)\) =>\s*postJson<[^>]+>\(\s*"\/api\/game\/packs", \{ action: "buy", packId, ref \}\);/);
+  // ICON (2026-10-09) · + el precio que esta pestaña enseña (`seenPrice`): solo puede BLOQUEAR un cobro distinto.
+  assert.match(client, /export const buyPack = \(packId: string, ref = newGesture\(\)\) =>\s*postJson<[^>]+>\(\s*"\/api\/game\/packs", \{ action: "buy", packId, ref, \.\.\.seenPrice\(packId\) \}\);/);
   const hook = code(read("src/lib/game/usePackPurchase.ts"));
   assert.match(hook, /async \(packId: string, ref\?: string\)[\s\S]*?await buyPackOnline\(packId, ref\);/);
 });
