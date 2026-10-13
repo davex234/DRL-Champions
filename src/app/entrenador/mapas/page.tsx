@@ -1,117 +1,128 @@
 "use client";
 
 /**
- * MAPAS — los cuatro trazados de NEXUS (Fase 9I).
+ * MAPAS — MAP INTELLIGENCE. Los doce mapas del Entrenador.
  *
- * Una ficha por mapa: el trazado a tamaño grande, su identidad en una línea y el desglose
- * de sus zonas. Es una pantalla de ESTUDIO, no un editor: no se arrastra nada y no se
- * guarda nada. Para dibujar está la pizarra.
+ * Una pantalla de ESTUDIO, no un editor: aquí no se arrastra nada y no se guarda nada. Se
+ * elige un mapa, se mira grande, se hace zoom donde interese y se pasa a la pizarra.
  *
- * Los mapas son PROPIOS. Ni el trazado, ni los nombres, ni las zonas vienen de VALORANT ni
- * de ningún otro juego: lo que se reproduce es la gramática del género —dos bases, sitios
- * de plantado, un centro y sus cuellos de botella—, que no es de nadie.
+ * El asset se enseña **tal cual**: sin recortar, sin escalar de forma permanente y sin
+ * deformar. Lo que cambia es la cámara. Solo se descarga el PNG del mapa elegido: el selector usa
+ * las miniaturas (`public/maps/thumbs`).
+ *
+ * FASE 51 · además de los datos del asset, lo que TÚ tienes preparado en ese mapa (jugadas y
+ * composiciones), leído de tus datos reales. Sin sesión o si la lectura falla, esa línea no sale.
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  TACTICAL_MAPS, ZONE_COLOR, ZONE_LABEL, emptyStrat,
-  type TacticalMap, type ZoneKind,
+  availableMaps, getTacticalMap, aspectRatio, DEFAULT_MAP_ID, type TacticalMap,
 } from "@/domain/tactics";
-import { StrategyBoard } from "@/components/tactics/StrategyBoard";
-import { cn } from "@/lib/format";
+import { MapCanvas, fitCamera, type Camera } from "@/components/tactics/MapCanvas";
+import { MapPicker } from "@/components/tactics/MapPicker";
+import { CoachHeader } from "@/components/coach/tc/CoachFrame";
+import { useAuth } from "@/lib/supabase/auth";
+import { fetchStrats, fetchCompositions } from "@/lib/tactics/client";
+
+interface Preparado { strats: Record<string, number>; comps: Record<string, number> }
 
 export default function MapasPage() {
-  return (
-    <div className="space-y-6">
-      <header>
-        <Link
-          href="/entrenador"
-          className="-ml-2 inline-flex min-h-[36px] items-center rounded-control px-2 font-display text-[11px] font-bold uppercase tracking-[0.14em] text-white/45 transition duration-fast hover:bg-white/[0.06] hover:text-white"
-        >
-          ‹ Entrenador
-        </Link>
-        <h1 className="font-display text-[clamp(26px,4.5vw,42px)] font-bold uppercase leading-none text-white">
-          Mapas
-        </h1>
-        <p className="mt-1.5 max-w-2xl text-[15px] text-white/55">
-          Cuatro trazados con problemas distintos. No son variaciones del mismo mapa: lo que
-          cambia entre ellos es qué error se paga caro.
-        </p>
-      </header>
+  const { user } = useAuth();
+  const [id, setId] = useState(DEFAULT_MAP_ID);
+  const map: TacticalMap = getTacticalMap(id) ?? availableMaps()[0];
+  const [camera, setCamera] = useState<Camera>(() => fitCamera(map));
+  const [preparado, setPreparado] = useState<Preparado | null>(null);
 
-      <div className="space-y-5">
-        {TACTICAL_MAPS.map((m) => <MapCard key={m.id} map={m} />)}
+  useEffect(() => { setCamera(fitCamera(map)); }, [map.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!user) return;
+    let vivo = true;
+    Promise.all([fetchStrats(), fetchCompositions()])
+      .then(([s, c]) => {
+        if (!vivo) return;
+        const cuenta = (ids: string[]) => ids.reduce<Record<string, number>>((m, k) => ({ ...m, [k]: (m[k] ?? 0) + 1 }), {});
+        setPreparado({ strats: cuenta(s.map((x) => x.mapId)), comps: cuenta(c.map((x) => x.mapId)) });
+      })
+      .catch(() => { /* Sin datos no se inventa nada: la línea no se enseña. */ });
+    return () => { vivo = false; };
+  }, [user]);
+
+  const jugadas = preparado?.strats[map.id] ?? 0;
+  const comps = preparado?.comps[map.id] ?? 0;
+
+  return (
+    <div className="space-y-3">
+      <CoachHeader
+        kicker="Map Intelligence"
+        title={<>Mapas · <span className="text-[#2fe0ff]">{map.name}</span></>}
+        actions={
+          <>
+            <Link href="/entrenador/composiciones" className="nx-coach-btn" data-variant="ghost">Composiciones</Link>
+            <Link href="/entrenador/strats" className="nx-coach-btn">Ir a la pizarra →</Link>
+          </>
+        }
+      />
+
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_320px]">
+        <section className="min-w-0 space-y-3">
+          <div className="nx-coach-board relative">
+            {(["tl", "tr", "bl", "br"] as const).map((c) => <span key={c} aria-hidden className="nx-coach-corner z-10" data-c={c} />)}
+            <MapCanvas
+              map={map}
+              camera={camera}
+              onCamera={setCamera}
+              /* El lienzo se mide en `vh`, también en móvil: un mapa de estudio de 267 px no se estudia. */
+              className="h-[min(58vh,470px)] w-full sm:h-[min(66vh,600px)] lg:h-[min(76vh,860px)]"
+            >
+              {/* Pantalla de estudio: el mapa y nada encima. */}
+              <g />
+            </MapCanvas>
+          </div>
+
+          {/* Los datos del mapa como CIFRAS. */}
+          <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4" data-testid="map-intel">
+            <Cifra label="Sitios" value={map.sites} />
+            <Cifra label="Resolución" value={`${map.width} × ${map.height}`} />
+            <Cifra label="Proporción" value={aspectRatio(map).toFixed(3).replace(".", ",")} />
+            {preparado ? (
+              <Cifra label="Tu preparación" value={`${jugadas} jug. · ${comps} comp.`} tone="#2fe0ff" />
+            ) : (
+              <Cifra label="Mapa" value={map.name} tone="#2fe0ff" />
+            )}
+          </dl>
+        </section>
+
+        <aside className="space-y-3">
+          <section className="nx-coach-panel p-3">
+            <h2 className="nx-coach-kicker mb-2">Elegir mapa</h2>
+            <MapPicker compact value={map.id} onChange={(m) => setId(m.id)} />
+          </section>
+
+          <section className="nx-coach-panel p-3">
+            <h2 className="nx-coach-kicker mb-1.5">{map.name}</h2>
+            <p className="text-[14px] leading-relaxed text-white/75">{map.identity}</p>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              <Link href="/entrenador/strats" className="nx-coach-btn" data-size="sm">Dibujar una jugada</Link>
+              <Link href="/entrenador/composiciones" className="nx-coach-btn" data-variant="ghost" data-size="sm">Preparar composición</Link>
+            </div>
+            <p className="nx-coach-muted mt-3 border-t border-[rgba(47,224,255,0.12)] pt-2.5 text-[12px] leading-relaxed">
+              Son assets de mapa adaptados para NEXUS y se usan como capa visual de la
+              herramienta. Los rótulos de los sitios forman parte del propio asset: la
+              pizarra dibuja <em>encima</em>, nunca sobre la imagen.
+            </p>
+          </section>
+        </aside>
       </div>
     </div>
   );
 }
 
-function MapCard({ map }: { map: TacticalMap }) {
-  /*
-   * Se reutiliza la pizarra en modo lectura: una estrategia vacía coloca los cinco roles en
-   * la base y así se ve la escala real del mapa —un sitio grande se nota cuando hay una
-   * ficha al lado—. `onMove` no hace nada: aquí no se edita.
-   */
-  const [side] = useState<"attack" | "defense">("attack");
-  const preview = emptyStrat(`preview-${map.id}`, map.id, side, map.name);
-
-  const byKind = map.zones.reduce<Record<string, string[]>>((acc, z) => {
-    (acc[z.kind] ??= []).push(z.label);
-    return acc;
-  }, {});
-
+function Cifra({ label, value, tone }: { label: string; value: React.ReactNode; tone?: string }) {
   return (
-    <section id={map.id} className="nx-panel scroll-mt-24 p-4 sm:p-5" aria-label={map.name}>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
-        <StrategyBoard
-          map={map}
-          strat={preview}
-          step={0}
-          selectedId={null}
-          onSelect={() => {}}
-          onMove={() => {}}
-          className="h-fit"
-        />
-
-        <div className="min-w-0">
-          <span className="nx-label">{map.sites === 1 ? "Un sitio" : `${map.sites} sitios`}</span>
-          <h2 className="mt-0.5 font-display text-3xl font-bold uppercase leading-none text-white">
-            {map.name}
-          </h2>
-          <p className="mt-2 text-[15px] leading-relaxed text-white/60">{map.identity}</p>
-
-          <h3 className="nx-label mt-5 mb-2">Zonas</h3>
-          <div className="space-y-2">
-            {(Object.keys(ZONE_LABEL) as ZoneKind[]).map((kind) => {
-              const labels = byKind[kind];
-              if (!labels?.length) return null;
-              return (
-                <div key={kind} className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span
-                    className="flex shrink-0 items-center gap-1.5 font-display text-[11px] font-bold uppercase tracking-label"
-                    style={{ color: ZONE_COLOR[kind] }}
-                  >
-                    <i className="h-2 w-2 rounded-sm" style={{ background: ZONE_COLOR[kind] }} aria-hidden />
-                    {ZONE_LABEL[kind]}
-                  </span>
-                  <span className="text-[13px] text-white/55">{labels.join(" · ")}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          <Link
-            href="/entrenador/strats"
-            className={cn(
-              "mt-5 inline-block rounded-control border border-white/15 px-5 py-2.5",
-              "font-display text-sm font-bold uppercase tracking-[0.12em] text-white/80",
-              "transition duration-fast hover:bg-white/[0.07]",
-            )}
-          >
-            Dibujar una jugada aquí
-          </Link>
-        </div>
-      </div>
-    </section>
+    <div className="nx-coach-stat px-3 py-2.5">
+      <dt className="nx-label !text-[9.5px] !text-white/45">{label}</dt>
+      <dd className="mt-1 truncate font-display text-[17px] font-extrabold uppercase leading-none" style={{ color: tone ?? "#fff" }}>{value}</dd>
+    </div>
   );
 }

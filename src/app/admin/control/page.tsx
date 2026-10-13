@@ -7,7 +7,6 @@
  * No crea pipeline/transport/updater/rollback/distribution nuevos. Polling vivo, sin recargar.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ADMIN_ENABLED } from "@/config/admin";
 import { adminFetch, adminDownload } from "@/lib/supabase/adminClient";
 import { cn } from "@/lib/format";
 import type { DashboardData } from "@/server/releases/types";
@@ -23,9 +22,6 @@ const NOC = { operational: { dot: "🟢", label: "OPERATIONAL", cls: "text-emera
 const PHASES = [["queued", "Queued"], ["running", "Running"], ["building", "Building"], ["signing", "Signing"], ["manifests", "Manifests"], ["uploading", "Publishing"], ["verifying", "Verifying"], ["published", "Distributing"], ["ready", "Ready"]];
 
 export default function ControlCenterPage() {
-  if (!ADMIN_ENABLED) {
-    return <div className="grid min-h-[60vh] place-items-center text-center"><div><p className="font-display text-2xl font-bold uppercase text-white">Acceso restringido</p><p className="mt-2 text-white/50">Requiere <code className="text-drl">NEXT_PUBLIC_ADMIN=1</code>.</p></div></div>;
-  }
   return <ControlCenter />;
 }
 

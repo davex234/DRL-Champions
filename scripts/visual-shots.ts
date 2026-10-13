@@ -35,6 +35,7 @@
  * ceremonia de apertura se toman aparte con el movimiento ACTIVADO y con su propio nombre
  * (`…-ceremonia`), porque de una ceremonia no se puede juzgar el reposo.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -149,7 +150,6 @@ async function seed(admin: SupabaseClient, userId: string) {
     p_reason: "admin",
     p_credits: 80_000,
     p_xp: 9000,
-    p_tokens: 2500,
     p_pack_id: "premium",
     p_pack_count: 5,
   });
@@ -163,7 +163,7 @@ async function seed(admin: SupabaseClient, userId: string) {
     p_user: userId,
     p_ref: `visual-seed-cosmetics:${userId}`,
     p_reason: "admin",
-    p_credits: 0, p_xp: 0, p_tokens: 0, p_pack_id: null, p_pack_count: 0,
+    p_credits: 0, p_xp: 0, p_pack_id: null, p_pack_count: 0,
     p_points: 0, p_card_ids: null,
     p_cosmetics: ["titulo:analista", "marco:neon", "banderin:emea-s1"],
   });
@@ -237,7 +237,7 @@ async function main() {
 
   const admin = createClient(URL_, SERVICE, { auth: { persistSession: false } });
   const email = `visual-${Date.now()}@example.invalid`;
-  const password = "Test-1234-visual";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "nexusplayer" },
   });

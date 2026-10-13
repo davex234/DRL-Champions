@@ -148,3 +148,112 @@ export const fade: Transition = { duration: s(DURATION.fast), ease: EASE.out };
 
 /** Curva CSS lista para `style`, cuando el movimiento no pasa por framer-motion. */
 export const CSS_EASE = EASING.out;
+
+// ═════════════════════════════ FASE 44 · GAME EXPERIENCE 4.0 ═════════════════════════════
+//
+// Los seis momentos siguen siendo el vocabulario. Lo que faltaba era una ESCALA de impacto que
+// diga cuánto movimiento merece cada cosa, para que «todo se mueve» no pueda pasar por descuido:
+//
+//   LEVEL 0 · estático          — texto, cifras en reposo, listas.
+//   LEVEL 1 · microinteracción  — hover, foco, pulsación (80–180 ms).
+//   LEVEL 2 · transición        — cambio de pantalla, panel, hoja, revelado común (150–350 ms).
+//   LEVEL 3 · momento           — victoria, derrota, subida de nivel, objetivo, plantilla lista, rara/épica.
+//   LEVEL 4 · excepcional       — legendaria, serial #1. Nunca más de uno a la vez.
+//
+// Regla de uso: un componente declara su nivel (`data-motion-level`) y toma de aquí la duración.
+// Con `prefers-reduced-motion` TODOS los niveles se aplastan a un fundido corto (`reducedTransition`).
+
+/** Duraciones de juego en ms. Nombres del encargo; los valores salen de `DURATION`. */
+export const MOTION = {
+  /** Microinteracción: hover, foco, pulsación. */
+  fast: DURATION.instant,
+  /** Panel, hoja, pestaña, cambio de pantalla. */
+  normal: 220,
+  /** Entrada de escena de juego (pre-partida, selector de modos, ceremonia). */
+  game: DURATION.normal,
+  /** Momento importante (victoria, subida de nivel). */
+  celebration: DURATION.slow,
+  /** Momento excepcional (legendaria, serial #1). Tope duro: nada obligatorio pasa de aquí. */
+  exceptional: DURATION.reveal,
+} as const;
+
+export type MotionLevel = 0 | 1 | 2 | 3 | 4;
+
+/** Presupuesto por nivel: duración máxima de UNA animación y si puede tener partículas/luz de pantalla. */
+export const MOTION_LEVELS: Record<MotionLevel, { name: string; maxMs: number; particles: boolean; screenLight: boolean; examples: string[] }> = {
+  0: { name: "Estático", maxMs: 0, particles: false, screenLight: false, examples: ["texto", "listas", "cifras en reposo"] },
+  1: { name: "Microinteracción", maxMs: 180, particles: false, screenLight: false, examples: ["hover de carta", "foco", "pulsar botón"] },
+  2: { name: "Transición", maxMs: 350, particles: false, screenLight: false, examples: ["entrar en Jugar", "abrir hoja", "revelar común"] },
+  3: { name: "Momento", maxMs: 900, particles: false, screenLight: true, examples: ["victoria", "subida de nivel", "objetivo completado", "plantilla lista", "rara/épica"] },
+  4: { name: "Excepcional", maxMs: 1200, particles: true, screenLight: true, examples: ["legendaria", "serial #1"] },
+};
+
+/** Muelles de framer, con moderación: objetos físicos (cartas, botones, hojas), nunca paneles de texto. */
+export const SPRING = {
+  card: { type: "spring" as const, stiffness: 420, damping: 32, mass: 0.8 },
+  button: { type: "spring" as const, stiffness: 700, damping: 38 },
+  sheet: { type: "spring" as const, stiffness: 360, damping: 36 },
+};
+
+/** Transición que debe usar TODO lo animado cuando el jugador pide menos movimiento. */
+export const reducedTransition: Transition = { duration: 0.12, ease: "linear" };
+
+/** Duración efectiva (ms) de un nivel con o sin movimiento reducido. */
+export function levelDuration(level: MotionLevel, reduced: boolean): number {
+  if (level === 0) return 0;
+  if (reduced) return 120;
+  return MOTION_LEVELS[level].maxMs;
+}
+
+/**
+ * FAMILIAS DE TRANSICIÓN DE PANTALLA. No hay veinte: hay cuatro, y la familia sale de la ruta.
+ *
+ *   gameplay    — jugar, modos, duelos, campaña, draft: directa (sube y aparece, 180 ms).
+ *   collection  — colección, sobres, equipos: profundidad (escala desde 0,985, 240 ms).
+ *   season      — temporada, logros, progresión, perfil: luz (fundido con barrido, 300 ms).
+ *   default     — el resto: fundido corto (200 ms).
+ */
+export type TransitionFamily = "gameplay" | "collection" | "season" | "default";
+
+const FAMILY_PREFIXES: [TransitionFamily, string[]][] = [
+  ["gameplay", ["/jugar", "/duelos", "/social", "/pickems", "/torneos"]],
+  ["collection", ["/coleccion", "/colecciones", "/inventario", "/tienda", "/packs", "/equipo", "/eventos"]],
+  ["season", ["/temporada", "/temporadas", "/logros", "/progresion", "/recompensas", "/jugador", "/ranking", "/cuenta"]],
+];
+
+export function transitionFamily(pathname: string): TransitionFamily {
+  // Equipos vive bajo /duelos pero se prepara como la colección, no como una partida.
+  if (pathname === "/duelos/mazos" || pathname.startsWith("/duelos/mazos/")) return "collection";
+  for (const [family, prefixes] of FAMILY_PREFIXES) {
+    if (prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return family;
+  }
+  return "default";
+}
+
+export interface PageMotion {
+  initial: { opacity: number; y?: number; scale?: number };
+  animate: { opacity: number; y?: number; scale?: number };
+  transition: Transition;
+  /** ms totales, para verificar el presupuesto (150–350 ms). */
+  ms: number;
+}
+
+/** La entrada de pantalla de una familia. Solo `transform` y `opacity`; con movimiento reducido, fundido. */
+export function pageMotion(family: TransitionFamily, reduced: boolean): PageMotion {
+  if (reduced) return { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: reducedTransition, ms: 120 };
+  switch (family) {
+    case "gameplay":
+      return { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.18, ease: EASE.out }, ms: 180 };
+    case "collection":
+      return { initial: { opacity: 0, scale: 0.985 }, animate: { opacity: 1, scale: 1 }, transition: { duration: 0.24, ease: EASE.out }, ms: 240 };
+    case "season":
+      return { initial: { opacity: 0, y: 6 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3, ease: EASE.out }, ms: 300 };
+    default:
+      return { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2, ease: EASE.out }, ms: 200 };
+  }
+}
+
+/** Escalonado acotado para rejillas (colección): como mucho `cap` elementos animan; el resto aparece sin retardo. */
+export function boundedStagger(index: number, cap = 24, step = 0.025): number {
+  return index < cap ? index * step : 0;
+}

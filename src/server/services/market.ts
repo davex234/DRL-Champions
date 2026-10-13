@@ -27,7 +27,7 @@
  * ejecuta.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getCard, getPlayer } from "@/data/catalog";
+import { serverCatalog, type ServerCatalog } from "@/server/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { marketValue } from "@/domain/economy/pricing";
 
@@ -84,14 +84,30 @@ export interface BrowseFilters {
   limit?: number;
 }
 
-/** Enriquece un listado con el catálogo. Devuelve `null` si la carta ya no existe. */
-function toView(row: {
+/**
+ * Enriquece un listado con el catálogo. Devuelve `null` si la carta ya no existe.
+ *
+ * BLOQUE 8.1 — el catálogo entra por parámetro y es el PERSISTIDO. Antes se leía del
+ * binding de módulo `getCard`, lo que ataba la vista del mercado al catálogo con el que
+ * arrancó el proceso. Que sea un argumento tiene además la ventaja de que se resuelve una
+ * sola vez por consulta y no una por listado.
+ */
+function toView(cat: ServerCatalog, row: {
   id: string; card_id: string; card_uid: string | null; serial: number | null;
   price: number; seller_id: string; created_at: string;
-}): ListingView | null {
-  const def = getCard(row.card_id);
+}, mintedVersion?: number | null): ListingView | null {
+  /*
+   * BLOQUE 8.2 — el escaparate enseña la carta QUE SE VENDE.
+   *
+   * Un listado es un ejemplar concreto (`card_uid`), no una carta abstracta. Si un admin
+   * sube el OVR de la definición, el anuncio de alguien que compró la versión anterior no
+   * puede empezar a anunciar estadísticas que su carta no tiene: sería publicidad falsa
+   * generada por el propio sistema. Con `card_uid` se resuelve por la versión acuñada; sin
+   * él (listados antiguos del modelo de 0004) se cae a la vigente.
+   */
+  const def = cat.instance(row.card_id, mintedVersion);
   if (!def) return null;
-  const player = getPlayer(def.playerId);
+  const player = cat.player(def.playerId);
   const variant = getVariant(def.variantId);
   return {
     id: row.id,
@@ -110,6 +126,23 @@ function toView(row: {
     rank: variant.rank,
     reference: marketValue(def),
   };
+}
+
+/**
+ * Versión acuñada de cada ejemplar anunciado, en UNA consulta (bloque 8.2).
+ *
+ * Se resuelve en lote a propósito: preguntar por listado sería un N+1 en la pantalla más
+ * consultada del mercado. Los listados sin `card_uid` —modelo antiguo, sin ejemplar
+ * asociado— no aportan clave y quedan fuera; su vista cae a la definición vigente.
+ */
+async function mintedVersions(
+  sb: SupabaseClient, rows: { card_uid: string | null }[],
+): Promise<Map<string, number | null>> {
+  const uids = rows.map((r) => r.card_uid).filter((u): u is string => !!u);
+  if (uids.length === 0) return new Map();
+  const { data } = await sb.from("user_cards").select("uid, minted_version").in("uid", uids);
+  return new Map(((data ?? []) as { uid: string; minted_version: number | null }[])
+    .map((r) => [r.uid, r.minted_version]));
 }
 
 /**
@@ -139,8 +172,11 @@ export async function browse(
   const { data, error } = await q.limit(limit * 3);
   if (error) return fail(error.message, 500);
 
-  let views = ((data ?? []) as Parameters<typeof toView>[0][])
-    .map(toView)
+  const cat = await serverCatalog(sb);
+  const rows = (data ?? []) as Parameters<typeof toView>[1][];
+  const versions = await mintedVersions(sb, rows);
+  let views = rows
+    .map((r) => toView(cat, r, versions.get(r.card_uid ?? "")))
     .filter((v): v is ListingView => v !== null);
 
   if (filters.region) views = views.filter((v) => v.region === filters.region);
@@ -165,8 +201,14 @@ export async function myListings(
     .limit(100);
   if (error) return fail(error.message, 500);
 
-  const listings = ((data ?? []) as (Parameters<typeof toView>[0] & { status: string })[])
-    .map((r) => { const v = toView(r); return v ? { ...v, status: r.status } : null; })
+  const cat = await serverCatalog(sb);
+  const rows = (data ?? []) as (Parameters<typeof toView>[1] & { status: string })[];
+  const versions = await mintedVersions(sb, rows);
+  const listings = rows
+    .map((r) => {
+      const v = toView(cat, r, versions.get(r.card_uid ?? ""));
+      return v ? { ...v, status: r.status } : null;
+    })
     .filter((v): v is ListingView & { status: string } => v !== null);
   return { ok: true, data: { listings } };
 }
@@ -192,15 +234,16 @@ export async function myTrades(
     .limit(100);
   if (error) return fail(error.message, 500);
 
+  const cat = await serverCatalog(sb);
   const trades = ((data ?? []) as {
     id: string; buyer_id: string; seller_id: string; card_id: string;
     price: number; tax: number | null; created_at: string;
   }[]).map((t) => {
-    const def = getCard(t.card_id);
+    const def = cat.card(t.card_id);
     return {
       id: t.id,
       cardId: t.card_id,
-      nick: def ? (getPlayer(def.playerId)?.nick ?? def.playerId) : t.card_id,
+      nick: def ? (cat.player(def.playerId)?.nick ?? def.playerId) : t.card_id,
       price: Number(t.price),
       fee: Number(t.tax ?? 0),
       createdAt: t.created_at,

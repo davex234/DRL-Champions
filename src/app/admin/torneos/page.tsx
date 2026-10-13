@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ADMIN_ENABLED } from "@/config/admin";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { Toast } from "@/components/ui/Toast";
 import { useToast } from "@/lib/useToast";
@@ -21,15 +20,6 @@ const inputCls =
   "w-full rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none";
 
 export default function TorneosPage() {
-  if (!ADMIN_ENABLED) {
-    return (
-      <div className="grid min-h-[60vh] place-items-center text-center">
-        <p className="max-w-sm text-white/60">
-          El panel requiere <code className="text-drl">NEXT_PUBLIC_ADMIN=1</code>.
-        </p>
-      </div>
-    );
-  }
   return (
     <HydrationGate>
       <Torneos />
@@ -93,6 +83,9 @@ function Torneos() {
     for (const p of players) if (p.teamId) set.set(p.teamId, p.teamId);
     return [...set.keys()];
   }, [players]);
+  // SANEAMIENTO POST F47 · arriba del `return` de «sin Supabase»: si no, este Hook solo se ejecuta
+  // en algunos renders (`react-hooks/rules-of-hooks`) y el orden de Hooks deja de ser estable.
+  const rosterOptions = useMemo(() => allPlayers().sort((a, b) => a.nick.localeCompare(b.nick)), []);
 
   if (!online) {
     return (
@@ -186,8 +179,6 @@ function Torneos() {
     if (r.error) return notify(r.error, false);
     setRules(await listRarityRules());
   }
-
-  const rosterOptions = useMemo(() => allPlayers().sort((a, b) => a.nick.localeCompare(b.nick)), []);
 
   return (
     <section className="animate-rise space-y-6">

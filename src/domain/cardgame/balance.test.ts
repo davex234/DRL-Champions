@@ -50,7 +50,8 @@ function realSnapshot(block: number, id: string): DuelDeckSnapshot {
   const byRole = new Map<RoleId, (typeof CARDS)[number][]>();
   for (const c of best.values()) {
     const p = registry.player(c.playerId);
-    if (p) byRole.set(p.role, [...(byRole.get(p.role) ?? []), c]);
+    // Rol de la CARTA (catálogo diseñado, 2026-09-21) si lo imprime; si no, el del jugador.
+    if (p) byRole.set((c.role ?? p.role), [...(byRole.get((c.role ?? p.role)) ?? []), c]);
   }
   for (const [, arr] of byRole) arr.sort((x, y) => y.ovr - x.ovr || x.id.localeCompare(y.id));
   const picks = DUEL_ROLES.flatMap((r) => (byRole.get(r) ?? []).slice(block * 2, block * 2 + 2));
@@ -74,6 +75,30 @@ const M1B = mirrorOf(M1, "mirror-m1");
 const M2B = mirrorOf(M2, "mirror-m2");
 const M3B = mirrorOf(M3, "mirror-m3");
 
+/*
+ * FIXTURES CON PRECONDICIÓN EXPLÍCITA (catálogo diseñado, 2026-09-21).
+ *
+ * Algunas pruebas necesitan que los DATOS tengan una forma concreta —diez cartas con SH ≠ EF, o un 5-5
+ * real entre dos mazos de OVR distinto— y antes la daban por hecha en los bloques 0 y 1. Con OVR
+ * impresos hay empates que antes no existían, así que el bloque se ELIGE por su precondición y se
+ * afirma que existe. Lo que se prueba del motor no cambia.
+ */
+function primerBloque(pred: (s: DuelDeckSnapshot) => boolean, id: string, desde = 0): DuelDeckSnapshot {
+  for (let b = desde; b < 12; b++) {
+    const s = realSnapshot(b, `${id}-${b}`);
+    if (pred(s)) return s;
+  }
+  assert.fail(`ningún bloque real cumple la precondición de ${id}`);
+}
+const MT = primerBloque((s) => s.cards.every((c) => c.combat.stronghold !== c.combat.entryfrag), "deck-mt");
+const MTB = mirrorOf(MT, "mirror-mt");
+// Precondición (no la conclusión): declarando siempre Gamesense, M1 contra este mazo EMPATA en el
+// marcador (hay desempate) y la suma de OVR es distinta. Quién gana y por qué lo afirma la prueba.
+const MADV = primerBloque((s) => {
+  const r = resolveCombat(M1, s, planFor(M1, s, allGamesense(M1)));
+  return r.errors.length === 0 && !!r.tiebreak && r.tiebreak.sumOvrA !== r.tiebreak.sumOvrB;
+}, "deck-madv", 1);
+
 /** Plan carta-i contra carta-i con la estadística indicada en cada posición. */
 function planFor(a: DuelDeckSnapshot, b: DuelDeckSnapshot, stats: CombatStatKey[]): CombatPlan {
   const encounters: DeclaredEncounter[] = a.cards.map((c, i) => ({
@@ -83,7 +108,7 @@ function planFor(a: DuelDeckSnapshot, b: DuelDeckSnapshot, stats: CombatStatKey[
 }
 
 /** Todos los enfrentamientos con Gamesense: la única estadística que se enfrenta a sí misma. */
-const allGamesense = (a: DuelDeckSnapshot) => a.cards.map(() => "gamesense" as CombatStatKey);
+function allGamesense(a: DuelDeckSnapshot): CombatStatKey[] { return a.cards.map(() => "gamesense" as CombatStatKey); }
 
 const BOT = (side: Side): DuelParticipant => ({ side, kind: "BOT", id: `bot-${side}` });
 
@@ -167,7 +192,7 @@ function doubleTiePlan(a: DuelDeckSnapshot, b: DuelDeckSnapshot, aWins: number):
 }
 
 test("OPD-08 · marcador 5-5 con OVR igual ⇒ decide la estadística total declarada", () => {
-  const r = resolveCombat(M1, M1B, doubleTiePlan(M1, M1B, 5));
+  const r = resolveCombat(MT, MTB, doubleTiePlan(MT, MTB, 5));
   assert.deepEqual(r.errors, []);
   assert.equal(r.scoreA, 5);
   assert.equal(r.scoreB, 5, "el fixture debe llegar realmente al 5-5");
@@ -184,9 +209,9 @@ test("OPD-08 · marcador 5-5 con OVR igual ⇒ decide la estadística total decl
 });
 
 test("OPD-08 · el margen es simétrico: intercambiar los bandos intercambia el ganador", () => {
-  const ab = resolveCombat(M1, M1B, doubleTiePlan(M1, M1B, 5));
+  const ab = resolveCombat(MT, MTB, doubleTiePlan(MT, MTB, 5));
   // El mismo reparto visto desde el otro lado: lo que A declaraba ahora lo declara B.
-  const ba = resolveCombat(M1B, M1, {
+  const ba = resolveCombat(MTB, MT, {
     encounters: ab.encounters.map((e) => ({ aUid: e.b.uid, aStat: e.b.stat, bUid: e.a.uid, bStat: e.a.stat })),
   });
   assert.equal(ba.decidedBy, "STAT_MARGIN");
@@ -196,7 +221,7 @@ test("OPD-08 · el margen es simétrico: intercambiar los bandos intercambia el 
 });
 
 test("OPD-08 · con el marcador desnivelado el margen ni se calcula como desempate", () => {
-  const r = resolveCombat(M1, M1B, doubleTiePlan(M1, M1B, 7));
+  const r = resolveCombat(MT, MTB, doubleTiePlan(MT, MTB, 7));
   assert.equal(r.scoreA, 7);
   assert.equal(r.decidedBy, "SCORE");
   assert.equal(r.tiebreak, null);
@@ -333,7 +358,7 @@ test("ADVERSARIAL · empate total (0-0, 10 empates) termina en DRAW determinista
 test("ADVERSARIAL · marcador igualado con OVR distinto lo decide el desempate del PDF", () => {
   // M1 vs M2 declarando siempre Gamesense llega al 5-5 con mazos de OVR distinto: el criterio del
   // PDF decide y otorga su punto, y el margen no llega ni a calcularse.
-  const r = resolveCombat(M1, M2, planFor(M1, M2, allGamesense(M1)));
+  const r = resolveCombat(M1, MADV, planFor(M1, MADV, allGamesense(M1)));
   assert.equal(r.decidedBy, "OVR_TIEBREAK");
   assert.notEqual(r.tiebreak!.sumOvrA, r.tiebreak!.sumOvrB);
   assert.equal(r.winner, r.tiebreak!.awardedTo);
@@ -345,8 +370,11 @@ test("ADVERSARIAL · marcador igualado con OVR distinto lo decide el desempate d
 
 test("ADVERSARIAL · mazos casi idénticos: una sola carta distinta rompe el espejo", () => {
   // M1 con UNA carta sustituida por la equivalente de M2: mismo rol, distinto OVR.
+  // La primera posición en la que M1 y M2 difieren de OVR (misma posición = mismo rol).
+  const k = M1.cards.findIndex((c, i) => c.ovr !== M2.cards[i].ovr);
+  assert.ok(k >= 0, "M1 y M2 deben diferir en alguna carta");
   const swapped: DuelDeckCard[] = M1.cards.map((c, i) =>
-    i === 0 ? { ...M2.cards[0], uid: `almost::${M2.cards[0].uid}` } : { ...c, uid: `almost::${c.uid}` });
+    i === k ? { ...M2.cards[k], uid: `almost::${M2.cards[k].uid}` } : { ...c, uid: `almost::${c.uid}` });
   const almost: DuelDeckSnapshot = { ...M1, deckId: "almost", cards: swapped, checksum: deckChecksum(swapped) };
   const r = resolveCombat(M1, almost, planFor(M1, almost, allGamesense(M1)));
   assert.deepEqual(r.errors, []);

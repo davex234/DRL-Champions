@@ -98,6 +98,14 @@ export interface FilterSpec {
   serialized?: boolean;
   tags?: string[];
   includeHidden?: boolean;       // por defecto false
+  // ── Fase 37 · criterios añadidos (opcionales: los consumidores existentes no cambian) ──
+  maxOvr?: number;
+  /** Copias mínimas poseídas (2 = solo duplicadas). */
+  minCount?: number;
+  /** Nombres de equipo TAL CUAL (alias del catálogo); el set de equipo los expande desde su identidad. */
+  teams?: string[];
+  /** Rarezas reales del motor de sobres (`bucketForRank`). */
+  rarities?: import("@/domain/packs/types").RarityBucket[];
 }
 
 export type SortKey = "ovr" | "rank" | "name" | "team" | "region" | "count" | "serial" | "obtained";
@@ -126,13 +134,13 @@ export interface CollectionStatistics {
   squadRating: number;
   byRarity: Record<string, number>;   // rank -> distinct owned
   byRegion: Record<string, number>;
-  byGroup: Record<string, number>;
+  byGroup: Record<string, number>;   // edición (variantId) -> distinct owned
   byRole: Record<string, number>;
 }
 export interface CollectionAnalytics {
   rarestOwned: string | null;         // cardId
   mostDuplicated: string | null;      // cardId
-  completionByGroup: Record<string, number>;
+  completionByGroup: Record<string, number>; // por edición (variantId)
   completionByRegion: Record<string, number>;
   serializedOwned: number;
   ovrSum: number;                     // proxy de valor (sin economía)

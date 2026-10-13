@@ -11,7 +11,7 @@
  * El dominio depende de la PUERTA `OwnershipSource`, no de Supabase ni de ningún store.
  */
 import type { CardRegistry } from "@/collection/registry";
-import type { OwnedCard } from "@/domain/cards/types";
+import type { CardDef, OwnedCard } from "@/domain/cards/types";
 import type { DuelCardResolution, DuelDeckCard, DuelDeckResolver } from "./types";
 
 /**
@@ -37,12 +37,35 @@ export interface OwnershipSource {
  *   2. ¿existe la definición?            → CARD_NOT_FOUND
  *   3. ¿tiene trío de combate?           → CARD_NO_COMBAT
  */
-export function makeDeckResolver(registry: CardRegistry, ownership: OwnershipSource): DuelDeckResolver {
+/**
+ * Resuelve un `uid` a la carta HISTÓRICA del ejemplar, cuando se le da con qué (bloque 8.2).
+ *
+ * Recibe `(cardId, mintedVersion)` y devuelve la definición de esa versión. Es el puerto
+ * que el servidor rellena con `serverCatalog().instance`; el dominio no sabe de dónde sale.
+ */
+export type VersionLookup = (cardId: string, mintedVersion: number | null | undefined) => CardDef | undefined;
+
+/**
+ * Construye el resolutor de mazos.
+ *
+ * `versionLookup` es OPCIONAL y aditivo a propósito: sin él, el comportamiento es
+ * exactamente el de antes de 8.2 (resuelve contra la definición vigente del registro), que
+ * es lo que necesitan los tests del dominio y el modo local. El servidor sí lo pasa, y
+ * entonces cada ejemplar se resuelve con la carta que era cuando se acuñó.
+ *
+ * No se ha tocado ni una regla de composición, ni de validación, ni del motor de combate:
+ * lo único que cambia es de QUÉ definición salen las estadísticas de cada carta.
+ */
+export function makeDeckResolver(
+  registry: CardRegistry,
+  ownership: OwnershipSource,
+  versionLookup?: VersionLookup,
+): DuelDeckResolver {
   return (uid: string): DuelCardResolution => {
     const owned = ownership.instance(uid);
     if (!owned) return { ok: false, uid, reason: "CARD_NOT_OWNED" };
 
-    const def = registry.card(owned.cardId);
+    const def = versionLookup?.(owned.cardId, owned.mintedVersion) ?? registry.card(owned.cardId);
     if (!def) return { ok: false, uid, reason: "CARD_NOT_FOUND", cardId: owned.cardId };
 
     // El trío es obligatorio: una carta sin él pertenece a un catálogo anterior al modelo de Fase 2.
@@ -58,7 +81,7 @@ export function makeDeckResolver(registry: CardRegistry, ownership: OwnershipSou
       playerName: player.nick,
       team: player.team,
       region: player.region,
-      role: player.role,
+      role: def.role ?? player.role, // rol de la CARTA si lo imprime (catálogo diseñado); si no, el del jugador
       variantId: def.variantId,
       combat: def.combat,
       ovr: def.ovr,
@@ -77,8 +100,9 @@ export function makeDeckResolver(registry: CardRegistry, ownership: OwnershipSou
 export function resolveAvailableCards(
   registry: CardRegistry,
   ownership: OwnershipSource,
+  versionLookup?: VersionLookup,
 ): DuelDeckCard[] {
-  const resolve = makeDeckResolver(registry, ownership);
+  const resolve = makeDeckResolver(registry, ownership, versionLookup);
   const out: DuelDeckCard[] = [];
   for (const owned of ownership.all()) {
     const r = resolve(owned.uid);

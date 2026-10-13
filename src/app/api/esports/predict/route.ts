@@ -17,13 +17,15 @@ import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { rebuildRatings, predictMatch, predictUpcoming } from "@/lib/esports/predict/engine";
 import type { ProviderChoice } from "@/lib/esports/ai";
+import { secretMatches } from "@/server/ops/secret";
+import { internalError } from "@/server/ops/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   const secret = process.env.SYNC_SECRET;
-  if (!secret || req.headers.get("x-sync-secret") !== secret) {
+  if (!secretMatches(req.headers.get("x-sync-secret"), secret)) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
   const sb = getSupabaseAdmin();
@@ -46,6 +48,6 @@ export async function POST(req: Request) {
     }
     return NextResponse.json({ error: "mode debe ser 'ratings' | 'match' | 'upcoming'" }, { status: 400 });
   } catch (e) {
-    return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 500 });
+    return internalError("api/esports/predict", e, req);
   }
 }

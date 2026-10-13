@@ -56,11 +56,16 @@ export const PASS_PRODUCT: PassProduct = {
   price: { cents: 599, currency: "EUR" },
 };
 
-/**
- * Alternativa sin dinero. Existe a propósito: quien juega mucho tiene que poder abrir el
- * mismo carril sin pagar. Debe coincidir con `CURRENT_SEASON.premiumCost`.
+/*
+ * Aquí vivía `PASS_TOKEN_COST = 1200`: el precio del carril premium en FICHAS DE EVENTO,
+ * documentado como «la alternativa sin dinero».
+ *
+ * Se retira en la F18.2 junto con la segunda moneda. Y conviene dejar escrito que esa
+ * alternativa nunca funcionó: el servidor cobraba llamando a `app_adjust_credits` con un
+ * parámetro `p_tokens` que esa función no tiene, así que la compra devolvía siempre un
+ * error. Ahora DRL Cards tiene UNA sola moneda, los DRL Credits, y el carril premium solo
+ * se abrirá cuando exista una pasarela de pago de verdad.
  */
-export const PASS_TOKEN_COST = 1200;
 
 // ───────────────────────────── Paquetes de créditos ─────────────────────────────
 
@@ -74,17 +79,34 @@ export interface CreditPackage {
 }
 
 /**
- * Catálogo de paquetes de créditos.
+ * Catálogo de paquetes de créditos — **SUSTITUIDO EN LA FASE 18**.
  *
- * VACÍO A PROPÓSITO, y esto es una decisión, no una tarea pendiente: los créditos compran
- * sobres, los sobres dan cartas y las cartas deciden duelos. Vender créditos sería vender
- * ventaja competitiva, que es justo lo que prohíbe §29.
+ * ────────────────────────── QUÉ DECÍA ANTES, Y POR QUÉ CAMBIA ──────────────────────────
  *
- * La estructura se deja escrita porque el día que se venda algo que NO afecte al duelo
- * (una divisa puramente cosmética, por ejemplo) el catálogo será este y la pantalla de la
- * tienda ya sabe recorrerlo.
+ * Hasta la Fase 17 este array estaba vacío a propósito, con este motivo escrito:
+ *
+ *   «Los créditos compran sobres, los sobres dan cartas y las cartas deciden duelos.
+ *    Vender créditos sería vender ventaja competitiva, que es justo lo que prohíbe §29.»
+ *
+ * **En la Fase 18 el responsable del producto revoca esa decisión de forma explícita:** los
+ * créditos pasan a llamarse DRL Credits, se convierten en la moneda oficial de DRL Cards y
+ * serán vendibles. Se deja constancia aquí —en vez de borrar el párrafo— para que el cambio
+ * sea rastreable y no parezca un descuido de alguien que no leyó §29.
+ *
+ * ────────────────────────── DÓNDE VIVE AHORA EL CATÁLOGO ──────────────────────────
+ *
+ * En `@/domain/economy/drlCredits` (`CREDIT_PRODUCTS`), junto a las reglas de la moneda.
+ * Este array se conserva vacío para no romper a quien todavía lo importe, y `PAYMENTS_ENABLED`
+ * sigue en **falso**: las compras son de PRUEBA y no mueven un solo euro.
+ *
+ * @deprecated Usa `CREDIT_PRODUCTS` de `@/domain/economy/drlCredits`.
  */
 export const CREDIT_PACKAGES: CreditPackage[] = [];
 
-/** ¿Hay algo que vender ahora mismo? Lo usan las pantallas para no enseñar una sección vacía. */
+/**
+ * ¿Hay algo que vender ahora mismo?
+ *
+ * Desde la Fase 18 el catálogo vive en `@/domain/economy/drlCredits`. Esta función se
+ * mantiene para los llamadores existentes y responde por el catálogo nuevo.
+ */
 export const hasStoreProducts = (): boolean => CREDIT_PACKAGES.length > 0;

@@ -1,420 +1,678 @@
 "use client";
 
 /**
- * CONSTRUCTOR DE MAZOS DE DUELO (Fases 8 y 9G).
+ * NEXUS TEAM BUILDER — EL CONSTRUCTOR DE EQUIPOS (Fase 32; sustituye al de las Fases 8 · 9G · 9.6).
  *
- * Trabaja SIEMPRE sobre el inventario real: las cartas llegan de `/api/game/duels`, resueltas en
- * servidor contra `user_cards`. Aquí no se inventa ninguna carta ni ninguna estadística.
+ * Tres zonas, como una pantalla de alineación y no como un formulario:
  *
- * LA VALIDACIÓN NO SE DUPLICA. Este componente muestra los huecos por rol para guiar al jugador
- * —una ayuda de interfaz, no una regla— y la respuesta autorizada es la que devuelve el servidor al
- * guardar, que ejecuta `validateDuelDeck` del dominio. Si las dos discrepasen, manda el servidor:
- * es lo único que se pinta en el estado del mazo y en la lista de errores.
+ *   COLECCIÓN (filtros + cartas)  →  TU EQUIPO (10 huecos por rol)  →  ANÁLISIS (estado · medias · lectura)
  *
- * FASE 9G — EL MAZO ARRIBA, GRANDE Y SIEMPRE VISIBLE. Antes vivía en una columna lateral
- * de 320 px con las diez cartas a tamaño `xs`: la pieza que estás construyendo era la más
- * pequeña de la pantalla, y en móvil había que hacer scroll para verla. Ahora ocupa la
- * franja superior a lo ancho, con diez huecos que se llenan a la vista —la forma que usan
- * los juegos de mazos, y la que hace que se entienda de un vistazo cuánto te falta—. La
- * colección queda debajo, que es donde se busca. La lógica no cambia ni una línea:
- * mismos filtros, mismos bloqueos, misma validación y mismo guardado.
+ * 1440: las tres a la vez. 1024: tablero protagonista + análisis; la colección en hoja. 390: diseño
+ * propio (tablero por filas de rol, colección en hoja inferior, comparador a pantalla completa y el
+ * análisis debajo). Nada exige arrastrar: carta → «Añadir», o hueco → candidatas → «Elegir».
  *
- * FASE 9.6 — EL MAZO COMO PIEZA, NO COMO PANEL.
+ * LA VALIDACIÓN NO SE DUPLICA. Todo veredicto sale de `@/domain/deckBuilder/builder`, que envuelve al
+ * validador canónico (`validateDuelDeck`) y a sus mutaciones (`addCard`/`replaceCard`/`removeCard`). La
+ * composición de los huecos es `DUEL_ROLES` × `DUEL_COMPOSITION`. Guardar, activar y jugar vuelven a
+ * validar en el servidor: el borrador de aquí es la vista, no la autoridad.
  *
- * Era ya la mejor pantalla del producto y por eso aquí se toca poco. Tres cosas:
+ * EL BORRADOR NO SE PIERDE. Un guardado rechazado, un conflicto de versión («Este equipo cambió en otra
+ * pestaña») o una salida con cambios mantienen la composición en pantalla hasta que el jugador decida.
  *
- *   1. **El mazo tiene luz propia.** Pasa de `nx-panel` —el contenedor genérico, el mismo
- *      que usa cualquier sección— a escenario. Si la cosa que estás construyendo se dibuja
- *      con la misma pieza que la caja de filtros, no es la protagonista.
- *   2. **Los huecos dicen QUÉ les falta.** Un hueco con un «+» solo dice que está vacío;
- *      uno que pone «Centinela» dice qué hay que buscar. Es la composición que ya se
- *      calculaba para los contadores, puesta donde se necesita. Sigue siendo una AYUDA:
- *      la composición legal la impone el dominio en el servidor al guardar.
- *   3. **El estado del mazo se ve antes de leerlo.** Una banda que dice si está listo o
- *      qué falta, en vez de una línea de texto entre otras.
- *
- * Ni la validación, ni el guardado, ni los `aria-label`/`aria-pressed` de las cartas
- * cambian: son el contrato con el dominio y con el recorrido automatizado.
+ * Este componente no hace red: recibe la colección y el equipo, y devuelve intenciones (`onSave`,
+ * `onActivate`…). La página decide qué llamada hacer; el arnés QA lo monta con datos sintéticos.
  */
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/format";
 import { DUEL_COMPOSITION, DUEL_DECK_SIZE, DUEL_ROLES } from "@/domain/cardgame";
-import type { RoleId } from "@/domain/cards/types";
-import { DuelCard } from "./DuelCard";
-import type { DuelDeckCardDTO, DuelDeckDTO } from "@/lib/duel/types";
+import {
+  autocomplete, buildBoard, candidatesForSlot, checkDeckName, checkDraft, compareForSlot, compatibleSlots,
+  countLabel, describeIssues, draftCards, indexPool, moveInRole, readTeam, roleCount, sameUids, suggestForSlot,
+  teamStats, tryAdd, tryPlace, tryRemove,
+  type AutoResult, type BoardSlot, type BuilderCard, type CardAction,
+} from "@/domain/deckBuilder/builder";
+import { EMPTY_FILTER, type PoolFilter, type PoolSort } from "@/domain/deckBuilder/pool";
+import type { DuelDeckDTO } from "@/lib/duel/types";
+import { trackDeck } from "@/lib/deckBuilder/telemetry";
+import { NxButton } from "@/components/ui/NxButton";
+import { Badge } from "@/components/ui/Badge";
+import { TeamBoard } from "./deck/TeamBoard";
+import { CollectionPanel } from "./deck/CollectionPanel";
+import { AnalysisPanel } from "./deck/AnalysisPanel";
+import { ComparePanel } from "./deck/ComparePanel";
+import { SlotSheet } from "./deck/SlotSheet";
+import { Sheet } from "./deck/bits";
+import { JourneyCoach } from "@/components/journey/JourneyCoach";
+import { analyzeDeck, informativeImpact, swapAlternatives, swapImpact, type AlternativeSort, type Axis, type SuggestObjective, type SwapAlternative } from "@/domain/deckStrategy";
+import { catalogCards, strategyContext } from "@/lib/deckStrategy/catalog";
+import { StrategyLabPanel, IdentityBadge } from "./strategy/StrategyLabPanel";
+import { CardFocusSection } from "./strategy/CardFocusSection";
+import { SuggestSection } from "./strategy/SuggestSection";
+import { StrategyImpact } from "./strategy/StrategyImpact";
+import { getPlayer } from "@/data/catalog";
 
-type SortKey = "ovr" | "name" | "sh" | "gs" | "ef";
+export type SaveOutcome =
+  | { ok: true; deck: DuelDeckDTO }
+  | { ok: false; kind: "conflict"; current: DuelDeckDTO | null; message: string }
+  | { ok: false; kind: "error"; message: string };
 
-const SORTS: { id: SortKey; label: string }[] = [
-  { id: "ovr", label: "OVR" },
-  { id: "sh", label: "SH" },
-  { id: "gs", label: "GS" },
-  { id: "ef", label: "EF" },
-  { id: "name", label: "A-Z" },
-];
-
-export function DeckBuilder({
-  collection, deck, name, selected, unopenedPacks = 0,
-  onNameChange, onToggle, onClear, onSave, onCancel, saving, error,
-}: {
-  collection: DuelDeckCardDTO[];
-  /**
-   * Sobres sin abrir. Solo se usa para una frase, pero es la frase que decide si un
-   * jugador nuevo encuentra sus cartas o se queda mirando una rejilla vacía (Fase 15).
-   */
-  unopenedPacks?: number;
-  /** Mazo guardado que se está editando, si lo hay: aporta la validación del SERVIDOR. */
-  deck: DuelDeckDTO | null;
-  name: string;
-  selected: string[];
-  onNameChange: (v: string) => void;
-  onToggle: (uid: string) => void;
-  onClear: () => void;
-  onSave: () => void;
-  onCancel: () => void;
-  saving: boolean;
-  error: string | null;
-}) {
-  const [roleFilter, setRoleFilter] = useState<RoleId | "todos">("todos");
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState<SortKey>("ovr");
-
-  const byUid = useMemo(() => new Map(collection.map((c) => [c.uid, c])), [collection]);
-  const chosen = useMemo(
-    () => selected.map((u) => byUid.get(u)).filter((c): c is DuelDeckCardDTO => Boolean(c)),
-    [selected, byUid],
-  );
-
-  /** Huecos por rol. Ayuda de interfaz: la composición legal la impone el dominio en servidor. */
-  const counts = useMemo(() => {
-    const out = Object.fromEntries(DUEL_ROLES.map((r) => [r, 0])) as Record<RoleId, number>;
-    for (const c of chosen) out[c.role]++;
-    return out;
-  }, [chosen]);
-
-  /** Un jugador no puede repetirse en el mazo: se atenúan sus otras variantes. */
-  const usedPlayers = useMemo(() => new Set(chosen.map((c) => c.playerId)), [chosen]);
-
-  const visible = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const list = collection.filter((c) => {
-      if (roleFilter !== "todos" && c.role !== roleFilter) return false;
-      if (q && !`${c.nick} ${c.team} ${c.region}`.toLowerCase().includes(q)) return false;
-      return true;
-    });
-    const cmp: Record<SortKey, (a: DuelDeckCardDTO, b: DuelDeckCardDTO) => number> = {
-      ovr: (a, b) => b.ovr - a.ovr,
-      name: (a, b) => a.nick.localeCompare(b.nick),
-      sh: (a, b) => b.combat.stronghold - a.combat.stronghold,
-      gs: (a, b) => b.combat.gamesense - a.combat.gamesense,
-      ef: (a, b) => b.combat.entryfrag - a.combat.entryfrag,
-    };
-    return [...list].sort((a, b) => cmp[sort](a, b) || a.nick.localeCompare(b.nick));
-  }, [collection, roleFilter, query, sort]);
-
-  /**
-   * Qué rol le falta a cada hueco vacío. Sale de los mismos contadores que ya alimentan la
-   * fila de composición: no es una regla nueva, es el mismo dato puesto donde se decide.
-   * Si sobran cartas de un rol, los huecos restantes quedan sin etiqueta en vez de mentir.
-   */
-  const pendingRoles = useMemo(() => {
-    const out: RoleId[] = [];
-    for (const r of DUEL_ROLES) {
-      for (let i = counts[r]; i < DUEL_COMPOSITION[r]; i++) out.push(r);
-    }
-    return out;
-  }, [counts]);
-
-  const full = selected.length >= DUEL_DECK_SIZE;
-  const sumOvr = chosen.reduce((s, c) => s + c.ovr, 0);
-  const rolesOk = DUEL_ROLES.every((r) => counts[r] === DUEL_COMPOSITION[r]);
-  const looksReady = full && rolesOk;
-
-  return (
-    <div className="space-y-5">
-      {/* ══ El mazo: la pieza principal, arriba y a lo ancho ══ */}
-      <section className="nx-stage nx-clip relative overflow-hidden p-4 sm:p-5" aria-label="Tu mazo">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{ background: "radial-gradient(680px 300px at 12% 116%, rgba(255,46,99,0.20), transparent 68%)" }}
-        />
-        <div className="flex flex-wrap items-end gap-x-5 gap-y-3">
-          <div className="min-w-[180px] flex-1">
-            <label className="nx-label block" htmlFor="deck-name">Nombre del mazo</label>
-            <input
-              id="deck-name"
-              value={name}
-              onChange={(e) => onNameChange(e.target.value)}
-              maxLength={40}
-              className="mt-1 w-full rounded-control border border-white/10 bg-white/[0.05] px-3 py-2 font-display text-lg outline-none transition-colors duration-fast focus:border-drl/60"
-            />
-          </div>
-
-          <div className="flex gap-5">
-            <div>
-              <span className="nx-label block">Cartas</span>
-              <b className={cn("font-display text-2xl leading-none tabular-nums", full ? "text-ok" : "text-white")}>
-                {selected.length}<span className="text-base text-white/30"> / {DUEL_DECK_SIZE}</span>
-              </b>
-            </div>
-            <div>
-              <span className="nx-label block">Suma de OVR</span>
-              <b className="font-display text-2xl leading-none tabular-nums text-white">{sumOvr}</b>
-            </div>
-          </div>
-        </div>
-
-        {/*
-          Los diez huecos. Cinco por fila en móvil y diez en una sola a partir de tableta: en una
-          fila se lee como un mazo; en dos columnas se leería como una lista.
-        */}
-        <div className="mt-4 grid grid-cols-5 gap-2 sm:grid-cols-10">
-          {Array.from({ length: DUEL_DECK_SIZE }, (_, i) => {
-            const c = chosen[i];
-            return c ? (
-              /*
-                `selected` no es decoración: es lo que hace que la carta anuncie
-                `aria-pressed="true"`. Sin él, una carta YA en el mazo se presentaba como no
-                elegida —a un lector de pantalla y a cualquier automatismo—, y pulsarla dos
-                veces (una en la colección, otra aquí) la añadía y la quitaba sin que se notara.
-              */
-              <DuelCard
-                key={c.uid}
-                card={c}
-                size="sm"
-                selected
-                onClick={() => onToggle(c.uid)}
-                className="w-full"
-              />
-            ) : (
-              /*
-                El hueco dice QUÉ le falta. Con un «+» solo se sabía que estaba vacío, y la
-                pregunta del jugador delante de un mazo a medias no es «cuántas me faltan»
-                —eso ya está en el contador— sino «de qué».
-              */
-              <div
-                key={`slot-${i}`}
-                className="flex aspect-[5/7] w-full flex-col items-center justify-center gap-1.5 rounded-card border border-dashed border-white/15 bg-black/25 px-1 text-center"
-                aria-hidden
-              >
-                <span className="font-display text-xl leading-none text-white/20">+</span>
-                {pendingRoles[i - chosen.length] && (
-                  <span className="nx-label !text-[8px] leading-tight !tracking-[0.1em]">
-                    {pendingRoles[i - chosen.length]}
-                  </span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Composición por rol, en línea: cinco grupos de dos. */}
-        <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
-          {DUEL_ROLES.map((r) => {
-            const have = counts[r];
-            const need = DUEL_COMPOSITION[r];
-            return (
-              <span key={r} className="flex items-center gap-1.5">
-                <span className="nx-label">{r}</span>
-                {Array.from({ length: need }, (_, i) => (
-                  <i
-                    key={i}
-                    className={cn("h-1.5 w-5 rounded-full", i < have ? "bg-ok" : "bg-white/12")}
-                  />
-                ))}
-                <b className={cn("font-display text-[11px] tabular-nums", have === need ? "text-ok" : "text-white/45")}>
-                  {have}/{need}
-                </b>
-              </span>
-            );
-          })}
-        </div>
-
-        {/*
-          ═══ ESTADO DEL MAZO ═══
-          Una banda, no una línea de texto entre otras. Un mazo está listo o no lo está, y
-          eso es lo que decide si puedes jugar: tiene que verse antes de leerse.
-
-          La validación autorizada sigue siendo la del SERVIDOR sobre el mazo guardado
-          (`deck.errors`); la composición de aquí es la ayuda de interfaz de siempre.
-        */}
-        <div
-          className={cn(
-            "nx-clip-sm mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 border px-3.5 py-2.5",
-            looksReady ? "border-ok/45 bg-ok/[0.09]" : "border-white/12 bg-white/[0.03]",
-          )}
-        >
-          <span
-            className={cn(
-              "font-display text-[12px] font-bold uppercase tracking-[0.12em]",
-              looksReady ? "text-ok" : "text-white/55",
-            )}
-          >
-            {looksReady ? "✓ Mazo listo" : full ? "Composición incompleta" : `Faltan ${DUEL_DECK_SIZE - selected.length} cartas`}
-          </span>
-          {!looksReady && pendingRoles.length > 0 && (
-            <span className="text-[12px] text-white/45">
-              Te falta {pendingRoles.slice(0, 4).join(", ")}
-              {pendingRoles.length > 4 && "…"}
-            </span>
-          )}
-        </div>
-
-        {deck && deck.errors.length > 0 && (
-          <ul className="mt-2.5 space-y-1">
-            {deck.errors.map((e, i) => (
-              <li key={`${e.code}-${i}`} className="flex gap-1.5 text-[11px] text-drl-glow">
-                <span aria-hidden>✕</span>{e.message}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {error && (
-          <p role="alert" className="mt-3 rounded-control border border-drl/40 bg-drl/10 px-3 py-2 text-[12px] text-drl-glow">
-            {error}
-          </p>
-        )}
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={onSave}
-            /* Sin ninguna carta elegida no hay nada que guardar: el botón no debe invitar a ello. */
-            disabled={saving || name.trim().length === 0 || selected.length === 0}
-            className="flex-1 rounded-control bg-drl px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] shadow-glow transition duration-fast hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:flex-none"
-          >
-            {saving ? "Guardando…" : "Guardar mazo"}
-          </button>
-          <button
-            type="button"
-            onClick={onClear}
-            disabled={selected.length === 0 || saving}
-            className="rounded-control border border-white/12 px-4 py-2.5 font-display text-xs uppercase tracking-wide text-white/60 transition duration-fast hover:bg-white/5 disabled:opacity-30"
-          >
-            Vaciar
-          </button>
-          <button
-            type="button"
-            onClick={onCancel}
-            disabled={saving}
-            className="rounded-control border border-white/12 px-4 py-2.5 font-display text-xs uppercase tracking-wide text-white/60 transition duration-fast hover:bg-white/5 disabled:opacity-30"
-          >
-            Cancelar
-          </button>
-        </div>
-      </section>
-
-      {/* ══ La colección: donde se busca ══ */}
-      <section className="min-w-0" aria-label="Cartas disponibles">
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar jugador o equipo…"
-            aria-label="Buscar carta"
-            className="min-w-0 flex-1 rounded-control border border-white/10 bg-white/[0.04] px-3 py-2 text-sm outline-none transition-colors duration-fast placeholder:text-white/30 focus:border-drl/60"
-          />
-          <div className="flex gap-1" role="group" aria-label="Ordenar por">
-            {SORTS.map((sk) => (
-              <button
-                key={sk.id}
-                type="button"
-                onClick={() => setSort(sk.id)}
-                className={cn(
-                  "rounded-chip px-2.5 py-1.5 font-display text-[11px] font-bold tracking-wide transition duration-fast",
-                  sort === sk.id ? "bg-drl text-white" : "bg-white/5 text-white/50 hover:bg-white/10",
-                )}
-              >
-                {sk.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-3 flex flex-wrap gap-1.5" role="group" aria-label="Filtrar por rol">
-          <RoleChip active={roleFilter === "todos"} onClick={() => setRoleFilter("todos")}>
-            Todos <span className="opacity-60">{collection.length}</span>
-          </RoleChip>
-          {DUEL_ROLES.map((r) => (
-            <RoleChip key={r} active={roleFilter === r} onClick={() => setRoleFilter(r)} need={counts[r] < DUEL_COMPOSITION[r]}>
-              {r} <span className="opacity-60">{counts[r]}/{DUEL_COMPOSITION[r]}</span>
-            </RoleChip>
-          ))}
-        </div>
-
-        {visible.length === 0 ? (
-          <p className="rounded-panel border border-dashed border-white/12 px-4 py-10 text-center text-sm text-white/40">
-            {/*
-              A DÓNDE SE LE MANDA (Fase 15). Esto decía siempre «abre un sobre en la
-              Tienda», que es donde se COMPRAN. Un jugador recién registrado llega aquí con
-              cuatro sobres de bienvenida sin abrir, y lo que necesita es el inventario, que
-              es donde se ABREN y adonde apunta el ciclo del vestíbulo para lo mismo.
-
-              Mandarle a comprar lo que ya tiene es la clase de indicación que obliga a que
-              alguien esté al lado diciéndole «no, primero abre los tuyos».
-            */}
-            {collection.length === 0
-              ? unopenedPacks > 0
-                ? `Todavía no tienes cartas, pero tienes ${unopenedPacks} ${unopenedPacks === 1 ? "sobre" : "sobres"} sin abrir en Inventario.`
-                : "Todavía no tienes cartas. Consigue un sobre en la Tienda para empezar."
-              : "Ninguna carta coincide con el filtro."}
-          </p>
-        ) : (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(84px,1fr))] gap-2.5 sm:grid-cols-[repeat(auto-fill,minmax(96px,1fr))]">
-            {visible.map((c) => {
-              const isIn = selected.includes(c.uid);
-              /*
-               * Bloqueado si añadirla dejaría el mazo fuera de la composición legal: mazo lleno,
-               * jugador repetido, o rol ya completo. Es una AYUDA de interfaz —evita construir algo
-               * que el servidor rechazaría— y no sustituye a la validación del dominio, que sigue
-               * siendo la que decide y la que se muestra en los errores del mazo.
-               */
-              const roleFull = counts[c.role] >= DUEL_COMPOSITION[c.role];
-              const blocked = !isIn && (full || usedPlayers.has(c.playerId) || roleFull);
-              return (
-                <DuelCard
-                  key={c.uid}
-                  card={c}
-                  size="sm"
-                  selected={isIn}
-                  disabled={blocked}
-                  onClick={blocked ? undefined : () => onToggle(c.uid)}
-                  className="w-full"
-                />
-              );
-            })}
-          </div>
-        )}
-      </section>
-    </div>
-  );
+export interface BuilderInitial {
+  uids?: string[];
+  name?: string;
+  selectedUid?: string | null;
+  slotSheet?: string | null;
+  suggest?: boolean;
+  compare?: { slotUid: string | null; candidateUid: string } | null;
+  conflict?: DuelDeckDTO | null;
+  reviewing?: boolean;
+  saveError?: string | null;
+  notice?: string | null;
+  noticeTone?: "warn" | "info";
+  collectionOpen?: boolean;
+  confirmExit?: boolean;
+  released?: string[];
+  filter?: PoolFilter;
+  sort?: PoolSort;
+  autocomplete?: boolean;
+  /** Fase 43 · eje de contexto (desde el resumen de una partida, `?eje=`). Ordena alternativas; nunca decide. */
+  focusAxis?: Axis | null;
+  /** Fase 43 · definición del catálogo que NO se posee (`?explorar=`): comparación solo informativa. */
+  explore?: string | null;
+  /** Fase 43 · arnés: objetivo de plantilla ya calculado / opciones Pareto abiertas / orden de alternativas. */
+  suggestObjective?: SuggestObjective | null;
+  pareto?: boolean;
+  altSort?: AlternativeSort;
 }
 
-function RoleChip({
-  children, active, onClick, need,
-}: {
-  children: React.ReactNode;
-  active: boolean;
-  onClick: () => void;
-  need?: boolean;
-}) {
+export interface DeckBuilderProps {
+  /** Equipo guardado que se edita; `null` = equipo nuevo, todavía sin guardar. */
+  deck: DuelDeckDTO | null;
+  /** Ejemplares poseídos, resueltos por el servidor. */
+  collection: BuilderCard[];
+  activeSupported: boolean;
+  /** Nombre para un equipo nuevo («Equipo N»). */
+  defaultName: string;
+  unopenedPacks?: number;
+  /** Fase 40 · aún no tiene ningún equipo legal guardado: coach de la primera sesión (una sola línea de ayuda). */
+  firstTeam?: boolean;
+  onSave: (draft: { name: string; cardUids: string[] }) => Promise<SaveOutcome>;
+  onActivate?: () => void;
+  onDuplicate?: () => void;
+  onDelete?: () => void;
+  onExit: () => void;
+  onDirtyChange?: (dirty: boolean) => void;
+  busy?: "activate" | null;
+  /** Arnés QA / enlaces profundos (`?add=<uid>`): estado inicial. */
+  initial?: BuilderInitial;
+}
+
+type Notice = { text: string; tone: "warn" | "info" };
+
+const focusSlot = (key: string) => {
+  if (typeof document === "undefined") return;
+  document.querySelector<HTMLButtonElement>(`[data-slot="${key}"] button`)?.focus();
+};
+
+export function DeckBuilder(props: DeckBuilderProps) {
+  const { deck, collection, activeSupported, onDirtyChange } = props;
+  const init = props.initial ?? {};
+  const nameId = useId();
+  const nameErrId = useId();
+
+  const [baseline, setBaseline] = useState(() => ({ name: deck?.name ?? props.defaultName, uids: deck?.cardUids ?? [] }));
+  const [name, setName] = useState(init.name ?? deck?.name ?? props.defaultName);
+  const [uids, setUids] = useState<string[]>(init.uids ?? deck?.cardUids ?? []);
+  const [released, setReleased] = useState<Set<string>>(() => new Set(init.released ?? []));
+  const [selectedUid, setSelectedUid] = useState<string | null>(init.selectedUid ?? null);
+  const [slotKeyOpen, setSlotKeyOpen] = useState<string | null>(init.slotSheet ?? null);
+  const [compare, setCompare] = useState<{ slotUid: string | null; candidateUid: string } | null>(init.compare ?? null);
+  const [collectionOpen, setCollectionOpen] = useState(!!init.collectionOpen);
+  const [conflict, setConflict] = useState<DuelDeckDTO | null>(init.conflict ?? null);
+  const [reviewing, setReviewing] = useState(!!init.reviewing);
+  const [saveError, setSaveError] = useState<string | null>(init.saveError ?? null);
+  const [notice, setNotice] = useState<Notice | null>(init.notice ? { text: init.notice, tone: init.noticeTone ?? "warn" } : null);
+  const [auto, setAuto] = useState<AutoResult | null>(null);
+  const [confirmExit, setConfirmExit] = useState(!!init.confirmExit);
+  const [freshUid, setFreshUid] = useState<string | null>(null);
+  const [filter, setFilter] = useState<PoolFilter>(init.filter ?? EMPTY_FILTER);
+  const [sort, setSort] = useState<PoolSort>(init.sort ?? "ovr");
+  const [saving, setSaving] = useState(false);
+  /** F68 · guardia SÍNCRONA del guardado: dos clics en la misma tarea leían `saving=false` y creaban DOS equipos nuevos. */
+  const savingRef = useRef(false);
+  const [announce, setAnnounce] = useState("");
+  const [contextAxis, setContextAxis] = useState<Axis | null>(init.focusAxis ?? null);
+  const [altSort, setAltSort] = useState<AlternativeSort>(init.altSort ?? init.focusAxis ?? "ovr");
+  const [explore, setExplore] = useState<string | null>(init.explore ?? null);
+
+  useEffect(() => { trackDeck("deck_builder_view"); }, []);
+
+  const pool = useMemo(() => indexPool(collection), [collection]);
+  const check = useMemo(() => checkDraft(uids, pool), [uids, pool]);
+  const board = useMemo(() => buildBoard(uids, pool, check), [uids, pool, check]);
+  const issues = useMemo(() => describeIssues(check, uids, pool), [check, uids, pool]);
+  const stats = useMemo(() => teamStats(draftCards(uids, pool)), [uids, pool]);
+  // Fase 43 · laboratorio: análisis descriptivo del borrador, en vivo, sin red.
+  const strategyCtx = useMemo(() => strategyContext(), []);
+  const analysis = useMemo(() => analyzeDeck(draftCards(uids, pool), strategyCtx), [uids, pool, strategyCtx]);
+  const reading = useMemo(() => readTeam(stats), [stats]);
+  const nameCheck = checkDeckName(name);
+  const dirty = name.trim() !== baseline.name || !sameUids(uids, baseline.uids);
+  const selectedCard = selectedUid ? pool.get(selectedUid) ?? null : null;
+  const fits = useMemo(
+    () => new Map(selectedCard ? compatibleSlots(selectedCard, uids, pool, board, check).map((f) => [f.key, f.mode] as const) : []),
+    [selectedCard, uids, pool, board, check],
+  );
+  const slotOpen = slotKeyOpen ? board.slots.find((s) => s.key === slotKeyOpen) ?? null : null;
+  const candidates = useMemo(() => (slotOpen ? candidatesForSlot(slotOpen, uids, pool) : []), [slotOpen, uids, pool]);
+  const suggestion = useMemo(() => (slotOpen ? suggestForSlot(slotOpen, uids, pool) : null), [slotOpen, uids, pool]);
+  const compareView = useMemo(() => (compare ? compareForSlot(uids, pool, compare.slotUid, compare.candidateUid) : null), [compare, uids, pool]);
+  const alternatives: SwapAlternative[] = useMemo(
+    () => (slotOpen?.uid && pool.has(slotOpen.uid) ? swapAlternatives(uids, slotOpen.uid, pool, strategyCtx, { sort: altSort }) : []),
+    [slotOpen, uids, pool, strategyCtx, altSort],
+  );
+  const compareImpact = useMemo(() => {
+    if (!compare?.slotUid || !compareView?.legal) return null;
+    const cand = pool.get(compare.candidateUid);
+    return cand ? swapImpact(draftCards(uids, pool), compare.slotUid, cand, strategyCtx, analysis) : null;
+  }, [compare, compareView, pool, uids, strategyCtx, analysis]);
+  const exploreView = useMemo(() => {
+    if (!explore) return null;
+    const def = catalogCards().find((c) => c.cardId === explore);
+    if (!def) return null;
+    const cards = draftCards(uids, pool);
+    const target = cards.find((c) => c.role === def.role) ?? null;
+    const nick = getPlayer(def.playerId)?.nick ?? def.playerId;
+    return { def, nick, target, impact: target ? informativeImpact(cards, target.uid, { ...def, uid: `def:${def.cardId}`, nick }, strategyCtx) : null };
+  }, [explore, uids, pool, strategyCtx]);
+  const compareSlotLabel = compare?.slotUid
+    ? board.slots.find((s) => s.uid === compare.slotUid)?.label ?? "Hueco"
+    : compareView ? `${compareView.role} · hueco libre` : "Hueco";
+
+  useEffect(() => { onDirtyChange?.(dirty); }, [dirty, onDirtyChange]);
+
+  // La autocompletación inicial del arnés QA (escena «autocompletar»): se ejecuta una vez.
+  useEffect(() => {
+    if (!init.autocomplete) return;
+    runAutocomplete();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const apply = useCallback((next: string[], message: string, fresh: string | null = null) => {
+    setUids(next);
+    setAuto(null);
+    setSaveError(null);
+    setFreshUid(fresh);
+    setAnnounce(message);
+  }, []);
+
+  function openCompare(slotUid: string | null, candidateUid: string) {
+    setCompare({ slotUid, candidateUid });
+    trackDeck("deck_compare");
+  }
+
+  function onCard(card: BuilderCard, action: CardAction) {
+    setNotice(null);
+    if (action.kind === "add") {
+      const r = tryAdd(uids, card.uid, pool, check);
+      if (r.ok) { apply(r.uids, `${card.nick} añadida al equipo como ${card.role}.`, card.uid); setSelectedUid(null); }
+      else setNotice({ tone: "warn", text: r.reason });
+      return;
+    }
+    if (action.kind === "replace") {
+      setSelectedUid(card.uid);
+      setCollectionOpen(false);
+      setNotice({ tone: "warn", text: `${action.reason} Pulsa el hueco resaltado que quieres cambiar.` });
+      return;
+    }
+    if (action.kind === "in_deck") {
+      setSelectedUid(null);
+      setCollectionOpen(false);
+      if (action.slotKey) focusSlot(action.slotKey);
+      return;
+    }
+    setNotice({ tone: "warn", text: action.reason });
+  }
+
+  function onSlot(slot: BoardSlot) {
+    setNotice(null);
+    if (selectedCard) {
+      const r = tryPlace(uids, slot, selectedCard.uid, pool, check);
+      if (!r.ok) { setNotice({ tone: "warn", text: r.reason }); return; }
+      if (slot.uid) { openCompare(slot.uid, selectedCard.uid); return; }
+      apply(r.uids, `${selectedCard.nick} colocada en ${slot.label}.`, selectedCard.uid);
+      setSelectedUid(null);
+      return;
+    }
+    setSlotKeyOpen(slot.key);
+  }
+
+  function removeSlot(slot: BoardSlot) {
+    if (!slot.uid) return;
+    const r = tryRemove(uids, slot.uid);
+    if (!r.ok) return;
+    apply(r.uids, `${slot.card?.nick ?? "La carta"} quitada de ${slot.label}.`);
+    setReleased((cur) => { const n = new Set(cur); n.delete(slot.uid!); return n; });
+    setSlotKeyOpen(null);
+    requestAnimationFrame(() => focusSlot(slot.key));
+  }
+
+  function removeUid(uid: string) {
+    const r = tryRemove(uids, uid);
+    if (r.ok) apply(r.uids, "Carta no disponible quitada del equipo.");
+  }
+
+  function moveSlot(slot: BoardSlot, dir: -1 | 1) {
+    if (!slot.uid) return;
+    const next = moveInRole(uids, slot.uid, dir, pool);
+    if (sameUids(next, uids)) return;
+    apply(next, `${slot.card?.nick ?? "La carta"} movida ${dir < 0 ? "arriba" : "abajo"} en ${slot.role}.`);
+    const uid = slot.uid;
+    requestAnimationFrame(() => {
+      const key = buildBoard(next, pool).slots.find((s) => s.uid === uid)?.key;
+      if (key) { setSlotKeyOpen((open) => (open ? key : open)); focusSlot(key); }
+    });
+  }
+
+  function runAutocomplete() {
+    const pinned = new Set(uids.filter((u) => !released.has(u)));
+    const r = autocomplete(uids, pool, { pinned });
+    trackDeck("deck_autocomplete");
+    setAuto(r);
+    setSaveError(null);
+    if (r.ok) {
+      setUids(r.uids);
+      setReleased(new Set());
+      setAnnounce(`Autocompletado: ${r.added.length} cartas añadidas. Revisa y guarda.`);
+    } else {
+      setAnnounce(r.reason);
+    }
+  }
+
+  async function save(): Promise<boolean> {
+    if (saving || savingRef.current) return false;
+    setNotice(null);
+    if (!nameCheck.ok) { setSaveError(nameCheck.reason); return false; }
+    if (check.lostUids.length) { setSaveError("Quita las cartas que ya no están disponibles para poder guardar."); return false; }
+    const hard = issues.find((i) => i.kind === "conflict" || i.kind === "excess");
+    if (hard) { setSaveError(`No se puede guardar así: ${hard.message}`); return false; }
+    savingRef.current = true;
+    setSaving(true);
+    setSaveError(null);
+    try {
+      const out = await props.onSave({ name: nameCheck.name, cardUids: uids });
+      if (out.ok) {
+        setBaseline({ name: out.deck.name, uids: out.deck.cardUids });
+        setName(out.deck.name);
+        setConflict(null);
+        setReviewing(false);
+        setAnnounce(out.deck.valid ? "Equipo guardado y listo para duelo." : "Equipo guardado, todavía incompleto.");
+        trackDeck("deck_saved");
+        return true;
+      }
+      if (out.kind === "conflict") { setConflict(out.current); return false; }
+      setSaveError(out.message);
+      return false;
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+    }
+  }
+
+  function reloadTheirs() {
+    const theirs = conflict ?? deck;
+    if (!theirs) return;
+    setUids(theirs.cardUids);
+    setName(theirs.name);
+    setBaseline({ name: theirs.name, uids: theirs.cardUids });
+    setConflict(null);
+    setReviewing(false);
+    setAnnounce("Cargada la versión guardada del equipo.");
+  }
+
+  /** Fase 43 · deshacer los cambios locales: vuelve a lo guardado (sin tocar la base de datos). */
+  function revert() {
+    setUids(baseline.uids);
+    setName(baseline.name);
+    setAuto(null);
+    setSaveError(null);
+    setNotice(null);
+    setAnnounce("Cambios deshechos: el borrador vuelve a la versión guardada.");
+  }
+
+  function exit() {
+    if (dirty) setConfirmExit(true);
+    else props.onExit();
+  }
+
+  const extras = board.extras;
+  const theirsOnly = conflict ? conflict.cards.filter((c) => !uids.includes(c.uid)) : [];
+  const mineOnly = conflict ? draftCards(uids, pool).filter((c) => !conflict.cardUids.includes(c.uid)) : [];
+  const rules = `${DUEL_DECK_SIZE} cartas · ${DUEL_ROLES.map((r) => roleCount(DUEL_COMPOSITION[r], r)).join(" · ")} · sin repetir jugador`;
+
+  const collectionPanel = (
+    <CollectionPanel
+      cards={collection}
+      uids={uids}
+      pool={pool}
+      board={board}
+      check={check}
+      filter={filter}
+      sort={sort}
+      onFilter={setFilter}
+      onSort={setSort}
+      selectedUid={selectedUid}
+      onCard={onCard}
+      unopenedPacks={props.unopenedPacks}
+    />
+  );
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={active}
-      className={cn(
-        "rounded-full border px-3 py-1 text-[11px] font-semibold transition",
-        active
-          ? "border-drl bg-drl/15 text-white"
-          : need
-            ? "border-drl/30 bg-drl/5 text-white/60 hover:bg-drl/10"
-            : "border-white/10 bg-white/[0.03] text-white/50 hover:bg-white/[0.07]",
+    <div className="mx-auto w-full max-w-[1440px] pb-8" data-scene="team-builder" data-dirty={dirty} data-ready={check.ready}>
+      <div aria-live="polite" className="sr-only" data-testid="announce">{announce}</div>
+      {props.firstTeam && (
+        <JourneyCoach eyebrow="Tu inicio · 4/6 · Tu primer equipo" title="Tu primer equipo" testId="journey-deck-coach" className="mb-3">
+          Diez cartas: dos por rol (Duelista, Controlador, Iniciador, Centinela y Flex), sin repetir jugador. Elige tú o pulsa
+          «Autocompletar equipo» (rellena con tus cartas de mayor OVR que cumplen las reglas). Cuenta cuando está <b className="text-white">guardado y completo</b>;
+          si es tu primer equipo legal, se activa al guardarlo.
+        </JourneyCoach>
       )}
-    >
-      {children}
-    </button>
+
+      {/* ══ Cabecera ══ */}
+      <div className="flex flex-wrap items-center gap-x-3">
+        <button
+          type="button"
+          onClick={exit}
+          className="nx-focus -ml-2 inline-flex min-h-[44px] items-center rounded-control px-2 font-display text-label uppercase tracking-wide2 text-ink-muted transition hover:bg-white/[0.06] hover:text-white"
+        >
+          ‹ Mis equipos
+        </button>
+        <span className="nx-label hidden sm:inline">Nexus Team Builder</span>
+      </div>
+
+      <div className="mt-1 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+        <div className="min-w-0 flex-1">
+          <label htmlFor={nameId} className="sr-only">Nombre del equipo</label>
+          <input
+            id={nameId}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            maxLength={40}
+            autoComplete="off"
+            aria-invalid={!nameCheck.ok}
+            aria-describedby={nameCheck.ok ? undefined : nameErrId}
+            className="nx-focus w-full max-w-[560px] rounded-control border border-transparent bg-transparent px-1 font-display text-[clamp(26px,4vw,42px)] font-bold uppercase leading-tight text-white outline-none transition hover:border-white/10 focus:border-drl/60 focus:bg-white/[0.04]"
+          />
+          {!nameCheck.ok && <p id={nameErrId} role="alert" className="mt-0.5 text-caption text-bad">{nameCheck.reason}</p>}
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <span
+              data-testid="deck-count"
+              className={cn("nx-readout rounded-full border px-2.5 py-1 text-[13px] tabular-nums", check.ready ? "border-ok/50 text-ok" : "border-white/15 text-white")}
+            >
+              {countLabel(check.count)}
+            </span>
+            {deck ? (
+              <Badge tone={deck.valid ? "ok" : "warn"}>{deck.valid ? "Listo para duelo" : "Guardado incompleto"}</Badge>
+            ) : (
+              <Badge tone="muted">Sin guardar</Badge>
+            )}
+            {deck?.active && <Badge tone="info" solid>Equipo activo</Badge>}
+            {analysis.count > 0 && <IdentityBadge analysis={analysis} />}
+            {dirty && <Badge tone="warn" data-testid="unsaved">Cambios sin guardar</Badge>}
+          </div>
+          <p className="mt-1.5 text-[12px] text-ink-faint">{rules}</p>
+        </div>
+
+        <div className="flex flex-col items-stretch gap-1.5 sm:items-end">
+          <div className="flex flex-wrap gap-2">
+            <NxButton
+              variant="primary"
+              size="md"
+              onClick={() => void save()}
+              disabled={saving || !nameCheck.ok || (deck ? !dirty : uids.length === 0)}
+              aria-busy={saving}
+              data-testid="save-team"
+            >
+              {saving ? "Guardando…" : deck && !dirty ? "Guardado" : "Guardar equipo"}
+            </NxButton>
+            {deck && activeSupported && !deck.active && props.onActivate && (
+              <NxButton variant="secondary" size="md" onClick={props.onActivate} disabled={dirty || !deck.valid || props.busy === "activate"} aria-busy={props.busy === "activate"} data-testid="activate-team">
+                Activar
+              </NxButton>
+            )}
+            {dirty && <NxButton variant="ghost" size="md" onClick={revert} data-testid="revert-draft">Deshacer cambios</NxButton>}
+            {deck && props.onDuplicate && <NxButton variant="ghost" size="md" onClick={props.onDuplicate} disabled={dirty}>Duplicar</NxButton>}
+            {deck && props.onDelete && <NxButton variant="ghost" size="md" onClick={props.onDelete}>Eliminar</NxButton>}
+          </div>
+          {deck && activeSupported && !deck.active && (!deck.valid || dirty) && (
+            <p className="text-[11px] text-ink-faint" data-testid="activate-hint">
+              {dirty ? "Guarda los cambios antes de activarlo." : "Solo un equipo completo y legal puede ser el activo."}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {/* ══ Avisos: conflicto, error de guardado, cartas perdidas, pocas cartas ══ */}
+      <div className="mt-3 space-y-2">
+        {conflict && (
+          <div role="alert" className="nx-clip-sm border border-drl-gold/50 bg-drl-gold/[0.08] px-4 py-3" data-testid="stale-version">
+            <p className="font-display text-body font-bold uppercase tracking-wide text-drl-gold">Este equipo cambió en otra pestaña.</p>
+            <p className="mt-0.5 text-caption text-ink-secondary">Tu borrador sigue aquí. Recarga la versión guardada o revisa las diferencias antes de decidir.</p>
+            {reviewing && (
+              <div className="mt-2 grid gap-2 text-[12px] sm:grid-cols-2">
+                <div><p className="nx-label">Solo en la versión guardada</p><p className="text-white/80">{theirsOnly.map((c) => c.nick).join(", ") || "—"}{conflict.name !== name.trim() && ` · nombre «${conflict.name}»`}</p></div>
+                <div><p className="nx-label">Solo en tu borrador</p><p className="text-white/80">{mineOnly.map((c) => c.nick).join(", ") || "—"}</p></div>
+              </div>
+            )}
+            <div className="mt-2 flex flex-wrap gap-2">
+              <NxButton variant="secondary" size="sm" onClick={reloadTheirs}>Recargar</NxButton>
+              {!reviewing ? (
+                <NxButton variant="ghost" size="sm" onClick={() => setReviewing(true)}>Revisar</NxButton>
+              ) : (
+                <NxButton variant="primary" size="sm" onClick={() => void save()} disabled={saving}>Guardar mi versión</NxButton>
+              )}
+            </div>
+          </div>
+        )}
+        {saveError && (
+          <p role="alert" className="rounded-lg border border-bad/40 bg-bad/[0.08] px-4 py-2.5 text-[13px] text-white" data-testid="save-error">
+            {saveError} <span className="text-ink-muted">Tu borrador no se ha perdido.</span>
+          </p>
+        )}
+        {extras.length > 0 && (
+          <div className="nx-clip-sm border border-drl-gold/40 bg-drl-gold/[0.06] px-4 py-3" data-testid="lost-cards">
+            <p className="text-[13px] font-semibold text-white">
+              {extras.length === 1 ? "Una carta de este equipo no puede estar en él." : `${extras.length} cartas de este equipo no pueden estar en él.`} El equipo no es legal hasta que las quites o las cambies.
+            </p>
+            <ul className="mt-1.5 flex flex-wrap gap-2">
+              {extras.map((x) => (
+                <li key={x.uid} className="flex items-center gap-2 rounded-lg bg-black/30 px-2 py-1 text-[12px] text-ink-secondary">
+                  <span>{x.card?.nick ?? "Carta"} · {x.issue}</span>
+                  <button type="button" onClick={() => removeUid(x.uid)} className="nx-action min-h-[32px] text-[11px]">Quitar</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {collection.length < DUEL_DECK_SIZE && (
+          <div className="nx-clip-sm flex flex-wrap items-center gap-x-3 gap-y-1 border border-drl-cyan/35 bg-drl-cyan/[0.07] px-4 py-2.5" data-testid="few-cards">
+            <span className="font-display text-[12px] font-bold uppercase tracking-[0.12em] text-drl-cyan">Tienes {collection.length} de {DUEL_DECK_SIZE}</span>
+            <span className="text-[12px] text-white/60">Un equipo necesita {DUEL_DECK_SIZE} cartas tuyas.</span>
+            <Link href={(props.unopenedPacks ?? 0) > 0 ? "/inventario" : "/tienda"} className="nx-action ml-auto inline-flex min-h-[40px] items-center !text-drl-cyan">
+              {(props.unopenedPacks ?? 0) > 0 ? "Abrir mis sobres →" : "Conseguir un sobre →"}
+            </Link>
+          </div>
+        )}
+        {selectedCard && (
+          <div className="nx-clip-sm flex flex-wrap items-center gap-x-3 gap-y-1 border border-drl-gold/40 bg-drl-gold/[0.07] px-4 py-2.5" role="status" data-testid="selection-banner">
+            <span className="font-display text-[12px] font-bold uppercase tracking-[0.12em] text-drl-gold">Colocar {selectedCard.nick}</span>
+            <span className="text-[12px] text-white/70">
+              {fits.size ? `Elige uno de los ${fits.size} huecos resaltados de ${selectedCard.role}.` : `No hay ningún hueco de ${selectedCard.role} donde pueda entrar ahora.`}
+            </span>
+            <button type="button" onClick={() => { setSelectedUid(null); setNotice(null); }} className="nx-action ml-auto min-h-[40px]">Cancelar</button>
+          </div>
+        )}
+        {notice && (
+          <p role="status" className={cn("rounded-lg border px-4 py-2 text-[13px]", notice.tone === "warn" ? "border-drl-gold/40 bg-drl-gold/[0.06] text-white" : "border-white/10 bg-white/[0.04] text-white/85")} data-testid="notice">
+            {notice.text}
+          </p>
+        )}
+      </div>
+
+      {/* ══ Colección · Tablero · Análisis ══ */}
+      <div className="mt-4 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[300px_minmax(0,1fr)_300px]">
+        <aside className="hidden xl:block" aria-label="Tu colección">
+          <div className="nx-clip max-h-[calc(100vh-140px)] overflow-y-auto border border-white/10 bg-white/[0.02] p-3">{collectionPanel}</div>
+        </aside>
+
+        <section aria-label="Tu equipo" className="min-w-0">
+          <div className="nx-stage nx-clip relative overflow-hidden p-3 sm:p-4">
+            <span aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: "radial-gradient(760px 320px at 50% 120%, rgba(63,210,255,0.12), transparent 70%)" }} />
+            <TeamBoard
+              board={board}
+              selectedSlot={slotKeyOpen}
+              fits={fits}
+              released={released}
+              freshUid={freshUid}
+              onSlot={onSlot}
+              onRemove={removeSlot}
+              onMove={moveSlot}
+            />
+          </div>
+          <div className="mt-3 flex flex-wrap items-center gap-2 xl:hidden">
+            <NxButton variant="secondary" size="md" onClick={() => setCollectionOpen(true)} data-testid="open-collection">+ Añadir cartas</NxButton>
+            <span className="text-[12px] text-ink-faint">o toca un hueco para ver sus candidatas</span>
+          </div>
+          <p className="mt-2 hidden text-[11px] text-ink-faint lg:block">
+            Teclado: Tab para moverte · Enter abre el hueco · Supr quita la carta · Alt+↑/↓ la mueve dentro de su rol.
+          </p>
+        </section>
+
+        <aside aria-label="Análisis del equipo" className="min-w-0">
+          <AnalysisPanel
+            check={check}
+            issues={issues}
+            stats={stats}
+            reading={reading}
+            keptCount={uids.filter((u) => !released.has(u)).length}
+            auto={auto}
+            onAutocomplete={runAutocomplete}
+            onIssue={(uid) => { const key = board.slots.find((s) => s.uid === uid)?.key; if (key) focusSlot(key); }}
+            saved={!!deck && !dirty}
+            strategy={
+              <StrategyLabPanel
+                analysis={analysis}
+                contextAxis={contextAxis}
+                onDismissContext={() => { setContextAxis(null); setAltSort("ovr"); }}
+                onFocusCard={(uid) => { const s = board.slots.find((x) => x.uid === uid); if (s) setSlotKeyOpen(s.key); }}
+              />
+            }
+            extra={
+              <SuggestSection
+                pool={pool}
+                currentUids={uids}
+                initialObjective={init.suggestObjective ?? null}
+                initialPareto={init.pareto}
+                onApply={(next, label) => { apply(next, `Plantilla «${label}» aplicada al borrador. Revisa y guarda.`); setNotice({ tone: "info", text: `Plantilla «${label}» aplicada al borrador. No se ha guardado: revisa y pulsa «Guardar equipo».` }); }}
+              />
+            }
+          />
+        </aside>
+      </div>
+
+      {/* ══ Hojas ══ */}
+      <Sheet open={collectionOpen} size="lg" scene="collection-sheet" eyebrow={countLabel(check.count)} title="Añadir cartas" onClose={() => setCollectionOpen(false)}>
+        {collectionPanel}
+      </Sheet>
+
+      <SlotSheet
+        open={!!slotOpen && !compare}
+        slot={slotOpen}
+        candidates={candidates}
+        suggestion={suggestion}
+        released={!!slotOpen?.uid && released.has(slotOpen.uid)}
+        canMoveUp={!!slotOpen?.uid && slotOpen.index > 0}
+        canMoveDown={!!slotOpen?.uid && !!board.byRole[slotOpen.role][slotOpen.index + 1]?.uid}
+        initialSuggest={init.suggest}
+        onClose={() => setSlotKeyOpen(null)}
+        onPick={(card) => {
+          if (!slotOpen) return;
+          if (slotOpen.uid) { openCompare(slotOpen.uid, card.uid); return; }
+          const r = tryAdd(uids, card.uid, pool, check);
+          if (r.ok) { apply(r.uids, `${card.nick} colocada en ${slotOpen.label}.`, card.uid); setSlotKeyOpen(null); }
+          else setNotice({ tone: "warn", text: r.reason });
+        }}
+        onCompare={(card) => slotOpen && openCompare(slotOpen.uid, card.uid)}
+        onRemove={() => slotOpen && removeSlot(slotOpen)}
+        onMove={(dir) => slotOpen && moveSlot(slotOpen, dir)}
+        focus={slotOpen?.uid ? (
+          <CardFocusSection
+            contribution={analysis.contributions.find((c) => c.uid === slotOpen.uid) ?? null}
+            partnerNick={(() => { const c = analysis.contributions.find((x) => x.uid === slotOpen.uid); return c?.partnerUid ? pool.get(c.partnerUid)?.nick ?? null : null; })()}
+            alternatives={alternatives}
+            sort={altSort}
+            onSort={setAltSort}
+            onPreview={(alt) => openCompare(slotOpen.uid, alt.card.uid)}
+          />
+        ) : null}
+        onToggleRelease={() => {
+          const uid = slotOpen?.uid;
+          if (!uid) return;
+          setReleased((cur) => { const n = new Set(cur); if (n.has(uid)) n.delete(uid); else n.add(uid); return n; });
+        }}
+      />
+
+      <ComparePanel
+        open={!!compare}
+        view={compareView}
+        strategy={compareImpact}
+        slotLabel={compareSlotLabel}
+        onClose={() => setCompare(null)}
+        onConfirm={(next) => {
+          const cand = compare ? pool.get(compare.candidateUid) : undefined;
+          apply(next, `${cand?.nick ?? "La carta"} entra en el equipo.`, cand?.uid ?? null);
+          setCompare(null);
+          setSlotKeyOpen(null);
+          setSelectedUid(null);
+          setNotice(null);
+        }}
+      />
+
+      <Sheet open={!!exploreView} size="lg" scene="explore-card" eyebrow="Carta que no tienes" title={exploreView ? exploreView.nick : "Carta"} onClose={() => setExplore(null)}>
+        {exploreView && (
+          <div data-testid="explore-card">
+            <p className="text-caption text-ink-secondary">
+              {exploreView.def.role} · OVR <b className="nx-readout text-white">{exploreView.def.ovr}</b> · SH {exploreView.def.combat.stronghold} · GS {exploreView.def.combat.gamesense} · EF {exploreView.def.combat.entryfrag}
+            </p>
+            {exploreView.impact && exploreView.target ? (
+              <>
+                <p className="mt-2 text-[12.5px] text-white">Comparada con tu {exploreView.def.role} <b>{exploreView.target.nick}</b>:</p>
+                <StrategyImpact impact={exploreView.impact} informative />
+              </>
+            ) : (
+              <p className="mt-2 text-caption text-ink-muted">Tu borrador no tiene ninguna carta de {exploreView.def.role} con la que compararla.</p>
+            )}
+            <p className="mt-3 text-[12px] text-ink-muted">No la tienes: esta comparación es solo informativa y no se puede aplicar al equipo.</p>
+          </div>
+        )}
+      </Sheet>
+
+      <Sheet
+        open={confirmExit}
+        scene="unsaved-exit"
+        eyebrow="Cambios sin guardar"
+        title="¿Salir del constructor?"
+        onClose={() => setConfirmExit(false)}
+        footer={
+          <div className="flex flex-wrap gap-2">
+            <NxButton variant="primary" size="md" onClick={async () => { if (await save()) { setConfirmExit(false); props.onExit(); } else setConfirmExit(false); }} disabled={saving}>Guardar y salir</NxButton>
+            <NxButton variant="danger" size="md" onClick={() => { setConfirmExit(false); props.onExit(); }}>Salir sin guardar</NxButton>
+            <NxButton variant="ghost" size="md" onClick={() => setConfirmExit(false)}>Seguir editando</NxButton>
+          </div>
+        }
+      >
+        <p className="text-body text-ink-secondary">Tienes cambios en «{name.trim() || baseline.name}» que no se han guardado. Si sales sin guardar, se pierden.</p>
+      </Sheet>
+    </div>
   );
 }

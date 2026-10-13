@@ -23,6 +23,9 @@ export function analyzePlayers(model: CanonicalModel, type: TournamentType, team
   const matchRound = new Map(model.matches.map((m) => [m.id, m.round]));
   const mapToMatch = new Map(model.maps.map((mm) => [mm.id, mm.matchId]));
 
+  /* Agregados de torneo (lo que la fuente no publica por mapa). Vacío si no los hay. */
+  const tournamentStats = new Map(model.playerTournamentStats.map((ps) => [ps.playerId, ps]));
+
   const reports: PlayerReport[] = [];
   for (const p of model.players) {
     const stats = byPlayer.get(p.id) ?? [];
@@ -68,6 +71,8 @@ export function analyzePlayers(model: CanonicalModel, type: TournamentType, team
       acs: Math.round(overall.acs), adr: Math.round(overall.adr), kast: Math.round(overall.kast),
       kd: Math.round(kd(overall) * 100) / 100, hsPct: Math.round(overall.hsPct),
       kills: overall.kills, deaths: overall.deaths, assists: overall.assists, fk: overall.fk, fd: overall.fd, clutches: overall.clutches,
+      tournamentClutchesWon: tournamentStats.get(p.id)?.clutchesWon,
+      tournamentClutchSituations: tournamentStats.get(p.id)?.clutchSituations,
       rating, impact, consistency, variance: Math.round(varc),
       mvpScore, roles, rolePerformance: rolePerformance(roles, p.role), trend,
       peakMatchId: peak?.matchId, worstMatchId: worst?.matchId,

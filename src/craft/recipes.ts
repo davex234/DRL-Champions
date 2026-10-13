@@ -30,7 +30,7 @@ export function validateRecipe(registry: CardRegistry, recipe: Recipe): RecipeVa
   if (recipe.output.mode === "group" && !recipe.output.group) bad("salida 'group' sin grupo");
 
   const cost = recipe.cost ?? {};
-  if ((cost.credits ?? 0) < 0 || (cost.tokens ?? 0) < 0) bad("coste negativo");
+  if ((cost.credits ?? 0) < 0) bad("coste negativo");
   if (cost.materials) for (const k of Object.keys(cost.materials)) if (!BUCKETS.includes(k as (typeof BUCKETS)[number])) bad(`bucket de coste inválido: ${k}`);
 
   return { ok: issues.length === 0, issues };

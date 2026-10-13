@@ -1,28 +1,47 @@
 "use client";
 
 /**
- * TIENDA — todos los sobres, en un solo sitio (Fase 9C).
+ * TIENDA 4.0 — la tienda de NEXUS DRLCards (Fase 49).
  *
- * La auditoría del Paso 0 encontró la compra partida en tres pantallas: los sobres
- * normales aquí, los de evento en `/eventos`, y la apertura en `/abrir`. Esta pantalla
- * llegaba a tener un párrafo explicando que los sobres de evento estaban en otro sitio,
- * que es la señal más clara de que la información está mal repartida.
+ * ══════════════════════════ QUÉ ES ══════════════════════════
  *
- * Ahora la tienda enseña TODO el catálogo, separado en dos bloques con significados
- * distintos: los sobres permanentes y los de evento. Los de evento siguen dependiendo
- * del Centro de Eventos —esta pantalla no cambia ninguna regla de disponibilidad ni de
- * economía: solo deja de esconder que existen.
+ *   destacado   una edición real con sus cartas reales (`STORE_CATALOG.featuredHero`).
+ *   sobres      los sobres ACTIVOS: aperturas aleatorias. Se compran con créditos (lo de siempre).
+ *   cajas       10 sobres de un tipo, al inventario y sin abrir. Dinero real: pendiente de pasarela.
+ *   cartas      cartas concretas que vende la casa (NO es el Marketplace, que sigue cerrado).
+ *   packs       combinaciones explícitas de sobres, cartas y créditos.
+ *
+ * ══════════════════════════ QUIÉN DECIDE ══════════════════════════
+ *
+ * Qué se enseña: `data/storeCatalog.ts` pasado por el resolvedor (`domain/store/resolve.ts`), que cruza
+ * la configuración con el catálogo real y el ciclo de vida (un sobre DRAFT o RETIRED no aparece nunca).
+ * Qué se compra: el SERVIDOR. Con sesión, un sobre lo cobra `buyPackOnline` → `/api/game/packs` →
+ * `app_buy_pack` (precio del catálogo del servidor); sin sesión, el motor local. Aquí no hay ni una
+ * cifra económica escrita a mano, y el dinero real no se finge: sin pasarela, «Próximamente».
  */
-import { useMemo } from "react";
+import { useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { PACKS } from "@/data/packs";
-import { getEvent } from "@/data/events";
-import { PackStoreCard } from "@/components/packs/PackStoreCard";
+import { resolveStore } from "@/domain/store/resolve";
+import { usePacksVersion } from "@/lib/packs/usePacksVersion";
+import type { ResolvedProduct } from "@/domain/store/types";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { Toast } from "@/components/ui/Toast";
 import { useToast } from "@/lib/useToast";
 import { useGameStore } from "@/store/useGameStore";
-import { formatCredits } from "@/lib/format";
+import { useAuth } from "@/lib/supabase/auth";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { buyPackOnline } from "@/lib/game/sync";
+import { newGesture } from "@/lib/game/client";
+import { playSound } from "@/lib/sound";
+import { StoreHero } from "@/components/store/StoreHero";
+import { StoreTabs } from "@/components/store/StoreTabs";
+import { BoxOfferCard, BundleOfferCard, CardOfferCard, PackOfferCard, SectionHead } from "@/components/store/StoreProducts";
+import { PurchaseModal, type PurchasePhase } from "@/components/store/PurchaseModal";
+import { css } from "@/components/store/storeClasses";
+import { BattlePassEntry } from "@/components/store/BattlePassEntry";
+import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
+import "./store.css";
 
 export default function TiendaPage() {
   return (
@@ -32,142 +51,183 @@ export default function TiendaPage() {
   );
 }
 
+/** Sobres que se ven sin desplegar: dos filas en escritorio (F72.4: la tarjeta es mínima, caben más). */
+const PACKS_FOLDED = 8;
+
 function Store() {
+  const router = useRouter();
   const { toast, notify } = useToast();
+  const { user } = useAuth();
+  /* Con sesión, la compra la valida y la cobra el servidor; sin ella, la economía local. */
+  const online = isSupabaseConfigured() && !!user;
+  const serverEconomy = useServerEconomy();
   const credits = useGameStore((s) => s.credits);
   const unopened = useGameStore((s) => s.unopenedPacks);
-
+  const buyPack = useGameStore((s) => s.buyPack);
+  const [busy, setBusy] = useState(false);
+  const [selected, setSelected] = useState<ResolvedProduct | null>(null);
+  const [phase, setPhase] = useState<PurchasePhase>({ at: "confirm" });
+  const [allPacks, setAllPacks] = useState(false);
   /*
-   * Los sobres RETIRADOS (Fase 13) no se venden. Siguen existiendo, siguen abriéndose y
-   * siguen concediéndose como recompensa: lo único que se retira es la venta. Hoy solo le
-   * afecta a Prime, que está dominado en todos los ejes medidos — el porqué, con cifras,
-   * está en `data/packs`.
+   * F68 · UNA COMPRA POR GESTO. `busy` es estado de React: dos clics en la misma tarea leían el mismo `false` y cobraban
+   * dos veces (cada uno con su propia clave). `inFlight` corta el segundo en el acto, y la clave del gesto (una por
+   * apertura del diálogo) hace que un reintento tras un fallo de red lo deduplique el servidor (`economy_ops`).
    */
-  const standard = useMemo(() => PACKS.filter((p) => !p.eventId && !p.retired), []);
-  const eventPacks = useMemo(() => PACKS.filter((p) => p.eventId && !p.retired), []);
-  const pending = useMemo(
-    () => Object.values(unopened).reduce((s, n) => s + n, 0),
-    [unopened],
-  );
+  const inFlight = useRef(false);
+  const gesture = useRef<string | null>(null);
+
+  // La vista se resuelve una vez por visita con el reloj actual (las ventanas de fechas se respetan).
+  const packsV = usePacksVersion(); // F60: los sobres del panel aparecen/desaparecen sin recargar
+  const view = useMemo(() => resolveStore(Date.now()), [packsV]); // eslint-disable-line react-hooks/exhaustive-deps
+  const heroProduct = view.hero ? view.packs.find((p) => p.packId === view.hero!.packId) ?? null : null;
+  const packsShown = allPacks ? view.packs : view.packs.slice(0, PACKS_FOLDED);
+
+  function select(p: ResolvedProduct) {
+    playSound("pack.select");
+    gesture.current = newGesture();
+    setPhase({ at: "confirm" });
+    setSelected(p);
+  }
+
+  /** Compra un sobre. Devuelve true si se pudo. Misma ruta de siempre: el servidor cobra y valida. */
+  async function purchase(packId: string): Promise<boolean> {
+    if (online) {
+      try {
+        await buyPackOnline(packId, gesture.current ?? undefined);
+        return true;
+      } catch (e) {
+        setPhase({ at: "failed", message: e instanceof Error ? e.message : "No se pudo comprar" });
+        return false;
+      }
+    }
+    // F69 · sesión aún resolviéndose: ni compra local (saldo inventado) ni servidor (sin token).
+    if (serverEconomy) { setPhase({ at: "failed", message: SESSION_PENDING }); return false; }
+    const res = buyPack(packId);
+    if (!res.ok) { setPhase({ at: "failed", message: res.error ?? "No se pudo comprar" }); return false; }
+    return true;
+  }
+
+  async function confirm() {
+    const packId = selected?.kind === "PACK" ? selected.packId : undefined;
+    if (busy || inFlight.current || !packId) return;
+    inFlight.current = true;
+    setBusy(true);
+    setPhase({ at: "working" });
+    try {
+      if (await purchase(packId)) {
+        gesture.current = null; // compra hecha: otra compra será otro gesto (otra apertura del diálogo)
+        setPhase({ at: "done", balance: useGameStore.getState().credits });
+        notify(`${selected!.name} añadido a tu inventario`, true);
+      }
+    } finally { inFlight.current = false; setBusy(false); }
+  }
+
+  function openNow() {
+    const packId = selected?.packId;
+    if (!packId || busy) return;
+    router.push(`/abrir/${packId}`);
+  }
+
+  const tabs = [
+    { id: "destacado", label: "Destacado" },
+    { id: "sobres", label: "Sobres", count: view.packs.length },
+    { id: "cajas", label: "Cajas", count: view.boxes.length },
+    { id: "cartas", label: "Cartas", count: view.cards.length },
+    { id: "packs", label: "Packs", count: view.bundles.length },
+  ].filter((t) => t.id !== "destacado" || view.hero);
 
   return (
-    <div className="space-y-8">
-      {/* ── Cabecera con el saldo: comprar sin ver cuánto tienes es una fricción tonta ── */}
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <span className="nx-label">Tienda</span>
-          <h1 className="mt-1 font-display text-[clamp(30px,5vw,46px)] font-bold uppercase leading-none text-white">
-            Sobres
-          </h1>
-          <p className="mt-2 max-w-lg text-[15px] text-white/55">
-            Cada sobre tiene sus propias probabilidades y su garantía mínima. Están escritas
-            en la propia carta del sobre, antes de comprar.
-          </p>
-        </div>
+    <div className={`${css.page} space-y-8 sm:space-y-10`}>
+      <span aria-hidden className={css.atmos} />
 
-        <div className="flex items-center gap-2.5">
-          {pending > 0 && (
-            <Link
-              href="/inventario"
-              className="rounded-control border border-drl-cyan/30 bg-drl-cyan/[0.08] px-4 py-2.5 text-center transition duration-fast hover:border-drl-cyan/60"
-            >
-              <span className="nx-label block">Sin abrir</span>
-              <span className="font-display text-xl font-bold tabular-nums text-drl-cyan">{pending}</span>
-            </Link>
-          )}
-          <div className="rounded-control border border-drl-gold/30 bg-drl-gold/[0.08] px-4 py-2.5 text-center">
-            <span className="nx-label block">Tu saldo</span>
-            <span className="font-display text-xl font-bold tabular-nums text-drl-gold">
-              🪙 {formatCredits(credits)}
-            </span>
-          </div>
-        </div>
-      </header>
+      {view.hero && <StoreHero hero={view.hero} onCta={() => (heroProduct ? select(heroProduct) : document.getElementById("sobres")?.scrollIntoView())} />}
 
-      <section aria-label="Sobres permanentes">
-        <h2 className="nx-label mb-3">Siempre disponibles</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {standard.map((pack) => (
-            <PackStoreCard key={pack.id} pack={pack} onNotify={notify} />
+      <StoreTabs tabs={tabs} />
+
+      {/* IA 2026-10-07 · el pase se alcanza desde la Tienda (entrada al pase canónico; no se duplica aquí). */}
+      <BattlePassEntry />
+
+      {/* ── SOBRES ── */}
+      <section id="sobres" aria-labelledby="h-sobres" className={css.section}>
+        <SectionHead
+          id="h-sobres"
+          title="Sobres"
+          subtitle="Consigue cartas aleatorias y amplía tu colección."
+          action={
+            <button type="button" onClick={() => setAllPacks((v) => !v)} className="nx-action nx-focus" aria-expanded={allPacks} aria-controls="lista-sobres">
+              {allPacks ? "Ver menos" : `Ver todos · ${view.packs.length}`} →
+            </button>
+          }
+        />
+        <div id="lista-sobres" className={`${css.grid} grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`}>
+          {packsShown.map((p, i) => (
+            <PackOfferCard key={p.productId} product={p} owned={unopened[p.packId!] ?? 0} index={i} onSelect={select} />
           ))}
         </div>
+        {/* Puente al catálogo por categoría (Fase 21.4): la ficha completa de cada sobre vive en /packs. */}
+        <nav aria-label="Explorar el catálogo de sobres" className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="mr-1 font-display text-label uppercase tracking-wide2 text-ink-faint">Catálogo</span>
+          {[
+            { href: "/packs", label: "Todos" },
+            { href: "/packs#rareza", label: "Rareza" },
+            { href: "/packs#regiones", label: "Regiones" },
+            { href: "/packs#equipos", label: "Equipos" },
+          ].map((c) => (
+            <Link key={c.label} href={c.href} className="nx-focus nx-clip-sm bg-white/[0.04] px-3 py-2 font-display text-label font-bold uppercase tracking-wide2 text-ink-secondary shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)] transition hover:bg-white/[0.08] hover:text-white">
+              {c.label}
+            </Link>
+          ))}
+        </nav>
       </section>
 
-      {eventPacks.length > 0 && (
-        <section aria-label="Sobres de evento">
-          <div className="mb-3 flex items-baseline justify-between gap-3">
-            <h2 className="nx-label">Sobres de evento</h2>
-            <Link
-              href="/eventos"
-              className="nx-action"
-            >
-              Centro de eventos →
-            </Link>
+      {/* ── CAJAS ── */}
+      {view.boxes.length > 0 && (
+        <section id="cajas" aria-labelledby="h-cajas" className={css.section}>
+          <SectionHead id="h-cajas" title="Cajas" subtitle="10 sobres del mismo tipo, a tu inventario y sin abrir." />
+          <div className={`${css.grid} grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`}>
+            {view.boxes.map((p, i) => <BoxOfferCard key={p.productId} product={p} index={i} onSelect={select} />)}
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {eventPacks.map((pack) => {
-              const ev = pack.eventId ? getEvent(pack.eventId) : null;
-              return (
-                <EventPackTeaser
-                  key={pack.id}
-                  name={pack.name}
-                  description={pack.description}
-                  accent={pack.accent}
-                  eventName={ev?.name ?? "Evento"}
-                  cards={pack.cardCount}
-                />
-              );
-            })}
-          </div>
-          <p className="mt-3 text-[13px] text-white/45">
-            Los sobres de evento se consiguen en el Centro de Eventos mientras su evento está
-            activo, con fichas en lugar de créditos. Aquí se enseñan para que sepas que existen
-            y qué contienen.
-          </p>
         </section>
       )}
 
-      <Toast toast={toast} />
-    </div>
-  );
-}
+      {/* ── CARTAS ── (F72.4: misma tarjeta que el resto; edición, rareza y OVR en el detalle) */}
+      {view.cards.length > 0 && (
+        <section id="cartas" aria-labelledby="h-cartas" className={css.section}>
+          <SectionHead id="h-cartas" title="Cartas destacadas" subtitle="Cartas concretas de la tienda NEXUS. No es el Marketplace." />
+          <div className={`${css.grid} grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`}>
+            {view.cards.map((p, i) => <CardOfferCard key={p.productId} product={p} index={i} onSelect={select} />)}
+          </div>
+        </section>
+      )}
 
-/**
- * Un sobre de evento en la tienda: se ve, se entiende y lleva al sitio donde se consigue.
- * No se puede comprar desde aquí, y el botón lo dice —un botón que promete algo que no
- * hace es peor que no tener botón.
- */
-function EventPackTeaser({
-  name, description, accent, eventName, cards,
-}: {
-  name: string;
-  description: string;
-  accent: string;
-  eventName: string;
-  cards: number;
-}) {
-  return (
-    <div className="nx-panel relative flex flex-col overflow-hidden p-5">
-      <div
-        className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-20 blur-2xl"
-        style={{ background: accent }}
-      />
-      <span
-        className="w-fit rounded-full px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-label"
-        style={{ background: `${accent}22`, color: accent }}
-      >
-        {eventName}
-      </span>
-      <h3 className="mt-2 font-display text-xl font-bold uppercase tracking-wide text-white">{name}</h3>
-      <p className="mt-2 flex-1 text-sm text-white/55">{description}</p>
-      <p className="nx-label mt-3">{cards} cartas</p>
-      <Link
-        href="/eventos"
-        className="mt-4 rounded-control border px-4 py-2.5 text-center font-display text-sm font-bold uppercase tracking-[0.1em] transition duration-fast hover:bg-white/[0.06]"
-        style={{ borderColor: `${accent}66`, color: accent }}
-      >
-        Ir al evento
-      </Link>
+      {/* ── PACKS ── (el contenido de cada pack, en el detalle) */}
+      {view.bundles.length > 0 && (
+        <section id="packs" aria-labelledby="h-packs" className={css.section}>
+          <SectionHead id="h-packs" title="Packs especiales" subtitle="Sobres, cartas y créditos en un solo producto." />
+          <div className={`${css.grid} grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`}>
+            {view.bundles.map((p, i) => <BundleOfferCard key={p.productId} product={p} index={i} onSelect={select} />)}
+          </div>
+        </section>
+      )}
+
+      <p className="text-caption text-ink-faint">
+        Los precios en créditos los fija y los cobra el servidor. El pago con dinero real todavía no está activo: nada se cobra
+        ni se concede sin un pago confirmado.
+      </p>
+
+      {selected && (
+        <PurchaseModal
+          product={selected}
+          credits={credits}
+          owned={selected.packId ? unopened[selected.packId] ?? 0 : 0}
+          phase={phase}
+          onConfirm={confirm}
+          onOpenNow={openNow}
+          onClose={() => { if (!busy) setSelected(null); }}
+        />
+      )}
+
+      <Toast toast={toast} />
     </div>
   );
 }

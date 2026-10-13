@@ -89,9 +89,24 @@ export interface RawMatchMap {
   players?: RawMapPlayer[];
 }
 
+/**
+ * Fase 24.4 · adónde va el ganador / el perdedor de un partido, SOLO cuando la fuente lo
+ * confirma. Ausente = desconocido (y así se queda: nada se infiere aquí).
+ */
+export interface MatchProgression {
+  winnerTo?: { matchId: string; slot?: 1 | 2 };
+  loserTo?: { matchId: string; slot?: 1 | 2 };
+  winnerQualifies?: { key: string; label?: string };
+  evidence: "SOURCE_EXPLICIT" | "SOURCE_BRACKET_LINK" | "SOURCE_STRUCTURED_HTML";
+  confidence: "CONFIRMED";
+  version?: string;
+}
+
 export interface RawMatch {
   id: string;
   eventId: string;
+  /** Fase 24.4 · estructura confirmada del cuadro (opcional). */
+  progression?: MatchProgression;
   stageSlug?: string;
   teamAId: string;
   teamBId: string;

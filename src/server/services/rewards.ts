@@ -110,6 +110,15 @@ export async function award(
 ): Promise<AwardOutcome> {
   const { userId, ref, reason, reward, points } = input;
   if (!ref) throw new Error("Una recompensa necesita clave de idempotencia");
+  /*
+   * FASE 41 · UNA RECOMPENSA NUNCA RESTA. `app_grant_reward` escribe `profiles.credits` directamente, sin el suelo de
+   * `_ledger_apply`: un `credits` o `xp` negativo por un error de contenido podía dejar un saldo por debajo de cero.
+   * Los cobros van por sus RPC con suelo (`app_buy_pack`, `app_buy_cosmetic`…), nunca por aquí. Los PUNTOS sí admiten
+   * signo (la RPC ya protege su suelo en cero; ver `LOSS_SUBTRACTS`).
+   */
+  if (clampInt(reward.credits) < 0 || clampInt(reward.xp) < 0 || clampInt(reward.packCount) < 0) {
+    throw new Error("Una recompensa no puede ser negativa");
+  }
 
   const cardIds = reward.cardId ? [reward.cardId] : null;
   const cosmetics = reward.cosmetics?.length ? reward.cosmetics : null;
@@ -120,7 +129,6 @@ export async function award(
     p_reason: reason,
     p_credits: clampInt(reward.credits),
     p_xp: clampInt(reward.xp),
-    p_tokens: clampInt(reward.tokens),
     p_pack_id: reward.packId ?? null,
     // Un sobre sin cantidad es un sobre: es el descuido más fácil al escribir contenido.
     p_pack_count: reward.packId ? Math.max(1, clampInt(reward.packCount) || 1) : 0,
@@ -128,7 +136,18 @@ export async function award(
     p_card_ids: cardIds,
     p_cosmetics: cosmetics,
   });
-  if (error) throw new Error(error.message);
+  if (error) {
+    /*
+     * F73 · RECLAMOS SIMULTÁNEOS. `app_grant_reward` mira «¿existe ya (usuario, ref)?» y después inserta: dos peticiones
+     * a la vez pasan las dos la comprobación y la segunda choca con `credit_tx_ref_uniq` (UNIQUE (user_id, ref)). Ese
+     * choque solo puede significar que ESTE usuario ya tiene ESTA recompensa (la otra transacción la concedió entera):
+     * es un reintento, no un fallo. Antes se propagaba y el reclamo perdedor respondía 500 (medido: 10 reclamos → 1 × 500).
+     */
+    if (error.code === "23505" && /credit_tx_ref_uniq/.test(error.message ?? "")) {
+      return { applied: false, credits: 0, cardUids: [], unsupported: unsupportedFields(reward) };
+    }
+    throw new Error(error.message);
+  }
 
   const row = (data ?? {}) as { applied?: boolean; credits?: number; cardUids?: string[] };
   return {

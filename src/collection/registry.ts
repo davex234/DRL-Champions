@@ -19,7 +19,6 @@ export function parseCardId(cardId: string): { playerId: string; variantId: Vari
 }
 export const makeCardId = (playerId: string, variantId: VariantId): string => `${playerId}__${variantId}`;
 
-const GROUPS: VariantGroup[] = ["base", "regional", "mvp", "winner", "internacional", "exclusiva"];
 const REGIONS: Region[] = ["EMEA", "Americas", "Pacific", "China"];
 const ROLES: RoleId[] = ["Duelista", "Iniciador", "Centinela", "Controlador", "Flex"];
 const SERIES: { id: string; label: string; match: (v: VariantId) => boolean }[] = [
@@ -57,7 +56,7 @@ export class CardRegistry {
       const v = getVariant(c.variantId);
       push(this.byGroup, v.group, c);
       const p = playerLookup(c.playerId);
-      if (p) { push(this.byRegion, p.region, c); push(this.byRole, p.role, c); }
+      if (p) { push(this.byRegion, p.region, c); push(this.byRole, c.role ?? p.role, c); }
       this.searchIndex.push({ cardId: c.id, hay: `${p?.nick ?? ""} ${p?.team ?? ""} ${p?.teamTag ?? ""} ${v.label}`.toLowerCase() });
     }
     this.sets = this.buildSets();
@@ -82,10 +81,13 @@ export class CardRegistry {
 
   private buildSets(): SetDef[] {
     const out: SetDef[] = [];
-    for (const g of GROUPS) { const ids = (this.byGroup.get(g) ?? []).map((c) => c.id); if (ids.length) out.push({ id: `set-${g}`, kind: "group", label: capitalize(g), cardIds: ids }); }
+    // Por EDICIÓN (las 7 del catálogo diseñado, de mayor a menor rareza): la taxonomía de grupos antigua
+    // (regional, MVP, ganadores…) ya no tiene cartas y no se ofrece como set.
+    const editions = [...this.byVariant.keys()].sort((x, y) => getVariant(y).rank - getVariant(x).rank || getVariant(x).label.localeCompare(getVariant(y).label, "es"));
+    for (const e of editions) { const ids = (this.byVariant.get(e) ?? []).map((c) => c.id); if (ids.length) out.push({ id: `edition-${e}`, kind: "group", label: getVariant(e).label, cardIds: ids }); }
     for (const r of REGIONS) { const ids = (this.byRegion.get(r) ?? []).map((c) => c.id); if (ids.length) out.push({ id: `region-${r}`, kind: "region", label: r, cardIds: ids }); }
     for (const role of ROLES) {
-      const ids = this.cards.filter((c) => this.playerLookup(c.playerId)?.role === role).map((c) => c.id);
+      const ids = (this.byRole.get(role) ?? []).map((c) => c.id); // rol de la CARTA (el impreso manda)
       if (ids.length) out.push({ id: `role-${role}`, kind: "role", label: role, cardIds: ids });
     }
     for (const s of SERIES) { const ids = this.cards.filter((c) => s.match(c.variantId)).map((c) => c.id); if (ids.length) out.push({ id: s.id, kind: "series", label: s.label, cardIds: ids }); }
@@ -96,4 +98,3 @@ export class CardRegistry {
 }
 
 function push<K>(m: Map<K, CardDef[]>, k: K, c: CardDef): void { const a = m.get(k); if (a) a.push(c); else m.set(k, [c]); }
-const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);

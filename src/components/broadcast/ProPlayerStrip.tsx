@@ -11,6 +11,7 @@ import type { RoundState, SimPlayer, Side } from "@/sim";
 import { getItem } from "@/buy";
 import { formatCredits, cn } from "@/lib/format";
 import { sideHex } from "./theme";
+import { CardArt } from "@/components/cards/CardArt";
 
 const ROLE: Record<string, string> = { entry: "ENT", igl: "IGL", lurk: "LRK", anchor: "ANC", support: "SUP" };
 
@@ -24,8 +25,10 @@ function shieldGlyph(p: SimPlayer): string {
 }
 
 export function ProPlayerStrip({
-  snap, side, align, creditsByName, focusId,
+  snap, side, align, creditsByName, focusId, cardArtByName,
 }: {
+  /** FASE 51.1 · si el jugador es un titular del entrenador, su CARTA (CardArt) sustituye al retrato. */
+  cardArtByName?: Record<string, string>;
   snap: RoundState;
   side: Side;
   align: "left" | "right";
@@ -66,7 +69,12 @@ export function ProPlayerStrip({
             {/* franja de bando */}
             <div className="absolute inset-y-0 w-[3px]" style={{ [right ? "right" : "left"]: 0, background: hex }} />
             <div className={cn("flex items-stretch gap-1.5 px-1.5 py-1", right && "flex-row-reverse text-right")}>
-              {/* avatar */}
+              {/* avatar: la carta exacta del titular, si la hay; si no, el retrato de siempre */}
+              {cardArtByName?.[p.name.toLowerCase()] ? (
+                <div className="relative w-[26px] shrink-0" data-card-thumb>
+                  <CardArt src={cardArtByName[p.name.toLowerCase()]} alt={p.name} shadow="none" dim={dead} />
+                </div>
+              ) : (
               <div className="relative mt-0.5 h-8 w-8 shrink-0 overflow-hidden rounded bg-white/5">
                 {p.meta?.image && (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -75,6 +83,7 @@ export function ProPlayerStrip({
                 )}
                 {dead && <span className="absolute inset-0 grid place-items-center text-rose-400">✕</span>}
               </div>
+              )}
               {/* info */}
               <div className="min-w-0 flex-1">
                 <div className={cn("flex items-center gap-1", right && "flex-row-reverse")}>

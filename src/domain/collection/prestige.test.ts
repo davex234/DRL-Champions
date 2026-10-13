@@ -161,11 +161,14 @@ test("lo quemado se cuenta sumando lo comprado, no un contador aparte", () => {
   assert.equal(burnedOn(new Set([a, b])), 0);
 });
 
-test("la clave de idempotencia identifica insignia Y escalon", () => {
+test("la clave de idempotencia identifica jugador, insignia Y escalon", () => {
   const [a, b] = badges();
-  assert.notEqual(prestigeRef(a, "plata"), prestigeRef(a, "oro"));
-  assert.notEqual(prestigeRef(a, "plata"), prestigeRef(b, "plata"));
-  const all = badges().flatMap((x) => PRESTIGE_TIERS.map((t) => prestigeRef(x, t.id)));
+  const U = "user-1";
+  assert.notEqual(prestigeRef(U, a, "plata"), prestigeRef(U, a, "oro"));
+  assert.notEqual(prestigeRef(U, a, "plata"), prestigeRef(U, b, "plata"));
+  // Fase 41 · dos jugadores distintos NUNCA comparten clave (economy_ops.ref es global).
+  assert.notEqual(prestigeRef("user-1", a, "plata"), prestigeRef("user-2", a, "plata"));
+  const all = badges().flatMap((x) => PRESTIGE_TIERS.map((t) => prestigeRef(U, x, t.id)));
   assert.equal(new Set(all).size, all.length, "hay claves repetidas");
 });
 
@@ -180,6 +183,5 @@ test("la maestria SIGUE sin repartir creditos despues de anadir el prestigio", (
   for (const r of allMasteryRewards()) {
     assert.equal(r.credits ?? 0, 0);
     assert.equal(r.xp ?? 0, 0);
-    assert.equal(r.tokens ?? 0, 0);
   }
 });

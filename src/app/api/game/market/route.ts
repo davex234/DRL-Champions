@@ -29,6 +29,8 @@ import {
   browse, myListings, myTrades, marketConfig, listCard, cancelListing, buyListing,
   type BrowseFilters,
 } from "@/server/services/market";
+import { internalError } from "@/server/ops/log";
+import { readJsonObject } from "@/server/http/jsonBody";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -64,7 +66,7 @@ export async function POST(req: Request) {
   }
 
   let body: Record<string, unknown> = {};
-  try { body = await req.json(); } catch { /* cuerpo vacío */ }
+  body = ((await readJsonObject(req)) ?? {}) as typeof body; // FULL GAME AUDIT · `null`/no-objeto ya no da 500
   const action = typeof body.action === "string" ? body.action : "";
 
   if (WRITES.has(action) && !GLOBAL_MARKET_ENABLED) {
@@ -125,9 +127,6 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Acción inválida" }, { status: 400, headers: NO_STORE });
     }
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Error en la operación" },
-      { status: 500, headers: NO_STORE },
-    );
+    return internalError("api/game/market", e, req);
   }
 }

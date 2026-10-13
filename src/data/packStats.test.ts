@@ -7,10 +7,14 @@ import { buildPool } from "@/domain/packs/pool";
 import { getCard } from "./catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { bucketForRank, type RarityBucket } from "@/domain/packs/types";
+import { isDraft } from "@/domain/packs/lifecycle";
 import type { OwnedCard } from "@/domain/cards/types";
 
 const BUCKETS: RarityBucket[] = ["common", "uncommon", "rare", "epic", "legendary"];
-const PAID = PACKS.filter((p) => p.price > 0);
+// Un DRAFT (Fase 20.5) no se vende ni aparece en tienda, así que no tiene —ni debe tener—
+// estadística de compra: se excluye de los invariantes de producto público. Un RETIRED (prime)
+// sí conserva su estadística histórica, por eso el filtro es «no DRAFT», no «solo ACTIVE».
+const PAID = PACKS.filter((p) => p.price > 0 && !isDraft(p));
 
 test("hay estadistica para todos los sobres que se compran", () => {
   for (const p of PAID) {
@@ -96,7 +100,8 @@ test("el coste por rareza es coherente con el precio y el reparto", () => {
       }
       const perPack = s.drawn[b] * s.cardCount;
       const expected = s.price / perPack;
-      assert.ok(Math.abs(cost - expected) / expected < 0.02,
+      // `drawn` va redondeado a 4 decimales: tolerancia 2 % + ese error (±0,00005 / tasa), que domina en tasas diminutas.
+      assert.ok(Math.abs(cost - expected) / expected < 0.02 + 0.00005 / s.drawn[b],
         `${p.id}/${b}: coste ${cost} vs ${Math.round(expected)}`);
     }
   }

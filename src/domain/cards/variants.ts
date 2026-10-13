@@ -141,7 +141,28 @@ export const VARIANTS: Record<VariantId, VariantDef> = {
   "top-kills": { id: "top-kills", label: "Top Kills", group: "exclusiva", animation: "extended", rank: 11, statBoost: 4, serialized: true, serialLimit: 150, palette: PALETTES.mvp },
   "top-assist": { id: "top-assist", label: "Top Assist", group: "exclusiva", animation: "extended", rank: 11, statBoost: 4, serialized: true, serialLimit: 150, palette: PALETTES.prime },
   clutch: { id: "clutch", label: "Clutch King", group: "exclusiva", animation: "special", rank: 12, statBoost: 5, serialized: true, serialLimit: 120, palette: PALETTES.mvp },
+
+  // ---- Catálogo de cartas diseñadas (Cartas\, 2026-09-21) ----
+  // La edición sale del nombre de fichero. La RAREZA la fijó el usuario y se expresa con el rank
+  // (`bucketForRank`: ≤2 común · ≤5 poco común · ≤8 rara · ≤11 épica · >11 legendaria). Sin
+  // bonus de combate por edición (ver `DESIGNED_EDITIONS`) y sin serie limitada: no se decidió.
+  // La paleta sólo la usa el render por capas de respaldo; la carta real es su imagen.
+  base: { id: "base", label: "Base", group: "base", animation: "metallic", rank: 1, statBoost: 0, serialized: false, palette: PALETTES.gold },
+  "masters-l": { id: "masters-l", label: "Masters L", group: "internacional", animation: "premium", rank: 4, statBoost: 0, serialized: false, palette: PALETTES.cinematic },
+  "masters-sdc": { id: "masters-sdc", label: "Masters SDC", group: "internacional", animation: "premium", rank: 4, statBoost: 0, serialized: false, palette: PALETTES.cinematic },
+  "future-star": { id: "future-star", label: "Future Star", group: "exclusiva", animation: "special", rank: 7, statBoost: 0, serialized: false, palette: PALETTES.prime },
+  "champions-s": { id: "champions-s", label: "Champions S", group: "internacional", animation: "legendary", rank: 10, statBoost: 0, serialized: false, palette: PALETTES.champion },
+  "record-breaker": { id: "record-breaker", label: "Record Breaker", group: "exclusiva", animation: "cinematic", rank: 13, statBoost: 0, serialized: false, palette: PALETTES.silver },
+  moments: { id: "moments", label: "Moments", group: "exclusiva", animation: "icon", rank: 13, statBoost: 0, serialized: false, palette: PALETTES.legendary },
 };
+
+/**
+ * Ediciones del catálogo diseñado. Su rank decide RAREZA (y con ella sobres y presentación), pero
+ * NO bonus de combate: el usuario decidió que el trío salga del jugador tal cual (2026-09-21).
+ */
+export const DESIGNED_EDITIONS: ReadonlySet<VariantId> = new Set<VariantId>([
+  "base", "masters-l", "masters-sdc", "future-star", "champions-s", "record-breaker", "moments",
+]);
 
 /**
  * ESCALERA DE STATBOOST — configuración ÚNICA (Fase 2).
@@ -170,7 +191,7 @@ export function statBoostForRank(rank: number): StatBoostStep {
 
 // Normalización en el arranque del módulo: el `statBoost` literal de cada entrada queda
 // SUSTITUIDO por el derivado del rank. Es lo que garantiza que no haya valores dispersos.
-for (const v of Object.values(VARIANTS)) v.statBoost = statBoostForRank(v.rank);
+for (const v of Object.values(VARIANTS)) v.statBoost = DESIGNED_EDITIONS.has(v.id) ? 0 : statBoostForRank(v.rank);
 
 export const ALL_VARIANTS: VariantDef[] = Object.values(VARIANTS);
 

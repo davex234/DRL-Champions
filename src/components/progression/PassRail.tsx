@@ -41,7 +41,7 @@ import { getPack } from "@/data/packs";
 import { formatCredits, cn } from "@/lib/format";
 
 /** Qué clase de recompensa domina el nivel. Decide el glifo y si el nivel es un hito. */
-type RewardKind = "credits" | "tokens" | "pack" | "cosmetic" | "card" | "materials" | "xp" | "none";
+type RewardKind = "credits" | "pack" | "cosmetic" | "card" | "materials" | "xp" | "none";
 
 /**
  * El orden importa: un nivel que da un sobre Y créditos es «un nivel de sobre». Lo raro es
@@ -52,7 +52,6 @@ function kindOf(r: Reward): RewardKind {
   if (r.cosmetics?.length) return "cosmetic";
   if (r.packId) return "pack";
   if (r.materials && Object.keys(r.materials).length > 0) return "materials";
-  if (r.tokens) return "tokens";
   if (r.credits) return "credits";
   if (r.xp) return "xp";
   return "none";
@@ -70,12 +69,6 @@ function RewardGlyph({ kind, className }: { kind: RewardKind; className?: string
         <>
           <circle cx="12" cy="12" r="7.5" {...common} />
           <circle cx="12" cy="12" r="3.6" {...common} strokeWidth={1.2} />
-        </>
-      )}
-      {kind === "tokens" && (
-        <>
-          <path d="M4 8.5h16v2.2a1.6 1.6 0 0 0 0 2.6v2.2H4v-2.2a1.6 1.6 0 0 0 0-2.6Z" {...common} />
-          <path d="M12 9v6" {...common} strokeDasharray="1.6 2" />
         </>
       )}
       {kind === "pack" && (
@@ -114,7 +107,6 @@ function RewardGlyph({ kind, className }: { kind: RewardKind; className?: string
 export function describeReward(r: Reward): string {
   const parts: string[] = [];
   if (r.credits) parts.push(`${formatCredits(r.credits)} créditos`);
-  if (r.tokens) parts.push(`${formatCredits(r.tokens)} fichas`);
   if (r.packId) {
     const pack = getPack(r.packId);
     parts.push(`${r.packCount ?? 1}× ${pack?.name ?? r.packId}`);

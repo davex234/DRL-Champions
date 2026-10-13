@@ -1,87 +1,59 @@
 /**
- * MATCH REWARDS — las recompensas del partido VUELVEN a la colección.
+ * MATCH SUMMARY — lo que un partido del Tactical Coach deja al terminar.
  *
- * Cierra el bucle Colección → Simulador → Colección: al terminar la ronda se
- * conceden créditos/XP a la cuenta del usuario (vía el aplicador de recompensas
- * compartido). En esta fase un "partido" = una ronda; el cálculo está centralizado
- * para que ampliarlo a 13 rondas sea trivial.
+ * FASE 69 · F68-010 — EL COACH ES ENTRENAMIENTO, NO ECONOMÍA. Aquí vivía una «recompensa» de
+ * créditos y XP (150/50 por ronda, +10 por baja, +300 al ganar) que se aplicaba con
+ * `applyReward` SOLO al store del navegador: el simulador corre en el cliente y el servidor no
+ * puede verificar el marcador, así que nunca se abonó. El HUD enseñaba un saldo y un nivel que
+ * no existían (9.430 → 12.280, nivel 3 → 6) y `CloudSync` los borraba al sincronizar.
+ * Decisión de producto (F69): el Coach no da créditos, ni XP de cuenta, ni nada que implique una
+ * recompensa autoritativa. Este módulo ya NO toca saldo ni XP; solo resume el partido (victoria,
+ * bajas) para la ceremonia y alimenta dos registros LOCALES no económicos: el récord del store y
+ * la Carrera del entrenador (modo local). El historial real sigue siendo `coach_matches`.
  */
 import type { RoundState, Side } from "@/sim";
 import type { MatchState } from "@/match";
-import { applyReward } from "@/lib/rewards";
 import { useGameStore } from "@/store/useGameStore";
 import { useManagerStore } from "@/store/useManagerStore";
 
-export interface MatchReward {
+export interface CoachMatchSummary {
   won: boolean;
-  credits: number;
-  xp: number;
-  /** Bajas del equipo entrenado (para el desglose de la recompensa). */
+  /** Bajas del equipo entrenado. */
   teamKills: number;
 }
 
-const WIN = { credits: 150, xp: 40 };
-const LOSS = { credits: 50, xp: 15 };
-const PER_KILL = { credits: 10, xp: 2 };
-
-/** Calcula la recompensa de un partido terminado (PURO, no aplica nada). */
-export function computeMatchReward(state: RoundState): MatchReward {
+/** Resume una ronda terminada (PURO). */
+export function summarizeRound(state: RoundState): CoachMatchSummary {
   const coachSide: Side = state.coachSide;
-  const won = state.winner === coachSide;
-  const teamKills = state.events.filter(
-    (e) => e.type === "kill" && (e.data as { bySide?: Side }).bySide === coachSide,
-  ).length;
-
-  const base = won ? WIN : LOSS;
   return {
-    won,
-    teamKills,
-    credits: base.credits + teamKills * PER_KILL.credits,
-    xp: base.xp + teamKills * PER_KILL.xp,
+    won: state.winner === coachSide,
+    teamKills: state.events.filter(
+      (e) => e.type === "kill" && (e.data as { bySide?: Side }).bySide === coachSide,
+    ).length,
   };
 }
 
-/**
- * Calcula y APLICA la recompensa a la colección (créditos + XP). Devuelve el
- * desglose para mostrarlo en el análisis post-ronda. Idempotencia: el llamador debe
- * invocarlo UNA vez por ronda terminada (la UI lo controla con una guarda por seed).
- */
-export function grantMatchReward(state: RoundState): MatchReward {
-  const reward = computeMatchReward(state);
-  applyReward({ credits: reward.credits, xp: reward.xp });
-  return reward;
+/** Resume un PARTIDO completo (PURO): quién ganó y las bajas del equipo entrenado. */
+export function summarizeMatch(match: MatchState): CoachMatchSummary {
+  let teamKills = 0;
+  for (const round of match.rounds) teamKills += summarizeRound(round).teamKills;
+  return { won: match.winner === "home", teamKills };
 }
 
-const MATCH_WIN_BONUS = { credits: 300, xp: 100 };
-
 /**
- * Recompensa de un PARTIDO completo: agrega la recompensa de cada ronda (reutiliza
- * `computeMatchReward`) y añade un bonus por ganar el partido. Pura, no aplica nada.
+ * Cierra el partido en los registros LOCALES no económicos y devuelve el resumen. Llamar UNA
+ * vez al final. No concede créditos ni XP (F68-010): el HUD solo enseña lo que dice el servidor.
  */
-export function computeMatchOutcomeReward(match: MatchState): MatchReward {
-  let credits = 0, xp = 0, teamKills = 0;
-  for (const round of match.rounds) {
-    const r = computeMatchReward(round);
-    credits += r.credits; xp += r.xp; teamKills += r.teamKills;
-  }
-  const won = match.winner === "home";
-  if (won) { credits += MATCH_WIN_BONUS.credits; xp += MATCH_WIN_BONUS.xp; }
-  return { won, credits, xp, teamKills };
-}
-
-/** Calcula y APLICA la recompensa del partido a la colección. Llamar UNA vez al final. */
-export function grantMatchOutcomeReward(match: MatchState): MatchReward {
-  const reward = computeMatchOutcomeReward(match);
-  applyReward({ credits: reward.credits, xp: reward.xp });
-  // Récord de carrera (gancho de progresión: alimenta el hub y la ceremonia).
-  useGameStore.getState().recordMatch(reward.won);
-  // Carrera del ENTRENADOR (Career Engine): no-op si el usuario aún no creó su entrenador.
+export function recordCoachMatch(match: MatchState): CoachMatchSummary {
+  const summary = summarizeMatch(match);
+  useGameStore.getState().recordMatch(summary.won);
+  // Carrera del ENTRENADOR (Career Engine, local): no-op si el usuario aún no creó su entrenador.
   useManagerStore.getState().applyMatch({
-    won: reward.won,
-    kills: reward.teamKills,
+    won: summary.won,
+    kills: summary.teamKills,
     teamName: match.config.teamNames?.home,
     opponentName: match.config.teamNames?.away,
     tier: "regional",
   });
-  return reward;
+  return summary;
 }

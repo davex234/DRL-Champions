@@ -31,10 +31,11 @@ export interface ScoutReport {
   enemyEconomy: { health: string; buy: BuyTier | null; buyingPower: number };
 }
 
+// FULL GAME AUDIT (2026-10-07) · zonas por su función (`ZONE_LABEL`): «A Main»/«B/Tree» son de Ascent y no existen en los otros once mapas.
 export const LANE_LABEL: Record<Lane, string> = {
-  main: "A Main",
-  tree: "B / Tree",
-  mid: "Mid",
+  main: "la entrada principal",
+  tree: "el flanco",
+  mid: "mid",
 };
 
 /** Estudia al rival a partir de las rondas ya jugadas. Puro y determinista. */

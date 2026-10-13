@@ -15,6 +15,8 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
 import { getMastery, claimMasteryTier } from "@/server/services/mastery";
+import { takeRate, rateHeaders, TOO_MANY } from "@/server/services/rateLimit";
+import { internalError } from "@/server/ops/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -32,10 +34,7 @@ export async function GET(req: Request) {
     if (!res.ok) return NextResponse.json({ error: res.error }, { status: res.status, headers: NO_STORE });
     return NextResponse.json(res.data, { headers: NO_STORE });
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "No se pudo leer la maestría" },
-      { status: 500, headers: NO_STORE },
-    );
+    return internalError("api/game/mastery", e, req);
   }
 }
 
@@ -44,6 +43,8 @@ export async function POST(req: Request) {
   if (!session) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401, headers: NO_STORE });
   }
+  // F67 · límite de frecuencia de las escrituras de esta ruta (cubeta en BD: vale con varios procesos).
+  { const rate = await takeRate(session.admin, session.userId, "economy_write"); if (!rate.allowed) return NextResponse.json({ error: TOO_MANY, code: "RATE_LIMITED" }, { status: 429, headers: rateHeaders(rate.retryAfter) }); }
 
   let body: unknown;
   try { body = await req.json(); } catch { body = null; }
@@ -64,9 +65,6 @@ export async function POST(req: Request) {
     if (!res.ok) return NextResponse.json({ error: res.error }, { status: res.status, headers: NO_STORE });
     return NextResponse.json(res.data, { headers: NO_STORE });
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "No se pudo reclamar" },
-      { status: 500, headers: NO_STORE },
-    );
+    return internalError("api/game/mastery", e, req);
   }
 }

@@ -58,7 +58,6 @@ function rewardLine(r: EventView["totalReward"]): string {
   const parts: string[] = [];
   if (r.credits) parts.push(`🪙 ${formatCredits(r.credits)}`);
   if (r.xp) parts.push(`${r.xp} XP`);
-  if (r.tokens) parts.push(`${r.tokens} fichas`);
   if (r.packId && r.packCount) parts.push(`${r.packCount} ${r.packCount === 1 ? "sobre" : "sobres"}`);
   return parts.join(" · ");
 }
@@ -88,8 +87,8 @@ export function LiveEventPanel({
     try {
       const r = await claimChallenge(view.event.id, challengeId);
       notify?.(r.applied
-        ? `Recompensa cobrada · 🪙 ${formatCredits(r.credits)}`
-        : "Esa recompensa ya estaba cobrada");
+        ? `Recompensa reclamada · 🪙 ${formatCredits(r.credits)}`
+        : "Esa recompensa ya estaba reclamada");
       onChanged();
     } catch (e) {
       notify?.(e instanceof Error ? e.message : "No se pudo reclamar");
@@ -126,7 +125,7 @@ export function LiveEventPanel({
             {view.event.name}
           </h2>
           <p className="mt-1.5 text-[12.5px] text-white/55">
-            {view.setLabel} · {view.claimedCount} de {view.challenges.length} desafíos cobrados
+            {view.setLabel} · {view.claimedCount} de {view.challenges.length} desafíos reclamados
           </p>
         </div>
 
@@ -172,7 +171,7 @@ export function LiveEventPanel({
 
                 {c.claimed ? (
                   <span className="shrink-0 font-display text-[10px] font-bold uppercase tracking-[0.12em] text-white/35">
-                    Cobrado
+                    Reclamado
                   </span>
                 ) : c.claimable ? (
                   <button
@@ -182,7 +181,7 @@ export function LiveEventPanel({
                     className="nx-clip-sm shrink-0 px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.12em] text-black transition duration-fast disabled:opacity-50"
                     style={{ background: `rgb(${p.tint})` }}
                   >
-                    {busy === c.id ? "…" : "Cobrar"}
+                    {busy === c.id ? "…" : "Reclamar"}
                   </button>
                 ) : (
                   <span className="nx-readout shrink-0 text-[12px] text-white/45">

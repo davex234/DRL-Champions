@@ -23,6 +23,10 @@ import { RankBadge } from "@/components/progression/RankBadge";
 import { PickemResultBody, type PickemResultData } from "@/components/pickems/PickemResult";
 import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
 import { formatCredits, plural, cn } from "@/lib/format";
+import { Plate, Piece, Recessed } from "@/components/ui/Surface";
+import { Readout } from "@/components/ui/Readout";
+import { Badge } from "@/components/ui/Badge";
+import { SectionTitle } from "@/components/ui/SectionTitle";
 
 const fmt = (s: string) =>
   new Date(s).toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
@@ -116,7 +120,7 @@ export default function RecompensasPage() {
             (() => {
               const d = describeLedger(latest.reason, latest.ref);
               return (
-                <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/5 p-6">
+                <Piece tone="success" className="p-6">
                   <p className="text-[10px] uppercase tracking-widest text-emerald-300/70">
                     Última recompensa
                   </p>
@@ -131,13 +135,12 @@ export default function RecompensasPage() {
                       <Chip>🪙 {formatCredits(latest.delta)} créditos</Chip>
                     )}
                     {d.tier?.reward.xp ? <Chip>{d.tier.reward.xp} XP</Chip> : null}
-                    {d.tier?.reward.tokens ? <Chip>🎟️ {d.tier.reward.tokens}</Chip> : null}
                     {d.tier?.reward.packId ? (
                       <Chip>{d.tier.reward.packCount ?? 1} × {packLabel(d.tier.reward.packId)}</Chip>
                     ) : null}
                   </div>
                   <p className="mt-3 text-xs text-white/40">{fmt(latest.created_at)}</p>
-                </div>
+                </Piece>
               );
             })()
           ) : (
@@ -152,12 +155,12 @@ export default function RecompensasPage() {
           {/* ── Detalle completo de la última recompensa de Pick'ems ── */}
           {detail && (
             <div>
-              <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">
+              <SectionTitle as="h2" className="!mb-3 [&>*]:!text-[15px] [&>*]:!text-white">
                 Cómo la conseguiste
-              </h2>
-              <div className="rounded-2xl border border-white/10 bg-base-700/30 p-5">
+              </SectionTitle>
+              <Plate className="p-5">
                 <PickemResultBody data={detail} />
-              </div>
+              </Plate>
             </div>
           )}
 
@@ -166,9 +169,9 @@ export default function RecompensasPage() {
               de antes y después, y repetirlo dejaba dos bloques «Tu rango» seguidos. */}
           {profile && !detail && (
             <div>
-              <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">
+              <SectionTitle as="h2" className="!mb-3 [&>*]:!text-[15px] [&>*]:!text-white">
                 Tu rango
-              </h2>
+              </SectionTitle>
               <RankBadge
                 points={profile.points ?? 0}
                 action={{ href: "/ranking", label: "Clasificación" }}
@@ -198,7 +201,7 @@ export default function RecompensasPage() {
             </p>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {REWARD_TIERS.map((t) => (
-                <div key={t.id} className="rounded-2xl border border-white/10 bg-base-700/40 p-4">
+                <Plate key={t.id} className="p-4">
                   <div className="flex items-baseline justify-between gap-2">
                     <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
                       {t.label}
@@ -210,12 +213,11 @@ export default function RecompensasPage() {
                   <ul className="mt-2 space-y-0.5 text-xs text-white/55">
                     {t.reward.credits ? <li>🪙 {formatCredits(t.reward.credits)} créditos</li> : null}
                     {t.reward.xp ? <li>{t.reward.xp} XP</li> : null}
-                    {t.reward.tokens ? <li>🎟️ {t.reward.tokens} tokens</li> : null}
                     {t.reward.packId ? (
                       <li>{t.reward.packCount ?? 1} × {packLabel(t.reward.packId)}</li>
                     ) : null}
                   </ul>
-                </div>
+                </Plate>
               ))}
             </div>
           </div>
@@ -228,7 +230,7 @@ export default function RecompensasPage() {
             {ledger.length === 0 ? (
               <EmptyState icon="📜" title="Sin movimientos todavía" />
             ) : (
-              <div className="overflow-x-auto rounded-2xl border border-white/10">
+              <Recessed depth="sm" className="overflow-x-auto">
                 <table className="w-full min-w-[520px] text-sm">
                   <thead>
                     <tr className="bg-base-800/60 text-left text-[10px] uppercase tracking-widest text-white/40">
@@ -264,7 +266,7 @@ export default function RecompensasPage() {
                     })}
                   </tbody>
                 </table>
-              </div>
+              </Recessed>
             )}
           </div>
         </div>
@@ -276,7 +278,7 @@ export default function RecompensasPage() {
 function Header() {
   return (
     <header className="mb-6">
-      <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
+      <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
         Recompensas
       </h1>
       <p className="mt-1 text-white/50">
@@ -286,12 +288,12 @@ function Header() {
   );
 }
 
+/**
+ * FASE 11 · Era una CÁPSULA (`rounded-full`). El sistema tiene su pieza para decir un dato
+ * corto y no es una píldora: es la insignia con el chaflán de la casa.
+ */
 function Chip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-display text-xs text-white/80">
-      {children}
-    </span>
-  );
+  return <Badge tone="muted">{children}</Badge>;
 }
 
 function Stat({
@@ -302,21 +304,24 @@ function Stat({
   tone?: "gold" | "cyan";
   action?: { href: string; label: string };
 }) {
+  /*
+   * FASE 11 · La cifra pasa a `Readout`, la primitiva de la cifra competitiva: misma familia
+   * condensada, cifras tabulares y su etiqueta en versalitas encima. Y el enlace de acción
+   * llega a 44 px de objetivo táctil, que es lo que le faltaba.
+   */
   return (
-    <div className={cn("rounded-2xl border p-5",
-      tone === "gold" ? "border-drl-gold/25 bg-drl-gold/5"
-      : tone === "cyan" ? "border-drl-cyan/25 bg-drl-cyan/5"
-      : "border-white/10 bg-base-700/40")}>
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
-      <p className={cn("mt-1 font-display text-2xl font-bold",
-        tone === "gold" ? "text-drl-gold" : tone === "cyan" ? "text-drl-cyan" : "text-white")}>
-        {value}
-      </p>
+    <Plate tone={tone === "gold" ? "gold" : tone === "cyan" ? "cyan" : "neutral"} className="p-5">
+      <Readout
+        size="md"
+        label={label}
+        value={value}
+        tone={tone === "gold" ? "var(--nx-gold)" : tone === "cyan" ? "var(--nx-cyan)" : undefined}
+      />
       {action && (
-        <Link href={action.href} className="nx-action mt-2">
+        <Link href={action.href} className="nx-action mt-1">
           {action.label} →
         </Link>
       )}
-    </div>
+    </Plate>
   );
 }

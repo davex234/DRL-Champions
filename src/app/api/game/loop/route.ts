@@ -19,6 +19,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
 import { getLoop } from "@/server/services/loop";
+import { internalError } from "@/server/ops/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -35,9 +36,6 @@ export async function GET(req: Request) {
     const view = await getLoop(session.admin, session.userId);
     return NextResponse.json(view, { headers: NO_STORE });
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "No se pudo calcular el ciclo" },
-      { status: 500, headers: NO_STORE },
-    );
+    return internalError("api/game/loop", e, req);
   }
 }

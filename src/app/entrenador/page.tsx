@@ -1,38 +1,44 @@
 "use client";
 
 /**
- * ENTRENADOR — el centro de mando (Fase 9H).
+ * TACTICAL COACH 4.0 — EL CENTRO DE MANDO (`/entrenador`).
  *
- * Antes, `/entrenador` ERA el simulador: al entrar te caía encima un partido en marcha con
- * su HUD de retransmisión y su deck de control. Todo lo demás del rol de entrenador —los
- * equipos, las alineaciones, la pizarra— estaba repartido por rutas que no se enlazaban
- * entre sí. Si no sabías que existían, no existían.
+ * ────────────────────────── QUÉ CAMBIA EN LA FASE 51 ──────────────────────────
  *
- * Ahora la raíz es el vestíbulo del rol y el partido vive en `/entrenador/partido`.
+ * El hub anterior abría con «JUGAR · Dirige un partido» y dejaba las herramientas tácticas —pizarra,
+ * composiciones, plan— como una lista secundaria. Leído así, el entrenador era un simulador con
+ * accesorios. Pero lo que la sala ofrece de verdad es PREPARACIÓN: componer, dibujar, planificar,
+ * presentar y, al final, dirigir. El centro de mando lo enseña en ese orden:
  *
- * HONESTIDAD SOBRE LO QUE HAY
- *   Las secciones que aún no tienen pantalla NO se enseñan como si la tuvieran. Se marcan
- *   como pendientes, con lo que ya se sabe de ellas. Un botón que lleva a una pantalla que
- *   no existe es peor que un hueco declarado.
+ *   1. HERO        — qué es esta sala y los dos gestos principales (pizarra y partido).
+ *   2. ACTIVIDAD   — cifras REALES (jugadas, composiciones, partidos, titulares, última actividad).
+ *                    Lo que no llega (sin sesión, sin red) no se pinta: nada de ceros inventados.
+ *   3. EL FLUJO    — composición → jugada → plan → presentación → dirigir/revisar, con su estado.
+ *   4. MÓDULOS     — las seis salas, cada una con su identidad y su dato.
+ *   5. PLAN        — el plan táctico cuelga de un partido dirigido: aquí están los recientes.
+ *   6. MAPAS       — los doce, en miniatura ligera.
  *
- * FASE 9.6 — LA RUTA.
- *   Lo que faltaba no era ninguna pantalla: estaban las cuatro (plantilla, mapas, pizarra
- *   y partido) y funcionan. Faltaba decir que son UN RECORRIDO. Presentadas como seis
- *   tarjetas sueltas, el centro táctico se leía como un índice y no como un método, y por
- *   eso parecía que faltaba algo que en realidad ya está.
+ * Ninguna funcionalidad desaparece: plantilla y carrera siguen enlazadas, y dirigir partido sigue
+ * pidiendo cinco titulares como antes.
  *
- *   La tira de arriba lo dice en cuatro pasos —montar equipo → estudiar mapa → dibujar la
- *   jugada → dirigirla— con el ESTADO REAL de cada uno: los titulares salen del store de
- *   equipos y las estrategias guardadas de `/api/game/strats`, que es donde viven. Ningún
- *   paso se marca como pendiente si su pantalla existe.
+ * FASE 51.1 · SIMPLIFICACIÓN. Un usuario nuevo no tiene que entender nueve salas para empezar: el
+ * hero tiene UNA acción protagonista, JUGAR (`/entrenador/jugar`: equipo → mapa → partida). Las
+ * herramientas siguen todas, agrupadas por para qué sirven: PREPARACIÓN (pizarra, composiciones,
+ * plan), ANÁLISIS (mapas, partidos) y EQUIPO (plantilla). «El método» y la tira de mapas salen
+ * del hub: eran más lectura antes de poder jugar.
  */
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { useTeamStore } from "@/store/useTeamStore";
-import { TACTICAL_MAPS } from "@/domain/tactics";
+import { TACTICAL_MAPS, getTacticalMap } from "@/domain/tactics";
+import { TeamCardStrip } from "@/components/coach/roster/TeamRosterEditor";
 import { MapThumb } from "@/components/tactics/MapThumb";
-import { fetchStrats } from "@/lib/tactics/client";
+import { AgentPortrait } from "@/components/agents/AgentArt";
+import { agentById } from "@/components/tactics/AgentEmblem";
+import { TacticalHeroArt } from "@/components/coach/tc/TacticalHeroArt";
+import { CoachIcon, type CoachIconName } from "@/components/coach/tc/CoachIcons";
+import { fetchStrats, fetchCompositions, fetchCoachMatches, type CoachMatchSummary } from "@/lib/tactics/client";
 import { cn } from "@/lib/format";
 
 export default function EntrenadorPage() {
@@ -43,315 +49,260 @@ export default function EntrenadorPage() {
   );
 }
 
+/** Lectura con tres estados: la cifra, «no se pudo» (no se pinta) o cargando. */
+type Dato<T> = T | null | undefined;
+
 function CoachHub() {
   const teams = useTeamStore((s) => s.teams);
   const activeTeamId = useTeamStore((s) => s.activeTeamId);
   const active = teams.find((t) => t.id === activeTeamId) ?? teams[0] ?? null;
-  const ready = active ? active.starters.length : 0;
+  const titulares = active ? active.starters.length : 0;
+  const listo = titulares === 5;
 
   /*
-   * Cuántas estrategias tienes guardadas. Es la misma lectura que hace `/entrenador/strats`
-   * y falla en silencio: sin sesión o sin red, la ruta se enseña igual con el paso de la
-   * pizarra sin contador. Un vestíbulo no puede quedarse en blanco porque una cifra de
-   * apoyo no haya llegado.
+   * Tres lecturas del servidor, en paralelo y sin escrituras. Cada una falla por separado: sin sesión
+   * o sin red la cifra no se enseña, y el resto de la sala sigue funcionando.
    */
-  const [strats, setStrats] = useState<number | null>(null);
+  const [jugadas, setJugadas] = useState<Dato<{ n: number; last: string | null }>>(undefined);
+  const [comps, setComps] = useState<Dato<{ n: number; last: string | null; agentIds: string[] }>>(undefined);
+  const [partidos, setPartidos] = useState<Dato<{ total: number; recent: CoachMatchSummary[] }>>(undefined);
   useEffect(() => {
-    let alive = true;
+    let vivo = true;
     fetchStrats()
-      .then((rows) => { if (alive) setStrats(rows.length); })
-      .catch(() => { if (alive) setStrats(null); });
-    return () => { alive = false; };
+      .then((rows) => { if (vivo) setJugadas({ n: rows.length, last: rows[0]?.updatedAt ?? null }); })
+      .catch(() => { if (vivo) setJugadas(null); });
+    fetchCompositions()
+      .then((rows) => {
+        if (!vivo) return;
+        const last = rows.map((c) => c.updatedAt).sort().at(-1) ?? null;
+        // F59 · los cinco de la composición más reciente (dato real, no decoración).
+        const reciente = [...rows].sort((x, y) => y.updatedAt.localeCompare(x.updatedAt))[0];
+        setComps({ n: rows.length, last, agentIds: reciente?.agentIds ?? [] });
+      })
+      .catch(() => { if (vivo) setComps(null); });
+    fetchCoachMatches(3)
+      .then((r) => { if (vivo) setPartidos({ total: r.total, recent: r.matches }); })
+      .catch(() => { if (vivo) setPartidos(null); });
+    return () => { vivo = false; };
   }, []);
 
-  const steps = [
+  const ultima = [jugadas?.last, comps?.last, partidos?.recent[0]?.finishedAt]
+    .filter((x): x is string => !!x).sort().at(-1) ?? null;
+
+  const preparacion: Modulo[] = [
     {
-      n: 1,
-      label: "Monta el equipo",
-      href: "/entrenador/equipos",
-      done: ready === 5,
-      state: active ? `${ready} de 5 titulares` : "Sin equipo",
+      href: "/entrenador/strats", icon: "board", title: "Pizarra", tint: "47,224,255", big: true,
+      line: "Diseña jugadas: el mapa, tus cinco, utilidades, trazos y pasos.",
+      dato: jugadas ? `${jugadas.n} ${jugadas.n === 1 ? "jugada" : "jugadas"}` : null, cta: "Abrir pizarra", art: "ascent",
     },
     {
-      n: 2,
-      label: "Estudia el mapa",
-      href: "/entrenador/mapas",
-      done: true,
-      state: `${TACTICAL_MAPS.length} trazados propios`,
+      href: "/entrenador/composiciones", icon: "comp", title: "Composiciones", tint: "52,124,255",
+      line: "Elige los cinco agentes para cada mapa.",
+      dato: comps ? `${comps.n} ${comps.n === 1 ? "composición" : "composiciones"}` : null, cta: "Componer",
+      agents: comps?.agentIds,
     },
     {
-      n: 3,
-      label: "Dibuja la jugada",
-      href: "/entrenador/strats",
-      done: (strats ?? 0) > 0,
-      state: strats === null
-        ? "Pizarra táctica"
-        : strats === 0
-          ? "Ninguna guardada todavía"
-          : `${strats} ${strats === 1 ? "estrategia guardada" : "estrategias guardadas"}`,
+      href: "/entrenador/plan", icon: "plan", title: "Plan", tint: "255,211,92",
+      line: "Prepara estrategias para un partido.",
+      dato: partidos ? (partidos.total > 0 ? `${partidos.total} ${partidos.total === 1 ? "partido" : "partidos"} para planificar` : "Necesita un partido") : null, cta: "Planificar",
+    },
+  ];
+  const analisis: Modulo[] = [
+    {
+      href: "/entrenador/mapas", icon: "maps", title: "Mapas", tint: "120,210,255",
+      line: `Estudia los ${TACTICAL_MAPS.length}: zoom y sitios.`, dato: `${TACTICAL_MAPS.length} mapas`, cta: "Estudiar", art: "haven",
     },
     {
-      n: 4,
-      label: "Dirige el partido",
-      href: "/entrenador/partido",
-      done: false,
-      state: ready === 5 ? "Listo para dirigir" : "Necesita cinco titulares",
+      href: "/entrenador/partidos", icon: "history", title: "Partidos", tint: "226,236,255",
+      line: "Tu historial: resultado, rival y mapa.",
+      dato: partidos ? `${partidos.total} ${partidos.total === 1 ? "jugado" : "jugados"}` : null, cta: "Ver historial",
     },
   ];
 
   return (
-    <div className="space-y-7">
-      <header>
-        <span className="nx-label">Jugar</span>
-        <h1 className="mt-1 font-display text-[clamp(30px,5vw,48px)] font-bold uppercase leading-none text-white">
-          Entrenador
-        </h1>
-        <p className="mt-2 max-w-2xl text-[15px] text-white/55">
-          Tú no disparas: decides. Monta el equipo, estudia el mapa, dibuja la jugada y
-          dirige el partido ronda a ronda.
-        </p>
-      </header>
-
-      {/*
-        ═══ LA RUTA TÁCTICA ═══
-        Cuatro pasos, con su estado real. Es la respuesta a «creo una estrategia, la guardo
-        y la ejecuto»: hasta ahora ese recorrido existía en el producto pero en ninguna
-        pantalla, así que había que deducirlo de una rejilla de herramientas.
-      */}
-      <section className="nx-stage nx-clip relative overflow-hidden px-4 py-5 sm:px-6" aria-label="La ruta táctica">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10"
-          style={{ background: "radial-gradient(620px 260px at 8% 120%, rgba(63,192,122,0.20), transparent 68%)" }}
-        />
-        <h2 className="nx-label mb-4">Cómo se dirige un partido en NEXUS</h2>
-        <ol className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {steps.map((st, i) => (
-            <li key={st.n} className="relative">
-              {/* La línea que une un paso con el siguiente: es lo que lo hace recorrido. */}
-              {i < steps.length - 1 && (
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute right-[-14px] top-[22px] hidden h-px w-[14px] bg-white/15 xl:block"
-                />
-              )}
-              <Link
-                href={st.href}
-                className="group flex items-start gap-3 rounded-card border border-white/[0.09] bg-white/[0.025] p-3 transition duration-fast hover:border-white/25 hover:bg-white/[0.05]"
-              >
-                <span
-                  className={cn(
-                    "nx-clip-sm grid h-9 w-9 shrink-0 place-items-center border font-display text-[15px] font-bold",
-                    st.done
-                      ? "border-ok/60 bg-ok/15 text-ok"
-                      : "border-white/15 bg-white/[0.04] text-white/55",
-                  )}
-                  style={{ ["--nx-chamfer-sm" as string]: "7px" }}
-                >
-                  {st.done ? "✓" : st.n}
-                </span>
-                <span className="min-w-0">
-                  <b className="block font-display text-[14px] font-bold uppercase tracking-[0.06em] text-white">
-                    {st.label}
-                  </b>
-                  <span className={cn("mt-0.5 block text-[12px]", st.done ? "text-ok/80" : "text-white/45")}>
-                    {st.state}
-                  </span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* ── Lo primero: ¿tienes equipo? ── */}
-      <section
-        className={cn(
-          "flex flex-wrap items-center justify-between gap-4 rounded-panel border px-5 py-4",
-          ready === 5 ? "border-ok/35 bg-ok/[0.06]" : "border-drl/35 bg-drl/[0.06]",
-        )}
-      >
-        <div>
-          <span className="nx-label block">Equipo activo</span>
-          <b className="font-display text-2xl font-bold text-white">
-            {active ? active.name : "Sin equipo"}
-          </b>
-          <p className="text-[13px] text-white/50">
-            {active
-              ? ready === 5
-                ? "Alineación completa: cinco titulares."
-                : `${ready} de 5 titulares. Completa la alineación para dirigir un partido.`
-              : "Crea un equipo con tus cartas para empezar."}
+    <div className="space-y-6" data-testid="coach-hub">
+      {/* ═══ 1 · HERO ═══ */}
+      <section className="nx-coach-hero nx-coach-rise flex flex-col justify-between gap-6 px-6 py-7 sm:px-10 sm:py-9" aria-labelledby="coach-hero-title">
+        <TacticalHeroArt className="nx-coach-hero-art h-full w-full" />
+        <div className="max-w-[640px]">
+          <p className="nx-coach-kicker">NEXUS · Centro táctico</p>
+          <h1 id="coach-hero-title" className="nx-coach-hero-title mt-3">Tactical <em>Coach</em></h1>
+          <p className="mt-3 font-display text-[clamp(14px,1.6vw,19px)] font-bold uppercase tracking-[0.34em] text-white/80">
+            Prepara · Analiza · Domina
           </p>
-        </div>
-        <Link
-          href="/entrenador/equipos"
-          className="rounded-control bg-drl px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] shadow-glow transition duration-fast hover:brightness-110"
-        >
-          {active ? "Gestionar equipo" : "Crear equipo"}
-        </Link>
-      </section>
-
-      {/*
-        ── Los mapas, primero ──
-        Estaban debajo de seis tarjetas de texto, es decir, fuera de la pantalla. En un
-        centro táctico los mapas SON el contenido y las herramientas son la navegación
-        para llegar a ellos; poner el índice por delante del material dejaba la pantalla
-        pareciendo una tabla de contenidos.
-      */}
-      <section aria-label="Mapas">
-        <div className="mb-3 flex items-baseline justify-between gap-3">
-          <h2 className="nx-label">Mapas</h2>
-          <Link href="/entrenador/mapas" className="nx-action">
-            Verlos en detalle →
-          </Link>
-        </div>
-        <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
-          {TACTICAL_MAPS.map((m) => (
-            <Link
-              key={m.id}
-              href={`/entrenador/mapas#${m.id}`}
-              className="nx-card group overflow-hidden"
-            >
-              {/*
-                El TRAZADO, no un párrafo. Cuatro mapas dibujados y el vestíbulo no enseñaba
-                ninguno: en una herramienta táctica eso es una tienda sin escaparate. La
-                silueta se reconoce antes de leer el nombre, que es como funciona la memoria
-                de un mapa.
-              */}
-              <div className="relative aspect-square w-full overflow-hidden border-b border-white/8 bg-black/40">
-                <MapThumb map={m} className="transition-transform duration-normal ease-out group-hover:scale-[1.06]" />
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0"
-                  style={{ boxShadow: "inset 0 -28px 32px -18px rgba(6,7,13,0.95)" }}
-                />
-              </div>
-              <div className="p-4">
-                <span className="nx-label">{m.sites === 1 ? "Un sitio" : `${m.sites} sitios`}</span>
-                <b className="mt-0.5 block font-display text-xl font-bold uppercase text-white">{m.name}</b>
-                <p className="mt-1 text-[12.5px] leading-snug text-white/50">{m.identity}</p>
-              </div>
+          <p className="nx-coach-muted mt-3 max-w-[520px] text-[14.5px] leading-relaxed">
+            Prepara estrategias, crea tu equipo y dirige partidas.
+          </p>
+          {/* LA acción de la sala. Todo lo demás es opcional para empezar. */}
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Link href="/entrenador/jugar" className="nx-play-cta" data-testid="hub-play">
+              <CoachIcon name="match" size={24} /> Jugar
             </Link>
-          ))}
+            <span className="max-w-[260px] text-[13px] leading-snug text-white/65">
+              Elige composición y juega. El mapa sale solo.
+            </span>
+          </div>
+          {active && active.starters.length > 0 && (
+            <div className="mt-4" aria-label="Tu equipo activo"><TeamCardStrip starters={active.starters} size={46} /></div>
+          )}
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            <Link href="/entrenador/strats" className="nx-coach-btn" data-variant="ghost" data-size="sm" data-testid="hub-open-board">
+              <CoachIcon name="board" size={16} /> Abrir la pizarra
+            </Link>
+          </div>
         </div>
+
+        {/* ═══ 2 · ACTIVIDAD: solo cifras reales ═══ */}
+        <dl className="grid max-w-[760px] grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-5" data-testid="coach-activity">
+          {jugadas && <Stat v={jugadas.n} l="Jugadas" />}
+          {comps && <Stat v={comps.n} l="Composiciones" />}
+          {partidos && <Stat v={partidos.total} l="Partidos" />}
+          <Stat v={`${titulares}/5`} l="Titulares" />
+          {ultima && <Stat v={fechaCorta(ultima)} l="Última actividad" />}
+        </dl>
       </section>
-      {/* ── Las herramientas ── */}
-      <section aria-label="Herramientas del entrenador">
-        <h2 className="nx-label mb-3">Herramientas</h2>
-        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-          <Tool
-            href="/entrenador/equipos"
-            tag="Equipos y alineaciones"
-            title="Plantilla"
-            line="Monta equipos con tus cartas y elige los cinco titulares. Los equipos y las alineaciones son la misma pantalla: una alineación es un equipo con sus titulares marcados."
-            tint="255,46,99"
-          />
-          <Tool
-            href="/entrenador/mapas"
-            tag="Mapas"
-            title="Los cuatro trazados"
-            line={`${TACTICAL_MAPS.length} mapas propios de NEXUS, cada uno con un problema táctico distinto. Estúdialos antes de dibujar nada.`}
-            tint="25,227,255"
-          />
-          <Tool
-            href="/entrenador/strats"
-            tag="Strats"
-            title="Pizarra"
-            line="Coloca a los cinco, marca los movimientos y ordena los pasos. Se guardan en tu cuenta."
-            tint="255,211,92"
-          />
-          <Tool
-            href="/entrenador/partido"
-            tag="Preparación y simulador"
-            title="Dirigir un partido"
-            line="Sala táctica, ronda a ronda con HUD de retransmisión, tiempos muertos y ceremonia final."
-            tint="63,192,122"
-            disabled={ready !== 5}
-            disabledHint="Necesitas una alineación de cinco titulares."
-          />
-          <Tool
-            href="/carrera"
-            tag="Desarrollo"
-            title="Carrera"
-            line="Entrenamiento, fichas de desarrollo, scouting y cierre de temporada."
-            tint="123,92,255"
-          />
-          <Pending
-            tag="Historial"
-            title="Partidos jugados"
-            line="El registro de los partidos dirigidos —resultado, mapa, rondas y decisiones— todavía no se guarda en ningún sitio. Hasta que exista esa persistencia, esta sección no se enseña como si funcionara."
-          />
+
+      {/* ═══ 3 · PREPARACIÓN ═══ */}
+      <Grupo titulo="Preparación" linea="Opcional: para planificar antes de jugar.">
+        <section aria-label="Preparación" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {preparacion.map((m, i) => <ModuleCard key={m.href} m={m} delay={80 + i * 50} />)}
+        </section>
+      </Grupo>
+
+      {/* ═══ 4 · ANÁLISIS ═══ */}
+      <Grupo titulo="Análisis" linea="Estudia mapas y revisa tus partidas.">
+        <section aria-label="Análisis" className="grid gap-3 sm:grid-cols-2">
+          {analisis.map((m, i) => <ModuleCard key={m.href} m={m} delay={200 + i * 50} />)}
+        </section>
+      </Grupo>
+
+      {/* ═══ 5 · EL PLAN CUELGA DE UN PARTIDO ═══ */}
+      <section aria-labelledby="coach-plan-title" className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+        <div className="nx-coach-panel px-5 py-5" data-tone="gold">
+          <p className="nx-coach-kicker" style={{ color: "rgb(255,211,92)" }}>Plan de partido</p>
+          <h2 id="coach-plan-title" className="mt-2 font-display text-[22px] font-extrabold uppercase leading-none text-white">Prepara cada partido</h2>
+          <p className="nx-coach-muted mt-2 text-[13.5px] leading-relaxed">
+            Cada partido dirigido tiene su plan: la composición que usarás y las jugadas de ese mapa, listas para
+            presentarlas al equipo.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            <Link href="/entrenador/plan" className="nx-coach-btn" data-variant="gold" data-size="sm">Seleccionar partido</Link>
+            <Link href="/entrenador/jugar" className="nx-coach-btn" data-variant="ghost" data-size="sm">Jugar uno nuevo</Link>
+          </div>
+        </div>
+        <div className="nx-coach-panel-flat px-4 py-4" data-testid="coach-recent-matches">
+          <p className="nx-coach-kicker mb-3">Partidos recientes</p>
+          {partidos === undefined && <p className="nx-coach-muted text-[13px]">Leyendo tu expediente…</p>}
+          {partidos === null && <p className="nx-coach-muted text-[13px]">Tu expediente se guarda en tu cuenta. Inicia sesión para verlo.</p>}
+          {partidos && partidos.recent.length === 0 && (
+            <p className="nx-coach-muted text-[13px]">Todavía no has jugado ninguna partida. Pulsa JUGAR y su plan aparecerá aquí.</p>
+          )}
+          {partidos && partidos.recent.length > 0 && (
+            <ul className="grid gap-2">
+              {partidos.recent.map((m) => {
+                const mapa = getTacticalMap(m.mapId);
+                return (
+                  <li key={m.id} className="flex items-center gap-3 bg-white/[0.02] px-2.5 py-2 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.1)]">
+                    {mapa && <span aria-hidden className="h-11 w-11 shrink-0 overflow-hidden bg-[#050a14]"><MapThumb map={mapa} /></span>}
+                    <span className="min-w-0 flex-1">
+                      <b className="block truncate font-display text-[13px] font-bold uppercase tracking-[0.06em] text-white">
+                        {mapa?.name ?? m.mapId} · vs {m.rivalName}
+                      </b>
+                      <span className="nx-coach-muted text-[12px]">
+                        <span className={m.won ? "text-[rgb(63,214,150)]" : "text-[rgb(255,46,140)]"}>{m.won ? "Victoria" : "Derrota"}</span>{" "}
+                        {m.scoreHome}–{m.scoreAway} · {fechaCorta(m.finishedAt)}
+                      </span>
+                    </span>
+                    <Link href={`/entrenador/plan?match=${m.id}`} className="nx-coach-btn shrink-0" data-variant="ghost" data-size="sm">Plan</Link>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
       </section>
 
+      {/* ═══ 6 · EQUIPO ═══ */}
+      <Grupo titulo="Equipo" linea="Tus cinco jugadores, como sus cartas.">
+        <Link href="/entrenador/equipos" className="nx-coach-module group flex flex-wrap items-center gap-4 p-4" data-testid="coach-module-team">
+          <span className="nx-coach-module-icon"><CoachIcon name="team" size={20} /></span>
+          <span className="min-w-0">
+            <b className="block font-display text-[19px] font-extrabold uppercase leading-none text-white">Plantilla</b>
+            <span className="nx-coach-muted mt-1 block text-[13px]">Gestiona tus cinco jugadores/cartas · Titulares {titulares}/5</span>
+          </span>
+          {active && active.starters.length > 0 && <TeamCardStrip starters={active.starters} size={40} className="ml-auto" />}
+        </Link>
+        <p className="mt-2"><Link href="/carrera" className="nx-action">Tu carrera de entrenador →</Link></p>
+      </Grupo>
     </div>
   );
 }
 
-function Tool({
-  href, tag, title, line, tint, disabled, disabledHint,
-}: {
+interface Modulo {
   href: string;
-  tag: string;
+  icon: CoachIconName;
   title: string;
   line: string;
   tint: string;
-  disabled?: boolean;
-  disabledHint?: string;
-}) {
-  const body = (
-    <>
-      <span className="nx-label" style={{ color: disabled ? undefined : `rgb(${tint})` }}>{tag}</span>
-      <span className="mt-1 block font-display text-2xl font-bold uppercase tracking-wide text-white">
-        {title}
-      </span>
-      <span className="mt-1.5 block text-[13px] leading-snug text-white/50">{line}</span>
-      {disabled && disabledHint && (
-        <span className="mt-2 block font-display text-[11px] uppercase tracking-wide text-drl-glow">
-          {disabledHint}
-        </span>
-      )}
-    </>
-  );
+  dato: string | null;
+  cta: string;
+  big?: boolean;
+  art?: string;
+  /** F59 · caras de agentes reales ligadas al dato del módulo (la última composición). */
+  agents?: string[];
+}
 
-  // Deshabilitado no es «invisible»: se ve, se entiende y dice qué falta para poder entrar.
-  if (disabled) {
-    return (
-      <div className="rounded-panel border border-white/8 p-5 opacity-60" aria-disabled>
-        {body}
-      </div>
-    );
-  }
-
+function ModuleCard({ m, delay }: { m: Modulo; delay: number }) {
+  const mapa = m.art ? getTacticalMap(m.art) : null;
   return (
     <Link
-      href={href}
-      className="nx-sweep group relative overflow-hidden rounded-panel border border-white/10 p-5 transition duration-fast hover:border-white/30"
-      style={{ background: `linear-gradient(160deg, rgba(${tint},0.14), rgba(255,255,255,0.02) 62%)` }}
+      href={m.href}
+      className={cn("nx-coach-module nx-coach-rise group", m.big && "sm:col-span-2 xl:col-span-2 xl:row-span-1")}
+      style={{ ["--mod" as string]: m.tint, ["--d" as string]: `${delay}ms` }}
+      data-testid={`coach-module-${m.icon}`}
     >
-      {body}
-      <span
-        aria-hidden
-        className="mt-4 block h-[2px] w-9 rounded-full transition-[width] duration-normal ease-out group-hover:w-16"
-        style={{ background: `rgb(${tint})` }}
-      />
+      {mapa && (
+        <span aria-hidden className="nx-coach-module-art"><MapThumb map={mapa} /></span>
+      )}
+      <span className="nx-coach-module-icon"><CoachIcon name={m.icon} size={20} /></span>
+      <b className="mt-3 block font-display text-[19px] font-extrabold uppercase leading-none tracking-[0.03em] text-white">{m.title}</b>
+      <span className="nx-coach-muted mt-1.5 block max-w-[34ch] text-[13px] leading-snug">{m.line}</span>
+      {m.agents && m.agents.length > 0 && (
+        <span className="mt-3 flex items-center gap-1" data-testid="coach-module-agents" aria-label="Última composición">
+          {m.agents.map((id) => <AgentPortrait key={id} agentId={id} size={30} title={agentById(id)?.name} />)}
+        </span>
+      )}
+      <span className="mt-auto flex items-end justify-between gap-3 pt-4">
+        {m.dato ? <span className="font-display text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: `rgb(${m.tint})` }}>{m.dato}</span> : <span />}
+        <span className="font-display text-[11px] font-bold uppercase tracking-[0.16em] text-white/70 transition group-hover:text-white">{m.cta} →</span>
+      </span>
     </Link>
   );
 }
 
-/** Una sección que todavía no existe. Se declara, no se disimula. */
-function Pending({ tag, title, line }: { tag: string; title: string; line: string }) {
+function Grupo({ titulo, linea, children }: { titulo: string; linea: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-panel border border-dashed border-white/12 p-5">
-      <span className="nx-label">{tag}</span>
-      <span className="mt-1 block font-display text-2xl font-bold uppercase tracking-wide text-white/45">
-        {title}
-      </span>
-      <span className="mt-1.5 block text-[13px] leading-snug text-white/40">{line}</span>
-      <span className="mt-3 inline-block rounded-chip border border-white/12 px-2 py-1 font-display text-[10px] font-bold uppercase tracking-label text-white/35">
-        Por definir
-      </span>
+    <div>
+      <div className="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <h2 className="nx-coach-kicker">{titulo}</h2>
+        <span className="nx-coach-muted text-[12.5px]">{linea}</span>
+      </div>
+      {children}
     </div>
   );
+}
+
+function Stat({ v, l }: { v: number | string; l: string }) {
+  return (
+    <div className="nx-coach-stat">
+      <dt className="sr-only">{l}</dt>
+      <dd><b>{v}</b><span aria-hidden>{l}</span></dd>
+    </div>
+  );
+}
+
+function fechaCorta(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString("es-ES", { day: "numeric", month: "short" });
 }

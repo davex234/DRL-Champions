@@ -40,7 +40,8 @@ function realSnapshot(block: number, id: string): DuelDeckSnapshot {
   const byRole = new Map<RoleId, (typeof CARDS)[number][]>();
   for (const c of best.values()) {
     const p = registry.player(c.playerId);
-    if (p) byRole.set(p.role, [...(byRole.get(p.role) ?? []), c]);
+    // Rol de la CARTA (catálogo diseñado, 2026-09-21) si lo imprime; si no, el del jugador.
+    if (p) byRole.set((c.role ?? p.role), [...(byRole.get((c.role ?? p.role)) ?? []), c]);
   }
   for (const [, arr] of byRole) arr.sort((x, y) => y.ovr - x.ovr || x.id.localeCompare(y.id));
   const picks = DUEL_ROLES.flatMap((r) => (byRole.get(r) ?? []).slice(block * 2, block * 2 + 2));

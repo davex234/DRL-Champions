@@ -20,11 +20,21 @@ body {
   color: #eef1f8;
   min-height: 100vh;
   font-family: var(--font-sans);
-  overflow-x: hidden;
-  /* Sensación de app: sin rebote ni "pull to refresh", sin resaltado táctil */
-  overscroll-behavior-y: none;
+  /*
+   * FASE 44.1 · LA RUEDA DEL RATÓN NO MOVÍA NINGUNA PÁGINA. Causa: `overflow-x: hidden` en html Y body hace que el
+   * `overflow-y` calculado de body sea `auto`, así que body se convertía en un contenedor de scroll que nunca se
+   * desplaza (su altura es su contenido). La rueda apunta al contenedor más cercano (body), no puede desplazarlo, y
+   * `overscroll-behavior-y: none` en body cortaba el encadenamiento al documento. El teclado sí funcionaba porque va
+   * directo al viewport. `clip` recorta igual sin crear contenedor de scroll (y de paso deja de romper `sticky`).
+   */
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
   -webkit-touch-callout: none;
+}
+
+/* Sensación de app: sin rebote ni "pull to refresh" — solo en el viewport, nunca en un contenedor intermedio. */
+html {
+  overscroll-behavior-y: none;
 }
 
 /* Instalada (standalone): la UI no se selecciona como una web, los campos sí */
@@ -217,13 +227,24 @@ select,
  * una frase, es un control, y por eso tiene altura de control. Un enlace de 17 px de alto
  * se falla con el pulgar una de cada tres veces.
  */
+/*
+ * ACCIÓN DE SECCIÓN — «Ver todo», «Ver más», «Centro de eventos →».
+ *
+ * FASE 12 · 44 px, no 32. Medido en la pasada global: la clase traía 32 y ocho de sus doce
+ * usos ya la sobreescribían a mano con `!min-h-[44px]` —uno por cada fase que pasaba por
+ * encima—. Ocho parches para la misma decisión es la señal de que la decisión estaba en el
+ * sitio equivocado. Sube a la clase y los parches se retiran.
+ *
+ * El radio pasa a chaflán: es la superficie que aparece al pasar por encima, y en un sistema
+ * de chaflanes una esquina redondeada de 8 px es lenguaje prestado.
+ */
 .nx-action {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
-  border-radius: 8px;
-  padding-inline: 6px;
-  margin-inline: -6px;
+  min-height: 44px;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  padding-inline: 8px;
+  margin-inline: -8px;
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 700;
@@ -284,10 +305,20 @@ select,
  * NO se aplica a los enlaces de texto dentro de un párrafo (`display: inline`): ahí la
  * altura la marca la línea, y estirarla rompería la frase.
  */
-button:not(:disabled):not([hidden]),
-a[class*="rounded-"] {
+button:not(:disabled):not([hidden]):not([class*="min-h-"]),
+a[class*="rounded-"]:not([class*="min-h-"]) {
   min-height: 32px;
 }
+/*
+ * FASE 5. El `:not([class*="min-h-"])` de arriba corrige un fallo que se llevaba escondido
+ * desde que existe el suelo: esta regla va SIN capa, y una regla sin capa gana a cualquier
+ * utilidad de Tailwind sin importar la especificidad. Es decir, `min-h-[44px]` escrito a mano
+ * en un botón se quedaba en 32 px — justo el objetivo táctil que alguien estaba pidiendo.
+ *
+ * Se detectó midiendo el segmentado del álbum: pedía 44 y el navegador devolvía 32. El suelo
+ * sigue aplicándose a todo botón que NO pida una altura mínima; lo que ya no hace es
+ * contradecir a quien la pide.
+ */
 /*
  * Un control con altura FIJA propia manda sobre el suelo (`h-9`, `h-full`…). El
  * `:not([class*="min-h-"])` no es un detalle: sin él, `min-h-[36px]` también contiene
@@ -496,4 +527,247 @@ a[class*="h-"]:not([class*="min-h-"]) {
   .nx-bloom {
     transition: none;
   }
+}
+
+/*
+ * POSICIONES DE LA MESA DE DUELO.
+ *
+ * Diez posiciones de frente cuando hay ancho; en móvil, dos filas de cinco. No es una
+ * preferencia: diez de frente a 390 px salen a 34 px por posición, y una carta de 34 px
+ * deja de ser una carta y pasa a ser un cuadrado de color. Antes se resolvía con un carril
+ * `overflow-x`, y lo que hacía era CORTAR la primera y la última por la mitad.
+ *
+ * El número de posiciones lo manda la partida (`totalTurns`), no una constante, así que
+ * llega en dos variables desde el componente en vez de en una clase de utilidad —que
+ * tendría que existir compilada de antemano para cada número posible—.
+ */
+.nx-posiciones {
+  grid-template-columns: repeat(var(--pos-cols-sm), minmax(0, 1fr));
+}
+/*
+ * FASE 8 · Las posiciones de turnos que todavía no han ocurrido no se pintan en móvil: la
+ * fila crece con la partida. Reservar las diez a tamaño de carta costaba 366 px de los 645
+ * de la mesa y empujaba la mano entera por debajo del pliegue. A partir de `sm` vuelven
+ * todas: ahí sobra ancho y la mesa se lee mejor completa.
+ */
+.nx-pos-extra {
+  display: none;
+}
+@media (min-width: 640px) {
+  .nx-posiciones {
+    grid-template-columns: repeat(var(--pos-cols), minmax(0, 1fr));
+  }
+  .nx-pos-extra {
+    display: grid;
+  }
+}
+
+/* ═══════════════════════════ LAUNCHER DE ESCRITORIO ═══════════════════════════
+ *
+ * Lo mínimo que NO puede vivir en una clase de Tailwind: los fotogramas de la ceniza que
+ * sube por el hero y la barra de título arrastrable de la ventana nativa.
+ *
+ * La ceniza anima SOLO `transform` y `opacity` — las dos propiedades que el compositor
+ * resuelve sin tocar el layout — para que veinte motas no cuesten un fotograma.
+ */
+@keyframes nx-mote-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.7);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--mote-opacity, 0.35);
+  }
+  85% {
+    opacity: var(--mote-opacity, 0.35);
+  }
+  100% {
+    transform: translate3d(var(--drift, 0px), -78vh, 0) scale(1.15);
+    opacity: 0;
+  }
+}
+
+.nx-mote {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  animation-name: nx-mote-rise;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+/* Entrada escalonada de los bloques del launcher: se declara el retardo por variable. */
+@keyframes nx-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.nx-enter {
+  animation: nx-enter 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+/* Región de arrastre de la ventana (Tauri). En web es inocuo. */
+.nx-drag {
+  -webkit-app-region: drag;
+  app-region: drag;
+}
+.nx-no-drag {
+  -webkit-app-region: no-drag;
+  app-region: no-drag;
+}
+
+/* Carril de scroll discreto para las columnas del launcher. */
+.nx-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+.nx-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.nx-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nx-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 99px;
+}
+.nx-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * PICK'EMS (Fase 24.2) — microinteracciones.
+ *
+ * Tres y ninguna mas: la opcion elegida "asienta", un acierto brilla una vez y una
+ * recompensa conseguida respira. La regla global de `prefers-reduced-motion` de arriba
+ * las deja en 0,01 ms: no hace falta repetirla aqui.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes nx-pick-pop {
+  0%   { transform: scale(0.97); }
+  60%  { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+.nx-pick-pop {
+  animation: nx-pick-pop 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes nx-hit-glow {
+  from { box-shadow: 0 0 0 0 rgba(63, 192, 122, 0.55); }
+  to   { box-shadow: 0 0 0 16px rgba(63, 192, 122, 0); }
+}
+.nx-hit-glow {
+  animation: nx-hit-glow 900ms ease-out 1 backwards;
+}
+
+@keyframes nx-reward-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 211, 92, 0); }
+  50%      { box-shadow: 0 0 18px 0 rgba(255, 211, 92, 0.28); }
+}
+.nx-reward-glow {
+  animation: nx-reward-glow 2.4s ease-in-out 2;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * CUADRO DE ELIMINATORIAS (Fase 24.3).
+ *
+ * Entrada escalonada por columna y nada mas: las lineas no se mueven. Bajo
+ * `prefers-reduced-motion` la regla global deja la animacion en 0,01 ms.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes nx-bracket-enter {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: none; }
+}
+.nx-bracket-enter {
+  animation: nx-bracket-enter 360ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--nx-enter-i, 0) * 70ms);
+}
+.nx-bracket-scroll {
+  scroll-snap-type: x proximity;
+}
+.nx-bracket-scroll section[id^="bracket-"] {
+  scroll-snap-align: start;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * EVENTO VIVO (Fase 24.5).
+ *
+ * Un solo brillo, breve y de una vez, para lo que acaba de cambiar entre dos refrescos.
+ * Bajo `prefers-reduced-motion` la regla global lo deja en 0,01 ms: el contenido cambia
+ * igual, sin animacion.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes nx-live-glow {
+  0%   { box-shadow: 0 0 0 0 rgba(25, 227, 255, 0.0); }
+  20%  { box-shadow: 0 0 0 3px rgba(25, 227, 255, 0.55), 0 0 28px 2px rgba(25, 227, 255, 0.35); }
+  100% { box-shadow: 0 0 0 0 rgba(25, 227, 255, 0.0); }
+}
+.nx-live-glow {
+  animation: nx-live-glow 1.8s ease-out 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * ROAD TO CHAMPIONS (Fase 35).
+ *
+ * Pulso del nodo DISPONIBLE (lento, sin destellos: 2,4 s por ciclo) y energía que recorre los tramos ya
+ * superados. Con `prefers-reduced-motion` no hay animación: el estado se sigue leyendo en texto.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes nx-node-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.94); }
+  50%      { opacity: 0.9;  transform: scale(1.04); }
+}
+.nx-node-pulse {
+  animation: nx-node-pulse 2.4s ease-in-out infinite;
+}
+@keyframes nx-energy-flow {
+  to { stroke-dashoffset: -24; }
+}
+.nx-energy {
+  stroke-dasharray: 8 4;
+  animation: nx-energy-flow 1.6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-node-pulse, .nx-energy { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * DAILY LOOP · VESTÍBULO (Fase 36).
+ *
+ * Una sola línea de energía recorre el héroe cada 5,5 s (transform + opacidad, sin repintar) y el borde
+ * del CTA principal respira con la misma cadencia. Nada más se mueve en bucle. Con reduced motion: quieto.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes nx-lobby-sweep {
+  0%   { transform: translateX(-110%); opacity: 0; }
+  12%  { opacity: 0.9; }
+  45%  { transform: translateX(110%); opacity: 0; }
+  100% { transform: translateX(110%); opacity: 0; }
+}
+.nx-lobby-sweep {
+  animation: nx-lobby-sweep 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-lobby-sweep { animation: none; opacity: 0; }
+}
+
+/* ═══════════════════════════ CARD ART = CARD VISUAL ═══════════════════════════
+ *
+ * Las cartas del catálogo son el propio WebP: ya traen marco, rareza, OVR y estadísticas, con
+ * margen transparente alrededor. Nada de la interfaz puede dibujar otra carta alrededor del
+ * asset: ni fondo, ni borde, ni radio, ni sombra de caja. La profundidad y los estados van con
+ * `filter: drop-shadow` sobre la silueta (ver `components/cards/CardArt.tsx`).
+ */
+.nx-card-art {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none;
+  object-fit: contain;
 }

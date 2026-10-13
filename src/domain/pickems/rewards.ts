@@ -22,10 +22,10 @@ export interface RewardTier {
  * así subir de escalón siempre mejora y nunca hay que reconciliar acumulados.
  */
 export const REWARD_TIERS: RewardTier[] = [
-  { id: "participacion", minPoints: 1,  label: "Participación", reward: { credits: 500,  xp: 50,  tokens: 10 } },
-  { id: "acertante",     minPoints: 20, label: "Acertante",     reward: { credits: 1500, xp: 150, tokens: 25, packId: "estandar", packCount: 1 } },
-  { id: "analista",      minPoints: 50, label: "Analista",      reward: { credits: 3000, xp: 300, tokens: 50, packId: "premium",  packCount: 1 } },
-  { id: "oraculo",       minPoints: 90, label: "Oráculo",       reward: { credits: 6000, xp: 600, tokens: 100, packId: "champions", packCount: 1 } },
+  { id: "participacion", minPoints: 1,  label: "Participación", reward: { credits: 500,  xp: 50} },
+  { id: "acertante",     minPoints: 20, label: "Acertante",     reward: { credits: 1500, xp: 150, packId: "estandar", packCount: 1 } },
+  { id: "analista",      minPoints: 50, label: "Analista",      reward: { credits: 3000, xp: 300, packId: "premium",  packCount: 1 } },
+  { id: "oraculo",       minPoints: 90, label: "Oráculo",       reward: { credits: 6000, xp: 600, packId: "champions", packCount: 1 } },
 ];
 
 /** Escalón alcanzado con esos puntos, o `null` si no llega ni al primero. */

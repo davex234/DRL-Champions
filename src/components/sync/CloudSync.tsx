@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import { useAuth } from "@/lib/supabase/auth";
-import { syncFromServer } from "@/lib/game/sync";
+import { hydrateAccount, syncFromServer } from "@/lib/game/sync";
+import { storedSessionPresent } from "@/lib/game/localEconomy";
 import { useGameStore } from "@/store/useGameStore";
 
 /**
@@ -20,25 +21,60 @@ import { useGameStore } from "@/store/useGameStore";
  * Sin sesión no hace nada: el juego sigue en modo local de un solo jugador.
  */
 export function CloudSync() {
-  const { user, configured } = useAuth();
+  const { user, loading, configured } = useAuth();
 
   useEffect(() => {
     if (!configured || !user) return;
     let cancelled = false;
 
     (async () => {
-      try {
-        await syncFromServer();
-      } catch (e) {
-        // No romper la app por un fallo de red: la UI mostrará su propio estado
-        // de error donde corresponda y el usuario puede reintentar.
-        console.error("[sync] no se pudo cargar el estado del servidor:", e);
-      }
+      // F81.2 · un fallo NO rompe la app ni cae a la demo: queda en `syncError` y las pantallas ofrecen reintentar.
+      await hydrateAccount(() => !cancelled);
       if (!cancelled) useGameStore.setState({ hydrated: true });
     })();
 
     return () => { cancelled = true; };
   }, [user, configured]);
 
+  /*
+   * F81.2 · VISITANTE CONFIRMADO (sesión resuelta, sin usuario y sin rastro de sesión) con la caché de una cuenta
+   * (salió, o su sesión caducó): esa caché NO es su demo. Se vuelve al inventario de demostración antes de enseñar nada
+   * (`economyView` responde `unknown` mientras `cacheOwner` siga puesto).
+   */
+  useEffect(() => {
+    if (!configured || loading || user || storedSessionPresent()) return;
+    const s = useGameStore.getState();
+    if (s.cacheOwner || s.serverOwner) {
+      s.resetGame();
+      useGameStore.setState({ syncError: null });
+    }
+  }, [configured, loading, user]);
+
+  /*
+   * F68 · VOLVER A LA PESTAÑA. Con dos pestañas abiertas, lo que se compra o se reclama en una no llegaba a la otra
+   * hasta recargar (medido en la beta: la 2.ª seguía con 5.310 créditos cuando el servidor ya tenía 2.810, también tras
+   * navegar dentro de la app). Al recuperar el foco o volver a ser visible se relee el estado del servidor —una sola
+   * lectura, idempotente— con un mínimo de RESYNC_MIN_MS entre lecturas para no inflar el presupuesto de peticiones (F64).
+   */
+  useEffect(() => {
+    if (!configured || !user) return;
+    let last = Date.now();
+    const resync = () => {
+      if (Date.now() - last < RESYNC_MIN_MS) return;
+      last = Date.now();
+      syncFromServer().catch(() => undefined);
+    };
+    const onVisible = () => { if (document.visibilityState === "visible") resync(); };
+    window.addEventListener("focus", resync);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.removeEventListener("focus", resync);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, [user, configured]);
+
   return null;
 }
+
+/** F68 · mínimo entre relecturas al volver a la pestaña. */
+export const RESYNC_MIN_MS = 5_000;

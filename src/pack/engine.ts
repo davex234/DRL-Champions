@@ -14,7 +14,9 @@
 import { CardRegistry } from "@/collection";
 import { openPack } from "@/domain/packs/openPack";
 import { buildPool, BUCKETS } from "@/domain/packs/pool";
+import type { PackDistribution } from "@/domain/packs/distribution";
 import { freshPity } from "@/domain/packs/pity";
+import { packDistribution, PACK_CLASS_ORDER } from "@/domain/packs/packClass";
 import type { RarityBucket } from "@/domain/packs/types";
 import { Minter } from "./mint";
 import { dropEvents } from "./events";
@@ -27,7 +29,20 @@ export interface DrawResult { instances: DropInstance[]; pityAfter: PityState; m
 
 export class PackEngine {
   readonly registry: CardRegistry;
-  constructor(registry: CardRegistry = new CardRegistry()) { this.registry = registry; }
+  /**
+   * BLOQUE 8.3 — configuración de pool persistida, por sobre. `null` para un sobre sin
+   * pool configurado, que es el caso de los 12 actuales y el que reproduce exactamente el
+   * comportamiento anterior. El motor no sabe de dónde sale: se la da quien lo construye.
+   */
+  private readonly distribution: (packId: string) => PackDistribution | null;
+
+  constructor(
+    registry: CardRegistry = new CardRegistry(),
+    distribution: (packId: string) => PackDistribution | null = () => null,
+  ) {
+    this.registry = registry;
+    this.distribution = distribution;
+  }
 
   /**
    * DECIDE (openPack) + ACUÑA (Minter), SIN eventos. Ruta base compartida por `open`. Ordena el
@@ -35,7 +50,9 @@ export class PackEngine {
    */
   draw(pack: PackDef, ctx: OpenContext): DrawResult {
     const ownedSet = new Set(ctx.owned.map((o) => o.cardId));
-    const { decisions, pityAfter } = openPack(this.registry, pack, { seed: ctx.seed, owned: ownedSet, pity: ctx.pity });
+    const dist = this.distribution(pack.id);
+    const { decisions, pityAfter } = openPack(this.registry, pack,
+      { seed: ctx.seed, owned: ownedSet, pity: ctx.pity, distribution: dist, assist: ctx.assist ?? null });
     const minter = new Minter(this.registry, ownedSet, ctx.mintCounts);
     const origin = pack.origin ?? "pack";
     const instances = decisions.map((d) => minter.mint(d.card, origin, { byPity: d.byPity, compensated: d.compensated }));
@@ -68,7 +85,18 @@ export class PackEngine {
 
   /** Probabilidades declaradas (preview de tienda, sin abrir). */
   odds(pack: PackDef): PackOdds {
-    const { pool, size } = buildPool(this.registry, pack);
+    const { pool, size } = buildPool(this.registry, pack, this.distribution(pack.id));
+    // Fase 57.3 · línea principal: la tabla por clase ES la probabilidad (un cubo > 0 vacío hace fallar la apertura).
+    const table = packDistribution(pack.id);
+    if (table) {
+      const byBucket = {} as Record<RarityBucket, number>;
+      for (const b of BUCKETS) byBucket[b] = 0;
+      return {
+        packId: pack.id, cardCount: pack.cardCount, poolSize: size, byBucket,
+        guaranteedMin: null, hasPity: false, antiDuplicate: pack.antiDuplicate ?? "allow",
+        drawMode: "class-distribution", byClass: Object.fromEntries(PACK_CLASS_ORDER.map((c) => [c, table[c]])),
+      };
+    }
     const usable = BUCKETS.filter((b) => pool[b].length > 0);
     const total = usable.reduce((s, b) => s + (pack.weights[b] || 0), 0);
     const byBucket = {} as Record<RarityBucket, number>;
@@ -76,6 +104,7 @@ export class PackEngine {
     return {
       packId: pack.id, cardCount: pack.cardCount, poolSize: size, byBucket,
       guaranteedMin: pack.guaranteedMin ?? null, hasPity: !!pack.pity, antiDuplicate: pack.antiDuplicate ?? "allow",
+      drawMode: "rarity-weights", byClass: null,
     };
   }
 

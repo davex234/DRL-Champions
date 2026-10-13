@@ -10,6 +10,7 @@
  * NO duplica cartas/inventario/catálogo/identidad: los reutiliza. Determinista (reloj lógico inyectado).
  */
 import { CardRegistry } from "./registry";
+import { canonicalCardTeam } from "@/data/teamIdentities";
 import { OwnershipIndex, type OwnershipValidation } from "./ownership";
 import { qualityOf } from "./quality";
 import * as M from "./meta";
@@ -48,8 +49,9 @@ export class CollectionEngine {
     const p = this.registry.player(def.playerId);
     return {
       cardId: def.id, playerId: def.playerId, variantId: def.variantId,
-      nick: p?.nick ?? def.playerId, team: p?.team ?? "", teamTag: p?.teamTag ?? "",
-      region: p?.region ?? "EMEA", role: p?.role ?? "Flex", country: p?.country ?? "",
+      // Equipo de la CARTA (el impreso, canónico): «Fnatic» agrupa FNATIC; Derke con VIT impreso es Team Vitality.
+      nick: p?.nick ?? def.playerId, team: (def.team || p) ? canonicalCardTeam(def, p).label : "", teamTag: def.team ?? p?.teamTag ?? "",
+      region: p?.region ?? "EMEA", role: def.role ?? p?.role ?? "Flex", country: p?.country ?? "", // rol de la CARTA si lo imprime (catálogo diseñado); si no, el del jugador
       label: v.label, group: v.group, rank: v.rank, ovr: def.ovr, stats: def.stats,
       serialized: v.serialized, serialLimit: v.serialLimit ?? null,
       owned: this.own.owns(def.id), count: this.own.countOf(def.id), bestSerial: this.own.bestSerial(def.id),

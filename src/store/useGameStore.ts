@@ -11,10 +11,10 @@ import { CraftEngine, freshMaterials, migrateMaterials, addMaterials as addMats,
 import { runtimePackEngine, runtimeCraftEngine } from "@/publisher/runtime";
 import { getRecipe } from "@/data/recipes";
 import type { CardOrigin } from "@/collection";
-import { useEventsStore } from "@/store/useEventsStore";
-import { quickSellValue } from "@/domain/economy/pricing";
+import { salvageValue } from "@/domain/economy/salvage";
 import { xpForCardRank } from "@/domain/progression/levels";
 import { seedFrom } from "@/sim/rng";
+import { LEGACY_CACHE_OWNER, LocalEconomyBlockedError, localEconomyBlockReason, storedSessionPresent } from "@/lib/game/localEconomy";
 import { ACHIEVEMENTS, type AchievementContext } from "@/domain/progression/achievements";
 
 /** Resultado de revelar una carta al abrir un sobre. */
@@ -22,6 +22,8 @@ export interface OpenedResult {
   uid: string;
   card: CardDef;
   serial?: number;
+  /** Fase 38 · versión acuñada persistida (con sesión). */
+  mintedVersion?: number | null;
   /** Si es la primera copia de esta carta que obtiene el usuario. */
   isNew: boolean;
   value: number;
@@ -41,6 +43,16 @@ const ZERO_RECORD: MatchRecord = { played: 0, won: 0, lost: 0, streak: 0, best: 
 
 interface GameState {
   hydrated: boolean;
+  /**
+   * F81.2 · de QUIÉN es el estado de servidor volcado en el store EN ESTA CARGA (id de usuario; null = ninguno todavía).
+   * No se persiste: una recarga empieza sin dueño y nada del store se pinta hasta que el servidor responda (ver
+   * `lib/game/localEconomy.economyView`).
+   */
+  serverOwner: string | null;
+  /** F81.2 · de quién es la caché persistida (null = demo local). Un visitante confirmado nunca ve la de otra cuenta. */
+  cacheOwner: string | null;
+  /** F81.2 · fallo de la última lectura del estado de servidor (null = sin fallo). */
+  syncError: string | null;
   credits: number;
   xp: number;
   ownedCards: OwnedCard[];
@@ -118,7 +130,7 @@ interface GameState {
     origins: Record<string, CardOrigin>; lockedUids: string[];
     unopenedPacks: Record<string, number>; pityState: PityState;
     packsOpened: number; mintCounts: Record<string, number>;
-  }) => void;
+  }, ownerId?: string | null) => void;
   /** Marca el resultado de una apertura de servidor para la pantalla de revelado. */
   setLastOpened: (results: OpenedResult[]) => void;
 
@@ -204,13 +216,31 @@ function migrateGameState(persisted: unknown): Partial<GameState> {
     craftedCount: num(p.craftedCount, 0),
     claimedAchievements: arr<string>(p.claimedAchievements),
     record: p.record && typeof p.record === "object" ? { ...ZERO_RECORD, ...(p.record as Partial<MatchRecord>) } : { ...ZERO_RECORD },
+    // F81.2 · el dueño de la caché sobrevive a la migración (si no lo había, `mergePersisted` decide).
+    ...(typeof p.cacheOwner === "string" ? { cacheOwner: p.cacheOwner } : {}),
   };
+}
+
+/**
+ * F81.2 · CACHÉ SIN DUEÑO + SESIÓN GUARDADA. Una caché escrita antes de F81.2 no dice de quién es; si además queda una
+ * sesión guardada, puede ser la de esa cuenta (sesión caducada, refresco a medias). Se marca `LEGACY_CACHE_OWNER`: si la
+ * sesión resulta válida el servidor la sustituye con su dueño; si se confirma visitante, se limpia a la demo de inicio
+ * (nunca se enseña como «demo» el saldo o las cartas de una cuenta). Sin sesión guardada es la demo de un visitante.
+ */
+function mergePersisted(persisted: unknown, current: GameState): GameState {
+  if (!persisted || typeof persisted !== "object") return current;
+  const p = persisted as Partial<GameState>;
+  const owner = typeof p.cacheOwner === "string" ? p.cacheOwner : storedSessionPresent() ? LEGACY_CACHE_OWNER : null;
+  return { ...current, ...p, cacheOwner: owner };
 }
 
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
       hydrated: false,
+      serverOwner: null,
+      cacheOwner: null,
+      syncError: null,
       credits: STARTER_CREDITS,
       xp: 0,
       ownedCards: [],
@@ -228,6 +258,9 @@ export const useGameStore = create<GameState>()(
       lastOpened: null,
 
       buyPack: (packId) => {
+        // F81.1 · barrera estructural: con backend y sesión guardada, el motor local NO compra (ver lib/game/localEconomy).
+        const blocked = localEconomyBlockReason();
+        if (blocked) return { ok: false, error: blocked };
         const pack = getPack(packId);
         if (!pack) return { ok: false, error: "Sobre no encontrado" };
         const { credits } = get();
@@ -243,6 +276,9 @@ export const useGameStore = create<GameState>()(
       },
 
       openPackFromInventory: (packId) => {
+        // F81.1 · barrera estructural: con backend y sesión guardada NINGUNA apertura se genera en el navegador. Lanza
+        // (no devuelve null): quien llame no puede confundirlo con «no tienes ese sobre» ni recibir cartas.
+        if (localEconomyBlockReason()) throw new LocalEconomyBlockedError();
         const pack = getPack(packId);
         const state = get();
         if (!pack || (state.unopenedPacks[packId] ?? 0) <= 0) return null;
@@ -280,7 +316,8 @@ export const useGameStore = create<GameState>()(
         if (!card) return;
         const def = getCard(card.cardId);
         if (!def) return;
-        const value = quickSellValue(def, card.serial);
+        // F57.6 — misma liquidación que el desguace del servidor (antes 80 % del valor: abrir y vender daba beneficio).
+        const value = salvageValue(def);
         set((s) => ({
           credits: s.credits + value,
           ownedCards: s.ownedCards.filter((o) => o.uid !== uidToSell),
@@ -294,7 +331,7 @@ export const useGameStore = create<GameState>()(
         for (const o of ownedCards) {
           if (!set_.has(o.uid)) continue;
           const def = getCard(o.cardId);
-          if (def) gained += quickSellValue(def, o.serial);
+          if (def) gained += salvageValue(def);
         }
         set((s) => ({
           credits: s.credits + gained,
@@ -381,8 +418,10 @@ export const useGameStore = create<GameState>()(
 
       clearLastOpened: () => set({ lastOpened: null }),
 
-      applyServerState: (s) =>
+      applyServerState: (s, ownerId) =>
         set({
+          // F81.2 · sin dueño (llamadas antiguas/tests) el estado se vuelca igual, pero no cuenta como «de esta cuenta».
+          ...(ownerId ? { serverOwner: ownerId, cacheOwner: ownerId, syncError: null } : {}),
           credits: s.credits,
           xp: s.xp,
           ownedCards: s.ownedCards,
@@ -405,11 +444,10 @@ export const useGameStore = create<GameState>()(
         if (!recipe) return { ok: false, error: "Receta inexistente" };
         const s0 = get();
         const now = Date.now();
-        const tokens = (useEventsStore.getState() as { tokens: number }).tokens;
         const seed = seedFrom(`craft|${recipeId}|${s0.ownedCards.length}|${s0.credits}`);
         // El Craft Engine DECIDE y ACUÑA (vía el único Minter); el store solo aplica el plan puro.
         const res = craftEngine().craft(recipe, {
-          owned: s0.ownedCards, materials: s0.materials, credits: s0.credits, tokens,
+          owned: s0.ownedCards, materials: s0.materials, credits: s0.credits,
           mintCounts: s0.mintCounts, locks: new Set(s0.lockedUids), selection, seed, now,
         });
         if (!res.ok) return { ok: false, issues: res.issues };
@@ -434,13 +472,13 @@ export const useGameStore = create<GameState>()(
             craftedCount: s.craftedCount + 1,
           };
         });
-        // Tokens (si la receta los cuesta) por la economía existente (events store).
-        if (res.tokensAfter !== tokens) useEventsStore.setState({ tokens: res.tokensAfter } as never);
         return { ok: true, result: res };
       },
 
       resetGame: () =>
         set({
+          serverOwner: null,
+          cacheOwner: null,
           credits: STARTER_CREDITS,
           xp: 0,
           ownedCards: [],
@@ -463,6 +501,7 @@ export const useGameStore = create<GameState>()(
       version: GAME_SCHEMA_VERSION,
       storage: createJSONStorage(() => localStorage),
       migrate: (persisted) => migrateGameState(persisted),
+      merge: (persisted, current) => mergePersisted(persisted, current),
       partialize: (s) => ({
         credits: s.credits,
         xp: s.xp,
@@ -478,6 +517,7 @@ export const useGameStore = create<GameState>()(
         craftedCount: s.craftedCount,
         claimedAchievements: s.claimedAchievements,
         record: s.record,
+        cacheOwner: s.cacheOwner,
       }),
     },
   ),

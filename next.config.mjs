@@ -146,6 +146,19 @@ const supabaseOrigin = (() => {
   }
 })();
 const supabaseHttp = supabaseOrigin ?? "https://*.supabase.co";
+
+/*
+ * valorosters.com · SUPABASE EN EL MISMO ORIGEN. El navegador del jugador no llega al túnel SSH (127.0.0.1:54521):
+ * con `NEXT_PUBLIC_SUPABASE_URL` = el dominio público y `SUPABASE_INTERNAL_URL` = el túnel, Next reenvía SOLO las tres
+ * API que usa el navegador (Auth, REST con RLS, Storage). El resto de Kong (studio, pg-meta, graphql, functions…) no
+ * se publica. Sin `SUPABASE_INTERNAL_URL` no se añade nada (comportamiento anterior).
+ */
+const originOf = (raw) => { try { return new URL(raw).origin; } catch { return null; } };
+const supabaseInternal = originOf(process.env.SUPABASE_INTERNAL_URL);
+const sameOriginSupabase = !!supabaseInternal && !!supabaseOrigin && supabaseOrigin !== supabaseInternal;
+const SUPABASE_BROWSER_APIS = ["auth", "rest", "storage"];
+/* Origen canónico (https://valorosters.com): www → raíz y http → https (Cloudflare anuncia el esquema en `cf-visitor`). */
+const siteOrigin = originOf(process.env.NEXT_PUBLIC_SITE_URL);
 const supabaseWs = supabaseOrigin
   ? supabaseOrigin.replace(/^https:/, "wss:")
   : "wss://*.supabase.co";
@@ -168,7 +181,16 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${dev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "img-src 'self' data: blob: https:",
+  /*
+   * `supabaseHttp` NO sobra al lado de `https:`.
+   *
+   * En producción el proyecto de Supabase es `https://…`, y `https:` ya lo cubría. Pero en
+   * local —y en cualquier despliegue autoalojado— Storage vive en `http://127.0.0.1:54521`,
+   * que no es `'self'` ni es `https:`: el artwork manual de las cartas se bloqueaba sin más
+   * aviso que una línea en la consola. Nombrar el origen exacto lo arregla sin abrir `http:`
+   * entero, que es lo que habría convertido un fallo local en un agujero real.
+   */
+  `img-src 'self' data: blob: https: ${supabaseHttp}`,
   `connect-src 'self' ${supabaseHttp} ${supabaseWs} https://flagcdn.com`,
 ].join("; ");
 
@@ -178,12 +200,16 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), interest-cohort=()" },
+  // F67 · aísla la ventana de otras pestañas de otro origen (no hay login por popup: solo email/contraseña).
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   // Los navegadores ignoran HSTS sobre http://, así que es inocuo en local.
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
 ];
 
 const nextConfig = {
   reactStrictMode: true,
+  // F67 · no anunciar el framework en cada respuesta (`X-Powered-By: Next.js`).
+  poweredByHeader: false,
   generateBuildId: deterministicBuildId,
   // `next dev` bloquea por defecto los recursos de desarrollo (HMR, flight) pedidos
   // desde un host que no sea el que anuncia, y `http://127.0.0.1:3000` NO es el mismo
@@ -198,6 +224,18 @@ const nextConfig = {
     : {
         async headers() {
           return [{ source: "/:path*", headers: securityHeaders }];
+        },
+        async rewrites() {
+          if (!sameOriginSupabase) return [];
+          return SUPABASE_BROWSER_APIS.map((api) => ({ source: `/${api}/v1/:path*`, destination: `${supabaseInternal}/${api}/v1/:path*` }));
+        },
+        async redirects() {
+          if (!siteOrigin) return [];
+          const host = new URL(siteOrigin).host;
+          return [
+            { source: "/:path*", has: [{ type: "host", value: `www.${host}` }], destination: `${siteOrigin}/:path*`, permanent: true },
+            { source: "/:path*", has: [{ type: "header", key: "cf-visitor", value: '.*"scheme":"http".*' }], destination: `${siteOrigin}/:path*`, permanent: true },
+          ];
         },
       }),
 };

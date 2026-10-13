@@ -102,7 +102,8 @@ const FLAVOR: { min: number; text: string }[] = [
 ];
 
 /** Descripción generada (determinista) a partir de jugador + variante. */
-export function buildDescription(player: Player, variant: VariantDef, teamName: string): string {
+export function buildDescription(player: Player, variant: VariantDef, teamName: string, role: RoleId = player.role): string {
   const flavor = FLAVOR.find((f) => variant.rank >= f.min)?.text ?? "";
-  return `${player.nick} es un ${player.role} de ${player.region} que compite con ${teamName}. Edición ${variant.label}. ${flavor}`;
+  // `role` = el de la CARTA (catálogo diseñado: el impreso manda); por defecto, el del jugador.
+  return `${player.nick} es un ${role} de ${player.region} que compite con ${teamName}. Edición ${variant.label}. ${flavor}`;
 }

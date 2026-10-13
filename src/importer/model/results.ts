@@ -10,6 +10,27 @@ export interface Placement {
   points?: number;
 }
 
+/**
+ * AGREGADO DE UN JUGADOR EN UN TORNEO — solo para lo que la fuente no publica por mapa.
+ *
+ * Contrapartida canónica de `RawPlayerTournamentStat`. Deliberadamente NO replica el trío de
+ * `MapPlayerStat`: si un dato existe por mapa, su sitio es `mapStats` y la suma se hace en el
+ * analyzer. Aquí solo vive lo que únicamente existe agregado — hoy, el clutch de vlr.gg.
+ */
+export interface PlayerTournamentStat {
+  tournamentId: string;
+  playerId: string;
+  teamId?: string;
+  maps?: number;
+  rounds?: number;
+  /** Situaciones de clutch GANADAS en todo el torneo. */
+  clutchesWon?: number;
+  /** Situaciones de clutch JUGADAS en todo el torneo (el denominador). */
+  clutchSituations?: number;
+  /** Porcentaje de acierto, tal y como lo publica la fuente. */
+  clutchPct?: number;
+}
+
 export interface ObjectiveAwards {
   tournamentId: string;
   championTeamId?: string;

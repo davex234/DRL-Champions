@@ -6,7 +6,7 @@
  * Match Engine solo deben importar desde aquí.
  */
 export {
-  createEconomy, planRound, commitBuy, settleRound, buyContexts, economyTotal,
+  createEconomy, planRound, commitBuy, settleRound, buyContexts, economyTotal, startSecondHalf,
 } from "./engine";
 export { decideBuy } from "./decide";
 export { DEFAULT_RULES, TIER_RANK, lossBonus, makeRules } from "./rules";

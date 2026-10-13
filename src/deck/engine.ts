@@ -37,7 +37,7 @@ export class DeckEngine {
     if (!card) return null;
     const player = getPlayer(card.playerId);
     if (!player) return null;
-    return { uid, playerId: card.playerId, ovr: card.ovr, role: player.role, locked: this.lockedUids.has(uid) };
+    return { uid, playerId: card.playerId, ovr: card.ovr, role: card.role ?? player.role, locked: this.lockedUids.has(uid) };
   };
 
   validate(deck: Deck): DeckValidation { return validateDeck(deck, this.resolve); }

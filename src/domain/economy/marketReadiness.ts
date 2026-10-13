@@ -32,12 +32,13 @@
  * deja de ser documentación y pasa a ser un cerrojo.
  */
 import { PACK_STATS, type PackStatRow } from "@/data/packStats";
-import { SALVAGE_BY_BUCKET } from "./salvage";
+import { salvageValue } from "./salvage";
 import { CARDS } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import type { CardDef } from "@/domain/cards/types";
 import { bucketForRank, type RarityBucket } from "@/domain/packs/types";
 import { marketValue } from "./pricing";
+import { MAIN_PACK_LINE } from "@/domain/packs/packClass";
 
 export type CriterionStatus = "met" | "unmet" | "unknown";
 export type DecidedBy = "verify" | "measure" | "operations";
@@ -139,16 +140,23 @@ const bucketOf = (card: CardDef): RarityBucket => bucketForRank(getVariant(card.
  * La cuenta buena es por rareza: `marketValue` medio de un bucket contra lo que cuesta
  * sacar una carta de ese bucket abriendo el sobre de entrada. Si una carta vale, como
  * referencia, aproximadamente lo que cuesta conseguirla, el ancla es honesta.
+ *
+ * Hotfix 57.2 — «el sobre de entrada» era, POR RAREZA, el primero de la escalera base que podía entregarla.
+ *
+ * PACK OPENING 3.0 (2026-10-07) — Bronce puede dar cualquier rareza, pero las altas solo como jackpot de su ranura
+ * destacada: «el primero que puede darla» dejó de ser «la forma de conseguirla» (una rara costaría 165.000 créditos de
+ * Bronce cuando Champions o Icon la dan por ~50.000 o menos). El coste de una rareza es ahora el MÁS BAJO de la línea
+ * principal: lo que de verdad cuesta conseguir una carta de esa rareza abriendo sobres.
  */
 export const ANCHOR_BAND = { min: 0.2, max: 2.5 };
 
-export function anchorRatios(referencePack = "estandar"): Partial<Record<RarityBucket, number>> {
-  const row = (PACK_STATS[referencePack] ?? null) as PackStatRow | null;
+export function anchorRatios(ladder: readonly string[] = MAIN_PACK_LINE): Partial<Record<RarityBucket, number>> {
+  const rows = ladder.map((id) => (PACK_STATS[id] ?? null) as PackStatRow | null).filter((r): r is PackStatRow => r !== null);
   const out: Partial<Record<RarityBucket, number>> = {};
-  if (!row) return out;
   for (const b of BUCKETS) {
-    const cost = row.costPerRarity[b];
-    if (cost === undefined || cost <= 0) continue;
+    const costs = rows.map((r) => r.costPerRarity[b]).filter((c): c is number => c !== undefined && c > 0);
+    if (costs.length === 0) continue;
+    const cost = Math.min(...costs);
     const v = CARDS.filter((c) => bucketOf(c) === b).map(marketValue);
     if (v.length === 0) continue;
     out[b] = (v.reduce((a, x) => a + x, 0) / v.length) / cost;
@@ -164,15 +172,16 @@ export function anchorRatios(referencePack = "estandar"): Partial<Record<RarityB
  * MÁS que el precio de referencia de una carta, comprarla en el mercado y desguazarla sería
  * un beneficio garantizado, repetible y sin límite. El desguace tiene que quedar SIEMPRE
  * por debajo de la referencia.
+ *
+ * F57.5 — el desguace ya no es una tabla por rareza sino una fracción de `marketValue`
+ * carta a carta, así que el peor caso se mide CARTA A CARTA (desguace / su referencia) y
+ * se informa con el bucket de la carta que lo da.
  */
 export function salvageBelowReference(): { ok: boolean; worst: { bucket: RarityBucket; ratio: number } | null } {
   let worst: { bucket: RarityBucket; ratio: number } | null = null;
-  for (const b of BUCKETS) {
-    const v = CARDS.filter((c) => bucketOf(c) === b).map(marketValue);
-    if (v.length === 0) continue;
-    const cheapest = Math.min(...v);
-    const ratio = SALVAGE_BY_BUCKET[b] / cheapest;
-    if (!worst || ratio > worst.ratio) worst = { bucket: b, ratio };
+  for (const c of CARDS) {
+    const ratio = salvageValue(c) / marketValue(c);
+    if (!worst || ratio > worst.ratio) worst = { bucket: bucketOf(c), ratio };
   }
   return { ok: worst !== null && worst.ratio < 1, worst };
 }
@@ -235,7 +244,7 @@ export function evaluateReadiness(inputs: ReadinessInputs = {}): CriterionResult
         criterion,
         status: ok ? "met" : "unmet",
         detail: worst
-          ? `El peor caso es ${worst.bucket}: el desguace es el ${(worst.ratio * 100).toFixed(0)} % de la carta más barata de su rareza`
+          ? `El peor caso es una carta ${worst.bucket}: su desguace es el ${(worst.ratio * 100).toFixed(0)} % de su valor de referencia`
           : "Sin datos de rareza",
       };
     }

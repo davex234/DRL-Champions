@@ -22,6 +22,7 @@ import { runPickemLifecycle } from "@/server/services/pickemLifecycle";
 import type {
   Tournament, TournamentPlayer, RarityRule, CardPhoto, GenerationResult,
 } from "@/domain/tournaments/types";
+import { internalError } from "@/server/ops/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -155,7 +156,7 @@ export async function POST(req: Request) {
         const result: GenerationResult = generateForFinish(input);
         await persistGeneration(sb, result, admin.userId);
         // Collection Engine: el torneo genera su colección (jugadores + premios) + recompensa.
-        const collReward = { credits: 12000, tokens: 250, packId: "prime", packCount: 2 };
+        const collReward = { credits: 12000, packId: "prime", packCount: 2 };
         const coll = await persistCollection(sb, input.tournament, result.specs, collReward);
         await sb.from("tournaments").update({
           status: "finished", finished_at: new Date().toISOString(), updated_at: new Date().toISOString(),
@@ -196,6 +197,6 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: `Acción desconocida: ${action}` }, { status: 400 });
     }
   } catch (e) {
-    return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 500 });
+    return internalError("api/admin/tournaments", e, req);
   }
 }

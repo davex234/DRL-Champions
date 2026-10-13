@@ -52,7 +52,12 @@ export interface MatchInput {
   score_b?: number | null;
 }
 
-export type QuestionKind = "match_winner" | "match_score";
+/**
+ * Los cuatro tipos que admite `pickem_questions.kind` (CHECK de la 0023). Los dos de
+ * partido se generan aquí; `champion` y `advance` viven en `./tournament` (Fase 24.2)
+ * porque no cuelgan de un partido sino del torneo entero.
+ */
+export type QuestionKind = "match_winner" | "match_score" | "champion" | "advance";
 
 /** Una pregunta lista para escribirse en `pickem_questions`. */
 export interface QuestionSpec {
@@ -109,8 +114,19 @@ const CLOSED_STATUSES = new Set(["live", "finished", "completed", "cancelled"]);
  * determinar no se puede predecir) y una hora de inicio (sin ella no hay cierre, y una
  * pregunta sin cierre es una pregunta que se puede responder sabiendo el resultado).
  */
+/**
+ * Fase 24.6 · un hueco sin equipo (TBD/TBA/TBC) NO es un equipo. El conector VLR los deja pasar
+ * como nombre porque aparecen en las tarjetas de partido, y con el sync automático abriendo
+ * preguntas sin nadie delante, «¿Quién gana TBD vs TBD?» habría nacido sola. Aquí se corta.
+ */
+export function isPlaceholderTeamName(name: string | null | undefined): boolean {
+  const n = (name ?? "").trim().toLowerCase();
+  return n === "" || n === "tbd" || n === "tba" || n === "tbc" || n === "?" || n === "—";
+}
+
 export function isPredictable(m: MatchInput, now = Date.now()): boolean {
   if (!m.team_a || !m.team_b) return false;
+  if (isPlaceholderTeamName(m.team_a) || isPlaceholderTeamName(m.team_b)) return false;
   if (!m.start_time) return false;
   if (CLOSED_STATUSES.has(m.status?.toLowerCase() ?? "")) return false;
   return new Date(m.start_time).getTime() > now;
@@ -226,6 +242,46 @@ export function correctScoreOptionFor(m: MatchInput): string | null {
   return SCORE_LINES.some((s) => scoreOptionKey(s.a, s.b) === key) ? key : null;
 }
 
+// ───────────────────── Clasificación confirmada (Fase 24.4) ─────────────────────
+
+/** Lo que una pregunta de clasificación necesita saber del partido: solo estructura CONFIRMADA. */
+export interface QualificationMatchInput extends MatchInput {
+  winner_qualifies?: string | null;
+  winner_qualifies_label?: string | null;
+  progression_confidence?: string | null;
+}
+
+/**
+ * PREGUNTAS «¿QUIÉN SE CLASIFICA?» (kind `advance`), una por partido cuya estructura
+ * CONFIRMADA dice que su ganador se clasifica (`winner_qualifies`, migración 0045).
+ *
+ * La semántica es inequívoca por construcción: el que se clasifica es el ganador REAL del
+ * partido, así que las opciones son sus dos equipos (lados «a»/«b», como en `match_winner`),
+ * el cierre es el inicio del partido y el corrector es el mismo que el del ganador. No se
+ * genera para ningún otro partido, y nunca con estructura INFERRED o desconocida.
+ *
+ * Idempotente por el índice único (pickem_event_id, match_id, kind) de la 0023.
+ */
+export function buildQualificationQuestions(matches: QualificationMatchInput[], now = Date.now()): QuestionSpec[] {
+  return matches
+    .filter((m) => !!m.winner_qualifies && m.progression_confidence === "CONFIRMED")
+    .filter((m) => isPredictable(m, now))
+    .sort((a, b) => new Date(a.start_time!).getTime() - new Date(b.start_time!).getTime())
+    .map((m, i) => ({
+      kind: "advance" as const,
+      matchId: m.id,
+      prompt: `¿Quién se clasifica? ${m.team_a} vs ${m.team_b}`,
+      options: [
+        { key: "a", label: m.team_a! },
+        { key: "b", label: m.team_b! },
+      ],
+      points: pointsForRound(m.round),
+      locksAt: m.start_time!,
+      // Después de las de ganador y antes de las de resultado: es la que más se parece a un hito.
+      orderIdx: 500 + (m.match_order ?? i),
+    }));
+}
+
 /**
  * La opción correcta de CUALQUIER pregunta, según su tipo.
  *
@@ -234,6 +290,7 @@ export function correctScoreOptionFor(m: MatchInput): string | null {
  * ciclo de vida.
  */
 export function correctOptionForKind(kind: string, m: MatchInput): string | null {
+  // `advance` con partido (24.4): se clasifica el ganador real del partido → mismo corrector.
   return kind === "match_score" ? correctScoreOptionFor(m) : correctOptionFor(m);
 }
 

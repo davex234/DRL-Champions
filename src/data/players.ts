@@ -1,5 +1,6 @@
 import type { Player, Region, RoleId } from "@/domain/cards/types";
 import { statsFromMetrics, type RawMetrics } from "@/domain/cards/statsFromMetrics";
+import { repairMojibake } from "./teamText";
 
 /**
  * Datos semilla de jugadores profesionales de Valorant.
@@ -399,11 +400,12 @@ function buildRoster(): Player[] {
   for (const r of vlr) {
     if (seedNicks.has(norm(r.nick))) continue;
     const metrics = toMetrics(r.metrics);
+    // La descarga trae 13 textos en mojibake (KRÜ, Rosé): se reparan al entrar, ver `teamText`.
     merged.push({
       id: r.id,
-      nick: r.nick,
-      team: r.team || r.teamTag,
-      teamTag: r.teamTag,
+      nick: repairMojibake(r.nick),
+      team: repairMojibake(r.team || r.teamTag),
+      teamTag: repairMojibake(r.teamTag),
       region: asRegion(r.region),
       role: asRole(r.role),
       country: r.country,

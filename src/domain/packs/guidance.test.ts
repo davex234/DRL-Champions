@@ -3,9 +3,12 @@ import assert from "node:assert/strict";
 import { guidanceFor, cheapestPackFor } from "./guidance";
 import { PACKS } from "@/data/packs";
 import { packStats } from "@/data/packStats";
+import { isDraft } from "./lifecycle";
 import type { RarityBucket } from "./types";
 
-const PAID = PACKS.filter((p) => p.price > 0);
+// Un DRAFT (Fase 20.5) no se vende, así que no tiene guía de compra ni entra en la comparación
+// de precios: se excluye de los invariantes de producto público, igual que en `packStats.test`.
+const PAID = PACKS.filter((p) => p.price > 0 && !isDraft(p));
 const BUCKETS: RarityBucket[] = ["common", "uncommon", "rare", "epic", "legendary"];
 
 test("todo sobre de pago tiene una frase que lo explica", () => {

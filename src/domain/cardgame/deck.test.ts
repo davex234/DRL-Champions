@@ -22,6 +22,15 @@ import {
 const registry = new CardRegistry();
 const NOW = 1_700_000_000_000;
 
+/*
+ * Rol de la CARTA (catálogo diseñado, 2026-09-21). Un jugador puede tener cartas de varios roles; para que
+ * mazos compuestos rol a rol nunca repitan jugador, estas pruebas sólo usan jugadores de UN solo rol.
+ */
+const rolDe = (c: (typeof CARDS)[number]): RoleId | undefined => c.role ?? registry.player(c.playerId)?.role;
+const rolesDeJugador = new Map<string, Set<RoleId>>();
+for (const c of CARDS) { const r = rolDe(c); if (r) rolesDeJugador.set(c.playerId, new Set([...(rolesDeJugador.get(c.playerId) ?? []), r])); }
+const monorol = (playerId: string) => (rolesDeJugador.get(playerId)?.size ?? 0) === 1;
+
 /** Elige `n` cartas de roles distintos jugadores, para poder componer mazos legales. */
 function cardsOfRole(role: RoleId, n: number, skip = 0): typeof CARDS {
   const seenPlayer = new Set<string>();
@@ -29,7 +38,7 @@ function cardsOfRole(role: RoleId, n: number, skip = 0): typeof CARDS {
   for (const c of CARDS) {
     if (out.length >= n + skip) break;
     const p = registry.player(c.playerId);
-    if (!p || p.role !== role || seenPlayer.has(p.id)) continue;
+    if (!p || rolDe(c) !== role || !monorol(p.id) || seenPlayer.has(p.id)) continue;
     seenPlayer.add(p.id);
     out.push(c);
   }
@@ -147,8 +156,7 @@ test("dos variantes del MISMO jugador fallan con DUPLICATE_PLAYER (regla conserv
   // Busca un jugador con dos variantes y rol Duelista.
   const byPlayer = new Map<string, typeof CARDS>();
   for (const c of CARDS) {
-    const p = registry.player(c.playerId);
-    if (p?.role !== "Duelista") continue;
+    if (rolDe(c) !== "Duelista" || !monorol(c.playerId)) continue;
     byPlayer.set(c.playerId, [...(byPlayer.get(c.playerId) ?? []), c]);
   }
   const twoVariants = [...byPlayer.values()].find((cs) => cs.length >= 2)!;

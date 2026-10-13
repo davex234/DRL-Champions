@@ -25,13 +25,13 @@ export function passProgress(xp: number, ev: EventDef): PassProgress {
 
 /**
  * Recompensa de un nivel del pase. Usa el override del evento si existe; si no,
- * genera una recompensa por defecto (créditos/tokens, sobres en hitos).
+ * genera una recompensa por defecto (créditos, sobres en hitos).
  */
 export function passRewardForLevel(ev: EventDef, level: number): Reward {
   if (ev.passRewards?.[level]) return ev.passRewards[level];
   if (level % 10 === 0 && ev.packIds[0]) {
-    return { packId: ev.packIds[0], packCount: 1, tokens: 40 };
+    return { packId: ev.packIds[0], packCount: 1};
   }
-  if (level % 5 === 0) return { tokens: 60, xp: 80 };
-  return { credits: 400 + level * 40, tokens: 12 };
+  if (level % 5 === 0) return { xp: 80 };
+  return { credits: 400 + level * 40};
 }

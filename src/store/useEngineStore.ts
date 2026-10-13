@@ -10,7 +10,6 @@ import { vlrSource, isVlrConfigured } from "@/engine/sources/vlr";
 import { dueJobs } from "@/engine/scheduler";
 import { dispatchTelegram, isTelegramConfigured, makeNotification } from "@/engine/notifications";
 import { useRosterStore } from "./useRosterStore";
-import { useGameStore } from "./useGameStore";
 import { useNewsStore } from "./useNewsStore";
 import { buildCardNews, abilityLabels, ratingFromCardStats, rarityFor } from "@/intel";
 
@@ -154,7 +153,6 @@ export const useEngineStore = create<EngineState>()(
 
       resolvePickems: () => {
         const { pickems, matches } = get();
-        const game = useGameStore.getState();
         let rewarded = 0;
         const next = { ...pickems };
         for (const p of Object.values(pickems)) {
@@ -163,17 +161,14 @@ export const useEngineStore = create<EngineState>()(
           if (!m || m.status !== "finished" || !m.winner) continue;
           const correct = p.pick === m.winner;
           next[p.matchId] = { ...p, resolved: true, correct };
-          if (correct) {
-            game.addCredits(1500);
-            game.addXp(60);
-            game.grantPack("estandar", 1);
-            rewarded++;
-          }
+          // F69 · simulador de admin: ya NO concede créditos/XP/sobres al store local (con cuenta eran un saldo
+          // inventado en el HUD del administrador). Solo cuenta los aciertos simulados.
+          if (correct) rewarded++;
         }
         set((s) => ({
           pickems: next,
           ...(rewarded
-            ? { notifications: [makeNotification("info", "info", `Pick'ems acertados: ${rewarded} · recompensas otorgadas`), ...s.notifications].slice(0, 100) }
+            ? { notifications: [makeNotification("info", "info", `Pick'ems acertados (simulación): ${rewarded} · sin recompensa`), ...s.notifications].slice(0, 100) }
             : {}),
         }));
       },

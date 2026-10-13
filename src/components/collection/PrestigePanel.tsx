@@ -33,6 +33,7 @@ import { useState } from "react";
 import type { PrestigeView } from "@/lib/game/prestige";
 import { buyPrestige } from "@/lib/game/prestige";
 import { formatCredits, cn } from "@/lib/format";
+import { CreditGlyph } from "@/components/ui/game/GameGlyph";
 
 const PAGE = 8;
 
@@ -54,7 +55,7 @@ export function PrestigePanel({
     try {
       const r = await buyPrestige(setId, tierId);
       notify?.(r.applied
-        ? `${r.label} · quedan 🪙 ${formatCredits(r.credits)}`
+        ? `${r.label} · quedan ${formatCredits(r.credits)} créditos`
         : "Ese escalón ya era tuyo");
       onChanged();
     } catch (e) {
@@ -82,7 +83,7 @@ export function PrestigePanel({
           </span>
           <span className="text-right">
             <span className="nx-label block text-[9px]">Invertido</span>
-            <span className="nx-readout text-[19px] text-drl-gold">🪙 {formatCredits(t.burned)}</span>
+            <span className="nx-readout text-[19px] text-drl-gold"><CreditGlyph className="align-[-2px]" /> {formatCredits(t.burned)}</span>
           </span>
         </div>
       </div>
@@ -148,7 +149,7 @@ export function PrestigePanel({
 
                   <div className="mt-3 flex items-center justify-between gap-2">
                     <span className="nx-readout text-[13px]" style={{ color: o.color }}>
-                      🪙 {formatCredits(o.price)}
+                      <CreditGlyph className="align-[-2px]" /> {formatCredits(o.price)}
                     </span>
                     {o.affordable ? (
                       <button
@@ -176,7 +177,7 @@ export function PrestigePanel({
               <button
                 type="button"
                 onClick={() => setShown((n) => n + PAGE * 2)}
-                className="rounded-control border border-white/15 px-6 py-2.5 font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/[0.07]"
+                className="nx-focus nx-clip-sm min-h-[44px] border border-white/15 px-6 font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/[0.07]"
               >
                 Ver más mejoras
               </button>

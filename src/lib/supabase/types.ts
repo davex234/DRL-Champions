@@ -7,7 +7,6 @@ export interface Profile {
   level: number;
   xp: number;
   credits: number;
-  tokens: number;
   collection_value: number;
   distinct_cards: number;
   rarest_rank: number;
@@ -20,6 +19,15 @@ export interface Profile {
    * ese jugador cuenta en la clasificación global y no en la regional.
    */
   region: "EMEA" | "Americas" | "Pacific" | "China" | null;
+  /**
+   * Marca de administración (migración 0006). Es de SOLO LECTURA para el cliente: el trigger
+   * `profiles_guard_protected_columns` rechaza cualquier intento de escribirla desde
+   * `authenticated` o `anon`, y la columna no está concedida para UPDATE.
+   *
+   * **No autoriza nada.** Sirve para no preguntar al servidor lo que ya se sabe que va a
+   * responder que no; quien decide sigue siendo `verifyAdmin()` en cada ruta `/api/admin/*`.
+   */
+  is_admin?: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -165,7 +173,6 @@ export interface ProfileSyncFields {
   level: number;
   xp: number;
   credits: number;
-  tokens: number;
   collection_value: number;
   distinct_cards: number;
   rarest_rank: number;

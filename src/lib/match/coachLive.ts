@@ -68,7 +68,7 @@ export function liveCoachReads(match: MatchState, round: RoundState, scoutReport
   // — Economía —
   const lossStreak = match.economy?.home.lossStreak ?? 0;
   if (lossStreak >= 2) add("eco", `${lossStreak} rondas perdidas seguidas: cuida la economía.`, 52, "economy", "save");
-  if (s.enemyEconomy.buyingPower < 0.5) add("enemyeco", "Su economía está tocada: aprovecha el armamento.", 48, "economy", "aggression");
+  if (match.roundNumber > 1 && s.enemyEconomy.buyingPower < 0.5) add("enemyeco", "Su economía está tocada: aprovecha el armamento.", 48, "economy", "aggression");
 
   // — Estado mental del equipo —
   const ours = round.players.filter((p) => p.side === us);

@@ -17,6 +17,7 @@
  *   TEST 12 · el usuario A no puede modificar los datos del usuario B
  *   (5-9 y 11, de Pick'ems/scoring/ranking, en `scripts/pickems-integration-test.ts`)
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
@@ -54,7 +55,7 @@ const admin = createClient(URL_, SERVICE, { auth: { persistSession: false, autoR
 /** Crea un usuario confirmado y devuelve su id + un cliente autenticado como él. */
 async function makeUser(tag: string): Promise<{ id: string; client: SupabaseClient; email: string }> {
   const email = `it-${tag}-${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.invalid`;
-  const password = "Test-1234-integration";
+  const password = ephemeralQaPassword();
   const { data, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: `it_${tag}` },
   });

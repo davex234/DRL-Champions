@@ -32,6 +32,7 @@
  */
 import Link from "next/link";
 import type { LoopStep, LoopStepKind } from "@/lib/game/loop";
+import { SectionTitle } from "@/components/ui/SectionTitle";
 import { cn } from "@/lib/format";
 
 /**
@@ -50,6 +51,10 @@ const KIND: Record<LoopStepKind, { tint: string; glyph: string }> = {
   // dibujo según la fuente disponible no es un icono.
   play:    { tint: "255,46,99",  glyph: "◆" },
   explore: { tint: "63,192,122", glyph: "◎" },
+  // Fase 27: un objetivo a medio camino.
+  objective: { tint: "25,227,255", glyph: "◐" },
+  // Fase 29: un reto privado recibido, pendiente.
+  challenge: { tint: "25,227,255", glyph: "⬡" },
 };
 
 const NEUTRAL = { tint: "150,160,180", glyph: "•" };
@@ -60,7 +65,7 @@ export function NextUp({ steps, max = 4 }: { steps: LoopStep[]; max?: number }) 
 
   return (
     <section aria-label="Qué hacer ahora">
-      <h2 className="nx-label mb-3">Qué hacer ahora</h2>
+      <SectionTitle>Qué hacer ahora</SectionTitle>
       <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
         {list.map((s) => {
           const k = KIND[s.kind] ?? NEUTRAL;

@@ -168,7 +168,16 @@ export type VariantId =
   | "top-rating"
   | "top-hs"
   | "top-kills"
-  | "top-assist";
+  | "top-assist"
+  // Ediciones del catálogo de cartas diseñadas (Cartas\, 2026-09-21). La edición sale del nombre
+  // de fichero; su rareza la fijó el usuario (ver `variants.ts`).
+  | "base"
+  | "masters-l"
+  | "masters-sdc"
+  | "future-star"
+  | "champions-s"
+  | "record-breaker"
+  | "moments";
 
 export interface RarityPalette {
   /** Color principal del marco. */
@@ -203,6 +212,42 @@ export interface VariantDef {
 /** De dónde salen las estadísticas de una carta. */
 export type CardStatsSource = "vlr" | "editorial";
 
+/**
+ * Las 6 estadísticas IMPRESAS en una carta del catálogo diseñado: DMG · SCR · FKS · HS · AST · CLU.
+ * FKS (primeras bajas) ocupa el lugar que en el modelo anterior tenía COM; no es la misma medida y
+ * por eso no se guarda en `PlayerStats`.
+ */
+export interface PrintedStats {
+  dmg: number;
+  scr: number;
+  fks: number;
+  hs: number;
+  ast: number;
+  clu: number;
+}
+
+export type PrintedStatKey = keyof PrintedStats;
+
+/** Lo que la carta diseñada IMPRIME. Manda sobre lo derivado para presentación, OVR y rol. */
+export interface CardPrinted {
+  ovr: number;
+  role: RoleId;
+  stats: PrintedStats;
+}
+
+/** Entrada del catálogo generado desde `Cartas\` (`src/data/cardCatalog.ts`). */
+export interface CardManifestEntry {
+  id: string;
+  playerId: string;
+  variantId: string;
+  ovr: number;
+  role: string;
+  stats: PrintedStats;
+  /** Fichero original de `Cartas\` y su SHA-256: trazabilidad de cada carta. */
+  source: string;
+  sha256: string;
+}
+
 /** Una carta concreta del catálogo (definición, sin instancia poseída). */
 export interface CardDef {
   id: string; // `${playerId}__${variantId}`
@@ -223,7 +268,29 @@ export interface CardDef {
   source?: CardStatsSource;
   /** Marca de generación (ISO). La inyecta quien construye el catálogo; nunca `Date.now()` interno. */
   generatedAt?: string;
+
+  // ── Catálogo diseñado (Cartas\). Ausentes en cartas que no salen de una imagen. ──
+  /** Lo impreso en la carta: OVR, rol y las 6 estadísticas (con FKS). */
+  printed?: CardPrinted;
+  /**
+   * Rol de la CARTA. Cuando existe, manda sobre el del jugador en duelo, mazo y colección: la
+   * carta impresa decide (decisión del usuario, 2026-09-21). Ver `cardRole()`.
+   */
+  role?: RoleId;
+  /** Imagen completa de la carta (derivado web en `/cards/<id>.webp`). */
+  image?: string;
+  /**
+   * Equipo IMPRESO en la carta: la etiqueta con la que se diseñó (prefijo del fichero de `Cartas\`,
+   * p. ej. «FNATIC», «GenG», «VIT»). Es el equipo de la CARTA —el del logo que se ve—, que no siempre
+   * es el de `Player.team` (el roster actual). Agrupa colección, maestría, logros y Team Packs; no
+   * afecta al duelo ni a la huella. Ver `canonicalCardTeam()` en `data/teamIdentities`.
+   */
+  team?: string;
 }
+
+/** Rol con el que juega una carta: el impreso si lo tiene, si no el de su jugador. */
+export const cardRole = (card: Pick<CardDef, "role">, player: Pick<Player, "role">): RoleId =>
+  card.role ?? player.role;
 
 /**
  * Instancia poseída por el usuario. Las cartas serializadas tienen un
@@ -237,4 +304,13 @@ export interface OwnedCard {
   serial?: number;
   /** Marca de tiempo de obtención. */
   obtainedAt: number;
+  /**
+   * Versión de la definición bajo la que se acuñó este ejemplar (bloque 8.2).
+   *
+   * Es lo que hace que editar una carta NO cambie la que ya tienes: quien resuelve un
+   * ejemplar debe pedir ESTA versión, no la vigente. Opcional porque el dominio también se
+   * usa sin servidor (tests, modo local) y porque una carta fuera del catálogo no tiene
+   * versión que citar; en esos casos se cae a la definición viva, igual que antes de 8.2.
+   */
+  mintedVersion?: number | null;
 }

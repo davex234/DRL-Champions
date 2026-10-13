@@ -39,7 +39,8 @@ export interface ChalkboardPlan {
   valid: boolean;
 }
 
-const LANE_LABEL: Record<Lane, string> = { main: "A Main", tree: "B/Tree", mid: "Mid" };
+// FULL GAME AUDIT (2026-10-07) · zonas por su función (`ZONE_LABEL`): «A Main»/«B/Tree» son de Ascent y no existen en los otros once mapas.
+const LANE_LABEL: Record<Lane, string> = { main: "Entrada principal", tree: "Flanco", mid: "Mid" };
 
 /** Mapea el intent a un `ConceptId` táctico y a un `CoachConcept` de preparación. */
 function intentOf(steps: ChalkStep[]): { intent: ConceptId; concept: CoachConcept } {

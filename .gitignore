@@ -27,3 +27,59 @@ src-tauri/.tauri-signing.key.pub
 
 # Artwork Renderer output (regenerado bajo demanda)
 /output/
+
+# Fase 24.8 · bundle del worker esports (artefacto de build, reproducible desde MANIFEST)
+/deploy/drlcards-sync/
+
+# F70 · release freeze: evidencia pesada y material local fuera del commit.
+# Los json/md pequeños de docs/product/qa/** siguen versionables. Ignorar NO destrackea:
+# los ficheros ya trackeados de estas rutas se tratan en el plan de commit (git rm --cached).
+docs/**/raw/
+docs/product/qa/**/screenshots/
+docs/product/qa/**/*.png
+docs/product/qa/**/*.jpg
+docs/product/qa/**/*.jpeg
+docs/product/qa/**/*.webp
+docs/product/qa/**/*.gif
+docs/product/qa/**/_qa-*.html
+docs/cards/qa/**/*.png
+docs/cards/qa/**/*.jpg
+docs/cards/qa/**/*.webp
+*.mp4
+*.webm
+*.mov
+*.mkv
+*.trace
+*.trace.zip
+trace.zip
+*.har
+*.log
+# Backups, volcados y temporales
+backups/
+*.dump
+*.sql.gz
+*.bak
+*.tmp
+/tmp/
+/temp/
+# Despliegue local (bundles, secretos de stack)
+/deploy/
+# Claves, certificados y almacenes
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+# Arte fuente pesado (se archiva fuera; los assets de runtime viven en public/)
+/cartas/
+/sobres/
+/personajes/
+# Referencias de diseño sueltas en la raíz
+/referencia*.png
+/inventario.png
+# Plantillas de entorno sin secretos (p.ej. .env.production.example) sí versionables
+!.env.*.example
+
+# Runtime Windows (F70.2): logs rotados del supervisor y marcador STOP
+/logs/runtime/

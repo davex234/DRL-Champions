@@ -72,6 +72,8 @@ export interface OpenContext {
   pity: PityState;
   /** Reloj lógico (obtainedAt lo pone el store). */
   now: number;
+  /** Fase 41 · asistencia de primer equipo (solo la decide el servidor; ver `openPack`). */
+  assist?: import("@/domain/packs/openPack").StarterAssist | null;
 }
 
 /** Salida del motor: decisiones + deltas a persistir por el store (nunca persiste el motor). */
@@ -95,6 +97,12 @@ export interface PackOdds {
   guaranteedMin: RarityBucket | null;
   hasPity: boolean;
   antiDuplicate: string;
+  /**
+   * Fase 57.3 · cómo decide el sobre. En `class-distribution` manda `byClass` (tabla de `packClass`, en %) y `byBucket`
+   * va a cero: la rareza no gobierna ese producto y no se enseña como si lo hiciera.
+   */
+  drawMode: "class-distribution" | "rarity-weights";
+  byClass: Record<string, number> | null;
 }
 
 /** Resultado de validar un PackDef contra el registro (SEGURIDAD). */

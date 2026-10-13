@@ -7,26 +7,34 @@
  * que conviene reejecutarlo tras cambios de roster/catálogo.
  *
  * Protegido por la misma cabecera `x-sync-secret` (env `SYNC_SECRET`).
+ *
+ * BLOQUE 8.1 — la proyección parte del catálogo PERSISTIDO, no del derivado en código. Es la
+ * tabla contra la que el antifraude del mercado compara los precios: si su ancla saliera de
+ * una fuente distinta de la que decide qué cartas existen, la banda podría calcularse sobre
+ * una carta que el servidor ya no reconoce.
  */
 import { NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
-import { CARDS, getPlayer } from "@/data/catalog";
+import { serverCatalog } from "@/server/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { marketValue } from "@/domain/economy/pricing";
+import { secretMatches } from "@/server/ops/secret";
+import { internalError } from "@/server/ops/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request) {
   const secret = process.env.SYNC_SECRET;
-  if (!secret || req.headers.get("x-sync-secret") !== secret) {
+  if (!secretMatches(req.headers.get("x-sync-secret"), secret)) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
   const sb = getSupabaseAdmin();
   if (!sb) return NextResponse.json({ error: "SUPABASE_SERVICE_ROLE_KEY no configurado" }, { status: 503 });
 
-  const rows = CARDS.map((card) => {
-    const player = getPlayer(card.playerId);
+  const catalog = await serverCatalog(sb);
+  const rows = catalog.cards.map((card) => {
+    const player = catalog.player(card.playerId);
     return {
       card_id: card.id,
       player_id: card.playerId,
@@ -46,7 +54,7 @@ export async function POST(req: Request) {
   for (let i = 0; i < rows.length; i += BATCH) {
     const chunk = rows.slice(i, i + BATCH);
     const { error } = await sb.from("card_reference").upsert(chunk, { onConflict: "card_id" });
-    if (error) return NextResponse.json({ error: error.message, written }, { status: 500 });
+    if (error) return internalError("api/market/sync-reference", error, req, { written });
     written += chunk.length;
   }
 

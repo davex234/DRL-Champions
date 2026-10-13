@@ -5,12 +5,15 @@ import {
   DATA_VERSION, computeCombatOvr, deriveCard, deriveCombat, type CombatStats,
 } from "@/domain/cards/combat";
 import { PLAYERS } from "./players";
+import { CARD_MANIFEST } from "./cardCatalog";
+import { printedTeamTag } from "./teamText";
+import type { CardManifestEntry, RoleId } from "@/domain/cards/types";
 
 /**
  * Marca de generación del catálogo. Es una constante del build, no un reloj vivo: dos
  * ejecuciones del mismo código producen el mismo catálogo, byte a byte.
  */
-export const CATALOG_GENERATED_AT = "2026-08-31T00:00:00.000Z";
+export const CATALOG_GENERATED_AT = "2026-09-21T00:00:00.000Z";
 
 /** Mapea cada accolade a la(s) variante(s) que desbloquea. */
 export function variantsForAccolade(acc: AccoladeId, player: Player): VariantId[] {
@@ -166,16 +169,56 @@ export function ineligiblePlayers(players: Player[]): { id: string; nick: string
   return out;
 }
 
+/**
+ * UNA CARTA DEL CATÁLOGO DISEÑADO (`Cartas\` → `src/data/cardCatalog.ts`).
+ *
+ * Lo IMPRESO manda (decisión del usuario, 2026-09-21): OVR, rol y las 6 estadísticas de la carta.
+ * El trío de combate NO se imprime y NO se inventa: sale de las métricas reales del jugador por la
+ * única ruta del dominio (`playerCombatBase` → `deriveCard`), sin bonus por edición. Una carta cuyo
+ * jugador no es elegible no entra (devuelve `null`): el importador ya las deja fuera.
+ */
+export function cardFromManifest(entry: CardManifestEntry, player: Player, generatedAt = CATALOG_GENERATED_AT): CardDef | null {
+  const base = playerCombatBase(player);
+  if (!base.ok) return null;
+  const variant = getVariant(entry.variantId as VariantId);
+  const { combat } = deriveCard(base.combat, variant.statBoost);
+  const role = entry.role as RoleId;
+  return {
+    id: entry.id,
+    playerId: player.id,
+    variantId: variant.id,
+    ovr: entry.ovr,
+    // Las 6 estadísticas heredadas del JUGADOR (modelo anterior, con COM) siguen aquí porque las
+    // consumen el simulador y la suma de control; lo que se ENSEÑA es `printed.stats`.
+    stats: applyStatBoost(player.stats, 0),
+    combat,
+    statBoost: variant.statBoost,
+    dataVersion: DATA_VERSION,
+    source: base.source,
+    generatedAt,
+    printed: { ovr: entry.ovr, role, stats: { ...entry.stats } },
+    role,
+    image: `/cards/${entry.id}.webp`,
+    team: printedTeamTag(entry.source),
+  };
+}
+
+/**
+ * El catálogo: una carta por entrada del manifiesto cuyo jugador esté en el roster efectivo.
+ * Ya NO se generan cartas por jugador × variante (eso era el catálogo anterior, retirado el
+ * 2026-09-21); `cardsForPlayer` sigue existiendo para las herramientas de torneo y de admin.
+ */
 function buildCatalog(players: Player[]): CardDef[] {
+  const byId = new Map(players.map((p) => [p.id, p]));
   const cards: CardDef[] = [];
   const seen = new Set<string>();
-  for (const player of players) {
-    for (const card of cardsForPlayer(player)) {
-      if (!seen.has(card.id)) {
-        seen.add(card.id);
-        cards.push(card);
-      }
-    }
+  for (const entry of CARD_MANIFEST) {
+    const player = byId.get(entry.playerId);
+    if (!player || seen.has(entry.id)) continue;
+    const card = cardFromManifest(entry, player);
+    if (!card) continue;
+    seen.add(card.id);
+    cards.push(card);
   }
   return cards;
 }
@@ -198,6 +241,61 @@ export function rebuildCatalog(players: Player[]): void {
   TOTAL_CARDS = CARDS.length;
   CARD_BY_ID = new Map(CARDS.map((c) => [c.id, c]));
   PLAYER_BY_ID = new Map(players.map((p) => [p.id, p]));
+}
+
+/**
+ * DA DE ALTA EN EL CATÁLOGO DEL CLIENTE LAS CARTAS QUE SOLO EXISTEN EN EL SERVIDOR.
+ *
+ * ────────────────────────── QUÉ PROBLEMA CIERRA ──────────────────────────
+ *
+ * Este catálogo se construye con `buildCatalog(PLAYERS)`, es decir, con el roster COMPILADO
+ * en el bundle. Desde el bloque 8.4.2 un administrador puede crear una carta desde el panel:
+ * esa carta vive en `content_cards`, el servidor la reparte en sobres y la acuña — pero
+ * `getCard()` no la conoce, y todas las pantallas del jugador la descartan en silencio
+ * (`return []`, `if (!def) return null`, `.filter(x => !!x.def)`).
+ *
+ * Medido antes de esta función: un jugador con 32 ejemplares de una carta creada desde el
+ * panel veía la cabecera de su álbum decir «CONSEGUIDAS 4» y la rejilla pintar 3. Y el
+ * revelado del sobre se saltaba la carta, porque `toOpenedResults` también hace `if (!card)
+ * continue`.
+ *
+ * ────────────────────────── POR QUÉ AQUÍ Y NO EN OTRO SITIO ──────────────────────────
+ *
+ * Porque este módulo YA es el punto de entrada mutable del catálogo del cliente: `rebuildCatalog`
+ * lo reescribe entero desde el panel de roster desde hace bloques. Esto es la misma puerta,
+ * usada para lo que le falta — no una segunda fuente de verdad y no una capa nueva. La
+ * autoridad sigue siendo el servidor: aquí solo se guarda lo que el servidor ya ha dicho.
+ *
+ * ────────────────────────── ES ADITIVO, A PROPÓSITO ──────────────────────────
+ *
+ * Solo se da de alta lo que NO existe. Una carta que ya está en el catálogo compilado se
+ * queda como está, aunque el servidor mande su versión acuñada. Servir la versión histórica
+ * en la interfaz es lo correcto y sigue siendo deuda (D-2 de 8.2), pero es un cambio en lo
+ * que hoy se pinta: hacerlo aquí, de paso, sería colar una decisión de producto dentro de un
+ * arreglo. Esto solo hace visible lo que era invisible.
+ *
+ * Devuelve cuántas cartas y jugadores se han dado de alta — 0 en el caso normal.
+ */
+export function registerServerCards(
+  cards: readonly CardDef[], players: readonly Player[] = [],
+): { cards: number; players: number } {
+  let nuevasCartas = 0;
+  let nuevosJugadores = 0;
+
+  for (const p of players) {
+    if (PLAYER_BY_ID.has(p.id)) continue;
+    PLAYER_BY_ID.set(p.id, p);
+    nuevosJugadores++;
+  }
+  for (const c of cards) {
+    if (CARD_BY_ID.has(c.id)) continue;
+    CARD_BY_ID.set(c.id, c);
+    CARDS = [...CARDS, c];
+    nuevasCartas++;
+  }
+  if (nuevasCartas > 0) TOTAL_CARDS = CARDS.length;
+
+  return { cards: nuevasCartas, players: nuevosJugadores };
 }
 
 export function getCard(id: string): CardDef | undefined {

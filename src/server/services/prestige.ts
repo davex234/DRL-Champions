@@ -199,7 +199,7 @@ export async function buyPrestige(
     p_cosmetic_id: target,
     p_price: tier.price,
     p_requires: requires,
-    p_ref: prestigeRef(baseId, tier.id),
+    p_ref: prestigeRef(userId, baseId, tier.id),
   });
 
   if (error) {

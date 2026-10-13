@@ -62,7 +62,7 @@ export function localCollections(): CollectionDef[] {
       tier: ev.type,
       items,
       awards: computeAwards(awardPlayers),
-      reward: { credits: 8000, tokens: 150, packId: ev.packIds[0], packCount: 2 },
+      reward: { credits: 8000, packId: ev.packIds[0], packCount: 2 },
     };
   }).filter((c) => c.items.length > 0);
 }

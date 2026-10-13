@@ -26,6 +26,7 @@
  * los rayos, que solo existen en las tres rarezas más altas y mientras dura su carta.
  */
 import type { VariantDef } from "@/domain/cards/types";
+import type { RarityBucket } from "@/domain/packs/types";
 
 /** Los niveles de animación que declara el dominio. */
 export type AnimationLevel = VariantDef["animation"];
@@ -73,6 +74,54 @@ export const CEREMONY: Record<AnimationLevel, CeremonySpec> = {
 
 export function ceremonyFor(variant: VariantDef): CeremonySpec {
   return CEREMONY[variant.animation] ?? CEREMONY.basic;
+}
+
+/**
+ * LA ÚLTIMA CARTA — más ceremonia, la MISMA carta.
+ *
+ * El último hueco del sobre es el que el jugador espera: es donde muchos sobres colocan su
+ * garantía (`guaranteedMin` se aplica precisamente a la última carta, ver
+ * `domain/packs/openPack.slotRequirements`) y es el final del acto. Presentarlo igual que el
+ * segundo desperdicia el único momento de la ceremonia que ya viene cargado de intención.
+ *
+ * ────────────────────────── LO QUE ESTO NO HACE ──────────────────────────
+ *
+ * **No cambia la carta.** No la mejora, no la re-sortea, no la reordena y no canta una rareza
+ * que no es. Si la quinta carta es una Bronce, esto le da 300 ms más de tensión y una sala un
+ * poco más oscura para enseñar una Bronce. La tentación evidente —«guardar la mejor para el
+ * final»— sería mentir sobre el resultado del sorteo, y el sorteo ya decidió el orden en
+ * `PackEngine.draw` (de menor a mayor rareza) antes de que esta pantalla existiera.
+ *
+ * Solo se toca INTENSIDAD, nunca identidad: ni `herald` ni `confetti` se inventan aquí, porque
+ * son los dos que ANUNCIAN algo concreto. Subir el heraldo de una común sería un fake-out, y
+ * el §9 del encargo los prohíbe expresamente.
+ */
+export function lastCardCeremony(spec: CeremonySpec): CeremonySpec {
+  return {
+    ...spec,
+    buildup: spec.buildup + 300,
+    ring: true,
+    dim: Math.min(0.7, spec.dim + 0.14),
+  };
+}
+
+/* ═══════════════════════ FASE 38 · RECETA POR RAREZA REAL ═══════════════════════
+ *
+ * La revelación 3.0 escala por la RAREZA del catálogo (común → legendaria), no por el nivel de animación de la
+ * variante: el jugador aprende cinco escalones que ve escritos, no nueve. Se reutilizan los escalones de `CEREMONY`
+ * (sin tocarlos) con tres cambios: el heraldo lo pone el plan (la rareza real o «Serial #1»), no hay confeti
+ * (nada de celebración infantil) y el estallido nunca pasa de `MAX_BURST` partículas DOM.
+ */
+export const RARITY_CEREMONY: Record<RarityBucket, AnimationLevel> = {
+  common: "basic", uncommon: "metallic", rare: "premium", epic: "extended", legendary: "legendary",
+};
+
+/** Tope de partículas por estallido: por encima, el DOM y la GPU pagan más de lo que se ve. */
+export const MAX_BURST = 40;
+
+export function rarityCeremony(rarity: RarityBucket): CeremonySpec {
+  const s = CEREMONY[RARITY_CEREMONY[rarity]];
+  return { ...s, herald: "", confetti: false, burst: Math.min(s.burst, MAX_BURST) };
 }
 
 /**

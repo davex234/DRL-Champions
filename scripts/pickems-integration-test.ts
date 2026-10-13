@@ -11,6 +11,7 @@
  *   TEST 9  · una recompensa no se puede reclamar dos veces
  *   TEST 11 · el ranking deriva de datos reales, no autodeclarados
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -45,7 +46,7 @@ const created: string[] = [];
 
 async function makeUser(tag: string): Promise<{ id: string; client: SupabaseClient }> {
   const email = `pk-${tag}-${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.invalid`;
-  const password = "Test-1234-integration";
+  const password = ephemeralQaPassword();
   const { data, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: `pk_${tag}` },
   });
@@ -205,7 +206,7 @@ async function main() {
   console.log("\n## TEST 9 · una recompensa no se concede dos veces");
   {
     const { data: before } = await admin.from("profiles")
-      .select("credits, xp, tokens").eq("id", alice.id).maybeSingle();
+      .select("credits, xp").eq("id", alice.id).maybeSingle();
     const { count: txBefore } = await admin.from("credit_transactions")
       .select("id", { count: "exact", head: true })
       .eq("user_id", alice.id).like("ref", "pickem:%");
@@ -217,7 +218,7 @@ async function main() {
     await scorePickemEvent(admin, pe.id);
 
     const { data: after } = await admin.from("profiles")
-      .select("credits, xp, tokens, points").eq("id", alice.id).maybeSingle();
+      .select("credits, xp, points").eq("id", alice.id).maybeSingle();
     const { count: txAfter } = await admin.from("credit_transactions")
       .select("id", { count: "exact", head: true })
       .eq("user_id", alice.id).like("ref", "pickem:%");
@@ -226,7 +227,6 @@ async function main() {
     check("los créditos no se duplican", Number(after?.credits) === Number(before?.credits),
       `${before?.credits} → ${after?.credits}`);
     check("el XP no se duplica", Number(after?.xp) === Number(before?.xp));
-    check("los tokens no se duplican", Number(after?.tokens) === Number(before?.tokens));
     check("los puntos no se inflan al recorregir", Number(after?.points) === target.points,
       `points=${after?.points}`);
   }

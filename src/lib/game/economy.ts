@@ -46,5 +46,5 @@ export interface SalvageResult {
 }
 
 /** Desguaza los ejemplares indicados. El servidor vuelve a validar cuáles son válidos. */
-export const salvage = (uids: string[], ref = newGesture()) =>
-  post<SalvageResult>({ action: "salvage", uids, ref });
+export const salvage = (uids: string[], ref = newGesture(), confirmProtected: string[] = []) =>
+  post<SalvageResult>({ action: "salvage", uids, ref, ...(confirmProtected.length ? { confirmProtected } : {}) });

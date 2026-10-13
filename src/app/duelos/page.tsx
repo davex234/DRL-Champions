@@ -1,186 +1,177 @@
 "use client";
 
 /**
- * `/duelos` — ENTRADA AL MODO DUELOS (Fase 8).
+ * `/duelos` — LOS MODOS DE DUELO (Fase 8 → F71 → F72 · Duels 2.0).
  *
- * Punto de partida del recorrido: jugar, mis mazos y repeticiones. Si hay una partida en curso la
- * ofrece para retomarla —el estado vive en servidor, así que sobrevive a recargar la página.
+ * SELECCIONAR MODO → VER SOLO LO NECESARIO → JUGAR, todo aquí. Lecturas al entrar (en paralelo, sin escrituras): la
+ * foto del meta (equipo válido, partida en curso), la de Draft Gauntlet (run activa, entrada y premios) y las
+ * repeticiones. Al elegir COMPETITIVO se leen, una vez, el competitivo (rango/rating REAL) y los equipos (puerta de
+ * juego de F55): su JUGAR entra en la cola ranked sin pasar por `/competitivo`.
  *
- * Todos los datos llegan de `/api/game/duel*`. Esta pantalla no conoce ninguna regla del juego.
+ * La ÚNICA escritura posible desde aquí es la entrada de Draft Gauntlet, y solo tras confirmarla: `startDraft()` (el
+ * servidor valida saldo, crea la run y cobra una vez) → la sala del draft. Después se resincroniza el HUD.
  */
-import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
-import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
-import { fetchDuelDecks, fetchActiveDuel, fetchDuelReplays } from "@/lib/duel/client";
-import { DuelCard } from "@/components/duel/DuelCard";
-import { DIFFICULTY_INFO, type BotDifficulty, type DuelDeckDTO, type DuelMatchView, type DuelReplayRow } from "@/lib/duel/types";
+import { Loading } from "@/components/ui/States";
+import { DuelModesHub } from "@/components/modes/DuelModesHub";
+import { fetchMetaSnapshot, type MetaSnapshot } from "@/lib/progression/meta";
+import { DraftError, fetchDraft, startDraft, type DraftSnapshot } from "@/lib/draft/client";
+import { fetchDuelReplays, fetchDuelDecks } from "@/lib/duel/client";
+import { fetchCompetitive } from "@/lib/competitive/client";
+import type { DuelReplayRow } from "@/lib/duel/types";
+import { draftModeFacts, gameModes, type DuelModeId, type ModeFacts } from "@/lib/campaign/presentation";
+import { initialDuelMode, type RankedInline } from "@/lib/duels/selector";
+import { rankedGate, type RankedGate } from "@/domain/pvpLadder/ranked";
+import { rankChip } from "@/domain/ranked/config";
+import { DRAFT_ROUTE } from "@/domain/draft/rules";
+import { syncFromServer } from "@/lib/game/sync";
+
+type Load<T> = { state: "loading" } | { state: "ready"; data: T } | { state: "error" };
 
 export default function DuelosPage() {
-  const { user, loading } = useAuth();
-  const online = isSupabaseConfigured();
-
-  if (loading) return <Loading label="Cargando duelos…" />;
-  if (!online || !user) return <NeedsAccount what="jugar duelos" />;
-  return <DuelHub />;
+  return (
+    <Suspense fallback={<Loading kind="hub" label="Cargando duelos…" />}>
+      <Duelos />
+    </Suspense>
+  );
 }
 
-function DuelHub() {
+function Duelos() {
+  const configured = isSupabaseConfigured();
   const router = useRouter();
-  const [decks, setDecks] = useState<DuelDeckDTO[] | null>(null);
-  const [active, setActive] = useState<DuelMatchView | null>(null);
+  const params = useSearchParams();
+  const requested = params.get("modo");
+  const { user, loading } = useAuth();
+  const signedIn = configured && !!user;
+  const [meta, setMeta] = useState<Load<MetaSnapshot>>({ state: "loading" });
+  const [draft, setDraft] = useState<Load<DraftSnapshot>>({ state: "loading" });
   const [replays, setReplays] = useState<DuelReplayRow[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [online, setOnline] = useState(true);
+  const [ranked, setRanked] = useState<RankedInline | null | "loading" | "error">(null);
+  const [gate, setGate] = useState<RankedGate | null | "error">(null);
+  const [draftBusy, setDraftBusy] = useState(false);
+  const [draftNotice, setDraftNotice] = useState<string | null>(null);
+  const rankedAsked = useRef(false);
+  const entering = useRef(false);
 
-  const load = useCallback(async () => {
-    setError(null);
-    try {
-      // Tres lecturas independientes en paralelo, UNA vez al montar. Sin sondeo.
-      const [d, a, r] = await Promise.all([fetchDuelDecks(), fetchActiveDuel(), fetchDuelReplays()]);
-      setDecks(d.decks);
-      setActive(a.view);
-      setReplays(r.matches);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "No se pudieron cargar los duelos");
-      setDecks([]);
-    }
+  useEffect(() => {
+    const sync = () => setOnline(navigator.onLine !== false);
+    sync();
+    window.addEventListener("online", sync);
+    window.addEventListener("offline", sync);
+    return () => { window.removeEventListener("online", sync); window.removeEventListener("offline", sync); };
   }, []);
 
-  useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    if (loading) return;
+    let alive = true;
+    if (!configured || !user) { setMeta({ state: "error" }); setDraft({ state: "error" }); setReplays([]); return; }
+    fetchMetaSnapshot()
+      .then((data) => { if (alive) setMeta(data ? { state: "ready", data } : { state: "error" }); })
+      .catch(() => { if (alive) setMeta({ state: "error" }); });
+    fetchDraft()
+      .then((data) => { if (alive) setDraft({ state: "ready", data }); })
+      .catch(() => { if (alive) setDraft({ state: "error" }); });
+    fetchDuelReplays()
+      .then((r) => { if (alive) setReplays(r.matches); })
+      .catch(() => { if (alive) setReplays([]); });
+    return () => { alive = false; };
+  }, [configured, user, loading, online]);
 
-  if (error && decks === null) return <ErrorState message={error} onRetry={load} />;
-  if (decks === null) return <Loading label="Cargando duelos…" />;
+  /*
+   * F84 · el rango va ATADO A LA CUENTA: al cambiar de cuenta se olvida el de la anterior y una respuesta tardía de la
+   * cuenta vieja se descarta (nunca el rango de A en la tarjeta de B).
+   */
+  const uid = user?.id ?? null;
+  const uidRef = useRef<string | null>(uid);
+  uidRef.current = uid;
+  useEffect(() => { rankedAsked.current = false; setRanked(null); setGate(null); }, [uid]);
 
-  const ready = decks.filter((d) => d.valid);
+  /** COMPETITIVO: rango REAL (servidor) + puerta de juego (equipos). Una vez, al elegirlo. */
+  const loadRanked = useCallback(() => {
+    if (rankedAsked.current || !signedIn) return;
+    rankedAsked.current = true;
+    const owner = uidRef.current;
+    setRanked("loading");
+    fetchCompetitive()
+      .then((snap) => {
+        if (uidRef.current !== owner) return;
+        if (!snap) { setRanked("error"); return; }
+        // F84 · el estado es el de la temporada competitiva (colocación N / rango derivado), no la escalera de F55.
+        const c = snap.competitive.standing;
+        setRanked({
+          state: c.state, position: snap.self.position, rating: c.rating, placementPlayed: c.placement.played, placementTotal: c.placement.total,
+          first: snap.self.position === 1, rank: c.rank ? rankChip(c.rank) : null,
+        });
+      })
+      .catch(() => { if (uidRef.current === owner) setRanked("error"); });
+    fetchDuelDecks()
+      .then((w) => { if (uidRef.current === owner) setGate(rankedGate({ signedIn: true, decks: w.decks, activeDeckId: w.activeDeckId, activeMatchId: null })); })
+      .catch(() => { if (uidRef.current === owner) setGate("error"); });
+  }, [signedIn]);
+
+  const m = meta.state === "ready" ? meta.data : null;
+  const comp = m?.loop.competitive ?? null;
+  const facts: ModeFacts = {
+    signedIn,
+    hasValidDeck: m ? m.decks.valid > 0 : null,
+    activePve: !!m?.loop.steps.some((s) => s.id === "resume-duel"),
+    activePvp: !!m?.loop.steps.some((s) => s.id === "resume-pvp"),
+    rankedProvisional: comp ? comp.provisional : null,
+    // La campaña no se enseña aquí: vive en `/jugar`.
+    campaign: null,
+    draft: draft.state === "loading" ? "loading" : draftModeFacts(draft.state === "ready" ? draft.data : null),
+  };
+  const cards = gameModes(facts);
+
+  // Si se llega con `?modo=ranked` (o es el modo con partida abierta), su dato se pide ya.
+  const first = initialDuelMode(cards.filter((c) => c.id !== "ROAD_TO_CHAMPIONS"), requested);
+  useEffect(() => { if (first === "RANKED" && signedIn && meta.state !== "loading") loadRanked(); }, [first, signedIn, meta.state, loadRanked]);
+
+  /** DRAFT GAUNTLET · ENTRAR (ya confirmado en la tarjeta). El servidor valida saldo y cobra UNA vez. */
+  const enterDraft = useCallback(async () => {
+    if (entering.current) return;
+    entering.current = true;
+    setDraftBusy(true);
+    setDraftNotice(null);
+    try {
+      let snap = await startDraft();
+      // Otra pestaña creó la run a la vez y aún no la había cobrado: volver a entrar la completa (misma clave de run).
+      if (snap.run?.entry && !snap.run.entry.paid) snap = await startDraft();
+      setDraft({ state: "ready", data: snap });
+      await syncFromServer().catch(() => undefined); // F68 · el HUD enseña el saldo cobrado sin recargar
+      if (snap.run && snap.run.entry?.paid !== false) router.push(DRAFT_ROUTE);
+    } catch (e) {
+      if (e instanceof DraftError && e.snapshot) setDraft({ state: "ready", data: e.snapshot });
+      setDraftNotice(e instanceof DraftError && e.code === "INSUFFICIENT_CREDITS" ? "No tienes créditos suficientes para la entrada." : e instanceof Error ? e.message : "No se pudo entrar");
+      await syncFromServer().catch(() => undefined);
+    } finally {
+      entering.current = false;
+      setDraftBusy(false);
+    }
+  }, [router]);
+
+  if (loading || (signedIn && meta.state === "loading")) return <Loading kind="hub" label="Cargando duelos…" />;
 
   return (
-    <div className="mx-auto max-w-5xl">
-      <header className="mb-5">
-        <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-drl">Modo de juego</span>
-        <h1 className="mt-1 font-display text-4xl font-bold sm:text-5xl">Duelos</h1>
-        <p className="mt-1 max-w-xl text-sm text-white/55">
-          Enfrenta tu mazo al de un rival. Diez cartas, diez turnos, una estadística por carta.
-        </p>
-      </header>
-
-      {active && (
-        <section className="mb-4 rounded-2xl border border-drl-cyan/40 bg-drl-cyan/[0.07] p-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-drl-cyan">Partida en curso</span>
-              <p className="font-display text-xl font-bold">
-                {active.yourDeckName} · turno {Math.min(active.turn, active.totalTurns)} / {active.totalTurns}
-              </p>
-              <p className="text-xs text-white/50">
-                Marcador {active.scoreYou}–{active.scoreRival} · dificultad {DIFFICULTY_INFO[active.difficulty].label}
-              </p>
-            </div>
-            <Link
-              href="/duelos/jugar"
-              className="rounded-xl bg-drl-cyan px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] text-base-900 transition hover:brightness-110"
-            >
-              Continuar
-            </Link>
-          </div>
-        </section>
-      )}
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Link
-          href="/duelos/jugar"
-          className="group rounded-2xl border border-drl/40 bg-gradient-to-br from-drl/20 to-transparent p-5 transition hover:border-drl"
-        >
-          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-drl-glow">Jugar</span>
-          <h2 className="mt-1 font-display text-3xl font-bold">Nuevo duelo</h2>
-          <p className="mt-1 text-sm text-white/55">
-            {ready.length > 0
-              ? `${ready.length} ${ready.length === 1 ? "mazo listo" : "mazos listos"} para competir.`
-              : "Necesitas un mazo válido de 10 cartas."}
-          </p>
-        </Link>
-
-        <Link
-          href="/duelos/mazos"
-          className="group rounded-2xl border border-white/12 bg-white/[0.03] p-5 transition hover:border-white/25"
-        >
-          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/40">Preparar</span>
-          <h2 className="mt-1 font-display text-3xl font-bold">Mis mazos</h2>
-          <p className="mt-1 text-sm text-white/55">
-            {decks.length === 0 ? "Crea tu primer mazo." : `${decks.length} guardados.`}
-          </p>
-        </Link>
-      </div>
-
-      {/* ── Mazos ── */}
-      <section className="mt-6">
-        <h2 className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white/35">Tus mazos</h2>
-        {decks.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-white/12 px-4 py-8 text-center text-sm text-white/40">
-            Todavía no tienes ningún mazo.{" "}
-            <Link href="/duelos/mazos" className="text-drl underline-offset-2 hover:underline">Crea uno</Link>.
-          </p>
-        ) : (
-          <div className="grid gap-2.5 sm:grid-cols-2">
-            {decks.map((d) => (
-              <button
-                key={d.id}
-                type="button"
-                onClick={() => router.push(`/duelos/mazos?deck=${d.id}`)}
-                className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-left transition hover:border-white/25"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <b className="truncate font-display text-lg">{d.name}</b>
-                  <span
-                    className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide ${
-                      d.valid ? "bg-emerald-400/15 text-emerald-300" : "bg-drl/15 text-drl-glow"
-                    }`}
-                  >
-                    {d.valid ? "Listo" : d.status === "INCOMPLETE" ? "Incompleto" : "Revisar"}
-                  </span>
-                </div>
-                <div className="mt-2 flex gap-1">
-                  {d.cards.slice(0, 10).map((c) => <DuelCard key={c.uid} card={c} size="xs" />)}
-                </div>
-                <p className="mt-2 text-[11px] text-white/40">
-                  {d.cards.length}/10 cartas · Σ OVR {d.sumOvr}
-                </p>
-              </button>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* ── Repeticiones ── */}
-      {replays.length > 0 && (
-        <section className="mt-6">
-          <h2 className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-white/35">Repeticiones</h2>
-          <div className="flex flex-col gap-1.5">
-            {replays.slice(0, 8).map((m) => {
-              const won = m.scoreYou > m.scoreRival;
-              const draw = m.status === "DRAW";
-              return (
-                <Link
-                  key={m.matchId}
-                  href={`/duelos/replay/${m.matchId}`}
-                  className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 transition hover:bg-white/[0.06]"
-                >
-                  <span
-                    className={`w-16 shrink-0 rounded px-1.5 py-0.5 text-center font-display text-[11px] font-bold ${
-                      draw ? "bg-drl-gold/15 text-drl-gold" : won ? "bg-emerald-400/15 text-emerald-300" : "bg-drl/15 text-drl-glow"
-                    }`}
-                  >
-                    {m.scoreYou}–{m.scoreRival}
-                  </span>
-                  <span className="min-w-0 flex-1 truncate text-sm text-white/70">{m.deckName}</span>
-                  <span className="shrink-0 text-[10px] uppercase tracking-wide text-white/30">{DIFFICULTY_INFO[m.difficulty as BotDifficulty]?.label ?? m.difficulty}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      )}
-    </div>
+    <DuelModesHub
+      cards={cards}
+      requested={requested}
+      onSelect={(id: DuelModeId) => { if (id === "RANKED") loadRanked(); }}
+      ranked={ranked}
+      rankedGate={gate}
+      draftFacts={facts.draft}
+      draftEconomy={draft.state === "ready" ? draft.data.economy : null}
+      credits={m ? m.account.credits : null}
+      onDraftEnter={signedIn && online ? () => void enterDraft() : undefined}
+      draftBusy={draftBusy}
+      draftNotice={draftNotice}
+      replays={replays}
+      offline={!online}
+    />
   );
 }

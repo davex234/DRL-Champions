@@ -54,9 +54,18 @@ export function decideBuy(
     tier = bias > 0 ? "half" : "eco";
     reasons.push(tier === "half" ? "half_buy" : "save_to_full");
   } else {
+    /*
+     * F69 · F68-011 — RONDA PISTOLA. El primer plan del partido, con los créditos iniciales intactos (`rules.start`),
+     * no es una economía rota: es la pistola, y el modelo ya dice qué se compra en ella («eco»: pistola + escudo
+     * ligero). Clasificarla como «broken» recomendaba SAVE («no comprar, guardar todo») sin nada que guardar.
+     */
+    const pistol = team.lastDecision === null && m.avg === rules.start;
     // Rango eco: ¿está rota la economía?
-    const broke = m.avg < C.half * 0.5;
-    if (broke) {
+    const broke = !pistol && m.avg < C.half * 0.5;
+    if (pistol) {
+      tier = "eco";
+      reasons.push("pistol_round");
+    } else if (broke) {
       if (ctx.opponentMatchPoint) { tier = "force"; status = "match_point_force"; reasons.push("desperation"); }
       else { tier = bias < -0.1 ? "save" : "eco"; status = "broken"; reasons.push("broken"); }
     } else {

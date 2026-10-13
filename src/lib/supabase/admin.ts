@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { serverSupabaseFetch } from "./serverUrl";
 
 /**
  * Cliente Supabase con `service_role` — SOLO SERVIDOR.
@@ -43,6 +44,8 @@ export function getSupabaseAdmin(): SupabaseClient | null {
   if (!_admin) {
     _admin = createClient(SUPABASE_URL as string, SERVICE_KEY as string, {
       auth: { persistSession: false, autoRefreshToken: false },
+      // valorosters.com · URL pública para lo que se genera; tráfico por SUPABASE_INTERNAL_URL (serverUrl.ts).
+      global: { fetch: serverSupabaseFetch },
     });
   }
   return _admin;

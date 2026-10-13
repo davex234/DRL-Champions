@@ -39,6 +39,24 @@ export interface VlrEventInfo {
   circuitSlug?: string;
 }
 
+/**
+ * Una fila de la tabla «Prize Distribution» de la página del evento: el resultado FINAL.
+ *
+ * `position` es el primer número del puesto: en un empate escrito como rango («5th–6th»)
+ * los dos equipos comparten el 5, que es lo que dice la fuente. De aquí sale el campeón.
+ */
+export interface VlrPlacement {
+  position: number;
+  /** Nombre tal y como lo escribe VLR: las referencias del snapshot van POR NOMBRE. */
+  teamName: string;
+  vlrTeamId?: string;
+  slug?: string;
+  /** Premio en dólares, si ese puesto cobra. */
+  prize?: number;
+  /** Puntos de circuito («+8»), si el evento los reparte. */
+  points?: number;
+}
+
 export interface VlrRosterPlayer {
   vlrId?: string;
   nick: string;
@@ -76,6 +94,18 @@ export interface VlrStatsRow {
   assists?: number;
   fk?: number;
   fd?: number;
+  /*
+   * CLUTCH — el único dato del torneo que NO existe por mapa.
+   *
+   * VLR lo publica solo aquí, en el agregado del evento, con la celda `data-col="cl"`
+   * partida en dos: `st-cl-x` son las situaciones de clutch GANADAS y `st-cl-y` las
+   * JUGADAS (`9/40`). `clp` es el porcentaje ya calculado por la fuente. El scoreboard por
+   * mapa no tiene ninguna columna equivalente, así que este es el único sitio del que
+   * puede salir — y por eso viaja por el carril de estadística de torneo y no por mapStats.
+   */
+  clutchesWon?: number;
+  clutchSituations?: number;
+  clutchPct?: number;
 }
 
 /** Fila de scoreboard de UN mapa (página de partido, valores "both sides"). */
@@ -172,6 +202,8 @@ export interface VlrImportMeta {
   matchDetailsFetched: number;
   mapsParsed: number;
   mapStatRows: number;
+  /** Fase 24.4 · estructura del cuadro leída de la página del evento. */
+  structure?: { present: boolean; edges: number; qualification: number; unknown: number; conflicts: number };
 }
 
 /** Salida del conector: el RawSnapshot OFICIAL + trazabilidad + avisos no fatales. */

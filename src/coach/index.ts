@@ -5,7 +5,7 @@
  * el RoundPlan, modulado por la obediencia del ADN. El Match Engine lo invoca en
  * ROUND_PREPARATION, entre la economía y el plan final.
  */
-export { decideCoach, applyCoachToPlan, runCoach, sanitizeConcept } from "./engine";
+export { decideCoach, applyCoachToPlan, runCoach, sanitizeConcept, conceptDefaults } from "./engine";
 export { buildManualPlan, type ManualCoachInput, type UtilityFocus } from "./manual";
 export { aiConcept, computeConfidence, entryToConcept } from "./ai";
 export { obedienceProfile } from "./identity";

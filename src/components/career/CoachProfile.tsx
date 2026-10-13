@@ -17,10 +17,12 @@ import { ClubOrganization } from "./ClubOrganization";
 import { ClubLegacyPanel } from "./ClubLegacyPanel";
 import { TransferMarket } from "./TransferMarket";
 import { CareerEndgame } from "./CareerEndgame";
+import { useServerEconomy, SERVER_ECONOMY_ONLY } from "@/lib/game/serverEconomy";
 
 export function CoachProfile() {
   const career = useManagerStore((s) => s.career)!;
   const claim = useManagerStore((s) => s.claimAchievement);
+  const serverEconomy = useServerEconomy();
   const retired = useManagerStore((s) => s.endgame != null);
   const bc = useMemo(() => careerBroadcast(career), [career]);
   const lp = levelProgress(career.xp);
@@ -165,12 +167,13 @@ export function CoachProfile() {
                   <p className="truncate text-white/80">{a.name}</p>
                   <Bar value={a.current / a.goal} />
                 </div>
-                {a.complete && !a.claimed ? (
+                {/* F69 · el premio del logro son créditos LOCALES: con cuenta no se reclama (el servidor manda). */}
+                {a.complete && !a.claimed && !serverEconomy ? (
                   <button onClick={() => claim(a.id)} className="rounded-md bg-drl px-2 py-1 text-[11px] font-bold text-white hover:brightness-110">
                     +{formatCredits(a.reward)}
                   </button>
                 ) : (
-                  <span className={cn("text-[11px]", a.claimed ? "text-drl-cyan" : "text-white/30")}>{a.claimed ? "Reclamado" : `${a.current}/${a.goal}`}</span>
+                  <span className={cn("text-[11px]", a.claimed ? "text-drl-cyan" : "text-white/30")} title={a.complete && !a.claimed ? SERVER_ECONOMY_ONLY : undefined}>{a.claimed ? "Reclamado" : a.complete ? "Completado" : `${a.current}/${a.goal}`}</span>
                 )}
               </li>
             ))}

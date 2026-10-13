@@ -6,49 +6,35 @@
  * Existen para que cada pantalla nueva no reinvente su propio spinner ni su
  * propio mensaje de error, y para que los cuatro estados que exige el MVP se
  * escriban una sola vez y en el mismo español.
+ *
+ * FASE 44 · las firmas no cambian (las usan ~60 pantallas), pero la presentación es la de JUEGO: el cargador es la
+ * marca NEXUS cargando (sin spinner), el error dice «No se ha podido cargar» con REINTENTAR y VOLVER AL LOBBY, y el
+ * vacío siempre ofrece la siguiente acción. Ningún emoji como icono.
  */
-import Link from "next/link";
+import { GameLoader } from "@/components/ui/game/GameLoader";
+import { GameSkeleton, type SkeletonKind } from "@/components/ui/game/GameSkeleton";
+import { GameEmpty, GameError, GamePanelState } from "@/components/ui/game/GameStates";
 import { cn } from "@/lib/format";
 
-export function Loading({ label = "Cargando…", className }: { label?: string; className?: string }) {
-  return (
-    <div className={cn("grid min-h-[30vh] place-items-center", className)} role="status" aria-live="polite">
-      <div className="flex flex-col items-center gap-3">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-drl border-t-transparent" />
-        <p className="font-display text-xs uppercase tracking-widest text-white/45">{label}</p>
-      </div>
-    </div>
-  );
+/**
+ * F64 · con `kind`, la SILUETA de lo que va a aparecer (sin saltos de maquetación al llegar los datos); sin él, el
+ * cargador de la marca (cuando no hay forma que anticipar: arrancar una partida, abrir un sobre…).
+ */
+export function Loading({ label = "Cargando…", className, kind }: { label?: string; className?: string; kind?: SkeletonKind }) {
+  if (kind) return <GameSkeleton kind={kind} label={label} className={className} />;
+  return <GameLoader label={label} className={className} />;
 }
 
 export function ErrorState({
   message, onRetry, className,
 }: { message: string; onRetry?: () => void; className?: string }) {
-  return (
-    <div
-      role="alert"
-      className={cn("rounded-2xl border border-drl/30 bg-drl/5 p-6 text-center", className)}
-    >
-      <p className="text-3xl">⚠️</p>
-      <p className="mt-2 font-display text-base font-bold uppercase tracking-wide text-white">
-        Algo ha fallado
-      </p>
-      <p className="mx-auto mt-1 max-w-md text-sm text-white/60">{message}</p>
-      {onRetry && (
-        <button
-          onClick={onRetry}
-          className="mt-4 rounded-xl border border-white/15 bg-white/5 px-4 py-2 font-display text-xs uppercase tracking-wide text-white transition hover:bg-white/10"
-        >
-          Reintentar
-        </button>
-      )}
-    </div>
-  );
+  return <GameError message={message} onRetry={onRetry} className={className} />;
 }
 
 export function EmptyState({
-  icon = "📭", title, hint, action, className,
+  title, hint, action, className,
 }: {
+  /** Conservado por compatibilidad; ya no se pinta (sin emoji como icono de producto). */
   icon?: string;
   title: string;
   hint?: string;
@@ -56,30 +42,28 @@ export function EmptyState({
   className?: string;
 }) {
   return (
-    <div className={cn("rounded-2xl border border-dashed border-white/15 bg-base-700/30 p-10 text-center", className)}>
-      <p className="text-3xl">{icon}</p>
-      <p className="mt-2 font-display text-base font-bold uppercase tracking-wide text-white">{title}</p>
-      {hint && <p className="mx-auto mt-1 max-w-md text-sm text-white/55">{hint}</p>}
-      {action && (
-        <Link
-          href={action.href}
-          className="mt-4 inline-block rounded-xl bg-drl px-5 py-2 font-display text-xs uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
-        >
-          {action.label}
-        </Link>
-      )}
-    </div>
+    <GameEmpty
+      title={title}
+      hint={hint}
+      primary={action ? { href: action.href, label: action.label } : undefined}
+      secondary={action?.href === "/jugar" ? undefined : [{ href: "/jugar", label: "Jugar" }]}
+      className={className}
+    />
   );
 }
 
 /** Pantalla para funciones que exigen cuenta online. */
 export function NeedsAccount({ what }: { what: string }) {
   return (
-    <EmptyState
-      icon="🔐"
+    <GamePanelState
+      glyph="lock"
+      tone="cyan"
+      eyebrow="Cuenta NEXUS"
       title="Necesitas una cuenta"
       hint={`${what} se guarda en el servidor, así que hace falta iniciar sesión para que sea tuyo de verdad.`}
-      action={{ href: "/cuenta", label: "Entrar o registrarse" }}
+      primary={{ href: "/cuenta", label: "Entrar o registrarse" }}
+      secondary={[{ href: "/", label: "Volver al lobby" }]}
+      testId="needs-account"
     />
   );
 }
@@ -90,7 +74,7 @@ export function DemoBadge({ className }: { className?: string }) {
     <span
       title="Datos de demostración: este torneo no refleja resultados reales"
       className={cn(
-        "rounded-full border border-drl-gold/40 bg-drl-gold/10 px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-wider text-drl-gold",
+        "nx-clip-sm border border-drl-gold/40 bg-drl-gold/10 px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-wider text-drl-gold",
         className,
       )}
     >

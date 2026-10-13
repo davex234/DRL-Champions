@@ -90,7 +90,8 @@ export function worstAttackLane(m: OpponentModel): { lane: Lane; net: number } {
   return { lane: worst, net };
 }
 
-const LANE_NAME: Record<Lane, string> = { main: "A Main", tree: "B/Tree", mid: "Mid" };
+// FULL GAME AUDIT (2026-10-07) · zonas por su función (`ZONE_LABEL`): «A Main»/«B/Tree» son de Ascent y no existen en los otros once mapas.
+const LANE_NAME: Record<Lane, string> = { main: "la entrada principal", tree: "el flanco", mid: "mid" };
 
 /**
  * LECTURAS EN VIVO del rival (Tactical Director 2.0) — frases emergentes derivadas del modelo,

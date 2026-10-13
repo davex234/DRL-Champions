@@ -31,13 +31,25 @@ import { useAuth } from "@/lib/supabase/auth";
 import { AuthForms } from "@/components/auth/AuthForms";
 import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
 import { useGameStore } from "@/store/useGameStore";
+import { useEconomyView } from "@/lib/game/serverEconomy";
 import { Toast } from "@/components/ui/Toast";
+import { AudioSettingsPanel } from "@/components/ui/game/AudioSettingsPanel";
+import { OpeningAnimationSettings } from "@/components/ui/game/OpeningAnimationSettings";
 import { useToast } from "@/lib/useToast";
 import { formatCredits, cn } from "@/lib/format";
 import { equippedDefs } from "@/domain/cosmetics/catalog";
 import { fetchPrestige, type PrestigeView } from "@/lib/game/prestige";
 import { RankEmblem } from "@/components/progression/RankEmblem";
+import { CompetitiveSummary } from "@/components/competitive/CompetitiveSummary";
+import { SocialSummary } from "@/components/social/SocialSummary";
+import { ProfilePreviewCard } from "@/components/player/ProfilePreviewCard";
+import { AVATARS } from "@/domain/profile/avatars";
 import { rankProgress, rankDisplay } from "@/domain/progression/rank";
+import { levelFromXp } from "@/domain/progression/levels";
+import { Plate, Recessed } from "@/components/ui/Surface";
+import { Readout as NxReadout } from "@/components/ui/Readout";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { InternalTools } from "@/components/layout/InternalTools";
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import { Card3D, card3DStagger } from "@/components/visual/Card3D";
 import { getCard } from "@/data/catalog";
@@ -50,17 +62,31 @@ import { RANK_REGIONS, REGION_LABEL, type RankRegion } from "@/domain/progressio
 import { isReward } from "@/domain/pickems/ledger";
 import { groupCollection } from "@/store/selectors";
 import { TOTAL_CARDS } from "@/data/catalog";
+import { PasswordRecoveryForm } from "@/components/auth/PasswordRecoveryForm";
+import { playerMessage } from "@/components/ui/game/GameStates";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { AccountHub, accountSectionOf } from "@/components/account/AccountHub";
 
-const AVATARS = ["🎮", "🦅", "🐉", "🔥", "👑", "⚡", "🎯", "🦊", "🐺", "🌟", "💎", "🃏"];
+
 
 interface PickemSummary { events: number; points: number; correct: number; total: number }
 
-export default function CuentaPage() {
-  const { configured, loading, user, profile, signOut, refreshProfile } = useAuth();
+const NO_CARDS: ReturnType<typeof useGameStore.getState>["ownedCards"] = [];
+
+/**
+ * IA 2026-10-07 · la pantalla de siempre de `/cuenta` (ficha + ajustes; y, sin sesión, entrar / registrarse / recuperar)
+ * pasa a ser la pestaña CUENTA de MI CUENTA. Su lógica no cambia.
+ */
+function AccountSettings() {
+  const { configured, loading, user, profile, signOut, refreshProfile, recovering } = useAuth();
   const { toast, notify } = useToast();
   const [savingAvatar, setSavingAvatar] = useState<string | null>(null);
 
-  const ownedCards = useGameStore((s) => s.ownedCards);
+  // F81.2 · la colección del store solo es de esta cuenta cuando su estado del servidor ya está volcado (ni caché, ni demo).
+  const collectionReady = useEconomyView() === "server";
+  const storeCards = useGameStore((s) => s.ownedCards);
+  const ownedCards = collectionReady ? storeCards : NO_CARDS;
 
   const [position, setPosition] = useState<number | null>(null);
   const [regionPosition, setRegionPosition] = useState<number | null>(null);
@@ -144,12 +170,24 @@ export default function CuentaPage() {
     );
   }
 
-  if (loading) return <><Header /><Loading label="Cargando tu perfil" /></>;
+  // F69 · CLS: mientras carga, la página reserva la altura de la pantalla; si no, el pie («Instalar NEXUS») entraba en
+  // pantalla y saltaba abajo al llegar la ficha (0,068 del CLS a 1440).
+  if (loading) return <><Header /><div className="min-h-screen"><Loading label="Cargando tu perfil" /></div></>;
+
+  // F67 · vuelta desde el correo de «recuperar contraseña»: primero se fija la nueva.
+  if (recovering) {
+    return (
+      <section className="animate-rise">
+        <Header />
+        <PasswordRecoveryForm />
+      </section>
+    );
+  }
 
   if (!user || !profile) {
     return (
       <section className="animate-rise">
-        <Header />
+        <Header signedOut />
         <AuthForms />
       </section>
     );
@@ -161,6 +199,11 @@ export default function CuentaPage() {
   const points = profile.points ?? 0;
   const rank = rankProgress(points);
   const display = rankDisplay(points, position);
+  /*
+   * EL NIVEL, DERIVADO DE LA XP con la función del dominio —la misma que usa la barra
+   * superior del armazón—. Ver el comentario largo junto a «Nivel {nivel.level}».
+   */
+  const nivel = levelFromXp(profile.xp ?? 0);
 
   /*
    * Lo que el jugador lleva puesto. `profiles.equipped` lo escribe SOLO el servidor
@@ -275,39 +318,61 @@ export default function CuentaPage() {
             )}
 
             <p className="mt-2 flex flex-wrap items-center gap-x-3 text-[13px] text-white/50">
-              <span>Nivel {profile.level}</span>
+              {/*
+                ═══ FASE 11 · EL NIVEL SALE DE LA XP, NO DE UNA COLUMNA MUERTA ═══
+
+                Medido en la base: `profiles.level` vale 1 para TODO el mundo —incluido un
+                perfil con 2.567 XP— porque nadie la escribe. La barra superior del armazón
+                ya deriva el nivel de la XP con `levelFromXp`, así que en la misma pantalla
+                se leía «NIVEL 11» arriba y «Nivel 1» en la ficha.
+
+                Aquí NO se calcula nada nuevo: se llama a la MISMA función del dominio que
+                usa el armazón. La columna se queda donde está —no se toca el esquema— y el
+                arreglo del dato queda documentado como deuda.
+              */}
+              <span>Nivel {nivel.level}</span>
               <span aria-hidden>·</span>
               <span>{formatCredits(profile.xp)} XP</span>
-              {position != null && (<><span aria-hidden>·</span><span>#{position} del mundo</span></>)}
+              {/* F69 · F68-013: el puesto es de la clasificación por PUNTOS, no del ranked (rating). */}
+              {position != null && (<><span aria-hidden>·</span><span>#{position} del mundo en puntos</span></>)}
               {regionPosition != null && profile.region && (
                 <><span aria-hidden>·</span><span>#{regionPosition} de {REGION_LABEL[profile.region as RankRegion]}</span></>
               )}
             </p>
 
-            {/* Progreso de rango, dentro de la ficha y no en una tarjeta aparte. */}
-            {rank.unranked ? (
-              <p className="mt-4 max-w-md text-[13px] text-white/55">
-                Todavía no has puntuado. Acierta una predicción y entras en la escalera.
-              </p>
-            ) : (
-              <div className="mt-4 max-w-lg">
-                <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full transition-[width] duration-slow ease-out"
-                    style={{
-                      width: `${Math.round(rank.progress * 100)}%`,
-                      background: `linear-gradient(90deg, ${display.color}77, ${display.color})`,
-                      boxShadow: `0 0 14px ${display.color}aa`,
-                    }}
-                  />
-                </div>
-                <p className="nx-label mt-2">
-                  {rank.next
-                    ? `${rank.toNext} puntos para ${rank.next.label}`
-                    : display.champion ? "Primero del mundo" : "Rango máximo alcanzado"}
+            {/*
+              LAS DOS PROGRESIONES, UNA DEBAJO DE OTRA. Son cosas distintas y hasta ahora
+              solo se veía una: el rango dice lo bien que compites, el nivel lo mucho que
+              juegas. Las dos barras llevan `role="progressbar"` con su valor — la del rango
+              era un `div` decorativo y un lector de pantalla no leía nada.
+            */}
+            <div className="mt-4 max-w-lg space-y-3">
+              <Barra
+                titulo="Nivel"
+                valor={nivel.level}
+                progreso={nivel.progress}
+                color="var(--nx-cyan)"
+                pie={`${formatCredits(nivel.xpIntoLevel)} / ${formatCredits(nivel.xpForNext)} XP para el nivel ${nivel.level + 1}`}
+                etiqueta={`Progreso hacia el nivel ${nivel.level + 1}`}
+              />
+
+              {rank.unranked ? (
+                <p className="max-w-md text-[13px] text-white/55">
+                  Todavía no tienes puntos. Gana duelos contra el bot o acierta predicciones de Pick&apos;ems para entrar en los rangos de puntos.
                 </p>
-              </div>
-            )}
+              ) : (
+                <Barra
+                  titulo="Rango de puntos"
+                  valor={display.label}
+                  progreso={rank.progress}
+                  color={display.color}
+                  pie={rank.next
+                    ? `${rank.toNext} puntos para ${rank.next.label}`
+                    : display.champion ? "Primero del mundo" : "Rango de puntos máximo alcanzado"}
+                  etiqueta={rank.next ? `Progreso hacia ${rank.next.label}` : "Rango de puntos máximo"}
+                />
+              )}
+            </div>
           </div>
 
           <div className="flex shrink-0 flex-col items-center gap-3">
@@ -338,7 +403,7 @@ export default function CuentaPage() {
             )}
             <button
               onClick={() => signOut()}
-              className="nx-clip-sm border border-white/15 px-3.5 py-2 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/60 transition hover:border-white/35 hover:text-white"
+              className="nx-focus nx-clip-sm min-h-[44px] border border-white/15 px-3.5 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/60 transition hover:border-white/35 hover:text-white"
             >
               Cerrar sesión
             </button>
@@ -350,28 +415,34 @@ export default function CuentaPage() {
           Esto eran ocho tarjetas de igual peso. Un dato de videojuego no vive en una caja:
           vive sobre la ficha, con su etiqueta encima. Mismos ocho datos y mismos destinos.
         */}
-        {statsLoading ? (
-          <Loading label="Cargando estadísticas" className="min-h-[10vh]" />
-        ) : (
-          <div className="relative flex flex-wrap gap-x-8 gap-y-5 border-t border-white/10 bg-black/30 px-5 py-4 sm:px-9">
-            <Readout label="Puntos" value={String(points)} accent="#ffd35c" href="/ranking" />
-            <Readout label="Torneos" value={String(pickems.events)} href="/pickems" />
-            <Readout
-              label="Aciertos"
-              value={pickems.total > 0 ? `${pickems.correct}/${pickems.total}` : "—"}
-              foot={accuracy != null ? `${accuracy}% de acierto` : undefined}
-            />
-            <Readout label="Recompensas" value={String(rewards)} href="/recompensas" />
-            <Readout
-              label="Colección" value={String(distinct)} suffix={`/${TOTAL_CARDS}`}
-              foot={`${ownedCards.length} cartas`} accent="#7b5cff" href="/coleccion"
-            />
-            <Readout label="Sobres" value={String(packs)} href={packs > 0 ? "/inventario" : "/tienda"} />
-            <Readout label="Créditos" value={formatCredits(profile.credits)} accent="#ffd35c" />
-            <Readout label="Fichas" value={formatCredits(profile.tokens)} accent="#19e3ff" />
-          </div>
-        )}
+        {/* F69 · CLS: la tira se pinta siempre; mientras cargan, las cifras del servidor salen como «—» (nunca
+            inventadas). Antes un cargador de otra altura ocupaba su sitio y empujaba todo lo de debajo al llegar. */}
+        <div className="relative flex flex-wrap gap-x-8 gap-y-4 border-t border-edge bg-black/30 px-5 py-3 sm:px-9" aria-busy={statsLoading} data-testid="cuenta-stats">
+          <Readout label="Puntos" value={String(points)} accent="#ffd35c" href="/ranking" />
+          <Readout label="Torneos" value={statsLoading ? "—" : String(pickems.events)} href="/pickems" />
+          <Readout
+            label="Aciertos"
+            value={!statsLoading && pickems.total > 0 ? `${pickems.correct}/${pickems.total}` : "—"}
+            foot={!statsLoading && accuracy != null ? `${accuracy}% de acierto` : undefined}
+          />
+          <Readout label="Recompensas" value={statsLoading ? "—" : String(rewards)} href="/recompensas" />
+          <Readout
+            label="Colección" value={collectionReady ? String(distinct) : "—"} suffix={`/${TOTAL_CARDS}`}
+            foot={collectionReady ? `${ownedCards.length} cartas` : undefined} accent="#7b5cff" href="/coleccion"
+          />
+          <Readout label="Sobres" value={statsLoading ? "—" : String(packs)} href={!statsLoading && packs > 0 ? "/inventario" : "/tienda"} />
+          <Readout label="DRL Credits" value={formatCredits(profile.credits)} accent="#ffd35c" />
+        </div>
       </div>
+
+      {/* FASE 28 · resumen competitivo pequeño: rating, posición, récord y la puerta al hub. */}
+      <CompetitiveSummary enabled={!!user} className="mt-4" />
+
+      {/* FASE 29 · resumen social pequeño: amigos, en línea, pendientes y la puerta a /social. */}
+      <SocialSummary enabled={!!user} className="mt-4" />
+
+      {/* FASE 31 · cuenta ≠ perfil: aquí se ve cómo te ven los demás y se va a verlo o editarlo. */}
+      <ProfilePreviewCard enabled={!!user} className="mt-4" />
 
       {/*
         VITRINA DE PRESTIGIO — entre la ficha y las cartas. Va aqui porque responde a
@@ -451,11 +522,18 @@ export default function CuentaPage() {
         las estadísticas —doce emoji desplegados nada más entrar— y eso es lo que hacía que
         el perfil se leyera como la pantalla de ajustes de una cuenta.
       */}
-      <section aria-label="Ajustes del perfil" className="nx-panel space-y-6 p-5">
-        <h2 className="font-display text-lg font-bold uppercase tracking-[0.06em] text-white">Ajustes</h2>
+      <section aria-label="Ajustes del perfil">
+        <Plate className="space-y-5 p-5">
+        <SectionTitle as="h2">Ajustes</SectionTitle>
+
+        {/* Fase 44 · sonido: general, efectos y silencio (solo en este dispositivo). */}
+        <AudioSettingsPanel className="max-w-md" />
+
+        {/* WALKOUT 0.8 · animaciones de apertura (solo en este dispositivo) */}
+        <OpeningAnimationSettings className="max-w-md" />
 
         <div>
-          <h3 className="nx-label mb-2">Avatar</h3>
+          <SectionTitle as="h3">Avatar</SectionTitle>
           <div className="flex flex-wrap gap-2">
             {AVATARS.map((a) => (
               <button
@@ -464,9 +542,16 @@ export default function CuentaPage() {
                 disabled={savingAvatar !== null}
                 aria-label={`Elegir avatar ${a}`}
                 aria-pressed={profile.avatar === a}
+                /*
+                  FASE 11 · 44 px, no 40, y chaflán en vez de `rounded-lg`. Doce avatares
+                  puestos en fila son el control que más se pulsa de los ajustes.
+                */
                 className={cn(
-                  "grid h-10 w-10 place-items-center rounded-lg border text-xl transition disabled:opacity-50",
-                  profile.avatar === a ? "border-drl bg-drl/15" : "border-white/10 bg-white/5 hover:bg-white/10",
+                  "nx-clip-sm grid h-11 w-11 place-items-center text-xl transition duration-fast disabled:opacity-50",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl",
+                  profile.avatar === a
+                    ? "bg-drl/15 shadow-[inset_0_0_0_1px_rgb(255_46_99_/_0.8)]"
+                    : "bg-white/5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] hover:bg-white/10",
                 )}
               >
                 {a}
@@ -482,7 +567,7 @@ export default function CuentaPage() {
           y eso es exactamente lo que dice el texto de abajo.
         */}
         <div>
-          <h3 className="nx-label mb-2">Región competitiva</h3>
+          <SectionTitle as="h3">Región competitiva</SectionTitle>
           <div className="flex flex-wrap gap-1.5">
             {RANK_REGIONS.map((rg) => (
               <button
@@ -499,16 +584,17 @@ export default function CuentaPage() {
                     await refreshProfile();
                     notify(next ? `Región: ${REGION_LABEL[next]}` : "Región retirada", true);
                   } catch (e) {
-                    notify(e instanceof Error ? e.message : "No se pudo guardar", false);
+                    notify(e instanceof Error ? playerMessage(e.message) : "No se pudo guardar", false);
                   } finally {
                     setSavingRegion(false);
                   }
                 }}
                 className={cn(
-                  "rounded-control border px-3.5 py-2 font-display text-[12px] font-bold uppercase tracking-wide transition duration-fast disabled:opacity-50",
+                  "nx-clip-sm min-h-[44px] px-3.5 font-display text-[12px] font-bold uppercase tracking-wide transition duration-fast disabled:opacity-50",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl-cyan",
                   profile.region === rg
-                    ? "border-drl-cyan/60 bg-drl-cyan/10 text-drl-cyan"
-                    : "border-white/10 text-white/50 hover:border-white/25 hover:text-white/80",
+                    ? "bg-drl-cyan/10 text-drl-cyan shadow-[inset_0_0_0_1px_rgb(25_227_255_/_0.6)]"
+                    : "text-ink-muted shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] hover:text-white",
                 )}
               >
                 {REGION_LABEL[rg]}
@@ -521,10 +607,19 @@ export default function CuentaPage() {
               : "Sin región solo apareces en la clasificación global. Elige una para entrar también en la regional."}
           </p>
         </div>
+        </Plate>
       </section>
 
+      {/*
+        Solo se pinta para administradores, y lo decide el SERVIDOR
+        (`/api/admin/session`). Para un jugador normal no existe: no ocupa sitio ni deja
+        hueco. Va después de «Ajustes» a propósito — es lo último de la cuenta, no lo
+        primero, porque no es parte del juego.
+      */}
+      <InternalTools />
+
       <p className="text-xs text-white/35">
-        Tu saldo, tus cartas, tus puntos y tu rango los guarda y los valida el servidor.
+        Tu saldo, tus cartas, tus puntos y tu rating ranked los guarda y los valida el servidor.
         Nada de esto se puede modificar desde este dispositivo.
       </p>
 
@@ -546,8 +641,19 @@ function hexToRgbTriplet(hex: string): string {
 }
 
 /** Un dato de la ficha. Etiqueta encima, cifra grande, pie opcional. Sin caja. */
+/**
+ * UNA CIFRA DE LA TIRA.
+ *
+ * FASE 11 · Se construye SOBRE `Readout`, la primitiva del sistema, en vez de repintar la
+ * misma tipografía a mano: la cifra, su etiqueta en versalitas y el sufijo apagado los pone
+ * la primitiva. Lo que esta pieza añade es lo que la primitiva no tiene y aquí hace falta:
+ * un pie de línea y un destino.
+ *
+ * Cuando es un enlace, el objetivo táctil llega a 44 px. Eran 92 × 37 y la tira entera —
+ * siete destinos— estaba por debajo del mínimo.
+ */
 function Readout({
-  label, value, suffix, foot, accent = "#eef1f8", href,
+  label, value, suffix, foot, accent, href,
 }: {
   label: string;
   value: string;
@@ -558,20 +664,79 @@ function Readout({
 }) {
   const body = (
     <>
-      <span className="nx-label block">{label}</span>
-      <span className="nx-readout mt-1 block text-[22px]" style={{ color: accent }}>
-        {value}
-        {suffix && <span className="text-[13px] text-white/30">{suffix}</span>}
-      </span>
-      {foot && <span className="mt-1 block text-[11px] text-white/40">{foot}</span>}
+      <NxReadout size="md" label={label} value={value} unit={suffix} tone={accent} />
+      {foot && <span className="mt-0.5 block text-caption text-ink-faint">{foot}</span>}
     </>
   );
   return href
-    ? <Link href={href} className="group min-w-[92px]">{body}</Link>
-    : <div className="min-w-[92px]">{body}</div>;
+    ? (
+      <Link href={href} className="nx-focus group flex min-h-[44px] min-w-[92px] flex-col justify-center">
+        {body}
+      </Link>
+    )
+    : <div className="flex min-h-[44px] min-w-[92px] flex-col justify-center">{body}</div>;
 }
 
-function Header() {
+/**
+ * UNA BARRA DE PROGRESIÓN DE LA FICHA.
+ *
+ * Lleva `role="progressbar"` con su `aria-valuenow`: la del rango era un `div` con un ancho
+ * en línea, así que un lector de pantalla no leía ningún progreso. El color no sale de la
+ * paleta de tonos sino del DATO —cada rango tiene el suyo—, y por eso la barra se dibuja
+ * aquí en vez de usar `Meter`, que solo acepta tonos del sistema.
+ */
+function Barra({
+  titulo, valor, progreso, color, pie, etiqueta,
+}: {
+  titulo: string;
+  valor: string | number;
+  progreso: number;
+  color: string;
+  pie: string;
+  etiqueta: string;
+}) {
+  const pct = Math.max(0, Math.min(100, Math.round(progreso * 100)));
+  return (
+    <div>
+      <div className="mb-1 flex items-baseline justify-between gap-3">
+        <span className="nx-label">{titulo}</span>
+        <b className="font-display text-[13px] font-bold uppercase tracking-wide" style={{ color }}>
+          {valor}
+        </b>
+      </div>
+      <Recessed
+        depth="sm"
+        className="h-2.5 overflow-hidden"
+        role="progressbar"
+        aria-label={etiqueta}
+        aria-valuenow={pct}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <span
+          className="block h-full origin-left transition-transform duration-slow ease-out motion-reduce:transition-none"
+          style={{
+            transform: `scaleX(${pct / 100})`,
+            background: `linear-gradient(90deg, ${color}77, ${color})`,
+            boxShadow: `0 0 14px ${color}aa`,
+          }}
+        />
+      </Recessed>
+      <p className="nx-label mt-1.5">{pie}</p>
+    </div>
+  );
+}
+
+function Header({ signedOut = false }: { signedOut?: boolean }) {
+  // F64 · sin sesión esta pantalla es la PUERTA del juego, no «tu perfil».
+  if (signedOut) {
+    return (
+      <header className="mb-6 text-center">
+        <p className="nx-label text-drl">NEXUS</p>
+        <h1 className="mt-1 font-display text-[clamp(30px,5vw,48px)] font-extrabold uppercase leading-none tracking-wide text-white">Tu cuenta de <span className="text-drl">jugador</span></h1>
+      </header>
+    );
+  }
   return (
     <header className="mb-6">
       <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
@@ -580,4 +745,24 @@ function Header() {
       <p className="mt-1 text-white/50">Tu progreso competitivo de un vistazo.</p>
     </header>
   );
+}
+
+/**
+ * IA 2026-10-07 · `/cuenta` = MI CUENTA (icono de usuario, arriba a la derecha): PERFIL · PROGRESIÓN · CUENTA y DAR
+ * FEEDBACK. Sin sesión (o sin Supabase, cargando, recuperando contraseña) manda la pantalla de siempre: entrar.
+ * `useSearchParams` va bajo `Suspense` (si no, el build aborta en la generación estática).
+ */
+export default function CuentaPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen"><Loading label="Cargando tu cuenta" /></div>}>
+      <CuentaRoute />
+    </Suspense>
+  );
+}
+
+function CuentaRoute() {
+  const { configured, loading, user, profile, recovering } = useAuth();
+  const params = useSearchParams();
+  if (!configured || loading || recovering || !user || !profile) return <AccountSettings />;
+  return <AccountHub userId={user.id} section={accountSectionOf(params.get("seccion"))} source={params.get("desde")} settings={<AccountSettings />} />;
 }

@@ -66,7 +66,7 @@ function Showcase() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <Link href="/colecciones" className="text-xs text-white/40 hover:text-white">← Colecciones</Link>
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">{def.name}</h1>
+          <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">{def.name}</h1>
           <p className="mt-1 text-white/50">
             {def.source === "tournament" ? "Colección de torneo" : "Colección de evento"}
             {def.tier ? ` · ${def.tier}` : ""} · {def.items.length} cartas · 🎁 {rewardSummary(def.reward)}

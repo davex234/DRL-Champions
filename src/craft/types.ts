@@ -60,14 +60,13 @@ export interface OutputSpec {
   materials?: Partial<Materials>;
   /** materials (salvage): créditos por entrada (reutiliza pricing si se omite y valueFromCard). */
   credits?: number;
-  /** materials (salvage): calcular créditos con el pricing existente (quickSellValue). */
+  /** materials (salvage): calcular créditos con la liquidación canónica (`salvageValue`, F57.6). */
   valueFromCard?: boolean;
 }
 
 export interface RecipeCost {
   materials?: Partial<Materials>;
   credits?: number;
-  tokens?: number;
 }
 
 export interface Recipe {
@@ -88,7 +87,6 @@ export interface CraftContext {
   owned: OwnedCard[];
   materials: Materials;
   credits: number;
-  tokens: number;
   mintCounts: Record<string, number>;
   /** uids bloqueados (anti-salvage). SOLO LECTURA. */
   locks: Set<string>;
@@ -100,7 +98,7 @@ export interface CraftContext {
 
 export type CraftIssueCode =
   | "INVALID_RECIPE" | "NOT_ENOUGH_INPUTS" | "INSUFFICIENT_MATERIALS" | "INSUFFICIENT_CREDITS"
-  | "INSUFFICIENT_TOKENS" | "LOCKED_CARD" | "CARD_NOT_FOUND" | "OUTPUT_NOT_IN_CATALOG"
+  | "LOCKED_CARD" | "CARD_NOT_FOUND" | "OUTPUT_NOT_IN_CATALOG"
   | "NOT_SAME_PLAYER" | "SELECTION_MISMATCH";
 
 export interface CraftIssue { code: CraftIssueCode; message: string }
@@ -125,7 +123,6 @@ export interface CraftResult {
   mintDelta: Record<string, number>;
   materialsAfter: Materials;
   creditsAfter: number;
-  tokensAfter: number;
   events: CraftEvent[];
 }
 

@@ -38,7 +38,7 @@ const reg = new CardRegistry(cards, lookup);
 const eng = new CraftEngine(reg);
 const paBronze = "pa__bronze";
 const baseCtx = (owned: OwnedCard[], over: Partial<CraftContext> = {}): CraftContext => ({
-  owned, materials: { common: 50, uncommon: 50, rare: 50, epic: 50, legendary: 50 }, credits: 100000, tokens: 100,
+  owned, materials: { common: 50, uncommon: 50, rare: 50, epic: 50, legendary: 50 }, credits: 100000,
   mintCounts: {}, locks: new Set<string>(), seed: 7, now: 100, ...over,
 });
 const own3 = (): OwnedCard[] => [{ uid: "a1", cardId: paBronze, obtainedAt: 1 }, { uid: "a2", cardId: paBronze, obtainedAt: 2 }, { uid: "a3", cardId: paBronze, obtainedAt: 3 }];

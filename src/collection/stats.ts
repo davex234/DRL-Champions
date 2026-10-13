@@ -27,8 +27,9 @@ export function statistics(registry: CardRegistry, own: OwnershipIndex): Collect
     const v = registry.variant(def.variantId);
     const p = registry.player(def.playerId);
     byRarity[v.rank] = (byRarity[v.rank] ?? 0) + 1;
-    byGroup[v.group] = (byGroup[v.group] ?? 0) + 1;
-    if (p) { byRegion[p.region] = (byRegion[p.region] ?? 0) + 1; byRole[p.role] = (byRole[p.role] ?? 0) + 1; }
+    // Por EDICIÓN (variantId): la taxonomía del producto es la de las 7 ediciones, no los grupos antiguos.
+    byGroup[def.variantId] = (byGroup[def.variantId] ?? 0) + 1;
+    if (p) { byRegion[p.region] = (byRegion[p.region] ?? 0) + 1; byRole[def.role ?? p.role] = (byRole[def.role ?? p.role] ?? 0) + 1; }
   }
   return {
     progress: prog,
@@ -52,7 +53,7 @@ export function analytics(registry: CardRegistry, own: OwnershipIndex): Collecti
     const c = own.countOf(cardId);
     if (c > mostDupCount) { mostDupCount = c; mostDup = cardId; }
   }
-  const completionByGroup = ratioBy(registry, own, (def) => registry.variant(def.variantId).group);
+  const completionByGroup = ratioBy(registry, own, (def) => def.variantId); // por edición
   const completionByRegion = ratioBy(registry, own, (def) => registry.player(def.playerId)?.region ?? "?");
   return { rarestOwned: rarest, mostDuplicated: mostDup, completionByGroup, completionByRegion, serializedOwned, ovrSum };
 }

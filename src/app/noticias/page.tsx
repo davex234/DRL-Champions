@@ -24,7 +24,7 @@ export default function NoticiasPage() {
     <section className="animate-rise space-y-5">
       <header className="flex items-center justify-between">
         <div>
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">Noticias</h1>
+          <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">Noticias</h1>
           <p className="mt-1 text-white/50">Cartas, MVPs y ediciones generadas automáticamente desde los torneos.</p>
         </div>
         <Link href="/coleccion" className="rounded-lg border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 transition hover:bg-white/10">

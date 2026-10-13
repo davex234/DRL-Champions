@@ -1,4 +1,5 @@
-import type { EventDef, EventType, MissionDef, ShopItemDef } from "@/domain/events/types";
+import type { EventDef, EventType, MissionDef } from "@/domain/events/types";
+import { EVENT_EDITIONS } from "@/domain/events/editions";
 import type { Tournament } from "./types";
 
 /** Mapea el tipo de torneo a un tipo de evento del juego. */
@@ -8,22 +9,17 @@ function eventType(t: Tournament): EventType {
   return "masters";
 }
 
-function missions(label: string): MissionDef[] {
+function missions(label: string, type: EventType): MissionDef[] {
   return [
-    { id: "open10", label: "Abre 10 sobres", metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500, tokens: 20 } },
-    { id: "eventpacks", label: `Abre 5 Sobres ${label}`, metric: "open_event_packs", goal: 5, passXp: 200, reward: { tokens: 80 } },
-    { id: "getcard", label: `Consigue una carta ${label}`, metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000, tokens: 30 } },
-    { id: "getmvp", label: "Consigue un MVP", metric: "get_mvp", goal: 1, passXp: 250, reward: { tokens: 100 } },
-    { id: "getwinner", label: "Consigue un Winner", metric: "get_winner", goal: 1, passXp: 200, reward: { tokens: 70 } },
+    { id: "open10", label: "Abre 10 sobres", metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500} },
+    { id: "eventpacks", label: `Abre 5 Sobres ${label}`, metric: "open_event_packs", goal: 5, passXp: 200, reward: {} },
+    // Mismas reglas que `data/events` (catálogo diseñado): sin edición del torneo, no hay «carta del evento».
+    ...(EVENT_EDITIONS[type].length ? [{ id: "getcard", label: `Consigue una carta ${label}`, metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000} } satisfies MissionDef] : []),
+    { id: "getmvp", label: "Consigue una carta legendaria", metric: "get_legendary", goal: 1, passXp: 250, reward: {} },
+    { id: "getwinner", label: "Consigue una carta épica o superior", metric: "get_epic", goal: 1, passXp: 200, reward: {} },
   ];
 }
 
-function shop(label: string, packId: string): ShopItemDef[] {
-  return [
-    { id: "pack", label: `Sobre ${label} extra`, cost: 120, reward: { packId, packCount: 1 } },
-    { id: "credits", label: "Paquete de 5.000 créditos", cost: 150, reward: { credits: 5000 } },
-  ];
-}
 
 /**
  * Genera automáticamente un evento (misiones, recompensas, sobre y tienda) a
@@ -43,9 +39,7 @@ export function generateEvent(t: Tournament): EventDef {
     startOffsetDays: 0,
     durationDays: 30,
     packIds: [packId],
-    tokensPerPack: 8,
-    missions: missions(label),
-    shop: shop(label, packId),
+    missions: missions(label, type),
     passLevels: 50,
     passXpPerLevel: 100,
   };

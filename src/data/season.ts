@@ -109,7 +109,7 @@ const MISSIONS: MissionDef[] = [
 
   // ── De temporada: únicas, se completan una vez ──
   { id: "s-duelos-25",  label: "Juega 25 duelos en la temporada", kind: "seasonal", metric: "duels_played",   goal: 25,  reward: { packId: "estandar", packCount: 2 }, xp: 2500 },
-  { id: "s-mazo",       label: "Guarda tu primer mazo de duelo",  kind: "seasonal", metric: "decks_saved",    goal: 1,   reward: { credits: 1000 },                    xp: 800 },
+  { id: "s-mazo",       label: "Guarda tu primer equipo de duelo",  kind: "seasonal", metric: "decks_saved",    goal: 1,   reward: { credits: 1000 },                    xp: 800 },
   { id: "s-region",     label: "Declara tu región competitiva",   kind: "seasonal", metric: "region_set",     goal: 1,   reward: { credits: 500 },                     xp: 400 },
 
   // ── Hitos: una sola misión que avanza por tramos largos ──
@@ -128,7 +128,6 @@ export const CURRENT_SEASON: SeasonDef = {
   competitiveMinPoints: ORO_MIN,
   premium: PREMIUM,
   // Alternativa DENTRO del juego al pago real: quien juega mucho también lo abre.
-  premiumCost: { tokens: 1200 },
   missionPool: MISSIONS,
   durationDays: 84,
 };

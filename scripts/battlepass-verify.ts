@@ -15,7 +15,8 @@ import {
   PassEngine, freshPassState, migratePassState, levelProgress, missionProgress, rollMissions,
   type SeasonDef, type MissionDef, type Reward, type MetricSnapshot,
 } from "../src/battlepass";
-import { CURRENT_SEASON } from "../src/data/seasons";
+// Fase 34: el pase LOCAL heredado se llama `LEGACY_LOCAL_SEASON` (la temporada real es `data/season` + `data/seasonCalendar`).
+import { LEGACY_LOCAL_SEASON as CURRENT_SEASON } from "../src/data/seasons";
 
 let failures = 0;
 const check = (l: string, c: boolean, d = "") => { console.log(`  ${c ? "✓" : "✕"} ${l}${d ? ` — ${d}` : ""}`); if (!c) failures++; };
@@ -74,9 +75,9 @@ console.log("\n## Misiones (100% por datos)");
   const done = e.completeMission(m.id, snap, 1);
   check("COMPLETAR: da recompensa + XP al pase; incrementa el contador", done.ok && done.rewards.length >= 1 && e.snapshot().missionsCompleted === 1);
   check("NO COMPLETA: métrica por debajo del goal ⇒ falla", !e.completeMission(active[1].id, { [active[1].metric]: active[1].baseline }, 1).ok);
-  // Repetible: re-baseline al completar.
+  // Fase 41 · repetible = vuelve en OTRA rotación; dentro de la tanda se cobra una sola vez.
   const rep = e.snapshot().missions.find((x) => x.id === m.id);
-  check("REPETIBLE: tras completar se re-baseline (vuelve a empezar, no queda 'claimed')", !!rep && !rep.claimed && rep.baseline === snap[m.metric]);
+  check("REPETIBLE (Fase 41): una vez por tanda — queda 'claimed' y no se cobra dos veces en la misma ventana", !!rep && rep.claimed && !e.completeMission(m.id, { [m.metric]: snap[m.metric] + m.goal * 5 }, 2).ok);
   check("OCULTAS: no aparecen en los sorteos", rollMissions(S.missionPool, "hidden", 5, makeRng(1)).length >= 0 && !e.snapshot().missions.some((x) => x.kind === "hidden"));
 }
 
@@ -87,10 +88,10 @@ console.log("\n## Rewards (el motor SOLO devuelve Reward[]; el store aplica)");
   const r = e.claimReward(10, "free", 1);
   const rw = r.rewards[0] as Reward;
   check("REWARD: nivel 10 libre incluye un sobre (se aplica por PackEngine/Minter en el store)", !!rw.packId);
-  // Tipos soportados en la temporada: credits/tokens/packs/cards/materials/cosmetics.
+  // Tipos soportados en la temporada: credits/packs/cards/materials/cosmetics.
   const kinds = new Set<string>();
   for (const lvl of Object.values(S.free).concat(Object.values(S.premium))) for (const k of Object.keys(lvl)) kinds.add(k);
-  check("REWARD: tipos variados (credits/tokens/packs/materials/cosmetics)", kinds.has("credits") && kinds.has("packId") && kinds.has("materials") && kinds.has("cosmetics"));
+  check("REWARD: tipos variados (credits/packs/materials/cosmetics)", kinds.has("credits") && kinds.has("packId") && kinds.has("materials") && kinds.has("cosmetics"));
 }
 
 // ─────────────────────── 6. Temporadas / archive / legacy ───────────────────────

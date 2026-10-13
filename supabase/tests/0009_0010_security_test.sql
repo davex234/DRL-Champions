@@ -37,7 +37,7 @@ begin
 
   -- Valores conocidos de partida (como owner, sin restricciones).
   update public.profiles
-     set credits = 1000, tokens = 10, xp = 100, level = 2,
+     set credits = 1000, xp = 100, level = 2,
          collection_value = 500, distinct_cards = 5, rarest_rank = 3,
          market_volume = 50, packs_opened = 7, is_admin = false
    where id = v_uid;
@@ -67,7 +67,7 @@ declare
   v_col text;
   v_blocked boolean;
   v_cols text[] := array[
-    'credits', 'tokens', 'xp', 'level',
+    'credits', 'xp', 'level',
     'collection_value', 'rarest_rank', 'market_volume', 'distinct_cards', 'packs_opened'
   ];
 begin

@@ -25,6 +25,11 @@ import { rankProgress, rankFromPoints } from "@/domain/progression/rank";
 import { describeLedger, packLabel } from "@/domain/pickems/ledger";
 import { tierForPoints, REWARD_TIERS } from "@/domain/pickems/rewards";
 import type { PickemQuestion, MyScore, LedgerRow } from "@/lib/game/client";
+import { Plate, Piece, Recessed } from "@/components/ui/Surface";
+import { NxButton } from "@/components/ui/NxButton";
+import { Badge } from "@/components/ui/Badge";
+import { Readout } from "@/components/ui/Readout";
+import { SectionTitle } from "@/components/ui/SectionTitle";
 import { formatCredits, plural, cn } from "@/lib/format";
 
 export interface PickemResultData {
@@ -117,7 +122,7 @@ export function PickemResultModal({
         que seguir siendo alcanzables sin que el diálogo se salga de la pantalla.
       */}
       <div
-        className="animate-rise flex max-h-[92dvh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-emerald-400/30 bg-base-800 shadow-2xl"
+        className="nx-clip animate-rise flex max-h-[92dvh] w-full max-w-2xl flex-col overflow-hidden border border-ok/30 bg-base-800 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex shrink-0 items-start justify-between gap-3 border-b border-white/10 px-4 py-4 sm:px-6">
@@ -129,13 +134,16 @@ export function PickemResultModal({
               {data.eventName}
             </h2>
           </div>
-          <button
-            onClick={close}
-            aria-label="Cerrar"
-            className="shrink-0 rounded-lg border border-white/15 px-2.5 py-1 text-sm text-white/60 transition hover:bg-white/10 hover:text-white"
-          >
-            ✕
-          </button>
+          {/*
+            FASE 9 · El cierre era el glifo «✕» dentro de un `rounded-lg` de 26 px de alto:
+            geometría prestada y por debajo del objetivo táctil. Ahora es la pieza de icono
+            del sistema, con su chaflán y sus 44 px, y la marca está DIBUJADA.
+          */}
+          <NxButton variant="icon" size="md" aria-label="Cerrar" onClick={close} className="shrink-0">
+            <svg viewBox="0 0 14 14" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M3 3l8 8" /><path d="M11 3l-8 8" />
+            </svg>
+          </NxButton>
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6">
@@ -143,26 +151,15 @@ export function PickemResultModal({
         </div>
 
         <div className="flex shrink-0 flex-wrap justify-end gap-2 border-t border-white/10 px-4 py-3 sm:px-6 sm:py-4">
-          <Link
-            href="/recompensas"
-            onClick={close}
-            className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/75 transition hover:bg-white/10"
-          >
+          <NxButton variant="secondary" size="md" href="/recompensas" onClick={close}>
             Ver recompensas
-          </Link>
-          <Link
-            href="/ranking"
-            onClick={close}
-            className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/75 transition hover:bg-white/10"
-          >
+          </NxButton>
+          <NxButton variant="secondary" size="md" href="/ranking" onClick={close}>
             Ver clasificación
-          </Link>
-          <button
-            onClick={close}
-            className="rounded-xl bg-drl px-4 py-2 font-display text-xs font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
-          >
+          </NxButton>
+          <NxButton variant="primary" size="md" onClick={close}>
             Entendido
-          </button>
+          </NxButton>
         </div>
       </div>
     </div>
@@ -200,31 +197,19 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
   return (
     <div className="space-y-5">
       {/* ── Titular: puntos conseguidos ── */}
-      <div className="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-2xl border border-emerald-400/25 bg-emerald-400/5 px-5 py-4">
-        <div>
-          <p className="text-[10px] uppercase tracking-widest text-white/40">Puntos conseguidos</p>
-          <p className="font-display text-3xl font-bold text-drl-gold">+{earned}</p>
-        </div>
-        <div>
-          <p className="text-[10px] uppercase tracking-widest text-white/40">Aciertos</p>
-          <p className="font-display text-xl">
-            <span className="text-emerald-300">{hits.length}</span>
-            <span className="text-white/30"> / {mine.length}</span>
-          </p>
-        </div>
-        <div>
-          <p className="text-[10px] uppercase tracking-widest text-white/40">Acierto</p>
-          <p className="font-display text-xl text-white">
-            {mine.length > 0 ? `${Math.round((hits.length / mine.length) * 100)}%` : "—"}
-          </p>
-        </div>
-      </div>
+      <Piece tone="success" className="flex flex-wrap items-end gap-x-8 gap-y-3 px-5 py-4">
+        <Readout size="lg" label="Puntos conseguidos" value={`+${earned}`} tone="var(--nx-gold)" />
+        <Readout size="sm" label="Aciertos" value={`${hits.length} / ${mine.length}`} tone="var(--nx-ok)" />
+        <Readout
+          size="sm"
+          label="Acierto"
+          value={mine.length > 0 ? `${Math.round((hits.length / mine.length) * 100)}%` : "—"}
+        />
+      </Piece>
 
       {/* ── Qué predije y qué salió ── */}
       <div>
-        <h3 className="mb-2 text-[11px] uppercase tracking-widest text-white/40">
-          Tus predicciones corregidas
-        </h3>
+        <SectionTitle as="h3">Tus predicciones corregidas</SectionTitle>
         {resolved.length === 0 ? (
           <p className="text-sm text-white/45">Todavía no se ha corregido ninguna pregunta.</p>
         ) : (
@@ -233,14 +218,10 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
               const answer = data.answers[q.id] ?? null;
               const hit = !!answer && answer === q.correct_option;
               return (
-                <div
+                <Plate
                   key={q.id}
-                  className={cn(
-                    "rounded-xl border px-4 py-3",
-                    hit ? "border-emerald-400/30 bg-emerald-400/5"
-                    : answer ? "border-drl/30 bg-drl/5"
-                    : "border-white/10 bg-white/[0.02]",
-                  )}
+                  tone={hit ? "success" : answer ? "primary" : "neutral"}
+                  className="px-4 py-3"
                 >
                   <p className="font-display text-xs uppercase tracking-wide text-white/70">
                     {q.prompt}
@@ -262,10 +243,10 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
                         hit ? "text-emerald-300" : answer ? "text-drl" : "text-white/35",
                       )}
                     >
-                      {hit ? `✓ Acertaste · +${plural(q.points, "punto", "puntos")}` : answer ? "✕ Fallaste · 0 puntos" : "— · 0 puntos"}
+                      {hit ? `Acertaste · +${plural(q.points, "punto", "puntos")}` : answer ? "Fallaste · 0 puntos" : "No participaste · 0 puntos"}
                     </span>
                   </div>
-                </div>
+                </Plate>
               );
             })}
           </div>
@@ -274,11 +255,9 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
 
       {/* ── Recompensa concedida ── */}
       <div>
-        <h3 className="mb-2 text-[11px] uppercase tracking-widest text-white/40">
-          Recompensa obtenida
-        </h3>
+        <SectionTitle as="h3">Recompensa obtenida</SectionTitle>
         {paid && paidTier ? (
-          <div className="rounded-2xl border border-drl-gold/25 bg-drl-gold/5 p-4">
+          <Piece tone="gold" className="p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <p className="font-display text-lg font-bold uppercase tracking-wide text-drl-gold">
                 {paidTier.label}
@@ -287,10 +266,9 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
                 escalón alcanzado con {plural(earned, "punto", "puntos")}
               </span>
             </div>
-            <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              <Prize label="Créditos" value={`🪙 ${formatCredits(data.reward?.delta ?? paidTier.reward.credits ?? 0)}`} />
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              <Prize label="Créditos" value={`${formatCredits(data.reward?.delta ?? paidTier.reward.credits ?? 0)} créditos`} />
               <Prize label="XP" value={`${paidTier.reward.xp ?? 0} XP`} />
-              <Prize label="Tokens" value={`🎟️ ${paidTier.reward.tokens ?? 0}`} />
               <Prize
                 label="Sobres"
                 value={
@@ -317,28 +295,28 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
                 ) : null}
               </p>
             )}
-            <p className="mt-2 text-[11px] text-white/30">
-              Saldo tras la recompensa: 🪙 {formatCredits(data.reward?.balance_after ?? 0)}
+            <p className="nx-label mt-2">
+              Saldo tras la recompensa: {formatCredits(data.reward?.balance_after ?? 0)} créditos
             </p>
-          </div>
+          </Piece>
         ) : tier ? (
-          <p className="rounded-xl border border-white/10 bg-base-700/40 px-4 py-3 text-sm text-white/55">
+          <Recessed depth="sm" className="px-4 py-3 text-body text-ink-muted">
             Has alcanzado el escalón <span className="text-white">{tier.label}</span>. La recompensa
             se abona al corregirse el torneo.
-          </p>
+          </Recessed>
         ) : (
-          <p className="rounded-xl border border-white/10 bg-base-700/40 px-4 py-3 text-sm text-white/55">
+          <Recessed depth="sm" className="px-4 py-3 text-body text-ink-muted">
             Todavía no has alcanzado ningún escalón de recompensa.
             {nextTier ? ` Te faltan ${nextTier.minPoints - earned} puntos para ${nextTier.label}.` : ""}
-          </p>
+          </Recessed>
         )}
       </div>
 
       {/* ── Rango ── */}
       <div>
-        <h3 className="mb-2 text-[11px] uppercase tracking-widest text-white/40">Tu rango</h3>
-        <div
-          className="rounded-2xl border p-4"
+        <SectionTitle as="h3">Tu rango</SectionTitle>
+        <Plate
+          className="p-4"
           style={{ borderColor: `${after.tier.color}55`, background: `${after.tier.color}0d` }}
         >
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -352,29 +330,26 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
             >
               {after.tier.label}
             </span>
-            {promoted && (
-              <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-wider text-emerald-300">
-                ¡Has subido de rango!
-              </span>
-            )}
+            {promoted && <Badge tone="ok" dot>¡Has subido de rango!</Badge>}
             <span className="ml-auto font-display text-sm tabular-nums text-white/70">
               {after.points} pts
             </span>
           </div>
 
-          <div
-            className="mt-3 h-2 overflow-hidden rounded-full bg-white/10"
+          <Recessed
+            depth="sm"
+            className="mt-3 h-2 overflow-hidden"
             role="progressbar"
             aria-valuenow={Math.round(after.progress * 100)}
             aria-valuemin={0}
             aria-valuemax={100}
             aria-label={after.next ? `Progreso hacia ${after.next.label}` : "Rango máximo alcanzado"}
           >
-            <div
-              className="h-full rounded-full transition-all duration-700"
+            <span
+              className="block h-full transition-[width] duration-normal motion-reduce:transition-none"
               style={{ width: `${Math.round(after.progress * 100)}%`, background: after.tier.color }}
             />
-          </div>
+          </Recessed>
 
           <p className="mt-1.5 text-[11px] uppercase tracking-widest text-white/40">
             {after.next ? (
@@ -387,7 +362,7 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
               "Rango máximo alcanzado"
             )}
           </p>
-        </div>
+        </Plate>
       </div>
     </div>
   );
@@ -395,9 +370,9 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
 
 function Prize({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-base-800/60 px-3 py-2">
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
-      <p className="mt-0.5 font-display text-sm font-bold text-white">{value}</p>
-    </div>
+    <Recessed depth="sm" className="px-3 py-2">
+      <p className="nx-label">{label}</p>
+      <p className="mt-0.5 font-display text-[14px] font-bold text-white">{value}</p>
+    </Recessed>
   );
 }

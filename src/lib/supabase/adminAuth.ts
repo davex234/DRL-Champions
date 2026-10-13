@@ -7,6 +7,7 @@
  */
 import { createClient } from "@supabase/supabase-js";
 import { getSupabaseAdmin } from "./admin";
+import { serverSupabaseFetch } from "./serverUrl";
 
 function normalizeUrl(raw: string | undefined): string | undefined {
   const t = raw?.trim();
@@ -25,7 +26,7 @@ export async function verifyAdmin(req: Request): Promise<{ userId: string } | nu
   if (!url || !anon || !admin) return null;
 
   // Resuelve el usuario a partir de su JWT.
-  const client = createClient(url, anon, { auth: { persistSession: false, autoRefreshToken: false } });
+  const client = createClient(url, anon, { auth: { persistSession: false, autoRefreshToken: false }, global: { fetch: serverSupabaseFetch } });
   const { data, error } = await client.auth.getUser(token);
   const userId = data.user?.id;
   if (error || !userId) return null;

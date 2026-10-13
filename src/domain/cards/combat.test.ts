@@ -11,7 +11,7 @@ import {
   computeCombatOvr, deriveCard, deriveCombat, applyCombatBoost, isStatBoostStep,
   type CombatStats,
 } from "./combat";
-import { ALL_VARIANTS, statBoostForRank } from "./variants";
+import { ALL_VARIANTS, DESIGNED_EDITIONS, statBoostForRank } from "./variants";
 
 const T = (stronghold: number, gamesense: number, entryfrag: number): CombatStats =>
   ({ stronghold, gamesense, entryfrag });
@@ -176,14 +176,27 @@ test("toda variante tiene un statBoost de la escalera aprobada", () => {
   }
 });
 
+// Las ediciones DISEÑADAS (`Cartas\`, 2026-09-21) no dan bonus de combate: decisión de producto («sin bonus por
+// edición»). El resto de variantes sigue el modelo del rank.
+const RANKED = ALL_VARIANTS.filter((v) => !DESIGNED_EDITIONS.has(v.id));
+
 test("el statBoost se deriva del rank: variantes del mismo rank comparten bonus", () => {
-  for (const v of ALL_VARIANTS) {
+  for (const v of RANKED) {
     assert.equal(v.statBoost, statBoostForRank(v.rank), v.id);
   }
 });
 
+test("ediciones diseñadas: statBoost 0 (sin bonus de combate por edición)", () => {
+  assert.ok(DESIGNED_EDITIONS.size > 0);
+  for (const id of DESIGNED_EDITIONS) {
+    const v = ALL_VARIANTS.find((x) => x.id === id);
+    assert.ok(v, id);
+    assert.equal(v.statBoost, 0, id);
+  }
+});
+
 test("el statBoost es monótono respecto al rank", () => {
-  const sorted = [...ALL_VARIANTS].sort((a, b) => a.rank - b.rank);
+  const sorted = [...RANKED].sort((a, b) => a.rank - b.rank);
   for (let i = 1; i < sorted.length; i++) {
     assert.ok(
       sorted[i].statBoost >= sorted[i - 1].statBoost,

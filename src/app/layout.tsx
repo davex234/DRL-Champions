@@ -1,13 +1,25 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./game-experience.css";
 import { GameShell } from "@/components/layout/GameShell";
 import { AuthProvider } from "@/lib/supabase/auth";
 
 const TITLE = "DRL Champions — Manager de esports de Valorant";
 const DESC = "No disparas. Piensas. Dirige a tu equipo profesional de Valorant: estrategia, economía, scouting, composición y lectura del rival.";
 
+/**
+ * WALKOUT 0.6 · origen de las URL relativas de la metadata (og:image, twitter:image). Sin él, Next las resolvía contra
+ * `http://localhost:3000` también en producción (la vista previa al compartir apuntaba a un servidor inexistente).
+ */
+function siteOrigin(): URL | undefined {
+  try { return process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined; } catch { return undefined; }
+}
+
 export const metadata: Metadata = {
+  metadataBase: siteOrigin(),
   applicationName: "DRL Champions",
+  // F67 · beta cerrada: no indexar salvo `NEXUS_PUBLIC_INDEXING=1` en el build (ver src/app/robots.ts).
+  robots: process.env.NEXUS_PUBLIC_INDEXING === "1" ? undefined : { index: false, follow: false },
   title: TITLE,
   description: DESC,
   appleWebApp: {

@@ -22,11 +22,12 @@ export function TurnTrack({ view, className }: { view: DuelMatchView; className?
             key={n}
             className={cn(
               "h-1.5 flex-1 rounded-full transition",
-              t?.outcome === "A" && "bg-emerald-400",
+              // Fase 50 · el punto del jugador es cian (su color en la arena); el turno en juego, blanco.
+              t?.outcome === "A" && "bg-[#2fe0ff]",
               t?.outcome === "B" && "bg-drl",
               t?.outcome === "TIE" && "bg-white/45",
               !t && !current && "bg-white/10",
-              current && "bg-drl-cyan shadow-[0_0_10px_rgba(25,227,255,0.8)]",
+              current && "bg-white/85 shadow-[0_0_10px_rgba(255,255,255,0.6)]",
             )}
           />
         );

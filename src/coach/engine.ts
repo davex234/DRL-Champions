@@ -42,7 +42,17 @@ interface ConceptShape {
 }
 
 /** Traduce un concepto a campos de plan (según el lado y el plan base). */
-function conceptShape(concept: CoachConcept, side: Side, base: RoundPlan): ConceptShape {
+/**
+ * FULL GAME AUDIT (2026-10-07) · los valores PROPIOS de un concepto (tempo, agresividad, riesgo, objetivo y carril si lo
+ * fija). El panel los usa al elegir una estrategia: antes conservaba el objetivo/carril y el tempo/riesgo de la
+ * recomendación anterior, y `buildManualPlan` los aplicaba encima — «Explode A» se ejecutaba por B/Tree.
+ */
+export function conceptDefaults(concept: CoachConcept, side: Side): Pick<ConceptShape, "tempo" | "aggression" | "riskLevel" | "primaryObjective" | "mapPriority"> {
+  const s = conceptShape(sanitizeConcept(concept, side), side);
+  return { tempo: s.tempo, aggression: s.aggression, riskLevel: s.riskLevel, primaryObjective: s.primaryObjective, mapPriority: s.mapPriority };
+}
+
+function conceptShape(concept: CoachConcept, side: Side, _base?: RoundPlan): ConceptShape {
   const atk = side === "ATK";
   switch (concept) {
     case "slow":

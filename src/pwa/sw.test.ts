@@ -94,6 +94,38 @@ test("el nombre de la caché lleva versión, para que `activate` limpie la anter
   assert.match(code, /caches\.delete\(k\)/, "`activate` no borra las cachés antiguas");
 });
 
+/*
+ * F70.1 · REGRESIÓN REAL (prueba manual de la RC). Con el servidor caído, la v2 respondía a
+ * cualquier navegación con `caches.match(req) || caches.match("/")`: rutas como /logros o
+ * /perfil pintaban la PORTADA cacheada (el hub JUGAR/INVENTARIO/TIENDA) con estado 200 y el
+ * nivel/saldo congelados de la última cuenta, mientras cada `/api` daba «Failed to fetch».
+ * Los gates no lo vieron porque siempre corrían con el servidor vivo.
+ */
+test("F70.1 · una navegación fallida NUNCA sirve el HTML de otra ruta", () => {
+  assert.ok(!/caches\.match\(\s*["']\/["']\s*\)/.test(code), "vuelve el respaldo a la portada «/»");
+  const nav = code.slice(code.indexOf('req.mode === "navigate"'), code.indexOf("isImmutableAsset(url)", code.indexOf('req.mode === "navigate"')));
+  assert.ok(nav.length > 0, "no se encuentra la rama de navegaciones");
+  assert.ok(!/caches\.match\(\s*req\s*\)/.test(nav), "la navegación vuelve a servir HTML cacheado de la propia ruta (sesión congelada)");
+  assert.ok(!/\.put\(/.test(nav), "las navegaciones vuelven a guardarse en caché (HTML personal)");
+  assert.match(nav, /OFFLINE_URL/, "sin conexión debe mostrarse la página offline explícita");
+});
+
+test("F70.1 · el precache es solo la página offline y el manifiesto (nada de HTML personal)", () => {
+  const pre = code.match(/const PRECACHE = \[([^\]]*)\]/)?.[1] ?? "";
+  assert.ok(!/["']\/["']/.test(pre), "«/» vuelve a estar precacheada");
+  assert.match(code, /const OFFLINE_URL = "\/offline\.html"/);
+  const html = readFileSync(join(process.cwd(), "public", "offline.html"), "utf8");
+  assert.match(html, /data-offline="1"/);
+  assert.ok(!/<script/i.test(html), "la página offline no debe llevar script (CSP y datos)");
+  assert.ok(!/JUGAR|INVENTARIO|DRL Credit/i.test(html), "la página offline no debe parecerse al hub");
+});
+
+test("F70.1 · la caché sube de versión para purgar la v2 envenenada con HTML personal", () => {
+  const name = code.match(/const CACHE = "([^"]+)"/)?.[1] ?? "";
+  const v = Number(name.match(/-v(\d+)$/)?.[1] ?? 0);
+  assert.ok(v >= 3, `«${name}»: la v2 guardaba HTML personal y debe purgarse`);
+});
+
 test("el worker acepta la orden de purga que usa el modo desarrollo", () => {
   assert.match(code, /nexus:purge/, "no hay canal para retirar el worker desde la página");
   assert.match(code, /registration\.unregister\(\)/, "la purga no se desregistra");

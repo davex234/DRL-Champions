@@ -10,6 +10,7 @@
  * No usa la interfaz ni el navegador: aquí se demuestra que la autoridad está en el servidor.
  * Limpia todo lo que crea.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -70,7 +71,7 @@ async function main() {
   // ── Usuario de prueba real ──
   const email = `duel-${Date.now()}@example.invalid`;
   const { data: created, error: userErr } = await admin.auth.admin.createUser({
-    email, password: "Test-1234-duel", email_confirm: true, user_metadata: { username: "duelqa" },
+    email, password: ephemeralQaPassword(), email_confirm: true, user_metadata: { username: "duelqa" },
   });
   if (userErr || !created.user) throw new Error(userErr?.message ?? "no se pudo crear el usuario");
   const userId = created.user.id;
@@ -190,7 +191,7 @@ async function main() {
       check("no se puede jugar en una partida terminada", !afterEnd.ok && afterEnd.status === 409, afterEnd.error);
 
       const other = await admin.auth.admin.createUser({
-        email: `duel-thief-${Date.now()}@example.invalid`, password: "Test-1234-duel", email_confirm: true,
+        email: `duel-thief-${Date.now()}@example.invalid`, password: ephemeralQaPassword(), email_confirm: true,
       });
       const thiefId = other.data.user!.id;
       const stolen = await getMatch(admin, thiefId, matchId);
@@ -231,10 +232,9 @@ async function main() {
       check("del rival solo se ve un NÚMERO de cartas restantes",
         typeof view.rivalRemaining === "number" && view.rivalUsed.length === 0);
 
-      // El bot puede haber abierto el turno: en ese caso su carta declarada SÍ es pública.
-      const declaredUids = view.pendingRival ? [view.pendingRival.card.uid] : [];
-      const leaked = declaredUids.length;
-      check("como mucho se ve la carta que el rival acaba de DECLARAR", leaked <= 1, `${leaked}`);
+      // DUEL GAMEPLAY UX 2.0 · si el bot abrió el turno, su carta comprometida va BOCA ABAJO: solo «comprometida» + stat.
+      const pendingKeys = view.pendingRival ? Object.keys(view.pendingRival).sort().join(",") : "committed,stat";
+      check("la carta que el rival acaba de comprometer NO viaja (solo «comprometida» y la estadística)", pendingKeys === "committed,stat", pendingKeys);
 
       // Comprobación directa contra la fila: el estado secreto existe, pero no sale.
       const { data: row } = await admin.from("duel_matches")

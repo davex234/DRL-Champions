@@ -19,6 +19,7 @@
  *
  * Limpia todo lo que crea.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -76,10 +77,13 @@ const ledgerOf = async (id: string) => {
   }[];
 };
 
+/** Cuentas de prueba que NO se pudieron borrar. Vacía es lo correcto. */
+const sinBorrar: string[] = [];
+
 async function makeUser(tag: string) {
   const email = `econ-${tag}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}@example.invalid`;
   const { data, error } = await admin.auth.admin.createUser({
-    email, password: "Test-1234-econ", email_confirm: true,
+    email, password: ephemeralQaPassword(), email_confirm: true,
     user_metadata: { username: `econ${tag}${Date.now().toString(36)}` },
   });
   if (error || !data.user) throw new Error(error?.message ?? "no se pudo crear el usuario");
@@ -219,6 +223,17 @@ async function main() {
     console.log("\n## 4 · DESGUACE DE DUPLICADOS");
     // ══════════════════════════════════════════════════════════════════
     {
+      /*
+       * Se MIDE lo que Alice ya tiene antes de conceder, en vez de suponer que no tiene
+       * nada. La seccion 3 le ha abierto dos sobres `estandar`, y esos sobres pueden
+       * soltar `cheapCard` —la carta de menor OVR del registro— con una probabilidad
+       * medida del 1,85 %. Cuando salia, esta comprobacion fallaba con «3 de 4» una de
+       * cada cincuenta ejecuciones: el fixture estaba mal, no el desguace.
+       */
+      const { count: hadBefore } = await admin.from("user_cards")
+        .select("uid", { count: "exact", head: true }).eq("user_id", alice).eq("card_id", cheapCard);
+      const copies = (hadBefore ?? 0) + 3;
+
       await grant(alice, cheapCard, 3);
       const def = getCard(cheapCard)!;
       const each = salvageValue(def);
@@ -226,7 +241,8 @@ async function main() {
       const prev = await previewSalvage(admin, alice);
       check("la vista previa encuentra los duplicados", prev.ok, prev.ok ? "" : prev.error);
       const line = prev.ok ? prev.data.lines.find((l) => l.cardId === cheapCard) : undefined;
-      check("y conserva SIEMPRE un ejemplar", line?.salvageable === 2, `${line?.salvageable} de ${line?.copies}`);
+      check("y conserva SIEMPRE un ejemplar", line?.salvageable === copies - 1 && line?.copies === copies,
+        `${line?.salvageable} de ${line?.copies}`);
       check("el precio lo pone el servidor, con la tabla del dominio",
         line?.each === each, `${line?.each} vs ${each}`);
 
@@ -415,8 +431,28 @@ async function main() {
           .select("id", { count: "exact", head: true }).eq("seller_id", bob);
         check("y solo se registra UNA transacción de esa venta", sold === 1, `${sold}`);
       } finally {
-        await admin.auth.admin.deleteUser(carol).catch(() => {});
-        await admin.auth.admin.deleteUser(dave).catch(() => {});
+        /*
+         * Borrar Y DECIR si no se pudo.
+         *
+         * Esto era `.catch(() => {})`, y por eso una cuenta que sobrevivía no dejaba ni una
+         * pista: se descubría días después, contando ejemplares en la comprobación de
+         * integridad de otro bloque y encontrando uno de más. Un fallo de limpieza es un
+         * fallo; que sea de limpieza no lo hace invisible.
+         */
+        for (const u of [carol, dave]) {
+          /*
+           * Se sueltan ANTES las filas que cuelgan de la cuenta. El bloque de fuera ya lo
+           * hacia con `market_listings` y funcionaba; estas dos se borraban con sus cartas
+           * y sus sobres todavia encima, y GoTrue devolvia un error con el cuerpo vacio.
+           * Por SQL el borrado en cascada funciona, asi que el problema no es el modelo:
+           * es pedirle a la API que borre una cuenta con inventario vivo.
+           */
+          await admin.from("market_listings").delete().eq("seller_id", u);
+          await admin.from("user_cards").delete().eq("user_id", u);
+          await admin.from("user_packs").delete().eq("user_id", u);
+          const { error } = await admin.auth.admin.deleteUser(u);
+          if (error) sinBorrar.push(`${u}: ${error.message || "sin mensaje"}`);
+        }
       }
     }
 
@@ -482,8 +518,22 @@ async function main() {
   } finally {
     for (const u of [alice, bob]) {
       await admin.from("market_listings").delete().eq("seller_id", u);
-      await admin.auth.admin.deleteUser(u).catch(() => {});
+      await admin.from("user_cards").delete().eq("user_id", u);
+      await admin.from("user_packs").delete().eq("user_id", u);
+      const { error } = await admin.auth.admin.deleteUser(u);
+      if (error) sinBorrar.push(`${u}: ${error.message || "sin mensaje"}`);
     }
+
+    /*
+     * Y se comprueba que no queda ninguna. Las cuentas de este verificador llevan ejemplares,
+     * sobres y movimientos de mercado; una que sobreviva deja todo eso contaminando la base y
+     * hace que la siguiente medida de integridad encuentre un ejemplar que nadie creó.
+     */
+    const { data: vivas } = await admin.from("profiles").select("id").in("id", [alice, bob]);
+    for (const r of ((vivas ?? []) as { id: string }[])) sinBorrar.push(`${r.id}: sigue en profiles`);
+
+    check("el verificador no deja cuentas de prueba detrás", sinBorrar.length === 0,
+      sinBorrar.length ? sinBorrar.slice(0, 3).join(" | ") : "todas borradas");
   }
 
   console.log(

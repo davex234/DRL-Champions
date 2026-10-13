@@ -169,9 +169,13 @@ export class PassEngine {
     const reward = def?.reward ?? {};
     const xp = def?.xp ?? 0;
 
-    // Repetible: re-baseline para volver a empezar; si no, marcar reclamada.
-    if (def?.repeatable) mission.baseline = snapshot[mission.metric] ?? mission.baseline + mission.goal;
-    else mission.claimed = true;
+    /*
+     * FASE 41 · UNA VEZ POR TANDA. Antes, una misión repetible se re-baselineaba al reclamarla y se podía volver a
+     * cobrar dentro de la MISMA ventana: «Juega un duelo» pagaba 250 por CADA duelo (por encima del tope diario de 20)
+     * y «Abre un sobre» 200 por cada Sobre Inicial gratis. «Repetible» significa ahora lo que dice el catálogo: vuelve a
+     * salir en OTRA rotación (tanda nueva, baseline nuevo). `rebaselineForRepeat` se conserva para el modo local.
+     */
+    mission.claimed = true;
     this.state.missionsCompleted += 1;
 
     const events: PassEvent[] = [{ type: "mission_completed", at: now, data: { id } }, { type: "mission_claimed", at: now, data: { id } }];

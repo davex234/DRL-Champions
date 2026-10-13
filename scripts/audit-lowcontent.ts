@@ -5,6 +5,7 @@
  * puede ser un estado vacío legítimo («todavía no tienes mazos») o una pantalla atascada
  * en «Cargando…», que sí es un fallo. La única forma de distinguirlo es leer lo que pone.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { existsSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -45,7 +46,7 @@ const STUCK = /cargando|preparando|loading|…\s*$/i;
 async function main() {
   const admin = createClient(URL_, SERVICE, { auth: { persistSession: false } });
   const email = `low-${Date.now()}@example.invalid`;
-  const password = "Test-1234-low";
+  const password = ephemeralQaPassword();
   const { data: created } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "lowcheck" },
   });

@@ -183,7 +183,9 @@ export default function MundoPage() {
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-base-700/30 p-4">
+    // F69 · min-w-0: en la rejilla de una columna (390) el ítem heredaba el ancho mínimo de la fila de clasificación
+    // (anchos fijos) y se salía 10 px de la pantalla, recortado.
+    <div className="min-w-0 rounded-2xl border border-white/10 bg-base-700/30 p-4">
       <p className="mb-2 font-display text-[11px] uppercase tracking-widest text-white/45">{title}</p>
       {children}
     </div>

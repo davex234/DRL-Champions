@@ -7,7 +7,7 @@
  * confirmar o CAMBIAR el tipo de compra. El override se aplica sobre `plannedBuy` del
  * Economy Engine antes de que la Buy Phase construya los loadouts. No simula nada.
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { BuyTier, TeamEconomyView } from "@/economy";
 import type { BuyView } from "@/components/sim/useCoachMatch";
 import { formatCredits } from "@/lib/format";
@@ -39,9 +39,25 @@ function EcoSummary({ label, view, accent }: { label: string; view: TeamEconomyV
   );
 }
 
-export function BuyPhasePanel({ buy, onConfirm }: { buy: BuyView; onConfirm: (tier: BuyTier) => void }) {
+/**
+ * La compra de la ronda.
+ *
+ * `onChange` publica el nivel elegido hacia arriba: la orden de empezar la ronda está anclada
+ * al pie del escenario del partido, y tiene que comprar EXACTAMENTE lo que se ve marcado
+ * aquí, no lo recomendado por defecto.
+ *
+ * F69 · F68-012: el panel tenía además su propio «Comprar y empezar ronda», que hacía LO MISMO que
+ * «Jugar la ronda» del pie (`confirmBuy` con el nivel marcado): dos CTA para una acción. La orden
+ * canónica es la del pie; el botón interno solo se pinta si alguien pasa `onConfirm` (uso aislado).
+ */
+export function BuyPhasePanel({ buy, onConfirm, onChange }: {
+  buy: BuyView;
+  onConfirm?: (tier: BuyTier) => void;
+  onChange?: (tier: BuyTier) => void;
+}) {
   const recommended = buy.recommendedTier ?? "full";
   const [tier, setTier] = useState<BuyTier>(recommended);
+  useEffect(() => { onChange?.(tier); }, [tier, onChange]);
   const home = buy.economy?.home;
   const power = home?.buyingPower ?? 1;
 
@@ -88,10 +104,12 @@ export function BuyPhasePanel({ buy, onConfirm }: { buy: BuyView; onConfirm: (ti
         </p>
       )}
 
-      <button onClick={() => onConfirm(tier)}
-        className="w-full rounded-2xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-4 font-display text-base font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
-        Comprar y empezar ronda ▸
-      </button>
+      {onConfirm && (
+        <button onClick={() => onConfirm(tier)}
+          className="w-full rounded-2xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-4 font-display text-base font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
+          Comprar y empezar ronda ▸
+        </button>
+      )}
     </div>
   );
 }

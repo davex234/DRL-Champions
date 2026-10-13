@@ -7,7 +7,6 @@
  * Solo MUESTRA; no duplica lógica.
  */
 import { useMemo, useRef, useState } from "react";
-import { ADMIN_ENABLED } from "@/config/admin";
 import {
   makeMockProvider, defaultFixtures, runLiveCycle, createTimeline,
   type Timeline, type LiveCycleResult, type LiveDataProvider,
@@ -30,10 +29,6 @@ export default function LiveDashboard() {
     setRunning(false);
   };
   const reset = () => { timeline.current = createTimeline(); setResult(null); };
-
-  if (!ADMIN_ENABLED) {
-    return <div className="rounded-2xl border border-white/10 bg-base-700/40 p-8 text-center text-white/60">Panel de administración deshabilitado (NEXT_PUBLIC_ADMIN=1 para activarlo).</div>;
-  }
 
   const a = result?.analytics;
   return (

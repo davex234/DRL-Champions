@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# F79.2 · ESTADO REAL DE MIGRACIONES de DRLCards (solo lectura: PGOPTIONS read-only). Se ejecuta EN EL VPS:
+#   ssh nexusadmin@VPS 'bash -s' < scripts/ops/migration-state.sh
+# Imprime CLAVE=t|f; `headFromDbState` (src/server/ops/release.ts) decide la cabeza. Sin secretos.
+set -uo pipefail
+DB="${DB_CONTAINER:-supabase_db_DRLCards}"
+q() { docker exec -e PGOPTIONS='-c default_transaction_read_only=on' "$DB" psql -U postgres -d postgres -Atq -c "$1" </dev/null 2>/dev/null || echo f; }
+echo "CRAFT_TABLES_0059=$(q "select to_regclass('public.craft_recipes') is not null and to_regclass('public.mission_events') is not null")"
+echo "SALVAGE_LAST_COPY_0060=$(q "select coalesce((select prosrc like '%LAST_COPY%' from pg_proc where oid = to_regprocedure('public.app_salvage_cards(uuid, uuid[], bigint, text)')), false)")"
+echo "FORGE_CONFIG_0061=$(q "select to_regclass('public.forge_config') is not null")"
+echo "GUARDED_RPCS_0061=$(q "select to_regprocedure('public.app_craft_card_guarded(uuid, text, uuid[], jsonb, text, text, uuid[])') is not null and to_regprocedure('public.app_salvage_cards_guarded(uuid, uuid[], bigint, text, uuid[])') is not null")"
+echo "CRAFT_CARD_UNLOCKED_0061=$(q "select coalesce((select prosrc like '%c.locked = false and not (c.uid = any(p_uids))%' from pg_proc where oid = to_regprocedure('public.app_craft_card(uuid, text, uuid[], jsonb, text, text)')), false)")"
+echo "COLLECTION_SETS_0062=$(q "select to_regclass('public.collection_sets') is not null and to_regclass('public.user_collection_completions') is not null")"
+echo "COLLECTION_CLAIM_0062=$(q "select to_regprocedure('public.app_collection_claim(uuid, text)') is not null and to_regprocedure('public.player_profile_set_badges(uuid, text[], integer)') is not null")"
+echo "FAVORITE_TEAM_0063=$(q "select exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'player_profile_customization' and column_name = 'favorite_team_id') and to_regprocedure('public.player_profile_set_favorite_team(uuid, text, integer)') is not null")"
+echo "SEASON_TRACK_0064=$(q "select to_regclass('public.game_seasons') is not null and to_regclass('public.season_xp_ledger') is not null and to_regprocedure('public.app_season_apply(uuid, text, text, text, integer, integer, jsonb, jsonb)') is not null and to_regprocedure('public.app_season_claim(uuid, text, integer)') is not null")"
+echo "RANKED_0065=$(q "select to_regclass('public.competitive_seasons') is not null and to_regclass('public.competitive_season_players') is not null and to_regclass('public.competitive_ladder') is not null and exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'duel_pvp_rating_events' and column_name = 'competitive_season_id')")"
+echo "ACCOUNT_TAG_0068=$(q "select exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'profiles' and column_name = 'public_tag' and is_nullable = 'NO') and to_regclass('public.account_tag_registry') is not null and exists (select 1 from pg_trigger where tgname = 'profiles_account_tag_immutable')")"
+echo "ADMIN_0067=$(q "select to_regprocedure('public.app_admin_set_admin(uuid, uuid, boolean, text)') is not null and exists (select 1 from pg_trigger where tgname = 'profiles_admin_write_guard') and exists (select 1 from pg_trigger where tgname = 'profiles_admin_floor_upd')")"
+echo "CUPS_0069=$(q "select to_regclass('public.cups') is not null and to_regclass('public.cup_registrations') is not null and to_regclass('public.cup_matches') is not null and to_regprocedure('public.cup_settle_game(uuid)') is not null and exists (select 1 from pg_trigger where tgname = 'cup_matches_guard')")"
+echo "SOCIAL_0066=$(q "select to_regclass('public.social_blocks') is not null and to_regprocedure('public._social_blocked(uuid, uuid)') is not null")"
+echo "GUARD_0073=$(q "select to_regprocedure('public.app_pickem_reward_eligibility(uuid, uuid, timestamptz)') is not null and to_regprocedure('public._pickem_window_closed(uuid, timestamptz)') is not null")"
+echo "CUTOVER_0072=$(q "select exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'pickem_events' and column_name = 'legacy_mode') and exists (select 1 from pg_trigger where tgname = 'credit_tx_pickem_legacy_guard') and exists (select 1 from pg_trigger where tgname = 'pickem_events_legacy_guard')")"
+echo "PICKEMS_0071=$(q "select to_regclass('public.pickem_brackets') is not null and to_regclass('public.pickem_bracket_picks') is not null and to_regprocedure('public.app_pickem_save_pick(uuid, uuid, text, text, integer, text[])') is not null and to_regprocedure('public.app_pickem_claim(uuid, uuid)') is not null and exists (select 1 from pg_trigger where tgname = 'pickem_brackets_guard')")"
+echo "ALPHA_0070=$(q "select to_regclass('public.alpha_feedback') is not null and to_regprocedure('public.app_alpha_funnel(timestamptz, boolean)') is not null and exists (select 1 from pg_trigger where tgname = 'alpha_feedback_guard')")"

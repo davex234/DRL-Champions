@@ -20,6 +20,7 @@
  *
  * Limpia todo lo que crea.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -124,7 +125,7 @@ async function main() {
   const stamp = Date.now();
   const email = `loop-${stamp}@example.invalid`;
   const { data: created, error: userErr } = await admin.auth.admin.createUser({
-    email, password: "Test-1234-loop", email_confirm: true, user_metadata: { username: `loopqa${stamp}` },
+    email, password: ephemeralQaPassword(), email_confirm: true, user_metadata: { username: `loopqa${stamp}` },
   });
   if (userErr || !created.user) throw new Error(userErr?.message ?? "no se pudo crear el usuario");
   const userId = created.user.id;
@@ -178,11 +179,19 @@ async function main() {
       const expected = duelAward(
         { winner: view.result!.winner, isDraw: view.result!.isDraw }, "NORMAL",
       );
+      /*
+       * `award` pasó a ser opcional en el bloque 7.5 porque el PvP no reparte economía y devolver
+       * un premio de cero habría sido mentir. En PvE tiene que venir SIEMPRE, así que aquí se
+       * exige explícitamente en vez de silenciarlo con un `!`.
+       */
+      const premio = view.result!.award;
+      check("el duelo PvE SÍ trae recompensa (en PvP es null, aquí no)", premio !== null);
       check("lo que se enseña coincide con la tabla del dominio",
-        view.result!.award.points === expected.points
-        && view.result!.award.credits === (expected.reward.credits ?? 0)
-        && view.result!.award.xp === (expected.reward.xp ?? 0),
-        `mostrado ${JSON.stringify(view.result!.award)} · tabla ${expected.points}/${expected.reward.credits}/${expected.reward.xp}`);
+        premio !== null
+        && premio.points === expected.points
+        && premio.credits === (expected.reward.credits ?? 0)
+        && premio.xp === (expected.reward.xp ?? 0),
+        `mostrado ${JSON.stringify(premio)} · tabla ${expected.points}/${expected.reward.credits}/${expected.reward.xp}`);
 
       const after = await profileOf(userId);
       check("el duelo ha pagado CRÉDITOS de verdad",
@@ -420,7 +429,7 @@ async function main() {
        * prueba —que ya tiene cartas— ninguna de las dos reglas se activa.
        */
       const nuevo = await admin.auth.admin.createUser({
-        email: `loop-nuevo-${stamp}@example.invalid`, password: "Test-1234-loop",
+        email: `loop-nuevo-${stamp}@example.invalid`, password: ephemeralQaPassword(),
         email_confirm: true, user_metadata: { username: `loopnuevo${stamp}` },
       });
       const nuevoId = nuevo.data.user!.id;
@@ -471,7 +480,7 @@ async function main() {
       const res = await award(admin, {
         userId, ref: `qa:full:${stamp}`, reason: "qa_full",
         reward: {
-          credits: 100, xp: 10, tokens: 5,
+          credits: 100, xp: 10,
           cosmetics: ["titulo:qa-ciclo"],
         },
         points: 7,
@@ -487,9 +496,6 @@ async function main() {
         .select("cosmetic_id").eq("user_id", userId).eq("cosmetic_id", "titulo:qa-ciclo");
       check("el COSMÉTICO se entrega en la misma transacción, no aparte",
         ((cos ?? []) as unknown[]).length === 1);
-
-      const { data: prof } = await admin.from("profiles").select("tokens").eq("id", userId).maybeSingle();
-      check("las fichas también", ((prof as { tokens: number }).tokens) >= 5);
 
       // Materiales: se declara que no hay ruta en vez de perderlos en silencio.
       const mats = await award(admin, {

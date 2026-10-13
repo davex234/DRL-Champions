@@ -4,26 +4,29 @@
  * CEREMONIA FINAL — no una tabla, un cierre de FINAL. Reúne lo que los motores ya
  * produjeron (Match, Narrative, Economy, Reward) en una pantalla espectacular:
  * ganador, marcador, MVP, revelación, momento del partido, punto de inflexión,
- * gráfico de momentum, nota del entrenador y resumen IA + recompensas. Solo MUESTRA.
+ * gráfico de momentum, nota del entrenador, resumen IA y la hoja del partido. Solo MUESTRA.
+ *
+ * F69 · F68-010: aquí se pintaba «+N créditos / +N XP» que solo existían en el store local y
+ * el servidor nunca abonó. El Coach es entrenamiento: la hoja enseña cifras REALES del partido
+ * (rondas, bajas) y dice claramente que no suma créditos ni XP.
  */
 import { useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { MatchState } from "@/match";
-import type { MatchReward } from "@/lib/match/rewards";
+import type { CoachMatchSummary } from "@/lib/match/rewards";
 import { coachRating, utilityStory } from "@/lib/match/moments";
 import { matchCompositions } from "@/lib/match/lineups";
 import { playCue } from "@/lib/sound";
 import { cn } from "@/lib/format";
-import { useGameStore } from "@/store/useGameStore";
+import type { EstadoRegistro } from "@/lib/match/history";
+import { NxButton } from "@/components/ui/NxButton";
 
 const GRADE_HEX: Record<string, string> = { S: "#ffce4f", A: "#37e6a0", B: "#19e3ff", C: "#ffd35c", D: "#ff6b6b" };
 
-export function MatchCeremony({ match, reward, onAgain, onCollection }: {
+export function MatchCeremony({ match, summary }: {
   match: MatchState;
-  reward: MatchReward | null;
-  onAgain: () => void;
-  onCollection: () => void;
+  summary: CoachMatchSummary | null;
 }) {
   const won = match.winner === "home";
   const names = match.config.teamNames ?? { home: "Local", away: "Rival" };
@@ -44,7 +47,6 @@ export function MatchCeremony({ match, reward, onAgain, onCollection }: {
   const villain = ns?.villains?.[0] ?? null;
   const keyMoment = ns?.keyMoments[0] ?? null;
   const accent = won ? "#37e6a0" : "#ff4d6a";
-  const record = useGameStore((s) => s.record);
 
   return (
     <div className="animate-rise space-y-4">
@@ -114,33 +116,113 @@ export function MatchCeremony({ match, reward, onAgain, onCollection }: {
         </div>
       </div>
 
-      {/* RECOMPENSAS */}
-      {reward && (
-        <div className="flex flex-wrap items-center justify-center gap-6 rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4">
-          <Reward label="Créditos" value={`+${reward.credits}`} />
-          <Reward label="Experiencia" value={`+${reward.xp} XP`} />
-          <Reward label="Bajas del equipo" value={String(reward.teamKills)} />
-          <Reward label="Récord" value={`${record.won}-${record.lost}`} />
-          {record.streak > 1 && <Reward label="Racha" value={`🔥 ${record.streak}`} />}
+      {/* HOJA DEL PARTIDO — cifras reales del simulador; el Coach no reparte créditos ni XP (F68-010). */}
+      {summary && (
+        <div className="flex flex-wrap items-center justify-center gap-6 rounded-2xl border border-white/10 bg-base-800/60 p-4" data-testid="coach-match-sheet">
+          <Stat label="Rondas ganadas" value={String(match.score.home)} />
+          <Stat label="Rondas jugadas" value={String(match.history.length)} />
+          <Stat label="Bajas del equipo" value={String(summary.teamKills)} />
+          <p className="basis-full text-center text-[12px] text-white/45" data-testid="coach-training-note">
+            Partido de entrenamiento: no suma créditos ni XP.
+          </p>
+          {/*
+            Aquí iban «Récord» y «Racha», leídos de `useGameStore.record`: un contador LOCAL,
+            por navegador, que no sabe nada de `coach_matches`. En la misma sesión el final
+            decía 7-2 y el expediente 3-1. El balance tiene ahora un único dueño —el historial
+            del servidor— y se lee en «Partidos jugados» y en la Carrera, no aquí.
+          */}
         </div>
       )}
-
-      {/* BOTONES */}
-      <div className="flex flex-wrap gap-3">
-        <button onClick={() => { playCue("ui"); onAgain(); }}
-          className="flex-1 rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-3.5 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
-          Revancha ▸
-        </button>
-        <button disabled title="Próximamente"
-          className="rounded-xl border border-white/10 px-5 py-3.5 font-display text-sm uppercase tracking-wide text-white/30 cursor-not-allowed">
-          Guardar replay
-        </button>
-        <Link href="/coleccion" onClick={onCollection}
-          className="rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 font-display text-sm uppercase tracking-wide text-white/70 transition hover:bg-white/10">
-          Ir a la colección
-        </Link>
-      </div>
     </div>
+  );
+}
+
+/** Lo que el pie dice del registro. `enviando` es el instante entre el final y la respuesta. */
+export type RegistroFinal = EstadoRegistro | "enviando";
+
+const REGISTRO: Record<RegistroFinal, { texto: string; tono: string }> = {
+  enviando: { texto: "Registrando el partido en tu expediente…", tono: "text-ink-muted" },
+  guardado: { texto: "Partido registrado en tu expediente.", tono: "text-ok" },
+  "ya-estaba": { texto: "Este partido ya constaba en tu expediente.", tono: "text-ok" },
+  "sin-sesion": { texto: "Sin sesión: este partido no queda en ningún historial.", tono: "text-ink-muted" },
+  error: { texto: "No se pudo registrar el partido.", tono: "text-drl-glow" },
+};
+
+/**
+ * LAS ACCIONES DEL FINAL — ancladas al pie del viewport, no al final de la ceremonia.
+ *
+ * Antes eran una fila de botones debajo de la ceremonia entera: héroe, destacados, momentum,
+ * tres tarjetas y recompensas. A 1440×900 había que desplazarse para encontrar la revancha, y
+ * al lado había un «Guardar replay» deshabilitado que no hacía nada —un botón muerto, que es
+ * exactamente lo que el encargo prohíbe—. Se quita: no existe el replay guardado y no se finge.
+ *
+ * Tres salidas, en el orden del recorrido que pide el encargo:
+ *
+ *   REVANCHA           — el camino principal: vuelve a jugar. Sortea el lado otra vez.
+ *   PARTIDOS JUGADOS   — el siguiente paso del circuito: ver este partido en el expediente.
+ *   CENTRO TÁCTICO     — salir del partido.
+ *
+ * Y el ESTADO DEL REGISTRO, dicho en una línea, porque es lo que hace que «Partidos jugados»
+ * sea una promesa y no un enlace a ciegas: si falla, se dice y se ofrece reintentar (la ruta es
+ * idempotente); sin sesión, se dice que no se guarda en vez de dejar creer que sí.
+ *
+ * En móvil se apoya ENCIMA de la barra de navegación inferior (`--nx-mobilebar`), no debajo.
+ */
+export function CeremonyActions({ registro, onRetry, onAgain }: {
+  registro: RegistroFinal;
+  onRetry: () => void;
+  onAgain: () => void;
+}) {
+  const estado = REGISTRO[registro];
+  return (
+    <>
+      {/*
+        `fixed`, no `sticky`. `globals.css` pone `overflow-x: hidden` en `html` y `body`, y eso
+        convierte a `body` en un contenedor de desplazamiento que nunca se desplaza: un `sticky`
+        dentro de él no se pega a nada. El QA en Chrome lo midió —la revancha acababa a 1.818 px en
+        un viewport de 900—. Cambiar esa regla global para arreglar una pantalla movería todas.
+
+        Un `fixed` no ocupa sitio, así que este hueco reserva el suyo: sin él, el pie taparía el
+        final de la retransmisión de cierre al llegar abajo.
+      */}
+      <div aria-hidden className="h-44 sm:h-28 lg:h-24" />
+      <div
+        data-ceremony-actions
+        className="fixed inset-x-0 bottom-[var(--nx-mobilebar)] z-40 lg:bottom-0 lg:pb-[env(safe-area-inset-bottom)]"
+      >
+        <div className="mx-auto w-full max-w-[1480px] px-4 pb-2 md:px-8 lg:pb-3">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 border border-white/10 bg-[rgba(6,7,13,0.94)] px-3 py-2.5 shadow-[0_-12px_32px_rgba(0,0,0,0.55)] backdrop-blur sm:px-4">
+            <p role="status" aria-live="polite" className={cn("min-w-0 basis-full text-caption sm:flex-1 sm:basis-auto", estado.tono)}>
+              {estado.texto}
+              {registro === "error" && (
+                <button type="button" onClick={onRetry} className="nx-action ml-2 min-h-[32px]">Reintentar</button>
+              )}
+              {registro === "sin-sesion" && (
+                <Link href="/cuenta" className="nx-action ml-2">Entrar</Link>
+              )}
+            </p>
+            <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:flex-nowrap">
+              {registro !== "sin-sesion" && (
+                <NxButton variant="secondary" size="md" href="/entrenador/partidos" className="flex-1 sm:flex-none">
+                  Partidos jugados
+                </NxButton>
+              )}
+              <NxButton variant="ghost" size="md" href="/entrenador" className="flex-1 sm:flex-none">
+                Centro táctico
+              </NxButton>
+              <NxButton
+                variant="primary"
+                size="lg"
+                className="w-full sm:w-auto sm:min-w-[220px]"
+                onClick={() => { playCue("ui"); onAgain(); }}
+              >
+                Revancha
+              </NxButton>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -216,10 +298,10 @@ function InfoCard({ title, children }: { title: string; children: React.ReactNod
   );
 }
 
-function Reward({ label, value }: { label: string; value: string }) {
+function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="text-center">
-      <p className="font-display text-2xl font-black text-amber-200">{value}</p>
+      <p className="font-display text-2xl font-black text-white">{value}</p>
       <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
     </div>
   );

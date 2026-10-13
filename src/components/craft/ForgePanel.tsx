@@ -10,7 +10,6 @@
  */
 import { useMemo, useState } from "react";
 import { useGameStore } from "@/store/useGameStore";
-import { useEventsStore } from "@/store/useEventsStore";
 import { RECIPES } from "@/data/recipes";
 import { BUCKETS, type CraftIssue, type CraftResult } from "@/craft";
 import { getCard, getPlayer } from "@/data/catalog";
@@ -30,7 +29,6 @@ export function ForgePanel() {
   const craft = useGameStore((s) => s.craft);
   const lockCard = useGameStore((s) => s.lockCard);
   const unlockCard = useGameStore((s) => s.unlockCard);
-  const tokens = useEventsStore((s) => (s as unknown as { tokens: number }).tokens ?? 0);
 
   const [recipeId, setRecipeId] = useState<string>(RECIPES[0]?.id ?? "");
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -73,7 +71,7 @@ export function ForgePanel() {
             {BUCKET_ICON[b]} {materials[b] ?? 0}
           </span>
         ))}
-        <span className="ml-auto text-xs text-white/50">🪙 {formatCredits(credits)} · 🎟️ {tokens}</span>
+        <span className="ml-auto text-xs text-white/50">🪙 {formatCredits(credits)}</span>
       </div>
 
       {/* Recetas */}
@@ -92,12 +90,11 @@ export function ForgePanel() {
               <span className="rounded bg-white/10 px-1.5 py-0.5 font-display text-[9px] uppercase tracking-wide text-white/60">{KIND_LABEL[r.kind] ?? r.kind}</span>
             </div>
             <p className="mt-1 text-[11px] leading-snug text-white/50">{r.description}</p>
-            {(r.cost?.materials || r.cost?.credits || r.cost?.tokens) && (
+            {(r.cost?.materials || r.cost?.credits) && (
               <p className="mt-1.5 text-[11px] text-drl-gold/90">
                 Coste:{" "}
                 {r.cost?.materials && Object.entries(r.cost.materials).map(([b, n]) => `${BUCKET_ICON[b]}${n}`).join(" ")}
                 {r.cost?.credits ? ` · 🪙 ${formatCredits(r.cost.credits)}` : ""}
-                {r.cost?.tokens ? ` · 🎟️ ${r.cost.tokens}` : ""}
               </p>
             )}
           </button>

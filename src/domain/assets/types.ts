@@ -7,7 +7,9 @@
  * CATÁLOGO DEL JUEGO — así se busca y se resuelve "la mejor imagen para X".
  */
 
+/** `card_artwork` (0043): la ilustración final de UNA versión de carta, hecha a mano. */
 export type AssetKind =
+  | "card_artwork"
   | "player_photo"
   | "team_logo"
   | "league_logo"
@@ -20,6 +22,7 @@ export type AssetKind =
   | "effect";
 
 export type SubjectType =
+  | "card"
   | "player"
   | "team"
   | "league"

@@ -48,6 +48,7 @@ import { CARDS, getPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { bucketForRank, type RarityBucket } from "@/domain/packs/types";
 import type { Reward } from "@/domain/events/types";
+import { canonicalCardTeam } from "@/data/teamIdentities";
 
 export type MasteryAxis = "equipo" | "region" | "variante" | "rareza";
 
@@ -115,13 +116,17 @@ function build(): MasterySet[] {
   const sets: MasterySet[] = [];
 
   // ── Por equipo. El eje principal: 66 conjuntos de tamaño humano. ──
+  // Agrupa por el equipo canónico de la CARTA (`canonicalCardTeam`: el impreso en el catálogo diseñado),
+  // así «TH» y «Team Heretics» son un conjunto y Derke, con VIT impreso, cuenta para Team Vitality. El id
+  // es `equipo:<slug de la etiqueta>`: para los equipos de siempre coincide con el de antes.
   const byTeam = new Map<string, string[]>();
   for (const c of CARDS) {
     const p = getPlayer(c.playerId);
     if (!p) continue;
-    const list = byTeam.get(p.team) ?? [];
+    const { label } = canonicalCardTeam(c, p);
+    const list = byTeam.get(label) ?? [];
     list.push(c.id);
-    byTeam.set(p.team, list);
+    byTeam.set(label, list);
   }
   for (const [team, cardIds] of [...byTeam.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
     if (cardIds.length < MIN_SET_SIZE) continue;
@@ -154,9 +159,11 @@ function build(): MasterySet[] {
   for (const [variantId, cardIds] of [...byVariant.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
     /*
      * Se descartan por los dos extremos: menos de 5 se consigue sin querer, y más de 60 es
-     * un maratón (las metálicas base y las regionales, que son casi el catálogo entero).
+     * un maratón (las metálicas base y las regionales, que son casi el catálogo entero). El techo
+     * es 60 o el 15 % del catálogo si es menor: con el catálogo diseñado (329 cartas) 60 sería
+     * casi una quinta parte de la colección, justo lo que esta capa no quiere.
      */
-    if (cardIds.length < MIN_SET_SIZE || cardIds.length > 60) continue;
+    if (cardIds.length < MIN_SET_SIZE || cardIds.length > 60 || cardIds.length >= CARDS.length * 0.15) continue;
     const v = getVariant(variantId as never);
     const id = `variante:${slug(variantId)}`;
     sets.push({ id, axis: "variante", label: v.label, cardIds, tiers: smallTiers(id, v.label) });

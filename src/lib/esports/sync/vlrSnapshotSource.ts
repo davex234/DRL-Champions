@@ -69,6 +69,11 @@ export interface AdapterOptions {
   agents: Map<string, string>;
   /** Catálogo de mapas ya existente: nombre → id. No se amplía. */
   maps: Map<string, string>;
+  /**
+   * Fase 24.6 · URL canónica del evento en la fuente. Se persiste en `events.vlr_url` para que el
+   * sync automático pueda volver a encontrar el evento sin que nadie le pase una URL.
+   */
+  sourceUrl?: string;
 }
 
 export interface AdapterResult {
@@ -219,6 +224,28 @@ export function snapshotToSource(snapshot: RawSnapshot, opts: AdapterOptions): A
   }
 
   /* ── 6. PARTIDOS · nombres → ids, con los mapas ya anidados ───────────── */
+  /*
+   * Fase 24.4 · la estructura del cuadro viaja en `snapshot.brackets` (nodos con destino
+   * confirmado). Se cuelga de cada partido como `progression`; solo lo CONFIRMED y solo si
+   * el destino es un partido del propio snapshot.
+   */
+  const progressionByMatch = new Map<string, NonNullable<RawMatch["progression"]>>();
+  const nodeMatch = new Map<string, string>();
+  for (const b of snapshot.brackets ?? []) for (const n of b.nodes) if (n.matchId) nodeMatch.set(n.id, n.matchId);
+  for (const b of snapshot.brackets ?? []) {
+    for (const n of b.nodes) {
+      if (!n.matchId || n.confidence !== "CONFIRMED" || !n.evidence) continue;
+      const winnerTo = n.winnerToNodeId ? nodeMatch.get(n.winnerToNodeId) : undefined;
+      const loserTo = n.loserToNodeId ? nodeMatch.get(n.loserToNodeId) : undefined;
+      if (!winnerTo && !loserTo && !n.winnerQualifies) continue;
+      progressionByMatch.set(n.matchId, {
+        winnerTo: winnerTo ? { matchId: winnerTo, slot: n.winnerToSlot } : undefined,
+        loserTo: loserTo ? { matchId: loserTo, slot: n.loserToSlot } : undefined,
+        winnerQualifies: n.winnerQualifies ? { key: n.winnerQualifies, label: n.winnerQualifiesLabel } : undefined,
+        evidence: n.evidence, confidence: "CONFIRMED", version: "vlr-brackets-1",
+      });
+    }
+  }
   const matches: RawMatch[] = [];
   for (const m of snapshot.matches) {
     const a = teamId(m.teamA);
@@ -237,6 +264,7 @@ export function snapshotToSource(snapshot: RawSnapshot, opts: AdapterOptions): A
       winnerTeamId: teamId(m.winner),
       mvpPlayerId: playerId(m.mvp),
       maps: mapsByMatch.get(m.id) ?? [],
+      progression: progressionByMatch.get(m.id),
     });
   }
 
@@ -257,6 +285,7 @@ export function snapshotToSource(snapshot: RawSnapshot, opts: AdapterOptions): A
     id: opts.eventId, name: t.name, type: t.type, circuitId: t.circuitId, tier: t.tier,
     region: t.region, status: t.status, slug: t.slug, prizePool: t.prizePool,
     location: t.location, country: t.country, startDate: t.startDate, endDate: t.endDate,
+    vlrUrl: opts.sourceUrl,
   };
   const circuits: RawCircuit[] = snapshot.circuit
     ? [{ id: snapshot.circuit.id, name: snapshot.circuit.name, tier: snapshot.circuit.tier, region: snapshot.circuit.region, scope: snapshot.circuit.scope }]

@@ -28,9 +28,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/lib/supabase/auth";
+import { syncFromServer } from "@/lib/game/sync";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import {
-  fetchProgression, claimPassLevel, claimMission, claimAchievement, unlockPremiumWithTokens,
+  fetchProgression, claimPassLevel, claimMission, claimAchievement,
   equipCosmetic,
   type ProgressionView, type PassTrack,
 } from "@/lib/progression/client";
@@ -39,8 +40,12 @@ import { PASS_PRODUCT, PAYMENTS_ENABLED, formatPrice } from "@/config/monetizati
 import { PassRail, NextReward } from "@/components/progression/PassRail";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
 import { Toast } from "@/components/ui/Toast";
+import { Meter } from "@/components/ui/Meter";
+import { Readout } from "@/components/ui/Readout";
+import { NxButton } from "@/components/ui/NxButton";
 import { useToast } from "@/lib/useToast";
 import { formatCredits, cn } from "@/lib/format";
+import { CreditGlyph, GameGlyph } from "@/components/ui/game/GameGlyph";
 
 const TRACK_INFO: Record<PassTrack, { label: string; blurb: string; tint: string }> = {
   free: {
@@ -101,7 +106,7 @@ export default function LogrosPage() {
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
 
-  if (loading) return <Loading label="Cargando tu progreso…" />;
+  if (loading) return <Loading kind="hub" label="Cargando tu progreso…" />;
   if (!online || !user) return <NeedsAccount what="el pase y los logros" />;
   return <Progression />;
 }
@@ -131,6 +136,7 @@ function Progression() {
       await fn();
       notify(okMsg, true);
       await load();
+      await syncFromServer().catch(() => undefined); // F68 · el HUD (store de juego) enseña el saldo cobrado sin recargar
     } catch (e) {
       notify(e instanceof Error ? e.message : "No se pudo completar", false);
     } finally {
@@ -157,7 +163,7 @@ function Progression() {
   }, [view]);
 
   if (error && !view) return <ErrorState message={error} onRetry={load} />;
-  if (!view) return <Loading label="Cargando tu progreso…" />;
+  if (!view) return <Loading kind="hub" label="Cargando tu progreso…" />;
 
   const claimedAchievements = view.achievements.filter((a) => a.claimed).length;
   /** En curso primero: lo que se puede terminar hoy va por delante de lo ya cerrado. */
@@ -202,7 +208,7 @@ function Progression() {
               style={{ borderColor: "rgba(25,227,255,0.55)", ["--nx-chamfer-sm" as string]: "16px" }}
             >
               <span className="nx-label absolute top-3">Nivel</span>
-              <span className="nx-readout mt-3 text-[46px] text-drl-cyan">{view.level}</span>
+              <Readout size="lg" className="mt-3" align="center" tone="var(--nx-cyan)" value={view.level} />
               <span className="absolute bottom-2.5 font-display text-[10px] tabular-nums text-white/35">
                 / {view.season.maxLevel}
               </span>
@@ -212,19 +218,9 @@ function Progression() {
           <div className="min-w-[220px] flex-1">
             <div className="flex justify-between">
               <span className="nx-label">Experiencia</span>
-              <span className="nx-readout text-[12px] text-white/50">
-                {view.xpIntoLevel} / {view.xpForNext} XP
-              </span>
+              <Readout size="xs" align="right" value={`${view.xpIntoLevel} / ${view.xpForNext}`} unit="XP" />
             </div>
-            <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-white/10">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-drl-cyan to-drl transition-[width] duration-slow ease-out"
-                style={{
-                  width: `${Math.round(view.progress * 100)}%`,
-                  boxShadow: "0 0 14px rgba(25,227,255,0.7)",
-                }}
-              />
-            </div>
+            <Meter className="mt-2" height={10} tone="info" value={view.progress * 100} label="Experiencia del pase" />
             <p className="nx-label mt-2">
               {view.level >= view.season.maxLevel
                 ? "Pase completado"
@@ -291,14 +287,7 @@ function Progression() {
                     </p>
                   )}
 
-                  {track === "premium" && !open && (
-                    <PremiumOffer
-                      tokens={view.tokens}
-                      cost={view.premiumTokenCost}
-                      busy={busy === "premium"}
-                      onUnlock={() => run("premium", unlockPremiumWithTokens, "Pase de aspecto desbloqueado")}
-                    />
-                  )}
+                  {track === "premium" && !open && <PremiumOffer />}
                 </div>
               </div>
 
@@ -325,7 +314,7 @@ function Progression() {
         </div>
 
         {groups.length === 0 ? (
-          <p className="rounded-panel border border-dashed border-white/12 px-5 py-6 text-center text-[13px] text-white/50">
+          <p className="nx-clip border border-dashed border-white/12 px-5 py-6 text-center text-[13px] text-white/50">
             No hay objetivos activos ahora mismo. Vuelve cuando empiece la siguiente tanda.
           </p>
         ) : (
@@ -443,37 +432,26 @@ function Progression() {
                   style={{ borderColor: a.complete ? "rgba(255,211,92,0.5)" : undefined }}
                   aria-hidden
                 >
-                  {a.icon}
+                  <GameGlyph symbol={a.icon} className="h-7 w-7" />
                 </span>
                 <div className="min-w-0 flex-1">
                   <b className="block font-display text-[15px] font-bold text-white">{a.name}</b>
                   <p className="text-[12.5px] leading-snug text-white/45">{a.description}</p>
-                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-                    <div
-                      className="h-full rounded-full bg-drl-gold transition-[width] duration-slow ease-out"
-                      style={{ width: `${pct}%` }}
-                    />
-                  </div>
+                  <Meter className="mt-2" height={6} tone="gold" value={pct} label={a.name} />
                   <span className="nx-readout mt-1.5 block text-[12px] text-white/45">
-                    {a.current} / {a.goal} · 🪙 {formatCredits(a.reward)}
+                    {a.current} / {a.goal} · <CreditGlyph className="align-[-2px]" /> {formatCredits(a.reward)}
                   </span>
                 </div>
-                <button
-                  type="button"
+                <NxButton
+                  size="sm"
+                  variant={a.complete && !a.claimed ? "primary" : "secondary"}
+                  accent="gold"
                   disabled={!a.complete || a.claimed || busy !== null}
                   onClick={() => run(`a-${a.id}`, () => claimAchievement(a.id), `+${formatCredits(a.reward)} créditos`)}
-                  className={cn(
-                    "nx-clip-sm shrink-0 self-center px-3 py-2 font-display text-[12px] font-bold uppercase tracking-[0.1em] transition duration-fast",
-                    a.claimed
-                      ? "border border-white/10 text-white/30"
-                      : a.complete
-                        ? "bg-drl-gold text-base-900 hover:brightness-110"
-                        : "border border-white/10 text-white/30",
-                    "disabled:cursor-default",
-                  )}
+                  className="shrink-0 self-center"
                 >
                   {a.claimed ? "✓" : a.complete ? "Reclamar" : "—"}
-                </button>
+                </NxButton>
               </div>
             );
           })}
@@ -506,34 +484,23 @@ function MissionCard({
     >
       <b className="font-display text-[15px] font-bold text-white">{m.label}</b>
 
-      <div className="mt-2.5 h-1.5 overflow-hidden rounded-full bg-white/10">
-        <div
-          className="h-full rounded-full bg-drl-cyan transition-[width] duration-slow ease-out"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
+      <Meter className="mt-2.5" height={6} tone="info" value={pct} label={m.label} />
       <span className="nx-readout mt-1.5 text-[12px] text-white/45">
         {m.current} / {m.goal}
-        {m.rewardCredits > 0 && ` · 🪙 ${formatCredits(m.rewardCredits)}`}
+        {m.rewardCredits > 0 && <> · <CreditGlyph className="align-[-2px]" /> {formatCredits(m.rewardCredits)}</>}
         {m.xp > 0 && ` · ${m.xp} XP`}
       </span>
 
-      <button
-        type="button"
+      <NxButton
+        size="sm"
+        variant={m.complete && !m.claimed ? "primary" : "secondary"}
+        accent="cyan"
         disabled={!m.complete || m.claimed || busy}
         onClick={onClaim}
-        className={cn(
-          "nx-clip-sm mt-3 px-3 py-2 font-display text-[12px] font-bold uppercase tracking-[0.1em] transition duration-fast",
-          m.claimed
-            ? "border border-white/10 text-white/30"
-            : m.complete
-              ? "bg-ok text-base-900 hover:brightness-110"
-              : "border border-white/10 text-white/35",
-          "disabled:cursor-default",
-        )}
+        className="mt-3"
       >
         {m.claimed ? "Reclamada" : m.complete ? "Reclamar" : "En curso"}
-      </button>
+      </NxButton>
     </div>
   );
 }
@@ -541,47 +508,29 @@ function MissionCard({
 /**
  * Oferta del carril de pago.
  *
- * Enseña el precio anunciado y, al lado, la vía que SÍ funciona: fichas de evento. El
- * botón de dinero real está deshabilitado con su motivo escrito porque no hay pasarela
- * (§12); un botón que lleva a una tienda que no puede cobrar es peor que no tenerlo.
+ * Hasta la F18.2 este bloque tenía DOS botones: el precio en dinero real, deshabilitado
+ * porque no hay pasarela (§12), y al lado «🎟️ 1.200 fichas», que era la vía que se
+ * anunciaba como la que sí funcionaba.
+ *
+ * No funcionaba. El servidor llamaba a `app_adjust_credits` con un parámetro `p_tokens`
+ * que esa función nunca ha tenido, así que la compra fallaba siempre con un 409. Y con la
+ * retirada de las fichas de evento tampoco existe ya la moneda.
+ *
+ * Así que el segundo botón se ha ido. Queda el precio anunciado y el motivo escrito: es
+ * más honesto un «próximamente» que un botón que cobra en una moneda que no existe.
  */
-function PremiumOffer({
-  tokens, cost, busy, onUnlock,
-}: {
-  tokens: number;
-  cost: number;
-  busy: boolean;
-  onUnlock: () => void;
-}) {
-  const affordable = cost > 0 && tokens >= cost;
+function PremiumOffer() {
   return (
     <div className="flex flex-wrap items-center gap-2">
       <button
         type="button"
         disabled
-        title="Todavía no hay pasarela de pago: el pase se consigue con fichas."
+        title="Todavía no hay pasarela de pago."
         className="nx-clip-sm cursor-not-allowed border border-drl-gold/25 px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.1em] text-drl-gold/50"
       >
         {formatPrice(PASS_PRODUCT.price)}
         {!PAYMENTS_ENABLED && <span className="ml-2 tracking-normal">· próximamente</span>}
       </button>
-      {cost > 0 && (
-        <button
-          type="button"
-          disabled={!affordable || busy}
-          onClick={onUnlock}
-          className={cn(
-            "nx-clip-sm px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.1em] transition duration-fast",
-            affordable
-              ? "bg-drl-gold text-base-900 hover:brightness-110"
-              : "border border-white/12 text-white/35",
-            "disabled:cursor-default",
-          )}
-        >
-          🎟️ {formatCredits(cost)} fichas
-          {!affordable && <span className="ml-1.5 tracking-normal">· tienes {formatCredits(tokens)}</span>}
-        </button>
-      )}
     </div>
   );
 }

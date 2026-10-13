@@ -50,7 +50,7 @@ export function showcaseView(col: CollectionEngine): ShowcaseView {
     serials,
     byPlayer: groupBy(owned, (v) => v.playerId, (v) => v.nick),
     byRegion: groupBy(owned, (v) => v.region, (v) => v.region),
-    themes: groupBy(owned, (v) => v.group, (v) => v.group),
+    themes: groupBy(owned, (v) => v.variantId, (v) => v.label), // por edición
     dynamic,
     cases,
   };

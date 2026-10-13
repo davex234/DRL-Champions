@@ -92,6 +92,8 @@ export interface Tab {
    */
   setMedia: (features: { name: string; value: string }[]) => Promise<void>;
   send: (method: string, params?: Record<string, unknown>) => Promise<any>;
+  /** F73 · suscripción a eventos CDP de la sesión (p. ej. `Fetch.requestPaused` para arneses de interceptación). */
+  on: (method: string, fn: (p: any) => void) => void;
 }
 
 export interface Browser {
@@ -104,7 +106,7 @@ export interface Browser {
  * Lanza si no encuentra el ejecutable: es mejor un fallo claro que un test que "pasa".
  */
 export async function launch(
-  opts: { width?: number; height?: number; userDataDir?: string } = {},
+  opts: { width?: number; height?: number; userDataDir?: string; /** Flags extra de Chrome (p. ej. modo de poca memoria). */ args?: string[] } = {},
 ): Promise<Browser> {
   if (!CHROME_PATH) throw new Error("No se encontró Chrome instalado.");
   /*
@@ -126,6 +128,7 @@ export async function launch(
       "--hide-scrollbars",
       `--remote-debugging-port=${port}`,
       `--user-data-dir=${profile}`,
+      ...(opts.args ?? []),
       "about:blank",
     ],
     { stdio: "ignore" },
@@ -198,6 +201,7 @@ export async function launch(
 
   const tab: Tab = {
     send,
+    on: (method, fn) => root.on(method, fn),
     takeErrors: () => errors.splice(0, errors.length),
     loadCount: () => loads,
     goto: async (url, settleMs = 2200) => {

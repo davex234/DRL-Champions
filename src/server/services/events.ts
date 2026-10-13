@@ -43,6 +43,7 @@ import {
 } from "@/domain/events/challenges";
 import type { Reward } from "@/domain/events/types";
 import { award } from "./rewards";
+import { countPlayedMatches, countWonMatches } from "./matchCounts";
 
 export interface ServiceResult<T> {
   ok: boolean;
@@ -199,18 +200,14 @@ export async function eventMetricsFor(
 
   if (win) {
     jobs.push((async () => {
-      const { count } = await admin
-        .from("duel_matches").select("id", { count: "exact", head: true })
-        .eq("user_id", userId).in("status", ["COMPLETED", "DRAW", "UNRESOLVED"])
-        .gte("created_at", win.from).lte("created_at", win.to);
+      // CORE GAME LOOP · «partidas que cuentan» (`matchCounts`): PvE + ranked en los dos asientos; ni privadas, ni
+      // torneos, ni Draft (Fase 39).
+      const { count } = await countPlayedMatches(admin, userId, { column: "created_at", from: win.from, to: win.to });
       out.event_duels_played = count ?? 0;
     })());
 
     jobs.push((async () => {
-      const { count } = await admin
-        .from("duel_matches").select("id", { count: "exact", head: true })
-        .eq("user_id", userId).eq("winner", "A")
-        .gte("created_at", win.from).lte("created_at", win.to);
+      const { count } = await countWonMatches(admin, userId, { column: "created_at", from: win.from, to: win.to });
       out.event_duels_won = count ?? 0;
     })());
 
@@ -296,7 +293,25 @@ export async function getEventView(
 ): Promise<ServiceResult<EventView | null>> {
   const ev = await getLiveEvent(admin, now);
   if (!ev) return ok(null);
+  return buildEventView(admin, userId, ev, now);
+}
 
+/**
+ * FASE 30 · la MISMA vista de desafíos, pero para UN evento concreto (el Event Hub). Mismas
+ * definiciones (`CHALLENGE_SETS`), mismos hechos, mismo `claimEventChallenge`: no hay un segundo
+ * motor de objetivos. Un evento archivado sigue enseñando sus desafíos, ya sin poder reclamar.
+ */
+export async function getEventViewFor(
+  admin: SupabaseClient, userId: string, eventId: string, now = Date.now(),
+): Promise<ServiceResult<EventView | null>> {
+  const ev = await loadEvent(admin, eventId, now);
+  if (!ev) return ok(null);
+  return buildEventView(admin, userId, ev, now);
+}
+
+async function buildEventView(
+  admin: SupabaseClient, userId: string, ev: LiveEvent, now: number,
+): Promise<ServiceResult<EventView | null>> {
   const [metrics, claimed, pickem] = await Promise.all([
     eventMetricsFor(admin, userId, ev, now),
     claimedFor(admin, userId, ev.id),

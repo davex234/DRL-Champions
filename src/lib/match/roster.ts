@@ -6,7 +6,7 @@
  * REALES del catálogo (nunca jugadores ficticios). Es la capa que toca el store y
  * el catálogo; el mapper se mantiene puro.
  */
-import type { OwnedCard } from "@/domain/cards/types";
+import type { CardDef, OwnedCard, Player } from "@/domain/cards/types";
 import { getCard, getPlayer, allPlayers } from "@/data/catalog";
 import { cardsForPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
@@ -69,9 +69,6 @@ function hashSeed(seed: number, id: string): number {
 /** Dificultad del rival: ajusta de qué banda de OVR se eligen sus jugadores. */
 export type RivalDifficulty = "easy" | "normal" | "hard";
 
-const bestOvr = (player: import("@/domain/cards/types").Player): number =>
-  cardsForPlayer(player).reduce((m, c) => Math.max(m, c.ovr), 0);
-
 /**
  * Genera un rival de CINCO jugadores REALES del catálogo, determinista por `seed` y
  * excluyendo a los jugadores del equipo del usuario. La `difficulty` elige la banda de
@@ -82,27 +79,52 @@ export function buildRivalRoster(
   exclude: Set<string> = new Set(),
   difficulty: RivalDifficulty = "normal",
 ): RosterEntry[] {
-  const eligible = allPlayers().filter((p) => !exclude.has(p.id));
-  const pool = eligible.length >= 5 ? eligible : allPlayers();
+  return buildRoster(chooseRealPlayers(seed, exclude, difficulty, RIVAL_PREFIX));
+}
 
-  // Banda de OVR según dificultad.
-  const byOvr = [...pool].sort((a, b) => bestOvr(a) - bestOvr(b));
+/**
+ * La selección de CINCO jugadores REALES del catálogo que usa el rival (misma pasada, misma banda por
+ * dificultad, mismo orden por semilla). Extraída sin cambios para poder reutilizarla (FASE 51.3).
+ */
+function chooseRealPlayers(seed: number, exclude: Set<string>, difficulty: RivalDifficulty, prefix: string): CardMappingInput[] {
+  // UNA sola pasada por el catálogo: la mejor carta de cada jugador. `cardsForPlayer`
+  // devuelve [] para los NO elegibles (sin métricas / bajo el mínimo de rondas) y sin
+  // carta no hay `RosterEntry` que construir, así que esos jugadores no entran al sorteo.
+  const playable: { player: Player; card: CardDef }[] = [];
+  for (const player of allPlayers()) {
+    const cards = cardsForPlayer(player);
+    if (cards.length === 0) continue;
+    playable.push({ player, card: cards.reduce((best, c) => (c.ovr > best.ovr ? c : best)) });
+  }
+
+  const eligible = playable.filter((e) => !exclude.has(e.player.id));
+  const pool = eligible.length >= 5 ? eligible : playable;
+
+  // Banda de OVR según dificultad (el OVR del jugador es el de su mejor carta).
+  const byOvr = [...pool].sort((a, b) => a.card.ovr - b.card.ovr);
   const half = Math.ceil(byOvr.length / 2);
   const band =
     difficulty === "easy" ? byOvr.slice(0, Math.max(5, half)) :
     difficulty === "hard" ? byOvr.slice(Math.min(byOvr.length - 5, byOvr.length - half)) :
     byOvr;
 
-  const chosen = [...band].sort((a, b) => hashSeed(seed, a.id) - hashSeed(seed, b.id)).slice(0, 5);
+  const chosen = [...band].sort((a, b) => hashSeed(seed, a.player.id) - hashSeed(seed, b.player.id)).slice(0, 5);
 
-  const inputs: CardMappingInput[] = chosen.map((player) => {
-    const cards = cardsForPlayer(player);
-    const card = cards.reduce((best, c) => (c.ovr > best.ovr ? c : best), cards[0]);
-    const owned: OwnedCard = { uid: `${RIVAL_PREFIX}-${player.id}`, cardId: card.id, obtainedAt: 0 };
+  return chosen.map(({ player, card }) => {
+    const owned: OwnedCard = { uid: `${prefix}-${player.id}`, cardId: card.id, obtainedAt: 0 };
     return { owned, card, player, variantLabel: getVariant(card.variantId).label };
   });
+}
 
-  return buildRoster(inputs);
+/**
+ * FASE 51.3 · EQUIPO POR DEFECTO para jugar sin plantilla: cinco jugadores REALES del catálogo elegidos
+ * con el MISMO generador que el rival en la banda «normal» (cualquier OVR). Así el partido sin plantilla
+ * es simétrico —ambos lados salen de la misma distribución— y no se inventa ningún balance nuevo.
+ * Con plantilla válida se sigue usando la plantilla (sus cartas y sus stats).
+ */
+export function buildDefaultHomeRoster(seed: number): HomeRosterResult {
+  const inputs = chooseRealPlayers(seed, new Set(), "normal", "nexus");
+  return { roster: buildRoster(inputs), playerIds: new Set(inputs.map((i) => i.player.id)), missing: [] };
 }
 
 /**

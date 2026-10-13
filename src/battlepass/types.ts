@@ -54,6 +54,12 @@ export interface ActiveMission {
   claimed: boolean;
   /** Reloj lógico de asignación (para rotación). */
   assignedAt: number;
+  /**
+   * Fase 36.1 · VERSIÓN DE LA FUENTE con la que se tomó `baseline`, solo para métricas cuya fuente cambió
+   * (`METRIC_VERSIONS`). Ausente = baseline de la fuente antigua: se interpreta con esa fuente y nunca con la
+   * nueva (una baseline de un contador no es comparable con el otro).
+   */
+  metricVersion?: number;
 }
 
 // ───────────────────────────── Temporada / pases / tracks ─────────────────────────────
@@ -93,7 +99,7 @@ export interface SeasonDef {
   /** Recompensas del track premium por nivel. Solo cosmética (§29). */
   premium: Track;
   /** Coste de desbloquear el premium DENTRO del juego (fichas de evento, créditos). */
-  premiumCost?: { credits?: number; tokens?: number };
+  premiumCost?: { credits?: number };
   /** Piscina de misiones (por datos). */
   missionPool: MissionDef[];
   durationDays?: number;

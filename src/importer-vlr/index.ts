@@ -15,6 +15,7 @@ export { parseVlrUrl, eventUrls, matchUrl, createHttpFetcher, VLR_BASE } from ".
 export { parseEventInfo, parseEventTeams } from "./teams";
 export { parseEventStats } from "./stats";
 export { parseEventMatches } from "./matches";
+export { parseEventBrackets, deriveBracketStructure, parseBracketStructure, type VlrBracketStructure, type VlrStructuralEdge } from "./brackets";
 export { parseMatchPage, type VlrMatchDetail } from "./maps";
 export { buildPlayers, buildTagToTeam, type VlrPlayerMerged } from "./players";
 export { agentName, agentFromSrc } from "./agents";

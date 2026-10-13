@@ -10,7 +10,8 @@ import { controlSpace } from "./spatial";
 import { LANE_CHOKE } from "./map";
 import type { Lane, TacticalPhaseId, TeamTacticState } from "./types";
 
-const LANE_LABEL: Record<Lane, string> = { main: "A Main", tree: "B/Tree", mid: "Mid" };
+// FULL GAME AUDIT (2026-10-07) · zonas por su función (`ZONE_LABEL`): «A Main»/«B/Tree» son de Ascent y no existen en los otros once mapas.
+const LANE_LABEL: Record<Lane, string> = { main: "la entrada principal", tree: "el flanco", mid: "mid" };
 const aliveN = (s: RoundState, side: Side) => s.players.filter((p) => p.side === side && p.alive).length;
 
 export interface SideTacticalBroadcast {

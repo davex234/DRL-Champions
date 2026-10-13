@@ -8,7 +8,7 @@
 import type {
   RawSnapshot, RawTournament, RawCircuit, RawStage, RawGroup, RawBracket, RawTeam, RawPlayer,
   RawCoach, RawRosterChange, RawMatch, RawMatchMap, RawMapPlayerStat, RawRound, RawStanding,
-  RawAwards, ImportIssue,
+  RawAwards, RawPlayerTournamentStat, ImportIssue,
 } from "../types";
 
 export interface ParsedSnapshot {
@@ -25,6 +25,7 @@ export interface ParsedSnapshot {
   matches: RawMatch[];
   maps: RawMatchMap[];
   mapStats: RawMapPlayerStat[];
+  playerTournamentStats: RawPlayerTournamentStat[];
   rounds: RawRound[];
   standings: RawStanding[];
   awards?: RawAwards;
@@ -69,6 +70,19 @@ export function parseSnapshot(raw: RawSnapshot): ParseOutput {
     if (!s || !s.matchMapId || !s.matchId || !s.player) { drop("mapStat", s?.id ?? "?", "stat sin refs"); return false; }
     return true;
   });
+  /*
+   * Un agregado de torneo sin jugador no se puede resolver contra nadie. Y `clutchesWon` sin
+   * `clutchSituations` tampoco vale: la fuente publica una fracción, y quedarse solo con el
+   * numerador cambiaría el significado del dato. En los dos casos se descarta con su aviso.
+   */
+  const playerTournamentStats = arr(raw.playerTournamentStats).filter((s) => {
+    if (!s || !s.player) { drop("playerTournamentStat", "?", "agregado sin jugador"); return false; }
+    if (s.clutchesWon !== undefined && s.clutchSituations === undefined) {
+      drop("playerTournamentStat", s.player, "clutches sin denominador (situaciones jugadas)");
+      return false;
+    }
+    return true;
+  });
   const rounds = arr(raw.rounds).filter((r) => {
     if (!r || !r.matchMapId || typeof r.index !== "number") { drop("round", r?.id ?? "?", "ronda sin matchMapId/index"); return false; }
     return true;
@@ -88,6 +102,7 @@ export function parseSnapshot(raw: RawSnapshot): ParseOutput {
     matches,
     maps,
     mapStats,
+    playerTournamentStats,
     rounds,
     standings: arr(raw.standings),
     awards: raw.awards,

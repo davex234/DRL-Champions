@@ -26,8 +26,9 @@ const TIER_BY_ID = new Map(REWARD_TIERS.map((t) => [t.id, t]));
 
 const PACK_LABEL: Record<string, string> = {
   inicial: "Sobre Inicial",
-  estandar: "Sobre Estándar",
-  premium: "Sobre Premium",
+  estandar: "Sobre Bronce",
+  premium: "Sobre Plata",
+  oro: "Sobre Oro",
   masters: "Sobre Masters",
   champions: "Sobre Champions",
   ewc: "Sobre EWC",

@@ -6,10 +6,16 @@
  * entre entidades van POR NOMBRE (equipo/nick), exactamente como espera el normalizer del
  * Importer (resolución vía IdentityResolver).
  */
-import type { RawSnapshot, RawMatch, RawMatchMap, RawMapPlayerStat, RawStage, RawTeam, RawPlayer } from "@/importer";
+import type {
+  RawBracket, RawBracketNode,
+  RawSnapshot, RawMatch, RawMatchMap, RawMapPlayerStat, RawStage, RawTeam, RawPlayer,
+  RawStanding, RawAwards, RawPlayerTournamentStat,
+} from "@/importer";
 import { looseName, parseVlrDates, utcTsToIso } from "./parser";
 import { buildPlayers, buildTagToTeam } from "./players";
-import type { VlrEventRef, VlrEventInfo, VlrTeam, VlrStatsRow, VlrMatch } from "./types";
+import { prizeToAwards } from "./standings";
+import type { VlrEventRef, VlrEventInfo, VlrTeam, VlrStatsRow, VlrMatch, VlrPlacement } from "./types";
+import type { VlrBracketStructure } from "./brackets";
 
 /** Tier VCT reconocible desde el nombre del torneo/circuito. `undefined` si no es inferible. */
 export function inferTier(eventName: string, circuitName?: string): string | undefined {
@@ -58,6 +64,8 @@ export function toRawSnapshot(
   vlrTeams: VlrTeam[],
   statsRows: VlrStatsRow[],
   vlrMatches: VlrMatch[],
+  placements: VlrPlacement[] = [],
+  structure?: VlrBracketStructure,
 ): RawSnapshot {
   const tournamentId = `vlr-${ref.eventId}`;
   const tagToTeam = buildTagToTeam(vlrTeams, statsRows, vlrMatches);
@@ -130,6 +138,41 @@ export function toRawSnapshot(
     winner: m.winner,
   }));
 
+  /*
+   * ESTRUCTURA DEL CUADRO (Fase 24.4) → `RawBracket`, el modelo canónico que el importador ya
+   * tenía definido y nadie rellenaba. Un bracket por (grupo, rama); un nodo por caja con partido.
+   * Solo entran aristas CONFIRMADAS por la gramática del markup; lo demás no existe aquí.
+   */
+  const brackets: RawBracket[] = [];
+  if (structure?.present) {
+    const matchIds = new Set(matches.map((m) => m.id));
+    const edgeByFrom = new Map(structure.edges.map((e) => [e.fromMatchId, e]));
+    for (const cont of structure.containers) {
+      const bid = `br-${looseName(cont.group ?? "bracket") || "bracket"}-${cont.side}`;
+      const labels = cont.columns.map((c) => looseName(c.label));
+      const kind = labels.some((l) => /opening|decider|winners/.test(l)) ? "gsl" : cont.side === "lower" ? "double-elim" : "single-elim";
+      const nodes: RawBracketNode[] = [];
+      cont.columns.forEach((col, depthFromStart) => {
+        col.items.forEach((it, slot) => {
+          if (!it.matchId || !matchIds.has(it.matchId)) return;
+          const e = edgeByFrom.get(it.matchId);
+          nodes.push({
+            id: `bn-${it.matchId}`, round: cont.columns.length - 1 - depthFromStart, slot,
+            matchId: it.matchId,
+            winnerToNodeId: e?.toMatchId ? `bn-${e.toMatchId}` : undefined,
+            winnerToSlot: e?.toSlot,
+            winnerQualifies: e?.qualificationKey,
+            winnerQualifiesLabel: e?.qualificationLabel,
+            evidence: e ? e.evidence : undefined,
+            confidence: e ? e.confidence : undefined,
+          });
+        });
+      });
+      const stageId = stageIdOf(vlrMatches.find((m) => nodes.some((n) => n.matchId === m.vlrId))?.stage) ?? stages[0]?.id ?? "st-bracket";
+      if (nodes.length) brackets.push({ id: bid, stageId, kind, nodes });
+    }
+  }
+
   const maps: RawMatchMap[] = [];
   const mapStats: RawMapPlayerStat[] = [];
   for (const m of vlrMatches) {
@@ -156,7 +199,54 @@ export function toRawSnapshot(
   const tier = inferTier(info.name, info.circuitName);
   const circuitId = info.circuitSlug?.replace(/^\//, "");
 
+  /*
+   * ── CLASIFICACIÓN FINAL ──
+   *
+   * De la tabla «Prize Distribution» de la página del evento salen DOS cosas, y las dos por
+   * NOMBRE de equipo, que es la convención de referencias de todo este normalizador:
+   *
+   *   · `awards.champion` / `runnerUp` — solo si el puesto es inequívoco (ver `prizeToAwards`).
+   *     Es el eslabón que le faltaba a `champion-edition`: de aquí sale `championTeamId`, y de
+   *     ahí el narrativeTag `champion` que concede la variante a TODO el roster del campeón.
+   *   · `standings` — una fila por puesto, que es además el camino de reserva que ya buscaba
+   *     `analyzer/team.ts` (`standings[position === 1]`) cuando no hay awards.
+   *
+   * Sin tabla no hay nada de esto y el torneo se queda sin campeón. Es el estado correcto:
+   * un torneo en curso no tiene ganador, y adivinarlo sería inventarlo.
+   */
+  const awards: RawAwards | undefined = placements.length
+    ? { ...prizeToAwards(placements), placements: placements.map((p) => ({ position: p.position, team: p.teamName, prize: p.prize, points: p.points })) }
+    : undefined;
+
+  const standings: RawStanding[] = placements.map((p) => ({
+    id: `${tournamentId}:${looseName(p.teamName)}`,
+    team: p.teamName,
+    position: p.position,
+    points: p.points,
+  }));
+
+  /*
+   * ── AGREGADOS DE TORNEO ──
+   *
+   * Solo se emite fila si la fuente publicó la fracción de clutch completa. Un jugador sin
+   * ese dato NO aparece aquí con ceros: no tener dato y tener cero son cosas distintas, y
+   * confundirlas es exactamente lo que haría que un jugador ganase el premio de clutch por
+   * omisión.
+   */
+  const playerTournamentStats: RawPlayerTournamentStat[] = statsRows
+    .filter((r) => r.clutchesWon !== undefined && r.clutchSituations !== undefined)
+    .map((r) => ({
+      player: r.nick,
+      team: r.teamTag ? tagToTeam.get(looseName(r.teamTag)) : undefined,
+      maps: r.mapsPlayed,
+      rounds: r.roundsPlayed,
+      clutchesWon: r.clutchesWon,
+      clutchSituations: r.clutchSituations,
+      clutchPct: r.clutchPct,
+    }));
+
   return {
+    brackets,
     tournament: {
       id: tournamentId,
       name: info.name,
@@ -182,5 +272,8 @@ export function toRawSnapshot(
     matches,
     maps,
     mapStats,
+    playerTournamentStats,
+    standings,
+    awards,
   };
 }

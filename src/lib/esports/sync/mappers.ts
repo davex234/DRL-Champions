@@ -74,6 +74,33 @@ export function matchRow(r: RawMatch, stageId: string | null, nameOf?: (teamId: 
   };
 }
 
+/**
+ * Fase 24.4 · fila PARCIAL de `matches` con la estructura confirmada del cuadro, o `null`.
+ *
+ * Va aparte de `matchRow` a propósito: el upsert de partidos NO lleva estas columnas, así que
+ * una reimportación que no encuentre el cuadro (markup cambiado, página parcial) no borra la
+ * estructura ya confirmada. Solo se escribe lo CONFIRMED; lo desconocido no toca nada.
+ */
+export function progressionRow(m: RawMatch, now = new Date()): Record<string, unknown> | null {
+  const p = m.progression;
+  if (!p || p.confidence !== "CONFIRMED") return null;
+  if (!p.winnerTo && !p.loserTo && !p.winnerQualifies) return null;
+  if (p.winnerTo?.matchId === m.id || p.loserTo?.matchId === m.id) return null; // autoarista: nunca
+  return {
+    id: m.id,
+    winner_to_match_id: p.winnerTo?.matchId ?? null,
+    winner_to_slot: p.winnerTo?.slot ?? null,
+    loser_to_match_id: p.loserTo?.matchId ?? null,
+    loser_to_slot: p.loserTo?.slot ?? null,
+    winner_qualifies: p.winnerQualifies?.key ?? null,
+    winner_qualifies_label: p.winnerQualifies?.label ?? null,
+    progression_evidence: p.evidence,
+    progression_confidence: "CONFIRMED",
+    progression_version: p.version ?? null,
+    progression_synced_at: now.toISOString(),
+  };
+}
+
 export function matchMapRow(matchId: string, m: RawMatchMap) {
   const winner = m.winnerTeamId
     ?? (m.scoreA != null && m.scoreB != null ? (m.scoreA > m.scoreB ? "a" : m.scoreB > m.scoreA ? "b" : null) : null);

@@ -58,6 +58,8 @@ const DEFS: CosmeticDef[] = [
   { id: "titulo:analista", family: "titulo", label: "Analista", color: "#19e3ff" },
   { id: "titulo:estratega", family: "titulo", label: "Estratega", color: "#7b5cff" },
   { id: "titulo:leyenda-s1", family: "titulo", label: "Leyenda · Temporada 1", color: "#ffd35c" },
+  // F72 · completar Draft Gauntlet (una vez; sin valor económico).
+  { id: "titulo:campeon-gauntlet", family: "titulo", label: "Campeón del Gauntlet", color: "#ffd35c" },
 
   // Marcos.
   { id: "marco:circuito", family: "marco", label: "Circuito", color: "#8b96a3" },

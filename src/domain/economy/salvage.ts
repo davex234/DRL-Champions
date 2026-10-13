@@ -8,7 +8,7 @@
  * nada con cuenta iniciada: la venta rápida existe pero está deshabilitada online desde la
  * Fase B, y el mercado entre jugadores lleva cerrado desde la Fase A.
  *
- * ────────────────────────── POR QUÉ NO SE USA `quickSellValue` ──────────────────────────
+ * ─────────── POR QUÉ NO SE USA `quickSellValue` (eliminada en la F57.6: la venta local ya paga `salvageValue`) ───────────
  *
  * Esta es la decisión importante de la fase, y sale de medir, no de opinar.
  *
@@ -34,9 +34,9 @@
  *
  * ────────────────────────── CÓMO SE CALIBRA ──────────────────────────
  *
- * El desguace tiene su propia tabla, y su ancla **no es el valor de la carta: es el precio
- * del sobre**. La regla: desguazar un sobre ENTERO tiene que devolver bastante menos de lo
- * que costó. Con la tabla de abajo, midiendo con el motor real:
+ * (HISTÓRICO, Fase 11 — sustituido en la F57.5 por la fracción de abajo; la regla se mantiene.)
+ * La regla: desguazar un sobre ENTERO tiene que devolver bastante menos de lo que costó.
+ * Con la tabla por rareza de entonces, midiendo con el motor real:
  *
  *   | Sobre     | Precio | Desguace completo | Recuperación |
  *   |-----------|--------|-------------------|--------------|
@@ -65,34 +65,48 @@
  * `card_id`, que es lo único que el cliente puede nombrar.
  */
 import type { CardDef } from "../cards/types";
-import { getVariant } from "../cards/variants";
-import { bucketForRank, type RarityBucket } from "../packs/types";
+import { marketValue } from "./pricing";
 
-/**
- * Créditos por carta desguazada, según su bucket de rareza.
+/*
+ * ────────────────────────── FASE 57.5 — FRACCIÓN DEL VALOR, NO TABLA POR RAREZA ──────────────────────────
  *
- * Es una tabla y no una fórmula para que se pueda responder «¿cuánto dan por una épica?»
- * sin ejecutar nada, y para que ajustarla sea un cambio visible en el diff.
+ * Hasta la F57.5 esto era una tabla por bucket de rareza (común 30 · poco común 70 · rara 200 · épica 600 · legendaria
+ * 1.600). El bucket sale del rank de la edición y hereda su inversión: future-star (Prime) es «rara» y champions-s es
+ * «épica», así que una Prime pagaba 200 y una Champions 600, al revés que la jerarquía de producto.
+ *
+ * Ahora el desguace es una fracción CONSERVADORA de `marketValue`, que ya sigue la jerarquía de clase y el OVR:
+ *
+ *   salvageValue = max(5, redondeo(6 % × marketValue))      redondeo: a 5 bajo 100, a 10 bajo 1.000, a 50 por encima
+ *
+ * Por qué 6 % (medido, no copiado; `docs/product/fase-57-5-card-value-implementation.md`):
+ *   · desguazar un sobre ENTERO de la línea principal devuelve ~23–34 % de su precio (antes ~28–38 %): lejos del 70 %;
+ *   · la peor carta desguaza al 10 % de su valor (el suelo de 5 sobre la Base de OVR 70, que vale 50): por debajo de la
+ *     banda inferior del mercado (`min_price_mult` = 0,2), así que comprar en el mercado para desguazar nunca rinde;
+ *   · medianas y medias por clase crecen Base < Plata < Oro < Masters < Champions < Prime < Icon.
+ *
+ * La recuperación sigue cayendo con la gama del sobre (Icon ~23 %), porque el Icon se compra por la garantía de top tier.
  */
-export const SALVAGE_BY_BUCKET: Record<RarityBucket, number> = {
-  common: 30,
-  uncommon: 70,
-  rare: 200,
-  epic: 600,
-  legendary: 1600,
-};
+
+/** Fracción del valor de mercado que paga el desguace. */
+export const SALVAGE_RATE = 0.06;
+/** Lo mínimo que paga una carta: nunca 0. */
+export const SALVAGE_FLOOR = 5;
+
+/** Redondeo del desguace: a 5 por debajo de 100, a 10 por debajo de 1.000 y a 50 por encima. */
+export function salvageRound(raw: number): number {
+  const step = raw < 100 ? 5 : raw < 1_000 ? 10 : 50;
+  return Math.round(raw / step) * step;
+}
 
 /**
  * ¿Cuánto vale desguazar ESTA carta?
  *
- * No depende del número de serie. Es deliberado: una carta serializada del #1 vale una
- * fortuna para un coleccionista y eso es asunto del mercado entre jugadores, no del
- * desguace. Pagar el desguace por serie convertiría el sistema en una tasación paralela
- * al mercado, con dos precios distintos para la misma carta.
+ * No depende del número de serie (usa `marketValue`, no `instanceValue`). Es deliberado: una carta serializada del #1
+ * vale una fortuna para un coleccionista y eso es asunto del mercado entre jugadores, no del desguace. Pagar el
+ * desguace por serie convertiría el sistema en una tasación paralela al mercado, con dos precios para la misma carta.
  */
-export function salvageValue(card: CardDef): number {
-  const rank = getVariant(card.variantId).rank;
-  return SALVAGE_BY_BUCKET[bucketForRank(rank)] ?? SALVAGE_BY_BUCKET.common;
+export function salvageValue(card: Pick<CardDef, "variantId" | "ovr">): number {
+  return Math.max(SALVAGE_FLOOR, salvageRound(SALVAGE_RATE * marketValue(card)));
 }
 
 /** Total de un lote. Se suma en enteros: no hay céntimos en esta economía. */

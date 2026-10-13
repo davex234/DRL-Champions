@@ -12,8 +12,10 @@ import { importSnapshot, createIdentityResolver, makeClock, type ImportResult, t
 import type { ImportProvider, ProviderHealth } from "@/importer";
 import { parseVlrUrl, eventUrls, matchUrl, createHttpFetcher, VLR_BASE } from "./client";
 import { parseEventInfo, parseEventTeams } from "./teams";
+import { parseEventPlacements } from "./standings";
 import { parseEventStats } from "./stats";
 import { parseEventMatches } from "./matches";
+import { parseBracketStructure } from "./brackets";
 import { parseMatchPage } from "./maps";
 import { toRawSnapshot } from "./normalize";
 import { findAll } from "./parser";
@@ -43,6 +45,8 @@ export async function importVlrTournament(url: string, opts: VlrImportOptions = 
   const info = parseEventInfo(eventHtml);
   if (!info.name) throw new Error(`la página de VLR no parece un torneo (sin título de evento): ${urls.overview}`);
   const teams = parseEventTeams(eventHtml);
+  /* La clasificación final vive en la MISMA página del evento que ya está descargada. */
+  const placements = parseEventPlacements(eventHtml);
   const statsRows = parseEventStats(statsHtml);
   const matches = parseEventMatches(matchesHtml);
 
@@ -65,7 +69,11 @@ export async function importVlrTournament(url: string, opts: VlrImportOptions = 
     if (matches.length > maxMatchPages) warnings.push(`solo se descargaron ${maxMatchPages}/${matches.length} páginas de partido (maxMatchPages)`);
   }
 
-  const snapshot = toRawSnapshot(ref, info, teams, statsRows, matches);
+  /* El cuadro vive en la MISMA página del evento ya descargada. Falla en seguro: sin markup, sin aristas. */
+  const structure = parseBracketStructure(eventHtml);
+  for (const c of structure.conflicts) warnings.push(`cuadro: conflicto con resultados — ${c}`);
+  for (const u of structure.unknown) warnings.push(`cuadro: transición no afirmada — ${u}`);
+  const snapshot = toRawSnapshot(ref, info, teams, statsRows, matches, placements, structure);
 
   /*
    * Mapas SIN scoreboard es el fallo silencioso de este conector: el pipeline entero termina en
@@ -95,6 +103,13 @@ export async function importVlrTournament(url: string, opts: VlrImportOptions = 
       matchesListed: matches.length,
       matchDetailsFetched,
       mapsParsed,
+      structure: {
+        present: structure.present,
+        edges: structure.edges.filter((e) => e.toMatchId).length,
+        qualification: structure.edges.filter((e) => e.qualificationKey).length,
+        unknown: structure.unknown.length,
+        conflicts: structure.conflicts.length,
+      },
       mapStatRows,
     },
   };

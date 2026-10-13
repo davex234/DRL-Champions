@@ -1,0 +1,23 @@
+/** Clases de DRL Credits (`app/tienda/creditos/credits.css`). Un solo sitio para los nombres. */
+export const creditsCss = {
+  page: "nx-credits-page",
+  hero: "nx-credits-hero",
+  atmos: "nx-credits-atmos",
+  goldText: "nx-credits-gold",
+  coinIcon: "nx-credits-coin",
+  balance: "nx-credits-balance",
+  note: "nx-credits-note",
+  noteDot: "nx-credits-note-dot",
+  heroArt: "nx-credits-hero-art",
+  card: "nx-credits-card",
+  cardPopular: "nx-credits-card-popular",
+  cardTop: "nx-credits-card-top",
+  badge: "nx-credits-badge",
+  badgeTop: "nx-credits-badge-top",
+  art: "nx-credits-art",
+  divider: "nx-credits-divider",
+  price: "nx-credits-price",
+  cta: "nx-credits-cta",
+  strip: "nx-credits-strip",
+  rail: "nx-credits-rail",
+} as const;

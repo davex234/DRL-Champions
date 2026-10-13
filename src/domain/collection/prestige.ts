@@ -182,6 +182,12 @@ export function burnedOn(owned: Set<string>): number {
   return total;
 }
 
-/** Clave de idempotencia. Un escalón de un conjunto se compra una vez y solo una. */
-export const prestigeRef = (baseId: string, tierId: string): string =>
-  `prestige:${baseId}:${tierId}`;
+/**
+ * Clave de idempotencia. Un escalón de un conjunto se compra una vez y solo una, POR JUGADOR.
+ *
+ * FASE 41 · antes no llevaba el usuario: `economy_ops.ref` es clave primaria GLOBAL y `app_buy_cosmetic` busca la clave
+ * sin filtrar por usuario, así que el segundo jugador que compraba el mismo escalón recibía el resultado guardado del
+ * primero (sin cobro, sin cosmético y con el saldo del otro en la respuesta).
+ */
+export const prestigeRef = (userId: string, baseId: string, tierId: string): string =>
+  `prestige:${userId}:${baseId}:${tierId}`;

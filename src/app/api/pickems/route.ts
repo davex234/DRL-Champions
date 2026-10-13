@@ -13,6 +13,8 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
 import { submitPick } from "@/server/services/pickems";
+import { internalError } from "@/server/ops/log";
+import { readJsonObject } from "@/server/http/jsonBody";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -24,7 +26,7 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
   let body: { questionId?: unknown; option?: unknown } = {};
-  try { body = await req.json(); } catch { /* cuerpo vacío */ }
+  body = ((await readJsonObject(req)) ?? {}) as typeof body; // FULL GAME AUDIT · `null`/no-objeto ya no da 500
 
   const questionId = typeof body.questionId === "string" ? body.questionId : "";
   const option = typeof body.option === "string" ? body.option.trim() : "";
@@ -41,9 +43,6 @@ export async function POST(req: Request) {
     if (!result.ok) return NextResponse.json({ error: result.error }, { status: result.status });
     return NextResponse.json(result.data, { headers: { "cache-control": "no-store" } });
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Error al guardar la predicción" },
-      { status: 500 },
-    );
+    return internalError("api/pickems", e, req);
   }
 }

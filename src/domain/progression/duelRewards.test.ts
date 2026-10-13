@@ -71,8 +71,7 @@ test("ninguna recompensa de duelo reparte cartas, sobres, fichas ni cosméticos"
       const r = duelReward(o, d);
       assert.equal(r.packId, undefined, `${o}/${d} no da sobres`);
       assert.equal(r.cardId, undefined, `${o}/${d} no da cartas`);
-      assert.equal(r.tokens, undefined, `${o}/${d} no da fichas`);
-      assert.equal(r.cosmetics, undefined, `${o}/${d} no da cosméticos`);
+        assert.equal(r.cosmetics, undefined, `${o}/${d} no da cosméticos`);
     }
   }
 });

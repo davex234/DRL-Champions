@@ -1,5 +1,6 @@
 import type { Player } from "@/domain/cards/types";
 import type { AssetKind, SubjectType } from "@/domain/assets/types";
+import { FLAGS_DIR, hasLocalFlag } from "@/data/flags";
 
 /**
  * Configuración central de assets. Cambiar a almacenamiento local o a otra
@@ -7,7 +8,9 @@ import type { AssetKind, SubjectType } from "@/domain/assets/types";
  *
  * - Fotos de jugadores: PNG transparente en `/public/players/{id}.png`.
  * - Logos de equipos:   PNG transparente en `/public/teams/{slug}.png`.
- * - Banderas:           imágenes reales servidas por un proveedor configurable.
+ * - Mapas del Entrenador: PNG en `/public/maps/{id}.png`, tal cual, sin derivados.
+ * - Retratos de agente: WEBP con alfa en `/public/agents/{id}/{variante}.webp` (Fase 48).
+ * - Banderas:           SVG LOCALES en `/public/flags/{iso}.svg` (flag-icons, MIT; F72.3). Sin host externo.
  *
  * Si una imagen no existe, los componentes muestran un fallback (silueta /
  * monograma / código de país), así que el juego funciona sin assets locales.
@@ -15,11 +18,8 @@ import type { AssetKind, SubjectType } from "@/domain/assets/types";
 export const ASSETS = {
   playersDir: "/players",
   teamsDir: "/teams",
-  flag: {
-    /** Proveedor de banderas. Intercambiable por una carpeta local. */
-    base: "https://flagcdn.com",
-    size: "w80",
-  },
+  mapsDir: "/maps",
+  agentsDir: "/agents",
 } as const;
 
 /** Ruta de la foto de un jugador (permite override por jugador). */
@@ -32,9 +32,48 @@ export function teamLogoSrc(slug: string): string {
   return `${ASSETS.teamsDir}/${slug}.png`;
 }
 
-/** URL de la bandera de un país (ISO de 2 letras). */
-export function flagSrc(iso: string): string {
-  return `${ASSETS.flag.base}/${ASSETS.flag.size}/${iso.toLowerCase()}.png`;
+/**
+ * Ruta del asset de un mapa del Entrenador.
+ *
+ * Existe para que NINGÚN componente escriba `/maps/ascent.png` a mano. El selector, la
+ * pizarra, la pantalla de estudio y el modo presentación piden la ruta aquí, así que hay
+ * un solo sitio que cambiar si los mapas se mueven. `asset` sale del catálogo.
+ */
+export function mapImageSrc(asset: string): string {
+  return `${ASSETS.mapsDir}/${asset}`;
+}
+
+/**
+ * FASE 51 · MINIATURA del mapa (WebP de ~10 KB en `maps/thumbs/`), derivada del PNG original sin
+ * tocarlo. Las rejillas —centro táctico, composiciones, plan, expediente— enseñaban los doce PNG
+ * completos (~1 MB cada uno, 12,6 MB en total) para pintarlos a 200 px. El PNG sigue siendo el
+ * que usan la pizarra y el visor de mapas, donde sí hace falta su resolución.
+ */
+export function mapThumbSrc(asset: string): string {
+  return `${ASSETS.mapsDir}/thumbs/${asset.replace(/\.png$/i, ".webp")}`;
+}
+
+/**
+ * Ruta del arte de un agente — FASE 48.
+ *
+ * Misma regla que `mapImageSrc`: NINGÚN componente escribe `/agents/veil/portrait.webp` a
+ * mano. El gestor de composiciones, el Plan Táctico y Presentar piden la ruta aquí, así que
+ * hay un solo sitio que cambiar si el arte se mueve o cambia de formato.
+ *
+ * Esto sólo COMPONE la ruta; no dice si el fichero existe. Quién tiene arte publicado lo
+ * declara el manifiesto (`src/agents/visuals.ts`), para no pedir al servidor imágenes que ya
+ * se sabe que no están.
+ */
+export function agentArtSrc(agentId: string, variant: string): string {
+  return `${ASSETS.agentsDir}/${agentId}/${variant}.webp`;
+}
+
+/**
+ * Bandera LOCAL de un país (ISO de 2 letras), o `null` si no la tenemos (F72.3). Nunca una URL externa: antes era
+ * flagcdn.com en tiempo de ejecución. Si puede ser PISTA (nacionalidad real) lo decide `isNationalityFlag`, no esto.
+ */
+export function flagSrc(iso: string): string | null {
+  return hasLocalFlag(iso) ? `${FLAGS_DIR}/${iso.toLowerCase()}.svg` : null;
 }
 
 /**

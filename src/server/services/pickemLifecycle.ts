@@ -41,9 +41,14 @@
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import {
-  buildMatchQuestions, buildScoreQuestions, correctOptionForKind, type MatchInput,
+  buildMatchQuestions, buildScoreQuestions, buildQualificationQuestions, correctOptionForKind,
+  type MatchInput, type QualificationMatchInput,
 } from "@/domain/pickems/questions";
+import {
+  buildChampionQuestion, correctAdvanceOption, correctChampionOption, mergeOptions, teamOptionKey,
+} from "@/domain/pickems/tournament";
 import { scorePickemEvent } from "./pickems";
+import { isMissingColumnError, withoutProgressionColumns } from "@/lib/esports/sync/schemaCompat";
 
 export interface LifecycleResult {
   eventId: string;
@@ -52,6 +57,11 @@ export interface LifecycleResult {
   created: number;
   /** Preguntas cuyo resultado se ha fijado en esta pasada. */
   resolved: number;
+  /**
+   * Fase 24.6 · preguntas ya corregidas cuyo resultado se ha RECTIFICADO porque la fuente
+   * corrigió el partido (solo las que el sync señaló en `reconcileMatchIds`).
+   */
+  corrected: number;
   /** ¿Se ha corregido el Pick'em? */
   scored: boolean;
   usersScored: number;
@@ -59,17 +69,48 @@ export interface LifecycleResult {
   notes: string[];
 }
 
-const MATCH_COLUMNS = "id, team_a, team_b, start_time, status, winner_team, round, match_order, score_a, score_b";
+const MATCH_COLUMNS = "id, team_a, team_b, start_time, status, winner_team, round, match_order, score_a, score_b, winner_qualifies, winner_qualifies_label, progression_confidence";
 
 /**
- * Pick'em del torneo, creándolo si no existe.
+ * Fase 24.6 · opciones del ciclo. Todas son ADITIVAS: sin ellas, el comportamiento es el de siempre.
+ */
+export interface LifecycleOptions {
+  /**
+   * Partidos cuyo resultado la FUENTE ha corregido después de estar `finished` (lo detecta el
+   * sync comparando con lo que ya había en la base de datos). Solo para esos partidos se permite
+   * reescribir un `correct_option` ya fijado. Fuera de esta lista, el pasado no se toca: si el
+   * origen se corrige a sí mismo sin que el sync lo haya visto, lo revisa un humano.
+   */
+  reconcileMatchIds?: Iterable<string>;
+}
+
+/**
+ * Partidos del torneo con las columnas que lee el ciclo.
  *
- * Un torneo tiene UN Pick'em. Si hubiera varios (algo que el esquema permite pero el
- * producto no usa), se toma el más antiguo: es el que ya tiene las respuestas de la gente.
+ * PRE-0045 (Fase 24.6): las tres columnas de estructura no existen y PostgREST responde 42703.
+ * Antes eso tumbaba el ciclo entero (ni preguntas, ni resolución, ni scoring). Ahora se reintenta
+ * sin ellas: las preguntas «¿quién se clasifica?» simplemente no nacen, que es lo que ese
+ * esquema puede representar.
+ */
+async function loadMatches(sb: SupabaseClient, eventId: string): Promise<QualificationMatchInput[]> {
+  const full = await sb.from("matches").select(MATCH_COLUMNS).eq("event_id", eventId);
+  if (!full.error) return (full.data ?? []) as QualificationMatchInput[];
+  if (!isMissingColumnError(full.error)) throw new Error(full.error.message);
+  const base = await sb.from("matches").select(withoutProgressionColumns(MATCH_COLUMNS)).eq("event_id", eventId);
+  if (base.error) throw new Error(base.error.message);
+  return (base.data ?? []) as unknown as QualificationMatchInput[];
+}
+
+/**
+ * Pick'em CLÁSICO (legacy) del torneo, solo si YA existe y está clasificado `LEGACY_V1`.
  *
- * `locks_at` del Pick'em es el cierre del CONJUNTO y se pone en el último partido conocido.
- * No es lo que cierra cada pregunta —eso es por pregunta— sino la fecha a partir de la
- * cual ya no tiene sentido enseñarlo como abierto.
+ * F87.2 · los Pick'ems clásicos están RETIRADOS para torneos nuevos (0072): este ciclo ya no crea ninguno —las
+ * predicciones nuevas van por Pick'ems 2.0— y solo termina los que existían antes del corte, con SUS reglas. Además
+ * de no intentarlo aquí, la BD rechaza cualquier INSERT (`PICKEM_LEGACY_RETIRED`), así que ningún camino normal
+ * (panel, API, worker, script) puede crear uno. `created` se conserva en la firma y es siempre `false`.
+ *
+ * Un torneo tiene UN Pick'em. Si hubiera varios (algo que el esquema permite pero el producto no usa), se toma el
+ * más antiguo: es el que ya tiene las respuestas de la gente.
  */
 export async function ensurePickemEvent(
   sb: SupabaseClient, eventId: string,
@@ -78,42 +119,12 @@ export async function ensurePickemEvent(
     .from("pickem_events")
     .select("id")
     .eq("event_id", eventId)
+    .eq("legacy_mode", "LEGACY_V1")
     .order("created_at", { ascending: true })
     .limit(1)
     .maybeSingle();
   if (existing) return { id: (existing as { id: string }).id, created: false };
-
-  const { data: ev } = await sb
-    .from("events").select("id, name, end_date").eq("id", eventId).maybeSingle();
-  if (!ev) return null;
-  const event = ev as { id: string; name: string; end_date: string | null };
-
-  const { data: lastMatch } = await sb
-    .from("matches").select("start_time").eq("event_id", eventId)
-    .not("start_time", "is", null)
-    .order("start_time", { ascending: false }).limit(1).maybeSingle();
-
-  const locksAt =
-    (lastMatch as { start_time: string } | null)?.start_time
-    ?? event.end_date
-    // Sin partidos ni fecha de fin no se puede deducir un cierre. Se pone a una semana
-    // vista para que el Pick'em nazca abierto y la siguiente pasada, ya con partidos,
-    // lo corrija. Un cierre en el pasado lo dejaría muerto al nacer.
-    ?? new Date(Date.now() + 7 * 24 * 3600_000).toISOString();
-
-  const { data: created, error } = await sb
-    .from("pickem_events")
-    .insert({
-      event_id: eventId,
-      title: `Predicciones · ${event.name}`,
-      description: "Acierta los ganadores y suma puntos de rango.",
-      locks_at: locksAt,
-      status: "open",
-    })
-    .select("id")
-    .single();
-  if (error) throw new Error(error.message);
-  return { id: (created as { id: string }).id, created: true };
+  return null;
 }
 
 /**
@@ -127,17 +138,27 @@ export async function ensurePickemEvent(
 export async function syncQuestions(
   sb: SupabaseClient, pickemEventId: string, eventId: string, now = Date.now(),
 ): Promise<{ created: number; relabelled: number }> {
-  const { data: rows, error } = await sb
-    .from("matches").select(MATCH_COLUMNS).eq("event_id", eventId);
-  if (error) throw new Error(error.message);
-  const matches = ((rows ?? []) as MatchInput[]);
+  const matches = await loadMatches(sb, eventId);
 
   /*
    * Los DOS tipos de pregunta salen del mismo generador puro y se escriben en la misma
    * pasada (Fase 13). No hay un segundo ciclo de vida: hay una lista más larga.
    */
-  const specs = [...buildMatchQuestions(matches, now), ...buildScoreQuestions(matches, now)];
-  if (specs.length === 0) return { created: 0, relabelled: 0 };
+  const specs = [
+    ...buildMatchQuestions(matches, now),
+    ...buildScoreQuestions(matches, now),
+    // Fase 24.4 · «¿quién se clasifica?» solo donde la estructura CONFIRMADA lo dice.
+    ...buildQualificationQuestions(matches, now),
+  ];
+
+  /*
+   * LA PREGUNTA DE CAMPEÓN (Fase 24.2) va en la misma pasada, con las mismas reglas de
+   * idempotencia, pero por su propio camino: no cuelga de un partido (`match_id` nulo), así
+   * que el índice único por partido no la cubre y se comprueba por tipo.
+   */
+  const champion = await syncChampionQuestion(sb, pickemEventId, matches, now);
+
+  if (specs.length === 0) return { created: champion.created, relabelled: champion.relabelled };
 
   const { data: existingRows } = await sb
     .from("pickem_questions").select("id, match_id, kind, options, points")
@@ -213,7 +234,65 @@ export async function syncQuestions(
     if (!upErr) relabelled++;
   }
 
-  return { created, relabelled };
+  return { created: created + champion.created, relabelled: relabelled + champion.relabelled };
+}
+
+/**
+ * Crea —o refresca— la pregunta «¿Quién será campeón?» de un torneo.
+ *
+ * ────────────────────────── CUÁNDO NACE ──────────────────────────
+ *
+ * Solo si el dominio dice que se puede hacer bien (`buildChampionQuestion`): participantes
+ * suficientes en los partidos REALES, torneo sin empezar y una fecha de inicio a la que
+ * anclar el cierre. Si falta cualquiera de las tres cosas, no se crea nada. Un torneo que
+ * ya está en marcha cuando llega aquí por primera vez se queda sin pregunta de campeón: es
+ * preferible a abrirla con el cuadro a la vista.
+ *
+ * ────────────────────────── CUÁNDO SE REFRESCA ──────────────────────────
+ *
+ * Mientras está abierta, si el origen incorpora equipos nuevos (un cuadro que se va
+ * rellenando) se AÑADEN como opciones. Nunca se quita una: podría tener respuestas detrás.
+ * Cerrada, no se toca.
+ *
+ * Idempotente por comprobación previa: una por torneo, identificada por `kind`.
+ */
+export async function syncChampionQuestion(
+  sb: SupabaseClient, pickemEventId: string, matches: MatchInput[], now = Date.now(),
+): Promise<{ created: number; relabelled: number }> {
+  const { data: existing, error } = await sb
+    .from("pickem_questions").select("id, options, locks_at, correct_option")
+    .eq("pickem_event_id", pickemEventId).eq("kind", "champion")
+    .order("created_at", { ascending: true }).limit(1).maybeSingle();
+  if (error) throw new Error(error.message);
+
+  const spec = buildChampionQuestion(matches, now);
+
+  if (!existing) {
+    if (!spec) return { created: 0, relabelled: 0 };
+    const { error: insErr } = await sb.from("pickem_questions").insert({
+      pickem_event_id: pickemEventId,
+      kind: "champion",
+      match_id: null,
+      prompt: spec.prompt,
+      options: spec.options,
+      points: spec.points,
+      locks_at: spec.locksAt,
+      order_idx: spec.orderIdx,
+    });
+    if (insErr) throw new Error(insErr.message);
+    return { created: 1, relabelled: 0 };
+  }
+
+  const row = existing as { id: string; options: { key: string; label: string }[]; locks_at: string; correct_option: string | null };
+  // Cerrada o corregida: el pasado no se reescribe.
+  if (row.correct_option || new Date(row.locks_at).getTime() <= now) return { created: 0, relabelled: 0 };
+  if (!spec) return { created: 0, relabelled: 0 };
+
+  const merged = mergeOptions(row.options ?? [], spec.options);
+  if (JSON.stringify(merged) === JSON.stringify(row.options)) return { created: 0, relabelled: 0 };
+  const { error: upErr } = await sb.from("pickem_questions").update({ options: merged }).eq("id", row.id);
+  if (upErr) throw new Error(upErr.message);
+  return { created: 0, relabelled: 1 };
 }
 
 /**
@@ -224,36 +303,78 @@ export async function syncQuestions(
  * lo revise, no que la sincronización lo cambie sin avisar.
  */
 export async function resolveFinished(
-  sb: SupabaseClient, pickemEventId: string, eventId: string,
-): Promise<{ resolved: number; pending: number }> {
+  sb: SupabaseClient, pickemEventId: string, eventId: string, opts: LifecycleOptions = {},
+): Promise<{ resolved: number; pending: number; corrected: number }> {
+  const reconcile = new Set(opts.reconcileMatchIds ?? []);
   const { data: qRows, error } = await sb
-    .from("pickem_questions").select("id, match_id, kind, correct_option")
-    .eq("pickem_event_id", pickemEventId).not("match_id", "is", null);
+    .from("pickem_questions").select("id, match_id, kind, correct_option, options")
+    .eq("pickem_event_id", pickemEventId);
   if (error) throw new Error(error.message);
-  const questions = (qRows ?? []) as { id: string; match_id: string; kind: string; correct_option: string | null }[];
-  if (questions.length === 0) return { resolved: 0, pending: 0 };
+  const questions = (qRows ?? []) as {
+    id: string; match_id: string | null; kind: string; correct_option: string | null;
+    options: { key: string; label: string }[];
+  }[];
+  if (questions.length === 0) return { resolved: 0, pending: 0, corrected: 0 };
 
-  const { data: mRows } = await sb
-    .from("matches").select(MATCH_COLUMNS).eq("event_id", eventId);
-  const byId = new Map(((mRows ?? []) as MatchInput[]).map((m) => [m.id, m]));
+  const matches: MatchInput[] = await loadMatches(sb, eventId);
+  const byId = new Map(matches.map((m) => [m.id, m]));
+
+  /*
+   * CLASIFICADOS (Fase 24.2): solo se piden si hay alguna pregunta `advance` sin corregir.
+   * `standings.status = 'qualified'` lo rellena el origen; si no hay filas, no hay nada que
+   * corregir y la pregunta se queda pendiente — que es lo correcto.
+   */
+  let qualifiedKeys: string[] | null = null;
+  const loadQualified = async (): Promise<string[]> => {
+    if (qualifiedKeys) return qualifiedKeys;
+    const { data: st } = await sb
+      .from("standings").select("team_id, status, teams(name)")
+      .eq("event_id", eventId).eq("status", "qualified");
+    qualifiedKeys = ((st ?? []) as unknown as { team_id: string; teams: { name: string } | null }[])
+      .map((r) => r.teams?.name ?? r.team_id)
+      .map(teamOptionKey);
+    return qualifiedKeys;
+  };
 
   let resolved = 0;
   let pending = 0;
+  let corrected = 0;
   for (const q of questions) {
-    if (q.correct_option) continue;
-    const m = byId.get(q.match_id);
-    // El corrector no sabe de tipos: pregunta por el `kind` que leyó de la fila.
-    const correct = m ? correctOptionForKind(q.kind, m) : null;
-    if (!correct) { pending++; continue; }
+    /*
+     * Fase 24.6 · CORRECCIÓN DE LA FUENTE. Una pregunta ya corregida solo se reabre si el sync ha
+     * visto cambiar el resultado de SU partido (evidencia, no sospecha). Reescribir el resultado es
+     * seguro para los puntos: `app_score_pickem_event` recalcula desde cero y ajusta por diferencia.
+     * Las recompensas por escalón ya pagadas no se retiran: su clave de libro mayor es una sola vez
+     * por escalón, y ese es el contrato que la Fase 10 fijó.
+     */
+    const reconciling = !!q.correct_option && !!q.match_id && reconcile.has(q.match_id);
+    if (q.correct_option && !reconciling) continue;
+    let correct: string | null = null;
+    if (q.kind === "champion") {
+      correct = correctChampionOption(matches, q.options ?? []);
+    } else if (q.kind === "advance" && q.match_id) {
+      // 24.4 · clasificación por partido: se clasifica el ganador real de ese partido.
+      const m = byId.get(q.match_id);
+      correct = m ? correctOptionForKind("match_winner", m) : null;
+    } else if (q.kind === "advance") {
+      correct = correctAdvanceOption(q.options ?? [], await loadQualified());
+    } else if (q.match_id) {
+      const m = byId.get(q.match_id);
+      // El corrector no sabe de tipos: pregunta por el `kind` que leyó de la fila.
+      correct = m ? correctOptionForKind(q.kind, m) : null;
+    }
+    if (!correct) { if (!reconciling) pending++; continue; }
+    // Misma respuesta que la ya fijada: una corrección de marcador que no cambia el ganador.
+    if (reconciling && correct === q.correct_option) continue;
     // Se usa la RPC y no un UPDATE directo: es la operación que el dominio declara para
     // esto, y mantenerla como única puerta permite auditarla en un solo sitio.
     const { error: rpcErr } = await sb.rpc("app_set_correct_option", {
       p_question_id: q.id, p_correct: correct,
     });
     if (rpcErr) throw new Error(rpcErr.message);
-    resolved++;
+    if (reconciling) corrected++; else resolved++;
   }
-  return { resolved, pending };
+  return { resolved, pending, corrected };
 }
 
 /**
@@ -291,15 +412,15 @@ export async function scoreIfReady(
  * trae los datos. Se devuelve en `notes` y se sigue.
  */
 export async function runPickemLifecycle(
-  sb: SupabaseClient, eventId: string, now = Date.now(),
+  sb: SupabaseClient, eventId: string, now = Date.now(), opts: LifecycleOptions = {},
 ): Promise<LifecycleResult> {
   const out: LifecycleResult = {
-    eventId, pickemEventId: null, created: 0, resolved: 0, scored: false, usersScored: 0, notes: [],
+    eventId, pickemEventId: null, created: 0, resolved: 0, corrected: 0, scored: false, usersScored: 0, notes: [],
   };
 
   try {
     const pe = await ensurePickemEvent(sb, eventId);
-    if (!pe) { out.notes.push("el torneo no existe"); return out; }
+    if (!pe) { out.notes.push("sin Pick'em clásico para este torneo (retirados desde F87.1: las predicciones nuevas van por Pick'ems 2.0)"); return out; }
     out.pickemEventId = pe.id;
     if (pe.created) out.notes.push("Pick'em creado");
 
@@ -307,8 +428,10 @@ export async function runPickemLifecycle(
     out.created = q.created;
     if (q.relabelled > 0) out.notes.push(`${q.relabelled} etiqueta(s) refrescada(s)`);
 
-    const r = await resolveFinished(sb, pe.id, eventId);
+    const r = await resolveFinished(sb, pe.id, eventId, opts);
     out.resolved = r.resolved;
+    out.corrected = r.corrected;
+    if (r.corrected > 0) out.notes.push(`${r.corrected} resultado(s) rectificado(s) por corrección de la fuente`);
 
     const s = await scoreIfReady(sb, pe.id);
     out.scored = s.scored;

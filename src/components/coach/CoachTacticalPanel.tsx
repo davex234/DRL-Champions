@@ -8,8 +8,9 @@
  * acepta, modifica o ignora. Reúne el scouting REAL del rival y el estado mental de
  * los 5 jugadores. Emite un `ManualCoachInput` que el Coach Engine traduce a plan.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { CoachConcept } from "@/coach";
+import { conceptDefaults } from "@/coach";
 import type { ManualCoachInput, UtilityFocus } from "@/coach";
 import type { Aggression, Side, Tempo } from "@/sim";
 import type { RiskLevel } from "@/preparation";
@@ -23,8 +24,9 @@ interface StratOpt { label: string; concept: CoachConcept; hint: string }
 const ATK_STRATS: StratOpt[] = [
   { label: "Default", concept: "default", hint: "Control + ejecución estándar" },
   { label: "Default lento", concept: "slow", hint: "Control de mapa paciente" },
-  { label: "Explode A", concept: "explode_a", hint: "Ejecución rápida a A" },
-  { label: "Explode B", concept: "explode_b", hint: "Ejecución rápida a B/Tree" },
+  // FULL GAME AUDIT · sin nombres de Ascent («B/Tree») en los doce mapas: la zona se dice por su función (`ZONE_LABEL`).
+  { label: "Explode A", concept: "explode_a", hint: "Ejecución rápida por la entrada principal" },
+  { label: "Explode B", concept: "explode_b", hint: "Ejecución rápida por el flanco" },
   { label: "Split / Fake", concept: "fake", hint: "Finta y reubicación" },
   { label: "Lurk / Picks", concept: "play_picks", hint: "Buscar pick, jugar lento" },
   { label: "Rush / Force", concept: "force", hint: "Duelos rápidos, comprometer" },
@@ -41,11 +43,12 @@ const DEF_STRATS: StratOpt[] = [
 
 interface ObjOpt { id: string; label: string; objective: string; mapPriority: string }
 const OBJECTIVES: ObjOpt[] = [
-  { id: "main", label: "A Main", objective: "execute_site", mapPriority: "main" },
+  // FULL GAME AUDIT · zonas por su FUNCIÓN (valen en los doce mapas), no por los nombres de Ascent («A Main», «Tree / B»).
+  { id: "main", label: "Entrada principal", objective: "execute_site", mapPriority: "main" },
   { id: "mid", label: "Mid", objective: "map_control", mapPriority: "mid" },
-  { id: "tree", label: "Tree / B", objective: "execute_site", mapPriority: "tree" },
+  { id: "tree", label: "Flanco", objective: "execute_site", mapPriority: "tree" },
   { id: "heaven", label: "Heaven", objective: "hold_default", mapPriority: "heaven" },
-  { id: "site", label: "Site", objective: "execute_site", mapPriority: "site" },
+  { id: "site", label: "Sitio", objective: "execute_site", mapPriority: "site" },
   { id: "control", label: "Control mapa", objective: "map_control", mapPriority: "" },
   { id: "picks", label: "Jugar por picks", objective: "surprise_pick", mapPriority: "" },
   { id: "fb", label: "Buscar first blood", objective: "win_duels", mapPriority: "" },
@@ -73,7 +76,20 @@ const tempoToIdx = (t: Tempo) => (t === "slow" ? 1 : t === "mid" ? 2 : 3);
 const riskToIdx = (a: Aggression, r: RiskLevel) =>
   a === "passive" ? (r === "low" ? 0 : 1) : a === "balanced" ? 2 : r === "high" ? 4 : 3;
 
-export function CoachTacticalPanel({ prep, onConfirm }: { prep: PrepView; onConfirm: (input: ManualCoachInput) => void }) {
+/**
+ * El plan de la ronda.
+ *
+ * `onChange` existe para que la ORDEN pueda estar fuera de este panel. La barra de acción del
+ * partido vive anclada al pie del escenario —para no obligar a bajar hasta aquí— y necesita
+ * confirmar exactamente el plan que se ve en pantalla, no uno por defecto. Así que el panel
+ * publica su plan hacia arriba y quien manda puede estar en otro sitio.
+ */
+export function CoachTacticalPanel({ prep, onConfirm, onChange }: {
+  prep: PrepView;
+  /** Opcional (F69 · F68-012): en el partido la orden vive en el pie anclado; sin ella no hay botón duplicado. */
+  onConfirm?: (input: ManualCoachInput) => void;
+  onChange?: (input: ManualCoachInput) => void;
+}) {
   const rec = prep.recommendation;
   const strats = prep.side === "ATK" ? ATK_STRATS : DEF_STRATS;
 
@@ -90,6 +106,25 @@ export function CoachTacticalPanel({ prep, onConfirm }: { prep: PrepView; onConf
     setObjIdx(-1);
   };
 
+  /*
+   * FULL GAME AUDIT (2026-10-07) · elegir una ESTRATEGIA pone los diales en los de esa estrategia (la recomendada, con
+   * los de la recomendación; otra, con los suyos propios) y su objetivo vuelve a ser el de la estrategia. Antes solo
+   * cambiaba el concepto: el objetivo/carril, el tempo y el riesgo seguían siendo los de la recomendación y mandaban
+   * sobre la estrategia elegida. Cambiar después un dial sigue siendo decisión del entrenador.
+   */
+  const pickConcept = (c: CoachConcept) => {
+    setConcept(c);
+    setObjIdx(-1);
+    if (c === rec.concept) {
+      setTempoIdx(tempoToIdx(rec.tempo));
+      setRiskIdx(riskToIdx(rec.aggression, rec.riskLevel));
+    } else {
+      const d = conceptDefaults(c, prep.side);
+      setTempoIdx(tempoToIdx(d.tempo));
+      setRiskIdx(riskToIdx(d.aggression, d.riskLevel));
+    }
+  };
+
   // La PIZARRA traduce su plan compilado a los diales del panel (concepto/tempo/objetivo/utilidad).
   const applyChalk = (plan: ChalkboardPlan) => {
     setConcept(plan.concept);
@@ -104,10 +139,15 @@ export function CoachTacticalPanel({ prep, onConfirm }: { prep: PrepView; onConf
     tempo: TEMPOS[tempoIdx].tempo,
     aggression: RISKS[riskIdx].aggression,
     riskLevel: RISKS[riskIdx].risk,
-    primaryObjective: objIdx >= 0 ? OBJECTIVES[objIdx].objective : rec.primaryObjective,
-    mapPriority: objIdx >= 0 ? OBJECTIVES[objIdx].mapPriority : rec.mapPriority,
+    // Sin objetivo elegido a mano: el de la recomendación SOLO si se juega la estrategia recomendada; si no, vacío y
+    // `buildManualPlan` usa el de la estrategia elegida (su forma base).
+    primaryObjective: objIdx >= 0 ? OBJECTIVES[objIdx].objective : concept === rec.concept ? rec.primaryObjective : "",
+    mapPriority: objIdx >= 0 ? OBJECTIVES[objIdx].mapPriority : concept === rec.concept ? rec.mapPriority : "",
     utility,
   }), [concept, tempoIdx, riskIdx, objIdx, utility, rec]);
+
+  // Publica el plan cada vez que cambia, para que la barra de acción confirme ESTE y no otro.
+  useEffect(() => { onChange?.(input); }, [input, onChange]);
 
   const sideLabel = prep.side === "ATK" ? "ATAQUE" : "DEFENSA";
   const homeName = prep.teamNames?.home ?? "Tu equipo";
@@ -131,12 +171,12 @@ export function CoachTacticalPanel({ prep, onConfirm }: { prep: PrepView; onConf
 
       {prep.matchPoint && (
         <div className={cn("flex items-center justify-center gap-3 rounded-xl border px-4 py-3 text-center animate-pulse",
-          prep.matchPoint === "home" ? "border-emerald-400/50 bg-emerald-500/10" : "border-rose-400/50 bg-rose-500/10")}>
+          prep.matchPoint === "home" ? "border-emerald-400/50 bg-emerald-500/10" : prep.matchPoint === "both" ? "border-amber-300/50 bg-amber-400/10" : "border-rose-400/50 bg-rose-500/10")}>
           <span className="font-display text-xl font-black uppercase tracking-[0.3em]"
-            style={{ color: prep.matchPoint === "home" ? "#37e6a0" : "#ff4d6a" }}>
-            {prep.matchPoint === "home" ? "★ MATCH POINT ★" : "⚠ MATCH POINT RIVAL ⚠"}
+            style={{ color: prep.matchPoint === "home" ? "#37e6a0" : prep.matchPoint === "both" ? "#ffd35c" : "#ff4d6a" }}>
+            {prep.matchPoint === "home" ? "★ MATCH POINT ★" : prep.matchPoint === "both" ? "★ MATCH POINT · LOS DOS ★" : "⚠ MATCH POINT RIVAL ⚠"}
           </span>
-          <span className="text-sm text-white/60">{prep.matchPoint === "home" ? "Una ronda para cerrarlo." : "Una ronda o se acaba."}</span>
+          <span className="text-sm text-white/60">{prep.matchPoint === "home" ? "Una ronda para cerrarlo." : prep.matchPoint === "both" ? "La siguiente ronda decide el partido." : "Una ronda o se acaba."}</span>
         </div>
       )}
 
@@ -155,7 +195,7 @@ export function CoachTacticalPanel({ prep, onConfirm }: { prep: PrepView; onConf
           <Section title="Estrategia">
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               {strats.map((s) => (
-                <button key={s.label} onClick={() => setConcept(s.concept)}
+                <button key={s.label} onClick={() => pickConcept(s.concept)}
                   className={cn("rounded-xl border px-3 py-2.5 text-left transition",
                     concept === s.concept ? "border-drl bg-drl/15 shadow-glow" : "border-white/10 bg-white/5 hover:bg-white/10")}>
                   <p className="font-display text-xs font-bold uppercase tracking-wide text-white">{s.label}</p>
@@ -227,10 +267,17 @@ export function CoachTacticalPanel({ prep, onConfirm }: { prep: PrepView; onConf
         </div>
       </Section>
 
-      <button onClick={() => onConfirm(input)}
-        className="w-full rounded-2xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-4 font-display text-base font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
-        Confirmar plan → Fase de compra ▸
-      </button>
+      {/*
+        F69 · F68-012: este botón hacía lo mismo que «Comenzar fase de compra» del pie anclado
+        (`confirmPreparation` con el plan marcado), que se ve siempre por mucho que se desplace el
+        panel. Dos CTA para una acción; solo se pinta si el panel se usa fuera del partido.
+      */}
+      {onConfirm && (
+        <button onClick={() => onConfirm(input)}
+          className="nx-focus w-full rounded-2xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-4 font-display text-base font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
+          Confirmar plan → Fase de compra ▸
+        </button>
+      )}
     </div>
   );
 }

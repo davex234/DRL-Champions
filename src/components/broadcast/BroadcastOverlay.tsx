@@ -19,8 +19,10 @@ import { BroadcastDock } from "./BroadcastDock";
 import { CompositionHUD } from "./CompositionHUD";
 import { MapStateHUD, CoachReadTicker } from "./MapHUD";
 
-export function BroadcastOverlay({ bs, snap, creditsByName, names, momentum }: {
+export function BroadcastOverlay({ bs, snap, creditsByName, names, momentum, cardArtByName }: {
   bs: BroadcastState;
+  /** FASE 51.1 · nombre (minúsculas) → WebP de SU carta, para los titulares del entrenador. Opcional. */
+  cardArtByName?: Record<string, string>;
   snap: RoundState | null;
   creditsByName: Record<string, number>;
   names: { atk: string; def: string };
@@ -32,15 +34,15 @@ export function BroadcastOverlay({ bs, snap, creditsByName, names, momentum }: {
   return (
     <div className="pointer-events-none absolute inset-0 select-none">
       {/* Marcador (arriba-centro) */}
-      <div className="absolute left-1/2 top-0 -translate-x-1/2">
+      <div className="absolute left-1/2 top-0 origin-top -translate-x-1/2 max-sm:scale-[0.8]" data-broadcast="scoreboard">
         <Scoreboard match={bs.match} atk={bs.teams.atk} def={bs.teams.def} names={names} loadout={bs.loadout} />
       </div>
 
       {/* Fichas de jugador (rails laterales) */}
       {snap && (
         <>
-          <div className="absolute left-2 top-20 hidden md:block"><ProPlayerStrip snap={snap} side="ATK" align="left" creditsByName={creditsByName} focusId={focusId} /></div>
-          <div className="absolute right-2 top-20 hidden md:block"><ProPlayerStrip snap={snap} side="DEF" align="right" creditsByName={creditsByName} focusId={focusId} /></div>
+          <div className="absolute left-2 top-20 hidden md:block"><ProPlayerStrip snap={snap} side="ATK" align="left" creditsByName={creditsByName} focusId={focusId} cardArtByName={cardArtByName} /></div>
+          <div className="absolute right-2 top-20 hidden md:block"><ProPlayerStrip snap={snap} side="DEF" align="right" creditsByName={creditsByName} focusId={focusId} cardArtByName={cardArtByName} /></div>
         </>
       )}
 

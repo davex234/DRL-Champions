@@ -1,0 +1,488 @@
+/* ═══════════════════════ FASE 51 · TACTICAL COACH 4.0 — LA SALA TÁCTICA ═══════════════════════
+ *
+ * El entrenador es el MISMO juego que NEXUS Arena, en otra sala: la arena es competición (rojo contra
+ * cian, estadio); el entrenador es preparación (navy, cian y azul, planos y retícula, magenta solo de
+ * contraste). Todo lo de aquí es presentación: ningún selector cambia qué guarda o qué valida nada.
+ *
+ * Reglas de coste (las de la Fase 44.1 y 50): lo que se mueve lo hace sobre transform/opacity, sin
+ * grano a pantalla completa ni filtros animados; con `prefers-reduced-motion: reduce` no se mueve nada.
+ */
+/* El teatro va por portal al `body` (fuera de `.nx-coach`): por eso comparte las variables. */
+.nx-coach, .nx-coach-theater {
+  --tc-cyan: 47, 224, 255;
+  --tc-blue: 52, 124, 255;
+  --tc-mag: 255, 46, 140;
+  --tc-gold: 255, 211, 92;
+  --tc-ok: 63, 214, 150;
+  --tc-ink: 226, 236, 255;
+  --tc-panel: rgba(8, 15, 30, 0.78);
+  --tc-panel-2: rgba(5, 10, 22, 0.88);
+  --tc-line: rgba(var(--tc-cyan), 0.16);
+}
+.nx-coach { position: relative; }
+
+/* ── EL FONDO DE LA SALA: navy profundo, retícula de plano y dos luces frías. Fijo, sin animación. ── */
+.nx-coach-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 18% 8%, rgba(var(--tc-cyan), 0.10), transparent 70%),
+    radial-gradient(50% 45% at 88% 20%, rgba(var(--tc-blue), 0.12), transparent 72%),
+    radial-gradient(70% 60% at 50% 110%, rgba(var(--tc-mag), 0.05), transparent 70%),
+    linear-gradient(180deg, #050913 0%, #060c19 45%, #04070f 100%);
+}
+.nx-coach-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(var(--tc-cyan), 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--tc-cyan), 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(var(--tc-cyan), 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--tc-cyan), 0.02) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  -webkit-mask-image: radial-gradient(90% 80% at 50% 30%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(90% 80% at 50% 30%, #000 30%, transparent 85%);
+}
+.nx-coach-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(130% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+/* ── TIPOGRAFÍA DE SALA ── */
+.nx-coach-kicker {
+  font-family: var(--font-display, inherit);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgb(var(--tc-cyan));
+}
+.nx-coach-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background: rgb(var(--tc-cyan));
+  box-shadow: 0 0 8px rgba(var(--tc-cyan), 0.8);
+}
+.nx-coach-muted { color: rgba(var(--tc-ink), 0.55); }
+
+/* ── PANEL: vidrio oscuro con filo cian arriba y chaflán de la casa ── */
+.nx-coach-panel {
+  position: relative;
+  background: linear-gradient(180deg, var(--tc-panel), var(--tc-panel-2));
+  box-shadow: inset 0 0 0 1px var(--tc-line), inset 0 1px 0 rgba(var(--tc-cyan), 0.28), 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+.nx-coach-panel[data-tone="mag"] { box-shadow: inset 0 0 0 1px rgba(var(--tc-mag), 0.22), inset 0 1px 0 rgba(var(--tc-mag), 0.4), 0 18px 40px -24px rgba(0, 0, 0, 0.9); }
+.nx-coach-panel[data-tone="gold"] { box-shadow: inset 0 0 0 1px rgba(var(--tc-gold), 0.22), inset 0 1px 0 rgba(var(--tc-gold), 0.45), 0 18px 40px -24px rgba(0, 0, 0, 0.9); }
+.nx-coach-panel-flat {
+  background: rgba(6, 12, 24, 0.62);
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.1);
+}
+
+/* ── BOTONES ── */
+.nx-coach-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  font-family: var(--font-display, inherit);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #021420;
+  background: linear-gradient(180deg, #7af2ff 0%, #2fc8f4 55%, #1a8ed6 100%);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  transition: filter 160ms ease, transform 160ms ease;
+}
+.nx-coach-btn:hover:not(:disabled) { filter: brightness(1.12); }
+.nx-coach-btn:active:not(:disabled) { transform: translateY(1px); }
+.nx-coach-btn:disabled { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.35); cursor: not-allowed; }
+.nx-coach-btn:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.nx-coach-btn[data-variant="ghost"] {
+  color: rgba(var(--tc-ink), 0.85);
+  background: rgba(var(--tc-cyan), 0.06);
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.35);
+  clip-path: none;
+  border-radius: 2px;
+}
+.nx-coach-btn[data-variant="ghost"]:hover:not(:disabled) { background: rgba(var(--tc-cyan), 0.14); color: #fff; }
+.nx-coach-btn[data-variant="mag"] { color: #fff; background: linear-gradient(180deg, #ff5aa8 0%, #e0266f 60%, #a3134c 100%); }
+.nx-coach-btn[data-variant="gold"] { color: #1a1200; background: linear-gradient(180deg, #ffe38c 0%, #ffcc4a 55%, #d9a21c 100%); }
+.nx-coach-btn[data-size="sm"] { min-height: 36px; padding: 0 12px; font-size: 11px; letter-spacing: 0.14em; }
+
+/* ── PESTAÑAS DE LA SALA (navegación interna del entrenador) ── */
+.nx-coach-tabs {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, #000 92%, transparent);
+}
+.nx-coach-tabs::-webkit-scrollbar { display: none; }
+.nx-coach-tab {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 14px;
+  font-family: var(--font-display, inherit);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(var(--tc-ink), 0.55);
+  transition: color 160ms ease;
+}
+.nx-coach-tab:hover { color: #fff; }
+.nx-coach-tab[aria-current="page"] { color: #fff; }
+.nx-coach-tab[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 4px;
+  height: 2px;
+  background: rgb(var(--tc-cyan));
+  box-shadow: 0 0 10px rgba(var(--tc-cyan), 0.9);
+}
+.nx-coach-tab:focus-visible { outline: 2px solid rgba(var(--tc-cyan), 0.9); outline-offset: -2px; }
+.nx-coach-tab-dot { width: 6px; height: 6px; transform: rotate(45deg); background: currentColor; opacity: 0.7; }
+
+/* ── MÓDULO del centro de mando: identidad por color (--mod) ── */
+.nx-coach-module {
+  --mod: var(--tc-cyan);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 168px;
+  padding: 18px 18px 16px;
+  background:
+    radial-gradient(90% 80% at 100% 0%, rgba(var(--mod), 0.16), transparent 62%),
+    linear-gradient(180deg, rgba(10, 18, 34, 0.82), rgba(5, 10, 22, 0.9));
+  box-shadow: inset 0 0 0 1px rgba(var(--mod), 0.2), inset 0 1px 0 rgba(var(--mod), 0.45);
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+  transition: transform 200ms cubic-bezier(.2,.8,.2,1), box-shadow 200ms ease;
+}
+.nx-coach-module:hover { box-shadow: inset 0 0 0 1px rgba(var(--mod), 0.5), inset 0 1px 0 rgba(var(--mod), 0.8); }
+.nx-coach-module:focus-visible { outline: 2px solid rgb(var(--mod)); outline-offset: 2px; }
+.nx-coach-module-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  color: rgb(var(--mod));
+  background: rgba(var(--mod), 0.1);
+  box-shadow: inset 0 0 0 1px rgba(var(--mod), 0.35);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.nx-coach-module-art {
+  position: absolute;
+  right: -10px;
+  bottom: -14px;
+  width: 58%;
+  opacity: 0.22;
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 300ms ease;
+}
+.nx-coach-module:hover .nx-coach-module-art { opacity: 0.36; }
+
+/* ── CIFRA DE ESTADO (actividad real) ── */
+.nx-coach-stat b {
+  display: block;
+  font-family: var(--font-display, inherit);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.nx-coach-stat span { display: block; margin-top: 4px; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(var(--tc-ink), 0.5); }
+
+/* ── EL FLUJO: 5 pasos enlazados por una línea ── */
+.nx-coach-flow { position: relative; }
+.nx-coach-flow::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--tc-cyan), 0.45), rgba(var(--tc-blue), 0.45), transparent);
+}
+.nx-coach-flow-node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  font-family: var(--font-display, inherit);
+  font-weight: 800;
+  font-size: 15px;
+  color: rgba(var(--tc-ink), 0.8);
+  background: #07101f;
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.35);
+  transform: rotate(45deg);
+}
+.nx-coach-flow-node > span { transform: rotate(-45deg); }
+.nx-coach-flow-node[data-done="true"] { color: #021420; background: rgb(var(--tc-cyan)); box-shadow: 0 0 18px rgba(var(--tc-cyan), 0.55); }
+
+/* ── HERO ── */
+.nx-coach-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: clamp(300px, 42vh, 460px);
+  background:
+    radial-gradient(60% 90% at 78% 50%, rgba(var(--tc-cyan), 0.14), transparent 70%),
+    linear-gradient(100deg, rgba(4, 9, 20, 0.96) 0%, rgba(5, 12, 26, 0.86) 48%, rgba(5, 12, 26, 0.5) 100%);
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.18), inset 0 1px 0 rgba(var(--tc-cyan), 0.45);
+  clip-path: polygon(22px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 22px);
+}
+.nx-coach-hero-art { position: absolute; inset: 0; z-index: -1; }
+.nx-coach-hero-title {
+  font-family: var(--font-display, inherit);
+  font-weight: 900;
+  font-size: clamp(40px, 6.4vw, 92px);
+  line-height: 0.86;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.nx-coach-hero-title em {
+  font-style: normal;
+  background: linear-gradient(100deg, #7af2ff, #347cff 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Trazos del hero: las rutas se dibujan (stroke-dashoffset) y las fichas laten. */
+.nx-coach-route { stroke-dasharray: 6 8; }
+.nx-coach-route-draw { stroke-dasharray: 420; stroke-dashoffset: 420; }
+.nx-coach-pulse { transform-box: fill-box; transform-origin: center; }
+
+/* ── PIZARRA: la sala de guerra ── */
+.nx-coach-warroom {
+  position: relative;
+  left: 50%;
+  width: min(calc(100vw - 24px), 1880px);
+  transform: translateX(-50%);
+}
+.nx-coach-toolrail {
+  background: linear-gradient(180deg, rgba(8, 15, 30, 0.9), rgba(5, 10, 22, 0.94));
+  box-shadow: inset 0 0 0 1px var(--tc-line), inset 0 1px 0 rgba(var(--tc-cyan), 0.3);
+}
+.nx-coach-tool {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  font-family: var(--font-display, inherit);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(var(--tc-ink), 0.7);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.12);
+  transition: color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+.nx-coach-tool:hover:not(:disabled) { color: #fff; background: rgba(var(--tc-cyan), 0.08); }
+.nx-coach-tool[aria-pressed="true"] {
+  color: #fff;
+  background: rgba(var(--tc-cyan), 0.16);
+  box-shadow: inset 0 0 0 1.5px rgba(var(--tc-cyan), 0.95), 0 0 14px -4px rgba(var(--tc-cyan), 0.9);
+}
+.nx-coach-tool:disabled { opacity: 0.3; cursor: not-allowed; }
+.nx-coach-tool:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+.nx-coach-toolgroup-title {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(var(--tc-ink), 0.4);
+}
+
+/* El tablero: el mapa manda. Marco técnico con esquinas encendidas. */
+.nx-coach-board {
+  position: relative;
+  background: radial-gradient(70% 70% at 50% 50%, rgba(var(--tc-blue), 0.08), transparent 70%), #040810;
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.22), 0 30px 60px -30px rgba(0, 0, 0, 0.95);
+}
+.nx-coach-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: rgb(var(--tc-cyan));
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px rgba(var(--tc-cyan), 0.8));
+}
+.nx-coach-corner[data-c="tl"] { top: -1px; left: -1px; border-top: 2px solid; border-left: 2px solid; }
+.nx-coach-corner[data-c="tr"] { top: -1px; right: -1px; border-top: 2px solid; border-right: 2px solid; }
+.nx-coach-corner[data-c="bl"] { bottom: -1px; left: -1px; border-bottom: 2px solid; border-left: 2px solid; }
+.nx-coach-corner[data-c="br"] { bottom: -1px; right: -1px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* La línea de pasos, abajo: 01 02 03… */
+.nx-coach-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 92px;
+  min-height: 52px;
+  padding: 6px 12px 6px 10px;
+  text-align: left;
+  color: rgba(var(--tc-ink), 0.6);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.12);
+  transition: background 140ms ease, color 140ms ease, box-shadow 140ms ease;
+}
+.nx-coach-step:hover { color: #fff; background: rgba(var(--tc-cyan), 0.06); }
+.nx-coach-step[aria-current="step"] {
+  color: #fff;
+  background: linear-gradient(180deg, rgba(var(--tc-cyan), 0.2), rgba(var(--tc-cyan), 0.06));
+  box-shadow: inset 0 0 0 1.5px rgba(var(--tc-cyan), 0.9), 0 0 18px -6px rgba(var(--tc-cyan), 0.9);
+}
+.nx-coach-step-num { font-family: var(--font-display, inherit); font-size: 18px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.nx-coach-step-name { margin-top: 3px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.nx-coach-step-dot { position: absolute; top: 6px; right: 7px; width: 6px; height: 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.18); }
+.nx-coach-step-dot[data-full="true"] { background: rgb(var(--tc-cyan)); box-shadow: 0 0 6px rgba(var(--tc-cyan), 0.9); }
+
+/* Aviso de conflicto de versiones: visible, nunca un toast que se escapa. */
+.nx-coach-conflict {
+  background: linear-gradient(90deg, rgba(var(--tc-mag), 0.18), rgba(var(--tc-mag), 0.06));
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-mag), 0.55), inset 3px 0 0 rgb(var(--tc-mag));
+}
+
+/* ── SELECTOR DE AGENTES (composiciones) ── */
+.nx-coach-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(180deg, rgba(var(--tc-cyan), 0.07), rgba(4, 8, 16, 0.6));
+  box-shadow: inset 0 0 0 1px rgba(var(--tc-cyan), 0.2);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+.nx-coach-slot[data-filled="true"] { box-shadow: inset 0 0 0 1px rgba(var(--slot, var(--tc-cyan)), 0.6), inset 0 -40px 60px -40px rgba(var(--slot, var(--tc-cyan)), 0.45); }
+.nx-coach-slot[data-active="true"] { box-shadow: inset 0 0 0 2px rgb(var(--tc-cyan)), 0 0 20px -6px rgba(var(--tc-cyan), 0.9); }
+
+/* ── TEATRO ── */
+.nx-coach-theater {
+  background:
+    radial-gradient(55% 60% at 50% 45%, rgba(var(--tc-blue), 0.14), transparent 72%),
+    radial-gradient(40% 40% at 12% 90%, rgba(var(--tc-cyan), 0.07), transparent 70%),
+    linear-gradient(180deg, #03060e 0%, #050a17 50%, #03050c 100%);
+}
+.nx-coach-theater::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(var(--tc-cyan), 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--tc-cyan), 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(80% 80% at 50% 50%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(80% 80% at 50% 50%, #000 40%, transparent 100%);
+}
+.nx-coach-theater > * { position: relative; }
+.nx-coach-theater-hud {
+  background: linear-gradient(180deg, rgba(3, 6, 14, 0.92), rgba(3, 6, 14, 0));
+}
+.nx-coach-theater-bar {
+  background: linear-gradient(0deg, rgba(3, 6, 14, 0.94), rgba(3, 6, 14, 0));
+}
+
+/* ── FASE 51.1 · CARTAS EN LA PLANTILLA: la carta es el asset; el botón es un contenedor técnico transparente. ── */
+.nx-roster-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transform-origin: 50% 80%;
+}
+.nx-roster-card:focus-visible { outline: 2px solid rgb(var(--tc-cyan)); outline-offset: 4px; }
+.nx-roster-card:disabled { cursor: not-allowed; }
+.nx-roster-slot-empty {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 750 / 1048;
+  border: 1.5px dashed rgba(var(--tc-cyan), 0.35);
+  color: rgba(var(--tc-cyan), 0.6);
+  background: rgba(var(--tc-cyan), 0.03);
+}
+.nx-roster-slot-empty[data-active="true"] { border-color: rgb(var(--tc-cyan)); background: rgba(var(--tc-cyan), 0.08); }
+.nx-play-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 0 44px;
+  font-family: var(--font-display, inherit);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #021420;
+  background: linear-gradient(180deg, #8af5ff 0%, #2fe0ff 50%, #1aa6e6 100%);
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+  filter: drop-shadow(0 0 22px rgba(var(--tc-cyan), 0.55));
+}
+.nx-play-cta:hover { filter: drop-shadow(0 0 30px rgba(var(--tc-cyan), 0.85)) brightness(1.06); }
+.nx-play-cta:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.nx-coach-tab[data-primary="true"] { color: #021420; background: rgb(var(--tc-cyan)); }
+.nx-coach-tab[data-primary="true"][aria-current="page"] { box-shadow: 0 0 16px -2px rgba(var(--tc-cyan), 0.9); }
+
+/* ── MOVIMIENTO: todo bajo no-preference, y fuera con reduce ── */
+@media (prefers-reduced-motion: no-preference) {
+  .nx-coach-rise { animation: nx-coach-rise 420ms cubic-bezier(.2,.8,.2,1) both; animation-delay: var(--d, 0ms); }
+  .nx-coach-module:hover { transform: translateY(-3px); }
+  .nx-coach-route { animation: nx-coach-dash 2.4s linear infinite; }
+  .nx-coach-route-draw { animation: nx-coach-draw 3.6s cubic-bezier(.4,0,.2,1) infinite; }
+  .nx-coach-pulse { animation: nx-coach-pulse 2.6s ease-in-out infinite; }
+  .nx-coach-scan { animation: nx-coach-scan 7s linear infinite; }
+  .nx-roster-card { transition: transform 180ms cubic-bezier(.2,.8,.2,1); }
+  .nx-roster-card:not(:disabled):hover { transform: translateY(-6px) scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-coach-rise, .nx-coach-route, .nx-coach-route-draw, .nx-coach-pulse, .nx-coach-scan { animation: none; }
+  .nx-coach-route-draw { stroke-dashoffset: 0; }
+  .nx-coach-module, .nx-coach-tool, .nx-coach-step, .nx-coach-btn, .nx-coach-tab { transition: none; }
+}
+@keyframes nx-coach-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes nx-coach-dash { to { stroke-dashoffset: -28; } }
+@keyframes nx-coach-draw { 0% { stroke-dashoffset: 420; } 55%, 85% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -420; } }
+@keyframes nx-coach-pulse { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.18); opacity: 1; } }
+@keyframes nx-coach-scan { from { transform: translateY(-100%); } to { transform: translateY(100%); } }

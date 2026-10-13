@@ -136,6 +136,22 @@ export function Card3D({
 
   const lifted = pose.lifted || mode === "selected";
 
+  /*
+   * CARD ART = CARD VISUAL (limpieza global de cartas). Todo lo que este envoltorio añadía era
+   * RECTANGULAR —filo interior del color de la rareza, brillo especular, barrido y halo
+   * legendario, anillo de selección, velo de bloqueada, mancha de sombra— y sobre una carta
+   * diseñada (un WebP con margen transparente) eso se leía como otra carta alrededor de la
+   * carta. Ahora el volumen y los estados son UN filtro sobre la silueta del contenido:
+   * apagada si está bloqueada, halo del color de la rareza al elegirla o en las legendarias,
+   * y la sombra que se separa del plano al levantarla. `drop-shadow` sigue la transparencia.
+   */
+  const filtroSilueta = [
+    locked ? "brightness(0.42)" : "",
+    (mode === "selected" || (mode === "legendary" && !reduced)) ? `drop-shadow(0 0 14px ${halo})` : "",
+    lifted && !locked ? "drop-shadow(0 16px 18px rgba(0,0,0,0.55))" : "",
+  ].filter(Boolean).join(" ") || undefined;
+  const cara = <span className="block" data-card3d-face style={{ filter: filtroSilueta }}>{children}</span>;
+
   /**
    * Las marcas de estado. Van FUERA del `switch` del movimiento porque una carta puede
    * ser nueva estando quieta, y bloqueada estando en una vitrina.
@@ -151,12 +167,12 @@ export function Card3D({
       */}
       {locked && (
         <>
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-card"
-            data-locked
-            style={{ background: "linear-gradient(180deg, rgba(6,7,13,0.62), rgba(6,7,13,0.82))" }}
-          />
+          {/*
+            CARD ART = CARD VISUAL: la carta ya no se tapa con un velo rectangular (dibujaba una caja
+            oscura sobre el margen transparente del asset). Se apaga con un filtro sobre la silueta
+            (ver `filtroSilueta`); este nodo solo marca el estado para las auditorías.
+          */}
+          <span aria-hidden className="sr-only" data-locked />
           <span
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-1/2 grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-white/25 bg-black/55"
@@ -195,6 +211,20 @@ export function Card3D({
     </>
   );
 
+  /**
+   * ¿EL LLAMANTE TRAE SU PROPIO ANCHO?
+   *
+   * La carta se dibujaba con `w-full` fijo y quien le pasaba `className="w-[118px]"` no
+   * ganaba: `clsx` concatena, no resuelve conflictos, y cuál de las dos clases manda lo
+   * decide el ORDEN EN EL CSS, no el orden en el atributo. En el resumen de la apertura eso
+   * convertía «el resto del sobre» en una columna de cartas apiladas a ancho completo, cada
+   * una en su propia fila y saliéndose del cuadro.
+   *
+   * `w-full` pasa a ser lo que siempre debió ser: el valor POR DEFECTO, que se aparta si a
+   * la carta le dan una medida.
+   */
+  const anchoPropio = /(?:^|\s)(?:w-|max-w-)/.test(className ?? "");
+
   const Tag = onClick ? "button" : "div";
 
   /*
@@ -224,7 +254,8 @@ export function Card3D({
         onClick={onClick}
         disabled={onClick ? disabled : undefined}
         className={cn(
-          "relative block w-full origin-center transition-transform duration-fast ease-out",
+          "relative block origin-center transition-transform duration-fast ease-out",
+          !anchoPropio && "w-full",
           className,
           onClick && !disabled && "cursor-pointer text-left hover:-translate-y-1.5",
           // `grayscale` (y no `saturate`) porque es además el marcador por el que
@@ -234,12 +265,8 @@ export function Card3D({
         )}
         style={!reduced ? ({ animationDelay: `${delay}s` } as CSSProperties) : undefined}
       >
-        {/* Sombra proyectada: sin ella la carta se apoya en el fondo y no flota sobre él. */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-x-2 bottom-0 -z-10 h-5 translate-y-1.5 rounded-full bg-black/70 blur-lg"
-        />
-        {children}
+        {/* La sombra la pone la propia carta (sobre su silueta): aquí no se dibuja ninguna mancha. */}
+        {cara}
         {marks}
       </Tag>
     );
@@ -296,7 +323,8 @@ export function Card3D({
         onPointerLeave={reset}
         onBlur={reset}
         className={cn(
-          "relative block w-full origin-center",
+          "relative block origin-center",
+          !anchoPropio && "w-full",
           onClick && "cursor-pointer text-left",
           locked && "grayscale",
         )}
@@ -308,78 +336,12 @@ export function Card3D({
           } as CSSProperties
         }
       >
-        {/* Sombra proyectada. Se separa del plano cuando la carta se eleva. */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-x-2 bottom-0 -z-10 h-6 rounded-full blur-xl transition-opacity duration-normal"
-          style={{
-            background: "rgba(0,0,0,0.85)",
-            opacity: lifted ? 0.9 : 0.45,
-            transform: `translateY(${lifted ? 14 : 6}px)`,
-          }}
-        />
-
-        {children}
-
         {/*
-          FILO. Una línea de luz interior del color de la rareza. Es lo que hace que la
-          carta se lea como algo TROQUELADO y no como una imagen pegada al fondo: un objeto
-          real tiene canto, y el canto coge luz. Cuesta un solo `box-shadow` interior.
+          La carta y su volumen: sombra que se separa al levantarla, halo de rareza o de selección,
+          apagado si está bloqueada — todo sobre la silueta (`filtroSilueta`). Sin filo interior,
+          sin brillo rectangular, sin anillo: nada que dibuje una caja alrededor del asset.
         */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-card transition-opacity duration-normal"
-          style={{
-            boxShadow: `inset 0 1px 0 rgba(255,255,255,0.28), inset 0 0 0 1px ${halo}${lifted ? "55" : "22"}`,
-            opacity: locked ? 0.3 : 1,
-          }}
-        />
-
-        {/* Brillo especular: sigue al puntero, así la carta parece tener superficie. */}
-        {interactive && (
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-card transition-opacity duration-fast"
-            style={{
-              opacity: pose.lifted ? 1 : 0,
-              background: `radial-gradient(420px circle at ${pose.gx}% ${pose.gy}%, rgba(255,255,255,0.16), transparent 42%)`,
-              mixBlendMode: "screen",
-            }}
-          />
-        )}
-
-        {/* Halo de rareza. Solo en `legendary`: si lo llevan todas, no distingue nada. */}
-        {mode === "legendary" && !reduced && (
-          <>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute -inset-1 -z-10 rounded-card animate-pulse-glow"
-              style={{ boxShadow: `0 0 38px 6px ${halo}` }}
-            />
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 overflow-hidden rounded-card"
-            >
-              <span
-                className="absolute inset-y-0 -left-full w-1/2 animate-shimmer"
-                style={{
-                  background:
-                    "linear-gradient(100deg, transparent, rgba(255,255,255,0.22), transparent)",
-                  backgroundSize: "200% 100%",
-                }}
-              />
-            </span>
-          </>
-        )}
-
-        {/* Anillo de selección: un estado tiene que verse sin pasar el ratón. */}
-        {mode === "selected" && (
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -inset-[3px] rounded-card ring-2"
-            style={{ boxShadow: `0 0 26px ${halo}`, color: halo, borderColor: halo }}
-          />
-        )}
+        {cara}
 
         {marks}
       </Tag>

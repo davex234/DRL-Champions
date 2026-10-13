@@ -11,7 +11,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { PassEngine, freshPassState, migratePassState, BP_SCHEMA_VERSION, type PassState, type MetricSnapshot, type Reward, type PassAnalytics } from "@/battlepass";
-import { CURRENT_SEASON, getSeason } from "@/data/seasons";
+import { LEGACY_LOCAL_SEASON as LEGACY_LOCAL_SEASON, getSeason } from "@/data/seasons";
 import { makeRng, seedFrom } from "@/sim/rng";
 import { dayKey, weekId } from "@/domain/events/time";
 import { applyReward } from "@/lib/rewards";
@@ -20,7 +20,6 @@ import { getVariant } from "@/domain/cards/variants";
 import { bucketForRank } from "@/domain/packs/types";
 import { useGameStore } from "./useGameStore";
 import { useMarketStore } from "./useMarketStore";
-import { useEventsStore } from "./useEventsStore";
 
 const rngFrom = (seed: number) => makeRng(seed);
 
@@ -69,13 +68,13 @@ interface BPState {
 export const useBattlePassStore = create<BPState>()(
   persist(
     (set, get) => {
-      const seasonOf = (id: string) => getSeason(id) ?? CURRENT_SEASON;
+      const seasonOf = (id: string) => getSeason(id) ?? LEGACY_LOCAL_SEASON;
       const eng = (): PassEngine => new PassEngine(get().pass, seasonOf(get().pass.seasonId));
       const apply = (rewards: Reward[]): void => { for (const r of rewards) applyReward(r); };
       const commit = (e: PassEngine, rewards: Reward[]): void => { apply(rewards); set({ pass: e.snapshot() }); };
 
       return {
-        pass: freshPassState(CURRENT_SEASON.id),
+        pass: freshPassState(LEGACY_LOCAL_SEASON.id),
         seasonStart: 0,
         dailyKey: "",
         weeklyKey: "",
@@ -83,7 +82,7 @@ export const useBattlePassStore = create<BPState>()(
         ensureSeason: () => {
           const s = get();
           const now = Date.now();
-          if (s.seasonStart === 0) set({ seasonStart: now, pass: s.pass.seasonId ? s.pass : freshPassState(CURRENT_SEASON.id) });
+          if (s.seasonStart === 0) set({ seasonStart: now, pass: s.pass.seasonId ? s.pass : freshPassState(LEGACY_LOCAL_SEASON.id) });
           get().refreshDaily();
           get().refreshWeekly();
         },
@@ -100,16 +99,25 @@ export const useBattlePassStore = create<BPState>()(
 
         claimTrack: (track) => { const e = eng(); const r = e.claimTrack(track, Date.now()); commit(e, r.rewards); },
 
+        /*
+         * Abrir el carril premium. Hasta la F18.2 se pagaba con FICHAS DE EVENTO, la
+         * segunda moneda que se ha retirado. Ahora solo hay un precio posible: DRL
+         * Credits, y solo si la temporada define uno mayor que cero.
+         *
+         * El `return` de la temporada sin precio es deliberado. Al quitar las fichas,
+         * `premiumCost` se quedó vacío en las dos temporadas, y un coste ausente leído
+         * como «cuesta 0» habría REGALADO el carril de pago a todo el mundo. Sin precio
+         * no hay compra.
+         */
         unlockPremium: () => {
           const s = get();
           if (s.pass.premium) return { ok: false, error: "Premium ya desbloqueado" };
           const cost = seasonOf(s.pass.seasonId).premiumCost ?? {};
+          const price = cost.credits ?? 0;
+          if (price <= 0) return { ok: false, error: "El pase de esta temporada no está a la venta" };
           const game = useGameStore.getState();
-          const tokens = (useEventsStore.getState() as { tokens: number }).tokens;
-          if ((cost.credits ?? 0) > game.credits) return { ok: false, error: "Créditos insuficientes" };
-          if ((cost.tokens ?? 0) > tokens) return { ok: false, error: "Tokens insuficientes" };
-          if (cost.credits) game.spendCredits(cost.credits);
-          if (cost.tokens) useEventsStore.setState({ tokens: Math.max(0, tokens - cost.tokens) } as never);
+          if (price > game.credits) return { ok: false, error: "DRL Credits insuficientes" };
+          game.spendCredits(price);
           const e = eng();
           const r = e.unlockPremium(Date.now());
           commit(e, r.rewards);
@@ -164,7 +172,7 @@ export const useBattlePassStore = create<BPState>()(
 
         analytics: () => eng().analytics(),
 
-        resetPass: () => set({ pass: freshPassState(CURRENT_SEASON.id), seasonStart: Date.now(), dailyKey: "", weeklyKey: "" }),
+        resetPass: () => set({ pass: freshPassState(LEGACY_LOCAL_SEASON.id), seasonStart: Date.now(), dailyKey: "", weeklyKey: "" }),
       };
     },
     {
@@ -175,7 +183,7 @@ export const useBattlePassStore = create<BPState>()(
       migrate: (persisted: unknown) => {
         const p = (persisted && typeof persisted === "object" ? persisted : {}) as Record<string, unknown>;
         return {
-          pass: migratePassState(p.pass, CURRENT_SEASON.id),
+          pass: migratePassState(p.pass, LEGACY_LOCAL_SEASON.id),
           seasonStart: typeof p.seasonStart === "number" ? p.seasonStart : 0,
           dailyKey: typeof p.dailyKey === "string" ? p.dailyKey : "",
           weeklyKey: typeof p.weeklyKey === "string" ? p.weeklyKey : "",

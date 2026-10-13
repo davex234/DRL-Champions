@@ -270,10 +270,10 @@ function main(): void {
      * paga.
      */
     const paid = sets.flatMap((s) => s.tiers
-      .filter((t) => (t.reward.credits ?? 0) + (t.reward.tokens ?? 0) + (t.reward.xp ?? 0)
+      .filter((t) => (t.reward.credits ?? 0) + (t.reward.xp ?? 0)
         + (t.reward.packCount ?? 0) + (t.reward.cardId ? 1 : 0) > 0)
       .map((t) => `${s.id}@${t.at}`));
-    check("LA MAESTRÍA NO REPARTE NI UN CRÉDITO, NI XP, NI FICHAS, NI SOBRES",
+    check("LA MAESTRÍA NO REPARTE NI UN CRÉDITO, NI XP, NI SOBRES",
       paid.length === 0, paid.slice(0, 5).join(", "));
 
     const tiers = sets.reduce((n, s) => n + s.tiers.length, 0);

@@ -127,7 +127,7 @@ test("el carril de pago de la temporada real no reparte ventaja competitiva (§2
   const { CURRENT_SEASON } = await import("@/data/season");
 
   // Todo lo que influye en un duelo o en la economía: prohibido en el carril de pago.
-  const VENTAJA = ["credits", "tokens", "packId", "packCount", "cardId", "materials", "xp"] as const;
+  const VENTAJA = ["credits", "packId", "packCount", "cardId", "materials", "xp"] as const;
 
   const niveles = Object.entries(CURRENT_SEASON.premium);
   assert.ok(niveles.length > 0, "la temporada real no define ningún nivel de pago");

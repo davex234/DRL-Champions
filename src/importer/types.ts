@@ -7,7 +7,7 @@
  */
 import type {
   Circuit, Tournament, Stage, ProTeam, ProPlayer, Match, MatchMap, MapPlayerStat, Standing,
-  Season, Group, Bracket, Round, ProCoach, Roster, ObjectiveAwards,
+  Season, Group, Bracket, Round, ProCoach, Roster, ObjectiveAwards, PlayerTournamentStat,
 } from "./model";
 import type { ImportClock } from "./clock";
 import type { IdentityResolver } from "./identity";
@@ -25,7 +25,16 @@ export interface RawTournament {
 export interface RawCircuit { id: string; name: string; tier?: string; region?: string; scope?: string }
 export interface RawStage { id: string; slug?: string; name: string; kind?: string; orderIdx?: number }
 export interface RawGroup { id: string; stageId: string; label: string; teams: string[] }
-export interface RawBracketNode { id: string; round: number; slot?: number; matchId?: string; winnerToNodeId?: string; loserToNodeId?: string }
+export interface RawBracketNode {
+  id: string; round: number; slot?: number; matchId?: string; winnerToNodeId?: string; loserToNodeId?: string;
+  /** Fase 24.4 · hueco que ocupa el ganador/perdedor en el nodo destino, si la fuente lo dice. */
+  winnerToSlot?: 1 | 2; loserToSlot?: 1 | 2;
+  /** Fase 24.4 · el ganador se clasifica (clave + etiqueta del nodo de clasificación). */
+  winnerQualifies?: string; winnerQualifiesLabel?: string;
+  /** Fase 24.4 · de dónde sale la relación y cuánto se afirma. */
+  evidence?: "SOURCE_EXPLICIT" | "SOURCE_BRACKET_LINK" | "SOURCE_STRUCTURED_HTML";
+  confidence?: "CONFIRMED" | "INFERRED";
+}
 export interface RawBracket { id: string; stageId: string; kind?: string; nodes: RawBracketNode[] }
 export interface RawTeam { id?: string; name: string; tag?: string; fullName?: string; region?: string; country?: string; slug?: string; active?: boolean }
 export interface RawPlayer { id?: string; nick: string; fullName?: string; team?: string; region?: string; role?: string; country?: string; status?: string; agents?: string[]; isSubstitute?: boolean }
@@ -36,6 +45,27 @@ export interface RawMatchMap { id: string; matchId: string; map?: string; mapOrd
 export interface RawMapPlayerStat { id?: string; matchMapId: string; matchId: string; player: string; team?: string; agent?: string; acs?: number; kills?: number; deaths?: number; assists?: number; kast?: number; adr?: number; hsPct?: number; fk?: number; fd?: number; clutches?: number; rating?: number }
 export interface RawRound { id?: string; matchMapId: string; index: number; winner?: string; side?: string; type?: string; plant?: boolean; defuse?: boolean }
 export interface RawStanding { id?: string; stageId?: string; team: string; position?: number; wins?: number; losses?: number; ties?: number; mapsWon?: number; mapsLost?: number; roundsWon?: number; roundsLost?: number; points?: number; groupLabel?: string; status?: string }
+/**
+ * Agregado de UN jugador en TODO el torneo — para lo que la fuente no publica por mapa.
+ *
+ * No duplica `RawMapPlayerStat`: existe para los datos cuya única granularidad publicada es
+ * el torneo. Hoy eso es exactamente uno, el clutch: vlr.gg lo da en `/event/stats/` y su
+ * scoreboard por mapa no tiene columna equivalente. Repartir el agregado entre los mapas
+ * para hacerlo caber en `mapStats` sería inventar estadísticas por mapa que nadie ha
+ * publicado; por eso viaja por su propio carril y con su granularidad real.
+ *
+ * `clutchesWon` son situaciones de clutch GANADAS y `clutchSituations` las jugadas. Las dos
+ * o ninguna: un recuento sin denominador no es la estadística de la fuente.
+ */
+export interface RawPlayerTournamentStat {
+  player: string;
+  team?: string;
+  maps?: number;
+  rounds?: number;
+  clutchesWon?: number;
+  clutchSituations?: number;
+  clutchPct?: number;
+}
 export interface RawPlacement { position: number; team: string; prize?: number; points?: number }
 export interface RawAwards { champion?: string; runnerUp?: string; mvp?: string; placements?: RawPlacement[] }
 
@@ -54,6 +84,8 @@ export interface RawSnapshot {
   matches: RawMatch[];
   maps?: RawMatchMap[];
   mapStats?: RawMapPlayerStat[];
+  /** Agregados por jugador y torneo (solo lo que la fuente no publica por mapa). */
+  playerTournamentStats?: RawPlayerTournamentStat[];
   rounds?: RawRound[];
   standings?: RawStanding[];
   awards?: RawAwards;
@@ -84,6 +116,8 @@ export interface CanonicalModel {
   matches: Match[];
   maps: MatchMap[];
   mapStats: MapPlayerStat[];
+  /** Agregados por jugador y torneo. Vacío si la fuente no publica ninguno. */
+  playerTournamentStats: PlayerTournamentStat[];
   rounds: Round[];
   standings: Standing[];
   awards?: ObjectiveAwards;

@@ -2,10 +2,10 @@
  * MATERIALES (Collection Fase 4/7) — el ÚNICO recurso nuevo, como EXTENSIÓN (no otra economía).
  *
  * Polvo por bucket de rareza (reutiliza `RarityBucket`). Operaciones inmutables + valoración de salvage
- * reutilizando el pricing existente (`quickSellValue`) y `bucketForRank`. Sin `Math.random`/`Date.now`.
+ * reutilizando la liquidación canónica (`salvageValue`, F57.6) y `bucketForRank`. Sin `Math.random`/`Date.now`.
  */
 import { bucketForRank, type RarityBucket } from "@/domain/packs/types";
-import { quickSellValue } from "@/domain/economy/pricing";
+import { salvageValue } from "@/domain/economy/salvage";
 import type { CardDef, VariantDef } from "@/domain/cards/types";
 import type { Materials } from "./types";
 import { CRAFT_SCHEMA_VERSION } from "./types";
@@ -39,15 +39,15 @@ export const totalMaterials = (m: Materials): number => BUCKETS.reduce((s, k) =>
 
 /**
  * Rendimiento de salvar una carta (polvo + créditos). El polvo va al bucket de la carta; los créditos
- * reutilizan `quickSellValue`. Determinista.
+ * son los del desguace (`salvageValue`): la misma cifra que paga el servidor, sin serie. Determinista.
  */
-export function salvageYield(card: CardDef, variant: VariantDef, serial: number | undefined, opts: { dustByBucket?: boolean; fixed?: Partial<Materials>; credits?: number; valueFromCard?: boolean }): { materials: Materials; credits: number } {
+export function salvageYield(card: CardDef, variant: VariantDef, _serial: number | undefined, opts: { dustByBucket?: boolean; fixed?: Partial<Materials>; credits?: number; valueFromCard?: boolean }): { materials: Materials; credits: number } {
   // Acumulación in-place sobre un objeto RECIÉN creado (mismo resultado que encadenar
   // addMaterials, sin alocar un objeto intermedio por paso: esto corre millones de veces).
   const materials = freshMaterials();
   if (opts.dustByBucket) materials[bucketForRank(variant.rank)] += dustForRank(variant.rank);
   if (opts.fixed) for (const k of BUCKETS) materials[k] += opts.fixed[k] ?? 0;
-  const credits = (opts.credits ?? 0) + (opts.valueFromCard ? quickSellValue(card, serial) : 0);
+  const credits = (opts.credits ?? 0) + (opts.valueFromCard ? salvageValue(card) : 0);
   return { materials, credits };
 }
 

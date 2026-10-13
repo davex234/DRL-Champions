@@ -196,7 +196,8 @@ export function MasteryPanel({
           <button
             type="button"
             onClick={() => setShown((n) => n + PAGE * 2)}
-            className="rounded-control border border-white/15 px-6 py-2.5 font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/[0.07]"
+            /* FASE 12 · 44 px y chaflán: medía 167 × 42 y usaba `rounded-control`. */
+            className="nx-focus nx-clip-sm min-h-[44px] border border-white/15 px-6 font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/[0.07]"
           >
             Ver más conjuntos
           </button>

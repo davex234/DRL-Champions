@@ -9,6 +9,7 @@
 import type { EntryType, RoundPlan } from "@/preparation";
 import type { Side } from "@/sim";
 import type { CoachConcept, CoachContext } from "./types";
+import { DEFAULT_SWITCH_AFTER } from "@/match/config";
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
@@ -65,6 +66,22 @@ export function aiConcept(ctx: CoachContext): { concept: CoachConcept; notes: st
     notes.push("high_confidence");
   } else {
     notes.push("endorse_plan");
+  }
+
+  /*
+   * F69 · F68-011 — RONDA PISTOLA. En la ronda 1 los dos equipos parten de `rules.start` sin nada
+   * jugado: el tramo de dinero es «eco» por definición, no porque la economía esté rota, y no hay
+   * armas que conservar para la siguiente. El propio panel lo dice («RONDA PISTOLA. Sin economía»).
+   * Recomendar SAVE ahí contradecía el modelo; se juega el plan por defecto. La compra (tier de la
+   * economía) no cambia: es la del motor económico.
+   */
+  // FULL GAME AUDIT · también la PISTOLA de la segunda mitad (la primera ronda tras el cambio de lado, la 13): la economía
+  // se reinicia en el descanso (`startSecondHalf`), así que vale la misma regla que en la ronda 1.
+  if ((plan.round === 1 || plan.round === DEFAULT_SWITCH_AFTER + 1) && concept === "save") {
+    concept = "default";
+    const i = notes.indexOf("endorse_plan");
+    if (i >= 0) notes.splice(i, 1);
+    notes.push("pistol_round");
   }
 
   return { concept, notes };

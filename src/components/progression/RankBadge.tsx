@@ -105,7 +105,7 @@ export function RankBadge({
             {display.label}
           </p>
           <p className="nx-readout text-sm text-white/70">{r.points} pts</p>
-          {position != null && <p className="text-xs text-white/45">· #{position} del mundo</p>}
+          {position != null && <p className="text-xs text-white/45">· #{position} del mundo en puntos</p>}
           {regionPosition != null && region && (
             <p className="text-xs text-white/45">· #{regionPosition} de {REGION_LABEL[region]}</p>
           )}
@@ -113,7 +113,7 @@ export function RankBadge({
 
         {r.unranked ? (
           <p className="mt-2 text-[13px] text-white/55">
-            Todavía no has puntuado. Acierta una predicción y entras en la escalera.
+            Todavía no tienes puntos. Gana duelos contra el bot o acierta predicciones de Pick&apos;ems para entrar en los rangos de puntos.
           </p>
         ) : (
           <>
@@ -185,7 +185,8 @@ export function RankBadge({
       {action && (
         <Link
           href={action.href}
-          className="nx-clip-sm relative inline-flex min-h-[36px] shrink-0 items-center border border-white/15 bg-white/[0.05] px-4 font-display text-xs font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/12 hover:text-white"
+          /* FASE 11 · 44 px. Eran 36, y es la única acción de la insignia de rango. */
+          className="nx-focus nx-clip-sm relative inline-flex min-h-[44px] shrink-0 items-center border border-white/15 bg-white/[0.05] px-4 font-display text-xs font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/12 hover:text-white"
         >
           {action.label}
         </Link>

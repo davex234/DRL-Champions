@@ -5,8 +5,17 @@ import { AnimatePresence } from "framer-motion";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import { CardThumb } from "@/components/cards/CardThumb";
-import { Chip } from "@/components/ui/Chip";
 import { Toast } from "@/components/ui/Toast";
+import { Chip } from "@/components/ui/Chip";
+import { Plate } from "@/components/ui/Surface";
+import { NxButton } from "@/components/ui/NxButton";
+import { Readout } from "@/components/ui/Readout";
+import { Badge } from "@/components/ui/Badge";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { Segmented } from "@/components/ui/Segmented";
+import { MarketToolbar } from "@/components/market/MarketToolbar";
+import { ListingCard, type ListingView } from "@/components/market/ListingCard";
+import { SellPanel, type SellableCard } from "@/components/market/SellPanel";
 import { useToast } from "@/lib/useToast";
 import { TrendBadge } from "@/components/market/TrendBadge";
 import { MarketDetail } from "@/components/market/MarketDetail";
@@ -21,6 +30,7 @@ import type { MarketListing } from "@/domain/market/types";
 import { formatCredits, formatRelative, cn } from "@/lib/format";
 import type { Region, VariantId } from "@/domain/cards/types";
 import { useAuth } from "@/lib/supabase/auth";
+import { useServerEconomy } from "@/lib/game/serverEconomy";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { GLOBAL_MARKET_ENABLED } from "@/config/features";
 import {
@@ -85,70 +95,77 @@ function Market() {
   const ensureSeeded = useMarketStore((s) => s.ensureSeeded);
   const refreshMarket = useMarketStore((s) => s.refreshMarket);
 
+  /*
+   * F69 · las salas locales (contra bots) compran, venden y LIQUIDAN en el store del navegador: con cuenta eso
+   * inventaba saldo y cartas en el HUD hasta sincronizar. Con cuenta solo existe la sala Global (servidor) y el
+   * mercado local ni se siembra ni se liquida.
+   */
+  const serverEconomy = useServerEconomy();
   useEffect(() => {
+    if (serverEconomy) return;
     ensureSeeded();
     refreshMarket();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [serverEconomy]);
 
   const { user } = useAuth();
   const online = isSupabaseConfigured() && !!user;
-  const [tab, setTab] = useState<Tab>("comprar");
+  const [pickedTab, setTab] = useState<Tab>("comprar");
+  const tab: Tab = serverEconomy ? "global" : pickedTab;
 
-  const tabs: [Tab, string][] = [
-    ["comprar", "Comprar"],
-    ["ventas", "Mis ventas"],
-    ["compras", "Mis compras"],
-  ];
-  if (online) tabs.push(["global", "Global 🌐"]);
+  const tabs: [Tab, string][] = serverEconomy
+    ? [["global", "Global"]]
+    : [["comprar", "Comprar"], ["ventas", "Mis anuncios"], ["compras", "Historial"]];
+
+  const credits = useGameStore((s) => s.credits);
+  const listings = useMarketStore((s) => s.listings);
+  const enVenta = listings.filter((l) => l.seller === "bot" && (l.status ?? "active") === "active").length;
+  const misAnuncios = listings.filter((l) => l.seller === "user" && (l.status ?? "active") === "active").length;
 
   return (
     <section className="animate-rise">
-      <header className="mb-5 flex flex-wrap items-end justify-between gap-3">
+      <header className="mb-5 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
         <div>
-          <span className="nx-label">Colección</span>
-          <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
-            Mercado
+          {/* La etiqueta decía «Colección»: era el rótulo de otra pantalla copiado aquí. */}
+          <span className="font-display text-label uppercase tracking-wide2 text-drl">Mercado</span>
+          <h1 className="mt-1 font-display text-[clamp(30px,5vw,46px)] font-bold uppercase leading-none text-white">
+            Transferencias
           </h1>
-          {/*
-            LA FRONTERA DE LAS TRES PANTALLAS (Fase 11): Colección es el catálogo,
-            Inventario es lo que posees y no has resuelto, y Mercado es comprar y vender.
-            Decirlo aquí evita que las tres se lean como lo mismo con distinto filtro.
-          */}
-          <p className="mt-2 max-w-xl text-[15px] text-white/55">
+          <p className="mt-2 max-w-xl text-body text-ink-muted">
             {online
-              ? "Compra y vende cartas. Local contra bots, y Global entre jugadores."
+              ? "Compra y vende cartas entre jugadores (Global)."
               : "Compra y vende cartas con DRL Credits."}
           </p>
           <div className="mt-1"><MarketBoundaryNote /></div>
         </div>
-        {tab !== "global" && (
-          <button
-            onClick={() => {
-              refreshMarket();
-              notify("Mercado actualizado", true);
-            }}
-            className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 font-display text-sm uppercase tracking-wide text-white transition hover:bg-white/10"
-          >
-            ↻ Actualizar
-          </button>
-        )}
+
+        <div className="flex flex-wrap items-stretch gap-2.5">
+          <Plate className="flex items-center px-4 py-2.5">
+            <Readout size="sm" label="A la venta" value={enVenta} tone="var(--nx-cyan)" />
+          </Plate>
+          <Plate className="flex items-center px-4 py-2.5">
+            <Readout size="sm" label="Tu saldo" value={`🪙 ${formatCredits(credits)}`} tone="var(--nx-gold)" />
+          </Plate>
+          {tab !== "global" && (
+            <NxButton
+              variant="secondary"
+              size="md"
+              onClick={() => { refreshMarket(); notify("Mercado actualizado", true); }}
+            >
+              ↻ Actualizar
+            </NxButton>
+          )}
+        </div>
       </header>
 
-      {/* Tabs */}
-      <div className="mb-6 flex gap-1 rounded-xl border border-white/10 bg-base-700/40 p-1">
-        {tabs.map(([id, label]) => (
-          <button
-            key={id}
-            onClick={() => setTab(id)}
-            className={cn(
-              "flex-1 rounded-lg px-4 py-2 font-display text-sm uppercase tracking-wide transition",
-              tab === id ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white",
-            )}
-          >
-            {label}
-          </button>
-        ))}
+      {/* Las tres salas del mercado. Segmentado del sistema: una elección, no tres pestañas. */}
+      <div className="mb-5">
+        <Segmented
+          label="Sala del mercado"
+          value={tab}
+          onChange={(v) => setTab(v as Tab)}
+          options={tabs.map(([id, label]) => ({ value: id, label }))}
+        />
       </div>
 
       {tab === "comprar" && <BuyTab notify={notify} />}
@@ -168,9 +185,16 @@ function Market() {
   );
 }
 
-/**
- * Estado CONTROLADO del mercado global mientras está desactivado (Fase A).
- * Ver `src/config/features.ts` y `supabase/migrations/0010_market_lockdown.sql`.
+/*
+ * FASE 7 · EL PANEL DIFERIDO SE QUEDA.
+ *
+ * Nada de lo que sigue lo pinta hoy la pantalla: la sala «Global» la sirve `PlayerMarket`
+ * desde la Fase 11. Es código inalcanzable, y la primera reacción es borrarlo. No se borra:
+ * `security-verify` lo pinta como una decisión DELIBERADA («el panel sigue en el repositorio
+ * para Fase E») porque aquí vive la corrección de BUG-07 —`restoreOwnedCard`, que devuelve la
+ * instancia EXACTA y no acuña un uid nuevo— y es la referencia de lo que Fase E tiene que
+ * reconstruir con un único libro en servidor. Retirarlo es una decisión de esa fase, no de
+ * una fase visual.
  */
 function GlobalMarketDisabled() {
   return (
@@ -525,6 +549,8 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
   const [ovrMin, setOvrMin] = useState(0);
   const [sort, setSort] = useState<SortKey>("price-asc");
   const [detailId, setDetailId] = useState<string | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [busy, setBusy] = useState(false);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -559,95 +585,121 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
     return rows;
   }, [listings, query, region, rarity, team, ovrMin, sort]);
 
+  /*
+   * Un solo intento por pulsación. La compra local es síncrona, pero el guardián evita que
+   * dos clics rápidos disparen dos operaciones sobre el mismo anuncio.
+   */
   function handleBuy(id: string) {
-    const res = buyListing(id);
-    notify(res.ok ? "¡Carta comprada!" : res.error ?? "Error", res.ok);
-    if (res.ok) setDetailId(null);
+    if (busy) return;
+    setBusy(true);
+    try {
+      const res = buyListing(id);
+      notify(res.ok ? "Carta adquirida" : res.error ?? "Error", res.ok);
+      if (res.ok) setDetailId(null);
+    } finally {
+      setBusy(false);
+    }
   }
+
+  const credits = useGameStore((st) => st.credits);
+  const activeFilters =
+    (region !== "Todas" ? 1 : 0) + (rarity !== "Todas" ? 1 : 0) +
+    (team !== "Todos" ? 1 : 0) + (ovrMin !== 0 ? 1 : 0);
+
+  const clearFilters = useCallback(() => {
+    setQuery(""); setRegion("Todas"); setRarity("Todas"); setTeam("Todos"); setOvrMin(0);
+  }, []);
+
+  /*
+   * Proyección de las fichas. La REFERENCIA es `instanceValue` —el índice interno del juego
+   * para esa carta y esa serie—, que no es lo mismo que el precio que pide el vendedor. La
+   * pantalla las enseña por separado justamente para que no se confundan.
+   */
+  const views: ListingView[] = useMemo(
+    () => filtered.map(({ l, def }) => ({
+      id: l.id,
+      cardId: l.cardId,
+      def: def!,
+      price: l.price,
+      reference: instanceValue(def!, l.serial),
+      serial: l.serial,
+      history: priceHistory[l.cardId],
+    })),
+    [filtered, priceHistory],
+  );
 
   return (
     <>
-      {/* Filtros */}
-      <div className="mb-6 space-y-3 rounded-2xl border border-white/10 bg-base-700/40 p-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar jugador o equipo… (Benjy, Wo0t, Aspas, TenZ)"
-            className="min-w-[200px] flex-1 rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none"
-          />
-          <select
-            value={team}
-            onChange={(e) => setTeam(e.target.value)}
-            className="rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none"
-          >
-            <option value="Todos">Todos los equipos</option>
-            {TEAMS.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-          <select
-            value={ovrMin}
-            onChange={(e) => setOvrMin(Number(e.target.value))}
-            className="rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none"
-          >
-            {OVR_MINS.map((o) => (
-              <option key={o} value={o}>
-                {o === 0 ? "Cualquier OVR" : `OVR ${o}+`}
-              </option>
-            ))}
-          </select>
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as SortKey)}
-            className="rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none"
-          >
-            <option value="price-asc">Precio ↑</option>
-            <option value="price-desc">Precio ↓</option>
-            <option value="ovr">OVR</option>
-            <option value="rarity">Rareza</option>
-            <option value="recent">Más recientes</option>
-          </select>
-        </div>
-        <div className="flex flex-wrap gap-1.5">
-          {REGIONS.map((r) => (
-            <Chip key={r} active={region === r} onClick={() => setRegion(r)}>
-              {r}
-            </Chip>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-1.5">
-          {RARITIES.map((r) => (
-            <Chip key={r} active={rarity === r} onClick={() => setRarity(r)}>
-              {r}
-            </Chip>
-          ))}
-        </div>
-      </div>
-
-      <p className="mb-3 text-sm text-white/40">{filtered.length} cartas a la venta</p>
+      <MarketToolbar
+        query={query}
+        onQuery={setQuery}
+        sort={sort}
+        onSort={(v) => setSort(v as SortKey)}
+        open={showFilters}
+        onToggle={() => setShowFilters((v) => !v)}
+        activeCount={activeFilters}
+        onClear={clearFilters}
+        matched={filtered.length}
+        facets={[
+          {
+            label: "Región",
+            value: region,
+            onChange: (v) => setRegion(v as Region | "Todas"),
+            options: REGIONS.map((r) => ({ value: r, label: r })),
+          },
+          {
+            label: "Rareza",
+            value: rarity,
+            onChange: (v) => setRarity(v as RarityLabel),
+            options: RARITIES.map((r) => ({ value: r, label: r })),
+          },
+          {
+            label: "OVR",
+            value: String(ovrMin),
+            onChange: (v) => setOvrMin(Number(v)),
+            options: OVR_MINS.map((o) => ({ value: String(o), label: o === 0 ? "Cualquiera" : `${o}+` })),
+          },
+          {
+            label: "Equipo",
+            value: team,
+            onChange: setTeam,
+            options: [{ value: "Todos", label: "Todos" }, ...TEAMS.map((t) => ({ value: t, label: t }))],
+          },
+        ]}
+      />
 
       {filtered.length === 0 ? (
-        <p className="py-16 text-center text-white/40">No hay cartas con estos filtros.</p>
+        <Plate className="flex flex-col items-center gap-3 px-6 py-14 text-center">
+          <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">
+            {activeFilters > 0 || query ? "Sin resultados" : "El mercado está vacío"}
+          </p>
+          <p className="max-w-[46ch] text-body text-ink-muted">
+            {activeFilters > 0 || query
+              ? "Ninguna carta a la venta coincide con lo que has pedido. Prueba con otro nombre o quita alguna condición."
+              : "Ahora mismo no hay cartas a la venta. Pulsa «Actualizar» para ver si han entrado nuevas."}
+          </p>
+          {(activeFilters > 0 || query) && (
+            <NxButton variant="secondary" size="md" onClick={clearFilters}>
+              Limpiar filtros
+            </NxButton>
+          )}
+        </Plate>
       ) : (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-          {filtered.map(({ l, def }) => (
-            <div key={l.id} className="flex flex-col gap-2">
-              <button onClick={() => setDetailId(l.cardId)} className="transition hover:-translate-y-1">
-                <PlayerCard card={def!} size="sm" interactive={false} serial={l.serial} />
-              </button>
-              <div className="flex items-center justify-between px-0.5">
-                <TrendBadge record={priceHistory[l.cardId]} />
-              </div>
-              <button
-                onClick={() => handleBuy(l.id)}
-                className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-2 py-2 font-display text-xs font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
-              >
-                Comprar 🪙 {formatCredits(l.price)}
-              </button>
-            </div>
+        /*
+          Columnas del ancho EXACTO de una carta. Antes eran cinco columnas flexibles de
+          262 px para cartas de 150: el botón de compra salía más ancho que la carta a la
+          que pertenecía y la ficha se leía como una fila de tabla.
+        */
+        <div className="grid justify-center gap-4 [grid-template-columns:repeat(auto-fill,150px)]">
+          {views.map((v) => (
+            <ListingCard
+              key={v.id}
+              listing={v}
+              credits={credits}
+              busy={busy}
+              onOpen={() => setDetailId(v.cardId)}
+              onBuy={() => handleBuy(v.id)}
+            />
           ))}
         </div>
       )}
@@ -661,21 +713,69 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
   );
 }
 
-/* ----------------------------- MIS VENTAS ----------------------------- */
+/* ----------------------------- MIS ANUNCIOS ----------------------------- */
+/**
+ * Lo que tengo en venta y lo que ya he vendido — y, por fin, cómo poner algo a la venta.
+ * Antes esta sala solo sabía decir «publícalas desde tu colección».
+ */
 function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
   const listings = useMarketStore((s) => s.listings);
   const cancelListing = useMarketStore((s) => s.cancelListing);
+  const listForSale = useMarketStore((s) => s.listForSale);
   const sales = useMarketStore((s) => s.sales);
+  const ownedCards = useGameStore((s) => s.ownedCards);
+  const lockedUids = useGameStore((s) => s.lockedUids);
+  const [busy, setBusy] = useState(false);
+
   const myListings = listings.filter((l) => l.seller === "user");
 
+  /** Tus cartas, con su referencia y su candado. Datos existentes; nada nuevo. */
+  const sellable: SellableCard[] = useMemo(
+    () =>
+      ownedCards.flatMap((o) => {
+        const def = getCard(o.cardId);
+        return def
+          ? [{
+              uid: o.uid,
+              def,
+              serial: o.serial,
+              reference: instanceValue(def, o.serial),
+              locked: lockedUids.includes(o.uid),
+            }]
+          : [];
+      }),
+    [ownedCards, lockedUids],
+  );
+
+  function publish(uid: string, price: number) {
+    if (busy) return;
+    setBusy(true);
+    try {
+      const res = listForSale(uid, price);
+      notify(res.ok ? "Carta publicada en el mercado" : res.error ?? "No se pudo publicar", res.ok);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">
-          En venta <span className="text-white/40">({myListings.length})</span>
-        </h2>
+    <div className="space-y-6">
+      <SellPanel cards={sellable} busy={busy} onPublish={publish} />
+
+      <section aria-label="Cartas en venta">
+        {/*
+          El contador desaparece en cero. En la escala de cifras el «0» a este tamaño se lee
+          como una «D» —«EN VENTA D»—, y de todas formas la frase de abajo ya dice que no hay
+          nada. Un número que hay que descifrar es peor que ningún número.
+        */}
+        <SectionTitle>
+          En venta
+          {myListings.length > 0 && <span className="nx-readout ml-1.5 text-ink-secondary">{myListings.length}</span>}
+        </SectionTitle>
         {myListings.length === 0 ? (
-          <Empty>No tienes cartas en venta. Publícalas desde tu colección.</Empty>
+          <Plate className="px-5 py-8 text-center text-body text-ink-muted">
+            Todavía no tienes ninguna carta publicada.
+          </Plate>
         ) : (
           <div className="space-y-2">
             {myListings.map((l) => (
@@ -683,28 +783,32 @@ function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
                 key={l.id}
                 listing={l}
                 action={
-                  <button
+                  <NxButton
+                    variant="secondary"
+                    size="md"
                     onClick={() => {
                       cancelListing(l.id);
-                      notify("Listado cancelado, carta devuelta", true);
+                      notify("Anuncio retirado, carta devuelta", true);
                     }}
-                    className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10"
                   >
-                    Cancelar
-                  </button>
+                    Retirar
+                  </NxButton>
                 }
               />
             ))}
           </div>
         )}
-      </div>
+      </section>
 
-      <div>
-        <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">
-          Ventas completadas <span className="text-white/40">({sales.length})</span>
-        </h2>
+      <section aria-label="Ventas completadas">
+        <SectionTitle>
+          Vendidas
+          {sales.length > 0 && <span className="nx-readout ml-1.5 text-ink-secondary">{sales.length}</span>}
+        </SectionTitle>
         {sales.length === 0 ? (
-          <Empty>Todavía no has vendido nada.</Empty>
+          <Plate className="px-5 py-8 text-center text-body text-ink-muted">
+            Todavía no has vendido nada.
+          </Plate>
         ) : (
           <div className="space-y-2">
             {sales.map((tx, i) => (
@@ -712,7 +816,7 @@ function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
             ))}
           </div>
         )}
-      </div>
+      </section>
     </div>
   );
 }
@@ -722,11 +826,12 @@ function PurchasesTab() {
   const purchases = useMarketStore((s) => s.purchases);
   return (
     <div>
-      <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">
-        Historial de compras <span className="text-white/40">({purchases.length})</span>
-      </h2>
+      <SectionTitle>
+        Historial de compras
+        {purchases.length > 0 && <span className="nx-readout ml-1.5 text-ink-secondary">{purchases.length}</span>}
+      </SectionTitle>
       {purchases.length === 0 ? (
-        <Empty>Todavía no has comprado nada en el mercado.</Empty>
+        <Plate className="px-5 py-8 text-center text-body text-ink-muted">Todavía no has comprado nada en el mercado.</Plate>
       ) : (
         <div className="space-y-2">
           {purchases.map((tx, i) => (
@@ -739,27 +844,33 @@ function PurchasesTab() {
 }
 
 /* ----------------------------- Filas reutilizables ----------------------------- */
+/*
+ * FASE 7 · Las filas de «Mis anuncios» e «Historial» hablaban la gramática vieja —`rounded-xl`,
+ * `border-white/10`, `bg-base-700/50`, `text-[11px]`— dentro de una pantalla ya migrada. Se
+ * pasan a `Plate` + `Readout`, que es lo mismo que dicen ahora la ficha y el panel de venta.
+ * Ni los datos ni el orden cambian: solo dejan de ser un dialecto aparte.
+ */
 function ListingRow({ listing, action }: { listing: MarketListing; action: React.ReactNode }) {
   const def = getCard(listing.cardId);
   const player = getPlayer(listing.cardId.split("__")[0]);
   if (!def || !player) return null;
   const variant = getVariant(def.variantId);
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-base-700/50 p-3">
+    <Plate className="flex items-center gap-3 p-3">
       <CardThumb card={def} />
       <div className="min-w-0 flex-1">
-        <p className="truncate font-display text-sm font-bold uppercase text-white">{player.nick}</p>
-        <p className="truncate text-xs" style={{ color: variant.palette.primary }}>
+        <p className="truncate font-display text-body font-bold uppercase text-white">{player.nick}</p>
+        <p className="truncate text-caption" style={{ color: variant.palette.primary }}>
           {variant.label} · OVR {def.ovr}
           {listing.serial != null ? ` · #${listing.serial}` : ""}
         </p>
-        <p className="text-[11px] text-white/40">Publicada {formatRelative(listing.listedAt)}</p>
+        <p className="text-caption text-ink-faint">Publicada {formatRelative(listing.listedAt)}</p>
       </div>
-      <div className="text-right">
-        <p className="font-display text-sm font-bold text-drl-gold">🪙 {formatCredits(listing.price)}</p>
-        <div className="mt-1">{action}</div>
+      <div className="flex shrink-0 items-center gap-4">
+        <Readout size="sm" label="Precio" value={formatCredits(listing.price)} tone="var(--nx-gold)" />
+        {action}
       </div>
-    </div>
+    </Plate>
   );
 }
 
@@ -781,20 +892,24 @@ function TxRow({
   if (!def || !player) return null;
   const variant = getVariant(def.variantId);
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-base-700/50 p-3">
+    <Plate className="flex items-center gap-3 p-3">
       <CardThumb card={def} />
       <div className="min-w-0 flex-1">
-        <p className="truncate font-display text-sm font-bold uppercase text-white">{player.nick}</p>
-        <p className="truncate text-xs" style={{ color: variant.palette.primary }}>
+        <p className="truncate font-display text-body font-bold uppercase text-white">{player.nick}</p>
+        <p className="truncate text-caption" style={{ color: variant.palette.primary }}>
           {variant.label} · OVR {def.ovr}
           {serial != null ? ` · #${serial}` : ""}
         </p>
-        <p className="text-[11px] text-white/40">{formatRelative(at)}</p>
+        <p className="text-caption text-ink-faint">{formatRelative(at)}</p>
       </div>
-      <p className={cn("font-display text-sm font-bold", positive ? "text-drl-cyan" : "text-drl-gold")}>
-        {positive ? "+" : "−"}🪙 {formatCredits(price)}
-      </p>
-    </div>
+      {/* El signo dice la dirección; el color, si entra o sale. Cifra en la escala de READOUT. */}
+      <Readout
+        size="sm"
+        label={positive ? "Cobrado" : "Pagado"}
+        value={`${positive ? "+" : "−"}${formatCredits(price)}`}
+        tone={positive ? "var(--nx-cyan)" : "var(--nx-gold)"}
+      />
+    </Plate>
   );
 }
 

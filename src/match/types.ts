@@ -73,6 +73,11 @@ export interface MatchConfig {
   coach: CoachConfig;
   /** Nombres de equipo para narrativa/broadcast (opcional). */
   teamNames?: { home: string; away: string };
+  /**
+   * FASE 51.1 · Mapa canónico del Tactical Coach sobre el que se PRESENTA el partido. Solo
+   * presentación e historial: el motor no lo lee (la simulación sigue en su modelo abstracto).
+   */
+  mapId?: string;
 }
 
 /** Economía de ronda — PLACEHOLDER (la economía real llega en una fase futura). */

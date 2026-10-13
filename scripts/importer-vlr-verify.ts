@@ -50,6 +50,28 @@ ${players.map((p, i) => rosterItem(baseId + i, p, cc, i === 0)).join("")}
 </div>
 </div>`;
 
+/**
+ * Fila de la tabla «Prize Distribution» con el markup REAL de vlr.gg: puesto con `<sup>`,
+ * nombre dentro de un `div.text-of` que TAMBIÉN contiene la región, y un `<a>` comentado con
+ * un valor viejo en la celda de puntos. Las tres trampas del markup real, en el fixture.
+ */
+const placeRow = (place: string, prize: string, teamId: number, slug: string, name: string, points?: string): string => `
+<div class="row " role="row">
+  <div class="cell" role="cell" style="white-space: nowrap;">${place}</div>
+  <div class="cell" role="cell" style="justify-content: flex-end">${prize}</div>
+  <div class="cell mod-team" role="cell" style="">
+    <a href="/team/${teamId}/${slug}" style="display: flex;">
+      <img src="//owcdn.net/img/x.png" style="width: 25px; height: 25px;">
+      <div style="margin-left: 12px;" class="text-of">${name}<div class="ge-text-light">Europe</div></div>
+    </a>
+    <div class="event-standings-spoiler">Spoiler hidden</div>
+  </div>
+  <div class="cell" role="cell" style="position: relative;">
+    <!--<a href="/vct/standings"><span>+</span>999</a>-->
+    ${points ? `<div style="color: var(--ncolor-text-link)"><span style="font-weight: 400;">+</span>${points}</div>` : ""}
+  </div>
+</div>`;
+
 const EVENT_HTML = `<!DOCTYPE html>
 <html><head><title>Valorant Masters London 2026 | VLR.gg</title></head><body>
 <div class="event-header" style="overflow: hidden;">
@@ -92,6 +114,22 @@ Location
 Copper Box Arena, London</div>
 </div>
 </div>
+</div>
+</div>
+<div class="wf-label mod-large">
+Prize Distribution
+</div>
+<div class="wf-card mod-dark" style="margin-bottom: 30px; ">
+<div class="wf-ptable wf-ptable--standings" role="table" style="overflow-x: auto">
+  <div class="row" role="row">
+    <div class="cell" role="cell">Place</div>
+    <div class="cell" role="cell" style="justify-content: flex-end;">Prize</div>
+    <div class="cell" role="cell">Team</div>
+    <div class="cell" role="cell" title="Circuit Points">Points</div>
+  </div>
+  ${placeRow("1<sup>st</sup>", "$400,000", 701, "london-lions", "London Lions", "8")}
+  ${placeRow("2<sup>nd</sup>", "$200,000", 702, "madrid-wolves", "Madrid Wolves", "6")}
+  ${placeRow("3<sup>rd</sup>&ndash;4<sup>th</sup>", "$90,000", 703, "berlin-bears", "Berlin Bears")}
 </div>
 </div>
 <div class="event-teams-container" style="margin-bottom: 30px;">
@@ -545,6 +583,46 @@ async function main(): Promise<void> {
   check("ganador siempre dentro del enfrentamiento", res.model.matches.every((m) => !m.winnerTeamId || m.winnerTeamId === m.teamAId || m.winnerTeamId === m.teamBId));
 
   // 8) DETERMINISMO
+  /*
+   * 7.5) LAS TRES VARIANTES QUE ESTUVIERON BLOQUEADAS.
+   *
+   * Sin este apartado el verify pasaba en verde aunque el conector dejase de leer la
+   * clasificación o el clutch: son datos NUEVOS que nadie más comprobaba de extremo a extremo.
+   */
+  console.log("\n## 7.5 Clasificación final y clutch (champion-edition · clutch · rookie)");
+  check("clasificación leída de la tabla Prize Distribution", snap.standings?.length === 3,
+    (snap.standings ?? []).map((p) => `${p.position}:${p.team}`).join(" · "));
+  check("campeón y subcampeón salen del DATO, no del código",
+    snap.awards?.champion === "London Lions" && snap.awards?.runnerUp === "Madrid Wolves",
+    `${snap.awards?.champion} / ${snap.awards?.runnerUp}`);
+  check("el nombre del equipo no arrastra la región anidada",
+    !(snap.awards?.champion ?? "").includes("Europe"));
+  check("premios y puntos del reparto",
+    snap.awards?.placements?.[0]?.prize === 400_000 && snap.awards?.placements?.[0]?.points === 8);
+  check("un comentario HTML no se cuela como puntos",
+    snap.awards?.placements?.every((p) => p.points !== 999) === true);
+  check("puesto empatado se lee sin inventar desempate", snap.awards?.placements?.[2]?.position === 3);
+
+  const conClutch = (snap.playerTournamentStats ?? []).filter((p) => p.clutchesWon !== undefined);
+  check("agregados de clutch por jugador y torneo", conClutch.length === snap.players.length,
+    `${conClutch.length}/${snap.players.length}`);
+  check("clutch trae ganadas Y jugadas (nunca solo el numerador)",
+    conClutch.every((p) => typeof p.clutchesWon === "number" && typeof p.clutchSituations === "number"));
+  check("el clutch NO viaja por las stats de mapa (la fuente no lo publica por mapa)",
+    (snap.mapStats ?? []).every((m) => m.clutches === undefined));
+  check("ningún jugador trae `status` (rookie sigue bloqueada, sin inventar)",
+    snap.players.every((p) => p.status === undefined));
+
+  // Sin tabla de clasificación no puede haber campeón: es el estado de un torneo en curso.
+  const cut = EVENT_HTML.indexOf('<div class="wf-label mod-large">');
+  const sinTabla = EVENT_HTML.slice(0, cut) + EVENT_HTML.slice(EVENT_HTML.indexOf('<div class="event-teams-container"'));
+  const outSinTabla = await importVlrTournament(EVENT_URL, {
+    fetcher: async (u: string) => (u === EVENT_URL ? sinTabla : fetcher(u)),
+    includeMatchDetails: false,
+  });
+  check("sin tabla de clasificación no hay campeón (torneo en curso)",
+    outSinTabla.snapshot.awards === undefined && (outSinTabla.snapshot.standings ?? []).length === 0);
+
   console.log("\n## 8. Determinismo");
   const again = await importVlrTournament(EVENT_URL, { fetcher });
   check("mismo HTML ⇒ mismo RawSnapshot (byte a byte)", JSON.stringify(out.snapshot) === JSON.stringify(again.snapshot) && JSON.stringify(out.warnings) === JSON.stringify(again.warnings));

@@ -7,7 +7,6 @@
  * existentes (Editorial F4 · Publisher). Aquí no se calcula ni una carta.
  */
 import { useMemo, useEffect, useState } from "react";
-import { ADMIN_ENABLED } from "@/config/admin";
 import { allPlayers } from "@/data/catalog";
 import {
   buildDashboard, applyDashboardFilter, sortDashboardRows, searchControl, buildHistory,
@@ -73,9 +72,6 @@ export default function TournamentControlPage() {
   const other = compareWith ? ledger.records[compareWith] : undefined;
   const meta = (): ControlActionMeta => ({ actor: "admin", at: Date.now() });
 
-  if (!ADMIN_ENABLED) {
-    return <div className="rounded-2xl border border-white/10 bg-base-700/40 p-8 text-center text-white/60">Panel de administración deshabilitado (NEXT_PUBLIC_ADMIN=1 para activarlo).</div>;
-  }
   if (!mounted) return null;
 
   return (

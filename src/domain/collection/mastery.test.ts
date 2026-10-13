@@ -28,7 +28,6 @@ test("LA MAESTRIA NO PAGA NI UN CREDITO", () => {
   for (const r of allMasteryRewards()) {
     assert.equal(r.credits ?? 0, 0, "un escalon paga creditos");
     assert.equal(r.xp ?? 0, 0, "un escalon paga XP");
-    assert.equal(r.tokens ?? 0, 0, "un escalon paga fichas");
     assert.equal(r.packCount ?? 0, 0, "un escalon paga sobres");
     assert.equal(r.cardId, undefined, "un escalon regala una carta");
     assert.ok((r.cosmetics?.length ?? 0) > 0, "un escalon no entrega ningun cosmetico");

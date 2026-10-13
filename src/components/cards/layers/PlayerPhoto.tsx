@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Player, RarityPalette } from "@/domain/cards/types";
 import { playerImageSrc } from "@/lib/assets";
+import { hasPlayerPhoto } from "@/data/playerPhotos";
 import { PlayerSigil } from "./PlayerSigil";
 
 /**
@@ -44,16 +45,27 @@ export function PlayerPhoto({
   rich?: boolean;
 }) {
   const src = playerImageSrc(player);
-  const [failed, setFailed] = useState(() => missingPhotos.has(src));
+  // F68 · solo se pide el retrato si EXISTE (lista `PLAYER_PHOTOS_AVAILABLE`) o el jugador trae su imagen: antes, un 404 por jugador.
+  const known = hasPlayerPhoto(player);
+  const [failed, setFailed] = useState(() => !known || missingPhotos.has(src));
 
   // Reinicia el estado si cambia el jugador (y respeta lo que ya se sabe de esa foto).
-  useEffect(() => setFailed(missingPhotos.has(src)), [src]);
+  useEffect(() => setFailed(!known || missingPhotos.has(src)), [src, known]);
 
   if (!failed) {
     return (
       <img
         src={src}
-        alt={player.nick}
+        /*
+         * `alt` VACÍO a propósito. No hay retratos publicados, así que este `<img>` falla
+         * siempre — y un `<img>` roto pinta su texto alternativo. Resultado: el nick aparecía
+         * encima del arte, encabalgado con el OVR, en el primer render de cada carta y de cada
+         * sesión (48 de golpe en la colección) hasta que `onError` montaba el sigilo.
+         *
+         * Además es lo correcto en accesibilidad: el nick YA está escrito en la carta, así que
+         * este retrato es decorativo y repetirlo solo duplica la lectura.
+         */
+        alt=""
         onError={() => { missingPhotos.add(src); setFailed(true); }}
         className="absolute inset-x-0 bottom-0 mx-auto h-full w-auto max-w-full object-contain object-bottom drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
         draggable={false}

@@ -46,6 +46,27 @@ export function createEconomy(rosters: MatchRosters, rules: EconomyRules = DEFAU
   };
 }
 
+/**
+ * FULL GAME AUDIT (2026-10-07) · CAMBIO DE LADO = SEGUNDA PISTOLA. Como en Valorant, en el descanso cada jugador vuelve a
+ * los créditos iniciales (`rules.start`), la racha de derrotas y el bonus de armas guardadas se pierden (las armas no
+ * cruzan el descanso) y el siguiente plan vuelve a ser el primero de su mitad (`lastDecision = null`, la misma señal que
+ * usa `decideBuy` para la pistola). Antes la ronda 13 heredaba el dinero de la primera mitad: compraba rifles y escudo
+ * pesado en una «ronda pistola» y un bonus de eco ganado en la 12 se convertía en «full / armas guardadas».
+ * El historial no se toca: es lo jugado.
+ */
+function resetTeamForHalf(team: TeamEconomyState, rules: EconomyRules): TeamEconomyState {
+  const players: Record<string, number> = {};
+  for (const name of Object.keys(team.players)) players[name] = rules.start;
+  return {
+    ...team, players, lossStreak: 0, prevBuy: null, prevStatus: null, plannedBuy: null, lastDecision: null, bonus: false,
+    spentThisRound: 0, beforeTotal: rules.start * Object.keys(players).length, lostTotal: 0,
+  };
+}
+
+export function startSecondHalf(state: EconomyState): EconomyState {
+  return { ...state, home: resetTeamForHalf(state.home, state.rules), away: resetTeamForHalf(state.away, state.rules) };
+}
+
 const totalOf = (t: TeamEconomyState): number => Object.values(t.players).reduce((a, b) => a + b, 0);
 
 /**

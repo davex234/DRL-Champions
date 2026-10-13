@@ -36,9 +36,15 @@ const check = (l: string, c: boolean, d = "") => {
 
 console.log("# Verificación del blindaje de seguridad — DRL Champions (Auditoría Fase A)\n");
 
-/** Columnas de `profiles` que el cliente NO debe poder escribir nunca. */
+/**
+ * Columnas de `profiles` que el cliente NO debe poder escribir nunca.
+ *
+ * `tokens` salió de esta lista en la F18.2 al retirarse la segunda moneda: la columna ya no
+ * existe, y pedirle a la base que rechace una escritura sobre una columna inexistente no
+ * prueba nada sobre el blindaje.
+ */
 const PROTECTED_COLUMNS = [
-  "credits", "tokens", "xp", "level",
+  "credits", "xp", "level",
   "collection_value", "distinct_cards", "rarest_rank",
   "market_volume", "packs_opened", "taxes_paid", "is_admin",
 ] as const;
@@ -237,7 +243,11 @@ console.log("\n## Fase B · inventario, economía y Pick'ems en servidor");
     check(`${route.split("/api/")[1]} no acepta userId del cliente`, !/body\.userId|body\.user_id/.test(src));
   }
   check("el precio del sobre lo pone el servidor, no el cliente",
-    /getPack\(packId\)/.test(read("src/server/services/packs.ts")) &&
+    // Fase 20.4: `buyPack` resuelve el sobre en servidor (por defecto `getPack`) y pasa SU precio
+    // a la RPC (`p_price: pack.price`); la ruta nunca acepta `body.price`. El resolutor es
+    // inyectable para pruebas, pero su valor por defecto sigue siendo el catálogo del servidor.
+    /resolve: PackResolver = getPack/.test(read("src/server/services/packs.ts")) &&
+    /p_price: pack\.price/.test(read("src/server/services/packs.ts")) &&
     !/body\.price|p_price: *body/.test(read("src/app/api/game/packs/route.ts")));
   check("la semilla de la tirada la genera el servidor",
     read("src/server/services/packs.ts").includes("randomInt"));
@@ -654,8 +664,16 @@ console.log("\n## Fase 9 §25 · la economía y la progresión son del servidor"
     svc.indexOf("Ya has reclamado") < svc.indexOf("await award("));
 
   // Los sobres retirados existen pero no se venden.
+  // Fase 20.4: la tienda filtra por CICLO DE VIDA (`isStoreVisible`, solo ACTIVE), que oculta
+  // tanto RETIRED como DRAFT — más estricto que el antiguo `!p.retired`. Y, lo esencial, la
+  // protección real es SERVIDOR: `buyPack` rechaza todo lo que no sea ACTIVE vía `guardPurchase`.
   const store = read("src/app/tienda/page.tsx");
-  check("la tienda no vende los sobres retirados", /!p\.retired/.test(store));
+  check("la tienda no vende los sobres retirados (filtra por ciclo de vida, solo ACTIVE)",
+    /isStoreVisible\(p\)/.test(store) || /!p\.retired/.test(store));
+  const svcPacks = read("src/server/services/packs.ts");
+  check("y el SERVIDOR rechaza comprar un sobre no ACTIVE antes de tocar la economía",
+    /guardPurchase\(pack\)/.test(svcPacks) &&
+    svcPacks.indexOf("guardPurchase(pack)") < svcPacks.indexOf('rpc("app_buy_pack"'));
   const packs = read("src/data/packs.ts");
   check("hay al menos un sobre retirado y sigue en el catalogo",
     /retired: true/.test(packs) && /id: "prime"/.test(packs));

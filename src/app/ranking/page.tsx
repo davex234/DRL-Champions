@@ -29,6 +29,8 @@ import {
 import { RankBadge } from "@/components/progression/RankBadge";
 import { RankEmblem, rankLadder } from "@/components/progression/RankEmblem";
 import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
+import { Plate, Recessed } from "@/components/ui/Surface";
+import { SectionTitle } from "@/components/ui/SectionTitle";
 import { cn } from "@/lib/format";
 
 type Tab = "global" | "region" | "torneo";
@@ -105,7 +107,7 @@ export default function RankingPage() {
           Clasificación
         </h1>
         <p className="mt-2 text-[15px] text-white/55">
-          Los mejores pronosticadores del circuito competitivo.
+          Clasificación por puntos: Pick&apos;ems y duelos contra el bot. El ranked PvP tiene su propia escalera por rating en Competitivo.
         </p>
       </header>
 
@@ -130,23 +132,34 @@ export default function RankingPage() {
             </div>
           )}
 
-          {/* ── Pestañas ── */}
-          <div className="mb-5 flex gap-1 rounded-control border border-white/10 bg-white/[0.03] p-1">
+          {/*
+            ── Pestañas ──
+            FASE 11 · La activa era una CÁPSULA roja de 450 px con resplandor: la píldora
+            decorativa que el lenguaje de la casa no usa. Ahora son tres controles con el
+            chaflán del sistema dentro de una superficie hundida, con 44 px de alto y la
+            semántica de pestaña (`role="tab"` y `aria-selected`), que antes no tenían.
+          */}
+          <Recessed depth="sm" className="mb-5 flex gap-1 p-1" role="tablist" aria-label="Ámbito de la clasificación">
             {([["global", "Global"], ["region", "Por región"], ["torneo", "Por torneo"]] as [Tab, string][]).map(([id, label]) => (
               <button
                 key={id}
+                role="tab"
+                aria-selected={tab === id}
                 onClick={() => setTab(id)}
                 disabled={id === "torneo" && options.length === 0}
                 className={cn(
-                  "flex-1 rounded-control px-4 py-2 font-display text-sm uppercase tracking-wide transition duration-fast",
+                  "nx-clip-sm min-h-[44px] flex-1 px-4 font-display text-sm uppercase tracking-wide transition duration-fast",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl",
                   "disabled:cursor-not-allowed disabled:opacity-40",
-                  tab === id ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white",
+                  tab === id
+                    ? "bg-drl text-white"
+                    : "text-ink-muted hover:text-white",
                 )}
               >
                 {label}
               </button>
             ))}
-          </div>
+          </Recessed>
 
           {tab === "global" ? (
             global.length === 0 ? (
@@ -195,10 +208,11 @@ export default function RankingPage() {
                     onClick={() => setScope(rg)}
                     aria-pressed={scope === rg}
                     className={cn(
-                      "rounded-control border px-3.5 py-2 font-display text-[12px] font-bold uppercase tracking-wide transition duration-fast",
+                      "nx-clip-sm min-h-[44px] px-3.5 font-display text-[12px] font-bold uppercase tracking-wide transition duration-fast",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl-cyan",
                       scope === rg
-                        ? "border-drl-cyan/60 bg-drl-cyan/10 text-drl-cyan"
-                        : "border-white/10 text-white/50 hover:border-white/25 hover:text-white/80",
+                        ? "bg-drl-cyan/10 text-drl-cyan shadow-[inset_0_0_0_1px_rgb(25_227_255_/_0.6)]"
+                        : "text-ink-muted shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] hover:text-white",
                     )}
                   >
                     {REGION_LABEL[rg]}
@@ -207,7 +221,7 @@ export default function RankingPage() {
               </div>
 
               {user && profile && !profile.region && (
-                <p className="nx-rail mb-4 rounded-control px-4 py-3 text-[13px] text-white/70">
+                <p className="nx-rail nx-clip-sm mb-4 px-4 py-3 text-[13px] text-white/70">
                   No has declarado tu región, así que no apareces en ninguna clasificación
                   regional —sí en la global.{" "}
                   <Link href="/cuenta" className="text-drl underline-offset-2 hover:underline">
@@ -253,18 +267,32 @@ export default function RankingPage() {
           ) : (
             <>
               {options.length > 1 && (
-                <label className="mb-4 block">
-                  <span className="mb-1 block text-[10px] uppercase tracking-widest text-white/40">
-                    Torneo
-                  </span>
-                  <select
-                    value={selected}
-                    onChange={(e) => setSelected(e.target.value)}
-                    className="w-full rounded-xl border border-white/10 bg-base-800 px-3 py-2.5 text-sm text-white focus:border-drl focus:outline-none"
-                  >
-                    {options.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
-                  </select>
-                </label>
+                /*
+                  FASE 11 · Era el único `<select>` nativo de la sección. Un desplegable del
+                  sistema operativo dentro de una clasificación competitiva rompe el idioma
+                  y en móvil abre una rueda nativa encima de la tabla. Mismos torneos, mismo
+                  estado, con la geometría de la casa y 44 px de objetivo táctil.
+                */
+                <div className="mb-4">
+                  <SectionTitle as="h2">Torneo</SectionTitle>
+                  <Recessed depth="sm" className="flex max-w-full gap-1 overflow-x-auto p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label="Torneo">
+                    {options.map((o) => (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setSelected(o.id)}
+                        aria-pressed={selected === o.id}
+                        className={cn(
+                          "nx-clip-sm min-h-[44px] shrink-0 px-3.5 font-display text-[12px] font-bold uppercase tracking-wide transition duration-fast",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl",
+                          selected === o.id ? "bg-drl text-white" : "text-ink-muted hover:text-white",
+                        )}
+                      >
+                        {o.label}
+                      </button>
+                    ))}
+                  </Recessed>
+                </div>
               )}
 
               {tournament.length === 0 ? (
@@ -300,10 +328,10 @@ export default function RankingPage() {
             estado, no una meta, y enseñarlo aquí sugeriría que hay algo que ganar por no
             haber jugado.
           */}
-          <section className="mt-10" aria-label="La escalera de rangos">
+          <section className="mt-10" aria-label="Los rangos de puntos">
             <div className="mb-3 flex items-baseline justify-between gap-3">
               <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">
-                La escalera
+                Rangos de puntos
               </h2>
               <span className="nx-label">Ocho rangos · tres divisiones cada uno</span>
             </div>
@@ -355,9 +383,13 @@ export default function RankingPage() {
             </p>
           </section>
 
-          <p className="mt-8 text-center text-xs text-white/30">
-            Los puntos los reparte el servidor al corregir cada torneo.{" "}
-            <Link href="/pickems" className="text-drl hover:underline">Haz tus predicciones</Link>.
+          {/*
+            FASE 11 · El enlace del pie medía 119 × 15 px: el único control de la sección por
+            debajo de 32. Sigue siendo una frase, pero su parte pulsable es un objetivo de 44.
+          */}
+          <p className="mt-8 flex flex-wrap items-center justify-center gap-x-1 text-center text-xs text-white/30">
+            Los puntos los reparte el servidor: al corregir cada torneo de Pick&apos;ems y al terminar cada duelo contra el bot.
+            <Link href="/pickems" className="nx-action !text-drl">Haz tus predicciones →</Link>
           </p>
         </>
       )}
@@ -378,11 +410,9 @@ function Row({
   // La etiqueta lleva división («Oro II»), y el primero del mundo aparece como Champion.
   const display = rankDisplay(points, position);
   return (
-    <div
-      className={cn("flex items-center gap-3 rounded-card border px-4 py-3",
-        isMe ? "border-drl/50 bg-drl/10"
-        : position <= 3 ? "border-drl-gold/25 bg-drl-gold/5"
-        : "border-white/10 bg-base-700/50")}
+    <Plate
+      tone={isMe ? "primary" : position <= 3 ? "gold" : "neutral"}
+      className="flex items-center gap-3 px-4 py-3"
     >
       {/*
         Placa de puesto. Antes los tres primeros llevaban 🥇🥈🥉: emoji del sistema, que cambia
@@ -400,7 +430,7 @@ function Row({
       >
         {position}
       </span>
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-base-800 text-xl">
+      <span className="nx-clip-sm grid h-11 w-11 shrink-0 place-items-center bg-base-800 text-xl">
         {avatar}
       </span>
       <span className="min-w-0 flex-1">
@@ -425,6 +455,6 @@ function Row({
       <span className="w-20 shrink-0 text-right font-display text-sm font-bold tabular-nums text-drl-gold">
         {points} pts
       </span>
-    </div>
+    </Plate>
   );
 }

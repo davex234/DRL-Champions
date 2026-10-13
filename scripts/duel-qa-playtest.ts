@@ -15,6 +15,7 @@
  *
  * Crea su propio usuario y lo borra al terminar: no toca la cuenta de demostración.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -107,7 +108,7 @@ async function main() {
   if (!ping || ping.status !== 401) { console.error(`❌ No hay servidor NEXUS en ${BASE}.`); process.exit(1); }
 
   const email = `qa-play-${Date.now()}@example.invalid`;
-  const password = "Test-1234-qa";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "qaplay" },
   });

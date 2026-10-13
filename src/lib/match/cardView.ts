@@ -22,7 +22,10 @@ export interface CardView {
   variantLabel: string;
   rank: number;
   serial?: number;
+  /** Retrato del JUGADOR (no la carta). */
   image: string;
+  /** FASE 51.1 · la CARTA: el WebP del catálogo de ESTE `cardId` (jugador + edición exactos). */
+  art: string;
   palette: RarityPalette;
 }
 
@@ -38,7 +41,7 @@ export function cardView(owned: OwnedCard): CardView | null {
     cardId: card.id,
     playerId: player.id,
     nick: player.nick,
-    role: player.role,
+    role: card.role ?? player.role,
     team: player.team,
     teamTag: player.teamTag,
     region: player.region,
@@ -48,6 +51,7 @@ export function cardView(owned: OwnedCard): CardView | null {
     rank: variant.rank,
     serial: owned.serial,
     image: player.image ?? `/players/${player.id}.png`,
+    art: card.image ?? `/cards/${card.id}.webp`,
     palette: variant.palette,
   };
 }

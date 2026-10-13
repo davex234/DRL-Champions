@@ -28,7 +28,45 @@ export async function reportCrash(err: unknown): Promise<CrashReport> {
   };
   error("crash", e.message, { stack: e.stack });
   try { await getAdapter().set(`crash-${report.at}`, JSON.stringify(report)); } catch { /* noop */ }
-  // TODO(server): POST report al endpoint de crashes cuando exista.
+
+  /*
+   * FASE 14 · Aquí estaba el `TODO(server): POST report al endpoint de crashes cuando
+   * exista`. Ya existe: `/api/telemetry`.
+   *
+   * LO QUE SE ENVÍA Y LO QUE NO. El informe completo se queda donde siempre —en el
+   * almacenamiento local del dispositivo— y al servidor solo va lo mínimo para saber que
+   * algo se rompió y poder agruparlo:
+   *
+   *   · `recentLogs` NO viaja. Es un búfer de 25 entradas al que cualquiera puede haber
+   *     pasado cualquier cosa con `log()`. Mandarlo sería abrir un canal por el que
+   *     podría salir, un día, cualquier dato del jugador.
+   *   · El `stack` NO viaja. Lleva rutas absolutas del sistema de ficheros de quien
+   *     ejecuta y, en un paquete de escritorio, la estructura de la instalación.
+   *   · El mensaje viaja, y el servidor lo sanea otra vez por forma (JWT, Bearer, correo,
+   *     UUID, consultas, rutas, IP) antes de escribirlo.
+   *
+   * `trackError` ya trae sus tres cortafuegos: no reporta un error mientras reporta otro
+   * —el bucle evidente cuando lo que falla es la red—, descarta huellas repetidas y tiene
+   * techo por sesión.
+   *
+   * Y no se espera: un informe de fallo no puede retrasar la recuperación de la pantalla.
+   */
+  try {
+    const { trackError } = await import("@/lib/telemetry/client");
+    trackError({
+      code: "UNHANDLED",
+      message: e.message,
+      source: "client",
+      /*
+       * `error`, no `critical`. Un error no controlado es grave, pero `critical` está
+       * reservado a los nueve flujos que impiden jugar, y desde aquí —un manejador
+       * global— no se sabe en cuál estaba el jugador. Reclasificar hacia arriba sin
+       * saberlo vaciaría de significado la única señal que la consola necesita.
+       */
+      severity: "error",
+    });
+  } catch { /* la telemetría jamás decide si un fallo se recupera o no */ }
+
   return report;
 }
 

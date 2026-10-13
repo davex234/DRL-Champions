@@ -6,13 +6,17 @@ import type { PackDef, RarityBucket } from "@/domain/packs/types";
 import { BUCKET_LABEL } from "@/domain/packs/types";
 import { useState } from "react";
 import { useGameStore } from "@/store/useGameStore";
-import { cn, formatCredits } from "@/lib/format";
+import { cn, formatCredits, plural } from "@/lib/format";
 import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { buyPackOnline } from "@/lib/game/sync";
 import { SealedPack } from "./SealedPack";
 import { packStats } from "@/data/packStats";
 import { guidanceFor } from "@/domain/packs/guidance";
+import { classOddsFor, tablePct } from "@/domain/packs/odds";
+import { PACK_CLASS_COLOR } from "@/domain/packs/packClass";
+import { CreditGlyph } from "@/components/ui/game/GameGlyph";
+import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
 
 const BUCKET_COLOR: Record<RarityBucket, string> = {
   common: "#8b96a3",
@@ -36,6 +40,7 @@ export function PackStoreCard({
   // Con sesión, la compra la valida y la cobra el SERVIDOR. Sin sesión se usa la
   // economía local, que es un modo de un solo jugador sin efectos competitivos.
   const online = isSupabaseConfigured() && !!user;
+  const serverEconomy = useServerEconomy();
   const credits = useGameStore((s) => s.credits);
   const owned = useGameStore((s) => s.unopenedPacks[pack.id] ?? 0);
   const buyPack = useGameStore((s) => s.buyPack);
@@ -57,6 +62,8 @@ export function PackStoreCard({
   const share = (b: RarityBucket): number =>
     stats ? stats.drawn[b] : (totalWeight > 0 ? pack.weights[b] / totalWeight : 0);
   const canAfford = credits >= pack.price;
+  // Fase 57.3 · línea principal: se enseña la tabla por clase (la que decide), no el reparto por rareza.
+  const classOdds = classOddsFor(pack);
 
   /** Compra un sobre. Devuelve true si se pudo. */
   async function purchase(): Promise<boolean> {
@@ -69,6 +76,7 @@ export function PackStoreCard({
         return false;
       }
     }
+    if (serverEconomy) { onNotify(SESSION_PENDING, false); return false; } // F69 · sesión resolviéndose
     const res = buyPack(pack.id);
     if (!res.ok) { onNotify(res.error ?? "Error", false); return false; }
     return true;
@@ -155,12 +163,28 @@ export function PackStoreCard({
           )}
           style={{ transformStyle: "preserve-3d" }}
         >
-          <SealedPack accent={pack.accent} name={pack.name} cutProgress={0} width={156} />
+          <SealedPack pack={pack} cutProgress={0} width={156} />
         </div>
         {/* La cuenta de cartas, fuera del sobre: dentro se pisaba con su propio pie. */}
-        <span className="nx-label absolute inset-x-0 bottom-0 text-center">{pack.cardCount} cartas</span>
+        <span className="nx-label absolute inset-x-0 bottom-0 text-center">{plural(pack.cardCount, "carta", "cartas")}</span>
       </div>
 
+      {classOdds ? (
+        <>
+          <div className="mb-1 flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
+            <span>Probabilidad por carta</span>
+            {classOdds.guarantee && <span className="text-drl-gold">{classOdds.guarantee}</span>}
+          </div>
+          <div className="flex h-2 overflow-hidden rounded-full">
+            {classOdds.rows.map((r) => (
+              <div key={r.cls} title={`${r.label}: ${tablePct(r.perCard)}`} style={{ width: `${r.perCard * 100}%`, background: PACK_CLASS_COLOR[r.cls] }} />
+            ))}
+          </div>
+          <p className="mt-1 text-[10.5px] leading-snug text-white/50">
+            {classOdds.rows.map((r) => `${r.label} ${tablePct(r.perCard)}`).join(" · ")}
+          </p>
+        </>
+      ) : (<>
       {/* Reparto de rareza — el REAL, medido con el motor de sorteo */}
       <div className="mb-1 flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
         <span>{stats ? "Reparto real" : "Probabilidades"}</span>
@@ -181,6 +205,7 @@ export function PackStoreCard({
           ) : null,
         )}
       </div>
+      </>)}
 
       {/*
         PARA QUÉ SIRVE ESTE SOBRE.
@@ -200,7 +225,7 @@ export function PackStoreCard({
           ))}
           {typeof guidance.costPerRarity.rare === "number" && (
             <p className="mt-1.5 font-display text-[10px] uppercase tracking-[0.1em] text-white/30">
-              Rara ≈ 🪙 {formatCredits(Math.round(guidance.costPerRarity.rare))} por carta
+              Rara ≈ <CreditGlyph className="align-[-2px]" /> {formatCredits(Math.round(guidance.costPerRarity.rare))} por carta
             </p>
           )}
         </div>
@@ -226,7 +251,7 @@ export function PackStoreCard({
         )}
       </div>
       <p className="mt-2 text-center font-display text-sm font-bold text-drl-gold">
-        {pack.price === 0 ? "GRATIS" : `🪙 ${formatCredits(pack.price)}`}
+        {pack.price === 0 ? "GRATIS" : <><CreditGlyph className="mr-1 align-[-2px]" />{formatCredits(pack.price)}</>}
       </p>
     </motion.div>
   );

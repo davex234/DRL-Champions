@@ -1,0 +1,16 @@
+# Túnel Cloudflare «drlcards» (801a8447-a323-4df1-b777-7c7b3b7d7114), conector del VPS (F75).
+# Mismo túnel que usaba el PC: los CNAME de valorosters.com y www no cambian.
+# www → la app, que responde 308 a https://valorosters.com (redirect en next.config).
+tunnel: 801a8447-a323-4df1-b777-7c7b3b7d7114
+credentials-file: /etc/cloudflared/801a8447-a323-4df1-b777-7c7b3b7d7114.json
+no-autoupdate: true
+ingress:
+  - hostname: valorosters.com
+    service: http://valorosters-app:3005
+    originRequest:
+      connectTimeout: 10s
+  - hostname: www.valorosters.com
+    service: http://valorosters-app:3005
+    originRequest:
+      connectTimeout: 10s
+  - service: http_status:404

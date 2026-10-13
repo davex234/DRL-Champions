@@ -2,7 +2,7 @@
  * `/api/game/economy` — OPERACIONES ECONÓMICAS DEL JUGADOR (Fase 11).
  *
  *   POST { action: "salvagePreview" }                  → qué duplicados tienes y cuánto valen
- *   POST { action: "salvage", uids: string[], ref }    → desguazarlos
+ *   POST { action: "salvage", uids: string[], ref, confirmProtected? } → desguazarlos (F79.1: protegidas solo confirmadas)
  *
  * ────────────────────────── LAS DOS REGLAS ──────────────────────────
  *
@@ -20,6 +20,9 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
 import { previewSalvage, salvageCards } from "@/server/services/economy";
+import { takeRate, rateHeaders, TOO_MANY } from "@/server/services/rateLimit";
+import { internalError } from "@/server/ops/log";
+import { readJsonObject } from "@/server/http/jsonBody";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -35,9 +38,11 @@ export async function POST(req: Request) {
   if (!session) {
     return NextResponse.json({ error: "No autenticado" }, { status: 401, headers: NO_STORE });
   }
+  // F67 · límite de frecuencia de las escrituras de esta ruta (cubeta en BD: vale con varios procesos).
+  { const rate = await takeRate(session.admin, session.userId, "economy_write"); if (!rate.allowed) return NextResponse.json({ error: TOO_MANY, code: "RATE_LIMITED" }, { status: 429, headers: rateHeaders(rate.retryAfter) }); }
 
   let body: Record<string, unknown> = {};
-  try { body = await req.json(); } catch { /* cuerpo vacío */ }
+  body = ((await readJsonObject(req)) ?? {}) as typeof body; // FULL GAME AUDIT · `null`/no-objeto ya no da 500
 
   const action = typeof body.action === "string" ? body.action : "";
 
@@ -70,21 +75,25 @@ export async function POST(req: Request) {
           return NextResponse.json({ error: "Falta la clave de la operación" }, { status: 400, headers: NO_STORE });
         }
 
+        // F79.1 · copias protegidas (favorita/vitrina) que el jugador CONFIRMA desguazar. Solo restringe: una protegida
+        // elegida sin estar aquí rechaza el desguace entero (PROTECTED_COPY).
+        const rawConfirm = body.confirmProtected === undefined ? [] : body.confirmProtected;
+        if (!Array.isArray(rawConfirm) || rawConfirm.length > 500 || !rawConfirm.every((u) => typeof u === "string" && UUID.test(u))) {
+          return NextResponse.json({ error: "Confirmación inválida" }, { status: 400, headers: NO_STORE });
+        }
+
         const r = await salvageCards(
-          session.admin, session.userId, uids, `salvage:${session.userId}:${gesture}`,
+          session.admin, session.userId, uids, `salvage:${session.userId}:${gesture}`, rawConfirm as string[],
         );
         return r.ok
           ? NextResponse.json(r.data, { headers: NO_STORE })
-          : NextResponse.json({ error: r.error }, { status: r.status, headers: NO_STORE });
+          : NextResponse.json({ error: r.error, ...(r.code ? { code: r.code } : {}) }, { status: r.status, headers: NO_STORE });
       }
 
       default:
         return NextResponse.json({ error: "Acción inválida" }, { status: 400, headers: NO_STORE });
     }
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Error en la operación" },
-      { status: 500, headers: NO_STORE },
-    );
+    return internalError("api/game/economy", e, req);
   }
 }

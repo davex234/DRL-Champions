@@ -1,39 +1,63 @@
 /**
- * `/api/game/duels` — MAZOS DE DUELO del usuario autenticado (Fase 8).
+ * `/api/game/duels` — MAZOS / EQUIPOS del usuario autenticado (Fase 8, extendida en la Fase 32).
  *
- *   GET                                    → { decks, collection }
- *   POST { action: "save",   id?, name, cardUids }
- *   POST { action: "delete", id }
+ *   GET → `DeckWorkspaceDTO` { decks, collection, activeDeckId, activeSupported, maxDecks, serverNow }
+ *         (compatible con la forma anterior { decks, collection }).
  *
- * El usuario sale SIEMPRE del token, nunca del cuerpo. La propiedad de cada carta se comprueba
- * contra `user_cards` antes de guardar: un mazo con una instancia ajena se rechaza con 403.
+ *   POST (cuerpo ESTRICTO por acción, ver `parseDeckRequest`):
+ *     { action: "save",             id?, name, cardUids }                 ← Fase 8 (hoja «Añadir al equipo»)
+ *     { action: "save_composition", id, name, cardUids, expectedVersion } ← guardado atómico del constructor
+ *     { action: "create",           name?, cardUids? }
+ *     { action: "rename",           id, name, expectedVersion }
+ *     { action: "duplicate",        id }
+ *     { action: "delete",           id, expectedVersion?, confirmActive? }
+ *     { action: "set_active",       id, expectedVersion? }
+ *
+ * El usuario sale SIEMPRE del token, nunca del cuerpo. La propiedad de cada carta se comprueba contra
+ * `user_cards`; un equipo de otro responde 404. Lecturas y escrituras con cubeta propia (`deck_read`,
+ * `deck_write`). Un fallo del backend nunca viaja crudo: 503 genérico.
  */
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
-import { listDecks, listCollection, saveDeck, deleteDeck } from "@/server/services/duels";
+import { takeRate, rateHeaders, isDependencyDown, TOO_MANY, UNAVAILABLE } from "@/server/services/rateLimit";
+import { saveDeck } from "@/server/services/duels";
+import {
+  getDeckWorkspace, saveComposition, createTeam, renameTeam, duplicateTeam, deleteTeam, setActiveTeam, type TeamResult,
+} from "@/server/services/deckTeams";
+import { parseDeckRequest } from "@/domain/deckBuilder/request";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const NO_STORE = { "cache-control": "no-store" };
 
+const unavailable = () => NextResponse.json({ error: UNAVAILABLE, code: "UNAVAILABLE" }, { status: 503, headers: rateHeaders(5) });
+const tooMany = (retryAfter: number) => NextResponse.json({ error: TOO_MANY, code: "RATE_LIMITED" }, { status: 429, headers: rateHeaders(retryAfter) });
+
+function reply<T>(r: TeamResult<T>) {
+  if (!r.ok && r.status >= 500 && r.code !== "NOT_READY") {
+    console.error("[duels]", r.error);
+    return unavailable();
+  }
+  if (!r.ok) {
+    const extra = r.data && typeof r.data === "object" ? (r.data as Record<string, unknown>) : {};
+    return NextResponse.json({ ...extra, error: r.error, code: r.code }, { status: r.status, headers: NO_STORE });
+  }
+  return NextResponse.json(r.data, { headers: NO_STORE });
+}
+
 export async function GET(req: Request) {
   const session = await getSession(req);
   if (!session) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
+  const rate = await takeRate(session.admin, session.userId, "deck_read");
+  if (!rate.allowed) return tooMany(rate.retryAfter);
+
   try {
-    const [decks, collection] = await Promise.all([
-      listDecks(session.admin, session.userId),
-      listCollection(session.admin, session.userId),
-    ]);
-    if (!decks.ok) return NextResponse.json({ error: decks.error }, { status: decks.status });
-    if (!collection.ok) return NextResponse.json({ error: collection.error }, { status: collection.status });
-    return NextResponse.json(
-      { decks: decks.data!.decks, collection: collection.data!.cards },
-      { headers: NO_STORE },
-    );
+    return reply(await getDeckWorkspace(session.admin, session.userId));
   } catch (e) {
-    return NextResponse.json({ error: message(e) }, { status: 500 });
+    console.error("[duels]", e);
+    return unavailable();
   }
 }
 
@@ -41,37 +65,36 @@ export async function POST(req: Request) {
   const session = await getSession(req);
   if (!session) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
-  let body: Record<string, unknown> = {};
-  try { body = await req.json(); } catch { /* cuerpo vacío */ }
+  const rate = await takeRate(session.admin, session.userId, "deck_write");
+  if (!rate.allowed) return tooMany(rate.retryAfter);
 
-  const action = typeof body.action === "string" ? body.action : "";
+  let body: unknown = null;
+  try { body = await req.json(); } catch { body = null; }
+  const parsed = parseDeckRequest(body);
+  if (!parsed.ok) return NextResponse.json({ error: parsed.error, code: parsed.code }, { status: 400, headers: NO_STORE });
+  const r = parsed.req;
+  const { admin, userId } = session;
 
   try {
-    if (action === "save") {
-      const name = typeof body.name === "string" ? body.name : "";
-      const id = typeof body.id === "string" && UUID.test(body.id) ? body.id : undefined;
-      const cardUids = Array.isArray(body.cardUids)
-        ? body.cardUids.filter((u): u is string => typeof u === "string" && UUID.test(u))
-        : null;
-      if (cardUids === null) return NextResponse.json({ error: "Cartas no válidas" }, { status: 400 });
-      const r = await saveDeck(session.admin, session.userId, { id, name, cardUids });
-      if (!r.ok) return NextResponse.json({ error: r.error }, { status: r.status });
-      return NextResponse.json(r.data, { headers: NO_STORE });
+    switch (r.action) {
+      case "save":
+        return reply(await saveDeck(admin, userId, { id: r.id, name: r.name, cardUids: r.cardUids }) as TeamResult<unknown>);
+      case "save_composition":
+        return reply(await saveComposition(admin, userId, { id: r.id, name: r.name, cardUids: r.cardUids, expectedVersion: r.expectedVersion }));
+      case "create":
+        return reply(await createTeam(admin, userId, { name: r.name, cardUids: r.cardUids }));
+      case "rename":
+        return reply(await renameTeam(admin, userId, { id: r.id, name: r.name, expectedVersion: r.expectedVersion }));
+      case "duplicate":
+        return reply(await duplicateTeam(admin, userId, r.id));
+      case "delete":
+        return reply(await deleteTeam(admin, userId, { id: r.id, expectedVersion: r.expectedVersion, confirmActive: r.confirmActive }));
+      case "set_active":
+        return reply(await setActiveTeam(admin, userId, { id: r.id, expectedVersion: r.expectedVersion }));
     }
-
-    if (action === "delete") {
-      const id = typeof body.id === "string" && UUID.test(body.id) ? body.id : "";
-      if (!id) return NextResponse.json({ error: "Mazo no válido" }, { status: 400 });
-      const r = await deleteDeck(session.admin, session.userId, id);
-      if (!r.ok) return NextResponse.json({ error: r.error }, { status: r.status });
-      return NextResponse.json(r.data, { headers: NO_STORE });
-    }
-
-    return NextResponse.json({ error: "Acción inválida" }, { status: 400 });
   } catch (e) {
-    return NextResponse.json({ error: message(e) }, { status: 500 });
+    console.error("[duels]", e);
+    if (isDependencyDown(e)) return unavailable();
+    return unavailable();
   }
 }
-
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const message = (e: unknown) => (e instanceof Error ? e.message : "Error en la operación");

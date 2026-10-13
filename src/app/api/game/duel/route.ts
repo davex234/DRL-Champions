@@ -20,6 +20,7 @@ import { getSession } from "@/server/services/session";
 import {
   startMatch, playTurn, getMatch, getActiveMatch, getReplay, listReplays, abandonMatch,
 } from "@/server/services/duels";
+import { readJsonObject } from "@/server/http/jsonBody";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -33,7 +34,7 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "No autenticado" }, { status: 401 });
 
   let body: Record<string, unknown> = {};
-  try { body = await req.json(); } catch { /* cuerpo vacío */ }
+  body = ((await readJsonObject(req)) ?? {}) as typeof body; // FULL GAME AUDIT · `null`/no-objeto ya no da 500
 
   const action = typeof body.action === "string" ? body.action : "";
   const matchId = typeof body.matchId === "string" && UUID.test(body.matchId) ? body.matchId : "";
@@ -43,7 +44,7 @@ export async function POST(req: Request) {
       case "start": {
         const deckId = typeof body.deckId === "string" && UUID.test(body.deckId) ? body.deckId : "";
         const difficulty = typeof body.difficulty === "string" ? body.difficulty : "";
-        if (!deckId) return bad("Mazo no válido");
+        if (!deckId) return bad("Equipo no válido");
         return send(await startMatch(session.admin, session.userId, deckId, difficulty));
       }
 
@@ -55,7 +56,11 @@ export async function POST(req: Request) {
         const raw = typeof body.stat === "string" ? body.stat : undefined;
         const stat = raw && STATS.has(raw) ? raw : undefined;
         if (raw && !stat) return bad("Estadística no válida");
-        return send(await playTurn(session.admin, session.userId, matchId, cardUid, stat));
+        // F67 · versión que el cliente veía (opcional: un cliente antiguo sin ella conserva el comportamiento anterior).
+        const ev = body.expectedVersion;
+        const expectedVersion = typeof ev === "number" && Number.isInteger(ev) && ev >= 0 ? ev : undefined;
+        if (ev !== undefined && expectedVersion === undefined) return bad("Versión de estado no válida");
+        return send(await playTurn(session.admin, session.userId, matchId, cardUid, stat, expectedVersion));
       }
 
       case "state":
@@ -80,16 +85,20 @@ export async function POST(req: Request) {
         return bad("Acción inválida");
     }
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "Error en la partida" },
-      { status: 500 },
-    );
+    // FASE 33 · un fallo interno nunca viaja crudo al cliente.
+    console.error("[duel]", e);
+    return NextResponse.json({ error: "Error en la partida" }, { status: 500 });
   }
 }
 
 const bad = (error: string) => NextResponse.json({ error }, { status: 400 });
 
-function send<T>(r: { ok: boolean; status: number; error?: string; data?: T }) {
-  if (!r.ok) return NextResponse.json({ error: r.error }, { status: r.status });
+function send<T>(r: { ok: boolean; status: number; error?: string; code?: string; data?: T }) {
+  if (!r.ok && r.status >= 500) {
+    console.error("[duel]", r.error);
+    return NextResponse.json({ error: "Error en la partida" }, { status: r.status });
+  }
+  // F66 · un conflicto viaja con su código y, si lo hay, con el estado REAL para que el cliente se resincronice.
+  if (!r.ok) return NextResponse.json({ error: r.error, ...(r.code ? { code: r.code } : {}), ...(r.data ? r.data as object : {}) }, { status: r.status, headers: NO_STORE });
   return NextResponse.json(r.data, { headers: NO_STORE });
 }

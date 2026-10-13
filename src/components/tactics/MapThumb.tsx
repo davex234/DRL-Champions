@@ -1,50 +1,52 @@
 "use client";
 
 /**
- * MINIATURA DE MAPA (Fase 9.5).
+ * MINIATURA DE MAPA.
  *
- * El vestíbulo del entrenador enseñaba los cuatro trazados como cuatro párrafos de texto.
- * En una herramienta táctica, no ver ni un mapa es el equivalente a una tienda sin
- * escaparate: existen cuatro mapas dibujados y no se veía ninguno.
+ * Es el asset real, en pequeño. **El navegador lo redimensiona para verlo; el fichero no se
+ * toca.** No hay miniaturas derivadas, ni recortes, ni conversiones: la carpeta `public/maps`
+ * contiene exactamente los doce maestros y nada más.
  *
- * NO es `StrategyBoard` en pequeño. La pizarra es un EDITOR: rejilla, etiquetas de zona,
- * fichas arrastrables, tiradores de flecha y manejo de puntero. Nada de eso sirve a 120 px
- * ni debe pagarse cuatro veces solo para enseñar una forma. Esto dibuja el trazado y para.
+ * TRES DECISIONES
+ *
+ *  1. **`object-contain`, nunca `cover`.** Los doce mapas tienen proporciones distintas
+ *     (0,922 a 1,113). `cover` llenaría la tarjeta recortando el mapa, y un mapa recortado
+ *     en un selector es un mapa que no se reconoce. `contain` deja margen y respeta el
+ *     ratio original.
+ *  2. **`loading="lazy"`.** Doce PNG son 13 MB. Sin esto, abrir el selector se los descarga
+ *     todos de golpe aunque solo se vean tres. Con esto, baja lo que entra en pantalla.
+ *  3. **`aria-hidden`.** La tarjeta ya dice el nombre del mapa en texto; que un lector de
+ *     pantalla lo repita como imagen no aporta nada.
  */
-import { ZONE_COLOR, type TacticalMap } from "@/domain/tactics";
+import { type TacticalMap, aspectRatio } from "@/domain/tactics";
+import { mapImageSrc, mapThumbSrc } from "@/lib/assets";
 import { cn } from "@/lib/format";
 
 export function MapThumb({
   map,
   className,
+  /** `eager` solo para el mapa ya seleccionado, que se ve sí o sí. */
+  priority = false,
+  full = false,
 }: {
   map: TacticalMap;
   className?: string;
+  priority?: boolean;
+  /** FASE 51 · el PNG original en vez de la miniatura WebP (solo donde se ve grande). */
+  full?: boolean;
 }) {
   return (
-    <svg
-      viewBox="0 0 100 100"
-      className={cn("block h-full w-full", className)}
+    <img
+      src={full ? mapImageSrc(map.asset) : mapThumbSrc(map.asset)}
+      alt=""
       aria-hidden
-      preserveAspectRatio="xMidYMid meet"
-    >
-      <rect x="0" y="0" width="100" height="100" fill="#080a12" />
-
-      {map.zones.map((z) => {
-        const color = ZONE_COLOR[z.kind];
-        return (
-          <polygon
-            key={z.id}
-            points={z.polygon.map(([x, y]) => `${x},${y}`).join(" ")}
-            fill={color}
-            // Los sitios de plantado son el punto de referencia del mapa: destacan.
-            fillOpacity={z.kind === "site" ? 0.34 : z.kind === "choke" ? 0.24 : 0.1}
-            stroke={color}
-            strokeOpacity={0.55}
-            strokeWidth="0.6"
-          />
-        );
-      })}
-    </svg>
+      width={map.width}
+      height={map.height}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      draggable={false}
+      style={{ aspectRatio: String(aspectRatio(map)) }}
+      className={cn("block h-full w-full object-contain", className)}
+    />
   );
 }

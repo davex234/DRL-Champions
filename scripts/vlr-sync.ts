@@ -6,6 +6,10 @@
  *   npm run vlr:sync -- <url> --event <id> --write            → escribe, SIN Pick'ems
  *   npm run vlr:sync -- <url> --event <id> --write --pickems  → escribe y abre Pick'ems
  *
+ * Fase 24.6 · la ESCRITURA pasa por `runEsportsSync` (modo manual, objetivo explícito): el mismo
+ * core que el sync automático, con su validación de payload, sus transiciones de estado, su lock
+ * y su marcador de convergencia de Pick'ems. Manual y automático no tienen dos lógicas.
+ *
  * ────────────────────────── QUÉ HACE ──────────────────────────
  *
  * Une dos sistemas que ya existían y nunca se habían tocado entre sí:
@@ -25,8 +29,11 @@ import { join } from "node:path";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { importVlrTournament } from "@/importer-vlr";
 import { snapshotToSource, type AdapterResult } from "@/lib/esports/sync/vlrSnapshotSource";
-import { syncTournament } from "@/lib/esports/sync/orchestrator";
-import { playerRow } from "@/lib/esports/sync/mappers";
+import { runEsportsSync } from "@/lib/esports/autosync/runner";
+import { getEsportsAutoSyncConfig } from "@/lib/esports/autosync/config";
+import { createConsoleLogger } from "@/lib/esports/autosync/log";
+import { formatRunReport } from "@/lib/esports/autosync/report";
+import { sourceRefFromInput } from "@/lib/esports/autosync/sourceRef";
 
 const ROOT = process.cwd();
 for (const f of [".env.local", ".env"]) {
@@ -163,14 +170,20 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  console.log(`Sincronizando en «${target}» · Pick'ems ${withPickems ? "ACTIVADOS" : "desactivados"} …`);
-  const r = await syncTournament(res.source, target, db, {
-    players: res.players.map(playerRow),
-    pickems: withPickems,
-  });
+  const ref = sourceRefFromInput(target, url);
+  if (!ref) {
+    console.error("❌ La URL no es un torneo de vlr.gg.");
+    process.exit(1);
+  }
+  console.log(`Sincronizando en «${target}» · Pick'ems ${withPickems ? "ACTIVADOS" : "desactivados"} · core runEsportsSync (manual) …`);
+  // El snapshot ya está descargado y validado arriba: se reutiliza, sin segunda descarga.
+  const r = await runEsportsSync(
+    { sb: db, cfg: getEsportsAutoSyncConfig(process.env), logger: createConsoleLogger(), fetchSnapshot: async () => ({ snapshot: snap, warnings: out.warnings }) },
+    { mode: "manual", targets: [ref], pickems: withPickems },
+  );
   console.log("\n── RESULTADO DEL SYNC ──");
-  console.log(JSON.stringify(r, null, 2));
-  process.exitCode = r.ok ? 0 : 1;
+  console.log(formatRunReport(r));
+  process.exitCode = r.errors.length === 0 && !r.skipped ? 0 : 1;
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });

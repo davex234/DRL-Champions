@@ -8,6 +8,9 @@
  */
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
+import { serverSupabaseFetch } from "@/lib/supabase/serverUrl";
+import { isGatedRequest } from "@/domain/admin/sanctions";
+import { activeSanctionFor } from "./sanctionGate";
 
 function normalizeUrl(raw: string | undefined): string | undefined {
   const t = raw?.trim();
@@ -19,6 +22,11 @@ export interface Session {
   userId: string;
   /** Cliente service_role para operar en servidor (salta RLS). */
   admin: SupabaseClient;
+  /**
+   * F63 · `app_metadata` del usuario tal como lo devolvió GoTrue al validar el token (lectura fresca de la BD de auth,
+   * sin petición extra). Solo lo escribe el servidor con service_role; ahí viven los acuses del onboarding.
+   */
+  appMetadata?: Record<string, unknown>;
 }
 
 /** Extrae el token Bearer de la petición. */
@@ -42,10 +50,23 @@ export async function getSession(req: Request): Promise<Session | null> {
   const admin = getSupabaseAdmin();
   if (!url || !anon || !admin) return null;
 
-  const client = createClient(url, anon, { auth: { persistSession: false, autoRefreshToken: false } });
+  const client = createClient(url, anon, { auth: { persistSession: false, autoRefreshToken: false }, global: { fetch: serverSupabaseFetch } });
   const { data, error } = await client.auth.getUser(token);
   const userId = data.user?.id;
   if (error || !userId) return null;
 
-  return { userId, admin };
+  /*
+   * F58 · ENFORCEMENT DE SANCIONES. Una cuenta con sanción activa (ban o suspensión, `user_sanctions`) no obtiene
+   * sesión para ninguna MUTACIÓN del juego: comprar/abrir, desguazar, reclamar, jugar, matchmaking, competitivo,
+   * social, mercado, pick'ems… Las lecturas (GET) y la telemetría siguen. Se decide aquí porque es el único punto que
+   * TODAS las rutas del juego atraviesan con la identidad ya verificada. El middleware responde antes un 403 legible;
+   * esto es la autoridad aunque alguien se salte el borde.
+   */
+  if (isGatedRequest(req.method, pathOf(req)) && await activeSanctionFor(admin, userId)) return null;
+
+  return { userId, admin, appMetadata: (data.user?.app_metadata ?? {}) as Record<string, unknown> };
+}
+
+function pathOf(req: Request): string {
+  try { return new URL(req.url).pathname; } catch { return ""; }
 }

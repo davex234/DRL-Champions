@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { ADMIN_ENABLED } from "@/config/admin";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { useEngineStore } from "@/store/useEngineStore";
 import { isVlrConfigured } from "@/engine/sources/vlr";
@@ -10,13 +9,6 @@ import type { Match, GeneratedCard, MatchStatus } from "@/engine/types";
 import { formatRelative, cn } from "@/lib/format";
 
 export default function DataEnginePage() {
-  if (!ADMIN_ENABLED) {
-    return (
-      <div className="grid min-h-[60vh] place-items-center text-center">
-        <p className="font-display text-2xl font-bold uppercase text-white">Acceso restringido</p>
-      </div>
-    );
-  }
   return (
     <HydrationGate>
       <Dashboard />
@@ -162,7 +154,7 @@ function Dashboard() {
             {s.generatedEvents.map((e) => (
               <div key={e.id} className="rounded-lg border border-white/10 bg-base-700/50 px-3 py-2">
                 <p className="font-display text-sm font-bold uppercase text-white">{e.name}</p>
-                <p className="text-[11px] text-white/40">{e.missions.length} misiones · {e.shop.length} artículos · sobre {e.packIds.join(", ")}</p>
+                <p className="text-[11px] text-white/40">{e.missions.length} misiones · sobre {e.packIds.join(", ")}</p>
               </div>
             ))}
           </div>

@@ -7,7 +7,6 @@
  * los motores F4→F7.
  */
 import { useEffect, useMemo, useState } from "react";
-import { ADMIN_ENABLED } from "@/config/admin";
 import { runtimeGenerationId, runtimeVersion } from "@/publisher/runtime";
 import {
   applyReviewFilter, reviewFacets, sortReviewRows,
@@ -75,9 +74,6 @@ export default function CardReviewPage() {
     decideCards(model.generationId, cardIds, action, { actor: "admin", at: Date.now() });
   };
 
-  if (!ADMIN_ENABLED) {
-    return <div className="rounded-2xl border border-white/10 bg-base-700/40 p-8 text-center text-white/60">Panel de administración deshabilitado (NEXT_PUBLIC_ADMIN=1 para activarlo).</div>;
-  }
   if (!mounted) return null;
 
   const liveGen = runtimeGenerationId();

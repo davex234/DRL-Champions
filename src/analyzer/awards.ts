@@ -31,7 +31,28 @@ export function computeAwards(players: PlayerReport[], teams: TeamReport[], mode
   push("best-initiator", best(players, (p) => p.roles.initiator), "mayor initiator score");
   push("best-entry", best(players, (p) => p.roles.entry), "mayor entry score");
   push("best-support", best(players, (p) => p.roles.support), "mayor support score");
-  push("best-clutch", best(players, (p) => p.clutches), "más clutches", 1);
+  /*
+   * BEST CLUTCH — de la fuente, no de una suma que nadie publicó.
+   *
+   * Antes se concedía al líder en `p.clutches`, que es la SUMA de las stat-lines por mapa. Con
+   * vlr.gg esa suma vale 0 para todo el mundo, porque su scoreboard por mapa no tiene columna
+   * de clutch: el premio se omitía por umbral y la variante quedaba bloqueada.
+   *
+   * Ahora manda `tournamentClutchesWon`, que es el agregado que la fuente SÍ publica en
+   * `/event/stats` («9/40» = ganadas/jugadas). Es la granularidad correcta: `best-clutch` es un
+   * premio de TORNEO, no de mapa.
+   *
+   * Y no se mezclan las dos procedencias. Si NINGÚN jugador trae el agregado se cae al
+   * recuento por mapa de siempre —fuentes que sí lo publican por mapa siguen funcionando—,
+   * pero nunca se comparan jugadores medidos de formas distintas dentro del mismo torneo:
+   * eso daría un ganador decidido por qué dato faltaba, no por quién jugó mejor.
+   */
+  const conAgregado = players.filter((p) => p.tournamentClutchesWon !== undefined);
+  if (conAgregado.length) {
+    push("best-clutch", best(conAgregado, (p) => p.tournamentClutchesWon ?? 0), "más clutches ganados en el torneo", 1);
+  } else {
+    push("best-clutch", best(players, (p) => p.clutches), "más clutches", 1);
+  }
 
   // Best flex — más agentes distintos (evidencia). Omite si nadie tiene ≥3.
   const flex = best(players, (p) => agentCount.get(p.playerId) ?? 0);

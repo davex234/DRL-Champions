@@ -52,7 +52,7 @@ test("cada meta es alcanzable y cada premio entrega algo", () => {
     for (const c of set.challenges) {
       assert.ok(c.goal > 0, `${set.id}/${c.id}: meta ${c.goal}`);
       const r = c.reward;
-      const gives = (r.credits ?? 0) + (r.xp ?? 0) + (r.tokens ?? 0) + (r.packCount ?? 0);
+      const gives = (r.credits ?? 0) + (r.xp ?? 0) + (r.packCount ?? 0);
       assert.ok(gives > 0, `${set.id}/${c.id} no entrega nada`);
       // Un sobre prometido tiene que existir en el catálogo.
       if (r.packId) assert.ok(PACKS.some((p) => p.id === r.packId), `sobre inexistente: ${r.packId}`);

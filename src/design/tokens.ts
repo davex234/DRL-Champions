@@ -107,6 +107,51 @@ export const RADIUS = {
   full: "9999px",
 } as const;
 
+/**
+ * CHAFLÁN — la firma geométrica de NEXUS, por fin como token.
+ *
+ * Estaba repartido: `globals.css` fijaba `--nx-chamfer: 18px` y `--nx-chamfer-sm: 10px`, y
+ * `CardRenderer` se inventaba 11/16/21/25 px por tamaño de carta, más un 5 px suelto en el
+ * medallón de variante. Cuatro sitios decidiendo la misma firma.
+ *
+ * La escala va por ROL, no por tamaño: el corte de un botón y el de un panel no son el mismo
+ * gesto a distinta escala, son dos piezas distintas del mismo objeto.
+ *
+ * **Ni un valor existente cambia.** `stage` es el 18 px que ya usaba `.nx-clip` y `control` el
+ * 10 px de `.nx-clip-sm`, así que los 94 usos actuales del chaflán se ven exactamente igual.
+ * `plate` y `medallion` son nuevos y solo los estrenan las primitivas.
+ */
+export const CHAMFER = {
+  /** Sello, insignia, nodo del pase. El corte más pequeño que sigue leyéndose. */
+  medallion: "5px",
+  /** Botón, chip, campo. (= el `--nx-chamfer-sm` de siempre.) */
+  control: "10px",
+  /** Panel, sección, bloque de contenido. */
+  plate: "14px",
+  /** Contenedor a pantalla completa, arena, cabecera. (= el `--nx-chamfer` de siempre.) */
+  stage: "18px",
+} as const;
+
+/**
+ * HUNDIDO — la quinta superficie, la que faltaba.
+ *
+ * Un hueco practicado en una placa: más oscuro que lo que lo rodea, con el filo superior en
+ * sombra y el inferior iluminado. Es lo que hace que una posición de carta se lea como
+ * excavada y no como pegada encima, y no existía como token pese a estar dibujado a mano en el
+ * tablero, en la placa de datos de la carta y en el pase.
+ *
+ * Se publica como sombras compuestas porque eso es lo que es: un hueco no tiene color propio,
+ * tiene luz.
+ */
+export const RECESSED = {
+  /** Hueco leve: campo, celda, pista. */
+  sm: "inset 0 1px 3px rgba(0,0,0,0.55), inset 0 -1px 0 rgba(255,255,255,0.07)",
+  /** Hueco de referencia: posición de carta, placa de datos. */
+  md: "inset 0 3px 7px rgba(0,0,0,0.9), inset 0 -1px 0 rgba(255,255,255,0.12)",
+  /** Pozo: la zona de enfrentamiento, un raíl de recompensas. */
+  lg: "inset 0 16px 30px -18px rgba(0,0,0,0.95), inset 0 -16px 30px -18px rgba(0,0,0,0.95)",
+} as const;
+
 /** Espaciado. Base 4, con los saltos que realmente se usan. */
 export const SPACE = {
   px: "1px",
@@ -141,6 +186,30 @@ export const TYPE = {
   h1: { size: "40px", height: "1.05", weight: "700", tracking: "0.01em" },
   /** Cifra grande de marcador o cabecera. */
   display: { size: "64px", height: "0.95", weight: "700", tracking: "-0.01em" },
+} as const;
+
+/**
+ * READOUT — la cifra competitiva como PAPEL tipográfico, no como tamaño.
+ *
+ * OVR, créditos, XP, puntos, rango, marcador y serial son el mismo tipo de dato y hasta ahora
+ * se escribían con el tamaño que hiciera falta en cada sitio: la auditoría contó CATORCE
+ * tamaños de letra distintos en el vestíbulo. La clase `.nx-readout` ya fijaba familia, peso y
+ * cifras tabulares; lo que faltaba era la escala.
+ *
+ * Cinco pasos y ninguno más. Una cifra que no cabe en uno de estos cinco no es una cifra
+ * competitiva: es texto.
+ */
+export const READOUT = {
+  /** Dentro de un chip o una fila densa. */
+  xs: "13px",
+  /** Dato secundario en una placa. */
+  sm: "18px",
+  /** El valor de la pantalla. */
+  md: "26px",
+  /** Protagonista: marcador de duelo, saldo, OVR de la carta grande. */
+  lg: "40px",
+  /** Momento: resultado final, nivel alcanzado. */
+  xl: "64px",
 } as const;
 
 // ───────────────────────────── Profundidad y movimiento ─────────────────────────────
@@ -189,6 +258,72 @@ export const EASING = {
   spring: "cubic-bezier(0.34, 1.56, 0.64, 1)",
 } as const;
 
+/**
+ * ELEVACIÓN SEMÁNTICA — los mismos valores de `ELEVATION`, dichos por su función.
+ *
+ * La auditoría contó 22 sombras distintas en la colección. No sobran valores: falta un
+ * vocabulario. `ELEVATION` se conserva tal cual (lo consume Tailwind y 36 pantallas); esto le
+ * pone nombre a para qué sirve cada escalón, y añade el único que faltaba de verdad: `focus`.
+ */
+export const DEPTH = {
+  /** Al ras del plano. */
+  none: ELEVATION.none,
+  /** Un separador que apenas se despega. */
+  subtle: ELEVATION.sm,
+  /** Una placa apoyada en el escenario. */
+  surface: ELEVATION.md,
+  /** Un objeto: carta, sobre, medallón. */
+  object: ELEVATION.lg,
+  /** Una capa por encima de todo: diálogo, revelación. */
+  impact: ELEVATION.xl,
+  /**
+   * FOCO. El único que no existía, y el que hace falta para no borrar el `outline` del
+   * navegador sin dar nada a cambio: un anillo de dos tonos que se ve sobre cualquier
+   * superficie del sistema, oscura o clara.
+   */
+  focus: "0 0 0 2px #06070d, 0 0 0 4px rgba(255,46,99,0.9)",
+} as const;
+
+/**
+ * Z-INDEX — jerarquía semántica.
+ *
+ * Medido: 30 usos de `z-10`, 13 de `z-20`, 7 de `z-50` y **nueve valores arbitrarios** entre
+ * `z-[60]` y `z-[100]`, cada uno decidido por quien tuvo el conflicto ese día. Cuando dos
+ * capas se pelean, gana quien puso el número más alto — que no es una jerarquía, es una
+ * subasta.
+ */
+export const LAYER = {
+  /** Contenido normal. */
+  base: 0,
+  /** Algo que se despega dentro de su contenedor: cabecera pegajosa, capa de una carta. */
+  surface: 10,
+  /** Elemento que flota sobre su sección: menú, tooltip, carta levantada. */
+  floating: 20,
+  /** El cromo de la aplicación: barra superior, navegación. */
+  chrome: 40,
+  /** Velo a pantalla completa. */
+  overlay: 50,
+  /** Diálogo y revelación. */
+  modal: 60,
+  /** Avisos. Siempre por encima de todo lo demás. */
+  toast: 80,
+} as const;
+
+/**
+ * DENSIDAD — NEXUS tiene dos modos de UI y hasta ahora usaban el mismo ritmo.
+ *
+ * `gameplay` es donde se juega y se colecciona: la pieza manda, hay aire y el dato se lee de
+ * lejos. `management` es donde se administra —constructor de mazos, mercado, listas del
+ * entrenador—: cabe más información, se lee de cerca, y aun así habla el mismo idioma.
+ *
+ * No son dos estéticas: son dos ritmos de la misma. Cambian el aire y el tamaño del dato,
+ * nunca la geometría ni el color.
+ */
+export const DENSITY = {
+  gameplay: { gap: SPACE[6], pad: SPACE[5], readout: READOUT.lg, label: TYPE.label.size },
+  management: { gap: SPACE[3], pad: SPACE[3], readout: READOUT.sm, label: TYPE.label.size },
+} as const;
+
 /** Puntos de ruptura. Coinciden con los que se verifican en 9J. */
 export const BREAKPOINT = {
   mobile: 390,
@@ -203,4 +338,70 @@ export const CHROME = {
   topBar: 64,
   topBarCompact: 56,
   mobileBar: 64,
+} as const;
+
+// ───────────────────────────── Fase 3B ─────────────────────────────
+
+/**
+ * GROSOR DE TRAZO — la escala que faltaba.
+ *
+ * `BORDER` codifica el COLOR del canto (cuatro niveles de jerarquía) pero nunca su grosor, así
+ * que cada pantalla escribía `border` (1 px) o `border-2` según le pareciera. Tres pasos y
+ * ninguno más, porque un canto no tiene más papeles que estos tres:
+ *
+ *   hair   separar        — la línea por defecto entre dos zonas
+ *   edge   señalar        — selección, foco, estado activo
+ *   heavy  advertir       — el único que grita; se reserva a lo destructivo o crítico
+ */
+export const STROKE = {
+  hair: "1px",
+  edge: "2px",
+  heavy: "3px",
+} as const;
+
+/**
+ * SUPERFICIES — la gramática, escrita.
+ *
+ * Había cinco componentes (`Stage`, `Plate`, `Recessed`, `Rail`, `Medallion`) pero la
+ * gramática aprobada nombra otros cinco PAPELES (background, stage, plate, recessed, object),
+ * y las dos listas no coincidían: `background` no era ninguna pieza y `object` no existía.
+ *
+ * Aquí queda resuelto: el papel es el token, el componente es su encarnación. `Rail` y
+ * `Medallion` no son papeles nuevos — son un separador y un objeto de formato pequeño.
+ *
+ * La respuesta a «¿qué superficie estoy usando?» es el atributo `data-surface` que cada
+ * primitiva emite, y su valor sale SIEMPRE de esta tabla.
+ */
+export const SURFACES = {
+  /** El lienzo de la aplicación. No tiene canto ni sombra: es el fondo del mundo. */
+  background: { chamfer: null, depth: "none", tint: false },
+  /** El plano donde ocurre algo: héroe, arena, vitrina. Luz ambiental propia. */
+  stage: { chamfer: CHAMFER.stage, depth: "impact", tint: true },
+  /** La unidad de contenido: panel, sección, bloque. */
+  plate: { chamfer: CHAMFER.plate, depth: "surface", tint: true },
+  /** Un hueco practicado en una placa: campo, pista, pozo. */
+  recessed: { chamfer: CHAMFER.control, depth: "none", tint: false },
+  /** Una pieza que se coge: carta, sobre, sello. Se despega del plano. */
+  object: { chamfer: CHAMFER.plate, depth: "object", tint: true },
+} as const;
+
+export type SurfaceRole = keyof typeof SURFACES;
+
+/**
+ * FOCO — una decisión, tres codificaciones.
+ *
+ * `DEPTH.focus` es la sombra; la clase `.nx-focus` la aplica HACIA DENTRO (una pieza con
+ * `clip-path` recorta cualquier anillo exterior, así que un foco por fuera sería invisible en
+ * la mitad del sistema) y `NxButton` usa el anillo de Tailwind con estos mismos dos colores.
+ *
+ * Publicar las partes aquí es lo que permite verificar que las tres dicen lo mismo, en vez de
+ * confiar en que nadie las separe.
+ */
+export const FOCUS = {
+  /** Color del anillo. Es el acento de marca: el foco no inventa color. */
+  ring: ACCENT.primary,
+  /** Separación entre la pieza y el anillo, del color del lienzo. */
+  offset: SURFACE.canvas,
+  /** Grosor del anillo y de la separación. */
+  width: STROKE.edge,
 } as const;

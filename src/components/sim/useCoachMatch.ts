@@ -23,7 +23,7 @@ import { roundBriefing, type RoundBriefing } from "@/lib/match/briefing";
 import { teamEconomyView, type BuyTier, type TeamEconomyView } from "@/economy";
 import { LiveDirector, liveInput, type DirectorDecision } from "@/spectator";
 import { createViewport, updateCamera, type Viewport } from "@/camera";
-import { grantMatchOutcomeReward, type MatchReward } from "@/lib/match/rewards";
+import { recordCoachMatch, type CoachMatchSummary } from "@/lib/match/rewards";
 import { scout, type ScoutReport } from "@/lib/match/scouting";
 import {
   buildPlayerCards, recommendationReasons,
@@ -54,7 +54,8 @@ export interface PrepView {
   cards: PlayerCardModel[];
   economy: EconomyPair | null;
   /** Match point: "home" = el tuyo, "away" = del rival, null = ninguno. */
-  matchPoint: "home" | "away" | null;
+  /** FULL GAME AUDIT · «both» con 12-12: la siguiente ronda decide (antes se decía solo «home»). */
+  matchPoint: "home" | "away" | "both" | null;
   /** Composiciones (Agent Engine): la tuya, la del rival y el matchup. */
   composition: MatchCompositions;
 }
@@ -109,6 +110,9 @@ function topFragger(round: RoundState): { name: string; kills: number } | null {
   return best;
 }
 
+/** FULL GAME AUDIT · ventana en la que una fase recién abierta no acepta órdenes (anti doble clic). */
+const PHASE_ARM_MS = 400;
+
 export function useCoachMatch() {
   const [phase, setPhase] = useState<CoachPhase>("menu");
   const [match, setMatch] = useState<MatchState | null>(null);
@@ -119,7 +123,7 @@ export function useCoachMatch() {
   const [micro, setMicro] = useState<MicroPrompt | null>(null);
   const [timeoutPanel, setTimeoutPanel] = useState<TimeoutDossier | null>(null);
   const [roundEnd, setRoundEnd] = useState<RoundEndView | null>(null);
-  const [reward, setReward] = useState<MatchReward | null>(null);
+  const [summary, setSummary] = useState<CoachMatchSummary | null>(null);
   const [speed, setSpeed] = useState(2);
   const [paused, setPaused] = useState(false);
   const [timeoutsLeft, setTimeoutsLeft] = useState(TIMEOUTS_PER_HALF);
@@ -130,6 +134,14 @@ export function useCoachMatch() {
   const vpRef = useRef<Viewport | null>(null);
   /** Compuerta que detiene el avance de la simulación (modal abierto / fin de ronda). */
   const gateRef = useRef<null | "micro" | "timeout" | "roundEnd">(null);
+  /*
+   * FULL GAME AUDIT (2026-10-07) · cuándo se abrió la fase actual. Las órdenes de una fase recién abierta ignoran los
+   * clics de los primeros `PHASE_ARM_MS`: el segundo clic de un doble clic en «Siguiente ronda» caía en el botón de la
+   * fase siguiente (mismo hueco del pie) y confirmaba un plan que el entrenador ni había visto.
+   */
+  const phaseAtRef = useRef(0);
+  useEffect(() => { phaseAtRef.current = typeof performance !== "undefined" ? performance.now() : 0; }, [phase]);
+  const justOpened = () => typeof performance !== "undefined" && performance.now() - phaseAtRef.current < PHASE_ARM_MS;
   const firedRef = useRef<Set<string>>(new Set());
   const microCountRef = useRef(0);
   const timeoutsRef = useRef(TIMEOUTS_PER_HALF);
@@ -167,7 +179,7 @@ export function useCoachMatch() {
     const isSideSwitch = rn === m.config.switchAfter + 1;
     const isPistol = rn === 1 || isSideSwitch;
     const mp = matchPointTeams(m.score, m.config.win);
-    const matchPoint = mp.includes("home") ? "home" : mp.includes("away") ? "away" : null;
+    const matchPoint = mp.includes("home") && mp.includes("away") ? "both" : mp.includes("home") ? "home" : mp.includes("away") ? "away" : null;
     const s = scout(m);
     return {
       roundNumber: rn,
@@ -182,7 +194,7 @@ export function useCoachMatch() {
       scout: s,
       cards: buildPlayerCards(m),
       economy: economyPair(m),
-      matchPoint: matchPoint as "home" | "away" | null,
+      matchPoint: matchPoint as "home" | "away" | "both" | null,
       composition: matchCompositions(m.config.rosters.home, m.config.rosters.away),
     };
   };
@@ -198,7 +210,8 @@ export function useCoachMatch() {
 
   // -- ciclo de vida --------------------------------------------------------
   const finish = useCallback((m: MatchState) => {
-    if (!rewardedRef.current) { rewardedRef.current = true; setReward(grantMatchOutcomeReward(m)); }
+    // F68-010 · sin créditos ni XP: el Coach es entrenamiento. Solo se cierra el registro local.
+    if (!rewardedRef.current) { rewardedRef.current = true; setSummary(recordCoachMatch(m)); }
     matchRef.current = m;
     setMatch(m);
     setPhase("ended");
@@ -223,7 +236,7 @@ export function useCoachMatch() {
 
   const start = useCallback((config: MatchConfig) => {
     rewardedRef.current = false;
-    setReward(null);
+    setSummary(null);
     timeoutsRef.current = TIMEOUTS_PER_HALF;
     setTimeoutsLeft(TIMEOUTS_PER_HALF);
     setSnap(null); setView(null); setMicro(null); setTimeoutPanel(null); setRoundEnd(null);
@@ -234,7 +247,7 @@ export function useCoachMatch() {
   const reset = useCallback(() => {
     matchRef.current = null; roundRef.current = null; dirRef.current = null; vpRef.current = null;
     gateRef.current = null; rewardedRef.current = false;
-    setReward(null); setSnap(null); setView(null); setMatch(null);
+    setSummary(null); setSnap(null); setView(null); setMatch(null);
     setPrep(null); setBuy(null); setMicro(null); setTimeoutPanel(null); setRoundEnd(null);
     setPhase("menu");
   }, []);
@@ -242,7 +255,7 @@ export function useCoachMatch() {
   /** El entrenador confirma su plan: reescribe currentPlan/currentDecision (modo manual). */
   const confirmPreparation = useCallback((input: ManualCoachInput) => {
     const m = matchRef.current;
-    if (!m) return;
+    if (!m || justOpened()) return;
     const { plan, decision } = buildManualPlan(coachCtx(m), input);
     m.currentPlan = plan;
     m.currentDecision = decision;
@@ -253,7 +266,8 @@ export function useCoachMatch() {
   /** El entrenador confirma (o cambia) la compra y arranca la ronda. */
   const confirmBuy = useCallback((tier: BuyTier) => {
     const m = matchRef.current;
-    if (!m) return;
+    // FULL GAME AUDIT · solo desde la fase de compra: un segundo envío avanzaba la ronda dos pasos.
+    if (!m || m.phase !== "BUY_PHASE" || justOpened()) return;
     if (m.economy) m.economy.home.plannedBuy = tier;
     if (m.currentPlan) m.currentPlan.economy = { ...m.currentPlan.economy, buy: tier };
     let s = stepMatch(m);   // BUY_PHASE → ROUND_START (loadouts con el tier elegido)
@@ -302,7 +316,8 @@ export function useCoachMatch() {
   const continueAfterRound = useCallback(() => {
     const finished = roundRef.current;
     const m = matchRef.current;
-    if (!finished || !m) return;
+    // FULL GAME AUDIT · solo con la pantalla de fin de ronda abierta: un doble clic volvía a liquidar la ronda (dos pasos).
+    if (!finished || !m || gateRef.current !== "roundEnd") return;
     let next = stepMatch(m, () => finished); // ROUND_RUNNING → ROUND_END
     next = stepMatch(next);                   // ROUND_END → siguiente (settle)
     matchRef.current = next;
@@ -392,7 +407,7 @@ export function useCoachMatch() {
   }, [phase, renderCamera, openRoundEnd]);
 
   return {
-    phase, match, snap, view, prep, buy, micro, timeoutPanel, roundEnd, reward,
+    phase, match, snap, view, prep, buy, micro, timeoutPanel, roundEnd, summary,
     speed, paused, timeoutsLeft,
     start, reset, confirmPreparation, confirmBuy, continueAfterRound,
     respondMicro, command, callTimeout, respondTimeout, setSpeed, setPaused,

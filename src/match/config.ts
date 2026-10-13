@@ -38,6 +38,8 @@ export interface MatchConfigInput {
   /** Entrenador: por defecto IA. */
   coach?: CoachConfig;
   teamNames?: { home: string; away: string };
+  /** FASE 51.1 · mapa canónico de presentación (el motor no lo lee). */
+  mapId?: string;
 }
 
 /** Construye una `MatchConfig` completa a partir de lo mínimo + defaults. */
@@ -56,6 +58,7 @@ export function makeMatchConfig(input: MatchConfigInput): MatchConfig {
     useLoadoutCombat: input.useLoadoutCombat ?? true,
     coach: input.coach ?? { mode: "ai" },
     teamNames: input.teamNames,
+    ...(input.mapId ? { mapId: input.mapId } : {}),
   };
 }
 

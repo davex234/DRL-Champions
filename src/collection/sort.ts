@@ -19,6 +19,23 @@ function value(v: CardView, key: SortKey): number | string {
   }
 }
 
+/**
+ * Fase 37 · orden COMPUESTO: se aplican las claves en orden hasta que una desempata; al final, cardId. Así
+ * «OVR ↓ → rareza ↓ → jugador» es un solo orden total y determinista.
+ */
+export function sortViewsBy(views: CardView[], specs: readonly SortSpec[]): CardView[] {
+  return [...views].sort((a, b) => {
+    for (const spec of specs) {
+      const va = value(a, spec.key), vb = value(b, spec.key);
+      let cmp = 0;
+      if (typeof va === "number" && typeof vb === "number") cmp = va === vb ? 0 : va < vb ? -1 : 1;
+      else cmp = String(va).localeCompare(String(vb), "es");
+      if (cmp !== 0) return spec.dir === "asc" ? cmp : -cmp;
+    }
+    return a.cardId < b.cardId ? -1 : a.cardId > b.cardId ? 1 : 0;
+  });
+}
+
 /** Ordena de forma ESTABLE (desempate por cardId ⇒ orden total determinista). */
 export function sortViews(views: CardView[], spec: SortSpec): CardView[] {
   const mul = spec.dir === "asc" ? 1 : -1;

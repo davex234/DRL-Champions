@@ -22,3 +22,9 @@ export {
   planTeamUtility, usedByPhase,
   type UtilityPlan, type UtilityIntent, type UtilityPhase,
 } from "./utilityAI";
+/* FASE 48 · identidad visual: acento propio, motivo, silueta y qué arte existe de verdad. */
+export {
+  AGENT_ART_VARIANTS, AGENT_ART_CONTRACT, AGENT_IDENTITY, AGENT_CLASS_ACCENT,
+  AGENT_VISUALS, agentVisual, agentArt, publishedArtCount,
+  type AgentArtVariant, type AgentArtSpec, type AgentIdentity, type AgentVisual,
+} from "./visuals";

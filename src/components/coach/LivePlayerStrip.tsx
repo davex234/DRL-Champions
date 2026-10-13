@@ -7,6 +7,8 @@
  */
 import type { RoundState, SimPlayer, Intent } from "@/sim";
 import { cn } from "@/lib/format";
+import { CardArt } from "@/components/cards/CardArt";
+import { ZONE_LABEL } from "@/domain/tactics/matchMap";
 
 const INTENT_LABEL: Record<Intent, string> = {
   move: "Avanza", hold: "Aguanta", push: "Empuja", rotate: "Rota", fight: "Duelo",
@@ -19,7 +21,7 @@ function abilityLeft(s: RoundState, p: SimPlayer): { left: number; total: number
   return { left: Math.max(0, total - used), total };
 }
 
-function Ficha({ s, p }: { s: RoundState; p: SimPlayer }) {
+function Ficha({ s, p, card }: { s: RoundState; p: SimPlayer; card?: string }) {
   const hp = Math.max(0, Math.round(p.hp));
   const shield = Math.max(0, Math.round(p.shield ?? 0));
   const weapon = p.loadout?.primary ?? p.loadout?.sidearm ?? "—";
@@ -31,8 +33,10 @@ function Ficha({ s, p }: { s: RoundState; p: SimPlayer }) {
 
   return (
     <div className={cn("flex flex-col gap-1 rounded-xl border p-2", p.alive ? "border-white/10 bg-base-800/70" : "border-white/5 bg-base-900/60 opacity-50")}>
-      <div className="flex items-center justify-between">
-        <span className="truncate font-display text-[11px] font-bold uppercase tracking-wide text-white">{p.name}</span>
+      <div className="flex items-center gap-2">
+        {/* FASE 51.1 · la carta EXACTA del titular, reducida y limpia (CardArt, sin marco). */}
+        {card && <span className="w-[30px] shrink-0"><CardArt src={card} alt={p.name} shadow="none" /></span>}
+        <span className="min-w-0 flex-1 truncate font-display text-[11px] font-bold uppercase tracking-wide text-white">{p.name}</span>
         <span className="text-[9px] uppercase tracking-wide text-white/40">{p.role}</span>
       </div>
       {/* HP + escudo */}
@@ -51,7 +55,7 @@ function Ficha({ s, p }: { s: RoundState; p: SimPlayer }) {
       </div>
       {/* Objetivo + pulso mental */}
       <div className="flex items-center justify-between border-t border-white/5 pt-1 text-[9px]">
-        <span className="text-white/55">{p.alive ? `${INTENT_LABEL[p.intent]} · ${p.targetZone}` : "Eliminado"}</span>
+        <span className="text-white/55">{p.alive ? `${INTENT_LABEL[p.intent]} · ${ZONE_LABEL[p.targetZone as keyof typeof ZONE_LABEL] ?? p.targetZone}` : "Eliminado"}</span>
         <span className={cn(tilt >= 55 ? "text-rose-300" : conf >= 65 ? "text-emerald-300" : "text-white/40")}>
           {tilt >= 55 ? `tilt ${tilt}` : `conf ${conf}`}
         </span>
@@ -60,11 +64,11 @@ function Ficha({ s, p }: { s: RoundState; p: SimPlayer }) {
   );
 }
 
-export function LivePlayerStrip({ snap }: { snap: RoundState }) {
+export function LivePlayerStrip({ snap, cards }: { snap: RoundState; /** nombre del jugador → imagen de SU carta. */ cards?: Record<string, string> }) {
   const ours = snap.players.filter((p) => p.side === snap.coachSide);
   return (
     <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-5">
-      {ours.map((p) => <Ficha key={p.id} s={snap} p={p} />)}
+      {ours.map((p) => <Ficha key={p.id} s={snap} p={p} card={cards?.[p.name.toLowerCase()]} />)}
     </div>
   );
 }

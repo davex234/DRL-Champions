@@ -1,151 +1,307 @@
 "use client";
 
 /**
- * LA CEREMONIA DE APERTURA (Fase 9.6).
+ * PACK OPENING EXPERIENCE 3.0 · THE REVEAL (Fase 38).
  *
- * DE DÓNDE VIENE. Lo que había era correcto y estaba vacío: un sobre flotando en negro,
- * «desliza para abrir», un fogonazo blanco, las cartas una a una y una lista al final. Se
- * abría un sobre; no se celebraba nada. Y era, además, lo que el encargo señaló como lo
- * que MÁS había que mejorar.
+ * ══════════════════════════ EL SERVIDOR DECIDE, LA CEREMONIA PRESENTA ══════════════════════════
  *
- * LOS CINCO ACTOS. Cada uno responde a una pregunta y ninguno se salta:
+ *   gesto → pestillo → UNA petición (`openPackOutcome`, clave de gesto fijada por `lib/game/sync`) → resultado
+ *   AUTORITATIVO recibido → rotura → cartas boca abajo → revelado carta a carta → resumen.
  *
- *   1. `intro`    — **¿qué tengo delante?** El sobre llega desde el fondo, la sala se
- *                   enciende y el objeto se planta. Antes aparecía ya puesto, sin llegada.
- *   2. `sealed`   — **¿qué hago?** El sobre respira, la costura se ve, y el gesto (o el
- *                   botón) están escritos. La carga se acumula en la propia costura.
- *   3. `rupture`  — **ha pasado.** El sobre se PARTE: las dos mitades salen de cuadro, una
- *                   columna de luz sube por la costura y una onda de choque barre la sala.
- *                   Antes esto era un fogonazo blanco — un corte de cámara, no una rotura.
- *   4. `reveal`   — **¿qué me ha tocado?** Carta a carta, con la ceremonia de su rareza
- *                   (`CardReveal` + `ceremony.ts`).
- *   5. `summary`  — **¿qué me llevo?** La mejor carta grande, el botín alrededor y a dónde
- *                   ir después. Antes era una fila de cartas pequeñas y tres botones.
+ * Nada se revela antes de que el servidor confirme: mientras espera, el sobre solo usa el color DEL SOBRE. Si la
+ * petición falla, no hubo ceremonia: error honesto y reintento con la MISMA clave (recupera lo abierto o abre por
+ * primera vez, nunca dos). Ni una probabilidad, ni una carta, ni un serial se calculan en esta pantalla.
  *
- * LO QUE NO CAMBIA. Con sesión, la tirada la decide el SERVIDOR (`/api/game/packs`) y aquí
- * solo se anima lo que devuelve. Sin sesión se usa el motor local, que es el modo de un
- * solo jugador. Ni una probabilidad, ni un valor, ni una carta se calculan en esta
- * pantalla, exactamente igual que antes.
+ * ══════════════════════════ PRESENTACIÓN, NO ESTADO DE JUEGO ══════════════════════════
  *
- * ACCESIBILIDAD. El corte por arrastre se conserva porque es lo que hace el gesto físico,
- * pero ya no es la ÚNICA vía: hay un botón. Una ceremonia que solo se puede empezar
- * arrastrando el ratón deja fuera a quien navega con teclado.
+ * La fase de la ceremonia es una máquina de estados PURA (`domain/packs/reveal · revealReducer`): no se persiste.
+ * Qué es nueva, duplicada ×N o nueva variante, la rareza real, el serial y su prestigio, el resumen (colección
+ * X → Y / TOTAL, sets, primera legendaria) salen de `buildRevealPlan` con el resultado persistido y la foto de la
+ * colección de ANTES de abrir (tomada al pulsar; encadenada al abrir otro, sin volver a pedirla). Si esa foto no
+ * existe, la pantalla no afirma nada sobre «nueva».
  *
- * RENDIMIENTO. Todo son `transform` y `opacity`. Las partículas de ambiente bajan de 28 a
- * 18 —el escenario ya no está vacío y no hacen falta tantas— y desaparecen en cuanto el
- * sobre se rompe: a partir de ahí la ceremonia de la carta pone las suyas y sumar las dos
- * era gastar el doble para ver lo mismo.
+ * ══════════════════════════ RECUPERACIÓN ══════════════════════════
+ *
+ *   · recarga con el revelado ya guardado en la pestaña → resumen directo (`loadOpenReveal`);
+ *   · recarga con la petición enviada y sin respuesta → se pide el resultado con la MISMA clave (`hasPendingOpen`);
+ *   · otra pestaña ya lo abrió → «no te queda este sobre», sin error fatal.
+ *
+ * Sin valor en monedas, sin «vender repetidas», sin mercado. El sobre entrega cartas; la carta es el premio.
  */
-import { useEffect, useRef, useState, useCallback } from "react";
+import { usePacksVersion } from "@/lib/packs/usePacksVersion";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { getPack } from "@/data/packs";
+import { CARDS, getCard, getPlayer } from "@/data/catalog";
 import { useGameStore, type OpenedResult } from "@/store/useGameStore";
 import { useEventsStore } from "@/store/useEventsStore";
 import { getVariant } from "@/domain/cards/variants";
-import { SealedPack } from "./SealedPack";
-import { AmbientParticles, ParticleBurst } from "./Particles";
-import { CardReveal } from "./CardReveal";
-import { PlayerCard } from "@/components/cards/PlayerCard";
-import { Card3D, card3DStagger } from "@/components/visual/Card3D";
-import { primeAudio, playCutTick, playBurst } from "@/lib/sound";
-import { formatCredits } from "@/lib/format";
+import type { OwnedInstanceFact } from "@/domain/collection/room";
+import {
+  INITIAL_REVEAL, beforeExcluding, buildRevealPlan, cinematicFor, classifyOpenFailure, hasResult, revealReducer, toInstanceFact, toOpenedInstances,
+} from "@/domain/packs/reveal";
+import { primeAudio, playCutTick, playBurst, playCue } from "@/lib/sound";
+import { dimEnvironment, packChamberDim } from "@/design/environment";
+import { packMusicDuck } from "@/lib/audio/music";
+import { useMusicDuck } from "@/components/audio/MusicDirector";
 import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
-import { openPackOnline } from "@/lib/game/sync";
-import { ErrorState } from "@/components/ui/States";
-import { EASE } from "@/design/motion";
+import { openPackOutcome, hasPendingOpen } from "@/lib/game/sync";
+import { isPubliclyOpenable } from "@/domain/packs/lifecycle";
+import { saveOpenReveal, loadOpenReveal, clearOpenReveal, markOpenRevealSeen, isReloadOf } from "@/lib/game/openRecovery";
+import { useCollectionPersonal } from "@/lib/collection/client";
+import { trackFlow } from "@/lib/telemetry/client";
+import { AddToDeckSheet } from "@/components/deck/AddToDeckSheet";
+import type { DeckCardLike } from "@/domain/cardgame/deckInsert";
+import { toDeckCard } from "@/components/deck/deckCard";
+import { invalidateOnboarding, useOnboarding } from "@/lib/onboarding/client";
+import { FirstCardLesson, OnboardingPackNext } from "@/components/onboarding/FirstCardLesson";
+import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { useProgressionDelta } from "@/lib/progression/meta";
+import { PostMatchProgress } from "@/components/progression/PostMatchProgress";
+import type { HandSlot } from "./PackHand";
+import { PackBackdrop, PackStage, RUPTURE_MS, RUPTURE_REDUCED_MS } from "./PackStage";
+import { HeroReveal } from "./HeroReveal";
+import { RestReveal } from "./RestReveal";
+import { PackSummary } from "./PackSummary";
+import { MAIN_PACK_LINE } from "@/domain/packs/packClass";
+import { NextUpAfter } from "@/components/liveService/NextUpAfter";
+import { PackStatus } from "./PackStatus";
+import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
+import dynamic from "next/dynamic";
+import { PACK_WALKOUT_3D_ENABLED } from "@/config/features";
+import { PACK_WALKOUT_DEV_KEY, packWalkoutAllowed, packWalkoutQueue, walkoutFlow, type PackWalkoutItem } from "@/domain/walkout/packWalkout";
+import { useAdminSession } from "@/lib/supabase/useAdminSession";
 
-type Phase = "intro" | "sealed" | "rupture" | "reveal" | "summary";
+/*
+ * WALKOUT 0.5 · el walkout se carga BAJO DEMANDA (solo si esta apertura trae una carta especial y el despliegue lo
+ * permite); three.js, a su vez, solo si su escenario 3D llega a montarse. Mientras llega el código, un fondo oscuro.
+ */
+const loadPackWalkout = () => import("./PackWalkout");
+const PackWalkout = dynamic(() => loadPackWalkout().then((m) => m.PackWalkout), {
+  ssr: false,
+  loading: () => <div className="absolute inset-0 z-surface grid place-items-center bg-[#030409] font-display text-label font-bold uppercase tracking-wide2 text-white/60" role="status">Preparando…</div>,
+});
+
+/** Pregunta al servidor si la cuenta es admin SOLO cuando el despliegue es «admins» (con «off» no se monta: 0 peticiones). */
+function AdminProbe({ onResult }: { onResult: (g: ReturnType<typeof useAdminSession>) => void }) {
+  const gate = useAdminSession();
+  useEffect(() => { onResult(gate); }, [gate, onResult]);
+  return null;
+}
 
 const CUT_DISTANCE = 220; // px de deslizamiento para abrir
-const INTRO_MS = 700;
-const RUPTURE_MS = 1100;
+const CATALOG = { cards: CARDS, getCard, getPlayer };
 
-export function PackOpeningExperience({ packId }: { packId: string }) {
+/**
+ * F81 · ¿Se puede presentar una hero con este resultado PERSISTIDO? Si una carta no tiene OVR válido o no se resuelve en
+ * el catálogo, no se inventa nada: sin cinemática, resumen directo y la inconsistencia queda registrada (consola y
+ * telemetría). Las cartas siguen siendo del jugador: esto solo decide la PRESENTACIÓN.
+ */
+function heroIsPresentable(res: readonly OpenedResult[]): boolean {
+  const c = cinematicFor(buildRevealPlan(toOpenedInstances(res), null, CATALOG));
+  if (c.ok) return true;
+  console.error("[pack-opening] hero no presentable:", c.reason, c.detail);
+  trackFlow("pack_ceremony", `hero_unavailable:${c.reason}`);
+  return false;
+}
+
+export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
+  packId: string;
+  /**
+   * F81 · SOLO arneses QA (`/design-system/fase81`, 404 en producción): un resultado FIJO en lugar del servidor/motor,
+   * para probar la ceremonia real de forma determinista. La ruta pública (`/abrir/[packId]`) nunca lo pasa.
+   */
+  qaOpen?: (packId: string) => OpenedResult[];
+  /** WALKOUT 0.5 · SOLO arneses QA (fuera de producción no cuenta): presenta el walkout aunque el despliegue esté en «off». */
+  qaWalkout?: boolean;
+}) {
   const router = useRouter();
-  const reduced = useReducedMotion();
+  const reduced = !!useReducedMotion();
+  usePacksVersion(); // F60: un sobre del panel llega con la sincronización de contenido
   const pack = getPack(packId);
   const { user } = useAuth();
   const online = isSupabaseConfigured() && !!user;
-  const available = useGameStore((s) => s.unopenedPacks[packId] ?? 0);
-  const openFromInventory = useGameStore((s) => s.openPackFromInventory);
-  const quickSellMany = useGameStore((s) => s.quickSellMany);
-
-  const [phase, setPhase] = useState<Phase>("intro");
-  const [cutProgress, setCutProgress] = useState(0);
-  const [results, setResults] = useState<OpenedResult[]>([]);
-  const [revealIndex, setRevealIndex] = useState(0);
-
-  const [openError, setOpenError] = useState<string | null>(null);
+  const serverEconomy = useServerEconomy();
   /*
-   * Con sesión, la tirada la decide el SERVIDOR, así que entre el corte del sobre y
-   * la explosión hay una ida y vuelta por la red. Sin este estado la pantalla se
-   * quedaba con el sobre cortado y quieto, sin decir nada: parecía colgada.
+   * FASE 27 · EL SOBRE ALIMENTA EL META. Una lectura del servidor ANTES de abrir y otra al llegar
+   * al resumen: la diferencia (objetivos que avanzaron, logros conseguidos, XP) se enseña abajo.
+   * No se concede nada desde aquí: la apertura ya lo hizo todo en `app_apply_pack_open`.
    */
-  const [processing, setProcessing] = useState(false);
+  const progression = useProgressionDelta();
+  const { begin: beginProgression, end: endProgression, reset: resetProgression } = progression;
+  const available = useGameStore((s) => s.unopenedPacks[packId] ?? 0);
+  const packsLeft = useGameStore((s) => Object.values(s.unopenedPacks).reduce((n, c) => n + (c > 0 ? c : 0), 0));
+  const openFromInventory = useGameStore((s) => s.openPackFromInventory);
+  const storeCards = useGameStore((s) => s.ownedCards);
+  /* Fase 38 · la colección de ANTES (solo presentación: si no llega, la apertura sigue). */
+  const personal = useCollectionPersonal({ enabled: online, userKey: user?.id ?? null });
+
+  const [state, dispatch] = useReducer(revealReducer, INITIAL_REVEAL);
+  /** F68 · el bucle «abrir otro» para la guía (se asigna más abajo, cuando existe `openAnother`). */
+  const reopenRef = useRef<() => void>(() => undefined);
+  const phase = state.phase;
+  /*
+   * FASE 40 · al SALIR (navegación del cliente) de un resumen ya visto, el revelado guardado se borra: la recuperación es
+   * para una RECARGA a mitad de ceremonia (una recarga completa no ejecuta esta limpieza), no para que «Abrir el siguiente
+   * sobre» desde el vestíbulo o la colección enseñe otra vez el resumen del sobre anterior en vez de un sobre sellado.
+   */
+  const phaseRef = useRef(phase);
+  useEffect(() => { phaseRef.current = phase; }, [phase]);
+  /* Fase 44.1 · la cámara se apaga alrededor del sobre durante la ceremonia y vuelve al salir. */
+  useEffect(() => { dimEnvironment(packChamberDim(phase)); }, [phase]);
+  useEffect(() => () => dimEnvironment(0), []);
+  useMusicDuck(packMusicDuck(phase));
+  useEffect(() => () => { if (phaseRef.current === "summary") clearOpenReveal(); }, []);
+  const [results, setResults] = useState<OpenedResult[]>([]);
+  /*
+   * WALKOUT 0.5 · ¿se presenta el walkout a este jugador? (despliegue + veredicto del servidor + prueba local). La cola se
+   * FIJA al recibir el resultado: un veredicto que llegue tarde no cambia una ceremonia ya empezada.
+   */
+  const [adminGate, setAdminGate] = useState<ReturnType<typeof useAdminSession> | null>(null);
+  const [devOptIn, setDevOptIn] = useState(false);
+  useEffect(() => {
+    if (process.env.NODE_ENV === "production") return;
+    try { setDevOptIn(window.localStorage.getItem(PACK_WALKOUT_DEV_KEY) === "1"); } catch { /* sin almacenamiento: apagado */ }
+  }, []);
+  const walkoutOn = packWalkoutAllowed({ rollout: PACK_WALKOUT_3D_ENABLED, admin: adminGate, devOptIn, production: process.env.NODE_ENV === "production", qa: qaWalkout });
+  const [walkoutItems, setWalkoutItems] = useState<PackWalkoutItem[]>([]);
+  const [before, setBefore] = useState<OwnedInstanceFact[] | null>(null);
+  const [cutProgress, setCutProgress] = useState(0);
+  /** Fase 25 · «Añadir al equipo» desde el resumen: la carta elegida para el mazo. */
+  const [deckCard, setDeckCard] = useState<DeckCardLike | null>(null);
 
   const cutting = useRef(false);
   const startX = useRef(0);
   const lastTick = useRef(0);
   const opened = useRef(false);
+  /** Foto «antes» encadenada tras «abrir otro» (la de la apertura anterior + lo que salió). */
+  const nextBefore = useRef<OwnedInstanceFact[] | null | undefined>(undefined);
+  const handHeading = useRef<HTMLHeadingElement>(null);
+  const summaryHeading = useRef<HTMLHeadingElement>(null);
+  const continueButton = useRef<HTMLButtonElement>(null);
 
   const accent = pack?.accent ?? "#ff2e63";
 
-  /** ACTO 1 → ACTO 2. La llegada del sobre no espera a nadie: se planta y cede el turno. */
-  useEffect(() => {
-    if (phase !== "intro") return;
-    const t = setTimeout(() => setPhase("sealed"), reduced ? 120 : INTRO_MS);
-    return () => clearTimeout(t);
-  }, [phase, reduced]);
+  const currentFacts = useCallback((): OwnedInstanceFact[] | null => {
+    if (!online) return storeCards.map(toInstanceFact);
+    if (personal.data) return personal.data.instances;
+    return storeCards.length > 0 ? storeCards.map(toInstanceFact) : null;
+  }, [online, personal.data, storeCards]);
+
+  const openedInstances = useMemo(() => toOpenedInstances(results), [results]);
+  const plan = useMemo(() => buildRevealPlan(openedInstances, before, CATALOG, { reduced }), [openedInstances, before, reduced]);
 
   /**
-   * Abre el sobre. Con sesión iniciada la tirada la DECIDE EL SERVIDOR
-   * (`/api/game/packs`), y aquí solo se anima el resultado que devuelve. Sin
-   * sesión se usa el motor local (modo de un solo jugador).
+   * Abre el sobre. Con sesión iniciada la tirada la DECIDE EL SERVIDOR (`/api/game/packs`), y aquí solo se presenta
+   * el resultado que devuelve. Sin sesión se usa el motor local (modo de un solo jugador).
    */
+  /**
+   * WALKOUT 0.5 · qué especiales de ESTE resultado (ya persistido) se presentan con un walkout y cómo encaja en el ritmo.
+   * Solo lee: ni una carta, ni un orden del contenido, ni una petición. Con el despliegue apagado → 0 walkouts.
+   */
+  const ceremonyFlow = useCallback((res: readonly OpenedResult[]) => {
+    if (!walkoutOn) { setWalkoutItems([]); return {}; }
+    const p = buildRevealPlan(toOpenedInstances(res), null, CATALOG);
+    const queue = packWalkoutQueue(p.order);
+    setWalkoutItems(queue);
+    if (queue.length > 0) void loadPackWalkout().catch(() => undefined);   // el código del walkout, mientras se rasga el sobre
+    return walkoutFlow(res.length, p.hero.ok ? p.hero.hero.uid : null, queue);
+  }, [walkoutOn]);
+
   const triggerOpen = useCallback(async () => {
     if (opened.current) return;
     opened.current = true;
+    dispatch({ type: "OPEN_REQUESTED" });
+    const snapshot = nextBefore.current !== undefined ? nextBefore.current : currentFacts();
+    nextBefore.current = undefined;
+    setBefore(snapshot);
 
     let res: OpenedResult[] | null = null;
-    setProcessing(true);
+    let repeated = false;
     try {
-      res = online ? await openPackOnline(packId) : openFromInventory(packId);
+      // Fase 27 · lectura «antes» (solo lectura; si falla, no habrá deltas y ya está).
+      if (online && !qaOpen) await beginProgression();
+      // Fase 25/38 · con sesión, `openPackOutcome` fija UN gesto por apertura (ver `lib/game/sync`):
+      // reintentar tras un fallo de red repite la misma apertura, nunca abre un segundo sobre.
+      if (qaOpen) {
+        res = qaOpen(packId);
+      } else if (online) {
+        const out = await openPackOutcome(packId);
+        res = out.results;
+        repeated = out.repeated;
+      } else {
+        // F69 · sesión resolviéndose: no se abre en local (inventaría cartas en el HUD).
+        if (serverEconomy) throw new Error(SESSION_PENDING);
+        res = openFromInventory(packId);
+      }
     } catch (e) {
-      setOpenError(e instanceof Error ? e.message : "No se pudo abrir el sobre");
       opened.current = false;
+      dispatch({ type: "OPEN_FAILED", failure: classifyOpenFailure(e) });
       return;
-    } finally {
-      setProcessing(false);
     }
 
     if (!res || res.length === 0) {
-      router.push("/tienda");
+      opened.current = false;
+      dispatch({ type: "OPEN_FAILED", failure: classifyOpenFailure(new Error("No tienes ese sobre")) });
       return;
     }
     setResults(res);
-    useEventsStore.getState().recordPackOpened(packId, res);
+    // Fase 21.2: guarda el resultado para recuperarlo si el navegador recarga a mitad de la ceremonia.
+    saveOpenReveal(packId, res);
+    if (!repeated) useEventsStore.getState().recordPackOpened(packId, res);
+    trackFlow("pack_ceremony", `pack_opened:${packId}:${res.length}`);
+    dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res), ...ceremonyFlow(res) });
     playBurst();
-    setPhase("rupture");
-    setTimeout(() => {
-      setPhase("reveal");
-      setRevealIndex(0);
-    }, reduced ? 220 : RUPTURE_MS);
-  }, [online, openFromInventory, packId, router, reduced]);
+  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, qaOpen, ceremonyFlow]);
+
+  /* F81 · INTRO (el sobre se rasga y suelta sus cartas) → TENSIÓN. Los relojes solo avisan; manda la máquina. */
+  useEffect(() => {
+    if (phase !== "opening") return;
+    const t = setTimeout(() => {
+      playCue("whoosh");
+      dispatch({ type: "INTRO_DONE" });
+    }, reduced ? RUPTURE_REDUCED_MS : RUPTURE_MS);
+    return () => clearTimeout(t);
+  }, [phase, reduced]);
+
+  /* Fase 27 · lectura «después» al llegar al resumen: los deltas los calcula el cliente entre dos verdades del servidor. */
+  useEffect(() => {
+    if (phase === "summary" && online) void endProgression();
+  }, [phase, online, endProgression]);
+
+  /*
+   * F63 · LA GUÍA DE LA PRIMERA SESIÓN. Al llegar al resumen la foto de la guía ya es vieja (este sobre acaba de abrirse
+   * en el servidor): se invalida y se relee. Solo se pinta con una foto POSTERIOR a la apertura (`packsOpened > 0`).
+   */
+  const onboarding = useOnboarding(user?.id ?? null, online);
+  useEffect(() => {
+    if (phase === "summary" && online) invalidateOnboarding();
+  }, [phase, online]);
+  const guide = onboarding.view?.active && onboarding.view.context.packsOpened > 0 ? onboarding.view : null;
+  /* F68 · «abrir el siguiente sobre» del MISMO tipo es el bucle de esta pantalla, no una navegación a la misma URL. */
+  const guideHere = useMemo(() => ({ href: `/abrir/${packId}`, run: () => reopenRef.current() }), [packId]);
+
+  /* Foco controlado: hero quieta → CONTINUAR; resumen → su título. */
+  useEffect(() => {
+    if (phase === "hero_hold") continueButton.current?.focus({ preventScroll: true });
+    if (phase === "hero_hold") trackFlow("pack_ceremony", "hero_revealed");
+    if (phase === "summary") summaryHeading.current?.focus({ preventScroll: true });
+    if (phase === "summary") markOpenRevealSeen(packId);
+  }, [phase, packId]);
 
   // --- Interacción de corte (ratón / táctil) ---
   function onPointerDown(e: React.PointerEvent) {
-    if (phase !== "sealed" || processing) return;
+    if (phase !== "ready") return;
     primeAudio();
     cutting.current = true;
     startX.current = e.clientX;
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
   }
   function onPointerMove(e: React.PointerEvent) {
-    if (!cutting.current || phase !== "sealed" || processing) return;
-    const delta = e.clientX - startX.current;
-    const progress = Math.max(0, Math.min(1, delta / CUT_DISTANCE));
+    if (!cutting.current || phase !== "ready") return;
+    const progress = Math.max(0, Math.min(1, (e.clientX - startX.current) / CUT_DISTANCE));
     setCutProgress(progress);
     if (progress - lastTick.current > 0.08) {
       lastTick.current = progress;
@@ -154,11 +310,11 @@ export function PackOpeningExperience({ packId }: { packId: string }) {
     if (progress >= 0.92) {
       cutting.current = false;
       setCutProgress(1);
-      triggerOpen();
+      void triggerOpen();
     }
   }
   function onPointerUp() {
-    if (phase !== "sealed") return;
+    if (phase !== "ready") return;
     cutting.current = false;
     if (cutProgress < 0.92) {
       setCutProgress(0);
@@ -166,459 +322,285 @@ export function PackOpeningExperience({ packId }: { packId: string }) {
     }
   }
 
-  /** Vía accesible: el mismo final sin arrastrar. Anima el corte y abre. */
+  /** Vía accesible: el mismo final sin arrastrar. */
   const openWithButton = useCallback(() => {
-    if (phase !== "sealed" || processing || opened.current) return;
+    if (phase !== "ready" || opened.current) return;
     primeAudio();
     setCutProgress(1);
-    triggerOpen();
-  }, [phase, processing, triggerOpen]);
+    void triggerOpen();
+  }, [phase, triggerOpen]);
 
-  const handleNext = useCallback(() => {
-    setRevealIndex((i) => {
-      if (i + 1 >= results.length) {
-        setPhase("summary");
-        return i;
-      }
-      return i + 1;
-    });
+  /* F81 · la cinemática: relojes que solo avisan y gestos que avanzan un paso. Ninguno toca el resultado. */
+  const onBuildupDone = useCallback(() => dispatch({ type: "BUILDUP_DONE" }), []);
+  const onHeroShown = useCallback(() => dispatch({ type: "HERO_SHOWN" }), []);
+  const onRestDone = useCallback(() => dispatch({ type: "REST_DONE" }), []);
+  const onWalkoutDone = useCallback(() => dispatch({ type: "WALKOUT_DONE" }), []);
+  const advance = useCallback(() => { primeAudio(); dispatch({ type: "ADVANCE" }); }, []);
+  const continueFromHero = useCallback(() => { trackFlow("pack_ceremony", "hero_continue"); dispatch({ type: "CONTINUE" }); }, []);
+
+  /**
+   * SALTAR / REVELAR TODAS. Salta SOLO la presentación: el resultado ya está en `results`. No reabre, no vuelve a
+   * sortear, no llama al servidor.
+   */
+  const skipToSummary = useCallback(() => {
+    if (results.length === 0) return;
+    trackFlow("pack_ceremony", "opening_skipped");
+    dispatch({ type: "SKIP" });
   }, [results.length]);
 
-  /*
-    --- Estados límite ---
+  /**
+   * EL BUCLE. Otra unidad del MISMO sobre, sin salir de la pantalla: otra operación con OTRA clave (la anterior ya se
+   * confirmó y `lib/game/sync` la borró). La foto «antes» de la siguiente es la de esta más lo que acaba de salir.
+   */
+  const openAnother = useCallback(() => {
+    opened.current = false;
+    cutting.current = false;
+    lastTick.current = 0;
+    clearOpenReveal();
+    nextBefore.current = before ? [...before, ...openedInstances.map(toInstanceFact)] : undefined;
+    setResults([]);
+    setWalkoutItems([]);
+    setCutProgress(0);
+    resetProgression(); // Fase 27: los deltas eran de la apertura anterior.
+    personal.refresh();
+    dispatch({ type: "RESET" });
+  }, [before, openedInstances, resetProgression, personal]);
+  reopenRef.current = openAnother;
 
-    Al hacer la ceremonia INMERSIVA (Fase 9.6) estas pantallas se quedaron solas: ya no hay
-    barra superior ni menú alrededor que las acompañe. La de «sobre no encontrado» decía
-    literalmente «Sobre no encontrado.» y un botón — **28 caracteres en toda la pantalla**,
-    que es lo que `audit:stability` marcó como pantalla en blanco, y con razón: alguien que
-    llega por un enlace viejo se encuentra el vacío y una frase.
+  /**
+   * RECUPERACIÓN TRAS RECARGA (Fase 21.2 / 38). Si el revelado ya se guardó en esta pestaña, se restaura y se va al
+   * resumen: `opened.current` queda marcado, así que nunca se reabre.
+   */
+  useEffect(() => {
+    if (opened.current || results.length > 0) return;
+    // Fase 40 · un resumen ya visto solo vuelve al RECARGAR esta pantalla, no al llegar desde otra.
+    const saved = loadOpenReveal(packId, { allowSeen: isReloadOf(window.location.pathname) });
+    if (saved && saved.length > 0) {
+      opened.current = true;
+      setResults(saved);
+      dispatch({ type: "RECOVERED", count: saved.length });
+    }
+    // Solo al montar / cambiar de sobre.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [packId]);
 
-    Ahora los tres estados explican qué ha pasado, por qué y qué se puede hacer, y ofrecen
-    DOS salidas: la tienda (comprar otro) y el inventario (mirar lo que ya tienes).
-  */
+  /* Fase 38 · recarga con la petición ENVIADA y sin respuesta: se pide el resultado con la MISMA clave. */
+  useEffect(() => {
+    if (!online || opened.current || results.length > 0 || phase !== "ready") return;
+    if (!hasPendingOpen(packId)) return;
+    opened.current = true;
+    dispatch({ type: "RECOVER_STARTED" });
+    void (async () => {
+      try {
+        const out = await openPackOutcome(packId);
+        setResults(out.results);
+        saveOpenReveal(packId, out.results);
+        // (una recuperación va al resumen directo: el walkout no se repite tras recargar)
+        dispatch({ type: "OPEN_SUCCEEDED", count: out.results.length, repeated: out.repeated, cinematic: heroIsPresentable(out.results) });
+      } catch (e) {
+        opened.current = false;
+        dispatch({ type: "OPEN_FAILED", failure: classifyOpenFailure(e) });
+      }
+    })();
+  }, [online, packId, results.length, phase]);
+
+  /* En una recuperación, la foto «antes» es la colección actual sin las instancias de esta apertura. */
+  useEffect(() => {
+    if (!state.recovered || before !== null || openedInstances.length === 0) return;
+    const current = currentFacts();
+    if (current) setBefore(beforeExcluding(current, openedInstances));
+  }, [state.recovered, before, openedInstances, currentFacts]);
+
+  /**
+   * TECLADO. Enter/Espacio: abrir; durante la cinemática, avanzar UN paso (nunca se salta la hero); con la hero quieta,
+   * CONTINUAR. «S»/Escape: omitir al resumen — solo con el resultado ya en mano, así que nunca pierde nada.
+   */
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const k = e.key;
+      if (phase === "ready" && !opened.current) {
+        if (k === "Enter" || k === " ") { e.preventDefault(); openWithButton(); }
+        return;
+      }
+      if (!hasResult(state) || phase === "summary") return;
+      // WALKOUT 0.5 · durante un walkout, Escape/Enter/Espacio/→ son SUYOS (saltar esta animación / continuar); «S» omite todo.
+      if (phase === "walkout") { if (k === "s" || k === "S") { e.preventDefault(); skipToSummary(); } return; }
+      if (k === "s" || k === "S" || k === "Escape") { e.preventDefault(); skipToSummary(); }
+      else if (k === "Enter" || k === " " || k === "ArrowRight") {
+        e.preventDefault();
+        // Con el foco en CONTINUAR el navegador ya pulsa el botón con Enter/Espacio: no se cuenta dos veces.
+        if (phase === "hero_hold" && document.activeElement === continueButton.current) return;
+        if (phase === "hero_hold") continueFromHero(); else advance();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [phase, state, openWithButton, advance, continueFromHero, skipToSummary]);
+
+  const navigate = useCallback((href: string) => {
+    if (href === "/packs") clearOpenReveal();
+    router.push(href);
+  }, [router]);
+
+  /* ─────────────── estados límite ─────────────── */
   if (!pack) {
+    return <PackStatus kind="not_found" title="Ese sobre no existe" message="El enlace apunta a un sobre que no está en el catálogo. Puede que fuera de un evento que ya terminó, o que la dirección esté mal escrita." packsLeft={packsLeft} onNavigate={navigate} />;
+  }
+  // Fase 21.2 (§13): un sobre DRAFT no se abre por la ruta pública —lo rechaza también el servidor (`guardPublicOpen`)—.
+  if (!isPubliclyOpenable(pack) && results.length === 0) {
+    return <PackStatus kind="unavailable" title="Sobre no disponible" message={`«${pack.name}» no está disponible para abrir ahora mismo. Echa un vistazo al resto del catálogo.`} packsLeft={packsLeft} onNavigate={navigate} />;
+  }
+  if (phase === "recovering") {
+    return <PackStatus kind="recovering" title="Recuperando tu sobre" message="Había una apertura en marcha en esta pestaña. Estamos pidiendo al servidor su resultado — no se abre ningún sobre nuevo." packsLeft={packsLeft} onNavigate={navigate} />;
+  }
+  if (phase === "error" && state.failure) {
+    const failure = state.failure;
     return (
-      <Centered
-        title="Ese sobre no existe"
-        body="El enlace apunta a un sobre que no está en el catálogo. Puede que fuera de un evento que ya terminó, o que la dirección esté mal escrita."
-      >
-        <Exits router={router} />
-      </Centered>
+      <PackStatus
+        kind="error" title={failure.title} message={failure.message} packsLeft={packsLeft} onNavigate={navigate}
+        onRetry={failure.retrySameKey ? () => { dispatch({ type: "DISMISS_ERROR" }); void triggerOpen(); } : undefined}
+      />
     );
   }
-  if (openError) {
-    return (
-      <Centered
-        title="No se pudo abrir"
-        body="El servidor no ha podido completar la apertura, así que el sobre sigue en tu inventario. Nada se ha perdido."
-      >
-        <ErrorState message={openError} onRetry={() => { setOpenError(null); }} />
-        <Exits router={router} />
-      </Centered>
-    );
+  if (phase === "no_pack") {
+    return <PackStatus kind="no_pack" title={state.failure?.title ?? "No te queda este sobre"} message={state.failure?.message ?? "No queda ninguna unidad de este sobre."} packsLeft={packsLeft} onNavigate={navigate} />;
   }
-  if (available <= 0 && (phase === "sealed" || phase === "intro")) {
-    return (
-      <Centered
-        title="No tienes este sobre"
-        body={`No queda ninguna unidad de «${pack.name}» en tu inventario. Compra uno en la tienda para abrirlo, o revisa los que ya tienes pendientes.`}
-      >
-        <Exits router={router} />
-      </Centered>
-    );
+  if (available <= 0 && phase === "ready" && !(online && hasPendingOpen(packId))) {
+    return <PackStatus kind="missing" title="No tienes este sobre" message={`No queda ninguna unidad de «${pack.name}» en tu inventario. Consigue uno en la tienda o revisa los que ya tienes pendientes.`} packsLeft={packsLeft} onNavigate={navigate} />;
   }
 
-  const totalValue = results.reduce((s, r) => s + r.value, 0);
-  const newCount = results.filter((r) => r.isNew).length;
-  const duplicates = results.filter((r) => !r.isNew);
-  /** La mejor del botín: mayor rareza y, a igualdad, mayor media. Es la que se enseña. */
-  const best = [...results].sort(
-    (a, b) => getVariant(b.card.variantId).rank - getVariant(a.card.variantId).rank || b.card.ovr - a.card.ovr,
-  )[0];
-  const rest = results.filter((r) => r.uid !== best?.uid);
-
-  const sealedStage = phase === "intro" || phase === "sealed";
+  const best = plan.summary.featured;
+  const heroResult = best ? results.find((r) => r.uid === best.uid) : undefined;
+  const walkedUids = new Set(walkoutItems.map((w) => w.uid));
+  const restItems = plan.order.filter((i) => i.uid !== best?.uid && !walkedUids.has(i.uid));
+  const walkoutItem = phase === "walkout" ? walkoutItems[state.walkoutIndex] : undefined;
+  const slots: HandSlot[] = results.map((r) => ({ revealed: false, color: getVariant(r.card.variantId).palette.primary }));
+  const stageKind = phase === "ready" || phase === "requesting" || phase === "opening" ? phase : null;
+  const heroStage = phase === "buildup" || phase === "hero" || phase === "hero_hold" ? phase : null;
+  const bestResult = heroResult;
+  const showSkip = hasResult(state) && phase !== "summary";
 
   return (
-    <div className="fixed inset-0 z-[60] overflow-hidden bg-base-900">
-      {/*
-        EL ESCENARIO. Antes era un solo degradado radial del color del sobre sobre negro.
-        Ahora hay suelo: un halo cenital, una retícula en perspectiva que se pierde hacia
-        el horizonte y una viñeta. Sin suelo, el sobre no está EN ningún sitio — flota en
-        un vacío, que es exactamente como se veía en la captura.
-      */}
-      <div
-        aria-hidden
-        className="absolute inset-0 transition-opacity duration-slow"
-        style={{
-          background: `radial-gradient(900px 620px at 50% 34%, ${accent}26, transparent 72%), radial-gradient(700px 400px at 50% 108%, ${accent}1c, transparent 66%)`,
-        }}
+    <div className="fixed inset-0 z-modal overflow-hidden bg-[#03040a]" data-testid="pack-opening" data-phase={phase} data-requests={state.requests} data-hero-uid={best?.uid ?? ""} data-walkouts={state.walkouts}>
+      {PACK_WALKOUT_3D_ENABLED === "admins" && <AdminProbe onResult={setAdminGate} />}
+      <PackBackdrop
+        accent={accent}
+        ambient={phase === "ready" || phase === "requesting"}
+        reduced={reduced}
+        intensity={phase === "ready" ? 0.6 : phase === "requesting" || phase === "opening" ? 1 : 0.45}
       />
-      {/*
-        EL SUELO. La primera versión usaba una retícula al 40 % con líneas a `22` de alfa y
-        en la captura no se veía nada: el sobre seguía flotando en un vacío. Un escenario
-        que no se ve no es un escenario. Subida a opacidad plena con líneas al 55 % y la
-        perspectiva más cerrada, para que el horizonte quede dentro del encuadre.
-      */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[46%]"
-        style={{
-          backgroundImage: `linear-gradient(${accent}8c 1px, transparent 1px), linear-gradient(90deg, ${accent}8c 1px, transparent 1px)`,
-          backgroundSize: "72px 72px",
-          transform: "perspective(260px) rotateX(58deg)",
-          transformOrigin: "bottom center",
-          maskImage: "linear-gradient(to top, rgba(0,0,0,0.9), transparent 74%)",
-          WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,0.9), transparent 74%)",
-        }}
-      />
-      {/* Línea de horizonte: cierra el suelo y separa el plano del fondo. */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 h-px"
-        style={{
-          bottom: "46%",
-          background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
-          boxShadow: `0 0 30px ${accent}`,
-          opacity: 0.55,
-        }}
-      />
-      {sealedStage && <AmbientParticles color={accent} count={18} />}
-      <div aria-hidden className="absolute inset-0" style={{ boxShadow: "inset 0 0 240px 70px rgba(6,7,13,0.9)" }} />
 
-      {/* Botón cerrar */}
+      {/* Cerrar. 44 px. Cerrar nunca pierde nada: lo abierto ya está guardado en el servidor. */}
       <button
-        onClick={() => router.push(phase === "summary" ? "/coleccion" : "/tienda")}
-        className="absolute right-4 top-4 z-50 grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-black/40 text-white/70 backdrop-blur transition hover:bg-black/70 hover:text-white"
-        aria-label="Cerrar"
+        onClick={() => navigate(phase === "summary" ? "/coleccion" : "/packs")}
+        className="nx-focus absolute right-4 top-4 z-overlay grid h-11 w-11 min-h-[44px] place-items-center rounded-full border border-white/15 bg-black/40 text-white/70 transition hover:bg-black/70 hover:text-white"
+        style={{ marginTop: "env(safe-area-inset-top)" }}
+        aria-label="Cerrar la apertura"
       >
-        ✕
+        <GameGlyph name="close" className="h-4 w-4" />
       </button>
 
-      {/* ═══ ACTOS 1 y 2 — llegada y sobre sellado ═══ */}
-      <AnimatePresence>
-        {sealedStage && (
-          <motion.div
-            key="sealed"
-            className="absolute inset-0 grid touch-none place-items-center"
-            exit={{ opacity: 0, scale: 1.08 }}
-            transition={{ duration: 0.4 }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
-          >
-            {/*
-              LLEGADA. El sobre entra desde el fondo del escenario. Es medio segundo, y es
-              lo que separa «hay un sobre en la pantalla» de «me han traído un sobre».
-            */}
-            <motion.div
-              initial={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.55, y: 90, rotateX: 28 }}
-              animate={
-                reduced
-                  ? { opacity: 1 }
-                  : {
-                      opacity: 1, scale: 1, y: phase === "sealed" ? [0, -14, 0] : 0, rotateX: 0,
-                      rotateZ: phase === "sealed" ? [-1.5, 1.5, -1.5] : 0,
-                    }
-              }
-              transition={
-                reduced
-                  ? { duration: 0.2 }
-                  : {
-                      opacity: { duration: 0.45 },
-                      scale: { duration: INTRO_MS / 1000, ease: EASE.out },
-                      rotateX: { duration: INTRO_MS / 1000, ease: EASE.out },
-                      y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: INTRO_MS / 1000 },
-                      rotateZ: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: INTRO_MS / 1000 },
-                    }
-              }
-              style={{ transformPerspective: 900 }}
-            >
-              <SealedPack accent={accent} name={pack.name} cutProgress={cutProgress} width={272} />
-            </motion.div>
-
-            {/* Instrucciones. Se apagan en cuanto empieza el corte: estorban a la tensión. */}
-            {phase === "sealed" && !processing && (
-              <motion.div
-                className="absolute bottom-14 flex flex-col items-center gap-3 px-6 text-center"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: cutProgress > 0.05 ? 0 : 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-              >
-                <p className="font-display text-lg font-bold uppercase tracking-[0.28em] text-white">
-                  Desliza para abrir
-                </p>
-                <p className="text-sm text-white/45">Arrastra sobre la costura →</p>
-                <div className="h-1.5 w-52 overflow-hidden rounded-full bg-white/10">
-                  <div
-                    className="h-full rounded-full transition-[width] duration-instant"
-                    style={{ width: `${cutProgress * 100}%`, background: accent, boxShadow: `0 0 14px ${accent}` }}
-                  />
-                </div>
-                {/*
-                  Vía accesible. El arrastre es el gesto bonito, pero no puede ser el único:
-                  con teclado no hay forma de arrastrar y la ceremonia quedaba cerrada.
-                */}
-                <button
-                  type="button"
-                  onClick={openWithButton}
-                  className="nx-clip-sm mt-1 border border-white/20 px-5 py-2.5 font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white/70 transition duration-fast hover:border-white/45 hover:text-white"
-                >
-                  Abrir sobre
-                </button>
-              </motion.div>
-            )}
-
-            {/* El sobre lo está abriendo el servidor: decirlo, en vez de parecer colgado. */}
-            {processing && (
-              <div
-                role="status"
-                aria-live="polite"
-                className="absolute bottom-16 flex flex-col items-center gap-3 px-6 text-center"
-              >
-                <div
-                  className="h-8 w-8 animate-spin rounded-full border-2 border-t-transparent"
-                  style={{ borderColor: accent, borderTopColor: "transparent" }}
-                />
-                <p className="font-display text-sm uppercase tracking-[0.3em] text-white">
-                  Procesando…
-                </p>
-                <p className="text-xs text-white/45">Abriendo tu sobre en el servidor</p>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ═══ ACTO 3 — la rotura ═══ */}
-      {phase === "rupture" && (
-        <div className="absolute inset-0 grid place-items-center">
-          {/*
-            COLUMNA DE LUZ. Sube por donde estaba la costura. Es la pieza que cuenta que el
-            sobre se ha abierto POR ALGÚN SITIO; el fogonazo blanco anterior podía haber
-            sido cualquier cosa.
-          */}
-          <motion.span
-            aria-hidden
-            className="absolute w-[3px] origin-bottom"
-            style={{
-              height: "100vh",
-              background: `linear-gradient(to top, ${accent}, #fff, transparent)`,
-              boxShadow: `0 0 60px 12px ${accent}`,
-            }}
-            initial={{ scaleY: 0, scaleX: 1, opacity: 0 }}
-            animate={{ scaleY: [0, 1, 1], scaleX: [1, 34, 60], opacity: [0, 1, 0] }}
-            transition={{ duration: RUPTURE_MS / 1000, times: [0, 0.28, 1], ease: "easeOut" }}
-          />
-
-          {/* Onda de choque: un anillo que barre la sala. Un solo elemento. */}
-          <motion.span
-            aria-hidden
-            className="absolute rounded-full border-2"
-            style={{ borderColor: accent, width: 220, height: 220 }}
-            initial={{ scale: 0.2, opacity: 1 }}
-            animate={{ scale: 9, opacity: 0 }}
-            transition={{ duration: RUPTURE_MS / 1000, ease: "easeOut" }}
-          />
-
-          {/* Las dos mitades del sobre salen de cuadro. */}
-          {!reduced &&
-            [-1, 1].map((dir) => (
-              <motion.span
-                key={dir}
-                aria-hidden
-                className="absolute h-40 w-52 rounded-lg border"
-                style={{
-                  borderColor: `${accent}88`,
-                  background: `linear-gradient(160deg, #171a2b, #06070d)`,
-                  clipPath:
-                    dir < 0
-                      ? "polygon(0 0, 100% 0, 88% 100%, 0 100%)"
-                      : "polygon(12% 0, 100% 0, 100% 100%, 0 100%)",
-                }}
-                initial={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
-                animate={{ x: dir * 620, y: dir * 90, rotate: dir * 52, opacity: 0 }}
-                transition={{ duration: RUPTURE_MS / 1000, ease: "easeOut" }}
-              />
-            ))}
-
-          <ParticleBurst color={accent} big count={110} />
-
-          {/*
-            El fogonazo. Bajado de 0.95 a 0.7 y de 0.75 s a 0.5: a plena opacidad lavaba
-            toda la escena —la rotura, las mitades y las partículas dejaban de verse— y
-            además un blanco casi total a pantalla completa es agresivo. Aquí la luz
-            acompaña a la rotura; no la sustituye.
-          */}
-          <motion.div
-            aria-hidden
-            className="absolute inset-0 bg-white"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.7, 0] }}
-            transition={{ duration: 0.5, times: [0, 0.24, 1] }}
-          />
-        </div>
-      )}
-
-      {/* ═══ ACTO 4 — revelado carta a carta ═══ */}
-      {phase === "reveal" && results[revealIndex] && (
-        <CardReveal
-          key={results[revealIndex].uid}
-          result={results[revealIndex]}
-          index={revealIndex}
-          total={results.length}
-          onNext={handleNext}
+      {stageKind && (
+        <PackStage
+          pack={pack}
+          stage={stageKind}
+          count={results.length || pack.cardCount}
+          cutProgress={cutProgress}
+          slots={slots}
+          tease={null}
+          reduced={reduced}
+          onOpen={openWithButton}
+          onStartReveal={advance}
+          onRevealAll={skipToSummary}
+          pointer={{ onPointerDown, onPointerMove, onPointerUp }}
+          headingRef={handHeading}
         />
       )}
 
-      {/* ═══ ACTO 5 — el botín ═══ */}
-      {phase === "summary" && best && (
-        <motion.div
-          className="absolute inset-0 overflow-y-auto px-4 py-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <div className="mx-auto max-w-5xl">
-            <p className="nx-label text-center">{pack.name}</p>
-            <h2 className="mt-1 text-center font-display text-[clamp(28px,6vw,48px)] font-bold uppercase leading-none text-white">
-              Tu botín
-            </h2>
+      {/* F81 · un toque durante la intro adelanta a la HERO (no al resumen). */}
+      {phase === "opening" && <div className="absolute inset-0 z-surface" onClick={advance} data-testid="intro-advance" aria-hidden />}
 
-            {/*
-              LA MEJOR CARTA, GRANDE. Antes el resumen era una fila de cartas del mismo
-              tamaño: la Icon Series que acababa de salir quedaba igual de grande que la
-              cuarta Bronce. El botín tiene un protagonista y hay que enseñarlo.
-            */}
-            <div className="mt-7 grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center">
-              <div className="mx-auto">
-                <Card3D
-                  mode="showcase"
-                  glow={getVariant(best.card.variantId).palette.primary}
-                  status={best.isNew ? "new" : undefined}
-                  className="w-[210px] sm:w-[240px]"
-                >
-                  <PlayerCard card={best.card} size="lg" serial={best.serial} interactive={false} />
-                </Card3D>
-              </div>
-
-              <div className="min-w-0">
-                <div className="flex flex-wrap gap-x-8 gap-y-4">
-                  <Readout label="Cartas" value={String(results.length)} />
-                  <Readout label="Nuevas" value={String(newCount)} accent="#3fc07a" />
-                  <Readout label="Valor total" value={formatCredits(totalValue)} accent="#ffd35c" prefix="🪙 " />
-                </div>
-
-                {rest.length > 0 && (
-                  <>
-                    <p className="nx-label mt-7">El resto del sobre</p>
-                    <div className="mt-2.5 flex flex-wrap gap-3">
-                      {rest
-                        .slice()
-                        .sort((a, b) => getVariant(b.card.variantId).rank - getVariant(a.card.variantId).rank)
-                        .map((r, i) => (
-                          <Card3D
-                            key={r.uid}
-                            mode="static"
-                            status={r.isNew ? "new" : undefined}
-                            delay={card3DStagger(i, 0.06, 0.4)}
-                            className="w-[118px]"
-                          >
-                            <PlayerCard card={r.card} size="sm" serial={r.serial} interactive={false} />
-                          </Card3D>
-                        ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
-              {/* Venta local: con sesión la lleva el servidor, así que no se ofrece. */}
-              {duplicates.length > 0 && !online && (
-                <button
-                  onClick={() => {
-                    quickSellMany(duplicates.map((d) => d.uid));
-                    router.push("/coleccion");
-                  }}
-                  className="nx-clip-sm border border-drl-gold/40 bg-drl-gold/10 px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.12em] text-drl-gold transition hover:bg-drl-gold/20"
-                >
-                  Vender {duplicates.length} duplicado(s) · 🪙{" "}
-                  {formatCredits(duplicates.reduce((s, d) => s + Math.round(d.value * 0.8), 0))}
-                </button>
-              )}
-              <button
-                onClick={() => router.push("/coleccion")}
-                className="nx-clip-sm border border-white/15 bg-white/5 px-5 py-3 font-display text-sm font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white/10"
-              >
-                Ver colección
-              </button>
-              <button
-                onClick={() => router.push("/tienda")}
-                className="nx-clip-sm bg-drl px-6 py-3 font-display text-sm font-bold uppercase tracking-[0.12em] text-white shadow-glow transition hover:brightness-110"
-              >
-                Abrir otro
-              </button>
-            </div>
-          </div>
-        </motion.div>
+      {heroStage && best && heroResult && (
+        <HeroReveal
+          key={best.uid}
+          stage={heroStage}
+          item={best}
+          result={heroResult}
+          total={results.length}
+          reduced={reduced}
+          onBuildupDone={onBuildupDone}
+          onHeroShown={onHeroShown}
+          onContinue={continueFromHero}
+          onAdvance={advance}
+          continueRef={continueButton}
+        />
       )}
-    </div>
-  );
-}
 
-/** Cifra del botín. Sin caja: etiqueta encima, cifra grande, nada alrededor. */
-function Readout({
-  label, value, accent = "#ffffff", prefix = "",
-}: { label: string; value: string; accent?: string; prefix?: string }) {
-  return (
-    <div>
-      <p className="nx-label">{label}</p>
-      <p className="nx-readout mt-1 text-[30px]" style={{ color: accent }}>
-        {prefix}{value}
-      </p>
-    </div>
-  );
-}
+      {/* WALKOUT 0.5 · cada especial, su walkout (una escena por carta: se desmonta y libera antes de la siguiente) */}
+      {walkoutItem && (
+        <PackWalkout key={walkoutItem.uid} item={walkoutItem} index={state.walkoutIndex} total={walkoutItems.length} reduced={reduced} onDone={onWalkoutDone} />
+      )}
 
-/** Un estado límite de la ceremonia: título, explicación y salidas. Nunca una frase suelta. */
-function Centered({
-  title, body, children,
-}: {
-  title: string;
-  body: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="fixed inset-0 z-[60] grid place-items-center bg-base-900 px-6">
-      <div className="flex max-w-md flex-col items-center gap-4 text-center">
-        <span className="nx-label">Apertura de sobres</span>
-        <h1 className="font-display text-[clamp(26px,6vw,40px)] font-bold uppercase leading-none text-white">
-          {title}
-        </h1>
-        <p className="text-[14px] leading-relaxed text-white/55">{body}</p>
-        {children}
-      </div>
-    </div>
-  );
-}
+      {phase === "rest" && <RestReveal items={restItems} reduced={reduced} onDone={onRestDone} onAdvance={advance} />}
 
-/** Dos salidas, no una: comprar otro y mirar lo que ya tienes son respuestas distintas. */
-function Exits({ router }: { router: ReturnType<typeof useRouter> }) {
-  return (
-    <div className="mt-1 flex flex-wrap justify-center gap-2.5">
-      <button
-        onClick={() => router.push("/tienda")}
-        className="nx-clip-sm bg-drl px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] text-white shadow-glow transition hover:brightness-110"
-      >
-        Ir a la tienda
-      </button>
-      <button
-        onClick={() => router.push("/inventario")}
-        className="nx-clip-sm border border-white/18 px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] text-white/75 transition hover:border-white/40 hover:text-white"
-      >
-        Ver mi inventario
-      </button>
+      {/*
+        OMITIR desde que existe el resultado (intro, tensión, hero, resto): lleva al resumen de ESAS MISMAS cartas. No
+        cancela nada ni vuelve a pedir nada al servidor — la apertura ya está guardada.
+      */}
+      {showSkip && (
+        <button
+          type="button"
+          onClick={skipToSummary}
+          className="nx-focus absolute left-4 top-4 z-overlay inline-flex h-11 min-h-[44px] items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-4 font-display text-label font-bold uppercase tracking-wide2 text-white/75 transition hover:bg-black/70 hover:text-white"
+          style={{ marginTop: "env(safe-area-inset-top)" }}
+          aria-label="Saltar la animación y ver todas las cartas"
+          data-testid="pack-skip"
+        >
+          Omitir ⏭
+        </button>
+      )}
+
+      {phase === "summary" && plan.items.length === 0 && results.length > 0 && (
+        <PackStatus kind="error" title="No se pudieron mostrar tus cartas" message="El sobre se abrió y las cartas están guardadas en tu colección, pero no se pudieron presentar aquí. Ábrelas en tu colección." packsLeft={packsLeft} onNavigate={navigate} />
+      )}
+
+      {phase === "summary" && plan.items.length > 0 && (
+        <div className="absolute inset-0 overflow-y-auto px-4 py-8" style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}>
+          {!state.cinematic && (
+            <p role="status" className="mx-auto mb-4 max-w-xl text-center text-caption text-ink-muted" data-testid="summary-no-cinematic">
+              Tus cartas ya están guardadas. Esta vez se muestran sin animación.
+              {plan.summary.unresolved > 0 && ` ${plan.summary.unresolved === 1 ? "Una carta no se pudo mostrar aquí" : `${plan.summary.unresolved} cartas no se pudieron mostrar aquí`}: está${plan.summary.unresolved === 1 ? "" : "n"} en tu colección.`}
+            </p>
+          )}
+          <PackSummary
+            packName={pack.name}
+            plan={plan}
+            available={available}
+            packsLeft={packsLeft}
+            recovered={state.recovered}
+            repeated={state.repeated}
+            reduced={reduced}
+            onOpenAnother={openAnother}
+            onNavigate={navigate}
+            onAddToDeck={bestResult && toDeckCard(bestResult) ? () => setDeckCard(toDeckCard(bestResult)) : undefined}
+            headingRef={summaryHeading}
+            accent={pack.accent}
+            intensity={MAIN_PACK_LINE.includes(pack.id) ? MAIN_PACK_LINE.indexOf(pack.id) + 1 : 3}
+            lead={guide ? (guide.context.packsOpened === 1 && best ? <FirstCardLesson card={best.card} view={guide} here={guideHere} /> : <OnboardingPackNext view={guide} here={guideHere} />) : null}
+            dockStatic={!!guide}
+          >
+            {/* Fase 27 · lo que este sobre ha movido en tus objetivos (dos lecturas del servidor). */}
+            {online && <PostMatchProgress delta={progression.delta} className="mx-auto mt-8 max-w-2xl" />}
+            {/* Fase 42 · qué sigue: objetivo de sobres que avanzó y la siguiente acción del vestíbulo (sin recompensa extra). */}
+            {/* F63 · durante la primera sesión el «qué sigue» lo dice la guía (arriba): no dos siguientes pasos a la vez. */}
+            {online && !guide && <NextUpAfter context="pack" className="mx-auto mt-4 max-w-2xl" />}
+          </PackSummary>
+        </div>
+      )}
+
+      {deckCard && (
+        <AddToDeckSheet card={deckCard} origin="pack_summary" onClose={() => setDeckCard(null)} />
+      )}
     </div>
   );
 }

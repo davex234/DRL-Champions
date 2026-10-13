@@ -40,7 +40,23 @@ export interface PlayerReport {
   assists: number; // total
   fk: number;      // total
   fd: number;      // total
-  clutches: number; // total
+  clutches: number; // total, SUMADO DE LOS MAPAS (ver `tournamentClutchesWon`)
+  /*
+   * CLUTCH DEL TORNEO — campo aparte, y a propósito.
+   *
+   * `clutches` de arriba es la suma de las stat-lines por mapa. Cuando la fuente no publica
+   * clutch por mapa —vlr.gg no lo hace: su scoreboard no tiene esa columna— vale 0, y 0 aquí
+   * significa «no medido», no «ninguno».
+   *
+   * Estos dos campos traen el agregado que la fuente SÍ publica, con su granularidad real: el
+   * torneo entero. No se reparten entre mapas ni se mezclan con `clutches`, porque son datos
+   * distintos con procedencias distintas, y aplanarlos haría imposible saber cuál se está
+   * mirando. Solo el premio de torneo `best-clutch` los usa; las métricas por mapa
+   * (`clutchesPerMap`, `clutchScore`, highlights) siguen leyendo `clutches` y siguen diciendo
+   * la verdad cuando la fuente no lo publica.
+   */
+  tournamentClutchesWon?: number;
+  tournamentClutchSituations?: number;
   // Métricas derivadas.
   rating: number;      // 0..99 (contextualRating reutilizado)
   impact: number;      // 0..100 (rawPerformance reutilizado)

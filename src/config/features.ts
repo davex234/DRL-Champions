@@ -32,3 +32,20 @@
  * siguen en el repositorio.
  */
 export const GLOBAL_MARKET_ENABLED = false;
+
+/**
+ * PACK WALKOUT 3D (Walkout 0.5) — la entrada humana en 3D DENTRO de la apertura real de sobres.
+ * WALKOUT 0.7 (2026-10-08): ENCENDIDO PARA TODOS («all») por autorización expresa del propietario.
+ *
+ * Es solo PRESENTACIÓN: el servidor decide y guarda las cartas antes de que empiece ninguna animación; esto únicamente
+ * cambia cómo se enseñan las especiales (Champions S breve, Future Star walkout, Record Breaker/Moments mega). Con
+ * «off» la apertura es exactamente la de siempre (hero + resto + resumen): ese es también el ROLLBACK.
+ *
+ *   "off"     nadie (producción hasta Walkout 0.6; release drl-0.1.1-1-69e4b672 = rollback inmediato).
+ *   "admins"  solo las cuentas con `profiles.is_admin` (cuentas autorizadas explícitamente; veredicto del servidor).
+ *   "all"     todos los jugadores.
+ *
+ * En `next dev`, un navegador puede activarlo SOLO para sí con `localStorage["drl:walkout3d"] = "1"`; en una build de
+ * producción esa vía no existe (ver `domain/walkout/packWalkout · packWalkoutAllowed`).
+ */
+export const PACK_WALKOUT_3D_ENABLED: "off" | "admins" | "all" = "all";

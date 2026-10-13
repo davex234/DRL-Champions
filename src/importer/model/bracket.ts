@@ -13,6 +13,13 @@ export interface BracketNode {
   matchId?: string;
   winnerToNodeId?: string;
   loserToNodeId?: string;
+  /** Fase 24.4 · huecos, clasificación y procedencia (opcionales; ausentes = desconocido). */
+  winnerToSlot?: 1 | 2;
+  loserToSlot?: 1 | 2;
+  winnerQualifies?: string;
+  winnerQualifiesLabel?: string;
+  evidence?: "SOURCE_EXPLICIT" | "SOURCE_BRACKET_LINK" | "SOURCE_STRUCTURED_HTML";
+  confidence?: "CONFIRMED" | "INFERRED";
 }
 
 export interface Bracket {

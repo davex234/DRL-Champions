@@ -4,14 +4,14 @@
  * Solo mapeo de datos (cero lógica de juego). Un agente desconocido NO es un estado imposible:
  * se capitaliza el slug (VLR añade agentes nuevos antes de que este registro se actualice).
  */
+import { VALORANT_ROSTER } from "../domain/tactics/valorantRoster";
 
-const AGENT_BY_SLUG: Record<string, string> = {
-  astra: "Astra", breach: "Breach", brimstone: "Brimstone", chamber: "Chamber", clove: "Clove",
-  cypher: "Cypher", deadlock: "Deadlock", fade: "Fade", gekko: "Gekko", harbor: "Harbor",
-  iso: "Iso", jett: "Jett", kayo: "KAY/O", killjoy: "Killjoy", neon: "Neon", omen: "Omen",
-  phoenix: "Phoenix", raze: "Raze", reyna: "Reyna", sage: "Sage", skye: "Skye", sova: "Sova",
-  tejo: "Tejo", viper: "Viper", vyse: "Vyse", waylay: "Waylay", yoru: "Yoru",
-};
+/*
+ * F60 · Derivado de la instantánea del catálogo real (`valorantRoster.ts` ← `public.agents`): el id del roster ES el
+ * slug de VLR («kayo» → «KAY/O»). Un agente nuevo del panel entra aquí al regenerar la instantánea; y aunque no
+ * estuviera, el sync resuelve contra la tabla `agents` por nombre normalizado.
+ */
+const AGENT_BY_SLUG: Record<string, string> = Object.fromEntries(VALORANT_ROSTER.map((r) => [r.id, r.name]));
 
 /** Nombre canónico desde un slug ("kayo" → "KAY/O"; desconocido → capitalizado). */
 export function agentName(slug: string): string {

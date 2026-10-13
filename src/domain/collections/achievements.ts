@@ -48,7 +48,7 @@ export function collectionAchievements(defs: CollectionDef[], owned: Set<string>
       name: `Completa ${g} ${g === 1 ? "colección" : "colecciones"}`,
       description: `Completa ${g} colecciones distintas para una recompensa mayor.`,
       icon: "🏅",
-      reward: { credits: 5000 * g, tokens: 50 * g },
+      reward: { credits: 5000 * g},
       goal: g,
       current: completed,
       complete: completed >= g,

@@ -45,7 +45,7 @@ import { getVariant } from "@/domain/cards/variants";
 import { bucketForRank, type RarityBucket } from "@/domain/packs/types";
 import { buildPool } from "@/domain/packs/pool";
 import { marketValue, instanceValue } from "@/domain/economy/pricing";
-import { salvageValue, SALVAGE_BY_BUCKET } from "@/domain/economy/salvage";
+import { salvageValue } from "@/domain/economy/salvage";
 import type { OwnedCard, CardDef } from "@/domain/cards/types";
 
 const SEED = 90210;
@@ -92,7 +92,9 @@ function sectionCatalog(): void {
     const v = stats.get(b)!.sort((x, y) => x - y);
     if (v.length === 0) continue;
     const mean = v.reduce((a, x) => a + x, 0) / v.length;
-    const sv = SALVAGE_BY_BUCKET[b];
+    // F57.5: el desguace es por carta (6 % de marketValue); se muestra la media del bucket.
+    const svs = CARDS.filter((c) => bucketOf(c) === b).map(salvageValue);
+    const sv = svs.reduce((a, x) => a + x, 0) / svs.length;
     console.log("  " + padr(b, 11) + pad(v.length, 8) + pad((100 * v.length / CARDS.length).toFixed(1) + " %", 12)
       + pad(fmt(mean), 10) + pad(fmt(pct(v, 0.5)), 12) + pad(fmt(sv), 10) + pad((mean / sv).toFixed(1) + "x", 13));
   }
@@ -216,7 +218,8 @@ function sectionValueBounds(all: PackStats[]): void {
       const bd = pc[b];
       if (v.length === 0 || !bd) continue;
       const mean = v.reduce((a, x) => a + x, 0) / v.length;
-      const sv = SALVAGE_BY_BUCKET[b];
+      const svs = CARDS.filter((c) => bucketOf(c) === b).map(salvageValue);
+      const sv = svs.reduce((a, x) => a + x, 0) / svs.length;
       const r = mean / bd.anyOfBucket;
       const verdict = mean < sv ? "BAJO el desguace"
         : r > 2 ? "CARA (>2x la rareza)"
@@ -282,7 +285,7 @@ function sectionPacks(all: PackStats[]): void {
   console.log("\n  LAS DOS TASACIONES, Y POR QUE NO SON LA MISMA CIFRA\n");
   console.log("  marketValue(def)          tasa el TIPO de carta. Es el ancla del mercado entre jugadores.");
   console.log("  instanceValue(def, serie) tasa el EJEMPLAR: hasta x5 por numero de serie bajo.");
-  console.log("  quickSellValue            es el 80 % de instanceValue: lo que pagaria la venta rapida.\n");
+  console.log("  quickSell (80 %)          columna HISTORICA: la venta rapida al 80 % se elimino en la F57.6 (hoy paga salvageValue).\n");
   console.log("  " + padr("sobre", 11) + pad("precio", 8) + pad("marketValue", 13) + pad("ratio", 8)
     + pad("instanceValue", 15) + pad("ratio", 8) + pad("quickSell", 12) + pad("ratio", 8));
   console.log("  " + "-".repeat(84));

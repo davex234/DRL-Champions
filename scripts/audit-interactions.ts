@@ -15,6 +15,7 @@
  * El usuario se crea con CARTAS y SALDO, porque un modal de carta no se puede abrir en una
  * colección vacía.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { existsSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -73,7 +74,7 @@ async function main() {
 
   const admin = createClient(URL_, SERVICE, { auth: { persistSession: false } });
   const email = `inter-${Date.now()}@example.invalid`;
-  const password = "Test-1234-inter";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "interaudit" },
   });

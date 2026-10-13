@@ -27,6 +27,7 @@ import { basename } from "node:path";
 import { verifyAdmin } from "@/lib/supabase/adminAuth";
 import { isAdminConfigured } from "@/lib/supabase/admin";
 import { readDashboard, resolveArtifact, planRollbackServer, executeRollbackServer, promoteServer, retryServer } from "@/server/releases/reader";
+import { internalError } from "@/server/ops/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -88,7 +89,7 @@ export async function GET(req: Request) {
     const data = await readDashboard({ root, env: process.env });
     return NextResponse.json(data, { headers: { "cache-control": "no-store" } });
   } catch (e) {
-    return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 500 });
+    return internalError("api/admin/releases", e, req);
   }
 }
 
@@ -129,6 +130,6 @@ export async function POST(req: Request) {
     }
     return NextResponse.json({ error: `acción desconocida: ${action}` }, { status: 400 });
   } catch (e) {
-    return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 500 });
+    return internalError("api/admin/releases", e, req);
   }
 }

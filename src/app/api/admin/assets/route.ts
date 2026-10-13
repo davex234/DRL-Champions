@@ -16,10 +16,12 @@ import { NextResponse } from "next/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { verifyAdmin } from "@/lib/supabase/adminAuth";
-import { assetPath, extFromFile, sha256Hex, ASSET_BUCKET } from "@/lib/assets/storage";
+import { assetPath, sha256Hex, ASSET_BUCKET } from "@/lib/assets/storage";
+import { sniffImage, MIME_OF } from "@/domain/cms/uploads";
 import { scoreAsset } from "@/domain/assets/ranking";
 import type { AssetKind } from "@/domain/assets/types";
 import type { AssetRow } from "@/lib/supabase/assets.types";
+import { takeRate, rateHeaders, TOO_MANY } from "@/server/services/rateLimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -29,31 +31,71 @@ const numOrNull = (v: string | undefined): number | null => (v == null || v === 
 const publicUrlFor = (sb: SupabaseClient, path: string) =>
   sb.storage.from(ASSET_BUCKET).getPublicUrl(path).data.publicUrl ?? null;
 
+/**
+ * F60 · ENDURECIDO. Antes: extensión y MIME del cliente, `upsert: true` y el `subjectId` del cliente dentro de la ruta.
+ * Ahora el TIPO sale de los bytes (imágenes PNG/WEBP/JPEG/AVIF, o WEBM/MP4/JSON para animaciones), SVG/HTML y
+ * cualquier otra cosa se rechazan, la extensión y el MIME se derivan de lo detectado, hay tope de tamaño, el sujeto se
+ * sanea (sin `..` ni `/`) y nunca se sobrescribe un objeto.
+ */
+const LEGACY_MAX_BYTES = 20 * 1024 * 1024;
+function sniffLegacy(b: Uint8Array): { ext: string; mime: string } | null {
+  const img = sniffImage(b);
+  if (img) return { ext: img === "jpeg" ? "jpg" : img, mime: MIME_OF[img] };
+  if (b.length >= 4 && b[0] === 0x1a && b[1] === 0x45 && b[2] === 0xdf && b[3] === 0xa3) return { ext: "webm", mime: "video/webm" };
+  if (b.length >= 12 && String.fromCharCode(...b.subarray(4, 8)) === "ftyp") return { ext: "mp4", mime: "video/mp4" };
+  const head = new TextDecoder().decode(b.subarray(0, 64)).trimStart();
+  if (head.startsWith("{") || head.startsWith("[")) {
+    try { JSON.parse(new TextDecoder().decode(b)); return { ext: "json", mime: "application/json" }; } catch { return null; }
+  }
+  return null;
+}
+
 /** Sube un fichero al bucket y devuelve los metadatos del binario. */
 async function uploadBinary(
   sb: SupabaseClient, file: File, kind: AssetKind, subjectId: string | undefined, assetId: string,
 ) {
-  const ext = extFromFile(file);
-  const path = assetPath(kind, subjectId, assetId, ext);
+  if (file.size > LEGACY_MAX_BYTES) throw new UploadRejected("El fichero supera 20 MB");
   const buf = await file.arrayBuffer();
-  const { error } = await sb.storage.from(ASSET_BUCKET).upload(path, buf, {
-    contentType: file.type || "application/octet-stream", upsert: true,
-  });
+  const detected = sniffLegacy(new Uint8Array(buf));
+  if (!detected) throw new UploadRejected("Tipo de fichero no admitido (SVG/HTML/otros se rechazan)");
+  const safeSubject = subjectId && /^[A-Za-z0-9_-]{1,80}$/.test(subjectId) ? subjectId : undefined;
+  const path = assetPath(kind, safeSubject, assetId, detected.ext);
+  const { error } = await sb.storage.from(ASSET_BUCKET).upload(path, buf, { contentType: detected.mime, upsert: false });
   if (error) throw new Error(`Storage: ${error.message}`);
-  return { path, ext, url: publicUrlFor(sb, path), bytes: file.size };
+  return { path, ext: detected.ext, url: publicUrlFor(sb, path), bytes: file.size };
 }
+
+/**
+ * F67 · el campo `url` (recurso externo sin subir fichero) solo admite http(s) o una ruta del propio sitio. Antes se
+ * guardaba tal cual: un `javascript:` o `data:` acababa en un `href` del panel.
+ */
+function safeAssetUrl(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  const v = raw.trim();
+  if (v.startsWith("/") && !v.startsWith("//")) return v.slice(0, 500);
+  try { const u = new URL(v); return u.protocol === "https:" || u.protocol === "http:" ? u.toString().slice(0, 500) : null; } catch { return null; }
+}
+
+class UploadRejected extends Error {}
 
 export async function POST(req: Request) {
   const admin = await verifyAdmin(req);
   if (!admin) return NextResponse.json({ error: "No autorizado (admin requerido)" }, { status: 401 });
   const sb = getSupabaseAdmin();
   if (!sb) return NextResponse.json({ error: "Supabase admin no configurado" }, { status: 503 });
+  // F67 · límite de frecuencia de las escrituras de esta ruta (cubeta en BD: vale con varios procesos).
+  { const rate = await takeRate(sb, admin.userId, "upload_write"); if (!rate.allowed) return NextResponse.json({ error: TOO_MANY, code: "RATE_LIMITED" }, { status: 429, headers: rateHeaders(rate.retryAfter) }); }
 
   const ct = req.headers.get("content-type") ?? "";
   const isMultipart = ct.includes("multipart/form-data");
   let form: FormData | null = null;
   let body: Record<string, unknown> = {};
-  if (isMultipart) form = await req.formData();
+  if (isMultipart) {
+    // F60 · el tamaño se mira ANTES de leer el cuerpo.
+    const len = Number(req.headers.get("content-length") ?? NaN);
+    if (!Number.isFinite(len) || len > LEGACY_MAX_BYTES + 64 * 1024) return NextResponse.json({ error: "Fichero demasiado grande o tamaño desconocido" }, { status: 413 });
+    form = await req.formData();
+  }
   else { try { body = await req.json(); } catch { /* vacío */ } }
 
   const f: Fields = (k) =>
@@ -70,7 +112,7 @@ export async function POST(req: Request) {
         const subjectId = f("subjectId") || undefined;
         const assetId = crypto.randomUUID();
 
-        let storagePath: string | null = null, url: string | null = f("url") ?? null;
+        let storagePath: string | null = null, url: string | null = safeAssetUrl(f("url")) ?? null;
         let format: string | null = null, bytes: number | null = null;
         let checksum: string | null = f("checksum") ?? null;
         if (file) {
@@ -114,7 +156,7 @@ export async function POST(req: Request) {
         const prev = cur as AssetRow;
 
         const assetId = crypto.randomUUID();
-        let storagePath: string | null = null, url: string | null = f("url") ?? prev.url;
+        let storagePath: string | null = null, url: string | null = safeAssetUrl(f("url")) ?? prev.url;
         let format: string | null = prev.format, bytes: number | null = prev.bytes;
         let checksum: string | null = f("checksum") ?? null;
         if (file) {
@@ -234,6 +276,9 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: `Acción desconocida: ${action}` }, { status: 400 });
     }
   } catch (e) {
-    return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 500 });
+    // F60 · sin detalle interno hacia el cliente (ni SQL ni Storage); el rechazo de validación sí se explica.
+    if (e instanceof UploadRejected) return NextResponse.json({ error: e.message }, { status: 400 });
+    console.error(`[admin/assets] ${e instanceof Error ? e.message : String(e)}`);
+    return NextResponse.json({ error: "No se pudo completar la operación" }, { status: 500 });
   }
 }

@@ -21,6 +21,7 @@
  * Se limpia todo lo que crea: usuario, eventos y filas. Un verificador que deja basura
  * acaba haciendo fallar al siguiente.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -59,8 +60,8 @@ const DAY = 86_400_000;
 const iso = (ms: number) => new Date(ms).toISOString();
 
 const profileOf = async (userId: string) => {
-  const { data } = await admin.from("profiles").select("credits, xp, tokens").eq("id", userId).maybeSingle();
-  return (data ?? { credits: 0, xp: 0, tokens: 0 }) as { credits: number; xp: number; tokens: number };
+  const { data } = await admin.from("profiles").select("credits, xp").eq("id", userId).maybeSingle();
+  return (data ?? { credits: 0, xp: 0 }) as { credits: number; xp: number };
 };
 
 async function main() {
@@ -69,7 +70,7 @@ async function main() {
   const stamp = Date.now();
   const now = Date.now();
   const { data: created, error: userErr } = await admin.auth.admin.createUser({
-    email: `events-${stamp}@example.invalid`, password: "Test-1234-events",
+    email: `events-${stamp}@example.invalid`, password: ephemeralQaPassword(),
     email_confirm: true, user_metadata: { username: `evqa${stamp}` },
   });
   if (userErr || !created.user) throw new Error(userErr?.message ?? "no se pudo crear el usuario");

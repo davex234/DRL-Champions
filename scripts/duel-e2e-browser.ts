@@ -15,6 +15,7 @@
  *
  * Limpia el usuario y todo lo que creó.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -110,7 +111,7 @@ async function main() {
 
   // ── Usuario real con cartas reales ──
   const email = `duel-e2e-${Date.now()}@example.invalid`;
-  const password = "Test-1234-duel";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "duele2e" },
   });
@@ -199,24 +200,30 @@ async function main() {
     await send("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
     await goto("/duelos", 2500);
     let text = await evalJs("document.body.innerText");
-    check("1 · /duelos carga con sesión iniciada", /Duelos/.test(text) && !/Necesitas una cuenta|Inicia sesión/i.test(text));
+    /*
+     * FASE 8 · Los titulares del producto van en versalitas por CSS, y `innerText` devuelve el
+     * texto RENDERIZADO: «DUELOS», no «Duelos». Lo que esta comprobación quiere saber es si la
+     * pantalla cargó CON SESIÓN, no de qué caja son sus letras, así que la comparación pasa a
+     * ser insensible a mayúsculas. La intención no cambia; la fragilidad se va.
+     */
+    check("1 · /duelos carga con sesión iniciada", /Duelos/i.test(text) && !/Necesitas una cuenta|Inicia sesión/i.test(text));
 
     // ═══════════════ 2 · Constructor ═══════════════
     await goto("/duelos/mazos", 2500);
     text = await evalJs("document.body.innerText");
-    check("2 · /duelos/mazos ofrece crear el primer mazo", /Crear mi primer mazo|Nuevo mazo/i.test(text));
+    check("2 · /duelos/mazos ofrece crear el primer mazo", /Crear mi primer (?:mazo|equipo)|Nuevo (?:mazo|equipo)/i.test(text));
 
     const built = await evalJs(`(async () => {
       const sleep = ms => new Promise(r => setTimeout(r, ms));
       const btns = () => [...document.querySelectorAll('button')];
-      const create = btns().find(b => /Crear mi primer mazo|\\+ Nuevo mazo/i.test(b.textContent));
+      const create = btns().find(b => /Crear mi primer (?:mazo|equipo)|\\+ Nuevo (?:mazo|equipo)/i.test(b.textContent));
       if (!create) return 'sin-boton-crear';
       create.click(); await sleep(900);
       const cards = btns().filter(b => /OVR \\d+$/.test(b.getAttribute('aria-label') || ''));
       if (cards.length < 10) return 'pocas-cartas:' + cards.length;
       for (const c of cards) { if (!c.disabled) c.click(); await sleep(60); }
       await sleep(400);
-      const save = btns().find(b => /Guardar mazo/i.test(b.textContent));
+      const save = btns().find(b => /Guardar (?:mazo|equipo)/i.test(b.textContent));
       if (!save || save.disabled) return 'guardar-bloqueado';
       save.click(); await sleep(2200);
       return document.body.innerText;
@@ -227,9 +234,11 @@ async function main() {
     // ═══════════════ 3 · Preparación ═══════════════
     await goto("/duelos/jugar", 2500);
     text = await evalJs("document.body.innerText");
-    check("4 · la preparación muestra mazo, rival y reglas",
-      /Preparación/.test(text) && /Fácil/.test(text) && /Normal/.test(text) && /Difícil/.test(text) && /Comenzar duelo/i.test(text));
-    check("5 · se explica que ningún nivel ve las cartas ocultas", /Ningún nivel ve las cartas que no has jugado/i.test(text));
+    // Ajuste UX · el selector solo dice FÁCIL / NORMAL / DIFÍCIL (mayúsculas por CSS: `innerText` las devuelve así) y ya no
+    // hay párrafo explicativo; las reglas compactas solo salen la primera vez que la cuenta entra (preferencia por cuenta).
+    check("4 · la preparación muestra mazo y rival (Fácil · Normal · Difícil)",
+      /Preparación/i.test(text) && /Fácil/i.test(text) && /Normal/i.test(text) && /Difícil/i.test(text) && /Comenzar duelo/i.test(text));
+    check("5 · selector limpio: sin etiquetas ni párrafo de dificultad", !/Ningún nivel ve las cartas que no has jugado|Imprevisible|Exigente/i.test(text));
 
     const started = await evalJs(`(async () => {
       const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -320,7 +329,9 @@ async function main() {
       for (const path of ["/duelos", "/duelos/mazos", "/duelos/jugar"]) {
         await goto(path, 2200);
         const t = String(await evalJs("document.body.innerText"));
-        if (/(EASY|NORMAL|HARD)/.test(t)) jerga.push(path);
+        // «NORMAL» en mayúsculas es el nombre en español (versalitas por CSS); los códigos internos delatores son EASY/HARD.
+        // (Antes la regex llevaba caracteres de retroceso literales en vez de `\b`: nunca podía coincidir.)
+        if (/\b(EASY|HARD)\b/.test(t)) jerga.push(path);
         if (/INSTALAR DRL CHAMPIONS/.test(t)) bannerEn.push(path);
       }
       check("las dificultades se nombran en español, sin códigos internos", jerga.length === 0, jerga.join(", "));
@@ -331,10 +342,10 @@ async function main() {
       const guardar = await evalJs(`(async () => {
         const s = ms => new Promise(r => setTimeout(r, ms));
         const B = () => [...document.querySelectorAll('button')];
-        const abrir = B().find(b => /Crear mi primer mazo|Nuevo mazo/i.test(b.textContent));
+        const abrir = B().find(b => /Crear mi primer (?:mazo|equipo)|Nuevo (?:mazo|equipo)/i.test(b.textContent));
         if (!abrir) return { error: 'sin acceso al constructor' };
         abrir.click(); await s(1200);
-        const g = () => B().find(b => /Guardar mazo/i.test(b.textContent));
+        const g = () => B().find(b => /Guardar (?:mazo|equipo)/i.test(b.textContent));
         const conCero = g() ? g().disabled : null;
         const c = B().filter(b => /OVR \\d+$/.test(b.getAttribute('aria-label') || ''))[0];
         if (c) { c.click(); await s(600); }

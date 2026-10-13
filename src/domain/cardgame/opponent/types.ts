@@ -84,7 +84,10 @@ export interface DecisionContext {
   legalStats: CombatStatKey[];
   /** Estadística que declaró el atacante, cuando el bot defiende. */
   attackerStat: CombatStatKey | null;
-  /** Valor que el bot debe superar para ganar, cuando defiende y lo conoce. */
+  /**
+   * Valor que el bot debe superar para ganar, si lo conociera. DUEL GAMEPLAY UX 2.0 · el controlador lo deja SIEMPRE en
+   * null: la carta atacante es secreta para el defensor hasta que este compromete la suya (bot o persona, igual).
+   */
   attackerValue: number | null;
   /** Cartas del rival que el bot puede ver, según su dificultad. */
   visibleOpponentCards: DuelDeckCard[];

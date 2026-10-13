@@ -20,6 +20,7 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/server/services/session";
 import { getEventView, claimEventChallenge } from "@/server/services/events";
+import { internalError } from "@/server/ops/log";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -39,10 +40,7 @@ export async function GET(req: Request) {
     if (!res.ok) return NextResponse.json({ error: res.error }, { status: res.status, headers: NO_STORE });
     return NextResponse.json(res.data ?? null, { headers: NO_STORE });
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "No se pudo leer el evento" },
-      { status: 500, headers: NO_STORE },
-    );
+    return internalError("api/game/events", e, req);
   }
 }
 
@@ -71,9 +69,6 @@ export async function POST(req: Request) {
     if (!res.ok) return NextResponse.json({ error: res.error }, { status: res.status, headers: NO_STORE });
     return NextResponse.json(res.data, { headers: NO_STORE });
   } catch (e) {
-    return NextResponse.json(
-      { error: e instanceof Error ? e.message : "No se pudo reclamar" },
-      { status: 500, headers: NO_STORE },
-    );
+    return internalError("api/game/events", e, req);
   }
 }

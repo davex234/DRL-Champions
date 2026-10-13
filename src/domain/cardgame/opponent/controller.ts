@@ -69,14 +69,13 @@ function visibleOpponentCards(match: DuelMatch, side: Side, bot: DuelOpponent): 
   return snapshot.cards.filter((c) => played.has(c.uid));             // solo lo ya jugado
 }
 
-/** Valor que el defensor debe superar, si el bot puede conocerlo. */
-function attackerValue(match: DuelMatch): number | null {
-  const { attackerCardUid, attackerStat } = match.draft;
-  if (!attackerCardUid || !attackerStat || match.attacker === null) return null;
-  const snap = match.attacker === "A" ? match.snapshotA : match.snapshotB;
-  const card = snap.cards.find((c) => c.uid === attackerCardUid);
-  return card ? card.combat[attackerStat] : null;
-}
+/*
+ * DUEL GAMEPLAY UX 2.0 · INFORMACIÓN OCULTA SIMÉTRICA. La carta que el atacante compromete es SECRETA para el defensor
+ * hasta que el defensor compromete la suya: la persona que defiende solo ve un reverso y la estadística declarada. El
+ * bot defensor no puede saber más que una persona en su lugar, así que ya NO recibe el valor de la carta atacante
+ * (`attackerValue` siempre null): responde sabiendo solo el eje, igual que tú. La estrategia ya tenía ese camino
+ * («sin saber contra qué compite, responde con su valor más alto en ese eje»).
+ */
 
 /** Construye el contexto de decisión. Es TODO lo que el bot puede ver. */
 function buildContext(
@@ -91,7 +90,7 @@ function buildContext(
     available,
     legalStats: isAttacker ? ALL_STATS : required ? [required] : [],
     attackerStat: match.draft.attackerStat,
-    attackerValue: isAttacker ? null : attackerValue(match),
+    attackerValue: null, // la carta atacante es secreta para el defensor (ver arriba)
     visibleOpponentCards: visibleOpponentCards(match, side, bot),
     scoreSelf: side === "A" ? match.scoreA : match.scoreB,
     scoreOpponent: side === "A" ? match.scoreB : match.scoreA,

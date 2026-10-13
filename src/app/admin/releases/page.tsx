@@ -8,7 +8,6 @@
  */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ADMIN_ENABLED } from "@/config/admin";
 import { adminFetch, adminDownload } from "@/lib/supabase/adminClient";
 import { cn } from "@/lib/format";
 import type {
@@ -56,18 +55,6 @@ const STATUS_STYLE: Record<ReleaseStatus, string> = {
 const DOT: Record<HealthLevel, string> = { green: "🟢", yellow: "🟡", red: "🔴", off: "⚪" };
 
 export default function ReleasesDashboardPage() {
-  if (!ADMIN_ENABLED) {
-    return (
-      <div className="grid min-h-[60vh] place-items-center text-center">
-        <div>
-          <p className="font-display text-2xl font-bold uppercase text-white">Acceso restringido</p>
-          <p className="mt-2 max-w-sm text-white/50">
-            El Release Dashboard requiere <code className="text-drl">NEXT_PUBLIC_ADMIN=1</code>.
-          </p>
-        </div>
-      </div>
-    );
-  }
   return <Dashboard />;
 }
 

@@ -55,9 +55,6 @@ export const claimMission = (missionId: string) =>
 export const claimAchievement = (achievementId: string) =>
   post<{ credits: number }>({ action: "claimAchievement", achievementId });
 
-/** Abre el carril de pago con FICHAS. No hay compra con dinero real (§12). */
-export const unlockPremiumWithTokens = () => post<{ premium: true }>({ action: "unlockPremium" });
-
 /**
  * Equipa (o retira, con `null`) un cosmético. La propiedad la comprueba el servidor.
  */

@@ -102,7 +102,7 @@ const BASE: EventChallengeDef[] = [
     description: "Envía una predicción del evento.",
     metric: "event_picks_made",
     goal: 1,
-    reward: { credits: 500, xp: 50, tokens: 15 },
+    reward: { credits: 500, xp: 50},
   },
   {
     id: "pronostico",
@@ -110,7 +110,7 @@ const BASE: EventChallengeDef[] = [
     description: "Acierta 3 predicciones del evento.",
     metric: "event_picks_correct",
     goal: 3,
-    reward: { credits: 1000, xp: 100, tokens: 25 },
+    reward: { credits: 1000, xp: 100},
   },
   {
     id: "competir",
@@ -134,7 +134,7 @@ const BASE: EventChallengeDef[] = [
     description: "Abre 5 sobres mientras dure el evento.",
     metric: "event_packs_opened",
     goal: 5,
-    reward: { credits: 500, xp: 80, tokens: 20 },
+    reward: { credits: 500, xp: 80},
   },
 ];
 
@@ -148,7 +148,7 @@ const INTERNACIONAL: EventChallengeDef = {
   description: "Suma 40 puntos en las predicciones del evento.",
   metric: "event_pickem_points",
   goal: 40,
-  reward: { credits: 1500, xp: 200, tokens: 40 },
+  reward: { credits: 1500, xp: 200},
 };
 
 /**
@@ -196,12 +196,11 @@ export const challengeRef = (eventId: string, challengeId: string): string =>
 
 /** Lo que reparte un conjunto entero. Sirve para la vitrina («qué puedo ganar») y para el informe. */
 export function totalReward(challenges: EventChallengeDef[]): Reward {
-  const out: Reward = { credits: 0, xp: 0, tokens: 0 };
+  const out: Reward = { credits: 0, xp: 0 };
   const packs: string[] = [];
   for (const c of challenges) {
     out.credits = (out.credits ?? 0) + (c.reward.credits ?? 0);
     out.xp = (out.xp ?? 0) + (c.reward.xp ?? 0);
-    out.tokens = (out.tokens ?? 0) + (c.reward.tokens ?? 0);
     for (let i = 0; i < (c.reward.packCount ?? 0); i++) if (c.reward.packId) packs.push(c.reward.packId);
   }
   if (packs.length > 0) { out.packId = packs[0]; out.packCount = packs.length; }

@@ -15,7 +15,7 @@ import { CARDS, getPlayer } from "../src/data/catalog";
 import { tick, type RoundState } from "../src/sim";
 import { createMatch, stepMatch, simulateMatch, makeMatchConfig, matchBroadcastContext, type MatchState } from "../src/match";
 import { buildHomeRoster, buildRivalRoster } from "../src/lib/match/roster";
-import { computeMatchOutcomeReward } from "../src/lib/match/rewards";
+import { summarizeMatch } from "../src/lib/match/rewards";
 import { economyBroadcastContext } from "../src/economy";
 import { coachBroadcastContext } from "../src/coach";
 import { loadoutBroadcastContext } from "../src/buy";
@@ -87,14 +87,14 @@ while (m.phase !== "MATCH_END") {
   m = advance(stepMatch(m, () => finished));
 }
 
-// 3) Pantalla final + recompensa.
-const reward = computeMatchOutcomeReward(m);
+// 3) Pantalla final + resumen (F69 · F68-010: el Coach no concede créditos ni XP).
+const summary = summarizeMatch(m);
 
 console.log("## Resultado del partido");
 console.log(`  Marcador final: ${m.score.home}-${m.score.away} · gana ${m.winner} en ${m.history.length} rondas`);
 console.log(`  MVP: ${m.mvp?.name ?? "—"} (${m.mvp?.kills ?? 0} bajas)`);
 console.log(`  Narrativa: ${m.narrative?.summary.headline ?? "—"}`);
-console.log(`  Recompensa: +${reward.credits} créditos, +${reward.xp} XP`);
+console.log(`  Resumen: ${summary.teamKills} bajas del equipo (sin créditos ni XP)`);
 console.log(`  Frames de broadcast/render generados: ${bsFrames}`);
 
 console.log("\n## Comprobaciones (camino real de la UI)");
@@ -103,7 +103,7 @@ check("hay ganador y MVP", m.winner != null && m.mvp != null, `${m.winner} · MV
 check("marcador coherente con el historial", m.score.home + m.score.away === m.history.length);
 check("la narrativa del partido está lista para la pantalla final", m.narrative != null && m.narrative.match.rounds === m.history.length);
 check("hay eventos de compra y de combate para mostrar", m.buyEvents.length > 0 && m.combatEvents.length > 0);
-check("la recompensa vuelve a la colección (créditos + XP)", reward.credits > 0 && reward.xp > 0);
+check("el resumen del entrenamiento no lleva créditos ni XP", !("credits" in summary) && !("xp" in summary));
 check("el Broadcast se alimenta cada ronda sin romper (scoreboard real)", bsFrames > 0 && failures === 0);
 
 // 4) El bucle de la UI coincide con el motor headless (fidelidad).

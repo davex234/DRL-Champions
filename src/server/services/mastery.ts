@@ -52,7 +52,7 @@ const fail = (status: number, error: string): ServiceResult<never> => ({ ok: fal
  * corte.
  */
 function assertNoCredits(reward: Reward, where: string): void {
-  const money = (reward.credits ?? 0) + (reward.tokens ?? 0) + (reward.xp ?? 0)
+  const money = (reward.credits ?? 0) + (reward.xp ?? 0)
     + (reward.packCount ?? 0) + (reward.cardId ? 1 : 0);
   if (money > 0) {
     throw new Error(`La maestría solo reparte cosméticos, y ${where} intenta pagar otra cosa`);

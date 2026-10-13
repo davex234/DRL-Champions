@@ -74,6 +74,12 @@ export function guidanceFor(packId: string): PackGuidance | null {
   // Gana la rareza MÁS ALTA para la que este sobre es la vía barata: es la que lo define.
   let bestFor: RarityBucket | null = null;
   for (const b of BUCKETS) if (CHEAPEST[b]?.packId === packId) bestFor = b;
+  /*
+   * Fase 57.3 · salvo que sea la vía barata de una rareza DE COLECCIÓN: entonces eso lo define. Desde la tabla por clase,
+   * Bronce es a la vez el más barato por común y por épica, y anunciarlo «para perseguir rareza» sería falso.
+   */
+  const breadthWin = [...BREADTH].reverse().find((b) => CHEAPEST[b]?.packId === packId); // la más alta de colección
+  if (breadthWin) bestFor = breadthWin;
   const bestCost = bestFor ? (CHEAPEST[bestFor]?.cost ?? null) : null;
 
   const warnings: string[] = [];

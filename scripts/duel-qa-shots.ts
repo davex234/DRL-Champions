@@ -13,6 +13,7 @@
  *
  * Crea su propio usuario y lo borra al terminar.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -95,7 +96,7 @@ async function main() {
   console.log(`# Capturas de QA — ${BASE} → docs/product/qa/\n`);
 
   const email = `qa-shot-${Date.now()}@example.invalid`;
-  const password = "Test-1234-qa";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { username: "qashot" } });
   if (error || !created.user) throw new Error(error?.message);
   const userId = created.user.id;
@@ -194,7 +195,7 @@ async function main() {
         const cards=()=>B().filter(b=>/OVR \\d+$/.test(b.getAttribute('aria-label')||''));
         for(let i=0;i<6;i++){
           const c0=cont(); if(c0){c0.click(); await s(400);}
-          if(/Responde con una carta/.test(T())) return 'defendiendo';
+          if(/obligado a responder con/i.test(T())) return 'defendiendo';
           if(!conf()) break;
           cards()[0].click(); await s(250);
           const st=B().filter(b=>!b.getAttribute('aria-label')&&/^(SH|GS|EF)/.test(b.textContent.trim()));
@@ -214,6 +215,27 @@ async function main() {
           const st=B().filter(b=>!b.getAttribute('aria-label')&&/^(SH|GS|EF)/.test(b.textContent.trim()));
           if(st.length===3){st[0].click(); await s(250);} conf().click(); await s(900);} })()`);
       await shot(`13-reveal-${tag}`);
+
+      /*
+       * MEDIA PARTIDA. La captura que cuenta el rediseño: con varios turnos jugados, las
+       * cartas gastadas siguen SOBRE la mesa —las tuyas abajo, las del rival arriba, cada
+       * una con la marca de lo que pasó en su turno— y el tablero cuenta la partida solo.
+       * Antes esta captura habría sido idéntica a la del turno 1.
+       */
+      const acumulado = await js(`(async()=>{const s=ms=>new Promise(r=>setTimeout(r,ms));const B=()=>[...document.querySelectorAll('button')];
+        const cont=()=>B().find(b=>b.textContent.trim()==='Continuar');
+        const conf=()=>B().find(b=>/^(Elige una carta|Elige una estadística|Declarar y atacar|Responder)$/.test(b.textContent.trim()));
+        const cards=()=>B().filter(b=>/OVR \d+$/.test(b.getAttribute('aria-label')||''));
+        for(let i=0;i<3;i++){ const c0=cont(); if(c0){c0.click(); await s(420);} if(!conf()) break;
+          const l=cards(); if(!l.length) break; l[0].click(); await s(240);
+          const st=B().filter(b=>!b.getAttribute('aria-label')&&/^(SH|GS|EF)/.test(b.textContent.trim()));
+          if(st.length===3){st[0].click(); await s(240);} const c=conf(); if(!c||c.disabled) break; c.click(); await s(2000);}
+        const c1=cont(); if(c1){c1.click(); await s(700);}
+        const filas=[...document.querySelectorAll('[role="list"]')].map(l=>({
+          zona:l.getAttribute('aria-label'), cartas:l.querySelectorAll('[role="listitem"]').length}));
+        return JSON.stringify(filas);})()`);
+      await shot(`13b-arena-media-partida-${tag}`);
+      console.log(`     ${tag}px · cartas en la mesa: ${acumulado}`);
 
       // Terminar y capturar resultado + replay.
       await js(`(async()=>{const s=ms=>new Promise(r=>setTimeout(r,ms));const B=()=>[...document.querySelectorAll('button')];const T=()=>document.body.innerText;

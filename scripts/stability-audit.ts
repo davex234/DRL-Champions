@@ -18,6 +18,7 @@
  *
  * No arregla nada: solo mide. El informe sale ordenado por severidad.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -163,7 +164,6 @@ async function seedUser(admin: SupabaseClient, userId: string): Promise<string[]
     p_reason: "admin",
     p_credits: 25_000,
     p_xp: 1500,
-    p_tokens: 500,
     p_pack_id: "estandar",
     p_pack_count: 3,
   });
@@ -532,7 +532,7 @@ async function main() {
 
   const admin = createClient(URL_, SERVICE, { auth: { persistSession: false } });
   const email = `audit-${Date.now()}@example.invalid`;
-  const password = "Test-1234-audit";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "auditor" },
   });

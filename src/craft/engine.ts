@@ -58,7 +58,7 @@ export class CraftEngine {
   private static failResult(recipe: Recipe, ctx: CraftContext, issues: CraftIssue[]): CraftResult {
     return {
       ok: false, recipeId: recipe.id, kind: recipe.kind, issues, removedUids: [], instances: [],
-      mintDelta: {}, materialsAfter: ctx.materials, creditsAfter: ctx.credits, tokensAfter: ctx.tokens, events: [],
+      mintDelta: {}, materialsAfter: ctx.materials, creditsAfter: ctx.credits, events: [],
     };
   }
 
@@ -73,12 +73,11 @@ export class CraftEngine {
     const { picked, issues: inIssues } = resolveInputs(this.registry, own, ctx.owned, recipe.input, ctx.locks, ctx.selection);
     if (inIssues.length) return CraftEngine.failResult(recipe, ctx, inIssues);
 
-    // 2) Coste (materiales/créditos/tokens).
+    // 2) Coste (materiales/créditos).
     const cost = recipe.cost ?? {};
     const costIssues: CraftIssue[] = [];
     if (cost.materials && !hasMaterials(ctx.materials, cost.materials)) costIssues.push({ code: "INSUFFICIENT_MATERIALS", message: "Materiales insuficientes." });
     if ((cost.credits ?? 0) > ctx.credits) costIssues.push({ code: "INSUFFICIENT_CREDITS", message: "Créditos insuficientes." });
-    if ((cost.tokens ?? 0) > ctx.tokens) costIssues.push({ code: "INSUFFICIENT_TOKENS", message: "Tokens insuficientes." });
     if (costIssues.length) return CraftEngine.failResult(recipe, ctx, costIssues);
 
     // 3) Salida (identidad preservada; debe existir en el catálogo).
@@ -113,10 +112,9 @@ export class CraftEngine {
     const materialsAfter: Materials = { ...ctx.materials };
     for (const k of BUCKETS) materialsAfter[k] = (materialsAfter[k] ?? 0) - (costM[k] ?? 0) + gained[k];
     const creditsAfter = ctx.credits - (cost.credits ?? 0) + creditsGain;
-    const tokensAfter = ctx.tokens - (cost.tokens ?? 0);
 
     const events = craftEvents(this.registry, own, recipe.kind, picked, instances, gained, cost.materials ?? {}, ctx.now);
 
-    return { ok: true, recipeId: recipe.id, kind: recipe.kind, issues: [], removedUids, instances, mintDelta, materialsAfter, creditsAfter, tokensAfter, events };
+    return { ok: true, recipeId: recipe.id, kind: recipe.kind, issues: [], removedUids, instances, mintDelta, materialsAfter, creditsAfter, events };
   }
 }

@@ -111,6 +111,7 @@ const NOTE_REASON: Record<string, string> = {
   endorse_plan: "La lectura automática es sólida; el plan se mantiene.",
   lean_force: "La economía aconseja forzar esta ronda.",
   lean_save: "La economía aconseja salvar para la siguiente.",
+  pistol_round: "Ronda pistola: nadie tiene nada que guardar; se juega el plan con lo que da el presupuesto inicial.",
 };
 
 /** Frases en español que explican la recomendación de la IA (estilo analista). */
@@ -136,7 +137,8 @@ export function recommendationReasons(
     }
   }
 
-  if (scout.enemyEconomy.buyingPower < 0.5) {
+  // F69 · F68-011: en la ronda 1 los dos equipos tienen el dinero inicial; «tocada» no aplica.
+  if (match.roundNumber > 1 && scout.enemyEconomy.buyingPower < 0.5) {
     out.push("Su economía está tocada: aprovecha la ventaja de armamento.");
   }
 

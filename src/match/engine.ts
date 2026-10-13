@@ -12,7 +12,7 @@
 import { createRound, tick, nextRoundMemory, TPS, type CoachSetup, type RoundState, type Side } from "@/sim";
 import { buildMatchNarrative } from "@/narrative";
 import {
-  createEconomy, planRound, commitBuy, settleRound, buyContexts, detectEconomicEvents, buildTacticalSetup,
+  createEconomy, planRound, commitBuy, settleRound, buyContexts, detectEconomicEvents, buildTacticalSetup, startSecondHalf,
 } from "@/economy";
 import { buildRoundPlan, planToSetup, type PrepContext, type RoundPlan } from "@/preparation";
 import { runCoach, detectCoachEvents, type CoachContext } from "@/coach";
@@ -439,6 +439,8 @@ function onSideSwitch(s: MatchState): MatchState {
     ...s,
     phase: "ROUND_PREPARATION",
     currentHomeSide,
+    // FULL GAME AUDIT · el descanso reinicia la economía (segunda pistola): ver `startSecondHalf`.
+    economy: s.economy ? startSecondHalf(s.economy) : s.economy,
     events: [...s.events, ev("SIDE_SWITCHED", s.roundNumber, { homeSide: currentHomeSide })],
   };
 }

@@ -7,10 +7,14 @@
  * avisa al contenedor para que recargue, y es el SERVIDOR quien confirma si la
  * pregunta sigue abierta (`app_submit_pick` compara con `now()` de la base de
  * datos). Un usuario con el reloj atrasado seguirá recibiendo un 409.
+ *
+ * Fase 24.2: todas las cuentas atrás de la pantalla laten con UN solo reloj compartido
+ * (`useNow`); antes cada una tenía su `setInterval`.
  */
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useNow } from "@/lib/useNow";
 
-function format(ms: number): string {
+export function formatRemaining(ms: number): string {
   if (ms <= 0) return "Cerrada";
   const s = Math.floor(ms / 1000);
   const d = Math.floor(s / 86400);
@@ -27,35 +31,31 @@ export function Countdown({
   to,
   onExpire,
   className,
+  prefix = "Cierra en",
 }: {
   /** Instante de cierre (ISO). */
   to: string;
   /** Se llama una sola vez al llegar a cero, para que el contenedor recargue. */
   onExpire?: () => void;
   className?: string;
+  prefix?: string;
 }) {
   const target = new Date(to).getTime();
-  const [remaining, setRemaining] = useState(() => target - Date.now());
+  const now = useNow(1000);
+  const remaining = now === 0 ? 1 : target - now;
+  const fired = useRef(false);
 
   useEffect(() => {
-    if (target - Date.now() <= 0) return;
-    // Cada segundo si queda menos de una hora; cada minuto si queda más. No tiene
-    // sentido re-renderizar 60 veces por minuto una cuenta atrás de tres días.
-    const near = target - Date.now() < 3600_000;
-    const id = setInterval(() => {
-      const left = target - Date.now();
-      setRemaining(left);
-      if (left <= 0) { clearInterval(id); onExpire?.(); }
-    }, near ? 1000 : 30_000);
-    return () => clearInterval(id);
-  }, [target, onExpire]);
+    if (now === 0) return;
+    if (target - now <= 0 && !fired.current) { fired.current = true; onExpire?.(); }
+  }, [now, target, onExpire]);
 
   const urgent = remaining > 0 && remaining < 3600_000;
 
   return (
     <span className={className} title={new Date(to).toLocaleString("es-ES")}>
       {remaining > 0 ? (
-        <>Cierra en <span className={urgent ? "text-drl" : undefined}>{format(remaining)}</span></>
+        <>{prefix} <span className={urgent ? "text-drl" : undefined}>{formatRemaining(remaining)}</span></>
       ) : (
         "Cerrada"
       )}

@@ -13,14 +13,14 @@ import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { type CompetitiveSource, normalizeStatus, type RawMatch } from "./source";
 import { mockSource } from "./mock";
 import {
-  circuitRow, eventRow, teamRow, matchRow, matchMapRow, mapPlayerStatRow,
-} from "./mappers";
+  circuitRow, eventRow, teamRow, matchRow, matchMapRow, mapPlayerStatRow, progressionRow } from "./mappers";
 import {
   upsertCircuits, upsertTeams, upsertPlayers, upsertEvent, upsertStages, upsertMatches, upsertMatchMaps,
-  upsertMapStats, upsertPlayerStats, recomputeStandings, recomputeTeamStats,
+  upsertMapStats, upsertPlayerStats, upsertMatchProgression, recomputeStandings, recomputeTeamStats,
   recomputePlayerEventStats, setSyncState, logNotification,
 } from "./writers";
-import { runPickemLifecycle } from "@/server/services/pickemLifecycle";
+import { runPickemLifecycle, type LifecycleOptions } from "@/server/services/pickemLifecycle";
+import { hasProgressionColumns } from "./schemaCompat";
 
 export interface SyncResult {
   tournamentId: string;
@@ -32,7 +32,13 @@ export interface SyncResult {
   ok: boolean;
   error?: string;
   /** Qué hizo el ciclo de Pick'ems en esta pasada (Fase 10). */
-  pickem?: { created: number; resolved: number; scored: boolean; usersScored: number };
+  pickem?: { created: number; resolved: number; corrected: number; scored: boolean; usersScored: number; notes: string[] };
+  /**
+   * Fase 24.4 · estructura del cuadro escrita en esta pasada (solo CONFIRMED).
+   * Fase 24.6 · `skipped: "pre-0045"` cuando el esquema no tiene aún las columnas: la estructura
+   * confirmada se conserva en memoria del resultado pero no se escribe, y el sync sigue.
+   */
+  structure?: { confirmed: number; qualification: number; unknown: number; skipped?: "pre-0045" };
 }
 
 /** Resuelve el ganador de un mapa a partir de marcadores y equipos del partido. */
@@ -98,6 +104,11 @@ export interface SyncOptions {
    * corregir predicciones de golpe sobre un torneo entero ya terminado.
    */
   pickems?: boolean;
+  /**
+   * Fase 24.6 · opciones del ciclo de Pick'ems (p. ej. partidos cuyo resultado la fuente ha
+   * CORREGIDO y cuya pregunta debe reconciliarse). Sin esto, el ciclo se comporta como siempre.
+   */
+  lifecycle?: LifecycleOptions;
 }
 
 /** Sincroniza un torneo completo (equipos, jugadores, fases, partidos, mapas, stats). */
@@ -172,6 +183,31 @@ export async function syncTournament(
     await upsertMatches(sb, matchRows);
     result.matches = matches.length;
 
+    /*
+     * 4-bis. ESTRUCTURA DEL CUADRO (Fase 24.4) — después de los partidos, porque las FK de
+     * destino apuntan a `matches`. Solo los partidos con estructura CONFIRMADA: los demás no
+     * se tocan, así que una pasada sin cuadro no borra la estructura de una pasada anterior.
+     */
+    const knownIds = new Set(matches.map((m) => m.id));
+    const progressionRows = matches
+      .map((m) => progressionRow(m))
+      .filter((r): r is Record<string, unknown> => !!r)
+      .filter((r) => (!r.winner_to_match_id || knownIds.has(String(r.winner_to_match_id)))
+        && (!r.loser_to_match_id || knownIds.has(String(r.loser_to_match_id))));
+    /*
+     * Fase 24.6 · PRE-0045: sin las columnas, el upsert parcial fallaría con 42703 y tumbaría el
+     * sync entero (partidos, resultados y Pick'ems incluidos). Se sonda una vez y se degrada a
+     * «sin estructura» — que es exactamente lo que ese esquema puede representar.
+     */
+    const canWriteStructure = progressionRows.length ? await hasProgressionColumns(sb) : true;
+    if (progressionRows.length && canWriteStructure) await upsertMatchProgression(sb, progressionRows);
+    result.structure = {
+      confirmed: progressionRows.length,
+      qualification: progressionRows.filter((r) => r.winner_qualifies).length,
+      unknown: matches.length - progressionRows.length,
+      ...(canWriteStructure ? {} : { skipped: "pre-0045" as const }),
+    };
+
     // 5. Detalle por mapa + scoreboard de los partidos finalizados
     for (const summary of finished) {
       const detail = (summary.maps?.length ? summary : await source.getMatchDetail(summary.id)) ?? summary;
@@ -221,12 +257,14 @@ export async function syncTournament(
      * predicciones es un problema; un torneo sin resultados es un producto roto.
      */
     if (opts.pickems !== false) {
-      const loop = await runPickemLifecycle(sb, tournamentId);
+      const loop = await runPickemLifecycle(sb, tournamentId, Date.now(), opts.lifecycle);
       result.pickem = {
         created: loop.created,
         resolved: loop.resolved,
+        corrected: loop.corrected,
         scored: loop.scored,
         usersScored: loop.usersScored,
+        notes: loop.notes,
       };
       if (loop.notes.length > 0) {
         await logNotification(

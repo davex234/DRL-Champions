@@ -19,22 +19,26 @@
  * usa MotionValues (no provoca re-render de React); datos derivados memoizados; capas
  * decorativas con pointer-events:none; un único backdrop-filter (en el overlay).
  */
-import { useEffect, useMemo, useState } from "react";
+import { lockScroll } from "@/lib/gameExperience/scrollLock";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import type { CardDef } from "@/domain/cards/types";
 import { getPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
+import { canonicalCardTeam } from "@/data/teamIdentities";
 import { getTeam } from "@/data/teams";
 import { countryName } from "@/data/countries";
-import { STAT_META, STAT_ORDER } from "@/domain/cards/ovr";
+import { displayedStats } from "@/domain/cards/ovr";
 import { instanceValue } from "@/domain/economy/pricing";
 import { formatCredits } from "@/lib/format";
 import { CardRenderer } from "./CardRenderer";
+import { CardFace, CardVisual } from "./CardVisual";
 import { TeamLogo } from "./layers/TeamLogo";
 import { Flag } from "./layers/Flag";
 import { PriceSparkline } from "@/components/market/PriceSparkline";
 import { ROLE_KIT, accoladeLabels, recommendedAgent, buildDescription } from "./cardLore";
+import { CreditGlyph, GameGlyph } from "@/components/ui/game/GameGlyph";
 
 const SEASON = "Temporada 2025";
 
@@ -48,6 +52,12 @@ export interface CardViewerAction {
 export interface CardViewerProps {
   card: CardDef;
   serial?: number;
+  /**
+   * El ejemplar que se está mirando, cuando se mira uno concreto. Con él, el visor enseña el
+   * artwork hecho a mano de SU versión; sin él —una carta del catálogo que aún no tienes—
+   * enseña el dibujado por capas, que es lo que siempre hizo.
+   */
+  uid?: string;
   ownership?: { owned?: boolean; count?: number; locked?: boolean };
   priceSeries?: number[];
   onClose: () => void;
@@ -57,19 +67,24 @@ export interface CardViewerProps {
   children?: React.ReactNode;
 }
 
-export function CardViewer({ card, serial, ownership, priceSeries, onClose, actions, children }: CardViewerProps) {
+export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose, actions, children }: CardViewerProps) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  // ESC para cerrar + bloqueo de scroll del fondo.
+  // ESC para cerrar + bloqueo de scroll del fondo. F64 · y el FOCO: entra en la ficha al abrirla y vuelve al que la abrió.
+  const layer = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    // Fase 44.1 · bloqueo compartido con contador (antes guardaba/restauraba body por su cuenta y podía fugarse).
+    const release = lockScroll();
+    const t = window.setTimeout(() => layer.current?.focus({ preventScroll: true }), 30);
     return () => {
+      window.clearTimeout(t);
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
+      release();
+      if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
     };
   }, [onClose]);
 
@@ -79,7 +94,8 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
   const data = useMemo(() => {
     if (!player) return null;
     const team = getTeam(player.team);
-    const kit = ROLE_KIT[player.role];
+    const rol = card.role ?? player.role;
+    const kit = ROLE_KIT[rol];
     const value = instanceValue(card, serial);
     const variation =
       priceSeries && priceSeries.length >= 2
@@ -91,13 +107,13 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
       value,
       variation,
       accolades: accoladeLabels(player),
-      agent: recommendedAgent(player.role),
-      description: buildDescription(player, variant, team?.name ?? player.team),
+      agent: recommendedAgent(rol),
+      description: buildDescription(player, variant, canonicalCardTeam(card, player).label, rol),
     };
   }, [player, variant, card, serial, priceSeries]);
 
   if (!mounted || !player || !data) return null;
-  const { team, kit, value, variation, accolades, agent, description } = data;
+  const { kit, value, variation, accolades, agent, description } = data;
   const color = variant.palette.primary;
   const owned = ownership?.owned ?? true;
   const count = ownership?.count ?? 0;
@@ -118,6 +134,9 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
       }}
       role="dialog"
       aria-modal="true"
+      aria-label={`Ficha de la carta ${card.id}`}
+      ref={layer}
+      tabIndex={-1}
     >
       <motion.div
         className="relative flex max-h-[94vh] w-full max-w-[1200px] flex-col overflow-hidden rounded-3xl border border-white/10 bg-base-900/70 shadow-2xl lg:flex-row"
@@ -131,9 +150,9 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
         <button
           onClick={onClose}
           aria-label="Cerrar"
-          className="absolute right-3 top-3 z-20 grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-black/40 text-white/70 backdrop-blur transition hover:bg-white/10 hover:text-white"
+          className="nx-clip-sm nx-press nx-focus absolute right-3 top-3 z-20 grid h-11 w-11 place-items-center border border-white/15 bg-black/40 text-white/70 backdrop-blur transition hover:bg-white/10 hover:text-white"
         >
-          ✕
+          <GameGlyph name="close" className="h-4 w-4" />
         </button>
 
         {/* ───────── Escenario de la carta (izquierda) ───────── */}
@@ -152,16 +171,26 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
               transition={{ delay: 0.08, type: "spring", stiffness: 120, damping: 16 }}
               style={{ transformPerspective: 1200 }}
             >
-              <CardRenderer
-                player={player}
-                variant={variant}
-                stats={card.stats}
-                ovr={card.ovr}
-                serial={serial}
-                size="xl"
-                interactive
-                effects
-              />
+              {card.image ? (
+                /* Catálogo diseñado: la carta ES su imagen (con OVR, rol y estadísticas impresos). */
+                <CardFace artwork={{ url: card.image, cardId: card.id, cardVersion: 1, format: "webp" }}
+                  alt={`Carta de ${player.nick} · ${variant.label}`} chamfer="25px" className="w-[360px]">
+                  <CardRenderer player={player} variant={variant} stats={card.stats} ovr={card.ovr} serial={serial} size="xl" interactive effects />
+                </CardFace>
+              ) : (
+                <CardVisual uid={uid} alt={`Carta de ${card.id}`} chamfer="25px" className="w-[360px]">
+                  <CardRenderer
+                    player={player}
+                    variant={variant}
+                    stats={card.stats}
+                    ovr={card.ovr}
+                    serial={serial}
+                    size="xl"
+                    interactive
+                    effects
+                  />
+                </CardVisual>
+              )}
             </motion.div>
             {/* Reflejo en el suelo */}
             <div
@@ -211,15 +240,15 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
             <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
               <Meta label="Equipo">
                 <TeamLogo team={player.team} size={18} />
-                <span className="truncate">{team?.name ?? player.team}</span>
+                <span className="truncate">{canonicalCardTeam(card, player).label}</span>
               </Meta>
               <Meta label="Nacionalidad">
                 <Flag iso={player.country} width={18} />
                 <span className="truncate">{countryName(player.country)}</span>
               </Meta>
-              <Meta label="Rol">{player.role}</Meta>
+              <Meta label="Rol">{card.role ?? player.role}</Meta>
               <Meta label="Región">{player.region}</Meta>
-              <Meta label="Colección">{variant.group}</Meta>
+              <Meta label="Edición">{variant.label}</Meta>
               <Meta label="Temporada">{SEASON}</Meta>
               <Meta label="Agente">{agent}</Meta>
               <Meta label="Estado">{owned ? (locked ? "Bloqueada" : "En posesión") : "No obtenida"}</Meta>
@@ -229,18 +258,18 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
             {/* Estadísticas */}
             <Section title="Estadísticas">
               <div className="grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
-                {STAT_ORDER.map((key) => (
+                {displayedStats(card).map(({ key, full, value }) => (
                   <div key={key}>
                     <div className="flex justify-between text-xs">
-                      <span className="text-white/60">{STAT_META[key].full}</span>
-                      <span className="font-display font-bold tabular-nums text-white">{card.stats[key]}</span>
+                      <span className="text-white/60">{full}</span>
+                      <span className="font-display font-bold tabular-nums text-white">{value}</span>
                     </div>
                     <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-white/10">
                       <motion.div
                         className="h-full rounded-full"
                         style={{ background: color }}
                         initial={{ width: 0 }}
-                        animate={{ width: `${card.stats[key]}%` }}
+                        animate={{ width: `${value}%` }}
                         transition={{ duration: 0.5, ease: "easeOut" }}
                       />
                     </div>
@@ -250,7 +279,7 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
             </Section>
 
             {/* Kit recomendado (habilidades + traits por rol) */}
-            <Section title={`Kit recomendado · ${player.role}`}>
+            <Section title={`Kit recomendado · ${card.role ?? player.role}`}>
               <div className="space-y-1.5">
                 {kit.abilities.map((a) => (
                   <div key={a.name} className="flex gap-2 text-[13px]">
@@ -286,7 +315,7 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
               <div className="flex items-center justify-between rounded-xl border border-drl-gold/30 bg-drl-gold/10 px-4 py-2.5">
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-white/40">Valor estimado</p>
-                  <p className="font-display text-xl font-bold text-drl-gold">🪙 {formatCredits(value)}</p>
+                  <p className="font-display text-xl font-bold text-drl-gold"><CreditGlyph className="align-[-3px]" /> {formatCredits(value)}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   {variation != null && (
@@ -318,11 +347,11 @@ export function CardViewer({ card, serial, ownership, priceSeries, onClose, acti
                   onClick={a.onClick}
                   className={
                     a.variant === "primary"
-                      ? "flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-4 py-2 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
-                      : "flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2 font-display text-sm font-bold uppercase tracking-wide text-white/75 transition hover:bg-white/10 hover:text-white"
+                      ? "nx-clip-sm nx-press flex min-h-[44px] items-center gap-1.5 bg-drl px-4 py-2 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
+                      : "nx-clip-sm nx-press flex min-h-[44px] items-center gap-1.5 border border-white/15 bg-white/5 px-4 py-2 font-display text-sm font-bold uppercase tracking-wide text-white/75 transition hover:bg-white/10 hover:text-white"
                   }
                 >
-                  <span>{a.icon}</span>
+                  <GameGlyph symbol={a.icon} className="h-4 w-4" />
                   {a.label}
                 </button>
               ))}
@@ -370,7 +399,7 @@ function RankStars({ rank, color }: { rank: number; color: string }) {
 function StateChips({ owned, locked, count, serialized }: { owned: boolean; locked: boolean; count: number; serialized: boolean }) {
   return (
     <>
-      {!owned && <Chip className="border-white/20 bg-white/5 text-white/60">🔒 No obtenida</Chip>}
+      {!owned && <Chip className="border-white/20 bg-white/5 text-white/60"><GameGlyph name="lock" className="mr-1 align-[-2px]" />No obtenida</Chip>}
       {locked && <Chip className="border-amber-400/40 bg-amber-400/10 text-amber-300">Bloqueada</Chip>}
       {count > 1 && <Chip className="border-drl/40 bg-drl/15 text-drl">Repetida ×{count}</Chip>}
       {serialized && <Chip className="border-drl-cyan/40 bg-drl-cyan/10 text-drl-cyan">Serie limitada</Chip>}

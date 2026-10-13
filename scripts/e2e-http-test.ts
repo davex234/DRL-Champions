@@ -9,6 +9,7 @@
  * códigos correctos. Es la diferencia entre "el servicio funciona" y "el usuario
  * puede usarlo".
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -64,7 +65,7 @@ async function main() {
 
   // Usuario real
   const email = `e2e-${Date.now()}@example.invalid`;
-  const password = "Test-1234-e2e";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "e2e" },
   });

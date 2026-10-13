@@ -14,6 +14,7 @@
  */
 import type { CardDef, OwnedCard, Player, PlayerStats, RoleId } from "@/domain/cards/types";
 import type { Attributes, Identity, Role, RosterEntry, SimPlayerMeta } from "@/sim";
+import { hasPlayerPhoto } from "@/data/playerPhotos";
 import { PROFILES, type ArchetypeId } from "@/sim";
 
 /** Insumo del mapper: una carta poseída ya resuelta a sus piezas de dominio. */
@@ -120,8 +121,13 @@ export function deriveIdentity(player: Player, role: Role, ovr: number): Identit
 // ---------------------------------------------------------------------------
 // 4) Metadata de retransmisión (foto/equipo/rareza) — NO afecta a la simulación
 // ---------------------------------------------------------------------------
+/**
+ * F68 · cadena VACÍA si no hay retrato publicado (`PLAYER_PHOTOS_AVAILABLE`): quien la pinta ya la comprueba
+ * (`image ? <img…> : null`), y así el partido del Tactical Coach deja de pedir `/players/<id>.png` —un 404 por jugador
+ * y por montaje, ~11 por jugador en un partido medido en la beta—. `SimPlayerMeta.image` es del motor y no se toca.
+ */
 export function resolveImage(player: Player): string {
-  return player.image ?? `/players/${player.id}.png`;
+  return hasPlayerPhoto(player) ? player.image ?? `/players/${player.id}.png` : "";
 }
 
 function buildMeta(input: CardMappingInput): SimPlayerMeta {

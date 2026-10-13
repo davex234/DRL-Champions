@@ -10,6 +10,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useGameStore } from "@/store/useGameStore";
+import { HydrationGate } from "@/components/layout/HydrationGate";
 import { useTeamStore } from "@/store/useTeamStore";
 import { useCareerStore } from "@/store/useCareerStore";
 import { useWorldStore } from "@/store/useWorldStore";
@@ -21,9 +22,15 @@ import {
 } from "@/development";
 import { DevelopmentCard } from "@/components/career/DevelopmentCard";
 import { TrainingPanel } from "@/components/career/TrainingPanel";
+import { CoachTrajectory } from "@/components/career/CoachTrajectory";
 import { primeAudio, playCue } from "@/lib/sound";
 
+/** F81.2 · plantilla (colección) y nivel (XP) salen del store: solo cuando son de esta cuenta o la demo de un visitante. */
 export default function CarreraPage() {
+  return <HydrationGate><Carrera /></HydrationGate>;
+}
+
+function Carrera() {
   const ownedCards = useGameStore((s) => s.ownedCards);
   const teams = useTeamStore((s) => s.teams);
   const activeTeamId = useTeamStore((s) => s.activeTeamId);
@@ -53,6 +60,12 @@ export default function CarreraPage() {
     return (
       <section className="animate-rise space-y-4">
         <Header season={season} />
+        {/*
+          La trayectoria va TAMBIÉN aquí. Se pueden haber dirigido partidos y haber deshecho
+          el equipo después: esconder el expediente por no tener plantilla ahora mismo sería
+          borrar la carrera por un estado temporal.
+        */}
+        <CoachTrajectory season={season} />
         <div className="mx-auto max-w-xl space-y-4 rounded-2xl border border-white/10 bg-base-700/40 p-8 text-center">
           <p className="text-3xl">📈</p>
           <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">Necesitas un equipo</h2>
@@ -82,6 +95,13 @@ export default function CarreraPage() {
   return (
     <section className="animate-rise space-y-4">
       <Header season={season} onCloseSeason={closeSeason} />
+
+      {/*
+        PRIMERO lo que ha hecho el entrenador, DESPUÉS el desarrollo de sus jugadores. Es el
+        orden del recorrido que faltaba —partidos → resultados → progresión → carrera— y el
+        que responde antes a «¿cómo me está yendo?» que a «¿a quién entreno hoy?».
+      */}
+      <CoachTrajectory season={season} />
 
       <TrainingPanel count={selected.size} onTrain={train} />
 
@@ -122,7 +142,7 @@ function Header({ season, onCloseSeason }: { season: number; onCloseSeason?: () 
   return (
     <header className="flex items-center justify-between">
       <div>
-        <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
+        <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
           <span className="text-drl">Carrera</span> · Temporada {season}
         </h1>
         <p className="mt-1 text-white/50">Desarrolla personas, no números. <strong className="text-white/70">Cada carrera es única.</strong></p>

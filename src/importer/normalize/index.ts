@@ -12,6 +12,7 @@ import type {
   Tournament, Circuit, CircuitScope, Stage, StageKind, ProTeam, ProPlayer, Match, MatchStatus,
   MatchFormat, MatchMap, MapPlayerStat, Standing, StandingStatus, CircuitTier, Season, Group,
   Bracket, Round, ProCoach, ProCoachStatus, Roster, RosterChange, ObjectiveAwards, BracketKind, RoundType,
+  PlayerTournamentStat,
 } from "../model";
 
 // ── Coerción determinista a los enums del dominio ──
@@ -130,7 +131,7 @@ export function normalizeSnapshot(p: ParsedSnapshot, ctx: ImportCtx): { model: C
 
   const stages: Stage[] = p.stages.map((s, i) => ({ id: s.id, eventId: tournament.id, slug: s.slug ?? s.id, name: s.name, kind: coerceStageKind(s.kind), orderIdx: s.orderIdx ?? i }));
   const groups: Group[] = p.groups.map((g) => ({ id: g.id, stageId: g.stageId, label: g.label, teamIds: g.teams.map((r) => resolveRef(teamRef, r, "t")) }));
-  const brackets: Bracket[] = p.brackets.map((b) => ({ id: b.id, stageId: b.stageId, kind: coerceBracketKind(b.kind), nodes: b.nodes.map((n) => ({ id: n.id, round: n.round, slot: n.slot ?? 0, matchId: n.matchId, winnerToNodeId: n.winnerToNodeId, loserToNodeId: n.loserToNodeId })) }));
+  const brackets: Bracket[] = p.brackets.map((b) => ({ id: b.id, stageId: b.stageId, kind: coerceBracketKind(b.kind), nodes: b.nodes.map((n) => ({ id: n.id, round: n.round, slot: n.slot ?? 0, matchId: n.matchId, winnerToNodeId: n.winnerToNodeId, loserToNodeId: n.loserToNodeId, winnerToSlot: n.winnerToSlot, loserToSlot: n.loserToSlot, winnerQualifies: n.winnerQualifies, winnerQualifiesLabel: n.winnerQualifiesLabel, evidence: n.evidence, confidence: n.confidence })) }));
 
   const matches: Match[] = p.matches.map((m) => {
     const fmt = coerceFormat(m.format, m.bestOf);
@@ -163,13 +164,29 @@ export function normalizeSnapshot(p: ParsedSnapshot, ctx: ImportCtx): { model: C
   });
   const rosters: Roster[] = teams.map((t) => ({ teamId: t.id, playerIds: players.filter((pl) => pl.teamId === t.id).map((pl) => pl.id), coachId: coaches.find((c) => c.teamId === t.id)?.id, changes: rosterChanges.filter((rc) => rc.teamId === t.id) }));
 
+  /*
+   * Agregados por torneo. Se resuelve el jugador (y su equipo) como todo lo demás; las filas
+   * cuyo jugador no resuelve NO se inventan: `resolveRef` es la misma puerta que usa el resto
+   * del normalizador, así que un nick desconocido acaba en el mismo diagnóstico que siempre.
+   */
+  const playerTournamentStats: PlayerTournamentStat[] = p.playerTournamentStats.map((ps) => ({
+    tournamentId: tournament.id,
+    playerId: resolveRef(playerRef, ps.player, "p"),
+    teamId: ps.team ? resolveRef(teamRef, ps.team, "t") : undefined,
+    maps: ps.maps,
+    rounds: ps.rounds,
+    clutchesWon: ps.clutchesWon,
+    clutchSituations: ps.clutchSituations,
+    clutchPct: ps.clutchPct,
+  }));
+
   const awards: ObjectiveAwards | undefined = p.awards
     ? { tournamentId: tournament.id, championTeamId: p.awards.champion ? resolveRef(teamRef, p.awards.champion, "t") : undefined, runnerUpTeamId: p.awards.runnerUp ? resolveRef(teamRef, p.awards.runnerUp, "t") : undefined, mvpPlayerId: p.awards.mvp ? resolveRef(playerRef, p.awards.mvp, "p") : undefined, placements: (p.awards.placements ?? []).map((pl) => ({ position: pl.position, teamId: resolveRef(teamRef, pl.team, "t"), prize: pl.prize, points: pl.points })) }
     : undefined;
 
   const model: CanonicalModel = {
     schemaVersion: ctx.schemaVersion ?? IMPORTER_SCHEMA_VERSION,
-    circuit, season, tournament, stages, groups, brackets, teams, players, coaches, rosters, matches, maps, mapStats, rounds, standings, awards,
+    circuit, season, tournament, stages, groups, brackets, teams, players, coaches, rosters, matches, maps, mapStats, playerTournamentStats, rounds, standings, awards,
     index: {
       teamById: new Map(teams.map((t) => [t.id, t])),
       playerById: new Map(players.map((pl) => [pl.id, pl])),

@@ -28,6 +28,7 @@
  * puntos, cinco sobres. Con eso el producto se ve muy bien y no se detecta ni uno de los
  * problemas de primera vez, porque el jugador sembrado ya ha superado todos.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { existsSync, readFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -110,7 +111,7 @@ async function main() {
 
   const stamp = Date.now();
   const email = `ftue-${stamp}@example.invalid`;
-  const password = "Test-1234-ftue";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: `nuevo${stamp}` },
   });
@@ -176,7 +177,7 @@ async function main() {
     const routes: { path: string; name: string; expect: RegExp; why: string }[] = [
       { path: "/inventario", name: "02-inventario", expect: /sobre/i, why: "sus 4 sobres sin abrir" },
       { path: "/coleccion", name: "03-coleccion", expect: /carta|colecci/i, why: "su colección vacía" },
-      { path: "/duelos/mazos", name: "04-mazos", expect: /mazo/i, why: "construir el primer mazo" },
+      { path: "/duelos/mazos", name: "04-mazos", expect: /mazo|equipo/i, why: "construir el primer equipo" },
       { path: "/duelos/jugar", name: "05-jugar", expect: /duelo|mazo|jugar/i, why: "jugar sin mazo" },
       { path: "/tienda", name: "06-tienda", expect: /sobre/i, why: "comprar" },
       { path: "/pickems", name: "07-pickems", expect: /predicci|pick/i, why: "predecir" },
@@ -277,7 +278,7 @@ async function main() {
     await browser.tab.js(`(async () => {
       const s = (ms) => new Promise((r) => setTimeout(r, ms));
       const b = [...document.querySelectorAll('button')]
-        .find((x) => /Crear mi primer mazo|Nuevo mazo/i.test(x.textContent || ''));
+        .find((x) => /Crear mi primer (?:mazo|equipo)|Nuevo (?:mazo|equipo)/i.test(x.textContent || ''));
       if (b) { b.click(); await s(1800); }
       return !!b;
     })()`);

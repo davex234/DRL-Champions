@@ -14,7 +14,7 @@ import type { CardDef, OwnedCard } from "../src/domain/cards/types";
 import { CARDS, getPlayer } from "../src/data/catalog";
 import { createRound, tick, type CoachSetup, type RoundState } from "../src/sim";
 import { buildMatchRosters } from "../src/lib/match/roster";
-import { computeMatchReward } from "../src/lib/match/rewards";
+import { summarizeRound } from "../src/lib/match/rewards";
 import { validateTeam, type CardRef } from "../src/domain/teams/types";
 
 const SETUP: CoachSetup = { side: "ATK", approach: "default", tempo: "mid", aggression: "balanced" };
@@ -122,13 +122,12 @@ check("el ADN/atributos del equipo cambian", avgAim(rosters.home) !== avgAim(ros
   `aim medio r1=${avgAim(rosters.home)} · r3=${avgAim(rosters3.home)}`);
 
 // ───────────────────────────────────────────────────────────────────────────
-// Escenario 4: terminar el partido → recompensa vuelve a la colección
+// Escenario 4: terminar el partido → resumen (F69 · F68-010: el Coach NO concede créditos ni XP)
 // ───────────────────────────────────────────────────────────────────────────
-log("\n## 4) Fin del partido → recompensas vuelven a la colección");
-const reward = computeMatchReward(end1);
-log(`  Recompensa: +${reward.credits} créditos, +${reward.xp} XP (${reward.teamKills} bajas, ${reward.won ? "victoria" : "derrota"}).`);
-check("la recompensa concede créditos", reward.credits > 0);
-check("la recompensa concede XP", reward.xp > 0);
+log("\n## 4) Fin del partido → resumen del entrenamiento");
+const summary = summarizeRound(end1);
+log(`  Resumen: ${summary.teamKills} bajas, ${summary.won ? "victoria" : "derrota"}.`);
+check("el resumen no lleva créditos ni XP", !("credits" in summary) && !("xp" in summary));
 
 // Determinismo: misma semilla + mismas cartas ⇒ mismo resultado.
 log("\n## Extra) Determinismo");

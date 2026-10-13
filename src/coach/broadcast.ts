@@ -48,7 +48,8 @@ export interface CoachLiveBroadcast {
   activeBiases: string[];
 }
 
-const LANE_LABEL: Record<string, string> = { main: "A Main", tree: "B/Tree", mid: "Mid" };
+// FULL GAME AUDIT (2026-10-07) · zonas por su función (`ZONE_LABEL`): «A Main»/«B/Tree» son de Ascent y no existen en los otros once mapas.
+const LANE_LABEL: Record<string, string> = { main: "la entrada principal", tree: "el flanco", mid: "mid" };
 
 export function coachLiveBroadcast(s: RoundState): CoachLiveBroadcast {
   const calls = s.events.filter((e) => e.type === "coachCall");
@@ -60,7 +61,7 @@ export function coachLiveBroadcast(s: RoundState): CoachLiveBroadcast {
   if (cf.tempoBias < 0) biases.push("ritmo↓");
   if (cf.aggressionBias > 0) biases.push("agresivo");
   if (cf.aggressionBias < 0) biases.push("paciente");
-  if (cf.laneFocus) biases.push(`foco ${LANE_LABEL[cf.laneFocus] ?? cf.laneFocus}`);
+  if (cf.laneFocus) biases.push(`foco en ${LANE_LABEL[cf.laneFocus] ?? cf.laneFocus}`);
   if (cf.stack) biases.push("stack");
   if (cf.forceRotation) biases.push("rotar");
   if (cf.saveUtility) biases.push("guarda util.");

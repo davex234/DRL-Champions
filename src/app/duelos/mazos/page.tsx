@@ -1,295 +1,382 @@
 "use client";
 
 /**
- * `/duelos/mazos` — MIS MAZOS Y CONSTRUCTOR (Fase 8).
+ * `/duelos/mazos` — MIS EQUIPOS + NEXUS TEAM BUILDER (Fase 32). La ruta canónica de equipos
+ * (`/equipo` redirige aquí). Sustituye a «Mis mazos» de la Fase 8 sin cambiar ni una regla.
  *
- * Lista los mazos guardados con su estado REAL —la validación la hace el servidor contra el
- * inventario, no esta pantalla— y abre el constructor para crear o editar.
+ *   ?deck=<id>   → abre ese equipo en el constructor (enlaces de pre-partida, vestíbulo, colección).
+ *   ?nuevo=1     → abre un equipo nuevo, sin guardar.
+ *   &add=<uid>   → llega con esa carta elegida (desde la colección): se iluminan sus huecos.
+ *   &eje=<eje>   → Fase 43 · contexto del resumen de una partida (stronghold|gamesense|entryfrag): ordena alternativas.
+ *   &explorar=<cardId> → Fase 43 · comparación INFORMATIVA con una carta del catálogo que no posees (sin aplicar).
  *
- * Las cartas disponibles son las del inventario del usuario (`user_cards`), nunca una lista local.
+ * Todo pasa por `/api/game/duels`: la foto (equipos + colección resuelta + equipo activo) en una lectura
+ * y cada cambio validado en el servidor. Con cambios sin guardar, salir de la pantalla —cerrar la
+ * pestaña o pulsar cualquier enlace— pide confirmación.
  */
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { MotionConfig } from "framer-motion";
 import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
 import { useToast } from "@/lib/useToast";
 import { Toast } from "@/components/ui/Toast";
-import { DeckBuilder } from "@/components/duel/DeckBuilder";
-import { DuelCard } from "@/components/duel/DuelCard";
+import { useGameMoment } from "@/components/ui/game/GameMoment";
+import { deckActiveMoment, deckReadyMoment } from "@/lib/gameExperience/deckMoments";
+import { NxButton } from "@/components/ui/NxButton";
+import { DeckBuilder, type SaveOutcome } from "@/components/duel/DeckBuilder";
+import { TeamHub } from "@/components/duel/deck/TeamHub";
+import { NameSheet } from "@/components/duel/deck/NameSheet";
+import { ConfirmSheet } from "@/components/social/ConfirmSheet";
 import { fetchMyPacks } from "@/lib/game/client";
-import { fetchDuelDecks, saveDuelDeck, deleteDuelDeck } from "@/lib/duel/client";
-import { DUEL_ROLES } from "@/domain/cardgame";
-import type { DuelDeckCardDTO, DuelDeckDTO } from "@/lib/duel/types";
+import {
+  fetchDuelDecks, saveDuelDeck, saveTeamDeck, createTeamDeck, renameTeamDeck, duplicateTeamDeck, deleteTeamDeck,
+  activateTeamDeck, DuelError,
+} from "@/lib/duel/client";
+import type { DeckWorkspaceDTO, DuelDeckDTO } from "@/lib/duel/types";
+import { nextTeamName } from "@/domain/deckBuilder/builder";
+import { UUID_RE } from "@/domain/deckBuilder/request";
+import { isAxis } from "@/lib/deckStrategy/presentation";
+import { DeckCompareView } from "@/components/duel/strategy/DeckCompareView";
+import { Sheet } from "@/components/duel/deck/bits";
+import { trackCreateStart, trackDeck } from "@/lib/deckBuilder/telemetry";
+import { AUTO_ACTIVATED_NOTICE, AUTO_ACTIVATE_FAILED_NOTICE, isFirstTeamContext, shouldAutoActivate } from "@/lib/journey/deck";
+import { playerMessage } from "@/components/ui/game/GameStates";
 
 export default function MazosPage() {
   const { user, loading } = useAuth();
-  if (loading) return <Loading label="Cargando mazos…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="crear mazos de duelo" />;
+  if (loading) return <Loading kind="deck" label="Cargando tus equipos…" />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="Tu equipo de duelo" />;
   return (
-    <Suspense fallback={<Loading label="Cargando mazos…" />}>
-      <Decks />
+    <Suspense fallback={<Loading kind="deck" label="Cargando tus equipos…" />}>
+      <MotionConfig reducedMotion="user">
+        <Teams />
+      </MotionConfig>
     </Suspense>
   );
 }
 
-function Decks() {
+type View = { kind: "hub" } | { kind: "builder"; deckId: string | null; addUid: string | null };
+
+const urlOf = (v: View) =>
+  v.kind === "hub" ? "/duelos/mazos" : v.deckId ? `/duelos/mazos?deck=${v.deckId}` : "/duelos/mazos?nuevo=1";
+
+const messageOf = (e: unknown, fallback: string) => (e instanceof Error ? e.message : fallback);
+
+function Teams() {
   const router = useRouter();
   const params = useSearchParams();
   const { toast, notify } = useToast();
+  /* Fase 44 · PLANTILLA LISTA / EQUIPO ACTIVO como momento de juego (con el hecho del servidor), además del aviso. */
+  const moment = useGameMoment();
 
-  const [decks, setDecks] = useState<DuelDeckDTO[] | null>(null);
-  const [collection, setCollection] = useState<DuelDeckCardDTO[]>([]);
-
-  /*
-   * Sobres sin abrir. El constructor solo lo usa para una frase, pero es la frase que le
-   * dice a un jugador nuevo DONDE estan sus cartas (Fase 15): dentro de los sobres de
-   * bienvenida, no en la tienda.
-   *
-   * Se piden al SERVIDOR, no al almacen local. Hay un invariante que lo exige
-   * (`duel.test.ts`): en Duelos la propiedad la manda `user_cards`, y un contador local
-   * podria ensenar sobres que el servidor ya no reconoce. Falla en silencio: si no llega,
-   * la frase cae al texto generico en vez de dejar la pantalla a medias.
-   */
-  const [unopenedPacks, setUnopenedPacks] = useState(0);
-  useEffect(() => {
-    // `MazosPage` ya ha comprobado que hay sesion antes de montar esto.
-    let alive = true;
-    fetchMyPacks()
-      .then((p) => { if (alive) setUnopenedPacks(Object.values(p).reduce((n, q) => n + q, 0)); })
-      .catch(() => { if (alive) setUnopenedPacks(0); });
-    return () => { alive = false; };
-  }, []);
+  const [ws, setWs] = useState<DeckWorkspaceDTO | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  /** Mazo en edición. `null` = la lista. */
-  const [editing, setEditing] = useState<DuelDeckDTO | null>(null);
-  const [creating, setCreating] = useState(false);
-  const [name, setName] = useState("");
-  const [selected, setSelected] = useState<string[]>([]);
-  const [saving, setSaving] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [packs, setPacks] = useState(0);
+  const [view, setView] = useState<View>(() => {
+    const deck = params.get("deck");
+    const add = params.get("add");
+    const addUid = add && UUID_RE.test(add) ? add.toLowerCase() : null;
+    if (deck && UUID_RE.test(deck)) return { kind: "builder", deckId: deck.toLowerCase(), addUid };
+    if (params.get("nuevo") === "1") return { kind: "builder", deckId: null, addUid };
+    return { kind: "hub" };
+  });
+  const [builderKey, setBuilderKey] = useState(0);
+  const [dirty, setDirty] = useState(false);
+  const [busy, setBusy] = useState<"activate" | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [renaming, setRenaming] = useState<DuelDeckDTO | null>(null);
+  const [renameBusy, setRenameBusy] = useState(false);
+  const [renameError, setRenameError] = useState<string | null>(null);
+  const [toDelete, setToDelete] = useState<DuelDeckDTO | null>(null);
+  const [deleteBusy, setDeleteBusy] = useState(false);
+  const [leaveTo, setLeaveTo] = useState<string | null>(null);
+  const [comparing, setComparing] = useState(false);
+  // Fase 43 · contexto opcional: validado contra listas cerradas (nunca texto libre del enlace en pantalla).
+  const [labInit] = useState(() => {
+    const eje = params.get("eje");
+    const explorar = params.get("explorar");
+    return { focusAxis: isAxis(eje) ? eje : null, explore: explorar && /^[a-z0-9_-]{1,80}$/i.test(explorar) ? explorar : null };
+  });
 
   const load = useCallback(async () => {
-    setError(null);
     try {
-      const d = await fetchDuelDecks();
-      setDecks(d.decks);
-      setCollection(d.collection);
-      return d.decks;
+      const w = await fetchDuelDecks();
+      setWs(w);
+      setError(null);
+      return w;
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "No se pudieron cargar tus mazos";
-      setError(msg);
-      // Si ya había mazos cargados se CONSERVAN: vaciar la lista aquí enseñaría «no tienes
-      // ningún mazo» cuando lo que ha fallado es la petición. Solo la primera carga deja vacío.
-      setDecks((cur) => cur ?? []);
+      // Si ya había foto se CONSERVA: vaciarla enseñaría «no tienes equipos» cuando lo que falló es la red.
+      setError(messageOf(e, "No se pudieron cargar tus equipos"));
       return null;
     }
   }, []);
 
   useEffect(() => { void load(); }, [load]);
-
-  // Abrir directamente un mazo si viene por la URL (`?deck=<id>`). Solo la primera vez.
-  const deckParam = params.get("deck");
-  const deckParamRef = useRef(deckParam);
-  const [applied, setApplied] = useState(false);
   useEffect(() => {
-    if (applied || !deckParam || !decks) return;
-    const d = decks.find((x) => x.id === deckParam);
-    setApplied(true);
-    if (d) openEdit(d);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deckParam, decks, applied]);
+    let alive = true;
+    fetchMyPacks()
+      .then((p) => { if (alive) setPacks(Object.values(p).reduce((n, q) => n + q, 0)); })
+      .catch(() => { if (alive) setPacks(0); });
+    return () => { alive = false; };
+  }, []);
 
-  function openEdit(d: DuelDeckDTO) {
-    setEditing(d);
-    setCreating(false);
-    setName(d.name);
-    setSelected(d.cardUids);
-    setFormError(null);
-  }
+  const go = useCallback((v: View) => {
+    setView(v);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", urlOf(v));
+      window.scrollTo({ top: 0 });
+    }
+  }, []);
 
-  function openCreate() {
-    setEditing(null);
-    setCreating(true);
-    setName(`Mazo ${(decks?.length ?? 0) + 1}`);
-    setSelected([]);
-    setFormError(null);
-  }
+  const editing = view.kind === "builder" && view.deckId && ws ? ws.decks.find((d) => d.id === view.deckId) ?? null : null;
 
-  function closeForm() {
-    setEditing(null);
-    setCreating(false);
-    setFormError(null);
-    // Solo se navega si hay algo que limpiar en la URL. Un `replace` a la ruta actual remonta la
-    // pantalla y tira el estado que se acaba de cargar.
-    if (deckParamRef.current) router.replace("/duelos/mazos");
-  }
+  // Un `?deck=` que no es tuyo (o ya no existe) no abre nada: vuelve al hub y lo dice.
+  useEffect(() => {
+    if (!ws || view.kind !== "builder" || !view.deckId || editing) return;
+    notify("Ese equipo no existe o no es tuyo", false);
+    go({ kind: "hub" });
+  }, [ws, view, editing, go, notify]);
 
-  function toggle(uid: string) {
-    setSelected((cur) => (cur.includes(uid) ? cur.filter((u) => u !== uid) : [...cur, uid]));
-  }
+  // Guarda de navegación con cambios sin guardar: cerrar pestaña o pulsar un enlace.
+  useEffect(() => {
+    if (!dirty || view.kind !== "builder") return;
+    const onBefore = (e: BeforeUnloadEvent) => { e.preventDefault(); e.returnValue = ""; };
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as HTMLElement | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a || a.target === "_blank") return;
+      const href = a.getAttribute("href");
+      if (!href || href.startsWith("#")) return;
+      e.preventDefault();
+      e.stopPropagation();
+      setLeaveTo(href);
+    };
+    window.addEventListener("beforeunload", onBefore);
+    document.addEventListener("click", onClick, true);
+    return () => {
+      window.removeEventListener("beforeunload", onBefore);
+      document.removeEventListener("click", onClick, true);
+    };
+  }, [dirty, view.kind]);
 
-  async function save() {
-    setSaving(true);
-    setFormError(null);
+  const replaceDeck = useCallback((d: DuelDeckDTO) => {
+    setWs((w) => (w ? { ...w, decks: w.decks.map((x) => (x.id === d.id ? { ...d, active: d.id === w.activeDeckId } : x)) } : w));
+  }, []);
+
+  /*
+   * FASE 40 · PRIMER EQUIPO. Si este guardado deja al jugador con su PRIMER equipo legal y no tiene ninguno activo, se
+   * activa con la acción existente (`set_active`, validada en el servidor) y se dice en pantalla. Nada oculto.
+   */
+  const autoActivate = useCallback(async (deck: DuelDeckDTO): Promise<boolean> => {
+    if (!ws || !shouldAutoActivate({ savedValid: deck.valid, activeSupported: ws.activeSupported, activeDeckId: ws.activeDeckId, otherValidDecks: ws.decks.filter((d) => d.valid && d.id !== deck.id).length })) return false;
     try {
-      const res = await saveDuelDeck({ id: editing?.id, name, cardUids: selected });
-      notify(res.deck.valid ? "Mazo guardado y listo para duelo" : "Mazo guardado (incompleto)", res.deck.valid);
-      closeForm();
+      await activateTeamDeck(deck.id, deck.version ?? null);
+      trackDeck("deck_activated");
+      notify(AUTO_ACTIVATED_NOTICE, true);
+      await load();
+    } catch {
+      notify(AUTO_ACTIVATE_FAILED_NOTICE, false);
+    }
+    return true;
+  }, [ws, notify, load]);
+
+  const onSave = useCallback(async (draft: { name: string; cardUids: string[] }): Promise<SaveOutcome> => {
+    try {
+      if (!editing) {
+        const r = await createTeamDeck({ name: draft.name, cardUids: draft.cardUids });
+        trackDeck("deck_created");
+        setWs((w) => (w ? { ...w, decks: [r.deck, ...w.decks] } : w));
+        setView({ kind: "builder", deckId: r.deck.id, addUid: null });
+        window.history.replaceState(null, "", urlOf({ kind: "builder", deckId: r.deck.id, addUid: null }));
+        { const m = deckReadyMoment(null, r.deck); if (m) moment(m); }
+        if (!(await autoActivate(r.deck))) notify(r.deck.valid ? "Equipo creado y listo para duelo" : "Equipo creado (incompleto)", r.deck.valid);
+        return { ok: true, deck: r.deck };
+      }
+      // Servidor anterior a la Fase 32 (sin versión): guardado de siempre.
+      const r = editing.version
+        ? await saveTeamDeck({ id: editing.id, name: draft.name, cardUids: draft.cardUids, version: editing.version })
+        : await saveDuelDeck({ id: editing.id, name: draft.name, cardUids: draft.cardUids });
+      replaceDeck(r.deck);
+      { const m = deckReadyMoment(editing.valid, r.deck); if (m) moment(m); }
+      if (!(await autoActivate(r.deck))) notify(r.deck.valid ? "Equipo guardado y listo para duelo" : "Equipo guardado (incompleto)", r.deck.valid);
+      return { ok: true, deck: r.deck };
+    } catch (e) {
+      if (e instanceof DuelError && e.code === "CONFLICT") {
+        const current = (e.payload?.deck as DuelDeckDTO | undefined) ?? null;
+        if (current) replaceDeck(current);
+        return { ok: false, kind: "conflict", current, message: e.message };
+      }
+      return { ok: false, kind: "error", message: messageOf(e, "No se pudo guardar el equipo") };
+    }
+  }, [editing, notify, replaceDeck, autoActivate, moment]);
+
+  const onActivate = useCallback(async (d: DuelDeckDTO) => {
+    setBusy("activate");
+    setBusyId(d.id);
+    try {
+      await activateTeamDeck(d.id, d.version ?? null);
+      trackDeck("deck_activated");
+      notify(`«${d.name}» es tu equipo activo`, true);
+      moment(deckActiveMoment(d, Date.now()));
       await load();
     } catch (e) {
-      setFormError(e instanceof Error ? e.message : "No se pudo guardar el mazo");
+      notify(messageOf(e, "No se pudo activar el equipo"), false);
+      if (e instanceof DuelError && (e.code === "CONFLICT" || e.code === "DECK_NOT_READY")) await load();
     } finally {
-      setSaving(false);
+      setBusy(null);
+      setBusyId(null);
     }
-  }
+  }, [load, notify, moment]);
 
-  async function remove(d: DuelDeckDTO) {
+  const onDuplicate = useCallback(async (d: DuelDeckDTO) => {
+    setBusyId(d.id);
     try {
-      await deleteDuelDeck(d.id);
+      const r = await duplicateTeamDeck(d.id);
+      notify(`Creado «${r.deck.name}»`, true);
       await load();
-      notify("Mazo eliminado");
-      if (editing?.id === d.id) closeForm();
     } catch (e) {
-      notify(e instanceof Error ? e.message : "No se pudo eliminar", false);
+      notify(messageOf(e, "No se pudo duplicar el equipo"), false);
+    } finally {
+      setBusyId(null);
     }
-  }
+  }, [load, notify]);
 
-  if (error && decks === null) return <ErrorState message={error} onRetry={load} />;
-  if (decks === null) return <Loading label="Cargando mazos…" />;
+  const onRename = useCallback(async (name: string) => {
+    if (!renaming) return;
+    setRenameBusy(true);
+    setRenameError(null);
+    try {
+      if (!renaming.version) throw new DuelError("Recarga la página para renombrar este equipo.", 409);
+      await renameTeamDeck(renaming.id, name, renaming.version);
+      notify("Nombre guardado", true);
+      setRenaming(null);
+      await load();
+    } catch (e) {
+      setRenameError(messageOf(e, "No se pudo renombrar"));
+      if (e instanceof DuelError && e.code === "CONFLICT") await load();
+    } finally {
+      setRenameBusy(false);
+    }
+  }, [renaming, load, notify]);
 
-  const inForm = creating || editing !== null;
+  const onDelete = useCallback(async () => {
+    if (!toDelete) return;
+    setDeleteBusy(true);
+    try {
+      const r = await deleteTeamDeck(toDelete.id, toDelete.version ?? null, !!toDelete.active);
+      notify(r.wasActive ? "Equipo eliminado. Ya no tienes equipo activo: elige otro." : "Equipo eliminado", true);
+      setToDelete(null);
+      if (view.kind === "builder") { setDirty(false); go({ kind: "hub" }); }
+      await load();
+    } catch (e) {
+      notify(messageOf(e, "No se pudo eliminar"), false);
+      setToDelete(null);
+      if (e instanceof DuelError && e.code === "CONFLICT") await load();
+    } finally {
+      setDeleteBusy(false);
+    }
+  }, [toDelete, view.kind, go, load, notify]);
+
+  const openBuilder = useCallback((deckId: string | null) => {
+    setBuilderKey((k) => k + 1);
+    go({ kind: "builder", deckId, addUid: null });
+  }, [go]);
+
+  const onCreate = useCallback(() => {
+    if (!ws || ws.decks.length >= ws.maxDecks) return;
+    trackCreateStart(ws.decks.length > 0);
+    openBuilder(null);
+  }, [ws, openBuilder]);
+
+  if (error && !ws) return <ErrorState message={error} onRetry={() => void load()} />;
+  if (!ws) return <Loading kind="deck" label="Cargando tus equipos…" />;
+
+  const deleteBody = toDelete?.active
+    ? "Es tu equipo activo. Si lo borras te quedarás sin equipo activo hasta que elijas otro. Tus cartas no se tocan."
+    : "Se borra la composición de este equipo. Tus cartas no se tocan.";
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <>
       <Toast toast={toast} />
-      <header className="mb-4 flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <Link href="/duelos" className="-ml-2 inline-flex min-h-[36px] items-center rounded-control px-2 font-display text-[11px] font-bold uppercase tracking-[0.14em] text-white/45 transition duration-fast hover:bg-white/[0.06] hover:text-white">
-            ‹ Duelos
-          </Link>
-          <h1 className="font-display text-3xl font-bold sm:text-4xl">
-            {inForm ? (creating ? "Nuevo mazo" : "Editar mazo") : "Mis mazos"}
-          </h1>
-          <p className="text-xs text-white/45">
-            10 cartas · 2 de cada rol · sin repetir jugador
-          </p>
-        </div>
-        {!inForm && (
-          <button
-            type="button"
-            onClick={openCreate}
-            className="rounded-xl bg-drl px-5 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] shadow-glow transition hover:brightness-110"
-          >
-            + Nuevo mazo
-          </button>
-        )}
-      </header>
-
-      {inForm ? (
-        <DeckBuilder
-          collection={collection}
-          unopenedPacks={unopenedPacks}
-          deck={editing}
-          name={name}
-          selected={selected}
-          onNameChange={setName}
-          onToggle={toggle}
-          onClear={() => setSelected([])}
-          onSave={save}
-          onCancel={closeForm}
-          saving={saving}
-          error={formError}
-        />
-      ) : decks.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-white/12 px-6 py-14 text-center">
-          <p className="font-display text-xl text-white/70">Todavía no tienes ningún mazo</p>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-white/40">
-            Un mazo de duelo son diez cartas: dos Duelistas, dos Controladores, dos Iniciadores,
-            dos Centinelas y dos Flex.
-          </p>
-          <button
-            type="button"
-            onClick={openCreate}
-            className="mt-5 rounded-xl bg-drl px-6 py-2.5 font-display text-sm font-bold uppercase tracking-[0.12em] shadow-glow transition hover:brightness-110"
-          >
-            Crear mi primer mazo
-          </button>
-        </div>
-      ) : (
-        <div className="grid gap-3 lg:grid-cols-2">
-          {decks.map((d) => (
-            <article key={d.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <b className="block truncate font-display text-xl">{d.name}</b>
-                  <span className="text-[11px] text-white/40">
-                    {d.cards.length}/10 cartas · Σ OVR {d.sumOvr}
-                  </span>
-                </div>
-                <span
-                  className={`shrink-0 rounded-full px-2.5 py-1 text-[9px] font-bold uppercase tracking-wide ${
-                    d.valid ? "bg-emerald-400/15 text-emerald-300" : "bg-drl/15 text-drl-glow"
-                  }`}
-                >
-                  {d.valid ? "Listo para duelo" : d.status === "INCOMPLETE" ? "Incompleto" : "Revisar"}
-                </span>
-              </div>
-
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {d.cards.map((c) => <DuelCard key={c.uid} card={c} size="xs" />)}
-                {Array.from({ length: Math.max(0, 10 - d.cards.length) }, (_, i) => (
-                  <div key={`s${i}`} className="grid aspect-[5/7] w-[54px] place-items-center rounded-md border border-dashed border-white/15 text-white/20">+</div>
-                ))}
-              </div>
-
-              <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px]">
-                {DUEL_ROLES.map((r) => (
-                  <span key={r} className={d.roleCounts[r] === 2 ? "text-white/45" : "text-drl-glow"}>
-                    {r} {d.roleCounts[r]}/2
-                  </span>
-                ))}
-              </div>
-
-              {d.errors.length > 0 && (
-                <ul className="mt-2 space-y-0.5">
-                  {d.errors.slice(0, 3).map((e, i) => (
-                    <li key={i} className="text-[11px] text-drl-glow">✕ {e.message}</li>
-                  ))}
-                </ul>
-              )}
-
-              <div className="mt-3 flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => openEdit(d)}
-                  className="flex-1 rounded-lg border border-white/12 px-3 py-1.5 text-xs font-semibold text-white/70 transition hover:bg-white/[0.07]"
-                >
-                  Editar
-                </button>
-                {d.valid && (
-                  <Link
-                    href={`/duelos/jugar?deck=${d.id}`}
-                    className="flex-1 rounded-lg bg-drl px-3 py-1.5 text-center text-xs font-bold uppercase tracking-wide transition hover:brightness-110"
-                  >
-                    Jugar
-                  </Link>
-                )}
-                <button
-                  type="button"
-                  onClick={() => remove(d)}
-                  aria-label={`Eliminar ${d.name}`}
-                  className="rounded-lg border border-white/12 px-3 py-1.5 text-xs text-white/40 transition hover:border-drl/50 hover:text-drl-glow"
-                >
-                  Eliminar
-                </button>
-              </div>
-            </article>
-          ))}
+      {error && (
+        <div role="alert" className="mx-auto mb-3 flex max-w-6xl flex-wrap items-center gap-2 rounded-lg border border-bad/40 bg-bad/[0.08] px-4 py-2 text-[13px] text-white">
+          <span className="flex-1">{playerMessage(error)}</span>
+          <NxButton variant="ghost" size="sm" onClick={() => void load()}>Reintentar</NxButton>
         </div>
       )}
-    </div>
+
+      {view.kind === "builder" && (!view.deckId || editing) ? (
+        <DeckBuilder
+          key={`${builderKey}`}
+          deck={editing}
+          collection={ws.collection}
+          activeSupported={ws.activeSupported}
+          defaultName={nextTeamName(ws.decks.map((d) => d.name))}
+          unopenedPacks={packs}
+          firstTeam={isFirstTeamContext(ws.decks)}
+          onSave={onSave}
+          onActivate={editing ? () => void onActivate(editing) : undefined}
+          onDuplicate={editing ? () => void onDuplicate(editing) : undefined}
+          onDelete={editing ? () => setToDelete(editing) : undefined}
+          onExit={() => { setDirty(false); go({ kind: "hub" }); }}
+          onDirtyChange={setDirty}
+          busy={busy}
+          initial={{ ...(view.addUid ? { selectedUid: view.addUid } : {}), focusAxis: labInit.focusAxis, explore: labInit.explore }}
+        />
+      ) : view.kind === "builder" ? (
+        <Loading label="Abriendo el equipo…" />
+      ) : (
+        <TeamHub
+          decks={ws.decks}
+          activeDeckId={ws.activeDeckId}
+          activeSupported={ws.activeSupported}
+          maxDecks={ws.maxDecks}
+          collectionCount={ws.collection.length}
+          unopenedPacks={packs}
+          now={ws.serverNow}
+          busyId={busyId}
+          onCreate={onCreate}
+          onEdit={(d) => openBuilder(d.id)}
+          onActivate={(d) => void onActivate(d)}
+          onDuplicate={(d) => void onDuplicate(d)}
+          onRename={(d) => { setRenameError(null); setRenaming(d); }}
+          onDelete={(d) => setToDelete(d)}
+          onCompare={ws.decks.length >= 2 ? () => setComparing(true) : undefined}
+        />
+      )}
+
+      <Sheet open={comparing} size="lg" scene="deck-compare" eyebrow="Mis equipos" title="Comparar equipos" onClose={() => setComparing(false)}>
+        {comparing && <DeckCompareView decks={ws.decks} />}
+      </Sheet>
+
+      <NameSheet
+        open={!!renaming}
+        title={renaming ? `Renombrar «${renaming.name}»` : "Renombrar"}
+        initial={renaming?.name ?? ""}
+        busy={renameBusy}
+        error={renameError}
+        onSubmit={(n) => void onRename(n)}
+        onClose={() => { if (!renameBusy) setRenaming(null); }}
+      />
+      <ConfirmSheet
+        open={!!toDelete}
+        title={toDelete ? `¿Eliminar «${toDelete.name}»?` : "Eliminar"}
+        body={deleteBody}
+        confirmLabel={toDelete?.active ? "Eliminar equipo activo" : "Eliminar equipo"}
+        busy={deleteBusy}
+        onConfirm={() => void onDelete()}
+        onClose={() => { if (!deleteBusy) setToDelete(null); }}
+      />
+      <ConfirmSheet
+        open={!!leaveTo}
+        title="Tienes cambios sin guardar"
+        body="Si sales ahora, perderás los cambios de este equipo."
+        confirmLabel="Salir sin guardar"
+        onConfirm={() => { const to = leaveTo; setLeaveTo(null); setDirty(false); if (to) router.push(to); }}
+        onClose={() => setLeaveTo(null)}
+      />
+    </>
   );
 }

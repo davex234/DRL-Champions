@@ -126,9 +126,11 @@ export function utilityStory(match: MatchState): string | null {
     if (r.winner === us) { wonRounds++; if (homeCtrl > awayCtrl) controlWins++; }
     spentSum += us === "ATK" ? m.spent.ATK : m.spent.DEF; n++;
   }
-  if (wonRounds > 0 && controlWins / wonRounds >= 0.6) return "Ganasteis gracias al control del mapa.";
-  if (n > 0 && spentSum / n >= 4.5) return "La utilidad decidió: dominasteis con herramientas.";
-  if (wonRounds > 0 && controlWins / wonRounds <= 0.25) return "Ganasteis a pesar de ceder el control: puro aim y duelos.";
+  // F68 · habla de las RONDAS ganadas: si el partido se perdió, no puede decir «Ganasteis» (medido en la beta: 1–13).
+  const lost = match.winner !== "home";
+  if (wonRounds > 0 && controlWins / wonRounds >= 0.6) return lost ? "Las rondas que ganasteis llegaron gracias al control del mapa." : "Ganasteis gracias al control del mapa.";
+  if (n > 0 && spentSum / n >= 4.5) return lost ? "La utilidad fue vuestra mejor arma, pero no bastó." : "La utilidad decidió: dominasteis con herramientas.";
+  if (wonRounds > 0 && controlWins / wonRounds <= 0.25) return lost ? "Las rondas que ganasteis fueron a pesar de ceder el control: puro aim y duelos." : "Ganasteis a pesar de ceder el control: puro aim y duelos.";
   return null;
 }
 

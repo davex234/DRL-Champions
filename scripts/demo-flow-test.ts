@@ -8,6 +8,7 @@
  * guion de la demo tiene datos y responde, para que no se descubra un paso roto
  * delante de alguien.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
@@ -76,7 +77,7 @@ async function main() {
 
   // 2 · Login (usuario real)
   const email = `flow-${Date.now()}@example.invalid`;
-  const password = "Test-1234-flow";
+  const password = ephemeralQaPassword();
   const { data: created, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: "flowdemo" },
   });

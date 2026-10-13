@@ -16,6 +16,7 @@
  *   · Reclamar dos veces no paga dos veces (idempotencia real, mirando el libro mayor).
  *   · El progreso NO viene del cliente: se recalcula de las tablas.
  */
+import { ephemeralQaPassword } from "./lib/qaCredentials";
 import { existsSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -51,7 +52,7 @@ const MASTERY_CARDS = (setId: string): string[] => masterySet(setId)?.cardIds ??
 
 async function makeUser(tag: string) {
   const email = `prog-${tag}-${Date.now()}@example.invalid`;
-  const password = "Test-1234-prog";
+  const password = ephemeralQaPassword();
   const { data, error } = await admin.auth.admin.createUser({
     email, password, email_confirm: true, user_metadata: { username: `prog${tag}` },
   });

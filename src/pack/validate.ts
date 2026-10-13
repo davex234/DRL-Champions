@@ -8,6 +8,8 @@
 import type { CardRegistry } from "@/collection";
 import { BUCKETS, BUCKET_INDEX, buildPool } from "@/domain/packs/pool";
 import type { PackDef, PackValidation, PackIssue, RarityBucket } from "./types";
+import { classPool } from "@/domain/packs/openPack";
+import { packPlan, PACK_CLASS_ORDER } from "@/domain/packs/packClass";
 
 export function validatePack(registry: CardRegistry, pack: PackDef): PackIssue[] {
   const issues: PackIssue[] = [];
@@ -37,6 +39,20 @@ export function validatePack(registry: CardRegistry, pack: PackDef): PackIssue[]
   if (pack.pity) {
     if (!Number.isInteger(pack.pity.threshold) || pack.pity.threshold < 1) bad("pity.threshold inválido");
     if (!stockAtOrAbove(pack.pity.minBucket)) bad(`pity '${pack.pity.minBucket}' sin stock en el pool`);
+  }
+
+  // Fase 57.3 / Pack Opening 3.0 · línea principal: cada tabla del plan (normal y destacada) suma 1000 (por mil), λ es
+  // finita y ≥ 0, el plan tiene las cartas del sobre y ninguna clase con probabilidad > 0 está vacía (fallo cerrado).
+  const plan = packPlan(pack.id);
+  if (plan) {
+    if (plan.cards !== pack.cardCount) bad(`plan por ranuras con ${plan.cards} cartas y el sobre tiene ${pack.cardCount}`);
+    if (!Number.isFinite(plan.ovrTilt) || plan.ovrTilt < 0) bad(`inclinación por OVR inválida (${plan.ovrTilt})`);
+    const byClass = classPool(registry, pack, null);
+    for (const [name, table] of [["normal", plan.regular], ["destacada", plan.featured]] as const) {
+      const sum = PACK_CLASS_ORDER.reduce((s, c) => s + table[c], 0);
+      if (sum !== 1000 || PACK_CLASS_ORDER.some((c) => !Number.isInteger(table[c]) || table[c] < 0)) bad(`tabla ${name} inválida (suma ${sum} ‰)`);
+      for (const c of PACK_CLASS_ORDER) if (table[c] > 0 && byClass[c].length === 0) bad(`clase '${c}' con probabilidad (${name}) y sin cartas`);
+    }
   }
   return issues;
 }

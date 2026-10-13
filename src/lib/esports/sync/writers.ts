@@ -25,6 +25,12 @@ export const upsertTeams = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "team
 export const upsertPlayers = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "players", rows, "id");
 export const upsertEvent = (sb: SupabaseClient, row: Row) => upsert(sb, "events", [row], "id");
 export const upsertMatches = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "matches", rows, "id");
+/**
+ * Fase 24.4 · escribe SOLO las columnas de estructura del cuadro (0045), por partido. Es un
+ * upsert parcial: no toca marcador, equipos ni fechas, y no se llama para partidos sin
+ * estructura confirmada — reimportar sin cuadro no borra lo confirmado. Idempotente.
+ */
+export const upsertMatchProgression = (sb: SupabaseClient, rows: Row[]) => upsert(sb, "matches", rows, "id");
 export const upsertMapStats = (sb: SupabaseClient, rows: Row[]) =>
   upsert(sb, "map_player_stats", rows, "match_map_id,player_id");
 export const upsertPlayerStats = (sb: SupabaseClient, rows: Row[]) =>
