@@ -1,0 +1,39 @@
+{
+  "at": "2026-09-30T15:23:04.652Z",
+  "baseUrl": "http://127.0.0.1:3005 (build de producción)",
+  "intercepted": false,
+  "pass": 6,
+  "fail": 0,
+  "results": [
+    {
+      "id": "ADMIN · GET con cuenta no admin → 401 idéntico al anónimo (sin oráculo, contrato de server/admin/http.ts)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "ADMIN · POST saveRecipe con cuenta no admin → 401 (sin oráculo)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "ADMIN · POST saveMission con cuenta no admin → 401 (sin oráculo)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "ADMIN · anónimo → 401/403",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "ADMIN · la receta sigue en 4 tras los intentos",
+      "ok": true,
+      "detail": "4"
+    },
+    {
+      "id": "ADMIN · /admin/crafting en el navegador de un no admin no enseña el panel",
+      "ok": true,
+      "detail": "ACCESO RESTRINGIDO Esta zona es solo para administradores. Inicia sesión con una cuenta autorizada. IR A MI CUENTA"
+    }
+  ]
+}

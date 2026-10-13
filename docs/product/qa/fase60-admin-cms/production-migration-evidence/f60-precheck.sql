@@ -1,0 +1,25 @@
+-- F60 · PRECHECK 0057 — SOLO LECTURA.
+select 'db|' || current_database() || '|' || split_part(version(), ' ', 2);
+select 'registered_max|' || coalesce(max(version), 'none') from supabase_migrations.schema_migrations;
+select 'probe_0056|' || (count(*) filter (where id = 'miks' and role = 'controller') + count(*) filter (where id = 'veto' and role = 'sentinel')) from public.agents;
+select 'probe_0057_content_packs|' || (to_regclass('public.content_packs') is not null);
+select 'probe_0057_agents_lifecycle|' || exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'agents' and column_name = 'lifecycle');
+select 'agents|' || count(*) from public.agents;
+select 'agents_digest|' || md5(string_agg(id || ':' || name || ':' || role || ':' || coalesce(icon, '∅'), ',' order by id)) from public.agents;
+select 'cards|' || count(*) || '|' || string_agg(distinct lifecycle, ',') from public.content_cards;
+select 'cards_origin|' || string_agg(origin || '=' || n, ',') from (select origin, count(*) n from public.content_cards group by origin) t;
+select 'cards_digest|' || md5(string_agg(card_id || ':' || lifecycle || ':' || definition_version || ':' || ovr, ',' order by card_id)) from public.content_cards;
+select 'players|' || count(*) || '|' || md5(string_agg(id || ':' || nick || ':' || team || ':' || status, ',' order by id)) from public.content_players;
+select 'pools|' || count(*) || '|entries=' || (select count(*) from public.content_pool_entries) || '|bindings=' || (select count(*) from public.content_pack_pools) from public.content_pools;
+select 'assets|' || count(*) from public.assets;
+select 'events|' || count(*) from public.events;
+select 'event_drafts|' || count(*) from public.admin_event_drafts;
+select 'audit_rows|' || count(*) from public.content_audit_log;
+select 'user_packs|' || count(*) || '|' || coalesce(sum(qty), 0) from public.user_packs;
+select 'catalog_version|' || version from public.content_catalog_version;
+select 'distribution_version|' || version from public.content_distribution_version;
+select 'public_tables|' || count(*) from information_schema.tables where table_schema = 'public';
+select 'public_functions|' || count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public';
+select 'storage_objects|' || count(*) from storage.objects;
+select 'agents_policy|' || string_agg(policyname || '=' || coalesce(qual, ''), ',') from pg_policies where schemaname = 'public' and tablename = 'agents';
+select 'profiles_admins|' || count(*) from public.profiles where is_admin;

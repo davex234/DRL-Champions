@@ -1,0 +1,96 @@
+{
+  "at": "2026-10-02T08:35:22.453Z",
+  "base": "http://127.0.0.1:3011",
+  "results": [
+    {
+      "id": "[1440] PROTEGIDAS · el bloque aparte enumera las 2 copias de la favorita y la del equipo",
+      "ok": true,
+      "detail": "2 copias protegidas (favoritas o en tu vitrina) no se desguazan. Marca solo las que quieras desguazar igualmente:\n\nakame\n· favorita\nakame\n· favorita\n\n1 copia repetida está en tus equipos y no se desguaza."
+    },
+    {
+      "id": "[1440] BOTÓN · solo cuenta las NO protegidas (2 libres + 1 junto al equipo = 3)",
+      "ok": true,
+      "detail": "Desguazar 3 · 30 créditos"
+    },
+    {
+      "id": "[1440] sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] MARCAR · una favorita suma al botón (4)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] DESGUACE · el servidor recibe la favorita marcada como CONFIRMADA (y solo esa)",
+      "ok": true,
+      "detail": "{\"action\":\"salvage\",\"uids\":[\"505ac90e-48b0-4def-9e27-b5f810a44f3f\",\"8a039371-eca3-4572-a156-6954a42c3586\",\"98a28a06-674a-43b1-904b-626441ad4d5e\",\"95936b96-1372-4adb-8eb7-b76816fce3d0\"],\"ref\":\"93561227-71de-447b-8742-e313fc18355c\",\"confirmProtected\":[\"95936b96-1372-4adb-8eb7-b76816fce3d0\"]}"
+    },
+    {
+      "id": "[1440] RESULTADO · favorita: 3 → 2 (solo la marcada); libre: 3 → 1; equipo intacto",
+      "ok": true,
+      "detail": "{\"fav\":2,\"free\":1}"
+    },
+    {
+      "id": "[1024] PROTEGIDAS · el bloque aparte enumera las 2 copias de la favorita y la del equipo",
+      "ok": true,
+      "detail": "2 copias protegidas (favoritas o en tu vitrina) no se desguazan. Marca solo las que quieras desguazar igualmente:\n\nakame\n· favorita\nakame\n· favorita\n\n1 copia repetida está en tus equipos y no se desguaza."
+    },
+    {
+      "id": "[1024] BOTÓN · solo cuenta las NO protegidas (2 libres + 1 junto al equipo = 3)",
+      "ok": true,
+      "detail": "Desguazar 3 · 30 créditos"
+    },
+    {
+      "id": "[1024] sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] MARCAR · una favorita suma al botón (4)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] DESGUACE · el servidor recibe la favorita marcada como CONFIRMADA (y solo esa)",
+      "ok": true,
+      "detail": "{\"action\":\"salvage\",\"uids\":[\"2d3d494a-6c4a-4902-8ba3-17968f9e2e41\",\"6de077f7-63ac-4d93-8d9e-d45d8c3646b1\",\"2eaf1cd3-cd56-47de-9fde-850d9eb6e7cf\",\"76c30788-f0cd-4f32-aa61-5e1d7ef4ba55\"],\"ref\":\"28b3e72f-5d58-44d3-908f-a030e0c514a1\",\"confirmProtected\":[\"76c30788-f0cd-4f32-aa61-5e1d7ef4ba55\"]}"
+    },
+    {
+      "id": "[1024] RESULTADO · favorita: 3 → 2 (solo la marcada); libre: 3 → 1; equipo intacto",
+      "ok": true,
+      "detail": "{\"fav\":2,\"free\":1}"
+    },
+    {
+      "id": "[390] PROTEGIDAS · el bloque aparte enumera las 2 copias de la favorita y la del equipo",
+      "ok": true,
+      "detail": "2 copias protegidas (favoritas o en tu vitrina) no se desguazan. Marca solo las que quieras desguazar igualmente:\n\nakame\n· favorita\nakame\n· favorita\n\n1 copia repetida está en tus equipos y no se desguaza."
+    },
+    {
+      "id": "[390] BOTÓN · solo cuenta las NO protegidas (2 libres + 1 junto al equipo = 3)",
+      "ok": true,
+      "detail": "Desguazar 3 · 30 créditos"
+    },
+    {
+      "id": "[390] sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] MARCAR · una favorita suma al botón (4)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] DESGUACE · el servidor recibe la favorita marcada como CONFIRMADA (y solo esa)",
+      "ok": true,
+      "detail": "{\"action\":\"salvage\",\"uids\":[\"917241fe-76b8-4876-b8df-b04860a42e94\",\"df6760a6-938a-4d45-ae7e-b05905e9bd78\",\"d668577f-7de7-49c8-b82a-6daacf5ee137\",\"2b9e9b41-414e-48f4-a1c3-f49369c39507\"],\"ref\":\"60fe59a3-ea16-422c-853e-a14b20a8fa24\",\"confirmProtected\":[\"2b9e9b41-414e-48f4-a1c3-f49369c39507\"]}"
+    },
+    {
+      "id": "[390] RESULTADO · favorita: 3 → 2 (solo la marcada); libre: 3 → 1; equipo intacto",
+      "ok": true,
+      "detail": "{\"fav\":2,\"free\":1}"
+    }
+  ]
+}

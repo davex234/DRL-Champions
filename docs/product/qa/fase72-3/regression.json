@@ -1,0 +1,18 @@
+{
+  "cards": 331,
+  "agents": 29,
+  "migrationHeadOnDisk": "0058_hardening_grants.sql",
+  "marketplaceEnabled": false,
+  "paymentsEnabled": false,
+  "f723TouchedDomainFile": "src/domain/cardgame/hints.ts (solo el puerto HintVisual recibe la carta; hash/orden/tipos intactos)",
+  "untouchedByF723": [
+    "src/domain/cardgame/{match,combat,resolve.ts,opponent,rating,matchmaking}",
+    "src/domain/economy",
+    "src/data/packs.ts",
+    "src/data/catalog.ts",
+    "src/domain/tactics",
+    "supabase/migrations"
+  ],
+  "note": "Estos ficheros tienen cambios SIN COMMIT de fases anteriores; F72.3 no los editó (ver informe, lista de ficheros).",
+  "migrationsAfter0058": []
+}

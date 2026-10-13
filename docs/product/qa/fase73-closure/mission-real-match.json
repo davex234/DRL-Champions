@@ -1,0 +1,166 @@
+{
+  "at": "2026-09-30T19:32:00.503Z",
+  "intercepted": false,
+  "pass": 18,
+  "fail": 0,
+  "results": [
+    {
+      "id": "ESTADO INICIAL · partidas 0/5 ACTIVE, Turquía 0/1 ACTIVE, dependiente LOCKED, abrir 0/1 ACTIVE",
+      "ok": true,
+      "detail": "{\"qa-f73-abrir-r4\":\"0/1 ACTIVE\",\"qa-f73-equipo-tr-r4\":\"0/1 ACTIVE\",\"qa-f73-partidas-r4\":\"0/5 ACTIVE\",\"qa-f73-tras-equipo-r4\":\"0/1 LOCKED\"}"
+    },
+    {
+      "id": "UI · estados reales iniciales: /misiones ACTIVE y en el proyecto una misión LOCKED (dependencia)",
+      "ok": true,
+      "detail": "{\"misiones\":{\"qa-f73-abrir-r4\":{\"state\":\"ACTIVE\",\"text\":\"QA · F73 ABRE UN SOBRE R4 QA F73 (se retira al terminar). ● EN CURSO Progreso 0 / 1 RECOMPENSA +10 XP\"},\"qa-f73-partidas-r4\":{\"state\":\"ACTIVE\",\"text\":\"QA · F73 JUEGA 5 PARTIDAS PVE R4 QA F73 (se retira al terminar). ● EN CURSO Progreso 0 / 5\"}},\"proyecto\":[\"ACTIVE\",\"LOCKED\"]}"
+    },
+    {
+      "id": "APERTURA real (Sobre Inicial) → misión OPEN_PACK 0/1 → 1/1 COMPLETED",
+      "ok": true,
+      "detail": "200 1/1 COMPLETED"
+    },
+    {
+      "id": "RECLAMO de misión por la UI (doble clic) → CLAIMED y +10 XP exactos",
+      "ok": true,
+      "detail": "xp 1782 → 1792"
+    },
+    {
+      "id": "F5 conserva CLAIMED y un segundo reclamo no paga nada",
+      "ok": true,
+      "detail": "CLAIMED repeated=true xp=1792"
+    },
+    {
+      "id": "PARTIDA A · tablero real por la UI",
+      "ok": true,
+      "detail": "3a76ed17-6a5b-4041-8014-5255e13c371c"
+    },
+    {
+      "id": "SNAPSHOT · el equipo GUARDADO se cambia tras empezar (TR 3 → 2) por el camino real",
+      "ok": true,
+      "detail": "{\"status\":200,\"out\":{\"uid\":\"2ec91f44-f73b-43c0-8e72-37aaad46e835\",\"cardId\":\"echo__future-star\",\"role\":\"Centinela\",\"country\":\"TR\"},\"in\":{\"uid\":\"fd96b27a-87f7-4b6b-9afc-07dede63f3d6\",\"cardId\":\"skuba__masters-l\",\"role\":\"Centinela\",\"country\":\"US\"},\"trAfter\":2}"
+    },
+    {
+      "id": "PARTIDA A · terminada por reglas desde la UI",
+      "ok": true,
+      "detail": "COMPLETED jugadas UI=10 timeouts=0"
+    },
+    {
+      "id": "PARTIDA A · evento persistido una vez, ≥5 decisiones humanas → CUENTA",
+      "ok": true,
+      "detail": "{\"won\":true,\"auto\":0,\"draw\":false,\"mode\":\"PVE\",\"human\":10,\"counts\":true,\"finished\":true,\"missions\":[\"qa-f73-partidas-r4\",\"qa-f73-equipo-tr-r4\"]}"
+    },
+    {
+      "id": "MISIÓN · partidas 0/5 → 1/5 (partida → evento → app_mission_apply → Postgres → API)",
+      "ok": true,
+      "detail": "1/5 ACTIVE"
+    },
+    {
+      "id": "CONDICIÓN TR ≥ 3 · completada con el equipo CONGELADO al empezar (el guardado ya tiene 2)",
+      "ok": true,
+      "detail": "1/1 CLAIMED"
+    },
+    {
+      "id": "DEPENDENCIA · la misión dependiente pasa de LOCKED a ACTIVE 0/1",
+      "ok": true,
+      "detail": "0/1 ACTIVE"
+    },
+    {
+      "id": "EQUIPO · restaurado a su composición original",
+      "ok": true,
+      "detail": "{\"status\":200}"
+    },
+    {
+      "id": "UI /misiones · 1/5 visible",
+      "ok": true,
+      "detail": "QA · F73 JUEGA 5 PARTIDAS PVE R4 QA F73 (se retira al terminar). ● EN CURSO Progreso 1 / 5"
+    },
+    {
+      "id": "F5 · sigue 1/5",
+      "ok": true,
+      "detail": "QA · F73 JUEGA 5 PARTIDAS PVE R4 QA F73 (se retira al terminar). ● EN CURSO Progreso 1 / 5"
+    },
+    {
+      "id": "RELOGIN · sigue 1/5",
+      "ok": true,
+      "detail": "QA · F73 JUEGA 5 PARTIDAS PVE R4 QA F73 (se retira al terminar). ● EN CURSO Progreso 1 / 5"
+    },
+    {
+      "id": "REPROCESO · reenviar la última jugada ×5 no es aceptado (partida terminada)",
+      "ok": true,
+      "detail": "409,409,409,409,409"
+    },
+    {
+      "id": "REPROCESO · mission_events tiene EXACTAMENTE una fila para la partida y el progreso sigue en 1/5",
+      "ok": true,
+      "detail": "1 1/5 ACTIVE"
+    }
+  ],
+  "start": {
+    "qa-f73-abrir-r4": "0/1 ACTIVE",
+    "qa-f73-equipo-tr-r4": "0/1 ACTIVE",
+    "qa-f73-partidas-r4": "0/5 ACTIVE",
+    "qa-f73-tras-equipo-r4": "0/1 LOCKED"
+  },
+  "swap": {
+    "status": 200,
+    "out": {
+      "uid": "2ec91f44-f73b-43c0-8e72-37aaad46e835",
+      "cardId": "echo__future-star",
+      "role": "Centinela",
+      "country": "TR"
+    },
+    "in": {
+      "uid": "fd96b27a-87f7-4b6b-9afc-07dede63f3d6",
+      "cardId": "skuba__masters-l",
+      "role": "Centinela",
+      "country": "US"
+    },
+    "original": [
+      "d3bf5abd-1d0c-4fe2-86be-4b68756eaa2d",
+      "75a4518b-decf-4a00-a2f1-4ae451180004",
+      "2ec91f44-f73b-43c0-8e72-37aaad46e835",
+      "db0bfc9c-7fae-4bb5-adde-49906ae9b56c",
+      "9eeb0494-a25f-48ca-8363-34c4b6431769",
+      "b15ac683-6e74-4b69-a68e-39e1ea030e24",
+      "37c0ba3e-e437-4065-aeea-72b7081bc174",
+      "c2d04415-7494-4495-84ba-223bc86936f4",
+      "ff85baf7-55bd-45f3-b72f-ed100b04f396",
+      "a55196b9-0af1-4507-9c38-2e25339e8d1d"
+    ],
+    "deckId": "86ad6d37-c3ba-4f97-8f03-f2634c4b6d10",
+    "name": "Mi primer equipo",
+    "trAfter": 2
+  },
+  "eventA": [
+    {
+      "key": "match:3a76ed17-6a5b-4041-8014-5255e13c371c",
+      "kind": "MATCH",
+      "evidence": {
+        "won": true,
+        "auto": 0,
+        "draw": false,
+        "mode": "PVE",
+        "human": 10,
+        "counts": true,
+        "finished": true,
+        "missions": [
+          "qa-f73-partidas-r4",
+          "qa-f73-equipo-tr-r4"
+        ]
+      },
+      "at": "2026-09-30T19:31:29.880066+00:00"
+    }
+  ],
+  "reprocess": [
+    409,
+    409,
+    409,
+    409,
+    409,
+    200,
+    200,
+    200,
+    200,
+    200
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "measuredAt": "2026-09-25T08:55Z (antes de editar)",
+  "git": {
+    "branch": "arch/stabilization",
+    "head": "48dac2a",
+    "statusLines": 1290,
+    "note": "árbol con trabajo sin commitear de fases anteriores; F61 no commitea"
+  },
+  "tests": {
+    "command": "npm test",
+    "total": 5144,
+    "pass": 5144,
+    "fail": 0
+  },
+  "notMeasuredBeforeEditing": [
+    "tsc web/scripts",
+    "eslint",
+    "next build"
+  ],
+  "notMeasuredReason": "no se corrieron antes del primer cambio; el lint final (27 avisos, 0 errores) coincide con el valor documentado tras F60",
+  "migrationHead": "0057_admin_cms.sql",
+  "cards": 331,
+  "agents": 29,
+  "flags": {
+    "GLOBAL_MARKET_ENABLED": false,
+    "PAYMENTS_ENABLED": false
+  },
+  "port3005": "nada escuchando al empezar",
+  "tunnel": "cerrado al empezar",
+  "multiplayer": "PvP por sondeo (usePvpSync → /api/game/duel/pvp con actionId + expectedVersion); cola /api/game/duel/matchmaking; rating duel_pvp_ratings (Elo, sin tiers)",
+  "routes": {
+    "pve": "/duelos/jugar (inmersiva)",
+    "pvp": "/duelos/pvp (NO inmersiva antes de F61)",
+    "hubs": [
+      "/jugar",
+      "/competitivo"
+    ]
+  },
+  "engine": {
+    "rules": "duel-combat-2",
+    "turns": "duel-turns-2 · 10 turnos (uno por carta)",
+    "attacker": "alterna (orchestrator: attacker = other(attacker))",
+    "defenderStat": "la impone la tabla SH↔EF, GS↔GS en servidor (requiredDefenderStat); el cliente no la envía",
+    "turnTie": "NO_POINT",
+    "final": "marcador → suma de OVR (+1 punto) → total de estadística declarada (sin punto) → DRAW explícito"
+  },
+  "bots": [
+    "EASY (Fácil)",
+    "NORMAL (Normal)",
+    "HARD (Difícil)"
+  ],
+  "rewards": "PvE: award del servidor tras persistir, ref duel:<matchId> (índice único), tope diario atómico; PvP: sin economía, solo rating",
+  "qaAccounts": {
+    "at": "2026-09-25T09:22:38.765Z",
+    "A": {
+      "userId": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+      "decks": [
+        {
+          "id": "bb5e6f05-36a7-4155-9ec7-690a7d9e2efe",
+          "name": "QA F55 Ranked",
+          "valid": true,
+          "sumOvr": 830
+        }
+      ],
+      "activeDeckId": null,
+      "activeMatch": null,
+      "credits": 3510,
+      "xp": 1964,
+      "position": {
+        "rating": 980,
+        "position": 2,
+        "rankedTotal": 2,
+        "gamesPlayed": 1
+      },
+      "queue": {
+        "code": "OK",
+        "entry": {
+          "entryId": "554772de-dd26-4015-a812-fd466f35647b",
+          "deckId": "bb5e6f05-36a7-4155-9ec7-690a7d9e2efe",
+          "state": "MATCHED",
+          "ratingSnapshot": 1000,
+          "matchId": "e405a857-a3b0-47f2-a1ea-46df903be5d7",
+          "reason": null,
+          "createdAt": 1790165366237,
+          "updatedAt": 1790165366552,
+          "expiresAt": 1790165966237,
+          "matchedAt": 1790165366552
+        },
+        "position": null,
+        "rating": 980,
+        "serverNow": 1790328156995
+      }
+    },
+    "B": {
+      "userId": "8c326e52-776a-43f4-ba05-3ad7945c40c3",
+      "decks": [
+        {
+          "id": "d6e00a4c-7407-4c19-a6b7-f4cddd2deae7",
+          "name": "QA F55 Ranked",
+          "valid": true,
+          "sumOvr": 872
+        }
+      ],
+      "activeDeckId": null,
+      "activeMatch": null,
+      "credits": 1320,
+      "xp": 3122,
+      "position": {
+        "rating": 1020,
+        "position": 1,
+        "rankedTotal": 2,
+        "gamesPlayed": 1
+      },
+      "queue": {
+        "code": "OK",
+        "entry": {
+          "entryId": "54f2fc1a-ad32-43fd-b931-e6ab864c4549",
+          "deckId": "d6e00a4c-7407-4c19-a6b7-f4cddd2deae7",
+          "state": "CANCELLED",
+          "ratingSnapshot": 1020,
+          "matchId": null,
+          "reason": "USER",
+          "createdAt": 1790165449677,
+          "updatedAt": 1790165455261,
+          "expiresAt": 1790166049677,
+          "matchedAt": null
+        },
+        "position": null,
+        "rating": 1020,
+        "serverNow": 1790328158721
+      }
+    }
+  }
+}

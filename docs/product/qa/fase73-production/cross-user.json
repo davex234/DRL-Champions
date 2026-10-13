@@ -1,0 +1,69 @@
+{
+  "at": "2026-09-30T15:26:44.231Z",
+  "baseUrl": "http://127.0.0.1:3005 (build de producción)",
+  "intercepted": false,
+  "pass": 12,
+  "fail": 0,
+  "results": [
+    {
+      "id": "CRUCE · K no puede intercambiar copias de B (4xx) y las copias de B siguen siendo de B",
+      "ok": true,
+      "detail": "409 NOT_ELIGIBLE"
+    },
+    {
+      "id": "CRUCE · K no puede desguazar una copia de B",
+      "ok": true,
+      "detail": "409 {\"error\":\"Ninguna de esas cartas se puede desguazar\"}"
+    },
+    {
+      "id": "CRUCE · el inventario de K no cambió",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "CRUCE · reclamar un proyecto inexistente → 404",
+      "ok": true,
+      "detail": "404"
+    },
+    {
+      "id": "CUERPO · un campo extra (qty) se rechaza 400",
+      "ok": true,
+      "detail": "400"
+    },
+    {
+      "id": "RLS · K lee user_mission_progress: solo filas suyas",
+      "ok": true,
+      "detail": "200 n=0"
+    },
+    {
+      "id": "RLS · K no ve los reclamos de B",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "RLS · K no puede escribir progreso (INSERT denegado)",
+      "ok": true,
+      "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":\"Grant the required privileges to the current role with: GRANT"
+    },
+    {
+      "id": "RLS · mission_events no es legible por un jugador",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "ANON · craft_recipes no es legible sin sesión",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "RPC · app_craft_pack no es ejecutable por un jugador (42501, no «no encontrada»)",
+      "ok": true,
+      "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for function app_craft_pack\""
+    },
+    {
+      "id": "RPC · app_mission_apply no es ejecutable por un jugador (42501, no «no encontrada»)",
+      "ok": true,
+      "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for function app_mission_app"
+    }
+  ]
+}

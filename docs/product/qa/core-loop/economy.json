@@ -1,0 +1,655 @@
+{
+  "assumptions": {
+    "MIN_PER_MATCH": 3.5,
+    "PACK_OPEN_MIN": 2,
+    "medianRealPveSeconds": 174,
+    "sampleN": 8
+  },
+  "inclusionBefore": {
+    "d-duelo-win": 0.9021,
+    "d-abrir-1": 0.69795,
+    "d-pickem-1": 0.69975,
+    "d-duelo-1": 0.7002
+  },
+  "inclusionAfter": {
+    "d-duelo-win": 1,
+    "d-abrir-1": 1,
+    "d-duelo-1": 1
+  },
+  "weeklyInclusion": {
+    "w-sobres-10": 0.4972,
+    "w-duelos-5": 0.49925,
+    "w-cartas-5": 0.4993,
+    "w-victorias": 0.50425
+  },
+  "profiles": {
+    "casual": {
+      "profile": {
+        "id": "casual",
+        "label": "Casual 30 min",
+        "minutes": 30,
+        "difficulty": "NORMAL",
+        "win": 0.496,
+        "draw": 0,
+        "policy": "NORMAL"
+      },
+      "before_1d": {
+        "matchesPerDay": 8,
+        "paidPerDay": 8,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 1996,
+        "creditsPerDayAll": 3756,
+        "dailyMissionCredits": 640,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 537,
+        "passXpPerDay": 1882,
+        "passLevel": 1,
+        "competitiveTrack": false,
+        "rankPoints": 56,
+        "wins": 4,
+        "bronzeEquivPerWeek": 10.5,
+        "cardsPerWeekBronzeEquiv": 53,
+        "grantedPacks": 0
+      },
+      "before_7d": {
+        "matchesPerDay": 8,
+        "paidPerDay": 8,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 1996,
+        "creditsPerDayAll": 2590,
+        "dailyMissionCredits": 640,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 537,
+        "passXpPerDay": 1210,
+        "passLevel": 8,
+        "competitiveTrack": false,
+        "rankPoints": 389,
+        "wins": 28,
+        "bronzeEquivPerWeek": 7.3,
+        "cardsPerWeekBronzeEquiv": 36,
+        "grantedPacks": 3
+      },
+      "before_30d": {
+        "matchesPerDay": 8,
+        "paidPerDay": 8,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 1996,
+        "creditsPerDayAll": 3141,
+        "dailyMissionCredits": 640,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 537,
+        "passXpPerDay": 938,
+        "passLevel": 28,
+        "competitiveTrack": true,
+        "rankPoints": 1667,
+        "wins": 119,
+        "bronzeEquivPerWeek": 8.8,
+        "cardsPerWeekBronzeEquiv": 44,
+        "grantedPacks": 10
+      },
+      "after_1d": {
+        "matchesPerDay": 8,
+        "paidPerDay": 8,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 2156,
+        "creditsPerDayAll": 4186,
+        "dailyMissionCredits": 799,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 537,
+        "passXpPerDay": 2005,
+        "passLevel": 2,
+        "competitiveTrack": false,
+        "rankPoints": 56,
+        "wins": 4,
+        "bronzeEquivPerWeek": 11.7,
+        "cardsPerWeekBronzeEquiv": 59,
+        "grantedPacks": 0
+      },
+      "after_7d": {
+        "matchesPerDay": 8,
+        "paidPerDay": 8,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 2156,
+        "creditsPerDayAll": 2798,
+        "dailyMissionCredits": 799,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 537,
+        "passXpPerDay": 1334,
+        "passLevel": 9,
+        "competitiveTrack": false,
+        "rankPoints": 389,
+        "wins": 28,
+        "bronzeEquivPerWeek": 7.8,
+        "cardsPerWeekBronzeEquiv": 39,
+        "grantedPacks": 3
+      },
+      "after_30d": {
+        "matchesPerDay": 8,
+        "paidPerDay": 8,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 2156,
+        "creditsPerDayAll": 3769,
+        "dailyMissionCredits": 799,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 537,
+        "passXpPerDay": 1062,
+        "passLevel": 30,
+        "competitiveTrack": true,
+        "rankPoints": 1667,
+        "wins": 119,
+        "bronzeEquivPerWeek": 10.6,
+        "cardsPerWeekBronzeEquiv": 53,
+        "grantedPacks": 14
+      },
+      "matchesToPack": {
+        "Sobre Bronce": {
+          "price": 2500,
+          "matchesOnly": 20,
+          "withMissions": 10,
+          "days": 1.2
+        },
+        "Sobre Plata": {
+          "price": 6000,
+          "matchesOnly": 47,
+          "withMissions": 23,
+          "days": 2.8
+        },
+        "Sobre Oro": {
+          "price": 12000,
+          "matchesOnly": 94,
+          "withMissions": 45,
+          "days": 5.6
+        },
+        "Sobre Masters": {
+          "price": 20000,
+          "matchesOnly": 156,
+          "withMissions": 75,
+          "days": 9.3
+        },
+        "Sobre Champions": {
+          "price": 35000,
+          "matchesOnly": 272,
+          "withMissions": 130,
+          "days": 16.2
+        },
+        "Sobre Icon": {
+          "price": 60000,
+          "matchesOnly": 466,
+          "withMissions": 223,
+          "days": 27.8
+        }
+      }
+    },
+    "regular": {
+      "profile": {
+        "id": "regular",
+        "label": "Regular 1 h",
+        "minutes": 60,
+        "difficulty": "NORMAL",
+        "win": 0.496,
+        "draw": 0,
+        "policy": "NORMAL"
+      },
+      "before_1d": {
+        "matchesPerDay": 16,
+        "paidPerDay": 16,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 3066,
+        "creditsPerDayAll": 4826,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 1075,
+        "passXpPerDay": 1909,
+        "passLevel": 1,
+        "competitiveTrack": false,
+        "rankPoints": 111,
+        "wins": 8,
+        "bronzeEquivPerWeek": 13.5,
+        "cardsPerWeekBronzeEquiv": 68,
+        "grantedPacks": 0
+      },
+      "before_7d": {
+        "matchesPerDay": 16,
+        "paidPerDay": 16,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 3066,
+        "creditsPerDayAll": 5028,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 1075,
+        "passXpPerDay": 1809,
+        "passLevel": 12,
+        "competitiveTrack": true,
+        "rankPoints": 778,
+        "wins": 56,
+        "bronzeEquivPerWeek": 14.1,
+        "cardsPerWeekBronzeEquiv": 70,
+        "grantedPacks": 5
+      },
+      "before_30d": {
+        "matchesPerDay": 16,
+        "paidPerDay": 16,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 3066,
+        "creditsPerDayAll": 4212,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 1075,
+        "passXpPerDay": 965,
+        "passLevel": 28,
+        "competitiveTrack": true,
+        "rankPoints": 3333,
+        "wins": 238,
+        "bronzeEquivPerWeek": 11.8,
+        "cardsPerWeekBronzeEquiv": 59,
+        "grantedPacks": 10
+      },
+      "after_1d": {
+        "matchesPerDay": 16,
+        "paidPerDay": 16,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 3241,
+        "creditsPerDayAll": 5271,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 1075,
+        "passXpPerDay": 2043,
+        "passLevel": 2,
+        "competitiveTrack": false,
+        "rankPoints": 111,
+        "wins": 8,
+        "bronzeEquivPerWeek": 14.8,
+        "cardsPerWeekBronzeEquiv": 74,
+        "grantedPacks": 0
+      },
+      "after_7d": {
+        "matchesPerDay": 16,
+        "paidPerDay": 16,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 3241,
+        "creditsPerDayAll": 5256,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 1075,
+        "passXpPerDay": 1943,
+        "passLevel": 13,
+        "competitiveTrack": true,
+        "rankPoints": 778,
+        "wins": 56,
+        "bronzeEquivPerWeek": 14.7,
+        "cardsPerWeekBronzeEquiv": 74,
+        "grantedPacks": 5
+      },
+      "after_30d": {
+        "matchesPerDay": 16,
+        "paidPerDay": 16,
+        "creditsPerMatch": 129,
+        "creditsPerDayRecurring": 3241,
+        "creditsPerDayAll": 4854,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 2256,
+        "accountXpPerDay": 1075,
+        "passXpPerDay": 1100,
+        "passLevel": 30,
+        "competitiveTrack": true,
+        "rankPoints": 3333,
+        "wins": 238,
+        "bronzeEquivPerWeek": 13.6,
+        "cardsPerWeekBronzeEquiv": 68,
+        "grantedPacks": 14
+      },
+      "matchesToPack": {
+        "Sobre Bronce": {
+          "price": 2500,
+          "matchesOnly": 20,
+          "withMissions": 13,
+          "days": 0.8
+        },
+        "Sobre Plata": {
+          "price": 6000,
+          "matchesOnly": 47,
+          "withMissions": 30,
+          "days": 1.9
+        },
+        "Sobre Oro": {
+          "price": 12000,
+          "matchesOnly": 94,
+          "withMissions": 60,
+          "days": 3.7
+        },
+        "Sobre Masters": {
+          "price": 20000,
+          "matchesOnly": 156,
+          "withMissions": 99,
+          "days": 6.2
+        },
+        "Sobre Champions": {
+          "price": 35000,
+          "matchesOnly": 272,
+          "withMissions": 173,
+          "days": 10.8
+        },
+        "Sobre Icon": {
+          "price": 60000,
+          "matchesOnly": 466,
+          "withMissions": 297,
+          "days": 18.5
+        }
+      }
+    },
+    "active": {
+      "profile": {
+        "id": "active",
+        "label": "Activo 2 h",
+        "minutes": 120,
+        "difficulty": "HARD",
+        "win": 0.456,
+        "draw": 0.001,
+        "policy": "HARD"
+      },
+      "before_1d": {
+        "matchesPerDay": 33,
+        "paidPerDay": 20,
+        "creditsPerMatch": 192,
+        "creditsPerDayRecurring": 4951,
+        "creditsPerDayAll": 7551,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2078,
+        "passXpPerDay": 4473,
+        "passLevel": 4,
+        "competitiveTrack": false,
+        "rankPoints": 201,
+        "wins": 15,
+        "bronzeEquivPerWeek": 21.1,
+        "cardsPerWeekBronzeEquiv": 106,
+        "grantedPacks": 2
+      },
+      "before_7d": {
+        "matchesPerDay": 33,
+        "paidPerDay": 20,
+        "creditsPerMatch": 192,
+        "creditsPerDayRecurring": 4951,
+        "creditsPerDayAll": 6967,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2078,
+        "passXpPerDay": 1873,
+        "passLevel": 13,
+        "competitiveTrack": true,
+        "rankPoints": 1406,
+        "wins": 105,
+        "bronzeEquivPerWeek": 19.5,
+        "cardsPerWeekBronzeEquiv": 98,
+        "grantedPacks": 5
+      },
+      "before_30d": {
+        "matchesPerDay": 33,
+        "paidPerDay": 20,
+        "creditsPerMatch": 192,
+        "creditsPerDayRecurring": 4951,
+        "creditsPerDayAll": 6564,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2078,
+        "passXpPerDay": 1029,
+        "passLevel": 30,
+        "competitiveTrack": true,
+        "rankPoints": 6024,
+        "wins": 451,
+        "bronzeEquivPerWeek": 18.4,
+        "cardsPerWeekBronzeEquiv": 92,
+        "grantedPacks": 14
+      },
+      "after_1d": {
+        "matchesPerDay": 33,
+        "paidPerDay": 20,
+        "creditsPerMatch": 192,
+        "creditsPerDayRecurring": 5126,
+        "creditsPerDayAll": 7726,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2078,
+        "passXpPerDay": 4607,
+        "passLevel": 4,
+        "competitiveTrack": false,
+        "rankPoints": 201,
+        "wins": 15,
+        "bronzeEquivPerWeek": 21.6,
+        "cardsPerWeekBronzeEquiv": 108,
+        "grantedPacks": 2
+      },
+      "after_7d": {
+        "matchesPerDay": 33,
+        "paidPerDay": 20,
+        "creditsPerMatch": 192,
+        "creditsPerDayRecurring": 5126,
+        "creditsPerDayAll": 7197,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2078,
+        "passXpPerDay": 2007,
+        "passLevel": 14,
+        "competitiveTrack": true,
+        "rankPoints": 1406,
+        "wins": 105,
+        "bronzeEquivPerWeek": 20.2,
+        "cardsPerWeekBronzeEquiv": 101,
+        "grantedPacks": 5
+      },
+      "after_30d": {
+        "matchesPerDay": 33,
+        "paidPerDay": 20,
+        "creditsPerMatch": 192,
+        "creditsPerDayRecurring": 5126,
+        "creditsPerDayAll": 6739,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2078,
+        "passXpPerDay": 1164,
+        "passLevel": 30,
+        "competitiveTrack": true,
+        "rankPoints": 6024,
+        "wins": 451,
+        "bronzeEquivPerWeek": 18.9,
+        "cardsPerWeekBronzeEquiv": 94,
+        "grantedPacks": 14
+      },
+      "matchesToPack": {
+        "Sobre Bronce": {
+          "price": 2500,
+          "matchesOnly": 14,
+          "withMissions": 10,
+          "days": 0.5
+        },
+        "Sobre Plata": {
+          "price": 6000,
+          "matchesOnly": 32,
+          "withMissions": 24,
+          "days": 1.2
+        },
+        "Sobre Oro": {
+          "price": 12000,
+          "matchesOnly": 63,
+          "withMissions": 47,
+          "days": 2.3
+        },
+        "Sobre Masters": {
+          "price": 20000,
+          "matchesOnly": 105,
+          "withMissions": 79,
+          "days": 3.9
+        },
+        "Sobre Champions": {
+          "price": 35000,
+          "matchesOnly": 183,
+          "withMissions": 137,
+          "days": 6.8
+        },
+        "Sobre Icon": {
+          "price": 60000,
+          "matchesOnly": 313,
+          "withMissions": 235,
+          "days": 11.7
+        }
+      }
+    },
+    "hardcore": {
+      "profile": {
+        "id": "hardcore",
+        "label": "Hardcore 4 h",
+        "minutes": 240,
+        "difficulty": "HARD",
+        "win": 0.557,
+        "draw": 0,
+        "policy": "SMART"
+      },
+      "before_1d": {
+        "matchesPerDay": 68,
+        "paidPerDay": 20,
+        "creditsPerMatch": 222,
+        "creditsPerDayRecurring": 5535,
+        "creditsPerDayAll": 8135,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2360,
+        "passXpPerDay": 4473,
+        "passLevel": 4,
+        "competitiveTrack": false,
+        "rankPoints": 245,
+        "wins": 38,
+        "bronzeEquivPerWeek": 22.8,
+        "cardsPerWeekBronzeEquiv": 114,
+        "grantedPacks": 2
+      },
+      "before_7d": {
+        "matchesPerDay": 68,
+        "paidPerDay": 20,
+        "creditsPerMatch": 222,
+        "creditsPerDayRecurring": 5535,
+        "creditsPerDayAll": 7551,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2360,
+        "passXpPerDay": 1873,
+        "passLevel": 13,
+        "competitiveTrack": true,
+        "rankPoints": 1716,
+        "wins": 265,
+        "bronzeEquivPerWeek": 21.1,
+        "cardsPerWeekBronzeEquiv": 106,
+        "grantedPacks": 5
+      },
+      "before_30d": {
+        "matchesPerDay": 68,
+        "paidPerDay": 20,
+        "creditsPerMatch": 222,
+        "creditsPerDayRecurring": 5535,
+        "creditsPerDayAll": 7148,
+        "dailyMissionCredits": 675,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2360,
+        "passXpPerDay": 1029,
+        "passLevel": 30,
+        "competitiveTrack": true,
+        "rankPoints": 7352,
+        "wins": 1136,
+        "bronzeEquivPerWeek": 20,
+        "cardsPerWeekBronzeEquiv": 100,
+        "grantedPacks": 14
+      },
+      "after_1d": {
+        "matchesPerDay": 68,
+        "paidPerDay": 20,
+        "creditsPerMatch": 222,
+        "creditsPerDayRecurring": 5709,
+        "creditsPerDayAll": 8309,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2360,
+        "passXpPerDay": 4607,
+        "passLevel": 4,
+        "competitiveTrack": false,
+        "rankPoints": 245,
+        "wins": 38,
+        "bronzeEquivPerWeek": 23.3,
+        "cardsPerWeekBronzeEquiv": 116,
+        "grantedPacks": 2
+      },
+      "after_7d": {
+        "matchesPerDay": 68,
+        "paidPerDay": 20,
+        "creditsPerMatch": 222,
+        "creditsPerDayRecurring": 5709,
+        "creditsPerDayAll": 7781,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2360,
+        "passXpPerDay": 2007,
+        "passLevel": 14,
+        "competitiveTrack": true,
+        "rankPoints": 1716,
+        "wins": 265,
+        "bronzeEquivPerWeek": 21.8,
+        "cardsPerWeekBronzeEquiv": 109,
+        "grantedPacks": 5
+      },
+      "after_30d": {
+        "matchesPerDay": 68,
+        "paidPerDay": 20,
+        "creditsPerMatch": 222,
+        "creditsPerDayRecurring": 5709,
+        "creditsPerDayAll": 7323,
+        "dailyMissionCredits": 850,
+        "weeklyMissionCreditsPerWeek": 3002,
+        "accountXpPerDay": 2360,
+        "passXpPerDay": 1164,
+        "passLevel": 30,
+        "competitiveTrack": true,
+        "rankPoints": 7352,
+        "wins": 1136,
+        "bronzeEquivPerWeek": 20.5,
+        "cardsPerWeekBronzeEquiv": 103,
+        "grantedPacks": 14
+      },
+      "matchesToPack": {
+        "Sobre Bronce": {
+          "price": 2500,
+          "matchesOnly": 12,
+          "withMissions": 9,
+          "days": 0.4
+        },
+        "Sobre Plata": {
+          "price": 6000,
+          "matchesOnly": 28,
+          "withMissions": 22,
+          "days": 1.1
+        },
+        "Sobre Oro": {
+          "price": 12000,
+          "matchesOnly": 55,
+          "withMissions": 43,
+          "days": 2.1
+        },
+        "Sobre Masters": {
+          "price": 20000,
+          "matchesOnly": 91,
+          "withMissions": 71,
+          "days": 3.5
+        },
+        "Sobre Champions": {
+          "price": 35000,
+          "matchesOnly": 158,
+          "withMissions": 123,
+          "days": 6.1
+        },
+        "Sobre Icon": {
+          "price": 60000,
+          "matchesOnly": 271,
+          "withMissions": 211,
+          "days": 10.5
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,390 @@
+{
+  "rule": "equipo de la CARTA = canonicalCardTeam(card, player) (el impreso manda); logo por canonicalId",
+  "uniqueTeamsIn331": 41,
+  "imported": [
+    {
+      "canonicalId": "100t",
+      "displayName": "100T",
+      "file": "public/hints/teams/100t.png",
+      "sha256": "fd5d45d56fdbe4b56c4f7d50f20880fe6130701a52327f741c3c908b28c010d3",
+      "origin": "AMERICAS/100T/Logo.png",
+      "originSha256": "fd5d45d56fdbe4b56c4f7d50f20880fe6130701a52327f741c3c908b28c010d3",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "bbl",
+      "displayName": "BBL Esports",
+      "file": "public/hints/teams/bbl.png",
+      "sha256": "8f5933d9e0b965fd4e55b99f9dea82edb8f6eaf46906ee304cda50fcf7275a65",
+      "origin": "EMEA/BBL/LOGO.png",
+      "originSha256": "8f5933d9e0b965fd4e55b99f9dea82edb8f6eaf46906ee304cda50fcf7275a65",
+      "byteIdentical": true,
+      "cards": 12
+    },
+    {
+      "canonicalId": "c9",
+      "displayName": "Cloud9",
+      "file": "public/hints/teams/c9.png",
+      "sha256": "1ee0c0d8ca01b52c7018b5411edfdcb62d5babfb640e5f90fc7339c9956291a3",
+      "origin": "AMERICAS/C9/Logo.png",
+      "originSha256": "1ee0c0d8ca01b52c7018b5411edfdcb62d5babfb640e5f90fc7339c9956291a3",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "dragon-ranger-gaming",
+      "displayName": "Dragon Ranger Gaming",
+      "file": "public/hints/teams/dragon-ranger-gaming.png",
+      "sha256": "a98127db96dca594b6237deb7d440b31e6790545f3d3ca103c8a70b0b0faaaee",
+      "origin": "CHINA/DRG/logo.png",
+      "originSha256": "a98127db96dca594b6237deb7d440b31e6790545f3d3ca103c8a70b0b0faaaee",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "eg",
+      "displayName": "Evil Geniuses",
+      "file": "public/hints/teams/eg.png",
+      "sha256": "0dab48bd4f6c3f9f3cf6f81d5169c30dd7c1ff525de072873a991af9417c1a1e",
+      "origin": "AMERICAS/EG/Logo.png",
+      "originSha256": "0dab48bd4f6c3f9f3cf6f81d5169c30dd7c1ff525de072873a991af9417c1a1e",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "envy",
+      "displayName": "ENVY",
+      "file": "public/hints/teams/envy.png",
+      "sha256": "485d7455ac4f7ce30713a45bac85386ba0a9f35c138dc656c913919f770bb60a",
+      "origin": "AMERICAS/ENVY/logo.png",
+      "originSha256": "485d7455ac4f7ce30713a45bac85386ba0a9f35c138dc656c913919f770bb60a",
+      "byteIdentical": true,
+      "cards": 2
+    },
+    {
+      "canonicalId": "eternal-fire",
+      "displayName": "Eternal Fire",
+      "file": "public/hints/teams/eternal-fire.png",
+      "sha256": "ca2e8dc2fcce221263e15daa1dff5c19d6eeb06ad6d03ab9c5f2d679a91e3952",
+      "origin": "EMEA/EF/LOGO.png",
+      "originSha256": "ca2e8dc2fcce221263e15daa1dff5c19d6eeb06ad6d03ab9c5f2d679a91e3952",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "fnatic",
+      "displayName": "Fnatic",
+      "file": "public/hints/teams/fnatic.png",
+      "sha256": "49f0fe43450fa4061e618e8d52c08f6e636a492750e3cedefc86af00352758e7",
+      "origin": "EMEA/FNC/LOGO.png",
+      "originSha256": "49f0fe43450fa4061e618e8d52c08f6e636a492750e3cedefc86af00352758e7",
+      "byteIdentical": true,
+      "cards": 6
+    },
+    {
+      "canonicalId": "furia",
+      "displayName": "FURIA",
+      "file": "public/hints/teams/furia.png",
+      "sha256": "d0716de12001a37a895e15feaf176612d4d6d60c254b7a7f3ee1f71f41478e91",
+      "origin": "AMERICAS/FUR/logo.png",
+      "originSha256": "d0716de12001a37a895e15feaf176612d4d6d60c254b7a7f3ee1f71f41478e91",
+      "byteIdentical": true,
+      "cards": 11
+    },
+    {
+      "canonicalId": "fut",
+      "displayName": "FUT",
+      "file": "public/hints/teams/fut.png",
+      "sha256": "6e0eb82cec1b301de794e21ef74fc6b572efe59e2cf8533789a1a53754fe8f5f",
+      "origin": "EMEA/FUT/FUT.png",
+      "originSha256": "6e0eb82cec1b301de794e21ef74fc6b572efe59e2cf8533789a1a53754fe8f5f",
+      "byteIdentical": true,
+      "cards": 15
+    },
+    {
+      "canonicalId": "g2",
+      "displayName": "G2",
+      "file": "public/hints/teams/g2.png",
+      "sha256": "1ac2e2ba220fa33ebd59c51df220fae95c1078c9356df28b6dcbbebcb6c9d218",
+      "origin": "AMERICAS/G2/LOGO.png",
+      "originSha256": "1ac2e2ba220fa33ebd59c51df220fae95c1078c9356df28b6dcbbebcb6c9d218",
+      "byteIdentical": true,
+      "cards": 20
+    },
+    {
+      "canonicalId": "giantx",
+      "displayName": "GIANTX",
+      "file": "public/hints/teams/giantx.png",
+      "sha256": "2c00112f6b7331831a455c842ab0e1c1780fb923e42ceb07cfd5aabadc9594d7",
+      "origin": "EMEA/GX/GX.png",
+      "originSha256": "2c00112f6b7331831a455c842ab0e1c1780fb923e42ceb07cfd5aabadc9594d7",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "karmine-corp",
+      "displayName": "Karmine Corp",
+      "file": "public/hints/teams/karmine-corp.png",
+      "sha256": "3597fef97abda5d6dbe3ba5bec94b3977da87a19f6aa884e588038e175188a26",
+      "origin": "EMEA/KC/KC.png",
+      "originSha256": "3597fef97abda5d6dbe3ba5bec94b3977da87a19f6aa884e588038e175188a26",
+      "byteIdentical": true,
+      "cards": 4
+    },
+    {
+      "canonicalId": "kru",
+      "displayName": "KRÜ Esports",
+      "file": "public/hints/teams/kru.png",
+      "sha256": "39a209126d66f69aa23e815f392142f3607a982875dd5fd0acfb33685bf7b03a",
+      "origin": "AMERICAS/KRÜ/logo.png",
+      "originSha256": "39a209126d66f69aa23e815f392142f3607a982875dd5fd0acfb33685bf7b03a",
+      "byteIdentical": true,
+      "cards": 6
+    },
+    {
+      "canonicalId": "leviatan",
+      "displayName": "Leviatán",
+      "file": "public/hints/teams/leviatan.png",
+      "sha256": "4405bd7b9b02edd8205edc0fcc46c993e07faa9b9f7950e17eda0652463f8c06",
+      "origin": "AMERICAS/LEV/logo.png",
+      "originSha256": "4405bd7b9b02edd8205edc0fcc46c993e07faa9b9f7950e17eda0652463f8c06",
+      "byteIdentical": true,
+      "cards": 14
+    },
+    {
+      "canonicalId": "loud",
+      "displayName": "LOUD",
+      "file": "public/hints/teams/loud.png",
+      "sha256": "773fd17ed867ed9f93db1756b07f70ede917582c9d17aa055294fd39a5d413ac",
+      "origin": "AMERICAS/LOUD/logo.png",
+      "originSha256": "773fd17ed867ed9f93db1756b07f70ede917582c9d17aa055294fd39a5d413ac",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "m8",
+      "displayName": "M8",
+      "file": "public/hints/teams/m8.png",
+      "sha256": "2dd12f4db1540f6992715017d47f049a2ce0e74f84b0d5bac03e6148374f4c58",
+      "origin": "EMEA/M8/M8.png",
+      "originSha256": "2dd12f4db1540f6992715017d47f049a2ce0e74f84b0d5bac03e6148374f4c58",
+      "byteIdentical": true,
+      "cards": 11
+    },
+    {
+      "canonicalId": "mibr",
+      "displayName": "MIBR",
+      "file": "public/hints/teams/mibr.png",
+      "sha256": "06c22e3dc342402c28d6030701e14de721cea5f15cd14ddab7c4f4064a8b4c2b",
+      "origin": "AMERICAS/MIBR/logo.png",
+      "originSha256": "06c22e3dc342402c28d6030701e14de721cea5f15cd14ddab7c4f4064a8b4c2b",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "navi",
+      "displayName": "NAVI",
+      "file": "public/hints/teams/navi.png",
+      "sha256": "a64bd409a4504cc89d64b695c4057cbc0f9c25a3915a7d67c99a9effd3f4b179",
+      "origin": "EMEA/NAVI/NAVI.png",
+      "originSha256": "a64bd409a4504cc89d64b695c4057cbc0f9c25a3915a7d67c99a9effd3f4b179",
+      "byteIdentical": true,
+      "cards": 4
+    },
+    {
+      "canonicalId": "nrg",
+      "displayName": "NRG",
+      "file": "public/hints/teams/nrg.png",
+      "sha256": "614b0dd6715a86403b2657ecfba6b11729090dec9802eb078164f193e3baf874",
+      "origin": "AMERICAS/NRG/logo.png",
+      "originSha256": "614b0dd6715a86403b2657ecfba6b11729090dec9802eb078164f193e3baf874",
+      "byteIdentical": true,
+      "cards": 16
+    },
+    {
+      "canonicalId": "pcific",
+      "displayName": "PCIFIC Esports",
+      "file": "public/hints/teams/pcific.png",
+      "sha256": "3c48203fc77ad2a96aee4e73b64baa6db8050dd021a231a57674f49cc3be50ff",
+      "origin": "EMEA/PCF/PCF.png",
+      "originSha256": "3c48203fc77ad2a96aee4e73b64baa6db8050dd021a231a57674f49cc3be50ff",
+      "byteIdentical": true,
+      "cards": 6
+    },
+    {
+      "canonicalId": "sentinels",
+      "displayName": "Sentinels",
+      "file": "public/hints/teams/sentinels.png",
+      "sha256": "edd3c040dc47b17544aeee8cd4dbebc326df3db42ae3dece508735a027816af1",
+      "origin": "AMERICAS/SEN/logo.png",
+      "originSha256": "edd3c040dc47b17544aeee8cd4dbebc326df3db42ae3dece508735a027816af1",
+      "byteIdentical": true,
+      "cards": 5
+    },
+    {
+      "canonicalId": "team-heretics",
+      "displayName": "Team Heretics",
+      "file": "public/hints/teams/team-heretics.png",
+      "sha256": "abbbd82f9efe4ef8fa9cdc655a5a421dfe6d398769800f4bd1b5467edb957e97",
+      "origin": "EMEA/TH/LOGO.png",
+      "originSha256": "abbbd82f9efe4ef8fa9cdc655a5a421dfe6d398769800f4bd1b5467edb957e97",
+      "byteIdentical": true,
+      "cards": 11
+    },
+    {
+      "canonicalId": "team-liquid",
+      "displayName": "Team Liquid",
+      "file": "public/hints/teams/team-liquid.png",
+      "sha256": "193ab32ca870e1bc173e4a954263c3c256952d9a81d342cb2e521242f3384ae5",
+      "origin": "EMEA/TL/LOGO.png",
+      "originSha256": "193ab32ca870e1bc173e4a954263c3c256952d9a81d342cb2e521242f3384ae5",
+      "byteIdentical": true,
+      "cards": 11
+    },
+    {
+      "canonicalId": "vitality",
+      "displayName": "Team Vitality",
+      "file": "public/hints/teams/vitality.png",
+      "sha256": "01ec0f9b086dc26ef40ad222b39793ff8931618d114011f85c07cd3a3209a0e7",
+      "origin": "EMEA/VIT/LOGO.png",
+      "originSha256": "01ec0f9b086dc26ef40ad222b39793ff8931618d114011f85c07cd3a3209a0e7",
+      "byteIdentical": true,
+      "cards": 11
+    }
+  ],
+  "missing": [
+    {
+      "canonicalId": "all-gamers",
+      "displayName": "All Gamers",
+      "region": "China",
+      "cards": 5,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "detonation-focusme",
+      "displayName": "DetonatioN FocusMe",
+      "region": "Pacific",
+      "cards": 5,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "drx",
+      "displayName": "DRX",
+      "region": "Pacific",
+      "cards": 5,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "edward-gaming",
+      "displayName": "EDward Gaming",
+      "region": "China",
+      "cards": 9,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "full-sense",
+      "displayName": "FULL SENSE",
+      "region": "Pacific",
+      "cards": 10,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "ge",
+      "displayName": "GE",
+      "region": "Pacific",
+      "cards": 11,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "gen-g",
+      "displayName": "Gen.G",
+      "region": "Pacific",
+      "cards": 5,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "ns",
+      "displayName": "NS",
+      "region": "Pacific",
+      "cards": 11,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "paper-rex",
+      "displayName": "Paper Rex",
+      "region": "Pacific",
+      "cards": 15,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "rrq",
+      "displayName": "Rex Regum Qeon",
+      "region": "Pacific",
+      "cards": 4,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "t1",
+      "displayName": "T1",
+      "region": "Pacific",
+      "cards": 15,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "team-secret",
+      "displayName": "Team Secret",
+      "region": "Pacific",
+      "cards": 5,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "tyl",
+      "displayName": "TYL",
+      "region": "China",
+      "cards": 5,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "vl",
+      "displayName": "VL",
+      "region": "Pacific",
+      "cards": 5,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "xlg",
+      "displayName": "XLG",
+      "region": "China",
+      "cards": 10,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    },
+    {
+      "canonicalId": "zeta-division",
+      "displayName": "ZETA DIVISION",
+      "region": "Pacific",
+      "cards": 6,
+      "status": "NOT IMPORTED",
+      "reason": "rights/source pending"
+    }
+  ],
+  "technicalIntegration": "APPROVED (25 local)",
+  "publicReleaseTrademarkStatus": "UNRESOLVED",
+  "cardsWithLogo": 205,
+  "cardsWithoutLogo": 126
+}

@@ -1,0 +1,61 @@
+{
+  "phase": "F69",
+  "rule": "QA A cierra sesión → QA B entra en el MISMO navegador → vuelta a A: nada de A visible para B ni al revés",
+  "runs": [
+    {
+      "id": "AB-f69-switch",
+      "at": "2026-09-27T21:58:46.514Z",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 79,
+      "pass": 8,
+      "fail": [],
+      "checks": [
+        "PASS logout",
+        "PASS tras logout el HUD no enseña el saldo de A",
+        "PASS HUD cambia al saldo de B",
+        "PASS cuenta: el nombre de A no aparece para B",
+        "PASS localStorage de B no contiene el id de A",
+        "PASS equipos de A no aparecen en B",
+        "PASS de vuelta en A: HUD de A",
+        "PASS de vuelta en A: nada de B en localStorage"
+      ],
+      "consoleErrors": 0,
+      "network": {
+        "status": {
+          "200": 1898,
+          "204": 23
+        },
+        "bad": []
+      }
+    },
+    {
+      "id": "AB-f69final-switch",
+      "at": "2026-09-28T10:58:18.595Z",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 80,
+      "pass": 8,
+      "fail": [],
+      "checks": [
+        "PASS logout",
+        "PASS tras logout el HUD no enseña el saldo de A",
+        "PASS HUD cambia al saldo de B",
+        "PASS cuenta: el nombre de A no aparece para B",
+        "PASS localStorage de B no contiene el id de A",
+        "PASS equipos de A no aparecen en B",
+        "PASS de vuelta en A: HUD de A",
+        "PASS de vuelta en A: nada de B en localStorage"
+      ],
+      "consoleErrors": 0,
+      "network": {
+        "status": {
+          "200": 1893,
+          "204": 23
+        },
+        "bad": []
+      }
+    }
+  ],
+  "verdict": "PASS — HUD, saldo, nombre, equipos, localStorage sin fugas en los dos sentidos (2 ejecuciones)"
+}

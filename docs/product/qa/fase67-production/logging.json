@@ -1,0 +1,13 @@
+{
+  "before": "≈75 console.error/warn sin formato común ni código de error; sin request id",
+  "after": {
+    "module": "src/server/ops/log.ts",
+    "format": "una línea JSON {t, level, scope, msg, …ctx} a stdout/stderr",
+    "errorIds": "6 caracteres sin ambigüedad; viajan al cliente («Código: 7F3K9Q») y están en la línea de log",
+    "redaction": "pass/token/secret/authorization/cookie/key/email/jwt → [redactado]",
+    "requestId": "x-request-id en todas las /api (middleware), eco en la respuesta y disponible para la ruta"
+  },
+  "workers": "drlcards-sync: log propio con rotación 5 MB en el VPS",
+  "rotation": "la app escribe a stdout: la rotación la hace el gestor (journald/systemd o redirección con logrotate) — plantilla en docs/operations/drlcards-production.md",
+  "adminOps": "auditoría append-only en content_audit_log (F58)"
+}

@@ -1,0 +1,30 @@
+{
+  "liveness": {
+    "route": "/api/health",
+    "body": "{status, uptimeS, version, node}",
+    "deps": "ninguna"
+  },
+  "readiness": {
+    "route": "/api/ready",
+    "checks": [
+      "config (validateEnv)",
+      "database (HEAD profiles, 3 s)",
+      "schema (app_admin_schema_probe: 6 claves 0055/0057)",
+      "catalog (content_cards = 331)",
+      "storage (listBuckets)"
+    ],
+    "status": "ready | degraded (no crítico) | not_ready (503)",
+    "cache": "15 s, un solo vuelo por proceso (10 lecturas simultáneas = 1 sonda, test)",
+    "noSecrets": "sin hosts, valores ni mensajes de error"
+  },
+  "measured": {
+    "cold": "ready en 1.262 ms tras arrancar",
+    "checksMs": {
+      "database": 102,
+      "schema": 114,
+      "catalog": 92,
+      "storage": 98
+    }
+  },
+  "alignment": "/admin/system sigue siendo la vista detallada (flags, economía, progresión, contenido, multijugador F66); /api/ready usa las MISMAS sondas y la MISMA cabeza (server/ops/release.ts): un sistema, dos niveles de detalle"
+}

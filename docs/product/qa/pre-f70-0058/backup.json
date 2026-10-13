@@ -1,0 +1,31 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "at": "2026-09-28T11:55:32Z",
+  "command": "ssh … DEST=/opt/nexus/backups/supabase-drlcards/pre-0058 bash -s < scripts/ops/backup-drlcards.sh",
+  "identifier": "/opt/nexus/backups/supabase-drlcards/pre-0058/20260928T115532Z",
+  "result": "BACKUP_OK",
+  "verification": {
+    "independent": "sha256sum -c SHA256SUMS en el VPS: 7/7 OK",
+    "completionMarker": "COMPLETE presente",
+    "db": {
+      "format": "pg_dump custom",
+      "bytes": 3140307,
+      "sha256": "48c6fc321114e3b44615d467a0adcb10b6a5c9c35621755b4a2dc55c59778f03",
+      "tocEntries": 1970,
+      "authUsers": 30
+    },
+    "storage": {
+      "bytes": 87,
+      "files": 0,
+      "objectsInDb": 0,
+      "note": "Storage vacío (conocido desde F67)"
+    },
+    "manifest": {
+      "expectedMigrationHead": "0057_admin_cms",
+      "postgres": "17.6 (supabase/postgres 17.6.1.165)",
+      "databaseBytes": 47148179
+    }
+  },
+  "offsite": "NO: la copia vive en el mismo disco del VPS (BLOCKED externo, siguiente blocker)",
+  "status": "PASS"
+}

@@ -1,0 +1,26 @@
+{
+  "phase": 42,
+  "kind": "temporal",
+  "sequences": 100000,
+  "actions": 1149590,
+  "workers": 10,
+  "byAction": {
+    "claim": 187700,
+    "ensure": 67068,
+    "open": 106978,
+    "read_home": 133652,
+    "double_claim": 80053,
+    "play": 186384,
+    "client_skew": 53424,
+    "advance": 106714,
+    "refresh": 53563,
+    "reset_edge": 66958,
+    "read_pass": 107096
+  },
+  "claimsPaid": 101532,
+  "resetsCrossed": 105956,
+  "violations": 0,
+  "byInvariant": {},
+  "sample": [],
+  "ms": 462617
+}

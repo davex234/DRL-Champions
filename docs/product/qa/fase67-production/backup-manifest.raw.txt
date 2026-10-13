@@ -1,0 +1,16 @@
+{
+  "kind": "drlcards-backup",
+  "version": 1,
+  "createdAt": "20260926T204632Z",
+  "host": "VM-4b2a3727-cfa7-48e3-ad08-9fca50df0ade",
+  "expectedMigrationHead": "0057_admin_cms",
+  "postgres": { "container": "supabase_db_DRLCards", "image": "public.ecr.aws/supabase/postgres:17.6.1.165", "serverVersion": "17.6", "databaseBytes": 43486355, "schemaProbe": {"0053_draft_runs": true, "0057_content_packs": true, "0055_user_sanctions": true, "0057_entity_version": true, "0050_duel_active_deck": true, "0057_agents_lifecycle": true, "0040_content_audit_log": true, "0051_campaign_progress": true, "0054_user_compositions": true, "0057_card_presentation": true, "0055_admin_event_drafts": true, "0052_user_card_favorites": true} },
+  "db": { "file": "db.dump", "format": "pg_dump custom (-Fc)", "bytes": 2863728, "sha256": "90f44e73408098a337357a72156a8d131e3c1d73e82d681e5426cf6a220a1061", "tocEntries": 1970, "authUsers": 18 },
+  "storage": { "volume": "supabase_storage_DRLCards", "file": "storage.tgz", "bytes": 87, "sha256": "380fc998ad257890510d25e3b751d84ed62b7d65bd5a070f008fbfd894ab2b64", "files": 0, "objectsInDb": 0, "buckets": "assets:true" },
+  "tableCounts": "table-counts.tsv",
+  "consistency": "NO atómico entre BD y Storage: el dump es una instantánea transaccional de Postgres; el tar de Storage se toma después (segundos). Un objeto subido en esa ventana puede faltar en uno de los dos.",
+  "seconds": 7
+}
+
+profiles	18 user_cards	497 user_game	18 user_pass	8 user_packs	45 credit_transactions	162 economy_ops	195 duel_decks	8 duel_matches	176 duel_match_actions	2315 duel_pvp_queue	78 duel_pvp_ratings	9 duel_pvp_rating_events	60 duel_friendships	2 duel_challenges	101 content_cards	331 content_card_versions	331 content_packs	0 content_pools	51 content_pool_entries	5027 agents	29 user_achievements	9 user_sanctions	1 content_audit_log	477 auth.users	18 
+0

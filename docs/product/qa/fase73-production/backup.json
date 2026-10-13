@@ -1,0 +1,24 @@
+{
+  "mechanism": "scripts/ops/backup-drlcards.sh (can\u00f3nico F67) ejecutado en el VPS",
+  "id": "pre-0059/20260930T145720Z",
+  "location": "/opt/nexus/backups/supabase-drlcards/pre-0059/20260930T145720Z",
+  "db_dump_bytes": 3352403,
+  "pg_restore_list_entries": 1987,
+  "storage": "87 B, 0 ficheros (volumen vac\u00edo)",
+  "files": [
+    "COMPLETE",
+    "db.dump",
+    "db.toc",
+    "manifest.json",
+    "SHA256SUMS",
+    "storage.tgz",
+    "storage-files.sha256",
+    "storage-objects.tsv",
+    "table-counts.tsv"
+  ],
+  "sha256sumCheck": "OK",
+  "completionMarker": "COMPLETE",
+  "expectedHeadChecked": "0058_hardening_grants",
+  "offsite": "OFFSITE_NOT_CONFIGURED (blocker de release p\u00fablica conocido; no impide esta migraci\u00f3n)",
+  "verdict": "PASS"
+}

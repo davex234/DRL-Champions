@@ -1,0 +1,31 @@
+PASS login real por /cuenta
+PASS «Comenzar duelo»
+PASS tablero listo
+PASS ningún reloj de decisión en pantalla
+esperando 40 s sin tocar nada…
+PASS tras > 30 s: mismo turno, misma mano, sin reloj
+PASS tras > 30 s: el servidor tampoco movió nada
+PASS T1 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T1 · reverso con la pista (TEAM) y el rol (Controlador) de esa carta
+PASS T3 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T3 · reverso con la pista (COUNTRY) y el rol (Iniciador) de esa carta
+PASS T5 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T5 · reverso con la pista (COUNTRY) y el rol (Flex) de esa carta
+PASS T7 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T7 · reverso con la pista (TEAM) y el rol (Controlador) de esa carta
+PASS T9 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T9 · reverso con la pista (COUNTRY) y el rol (Duelista) de esa carta
+PASS la partida terminó
+PASS el bot comprometió al menos una carta durante la partida
+PASS T1 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+PASS T3 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+PASS T5 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+PASS T7 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+PASS T9 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+RECIBO {"matchId":"9d0cff34-8641-4fca-af9f-f45c17c4e3a7","grants":[{"source":"MATCH","reward":{"credits":40,"xp":25},"points":0}],"capped":false} · UI {"has":true,"text":"Recompensas obtenidas+40 créditos+25 XP de cuenta","kind":"loss"}
+PASS «Recompensas obtenidas» con los créditos del recibo
+PASS F5: el resultado sigue enseñando el mismo recibo
+PASS 390: sin desbordamiento horizontal
+PASS consola limpia
+
+DUEL UX 2.0 PROD BROWSER: 27/27

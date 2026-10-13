@@ -1,0 +1,55 @@
+{
+  "at": "2026-09-29T19:14:25.759Z",
+  "FLAGS": {
+    "source": "flag-icons 7.5.0",
+    "license": "MIT",
+    "runtimeExternalDependency": "NO",
+    "files": 40,
+    "hintEligible": 39,
+    "dir": "public/flags/"
+  },
+  "TEAM LOGOS — 25 LOCAL": {
+    "source": "existing NEXUSFICHAJES asset library (copied byte-identical)",
+    "technicalIntegration": "APPROVED",
+    "publicReleaseTrademarkLicenseStatus": "UNRESOLVED",
+    "files": 25,
+    "dir": "public/hints/teams/"
+  },
+  "TEAM LOGOS — REMAINING": {
+    "status": "NOT IMPORTED",
+    "reason": "rights/source pending",
+    "teams": [
+      "all-gamers",
+      "detonation-focusme",
+      "drx",
+      "edward-gaming",
+      "full-sense",
+      "ge",
+      "gen-g",
+      "ns",
+      "paper-rex",
+      "rrq",
+      "t1",
+      "team-secret",
+      "tyl",
+      "vl",
+      "xlg",
+      "zeta-division"
+    ]
+  },
+  "VALORANT ROLE ICONS": {
+    "status": "NOT IMPORTED",
+    "reason": "Riot license required",
+    "available": [],
+    "flexHasRole": false
+  },
+  "VCT REGION ICONS": {
+    "status": "NOT IMPORTED",
+    "reason": "Riot license required",
+    "available": []
+  },
+  "hintTypesEligibleToday": [
+    "COUNTRY",
+    "TEAM"
+  ]
+}

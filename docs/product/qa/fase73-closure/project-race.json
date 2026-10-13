@@ -1,0 +1,106 @@
+{
+  "at": "2026-09-30T19:32:26.188Z",
+  "intercepted": false,
+  "pass": 11,
+  "fail": 0,
+  "results": [
+    {
+      "id": "CONTROL NEGATIVO · K con TR = 1 juega → Turquía sigue 0/1 (la condición mira el equipo)",
+      "ok": true,
+      "detail": "0/1 ACTIVE · 1/5 ACTIVE"
+    },
+    {
+      "id": "CRUCE · K no puede reclamar el proyecto que I tiene completado (409 NOT_COMPLETED)",
+      "ok": true,
+      "detail": "409 NOT_COMPLETED"
+    },
+    {
+      "id": "K · equipo con ≥ 3 turcos guardado por el camino real",
+      "ok": true,
+      "detail": "200  TR=3"
+    },
+    {
+      "id": "K · proyecto COMPLETED por partidas reales (Turquía y dependiente)",
+      "ok": true,
+      "detail": "1/1 CLAIMED · 1/1 CLAIMED"
+    },
+    {
+      "id": "K · equipo restaurado",
+      "ok": true,
+      "detail": "{\"status\":200}"
+    },
+    {
+      "id": "10 RECLAMOS SIMULTÁNEOS · exactamente +1 copia",
+      "ok": true,
+      "detail": "0 → 1"
+    },
+    {
+      "id": "10 RECLAMOS · 1 aplicado y 9 repetidos, ningún 500",
+      "ok": true,
+      "detail": "200:R,200:R,200:ok,200:R,200:R,200:R,200:R,200:R,200:R,200:R"
+    },
+    {
+      "id": "10 RECLAMOS · BD: 1 reclamo y 1 concesión en el libro mayor",
+      "ok": true,
+      "detail": "{\"claims\":1,\"grants\":1}"
+    },
+    {
+      "id": "K · apertura real → misión OPEN_PACK COMPLETED",
+      "ok": true,
+      "detail": "200 1/1 COMPLETED"
+    },
+    {
+      "id": "10 RECLAMOS SIMULTÁNEOS DE MISIÓN · +10 XP exactos una sola vez, ningún 500",
+      "ok": true,
+      "detail": "200:ok,200:R,200:R,200:R,200:R,200:R,200:R,200:R,200:R,200:R xp 1153→1163"
+    },
+    {
+      "id": "10 RECLAMOS DE MISIÓN · BD: una sola entrada en el libro mayor (credit_transactions por ref)",
+      "ok": true,
+      "detail": "{\"ledger\":1}"
+    }
+  ],
+  "concurrent": {
+    "statuses": [
+      "200:R",
+      "200:R",
+      "200:ok",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R"
+    ],
+    "copies": [
+      0,
+      1
+    ],
+    "claims": {
+      "claims": 1,
+      "grants": 1
+    }
+  },
+  "missionClaims": {
+    "statuses": [
+      "200:ok",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R"
+    ],
+    "xp": [
+      1153,
+      1163
+    ],
+    "db": {
+      "ledger": 1
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "diagram": [
+    "navegador (sesión Supabase en localStorage, Bearer por petición)",
+    "  → Next.js 16.3.6 `next start` (PC Windows, :3005, 127.0.0.1) — rutas /api/* con service_role en servidor",
+    "      → túnel SSH 54521/54522 → VPS 212.95.40.144",
+    "          → Kong (127.0.0.1:54521) → PostgREST · GoTrue(Auth) · Storage(file backend, volumen supabase_storage_DRLCards) · Realtime · edge_runtime",
+    "          → Postgres 17.6 (supabase/postgres:17.6.1.165, 127.0.0.1:54522, volumen supabase_db_DRLCards)",
+    "  VPS cron: nexus-backup.sh 04:30 (dump+tgz Storage+config, 14 días) · drlcards-sync */2 (worker esports, Node 22 aislado)"
+  ],
+  "facts": {
+    "appHost": "NO hay app DRLCards en el VPS: la web corre en el PC del usuario (Windows) contra la BD del VPS por túnel",
+    "realtime": "no se usa (HTTP + sondeo)",
+    "workers": "drlcards-sync en el VPS por cron, flock + lease en BD, log con rotación por tamaño (5 MB, .1)",
+    "externalServices": [
+      "VLR (fuente esports, opcional)",
+      "Anthropic (predicciones, opcional)",
+      "Google Fonts (CSS/fuentes)",
+      "flagcdn.com (banderas)"
+    ],
+    "filesystemAssets": "public/ (cartas 331, agentes 29, sobres, mapas 13) dentro del build",
+    "emails": "GoTrue → Inbucket (capturador local): NO se entregan correos reales"
+  }
+}

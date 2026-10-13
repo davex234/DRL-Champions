@@ -1,0 +1,12 @@
+##### resource-usage
+pasada dry-run manual (descarga VLR): wall=16.2s user=0.70s sys=0.20s max_rss=159 MB
+pasada scheduled noop (policy): wall≈0.4s
+               total        used        free      shared  buff/cache   available
+Mem:           64308        7186       36286         797       22343       57121
+supabase_db_DRLCards	0.61%	198.1MiB / 62.8GiB
+supabase_kong_DRLCards	0.01%	156.6MiB / 62.8GiB
+supabase_rest_DRLCards	0.86%	126MiB / 62.8GiB
+/dev/sda1       493G   20G  473G   5% /
+0
+puertos escuchando por node: 0
+##### log-tail

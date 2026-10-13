@@ -1,0 +1,102 @@
+{
+  "session": {
+    "id": "D-r1-pickems",
+    "persona": "D",
+    "session": "pickems",
+    "tag": "r1",
+    "width": 1024,
+    "reduced": true,
+    "durationSec": 18,
+    "actions": 7,
+    "screens": 2,
+    "checks": {
+      "pass": 2,
+      "fail": []
+    },
+    "consoleErrors": 0,
+    "api": 35,
+    "statuses": {
+      "200": 261,
+      "204": 9
+    },
+    "bad": [],
+    "notes": [],
+    "label": "G2 E port ",
+    "clicked": true,
+    "pressedNow": 1,
+    "pressedAfterF5": 1,
+    "missionBefore": {
+      "id": "d-pickem-1",
+      "label": "Haz una predicción",
+      "kind": "daily",
+      "current": 0,
+      "goal": 1,
+      "complete": false,
+      "claimed": false,
+      "rewardCredits": 200,
+      "xp": 150,
+      "metric": "picks_made",
+      "packId": null,
+      "packCount": 0,
+      "assignedAt": 1790467200000,
+      "expiresAt": 1790553600000
+    },
+    "missionAfter": {
+      "id": "d-pickem-1",
+      "label": "Haz una predicción",
+      "kind": "daily",
+      "current": 1,
+      "goal": 1,
+      "complete": true,
+      "claimed": false,
+      "rewardCredits": 200,
+      "xp": 150,
+      "metric": "picks_made",
+      "packId": null,
+      "packCount": 0,
+      "assignedAt": 1790467200000,
+      "expiresAt": 1790553600000
+    }
+  },
+  "explorer": {
+    "h": [
+      "NEXUS PICK'EMS",
+      "VALORANT CHAMPIONS 2026",
+      "HOY (2)",
+      "ACTIVIDAD RECIENTE",
+      "PREDICCIÓN DESTACADA",
+      "GROUP STAGE (16 RONDAS)",
+      "MÁS PREDICCIONES (14)",
+      "PENDIENTES (6)"
+    ],
+    "buttons": [
+      "MÁS 2",
+      "VALORANT CHAMPIONS 2026 VIENDO · Activo",
+      "DRL MASTERS MADRID 2026 DEMO · Activo",
+      "VCT 2026: EMEA STAGE 2 · Finalizado",
+      "15 PREDICCIONES PENDIENTES →",
+      "COMPLETAR AHORA →",
+      "GROUP STAGECUADRO",
+      "PLAYOFFSCUADRO",
+      "100 100 THIEVES",
+      "EDG EDWARD GAMING",
+      "FUT FUT ESPORTS",
+      "G2 G2 ESPORTS"
+    ],
+    "interaction": {
+      "apiStatus": 405,
+      "keys": null,
+      "cta": true,
+      "after": [
+        "NEXUS PICK'EMS",
+        "VALORANT CHAMPIONS 2026",
+        "HOY (2)",
+        "ACTIVIDAD RECIENTE",
+        "PREDICCIÓN DESTACADA",
+        "GROUP STAGE (16 RONDAS)",
+        "MÁS PREDICCIONES (14)",
+        "PENDIENTES (6)"
+      ]
+    }
+  }
+}

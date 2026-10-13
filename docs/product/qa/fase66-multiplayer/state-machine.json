@@ -1,0 +1,112 @@
+{
+  "source": "leído del código (no inventado): cola = duel_pvp_queue.state (0032/0033); partida = PvpLifecycle (domain/cardgame/pvp/lifecycle.ts) derivado de DuelMatch.status + duel_matches.closed_reason; turno = TurnPhase del orquestador duel-turns-2",
+  "queue": {
+    "states": [
+      "(sin entrada) ≡ IDLE",
+      "QUEUED",
+      "PAIRING",
+      "MATCHED",
+      "CANCELLED",
+      "EXPIRED"
+    ],
+    "transitions": [
+      [
+        "IDLE",
+        "QUEUED",
+        "duel_pvp_enqueue (índice único parcial por usuario en QUEUED/PAIRING: 10 JOIN = 1 entrada; 409 ACTIVE_MATCH si hay PvP vivo)"
+      ],
+      [
+        "QUEUED",
+        "PAIRING",
+        "duel_pvp_claim_pair (advisory lock + for update skip locked; reserva match_id y pair_token con arrendamiento 20 s)"
+      ],
+      [
+        "PAIRING",
+        "MATCHED",
+        "duel_pvp_commit_pair tras createPvpMatch con ESE match_id"
+      ],
+      [
+        "PAIRING",
+        "QUEUED",
+        "duel_pvp_release_pair (fallo al crear; el inocente conserva su antigüedad) o _duel_pvp_sweep al vencer el arrendamiento"
+      ],
+      [
+        "PAIRING",
+        "CANCELLED",
+        "release_pair con p_offender (mazo dejó de ser legal)"
+      ],
+      [
+        "QUEUED",
+        "CANCELLED",
+        "duel_pvp_cancel (WHERE state='QUEUED': si ya estaba reservado, cancelar pierde)"
+      ],
+      [
+        "QUEUED",
+        "EXPIRED",
+        "TTL 600 s (_duel_pvp_sweep, oportunista)"
+      ]
+    ],
+    "terminal": [
+      "MATCHED",
+      "CANCELLED",
+      "EXPIRED"
+    ],
+    "notes": "Una entrada no se reutiliza: volver a buscar crea otra. Sin cron: el emparejador lo mueve el propio tráfico (enqueue/status)."
+  },
+  "match": {
+    "states": [
+      "CREATED (status WAITING)",
+      "IN_TURN (status IN_PROGRESS)",
+      "FINISHED (COMPLETED|DRAW|UNRESOLVED)",
+      "ABANDONED (closed_reason)",
+      "EXPIRED (closed_reason)"
+    ],
+    "transitions": {
+      "CREATED": [
+        "IN_TURN",
+        "ABANDONED",
+        "EXPIRED"
+      ],
+      "IN_TURN": [
+        "IN_TURN",
+        "FINISHED",
+        "ABANDONED",
+        "EXPIRED"
+      ],
+      "FINISHED": [],
+      "ABANDONED": [],
+      "EXPIRED": []
+    },
+    "authority": {
+      "IN_TURN→IN_TURN/FINISHED": "applyPvpAction: guardAction (modo, jugador, ciclo, versión, plazo, turno) → orquestador → UPDATE … WHERE state_version = esperada AND closed_reason IS NULL (una sola transición por versión); libro duel_match_actions (PK match_id, action_id) = idempotencia",
+      "IN_TURN→ABANDONED": "abandonPvpMatch: UPDATE condicionado por versión y closed_reason IS NULL; quien pierde lo decide duel_pvp_settle_match leyendo closed_by",
+      "IN_TURN→EXPIRED": "duel_pvp_expire_turn: Postgres compara turn_deadline_at <= now() y la versión en el MISMO UPDATE; el que debía mover pierde",
+      "FINISHED|ABANDONED|EXPIRED → rating": "duel_pvp_settle_match (una transacción, índice único duel_pvp_rating_events_once) — solo mode='PVP'; PVP_PRIVATE nunca"
+    },
+    "clientCannot": [
+      "saltar a FINISHED",
+      "elegir ganador, marcador, eje del defensor, primer atacante, semilla, rival o rating",
+      "actuar fuera de turno o con versión vieja/futura (409 + estado)",
+      "actuar en una partida ajena (404 idéntico a inexistente)"
+    ]
+  },
+  "turn": {
+    "phases": [
+      "ATTACKER_CARD",
+      "ATTACKER_STAT",
+      "DEFENDER_CARD",
+      "DEFENDER_STAT",
+      "READY_TO_CONFIRM",
+      "FINISHED"
+    ],
+    "notes": "El servidor aplica carta+eje del atacante en una petición y carta del defensor (eje impuesto por la tabla) en otra; READY_TO_CONFIRM lo cierra confirmTurn en la misma petición. 10 turnos, atacante alterno."
+  },
+  "pve": {
+    "states": [
+      "IN_PROGRESS",
+      "COMPLETED|DRAW",
+      "(borrada al abandonar en curso)"
+    ],
+    "authority": "playTurn → orquestador + bot en servidor → F66: UPDATE … WHERE state_version = leída (antes: sin condición, gana la última escritura). Abandonar solo borra IN_PROGRESS (F66: antes borraba también terminadas)."
+  }
+}

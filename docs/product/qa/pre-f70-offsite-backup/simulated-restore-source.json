@@ -1,0 +1,93 @@
+{
+  "phase": "PRE-F70",
+  "flow": "identificar la unidad remota → backup-offsite.sh fetch <TS> <dir> (descarga + verificación de hash y marcador) → descifrado con la clave PRIVADA en la máquina de recuperación → SHA256SUMS = el registrado y sha256sum -c → restore-drill.sh / restauración de siempre (sin segundo motor)",
+  "cases": {
+    "fetch-decrypt": {
+      "result": "PASS",
+      "detail": "exit=0 OFFSITE_FETCH_OK 20260928T132930Z"
+    },
+    "fetch-refuses-existing-dest": {
+      "result": "PASS",
+      "detail": "exit=2"
+    },
+    "restore-drill-from-offsite": {
+      "result": "PASS",
+      "detail": "exit=0 DRILL_OK drlcards-restore-drill-20260928T133359Z en 25s"
+    },
+    "storage-nonempty-chain": {
+      "result": "PASS",
+      "detail": "push=0 fetch=0 drill=0"
+    }
+  },
+  "drillFromOffsite": {
+    "drill": "drlcards-restore-drill-20260928T133359Z",
+    "src": "<T>/…/unit",
+    "image": "public.ecr.aws/supabase/postgres:17.6.1.165",
+    "network": "none",
+    "secondsToPostgresReady": 15,
+    "secondsRestore": 5,
+    "secondsValidate": 4,
+    "secondsStorage": 1,
+    "secondsTotal": 25,
+    "pgRestoreErrors": 23,
+    "pgRestoreAlreadyExists": 21,
+    "tablesCompared": 25,
+    "tableMismatches": 0,
+    "mismatchDetail": "",
+    "contentCards": 331,
+    "agents": 29,
+    "admins": 1,
+    "schemaProbe": {
+      "0053_draft_runs": true,
+      "0057_content_packs": true,
+      "0055_user_sanctions": true,
+      "0057_entity_version": true,
+      "0050_duel_active_deck": true,
+      "0057_agents_lifecycle": true,
+      "0040_content_audit_log": true,
+      "0051_campaign_progress": true,
+      "0054_user_compositions": true,
+      "0057_card_presentation": true,
+      "0055_admin_event_drafts": true,
+      "0052_user_card_favorites": true
+    },
+    "storageFiles": 0,
+    "storageChecksumsMatch": 1
+  },
+  "drillStorageNonEmpty": {
+    "drill": "drlcards-restore-drill-20260928T133433Z",
+    "src": "<T>/…/unit",
+    "image": "public.ecr.aws/supabase/postgres:17.6.1.165",
+    "network": "none",
+    "secondsToPostgresReady": 14,
+    "secondsRestore": 5,
+    "secondsValidate": 4,
+    "secondsStorage": 1,
+    "secondsTotal": 24,
+    "pgRestoreErrors": 23,
+    "pgRestoreAlreadyExists": 21,
+    "tablesCompared": 25,
+    "tableMismatches": 0,
+    "mismatchDetail": "",
+    "contentCards": 331,
+    "agents": 29,
+    "admins": 1,
+    "schemaProbe": {
+      "0053_draft_runs": true,
+      "0057_content_packs": true,
+      "0055_user_sanctions": true,
+      "0057_entity_version": true,
+      "0050_duel_active_deck": true,
+      "0057_agents_lifecycle": true,
+      "0040_content_audit_log": true,
+      "0051_campaign_progress": true,
+      "0054_user_compositions": true,
+      "0057_card_presentation": true,
+      "0055_admin_event_drafts": true,
+      "0052_user_card_favorites": true
+    },
+    "storageFiles": 3,
+    "storageChecksumsMatch": 1
+  },
+  "baselineF67": "docs/product/qa/fase67-production/restore-drill.json: 28 s, 23 mensajes de pg_restore (21 already exists + 2 roles de servicios que el stack crea al arrancar) — IDÉNTICO aquí (25 s / 24 s)"
+}

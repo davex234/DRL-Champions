@@ -1,0 +1,79 @@
+{
+  "at": "2026-10-02T18:19:06.615Z",
+  "base": "http://127.0.0.1:3082",
+  "ms": 24546,
+  "pass": 14,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "S4 VISITANTE CONFIRMADO @1440 · su demo se monta (sin cargador eterno ni reintento) y el HUD es «Entrar»",
+      "ok": true,
+      "detail": "14:L 249:I"
+    },
+    {
+      "id": "S4 @1440 · la demo intacta (6.000, sobres de inicio, sus cartas)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"packs\":{\"inicial\":3,\"estandar\":1},\"cards\":2}"
+    },
+    {
+      "id": "S4 @1440 · /coleccion del visitante montada (álbum público, sin cargador ni reintento)",
+      "ok": true,
+      "detail": "{\"t\":177,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":true,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S4 @1440 · consola limpia",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "S4 VISITANTE CONFIRMADO @390 · su demo se monta (sin cargador eterno ni reintento) y el HUD es «Entrar»",
+      "ok": true,
+      "detail": "16:L 262:I"
+    },
+    {
+      "id": "S4 @390 · la demo intacta (6.000, sobres de inicio, sus cartas)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"packs\":{\"inicial\":3,\"estandar\":1},\"cards\":2}"
+    },
+    {
+      "id": "S4 @390 · /coleccion del visitante montada (álbum público, sin cargador ni reintento)",
+      "ok": true,
+      "detail": "{\"t\":147,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":true,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S4 @390 · consola limpia",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "S5 SESIÓN CADUCADA · ni el saldo cacheado de la cuenta ni la demo como suyos mientras se resuelve",
+      "ok": true,
+      "detail": "17:L[—] 1740:LI[] 1768:I[]"
+    },
+    {
+      "id": "S5 · resuelta como visitante: demo (sin carga infinita)",
+      "ok": true,
+      "detail": "{\"t\":1768,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":true,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":false,\"demoCredits\":true}"
+    },
+    {
+      "id": "S5 (etiquetada) · la caché de la cuenta se limpió a la demo de inicio (6.000, 0 cartas, sin dueño)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"cards\":0,\"owner\":null,\"session\":false}"
+    },
+    {
+      "id": "S5 SESIÓN CADUCADA · ni el saldo cacheado de la cuenta ni la demo como suyos mientras se resuelve",
+      "ok": true,
+      "detail": "5:L[—] 1583:LI[] 1611:I[]"
+    },
+    {
+      "id": "S5 · resuelta como visitante: demo (sin carga infinita)",
+      "ok": true,
+      "detail": "{\"t\":1611,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":true,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":false,\"demoCredits\":true}"
+    },
+    {
+      "id": "S5 (legada) · la caché de la cuenta se limpió a la demo de inicio (6.000, 0 cartas, sin dueño)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"cards\":0,\"owner\":null,\"session\":false}"
+    }
+  ]
+}

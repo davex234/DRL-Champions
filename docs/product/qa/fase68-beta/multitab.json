@@ -1,0 +1,155 @@
+{
+  "separateWindow": {
+    "id": "C-r1-multitab",
+    "persona": "C",
+    "session": "multitab",
+    "tag": "r1",
+    "width": 1440,
+    "reduced": false,
+    "durationSec": 45,
+    "actions": 12,
+    "screens": 2,
+    "checks": {
+      "pass": 0,
+      "fail": [
+        "FAIL 2.ª pestaña: el saldo se pone al día al volver o al navegar"
+      ]
+    },
+    "consoleErrors": 0,
+    "api": 33,
+    "statuses": {
+      "200": 173,
+      "204": 6
+    },
+    "bad": [],
+    "notes": [],
+    "hud": {
+      "before": "7.310",
+      "afterFocus": "7.310",
+      "afterNav": "7.310",
+      "server": [
+        7310,
+        6310
+      ]
+    },
+    "collection": {
+      "before": "COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 19 / 331 cartas 5,7 % COPIAS 20 DUPLICADAS 1 OVR MÁS ALTO 95 SERIAL MÁS B",
+      "afterNav": "COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 23 / 331 cartas 6,9 % COPIAS 25 DUPLICADAS 2 OVR MÁS ALTO 95 SERIAL MÁS B"
+    }
+  },
+  "sameBrowser": [
+    {
+      "id": "C-r1-multitab-same",
+      "persona": "C",
+      "session": "multitabsame",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 6,
+      "screens": 2,
+      "checks": {
+        "pass": 1,
+        "fail": [
+          "FAIL pestaña 2 (mismo navegador): el saldo se pone al día al volver o al navegar"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 23,
+      "statuses": {
+        "200": 199,
+        "204": 3
+      },
+      "bad": [],
+      "notes": [],
+      "tab2Before": {
+        "url": "/progresion",
+        "hud": "5.310"
+      },
+      "server": [
+        5310,
+        2810
+      ],
+      "tab1Hud": "2.810",
+      "tab2AfterFocus": "5.310",
+      "tab2AfterNav": {
+        "url": "/coleccion",
+        "hud": "5.310"
+      }
+    },
+    {
+      "id": "E-fix-multitab-same",
+      "persona": "E",
+      "session": "multitabsame",
+      "tag": "fix",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 29,
+      "actions": 6,
+      "screens": 2,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 23,
+      "statuses": {
+        "200": 199,
+        "204": 3
+      },
+      "bad": [],
+      "notes": [],
+      "tab2Before": {
+        "url": "/progresion",
+        "hud": "9.625"
+      },
+      "server": [
+        9625,
+        7125
+      ],
+      "tab1Hud": "7.125",
+      "tab2AfterFocus": "7.125",
+      "tab2AfterNav": {
+        "url": "/coleccion",
+        "hud": "7.125"
+      }
+    },
+    {
+      "id": "G-r2-multitab-same",
+      "persona": "G",
+      "session": "multitabsame",
+      "tag": "r2",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 6,
+      "screens": 2,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 23,
+      "statuses": {
+        "200": 161,
+        "204": 3
+      },
+      "bad": [],
+      "notes": [],
+      "tab2Before": {
+        "url": "/progresion",
+        "hud": "9.585"
+      },
+      "server": [
+        9585,
+        8585
+      ],
+      "tab1Hud": "8.585",
+      "tab2AfterFocus": "8.585",
+      "tab2AfterNav": {
+        "url": "/coleccion",
+        "hud": "8.585"
+      }
+    }
+  ]
+}

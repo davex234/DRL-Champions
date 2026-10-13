@@ -1,0 +1,167 @@
+{
+  "at": "2026-09-30T18:43:41.932Z",
+  "source": "Postgres del VPS (solo lectura)",
+  "results": [
+    {
+      "id": "RPC app_craft_pack: cuerpo idéntico al SQL",
+      "ok": true,
+      "detail": "sql=12e29c4333f8330fbb878188e9cde025 db=12e29c4333f8330fbb878188e9cde025"
+    },
+    {
+      "id": "RPC app_craft_pack: SECURITY DEFINER con search_path fijo",
+      "ok": true,
+      "detail": "[\"search_path=public\"]"
+    },
+    {
+      "id": "RPC app_craft_card: cuerpo idéntico al SQL",
+      "ok": true,
+      "detail": "sql=63c5e91e98149ffdc9213ea32bfab4cc db=63c5e91e98149ffdc9213ea32bfab4cc"
+    },
+    {
+      "id": "RPC app_craft_card: SECURITY DEFINER con search_path fijo",
+      "ok": true,
+      "detail": "[\"search_path=public\"]"
+    },
+    {
+      "id": "RPC app_mission_apply: cuerpo idéntico al SQL",
+      "ok": true,
+      "detail": "sql=1168fb1bf5d2831213d80b9bdb361ab8 db=1168fb1bf5d2831213d80b9bdb361ab8"
+    },
+    {
+      "id": "RPC app_mission_apply: SECURITY DEFINER con search_path fijo",
+      "ok": true,
+      "detail": "[\"search_path=public\"]"
+    },
+    {
+      "id": "TABLA craft_recipes: columnas = las declaradas",
+      "ok": true,
+      "detail": "declaradas=17 bd=17 faltan= sobran="
+    },
+    {
+      "id": "TABLA content_card_projects: columnas = las declaradas",
+      "ok": true,
+      "detail": "declaradas=13 bd=13 faltan= sobran="
+    },
+    {
+      "id": "TABLA content_missions: columnas = las declaradas",
+      "ok": true,
+      "detail": "declaradas=17 bd=17 faltan= sobran="
+    },
+    {
+      "id": "TABLA user_mission_progress: columnas = las declaradas",
+      "ok": true,
+      "detail": "declaradas=6 bd=6 faltan= sobran="
+    },
+    {
+      "id": "TABLA mission_events: columnas = las declaradas",
+      "ok": true,
+      "detail": "declaradas=5 bd=5 faltan= sobran="
+    },
+    {
+      "id": "TABLA user_project_claims: columnas = las declaradas",
+      "ok": true,
+      "detail": "declaradas=4 bd=4 faltan= sobran="
+    },
+    {
+      "id": "POLÍTICAS: las del SQL existen (y no hay otras)",
+      "ok": true,
+      "detail": "sql=tu progreso de misiones | tus proyectos reclamados bd=2"
+    },
+    {
+      "id": "ÍNDICES: todos los del SQL existen",
+      "ok": true,
+      "detail": "sql=content_missions_project_idx,content_missions_status_idx,mission_events_user_idx"
+    },
+    {
+      "id": "DISPARADORES: los del SQL y ninguno más",
+      "ok": true,
+      "detail": "sql= bd="
+    }
+  ],
+  "counts": {
+    "recipes": 11,
+    "missions": {
+      "RETIRED": 8
+    },
+    "projects": {
+      "RETIRED": 2
+    },
+    "progress": 3,
+    "events": 16,
+    "claims": 0,
+    "craft_ops": {
+      "craft_card": 2,
+      "craft_pack": 5
+    },
+    "mission_grants": 0
+  },
+  "policies": [
+    "user_mission_progress tu progreso de misiones SELECT public (auth.uid() = user_id)",
+    "user_project_claims tus proyectos reclamados SELECT public (auth.uid() = user_id)"
+  ],
+  "indexes": [
+    "content_card_projects_pkey",
+    "content_missions_pkey",
+    "content_missions_project_idx",
+    "content_missions_status_idx",
+    "craft_recipes_pkey",
+    "mission_events_pkey",
+    "mission_events_user_idx",
+    "user_mission_progress_pkey",
+    "user_project_claims_pkey"
+  ],
+  "triggers": null,
+  "constraints": {
+    "craft_recipes": [
+      "craft_recipes_id_check CHECK ((id ~ '^[a-z0-9][a-z0-9-]{1,63}$'::text))",
+      "craft_recipes_input_class_check CHECK ((input_class = ANY (ARRAY['base'::text, 'plata'::text, 'oro'::text, 'masters'::text, 'champions'::text, 'prime'::text, 'icon'::text])))",
+      "craft_recipes_input_qty_check CHECK (((input_qty >= 2) AND (input_qty <= 100)))",
+      "craft_recipes_kind_check CHECK ((kind = ANY (ARRAY['PACK'::text, 'CARD'::text])))",
+      "craft_recipes_name_check CHECK (((length(name) >= 3) AND (length(name) <= 60)))",
+      "craft_recipes_output_class_check CHECK ((output_class = ANY (ARRAY['base'::text, 'plata'::text, 'oro'::text, 'masters'::text, 'champions'::text, 'prime'::text, 'icon'::text])))",
+      "craft_recipes_pkey PRIMARY KEY (id)",
+      "craft_recipes_shape CHECK ((((kind = 'PACK'::text) AND (input_pack_id IS NOT NULL) AND (output_pack_id IS NOT NULL) AND (input_pack_id <> output_pack_id) AND (input_class IS NULL) AND (output_class IS NULL)) OR ((kind = 'CARD'::text) AND (input_class IS NOT NULL) AND (output_class IS NOT NULL) AND (input_class <> output_class) AND (input_pack_id IS NULL) AND (output_pack_id IS NULL))))",
+      "craft_recipes_status_check CHECK ((status = ANY (ARRAY['ACTIVE'::text, 'DISABLED'::text, 'RETIRED'::text])))",
+      "craft_recipes_window CHECK (((available_to IS NULL) OR (available_from IS NULL) OR (available_to > available_from)))"
+    ],
+    "content_card_projects": [
+      "content_card_projects_description_check CHECK ((length(description) <= 240))",
+      "content_card_projects_id_check CHECK ((id ~ '^[a-z0-9][a-z0-9-]{1,63}$'::text))",
+      "content_card_projects_name_check CHECK (((length(name) >= 3) AND (length(name) <= 80)))",
+      "content_card_projects_pkey PRIMARY KEY (id)",
+      "content_card_projects_status_check CHECK ((status = ANY (ARRAY['DRAFT'::text, 'ACTIVE'::text, 'RETIRED'::text])))",
+      "content_card_projects_window CHECK (((available_to IS NULL) OR (available_from IS NULL) OR (available_to > available_from)))"
+    ],
+    "content_missions": [
+      "content_missions_condition_check CHECK (((jsonb_typeof(condition) = 'object'::text) AND (condition ? 'type'::text)))",
+      "content_missions_description_check CHECK ((length(description) <= 240))",
+      "content_missions_id_check CHECK ((id ~ '^[a-z0-9][a-z0-9-]{1,63}$'::text))",
+      "content_missions_name_check CHECK (((length(name) >= 3) AND (length(name) <= 80)))",
+      "content_missions_pkey PRIMARY KEY (id)",
+      "content_missions_project_id_fkey FOREIGN KEY (project_id) REFERENCES content_card_projects(id) ON DELETE RESTRICT",
+      "content_missions_reward_check CHECK ((jsonb_typeof(reward) = 'object'::text))",
+      "content_missions_self_dep CHECK ((NOT (id = ANY (depends_on))))",
+      "content_missions_status_check CHECK ((status = ANY (ARRAY['DRAFT'::text, 'ACTIVE'::text, 'RETIRED'::text])))",
+      "content_missions_target_check CHECK (((target >= 1) AND (target <= 500)))",
+      "content_missions_window CHECK (((available_to IS NULL) OR (available_from IS NULL) OR (available_to > available_from)))"
+    ],
+    "user_mission_progress": [
+      "user_mission_progress_claim CHECK (((claimed_at IS NULL) OR (completed_at IS NOT NULL)))",
+      "user_mission_progress_mission_id_fkey FOREIGN KEY (mission_id) REFERENCES content_missions(id) ON DELETE CASCADE",
+      "user_mission_progress_pkey PRIMARY KEY (user_id, mission_id)",
+      "user_mission_progress_progress_check CHECK ((progress >= 0))",
+      "user_mission_progress_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    ],
+    "mission_events": [
+      "mission_events_event_key_check CHECK (((length(event_key) >= 3) AND (length(event_key) <= 200)))",
+      "mission_events_kind_check CHECK ((kind = ANY (ARRAY['MATCH'::text, 'OPEN_PACK'::text, 'CRAFT_PACK'::text, 'CRAFT_CARD'::text])))",
+      "mission_events_pkey PRIMARY KEY (user_id, event_key)",
+      "mission_events_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    ],
+    "user_project_claims": [
+      "user_project_claims_pkey PRIMARY KEY (user_id, project_id)",
+      "user_project_claims_project_id_fkey FOREIGN KEY (project_id) REFERENCES content_card_projects(id) ON DELETE RESTRICT",
+      "user_project_claims_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+    ]
+  }
+}

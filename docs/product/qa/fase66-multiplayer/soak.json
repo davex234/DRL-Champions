@@ -1,0 +1,3177 @@
+{
+  "at": "2026-09-26T19:07:57.449Z",
+  "mode": "PVP_PRIVATE (sin rating ni recompensa)",
+  "total": 100,
+  "pairs": [
+    "a9a86124-344349b7",
+    "0692cbd0-772cf6f1"
+  ],
+  "friendship": [
+    {
+      "request": 200,
+      "accept": 200,
+      "codes": [
+        "REQUESTED",
+        "ACCEPTED"
+      ]
+    },
+    {
+      "request": 200,
+      "accept": 200,
+      "codes": [
+        "REQUESTED",
+        "ACCEPTED"
+      ]
+    }
+  ],
+  "doubleMatchGuard": {
+    "liveMatch": true,
+    "enqueueWhileInMatch": 409,
+    "code": "ACTIVE_MATCH",
+    "ok": true
+  },
+  "seconds": 1145,
+  "invariants": {
+    "played": 100,
+    "errors": 0,
+    "terminal": 100,
+    "monotonicVersions": 100,
+    "consistentBothSides": 100,
+    "possibleScores": 100,
+    "resultRecomputedAgrees": 100,
+    "tenTurnsWhenFinished": 100,
+    "zero5xx": 100,
+    "doubleAcceptOneMatch": 100,
+    "lifecycles": {
+      "FINISHED": 92,
+      "ABANDONED": 8
+    },
+    "chaosEvents": {
+      "sameId2": 217,
+      "dup3": 290,
+      "stale": 128,
+      "abandon": 4,
+      "play-vs-abandon": 5
+    },
+    "ratingUnchanged": true,
+    "creditsUnchanged": true
+  },
+  "before": {
+    "D": {
+      "rating": 1020,
+      "games": 1,
+      "credits": 6025,
+      "xp": 381
+    },
+    "E": {
+      "rating": 1000,
+      "games": 0,
+      "credits": 6025,
+      "xp": 333
+    },
+    "F": {
+      "rating": 1000,
+      "games": 0,
+      "credits": 6000,
+      "xp": 462
+    },
+    "G": {
+      "rating": 1000,
+      "games": 0,
+      "credits": 6120,
+      "xp": 378
+    }
+  },
+  "after": {
+    "D": {
+      "rating": 1020,
+      "games": 1,
+      "credits": 6025,
+      "xp": 381
+    },
+    "E": {
+      "rating": 1000,
+      "games": 0,
+      "credits": 6025,
+      "xp": 333
+    },
+    "F": {
+      "rating": 1000,
+      "games": 0,
+      "credits": 6000,
+      "xp": 462
+    },
+    "G": {
+      "rating": 1000,
+      "games": 0,
+      "credits": 6120,
+      "xp": 378
+    }
+  },
+  "matches": [
+    {
+      "idx": 1,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "stale",
+        "sameId2",
+        "stale",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "41ab1dc8",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 2,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5f80d2cf",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 3,
+      "pair": "F-G",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "a7cc0e23",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 4,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d908220c",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 5,
+      "pair": "F-G",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "stale",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "85e2c91b",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 6,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5695afd0",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 7,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5e222fae",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 8,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5206b3b1",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "3-7",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 9,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "cd91b6d0",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 10,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "4f4e00dc",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 11,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "stale",
+        "sameId2",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "f60c60e7",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 12,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "b6445708",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 13,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "dup3",
+        "stale",
+        "dup3",
+        "stale",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "9a96c124",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 14,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "1bf046f0",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 15,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "f2bebd4b",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 16,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d3f5d6b7",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 17,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "dup3",
+        "stale",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "38c97804",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 18,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "dup3",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "8957d8af",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 19,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "674244e8",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 20,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d9a9cce2",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 21,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "stale",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "stale",
+        "stale",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "a7cc4afc",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 22,
+      "pair": "G-F",
+      "chaos": [
+        "stale",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "sameId2",
+        "dup3",
+        "stale",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "e819035a",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 23,
+      "pair": "D-E",
+      "chaos": [
+        "stale",
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "9732177e",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 24,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "9e0627f5",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 25,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "stale",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "98317d8d",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 26,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "fe0c94c6",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 27,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "105a080d",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 28,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "af31a795",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 29,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "55ce48ae",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 30,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d4485fc8",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 31,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "591a9ca4",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 32,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "07e300cc",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 33,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "stale",
+        "abandon@13"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "a0072f76",
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "3-3",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 34,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "87b66d33",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 35,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "dup3",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "e6939b0d",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 36,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "stale",
+        "play-vs-abandon@8"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "3899abfb",
+      "raceOutcome": [
+        409,
+        200
+      ],
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "2-2",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 37,
+      "pair": "D-E",
+      "chaos": [
+        "stale",
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "392496be",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 38,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "stale",
+        "stale",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "61901c52",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 39,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "2a099ac0",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 40,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "stale",
+        "dup3",
+        "stale",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "f7efb075",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 41,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "fc47ab66",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 42,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "abandon@15"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5e78f8ce",
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "3-4",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 43,
+      "pair": "F-G",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "381306eb",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 44,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "stale",
+        "dup3",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "ccb02310",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 45,
+      "pair": "F-G",
+      "chaos": [
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "bf6bd690",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 46,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "stale",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5749bffa",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 47,
+      "pair": "F-G",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "stale",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "211115f6",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 48,
+      "pair": "E-D",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "c0385fdb",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 49,
+      "pair": "F-G",
+      "chaos": [
+        "dup3",
+        "stale",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "e610b3c0",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 50,
+      "pair": "E-D",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "stale",
+        "stale",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "ee7d6156",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "7-3",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 51,
+      "pair": "F-G",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "80b61d18",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 52,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "stale",
+        "sameId2",
+        "play-vs-abandon@10"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "07672011",
+      "raceOutcome": [
+        409,
+        200
+      ],
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "4-1",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 53,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "stale",
+        "sameId2",
+        "stale",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "59927f54",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 54,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "stale",
+        "stale",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "7fa797e1",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 55,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "stale",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "018ee71e",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 56,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "stale",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "4405bf95",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 57,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "stale",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "96bba0bc",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 58,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "3ba1530a",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 59,
+      "pair": "F-G",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "a75a27c6",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 60,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "stale",
+        "dup3",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5fefb7ac",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 61,
+      "pair": "F-G",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "8ab392b8",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 62,
+      "pair": "E-D",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "1e618f7d",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 63,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "e0a16d39",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 64,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d1f1c7d6",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "3-7",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 65,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "stale",
+        "dup3",
+        "sameId2",
+        "play-vs-abandon@8"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "6a83a972",
+      "raceOutcome": [
+        409,
+        200
+      ],
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "2-2",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 66,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d067a48b",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 67,
+      "pair": "F-G",
+      "chaos": [
+        "stale",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "e4a30518",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 68,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "1aa46fb9",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 69,
+      "pair": "F-G",
+      "chaos": [
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "0da8cffd",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 70,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "stale",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "60a17028",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 71,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "09ff3156",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 72,
+      "pair": "G-F",
+      "chaos": [
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "00b92798",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 73,
+      "pair": "D-E",
+      "chaos": [
+        "stale",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "983f1e19",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 74,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "abandon@2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "a20fb79d",
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "1-0",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 75,
+      "pair": "F-G",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "6327499e",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 76,
+      "pair": "E-D",
+      "chaos": [
+        "stale",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "48443413",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 77,
+      "pair": "F-G",
+      "chaos": [
+        "dup3",
+        "stale",
+        "abandon@2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "69a4640e",
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "0-1",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 78,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "12c7b5fc",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 79,
+      "pair": "D-E",
+      "chaos": [
+        "stale",
+        "play-vs-abandon@6",
+        "dup3",
+        "stale",
+        "stale",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "47c60b5b",
+      "raceOutcome": [
+        200,
+        409
+      ],
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 80,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "c8886e40",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 81,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "3aaf7121",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 82,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "stale",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "3ccab9f2",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 83,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "dup3",
+        "dup3",
+        "dup3",
+        "dup3",
+        "stale",
+        "sameId2",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "c904cb0d",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 84,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "stale",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "15b1471c",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 85,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "stale",
+        "dup3",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "b95e1969",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 86,
+      "pair": "G-F",
+      "chaos": [
+        "stale",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "5278f560",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 87,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "stale",
+        "sameId2",
+        "sameId2",
+        "play-vs-abandon@14"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "4c687858",
+      "raceOutcome": [
+        409,
+        200
+      ],
+      "final": {
+        "lifecycle": "ABANDONED",
+        "score": "3-4",
+        "decidedBy": null
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 88,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "stale",
+        "dup3",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d94a5e41",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 89,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "stale",
+        "sameId2",
+        "dup3",
+        "stale",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "cb0acc2b",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 90,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "stale",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "stale",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "592a9779",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 91,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "da300389",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 92,
+      "pair": "E-D",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "4a732327",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "6-4",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 93,
+      "pair": "F-G",
+      "chaos": [
+        "sameId2",
+        "stale",
+        "dup3",
+        "stale",
+        "stale",
+        "dup3",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "f6cc7b59",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 94,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "stale",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "193325c0",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 95,
+      "pair": "D-E",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "dup3",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "2c78e519",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 96,
+      "pair": "G-F",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "stale",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "2715b4e8",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 97,
+      "pair": "D-E",
+      "chaos": [
+        "dup3",
+        "dup3",
+        "sameId2",
+        "stale",
+        "dup3",
+        "stale"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "d4f05790",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "4-6",
+        "decidedBy": "SCORE"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 98,
+      "pair": "G-F",
+      "chaos": [
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "sameId2",
+        "stale",
+        "dup3",
+        "stale",
+        "dup3",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "53d554db",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 99,
+      "pair": "D-E",
+      "chaos": [
+        "stale",
+        "sameId2",
+        "dup3",
+        "stale",
+        "stale",
+        "dup3"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "57fbacc9",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    },
+    {
+      "idx": 100,
+      "pair": "G-F",
+      "chaos": [
+        "stale",
+        "sameId2",
+        "dup3",
+        "dup3",
+        "dup3",
+        "stale",
+        "dup3",
+        "sameId2",
+        "sameId2",
+        "sameId2"
+      ],
+      "http5xx": 0,
+      "doubleAcceptSameMatch": true,
+      "matchId": "6ac92100",
+      "final": {
+        "lifecycle": "FINISHED",
+        "score": "5-5",
+        "decidedBy": "OVR_TIEBREAK"
+      },
+      "checks": {
+        "terminal": true,
+        "monotonic": true,
+        "consistentBothSides": true,
+        "possibleScore": true,
+        "recomputeAgrees": true,
+        "tenTurnsWhenFinished": true,
+        "no5xx": true,
+        "doubleAcceptSameMatch": true
+      }
+    }
+  ]
+}

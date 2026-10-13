@@ -1,0 +1,403 @@
+{
+  "width": 1440,
+  "persona": "A",
+  "at": "2026-09-30T08:34:30.469Z",
+  "matchAttempts": [
+    "3de494d3-950b-440c-bb28-ee856ab8ff98:CCCCCCCTCC"
+  ],
+  "matchId": "3de494d3-950b-440c-bb28-ee856ab8ff98",
+  "boardPath": "/duelos/jugar",
+  "hints": [
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 42,
+      "h": 33
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 42,
+      "h": 32
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/us.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 42,
+      "h": 32
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 41,
+      "h": 31
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 41,
+      "h": 31
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/ru.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 41,
+      "h": 31
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/us.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 41,
+      "h": 31
+    },
+    {
+      "type": "TEAM",
+      "shape": "logo",
+      "text": "",
+      "img": false,
+      "art": "/hints/teams/giantx.png",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 40,
+      "h": 40
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/cn.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 42,
+      "h": 32
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 42,
+      "h": 33
+    }
+  ],
+  "apiHints": [
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "US"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "RU"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "US"
+    },
+    {
+      "type": "TEAM",
+      "value": "giantx"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "CN"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    }
+  ],
+  "afterReveal": {
+    "rivalRemaining": 8,
+    "domHints": 8,
+    "rivalUsed": [
+      "oxy__base",
+      "crashies__base"
+    ]
+  },
+  "reveal": {
+    "status": "COMPLETED",
+    "revealed": [
+      {
+        "uid": "bot-1828181964-0",
+        "cardId": "oxy__base",
+        "team": "c9",
+        "teamHasLogo": true,
+        "country": "US",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "US"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-5",
+        "cardId": "crashies__base",
+        "team": "fnatic",
+        "teamHasLogo": true,
+        "country": "US",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "US"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-3",
+        "cardId": "munchkin__masters-sdc",
+        "team": "t1",
+        "teamHasLogo": false,
+        "country": "KR",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "KR"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-6",
+        "cardId": "karon__base",
+        "team": "gen-g",
+        "teamHasLogo": false,
+        "country": "KR",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "KR"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-2",
+        "cardId": "mako__base",
+        "team": "drx",
+        "teamHasLogo": false,
+        "country": "KR",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "KR"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-7",
+        "cardId": "westside__base",
+        "team": "giantx",
+        "teamHasLogo": true,
+        "country": "PL",
+        "recomputed": {
+          "type": "TEAM",
+          "value": "giantx"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-1",
+        "cardId": "udotan__masters-l",
+        "team": "ge",
+        "teamHasLogo": false,
+        "country": "KR",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "KR"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-9",
+        "cardId": "k1ra__masters-sdc",
+        "team": "all-gamers",
+        "teamHasLogo": false,
+        "country": "CN",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "CN"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-8",
+        "cardId": "francis__masters-sdc",
+        "team": "ns",
+        "teamHasLogo": false,
+        "country": "KR",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "KR"
+        },
+        "seenWhileHidden": true
+      },
+      {
+        "uid": "bot-1828181964-4",
+        "cardId": "cloud__base",
+        "team": "giantx",
+        "teamHasLogo": true,
+        "country": "RU",
+        "recomputed": {
+          "type": "COUNTRY",
+          "value": "RU"
+        },
+        "seenWhileHidden": true
+      }
+    ]
+  },
+  "otherForeignHosts": [
+    "fonts.googleapis.com",
+    "fonts.gstatic.com"
+  ],
+  "network": {
+    "foreign": [
+      "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap",
+      "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FvOreec.woff2",
+      "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap",
+      "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FvOreec.woff2"
+    ],
+    "hintAssets": [
+      "http://127.0.0.1:3016/flags/cn.svg",
+      "http://127.0.0.1:3016/flags/kr.svg",
+      "http://127.0.0.1:3016/flags/ru.svg",
+      "http://127.0.0.1:3016/flags/us.svg",
+      "http://127.0.0.1:3016/hints/teams/giantx.png"
+    ]
+  },
+  "consoleErrors": [],
+  "pass": 16,
+  "total": 16,
+  "results": [
+    {
+      "id": "A · pista COUNTRY: solo bandera LOCAL (/flags/*.svg, forma flag)",
+      "ok": true,
+      "detail": "{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"img\":false,\"art\":\"/flags/kr.svg\",\"size\":\"contain\",\"pos\":\"50% 50%\",\"w\":42,\"h\":33}"
+    },
+    {
+      "id": "B · pista TEAM: solo logo LOCAL (/hints/teams/<canonicalId>.png, forma logo)",
+      "ok": true,
+      "detail": "{\"type\":\"TEAM\",\"shape\":\"logo\",\"text\":\"\",\"img\":false,\"art\":\"/hints/teams/giantx.png\",\"size\":\"contain\",\"pos\":\"50% 50%\",\"w\":40,\"h\":40}"
+    },
+    {
+      "id": "C · varias cartas ocultas a la vez con mezcla real de banderas y logos",
+      "ok": true,
+      "detail": "10 pistas: COUNTRY,COUNTRY,COUNTRY,COUNTRY,COUNTRY,COUNTRY,COUNTRY,TEAM,COUNTRY,COUNTRY · intentos=1"
+    },
+    {
+      "id": "H · 0 texto en las pistas y en la mano oculta (sin ISO, tag, nombre ni abreviatura)",
+      "ok": true,
+      "detail": "handText=«»"
+    },
+    {
+      "id": "legible y proporcionado (contain, centrado; bandera ≥ 18 px, logo ≥ 18 px, caja del logo cuadrada)",
+      "ok": true,
+      "detail": "[\"flag:42x33\",\"flag:42x32\",\"flag:42x32\",\"flag:41x31\",\"flag:41x31\",\"flag:41x31\",\"flag:41x31\",\"logo:40x40\",\"flag:42x32\",\"flag:42x33\"]"
+    },
+    {
+      "id": "I · 0 imágenes rotas",
+      "ok": true,
+      "detail": "rotas=0"
+    },
+    {
+      "id": "API · una entrada por carta oculta, cada una { type, value } o null; valor = id de asset local",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"RU\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"TEAM\",\"value\":\"giantx\"},{\"type\":\"COUNTRY\",\"value\":\"CN\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"}]"
+    },
+    {
+      "id": "E · recargar = mismas pistas",
+      "ok": true,
+      "detail": "[[\"COUNTRY\",\"/flags/cn.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/"
+    },
+    {
+      "id": "F · reconectar (navegador y sesión nuevos) = misma partida y mismas pistas",
+      "ok": true,
+      "detail": "match=true"
+    },
+    {
+      "id": "servidor = algoritmo: cada carta revelada tiene la pista que se vio oculta (mismo hash y resolvedor)",
+      "ok": true,
+      "detail": "10 reveladas"
+    },
+    {
+      "id": "D · equipo SIN logo: nunca TEAM, cae a la bandera (siguiente tipo disponible), jamás placeholder",
+      "ok": true,
+      "detail": "[\"munchkin__masters-sdc(t1)→COUNTRY:KR\",\"karon__base(gen-g)→COUNTRY:KR\",\"mako__base(drx)→COUNTRY:KR\",\"udotan__masters-l(ge)→COUNTRY:KR\",\"k1ra__masters-sdc(all-gamers)→COUNTRY:CN\",\"francis__masters-sdc(ns)→COUNTRY:KR\"]"
+    },
+    {
+      "id": "equipo CON logo: su pista TEAM (si la hay) es el logo de su equipo IMPRESO",
+      "ok": true,
+      "detail": "[\"oxy__base(c9)→COUNTRY:US\",\"crashies__base(fnatic)→COUNTRY:US\",\"westside__base(giantx)→TEAM:giantx\",\"cloud__base(giantx)→COUNTRY:RU\"]"
+    },
+    {
+      "id": "G · al revelarse, la pista de esa carta desaparece (API y DOM cuadran con las que siguen ocultas)",
+      "ok": true,
+      "detail": "{\"rivalRemaining\":8,\"domHints\":8,\"rivalUsed\":[\"oxy__base\",\"crashies__base\"]}"
+    },
+    {
+      "id": "J · 0 peticiones de pistas a otro host (ni flagcdn, CDN, GitHub, valorant-api, VLR, Liquipedia): todos sus assets del propio origen",
+      "ok": true,
+      "detail": "hintForeign=0 · hintAssets=5 · otros hosts (no pistas)=fonts.googleapis.com,fonts.gstatic.com"
+    },
+    {
+      "id": "K · 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "L · 0 «Failed to fetch»",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

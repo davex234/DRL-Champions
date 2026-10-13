@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-09-17T19:14:23.284Z",
+  "base": "http://127.0.0.1:3005",
+  "note": "Chrome sin cabeza con --disable-gpu (peor caso: todo en CPU). 3 s por medida.",
+  "rows": [
+    {
+      "path": "/",
+      "withEnv": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "withoutEnv": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "scrolling": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      }
+    },
+    {
+      "path": "/coleccion",
+      "withEnv": {
+        "fps": 54,
+        "maxFrameGap": 33,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "withoutEnv": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "scrolling": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      }
+    },
+    {
+      "path": "/tienda",
+      "withEnv": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "withoutEnv": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "scrolling": {
+        "fps": 59,
+        "maxFrameGap": 33,
+        "longTasks": 0,
+        "worstLongTask": 0
+      }
+    },
+    {
+      "path": "/duelos/mazos",
+      "withEnv": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "withoutEnv": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      },
+      "scrolling": {
+        "fps": 60,
+        "maxFrameGap": 17,
+        "longTasks": 0,
+        "worstLongTask": 0
+      }
+    }
+  ]
+}

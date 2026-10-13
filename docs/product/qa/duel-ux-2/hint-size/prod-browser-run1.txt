@@ -1,0 +1,31 @@
+PASS login real por /cuenta
+PASS «Comenzar duelo»
+PASS tablero listo
+PASS ningún reloj de decisión en pantalla
+esperando 40 s sin tocar nada…
+PASS tras > 30 s: mismo turno, misma mano, sin reloj
+PASS tras > 30 s: el servidor tampoco movió nada
+PASS T2 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T2 · reverso con la pista (TEAM) y el rol (Duelista) de esa carta
+PASS T4 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T4 · reverso con la pista (COUNTRY) y el rol (Duelista) de esa carta
+PASS T6 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T6 · reverso con la pista (COUNTRY) y el rol (Iniciador) de esa carta
+PASS T8 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T8 · reverso con la pista (TEAM) y el rol (Iniciador) de esa carta
+PASS T10 · carta comprometida boca abajo: sin cara ni texto de la carta
+PASS T10 · reverso con la pista (COUNTRY) y el rol (Controlador) de esa carta
+PASS la partida terminó
+PASS el bot comprometió al menos una carta durante la partida
+FAIL T2 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick) {"where":["storage:lewn__base"],"secrets":4}
+PASS T4 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+PASS T6 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+PASS T8 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+PASS T10 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (4 claves: uid, carta, jugador, nick)
+RECIBO {"matchId":"7752fd92-f97d-441d-9340-3be5e76c66ef","grants":[{"source":"MATCH","reward":{"credits":40,"xp":25},"points":0}],"capped":false} · UI {"has":true,"text":"Recompensas obtenidas+40 créditos+25 XP de cuenta","kind":"loss"}
+PASS «Recompensas obtenidas» con los créditos del recibo
+PASS F5: el resultado sigue enseñando el mismo recibo
+PASS 390: sin desbordamiento horizontal
+PASS consola limpia
+
+DUEL UX 2.0 PROD BROWSER: 26/27

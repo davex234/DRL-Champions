@@ -1,0 +1,262 @@
+{
+  "mode": "up",
+  "base": "http://127.0.0.1:3005",
+  "at": "2026-09-28T17:40:03.070Z",
+  "routes": [
+    {
+      "requested": "/",
+      "finalUrl": "/",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": true,
+      "loginForm": false,
+      "failedText": false,
+      "text": "PLAY COLLECT COMPETE BELONG NEXUS NEXUS 3 QAF68K105820 NIVEL 3 9025 JUGAR ENTRA EN LA ARENA INVENTARIO TUS CARTAS, TU PODER TIENDA SOBRES Y CONTENIDO TU PROGRES",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/cuenta",
+      "finalUrl": "/cuenta",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "QAF68K105820_91CB",
+        "LO MEJOR DE TU COLECCIÓN",
+        "AJUSTES"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "– SIN CLASIFICAR QAF68K105820_91CB Nivel 3 · 496 XP NIVEL 3 193 / 277 XP PARA EL NIVEL 4 Todavía no tienes puntos. Gana duelos contra el bot o acierta prediccio",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+      "finalUrl": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "QAF68K105820_91CB",
+        "EXPÓN TUS CARTAS FAVORITAS",
+        "COMPETITIVO",
+        "TEMPORADA ACTUAL"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "🎮 TU PERFIL DE JUGADOR QAF68K105820_91CB NIVEL 3 RATING — RANKED Sin clasificar Nivel de cuenta · progreso al 4 193 / 277 XP de cuenta EDITAR PERFIL COMPARTIR ",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/coleccion",
+      "finalUrl": "/coleccion",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "MI COLECCIÓN",
+        "TUS CARTAS DE MAYOR OVR",
+        "COMPLETA TUS SETS",
+        "ÁLBUM"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 19 / 331 cartas 5,7 % COPIAS 20 DUPLICADAS 1 OVR MÁS ALTO 91 SERIAL MÁS BAJO — LEGENDARIA 0/3 ÉPICA 0/20 RARA 0/2",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/inventario",
+      "finalUrl": "/inventario",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "MIS SOBRES",
+        "SOBRES SIN ABRIR",
+        "DUPLICADOS · 1"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": true,
+      "loginForm": false,
+      "failedText": false,
+      "text": "COLECCIÓN · INVENTARIO MIS SOBRES Tus sobres sin abrir y tus cartas repetidas. Todas tus cartas están en tu colección. SOBRES 0 DUPLICADOS 1 SOBRES SIN ABRIR NO",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/duelos/mazos",
+      "finalUrl": "/duelos/mazos",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "MIS EQUIPOS",
+        "MI PRIMER EQUIPO",
+        "OTROS EQUIPOS"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "‹ DUELOS NEXUS TEAM BUILDER MIS EQUIPOS 10 cartas · 2 Duelistas, 2 Controladores, 2 Iniciadores, 2 Centinelas, 2 Flex · sin repetir jugador Equipos 1/8 Listos 1",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/tienda",
+      "finalUrl": "/tienda",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "CHAMPIONS S",
+        "SOBRES",
+        "CAJAS",
+        "CARTAS DESTACADAS"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "DESTACADO CHAMPIONS S · ÉPICA · 20 CARTAS CHAMPIONS S NUEVAS CARTAS. NUEVAS LEYENDAS. Las épicas de la temporada: los mejores del circuito en su mejor versión. ",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/tienda/creditos",
+      "finalUrl": "/tienda/creditos",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "DRL CREDITS",
+        "PAQUETES",
+        "STARTER",
+        "BASIC"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "TIENDA DRL CREDITS IMPULSA TU COLECCIÓN La moneda de NEXUS: compra sobres y todo lo que la tienda tenga a la venta. Cuantos más créditos, más cartas. TU SALDO 9",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/progresion",
+      "finalUrl": "/progresion",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "TU PROGRESO",
+        "OBJETIVOS",
+        "CAMINO DE TEMPORADA",
+        "CÓMO SE PROGRESA"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "PROGRESO TU PROGRESO Nivel 3. Qué estás progresando, qué puedes recoger ya, qué hacer hoy y qué te falta para la siguiente recompensa. LOGROS Y PASE COMPLETOS →",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/mundo",
+      "finalUrl": "/mundo",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "EL MUNDO"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "SIMULACIÓN · TEMPORADA 1 EL MUNDO El circuito que corre aunque tú no juegues: equipos, fichajes, campeones y crónica. Aquí no se colecciona ni se compite —se co",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/competitivo",
+      "finalUrl": "/competitivo",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "SIN CLASIFICAR",
+        "ÚLTIMAS PARTIDAS",
+        "CLASIFICACIÓN",
+        "RECOMPENSAS COMPETITIVAS"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "SIN CLASIFICAR — COMPETITIVO · RANKED PVP SIN CLASIFICAR RATING 1000 SIN CLASIFICAR → TU PRIMERA PARTIDA TE METE EN LA ESCALERA Empiezas con 1000 de rating. Las",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/entrenador",
+      "finalUrl": "/entrenador",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "TACTICAL COACH",
+        "PREPARACIÓN",
+        "ANÁLISIS",
+        "PREPARA CADA PARTIDO"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "TACTICAL COACH CENTRO JUGAR COMPOSICIONES PIZARRA PLAN MAPAS PARTIDOS PLANTILLA A B NEXUS · CENTRO TÁCTICO TACTICAL COACH PREPARA · ANALIZA · DOMINA Prepara est",
+      "fetchFails": [],
+      "console": []
+    },
+    {
+      "requested": "/jugar",
+      "finalUrl": "/jugar",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "JUGAR",
+        "ROAD TO CHAMPIONS",
+        "ROAD TO CHAMPIONS",
+        "TACTICAL COACH"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "NEXUS · MODOS DE JUEGO JUGAR ELIGE TU PRÓXIMO DESAFÍO PARTIDA EN CURSO · CAMPAÑA PVE ROAD TO CHAMPIONS 0/15 nodos · Capítulo 1 RETOMAR PARTIDA CAMPAÑA PVE · DES",
+      "fetchFails": [],
+      "console": []
+    }
+  ],
+  "login": {
+    "hadForm": true,
+    "formGoneAfter": true,
+    "fetchFails": [],
+    "console": []
+  }
+}

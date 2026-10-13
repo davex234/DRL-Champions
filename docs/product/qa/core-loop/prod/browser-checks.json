@@ -1,0 +1,404 @@
+{
+  "base": "https://valorosters.com",
+  "at": "2026-10-07T13:36:03.154Z",
+  "total": 36,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "home",
+      "w": 1440,
+      "name": "con sesión: portada con cuenta y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": false,
+        "jugar": false,
+        "ganar": false,
+        "shop": [],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "home",
+      "w": 1440,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "home",
+      "w": 1440,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "progresion",
+      "w": 1440,
+      "name": "con sesión: las diarias reales (jugar) y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": true,
+        "jugar": true,
+        "ganar": true,
+        "shop": [
+          "TIENDA",
+          "Tienda"
+        ],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "progresion",
+      "w": 1440,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": [
+        "TIENDA",
+        "Tienda"
+      ]
+    },
+    {
+      "id": "progresion",
+      "w": 1440,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "home",
+      "w": 1440,
+      "name": "con sesión: portada con cuenta y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": false,
+        "jugar": false,
+        "ganar": false,
+        "shop": [],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "home",
+      "w": 1440,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "home",
+      "w": 1440,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "progresion",
+      "w": 1440,
+      "name": "con sesión: las diarias reales (jugar) y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": true,
+        "jugar": true,
+        "ganar": true,
+        "shop": [
+          "TIENDA",
+          "Tienda"
+        ],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "progresion",
+      "w": 1440,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": [
+        "TIENDA",
+        "Tienda"
+      ]
+    },
+    {
+      "id": "progresion",
+      "w": 1440,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "home",
+      "w": 1024,
+      "name": "con sesión: portada con cuenta y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": false,
+        "jugar": false,
+        "ganar": false,
+        "shop": [],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "home",
+      "w": 1024,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "home",
+      "w": 1024,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "progresion",
+      "w": 1024,
+      "name": "con sesión: las diarias reales (jugar) y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": true,
+        "jugar": true,
+        "ganar": true,
+        "shop": [
+          "TIENDA",
+          "Tienda"
+        ],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "progresion",
+      "w": 1024,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": [
+        "TIENDA",
+        "Tienda"
+      ]
+    },
+    {
+      "id": "progresion",
+      "w": 1024,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "home",
+      "w": 1024,
+      "name": "con sesión: portada con cuenta y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": false,
+        "jugar": false,
+        "ganar": false,
+        "shop": [],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "home",
+      "w": 1024,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "home",
+      "w": 1024,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "progresion",
+      "w": 1024,
+      "name": "con sesión: las diarias reales (jugar) y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": true,
+        "jugar": true,
+        "ganar": true,
+        "shop": [
+          "TIENDA",
+          "Tienda"
+        ],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "progresion",
+      "w": 1024,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": [
+        "TIENDA",
+        "Tienda"
+      ]
+    },
+    {
+      "id": "progresion",
+      "w": 1024,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "home",
+      "w": 390,
+      "name": "con sesión: portada con cuenta y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": false,
+        "jugar": false,
+        "ganar": false,
+        "shop": [],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "home",
+      "w": 390,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "home",
+      "w": 390,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "progresion",
+      "w": 390,
+      "name": "con sesión: las diarias reales (jugar) y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": true,
+        "jugar": true,
+        "ganar": true,
+        "shop": [
+          "Tienda",
+          "TIENDA"
+        ],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "progresion",
+      "w": 390,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": [
+        "Tienda",
+        "TIENDA"
+      ]
+    },
+    {
+      "id": "progresion",
+      "w": 390,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "home",
+      "w": 390,
+      "name": "con sesión: portada con cuenta y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": false,
+        "jugar": false,
+        "ganar": false,
+        "shop": [],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "home",
+      "w": 390,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "home",
+      "w": 390,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "progresion",
+      "w": 390,
+      "name": "con sesión: las diarias reales (jugar) y ninguna «Haz una predicción»",
+      "ok": true,
+      "detail": {
+        "pickem": false,
+        "abrir": true,
+        "jugar": true,
+        "ganar": true,
+        "shop": [
+          "Tienda",
+          "TIENDA"
+        ],
+        "shopBadge": false,
+        "overflow": 0,
+        "entrar": false
+      }
+    },
+    {
+      "id": "progresion",
+      "w": 390,
+      "name": "con sesión: TIENDA sin número del Centro de eventos local",
+      "ok": true,
+      "detail": [
+        "Tienda",
+        "TIENDA"
+      ]
+    },
+    {
+      "id": "progresion",
+      "w": 390,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    }
+  ]
+}

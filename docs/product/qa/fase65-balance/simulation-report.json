@@ -1,0 +1,7268 @@
+{
+  "config": {
+    "lab": "balance-lab-1",
+    "seed": 65000,
+    "scale": 1,
+    "suites": [
+      "mirror",
+      "side",
+      "field",
+      "paired",
+      "edition",
+      "strategies",
+      "hillclimb",
+      "bots",
+      "pve",
+      "starter",
+      "autodeck",
+      "rng",
+      "integrity"
+    ],
+    "gitHead": "48dac2a125fe04f5a1a36fa73af23118f757b922",
+    "node": "v24.15.0",
+    "engine": {
+      "orchestrator": "duel-turns-2",
+      "resolver": "duel-combat-2",
+      "rules": {
+        "version": "duel-combat-2",
+        "encounterTie": "NO_POINT",
+        "finalTiebreak": "STAT_MARGIN",
+        "terminal": "DRAW"
+      }
+    },
+    "catalog": {
+      "cards": 331,
+      "hash": "2a0e6c1"
+    },
+    "policies": [
+      "RANDOM",
+      "EASY",
+      "NORMAL",
+      "HARD",
+      "SMART",
+      "ORACLE"
+    ],
+    "strategies": [
+      "OVR_MAX",
+      "COMBAT_MAX",
+      "PEAK_MAX",
+      "BALANCED",
+      "SPEC_SH",
+      "SPEC_GS",
+      "SPEC_EF",
+      "LOW_OVR"
+    ],
+    "determinism": "Semillas por suite = SEED ^ fnv1a(suite); semilla de partida = fnv1a(`${SEED}:${suite}:${i}`). Mismo SEED + mismo catálogo ⇒ mismos números.",
+    "dbWrites": 0,
+    "network": 0
+  },
+  "timing": {
+    "mirror": {
+      "seconds": 17,
+      "matches": 100000
+    },
+    "side": {
+      "seconds": 17.6,
+      "matches": 100000
+    },
+    "field": {
+      "seconds": 65.9,
+      "matches": 360000
+    },
+    "paired": {
+      "seconds": 29,
+      "matches": 211840
+    },
+    "edition": {
+      "seconds": 7,
+      "matches": 54400
+    },
+    "strategies": {
+      "seconds": 26.8,
+      "matches": 211500
+    },
+    "hillclimb": {
+      "seconds": 5.8,
+      "matches": 56260
+    },
+    "bots": {
+      "seconds": 15.3,
+      "matches": 108000
+    },
+    "pve": {
+      "seconds": 26.9,
+      "matches": 144000
+    },
+    "starter": {
+      "seconds": 9.9,
+      "matches": 72000
+    },
+    "autodeck": {
+      "seconds": 11.7,
+      "matches": 12000
+    },
+    "rng": {
+      "seconds": 0,
+      "matches": 0
+    },
+    "integrity": {
+      "seconds": 0,
+      "matches": 0
+    }
+  },
+  "matches": 1430000,
+  "seconds": 232.8,
+  "results": {
+    "mirror": {
+      "HARD": {
+        "matches": 25000,
+        "sideA": {
+          "n": 25000,
+          "rate": 0.4996,
+          "lo": 0.4934,
+          "hi": 0.5058
+        },
+        "drawRate": 0.0417,
+        "firstAttackerWin": {
+          "n": 23958,
+          "rate": 0.5277,
+          "lo": 0.5214,
+          "hi": 0.534
+        },
+        "decidedBy": {
+          "NONE": 1042,
+          "SCORE": 16491,
+          "STAT_MARGIN": 7467
+        },
+        "margin": {
+          "0": 8509,
+          "1": 3548,
+          "2": 9220,
+          "3": 1077,
+          "4": 2219,
+          "5": 142,
+          "6": 261,
+          "7": 9,
+          "8": 14,
+          "10": 1
+        },
+        "tiedEncounters": {
+          "0": 19848,
+          "1": 4764,
+          "2": 376,
+          "3": 12
+        },
+        "finalScores": {
+          "10-0": 1,
+          "4-3": 11,
+          "4-4": 186,
+          "5-2": 1,
+          "5-3": 153,
+          "5-4": 3537,
+          "5-5": 8323,
+          "6-2": 35,
+          "6-3": 1076,
+          "6-4": 9067,
+          "7-1": 2,
+          "7-2": 142,
+          "7-3": 2184,
+          "8-1": 9,
+          "8-2": 259,
+          "9-1": 14
+        },
+        "stompRate": 0.0114,
+        "closeRate": 0.4823,
+        "comebackFrom2Down": 0.1228,
+        "halfTimeReversal": 0.2465,
+        "decidedAtTurn": {
+          "6": 69,
+          "7": 576,
+          "8": 1864,
+          "9": 4951,
+          "10": 17540
+        },
+        "decidedBeforeLastTurn": 0.2984,
+        "encounter": {
+          "attackerWin": {
+            "n": 250000,
+            "rate": 0.8017,
+            "lo": 0.8002,
+            "hi": 0.8033
+          },
+          "tieRate": 0.0222,
+          "firstAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.8003,
+            "lo": 0.7981,
+            "hi": 0.8025
+          },
+          "secondAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.8032,
+            "lo": 0.801,
+            "hi": 0.8054
+          }
+        },
+        "perTurn": [
+          {
+            "turn": 1,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.8184,
+              "lo": 0.8135,
+              "hi": 0.8231
+            },
+            "tieRate": 0.0049
+          },
+          {
+            "turn": 2,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.8234,
+              "lo": 0.8186,
+              "hi": 0.828
+            },
+            "tieRate": 0.0024
+          },
+          {
+            "turn": 3,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.7893,
+              "lo": 0.7842,
+              "hi": 0.7943
+            },
+            "tieRate": 0.0063
+          },
+          {
+            "turn": 4,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.8219,
+              "lo": 0.8171,
+              "hi": 0.8266
+            },
+            "tieRate": 0.0046
+          },
+          {
+            "turn": 5,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.7854,
+              "lo": 0.7802,
+              "hi": 0.7904
+            },
+            "tieRate": 0.008
+          },
+          {
+            "turn": 6,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.8256,
+              "lo": 0.8208,
+              "hi": 0.8302
+            },
+            "tieRate": 0.0063
+          },
+          {
+            "turn": 7,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.7996,
+              "lo": 0.7946,
+              "hi": 0.8046
+            },
+            "tieRate": 0.0098
+          },
+          {
+            "turn": 8,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.8319,
+              "lo": 0.8272,
+              "hi": 0.8365
+            },
+            "tieRate": 0.01
+          },
+          {
+            "turn": 9,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.8088,
+              "lo": 0.8039,
+              "hi": 0.8136
+            },
+            "tieRate": 0.0216
+          },
+          {
+            "turn": 10,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.7132,
+              "lo": 0.7075,
+              "hi": 0.7187
+            },
+            "tieRate": 0.1484
+          }
+        ],
+        "perStat": {
+          "stronghold": {
+            "declared": 0.3213,
+            "attackerWin": {
+              "n": 80325,
+              "rate": 0.8329,
+              "lo": 0.8303,
+              "hi": 0.8354
+            },
+            "tieRate": 0.0029,
+            "meanAttack": 80.75,
+            "meanDefense": 52.68
+          },
+          "gamesense": {
+            "declared": 0.3681,
+            "attackerWin": {
+              "n": 92030,
+              "rate": 0.7748,
+              "lo": 0.7721,
+              "hi": 0.7775
+            },
+            "tieRate": 0.0555,
+            "meanAttack": 79.3,
+            "meanDefense": 55.6
+          },
+          "entryfrag": {
+            "declared": 0.3106,
+            "attackerWin": {
+              "n": 77645,
+              "rate": 0.8015,
+              "lo": 0.7987,
+              "hi": 0.8043
+            },
+            "tieRate": 0.0028,
+            "meanAttack": 80.32,
+            "meanDefense": 53.73
+          }
+        },
+        "shadow": {
+          "CURRENT": {
+            "changedWinner": 0,
+            "draws": 0.04168,
+            "by": {
+              "DRAW": 1042,
+              "SCORE": 16491,
+              "STAT_MARGIN": 7467
+            },
+            "firstAttackerWin": {
+              "n": 23958,
+              "rate": 0.5277,
+              "lo": 0.5214,
+              "hi": 0.534
+            },
+            "tiedMatchesResolved": 7467,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "NO_OVR": {
+            "changedWinner": 0,
+            "draws": 0.04168,
+            "by": {
+              "DRAW": 1042,
+              "SCORE": 16491,
+              "STAT_MARGIN": 7467
+            },
+            "firstAttackerWin": {
+              "n": 23958,
+              "rate": 0.5277,
+              "lo": 0.5214,
+              "hi": 0.534
+            },
+            "tiedMatchesResolved": 7467,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "COMBAT_SUM": {
+            "changedWinner": 0,
+            "draws": 0.04168,
+            "by": {
+              "DRAW": 1042,
+              "SCORE": 16491,
+              "STAT_MARGIN": 7467
+            },
+            "firstAttackerWin": {
+              "n": 23958,
+              "rate": 0.5277,
+              "lo": 0.5214,
+              "hi": 0.534
+            },
+            "tiedMatchesResolved": 7467,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "STAT_FIRST": {
+            "changedWinner": 0,
+            "draws": 0.04168,
+            "by": {
+              "DRAW": 1042,
+              "SCORE": 16491,
+              "STAT_MARGIN": 7467
+            },
+            "firstAttackerWin": {
+              "n": 23958,
+              "rate": 0.5277,
+              "lo": 0.5214,
+              "hi": 0.534
+            },
+            "tiedMatchesResolved": 7467,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "TIE_TO_SECOND": {
+            "changedWinner": 0.23944,
+            "draws": 0,
+            "by": {
+              "SCORE": 16491,
+              "SECOND_ATTACKER": 8509
+            },
+            "firstAttackerWin": {
+              "n": 25000,
+              "rate": 0.308,
+              "lo": 0.3023,
+              "hi": 0.3137
+            },
+            "tiedMatchesResolved": 8509,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 0.2965
+          }
+        },
+        "shadowCurrentMismatches": 0,
+        "ovrTiebreak": {
+          "n": 0,
+          "shareOfMatches": 0,
+          "winnerHadLowerCombatSum": 0,
+          "winnerHadLowerDeclaredStats": 0,
+          "meanOvrGap": 0
+        },
+        "byOvrGap_per5": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.4996
+          }
+        },
+        "byCombatGap_per20": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.4996
+          }
+        },
+        "integrityBad": 0
+      },
+      "NORMAL": {
+        "matches": 25000,
+        "sideA": {
+          "n": 25000,
+          "rate": 0.5048,
+          "lo": 0.4986,
+          "hi": 0.511
+        },
+        "drawRate": 0.0027,
+        "firstAttackerWin": {
+          "n": 24933,
+          "rate": 0.478,
+          "lo": 0.4718,
+          "hi": 0.4842
+        },
+        "decidedBy": {
+          "NONE": 67,
+          "SCORE": 19302,
+          "STAT_MARGIN": 5631
+        },
+        "margin": {
+          "0": 5698,
+          "1": 3337,
+          "2": 8498,
+          "3": 1760,
+          "4": 3960,
+          "5": 524,
+          "6": 991,
+          "7": 93,
+          "8": 125,
+          "9": 4,
+          "10": 10
+        },
+        "tiedEncounters": {
+          "0": 18517,
+          "1": 5656,
+          "2": 760,
+          "3": 61,
+          "4": 5,
+          "5": 1
+        },
+        "finalScores": {
+          "10-0": 10,
+          "3-2": 1,
+          "3-3": 3,
+          "4-2": 2,
+          "4-3": 41,
+          "4-4": 242,
+          "5-2": 15,
+          "5-3": 371,
+          "5-4": 3295,
+          "5-5": 5453,
+          "6-1": 5,
+          "6-2": 118,
+          "6-3": 1745,
+          "6-4": 8125,
+          "7-1": 29,
+          "7-2": 519,
+          "7-3": 3842,
+          "8-1": 93,
+          "8-2": 962,
+          "9-0": 4,
+          "9-1": 125
+        },
+        "stompRate": 0.0489,
+        "closeRate": 0.3614,
+        "comebackFrom2Down": 0.2212,
+        "halfTimeReversal": 0.2576,
+        "decidedAtTurn": {
+          "6": 483,
+          "7": 1798,
+          "8": 3866,
+          "9": 5750,
+          "10": 13103
+        },
+        "decidedBeforeLastTurn": 0.4759,
+        "encounter": {
+          "attackerWin": {
+            "n": 250000,
+            "rate": 0.5883,
+            "lo": 0.5864,
+            "hi": 0.5903
+          },
+          "tieRate": 0.0295,
+          "firstAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.5777,
+            "lo": 0.5749,
+            "hi": 0.5804
+          },
+          "secondAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.599,
+            "lo": 0.5963,
+            "hi": 0.6017
+          }
+        },
+        "perTurn": [
+          {
+            "turn": 1,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.5612,
+              "lo": 0.555,
+              "hi": 0.5673
+            },
+            "tieRate": 0.0205
+          },
+          {
+            "turn": 2,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.5825,
+              "lo": 0.5764,
+              "hi": 0.5886
+            },
+            "tieRate": 0.0186
+          },
+          {
+            "turn": 3,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.557,
+              "lo": 0.5509,
+              "hi": 0.5632
+            },
+            "tieRate": 0.0225
+          },
+          {
+            "turn": 4,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.5802,
+              "lo": 0.5741,
+              "hi": 0.5863
+            },
+            "tieRate": 0.0212
+          },
+          {
+            "turn": 5,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.5647,
+              "lo": 0.5585,
+              "hi": 0.5708
+            },
+            "tieRate": 0.0248
+          },
+          {
+            "turn": 6,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.5919,
+              "lo": 0.5858,
+              "hi": 0.598
+            },
+            "tieRate": 0.0241
+          },
+          {
+            "turn": 7,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.5878,
+              "lo": 0.5817,
+              "hi": 0.5939
+            },
+            "tieRate": 0.0258
+          },
+          {
+            "turn": 8,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.6158,
+              "lo": 0.6098,
+              "hi": 0.6219
+            },
+            "tieRate": 0.029
+          },
+          {
+            "turn": 9,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.6176,
+              "lo": 0.6116,
+              "hi": 0.6236
+            },
+            "tieRate": 0.0337
+          },
+          {
+            "turn": 10,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.6246,
+              "lo": 0.6186,
+              "hi": 0.6306
+            },
+            "tieRate": 0.0751
+          }
+        ],
+        "perStat": {
+          "stronghold": {
+            "declared": 0.3203,
+            "attackerWin": {
+              "n": 80069,
+              "rate": 0.6337,
+              "lo": 0.6304,
+              "hi": 0.6371
+            },
+            "tieRate": 0.0082,
+            "meanAttack": 73.82,
+            "meanDefense": 59.51
+          },
+          "gamesense": {
+            "declared": 0.3504,
+            "attackerWin": {
+              "n": 87591,
+              "rate": 0.5625,
+              "lo": 0.5592,
+              "hi": 0.5658
+            },
+            "tieRate": 0.069,
+            "meanAttack": 72.99,
+            "meanDefense": 61.35
+          },
+          "entryfrag": {
+            "declared": 0.3294,
+            "attackerWin": {
+              "n": 82340,
+              "rate": 0.5717,
+              "lo": 0.5683,
+              "hi": 0.5751
+            },
+            "tieRate": 0.0082,
+            "meanAttack": 71.9,
+            "meanDefense": 60.58
+          }
+        },
+        "shadow": {
+          "CURRENT": {
+            "changedWinner": 0,
+            "draws": 0.00268,
+            "by": {
+              "DRAW": 67,
+              "SCORE": 19302,
+              "STAT_MARGIN": 5631
+            },
+            "firstAttackerWin": {
+              "n": 24933,
+              "rate": 0.478,
+              "lo": 0.4718,
+              "hi": 0.4842
+            },
+            "tiedMatchesResolved": 5631,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "NO_OVR": {
+            "changedWinner": 0,
+            "draws": 0.00268,
+            "by": {
+              "DRAW": 67,
+              "SCORE": 19302,
+              "STAT_MARGIN": 5631
+            },
+            "firstAttackerWin": {
+              "n": 24933,
+              "rate": 0.478,
+              "lo": 0.4718,
+              "hi": 0.4842
+            },
+            "tiedMatchesResolved": 5631,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "COMBAT_SUM": {
+            "changedWinner": 0,
+            "draws": 0.00268,
+            "by": {
+              "DRAW": 67,
+              "SCORE": 19302,
+              "STAT_MARGIN": 5631
+            },
+            "firstAttackerWin": {
+              "n": 24933,
+              "rate": 0.478,
+              "lo": 0.4718,
+              "hi": 0.4842
+            },
+            "tiedMatchesResolved": 5631,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "STAT_FIRST": {
+            "changedWinner": 0,
+            "draws": 0.00268,
+            "by": {
+              "DRAW": 67,
+              "SCORE": 19302,
+              "STAT_MARGIN": 5631
+            },
+            "firstAttackerWin": {
+              "n": 24933,
+              "rate": 0.478,
+              "lo": 0.4718,
+              "hi": 0.4842
+            },
+            "tiedMatchesResolved": 5631,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "TIE_TO_SECOND": {
+            "changedWinner": 0.1298,
+            "draws": 0,
+            "by": {
+              "SCORE": 19302,
+              "SECOND_ATTACKER": 5698
+            },
+            "firstAttackerWin": {
+              "n": 25000,
+              "rate": 0.3496,
+              "lo": 0.3437,
+              "hi": 0.3555
+            },
+            "tiedMatchesResolved": 5698,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 0.4305
+          }
+        },
+        "shadowCurrentMismatches": 0,
+        "ovrTiebreak": {
+          "n": 0,
+          "shareOfMatches": 0,
+          "winnerHadLowerCombatSum": 0,
+          "winnerHadLowerDeclaredStats": 0,
+          "meanOvrGap": 0
+        },
+        "byOvrGap_per5": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.5048
+          }
+        },
+        "byCombatGap_per20": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.5048
+          }
+        },
+        "integrityBad": 0
+      },
+      "SMART": {
+        "matches": 25000,
+        "sideA": {
+          "n": 25000,
+          "rate": 0.4968,
+          "lo": 0.4906,
+          "hi": 0.503
+        },
+        "drawRate": 0.4707,
+        "firstAttackerWin": {
+          "n": 13233,
+          "rate": 0.9269,
+          "lo": 0.9224,
+          "hi": 0.9312
+        },
+        "decidedBy": {
+          "NONE": 11767,
+          "SCORE": 5278,
+          "STAT_MARGIN": 7955
+        },
+        "margin": {
+          "0": 19722,
+          "1": 5278
+        },
+        "tiedEncounters": {
+          "0": 19431,
+          "1": 5276,
+          "2": 291,
+          "3": 2
+        },
+        "finalScores": {
+          "4-3": 2,
+          "4-4": 291,
+          "5-4": 5276,
+          "5-5": 19431
+        },
+        "stompRate": 0,
+        "closeRate": 1,
+        "comebackFrom2Down": 0,
+        "halfTimeReversal": 0.0387,
+        "decidedAtTurn": {
+          "9": 1,
+          "10": 24999
+        },
+        "decidedBeforeLastTurn": 0,
+        "encounter": {
+          "attackerWin": {
+            "n": 250000,
+            "rate": 0.9765,
+            "lo": 0.9759,
+            "hi": 0.9771
+          },
+          "tieRate": 0.0235,
+          "firstAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.9975,
+            "lo": 0.9972,
+            "hi": 0.9978
+          },
+          "secondAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.9556,
+            "lo": 0.9544,
+            "hi": 0.9567
+          }
+        },
+        "perTurn": [
+          {
+            "turn": 1,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 1,
+              "lo": 0.9998,
+              "hi": 1
+            },
+            "tieRate": 0
+          },
+          {
+            "turn": 2,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 1,
+              "lo": 0.9998,
+              "hi": 1
+            },
+            "tieRate": 0
+          },
+          {
+            "turn": 3,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 1,
+              "lo": 0.9998,
+              "hi": 1
+            },
+            "tieRate": 0
+          },
+          {
+            "turn": 4,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 1,
+              "lo": 0.9998,
+              "hi": 1
+            },
+            "tieRate": 0
+          },
+          {
+            "turn": 5,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 1,
+              "lo": 0.9998,
+              "hi": 1
+            },
+            "tieRate": 0
+          },
+          {
+            "turn": 6,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 1,
+              "lo": 0.9998,
+              "hi": 1
+            },
+            "tieRate": 0
+          },
+          {
+            "turn": 7,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 1,
+              "lo": 0.9998,
+              "hi": 1
+            },
+            "tieRate": 0
+          },
+          {
+            "turn": 8,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.9999,
+              "lo": 0.9996,
+              "hi": 1
+            },
+            "tieRate": 0.0001
+          },
+          {
+            "turn": 9,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.9877,
+              "lo": 0.9862,
+              "hi": 0.989
+            },
+            "tieRate": 0.0123
+          },
+          {
+            "turn": 10,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.7779,
+              "lo": 0.7727,
+              "hi": 0.783
+            },
+            "tieRate": 0.2221
+          }
+        ],
+        "perStat": {
+          "stronghold": {
+            "declared": 0.315,
+            "attackerWin": {
+              "n": 78761,
+              "rate": 0.9996,
+              "lo": 0.9995,
+              "hi": 0.9997
+            },
+            "tieRate": 0.0004,
+            "meanAttack": 84.15,
+            "meanDefense": 46.5
+          },
+          "gamesense": {
+            "declared": 0.3911,
+            "attackerWin": {
+              "n": 97769,
+              "rate": 0.9403,
+              "lo": 0.9388,
+              "hi": 0.9418
+            },
+            "tieRate": 0.0597,
+            "meanAttack": 81.97,
+            "meanDefense": 52.03
+          },
+          "entryfrag": {
+            "declared": 0.2939,
+            "attackerWin": {
+              "n": 73470,
+              "rate": 1,
+              "lo": 0.9999,
+              "hi": 1
+            },
+            "tieRate": 0,
+            "meanAttack": 85.07,
+            "meanDefense": 47.49
+          }
+        },
+        "shadow": {
+          "CURRENT": {
+            "changedWinner": 0,
+            "draws": 0.47068,
+            "by": {
+              "DRAW": 11767,
+              "SCORE": 5278,
+              "STAT_MARGIN": 7955
+            },
+            "firstAttackerWin": {
+              "n": 13233,
+              "rate": 0.9269,
+              "lo": 0.9224,
+              "hi": 0.9312
+            },
+            "tiedMatchesResolved": 7955,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "NO_OVR": {
+            "changedWinner": 0,
+            "draws": 0.47068,
+            "by": {
+              "DRAW": 11767,
+              "SCORE": 5278,
+              "STAT_MARGIN": 7955
+            },
+            "firstAttackerWin": {
+              "n": 13233,
+              "rate": 0.9269,
+              "lo": 0.9224,
+              "hi": 0.9312
+            },
+            "tiedMatchesResolved": 7955,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "COMBAT_SUM": {
+            "changedWinner": 0,
+            "draws": 0.47068,
+            "by": {
+              "DRAW": 11767,
+              "SCORE": 5278,
+              "STAT_MARGIN": 7955
+            },
+            "firstAttackerWin": {
+              "n": 13233,
+              "rate": 0.9269,
+              "lo": 0.9224,
+              "hi": 0.9312
+            },
+            "tiedMatchesResolved": 7955,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "STAT_FIRST": {
+            "changedWinner": 0,
+            "draws": 0.47068,
+            "by": {
+              "DRAW": 11767,
+              "SCORE": 5278,
+              "STAT_MARGIN": 7955
+            },
+            "firstAttackerWin": {
+              "n": 13233,
+              "rate": 0.9269,
+              "lo": 0.9224,
+              "hi": 0.9312
+            },
+            "tiedMatchesResolved": 7955,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "TIE_TO_SECOND": {
+            "changedWinner": 0.7508,
+            "draws": 0,
+            "by": {
+              "SCORE": 5278,
+              "SECOND_ATTACKER": 19722
+            },
+            "firstAttackerWin": {
+              "n": 25000,
+              "rate": 0.2105,
+              "lo": 0.2055,
+              "hi": 0.2156
+            },
+            "tiedMatchesResolved": 19722,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 0.0483
+          }
+        },
+        "shadowCurrentMismatches": 0,
+        "ovrTiebreak": {
+          "n": 0,
+          "shareOfMatches": 0,
+          "winnerHadLowerCombatSum": 0,
+          "winnerHadLowerDeclaredStats": 0,
+          "meanOvrGap": 0
+        },
+        "byOvrGap_per5": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.4968
+          }
+        },
+        "byCombatGap_per20": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.4968
+          }
+        },
+        "integrityBad": 0
+      },
+      "RANDOM": {
+        "matches": 25000,
+        "sideA": {
+          "n": 25000,
+          "rate": 0.5005,
+          "lo": 0.4943,
+          "hi": 0.5067
+        },
+        "drawRate": 0.0027,
+        "firstAttackerWin": {
+          "n": 24932,
+          "rate": 0.4976,
+          "lo": 0.4914,
+          "hi": 0.5038
+        },
+        "decidedBy": {
+          "NONE": 68,
+          "SCORE": 20275,
+          "STAT_MARGIN": 4657
+        },
+        "margin": {
+          "0": 4725,
+          "1": 4373,
+          "2": 7493,
+          "3": 2501,
+          "4": 3572,
+          "5": 919,
+          "6": 1089,
+          "7": 148,
+          "8": 155,
+          "9": 11,
+          "10": 14
+        },
+        "tiedEncounters": {
+          "0": 15077,
+          "1": 7669,
+          "2": 1931,
+          "3": 281,
+          "4": 40,
+          "5": 2
+        },
+        "finalScores": {
+          "10-0": 14,
+          "3-2": 1,
+          "3-3": 21,
+          "4-1": 1,
+          "4-2": 14,
+          "4-3": 191,
+          "4-4": 599,
+          "5-1": 5,
+          "5-2": 71,
+          "5-3": 875,
+          "5-4": 4181,
+          "5-5": 4105,
+          "6-1": 19,
+          "6-2": 389,
+          "6-3": 2429,
+          "6-4": 6604,
+          "7-1": 62,
+          "7-2": 900,
+          "7-3": 3178,
+          "8-0": 6,
+          "8-1": 148,
+          "8-2": 1027,
+          "9-0": 11,
+          "9-1": 149
+        },
+        "stompRate": 0.0567,
+        "closeRate": 0.3639,
+        "comebackFrom2Down": 0.2234,
+        "halfTimeReversal": 0.2503,
+        "decidedAtTurn": {
+          "6": 709,
+          "7": 2247,
+          "8": 4307,
+          "9": 5946,
+          "10": 11791
+        },
+        "decidedBeforeLastTurn": 0.5284,
+        "encounter": {
+          "attackerWin": {
+            "n": 250000,
+            "rate": 0.4745,
+            "lo": 0.4726,
+            "hi": 0.4765
+          },
+          "tieRate": 0.0502,
+          "firstAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.4739,
+            "lo": 0.4711,
+            "hi": 0.4767
+          },
+          "secondAttackerAttacks": {
+            "n": 125000,
+            "rate": 0.4752,
+            "lo": 0.4724,
+            "hi": 0.478
+          }
+        },
+        "perTurn": [
+          {
+            "turn": 1,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4756,
+              "lo": 0.4694,
+              "hi": 0.4818
+            },
+            "tieRate": 0.0485
+          },
+          {
+            "turn": 2,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4732,
+              "lo": 0.467,
+              "hi": 0.4794
+            },
+            "tieRate": 0.0519
+          },
+          {
+            "turn": 3,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4724,
+              "lo": 0.4662,
+              "hi": 0.4786
+            },
+            "tieRate": 0.0509
+          },
+          {
+            "turn": 4,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4759,
+              "lo": 0.4697,
+              "hi": 0.4821
+            },
+            "tieRate": 0.0506
+          },
+          {
+            "turn": 5,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4771,
+              "lo": 0.4709,
+              "hi": 0.4833
+            },
+            "tieRate": 0.0508
+          },
+          {
+            "turn": 6,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4766,
+              "lo": 0.4704,
+              "hi": 0.4828
+            },
+            "tieRate": 0.0496
+          },
+          {
+            "turn": 7,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4746,
+              "lo": 0.4684,
+              "hi": 0.4808
+            },
+            "tieRate": 0.0499
+          },
+          {
+            "turn": 8,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4772,
+              "lo": 0.471,
+              "hi": 0.4834
+            },
+            "tieRate": 0.0487
+          },
+          {
+            "turn": 9,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.4698,
+              "lo": 0.4636,
+              "hi": 0.476
+            },
+            "tieRate": 0.0494
+          },
+          {
+            "turn": 10,
+            "attackerWin": {
+              "n": 25000,
+              "rate": 0.473,
+              "lo": 0.4669,
+              "hi": 0.4792
+            },
+            "tieRate": 0.0514
+          }
+        ],
+        "perStat": {
+          "stronghold": {
+            "declared": 0.3343,
+            "attackerWin": {
+              "n": 83576,
+              "rate": 0.562,
+              "lo": 0.5587,
+              "hi": 0.5654
+            },
+            "tieRate": 0.0173,
+            "meanAttack": 64.77,
+            "meanDefense": 61.66
+          },
+          "gamesense": {
+            "declared": 0.3328,
+            "attackerWin": {
+              "n": 83206,
+              "rate": 0.4408,
+              "lo": 0.4375,
+              "hi": 0.4442
+            },
+            "tieRate": 0.1157,
+            "meanAttack": 64.18,
+            "meanDefense": 64.24
+          },
+          "entryfrag": {
+            "declared": 0.3329,
+            "attackerWin": {
+              "n": 83218,
+              "rate": 0.4204,
+              "lo": 0.417,
+              "hi": 0.4237
+            },
+            "tieRate": 0.0176,
+            "meanAttack": 61.61,
+            "meanDefense": 64.78
+          }
+        },
+        "shadow": {
+          "CURRENT": {
+            "changedWinner": 0,
+            "draws": 0.00272,
+            "by": {
+              "DRAW": 68,
+              "SCORE": 20275,
+              "STAT_MARGIN": 4657
+            },
+            "firstAttackerWin": {
+              "n": 24932,
+              "rate": 0.4976,
+              "lo": 0.4914,
+              "hi": 0.5038
+            },
+            "tiedMatchesResolved": 4657,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "NO_OVR": {
+            "changedWinner": 0,
+            "draws": 0.00272,
+            "by": {
+              "DRAW": 68,
+              "SCORE": 20275,
+              "STAT_MARGIN": 4657
+            },
+            "firstAttackerWin": {
+              "n": 24932,
+              "rate": 0.4976,
+              "lo": 0.4914,
+              "hi": 0.5038
+            },
+            "tiedMatchesResolved": 4657,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "COMBAT_SUM": {
+            "changedWinner": 0,
+            "draws": 0.00272,
+            "by": {
+              "DRAW": 68,
+              "SCORE": 20275,
+              "STAT_MARGIN": 4657
+            },
+            "firstAttackerWin": {
+              "n": 24932,
+              "rate": 0.4976,
+              "lo": 0.4914,
+              "hi": 0.5038
+            },
+            "tiedMatchesResolved": 4657,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "STAT_FIRST": {
+            "changedWinner": 0,
+            "draws": 0.00272,
+            "by": {
+              "DRAW": 68,
+              "SCORE": 20275,
+              "STAT_MARGIN": 4657
+            },
+            "firstAttackerWin": {
+              "n": 24932,
+              "rate": 0.4976,
+              "lo": 0.4914,
+              "hi": 0.5038
+            },
+            "tiedMatchesResolved": 4657,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "TIE_TO_SECOND": {
+            "changedWinner": 0.0986,
+            "draws": 0,
+            "by": {
+              "SCORE": 20275,
+              "SECOND_ATTACKER": 4725
+            },
+            "firstAttackerWin": {
+              "n": 25000,
+              "rate": 0.4004,
+              "lo": 0.3943,
+              "hi": 0.4064
+            },
+            "tiedMatchesResolved": 4725,
+            "tiebreakWinnerHadMoreCombat": 0,
+            "tiebreakWinnerDeclaredMore": 0.4783
+          }
+        },
+        "shadowCurrentMismatches": 0,
+        "ovrTiebreak": {
+          "n": 0,
+          "shareOfMatches": 0,
+          "winnerHadLowerCombatSum": 0,
+          "winnerHadLowerDeclaredStats": 0,
+          "meanOvrGap": 0
+        },
+        "byOvrGap_per5": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.5005
+          }
+        },
+        "byCombatGap_per20": {
+          "0": {
+            "n": 25000,
+            "higherScore": 0.5005
+          }
+        },
+        "integrityBad": 0
+      }
+    },
+    "side": {
+      "matches": 100000,
+      "sideA": {
+        "n": 100000,
+        "rate": 0.4988,
+        "lo": 0.4957,
+        "hi": 0.5019
+      },
+      "drawRate": 0,
+      "firstAttackerWin": {
+        "n": 99996,
+        "rate": 0.4568,
+        "lo": 0.4537,
+        "hi": 0.4599
+      },
+      "decidedBy": {
+        "NONE": 4,
+        "OVR_TIEBREAK": 23345,
+        "SCORE": 76218,
+        "STAT_MARGIN": 433
+      },
+      "margin": {
+        "0": 23782,
+        "1": 2901,
+        "2": 39136,
+        "3": 1881,
+        "4": 21223,
+        "5": 809,
+        "6": 7943,
+        "7": 190,
+        "8": 1874,
+        "9": 23,
+        "10": 238
+      },
+      "tiedEncounters": {
+        "0": 94076,
+        "1": 5803,
+        "2": 120,
+        "3": 1
+      },
+      "finalScores": {
+        "10-0": 238,
+        "4-3": 1,
+        "4-4": 1,
+        "5-3": 58,
+        "5-4": 2921,
+        "5-5": 436,
+        "6-2": 27,
+        "6-3": 1881,
+        "6-4": 39078,
+        "6-5": 23324,
+        "7-1": 12,
+        "7-2": 809,
+        "7-3": 21196,
+        "8-0": 1,
+        "8-1": 190,
+        "8-2": 7931,
+        "9-0": 23,
+        "9-1": 1873
+      },
+      "stompRate": 0.1027,
+      "closeRate": 0.2668,
+      "comebackFrom2Down": 0.1812,
+      "halfTimeReversal": 0.2487,
+      "decidedAtTurn": {
+        "6": 3136,
+        "7": 9092,
+        "8": 16446,
+        "9": 21630,
+        "10": 49696
+      },
+      "decidedBeforeLastTurn": 0.503,
+      "encounter": {
+        "attackerWin": {
+          "n": 1000000,
+          "rate": 0.7172,
+          "lo": 0.7163,
+          "hi": 0.7181
+        },
+        "tieRate": 0.006,
+        "firstAttackerAttacks": {
+          "n": 500000,
+          "rate": 0.6997,
+          "lo": 0.6985,
+          "hi": 0.701
+        },
+        "secondAttackerAttacks": {
+          "n": 500000,
+          "rate": 0.7346,
+          "lo": 0.7334,
+          "hi": 0.7359
+        }
+      },
+      "perTurn": [
+        {
+          "turn": 1,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.6656,
+            "lo": 0.6627,
+            "hi": 0.6685
+          },
+          "tieRate": 0.0018
+        },
+        {
+          "turn": 2,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.7372,
+            "lo": 0.7345,
+            "hi": 0.74
+          },
+          "tieRate": 0.0015
+        },
+        {
+          "turn": 3,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.6754,
+            "lo": 0.6724,
+            "hi": 0.6782
+          },
+          "tieRate": 0.0024
+        },
+        {
+          "turn": 4,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.7239,
+            "lo": 0.7211,
+            "hi": 0.7266
+          },
+          "tieRate": 0.0023
+        },
+        {
+          "turn": 5,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.6939,
+            "lo": 0.691,
+            "hi": 0.6967
+          },
+          "tieRate": 0.003
+        },
+        {
+          "turn": 6,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.7287,
+            "lo": 0.7259,
+            "hi": 0.7314
+          },
+          "tieRate": 0.0029
+        },
+        {
+          "turn": 7,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.7184,
+            "lo": 0.7156,
+            "hi": 0.7212
+          },
+          "tieRate": 0.0034
+        },
+        {
+          "turn": 8,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.743,
+            "lo": 0.7403,
+            "hi": 0.7457
+          },
+          "tieRate": 0.0036
+        },
+        {
+          "turn": 9,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.7453,
+            "lo": 0.7426,
+            "hi": 0.748
+          },
+          "tieRate": 0.0049
+        },
+        {
+          "turn": 10,
+          "attackerWin": {
+            "n": 100000,
+            "rate": 0.7404,
+            "lo": 0.7377,
+            "hi": 0.7431
+          },
+          "tieRate": 0.0348
+        }
+      ],
+      "perStat": {
+        "stronghold": {
+          "declared": 0.3196,
+          "attackerWin": {
+            "n": 319554,
+            "rate": 0.7444,
+            "lo": 0.7429,
+            "hi": 0.7459
+          },
+          "tieRate": 0.0041,
+          "meanAttack": 79.99,
+          "meanDefense": 55.49
+        },
+        "gamesense": {
+          "declared": 0.3623,
+          "attackerWin": {
+            "n": 362270,
+            "rate": 0.6993,
+            "lo": 0.6978,
+            "hi": 0.7008
+          },
+          "tieRate": 0.0094,
+          "meanAttack": 78.67,
+          "meanDefense": 57.93
+        },
+        "entryfrag": {
+          "declared": 0.3182,
+          "attackerWin": {
+            "n": 318176,
+            "rate": 0.7102,
+            "lo": 0.7086,
+            "hi": 0.7118
+          },
+          "tieRate": 0.0042,
+          "meanAttack": 79.8,
+          "meanDefense": 56.57
+        }
+      },
+      "shadow": {
+        "CURRENT": {
+          "changedWinner": 0,
+          "draws": 0.00004,
+          "by": {
+            "DRAW": 4,
+            "OVR_TIEBREAK": 23345,
+            "SCORE": 76218,
+            "STAT_MARGIN": 433
+          },
+          "firstAttackerWin": {
+            "n": 99996,
+            "rate": 0.4568,
+            "lo": 0.4537,
+            "hi": 0.4599
+          },
+          "tiedMatchesResolved": 23778,
+          "tiebreakWinnerHadMoreCombat": 0.6733,
+          "tiebreakWinnerDeclaredMore": 0.5834
+        },
+        "NO_OVR": {
+          "changedWinner": 0.09907,
+          "draws": 0.00231,
+          "by": {
+            "DRAW": 231,
+            "SCORE": 76218,
+            "STAT_MARGIN": 23551
+          },
+          "firstAttackerWin": {
+            "n": 99769,
+            "rate": 0.483,
+            "lo": 0.4799,
+            "hi": 0.4861
+          },
+          "tiedMatchesResolved": 23551,
+          "tiebreakWinnerHadMoreCombat": 0.663,
+          "tiebreakWinnerDeclaredMore": 1
+        },
+        "COMBAT_SUM": {
+          "changedWinner": 0.07712,
+          "draws": 0.00001,
+          "by": {
+            "COMBAT_SUM": 23671,
+            "DRAW": 1,
+            "SCORE": 76218,
+            "STAT_MARGIN": 110
+          },
+          "firstAttackerWin": {
+            "n": 99999,
+            "rate": 0.46,
+            "lo": 0.4569,
+            "hi": 0.463
+          },
+          "tiedMatchesResolved": 23781,
+          "tiebreakWinnerHadMoreCombat": 0.9954,
+          "tiebreakWinnerDeclaredMore": 0.6612
+        },
+        "STAT_FIRST": {
+          "changedWinner": 0.0968,
+          "draws": 0.00004,
+          "by": {
+            "DRAW": 4,
+            "OVR_TIEBREAK": 227,
+            "SCORE": 76218,
+            "STAT_MARGIN": 23551
+          },
+          "firstAttackerWin": {
+            "n": 99996,
+            "rate": 0.4831,
+            "lo": 0.48,
+            "hi": 0.4862
+          },
+          "tiedMatchesResolved": 23778,
+          "tiebreakWinnerHadMoreCombat": 0.6633,
+          "tiebreakWinnerDeclaredMore": 0.9905
+        },
+        "TIE_TO_SECOND": {
+          "changedWinner": 0.12288,
+          "draws": 0,
+          "by": {
+            "SCORE": 76218,
+            "SECOND_ATTACKER": 23782
+          },
+          "firstAttackerWin": {
+            "n": 100000,
+            "rate": 0.334,
+            "lo": 0.3311,
+            "hi": 0.3369
+          },
+          "tiedMatchesResolved": 23782,
+          "tiebreakWinnerHadMoreCombat": 0.4686,
+          "tiebreakWinnerDeclaredMore": 0.3682
+        }
+      },
+      "shadowCurrentMismatches": 0,
+      "ovrTiebreak": {
+        "n": 23345,
+        "shareOfMatches": 0.2335,
+        "winnerHadLowerCombatSum": 0.3217,
+        "winnerHadLowerDeclaredStats": 0.4146,
+        "meanOvrGap": 17.5
+      },
+      "byOvrGap_per5": {
+        "0": {
+          "n": 8896,
+          "higherScore": 0.6117
+        },
+        "1": {
+          "n": 17068,
+          "higherScore": 0.6597
+        },
+        "2": {
+          "n": 16242,
+          "higherScore": 0.684
+        },
+        "3": {
+          "n": 14088,
+          "higherScore": 0.7097
+        },
+        "4": {
+          "n": 11772,
+          "higherScore": 0.7198
+        },
+        "5": {
+          "n": 9504,
+          "higherScore": 0.7564
+        },
+        "6": {
+          "n": 22430,
+          "higherScore": 0.8131
+        }
+      },
+      "byCombatGap_per20": {
+        "0": {
+          "n": 6982,
+          "higherScore": 0.5076
+        },
+        "1": {
+          "n": 13734,
+          "higherScore": 0.5549
+        },
+        "2": {
+          "n": 13062,
+          "higherScore": 0.6193
+        },
+        "3": {
+          "n": 12284,
+          "higherScore": 0.6638
+        },
+        "4": {
+          "n": 10998,
+          "higherScore": 0.7104
+        },
+        "5": {
+          "n": 9310,
+          "higherScore": 0.7639
+        },
+        "6": {
+          "n": 33630,
+          "higherScore": 0.8747
+        }
+      },
+      "integrityBad": 0,
+      "pairedFirstAttackerEffect": {
+        "pairs": 50000,
+        "mean": -0.08634,
+        "sd": 0.50378,
+        "se": 0.00225,
+        "lo": -0.09076,
+        "hi": -0.08192
+      }
+    },
+    "field": {
+      "HARD": {
+        "matches": 300000,
+        "sideA": {
+          "n": 300000,
+          "rate": 0.5012,
+          "lo": 0.4994,
+          "hi": 0.503
+        },
+        "drawRate": 0.0001,
+        "firstAttackerWin": {
+          "n": 299983,
+          "rate": 0.4575,
+          "lo": 0.4557,
+          "hi": 0.4593
+        },
+        "decidedBy": {
+          "NONE": 17,
+          "OVR_TIEBREAK": 70153,
+          "SCORE": 228501,
+          "STAT_MARGIN": 1329
+        },
+        "margin": {
+          "0": 71499,
+          "1": 8746,
+          "2": 117139,
+          "3": 5638,
+          "4": 64272,
+          "5": 2336,
+          "6": 23676,
+          "7": 584,
+          "8": 5461,
+          "9": 51,
+          "10": 598
+        },
+        "tiedEncounters": {
+          "0": 282322,
+          "1": 17352,
+          "2": 323,
+          "3": 3
+        },
+        "finalScores": {
+          "10-0": 598,
+          "4-3": 2,
+          "5-2": 1,
+          "5-3": 144,
+          "5-4": 8828,
+          "5-5": 1346,
+          "6-2": 73,
+          "6-3": 5637,
+          "6-4": 116995,
+          "6-5": 70069,
+          "7-1": 21,
+          "7-2": 2336,
+          "7-3": 64199,
+          "8-0": 1,
+          "8-1": 584,
+          "8-2": 23655,
+          "9-0": 51,
+          "9-1": 5460
+        },
+        "stompRate": 0.1012,
+        "closeRate": 0.2675,
+        "comebackFrom2Down": 0.1807,
+        "halfTimeReversal": 0.2486,
+        "decidedAtTurn": {
+          "6": 9343,
+          "7": 26916,
+          "8": 49855,
+          "9": 65193,
+          "10": 148693
+        },
+        "decidedBeforeLastTurn": 0.5044,
+        "encounter": {
+          "attackerWin": {
+            "n": 3000000,
+            "rate": 0.7166,
+            "lo": 0.7161,
+            "hi": 0.7172
+          },
+          "tieRate": 0.006,
+          "firstAttackerAttacks": {
+            "n": 1500000,
+            "rate": 0.699,
+            "lo": 0.6982,
+            "hi": 0.6997
+          },
+          "secondAttackerAttacks": {
+            "n": 1500000,
+            "rate": 0.7343,
+            "lo": 0.7336,
+            "hi": 0.735
+          }
+        },
+        "perTurn": [
+          {
+            "turn": 1,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.6643,
+              "lo": 0.6626,
+              "hi": 0.666
+            },
+            "tieRate": 0.0018
+          },
+          {
+            "turn": 2,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.7365,
+              "lo": 0.7349,
+              "hi": 0.738
+            },
+            "tieRate": 0.0018
+          },
+          {
+            "turn": 3,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.6748,
+              "lo": 0.6731,
+              "hi": 0.6765
+            },
+            "tieRate": 0.0024
+          },
+          {
+            "turn": 4,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.7224,
+              "lo": 0.7208,
+              "hi": 0.724
+            },
+            "tieRate": 0.0023
+          },
+          {
+            "turn": 5,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.6941,
+              "lo": 0.6924,
+              "hi": 0.6957
+            },
+            "tieRate": 0.0029
+          },
+          {
+            "turn": 6,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.7277,
+              "lo": 0.7261,
+              "hi": 0.7293
+            },
+            "tieRate": 0.0029
+          },
+          {
+            "turn": 7,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.7171,
+              "lo": 0.7155,
+              "hi": 0.7187
+            },
+            "tieRate": 0.0034
+          },
+          {
+            "turn": 8,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.7427,
+              "lo": 0.7412,
+              "hi": 0.7443
+            },
+            "tieRate": 0.0035
+          },
+          {
+            "turn": 9,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.7446,
+              "lo": 0.743,
+              "hi": 0.7462
+            },
+            "tieRate": 0.005
+          },
+          {
+            "turn": 10,
+            "attackerWin": {
+              "n": 300000,
+              "rate": 0.7423,
+              "lo": 0.7407,
+              "hi": 0.7438
+            },
+            "tieRate": 0.034
+          }
+        ],
+        "perStat": {
+          "stronghold": {
+            "declared": 0.3194,
+            "attackerWin": {
+              "n": 958153,
+              "rate": 0.7431,
+              "lo": 0.7423,
+              "hi": 0.744
+            },
+            "tieRate": 0.004,
+            "meanAttack": 79.94,
+            "meanDefense": 55.52
+          },
+          "gamesense": {
+            "declared": 0.3615,
+            "attackerWin": {
+              "n": 1084568,
+              "rate": 0.6989,
+              "lo": 0.698,
+              "hi": 0.6998
+            },
+            "tieRate": 0.0094,
+            "meanAttack": 78.65,
+            "meanDefense": 57.95
+          },
+          "entryfrag": {
+            "declared": 0.3191,
+            "attackerWin": {
+              "n": 957279,
+              "rate": 0.7102,
+              "lo": 0.7093,
+              "hi": 0.7112
+            },
+            "tieRate": 0.0042,
+            "meanAttack": 79.84,
+            "meanDefense": 56.6
+          }
+        },
+        "shadow": {
+          "CURRENT": {
+            "changedWinner": 0,
+            "draws": 0.00006,
+            "by": {
+              "DRAW": 17,
+              "OVR_TIEBREAK": 70153,
+              "SCORE": 228501,
+              "STAT_MARGIN": 1329
+            },
+            "firstAttackerWin": {
+              "n": 299983,
+              "rate": 0.4575,
+              "lo": 0.4557,
+              "hi": 0.4593
+            },
+            "tiedMatchesResolved": 71482,
+            "tiebreakWinnerHadMoreCombat": 0.6721,
+            "tiebreakWinnerDeclaredMore": 0.5803
+          },
+          "NO_OVR": {
+            "changedWinner": 0.10001,
+            "draws": 0.00232,
+            "by": {
+              "DRAW": 695,
+              "SCORE": 228501,
+              "STAT_MARGIN": 70804
+            },
+            "firstAttackerWin": {
+              "n": 299305,
+              "rate": 0.4826,
+              "lo": 0.4808,
+              "hi": 0.4843
+            },
+            "tiedMatchesResolved": 70804,
+            "tiebreakWinnerHadMoreCombat": 0.6652,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "COMBAT_SUM": {
+            "changedWinner": 0.07766,
+            "draws": 0.00001,
+            "by": {
+              "COMBAT_SUM": 71181,
+              "DRAW": 4,
+              "SCORE": 228501,
+              "STAT_MARGIN": 314
+            },
+            "firstAttackerWin": {
+              "n": 299996,
+              "rate": 0.4604,
+              "lo": 0.4586,
+              "hi": 0.4621
+            },
+            "tiedMatchesResolved": 71495,
+            "tiebreakWinnerHadMoreCombat": 0.9956,
+            "tiebreakWinnerDeclaredMore": 0.6631
+          },
+          "STAT_FIRST": {
+            "changedWinner": 0.09775,
+            "draws": 0.00006,
+            "by": {
+              "DRAW": 17,
+              "OVR_TIEBREAK": 678,
+              "SCORE": 228501,
+              "STAT_MARGIN": 70804
+            },
+            "firstAttackerWin": {
+              "n": 299983,
+              "rate": 0.4825,
+              "lo": 0.4807,
+              "hi": 0.4843
+            },
+            "tiedMatchesResolved": 71482,
+            "tiebreakWinnerHadMoreCombat": 0.6651,
+            "tiebreakWinnerDeclaredMore": 0.9905
+          },
+          "TIE_TO_SECOND": {
+            "changedWinner": 0.12317,
+            "draws": 0,
+            "by": {
+              "SCORE": 228501,
+              "SECOND_ATTACKER": 71499
+            },
+            "firstAttackerWin": {
+              "n": 300000,
+              "rate": 0.3344,
+              "lo": 0.3327,
+              "hi": 0.3361
+            },
+            "tiedMatchesResolved": 71499,
+            "tiebreakWinnerHadMoreCombat": 0.4699,
+            "tiebreakWinnerDeclaredMore": 0.3732
+          }
+        },
+        "shadowCurrentMismatches": 0,
+        "ovrTiebreak": {
+          "n": 70153,
+          "shareOfMatches": 0.2338,
+          "winnerHadLowerCombatSum": 0.3231,
+          "winnerHadLowerDeclaredStats": 0.418,
+          "meanOvrGap": 17.4
+        },
+        "byOvrGap_per5": {
+          "0": {
+            "n": 26549,
+            "higherScore": 0.6042
+          },
+          "1": {
+            "n": 51627,
+            "higherScore": 0.6502
+          },
+          "2": {
+            "n": 48325,
+            "higherScore": 0.6809
+          },
+          "3": {
+            "n": 42528,
+            "higherScore": 0.7056
+          },
+          "4": {
+            "n": 35793,
+            "higherScore": 0.7295
+          },
+          "5": {
+            "n": 28836,
+            "higherScore": 0.7504
+          },
+          "6": {
+            "n": 66342,
+            "higherScore": 0.8081
+          }
+        },
+        "byCombatGap_per20": {
+          "0": {
+            "n": 20918,
+            "higherScore": 0.5147
+          },
+          "1": {
+            "n": 41537,
+            "higherScore": 0.5548
+          },
+          "2": {
+            "n": 39158,
+            "higherScore": 0.6055
+          },
+          "3": {
+            "n": 36683,
+            "higherScore": 0.6634
+          },
+          "4": {
+            "n": 32706,
+            "higherScore": 0.7166
+          },
+          "5": {
+            "n": 28548,
+            "higherScore": 0.7612
+          },
+          "6": {
+            "n": 100450,
+            "higherScore": 0.871
+          }
+        },
+        "integrityBad": 0
+      },
+      "NORMAL": {
+        "matches": 60000,
+        "sideA": {
+          "n": 60000,
+          "rate": 0.5005,
+          "lo": 0.4965,
+          "hi": 0.5045
+        },
+        "drawRate": 0.0001,
+        "firstAttackerWin": {
+          "n": 59991,
+          "rate": 0.4727,
+          "lo": 0.4687,
+          "hi": 0.4767
+        },
+        "decidedBy": {
+          "NONE": 9,
+          "OVR_TIEBREAK": 13048,
+          "SCORE": 46672,
+          "STAT_MARGIN": 271
+        },
+        "margin": {
+          "0": 13328,
+          "1": 2970,
+          "2": 22070,
+          "3": 1952,
+          "4": 12670,
+          "5": 814,
+          "6": 4775,
+          "7": 213,
+          "8": 1064,
+          "9": 31,
+          "10": 113
+        },
+        "tiedEncounters": {
+          "0": 53735,
+          "1": 5973,
+          "2": 285,
+          "3": 7
+        },
+        "finalScores": {
+          "10-0": 113,
+          "4-3": 6,
+          "4-4": 2,
+          "5-3": 116,
+          "5-4": 3041,
+          "5-5": 278,
+          "6-1": 1,
+          "6-2": 67,
+          "6-3": 1952,
+          "6-4": 21954,
+          "6-5": 12971,
+          "7-1": 22,
+          "7-2": 813,
+          "7-3": 12603,
+          "8-0": 1,
+          "8-1": 213,
+          "8-2": 4753,
+          "9-0": 31,
+          "9-1": 1063
+        },
+        "stompRate": 0.1033,
+        "closeRate": 0.2716,
+        "comebackFrom2Down": 0.2264,
+        "halfTimeReversal": 0.2532,
+        "decidedAtTurn": {
+          "6": 1931,
+          "7": 5866,
+          "8": 10283,
+          "9": 13412,
+          "10": 28508
+        },
+        "decidedBeforeLastTurn": 0.5249,
+        "encounter": {
+          "attackerWin": {
+            "n": 600000,
+            "rate": 0.5692,
+            "lo": 0.568,
+            "hi": 0.5705
+          },
+          "tieRate": 0.0109,
+          "firstAttackerAttacks": {
+            "n": 300000,
+            "rate": 0.5572,
+            "lo": 0.5554,
+            "hi": 0.559
+          },
+          "secondAttackerAttacks": {
+            "n": 300000,
+            "rate": 0.5813,
+            "lo": 0.5795,
+            "hi": 0.583
+          }
+        },
+        "perTurn": [
+          {
+            "turn": 1,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.5282,
+              "lo": 0.5242,
+              "hi": 0.5322
+            },
+            "tieRate": 0.0078
+          },
+          {
+            "turn": 2,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.5504,
+              "lo": 0.5464,
+              "hi": 0.5543
+            },
+            "tieRate": 0.008
+          },
+          {
+            "turn": 3,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.5345,
+              "lo": 0.5305,
+              "hi": 0.5385
+            },
+            "tieRate": 0.0091
+          },
+          {
+            "turn": 4,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.554,
+              "lo": 0.55,
+              "hi": 0.558
+            },
+            "tieRate": 0.0084
+          },
+          {
+            "turn": 5,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.548,
+              "lo": 0.544,
+              "hi": 0.552
+            },
+            "tieRate": 0.0095
+          },
+          {
+            "turn": 6,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.5717,
+              "lo": 0.5677,
+              "hi": 0.5757
+            },
+            "tieRate": 0.0101
+          },
+          {
+            "turn": 7,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.5702,
+              "lo": 0.5662,
+              "hi": 0.5741
+            },
+            "tieRate": 0.0097
+          },
+          {
+            "turn": 8,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.5949,
+              "lo": 0.5909,
+              "hi": 0.5988
+            },
+            "tieRate": 0.0107
+          },
+          {
+            "turn": 9,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.6052,
+              "lo": 0.6012,
+              "hi": 0.6091
+            },
+            "tieRate": 0.0126
+          },
+          {
+            "turn": 10,
+            "attackerWin": {
+              "n": 60000,
+              "rate": 0.6355,
+              "lo": 0.6316,
+              "hi": 0.6393
+            },
+            "tieRate": 0.0236
+          }
+        ],
+        "perStat": {
+          "stronghold": {
+            "declared": 0.3183,
+            "attackerWin": {
+              "n": 190951,
+              "rate": 0.6071,
+              "lo": 0.6049,
+              "hi": 0.6093
+            },
+            "tieRate": 0.0084,
+            "meanAttack": 73.64,
+            "meanDefense": 60.17
+          },
+          "gamesense": {
+            "declared": 0.3489,
+            "attackerWin": {
+              "n": 209344,
+              "rate": 0.5626,
+              "lo": 0.5605,
+              "hi": 0.5647
+            },
+            "tieRate": 0.015,
+            "meanAttack": 72.78,
+            "meanDefense": 62.01
+          },
+          "entryfrag": {
+            "declared": 0.3328,
+            "attackerWin": {
+              "n": 199705,
+              "rate": 0.54,
+              "lo": 0.5378,
+              "hi": 0.5422
+            },
+            "tieRate": 0.0091,
+            "meanAttack": 71.72,
+            "meanDefense": 61.37
+          }
+        },
+        "shadow": {
+          "CURRENT": {
+            "changedWinner": 0,
+            "draws": 0.00015,
+            "by": {
+              "DRAW": 9,
+              "OVR_TIEBREAK": 13048,
+              "SCORE": 46672,
+              "STAT_MARGIN": 271
+            },
+            "firstAttackerWin": {
+              "n": 59991,
+              "rate": 0.4727,
+              "lo": 0.4687,
+              "hi": 0.4767
+            },
+            "tiedMatchesResolved": 13319,
+            "tiebreakWinnerHadMoreCombat": 0.6759,
+            "tiebreakWinnerDeclaredMore": 0.5669
+          },
+          "NO_OVR": {
+            "changedWinner": 0.09615,
+            "draws": 0.0021,
+            "by": {
+              "DRAW": 126,
+              "SCORE": 46672,
+              "STAT_MARGIN": 13202
+            },
+            "firstAttackerWin": {
+              "n": 59874,
+              "rate": 0.4812,
+              "lo": 0.4772,
+              "hi": 0.4852
+            },
+            "tiedMatchesResolved": 13202,
+            "tiebreakWinnerHadMoreCombat": 0.6326,
+            "tiebreakWinnerDeclaredMore": 1
+          },
+          "COMBAT_SUM": {
+            "changedWinner": 0.07168,
+            "draws": 0,
+            "by": {
+              "COMBAT_SUM": 13286,
+              "SCORE": 46672,
+              "STAT_MARGIN": 42
+            },
+            "firstAttackerWin": {
+              "n": 60000,
+              "rate": 0.4732,
+              "lo": 0.4692,
+              "hi": 0.4772
+            },
+            "tiedMatchesResolved": 13328,
+            "tiebreakWinnerHadMoreCombat": 0.9968,
+            "tiebreakWinnerDeclaredMore": 0.6297
+          },
+          "STAT_FIRST": {
+            "changedWinner": 0.0942,
+            "draws": 0.00015,
+            "by": {
+              "DRAW": 9,
+              "OVR_TIEBREAK": 117,
+              "SCORE": 46672,
+              "STAT_MARGIN": 13202
+            },
+            "firstAttackerWin": {
+              "n": 59991,
+              "rate": 0.4812,
+              "lo": 0.4772,
+              "hi": 0.4852
+            },
+            "tiedMatchesResolved": 13319,
+            "tiebreakWinnerHadMoreCombat": 0.6326,
+            "tiebreakWinnerDeclaredMore": 0.9912
+          },
+          "TIE_TO_SECOND": {
+            "changedWinner": 0.11425,
+            "draws": 0,
+            "by": {
+              "SCORE": 46672,
+              "SECOND_ATTACKER": 13328
+            },
+            "firstAttackerWin": {
+              "n": 60000,
+              "rate": 0.3586,
+              "lo": 0.3547,
+              "hi": 0.3624
+            },
+            "tiedMatchesResolved": 13328,
+            "tiebreakWinnerHadMoreCombat": 0.4821,
+            "tiebreakWinnerDeclaredMore": 0.4432
+          }
+        },
+        "shadowCurrentMismatches": 0,
+        "ovrTiebreak": {
+          "n": 13048,
+          "shareOfMatches": 0.2175,
+          "winnerHadLowerCombatSum": 0.3203,
+          "winnerHadLowerDeclaredStats": 0.4332,
+          "meanOvrGap": 17.61
+        },
+        "byOvrGap_per5": {
+          "0": {
+            "n": 5321,
+            "higherScore": 0.5927
+          },
+          "1": {
+            "n": 10332,
+            "higherScore": 0.6433
+          },
+          "2": {
+            "n": 9633,
+            "higherScore": 0.6669
+          },
+          "3": {
+            "n": 8604,
+            "higherScore": 0.6764
+          },
+          "4": {
+            "n": 7291,
+            "higherScore": 0.7054
+          },
+          "5": {
+            "n": 5650,
+            "higherScore": 0.7234
+          },
+          "6": {
+            "n": 13169,
+            "higherScore": 0.7744
+          }
+        },
+        "byCombatGap_per20": {
+          "0": {
+            "n": 4137,
+            "higherScore": 0.5124
+          },
+          "1": {
+            "n": 8152,
+            "higherScore": 0.5385
+          },
+          "2": {
+            "n": 7730,
+            "higherScore": 0.5892
+          },
+          "3": {
+            "n": 7384,
+            "higherScore": 0.631
+          },
+          "4": {
+            "n": 6677,
+            "higherScore": 0.6773
+          },
+          "5": {
+            "n": 5708,
+            "higherScore": 0.7055
+          },
+          "6": {
+            "n": 20212,
+            "higherScore": 0.8199
+          }
+        },
+        "integrityBad": 0
+      },
+      "corr": {
+        "ovrDiff_vs_result": 0.4363,
+        "combatDiff_vs_result": 0.503,
+        "ovrDiff_vs_combatDiff": 0.574,
+        "sample": 20001
+      }
+    },
+    "edition": {
+      "playersWithOvrSpreadAcrossEditions": 91,
+      "sameRoleTested": 68,
+      "combatIdenticalAcrossEditions": 91,
+      "effectOfHigherOvrEdition": {
+        "pairs": 27200,
+        "mean": 0.02561,
+        "sd": 0.15787,
+        "se": 0.00096,
+        "lo": 0.02373,
+        "hi": 0.02748
+      },
+      "outcomeChangedRate": 0.0257,
+      "note": "El combate es idéntico entre ediciones; la única vía de efecto es el desempate por suma de OVR impreso.",
+      "perPlayer": [
+        {
+          "player": "xross",
+          "hi": "xross__future-star",
+          "hiOvr": 95,
+          "lo": "xross__base",
+          "loOvr": 76,
+          "gap": 19,
+          "pairs": 400,
+          "meanDelta": 0.07,
+          "changedRate": 0.07
+        },
+        {
+          "player": "s0pp",
+          "hi": "s0pp__champions-s",
+          "hiOvr": 94,
+          "lo": "s0pp__base",
+          "loOvr": 79,
+          "gap": 15,
+          "pairs": 400,
+          "meanDelta": 0.0875,
+          "changedRate": 0.0875
+        },
+        {
+          "player": "koalanoob",
+          "hi": "koalanoob__masters-sdc",
+          "hiOvr": 91,
+          "lo": "koalanoob__base",
+          "loOvr": 77,
+          "gap": 14,
+          "pairs": 400,
+          "meanDelta": 0.0575,
+          "changedRate": 0.0575
+        },
+        {
+          "player": "echo",
+          "hi": "echo__future-star",
+          "hiOvr": 90,
+          "lo": "echo__base",
+          "loOvr": 79,
+          "gap": 11,
+          "pairs": 400,
+          "meanDelta": 0.045,
+          "changedRate": 0.045
+        },
+        {
+          "player": "marteen",
+          "hi": "marteen__record-breaker",
+          "hiOvr": 95,
+          "lo": "marteen__base",
+          "loOvr": 84,
+          "gap": 11,
+          "pairs": 400,
+          "meanDelta": 0.0425,
+          "changedRate": 0.0425
+        },
+        {
+          "player": "sato",
+          "hi": "sato__future-star",
+          "hiOvr": 95,
+          "lo": "sato__base",
+          "loOvr": 84,
+          "gap": 11,
+          "pairs": 400,
+          "meanDelta": 0.03,
+          "changedRate": 0.03
+        },
+        {
+          "player": "babybay",
+          "hi": "babybay__masters-l",
+          "hiOvr": 88,
+          "lo": "babybay__base",
+          "loOvr": 78,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.0525,
+          "changedRate": 0.0525
+        },
+        {
+          "player": "dantedeu5",
+          "hi": "dantedeu5__future-star",
+          "hiOvr": 91,
+          "lo": "dantedeu5__base",
+          "loOvr": 81,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.0575,
+          "changedRate": 0.0575
+        },
+        {
+          "player": "loita",
+          "hi": "loita__future-star",
+          "hiOvr": 91,
+          "lo": "loita__base",
+          "loOvr": 81,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.0525,
+          "changedRate": 0.0525
+        },
+        {
+          "player": "neon",
+          "hi": "neon__future-star",
+          "hiOvr": 93,
+          "lo": "neon__base",
+          "loOvr": 83,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.0575,
+          "changedRate": 0.0575
+        },
+        {
+          "player": "rosa",
+          "hi": "rosa__masters-sdc",
+          "hiOvr": 82,
+          "lo": "rosa__base",
+          "loOvr": 72,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.0275,
+          "changedRate": 0.0275
+        },
+        {
+          "player": "sayonara",
+          "hi": "sayonara__future-star",
+          "hiOvr": 94,
+          "lo": "sayonara__base",
+          "loOvr": 84,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.045,
+          "changedRate": 0.045
+        },
+        {
+          "player": "seven",
+          "hi": "seven__future-star",
+          "hiOvr": 88,
+          "lo": "seven__base",
+          "loOvr": 78,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.0625,
+          "changedRate": 0.0625
+        },
+        {
+          "player": "timotino",
+          "hi": "timotino__future-star",
+          "hiOvr": 94,
+          "lo": "timotino__base",
+          "loOvr": 84,
+          "gap": 10,
+          "pairs": 400,
+          "meanDelta": 0.0425,
+          "changedRate": 0.0425
+        },
+        {
+          "player": "blowz",
+          "hi": "blowz__future-star",
+          "hiOvr": 89,
+          "lo": "blowz__base",
+          "loOvr": 80,
+          "gap": 9,
+          "pairs": 400,
+          "meanDelta": 0.0388,
+          "changedRate": 0.04
+        },
+        {
+          "player": "alym",
+          "hi": "alym__future-star",
+          "hiOvr": 92,
+          "lo": "alym__base",
+          "loOvr": 84,
+          "gap": 8,
+          "pairs": 400,
+          "meanDelta": 0.045,
+          "changedRate": 0.045
+        },
+        {
+          "player": "dambi",
+          "hi": "dambi__masters-sdc",
+          "hiOvr": 90,
+          "lo": "dambi__base",
+          "loOvr": 82,
+          "gap": 8,
+          "pairs": 400,
+          "meanDelta": 0.0325,
+          "changedRate": 0.0325
+        },
+        {
+          "player": "minny",
+          "hi": "minny__masters-sdc",
+          "hiOvr": 91,
+          "lo": "minny__base",
+          "loOvr": 83,
+          "gap": 8,
+          "pairs": 400,
+          "meanDelta": 0.04,
+          "changedRate": 0.04
+        },
+        {
+          "player": "patmen",
+          "hi": "patmen__record-breaker",
+          "hiOvr": 92,
+          "lo": "patmen__base",
+          "loOvr": 84,
+          "gap": 8,
+          "pairs": 400,
+          "meanDelta": 0.0275,
+          "changedRate": 0.0275
+        },
+        {
+          "player": "reduxx",
+          "hi": "reduxx__future-star",
+          "hiOvr": 90,
+          "lo": "reduxx__base",
+          "loOvr": 82,
+          "gap": 8,
+          "pairs": 400,
+          "meanDelta": 0.0375,
+          "changedRate": 0.0375
+        },
+        {
+          "player": "spike",
+          "hi": "spike__future-star",
+          "hiOvr": 92,
+          "lo": "spike__base",
+          "loOvr": 84,
+          "gap": 8,
+          "pairs": 400,
+          "meanDelta": 0.04,
+          "changedRate": 0.04
+        },
+        {
+          "player": "wayne",
+          "hi": "wayne__future-star",
+          "hiOvr": 90,
+          "lo": "wayne__base",
+          "loOvr": 82,
+          "gap": 8,
+          "pairs": 400,
+          "meanDelta": 0.045,
+          "changedRate": 0.045
+        },
+        {
+          "player": "crewen",
+          "hi": "crewen__masters-sdc",
+          "hiOvr": 85,
+          "lo": "crewen__base",
+          "loOvr": 78,
+          "gap": 7,
+          "pairs": 400,
+          "meanDelta": 0.0213,
+          "changedRate": 0.0225
+        },
+        {
+          "player": "ivy",
+          "hi": "ivy__masters-sdc",
+          "hiOvr": 85,
+          "lo": "ivy__base",
+          "loOvr": 78,
+          "gap": 7,
+          "pairs": 400,
+          "meanDelta": 0.04,
+          "changedRate": 0.04
+        },
+        {
+          "player": "buzz",
+          "hi": "buzz__champions-s",
+          "hiOvr": 93,
+          "lo": "buzz__base",
+          "loOvr": 87,
+          "gap": 6,
+          "pairs": 400,
+          "meanDelta": 0.0275,
+          "changedRate": 0.0275
+        },
+        {
+          "player": "izu",
+          "hi": "izu__masters-sdc",
+          "hiOvr": 90,
+          "lo": "izu__base",
+          "loOvr": 84,
+          "gap": 6,
+          "pairs": 400,
+          "meanDelta": 0.045,
+          "changedRate": 0.045
+        },
+        {
+          "player": "artzin",
+          "hi": "artzin__masters-sdc",
+          "hiOvr": 82,
+          "lo": "artzin__base",
+          "loOvr": 77,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.01,
+          "changedRate": 0.01
+        },
+        {
+          "player": "bipo",
+          "hi": "bipo__masters-sdc",
+          "hiOvr": 87,
+          "lo": "bipo__base",
+          "loOvr": 82,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.035,
+          "changedRate": 0.035
+        },
+        {
+          "player": "brawk",
+          "hi": "brawk__masters-l",
+          "hiOvr": 93,
+          "lo": "brawk__base",
+          "loOvr": 88,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.0275,
+          "changedRate": 0.0275
+        },
+        {
+          "player": "eeiu",
+          "hi": "eeiu__masters-sdc",
+          "hiOvr": 85,
+          "lo": "eeiu__base",
+          "loOvr": 80,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.025,
+          "changedRate": 0.025
+        },
+        {
+          "player": "francis",
+          "hi": "francis__masters-sdc",
+          "hiOvr": 86,
+          "lo": "francis__base",
+          "loOvr": 81,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.03,
+          "changedRate": 0.03
+        },
+        {
+          "player": "jamppi",
+          "hi": "jamppi__masters-l",
+          "hiOvr": 87,
+          "lo": "jamppi__base",
+          "loOvr": 82,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.03,
+          "changedRate": 0.03
+        },
+        {
+          "player": "mada",
+          "hi": "mada__moments",
+          "hiOvr": 95,
+          "lo": "mada__base",
+          "loOvr": 90,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.0225,
+          "changedRate": 0.0225
+        },
+        {
+          "player": "miniboo",
+          "hi": "miniboo__masters-sdc",
+          "hiOvr": 92,
+          "lo": "miniboo__base",
+          "loOvr": 87,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.0175,
+          "changedRate": 0.0175
+        },
+        {
+          "player": "rb",
+          "hi": "rb__masters-sdc",
+          "hiOvr": 84,
+          "lo": "rb__base",
+          "loOvr": 79,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.0225,
+          "changedRate": 0.0225
+        },
+        {
+          "player": "smoggy",
+          "hi": "smoggy__masters-l",
+          "hiOvr": 90,
+          "lo": "smoggy__masters-sdc",
+          "loOvr": 85,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.025,
+          "changedRate": 0.025
+        },
+        {
+          "player": "starxo",
+          "hi": "starxo__masters-sdc",
+          "hiOvr": 84,
+          "lo": "starxo__base",
+          "loOvr": 79,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.0325,
+          "changedRate": 0.0325
+        },
+        {
+          "player": "trent",
+          "hi": "trent__masters-l",
+          "hiOvr": 93,
+          "lo": "trent__base",
+          "loOvr": 88,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.0125,
+          "changedRate": 0.0125
+        },
+        {
+          "player": "valyn",
+          "hi": "valyn__masters-sdc",
+          "hiOvr": 92,
+          "lo": "valyn__base",
+          "loOvr": 87,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.025,
+          "changedRate": 0.025
+        },
+        {
+          "player": "wo0t",
+          "hi": "wo0t__masters-l",
+          "hiOvr": 93,
+          "lo": "wo0t__base",
+          "loOvr": 88,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.0225,
+          "changedRate": 0.0225
+        },
+        {
+          "player": "yetujey",
+          "hi": "yetujey__champions-s",
+          "hiOvr": 89,
+          "lo": "yetujey__base",
+          "loOvr": 84,
+          "gap": 5,
+          "pairs": 400,
+          "meanDelta": 0.005,
+          "changedRate": 0.005
+        },
+        {
+          "player": "invy",
+          "hi": "invy__masters-l",
+          "hiOvr": 86,
+          "lo": "invy__base",
+          "loOvr": 82,
+          "gap": 4,
+          "pairs": 400,
+          "meanDelta": 0.0075,
+          "changedRate": 0.0075
+        },
+        {
+          "player": "benjy",
+          "hi": "benjy__masters-l",
+          "hiOvr": 88,
+          "lo": "benjy__base",
+          "loOvr": 85,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.0125,
+          "changedRate": 0.0125
+        },
+        {
+          "player": "glyph",
+          "hi": "glyph__masters-sdc",
+          "hiOvr": 80,
+          "lo": "glyph__base",
+          "loOvr": 77,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.01,
+          "changedRate": 0.01
+        },
+        {
+          "player": "kamo",
+          "hi": "kamo__masters-sdc",
+          "hiOvr": 87,
+          "lo": "kamo__base",
+          "loOvr": 84,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.01,
+          "changedRate": 0.01
+        },
+        {
+          "player": "kr1stal",
+          "hi": "kr1stal__masters-l",
+          "hiOvr": 82,
+          "lo": "kr1stal__base",
+          "loOvr": 79,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.0075,
+          "changedRate": 0.0075
+        },
+        {
+          "player": "leviathan",
+          "hi": "leviathan__masters-l",
+          "hiOvr": 82,
+          "lo": "leviathan__base",
+          "loOvr": 79,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.005,
+          "changedRate": 0.005
+        },
+        {
+          "player": "nerve",
+          "hi": "nerve__masters-sdc",
+          "hiOvr": 81,
+          "lo": "nerve__base",
+          "loOvr": 78,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.01,
+          "changedRate": 0.01
+        },
+        {
+          "player": "purp0",
+          "hi": "purp0__masters-sdc",
+          "hiOvr": 80,
+          "lo": "purp0__base",
+          "loOvr": 77,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.01,
+          "changedRate": 0.01
+        },
+        {
+          "player": "riens",
+          "hi": "riens__masters-l",
+          "hiOvr": 92,
+          "lo": "riens__base",
+          "loOvr": 89,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.0225,
+          "changedRate": 0.0225
+        },
+        {
+          "player": "xeus",
+          "hi": "xeus__champions-s",
+          "hiOvr": 87,
+          "lo": "xeus__base",
+          "loOvr": 84,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.0125,
+          "changedRate": 0.0125
+        },
+        {
+          "player": "zmjjkk",
+          "hi": "zmjjkk__masters-l",
+          "hiOvr": 94,
+          "lo": "zmjjkk__masters-sdc",
+          "loOvr": 91,
+          "gap": 3,
+          "pairs": 400,
+          "meanDelta": 0.015,
+          "changedRate": 0.015
+        },
+        {
+          "player": "boo",
+          "hi": "boo__masters-l",
+          "hiOvr": 84,
+          "lo": "boo__base",
+          "loOvr": 82,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.0125,
+          "changedRate": 0.0125
+        },
+        {
+          "player": "chichoo",
+          "hi": "chichoo__masters-l",
+          "hiOvr": 90,
+          "lo": "chichoo__masters-sdc",
+          "loOvr": 88,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.005,
+          "changedRate": 0.005
+        },
+        {
+          "player": "d4v41",
+          "hi": "d4v41__masters-l",
+          "hiOvr": 89,
+          "lo": "d4v41__base",
+          "loOvr": 87,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.0125,
+          "changedRate": 0.0125
+        },
+        {
+          "player": "ethan",
+          "hi": "ethan__masters-l",
+          "hiOvr": 89,
+          "lo": "ethan__base",
+          "loOvr": 87,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.0025,
+          "changedRate": 0.0025
+        },
+        {
+          "player": "jawgemo",
+          "hi": "jawgemo__champions-s",
+          "hiOvr": 89,
+          "lo": "jawgemo__base",
+          "loOvr": 87,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.015,
+          "changedRate": 0.015
+        },
+        {
+          "player": "killua",
+          "hi": "killua__masters-l",
+          "hiOvr": 84,
+          "lo": "killua__base",
+          "loOvr": 82,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.0025,
+          "changedRate": 0.0025
+        },
+        {
+          "player": "nats",
+          "hi": "nats__masters-sdc",
+          "hiOvr": 90,
+          "lo": "nats__base",
+          "loOvr": 88,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.0075,
+          "changedRate": 0.0075
+        },
+        {
+          "player": "noman",
+          "hi": "noman__masters-sdc",
+          "hiOvr": 83,
+          "lo": "noman__masters-l",
+          "loOvr": 81,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.0025,
+          "changedRate": 0.0025
+        },
+        {
+          "player": "rarga",
+          "hi": "rarga__masters-sdc",
+          "hiOvr": 89,
+          "lo": "rarga__masters-l",
+          "loOvr": 87,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.0088,
+          "changedRate": 0.01
+        },
+        {
+          "player": "wsleo",
+          "hi": "wsleo__masters-l",
+          "hiOvr": 86,
+          "lo": "wsleo__masters-sdc",
+          "loOvr": 84,
+          "gap": 2,
+          "pairs": 400,
+          "meanDelta": 0.015,
+          "changedRate": 0.015
+        },
+        {
+          "player": "chronicle",
+          "hi": "chronicle__masters-l",
+          "hiOvr": 91,
+          "lo": "chronicle__base",
+          "loOvr": 90,
+          "gap": 1,
+          "pairs": 400,
+          "meanDelta": 0,
+          "changedRate": 0
+        },
+        {
+          "player": "derke",
+          "hi": "derke__masters-l",
+          "hiOvr": 88,
+          "lo": "derke__base",
+          "loOvr": 87,
+          "gap": 1,
+          "pairs": 400,
+          "meanDelta": 0.01,
+          "changedRate": 0.01
+        },
+        {
+          "player": "kingg",
+          "hi": "kingg__masters-l",
+          "hiOvr": 85,
+          "lo": "kingg__base",
+          "loOvr": 84,
+          "gap": 1,
+          "pairs": 400,
+          "meanDelta": 0,
+          "changedRate": 0
+        },
+        {
+          "player": "koshmaras",
+          "hi": "koshmaras__future-star",
+          "hiOvr": 89,
+          "lo": "koshmaras__masters-l",
+          "loOvr": 88,
+          "gap": 1,
+          "pairs": 400,
+          "meanDelta": 0.01,
+          "changedRate": 0.01
+        },
+        {
+          "player": "nobody",
+          "hi": "nobody__masters-sdc",
+          "hiOvr": 80,
+          "lo": "nobody__masters-l",
+          "loOvr": 79,
+          "gap": 1,
+          "pairs": 400,
+          "meanDelta": 0.0025,
+          "changedRate": 0.0025
+        },
+        {
+          "player": "profek",
+          "hi": "profek__masters-l",
+          "hiOvr": 86,
+          "lo": "profek__base",
+          "loOvr": 85,
+          "gap": 1,
+          "pairs": 400,
+          "meanDelta": 0,
+          "changedRate": 0
+        }
+      ]
+    },
+    "strategies": {
+      "cellMatches": 1500,
+      "matrix": [
+        {
+          "a": "OVR_MAX",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.511,
+          "lo": 0.4857,
+          "hi": 0.5362
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.2887,
+          "lo": 0.2663,
+          "hi": 0.3121
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.0287,
+          "lo": 0.0214,
+          "hi": 0.0384
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.6073,
+          "lo": 0.5824,
+          "hi": 0.6317
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.0567,
+          "lo": 0.0461,
+          "hi": 0.0695
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.2927,
+          "lo": 0.2702,
+          "hi": 0.3162
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.654,
+          "lo": 0.6296,
+          "hi": 0.6777
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 1,
+          "lo": 0.9974,
+          "hi": 1
+        },
+        {
+          "a": "OVR_MAX",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.8633,
+          "lo": 0.845,
+          "hi": 0.8798
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.6987,
+          "lo": 0.675,
+          "hi": 0.7214
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.4367,
+          "lo": 0.4118,
+          "hi": 0.4619
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.068,
+          "lo": 0.0563,
+          "hi": 0.0819
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.8553,
+          "lo": 0.8366,
+          "hi": 0.8722
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.1307,
+          "lo": 0.1145,
+          "hi": 0.1487
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.7653,
+          "lo": 0.7432,
+          "hi": 0.7861
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.9427,
+          "lo": 0.9297,
+          "hi": 0.9533
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 1,
+          "lo": 0.9974,
+          "hi": 1
+        },
+        {
+          "a": "COMBAT_MAX",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.9867,
+          "lo": 0.9795,
+          "hi": 0.9914
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.97,
+          "lo": 0.9601,
+          "hi": 0.9775
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.94,
+          "lo": 0.9268,
+          "hi": 0.9509
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.5107,
+          "lo": 0.4854,
+          "hi": 0.5359
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.9687,
+          "lo": 0.9586,
+          "hi": 0.9764
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.7647,
+          "lo": 0.7425,
+          "hi": 0.7854
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.988,
+          "lo": 0.9811,
+          "hi": 0.9924
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.9817,
+          "lo": 0.9735,
+          "hi": 0.9873
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 1,
+          "lo": 0.9974,
+          "hi": 1
+        },
+        {
+          "a": "PEAK_MAX",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.998,
+          "lo": 0.9941,
+          "hi": 0.9993
+        },
+        {
+          "a": "BALANCED",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.4067,
+          "lo": 0.3821,
+          "hi": 0.4317
+        },
+        {
+          "a": "BALANCED",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.142,
+          "lo": 0.1252,
+          "hi": 0.1606
+        },
+        {
+          "a": "BALANCED",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.036,
+          "lo": 0.0277,
+          "hi": 0.0467
+        },
+        {
+          "a": "BALANCED",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.4927,
+          "lo": 0.4674,
+          "hi": 0.518
+        },
+        {
+          "a": "BALANCED",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.0753,
+          "lo": 0.063,
+          "hi": 0.0898
+        },
+        {
+          "a": "BALANCED",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.1013,
+          "lo": 0.0871,
+          "hi": 0.1176
+        },
+        {
+          "a": "BALANCED",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.7593,
+          "lo": 0.7371,
+          "hi": 0.7803
+        },
+        {
+          "a": "BALANCED",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 1,
+          "lo": 0.9974,
+          "hi": 1
+        },
+        {
+          "a": "BALANCED",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.9153,
+          "lo": 0.9002,
+          "hi": 0.9284
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.9393,
+          "lo": 0.9261,
+          "hi": 0.9503
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.876,
+          "lo": 0.8584,
+          "hi": 0.8917
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.2313,
+          "lo": 0.2107,
+          "hi": 0.2533
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.9433,
+          "lo": 0.9305,
+          "hi": 0.9539
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.511,
+          "lo": 0.4857,
+          "hi": 0.5362
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.9153,
+          "lo": 0.9002,
+          "hi": 0.9284
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.9887,
+          "lo": 0.9819,
+          "hi": 0.9929
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 1,
+          "lo": 0.9974,
+          "hi": 1
+        },
+        {
+          "a": "SPEC_SH",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.998,
+          "lo": 0.9941,
+          "hi": 0.9993
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.6953,
+          "lo": 0.6716,
+          "hi": 0.7181
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.2613,
+          "lo": 0.2397,
+          "hi": 0.2842
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.0187,
+          "lo": 0.0129,
+          "hi": 0.0268
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.894,
+          "lo": 0.8774,
+          "hi": 0.9086
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.1073,
+          "lo": 0.0927,
+          "hi": 0.124
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.4793,
+          "lo": 0.4541,
+          "hi": 0.5046
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.7213,
+          "lo": 0.6981,
+          "hi": 0.7434
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 1,
+          "lo": 0.9974,
+          "hi": 1
+        },
+        {
+          "a": "SPEC_GS",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.9507,
+          "lo": 0.9385,
+          "hi": 0.9605
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.3487,
+          "lo": 0.325,
+          "hi": 0.3731
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.0527,
+          "lo": 0.0425,
+          "hi": 0.0652
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.03,
+          "lo": 0.0225,
+          "hi": 0.0399
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.246,
+          "lo": 0.2249,
+          "hi": 0.2684
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.0133,
+          "lo": 0.0086,
+          "hi": 0.0205
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.296,
+          "lo": 0.2734,
+          "hi": 0.3196
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.5493,
+          "lo": 0.5241,
+          "hi": 0.5744
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 0.9753,
+          "lo": 0.9662,
+          "hi": 0.9821
+        },
+        {
+          "a": "SPEC_EF",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.8587,
+          "lo": 0.8401,
+          "hi": 0.8754
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0,
+          "lo": 0,
+          "hi": 0.0026
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0,
+          "lo": 0,
+          "hi": 0.0026
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0,
+          "lo": 0,
+          "hi": 0.0026
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0,
+          "lo": 0,
+          "hi": 0.0026
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0,
+          "lo": 0,
+          "hi": 0.0026
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0,
+          "lo": 0,
+          "hi": 0.0026
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.0253,
+          "lo": 0.0185,
+          "hi": 0.0346
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 0.4867,
+          "lo": 0.4614,
+          "hi": 0.512
+        },
+        {
+          "a": "LOW_OVR",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.07,
+          "lo": 0.0582,
+          "hi": 0.084
+        },
+        {
+          "a": "RANDOM",
+          "b": "OVR_MAX",
+          "n": 1500,
+          "rate": 0.1053,
+          "lo": 0.0908,
+          "hi": 0.1219
+        },
+        {
+          "a": "RANDOM",
+          "b": "COMBAT_MAX",
+          "n": 1500,
+          "rate": 0.0153,
+          "lo": 0.0102,
+          "hi": 0.0229
+        },
+        {
+          "a": "RANDOM",
+          "b": "PEAK_MAX",
+          "n": 1500,
+          "rate": 0.0087,
+          "lo": 0.0051,
+          "hi": 0.0148
+        },
+        {
+          "a": "RANDOM",
+          "b": "BALANCED",
+          "n": 1500,
+          "rate": 0.0627,
+          "lo": 0.0515,
+          "hi": 0.0761
+        },
+        {
+          "a": "RANDOM",
+          "b": "SPEC_SH",
+          "n": 1500,
+          "rate": 0.0073,
+          "lo": 0.0041,
+          "hi": 0.0131
+        },
+        {
+          "a": "RANDOM",
+          "b": "SPEC_GS",
+          "n": 1500,
+          "rate": 0.0547,
+          "lo": 0.0443,
+          "hi": 0.0673
+        },
+        {
+          "a": "RANDOM",
+          "b": "SPEC_EF",
+          "n": 1500,
+          "rate": 0.1287,
+          "lo": 0.1127,
+          "hi": 0.1466
+        },
+        {
+          "a": "RANDOM",
+          "b": "LOW_OVR",
+          "n": 1500,
+          "rate": 0.9513,
+          "lo": 0.9392,
+          "hi": 0.9611
+        },
+        {
+          "a": "RANDOM",
+          "b": "RANDOM",
+          "n": 1500,
+          "rate": 0.458,
+          "lo": 0.4329,
+          "hi": 0.4833
+        }
+      ],
+      "vsField": [
+        {
+          "strategy": "SPEC_SH",
+          "n": 10000,
+          "rate": 0.9981,
+          "lo": 0.997,
+          "hi": 0.9988,
+          "sumOvr": 866,
+          "combatSum": 2285,
+          "meanPeak": 92.1,
+          "deck": [
+            "marteen__masters-sdc",
+            "primmie__masters-l",
+            "kingg__base",
+            "johnqt__base",
+            "blowz__base",
+            "trent__base",
+            "neon__base",
+            "vo0kashu__masters-l",
+            "izu__base",
+            "sayonara__base"
+          ]
+        },
+        {
+          "strategy": "PEAK_MAX",
+          "n": 10000,
+          "rate": 0.9979,
+          "lo": 0.9968,
+          "hi": 0.9986,
+          "sumOvr": 853,
+          "combatSum": 2171,
+          "meanPeak": 95.8,
+          "deck": [
+            "oxy__base",
+            "dgzin__base",
+            "v1c__base",
+            "erv__champions-s",
+            "izu__champions-s",
+            "blowz__base",
+            "neon__base",
+            "vo0kashu__masters-l",
+            "primmie__base",
+            "alfajer__base"
+          ]
+        },
+        {
+          "strategy": "COMBAT_MAX",
+          "n": 10000,
+          "rate": 0.9951,
+          "lo": 0.9935,
+          "hi": 0.9963,
+          "sumOvr": 875,
+          "combatSum": 2353,
+          "meanPeak": 89.5,
+          "deck": [
+            "marteen__masters-sdc",
+            "primmie__masters-l",
+            "kingg__base",
+            "erv__champions-s",
+            "trent__base",
+            "blowz__base",
+            "neon__base",
+            "veqaj__base",
+            "sato__masters-l",
+            "slowly__champions-s"
+          ]
+        },
+        {
+          "strategy": "SPEC_GS",
+          "n": 10000,
+          "rate": 0.9744,
+          "lo": 0.9711,
+          "hi": 0.9773,
+          "sumOvr": 845,
+          "combatSum": 2196,
+          "meanPeak": 88.9,
+          "deck": [
+            "sato__base",
+            "marteen__masters-sdc",
+            "v1c__base",
+            "erv__champions-s",
+            "blowz__base",
+            "nicc__masters-l",
+            "munchkin__champions-s",
+            "lysoar__masters-sdc",
+            "asuna__base",
+            "ruxic__base"
+          ]
+        },
+        {
+          "strategy": "BALANCED",
+          "n": 10000,
+          "rate": 0.9506,
+          "lo": 0.9462,
+          "hi": 0.9547,
+          "sumOvr": 891,
+          "combatSum": 2293,
+          "meanPeak": 83.3,
+          "deck": [
+            "marteen__masters-sdc",
+            "sato__base",
+            "happywei__masters-sdc",
+            "patmen__masters-l",
+            "izu__champions-s",
+            "riens__base",
+            "veqaj__base",
+            "neon__base",
+            "jinggg__masters-l",
+            "slowly__champions-s"
+          ]
+        },
+        {
+          "strategy": "OVR_MAX",
+          "n": 10000,
+          "rate": 0.9286,
+          "lo": 0.9234,
+          "hi": 0.9335,
+          "sumOvr": 939,
+          "combatSum": 2145,
+          "meanPeak": 82.1,
+          "deck": [
+            "mada__moments",
+            "primmie__masters-l",
+            "f0rsaken__masters-l",
+            "happywei__masters-sdc",
+            "xross__future-star",
+            "brawk__masters-l",
+            "neon__future-star",
+            "leaf__champions-s",
+            "jinggg__masters-l",
+            "lar0k__future-star"
+          ]
+        },
+        {
+          "strategy": "SPEC_EF",
+          "n": 10000,
+          "rate": 0.8686,
+          "lo": 0.8618,
+          "hi": 0.8751,
+          "sumOvr": 858,
+          "combatSum": 2068,
+          "meanPeak": 86.5,
+          "deck": [
+            "oxy__base",
+            "dgzin__base",
+            "keiko__masters-sdc",
+            "patmen__masters-l",
+            "purp0__base",
+            "izu__champions-s",
+            "lukxo__base",
+            "meteor__base",
+            "primmie__base",
+            "alfajer__base"
+          ]
+        },
+        {
+          "strategy": "RANDOM",
+          "n": 10000,
+          "rate": 0.5543,
+          "lo": 0.5445,
+          "hi": 0.564,
+          "sumOvr": 863,
+          "combatSum": 1807,
+          "meanPeak": 77,
+          "deck": [
+            "jawgemo__base",
+            "s0pp__future-star",
+            "neon__future-star",
+            "zellsis__base",
+            "jamppi__base",
+            "crashies__base",
+            "kingg__base",
+            "wayne__future-star",
+            "koalanoob__masters-sdc",
+            "okeanos__base"
+          ]
+        },
+        {
+          "strategy": "LOW_OVR",
+          "n": 10000,
+          "rate": 0.0552,
+          "lo": 0.0509,
+          "hi": 0.0598,
+          "sumOvr": 733,
+          "combatSum": 1656,
+          "meanPeak": 70.9,
+          "deck": [
+            "tenten__base",
+            "filu__base",
+            "ssees__base",
+            "c1nder__base",
+            "jessievash__base",
+            "lakia__base",
+            "syouta__base",
+            "klaus__base",
+            "krostaly__base",
+            "mwzera__base"
+          ]
+        }
+      ]
+    },
+    "hillclimb": {
+      "climbs": 10,
+      "steps": 40,
+      "gauntletSize": 60,
+      "decks": [
+        {
+          "climb": 3,
+          "trainWin": 0.9167,
+          "testWin": 0.93,
+          "testMatches": 300,
+          "sumOvr": 879,
+          "combatSum": 2089,
+          "deck": [
+            "marteen__masters-sdc",
+            "timotino__future-star",
+            "kingg__base",
+            "loita__future-star",
+            "c0m__base",
+            "blowz__future-star",
+            "kamo__masters-sdc",
+            "xavi8k__masters-l",
+            "munchkin__champions-s",
+            "neon__future-star"
+          ]
+        },
+        {
+          "climb": 6,
+          "trainWin": 0.9333,
+          "testWin": 0.9033,
+          "testMatches": 300,
+          "sumOvr": 876,
+          "combatSum": 2093,
+          "deck": [
+            "mada__moments",
+            "primmie__masters-l",
+            "kingg__masters-l",
+            "mako__base",
+            "blowz__masters-l",
+            "brawk__masters-l",
+            "neon__masters-l",
+            "au1__masters-sdc",
+            "asuna__base",
+            "noman__masters-l"
+          ]
+        },
+        {
+          "climb": 2,
+          "trainWin": 0.9167,
+          "testWin": 0.8933,
+          "testMatches": 300,
+          "sumOvr": 886,
+          "combatSum": 2205,
+          "deck": [
+            "meiy__base",
+            "splash__champions-s",
+            "grubinho__base",
+            "loita__future-star",
+            "blowz__base",
+            "trent__masters-sdc",
+            "happywei__masters-l",
+            "vo0kashu__masters-l",
+            "slowly__champions-s",
+            "asuna__base"
+          ]
+        },
+        {
+          "climb": 0,
+          "trainWin": 0.9,
+          "testWin": 0.8867,
+          "testMatches": 300,
+          "sumOvr": 906,
+          "combatSum": 2121,
+          "deck": [
+            "s0pp__champions-s",
+            "primmie__masters-l",
+            "leviathan__base",
+            "loita__future-star",
+            "xross__future-star",
+            "brawk__masters-l",
+            "neon__masters-l",
+            "chronicle__base",
+            "veqaj__future-star",
+            "life__masters-l"
+          ]
+        },
+        {
+          "climb": 5,
+          "trainWin": 0.8833,
+          "testWin": 0.88,
+          "testMatches": 300,
+          "sumOvr": 883,
+          "combatSum": 2116,
+          "deck": [
+            "verno__base",
+            "stax__masters-sdc",
+            "neon__masters-l",
+            "minny__base",
+            "spike__masters-l",
+            "kaajak__base",
+            "skuba__base",
+            "erv__champions-s",
+            "sato__masters-l",
+            "sayonara__future-star"
+          ]
+        },
+        {
+          "climb": 7,
+          "trainWin": 0.8917,
+          "testWin": 0.8767,
+          "testMatches": 300,
+          "sumOvr": 885,
+          "combatSum": 2122,
+          "deck": [
+            "splash__champions-s",
+            "oxy__base",
+            "beyn__base",
+            "trent__champions-s",
+            "loita__future-star",
+            "erv__champions-s",
+            "chichoo__masters-sdc",
+            "meteor__base",
+            "sayonara__future-star",
+            "ruxic__base"
+          ]
+        },
+        {
+          "climb": 8,
+          "trainWin": 0.8583,
+          "testWin": 0.8667,
+          "testMatches": 300,
+          "sumOvr": 889,
+          "combatSum": 2153,
+          "deck": [
+            "primmie__masters-l",
+            "marteen__masters-sdc",
+            "kingg__masters-l",
+            "happywei__masters-sdc",
+            "brawk__base",
+            "trent__masters-sdc",
+            "nats__masters-sdc",
+            "echo__future-star",
+            "xavi8k__masters-l",
+            "sayonara__base"
+          ]
+        },
+        {
+          "climb": 4,
+          "trainWin": 0.9,
+          "testWin": 0.8567,
+          "testMatches": 300,
+          "sumOvr": 910,
+          "combatSum": 2062,
+          "deck": [
+            "alym__masters-sdc",
+            "s0pp__champions-s",
+            "boo__masters-l",
+            "profek__base",
+            "xross__future-star",
+            "brawk__masters-l",
+            "vo0kashu__masters-l",
+            "minny__masters-sdc",
+            "marteen__record-breaker",
+            "slowly__champions-s"
+          ]
+        },
+        {
+          "climb": 1,
+          "trainWin": 0.8333,
+          "testWin": 0.81,
+          "testMatches": 300,
+          "sumOvr": 875,
+          "combatSum": 2107,
+          "deck": [
+            "stax__masters-sdc",
+            "killua__base",
+            "skuba__masters-l",
+            "chichoo__masters-l",
+            "sylvan__base",
+            "loita__future-star",
+            "marteen__masters-sdc",
+            "spike__masters-l",
+            "izu__base",
+            "alfajer__base"
+          ]
+        },
+        {
+          "climb": 9,
+          "trainWin": 0.75,
+          "testWin": 0.7333,
+          "testMatches": 300,
+          "sumOvr": 868,
+          "combatSum": 2010,
+          "deck": [
+            "dos9__base",
+            "v1c__base",
+            "d4v41__masters-sdc",
+            "lukxo__base",
+            "ethan__masters-l",
+            "primmie__base",
+            "brawk__masters-sdc",
+            "jamppi__masters-l",
+            "miniboo__masters-sdc",
+            "t3xture__base"
+          ]
+        }
+      ],
+      "distinctCardsAcrossClimbs": 75,
+      "core": [
+        {
+          "cardId": "loita__future-star",
+          "inDecks": 5,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 71,
+            "gamesense": 89,
+            "entryfrag": 56
+          },
+          "role": "Controlador"
+        }
+      ],
+      "counter": {
+        "deck": [
+          "babybay__champions-s",
+          "kamo__base",
+          "neon__masters-l",
+          "nats__masters-sdc",
+          "xross__masters-sdc",
+          "invy__masters-sdc",
+          "meiy__base",
+          "miniboo__masters-sdc",
+          "profek__base",
+          "rb__masters-sdc"
+        ],
+        "winVsBest": 0.065,
+        "sumOvr": 869,
+        "combatSum": 2081
+      }
+    },
+    "bots": {
+      "cellMatches": 3000,
+      "matrix": [
+        {
+          "a": "RANDOM",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.4933,
+          "lo": 0.4755,
+          "hi": 0.5112
+        },
+        {
+          "a": "RANDOM",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.512,
+          "lo": 0.4941,
+          "hi": 0.5299
+        },
+        {
+          "a": "RANDOM",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.1787,
+          "lo": 0.1654,
+          "hi": 0.1928
+        },
+        {
+          "a": "RANDOM",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.06,
+          "lo": 0.0521,
+          "hi": 0.0691
+        },
+        {
+          "a": "RANDOM",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.0377,
+          "lo": 0.0314,
+          "hi": 0.0451
+        },
+        {
+          "a": "RANDOM",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.0183,
+          "lo": 0.0141,
+          "hi": 0.0238
+        },
+        {
+          "a": "EASY",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.5097,
+          "lo": 0.4918,
+          "hi": 0.5275
+        },
+        {
+          "a": "EASY",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.505,
+          "lo": 0.4871,
+          "hi": 0.5229
+        },
+        {
+          "a": "EASY",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.202,
+          "lo": 0.188,
+          "hi": 0.2167
+        },
+        {
+          "a": "EASY",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.073,
+          "lo": 0.0642,
+          "hi": 0.0829
+        },
+        {
+          "a": "EASY",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.0287,
+          "lo": 0.0233,
+          "hi": 0.0353
+        },
+        {
+          "a": "EASY",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.0223,
+          "lo": 0.0176,
+          "hi": 0.0283
+        },
+        {
+          "a": "NORMAL",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.801,
+          "lo": 0.7863,
+          "hi": 0.8149
+        },
+        {
+          "a": "NORMAL",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.7967,
+          "lo": 0.7819,
+          "hi": 0.8107
+        },
+        {
+          "a": "NORMAL",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.4997,
+          "lo": 0.4818,
+          "hi": 0.5175
+        },
+        {
+          "a": "NORMAL",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.2703,
+          "lo": 0.2547,
+          "hi": 0.2865
+        },
+        {
+          "a": "NORMAL",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.199,
+          "lo": 0.1851,
+          "hi": 0.2137
+        },
+        {
+          "a": "NORMAL",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.1117,
+          "lo": 0.1009,
+          "hi": 0.1234
+        },
+        {
+          "a": "HARD",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.9467,
+          "lo": 0.938,
+          "hi": 0.9542
+        },
+        {
+          "a": "HARD",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.9382,
+          "lo": 0.929,
+          "hi": 0.9462
+        },
+        {
+          "a": "HARD",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.7133,
+          "lo": 0.6969,
+          "hi": 0.7292
+        },
+        {
+          "a": "HARD",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.506,
+          "lo": 0.4881,
+          "hi": 0.5239
+        },
+        {
+          "a": "HARD",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.4147,
+          "lo": 0.3972,
+          "hi": 0.4324
+        },
+        {
+          "a": "HARD",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.2673,
+          "lo": 0.2518,
+          "hi": 0.2835
+        },
+        {
+          "a": "SMART",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.968,
+          "lo": 0.9611,
+          "hi": 0.9737
+        },
+        {
+          "a": "SMART",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.9687,
+          "lo": 0.9618,
+          "hi": 0.9743
+        },
+        {
+          "a": "SMART",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.8093,
+          "lo": 0.7949,
+          "hi": 0.823
+        },
+        {
+          "a": "SMART",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.6153,
+          "lo": 0.5978,
+          "hi": 0.6326
+        },
+        {
+          "a": "SMART",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.4973,
+          "lo": 0.4795,
+          "hi": 0.5152
+        },
+        {
+          "a": "SMART",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.3485,
+          "lo": 0.3317,
+          "hi": 0.3657
+        },
+        {
+          "a": "ORACLE",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.9823,
+          "lo": 0.977,
+          "hi": 0.9865
+        },
+        {
+          "a": "ORACLE",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.9807,
+          "lo": 0.9751,
+          "hi": 0.985
+        },
+        {
+          "a": "ORACLE",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.8827,
+          "lo": 0.8707,
+          "hi": 0.8937
+        },
+        {
+          "a": "ORACLE",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.7317,
+          "lo": 0.7155,
+          "hi": 0.7472
+        },
+        {
+          "a": "ORACLE",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.652,
+          "lo": 0.6348,
+          "hi": 0.6688
+        },
+        {
+          "a": "ORACLE",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.504,
+          "lo": 0.4861,
+          "hi": 0.5219
+        }
+      ],
+      "ladder": [
+        {
+          "policy": "RANDOM",
+          "meanWinVsOthers": 0.1613
+        },
+        {
+          "policy": "EASY",
+          "meanWinVsOthers": 0.1671
+        },
+        {
+          "policy": "NORMAL",
+          "meanWinVsOthers": 0.4357
+        },
+        {
+          "policy": "HARD",
+          "meanWinVsOthers": 0.656
+        },
+        {
+          "policy": "SMART",
+          "meanWinVsOthers": 0.742
+        },
+        {
+          "policy": "ORACLE",
+          "meanWinVsOthers": 0.8459
+        }
+      ]
+    },
+    "pve": [
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.8064,
+          "lo": 0.7976,
+          "hi": 0.8149
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": 0.04,
+        "decidedBy": {
+          "OVR_TIEBREAK": 902,
+          "SCORE": 6845,
+          "STAT_MARGIN": 253
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4645,
+          "lo": 0.4536,
+          "hi": 0.4754
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.04,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 1379,
+          "SCORE": 6174,
+          "STAT_MARGIN": 443
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.2273,
+          "lo": 0.2182,
+          "hi": 0.2366
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.05,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 1100,
+          "SCORE": 6546,
+          "STAT_MARGIN": 350
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "HARD",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.9364,
+          "lo": 0.9309,
+          "hi": 0.9416
+        },
+        "drawRate": 0.0001,
+        "meanBotOvrMinusPlayer": 0.06,
+        "decidedBy": {
+          "NONE": 1,
+          "OVR_TIEBREAK": 379,
+          "SCORE": 7532,
+          "STAT_MARGIN": 88
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "HARD",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.6982,
+          "lo": 0.688,
+          "hi": 0.7081
+        },
+        "drawRate": 0.0004,
+        "meanBotOvrMinusPlayer": 0.01,
+        "decidedBy": {
+          "NONE": 3,
+          "OVR_TIEBREAK": 1172,
+          "SCORE": 6472,
+          "STAT_MARGIN": 353
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "HARD",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4623,
+          "lo": 0.4513,
+          "hi": 0.4732
+        },
+        "drawRate": 0.0008,
+        "meanBotOvrMinusPlayer": 0.03,
+        "decidedBy": {
+          "NONE": 6,
+          "OVR_TIEBREAK": 1471,
+          "SCORE": 5991,
+          "STAT_MARGIN": 532
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4925,
+          "lo": 0.4816,
+          "hi": 0.5035
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.05,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 1203,
+          "SCORE": 6399,
+          "STAT_MARGIN": 394
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.1661,
+          "lo": 0.1581,
+          "hi": 0.1744
+        },
+        "drawRate": 0.0004,
+        "meanBotOvrMinusPlayer": 0.03,
+        "decidedBy": {
+          "NONE": 3,
+          "OVR_TIEBREAK": 749,
+          "SCORE": 7004,
+          "STAT_MARGIN": 244
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.0383,
+          "lo": 0.0343,
+          "hi": 0.0427
+        },
+        "drawRate": 0.0001,
+        "meanBotOvrMinusPlayer": 0.07,
+        "decidedBy": {
+          "NONE": 1,
+          "OVR_TIEBREAK": 254,
+          "SCORE": 7651,
+          "STAT_MARGIN": 94
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.9131,
+          "lo": 0.9068,
+          "hi": 0.9191
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -3,
+        "decidedBy": {
+          "OVR_TIEBREAK": 864,
+          "SCORE": 7136
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.6439,
+          "lo": 0.6333,
+          "hi": 0.6543
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -3,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1640,
+          "SCORE": 6360
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.3614,
+          "lo": 0.3509,
+          "hi": 0.372
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -2.98,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1509,
+          "SCORE": 6491
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "HARD",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.9871,
+          "lo": 0.9844,
+          "hi": 0.9894
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -2.99,
+        "decidedBy": {
+          "OVR_TIEBREAK": 283,
+          "SCORE": 7717
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "HARD",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.878,
+          "lo": 0.8706,
+          "hi": 0.885
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -3,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1315,
+          "SCORE": 6685
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "HARD",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.6349,
+          "lo": 0.6243,
+          "hi": 0.6454
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -3.01,
+        "decidedBy": {
+          "OVR_TIEBREAK": 2143,
+          "SCORE": 5857
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.6165,
+          "lo": 0.6058,
+          "hi": 0.6271
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -3.01,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1422,
+          "SCORE": 6578
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.2571,
+          "lo": 0.2477,
+          "hi": 0.2668
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -3,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1045,
+          "SCORE": 6955
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.0701,
+          "lo": 0.0647,
+          "hi": 0.0759
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -3,
+        "decidedBy": {
+          "OVR_TIEBREAK": 369,
+          "SCORE": 7631
+        }
+      }
+    ],
+    "starter": {
+      "starterDecks": 300,
+      "notReady": 0,
+      "playerPolicy": "NORMAL (jugador casual)",
+      "matchesPerOpponent": 12000,
+      "starterSumOvr": {
+        "mean": 860.4,
+        "p10": 844,
+        "p50": 861,
+        "p90": 879
+      },
+      "starterCombatSum": {
+        "mean": 1957.3,
+        "p10": 1875,
+        "p50": 1955,
+        "p90": 2050
+      },
+      "metaSumOvr": 939,
+      "metaCombatSum": 2145,
+      "fieldSumOvrMean": null,
+      "winRate": {
+        "PvE EASY": {
+          "n": 12000,
+          "rate": 0.8247,
+          "lo": 0.8178,
+          "hi": 0.8314
+        },
+        "PvE NORMAL": {
+          "n": 12000,
+          "rate": 0.5059,
+          "lo": 0.497,
+          "hi": 0.5149
+        },
+        "PvE HARD": {
+          "n": 12000,
+          "rate": 0.2627,
+          "lo": 0.2549,
+          "hi": 0.2706
+        },
+        "campo (aleatorio, HARD)": {
+          "n": 12000,
+          "rate": 0.3782,
+          "lo": 0.3696,
+          "hi": 0.387
+        },
+        "meta OVR_MAX (HARD)": {
+          "n": 12000,
+          "rate": 0.036,
+          "lo": 0.0328,
+          "hi": 0.0395
+        },
+        "meta PEAK_MAX (HARD)": {
+          "n": 12000,
+          "rate": 0.0019,
+          "lo": 0.0013,
+          "hi": 0.0029
+        }
+      }
+    },
+    "autodeck": {
+      "rule": "autocomplete = máximo OVR total legal (builder.ts §autocomplete)",
+      "rows": [
+        {
+          "collectionSize": 30,
+          "collections": 250,
+          "autoWinRate": {
+            "PEAK_MAX de la misma colección": {
+              "n": 2000,
+              "rate": 0.2855,
+              "lo": 0.2661,
+              "hi": 0.3057
+            },
+            "COMBAT_MAX de la misma colección": {
+              "n": 2000,
+              "rate": 0.424,
+              "lo": 0.4025,
+              "hi": 0.4458
+            }
+          }
+        },
+        {
+          "collectionSize": 60,
+          "collections": 250,
+          "autoWinRate": {
+            "PEAK_MAX de la misma colección": {
+              "n": 2000,
+              "rate": 0.1425,
+              "lo": 0.1279,
+              "hi": 0.1585
+            },
+            "COMBAT_MAX de la misma colección": {
+              "n": 2000,
+              "rate": 0.312,
+              "lo": 0.2921,
+              "hi": 0.3326
+            }
+          }
+        },
+        {
+          "collectionSize": 120,
+          "collections": 250,
+          "autoWinRate": {
+            "PEAK_MAX de la misma colección": {
+              "n": 2000,
+              "rate": 0.077,
+              "lo": 0.0661,
+              "hi": 0.0895
+            },
+            "COMBAT_MAX de la misma colección": {
+              "n": 2000,
+              "rate": 0.2625,
+              "lo": 0.2437,
+              "hi": 0.2822
+            }
+          }
+        }
+      ],
+      "distinctAutoDecks": 750,
+      "mostUsed": [
+        {
+          "cardId": "xross__future-star",
+          "uses": 171,
+          "ovr": 95
+        },
+        {
+          "cardId": "jinggg__masters-l",
+          "uses": 170,
+          "ovr": 95
+        },
+        {
+          "cardId": "brawk__masters-l",
+          "uses": 170,
+          "ovr": 93
+        },
+        {
+          "cardId": "valyn__masters-sdc",
+          "uses": 165,
+          "ovr": 92
+        },
+        {
+          "cardId": "primmie__masters-l",
+          "uses": 163,
+          "ovr": 95
+        },
+        {
+          "cardId": "lar0k__future-star",
+          "uses": 154,
+          "ovr": 95
+        },
+        {
+          "cardId": "happywei__masters-sdc",
+          "uses": 149,
+          "ovr": 93
+        },
+        {
+          "cardId": "f0rsaken__masters-l",
+          "uses": 149,
+          "ovr": 93
+        },
+        {
+          "cardId": "neon__future-star",
+          "uses": 148,
+          "ovr": 93
+        },
+        {
+          "cardId": "sato__future-star",
+          "uses": 145,
+          "ovr": 95
+        }
+      ]
+    },
+    "rng": {
+      "generator": "mulberry32 (opponent/rng.ts)",
+      "draws": 1000000,
+      "bins": [
+        100295,
+        100081,
+        99986,
+        99805,
+        99945,
+        99606,
+        100285,
+        99907,
+        99903,
+        100187
+      ],
+      "chi2_df9": 4.243,
+      "chi2_p05_critical": 16.919,
+      "uniformOk": true,
+      "consecutiveSeedCorrelation": -0.00696,
+      "serverSeeds": "crypto.randomInt (duels.ts launchPve: seedA, seedB, firstAttacker)"
+    },
+    "integrity": {
+      "baseLegal": true,
+      "attacks": {
+        "9 cartas": {
+          "valid": false,
+          "codes": [
+            "ROLE_COUNT",
+            "DECK_SIZE"
+          ]
+        },
+        "11 cartas": {
+          "valid": false,
+          "codes": [
+            "ROLE_COUNT",
+            "DECK_SIZE"
+          ]
+        },
+        "carta repetida": {
+          "valid": false,
+          "codes": [
+            "DUPLICATE_CARD",
+            "DUPLICATE_PLAYER",
+            "ROLE_COUNT"
+          ]
+        },
+        "3 de un rol": {
+          "valid": false,
+          "codes": [
+            "ROLE_COUNT"
+          ]
+        },
+        "carta inexistente": {
+          "valid": false,
+          "codes": [
+            "CARD_NOT_FOUND",
+            "ROLE_COUNT"
+          ]
+        },
+        "mismo jugador dos veces (otra edición)": {
+          "valid": false,
+          "codes": [
+            "DUPLICATE_PLAYER"
+          ]
+        }
+      },
+      "allRejected": true
+    },
+    "cards": {
+      "rows": 331,
+      "shrinkage": {
+        "tau2": 0.004856,
+        "grand": -0.00008
+      },
+      "corr": {
+        "ovr_vs_impact": 0.6334,
+        "combatSum_vs_impact": 0.7784,
+        "peak_vs_impact": 0.8432,
+        "ovr_vs_fieldWin": 0.6549,
+        "ovr_vs_combatSum": 0.5192
+      },
+      "top": [
+        {
+          "cardId": "izu__masters-sdc",
+          "role": "Flex",
+          "ovr": 90,
+          "combat": {
+            "stronghold": 96,
+            "gamesense": 64,
+            "entryfrag": 69
+          },
+          "impact": 0.1749,
+          "ovrRank": 60
+        },
+        {
+          "cardId": "neon__masters-l",
+          "role": "Centinela",
+          "ovr": 93,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "impact": 0.1612,
+          "ovrRank": 22
+        },
+        {
+          "cardId": "vo0kashu__masters-l",
+          "role": "Centinela",
+          "ovr": 92,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 68,
+            "entryfrag": 62
+          },
+          "impact": 0.1564,
+          "ovrRank": 42
+        },
+        {
+          "cardId": "neon__future-star",
+          "role": "Centinela",
+          "ovr": 93,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "impact": 0.1537,
+          "ovrRank": 21
+        },
+        {
+          "cardId": "blowz__masters-l",
+          "role": "Iniciador",
+          "ovr": 85,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 93,
+            "entryfrag": 45
+          },
+          "impact": 0.1497,
+          "ovrRank": 152
+        },
+        {
+          "cardId": "trent__masters-l",
+          "role": "Iniciador",
+          "ovr": 93,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 89,
+            "entryfrag": 52
+          },
+          "impact": 0.1324,
+          "ovrRank": 23
+        },
+        {
+          "cardId": "blowz__future-star",
+          "role": "Iniciador",
+          "ovr": 89,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 93,
+            "entryfrag": 45
+          },
+          "impact": 0.1288,
+          "ovrRank": 71
+        },
+        {
+          "cardId": "timotino__future-star",
+          "role": "Duelista",
+          "ovr": 94,
+          "combat": {
+            "stronghold": 46,
+            "gamesense": 48,
+            "entryfrag": 95
+          },
+          "impact": 0.1244,
+          "ovrRank": 15
+        },
+        {
+          "cardId": "xross__future-star",
+          "role": "Iniciador",
+          "ovr": 95,
+          "combat": {
+            "stronghold": 87,
+            "gamesense": 78,
+            "entryfrag": 52
+          },
+          "impact": 0.1231,
+          "ovrRank": 9
+        },
+        {
+          "cardId": "wo0t__masters-l",
+          "role": "Flex",
+          "ovr": 93,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 60,
+            "entryfrag": 85
+          },
+          "impact": 0.1218,
+          "ovrRank": 24
+        },
+        {
+          "cardId": "alfajer__base",
+          "role": "Flex",
+          "ovr": 90,
+          "combat": {
+            "stronghold": 64,
+            "gamesense": 38,
+            "entryfrag": 91
+          },
+          "impact": 0.1205,
+          "ovrRank": 53
+        },
+        {
+          "cardId": "sayonara__future-star",
+          "role": "Flex",
+          "ovr": 94,
+          "combat": {
+            "stronghold": 88,
+            "gamesense": 69,
+            "entryfrag": 62
+          },
+          "impact": 0.1178,
+          "ovrRank": 13
+        },
+        {
+          "cardId": "neon__base",
+          "role": "Centinela",
+          "ovr": 83,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "impact": 0.1174,
+          "ovrRank": 220
+        },
+        {
+          "cardId": "izu__champions-s",
+          "role": "Iniciador",
+          "ovr": 89,
+          "combat": {
+            "stronghold": 96,
+            "gamesense": 64,
+            "entryfrag": 69
+          },
+          "impact": 0.1169,
+          "ovrRank": 75
+        },
+        {
+          "cardId": "izu__base",
+          "role": "Flex",
+          "ovr": 84,
+          "combat": {
+            "stronghold": 96,
+            "gamesense": 64,
+            "entryfrag": 69
+          },
+          "impact": 0.1167,
+          "ovrRank": 188
+        }
+      ],
+      "bottom": [
+        {
+          "cardId": "tenten__base",
+          "role": "Duelista",
+          "ovr": 74,
+          "combat": {
+            "stronghold": 14,
+            "gamesense": 27,
+            "entryfrag": 60
+          },
+          "impact": -0.1563,
+          "ovrRank": 324
+        },
+        {
+          "cardId": "supamen__base",
+          "role": "Controlador",
+          "ovr": 75,
+          "combat": {
+            "stronghold": 53,
+            "gamesense": 60,
+            "entryfrag": 59
+          },
+          "impact": -0.1498,
+          "ovrRank": 321
+        },
+        {
+          "cardId": "rosa__base",
+          "role": "Iniciador",
+          "ovr": 72,
+          "combat": {
+            "stronghold": 42,
+            "gamesense": 48,
+            "entryfrag": 45
+          },
+          "impact": -0.1382,
+          "ovrRank": 327
+        },
+        {
+          "cardId": "thyy__base",
+          "role": "Duelista",
+          "ovr": 82,
+          "combat": {
+            "stronghold": 35,
+            "gamesense": 51,
+            "entryfrag": 49
+          },
+          "impact": -0.1307,
+          "ovrRank": 242
+        },
+        {
+          "cardId": "hermes__base",
+          "role": "Flex",
+          "ovr": 77,
+          "combat": {
+            "stronghold": 49,
+            "gamesense": 56,
+            "entryfrag": 54
+          },
+          "impact": -0.1209,
+          "ovrRank": 306
+        },
+        {
+          "cardId": "c1nder__base",
+          "role": "Controlador",
+          "ovr": 72,
+          "combat": {
+            "stronghold": 37,
+            "gamesense": 61,
+            "entryfrag": 37
+          },
+          "impact": -0.1164,
+          "ovrRank": 326
+        },
+        {
+          "cardId": "leviathan__base",
+          "role": "Controlador",
+          "ovr": 79,
+          "combat": {
+            "stronghold": 62,
+            "gamesense": 63,
+            "entryfrag": 51
+          },
+          "impact": -0.1127,
+          "ovrRank": 278
+        },
+        {
+          "cardId": "autumn__base",
+          "role": "Duelista",
+          "ovr": 81,
+          "combat": {
+            "stronghold": 63,
+            "gamesense": 50,
+            "entryfrag": 72
+          },
+          "impact": -0.1119,
+          "ovrRank": 245
+        },
+        {
+          "cardId": "au1__masters-sdc",
+          "role": "Centinela",
+          "ovr": 79,
+          "combat": {
+            "stronghold": 57,
+            "gamesense": 54,
+            "entryfrag": 41
+          },
+          "impact": -0.1115,
+          "ovrRank": 271
+        },
+        {
+          "cardId": "starxo__base",
+          "role": "Iniciador",
+          "ovr": 79,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 58,
+            "entryfrag": 49
+          },
+          "impact": -0.11,
+          "ovrRank": 283
+        },
+        {
+          "cardId": "dantedeu5__base",
+          "role": "Duelista",
+          "ovr": 81,
+          "combat": {
+            "stronghold": 23,
+            "gamesense": 49,
+            "entryfrag": 71
+          },
+          "impact": -0.1072,
+          "ovrRank": 247
+        },
+        {
+          "cardId": "leviathan__masters-l",
+          "role": "Controlador",
+          "ovr": 82,
+          "combat": {
+            "stronghold": 62,
+            "gamesense": 63,
+            "entryfrag": 51
+          },
+          "impact": -0.1065,
+          "ovrRank": 236
+        },
+        {
+          "cardId": "al0rante__base",
+          "role": "Centinela",
+          "ovr": 79,
+          "combat": {
+            "stronghold": 63,
+            "gamesense": 34,
+            "entryfrag": 69
+          },
+          "impact": -0.1033,
+          "ovrRank": 270
+        },
+        {
+          "cardId": "filu__base",
+          "role": "Duelista",
+          "ovr": 78,
+          "combat": {
+            "stronghold": 63,
+            "gamesense": 48,
+            "entryfrag": 68
+          },
+          "impact": -0.103,
+          "ovrRank": 292
+        },
+        {
+          "cardId": "cauanzin__base",
+          "role": "Iniciador",
+          "ovr": 77,
+          "combat": {
+            "stronghold": 62,
+            "gamesense": 58,
+            "entryfrag": 39
+          },
+          "impact": -0.0995,
+          "ovrRank": 304
+        }
+      ],
+      "flagged": [
+        {
+          "cardId": "absol__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0465,
+          "impactLo": -0.0874,
+          "impactHi": -0.0126,
+          "impactRank": 236,
+          "ovrRank": 114,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 42,
+            "gamesense": 38,
+            "entryfrag": 73
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "alym__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0029,
+          "impactLo": -0.0352,
+          "impactHi": 0.0414,
+          "impactRank": 158,
+          "ovrRank": 25,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 28,
+            "gamesense": 36,
+            "entryfrag": 80
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "alym__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0944,
+          "impactLo": -0.1445,
+          "impactHi": -0.0617,
+          "impactRank": 310,
+          "ovrRank": 133,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 28,
+            "gamesense": 36,
+            "entryfrag": 80
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "asuna__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0681,
+          "impactLo": 0.0315,
+          "impactHi": 0.1185,
+          "impactRank": 56,
+          "ovrRank": 178,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 68,
+            "gamesense": 88,
+            "entryfrag": 64
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "audaz__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0174,
+          "impactLo": -0.0575,
+          "impactHi": 0.02,
+          "impactRank": 187,
+          "ovrRank": 303,
+          "ovr": 77,
+          "combat": {
+            "stronghold": 66,
+            "gamesense": 81,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "babybay__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0749,
+          "impactLo": -0.121,
+          "impactHi": -0.0415,
+          "impactRank": 283,
+          "ovrRank": 115,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 66,
+            "gamesense": 59,
+            "entryfrag": 64
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "babybay__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0525,
+          "impactLo": -0.0925,
+          "impactHi": -0.02,
+          "impactRank": 251,
+          "ovrRank": 90,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 66,
+            "gamesense": 59,
+            "entryfrag": 64
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "bang__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0491,
+          "impactLo": 0.0143,
+          "impactHi": 0.092,
+          "impactRank": 81,
+          "ovrRank": 210,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 82,
+            "gamesense": 88,
+            "entryfrag": 43
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "bipo__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0405,
+          "impactLo": -0.0822,
+          "impactHi": -0.0053,
+          "impactRank": 225,
+          "ovrRank": 116,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 45,
+            "gamesense": 40,
+            "entryfrag": 55
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "blowz__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0914,
+          "impactLo": 0.0542,
+          "impactHi": 0.152,
+          "impactRank": 34,
+          "ovrRank": 259,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 93,
+            "entryfrag": 45
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "blowz__masters-l",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1497,
+          "impactLo": 0.1201,
+          "impactHi": 0.2174,
+          "impactRank": 5,
+          "ovrRank": 152,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 93,
+            "entryfrag": 45
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "boo__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0619,
+          "impactLo": 0.0322,
+          "impactHi": 0.099,
+          "impactRank": 64,
+          "ovrRank": 181,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 68,
+            "gamesense": 89,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "dantedeu5__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0115,
+          "impactLo": -0.0532,
+          "impactHi": 0.0282,
+          "impactRank": 177,
+          "ovrRank": 44,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 23,
+            "gamesense": 49,
+            "entryfrag": 71
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "dgzin__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0727,
+          "impactLo": 0.0346,
+          "impactHi": 0.1279,
+          "impactRank": 49,
+          "ovrRank": 230,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 48,
+            "gamesense": 33,
+            "entryfrag": 97
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "echo__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0,
+          "impactLo": -0.0416,
+          "impactHi": 0.0416,
+          "impactRank": 164,
+          "ovrRank": 58,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 57,
+            "gamesense": 44,
+            "entryfrag": 74
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "eeiu__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0029,
+          "impactLo": -0.0362,
+          "impactHi": 0.0424,
+          "impactRank": 159,
+          "ovrRank": 261,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 50,
+            "entryfrag": 56
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "eko__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0924,
+          "impactLo": -0.1392,
+          "impactHi": -0.0608,
+          "impactRank": 307,
+          "ovrRank": 185,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 49,
+            "gamesense": 60,
+            "entryfrag": 64
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "erv__champions-s",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0703,
+          "impactLo": 0.0326,
+          "impactHi": 0.1236,
+          "impactRank": 53,
+          "ovrRank": 186,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 77,
+            "gamesense": 93,
+            "entryfrag": 53
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "f0rsaken__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0,
+          "impactLo": -0.0451,
+          "impactHi": 0.0451,
+          "impactRank": 165,
+          "ovrRank": 26,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 79,
+            "entryfrag": 65
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "f0rsaken__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0059,
+          "impactLo": -0.042,
+          "impactHi": 0.0295,
+          "impactRank": 171,
+          "ovrRank": 19,
+          "ovr": 93,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 79,
+            "entryfrag": 65
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "f0rsaken__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0168,
+          "impactLo": -0.0279,
+          "impactHi": 0.0654,
+          "impactRank": 133,
+          "ovrRank": 10,
+          "ovr": 94,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 79,
+            "entryfrag": 65
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "flex1n__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0115,
+          "impactLo": -0.0282,
+          "impactHi": 0.0532,
+          "impactRank": 144,
+          "ovrRank": 262,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 55,
+            "gamesense": 86,
+            "entryfrag": 42
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "francis__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.049,
+          "impactLo": -0.0929,
+          "impactHi": -0.0133,
+          "impactRank": 242,
+          "ovrRank": 137,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 56,
+            "gamesense": 67,
+            "entryfrag": 66
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "hyunmin__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0372,
+          "impactLo": -0.0824,
+          "impactHi": 0.0012,
+          "impactRank": 217,
+          "ovrRank": 99,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 63,
+            "gamesense": 58,
+            "entryfrag": 76
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "iamgrq__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0636,
+          "impactLo": 0.0297,
+          "impactHi": 0.1078,
+          "impactRank": 62,
+          "ovrRank": 216,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 63,
+            "gamesense": 87,
+            "entryfrag": 47
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "invy__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0376,
+          "impactLo": 0.0016,
+          "impactHi": 0.0797,
+          "impactRank": 106,
+          "ovrRank": 231,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 82,
+            "entryfrag": 53
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "izu__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1167,
+          "impactLo": 0.0812,
+          "impactHi": 0.1876,
+          "impactRank": 15,
+          "ovrRank": 188,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 96,
+            "gamesense": 64,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "izu__masters-sdc",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1749,
+          "impactLo": 0.1482,
+          "impactHi": 0.2518,
+          "impactRank": 1,
+          "ovrRank": 60,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 96,
+            "gamesense": 64,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "jamppi__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0463,
+          "impactLo": -0.0884,
+          "impactHi": -0.0116,
+          "impactRank": 235,
+          "ovrRank": 121,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 59,
+            "gamesense": 73,
+            "entryfrag": 54
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "jawgemo__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0712,
+          "impactLo": -0.1064,
+          "impactHi": -0.0436,
+          "impactRank": 278,
+          "ovrRank": 122,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 56,
+            "entryfrag": 74
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jawgemo__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0285,
+          "impactLo": -0.0736,
+          "impactHi": 0.0111,
+          "impactRank": 201,
+          "ovrRank": 76,
+          "ovr": 89,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 56,
+            "entryfrag": 74
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jawgemo__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0435,
+          "impactLo": -0.0848,
+          "impactHi": -0.0089,
+          "impactRank": 230,
+          "ovrRank": 101,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 56,
+            "entryfrag": 74
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jinggg__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0174,
+          "impactLo": -0.0565,
+          "impactHi": 0.019,
+          "impactRank": 189,
+          "ovrRank": 77,
+          "ovr": 89,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 71,
+            "entryfrag": 70
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jinggg__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0117,
+          "impactLo": -0.0232,
+          "impactHi": 0.0482,
+          "impactRank": 138,
+          "ovrRank": 1,
+          "ovr": 95,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 71,
+            "entryfrag": 70
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "k1ra__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0727,
+          "impactLo": -0.1155,
+          "impactHi": -0.0408,
+          "impactRank": 279,
+          "ovrRank": 139,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 64,
+            "entryfrag": 62
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "kamo__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0668,
+          "impactLo": 0.0344,
+          "impactHi": 0.1094,
+          "impactRank": 57,
+          "ovrRank": 189,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 74,
+            "gamesense": 67,
+            "entryfrag": 85
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "killua__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.043,
+          "impactLo": 0.006,
+          "impactHi": 0.0877,
+          "impactRank": 94,
+          "ovrRank": 234,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 73,
+            "gamesense": 82,
+            "entryfrag": 54
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "kingg__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0795,
+          "impactLo": 0.0443,
+          "impactHi": 0.1307,
+          "impactRank": 43,
+          "ovrRank": 191,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 88,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "kingg__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0801,
+          "impactLo": 0.0461,
+          "impactHi": 0.1289,
+          "impactRank": 42,
+          "ovrRank": 159,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 88,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "koalanoob__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.029,
+          "impactLo": -0.0689,
+          "impactHi": 0.0064,
+          "impactRank": 202,
+          "ovrRank": 308,
+          "ovr": 77,
+          "combat": {
+            "stronghold": 30,
+            "gamesense": 38,
+            "entryfrag": 70
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "koalanoob__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0314,
+          "impactLo": -0.0763,
+          "impactHi": 0.0075,
+          "impactRank": 207,
+          "ovrRank": 46,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 30,
+            "gamesense": 38,
+            "entryfrag": 70
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "koshmaras__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0586,
+          "impactLo": -0.0976,
+          "impactHi": -0.0274,
+          "impactRank": 264,
+          "ovrRank": 102,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 68,
+            "entryfrag": 75
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "lakia__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0402,
+          "impactLo": -0.0842,
+          "impactHi": -0.0033,
+          "impactRank": 224,
+          "ovrRank": 330,
+          "ovr": 71,
+          "combat": {
+            "stronghold": 54,
+            "gamesense": 82,
+            "entryfrag": 40
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "lar0k__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0201,
+          "impactLo": -0.062,
+          "impactHi": 0.0183,
+          "impactRank": 194,
+          "ovrRank": 47,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 67,
+            "gamesense": 55,
+            "entryfrag": 73
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "leaf__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0326,
+          "impactLo": -0.066,
+          "impactHi": -0.0027,
+          "impactRank": 211,
+          "ovrRank": 80,
+          "ovr": 89,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "leaf__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0189,
+          "impactLo": -0.0577,
+          "impactHi": 0.0171,
+          "impactRank": 192,
+          "ovrRank": 29,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "leaf__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.029,
+          "impactLo": -0.0689,
+          "impactHi": 0.0064,
+          "impactRank": 203,
+          "ovrRank": 48,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "leaf__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0318,
+          "impactLo": -0.0735,
+          "impactHi": 0.0047,
+          "impactRank": 209,
+          "ovrRank": 62,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "loita__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0658,
+          "impactLo": 0.0306,
+          "impactHi": 0.1132,
+          "impactRank": 61,
+          "ovrRank": 250,
+          "ovr": 81,
+          "combat": {
+            "stronghold": 71,
+            "gamesense": 89,
+            "entryfrag": 56
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "lovers-rock__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0309,
+          "impactLo": -0.0805,
+          "impactHi": 0.0118,
+          "impactRank": 206,
+          "ovrRank": 30,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 62,
+            "gamesense": 45,
+            "entryfrag": 78
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "lysoar__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0201,
+          "impactLo": -0.0183,
+          "impactHi": 0.062,
+          "impactRank": 125,
+          "ovrRank": 238,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 79,
+            "gamesense": 86,
+            "entryfrag": 43
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "mako__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0853,
+          "impactLo": 0.0507,
+          "impactHi": 0.1368,
+          "impactRank": 38,
+          "ovrRank": 141,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 89,
+            "entryfrag": 54
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "marteen__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0866,
+          "impactLo": 0.0544,
+          "impactHi": 0.1331,
+          "impactRank": 37,
+          "ovrRank": 195,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 85,
+            "gamesense": 78,
+            "entryfrag": 86
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "meteor__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0057,
+          "impactLo": -0.0469,
+          "impactHi": 0.0344,
+          "impactRank": 169,
+          "ovrRank": 31,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 67,
+            "gamesense": 54,
+            "entryfrag": 79
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "minny__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0116,
+          "impactLo": -0.0513,
+          "impactHi": 0.0263,
+          "impactRank": 178,
+          "ovrRank": 51,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 47,
+            "gamesense": 53,
+            "entryfrag": 70
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "munchkin__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1152,
+          "impactLo": 0.0823,
+          "impactHi": 0.1739,
+          "impactRank": 16,
+          "ovrRank": 142,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 69,
+            "gamesense": 92,
+            "entryfrag": 40
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "mwzera__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0086,
+          "impactLo": -0.0514,
+          "impactHi": 0.0327,
+          "impactRank": 172,
+          "ovrRank": 323,
+          "ovr": 74,
+          "combat": {
+            "stronghold": 79,
+            "gamesense": 75,
+            "entryfrag": 46
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "neon__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1174,
+          "impactLo": 0.0843,
+          "impactHi": 0.1782,
+          "impactRank": 13,
+          "ovrRank": 220,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "neon__future-star",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1537,
+          "impactLo": 0.1237,
+          "impactHi": 0.2326,
+          "impactRank": 4,
+          "ovrRank": 21,
+          "ovr": 93,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "neon__masters-l",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1612,
+          "impactLo": 0.1331,
+          "impactHi": 0.2294,
+          "impactRank": 2,
+          "ovrRank": 22,
+          "ovr": 93,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "nicc__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0455,
+          "impactLo": 0.007,
+          "impactHi": 0.093,
+          "impactRank": 89,
+          "ovrRank": 221,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 73,
+            "gamesense": 89,
+            "entryfrag": 42
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "oxy__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0853,
+          "impactLo": 0.0507,
+          "impactHi": 0.1368,
+          "impactRank": 39,
+          "ovrRank": 143,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 52,
+            "gamesense": 49,
+            "entryfrag": 99
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "patmen__record-breaker",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0087,
+          "impactLo": -0.0486,
+          "impactHi": 0.0299,
+          "impactRank": 173,
+          "ovrRank": 33,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 64,
+            "entryfrag": 73
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "primmie__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0984,
+          "impactLo": 0.0638,
+          "impactHi": 0.1549,
+          "impactRank": 25,
+          "ovrRank": 166,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 85,
+            "gamesense": 61,
+            "entryfrag": 95
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "rb__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0099,
+          "impactLo": -0.0338,
+          "impactHi": 0.0557,
+          "impactRank": 147,
+          "ovrRank": 281,
+          "ovr": 79,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 87,
+            "entryfrag": 42
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "rb__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0519,
+          "impactLo": 0.017,
+          "impactHi": 0.0955,
+          "impactRank": 74,
+          "ovrRank": 198,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 87,
+            "entryfrag": 42
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "reduxx__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0256,
+          "impactLo": -0.071,
+          "impactHi": 0.0147,
+          "impactRank": 198,
+          "ovrRank": 66,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 62,
+            "gamesense": 70,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "ruxic__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.073,
+          "impactLo": 0.0354,
+          "impactHi": 0.1271,
+          "impactRank": 48,
+          "ovrRank": 168,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 86,
+            "entryfrag": 58
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "sato__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0376,
+          "impactLo": 0.0016,
+          "impactHi": 0.0797,
+          "impactRank": 107,
+          "ovrRank": 6,
+          "ovr": 95,
+          "combat": {
+            "stronghold": 75,
+            "gamesense": 80,
+            "entryfrag": 80
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "sayonara__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0763,
+          "impactLo": 0.0398,
+          "impactHi": 0.1289,
+          "impactRank": 45,
+          "ovrRank": 200,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 88,
+            "gamesense": 69,
+            "entryfrag": 62
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "seven__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0373,
+          "impactLo": -0.0815,
+          "impactHi": 0.0003,
+          "impactRank": 218,
+          "ovrRank": 104,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 21,
+            "gamesense": 51,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "ssees__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0405,
+          "impactLo": -0.0822,
+          "impactHi": -0.0053,
+          "impactRank": 226,
+          "ovrRank": 331,
+          "ovr": 70,
+          "combat": {
+            "stronghold": 58,
+            "gamesense": 84,
+            "entryfrag": 34
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "stax__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0143,
+          "impactLo": -0.0264,
+          "impactHi": 0.0576,
+          "impactRank": 136,
+          "ovrRank": 253,
+          "ovr": 81,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 83,
+            "entryfrag": 40
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "stax__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0486,
+          "impactLo": 0.0115,
+          "impactHi": 0.0948,
+          "impactRank": 84,
+          "ovrRank": 224,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 83,
+            "entryfrag": 40
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "supamen__base",
+          "flag": "OUTLIER_LOW",
+          "impactShrunk": -0.1498,
+          "impactLo": -0.21,
+          "impactHi": -0.1213,
+          "impactRank": 330,
+          "ovrRank": 321,
+          "ovr": 75,
+          "combat": {
+            "stronghold": 53,
+            "gamesense": 60,
+            "entryfrag": 59
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "tenten__base",
+          "flag": "OUTLIER_LOW",
+          "impactShrunk": -0.1563,
+          "impactLo": -0.2151,
+          "impactHi": -0.1287,
+          "impactRank": 331,
+          "ovrRank": 324,
+          "ovr": 74,
+          "combat": {
+            "stronghold": 14,
+            "gamesense": 27,
+            "entryfrag": 60
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "timotino__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0575,
+          "impactLo": 0.0224,
+          "impactHi": 0.1026,
+          "impactRank": 67,
+          "ovrRank": 205,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 46,
+            "gamesense": 48,
+            "entryfrag": 95
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "v1c__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0993,
+          "impactLo": 0.0627,
+          "impactHi": 0.1623,
+          "impactRank": 24,
+          "ovrRank": 243,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 56,
+            "gamesense": 96,
+            "entryfrag": 50
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "veqaj__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0689,
+          "impactLo": 0.0342,
+          "impactHi": 0.1158,
+          "impactRank": 55,
+          "ovrRank": 268,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 83,
+            "gamesense": 82,
+            "entryfrag": 74
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "verno__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1097,
+          "impactLo": 0.074,
+          "impactHi": 0.176,
+          "impactRank": 20,
+          "ovrRank": 174,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 89,
+            "gamesense": 82,
+            "entryfrag": 50
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "vo0kashu__masters-l",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1564,
+          "impactLo": 0.1272,
+          "impactHi": 0.229,
+          "impactRank": 3,
+          "ovrRank": 42,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 68,
+            "entryfrag": 62
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "vora__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0116,
+          "impactLo": -0.0503,
+          "impactHi": 0.0253,
+          "impactRank": 180,
+          "ovrRank": 314,
+          "ovr": 77,
+          "combat": {
+            "stronghold": 79,
+            "gamesense": 74,
+            "entryfrag": 44
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "wayne__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0486,
+          "impactLo": -0.0948,
+          "impactHi": -0.0115,
+          "impactRank": 240,
+          "ovrRank": 70,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 58,
+            "gamesense": 74,
+            "entryfrag": 47
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "xross__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0451,
+          "impactLo": 0.0053,
+          "impactHi": 0.0947,
+          "impactRank": 90,
+          "ovrRank": 318,
+          "ovr": 76,
+          "combat": {
+            "stronghold": 87,
+            "gamesense": 78,
+            "entryfrag": 52
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "xross__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0552,
+          "impactLo": 0.0216,
+          "impactHi": 0.0971,
+          "impactRank": 70,
+          "ovrRank": 208,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 87,
+            "gamesense": 78,
+            "entryfrag": 52
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "zekken__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0514,
+          "impactLo": -0.0983,
+          "impactHi": -0.0142,
+          "impactRank": 246,
+          "ovrRank": 113,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 59,
+            "gamesense": 65,
+            "entryfrag": 71
+          },
+          "role": "Controlador"
+        }
+      ],
+      "rankMismatch": 24
+    },
+    "roles": [
+      {
+        "role": "Duelista",
+        "cards": 73,
+        "players": 48,
+        "meanOvr": 87.49,
+        "meanStronghold": 54.53,
+        "meanGamesense": 51.62,
+        "meanEntryfrag": 80.48,
+        "meanCombatSum": 186.63,
+        "meanPeak": 80.77,
+        "top10pctCombat": 5,
+        "meanImpact": -0.0024,
+        "impactSd": 0.0636,
+        "attackWinRate": 0.7483,
+        "defenseWinRate": 0.2611
+      },
+      {
+        "role": "Controlador",
+        "cards": 61,
+        "players": 43,
+        "meanOvr": 83.62,
+        "meanStronghold": 65.66,
+        "meanGamesense": 78.26,
+        "meanEntryfrag": 49.74,
+        "meanCombatSum": 193.66,
+        "meanPeak": 79.64,
+        "top10pctCombat": 4,
+        "meanImpact": 0.0016,
+        "impactSd": 0.0623,
+        "attackWinRate": 0.7248,
+        "defenseWinRate": 0.3257
+      },
+      {
+        "role": "Iniciador",
+        "cards": 63,
+        "players": 40,
+        "meanOvr": 82.52,
+        "meanStronghold": 71.24,
+        "meanGamesense": 71.05,
+        "meanEntryfrag": 48.81,
+        "meanCombatSum": 191.1,
+        "meanPeak": 75.97,
+        "top10pctCombat": 8,
+        "meanImpact": -0.001,
+        "impactSd": 0.0733,
+        "attackWinRate": 0.719,
+        "defenseWinRate": 0.2741
+      },
+      {
+        "role": "Centinela",
+        "cards": 64,
+        "players": 45,
+        "meanOvr": 84.72,
+        "meanStronghold": 69.8,
+        "meanGamesense": 58.48,
+        "meanEntryfrag": 61.73,
+        "meanCombatSum": 190.02,
+        "meanPeak": 74.98,
+        "top10pctCombat": 6,
+        "meanImpact": 0.0001,
+        "impactSd": 0.0635,
+        "attackWinRate": 0.7038,
+        "defenseWinRate": 0.2513
+      },
+      {
+        "role": "Flex",
+        "cards": 70,
+        "players": 52,
+        "meanOvr": 85.44,
+        "meanStronghold": 62.94,
+        "meanGamesense": 61.89,
+        "meanEntryfrag": 67.47,
+        "meanCombatSum": 192.3,
+        "meanPeak": 75.7,
+        "top10pctCombat": 11,
+        "meanImpact": -0.0002,
+        "impactSd": 0.0695,
+        "attackWinRate": 0.6978,
+        "defenseWinRate": 0.2948
+      }
+    ]
+  }
+}

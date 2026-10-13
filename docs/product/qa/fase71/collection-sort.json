@@ -1,0 +1,85 @@
+{
+  "steps": [
+    {
+      "sort": "ovr-desc",
+      "url": "",
+      "count": 20,
+      "ovrs": [
+        95,
+        95,
+        95,
+        95,
+        95,
+        95,
+        95,
+        95
+      ]
+    },
+    {
+      "sort": "ovr-asc",
+      "url": "?orden=ovr-asc",
+      "count": 20,
+      "ovrs": [
+        70,
+        71,
+        71,
+        72,
+        72,
+        72,
+        73,
+        74
+      ]
+    },
+    {
+      "sort": "rarity",
+      "url": "?orden=rarity",
+      "count": 20,
+      "ovrs": [
+        95,
+        95,
+        92,
+        95,
+        95,
+        94,
+        93,
+        92
+      ]
+    },
+    {
+      "sort": "copies",
+      "url": "?orden=copies",
+      "count": 20,
+      "ovrs": [
+        95,
+        92,
+        90,
+        86,
+        84,
+        84,
+        82,
+        80
+      ]
+    }
+  ],
+  "options": [
+    "OVR (mayor primero)",
+    "OVR (menor primero)",
+    "Rareza",
+    "Copias"
+  ],
+  "ownership": [
+    "TODAS",
+    "POSEÍDAS",
+    "NO CONSEGUIDAS"
+  ],
+  "legacyPlayer": {
+    "value": "ovr-desc",
+    "error": false
+  },
+  "legacyTeam": {
+    "value": "ovr-desc",
+    "error": false
+  },
+  "errors": [],
+  "ok": true
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "width": 1440,
+    "name": "4-mitad-caminata",
+    "t": "5.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "518",
+    "file": "base-WALKOUT-4-mitad-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7-ovr",
+    "t": "8.95",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "497",
+    "file": "base-WALKOUT-7-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "11.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "498",
+    "file": "base-WALKOUT-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

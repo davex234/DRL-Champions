@@ -1,0 +1,67 @@
+{
+  "phase": "PRE-F70",
+  "harness": {
+    "script": "scripts/ops/offsite-harness.sh",
+    "where": "VPS, directorio temporal mktemp (077) borrado al terminar; destino SIMULADO = backend local de rclone montado en el contenedor",
+    "run": "2026-09-28T13:29Z–13:35Z (quinta ejecución; las cuatro anteriores destaparon 3 defectos reales, ver design.json)",
+    "cases": 52,
+    "pass": 52,
+    "raw": "raw/harness-run.txt"
+  },
+  "cases": {
+    "partial-transfer": {
+      "result": "PASS",
+      "detail": "exit=1 failedAt={\"stage\":\"verify\",\"at\":\"2026-09-28T13:29:45Z\",\"exit\":1} remoteMarker=no"
+    },
+    "local-intact-after-failure": {
+      "result": "PASS",
+      "detail": "la unidad local sigue válida tras el fallo"
+    },
+    "verify-partial-fails": {
+      "result": "PASS",
+      "detail": "exit=1"
+    },
+    "abort-before-marker": {
+      "result": "PASS",
+      "detail": "exit=1 (copia completa pero SIN marcador → no válida)"
+    },
+    "verify-no-marker-fails": {
+      "result": "PASS",
+      "detail": "exit=1"
+    },
+    "status-records-failure": {
+      "result": "PASS",
+      "detail": "failed 20260102T000000Z 2026-09-28T13:29:50Z verify"
+    },
+    "network-timeout": {
+      "result": "PASS",
+      "detail": "exit=1 secs=191 failed={\"stage\":\"upload\",\"at\":\"2026-09-28T13:33:16Z\",\"exit\":1} localValid=yes"
+    },
+    "destination-refused": {
+      "result": "PASS",
+      "detail": "exit=1 secs=3 failed={\"stage\":\"upload\",\"at\":\"2026-09-28T13:33:19Z\",\"exit\":1} localValid=yes"
+    },
+    "wrong-credentials": {
+      "result": "PASS",
+      "detail": "exit=1 secs=2 failed={\"stage\":\"upload\",\"at\":\"2026-09-28T13:33:21Z\",\"exit\":1} localValid=yes"
+    },
+    "remote-disk-full": {
+      "result": "PASS",
+      "detail": "exit=1 failed={\"stage\":\"upload\",\"at\":\"2026-09-28T13:33:24Z\",\"exit\":1}"
+    },
+    "no-credential-leak": {
+      "result": "PASS",
+      "detail": "log y marcadores sin claves, contraseñas (en claro u ofuscadas) ni material privado"
+    },
+    "log-has-no-destination": {
+      "result": "PASS",
+      "detail": "el registro nombra el remoto (nombre:) y el tipo, no el endpoint ni la ruta"
+    }
+  },
+  "notes": {
+    "network": "s3 hacia 10.255.255.1 (sin ruta) con claves falsas: FALLA en la subida a los 191 s con contimeout 3s (reintentos de rclone); con los 15 s por defecto tardará más, acotado por los timeouts de rclone",
+    "wrongCredentials": "sftp contra el sshd real del VPS (127.0.0.1:22) con usuario inexistente y contraseña aleatoria: rechazado en 2 s, sin credenciales en el registro",
+    "diskFull": "destino en tmpfs de 512 KB: ENOSPC en la subida; nada marcado",
+    "production": "ninguna prueba toca la configuración, los backups ni el disco de producción; todo en /tmp del arnés"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "at": "2026-09-30T15:36:44.404Z",
+  "productionCheck": {
+    "exit": 0,
+    "summary": "17 PASS · 0 WARN · 0 FAIL",
+    "lines": [
+      "PASS env                    OPTIONAL ANTHROPIC_API_KEY: falta: predicciones con heurística · OPTIONAL NEXT_PUBLIC_VLR_API: falta: fuente VLR desactivada",
+      "PASS node                   v24.15.0 (engines >=22.12.0 <25, recomendado 24.15.0)",
+      "PASS build                  BUILD_ID drl-0.1.1-1-d78ae907 = huella del código actual",
+      "PASS migrations             59 ficheros, última 0059_crafting_missions.sql (esperada 0059_crafting_missions)",
+      "PASS migrations-startup     la app NO aplica migraciones al arrancar",
+      "PASS flags                  GLOBAL_MARKET_ENABLED=false PAYMENTS_ENABLED=false (constantes de código, no conmutables desde el cliente)",
+      "PASS catalog                331 cartas en código",
+      "PASS card-art               331/331 imágenes presentes",
+      "PASS agent-art              29 agentes, sin carpeta de arte: ninguno",
+      "PASS pack-art               32 sobres, 19 con arte, rotos: ninguno",
+      "PASS maps                   13 entradas en public/maps",
+      "PASS security-headers       CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP, HSTS, sin X-Powered-By",
+      "PASS edge-guards            tamaño de cuerpo, arneses QA ocultos, x-request-id",
+      "PASS robots                 beta cerrada: noindex",
+      "PASS sharp                  sharp es dependencia directa",
+      "PASS client-secrets         ningún secreto del servidor en .next/static ni public/",
+      "PASS source-maps            sin source maps públicos del navegador"
+    ]
+  },
+  "smoke": {
+    "exit": 0,
+    "summary": "74/74 OK"
+  }
+}

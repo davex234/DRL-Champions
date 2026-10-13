@@ -1,0 +1,768 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generado": "2026-09-22T21:34:54.633Z",
+  "filas": [
+    {
+      "escena": "01-tienda-1440",
+      "total": 9,
+      "fondos": 0,
+      "rotas": [],
+      "packs": [
+        "pack-champions.webp",
+        "pack-estandar.webp",
+        "pack-masters.webp",
+        "pack-oro.webp",
+        "pack-premium.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.80",
+        "0.68",
+        "0.74"
+      ],
+      "fit": [
+        "fill"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "02-tienda-390",
+      "total": 9,
+      "fondos": 0,
+      "rotas": [],
+      "packs": [
+        "pack-champions.webp",
+        "pack-estandar.webp",
+        "pack-masters.webp",
+        "pack-oro.webp",
+        "pack-premium.webp"
+      ],
+      "sinCargar": 6,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.80",
+        "0.68",
+        "0.74"
+      ],
+      "fit": [
+        "fill"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "03-catalogo-sobres",
+      "total": 22,
+      "fondos": 22,
+      "rotas": [],
+      "packs": [
+        "pack-americas.webp",
+        "pack-champions.webp",
+        "pack-china.webp",
+        "pack-emea.webp",
+        "pack-estandar.webp",
+        "pack-ewc.webp",
+        "pack-icon.webp",
+        "pack-inicial.webp",
+        "pack-masters.webp",
+        "pack-oro.webp",
+        "pack-pacific.webp",
+        "pack-premium.webp",
+        "pack-team-fnatic.webp",
+        "pack-team-g2.webp",
+        "pack-team-heretics.webp",
+        "pack-team-karmine.webp",
+        "pack-team-liquid.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "03b-equipos-1440",
+      "total": 10,
+      "fondos": 10,
+      "rotas": [],
+      "packs": [
+        "pack-emea.webp",
+        "pack-estandar.webp",
+        "pack-inicial.webp",
+        "pack-team-fnatic.webp",
+        "pack-team-g2.webp",
+        "pack-team-heretics.webp",
+        "pack-team-karmine.webp",
+        "pack-team-liquid.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "03c-equipos-390",
+      "total": 10,
+      "fondos": 10,
+      "rotas": [],
+      "packs": [
+        "pack-emea.webp",
+        "pack-estandar.webp",
+        "pack-inicial.webp",
+        "pack-team-fnatic.webp",
+        "pack-team-g2.webp",
+        "pack-team-heretics.webp",
+        "pack-team-karmine.webp",
+        "pack-team-liquid.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "03d-equipos-1024",
+      "total": 10,
+      "fondos": 10,
+      "rotas": [],
+      "packs": [
+        "pack-emea.webp",
+        "pack-estandar.webp",
+        "pack-inicial.webp",
+        "pack-team-fnatic.webp",
+        "pack-team-g2.webp",
+        "pack-team-heretics.webp",
+        "pack-team-karmine.webp",
+        "pack-team-liquid.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "24-gama-base-1440",
+      "total": 10,
+      "fondos": 10,
+      "rotas": [],
+      "packs": [
+        "pack-emea.webp",
+        "pack-estandar.webp",
+        "pack-icon.webp",
+        "pack-inicial.webp",
+        "pack-oro.webp",
+        "pack-premium.webp",
+        "pack-team-heretics.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "25-gama-base-1024",
+      "total": 10,
+      "fondos": 10,
+      "rotas": [],
+      "packs": [
+        "pack-emea.webp",
+        "pack-estandar.webp",
+        "pack-icon.webp",
+        "pack-inicial.webp",
+        "pack-oro.webp",
+        "pack-premium.webp",
+        "pack-team-heretics.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "26-gama-base-390",
+      "total": 10,
+      "fondos": 10,
+      "rotas": [],
+      "packs": [
+        "pack-emea.webp",
+        "pack-estandar.webp",
+        "pack-icon.webp",
+        "pack-inicial.webp",
+        "pack-oro.webp",
+        "pack-premium.webp",
+        "pack-team-heretics.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "31-ficha-inicial",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-inicial.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "32-ficha-inicial-390",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-inicial.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "27-ficha-bronce",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-estandar.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "28-ficha-plata",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-premium.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "29-ficha-oro",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-oro.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "30-ficha-oro-390",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-oro.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "22-ficha-g2",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-team-g2.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "23-ficha-g2-390",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-team-g2.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "19-ficha-liquid",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-team-liquid.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "20-ficha-karmine",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-team-karmine.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "21-ficha-ewc",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-ewc.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "04-ficha-champions",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-champions.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "05-ficha-icon",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-icon.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "06-ficha-masters-390",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-masters.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "07-ficha-emea",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-emea.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "08-ficha-china",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-china.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "09-temporada",
+      "total": 0,
+      "fondos": 0,
+      "rotas": [],
+      "packs": [],
+      "sinCargar": 0,
+      "proporciones": [],
+      "render": [],
+      "fit": [],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "10-eventos",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-masters.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.68"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "12-temporada-recompensas",
+      "total": 2,
+      "fondos": 0,
+      "rotas": [],
+      "packs": [
+        "pack-estandar.webp",
+        "pack-premium.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69"
+      ],
+      "fit": [
+        "contain"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "13-temporada-carril",
+      "total": 10,
+      "fondos": 0,
+      "rotas": [],
+      "packs": [
+        "pack-estandar.webp",
+        "pack-premium.webp"
+      ],
+      "sinCargar": 6,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.69",
+        "0.68"
+      ],
+      "fit": [
+        "contain",
+        "fill"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "14-apertura-sobre",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-estandar.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.70"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "15-apertura-premium",
+      "total": 1,
+      "fondos": 1,
+      "rotas": [],
+      "packs": [
+        "pack-premium.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.70"
+      ],
+      "fit": [
+        "cover"
+      ],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "16-apertura-corte",
+      "total": 0,
+      "fondos": 0,
+      "rotas": [],
+      "packs": [],
+      "sinCargar": 0,
+      "proporciones": [],
+      "render": [],
+      "fit": [],
+      "errores": 0,
+      "muestra": []
+    },
+    {
+      "escena": "11-compra-champions",
+      "total": 10,
+      "fondos": 0,
+      "rotas": [],
+      "packs": [
+        "pack-champions.webp",
+        "pack-estandar.webp",
+        "pack-masters.webp",
+        "pack-oro.webp",
+        "pack-premium.webp"
+      ],
+      "sinCargar": 0,
+      "proporciones": [
+        "0.684"
+      ],
+      "render": [
+        "0.80",
+        "0.68",
+        "0.74"
+      ],
+      "fit": [
+        "fill"
+      ],
+      "errores": 0,
+      "muestra": []
+    }
+  ],
+  "erroresDeArte": []
+}

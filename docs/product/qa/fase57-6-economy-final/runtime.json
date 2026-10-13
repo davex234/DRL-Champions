@@ -1,0 +1,148 @@
+{
+ "date": "2026-09-24",
+ "server": {
+  "url": "http://localhost:3005",
+  "pid": 33016,
+  "cmd": "node node_modules/next/dist/bin/next start -p 3005",
+  "apiGameState": 401,
+  "build": "PASS"
+ },
+ "tunnel": {
+  "rest54521": 200,
+  "note": "túnel SSH levantado en F57.5B, no tocado"
+ },
+ "chromeUserSession": {
+  "packsPrices": "EMEA/Americas/Pacific y 5 Team 3.500; China 3.000; Bronce 1.000 · Plata 2.500 · Oro 4.000 · Icon 12.500 · Masters 5.000 · Champions 8.000 · EWC 6.000",
+  "tienda": "renderiza (sobres principales 1.000/2.500/4.000/8.000)",
+  "inventario": "Desguazar 11 · 4.830 (servidor, sin cambios) + texto 6 %",
+  "balance": "943.575 antes y después",
+  "duplicates": "11 antes y después",
+  "economicActions": "ninguna"
+ },
+ "headlessLocalMode": {
+  "profile": "temporal, sin sesión",
+  "seeded": "3× xross__future-star + 2× mada__moments en localStorage del perfil temporal",
+  "expectedLocalSalvage": 3900,
+  "shownButton": [
+   "DESGUAZAR 3 · 🪙 3.900"
+  ],
+  "oldQuickSellWouldPay": "≈51.760 (80 %)",
+  "results": {
+   "expectedLocalSalvage": 3900,
+   "tienda-1440": {
+    "scrollX": 0,
+    "prices": [],
+    "desguace": [],
+    "texto6": false,
+    "vender": false,
+    "errors": []
+   },
+   "packs-1440": {
+    "scrollX": 0,
+    "prices": [
+     "5.000 créditos",
+     "3.500 créditos",
+     "1.000 créditos",
+     "3.500 créditos",
+     "1.000créditos",
+     "2.500créditos",
+     "4.000créditos",
+     "12.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.000créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "5.000créditos",
+     "8.000créditos",
+     "6.000créditos"
+    ],
+    "desguace": [],
+    "texto6": false,
+    "vender": false,
+    "errors": []
+   },
+   "inventario-1440": {
+    "scrollX": 0,
+    "prices": [],
+    "desguace": [
+     "DESGUAZAR 3 · 🪙 3.900"
+    ],
+    "texto6": true,
+    "vender": false,
+    "errors": []
+   },
+   "coleccion-1440": {
+    "scrollX": 0,
+    "prices": [],
+    "desguace": [],
+    "texto6": false,
+    "vender": false,
+    "errors": []
+   },
+   "tienda-390": {
+    "scrollX": 0,
+    "prices": [],
+    "desguace": [],
+    "texto6": false,
+    "vender": false,
+    "errors": []
+   },
+   "packs-390": {
+    "scrollX": 0,
+    "prices": [
+     "5.000 créditos",
+     "3.500 créditos",
+     "1.000 créditos",
+     "3.500 créditos",
+     "1.000créditos",
+     "2.500créditos",
+     "4.000créditos",
+     "12.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.000créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "3.500créditos",
+     "5.000créditos",
+     "8.000créditos",
+     "6.000créditos"
+    ],
+    "desguace": [],
+    "texto6": false,
+    "vender": false,
+    "errors": []
+   },
+   "inventario-390": {
+    "scrollX": 0,
+    "prices": [],
+    "desguace": [
+     "DESGUAZAR 3 · 🪙 3.900"
+    ],
+    "texto6": true,
+    "vender": false,
+    "errors": []
+   },
+   "coleccion-390": {
+    "scrollX": 0,
+    "prices": [],
+    "desguace": [],
+    "texto6": false,
+    "vender": false,
+    "errors": []
+   }
+  }
+ },
+ "qaToolingIssues": [
+  "Chrome (extensión): las capturas justo tras navegar muestran el velo de transición de ruta; con scroll/espera la página se ve completa. No es un bug de producto: el texto (get_page_text) y el headless muestran el contenido.",
+  "Chrome (extensión): resize_window a 390 px no aplica al estar la ventana controlada por el usuario; 390 px verificado en headless."
+ ]
+}

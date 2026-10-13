@@ -1,0 +1,7 @@
+PASS db credit_transactions
+PASS db _ledger_apply
+PASS db season_xp_ledger
+PASS db duel_pvp_ratings (permitida)
+PASS ts ./packs
+PASS ts @/server/services/seasonTrack
+PASS ts ./progression (lectura, permitida)

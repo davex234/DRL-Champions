@@ -1,0 +1,214 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "actor": "QA C",
+  "victim": "QA B",
+  "restBefore": {
+    "selectAllOfB": {
+      "status": 200,
+      "rows": 1,
+      "columns": [
+        "avatar",
+        "collection_value",
+        "created_at",
+        "credits",
+        "distinct_cards",
+        "equipped",
+        "id",
+        "is_admin",
+        "last_seen_at",
+        "level",
+        "market_volume",
+        "packs_opened",
+        "points",
+        "rarest_rank",
+        "region",
+        "taxes_paid",
+        "tokens",
+        "updated_at",
+        "username",
+        "xp"
+      ],
+      "code": null
+    },
+    "publicOfB": {
+      "status": 200,
+      "rows": 1,
+      "columns": [
+        "avatar",
+        "id",
+        "level",
+        "points",
+        "region",
+        "username"
+      ],
+      "code": null
+    },
+    "creditsOfB": {
+      "status": 200,
+      "rows": 1,
+      "columns": [
+        "credits"
+      ],
+      "code": null
+    },
+    "isAdminOfB": {
+      "status": 200,
+      "rows": 1,
+      "columns": [
+        "is_admin"
+      ],
+      "code": null
+    },
+    "lastSeenOfB": {
+      "status": 200,
+      "rows": 1,
+      "columns": [
+        "last_seen_at"
+      ],
+      "code": null
+    },
+    "xpOfB": {
+      "status": 200,
+      "rows": 1,
+      "columns": [
+        "xp"
+      ],
+      "code": null
+    },
+    "countByPoints": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "id"
+      ],
+      "code": null
+    }
+  },
+  "restAfter": {
+    "selectAllOfB": {
+      "status": 403,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "publicOfB": {
+      "status": 200,
+      "rows": 1,
+      "columns": [
+        "avatar",
+        "id",
+        "level",
+        "points",
+        "region",
+        "username"
+      ],
+      "code": null
+    },
+    "creditsOfB": {
+      "status": 403,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "isAdminOfB": {
+      "status": 403,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "lastSeenOfB": {
+      "status": 403,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "xpOfB": {
+      "status": 403,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "countByPoints": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "id"
+      ],
+      "code": null
+    }
+  },
+  "publicFieldsAvailable": [
+    "id",
+    "username",
+    "avatar",
+    "level",
+    "points",
+    "region"
+  ],
+  "privateFieldsBlocked": [
+    "credits",
+    "xp",
+    "is_admin",
+    "last_seen_at",
+    "equipped",
+    "tokens",
+    "taxes_paid",
+    "collection_value",
+    "distinct_cards",
+    "rarest_rank",
+    "market_volume",
+    "packs_opened",
+    "created_at",
+    "updated_at"
+  ],
+  "gameTables": "smoke 74/74: C lee 0 filas de B en user_cards, user_game, user_pass, user_packs, credit_transactions, economy_ops, duel_decks, duel_matches, user_achievements, game_state, duel_pvp_queue, duel_active_deck, user_sanctions, payments",
+  "securitySmoke": {
+    "file": "raw/security-after.json",
+    "pass": 22,
+    "fail": 0,
+    "probes": [
+      "PASS cruce: C no ve la partida PvE de B",
+      "PASS IDOR: B no puede leer una partida ranked ajena (404 idéntico a inexistente)",
+      "PASS replay propio accesible (control)",
+      "PASS replay ajeno: C no ve la repetición de B",
+      "PASS admin: /api/admin/overview rechazado a un usuario normal",
+      "PASS admin: /api/admin/system rechazado a un usuario normal",
+      "PASS admin: /api/admin/cms/cards rechazado a un usuario normal",
+      "PASS recompensa falsa: misión sin completar → rechazada",
+      "PASS recompensa falsa: logro sin completar → rechazado",
+      "PASS recompensa falsa: nivel 30 del pase → rechazado",
+      "PASS tienda: precio del cliente → «Campo no permitido»",
+      "PASS créditos: cantidad del cliente → rechazada",
+      "PASS sobres: abrir un sobre que no se tiene → rechazado",
+      "PASS recompensa falsa: saldo, XP e inventario de H sin cambios",
+      "PASS REST: C no lee user_cards de B",
+      "PASS REST: C no lee user_packs de B",
+      "PASS REST: C no lee credit_transactions de B",
+      "PASS REST: C no lee user_game de B",
+      "PASS REST: C no lee duel_decks de B",
+      "PASS REST: C no lee user_pass de B",
+      "PASS REST: C no lee economy_ops de B",
+      "PASS las sondas no cambiaron nada en B ni en C"
+    ]
+  },
+  "api": {
+    "publicProfileOfB_byC": {
+      "status": 200,
+      "privateKeys": [],
+      "keyCount": 41
+    },
+    "publicProfileOfB_anon": {
+      "status": 200,
+      "privateKeys": [],
+      "keyCount": 37
+    },
+    "socialOfB_byC": {
+      "status": 200,
+      "privateKeys": [],
+      "keyCount": 28
+    },
+    "note": "privateKeys = claves privadas CON VALOR en la respuesta; lastSeenAt aparece como clave pero null (relación NONE), según el contrato F69"
+  },
+  "privilegeEscalation": "smoke §escalation 11/11: créditos, is_admin, xp/nivel, renombrar a otro, insertarse cartas, apunte de libro, ganar partida, borrar perfil ajeno → 403 filas=0; API de créditos con campos extra → 400; RPC de recompensa/admin como usuario → 404. security smoke: recompensa/misión/logro/nivel falsos, precio y sobre falsos rechazados; saldo/XP/inventario de H sin cambios",
+  "status": "PASS"
+}

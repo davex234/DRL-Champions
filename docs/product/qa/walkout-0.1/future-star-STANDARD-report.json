@@ -1,0 +1,68 @@
+[
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "0-pack",
+    "t": "0.30",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-STANDARD-motion-0-pack-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "A-darkness",
+    "t": "0.65",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-STANDARD-motion-A-darkness-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "F-ovr",
+    "t": "1.25",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-STANDARD-motion-F-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "G-player",
+    "t": "1.80",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-STANDARD-motion-G-player-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "H-final",
+    "t": "2.60",
+    "stage": "3d",
+    "status": "done",
+    "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+    "file": "future-star-STANDARD-motion-H-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

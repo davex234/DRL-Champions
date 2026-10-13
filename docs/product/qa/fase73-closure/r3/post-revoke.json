@@ -1,0 +1,23 @@
+{
+  "at": "2026-09-30T19:25:12.968Z",
+  "intercepted": false,
+  "pass": 3,
+  "fail": 0,
+  "results": [
+    {
+      "id": "REVOCADO · la cuenta QA ya NO accede al panel (401 sin oráculo)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "REVOCADO · la cuenta QA ya NO escribe (401)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "REVOCADO · /admin/crafting en el navegador de la cuenta QA = acceso restringido",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

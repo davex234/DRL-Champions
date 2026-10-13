@@ -1,0 +1,4 @@
+PASS 0067 no cambia las concesiones de columna sobre is_admin (anon:INSERT:true,anon:SELECT:true,anon:UPDATE:true,authenticated:INSERT:true,authenticated:SELECT:true,authenticated:UPDATE:true)
+== concurrencia: 20 concesiones X→Z a la vez
+== 0 fallos
+DRYRUN_OK

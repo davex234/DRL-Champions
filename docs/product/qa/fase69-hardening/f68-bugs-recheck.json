@@ -1,0 +1,24 @@
+{
+  "phase": "F69",
+  "at": "2026-09-28",
+  "source": "docs/product/qa/fase68-beta/bugs.json (14) + known-issues.json",
+  "build": "drl-0.1.1-1-d74dc352 y la build final de la reanudación (ver regressions.json)",
+  "bugs": [
+    { "id": "F68-001", "severity": "MAJOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/components/onboarding/f68.beta.render.test.tsx", "live": "journeys K-f69-new (1440) y L-f69-new (390, reducido): guía completa sin atasco; K otra vez en la reanudación (f69final-resume)" },
+    { "id": "F68-002", "severity": "MINOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/app/tienda/f68.purchase.contract.test.ts", "live": "B-f69-store: compra con doble clic → una sola op; saldo insuficiente con aviso" },
+    { "id": "F68-003", "severity": "MINOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/components/duel/f68.deckSave.contract.test.ts", "live": "D-f69-teams / D-f69final-teams: un equipo por gesto" },
+    { "id": "F68-004", "severity": "MINOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/lib/supabase/authErrors.test.ts", "live": "A-f69-auth: «Correo o contraseña incorrectos.» con contraseña mala y correo inexistente (sin enumerar en el login)" },
+    { "id": "F68-005", "severity": "MINOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/components/cards/layers/f68.playerPhoto.test.tsx", "live": "sondeo B: 100 imágenes, 0 rotas; 0 respuestas 404 de retratos en los journeys" },
+    { "id": "F68-006", "severity": "POLISH", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/lib/match/f68.moments.test.ts", "live": "—" },
+    { "id": "F68-007", "severity": "MINOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/components/sync/f68.cloudSync.test.ts", "live": "C-f69-multitab: la otra pestaña se pone al día al volver el foco" },
+    { "id": "F68-008", "severity": "MINOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/lib/progression/f68.claimsSync.test.ts", "live": "K-f69-new y L-f69-new: «HUD al día tras reclamar (sin recargar)»; I-f69-progress: revisitar/reclamar dos veces no vuelve a pagar" },
+    { "id": "F68-009", "severity": "MINOR", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/lib/supabase/authErrors.test.ts (authLinkError)", "live": "sondeo B: aviso «caducado o ya se usó», # limpio, sin inglés crudo" },
+    { "id": "F68-010", "severity": "MAJOR", "f68": "OPEN (decisión de economía)", "now": "FIXED_IN_F69", "decision": "El Coach es entrenamiento: no da créditos, XP ni nivel.", "test": "src/lib/match/f69.coachAuthority.test.ts", "live": "coach-D-final3 (build definitiva): servidor 9.430 cr / 552 XP antes y después; HUD 9.430 / nivel 3 antes, en la ceremonia, tras el freno y tras F5; historial 6 → 7" },
+    { "id": "F68-011", "severity": "POLISH", "f68": "OPEN", "now": "FIXED_IN_F69", "test": "src/coach/f69.pistol.test.ts", "live": "coach-D-final3: ronda 1 «DEFAULT › Ronda pistola…», 0 SAVE en la pistola" },
+    { "id": "F68-012", "severity": "POLISH", "f68": "OPEN", "now": "FIXED_IN_F69", "test": "src/components/coach/f69.coachCta.test.tsx", "live": "coach-D-final3: compra con una sola orden «JUGAR LA RONDA»" },
+    { "id": "F68-013", "severity": "POLISH", "f68": "OPEN", "now": "FIXED_IN_F69", "test": "src/domain/progression/f69.rankTerms.test.ts (ampliado en la reanudación: ningún «rango» suelto)", "live": "sondeo B: «Rango de puntos» / «Rating ranked (Elo)» / «Puesto ranked»; /ranking «rangos de puntos»; sin tiers con nombre junto al Elo. La reanudación cerró 3 restos en /cuenta (pie y tope del rango)." },
+    { "id": "F68-014", "severity": "POLISH", "f68": "FIXED", "now": "STILL_FIXED", "test": "src/app/duelos/competitivo/f68.matchDetail.test.ts", "live": "sondeo B: «Partida no encontrada» con «Volver al competitivo», sin «Reintentar» a secas" }
+  ],
+  "summary": { "total": 14, "stillFixed": 10, "fixedInF69": 4, "open": 0, "regressions": 0 },
+  "openBySeverity": { "BLOCKER": 0, "CRITICAL": 0, "MAJOR": 0, "MINOR": 0, "POLISH": 0 }
+}

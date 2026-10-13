@@ -1,0 +1,28 @@
+{
+  "primitives": {
+    "fast": 120,
+    "normal": 220,
+    "game": 320,
+    "celebration": 600,
+    "exceptional": 1200
+  },
+  "budget": {
+    "gameplay": {
+      "normalMs": 180,
+      "reducedMs": 120
+    },
+    "collection": {
+      "normalMs": 240,
+      "reducedMs": 120
+    },
+    "season": {
+      "normalMs": 300,
+      "reducedMs": 120
+    },
+    "default": {
+      "normalMs": 200,
+      "reducedMs": 120
+    }
+  },
+  "reducedMotion": "Toda animación de la CSS de juego vive bajo `no-preference` (contrato F44, test). Con `reduce`: transiciones de pantalla = fundido 120 ms; pulsación = destello (sin moverse); carta = se ilumina al apuntar/enfocar (sin giro); error de formulario = campo en rojo + aviso anunciado (sin temblor). Nada queda sin respuesta."
+}

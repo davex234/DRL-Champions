@@ -1,0 +1,31 @@
+{
+  "measuredAt": "2026-09-26 (antes de editar)",
+  "git": {
+    "branch": "arch/stabilization",
+    "head": "48dac2a",
+    "workingTree": "muy sucio (F17D…F66 sin commit)"
+  },
+  "tests": 5321,
+  "cards": 331,
+  "agents": 29,
+  "migrationHead": "0057_admin_cms",
+  "flags": {
+    "GLOBAL_MARKET_ENABLED": false,
+    "PAYMENTS_ENABLED": false
+  },
+  "runtime": {
+    "app": ":3005 200 (next start sin -H: escuchaba en TODAS las interfaces, LAN 192.168.1.87)",
+    "tunnel": "ssh 54521/54522"
+  },
+  "deps": {
+    "next": "16.2.9",
+    "sharp": "0.34.5 (solo transitiva)",
+    "npmAudit": {
+      "critical": 1,
+      "high": 6,
+      "moderate": 1,
+      "low": 2
+    }
+  },
+  "node": "v24.15.0 local; CI Node 22; sin engines ni .nvmrc"
+}

@@ -1,0 +1,219 @@
+{
+  "at": "2026-09-27T12:12:28.303Z",
+  "probes": [
+    {
+      "name": "cruce: C no ve la partida PvE de B",
+      "ok": true,
+      "data": {
+        "status": 404,
+        "body": {
+          "error": "Partida no encontrada"
+        }
+      }
+    },
+    {
+      "name": "IDOR: B no puede leer una partida ranked ajena (404 idéntico a inexistente)",
+      "ok": true,
+      "data": {
+        "a": 404,
+        "b": 404,
+        "same": true
+      }
+    },
+    {
+      "name": "replay propio accesible (control)",
+      "ok": true,
+      "data": {
+        "status": 200
+      }
+    },
+    {
+      "name": "replay ajeno: C no ve la repetición de B",
+      "ok": true,
+      "data": {
+        "status": 404
+      }
+    },
+    {
+      "name": "admin: /api/admin/overview rechazado a un usuario normal",
+      "ok": true,
+      "data": {
+        "status": 404
+      }
+    },
+    {
+      "name": "admin: /api/admin/system rechazado a un usuario normal",
+      "ok": true,
+      "data": {
+        "status": 401
+      }
+    },
+    {
+      "name": "admin: /api/admin/cms/cards rechazado a un usuario normal",
+      "ok": true,
+      "data": {
+        "status": 401
+      }
+    },
+    {
+      "name": "recompensa falsa: misión sin completar → rechazada",
+      "ok": true,
+      "data": {
+        "status": 409,
+        "error": "Misión no completada"
+      }
+    },
+    {
+      "name": "recompensa falsa: logro sin completar → rechazado",
+      "ok": true,
+      "data": {
+        "status": 409,
+        "error": "Todavía no has completado este logro"
+      }
+    },
+    {
+      "name": "recompensa falsa: nivel 30 del pase → rechazado",
+      "ok": true,
+      "data": {
+        "status": 409,
+        "error": "Nivel no reclamable"
+      }
+    },
+    {
+      "name": "tienda: precio del cliente → «Campo no permitido»",
+      "ok": true,
+      "data": {
+        "status": 400,
+        "error": "Campo no permitido"
+      }
+    },
+    {
+      "name": "créditos: cantidad del cliente → rechazada",
+      "ok": true,
+      "data": {
+        "status": 400,
+        "error": "El cliente no decide «credits»"
+      }
+    },
+    {
+      "name": "sobres: abrir un sobre que no se tiene → rechazado",
+      "ok": true,
+      "data": {
+        "status": 409,
+        "error": "No tienes ese sobre"
+      }
+    },
+    {
+      "name": "recompensa falsa: saldo, XP e inventario de H sin cambios",
+      "ok": true,
+      "data": {
+        "before": [
+          7265,
+          502
+        ],
+        "after": [
+          7265,
+          502
+        ]
+      }
+    },
+    {
+      "name": "REST: C no lee user_cards de B",
+      "ok": true,
+      "data": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "REST: C no lee user_packs de B",
+      "ok": true,
+      "data": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "REST: C no lee credit_transactions de B",
+      "ok": true,
+      "data": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "REST: C no lee user_game de B",
+      "ok": true,
+      "data": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "REST: C no lee duel_decks de B",
+      "ok": true,
+      "data": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "REST: C no lee user_pass de B",
+      "ok": true,
+      "data": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "REST: C no lee economy_ops de B",
+      "ok": true,
+      "data": {
+        "status": 200,
+        "rows": 0
+      }
+    },
+    {
+      "name": "las sondas no cambiaron nada en B ni en C",
+      "ok": true,
+      "data": {
+        "B": [
+          5200,
+          5200
+        ],
+        "C": [
+          810,
+          810
+        ]
+      }
+    }
+  ],
+  "publicProfileExposure": {
+    "anonStatus": 200,
+    "columnsVisibleToAnon": [
+      "avatar",
+      "collection_value",
+      "created_at",
+      "credits",
+      "distinct_cards",
+      "equipped",
+      "id",
+      "is_admin",
+      "last_seen_at",
+      "level",
+      "market_volume",
+      "packs_opened",
+      "points",
+      "rarest_rank",
+      "region",
+      "taxes_paid",
+      "tokens",
+      "updated_at",
+      "username",
+      "xp"
+    ],
+    "note": "RLS-1 de F67: SELECT de profiles para anon/authenticated; la propuesta 0058 lo limita y NO está aplicada"
+  },
+  "pass": 22,
+  "fail": []
+}

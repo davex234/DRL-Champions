@@ -1,0 +1,256 @@
+{
+  "at": "2026-09-25T09:47:46.161Z",
+  "account": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "before": {
+    "credits": 3590,
+    "xp": 2014
+  },
+  "introBeats": [
+    "FOUND",
+    "VERSUS",
+    "LINEUP"
+  ],
+  "doubleClick": {
+    "historyBefore": 0,
+    "historyAfter": 1,
+    "turnAfter": 2
+  },
+  "refreshMid": {
+    "server": {
+      "turn": 5,
+      "score": [
+        0,
+        4
+      ],
+      "history": 4
+    },
+    "screen": {
+      "scenes": [],
+      "beat": null,
+      "role": "DEFENSE",
+      "turn": "TURNO 5 DE 10",
+      "moment": null,
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 6
+    }
+  },
+  "backButton": {
+    "dialog": true,
+    "url": "/duelos/jugar",
+    "stillInMatch": true
+  },
+  "turns": [
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "ATTACK",
+      "turn": "TURNO 2 DE 10",
+      "moment": {
+        "outcome": "B",
+        "climax": "NORMAL",
+        "axis": "Declara el rivalGamesense"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "DEFENSE",
+      "turn": "TURNO 3 DE 10",
+      "moment": {
+        "outcome": "B",
+        "climax": "NORMAL",
+        "axis": "DeclarasStrongholdresponde con Entryfrag"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "ATTACK",
+      "turn": "TURNO 4 DE 10",
+      "moment": {
+        "outcome": "B",
+        "climax": "NORMAL",
+        "axis": "Declara el rivalGamesense"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "DEFENSE",
+      "turn": "TURNO 5 DE 10",
+      "moment": {
+        "outcome": "B",
+        "climax": "NORMAL",
+        "axis": "DeclarasStrongholdresponde con Entryfrag"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "ATTACK",
+      "turn": "TURNO 6 DE 10",
+      "moment": {
+        "outcome": "A",
+        "climax": "NORMAL",
+        "axis": "Declara el rivalEntryfragresponde con Stronghold"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "DEFENSE",
+      "turn": "TURNO 7 DE 10",
+      "moment": {
+        "outcome": "A",
+        "climax": "NORMAL",
+        "axis": "DeclarasStrongholdresponde con Entryfrag"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "ATTACK",
+      "turn": "TURNO 8 DE 10",
+      "moment": {
+        "outcome": "B",
+        "climax": "NORMAL",
+        "axis": "Declara el rivalGamesense"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "DEFENSE",
+      "turn": "TURNO 9 DE 10",
+      "moment": {
+        "outcome": "A",
+        "climax": "LATE",
+        "axis": "DeclarasStrongholdresponde con Entryfrag"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": "ATTACK",
+      "turn": "TURNO 10 DE 10",
+      "moment": {
+        "outcome": "A",
+        "climax": "LATE",
+        "axis": "Declara el rivalEntryfragresponde con Stronghold"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 0
+    },
+    {
+      "scenes": [],
+      "beat": null,
+      "role": null,
+      "turn": null,
+      "moment": {
+        "outcome": "B",
+        "climax": "FINAL",
+        "axis": "DeclarasStrongholdresponde con Entryfrag"
+      },
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 0
+    }
+  ],
+  "endSequence": [
+    "complete:LOSS",
+    "result:loss"
+  ],
+  "lastMatch": null,
+  "resultReload": {
+    "url": "/duelos/jugar?resultado=06b8cc80-ae1f-4b04-bffd-b11029ee710a",
+    "screen": {
+      "scenes": [
+        "result"
+      ],
+      "beat": null,
+      "role": null,
+      "turn": null,
+      "moment": null,
+      "tiebreak": null,
+      "complete": null,
+      "result": "loss",
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    "creditsAfterFinish": 3630,
+    "creditsAfterReload": 3630
+  },
+  "after": {
+    "credits": 3630,
+    "xp": 2039
+  },
+  "playAgainAndAbandon": {
+    "clicked": true,
+    "newMatch": "f80ad2dc-896a-4a35-a67f-b7b9a5bb4fb0",
+    "freshTurn": 1,
+    "dialog": true,
+    "activeAfterAbandon": null,
+    "creditsAfterAbandon": 3630
+  },
+  "consoleErrors": []
+}

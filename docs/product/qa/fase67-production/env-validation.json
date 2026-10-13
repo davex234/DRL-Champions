@@ -1,0 +1,23 @@
+{
+  "module": "src/server/ops/env.ts (puro, probado) · src/instrumentation.ts (arranque)",
+  "critical": [
+    "NEXT_PUBLIC_SUPABASE_URL (URL http/https válida)",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY (no service_role)",
+    "SUPABASE_SERVICE_ROLE_KEY (rol service_role)"
+  ],
+  "degraded": [
+    "SYNC_SECRET (≥16)",
+    "NEXT_PUBLIC_TELEGRAM_WEBHOOK definido",
+    "NEXUS_SANDBOX_CREDITS=1 o NEXUS_QA_HARNESS=1 en producción",
+    "http sin TLS a host no local"
+  ],
+  "optional": [
+    "ANTHROPIC_API_KEY",
+    "NEXT_PUBLIC_VLR_API"
+  ],
+  "test": {
+    "missingServiceKeyInProduction": "exit 1 en 486 ms; log «[startup] Configuración crítica incompleta … CRITICAL SUPABASE_SERVICE_ROLE_KEY: falta»",
+    "firstAttempt": "con `throw` el proceso quedaba VIVO sin escuchar (exit 124 por timeout): se cambió a process.exit(1)"
+  },
+  "startupLog": "{level:warn, scope:startup, ok:true, issues:[OPTIONAL:ANTHROPIC_API_KEY…, OPTIONAL:NEXT_PUBLIC_VLR_API…]} (solo nombres)"
+}

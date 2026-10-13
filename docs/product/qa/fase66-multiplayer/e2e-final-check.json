@@ -1,0 +1,382 @@
+{
+  "at": "2026-09-26T20:00:33.632Z",
+  "base": "http://127.0.0.1:3005",
+  "matchIds": [
+    "e85c438d-ca13-4d58-afaa-33e9020db424"
+  ],
+  "matches": [
+    {
+      "idx": 1,
+      "chaos": true,
+      "turns": [
+        {
+          "turn": 1,
+          "sameServerFacts": true,
+          "version": 2,
+          "score": "0-1",
+          "uiTurn": [
+            "TURNO 2 DE 10",
+            "TURNO 1 DE 10"
+          ]
+        },
+        {
+          "turn": 2,
+          "sameServerFacts": true,
+          "version": 4,
+          "score": "1-1",
+          "uiTurn": [
+            "TURNO 3 DE 10",
+            "TURNO 3 DE 10"
+          ]
+        },
+        {
+          "turn": 3,
+          "sameServerFacts": true,
+          "version": 6,
+          "score": "1-2",
+          "uiTurn": [
+            "TURNO 4 DE 10",
+            "TURNO 4 DE 10"
+          ]
+        },
+        {
+          "turn": 4,
+          "sameServerFacts": true,
+          "version": 8,
+          "score": "2-2",
+          "uiTurn": [
+            "TURNO 4 DE 10",
+            "TURNO 5 DE 10"
+          ]
+        },
+        {
+          "turn": 5,
+          "sameServerFacts": true,
+          "version": 10,
+          "score": "3-2",
+          "uiTurn": [
+            "TURNO 5 DE 10",
+            "TURNO 6 DE 10"
+          ]
+        },
+        {
+          "turn": 6,
+          "sameServerFacts": true,
+          "version": 12,
+          "score": "4-2",
+          "uiTurn": [
+            "TURNO 7 DE 10",
+            "TURNO 7 DE 10"
+          ]
+        },
+        {
+          "turn": 7,
+          "sameServerFacts": true,
+          "version": 14,
+          "score": "5-2",
+          "uiTurn": [
+            "TURNO 8 DE 10",
+            "TURNO 8 DE 10"
+          ]
+        },
+        {
+          "turn": 8,
+          "sameServerFacts": true,
+          "version": 16,
+          "score": "5-3",
+          "uiTurn": [
+            "TURNO 9 DE 10",
+            "TURNO 9 DE 10"
+          ]
+        },
+        {
+          "turn": 9,
+          "sameServerFacts": true,
+          "version": 18,
+          "score": "5-4",
+          "uiTurn": [
+            "TURNO 10 DE 10",
+            "TURNO 10 DE 10"
+          ]
+        },
+        {
+          "turn": 10,
+          "sameServerFacts": true,
+          "version": 20,
+          "score": "6-4",
+          "uiTurn": [
+            "TURNO 10 DE 10",
+            null
+          ]
+        }
+      ],
+      "chaosLog": [
+        {
+          "queueF5": {
+            "before": "381b6769",
+            "after": "381b6769",
+            "same": true
+          }
+        },
+        {
+          "turn": 1,
+          "actor": "B",
+          "latencyA": 0,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 1,
+          "actor": "A",
+          "latencyA": 0,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 2,
+          "actor": "A",
+          "latencyA": 100,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 2,
+          "actor": "B",
+          "latencyA": 100,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 3,
+          "actor": "B",
+          "latencyA": 300,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 3,
+          "actor": "A",
+          "latencyA": 300,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "f5B": {
+            "arena": true,
+            "intro": false,
+            "moment": false,
+            "turn": "TURNO 4 DE 10",
+            "hand": 0,
+            "outcome": false,
+            "syncing": false,
+            "text": "RANKED · RATING EN JUEGO 🎮contra qa_f45_085748_1ff2 · jugador real TURNO DEL RIVAL qa_f45_085748_1ff2 está decidiendo… TIEMPO DEL RIVAL 01:26 ? ⛶ SALIR ABANDO"
+          }
+        },
+        {
+          "turn": 4,
+          "actor": "A",
+          "latencyA": 800,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 4,
+          "actor": "B",
+          "latencyA": 800,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 5,
+          "actor": "B",
+          "latencyA": 1500,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "pendingActionF5": {
+            "r": "reload-in-flight fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false} 3509ms",
+            "versionBefore": 9,
+            "versionAfter": 9,
+            "appliedAtMostOnce": true
+          }
+        },
+        {
+          "turn": 5,
+          "actor": "A",
+          "latencyA": 1500,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 6,
+          "actor": "A",
+          "latencyA": 0,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 6,
+          "actor": "B",
+          "latencyA": 0,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "tempDisconnect": {
+            "rivalPlayed": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}",
+            "whileOffline": {
+              "syncing": true,
+              "text": "RANKED · RATING EN JUEGO 🎮contra qa_campaign_352_8c32 · jugador real Reconectando… sincronizando partida con el servidor TURNO DEL RIVAL qa_campaign_352_8c32"
+            },
+            "recovered": true
+          }
+        },
+        {
+          "turn": 7,
+          "actor": "A",
+          "latencyA": 100,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 8,
+          "actor": "A",
+          "latencyA": 300,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 8,
+          "actor": "B",
+          "latencyA": 300,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 9,
+          "actor": "B",
+          "latencyA": 800,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "staleTab": {
+            "status": 409,
+            "resync": 17
+          }
+        },
+        {
+          "turn": 9,
+          "actor": "A",
+          "latencyA": 800,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 10,
+          "actor": "A",
+          "latencyA": 1500,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 10,
+          "actor": "B",
+          "latencyA": 1500,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        }
+      ],
+      "matchId": "e85c438d",
+      "newMatchId": true,
+      "final": {
+        "lifecycle": "FINISHED",
+        "sameFacts": true,
+        "result": {
+          "winner": "A",
+          "score": "6-4",
+          "decidedBy": "SCORE"
+        },
+        "recomputed": {
+          "winner": "A",
+          "decidedBy": "SCORE",
+          "scoreA": 6,
+          "scoreB": 4,
+          "agrees": true
+        },
+        "turnsPlayed": 10,
+        "elo": {
+          "before": {
+            "A": {
+              "rating": 897,
+              "games": 28
+            },
+            "B": {
+              "rating": 1077,
+              "games": 27
+            }
+          },
+          "after": {
+            "A": {
+              "rating": 891,
+              "games": 29
+            },
+            "B": {
+              "rating": 1083,
+              "games": 28
+            }
+          },
+          "outcomeA": {
+            "matchId": "e85c438d-ca13-4d58-afaa-33e9020db424",
+            "oldRating": 897,
+            "delta": -6,
+            "newRating": 891,
+            "opponentRating": 1077,
+            "kFactor": 24,
+            "result": "LOSS",
+            "createdAt": 1790452935111
+          },
+          "outcomeB": {
+            "matchId": "e85c438d-ca13-4d58-afaa-33e9020db424",
+            "oldRating": 1077,
+            "delta": 6,
+            "newRating": 1083,
+            "opponentRating": 897,
+            "kFactor": 24,
+            "result": "WIN",
+            "createdAt": 1790452935111
+          },
+          "once": true
+        }
+      },
+      "resultF5": {
+        "ratingUnchanged": true,
+        "screen": {
+          "arena": false,
+          "intro": false,
+          "moment": false,
+          "turn": null,
+          "hand": 0,
+          "outcome": true,
+          "syncing": false,
+          "text": "DUELO PVP · CONTRA QA_CAMPAIGN_352_8C32 DERROTA TÚ 4 – RIVAL 6 Marcador final · Por turnos ganados ÚLTIMO TURNO · 10PUNTO PARA EL RIVALEntryfrag 47 del rival"
+        }
+      },
+      "allTurnsConsistent": true,
+      "network": {
+        "A": null,
+        "B": null
+      },
+      "idleAfterResult": {
+        "byPath": {},
+        "total": 0,
+        "byStatus": {},
+        "notFound": []
+      }
+    }
+  ],
+  "accounts": {
+    "A": "1ff2c0ef",
+    "B": "8c326e52"
+  },
+  "perf": [
+    {
+      "match": 1,
+      "listeners": 418,
+      "nodes": 1406,
+      "heapMB": 18.4
+    }
+  ],
+  "consoleErrors": {
+    "A": [
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED",
+      "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+    ],
+    "B": []
+  }
+}

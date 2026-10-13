@@ -1,0 +1,87 @@
+[
+  {
+    "width": 1440,
+    "name": "2-inicio-caminata",
+    "t": "3.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1041",
+    "file": "usa-MEGA_WALKOUT-2-inicio-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "4-mitad-caminata",
+    "t": "6.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1238",
+    "file": "usa-MEGA_WALKOUT-4-mitad-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "6-deteniendose",
+    "t": "9.40",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1057",
+    "file": "usa-MEGA_WALKOUT-6-deteniendose-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7a-celebracion",
+    "t": "10.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1045",
+    "file": "usa-MEGA_WALKOUT-7a-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7b-celebracion",
+    "t": "11.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1149",
+    "file": "usa-MEGA_WALKOUT-7b-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "8-ovr",
+    "t": "12.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1082",
+    "file": "usa-MEGA_WALKOUT-8-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "9-transicion",
+    "t": "12.90",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1072",
+    "file": "usa-MEGA_WALKOUT-9-transicion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "14.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1105",
+    "file": "usa-MEGA_WALKOUT-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

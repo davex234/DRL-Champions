@@ -1,0 +1,79 @@
+{
+  "at": "2026-10-01T17:37:10.878Z",
+  "url": "https://valorosters.com",
+  "width": 1024,
+  "reducedMotion": false,
+  "account": "QA nueva (registrada en el dominio)",
+  "pages": [
+    {
+      "page": "/",
+      "ok": true,
+      "detail": "{\"path\":\"/\",\"noScroll\":true,\"broken\":[],\"imgs\":7,\"offline\":false,\"text\":403}"
+    },
+    {
+      "page": "/coleccion",
+      "ok": true,
+      "detail": "{\"path\":\"/coleccion\",\"noScroll\":true,\"broken\":[],\"imgs\":22,\"offline\":false,\"text\":2719}"
+    },
+    {
+      "page": "/duelos/mazos",
+      "ok": true,
+      "detail": "{\"path\":\"/duelos/mazos\",\"noScroll\":true,\"broken\":[],\"imgs\":0,\"offline\":false,\"text\":496}"
+    },
+    {
+      "page": "/tienda",
+      "ok": true,
+      "detail": "{\"path\":\"/tienda\",\"noScroll\":true,\"broken\":[],\"imgs\":18,\"offline\":false,\"text\":1604}"
+    },
+    {
+      "page": "/temporada",
+      "ok": true,
+      "detail": "{\"path\":\"/temporada\",\"noScroll\":true,\"broken\":[],\"imgs\":11,\"offline\":false,\"text\":3868}"
+    },
+    {
+      "page": "/mundo",
+      "ok": true,
+      "detail": "{\"path\":\"/mundo\",\"noScroll\":true,\"broken\":[],\"imgs\":0,\"offline\":false,\"text\":990}"
+    },
+    {
+      "page": "/jugar",
+      "ok": true,
+      "detail": "{\"path\":\"/jugar\",\"noScroll\":true,\"broken\":[],\"imgs\":4,\"offline\":false,\"text\":216}"
+    },
+    {
+      "page": "/duelos",
+      "ok": true,
+      "detail": "{\"path\":\"/duelos\",\"noScroll\":true,\"broken\":[],\"imgs\":4,\"offline\":false,\"text\":212}"
+    },
+    {
+      "page": "/misiones",
+      "ok": true,
+      "detail": "{\"path\":\"/misiones\",\"noScroll\":true,\"broken\":[],\"imgs\":2,\"offline\":false,\"text\":252}"
+    },
+    {
+      "page": "/misiones/crafting",
+      "ok": true,
+      "detail": "{\"path\":\"/misiones/crafting\",\"noScroll\":true,\"broken\":[],\"imgs\":9,\"offline\":false,\"text\":272}"
+    },
+    {
+      "page": "/progresion",
+      "ok": true,
+      "detail": "{\"path\":\"/progresion\",\"noScroll\":true,\"broken\":[],\"imgs\":3,\"offline\":false,\"text\":3050}"
+    },
+    {
+      "page": "/cuenta",
+      "ok": true,
+      "detail": "{\"path\":\"/cuenta\",\"noScroll\":true,\"broken\":[],\"imgs\":0,\"offline\":false,\"text\":1195}"
+    }
+  ],
+  "hosts": {
+    "valorosters.com": 1157,
+    "fonts.googleapis.com": 13,
+    "fonts.gstatic.com": 33
+  },
+  "localhost": [],
+  "mixed": [],
+  "failed": [],
+  "bad": [],
+  "console": []
+}

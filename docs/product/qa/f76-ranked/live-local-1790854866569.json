@@ -1,0 +1,162 @@
+{
+  "base": "http://127.0.0.1:3006",
+  "at": "2026-10-01T11:39:03.665Z",
+  "accounts": {
+    "H": "dbcb170a",
+    "I": "be24f4ef",
+    "F": "def98cb4",
+    "D": "225e1fce",
+    "C": "d4133641"
+  },
+  "m1": "92f1cbda",
+  "m2": "25564631",
+  "total": 29,
+  "failed": 0,
+  "results": [
+    {
+      "id": "0 · cola global vacía al empezar (nadie ajeno a QA en cola)",
+      "ok": true,
+      "detail": "{\"live\":0}"
+    },
+    {
+      "id": "W1 · join simultáneo H+I → UNA partida compartida",
+      "ok": true,
+      "detail": "{\"jh\":\"OK\",\"ji\":\"OK\",\"m1\":\"92f1cbda\"}"
+    },
+    {
+      "id": "L1 · F5 ×3 con partida ACTIVA → la misma partida",
+      "ok": true,
+      "detail": "[\"92f1cbda\",\"92f1cbda\",\"92f1cbda\"]"
+    },
+    {
+      "id": "L2 · volver a JUGAR con partida activa → 409 ACTIVE_MATCH con ESA partida adjunta (se retoma)",
+      "ok": true,
+      "detail": "{\"status\":409,\"code\":\"ACTIVE_MATCH\",\"m\":\"92f1cbda\"}"
+    },
+    {
+      "id": "L3 · no se creó otra búsqueda",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "id": "AA1 · el turno tiene plazo de servidor (~30 s)",
+      "ok": true,
+      "detail": "{\"dl\":1790854775703,\"start\":1790854745703}"
+    },
+    {
+      "id": "AB1 · al vencer, el servidor juega solo: la versión avanza y la partida SIGUE (no EXPIRED)",
+      "ok": true,
+      "detail": "{\"v0\":0,\"v1\":1,\"life\":\"IN_TURN\"}"
+    },
+    {
+      "id": "AB2 · BD: sin closed_reason tras el vencimiento",
+      "ok": true,
+      "detail": "{\"id\":\"92f1cbda\",\"status\":\"IN_PROGRESS\",\"closed_reason\":null,\"state_version\":1,\"turn_deadline_at\":\"2026-10-01T11:40:09.998+00:00\"}"
+    },
+    {
+      "id": "V1 · reconectar mientras termina: o la viva en ese instante o nada; nunca otra",
+      "ok": true,
+      "detail": "{\"ab\":200,\"st\":\"MATCHED\"}"
+    },
+    {
+      "id": "N1 · abandono → partida terminal (IN_PROGRESS + ABANDONED)",
+      "ok": true,
+      "detail": "{\"id\":\"92f1cbda\",\"status\":\"IN_PROGRESS\",\"closed_reason\":\"ABANDONED\",\"state_version\":2,\"turn_deadline_at\":\"2026-10-01T11:40:09.998+00:00\"}"
+    },
+    {
+      "id": "J1 · BD: el estado del bug existe de verdad (entradas MATCHED → partida terminal)",
+      "ok": true,
+      "detail": "{\"qh\":{\"id\":\"a0dfaa1f\",\"match\":\"92f1cbda\",\"state\":\"MATCHED\",\"reason\":null,\"mclosed\":\"ABANDONED\",\"mstatus\":\"IN_PROGRESS\",\"updated\":\"2026-10-01T11:39:04.237471+00:00\"},\"qi\":{\"id\":\"0e78848c\",\"match\":\"92f1cbda\",\"state\":\"MATCHED\",\"reason\":null,\"mclosed\":\"ABANDONED\",\"mstatus\":\"IN_PROGRESS\",\"updated\":\"2026-10-01T11:39:04.237471+00:00\"}}"
+    },
+    {
+      "id": "J2 · la API ya NO devuelve la partida terminada (IDLE, sin entrada)",
+      "ok": true,
+      "detail": "{\"h\":\"IDLE\",\"i\":\"IDLE\"}"
+    },
+    {
+      "id": "O1 · cancelar sin búsqueda: NOT_QUEUED sin devolver la partida muerta",
+      "ok": true,
+      "detail": "NOT_QUEUED"
+    },
+    {
+      "id": "J3 · la partida muerta sigue legible como RESULTADO (historial), terminal",
+      "ok": true,
+      "detail": "ABANDONED"
+    },
+    {
+      "id": "J4 · un cliente manipulado NO puede jugar la partida terminada",
+      "ok": true,
+      "detail": "{\"status\":409,\"code\":\"MATCH_CLOSED\"}"
+    },
+    {
+      "id": "W2 · rematch: entran en cola NUEVA y emparejan en una partida NUEVA",
+      "ok": true,
+      "detail": "{\"rh\":\"OK\",\"ri\":\"OK\",\"m2\":\"25564631\"}"
+    },
+    {
+      "id": "T1 · fin/join a la vez: I recibe la viva (409+partida) o una cola nueva; después nunca la terminada",
+      "ok": true,
+      "detail": "{\"abH\":200,\"j\":200,\"jcode\":\"OK\",\"after\":\"QUEUED\"}"
+    },
+    {
+      "id": "R1 · 10× JUGAR simultáneo → UNA búsqueda (una fila viva; todas las respuestas 200 describen la misma)",
+      "ok": true,
+      "detail": "{\"statuses\":[\"200:OK\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\",\"200:ALREADY_QUEUED\"],\"live\":1,\"distinct\":1}"
+    },
+    {
+      "id": "S1 · 10× CANCELAR simultáneo → una cancelación, 0 filas vivas, nadie devuelve una partida",
+      "ok": true,
+      "detail": "{\"statuses\":[\"200:OK\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\",\"200:NOT_QUEUED\"],\"live\":0}"
+    },
+    {
+      "id": "R2 · después vuelve a JUGAR y funciona",
+      "ok": true,
+      "detail": "OK"
+    },
+    {
+      "id": "U1 · cancel vs emparejador: o cancela (y D sigue en cola) o empareja (cancel no dice OK); nunca las dos",
+      "ok": true,
+      "detail": "{\"cancel\":\"OK\",\"enq\":\"OK\",\"f\":\"CANCELLED\",\"d\":\"QUEUED\"}"
+    },
+    {
+      "id": "X1 · C no puede leer la partida de H/I (404 uniforme)",
+      "ok": true,
+      "detail": "404"
+    },
+    {
+      "id": "X2 · C no puede cerrar/abandonar la partida ajena",
+      "ok": true,
+      "detail": "404"
+    },
+    {
+      "id": "X3 · C no puede encolarse con el equipo de H",
+      "ok": true,
+      "detail": "{\"s\":404,\"c\":\"DECK_NOT_OWNED\"}"
+    },
+    {
+      "id": "X4 · campos inyectados (userId/matchId/state/rating) se ignoran: C entra en SU cola, sin partida ajena",
+      "ok": true,
+      "detail": "{\"s\":200,\"row\":{\"id\":\"879e04f2\",\"match\":null,\"state\":\"QUEUED\",\"reason\":null,\"mclosed\":null,\"mstatus\":null,\"updated\":\"2026-10-01T11:40:56.407919+00:00\"}}"
+    },
+    {
+      "id": "X5 · el cancel de C solo toca SU entrada (la de H intacta)",
+      "ok": true,
+      "detail": "{\"c\":\"OK\",\"h\":{\"id\":\"a76cad9a\",\"match\":\"25564631\",\"state\":\"MATCHED\",\"reason\":null,\"mclosed\":\"ABANDONED\",\"mstatus\":\"IN_PROGRESS\",\"updated\":\"2026-10-01T11:39:44.899773+00:00\"}}"
+    },
+    {
+      "id": "X6 · la tabla de cola no es accesible por REST con la sesión del jugador",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "Z1 · al terminar: 0 búsquedas vivas de QA y 0 en la cola global",
+      "ok": true,
+      "detail": "{\"leftovers\":[0,0,0,0,0],\"global\":0}"
+    },
+    {
+      "id": "Z2 · BD: 0 usuarios con dos búsquedas vivas",
+      "ok": true,
+      "detail": "0"
+    }
+  ]
+}

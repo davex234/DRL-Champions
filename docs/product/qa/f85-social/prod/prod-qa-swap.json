@@ -1,0 +1,470 @@
+{
+ "base": "https://valorosters.com",
+ "at": "2026-10-06T17:31:01.541Z",
+ "privateMatch": "20929f09-8c12-481c-baa6-4acf2b16d30b",
+ "total": 92,
+ "passed": 84,
+ "failed": 8,
+ "rows": [
+  {
+   "id": "ready + 0066 aplicada (cabeza ≥ 0066) + check «social»",
+   "ok": true,
+   "detail": "{\"head\":\"0073_pickems_launch_guard\"}"
+  },
+  {
+   "id": "health 200",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo GET → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo POST → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A, B, C sin relaciones previas",
+   "ok": false,
+   "detail": "2"
+  },
+  {
+   "id": "búsqueda por prefijo SIN distinguir mayúsculas encuentra a B (relación NINGUNA, sin presencia)",
+   "ok": false,
+   "detail": "{\"n\":1,\"rel\":\"FRIENDS\"}"
+  },
+  {
+   "id": "búsqueda: sin correo, sin latido, sin metadatos",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "búsqueda: el propio buscador no sale",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "buscar por correo («@») → 400 (no hay enumeración por email)",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "consulta de 1 carácter → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "comodines del cliente neutralizados (%_ → consulta corta → 400)",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "consulta larga (300) → recortada, 200 sin resultados",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "paginación: 10 por página, desplazamiento acotado a 40",
+   "ok": true,
+   "detail": "{\"p1\":10,\"p2\":4,\"maxOff\":40}"
+  },
+  {
+   "id": "UUID como consulta → no devuelve a nadie por id",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A→B ×10 a la vez → todas 200 y UNA fila PENDING",
+   "ok": false,
+   "detail": "{\"codes\":[\"ALREADY_FRIENDS\"],\"db\":\"ACCEPTED:1\"}"
+  },
+  {
+   "id": "B · contador del servidor = 1 (la solicitud)",
+   "ok": false,
+   "detail": "0"
+  },
+  {
+   "id": "B · solicitud recibida de A en la foto (con rango F84)",
+   "ok": false,
+   "detail": "{\"friends\":2,\"incoming\":0,\"outgoing\":0,\"challengesIn\":0,\"challengesOut\":0,\"blocked\":0}"
+  },
+  {
+   "id": "foto social sin datos privados",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "aceptar mi PROPIA solicitud → 409",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K acepta una solicitud A→B que no es suya → 409 (sin efecto)",
+   "ok": false,
+   "detail": ""
+  },
+  {
+   "id": "B acepta ×5 a la vez → 1 ACCEPTED, resto 409, UNA amistad",
+   "ok": false,
+   "detail": "{\"ok\":0,\"db\":\"ACCEPTED:1\"}"
+  },
+  {
+   "id": "A→C y C→A a la vez → UNA amistad ACCEPTED (cruzada converge)",
+   "ok": true,
+   "detail": "{\"a\":\"REQUESTED\",\"c\":\"ACCEPTED\",\"db\":\"ACCEPTED:1\"}"
+  },
+  {
+   "id": "añadirse a uno mismo → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "id inventado → 404/400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K elimina la amistad A↔B en su nombre → 409 NOT_FRIENDS (sin efecto)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuerpo con userId/bando falsos se ignora (el sujeto es el token)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B ve a A «En línea» (latido reciente) y sin hora exacta",
+   "ok": true,
+   "detail": "ONLINE"
+  },
+  {
+   "id": "K (no amigo) NO ve la presencia de A",
+   "ok": true,
+   "detail": "null"
+  },
+  {
+   "id": "K busca a A: presencia null",
+   "ok": true,
+   "detail": "null"
+  },
+  {
+   "id": "dos sesiones latiendo seguidas: UNA escritura (umbral de 20 s)",
+   "ok": true,
+   "detail": "{\"ls1\":\"1791307748\",\"ls2\":\"1791307748\"}"
+  },
+  {
+   "id": "el cliente no puede declararse «en partida» (pulse con presence=IN_MATCH se ignora)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A, B y C con equipo legal",
+   "ok": true,
+   "detail": "{\"a\":true,\"b\":true,\"c\":true}"
+  },
+  {
+   "id": "retar a un NO amigo (A→K) → 403",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "retarse a uno mismo → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "retar con un mazo AJENO → rechazado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A→B ×10 a la vez → UN reto (mismo challengeId)",
+   "ok": true,
+   "detail": "{\"ids\":1}"
+  },
+  {
+   "id": "TTL 5 min por reloj de la BD",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B recibe el reto en el pulso (avatar, nombre, rango del retador)",
+   "ok": true,
+   "detail": "{\"id\":\"8b093bec-476a-43d8-bb2e-23c3fd2d2e38\",\"badge\":1}"
+  },
+  {
+   "id": "B → A con uno pendiente de A → 409 «acepta su reto» (un reto por pareja)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K acepta el reto A→B → 404 (no revela que existe)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K cancela el reto A→B → 409 (sin efecto)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A (retador) no puede aceptar su propio reto → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B rechaza → DECLINED",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A ve su reto RECHAZADO (estado persistido en servidor)",
+   "ok": true,
+   "detail": "DECLINED"
+  },
+  {
+   "id": "A cancela mientras PENDING → CANCELLED",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "aceptar un reto cancelado → 409",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "antes de caducar: sigue pendiente para B",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "tras caducar (hora del servidor): aceptar → 409 EXPIRED, sin partida",
+   "ok": true,
+   "detail": "EXPIRED"
+  },
+  {
+   "id": "B en cola ranked acepta → 409 IN_QUEUE; la cola NO se cancela en silencio",
+   "ok": true,
+   "detail": "{\"join\":200,\"code\":\"IN_QUEUE\",\"st\":\"QUEUED\"}"
+  },
+  {
+   "id": "B acepta ×5 → UNA partida (mismo matchId) PVP_PRIVATE con A=retador, B=retado",
+   "ok": true,
+   "detail": "{\"mids\":1,\"mrow\":\"PVP_PRIVATE|8a0711d1-a79c-4228-bf02-7b080ddd37e0|68524df4-d13e-4875-9c75-f4ee08a5a245|IN_PROGRESS\"}"
+  },
+  {
+   "id": "reto MATCHED con ese match_id",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A (reconectando) detecta la partida activa en el pulso",
+   "ok": true,
+   "detail": "20929f09-8c12-481c-baa6-4acf2b16d30b"
+  },
+  {
+   "id": "presencia EN PARTIDA derivada del servidor",
+   "ok": true,
+   "detail": "IN_MATCH"
+  },
+  {
+   "id": "C (amigo de A) reta a A en partida → 409 BUSY",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A en partida privada no entra en cola ranked (409)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "?match= solo para sus dos jugadores; K → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "duelo amistoso JUGADO hasta el final",
+   "ok": true,
+   "detail": "COMPLETED|A"
+  },
+  {
+   "id": "resultado: sin rating ni rango (duelo amistoso)",
+   "ok": true,
+   "detail": "{\"outcome\":null,\"rank\":null}"
+  },
+  {
+   "id": "AISLAMIENTO F84 · 0 asientos de rating para la partida",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "AISLAMIENTO F84 · ratings de A y B intactos",
+   "ok": true,
+   "detail": "{\"before\":\"68524df4:1000:0:0:0,8a0711d1:1000:0:0:0\",\"after\":\"68524df4:1000:0:0:0,8a0711d1:1000:0:0:0\"}"
+  },
+  {
+   "id": "AISLAMIENTO F84 · colocación/récord de temporada competitiva intactos (Top 500 no cambia)",
+   "ok": true,
+   "detail": "0:0"
+  },
+  {
+   "id": "AISLAMIENTO F83 · 0 XP de temporada por la partida",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "AISLAMIENTO F73 · 0 eventos de misión por la partida",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "ECONOMÍA · créditos y XP de cuenta de A y B intactos",
+   "ok": true,
+   "detail": "[[6000,6000,624,624],[6000,6000,648,648]]"
+  },
+  {
+   "id": "partida terminada: ya no hay partida activa ni «en partida»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "REVANCHA = nuevo reto (consentimiento) con previousMatchId; ×4 → UNA",
+   "ok": true,
+   "detail": "{\"ids\":1,\"prev\":\"20929f09-8c12-481c-baa6-4acf2b16d30b\",\"matches\":[\"4\",\"4\"]}"
+  },
+  {
+   "id": "revancha con una partida AJENA → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "JUGADORES RECIENTES: B (de la partida real) con relación AMIGOS, sin duplicados",
+   "ok": true,
+   "detail": "FRIENDS"
+  },
+  {
+   "id": "recientes: solo partidas donde A participó",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "COMPARAR: lado a lado con datos públicos, sin puntuación compuesta",
+   "ok": true,
+   "detail": "[\"player\",\"rank\",\"rating\",\"seasonLevel\",\"matches\",\"winrate\",\"uniqueCards\",\"totalCards\",\"collectionsCompleted\",\"badges\"]"
+  },
+  {
+   "id": "comparar consigo mismo → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A bloquea a C → amistad fuera para los dos y reto pendiente cancelado",
+   "ok": true,
+   "detail": "{\"db\":\"NONE\"}"
+  },
+  {
+   "id": "el reto cancelado por el bloqueo ya no se puede aceptar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "C pide amistad a A → 409 «Acción no disponible» (neutro: no dice quién bloqueó)",
+   "ok": true,
+   "detail": "{\"error\":\"Acción no disponible\",\"code\":\"UNAVAILABLE\"}"
+  },
+  {
+   "id": "C no puede retar a A",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "C busca a A → no aparece (sin «existe pero no»)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "C ?player=A → 404 social (como un id inventado)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "POLÍTICA: el perfil PÚBLICO F89 de A sigue visible para C (no es privacidad total)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "C no recibe en su foto ni rastro del bloqueo (sin blocked_by)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A ve a C en su lista de bloqueados",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "bloquearse a uno mismo → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K desbloquea en nombre de A → 409 (solo su propio bloqueo)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "desbloquear → NINGUNA (no restaura la amistad)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "tras desbloquear se puede volver a pedir (re-add)",
+   "ok": true,
+   "detail": "REQUESTED"
+  },
+  {
+   "id": "A retira… (C cancela su solicitud) → NINGUNA",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "RLS social_blocks: el bloqueado (C) lee 0 filas; el bloqueador (A) lee la suya",
+   "ok": true,
+   "detail": "{\"c\":0,\"a\":1}"
+  },
+  {
+   "id": "RLS duel_friendships: K no lee el grafo ajeno",
+   "ok": true,
+   "detail": "{\"status\":403,\"n\":null}"
+  },
+  {
+   "id": "RLS duel_challenges: K no lee retos ajenos",
+   "ok": true,
+   "detail": "{\"status\":403,\"n\":null}"
+  },
+  {
+   "id": "RPC social_* directa con token de jugador → denegada (solo service_role)",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "límite de búsqueda: ≥ 25 búsquedas normales pasan y luego 429 (anti-scraping)",
+   "ok": true,
+   "detail": "{\"okBefore\":30}"
+  },
+  {
+   "id": "limpieza: 0 amistades, 0 bloqueos, 0 retos vivos de A/B/C",
+   "ok": false,
+   "detail": "1|0|0"
+  },
+  {
+   "id": "la cuenta personal no aparece en NINGUNA fila social",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

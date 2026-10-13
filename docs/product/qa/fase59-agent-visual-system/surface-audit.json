@@ -1,0 +1,34 @@
+{
+ "method": "Búsqueda global en src/ (agent, agents, agentId, composition, lineup, roster, pickem, prediction, mapPool, trainer, coach, tactical, draft, stats, history, match, result, selector, ability, nombres reales de agentes) + lectura de cada superficie. Catálogo canónico: src/domain/tactics/roster.ts (TACTICAL_AGENTS, 29).",
+ "catalogs": [
+  { "file": "src/domain/tactics/roster.ts + valorantRoster.ts", "agents": 29, "role": "CANÓNICO del sistema de arte (ids: kayo, gekko, miks, veto…)" },
+  { "file": "src/agents/catalog.ts", "agents": 10, "role": "agentes FICTICIOS del motor (Veil, Haze…): gameplay, NO Valorant; en el entrenador = legado → emblema gris, sin arte" },
+  { "file": "src/data/esports/agents.ts / tabla public.agents (0003)", "agents": 27, "role": "catálogo de esports; sin miks/veto; no lo importa ninguna UI" },
+  { "file": "src/importer-vlr/agents.ts", "agents": 27, "role": "slug VLR → nombre visible («KAY/O»)" }
+ ],
+ "surfaces": [
+  { "area": "Tactical Coach", "route": "/entrenador/composiciones", "component": "CompositionBuilder · 5 huecos", "before": "AgentEmblem (anillo de rol + código de 3 letras)", "after": "AgentFullBody (≥ sm) / AgentPortrait (móvil)", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/composiciones", "component": "CompositionBuilder · roster de 29 (selector)", "before": "AgentEmblem 34 px", "after": "AgentPortrait 38 px + estado seleccionado", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/composiciones, /jugar, /plan", "component": "CompositionStrip (listas de composiciones)", "before": "AgentEmblem 24–40 px", "after": "AgentPortrait (caras) con title", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/jugar (quick play)", "component": "QuickComposer · barra y roster", "before": "AgentEmblem 24/34 px", "after": "AgentPortrait 28/40 px", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/strats", "component": "AgentPicker (selector de agente de una ficha)", "before": "AgentEmblem 26 px", "after": "AgentPortrait 30 px + seleccionado", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/strats", "component": "Panel EQUIPO (cinco fichas)", "before": "AgentEmblem 30 px", "after": "AgentPortrait 30 px", "modified": true },
+  { "area": "Map markers", "route": "/entrenador/strats, /strats/revisar, teatro", "component": "StrategyBoard · Token", "before": "AgentEmblemGlyph (código) dentro de la ficha", "after": "AgentFaceSvg: cara de 96 px recortada dentro de la ficha (anillo/halo/selección intactos); legado → sigilo", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/strats (Presentar), /entrenador/plan", "component": "TacticalTheater · panel «En el mapa» y tira móvil", "before": "AgentEmblem 30/20 px", "after": "AgentPortrait 36/22 px", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/partido (pre-partido)", "component": "Composición · 5 agentes", "before": "CompositionStrip 30 px (códigos)", "after": "AgentLineup (cuerpo entero + nombre + rol; caras en móvil). Las CARTAS siguen en TeamCardStrip aparte", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador", "component": "Hub · módulo Composiciones", "before": "sólo texto «Elige los cinco agentes»", "after": "caras de la composición MÁS RECIENTE del usuario (dato real de /api/game/compositions)", "modified": true },
+  { "area": "Tactical Coach", "route": "/entrenador/partido (partido en vivo)", "component": "MapMatchBoard / LivePlayerStrip / CoachTacticalPanel", "before": "sin agentes: el simulador no lleva agente por jugador (RenderFrame = equipo, rol, etiqueta)", "after": "sin cambio — no se infiere qué agente es cada punto", "modified": false },
+  { "area": "Tactical Coach", "route": "/entrenador/partido", "component": "MapReveal (quick play ?auto=1)", "before": "sólo mapa", "after": "sin cambio — no carga la composición (1,6 s); ver limitaciones", "modified": false },
+  { "area": "Tactical Coach", "route": "/entrenador/strats", "component": "AbilityPicker", "before": "texto + tecla", "after": "sin cambio — personajes/ no trae iconos de habilidad", "modified": false },
+  { "area": "Tactical Coach", "route": "/entrenador/equipos, /mapas, /partidos", "component": "plantilla (cartas), estudio de mapas, historial", "before": "sin agentes", "after": "sin cambio (no son datos de agente)", "modified": false },
+  { "area": "Estadísticas", "route": "/torneos/[id]/partido/[matchId] (+ /design-system/fase30)", "component": "MatchCenter · tabla por mapa, columna «Agente»", "before": "slug crudo en texto («kayo»), oculto en móvil", "after": "AgentChip: cara + nombre canónico («KAY/O»); en móvil, cara junto al nick", "modified": true },
+  { "area": "Estadísticas", "route": "—", "component": "src/analyzer/agents.ts, awards best-flex, ProPlayer.agents", "before": "no llegan a ninguna UI", "after": "sin cambio (no hay superficie)", "modified": false },
+  { "area": "Map/match pool", "route": "/entrenador/mapas, GameMap.activePool", "component": "mapas del entrenador / pool", "before": "sin datos de agente", "after": "sin cambio — la composición pertenece a un mapa y ya se ve en composiciones/jugar; no se añaden personajes decorativos", "modified": false },
+  { "area": "Pick'ems", "route": "/torneos/[id]#pickems, /pickems", "component": "match_winner / match_score / champion / advance; prediction_players (mvp, breakout, projection)", "before": "equipos y jugadores", "after": "sin cambio — ninguna predicción es de agentes", "modified": false },
+  { "area": "Drafts", "route": "/jugar/draft-gauntlet", "component": "Draft Gauntlet", "before": "cartas de JUGADOR", "after": "sin cambio — no son agentes", "modified": false },
+  { "area": "Historial/resultados", "route": "/entrenador/partidos, coach_matches", "component": "historial de partidos del entrenador", "before": "sin agentes", "after": "sin cambio — coach_matches no persiste composición ni agentes; no se infieren", "modified": false },
+  { "area": "Cartas", "route": "/coleccion/equipos, /jugador/[id]", "component": "CardViewer · campo «Agente» (cardLore ROLE_KIT)", "before": "texto de lore fijo por ROL de carta (primer agente del rol), no un dato del jugador", "after": "sin cambio — ponerle cara afirmaría que ese jugador juega ese agente (jugador ≠ agente)", "modified": false },
+  { "area": "Admin", "route": "/admin/**", "component": "—", "before": "ninguna superficie muestra agentes", "after": "sin cambio", "modified": false },
+  { "area": "Legado F48", "route": "—", "component": "src/components/tactics/AgentPortrait.tsx (retratos de los diez propios)", "before": "sin uso en pantallas", "after": "sin cambio; el canónico es src/components/agents/AgentArt.tsx", "modified": false }
+ ]
+}

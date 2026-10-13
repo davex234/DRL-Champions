@@ -1,0 +1,307 @@
+{
+  "xp": {
+    "account": {
+      "name": "XP de cuenta",
+      "store": "profiles.xp",
+      "curve": "totalXpForLevel(L) = round(100·(L−1)^1.6), sin tope",
+      "sources": [
+        "duelo PvE (duelRewards, tope diario 20 pagos)",
+        "apertura de sobres (XP por carta)",
+        "escalones de Pick'ems"
+      ],
+      "levelReward": "ninguna (decisión F27/F62)"
+    },
+    "season": {
+      "name": "XP de temporada",
+      "store": "user_pass.state.xp",
+      "curve": "lineal 1000/nivel, tope 30",
+      "sources": [
+        "reclamar misiones (xp de la misión)"
+      ],
+      "levelReward": "carril libre (créditos cada nivel; sobre cada 5)"
+    }
+  },
+  "map": [
+    {
+      "action": "Jugar un duelo PvE",
+      "progress": "XP de cuenta + créditos (+ puntos de rango si gana) · métricas duels_played/duels_won",
+      "reward": "auto (award con ref duel:<match>)",
+      "next": "objetivo de duelos · nivel de cuenta"
+    },
+    {
+      "action": "Completar un objetivo",
+      "progress": "misión complete (servidor)",
+      "reward": "RECLAMAR (hub, post-partida o /logros) → créditos/sobres + XP de temporada",
+      "next": "nivel de temporada"
+    },
+    {
+      "action": "Subir de nivel de temporada",
+      "progress": "user_pass.state.xp",
+      "reward": "RECLAMAR nivel del carril libre (y competitivo en Oro)",
+      "next": "siguiente nivel del carril"
+    },
+    {
+      "action": "Coleccionar",
+      "progress": "cartas únicas / 331 (distinct_cards)",
+      "reward": "logros de colección (RECLAMAR) + hitos del pase 50/150",
+      "next": "siguiente marca 10/50/100/150/250/331"
+    },
+    {
+      "action": "Abrir sobres",
+      "progress": "packs_opened + XP de cuenta por carta",
+      "reward": "misiones de sobres, logros sobres-100/1000",
+      "next": "objetivo de sobres"
+    },
+    {
+      "action": "Ranked PvP",
+      "progress": "rating Elo + escalera (aparte del nivel)",
+      "reward": "sin economía (F28); el carril competitivo se abre por PUNTOS de rango (Oro)",
+      "next": "siguiente puesto"
+    },
+    {
+      "action": "Predicciones (Pick'ems)",
+      "progress": "picks_made + puntos",
+      "reward": "escalones del torneo (auto, ref pickem:*)",
+      "next": "objetivo de predicción"
+    },
+    {
+      "action": "Campaña / Draft / Coach",
+      "progress": "sus propios estados (nodos, runs, partidas)",
+      "reward": "campaña: créditos de primera victoria del nodo (auto); draft y coach: sin recompensa (v1)",
+      "next": "no alimentan XP de temporada"
+    }
+  ],
+  "objectives": {
+    "batch": {
+      "daily": 3,
+      "weekly": 2
+    },
+    "pool": [
+      {
+        "id": "d-abrir-1",
+        "kind": "daily",
+        "metric": "packs_opened",
+        "goal": 1,
+        "reward": {
+          "credits": 200
+        },
+        "seasonXp": 150
+      },
+      {
+        "id": "d-duelo-1",
+        "kind": "daily",
+        "metric": "duels_played",
+        "goal": 1,
+        "reward": {
+          "credits": 250
+        },
+        "seasonXp": 200
+      },
+      {
+        "id": "d-duelo-win",
+        "kind": "daily",
+        "metric": "duels_won",
+        "goal": 1,
+        "reward": {
+          "credits": 400
+        },
+        "seasonXp": 300
+      },
+      {
+        "id": "d-pickem-1",
+        "kind": "daily",
+        "metric": "picks_made",
+        "goal": 1,
+        "reward": {
+          "credits": 200
+        },
+        "seasonXp": 150
+      },
+      {
+        "id": "w-duelos-5",
+        "kind": "weekly",
+        "metric": "duels_played",
+        "goal": 5,
+        "reward": {
+          "credits": 1200
+        },
+        "seasonXp": 800
+      },
+      {
+        "id": "w-victorias",
+        "kind": "weekly",
+        "metric": "duels_won",
+        "goal": 3,
+        "reward": {
+          "credits": 1800
+        },
+        "seasonXp": 1000
+      },
+      {
+        "id": "w-sobres-10",
+        "kind": "weekly",
+        "metric": "packs_opened",
+        "goal": 10,
+        "reward": {
+          "credits": 1500
+        },
+        "seasonXp": 900
+      },
+      {
+        "id": "w-cartas-5",
+        "kind": "weekly",
+        "metric": "distinct_cards",
+        "goal": 5,
+        "reward": {
+          "credits": 1500
+        },
+        "seasonXp": 900
+      },
+      {
+        "id": "s-duelos-25",
+        "kind": "seasonal",
+        "metric": "duels_played",
+        "goal": 25,
+        "reward": {
+          "packId": "estandar",
+          "packCount": 2
+        },
+        "seasonXp": 2500
+      },
+      {
+        "id": "s-mazo",
+        "kind": "seasonal",
+        "metric": "decks_saved",
+        "goal": 1,
+        "reward": {
+          "credits": 1000
+        },
+        "seasonXp": 800
+      },
+      {
+        "id": "s-region",
+        "kind": "seasonal",
+        "metric": "region_set",
+        "goal": 1,
+        "reward": {
+          "credits": 500
+        },
+        "seasonXp": 400
+      },
+      {
+        "id": "p-coleccion-50",
+        "kind": "progressive",
+        "metric": "distinct_cards",
+        "goal": 50,
+        "reward": {
+          "credits": 3000
+        },
+        "seasonXp": 2000
+      },
+      {
+        "id": "p-coleccion-150",
+        "kind": "progressive",
+        "metric": "distinct_cards",
+        "goal": 150,
+        "reward": {
+          "packId": "premium",
+          "packCount": 2
+        },
+        "seasonXp": 5000
+      },
+      {
+        "id": "p-puntos-400",
+        "kind": "progressive",
+        "metric": "points",
+        "goal": 400,
+        "reward": {
+          "credits": 5000
+        },
+        "seasonXp": 4000
+      }
+    ],
+    "metricsMeasurable": [
+      "packs_opened",
+      "points",
+      "region_set",
+      "owned_cards",
+      "distinct_cards",
+      "duels_played",
+      "duels_won",
+      "decks_saved",
+      "picks_made"
+    ],
+    "resetTimezone": "UTC (ventanas del servidor, domain/progression/periods)"
+  },
+  "achievements": [
+    {
+      "id": "sobres-100",
+      "name": "Abridor en serie",
+      "goal": 100,
+      "reward": 2500
+    },
+    {
+      "id": "sobres-1000",
+      "name": "Maestro de sobres",
+      "goal": 1000,
+      "reward": 25000
+    },
+    {
+      "id": "primer-mvp",
+      "name": "Consigue una Champions S",
+      "goal": 1,
+      "reward": 3000
+    },
+    {
+      "id": "primer-icon",
+      "name": "Consigue una leyenda",
+      "goal": 1,
+      "reward": 10000
+    },
+    {
+      "id": "coleccionista",
+      "name": "Coleccionista",
+      "goal": 40,
+      "reward": 4000
+    },
+    {
+      "id": "completa-heretics",
+      "name": "Completar Team Heretics",
+      "goal": 11,
+      "reward": 8000
+    },
+    {
+      "id": "completa-emea",
+      "name": "Completar EMEA",
+      "goal": 100,
+      "reward": 15000
+    }
+  ],
+  "collection": {
+    "unit": "carta del catálogo (card_id único)",
+    "total": 331,
+    "instances": "filas de user_cards (repetidas incluidas)"
+  },
+  "levelSamples": [
+    {
+      "level": 2,
+      "totalXp": 100
+    },
+    {
+      "level": 5,
+      "totalXp": 919
+    },
+    {
+      "level": 8,
+      "totalXp": 2250
+    },
+    {
+      "level": 10,
+      "totalXp": 3363
+    },
+    {
+      "level": 20,
+      "totalXp": 11117
+    }
+  ]
+}

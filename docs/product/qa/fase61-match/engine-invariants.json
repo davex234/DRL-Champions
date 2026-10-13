@@ -1,0 +1,29 @@
+{
+  "engineTouched": false,
+  "engineFilesMtime": {
+    "domain/cardgame/combat/resolver.ts": "2026-09-03",
+    "domain/cardgame/combat/rules.ts": "2026-09-03",
+    "domain/cardgame/match/orchestrator.ts": "2026-09-03",
+    "server/services/duels.ts": "2026-09-21",
+    "server/services/duelsPvp.ts": "2026-09-14",
+    "server/services/duelsRating.ts": "2026-09-08"
+  },
+  "goldenDigest": {
+    "seeds": 120,
+    "digest": "590d299795a9d5edc398ed23b942eef56bacef2664649641962a8022a8deca84",
+    "tally": {
+      "SCORE": 109,
+      "OVR_TIEBREAK": 11
+    },
+    "measuredBeforeF61Edits": true,
+    "pinnedIn": "src/lib/duel/f61.match.test.tsx · F61 MOTOR 01",
+    "instrument": "scripts/_fase61-digest.ts"
+  },
+  "tests": [
+    "F61 MOTOR 01 huella dorada (resultado antes = después)",
+    "F61 MOTOR 02 determinismo",
+    "F61 MOTOR 03 la presentación no muta la vista (entradas congeladas)",
+    "F61 MOTOR 04 reglas reales leídas del código",
+    "F61 MOTOR 05 matchFlow sin reloj/azar/red/almacenamiento"
+  ]
+}

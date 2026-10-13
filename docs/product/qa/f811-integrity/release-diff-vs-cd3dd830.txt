@@ -1,0 +1,13 @@
+F78 scripts/ops/backup-drlcards.sh
+F78 scripts/ops/backup-offsite.sh
+F78 scripts/ops/backup-status.sh
+F78 scripts/ops/offsite-harness.sh
+F78 scripts/ops/production-check.ts
+F78 src/domain/ops/backup.test.ts
+F78 src/domain/ops/backup.ts
+CHG src/domain/packs/reveal.ts
+NEW src/lib/game/f811.integrity.test.ts
+NEW src/lib/game/localEconomy.ts
+CHG src/lib/game/client.ts
+CHG src/lib/game/sync.ts
+CHG src/store/useGameStore.ts

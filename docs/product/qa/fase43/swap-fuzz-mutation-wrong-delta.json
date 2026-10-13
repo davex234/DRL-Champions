@@ -1,0 +1,203 @@
+{
+  "phase": 43,
+  "kind": "swap-fuzz",
+  "swaps": 5000,
+  "legalSwaps": 902,
+  "illegalAttempts": 4098,
+  "fullAlternativeLists": 13,
+  "alternativesTimingMs": {
+    "n": 13,
+    "p50": 16.8347,
+    "p95": 34.0418,
+    "p99": 37.224,
+    "max": 38.0195
+  },
+  "mutate": "wrong-delta",
+  "violations": 902,
+  "byInvariant": {
+    "delta-exact": 902
+  },
+  "sample": [
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    },
+    {
+      "inv": "delta-exact",
+      "detail": {
+        "m": "gamesense"
+      }
+    }
+  ],
+  "ms": 3240
+}

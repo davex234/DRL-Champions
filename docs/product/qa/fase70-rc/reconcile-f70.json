@@ -1,0 +1,944 @@
+{
+  "at": "2026-09-28T16:03:52.170Z",
+  "readOnly": true,
+  "accounts": 12,
+  "negativePacks": 0,
+  "allOk": true,
+  "rows": [
+    {
+      "persona": "A",
+      "account": "d52916aa",
+      "ledger": {
+        "start": 6000,
+        "earned": 2190,
+        "spent": 0,
+        "sum": 8190,
+        "final": 8190,
+        "rows": 10,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_win": {
+            "n": 1,
+            "total": 120
+          },
+          "mission_reward": {
+            "n": 3,
+            "total": 1650
+          },
+          "pass_reward": {
+            "n": 1,
+            "total": 260
+          },
+          "duel_loss": {
+            "n": 4,
+            "total": 160
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 3,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 4,
+        "userGameOpened": 4,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 1,
+        "seasonXp": 1300,
+        "accountXp": 688
+      }
+    },
+    {
+      "persona": "B",
+      "account": "d8eb622b",
+      "ledger": {
+        "start": 6000,
+        "earned": 5565,
+        "spent": -6500,
+        "sum": 5065,
+        "final": 5065,
+        "rows": 34,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_win": {
+            "n": 9,
+            "total": 1480
+          },
+          "mission_reward": {
+            "n": 4,
+            "total": 2950
+          },
+          "pass_reward": {
+            "n": 2,
+            "total": 530
+          },
+          "duel_loss": {
+            "n": 13,
+            "total": 605
+          },
+          "buy_pack": {
+            "n": 5,
+            "total": -6500
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 3,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 4,
+            "rewarded": 0,
+            "opened": 5,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "premium": {
+            "starter": 0,
+            "bought": 1,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 9,
+        "userGameOpened": 9,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 46,
+        "stateOwned": 46,
+        "decks": 2,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 2,
+        "seasonXp": 2050,
+        "accountXp": 2486
+      }
+    },
+    {
+      "persona": "C",
+      "account": "d4133641",
+      "ledger": {
+        "start": 6000,
+        "earned": 2310,
+        "spent": -7500,
+        "sum": 810,
+        "final": 810,
+        "rows": 15,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_win": {
+            "n": 1,
+            "total": 120
+          },
+          "duel_loss": {
+            "n": 2,
+            "total": 80
+          },
+          "mission_reward": {
+            "n": 4,
+            "total": 1850
+          },
+          "pass_reward": {
+            "n": 1,
+            "total": 260
+          },
+          "buy_pack": {
+            "n": 6,
+            "total": -7500
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 3,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 5,
+            "rewarded": 0,
+            "opened": 5,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          },
+          "premium": {
+            "starter": 0,
+            "bought": 1,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 9,
+        "userGameOpened": 9,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 46,
+        "stateOwned": 46,
+        "decks": 2,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 1,
+        "seasonXp": 1450,
+        "accountXp": 1298
+      }
+    },
+    {
+      "persona": "D",
+      "account": "225e1fce",
+      "ledger": {
+        "start": 6000,
+        "earned": 3430,
+        "spent": 0,
+        "sum": 9430,
+        "final": 9430,
+        "rows": 7,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "mission_reward": {
+            "n": 4,
+            "total": 2900
+          },
+          "pass_reward": {
+            "n": 2,
+            "total": 530
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 3,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 4,
+        "userGameOpened": 4,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 6,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 2,
+        "seasonXp": 2000,
+        "accountXp": 552
+      }
+    },
+    {
+      "persona": "E",
+      "account": "a9a86124",
+      "ledger": {
+        "start": 6000,
+        "earned": 3705,
+        "spent": -2500,
+        "sum": 7205,
+        "final": 7205,
+        "rows": 12,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_loss": {
+            "n": 3,
+            "total": 105
+          },
+          "mission_reward": {
+            "n": 3,
+            "total": 2500
+          },
+          "pass_reward": {
+            "n": 4,
+            "total": 1100
+          },
+          "buy_pack": {
+            "n": 1,
+            "total": -2500
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 2,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 2,
+            "opened": 1,
+            "expected": 2,
+            "actual": 2,
+            "ok": true
+          },
+          "premium": {
+            "starter": 0,
+            "bought": 1,
+            "rewarded": 0,
+            "opened": 0,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          }
+        },
+        "openedOps": 3,
+        "userGameOpened": 3,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 4,
+        "seasonXp": 4200,
+        "accountXp": 431
+      }
+    },
+    {
+      "persona": "F",
+      "account": "def98cb4",
+      "ledger": {
+        "start": 6000,
+        "earned": 2070,
+        "spent": 0,
+        "sum": 8070,
+        "final": 8070,
+        "rows": 7,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_win": {
+            "n": 1,
+            "total": 120
+          },
+          "duel_loss": {
+            "n": 1,
+            "total": 40
+          },
+          "mission_reward": {
+            "n": 3,
+            "total": 1650
+          },
+          "pass_reward": {
+            "n": 1,
+            "total": 260
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 3,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 4,
+        "userGameOpened": 4,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 1,
+        "seasonXp": 1300,
+        "accountXp": 469
+      }
+    },
+    {
+      "persona": "G",
+      "account": "00eb4ea1",
+      "ledger": {
+        "start": 6000,
+        "earned": 3625,
+        "spent": -1000,
+        "sum": 8625,
+        "final": 8625,
+        "rows": 12,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_loss": {
+            "n": 4,
+            "total": 145
+          },
+          "mission_reward": {
+            "n": 4,
+            "total": 2950
+          },
+          "pass_reward": {
+            "n": 2,
+            "total": 530
+          },
+          "buy_pack": {
+            "n": 1,
+            "total": -1000
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 2,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 1,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          }
+        },
+        "openedOps": 3,
+        "userGameOpened": 3,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 2,
+        "seasonXp": 2050,
+        "accountXp": 432
+      }
+    },
+    {
+      "persona": "H",
+      "account": "dbcb170a",
+      "ledger": {
+        "start": 6000,
+        "earned": 1265,
+        "spent": 0,
+        "sum": 7265,
+        "final": 7265,
+        "rows": 5,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_loss": {
+            "n": 2,
+            "total": 65
+          },
+          "mission_reward": {
+            "n": 2,
+            "total": 1200
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 2,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 3,
+        "userGameOpened": 3,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 0,
+        "seasonXp": 950,
+        "accountXp": 502
+      }
+    },
+    {
+      "persona": "I",
+      "account": "be24f4ef",
+      "ledger": {
+        "start": 6000,
+        "earned": 13790,
+        "spent": 0,
+        "sum": 19790,
+        "final": 19790,
+        "rows": 10,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_win": {
+            "n": 1,
+            "total": 120
+          },
+          "duel_loss": {
+            "n": 1,
+            "total": 40
+          },
+          "mission_reward": {
+            "n": 4,
+            "total": 3100
+          },
+          "achievement": {
+            "n": 1,
+            "total": 10000
+          },
+          "pass_reward": {
+            "n": 2,
+            "total": 530
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 2,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 3,
+        "userGameOpened": 3,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 2,
+        "seasonXp": 2150,
+        "accountXp": 547
+      }
+    },
+    {
+      "persona": "J",
+      "account": "fd4a8318",
+      "ledger": {
+        "start": 6000,
+        "earned": 6025,
+        "spent": 0,
+        "sum": 12025,
+        "final": 12025,
+        "rows": 8,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_loss": {
+            "n": 2,
+            "total": 65
+          },
+          "mission_reward": {
+            "n": 3,
+            "total": 2700
+          },
+          "achievement": {
+            "n": 1,
+            "total": 3000
+          },
+          "pass_reward": {
+            "n": 1,
+            "total": 260
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 2,
+            "expected": 1,
+            "actual": 1,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 3,
+        "userGameOpened": 3,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 1,
+        "seasonXp": 1850,
+        "accountXp": 478
+      }
+    },
+    {
+      "persona": "K",
+      "account": "91cb8a2c",
+      "ledger": {
+        "start": 6000,
+        "earned": 3025,
+        "spent": 0,
+        "sum": 9025,
+        "final": 9025,
+        "rows": 7,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_loss": {
+            "n": 2,
+            "total": 65
+          },
+          "mission_reward": {
+            "n": 3,
+            "total": 2700
+          },
+          "pass_reward": {
+            "n": 1,
+            "total": 260
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 3,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 4,
+        "userGameOpened": 4,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 1,
+        "seasonXp": 1850,
+        "accountXp": 496
+      }
+    },
+    {
+      "persona": "L",
+      "account": "471edf67",
+      "ledger": {
+        "start": 6000,
+        "earned": 1265,
+        "spent": 0,
+        "sum": 7265,
+        "final": 7265,
+        "rows": 5,
+        "chainBreaks": 0,
+        "byReason": {
+          "starter_grant": {
+            "n": 1,
+            "total": 6000
+          },
+          "duel_loss": {
+            "n": 2,
+            "total": 65
+          },
+          "mission_reward": {
+            "n": 2,
+            "total": 1200
+          }
+        },
+        "ok": true
+      },
+      "inventory": {
+        "packs": {
+          "inicial": {
+            "starter": 3,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 3,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          },
+          "estandar": {
+            "starter": 1,
+            "bought": 0,
+            "rewarded": 0,
+            "opened": 1,
+            "expected": 0,
+            "actual": 0,
+            "ok": true
+          }
+        },
+        "openedOps": 4,
+        "userGameOpened": 4,
+        "openedCountersAgree": true,
+        "ok": true
+      },
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "progression": {
+        "missionsClaimedNotComplete": [],
+        "achievementsClaimedNotComplete": [],
+        "ok": true,
+        "seasonLevel": 0,
+        "seasonXp": 950,
+        "accountXp": 592
+      }
+    }
+  ]
+}

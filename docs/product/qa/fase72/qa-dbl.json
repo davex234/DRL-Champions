@@ -1,0 +1,18 @@
+{
+  "at": "2026-09-29T17:36:19.002Z",
+  "section": "dbl",
+  "pass": 2,
+  "total": 2,
+  "results": [
+    {
+      "id": "doble clic en ENTRAR: solo abre la confirmación, no cobra",
+      "ok": true,
+      "detail": "step=confirm 9430→9430"
+    },
+    {
+      "id": "doble clic en CONFIRMAR: UNA run y UN cargo de 2.000",
+      "ok": true,
+      "detail": "asientos=1 9430→7430"
+    }
+  ]
+}

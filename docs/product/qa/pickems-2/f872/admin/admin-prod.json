@@ -1,0 +1,202 @@
+{
+ "at": "2026-10-06T17:42:29.114Z",
+ "total": 39,
+ "passed": 39,
+ "rows": [
+  {
+   "id": "antes: admins = davex y ValoRosters",
+   "ok": true,
+   "detail": "3befce61#NB2Z9BM,b7ccff02#H5ND8K7"
+  },
+  {
+   "id": "login QA (admin temporal)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin · lista con el borrador real",
+   "ok": true,
+   "detail": "{\"status\":200,\"draft\":{\"id\":\"617033f4-3e8b-4e4c-91f7-2cb478b676b7\",\"slug\":\"champions-2026-playoffs\",\"title\":\"Champions 2026 · Playoffs\",\"eventId\":\"vlr-2766\",\"status\":\"DRAFT\",\"formatLabel\":\"Doble eliminación\",\"nodes\":14,\"rewardsStatus\":\"DRAFT\",\"participants\":0,\"version\":1,\"updatedAt\":\"2026-10-06T08:54:10.980733+00:00\"}}"
+  },
+  {
+   "id": "admin · estado del worker visible (último éxito reciente)",
+   "ok": true,
+   "detail": "2026-10-06T17:42:02.052+00:00"
+  },
+  {
+   "id": "admin · validador: 6 perdedores sin destino + 4 huecos del cuadro bajo",
+   "ok": true,
+   "detail": "[\"SLOT_UNKNOWN\",\"SLOT_UNKNOWN\",\"SLOT_UNKNOWN\",\"SLOT_UNKNOWN\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\"]"
+  },
+  {
+   "id": "admin · no publicable",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin · deriva: lo guardado = lo que hoy dice la fuente",
+   "ok": true,
+   "detail": "{\"checksumNow\":\"471c35b2dea91e9cbd5673146dc472c190143efbd23d83c22bcd3f0735e11d70\",\"changed\":false,\"notes\":[],\"affectedPicks\":0}"
+  },
+  {
+   "id": "admin · economía: escalones y pasivo (1.000 jugadores = 20.000.000)",
+   "ok": true,
+   "detail": "[{\"id\":\"PARTICIPATION\",\"label\":\"Participación\",\"value\":2500},{\"id\":\"GOOD\",\"label\":\"Buen resultado\",\"value\":6000},{\"id\":\"GREAT\",\"label\":\"Gran resultado\",\"value\":12000},{\"id\":\"ELITE\",\"label\":\"Élite\",\"value\":20000},{\"id\":\"PERFECT\",\"label\":\"Pick'em perfecto\",\"value\":20000}]"
+  },
+  {
+   "id": "admin · cuadro incompleto: SIN simulación engañosa y con aviso explícito",
+   "ok": true,
+   "detail": "[\"La simulación del valor esperado necesita el cuadro completo: corrige antes los errores del validador.\"]"
+  },
+  {
+   "id": "PUERTA · publicar con el validador en rojo → 409 (sin publicar)",
+   "ok": true,
+   "detail": "{\"error\":\"El validador lo bloquea: Ronda 1 · baja (754738): 2 hueco(s) sin origen conocido. · Ronda 1 · baja (754739): 2 hueco(s) sin origen conocido. · Ronda 2 · baja (754740): 1 hueco(s) sin origen conocido.\"}"
+  },
+  {
+   "id": "PUERTA · sigue en BORRADOR",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "vista previa (NO guarda) con 6 aristas de prueba: el validador queda limpio",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "vista previa no guardó nada (checksum intacto)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin no puede contradecir a la fuente (ADMIN_CONTRADICTS_SOURCE)",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "F87.1 · lista: Pick'ems clásicos (LEGACY) aparte, los 3 LEGACY_V1",
+   "ok": true,
+   "detail": "[\"demo-masters-madrid-2026:LEGACY_V1:scored:pagos=0\",\"vlr-2976-emea-stage-2:LEGACY_V1:open:pagos=0\",\"vlr-2766:LEGACY_V1:scored:pagos=1\"]"
+  },
+  {
+   "id": "F87.1 · detalle: autoridad legacy en vlr-2766 y bloqueo de activación que lo dice",
+   "ok": true,
+   "detail": "[\"Estructura: 4 × Ronda 1 · baja (754738): 2 hueco(s) sin origen conocido. (SLOT_UNKNOWN)\",\"Estructura: 6 × Cuartos · alta (754732): falta adónde cae el perdedor. (LOSER_MISSING)\",\"Recompensas: La configuración no es la regla aprobada pickem-rewards-v1: carga las reglas v1.\",\"Recompensas: Falta la política de elegibilidad para cobrar (reward-eligibility-v1): carga las reglas v1.\",\"Colisión legacy: Este evento tiene un Pick'em clásico con recompensas propias (autoridad legacy): Pick'ems 2.0 no pu"
+  },
+  {
+   "id": "F87.1 · PUERTA · activar sin confirmación → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Activar exige confirmar el pasivo máximo y las reglas\"}"
+  },
+  {
+   "id": "F87.1 · PUERTA · activar reglas v1 CON confirmación en un evento legacy → 409 (autoridad legacy)",
+   "ok": true,
+   "detail": "{\"error\":\"No se pueden activar: Estructura: 4 × Ronda 1 · baja (754738): 2 hueco(s) sin origen conocido. (SLOT_UNKNOWN) · Estructura: 6 × Cuartos · alta (754732): falta adónde cae el perdedor. (LOSER_MISSING) · Colisión legacy: Este evento tiene un Pick'em clásico con recompensas propias (autoridad legacy): Pick'ems 2.0 no puede premiarlo.\"}"
+  },
+  {
+   "id": "F87.1 · nada cambió: recompensas siguen en BORRADOR, misma versión y checksum",
+   "ok": true,
+   "detail": "{\"before\":\"DRAFT|1|879303260091891663c81376627797691072ab6f6e301f0a878278a5579c9afa|1\",\"after\":\"DRAFT|1|879303260091891663c81376627797691072ab6f6e301f0a878278a5579c9afa|1\"}"
+  },
+  {
+   "id": "F87.1 · BD: 0 Pick'ems 2.0 con recompensas ACTIVAS y 0 publicados",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F87.2 · detalle: preparación con 8 puertas y tres estados",
+   "ok": true,
+   "detail": "{\"structure\":\"NOT_READY\",\"rewards\":\"NOT_READY\",\"launch\":\"NOT_READY\"}"
+  },
+  {
+   "id": "F87.2 · Champions: NO LISTO; estructura en rojo por los cruces de perdedor",
+   "ok": true,
+   "detail": "[\"4 × Ronda 1 · baja (754738): 2 hueco(s) sin origen conocido. (SLOT_UNKNOWN)\",\"6 × Cuartos · alta (754732): falta adónde cae el perdedor. (LOSER_MISSING)\"]"
+  },
+  {
+   "id": "F87.2 · Champions: colisión legacy en rojo con su motivo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F87.2 · bloqueos concretos (nada de «inválido» genérico)",
+   "ok": true,
+   "detail": "[\"Estructura: 4 × Ronda 1 · baja (754738): 2 hueco(s) sin origen conocido. (SLOT_UNKNOWN)\",\"Estructura: 6 × Cuartos · alta (754732): falta adónde cae el perdedor. (LOSER_MISSING)\",\"Recompensas: La configuración no es la regla aprobada pickem-rewards-v1: carga las reglas v1.\"]"
+  },
+  {
+   "id": "F87.2 · elegibilidad visible para el admin (política + recuento, sin datos personales)",
+   "ok": true,
+   "detail": "{\"policy\":null,\"summary\":{}}"
+  },
+  {
+   "id": "F87.2 · BD: política v1 registrada (7 días / 3 partidas) y Champions sigue BORRADOR",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 1440: sin desbordamiento de página",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "F87.2 · panel 1440: «Preparación de lanzamiento» NO LISTO con puertas ✓/✕ legibles y elegibilidad",
+   "ok": true,
+   "detail": "{\"structure\":\"NOT_READY\",\"launch\":\"NOT_READY\",\"gates\":8,\"failText\":\"✕ Estructura | ✕ Recompensas | ✕ Colisión legacy\",\"elig\":\"Elegibilidad para cobrar: sin política · sin participantes\"}"
+  },
+  {
+   "id": "F87.1 · panel 1440: Pick'ems clásicos (LEGACY) aparte y aviso de autoridad legacy en el detalle",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 1440: errores del validador visibles y «Publicar» deshabilitado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 1024: sin desbordamiento de página",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "F87.2 · panel 1024: «Preparación de lanzamiento» NO LISTO con puertas ✓/✕ legibles y elegibilidad",
+   "ok": true,
+   "detail": "{\"structure\":\"NOT_READY\",\"launch\":\"NOT_READY\",\"gates\":8,\"failText\":\"✕ Estructura | ✕ Recompensas | ✕ Colisión legacy\",\"elig\":\"Elegibilidad para cobrar: sin política · sin participantes\"}"
+  },
+  {
+   "id": "F87.1 · panel 1024: Pick'ems clásicos (LEGACY) aparte y aviso de autoridad legacy en el detalle",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 1024: errores del validador visibles y «Publicar» deshabilitado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 390: sin desbordamiento de página",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "F87.2 · panel 390: «Preparación de lanzamiento» NO LISTO con puertas ✓/✕ legibles y elegibilidad",
+   "ok": true,
+   "detail": "{\"structure\":\"NOT_READY\",\"launch\":\"NOT_READY\",\"gates\":8,\"failText\":\"✕ Estructura | ✕ Recompensas | ✕ Colisión legacy\",\"elig\":\"Elegibilidad para cobrar: sin política · sin participantes\"}"
+  },
+  {
+   "id": "F87.1 · panel 390: Pick'ems clásicos (LEGACY) aparte y aviso de autoridad legacy en el detalle",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 390: errores del validador visibles y «Publicar» deshabilitado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "después: admin QA revocado; admins = davex y ValoRosters",
+   "ok": true,
+   "detail": "3befce61#NB2Z9BM,b7ccff02#H5ND8K7"
+  }
+ ]
+}

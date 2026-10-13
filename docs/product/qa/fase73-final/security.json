@@ -1,0 +1,219 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "admin": {
+    "rejections_r3": {
+      "pass": 15,
+      "fail": 0,
+      "source": "docs/product/qa/fase73-closure/r3/admin-rejections.json",
+      "results": [
+        {
+          "id": "RECHAZO · receta inválida (Plata → Plata, no sube de clase)",
+          "ok": true,
+          "detail": "▲ La receta debe subir de clase"
+        },
+        {
+          "id": "RECHAZO · cantidad 0",
+          "ok": true,
+          "detail": "▲ La cantidad de entrada va de 2 a 100"
+        },
+        {
+          "id": "RECHAZO · sobre inexistente",
+          "ok": true,
+          "detail": "▲ El sobre de entrada no existe"
+        },
+        {
+          "id": "RECHAZO · receta circular (Bronce → Bronce)",
+          "ok": true,
+          "detail": "▲ Entrada y salida no pueden ser el mismo sobre · La receta debe subir de categoría"
+        },
+        {
+          "id": "RECHAZO · receta que baja de categoría (Plata → Bronce)",
+          "ok": true,
+          "detail": "▲ La receta debe subir de categoría"
+        },
+        {
+          "id": "RECHAZO · económica: Bronce → Plata a 3 (suelo 4) ACTIVA",
+          "ok": true,
+          "detail": "▲ Por debajo del suelo seguro: mínimo 4 (el crafteo crearía valor)"
+        },
+        {
+          "id": "RECHAZO · económica: activar Prime → Icon (salida escasa)",
+          "ok": true,
+          "detail": "▲ La clase de salida tiene menos de 10 cartas: sería una garantía"
+        },
+        {
+          "id": "RECHAZO · carta inexistente (proyecto)",
+          "ok": true,
+          "detail": "▲ La carta objetivo no existe en el catálogo"
+        },
+        {
+          "id": "RECHAZO · carta inexistente (condición USE_CARD)",
+          "ok": true,
+          "detail": "▲ La carta no existe en el catálogo"
+        },
+        {
+          "id": "RECHAZO · recompensa inexistente (sobre no-existe)",
+          "ok": true,
+          "detail": "▲ El sobre de recompensa no existe"
+        },
+        {
+          "id": "RECHAZO · recompensa fuera de tope (999.999 créditos)",
+          "ok": true,
+          "detail": "▲ «credits» de 0 a 5000"
+        },
+        {
+          "id": "RECHAZO · objetivo 0",
+          "ok": true,
+          "detail": "▲ Objetivo de 1 a 500"
+        },
+        {
+          "id": "RECHAZO · dependencia circular (Turquía ↔ tras Turquía)",
+          "ok": true,
+          "detail": "▲ Dependencia circular"
+        },
+        {
+          "id": "RECHAZO · versión obsoleta (STALE_CONTENT) → 409",
+          "ok": true,
+          "detail": "409 Alguien lo cambió antes: recarga (STALE_CONTENT)"
+        },
+        {
+          "id": "BD · ningún rechazo escribió nada: recetas (cantidad, estado y versión) idénticas, 0 filas qa-f73-rej",
+          "ok": true,
+          "detail": "{\"recipes\":{\"pack-estandar-premium\":\"4:ACTIVE:v1\",\"pack-premium-oro\":\"2:ACTIVE:v1\",\"pack-oro-masters\":\"2:ACTIVE:v1\",\"pack-masters-champions\":\"3:ACTIVE:v1\",\"pack-champions-icon\":\"2:ACTIVE:v1\",\"card-base-plata\":\"7:ACTIVE:v1\",\"card-plata-oro\":\"3:ACTIVE:v1\",\"card-oro-masters\":\"8:ACTIVE:v1\",\"card-masters-champions\":\"14:ACTIVE:v1\",\"card-champions-prime\":\"10:ACTIVE:v1\",\"card-prime-icon\":\"5:DISABLED:v1\"},\"missions\":12,\"projects\":3,\"rej\":0}"
+        }
+      ]
+    },
+    "rejections_r4": {
+      "pass": 12,
+      "fail": 3,
+      "source": "docs/product/qa/fase73-closure/admin-rejections.json",
+      "results": [
+        {
+          "id": "RECHAZO · receta inválida (Plata → Plata, no sube de clase)",
+          "ok": true,
+          "detail": "▲ La receta debe subir de clase"
+        },
+        {
+          "id": "RECHAZO · cantidad 0",
+          "ok": true,
+          "detail": "▲ La cantidad de entrada va de 2 a 100"
+        },
+        {
+          "id": "RECHAZO · sobre inexistente",
+          "ok": true,
+          "detail": "▲ El sobre de entrada no existe"
+        },
+        {
+          "id": "RECHAZO · receta circular (Bronce → Bronce)",
+          "ok": true,
+          "detail": "▲ Entrada y salida no pueden ser el mismo sobre · La receta debe subir de categoría"
+        },
+        {
+          "id": "RECHAZO · receta que baja de categoría (Plata → Bronce)",
+          "ok": true,
+          "detail": "▲ La receta debe subir de categoría"
+        },
+        {
+          "id": "RECHAZO · económica: Bronce → Plata a 3 (suelo 4) ACTIVA",
+          "ok": false,
+          "detail": "sin respuesta"
+        },
+        {
+          "id": "RECHAZO · económica: activar Prime → Icon (salida escasa)",
+          "ok": false,
+          "detail": "▲ No autorizado"
+        },
+        {
+          "id": "RECHAZO · carta inexistente (proyecto)",
+          "ok": false,
+          "detail": "▲ No autorizado"
+        },
+        {
+          "id": "RECHAZO · carta inexistente (condición USE_CARD)",
+          "ok": true,
+          "detail": "▲ La carta no existe en el catálogo"
+        },
+        {
+          "id": "RECHAZO · recompensa inexistente (sobre no-existe)",
+          "ok": true,
+          "detail": "▲ El sobre de recompensa no existe"
+        },
+        {
+          "id": "RECHAZO · recompensa fuera de tope (999.999 créditos)",
+          "ok": true,
+          "detail": "▲ «credits» de 0 a 5000"
+        },
+        {
+          "id": "RECHAZO · objetivo 0",
+          "ok": true,
+          "detail": "▲ Objetivo de 1 a 500"
+        },
+        {
+          "id": "RECHAZO · dependencia circular (Turquía ↔ tras Turquía)",
+          "ok": true,
+          "detail": "▲ Dependencia circular"
+        },
+        {
+          "id": "RECHAZO · versión obsoleta (STALE_CONTENT) → 409",
+          "ok": true,
+          "detail": "409 Alguien lo cambió antes: recarga (STALE_CONTENT)"
+        },
+        {
+          "id": "BD · ningún rechazo escribió nada: recetas (cantidad, estado y versión) idénticas, 0 filas qa-f73-rej",
+          "ok": true,
+          "detail": "{\"recipes\":{\"pack-estandar-premium\":\"4:ACTIVE:v1\",\"pack-premium-oro\":\"2:ACTIVE:v1\",\"pack-oro-masters\":\"2:ACTIVE:v1\",\"pack-masters-champions\":\"3:ACTIVE:v1\",\"pack-champions-icon\":\"2:ACTIVE:v1\",\"card-base-plata\":\"7:ACTIVE:v1\",\"card-plata-oro\":\"3:ACTIVE:v1\",\"card-oro-masters\":\"8:ACTIVE:v1\",\"card-masters-champions\":\"14:ACTIVE:v1\",\"card-champions-prime\":\"10:ACTIVE:v1\",\"card-prime-icon\":\"5:DISABLED:v1\"},\"missions\":16,\"projects\":4,\"rej\":0}"
+        }
+      ]
+    },
+    "r4Note": "3 FAIL en r4 = «No autorizado» durante la caída del túnel SSH (19:29:5x–19:30:14Z, relanzado por el supervisor); GoTrue no recibió esas peticiones. Los mismos 3 rechazos pasaron en r3; la BD no cambió (el propio check de r4 lo confirma)",
+    "nonAdmin": {
+      "pass": 6,
+      "fail": 0,
+      "source": "docs/product/qa/fase73-production/admin-nonadmin.json",
+      "results": [
+        {
+          "id": "ADMIN · GET con cuenta no admin → 401 idéntico al anónimo (sin oráculo, contrato de server/admin/http.ts)",
+          "ok": true,
+          "detail": "401"
+        },
+        {
+          "id": "ADMIN · POST saveRecipe con cuenta no admin → 401 (sin oráculo)",
+          "ok": true,
+          "detail": "401"
+        },
+        {
+          "id": "ADMIN · POST saveMission con cuenta no admin → 401 (sin oráculo)",
+          "ok": true,
+          "detail": "401"
+        },
+        {
+          "id": "ADMIN · anónimo → 401/403",
+          "ok": true,
+          "detail": "401"
+        },
+        {
+          "id": "ADMIN · la receta sigue en 4 tras los intentos",
+          "ok": true,
+          "detail": "4"
+        },
+        {
+          "id": "ADMIN · /admin/crafting en el navegador de un no admin no enseña el panel",
+          "ok": true,
+          "detail": "ACCESO RESTRINGIDO Esta zona es solo para administradores. Inicia sesión con una cuenta autorizada. IR A MI CUENTA"
+        }
+      ]
+    },
+    "tempAdmin": {
+      "grants": "4 ciclos auditados (qa_admin_grant/qa_admin_revoke)",
+      "final": {
+        "admins": 1,
+        "qaAdmin": false
+      }
+    }
+  },
+  "salvage": {
+    "md5": "79b03776c4be5fe7f90ec94127773fe6",
+    "guard": true
+  },
+  "public": "valorosters.com: ver public-domain.json"
+}

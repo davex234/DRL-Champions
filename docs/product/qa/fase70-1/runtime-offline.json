@@ -1,0 +1,36 @@
+{
+  "before": {
+    "url": "/coleccion",
+    "offline": false,
+    "head": "EL ÁLBUM DE NEXUS | ÁLBUM",
+    "sw": true
+  },
+  "during": [
+    {
+      "url": "/temporada",
+      "offline": true,
+      "head": "No hay conexión con el servidor",
+      "sw": true
+    },
+    {
+      "url": "/tienda/creditos",
+      "offline": true,
+      "head": "No hay conexión con el servidor",
+      "sw": true
+    },
+    {
+      "url": "/jugador/x",
+      "offline": true,
+      "head": "No hay conexión con el servidor",
+      "sw": true
+    }
+  ],
+  "afterReload": {
+    "url": "/jugador/x",
+    "offline": false,
+    "head": "",
+    "sw": true
+  },
+  "recoveredAfterPolls": 0,
+  "ok": true
+}

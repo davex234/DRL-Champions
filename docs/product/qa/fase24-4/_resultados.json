@@ -1,0 +1,197 @@
+[
+  {
+    "label": "/pickems @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @1440 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @390 sin excepciones de la app ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "champions-2026-pre: importador real → cuadro presente, 12 aristas, 8 clasificaciones, 0 desconocidas, 0 conflictos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "champions-2026-pre: modelo DOUBLE_ELIMINATION, 24 rondas, 20 aristas (20 estructurales), 8 clasificados, 0 conflictos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "real-champions-2026-pre @1440: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "real-champions-2026-pre @1440: líneas dibujadas = aristas con los dos extremos en la fase visible",
+    "ok": true,
+    "detail": "20 / 20 (modelo: 20)"
+  },
+  {
+    "label": "real-champions-2026-pre @390: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "champions-2025-final: importador real → cuadro presente, 11 aristas, 0 clasificaciones, 0 desconocidas, 0 conflictos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "champions-2025-final: modelo DOUBLE_ELIMINATION, 24 rondas, 44 aristas (11 estructurales), 0 clasificados, 0 conflictos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "real-champions-2025-final @1440: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "real-champions-2025-final @1440: líneas dibujadas = aristas con los dos extremos en la fase visible",
+    "ok": true,
+    "detail": "20 / 20 (modelo: 44)"
+  },
+  {
+    "label": "real-champions-2025-final @390: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "fixture doble: perdedores confirmados → aristas LOSER antes del resultado",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "fixture-double-confirmed @1440: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "fixture-double-confirmed @1440: líneas dibujadas = aristas con los dos extremos en la fase visible",
+    "ok": true,
+    "detail": "8 / 8 (modelo: 8)"
+  },
+  {
+    "label": "fixture-double-confirmed @390: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "fixture-historial @1440: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "fixture-historial @1440: líneas dibujadas = aristas con los dos extremos en la fase visible",
+    "ok": true,
+    "detail": "8 / 8 (modelo: 8)"
+  },
+  {
+    "label": "fixture-historial @390: sin desbordamiento, botones ≥ 44px",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  }
+]

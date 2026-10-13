@@ -1,0 +1,364 @@
+{
+  "phase": 43,
+  "kind": "catalog-strategy",
+  "dataVersion": "VCT-2026",
+  "signature": "VCT-2026:772:349874637",
+  "definitions": 772,
+  "players": 353,
+  "metrics": {
+    "ovr": {
+      "min": 56,
+      "max": 93,
+      "mean": 77.2332,
+      "median": 78,
+      "sd": 6.6677,
+      "percentiles": {
+        "P1": 59,
+        "P5": 66,
+        "P10": 69,
+        "P25": 73,
+        "P50": 78,
+        "P75": 82,
+        "P90": 85,
+        "P95": 87,
+        "P99": 91
+      }
+    },
+    "stronghold": {
+      "min": 0,
+      "max": 99,
+      "mean": 61.8614,
+      "median": 63,
+      "sd": 16.3877,
+      "percentiles": {
+        "P1": 18.84,
+        "P5": 30,
+        "P10": 41,
+        "P25": 53,
+        "P50": 63,
+        "P75": 73,
+        "P90": 83,
+        "P95": 86,
+        "P99": 93.87
+      }
+    },
+    "gamesense": {
+      "min": 9,
+      "max": 99,
+      "mean": 60.9896,
+      "median": 61,
+      "sd": 16.4989,
+      "percentiles": {
+        "P1": 23.13,
+        "P5": 35.55,
+        "P10": 40,
+        "P25": 49,
+        "P50": 61,
+        "P75": 73,
+        "P90": 83,
+        "P95": 88,
+        "P99": 97.29
+      }
+    },
+    "entryfrag": {
+      "min": 23,
+      "max": 99,
+      "mean": 62.1904,
+      "median": 60,
+      "sd": 17.5126,
+      "percentiles": {
+        "P1": 33,
+        "P5": 37,
+        "P10": 42,
+        "P25": 48,
+        "P50": 60,
+        "P75": 75,
+        "P90": 88,
+        "P95": 94,
+        "P99": 99
+      }
+    }
+  },
+  "roles": {
+    "Duelista": {
+      "definitions": 262,
+      "players": 113,
+      "mean": {
+        "ovr": 77.4427,
+        "stronghold": 54.4466,
+        "gamesense": 51.4733,
+        "entryfrag": 79.2557
+      }
+    },
+    "Controlador": {
+      "definitions": 179,
+      "players": 89,
+      "mean": {
+        "ovr": 78.9665,
+        "stronghold": 64.6369,
+        "gamesense": 75.5363,
+        "entryfrag": 52.5028
+      }
+    },
+    "Iniciador": {
+      "definitions": 171,
+      "players": 78,
+      "mean": {
+        "ovr": 75.9532,
+        "stronghold": 66.4327,
+        "gamesense": 65.7661,
+        "entryfrag": 47.5146
+      }
+    },
+    "Centinela": {
+      "definitions": 80,
+      "players": 36,
+      "mean": {
+        "ovr": 76.375,
+        "stronghold": 68.3375,
+        "gamesense": 50.8625,
+        "entryfrag": 62.8125
+      }
+    },
+    "Flex": {
+      "definitions": 80,
+      "players": 37,
+      "mean": {
+        "ovr": 76.2625,
+        "stronghold": 63.6875,
+        "gamesense": 59.525,
+        "entryfrag": 58.725
+      }
+    }
+  },
+  "correlations": {
+    "ovr~stronghold": 0.7961,
+    "ovr~gamesense": 0.5984,
+    "ovr~entryfrag": 0.3781,
+    "stronghold~gamesense": 0.5052,
+    "stronghold~entryfrag": -0.0284,
+    "gamesense~entryfrag": -0.3853
+  },
+  "dominantAxisByCard": {
+    "stronghold": 212,
+    "entryfrag": 300,
+    "gamesense": 260
+  },
+  "outliers": {
+    "count": 29,
+    "byMetric": {
+      "ovr": 11,
+      "stronghold": 13,
+      "gamesense": 5,
+      "entryfrag": 0
+    },
+    "sample": [
+      {
+        "metric": "ovr",
+        "cardId": "youze__bronze",
+        "role": "Flex",
+        "value": 58,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "youze__china",
+        "role": "Flex",
+        "value": 59,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "kolosha__bronze",
+        "role": "Duelista",
+        "value": 59,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "flicker__bronze",
+        "role": "Duelista",
+        "value": 59,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "heybay__bronze",
+        "role": "Iniciador",
+        "value": 58,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "heybay__china",
+        "role": "Iniciador",
+        "value": 59,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "tenten__bronze",
+        "role": "Duelista",
+        "value": 59,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "yuran__bronze",
+        "role": "Duelista",
+        "value": 56,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "yuran__pacific",
+        "role": "Duelista",
+        "value": 58,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "misaya__bronze",
+        "role": "Iniciador",
+        "value": 57,
+        "direction": "LOW"
+      },
+      {
+        "metric": "ovr",
+        "cardId": "misaya__pacific",
+        "role": "Iniciador",
+        "value": 58,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "seven__bronze",
+        "role": "Duelista",
+        "value": 21,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "akeman__bronze",
+        "role": "Duelista",
+        "value": 21,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "kolosha__bronze",
+        "role": "Duelista",
+        "value": 8,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "kolosha__emea",
+        "role": "Duelista",
+        "value": 10,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "flicker__bronze",
+        "role": "Duelista",
+        "value": 12,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "flicker__pacific",
+        "role": "Duelista",
+        "value": 14,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "bati__bronze",
+        "role": "Flex",
+        "value": 20,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "bati__americas",
+        "role": "Flex",
+        "value": 22,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "rimuru__bronze",
+        "role": "Duelista",
+        "value": 0,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "rimuru__pacific",
+        "role": "Duelista",
+        "value": 2,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "tenten__bronze",
+        "role": "Duelista",
+        "value": 14,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "tenten__pacific",
+        "role": "Duelista",
+        "value": 16,
+        "direction": "LOW"
+      },
+      {
+        "metric": "stronghold",
+        "cardId": "yuran__bronze",
+        "role": "Duelista",
+        "value": 21,
+        "direction": "LOW"
+      },
+      {
+        "metric": "gamesense",
+        "cardId": "rimuru__bronze",
+        "role": "Duelista",
+        "value": 11,
+        "direction": "LOW"
+      },
+      {
+        "metric": "gamesense",
+        "cardId": "pkm__bronze",
+        "role": "Duelista",
+        "value": 9,
+        "direction": "LOW"
+      },
+      {
+        "metric": "gamesense",
+        "cardId": "pkm__pacific",
+        "role": "Duelista",
+        "value": 11,
+        "direction": "LOW"
+      },
+      {
+        "metric": "gamesense",
+        "cardId": "yuran__bronze",
+        "role": "Duelista",
+        "value": 9,
+        "direction": "LOW"
+      },
+      {
+        "metric": "gamesense",
+        "cardId": "yuran__pacific",
+        "role": "Duelista",
+        "value": 11,
+        "direction": "LOW"
+      }
+    ]
+  },
+  "notes": [
+    "Solo análisis: ninguna estadística cambia en la Fase 43."
+  ]
+}

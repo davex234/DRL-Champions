@@ -1,0 +1,204 @@
+{
+ "at": "2026-10-09T18:44:10.155Z",
+ "base": "http://127.0.0.1:3022",
+ "fails": 2,
+ "rows": [
+  {
+   "w": 1440,
+   "id": "tienda: tarjeta icon-single",
+   "ok": true,
+   "detail": {
+    "sel": "[data-product-id=\"pack:icon-single\"]"
+   }
+  },
+  {
+   "w": 1440,
+   "id": "tienda: icon-single con su precio 30.000 (y sin el antiguo 60.000)",
+   "ok": true,
+   "detail": {
+    "text": "SOBRE ICON 30.000 DRL Credits COMPRAR"
+   }
+  },
+  {
+   "w": 1440,
+   "id": "detalle: icon-single se abre",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "w": 1440,
+   "id": "detalle: icon-single precio y probabilidades ICON reales",
+   "ok": true,
+   "detail": {
+    "price": true,
+    "icon": "Contiene exactamente 1 carta ICON garantizada. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92: 65 % por carta mada · OVR 95: 17,5 % por carta marteen · OVR 95: 17,5 % por carta Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+   }
+  },
+  {
+   "w": 1440,
+   "id": "tienda: tarjeta icon",
+   "ok": true,
+   "detail": {
+    "sel": "[data-product-id=\"pack:icon\"]"
+   }
+  },
+  {
+   "w": 1440,
+   "id": "tienda: icon con su precio 80.000 (y sin el antiguo 60.000)",
+   "ok": true,
+   "detail": {
+    "text": "SOBRE ICON PREMIUM 80.000 DRL Credits COMPRAR"
+   }
+  },
+  {
+   "w": 1440,
+   "id": "detalle: icon se abre",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "w": 1440,
+   "id": "detalle: icon precio y probabilidades ICON reales",
+   "ok": true,
+   "detail": {
+    "price": true,
+    "icon": "Contiene exactamente 3 cartas ICON garantizadas. Cada carta se sortea por separado: pueden repetirse. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92: 65 % por carta mada · OVR 95: 17,5 % por carta marteen · OVR 95: 17,5 % por carta Probabilidad de al menos una ICON de 95 OVR: 72,54 %. Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+   }
+  },
+  {
+   "w": 1440,
+   "id": "ficha: icon-single enseña su frase y los pesos",
+   "ok": true,
+   "detail": "PROBABILIDADES · ICON Contiene exactamente 1 carta ICON garantizada. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92 · 65 % por carta mada · OVR 95 · 17,5 % por carta marteen · OVR 95 · 17,5 % por carta Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+  },
+  {
+   "w": 1440,
+   "id": "ficha: icon enseña su frase y los pesos",
+   "ok": true,
+   "detail": "PROBABILIDADES · ICON Contiene exactamente 3 cartas ICON garantizadas. Cada carta se sortea por separado: pueden repetirse. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92 · 65 % por carta mada · OVR 95 · 17,5 % por carta marteen · OVR 95 · 17,5 % por carta Probabilidad de al menos una ICON de 95 OVR: 72,54 %. Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+  },
+  {
+   "w": 1440,
+   "id": "respuestas ≥ 400 (diagnóstico)",
+   "ok": true,
+   "detail": [
+    "503 /api/content/agents",
+    "503 /api/content/packs"
+   ]
+  },
+  {
+   "w": 1440,
+   "id": "sin errores de consola",
+   "ok": false,
+   "detail": {
+    "errs": [
+     "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+     "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+     "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ],
+    "responses": [
+     "503 /api/content/agents",
+     "503 /api/content/packs"
+    ]
+   }
+  },
+  {
+   "w": 390,
+   "id": "tienda: tarjeta icon-single",
+   "ok": true,
+   "detail": {
+    "sel": "[data-product-id=\"pack:icon-single\"]"
+   }
+  },
+  {
+   "w": 390,
+   "id": "tienda: icon-single con su precio 30.000 (y sin el antiguo 60.000)",
+   "ok": true,
+   "detail": {
+    "text": "SOBRE ICON 30.000 DRL Credits COMPRAR"
+   }
+  },
+  {
+   "w": 390,
+   "id": "detalle: icon-single se abre",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "w": 390,
+   "id": "detalle: icon-single precio y probabilidades ICON reales",
+   "ok": true,
+   "detail": {
+    "price": true,
+    "icon": "Contiene exactamente 1 carta ICON garantizada. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92: 65 % por carta mada · OVR 95: 17,5 % por carta marteen · OVR 95: 17,5 % por carta Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+   }
+  },
+  {
+   "w": 390,
+   "id": "tienda: tarjeta icon",
+   "ok": true,
+   "detail": {
+    "sel": "[data-product-id=\"pack:icon\"]"
+   }
+  },
+  {
+   "w": 390,
+   "id": "tienda: icon con su precio 80.000 (y sin el antiguo 60.000)",
+   "ok": true,
+   "detail": {
+    "text": "SOBRE ICON PREMIUM 80.000 DRL Credits COMPRAR"
+   }
+  },
+  {
+   "w": 390,
+   "id": "detalle: icon se abre",
+   "ok": true,
+   "detail": {}
+  },
+  {
+   "w": 390,
+   "id": "detalle: icon precio y probabilidades ICON reales",
+   "ok": true,
+   "detail": {
+    "price": true,
+    "icon": "Contiene exactamente 3 cartas ICON garantizadas. Cada carta se sortea por separado: pueden repetirse. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92: 65 % por carta mada · OVR 95: 17,5 % por carta marteen · OVR 95: 17,5 % por carta Probabilidad de al menos una ICON de 95 OVR: 72,54 %. Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+   }
+  },
+  {
+   "w": 390,
+   "id": "ficha: icon-single enseña su frase y los pesos",
+   "ok": true,
+   "detail": "PROBABILIDADES · ICON Contiene exactamente 1 carta ICON garantizada. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92 · 65 % por carta mada · OVR 95 · 17,5 % por carta marteen · OVR 95 · 17,5 % por carta Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+  },
+  {
+   "w": 390,
+   "id": "ficha: icon enseña su frase y los pesos",
+   "ok": true,
+   "detail": "PROBABILIDADES · ICON Contiene exactamente 3 cartas ICON garantizadas. Cada carta se sortea por separado: pueden repetirse. Las ICON de menor valor tienen mayor probabilidad de aparecer. PatMen · OVR 92 · 65 % por carta mada · OVR 95 · 17,5 % por carta marteen · OVR 95 · 17,5 % por carta Probabilidad de al menos una ICON de 95 OVR: 72,54 %. Nivel 18.400: 65 % · Nivel 26.500: 35 %. Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."
+  },
+  {
+   "w": 390,
+   "id": "respuestas ≥ 400 (diagnóstico)",
+   "ok": true,
+   "detail": [
+    "503 /api/content/agents",
+    "503 /api/content/packs"
+   ]
+  },
+  {
+   "w": 390,
+   "id": "sin errores de consola",
+   "ok": false,
+   "detail": {
+    "errs": [
+     "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+     "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ],
+    "responses": [
+     "503 /api/content/agents",
+     "503 /api/content/packs"
+    ]
+   }
+  }
+ ]
+}

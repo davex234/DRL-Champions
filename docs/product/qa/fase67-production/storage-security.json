@@ -1,0 +1,13 @@
+{
+  "buckets": [
+    {
+      "id": "assets",
+      "public": true,
+      "fileSizeLimit": null,
+      "allowedMimeTypes": null,
+      "objects": 0
+    }
+  ],
+  "policies": "storage: 0 políticas → solo service_role escribe (la subida pasa por /api/admin/* con verifyAdmin y validación completa)",
+  "exposure": "bucket público pensado para arte del CMS; hoy vacío. Recomendación: límite de tamaño y MIME a nivel de bucket al empezar a usarlo"
+}

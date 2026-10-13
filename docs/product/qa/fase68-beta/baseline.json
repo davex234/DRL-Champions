@@ -1,0 +1,22 @@
+{
+  "at": "2026-09-27T09:47Z",
+  "tests": 5334,
+  "cards": 331,
+  "agents": 29,
+  "migrationHead": "0057_admin_cms",
+  "next": "16.3.6",
+  "marketplace": "OFF",
+  "payments": "OFF",
+  "listen": "127.0.0.1:3005",
+  "build": "drl-0.1.1-1-abdcaffc (F67)",
+  "productionCheck": "24 PASS · 0 WARN · 1 FAIL (backup-offsite)",
+  "smoke": "67/67 (F67)",
+  "proposal0058": "PROPUESTA, no aplicada",
+  "publicBlockers": [
+    "off-site backup",
+    "dominio + HTTPS",
+    "SMTP real",
+    "commit/estado reproducible"
+  ],
+  "environment": "Docker local desinstalado; BD real en el VPS por túnel SSH 54521/54522; app local next start"
+}

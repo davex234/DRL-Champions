@@ -1,0 +1,350 @@
+{
+  "real": [
+    {
+      "name": "home-1440",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 3
+    },
+    {
+      "name": "progresion-1440",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "temporada-1440",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-1440",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "progresion-1440-reduced",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "home-1024",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 3
+    },
+    {
+      "name": "progresion-1024",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "temporada-1024",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-1024",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 1
+    },
+    {
+      "name": "progresion-1024-reduced",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "home-390",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 3
+    },
+    {
+      "name": "progresion-390",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "temporada-390",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-390",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "progresion-390-reduced",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-1440",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-1024",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-390",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    }
+  ],
+  "harness": [
+    {
+      "file": "fase62-hub-1440x900.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-1024x768.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-390x844.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-season-complete-1440x900.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-season-complete-1024x768.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-season-complete-390x844.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-new-1440x900.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-new-1024x768.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-hub-new-390x844.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-postmatch-1440x900.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-postmatch-1024x768.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-postmatch-390x844.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-postmatch-levelup-1440x900.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-postmatch-levelup-1024x768.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-postmatch-levelup-390x844.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-minor-1440x900.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-minor-1024x768.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-minor-390x844.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-major-1440x900.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-major-1024x768.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-major-390x844.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-minor-390x844-reduced.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "file": "fase62-reveal-minor-1440x900-reduced.png",
+      "overflow": 0,
+      "broken": 0,
+      "errors": 0
+    }
+  ],
+  "before": [
+    {
+      "name": "home-1440",
+      "overflow": 0,
+      "errors": 3
+    },
+    {
+      "name": "progresion-1440",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "temporada-1440",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "logros-1440",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "recompensas-1440",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-1440",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "home-1024",
+      "overflow": 0,
+      "errors": 3
+    },
+    {
+      "name": "progresion-1024",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "temporada-1024",
+      "overflow": 0,
+      "errors": 2
+    },
+    {
+      "name": "logros-1024",
+      "overflow": 0,
+      "errors": 8
+    },
+    {
+      "name": "recompensas-1024",
+      "overflow": 0,
+      "errors": 8
+    },
+    {
+      "name": "jugador_me-1024",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "home-390",
+      "overflow": 0,
+      "errors": 3
+    },
+    {
+      "name": "progresion-390",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "temporada-390",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "logros-390",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "recompensas-390",
+      "overflow": 0,
+      "errors": 0
+    },
+    {
+      "name": "jugador_me-390",
+      "overflow": 9,
+      "errors": 0
+    }
+  ],
+  "notes": [
+    "portada: 3 × 404 del vídeo de fondo (F46), previo",
+    "perfil 390: desbordaba 9 px en BEFORE (rejilla sin min-w-0) → 0 en AFTER",
+    "un 429 aislado al navegar 15 páginas seguidas (instrumento): la captura sola da 0 errores (after-profile)",
+    "reveal-minor 390 medía 6 desbordes por el aviso descentrado (framer-motion pisaba translate-x) → corregido, 0"
+  ]
+}

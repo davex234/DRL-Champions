@@ -1,0 +1,318 @@
+{
+  "phase": 41,
+  "generatedAt": "2026-09-16T15:33:13.709Z",
+  "engine": "PackEngine real + deckReadiness",
+  "catalogCards": 772,
+  "policy": {
+    "packId": "inicial",
+    "assistSlots": 2,
+    "maxFreeClaims": 8
+  },
+  "alternatives": [
+    {
+      "id": "A",
+      "label": "Actual: Sobre Inicial gratis repetible, sin asistencia",
+      "rejected": "grifo infinito (P0) y P99 fuera de objetivo",
+      "accounts": 100000,
+      "order": "inicial-first",
+      "inicialSlots": 0,
+      "estandarSlots": 0,
+      "freeClaimCap": null,
+      "readyAfterWelcomePct": 33.97,
+      "totalOpenings": {
+        "p50": 5,
+        "p90": 9,
+        "p99": 14,
+        "p999": 19,
+        "max": 28,
+        "mean": 5.99
+      },
+      "extraFreePacks": {
+        "p50": 1,
+        "p90": 5,
+        "p99": 10,
+        "max": 24
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 80.1,
+      "assistedRarityPct": null,
+      "meetsTargets": false,
+      "ms": 5431
+    },
+    {
+      "id": "B",
+      "label": "Sobre de rol completo (5 huecos asistidos)",
+      "rejected": null,
+      "accounts": 100000,
+      "order": "inicial-first",
+      "inicialSlots": 5,
+      "estandarSlots": 0,
+      "freeClaimCap": 8,
+      "readyAfterWelcomePct": 100,
+      "totalOpenings": {
+        "p50": 4,
+        "p90": 4,
+        "p99": 4,
+        "p999": 4,
+        "max": 4,
+        "mean": 4
+      },
+      "extraFreePacks": {
+        "p50": 0,
+        "p90": 0,
+        "p99": 0,
+        "max": 0
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 79.3,
+      "assistedRarityPct": {
+        "common": 70.03,
+        "uncommon": 26.02,
+        "rare": 3.49,
+        "epic": 0.45,
+        "legendary": 0
+      },
+      "meetsTargets": true,
+      "ms": 56067
+    },
+    {
+      "id": "C1",
+      "label": "Protección de rol: 1 hueco asistido",
+      "rejected": null,
+      "accounts": 100000,
+      "order": "inicial-first",
+      "inicialSlots": 1,
+      "estandarSlots": 0,
+      "freeClaimCap": 8,
+      "readyAfterWelcomePct": 50.33,
+      "totalOpenings": {
+        "p50": 4,
+        "p90": 6,
+        "p99": 6,
+        "p999": 7,
+        "max": 8,
+        "mean": 4.61
+      },
+      "extraFreePacks": {
+        "p50": 0,
+        "p90": 2,
+        "p99": 2,
+        "max": 4
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 79.6,
+      "assistedRarityPct": {
+        "common": 70,
+        "uncommon": 26.02,
+        "rare": 3.5,
+        "epic": 0.49,
+        "legendary": 0
+      },
+      "meetsTargets": true,
+      "ms": 24242
+    },
+    {
+      "id": "C2",
+      "label": "Protección de rol: 2 huecos asistidos",
+      "rejected": null,
+      "accounts": 100000,
+      "order": "inicial-first",
+      "inicialSlots": 2,
+      "estandarSlots": 0,
+      "freeClaimCap": 8,
+      "readyAfterWelcomePct": 79.61,
+      "totalOpenings": {
+        "p50": 4,
+        "p90": 5,
+        "p99": 5,
+        "p999": 5,
+        "max": 6,
+        "mean": 4.2
+      },
+      "extraFreePacks": {
+        "p50": 0,
+        "p90": 1,
+        "p99": 1,
+        "max": 2
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 79.4,
+      "assistedRarityPct": {
+        "common": 70.04,
+        "uncommon": 25.98,
+        "rare": 3.5,
+        "epic": 0.48,
+        "legendary": 0
+      },
+      "meetsTargets": true,
+      "ms": 37489
+    },
+    {
+      "id": "C3",
+      "label": "Protección de rol: 3 huecos asistidos",
+      "rejected": null,
+      "accounts": 100000,
+      "order": "inicial-first",
+      "inicialSlots": 3,
+      "estandarSlots": 0,
+      "freeClaimCap": 8,
+      "readyAfterWelcomePct": 99.39,
+      "totalOpenings": {
+        "p50": 4,
+        "p90": 4,
+        "p99": 4,
+        "p999": 5,
+        "max": 5,
+        "mean": 4.01
+      },
+      "extraFreePacks": {
+        "p50": 0,
+        "p90": 0,
+        "p99": 0,
+        "max": 1
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 79.3,
+      "assistedRarityPct": {
+        "common": 70.05,
+        "uncommon": 25.98,
+        "rare": 3.5,
+        "epic": 0.47,
+        "legendary": 0
+      },
+      "meetsTargets": true,
+      "ms": 45470
+    },
+    {
+      "id": "C2-estandar-first",
+      "label": "C2 abriendo primero el Sobre Estándar",
+      "rejected": null,
+      "accounts": 100000,
+      "order": "estandar-first",
+      "inicialSlots": 2,
+      "estandarSlots": 0,
+      "freeClaimCap": 8,
+      "readyAfterWelcomePct": 99.74,
+      "totalOpenings": {
+        "p50": 4,
+        "p90": 4,
+        "p99": 4,
+        "p999": 5,
+        "max": 5,
+        "mean": 4
+      },
+      "extraFreePacks": {
+        "p50": 0,
+        "p90": 0,
+        "p99": 0,
+        "max": 1
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 79.2,
+      "assistedRarityPct": {
+        "common": 70.07,
+        "uncommon": 25.94,
+        "rare": 3.51,
+        "epic": 0.47,
+        "legendary": 0
+      },
+      "meetsTargets": true,
+      "ms": 26850
+    },
+    {
+      "id": "D",
+      "label": "Elegir 1 carta de rol que falta por sobre (modelado como C1)",
+      "rejected": "el cliente elegiría la recompensa (NO-GO de autoridad)",
+      "accounts": 100000,
+      "order": "inicial-first",
+      "inicialSlots": 1,
+      "estandarSlots": 0,
+      "freeClaimCap": 8,
+      "readyAfterWelcomePct": 50.33,
+      "totalOpenings": {
+        "p50": 4,
+        "p90": 6,
+        "p99": 6,
+        "p999": 7,
+        "max": 8,
+        "mean": 4.61
+      },
+      "extraFreePacks": {
+        "p50": 0,
+        "p90": 2,
+        "p99": 2,
+        "max": 4
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 79.6,
+      "assistedRarityPct": {
+        "common": 70,
+        "uncommon": 26.02,
+        "rare": 3.5,
+        "epic": 0.49,
+        "legendary": 0
+      },
+      "meetsTargets": true,
+      "ms": 23648
+    },
+    {
+      "id": "F",
+      "label": "C2 + asistencia en el Sobre Estándar de bienvenida (2 huecos)",
+      "rejected": "toca un sobre de pago (odds generales del Estándar)",
+      "accounts": 100000,
+      "order": "inicial-first",
+      "inicialSlots": 2,
+      "estandarSlots": 2,
+      "freeClaimCap": 8,
+      "readyAfterWelcomePct": 99.79,
+      "totalOpenings": {
+        "p50": 4,
+        "p90": 4,
+        "p99": 4,
+        "p999": 5,
+        "max": 5,
+        "mean": 4
+      },
+      "extraFreePacks": {
+        "p50": 0,
+        "p90": 0,
+        "p99": 0,
+        "max": 1
+      },
+      "readyPct": 100,
+      "trapped": 0,
+      "capHits": 0,
+      "teamOvrMean": 79.2,
+      "assistedRarityPct": {
+        "common": 68.55,
+        "uncommon": 26.88,
+        "rare": 3.96,
+        "epic": 0.59,
+        "legendary": 0.02
+      },
+      "meetsTargets": true,
+      "ms": 39079
+    },
+    {
+      "id": "E",
+      "label": "Bootstrap determinista: 10 cartas fijas al alta",
+      "rejected": "cambia el alta (migración del trigger) y regala una plantilla; no se simula con sobres: 0 aperturas, 100 %",
+      "accounts": 100000
+    }
+  ],
+  "chosen": "C2"
+}

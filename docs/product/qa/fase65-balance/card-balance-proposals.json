@@ -1,0 +1,1403 @@
+{
+  "status": "PROPUESTA — NO APLICADA. Ningún stat, OVR, rol ni edición impresos se han cambiado (regla de F65).",
+  "method": "impacto causal por sustitución emparejada (misma partida, misma semilla, misma posición; solo cambia la carta), 320 parejas por carta, contracción empírico-bayesiana; atípica = |impacto| > 2·τ con IC 95 % que excluye 0; mal etiquetada = |puesto por impacto − puesto por OVR| > 100",
+  "tauBetweenCards": 0.06968500556073738,
+  "counts": {
+    "OUTLIER_HIGH": 5,
+    "OUTLIER_LOW": 2,
+    "OVR_UNDERSTATES": 42,
+    "OVR_OVERSTATES": 37
+  },
+  "proposals": [
+    {
+      "id": "CB-1",
+      "kind": "REVIEW_OUTLIERS",
+      "cards": [
+        {
+          "cardId": "blowz__masters-l",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1497,
+          "impactLo": 0.1201,
+          "impactHi": 0.2174,
+          "impactRank": 5,
+          "ovrRank": 152,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 93,
+            "entryfrag": 45
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "izu__masters-sdc",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1749,
+          "impactLo": 0.1482,
+          "impactHi": 0.2518,
+          "impactRank": 1,
+          "ovrRank": 60,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 96,
+            "gamesense": 64,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "neon__future-star",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1537,
+          "impactLo": 0.1237,
+          "impactHi": 0.2326,
+          "impactRank": 4,
+          "ovrRank": 21,
+          "ovr": 93,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "neon__masters-l",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1612,
+          "impactLo": 0.1331,
+          "impactHi": 0.2294,
+          "impactRank": 2,
+          "ovrRank": 22,
+          "ovr": 93,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "vo0kashu__masters-l",
+          "flag": "OUTLIER_HIGH",
+          "impactShrunk": 0.1564,
+          "impactLo": 0.1272,
+          "impactHi": 0.229,
+          "impactRank": 3,
+          "ovrRank": 42,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 68,
+            "entryfrag": 62
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "supamen__base",
+          "flag": "OUTLIER_LOW",
+          "impactShrunk": -0.1498,
+          "impactLo": -0.21,
+          "impactHi": -0.1213,
+          "impactRank": 330,
+          "ovrRank": 321,
+          "ovr": 75,
+          "combat": {
+            "stronghold": 53,
+            "gamesense": 60,
+            "entryfrag": 59
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "tenten__base",
+          "flag": "OUTLIER_LOW",
+          "impactShrunk": -0.1563,
+          "impactLo": -0.2151,
+          "impactHi": -0.1287,
+          "impactRank": 331,
+          "ovrRank": 324,
+          "ovr": 74,
+          "combat": {
+            "stronghold": 14,
+            "gamesense": 27,
+            "entryfrag": 60
+          },
+          "role": "Duelista"
+        }
+      ],
+      "action": "Revisión de diseño carta a carta en una fase de parche con su propia simulación; el laboratorio da el antes/después con `--suites=paired`."
+    },
+    {
+      "id": "CB-2",
+      "kind": "OVR_LABEL",
+      "cards": [
+        {
+          "cardId": "asuna__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0681,
+          "impactLo": 0.0315,
+          "impactHi": 0.1185,
+          "impactRank": 56,
+          "ovrRank": 178,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 68,
+            "gamesense": 88,
+            "entryfrag": 64
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "audaz__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0174,
+          "impactLo": -0.0575,
+          "impactHi": 0.02,
+          "impactRank": 187,
+          "ovrRank": 303,
+          "ovr": 77,
+          "combat": {
+            "stronghold": 66,
+            "gamesense": 81,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "bang__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0491,
+          "impactLo": 0.0143,
+          "impactHi": 0.092,
+          "impactRank": 81,
+          "ovrRank": 210,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 82,
+            "gamesense": 88,
+            "entryfrag": 43
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "blowz__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0914,
+          "impactLo": 0.0542,
+          "impactHi": 0.152,
+          "impactRank": 34,
+          "ovrRank": 259,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 93,
+            "entryfrag": 45
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "boo__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0619,
+          "impactLo": 0.0322,
+          "impactHi": 0.099,
+          "impactRank": 64,
+          "ovrRank": 181,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 68,
+            "gamesense": 89,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "dgzin__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0727,
+          "impactLo": 0.0346,
+          "impactHi": 0.1279,
+          "impactRank": 49,
+          "ovrRank": 230,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 48,
+            "gamesense": 33,
+            "entryfrag": 97
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "eeiu__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0029,
+          "impactLo": -0.0362,
+          "impactHi": 0.0424,
+          "impactRank": 159,
+          "ovrRank": 261,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 50,
+            "entryfrag": 56
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "erv__champions-s",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0703,
+          "impactLo": 0.0326,
+          "impactHi": 0.1236,
+          "impactRank": 53,
+          "ovrRank": 186,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 77,
+            "gamesense": 93,
+            "entryfrag": 53
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "flex1n__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0115,
+          "impactLo": -0.0282,
+          "impactHi": 0.0532,
+          "impactRank": 144,
+          "ovrRank": 262,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 55,
+            "gamesense": 86,
+            "entryfrag": 42
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "iamgrq__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0636,
+          "impactLo": 0.0297,
+          "impactHi": 0.1078,
+          "impactRank": 62,
+          "ovrRank": 216,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 63,
+            "gamesense": 87,
+            "entryfrag": 47
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "invy__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0376,
+          "impactLo": 0.0016,
+          "impactHi": 0.0797,
+          "impactRank": 106,
+          "ovrRank": 231,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 82,
+            "entryfrag": 53
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "izu__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1167,
+          "impactLo": 0.0812,
+          "impactHi": 0.1876,
+          "impactRank": 15,
+          "ovrRank": 188,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 96,
+            "gamesense": 64,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "kamo__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0668,
+          "impactLo": 0.0344,
+          "impactHi": 0.1094,
+          "impactRank": 57,
+          "ovrRank": 189,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 74,
+            "gamesense": 67,
+            "entryfrag": 85
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "killua__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.043,
+          "impactLo": 0.006,
+          "impactHi": 0.0877,
+          "impactRank": 94,
+          "ovrRank": 234,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 73,
+            "gamesense": 82,
+            "entryfrag": 54
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "kingg__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0795,
+          "impactLo": 0.0443,
+          "impactHi": 0.1307,
+          "impactRank": 43,
+          "ovrRank": 191,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 88,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "kingg__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0801,
+          "impactLo": 0.0461,
+          "impactHi": 0.1289,
+          "impactRank": 42,
+          "ovrRank": 159,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 91,
+            "gamesense": 88,
+            "entryfrag": 45
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "koalanoob__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.029,
+          "impactLo": -0.0689,
+          "impactHi": 0.0064,
+          "impactRank": 202,
+          "ovrRank": 308,
+          "ovr": 77,
+          "combat": {
+            "stronghold": 30,
+            "gamesense": 38,
+            "entryfrag": 70
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "lakia__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0402,
+          "impactLo": -0.0842,
+          "impactHi": -0.0033,
+          "impactRank": 224,
+          "ovrRank": 330,
+          "ovr": 71,
+          "combat": {
+            "stronghold": 54,
+            "gamesense": 82,
+            "entryfrag": 40
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "loita__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0658,
+          "impactLo": 0.0306,
+          "impactHi": 0.1132,
+          "impactRank": 61,
+          "ovrRank": 250,
+          "ovr": 81,
+          "combat": {
+            "stronghold": 71,
+            "gamesense": 89,
+            "entryfrag": 56
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "lysoar__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0201,
+          "impactLo": -0.0183,
+          "impactHi": 0.062,
+          "impactRank": 125,
+          "ovrRank": 238,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 79,
+            "gamesense": 86,
+            "entryfrag": 43
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "mako__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0853,
+          "impactLo": 0.0507,
+          "impactHi": 0.1368,
+          "impactRank": 38,
+          "ovrRank": 141,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 89,
+            "entryfrag": 54
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "marteen__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0866,
+          "impactLo": 0.0544,
+          "impactHi": 0.1331,
+          "impactRank": 37,
+          "ovrRank": 195,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 85,
+            "gamesense": 78,
+            "entryfrag": 86
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "munchkin__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1152,
+          "impactLo": 0.0823,
+          "impactHi": 0.1739,
+          "impactRank": 16,
+          "ovrRank": 142,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 69,
+            "gamesense": 92,
+            "entryfrag": 40
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "mwzera__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0086,
+          "impactLo": -0.0514,
+          "impactHi": 0.0327,
+          "impactRank": 172,
+          "ovrRank": 323,
+          "ovr": 74,
+          "combat": {
+            "stronghold": 79,
+            "gamesense": 75,
+            "entryfrag": 46
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "neon__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1174,
+          "impactLo": 0.0843,
+          "impactHi": 0.1782,
+          "impactRank": 13,
+          "ovrRank": 220,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 99,
+            "gamesense": 73,
+            "entryfrag": 75
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "nicc__masters-l",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0455,
+          "impactLo": 0.007,
+          "impactHi": 0.093,
+          "impactRank": 89,
+          "ovrRank": 221,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 73,
+            "gamesense": 89,
+            "entryfrag": 42
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "oxy__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0853,
+          "impactLo": 0.0507,
+          "impactHi": 0.1368,
+          "impactRank": 39,
+          "ovrRank": 143,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 52,
+            "gamesense": 49,
+            "entryfrag": 99
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "primmie__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0984,
+          "impactLo": 0.0638,
+          "impactHi": 0.1549,
+          "impactRank": 25,
+          "ovrRank": 166,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 85,
+            "gamesense": 61,
+            "entryfrag": 95
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "rb__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0099,
+          "impactLo": -0.0338,
+          "impactHi": 0.0557,
+          "impactRank": 147,
+          "ovrRank": 281,
+          "ovr": 79,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 87,
+            "entryfrag": 42
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "rb__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0519,
+          "impactLo": 0.017,
+          "impactHi": 0.0955,
+          "impactRank": 74,
+          "ovrRank": 198,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 87,
+            "entryfrag": 42
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "ruxic__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.073,
+          "impactLo": 0.0354,
+          "impactHi": 0.1271,
+          "impactRank": 48,
+          "ovrRank": 168,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 86,
+            "entryfrag": 58
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "sayonara__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0763,
+          "impactLo": 0.0398,
+          "impactHi": 0.1289,
+          "impactRank": 45,
+          "ovrRank": 200,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 88,
+            "gamesense": 69,
+            "entryfrag": 62
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "ssees__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0405,
+          "impactLo": -0.0822,
+          "impactHi": -0.0053,
+          "impactRank": 226,
+          "ovrRank": 331,
+          "ovr": 70,
+          "combat": {
+            "stronghold": 58,
+            "gamesense": 84,
+            "entryfrag": 34
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "stax__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0143,
+          "impactLo": -0.0264,
+          "impactHi": 0.0576,
+          "impactRank": 136,
+          "ovrRank": 253,
+          "ovr": 81,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 83,
+            "entryfrag": 40
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "stax__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0486,
+          "impactLo": 0.0115,
+          "impactHi": 0.0948,
+          "impactRank": 84,
+          "ovrRank": 224,
+          "ovr": 83,
+          "combat": {
+            "stronghold": 81,
+            "gamesense": 83,
+            "entryfrag": 40
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "timotino__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0575,
+          "impactLo": 0.0224,
+          "impactHi": 0.1026,
+          "impactRank": 67,
+          "ovrRank": 205,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 46,
+            "gamesense": 48,
+            "entryfrag": 95
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "v1c__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0993,
+          "impactLo": 0.0627,
+          "impactHi": 0.1623,
+          "impactRank": 24,
+          "ovrRank": 243,
+          "ovr": 82,
+          "combat": {
+            "stronghold": 56,
+            "gamesense": 96,
+            "entryfrag": 50
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "veqaj__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0689,
+          "impactLo": 0.0342,
+          "impactHi": 0.1158,
+          "impactRank": 55,
+          "ovrRank": 268,
+          "ovr": 80,
+          "combat": {
+            "stronghold": 83,
+            "gamesense": 82,
+            "entryfrag": 74
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "verno__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.1097,
+          "impactLo": 0.074,
+          "impactHi": 0.176,
+          "impactRank": 20,
+          "ovrRank": 174,
+          "ovr": 85,
+          "combat": {
+            "stronghold": 89,
+            "gamesense": 82,
+            "entryfrag": 50
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "vora__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": -0.0116,
+          "impactLo": -0.0503,
+          "impactHi": 0.0253,
+          "impactRank": 180,
+          "ovrRank": 314,
+          "ovr": 77,
+          "combat": {
+            "stronghold": 79,
+            "gamesense": 74,
+            "entryfrag": 44
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "xross__base",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0451,
+          "impactLo": 0.0053,
+          "impactHi": 0.0947,
+          "impactRank": 90,
+          "ovrRank": 318,
+          "ovr": 76,
+          "combat": {
+            "stronghold": 87,
+            "gamesense": 78,
+            "entryfrag": 52
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "xross__masters-sdc",
+          "flag": "OVR_UNDERSTATES",
+          "impactShrunk": 0.0552,
+          "impactLo": 0.0216,
+          "impactHi": 0.0971,
+          "impactRank": 70,
+          "ovrRank": 208,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 87,
+            "gamesense": 78,
+            "entryfrag": 52
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "absol__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0465,
+          "impactLo": -0.0874,
+          "impactHi": -0.0126,
+          "impactRank": 236,
+          "ovrRank": 114,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 42,
+            "gamesense": 38,
+            "entryfrag": 73
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "alym__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0029,
+          "impactLo": -0.0352,
+          "impactHi": 0.0414,
+          "impactRank": 158,
+          "ovrRank": 25,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 28,
+            "gamesense": 36,
+            "entryfrag": 80
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "alym__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0944,
+          "impactLo": -0.1445,
+          "impactHi": -0.0617,
+          "impactRank": 310,
+          "ovrRank": 133,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 28,
+            "gamesense": 36,
+            "entryfrag": 80
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "babybay__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0749,
+          "impactLo": -0.121,
+          "impactHi": -0.0415,
+          "impactRank": 283,
+          "ovrRank": 115,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 66,
+            "gamesense": 59,
+            "entryfrag": 64
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "babybay__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0525,
+          "impactLo": -0.0925,
+          "impactHi": -0.02,
+          "impactRank": 251,
+          "ovrRank": 90,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 66,
+            "gamesense": 59,
+            "entryfrag": 64
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "bipo__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0405,
+          "impactLo": -0.0822,
+          "impactHi": -0.0053,
+          "impactRank": 225,
+          "ovrRank": 116,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 45,
+            "gamesense": 40,
+            "entryfrag": 55
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "dantedeu5__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0115,
+          "impactLo": -0.0532,
+          "impactHi": 0.0282,
+          "impactRank": 177,
+          "ovrRank": 44,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 23,
+            "gamesense": 49,
+            "entryfrag": 71
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "echo__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0,
+          "impactLo": -0.0416,
+          "impactHi": 0.0416,
+          "impactRank": 164,
+          "ovrRank": 58,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 57,
+            "gamesense": 44,
+            "entryfrag": 74
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "eko__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0924,
+          "impactLo": -0.1392,
+          "impactHi": -0.0608,
+          "impactRank": 307,
+          "ovrRank": 185,
+          "ovr": 84,
+          "combat": {
+            "stronghold": 49,
+            "gamesense": 60,
+            "entryfrag": 64
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "f0rsaken__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0,
+          "impactLo": -0.0451,
+          "impactHi": 0.0451,
+          "impactRank": 165,
+          "ovrRank": 26,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 79,
+            "entryfrag": 65
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "f0rsaken__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0059,
+          "impactLo": -0.042,
+          "impactHi": 0.0295,
+          "impactRank": 171,
+          "ovrRank": 19,
+          "ovr": 93,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 79,
+            "entryfrag": 65
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "f0rsaken__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0168,
+          "impactLo": -0.0279,
+          "impactHi": 0.0654,
+          "impactRank": 133,
+          "ovrRank": 10,
+          "ovr": 94,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 79,
+            "entryfrag": 65
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "francis__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.049,
+          "impactLo": -0.0929,
+          "impactHi": -0.0133,
+          "impactRank": 242,
+          "ovrRank": 137,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 56,
+            "gamesense": 67,
+            "entryfrag": 66
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "hyunmin__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0372,
+          "impactLo": -0.0824,
+          "impactHi": 0.0012,
+          "impactRank": 217,
+          "ovrRank": 99,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 63,
+            "gamesense": 58,
+            "entryfrag": 76
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jamppi__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0463,
+          "impactLo": -0.0884,
+          "impactHi": -0.0116,
+          "impactRank": 235,
+          "ovrRank": 121,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 59,
+            "gamesense": 73,
+            "entryfrag": 54
+          },
+          "role": "Iniciador"
+        },
+        {
+          "cardId": "jawgemo__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0712,
+          "impactLo": -0.1064,
+          "impactHi": -0.0436,
+          "impactRank": 278,
+          "ovrRank": 122,
+          "ovr": 87,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 56,
+            "entryfrag": 74
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jawgemo__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0285,
+          "impactLo": -0.0736,
+          "impactHi": 0.0111,
+          "impactRank": 201,
+          "ovrRank": 76,
+          "ovr": 89,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 56,
+            "entryfrag": 74
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jawgemo__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0435,
+          "impactLo": -0.0848,
+          "impactHi": -0.0089,
+          "impactRank": 230,
+          "ovrRank": 101,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 56,
+            "entryfrag": 74
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jinggg__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0174,
+          "impactLo": -0.0565,
+          "impactHi": 0.019,
+          "impactRank": 189,
+          "ovrRank": 77,
+          "ovr": 89,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 71,
+            "entryfrag": 70
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "jinggg__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0117,
+          "impactLo": -0.0232,
+          "impactHi": 0.0482,
+          "impactRank": 138,
+          "ovrRank": 1,
+          "ovr": 95,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 71,
+            "entryfrag": 70
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "k1ra__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0727,
+          "impactLo": -0.1155,
+          "impactHi": -0.0408,
+          "impactRank": 279,
+          "ovrRank": 139,
+          "ovr": 86,
+          "combat": {
+            "stronghold": 60,
+            "gamesense": 64,
+            "entryfrag": 62
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "koalanoob__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0314,
+          "impactLo": -0.0763,
+          "impactHi": 0.0075,
+          "impactRank": 207,
+          "ovrRank": 46,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 30,
+            "gamesense": 38,
+            "entryfrag": 70
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "koshmaras__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0586,
+          "impactLo": -0.0976,
+          "impactHi": -0.0274,
+          "impactRank": 264,
+          "ovrRank": 102,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 43,
+            "gamesense": 68,
+            "entryfrag": 75
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "lar0k__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0201,
+          "impactLo": -0.062,
+          "impactHi": 0.0183,
+          "impactRank": 194,
+          "ovrRank": 47,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 67,
+            "gamesense": 55,
+            "entryfrag": 73
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "leaf__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0326,
+          "impactLo": -0.066,
+          "impactHi": -0.0027,
+          "impactRank": 211,
+          "ovrRank": 80,
+          "ovr": 89,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "leaf__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0189,
+          "impactLo": -0.0577,
+          "impactHi": 0.0171,
+          "impactRank": 192,
+          "ovrRank": 29,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "leaf__masters-l",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.029,
+          "impactLo": -0.0689,
+          "impactHi": 0.0064,
+          "impactRank": 203,
+          "ovrRank": 48,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "leaf__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0318,
+          "impactLo": -0.0735,
+          "impactHi": 0.0047,
+          "impactRank": 209,
+          "ovrRank": 62,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 65,
+            "gamesense": 66,
+            "entryfrag": 63
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "lovers-rock__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0309,
+          "impactLo": -0.0805,
+          "impactHi": 0.0118,
+          "impactRank": 206,
+          "ovrRank": 30,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 62,
+            "gamesense": 45,
+            "entryfrag": 78
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "meteor__champions-s",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0057,
+          "impactLo": -0.0469,
+          "impactHi": 0.0344,
+          "impactRank": 169,
+          "ovrRank": 31,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 67,
+            "gamesense": 54,
+            "entryfrag": 79
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "minny__masters-sdc",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0116,
+          "impactLo": -0.0513,
+          "impactHi": 0.0263,
+          "impactRank": 178,
+          "ovrRank": 51,
+          "ovr": 91,
+          "combat": {
+            "stronghold": 47,
+            "gamesense": 53,
+            "entryfrag": 70
+          },
+          "role": "Centinela"
+        },
+        {
+          "cardId": "patmen__record-breaker",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0087,
+          "impactLo": -0.0486,
+          "impactHi": 0.0299,
+          "impactRank": 173,
+          "ovrRank": 33,
+          "ovr": 92,
+          "combat": {
+            "stronghold": 70,
+            "gamesense": 64,
+            "entryfrag": 73
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "reduxx__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0256,
+          "impactLo": -0.071,
+          "impactHi": 0.0147,
+          "impactRank": 198,
+          "ovrRank": 66,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 62,
+            "gamesense": 70,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "sato__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": 0.0376,
+          "impactLo": 0.0016,
+          "impactHi": 0.0797,
+          "impactRank": 107,
+          "ovrRank": 6,
+          "ovr": 95,
+          "combat": {
+            "stronghold": 75,
+            "gamesense": 80,
+            "entryfrag": 80
+          },
+          "role": "Duelista"
+        },
+        {
+          "cardId": "seven__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0373,
+          "impactLo": -0.0815,
+          "impactHi": 0.0003,
+          "impactRank": 218,
+          "ovrRank": 104,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 21,
+            "gamesense": 51,
+            "entryfrag": 69
+          },
+          "role": "Flex"
+        },
+        {
+          "cardId": "wayne__future-star",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0486,
+          "impactLo": -0.0948,
+          "impactHi": -0.0115,
+          "impactRank": 240,
+          "ovrRank": 70,
+          "ovr": 90,
+          "combat": {
+            "stronghold": 58,
+            "gamesense": 74,
+            "entryfrag": 47
+          },
+          "role": "Controlador"
+        },
+        {
+          "cardId": "zekken__base",
+          "flag": "OVR_OVERSTATES",
+          "impactShrunk": -0.0514,
+          "impactLo": -0.0983,
+          "impactHi": -0.0142,
+          "impactRank": 246,
+          "ovrRank": 113,
+          "ovr": 88,
+          "combat": {
+            "stronghold": 59,
+            "gamesense": 65,
+            "entryfrag": 71
+          },
+          "role": "Controlador"
+        }
+      ],
+      "action": "El OVR impreso no refleja el poder de juego de estas cartas. Si el producto quiere que OVR signifique poder, recalcular OVR desde el trío (cambio impreso: requiere decisión) o dejar de usar OVR como desempate y como criterio del autocompletar (ver rule-change-proposal.md)."
+    }
+  ]
+}

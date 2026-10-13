@@ -1,0 +1,304 @@
+{
+  "question": "¿Algún eje domina? ¿La tabla SH↔EF, GS↔GS es justa?",
+  "catalogDistribution": {
+    "stronghold": {
+      "mean": 64.49,
+      "p10": 45,
+      "p50": 65,
+      "p90": 83,
+      "min": 14,
+      "max": 99
+    },
+    "gamesense": {
+      "mean": 63.73,
+      "p10": 42,
+      "p50": 63,
+      "p90": 83,
+      "min": 19,
+      "max": 96
+    },
+    "entryfrag": {
+      "mean": 62.41,
+      "p10": 43,
+      "p50": 62,
+      "p90": 86,
+      "min": 33,
+      "max": 99
+    }
+  },
+  "cardsWhosePeakIs": {
+    "stronghold": 94,
+    "gamesense": 118,
+    "entryfrag": 119
+  },
+  "fieldHARD": {
+    "stronghold": {
+      "declared": 0.3194,
+      "attackerWin": {
+        "n": 958153,
+        "rate": 0.7431,
+        "lo": 0.7423,
+        "hi": 0.744
+      },
+      "tieRate": 0.004,
+      "meanAttack": 79.94,
+      "meanDefense": 55.52
+    },
+    "gamesense": {
+      "declared": 0.3615,
+      "attackerWin": {
+        "n": 1084568,
+        "rate": 0.6989,
+        "lo": 0.698,
+        "hi": 0.6998
+      },
+      "tieRate": 0.0094,
+      "meanAttack": 78.65,
+      "meanDefense": 57.95
+    },
+    "entryfrag": {
+      "declared": 0.3191,
+      "attackerWin": {
+        "n": 957279,
+        "rate": 0.7102,
+        "lo": 0.7093,
+        "hi": 0.7112
+      },
+      "tieRate": 0.0042,
+      "meanAttack": 79.84,
+      "meanDefense": 56.6
+    }
+  },
+  "fieldNORMAL": {
+    "stronghold": {
+      "declared": 0.3183,
+      "attackerWin": {
+        "n": 190951,
+        "rate": 0.6071,
+        "lo": 0.6049,
+        "hi": 0.6093
+      },
+      "tieRate": 0.0084,
+      "meanAttack": 73.64,
+      "meanDefense": 60.17
+    },
+    "gamesense": {
+      "declared": 0.3489,
+      "attackerWin": {
+        "n": 209344,
+        "rate": 0.5626,
+        "lo": 0.5605,
+        "hi": 0.5647
+      },
+      "tieRate": 0.015,
+      "meanAttack": 72.78,
+      "meanDefense": 62.01
+    },
+    "entryfrag": {
+      "declared": 0.3328,
+      "attackerWin": {
+        "n": 199705,
+        "rate": 0.54,
+        "lo": 0.5378,
+        "hi": 0.5422
+      },
+      "tieRate": 0.0091,
+      "meanAttack": 71.72,
+      "meanDefense": 61.37
+    }
+  },
+  "roles": [
+    {
+      "role": "Duelista",
+      "cards": 73,
+      "players": 48,
+      "meanOvr": 87.49,
+      "meanStronghold": 54.53,
+      "meanGamesense": 51.62,
+      "meanEntryfrag": 80.48,
+      "meanCombatSum": 186.63,
+      "meanPeak": 80.77,
+      "top10pctCombat": 5,
+      "meanImpact": -0.0024,
+      "impactSd": 0.0636,
+      "attackWinRate": 0.7483,
+      "defenseWinRate": 0.2611
+    },
+    {
+      "role": "Controlador",
+      "cards": 61,
+      "players": 43,
+      "meanOvr": 83.62,
+      "meanStronghold": 65.66,
+      "meanGamesense": 78.26,
+      "meanEntryfrag": 49.74,
+      "meanCombatSum": 193.66,
+      "meanPeak": 79.64,
+      "top10pctCombat": 4,
+      "meanImpact": 0.0016,
+      "impactSd": 0.0623,
+      "attackWinRate": 0.7248,
+      "defenseWinRate": 0.3257
+    },
+    {
+      "role": "Iniciador",
+      "cards": 63,
+      "players": 40,
+      "meanOvr": 82.52,
+      "meanStronghold": 71.24,
+      "meanGamesense": 71.05,
+      "meanEntryfrag": 48.81,
+      "meanCombatSum": 191.1,
+      "meanPeak": 75.97,
+      "top10pctCombat": 8,
+      "meanImpact": -0.001,
+      "impactSd": 0.0733,
+      "attackWinRate": 0.719,
+      "defenseWinRate": 0.2741
+    },
+    {
+      "role": "Centinela",
+      "cards": 64,
+      "players": 45,
+      "meanOvr": 84.72,
+      "meanStronghold": 69.8,
+      "meanGamesense": 58.48,
+      "meanEntryfrag": 61.73,
+      "meanCombatSum": 190.02,
+      "meanPeak": 74.98,
+      "top10pctCombat": 6,
+      "meanImpact": 0.0001,
+      "impactSd": 0.0635,
+      "attackWinRate": 0.7038,
+      "defenseWinRate": 0.2513
+    },
+    {
+      "role": "Flex",
+      "cards": 70,
+      "players": 52,
+      "meanOvr": 85.44,
+      "meanStronghold": 62.94,
+      "meanGamesense": 61.89,
+      "meanEntryfrag": 67.47,
+      "meanCombatSum": 192.3,
+      "meanPeak": 75.7,
+      "top10pctCombat": 11,
+      "meanImpact": -0.0002,
+      "impactSd": 0.0695,
+      "attackWinRate": 0.6978,
+      "defenseWinRate": 0.2948
+    }
+  ],
+  "specialisedDecks": [
+    {
+      "strategy": "SPEC_SH",
+      "n": 10000,
+      "rate": 0.9981,
+      "lo": 0.997,
+      "hi": 0.9988,
+      "sumOvr": 866,
+      "combatSum": 2285,
+      "meanPeak": 92.1,
+      "deck": [
+        "marteen__masters-sdc",
+        "primmie__masters-l",
+        "kingg__base",
+        "johnqt__base",
+        "blowz__base",
+        "trent__base",
+        "neon__base",
+        "vo0kashu__masters-l",
+        "izu__base",
+        "sayonara__base"
+      ]
+    },
+    {
+      "strategy": "PEAK_MAX",
+      "n": 10000,
+      "rate": 0.9979,
+      "lo": 0.9968,
+      "hi": 0.9986,
+      "sumOvr": 853,
+      "combatSum": 2171,
+      "meanPeak": 95.8,
+      "deck": [
+        "oxy__base",
+        "dgzin__base",
+        "v1c__base",
+        "erv__champions-s",
+        "izu__champions-s",
+        "blowz__base",
+        "neon__base",
+        "vo0kashu__masters-l",
+        "primmie__base",
+        "alfajer__base"
+      ]
+    },
+    {
+      "strategy": "SPEC_GS",
+      "n": 10000,
+      "rate": 0.9744,
+      "lo": 0.9711,
+      "hi": 0.9773,
+      "sumOvr": 845,
+      "combatSum": 2196,
+      "meanPeak": 88.9,
+      "deck": [
+        "sato__base",
+        "marteen__masters-sdc",
+        "v1c__base",
+        "erv__champions-s",
+        "blowz__base",
+        "nicc__masters-l",
+        "munchkin__champions-s",
+        "lysoar__masters-sdc",
+        "asuna__base",
+        "ruxic__base"
+      ]
+    },
+    {
+      "strategy": "BALANCED",
+      "n": 10000,
+      "rate": 0.9506,
+      "lo": 0.9462,
+      "hi": 0.9547,
+      "sumOvr": 891,
+      "combatSum": 2293,
+      "meanPeak": 83.3,
+      "deck": [
+        "marteen__masters-sdc",
+        "sato__base",
+        "happywei__masters-sdc",
+        "patmen__masters-l",
+        "izu__champions-s",
+        "riens__base",
+        "veqaj__base",
+        "neon__base",
+        "jinggg__masters-l",
+        "slowly__champions-s"
+      ]
+    },
+    {
+      "strategy": "SPEC_EF",
+      "n": 10000,
+      "rate": 0.8686,
+      "lo": 0.8618,
+      "hi": 0.8751,
+      "sumOvr": 858,
+      "combatSum": 2068,
+      "meanPeak": 86.5,
+      "deck": [
+        "oxy__base",
+        "dgzin__base",
+        "keiko__masters-sdc",
+        "patmen__masters-l",
+        "purp0__base",
+        "izu__champions-s",
+        "lukxo__base",
+        "meteor__base",
+        "primmie__base",
+        "alfajer__base"
+      ]
+    }
+  ]
+}

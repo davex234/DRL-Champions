@@ -1,0 +1,58 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "inicio": "2026-09-18T11:54:07.738Z",
+  "composicion": {
+    "pulsados": 5,
+    "slotsLlenos": 5,
+    "contador": "5 / 5"
+  },
+  "trasRecargar": {
+    "existe": true,
+    "texto": "__QA_F47_COMPOSITION__5 / 5EditarDuplicarBorrar__QA_F47_COMPOSITION__5 / 5EditarDuplicarBo",
+    "mencion": true
+  },
+  "fixtures": {
+    "stratId": "4e3e68b5-6b92-487b-abac-9f29989352ca",
+    "matchId": "4ebe9927-46da-4ab1-8c4b-13021407d713",
+    "status": "ok"
+  },
+  "datos": {
+    "partidas": 1,
+    "strats": 2
+  },
+  "plan": {
+    "montado": true,
+    "comps": 3,
+    "jugadas": 1,
+    "presentar": 1
+  },
+  "asignado": {
+    "texto": "En el plan · 1▲__QA_F47_STRAT__",
+    "error": null
+  },
+  "planPersistido": "En el plan · 1▲__QA_F47_STRAT__",
+  "presentacion": {
+    "montado": true,
+    "modo": "focus",
+    "linea": true,
+    "lado": "▲ Ataque",
+    "composicion": 0
+  },
+  "crossMap": {
+    "probado": true,
+    "status": 409,
+    "cuerpo": "{\"error\":\"Esa jugada es de otro mapa (bind) y la partida se juega en ascent.\"}"
+  },
+  "concurrencia": {
+    "probado": true,
+    "aStatus": 200,
+    "aVersion": "2026-09-18T11:54:57.956148+00:00",
+    "bStatus": 409,
+    "bCode": "VERSION_CONFLICT",
+    "bMensaje": "Esta estrategia ha cambiado en otra pestaña.",
+    "nombreFinal": "__QA_F47_STRAT__",
+    "pisado": false
+  },
+  "fin": "2026-09-18T11:55:12.323Z",
+  "capturas": 13
+}

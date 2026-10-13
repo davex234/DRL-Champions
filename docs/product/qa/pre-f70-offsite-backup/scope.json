@@ -1,0 +1,28 @@
+{
+  "phase": "PRE-F70",
+  "inUnit": [
+    "BD completa (pg_dump de postgres: public + auth — usuarios, hashes, sesiones — + esquema storage)",
+    "Storage (volumen entero en storage.tgz + sha256 por objeto + inventario de storage.objects)",
+    "recuentos y sonda de esquema para validar la restauración"
+  ],
+  "notInUnit": [
+    "secretos y configuración del stack (compose.yml, kong/, claves JWT, service_role, SMTP): solo en el tar local de nexus-backup.sh, nunca en la unidad off-site",
+    "configuración de la app del PC (.env.local)",
+    "código (repo)",
+    "imágenes Docker (se descargan)"
+  ],
+  "storageNow": "0 objetos (tar vacío de 87 B), reconfirmado hoy; la cadena está probada CON objetos (arnés: unidad con 3 objetos → push → fetch → restore-drill storageFiles=3, checksums OK)",
+  "sensitive": "la unidad contiene datos personales y credenciales derivadas (correos, hashes bcrypt, refresh tokens de auth): por eso TODO lo que sale del VPS va cifrado (CMS AES-256-GCM) para un certificado cuya clave privada NO está en el VPS",
+  "secretsRecovery": "drlcards-disaster-recovery.md §Secretos: guardar fuera del VPS (gestor de contraseñas) el JWT secret, anon/service_role, las credenciales off-site y la clave privada de descifrado; en el peor caso se regeneran las claves de Supabase (los usuarios vuelven a entrar; sus contraseñas siguen valiendo porque los hashes van en la unidad)",
+  "stackConfigGap": {
+    "finding": "La configuración del stack Supabase del VPS (/opt/nexus/projects/supabase-drlcards: compose.yml y kong/, ~84 KB, con el JWT secret y las claves) NO está en el repo y hoy solo existe en el VPS y en su tar local de configuración: si el VPS se pierde, se pierde con él.",
+    "attempted": "Incluirla CIFRADA en la unidad off-site. La acción fue denegada por el control de seguridad de la sesión (riesgo de fuga de credenciales) y se deshizo por completo: la unidad y los scripts son los validados por el arnés.",
+    "impact": "Sin esa configuración la BD y Storage se recuperan igual desde el off-site, pero el stack nuevo nace con OTRO JWT secret: claves anon/service nuevas en .env.local y todas las sesiones caducan (las contraseñas siguen valiendo: los hashes van en la unidad).",
+    "decisionForUser": [
+      "(a) guardar tú compose.yml y kong/ (o al menos el JWT secret y las claves) en tu gestor de contraseñas / almacenamiento propio fuera del VPS — no requiere cambios de código",
+      "(b) autorizar explícitamente que la unidad off-site incluya esa configuración CIFRADA para tu certificado (clave privada fuera del VPS)",
+      "(c) aceptar regenerar claves tras un desastre"
+    ],
+    "status": "PENDIENTE DE DECISIÓN DEL USUARIO"
+  }
+}

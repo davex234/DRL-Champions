@@ -1,0 +1,81 @@
+{
+  "at": "2026-09-30T20:25:29.038Z",
+  "account": "QA I",
+  "pass": 11,
+  "fail": 0,
+  "cases": [
+    {
+      "id": "subir progreso desde el cliente (acción inexistente)",
+      "status": 400,
+      "code": "BAD_REQUEST",
+      "ok": true
+    },
+    {
+      "id": "campo extra en misiones (progress: 999)",
+      "status": 400,
+      "code": "BAD_REQUEST",
+      "ok": true
+    },
+    {
+      "id": "reclamar misión retirada",
+      "status": 404,
+      "code": "MISSION_NOT_FOUND",
+      "ok": true
+    },
+    {
+      "id": "reclamar proyecto retirado",
+      "status": 404,
+      "code": "PROJECT_NOT_FOUND",
+      "ok": true
+    },
+    {
+      "id": "crafteo: el cliente elige la carta de salida",
+      "status": 400,
+      "code": "BAD_REQUEST",
+      "ok": true
+    },
+    {
+      "id": "crafteo: el cliente fija la cantidad",
+      "status": 400,
+      "code": "BAD_REQUEST",
+      "ok": true
+    },
+    {
+      "id": "crafteo: receta inexistente",
+      "status": 404,
+      "code": "RECIPE_NOT_FOUND",
+      "ok": true
+    },
+    {
+      "id": "crafteo: receta desactivada (Prime → Icon)",
+      "status": 409,
+      "code": "RECIPE_DISABLED",
+      "ok": true
+    },
+    {
+      "id": "crafteo sin inventario",
+      "status": 409,
+      "code": "INSUFFICIENT_PACKS",
+      "ok": true
+    },
+    {
+      "id": "panel admin con cuenta normal (GET)",
+      "status": 401,
+      "code": "No autorizado",
+      "ok": true
+    },
+    {
+      "id": "panel admin con cuenta normal (POST saveMission)",
+      "status": 401,
+      "code": "No autorizado",
+      "ok": true
+    }
+  ],
+  "inventoryAfter": {
+    "estandar": 0,
+    "premium": 0,
+    "inicial": 0,
+    "oro": 0
+  },
+  "note": "no destructivo: ninguna petición podía consumir nada"
+}

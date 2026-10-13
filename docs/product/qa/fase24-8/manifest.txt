@@ -1,0 +1,69 @@
+# NEXUS DRLCards · esports auto-sync worker · MANIFEST
+build_id: 48dac2a+worker.996d06fd
+built_at: 2026-09-14T09:30:38.994Z
+git_head: 48dac2a
+git_branch: arch/stabilization
+entry: scripts/esports-autosync-worker.ts
+node_target: node22
+project_version: 0.1.1
+bundle: dist/worker.cjs  sha256=872f5449d8c2e918459a0cf8244dac1dd887db020c066ab3128d464fe13d0e34  bytes=974077
+bundled_dependencies: @supabase/auth-js@2.108.2, @supabase/functions-js@2.108.2, @supabase/phoenix@0.4.4, @supabase/postgrest-js@2.108.2, @supabase/realtime-js@2.108.2, @supabase/storage-js@2.108.2, @supabase/supabase-js@2.108.2, iceberg-js@0.8.1, tslib@2.8.1
+source_files: 56 (24 sin commit)
+
+# sha256  path
+9a2689ec4703ef678fc034bd1e632507df19d0373eff06f0351347fd45f4353e  scripts/esports-autosync-worker.ts  (sin commit)
+0af4a6180a48d6be9ab111043ffeaa7b8213ebbe562a4fb0adf41a9b17a86221  src/domain/esports/ratings.ts
+ea52f79ce19427b103a98555c4bdb47ddaee5a43b6a06fa6f213d170fcf8aa41  src/domain/esports/types.ts
+dafa1c88994036b5190b21cabc17681ead81adb05e109842db3574ea11c73e3a  src/domain/pickems/questions.ts  (sin commit)
+d63596a7c2bedf8ff8dea55f7b84c58f551dbb8f60c7f115ab4830218c1dafc0  src/domain/pickems/rewards.ts  (sin commit)
+a67c60c1caf66eef622e11f837aa3bcdeafcbe49c11b2547b7c144dd70f5c458  src/domain/pickems/tournament.ts  (sin commit)
+bbfd780d0f0f174fa2d7bf41c7b8c85ce9c1fc5d25f36234d0f7707793a10c68  src/importer-vlr/agents.ts
+921737fda90573f196547be0bf2ae093b5dea875d88174018fb02da2c4347140  src/importer-vlr/brackets.ts  (sin commit)
+a9dc81d331ae80d541d1dade3ea158ee08eaa895035460ff295de90924c2863f  src/importer-vlr/client.ts
+af00fdb1de21dc110223d88a55cea08d46a9b4639ac2e70143a5f124105eb22b  src/importer-vlr/engine.ts  (sin commit)
+13f8e28e7106fa1cda6190952d9728d133a21416e51d7351c82f2e6fd5041af3  src/importer-vlr/index.ts  (sin commit)
+598cd56057ba905d322c6b1660bd8f6a091200b64ac24710b8c0e579e3bd4da7  src/importer-vlr/maps.ts
+3134a295eb21e215bcf549d49978819a8b4334388d4054ca2248df97f651963b  src/importer-vlr/matches.ts
+8513481adead761b29c0d2d8ae72cad05a65206424498c676546789b3e131374  src/importer-vlr/normalize.ts  (sin commit)
+130a11087e89b0f5ba36bd51de87a8b1cf0a5b913223660a47af5daccd1e87b1  src/importer-vlr/parser.ts
+e2dcb202c86ab286432795e1292d29fdcad8cc25b3393b1fc8b38c5c38015dbd  src/importer-vlr/players.ts
+7ed6772065724916839fe77684ac6d7cadcf1d972b99f4545168cd44fa71867e  src/importer-vlr/standings.ts  (sin commit)
+0feacbc1b067582adfee9cec0892a7ace154e601265a01f3b5afabe42c733240  src/importer-vlr/stats.ts  (sin commit)
+a1abe6358ec2a7fb77992f73c14dc95f4b7fcb408e77e007afe8a378efc23daf  src/importer-vlr/teams.ts
+0d7ccdb6cc76cb96b4bf8f27ae59c1a86bd1733934d9ff2cde63c2dde405c5bb  src/importer-vlr/types.ts  (sin commit)
+27b489a1fa46b4968872ea541dd43a7c6200a16b5d081c44bdf2f008e7dd086b  src/importer/clock.ts
+a8f409c36592b7001ac205f948d5202b8d8a76c48d8c26ab13c96fc168dd69d5  src/importer/engine.ts
+1e2e000abb4511fa175dc7f526cb9c5b1dc38049f16f1bee1823760a0790dd14  src/importer/identity/index.ts
+cfedbd2469ffee071d4400e1b61a980fbe3632d3046a401b50f6060292da02ad  src/importer/index.ts
+eae85a6f5b57777d0f1f4a3ec69f119bc2055cc678feba303a28877a23c2dfdc  src/importer/model/bracket.ts  (sin commit)
+adf9b6080f5dc51540ec0a1d5b35f03821f3531ea8f3bdc097b65efc87505290  src/importer/model/calendar.ts
+4461fd11107da3d44f9ccb6badc826ff42c679ecfa5a4708aea59a4808360e67  src/importer/model/index.ts
+cfc6d123beabda9c6ca966616bdcc9c33b7c6fdf6df37d455e5a02b3d636350b  src/importer/model/people.ts
+0c26bd6de96ca9fb44144f76f0275b5b3f363286cb44435a0482bd8f46d2ee67  src/importer/model/results.ts  (sin commit)
+3fe78c9d7409b860cb0b057eb0e734d6a028bc2bfcf94af08e2ea5efc50c51b3  src/importer/model/round.ts
+ad840438af3271b9ae3f73f34231d3b325257fe5ff6f9775d56b3817c8925067  src/importer/normalize/index.ts  (sin commit)
+4be59fde2455c650e59f1429367596fd50f3bb97048a9c0ad701577d837021d3  src/importer/parse/index.ts  (sin commit)
+6f734b6bdfa032d63fad26eff4b2717fe4165743a58f50759cf57c1e4cea853f  src/importer/types.ts  (sin commit)
+9d999c63dde6ed0da36c62d2a6bf24f3be5df14e5184b5d2fc529fda89189b24  src/importer/validate/index.ts
+69a3136fd652fbfa44d392d70337137fb34348c4382ea339cffc7de5661c2f49  src/intel/identity.ts
+dd78ceb77a99f7dc1295c25d7e203c5a4ec405c3ddfb3f8938ef56530d542961  src/lib/esports/autosync/config.ts
+aa5d2d602c404fa6d1421e88e8b8ba6684b8ed2019195b4235b2a94c0c3dd0c5  src/lib/esports/autosync/health.ts
+08dccfcc9ba30038093a53f4f0b9b8473201897b2c052756e563d27c7c0f551e  src/lib/esports/autosync/lock.ts
+327a18aa932e5469781372de66934113b9468aa755da6da68f00e9ad8693334a  src/lib/esports/autosync/log.ts
+ee62168f9c104046f8352146dbacabdc0587212a240572851572796c78963bb9  src/lib/esports/autosync/policy.ts
+e060930565c125fac7ea7c562ae2ee24fba4ad0e2a72f8b534555289769f2a7a  src/lib/esports/autosync/report.ts
+89a89e1f3083fa2363e38d1885d7253cf33de0c1c0ccb4bc762114c71da0cc14  src/lib/esports/autosync/runner.ts
+4ddd6704b71a9eb5bee11ef0abcb1dcfcaa2a621bd8c1d4de3f6cb2dfa8fed25  src/lib/esports/autosync/sourceRef.ts
+7a6e0acbf983da9d15afecce94f595bfb2fb2bb85c87030ed375e2fb1871cb33  src/lib/esports/autosync/validate.ts
+0d4e7c340c6f3c1e998c2e69ebd6a189d3845e2f9a9e8cc32b5a918a8b1873a7  src/lib/esports/sync/mappers.ts  (sin commit)
+d5155893215846f3e113eddb5a6300d94d46500eec3ba062687abb01ff7ec59c  src/lib/esports/sync/mock.ts
+bf1d48e62f4ba9331fb9f29f42cc97abd070886871884659ec2a767ce68d73f8  src/lib/esports/sync/orchestrator.ts  (sin commit)
+399cf9d5e839f8e5ff80778343a50dd59e4f06b9b9afc958ecdf2aae76e53215  src/lib/esports/sync/schemaCompat.ts  (sin commit)
+b1d6c74abb4523de919158f3d9a881c3b4875aae5525d6ba3683d63a2cc757a9  src/lib/esports/sync/source.ts  (sin commit)
+42e90bd09908d411e3e3942779b2488304bcb35ac6927e46eab1ea0d66382f59  src/lib/esports/sync/vlrSnapshotSource.ts  (sin commit)
+fa1d1dba779bbe2fb7499a1d7761f1713bc79a9b57c2fe59292a20ffe05fb301  src/lib/esports/sync/writers.ts  (sin commit)
+54ba7841aa1af12194f6b6913f23686d72a3799353d544bd893918ea0d394508  src/lib/supabase/admin.ts
+ffcc27b3e9a935f7590bab6c5e793f5000a18cf43d42cf635508cf838e985f4d  src/server/services/pickemLifecycle.ts  (sin commit)
+7ffbe349e3aab958d47a8eef3462758c3d51abca69f86f7cfb939a4389ce6dab  src/server/services/pickems.ts
+ff3f2e37c8124ee9918f3ccab30198318c695fd064d44d31468b9c005fbed4ac  src/server/services/rewards.ts  (sin commit)
+80fc77515ad12acfad90055cc96ff36dcb99ca8cc4ddc30026ee6e65cd200719  src/server/worker/esportsAutosyncWorker.ts

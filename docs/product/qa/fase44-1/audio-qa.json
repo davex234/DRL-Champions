@@ -1,0 +1,148 @@
+{
+  "generatedAt": "2026-09-17T19:13:01.727Z",
+  "base": "http://127.0.0.1:3005",
+  "beforeGesture": {
+    "plan": {
+      "context": null,
+      "gain": 0
+    },
+    "layers": [],
+    "ticking": false
+  },
+  "steps": [
+    {
+      "context": "LOBBY",
+      "plan": {
+        "context": "LOBBY",
+        "gain": 0.4
+      },
+      "layers": [
+        {
+          "context": "LOBBY",
+          "stopping": false
+        }
+      ],
+      "voices": 15
+    },
+    {
+      "context": "COLLECTION",
+      "plan": {
+        "context": "COLLECTION",
+        "gain": 0.4
+      },
+      "layers": [
+        {
+          "context": "LOBBY",
+          "stopping": true
+        },
+        {
+          "context": "COLLECTION",
+          "stopping": false
+        }
+      ],
+      "voices": 20
+    },
+    {
+      "context": "PACKS",
+      "plan": {
+        "context": "PACKS",
+        "gain": 0.4
+      },
+      "layers": [
+        {
+          "context": "COLLECTION",
+          "stopping": true
+        },
+        {
+          "context": "PACKS",
+          "stopping": false
+        }
+      ],
+      "voices": 18
+    },
+    {
+      "context": "MATCH",
+      "plan": {
+        "context": "MATCH",
+        "gain": 0.4
+      },
+      "layers": [
+        {
+          "context": "PACKS",
+          "stopping": true
+        },
+        {
+          "context": "MATCH",
+          "stopping": false
+        }
+      ],
+      "voices": 32
+    },
+    {
+      "context": "RANKED",
+      "plan": {
+        "context": "RANKED",
+        "gain": 0.4
+      },
+      "layers": [
+        {
+          "context": "MATCH",
+          "stopping": true
+        },
+        {
+          "context": "RANKED",
+          "stopping": false
+        }
+      ],
+      "voices": 45
+    },
+    {
+      "context": "LOBBY",
+      "plan": {
+        "context": "LOBBY",
+        "gain": 0.4
+      },
+      "layers": [
+        {
+          "context": "RANKED",
+          "stopping": true
+        },
+        {
+          "context": "LOBBY",
+          "stopping": false
+        }
+      ],
+      "voices": 53
+    }
+  ],
+  "rapidMaxLayers": 2,
+  "ducked": {
+    "context": "RANKED",
+    "gain": 0.1
+  },
+  "unducked": {
+    "context": "RANKED",
+    "gain": 0.4
+  },
+  "overridden": {
+    "context": "RESULT",
+    "gain": 0.4
+  },
+  "hidden": {
+    "context": "RANKED",
+    "gain": 0
+  },
+  "visible": {
+    "context": "RANKED",
+    "gain": 0.4
+  },
+  "audioState": "unlocked",
+  "consoleErrors": [],
+  "sfx": {
+    "buttons": 20,
+    "errors": []
+  },
+  "route": {
+    "home": "LOBBY"
+  }
+}

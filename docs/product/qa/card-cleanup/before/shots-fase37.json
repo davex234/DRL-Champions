@@ -1,0 +1,49 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase37",
+  "generated": "2026-09-22T09:39:11.615Z",
+  "rows": [
+    {
+      "file": "album-owned-1440x900.png",
+      "scene": "album-owned",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "album-owned-390x844.png",
+      "scene": "album-owned",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "detail-legendary-1440x900.png",
+      "scene": "detail-legendary",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "detail-legendary-390x844.png",
+      "scene": "detail-legendary",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "compare-two-1440x900.png",
+      "scene": "compare-two",
+      "size": "1440x900",
+      "errors": [
+        "TypeError: Cannot read properties of undefined (reading 'combat')\n    at http://127.0.0.1:3005/_next/static/chunks/0k5j32dueeycr.js:1:26183\n    at http://127.0.0.1:3005/_next/static/chunks/1svg84iewsylz.js:1:27052\n    at ay (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:63875)\n    at oJ (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:84132)\n    at iu (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:95734)\n    at sd (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:138974)\n    at http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:1",
+        "[nexus] pantalla Cannot read properties of undefined (reading 'combat')"
+      ]
+    },
+    {
+      "file": "compare-two-390x844.png",
+      "scene": "compare-two",
+      "size": "390x844",
+      "errors": [
+        "TypeError: Cannot read properties of undefined (reading 'combat')\n    at http://127.0.0.1:3005/_next/static/chunks/0k5j32dueeycr.js:1:26183\n    at http://127.0.0.1:3005/_next/static/chunks/1svg84iewsylz.js:1:27052\n    at ay (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:63875)\n    at oJ (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:84132)\n    at iu (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:95734)\n    at sd (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:138974)\n    at http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:1",
+        "[nexus] pantalla Cannot read properties of undefined (reading 'combat')"
+      ]
+    }
+  ]
+}

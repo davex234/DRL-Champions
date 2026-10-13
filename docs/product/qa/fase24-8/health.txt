@@ -1,0 +1,8 @@
+##### health
+esports:autosync|ok|2026-09-14 09:40:02.452+00|2026-09-14 09:40:02.465637+00||{"lastDurationMs":397,"consecutiveFailures":0,"lastResult":{"runId":"20260914094002-rsv599","mode":"scheduled","dryRun":false,"origin":"worker-vps","startedAt":"2026-09-14T09:40:02.055Z","finishedAt":"2026-09-14T09:40:02.452Z","durationMs":397,"eventsChecked":2,"eventsSynced":0,"eventsChanged":0,"eventsFailed":0,"matchesChanged":0,"matchesFinished":0,"pickemsScored":0,"errors":[]},"events":{"vlr-2766":{"lastAttemptAt":1789378761488,"lastSuccessAt":1789378761488,"consecutiveFailures":0}},"nextDueAt":"2026-09-14T15:39:21.488Z","lastStatus":"ok"}
+esports:autosync:lock|idle||2026-09-14 09:40:02.484074+00||
+vlr:event:vlr-2766|ok|2026-09-14 09:12:04.395+00|2026-09-14 09:12:03.517691+00||34:6ce4f87e
+##### notifications
+error|sync_error|2|2026-09-03 10:38:07.333744+00
+info|pickem_lifecycle|2|2026-09-14 09:12:03.410659+00
+##### resource-usage

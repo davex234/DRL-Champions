@@ -1,0 +1,62 @@
+[
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "E-team",
+    "t": "5.62",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "champions-s-WALKOUT-motion-E-team-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "H-final",
+    "t": "10.50",
+    "stage": "3d",
+    "status": "done",
+    "summary": "slowlyMedia 95Equipo TYLRol FlexEdición Champions SPaís China",
+    "file": "champions-s-WALKOUT-motion-H-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "E-team",
+    "t": "5.62",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "champions-s-WALKOUT-motion-E-team-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "H-final",
+    "t": "10.50",
+    "stage": "3d",
+    "status": "done",
+    "summary": "slowlyMedia 95Equipo TYLRol FlexEdición Champions SPaís China",
+    "file": "champions-s-WALKOUT-motion-H-final-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

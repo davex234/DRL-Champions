@@ -1,0 +1,143 @@
+{
+  "390": {
+    "inicio": {
+      "overflowX": 0,
+      "scrollY": 122,
+      "mesa": {
+        "w": 366,
+        "h": 645,
+        "b": 715
+      },
+      "mano": {
+        "w": 366,
+        "h": 117,
+        "b": 953
+      },
+      "manoVisible": false,
+      "cartasMano": 10,
+      "huecos": 22,
+      "animando": 192,
+      "nodos": 932
+    },
+    "seleccionada": {
+      "overflowX": 0,
+      "scrollY": 122,
+      "mesa": {
+        "w": 366,
+        "h": 645,
+        "b": 715
+      },
+      "mano": {
+        "w": 366,
+        "h": 117,
+        "b": 953
+      },
+      "manoVisible": false,
+      "cartasMano": 10,
+      "huecos": 22,
+      "animando": 192,
+      "nodos": 977
+    },
+    "mesa": {
+      "overflowX": 0,
+      "scrollY": 296,
+      "mesa": {
+        "w": 366,
+        "h": 629,
+        "b": 699
+      },
+      "mano": {
+        "w": 366,
+        "h": 117,
+        "b": 937
+      },
+      "manoVisible": false,
+      "cartasMano": 6,
+      "huecos": 22,
+      "animando": 136,
+      "nodos": 1009
+    },
+    "resultado": {
+      "overflowX": 0,
+      "scrollY": 881,
+      "mesa": null,
+      "mano": null,
+      "manoVisible": null,
+      "cartasMano": 0,
+      "huecos": 0,
+      "animando": 36,
+      "nodos": 921
+    }
+  },
+  "1440": {
+    "inicio": {
+      "overflowX": 0,
+      "scrollY": 0,
+      "mesa": {
+        "w": 940,
+        "h": 573,
+        "b": 644
+      },
+      "mano": {
+        "w": 940,
+        "h": 144,
+        "b": 867
+      },
+      "manoVisible": true,
+      "cartasMano": 10,
+      "huecos": 22,
+      "animando": 192,
+      "nodos": 874
+    },
+    "seleccionada": {
+      "overflowX": 0,
+      "scrollY": 0,
+      "mesa": {
+        "w": 940,
+        "h": 573,
+        "b": 644
+      },
+      "mano": {
+        "w": 940,
+        "h": 144,
+        "b": 867
+      },
+      "manoVisible": true,
+      "cartasMano": 10,
+      "huecos": 22,
+      "animando": 195,
+      "nodos": 944
+    },
+    "mesa": {
+      "overflowX": 0,
+      "scrollY": 0,
+      "mesa": {
+        "w": 940,
+        "h": 573,
+        "b": 644
+      },
+      "mano": {
+        "w": 940,
+        "h": 144,
+        "b": 867
+      },
+      "manoVisible": true,
+      "cartasMano": 6,
+      "huecos": 22,
+      "animando": 136,
+      "nodos": 954
+    },
+    "resultado": {
+      "overflowX": -10,
+      "scrollY": 451,
+      "mesa": null,
+      "mano": null,
+      "manoVisible": null,
+      "cartasMano": 0,
+      "huecos": 0,
+      "animando": 36,
+      "nodos": 920
+    }
+  },
+  "consola": []
+}

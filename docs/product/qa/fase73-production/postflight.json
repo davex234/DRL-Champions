@@ -1,0 +1,314 @@
+{
+  "tables": {
+    "craft_recipes": {
+      "exists": true,
+      "rls": true,
+      "constraints": [
+        "craft_recipes_id_check:c",
+        "craft_recipes_input_class_check:c",
+        "craft_recipes_input_qty_check:c",
+        "craft_recipes_kind_check:c",
+        "craft_recipes_name_check:c",
+        "craft_recipes_output_class_check:c",
+        "craft_recipes_pkey:p",
+        "craft_recipes_shape:c",
+        "craft_recipes_status_check:c",
+        "craft_recipes_window:c"
+      ],
+      "indexes": [
+        "craft_recipes_pkey"
+      ],
+      "anon": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false
+      },
+      "authenticated": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false,
+        "truncate": false
+      },
+      "policies": null
+    },
+    "content_card_projects": {
+      "exists": true,
+      "rls": true,
+      "constraints": [
+        "content_card_projects_description_check:c",
+        "content_card_projects_id_check:c",
+        "content_card_projects_name_check:c",
+        "content_card_projects_pkey:p",
+        "content_card_projects_status_check:c",
+        "content_card_projects_window:c"
+      ],
+      "indexes": [
+        "content_card_projects_pkey"
+      ],
+      "anon": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false
+      },
+      "authenticated": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false,
+        "truncate": false
+      },
+      "policies": null
+    },
+    "content_missions": {
+      "exists": true,
+      "rls": true,
+      "constraints": [
+        "content_missions_condition_check:c",
+        "content_missions_description_check:c",
+        "content_missions_id_check:c",
+        "content_missions_name_check:c",
+        "content_missions_pkey:p",
+        "content_missions_project_id_fkey:f",
+        "content_missions_reward_check:c",
+        "content_missions_self_dep:c",
+        "content_missions_status_check:c",
+        "content_missions_target_check:c",
+        "content_missions_window:c"
+      ],
+      "indexes": [
+        "content_missions_pkey",
+        "content_missions_project_idx",
+        "content_missions_status_idx"
+      ],
+      "anon": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false
+      },
+      "authenticated": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false,
+        "truncate": false
+      },
+      "policies": null
+    },
+    "user_mission_progress": {
+      "exists": true,
+      "rls": true,
+      "constraints": [
+        "user_mission_progress_claim:c",
+        "user_mission_progress_mission_id_fkey:f",
+        "user_mission_progress_pkey:p",
+        "user_mission_progress_progress_check:c",
+        "user_mission_progress_user_id_fkey:f"
+      ],
+      "indexes": [
+        "user_mission_progress_pkey"
+      ],
+      "anon": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false
+      },
+      "authenticated": {
+        "select": true,
+        "insert": false,
+        "update": false,
+        "delete": false,
+        "truncate": false
+      },
+      "policies": [
+        "tu progreso de misiones"
+      ]
+    },
+    "mission_events": {
+      "exists": true,
+      "rls": true,
+      "constraints": [
+        "mission_events_event_key_check:c",
+        "mission_events_kind_check:c",
+        "mission_events_pkey:p",
+        "mission_events_user_id_fkey:f"
+      ],
+      "indexes": [
+        "mission_events_pkey",
+        "mission_events_user_idx"
+      ],
+      "anon": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false
+      },
+      "authenticated": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false,
+        "truncate": false
+      },
+      "policies": null
+    },
+    "user_project_claims": {
+      "exists": true,
+      "rls": true,
+      "constraints": [
+        "user_project_claims_pkey:p",
+        "user_project_claims_project_id_fkey:f",
+        "user_project_claims_user_id_fkey:f"
+      ],
+      "indexes": [
+        "user_project_claims_pkey"
+      ],
+      "anon": {
+        "select": false,
+        "insert": false,
+        "update": false,
+        "delete": false
+      },
+      "authenticated": {
+        "select": true,
+        "insert": false,
+        "update": false,
+        "delete": false,
+        "truncate": false
+      },
+      "policies": [
+        "tus proyectos reclamados"
+      ]
+    }
+  },
+  "rpcs": {
+    "public.app_craft_pack(uuid, text, text)": {
+      "exists": true,
+      "anon": false,
+      "authenticated": false,
+      "service_role": true,
+      "security_definer": true
+    },
+    "public.app_craft_card(uuid, text, uuid[], jsonb, text, text)": {
+      "exists": true,
+      "anon": false,
+      "authenticated": false,
+      "service_role": true,
+      "security_definer": true
+    },
+    "public.app_mission_apply(uuid, text, text, jsonb, jsonb)": {
+      "exists": true,
+      "anon": false,
+      "authenticated": false,
+      "service_role": true,
+      "security_definer": true
+    }
+  },
+  "fks": [
+    "content_missions \u00e2\u2020\u2019 content_card_projects",
+    "user_mission_progress \u00e2\u2020\u2019 auth.users",
+    "user_mission_progress \u00e2\u2020\u2019 content_missions",
+    "mission_events \u00e2\u2020\u2019 auth.users",
+    "user_project_claims \u00e2\u2020\u2019 auth.users",
+    "user_project_claims \u00e2\u2020\u2019 content_card_projects"
+  ],
+  "recipes": [
+    {
+      "id": "pack-estandar-premium",
+      "kind": "PACK",
+      "in": "estandar",
+      "out": "premium",
+      "qty": 4,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "pack-premium-oro",
+      "kind": "PACK",
+      "in": "premium",
+      "out": "oro",
+      "qty": 2,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "pack-oro-masters",
+      "kind": "PACK",
+      "in": "oro",
+      "out": "masters",
+      "qty": 2,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "pack-masters-champions",
+      "kind": "PACK",
+      "in": "masters",
+      "out": "champions",
+      "qty": 3,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "pack-champions-icon",
+      "kind": "PACK",
+      "in": "champions",
+      "out": "icon",
+      "qty": 2,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "card-base-plata",
+      "kind": "CARD",
+      "in": "base",
+      "out": "plata",
+      "qty": 7,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "card-plata-oro",
+      "kind": "CARD",
+      "in": "plata",
+      "out": "oro",
+      "qty": 3,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "card-oro-masters",
+      "kind": "CARD",
+      "in": "oro",
+      "out": "masters",
+      "qty": 8,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "card-masters-champions",
+      "kind": "CARD",
+      "in": "masters",
+      "out": "champions",
+      "qty": 14,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "card-champions-prime",
+      "kind": "CARD",
+      "in": "champions",
+      "out": "prime",
+      "qty": 10,
+      "status": "ACTIVE"
+    },
+    {
+      "id": "card-prime-icon",
+      "kind": "CARD",
+      "in": "prime",
+      "out": "icon",
+      "qty": 5,
+      "status": "DISABLED"
+    }
+  ],
+  "missions": 0,
+  "projects": 0,
+  "progress_rows": 0,
+  "events": 0,
+  "verdict": "PASS"
+}

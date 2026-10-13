@@ -1,0 +1,48 @@
+{
+  "source": "scripts/ops/audit-readonly.sql (F67) en sesión read-only, tras la beta",
+  "checks": {
+    "negative_credits": "0",
+    "admins": "1",
+    "user_cards_unknown_card": "0",
+    "duplicate_serials": "0",
+    "users_in_two_live_pvp": "0",
+    "live_pvp_overdue_5min": "0",
+    "self_matches": "0",
+    "finished_without_result": "0",
+    "pvp_settled_twice": "0",
+    "ledger_dup_ref": "0",
+    "queue_matched_orphan": "0",
+    "queue_active_per_user_gt1": "0",
+    "active_deck_missing": "0",
+    "pve_in_progress_older_7d": "0"
+  },
+  "schema": {
+    "public_tables": "122",
+    "migrations_registered": "25 max=0025"
+  },
+  "users": {
+    "auth_users": "27",
+    "qa_like_users": "26",
+    "delta_vs_f67": "18 → 27 (+9 cuentas QA nuevas de F68)"
+  },
+  "anomalies": 0,
+  "qaResidue": {
+    "pve_in_progress": 0,
+    "pvp_live": 0,
+    "queue_active": 0,
+    "draft_runs_open": {
+      "READY": 1,
+      "note": "run de D a mitad de gauntlet (estado normal de jugador)"
+    },
+    "coach_matches": 3,
+    "friendships": "1 (D–C aceptada)"
+  },
+  "userAccountToday": {
+    "credit_transactions": 0,
+    "user_cards": 0,
+    "duel_matches": 0,
+    "duel_decks": 0,
+    "economy_ops": 0,
+    "note": "prefijo 2f86cbe8, recuentos desde 2026-09-27T09:40Z"
+  }
+}

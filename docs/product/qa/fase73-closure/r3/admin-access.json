@@ -1,0 +1,36 @@
+{
+  "at": "2026-09-30T19:11:38.621Z",
+  "intercepted": false,
+  "pass": 4,
+  "fail": 0,
+  "results": [
+    {
+      "id": "ADMIN QA · GET /api/admin/cms/crafting → 200 con la configuración",
+      "ok": true,
+      "detail": "200 recetas=11"
+    },
+    {
+      "id": "ADMIN QA · la respuesta es SOLO configuración (sin datos de jugadores)",
+      "ok": true,
+      "detail": "[\"available\",\"reason\",\"conditionTypes\",\"recipes\",\"missions\",\"projects\"]"
+    },
+    {
+      "id": "CUENTA NORMAL (I) · sigue sin acceso (401 sin oráculo)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "ADMIN QA · /admin/crafting abre el panel real (Recetas/Misiones/Proyectos)",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "adminKeys": [
+    "available",
+    "reason",
+    "conditionTypes",
+    "recipes",
+    "missions",
+    "projects"
+  ]
+}

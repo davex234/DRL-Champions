@@ -1,0 +1,55 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase50",
+  "generated": "2026-09-22T09:10:46.124Z",
+  "rows": [
+    {
+      "file": "start-1440x900-reduced.png",
+      "scene": "start",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "start-390x844-reduced.png",
+      "scene": "start",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "both-1440x900-reduced.png",
+      "scene": "both",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "both-390x844-reduced.png",
+      "scene": "both",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "turn-win-1440x900-reduced.png",
+      "scene": "turn-win",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "turn-win-390x844-reduced.png",
+      "scene": "turn-win",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "result-win-1440x900-reduced.png",
+      "scene": "result-win",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "result-win-390x844-reduced.png",
+      "scene": "result-win",
+      "size": "390x844",
+      "errors": []
+    }
+  ]
+}

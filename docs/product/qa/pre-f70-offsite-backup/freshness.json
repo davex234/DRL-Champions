@@ -1,0 +1,38 @@
+{
+  "phase": "PRE-F70",
+  "rule": "offsiteVerdict() (src/domain/ops/backup.ts, 12 tests): PASS solo con copia off-site VERIFICADA de ≤ 26 h; FAIL NOT_CONFIGURED/DISABLED/NEVER_VERIFIED/STALE; WARN LAST_RUN_FAILED",
+  "fromRealHarnessStatus": {
+    "afterRuns": {
+      "verdict": {
+        "level": "WARN",
+        "code": "LAST_RUN_FAILED",
+        "detail": "hay copia verificada reciente (20260928T132930Z, 0 h) pero el ÚLTIMO envío falló: failed 20260103T000004Z 2026-09-28T13:33:24Z upload"
+      },
+      "why": "hay copia verificada de hace 0 h, pero el último envío (caso disco lleno) falló → aviso, no se oculta"
+    },
+    "markerAged30h": {
+      "verdict": {
+        "level": "FAIL",
+        "code": "STALE",
+        "detail": "última copia off-site verificada 20260928T132930Z hace 30 h (máximo 26 h)"
+      }
+    },
+    "noConfig": {
+      "verdict": {
+        "level": "FAIL",
+        "code": "NOT_CONFIGURED",
+        "detail": "OFFSITE BACKUP NOT CONFIGURED: las copias viven en el MISMO disco del VPS (BLOCKED externo: falta destino + credenciales)"
+      }
+    }
+  },
+  "production": {
+    "line": "FAIL backup-offsite         NOT_CONFIGURED · OFFSITE BACKUP NOT CONFIGURED: las copias viven en el MISMO disco del VPS (BLOCKED externo: falta destino + credenciales)",
+    "backupVerified": "PASS · pre-0058/20260928T115532Z hace 1 h · 2 unidades · SHA256SUMS ok (antes solo miraba f67/)"
+  },
+  "alertability": {
+    "exitCodes": "backup-drlcards.sh 3 = local OK + off-site KO; backup-offsite.sh 1/2/75",
+    "status": "<raíz>/offsite-status (failed/verified + etapa)",
+    "log": "/opt/nexus/logs/drlcards-offsite.log (id de unidad, etapa, resultado, duración, bytes, tipo de remoto; sin destino ni credenciales)",
+    "check": "npm run production:check -- --vps (FAIL/WARN)"
+  }
+}

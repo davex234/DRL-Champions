@@ -1,0 +1,45 @@
+{
+  "language": {
+    "geometry": "chaflán (nx-clip 14–20 px / nx-clip-sm 10 px) en paneles, botones, campos, avisos y monogramas; nada de caja redondeada de web en el flujo principal",
+    "surfaces": "paneles oscuros con filo de color (nx-f62-panel, nx-f63-stage, nx-f63-coach); profundidad por gradiente + filo interior, no por sombra difusa",
+    "color": "rojo NEXUS (acción), cian (información / XP de cuenta / foco), oro (recompensa / créditos / XP de temporada); nunca solo color: texto e icono siempre",
+    "type": "display (Rajdhani) en mayúsculas para títulos y botones; `nx-readout` para cifras (OVR, créditos, XP, rating); Inter para texto",
+    "icons": "GameGlyph: 26 glifos SVG propios, trazo 1,8 px, currentColor, rejilla 24"
+  },
+  "tokens": "src/design/tokens.ts sin cambios (sistema válido); F64 añade primitivas CSS, no tokens nuevos",
+  "buttons": {
+    "roles": [
+      "primary",
+      "secondary",
+      "tertiary",
+      "ghost",
+      "danger",
+      "icon"
+    ],
+    "game": [
+      "nx-play (JUGAR)",
+      "nx-menu-btn (menú principal)",
+      "nx-f62-cta (reclamar/acción de hub)",
+      "nx-quick (accesos del menú)"
+    ],
+    "press": "nx-press en todos"
+  },
+  "primitives": [
+    "nx-press",
+    "nx-shake",
+    "nx-field",
+    "GameGlyph / CreditGlyph",
+    "Loading kind (GameSkeleton hub|profile|deck|cards|hero)",
+    "useDialogLayer",
+    "createSharedPoll"
+  ],
+  "buttonStyleSignatures": {
+    "note": "estilos distintos de botón por pantalla (media de todas las rutas y anchos)",
+    "before": 7.07,
+    "after": 7.08
+  },
+  "radiiPerScreen": {
+    "before": 2.21,
+    "after": 1.6
+  }
+}

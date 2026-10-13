@@ -1,0 +1,190 @@
+{
+  "width": 1024,
+  "sessions": [
+    {
+      "id": "D-r1-draft",
+      "persona": "D",
+      "session": "draft",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 85,
+      "actions": 90,
+      "screens": 2,
+      "checks": {
+        "pass": 5,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 77,
+      "statuses": {
+        "200": 312,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "D-r1-explorer",
+      "persona": "D",
+      "session": "explorer",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 241,
+      "actions": 68,
+      "screens": 20,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 9,
+      "api": 231,
+      "statuses": {
+        "200": 1971,
+        "204": 30,
+        "400": 1,
+        "404": 7
+      },
+      "bad": [
+        "404 /players/erde.png",
+        "404 /players/timotino.png",
+        "404 /players/aluba.png",
+        "404 /players/yatsuka.png",
+        "404 /players/guang.png",
+        "404 /api/game/duel",
+        "404 /api/game/player",
+        "400 /api/game/competitive"
+      ],
+      "notes": []
+    },
+    {
+      "id": "D-r1-pickems",
+      "persona": "D",
+      "session": "pickems",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 18,
+      "actions": 7,
+      "screens": 2,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 35,
+      "statuses": {
+        "200": 261,
+        "204": 9
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "D-r1-skip",
+      "persona": "D",
+      "session": "skip",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 91,
+      "actions": 42,
+      "screens": 8,
+      "checks": {
+        "pass": 1,
+        "fail": [
+          "FAIL sin guía: el jugador llega a tener equipo válido por la interfaz"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 143,
+      "statuses": {
+        "200": 784,
+        "204": 25
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "D-r1-teams",
+      "persona": "D",
+      "session": "teams",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 45,
+      "actions": 13,
+      "screens": 3,
+      "checks": {
+        "pass": 4,
+        "fail": [
+          "FAIL equipo incompleto: explica por qué no se puede activar (sin código crudo)",
+          "FAIL doble clic en guardar no duplica el equipo"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 47,
+      "statuses": {
+        "200": 381,
+        "204": 6
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "D-r2-explorer",
+      "persona": "D",
+      "session": "explorer",
+      "tag": "r2",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 232,
+      "actions": 160,
+      "screens": 20,
+      "checks": {
+        "pass": 4,
+        "fail": []
+      },
+      "consoleErrors": 4,
+      "api": 269,
+      "statuses": {
+        "200": 2084,
+        "204": 33,
+        "400": 1,
+        "404": 2
+      },
+      "bad": [
+        "404 /api/game/duel",
+        "404 /api/game/player",
+        "400 /api/game/competitive"
+      ],
+      "notes": []
+    },
+    {
+      "id": "D-r2-progress",
+      "persona": "D",
+      "session": "progress",
+      "tag": "r2",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 45,
+      "actions": 12,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": [
+          "FAIL HUD al día tras reclamar (sin recargar)"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 71,
+      "statuses": {
+        "200": 512,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    }
+  ]
+}

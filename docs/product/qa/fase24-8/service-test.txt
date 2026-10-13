@@ -1,0 +1,8 @@
+### kill switch OFF · scheduled · 09:33:18Z
+before: 101|23|4|2026-09-14 09:12:03.609102+00  (matches|pickem_questions|notifications|max(sync_state.updated_at))
+after:  101|23|4|2026-09-14 09:12:03.609102+00
+wall=0.109s exit=0 · [esports-sync-worker] exit=0 reason="kill switch OFF (ESPORTS_AUTO_SYNC_ENABLED != true)"
+
+### kill switch ON temporal · scheduled · 09:33:19Z (policy: ningún evento toca; sin fetch)
+before: 101|23|4|2026-09-14 09:12:03.609102+00 · after: 101|23|4|2026-09-14 09:33:19.230684+00 (solo salud/lock en sync_state)
+wall=0.392s exit=0 · events_checked=2 events_due=0 · siguiente 2026-09-14T15:12:04.504Z · lock adquirido y liberado (idle)

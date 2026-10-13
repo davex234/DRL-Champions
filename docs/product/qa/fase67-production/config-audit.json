@@ -1,0 +1,63 @@
+{
+  "envVarsRead": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "SYNC_SECRET",
+    "ESPORTS_SYNC_SECRET",
+    "ESPORTS_AUTO_SYNC_*",
+    "NEXUS_SANDBOX_CREDITS",
+    "ANTHROPIC_API_KEY",
+    "ANTHROPIC_MODEL(_BULK)",
+    "NEXT_PUBLIC_ADMIN",
+    "NEXT_PUBLIC_VLR_API",
+    "NEXT_PUBLIC_TELEGRAM_WEBHOOK",
+    "NEXT_DESKTOP",
+    "NODE_ENV",
+    "F67: NEXUS_QA_HARNESS, NEXUS_PUBLIC_INDEXING"
+  ],
+  "findings": [
+    {
+      "id": "CFG-1",
+      "severity": "HIGH",
+      "what": "sin validación de env: sin Supabase la app arrancaba en «modo local» silencioso",
+      "fix": "src/server/ops/env.ts + src/instrumentation.ts: en producción un CRÍTICO sale con exit 1 (medido: 486 ms, mensaje con el nombre de la variable)"
+    },
+    {
+      "id": "CFG-2",
+      "severity": "HIGH",
+      "what": "`next start -p 3005` escuchaba en TODAS las interfaces (LAN)",
+      "fix": "npm start = next start -H 127.0.0.1 -p 3005 (verificado: LocalAddress 127.0.0.1)"
+    },
+    {
+      "id": "CFG-3",
+      "severity": "MEDIUM",
+      "what": "/design-system/* (≈30 arneses con fixtures) públicos en producción",
+      "fix": "404 en producción salvo NEXUS_QA_HARNESS=1 (middleware)"
+    },
+    {
+      "id": "CFG-4",
+      "severity": "LOW",
+      "what": "NEXT_PUBLIC_TELEGRAM_WEBHOOK viajaría al navegador",
+      "status": "no definido hoy; la validación lo señala si aparece"
+    },
+    {
+      "id": "CFG-5",
+      "severity": "INFO",
+      "what": "NEXUS_SANDBOX_CREDITS solo actúa fuera de producción (doble puerta)",
+      "status": "ok"
+    },
+    {
+      "id": "CFG-6",
+      "severity": "INFO",
+      "what": "localhost/127.0.0.1 solo en scripts de QA y allowedDevOrigins (dev)",
+      "status": "ok"
+    },
+    {
+      "id": "CFG-7",
+      "severity": "BLOCKED",
+      "what": "GoTrue: SITE_URL/URI_ALLOW_LIST = 127.0.0.1:3000, SMTP = Inbucket, MAILER_AUTOCONFIRM=true, PASSWORD_MIN_LENGTH=6",
+      "status": "cambio de configuración del stack al tener dominio y SMTP (ver release checklist)"
+    }
+  ]
+}

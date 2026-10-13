@@ -1,0 +1,44 @@
+{
+  "account": "8c326e52",
+  "at": "2026-09-16T16:22:06.647Z",
+  "plays": 0,
+  "probe": [
+    {
+      "id": "d-duelo-1",
+      "kind": "daily",
+      "first": 200,
+      "paid": 250,
+      "extraMatch": {
+        "reason": "duel_loss",
+        "delta": 25
+      },
+      "reclaim": 409,
+      "reclaimDelta": 0
+    },
+    {
+      "id": "d-duelo-win",
+      "kind": "daily",
+      "first": 200,
+      "paid": 400,
+      "extraMatch": {
+        "reason": "duel_win",
+        "delta": 120
+      },
+      "reclaim": 409,
+      "reclaimDelta": 0
+    },
+    {
+      "id": "d-abrir-1",
+      "kind": "daily",
+      "first": 200,
+      "paid": 200,
+      "extraMatch": {
+        "reason": "duel_loss",
+        "delta": 25
+      },
+      "reclaim": 409,
+      "reclaimDelta": 0
+    }
+  ],
+  "failures": 0
+}

@@ -1,0 +1,1741 @@
+[
+  {
+    "id": "inicial",
+    "name": "Sobre Inicial",
+    "family": "F·inicial",
+    "price": 0,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": false,
+    "store": [
+      "inicial:on:GAME_CURRENCY"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 70,
+      "uncommon": 26,
+      "rare": 3.5,
+      "epic": 0.5,
+      "legendary": 0
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-inicial(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "estandar",
+    "name": "Sobre Bronce",
+    "family": "A·línea principal",
+    "price": 2500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "estandar:on:BOTH",
+      "caja-estandar:on:REAL_MONEY"
+    ],
+    "repeatable": true,
+    "drawMode": "plan 3.0 (ranuras+inclinación)",
+    "weights": {
+      "common": 55,
+      "uncommon": 35,
+      "rare": 8,
+      "epic": 1.8,
+      "legendary": 0.2
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-estandar(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "premium",
+    "name": "Sobre Plata",
+    "family": "A·línea principal",
+    "price": 6000,
+    "cards": 6,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "premium:on:BOTH",
+      "caja-premium:on:REAL_MONEY"
+    ],
+    "repeatable": true,
+    "drawMode": "plan 3.0 (ranuras+inclinación)",
+    "weights": {
+      "common": 30,
+      "uncommon": 45,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": "rare",
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-premium(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "oro",
+    "name": "Sobre Oro",
+    "family": "A·línea principal",
+    "price": 12000,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "oro:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "plan 3.0 (ranuras+inclinación)",
+    "weights": {
+      "common": 10,
+      "uncommon": 40,
+      "rare": 30,
+      "epic": 17,
+      "legendary": 3
+    },
+    "guaranteedMin": "epic",
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-oro(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "masters",
+    "name": "Sobre Masters",
+    "family": "A·línea principal",
+    "price": 20000,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "masters:on:BOTH",
+      "caja-masters:on:REAL_MONEY"
+    ],
+    "repeatable": true,
+    "drawMode": "plan 3.0 (ranuras+inclinación)",
+    "weights": {
+      "common": 10,
+      "uncommon": 40,
+      "rare": 30,
+      "epic": 17,
+      "legendary": 3
+    },
+    "guaranteedMin": "epic",
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": "masters-toronto",
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-masters(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "champions",
+    "name": "Sobre Champions",
+    "family": "A·línea principal",
+    "price": 35000,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "champions:on:BOTH",
+      "caja-champions:on:REAL_MONEY"
+    ],
+    "repeatable": true,
+    "drawMode": "plan 3.0 (ranuras+inclinación)",
+    "weights": {
+      "common": 5,
+      "uncommon": 30,
+      "rare": 35,
+      "epic": 22,
+      "legendary": 8
+    },
+    "guaranteedMin": "epic",
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": "champions-paris",
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-champions(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "ewc",
+    "name": "Sobre EWC",
+    "family": "D·EWC",
+    "price": 6000,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "ewc:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 8,
+      "uncommon": 38,
+      "rare": 32,
+      "epic": 19,
+      "legendary": 3
+    },
+    "guaranteedMin": "epic",
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": "ewc-2026",
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-ewc(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "emea",
+    "name": "Sobre EMEA",
+    "family": "B·regional",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "emea:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "pack-emea(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "americas",
+    "name": "Sobre Americas",
+    "family": "B·regional",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "americas:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Americas",
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "common": 54,
+      "rare": 9,
+      "uncommon": 31,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "plata": 19,
+      "prime": 9,
+      "base": 23,
+      "oro": 12,
+      "masters": 31,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 74,
+      "median": 86,
+      "max": 95,
+      "ge90": 25,
+      "ge95": 2
+    },
+    "dbPools": [
+      "pack-americas(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "pacific",
+    "name": "Sobre Pacific",
+    "family": "B·regional",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "pacific:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Pacific",
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 97,
+    "poolByBucket": {
+      "common": 59,
+      "uncommon": 30,
+      "legendary": 1,
+      "rare": 2,
+      "epic": 5
+    },
+    "poolByClass": {
+      "base": 34,
+      "plata": 14,
+      "oro": 11,
+      "masters": 30,
+      "icon": 1,
+      "prime": 2,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 70,
+      "median": 84,
+      "max": 95,
+      "ge90": 13,
+      "ge95": 3
+    },
+    "dbPools": [
+      "pack-pacific(EXPLICIT,97×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "china",
+    "name": "Sobre China",
+    "family": "B·regional",
+    "price": 3000,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "china:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 0,
+      "legendary": 0
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "China",
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 34,
+    "poolByBucket": {
+      "uncommon": 29,
+      "epic": 5
+    },
+    "poolByClass": {
+      "masters": 29,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 79,
+      "median": 85,
+      "max": 95,
+      "ge90": 10,
+      "ge95": 2
+    },
+    "dbPools": [
+      "pack-china(EXPLICIT,34×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-heretics",
+    "name": "Sobre Team Heretics",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "team-heretics:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": "Team Heretics",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-heretics(RULE,11×w5,prio 50)",
+      "pack-team-heretics(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-fnatic",
+    "name": "Sobre Fnatic",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "team-fnatic:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": "Fnatic",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-fnatic(RULE,6×w5,prio 50)",
+      "pack-team-fnatic(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-navi",
+    "name": "Sobre NAVI",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "RETIRED",
+    "purchasable": false,
+    "store": [
+      "team-navi:off:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": "NAVI",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-navi(RULE,4×w5,prio 50)",
+      "pack-team-navi(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-g2",
+    "name": "Sobre G2",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "team-g2:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Americas",
+    "team": "G2",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "common": 54,
+      "rare": 9,
+      "uncommon": 31,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "plata": 19,
+      "prime": 9,
+      "base": 23,
+      "oro": 12,
+      "masters": 31,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 74,
+      "median": 86,
+      "max": 95,
+      "ge90": 25,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-g2(RULE,20×w5,prio 50)",
+      "pack-team-g2(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "prime",
+    "name": "Sobre Prime",
+    "family": "I·otro",
+    "price": 10000,
+    "cards": 4,
+    "lifecycle": "RETIRED",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 0,
+      "uncommon": 25,
+      "rare": 35,
+      "epic": 30,
+      "legendary": 10
+    },
+    "guaranteedMin": "epic",
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-prime(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "icon",
+    "name": "Sobre Icon",
+    "family": "A·línea principal",
+    "price": 60000,
+    "cards": 3,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "icon:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "plan 3.0 (ranuras+inclinación)",
+    "weights": {
+      "common": 0,
+      "uncommon": 0,
+      "rare": 30,
+      "epic": 45,
+      "legendary": 25
+    },
+    "guaranteedMin": "legendary",
+    "guarantees": null,
+    "pity": null,
+    "region": null,
+    "team": null,
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 331,
+    "poolByBucket": {
+      "common": 169,
+      "rare": 20,
+      "uncommon": 119,
+      "epic": 20,
+      "legendary": 3
+    },
+    "poolByClass": {
+      "plata": 60,
+      "prime": 20,
+      "base": 75,
+      "masters": 119,
+      "oro": 34,
+      "champions": 20,
+      "icon": 3
+    },
+    "ovr": {
+      "min": 70,
+      "median": 85,
+      "max": 95,
+      "ge90": 70,
+      "ge95": 9
+    },
+    "dbPools": [
+      "pack-icon(EXPLICIT,331×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-loud",
+    "name": "Sobre LOUD",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Americas",
+    "team": "LOUD",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "common": 54,
+      "rare": 9,
+      "uncommon": 31,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "plata": 19,
+      "prime": 9,
+      "base": 23,
+      "oro": 12,
+      "masters": 31,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 74,
+      "median": 86,
+      "max": 95,
+      "ge90": 25,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-loud(RULE,5×w5,prio 50)",
+      "pack-team-loud(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-blg",
+    "name": "Sobre BLG",
+    "family": "C·equipo",
+    "price": 3000,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 0,
+      "legendary": 0
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "China",
+    "team": "BLG",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 34,
+    "poolByBucket": {
+      "uncommon": 29,
+      "epic": 5
+    },
+    "poolByClass": {
+      "masters": 29,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 79,
+      "median": 85,
+      "max": 95,
+      "ge90": 10,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-blg(RULE,0×w,prio 50)",
+      "pack-team-blg(EXPLICIT,34×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-te",
+    "name": "Sobre TE",
+    "family": "C·equipo",
+    "price": 3000,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 0,
+      "legendary": 0
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "China",
+    "team": "TE",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 34,
+    "poolByBucket": {
+      "uncommon": 29,
+      "epic": 5
+    },
+    "poolByClass": {
+      "masters": 29,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 79,
+      "median": 85,
+      "max": 95,
+      "ge90": 10,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-te(RULE,0×w,prio 50)",
+      "pack-team-te(EXPLICIT,34×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-jdg",
+    "name": "Sobre JDG",
+    "family": "C·equipo",
+    "price": 3000,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 0,
+      "legendary": 0
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "China",
+    "team": "JDG",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 34,
+    "poolByBucket": {
+      "uncommon": 29,
+      "epic": 5
+    },
+    "poolByClass": {
+      "masters": 29,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 79,
+      "median": 85,
+      "max": 95,
+      "ge90": 10,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-jdg(RULE,0×w,prio 50)",
+      "pack-team-jdg(EXPLICIT,34×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-liquid",
+    "name": "Sobre Team Liquid",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "team-liquid:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": "TL",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-liquid(RULE,11×w5,prio 50)",
+      "pack-team-liquid(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-tyl",
+    "name": "Sobre TYL",
+    "family": "C·equipo",
+    "price": 3000,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 0,
+      "legendary": 0
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "China",
+    "team": "TYL",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 34,
+    "poolByBucket": {
+      "uncommon": 29,
+      "epic": 5
+    },
+    "poolByClass": {
+      "masters": 29,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 79,
+      "median": 85,
+      "max": 95,
+      "ge90": 10,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-tyl(RULE,5×w5,prio 50)",
+      "pack-team-tyl(EXPLICIT,34×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-karmine",
+    "name": "Sobre Karmine Corp",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "ACTIVE",
+    "purchasable": true,
+    "store": [
+      "team-karmine:on:BOTH"
+    ],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": "KC",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-karmine(RULE,4×w5,prio 50)",
+      "pack-team-karmine(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-m8",
+    "name": "Sobre M8",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": "M8",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-m8(RULE,9×w5,prio 50)",
+      "pack-team-m8(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-fut",
+    "name": "Sobre FUT",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "EMEA",
+    "team": "FUT",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "uncommon": 29,
+      "common": 56,
+      "rare": 9,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "masters": 29,
+      "base": 18,
+      "prime": 9,
+      "plata": 27,
+      "oro": 11,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 72,
+      "median": 85,
+      "max": 95,
+      "ge90": 22,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-fut(RULE,15×w5,prio 50)",
+      "pack-team-fut(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-100t",
+    "name": "Sobre 100T",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Americas",
+    "team": "100T",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "common": 54,
+      "rare": 9,
+      "uncommon": 31,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "plata": 19,
+      "prime": 9,
+      "base": 23,
+      "oro": 12,
+      "masters": 31,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 74,
+      "median": 86,
+      "max": 95,
+      "ge90": 25,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-100t(RULE,5×w5,prio 50)",
+      "pack-team-100t(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-prx",
+    "name": "Sobre Paper Rex",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Pacific",
+    "team": "PRX",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 97,
+    "poolByBucket": {
+      "common": 59,
+      "uncommon": 30,
+      "legendary": 1,
+      "rare": 2,
+      "epic": 5
+    },
+    "poolByClass": {
+      "base": 34,
+      "plata": 14,
+      "oro": 11,
+      "masters": 30,
+      "icon": 1,
+      "prime": 2,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 70,
+      "median": 84,
+      "max": 95,
+      "ge90": 13,
+      "ge95": 3
+    },
+    "dbPools": [
+      "boost-team-prx(RULE,15×w5,prio 50)",
+      "pack-team-prx(EXPLICIT,97×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-ns",
+    "name": "Sobre NS",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Pacific",
+    "team": "NS",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 97,
+    "poolByBucket": {
+      "common": 59,
+      "uncommon": 30,
+      "legendary": 1,
+      "rare": 2,
+      "epic": 5
+    },
+    "poolByClass": {
+      "base": 34,
+      "plata": 14,
+      "oro": 11,
+      "masters": 30,
+      "icon": 1,
+      "prime": 2,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 70,
+      "median": 84,
+      "max": 95,
+      "ge90": 13,
+      "ge95": 3
+    },
+    "dbPools": [
+      "boost-team-ns(RULE,11×w5,prio 50)",
+      "pack-team-ns(EXPLICIT,97×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-ge",
+    "name": "Sobre GE",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Pacific",
+    "team": "GE",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 97,
+    "poolByBucket": {
+      "common": 59,
+      "uncommon": 30,
+      "legendary": 1,
+      "rare": 2,
+      "epic": 5
+    },
+    "poolByClass": {
+      "base": 34,
+      "plata": 14,
+      "oro": 11,
+      "masters": 30,
+      "icon": 1,
+      "prime": 2,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 70,
+      "median": 84,
+      "max": 95,
+      "ge90": 13,
+      "ge95": 3
+    },
+    "dbPools": [
+      "boost-team-ge(RULE,11×w5,prio 50)",
+      "pack-team-ge(EXPLICIT,97×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-xlg",
+    "name": "Sobre XLG",
+    "family": "C·equipo",
+    "price": 3000,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 0,
+      "legendary": 0
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "China",
+    "team": "XLG",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 34,
+    "poolByBucket": {
+      "uncommon": 29,
+      "epic": 5
+    },
+    "poolByClass": {
+      "masters": 29,
+      "champions": 5
+    },
+    "ovr": {
+      "min": 79,
+      "median": 85,
+      "max": 95,
+      "ge90": 10,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-xlg(RULE,10×w5,prio 50)",
+      "pack-team-xlg(EXPLICIT,34×w1,prio 100)"
+    ],
+    "rewards": []
+  },
+  {
+    "id": "team-lev",
+    "name": "Sobre Leviatán",
+    "family": "C·equipo",
+    "price": 3500,
+    "cards": 5,
+    "lifecycle": "DRAFT",
+    "purchasable": false,
+    "store": [],
+    "repeatable": true,
+    "drawMode": "pesos por rareza",
+    "weights": {
+      "common": 35,
+      "uncommon": 40,
+      "rare": 18,
+      "epic": 6,
+      "legendary": 1
+    },
+    "guaranteedMin": null,
+    "guarantees": null,
+    "pity": null,
+    "region": "Americas",
+    "team": "LEV",
+    "eventId": null,
+    "antiDup": "allow",
+    "poolSize": 100,
+    "poolByBucket": {
+      "common": 54,
+      "rare": 9,
+      "uncommon": 31,
+      "epic": 5,
+      "legendary": 1
+    },
+    "poolByClass": {
+      "plata": 19,
+      "prime": 9,
+      "base": 23,
+      "oro": 12,
+      "masters": 31,
+      "champions": 5,
+      "icon": 1
+    },
+    "ovr": {
+      "min": 74,
+      "median": 86,
+      "max": 95,
+      "ge90": 25,
+      "ge95": 2
+    },
+    "dbPools": [
+      "boost-team-lev(RULE,14×w5,prio 50)",
+      "pack-team-lev(EXPLICIT,100×w1,prio 100)"
+    ],
+    "rewards": []
+  }
+]

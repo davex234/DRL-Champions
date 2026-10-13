@@ -1,0 +1,93 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "otherPlayerProfile": {
+    "route": "/jugador/<B> visto por C",
+    "widths": {
+      "390": {
+        "h": [
+          "QAF68B100206_D8EB",
+          "COMPETITIVO",
+          "TEMPORADA ACTUAL",
+          "CARA A CARA CONTIGO",
+          "ESTADÍSTICAS",
+          "COLECCIÓN",
+          "TROFEOS · 0 / 7 LOGROS",
+          "EVENTOS · PICK'EMS",
+          "ACTIVIDAD RECIENTE"
+        ],
+        "notFound": false,
+        "showsName": true,
+        "mentionsCredits": false,
+        "mentionsAdmin": false,
+        "lastSeenExact": false,
+        "consoleErrors": 0,
+        "network": {
+          "status": {
+            "200": 62,
+            "204": 1
+          },
+          "bad": []
+        }
+      },
+      "1440": {
+        "h": [
+          "QAF68B100206_D8EB",
+          "COMPETITIVO",
+          "TEMPORADA ACTUAL",
+          "CARA A CARA CONTIGO",
+          "ESTADÍSTICAS",
+          "COLECCIÓN",
+          "TROFEOS · 0 / 7 LOGROS",
+          "EVENTOS · PICK'EMS",
+          "ACTIVIDAD RECIENTE"
+        ],
+        "notFound": false,
+        "showsName": true,
+        "mentionsCredits": false,
+        "mentionsAdmin": false,
+        "lastSeenExact": false,
+        "consoleErrors": 0,
+        "network": {
+          "status": {
+            "200": 78,
+            "204": 1
+          },
+          "bad": []
+        }
+      }
+    },
+    "screenshots": [
+      "screenshots/perfil-publico-B-desde-C-1440.png",
+      "screenshots/perfil-publico-B-desde-C-390.png",
+      "screenshots/perfil-publico-B-desde-C-1440-hud.png"
+    ],
+    "reading": "El perfil de otro jugador carga entero con los campos permitidos (nombre, avatar, nivel, rating/ranked, temporada, cara a cara, estadísticas, colección, trofeos, Pick'ems): sin saldo, sin marca de admin, presencia gruesa («Activo recientemente») sin hora exacta. Ningún dato sustituido por relleno."
+  },
+  "ownProfile": {
+    "probe": "raw/probe-B-after.json (2026-09-28T12:27Z, tras 0058)",
+    "verdict": {
+      "terminologyOk": true,
+      "brokenLinks": 0,
+      "brokenImages": 0,
+      "cuentaClsMax": 0.061,
+      "menuFocusTrap": true
+    },
+    "cuenta": {
+      "rangoDePuntos": " XP PARA EL NIVEL 9 RANGO DE PUNTOS BRONCE II 54 PUNTOS PARA PLATA 🎮 CERRAR SESIÓN PUNTOS 96 TORNEOS 0 ACIERT",
+      "ratingElo": "0 DRL CREDITS 5.065 RATING RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETIT",
+      "puestoRanked": "G RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETITIVO → AMIGOS 0 EN LÍNEA 0",
+      "oldRatingPvp": false,
+      "bareRango": false
+    },
+    "pagesCrawled": 24,
+    "internalLinks": 63,
+    "brokenLinks": 0,
+    "images": 100,
+    "brokenImages": 0
+  },
+  "explorer": "raw/D-pre70-explorer.json: perfil propio (/jugador/me) con hero-ranked, vitrina, temporada, estadísticas, logros; 4/4 PASS",
+  "socialSearch": "raw/FK-pre70-social.json: la búsqueda encuentra al otro jugador, solicitud enviada y aceptada (2/2)",
+  "dependenciesOnPrivateColumns": "ninguna: todas las lecturas REST de profiles del cliente son id/points/region (posición) y UPDATE de avatar/region; lo propio va por /api/game/me; lo ajeno por /api/game/player (service_role, proyección PUBLIC). No hubo que tocar UI ni API.",
+  "falseAlarm": "Al revisar la captura de 1440 leí «610» en el chip de créditos de C. Investigado: libro 810 (15 apuntes, igual que en F69), /api/game/state 810, /api/game/me 810, BD 810, DOM del HUD 810 muestreado cada 500 ms durante 7,5 s en la misma pantalla, y la captura de 390 de esa ejecución dice 810. El «8» del tipo de letra a ese tamaño se parece a un «6»: no había discrepancia.",
+  "status": "PASS"
+}

@@ -1,0 +1,6700 @@
+{
+ "base": "http://127.0.0.1:3086",
+ "at": "2026-10-05T16:45:17.720Z",
+ "total": 751,
+ "passed": 751,
+ "failed": 0,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "vacío honesto",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "INSCRITO ✓ y RETIRARME",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "full",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "full",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "full",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "full",
+   "name": "COMPLETO sin botón de inscribirse",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "full",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "rival listo: «Tu rival ya está listo» + JUGAR YA, anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "Tu rival ya está listo.",
+    "play": true,
+    "text": "Tu rival ya está listo.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU RIVAL YA ESTÁ LISTO\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\n✓ Tu rival está listo y te espera\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR YA",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "el árbol de 64 se desplaza DENTRO de su región (no la página)",
+   "ok": true,
+   "detail": {
+    "treeScroll": 360
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "momento de campeón: «¡Eres el campeón!», trofeo y torneo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "TU PARTIDA ESTÁ LISTA: rival con #TAG, plazo y JUGAR",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "antes de listo: JUGAR, sin «esperando»",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "ESPERANDO AL RIVAL (del servidor): ✓ listo, sin JUGAR, explicación, anuncio y salida",
+   "ok": true,
+   "detail": {
+    "waiting": "1",
+    "state": "READY",
+    "announce": "Estás listo. Esperando a Kairo #KZEU9P4.",
+    "play": false,
+    "text": "Estás listo. Esperando a Kairo #KZEU9P4.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nESPERANDO A TU RIVAL\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\n✓ LISTO · ESPERANDO A KAIRO #KZEU9P4\n\nYa estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.\n\nDEJAR DE ESPERAR",
+    "anim": "pulse"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "punto de espera presente (animación discreta)",
+   "ok": true,
+   "detail": "pulse"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "plazo vencido: «en revisión», sin JUGAR ni «esperando», anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "NO_SHOW_PENDING",
+    "announce": "El plazo de la ronda terminó. El cruce está en revisión.",
+    "play": false,
+    "text": "El plazo de la ronda terminó. El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nPLAZO VENCIDO · EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nEl plazo de la ronda terminó sin partida. La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "review",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "review",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "review",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "review",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "review",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "review",
+   "name": "empate exacto: cruce en revisión, sin sorteo",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "ACTION_REQUIRED",
+    "announce": "El cruce está en revisión.",
+    "play": false,
+    "text": "El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nCRUCE EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nLa partida terminó sin un ganador claro (empate exacto o cierre por tiempo). La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "review",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "avance: ✓ Has ganado + esperando rival que se juega ahora",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "PENDING",
+    "announce": "",
+    "play": false,
+    "text": "✓ HAS GANADO SEMIFINAL · AVANZAS A FINAL\n\nFINAL\n\nESPERANDO RIVAL\n❔\n\nRIVAL\n\nPOR DECIDIR\n\nGanador del cruce 2 de Semifinal · se está jugando ahora\n\nEn cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "siguiente cruce jugable: ✓ Has ganado + JUGAR",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "aviso global: «Tu rival te espera» con JUGAR, accesible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "vacío honesto",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "INSCRITO ✓ y RETIRARME",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "full",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "full",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "full",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "full",
+   "name": "COMPLETO sin botón de inscribirse",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "full",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "rival listo: «Tu rival ya está listo» + JUGAR YA, anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "Tu rival ya está listo.",
+    "play": true,
+    "text": "Tu rival ya está listo.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU RIVAL YA ESTÁ LISTO\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\n✓ Tu rival está listo y te espera\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR YA",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "el árbol de 64 se desplaza DENTRO de su región (no la página)",
+   "ok": true,
+   "detail": {
+    "treeScroll": 552
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "momento de campeón: «¡Eres el campeón!», trofeo y torneo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "TU PARTIDA ESTÁ LISTA: rival con #TAG, plazo y JUGAR",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "antes de listo: JUGAR, sin «esperando»",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "ESPERANDO AL RIVAL (del servidor): ✓ listo, sin JUGAR, explicación, anuncio y salida",
+   "ok": true,
+   "detail": {
+    "waiting": "1",
+    "state": "READY",
+    "announce": "Estás listo. Esperando a Kairo #KZEU9P4.",
+    "play": false,
+    "text": "Estás listo. Esperando a Kairo #KZEU9P4.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nESPERANDO A TU RIVAL\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\n✓ LISTO · ESPERANDO A KAIRO #KZEU9P4\n\nYa estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.\n\nDEJAR DE ESPERAR",
+    "anim": "pulse"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "punto de espera presente (animación discreta)",
+   "ok": true,
+   "detail": "pulse"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "plazo vencido: «en revisión», sin JUGAR ni «esperando», anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "NO_SHOW_PENDING",
+    "announce": "El plazo de la ronda terminó. El cruce está en revisión.",
+    "play": false,
+    "text": "El plazo de la ronda terminó. El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nPLAZO VENCIDO · EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nEl plazo de la ronda terminó sin partida. La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "review",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "review",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "review",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "review",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "review",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "review",
+   "name": "empate exacto: cruce en revisión, sin sorteo",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "ACTION_REQUIRED",
+    "announce": "El cruce está en revisión.",
+    "play": false,
+    "text": "El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nCRUCE EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nLa partida terminó sin un ganador claro (empate exacto o cierre por tiempo). La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "review",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "avance: ✓ Has ganado + esperando rival que se juega ahora",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "PENDING",
+    "announce": "",
+    "play": false,
+    "text": "✓ HAS GANADO SEMIFINAL · AVANZAS A FINAL\n\nFINAL\n\nESPERANDO RIVAL\n❔\n\nRIVAL\n\nPOR DECIDIR\n\nGanador del cruce 2 de Semifinal · se está jugando ahora\n\nEn cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "siguiente cruce jugable: ✓ Has ganado + JUGAR",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "aviso global: «Tu rival te espera» con JUGAR, accesible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "vacío honesto",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "INSCRITO ✓ y RETIRARME",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "registered",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "full",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "full",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "full",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "full",
+   "name": "COMPLETO sin botón de inscribirse",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "full",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "rival listo: «Tu rival ya está listo» + JUGAR YA, anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "Tu rival ya está listo.",
+    "play": true,
+    "text": "Tu rival ya está listo.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU RIVAL YA ESTÁ LISTO\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\n✓ Tu rival está listo y te espera\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR YA",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "active-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "live-64",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "eliminated",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "momento de campeón: «¡Eres el campeón!», trofeo y torneo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "champion",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "completed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "cancelled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon-open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "TU PARTIDA ESTÁ LISTA: rival con #TAG, plazo y JUGAR",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "antes de listo: JUGAR, sin «esperando»",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "before-ready",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "ESPERANDO AL RIVAL (del servidor): ✓ listo, sin JUGAR, explicación, anuncio y salida",
+   "ok": true,
+   "detail": {
+    "waiting": "1",
+    "state": "READY",
+    "announce": "Estás listo. Esperando a Kairo #KZEU9P4.",
+    "play": false,
+    "text": "Estás listo. Esperando a Kairo #KZEU9P4.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nESPERANDO A TU RIVAL\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\n✓ LISTO · ESPERANDO A KAIRO #KZEU9P4\n\nYa estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.\n\nDEJAR DE ESPERAR",
+    "anim": "pulse"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "punto de espera presente (animación discreta)",
+   "ok": true,
+   "detail": "pulse"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "waiting",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "plazo vencido: «en revisión», sin JUGAR ni «esperando», anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "NO_SHOW_PENDING",
+    "announce": "El plazo de la ronda terminó. El cruce está en revisión.",
+    "play": false,
+    "text": "El plazo de la ronda terminó. El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nPLAZO VENCIDO · EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nEl plazo de la ronda terminó sin partida. La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "deadline",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "review",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "review",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "review",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "review",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "review",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "review",
+   "name": "empate exacto: cruce en revisión, sin sorteo",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "ACTION_REQUIRED",
+    "announce": "El cruce está en revisión.",
+    "play": false,
+    "text": "El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nCRUCE EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nLa partida terminó sin un ganador claro (empate exacto o cierre por tiempo). La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "review",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "avance: ✓ Has ganado + esperando rival que se juega ahora",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "PENDING",
+    "announce": "",
+    "play": false,
+    "text": "✓ HAS GANADO SEMIFINAL · AVANZAS A FINAL\n\nFINAL\n\nESPERANDO RIVAL\n❔\n\nRIVAL\n\nPOR DECIDIR\n\nGanador del cruce 2 de Semifinal · se está jugando ahora\n\nEn cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "advanced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "siguiente cruce jugable: ✓ Has ganado + JUGAR",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "next-playable",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "aviso global: «Tu rival te espera» con JUGAR, accesible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "notice",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "vacío honesto",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "INSCRITO ✓ y RETIRARME",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "COMPLETO sin botón de inscribirse",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "rival listo: «Tu rival ya está listo» + JUGAR YA, anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "Tu rival ya está listo.",
+    "play": true,
+    "text": "Tu rival ya está listo.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU RIVAL YA ESTÁ LISTO\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\n✓ Tu rival está listo y te espera\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR YA",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "el árbol de 64 se desplaza DENTRO de su región (no la página)",
+   "ok": true,
+   "detail": {
+    "treeScroll": 360
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "momento de campeón: «¡Eres el campeón!», trofeo y torneo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "movimiento reducido: el campeón aparece quieto (sin escala ni desplazamiento)",
+   "ok": true,
+   "detail": {
+    "op": "1",
+    "tf": "none"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "TU PARTIDA ESTÁ LISTA: rival con #TAG, plazo y JUGAR",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "antes de listo: JUGAR, sin «esperando»",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "ESPERANDO AL RIVAL (del servidor): ✓ listo, sin JUGAR, explicación, anuncio y salida",
+   "ok": true,
+   "detail": {
+    "waiting": "1",
+    "state": "READY",
+    "announce": "Estás listo. Esperando a Kairo #KZEU9P4.",
+    "play": false,
+    "text": "Estás listo. Esperando a Kairo #KZEU9P4.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nESPERANDO A TU RIVAL\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\n✓ LISTO · ESPERANDO A KAIRO #KZEU9P4\n\nYa estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.\n\nDEJAR DE ESPERAR",
+    "anim": "none"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "movimiento reducido: el punto de espera no se anima",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "plazo vencido: «en revisión», sin JUGAR ni «esperando», anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "NO_SHOW_PENDING",
+    "announce": "El plazo de la ronda terminó. El cruce está en revisión.",
+    "play": false,
+    "text": "El plazo de la ronda terminó. El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nPLAZO VENCIDO · EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nEl plazo de la ronda terminó sin partida. La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "empate exacto: cruce en revisión, sin sorteo",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "ACTION_REQUIRED",
+    "announce": "El cruce está en revisión.",
+    "play": false,
+    "text": "El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nCRUCE EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nLa partida terminó sin un ganador claro (empate exacto o cierre por tiempo). La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "avance: ✓ Has ganado + esperando rival que se juega ahora",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "PENDING",
+    "announce": "",
+    "play": false,
+    "text": "✓ HAS GANADO SEMIFINAL · AVANZAS A FINAL\n\nFINAL\n\nESPERANDO RIVAL\n❔\n\nRIVAL\n\nPOR DECIDIR\n\nGanador del cruce 2 de Semifinal · se está jugando ahora\n\nEn cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "siguiente cruce jugable: ✓ Has ganado + JUGAR",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "aviso global: «Tu rival te espera» con JUGAR, accesible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "vacío honesto",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "INSCRITO ✓ y RETIRARME",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "COMPLETO sin botón de inscribirse",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "rival listo: «Tu rival ya está listo» + JUGAR YA, anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "Tu rival ya está listo.",
+    "play": true,
+    "text": "Tu rival ya está listo.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU RIVAL YA ESTÁ LISTO\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\n✓ Tu rival está listo y te espera\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR YA",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "el árbol de 64 se desplaza DENTRO de su región (no la página)",
+   "ok": true,
+   "detail": {
+    "treeScroll": 552
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "momento de campeón: «¡Eres el campeón!», trofeo y torneo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "movimiento reducido: el campeón aparece quieto (sin escala ni desplazamiento)",
+   "ok": true,
+   "detail": {
+    "op": "1",
+    "tf": "none"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "TU PARTIDA ESTÁ LISTA: rival con #TAG, plazo y JUGAR",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "antes de listo: JUGAR, sin «esperando»",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "ESPERANDO AL RIVAL (del servidor): ✓ listo, sin JUGAR, explicación, anuncio y salida",
+   "ok": true,
+   "detail": {
+    "waiting": "1",
+    "state": "READY",
+    "announce": "Estás listo. Esperando a Kairo #KZEU9P4.",
+    "play": false,
+    "text": "Estás listo. Esperando a Kairo #KZEU9P4.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nESPERANDO A TU RIVAL\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\n✓ LISTO · ESPERANDO A KAIRO #KZEU9P4\n\nYa estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.\n\nDEJAR DE ESPERAR",
+    "anim": "none"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "movimiento reducido: el punto de espera no se anima",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "plazo vencido: «en revisión», sin JUGAR ni «esperando», anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "NO_SHOW_PENDING",
+    "announce": "El plazo de la ronda terminó. El cruce está en revisión.",
+    "play": false,
+    "text": "El plazo de la ronda terminó. El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nPLAZO VENCIDO · EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nEl plazo de la ronda terminó sin partida. La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "empate exacto: cruce en revisión, sin sorteo",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "ACTION_REQUIRED",
+    "announce": "El cruce está en revisión.",
+    "play": false,
+    "text": "El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nCRUCE EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nLa partida terminó sin un ganador claro (empate exacto o cierre por tiempo). La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "avance: ✓ Has ganado + esperando rival que se juega ahora",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "PENDING",
+    "announce": "",
+    "play": false,
+    "text": "✓ HAS GANADO SEMIFINAL · AVANZAS A FINAL\n\nFINAL\n\nESPERANDO RIVAL\n❔\n\nRIVAL\n\nPOR DECIDIR\n\nGanador del cruce 2 de Semifinal · se está jugando ahora\n\nEn cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "escritorio: árbol visible, pestañas ocultas",
+   "ok": true,
+   "detail": {
+    "tree": true,
+    "tabs": false
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "siguiente cruce jugable: ✓ Has ganado + JUGAR",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "aviso global: «Tu rival te espera» con JUGAR, accesible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "vacío honesto",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "INSCRITO ✓ y RETIRARME",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "registered",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "COMPLETO sin botón de inscribirse",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "full",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "scheduled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "rival listo: «Tu rival ya está listo» + JUGAR YA, anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "Tu rival ya está listo.",
+    "play": true,
+    "text": "Tu rival ya está listo.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU RIVAL YA ESTÁ LISTO\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\n✓ Tu rival está listo y te espera\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR YA",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "active-8",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "«Ver mi partida» enfoca MI cruce y lo deja a la vista",
+   "ok": true,
+   "detail": {
+    "you": "1",
+    "testid": "cup-match",
+    "inView": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "live-64",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "eliminated",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "momento de campeón: «¡Eres el campeón!», trofeo y torneo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "movimiento reducido: el campeón aparece quieto (sin escala ni desplazamiento)",
+   "ok": true,
+   "detail": {
+    "op": "1",
+    "tf": "none"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "champion",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "completed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "cancelled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "anon-open",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "TU PARTIDA ESTÁ LISTA: rival con #TAG, plazo y JUGAR",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "antes de listo: JUGAR, sin «esperando»",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "before-ready",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "ESPERANDO AL RIVAL (del servidor): ✓ listo, sin JUGAR, explicación, anuncio y salida",
+   "ok": true,
+   "detail": {
+    "waiting": "1",
+    "state": "READY",
+    "announce": "Estás listo. Esperando a Kairo #KZEU9P4.",
+    "play": false,
+    "text": "Estás listo. Esperando a Kairo #KZEU9P4.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nESPERANDO A TU RIVAL\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\n✓ LISTO · ESPERANDO A KAIRO #KZEU9P4\n\nYa estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.\n\nDEJAR DE ESPERAR",
+    "anim": "none"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "movimiento reducido: el punto de espera no se anima",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "waiting",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "plazo vencido: «en revisión», sin JUGAR ni «esperando», anunciado",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "NO_SHOW_PENDING",
+    "announce": "El plazo de la ronda terminó. El cruce está en revisión.",
+    "play": false,
+    "text": "El plazo de la ronda terminó. El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nPLAZO VENCIDO · EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nEl plazo de la ronda terminó sin partida. La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "deadline",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "empate exacto: cruce en revisión, sin sorteo",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "ACTION_REQUIRED",
+    "announce": "El cruce está en revisión.",
+    "play": false,
+    "text": "El cruce está en revisión.\n\n✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nCRUCE EN REVISIÓN\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nLa partida terminó sin un ganador claro (empate exacto o cierre por tiempo). La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "review",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "avance: ✓ Has ganado + esperando rival que se juega ahora",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "PENDING",
+    "announce": "",
+    "play": false,
+    "text": "✓ HAS GANADO SEMIFINAL · AVANZAS A FINAL\n\nFINAL\n\nESPERANDO RIVAL\n❔\n\nRIVAL\n\nPOR DECIDIR\n\nGanador del cruce 2 de Semifinal · se está jugando ahora\n\nEn cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "advanced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "móvil: pestañas por ronda, árbol oculto (nada encogido)",
+   "ok": true,
+   "detail": {
+    "tree": false,
+    "tabs": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "cada cruce con nombre accesible y estado en texto",
+   "ok": true,
+   "detail": {
+    "unlabeled": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "siguiente cruce jugable: ✓ Has ganado + JUGAR",
+   "ok": true,
+   "detail": {
+    "waiting": "0",
+    "state": "READY",
+    "announce": "",
+    "play": true,
+    "text": "✓ HAS GANADO CUARTOS DE FINAL · AVANZAS A SEMIFINAL\n\nSEMIFINAL\n\nTU PARTIDA ESTÁ LISTA\n🐺\n\nRIVAL\n\nKAIRO#KZEU9P4\n\nTu rival aún no está listo\n\nPlazo: 59 min · si nadie juega a tiempo, lo resuelve la organización.\n\nTU EQUIPO\nEquipo principal\nEquipo agresivo\nJUGAR",
+    "anim": null
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "next-playable",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "un titular h1",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "aviso global: «Tu rival te espera» con JUGAR, accesible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "notice",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  }
+ ]
+}

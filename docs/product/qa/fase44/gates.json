@@ -1,0 +1,556 @@
+{
+  "generatedAt": "2026-09-17T11:48:48.167Z",
+  "tunnelOpen": false,
+  "total": 78,
+  "done": 78,
+  "passed": 73,
+  "rows": [
+    {
+      "name": "importer-vlr:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "  ✓ `user_pass` revoca la escritura a los roles de cliente |   ✓ `user_pass` no tiene ninguna política de escritura"
+    },
+    {
+      "name": "game-experience:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 58,
+      "summary": "59 ✓ · 0 ✗ (all)"
+    },
+    {
+      "name": "game-experience-navigation:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 67,
+      "summary": "7 ✓ · 0 ✗ (navigation)"
+    },
+    {
+      "name": "game-experience-motion:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "9 ✓ · 0 ✗ (motion)"
+    },
+    {
+      "name": "game-experience-packs:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "7 ✓ · 0 ✗ (packs)"
+    },
+    {
+      "name": "game-experience-play:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "7 ✓ · 0 ✗ (play)"
+    },
+    {
+      "name": "game-experience-accessibility:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "8 ✓ · 0 ✗ (accessibility)"
+    },
+    {
+      "name": "game-experience-responsive:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "3 ✓ · 0 ✗ (responsive)"
+    },
+    {
+      "name": "game-experience-performance:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "5 ✓ · 0 ✗ (performance)"
+    },
+    {
+      "name": "game-experience-copy:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "6 ✓ · 0 ✗ (copy)"
+    },
+    {
+      "name": "distribution:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 30 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "combat:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 144,
+      "summary": ""
+    },
+    {
+      "name": "competitive:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": ""
+    },
+    {
+      "name": "season:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 21 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "season-time:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 4 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "season-pass:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "# Temporadas · sección pass | ━━━ Resultado: 4 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "season-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 4 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "season-recap:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 4 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "campaign:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 33 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "campaign-content:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 9 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "campaign-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 13 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "campaign-economy:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "━━━ Resultado: 11 ✓ / 0 ✗ ━━━"
+    },
+    {
+      "name": "daily-loop:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "47 ✓ · 0 ✗"
+    },
+    {
+      "name": "daily-loop-priority:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "22 ✓ · 0 ✗"
+    },
+    {
+      "name": "daily-loop-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "25 ✓ · 0 ✗"
+    },
+    {
+      "name": "pack-objective:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "  ✓ exposición evitada (datos reales QA): 200 créditos + 150 XP del pase — {\"falselyCompleted\":[{\"userId\":\"8c326e52\",\"id\":\"d-abrir-1\",\"credits\":200,\"passXp\":150,\"packs\":0}],\"giftedProgress\":6,\"credits\":200,\"passXp\":150,\"packs\":0} | 31 ✓ · 0"
+    },
+    {
+      "name": "pack-objective-rebase:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "  ✓ exposición evitada (datos reales QA): 200 créditos + 150 XP del pase — {\"falselyCompleted\":[{\"userId\":\"8c326e52\",\"id\":\"d-abrir-1\",\"credits\":200,\"passXp\":150,\"packs\":0}],\"giftedProgress\":6,\"credits\":200,\"passXp\":150,\"packs\":0} | 11 ✓ · 0"
+    },
+    {
+      "name": "pack-objective-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "8 ✓ · 0 ✗"
+    },
+    {
+      "name": "collection-room:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "53 ✓ · 0 ✗"
+    },
+    {
+      "name": "collection-content:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "23 ✓ · 0 ✗"
+    },
+    {
+      "name": "collection-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "21 ✓ · 0 ✗"
+    },
+    {
+      "name": "collection-performance:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "9 ✓ · 0 ✗"
+    },
+    {
+      "name": "pack-opening:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "34 ✓ · 0 ✗"
+    },
+    {
+      "name": "pack-opening-presentation:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "11 ✓ · 0 ✗"
+    },
+    {
+      "name": "pack-opening-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "15 ✓ · 0 ✗"
+    },
+    {
+      "name": "draft-gauntlet:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 7,
+      "summary": ""
+    },
+    {
+      "name": "draft-gauntlet-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "draft-gauntlet-economy:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "draft-gauntlet-content:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "draft-gauntlet-solvability:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 6,
+      "summary": ""
+    },
+    {
+      "name": "player-journey:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 40,
+      "summary": ""
+    },
+    {
+      "name": "player-journey-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "player-journey-starter:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 39,
+      "summary": ""
+    },
+    {
+      "name": "player-journey-priority:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "social:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": ""
+    },
+    {
+      "name": "replay:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 95,
+      "summary": ""
+    },
+    {
+      "name": "collection:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "53 ✓ · 0 ✗"
+    },
+    {
+      "name": "pack:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 24,
+      "summary": "  ✓ GRANT: acuña cartas ya decididas (recompensas/battlepass/…) por la MISMA ruta"
+    },
+    {
+      "name": "deck:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "battlepass:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "collection-presentation:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 6,
+      "summary": "  ✓ HISTORIALES: career/pass/market proyectados TAL CUAL (no recalculados)"
+    },
+    {
+      "name": "economy:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 32,
+      "summary": "60 ✓ · 0 ✗"
+    },
+    {
+      "name": "economy-market:verify",
+      "ok": false,
+      "status": 1,
+      "seconds": 1,
+      "summary": "[TypeError: fetch failed] { | Error: fetch failed"
+    },
+    {
+      "name": "economy-ledger:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 14,
+      "summary": "5 ✓ · 0 ✗"
+    },
+    {
+      "name": "economy-starter:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 8,
+      "summary": "11 ✓ · 0 ✗"
+    },
+    {
+      "name": "economy-idempotency:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 10,
+      "summary": "7 ✓ · 0 ✗"
+    },
+    {
+      "name": "economy-progression:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "7 ✓ · 0 ✗"
+    },
+    {
+      "name": "economy-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "12 ✓ · 0 ✗"
+    },
+    {
+      "name": "economy-simulation:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "12 ✓ · 0 ✗"
+    },
+    {
+      "name": "live-service:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "50 ✓ · 0 ✗"
+    },
+    {
+      "name": "live-service-time:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "9 ✓ · 0 ✗"
+    },
+    {
+      "name": "live-service-priority:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "10 ✓ · 0 ✗"
+    },
+    {
+      "name": "live-service-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "13 ✓ · 0 ✗"
+    },
+    {
+      "name": "live-service-returning:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "11 ✓ · 0 ✗"
+    },
+    {
+      "name": "live-service-performance:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "7 ✓ · 0 ✗"
+    },
+    {
+      "name": "deck-strategy:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "55 ✓ · 0 ✗"
+    },
+    {
+      "name": "deck-strategy-analysis:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "10 ✓ · 0 ✗"
+    },
+    {
+      "name": "deck-strategy-suggestion:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "8 ✓ · 0 ✗"
+    },
+    {
+      "name": "deck-strategy-security:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "11 ✓ · 0 ✗"
+    },
+    {
+      "name": "deck-strategy-match:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "10 ✓ · 0 ✗"
+    },
+    {
+      "name": "deck-strategy-performance:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 2,
+      "summary": "6 ✓ · 0 ✗"
+    },
+    {
+      "name": "deck-strategy-content:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": "10 ✓ · 0 ✗"
+    },
+    {
+      "name": "content:verify",
+      "ok": true,
+      "status": 0,
+      "seconds": 1,
+      "summary": ""
+    },
+    {
+      "name": "content-catalog:verify",
+      "ok": false,
+      "status": 1,
+      "seconds": 8,
+      "summary": "✕ verificación abortada: Error: TypeError: fetch failed"
+    },
+    {
+      "name": "content-version:verify",
+      "ok": false,
+      "status": 1,
+      "seconds": 8,
+      "summary": ""
+    },
+    {
+      "name": "content-pools:verify",
+      "ok": false,
+      "status": 1,
+      "seconds": 8,
+      "summary": ""
+    },
+    {
+      "name": "content-e2e:verify",
+      "ok": false,
+      "status": 1,
+      "seconds": 1,
+      "summary": ""
+    }
+  ],
+  "previous": null
+}

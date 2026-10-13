@@ -1,0 +1,11 @@
+{
+  "expected": "0057_admin_cms (código, server/ops/release.ts)",
+  "production": "sonda app_admin_schema_probe: 12/12 claves en verde (0040…0057); tablas presentes; 122 tablas públicas",
+  "registry": "supabase_migrations.schema_migrations solo registra 0001–0025 (0026–0057 aplicadas a mano, documentado desde F24.7) → no sirve como verdad; la sonda sí",
+  "notes": [
+    "draft_gauntlet_runs/user_favorites no existen con esos nombres: las migraciones usan draft_runs y user_card_favorites (sonda en verde)",
+    "content_packs existe con 0 filas (CMS de sobres sin uso)"
+  ],
+  "drift": "ninguno detectado",
+  "autoApply": "la app NO aplica migraciones al arrancar (production:check lo verifica)"
+}

@@ -1,0 +1,123 @@
+[
+  {
+    "width": 1440,
+    "name": "2-inicio-caminata",
+    "t": "3.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "566",
+    "file": "future-star-MEGA_WALKOUT-2-inicio-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "4-mitad-caminata",
+    "t": "6.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "537",
+    "file": "future-star-MEGA_WALKOUT-4-mitad-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "6-deteniendose",
+    "t": "9.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "489",
+    "file": "future-star-MEGA_WALKOUT-6-deteniendose-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7-ovr",
+    "t": "10.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "527",
+    "file": "future-star-MEGA_WALKOUT-7-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "8-transicion",
+    "t": "11.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "498",
+    "file": "future-star-MEGA_WALKOUT-8-transicion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "13.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "585",
+    "file": "future-star-MEGA_WALKOUT-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": []
+  },
+  {
+    "width": 390,
+    "name": "2-inicio-caminata",
+    "t": "3.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "394",
+    "file": "future-star-MEGA_WALKOUT-2-inicio-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "4-mitad-caminata",
+    "t": "6.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "340",
+    "file": "future-star-MEGA_WALKOUT-4-mitad-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "6-deteniendose",
+    "t": "9.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "373",
+    "file": "future-star-MEGA_WALKOUT-6-deteniendose-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7-ovr",
+    "t": "10.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "358",
+    "file": "future-star-MEGA_WALKOUT-7-ovr-390.png"
+  },
+  {
+    "width": 390,
+    "name": "8-transicion",
+    "t": "11.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "371",
+    "file": "future-star-MEGA_WALKOUT-8-transicion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "10-carta-final",
+    "t": "13.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "340",
+    "file": "future-star-MEGA_WALKOUT-10-carta-final-390.png"
+  },
+  {
+    "width": 390,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

@@ -1,0 +1,67 @@
+{
+  "at": "2026-09-30T19:33:27.967Z",
+  "intercepted": false,
+  "pass": 11,
+  "fail": 0,
+  "results": [
+    {
+      "id": "[1440] PROYECTO COMPLETO REAL · 2 / 2, botón Reclamar, sin pantalla de carga, sin scroll horizontal",
+      "ok": true,
+      "detail": "{\"progress\":\"2 / 2\",\"states\":[\"CLAIMED\",\"CLAIMED\"],\"loading\":false,\"noScroll\":true,\"reduced\":false,\"art\":true}"
+    },
+    {
+      "id": "[1440] sin errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] PROYECTO COMPLETO REAL · 2 / 2, botón Reclamar, sin pantalla de carga, sin scroll horizontal",
+      "ok": true,
+      "detail": "{\"progress\":\"2 / 2\",\"states\":[\"CLAIMED\",\"CLAIMED\"],\"loading\":false,\"noScroll\":true,\"reduced\":false,\"art\":true}"
+    },
+    {
+      "id": "[1024] sin errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] PROYECTO COMPLETO REAL · 2 / 2, botón Reclamar, sin pantalla de carga, sin scroll horizontal, movimiento reducido",
+      "ok": true,
+      "detail": "{\"progress\":\"2 / 2\",\"states\":[\"CLAIMED\",\"CLAIMED\"],\"loading\":false,\"noScroll\":true,\"reduced\":true,\"art\":true}"
+    },
+    {
+      "id": "[390] RECLAMO por la UI (doble clic) · carta real revelada y N → N + 1",
+      "ok": true,
+      "detail": "2 → 3"
+    },
+    {
+      "id": "[390] F5 · sin botón de reclamar, sigue N + 1",
+      "ok": true,
+      "detail": "3 MISIONES/CRAFTING/PROYECTOS/QA · F73 PROYECTO DE CARTA R4 MISIONES CRAFTING QA · F73 PROYECTO DE CARTA R4 Configuración QA de la validación F73 en producción (se retira al terminar). 2 / 2 MISIONES ✓ RECLAMADA ✓ QA · F73 EQUIPO CON 3 DE TURQUÍA R4 QA F73: juega con al menos 3 jugadores turcos. Progr"
+    },
+    {
+      "id": "SEGUNDO RECLAMO · repeated y sigue N + 1",
+      "ok": true,
+      "detail": "200 repeated=true 3"
+    },
+    {
+      "id": "ESTADO · proyecto CLAIMED en el servidor",
+      "ok": true,
+      "detail": "{\"id\":\"qa-f73-proyecto-r4\",\"name\":\"QA · F73 Proyecto de carta r4\",\"description\":\"Configuración QA de la validación F73 en producción (se retira al terminar).\",\"targetCardId\":\"darker__base\",\"state\":\"CLAIMED\",\"completed\":2,\"total\":2,\"missionIds\":[\"qa-f73-equipo-tr-r4\",\"qa-f73-tras-equipo-r4\"],\"sortOrder\":0}"
+    },
+    {
+      "id": "[390] sin errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "BD · I: 1 reclamo y 1 concesión",
+      "ok": true,
+      "detail": "{\"claims\":1,\"grants\":1}"
+    }
+  ],
+  "db": {
+    "claims": 1,
+    "grants": 1
+  }
+}

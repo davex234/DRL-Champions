@@ -1,0 +1,230 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "at": "2026-09-28T11:56Z",
+  "rest": {
+    "label": "before",
+    "at": "2026-09-28T11:56:59.459Z",
+    "anon": {
+      "selectAll": {
+        "status": 206,
+        "rows": 1,
+        "total": "30",
+        "columns": [
+          "avatar",
+          "collection_value",
+          "created_at",
+          "credits",
+          "distinct_cards",
+          "equipped",
+          "id",
+          "is_admin",
+          "last_seen_at",
+          "level",
+          "market_volume",
+          "packs_opened",
+          "points",
+          "rarest_rank",
+          "region",
+          "taxes_paid",
+          "tokens",
+          "updated_at",
+          "username",
+          "xp"
+        ],
+        "code": null
+      },
+      "selectPublic": {
+        "status": 206,
+        "rows": 1,
+        "total": "30",
+        "columns": [
+          "id",
+          "username"
+        ],
+        "code": null
+      },
+      "selectCredits": {
+        "status": 206,
+        "rows": 1,
+        "total": "30",
+        "columns": [
+          "credits"
+        ],
+        "code": null
+      },
+      "rankingPoints": {
+        "status": 206,
+        "rows": 1,
+        "total": "11",
+        "columns": [
+          "avatar",
+          "id",
+          "level",
+          "points",
+          "region",
+          "username",
+          "xp"
+        ],
+        "code": null
+      },
+      "legacyRankingCollection": {
+        "status": 206,
+        "rows": 1,
+        "total": "30",
+        "columns": [
+          "avatar",
+          "collection_value",
+          "distinct_cards",
+          "id",
+          "username"
+        ],
+        "code": null
+      }
+    },
+    "otherUser": {
+      "selectAllOfB": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "avatar",
+          "collection_value",
+          "created_at",
+          "credits",
+          "distinct_cards",
+          "equipped",
+          "id",
+          "is_admin",
+          "last_seen_at",
+          "level",
+          "market_volume",
+          "packs_opened",
+          "points",
+          "rarest_rank",
+          "region",
+          "taxes_paid",
+          "tokens",
+          "updated_at",
+          "username",
+          "xp"
+        ],
+        "code": null
+      },
+      "publicOfB": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "avatar",
+          "id",
+          "level",
+          "points",
+          "region",
+          "username"
+        ],
+        "code": null
+      },
+      "creditsOfB": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "credits"
+        ],
+        "code": null
+      },
+      "isAdminOfB": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "is_admin"
+        ],
+        "code": null
+      },
+      "lastSeenOfB": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "last_seen_at"
+        ],
+        "code": null
+      },
+      "xpOfB": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "xp"
+        ],
+        "code": null
+      },
+      "countByPoints": {
+        "status": 206,
+        "rows": 1,
+        "total": "11",
+        "columns": [
+          "id"
+        ],
+        "code": null
+      }
+    },
+    "selfRest": {
+      "ownPrivateByRest": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "credits",
+          "is_admin"
+        ],
+        "code": null
+      },
+      "ownPublic": {
+        "status": 200,
+        "rows": 1,
+        "total": "1",
+        "columns": [
+          "id",
+          "points",
+          "region",
+          "username"
+        ],
+        "code": null
+      }
+    }
+  },
+  "securitySmoke": {
+    "file": "raw/security-before.json",
+    "pass": 22,
+    "fail": 0,
+    "publicProfileExposure": {
+      "anonStatus": 200,
+      "columnsVisibleToAnon": [
+        "avatar",
+        "collection_value",
+        "created_at",
+        "credits",
+        "distinct_cards",
+        "equipped",
+        "id",
+        "is_admin",
+        "last_seen_at",
+        "level",
+        "market_volume",
+        "packs_opened",
+        "points",
+        "rarest_rank",
+        "region",
+        "taxes_paid",
+        "tokens",
+        "updated_at",
+        "username",
+        "xp"
+      ],
+      "note": "RLS-1 de F67: SELECT de profiles para anon/authenticated; la propuesta 0058 lo limita y NO está aplicada"
+    }
+  },
+  "reading": "anon lee las 20 columnas de profiles (30 filas por Content-Range; no se volcó ningún valor); otra cuenta autenticada lee credits, xp, is_admin y last_seen_at de B; 0058 no vigente — exactamente el problema esperado"
+}

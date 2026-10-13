@@ -1,0 +1,97 @@
+{
+  "at": "2026-10-07T13:28:42.568Z",
+  "total": 18,
+  "failed": 1,
+  "rows": [
+    {
+      "id": "1 · diarias = abrir, jugar y ganar (sin Pick'em, que era imposible)",
+      "ok": true,
+      "detail": "[\"d-abrir-1\",\"d-duelo-1\",\"d-duelo-win\"]"
+    },
+    {
+      "id": "2 · M tiene equipo válido",
+      "ok": true,
+      "detail": "{\"id\":\"cae296a4-354f-499e-8371-88c0e23d191f\",\"name\":\"Mi primer equipo\",\"cardUids\":[\"69ee16a0-1c7a-40d3-8cd8-a28a9c7bf782\",\"8d2cdeac-cfaf-4c45-b161-57857b360272\",\"cfbc9d90-bb73-4d2d-8271-ea126226af04\",\"0f2a05fb-0e42-47e0-ac56-3f476a02d24a\",\"a349e9e3-759c-4883-838c-028fc1d13f06\",\"2565d72e-23fc-41ac-8c2e-d224bdfbe112\",\"409c5780-8d03-48d7-80b5-5d344afb366f\",\"070f98c9-7d27-4524-9e17-02ae80be46ae\",\"5c783ef7-4b6f-4e68-b23b-51bf54c0a21a\",\"d1e9053d-a0f5-4012-947f-c8b6c38f2632\"],\"cards\":[{\"uid\":\"69ee16a0-1c7a-40d3-8cd8-a28a9c7bf782\",\"cardId\":\"neon__masters-l\",\"playerId\":\"neon\",\"nick\":\"Neon\",\"team\":\"LEV\""
+    },
+    {
+      "id": "2 · start 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "2 · doble envío de la última jugada: una transición (la otra 409 con estado)",
+      "ok": true,
+      "detail": "[200,409]"
+    },
+    {
+      "id": "2 · partida terminada",
+      "ok": true,
+      "detail": "COMPLETED"
+    },
+    {
+      "id": "2 · recibo = lo que subió el saldo real",
+      "ok": true,
+      "detail": "{\"before\":6025,\"after\":6050,\"granted\":25}"
+    },
+    {
+      "id": "2 · cupo diario: partida con recompensa 2 de 20",
+      "ok": true,
+      "detail": "{\"slot\":2,\"cap\":20}"
+    },
+    {
+      "id": "2 · F5 y 10 lecturas a la vez: el mismo recibo (con su cupo)",
+      "ok": true,
+      "detail": "[200,200,200,200,200,200,200,200,200,200]"
+    },
+    {
+      "id": "2 · leer no gasta cupos ni toca el libro",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "2 · otra persona no lee la partida (404)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "2 · «partidas jugadas» +1 (PvE cuenta)",
+      "ok": true,
+      "detail": "{\"before\":1,\"after\":2}"
+    },
+    {
+      "id": "3 · reto aceptado → partida PVP_PRIVATE (M = asiento A)",
+      "ok": false,
+      "detail": "{\"code\":\"ACCEPTED\",\"matchId\":\"3b318e7a-ac95-4744-859f-1e5994231de1\",\"status\":\"MATCHED\"}"
+    },
+    {
+      "id": "3 · duelo privado jugado hasta el final",
+      "ok": true,
+      "detail": "COMPLETED|A"
+    },
+    {
+      "id": "3 · M (asiento A): partidas jugadas y ganadas SIN cambio (antes contaba)",
+      "ok": true,
+      "detail": "{\"before\":[2,0],\"after\":[2,0],\"fin\":\"COMPLETED|A\"}"
+    },
+    {
+      "id": "3 · N (asiento B): partidas jugadas y ganadas SIN cambio",
+      "ok": true,
+      "detail": "{\"before\":[0,0],\"after\":[0,0]}"
+    },
+    {
+      "id": "3 · sin créditos ni XP para nadie",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "3 · sin rating, ni misiones F73, ni XP de temporada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "4 · «Declara tu región» sin región: no completa (no regala)",
+      "ok": true,
+      "detail": "{\"id\":\"s-region\",\"label\":\"Declara tu región competitiva\",\"kind\":\"seasonal\",\"current\":0,\"goal\":1,\"complete\":false,\"claimed\":false,\"rewardCredits\":500,\"xp\":400,\"metric\":\"region_set\",\"packId\":null,\"packCount\":0,\"assignedAt\":1791379587376,\"expiresAt\":null}"
+    }
+  ]
+}

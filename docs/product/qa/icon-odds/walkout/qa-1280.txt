@@ -1,0 +1,25 @@
+PASS w-icon · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-icon · walkouts esperados 1 {"got":"1","exp":["patmen__record-breaker:MEGA_WALKOUT"]}
+PASS w-icon · walkout 1/1 carta e intensidad {"got":["patmen__record-breaker","MEGA_WALKOUT"],"exp":["patmen__record-breaker","MEGA_WALKOUT"]}
+PASS w-icon · walkout 1 identidad = carta (pieza y arena) {"code":"PHL","arena":"PHL","exp":"PHL","stage":"3d"}
+PASS w-icon · walkout 1 un solo lienzo 3D {"canvases":2}
+PASS w-icon · SALTAR → final de ESTA carta (sin reabrir) {"phase":"walkout","walkouts":"1","requests":"1","hero":"f81-qa-w-icon-0","wUid":"f81-qa-w-icon-0","wCard":"patmen__record-breaker","wInt":"MEGA_WALKOUT","wDone":"1","code":"PHL","card":"patmen__record-breaker","stage":"3d","arena":"PHL","human":"ready","canva
+PASS w-icon · REPETIR solo la animación (misma carta, 1 apertura) {"phase":"walkout","walkouts":"1","requests":"1","hero":"f81-qa-w-icon-0","wUid":"f81-qa-w-icon-0","wCard":"patmen__record-breaker","wInt":"MEGA_WALKOUT","wDone":"0","code":"PHL","card":"patmen__record-breaker","stage":"3d","arena":"PHL","human":"ready","canva
+PASS w-icon · tras los walkouts sigue la ceremonia {"phase":"summary"}
+PASS w-icon · resumen con las 1 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":2}
+PASS w-icon3 · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-icon3 · walkouts esperados 3 {"got":"3","exp":["marteen__record-breaker:MEGA_WALKOUT","mada__moments:MEGA_WALKOUT","patmen__record-breaker:MEGA_WALKOUT"]}
+PASS w-icon3 · walkout 1/3 carta e intensidad {"got":["marteen__record-breaker","MEGA_WALKOUT"],"exp":["marteen__record-breaker","MEGA_WALKOUT"]}
+PASS w-icon3 · walkout 1 identidad = carta (pieza y arena) {"code":"CZE","arena":"CZE","exp":"CZE","stage":"3d"}
+PASS w-icon3 · walkout 1 un solo lienzo 3D {"canvases":2}
+PASS w-icon3 · SALTAR → final de ESTA carta (sin reabrir) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-icon3-1","wUid":"f81-qa-w-icon3-1","wCard":"marteen__record-breaker","wInt":"MEGA_WALKOUT","wDone":"1","code":"CZE","card":"marteen__record-breaker","stage":"3d","arena":"CZE","human":"ready","c
+PASS w-icon3 · REPETIR solo la animación (misma carta, 1 apertura) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-icon3-1","wUid":"f81-qa-w-icon3-1","wCard":"marteen__record-breaker","wInt":"MEGA_WALKOUT","wDone":"0","code":"CZE","card":"marteen__record-breaker","stage":"3d","arena":"CZE","human":"ready","c
+PASS w-icon3 · walkout 2/3 carta e intensidad {"got":["mada__moments","MEGA_WALKOUT"],"exp":["mada__moments","MEGA_WALKOUT"]}
+PASS w-icon3 · walkout 2 identidad = carta (pieza y arena) {"code":"CAN","arena":"CAN","exp":"CAN","stage":"3d"}
+PASS w-icon3 · walkout 2 un solo lienzo 3D {"canvases":2}
+PASS w-icon3 · walkout 3/3 carta e intensidad {"got":["patmen__record-breaker","MEGA_WALKOUT"],"exp":["patmen__record-breaker","MEGA_WALKOUT"]}
+PASS w-icon3 · walkout 3 identidad = carta (pieza y arena) {"code":"PHL","arena":"PHL","exp":"PHL","stage":"3d"}
+PASS w-icon3 · walkout 3 un solo lienzo 3D {"canvases":2}
+PASS w-icon3 · tras los walkouts sigue la ceremonia {"phase":"summary"}
+PASS w-icon3 · resumen con las 3 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":4}
+PASS sin errores de consola []

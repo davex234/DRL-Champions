@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-09-17T11:35:45.009Z",
+  "buildId": "drl-0.1.1-1-8ba48889",
+  "method": "scripts del documento en / (con sesión) que NO están en /mundo (con sesión), cruzados con el client-reference-manifest de cada ruta de la build final",
+  "homeScripts": 48,
+  "mundoScripts": 35,
+  "extraChunks": 13,
+  "extraBytes": 657260,
+  "attributed": 657260,
+  "rows": [
+    {
+      "chunk": "0uxjn9ttpeeyt.js",
+      "bytes": 25453,
+      "routes": [
+        "/logros/page"
+      ]
+    },
+    {
+      "chunk": "3rx6w-hd7x5ht.js",
+      "bytes": 66430,
+      "routes": [
+        "/progresion/page"
+      ]
+    },
+    {
+      "chunk": "05xln0v8wiq5y.js",
+      "bytes": 30298,
+      "routes": [
+        "/pickems/page"
+      ]
+    },
+    {
+      "chunk": "1tcghnr2ypzng.js",
+      "bytes": 78069,
+      "routes": [
+        "/pickems/page"
+      ]
+    },
+    {
+      "chunk": "2isccb5jmyxri.js",
+      "bytes": 55477,
+      "routes": [
+        "/jugar/road-to-champions/page"
+      ]
+    },
+    {
+      "chunk": "0engl8ys1ohhs.js",
+      "bytes": 50686,
+      "routes": [
+        "/jugar/draft-gauntlet/page"
+      ]
+    },
+    {
+      "chunk": "2uhf837u1grbk.js",
+      "bytes": 42157,
+      "routes": [
+        "/duelos/competitivo/page"
+      ]
+    },
+    {
+      "chunk": "1jtup5nsgh4bl.js",
+      "bytes": 26075,
+      "routes": [
+        "/duelos/jugar/page",
+        "/duelos/pvp/page"
+      ]
+    },
+    {
+      "chunk": "2re81hmbvg1_a.js",
+      "bytes": 31423,
+      "routes": [
+        "/duelos/jugar/page"
+      ]
+    },
+    {
+      "chunk": "30tmu8m_b955a.js",
+      "bytes": 40172,
+      "routes": [
+        "/duelos/jugar/page"
+      ]
+    },
+    {
+      "chunk": "23_ftjof0iwgi.js",
+      "bytes": 40117,
+      "routes": [
+        "/duelos/jugar/page"
+      ]
+    },
+    {
+      "chunk": "1b0zzm-se_b9p.js",
+      "bytes": 52003,
+      "routes": [
+        "/duelos/jugar/page"
+      ]
+    },
+    {
+      "chunk": "3pasz4r3hgao7.js",
+      "bytes": 118900,
+      "routes": [
+        "/duelos/jugar/page"
+      ]
+    }
+  ]
+}

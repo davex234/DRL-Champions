@@ -1,0 +1,66 @@
+{
+  "account": "8c326e52",
+  "match": "431fac3f",
+  "rows": [
+    {
+      "file": "real-17-replay-reading-1024.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-18-replay-reading-1440.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-19-replay-cards-1440.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-20-card-focus-390.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-21-alternatives-390.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-22-swap-impact-390.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-23-suggest-balanced-390.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-24-card-detail-owned-1440.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-25-card-detail-to-builder-1440.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-26-unowned-informative-1440.png",
+      "kind": "REAL",
+      "overflow": false
+    },
+    {
+      "file": "real-27-compare-decks-390.png",
+      "kind": "REAL",
+      "overflow": false
+    }
+  ],
+  "insights": [
+    "Ganaste 4 de 5 comparaciones de Stronghold.",
+    "7 de tus 10 cartas ganaron su turno."
+  ],
+  "failures": 0
+}

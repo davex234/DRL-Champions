@@ -1,0 +1,190 @@
+{
+  "sourceOfTruth": "salvageValue(card) = max(5, redondeo(6 % × marketValue)) — servidor (app_salvage_cards), modo local (useGameStore.quickSell*) y Forja (salvageYield)",
+  "legacyLocalQuickSell": "80 % de instanceValue, redondeado a 5 (eliminado en la F57.6)",
+  "packs": [
+    {
+      "packId": "estandar",
+      "price": 1000,
+      "salvageEV": 344,
+      "salvageOverPrice": 0.3438,
+      "salvageP99": 1940,
+      "salvageMax": 4835,
+      "pSalvageAtLeastPrice": 0.1025,
+      "legacyQuickSellOverPriceBefore": 4.5773,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.6428
+    },
+    {
+      "packId": "premium",
+      "price": 2500,
+      "salvageEV": 779,
+      "salvageOverPrice": 0.3115,
+      "salvageP99": 3200,
+      "salvageMax": 6640,
+      "pSalvageAtLeastPrice": 0.0303,
+      "legacyQuickSellOverPriceBefore": 4.1468,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.761
+    },
+    {
+      "packId": "oro",
+      "price": 4000,
+      "salvageEV": 1240,
+      "salvageOverPrice": 0.3101,
+      "salvageP99": 3895,
+      "salvageMax": 6900,
+      "pSalvageAtLeastPrice": 0.008,
+      "legacyQuickSellOverPriceBefore": 4.1305,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.8566
+    },
+    {
+      "packId": "masters",
+      "price": 5000,
+      "salvageEV": 1533,
+      "salvageOverPrice": 0.3066,
+      "salvageP99": 4210,
+      "salvageMax": 7300,
+      "pSalvageAtLeastPrice": 0.0021,
+      "legacyQuickSellOverPriceBefore": 4.0805,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9384
+    },
+    {
+      "packId": "champions",
+      "price": 8000,
+      "salvageEV": 2462,
+      "salvageOverPrice": 0.3078,
+      "salvageP99": 5345,
+      "salvageMax": 8000,
+      "pSalvageAtLeastPrice": 0,
+      "legacyQuickSellOverPriceBefore": 4.0964,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9795
+    },
+    {
+      "packId": "ewc",
+      "price": 6000,
+      "salvageEV": 2054,
+      "salvageOverPrice": 0.3424,
+      "salvageP99": 4370,
+      "salvageMax": 7300,
+      "pSalvageAtLeastPrice": 0.0001,
+      "legacyQuickSellOverPriceBefore": 4.5603,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9966
+    },
+    {
+      "packId": "emea",
+      "price": 3500,
+      "salvageEV": 1082,
+      "salvageOverPrice": 0.3091,
+      "salvageP99": 3085,
+      "salvageMax": 6060,
+      "pSalvageAtLeastPrice": 0.0036,
+      "legacyQuickSellOverPriceBefore": 4.8069,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9514
+    },
+    {
+      "packId": "americas",
+      "price": 3500,
+      "salvageEV": 1158,
+      "salvageOverPrice": 0.3308,
+      "salvageP99": 3230,
+      "salvageMax": 5990,
+      "pSalvageAtLeastPrice": 0.0053,
+      "legacyQuickSellOverPriceBefore": 5.1464,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9605
+    },
+    {
+      "packId": "pacific",
+      "price": 3500,
+      "salvageEV": 1121,
+      "salvageOverPrice": 0.3202,
+      "salvageP99": 3245,
+      "salvageMax": 5750,
+      "pSalvageAtLeastPrice": 0.0071,
+      "legacyQuickSellOverPriceBefore": 4.9728,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.936
+    },
+    {
+      "packId": "china",
+      "price": 3000,
+      "salvageEV": 486,
+      "salvageOverPrice": 0.162,
+      "salvageP99": 785,
+      "salvageMax": 1060,
+      "pSalvageAtLeastPrice": 0,
+      "legacyQuickSellOverPriceBefore": 2.1479,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.999
+    },
+    {
+      "packId": "team-heretics",
+      "price": 3500,
+      "salvageEV": 1049,
+      "salvageOverPrice": 0.2998,
+      "salvageP99": 2975,
+      "salvageMax": 6060,
+      "pSalvageAtLeastPrice": 0.0025,
+      "legacyQuickSellOverPriceBefore": 4.6606,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9598
+    },
+    {
+      "packId": "team-fnatic",
+      "price": 3500,
+      "salvageEV": 1104,
+      "salvageOverPrice": 0.3153,
+      "salvageP99": 3120,
+      "salvageMax": 6060,
+      "pSalvageAtLeastPrice": 0.0037,
+      "legacyQuickSellOverPriceBefore": 4.9018,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9552
+    },
+    {
+      "packId": "team-g2",
+      "price": 3500,
+      "salvageEV": 1174,
+      "salvageOverPrice": 0.3354,
+      "salvageP99": 3235,
+      "salvageMax": 6000,
+      "pSalvageAtLeastPrice": 0.0054,
+      "legacyQuickSellOverPriceBefore": 5.2131,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.968
+    },
+    {
+      "packId": "icon",
+      "price": 12500,
+      "salvageEV": 2877,
+      "salvageOverPrice": 0.2302,
+      "salvageP99": 4350,
+      "salvageMax": 4800,
+      "pSalvageAtLeastPrice": 0,
+      "legacyQuickSellOverPriceBefore": 3.0684,
+      "pLegacyQuickSellAtLeastPriceBefore": 1
+    },
+    {
+      "packId": "team-liquid",
+      "price": 3500,
+      "salvageEV": 1045,
+      "salvageOverPrice": 0.2985,
+      "salvageP99": 3005,
+      "salvageMax": 6130,
+      "pSalvageAtLeastPrice": 0.0027,
+      "legacyQuickSellOverPriceBefore": 4.6454,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9477
+    },
+    {
+      "packId": "team-karmine",
+      "price": 3500,
+      "salvageEV": 1083,
+      "salvageOverPrice": 0.3093,
+      "salvageP99": 3080,
+      "salvageMax": 6060,
+      "pSalvageAtLeastPrice": 0.0036,
+      "legacyQuickSellOverPriceBefore": 4.8104,
+      "pLegacyQuickSellAtLeastPriceBefore": 0.9523
+    }
+  ],
+  "maxSalvageOverPrice": 0.3438,
+  "maxLegacyQuickSellOverPriceBefore": 5.2131,
+  "cardLevel": {
+    "maxSalvageOverValue": 0.1,
+    "maxSalvage": 1600,
+    "minSalvage": 5
+  },
+  "jackpotVsArbitrage": "P(desguace ≥ precio) > 0 en algunos sobres = premio aleatorio (una Icon/Prime alta): no es repetible ni elegible. Arbitraje sistemático = comprar una carta concreta por menos de lo que paga su desguace: imposible (sin cartas a la venta por créditos, mercado OFF, suelo de banda 0,2 > desguace máx 0,10)."
+}

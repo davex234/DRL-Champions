@@ -1,0 +1,311 @@
+{
+  "products": [
+    {
+      "productId": "pack:estandar",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Bronce",
+        "price": "1.000",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:premium",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Plata",
+        "price": "2.500",
+        "cta": "Comprar",
+        "badges": [
+          "FEATURED"
+        ]
+      }
+    },
+    {
+      "productId": "pack:oro",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Oro",
+        "price": "4.000",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:champions",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Champions",
+        "price": "8.000",
+        "cta": "Comprar",
+        "badges": [
+          "NEW"
+        ]
+      }
+    },
+    {
+      "productId": "pack:icon",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Icon",
+        "price": "12.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:masters",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Masters",
+        "price": "5.000",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:ewc",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre EWC",
+        "price": "6.000",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:inicial",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Inicial",
+        "price": "Gratis",
+        "cta": "Conseguir",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:emea",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre EMEA",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:americas",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Americas",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:pacific",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Pacific",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:china",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre China",
+        "price": "3.000",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:team-heretics",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Team Heretics",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:team-fnatic",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Fnatic",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:team-g2",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre G2",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:team-liquid",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Team Liquid",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "pack:team-karmine",
+      "kind": "PACK",
+      "card": {
+        "name": "Sobre Karmine Corp",
+        "price": "3.500",
+        "cta": "Comprar",
+        "badges": []
+      }
+    },
+    {
+      "productId": "box:caja-estandar",
+      "kind": "BOX",
+      "card": {
+        "name": "Caja Estándar",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "box:caja-premium",
+      "kind": "BOX",
+      "card": {
+        "name": "Caja Premium",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "box:caja-masters",
+      "kind": "BOX",
+      "card": {
+        "name": "Caja Masters",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "box:caja-champions",
+      "kind": "BOX",
+      "card": {
+        "name": "Caja Champions",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "FEATURED",
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "card:mada__moments",
+      "kind": "CARD",
+      "card": {
+        "name": "mada",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "FEATURED",
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "card:leaf__champions-s",
+      "kind": "CARD",
+      "card": {
+        "name": "leaf",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "card:xross__future-star",
+      "kind": "CARD",
+      "card": {
+        "name": "Xross",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "card:jinggg__masters-l",
+      "kind": "CARD",
+      "card": {
+        "name": "Jinggg",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "bundle:pack-inicio",
+      "kind": "BUNDLE",
+      "card": {
+        "name": "Pack Inicio",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    },
+    {
+      "productId": "bundle:pack-coleccionista",
+      "kind": "BUNDLE",
+      "card": {
+        "name": "Pack Coleccionista",
+        "price": "Precio por anunciar",
+        "cta": "Ver",
+        "badges": [
+          "Próximamente"
+        ]
+      }
+    }
+  ],
+  "removedFromCard": [
+    "categoría y nº de cartas («NEXUS · 5 cartas aleatorias»)",
+    "probabilidades/clases con % (7 líneas en la línea principal)",
+    "rarezas posibles (resto de sobres)",
+    "precio en euros «€ · Por anunciar»",
+    "contenido de caja («10 × Sobre … · 50 cartas», «Se guardan sin abrir…»)",
+    "contenido de pack (tagline + lista de sobres/cartas/créditos)",
+    "edición · rareza · equipo de la carta",
+    "«Comprar o abrir»/«Ver detalles» → «Comprar»/«Ver»"
+  ],
+  "movedTo": "detalle de compra (PurchaseDetails): todo lo anterior + saldo y saldo después"
+}

@@ -1,0 +1,145 @@
+{
+  "phase": 43,
+  "kind": "security-fuzz",
+  "cases": 3000,
+  "byAttack": {
+    "foreign-deck": 300,
+    "foreign-uid": 300,
+    "hidden-opponent": 300,
+    "fake-stats": 300,
+    "fake-ovr": 300,
+    "fake-role": 300,
+    "fake-serial-bonus": 300,
+    "arbitrary-userId": 300,
+    "path-traversal": 300,
+    "oversized": 300
+  },
+  "mutate": "accept-extra",
+  "violations": 1500,
+  "byInvariant": {
+    "mutation-body-rejects-extra-fields": 1500
+  },
+  "sample": [
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-stats"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-ovr"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-role"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-serial-bonus"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "arbitrary-userId"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-stats"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-ovr"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-role"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-serial-bonus"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "arbitrary-userId"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-stats"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-ovr"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-role"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-serial-bonus"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "arbitrary-userId"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-stats"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-ovr"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-role"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-serial-bonus"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "arbitrary-userId"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-stats"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-ovr"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-role"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-serial-bonus"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "arbitrary-userId"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-stats"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-ovr"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-role"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "fake-serial-bonus"
+    },
+    {
+      "inv": "mutation-body-rejects-extra-fields",
+      "detail": "arbitrary-userId"
+    }
+  ],
+  "ms": 7617
+}

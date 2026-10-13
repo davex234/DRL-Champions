@@ -1,0 +1,454 @@
+{
+  "at": "2026-09-29T20:26:06.839Z",
+  "base": "http://127.0.0.1:3005",
+  "actor": "40a1e10d",
+  "victim": "8c326e52",
+  "total": 74,
+  "failed": 0,
+  "rows": [
+    {
+      "group": "pages",
+      "id": "/",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/jugar",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/coleccion",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/duelos/mazos",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/inventario",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/progresion",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/duelos/jugar",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/duelos/pvp",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/competitivo",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/cuenta",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/como-jugar",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/tienda",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/temporada",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "pages",
+      "id": "/design-system (producción)",
+      "ok": true,
+      "detail": "404 (404 salvo NEXUS_QA_HARNESS=1)"
+    },
+    {
+      "group": "pages",
+      "id": "/robots.txt",
+      "ok": true,
+      "detail": "User-Agent: * Disallow: / "
+    },
+    {
+      "group": "headers",
+      "id": "CSP",
+      "ok": true,
+      "detail": "default-src 'self'; base-uri 'self'; object-src 'none'; fram"
+    },
+    {
+      "group": "headers",
+      "id": "X-Frame-Options",
+      "ok": true,
+      "detail": "DENY"
+    },
+    {
+      "group": "headers",
+      "id": "nosniff",
+      "ok": true,
+      "detail": "nosniff"
+    },
+    {
+      "group": "headers",
+      "id": "Referrer-Policy",
+      "ok": true,
+      "detail": "strict-origin-when-cross-origin"
+    },
+    {
+      "group": "headers",
+      "id": "COOP",
+      "ok": true,
+      "detail": "same-origin"
+    },
+    {
+      "group": "headers",
+      "id": "sin X-Powered-By",
+      "ok": true,
+      "detail": "null"
+    },
+    {
+      "group": "headers",
+      "id": "noindex (beta cerrada)",
+      "ok": true,
+      "detail": "meta robots"
+    },
+    {
+      "group": "api",
+      "id": "/api/health",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "group": "api",
+      "id": "/api/ready",
+      "ok": true,
+      "detail": "200 ready"
+    },
+    {
+      "group": "api",
+      "id": "x-request-id",
+      "ok": true,
+      "detail": "df54f70d-b8f4-4db2-905a-389a8b8cab3b"
+    },
+    {
+      "group": "api",
+      "id": "anónimo /api/game/state",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "group": "api",
+      "id": "anónimo /api/game/duels",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "group": "api",
+      "id": "anónimo /api/admin/system",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "group": "api",
+      "id": "anónimo /api/admin/users",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "group": "api",
+      "id": "cuerpo de 300 KB → 413",
+      "ok": true,
+      "detail": "413"
+    },
+    {
+      "group": "api",
+      "id": "JSON roto sin fugas",
+      "ok": true,
+      "detail": "401 {\"error\":\"No autenticado\"}"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/state",
+      "ok": true,
+      "detail": "200 289ms"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/duels",
+      "ok": true,
+      "detail": "200 325ms"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/collection",
+      "ok": true,
+      "detail": "200 244ms"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/competitive",
+      "ok": true,
+      "detail": "200 695ms"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/play-status",
+      "ok": true,
+      "detail": "200 307ms"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/daily-loop",
+      "ok": true,
+      "detail": "200 652ms"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/season",
+      "ok": true,
+      "detail": "200 793ms"
+    },
+    {
+      "group": "qa-read",
+      "id": "/api/game/onboarding",
+      "ok": true,
+      "detail": "200 280ms"
+    },
+    {
+      "group": "admin",
+      "id": "usuario normal → /api/admin/system",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "group": "admin",
+      "id": "usuario normal → ajustar créditos",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee user_cards de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee user_game de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee user_pass de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee user_packs de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee credit_transactions de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee economy_ops de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee duel_decks de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee duel_matches de B",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee user_achievements de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee game_state de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee duel_pvp_queue de B",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee duel_active_deck de B",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee user_sanctions de B",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "C lee payments de B",
+      "ok": true,
+      "detail": "200 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "perfil público de B (columnas)",
+      "ok": true,
+      "detail": "visibles: "
+    },
+    {
+      "group": "cross-user",
+      "id": "columnas privadas de B (credits/is_admin/last_seen_at)",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "columna privada xp de B",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "group": "cross-user",
+      "id": "columna privada equipped de B",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "group": "cross-user",
+      "id": "columna privada tokens de B",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "group": "cross-user",
+      "id": "columnas públicas de B (contrato)",
+      "ok": true,
+      "detail": "200 avatar,id,level,points,region,username"
+    },
+    {
+      "group": "cross-user",
+      "id": "anónimo no lee profiles",
+      "ok": true,
+      "detail": "401 filas=0"
+    },
+    {
+      "group": "cross-user",
+      "id": "anónimo no lee vistas heredadas (ranking_collection)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "group": "escalation",
+      "id": "C se da créditos",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "C se hace admin",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "C sube su nivel/xp",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "C renombra a B",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "C se inserta cartas",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "C se da un ledger",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "C gana una partida",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "C borra el perfil de B",
+      "ok": true,
+      "detail": "403 filas=0"
+    },
+    {
+      "group": "escalation",
+      "id": "API créditos con campos extra",
+      "ok": true,
+      "detail": "400 {\"error\":\"El cliente no decide «credits»\"}"
+    },
+    {
+      "group": "escalation",
+      "id": "RPC app_grant_reward como usuario",
+      "ok": true,
+      "detail": "404"
+    },
+    {
+      "group": "escalation",
+      "id": "RPC admin como usuario",
+      "ok": true,
+      "detail": "404"
+    }
+  ]
+}

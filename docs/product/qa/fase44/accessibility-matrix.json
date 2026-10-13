@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-09-17T11:22:03.926Z",
+  "base": "http://127.0.0.1:3005",
+  "flows": [
+    {
+      "name": "Home · el primer Tab es «Saltar al contenido»",
+      "ok": true,
+      "detail": "SALTAR AL CONTENIDO"
+    },
+    {
+      "name": "Home · JUGAR alcanzable con Tab y con foco visible",
+      "ok": true,
+      "detail": "10 tabs"
+    },
+    {
+      "name": "JUGAR · Enter abre el selector de modos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Modos · «Partida rápida» alcanzable con Tab",
+      "ok": true,
+      "detail": "2 tabs"
+    },
+    {
+      "name": "PvE · Enter entra en la preparación",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "PvE · «Comenzar duelo» alcanzable con foco visible (no se pulsa)",
+      "ok": true,
+      "detail": "9 tabs"
+    },
+    {
+      "name": "Sobres · abrir/conseguir alcanzable",
+      "ok": true,
+      "detail": "12 tabs"
+    },
+    {
+      "name": "Colección · una carta alcanzable",
+      "ok": true,
+      "detail": "11 tabs"
+    },
+    {
+      "name": "Equipos · acción de equipo alcanzable",
+      "ok": true,
+      "detail": "10 tabs"
+    },
+    {
+      "name": "Móvil · botón «Menú» alcanzable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Móvil · el foco no escapa de la hoja (40 tabs)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Móvil · Escape cierra y el foco vuelve a «Menú»",
+      "ok": true,
+      "detail": "shell-menu"
+    },
+    {
+      "name": "Diálogo · el foco entra al abrir",
+      "ok": true,
+      "detail": "SEGUIR JUGANDO"
+    },
+    {
+      "name": "Diálogo · Escape cierra sin dejar capa",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Lector · resultado con encabezado, barras con valor y acciones con nombre",
+      "ok": true,
+      "detail": "{\"h1\":\"VICTORIA\",\"bars\":true,\"actions\":true}"
+    },
+    {
+      "name": "Lector · la rareza de la carta revelada se anuncia en texto",
+      "ok": true,
+      "detail": "Carta 1 de 1. Wo0t. Legendaria. OVR 89. Nueva en tu colecció"
+    },
+    {
+      "name": "Lector · JUGAR/CONTINUAR con nombre accesible",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Movimiento reducido · el laboratorio lo detecta y lo aplica",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "blockers": 0
+}

@@ -1,0 +1,8 @@
+OFFSITE_CONFIG ENABLED
+OFFSITE_VERIFIED 20261002T104211Z 0
+OFFSITE_LAST_RUN verified 20261002T104211Z 2026-10-02T10:42:29Z
+OFFSITE_REMOTE_TYPE local
+OFFSITE_STATE COMPLETE
+OFFSITE_DRILL OK 20261002T104211Z 0 local 29
+SCHEDULE_F78 0
+HEALTH_JSON {"lastLocalComplete": {"ageHours": 0, "backupId": "20261002T104211Z"}, "lastOffsiteComplete": {"ageHours": 0, "backupId": "20261002T104211Z", "deckIntegrityOk": true, "migrationHead": "0061_forge_progression", "remoteType": "local", "state": "COMPLETE", "verification": "VERIFIED", "verifiedAt": "2026-10-02T10:42:27Z"}, "lastRemoteDrill": {"at": "2026-10-02T10:45:41Z", "migrationHead": "0061_forge_progression", "remoteType": "local", "secondsRestoreTotal": 29, "status": "OK", "unit": "20261002T104211Z"}, "scheduleInstalled": false}

@@ -1,0 +1,84 @@
+{
+  "userId": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "deckId": "c39eebc7-ad97-4c83-9be0-212e77cf5a58",
+  "sobresAbiertos": 0,
+  "inicialesGratis": 0,
+  "bitacora": [
+    {
+      "paso": "estado inicial",
+      "detalle": {
+        "creditos": 6000,
+        "cartas": 20,
+        "sobres": []
+      },
+      "instante": "2026-09-18T09:05:29.677Z"
+    },
+    {
+      "paso": "tras abrir el starter",
+      "detalle": {
+        "cartas": 20,
+        "porRol": {
+          "Duelista": 7,
+          "Controlador": 4,
+          "Iniciador": 4,
+          "Centinela": 2,
+          "Flex": 3
+        },
+        "legal": true
+      },
+      "instante": "2026-09-18T09:05:30.215Z"
+    },
+    {
+      "paso": "plantilla legal alcanzada",
+      "detalle": {
+        "cartas": 20,
+        "porRol": {
+          "Duelista": 7,
+          "Controlador": 4,
+          "Iniciador": 4,
+          "Centinela": 2,
+          "Flex": 3
+        },
+        "sobresAbiertos": 0,
+        "inicialesGratis": 0
+      },
+      "instante": "2026-09-18T09:05:30.215Z"
+    },
+    {
+      "paso": "composición guardada en el equipo existente",
+      "detalle": {
+        "deckId": "c39eebc7-ad97-4c83-9be0-212e77cf5a58",
+        "cartas": [
+          "undefined/Duelista/85",
+          "undefined/Duelista/81",
+          "undefined/Controlador/87",
+          "undefined/Controlador/82",
+          "undefined/Iniciador/84",
+          "undefined/Iniciador/82",
+          "undefined/Centinela/82",
+          "undefined/Centinela/79",
+          "undefined/Flex/68",
+          "undefined/Flex/61"
+        ]
+      },
+      "instante": "2026-09-18T09:05:30.723Z"
+    },
+    {
+      "paso": "equipo activo",
+      "detalle": {
+        "deckId": "c39eebc7-ad97-4c83-9be0-212e77cf5a58",
+        "valido": true
+      },
+      "instante": "2026-09-18T09:05:31.240Z"
+    },
+    {
+      "paso": "estado final del arranque",
+      "detalle": {
+        "creditos": 6000,
+        "cartas": 20,
+        "sobres": []
+      },
+      "instante": "2026-09-18T09:05:31.471Z"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "at": "2026-09-30T15:28:17.281Z",
+  "step": "DECK_MIN_COUNTRY congelado al empezar (TR ≥ 3 en el equipo de QA I, cambio de equipo a mitad de partida)",
+  "status": "BLOCKED",
+  "cause": "No hay cuenta admin QA: el clasificador de permisos denegó dar is_admin temporal (auditado, como en F60) a la cuenta QA qa_campaign_352_8c32 el 2026-09-30. Sin admin no se pueden crear misiones/proyectos QA por /admin/crafting (única vía de producto) y en producción hay 0 misiones y 0 proyectos. No se buscó otra vía (ni SQL directo ni endpoint nuevo).",
+  "executed": false,
+  "note": "Probado en MemSupabase en F73 (no vale como evidencia de producción). Lo que SÍ se probó en producción sin admin: admin-nonadmin.json, cross-user.json."
+}

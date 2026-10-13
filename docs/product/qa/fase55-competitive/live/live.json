@@ -1,0 +1,25 @@
+{
+  "generated": "2026-09-23T12:11:16.835Z",
+  "account": "QA 8c326e52",
+  "hub": {
+    "title": "Número 1",
+    "rating": "1020",
+    "gate": "READY",
+    "history": 1,
+    "season": "nexus-s1"
+  },
+  "search": {
+    "url": "/duelos/pvp",
+    "searching": true,
+    "truth": "Solo jugadores reales: la cola ranked no tiene bots. El servidor empareja por rating y abre la búsqueda cuanto más esperas."
+  },
+  "cancelled": {
+    "lobby": true,
+    "searching": false
+  },
+  "legacyRedirect": "/competitivo",
+  "season": {
+    "link": "/competitivo"
+  },
+  "errors": []
+}

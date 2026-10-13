@@ -1,0 +1,16 @@
+{
+  "architecture": "UN gestor (src/lib/sound.ts): Web Audio sintetizado (sin ficheros, sin licencias), eventos con nombre, ajustes master/efectos/música con silencio en localStorage (nexus:audio:v1), puerta de autoplay (nada suena antes de un gesto), sonidos de paso limitados a uno cada 90 ms; `new Audio()` = 0 en todo el código.",
+  "events": 30,
+  "addedF64": [
+    "ui.success (aviso correcto)",
+    "ui.nav (cambio de sección: barra y dock)",
+    "match.found (rival encontrado en ranked)"
+  ],
+  "wiredF64": [
+    "Toast → ui.success / ui.error al entrar",
+    "GameShell barra y dock móvil → ui.nav",
+    "RankedMatchFound → match.found"
+  ],
+  "settings": "Panel de audio existente (F44.1) en la hoja del armazón: general, efectos y música con volumen y silencio",
+  "music": "Sin música nueva: la música procedural propia de F44.1 sigue igual; no se añadió ningún asset externo"
+}

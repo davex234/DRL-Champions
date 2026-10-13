@@ -1,0 +1,331 @@
+[
+  {
+    "paso": "login",
+    "detalle": {
+      "formulario": true
+    },
+    "at": "2026-09-21T18:24:44.900Z"
+  },
+  {
+    "paso": "compra masters @1440",
+    "detalle": {
+      "status": 200,
+      "body": "{\"qty\":1,\"packId\":\"masters\",\"credits\":2260}"
+    },
+    "at": "2026-09-21T18:24:45.143Z"
+  },
+  {
+    "paso": "resumen @1440",
+    "detalle": {
+      "revelarTodo": true,
+      "cartas": [
+        "d4v41__masters-l",
+        "kamo__masters-sdc",
+        "rarga__masters-l",
+        "s0pp__champions-s",
+        "valyn__champions-s"
+      ],
+      "errores": []
+    },
+    "at": "2026-09-21T18:24:57.318Z"
+  },
+  {
+    "paso": "coleccion @1440",
+    "detalle": {
+      "d": {
+        "imgs": 54,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": true,
+        "kru": true,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:25:05.012Z"
+  },
+  {
+    "paso": "coleccion-edicion-masters-l @1440",
+    "detalle": {
+      "d": {
+        "imgs": 54,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": false,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:25:12.843Z"
+  },
+  {
+    "paso": "coleccion-equipo-heretics @1440",
+    "detalle": {
+      "d": {
+        "imgs": 17,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": false,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:25:20.593Z"
+  },
+  {
+    "paso": "detalle-derke-vit @1440",
+    "detalle": {
+      "d": {
+        "imgs": 1,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Base",
+          "Masters L"
+        ],
+        "vitality": true,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:25:29.619Z"
+  },
+  {
+    "paso": "detalle-kru @1440",
+    "detalle": {
+      "d": {
+        "imgs": 1,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Base",
+          "Future Star"
+        ],
+        "vitality": false,
+        "kru": true,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:25:37.206Z"
+  },
+  {
+    "paso": "coleccion @768",
+    "detalle": {
+      "d": {
+        "imgs": 54,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": true,
+        "kru": true,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:25:44.778Z"
+  },
+  {
+    "paso": "coleccion-edicion-masters-l @768",
+    "detalle": {
+      "d": {
+        "imgs": 54,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": false,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:25:52.438Z"
+  },
+  {
+    "paso": "coleccion-equipo-heretics @768",
+    "detalle": {
+      "d": {
+        "imgs": 17,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": false,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:26:00.113Z"
+  },
+  {
+    "paso": "detalle-derke-vit @768",
+    "detalle": {
+      "d": {
+        "imgs": 1,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Base",
+          "Masters L"
+        ],
+        "vitality": true,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:26:07.636Z"
+  },
+  {
+    "paso": "detalle-kru @768",
+    "detalle": {
+      "d": {
+        "imgs": 1,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Base",
+          "Future Star"
+        ],
+        "vitality": false,
+        "kru": true,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:26:15.087Z"
+  },
+  {
+    "paso": "coleccion @390",
+    "detalle": {
+      "d": {
+        "imgs": 54,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": true,
+        "kru": true,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:26:22.536Z"
+  },
+  {
+    "paso": "coleccion-edicion-masters-l @390",
+    "detalle": {
+      "d": {
+        "imgs": 54,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": false,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:26:30.068Z"
+  },
+  {
+    "paso": "coleccion-equipo-heretics @390",
+    "detalle": {
+      "d": {
+        "imgs": 17,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Champions S"
+        ],
+        "vitality": false,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T18:26:37.546Z"
+  },
+  {
+    "paso": "detalle-derke-vit @390",
+    "detalle": {
+      "d": {
+        "imgs": 1,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Base",
+          "Masters L"
+        ],
+        "vitality": true,
+        "kru": false,
+        "overflowX": false
+      },
+      "errores": [
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+      ]
+    },
+    "at": "2026-09-21T18:26:44.856Z"
+  },
+  {
+    "paso": "detalle-kru @390",
+    "detalle": {
+      "d": {
+        "imgs": 1,
+        "rotas": 0,
+        "mojibake": false,
+        "fantasma": [],
+        "ediciones": [
+          "Base",
+          "Future Star"
+        ],
+        "vitality": false,
+        "kru": true,
+        "overflowX": false
+      },
+      "errores": [
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+      ]
+    },
+    "at": "2026-09-21T18:26:52.140Z"
+  }
+]

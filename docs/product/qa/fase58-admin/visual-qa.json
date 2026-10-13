@@ -1,0 +1,512 @@
+[
+ {
+  "width": 1440,
+  "route": "/admin",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Centro operativo",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/cards",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Cartas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/players",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Jugadores",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/teams",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Equipos",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/packs",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sobres",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/packs/estandar",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sobre Bronce",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/events",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Eventos",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/events/new",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Nuevo evento",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/users",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Usuarios",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/users/8c326e52-776a-43f4-ba05-3ad7945c40c3",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "qa_campaign_352_8c32",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/moderation",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Moderación",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/economy",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Economía",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/seasons",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Temporadas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/competitive",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Competitivo",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/rewards",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Recompensas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/audit",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Auditoría",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1440,
+  "route": "/admin/system",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sistema",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Centro operativo",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/cards",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Cartas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/players",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Jugadores",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/teams",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Equipos",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/packs",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sobres",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/packs/estandar",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sobre Bronce",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/events",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Eventos",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/events/new",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Nuevo evento",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/users",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Usuarios",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/users/8c326e52-776a-43f4-ba05-3ad7945c40c3",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "qa_campaign_352_8c32",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/moderation",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Moderación",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/economy",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Economía",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/seasons",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Temporadas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/competitive",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Competitivo",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/rewards",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Recompensas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/audit",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Auditoría",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 1024,
+  "route": "/admin/system",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sistema",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Centro operativo",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/cards",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Cartas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/players",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Jugadores",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/teams",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Equipos",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/packs",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sobres",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/packs/estandar",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sobre Bronce",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/events",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Eventos",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/events/new",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Nuevo evento",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/users",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Usuarios",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/users/8c326e52-776a-43f4-ba05-3ad7945c40c3",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "qa_campaign_352_8c32",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/moderation",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Moderación",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/economy",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Economía",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/seasons",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Temporadas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/competitive",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Competitivo",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/rewards",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Recompensas",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/audit",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Auditoría",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ },
+ {
+  "width": 768,
+  "route": "/admin/system",
+  "overflowX": 0,
+  "wide": [],
+  "h1": "Sistema",
+  "denied": false,
+  "noFixture": false,
+  "consoleErrors": []
+ }
+]

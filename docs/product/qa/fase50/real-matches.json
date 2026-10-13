@@ -1,0 +1,35 @@
+{
+  "fase": "50 · NEXUS Arena / Match Board 4.0",
+  "fecha": "2026-09-22",
+  "entorno": "next start :3005 (build Fase 50) + túnel SSH a la BD del VPS; cuenta demo@nexus.local (2f86cbe8…); Chrome del usuario (pestaña en segundo plano: visibilityState=hidden)",
+  "metodo": "Cada turno se juega desde la UI real: clic en la primera carta de la mano, eje con la cifra más alta al atacar, clic en el botón de jugada (sus textos: «Declarar y atacar» / «Responder»). Se lee el diálogo de la revelación (aria-label y marcador) y al final se compara con POST /api/game/duel {action:'state'} del servidor.",
+  "partidas": [
+    {
+      "dificultad": "NORMAL", "matchId": "950b59f9-68ce-4e85-be2d-b7fca2ad04af",
+      "status": "COMPLETED", "turnosServidor": 10, "revelacionesVistasEnUI": 10,
+      "marcadorServidor": "3-5", "marcadorUI": "3–5", "resultadoUI": "loss", "ganadorServidor": "RIVAL", "decididoPor": "SCORE",
+      "historial": "1D:TIE 2A:A 3D:B 4A:B 5D:B 6A:A 7D:B 8A:TIE 9D:B 10A:A",
+      "discrepanciasUIvsServidor": 0
+    },
+    {
+      "dificultad": "EASY", "matchId": "28bc0b5c-499b-4ac1-8c67-336f2250c35f",
+      "status": "COMPLETED", "turnosServidor": 10, "revelacionesVistasEnUI": 10,
+      "marcadorServidor": "6-5", "marcadorUI": "6–5", "resultadoUI": "win", "ganadorServidor": "YOU", "decididoPor": "OVR_TIEBREAK",
+      "historial": "1A:A 2D:B 3A:A 4D:B 5A:B 6D:B 7A:B 8D:A 9A:A 10D:A",
+      "discrepanciasUIvsServidor": 0
+    },
+    {
+      "dificultad": "HARD", "matchId": "78b5d7f6-4ded-4ef4-a4db-f23fcac08294",
+      "status": "COMPLETED", "turnosServidor": 10, "revelacionesVistasEnUI": 10,
+      "marcadorServidor": "2-8", "marcadorUI": "2–8", "resultadoUI": "loss", "ganadorServidor": "RIVAL", "decididoPor": "SCORE",
+      "historial": "1A:A 2D:B 3A:B 4D:B 5A:B 6D:B 7A:B 8D:B 9A:A 10D:B",
+      "discrepanciasUIvsServidor": 0
+    }
+  ],
+  "observado": [
+    "Alternancia ataque/defensa por turno en las tres (A/D), 10 turnos exactos, la mano baja de 10 a 1 carta y las jugadas desaparecen de la mano.",
+    "El cerrojo «Resolviendo…» aparece siempre entre confirmar y la respuesta del servidor.",
+    "Con la pestaña oculta, requestAnimationFrame no corre: el diálogo de revelación se cierra en el estado pero su animación de salida no termina hasta que la pestaña vuelve a ser visible. Artefacto del entorno de QA, no del juego (framer-motion AnimatePresence).",
+    "En esa pestaña (GPU, oculta) la carta del duelo con filtro drop-shadow sobre transformación 3D se capturó sin su imagen; quitando el filtro se pinta. Se sustituyó el aura por box-shadow en una capa propia (sin filtro) en el tablero y en la revelación."
+  ]
+}

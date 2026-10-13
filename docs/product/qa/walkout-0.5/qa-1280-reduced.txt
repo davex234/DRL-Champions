@@ -1,0 +1,38 @@
+PASS w-tr · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-tr · walkouts esperados 1 {"got":"1","exp":["lar0k__future-star:WALKOUT"]}
+PASS w-tr · walkout 1/1 carta e intensidad {"got":["lar0k__future-star","WALKOUT"],"exp":["lar0k__future-star","WALKOUT"]}
+PASS w-tr · walkout 1 identidad = carta (pieza y arena) {"code":"TUR","exp":"TUR","stage":"2d"}
+PASS w-tr · walkout 1 un solo lienzo 3D {"canvases":1}
+PASS w-tr · SALTAR → final de ESTA carta (sin reabrir) {"phase":"walkout","walkouts":"1","requests":"1","hero":"f81-qa-w-tr-0","wUid":"f81-qa-w-tr-0","wCard":"lar0k__future-star","wInt":"WALKOUT","wDone":"1","code":"TUR","card":"lar0k__future-star","stage":"2d","canvases":1,"opens":"1","summary":false}
+PASS w-tr · REPETIR solo la animación (misma carta, 1 apertura) {"phase":"walkout","walkouts":"1","requests":"1","hero":"f81-qa-w-tr-0","wUid":"f81-qa-w-tr-0","wCard":"lar0k__future-star","wInt":"WALKOUT","wDone":"0","code":"TUR","card":"lar0k__future-star","stage":"2d","canvases":1,"opens":"1","summary":false}
+PASS w-tr · tras los walkouts sigue la ceremonia {"phase":"rest"}
+PASS w-tr · resumen con las 5 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":6}
+PASS w-us · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-us · walkouts esperados 2 {"got":"2","exp":["trent__champions-s:RARE","reduxx__future-star:WALKOUT"]}
+PASS w-us · walkout 1/2 carta e intensidad {"got":["trent__champions-s","RARE"],"exp":["trent__champions-s","RARE"]}
+PASS w-us · walkout 1 identidad = carta (pieza y arena) {"code":"USA","exp":"USA","stage":"2d"}
+PASS w-us · walkout 1 un solo lienzo 3D {"canvases":1}
+PASS w-us · SALTAR → final de ESTA carta (sin reabrir) {"phase":"walkout","walkouts":"2","requests":"1","hero":"f81-qa-w-us-2","wUid":"f81-qa-w-us-2","wCard":"trent__champions-s","wInt":"RARE","wDone":"1","code":"USA","card":"trent__champions-s","stage":"2d","canvases":1,"opens":"1","summary":false}
+PASS w-us · REPETIR solo la animación (misma carta, 1 apertura) {"phase":"walkout","walkouts":"2","requests":"1","hero":"f81-qa-w-us-2","wUid":"f81-qa-w-us-2","wCard":"trent__champions-s","wInt":"RARE","wDone":"0","code":"USA","card":"trent__champions-s","stage":"2d","canvases":1,"opens":"1","summary":false}
+PASS w-us · walkout 2/2 carta e intensidad {"got":["reduxx__future-star","WALKOUT"],"exp":["reduxx__future-star","WALKOUT"]}
+PASS w-us · walkout 2 identidad = carta (pieza y arena) {"code":"USA","exp":"USA","stage":"2d"}
+PASS w-us · walkout 2 un solo lienzo 3D {"canvases":1}
+PASS w-us · tras los walkouts sigue la ceremonia {"phase":"rest"}
+PASS w-us · resumen con las 5 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":6}
+PASS w-mega · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-mega · walkouts esperados 3 {"got":"3","exp":["mada__moments:MEGA_WALKOUT","xross__future-star:WALKOUT","marteen__record-breaker:MEGA_WALKOUT"]}
+PASS w-mega · walkout 1/3 carta e intensidad {"got":["mada__moments","MEGA_WALKOUT"],"exp":["mada__moments","MEGA_WALKOUT"]}
+PASS w-mega · walkout 1 identidad = carta (pieza y arena) {"code":"CAN","exp":"CAN","stage":"2d"}
+PASS w-mega · walkout 1 un solo lienzo 3D {"canvases":1}
+PASS w-mega · SALTAR → final de ESTA carta (sin reabrir) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-mega-2","wUid":"f81-qa-w-mega-2","wCard":"mada__moments","wInt":"MEGA_WALKOUT","wDone":"1","code":"CAN","card":"mada__moments","stage":"2d","canvases":1,"opens":"1","summary":false}
+PASS w-mega · REPETIR solo la animación (misma carta, 1 apertura) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-mega-2","wUid":"f81-qa-w-mega-2","wCard":"mada__moments","wInt":"MEGA_WALKOUT","wDone":"0","code":"CAN","card":"mada__moments","stage":"2d","canvases":1,"opens":"1","summary":false}
+PASS w-mega · walkout 2/3 carta e intensidad {"got":["xross__future-star","WALKOUT"],"exp":["xross__future-star","WALKOUT"]}
+PASS w-mega · walkout 2 identidad = carta (pieza y arena) {"code":"KOR","exp":"KOR","stage":"2d"}
+PASS w-mega · walkout 2 un solo lienzo 3D {"canvases":1}
+PASS w-mega · walkout 3/3 carta e intensidad {"got":["marteen__record-breaker","MEGA_WALKOUT"],"exp":["marteen__record-breaker","MEGA_WALKOUT"]}
+PASS w-mega · walkout 3 identidad = carta (pieza y arena) {"code":"CZE","exp":"CZE","stage":"2d"}
+PASS w-mega · walkout 3 un solo lienzo 3D {"canvases":1}
+PASS w-mega · tras los walkouts sigue la ceremonia {"phase":"summary"}
+PASS w-mega · resumen con las 3 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":4}
+PASS F5 a mitad del walkout → resumen recuperado, 1 apertura {"phase":"summary","walkouts":"0","requests":"0","hero":"f81-qa-w-tr-0","canvases":1,"opens":"1","summary":true}
+PASS sin errores de consola []

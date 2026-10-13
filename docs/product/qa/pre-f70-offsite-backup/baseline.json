@@ -1,0 +1,20 @@
+{
+  "phase": "PRE-F70 · off-site backup",
+  "at": "2026-09-28",
+  "migrationHead": "0058_hardening_grants",
+  "app": "http://127.0.0.1:3005 · 200 · solo loopback",
+  "productionCheckBefore": "24 PASS · 1 WARN (auth-email) · 1 FAIL (backup-offsite, FAIL fijo en el código)",
+  "smokeBefore": "74/74",
+  "testsBefore": 5405,
+  "backupsLocal": {
+    "daily": "15 dumps diarios de la BD + 15 tar de Storage (nexus-backup.sh, 04:30, 14 días)",
+    "verifiedUnits": [
+      "f67/20260926T204632Z",
+      "pre-0058/20260928T115532Z"
+    ]
+  },
+  "vps": {
+    "disk": "493 G, 461 G libres",
+    "tools": "openssl, rsync, flock presentes; sin rclone/aws/age/gpg en el host; Docker disponible"
+  }
+}

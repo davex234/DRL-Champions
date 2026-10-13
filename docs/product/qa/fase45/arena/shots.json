@@ -1,0 +1,934 @@
+{
+  "build": "d4612929e888",
+  "generado": "2026-09-18T09:36:58.965Z",
+  "rows": [
+    {
+      "group": "arena",
+      "scene": "arena-idle",
+      "size": "390",
+      "reduced": false,
+      "file": "arena-arena-idle-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-idle",
+      "size": "768",
+      "reduced": false,
+      "file": "arena-arena-idle-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-idle",
+      "size": "1440",
+      "reduced": false,
+      "file": "arena-arena-idle-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-idle",
+      "size": "1920",
+      "reduced": false,
+      "file": "arena-arena-idle-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-idle",
+      "size": "2560",
+      "reduced": false,
+      "file": "arena-arena-idle-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-defense",
+      "size": "390",
+      "reduced": false,
+      "file": "arena-arena-defense-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-defense",
+      "size": "768",
+      "reduced": false,
+      "file": "arena-arena-defense-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-defense",
+      "size": "1440",
+      "reduced": false,
+      "file": "arena-arena-defense-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-defense",
+      "size": "1920",
+      "reduced": false,
+      "file": "arena-arena-defense-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-defense",
+      "size": "2560",
+      "reduced": false,
+      "file": "arena-arena-defense-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-mid",
+      "size": "390",
+      "reduced": false,
+      "file": "arena-arena-mid-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-mid",
+      "size": "768",
+      "reduced": false,
+      "file": "arena-arena-mid-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-mid",
+      "size": "1440",
+      "reduced": false,
+      "file": "arena-arena-mid-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-mid",
+      "size": "1920",
+      "reduced": false,
+      "file": "arena-arena-mid-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-mid",
+      "size": "2560",
+      "reduced": false,
+      "file": "arena-arena-mid-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-selected",
+      "size": "390",
+      "reduced": false,
+      "file": "arena-arena-selected-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-selected",
+      "size": "768",
+      "reduced": false,
+      "file": "arena-arena-selected-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-selected",
+      "size": "1440",
+      "reduced": false,
+      "file": "arena-arena-selected-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-selected",
+      "size": "1920",
+      "reduced": false,
+      "file": "arena-arena-selected-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-selected",
+      "size": "2560",
+      "reduced": false,
+      "file": "arena-arena-selected-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-locked",
+      "size": "390",
+      "reduced": false,
+      "file": "arena-arena-locked-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-locked",
+      "size": "768",
+      "reduced": false,
+      "file": "arena-arena-locked-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-locked",
+      "size": "1440",
+      "reduced": false,
+      "file": "arena-arena-locked-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-locked",
+      "size": "1920",
+      "reduced": false,
+      "file": "arena-arena-locked-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-locked",
+      "size": "2560",
+      "reduced": false,
+      "file": "arena-arena-locked-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-you",
+      "size": "390",
+      "reduced": false,
+      "file": "arena-arena-attacker-you-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-you",
+      "size": "768",
+      "reduced": false,
+      "file": "arena-arena-attacker-you-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-you",
+      "size": "1440",
+      "reduced": false,
+      "file": "arena-arena-attacker-you-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-you",
+      "size": "1920",
+      "reduced": false,
+      "file": "arena-arena-attacker-you-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-you",
+      "size": "2560",
+      "reduced": false,
+      "file": "arena-arena-attacker-you-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-rival",
+      "size": "390",
+      "reduced": false,
+      "file": "arena-arena-attacker-rival-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-rival",
+      "size": "768",
+      "reduced": false,
+      "file": "arena-arena-attacker-rival-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-rival",
+      "size": "1440",
+      "reduced": false,
+      "file": "arena-arena-attacker-rival-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-rival",
+      "size": "1920",
+      "reduced": false,
+      "file": "arena-arena-attacker-rival-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-attacker-rival",
+      "size": "2560",
+      "reduced": false,
+      "file": "arena-arena-attacker-rival-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-reduced",
+      "size": "1440",
+      "reduced": true,
+      "file": "arena-arena-reduced-1440-reduced.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "arena",
+      "scene": "arena-reduced",
+      "size": "390",
+      "reduced": true,
+      "file": "arena-arena-reduced-390-reduced.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-undeclared",
+      "size": "390",
+      "reduced": false,
+      "file": "clash-clash-undeclared-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-undeclared",
+      "size": "768",
+      "reduced": false,
+      "file": "clash-clash-undeclared-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-undeclared",
+      "size": "1440",
+      "reduced": false,
+      "file": "clash-clash-undeclared-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-undeclared",
+      "size": "1920",
+      "reduced": false,
+      "file": "clash-clash-undeclared-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-undeclared",
+      "size": "2560",
+      "reduced": false,
+      "file": "clash-clash-undeclared-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-declared",
+      "size": "390",
+      "reduced": false,
+      "file": "clash-clash-declared-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-declared",
+      "size": "768",
+      "reduced": false,
+      "file": "clash-clash-declared-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-declared",
+      "size": "1440",
+      "reduced": false,
+      "file": "clash-clash-declared-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-declared",
+      "size": "1920",
+      "reduced": false,
+      "file": "clash-clash-declared-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-declared",
+      "size": "2560",
+      "reduced": false,
+      "file": "clash-clash-declared-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-imposed",
+      "size": "390",
+      "reduced": false,
+      "file": "clash-clash-imposed-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-imposed",
+      "size": "768",
+      "reduced": false,
+      "file": "clash-clash-imposed-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-imposed",
+      "size": "1440",
+      "reduced": false,
+      "file": "clash-clash-imposed-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-imposed",
+      "size": "1920",
+      "reduced": false,
+      "file": "clash-clash-imposed-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-imposed",
+      "size": "2560",
+      "reduced": false,
+      "file": "clash-clash-imposed-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-resolved",
+      "size": "390",
+      "reduced": false,
+      "file": "clash-clash-resolved-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-resolved",
+      "size": "768",
+      "reduced": false,
+      "file": "clash-clash-resolved-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-resolved",
+      "size": "1440",
+      "reduced": false,
+      "file": "clash-clash-resolved-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-resolved",
+      "size": "1920",
+      "reduced": false,
+      "file": "clash-clash-resolved-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-resolved",
+      "size": "2560",
+      "reduced": false,
+      "file": "clash-clash-resolved-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-same-axis",
+      "size": "390",
+      "reduced": false,
+      "file": "clash-clash-same-axis-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-same-axis",
+      "size": "768",
+      "reduced": false,
+      "file": "clash-clash-same-axis-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-same-axis",
+      "size": "1440",
+      "reduced": false,
+      "file": "clash-clash-same-axis-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-same-axis",
+      "size": "1920",
+      "reduced": false,
+      "file": "clash-clash-same-axis-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "clash",
+      "scene": "clash-same-axis",
+      "size": "2560",
+      "reduced": false,
+      "file": "clash-clash-same-axis-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub",
+      "size": "390",
+      "reduced": false,
+      "file": "hub-hub-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub",
+      "size": "768",
+      "reduced": false,
+      "file": "hub-hub-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub",
+      "size": "1440",
+      "reduced": false,
+      "file": "hub-hub-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub",
+      "size": "1920",
+      "reduced": false,
+      "file": "hub-hub-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub",
+      "size": "2560",
+      "reduced": false,
+      "file": "hub-hub-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-resume",
+      "size": "390",
+      "reduced": false,
+      "file": "hub-hub-resume-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-resume",
+      "size": "768",
+      "reduced": false,
+      "file": "hub-hub-resume-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-resume",
+      "size": "1440",
+      "reduced": false,
+      "file": "hub-hub-resume-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-resume",
+      "size": "1920",
+      "reduced": false,
+      "file": "hub-hub-resume-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-resume",
+      "size": "2560",
+      "reduced": false,
+      "file": "hub-hub-resume-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-no-deck",
+      "size": "390",
+      "reduced": false,
+      "file": "hub-hub-no-deck-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-no-deck",
+      "size": "768",
+      "reduced": false,
+      "file": "hub-hub-no-deck-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-no-deck",
+      "size": "1440",
+      "reduced": false,
+      "file": "hub-hub-no-deck-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-no-deck",
+      "size": "1920",
+      "reduced": false,
+      "file": "hub-hub-no-deck-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-no-deck",
+      "size": "2560",
+      "reduced": false,
+      "file": "hub-hub-no-deck-2560.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-signed-out",
+      "size": "390",
+      "reduced": false,
+      "file": "hub-hub-signed-out-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-signed-out",
+      "size": "768",
+      "reduced": false,
+      "file": "hub-hub-signed-out-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-win",
+      "size": "390",
+      "reduced": false,
+      "file": "turn-turn-win-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-win",
+      "size": "768",
+      "reduced": false,
+      "file": "turn-turn-win-768.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-win",
+      "size": "1440",
+      "reduced": false,
+      "file": "turn-turn-win-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-win",
+      "size": "1920",
+      "reduced": false,
+      "file": "turn-turn-win-1920.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-loss",
+      "size": "390",
+      "reduced": false,
+      "file": "turn-turn-loss-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-loss",
+      "size": "1440",
+      "reduced": false,
+      "file": "turn-turn-loss-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-tie",
+      "size": "390",
+      "reduced": false,
+      "file": "turn-turn-tie-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-tie",
+      "size": "1440",
+      "reduced": false,
+      "file": "turn-turn-tie-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-history",
+      "size": "390",
+      "reduced": false,
+      "file": "turn-turn-history-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-history",
+      "size": "1440",
+      "reduced": false,
+      "file": "turn-turn-history-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-timeline",
+      "size": "390",
+      "reduced": false,
+      "file": "turn-turn-timeline-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-timeline",
+      "size": "1440",
+      "reduced": false,
+      "file": "turn-turn-timeline-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-detail",
+      "size": "390",
+      "reduced": false,
+      "file": "turn-turn-detail-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "turn",
+      "scene": "turn-detail",
+      "size": "1440",
+      "reduced": false,
+      "file": "turn-turn-detail-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "score-lead",
+      "size": "390",
+      "reduced": false,
+      "file": "score-score-lead-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "score-lead",
+      "size": "1440",
+      "reduced": false,
+      "file": "score-score-lead-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "score-behind",
+      "size": "390",
+      "reduced": false,
+      "file": "score-score-behind-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "score-behind",
+      "size": "1440",
+      "reduced": false,
+      "file": "score-score-behind-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "score-tied",
+      "size": "390",
+      "reduced": false,
+      "file": "score-score-tied-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "score-tied",
+      "size": "1440",
+      "reduced": false,
+      "file": "score-score-tied-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "final-turn",
+      "size": "390",
+      "reduced": false,
+      "file": "score-final-turn-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "final-turn",
+      "size": "1440",
+      "reduced": false,
+      "file": "score-final-turn-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "score",
+      "scene": "match-point",
+      "size": "390",
+      "reduced": false,
+      "file": "score-match-point-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-signed-out",
+      "size": "1440",
+      "reduced": false,
+      "file": "hub-hub-signed-out-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "hub",
+      "scene": "hub-offline",
+      "size": "1440",
+      "reduced": false,
+      "file": "hub-hub-offline-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-win",
+      "size": "390",
+      "reduced": false,
+      "file": "result-result-win-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-win",
+      "size": "1440",
+      "reduced": false,
+      "file": "result-result-win-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-loss",
+      "size": "390",
+      "reduced": false,
+      "file": "result-result-loss-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-loss",
+      "size": "1440",
+      "reduced": false,
+      "file": "result-result-loss-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-draw",
+      "size": "1440",
+      "reduced": false,
+      "file": "result-result-draw-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-ovr",
+      "size": "1440",
+      "reduced": false,
+      "file": "result-result-ovr-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-history",
+      "size": "1440",
+      "reduced": false,
+      "file": "result-result-history-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "result",
+      "scene": "result-reduced",
+      "size": "1440",
+      "reduced": true,
+      "file": "result-result-reduced-1440-reduced.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "complete",
+      "scene": "complete-win",
+      "size": "390",
+      "reduced": false,
+      "file": "complete-complete-win-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "complete",
+      "scene": "complete-win",
+      "size": "1440",
+      "reduced": false,
+      "file": "complete-complete-win-1440.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "complete",
+      "scene": "complete-loss",
+      "size": "390",
+      "reduced": false,
+      "file": "complete-complete-loss-390.png",
+      "build": "d4612929e888"
+    },
+    {
+      "group": "complete",
+      "scene": "complete-loss",
+      "size": "1440",
+      "reduced": false,
+      "file": "complete-complete-loss-1440.png",
+      "build": "d4612929e888"
+    }
+  ]
+}

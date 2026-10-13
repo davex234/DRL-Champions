@@ -1,0 +1,51 @@
+{
+  "path": "/opt/nexus/backups/supabase-drlcards/f67/20260926T204632Z",
+  "createdAt": "20260926T204632Z",
+  "postgres": {
+    "image": "public.ecr.aws/supabase/postgres:17.6.1.165",
+    "serverVersion": "17.6",
+    "databaseBytes": 43486355,
+    "schemaProbe": "12/12 true"
+  },
+  "db": {
+    "bytes": 2863728,
+    "sha256": "90f44e73408098a337357a72156a8d131e3c1d73e82d681e5426cf6a220a1061",
+    "tocEntries": 1970,
+    "authUsers": 18
+  },
+  "storage": {
+    "bytes": 87,
+    "sha256": "380fc998ad257890510d25e3b751d84ed62b7d65bd5a070f008fbfd894ab2b64",
+    "files": 0,
+    "objectsInDb": 0,
+    "buckets": "assets:public"
+  },
+  "tableCounts": {
+    "profiles": 18,
+    "user_cards": 497,
+    "user_game": 18,
+    "user_pass": 8,
+    "user_packs": 45,
+    "credit_transactions": 162,
+    "economy_ops": 195,
+    "duel_decks": 8,
+    "duel_matches": 176,
+    "duel_match_actions": 2315,
+    "duel_pvp_queue": 78,
+    "duel_pvp_ratings": 9,
+    "duel_pvp_rating_events": 60,
+    "duel_friendships": 2,
+    "duel_challenges": 101,
+    "content_cards": 331,
+    "content_card_versions": 331,
+    "content_packs": 0,
+    "content_pools": 51,
+    "content_pool_entries": 5027,
+    "agents": 29,
+    "user_achievements": 9,
+    "user_sanctions": 1,
+    "content_audit_log": 477,
+    "auth.users": 18
+  },
+  "consistency": "no atómico BD↔Storage (segundos de diferencia); hoy irrelevante con 0 objetos"
+}

@@ -1,0 +1,171 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "tables": [
+    {
+      "t": "content_card_projects",
+      "rls": true,
+      "anon_select": false,
+      "auth_select": false,
+      "auth_insert": false
+    },
+    {
+      "t": "content_missions",
+      "rls": true,
+      "anon_select": false,
+      "auth_select": false,
+      "auth_insert": false
+    },
+    {
+      "t": "craft_recipes",
+      "rls": true,
+      "anon_select": false,
+      "auth_select": false,
+      "auth_insert": false
+    },
+    {
+      "t": "mission_events",
+      "rls": true,
+      "anon_select": false,
+      "auth_select": false,
+      "auth_insert": false
+    },
+    {
+      "t": "user_mission_progress",
+      "rls": true,
+      "anon_select": false,
+      "auth_select": true,
+      "auth_insert": false
+    },
+    {
+      "t": "user_project_claims",
+      "rls": true,
+      "anon_select": false,
+      "auth_select": true,
+      "auth_insert": false
+    }
+  ],
+  "crossUser": {
+    "pass": 12,
+    "fail": 0,
+    "source": "docs/product/qa/fase73-production/cross-user.json",
+    "results": [
+      {
+        "id": "CRUCE · K no puede intercambiar copias de B (4xx) y las copias de B siguen siendo de B",
+        "ok": true,
+        "detail": "409 NOT_ELIGIBLE"
+      },
+      {
+        "id": "CRUCE · K no puede desguazar una copia de B",
+        "ok": true,
+        "detail": "409 {\"error\":\"Ninguna de esas cartas se puede desguazar\"}"
+      },
+      {
+        "id": "CRUCE · el inventario de K no cambió",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "id": "CRUCE · reclamar un proyecto inexistente → 404",
+        "ok": true,
+        "detail": "404"
+      },
+      {
+        "id": "CUERPO · un campo extra (qty) se rechaza 400",
+        "ok": true,
+        "detail": "400"
+      },
+      {
+        "id": "RLS · K lee user_mission_progress: solo filas suyas",
+        "ok": true,
+        "detail": "200 n=0"
+      },
+      {
+        "id": "RLS · K no ve los reclamos de B",
+        "ok": true,
+        "detail": "200"
+      },
+      {
+        "id": "RLS · K no puede escribir progreso (INSERT denegado)",
+        "ok": true,
+        "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":\"Grant the required privileges to the current role with: GRANT"
+      },
+      {
+        "id": "RLS · mission_events no es legible por un jugador",
+        "ok": true,
+        "detail": "403"
+      },
+      {
+        "id": "ANON · craft_recipes no es legible sin sesión",
+        "ok": true,
+        "detail": "401"
+      },
+      {
+        "id": "RPC · app_craft_pack no es ejecutable por un jugador (42501, no «no encontrada»)",
+        "ok": true,
+        "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for function app_craft_pack\""
+      },
+      {
+        "id": "RPC · app_mission_apply no es ejecutable por un jugador (42501, no «no encontrada»)",
+        "ok": true,
+        "detail": "403 {\"code\":\"42501\",\"details\":null,\"hint\":null,\"message\":\"permission denied for function app_mission_app"
+      }
+    ]
+  },
+  "duringTempAdmin": {
+    "pass": 10,
+    "fail": 0,
+    "source": "docs/product/qa/fase73-closure/cross-user.json",
+    "results": [
+      {
+        "id": "CUENTA NORMAL · no puede crear misión (401)",
+        "ok": true,
+        "detail": "401"
+      },
+      {
+        "id": "CUENTA NORMAL · no puede crear proyecto (401)",
+        "ok": true,
+        "detail": "401"
+      },
+      {
+        "id": "CUENTA NORMAL · no puede modificar receta (401)",
+        "ok": true,
+        "detail": "401"
+      },
+      {
+        "id": "CUENTA NORMAL · no lee el panel (401)",
+        "ok": true,
+        "detail": "401"
+      },
+      {
+        "id": "CUENTA NORMAL · /admin/crafting en el navegador = acceso restringido",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "id": "CRUCE · B (sin completar) no reclama el proyecto que I y K completaron (409)",
+        "ok": true,
+        "detail": "409 NOT_COMPLETED"
+      },
+      {
+        "id": "ADMIN TEMPORAL · por PostgREST solo ve SU progreso (no el de I/K)",
+        "ok": true,
+        "detail": "200 n=0"
+      },
+      {
+        "id": "ADMIN TEMPORAL · por PostgREST no ve reclamos ajenos",
+        "ok": true,
+        "detail": "200 n=0"
+      },
+      {
+        "id": "ADMIN TEMPORAL · mission_events no es legible",
+        "ok": true,
+        "detail": "403"
+      },
+      {
+        "id": "ADMIN TEMPORAL · /api/game/missions es el SUYO (0/5, sin progreso de I)",
+        "ok": true,
+        "detail": "0/5 ACTIVE"
+      }
+    ]
+  }
+}

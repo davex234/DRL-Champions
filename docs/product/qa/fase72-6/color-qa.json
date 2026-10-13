@@ -1,0 +1,909 @@
+{
+  "at": "2026-09-30T08:09:38.852Z",
+  "persona": "A",
+  "scale": 4,
+  "byWidth": {
+    "390": {
+      "width": 390,
+      "attempts": [
+        "giantx.png,cn.svg,kr.svg,kr.svg,us.svg,kr.svg,kr.svg,us.svg,ru.svg,kr.svg",
+        "kr.svg,kr.svg,kr.svg,kr.svg,c9.png,pl.svg,kr.svg,fnatic.png,cn.svg,giantx.png",
+        "us.svg,kr.svg,kr.svg,cn.svg,kr.svg,ru.svg,kr.svg,kr.svg,us.svg,giantx.png",
+        "kr.svg,us.svg,us.svg,kr.svg,kr.svg,cn.svg,ru.svg,kr.svg,giantx.png,kr.svg",
+        "us.svg,kr.svg,kr.svg,kr.svg,kr.svg,kr.svg,cn.svg,ru.svg,giantx.png,us.svg",
+        "fnatic.png,kr.svg,c9.png,cn.svg,kr.svg,kr.svg,pl.svg,giantx.png,kr.svg,kr.svg"
+      ],
+      "hints": [
+        {
+          "i": 0,
+          "asset": "fnatic",
+          "shape": "logo",
+          "size": "19x19",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 72,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 1,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x15",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 76,
+          "H": 56,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 2,
+          "asset": "c9",
+          "shape": "logo",
+          "size": "18x18",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 72,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 3,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 56,
+          "n": 166,
+          "p50": 0,
+          "p95": 0,
+          "max": 227,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#ee1f25",
+              "max": 227,
+              "px": 166
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 4,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 52,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 5,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 52,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 6,
+          "asset": "pl",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 56,
+          "n": 100,
+          "p50": 0,
+          "p95": 0,
+          "max": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 60
+            },
+            {
+              "original": "#dc143c",
+              "rendered": "#dc143c",
+              "max": 0,
+              "px": 40
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 7,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "18x18",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 72,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 8,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x15",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 76,
+          "H": 56,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 9,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x15",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 76,
+          "H": 56,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        }
+      ],
+      "flagsDistinct": [
+        "kr",
+        "cn",
+        "pl"
+      ],
+      "logos": [
+        "fnatic",
+        "c9",
+        "giantx"
+      ],
+      "errors": []
+    },
+    "1024": {
+      "width": 1024,
+      "attempts": [
+        "us.svg,kr.svg,giantx.png,kr.svg,kr.svg,kr.svg,us.svg,ru.svg,kr.svg,cn.svg",
+        "kr.svg,kr.svg,us.svg,giantx.png,kr.svg,us.svg,kr.svg,ru.svg,kr.svg,cn.svg",
+        "giantx.png,kr.svg,cn.svg,pl.svg,kr.svg,kr.svg,c9.png,kr.svg,fnatic.png,kr.svg",
+        "kr.svg,giantx.png,cn.svg,pl.svg,kr.svg,c9.png,kr.svg,kr.svg,kr.svg,fnatic.png",
+        "kr.svg,kr.svg,ru.svg,kr.svg,kr.svg,us.svg,us.svg,kr.svg,giantx.png,cn.svg",
+        "kr.svg,us.svg,giantx.png,us.svg,kr.svg,kr.svg,ru.svg,kr.svg,kr.svg,cn.svg"
+      ],
+      "hints": [
+        {
+          "i": 0,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "36x28",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 269,
+          "p50": 0,
+          "p95": 0,
+          "max": 158,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#fefefe",
+              "max": 158,
+              "px": 216
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 27
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 26
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 1,
+          "asset": "us",
+          "shape": "flag",
+          "size": "35x27",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 54,
+          "p50": 0,
+          "p95": 211,
+          "max": 230,
+          "colors": [
+            {
+              "original": "#192f5d",
+              "rendered": "#364a72",
+              "max": 230,
+              "px": 54
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 2,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "34x34",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 132,
+          "H": 132,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 3,
+          "asset": "us",
+          "shape": "flag",
+          "size": "35x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 104,
+          "n": 38,
+          "p50": 0,
+          "p95": 230,
+          "max": 230,
+          "colors": [
+            {
+              "original": "#192f5d",
+              "rendered": "#42547a",
+              "max": 230,
+              "px": 38
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 4,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "34x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 100,
+          "n": 182,
+          "p50": 0,
+          "p95": 0,
+          "max": 1,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 145
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 5,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "34x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 100,
+          "n": 182,
+          "p50": 0,
+          "p95": 0,
+          "max": 1,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 145
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 6,
+          "asset": "ru",
+          "shape": "flag",
+          "size": "35x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 104,
+          "n": 1144,
+          "p50": 0,
+          "p95": 0,
+          "max": 0,
+          "colors": [
+            {
+              "original": "#0039a6",
+              "rendered": "#0039a6",
+              "max": 0,
+              "px": 520
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 312
+            },
+            {
+              "original": "#d52b1e",
+              "rendered": "#d52b1e",
+              "max": 0,
+              "px": 312
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 7,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "35x27",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 104,
+          "n": 213,
+          "p50": 0,
+          "p95": 0,
+          "max": 73,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 73,
+              "px": 166
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 24
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 23
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 8,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "35x27",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 269,
+          "p50": 0,
+          "p95": 0,
+          "max": 255,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#fefefe",
+              "max": 255,
+              "px": 216
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 27
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 26
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 9,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "36x28",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 1588,
+          "p50": 0,
+          "p95": 0,
+          "max": 227,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#ee1d25",
+              "max": 227,
+              "px": 1588
+            }
+          ],
+          "pass": false
+        }
+      ],
+      "flagsDistinct": [
+        "kr",
+        "us",
+        "ru",
+        "cn"
+      ],
+      "logos": [
+        "giantx"
+      ],
+      "errors": []
+    },
+    "1440": {
+      "width": 1440,
+      "attempts": [
+        "pl.svg,kr.svg,cn.svg,c9.png,kr.svg,giantx.png,kr.svg,kr.svg,fnatic.png,kr.svg",
+        "kr.svg,us.svg,kr.svg,us.svg,kr.svg,giantx.png,kr.svg,ru.svg,kr.svg,cn.svg",
+        "kr.svg,kr.svg,kr.svg,giantx.png,cn.svg,kr.svg,us.svg,kr.svg,ru.svg,us.svg",
+        "giantx.png,kr.svg,cn.svg,kr.svg,fnatic.png,pl.svg,kr.svg,c9.png,kr.svg,kr.svg",
+        "kr.svg,kr.svg,kr.svg,c9.png,kr.svg,fnatic.png,cn.svg,pl.svg,giantx.png,kr.svg",
+        "kr.svg,kr.svg,c9.png,pl.svg,kr.svg,kr.svg,cn.svg,giantx.png,kr.svg,fnatic.png"
+      ],
+      "hints": [
+        {
+          "i": 0,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "42x33",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 168,
+          "H": 128,
+          "n": 681,
+          "p50": 0,
+          "p95": 0,
+          "max": 1,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 529
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 78
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 74
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 1,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "42x32",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 128,
+          "n": 657,
+          "p50": 0,
+          "p95": 0,
+          "max": 1,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 523
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 69
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 65
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 2,
+          "asset": "c9",
+          "shape": "logo",
+          "size": "40x40",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 156,
+          "H": 156,
+          "n": 11,
+          "p50": 0,
+          "p95": 0,
+          "max": 0,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 3,
+          "asset": "pl",
+          "shape": "flag",
+          "size": "41x31",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 124,
+          "n": 2574,
+          "p50": 0,
+          "p95": 0,
+          "max": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 1320
+            },
+            {
+              "original": "#dc143c",
+              "rendered": "#dc143c",
+              "max": 0,
+              "px": 1254
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 4,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "41x31",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 516,
+          "p50": 0,
+          "p95": 0,
+          "max": 1,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 392
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 64
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 60
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 5,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "41x31",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 516,
+          "p50": 0,
+          "p95": 0,
+          "max": 1,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 392
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 64
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 60
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 6,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "41x31",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 124,
+          "n": 2388,
+          "p50": 0,
+          "p95": 0,
+          "max": 57,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#ee1c25",
+              "max": 57,
+              "px": 2388
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 7,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "40x40",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 156,
+          "H": 156,
+          "n": 53,
+          "p50": 0,
+          "p95": 0,
+          "max": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 0,
+              "px": 53
+            }
+          ],
+          "pass": true
+        },
+        {
+          "i": 8,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "42x32",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 128,
+          "n": 657,
+          "p50": 0,
+          "p95": 0,
+          "max": 36,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "max": 36,
+              "px": 523
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "max": 0,
+              "px": 69
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "max": 1,
+              "px": 65
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 9,
+          "asset": "fnatic",
+          "shape": "logo",
+          "size": "41x41",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 160,
+          "n": 173,
+          "p50": 0,
+          "p95": 0,
+          "max": 0,
+          "colors": [
+            {
+              "original": "#ff5900",
+              "rendered": "#ff5900",
+              "max": 0,
+              "px": 173
+            }
+          ],
+          "pass": true
+        }
+      ],
+      "flagsDistinct": [
+        "kr",
+        "pl",
+        "cn"
+      ],
+      "logos": [
+        "c9",
+        "giantx",
+        "fnatic"
+      ],
+      "errors": []
+    }
+  },
+  "pass": false
+}

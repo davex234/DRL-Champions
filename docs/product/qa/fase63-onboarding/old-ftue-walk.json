@@ -1,0 +1,678 @@
+{
+  "at": "2026-09-26T15:08:30.937Z",
+  "account": "93915dc0",
+  "previousRun": null,
+  "steps": [
+    {
+      "name": "00-home-sin-sesion",
+      "note": "Primera pantalla de alguien que llega sin cuenta",
+      "url": "/",
+      "text": "PLAY COLLECT COMPETE BELONG NEXUS NEXUS 6000 JUGAR ENTRA EN LA ARENA INVENTARIO TUS CARTAS, TU PODER TIENDA SOBRES Y CONTENIDO LAS CARTAS HACEN LEYENDAS CARTA DESTACADA MARTEEN PLAY · COLLECT · COMPETE · BELONG",
+      "ctas": [
+        "NEXUS → /",
+        "Más opciones",
+        "JUGAR ENTRA EN LA ARENA",
+        "INVENTARIO TUS CARTAS, TU PODER",
+        "TIENDA SOBRES Y CONTENIDO",
+        "CARTA DESTACADA MARTEEN → /coleccion"
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "name": "01-registro",
+      "note": "Formulario de registro real",
+      "url": "/cuenta",
+      "text": "MI PERFIL Tu progreso competitivo de un vistazo. ENTRAR REGISTRO RECUPERAR CREAR CUENTA D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS",
+        "JUGAR → /jugar",
+        "ENTRAR",
+        "REGISTRO",
+        "RECUPERAR",
+        "CREAR CUENTA",
+        "INSTALAR",
+        "✕"
+      ],
+      "errors": []
+    },
+    {
+      "name": "02-tras-registro",
+      "note": "Dónde aterriza tras registrarse (sesión=true)",
+      "url": "/cuenta",
+      "text": "– SIN CLASIFICAR QAF63B150711_9391 Nivel 1 · 0 XP NIVEL 1 0 / 100 XP PARA EL NIVEL 2 Todavía no has puntuado. Acierta una predicción y entras en la escalera. 🎮 CERRAR SESIÓN PUNTOS 0 TORNEOS 0 ACIERTOS — RECOMPENSAS 1 COLECCIÓN 0 /331 0 cartas SOBRES 4 DRL CREDITS 6.000 RATING PVP 1000 POSICIÓN Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETITIVO → AMIGOS 0 EN LÍNEA 0 SOCIAL → 🎮 TU PERFIL QAF63B150711_9391 NIVEL 1 Vitrina vacía VER PERFIL EDITAR AJUSTES SONIDO ACTIVADO Volumen general 80 % MÚSICA Ambiente de cada sala, original y generado en el juego ACTIVADO 50 % EFECTOS Botones, sobres, cartas y partida ACTIVADO 80 % Se guarda en este dispositivo. Nada suena hasta que interactúas con el juego. AVATAR 🎮 🦅 🐉 🔥 👑 ⚡ 🎯 🦊 🐺 🌟 💎 🃏 REGIÓN COMPETITIVA EUROPA · EMEA AMÉRICA PACÍFICO CHINA Sin región solo apareces en la clasificación global. Elige una para entrar también en la regional. Tu saldo, tus cartas, tus puntos y tu rango los guarda y los valida el servidor. Nada de esto se puede modificar desde este dispositivo. D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1",
+        "JUGAR → /jugar",
+        "CERRAR SESIÓN",
+        "PUNTOS 0 → /ranking",
+        "TORNEOS 0 → /pickems",
+        "RECOMPENSAS 1 → /recompensas",
+        "COLECCIÓN 0 /331 0 cartas → /coleccion",
+        "SOBRES 4 → /inventario",
+        "COMPETITIVO → → /duelos/competitivo",
+        "SOCIAL → → /social",
+        "VER PERFIL → /jugador/93915dc0-4be7-4e26-a2e0-53c01c2e0df1",
+        "EDITAR → /jugador/93915dc0-4be7-4e26-a2e0-53c01c2e0df1?editar=1"
+      ],
+      "errors": []
+    },
+    {
+      "name": "03-home",
+      "note": "La home de una cuenta recién creada",
+      "url": "/",
+      "text": "PLAY COLLECT COMPETE BELONG NEXUS NEXUS 1 QAF63B150711 NIVEL 1 6000 JUGAR ENTRA EN LA ARENA INVENTARIO TUS CARTAS, TU PODER TIENDA SOBRES Y CONTENIDO TU PROGRESO VER PROGRESO → TEMPORADA · NIVEL 0/30 Nivel 1: 260 créditos CARTA DESTACADA MARTEEN PLAY · COLLECT · COMPETE · BELONG ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15",
+      "ctas": [
+        "NEXUS → /",
+        "Más opciones",
+        "JUGAR ENTRA EN LA ARENA",
+        "INVENTARIO TUS CARTAS, TU PODER",
+        "TIENDA SOBRES Y CONTENIDO",
+        "VER PROGRESO → → /progresion",
+        "CARTA DESTACADA MARTEEN → /coleccion",
+        "ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15 → /jugar/road-to-champions"
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "name": "04-jugar",
+      "note": "JUGAR (lo primero que pulsaría)",
+      "url": "/jugar",
+      "text": "NEXUS · MODOS DE JUEGO JUGAR ELIGE TU PRÓXIMO DESAFÍO CAMPAÑA PVE · DESTACADO EQUIPO NO VÁLIDO ROAD TO CHAMPIONS Quince nodos contra rosters reales del circuito. Tres capítulos, un jefe al final de cada uno. 0/15 NODOS · CAPÍTULO 1 CAP. 1 CLASIFICATORIO 0/5 CAP. 2 CIRCUITO 0/5 CAP. 3 CAMPEONES 0/5 COMPLETAR EQUIPO PVE EQUIPO NO VÁLIDO PARTIDA RÁPIDA Tu equipo contra un bot con la dificultad que elijas. Diez turnos. COMPLETAR EQUIPO PVP RANKED EQUIPO NO VÁLIDO COMPETITIVO Contra otra persona por rating. Tu posición en la escalera de NEXUS. COMPLETAR EQUIPO PRIVADO EQUIPO NO VÁLIDO RETAR A UN AMIGO Un duelo privado contra alguien de tu lista. No cuenta para el rating. COMPLETAR EQUIPO PVE · DRAFT DISPONIBLE DRAFT GAUNTLET Construye una plantilla carta a carta y supera cinco rivales. Nueva run NUEVA RUN CENTRO TÁCTICO · NO ES UN MODO DE DUELO TACTICAL COACH Prepara composiciones, diseña jugadas, planifica partidos y presenta estrategias a tu equipo. COMPOSICIONES PIZARRA TÁCTICA PLAN DE PARTIDO PRESENTACIÓN ABRIR TACTICAL COACH → DESAFÍOS DEL DÍA Tus objetivos diarios que se cumplen jugando duelos. Cualquier partida cuenta, también las de Road to Champions. TODOS LOS OBJETIVOS › DIARIA · CADUCA EN 8 H 52 MIN Gana un duelo EN PROGRESO 0 / 1 DIARIA · CADUCA EN 8 H 52 MIN Juega un duelo EN PROGRESO 0 / 1 MIS EQUIPOS HISTORIAL Y REPETICIONES D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1",
+        "JUGAR → /jugar",
+        "COMPLETAR EQUIPO → /duelos/mazos",
+        "COMPLETAR EQUIPO → /duelos/mazos",
+        "COMPLETAR EQUIPO → /duelos/mazos",
+        "COMPLETAR EQUIPO → /duelos/mazos",
+        "NUEVA RUN → /jugar/draft-gauntlet"
+      ],
+      "errors": []
+    },
+    {
+      "name": "05-duelo-sin-equipo",
+      "note": "Partida rápida sin equipo",
+      "url": "/duelos/jugar",
+      "text": "‹ DUELOS ? PREPARACIÓN Elige con qué mazo juegas y a quién te enfrentas. NO TIENES NINGÚN MAZO LISTO Para jugar necesitas un mazo de diez cartas con dos de cada rol. IR AL CONSTRUCTOR",
+      "ctas": [
+        "‹ DUELOS → /duelos",
+        "?",
+        "IR AL CONSTRUCTOR → /duelos/mazos"
+      ],
+      "errors": []
+    },
+    {
+      "name": "06-boveda",
+      "note": "INVENTARIO",
+      "url": "/boveda",
+      "text": "‹ MENÚ PRINCIPAL INVENTARIO TUS CARTAS, TU PODER COLECCIÓN TODAS TUS CARTAS Busca, filtra y mira cada carta de cerca. EQUIPOS TUS PLANTILLAS Y EL LABORATORIO Los diez que entran a la arena, el equipo activo y la estrategia del mazo. SETS COLECCIONES COMPLETAS Qué te falta para cerrar cada set y qué da al completarlo. D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1",
+        "JUGAR → /jugar",
+        "‹ MENÚ PRINCIPAL → /",
+        "COLECCIÓN TODAS TUS CARTAS Busca, filtra y mira cada carta de cerca. → /coleccion",
+        "EQUIPOS TUS PLANTILLAS Y EL LABORATORIO Los diez que entran a la arena, el equipo activo y la estrategia del mazo. → /duelos/mazos",
+        "SETS COLECCIONES COMPLETAS Qué te falta para cerrar cada set y qué da al completarlo. → /colecciones"
+      ],
+      "errors": []
+    },
+    {
+      "name": "07-coleccion",
+      "note": "Colección",
+      "url": "/coleccion",
+      "text": "COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 0 / 331 cartas 0,0 % COPIAS 0 DUPLICADAS 0 OVR MÁS ALTO — SERIAL MÁS BAJO — LEGENDARIA 0/3 ÉPICA 0/20 RARA 0/20 POCO COMÚN 0/119 COMÚN 0/169 CARTAS FORJA POR EQUIPO → LIBRO DE LA COLECCIÓN COMPLETA TUS SETS EQUIPOS REGIONES ROLES RAREZAS EDICIONES 100T 0/5 All Gamers 0/5 BBL Esports 0/12 Cloud9 0/5 DetonatioN FocusMe 0/5 Dragon Ranger Gaming 0/5 DRX 0/5 EDward Gaming 0/9 ENVY 0/2 Eternal Fire 0/5 Evil Geniuses 0/5 Fnatic 0/6 VER LOS 41 EQUIPOS ÁLBUM 331 cartas ⌕ Buscar por jugador, equipo o carta TODAS POSEÍDAS NO CONSEGUIDAS Orden OVR (mayor primero) OVR (menor primero) Rareza Jugador Equipo Copias FILTROS ? ? ? TU ÁLBUM ESTÁ VACÍO Tienes 4 sobres sin abrir. Cada carta que consigas ocupará su hueco aquí abajo, y las que aún no tienes se quedan a la vista para que sepas qué buscar. ABRIR SOBRES NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA VER 48 CARTAS MÁS QUEDAN 283 MAESTRÍA 44 conjuntos sobre las cartas que ya ",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1",
+        "JUGAR → /jugar",
+        "CARTAS",
+        "FORJA",
+        "POR EQUIPO → → /coleccion/equipos",
+        "EQUIPOS",
+        "REGIONES",
+        "ROLES",
+        "RAREZAS",
+        "EDICIONES",
+        "100T 0/5",
+        "All Gamers 0/5",
+        "BBL Esports 0/12",
+        "Cloud9 0/5",
+        "DetonatioN FocusMe 0/5",
+        "Dragon Ranger Gaming 0/5",
+        "DRX 0/5",
+        "EDward Gaming 0/9",
+        "ENVY 0/2"
+      ],
+      "errors": []
+    },
+    {
+      "name": "08-equipos",
+      "note": "Equipos",
+      "url": "/duelos/mazos",
+      "text": "‹ DUELOS NEXUS TEAM BUILDER MIS EQUIPOS 10 cartas · 2 Duelistas, 2 Controladores, 2 Iniciadores, 2 Centinelas, 2 Flex · sin repetir jugador TODAVÍA NO TIENES NINGÚN EQUIPO 1 CONSIGUE CARTAS Tienes 0 de 10. 2 CREA TU EQUIPO Diez huecos, agrupados por rol. 3 COMPLETA LOS ROLES 2 Duelistas · 2 Controladores · 2 Iniciadores · 2 Centinelas · 2 Flex 4 JUEGA PvE, PvP o un reto a un amigo. CREAR MI PRIMER EQUIPO ABRIR MIS 4 SOBRES →",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1",
+        "JUGAR → /jugar",
+        "‹ DUELOS → /duelos",
+        "CREAR MI PRIMER EQUIPO",
+        "ABRIR MIS 4 SOBRES → → /inventario"
+      ],
+      "errors": []
+    },
+    {
+      "name": "09-tienda",
+      "note": "TIENDA",
+      "url": "/tienda",
+      "text": "DESTACADO CHAMPIONS S · ÉPICA · 20 CARTAS CHAMPIONS S NUEVAS CARTAS. NUEVAS LEYENDAS. Las épicas de la temporada: los mejores del circuito en su mejor versión. Salen en el Sobre Champions y en el Sobre Icon. VER SOBRE CHAMPIONS VER CARTAS 5 DE 20 · CHAMPIONS S DESTACADO SOBRES 17 CAJAS 4 CARTAS 4 PACKS 2 SOBRES Consigue cartas aleatorias y amplía tu colección. VER TODOS · 17 → 1 SIN ABRIR SOBRE BRONCE NEXUS · 5 CARTAS ALEATORIAS Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % 🪙 1.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR O ABRIR DESTACADO SOBRE PLATA NEXUS · 6 CARTAS ALEATORIAS Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % 🪙 2.500 DRL Credits € · POR ANUNCIAR en euros COMPRAR SOBRE ORO NEXUS · 5 CARTAS ALEATORIAS Oro 50 % Masters 23 % Champions 10 % Prime 10 % Icon 7 % 🪙 4.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR NUEVO SOBRE CHAMPIONS EVENTO · 5 CARTAS ALEATORIAS Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % 🪙 8.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR CATÁLOGO TODOS RAREZA REGIONES EQUIPOS CAJAS 10 sobres del mismo tipo, a tu inventario y sin abrir. PRÓXIMAMENTE ×10 CAJA ESTÁNDAR 10 × Sobre Bronce · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % € · POR ANUNCIAR en euros PRÓXIMAMENTE PRÓXIMAMENTE ×10 CAJA PREMIUM 10 × Sobre Plata · 60 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % € · POR ANUNCIAR en euros PRÓXIMAMENTE PRÓXIMAMENTE ×10 CAJA MASTERS",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1",
+        "JUGAR → /jugar",
+        "VER SOBRE CHAMPIONS",
+        "VER CARTAS → #cartas",
+        "DESTACADO",
+        "SOBRES 17",
+        "CAJAS 4",
+        "CARTAS 4",
+        "PACKS 2",
+        "VER TODOS · 17 →"
+      ],
+      "errors": []
+    },
+    {
+      "name": "10-inventario",
+      "note": "Mis sobres",
+      "url": "/inventario",
+      "text": "COLECCIÓN · INVENTARIO MIS SOBRES Tus sobres sin abrir y tus cartas repetidas. Todas tus cartas están en tu colección. SOBRES 4 DUPLICADOS 0 LISTO PARA ABRIR SOBRE INICIAL Tienes 4 sobres sin abrir. 5 cartas reales por sobre. ABRIR SOBRE SOBRES SIN ABRIR · 4 SOBRE INICIAL ×3 ABRIR SOBRE BRONCE ×1 ABRIR DUPLICADOS · 0 Sin cartas repetidas: cada carta que abras suma a tu colección. D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1",
+        "JUGAR → /jugar",
+        "tu colección → /coleccion",
+        "Abrir Sobre Inicial → /abrir/inicial",
+        "ABRIR SOBRE → /abrir/inicial",
+        "SOBRE INICIAL ×3 ABRIR → /abrir/inicial",
+        "SOBRE BRONCE ×1 ABRIR → /abrir/estandar"
+      ],
+      "errors": []
+    },
+    {
+      "name": "11-progresion",
+      "note": "Progresión",
+      "url": "/progresion",
+      "text": "PROGRESO TU PROGRESO Nivel 1. Qué estás progresando, qué puedes recoger ya, qué hacer hoy y qué te falta para la siguiente recompensa. LOGROS Y PASE COMPLETOS → NIVEL DE CUENTA 1 0 / 100 XP DE CUENTA Faltan 100 para el nivel 2. Se gana jugando duelos y abriendo sobres. TEMPORADA · TEMPORADA 1 · ASCENSO QUEDAN 65 DÍAS 0 / 30 0 / 1.000 XP DE TEMPORADA La xp de temporada se gana reclamando objetivos. Cada nivel abre una recompensa del carril. No tienes nada pendiente de recoger. Completa objetivos para sumar xp de temporada. JUGAR QUÉ HACER AHORA OBJETIVOS HOY RENUEVA EN 8 H 51 MIN Gana un duelo 0 / 1 +400 créditos +300 XP de temporada EN PROGRESO JUGAR Abre un sobre 0 / 1 +200 créditos +150 XP de temporada EN PROGRESO IR A SOBRES Juega un duelo 0 / 1 +250 créditos +200 XP de temporada EN PROGRESO JUGAR ESTA SEMANA RENUEVA EN 1 D 8 H Abre 10 sobres 0 / 10 +1.500 créditos +900 XP de temporada EN PROGRESO IR A SOBRES Consigue 5 cartas nuevas 0 / 5 +1.500 créditos +900 XP de temporada EN PROGRESO IR A SOBRES TEMPORADA Juega 25 duelos en la temporada 0 / 25 ×2 2 × SOBRE BRONCE +2.500 XP de temporada EN PROGRESO JUGAR Guarda tu primer mazo de duelo 0 / 1 +1.000 créditos +800 XP de temporada EN PROGRESO MIS EQUIPOS Declara tu región competitiva 0 / 1 +500 créditos +400 XP de temporada EN PROGRESO MI CUENTA HITOS Reúne 50 cartas distintas 0 / 50 +3.000 créditos +2.000 XP de temporada EN PROGRESO IR A SOBRES Reúne 150 cartas distintas 0 / 150 ×2 2 × SOBRE PLATA +5.000 XP de temporada EN PROGRESO IR A SOBRES Alcanza el rango Oro 0 / 400 +5.000 créditos +4.000 XP de temporada EN PROGRES",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS",
+        "JUGAR → /jugar",
+        "LOGROS Y PASE COMPLETOS → → /logros",
+        "JUGAR → /jugar",
+        "JUGAR → /jugar",
+        "IR A SOBRES → /tienda",
+        "IR A SOBRES → /tienda",
+        "IR A SOBRES → /tienda"
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+      ]
+    },
+    {
+      "name": "12-perfil",
+      "note": "Perfil",
+      "url": "/cuenta",
+      "text": "– SIN CLASIFICAR QAF63B150711_9391 Nivel 1 · 0 XP NIVEL 1 0 / 100 XP PARA EL NIVEL 2 Todavía no has puntuado. Acierta una predicción y entras en la escalera. 🎮 CERRAR SESIÓN PUNTOS 0 TORNEOS 0 ACIERTOS — RECOMPENSAS 1 COLECCIÓN 0 /331 0 cartas SOBRES 4 DRL CREDITS 6.000 RATING PVP 1000 POSICIÓN Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETITIVO → AMIGOS 0 EN LÍNEA 0 SOCIAL → 🎮 TU PERFIL QAF63B150711_9391 NIVEL 1 Vitrina vacía VER PERFIL EDITAR AJUSTES SONIDO ACTIVADO Volumen general 80 % MÚSICA Ambiente de cada sala, original y generado en el juego ACTIVADO 50 % EFECTOS Botones, sobres, cartas y partida ACTIVADO 80 % Se guarda en este dispositivo. Nada suena hasta que interactúas con el juego. AVATAR 🎮 🦅 🐉 🔥 👑 ⚡ 🎯 🦊 🐺 🌟 💎 🃏 REGIÓN COMPETITIVA EUROPA · EMEA AMÉRICA PACÍFICO CHINA Sin región solo apareces en la clasificación global. Elige una para entrar también en la regional. Tu saldo, tus cartas, tus puntos y tu rango los guarda y los valida el servidor. Nada de esto se puede modificar desde este dispositivo. D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS",
+        "JUGAR → /jugar",
+        "CERRAR SESIÓN",
+        "PUNTOS 0 → /ranking",
+        "TORNEOS 0 → /pickems",
+        "RECOMPENSAS 1 → /recompensas",
+        "COLECCIÓN 0 /331 0 cartas → /coleccion",
+        "SOBRES 4 → /inventario",
+        "COMPETITIVO → → /duelos/competitivo",
+        "SOCIAL → → /social",
+        "VER PERFIL → /jugador/93915dc0-4be7-4e26-a2e0-53c01c2e0df1",
+        "EDITAR → /jugador/93915dc0-4be7-4e26-a2e0-53c01c2e0df1?editar=1"
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+        "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+      ]
+    },
+    {
+      "name": "13-home-390",
+      "note": "La home en móvil",
+      "url": "/",
+      "text": "PLAY COLLECT COMPETE BELONG NEXUS NEXUS 1 6000 JUGAR ENTRA EN LA ARENA INVENTARIO TUS CARTAS, TU PODER TIENDA SOBRES Y CONTENIDO TU PROGRESO VER PROGRESO → TEMPORADA · NIVEL 0/30 CARTA DESTACADA MARTEEN ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15",
+      "ctas": [
+        "NEXUS → /",
+        "Más opciones",
+        "JUGAR ENTRA EN LA ARENA",
+        "INVENTARIO TUS CARTAS, TU PODER",
+        "TIENDA SOBRES Y CONTENIDO",
+        "VER PROGRESO → → /progresion",
+        "CARTA DESTACADA MARTEEN → /coleccion",
+        "ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15 → /jugar/road-to-champions"
+      ],
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    }
+  ],
+  "api": {
+    "/api/game/state": {
+      "status": 200,
+      "body": {
+        "credits": 6000,
+        "xp": 0,
+        "ownedCards": [],
+        "origins": {},
+        "lockedUids": [],
+        "unopenedPacks": {
+          "inicial": 3,
+          "estandar": 1
+        },
+        "pity": {
+          "version": 1,
+          "counters": {}
+        },
+        "packsOpened": 0,
+        "mintCounts": {},
+        "catalogPatch": {
+          "cards": [],
+          "players": []
+        },
+        "artworks": {}
+      }
+    },
+    "/api/game/starter": {
+      "status": 200,
+      "body": {
+        "eligible": false,
+        "reason": "HAS_UNOPENED_STARTER",
+        "deckReady": false,
+        "unopenedStarter": 3,
+        "freeClaims": 0,
+        "maxFreeClaims": 8,
+        "missingRoles": [
+          {
+            "role": "Duelista",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Controlador",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Iniciador",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Centinela",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Flex",
+            "have": 0,
+            "need": 2
+          }
+        ]
+      }
+    },
+    "/api/game/daily-loop": {
+      "status": 200,
+      "body": {
+        "primaryAction": {
+          "id": "journey-open",
+          "kind": "open",
+          "ftue": true,
+          "eyebrow": "Primera sesión · 1/4 · Abre",
+          "title": "Abre tu primer sobre",
+          "detail": "Tienes 4 sobres esperando. Cada carta es un jugador real con sus estadísticas.",
+          "cta": "Abrir mi primer sobre",
+          "label": "Abrir mi primer sobre",
+          "href": "/abrir/inicial",
+          "progress": {
+            "value": 0,
+            "max": 4,
+            "label": "0/4"
+          },
+          "source": "packs",
+          "reason": "Es el siguiente paso de tu primera sesión."
+        },
+        "journey": {
+          "status": "ACTIVE",
+          "steps": [
+            {
+              "id": "open",
+              "index": 1,
+              "verb": "Abre",
+              "line": "Tu colección empieza aquí.",
+              "done": false,
+              "current": true
+            },
+            {
+              "id": "collect",
+              "index": 2,
+              "verb": "Colecciona",
+              "line": "Cada carta representa un jugador real.",
+              "done": false,
+              "current": false
+            },
+            {
+              "id": "build",
+              "index": 3,
+              "verb": "Construye",
+              "line": "Forma una plantilla legal de diez cartas.",
+              "done": false,
+              "current": false
+            },
+            {
+              "id": "play",
+              "index": 4,
+              "verb": "Juega",
+              "line": "Pon tu plantilla a prueba.",
+              "done": false,
+              "current": false
+            }
+          ],
+          "currentStep": "open",
+          "completedSteps": [],
+          "progress": {
+            "value": 0,
+            "max": 4,
+            "label": "0/4"
+          },
+          "isComplete": false,
+          "welcome": true,
+          "canSkip": true,
+          "justCompleted": false,
+          "nextAction": {
+            "step": "open",
+            "eyebrow": "Primera sesión · 1/4 · Abre",
+            "title": "Abre tu primer sobre",
+            "detail": "Tienes 4 sobres esperando. Cada carta es un jugador real con sus estadísticas.",
+            "cta": "Abrir mi primer sobre",
+            "href": "/abrir/inicial",
+            "secondary": null
+          },
+          "context": {
+            "unopenedPacks": 4,
+            "firstPackId": "inicial",
+            "shortages": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ],
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ],
+            "readyDeck": null
+          }
+        },
+        "packs": {
+          "unopened": 4
+        }
+      }
+    }
+  },
+  "openPass": {
+    "at": "2026-09-26T15:10:10.233Z",
+    "steps": [
+      {
+        "name": "20-sobre-sellado",
+        "note": "El primer sobre, antes de abrir",
+        "url": "/abrir/inicial",
+        "text": "✕ SOBRE INICIAL 5 CARTAS REVELAR Una a una · Espacio Revelar todas NEXUS SOBRE INICIAL 5 CARTAS ABRIR SOBRE Toca · Espacio · Enter — o arrastra sobre la costura →",
+        "ctas": [
+          "✕",
+          "REVELAR",
+          "Revelar todas",
+          "ABRIR SOBRE"
+        ],
+        "errors": []
+      },
+      {
+        "name": "21-resumen-primer-sobre",
+        "note": "Resumen del primer sobre (sin explicación de la carta)",
+        "url": "/abrir/inicial",
+        "text": "✕ SOBRE INICIAL 5 CARTAS NEXUS NEXUS NEXUS NEXUS NEXUS REVELAR Una a una · Espacio Revelar todas OMITIR ⏭",
+        "ctas": [
+          "✕",
+          "REVELAR",
+          "Revelar todas",
+          "OMITIR ⏭"
+        ],
+        "errors": []
+      },
+      {
+        "name": "22-coleccion-con-cartas",
+        "note": "Colección tras el primer sobre",
+        "url": "/coleccion",
+        "text": "COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 5 / 331 cartas 1,5 % COPIAS 5 DUPLICADAS 0 OVR MÁS ALTO 87 SERIAL MÁS BAJO — LEGENDARIA 0/3 ÉPICA 0/20 RARA 0/20 POCO COMÚN 0/119 COMÚN 5/169 TU CARTA DE MAYOR OVR OVR, después rareza y serial PRIMERA SESIÓN · 2/4 · COLECCIONA ESTAS SON TUS CARTAS Cada carta es un jugador real: su rol, su OVR y tres estadísticas de combate, Stronghold, Gamesense y Entryfrag. Toca una carta para ver su ficha. Para tu plantilla necesitas dos jugadores distintos de cada rol: · DUELISTA 1/2 · CONTROLADOR 1/2 · INICIADOR 0/2 · CENTINELA 1/2 ✓ FLEX 2/2 VER SOLO MIS CARTAS ABRIR MIS SOBRES CARTAS FORJA POR EQUIPO → TUS CARTAS DE MAYOR OVR LIBRO DE LA COLECCIÓN COMPLETA TUS SETS EQUIPOS REGIONES ROLES RAREZAS EDICIONES Karmine Corp 1/4 Cloud9 1/5 PCIFIC Esports 1/6 Team Heretics 1/11 NRG 1/16 100T 0/5 All Gamers 0/5 BBL Esports 0/12 DetonatioN FocusMe 0/5 Dragon Ranger Gaming 0/5 DRX 0/5 EDward Gaming 0/9 VER LOS 41 EQUIPOS ÁLBUM 331 cartas ⌕ Buscar por jugador, equipo o carta TODAS POSEÍDAS NO CONSEGUIDAS Orden OVR (mayor primero) OVR (menor primero) Rareza Jugador Equipo Copias FILTROS NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUIDA NO CONSEGUI",
+        "ctas": [
+          "NEXUS LOBBY → /",
+          "COLECCIÓN → /coleccion",
+          "EQUIPOS → /duelos/mazos",
+          "TIENDA → /tienda",
+          "TEMPORADA → /temporada",
+          "MUNDO → /mundo",
+          "1 NIVEL 90% → /jugador/me",
+          "MÁS 1",
+          "JUGAR → /jugar",
+          "Tu carta de mayor OVR: ethan__base, OVR 87. Abrir ficha → /coleccion/carta/ethan__base",
+          "VER SOLO MIS CARTAS",
+          "ABRIR MIS SOBRES → /inventario",
+          "CARTAS",
+          "FORJA",
+          "POR EQUIPO → → /coleccion/equipos"
+        ],
+        "errors": [
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ]
+      },
+      {
+        "name": "23-constructor",
+        "note": "Constructor con 5 cartas",
+        "url": "/duelos/mazos?nuevo=1",
+        "text": "PRIMERA SESIÓN · 3/4 · CONSTRUYE TU PRIMERA PLANTILLA Diez cartas: dos por rol (Duelista, Controlador, Iniciador, Centinela y Flex), sin repetir jugador. Elige tú o pulsa «Autocompletar equipo» (rellena con tus cartas de mayor OVR que cumplen las reglas). Cuenta cuando está guardado y completo; si es tu primer equipo legal, se activa al guardarlo. ‹ MIS EQUIPOS NEXUS TEAM BUILDER Nombre del equipo 0 / 10 CARTAS SIN GUARDAR 10 cartas · 2 Duelistas · 2 Controladores · 2 Iniciadores · 2 Centinelas · 2 Flex · sin repetir jugador GUARDAR EQUIPO TIENES 5 DE 10 Un equipo necesita 10 cartas tuyas. ABRIR MIS SOBRES → TU COLECCIÓN 5 de 5 Buscar carta Todos Duelista·2 Controlador·2 Iniciador·2 Centinela·2 Flex·2 Equipo Todos los equipos C9 KC NAVI NRG PCF Rareza Cualquier rareza Legendaria Épica Rara Poco común Común OVR mínima Cualquier OVR OVR 70+ OVR 75+ OVR 80+ OVR 85+ Solo repetidas ORDEN OVR NOMBRE RAREZA RECIENTES SH 58 GS 79 EF 48 + AÑADIR SH 66 GS 60 EF 50 + AÑADIR SH 51 GS 26 EF 81 + AÑADIR SH 56 GS 96 EF 50 + AÑADIR SH 63 GS 34 EF 69 + AÑADIR ✦DUELISTA 0/2 + DUELISTA + DUELISTA ◍CONTROLADOR 0/2 + CONTROLADOR + CONTROLADOR ➤INICIADOR 0/2 + INICIADOR + INICIADOR ▣CENTINELA 0/2 + CENTINELA + CENTINELA ◆FLEX 0/2 + FLEX + FLEX Teclado: Tab para moverte · Enter abre el hueco · Supr quita la carta · Alt+↑/↓ la mueve dentro de su rol. ESTADO DEL EQUIPO 0 / 10 CARTAS Faltan: 2 Duelistas · 2 Controladores · 2 Iniciadores · 2 Centinelas · 2 Flex Pulsa un hueco o una carta de tu colección para empezar. LABORATORIO DE EQUIPO SIN CARTAS AUTOCOMPLETAR Rellena los huecos con tus cartas de ",
+        "ctas": [
+          "NEXUS LOBBY → /",
+          "COLECCIÓN → /coleccion",
+          "EQUIPOS → /duelos/mazos",
+          "TIENDA → /tienda",
+          "TEMPORADA → /temporada",
+          "MUNDO → /mundo",
+          "1 NIVEL 90% → /jugador/me",
+          "MÁS 1",
+          "JUGAR → /jugar",
+          "‹ MIS EQUIPOS",
+          "GUARDAR EQUIPO",
+          "ABRIR MIS SOBRES → → /inventario",
+          "Todos",
+          "Duelista·2",
+          "Controlador·2",
+          "Iniciador·2",
+          "Centinela·2",
+          "Flex·2",
+          "OVR",
+          "NOMBRE",
+          "RAREZA",
+          "RECIENTES",
+          "SH 58 GS 79 EF 48",
+          "SH 66 GS 60 EF 50",
+          "SH 51 GS 26 EF 81",
+          "+ DUELISTA",
+          "+ DUELISTA",
+          "+ CONTROLADOR",
+          "+ CONTROLADOR",
+          "+ INICIADOR",
+          "+ INICIADOR",
+          "+ CENTINELA",
+          "+ CENTINELA",
+          "+ FLEX",
+          "+ FLEX",
+          "AUTOCOMPLETAR EQUIPO"
+        ],
+        "errors": []
+      },
+      {
+        "name": "24-home-tras-sobre",
+        "note": "La home no cambia tras el primer sobre",
+        "url": "/",
+        "text": "PLAY COLLECT COMPETE BELONG NEXUS NEXUS 1 QAF63B150711 NIVEL 1 6000 JUGAR ENTRA EN LA ARENA INVENTARIO TUS CARTAS, TU PODER TIENDA SOBRES Y CONTENIDO TU PROGRESO VER PROGRESO → 2 RECOMPENSAS POR RECLAMAR RECLAMAR TEMPORADA · NIVEL 0/30 Nivel 1: 260 créditos CARTA DESTACADA ETHAN EN TU COLECCIÓN PLAY · COLLECT · COMPETE · BELONG ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15",
+        "ctas": [
+          "NEXUS → /",
+          "Más opciones",
+          "JUGAR ENTRA EN LA ARENA",
+          "INVENTARIO TUS CARTAS, TU PODER",
+          "TIENDA SOBRES Y CONTENIDO",
+          "VER PROGRESO → → /progresion",
+          "2 RECOMPENSAS POR RECLAMAR RECLAMAR → /progresion",
+          "CARTA DESTACADA ETHAN EN TU COLECCIÓN → /coleccion",
+          "ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15 → /jugar/road-to-champions"
+        ],
+        "errors": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "Failed to load resource: the server responded with a status of 404 (Not Found)",
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ]
+      }
+    ]
+  }
+}

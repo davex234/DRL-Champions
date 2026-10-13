@@ -1,0 +1,9 @@
+PASS 3D · persona y arena listas en la build de producción {"stage":"3d","status":"playing","card":"lar0k__future-star","code":"TUR","arena":"TUR","human":"ready","canvases":2,"csp":[]}
+PASS 3D · assets del walkout servidos por la app (mismo origen, 200) [{"u":"/walkout/human/rocketbox-player.gltf","s":200,"b":23585},{"u":"/walkout/human/rocketbox-player.bin","s":200,"b":794936},{"u":"/walkout/human/rb-head-albedo.webp","s":200,"b":0},{"u":"/walkout/human/rb-head-normal.webp","s":200,"b":0},{"u":"/walkout/human/rb-body-albedo.webp","s":200,"b":0},{"
+PASS 3D · la animación llega al final {"stage":"3d","status":"done","card":"lar0k__future-star","code":"TUR","arena":"TUR","human":"ready","canvases":2,"csp":[]}
+PASS 3D · sin violaciones de CSP []
+PASS reducido · versión 2D, sin lienzo 3D {"stage":"2d","status":"idle","card":"absol__future-star","code":"JPN","canvases":1,"csp":[]}
+PASS producción · localStorage drl:walkout3d=1 + arnés QA → apertura de siempre (0 walkouts) {"phase":"buildup","walkouts":"0","w":false}
+PASS producción · la apertura apagada no descarga modelos 3D []
+PASS sin errores de consola (salvo la BD, ausente a propósito en el contenedor de QA) []
+PASS sin WebGL · respaldo 2D automático con la identidad de la carta {"webgl":false,"stage":"2d","status":"playing","code":"USA"}

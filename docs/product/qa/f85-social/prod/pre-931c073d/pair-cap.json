@@ -1,0 +1,12 @@
+{
+ "at": "2026-10-04T21:25:10.513Z",
+ "aToB": {
+  "status": 429,
+  "code": "CHALLENGE_LIMIT",
+  "error": "Demasiados retos a la misma persona en poco tiempo: inténtalo más tarde"
+ },
+ "bToA": {
+  "status": 200,
+  "code": "CREATED"
+ }
+}

@@ -1,0 +1,66 @@
+{
+  "phase": "F69",
+  "canonical": {
+    "equipo": "el equipo de 10 cartas de duelo (nunca «mazo» en lo visible)",
+    "plantilla": "solo los 5 jugadores del Tactical Coach",
+    "rango de puntos": "Bronce…Nexus por profiles.points (Pick'ems + duelos contra el bot)",
+    "rating ranked (Elo) / puesto ranked": "el ranked PvP (sin tiers con nombre, contrato F55)",
+    "reclamar": "verbo único para cobrar recompensas (antes convivía «cobrar»)",
+    "XP de cuenta": "la XP del nivel de cuenta (distinta de la XP del pase)",
+    "DRL Credits / créditos": "moneda (marca «DRL Credits»; en frase, «créditos»)",
+    "sobre": "pack (siempre «sobre» en lo visible)"
+  },
+  "errorCopy": {
+    "fix": "playerMessage() (src/components/ui/game/GameStates.tsx) en las pantallas que pintaban {error} crudo; TECHNICAL_PATTERN ampliado: load failed, network connection, operation was aborted, jwt, permission denied, violates, check constraint, duplicate key, row-level security.",
+    "files": [
+      "src/app/cuenta/page.tsx",
+      "src/app/duelos/competitivo/historial/page.tsx",
+      "src/app/duelos/mazos/page.tsx",
+      "src/app/entrenador/composiciones/page.tsx",
+      "src/app/entrenador/plan/page.tsx",
+      "src/components/campaign/CampaignHero.tsx",
+      "src/components/campaign/CampaignPreMatch.tsx",
+      "src/components/campaign/NodeSheet.tsx",
+      "src/components/competitive/ranked/RankedLadder.tsx",
+      "src/components/competitive/ranked/RankedPlayPanel.tsx",
+      "src/components/draft/DraftGauntletScreen.tsx",
+      "src/components/player/ShowcaseEditor.tsx",
+      "src/components/store/PurchaseModal.tsx",
+      "src/components/deck/AddToDeckSheet.tsx"
+    ],
+    "kept": "Mensajes de servidor ya en español (4xx de negocio) pasan tal cual; lo técnico o en inglés sale como frase neutra. F68-004 (GoTrue) sigue con authErrorMessage().",
+    "liveEvidence": "journeys/raw/A-f69-auth.json: «Correo o contraseña incorrectos.» en contraseña mala y correo inexistente (sin enumerar)"
+  },
+  "terminology": {
+    "filesChanged": [
+      "src/app/api/game/duel/route.ts, src/app/api/game/duel/matchmaking/route.ts («Equipo no válido»)",
+      "src/app/boveda/page.tsx («estrategia del equipo», «Tus equipos y el laboratorio»)",
+      "src/design/nav.ts (pista de Mis equipos: «Tus equipos de diez cartas…»)",
+      "src/app/duelos/page.tsx («Equipos listos», «equipo listo para competir»)",
+      "src/app/duelos/pvp/page.tsx, src/app/social/page.tsx, src/lib/duel/client.ts («No se pudieron cargar tus equipos»)",
+      "src/components/deck/AddToDeckSheet.tsx («Añadir al equipo», «Crear equipo con esta carta»)",
+      "src/components/duel/MatchBoard.tsx («Suma de OVR del equipo»)",
+      "src/components/duel/pvp/PvpLobby.tsx, RankedMatchFound.tsx, RankedSearch.tsx («Con el equipo», «Equipo: …», «Elige equipo»)",
+      "src/components/lobby/LobbyStage.tsx («Equipo listo / incompleto»)",
+      "src/components/social/ChallengeSheet.tsx, SocialActions.tsx («Tu equipo», «Elige un equipo»)",
+      "src/lib/duel/gameplayUx.ts, src/lib/duel/usePvpQueue.ts, src/lib/campaign/presentation.ts («equipo válido», «Mis equipos»)",
+      "src/components/events/LiveEventPanel.tsx, src/components/liveEvents/EventObjectives.tsx, EventRewards.tsx, src/app/torneos/[id]/page.tsx («Reclamar/Reclamado/reclamada»)",
+      "src/components/progression/LevelHero.tsx («XP de cuenta»)",
+      "F68-013: src/app/cuenta/page.tsx, src/components/competitive/CompetitiveSummary.tsx, src/components/competitive/ranked/RankedHero.tsx, src/app/competitivo/page.tsx, src/app/ranking/page.tsx, src/components/progression/RankBadge.tsx"
+    ],
+    "pinsUpdated": [
+      "src/components/competitive/ranked/ranked.render.test.tsx («Equipo: …»)"
+    ]
+  },
+  "residualSweep": {
+    "mazoInVisibleText": 0,
+    "englishVisible": "solo «DRL Credits» (marca de la moneda)",
+    "plantillaForDuelTeam": 0,
+    "method": "grep de textos JSX/comillas en src/app y src/components (sin admin ni design-system); resto de coincidencias son nombres de variable o rutas (/duelos/mazos)"
+  },
+  "notChanged": [
+    "rutas (/duelos/mazos se mantiene por compatibilidad de enlaces)",
+    "nombres de variables y tipos (deck, mazo) en código",
+    "panel de administración (vocabulario interno)"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "method": "consultas de solo lectura en la BD real (db-audit.raw.txt)",
+  "checks": {
+    "negative_credits": 0,
+    "user_cards_unknown_card": 0,
+    "duplicate_serials": 0,
+    "users_in_two_live_pvp": 0,
+    "live_pvp_overdue_5min": 0,
+    "self_matches": 0,
+    "finished_without_result": 0,
+    "pvp_settled_twice": 0,
+    "ledger_dup_ref": 0,
+    "queue_matched_orphan": 0,
+    "queue_active_per_user_gt1": 0,
+    "active_deck_missing": 0,
+    "pve_in_progress_older_7d": 0
+  },
+  "admins": 1,
+  "anomalies": "ninguna"
+}

@@ -1,0 +1,1067 @@
+{
+  "question": "¿Cuánto decide el desempate y es justo? (OVR impreso frente a combate)",
+  "rules": "marcador → suma de OVR IMPRESO (+1 punto) → margen de estadística declarada → DRAW",
+  "fieldHARD": {
+    "decidedBy": {
+      "NONE": 17,
+      "OVR_TIEBREAK": 70153,
+      "SCORE": 228501,
+      "STAT_MARGIN": 1329
+    },
+    "drawRate": 0.0001,
+    "tiedEncounters": {
+      "0": 282322,
+      "1": 17352,
+      "2": 323,
+      "3": 3
+    },
+    "ovrTiebreak": {
+      "n": 70153,
+      "shareOfMatches": 0.2338,
+      "winnerHadLowerCombatSum": 0.3231,
+      "winnerHadLowerDeclaredStats": 0.418,
+      "meanOvrGap": 17.4
+    },
+    "shadow": {
+      "CURRENT": {
+        "changedWinner": 0,
+        "draws": 0.00006,
+        "by": {
+          "DRAW": 17,
+          "OVR_TIEBREAK": 70153,
+          "SCORE": 228501,
+          "STAT_MARGIN": 1329
+        },
+        "firstAttackerWin": {
+          "n": 299983,
+          "rate": 0.4575,
+          "lo": 0.4557,
+          "hi": 0.4593
+        },
+        "tiedMatchesResolved": 71482,
+        "tiebreakWinnerHadMoreCombat": 0.6721,
+        "tiebreakWinnerDeclaredMore": 0.5803
+      },
+      "NO_OVR": {
+        "changedWinner": 0.10001,
+        "draws": 0.00232,
+        "by": {
+          "DRAW": 695,
+          "SCORE": 228501,
+          "STAT_MARGIN": 70804
+        },
+        "firstAttackerWin": {
+          "n": 299305,
+          "rate": 0.4826,
+          "lo": 0.4808,
+          "hi": 0.4843
+        },
+        "tiedMatchesResolved": 70804,
+        "tiebreakWinnerHadMoreCombat": 0.6652,
+        "tiebreakWinnerDeclaredMore": 1
+      },
+      "COMBAT_SUM": {
+        "changedWinner": 0.07766,
+        "draws": 0.00001,
+        "by": {
+          "COMBAT_SUM": 71181,
+          "DRAW": 4,
+          "SCORE": 228501,
+          "STAT_MARGIN": 314
+        },
+        "firstAttackerWin": {
+          "n": 299996,
+          "rate": 0.4604,
+          "lo": 0.4586,
+          "hi": 0.4621
+        },
+        "tiedMatchesResolved": 71495,
+        "tiebreakWinnerHadMoreCombat": 0.9956,
+        "tiebreakWinnerDeclaredMore": 0.6631
+      },
+      "STAT_FIRST": {
+        "changedWinner": 0.09775,
+        "draws": 0.00006,
+        "by": {
+          "DRAW": 17,
+          "OVR_TIEBREAK": 678,
+          "SCORE": 228501,
+          "STAT_MARGIN": 70804
+        },
+        "firstAttackerWin": {
+          "n": 299983,
+          "rate": 0.4825,
+          "lo": 0.4807,
+          "hi": 0.4843
+        },
+        "tiedMatchesResolved": 71482,
+        "tiebreakWinnerHadMoreCombat": 0.6651,
+        "tiebreakWinnerDeclaredMore": 0.9905
+      },
+      "TIE_TO_SECOND": {
+        "changedWinner": 0.12317,
+        "draws": 0,
+        "by": {
+          "SCORE": 228501,
+          "SECOND_ATTACKER": 71499
+        },
+        "firstAttackerWin": {
+          "n": 300000,
+          "rate": 0.3344,
+          "lo": 0.3327,
+          "hi": 0.3361
+        },
+        "tiedMatchesResolved": 71499,
+        "tiebreakWinnerHadMoreCombat": 0.4699,
+        "tiebreakWinnerDeclaredMore": 0.3732
+      }
+    },
+    "shadowCurrentMismatches": 0
+  },
+  "fieldNORMAL": {
+    "decidedBy": {
+      "NONE": 9,
+      "OVR_TIEBREAK": 13048,
+      "SCORE": 46672,
+      "STAT_MARGIN": 271
+    },
+    "ovrTiebreak": {
+      "n": 13048,
+      "shareOfMatches": 0.2175,
+      "winnerHadLowerCombatSum": 0.3203,
+      "winnerHadLowerDeclaredStats": 0.4332,
+      "meanOvrGap": 17.61
+    },
+    "shadow": {
+      "CURRENT": {
+        "changedWinner": 0,
+        "draws": 0.00015,
+        "by": {
+          "DRAW": 9,
+          "OVR_TIEBREAK": 13048,
+          "SCORE": 46672,
+          "STAT_MARGIN": 271
+        },
+        "firstAttackerWin": {
+          "n": 59991,
+          "rate": 0.4727,
+          "lo": 0.4687,
+          "hi": 0.4767
+        },
+        "tiedMatchesResolved": 13319,
+        "tiebreakWinnerHadMoreCombat": 0.6759,
+        "tiebreakWinnerDeclaredMore": 0.5669
+      },
+      "NO_OVR": {
+        "changedWinner": 0.09615,
+        "draws": 0.0021,
+        "by": {
+          "DRAW": 126,
+          "SCORE": 46672,
+          "STAT_MARGIN": 13202
+        },
+        "firstAttackerWin": {
+          "n": 59874,
+          "rate": 0.4812,
+          "lo": 0.4772,
+          "hi": 0.4852
+        },
+        "tiedMatchesResolved": 13202,
+        "tiebreakWinnerHadMoreCombat": 0.6326,
+        "tiebreakWinnerDeclaredMore": 1
+      },
+      "COMBAT_SUM": {
+        "changedWinner": 0.07168,
+        "draws": 0,
+        "by": {
+          "COMBAT_SUM": 13286,
+          "SCORE": 46672,
+          "STAT_MARGIN": 42
+        },
+        "firstAttackerWin": {
+          "n": 60000,
+          "rate": 0.4732,
+          "lo": 0.4692,
+          "hi": 0.4772
+        },
+        "tiedMatchesResolved": 13328,
+        "tiebreakWinnerHadMoreCombat": 0.9968,
+        "tiebreakWinnerDeclaredMore": 0.6297
+      },
+      "STAT_FIRST": {
+        "changedWinner": 0.0942,
+        "draws": 0.00015,
+        "by": {
+          "DRAW": 9,
+          "OVR_TIEBREAK": 117,
+          "SCORE": 46672,
+          "STAT_MARGIN": 13202
+        },
+        "firstAttackerWin": {
+          "n": 59991,
+          "rate": 0.4812,
+          "lo": 0.4772,
+          "hi": 0.4852
+        },
+        "tiedMatchesResolved": 13319,
+        "tiebreakWinnerHadMoreCombat": 0.6326,
+        "tiebreakWinnerDeclaredMore": 0.9912
+      },
+      "TIE_TO_SECOND": {
+        "changedWinner": 0.11425,
+        "draws": 0,
+        "by": {
+          "SCORE": 46672,
+          "SECOND_ATTACKER": 13328
+        },
+        "firstAttackerWin": {
+          "n": 60000,
+          "rate": 0.3586,
+          "lo": 0.3547,
+          "hi": 0.3624
+        },
+        "tiedMatchesResolved": 13328,
+        "tiebreakWinnerHadMoreCombat": 0.4821,
+        "tiebreakWinnerDeclaredMore": 0.4432
+      }
+    }
+  },
+  "edition": {
+    "playersWithOvrSpreadAcrossEditions": 91,
+    "sameRoleTested": 68,
+    "combatIdenticalAcrossEditions": 91,
+    "effectOfHigherOvrEdition": {
+      "pairs": 27200,
+      "mean": 0.02561,
+      "sd": 0.15787,
+      "se": 0.00096,
+      "lo": 0.02373,
+      "hi": 0.02748
+    },
+    "outcomeChangedRate": 0.0257,
+    "note": "El combate es idéntico entre ediciones; la única vía de efecto es el desempate por suma de OVR impreso.",
+    "perPlayer": [
+      {
+        "player": "xross",
+        "hi": "xross__future-star",
+        "hiOvr": 95,
+        "lo": "xross__base",
+        "loOvr": 76,
+        "gap": 19,
+        "pairs": 400,
+        "meanDelta": 0.07,
+        "changedRate": 0.07
+      },
+      {
+        "player": "s0pp",
+        "hi": "s0pp__champions-s",
+        "hiOvr": 94,
+        "lo": "s0pp__base",
+        "loOvr": 79,
+        "gap": 15,
+        "pairs": 400,
+        "meanDelta": 0.0875,
+        "changedRate": 0.0875
+      },
+      {
+        "player": "koalanoob",
+        "hi": "koalanoob__masters-sdc",
+        "hiOvr": 91,
+        "lo": "koalanoob__base",
+        "loOvr": 77,
+        "gap": 14,
+        "pairs": 400,
+        "meanDelta": 0.0575,
+        "changedRate": 0.0575
+      },
+      {
+        "player": "echo",
+        "hi": "echo__future-star",
+        "hiOvr": 90,
+        "lo": "echo__base",
+        "loOvr": 79,
+        "gap": 11,
+        "pairs": 400,
+        "meanDelta": 0.045,
+        "changedRate": 0.045
+      },
+      {
+        "player": "marteen",
+        "hi": "marteen__record-breaker",
+        "hiOvr": 95,
+        "lo": "marteen__base",
+        "loOvr": 84,
+        "gap": 11,
+        "pairs": 400,
+        "meanDelta": 0.0425,
+        "changedRate": 0.0425
+      },
+      {
+        "player": "sato",
+        "hi": "sato__future-star",
+        "hiOvr": 95,
+        "lo": "sato__base",
+        "loOvr": 84,
+        "gap": 11,
+        "pairs": 400,
+        "meanDelta": 0.03,
+        "changedRate": 0.03
+      },
+      {
+        "player": "babybay",
+        "hi": "babybay__masters-l",
+        "hiOvr": 88,
+        "lo": "babybay__base",
+        "loOvr": 78,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.0525,
+        "changedRate": 0.0525
+      },
+      {
+        "player": "dantedeu5",
+        "hi": "dantedeu5__future-star",
+        "hiOvr": 91,
+        "lo": "dantedeu5__base",
+        "loOvr": 81,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.0575,
+        "changedRate": 0.0575
+      },
+      {
+        "player": "loita",
+        "hi": "loita__future-star",
+        "hiOvr": 91,
+        "lo": "loita__base",
+        "loOvr": 81,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.0525,
+        "changedRate": 0.0525
+      },
+      {
+        "player": "neon",
+        "hi": "neon__future-star",
+        "hiOvr": 93,
+        "lo": "neon__base",
+        "loOvr": 83,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.0575,
+        "changedRate": 0.0575
+      },
+      {
+        "player": "rosa",
+        "hi": "rosa__masters-sdc",
+        "hiOvr": 82,
+        "lo": "rosa__base",
+        "loOvr": 72,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.0275,
+        "changedRate": 0.0275
+      },
+      {
+        "player": "sayonara",
+        "hi": "sayonara__future-star",
+        "hiOvr": 94,
+        "lo": "sayonara__base",
+        "loOvr": 84,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.045,
+        "changedRate": 0.045
+      },
+      {
+        "player": "seven",
+        "hi": "seven__future-star",
+        "hiOvr": 88,
+        "lo": "seven__base",
+        "loOvr": 78,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.0625,
+        "changedRate": 0.0625
+      },
+      {
+        "player": "timotino",
+        "hi": "timotino__future-star",
+        "hiOvr": 94,
+        "lo": "timotino__base",
+        "loOvr": 84,
+        "gap": 10,
+        "pairs": 400,
+        "meanDelta": 0.0425,
+        "changedRate": 0.0425
+      },
+      {
+        "player": "blowz",
+        "hi": "blowz__future-star",
+        "hiOvr": 89,
+        "lo": "blowz__base",
+        "loOvr": 80,
+        "gap": 9,
+        "pairs": 400,
+        "meanDelta": 0.0388,
+        "changedRate": 0.04
+      },
+      {
+        "player": "alym",
+        "hi": "alym__future-star",
+        "hiOvr": 92,
+        "lo": "alym__base",
+        "loOvr": 84,
+        "gap": 8,
+        "pairs": 400,
+        "meanDelta": 0.045,
+        "changedRate": 0.045
+      },
+      {
+        "player": "dambi",
+        "hi": "dambi__masters-sdc",
+        "hiOvr": 90,
+        "lo": "dambi__base",
+        "loOvr": 82,
+        "gap": 8,
+        "pairs": 400,
+        "meanDelta": 0.0325,
+        "changedRate": 0.0325
+      },
+      {
+        "player": "minny",
+        "hi": "minny__masters-sdc",
+        "hiOvr": 91,
+        "lo": "minny__base",
+        "loOvr": 83,
+        "gap": 8,
+        "pairs": 400,
+        "meanDelta": 0.04,
+        "changedRate": 0.04
+      },
+      {
+        "player": "patmen",
+        "hi": "patmen__record-breaker",
+        "hiOvr": 92,
+        "lo": "patmen__base",
+        "loOvr": 84,
+        "gap": 8,
+        "pairs": 400,
+        "meanDelta": 0.0275,
+        "changedRate": 0.0275
+      },
+      {
+        "player": "reduxx",
+        "hi": "reduxx__future-star",
+        "hiOvr": 90,
+        "lo": "reduxx__base",
+        "loOvr": 82,
+        "gap": 8,
+        "pairs": 400,
+        "meanDelta": 0.0375,
+        "changedRate": 0.0375
+      },
+      {
+        "player": "spike",
+        "hi": "spike__future-star",
+        "hiOvr": 92,
+        "lo": "spike__base",
+        "loOvr": 84,
+        "gap": 8,
+        "pairs": 400,
+        "meanDelta": 0.04,
+        "changedRate": 0.04
+      },
+      {
+        "player": "wayne",
+        "hi": "wayne__future-star",
+        "hiOvr": 90,
+        "lo": "wayne__base",
+        "loOvr": 82,
+        "gap": 8,
+        "pairs": 400,
+        "meanDelta": 0.045,
+        "changedRate": 0.045
+      },
+      {
+        "player": "crewen",
+        "hi": "crewen__masters-sdc",
+        "hiOvr": 85,
+        "lo": "crewen__base",
+        "loOvr": 78,
+        "gap": 7,
+        "pairs": 400,
+        "meanDelta": 0.0213,
+        "changedRate": 0.0225
+      },
+      {
+        "player": "ivy",
+        "hi": "ivy__masters-sdc",
+        "hiOvr": 85,
+        "lo": "ivy__base",
+        "loOvr": 78,
+        "gap": 7,
+        "pairs": 400,
+        "meanDelta": 0.04,
+        "changedRate": 0.04
+      },
+      {
+        "player": "buzz",
+        "hi": "buzz__champions-s",
+        "hiOvr": 93,
+        "lo": "buzz__base",
+        "loOvr": 87,
+        "gap": 6,
+        "pairs": 400,
+        "meanDelta": 0.0275,
+        "changedRate": 0.0275
+      },
+      {
+        "player": "izu",
+        "hi": "izu__masters-sdc",
+        "hiOvr": 90,
+        "lo": "izu__base",
+        "loOvr": 84,
+        "gap": 6,
+        "pairs": 400,
+        "meanDelta": 0.045,
+        "changedRate": 0.045
+      },
+      {
+        "player": "artzin",
+        "hi": "artzin__masters-sdc",
+        "hiOvr": 82,
+        "lo": "artzin__base",
+        "loOvr": 77,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.01,
+        "changedRate": 0.01
+      },
+      {
+        "player": "bipo",
+        "hi": "bipo__masters-sdc",
+        "hiOvr": 87,
+        "lo": "bipo__base",
+        "loOvr": 82,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.035,
+        "changedRate": 0.035
+      },
+      {
+        "player": "brawk",
+        "hi": "brawk__masters-l",
+        "hiOvr": 93,
+        "lo": "brawk__base",
+        "loOvr": 88,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.0275,
+        "changedRate": 0.0275
+      },
+      {
+        "player": "eeiu",
+        "hi": "eeiu__masters-sdc",
+        "hiOvr": 85,
+        "lo": "eeiu__base",
+        "loOvr": 80,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.025,
+        "changedRate": 0.025
+      },
+      {
+        "player": "francis",
+        "hi": "francis__masters-sdc",
+        "hiOvr": 86,
+        "lo": "francis__base",
+        "loOvr": 81,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.03,
+        "changedRate": 0.03
+      },
+      {
+        "player": "jamppi",
+        "hi": "jamppi__masters-l",
+        "hiOvr": 87,
+        "lo": "jamppi__base",
+        "loOvr": 82,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.03,
+        "changedRate": 0.03
+      },
+      {
+        "player": "mada",
+        "hi": "mada__moments",
+        "hiOvr": 95,
+        "lo": "mada__base",
+        "loOvr": 90,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.0225,
+        "changedRate": 0.0225
+      },
+      {
+        "player": "miniboo",
+        "hi": "miniboo__masters-sdc",
+        "hiOvr": 92,
+        "lo": "miniboo__base",
+        "loOvr": 87,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.0175,
+        "changedRate": 0.0175
+      },
+      {
+        "player": "rb",
+        "hi": "rb__masters-sdc",
+        "hiOvr": 84,
+        "lo": "rb__base",
+        "loOvr": 79,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.0225,
+        "changedRate": 0.0225
+      },
+      {
+        "player": "smoggy",
+        "hi": "smoggy__masters-l",
+        "hiOvr": 90,
+        "lo": "smoggy__masters-sdc",
+        "loOvr": 85,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.025,
+        "changedRate": 0.025
+      },
+      {
+        "player": "starxo",
+        "hi": "starxo__masters-sdc",
+        "hiOvr": 84,
+        "lo": "starxo__base",
+        "loOvr": 79,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.0325,
+        "changedRate": 0.0325
+      },
+      {
+        "player": "trent",
+        "hi": "trent__masters-l",
+        "hiOvr": 93,
+        "lo": "trent__base",
+        "loOvr": 88,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.0125,
+        "changedRate": 0.0125
+      },
+      {
+        "player": "valyn",
+        "hi": "valyn__masters-sdc",
+        "hiOvr": 92,
+        "lo": "valyn__base",
+        "loOvr": 87,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.025,
+        "changedRate": 0.025
+      },
+      {
+        "player": "wo0t",
+        "hi": "wo0t__masters-l",
+        "hiOvr": 93,
+        "lo": "wo0t__base",
+        "loOvr": 88,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.0225,
+        "changedRate": 0.0225
+      },
+      {
+        "player": "yetujey",
+        "hi": "yetujey__champions-s",
+        "hiOvr": 89,
+        "lo": "yetujey__base",
+        "loOvr": 84,
+        "gap": 5,
+        "pairs": 400,
+        "meanDelta": 0.005,
+        "changedRate": 0.005
+      },
+      {
+        "player": "invy",
+        "hi": "invy__masters-l",
+        "hiOvr": 86,
+        "lo": "invy__base",
+        "loOvr": 82,
+        "gap": 4,
+        "pairs": 400,
+        "meanDelta": 0.0075,
+        "changedRate": 0.0075
+      },
+      {
+        "player": "benjy",
+        "hi": "benjy__masters-l",
+        "hiOvr": 88,
+        "lo": "benjy__base",
+        "loOvr": 85,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.0125,
+        "changedRate": 0.0125
+      },
+      {
+        "player": "glyph",
+        "hi": "glyph__masters-sdc",
+        "hiOvr": 80,
+        "lo": "glyph__base",
+        "loOvr": 77,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.01,
+        "changedRate": 0.01
+      },
+      {
+        "player": "kamo",
+        "hi": "kamo__masters-sdc",
+        "hiOvr": 87,
+        "lo": "kamo__base",
+        "loOvr": 84,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.01,
+        "changedRate": 0.01
+      },
+      {
+        "player": "kr1stal",
+        "hi": "kr1stal__masters-l",
+        "hiOvr": 82,
+        "lo": "kr1stal__base",
+        "loOvr": 79,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.0075,
+        "changedRate": 0.0075
+      },
+      {
+        "player": "leviathan",
+        "hi": "leviathan__masters-l",
+        "hiOvr": 82,
+        "lo": "leviathan__base",
+        "loOvr": 79,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.005,
+        "changedRate": 0.005
+      },
+      {
+        "player": "nerve",
+        "hi": "nerve__masters-sdc",
+        "hiOvr": 81,
+        "lo": "nerve__base",
+        "loOvr": 78,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.01,
+        "changedRate": 0.01
+      },
+      {
+        "player": "purp0",
+        "hi": "purp0__masters-sdc",
+        "hiOvr": 80,
+        "lo": "purp0__base",
+        "loOvr": 77,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.01,
+        "changedRate": 0.01
+      },
+      {
+        "player": "riens",
+        "hi": "riens__masters-l",
+        "hiOvr": 92,
+        "lo": "riens__base",
+        "loOvr": 89,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.0225,
+        "changedRate": 0.0225
+      },
+      {
+        "player": "xeus",
+        "hi": "xeus__champions-s",
+        "hiOvr": 87,
+        "lo": "xeus__base",
+        "loOvr": 84,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.0125,
+        "changedRate": 0.0125
+      },
+      {
+        "player": "zmjjkk",
+        "hi": "zmjjkk__masters-l",
+        "hiOvr": 94,
+        "lo": "zmjjkk__masters-sdc",
+        "loOvr": 91,
+        "gap": 3,
+        "pairs": 400,
+        "meanDelta": 0.015,
+        "changedRate": 0.015
+      },
+      {
+        "player": "boo",
+        "hi": "boo__masters-l",
+        "hiOvr": 84,
+        "lo": "boo__base",
+        "loOvr": 82,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.0125,
+        "changedRate": 0.0125
+      },
+      {
+        "player": "chichoo",
+        "hi": "chichoo__masters-l",
+        "hiOvr": 90,
+        "lo": "chichoo__masters-sdc",
+        "loOvr": 88,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.005,
+        "changedRate": 0.005
+      },
+      {
+        "player": "d4v41",
+        "hi": "d4v41__masters-l",
+        "hiOvr": 89,
+        "lo": "d4v41__base",
+        "loOvr": 87,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.0125,
+        "changedRate": 0.0125
+      },
+      {
+        "player": "ethan",
+        "hi": "ethan__masters-l",
+        "hiOvr": 89,
+        "lo": "ethan__base",
+        "loOvr": 87,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.0025,
+        "changedRate": 0.0025
+      },
+      {
+        "player": "jawgemo",
+        "hi": "jawgemo__champions-s",
+        "hiOvr": 89,
+        "lo": "jawgemo__base",
+        "loOvr": 87,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.015,
+        "changedRate": 0.015
+      },
+      {
+        "player": "killua",
+        "hi": "killua__masters-l",
+        "hiOvr": 84,
+        "lo": "killua__base",
+        "loOvr": 82,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.0025,
+        "changedRate": 0.0025
+      },
+      {
+        "player": "nats",
+        "hi": "nats__masters-sdc",
+        "hiOvr": 90,
+        "lo": "nats__base",
+        "loOvr": 88,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.0075,
+        "changedRate": 0.0075
+      },
+      {
+        "player": "noman",
+        "hi": "noman__masters-sdc",
+        "hiOvr": 83,
+        "lo": "noman__masters-l",
+        "loOvr": 81,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.0025,
+        "changedRate": 0.0025
+      },
+      {
+        "player": "rarga",
+        "hi": "rarga__masters-sdc",
+        "hiOvr": 89,
+        "lo": "rarga__masters-l",
+        "loOvr": 87,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.0088,
+        "changedRate": 0.01
+      },
+      {
+        "player": "wsleo",
+        "hi": "wsleo__masters-l",
+        "hiOvr": 86,
+        "lo": "wsleo__masters-sdc",
+        "loOvr": 84,
+        "gap": 2,
+        "pairs": 400,
+        "meanDelta": 0.015,
+        "changedRate": 0.015
+      },
+      {
+        "player": "chronicle",
+        "hi": "chronicle__masters-l",
+        "hiOvr": 91,
+        "lo": "chronicle__base",
+        "loOvr": 90,
+        "gap": 1,
+        "pairs": 400,
+        "meanDelta": 0,
+        "changedRate": 0
+      },
+      {
+        "player": "derke",
+        "hi": "derke__masters-l",
+        "hiOvr": 88,
+        "lo": "derke__base",
+        "loOvr": 87,
+        "gap": 1,
+        "pairs": 400,
+        "meanDelta": 0.01,
+        "changedRate": 0.01
+      },
+      {
+        "player": "kingg",
+        "hi": "kingg__masters-l",
+        "hiOvr": 85,
+        "lo": "kingg__base",
+        "loOvr": 84,
+        "gap": 1,
+        "pairs": 400,
+        "meanDelta": 0,
+        "changedRate": 0
+      },
+      {
+        "player": "koshmaras",
+        "hi": "koshmaras__future-star",
+        "hiOvr": 89,
+        "lo": "koshmaras__masters-l",
+        "loOvr": 88,
+        "gap": 1,
+        "pairs": 400,
+        "meanDelta": 0.01,
+        "changedRate": 0.01
+      },
+      {
+        "player": "nobody",
+        "hi": "nobody__masters-sdc",
+        "hiOvr": 80,
+        "lo": "nobody__masters-l",
+        "loOvr": 79,
+        "gap": 1,
+        "pairs": 400,
+        "meanDelta": 0.0025,
+        "changedRate": 0.0025
+      },
+      {
+        "player": "profek",
+        "hi": "profek__masters-l",
+        "hiOvr": 86,
+        "lo": "profek__base",
+        "loOvr": 85,
+        "gap": 1,
+        "pairs": 400,
+        "meanDelta": 0,
+        "changedRate": 0
+      }
+    ]
+  },
+  "powerSignals": {
+    "ovrDiff_vs_result": 0.4363,
+    "combatDiff_vs_result": 0.503,
+    "ovrDiff_vs_combatDiff": 0.574,
+    "sample": 20001
+  },
+  "cardLevel": {
+    "ovr_vs_impact": 0.6334,
+    "combatSum_vs_impact": 0.7784,
+    "peak_vs_impact": 0.8432,
+    "ovr_vs_fieldWin": 0.6549,
+    "ovr_vs_combatSum": 0.5192
+  },
+  "byOvrGap_per5": {
+    "0": {
+      "n": 26549,
+      "higherScore": 0.6042
+    },
+    "1": {
+      "n": 51627,
+      "higherScore": 0.6502
+    },
+    "2": {
+      "n": 48325,
+      "higherScore": 0.6809
+    },
+    "3": {
+      "n": 42528,
+      "higherScore": 0.7056
+    },
+    "4": {
+      "n": 35793,
+      "higherScore": 0.7295
+    },
+    "5": {
+      "n": 28836,
+      "higherScore": 0.7504
+    },
+    "6": {
+      "n": 66342,
+      "higherScore": 0.8081
+    }
+  },
+  "byCombatGap_per20": {
+    "0": {
+      "n": 20918,
+      "higherScore": 0.5147
+    },
+    "1": {
+      "n": 41537,
+      "higherScore": 0.5548
+    },
+    "2": {
+      "n": 39158,
+      "higherScore": 0.6055
+    },
+    "3": {
+      "n": 36683,
+      "higherScore": 0.6634
+    },
+    "4": {
+      "n": 32706,
+      "higherScore": 0.7166
+    },
+    "5": {
+      "n": 28548,
+      "higherScore": 0.7612
+    },
+    "6": {
+      "n": 100450,
+      "higherScore": 0.871
+    }
+  }
+}

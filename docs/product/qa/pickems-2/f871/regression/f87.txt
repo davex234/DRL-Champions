@@ -1,0 +1,38 @@
+PASS cuentas QA (@example.invalid, no reales) · dfbd7431 · 70be4810
+PASS anónimo · lista 200 · 200
+PASS anónimo · cache pública breve · public, max-age=0, s-maxage=15, stale-while-revalidate=30
+PASS anónimo · ningún BORRADOR en la lista · []
+PASS anónimo · ficha de un BORRADOR → 404 · 404
+PASS anónimo · slug inválido → 400
+PASS anónimo · POST → 401
+PASS sesión · lista 200 privada (no-store) · 200 private, no-store
+PASS sesión · sin UUID ni correos en la respuesta
+PASS sesión · ficha de un BORRADOR → 404
+PASS campo extra (userId de otro) → 400 · 400
+PASS campo extra (puntos) → 400 · 400
+PASS sin revisión → 400 · 400
+PASS predecir en un BORRADOR → 404 (no existe para jugadores) · 404
+PASS reclamar en un BORRADOR → 404 · 404
+PASS reclamo con campos de pick → 400 · 400
+PASS partido con inyección → 400 · 400
+PASS acción desconocida → 400 · 400
+PASS admin GET con cuenta normal → 401
+PASS admin POST (activar recompensas) con cuenta normal → 401
+PASS admin POST (liquidar) anónimo → 401
+PASS REST pickem_brackets con sesión → denegado · 403
+PASS REST pickem_bracket_picks con sesión → denegado · 403
+PASS REST pickem_bracket_entries con sesión → denegado · 403
+PASS REST pickem_bracket_claims con sesión → denegado · 403
+PASS REST pickem_bracket_matches con sesión → denegado · 403
+PASS REST insert de pick para OTRO usuario → denegado · 403
+PASS RPC app_pickem_save_pick con sesión → denegada · 404
+PASS RPC app_pickem_claim con sesión → denegada · 404
+PASS RPC app_pickem_admin_settle con sesión → denegada · 404
+PASS RPC app_pickem_admin_set_rewards con sesión → denegada · 404
+PASS RPC pickem_match_locked con sesión → denegada · 404
+PASS página /pickems → 200
+PASS página /pickems/cuadro/champions-2026-playoffs → 200
+PASS página /admin/pickems → 200
+PASS arnés /design-system/f87 oculto en producción (404)
+
+F87 PROD QA: 36/36

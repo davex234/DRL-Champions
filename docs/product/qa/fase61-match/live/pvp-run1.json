@@ -1,0 +1,911 @@
+{
+  "at": "2026-09-25T09:50:17.440Z",
+  "A": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "B": "8c326e52-776a-43f4-ba05-3ad7945c40c3",
+  "decks": {
+    "A": "QA F55 Ranked",
+    "B": "QA F55 Ranked"
+  },
+  "ratingBefore": {
+    "A": {
+      "rating": 980,
+      "position": 2,
+      "rankedTotal": 2,
+      "gamesPlayed": 1
+    },
+    "B": {
+      "rating": 1020,
+      "position": 1,
+      "rankedTotal": 2,
+      "gamesPlayed": 1
+    }
+  },
+  "enqueueB": {
+    "status": 200,
+    "state": "MATCHED"
+  },
+  "matchFound": true,
+  "introFrom": "LINEUP",
+  "matchId": "b8b253ff-40d4-405b-824f-380d2ddc73ae",
+  "pvpMoment": {
+    "outcome": "B",
+    "climax": "NORMAL",
+    "axis": "Declara el rivalGamesense"
+  },
+  "consistency": [
+    {
+      "i": 0,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        1,
+        1
+      ],
+      "turns": [
+        0,
+        0
+      ],
+      "score": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        0,
+        0
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 1,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        1,
+        1
+      ],
+      "turns": [
+        0,
+        0
+      ],
+      "score": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        1,
+        1
+      ]
+    },
+    {
+      "i": 2,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        2,
+        2
+      ],
+      "turns": [
+        1,
+        1
+      ],
+      "score": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        2,
+        2
+      ]
+    },
+    {
+      "i": 3,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        2,
+        2
+      ],
+      "turns": [
+        1,
+        1
+      ],
+      "score": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        3,
+        3
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 4,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        3,
+        3
+      ],
+      "turns": [
+        2,
+        2
+      ],
+      "score": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        4,
+        4
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 5,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        3,
+        3
+      ],
+      "turns": [
+        2,
+        2
+      ],
+      "score": [
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        5,
+        5
+      ]
+    },
+    {
+      "i": 6,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        4,
+        4
+      ],
+      "turns": [
+        3,
+        3
+      ],
+      "score": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        6,
+        6
+      ]
+    },
+    {
+      "i": 7,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        4,
+        4
+      ],
+      "turns": [
+        3,
+        3
+      ],
+      "score": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        7,
+        7
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 8,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        5,
+        5
+      ],
+      "turns": [
+        4,
+        4
+      ],
+      "score": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        8,
+        8
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 9,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        5,
+        5
+      ],
+      "turns": [
+        4,
+        4
+      ],
+      "score": [
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          4
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        9,
+        9
+      ]
+    },
+    {
+      "i": 10,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        6,
+        6
+      ],
+      "turns": [
+        5,
+        5
+      ],
+      "score": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        10,
+        10
+      ]
+    },
+    {
+      "i": 11,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        6,
+        6
+      ],
+      "turns": [
+        5,
+        5
+      ],
+      "score": [
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          4
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        11,
+        11
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 12,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        7,
+        7
+      ],
+      "turns": [
+        6,
+        6
+      ],
+      "score": [
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        12,
+        12
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 13,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        7,
+        7
+      ],
+      "turns": [
+        6,
+        6
+      ],
+      "score": [
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          5
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        13,
+        13
+      ]
+    },
+    {
+      "i": 14,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        8,
+        8
+      ],
+      "turns": [
+        7,
+        7
+      ],
+      "score": [
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        14,
+        14
+      ]
+    },
+    {
+      "i": 15,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        8,
+        8
+      ],
+      "turns": [
+        7,
+        7
+      ],
+      "score": [
+        [
+          1,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        15,
+        15
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 16,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        9,
+        9
+      ],
+      "turns": [
+        8,
+        8
+      ],
+      "score": [
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        16,
+        16
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 17,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        9,
+        9
+      ],
+      "turns": [
+        8,
+        8
+      ],
+      "score": [
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        17,
+        17
+      ]
+    },
+    {
+      "i": 18,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        10,
+        10
+      ],
+      "turns": [
+        9,
+        9
+      ],
+      "score": [
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "yourTurn": [
+        true,
+        false
+      ],
+      "version": [
+        18,
+        18
+      ]
+    },
+    {
+      "i": 19,
+      "lifecycle": [
+        "IN_TURN",
+        "IN_TURN"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        10,
+        10
+      ],
+      "turns": [
+        9,
+        9
+      ],
+      "score": [
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "yourTurn": [
+        false,
+        true
+      ],
+      "version": [
+        19,
+        19
+      ]
+    },
+    {
+      "bMove": "200"
+    },
+    {
+      "i": 20,
+      "lifecycle": [
+        "FINISHED",
+        "FINISHED"
+      ],
+      "sides": [
+        "A",
+        "B"
+      ],
+      "turn": [
+        11,
+        11
+      ],
+      "turns": [
+        10,
+        10
+      ],
+      "score": [
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          7
+        ]
+      ],
+      "yourTurn": [
+        false,
+        false
+      ],
+      "version": [
+        20,
+        20
+      ]
+    }
+  ],
+  "endSequenceA": [
+    "last-turn",
+    "complete:LOSS",
+    "outcome"
+  ],
+  "final": {
+    "A": {
+      "lifecycle": "FINISHED",
+      "winner": "B",
+      "isDraw": false,
+      "decidedBy": "SCORE",
+      "score": [
+        3,
+        7
+      ],
+      "yourSide": "A"
+    },
+    "B": {
+      "lifecycle": "FINISHED",
+      "winner": "B",
+      "isDraw": false,
+      "decidedBy": "SCORE",
+      "score": [
+        3,
+        7
+      ],
+      "yourSide": "B"
+    },
+    "ratingEventA": null,
+    "ratingEventB": null
+  },
+  "ratingAfter": {
+    "A": {
+      "rating": 962,
+      "position": 2,
+      "rankedTotal": 2,
+      "gamesPlayed": 2
+    },
+    "B": {
+      "rating": 1038,
+      "position": 1,
+      "rankedTotal": 2,
+      "gamesPlayed": 2
+    }
+  },
+  "reload": {
+    "screen": {
+      "scenes": [],
+      "beat": null,
+      "role": null,
+      "turn": null,
+      "moment": null,
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    "ratingAfterReload": {
+      "rating": 962,
+      "position": 2,
+      "rankedTotal": 2,
+      "gamesPlayed": 2
+    }
+  },
+  "consoleErrors": []
+}

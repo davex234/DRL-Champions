@@ -1,0 +1,107 @@
+{
+  "method": "Matriz real con cuenta QA (772cf6f1) en 24 rutas × 1440/1024/390, sin movimiento reducido; y pasada reducida 1440/390. Señales objetivas por pantalla (instrumento _fase64-shots.ts) + revisión de capturas.",
+  "routes": [
+    "/",
+    "/jugar",
+    "/duelos/jugar",
+    "/competitivo",
+    "/coleccion",
+    "/duelos/mazos",
+    "/duelos/mazos?nuevo=1",
+    "/inventario",
+    "/packs",
+    "/abrir/inicial",
+    "/tienda",
+    "/progresion",
+    "/temporada",
+    "/logros",
+    "/jugador/me",
+    "/jugar/draft-gauntlet",
+    "/jugar/road-to-champions",
+    "/entrenador",
+    "/pickems",
+    "/cuenta",
+    "/como-jugar",
+    "/esta-ruta-no-existe"
+  ],
+  "webFeelFound": [
+    {
+      "id": "W1",
+      "what": "Cada pantalla con sesión lanzaba ~23 peticiones: `useBadges()` montado 4 veces en el armazón = 8× /api/game/social + 8× /api/game/live-events por pantalla, y 5× /rest/v1/profiles. Tras ~15 navegaciones, 429 (40 en la matriz ANTES).",
+      "fix": "sondeo compartido (lib/net/sharedPoll) + perfil deduplicado + usuario estable"
+    },
+    {
+      "id": "W2",
+      "what": "HUD sin sesión: nivel 1 y 6.000 créditos del store local (dato falso) en la barra y en la portada.",
+      "fix": "ENTRAR en su lugar; la portada no pasa créditos sin sesión"
+    },
+    {
+      "id": "W3",
+      "what": "Emojis como iconos de producto (temporada 42, logros 23, cuenta 14, progresión 5, tienda 5, colección 3…): 📦 🏭 ⭐ 👑 🗂 🐉 🌍 ⚔ 🎮 🏅 🪙 🔒 ✕.",
+      "fix": "GameGlyph (SVG propios) al pintar; los datos no cambian"
+    },
+    {
+      "id": "W4",
+      "what": "Entrada/registro: formulario de web (caja redondeada, campos grises) bajo «MI PERFIL · Tu progreso competitivo».",
+      "fix": "panel de la casa, campos nx-field con etiqueta y autocompletar, error anunciado con temblor corto; cabecera «Tu cuenta de jugador»"
+    },
+    {
+      "id": "W5",
+      "what": "17 × 404 en /pickems (logos /teams/*.png que no existen) — misma clase de fallo que el vídeo de F46.",
+      "fix": "TEAM_LOGOS_AVAILABLE (test contra public/teams); monograma sin petición"
+    },
+    {
+      "id": "W6",
+      "what": "Cargas genéricas: <Loading> (cargador de marca a pantalla) en progresión, temporada, logros, competitivo, modos, equipos y perfil; GameSkeleton sin usar; salto de maquetación al llegar datos (CLS 0,158 en progresión).",
+      "fix": "Loading kind=hub|profile|deck → silueta del contenido"
+    },
+    {
+      "id": "W7",
+      "what": "Pulsaciones sin respuesta en NxButton, CTA de progreso y accesos rápidos; con movimiento reducido la carta no respondía a nada.",
+      "fix": "primitiva nx-press (reducido = destello), carta que se ilumina al apuntar/enfocar"
+    },
+    {
+      "id": "W8",
+      "what": "«mazo»/«plantilla» en ranked, draft, estrategia, recorrido F40, misión de temporada y copia del starter.",
+      "fix": "«equipo» en todo el flujo principal (el Tactical Coach conserva «plantilla» = plantilla de agentes, significado distinto)"
+    },
+    {
+      "id": "W9",
+      "what": "Aviso PWA de instalación como caja redondeada con una «D» por icono, en casi todas las pantallas.",
+      "fix": "placa de la casa con la marca real"
+    },
+    {
+      "id": "W10",
+      "what": "Desbordes a 390: /pickems (8 px, elementos de rejilla sin min-w-0) y /progresion (1 px en recompensas por reclamar).",
+      "fix": "min-w-0 en los elementos de rejilla"
+    },
+    {
+      "id": "W11",
+      "what": "Colección en móvil: la cabecera (cifras + desglose por rareza + vitrina) ocupaba la primera pantalla entera.",
+      "fix": "sin desglose por rareza en móvil, carta de vitrina menor, menos padding"
+    },
+    {
+      "id": "W12",
+      "what": "Capas «Añadir al equipo» (sin Escape ni foco) y ficha de carta (sin devolver el foco); cierres de 36 px redondos con ✕.",
+      "fix": "useDialogLayer / foco de ida y vuelta; cierres de 44 px en chaflán"
+    },
+    {
+      "id": "W13",
+      "what": "Toasts sin sonido y repetidos (mismo aviso reanimado).",
+      "fix": "suenan (acierto/error) y se agregan «×N»"
+    },
+    {
+      "id": "W14",
+      "what": "404 con «Volver al lobby»; rail F63 con «Continuar» genérico.",
+      "fix": "«Volver al juego»; el rail nombra la acción"
+    }
+  ],
+  "notChanged": [
+    "Home/Main Menu (F46+F62+F63) ya es un menú de juego: se conserva",
+    "Tablero y ritmo de partida F61",
+    "Ceremonia de sobres F57 (solo el aspa de cierre)",
+    "Tactical Coach F59 (identidad propia)",
+    "Admin/CMS F60",
+    "Avatares emoji de la cuenta: son identidad elegida por el jugador (dato), no iconos de producto"
+  ]
+}

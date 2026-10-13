@@ -1,0 +1,76 @@
+{
+ "390 métricas": {
+  "scrollX": 0,
+  "overflow": [],
+  "imgs": 19,
+  "broken": [],
+  "lazy": 13,
+  "cardImgs": 10,
+  "sections": [
+   [
+    "destacado",
+    true
+   ],
+   [
+    "sobres",
+    true
+   ],
+   [
+    "cajas",
+    true
+   ],
+   [
+    "cartas",
+    true
+   ],
+   [
+    "packs",
+    true
+   ]
+  ],
+  "packs": 4,
+  "boxes": 4,
+  "cards": 4,
+  "bundles": 2,
+  "tabs": [
+   "Destacado",
+   "Sobres15",
+   "Cajas4",
+   "Cartas4",
+   "Packs2"
+  ],
+  "navActive": [
+   "Tienda"
+  ],
+  "tyl": false,
+  "fakeTimer": false
+ },
+ "390 pestaña cajas": {
+  "top": 136,
+  "activa": "Cajas4"
+ },
+ "390 modal sobre": {
+  "texto": "SOBRE SOBRE ESTÁNDAR 5 cartas aleatorias · El sobre de cada día. Equilibrado y asequible. ◆ Común ◆ Poco común ◆ Rara ◆ Épica ◆ Legendaria DRL CREDITS PRECIO 750 TU SALDO 6.000 DESPUÉS 5.250 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR ABRIR UNO (1) CONFIRMAR · 750",
+  "foco": true
+ },
+ "390 modal cerrado": true,
+ "390 modal icon": {
+  "alerta": "Saldo insuficiente: te faltan 14.000 DRL Credits.",
+  "confirmarDesactivado": true
+ },
+ "390 modal caja": {
+  "texto": "×10 CAJA · 10 SOBRES CAJA ESTÁNDAR 10 × Sobre Estándar (50 cartas) Los 10 sobres se añaden a tu inventario sin abrir: tú decides cuándo abrirlos. ◆ Común ◆ Poco común ◆ Rara ◆ Épica ◆ Legendaria DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+  "botones": [
+   [
+    "Cancelar",
+    false
+   ],
+   [
+    "Próximamente",
+    true
+   ]
+  ]
+ },
+ "390 modal carta": "CARTA DE LA TIENDA MADA Moments · Legendaria · OVR 95 · NRG Una carta concreta vendida por NEXUS. No es el Marketplace. DRL CREDITS Por anunciar · Aún no tiene precio. Lo anunciaremos aquí. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. C",
+ "390 errores consola": []
+}

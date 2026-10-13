@@ -1,0 +1,183 @@
+{
+ "base": "https://valorosters.com",
+ "at": "2026-10-05T10:07:40.331Z",
+ "release": "drl-0.1.1-1-c01946b1",
+ "accounts": {
+  "A": "1ff2c0ef",
+  "B": "8c326e52",
+  "C": "40a1e10d"
+ },
+ "auditTrail": "GRANT_ADMIN:1ff2c0ef:operador, GRANT_ADMIN:8c326e52:1ff2c0ef, REVOKE_ADMIN:8c326e52:1ff2c0ef, GRANT_ADMIN:8c326e52:1ff2c0ef, REVOKE_ADMIN:8c326e52:1ff2c0ef, REVOKE_ADMIN:1ff2c0ef:1ff2c0ef",
+ "total": 33,
+ "passed": 33,
+ "failed": 0,
+ "rows": [
+  {
+   "id": "estado inicial: QA A, B y C NO son admin; la personal sí",
+   "ok": true,
+   "detail": "{\"personal\":[\"2f86cbe8-f663-40fb-a87c-4896b9a45b62\",\"NEXUSDemo_2f86\",\"true\"]}"
+  },
+  {
+   "id": "operador: QA A admin temporal (con la bandera y auditado)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "BD: un UPDATE suelto de is_admin (postgres, sin bandera) choca y no cambia nada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuenta NORMAL y anónimo contra las 29 rutas /api/admin/* (GET y POST): ninguna pasa",
+   "ok": true,
+   "detail": "{\"/api/admin/admins\":\"401/401/401\",\"/api/admin/assets\":\"405/401/401\",\"/api/admin/audit\":\"401/405/401\",\"/api/admin/cards\":\"401/401/401\",\"/api/admin/catalog\":\"401/401/401\",\"/api/admin/cms/agents\":\"401/401/401\",\"/api/admin/cms/assets\":\"401/401/401\",\"/api/admin/cms/cards\":\"401/401/401\",\"/api/admin/cms/collection-sets\":\"401/401/401\",\"/api/admin/cms/crafting\":\"401/401/401\",\"/api/admin/cms/duel-themes\":\"401/401/401\",\"/api/admin/cms/forge\":\"401/401/401\",\"/api/admin/cms/health\":\"401/405/401\",\"/api/admin/cms/maps\":\"401/405/401\",\"/api/admin/cms/packs\":\"401/401/401\",\"/api/admin/cms/players\":\"401/401/401\",\"/api/admin/cms/seasons\":\"401/401/401\",\"/api/admin/dashboard\":\"401/405/401\",\"/api/admin/events\":\"401"
+  },
+  {
+   "id": "cuenta normal se intenta hacer admin por la API → 401 y sigue sin admin",
+   "ok": true,
+   "detail": "401"
+  },
+  {
+   "id": "sesión manipulada (JWT sin firma con rol service_role, token alterado, cabeceras de identidad, Bearer vacío) → 401",
+   "ok": true,
+   "detail": "[401,401,401,401]"
+  },
+  {
+   "id": "PostgREST directo: PATCH profiles {is_admin:true} con su propio token → rechazado y sin cambio",
+   "ok": true,
+   "detail": "{\"status\":403,\"body\":\"{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":\\\"Grant the required privileges to the current role with: GRANT SELECT, UPDATE ON p\"}"
+  },
+  {
+   "id": "RPC app_admin_set_admin directa con token de jugador → denegada",
+   "ok": true,
+   "detail": "{\"status\":403,\"body\":\"{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":null,\\\"message\\\":\\\"permission denied for function app_admin_set_admin\\\"}\"}"
+  },
+  {
+   "id": "RPC directa como anónimo suplantando a un admin (p_actor) → denegada",
+   "ok": true,
+   "detail": "401"
+  },
+  {
+   "id": "A: lista de administradores (la personal + A), sin correos",
+   "ok": true,
+   "detail": "{\"count\":2}"
+  },
+  {
+   "id": "A: búsqueda por nombre encuentra a B (Jugador), sin correo",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "id": "A: búsqueda por correo → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A: confirmación con el nombre equivocado → 400 sin cambio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A: usuario inexistente → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A: campo extra (is_admin / actor) → 400 sin cambio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A concede a B ×10 a la vez (doble clic/pestañas) → 1 GRANTED + 9 ALREADY_ADMIN",
+   "ok": true,
+   "detail": "[\"GRANTED\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\",\"ALREADY_ADMIN\"]"
+  },
+  {
+   "id": "auditoría: UNA fila GRANT_ADMIN (actor A, afectado B, hora)",
+   "ok": true,
+   "detail": "1|true"
+  },
+  {
+   "id": "B (nuevo admin) entra en el panel: /api/admin/dashboard 200",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A quita admin a B → REVOKED",
+   "ok": true,
+   "detail": "{\"code\":\"REVOKED\",\"userId\":\"8c326e52-776a-43f4-ba05-3ad7945c40c3\",\"username\":\"qa_campaign_352_8c32\",\"isAdmin\":false,\"admins\":2}"
+  },
+  {
+   "id": "B queda fuera AL INSTANTE: dashboard 401 y no puede volver a dárselo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "repetir la revocación → ALREADY_NOT_ADMIN (sin escribir)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "auditoría: UNA fila REVOKE_ADMIN (actor A, afectado B)",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "id": "1440 · /admin/admins con A: sección ADMINISTRADORES visible",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "1440 · búsqueda por nombre en la UI: B aparece con HACER ADMIN y sin correo en los resultados",
+   "ok": true,
+   "detail": "{\"found\":true,\"mailInSearch\":false}"
+  },
+  {
+   "id": "UI: HACER ADMIN deshabilitado hasta escribir el nombre; confirmar con DOBLE clic → UNA concesión y mensaje «ahora es administrador»",
+   "ok": true,
+   "detail": "Corregido tras la pasada: grantRows=2 contaba también la concesión de la fase API (≤1 min antes). El rastro de auditoría de la pasada (auditTrail) muestra exactamente un GRANT_ADMIN de B por la API (×10 → 1) y UNO por la UI con doble clic; mensaje «qa_campaign_352_8c32 ahora es administrador.». Instrumento corregido para contar desde el inicio del paso de UI.",
+   "correctedAfterRun": true
+  },
+  {
+   "id": "UI: QUITAR ADMIN con nombre escrito → B deja de ser admin",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "390 · /admin/admins con A: sección ADMINISTRADORES visible",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "390 · búsqueda por nombre en la UI: B aparece con HACER ADMIN y sin correo en los resultados",
+   "ok": true,
+   "detail": "{\"found\":true,\"mailInSearch\":false}"
+  },
+  {
+   "id": "B (ya normal) en /admin/admins: no ve la lista ni puede actuar",
+   "ok": true,
+   "detail": "Acceso restringidoEsta zona es solo para administradores. Inicia sesión con una cuenta autorizada.Ir a mi cuenta(self.__"
+  },
+  {
+   "id": "A se quita admin a sí mismo (queda la personal) → REVOKED, auditado como autorretirada",
+   "ok": true,
+   "detail": "{\"code\":\"REVOKED\",\"userId\":\"1ff2c0ef-d469-494d-b5ee-e728f7fbc865\",\"username\":\"qa_f45_085748_1ff2\",\"isAdmin\":false,\"admins\":1}"
+  },
+  {
+   "id": "A ya no entra al panel",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "final: el ÚNICO admin vuelve a ser la cuenta personal; QA A, B y C sin admin",
+   "ok": true,
+   "detail": "2f86cbe8"
+  },
+  {
+   "id": "cuenta personal: fila de perfil IDÉNTICA (id, nombre, is_admin, créditos, XP, nivel) y ninguna auditoría sobre ella",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "note": "1 comprobación del instrumento corregida tras la pasada (ventana de tiempo demasiado amplia); ver correctedAfterRun y auditTrail."
+}

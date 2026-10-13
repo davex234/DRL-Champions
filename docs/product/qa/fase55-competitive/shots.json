@@ -1,0 +1,439 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-23T12:06:19.220Z",
+  "note": "arnés /design-system/fase55 · QA SYNTHETIC; partidas simuladas con el motor real",
+  "rows": [
+    {
+      "name": "01-hub-desktop",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "02-hub-mobile",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "03-locked",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "03b-no-decks",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "04-ready",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "04b-placement",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "05-searching",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "05b-searching-long",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "06-match-found",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "07-match",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "08-victory",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "09-defeat",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "10-rating-up",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "11-rating-down",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "12-promotion",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "12b-placed",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "12c-entered",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "12d-demotion",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "13-history",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "14-leaderboard",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "14b-leaderboard-390",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "15-season-integration",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "16-first",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "17-resume",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-hub-1920",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-result-1920",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-search-1920",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-found-1920",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-hub-1440",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-result-1440",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-search-1440",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-found-1440",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-hub-1366",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-result-1366",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-search-1366",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-found-1366",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-hub-1024",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-result-1024",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-search-1024",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-found-1024",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-hub-768",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-result-768",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-search-768",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-found-768",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-hub-390",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-result-390",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-search-390",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-found-390",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    }
+  ]
+}

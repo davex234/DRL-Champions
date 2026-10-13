@@ -1,0 +1,1152 @@
+{
+  "at": "2026-09-30T08:17:51.982Z",
+  "persona": "A",
+  "scale": 4,
+  "byWidth": {
+    "390": {
+      "width": 390,
+      "attempts": [
+        "kr.svg,giantx.png,us.svg,kr.svg,kr.svg,ru.svg,kr.svg,us.svg,cn.svg,kr.svg",
+        "fnatic.png,c9.png,kr.svg,giantx.png,kr.svg,kr.svg,kr.svg,pl.svg,kr.svg,cn.svg",
+        "cn.svg,fnatic.png,kr.svg,kr.svg,pl.svg,giantx.png,kr.svg,c9.png,kr.svg,kr.svg",
+        "pl.svg,kr.svg,cn.svg,c9.png,kr.svg,giantx.png,kr.svg,kr.svg,fnatic.png,kr.svg",
+        "cn.svg,kr.svg,ru.svg,us.svg,giantx.png,us.svg,kr.svg,kr.svg,kr.svg,kr.svg",
+        "kr.svg,kr.svg,us.svg,us.svg,kr.svg,cn.svg,kr.svg,ru.svg,kr.svg,giantx.png"
+      ],
+      "hints": [
+        {
+          "i": 0,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x15",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 76,
+          "H": 56,
+          "n": 192,
+          "p50": 23,
+          "p95": 68,
+          "max": 113,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#e6dfe0",
+              "shift": 32,
+              "max": 113,
+              "px": 134
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#ba2a36",
+              "shift": 18.96666666666667,
+              "max": 23,
+              "px": 30
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#093f8b",
+              "shift": 21,
+              "max": 25,
+              "px": 28
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 1,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x15",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 76,
+          "H": 56,
+          "n": 192,
+          "p50": 22,
+          "p95": 67,
+          "max": 73,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#e6dfe0",
+              "shift": 32,
+              "max": 73,
+              "px": 134
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#ba2a36",
+              "shift": 18.96666666666667,
+              "max": 22,
+              "px": 30
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#093f8b",
+              "shift": 21,
+              "max": 24,
+              "px": 28
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 2,
+          "asset": "us",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 56,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 3,
+          "asset": "us",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 56,
+          "n": 0,
+          "p50": null,
+          "p95": null,
+          "max": null,
+          "colors": [],
+          "pass": false
+        },
+        {
+          "i": 4,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 52,
+          "n": 139,
+          "p50": 20,
+          "p95": 62,
+          "max": 65,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#e9e6e7",
+              "shift": 25,
+              "max": 65,
+              "px": 94
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#bc2a36",
+              "shift": 17,
+              "max": 20,
+              "px": 24
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#093f8c",
+              "shift": 20,
+              "max": 22,
+              "px": 21
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 5,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 52,
+          "n": 410,
+          "p50": 24,
+          "p95": 35,
+          "max": 38,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#d61a24",
+              "shift": 24,
+              "max": 38,
+              "px": 410
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 6,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 56,
+          "n": 164,
+          "p50": 20,
+          "p95": 61,
+          "max": 66,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#e7e0e2",
+              "shift": 31,
+              "max": 66,
+              "px": 110
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#bc2a36",
+              "shift": 17,
+              "max": 20,
+              "px": 27
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#093f8d",
+              "shift": 19,
+              "max": 22,
+              "px": 27
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 7,
+          "asset": "ru",
+          "shape": "flag",
+          "size": "19x14",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 56,
+          "n": 448,
+          "p50": 19,
+          "p95": 44,
+          "max": 57,
+          "colors": [
+            {
+              "original": "#0039a6",
+              "rendered": "#073495",
+              "shift": 17,
+              "max": 33,
+              "px": 196
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#ece7e8",
+              "shift": 24,
+              "max": 57,
+              "px": 140
+            },
+            {
+              "original": "#d52b1e",
+              "rendered": "#c1271d",
+              "shift": 20,
+              "max": 30,
+              "px": 112
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 8,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "19x15",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 76,
+          "H": 56,
+          "n": 192,
+          "p50": 19,
+          "p95": 61,
+          "max": 68,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#e9e3e5",
+              "shift": 28,
+              "max": 68,
+              "px": 134
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#bd2a36",
+              "shift": 15.966666666666669,
+              "max": 18,
+              "px": 30
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#093f8e",
+              "shift": 18,
+              "max": 21,
+              "px": 28
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 9,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "19x19",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 72,
+          "H": 72,
+          "n": 52,
+          "p50": 0,
+          "p95": 162,
+          "max": 180,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "max": 180,
+              "px": 52
+            }
+          ],
+          "pass": true
+        }
+      ],
+      "flagsDistinct": [
+        "kr",
+        "us",
+        "cn",
+        "ru"
+      ],
+      "logos": [
+        "giantx"
+      ],
+      "errors": []
+    },
+    "1024": {
+      "width": 1024,
+      "attempts": [
+        "c9.png,kr.svg,kr.svg,kr.svg,kr.svg,fnatic.png,giantx.png,pl.svg,kr.svg,cn.svg",
+        "kr.svg,cn.svg,us.svg,kr.svg,ru.svg,kr.svg,kr.svg,giantx.png,kr.svg,us.svg",
+        "us.svg,kr.svg,us.svg,cn.svg,kr.svg,kr.svg,giantx.png,kr.svg,kr.svg,ru.svg",
+        "kr.svg,kr.svg,giantx.png,cn.svg,us.svg,kr.svg,kr.svg,us.svg,kr.svg,ru.svg",
+        "kr.svg,kr.svg,cn.svg,ru.svg,giantx.png,us.svg,us.svg,kr.svg,kr.svg,kr.svg",
+        "us.svg,kr.svg,giantx.png,cn.svg,kr.svg,kr.svg,ru.svg,kr.svg,kr.svg,us.svg"
+      ],
+      "hints": [
+        {
+          "i": 0,
+          "asset": "us",
+          "shape": "flag",
+          "size": "36x28",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 374,
+          "p50": 16,
+          "p95": 206,
+          "max": 209,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#eeeeee",
+              "shift": 17,
+              "max": 209,
+              "px": 210
+            },
+            {
+              "original": "#bd3d44",
+              "rendered": "#bc3d44",
+              "shift": 1,
+              "max": 165,
+              "px": 148
+            },
+            {
+              "original": "#192f5d",
+              "rendered": "#35476d",
+              "shift": 28,
+              "max": 208,
+              "px": 16
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 1,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "35x27",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 1492,
+          "p50": 12,
+          "p95": 81,
+          "max": 255,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f1f1f1",
+              "shift": 14,
+              "max": 255,
+              "px": 1229
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c42c37",
+              "shift": 8.99242424242425,
+              "max": 169,
+              "px": 132
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004396",
+              "shift": 10,
+              "max": 35,
+              "px": 131
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 2,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "34x34",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 132,
+          "H": 132,
+          "n": 235,
+          "p50": 4,
+          "p95": 59,
+          "max": 61,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#fbfbfb",
+              "shift": 4,
+              "max": 61,
+              "px": 235
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 3,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "35x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 104,
+          "n": 2289,
+          "p50": 15,
+          "p95": 42,
+          "max": 209,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#df1a24",
+              "shift": 15,
+              "max": 209,
+              "px": 2285
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 4,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "34x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 100,
+          "n": 1264,
+          "p50": 11,
+          "p95": 73,
+          "max": 79,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f2f2f2",
+              "shift": 13,
+              "max": 79,
+              "px": 1037
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004396",
+              "shift": 10,
+              "max": 22,
+              "px": 114
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c42c37",
+              "shift": 9,
+              "max": 16,
+              "px": 113
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 5,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "34x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 100,
+          "n": 1264,
+          "p50": 10,
+          "p95": 68,
+          "max": 94,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f4f4f4",
+              "shift": 11,
+              "max": 94,
+              "px": 1037
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004397",
+              "shift": 9,
+              "max": 14,
+              "px": 114
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c52c37",
+              "shift": 8,
+              "max": 15,
+              "px": 113
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 6,
+          "asset": "ru",
+          "shape": "flag",
+          "size": "35x26",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 104,
+          "n": 2280,
+          "p50": 11,
+          "p95": 47,
+          "max": 136,
+          "colors": [
+            {
+              "original": "#0039a6",
+              "rendered": "#00369d",
+              "shift": 9,
+              "max": 136,
+              "px": 840
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#f4f4f4",
+              "shift": 11,
+              "max": 71,
+              "px": 720
+            },
+            {
+              "original": "#d52b1e",
+              "rendered": "#c9291d",
+              "shift": 12,
+              "max": 39,
+              "px": 720
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 7,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "35x27",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 136,
+          "H": 104,
+          "n": 1329,
+          "p50": 10,
+          "p95": 67,
+          "max": 255,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f4f4f4",
+              "shift": 11,
+              "max": 255,
+              "px": 1086
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c52c38",
+              "shift": 7.991803278688536,
+              "max": 195,
+              "px": 122
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004397",
+              "shift": 9,
+              "max": 62,
+              "px": 121
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 8,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "35x27",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 1492,
+          "p50": 11,
+          "p95": 75,
+          "max": 250,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f1f1f1",
+              "shift": 14,
+              "max": 250,
+              "px": 1229
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c42c37",
+              "shift": 8.99242424242425,
+              "max": 117,
+              "px": 132
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004396",
+              "shift": 10,
+              "max": 15,
+              "px": 131
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 9,
+          "asset": "us",
+          "shape": "flag",
+          "size": "36x28",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 140,
+          "H": 108,
+          "n": 374,
+          "p50": 0,
+          "p95": 199,
+          "max": 230,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "max": 230,
+              "px": 210
+            },
+            {
+              "original": "#bd3d44",
+              "rendered": "#bd3d44",
+              "shift": 0,
+              "max": 194,
+              "px": 148
+            },
+            {
+              "original": "#192f5d",
+              "rendered": "#59698a",
+              "shift": 64,
+              "max": 224,
+              "px": 16
+            }
+          ],
+          "pass": false
+        }
+      ],
+      "flagsDistinct": [
+        "us",
+        "kr",
+        "cn",
+        "ru"
+      ],
+      "logos": [
+        "giantx"
+      ],
+      "errors": []
+    },
+    "1440": {
+      "width": 1440,
+      "attempts": [
+        "kr.svg,kr.svg,kr.svg,ru.svg,us.svg,giantx.png,kr.svg,us.svg,cn.svg,kr.svg",
+        "kr.svg,kr.svg,kr.svg,cn.svg,pl.svg,c9.png,kr.svg,kr.svg,giantx.png,fnatic.png",
+        "c9.png,kr.svg,giantx.png,kr.svg,kr.svg,fnatic.png,kr.svg,pl.svg,kr.svg,cn.svg",
+        "kr.svg,kr.svg,c9.png,pl.svg,kr.svg,kr.svg,cn.svg,giantx.png,kr.svg,fnatic.png",
+        "kr.svg,us.svg,us.svg,giantx.png,kr.svg,kr.svg,kr.svg,cn.svg,kr.svg,ru.svg",
+        "kr.svg,fnatic.png,kr.svg,kr.svg,c9.png,kr.svg,kr.svg,cn.svg,giantx.png,pl.svg"
+      ],
+      "hints": [
+        {
+          "i": 0,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "42x33",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 168,
+          "H": 128,
+          "n": 2186,
+          "p50": 7,
+          "p95": 78,
+          "max": 159,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f7f7f7",
+              "shift": 8,
+              "max": 159,
+              "px": 1833
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c72d38",
+              "shift": 5.994413407821241,
+              "max": 14,
+              "px": 179
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004499",
+              "shift": 7,
+              "max": 13,
+              "px": 174
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 1,
+          "asset": "fnatic",
+          "shape": "logo",
+          "size": "40x40",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 160,
+          "n": 533,
+          "p50": 10,
+          "p95": 40,
+          "max": 47,
+          "colors": [
+            {
+              "original": "#ff5900",
+              "rendered": "#f55600",
+              "shift": 10,
+              "max": 47,
+              "px": 533
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 2,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "42x32",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 124,
+          "n": 2006,
+          "p50": 6,
+          "p95": 70,
+          "max": 78,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f8f8f8",
+              "shift": 7,
+              "max": 78,
+              "px": 1681
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c82d38",
+              "shift": 4.987804878048792,
+              "max": 13,
+              "px": 164
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#00449a",
+              "shift": 6,
+              "max": 11,
+              "px": 161
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 3,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "41x31",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 124,
+          "n": 2006,
+          "p50": 7,
+          "p95": 74,
+          "max": 81,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f7f7f7",
+              "shift": 8,
+              "max": 81,
+              "px": 1681
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c72d38",
+              "shift": 5.987804878048792,
+              "max": 13,
+              "px": 164
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004499",
+              "shift": 7,
+              "max": 12,
+              "px": 161
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 4,
+          "asset": "c9",
+          "shape": "logo",
+          "size": "39x39",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 152,
+          "H": 152,
+          "n": 262,
+          "p50": 7,
+          "p95": 54,
+          "max": 56,
+          "colors": [
+            {
+              "original": "#26ace2",
+              "rendered": "#26a7db",
+              "shift": 7,
+              "max": 56,
+              "px": 262
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 5,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "41x31",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 1821,
+          "p50": 7,
+          "p95": 70,
+          "max": 164,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f7f7f7",
+              "shift": 8,
+              "max": 164,
+              "px": 1515
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c72d38",
+              "shift": 5.993589743589752,
+              "max": 14,
+              "px": 156
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004499",
+              "shift": 7,
+              "max": 11,
+              "px": 150
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 6,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "41x31",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 124,
+          "n": 2006,
+          "p50": 7,
+          "p95": 76,
+          "max": 84,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#f7f7f7",
+              "shift": 8,
+              "max": 84,
+              "px": 1681
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#c72d38",
+              "shift": 5.987804878048792,
+              "max": 14,
+              "px": 164
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#004499",
+              "shift": 7,
+              "max": 12,
+              "px": 161
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 7,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "42x32",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 164,
+          "H": 124,
+          "n": 3461,
+          "p50": 10,
+          "p95": 41,
+          "max": 46,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#e41b24",
+              "shift": 10,
+              "max": 46,
+              "px": 3453
+            },
+            {
+              "original": "#ffff00",
+              "rendered": "#fefe00",
+              "shift": 1,
+              "max": 1,
+              "px": 8
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 8,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "40x40",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 160,
+          "n": 302,
+          "p50": 3,
+          "p95": 60,
+          "max": 61,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#fdfdfd",
+              "shift": 2,
+              "max": 61,
+              "px": 302
+            }
+          ],
+          "pass": false
+        },
+        {
+          "i": 9,
+          "asset": "pl",
+          "shape": "flag",
+          "size": "42x33",
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 168,
+          "H": 128,
+          "n": 3952,
+          "p50": 0,
+          "p95": 0,
+          "max": 235,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "max": 91,
+              "px": 1976
+            },
+            {
+              "original": "#dc143c",
+              "rendered": "#dc143c",
+              "shift": 0,
+              "max": 235,
+              "px": 1976
+            }
+          ],
+          "pass": true
+        }
+      ],
+      "flagsDistinct": [
+        "kr",
+        "cn",
+        "pl"
+      ],
+      "logos": [
+        "fnatic",
+        "c9",
+        "giantx"
+      ],
+      "errors": []
+    }
+  },
+  "pass": false
+}

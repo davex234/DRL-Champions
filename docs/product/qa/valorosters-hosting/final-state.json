@@ -1,0 +1,27 @@
+{
+  "at": "2026-09-30T18:01:13.880Z",
+  "buildServed": "drl-0.1.1-1-27d8602e",
+  "migrationHead": "0059_crafting_missions",
+  "ready": "ready",
+  "admins": 1,
+  "qaAdmin": false,
+  "cards": 331,
+  "agents": 29,
+  "has0060": false,
+  "market": "GLOBAL_MARKET_ENABLED=false",
+  "payments": "PAYMENTS_ENABLED=false",
+  "nextBind": "127.0.0.1:3005",
+  "port3005Public": false,
+  "tasks": {
+    "DRLCards": "Running",
+    "DRLCards-Tunnel": "Running"
+  },
+  "tunnels": {
+    "drlcards": "4 conexiones",
+    "clipflow": "2 (intacto)",
+    "nexus-hotel-demo": "4 (intacto)",
+    "nexusschola": "4 (intacto)",
+    "nexus-agent": "0 (como estaba)"
+  },
+  "updatedAt": "2026-09-30T18:31:43.689Z"
+}

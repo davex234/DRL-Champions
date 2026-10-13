@@ -1,0 +1,38 @@
+{
+  "at": "2026-09-30T15:29:10.741Z",
+  "baseUrl": "http://127.0.0.1:3005 (build de producción)",
+  "intercepted": false,
+  "pass": 3,
+  "fail": 0,
+  "results": [
+    {
+      "id": "DOS PESTAÑAS · exactamente una muestra el resultado",
+      "ok": true,
+      "detail": "[false,true]"
+    },
+    {
+      "id": "DOS PESTAÑAS · el servidor aplicó UN crafteo (Bronce −4, Plata +1)",
+      "ok": true,
+      "detail": "{\"inicial\":1,\"estandar\":4,\"premium\":1} → {\"inicial\":1,\"estandar\":0,\"premium\":2}"
+    },
+    {
+      "id": "DOS PESTAÑAS · la otra pestaña ve un error de negocio legible (sin crafteo fantasma)",
+      "ok": true,
+      "detail": "CRAFTING · SOBRES CONFIRMAR CRAFTEO ENTREGAS 4 × Sobre Bronce RECIBES 1 × Sobre Plata No tienes sobres suficientes CANCELAR CONFIRMAR CRAFTEO || CRAFTING · SOBRES LISTO CRAFT COMPLETADO +1 SOBRE PLATA CERRAR"
+    }
+  ],
+  "before": {
+    "inicial": 1,
+    "estandar": 4,
+    "premium": 1
+  },
+  "after": {
+    "inicial": 1,
+    "estandar": 0,
+    "premium": 2
+  },
+  "tabs": [
+    "CRAFTING · SOBRES CONFIRMAR CRAFTEO ENTREGAS 4 × Sobre Bronce RECIBES 1 × Sobre Plata No tienes sobres suficientes CANCELAR CONFIRMAR CRAFTEO",
+    "CRAFTING · SOBRES LISTO CRAFT COMPLETADO +1 SOBRE PLATA CERRAR"
+  ]
+}

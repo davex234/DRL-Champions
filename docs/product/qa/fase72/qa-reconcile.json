@@ -1,0 +1,53 @@
+{
+  "at": "2026-09-29T17:38:08.804Z",
+  "section": "reconcile",
+  "pass": 9,
+  "total": 9,
+  "results": [
+    {
+      "id": "libro mayor ↔ runs (I): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":2,\"entries\":2,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (J): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":5,\"entries\":5,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (D): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":1,\"entries\":1,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (F): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":1,\"entries\":1,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (G): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":1,\"entries\":1,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (H): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":1,\"entries\":1,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (C): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":0,\"entries\":0,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (A): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":0,\"entries\":0,\"orphan\":0}"
+    },
+    {
+      "id": "libro mayor ↔ runs (E): una entrada por run pagada, ≤1 premio por run, sin cargos huérfanos",
+      "ok": true,
+      "detail": "{\"runs\":0,\"entries\":0,\"orphan\":0}"
+    }
+  ]
+}

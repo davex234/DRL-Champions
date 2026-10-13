@@ -1,0 +1,253 @@
+{
+ "at": "2026-10-06T19:26:33.065Z",
+ "base": "https://valorosters.com",
+ "pass": 49,
+ "fail": 0,
+ "rows": [
+  {
+   "id": "ready + 0065 aplicada (cabeza ≥ 0065) + check «ranked»",
+   "ok": true,
+   "detail": "{\"head\":\"0073_pickems_launch_guard\",\"status\":\"ready\"}"
+  },
+  {
+   "id": "anónimo → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "POST al competitivo → 405 (solo lectura)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · centro competitivo 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "A · temporada competitiva 1 activa (rank-v1, 5 de colocación, Top 500, abierta)",
+   "ok": true,
+   "detail": "{\"id\":\"competitiva-1\",\"number\":1,\"name\":\"Temporada competitiva 1\",\"startsAt\":1791135221374,\"endsAt\":null,\"rankConfigVersion\":\"rank-v1\",\"formulaVersion\":\"ranked-rating-v1\",\"placementGames\":5,\"top\":{\"size\":500,\"minSeasonMatches\":5,\"activeDays\":14},\"pairCap\":{\"matches\":5,\"hours\":24},\"gameSeasonId\":null}"
+  },
+  {
+   "id": "A · rating = el canónico de la BD (una sola fuente)",
+   "ok": true,
+   "detail": "{\"api\":1000,\"db\":1000}"
+  },
+  {
+   "id": "A · estado coherente con sus partidas de temporada (rango solo tras 5)",
+   "ok": true,
+   "detail": "{\"state\":\"UNRANKED\",\"seasonMatches\":0}"
+  },
+  {
+   "id": "A · sin correos ni datos privados en el cable",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "clasificación = elegibles reales de la vista (nunca filas fabricadas)",
+   "ok": true,
+   "detail": "{\"total\":0,\"eligible\":0}"
+  },
+  {
+   "id": "clasificación: tamaño de página acotado aunque se pida 5000",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "foto barata: posición, partidas de temporada y etiqueta",
+   "ok": true,
+   "detail": "{\"rating\":1000,\"position\":null,\"rankedTotal\":0,\"gamesPlayed\":0,\"seasonMatches\":0,\"rankLabel\":\"Sin clasificar\"}"
+  },
+  {
+   "id": "perfil competitivo público (K mira a A): estado de temporada y sin datos privados",
+   "ok": true,
+   "detail": "{\"state\":\"UNRANKED\"}"
+  },
+  {
+   "id": "perfil F89 (K mira a A): bloque competitivo sin versión ni correo",
+   "ok": true,
+   "detail": "{\"seasonName\":\"Temporada competitiva 1\",\"state\":\"UNRANKED\",\"rank\":null,\"placement\":{\"played\":0,\"total\":5},\"peakRank\":null,\"rating\":1000,\"record\":{\"matches\":0,\"wins\":0,\"losses\":0,\"draws\":0,\"winrate\":null}}"
+  },
+  {
+   "id": "parámetros de cliente ignorados (?rating=9999 no cambia nada)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/competitivo 1440: héroe con estado y emblema accesible",
+   "ok": true,
+   "detail": "{\"state\":\"UNRANKED\",\"emblem\":\"Sin clasificar\"}"
+  },
+  {
+   "id": "/competitivo 1440: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil propio 1440: bloque ranked ausente según el estado del servidor (null)",
+   "ok": true,
+   "detail": "{\"stNow\":null,\"hasRank\":false,\"hasCard\":true}"
+  },
+  {
+   "id": "/duelos ranked: tarjeta con emblema competitivo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/competitivo 1024: héroe con estado y emblema accesible",
+   "ok": true,
+   "detail": "{\"state\":\"UNRANKED\",\"emblem\":\"Sin clasificar\"}"
+  },
+  {
+   "id": "/competitivo 1024: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil propio 1024: bloque ranked ausente según el estado del servidor (null)",
+   "ok": true,
+   "detail": "{\"stNow\":null,\"hasRank\":false,\"hasCard\":true}"
+  },
+  {
+   "id": "/competitivo 390: héroe con estado y emblema accesible",
+   "ok": true,
+   "detail": "{\"state\":\"UNRANKED\",\"emblem\":\"Sin clasificar\"}"
+  },
+  {
+   "id": "/competitivo 390: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil propio 390: bloque ranked ausente según el estado del servidor (null)",
+   "ok": true,
+   "detail": "{\"stNow\":null,\"hasRank\":false,\"hasCard\":true}"
+  },
+  {
+   "id": "página / → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /competitivo → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /duelos → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /temporada → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion/trofeos → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /tienda → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /misiones/crafting → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /progresion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /admin/competitive → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /jugador/505585ec-5e36-4ad5-a564-c082ee3d6c04 → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/state (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/me (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/competitive (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/forge (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/missions (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/crafting (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/collection-sets (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/daily-loop (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/season-track (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/duel/matchmaking (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "Ranked no toca la economía (invariantes, no hashes): la liquidación exige ranked y solo escribe rating/temporada competitiva; los servicios ranked no importan economía, sobres, forja, tienda, crafteo, misiones, sets ni escritura de temporada",
+   "ok": true,
+   "detail": "{\"tablas\":\"_competitive_season_record,competitive_active_season,competitive_season_players,competitive_seasons,duel_matches,duel_pvp_ensure_rating,duel_pvp_expected_score,duel_pvp_k_factor,duel_pvp_rating_events,duel_pvp_ratings\",\"prohibidas\":[],\"importEconomia\":null}"
+  },
+  {
+   "id": "F80 · los seis precios en el fichero de sobres activo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F83 T2 DRAFT, 0 XP de temporada; F84 sin ajustes ni fotos (nada otorgado ni reiniciado)",
+   "ok": true,
+   "detail": "DRAFT|0|0|0"
+  },
+  {
+   "id": "health 200",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

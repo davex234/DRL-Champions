@@ -1,0 +1,73 @@
+{
+  "at": "2026-09-28T11:57:18.901Z",
+  "version": "0058 v3 (F69)",
+  "files": {
+    "migration": {
+      "file": "docs/operations/proposals/0058_hardening_grants.PROPOSAL.sql",
+      "bytes": 10871,
+      "sha256": "ad5f9e5a911fe0a2aa43ddedd07cd5978b294f5065a5b3350da1db95106bc26c",
+      "crlf": false,
+      "mtime": "2026-09-27T21:15:09.454Z"
+    },
+    "rollback": {
+      "file": "docs/operations/proposals/0058_hardening_grants.ROLLBACK.sql",
+      "bytes": 3558,
+      "sha256": "55d211c55920c41f32ac9344b4cc7cdc51f46273fba8fcd929a15c5864756ab2",
+      "crlf": false,
+      "mtime": "2026-09-27T21:12:35.091Z"
+    },
+    "preflight": {
+      "file": "docs/operations/proposals/0058_preflight.sql",
+      "bytes": 2839,
+      "sha256": "af85a408126fbdd6bf0da77dcde98c02ab4b3476723882ba613fa0dea43cb310",
+      "crlf": false,
+      "mtime": "2026-09-27T19:50:08.263Z"
+    },
+    "postflight": {
+      "file": "docs/operations/proposals/0058_postflight.sql",
+      "bytes": 4642,
+      "sha256": "0ae965de0f9d95fa102ebee85e87a8459b0d0ca7f36eed60d68874a39bfca08d",
+      "crlf": false,
+      "mtime": "2026-09-27T21:12:47.296Z"
+    },
+    "rlsTests": {
+      "file": "docs/operations/proposals/0058_rls_tests.sql",
+      "bytes": 8725,
+      "sha256": "6d042acd475db247d611b5ab8acaa6f933b16d171c60a065999b34c6f7a0f9fb",
+      "crlf": false,
+      "mtime": "2026-09-27T21:14:26.501Z"
+    }
+  },
+  "execute": [
+    "0058_preflight.sql (solo lectura)",
+    "0058_postflight.sql antes (solo lectura, deriva)",
+    "0058_hardening_grants.PROPOSAL.sql (UNA transacción, una vez)",
+    "0058_postflight.sql después",
+    "0058_rls_tests.sql (termina en ROLLBACK)"
+  ],
+  "notExecuted": [
+    "0058_hardening_grants.ROLLBACK.sql (solo si fallo)"
+  ],
+  "validation": {
+    "issue": "PROPOSAL.sql tiene mtime 2026-09-27T21:15:09Z, 92 s DESPUÉS del dry-run registrado (21:13:37Z): el dry-run de F69 no demostraba por sí solo que estos bytes fueran los probados.",
+    "resolution": "Dry-run repetido HOY sobre estos bytes exactos con el mismo runner y la misma réplica (scripts/_fase69-0058-dryrun.mjs + _fase69-0058-fixture.sql, PGlite 0.3.16 / PostgreSQL 17.5): los 16 pasos dan filas IDÉNTICAS a las registradas en F69 (14 → 0 → 14, rollback exacto). Además: el test f69.profileExposure fija que la v3 concede exactamente las 6 columnas del contrato; preflight/postflight en vivo idénticos a la comprobación de F69 (21:14Z).",
+    "recordedSummary": {
+      "beforeFailures": 14,
+      "afterFailures": 0,
+      "rollbackFailures": 14,
+      "rollbackRestoresExactly": true,
+      "stepErrors": []
+    },
+    "recheckSummary": {
+      "beforeFailures": 14,
+      "afterFailures": 0,
+      "rollbackFailures": 14,
+      "rollbackRestoresExactly": true,
+      "stepErrors": []
+    },
+    "stepsCompared": 16,
+    "stepDiffs": 0,
+    "recheckAt": "2026-09-28T11:52:58.275Z"
+  },
+  "matchesValidatedV3": true
+}

@@ -1,0 +1,200 @@
+{
+  "phase": 43,
+  "kind": "suggestion-simulation",
+  "bySize": {
+    "50": {
+      "runs": 120,
+      "legal": 112,
+      "infeasible": 8,
+      "deterministic": 112,
+      "axisOptimal": 84,
+      "timingMs": {
+        "BALANCED": {
+          "n": 30,
+          "p50": 1.2813,
+          "p95": 2.3564,
+          "p99": 11.0588,
+          "max": 14.536
+        },
+        "stronghold": {
+          "n": 30,
+          "p50": 0.3664,
+          "p95": 0.8605,
+          "p99": 1.1092,
+          "max": 1.1504
+        },
+        "gamesense": {
+          "n": 30,
+          "p50": 0.2849,
+          "p95": 0.5258,
+          "p99": 0.6855,
+          "max": 0.7421
+        },
+        "entryfrag": {
+          "n": 30,
+          "p50": 0.2881,
+          "p95": 0.5239,
+          "p99": 0.532,
+          "max": 0.5339
+        }
+      }
+    },
+    "100": {
+      "runs": 120,
+      "legal": 120,
+      "infeasible": 0,
+      "deterministic": 120,
+      "axisOptimal": 90,
+      "timingMs": {
+        "BALANCED": {
+          "n": 30,
+          "p50": 2.601,
+          "p95": 4.8273,
+          "p99": 8.4638,
+          "max": 9.9003
+        },
+        "stronghold": {
+          "n": 30,
+          "p50": 0.368,
+          "p95": 0.7301,
+          "p99": 0.8826,
+          "max": 0.9424
+        },
+        "gamesense": {
+          "n": 30,
+          "p50": 0.3816,
+          "p95": 0.7121,
+          "p99": 0.8335,
+          "max": 0.8608
+        },
+        "entryfrag": {
+          "n": 30,
+          "p50": 0.3201,
+          "p95": 0.6401,
+          "p99": 0.8456,
+          "max": 0.9272
+        }
+      }
+    },
+    "250": {
+      "runs": 120,
+      "legal": 120,
+      "infeasible": 0,
+      "deterministic": 120,
+      "axisOptimal": 90,
+      "timingMs": {
+        "BALANCED": {
+          "n": 30,
+          "p50": 8.0209,
+          "p95": 12.0954,
+          "p99": 12.7311,
+          "max": 12.9451
+        },
+        "stronghold": {
+          "n": 30,
+          "p50": 0.5926,
+          "p95": 1.021,
+          "p99": 1.089,
+          "max": 1.1086
+        },
+        "gamesense": {
+          "n": 30,
+          "p50": 0.5365,
+          "p95": 1.0614,
+          "p99": 1.3265,
+          "max": 1.4319
+        },
+        "entryfrag": {
+          "n": 30,
+          "p50": 0.5578,
+          "p95": 0.8804,
+          "p99": 1.0303,
+          "max": 1.0798
+        }
+      }
+    },
+    "500": {
+      "runs": 120,
+      "legal": 120,
+      "infeasible": 0,
+      "deterministic": 120,
+      "axisOptimal": 90,
+      "timingMs": {
+        "BALANCED": {
+          "n": 30,
+          "p50": 26.7666,
+          "p95": 44.3752,
+          "p99": 62.3828,
+          "max": 69.185
+        },
+        "stronghold": {
+          "n": 30,
+          "p50": 0.9528,
+          "p95": 1.5853,
+          "p99": 1.7298,
+          "max": 1.7679
+        },
+        "gamesense": {
+          "n": 30,
+          "p50": 0.9176,
+          "p95": 1.2786,
+          "p99": 1.5217,
+          "max": 1.611
+        },
+        "entryfrag": {
+          "n": 30,
+          "p50": 0.8888,
+          "p95": 1.3309,
+          "p99": 1.4243,
+          "max": 1.4507
+        }
+      }
+    },
+    "772-definiciones-5000-ejemplares": {
+      "runs": 120,
+      "legal": 120,
+      "infeasible": 0,
+      "deterministic": 120,
+      "axisOptimal": 90,
+      "timingMs": {
+        "BALANCED": {
+          "n": 30,
+          "p50": 41.0383,
+          "p95": 55.9345,
+          "p99": 58.2556,
+          "max": 58.377
+        },
+        "stronghold": {
+          "n": 30,
+          "p50": 3.2296,
+          "p95": 5.0884,
+          "p99": 5.8787,
+          "max": 6.0863
+        },
+        "gamesense": {
+          "n": 30,
+          "p50": 2.9736,
+          "p95": 5.3643,
+          "p99": 5.6249,
+          "max": 5.7024
+        },
+        "entryfrag": {
+          "n": 30,
+          "p50": 3.0497,
+          "p95": 5.253,
+          "p99": 5.6638,
+          "max": 5.734
+        }
+      }
+    }
+  },
+  "balancedVsBruteForce": {
+    "collections": 60,
+    "exactSpread": 60,
+    "exactPct": 100,
+    "meanSpreadGapSd": 0
+  },
+  "violations": 0,
+  "sample": [],
+  "ms": 12125
+}

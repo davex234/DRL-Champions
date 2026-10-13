@@ -1,0 +1,96 @@
+PASS ready + 0066 aplicada (cabeza ≥ 0066) + check «social» {"head":"0073_pickems_launch_guard"}
+PASS health 200 
+PASS anónimo GET → 401 
+PASS anónimo POST → 401 
+PASS A, B, C sin relaciones previas 0
+PASS búsqueda por prefijo SIN distinguir mayúsculas encuentra a B (relación NINGUNA, sin presencia) {"n":1,"rel":"NONE"}
+PASS búsqueda: sin correo, sin latido, sin metadatos 
+PASS búsqueda: el propio buscador no sale 
+PASS buscar por correo («@») → 400 (no hay enumeración por email) 400
+PASS consulta de 1 carácter → 400 
+PASS comodines del cliente neutralizados (%_ → consulta corta → 400) 400
+PASS consulta larga (300) → recortada, 200 sin resultados 200
+PASS paginación: 10 por página, desplazamiento acotado a 40 {"p1":9,"p2":0,"maxOff":40}
+PASS UUID como consulta → no devuelve a nadie por id 
+PASS A→B ×10 a la vez → todas 200 y UNA fila PENDING {"codes":["REQUESTED","ALREADY_PENDING"],"db":"PENDING:1"}
+PASS B · contador del servidor = 1 (la solicitud) 1
+PASS B · solicitud recibida de A en la foto (con rango F84) {"friends":0,"incoming":1,"outgoing":0,"challengesIn":0,"challengesOut":0,"blocked":0}
+PASS foto social sin datos privados 
+PASS aceptar mi PROPIA solicitud → 409 
+PASS K acepta una solicitud A→B que no es suya → 409 (sin efecto) 
+PASS B acepta ×5 a la vez → 1 ACCEPTED, resto 409, UNA amistad {"ok":1,"db":"ACCEPTED:1"}
+PASS A→C y C→A a la vez → UNA amistad ACCEPTED (cruzada converge) {"a":"REQUESTED","c":"ACCEPTED","db":"ACCEPTED:1"}
+PASS añadirse a uno mismo → 400 
+PASS id inventado → 404/400 
+PASS K elimina la amistad A↔B en su nombre → 409 NOT_FRIENDS (sin efecto) 
+PASS cuerpo con userId/bando falsos se ignora (el sujeto es el token) 
+PASS B ve a A «En línea» (latido reciente) y sin hora exacta ONLINE
+PASS K (no amigo) NO ve la presencia de A null
+PASS K busca a A: presencia null null
+PASS dos sesiones latiendo seguidas: UNA escritura (umbral de 20 s) {"ls1":"1791314813","ls2":"1791314813"}
+PASS el cliente no puede declararse «en partida» (pulse con presence=IN_MATCH se ignora) 
+enfriamiento: 0 retos A→B en la última hora, caben los 6 de esta pasada
+PASS A, B y C con equipo legal {"a":true,"b":true,"c":true}
+PASS retar a un NO amigo (A→K) → 403 
+PASS retarse a uno mismo → 400 
+PASS retar con un mazo AJENO → rechazado 
+PASS A→B ×10 a la vez → UN reto (mismo challengeId) {"ids":1}
+PASS TTL 5 min por reloj de la BD 
+PASS B recibe el reto en el pulso (avatar, nombre, rango del retador) {"id":"f79f35b1-5e7f-491a-9f8e-5eea1bf700b7","badge":1}
+PASS B → A con uno pendiente de A → 409 «acepta su reto» (un reto por pareja) 
+PASS K acepta el reto A→B → 404 (no revela que existe) 
+PASS K cancela el reto A→B → 409 (sin efecto) 
+PASS A (retador) no puede aceptar su propio reto → 404 
+PASS B rechaza → DECLINED 
+PASS A ve su reto RECHAZADO (estado persistido en servidor) DECLINED
+PASS A cancela mientras PENDING → CANCELLED 
+PASS aceptar un reto cancelado → 409 
+[429] challenge_create intento 0 cuerpo={"error":"Demasiadas solicitudes. Inténtalo de nuevo en unos segundos.","code":"RATE_LIMITED"}
+PASS antes de caducar: sigue pendiente para B 
+PASS tras caducar (hora del servidor): aceptar → 409 EXPIRED, sin partida EXPIRED
+PASS B en cola ranked acepta → 409 IN_QUEUE; la cola NO se cancela en silencio {"join":200,"code":"IN_QUEUE","st":"QUEUED"}
+PASS B acepta ×5 → UNA partida (mismo matchId) PVP_PRIVATE con A=retador, B=retado {"mids":1,"mrow":"PVP_PRIVATE|505585ec-5e36-4ad5-a564-c082ee3d6c04|f92e89bc-83f2-4237-87c7-a4357aa77e3c|IN_PROGRESS"}
+PASS reto MATCHED con ese match_id 
+PASS A (reconectando) detecta la partida activa en el pulso d0a696b9-63e0-415a-8a75-ed693efa4f8c
+PASS presencia EN PARTIDA derivada del servidor IN_MATCH
+PASS C (amigo de A) reta a A en partida → 409 BUSY 
+PASS A en partida privada no entra en cola ranked (409) 
+PASS ?match= solo para sus dos jugadores; K → 404 
+PASS duelo amistoso JUGADO hasta el final COMPLETED|A
+PASS resultado: sin rating ni rango (duelo amistoso) {"outcome":null,"rank":null}
+PASS AISLAMIENTO F84 · 0 asientos de rating para la partida 
+PASS AISLAMIENTO F84 · ratings de A y B intactos {"before":"505585ec:1000:0:0:0,f92e89bc:1000:0:0:0","after":"505585ec:1000:0:0:0,f92e89bc:1000:0:0:0"}
+PASS AISLAMIENTO F84 · colocación/récord de temporada competitiva intactos (Top 500 no cambia) 0:0
+PASS AISLAMIENTO F83 · 0 XP de temporada por la partida 
+PASS AISLAMIENTO F73 · 0 eventos de misión por la partida 
+PASS ECONOMÍA · créditos y XP de cuenta de A y B intactos [[6000,6000,624,624],[6000,6000,528,528]]
+PASS partida terminada: ya no hay partida activa ni «en partida» 
+PASS REVANCHA = nuevo reto (consentimiento) con previousMatchId; ×4 → UNA {"ids":1,"prev":"d0a696b9-63e0-415a-8a75-ed693efa4f8c","matches":["1","1"]}
+PASS revancha con una partida AJENA → 404 
+PASS JUGADORES RECIENTES: B (de la partida real) con relación AMIGOS, sin duplicados FRIENDS
+PASS recientes: solo partidas donde A participó 
+PASS COMPARAR: lado a lado con datos públicos, sin puntuación compuesta ["player","rank","rating","seasonLevel","matches","winrate","uniqueCards","totalCards","collectionsCompleted","badges"]
+PASS comparar consigo mismo → 400 
+PASS A bloquea a C → amistad fuera para los dos y reto pendiente cancelado {"db":"NONE"}
+PASS el reto cancelado por el bloqueo ya no se puede aceptar 
+PASS C pide amistad a A → 409 «Acción no disponible» (neutro: no dice quién bloqueó) {"error":"Acción no disponible","code":"UNAVAILABLE"}
+PASS C no puede retar a A 
+PASS C busca a A → no aparece (sin «existe pero no») 
+PASS C ?player=A → 404 social (como un id inventado) 
+PASS POLÍTICA: el perfil PÚBLICO F89 de A sigue visible para C (no es privacidad total) 
+PASS C no recibe en su foto ni rastro del bloqueo (sin blocked_by) 
+PASS A ve a C en su lista de bloqueados 
+PASS bloquearse a uno mismo → 400 
+PASS K desbloquea en nombre de A → 409 (solo su propio bloqueo) 
+PASS desbloquear → NINGUNA (no restaura la amistad) 
+PASS tras desbloquear se puede volver a pedir (re-add) REQUESTED
+PASS A retira… (C cancela su solicitud) → NINGUNA 
+PASS RLS social_blocks: el bloqueado (C) lee 0 filas; el bloqueador (A) lee la suya {"c":0,"a":1}
+PASS RLS duel_friendships: K no lee el grafo ajeno {"status":403,"n":null}
+PASS RLS duel_challenges: K no lee retos ajenos {"status":403,"n":null}
+PASS RPC social_* directa con token de jugador → denegada (solo service_role) 403
+PASS límite de búsqueda: ≥ 25 búsquedas normales pasan y luego 429 (anti-scraping) {"okBefore":30}
+PASS limpieza: 0 amistades, 0 bloqueos, 0 retos vivos de A/B/C 0|0|0
+PASS la cuenta personal no aparece en NINGUNA fila social 
+
+F85 PROD QA: 92/92

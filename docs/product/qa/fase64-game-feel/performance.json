@@ -1,0 +1,282 @@
+{
+  "note": "Mismas rutas, mismos anchos, misma cuenta QA; medido en el navegador (PerformanceResourceTiming).",
+  "before": {
+    "apiRequestsAvg": 21.4,
+    "requestsAvg": 109.1,
+    "jsKBAvg": 2369,
+    "imgKBAvg": 612,
+    "clsMax": 0.229,
+    "errors429": 40,
+    "errors404": 54
+  },
+  "after": {
+    "apiRequestsAvg": 9.3,
+    "requestsAvg": 93.2,
+    "jsKBAvg": 2387,
+    "imgKBAvg": 595,
+    "clsMax": 0.215,
+    "errors429": 0,
+    "errors404": 3
+  },
+  "perRoute1440": [
+    {
+      "route": "/",
+      "apiBefore": 6,
+      "apiAfter": 6,
+      "reqBefore": 67,
+      "reqAfter": 64,
+      "jsKBBefore": 1977,
+      "jsKBAfter": 1988,
+      "clsBefore": 0.0010764371141975307,
+      "clsAfter": 0.0010764371141975307
+    },
+    {
+      "route": "/jugar",
+      "apiBefore": 25,
+      "apiAfter": 11,
+      "reqBefore": 146,
+      "reqAfter": 134,
+      "jsKBBefore": 2975,
+      "jsKBAfter": 3102,
+      "clsBefore": 0.003644686357997899,
+      "clsAfter": 0.00442759278013546
+    },
+    {
+      "route": "/duelos/jugar",
+      "apiBefore": 8,
+      "apiAfter": 8,
+      "reqBefore": 72,
+      "reqAfter": 69,
+      "jsKBBefore": 2108,
+      "jsKBAfter": 2121,
+      "clsBefore": 0,
+      "clsAfter": 0
+    },
+    {
+      "route": "/competitivo",
+      "apiBefore": 24,
+      "apiAfter": 10,
+      "reqBefore": 128,
+      "reqAfter": 111,
+      "jsKBBefore": 2748,
+      "jsKBAfter": 2771,
+      "clsBefore": 0.07546192564997,
+      "clsAfter": 0.06913844367551869
+    },
+    {
+      "route": "/coleccion",
+      "apiBefore": 26,
+      "apiAfter": 12,
+      "reqBefore": 175,
+      "reqAfter": 156,
+      "jsKBBefore": 2419,
+      "jsKBAfter": 2434,
+      "clsBefore": 0.011467786576097067,
+      "clsAfter": 0.0023436491957090195
+    },
+    {
+      "route": "/duelos/mazos",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 124,
+      "reqAfter": 107,
+      "jsKBBefore": 2777,
+      "jsKBAfter": 2796,
+      "clsBefore": 0.000586726720571845,
+      "clsAfter": 0.000586726720571845
+    },
+    {
+      "route": "/duelos/mazos?nuevo=1",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 120,
+      "reqAfter": 103,
+      "jsKBBefore": 2367,
+      "jsKBAfter": 2381,
+      "clsBefore": 0.0005840475367584019,
+      "clsAfter": 0.0005840475367584019
+    },
+    {
+      "route": "/inventario",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 115,
+      "reqAfter": 98,
+      "jsKBBefore": 2618,
+      "jsKBAfter": 2633,
+      "clsBefore": 0.0005840475367584019,
+      "clsAfter": 0.0005840475367584019
+    },
+    {
+      "route": "/packs",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 151,
+      "reqAfter": 134,
+      "jsKBBefore": 2657,
+      "jsKBAfter": 2672,
+      "clsBefore": 0.00026233543113425925,
+      "clsAfter": 0.0005840475367584019
+    },
+    {
+      "route": "/abrir/inicial",
+      "apiBefore": 7,
+      "apiAfter": 7,
+      "reqBefore": 43,
+      "reqAfter": 38,
+      "jsKBBefore": 1726,
+      "jsKBAfter": 1731,
+      "clsBefore": 0,
+      "clsAfter": 0
+    },
+    {
+      "route": "/tienda",
+      "apiBefore": 22,
+      "apiAfter": 8,
+      "reqBefore": 122,
+      "reqAfter": 99,
+      "jsKBBefore": 2367,
+      "jsKBAfter": 2381,
+      "clsBefore": 0.0005840475367584019,
+      "clsAfter": 0.0005840475367584019
+    },
+    {
+      "route": "/progresion",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 120,
+      "reqAfter": 103,
+      "jsKBBefore": 2597,
+      "jsKBAfter": 2620,
+      "clsBefore": 0.15824528751661096,
+      "clsAfter": 0.0832942496008016
+    },
+    {
+      "route": "/temporada",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 111,
+      "reqAfter": 94,
+      "jsKBBefore": 2392,
+      "jsKBAfter": 2410,
+      "clsBefore": 0.0749050351910794,
+      "clsAfter": 0.06853466482070902
+    },
+    {
+      "route": "/logros",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 112,
+      "reqAfter": 95,
+      "jsKBBefore": 2498,
+      "jsKBAfter": 2518,
+      "clsBefore": 0.0749050351910794,
+      "clsAfter": 0.06853466482070902
+    },
+    {
+      "route": "/jugador/me",
+      "apiBefore": 25,
+      "apiAfter": 11,
+      "reqBefore": 125,
+      "reqAfter": 108,
+      "jsKBBefore": 2686,
+      "jsKBAfter": 2711,
+      "clsBefore": 0.03785824860414524,
+      "clsAfter": 0.028722799251436042
+    },
+    {
+      "route": "/jugar/draft-gauntlet",
+      "apiBefore": 23,
+      "apiAfter": 9,
+      "reqBefore": 107,
+      "reqAfter": 90,
+      "jsKBBefore": 2430,
+      "jsKBAfter": 2447,
+      "clsBefore": 0.03199466460637431,
+      "clsAfter": 0.029302326000407237
+    },
+    {
+      "route": "/jugar/road-to-champions",
+      "apiBefore": 25,
+      "apiAfter": 11,
+      "reqBefore": 108,
+      "reqAfter": 91,
+      "jsKBBefore": 2416,
+      "jsKBAfter": 2433,
+      "clsBefore": 0.057715081058706284,
+      "clsAfter": 0.06619316145029579
+    },
+    {
+      "route": "/entrenador",
+      "apiBefore": 25,
+      "apiAfter": 11,
+      "reqBefore": 153,
+      "reqAfter": 136,
+      "jsKBBefore": 2726,
+      "jsKBAfter": 2751,
+      "clsBefore": 0.0038157728407118056,
+      "clsAfter": 0.0017640737441995667
+    },
+    {
+      "route": "/pickems",
+      "apiBefore": 24,
+      "apiAfter": 10,
+      "reqBefore": 144,
+      "reqAfter": 110,
+      "jsKBBefore": 2487,
+      "jsKBAfter": 2507,
+      "clsBefore": 0.04303238644279407,
+      "clsAfter": 0.03968809417599023
+    },
+    {
+      "route": "/cuenta",
+      "apiBefore": 25,
+      "apiAfter": 11,
+      "reqBefore": 154,
+      "reqAfter": 137,
+      "jsKBBefore": 2724,
+      "jsKBAfter": 2755,
+      "clsBefore": 0.22931033952710397,
+      "clsAfter": 0.21459869383091135
+    },
+    {
+      "route": "/como-jugar",
+      "apiBefore": 22,
+      "apiAfter": 8,
+      "reqBefore": 105,
+      "reqAfter": 88,
+      "jsKBBefore": 2377,
+      "jsKBAfter": 2392,
+      "clsBefore": 0.0005840475367584019,
+      "clsAfter": 0.0005840475367584019
+    },
+    {
+      "route": "/esta-ruta-no-existe",
+      "apiBefore": 22,
+      "apiAfter": 8,
+      "reqBefore": 104,
+      "reqAfter": 87,
+      "jsKBBefore": 2367,
+      "jsKBAfter": 2381,
+      "clsBefore": 0.0005840475367584019,
+      "clsAfter": 0.0005840475367584019
+    }
+  ],
+  "probe": {
+    "/como-jugar": {
+      "before": {
+        "social": 8,
+        "liveEvents": 8,
+        "profiles": 5,
+        "total": 26
+      },
+      "after": {
+        "social": 1,
+        "liveEvents": 1,
+        "profiles": 3,
+        "total": 11
+      }
+    }
+  },
+  "bundle": "JS transferido por pantalla medido arriba (jsKB); F64 añade GameGlyph (SVG en línea, sin dependencia) y sharedPoll; ninguna librería nueva."
+}

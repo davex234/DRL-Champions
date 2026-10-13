@@ -1,0 +1,32 @@
+[content-catalog] repliegue al catálogo generado en código (content_cards vacía o ilegible). La EXISTENCIA de las cartas no está saliendo de la base de datos. Ejecuta `npm run content-catalog:migrate` para materializarlo.
+✔ F66 PvE · dos jugadas simultáneas del MISMO turno: exactamente una se aplica, la otra es 409 con el estado real (20.3577ms)
+✔ F66 PvE · diez jugadas concurrentes (doble clic, Enter+clic, dos pestañas): un turno, nunca dos (5.573ms)
+✔ F66 PvE · reintento tras respuesta perdida: la misma jugada repetida no se aplica dos veces (5.6009ms)
+✔ F66 PvE · jugar contra abandonar a la vez: o se jugó o se abandonó, nunca un híbrido que pague (17.9003ms)
+✔ F66 PvE · abandonar una partida TERMINADA no la borra (ni su repetición ni su pago) (40.3126ms)
+[content-catalog] repliegue al catálogo generado en código (content_cards vacía o ilegible). La EXISTENCIA de las cartas no está saliendo de la base de datos. Ejecuta `npm run content-catalog:migrate` para materializarlo.
+[pvp] liquidación de f17b54c2-3af8-47f8-b164-82fd62ea6cf7 falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de edbdc1a8-7545-4049-8c4d-e96bf6365822 falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de ec474e1d-8521-4a76-88b4-a087cd23e990 falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de 85882929-3b65-451d-a09e-727c4ce3bcfe falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de b7169a7d-cef1-4f2a-9cfd-8c5625ef287d falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de cb72e868-c2f7-4d66-9a5b-31f36d981695 falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de adacbc40-36e6-4ca0-82e6-05de5d768d3a falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de 37335739-a0dd-4ca2-9c44-3d5c3617b6bd falló: rpc duel_pvp_settle_match no disponible
+[pvp] liquidación de 907a83e6-7a68-4c7f-b2ec-df593feafbae falló: rpc duel_pvp_settle_match no disponible
+✔ F66 PvP · diez jugadas concurrentes del mismo jugador y turno: UNA transición; el resto 409 con estado (20.7991ms)
+✔ F66 PvP · reintento con la MISMA actionId (respuesta perdida, cinco a la vez): éxito idempotente, una transición (4.6064ms)
+✔ F66 PvP · pestaña vieja (versión anterior) y fuera de orden: rechazada con el estado actual, sin corromper (3.9057ms)
+✔ F66 PvP · IDOR: un tercero no lee, no juega ni abandona (404 sin estado) (5.0333ms)
+✔ F66 PvP · el que NO tiene el turno no puede actuar (ni con la versión correcta) (3.1083ms)
+✔ F66 PvP · jugar contra abandonar a la vez: o la jugada o el abandono, nunca las dos (25.7324ms)
+✔ F66 PvP · abandonar dos veces / diez a la vez: un cierre, el primer motivo es el que vale (3.4738ms)
+✔ F66 PvP · la mano del rival no viaja: ni en el sondeo ni en el 409 (2.9208ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 455.4614

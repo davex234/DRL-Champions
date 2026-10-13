@@ -1,0 +1,209 @@
+{
+  "question": "¿El autocompletar construye equipos competitivos?",
+  "rule": "autocomplete = máximo OVR total legal (builder.ts §autocomplete)",
+  "rows": [
+    {
+      "collectionSize": 30,
+      "collections": 250,
+      "autoWinRate": {
+        "PEAK_MAX de la misma colección": {
+          "n": 2000,
+          "rate": 0.2855,
+          "lo": 0.2661,
+          "hi": 0.3057
+        },
+        "COMBAT_MAX de la misma colección": {
+          "n": 2000,
+          "rate": 0.424,
+          "lo": 0.4025,
+          "hi": 0.4458
+        }
+      }
+    },
+    {
+      "collectionSize": 60,
+      "collections": 250,
+      "autoWinRate": {
+        "PEAK_MAX de la misma colección": {
+          "n": 2000,
+          "rate": 0.1425,
+          "lo": 0.1279,
+          "hi": 0.1585
+        },
+        "COMBAT_MAX de la misma colección": {
+          "n": 2000,
+          "rate": 0.312,
+          "lo": 0.2921,
+          "hi": 0.3326
+        }
+      }
+    },
+    {
+      "collectionSize": 120,
+      "collections": 250,
+      "autoWinRate": {
+        "PEAK_MAX de la misma colección": {
+          "n": 2000,
+          "rate": 0.077,
+          "lo": 0.0661,
+          "hi": 0.0895
+        },
+        "COMBAT_MAX de la misma colección": {
+          "n": 2000,
+          "rate": 0.2625,
+          "lo": 0.2437,
+          "hi": 0.2822
+        }
+      }
+    }
+  ],
+  "distinctAutoDecks": 750,
+  "mostUsed": [
+    {
+      "cardId": "xross__future-star",
+      "uses": 171,
+      "ovr": 95
+    },
+    {
+      "cardId": "jinggg__masters-l",
+      "uses": 170,
+      "ovr": 95
+    },
+    {
+      "cardId": "brawk__masters-l",
+      "uses": 170,
+      "ovr": 93
+    },
+    {
+      "cardId": "valyn__masters-sdc",
+      "uses": 165,
+      "ovr": 92
+    },
+    {
+      "cardId": "primmie__masters-l",
+      "uses": 163,
+      "ovr": 95
+    },
+    {
+      "cardId": "lar0k__future-star",
+      "uses": 154,
+      "ovr": 95
+    },
+    {
+      "cardId": "happywei__masters-sdc",
+      "uses": 149,
+      "ovr": 93
+    },
+    {
+      "cardId": "f0rsaken__masters-l",
+      "uses": 149,
+      "ovr": 93
+    },
+    {
+      "cardId": "neon__future-star",
+      "uses": 148,
+      "ovr": 93
+    },
+    {
+      "cardId": "sato__future-star",
+      "uses": 145,
+      "ovr": 95
+    }
+  ],
+  "ovrMaxInMatrix": [
+    {
+      "a": "OVR_MAX",
+      "b": "OVR_MAX",
+      "n": 1500,
+      "rate": 0.511,
+      "lo": 0.4857,
+      "hi": 0.5362
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "COMBAT_MAX",
+      "n": 1500,
+      "rate": 0.2887,
+      "lo": 0.2663,
+      "hi": 0.3121
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "PEAK_MAX",
+      "n": 1500,
+      "rate": 0.0287,
+      "lo": 0.0214,
+      "hi": 0.0384
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "BALANCED",
+      "n": 1500,
+      "rate": 0.6073,
+      "lo": 0.5824,
+      "hi": 0.6317
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "SPEC_SH",
+      "n": 1500,
+      "rate": 0.0567,
+      "lo": 0.0461,
+      "hi": 0.0695
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "SPEC_GS",
+      "n": 1500,
+      "rate": 0.2927,
+      "lo": 0.2702,
+      "hi": 0.3162
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "SPEC_EF",
+      "n": 1500,
+      "rate": 0.654,
+      "lo": 0.6296,
+      "hi": 0.6777
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "LOW_OVR",
+      "n": 1500,
+      "rate": 1,
+      "lo": 0.9974,
+      "hi": 1
+    },
+    {
+      "a": "OVR_MAX",
+      "b": "RANDOM",
+      "n": 1500,
+      "rate": 0.8633,
+      "lo": 0.845,
+      "hi": 0.8798
+    }
+  ],
+  "ovrMaxVsField": {
+    "strategy": "OVR_MAX",
+    "n": 10000,
+    "rate": 0.9286,
+    "lo": 0.9234,
+    "hi": 0.9335,
+    "sumOvr": 939,
+    "combatSum": 2145,
+    "meanPeak": 82.1,
+    "deck": [
+      "mada__moments",
+      "primmie__masters-l",
+      "f0rsaken__masters-l",
+      "happywei__masters-sdc",
+      "xross__future-star",
+      "brawk__masters-l",
+      "neon__future-star",
+      "leaf__champions-s",
+      "jinggg__masters-l",
+      "lar0k__future-star"
+    ]
+  }
+}

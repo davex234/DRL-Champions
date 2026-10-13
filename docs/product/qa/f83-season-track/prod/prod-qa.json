@@ -1,0 +1,208 @@
+{
+ "at": "2026-10-06T19:25:19.781Z",
+ "base": "https://valorosters.com",
+ "pass": 40,
+ "fail": 0,
+ "rows": [
+  {
+   "id": "ready + 0064 aplicada (cabeza ≥ 0064) + check «seasons»",
+   "ok": true,
+   "detail": "{\"head\":\"0073_pickems_launch_guard\"}"
+  },
+  {
+   "id": "anónimo → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · vista 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "QA · sin temporada de la ruta activa: phase NONE (la T2 es borrador e invisible)",
+   "ok": true,
+   "detail": "{\"phase\":\"NONE\"}"
+  },
+  {
+   "id": "QA · explica el pase heredado en curso",
+   "ok": true,
+   "detail": "{\"name\":\"Temporada 1 · Ascenso\",\"endsAt\":1795996800000}"
+  },
+  {
+   "id": "QA · nada de XP, ni retos, ni reclamables inventados",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "parámetro en la URL → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "reclamar en la T2 (borrador/no empezada) → 404",
+   "ok": true,
+   "detail": "{\"error\":\"Esa temporada no existe o no ha empezado\",\"code\":\"NOT_FOUND\"}"
+  },
+  {
+   "id": "reclamar nivel inválido → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "reclamar temporada mal formada → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "«dame XP» (acción inexistente) → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "campo extra (userId/amount) → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel de temporadas como usuario normal → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "publicar como usuario normal → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil de K: sin nivel de temporada (no hay temporada activa)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "BD: temporada-2 DRAFT; 0 eventos, 0 XP, 0 reclamos",
+   "ok": true,
+   "detail": "temporada-2:DRAFT|0|0|0"
+  },
+  {
+   "id": "/temporada 1440: sigue el hub del pase heredado (sin ruta F83 activa)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/temporada 1440: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "portada 1440: sin acceso de temporada inventado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/temporada 390: sigue el hub del pase heredado (sin ruta F83 activa)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/temporada 390: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "portada 390: sin acceso de temporada inventado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "página / → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /temporada → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion/trofeos → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /tienda → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /misiones/crafting → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /competitivo → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /progresion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /admin/seasons → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /jugador/f6558f75-2d65-402e-bda2-9d89ce27443d → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/state (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/me (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/competitive (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/forge (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/missions (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/crafting (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/collection-sets (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/daily-loop (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  }
+ ]
+}

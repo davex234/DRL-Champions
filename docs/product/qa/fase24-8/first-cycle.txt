@@ -1,0 +1,6 @@
+### ciclo cron 1 · 09:34Z · kill switch OFF
+2026-09-14T09:34:01Z [wrapper] start release=releases/rel-20260914T093113Z-996d06fd args=
+[esports-sync-worker] event=kill_switch_off origin=worker-vps mode=scheduled enabled=false action="exit 0 sin sync"
+[esports-sync-worker] exit=0 reason="kill switch OFF (ESPORTS_AUTO_SYNC_ENABLED != true)"
+2026-09-14T09:34:01Z [wrapper] exit=0 duration_ms=103
+

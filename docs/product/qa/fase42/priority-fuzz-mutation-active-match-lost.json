@@ -1,0 +1,140 @@
+{
+  "phase": 42,
+  "kind": "priority",
+  "combinations": 100000,
+  "mutate": "active-match-lost",
+  "violations": 79544,
+  "byInvariant": {
+    "partida-activa-primero": 29198,
+    "claim-real": 8788,
+    "orden-unico": 10380,
+    "un-tipo-por-accion": 20343,
+    "ranked-primero": 10835
+  },
+  "primaryDistribution": {
+    "resume-draft-run": 7412,
+    "sign-in": 2125,
+    "claim": 60785,
+    "edit-team": 1823,
+    "challenge": 5161,
+    "create-team": 1759,
+    "open": 2406,
+    "journey-open": 398,
+    "predict": 7956,
+    "journey-collect": 5078,
+    "objective": 2754,
+    "campaign": 1586,
+    "play-hub": 434,
+    "ranked": 276,
+    "get-cards": 19,
+    "quick": 28
+  },
+  "coverage": {
+    "returning": 64570,
+    "expiring": 58666,
+    "primaryVerySoon": 7496
+  },
+  "sample": [
+    {
+      "i": 6,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 6,
+      "invariant": "claim-real",
+      "detail": "reclamar sin nada reclamable"
+    },
+    {
+      "i": 8,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 8,
+      "invariant": "orden-unico",
+      "detail": "claim > resume-draft-run"
+    },
+    {
+      "i": 8,
+      "invariant": "un-tipo-por-accion",
+      "detail": "claim,run,claim,build"
+    },
+    {
+      "i": 17,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 17,
+      "invariant": "claim-real",
+      "detail": "reclamar sin nada reclamable"
+    },
+    {
+      "i": 19,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 19,
+      "invariant": "ranked-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 19,
+      "invariant": "un-tipo-por-accion",
+      "detail": "claim,claim,open,play"
+    },
+    {
+      "i": 27,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 27,
+      "invariant": "claim-real",
+      "detail": "reclamar sin nada reclamable"
+    },
+    {
+      "i": 28,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 28,
+      "invariant": "ranked-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 28,
+      "invariant": "claim-real",
+      "detail": "reclamar sin nada reclamable"
+    },
+    {
+      "i": 29,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 29,
+      "invariant": "ranked-primero",
+      "detail": "claim"
+    },
+    {
+      "i": 29,
+      "invariant": "orden-unico",
+      "detail": "claim > predict"
+    },
+    {
+      "i": 29,
+      "invariant": "un-tipo-por-accion",
+      "detail": "claim,predict,claim,objective"
+    },
+    {
+      "i": 33,
+      "invariant": "partida-activa-primero",
+      "detail": "claim"
+    }
+  ],
+  "ms": 18021
+}

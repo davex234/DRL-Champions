@@ -1,0 +1,169 @@
+{
+  "at": "2026-09-29T20:59:05.968Z",
+  "tests": {
+    "total": null,
+    "pass": null,
+    "fail": null
+  },
+  "tsc": "web 0 · scripts 0",
+  "lint": "0 errores · 27 warnings (mismo recuento)",
+  "build": "drl-0.1.1-1-133d5d5e",
+  "supervisor": "build servida -> drl-0.1.1-1-133d5d5e (en disco: drl-0.1.1-1-133d5d5e)",
+  "smoke": "74/74",
+  "gateBrowser": {
+    "pass": 56,
+    "total": 56,
+    "persona": "I",
+    "note": "1ª pasada con A: 56/57, único FAIL = precondición «saldo QA insuficiente» (490 créditos). 57º check (F71 stat elegida) solo corre si la QA ataca primero."
+  },
+  "browserQa": {
+    "pass": 78,
+    "total": 78
+  },
+  "resume": {
+    "pass": 13,
+    "total": 13
+  },
+  "before": {
+    "390": [
+      {
+        "id": "RTC",
+        "h": 52,
+        "font": 15,
+        "bg": "rgb(255, 46, 99)"
+      },
+      {
+        "id": "DUELS",
+        "h": 52,
+        "font": 15,
+        "bg": "rgba(255, 255, 255, 0.03)"
+      },
+      {
+        "id": "COACH",
+        "h": 52,
+        "font": 15,
+        "bg": "rgba(255, 255, 255, 0.03)"
+      }
+    ],
+    "1024": [
+      {
+        "id": "RTC",
+        "h": 52,
+        "font": 15,
+        "bg": "rgb(255, 46, 99)"
+      },
+      {
+        "id": "DUELS",
+        "h": 52,
+        "font": 15,
+        "bg": "rgba(255, 255, 255, 0.03)"
+      },
+      {
+        "id": "COACH",
+        "h": 52,
+        "font": 15,
+        "bg": "rgba(255, 255, 255, 0.03)"
+      }
+    ],
+    "1440": [
+      {
+        "id": "RTC",
+        "h": 52,
+        "font": 15,
+        "bg": "rgb(255, 46, 99)"
+      },
+      {
+        "id": "DUELS",
+        "h": 52,
+        "font": 15,
+        "bg": "rgba(255, 255, 255, 0.03)"
+      },
+      {
+        "id": "COACH",
+        "h": 52,
+        "font": 15,
+        "bg": "rgba(255, 255, 255, 0.03)"
+      }
+    ]
+  },
+  "after": {
+    "390": [
+      {
+        "id": "RTC",
+        "h": 64,
+        "font": 19,
+        "bg": "rgb(255, 211, 92)",
+        "fg": "rgb(7, 8, 14)",
+        "contrast": 14.02
+      },
+      {
+        "id": "DUELS",
+        "h": 64,
+        "font": 19,
+        "bg": "rgb(255, 46, 99)",
+        "fg": "rgb(255, 255, 255)",
+        "contrast": 3.61
+      },
+      {
+        "id": "COACH",
+        "h": 64,
+        "font": 19,
+        "bg": "rgb(47, 224, 255)",
+        "fg": "rgb(7, 8, 14)",
+        "contrast": 12.6
+      }
+    ],
+    "1024": [
+      {
+        "id": "RTC",
+        "h": 68,
+        "font": 19,
+        "bg": "rgb(255, 211, 92)",
+        "fg": "rgb(7, 8, 14)",
+        "contrast": 14.02
+      },
+      {
+        "id": "DUELS",
+        "h": 68,
+        "font": 19,
+        "bg": "rgb(255, 46, 99)",
+        "fg": "rgb(255, 255, 255)",
+        "contrast": 3.61
+      },
+      {
+        "id": "COACH",
+        "h": 68,
+        "font": 19,
+        "bg": "rgb(47, 224, 255)",
+        "fg": "rgb(7, 8, 14)",
+        "contrast": 12.6
+      }
+    ],
+    "1440": [
+      {
+        "id": "RTC",
+        "h": 68,
+        "font": 19,
+        "bg": "rgb(255, 211, 92)",
+        "fg": "rgb(7, 8, 14)",
+        "contrast": 14.02
+      },
+      {
+        "id": "DUELS",
+        "h": 68,
+        "font": 19,
+        "bg": "rgb(255, 46, 99)",
+        "fg": "rgb(255, 255, 255)",
+        "contrast": 3.61
+      },
+      {
+        "id": "COACH",
+        "h": 68,
+        "font": 19,
+        "bg": "rgb(47, 224, 255)",
+        "fg": "rgb(7, 8, 14)",
+        "contrast": 12.6
+      }
+    ]
+  }
+}

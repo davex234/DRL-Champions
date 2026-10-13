@@ -1,0 +1,73 @@
+{
+  "before": {
+    "label": "before",
+    "cards": 331,
+    "seeds": 2000,
+    "byType": {
+      "COUNTRY": {
+        "n": 662000,
+        "pct": 100
+      },
+      "REGION": {
+        "n": 0,
+        "pct": 0
+      },
+      "TEAM": {
+        "n": 0,
+        "pct": 0
+      },
+      "ROLE": {
+        "n": 0,
+        "pct": 0
+      },
+      "NONE": {
+        "n": 0,
+        "pct": 0
+      }
+    },
+    "cardsWithCountryAndTeam": 0,
+    "teamShareAmongThose": null
+  },
+  "after": {
+    "label": "after",
+    "cards": 331,
+    "seeds": 2000,
+    "byType": {
+      "COUNTRY": {
+        "n": 456000,
+        "pct": 68.88
+      },
+      "REGION": {
+        "n": 0,
+        "pct": 0
+      },
+      "TEAM": {
+        "n": 206000,
+        "pct": 31.12
+      },
+      "ROLE": {
+        "n": 0,
+        "pct": 0
+      },
+      "NONE": {
+        "n": 0,
+        "pct": 0
+      }
+    },
+    "cardsWithCountryAndTeam": 204,
+    "teamShareAmongThose": {
+      "min": 0.5,
+      "mean": 0.5,
+      "max": 0.5
+    }
+  },
+  "withinMatch": {
+    "hands": 2000,
+    "handSize": 10,
+    "mixed": 1987,
+    "allCountry": 13,
+    "allTeam": 0,
+    "meanTeamPerHand": 3.47
+  },
+  "decision": "El algoritmo F71/F72.2 (hash % 4 + salto cíclico) ya reparte ~50/50 entre COUNTRY y TEAM en cada carta con ambos, y mezcla dentro de la partida: NO se cambia."
+}

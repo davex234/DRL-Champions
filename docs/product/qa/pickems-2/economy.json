@@ -1,0 +1,394 @@
+{
+ "at": "2026-10-06T08:43:49.352Z",
+ "packPrices": {
+  "estandar": 2500,
+  "premium": 6000,
+  "oro": 12000,
+  "masters": 20000,
+  "champions": 35000,
+  "icon": 60000
+ },
+ "proposal": {
+  "minCompletion": 0.8,
+  "tiers": [
+   {
+    "id": "PARTICIPATION",
+    "label": "Participación",
+    "minRatio": null,
+    "reward": {
+     "packId": "estandar",
+     "packCount": 1
+    },
+    "value": 2500
+   },
+   {
+    "id": "GOOD",
+    "label": "Buen resultado",
+    "minRatio": 0.5,
+    "reward": {
+     "packId": "premium",
+     "packCount": 1
+    },
+    "value": 6000
+   },
+   {
+    "id": "GREAT",
+    "label": "Gran resultado",
+    "minRatio": 0.7,
+    "reward": {
+     "packId": "oro",
+     "packCount": 1
+    },
+    "value": 12000
+   },
+   {
+    "id": "ELITE",
+    "label": "Élite",
+    "minRatio": 0.85,
+    "reward": {
+     "packId": "masters",
+     "packCount": 1
+    },
+    "value": 20000
+   },
+   {
+    "id": "PERFECT",
+    "label": "Pick'em perfecto",
+    "minRatio": null,
+    "reward": {
+     "packId": "masters",
+     "packCount": 1,
+     "cosmetics": [
+      "insignia:pickem:ambito-perfecto"
+     ]
+    },
+    "value": 20000
+   }
+  ]
+ },
+ "liability": {
+  "maxTierValue": 20000,
+  "worstCase": {
+   "users2": 40000,
+   "users100": 2000000,
+   "users1000": 20000000
+  }
+ },
+ "simulations": {
+  "champions-2026-playoffs (doble a 8, 14 partidos)": {
+   "maxPoints": 27,
+   "runs": [
+    {
+     "accuracy": 0.5,
+     "meanRatio": 0.228,
+     "perfectRate": 0.00025,
+     "ev": 2793,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.9365,
+      "GOOD": 0.0548,
+      "GREAT": 0.0065,
+      "ELITE": 0.002,
+      "PERFECT": 0.0003
+     }
+    },
+    {
+     "accuracy": 0.6,
+     "meanRatio": 0.312,
+     "perfectRate": 0.00075,
+     "ev": 3402,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.8293,
+      "GOOD": 0.1318,
+      "GREAT": 0.0302,
+      "ELITE": 0.008,
+      "PERFECT": 0.0008
+     }
+    },
+    {
+     "accuracy": 0.65,
+     "meanRatio": 0.362,
+     "perfectRate": 0.0025,
+     "ev": 3948,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.7535,
+      "GOOD": 0.1732,
+      "GREAT": 0.055,
+      "ELITE": 0.0158,
+      "PERFECT": 0.0025
+     }
+    },
+    {
+     "accuracy": 0.7,
+     "meanRatio": 0.42,
+     "perfectRate": 0.00675,
+     "ev": 4769,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.6603,
+      "GOOD": 0.2125,
+      "GREAT": 0.0877,
+      "ELITE": 0.0328,
+      "PERFECT": 0.0067
+     }
+    },
+    {
+     "accuracy": 0.8,
+     "meanRatio": 0.569,
+     "perfectRate": 0.05125,
+     "ev": 7824,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.403,
+      "GOOD": 0.2652,
+      "GREAT": 0.1762,
+      "ELITE": 0.1042,
+      "PERFECT": 0.0512
+     }
+    }
+   ]
+  },
+  "champions-2026-grupos (4×GSL, 20 partidos)": {
+   "maxPoints": 28,
+   "runs": [
+    {
+     "accuracy": 0.5,
+     "meanRatio": 0.322,
+     "perfectRate": 0,
+     "ev": 2929,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.8832,
+      "GOOD": 0.1138,
+      "GREAT": 0.0027,
+      "ELITE": 0.0003,
+      "PERFECT": 0
+     }
+    },
+    {
+     "accuracy": 0.6,
+     "meanRatio": 0.418,
+     "perfectRate": 0,
+     "ev": 3838,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.6795,
+      "GOOD": 0.2885,
+      "GREAT": 0.029,
+      "ELITE": 0.003,
+      "PERFECT": 0
+     }
+    },
+    {
+     "accuracy": 0.65,
+     "meanRatio": 0.472,
+     "perfectRate": 0.0005,
+     "ev": 4597,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.5387,
+      "GOOD": 0.3907,
+      "GREAT": 0.063,
+      "ELITE": 0.007,
+      "PERFECT": 0.0005
+     }
+    },
+    {
+     "accuracy": 0.7,
+     "meanRatio": 0.531,
+     "perfectRate": 0.00125,
+     "ev": 5670,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.378,
+      "GOOD": 0.4833,
+      "GREAT": 0.1187,
+      "ELITE": 0.0187,
+      "PERFECT": 0.0013
+     }
+    },
+    {
+     "accuracy": 0.8,
+     "meanRatio": 0.665,
+     "perfectRate": 0.0095,
+     "ev": 9202,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.1195,
+      "GOOD": 0.4485,
+      "GREAT": 0.3035,
+      "ELITE": 0.119,
+      "PERFECT": 0.0095
+     }
+    }
+   ]
+  },
+  "referencia: eliminación simple a 8 (7 partidos)": {
+   "maxPoints": 12,
+   "runs": [
+    {
+     "accuracy": 0.5,
+     "meanRatio": 0.288,
+     "perfectRate": 0.008,
+     "ev": 3683,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.8283,
+      "GOOD": 0.1035,
+      "GREAT": 0.0467,
+      "ELITE": 0.0135,
+      "PERFECT": 0.008
+     }
+    },
+    {
+     "accuracy": 0.6,
+     "meanRatio": 0.387,
+     "perfectRate": 0.0265,
+     "ev": 4931,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.7017,
+      "GOOD": 0.152,
+      "GREAT": 0.0825,
+      "ELITE": 0.0372,
+      "PERFECT": 0.0265
+     }
+    },
+    {
+     "accuracy": 0.65,
+     "meanRatio": 0.447,
+     "perfectRate": 0.04625,
+     "ev": 5904,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.6162,
+      "GOOD": 0.176,
+      "GREAT": 0.106,
+      "ELITE": 0.0555,
+      "PERFECT": 0.0462
+     }
+    },
+    {
+     "accuracy": 0.7,
+     "meanRatio": 0.506,
+     "perfectRate": 0.0715,
+     "ev": 6903,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.5313,
+      "GOOD": 0.1978,
+      "GREAT": 0.129,
+      "ELITE": 0.0705,
+      "PERFECT": 0.0715
+     }
+    },
+    {
+     "accuracy": 0.8,
+     "meanRatio": 0.648,
+     "perfectRate": 0.20625,
+     "ev": 10074,
+     "dist": {
+      "NONE": 0,
+      "PARTICIPATION": 0.3355,
+      "GOOD": 0.1995,
+      "GREAT": 0.1578,
+      "ELITE": 0.101,
+      "PERFECT": 0.2062
+     }
+    }
+   ]
+  }
+ },
+ "comparison": {
+  "starterGrant": "6.000 créditos + 3 Sobres Iniciales + 1 Bronce (una vez)",
+  "dailyRecurringCeiling": 11150,
+  "pveMaxPerDay": 7000,
+  "dailyMissionsMaxPerDay": 850,
+  "weeklyMissionsMaxPerWeek": 3300,
+  "battlePassFree": {
+   "credits": 15900,
+   "packs": 6
+  },
+  "battlePassCompetitive": {
+   "credits": 26000,
+   "packs": 6
+  },
+  "achievementsTotal": 67500,
+  "campaignTotal": 1350,
+  "f83Season2Track": {
+   "totalValue": 23400,
+   "credits": 6400,
+   "packValue": 17000,
+   "packs": [
+    {
+     "packId": "estandar",
+     "count": 2,
+     "unitPrice": 2500
+    },
+    {
+     "packId": "premium",
+     "count": 2,
+     "unitPrice": 6000
+    }
+   ],
+   "profiles56d": [
+    {
+     "id": "casual",
+     "credits": 1600,
+     "packValue": 2500,
+     "level": 10
+    },
+    {
+     "id": "regular",
+     "credits": 4500,
+     "packValue": 8500,
+     "level": 25
+    },
+    {
+     "id": "high",
+     "credits": 6250,
+     "packValue": 11000,
+     "level": 37
+    },
+    {
+     "id": "max",
+     "credits": 6250,
+     "packValue": 11000,
+     "level": 37
+    }
+   ]
+  },
+  "pickemV1Live": [
+   {
+    "id": "participacion",
+    "minPoints": 1,
+    "credits": 500,
+    "pack": null,
+    "value": 500
+   },
+   {
+    "id": "acertante",
+    "minPoints": 20,
+    "credits": 1500,
+    "pack": "estandar",
+    "value": 4000
+   },
+   {
+    "id": "analista",
+    "minPoints": 50,
+    "credits": 3000,
+    "pack": "premium",
+    "value": 9000
+   },
+   {
+    "id": "oraculo",
+    "minPoints": 90,
+    "credits": 6000,
+    "pack": "champions",
+    "value": 41000
+   }
+  ]
+ }
+}

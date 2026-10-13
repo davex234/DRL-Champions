@@ -1,0 +1,77 @@
+{
+  "at": "2026-10-01T11:20:32.195Z",
+  "rows": [
+    {
+      "persona": "C",
+      "user": "d4133641",
+      "base": "https://valorosters.com",
+      "dbBefore": {
+        "id": "48b9adff",
+        "match": "3aab86d7",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-28T12:25:12.331507+00:00"
+      },
+      "liveBefore": 0,
+      "api": {
+        "status": 200,
+        "code": "OK",
+        "entryState": "MATCHED",
+        "matchId": "3aab86d7"
+      },
+      "matchLifecycle": {
+        "status": 200,
+        "lifecycle": "FINISHED"
+      },
+      "dbAfter": {
+        "id": "48b9adff",
+        "match": "3aab86d7",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-28T12:25:12.331507+00:00"
+      },
+      "liveAfter": 0,
+      "bug": true
+    },
+    {
+      "persona": "G",
+      "user": "00eb4ea1",
+      "base": "https://valorosters.com",
+      "dbBefore": {
+        "id": "10d954c3",
+        "match": "d9ae6004",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": "ABANDONED",
+        "mstatus": "IN_PROGRESS",
+        "updated": "2026-09-30T20:19:07.540371+00:00"
+      },
+      "liveBefore": 0,
+      "api": {
+        "status": 200,
+        "code": "OK",
+        "entryState": "MATCHED",
+        "matchId": "d9ae6004"
+      },
+      "matchLifecycle": {
+        "status": 200,
+        "lifecycle": "ABANDONED"
+      },
+      "dbAfter": {
+        "id": "10d954c3",
+        "match": "d9ae6004",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": "ABANDONED",
+        "mstatus": "IN_PROGRESS",
+        "updated": "2026-09-30T20:19:07.540371+00:00"
+      },
+      "liveAfter": 0,
+      "bug": true
+    }
+  ]
+}

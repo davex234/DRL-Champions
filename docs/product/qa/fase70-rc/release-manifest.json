@@ -1,0 +1,101 @@
+{
+  "kind": "drlcards-release-manifest",
+  "generatedAt": "2026-09-28T18:04:32.169Z",
+  "version": "0.1.1",
+  "buildId": "drl-0.1.1-1-f3ed79f2",
+  "expectedBuildId": "drl-0.1.1-1-f3ed79f2",
+  "buildMatchesSource": true,
+  "migrationHead": "0058_hardening_grants",
+  "expectedSchemaKeys": [
+    "0055_user_sanctions",
+    "0055_admin_event_drafts",
+    "0057_content_packs",
+    "0057_agents_lifecycle",
+    "0057_card_presentation",
+    "0057_entity_version"
+  ],
+  "runtime": {
+    "node": "v24.15.0",
+    "nodeEngines": ">=22.12.0 <25",
+    "next": "16.3.6",
+    "react": "19.0.0",
+    "sharp": "0.35.4",
+    "typescript": "5.7.3",
+    "supabaseJs": "2.108.2"
+  },
+  "featureFlags": {
+    "GLOBAL_MARKET_ENABLED": false,
+    "PAYMENTS_ENABLED": false,
+    "DRL_PUBLIC_RELEASE": "off (se activa solo en la release pública)"
+  },
+  "economy": "FROZEN (economyFinal.test)",
+  "catalog": {
+    "cards": 331,
+    "agents": 29,
+    "packs": 32
+  },
+  "dbExpectations": {
+    "migrationHead": "0058_hardening_grants",
+    "cards": 331,
+    "agents": 29,
+    "anonProfilesRead": "401 (sonda privacy de /api/ready)",
+    "migrationRegistry": "schema_migrations registra hasta 0025; 0026–0058 aplicadas a mano (comprobar por estado, no por la tabla)"
+  },
+  "requiredEnvNames": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "SYNC_SECRET",
+    "ANTHROPIC_API_KEY",
+    "ANTHROPIC_MODEL",
+    "ANTHROPIC_MODEL_BULK",
+    "NEXT_PUBLIC_ADMIN",
+    "NEXT_PUBLIC_VLR_API",
+    "NEXT_PUBLIC_TELEGRAM_WEBHOOK",
+    "ESPORTS_AUTO_SYNC_ENABLED",
+    "ESPORTS_SYNC_SECRET",
+    "ESPORTS_AUTO_SYNC_INTERVAL_LIVE_S",
+    "ESPORTS_AUTO_SYNC_INTERVAL_ACTIVE_S",
+    "ESPORTS_AUTO_SYNC_INTERVAL_UPCOMING_S",
+    "ESPORTS_AUTO_SYNC_INTERVAL_FUTURE_S",
+    "ESPORTS_AUTO_SYNC_INTERVAL_RECENT_S",
+    "ESPORTS_AUTO_SYNC_TIMEOUT_S",
+    "ESPORTS_AUTO_SYNC_MAX_CONCURRENCY",
+    "ESPORTS_AUTO_SYNC_LOCK_TTL_S",
+    "DRL_PUBLIC_RELEASE",
+    "NEXT_PUBLIC_SITE_URL",
+    "NEXUS_PUBLIC_INDEXING",
+    "NEXUS_QA_HARNESS",
+    "NEXUS_SANDBOX_CREDITS",
+    "GLOBAL_MARKET_ENABLED",
+    "GOTRUE_SITE_URL",
+    "GOTRUE_URI_ALLOW_LIST",
+    "API_EXTERNAL_URL",
+    "GOTRUE_MAILER_AUTOCONFIRM",
+    "GOTRUE_EXTERNAL_EMAIL_ENABLED",
+    "GOTRUE_SMTP_HOST",
+    "GOTRUE_SMTP_PORT",
+    "GOTRUE_SMTP_USER",
+    "GOTRUE_SMTP_PASS",
+    "GOTRUE_SMTP_ADMIN_EMAIL",
+    "GOTRUE_SMTP_SENDER_NAME",
+    "DRL_OFFSITE_ENABLED",
+    "DRL_OFFSITE_REMOTE",
+    "DRL_OFFSITE_RCLONE_CONFIG",
+    "DRL_OFFSITE_RECIPIENT_CRT",
+    "DRL_OFFSITE_RETENTION",
+    "DRL_OFFSITE_SSH_KNOWN_HOSTS"
+  ],
+  "criticalAssets": {
+    "cards": 331,
+    "agentsDirs": 29,
+    "note": "cards = cartas del catálogo cuyo arte existe en public/"
+  },
+  "sourceFingerprint": {
+    "files": 2820,
+    "bytes": 108335963,
+    "sha256": "c0fa4e3e56c079aedf92e4283501e4d7ff519a65d0fa4652498a4a64ba159e65",
+    "missing": 0
+  },
+  "exposure": "127.0.0.1:3005 (loopback). Sin dominio público hasta la activación."
+}

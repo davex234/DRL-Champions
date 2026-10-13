@@ -1,0 +1,124 @@
+{
+  "at": "2026-09-26T18:32:55.640Z",
+  "base": "http://127.0.0.1:3005",
+  "account": "40a1e10d",
+  "allOk": true,
+  "rows": [
+    {
+      "kind": "page",
+      "path": "/",
+      "status": 200,
+      "ms": 7
+    },
+    {
+      "kind": "page",
+      "path": "/jugar",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "kind": "page",
+      "path": "/duelos/jugar",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "kind": "page",
+      "path": "/duelos/pvp",
+      "status": 200,
+      "ms": 6
+    },
+    {
+      "kind": "page",
+      "path": "/competitivo",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "kind": "page",
+      "path": "/coleccion",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "kind": "page",
+      "path": "/duelos/mazos",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "kind": "page",
+      "path": "/progresion",
+      "status": 200,
+      "ms": 2
+    },
+    {
+      "kind": "page",
+      "path": "/temporada",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "kind": "page",
+      "path": "/como-jugar",
+      "status": 200,
+      "ms": 4
+    },
+    {
+      "kind": "page",
+      "path": "/tienda",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "kind": "page",
+      "path": "/cuenta",
+      "status": 200,
+      "ms": 3
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/play-status",
+      "status": 200,
+      "ms": 341
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/daily-loop",
+      "status": 200,
+      "ms": 504
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/onboarding",
+      "status": 200,
+      "ms": 283
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/competitive",
+      "status": 200,
+      "ms": 479
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/season",
+      "status": 200,
+      "ms": 650
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/duels",
+      "status": 200,
+      "ms": 233
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/meta",
+      "status": 200,
+      "ms": 627
+    }
+  ],
+  "engineGolden": "F61 MOTOR 01 verde en npm test (huella 590d2997…, sin cambios)",
+  "liveMatches": "live/live-qa.json (PvE y PvP completos, resultado recalculado = servidor)"
+}

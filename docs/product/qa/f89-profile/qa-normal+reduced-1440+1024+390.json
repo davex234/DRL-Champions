@@ -1,0 +1,2396 @@
+{
+ "base": "http://127.0.0.1:3089",
+ "at": "2026-10-03T21:10:18.801Z",
+ "total": 315,
+ "passed": 228,
+ "failed": 87,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "controles de edición presentes (propio)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": false,
+   "detail": [
+    "Gestionar insignias"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "equipo favorito con logo real",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "historial con «Cargar más»",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "teclado: «Editar perfil» enfocable",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "equipo favorito con logo real",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "historial con «Cargar más»",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "controles de edición presentes (propio)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": false,
+   "detail": [
+    "Elegir equipo favorito"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "controles de edición presentes (propio)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": false,
+   "detail": [
+    "Gestionar insignias"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "controles de edición presentes (propio)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "editor: búsqueda filtra equipos reales",
+   "ok": true,
+   "detail": {
+    "n0": 38,
+    "n1": 2
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "editor: elegir marca aria-pressed y habilita Guardar",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "controles de edición presentes (propio)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "controles de edición presentes (propio)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": false,
+   "detail": [
+    "Gestionar insignias"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "equipo favorito con logo real",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "historial con «Cargar más»",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "teclado: «Editar perfil» enfocable",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "editor: búsqueda filtra equipos reales",
+   "ok": false,
+   "detail": {
+    "n0": 0,
+    "n1": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "editor: elegir marca aria-pressed y habilita Guardar",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "consola limpia",
+   "ok": false,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "móvil: cartas en la vitrina, no en el héroe",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "teclado: «Editar perfil» enfocable",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "móvil: cartas en la vitrina, no en el héroe",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "anon",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-badges",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "no-team-logo",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "empty-public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "xss",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "editor: búsqueda filtra equipos reales",
+   "ok": false,
+   "detail": {
+    "n0": 0,
+    "n1": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-team",
+   "name": "editor: elegir marca aria-pressed y habilita Guardar",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "editor-badges",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "cartas destacadas en el héroe (escritorio/tableta ancha)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "móvil: cartas en la vitrina, no en el héroe",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "SIN controles de edición (público)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "móvil: cartas en la vitrina, no en el héroe",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "equipo favorito con logo real",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "insignias destacadas (3) en el héroe",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "historial con «Cargar más»",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public",
+   "name": "logos de colecciones completadas cargan",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "toda imagen con alt",
+   "ok": false,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "controles de edición presentes (propio)",
+   "ok": false
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "empty-own",
+   "name": "botones del héroe/historial ≥ 36 px (44 en acciones)",
+   "ok": true,
+   "detail": []
+  }
+ ]
+}

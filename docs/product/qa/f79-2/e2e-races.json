@@ -1,0 +1,141 @@
+{
+  "at": "2026-10-02T09:00:21.413Z",
+  "base": "https://valorosters.com",
+  "rows": [
+    {
+      "id": "G · marcar favorita (API real)",
+      "ok": true,
+      "detail": "200:ok"
+    },
+    {
+      "id": "G · el selector del servidor la marca protegida (FAVORITE)",
+      "ok": true,
+      "detail": "[[\"FAVORITE\"],[\"FAVORITE\"],[\"FAVORITE\"]]"
+    },
+    {
+      "id": "G · Forja / intercambio / desguace SIN confirmar → 409 PROTECTED_COPY, nada consumido",
+      "ok": false,
+      "detail": "[\"409:PROTECTED_COPY\",\"409:PROTECTED_COPY\",\"409:Ninguna de esas cartas se pued\"]"
+    },
+    {
+      "id": "G · la vista previa del desguace la lista APARTE (no en el total)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "G · confirmada copia a copia → se desguaza SOLO esa",
+      "ok": true,
+      "detail": "200:ok"
+    },
+    {
+      "id": "G · limpieza: favorita desmarcada",
+      "ok": true,
+      "detail": "200:ok"
+    },
+    {
+      "id": "H · poner una copia en la vitrina (API real)",
+      "ok": true,
+      "detail": "200:SAVED"
+    },
+    {
+      "id": "H · Forja sin confirmar → PROTECTED_COPY; desguace → no la toca; la copia sigue",
+      "ok": true,
+      "detail": "[\"409:PROTECTED_COPY\",\"409:Ninguna de esas cartas se pued\"]"
+    },
+    {
+      "id": "H · limpieza: vitrina restaurada a la de antes",
+      "ok": true,
+      "detail": "200:SAVED"
+    },
+    {
+      "id": "I · desguace / Forja de una copia del equipo → rechazados, la copia sigue",
+      "ok": true,
+      "detail": "[\"409:Ninguna de esas cartas se pued\",\"409:NOT_ELIGIBLE\"]"
+    },
+    {
+      "id": "CRUCE · copia de OTRO usuario → rechazado y la copia de A intacta",
+      "ok": true,
+      "detail": "[\"409:Ninguna de esas cartas se pued\",\"409:NOT_ELIGIBLE\"]"
+    },
+    {
+      "id": "BYPASS · campos extra (xp) / uids inválidos / confirmación inválida → 400; receta DRAFT → no disponible",
+      "ok": true,
+      "detail": "[\"400:BAD_REQUEST\",\"400:BAD_REQUEST\",\"400:Confirmación inválida\",\"404:RECIPE_UNAVAILABLE\"]"
+    },
+    {
+      "id": "ÚLTIMA COPIA · pedir la única copia de una carta → rechazado y sigue",
+      "ok": true,
+      "detail": "{\"r\":\"409:NOT_ELIGIBLE\"}"
+    },
+    {
+      "id": "F · pedir las DOS copias de una carta → no se desguaza ninguna (se descartan las no desguazables; nunca 0)",
+      "ok": true,
+      "detail": "200:ok"
+    },
+    {
+      "id": "F · (la primera petición ya desguazó una: quedaba 1)",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "id": "C/D/E · ronda 1: Forja + 3 intercambios + desguace sobre las mismas copias → UNA sola operación",
+      "ok": true,
+      "detail": "{\"ops\":1,\"res\":[\"200:ok\",\"409:NOT_ELIGIBLE\",\"409:NOT_ELIGIBLE\",\"409:NOT_ELIGIBLE\",\"409:Ninguna de esas cartas se pued\"]}"
+    },
+    {
+      "id": "C/D/E · ronda 1: los perdedores fallan por inventario (409), nunca 500",
+      "ok": true,
+      "detail": "[\"200:ok\",\"409:NOT_ELIGIBLE\",\"409:NOT_ELIGIBLE\",\"409:NOT_ELIGIBLE\",\"409:Ninguna de esas cartas se pued\"]"
+    },
+    {
+      "id": "K · ronda 1: dos pestañas IDÉNTICAS (mismo gesto) → o las dos el mismo resultado (una repeated) o las dos rechazadas",
+      "ok": true,
+      "detail": "[\"200:ok\",\"409:NOT_ELIGIBLE\",\"409:NOT_ELIGIBLE\",\"409:NOT_ELIGIBLE\",\"409:Ninguna de esas cartas se pued\"]"
+    },
+    {
+      "id": "C/D/E · ronda 1: ganó una forja: las 7 copias desaparecen UNA vez y 0 créditos de desguace",
+      "ok": true,
+      "detail": "{\"paid\":0}"
+    },
+    {
+      "id": "J · reintento del gesto ganador → 200 repeated con la MISMA carta y sin otro asiento",
+      "ok": true,
+      "detail": "200:repeated"
+    },
+    {
+      "id": "B · 4 forjas de sobres a la vez con material para 1 → 1 aplicada, sobres nunca negativos",
+      "ok": true,
+      "detail": "{\"res\":[\"200:ok\",\"409:INSUFFICIENT_PACKS\",\"409:INSUFFICIENT_PACKS\",\"409:INSUFFICIENT_PACKS\"],\"est\":[4,0],\"prem\":[0,1],\"bought\":4}"
+    },
+    {
+      "id": "B/J · reintento de la forja de sobres ganadora → repeated, nada más consumido",
+      "ok": true,
+      "detail": "200:repeated"
+    },
+    {
+      "id": "INVARIANTE · ni créditos ni sobres negativos",
+      "ok": true,
+      "detail": "0/0"
+    },
+    {
+      "id": "INVARIANTE · ningún equipo QA apunta a una copia destruida",
+      "ok": false,
+      "detail": "1"
+    },
+    {
+      "id": "INVARIANTE · toda carta QA conserva ≥1 copia (no hay filas a 0; se cuentan cartas distintas)",
+      "ok": true,
+      "detail": "141"
+    },
+    {
+      "id": "INVARIANTE · ningún cobro/recompensa duplicado por clave",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "id": "LIMPIEZA · sin favoritas QA residuales",
+      "ok": true,
+      "detail": "0"
+    }
+  ]
+}

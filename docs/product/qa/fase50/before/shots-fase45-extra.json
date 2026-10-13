@@ -1,0 +1,43 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase45",
+  "generated": "2026-09-22T08:27:16.848Z",
+  "rows": [
+    {
+      "file": "arena-idle-1366x768.png",
+      "scene": "arena-idle",
+      "size": "1366x768",
+      "errors": []
+    },
+    {
+      "file": "arena-idle-1024x768.png",
+      "scene": "arena-idle",
+      "size": "1024x768",
+      "errors": []
+    },
+    {
+      "file": "arena-idle-768x1024.png",
+      "scene": "arena-idle",
+      "size": "768x1024",
+      "errors": []
+    },
+    {
+      "file": "arena-selected-1366x768.png",
+      "scene": "arena-selected",
+      "size": "1366x768",
+      "errors": []
+    },
+    {
+      "file": "arena-selected-1024x768.png",
+      "scene": "arena-selected",
+      "size": "1024x768",
+      "errors": []
+    },
+    {
+      "file": "arena-selected-768x1024.png",
+      "scene": "arena-selected",
+      "size": "768x1024",
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "ui": {
+    "pass": 9,
+    "fail": 0,
+    "source": "docs/product/qa/fase73-production/pack-craft.json",
+    "results": [
+      {
+        "id": "UI · diálogo de confirmación con 4 × Bronce → 1 × Plata",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "id": "UI · CRAFT: resultado visible y el SERVIDOR dice Bronce −4, Plata +1",
+        "ok": true,
+        "detail": "{\"inicial\":1,\"estandar\":8} → {\"inicial\":1,\"estandar\":4,\"premium\":1}"
+      },
+      {
+        "id": "UI · doble clic = UNA sola ref de gesto (y como mucho una operación)",
+        "ok": true,
+        "detail": "posts=2 refs=1"
+      },
+      {
+        "id": "F5 · la UI muestra 4 / 4 y no repite el crafteo",
+        "ok": true,
+        "detail": "SOBRE BRONCE 4 / 4 ↓ CRAFTEAR ↓ 1 × SOBRE PLATA"
+      },
+      {
+        "id": "RELOGIN · el inventario persiste (4 / 4)",
+        "ok": true,
+        "detail": "SOBRE BRONCE 4 / 4 ↓ CRAFTEAR ↓ 1 × SOBRE PLATA"
+      },
+      {
+        "id": "REINTENTO · misma ref ×10 simultáneos → 10 × repeated, inventario sin cambios",
+        "ok": true,
+        "detail": "200R,200R,200R,200R,200R,200R,200R,200R,200R,200R {\"inicial\":1,\"estandar\":4,\"premium\":1} → {\"inicial\":1,\"estandar\":4,\"premium\":1} · (1.ª pasada: 401 ×10 porque el cierre de sesión REVOCA el token anterior — comportamiento correcto; se repitió con token nuevo)"
+      },
+      {
+        "id": "UI · sin errores de consola",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "id": "CONCURRENCIA · K 10 gestos distintos, inventario para 1 → exactamente 1 crafteo",
+        "ok": true,
+        "detail": "{\"inicial\":0,\"premium\":1,\"estandar\":6} → {\"estandar\":2,\"premium\":2,\"inicial\":0} · 409:INSUFFICIENT_PACKS,409:INSUFFICIENT_PACKS,409:INSUFFICIENT_PACKS,409:INSUFFICIENT_PACKS,409:INSUFFICIENT_PACKS,409:INSUFFICIENT_PACKS,200:ok,409:INSUFFICIENT_PACKS,409:INSUFFICIENT_PACKS,409:INSUFFICIENT_PACKS"
+      },
+      {
+        "id": "CONCURRENCIA · los 9 perdedores reciben un error de negocio (409/422), nunca 500",
+        "ok": true,
+        "detail": ""
+      }
+    ]
+  },
+  "note": "I por la UI: Bronce 8→4, Plata 0→1; doble clic = 1 ref; F5 y relogin conservan; reintento ×10 misma ref = repeated"
+}

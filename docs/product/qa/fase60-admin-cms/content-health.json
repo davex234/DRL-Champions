@@ -1,0 +1,74 @@
+{
+ "at": "2026-09-24T19:28:57.520Z",
+ "source": "producción (lectura, service role)",
+ "checks": [
+  {
+   "id": "content-agents",
+   "label": "Agentes (contenido)",
+   "level": "HEALTHY",
+   "detail": "29 publicados, completos y con arte"
+  },
+  {
+   "id": "content-cards",
+   "label": "Cartas (contenido)",
+   "level": "HEALTHY",
+   "detail": "331 del catálogo diseñado (código: 331) · 0 del panel (0 en juego)"
+  },
+  {
+   "id": "content-packs",
+   "label": "Sobres (contenido)",
+   "level": "HEALTHY",
+   "detail": "32 de código · 0 del panel (0 activos)"
+  },
+  {
+   "id": "content-assets",
+   "label": "Assets (contenido)",
+   "level": "HEALTHY",
+   "detail": "0 assets del CMS, todos en uso"
+  },
+  {
+   "id": "content-references",
+   "label": "Referencias rotas",
+   "level": "HEALTHY",
+   "detail": "0 referencias rotas"
+  }
+ ],
+ "summary": {
+  "agents": {
+   "total": 29,
+   "published": 29,
+   "draft": 0,
+   "retired": 0
+  },
+  "cards": {
+   "total": 331,
+   "published": 331,
+   "draft": 0,
+   "retired": 0,
+   "cms": 0
+  },
+  "players": {
+   "total": 379,
+   "active": 379
+  },
+  "teams": 47,
+  "packs": {
+   "code": 32,
+   "cms": 0,
+   "cmsActive": 0,
+   "cmsDraft": 0,
+   "cmsRetired": 0
+  },
+  "events": 3,
+  "assets": {
+   "total": 0,
+   "orphans": 0
+  },
+  "drafts": 0,
+  "brokenReferences": 0,
+  "missingArtwork": 0,
+  "retired": 0
+ },
+ "broken": [],
+ "overall": "HEALTHY"
+}

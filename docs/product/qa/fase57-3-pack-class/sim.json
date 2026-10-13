@@ -1,0 +1,712 @@
+{
+  "generated": "2026-09-23T19:55:03.925Z",
+  "cardsPerProduct": 200000,
+  "iconOpenings": 200000,
+  "classSize": {
+    "base": 75,
+    "plata": 60,
+    "oro": 34,
+    "masters": 119,
+    "champions": 20,
+    "prime": 20,
+    "icon": 3
+  },
+  "estandar": {
+    "name": "Sobre Bronce",
+    "price": 750,
+    "cardCount": 5,
+    "opens": 40000,
+    "cards": 200000,
+    "incompletePacks": 0,
+    "impossibleSeen": [],
+    "byClass": [
+      {
+        "class": "base",
+        "expected": 50,
+        "observed": 50.106,
+        "deviationPP": 0.106,
+        "count": 100213,
+        "cardsInClass": 75,
+        "perCardWithinClassExpected": 1.333,
+        "perCardWithinClassObserved": {
+          "min": 1.241,
+          "max": 1.412
+        },
+        "perCardPerCardExpected": 0.6667
+      },
+      {
+        "class": "plata",
+        "expected": 25,
+        "observed": 24.976,
+        "deviationPP": -0.024,
+        "count": 49953,
+        "cardsInClass": 60,
+        "perCardWithinClassExpected": 1.667,
+        "perCardWithinClassObserved": {
+          "min": 1.505,
+          "max": 1.796
+        },
+        "perCardPerCardExpected": 0.4167
+      },
+      {
+        "class": "oro",
+        "expected": 10,
+        "observed": 9.966,
+        "deviationPP": -0.034,
+        "count": 19932,
+        "cardsInClass": 34,
+        "perCardWithinClassExpected": 2.941,
+        "perCardWithinClassObserved": {
+          "min": 2.634,
+          "max": 3.141
+        },
+        "perCardPerCardExpected": 0.2941
+      },
+      {
+        "class": "masters",
+        "expected": 7,
+        "observed": 6.974,
+        "deviationPP": -0.026,
+        "count": 13947,
+        "cardsInClass": 119,
+        "perCardWithinClassExpected": 0.84,
+        "perCardWithinClassObserved": {
+          "min": 0.66,
+          "max": 1.14
+        },
+        "perCardPerCardExpected": 0.0588
+      },
+      {
+        "class": "champions",
+        "expected": 4,
+        "observed": 4.027,
+        "deviationPP": 0.027,
+        "count": 8054,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.557,
+          "max": 5.488
+        },
+        "perCardPerCardExpected": 0.2
+      },
+      {
+        "class": "prime",
+        "expected": 3,
+        "observed": 3.003,
+        "deviationPP": 0.003,
+        "count": 6006,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.429,
+          "max": 5.961
+        },
+        "perCardPerCardExpected": 0.15
+      },
+      {
+        "class": "icon",
+        "expected": 1,
+        "observed": 0.948,
+        "deviationPP": -0.052,
+        "count": 1895,
+        "cardsInClass": 3,
+        "perCardWithinClassExpected": 33.333,
+        "perCardWithinClassObserved": {
+          "min": 32.296,
+          "max": 34.406
+        },
+        "perCardPerCardExpected": 0.3333
+      }
+    ],
+    "ovr": {
+      "min": 70,
+      "mean": 81.78,
+      "median": 81,
+      "p90": 89,
+      "p95": 92,
+      "p99": 95,
+      "max": 95
+    },
+    "ms": 255
+  },
+  "premium": {
+    "name": "Sobre Plata",
+    "price": 2500,
+    "cardCount": 6,
+    "opens": 33334,
+    "cards": 200004,
+    "incompletePacks": 0,
+    "impossibleSeen": [],
+    "byClass": [
+      {
+        "class": "base",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 75,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "plata",
+        "expected": 50,
+        "observed": 50.098,
+        "deviationPP": 0.098,
+        "count": 100199,
+        "cardsInClass": 60,
+        "perCardWithinClassExpected": 1.667,
+        "perCardWithinClassObserved": {
+          "min": 1.547,
+          "max": 1.761
+        },
+        "perCardPerCardExpected": 0.8333
+      },
+      {
+        "class": "oro",
+        "expected": 25,
+        "observed": 24.997,
+        "deviationPP": -0.003,
+        "count": 49995,
+        "cardsInClass": 34,
+        "perCardWithinClassExpected": 2.941,
+        "perCardWithinClassObserved": {
+          "min": 2.71,
+          "max": 3.09
+        },
+        "perCardPerCardExpected": 0.7353
+      },
+      {
+        "class": "masters",
+        "expected": 10,
+        "observed": 9.958,
+        "deviationPP": -0.042,
+        "count": 19917,
+        "cardsInClass": 119,
+        "perCardWithinClassExpected": 0.84,
+        "perCardWithinClassObserved": {
+          "min": 0.663,
+          "max": 1.044
+        },
+        "perCardPerCardExpected": 0.084
+      },
+      {
+        "class": "champions",
+        "expected": 7,
+        "observed": 6.986,
+        "deviationPP": -0.014,
+        "count": 13972,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.695,
+          "max": 5.482
+        },
+        "perCardPerCardExpected": 0.35
+      },
+      {
+        "class": "prime",
+        "expected": 5,
+        "observed": 4.983,
+        "deviationPP": -0.017,
+        "count": 9966,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.586,
+          "max": 5.569
+        },
+        "perCardPerCardExpected": 0.25
+      },
+      {
+        "class": "icon",
+        "expected": 3,
+        "observed": 2.977,
+        "deviationPP": -0.023,
+        "count": 5955,
+        "cardsInClass": 3,
+        "perCardWithinClassExpected": 33.333,
+        "perCardWithinClassObserved": {
+          "min": 32.477,
+          "max": 33.971
+        },
+        "perCardPerCardExpected": 1
+      }
+    ],
+    "ovr": {
+      "min": 78,
+      "mean": 86.05,
+      "median": 85,
+      "p90": 92,
+      "p95": 93,
+      "p99": 95,
+      "max": 95
+    },
+    "ms": 216
+  },
+  "oro": {
+    "name": "Sobre Oro",
+    "price": 5000,
+    "cardCount": 5,
+    "opens": 40000,
+    "cards": 200000,
+    "incompletePacks": 0,
+    "impossibleSeen": [],
+    "byClass": [
+      {
+        "class": "base",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 75,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "plata",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 60,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "oro",
+        "expected": 50,
+        "observed": 50.106,
+        "deviationPP": 0.106,
+        "count": 100213,
+        "cardsInClass": 34,
+        "perCardWithinClassExpected": 2.941,
+        "perCardWithinClassObserved": {
+          "min": 2.827,
+          "max": 3.061
+        },
+        "perCardPerCardExpected": 1.4706
+      },
+      {
+        "class": "masters",
+        "expected": 23,
+        "observed": 23.043,
+        "deviationPP": 0.043,
+        "count": 46086,
+        "cardsInClass": 119,
+        "perCardWithinClassExpected": 0.84,
+        "perCardWithinClassObserved": {
+          "min": 0.753,
+          "max": 0.948
+        },
+        "perCardPerCardExpected": 0.1933
+      },
+      {
+        "class": "champions",
+        "expected": 10,
+        "observed": 9.908,
+        "deviationPP": -0.092,
+        "count": 19816,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.658,
+          "max": 5.279
+        },
+        "perCardPerCardExpected": 0.5
+      },
+      {
+        "class": "prime",
+        "expected": 10,
+        "observed": 9.963,
+        "deviationPP": -0.037,
+        "count": 19926,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.712,
+          "max": 5.335
+        },
+        "perCardPerCardExpected": 0.5
+      },
+      {
+        "class": "icon",
+        "expected": 7,
+        "observed": 6.979,
+        "deviationPP": -0.021,
+        "count": 13959,
+        "cardsInClass": 3,
+        "perCardWithinClassExpected": 33.333,
+        "perCardWithinClassObserved": {
+          "min": 32.868,
+          "max": 33.591
+        },
+        "perCardPerCardExpected": 2.3333
+      }
+    ],
+    "ovr": {
+      "min": 78,
+      "mean": 88.57,
+      "median": 88,
+      "p90": 93,
+      "p95": 95,
+      "p99": 95,
+      "max": 95
+    },
+    "ms": 228
+  },
+  "masters": {
+    "name": "Sobre Masters",
+    "price": 5000,
+    "cardCount": 5,
+    "opens": 40000,
+    "cards": 200000,
+    "incompletePacks": 0,
+    "impossibleSeen": [],
+    "byClass": [
+      {
+        "class": "base",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 75,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "plata",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 60,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "oro",
+        "expected": 25,
+        "observed": 25.172,
+        "deviationPP": 0.172,
+        "count": 50345,
+        "cardsInClass": 34,
+        "perCardWithinClassExpected": 2.941,
+        "perCardWithinClassObserved": {
+          "min": 2.856,
+          "max": 3.089
+        },
+        "perCardPerCardExpected": 0.7353
+      },
+      {
+        "class": "masters",
+        "expected": 40,
+        "observed": 40.042,
+        "deviationPP": 0.042,
+        "count": 80085,
+        "cardsInClass": 119,
+        "perCardWithinClassExpected": 0.84,
+        "perCardWithinClassObserved": {
+          "min": 0.75,
+          "max": 0.918
+        },
+        "perCardPerCardExpected": 0.3361
+      },
+      {
+        "class": "champions",
+        "expected": 15,
+        "observed": 14.797,
+        "deviationPP": -0.203,
+        "count": 29594,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.687,
+          "max": 5.309
+        },
+        "perCardPerCardExpected": 0.75
+      },
+      {
+        "class": "prime",
+        "expected": 12,
+        "observed": 12.011,
+        "deviationPP": 0.011,
+        "count": 24021,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.708,
+          "max": 5.287
+        },
+        "perCardPerCardExpected": 0.6
+      },
+      {
+        "class": "icon",
+        "expected": 8,
+        "observed": 7.978,
+        "deviationPP": -0.022,
+        "count": 15955,
+        "cardsInClass": 3,
+        "perCardWithinClassExpected": 33.333,
+        "perCardWithinClassObserved": {
+          "min": 33.005,
+          "max": 33.569
+        },
+        "perCardPerCardExpected": 2.6667
+      }
+    ],
+    "ovr": {
+      "min": 78,
+      "mean": 88.67,
+      "median": 88,
+      "p90": 94,
+      "p95": 95,
+      "p99": 95,
+      "max": 95
+    },
+    "ms": 244
+  },
+  "champions": {
+    "name": "Sobre Champions",
+    "price": 8000,
+    "cardCount": 5,
+    "opens": 40000,
+    "cards": 200000,
+    "incompletePacks": 0,
+    "impossibleSeen": [],
+    "byClass": [
+      {
+        "class": "base",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 75,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "plata",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 60,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "oro",
+        "expected": 15,
+        "observed": 15.108,
+        "deviationPP": 0.108,
+        "count": 30216,
+        "cardsInClass": 34,
+        "perCardWithinClassExpected": 2.941,
+        "perCardWithinClassObserved": {
+          "min": 2.757,
+          "max": 3.141
+        },
+        "perCardPerCardExpected": 0.4412
+      },
+      {
+        "class": "masters",
+        "expected": 20,
+        "observed": 20.063,
+        "deviationPP": 0.063,
+        "count": 40126,
+        "cardsInClass": 119,
+        "perCardWithinClassExpected": 0.84,
+        "perCardWithinClassObserved": {
+          "min": 0.71,
+          "max": 0.972
+        },
+        "perCardPerCardExpected": 0.1681
+      },
+      {
+        "class": "champions",
+        "expected": 30,
+        "observed": 30.044,
+        "deviationPP": 0.044,
+        "count": 60088,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.775,
+          "max": 5.147
+        },
+        "perCardPerCardExpected": 1.5
+      },
+      {
+        "class": "prime",
+        "expected": 20,
+        "observed": 19.834,
+        "deviationPP": -0.166,
+        "count": 39668,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.807,
+          "max": 5.251
+        },
+        "perCardPerCardExpected": 1
+      },
+      {
+        "class": "icon",
+        "expected": 15,
+        "observed": 14.951,
+        "deviationPP": -0.049,
+        "count": 29902,
+        "cardsInClass": 3,
+        "perCardWithinClassExpected": 33.333,
+        "perCardWithinClassObserved": {
+          "min": 32.994,
+          "max": 33.509
+        },
+        "perCardPerCardExpected": 5
+      }
+    ],
+    "ovr": {
+      "min": 78,
+      "mean": 89.6,
+      "median": 89,
+      "p90": 95,
+      "p95": 95,
+      "p99": 95,
+      "max": 95
+    },
+    "ms": 231
+  },
+  "icon": {
+    "name": "Sobre Icon",
+    "price": 20000,
+    "cardCount": 1,
+    "opens": 200000,
+    "cards": 200000,
+    "incompletePacks": 0,
+    "impossibleSeen": [],
+    "byClass": [
+      {
+        "class": "base",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 75,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "plata",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 60,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "oro",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 34,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "masters",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 119,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "champions",
+        "expected": 0,
+        "observed": 0,
+        "deviationPP": 0,
+        "count": 0,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 0,
+        "perCardWithinClassObserved": null,
+        "perCardPerCardExpected": 0
+      },
+      {
+        "class": "prime",
+        "expected": 70,
+        "observed": 70.02,
+        "deviationPP": 0.02,
+        "count": 140040,
+        "cardsInClass": 20,
+        "perCardWithinClassExpected": 5,
+        "perCardWithinClassObserved": {
+          "min": 4.895,
+          "max": 5.088
+        },
+        "perCardPerCardExpected": 3.5
+      },
+      {
+        "class": "icon",
+        "expected": 30,
+        "observed": 29.98,
+        "deviationPP": -0.02,
+        "count": 59960,
+        "cardsInClass": 3,
+        "perCardWithinClassExpected": 33.333,
+        "perCardWithinClassObserved": {
+          "min": 32.995,
+          "max": 33.634
+        },
+        "perCardPerCardExpected": 10
+      }
+    ],
+    "ovr": {
+      "min": 87,
+      "mean": 92.07,
+      "median": 92,
+      "p90": 95,
+      "p95": 95,
+      "p99": 95,
+      "max": 95
+    },
+    "ms": 406
+  },
+  "iconOwnsAll": {
+    "openings": 20000,
+    "antiDuplicate": "allow",
+    "duplicates": 20000,
+    "compensated": 0
+  },
+  "simulatorEquivalence": {
+    "estandar": {
+      "seeds": 5000,
+      "mismatches": 0
+    },
+    "premium": {
+      "seeds": 5000,
+      "mismatches": 0
+    },
+    "champions": {
+      "seeds": 5000,
+      "mismatches": 0
+    }
+  }
+}

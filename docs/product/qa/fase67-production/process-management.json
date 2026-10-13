@@ -1,0 +1,14 @@
+{
+  "current": "npm start (next start -H 127.0.0.1 -p 3005) lanzado a mano en el PC Windows; NO hay gestor de procesos, NO arranca con el sistema",
+  "vps": {
+    "docker": "enabled + active",
+    "containers": "12 contenedores supabase_*_DRLCards con restart=unless-stopped → vuelven solos tras reinicio",
+    "cron": "backups 04:30 y worker */2 en crontab de nexusadmin → vuelven solos",
+    "ports": "todos ligados a 127.0.0.1"
+  },
+  "vpsRebootModel": "tras reiniciar el VPS: Docker arranca, los contenedores vuelven (unless-stopped), cron sigue. Lo que NO vuelve: el túnel SSH del PC (hay que reabrirlo) y la app del PC.",
+  "prepared": "plantilla systemd (Restart=on-failure, EnvironmentFile, ExecStartPre=production:check) en docs/operations/drlcards-production.md — NO instalada (no hay host Linux de app y no hay sudo en el VPS)",
+  "gracefulShutdown": "next start gestiona SIGTERM/SIGINT (cierra el servidor HTTP). En Windows no hay SIGTERM real: Stop-Process es una parada dura; medido: la BD queda consistente porque cada escritura es atómica y condicionada (F66).",
+  "crashTest": "restart-recovery.json: kill -9 con tráfico, 2,8 s sin servicio, estado QA idéntico",
+  "maintenanceMode": "no existe (hay un ErrorKind 'maintenance' sin disparador). Para migraciones críticas: parar el proceso (no hay tráfico público) o cerrar el túnel; se propone un interruptor NEXUS_MAINTENANCE en el middleware para cuando haya tráfico real (no implementado: sin uso hoy)."
+}

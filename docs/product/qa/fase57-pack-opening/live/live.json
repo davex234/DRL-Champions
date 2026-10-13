@@ -1,0 +1,50 @@
+{
+  "generated": "2026-09-23T13:45:16.046Z",
+  "account": "8c326e52-776a-43f4-ba05-3ad7945c40c3",
+  "before": {
+    "pack": 0,
+    "cards": 20,
+    "credits": 3570
+  },
+  "buy": [
+    {
+      "status": 200
+    },
+    {
+      "status": 200
+    }
+  ],
+  "afterBuy": {
+    "pack": 2,
+    "cards": 20,
+    "credits": 2070
+  },
+  "readyPhase": "ready",
+  "requestsAfterDoubleClick": "1",
+  "phaseBeforeReload": "opening",
+  "backsDuringOpening": "5",
+  "afterReload": {
+    "phase": "summary",
+    "cards": 5,
+    "recovered": "true"
+  },
+  "afterFirstOpen": {
+    "pack": 1,
+    "cards": 25,
+    "credits": 2070
+  },
+  "openAnotherButton": true,
+  "idleArmed": "false",
+  "firstRevealed": "true",
+  "firstRarity": "common",
+  "afterSkip": {
+    "phase": "summary",
+    "cards": 5
+  },
+  "consoleErrors": [],
+  "final": {
+    "pack": 0,
+    "cards": 30,
+    "credits": 2070
+  }
+}

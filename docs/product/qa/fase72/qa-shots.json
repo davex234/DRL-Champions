@@ -1,0 +1,163 @@
+{
+  "at": "2026-09-29T17:35:50.631Z",
+  "section": "shots",
+  "pass": 31,
+  "total": 31,
+  "results": [
+    {
+      "id": "/duelos 1440: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "/duelos 1440: CTA de PARTIDA RÁPIDA visible y grande",
+      "ok": true,
+      "detail": "{\"top\":641,\"bottom\":701,\"h\":60,\"w\":495,\"vh\":900,\"vw\":1440,\"fits\":true}"
+    },
+    {
+      "id": "competitivo 1440: rango visible (#4 · Rating 915) con emblema y CTA grande",
+      "ok": true,
+      "detail": "{\"r\":{\"rank\":\"#4\",\"rating\":\"Rating 915\",\"emblem\":true},\"cta\":{\"top\":597,\"bottom\":657,\"h\":60,\"w\":495,\"vh\":900,\"vw\":1440,\"fits\":true}}"
+    },
+    {
+      "id": "draft 1440: coste visible, escalera de 6, arte del sobre, CTA grande, sin textos cortados",
+      "ok": true,
+      "detail": "{\"d\":{\"fee\":\"2.000\",\"ladder\":6,\"jackpotArt\":true},\"cta\":{\"top\":641,\"bottom\":701,\"h\":60,\"w\":495,\"vh\":900,\"vw\":1440,\"fits\":true},\"cut\":[]}"
+    },
+    {
+      "id": "/duelos 1024: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "/duelos 1024: CTA de PARTIDA RÁPIDA visible y grande",
+      "ok": true,
+      "detail": "{\"top\":638,\"bottom\":698,\"h\":60,\"w\":329,\"vh\":768,\"vw\":1024,\"fits\":true}"
+    },
+    {
+      "id": "competitivo 1024: rango visible (#4 · Rating 915) con emblema y CTA grande",
+      "ok": true,
+      "detail": "{\"r\":{\"rank\":\"#4\",\"rating\":\"Rating 915\",\"emblem\":true},\"cta\":{\"top\":526,\"bottom\":586,\"h\":60,\"w\":329,\"vh\":768,\"vw\":1024,\"fits\":true}}"
+    },
+    {
+      "id": "draft 1024: coste visible, escalera de 6, arte del sobre, CTA grande, sin textos cortados",
+      "ok": true,
+      "detail": "{\"d\":{\"fee\":\"2.000\",\"ladder\":6,\"jackpotArt\":true},\"cta\":{\"top\":570,\"bottom\":630,\"h\":60,\"w\":329,\"vh\":768,\"vw\":1024,\"fits\":true},\"cut\":[]}"
+    },
+    {
+      "id": "/duelos 390: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "/duelos 390: CTA de PARTIDA RÁPIDA visible y grande",
+      "ok": true,
+      "detail": "{\"top\":469,\"bottom\":529,\"h\":60,\"w\":318,\"vh\":844,\"vw\":390,\"fits\":true}"
+    },
+    {
+      "id": "competitivo 390: rango visible (#4 · Rating 915) con emblema y CTA grande",
+      "ok": true,
+      "detail": "{\"r\":{\"rank\":\"#4\",\"rating\":\"Rating 915\",\"emblem\":true},\"cta\":{\"top\":488,\"bottom\":548,\"h\":60,\"w\":318,\"vh\":844,\"vw\":390,\"fits\":true}}"
+    },
+    {
+      "id": "draft 390: coste visible, escalera de 6, arte del sobre, CTA grande, sin textos cortados",
+      "ok": true,
+      "detail": "{\"d\":{\"fee\":\"2.000\",\"ladder\":6,\"jackpotArt\":true},\"cta\":{\"top\":562,\"bottom\":622,\"h\":60,\"w\":318,\"vh\":844,\"vw\":390,\"fits\":true},\"cut\":[]}"
+    },
+    {
+      "id": "/duelos 1440-reduced: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "/duelos 1440-reduced: CTA de PARTIDA RÁPIDA visible y grande",
+      "ok": true,
+      "detail": "{\"top\":641,\"bottom\":701,\"h\":60,\"w\":495,\"vh\":900,\"vw\":1440,\"fits\":true}"
+    },
+    {
+      "id": "competitivo 1440-reduced: rango visible (#4 · Rating 915) con emblema y CTA grande",
+      "ok": true,
+      "detail": "{\"r\":{\"rank\":\"#4\",\"rating\":\"Rating 915\",\"emblem\":true},\"cta\":{\"top\":597,\"bottom\":657,\"h\":60,\"w\":495,\"vh\":900,\"vw\":1440,\"fits\":true}}"
+    },
+    {
+      "id": "draft 1440-reduced: coste visible, escalera de 6, arte del sobre, CTA grande, sin textos cortados",
+      "ok": true,
+      "detail": "{\"d\":{\"fee\":\"2.000\",\"ladder\":6,\"jackpotArt\":true},\"cta\":{\"top\":641,\"bottom\":701,\"h\":60,\"w\":495,\"vh\":900,\"vw\":1440,\"fits\":true},\"cut\":[]}"
+    },
+    {
+      "id": "/duelos 1024-reduced: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "/duelos 1024-reduced: CTA de PARTIDA RÁPIDA visible y grande",
+      "ok": true,
+      "detail": "{\"top\":638,\"bottom\":698,\"h\":60,\"w\":329,\"vh\":768,\"vw\":1024,\"fits\":true}"
+    },
+    {
+      "id": "competitivo 1024-reduced: rango visible (#4 · Rating 915) con emblema y CTA grande",
+      "ok": true,
+      "detail": "{\"r\":{\"rank\":\"#4\",\"rating\":\"Rating 915\",\"emblem\":true},\"cta\":{\"top\":526,\"bottom\":586,\"h\":60,\"w\":329,\"vh\":768,\"vw\":1024,\"fits\":true}}"
+    },
+    {
+      "id": "draft 1024-reduced: coste visible, escalera de 6, arte del sobre, CTA grande, sin textos cortados",
+      "ok": true,
+      "detail": "{\"d\":{\"fee\":\"2.000\",\"ladder\":6,\"jackpotArt\":true},\"cta\":{\"top\":570,\"bottom\":630,\"h\":60,\"w\":329,\"vh\":768,\"vw\":1024,\"fits\":true},\"cut\":[]}"
+    },
+    {
+      "id": "/duelos 390-reduced: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "/duelos 390-reduced: CTA de PARTIDA RÁPIDA visible y grande",
+      "ok": true,
+      "detail": "{\"top\":469,\"bottom\":529,\"h\":60,\"w\":318,\"vh\":844,\"vw\":390,\"fits\":true}"
+    },
+    {
+      "id": "competitivo 390-reduced: rango visible (#4 · Rating 915) con emblema y CTA grande",
+      "ok": true,
+      "detail": "{\"r\":{\"rank\":\"#4\",\"rating\":\"Rating 915\",\"emblem\":true},\"cta\":{\"top\":488,\"bottom\":548,\"h\":60,\"w\":318,\"vh\":844,\"vw\":390,\"fits\":true}}"
+    },
+    {
+      "id": "draft 390-reduced: coste visible, escalera de 6, arte del sobre, CTA grande, sin textos cortados",
+      "ok": true,
+      "detail": "{\"d\":{\"fee\":\"2.000\",\"ladder\":6,\"jackpotArt\":true},\"cta\":{\"top\":562,\"bottom\":622,\"h\":60,\"w\":318,\"vh\":844,\"vw\":390,\"fits\":true},\"cut\":[]}"
+    },
+    {
+      "id": "draft 1440: 3 opciones, 1 elegida, CONFIRMAR visible dentro de pantalla",
+      "ok": true,
+      "detail": "{\"st\":{\"selected\":[\"false\",\"true\",\"false\"],\"sparks\":1},\"confirm\":{\"top\":766,\"bottom\":818,\"h\":52,\"w\":220,\"vh\":900,\"vw\":1440,\"fits\":true}}"
+    },
+    {
+      "id": "draft 1440-reduced: 3 opciones, 1 elegida, CONFIRMAR visible dentro de pantalla",
+      "ok": true,
+      "detail": "{\"st\":{\"selected\":[\"false\",\"true\",\"false\"],\"sparks\":0},\"confirm\":{\"top\":766,\"bottom\":818,\"h\":52,\"w\":220,\"vh\":900,\"vw\":1440,\"fits\":true}}"
+    },
+    {
+      "id": "draft 1440-reduced: movimiento reducido = sin chispas continuas",
+      "ok": true,
+      "detail": "sparks=0"
+    },
+    {
+      "id": "draft 1024: 3 opciones, 1 elegida, CONFIRMAR visible dentro de pantalla",
+      "ok": true,
+      "detail": "{\"st\":{\"selected\":[\"false\",\"true\",\"false\"],\"sparks\":1},\"confirm\":{\"top\":634,\"bottom\":686,\"h\":52,\"w\":220,\"vh\":768,\"vw\":1024,\"fits\":true}}"
+    },
+    {
+      "id": "draft 390: 3 opciones, 1 elegida, CONFIRMAR visible dentro de pantalla",
+      "ok": true,
+      "detail": "{\"st\":{\"selected\":[\"false\",\"true\",\"false\"],\"sparks\":1},\"confirm\":{\"top\":646,\"bottom\":698,\"h\":52,\"w\":220,\"vh\":844,\"vw\":390,\"fits\":true}}"
+    },
+    {
+      "id": "draft 390-reduced: 3 opciones, 1 elegida, CONFIRMAR visible dentro de pantalla",
+      "ok": true,
+      "detail": "{\"st\":{\"selected\":[\"false\",\"true\",\"false\"],\"sparks\":0},\"confirm\":{\"top\":646,\"bottom\":698,\"h\":52,\"w\":220,\"vh\":844,\"vw\":390,\"fits\":true}}"
+    },
+    {
+      "id": "draft 390-reduced: movimiento reducido = sin chispas continuas",
+      "ok": true,
+      "detail": "sparks=0"
+    }
+  ]
+}

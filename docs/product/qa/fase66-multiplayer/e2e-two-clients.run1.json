@@ -1,0 +1,697 @@
+{
+  "at": "2026-09-26T19:07:56.321Z",
+  "base": "http://127.0.0.1:3005",
+  "matchIds": [
+    "2e461c08-fdd1-45c8-b9d2-8ac4bffdcc76",
+    "71a527ef-cc6a-419d-ac1b-39c33c1232c2",
+    "71a527ef-cc6a-419d-ac1b-39c33c1232c2",
+    "fbaff877-6bf6-4e35-a43b-3be40944bbca",
+    "1233c7bc-4648-48d5-9c33-3154cbbf7874"
+  ],
+  "matches": [
+    {
+      "idx": 1,
+      "chaos": true,
+      "turns": [],
+      "chaosLog": [
+        {
+          "queueF5": {
+            "before": "2aea3826",
+            "after": "2aea3826",
+            "same": true
+          }
+        },
+        {
+          "turn": 1,
+          "actor": "A",
+          "latencyA": 0,
+          "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+        },
+        {
+          "turn": 1,
+          "actor": "B",
+          "latencyA": 0,
+          "res": "hand-not-ready"
+        },
+        {
+          "turn": 1,
+          "actor": "B",
+          "latencyA": 0,
+          "res": "hand-not-ready"
+        },
+        {
+          "turn": 1,
+          "actor": "B",
+          "latencyA": 0,
+          "res": "hand-not-ready"
+        },
+        {
+          "turn": 1,
+          "actor": "B",
+          "latencyA": 0,
+          "res": "hand-not-ready"
+        }
+      ],
+      "matchId": "2e461c08",
+      "newMatchId": true,
+      "final": {
+        "lifecycle": "EXPIRED",
+        "sameFacts": true,
+        "result": null,
+        "recomputed": null,
+        "turnsPlayed": 0,
+        "elo": {
+          "before": {
+            "A": {
+              "rating": 928,
+              "games": 4
+            },
+            "B": {
+              "rating": 1054,
+              "games": 3
+            }
+          },
+          "after": {
+            "A": {
+              "rating": 955,
+              "games": 5
+            },
+            "B": {
+              "rating": 1027,
+              "games": 4
+            }
+          },
+          "outcomeA": {
+            "matchId": "2e461c08-fdd1-45c8-b9d2-8ac4bffdcc76",
+            "oldRating": 928,
+            "delta": 27,
+            "newRating": 955,
+            "opponentRating": 1054,
+            "kFactor": 40,
+            "result": "WIN",
+            "createdAt": 1790449780476
+          },
+          "outcomeB": {
+            "matchId": "2e461c08-fdd1-45c8-b9d2-8ac4bffdcc76",
+            "oldRating": 1054,
+            "delta": -27,
+            "newRating": 1027,
+            "opponentRating": 928,
+            "kFactor": 40,
+            "result": "LOSS",
+            "createdAt": 1790449780476
+          },
+          "once": true
+        }
+      },
+      "resultF5": {
+        "ratingUnchanged": true,
+        "screen": {
+          "arena": false,
+          "intro": false,
+          "moment": false,
+          "turn": null,
+          "hand": 0,
+          "outcome": false,
+          "syncing": false,
+          "text": "RANKED · DUELO PVP BUSCANDO RIVAL EN COLA 00:02 TU RATING 955 RIVALES ACEPTABLES ±150 ESPERAN MÁS QUE TÚ 0 Solo jugadores reales: la cola ranked no tiene bots"
+        }
+      },
+      "allTurnsConsistent": true,
+      "network": {
+        "A": null,
+        "B": null
+      },
+      "idleAfterResult": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 3
+        },
+        "total": 3,
+        "byStatus": {
+          "200": 3
+        },
+        "notFound": []
+      }
+    },
+    {
+      "idx": 2,
+      "chaos": false,
+      "turns": [
+        {
+          "turn": 1,
+          "sameServerFacts": true,
+          "version": 2,
+          "score": "1-0",
+          "uiTurn": [
+            "TURNO 2 DE 10",
+            "TURNO 2 DE 10"
+          ]
+        },
+        {
+          "turn": 2,
+          "sameServerFacts": true,
+          "version": 4,
+          "score": "1-1",
+          "uiTurn": [
+            "TURNO 3 DE 10",
+            "TURNO 3 DE 10"
+          ]
+        },
+        {
+          "turn": 3,
+          "sameServerFacts": true,
+          "version": 6,
+          "score": "2-1",
+          "uiTurn": [
+            "TURNO 4 DE 10",
+            "TURNO 4 DE 10"
+          ]
+        },
+        {
+          "turn": 4,
+          "sameServerFacts": true,
+          "version": 8,
+          "score": "2-2",
+          "uiTurn": [
+            "TURNO 5 DE 10",
+            "TURNO 5 DE 10"
+          ]
+        },
+        {
+          "turn": 5,
+          "sameServerFacts": true,
+          "version": 10,
+          "score": "2-3",
+          "uiTurn": [
+            "TURNO 6 DE 10",
+            "TURNO 5 DE 10"
+          ]
+        },
+        {
+          "turn": 6,
+          "sameServerFacts": true,
+          "version": 12,
+          "score": "2-4",
+          "uiTurn": [
+            "TURNO 7 DE 10",
+            "TURNO 7 DE 10"
+          ]
+        },
+        {
+          "turn": 7,
+          "sameServerFacts": true,
+          "version": 14,
+          "score": "2-5",
+          "uiTurn": [
+            "TURNO 8 DE 10",
+            "TURNO 8 DE 10"
+          ]
+        },
+        {
+          "turn": 8,
+          "sameServerFacts": true,
+          "version": 16,
+          "score": "3-5",
+          "uiTurn": [
+            "TURNO 9 DE 10",
+            "TURNO 9 DE 10"
+          ]
+        },
+        {
+          "turn": 9,
+          "sameServerFacts": true,
+          "version": 18,
+          "score": "4-5",
+          "uiTurn": [
+            "TURNO 10 DE 10",
+            "TURNO 10 DE 10"
+          ]
+        },
+        {
+          "turn": 10,
+          "sameServerFacts": true,
+          "version": 20,
+          "score": "4-6",
+          "uiTurn": [
+            null,
+            null
+          ]
+        }
+      ],
+      "chaosLog": [],
+      "playAgainClicked": [
+        false,
+        false
+      ],
+      "matchId": "71a527ef",
+      "newMatchId": true,
+      "final": {
+        "lifecycle": "FINISHED",
+        "sameFacts": true,
+        "result": {
+          "winner": "B",
+          "score": "4-6",
+          "decidedBy": "SCORE"
+        },
+        "recomputed": {
+          "winner": "B",
+          "decidedBy": "SCORE",
+          "scoreA": 4,
+          "scoreB": 6,
+          "agrees": true
+        },
+        "turnsPlayed": 10,
+        "elo": {
+          "before": {
+            "A": {
+              "rating": 955,
+              "games": 5
+            },
+            "B": {
+              "rating": 1027,
+              "games": 4
+            }
+          },
+          "after": {
+            "A": {
+              "rating": 939,
+              "games": 6
+            },
+            "B": {
+              "rating": 1043,
+              "games": 5
+            }
+          },
+          "outcomeA": {
+            "matchId": "71a527ef-cc6a-419d-ac1b-39c33c1232c2",
+            "oldRating": 955,
+            "delta": -16,
+            "newRating": 939,
+            "opponentRating": 1027,
+            "kFactor": 40,
+            "result": "LOSS",
+            "createdAt": 1790449883152
+          },
+          "outcomeB": {
+            "matchId": "71a527ef-cc6a-419d-ac1b-39c33c1232c2",
+            "oldRating": 1027,
+            "delta": 16,
+            "newRating": 1043,
+            "opponentRating": 955,
+            "kFactor": 40,
+            "result": "WIN",
+            "createdAt": 1790449883152
+          },
+          "once": true
+        }
+      },
+      "allTurnsConsistent": true,
+      "network": {
+        "A": null,
+        "B": null
+      },
+      "idleAfterResult": null
+    },
+    {
+      "idx": 3,
+      "chaos": false,
+      "turns": [
+        {
+          "turn": 10,
+          "sameServerFacts": true,
+          "version": 20,
+          "score": "4-6",
+          "uiTurn": [
+            null,
+            null
+          ]
+        }
+      ],
+      "chaosLog": [],
+      "playAgainClicked": [
+        true,
+        true
+      ],
+      "matchId": "71a527ef",
+      "newMatchId": false,
+      "final": {
+        "lifecycle": "FINISHED",
+        "sameFacts": true,
+        "result": {
+          "winner": "B",
+          "score": "4-6",
+          "decidedBy": "SCORE"
+        },
+        "recomputed": {
+          "winner": "B",
+          "decidedBy": "SCORE",
+          "scoreA": 4,
+          "scoreB": 6,
+          "agrees": true
+        },
+        "turnsPlayed": 10,
+        "elo": {
+          "before": {
+            "A": {
+              "rating": 939,
+              "games": 6
+            },
+            "B": {
+              "rating": 1043,
+              "games": 5
+            }
+          },
+          "after": {
+            "A": {
+              "rating": 939,
+              "games": 6
+            },
+            "B": {
+              "rating": 1043,
+              "games": 5
+            }
+          },
+          "outcomeA": {
+            "matchId": "71a527ef-cc6a-419d-ac1b-39c33c1232c2",
+            "oldRating": 955,
+            "delta": -16,
+            "newRating": 939,
+            "opponentRating": 1027,
+            "kFactor": 40,
+            "result": "LOSS",
+            "createdAt": 1790449883152
+          },
+          "outcomeB": {
+            "matchId": "71a527ef-cc6a-419d-ac1b-39c33c1232c2",
+            "oldRating": 1027,
+            "delta": 16,
+            "newRating": 1043,
+            "opponentRating": 955,
+            "kFactor": 40,
+            "result": "WIN",
+            "createdAt": 1790449883152
+          },
+          "once": false
+        }
+      },
+      "allTurnsConsistent": true,
+      "network": {
+        "A": null,
+        "B": null
+      },
+      "idleAfterResult": null
+    },
+    {
+      "idx": 4,
+      "chaos": false,
+      "turns": [],
+      "chaosLog": [],
+      "playAgainClicked": [
+        false,
+        false
+      ],
+      "matchId": "fbaff877",
+      "newMatchId": true,
+      "final": {
+        "lifecycle": "EXPIRED",
+        "sameFacts": true,
+        "result": null,
+        "recomputed": null,
+        "turnsPlayed": 0,
+        "elo": {
+          "before": {
+            "A": {
+              "rating": 939,
+              "games": 6
+            },
+            "B": {
+              "rating": 1043,
+              "games": 5
+            }
+          },
+          "after": {
+            "A": {
+              "rating": 965,
+              "games": 7
+            },
+            "B": {
+              "rating": 1017,
+              "games": 6
+            }
+          },
+          "outcomeA": {
+            "matchId": "fbaff877-6bf6-4e35-a43b-3be40944bbca",
+            "oldRating": 939,
+            "delta": 26,
+            "newRating": 965,
+            "opponentRating": 1043,
+            "kFactor": 40,
+            "result": "WIN",
+            "createdAt": 1790449997750
+          },
+          "outcomeB": {
+            "matchId": "fbaff877-6bf6-4e35-a43b-3be40944bbca",
+            "oldRating": 1043,
+            "delta": -26,
+            "newRating": 1017,
+            "opponentRating": 939,
+            "kFactor": 40,
+            "result": "LOSS",
+            "createdAt": 1790449997750
+          },
+          "once": true
+        }
+      },
+      "allTurnsConsistent": true,
+      "network": {
+        "A": null,
+        "B": null
+      },
+      "idleAfterResult": null
+    },
+    {
+      "idx": 5,
+      "chaos": false,
+      "turns": [
+        {
+          "turn": 1,
+          "sameServerFacts": true,
+          "version": 2,
+          "score": "0-1",
+          "uiTurn": [
+            "TURNO 2 DE 10",
+            "TURNO 2 DE 10"
+          ]
+        },
+        {
+          "turn": 2,
+          "sameServerFacts": true,
+          "version": 4,
+          "score": "1-1",
+          "uiTurn": [
+            "TURNO 3 DE 10",
+            "TURNO 3 DE 10"
+          ]
+        },
+        {
+          "turn": 3,
+          "sameServerFacts": true,
+          "version": 6,
+          "score": "1-2",
+          "uiTurn": [
+            "TURNO 4 DE 10",
+            "TURNO 4 DE 10"
+          ]
+        },
+        {
+          "turn": 4,
+          "sameServerFacts": true,
+          "version": 8,
+          "score": "2-2",
+          "uiTurn": [
+            "TURNO 4 DE 10",
+            "TURNO 5 DE 10"
+          ]
+        },
+        {
+          "turn": 5,
+          "sameServerFacts": true,
+          "version": 10,
+          "score": "3-2",
+          "uiTurn": [
+            "TURNO 6 DE 10",
+            "TURNO 5 DE 10"
+          ]
+        },
+        {
+          "turn": 6,
+          "sameServerFacts": true,
+          "version": 12,
+          "score": "4-2",
+          "uiTurn": [
+            "TURNO 6 DE 10",
+            "TURNO 7 DE 10"
+          ]
+        },
+        {
+          "turn": 7,
+          "sameServerFacts": true,
+          "version": 14,
+          "score": "5-2",
+          "uiTurn": [
+            "TURNO 8 DE 10",
+            "TURNO 7 DE 10"
+          ]
+        },
+        {
+          "turn": 8,
+          "sameServerFacts": true,
+          "version": 16,
+          "score": "5-3",
+          "uiTurn": [
+            "TURNO 8 DE 10",
+            "TURNO 9 DE 10"
+          ]
+        },
+        {
+          "turn": 9,
+          "sameServerFacts": true,
+          "version": 18,
+          "score": "5-4",
+          "uiTurn": [
+            "TURNO 10 DE 10",
+            "TURNO 9 DE 10"
+          ]
+        },
+        {
+          "turn": 10,
+          "sameServerFacts": true,
+          "version": 20,
+          "score": "6-4",
+          "uiTurn": [
+            "TURNO 10 DE 10",
+            null
+          ]
+        }
+      ],
+      "chaosLog": [],
+      "playAgainClicked": [
+        false,
+        false
+      ],
+      "matchId": "1233c7bc",
+      "newMatchId": true,
+      "final": {
+        "lifecycle": "FINISHED",
+        "sameFacts": true,
+        "result": {
+          "winner": "A",
+          "score": "6-4",
+          "decidedBy": "SCORE"
+        },
+        "recomputed": {
+          "winner": "A",
+          "decidedBy": "SCORE",
+          "scoreA": 6,
+          "scoreB": 4,
+          "agrees": true
+        },
+        "turnsPlayed": 10,
+        "elo": {
+          "before": {
+            "A": {
+              "rating": 965,
+              "games": 7
+            },
+            "B": {
+              "rating": 1017,
+              "games": 6
+            }
+          },
+          "after": {
+            "A": {
+              "rating": 948,
+              "games": 8
+            },
+            "B": {
+              "rating": 1034,
+              "games": 7
+            }
+          },
+          "outcomeA": {
+            "matchId": "1233c7bc-4648-48d5-9c33-3154cbbf7874",
+            "oldRating": 965,
+            "delta": -17,
+            "newRating": 948,
+            "opponentRating": 1017,
+            "kFactor": 40,
+            "result": "LOSS",
+            "createdAt": 1790450090841
+          },
+          "outcomeB": {
+            "matchId": "1233c7bc-4648-48d5-9c33-3154cbbf7874",
+            "oldRating": 1017,
+            "delta": 17,
+            "newRating": 1034,
+            "opponentRating": 965,
+            "kFactor": 40,
+            "result": "WIN",
+            "createdAt": 1790450090841
+          },
+          "once": true
+        }
+      },
+      "allTurnsConsistent": true,
+      "network": {
+        "A": null,
+        "B": null
+      },
+      "idleAfterResult": null
+    }
+  ],
+  "accounts": {
+    "A": "1ff2c0ef",
+    "B": "8c326e52"
+  },
+  "perf": [
+    {
+      "match": 1,
+      "listeners": null,
+      "nodes": null,
+      "heapMB": null
+    },
+    {
+      "match": 2,
+      "listeners": null,
+      "nodes": null,
+      "heapMB": null
+    },
+    {
+      "match": 3,
+      "listeners": null,
+      "nodes": null,
+      "heapMB": null
+    },
+    {
+      "match": 4,
+      "listeners": null,
+      "nodes": null,
+      "heapMB": null
+    },
+    {
+      "match": 5,
+      "listeners": null,
+      "nodes": null,
+      "heapMB": null
+    }
+  ],
+  "consoleErrors": {
+    "A": [
+      "Failed to load resource: the server responded with a status of 409 (Conflict)"
+    ],
+    "B": [
+      "Failed to load resource: the server responded with a status of 409 (Conflict)",
+      "Failed to load resource: the server responded with a status of 409 (Conflict)"
+    ]
+  }
+}

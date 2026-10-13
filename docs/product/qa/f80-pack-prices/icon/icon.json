@@ -1,0 +1,130 @@
+{
+ "at": "2026-10-02T11:53:15.444Z",
+ "persona": "A",
+ "fails": 0,
+ "rows": [
+  {
+   "w": 1440,
+   "id": "tarjeta Icon: precio 60.000, entero, sin desbordar",
+   "ok": true,
+   "detail": {
+    "text": "60.000",
+    "srOnly": "DRL Credits",
+    "priceInside": true,
+    "priceOverflow": false,
+    "docOverflowX": 0
+   }
+  },
+  {
+   "w": 1440,
+   "id": "detalle Icon: dentro del viewport y precio 60.000",
+   "ok": true,
+   "detail": {
+    "inViewport": true,
+    "has60k": true
+   }
+  },
+  {
+   "w": 1440,
+   "id": "detalle Icon: saldo insuficiente explícito y sin confirmar posible",
+   "ok": true,
+   "detail": {
+    "insufficient": true,
+    "confirm": [
+     {
+      "text": "CONFIRMAR COMPRA · 60.000",
+      "disabled": true
+     }
+    ]
+   }
+  },
+  {
+   "w": 1440,
+   "id": "0 errores de consola",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "id": "tarjeta Icon: precio 60.000, entero, sin desbordar",
+   "ok": true,
+   "detail": {
+    "text": "60.000",
+    "srOnly": "DRL Credits",
+    "priceInside": true,
+    "priceOverflow": false,
+    "docOverflowX": 0
+   }
+  },
+  {
+   "w": 1024,
+   "id": "detalle Icon: dentro del viewport y precio 60.000",
+   "ok": true,
+   "detail": {
+    "inViewport": true,
+    "has60k": true
+   }
+  },
+  {
+   "w": 1024,
+   "id": "detalle Icon: saldo insuficiente explícito y sin confirmar posible",
+   "ok": true,
+   "detail": {
+    "insufficient": true,
+    "confirm": [
+     {
+      "text": "CONFIRMAR COMPRA · 60.000",
+      "disabled": true
+     }
+    ]
+   }
+  },
+  {
+   "w": 1024,
+   "id": "0 errores de consola",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "id": "tarjeta Icon: precio 60.000, entero, sin desbordar",
+   "ok": true,
+   "detail": {
+    "text": "60.000",
+    "srOnly": "DRL Credits",
+    "priceInside": true,
+    "priceOverflow": false,
+    "docOverflowX": 0
+   }
+  },
+  {
+   "w": 390,
+   "id": "detalle Icon: dentro del viewport y precio 60.000",
+   "ok": true,
+   "detail": {
+    "inViewport": true,
+    "has60k": true
+   }
+  },
+  {
+   "w": 390,
+   "id": "detalle Icon: saldo insuficiente explícito y sin confirmar posible",
+   "ok": true,
+   "detail": {
+    "insufficient": true,
+    "confirm": [
+     {
+      "text": "CONFIRMAR COMPRA · 60.000",
+      "disabled": true
+     }
+    ]
+   }
+  },
+  {
+   "w": 390,
+   "id": "0 errores de consola",
+   "ok": true,
+   "detail": []
+  }
+ ]
+}

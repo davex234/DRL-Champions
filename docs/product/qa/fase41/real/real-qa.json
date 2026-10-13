@@ -1,0 +1,95 @@
+{
+  "account": "8c326e52",
+  "base": "http://127.0.0.1:3005",
+  "at": "2026-09-16T16:20:16.144Z",
+  "db": {
+    "accounts": "11",
+    "negative_credits": "0",
+    "credits_ne_ledger": "0",
+    "inicial_buys_hist": "3",
+    "inicial_buys_max": "3",
+    "sandbox_purchase_rows": "2",
+    "mission_rows": "9",
+    "mission_repeat_in_window": "0",
+    "prestige_rows": "0",
+    "duplicate_refs": "0",
+    "duel_capped_rows": "0",
+    "max_paid_duels_day": "2"
+  },
+  "fp0": {
+    "credits": "4040",
+    "xp": "1110",
+    "points": "16",
+    "packs": "",
+    "packs_opened": "7",
+    "cards": "35",
+    "matches": "3",
+    "rating": "1000/0",
+    "pass_md5": "fc7578655071314f061921c06f4ea8dd",
+    "pass_updated": "2026-09-16 08:26:21.919712+00",
+    "ledger_n": "7",
+    "ledger_sum": "4040",
+    "ops_n": "10",
+    "payments_n": "0"
+  },
+  "starter": {
+    "status": 200,
+    "eligible": false,
+    "reason": "DECK_READY",
+    "deckReady": true,
+    "freeClaims": 0
+  },
+  "match": {
+    "id": "ca0bcd14",
+    "rows": "1",
+    "reason": "duel_win",
+    "delta": "120",
+    "status": "COMPLETED",
+    "turns": "10",
+    "view": {
+      "status": "COMPLETED",
+      "winner": "YOU",
+      "award": {
+        "points": 8,
+        "credits": 120,
+        "xp": 60
+      }
+    }
+  },
+  "mission": {
+    "id": "s-mazo",
+    "first": 200,
+    "second": 409,
+    "delta": 1000
+  },
+  "fpFinal": {
+    "credits": "4410",
+    "xp": "1348",
+    "points": "24",
+    "packs": "",
+    "packs_opened": "8",
+    "cards": "40",
+    "matches": "4",
+    "rating": "1000/0",
+    "pass_md5": "95c0f9727623d9505c630c9c84dac2c8",
+    "pass_updated": "2026-09-16 16:20:39.537908+00",
+    "ledger_n": "10",
+    "ledger_sum": "4410",
+    "ops_n": "12",
+    "payments_n": "0"
+  },
+  "delta": [
+    "credits: 4040 → 4410",
+    "xp: 1110 → 1348",
+    "points: 16 → 24",
+    "packs_opened: 7 → 8",
+    "cards: 35 → 40",
+    "matches: 3 → 4",
+    "pass_md5: fc7578655071314f061921c06f4ea8dd → 95c0f9727623d9505c630c9c84dac2c8",
+    "pass_updated: 2026-09-16 08:26:21.919712+00 → 2026-09-16 16:20:39.537908+00",
+    "ledger_n: 7 → 10",
+    "ledger_sum: 4040 → 4410",
+    "ops_n: 10 → 12"
+  ],
+  "failures": 0
+}

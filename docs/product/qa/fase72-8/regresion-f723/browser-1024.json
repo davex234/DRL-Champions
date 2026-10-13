@@ -1,0 +1,248 @@
+{
+  "width": 1024,
+  "persona": "A",
+  "at": "2026-09-30T13:10:38.189Z",
+  "matchAttempts": [
+    "77dced90-bc3a-4ce5-8772-152be615c870:CCCCCTCCCC"
+  ],
+  "matchId": "77dced90-bc3a-4ce5-8772-152be615c870",
+  "boardPath": "/duelos/jugar",
+  "hints": [
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/cn.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/ru.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/us.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "TEAM",
+      "shape": "logo",
+      "text": "",
+      "img": false,
+      "art": "/hints/teams/giantx.png",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 32,
+      "h": 32
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/us.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    },
+    {
+      "type": "COUNTRY",
+      "shape": "flag",
+      "text": "",
+      "img": false,
+      "art": "/flags/kr.svg",
+      "size": "contain",
+      "pos": "50% 50%",
+      "w": 34,
+      "h": 26
+    }
+  ],
+  "apiHints": [
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "CN"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "RU"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "US"
+    },
+    {
+      "type": "TEAM",
+      "value": "giantx"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "US"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    },
+    {
+      "type": "COUNTRY",
+      "value": "KR"
+    }
+  ],
+  "otherForeignHosts": [
+    "fonts.googleapis.com",
+    "fonts.gstatic.com"
+  ],
+  "network": {
+    "foreign": [
+      "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap",
+      "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+      "https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FvOreec.woff2",
+      "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    ],
+    "hintAssets": [
+      "http://127.0.0.1:3005/flags/cn.svg",
+      "http://127.0.0.1:3005/flags/kr.svg",
+      "http://127.0.0.1:3005/flags/ru.svg",
+      "http://127.0.0.1:3005/flags/us.svg",
+      "http://127.0.0.1:3005/hints/teams/giantx.png"
+    ]
+  },
+  "consoleErrors": [],
+  "pass": 12,
+  "total": 12,
+  "results": [
+    {
+      "id": "A · pista COUNTRY: solo bandera LOCAL (/flags/*.svg, forma flag)",
+      "ok": true,
+      "detail": "{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"img\":false,\"art\":\"/flags/kr.svg\",\"size\":\"contain\",\"pos\":\"50% 50%\",\"w\":34,\"h\":26}"
+    },
+    {
+      "id": "B · pista TEAM: solo logo LOCAL (/hints/teams/<canonicalId>.png, forma logo)",
+      "ok": true,
+      "detail": "{\"type\":\"TEAM\",\"shape\":\"logo\",\"text\":\"\",\"img\":false,\"art\":\"/hints/teams/giantx.png\",\"size\":\"contain\",\"pos\":\"50% 50%\",\"w\":32,\"h\":32}"
+    },
+    {
+      "id": "C · varias cartas ocultas a la vez con mezcla real de banderas y logos",
+      "ok": true,
+      "detail": "10 pistas: COUNTRY,COUNTRY,COUNTRY,COUNTRY,COUNTRY,TEAM,COUNTRY,COUNTRY,COUNTRY,COUNTRY · intentos=1"
+    },
+    {
+      "id": "H · 0 texto en las pistas y en la mano oculta (sin ISO, tag, nombre ni abreviatura)",
+      "ok": true,
+      "detail": "handText=«»"
+    },
+    {
+      "id": "legible y proporcionado (contain, centrado; bandera ≥ 18 px, logo ≥ 18 px, caja del logo cuadrada)",
+      "ok": true,
+      "detail": "[\"flag:34x26\",\"flag:34x26\",\"flag:34x26\",\"flag:34x26\",\"flag:34x26\",\"logo:32x32\",\"flag:34x26\",\"flag:34x26\",\"flag:34x26\",\"flag:34x26\"]"
+    },
+    {
+      "id": "I · 0 imágenes rotas",
+      "ok": true,
+      "detail": "rotas=0"
+    },
+    {
+      "id": "API · una entrada por carta oculta, cada una { type, value } o null; valor = id de asset local",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"CN\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"RU\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"TEAM\",\"value\":\"giantx\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"}]"
+    },
+    {
+      "id": "E · recargar = mismas pistas",
+      "ok": true,
+      "detail": "[[\"COUNTRY\",\"/flags/cn.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/kr.svg\"],[\"COUNTRY\",\"/flags/"
+    },
+    {
+      "id": "F · reconectar (navegador y sesión nuevos) = misma partida y mismas pistas",
+      "ok": true,
+      "detail": "match=true"
+    },
+    {
+      "id": "J · 0 peticiones de pistas a otro host (ni flagcdn, CDN, GitHub, valorant-api, VLR, Liquipedia): todos sus assets del propio origen",
+      "ok": true,
+      "detail": "hintForeign=0 · hintAssets=5 · otros hosts (no pistas)=fonts.googleapis.com,fonts.gstatic.com"
+    },
+    {
+      "id": "K · 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "L · 0 «Failed to fetch»",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "at": "2026-09-30T18:01:13.880Z",
+  "name": "drlcards",
+  "id": "801a8447-a323-4df1-b777-7c7b3b7d7114",
+  "config": "~/.cloudflared/drlcards.yml (fuera del repo; credenciales en ~/.cloudflared)",
+  "ingress": {
+    "valorosters.com": "http://127.0.0.1:3005",
+    "www.valorosters.com": "http://127.0.0.1:3005",
+    "default": "http_status:404"
+  },
+  "runner": "tarea programada «DRLCards-Tunnel» (usuario, sin elevación; al iniciar sesión + cada minuto con IgnoreNew) · scripts/ops/windows/drlcards-tunnel.ps1",
+  "connections": "4 (cdg07, cdg11, mad01, mad06)",
+  "untouched": [
+    "clipflow",
+    "nexus-agent",
+    "nexus-hotel-demo",
+    "nexusschola",
+    "~/.cloudflared/config.yml"
+  ],
+  "nextBind": "127.0.0.1:3005 (sin cambios; :3005 no expuesto)"
+}

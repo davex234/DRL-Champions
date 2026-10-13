@@ -1,0 +1,460 @@
+{
+  "persona": "C",
+  "user": "d4133641",
+  "base": "https://valorosters.com",
+  "clicked": true,
+  "dbBefore": {
+    "live": 0,
+    "entries": [
+      {
+        "id": "48b9adff",
+        "match": "3aab86d7",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-28T12:25:12.331507+00:00"
+      },
+      {
+        "id": "618fdfc9",
+        "match": "9f606730",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-27T22:34:47.528285+00:00"
+      },
+      {
+        "id": "f4f9814d",
+        "match": "468ad1b0",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-27T22:33:32.936915+00:00"
+      },
+      {
+        "id": "465837f7",
+        "match": "f2728887",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-27T22:32:33.123518+00:00"
+      }
+    ]
+  },
+  "apiBefore": {
+    "code": "OK",
+    "state": "MATCHED",
+    "matchId": "3aab86d7"
+  },
+  "samples": [
+    {
+      "t": 2,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 3,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 4,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 6,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 7,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 8,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 10,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 11,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 12,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 14,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 15,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 16,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 18,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 19,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 20,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 22,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 23,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 24,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 26,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 27,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 28,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 29,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 30,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 31,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 33,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 34,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 35,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 37,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera ",
+      "db": {
+        "latest": {
+          "id": "48b9adff",
+          "match": "3aab86d7",
+          "state": "MATCHED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": "COMPLETED",
+          "updated": "2026-09-28T12:25:12.331507+00:00"
+        },
+        "live": 0
+      }
+    },
+    {
+      "t": 38,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    },
+    {
+      "t": 39,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": true,
+      "syncingMatch": "3aab86d7",
+      "head": "DUELO PVP · CONTRA QAF63N154122_A9A8\n\nVICTORIA\nTÚ\n6\n–\nRIVAL\n5\n\nMarcador final · De empate por  uma de OVR\n\nÚLTIMO TURNO · 10PUNTO PARA TITu Game en e 73  upera "
+    }
+  ],
+  "dbAfter": {
+    "live": 0,
+    "entries": [
+      {
+        "id": "48b9adff",
+        "match": "3aab86d7",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-28T12:25:12.331507+00:00"
+      },
+      {
+        "id": "618fdfc9",
+        "match": "9f606730",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-27T22:34:47.528285+00:00"
+      },
+      {
+        "id": "f4f9814d",
+        "match": "468ad1b0",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-27T22:33:32.936915+00:00"
+      },
+      {
+        "id": "465837f7",
+        "match": "f2728887",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-27T22:32:33.123518+00:00"
+      }
+    ]
+  },
+  "apiAfter": {
+    "code": "OK",
+    "state": "MATCHED",
+    "matchId": "3aab86d7"
+  }
+}

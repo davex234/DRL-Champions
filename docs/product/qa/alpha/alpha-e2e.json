@@ -1,0 +1,775 @@
+{
+ "at": "2026-10-06T20:02:24.877Z",
+ "base": "https://valorosters.com",
+ "run": "20261006194954",
+ "times": {
+  "signup_ms": 5007,
+  "guide_n1": [
+   "/ → EMPEZAR",
+   "/ → abrir primer sobre",
+   "/abrir/estandar → abrir sobre (5)",
+   "/abrir/estandar → ver mi colección",
+   "/coleccion → cta",
+   "/abrir/inicial → abrir sobre (5)",
+   "/abrir/inicial → cta",
+   "/abrir/inicial → abrir sobre (5)",
+   "/abrir/inicial → cta",
+   "/ → cta",
+   "/duelos/jugar → Comenzar duelo",
+   "/duelos/jugar → partida (10 turnos, resultado true)",
+   "/duelos/jugar → resultado mínimo → Volver al menú principal",
+   "/ → cta",
+   "SEGUIR JUGANDO (fin guía)"
+  ],
+  "funnel": {
+   "cup_final": 2,
+   "cup_played": 2,
+   "deck_saved": 2,
+   "pack_opened": 2,
+   "social_used": 2,
+   "friend_added": 2,
+   "feedback_sent": 1,
+   "quick_started": 2,
+   "cup_registered": 2,
+   "ranked_touched": 1,
+   "quick_completed": 2,
+   "starter_claimed": 0,
+   "starter_granted": 2
+  }
+ },
+ "total": 146,
+ "pass": 146,
+ "fail": 0,
+ "rows": [
+  {
+   "id": "navegador limpio: sin sesión ni caché previa",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "portada sin sesión: «Crear cuenta» y «Entrar» a la vista",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "«Crear cuenta» abre /cuenta en la pestaña de registro",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "registro sin nombre → «Elige un nombre de jugador» y NINGUNA cuenta creada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "registro real por el formulario → sesión y portada",
+   "ok": true,
+   "detail": "{\"ms\":5007}"
+  },
+  {
+   "id": "la cuenta nueva recibe su #TAG al nacer (7, alfabeto sin ambiguos)",
+   "ok": true,
+   "detail": "YRS5P97"
+  },
+  {
+   "id": "el nombre público es el elegido (+ sufijo), nunca el correo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "sobres de bienvenida concedidos por el servidor (3 Inicial + 1 Bronce)",
+   "ok": true,
+   "detail": "estandar:1,inicial:3"
+  },
+  {
+   "id": "portada tras registrarse: bienvenida con UN botón principal",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "guía completa por la interfaz (sobres → colección → equipo → primera partida → progreso)",
+   "ok": true,
+   "detail": "[\"/ → cta\",\"/duelos/jugar → Comenzar duelo\",\"/duelos/jugar → partida (10 turnos, resultado true)\",\"/duelos/jugar → resultado mínimo → Volver al menú principal\",\"/ → cta\",\"SEGUIR JUGANDO (fin guía)\"]"
+  },
+  {
+   "id": "onboarding COMPLETED en el servidor + equipo válido y activo",
+   "ok": true,
+   "detail": "{\"ob\":\"COMPLETED\",\"decks\":1}"
+  },
+  {
+   "id": "sobres abiertos en el SERVIDOR (economy_ops), cartas en BD y la API del jugador las ve",
+   "ok": true,
+   "detail": "{\"ops\":3,\"cardsDb\":15,\"api\":15,\"unopened\":{\"inicial\":1}}"
+  },
+  {
+   "id": "colección: cartas reales de ESTA cuenta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/duelos → «Partida rápida» lleva a la preparación",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "resultado de partida rápida MÍNIMO (veredicto, marcador, explicación, seguir / menú)",
+   "ok": true,
+   "detail": "DERROTA\n4\n–\n6\n\nGanó más enfrentamientos (4-6).\n\nRECOMPENSAS OBTENIDAS\n\n+40\ncréditos\n+25 XP de cuenta\nSEGUIR JUGANDO\nVOLVER AL MENÚ PRINCIPAL"
+  },
+  {
+   "id": "…fuera de «Recompensas obtenidas»: sin puntos de rango, créditos, XP, nivel, misiones, logros ni botones de reclamar",
+   "ok": true,
+   "detail": "Derrota4–6Ganó más enfrentamientos (4-6).Seguir jugandoVolver al menú principal"
+  },
+  {
+   "id": "…y dentro, solo lo del recibo (créditos, XP de cuenta, puntos de rango): nada de nivel, misiones, logros ni reclamar",
+   "ok": true,
+   "detail": "Recompensas obtenidas+40 créditos+25 XP de cuenta"
+  },
+  {
+   "id": "«Seguir jugando» con DOBLE clic → UNA partida nueva (flujo canónico)",
+   "ok": true,
+   "detail": "{\"before\":2,\"after\":3,\"inProg\":1}"
+  },
+  {
+   "id": "F5 en partida rápida → la misma partida se recupera",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "ranked accesible: /competitivo con colocación / sin clasificar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cola ranked: entrar → en cola → salir → fuera (sin MATCHED colgado)",
+   "ok": true,
+   "detail": "{\"enq\":200}"
+  },
+  {
+   "id": "Social: MI #TAG visible y copiable, con su para qué",
+   "ok": true,
+   "detail": "YRS5P97"
+  },
+  {
+   "id": "móvil 390: portada sin sesión con «Crear cuenta» a la vista y sin desbordar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "móvil 390 reducido: guía completa por la interfaz",
+   "ok": true,
+   "detail": "[\"/ → cta\",\"/duelos/jugar → Comenzar duelo\",\"/duelos/jugar → partida (10 turnos, resultado true)\",\"/duelos/jugar → resultado mínimo → Volver al menú principal\",\"/ → cta\",\"SEGUIR JUGANDO (fin guía)\"]"
+  },
+  {
+   "id": "móvil: equipo válido y activo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "móvil: B encuentra a A pegando su tag SIN «#»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "solicitud de amistad enviada por la UI",
+   "ok": true,
+   "detail": "PENDING|true"
+  },
+  {
+   "id": "A acepta por la UI → amistad",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "torneo QA no listado publicado (admin temporal)",
+   "ok": true,
+   "detail": "{\"id\":\"44c909e5-4cf1-4309-b265-56cb2dd40c63\",\"slug\":\"qa-f862-06194954\",\"created\":200,\"published\":200}"
+  },
+  {
+   "id": "no listado: NO aparece en el hub público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "inscripción por la UI desde el enlace (1440)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "inscripción por la UI desde el enlace (390-reduced)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "4 inscritos",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuadro de 4 generado (2 semifinales + final)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 0: N1 pulsa JUGAR → «esperando a tu rival»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 0: UNA partida PVP_PRIVATE",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 0: N1 entra en la arena (3156 ms)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 0: resultado del motor → cruce COMPLETADO",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 0: N1 ve «Has avanzado» en la arena",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 1: N2 pulsa JUGAR → «esperando a tu rival»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 1: UNA partida PVP_PRIVATE",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 1: N2 entra en la arena (3397 ms)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 1: resultado del motor → cruce COMPLETADO",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "semifinal 1: N2 ve «Has avanzado» en la arena",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "final: UNA partida",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "campeón decidido por el motor (N1)",
+   "ok": true,
+   "detail": "COMPLETED|33329711-daf1-48ad-8e42-350be601e710"
+  },
+  {
+   "id": "trofeo UNA vez",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "el campeón ve «¡Campeón del torneo!» en la arena",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "ficha: momento de campeón + invitación al feedback",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "«Sala de Trofeos» lleva a /coleccion/trofeos y el trofeo está ahí",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "las partidas del torneo son TOURNAMENT en la carrera propia",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/feedback con sesión: formulario de 7 preguntas",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F5 en el formulario: el borrador sigue (esta cuenta, este navegador)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "sin red: NO dice «enviado»; explica que no se envió",
+   "ok": true,
+   "detail": "Sin conexión: tu opinión no se ha enviado todavía. Vuelve a pulsar «Enviar» cuando vuelva la red."
+  },
+  {
+   "id": "con red, doble clic → «¡Gracias!»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "UNA fila de feedback (clave de envío fija)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "atrás tras enviar: no se reenvía nada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "feedback anónimo → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "feedback con userId falso → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "feedback vacío → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "feedback: no hay lectura para jugadores (GET → 405)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "REST directo: otra cuenta NO lee el feedback de nadie",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "REST directo: insertar feedback (o suplantar) → rechazado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "REST directo: el embudo no lo ejecuta un jugador",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "panel alpha como usuario normal → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel alpha anónimo → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "inscribirse en un torneo ya cerrado → rechazado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "«listo» con equipo ajeno / cruce ajeno → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin: por defecto el feedback de cuentas de PRUEBA no se mezcla con el de testers reales",
+   "ok": true,
+   "detail": "{\"hidden\":2}"
+  },
+  {
+   "id": "admin: el feedback aparece con nombre + #TAG, fecha y respuestas",
+   "ok": true,
+   "detail": "{\"id\":\"7c2899b0-9e24-4412-9fe6-2a170155e6f9\",\"createdAt\":\"2026-10-06T19:56:51.460611+00:00\",\"source\":\"cup\",\"username\":\"qaf68n1195006_3332\",\"tag\":\"YRS5P97\",\"hardToUnderstand\":\"QA F86.2 · prueba mecánica, no es opinión humana\",\"lostMoment\":null,\"likedMost\":null,\"likedLeast\":null,\"hadError\":null,\"errorDetail\":null,\"wouldReturn\":8,\"comment\":null,\"appVersion\":\"0.1.1\"}"
+  },
+  {
+   "id": "admin: sin correos en la respuesta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "embudo (cuentas de prueba incluidas): N1 con sobre, equipo, rápida, ranked, social, amigo, torneo, final y feedback",
+   "ok": true,
+   "detail": "{\"tag\":\"YRS5P97\",\"cupFinal\":true,\"username\":\"qaf68n1195006_3332\",\"createdAt\":\"2026-10-06T19:50:10.015301+00:00\",\"cupPlayed\":true,\"deckSaved\":true,\"packOpened\":true,\"socialUsed\":true,\"friendAdded\":true,\"feedbackSent\":true,\"lastSignInAt\":\"2026-10-06T19:50:14.199881+00:00\",\"quickStarted\":true,\"cupRegistered\":true,\"rankedTouched\":true,\"quickCompleted\":true,\"starterClaimed\":false,\"starterGranted\":true}"
+  },
+  {
+   "id": "embudo por defecto: las cuentas de prueba NO cuentan (cohorte real vacía en esta QA)",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "panel /admin/alpha (UI): feedback visible",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel /admin/alpha (UI): embudo con sus 13 pasos",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuadro de 5: tamaño 8, 3 rondas, 3 BYES en la primera ronda",
+   "ok": true,
+   "detail": "4/7/3/3"
+  },
+  {
+   "id": "cuadro de 8: 4 cruces en la primera ronda, 3 rondas, 0 BYES",
+   "ok": true,
+   "detail": "4/7/3/0"
+  },
+  {
+   "id": "cuadros representativos cancelados por el panel (auditado, sin campeón)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "«Valorosters Closed Alpha Cup» creada en BORRADOR, no listada (no publicada)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "la Closed Alpha Cup NO es visible para jugadores (borrador = 404)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "logout por la UI",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "tras logout: portada de invitado, sin créditos ni datos de la cuenta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cambio de cuenta A → B: el #TAG, el social y el resto son de B (nada de A)",
+   "ok": true,
+   "detail": "JBB4EUF"
+  },
+  {
+   "id": "cambio de cuenta: el borrador de feedback de A no aparece en B",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "volver a entrar (A) recupera su estado real (equipo activo y torneo)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "visual 1440 /: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /coleccion: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /duelos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /competitivo: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /social: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /copas/qa-f862-06194954: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /coleccion/trofeos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /jugador/me: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 /feedback: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /coleccion: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /duelos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /competitivo: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /social: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /copas/qa-f862-06194954: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /coleccion/trofeos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /jugador/me: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1440 reducido /feedback: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /coleccion: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /duelos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /competitivo: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /social: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /copas/qa-f862-06194954: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /coleccion/trofeos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /jugador/me: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 /feedback: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /coleccion: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /duelos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /competitivo: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /social: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /copas/qa-f862-06194954: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /coleccion/trofeos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /jugador/me: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 1024 reducido /feedback: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /coleccion: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /duelos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /competitivo: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /social: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /copas/qa-f862-06194954: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /coleccion/trofeos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /jugador/me: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 /feedback: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /coleccion: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /duelos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /competitivo: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /social: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /copas/qa-f862-06194954: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /coleccion/trofeos: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /jugador/me: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "visual 390 reducido /feedback: sin desbordamiento ni texto técnico",
+   "ok": true,
+   "detail": "{\"ox\":0,\"tech\":null}"
+  },
+  {
+   "id": "0 eventos de rating nuevos por el torneo (ranked intacto)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 misiones contadas por partidas de torneo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 XP de temporada por partidas de torneo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 créditos por partidas de torneo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "limpieza: QA A sin admin; admins = exactamente las 2 cuentas reales",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuentas reales INTACTAS (#NB2Z9BM y #H5ND8K7, admin, 0 torneos, 0 feedback, rating/créditos/XP iguales)",
+   "ok": true,
+   "detail": "NB2Z9BM|true|0|0|0 · H5ND8K7|true|0|0|0"
+  },
+  {
+   "id": "Valorosters Open #1 sigue en BORRADOR; Temporada 2 en DRAFT",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

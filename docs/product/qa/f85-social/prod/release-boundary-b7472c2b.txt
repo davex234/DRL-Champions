@@ -1,0 +1,16 @@
+base files: 3630 · staged files: 3630
+added=0 modified=13 removed=0
+BOUNDARY_OK añadidos+modificados = overlay F85 exacto
+BOUNDARY_OK borrados = lista F85 exacta (ninguno)
+F78 = producción: scripts/ops/backup-drlcards.sh
+F78 = producción: scripts/ops/backup-offsite.sh
+F78 = producción: scripts/ops/backup-status.sh
+F78 = producción: scripts/ops/offsite-harness.sh
+F78 ausente en producción y en el staging: scripts/ops/offsite-drill.sh
+F78 ausente en producción y en el staging: scripts/ops/b2-provision.mjs
+F78 = producción: scripts/ops/production-check.ts
+F78 = producción: src/domain/ops/backup.test.ts
+F78 = producción: src/domain/ops/backup.ts
+BUILD_ID=drl-0.1.1-1-b7472c2b
+92c97a3e39c02543fd281aeb04bcc7404cf2a460779ec0a23c32258af19baa75  /opt/nexus/projects/valorosters/incoming/drl-0.1.1-1-b7472c2b.tar
+STAGED drl-0.1.1-1-b7472c2b

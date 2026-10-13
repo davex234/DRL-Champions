@@ -1,0 +1,554 @@
+{
+  "at": "2026-10-02T08:33:13.479Z",
+  "base": "http://127.0.0.1:3011",
+  "widths": [
+    1440,
+    1024,
+    390
+  ],
+  "note": "sesión simulada + servicios reales F73/F79 sobre MemSupabase (CDP Fetch); build local; nada escrito en ninguna BD",
+  "pass": 108,
+  "fail": 0,
+  "results": [
+    {
+      "id": "[1440] HOME · el núcleo de nivel y la XP vienen del servidor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] HOME · nivel 2 (6 crafteos × 20 XP; los objetivos activados hace 1 h NO suman el pasado), 4 ramas, 4 zonas",
+      "ok": true,
+      "detail": "{\"level\":\"2\",\"tiles\":4,\"entries\":[\"crafting-entry-sobres\",\"crafting-entry-cartas\",\"crafting-entry-avanzado\",\"crafting-entry-historial\"],\"xp\":\"20\"}"
+    },
+    {
+      "id": "[1440] HOME · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] HOME · objetivos y actividad",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] AVANZADO · cadena y recetas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] AVANZADO · estados derivados (paso 1 disponible, 2 y 3 bloqueados)",
+      "ok": true,
+      "detail": "{\"forge-ruta-oro\":\"AVAILABLE\",\"forge-ruta-masters\":\"LOCKED\",\"forge-ruta-champions\":\"LOCKED\"}"
+    },
+    {
+      "id": "[1440] ANALÍTICA · abrir una receta envía recipe_view (solo id)",
+      "ok": true,
+      "detail": "[\"forge-ruta-oro\"]"
+    },
+    {
+      "id": "[1440] AVANZADO · sin elegir, FORJAR desactivado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] AUTO-SELECCIONAR · nunca protegidas",
+      "ok": true,
+      "detail": "{\"protectedPicked\":0,\"n\":1}"
+    },
+    {
+      "id": "[1440] AUTO-SELECCIONAR · FORJAR activo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] TECLADO · Enter abre la confirmación",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] TECLADO · Escape cierra sin forjar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] CONFIRMACIÓN · «vas a entregar» lista EXACTAMENTE 4 copias y «recibirás» la clase",
+      "ok": true,
+      "detail": "{\"items\":4}"
+    },
+    {
+      "id": "[1440] CONFIRMACIÓN · el botón CONFIRMAR es alcanzable (visible tras desplazar el diálogo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] FORJA · el resultado aparece DESPUÉS de que el servidor confirma (1 asiento nuevo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] FORJA · el diálogo no queda recortado por su contenedor (el centro de su cabecera es suyo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] FORJA · la carta revelada es la del servidor",
+      "ok": true,
+      "detail": "chronicle__base"
+    },
+    {
+      "id": "[1440] CADENA · paso 1 COMPLETED y el paso 2 deja de estar bloqueado",
+      "ok": true,
+      "detail": "{\"forge-ruta-oro\":\"COMPLETED\",\"forge-ruta-masters\":\"DISCOVERED\",\"forge-ruta-champions\":\"LOCKED\"}"
+    },
+    {
+      "id": "[1440] BLOQUEADA · silueta, pista y condiciones; sin revelar materiales ni salida",
+      "ok": true,
+      "detail": "RECETA POR DESCUBRIR\n\n???\n\nNecesitas el plano Sello y el Forjado Masters.\n\n🔒\nCompleta «Forjado Masters»\n🔒\nPlano «Plano"
+    },
+    {
+      "id": "[1440] AVANZADO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] INTERCAMBIO · carga desde la Forja",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] INTERCAMBIO · duplicados Plata elegibles",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] PROTECCIÓN · la favorita y la de la vitrina se ven marcadas",
+      "ok": true,
+      "detail": "{\"protectedCards\":[\"dgzin__base\",\"invy__base\"],\"cards\":5}"
+    },
+    {
+      "id": "[1440] AUTO-SELECCIONAR (intercambio) · 3/3 sin protegidas",
+      "ok": true,
+      "detail": "{\"count\":\"3 / 3\",\"protectedPicked\":0}"
+    },
+    {
+      "id": "[1440] INTERCAMBIO · confirmación con las 3 copias que desaparecen",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] ERROR · selección caducada → frase legible (sin JSON) y nada consumido",
+      "ok": true,
+      "detail": "Alguna carta ya no está disponible (cambió, está en un equipo o en venta). Recargamos tus materiales."
+    },
+    {
+      "id": "[1440] INTERCAMBIO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SOBRES · la escalera F73 sigue igual",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SOBRES · diálogo por encima de todo (portal) con CONFIRMAR alcanzable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SOBRES · forja de sobres F73 intacta (resultado tras el servidor)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] HISTORIAL · desde el libro mayor (avanzada + 7 de sobres)",
+      "ok": true,
+      "detail": "[\"PACK\",\"ADVANCED\",\"PACK\",\"PACK\",\"PACK\",\"PACK\",\"PACK\",\"PACK\"]"
+    },
+    {
+      "id": "[1440] HISTORIAL · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] PROYECTO 2.0 · etapas (misiones por profundidad + reúne + fabrica)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] PROYECTO 2.0 · «fabrica» hecha tras la forja avanzada",
+      "ok": true,
+      "detail": "[\"MISSIONS:true\",\"MISSIONS:true\",\"OWN:true\",\"FABRICATE:true\"]"
+    },
+    {
+      "id": "[1440] PROYECTO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] CONSOLA · 0 errores propios (401 de rutas no interceptadas aparte: 32)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] HOME · el núcleo de nivel y la XP vienen del servidor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] HOME · nivel 2 (6 crafteos × 20 XP; los objetivos activados hace 1 h NO suman el pasado), 4 ramas, 4 zonas",
+      "ok": true,
+      "detail": "{\"level\":\"2\",\"tiles\":4,\"entries\":[\"crafting-entry-sobres\",\"crafting-entry-cartas\",\"crafting-entry-avanzado\",\"crafting-entry-historial\"],\"xp\":\"20\"}"
+    },
+    {
+      "id": "[1024] HOME · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] HOME · objetivos y actividad",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] AVANZADO · cadena y recetas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] AVANZADO · estados derivados (paso 1 disponible, 2 y 3 bloqueados)",
+      "ok": true,
+      "detail": "{\"forge-ruta-oro\":\"AVAILABLE\",\"forge-ruta-masters\":\"LOCKED\",\"forge-ruta-champions\":\"LOCKED\"}"
+    },
+    {
+      "id": "[1024] ANALÍTICA · abrir una receta envía recipe_view (solo id)",
+      "ok": true,
+      "detail": "[\"forge-ruta-oro\",\"forge-ruta-champions\",\"forge-ruta-oro\"]"
+    },
+    {
+      "id": "[1024] AVANZADO · sin elegir, FORJAR desactivado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] AUTO-SELECCIONAR · nunca protegidas",
+      "ok": true,
+      "detail": "{\"protectedPicked\":0,\"n\":1}"
+    },
+    {
+      "id": "[1024] AUTO-SELECCIONAR · FORJAR activo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] TECLADO · Enter abre la confirmación",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] TECLADO · Escape cierra sin forjar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] CONFIRMACIÓN · «vas a entregar» lista EXACTAMENTE 4 copias y «recibirás» la clase",
+      "ok": true,
+      "detail": "{\"items\":4}"
+    },
+    {
+      "id": "[1024] CONFIRMACIÓN · el botón CONFIRMAR es alcanzable (visible tras desplazar el diálogo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] FORJA · el resultado aparece DESPUÉS de que el servidor confirma (1 asiento nuevo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] FORJA · el diálogo no queda recortado por su contenedor (el centro de su cabecera es suyo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] FORJA · la carta revelada es la del servidor",
+      "ok": true,
+      "detail": "kaajak__base"
+    },
+    {
+      "id": "[1024] CADENA · paso 1 COMPLETED y el paso 2 deja de estar bloqueado",
+      "ok": true,
+      "detail": "{\"forge-ruta-oro\":\"COMPLETED\",\"forge-ruta-masters\":\"DISCOVERED\",\"forge-ruta-champions\":\"LOCKED\"}"
+    },
+    {
+      "id": "[1024] BLOQUEADA · silueta, pista y condiciones; sin revelar materiales ni salida",
+      "ok": true,
+      "detail": "RECETA POR DESCUBRIR\n\n???\n\nNecesitas el plano Sello y el Forjado Masters.\n\n🔒\nCompleta «Forjado Masters»\n🔒\nPlano «Plano"
+    },
+    {
+      "id": "[1024] AVANZADO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] INTERCAMBIO · carga desde la Forja",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] INTERCAMBIO · duplicados Plata elegibles",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] PROTECCIÓN · la favorita y la de la vitrina se ven marcadas",
+      "ok": true,
+      "detail": "{\"protectedCards\":[\"dgzin__base\",\"invy__base\"],\"cards\":5}"
+    },
+    {
+      "id": "[1024] AUTO-SELECCIONAR (intercambio) · 3/3 sin protegidas",
+      "ok": true,
+      "detail": "{\"count\":\"3 / 3\",\"protectedPicked\":0}"
+    },
+    {
+      "id": "[1024] INTERCAMBIO · confirmación con las 3 copias que desaparecen",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] ERROR · selección caducada → frase legible (sin JSON) y nada consumido",
+      "ok": true,
+      "detail": "Alguna carta ya no está disponible (cambió, está en un equipo o en venta). Recargamos tus materiales."
+    },
+    {
+      "id": "[1024] INTERCAMBIO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SOBRES · la escalera F73 sigue igual",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SOBRES · diálogo por encima de todo (portal) con CONFIRMAR alcanzable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SOBRES · forja de sobres F73 intacta (resultado tras el servidor)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] HISTORIAL · desde el libro mayor (avanzada + 7 de sobres)",
+      "ok": true,
+      "detail": "[\"PACK\",\"ADVANCED\",\"PACK\",\"PACK\",\"PACK\",\"PACK\",\"PACK\",\"PACK\"]"
+    },
+    {
+      "id": "[1024] HISTORIAL · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] PROYECTO 2.0 · etapas (misiones por profundidad + reúne + fabrica)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] PROYECTO 2.0 · «fabrica» hecha tras la forja avanzada",
+      "ok": true,
+      "detail": "[\"MISSIONS:true\",\"MISSIONS:true\",\"OWN:true\",\"FABRICATE:true\"]"
+    },
+    {
+      "id": "[1024] PROYECTO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] CONSOLA · 0 errores propios (401 de rutas no interceptadas aparte: 34)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] HOME · el núcleo de nivel y la XP vienen del servidor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] HOME · nivel 2 (6 crafteos × 20 XP; los objetivos activados hace 1 h NO suman el pasado), 4 ramas, 4 zonas",
+      "ok": true,
+      "detail": "{\"level\":\"2\",\"tiles\":4,\"entries\":[\"crafting-entry-sobres\",\"crafting-entry-cartas\",\"crafting-entry-avanzado\",\"crafting-entry-historial\"],\"xp\":\"20\"}"
+    },
+    {
+      "id": "[390] HOME · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] HOME · objetivos y actividad",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] AVANZADO · cadena y recetas",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] AVANZADO · estados derivados (paso 1 disponible, 2 y 3 bloqueados)",
+      "ok": true,
+      "detail": "{\"forge-ruta-oro\":\"AVAILABLE\",\"forge-ruta-masters\":\"LOCKED\",\"forge-ruta-champions\":\"LOCKED\"}"
+    },
+    {
+      "id": "[390] ANALÍTICA · abrir una receta envía recipe_view (solo id)",
+      "ok": true,
+      "detail": "[\"forge-ruta-oro\",\"forge-ruta-champions\",\"forge-ruta-oro\",\"forge-ruta-champions\",\"forge-ruta-oro\"]"
+    },
+    {
+      "id": "[390] AVANZADO · sin elegir, FORJAR desactivado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] AUTO-SELECCIONAR · nunca protegidas",
+      "ok": true,
+      "detail": "{\"protectedPicked\":0,\"n\":1}"
+    },
+    {
+      "id": "[390] AUTO-SELECCIONAR · FORJAR activo",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] TECLADO · Enter abre la confirmación",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] TECLADO · Escape cierra sin forjar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] CONFIRMACIÓN · «vas a entregar» lista EXACTAMENTE 4 copias y «recibirás» la clase",
+      "ok": true,
+      "detail": "{\"items\":4}"
+    },
+    {
+      "id": "[390] CONFIRMACIÓN · el botón CONFIRMAR es alcanzable (visible tras desplazar el diálogo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] FORJA · el resultado aparece DESPUÉS de que el servidor confirma (1 asiento nuevo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] FORJA · el diálogo no queda recortado por su contenedor (el centro de su cabecera es suyo)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] FORJA · la carta revelada es la del servidor",
+      "ok": true,
+      "detail": "meteor__base"
+    },
+    {
+      "id": "[390] CADENA · paso 1 COMPLETED y el paso 2 deja de estar bloqueado",
+      "ok": true,
+      "detail": "{\"forge-ruta-oro\":\"COMPLETED\",\"forge-ruta-masters\":\"DISCOVERED\",\"forge-ruta-champions\":\"LOCKED\"}"
+    },
+    {
+      "id": "[390] BLOQUEADA · silueta, pista y condiciones; sin revelar materiales ni salida",
+      "ok": true,
+      "detail": "RECETA POR DESCUBRIR\n\n???\n\nNecesitas el plano Sello y el Forjado Masters.\n\n🔒\nCompleta «Forjado Masters»\n🔒\nPlano «Plano"
+    },
+    {
+      "id": "[390] AVANZADO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] INTERCAMBIO · carga desde la Forja",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] INTERCAMBIO · duplicados Plata elegibles",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] PROTECCIÓN · la favorita y la de la vitrina se ven marcadas",
+      "ok": true,
+      "detail": "{\"protectedCards\":[\"dgzin__base\",\"invy__base\"],\"cards\":5}"
+    },
+    {
+      "id": "[390] AUTO-SELECCIONAR (intercambio) · 3/3 sin protegidas",
+      "ok": true,
+      "detail": "{\"count\":\"3 / 3\",\"protectedPicked\":0}"
+    },
+    {
+      "id": "[390] INTERCAMBIO · confirmación con las 3 copias que desaparecen",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] ERROR · selección caducada → frase legible (sin JSON) y nada consumido",
+      "ok": true,
+      "detail": "Alguna carta ya no está disponible (cambió, está en un equipo o en venta). Recargamos tus materiales."
+    },
+    {
+      "id": "[390] INTERCAMBIO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SOBRES · la escalera F73 sigue igual",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SOBRES · diálogo por encima de todo (portal) con CONFIRMAR alcanzable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SOBRES · forja de sobres F73 intacta (resultado tras el servidor)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] HISTORIAL · desde el libro mayor (avanzada + 7 de sobres)",
+      "ok": true,
+      "detail": "[\"PACK\",\"ADVANCED\",\"PACK\",\"PACK\",\"PACK\",\"PACK\",\"PACK\",\"PACK\"]"
+    },
+    {
+      "id": "[390] HISTORIAL · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] PROYECTO 2.0 · etapas (misiones por profundidad + reúne + fabrica)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] PROYECTO 2.0 · «fabrica» hecha tras la forja avanzada",
+      "ok": true,
+      "detail": "[\"MISSIONS:true\",\"MISSIONS:true\",\"OWN:true\",\"FABRICATE:true\"]"
+    },
+    {
+      "id": "[390] PROYECTO · sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] CONSOLA · 0 errores propios (401 de rutas no interceptadas aparte: 33)",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

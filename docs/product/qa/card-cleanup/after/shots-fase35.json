@@ -1,0 +1,31 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase35",
+  "generated": "2026-09-22T09:49:33.576Z",
+  "rows": [
+    {
+      "file": "prematch-available-1440x900.png",
+      "scene": "prematch-available",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "prematch-available-390x844.png",
+      "scene": "prematch-available",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "rival-composition-1440x900.png",
+      "scene": "rival-composition",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "rival-composition-390x844.png",
+      "scene": "rival-composition",
+      "size": "390x844",
+      "errors": []
+    }
+  ]
+}

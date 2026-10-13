@@ -1,0 +1,496 @@
+{
+  "at": "2026-09-28T11:38:40.272Z",
+  "head": "48dac2a",
+  "branch": "arch/stabilization",
+  "totals": {
+    "entries": 9928,
+    "trackedChanges": {
+      "modified": 304,
+      "deleted": 0,
+      "added": 0,
+      "renamed": 0
+    },
+    "untracked": 9624
+  },
+  "classes": {
+    "tracked modified": {
+      "files": 304,
+      "bytes": 10510608,
+      "sample": [
+        ".claude/settings.local.json",
+        ".env.example",
+        ".eslintrc.json",
+        ".gitignore",
+        "docs/product/audit-stability.json",
+        "docs/product/qa/01-hub-sin-mazos-1440.png",
+        "docs/product/qa/02-constructor-sin-cartas-1440.png",
+        "docs/product/qa/03-lobby-sin-mazo-1440.png",
+        "docs/product/qa/04-constructor-vacio-1440.png",
+        "docs/product/qa/05-constructor-a-medias-1440.png",
+        "docs/product/qa/06-mis-mazos-1440.png",
+        "docs/product/qa/10-preparacion-1440.png"
+      ]
+    },
+    "required source": {
+      "files": 1438,
+      "bytes": 21289950,
+      "sample": [
+        ".nvmrc",
+        "docs/cards/BLOQUE-8.1-PERSISTENCIA-CATALOGO.md",
+        "docs/cards/BLOQUE-8.2-LIFECYCLE-VERSIONING.md",
+        "docs/cards/BLOQUE-8.3-POOLS-DISTRIBUTION.md",
+        "docs/cards/BLOQUE-8.4.1-ADMIN-CARD-MANAGEMENT.md",
+        "docs/cards/BLOQUE-8.4.2-CARD-BUILDER.md",
+        "docs/cards/BLOQUE-8.4.3-POOL-DISTRIBUTION-ADMIN.md",
+        "docs/cards/BLOQUE-8.4.4-CONTENT-E2E.md",
+        "docs/cards/CARD-ARTWORK-CLIENT.md",
+        "docs/cards/CARD-ARTWORK-EXPORT.md",
+        "docs/cards/CARD-ARTWORK-MANUAL.md",
+        "docs/cards/CARD-CONTENT-PLANE-AUDIT.md"
+      ]
+    },
+    "source art (external archive / LFS)": {
+      "files": 369,
+      "bytes": 737606618,
+      "sample": [
+        "cartas/100T ASUNA.png",
+        "cartas/100T BANG.png",
+        "cartas/100T CRYO.png",
+        "cartas/100T TIMOTINO (Future Star).png",
+        "cartas/100T TIMOTINO.png",
+        "cartas/100T VORA.png",
+        "cartas/AG AUI (MASTERSsdc).png",
+        "cartas/AG FANGEER (MASTERSsdc).png",
+        "cartas/AG IAMGRQ (MASTERSsdc).png",
+        "cartas/AG KIRA (MASTERSsdc).png",
+        "cartas/AG SHRIMP (MASTERSsdc).png",
+        "cartas/BBL CREWEN (MASTERSsdc).png"
+      ]
+    },
+    "QA evidence": {
+      "files": 7109,
+      "bytes": 2556155812,
+      "sample": [
+        "docs/product/art/veil/iter-base-r8-s1212.jpg",
+        "docs/product/art/veil/iteraciones-r1_sheet.jpg",
+        "docs/product/art/veil/iteraciones-r3_sheet.jpg",
+        "docs/product/art/veil/iteraciones-r4_sheet.jpg",
+        "docs/product/art/veil/iteraciones-r5_sheet.jpg",
+        "docs/product/art/veil/iteraciones-r8_sheet.jpg",
+        "docs/product/art/veil/v2/candidatos-v2.jpg",
+        "docs/product/art/veil/v2/ronda-r1.jpg",
+        "docs/product/art/veil/v2/ronda-r2.jpg",
+        "docs/product/art/veil/v2/ronda-r3.jpg",
+        "docs/product/art/veil/v2/silueta-v1-vs-v2.png",
+        "docs/product/art/veil/veil-v1-vs-v2.png"
+      ]
+    },
+    "generated disposable": {
+      "files": 25,
+      "bytes": 92301,
+      "sample": [
+        "docs/product/qa/fase39/real/e2e.log",
+        "docs/product/qa/fase39/real/recovery.log",
+        "docs/product/qa/fase40/real/e2e-run1.log",
+        "docs/product/qa/fase40/real/e2e-run2.log",
+        "docs/product/qa/fase40/real/e2e-run3.log",
+        "docs/product/qa/fase40/real/e2e-run4.log",
+        "docs/product/qa/fase40/real/e2e-run5.log",
+        "docs/product/qa/fase41/real/real-missions.log",
+        "docs/product/qa/fase41/real/real-qa.log",
+        "docs/product/qa/fase42/real/real-qa-run1.log",
+        "docs/product/qa/fase42/real/real-qa.log",
+        "docs/product/qa/fase42/real/real-shots.log"
+      ]
+    },
+    "generated required (asset)": {
+      "files": 474,
+      "bytes": 53488127,
+      "sample": [
+        "public/agents/astra/face-96.webp",
+        "public/agents/astra/face.webp",
+        "public/agents/astra/full.webp",
+        "public/agents/breach/face-96.webp",
+        "public/agents/breach/face.webp",
+        "public/agents/breach/full.webp",
+        "public/agents/brimstone/face-96.webp",
+        "public/agents/brimstone/face.webp",
+        "public/agents/brimstone/full.webp",
+        "public/agents/chamber/face-96.webp",
+        "public/agents/chamber/face.webp",
+        "public/agents/chamber/full.webp"
+      ]
+    },
+    "QA instrument (untracked tooling)": {
+      "files": 209,
+      "bytes": 2039134,
+      "sample": [
+        "scripts/_catalog-qa-state.ts",
+        "scripts/_catalog-replace-shots.ts",
+        "scripts/_f43f.ts",
+        "scripts/_f49-before.ts",
+        "scripts/_f49-hydr.ts",
+        "scripts/_f49-live.ts",
+        "scripts/_f49-shots.ts",
+        "scripts/_f491-security.ts",
+        "scripts/_f491-shots.ts",
+        "scripts/_fase10-audit.ts",
+        "scripts/_fase11-audit.ts",
+        "scripts/_fase12-audit.ts"
+      ]
+    }
+  },
+  "byTopLevel": {
+    ".claude": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    ".env.example": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    ".eslintrc.json": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    ".gitignore": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "docs": {
+      "tracked": 25,
+      "untracked": 7328
+    },
+    "next.config.mjs": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "package-lock.json": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "package.json": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "scripts": {
+      "tracked": 20,
+      "untracked": 322
+    },
+    "src/agents": {
+      "tracked": 1,
+      "untracked": 2
+    },
+    "src/analyzer": {
+      "tracked": 3,
+      "untracked": 1
+    },
+    "src/app": {
+      "tracked": 57,
+      "untracked": 186
+    },
+    "src/battlepass": {
+      "tracked": 4,
+      "untracked": 2
+    },
+    "src/coach": {
+      "tracked": 1,
+      "untracked": 1
+    },
+    "src/collection-presentation": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "src/collection": {
+      "tracked": 7,
+      "untracked": 0
+    },
+    "src/components": {
+      "tracked": 55,
+      "untracked": 367
+    },
+    "src/config": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "src/craft": {
+      "tracked": 4,
+      "untracked": 0
+    },
+    "src/data": {
+      "tracked": 9,
+      "untracked": 19
+    },
+    "src/deck": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "src/design": {
+      "tracked": 3,
+      "untracked": 9
+    },
+    "src/domain": {
+      "tracked": 39,
+      "untracked": 205
+    },
+    "src/economy": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "src/engine": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "src/importer-vlr": {
+      "tracked": 6,
+      "untracked": 9
+    },
+    "src/importer": {
+      "tracked": 5,
+      "untracked": 0
+    },
+    "src/lib": {
+      "tracked": 27,
+      "untracked": 126
+    },
+    "src/match": {
+      "tracked": 2,
+      "untracked": 0
+    },
+    "src/pack": {
+      "tracked": 3,
+      "untracked": 0
+    },
+    "src/platform": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    "src/server": {
+      "tracked": 14,
+      "untracked": 94
+    },
+    "src/store": {
+      "tracked": 4,
+      "untracked": 2
+    },
+    "supabase": {
+      "tracked": 1,
+      "untracked": 33
+    },
+    "tailwind.config.ts": {
+      "tracked": 1,
+      "untracked": 0
+    },
+    ".nvmrc": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "cartas": {
+      "tracked": 0,
+      "untracked": 343
+    },
+    "eslint.config.mjs": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "inventario.png": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "mapas": {
+      "tracked": 0,
+      "untracked": 4
+    },
+    "personajes": {
+      "tracked": 0,
+      "untracked": 58
+    },
+    "public": {
+      "tracked": 0,
+      "untracked": 475
+    },
+    "referencia-apertura.png": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "referencia-tablero.png": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "referencia_tienda.png": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "referencia_tienda2.png": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "sobres": {
+      "tracked": 0,
+      "untracked": 17
+    },
+    "src/card-generator": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "src/instrumentation.ts": {
+      "tracked": 0,
+      "untracked": 1
+    },
+    "src/launcher": {
+      "tracked": 0,
+      "untracked": 11
+    },
+    "src/middleware.ts": {
+      "tracked": 0,
+      "untracked": 1
+    }
+  },
+  "large": [],
+  "largest": [
+    {
+      "path": "cartas/XLG LYSOAR (MASTERSl).png",
+      "mb": 2.9,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/VIT DERKE (MASTERSl).png",
+      "mb": 2.85,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/VIT PROFEK (MASTERSl).png",
+      "mb": 2.82,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/LEV SPIKE (Future Star).png",
+      "mb": 2.82,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/VIT CHRONICLE (MASTERSl).png",
+      "mb": 2.81,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/EF ECHO (Future Star).png",
+      "mb": 2.8,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/BBL LOITA (Future Star).png",
+      "mb": 2.79,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/XLG RARGA (MASTERSl).png",
+      "mb": 2.79,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/FUT SOPP (Future Star).png",
+      "mb": 2.79,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/TL WAYNE (Future Star).png",
+      "mb": 2.78,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/LEV BLOWZ (Future Star).png",
+      "mb": 2.77,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/LEV NEON (Future Star).png",
+      "mb": 2.76,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/LEV SATO (Future Star).png",
+      "mb": 2.76,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/PCF SEVEN (Future Star).png",
+      "mb": 2.74,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/FNATIC VEQAJ (Future Star).png",
+      "mb": 2.74,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/XLG HAPPYWEI (MASTERSl).png",
+      "mb": 2.74,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/VIT SAYONARA (Future Star).png",
+      "mb": 2.73,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/100T TIMOTINO (Future Star).png",
+      "mb": 2.73,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "sobres/Masters.png",
+      "mb": 2.73,
+      "class": "source art (external archive / LFS)"
+    },
+    {
+      "path": "cartas/KRÜ DANTEDEUS (Future Star).png",
+      "mb": 2.72,
+      "class": "source art (external archive / LFS)"
+    }
+  ],
+  "qaEvidenceByType": {
+    "jpg": {
+      "files": 28,
+      "mb": 3.2
+    },
+    "png": {
+      "files": 6371,
+      "mb": 2430.6
+    },
+    "json": {
+      "files": 564,
+      "mb": 4
+    },
+    "html": {
+      "files": 34,
+      "mb": 0.4
+    },
+    "md": {
+      "files": 49,
+      "mb": 0
+    },
+    "txt": {
+      "files": 42,
+      "mb": 0
+    },
+    "csv": {
+      "files": 4,
+      "mb": 0.1
+    },
+    "sql": {
+      "files": 15,
+      "mb": 0.2
+    },
+    "diff": {
+      "files": 1,
+      "mb": 0
+    },
+    "sh": {
+      "files": 1,
+      "mb": 0
+    }
+  },
+  "trackedLarge": [],
+  "unclassified": []
+}

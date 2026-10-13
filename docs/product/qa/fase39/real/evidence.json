@@ -1,0 +1,23 @@
+{
+  "runId": "7d847d55",
+  "picks": [
+    "cloudy__pacific",
+    "patmen__pacific",
+    "wolverine__pacific",
+    "magnum__emea",
+    "cyvoph__bronze",
+    "jitboys__bronze",
+    "yong__pacific",
+    "jawgemo__americas",
+    "siufatbb__silver",
+    "ssees__pacific"
+  ],
+  "result": {
+    "expected": "WIN",
+    "scoreA": "6",
+    "scoreB": "4",
+    "uiTurns": 10,
+    "apiTurns": 0,
+    "runStatus": "READY"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "app(PC)": {
+    "idleRssMb": "112–145",
+    "underLoadRssMb": "≈285 estable (soak 5 min)",
+    "handles": "≈230 en reposo, ≈300 bajo carga, vuelve a 233"
+  },
+  "vps": {
+    "host": "16 vCPU, 62,8 GiB RAM, disco 493 GB (463 GB libres)",
+    "drlcardsContainers": {
+      "db": "284 MiB · 1,3 % CPU",
+      "kong": "314 MiB",
+      "realtime": "273 MiB",
+      "analytics": "766 MiB",
+      "studio": "203 MiB",
+      "rest": "147 MiB",
+      "storage": "125 MiB",
+      "pg_meta": "104 MiB",
+      "auth": "34 MiB",
+      "inbucket": "17 MiB"
+    },
+    "note": "el VPS aloja otros proyectos (hotel, sportcoach, schola…): no se confunden (solo contenedores *_DRLCards)"
+  },
+  "db": {
+    "sizeMb": 41,
+    "backupsMb": 78
+  }
+}

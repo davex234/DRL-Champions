@@ -1,0 +1,48 @@
+{
+  "status": "upcoming",
+  "stageLabel": "Group Stage",
+  "live": 0,
+  "next": [
+    [
+      "Team Liquid",
+      "Paper Rex",
+      "2026-09-24"
+    ],
+    [
+      "TYLOO",
+      "G2 Esports",
+      "2026-09-24"
+    ],
+    [
+      "Nongshim RedForce",
+      "NRG",
+      "2026-09-25"
+    ]
+  ],
+  "progress": {
+    "total": 34,
+    "finished": 0,
+    "live": 0,
+    "upcoming": 34,
+    "pct": 0,
+    "stages": [
+      {
+        "id": "st-group-stage",
+        "name": "Group Stage",
+        "total": 20,
+        "finished": 0,
+        "live": 0,
+        "pct": 0
+      },
+      {
+        "id": "st-playoffs",
+        "name": "Playoffs",
+        "total": 14,
+        "finished": 0,
+        "live": 0,
+        "pct": 0
+      }
+    ]
+  },
+  "today": 0
+}

@@ -1,0 +1,82 @@
+{
+  "phase": "F69 (sesión reanudada)",
+  "at": "2026-09-28",
+  "scope": "Solo lo que creó o tocó F69 (ficheros con mtime posterior al informe F68, 2026-09-27 14:31 local). No es una refactorización general.",
+  "method": [
+    "Lista de ficheros F69 por mtime (el working tree tiene >1.400 cambios de fases previas: git diff NO distingue F69).",
+    "Por cada módulo/hook/ruta/test nuevo: búsqueda de equivalentes existentes (rg por nombre, por función y por llamadores).",
+    "Comparación de los instrumentos fuera de CI (_fase69-*) con los de F68 que reutilizan."
+  ],
+  "checked": [
+    {
+      "item": "GET /api/game/me (perfil propio por el servidor)",
+      "candidates": ["/api/admin/session (¿es admin?)", "/api/game/state (saldo/XP/inventario)", "/api/game/player (proyección SELF/PUBLIC de F31)"],
+      "verdict": "NO_DUPLICATE",
+      "why": "/api/admin/session sigue siendo la AUTORIDAD de admin (useAdminSession solo usa is_admin del perfil como pre-filtro para no llamar a una puerta cerrada; manda el servidor). /api/game/state no devuelve la fila de profiles (username, avatar, points, region, is_admin). /api/game/player tiene otra forma (vitrina, logros, competitivo). /api/game/me es el único serializador del perfil propio y lee las columnas de OWN_PROFILE_COLUMNS."
+    },
+    {
+      "item": "src/lib/supabase/ownProfile.ts (fetchOwnProfile, lectura compartida 2 s)",
+      "candidates": ["auth.tsx (antes select(\"*\") propio)", "useAdminSession (antes select(\"is_admin\"))", "client.ts fetchMyProfile"],
+      "verdict": "CONSOLIDATION (hecha por F69, no duplicado)",
+      "why": "Sustituye tres lecturas REST del perfil propio por UNA función con lectura en vuelo compartida; mismo número de peticiones que antes."
+    },
+    {
+      "item": "src/lib/supabase/profileExposure.ts (contrato de columnas)",
+      "candidates": ["tipos Profile en src/lib/supabase/types.ts", "0058 PROPOSAL.sql"],
+      "verdict": "NO_DUPLICATE",
+      "why": "Es la única lista de columnas por audiencia; el test f69.profileExposure comprueba que 0058 v3 concede EXACTAMENTE esa lista (una fuente, dos consumidores)."
+    },
+    {
+      "item": "src/lib/game/serverEconomy.ts (useServerEconomy, SESSION_PENDING)",
+      "candidates": ["useAuth()", "flags `online` locales de cada pantalla", "CloudSync"],
+      "verdict": "CONSOLIDATION (hecha por F69)",
+      "why": "Antes cada pantalla decidía «¿local o servidor?» con su propia condición (y algunas con `online=false` durante la resolución de sesión). Ahora 9 módulos usan el mismo hook; no existía un hook equivalente."
+    },
+    {
+      "item": "playerMessage() / TECHNICAL_PATTERN (src/components/ui/game/GameStates.tsx)",
+      "candidates": ["authErrorMessage() de F68-004"],
+      "verdict": "NO_DUPLICATE",
+      "why": "playerMessage es PREEXISTENTE (F64); F69 amplió su patrón y lo llevó a 14 pantallas que pintaban {error} crudo. authErrorMessage traduce códigos de GoTrue (otro dominio). No se creó un tercer traductor."
+    },
+    {
+      "item": "src/lib/match/rewards.ts (summarizeRound/summarizeMatch/recordCoachMatch)",
+      "candidates": ["src/domain/deckStrategy summarizeMatch (duelo de cartas)"],
+      "verdict": "NO_DUPLICATE (colisión de nombre, no de lógica)",
+      "why": "Mismo nombre, módulos y dominios distintos (Coach vs duelo de cartas), sin importaciones cruzadas. Las funciones de recompensa se ELIMINARON (no quedan en paralelo)."
+    },
+    {
+      "item": "Guardas PvE↔PvP en src/server/services/duels.ts (isPvpMode)",
+      "candidates": ["servicio PvP (pvp*.ts)"],
+      "verdict": "NO_DUPLICATE",
+      "why": "Filtro de modo en las 4 entradas del servicio PvE (getActiveMatch, getMatch, playTurn, abandonMatch); el servicio PvP no se tocó."
+    },
+    {
+      "item": "Tests f69.* (8 ficheros, 36 casos)",
+      "candidates": ["tests f68.* y los del propio módulo"],
+      "verdict": "NO_DUPLICATE",
+      "why": "Títulos y aserciones revisados uno a uno: cada test cubre una conducta distinta (Coach sin recompensa, pistola, CTA única, términos, economía de servidor, exposición de perfil, pulido CLS/1024, aislamiento PvE↔PvP). Ningún f69 repite un f68."
+    },
+    {
+      "item": "scripts/_fase69-coach.ts vs scripts/_fase68-coach2.ts",
+      "verdict": "DUPLICATE_FOUND → CONSOLIDATED (esta sesión)",
+      "found": "El instrumento F69 llevaba una COPIA del bucle de juego del Coach de F68 (~35 líneas: FINAL, arranque rápido, bucle de 500 pasos con decisiones al azar, 8×, orden de botones).",
+      "action": "playCoach de _fase68-coach2.ts acepta ganchos opcionales (onStep, finalShot); _fase69-coach.ts los usa para observar la preparación/compra y hacer sus capturas. Conducta de F68 intacta sin ganchos. 110 → 96 líneas; tsc scripts PASS; la prueba final del Coach se ejecutó con el instrumento consolidado."
+    },
+    {
+      "item": "scripts/_fase69-lib.ts vs scripts/_fase68-lib.ts",
+      "verdict": "NO_DUPLICATE",
+      "why": "_fase69-lib re-exporta _fase68-lib y solo añade salida F69 (writeRaw69/shot69) y lecturas servidor/HUD. Los journeys F69 usan el MISMO arnés _fase68-beta con F68_OUT apuntando a fase69-hardening/journeys."
+    },
+    {
+      "item": "Sondeo de enlaces/assets",
+      "verdict": "NO_DUPLICATE",
+      "why": "Vive dentro de _fase69-probe.ts (no se creó otro rastreador); smoke:production y production:check siguen siendo los únicos gates de producción (no se creó una segunda suite)."
+    },
+    {
+      "item": "0058",
+      "verdict": "NO_DUPLICATE",
+      "why": "Una sola propuesta canónica en docs/operations/proposals/ (PROPOSAL, ROLLBACK, preflight, postflight, rls_tests), revisada in situ v1→v2→v3; ni 0058_v2 ni 0059 ni directorio paralelo; supabase/migrations sigue en 0057."
+    }
+  ],
+  "summary": { "duplicatesFound": 1, "consolidated": 1, "remaining": 0 }
+}

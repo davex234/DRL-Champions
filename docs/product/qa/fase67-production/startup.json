@@ -1,0 +1,47 @@
+{
+  "pid": 2220,
+  "at": "2026-09-26T20:41:13.498Z",
+  "healthMs": 826,
+  "readyMs": 1256,
+  "readyStatus": 200,
+  "ready": {
+    "status": "ready",
+    "checkedAt": "2026-09-26T20:41:13.482Z",
+    "migrationHead": "0057_admin_cms",
+    "checks": [
+      {
+        "id": "config",
+        "ok": true,
+        "critical": true
+      },
+      {
+        "id": "database",
+        "ok": true,
+        "critical": true,
+        "ms": 102
+      },
+      {
+        "id": "schema",
+        "ok": true,
+        "critical": true,
+        "ms": 114,
+        "detail": "0057_admin_cms"
+      },
+      {
+        "id": "catalog",
+        "ok": true,
+        "critical": false,
+        "ms": 92,
+        "detail": "331/331"
+      },
+      {
+        "id": "storage",
+        "ok": true,
+        "critical": false,
+        "ms": 98
+      }
+    ]
+  },
+  "homeMs": 1271,
+  "homeStatus": 200
+}

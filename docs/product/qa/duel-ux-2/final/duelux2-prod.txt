@@ -1,0 +1,37 @@
+persona K=43e8f618 · otra L=9bf58911
+PASS start 200
+PASS nace SIN plazo (turnDeadlineAt null)
+esperando 40 s sin hacer nada…
+PASS tras > 30 s: misma versión, mismo turno, ninguna jugada automática, sin derrota
+PASS tras > 30 s: sigue sin plazo
+PASS retomar (otra sesión) tampoco mueve nada
+PASS doble envío: exactamente UNA jugada aplicada, la otra 409
+PASS una sola transición
+PASS versión vieja → 409
+PASS T2 · pendiente = solo «comprometida» + estadística
+PASS T2 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T2 · revelada tras responder, con su estadística declarada
+PASS T4 · pendiente = solo «comprometida» + estadística
+PASS T4 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T4 · revelada tras responder, con su estadística declarada
+PASS T6 · pendiente = solo «comprometida» + estadística
+PASS T6 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T6 · revelada tras responder, con su estadística declarada
+PASS T8 · pendiente = solo «comprometida» + estadística
+PASS T8 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T8 · revelada tras responder, con su estadística declarada
+PASS T10 · pendiente = solo «comprometida» + estadística
+PASS T10 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T10 · revelada tras responder, con su estadística declarada
+PASS la partida terminó
+PASS se vio al menos una carta comprometida por el bot y se comprobó
+RECIBO {"matchId":"0b1e8dd0-a25c-4486-be02-58677dad59e0","grants":[{"source":"MATCH","reward":{"credits":220,"xp":110},"points":14}],"capped":false} · award {"points":14,"credits":220,"xp":110} · saldo 6000 → 6220
+PASS hay recibo del servidor
+PASS créditos del recibo = lo que subió el saldo real
+PASS tipos solo créditos/XP en partida rápida
+PASS F5 = mismo recibo
+PASS 20 lecturas a la vez: 200 y el mismo recibo
+PASS el saldo no se movió al leer
+PASS otra persona: 404 y sin recibo
+
+DUEL UX 2.0 PROD QA: 32/32 · partida 0b1e8dd0-a25c-4486-be02-58677dad59e0

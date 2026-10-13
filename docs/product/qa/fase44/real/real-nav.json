@@ -1,0 +1,21 @@
+{
+  "generatedAt": "2026-09-17T11:00:40.824Z",
+  "checks": [
+    {
+      "label": "A · JUGAR → selector de modos",
+      "ok": true
+    },
+    {
+      "label": "A · Partida rápida → preparación (Comenzar duelo visible, sin pulsar)",
+      "ok": true
+    },
+    {
+      "label": "C · JUGAR con este equipo → preparación (sin pulsar)",
+      "ok": true
+    },
+    {
+      "label": "cero escrituras (huella idéntica)",
+      "ok": true
+    }
+  ]
+}

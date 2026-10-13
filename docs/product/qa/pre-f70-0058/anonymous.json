@@ -1,0 +1,121 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "contract": "anon: ningún acceso directo a profiles",
+  "before": {
+    "selectAll": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "avatar",
+        "collection_value",
+        "created_at",
+        "credits",
+        "distinct_cards",
+        "equipped",
+        "id",
+        "is_admin",
+        "last_seen_at",
+        "level",
+        "market_volume",
+        "packs_opened",
+        "points",
+        "rarest_rank",
+        "region",
+        "taxes_paid",
+        "tokens",
+        "updated_at",
+        "username",
+        "xp"
+      ],
+      "code": null
+    },
+    "selectPublic": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "id",
+        "username"
+      ],
+      "code": null
+    },
+    "selectCredits": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "credits"
+      ],
+      "code": null
+    },
+    "rankingPoints": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "avatar",
+        "id",
+        "level",
+        "points",
+        "region",
+        "username",
+        "xp"
+      ],
+      "code": null
+    },
+    "legacyRankingCollection": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "avatar",
+        "collection_value",
+        "distinct_cards",
+        "id",
+        "username"
+      ],
+      "code": null
+    }
+  },
+  "after": {
+    "selectAll": {
+      "status": 401,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "selectPublic": {
+      "status": 401,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "selectCredits": {
+      "status": 401,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    },
+    "rankingPoints": {
+      "status": 206,
+      "rows": 1,
+      "columns": [
+        "avatar",
+        "id",
+        "level",
+        "points",
+        "region",
+        "username",
+        "xp"
+      ],
+      "code": null
+    },
+    "legacyRankingCollection": {
+      "status": 401,
+      "rows": 0,
+      "columns": [],
+      "code": "42501"
+    }
+  },
+  "readiness": "/api/ready incluye ahora la sonda «privacy» (lectura anónima de profiles debe dar 401/403): ok",
+  "smoke": "«anónimo no lee profiles» 401 filas=0 · «anónimo no lee vistas heredadas» 401",
+  "differentialLeak": "ninguna: la respuesta es 401 42501 idéntica para select=*, select=id,username y select=credits (no hay forma de distinguir columnas ni filas)",
+  "keptPublic": "ranking_points (clasificación pública: id, username, avatar, level, points, region, xp) sigue legible por anon, como fijó el contrato de F69; no se tocó (cambiarla requeriría otra migración, no autorizada)",
+  "status": "PASS"
+}

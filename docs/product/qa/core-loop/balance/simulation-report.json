@@ -1,0 +1,706 @@
+{
+  "config": {
+    "lab": "balance-lab-1",
+    "seed": 65000,
+    "scale": 1,
+    "suites": [
+      "bots",
+      "pve"
+    ],
+    "gitHead": "48dac2a125fe04f5a1a36fa73af23118f757b922",
+    "node": "v24.15.0",
+    "engine": {
+      "orchestrator": "duel-turns-2",
+      "resolver": "duel-combat-2",
+      "rules": {
+        "version": "duel-combat-2",
+        "encounterTie": "NO_POINT",
+        "finalTiebreak": "STAT_MARGIN",
+        "terminal": "DRAW"
+      }
+    },
+    "catalog": {
+      "cards": 331,
+      "hash": "2a0e6c1"
+    },
+    "policies": [
+      "RANDOM",
+      "EASY",
+      "NORMAL",
+      "HARD",
+      "SMART",
+      "ORACLE"
+    ],
+    "strategies": [
+      "OVR_MAX",
+      "COMBAT_MAX",
+      "PEAK_MAX",
+      "BALANCED",
+      "SPEC_SH",
+      "SPEC_GS",
+      "SPEC_EF",
+      "LOW_OVR"
+    ],
+    "determinism": "Semillas por suite = SEED ^ fnv1a(suite); semilla de partida = fnv1a(`${SEED}:${suite}:${i}`). Mismo SEED + mismo catálogo ⇒ mismos números.",
+    "dbWrites": 0,
+    "network": 0
+  },
+  "timing": {
+    "bots": {
+      "seconds": 20.5,
+      "matches": 108000
+    },
+    "pve": {
+      "seconds": 82.7,
+      "matches": 144000
+    }
+  },
+  "matches": 252000,
+  "seconds": 103.3,
+  "results": {
+    "bots": {
+      "cellMatches": 3000,
+      "matrix": [
+        {
+          "a": "RANDOM",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.4933,
+          "lo": 0.4755,
+          "hi": 0.5112
+        },
+        {
+          "a": "RANDOM",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.512,
+          "lo": 0.4941,
+          "hi": 0.5299
+        },
+        {
+          "a": "RANDOM",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.218,
+          "lo": 0.2036,
+          "hi": 0.2331
+        },
+        {
+          "a": "RANDOM",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.103,
+          "lo": 0.0926,
+          "hi": 0.1144
+        },
+        {
+          "a": "RANDOM",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.0697,
+          "lo": 0.0611,
+          "hi": 0.0793
+        },
+        {
+          "a": "RANDOM",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.046,
+          "lo": 0.0391,
+          "hi": 0.0541
+        },
+        {
+          "a": "EASY",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.5097,
+          "lo": 0.4918,
+          "hi": 0.5275
+        },
+        {
+          "a": "EASY",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.505,
+          "lo": 0.4871,
+          "hi": 0.5229
+        },
+        {
+          "a": "EASY",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.2443,
+          "lo": 0.2293,
+          "hi": 0.26
+        },
+        {
+          "a": "EASY",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.109,
+          "lo": 0.0983,
+          "hi": 0.1207
+        },
+        {
+          "a": "EASY",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.0677,
+          "lo": 0.0592,
+          "hi": 0.0772
+        },
+        {
+          "a": "EASY",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.05,
+          "lo": 0.0428,
+          "hi": 0.0584
+        },
+        {
+          "a": "NORMAL",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.767,
+          "lo": 0.7515,
+          "hi": 0.7818
+        },
+        {
+          "a": "NORMAL",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.7643,
+          "lo": 0.7488,
+          "hi": 0.7792
+        },
+        {
+          "a": "NORMAL",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.5107,
+          "lo": 0.4928,
+          "hi": 0.5285
+        },
+        {
+          "a": "NORMAL",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.3237,
+          "lo": 0.3072,
+          "hi": 0.3406
+        },
+        {
+          "a": "NORMAL",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.2637,
+          "lo": 0.2482,
+          "hi": 0.2797
+        },
+        {
+          "a": "NORMAL",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.177,
+          "lo": 0.1638,
+          "hi": 0.1911
+        },
+        {
+          "a": "HARD",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.9043,
+          "lo": 0.8933,
+          "hi": 0.9143
+        },
+        {
+          "a": "HARD",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.9083,
+          "lo": 0.8975,
+          "hi": 0.9181
+        },
+        {
+          "a": "HARD",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.6572,
+          "lo": 0.64,
+          "hi": 0.6739
+        },
+        {
+          "a": "HARD",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.507,
+          "lo": 0.4891,
+          "hi": 0.5249
+        },
+        {
+          "a": "HARD",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.4403,
+          "lo": 0.4227,
+          "hi": 0.4582
+        },
+        {
+          "a": "HARD",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.3238,
+          "lo": 0.3073,
+          "hi": 0.3408
+        },
+        {
+          "a": "SMART",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.9337,
+          "lo": 0.9242,
+          "hi": 0.942
+        },
+        {
+          "a": "SMART",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.938,
+          "lo": 0.9288,
+          "hi": 0.9461
+        },
+        {
+          "a": "SMART",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.732,
+          "lo": 0.7159,
+          "hi": 0.7475
+        },
+        {
+          "a": "SMART",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.5648,
+          "lo": 0.547,
+          "hi": 0.5825
+        },
+        {
+          "a": "SMART",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.501,
+          "lo": 0.4831,
+          "hi": 0.5189
+        },
+        {
+          "a": "SMART",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.4,
+          "lo": 0.3826,
+          "hi": 0.4176
+        },
+        {
+          "a": "ORACLE",
+          "b": "RANDOM",
+          "n": 3000,
+          "rate": 0.9547,
+          "lo": 0.9466,
+          "hi": 0.9615
+        },
+        {
+          "a": "ORACLE",
+          "b": "EASY",
+          "n": 3000,
+          "rate": 0.958,
+          "lo": 0.9502,
+          "hi": 0.9646
+        },
+        {
+          "a": "ORACLE",
+          "b": "NORMAL",
+          "n": 3000,
+          "rate": 0.8117,
+          "lo": 0.7973,
+          "hi": 0.8253
+        },
+        {
+          "a": "ORACLE",
+          "b": "HARD",
+          "n": 3000,
+          "rate": 0.682,
+          "lo": 0.6651,
+          "hi": 0.6984
+        },
+        {
+          "a": "ORACLE",
+          "b": "SMART",
+          "n": 3000,
+          "rate": 0.6083,
+          "lo": 0.5907,
+          "hi": 0.6257
+        },
+        {
+          "a": "ORACLE",
+          "b": "ORACLE",
+          "n": 3000,
+          "rate": 0.5053,
+          "lo": 0.4874,
+          "hi": 0.5232
+        }
+      ],
+      "ladder": [
+        {
+          "policy": "RANDOM",
+          "meanWinVsOthers": 0.1897
+        },
+        {
+          "policy": "EASY",
+          "meanWinVsOthers": 0.1961
+        },
+        {
+          "policy": "NORMAL",
+          "meanWinVsOthers": 0.4591
+        },
+        {
+          "policy": "HARD",
+          "meanWinVsOthers": 0.6468
+        },
+        {
+          "policy": "SMART",
+          "meanWinVsOthers": 0.7137
+        },
+        {
+          "policy": "ORACLE",
+          "meanWinVsOthers": 0.8029
+        }
+      ]
+    },
+    "pve": [
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.7779,
+          "lo": 0.7686,
+          "hi": 0.7868
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.04,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 1000,
+          "SCORE": 6695,
+          "STAT_MARGIN": 301
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4495,
+          "lo": 0.4386,
+          "hi": 0.4604
+        },
+        "drawRate": 0.0003,
+        "meanBotOvrMinusPlayer": 0.04,
+        "decidedBy": {
+          "NONE": 2,
+          "OVR_TIEBREAK": 1175,
+          "SCORE": 6444,
+          "STAT_MARGIN": 379
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.2358,
+          "lo": 0.2266,
+          "hi": 0.2452
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.05,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 932,
+          "SCORE": 6793,
+          "STAT_MARGIN": 271
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "HARD",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.91,
+          "lo": 0.9035,
+          "hi": 0.9161
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": 0.06,
+        "decidedBy": {
+          "OVR_TIEBREAK": 583,
+          "SCORE": 7269,
+          "STAT_MARGIN": 148
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "HARD",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.6387,
+          "lo": 0.6281,
+          "hi": 0.6491
+        },
+        "drawRate": 0.0001,
+        "meanBotOvrMinusPlayer": 0.01,
+        "decidedBy": {
+          "NONE": 1,
+          "OVR_TIEBREAK": 1099,
+          "SCORE": 6566,
+          "STAT_MARGIN": 334
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "HARD",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4218,
+          "lo": 0.411,
+          "hi": 0.4327
+        },
+        "drawRate": 0.0006,
+        "meanBotOvrMinusPlayer": 0.03,
+        "decidedBy": {
+          "NONE": 5,
+          "OVR_TIEBREAK": 1032,
+          "SCORE": 6643,
+          "STAT_MARGIN": 320
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4925,
+          "lo": 0.4816,
+          "hi": 0.5035
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.05,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 1203,
+          "SCORE": 6399,
+          "STAT_MARGIN": 394
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.1837,
+          "lo": 0.1754,
+          "hi": 0.1923
+        },
+        "drawRate": 0.0001,
+        "meanBotOvrMinusPlayer": 0.03,
+        "decidedBy": {
+          "NONE": 1,
+          "OVR_TIEBREAK": 871,
+          "SCORE": 6852,
+          "STAT_MARGIN": 276
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.0519,
+          "lo": 0.0473,
+          "hi": 0.057
+        },
+        "drawRate": 0.0001,
+        "meanBotOvrMinusPlayer": 0.07,
+        "decidedBy": {
+          "NONE": 1,
+          "OVR_TIEBREAK": 366,
+          "SCORE": 7500,
+          "STAT_MARGIN": 133
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.8256,
+          "lo": 0.8172,
+          "hi": 0.8338
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1263,
+          "SCORE": 6737
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4428,
+          "lo": 0.4319,
+          "hi": 0.4537
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1361,
+          "SCORE": 6639
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.1686,
+          "lo": 0.1606,
+          "hi": 0.177
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 736,
+          "SCORE": 7264
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "HARD",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.9511,
+          "lo": 0.9462,
+          "hi": 0.9556
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 610,
+          "SCORE": 7390
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "HARD",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.6051,
+          "lo": 0.5944,
+          "hi": 0.6158
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1406,
+          "SCORE": 6594
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "HARD",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.2042,
+          "lo": 0.1956,
+          "hi": 0.2132
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 765,
+          "SCORE": 7235
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.5176,
+          "lo": 0.5067,
+          "hi": 0.5286
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 1393,
+          "SCORE": 6607
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.1671,
+          "lo": 0.1591,
+          "hi": 0.1755
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 719,
+          "SCORE": 7281
+        }
+      },
+      {
+        "deck": "OVR_MAX",
+        "playerPolicy": "RANDOM",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.0333,
+          "lo": 0.0295,
+          "hi": 0.0374
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": -5,
+        "decidedBy": {
+          "OVR_TIEBREAK": 169,
+          "SCORE": 7831
+        }
+      }
+    ]
+  }
+}

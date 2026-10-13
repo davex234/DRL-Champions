@@ -1,0 +1,42 @@
+persona K=0470a0d4 · otra L=9366cbb9
+PASS start 200
+PASS nace SIN plazo (turnDeadlineAt null)
+esperando 40 s sin hacer nada…
+PASS tras > 30 s: misma versión, mismo turno, ninguna jugada automática, sin derrota
+PASS tras > 30 s: sigue sin plazo
+PASS retomar (otra sesión) tampoco mueve nada
+PASS doble envío: exactamente UNA jugada aplicada, la otra 409
+PASS una sola transición
+PASS T1 · pendiente = solo «comprometida» + estadística + pista + rol
+PASS T1 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T1 · revelada tras responder, con su estadística declarada
+PASS versión vieja → 409
+PASS T3 · pendiente = solo «comprometida» + estadística + pista + rol
+PASS T3 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T3 · revelada tras responder, con su estadística declarada
+PASS T5 · pendiente = solo «comprometida» + estadística + pista + rol
+PASS T5 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T5 · revelada tras responder, con su estadística declarada
+PASS T7 · pendiente = solo «comprometida» + estadística + pista + rol
+PASS T7 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T7 · revelada tras responder, con su estadística declarada
+PASS T9 · pendiente = solo «comprometida» + estadística + pista + rol
+PASS T9 · la carta comprometida no viajó antes de responder (4 claves: uid, carta, jugador, nick)
+PASS T9 · revelada tras responder, con su estadística declarada
+PASS la partida terminó
+PASS T1 · pista central = pista de esa carta arriba ({"type":"TEAM","value":"team-heretics"} · Controlador)
+PASS T3 · pista central = pista de esa carta arriba ({"type":"COUNTRY","value":"US"} · Iniciador)
+PASS T5 · pista central = pista de esa carta arriba ({"type":"COUNTRY","value":"US"} · Flex)
+PASS T7 · pista central = pista de esa carta arriba ({"type":"COUNTRY","value":"TR"} · Flex)
+PASS T9 · pista central = pista de esa carta arriba ({"type":"COUNTRY","value":"TH"} · Iniciador)
+PASS se vio al menos una carta comprometida por el bot y se comprobó
+RECIBO {"matchId":"840fd956-cf3f-4d81-8630-0b72b7fb03be","grants":[{"source":"MATCH","reward":{"credits":40,"xp":25},"points":0}],"capped":false} · award {"points":0,"credits":40,"xp":25} · saldo 6000 → 6040
+PASS hay recibo del servidor
+PASS créditos del recibo = lo que subió el saldo real
+PASS tipos solo créditos/XP en partida rápida
+PASS F5 = mismo recibo
+PASS 20 lecturas a la vez: 200 y el mismo recibo
+PASS el saldo no se movió al leer
+PASS otra persona: 404 y sin recibo
+
+DUEL UX 2.0 PROD QA: 37/37 · partida 840fd956-cf3f-4d81-8630-0b72b7fb03be

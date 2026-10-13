@@ -1,0 +1,2 @@
+import { teamPackAudit, teamBoostOdds, derivedBlockers } from "@/data/teamPackCatalog";
+for (const t of ["XLG", "TYL", "G2", "NAVI", "LOUD", "BLG", "TE", "JDG", "PRX", "NS", "GE", "LEV", "100T", "M8", "FUT", "Team Heretics", "Fnatic", "TL", "KC"]) { const e = teamPackAudit(t); if (!e) { console.log(t, "—"); continue; } const o = teamBoostOdds(e); console.log(t.padEnd(14), JSON.stringify(o && { u: +o.unboosted.toFixed(3), b: +o.boosted.toFixed(3), p1: +o.atLeastOne.toFixed(3) }), derivedBlockers(e).join(","), "| declarado:", e.blockers.join(",")); }

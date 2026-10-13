@@ -1,0 +1,8 @@
+{
+  "authUsers": 18,
+  "qaLike": 17,
+  "real": 1,
+  "identification": "cuentas QA con email @example.invalid o prefijo qa (17/18); la única cuenta no QA es la del usuario (2f86cbe8)",
+  "residue": "partidas ranked/privadas/PvE de F63–F67, amistades D–E y F–G, ratings QA, entradas de cola históricas; se conservan (borrarlas rompería libro mayor/series)",
+  "policy": "métricas de beta: excluir user_id de cuentas @example.invalid; propuesta futura: columna/flag is_qa en profiles escrita solo por service_role (requiere migración, no aplicada)"
+}

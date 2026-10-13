@@ -1,0 +1,389 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "command": "npm run smoke:production",
+  "build": "drl-0.1.1-1-85f24d2b",
+  "result": "74/74 OK",
+  "exit": 0,
+  "vsF69": "F69: 68/68 con una línea INFORMATIVA (siempre OK) que decía si las columnas privadas eran visibles. Ahora esa línea es una aserción real y hay 6 comprobaciones más del contrato: xp/equipped/tokens de B denegados, columnas públicas exactas de B, anon no lee profiles, anon no lee vistas heredadas.",
+  "checks": [
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/ · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/jugar · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/coleccion · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/duelos/mazos · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/inventario · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/progresion · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/duelos/jugar · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/duelos/pvp · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/competitivo · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/cuenta · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/como-jugar · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/tienda · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/temporada · 200"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/design-system (producción) · 404 (404 salvo NEXUS_QA_HARNESS=1)"
+    },
+    {
+      "status": "OK",
+      "section": "pages",
+      "line": "/robots.txt · User-Agent: * Disallow: / "
+    },
+    {
+      "status": "OK",
+      "section": "headers",
+      "line": "CSP · default-src 'self'; base-uri 'self'; object-src 'none'; fram"
+    },
+    {
+      "status": "OK",
+      "section": "headers",
+      "line": "X-Frame-Options · DENY"
+    },
+    {
+      "status": "OK",
+      "section": "headers",
+      "line": "nosniff · nosniff"
+    },
+    {
+      "status": "OK",
+      "section": "headers",
+      "line": "Referrer-Policy · strict-origin-when-cross-origin"
+    },
+    {
+      "status": "OK",
+      "section": "headers",
+      "line": "COOP · same-origin"
+    },
+    {
+      "status": "OK",
+      "section": "headers",
+      "line": "sin X-Powered-By · null"
+    },
+    {
+      "status": "OK",
+      "section": "headers",
+      "line": "noindex (beta cerrada) · meta robots"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "/api/health · 200"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "/api/ready · 200 ready"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "x-request-id · 8beb9969-2e5f-4cae-8411-cfaa310e6d3f"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "anónimo /api/game/state · 401"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "anónimo /api/game/duels · 401"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "anónimo /api/admin/system · 401"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "anónimo /api/admin/users · 401"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "cuerpo de 300 KB → 413 · 413"
+    },
+    {
+      "status": "OK",
+      "section": "api",
+      "line": "JSON roto sin fugas · 401 {\"error\":\"No autenticado\"}"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/state · 200 353ms"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/duels · 200 370ms"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/collection · 200 281ms"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/competitive · 200 682ms"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/play-status · 200 295ms"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/daily-loop · 200 526ms"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/season · 200 747ms"
+    },
+    {
+      "status": "OK",
+      "section": "qa-read",
+      "line": "/api/game/onboarding · 200 313ms"
+    },
+    {
+      "status": "OK",
+      "section": "admin",
+      "line": "usuario normal → /api/admin/system 401"
+    },
+    {
+      "status": "OK",
+      "section": "admin",
+      "line": "usuario normal → ajustar créditos · 401"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee user_cards de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee user_game de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee user_pass de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee user_packs de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee credit_transactions de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee economy_ops de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee duel_decks de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee duel_matches de B · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee user_achievements de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee game_state de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee duel_pvp_queue de B · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee duel_active_deck de B · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee user_sanctions de B · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "C lee payments de B · 200 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "perfil público de B (columnas) · visibles: "
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "columnas privadas de B (credits/is_admin/last_seen_at) 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "columna privada xp de B · 403"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "columna privada equipped de B · 403"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "columna privada tokens de B · 403"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "columnas públicas de B (contrato) · 200 avatar,id,level,points,region,username"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "anónimo no lee profiles · 401 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "cross-user",
+      "line": "anónimo no lee vistas heredadas (ranking_collection) 401"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C se da créditos · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C se hace admin · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C sube su nivel/xp · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C renombra a B · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C se inserta cartas · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C se da un ledger · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C gana una partida · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "C borra el perfil de B · 403 filas=0"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "API créditos con campos extra · 400 {\"error\":\"El cliente no decide «credits»\"}"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "RPC app_grant_reward como usuario · 404"
+    },
+    {
+      "status": "OK",
+      "section": "escalation",
+      "line": "RPC admin como usuario · 404"
+    }
+  ],
+  "bySection": {
+    "pages": 15,
+    "headers": 7,
+    "api": 9,
+    "qa-read": 8,
+    "admin": 2,
+    "cross-user": 22,
+    "escalation": 11
+  }
+}

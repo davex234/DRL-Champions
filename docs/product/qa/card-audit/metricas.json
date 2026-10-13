@@ -1,0 +1,142 @@
+{
+  "1440·00-vestibulo": {
+    "nodos": 650,
+    "cartas": 3,
+    "capasEfecto": 1,
+    "overflowX": -10,
+    "alto": 2229
+  },
+  "1440·01-coleccion": {
+    "nodos": 3085,
+    "cartas": 48,
+    "capasEfecto": 7,
+    "overflowX": -10,
+    "alto": 3560
+  },
+  "1440·02-inventario": {
+    "nodos": 436,
+    "cartas": 4,
+    "capasEfecto": 3,
+    "overflowX": -10,
+    "alto": 1002
+  },
+  "1440·03-mercado": {
+    "nodos": 3256,
+    "cartas": 54,
+    "capasEfecto": 44,
+    "overflowX": -10,
+    "alto": 3915
+  },
+  "1440·04-mazos": {
+    "nodos": 147,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·05-perfil": {
+    "nodos": 442,
+    "cartas": 4,
+    "capasEfecto": 1,
+    "overflowX": -10,
+    "alto": 1136
+  },
+  "1440·06-tienda-sobres": {
+    "nodos": 594,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": -10,
+    "alto": 2911
+  },
+  "1440·08-abrir-sobre": {
+    "nodos": 21,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·09-colecciones": {
+    "nodos": 195,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·07-detalle": {
+    "nodos": 3346,
+    "cartas": 49,
+    "capasEfecto": 9,
+    "overflowX": -10,
+    "alto": 3560
+  },
+  "390·00-vestibulo": {
+    "nodos": 650,
+    "cartas": 3,
+    "capasEfecto": 1,
+    "overflowX": 0,
+    "alto": 4079
+  },
+  "390·01-coleccion": {
+    "nodos": 3085,
+    "cartas": 48,
+    "capasEfecto": 7,
+    "overflowX": 0,
+    "alto": 8001
+  },
+  "390·02-inventario": {
+    "nodos": 436,
+    "cartas": 4,
+    "capasEfecto": 3,
+    "overflowX": 0,
+    "alto": 1456
+  },
+  "390·03-mercado": {
+    "nodos": 3247,
+    "cartas": 54,
+    "capasEfecto": 44,
+    "overflowX": 0,
+    "alto": 8871
+  },
+  "390·04-mazos": {
+    "nodos": 147,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": 0,
+    "alto": 844
+  },
+  "390·05-perfil": {
+    "nodos": 442,
+    "cartas": 4,
+    "capasEfecto": 1,
+    "overflowX": 0,
+    "alto": 1890
+  },
+  "390·06-tienda-sobres": {
+    "nodos": 587,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": 0,
+    "alto": 6917
+  },
+  "390·08-abrir-sobre": {
+    "nodos": 21,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": 0,
+    "alto": 844
+  },
+  "390·09-colecciones": {
+    "nodos": 195,
+    "cartas": 0,
+    "capasEfecto": 0,
+    "overflowX": 0,
+    "alto": 1021
+  },
+  "390·07-detalle": {
+    "nodos": 3346,
+    "cartas": 49,
+    "capasEfecto": 9,
+    "overflowX": 0,
+    "alto": 8001
+  }
+}

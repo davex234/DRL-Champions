@@ -1,0 +1,125 @@
+{
+  "at": "2026-09-26T15:33:26.651Z",
+  "source": {
+    "trigger": "supabase/migrations/0011_server_authority.sql · handle_new_user (verificado vivo en la BD del VPS el 2026-09-26: contiene 'inicial' y 6000; profiles.credits default 6000)",
+    "triggerSql": "create or replace function public.handle_new_user()\nreturns trigger language plpgsql security definer set search_path = public as $$\nbegin\n  insert into public.profiles (id, username, avatar)\n  values (\n    new.id,\n    coalesce(new.raw_user_meta_data->>'username', split_part(new.email, '@', 1)) || '_' || substr(new.id::text, 1, 4),\n    coalesce(new.raw_user_meta_data->>'avatar', '🎮')\n  );\n  insert into public.game_state (user_id) values (new.id);\n  insert into public.user_game  (user_id) values (new.id);\n\n  -- Sobres de bienvenida (equivalen a los STARTER_PACKS del store local).\n  insert into public.user_packs (user_id, pack_id, qty)\n  values (new.id, 'inicial', 3), (new.id, 'estandar', 1)\n  on conflict (user_id, pack_id) do nothing;\n\n  -- Asiento inicial del libro mayor: el saldo de partida deja de ser un número\n  -- suelto y pasa a tener origen trazable.\n  insert into public.credit_transactions (user_id, delta, reason, ref, balance_after)\n  values (new.id, 6000, 'starter_grant', 'starter:' || new.id::text, 6000);\n  return new;\nend; $$;"
+  },
+  "grant": {
+    "credits": 6000,
+    "packs": [
+      {
+        "packId": "inicial",
+        "qty": 3
+      },
+      {
+        "packId": "estandar",
+        "qty": 1
+      }
+    ]
+  },
+  "packs": [
+    {
+      "id": "inicial",
+      "name": "Sobre Inicial",
+      "price": 0,
+      "cardCount": 5,
+      "exists": true
+    },
+    {
+      "id": "estandar",
+      "name": "Sobre Bronce",
+      "price": 1000,
+      "cardCount": 5,
+      "exists": true
+    }
+  ],
+  "assist": {
+    "policy": {
+      "packId": "inicial",
+      "assistSlots": 2,
+      "maxFreeClaims": 8
+    },
+    "economyVersion": 3
+  },
+  "catalog": 331,
+  "changed": false,
+  "verdict": "VÁLIDO: los dos sobres del alta existen en el catálogo actual (Sobre Inicial y Sobre Bronce = id estandar). No se toca el starter.",
+  "simulation": {
+    "n": 20000,
+    "ms": 38352,
+    "runs": [
+      {
+        "pools": "codigo",
+        "n": 20000,
+        "order": "guide",
+        "readyRate": 1,
+        "validRate": 1,
+        "readyWithWelcomeOnly": 0.99965,
+        "freeExtra": {
+          "p50": 0,
+          "p90": 0,
+          "p99": 0,
+          "max": 1
+        },
+        "histogram": {
+          "0": 19993,
+          "1": 7
+        }
+      },
+      {
+        "pools": "bd-f58.1",
+        "n": 20000,
+        "order": "guide",
+        "readyRate": 1,
+        "validRate": 1,
+        "readyWithWelcomeOnly": 0.99965,
+        "freeExtra": {
+          "p50": 0,
+          "p90": 0,
+          "p99": 0,
+          "max": 1
+        },
+        "histogram": {
+          "0": 19993,
+          "1": 7
+        }
+      },
+      {
+        "pools": "codigo",
+        "n": 20000,
+        "order": "inicial-first",
+        "readyRate": 1,
+        "validRate": 1,
+        "readyWithWelcomeOnly": 0.9401,
+        "freeExtra": {
+          "p50": 0,
+          "p90": 0,
+          "p99": 1,
+          "max": 1
+        },
+        "histogram": {
+          "0": 18802,
+          "1": 1198
+        }
+      },
+      {
+        "pools": "bd-f58.1",
+        "n": 20000,
+        "order": "inicial-first",
+        "readyRate": 1,
+        "validRate": 1,
+        "readyWithWelcomeOnly": 0.9401,
+        "freeExtra": {
+          "p50": 0,
+          "p90": 0,
+          "p99": 1,
+          "max": 1
+        },
+        "histogram": {
+          "0": 18802,
+          "1": 1198
+        }
+      }
+    ]
+  }
+}

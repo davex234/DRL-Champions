@@ -1,0 +1,41 @@
+{
+ "at": "2026-09-24T19:28:57.520Z",
+ "note": "Antes = precheck de producción previo a 0057 (production-migration-evidence/precheck-before.txt) + gates locales antes de F60. Después = lectura de producción ahora.",
+ "before": {
+  "migrationHead": "0056_agents_catalog_miks_veto",
+  "tests": 5113,
+  "publishedCards": 331,
+  "agents": 29,
+  "cmsPacks": "tabla inexistente",
+  "admins": 1,
+  "marketplace": "OFF (GLOBAL_MARKET_ENABLED=false)",
+  "payments": "OFF"
+ },
+ "after": {
+  "migrationHead": "0057_admin_cms",
+  "schemaProbe": {
+   "0053_draft_runs": true,
+   "0057_content_packs": true,
+   "0055_user_sanctions": true,
+   "0057_entity_version": true,
+   "0050_duel_active_deck": true,
+   "0057_agents_lifecycle": true,
+   "0040_content_audit_log": true,
+   "0051_campaign_progress": true,
+   "0054_user_compositions": true,
+   "0057_card_presentation": true,
+   "0055_admin_event_drafts": true,
+   "0052_user_card_favorites": true
+  },
+  "publishedCards": 331,
+  "adminCards": 0,
+  "agents": 29,
+  "agentsPublished": 29,
+  "cmsPacks": 0,
+  "cmsAssets": 0,
+  "players": 379,
+  "admins": 1,
+  "marketplace": "OFF (sin tocar)",
+  "payments": "OFF (sin tocar)"
+ }
+}

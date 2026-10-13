@@ -1,0 +1,47 @@
+{
+  "phase": 43,
+  "kind": "strategy-fuzz",
+  "decks": 2000,
+  "mutate": "serial-power",
+  "orientation": {
+    "Perfil mixto": 1116,
+    "Equilibrado": 177,
+    "Orientado a Entryfrag": 256,
+    "Orientado a Gamesense": 185,
+    "Orientado a Stronghold": 64
+  },
+  "analysisTimingMs": {
+    "n": 2000,
+    "p50": 0.0804,
+    "p95": 0.1892,
+    "p99": 0.2865,
+    "max": 5.2906
+  },
+  "violations": 5,
+  "byInvariant": {
+    "serial-irrelevant": 5
+  },
+  "sample": [
+    {
+      "inv": "serial-irrelevant",
+      "detail": 812
+    },
+    {
+      "inv": "serial-irrelevant",
+      "detail": 1256
+    },
+    {
+      "inv": "serial-irrelevant",
+      "detail": 1400
+    },
+    {
+      "inv": "serial-irrelevant",
+      "detail": 1488
+    },
+    {
+      "inv": "serial-irrelevant",
+      "detail": 1984
+    }
+  ],
+  "ms": 1288
+}

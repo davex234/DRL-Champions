@@ -1,0 +1,67 @@
+{
+  "at": "2026-09-26T17:24:09.417Z",
+  "account": "40a1e10d",
+  "before": {
+    "seasonLevel": {
+      "xp": 711,
+      "level": 4,
+      "xpIntoLevel": 131,
+      "xpForNext": 339,
+      "progress": 0.3864306784660767,
+      "toNext": 208,
+      "nextTotal": 919
+    },
+    "seasonXp": 0,
+    "credits": 6025,
+    "xp": 711,
+    "raw": [
+      "serverNow",
+      "account",
+      "level",
+      "pass",
+      "objectives",
+      "loop",
+      "ledger",
+      "rewards",
+      "unopenedPacks",
+      "decks",
+      "duels",
+      "rating"
+    ]
+  },
+  "claimCountBefore": 4,
+  "clicked": true,
+  "claimCountAfter": 0,
+  "toastOrMoment": "",
+  "errors": [],
+  "clickedAgain": false,
+  "after": {
+    "seasonLevel": {
+      "xp": 711,
+      "level": 4,
+      "xpIntoLevel": 131,
+      "xpForNext": 339,
+      "progress": 0.3864306784660767,
+      "toNext": 208,
+      "nextTotal": 919
+    },
+    "seasonXp": 1150,
+    "credits": 17735,
+    "xp": 711,
+    "raw": [
+      "serverNow",
+      "account",
+      "level",
+      "pass",
+      "objectives",
+      "loop",
+      "ledger",
+      "rewards",
+      "unopenedPacks",
+      "decks",
+      "duels",
+      "rating"
+    ]
+  },
+  "creditsDelta": 11710
+}

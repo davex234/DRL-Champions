@@ -1,0 +1,84 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "startedAt": "2026-09-26T18:31:27.912Z",
+  "accountA": "40a1e10d",
+  "pve": {
+    "start": {
+      "status": 200,
+      "matchId": "a266f2aa-7435-4d3f-8d47-0da92866caf7",
+      "firstAttackerIsYou": false,
+      "forgedStartFieldsIgnored": true
+    },
+    "defenderStatSentIsIgnored": {
+      "sent": "stronghold",
+      "required": "gamesense",
+      "used": "gamesense",
+      "ok": true
+    },
+    "plays": 10,
+    "result": {
+      "winner": "YOU",
+      "isDraw": false,
+      "score": "7-3",
+      "decidedBy": "SCORE",
+      "sumOvr": "null-null",
+      "award": {
+        "points": 14,
+        "credits": 220,
+        "xp": 110
+      }
+    },
+    "recomputed": {
+      "turns": 10,
+      "winner": "YOU",
+      "decidedBy": "SCORE",
+      "score": "7-3",
+      "statYou": 709,
+      "statRival": 721,
+      "illegal": [],
+      "agreesWithServer": true
+    },
+    "historyLen": 10
+  },
+  "accountB": "a9a86124",
+  "pvp": {
+    "enqueue": {
+      "A": 200,
+      "B": 200
+    },
+    "matchId": "297ea5a8-2d74-4f18-a822-d6450c398a3f",
+    "rivalHandHidden": {
+      "rivalCardsVisible": 0,
+      "rivalUsed": 0
+    },
+    "lifecycle": "FINISHED",
+    "plays": 20,
+    "result": {
+      "winner": "RIVAL",
+      "isDraw": false,
+      "score": "3-7",
+      "decidedBy": "SCORE"
+    },
+    "recomputed": {
+      "turns": 10,
+      "winner": "RIVAL",
+      "decidedBy": "SCORE",
+      "score": "3-7",
+      "statYou": 630,
+      "statRival": 715,
+      "illegal": [],
+      "agreesWithServer": true
+    },
+    "outcome": {
+      "matchId": "297ea5a8-2d74-4f18-a822-d6450c398a3f",
+      "oldRating": 1000,
+      "delta": -20,
+      "newRating": 980,
+      "opponentRating": 1000,
+      "kFactor": 40,
+      "result": "LOSS",
+      "createdAt": 1790447515323
+    }
+  },
+  "finishedAt": "2026-09-26T18:31:56.057Z"
+}

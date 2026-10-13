@@ -1,0 +1,21 @@
+{
+  "phase": "F69",
+  "at": "2026-09-28",
+  "scope": "Código que llega al jugador: src/app y src/components y src/lib, sin tests, fixtures, testing/, /design-system (404 en producción) ni /admin.",
+  "searches": {
+    "lorem ipsum / John Doe / Jane Doe / dummy / fakeCredits / fakeElo / fakeStats / fakePlayer": 0,
+    "cifras de relleno (12345, 99999, 1337) en pantallas": 0
+  },
+  "demoContent": {
+    "what": "Evento «DRL Masters Madrid 2026» (source=demo) en Pick'ems y Live Events",
+    "status": "LEGÍTIMO Y ETIQUETADO",
+    "why": "Contrato F30/F40: todo contenido demo lleva la insignia «Demo» / «Partido de demo» y nunca «En directo» (EventStatusBadge, DemoTag, DemoBadge). No es un dato falso presentado como real."
+  },
+  "fakeAuthoritativeValues": {
+    "coach": "eliminado (F68-010): la ceremonia enseña rondas/bajas reales y «Partido de entrenamiento: no suma créditos ni XP»",
+    "hudPlaceholders": "mientras carga el HUD pinta «—» (no 0 ni una cifra inventada); /cuenta reserva hueco con aria-busy y «—» (f69.polish.test)",
+    "localModesWithAccount": "cerrados (useServerEconomy): ver optimistic-state-audit.json"
+  },
+  "live": "Los journeys F69 (personas A–L) no registraron ningún valor de saldo/Elo/XP distinto del servidor: HUD = /api/game/state en Coach, tienda, reclamo, multi-pestaña y cambio de cuenta (ver coach-authority.json, account-switch.json, ledger.json).",
+  "verdict": "PASS — 0 datos falsos en runtime de producción"
+}

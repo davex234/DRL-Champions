@@ -1,0 +1,268 @@
+{
+ "at": "2026-10-05T11:33:46.436Z",
+ "base": "https://valorosters.com",
+ "pass": 51,
+ "fail": 1,
+ "rows": [
+  {
+   "id": "ready + cabeza 0065 + check «ranked»",
+   "ok": false,
+   "detail": "{\"head\":\"0068_public_account_tag\",\"status\":\"ready\"}"
+  },
+  {
+   "id": "anónimo → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "POST al competitivo → 405 (solo lectura)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · centro competitivo 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "A · temporada competitiva 1 activa (rank-v1, 5 de colocación, Top 500, abierta)",
+   "ok": true,
+   "detail": "{\"id\":\"competitiva-1\",\"number\":1,\"name\":\"Temporada competitiva 1\",\"startsAt\":1791135221374,\"endsAt\":null,\"rankConfigVersion\":\"rank-v1\",\"formulaVersion\":\"ranked-rating-v1\",\"placementGames\":5,\"top\":{\"size\":500,\"minSeasonMatches\":5,\"activeDays\":14},\"pairCap\":{\"matches\":5,\"hours\":24},\"gameSeasonId\":null}"
+  },
+  {
+   "id": "A · rating = el canónico de la BD (una sola fuente)",
+   "ok": true,
+   "detail": "{\"api\":879,\"db\":879}"
+  },
+  {
+   "id": "A · estado coherente con sus partidas de temporada (rango solo tras 5)",
+   "ok": true,
+   "detail": "{\"state\":\"PLACEMENT\",\"seasonMatches\":1}"
+  },
+  {
+   "id": "A · sin correos ni datos privados en el cable",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "clasificación = elegibles reales de la vista (nunca filas fabricadas)",
+   "ok": true,
+   "detail": "{\"total\":0,\"eligible\":0}"
+  },
+  {
+   "id": "clasificación: tamaño de página acotado aunque se pida 5000",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "foto barata: posición, partidas de temporada y etiqueta",
+   "ok": true,
+   "detail": "{\"rating\":879,\"position\":null,\"rankedTotal\":0,\"gamesPlayed\":31,\"seasonMatches\":1,\"rankLabel\":\"Colocación 1/5\"}"
+  },
+  {
+   "id": "perfil competitivo público (K mira a A): estado de temporada y sin datos privados",
+   "ok": true,
+   "detail": "{\"state\":\"PLACEMENT\"}"
+  },
+  {
+   "id": "perfil F89 (K mira a A): bloque competitivo sin versión ni correo",
+   "ok": true,
+   "detail": "{\"seasonName\":\"Temporada competitiva 1\",\"state\":\"PLACEMENT\",\"rank\":null,\"placement\":{\"played\":1,\"total\":5},\"peakRank\":null,\"rating\":879,\"record\":{\"matches\":1,\"wins\":0,\"losses\":1,\"draws\":0,\"winrate\":0}}"
+  },
+  {
+   "id": "partida ANTERIOR a F84: rating real, movimiento de rango UNSEASONED (no se reconstruyen colocaciones)",
+   "ok": true,
+   "detail": "{\"kind\":\"UNSEASONED\"}"
+  },
+  {
+   "id": "partida ajena → 404 (K no jugó)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "duelo privado: sin rating ni rango",
+   "ok": true,
+   "detail": "{\"status\":200,\"outcome\":null}"
+  },
+  {
+   "id": "parámetros de cliente ignorados (?rating=9999 no cambia nada)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/competitivo 1440: héroe con estado y emblema accesible",
+   "ok": true,
+   "detail": "{\"state\":\"PLACEMENT\",\"emblem\":\"Colocación: 1 de 5 partidas\"}"
+  },
+  {
+   "id": "/competitivo 1440: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil propio 1440: bloque ranked presente",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/duelos ranked: tarjeta con emblema competitivo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/competitivo 1024: héroe con estado y emblema accesible",
+   "ok": true,
+   "detail": "{\"state\":\"PLACEMENT\",\"emblem\":\"Colocación: 1 de 5 partidas\"}"
+  },
+  {
+   "id": "/competitivo 1024: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil propio 1024: bloque ranked presente",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/competitivo 390: héroe con estado y emblema accesible",
+   "ok": true,
+   "detail": "{\"state\":\"PLACEMENT\",\"emblem\":\"Colocación: 1 de 5 partidas\"}"
+  },
+  {
+   "id": "/competitivo 390: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil propio 390: bloque ranked presente",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "página / → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /competitivo → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /duelos → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /temporada → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion/trofeos → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /tienda → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /misiones/crafting → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /progresion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /admin/competitive → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865 → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/state (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/me (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/competitive (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/forge (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/missions (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/crafting (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/collection-sets (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/daily-loop (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/season-track (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/duel/matchmaking (K) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "F79/F80/F81/F82/F83 · ficheros de economía, forja, sobres, sets y temporada idénticos a la release anterior",
+   "ok": true,
+   "detail": "8"
+  },
+  {
+   "id": "F80 · los seis precios en el fichero de sobres activo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F83 T2 DRAFT, 0 XP de temporada; F84 sin ajustes ni fotos (nada otorgado ni reiniciado)",
+   "ok": true,
+   "detail": "DRAFT|0|0|0"
+  },
+  {
+   "id": "health 200",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

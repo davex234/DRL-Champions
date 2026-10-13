@@ -1,0 +1,40 @@
+{
+  "matchA": "b5037f75-875e-4ec5-8b95-f6c3a5dc3a77",
+  "deckI": {
+    "deckId": "86ad6d37-c3ba-4f97-8f03-f2634c4b6d10",
+    "name": "Mi primer equipo",
+    "original": [
+      "d3bf5abd-1d0c-4fe2-86be-4b68756eaa2d",
+      "75a4518b-decf-4a00-a2f1-4ae451180004",
+      "2ec91f44-f73b-43c0-8e72-37aaad46e835",
+      "db0bfc9c-7fae-4bb5-adde-49906ae9b56c",
+      "9eeb0494-a25f-48ca-8363-34c4b6431769",
+      "b15ac683-6e74-4b69-a68e-39e1ea030e24",
+      "37c0ba3e-e437-4065-aeea-72b7081bc174",
+      "c2d04415-7494-4495-84ba-223bc86936f4",
+      "ff85baf7-55bd-45f3-b72f-ed100b04f396",
+      "a55196b9-0af1-4507-9c38-2e25339e8d1d"
+    ]
+  },
+  "matchB": "eb3c067e-969d-4ac7-8811-37ee0101bc1e",
+  "matchB2": "4f7509c6-973a-4eec-8879-0cee625f753c",
+  "matchC": "b96f39a5-8ba5-4c3c-bcbe-8ba9dfb4b585",
+  "matchI2": "d737f449-89af-4033-a7f1-7638c3c9aa5a",
+  "deckK": {
+    "deckId": "54b46edc-c499-490f-bb9c-63d8271d3e31",
+    "name": "Mi primer equipo",
+    "original": [
+      "cb5210a9-5089-43d7-8d89-e4bc912cbf09",
+      "aa9302bd-487a-423f-bfd7-deb80df57831",
+      "2ab602aa-44cf-40cc-9dbd-e197cfb14acd",
+      "8daaf309-152d-430f-a634-9ddce6ae1d94",
+      "16d42876-23cc-46d3-bbf0-aadf8df42694",
+      "1edfe254-f4fd-44bf-a4b4-5e566bb2199c",
+      "32ff6a9f-58cd-4ca0-b6d2-4edf4248fa73",
+      "b27fdbdf-4399-464b-a15e-d212513b717d",
+      "f24c3632-601d-4381-99ab-a49a2fca0425",
+      "cdb43b42-2847-4fea-a46f-943d6540ed0e"
+    ]
+  },
+  "copiesBefore": 1
+}

@@ -1,0 +1,105 @@
+{
+  "at": "2026-10-02T09:14:02.588Z",
+  "results": [
+    {
+      "id": "[1440] tablero con contador en el HUD",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] el contador arranca en ~00:30 (servidor)",
+      "ok": true,
+      "detail": "primero=00:27"
+    },
+    {
+      "id": "[1440] DEFENSA · el contador se vio bajar 10…5 4 3 2 1 0",
+      "ok": true,
+      "detail": "00:26 00:25 00:24 00:23 00:22 00:21 00:20 00:19 00:18 00:17 00:16 00:15 00:14 00:13 00:12 00:11 00:10 00:09 00:08 00:07 00:06 00:05 00:04 00:03 00:02 00:01 00:00 00:30 00:29"
+    },
+    {
+      "id": "[1440] DEFENSA · a 0 la partida avanza SOLA (versión +1, un turno más, jugada automática registrada)",
+      "ok": true,
+      "detail": "{\"v\":[0,1],\"h\":[0,1],\"lagMs\":1107}"
+    },
+    {
+      "id": "[1440] DEFENSA · carta de TU mano y la estadística obligada",
+      "ok": true,
+      "detail": "{\"uid\":\"e6d2ab35-2d10-4953-a836-1860dbf313f4\",\"nick\":\"Francis\",\"team\":\"NS\",\"role\":\"Flex\",\"stat\":\"gamesense\",\"value\":67}"
+    },
+    {
+      "id": "[1440] DEFENSA · resuelto cerca del plazo del servidor (≤ 4 s) y aviso «Tiempo agotado» sin modal",
+      "ok": true,
+      "detail": "retraso=1107 ms aviso=true"
+    },
+    {
+      "id": "[1440] DEFENSA · la decisión siguiente nace con plazo nuevo",
+      "ok": true,
+      "detail": "1790932345983 → 1790932376145"
+    },
+    {
+      "id": "[1440] ATAQUE · el contador se vio bajar 10…5 4 3 2 1 0",
+      "ok": true,
+      "detail": "00:29 00:28 00:27 00:26 00:25 00:24 00:23 00:22 00:21 00:20 00:19 00:18 00:17 00:16 00:15 00:14 00:13 00:12 00:11 00:10 00:09 00:08 00:07 00:06 00:05 00:04 00:03 00:02 00:01 00:00 00:30"
+    },
+    {
+      "id": "[1440] ATAQUE · a 0 la partida avanza SOLA (versión +1, un turno más, jugada automática registrada)",
+      "ok": true,
+      "detail": "{\"v\":[1,2],\"h\":[1,2],\"lagMs\":1117}"
+    },
+    {
+      "id": "[1440] ATAQUE · carta de TU mano y estadística válida",
+      "ok": true,
+      "detail": "{\"uid\":\"3dcbbf64-52ce-4e79-aac9-d2a2b44d9295\",\"nick\":\"koshmaras\",\"team\":\"TH\",\"role\":\"Duelista\",\"stat\":\"stronghold\",\"value\":43}"
+    },
+    {
+      "id": "[1440] ATAQUE · resuelto cerca del plazo del servidor (≤ 4 s) y aviso «Tiempo agotado» sin modal",
+      "ok": true,
+      "detail": "retraso=1117 ms aviso=true"
+    },
+    {
+      "id": "[1440] ATAQUE · la decisión siguiente nace con plazo nuevo",
+      "ok": true,
+      "detail": "1790932376145 → 1790932406302"
+    },
+    {
+      "id": "[1440] vistos vencimientos atacando Y defendiendo",
+      "ok": true,
+      "detail": "DEFENSA,ATAQUE"
+    },
+    {
+      "id": "[1440] F5 con ~5 s: el contador NO vuelve a 30 (sigue desde ~5)",
+      "ok": true,
+      "detail": "antes=00:05 después=00:05"
+    },
+    {
+      "id": "[1440] F5: el plazo del servidor es el MISMO",
+      "ok": true,
+      "detail": "1790932406302 vs 1790932406302"
+    },
+    {
+      "id": "[1440] F5: vence en el plazo ORIGINAL (±4 s)",
+      "ok": true,
+      "detail": "retraso=1150 ms"
+    },
+    {
+      "id": "[1440] dos clientes: los dos ven el mismo contador (±1 s)",
+      "ok": true,
+      "detail": "00:20 / 00:21"
+    },
+    {
+      "id": "[1440] dos clientes al vencer: UNA resolución (versión +1, una jugada automática)",
+      "ok": true,
+      "detail": "{\"v\":[3,4],\"to\":[3,4]}"
+    },
+    {
+      "id": "[1440] dos clientes: los dos muestran el mismo resultado",
+      "ok": true,
+      "detail": "TURNO 5 / 10 Turno 1: ganado, defendiste Turno 2: perdido, atacaste Turno 3: ganado, defendiste Turno 4: perdido, atacaste Turno 5: en juego, defiendes Turno 6: pendiente Turno 7: pendiente Turno 8: pendiente Turno 9: pendiente Turno 10: pendiente ▼ FASE DE DEFENSA | TURNO 5 / 10 Turno 1: ganado, defendiste Turno 2: perdido, atacaste Turno 3: ganado, defendiste Turno 4: perdido, atacaste Turno 5: en juego, defiendes Turno 6: pendiente Turno 7: pendiente Turno 8: pendiente Turno 9: pendiente Turno 10: pendiente ▼ FASE DE DEFENSA"
+    },
+    {
+      "id": "[1440] 0 errores de consola / 0 Failed to fetch",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

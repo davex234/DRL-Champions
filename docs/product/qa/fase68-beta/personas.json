@@ -1,0 +1,141 @@
+{
+  "note": "Cuentas QA propias de la beta (dominio @example.invalid). Credenciales SOLO en el scratchpad de la sesión; aquí únicamente el prefijo del id.",
+  "personas": [
+    {
+      "persona": "A",
+      "role": "NUEVO",
+      "account": "d52916aa",
+      "width": 1440,
+      "reduced": false,
+      "sessions": [
+        "A-final-auth",
+        "A-final2-auth",
+        "A-fix-auth",
+        "A-r1-auth",
+        "A-r1-keyboard",
+        "A-r1-long",
+        "A-r1-new",
+        "A-r1-resume",
+        "AB-r1-switch"
+      ]
+    },
+    {
+      "persona": "B",
+      "role": "CASUAL (móvil 390)",
+      "account": "d8eb622b",
+      "width": 390,
+      "reduced": false,
+      "sessions": [
+        "B-fix-store",
+        "B-fix-teams",
+        "B-r1-collection",
+        "B-r1-new",
+        "B-r1-progress",
+        "B-r1-pve",
+        "B-r1-store",
+        "B-r2-pve"
+      ]
+    },
+    {
+      "persona": "C",
+      "role": "COMPETITIVO",
+      "account": "d4133641",
+      "width": 1440,
+      "reduced": false,
+      "sessions": [
+        "C-r1-multitab",
+        "C-r1-multitab-same",
+        "C-r1-new",
+        "C-r1-slownet",
+        "C-r1-store",
+        "C-r1-teams",
+        "CE-final-ranked",
+        "CE-r1-ranked",
+        "CE-r2-ranked",
+        "CF-r2-switch"
+      ]
+    },
+    {
+      "persona": "D",
+      "role": "EXPLORADOR (tablet 1024, movimiento reducido; saltó la guía)",
+      "account": "225e1fce",
+      "width": 1024,
+      "reduced": true,
+      "sessions": [
+        "D-coach-play",
+        "D-r1-draft",
+        "D-r1-explorer",
+        "D-r1-pickems",
+        "D-r1-skip",
+        "D-r1-teams",
+        "D-r2-explorer",
+        "D-r2-progress",
+        "DC-r1-social"
+      ]
+    },
+    {
+      "persona": "E",
+      "role": "RETURNING (cuenta QA F63 a9a86124 con historial)",
+      "account": "a9a86124",
+      "width": 1440,
+      "reduced": false,
+      "sessions": [
+        "CE-final-ranked",
+        "CE-r1-ranked",
+        "CE-r2-ranked",
+        "E-final-return",
+        "E-final2-return",
+        "E-fix-multitab-same",
+        "E-r1-progress",
+        "E-r1-return",
+        "E-r2-perf",
+        "E-r2-progress",
+        "E-r2-return"
+      ]
+    },
+    {
+      "persona": "F",
+      "role": "NUEVO Ronda 2 (1440)",
+      "account": "def98cb4",
+      "sessions": [
+        "CF-r2-switch",
+        "F-r2-keyboard",
+        "F-r2-new"
+      ]
+    },
+    {
+      "persona": "G",
+      "role": "NUEVO Ronda 2 (390, movimiento reducido)",
+      "account": "00eb4ea1",
+      "sessions": [
+        "G-r2-multitab-same",
+        "G-r2-new",
+        "G-r2-slownet"
+      ]
+    },
+    {
+      "persona": "H",
+      "role": "CUENTA NUEVA FINAL (tras F68-001..008)",
+      "account": "dbcb170a",
+      "sessions": [
+        "H-final-new"
+      ]
+    },
+    {
+      "persona": "I",
+      "role": "CUENTA NUEVA FINAL (tras todos los arreglos)",
+      "account": "be24f4ef",
+      "sessions": [
+        "I-final-new"
+      ]
+    },
+    {
+      "persona": "J",
+      "role": "CUENTA NUEVA sobre la BUILD DEFINITIVA",
+      "account": "fd4a8318",
+      "sessions": [
+        "J-definitive-new"
+      ]
+    }
+  ]
+}

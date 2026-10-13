@@ -1,0 +1,77 @@
+{
+  "phase": "F69",
+  "at": "2026-09-27T21:14Z",
+  "proposal": "docs/operations/proposals/0058_hardening_grants.PROPOSAL.sql (v3)",
+  "decision": "B — correcta y necesaria antes de RC, CON AJUSTES",
+  "whyNotA": "La v1 de F67 revocaba columnas privadas a `authenticated` y rompía el cliente de 0057 (perfil propio con select(\"*\") y is_admin por REST).",
+  "whyNotC": "No se puede resolver sin migración: los agujeros son privilegios de Postgres (grants, políticas, EXECUTE de funciones, vistas auto-actualizables). Ningún cambio de la app los cierra; la API REST de Supabase los expone con la clave anon.",
+  "adjustments": [
+    "v2 (primer pase de F69): H5 nuevo — vistas `pickem_questions_public` y `card_photos` auto-actualizables, dueño postgres, escribibles por anon (exploit demostrado en réplica: puntos de una pregunta 10 → 999). H4 ampliado a 10 helpers (uno reembolsa ofertas de mercado de cualquiera).",
+    "v3 (este pase): H6 — minimización de columnas para `authenticated` (con el registro abierto y autoconfirmado, authenticated ≈ cualquiera). El cliente F69 ya no lee columnas privadas por REST: `GET /api/game/me` (service_role, filtrado por el Bearer) sirve el perfil propio; funciona con 0057 y con 0058.",
+    "v3: H7 — las vistas heredadas `ranking_level/collection/market/rarities` (xp, collection_value, market_volume, rarest_rank del top 100, sin uso en el producto) salen de los roles de cliente.",
+    "Cifra corregida: TRUNCATE para clientes en 68 tablas (medido en vivo), no 85."
+  ],
+  "holes": {
+    "H1": "anon lee `profiles` entero (20 columnas).",
+    "H2": "anon/authenticated con INSERT/DELETE sobre `profiles` (+ política «crea tu perfil»).",
+    "H3": "TRUNCATE para anon/authenticated en 68 tablas (TRUNCATE no pasa por RLS).",
+    "H4": "10 funciones SECURITY DEFINER sin comprobación de auth.uid() ejecutables por anon (recompute_*, expire_offers, _release_listing_offers mueve créditos, _check_wash…).",
+    "H5": "17 vistas con INSERT/UPDATE/DELETE para clientes; 2 son auto-actualizables sobre tablas reales (Pick'ems, fotos).",
+    "H6": "authenticated lee credits, xp, is_admin, last_seen_at, equipped… de TODAS las cuentas.",
+    "H7": "4 vistas heredadas publican cifras privadas del top 100."
+  },
+  "reachabilityToday": "Kong (REST), Postgres e Inbucket escuchan solo en 127.0.0.1 del VPS (medido con `docker port`); la app va por túnel SSH. Hoy NO es explotable desde Internet; lo será el día que la API se publique con dominio.",
+  "orderRequired": "1) servir la build F69 (cliente sin lecturas privadas por REST) → 2) autorización explícita → 3) backup verificado (BACKUP_OK) → 4) 0058_preflight.sql → 5) PROPOSAL.sql (una transacción con guardia final) → 6) 0058_postflight.sql (todo ok) → 7) 0058_rls_tests.sql con `set f69.qa_uid` de una cuenta QA (termina en ROLLBACK) → 8) npm run smoke:production. Con la build F68 + 0058, el perfil propio saldría vacío (probado en la réplica: select(\"*\") propio → denegado).",
+  "rollback": "docs/operations/proposals/0058_hardening_grants.ROLLBACK.sql — restituye EXACTAMENTE los privilegios medidos (dry-run: las 27 pruebas RLS tras rollback = las de antes, byte a byte).",
+  "backfill": "No aplica: 0058 solo cambia privilegios y una política; no toca filas.",
+  "dryRun": {
+    "engine": "PGlite (Postgres 17.5 WASM, en memoria) con réplica sintética de los privilegios MEDIDOS en la BD viva (scripts/_fase69-0058-fixture.sql)",
+    "runner": "PGLITE_DIR=<scratch> node scripts/_fase69-0058-dryrun.mjs docs/product/qa/fase69-hardening/0058-dryrun.json",
+    "result": {
+      "beforeFailures": 14,
+      "afterFailures": 0,
+      "rollbackFailures": 14,
+      "rollbackRestoresExactly": true,
+      "stepErrors": 0
+    },
+    "exploitsBefore": [
+      "H5: anon cambia los puntos de una pregunta de Pick'ems vía la vista (10 → 999)",
+      "H4: anon llama a _release_listing_offers y reembolsa una oferta ajena (créditos del comprador 6.000 → 6.500)"
+    ],
+    "exploitsAfter": [
+      "H5 denegado (puntos siguen en 10)",
+      "H4 denegado; el llamador legítimo SECURITY DEFINER (buy_listing) sigue funcionando"
+    ],
+    "clientCompat": [
+      "cliente F68 (select(\"*\") propio) → denegado tras 0058 (por eso el orden)",
+      "cliente F69: posición global/regional por puntos, editar avatar y región → ok tras 0058"
+    ]
+  },
+  "liveReadOnlyCheck": {
+    "at": "2026-09-27T21:14Z",
+    "file": "raw/live-0058-check.txt",
+    "preflight": "15/15 ok",
+    "postflight": "todo «pendiente» (esperado: 0058 no aplicada): H3 = 68 tablas, H5 = 17 vistas, H4 = 10 helpers, H7 = 4 vistas",
+    "rlsTests": "mismas 14 FALLA que la réplica ANTES de 0058; cuenta de los claims = QA A (d52916aa), todo dentro de BEGIN…ROLLBACK",
+    "writesPersisted": 0
+  },
+  "appliedToProduction": true,
+  "status": "APPLIED + VERIFIED (antes: READY_TO_APPLY)",
+  "revalidatedOnResume": {
+    "at": "2026-09-28",
+    "conclusion": "B confirmada sin cambios: sigue siendo necesaria y correcta (v3). No se crea 0058_v2/0059.",
+    "evidence": [
+      "/api/ready y production:check: head 0057_admin_cms",
+      "supabase/migrations termina en 0057 (test f69.profileExposure)",
+      "security-smoke (7e223fed/10683a89): anon sigue viendo las 20 columnas de profiles → el agujero existe hoy",
+      "dry-run 0058-dryrun.json vigente (0058 y la réplica no cambiaron desde 2026-09-27T21:13Z)"
+    ],
+    "appliedToProduction": false
+  },
+  "operationalStatus": {
+    "at": "2026-09-28",
+    "status": "APPLIED + VERIFIED",
+    "evidence": "docs/product/qa/pre-f70-0058/",
+    "summary": "Aplicada con autorización explícita el 2026-09-28 (~11:58Z) tras backup verificado (pre-0058/20260928T115532Z), huella comprobada en el VPS (sha256 ad5f9e5a…), preflight OK y sin deriva; una transacción, una vez. Postflight todo ok; RLS 27/27; anon 401; otra cuenta solo ve las 6 columnas públicas; 0 cambios en 23 recuentos."
+  }
+}

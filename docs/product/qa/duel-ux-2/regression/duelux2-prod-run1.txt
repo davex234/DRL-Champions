@@ -1,0 +1,37 @@
+persona K=f6558f75 · otra L=4ac5491a
+PASS start 200
+PASS nace SIN plazo (turnDeadlineAt null)
+esperando 40 s sin hacer nada…
+PASS tras > 30 s: misma versión, mismo turno, ninguna jugada automática, sin derrota
+PASS tras > 30 s: sigue sin plazo
+PASS retomar (otra sesión) tampoco mueve nada
+PASS doble envío: exactamente UNA jugada aplicada, la otra 409
+PASS una sola transición
+PASS T1 · pendiente = solo «comprometida» + estadística
+PASS T1 · la carta comprometida no viajó antes de responder (2 claves)
+PASS T1 · revelada tras responder, con su estadística declarada
+PASS versión vieja → 409
+PASS T3 · pendiente = solo «comprometida» + estadística
+PASS T3 · la carta comprometida no viajó antes de responder (2 claves)
+PASS T3 · revelada tras responder, con su estadística declarada
+PASS T5 · pendiente = solo «comprometida» + estadística
+PASS T5 · la carta comprometida no viajó antes de responder (2 claves)
+PASS T5 · revelada tras responder, con su estadística declarada
+PASS T7 · pendiente = solo «comprometida» + estadística
+PASS T7 · la carta comprometida no viajó antes de responder (2 claves)
+PASS T7 · revelada tras responder, con su estadística declarada
+PASS T9 · pendiente = solo «comprometida» + estadística
+PASS T9 · la carta comprometida no viajó antes de responder (2 claves)
+PASS T9 · revelada tras responder, con su estadística declarada
+PASS la partida terminó
+PASS se vio al menos una carta comprometida por el bot y se comprobó
+RECIBO {"matchId":"059cf3ba-56bf-485f-9cd1-a0a08d2e508d","grants":[{"source":"MATCH","reward":{"credits":40,"xp":25},"points":0}],"capped":false} · award {"points":0,"credits":40,"xp":25} · saldo 6000 → 6040
+PASS hay recibo del servidor
+PASS créditos del recibo = lo que subió el saldo real
+PASS tipos solo créditos/XP en partida rápida
+PASS F5 = mismo recibo
+PASS 20 lecturas a la vez: 200 y el mismo recibo
+PASS el saldo no se movió al leer
+PASS otra persona: 404 y sin recibo
+
+DUEL UX 2.0 PROD QA: 32/32 · partida 059cf3ba-56bf-485f-9cd1-a0a08d2e508d

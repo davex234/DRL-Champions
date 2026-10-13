@@ -1,0 +1,37 @@
+{
+  "phase": "F69",
+  "keyboard": {
+    "source": "journeys/raw/H-f69-keyboard.json",
+    "checks": [
+      "PASS login solo con teclado (Tab + Enter)",
+      "PASS portada: el foco recorre elementos con indicador visible",
+      "PASS Enter sobre JUGAR navega",
+      "PASS modal: foco dentro, atrapado, Escape cierra y devuelve el foco",
+      "PASS colección: se puede buscar con el teclado",
+      "PASS equipos: sus acciones son alcanzables con Tab"
+    ]
+  },
+  "mobileMenu": {
+    "source": "raw/probe-B-390.json (7e223fed), también a 1024/1440",
+    "result": {
+      "opened": true,
+      "dialog": true,
+      "tabStaysInDialog": true,
+      "shiftTabStaysInDialog": true,
+      "closedByEscape": true,
+      "focusAfterClose": {
+        "tag": "BUTTON",
+        "text": "Abrir menú",
+        "inDialog": false
+      },
+      "focusReturnedToOpener": true
+    },
+    "harnessNote": "En la sesión anterior el sondeo daba menuFocusTrap=false porque buscaba el menú del armazón en la portada, que tiene su propia cabecera («Más opciones») sin data-testid=shell-menu (opened:false). Corregido el arnés (se prueba en /coleccion): Tab y Shift+Tab se quedan en la hoja, Escape la cierra y el foco vuelve al botón «Abrir menú»."
+  },
+  "dialogs": "modal de compra: foco dentro, atrapado, Escape cierra y devuelve el foco a «Comprar» (H-f69-keyboard)",
+  "labels": "login y registro solo con teclado; errores de auth en español sin enumerar (A-f69-auth); estados de carga con role=status/aria-live y aria-busy en /cuenta",
+  "reducedMotion": "journeys L-f69-new, D-f69-teams/explorer, G-collection/slownet en modo reducido: todos PASS (el Chrome del usuario reporta reduce: es su experiencia real)",
+  "audioIndependent": "toda confirmación relevante (compra, reclamo, resultado, Elo ±) es visual; la música procedural y los sonidos son opcionales (sesión larga: 0 elementos <audio> duplicados)",
+  "bugsFound": 0,
+  "verdict": "PASS"
+}

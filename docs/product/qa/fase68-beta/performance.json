@@ -1,0 +1,698 @@
+{
+  "requestBudget": {
+    "avgApiPerScreen": 9.4,
+    "home": 6,
+    "f64": 9.3,
+    "f67": 9.5,
+    "routes": [
+      {
+        "route": "/",
+        "api": 6,
+        "all": 61,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 45,
+        "load": 93,
+        "slowestApi": [
+          [
+            "/api/game/daily-loop",
+            564
+          ],
+          [
+            "/api/game/state",
+            313
+          ],
+          [
+            "/api/game/play-status",
+            282
+          ]
+        ]
+      },
+      {
+        "route": "/jugar",
+        "api": 11,
+        "all": 115,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 19,
+        "load": 45,
+        "slowestApi": [
+          [
+            "/api/game/draft-gauntlet",
+            631
+          ],
+          [
+            "/api/game/campaign",
+            598
+          ],
+          [
+            "/api/game/meta",
+            597
+          ]
+        ]
+      },
+      {
+        "route": "/duelos/jugar",
+        "api": 9,
+        "all": 60,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 25,
+        "load": 58,
+        "slowestApi": [
+          [
+            "/api/game/duel",
+            320
+          ],
+          [
+            "/api/game/state",
+            298
+          ],
+          [
+            "/api/game/play-status",
+            292
+          ]
+        ]
+      },
+      {
+        "route": "/competitivo",
+        "api": 10,
+        "all": 109,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 26,
+        "load": 47,
+        "slowestApi": [
+          [
+            "/api/game/competitive",
+            634
+          ],
+          [
+            "/api/game/duels",
+            588
+          ],
+          [
+            "/api/game/onboarding",
+            448
+          ]
+        ]
+      },
+      {
+        "route": "/coleccion",
+        "api": 12,
+        "all": 147,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 40,
+        "load": 71,
+        "slowestApi": [
+          [
+            "/api/game/meta",
+            715
+          ],
+          [
+            "/api/game/prestige",
+            630
+          ],
+          [
+            "/api/game/collection",
+            611
+          ]
+        ]
+      },
+      {
+        "route": "/duelos/mazos",
+        "api": 9,
+        "all": 99,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 70,
+        "load": 98,
+        "slowestApi": [
+          [
+            "/api/game/onboarding",
+            415
+          ],
+          [
+            "/api/game/duels",
+            387
+          ],
+          [
+            "/api/game/social",
+            350
+          ]
+        ]
+      },
+      {
+        "route": "/duelos/mazos?nuevo=1",
+        "api": 9,
+        "all": 97,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 19,
+        "load": 33,
+        "slowestApi": [
+          [
+            "/api/game/onboarding",
+            433
+          ],
+          [
+            "/api/game/social",
+            414
+          ],
+          [
+            "/api/game/state",
+            406
+          ]
+        ]
+      },
+      {
+        "route": "/inventario",
+        "api": 9,
+        "all": 97,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 48,
+        "load": 67,
+        "slowestApi": [
+          [
+            "/api/game/onboarding",
+            432
+          ],
+          [
+            "/api/game/economy",
+            402
+          ],
+          [
+            "/api/game/social",
+            382
+          ]
+        ]
+      },
+      {
+        "route": "/packs",
+        "api": 9,
+        "all": 128,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 40,
+        "load": 67,
+        "slowestApi": [
+          [
+            "/api/game/social",
+            369
+          ],
+          [
+            "/api/game/onboarding",
+            352
+          ],
+          [
+            "/api/game/state",
+            337
+          ]
+        ]
+      },
+      {
+        "route": "/abrir/inicial",
+        "api": 7,
+        "all": 45,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 38,
+        "load": 58,
+        "slowestApi": [
+          [
+            "/api/game/onboarding",
+            355
+          ],
+          [
+            "/api/game/play-status",
+            307
+          ],
+          [
+            "/api/game/collection",
+            307
+          ]
+        ]
+      },
+      {
+        "route": "/tienda",
+        "api": 8,
+        "all": 99,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 19,
+        "load": 36,
+        "slowestApi": [
+          [
+            "/api/game/social",
+            360
+          ],
+          [
+            "/api/game/onboarding",
+            323
+          ],
+          [
+            "/api/game/live-events",
+            317
+          ]
+        ]
+      },
+      {
+        "route": "/progresion",
+        "api": 9,
+        "all": 92,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 68,
+        "load": 91,
+        "slowestApi": [
+          [
+            "/api/game/meta",
+            654
+          ],
+          [
+            "/api/game/social",
+            351
+          ],
+          [
+            "/api/game/onboarding",
+            350
+          ]
+        ]
+      },
+      {
+        "route": "/temporada",
+        "api": 9,
+        "all": 87,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 47,
+        "load": 85,
+        "slowestApi": [
+          [
+            "/api/game/season",
+            672
+          ],
+          [
+            "/api/game/social",
+            393
+          ],
+          [
+            "/api/game/play-status",
+            392
+          ]
+        ]
+      },
+      {
+        "route": "/logros",
+        "api": 9,
+        "all": 86,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 100,
+        "load": 129,
+        "slowestApi": [
+          [
+            "/api/game/progression",
+            505
+          ],
+          [
+            "/api/game/onboarding",
+            428
+          ],
+          [
+            "/api/game/social",
+            420
+          ]
+        ]
+      },
+      {
+        "route": "/jugador/me",
+        "api": 11,
+        "all": 97,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 65,
+        "load": 106,
+        "slowestApi": [
+          [
+            "/api/game/player",
+            670
+          ],
+          [
+            "/api/game/play-status",
+            361
+          ],
+          [
+            "/api/game/state",
+            360
+          ]
+        ]
+      },
+      {
+        "route": "/jugar/draft-gauntlet",
+        "api": 9,
+        "all": 83,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 19,
+        "load": 43,
+        "slowestApi": [
+          [
+            "/api/game/draft-gauntlet",
+            376
+          ],
+          [
+            "/api/game/social",
+            343
+          ],
+          [
+            "/api/game/play-status",
+            336
+          ]
+        ]
+      },
+      {
+        "route": "/jugar/road-to-champions",
+        "api": 11,
+        "all": 84,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 17,
+        "load": 43,
+        "slowestApi": [
+          [
+            "/api/game/campaign",
+            652
+          ],
+          [
+            "/api/game/duels",
+            568
+          ],
+          [
+            "/api/game/onboarding",
+            404
+          ]
+        ]
+      },
+      {
+        "route": "/entrenador",
+        "api": 11,
+        "all": 116,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 43,
+        "load": 79,
+        "slowestApi": [
+          [
+            "/api/game/onboarding",
+            433
+          ],
+          [
+            "/api/game/live-events",
+            421
+          ],
+          [
+            "/api/game/social",
+            353
+          ]
+        ]
+      },
+      {
+        "route": "/pickems",
+        "api": 12,
+        "all": 102,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 39,
+        "load": 60,
+        "slowestApi": [
+          [
+            "/api/game/onboarding",
+            482
+          ],
+          [
+            "/api/game/state",
+            406
+          ],
+          [
+            "/api/game/social",
+            378
+          ]
+        ]
+      },
+      {
+        "route": "/cuenta",
+        "api": 11,
+        "all": 119,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 124,
+        "load": 151,
+        "slowestApi": [
+          [
+            "/api/game/player",
+            801
+          ],
+          [
+            "/api/game/social",
+            544
+          ],
+          [
+            "/api/game/competitive",
+            506
+          ]
+        ]
+      },
+      {
+        "route": "/como-jugar",
+        "api": 8,
+        "all": 81,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 49,
+        "load": 74,
+        "slowestApi": [
+          [
+            "/api/game/onboarding",
+            304
+          ],
+          [
+            "/api/game/social",
+            303
+          ],
+          [
+            "/api/game/live-events",
+            264
+          ]
+        ]
+      },
+      {
+        "route": "/esta-ruta-no-existe",
+        "api": 8,
+        "all": 80,
+        "s429": 0,
+        "s404": 0,
+        "s5xx": 0,
+        "domContentLoaded": 21,
+        "load": 45,
+        "slowestApi": [
+          [
+            "/api/game/play-status",
+            336
+          ],
+          [
+            "/api/game/social",
+            331
+          ],
+          [
+            "/api/game/onboarding",
+            307
+          ]
+        ]
+      }
+    ],
+    "totals": {
+      "s429": 0,
+      "s404": 0,
+      "s5xx": 0
+    }
+  },
+  "journeyTimings": {
+    "packOpenMs": [
+      2947,
+      2925,
+      4336,
+      2875,
+      2949,
+      4349
+    ],
+    "collectionLoadMs": 2132,
+    "slowNetTimings": {
+      "C-r1-slownet": {
+        "home": {
+          "ms": 891,
+          "ok": true,
+          "sawLoading": true
+        },
+        "coleccion": {
+          "ms": 395,
+          "ok": true,
+          "sawLoading": false
+        },
+        "progresion": {
+          "ms": 2024,
+          "ok": true,
+          "sawLoading": true
+        },
+        "jugar": {
+          "ms": 374,
+          "ok": true,
+          "sawLoading": true
+        },
+        "tienda": {
+          "ms": 499,
+          "ok": true,
+          "sawLoading": false
+        }
+      },
+      "G-r2-slownet": {
+        "home": {
+          "ms": 1000,
+          "ok": true,
+          "sawLoading": true
+        },
+        "coleccion": {
+          "ms": 359,
+          "ok": true,
+          "sawLoading": false
+        },
+        "progresion": {
+          "ms": 1963,
+          "ok": true,
+          "sawLoading": true
+        },
+        "jugar": {
+          "ms": 349,
+          "ok": true,
+          "sawLoading": true
+        },
+        "tienda": {
+          "ms": 495,
+          "ok": true,
+          "sawLoading": false
+        }
+      }
+    },
+    "rankedQueueMs": [
+      13104,
+      2892,
+      13235,
+      3006,
+      2952,
+      13096,
+      2901,
+      2941
+    ],
+    "pveMatchMs": [
+      30822,
+      30934,
+      35759,
+      32680,
+      33337,
+      33096,
+      30517,
+      35801
+    ],
+    "guideSeconds": {
+      "A-r1-new": 39,
+      "B-r1-new": 113,
+      "C-r1-new": 95,
+      "F-r2-new": 92,
+      "G-r2-new": 80,
+      "H-final-new": 86,
+      "I-final-new": 86,
+      "J-definitive-new": 87
+    }
+  },
+  "longSession": {
+    "samples": [
+      {
+        "i": 10,
+        "heapMB": 9.9,
+        "listeners": 494,
+        "nodes": 471,
+        "docs": 1
+      },
+      {
+        "i": 20,
+        "heapMB": 10.2,
+        "listeners": 494,
+        "nodes": 471,
+        "docs": 1
+      },
+      {
+        "i": 30,
+        "heapMB": 10.8,
+        "listeners": 494,
+        "nodes": 471,
+        "docs": 1
+      },
+      {
+        "i": 40,
+        "heapMB": 10.9,
+        "listeners": 494,
+        "nodes": 471,
+        "docs": 1
+      },
+      {
+        "i": "after-matches",
+        "heapMB": 13.9,
+        "listeners": 585,
+        "nodes": 1106,
+        "docs": 1
+      }
+    ],
+    "growth": {
+      "heapMB": 4,
+      "listeners": 91,
+      "nodes": 635
+    },
+    "toasts0": {
+      "n": 0,
+      "dup": 0,
+      "list": []
+    },
+    "toasts1": {
+      "n": 0,
+      "dup": 0,
+      "list": []
+    },
+    "audio": {
+      "audioEls": 0
+    },
+    "sessionAlive": 200
+  }
+}

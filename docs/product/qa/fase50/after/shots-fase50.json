@@ -1,0 +1,151 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase50",
+  "generated": "2026-09-22T09:10:11.085Z",
+  "rows": [
+    {
+      "file": "both-1920x1080.png",
+      "scene": "both",
+      "size": "1920x1080",
+      "errors": []
+    },
+    {
+      "file": "both-1440x900.png",
+      "scene": "both",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "both-1366x768.png",
+      "scene": "both",
+      "size": "1366x768",
+      "errors": []
+    },
+    {
+      "file": "both-1024x768.png",
+      "scene": "both",
+      "size": "1024x768",
+      "errors": []
+    },
+    {
+      "file": "both-768x1024.png",
+      "scene": "both",
+      "size": "768x1024",
+      "errors": []
+    },
+    {
+      "file": "both-390x844.png",
+      "scene": "both",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "selecting-1920x1080.png",
+      "scene": "selecting",
+      "size": "1920x1080",
+      "errors": []
+    },
+    {
+      "file": "selecting-1440x900.png",
+      "scene": "selecting",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "selecting-1366x768.png",
+      "scene": "selecting",
+      "size": "1366x768",
+      "errors": []
+    },
+    {
+      "file": "selecting-1024x768.png",
+      "scene": "selecting",
+      "size": "1024x768",
+      "errors": []
+    },
+    {
+      "file": "selecting-768x1024.png",
+      "scene": "selecting",
+      "size": "768x1024",
+      "errors": []
+    },
+    {
+      "file": "selecting-390x844.png",
+      "scene": "selecting",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "turn-win-1920x1080.png",
+      "scene": "turn-win",
+      "size": "1920x1080",
+      "errors": []
+    },
+    {
+      "file": "turn-win-1440x900.png",
+      "scene": "turn-win",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "turn-win-1366x768.png",
+      "scene": "turn-win",
+      "size": "1366x768",
+      "errors": []
+    },
+    {
+      "file": "turn-win-1024x768.png",
+      "scene": "turn-win",
+      "size": "1024x768",
+      "errors": []
+    },
+    {
+      "file": "turn-win-768x1024.png",
+      "scene": "turn-win",
+      "size": "768x1024",
+      "errors": []
+    },
+    {
+      "file": "turn-win-390x844.png",
+      "scene": "turn-win",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "turn-loss-1920x1080.png",
+      "scene": "turn-loss",
+      "size": "1920x1080",
+      "errors": []
+    },
+    {
+      "file": "turn-loss-1440x900.png",
+      "scene": "turn-loss",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "turn-loss-1366x768.png",
+      "scene": "turn-loss",
+      "size": "1366x768",
+      "errors": []
+    },
+    {
+      "file": "turn-loss-1024x768.png",
+      "scene": "turn-loss",
+      "size": "1024x768",
+      "errors": []
+    },
+    {
+      "file": "turn-loss-768x1024.png",
+      "scene": "turn-loss",
+      "size": "768x1024",
+      "errors": []
+    },
+    {
+      "file": "turn-loss-390x844.png",
+      "scene": "turn-loss",
+      "size": "390x844",
+      "errors": []
+    }
+  ]
+}

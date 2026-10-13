@@ -1,0 +1,447 @@
+[
+  {
+    "label": "/pickems @1440 carga con contenido",
+    "ok": true,
+    "detail": "330 chars"
+  },
+  {
+    "label": "/pickems @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": "3 de red (backend caído)"
+  },
+  {
+    "label": "/pickems @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/pickems @390 carga con contenido",
+    "ok": true,
+    "detail": "296 chars"
+  },
+  {
+    "label": "/pickems @390 sin excepciones de la app",
+    "ok": true,
+    "detail": "3 de red (backend caído)"
+  },
+  {
+    "label": "/pickems @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/pickems/historial @1440 carga con contenido",
+    "ok": true,
+    "detail": "471 chars"
+  },
+  {
+    "label": "/pickems/historial @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/pickems/historial @390 carga con contenido",
+    "ok": true,
+    "detail": "437 chars"
+  },
+  {
+    "label": "/pickems/historial @390 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/ranking @1440 carga con contenido",
+    "ok": true,
+    "detail": "266 chars"
+  },
+  {
+    "label": "/ranking @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": "3 de red (backend caído)"
+  },
+  {
+    "label": "/ranking @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/ranking @390 carga con contenido",
+    "ok": true,
+    "detail": "232 chars"
+  },
+  {
+    "label": "/ranking @390 sin excepciones de la app",
+    "ok": true,
+    "detail": "3 de red (backend caído)"
+  },
+  {
+    "label": "/ranking @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/torneos @1440 carga con contenido",
+    "ok": true,
+    "detail": "297 chars"
+  },
+  {
+    "label": "/torneos @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": "1 de red (backend caído)"
+  },
+  {
+    "label": "/torneos @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/torneos @390 carga con contenido",
+    "ok": true,
+    "detail": "263 chars"
+  },
+  {
+    "label": "/torneos @390 sin excepciones de la app",
+    "ok": true,
+    "detail": "1 de red (backend caído)"
+  },
+  {
+    "label": "/torneos @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/coleccion @1440 carga con contenido",
+    "ok": true,
+    "detail": "2230 chars"
+  },
+  {
+    "label": "/coleccion @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": "18 recursos 404"
+  },
+  {
+    "label": "/coleccion @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/coleccion @390 carga con contenido",
+    "ok": true,
+    "detail": "2196 chars"
+  },
+  {
+    "label": "/coleccion @390 sin excepciones de la app",
+    "ok": true,
+    "detail": "18 recursos 404"
+  },
+  {
+    "label": "/coleccion @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/inventario @1440 carga con contenido",
+    "ok": true,
+    "detail": "496 chars"
+  },
+  {
+    "label": "/inventario @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/inventario @390 carga con contenido",
+    "ok": true,
+    "detail": "462 chars"
+  },
+  {
+    "label": "/inventario @390 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/packs @1440 carga con contenido",
+    "ok": true,
+    "detail": "1056 chars"
+  },
+  {
+    "label": "/packs @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/packs @390 carga con contenido",
+    "ok": true,
+    "detail": "1022 chars"
+  },
+  {
+    "label": "/packs @390 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/duelos @1440 carga con contenido",
+    "ok": true,
+    "detail": "241 chars"
+  },
+  {
+    "label": "/duelos @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/duelos @390 carga con contenido",
+    "ok": true,
+    "detail": "207 chars"
+  },
+  {
+    "label": "/duelos @390 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/progresion @1440 carga con contenido",
+    "ok": true,
+    "detail": "980 chars"
+  },
+  {
+    "label": "/progresion @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/progresion @390 carga con contenido",
+    "ok": true,
+    "detail": "946 chars"
+  },
+  {
+    "label": "/progresion @390 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/tienda @1440 carga con contenido",
+    "ok": true,
+    "detail": "1505 chars"
+  },
+  {
+    "label": "/tienda @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/tienda @390 carga con contenido",
+    "ok": true,
+    "detail": "1471 chars"
+  },
+  {
+    "label": "/tienda @390 sin excepciones de la app",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/mercado @1440 carga con contenido",
+    "ok": true,
+    "detail": "4180 chars"
+  },
+  {
+    "label": "/mercado @1440 sin excepciones de la app",
+    "ok": true,
+    "detail": "52 recursos 404"
+  },
+  {
+    "label": "/mercado @1440 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/mercado @390 carga con contenido",
+    "ok": true,
+    "detail": "4119 chars"
+  },
+  {
+    "label": "/mercado @390 sin excepciones de la app",
+    "ok": true,
+    "detail": "58 recursos 404"
+  },
+  {
+    "label": "/mercado @390 sin desbordamiento horizontal",
+    "ok": true,
+    "detail": "0px"
+  },
+  {
+    "label": "/pickems sin backend degrada con Reintentar (no crashea)",
+    "ok": true,
+    "detail": "ión y llévate recompensas.  ⚠️  ALGO HA FALLADO  TypeError: Failed to fetch  REINTENTAR D  INSTALAR NEXUS  Juega como una app, también sin conexión.  INSTALAR ✕"
+  },
+  {
+    "label": "estática hub @1440 sin desbordamiento",
+    "ok": true,
+    "detail": "scroll 0px · 0 piezas fuera"
+  },
+  {
+    "label": "estática hub @1440 botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática hub @390 sin desbordamiento",
+    "ok": true,
+    "detail": "scroll 0px · 0 piezas fuera"
+  },
+  {
+    "label": "estática hub @390 botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática historial @1440 sin desbordamiento",
+    "ok": true,
+    "detail": "scroll 0px · 0 piezas fuera"
+  },
+  {
+    "label": "estática historial @1440 botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática historial @390 sin desbordamiento",
+    "ok": true,
+    "detail": "scroll 0px · 0 piezas fuera"
+  },
+  {
+    "label": "estática historial @390 botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática hub muestra «#12»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «6 / 9»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Quién será campeón»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Pendientes»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Tus elecciones»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «En juego»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Acertada»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Fallada»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Conseguida»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Te faltan»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Predicción guardada»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Bloqueada»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «Sin predicción»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática hub muestra «tú»",
+    "ok": true,
+    "detail": ""
+  }
+]

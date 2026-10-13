@@ -1,0 +1,178 @@
+{
+  "table": {
+    "entry": 2000,
+    "credits": [
+      0,
+      200,
+      500,
+      1000,
+      1600,
+      2100
+    ],
+    "jackpot": {
+      "packId": "masters",
+      "packName": "Sobre Masters",
+      "packCount": 1,
+      "packPrice": 5000,
+      "period": "ISO_WEEK"
+    }
+  },
+  "winratesRuns": 5000,
+  "trajectories": 20000,
+  "profiles": {
+    "CASUAL": {
+      "winsDistribution": [
+        0.336,
+        0.567,
+        0.0752,
+        0.0214,
+        0.0004,
+        0
+      ],
+      "meanWins": 0.783,
+      "completionRate": 0,
+      "evBase": -1827,
+      "evBasePct": -91.3,
+      "meanRewardBase": 173,
+      "evFirstRunOfWeek": -1827,
+      "runsToFirstCompletion": null,
+      "weeklyJackpotHuntNet": null,
+      "session10": {
+        "mean": -18273,
+        "p5": -19000,
+        "p50": -18300,
+        "p95": -17200,
+        "note": "10 runs seguidas, créditos + sobre semanal a precio de tienda"
+      },
+      "newAccount": {
+        "runsBeforeBroke_p50": 3,
+        "runsBeforeBroke_p5": 3,
+        "capped200": 0
+      }
+    },
+    "REGULAR": {
+      "winsDistribution": [
+        0.0248,
+        0.2606,
+        0.1774,
+        0.37,
+        0.112,
+        0.0552
+      ],
+      "meanWins": 2.449,
+      "completionRate": 0.0552,
+      "evBase": -1194,
+      "evBasePct": -59.7,
+      "meanRewardBase": 806,
+      "evFirstRunOfWeek": -918,
+      "runsToFirstCompletion": 18.12,
+      "weeklyJackpotHuntNet": -16632,
+      "session10": {
+        "mean": -9783,
+        "p5": -14700,
+        "p50": -10900,
+        "p95": -4000,
+        "note": "10 runs seguidas, créditos + sobre semanal a precio de tienda"
+      },
+      "newAccount": {
+        "runsBeforeBroke_p50": 4,
+        "runsBeforeBroke_p5": 3,
+        "capped200": 0
+      }
+    },
+    "SKILLED": {
+      "winsDistribution": [
+        0,
+        0.0174,
+        0.0116,
+        0.1682,
+        0.1352,
+        0.6676
+      ],
+      "meanWins": 4.424,
+      "completionRate": 0.6676,
+      "evBase": -204,
+      "evBasePct": -10.2,
+      "meanRewardBase": 1796,
+      "evFirstRunOfWeek": 3134,
+      "runsToFirstCompletion": 1.5,
+      "weeklyJackpotHuntNet": 4694,
+      "session10": {
+        "mean": 2965,
+        "p5": 300,
+        "p50": 3100,
+        "p95": 5500,
+        "note": "10 runs seguidas, créditos + sobre semanal a precio de tienda"
+      },
+      "newAccount": {
+        "runsBeforeBroke_p50": 20,
+        "runsBeforeBroke_p5": 8,
+        "capped200": 0
+      }
+    },
+    "ORACLE": {
+      "winsDistribution": [
+        0,
+        0.0054,
+        0.0052,
+        0.0924,
+        0.0762,
+        0.8208
+      ],
+      "meanWins": 4.702,
+      "completionRate": 0.8208,
+      "evBase": -58,
+      "evBasePct": -2.9,
+      "meanRewardBase": 1942,
+      "evFirstRunOfWeek": 4046,
+      "runsToFirstCompletion": 1.22,
+      "weeklyJackpotHuntNet": 4929,
+      "session10": {
+        "mean": 4395,
+        "p5": 2200,
+        "p50": 4400,
+        "p95": 6000,
+        "note": "10 runs seguidas, créditos + sobre semanal a precio de tienda"
+      },
+      "newAccount": {
+        "runsBeforeBroke_p50": 61,
+        "runsBeforeBroke_p5": 18,
+        "capped200": 0.03515
+      }
+    }
+  },
+  "reference": {
+    "pve5MatchesNormal": 689,
+    "pveDailyCap": 20,
+    "pveMaxDailyHard": 7000,
+    "f41RecurringCeilingPerDay": 11150,
+    "f41MeasuredMaxPerDay": 10330,
+    "jackpotPerDayEquivalent": 714
+  },
+  "alternatives": {
+    "A · 1.500 / escalado ×0,75": {
+      "CASUAL": -1370,
+      "REGULAR": -896,
+      "SKILLED": -153,
+      "ORACLE": -44
+    },
+    "B · 2.000 / 5W 3.000 (más tocho sin tope)": {
+      "CASUAL": -1827,
+      "REGULAR": -1144,
+      "SKILLED": 397,
+      "ORACLE": 680
+    },
+    "C · 2.000 / 5W = Sobre Champions cada vez": {
+      "CASUAL": -1827,
+      "REGULAR": -868,
+      "SKILLED": 3735,
+      "ORACLE": 4784
+    },
+    "D · ELEGIDA 2.000 / 2.100 + Masters semanal": {
+      "CASUAL": -1827,
+      "REGULAR": -1194,
+      "SKILLED": -204,
+      "ORACLE": -58
+    }
+  }
+}

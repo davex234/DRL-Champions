@@ -1,0 +1,18 @@
+{
+  "at": "2026-09-29T17:36:48.348Z",
+  "section": "retry",
+  "pass": 2,
+  "total": 2,
+  "results": [
+    {
+      "id": "reintento (misma acción ×3) + 3 entradas en paralelo: UN cargo",
+      "ok": true,
+      "detail": "status=200,200,200 paralelo=200,200,200 asientos=1 8625→6625"
+    },
+    {
+      "id": "el cliente no puede mandar recompensa ni entrada (400 FIELD_NOT_ALLOWED)",
+      "ok": true,
+      "detail": "400 FIELD_NOT_ALLOWED / 400"
+    }
+  ]
+}

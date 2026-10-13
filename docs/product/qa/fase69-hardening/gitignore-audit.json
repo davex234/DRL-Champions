@@ -1,0 +1,26 @@
+{
+  "at": "2026-09-28T11:38:40.272Z",
+  "shouldBeIgnoredButAreCandidates": [],
+  "ignoredCheck": [
+    {
+      "path": ".env.local",
+      "exists": true,
+      "ignored": true
+    },
+    {
+      "path": ".next/BUILD_ID",
+      "exists": true,
+      "ignored": true
+    },
+    {
+      "path": "deploy/drlcards-sync",
+      "exists": true,
+      "ignored": true
+    },
+    {
+      "path": "node_modules/.package-lock.json",
+      "exists": true,
+      "ignored": true
+    }
+  ]
+}

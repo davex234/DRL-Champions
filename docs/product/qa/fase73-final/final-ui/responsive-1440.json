@@ -1,0 +1,41 @@
+{
+  "at": "2026-09-30T20:24:19.253Z",
+  "width": 1440,
+  "reducedMotion": false,
+  "intercepted": false,
+  "account": "QA L (solo lectura)",
+  "pass": 6,
+  "fail": 0,
+  "results": [
+    {
+      "id": "misiones: contenido real cargado (no pantalla de carga), sin scroll horizontal",
+      "ok": true,
+      "detail": "ready=true noScroll=true"
+    },
+    {
+      "id": "crafting: contenido real cargado (no pantalla de carga), sin scroll horizontal",
+      "ok": true,
+      "detail": "ready=true noScroll=true"
+    },
+    {
+      "id": "sobres: contenido real cargado (no pantalla de carga), sin scroll horizontal",
+      "ok": true,
+      "detail": "ready=true noScroll=true"
+    },
+    {
+      "id": "cartas: contenido real cargado (no pantalla de carga), sin scroll horizontal",
+      "ok": true,
+      "detail": "ready=true noScroll=true"
+    },
+    {
+      "id": "proyectos: pestaña cargada (lista o vacío real, no carga)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "sin errores de consola",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

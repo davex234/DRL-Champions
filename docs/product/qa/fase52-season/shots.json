@@ -1,0 +1,127 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-22T16:37:51.894Z",
+  "note": "arnés /design-system/fase52 · QA SYNTHETIC sobre carriles y misiones reales",
+  "rows": [
+    {
+      "name": "01-season-1920",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "02-season-1440",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "03-season-1366",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "04-season-1024",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "05-season-768",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "06-season-390",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "07-hero",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "08-current-level",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "09-reward-track",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "09b-reward-track-390",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "09c-competitive-open",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "10-reward-card",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "11-reward-pack",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "12-reward-credits",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "12b-reward-claimable",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "13-missions",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "14-mission-progress",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "15-completed-state",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "16-next-objective",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "17-anonymous",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "18-new-player",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "19-ended",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "20-no-season",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "name": "21-missions-390",
+      "ok": true,
+      "errors": []
+    }
+  ]
+}

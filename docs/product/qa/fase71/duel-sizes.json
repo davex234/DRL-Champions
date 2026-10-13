@@ -1,0 +1,496 @@
+{
+  "at": "2026-09-28T20:40:16.906Z",
+  "ok": true,
+  "runs": [
+    {
+      "width": 1440,
+      "attack": {
+        "vw": 1440,
+        "vh": 900,
+        "panel": {
+          "x": 1175,
+          "y": 135,
+          "w": 245,
+          "h": 725,
+          "b": 860,
+          "r": 1420
+        },
+        "hand": {
+          "x": 282,
+          "y": 684,
+          "w": 876,
+          "h": 164,
+          "b": 848,
+          "r": 1158
+        },
+        "rivalPanel": {
+          "x": 20,
+          "y": 135,
+          "w": 245,
+          "h": 725,
+          "b": 860,
+          "r": 265
+        },
+        "rivalState": "hidden",
+        "history": {
+          "x": 292,
+          "y": 820,
+          "w": 96,
+          "h": 32,
+          "b": 852,
+          "r": 388
+        },
+        "rivalVals": [
+          "SH ?",
+          "GS ?",
+          "EF ?"
+        ],
+        "extCombat": 0,
+        "confirm": {
+          "x": 1192,
+          "y": 787,
+          "w": 211,
+          "h": 56,
+          "b": 843,
+          "r": 1403
+        },
+        "opts": [
+          {
+            "id": "stat-option-SH",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 1192,
+            "y": 186,
+            "w": 211,
+            "h": 190,
+            "b": 375,
+            "r": 1403
+          },
+          {
+            "id": "stat-option-GS",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 1192,
+            "y": 385,
+            "w": 211,
+            "h": 190,
+            "b": 575,
+            "r": 1403
+          },
+          {
+            "id": "stat-option-EF",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 1192,
+            "y": 585,
+            "w": 211,
+            "h": 190,
+            "b": 775,
+            "r": 1403
+          }
+        ],
+        "hints": 5,
+        "hScroll": false,
+        "keyboardSelect": {
+          "state": "selected",
+          "badge": true,
+          "focusVisible": true
+        }
+      },
+      "defend": {
+        "vw": 1440,
+        "vh": 900,
+        "panel": {
+          "x": 1175,
+          "y": 135,
+          "w": 245,
+          "h": 725,
+          "b": 860,
+          "r": 1420
+        },
+        "hand": {
+          "x": 282,
+          "y": 684,
+          "w": 876,
+          "h": 164,
+          "b": 848,
+          "r": 1158
+        },
+        "rivalPanel": {
+          "x": 20,
+          "y": 135,
+          "w": 245,
+          "h": 725,
+          "b": 860,
+          "r": 265
+        },
+        "rivalState": "revealed",
+        "history": {
+          "x": 292,
+          "y": 820,
+          "w": 96,
+          "h": 32,
+          "b": 852,
+          "r": 388
+        },
+        "rivalVals": [
+          "SH 24",
+          "GS 35",
+          "EF 67"
+        ],
+        "extCombat": 0,
+        "confirm": {
+          "x": 1192,
+          "y": 787,
+          "w": 211,
+          "h": 56,
+          "b": 843,
+          "r": 1403
+        },
+        "opts": [
+          {
+            "id": "stat-option-SH",
+            "tag": "DIV",
+            "state": "forced",
+            "x": 1192,
+            "y": 186,
+            "w": 211,
+            "h": 190,
+            "b": 375,
+            "r": 1403
+          }
+        ],
+        "hints": 6,
+        "hScroll": false
+      },
+      "errors": [],
+      "verdict": {
+        "attack": true,
+        "defend": true,
+        "noErrors": true
+      }
+    },
+    {
+      "width": 1024,
+      "attack": {
+        "vw": 1024,
+        "vh": 768,
+        "panel": {
+          "x": 828,
+          "y": 134,
+          "w": 176,
+          "h": 571,
+          "b": 705,
+          "r": 1004
+        },
+        "hand": {
+          "x": 208,
+          "y": 552,
+          "w": 607,
+          "h": 141,
+          "b": 694,
+          "r": 816
+        },
+        "rivalPanel": {
+          "x": 20,
+          "y": 134,
+          "w": 176,
+          "h": 571,
+          "b": 705,
+          "r": 196
+        },
+        "rivalState": "hidden",
+        "history": {
+          "x": 218,
+          "y": 665,
+          "w": 95,
+          "h": 32,
+          "b": 697,
+          "r": 313
+        },
+        "rivalVals": [
+          "SH ?",
+          "GS ?",
+          "EF ?"
+        ],
+        "extCombat": 0,
+        "confirm": {
+          "x": 816,
+          "y": 608,
+          "w": 200,
+          "h": 80,
+          "b": 688,
+          "r": 1016
+        },
+        "opts": [
+          {
+            "id": "stat-option-SH",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 845,
+            "y": 207,
+            "w": 142,
+            "h": 123,
+            "b": 330,
+            "r": 987
+          },
+          {
+            "id": "stat-option-GS",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 845,
+            "y": 340,
+            "w": 142,
+            "h": 123,
+            "b": 463,
+            "r": 987
+          },
+          {
+            "id": "stat-option-EF",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 845,
+            "y": 473,
+            "w": 142,
+            "h": 123,
+            "b": 596,
+            "r": 987
+          }
+        ],
+        "hints": 3,
+        "hScroll": false,
+        "keyboardSelect": {
+          "state": "selected",
+          "badge": true,
+          "focusVisible": true
+        }
+      },
+      "defend": {
+        "vw": 1024,
+        "vh": 768,
+        "panel": {
+          "x": 828,
+          "y": 134,
+          "w": 176,
+          "h": 580,
+          "b": 714,
+          "r": 1004
+        },
+        "hand": {
+          "x": 208,
+          "y": 562,
+          "w": 607,
+          "h": 141,
+          "b": 703,
+          "r": 816
+        },
+        "rivalPanel": {
+          "x": 20,
+          "y": 134,
+          "w": 176,
+          "h": 580,
+          "b": 714,
+          "r": 196
+        },
+        "rivalState": "revealed",
+        "history": {
+          "x": 218,
+          "y": 674,
+          "w": 96,
+          "h": 32,
+          "b": 706,
+          "r": 314
+        },
+        "rivalVals": [
+          "SH 39",
+          "GS 39",
+          "EF 86"
+        ],
+        "extCombat": 0,
+        "confirm": {
+          "x": 816,
+          "y": 641,
+          "w": 200,
+          "h": 56,
+          "b": 697,
+          "r": 1016
+        },
+        "opts": [
+          {
+            "id": "stat-option-SH",
+            "tag": "DIV",
+            "state": "forced",
+            "x": 845,
+            "y": 207,
+            "w": 142,
+            "h": 134,
+            "b": 341,
+            "r": 987
+          }
+        ],
+        "hints": 4,
+        "hScroll": false
+      },
+      "errors": [],
+      "verdict": {
+        "attack": true,
+        "defend": true,
+        "noErrors": true
+      }
+    },
+    {
+      "width": 390,
+      "attack": {
+        "vw": 390,
+        "vh": 844,
+        "panel": {
+          "x": 12,
+          "y": 636,
+          "w": 366,
+          "h": 156,
+          "b": 793,
+          "r": 378
+        },
+        "hand": {
+          "x": 12,
+          "y": 800,
+          "w": 366,
+          "h": 125,
+          "b": 925,
+          "r": 378
+        },
+        "rivalPanel": null,
+        "rivalState": "hidden",
+        "history": {
+          "x": 147,
+          "y": 1023,
+          "w": 96,
+          "h": 32,
+          "b": 1055,
+          "r": 243
+        },
+        "rivalVals": [
+          "SH ?",
+          "GS ?",
+          "EF ?"
+        ],
+        "extCombat": 0,
+        "confirm": {
+          "x": 24,
+          "y": 737,
+          "w": 342,
+          "h": 47,
+          "b": 784,
+          "r": 366
+        },
+        "opts": [
+          {
+            "id": "stat-option-SH",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 24,
+            "y": 673,
+            "w": 110,
+            "h": 56,
+            "b": 729,
+            "r": 134
+          },
+          {
+            "id": "stat-option-GS",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 140,
+            "y": 673,
+            "w": 110,
+            "h": 56,
+            "b": 729,
+            "r": 250
+          },
+          {
+            "id": "stat-option-EF",
+            "tag": "BUTTON",
+            "state": "idle",
+            "x": 256,
+            "y": 673,
+            "w": 110,
+            "h": 56,
+            "b": 729,
+            "r": 366
+          }
+        ],
+        "hints": 1,
+        "hScroll": false,
+        "keyboardSelect": {
+          "state": "selected",
+          "badge": true,
+          "focusVisible": true
+        }
+      },
+      "defend": {
+        "vw": 390,
+        "vh": 844,
+        "panel": {
+          "x": 12,
+          "y": 662,
+          "w": 366,
+          "h": 156,
+          "b": 818,
+          "r": 378
+        },
+        "hand": {
+          "x": 12,
+          "y": 826,
+          "w": 366,
+          "h": 125,
+          "b": 951,
+          "r": 378
+        },
+        "rivalPanel": null,
+        "rivalState": "revealed",
+        "history": {
+          "x": 147,
+          "y": 1048,
+          "w": 96,
+          "h": 32,
+          "b": 1080,
+          "r": 243
+        },
+        "rivalVals": [
+          "SH 56",
+          "GS 45",
+          "EF 66"
+        ],
+        "extCombat": 0,
+        "confirm": {
+          "x": 24,
+          "y": 763,
+          "w": 342,
+          "h": 47,
+          "b": 810,
+          "r": 366
+        },
+        "opts": [
+          {
+            "id": "stat-option-SH",
+            "tag": "DIV",
+            "state": "forced",
+            "x": 24,
+            "y": 699,
+            "w": 110,
+            "h": 56,
+            "b": 755,
+            "r": 134
+          }
+        ],
+        "hints": 2,
+        "hScroll": false
+      },
+      "errors": [],
+      "verdict": {
+        "attack": true,
+        "defend": true,
+        "noErrors": true
+      }
+    }
+  ]
+}
