@@ -1,7 +1,7 @@
 # Colecciones ilimitadas y escalabilidad — candidata `drl-0.1.1-1-4b1f4c01`
 
 Fecha: 2026-10-13. Rama local `feat/collection-pagination` (desde `77db065`, la release publicada `b48d76af`).
-**No desplegado. Sin push. Sin tocar producción ni su base.** Estado: **LISTO PARA DESPLEGAR (pendiente de autorización)**.
+**Desplegado en producción el 2026-10-13 a las 16:38 UTC, con la migración 0074 aplicada (§13).** Sin push.
 
 ## 1. Causa exacta
 
@@ -297,3 +297,66 @@ de jugadores.
 - `scripts/_collection-scale-qa.mjs` — sonda HTTP.
 - `scripts/_collection-scale-ui.ts` — pantallas en Chrome.
 - `scripts/ops/i18n-qa-stack/chain10.sh` — regresión de navegador sobre la candidata.
+
+## 13. Despliegue en producción (2026-10-13) — DESPLEGADO Y VERIFICADO
+
+Con autorización expresa del propietario para desplegar `drl-0.1.1-1-4b1f4c01` y aplicar la 0074. Registros de cada paso
+en `logs/collection-scale/deploy-4b1f4c01/`.
+
+| Paso | Hora (UTC) | Resultado |
+|---|---|---|
+| Puerta de entrada | 16:23 | `current` = `b48d76af`, `ready`, 0 errores; candidata íntegra (`4469…6dd9`); la 0074 del repositorio, la del tar y la ensayada en QA son el mismo fichero (`b9d285c4…0e05`); el rollback también (`ee35ac9b…f2b1`) |
+| Compatibilidad en QA | 16:24–16:28 | 6 de 6 (ver abajo) |
+| Backup | 16:29 | `BACKUP_OK` · `pre-0074-colecciones/20261013T162920Z` · `db.dump` 2.934.225 B, sha256 `9afad5fe0bfac44794d9aea1f48396d8bd978de45a8ee29d3a64499d9b734286` · 7/7 huellas |
+| Restauración | 16:30 | base desechable en QA: `pg_restore` 0 errores, 34/34 tablas, 2 cuentas, 83.671 créditos, 113 cartas, 2 equipos, receta 3:1 v2 |
+| Copia fuera del VPS | 16:30 | `C:\NEXUS-CENTRAL\DRLCards-backups\pre-0074-colecciones\20261013T162920Z`, 7/7 huellas |
+| Ensayo del guion sobre copia de datos reales | 16:33 | ensayo, aplicado, rechazo de un segundo intento y rollback, todo correcto |
+| 0074: ensayo en producción | 16:34:05 | `ENSAYO_OK` (ROLLBACK): índices válidos, función solo para `service_role`, resumen = referencia en las 2 cuentas, ninguna fila cambiada |
+| 0074: aplicar | 16:34:25 | `APPLY_OK`, 177 ms, una transacción. `DATOS_INTACTOS`; las 236 funciones anteriores y los 6 índices anteriores, intactos. PostgREST recargó su esquema (200 RPC) y `b48d76af` siguió `ready` con la migración puesta |
+| Código | 16:34:39 → 16:38:15 | tar a `incoming/` (sha256 comprobado), `bin/deploy.sh` → `ACTIVA drl-0.1.1-1-4b1f4c01`, `ready` |
+| Salud | 16:38 | `healthy`, 0 reinicios, 0 errores; un único fallo del túnel a las 16:38:12, durante el cambio de contenedor |
+| Humo y comprobaciones | 16:39–16:54 | ver abajo |
+
+Compatibilidad y rollback, comprobados en el stack de QA antes de tocar producción:
+
+| Comprobación | Resultado |
+|---|---|
+| La versión anterior funciona con la 0074 aplicada | lee estado, equipos, desguace, crafteo, forja, misiones y temporada, y compra y abre un sobre (+5 cartas, −2.500) |
+| El rollback del código no pierde cartas ni créditos | cambiar de build en los dos sentidos no altera ni una fila (huella de cartas, créditos, sobres, equipos y libro) |
+| Los endpoints nuevos no dejan operaciones a medias | `/api/game/cards` es solo lectura: recorrerlo no escribe nada; el desguace por tandas es una operación atómica e idempotente por tanda |
+| Los equipos existentes siguen siendo válidos | un equipo creado con la anterior usando 10 de 10 copias que no son el mejor ejemplar es válido y activable con la nueva, y a la inversa. En producción, los 2 equipos tienen sus 20 cartas en propiedad |
+| Los ejemplares numerados conservan su identidad | serie ↔ `uid` idénticos antes y después de quitar y poner la migración, y la API devuelve exactamente lo de la base |
+| Contratos de API y sesiones abiertas | el estado cambia de forma (un ejemplar por carta más recuentos). Un navegador con la versión anterior cargada lo mostraría así hasta su siguiente navegación; ninguna operación económica depende de ello. No había sesiones activas al aplicar la migración |
+
+Verificación en producción:
+
+| Comprobación | Resultado |
+|---|---|
+| Código publicado = tar verificado | 4.975 ficheros, 0 diferencias |
+| Endpoints nuevos | `/api/game/cards` responde 401 sin sesión y con token falso (local y público); no es accesible sin autenticar |
+| Humo de invitado, 8 idiomas | **132 PASS · 0 FAIL** |
+| Invitado ampliado, 8 idiomas | **168 PASS · 0 FAIL** |
+| `production:check -- --app --vps` | 25 PASS · 1 WARN · 6 FAIL: los cinco conocidos y uno nuevo y esperado, «migrations» (el repositorio tiene la 0074 y `MIGRATION_HEAD` sigue en 0073 a propósito) |
+| Economía ICON | las 22 definiciones económicas (precios, probabilidades, pools, recetas, valor de desguace, interruptores) son byte a byte las de `b48d76af`; receta 3:1 v2 y pool `pack-icon-single` ACTIVE con 331 entradas, sin cambios |
+| WALKOUT 0.9 | interruptor en «all»; `public/` idéntico; sus 23 ficheros se sirven con 200 |
+| 0074 en uso | 78 llamadas a `app_collection_summary`, 5,8 ms de media |
+
+**Actividad real tras el despliegue (no ejecutada por esta intervención).** A las 16:38:05 la cuenta `b7ccff02` inició sesión
+desde un navegador y, entre las 16:39 y las 16:47, abrió un sobre (6 cartas), reclamó una misión (+200), compró un sobre
+Team Heretics (−3.500), lo abrió (5 cartas), reclamó un logro (+4.000) y entró en la Forja. Todo cuadra: 74.960 + 200 −
+3.500 + 4.000 = 75.660 créditos; 35 + 6 + 5 = 46 cartas, las 11 en inventario; suma del libro = suma de saldos (84.371);
+0 `uid` repetidos; 0 errores en la app. La otra cuenta no cambia (8.711 créditos, 78 cartas). Hasta ese momento, la foto
+posterior al despliegue era idéntica a la previa.
+
+Otros servicios NEXUS: sin tocar. `nexus-crm` aparece recreado a las 16:41:52 con una imagen nueva (`nexus-crm:20261013-1`);
+no forma parte de esta intervención ni comparte red con Valorosters.
+
+No ejecutado por esta intervención: ninguna compra, apertura, crafteo, desguace ni transferencia, ni pantallas con sesión.
+
+Rollback, disponible y sin usar: `bin/deploy.sh --activate drl-0.1.1-1-b48d76af` (la anterior funciona con la 0074 puesta)
+y, si se quisiera, `0074_collection_scale.ROLLBACK.sql` (no cambia ninguna fila). El backup de las 16:29 es anterior a la
+actividad de las 16:39: **no debe restaurarse encima de ella**.
+
+Sin commits adicionales: quedan sin versionar esta sección, `scripts/ops/_collection-apply-0074.sh`,
+`scripts/ops/i18n-qa-stack/collection-compat.sh`, `collection-compat-teams.sh` y `scripts/_collection-compat-probe.mjs`.
+
