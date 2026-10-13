@@ -7,6 +7,9 @@
  * que el juego no tenga. Aislado aquí para poder testarlo y reutilizarlo.
  */
 import type { Player, VariantDef, RoleId, AccoladeId } from "@/domain/cards/types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("cards");
 
 export interface RoleKit {
   agents: string[];
@@ -105,5 +108,5 @@ const FLAVOR: { min: number; text: string }[] = [
 export function buildDescription(player: Player, variant: VariantDef, teamName: string, role: RoleId = player.role): string {
   const flavor = FLAVOR.find((f) => variant.rank >= f.min)?.text ?? "";
   // `role` = el de la CARTA (catálogo diseñado: el impreso manda); por defecto, el del jugador.
-  return `${player.nick} es un ${role} de ${player.region} que compite con ${teamName}. Edición ${variant.label}. ${flavor}`;
+  return t("{nick} es un {role} de {region} que compite con {teamName}. Edición {label}. {flavor}", { nick: player.nick, role: td(role), region: td(player.region), teamName, label: td(variant.label), flavor: td(flavor) });
 }

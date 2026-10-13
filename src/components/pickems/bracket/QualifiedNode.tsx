@@ -16,15 +16,20 @@
 import { TeamLogo } from "@/components/cards/layers/TeamLogo";
 import { cn } from "@/lib/format";
 import type { QualificationNode } from "@/domain/pickems/bracket";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export function QualifiedNode({ node, compact, className, highlight }: { node: QualificationNode; compact?: boolean; className?: string; highlight?: boolean }) {
+  useLocale();
   const known = !!node.team;
   const tone = known ? "255,211,92" : "255,255,255";
   return (
     <article
       data-match-id={node.id}
       data-qualified={known ? "team" : "tbd"}
-      aria-label={`${node.label}: ${node.team?.name ?? "Por definir"}`}
+      aria-label={`${node.label}: ${node.team?.name ?? t("Por definir")}`}
       className={cn("nx-clip-sm relative flex flex-col", compact ? "w-full" : "w-[220px] sm:w-[240px]", highlight && "nx-live-glow", className)}
       data-highlight={highlight ? "true" : undefined}
       style={{
@@ -33,7 +38,7 @@ export function QualifiedNode({ node, compact, className, highlight }: { node: Q
       }}
     >
       <header className="flex items-center justify-between gap-2 px-3 py-1.5">
-        <span className="nx-label" style={known ? { color: "var(--nx-gold)" } : undefined}>{node.label}</span>
+        <span className="nx-label" style={known ? { color: "var(--nx-gold)" } : undefined}>{td(node.label)}</span>
         {known && <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--nx-gold)", boxShadow: "0 0 8px var(--nx-gold)" }} />}
       </header>
       <div aria-hidden className="h-px" style={{ background: `linear-gradient(90deg, transparent, rgb(${tone} / 0.4), transparent)` }} />
@@ -46,7 +51,7 @@ export function QualifiedNode({ node, compact, className, highlight }: { node: Q
         ) : (
           <>
             <span aria-hidden className="grid h-[22px] w-[22px] shrink-0 place-items-center rounded-md bg-white/5 text-[10px] text-ink-faint">?</span>
-            <span className="italic text-[13px] text-ink-faint">Por definir</span>
+            <span className="italic text-[13px] text-ink-faint">{t("Por definir")}</span>
           </>
         )}
       </div>

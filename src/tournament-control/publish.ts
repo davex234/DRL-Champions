@@ -11,6 +11,9 @@ import type { ControlActionMeta, ControlActionResult, ControlLedger, GenerationR
 
 /** Reutiliza la puerta de escritura del engine sin duplicarla. */
 import { appendToLedger } from "./internal";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("tournamentcontrol");
 
 /** Publica SOLO las cartas aprobadas del registro (única vía de publicación del panel). */
 export async function publishRecord(
@@ -18,10 +21,10 @@ export async function publishRecord(
 ): Promise<ControlActionResult<PublishApprovedResult>> {
   const rec = l.records[recordId];
   if (!rec) return { ledger: l, error: `registro desconocido: ${recordId}` };
-  if (!rec.editorial) return { ledger: l, error: `la revisión de ${recordId} no está abierta: la publicación solo pasa por publishApproved` };
+  if (!rec.editorial) return { ledger: l, error: t("la revisión de {recordId} no está abierta: la publicación solo pasa por publishApproved", { recordId: td(recordId) }) };
 
   const r = await publishApproved(rec.editorial, ctx);
-  if (!r.ok || !r.publish) return { ledger: l, error: r.error ?? "publicación no aplicada" };
+  if (!r.ok || !r.publish) return { ledger: l, error: r.error ?? t("publicación no aplicada") };
 
   const next: GenerationRecord = {
     ...rec,

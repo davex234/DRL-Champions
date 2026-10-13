@@ -17,6 +17,10 @@ import { remainingLabel } from "@/domain/progression/periods";
 import {
   objectiveStatus, objectivePct, OBJECTIVE_STATUS_LABEL, type MetaObjective, type ObjectiveStatus,
 } from "@/domain/progression/meta";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("progression");
 
 const KIND_LABEL: Record<string, string> = {
   daily: "Diaria", weekly: "Semanal", seasonal: "De temporada", progressive: "Hito", event: "Evento",
@@ -27,13 +31,14 @@ const TONE: Record<ObjectiveStatus, "info" | "gold" | "ok"> = { EN_PROGRESO: "in
 
 export function rewardText(o: Pick<MetaObjective, "rewardCredits" | "packId" | "packCount" | "xp">): string {
   const parts: string[] = [];
-  if (o.rewardCredits > 0) parts.push(`${formatCredits(o.rewardCredits)} créditos`);
-  if (o.packId) parts.push(`${o.packCount}× ${packLabel(o.packId)}`);
-  if (o.xp > 0) parts.push(`${o.xp} XP de pase`);
-  return parts.join(" · ") || "Sin recompensa definida";
+  if (o.rewardCredits > 0) parts.push(t("{credits} créditos", { credits: formatCredits(o.rewardCredits) }));
+  if (o.packId) parts.push(`${o.packCount}× ${td(packLabel(o.packId))}`);
+  if (o.xp > 0) parts.push(t("{xp} XP de pase", { xp: o.xp }));
+  return parts.join(" · ") || t("Sin recompensa definida");
 }
 
 export function ObjectiveCard({ objective: o, now, compact = false }: { objective: MetaObjective; now: number; compact?: boolean }) {
+  useLocale();
   const status = objectiveStatus(o);
   const pct = objectivePct(o);
   const expires = o.expiresAt !== null && status === "EN_PROGRESO" ? remainingLabel(o.expiresAt, now) : null;
@@ -50,19 +55,19 @@ export function ObjectiveCard({ objective: o, now, compact = false }: { objectiv
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <span className="nx-label block !text-white/45">{KIND_LABEL[o.kind] ?? o.kind}{expires ? ` · caduca en ${expires}` : ""}</span>
-          <b className="block font-display text-[15px] font-bold text-white">{o.label}</b>
+          <span className="nx-label block !text-white/45">{td(KIND_LABEL[o.kind]) ?? td(o.kind)}{expires ? t(" · caduca en {expires}", { expires: td(expires) }) : ""}</span>
+          <b className="block font-display text-[15px] font-bold text-white">{td(o.label)}</b>
         </div>
-        <Badge tone={TONE[status]} dot={status !== "RECOMPENSA_CONSEGUIDA"}>{OBJECTIVE_STATUS_LABEL[status]}</Badge>
+        <Badge tone={TONE[status]} dot={status !== "RECOMPENSA_CONSEGUIDA"}>{td(OBJECTIVE_STATUS_LABEL[status])}</Badge>
       </div>
-      <Meter height={6} tone={TONE[status]} value={pct} label={`${o.label}: ${o.current} de ${o.goal}`} />
+      <Meter height={6} tone={TONE[status]} value={pct} label={t("{label}: {current} de {goal}", { label: td(o.label), current: o.current, goal: o.goal })} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="nx-readout text-[12px] text-white/60">{o.current} / {o.goal}</span>
         {!compact && <span className="text-[11.5px] text-white/45">{rewardText(o)}</span>}
       </div>
       {status === "PENDIENTE_DE_RECOGER" && (
         <Link href="/logros" className="nx-focus nx-clip-sm inline-flex min-h-[40px] items-center justify-center border border-drl-gold/50 px-3 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-gold transition hover:bg-drl-gold/10">
-          Recoger en Logros y pase →
+          {t("Recoger en Logros y pase →")}
         </Link>
       )}
     </article>
@@ -70,9 +75,10 @@ export function ObjectiveCard({ objective: o, now, compact = false }: { objectiv
 }
 
 export function ObjectiveList({ objectives, now, max, compact }: { objectives: MetaObjective[]; now: number; max?: number; compact?: boolean }) {
+  useLocale();
   const list = typeof max === "number" ? objectives.slice(0, max) : objectives;
   if (list.length === 0) {
-    return <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-5 text-center text-caption text-ink-muted">No hay objetivos activos ahora mismo.</p>;
+    return <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-5 text-center text-caption text-ink-muted">{t("No hay objetivos activos ahora mismo.")}</p>;
   }
   return (
     <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3" data-objectives={list.length}>

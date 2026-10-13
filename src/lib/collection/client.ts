@@ -14,6 +14,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getSupabase } from "@/lib/supabase/client";
 import type { CollectionPersonalView } from "@/server/services/collection";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("collection");
 
 export type { CollectionPersonalView };
 
@@ -101,8 +104,8 @@ export function useCollectionPersonal({ enabled, userKey }: { enabled: boolean; 
   }, [load]);
 
   const toggleFavorite = useCallback(async (cardId: string) => {
-    if (!data || data.favorites === null) return { ok: false, message: "Los favoritos no están disponibles todavía" };
-    if (!online) return { ok: false, message: "Sin conexión: los favoritos se guardan en el servidor" };
+    if (!data || data.favorites === null) return { ok: false, message: t("Los favoritos no están disponibles todavía") };
+    if (!online) return { ok: false, message: t("Sin conexión: los favoritos se guardan en el servidor") };
     if (pending.current.has(cardId)) return { ok: false };
     const was = data.favorites.includes(cardId);
     pending.current.add(cardId);
@@ -112,7 +115,7 @@ export function useCollectionPersonal({ enabled, userKey }: { enabled: boolean; 
       return { ok: true };
     } catch (e) {
       setData((d) => d && d.favorites ? { ...d, favorites: was ? [cardId, ...d.favorites.filter((x) => x !== cardId)] : d.favorites.filter((x) => x !== cardId) } : d);
-      return { ok: false, message: e instanceof CollectionError ? e.message : "No se pudo guardar" };
+      return { ok: false, message: e instanceof CollectionError ? e.message : t("No se pudo guardar") };
     } finally {
       pending.current.delete(cardId);
     }

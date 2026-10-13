@@ -13,6 +13,8 @@ import { SerialBadge } from "./layers/SerialBadge";
 import { VariantSeal } from "./layers/VariantSeal";
 import { CardEffects } from "./CardEffects";
 import { variantIdentity } from "@/design/variantIdentity";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export type CardSize = "sm" | "md" | "lg" | "xl";
 
@@ -113,6 +115,7 @@ export function CardRenderer({
   effects?: boolean;
   className?: string;
 }) {
+  useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const palette = variant.palette;
   const rich = effects ?? (size === "lg" || size === "xl");
@@ -274,7 +277,7 @@ export function CardRenderer({
           />
           <span className={cn("font-display font-bold leading-none", OVR_SIZE[size])} style={{ textShadow: "0 1px 5px rgba(0,0,0,0.45)" }}>{ovr}</span>
           <span className="font-display text-[10px] font-semibold uppercase tracking-wider opacity-85">
-            {ROLE_ABBR[player.role] ?? player.role}
+            {td(ROLE_ABBR[player.role]) ?? td(player.role)}
           </span>
           <Flag iso={player.country} width={size === "sm" ? 18 : 24} />
           {showLogo && <TeamLogo team={player.team} size={size === "lg" || size === "xl" ? 30 : 24} />}
@@ -303,7 +306,7 @@ export function CardRenderer({
                   boxShadow: `inset 0 0 0 1px ${palette.primary}aa, 0 1px 6px rgba(0,0,0,0.5)`,
                 }}
               >
-                <VariantSeal shape={identidad.seal} size={sealSize} label={identidad.sealLabel} />
+                <VariantSeal shape={identidad.seal} size={sealSize} label={td(identidad.sealLabel)} />
                 {/*
                   El código, SOLO en la familia TOP. Es lo que evita cinco diseños distintos
                   para lo que conceptualmente es una sola cosa: el galón dice «esto es una
@@ -369,7 +372,7 @@ export function CardRenderer({
             className="mt-0.5 truncate text-center font-display text-[10px] font-bold uppercase tracking-[0.16em]"
             style={{ color: palette.secondary }}
           >
-            {variant.label}
+            {td(variant.label)}
           </p>
 
           {showCardStats && (compactStats ? (
@@ -395,7 +398,7 @@ export function CardRenderer({
             <div className="mt-2 grid grid-cols-3 gap-x-2 gap-y-1">
               {STAT_ORDER.map((key) => (
                 <div key={key} className="flex items-center justify-between text-[11px] text-white">
-                  <span className="font-semibold opacity-75">{STAT_META[key].label}</span>
+                  <span className="font-semibold opacity-75">{td(STAT_META[key].label)}</span>
                   <span className="font-display font-bold tabular-nums">{stats[key]}</span>
                 </div>
               ))}

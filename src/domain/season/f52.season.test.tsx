@@ -262,7 +262,7 @@ test("F52 U2 · sin reclamos ni escrituras desde /temporada; sin pase de pago; s
 test("F52 U3 · accesibilidad y movimiento: progressbar, carril con teclado y región etiquetada; animaciones sólo motion-safe/transitions", () => {
   const r = code("src/components/season/SeasonRewards.tsx");
   assert.match(r, /onKeyDown=\{\(e\) => onKey\(e, i, lane\)\}/);
-  assert.match(r, /role="region" aria-label="Niveles del pase, desplazable"/);
+  assert.match(r, /role="region" aria-label=\{(?:t|tr|i18nT)\("Niveles del pase, desplazable"\)\}/);
   assert.ok(!/scrollIntoView/.test(r), "sin scrollIntoView (desplazaba la página)");
   assert.match(code("src/components/season/SeasonMissions.tsx"), /role="progressbar"/);
   for (const f of UI) assert.ok(!/animate-(spin|bounce|ping)|repeat: Infinity/.test(code(f)), f);

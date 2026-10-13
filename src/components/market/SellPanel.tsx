@@ -30,6 +30,11 @@ import { Readout } from "@/components/ui/Readout";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import { formatCredits, cn } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("market");
 
 /** Precio mínimo que acepta el motor de mercado. No es una decisión de esta pantalla. */
 export const MIN_PRICE = 25;
@@ -51,6 +56,7 @@ export function SellPanel({
   busy: boolean;
   onPublish: (uid: string, price: number) => void;
 }) {
+  useLocale();
   const vendibles = useMemo(() => cards.filter((c) => !c.locked), [cards]);
   const [uid, setUid] = useState<string | null>(vendibles[0]?.uid ?? null);
   const elegida = vendibles.find((c) => c.uid === uid) ?? null;
@@ -75,9 +81,9 @@ export function SellPanel({
   if (cards.length === 0) {
     return (
       <Plate className="p-6 text-center">
-        <SectionTitle as="p">No tienes cartas que vender</SectionTitle>
+        <SectionTitle as="p">{t("No tienes cartas que vender")}</SectionTitle>
         <p className="mx-auto max-w-[46ch] text-body text-ink-muted">
-          Cuando abras sobres y consigas repetidas, podrás publicarlas aquí.
+          {t("Cuando abras sobres y consigas repetidas, podrás publicarlas aquí.")}
         </p>
       </Plate>
     );
@@ -90,7 +96,7 @@ export function SellPanel({
 
   return (
     <Plate className="p-4 sm:p-5">
-      <SectionTitle as="h3">Publicar una carta</SectionTitle>
+      <SectionTitle as="h3">{t("Publicar una carta")}</SectionTitle>
 
       {/*
         Las dos columnas se quedan JUNTAS y a la izquierda. Con `1fr` para la primera, el
@@ -100,7 +106,7 @@ export function SellPanel({
       <div className="grid gap-5 lg:[grid-template-columns:minmax(320px,620px)_210px] lg:items-start lg:justify-start">
         <div className="min-w-0">
           {/* ── Qué vendes ── */}
-          <p className="mb-2 font-display text-label uppercase tracking-wide2 text-ink-faint">Tu carta</p>
+          <p className="mb-2 font-display text-label uppercase tracking-wide2 text-ink-faint">{t("Tu carta")}</p>
           <div className="nx-scroll flex gap-2 overflow-x-auto pb-2">
             {cards.map((c) => {
               const activa = c.uid === uid;
@@ -130,7 +136,7 @@ export function SellPanel({
                   </span>
                   {c.locked && (
                     <span className="absolute inset-x-1 bottom-1">
-                      <Badge tone="warn">Bloqueada</Badge>
+                      <Badge tone="warn">{t("Bloqueada")}</Badge>
                     </span>
                   )}
                 </button>
@@ -143,7 +149,7 @@ export function SellPanel({
             <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-3">
               <label className="block">
                 <span className="mb-1 block font-display text-label uppercase tracking-wide2 text-ink-faint">
-                  Precio de venta
+                  {t("Precio de venta")}
                 </span>
                 <Recessed>
                   <input
@@ -152,7 +158,7 @@ export function SellPanel({
                     step={25}
                     value={Number.isFinite(price) ? price : ""}
                     onChange={(e) => setPrice(Math.round(Number(e.target.value)))}
-                    aria-label="Precio de venta en créditos"
+                    aria-label={t("Precio de venta en créditos")}
                     className="nx-focus min-h-[44px] w-[140px] bg-transparent px-3 text-body text-white focus:outline-none"
                   />
                 </Recessed>
@@ -160,14 +166,14 @@ export function SellPanel({
 
               <Readout
                 size="sm"
-                label="Referencia"
+                label={t("Referencia")}
                 value={formatCredits(elegida.reference)}
                 tone="var(--nx-ink-secondary)"
               />
 
               {Math.abs(delta) >= 10 && (
                 <Badge tone={delta > 0 ? "warn" : "ok"}>
-                  {delta > 0 ? `+${delta}% sobre la referencia` : `${delta}% bajo la referencia`}
+                  {delta > 0 ? t("+{delta}% sobre la referencia", { delta }) : t("{delta}% bajo la referencia", { delta })}
                 </Badge>
               )}
             </div>
@@ -176,18 +182,18 @@ export function SellPanel({
           {/* La queja es SOBRE UN PRECIO: sin carta elegida no hay precio del que quejarse. */}
           {elegida && !valido && (
             <p className="mt-2 text-caption text-warn">
-              El precio mínimo es <span className="nx-readout">{MIN_PRICE}</span> créditos.
+              {fill(t("El precio mínimo es {n} créditos.", slots("n")), { n: <span className="nx-readout">{MIN_PRICE}</span> })}
             </p>
           )}
         </div>
 
         {/* ── Qué va a pasar ── */}
         <Recessed className="p-3.5">
-          <p className="font-display text-label uppercase tracking-wide2 text-ink-faint">Al publicar</p>
+          <p className="font-display text-label uppercase tracking-wide2 text-ink-faint">{t("Al publicar")}</p>
           <ul className="mt-2 space-y-1.5 text-caption leading-snug text-ink-muted">
-            <li>La carta sale de tu colección y queda retenida.</li>
-            <li>Puedes retirarla cuando quieras desde «Mis anuncios».</li>
-            <li>Cuando se venda, recibes el precio en créditos.</li>
+            <li>{t("La carta sale de tu colección y queda retenida.")}</li>
+            <li>{t("Puedes retirarla cuando quieras desde «Mis anuncios».")}</li>
+            <li>{t("Cuando se venda, recibes el precio en créditos.")}</li>
           </ul>
           <NxButton
             variant="primary"
@@ -197,7 +203,7 @@ export function SellPanel({
             disabled={!valido || busy}
             onClick={() => elegida && onPublish(elegida.uid, price)}
           >
-            {busy ? "Publicando…" : "Publicar"}
+            {busy ? t("Publicando…") : t("Publicar")}
           </NxButton>
         </Recessed>
       </div>

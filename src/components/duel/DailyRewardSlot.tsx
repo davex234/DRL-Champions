@@ -10,15 +10,18 @@
  */
 import type { MatchRewardReceipt } from "@/lib/duel/types";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("duel");
 
 export function dailyRewardText(daily: NonNullable<MatchRewardReceipt["daily"]>): { line: string; detail: string | null } {
   if (daily.slot === null) {
     return {
-      line: `Tope diario alcanzado: ${daily.cap} partidas con recompensa`,
-      detail: "Puedes seguir jugando. Las recompensas de partida vuelven cada día a las 00:00 UTC.",
+      line: tr("Tope diario alcanzado: {cap} partidas con recompensa", { cap: daily.cap }),
+      detail: tr("Puedes seguir jugando. Las recompensas de partida vuelven cada día a las 00:00 UTC."),
     };
   }
-  return { line: `Partida con recompensa ${daily.slot} de ${daily.cap} hoy`, detail: null };
+  return { line: tr("Partida con recompensa {slot} de {cap} hoy", { slot: daily.slot, cap: daily.cap }), detail: null };
 }
 
 export function DailyRewardSlot({ receipt, className }: { receipt: MatchRewardReceipt | null | undefined; className?: string }) {
@@ -31,8 +34,8 @@ export function DailyRewardSlot({ receipt, className }: { receipt: MatchRewardRe
       data-capped={daily.slot === null ? "true" : "false"}
       className={cn("mx-auto max-w-xl text-center text-[13px]", daily.slot === null ? "text-white/80" : "text-white/55", className)}
     >
-      <span className="block">{t.line}</span>
-      {t.detail && <span className="mt-1 block text-[12px] text-white/55">{t.detail}</span>}
+      <span className="block">{td(t.line)}</span>
+      {t.detail && <span className="mt-1 block text-[12px] text-white/55">{td(t.detail)}</span>}
     </p>
   );
 }

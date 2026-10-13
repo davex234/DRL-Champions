@@ -40,6 +40,11 @@ import { ProgressDock } from "./ProgressDock";
 import { SeasonDock } from "@/components/seasonTrack/SeasonDock";
 import { OnboardingContinue, OnboardingWelcome, StarterMoment } from "@/components/onboarding/OnboardingHome";
 import type { OnboardingView } from "@/domain/onboarding";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("home");
 
 /** Las tres. El orden es la jerarquía: JUGAR manda. */
 const ACCIONES = [
@@ -121,6 +126,7 @@ export function MainMenu({
   credits: number | null;
   signedIn: boolean;
 }) {
+  useLocale();
   const router = useRouter();
   const [accent, setAccent] = useState<HallAccent>(null);
   const [videoReady, setVideoReady] = useState(LOBBY_VIDEO_READY);
@@ -161,7 +167,7 @@ export function MainMenu({
   }, [router]);
 
   const hudCreditos = useMemo(
-    () => (credits == null ? null : credits.toLocaleString("es-ES")),
+    () => (credits == null ? null : credits.toLocaleString(getIntlLocale())),
     [credits],
   );
 
@@ -198,7 +204,7 @@ export function MainMenu({
             }}
           />
           <span className="font-display text-[clamp(17px,2.3vh,27px)] font-extrabold uppercase leading-none tracking-[0.36em] text-white">
-            Nexus
+            {t("Nexus")}
           </span>
         </Link>
 
@@ -210,8 +216,8 @@ export function MainMenu({
                 {level}
               </span>
               <span className="hidden leading-tight sm:block">
-                <b className="block font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white">{username ?? "Jugador"}</b>
-                <span className="nx-label !text-[9px] text-white/45">Nivel {level}</span>
+                <b className="block font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white">{username ?? t("Jugador")}</b>
+                <span className="nx-label !text-[9px] text-white/45">{t("Nivel")} {level}</span>
               </span>
             </div>
           )}
@@ -220,11 +226,11 @@ export function MainMenu({
             <span
               data-testid="home-offline"
               className="nx-quick !py-1.5 !text-drl-gold"
-              title="No se ha podido leer tu progreso: lo que ves puede estar desactualizado."
+              title={t("No se ha podido leer tu progreso: lo que ves puede estar desactualizado.")}
             >
               <span className="h-2 w-2 shrink-0 rounded-full bg-drl-gold" />
               <span className="nx-label !text-[9px] text-drl-gold">
-                {network === "offline" ? "Sin conexión" : "Sin datos"}
+                {network === "offline" ? t("Sin conexión") : t("Sin datos")}
               </span>
             </span>
           )}
@@ -232,7 +238,7 @@ export function MainMenu({
           {hudCreditos && (
             <span className="nx-quick !py-1.5" data-testid="hud-credits">
               <span className="h-4 w-4 shrink-0 rounded-sm" style={{ background: "linear-gradient(140deg, #ffd66b, #b8821f)" }} />
-              <b className="nx-readout text-[13px] text-drl-gold">{hudCreditos}</b>
+              <b className="nx-readout text-[13px] text-drl-gold">{td(hudCreditos)}</b>
             </span>
           )}
 
@@ -244,7 +250,7 @@ export function MainMenu({
             data-testid="more-toggle"
             aria-haspopup="dialog"
             aria-expanded={more}
-            aria-label="Más opciones"
+            aria-label={t("Más opciones")}
             onClick={() => { playSound("ui.confirm"); setMore(true); }}
             className="nx-quick !px-2.5 !py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70"
           >
@@ -267,7 +273,7 @@ export function MainMenu({
       {obMode !== "welcome" && obMode !== "starter" && (
       <div className="relative z-10 flex flex-1 items-center">
         <nav
-          aria-label="Menú principal"
+          aria-label={t("Menú principal")}
           data-testid="main-actions"
           className="flex w-[min(92vw,640px)] flex-col gap-[clamp(12px,2vh,24px)] pl-[clamp(16px,2.6vw,48px)] pr-4"
         >
@@ -294,10 +300,10 @@ export function MainMenu({
                 </span>
                 <span className="min-w-0 flex-1">
                   <b className="block font-display text-[clamp(28px,5.6vh,58px)] font-extrabold uppercase leading-none tracking-[0.04em] text-white">
-                    {a.titulo}
+                    {td(a.titulo)}
                   </b>
                   <span className="mt-1.5 block font-display text-[clamp(10px,1.5vh,15px)] font-bold uppercase tracking-[0.3em] text-white/60">
-                    {a.sub}
+                    {td(a.sub)}
                   </span>
                 </span>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round"
@@ -315,17 +321,17 @@ export function MainMenu({
             <div data-testid="home-guest" className="mt-[clamp(6px,1.6vh,20px)] flex flex-wrap items-center gap-3">
               <Link href="/cuenta?registro=1" data-testid="home-signup"
                 className="nx-clip-sm nx-press inline-flex min-h-[48px] items-center bg-drl px-6 font-display text-[14px] font-extrabold uppercase tracking-[0.16em] text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70">
-                Crear cuenta
+                {t("Crear cuenta")}
               </Link>
               <Link href="/cuenta" data-testid="home-login"
                 className="inline-flex min-h-[44px] items-center px-2 font-display text-[13px] font-bold uppercase tracking-[0.14em] text-white/75 underline-offset-4 hover:text-white hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70">
-                Ya tengo cuenta · Entrar
+                {t("Ya tengo cuenta · Entrar")}
               </Link>
-              <p className="w-full text-[13px] text-white/55">Con tu cuenta recibes tus sobres de bienvenida y todo se guarda en el servidor.</p>
+              <p className="w-full text-[13px] text-white/55">{t("Con tu cuenta recibes tus sobres de bienvenida y todo se guarda en el servidor.")}</p>
             </div>
           ) : (
             <p className="mt-[clamp(10px,2.4vh,30px)] font-display text-[clamp(10px,1.4vh,14px)] font-bold uppercase leading-[1.8] tracking-[0.34em] text-white/35">
-              Las cartas<br />hacen leyendas
+              {fill(t("Las cartas{salto}hacen leyendas", slots("salto")), { salto: <br /> })}
               <span className="mt-3 block h-px w-14 bg-white/25" />
             </p>
           )}
@@ -345,16 +351,16 @@ export function MainMenu({
           >
             <span className="shrink-0"><CardThumb card={hero} width={30} /></span>
             <span className="leading-tight">
-              <span className="nx-label block !text-[9px] text-white/45">Carta destacada</span>
-              <b className="block font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white">{hero.id.split("__")[0]}</b>
-              {heroOwnedLabel && <span className="nx-label block !text-[8px] text-white/35">{heroOwnedLabel}</span>}
+              <span className="nx-label block !text-[9px] text-white/45">{t("Carta destacada")}</span>
+              <b className="block font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white">{td(hero.id.split("__")[0])}</b>
+              {heroOwnedLabel && <span className="nx-label block !text-[8px] text-white/35">{td(heroOwnedLabel)}</span>}
             </span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" className="h-3.5 w-3.5 text-white/50"><path d="M9 5l7 7-7 7" /></svg>
           </Link>
         ) : <span />}
 
         <p className="hidden font-display text-[10px] font-bold uppercase tracking-[0.42em] text-white/25 lg:block">
-          Play · Collect · Compete · Belong
+          {t("Play · Collect · Compete · Belong")}
         </p>
 
         {campaña && !campaña.complete && capitulo ? (
@@ -367,8 +373,8 @@ export function MainMenu({
               <path d="M7 4h10v5a5 5 0 01-10 0z" /><path d="M7 6H4v2a3 3 0 003 3m10-5h3v2a3 3 0 01-3 3" /><path d="M10 15h4v4h-4z" /><path d="M8 21h8" />
             </svg>
             <span className="leading-tight">
-              <b className="block font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white">Road to Champions</b>
-              <span className="nx-label block !text-[9px] text-white/45">{capitulo} · {campaña.completed}/{campaña.total}</span>
+              <b className="block font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white">{t("Road to Champions")}</b>
+              <span className="nx-label block !text-[9px] text-white/45">{td(capitulo)} · {campaña.completed}/{campaña.total}</span>
             </span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" className="h-3.5 w-3.5 text-white/50"><path d="M9 5l7 7-7 7" /></svg>
           </Link>

@@ -8,6 +8,9 @@ import { getVariant } from "@/domain/cards/variants";
 import { getPlayer } from "@/data/catalog";
 import { getTeam } from "@/data/teams";
 import type { VariantId } from "@/domain/cards/types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("engine");
 
 interface Accolades {
   series: string | null;
@@ -66,15 +69,15 @@ export function generateCards(tournament: Tournament, teams: RawTeam[], result: 
     const issues: string[] = [];
     let confidence = baseConfidence;
     if (!getTeam(tname)) {
-      issues.push(`Logo de equipo no encontrado: ${tname}`);
+      issues.push(tr("Logo de equipo no encontrado: {tname}", { tname: td(tname) }));
       confidence -= 0.06;
     }
     if (!player.country || player.country.length !== 2) {
-      issues.push(`País no resuelto: ${stat.country ?? "—"}`);
+      issues.push(tr("País no resuelto: {v}", { v: td(stat.country) ?? "—" }));
       confidence -= 0.04;
     }
     if (!getPlayer(player.id) && !player.image) {
-      issues.push(`Foto no encontrada (se usará silueta): ${player.nick}`);
+      issues.push(tr("Foto no encontrada (se usará silueta): {nick}", { nick: player.nick }));
       // foto ausente no bloquea (hay fallback): penalización leve
       confidence -= 0.02;
     }

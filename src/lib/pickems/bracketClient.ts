@@ -17,6 +17,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getSupabase } from "@/lib/supabase/client";
 import { invalidatedBy, realStateOf, type PredictionContext } from "@/domain/pickems/prediction";
 import type { BracketView, BracketCard, SaveResult } from "@/server/services/pickemBrackets";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("pickems");
 
 export type { BracketView, BracketCard };
 
@@ -128,12 +131,12 @@ export function useBracket(slug: string, userId: string | null) {
   const pick = useCallback((matchId: string, teamId: string | null) => {
     if (!view || !ctx || !userId) return;
     if (typeof navigator !== "undefined" && navigator.onLine === false) {
-      setNotice({ matchId, status: "error", message: "Sin conexión: no se ha guardado" });
+      setNotice({ matchId, status: "error", message: tr("Sin conexión: no se ha guardado") });
       return;
     }
     // Vista optimista inmediata con la MISMA invalidación que hará el servidor.
     setOptimistic((prev) => invalidatedBy(ctx, prev ?? latest.current?.picks ?? {}, matchId, teamId, (id) => !lockedSet.has(id)).next);
-    setNotice({ matchId, status: "saving", message: "Guardando…" });
+    setNotice({ matchId, status: "saving", message: tr("Guardando…") });
     const who = owner.current;
     pendingCount.current++;
     queue.current = queue.current.then(async () => {
@@ -144,14 +147,14 @@ export function useBracket(slug: string, userId: string | null) {
         if (owner.current !== who) return;
         latest.current = { picks: res.picks, revision: res.revision };
         setConfirmed(latest.current);
-        setNotice({ matchId, status: "saved", message: res.cleared.length ? `Guardado · ${res.cleared.length} predicción(es) posterior(es) quitada(s) por incompatibles` : "Guardado" });
+        setNotice({ matchId, status: "saved", message: res.cleared.length ? tr("Guardado · {length} predicción(es) posterior(es) quitada(s) por incompatibles", { length: res.cleared.length }) : tr("Guardado") });
       } catch (e) {
         if (owner.current !== who) return;
         const err = e instanceof PickemError ? e : new PickemError("No se pudo guardar", 0);
         if (err.code === "STALE" && err.state) {
           latest.current = { picks: err.state.picks, revision: err.state.revision };
           setConfirmed(latest.current);
-          setNotice({ matchId, status: "error", message: "Tus predicciones cambiaron en otra pestaña: se muestra lo guardado. Vuelve a elegir si quieres." });
+          setNotice({ matchId, status: "error", message: tr("Tus predicciones cambiaron en otra pestaña: se muestra lo guardado. Vuelve a elegir si quieres.") });
         } else {
           setNotice({ matchId, status: "error", message: err.message });
           if (err.code === "LOCKED" || err.code === "NOT_OPEN") void load();

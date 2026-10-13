@@ -22,6 +22,10 @@ import { PlayerAvatar, ProfileButton, TeamMark, fmtMonth } from "./bits";
 import { AccountTag } from "./AccountTag";
 // IA 2026-10-07 · «Cuenta y ajustes» abre la pestaña CUENTA de Mi cuenta (antes, `/cuenta` a secas era esa pantalla).
 import { ROUTES } from "@/design/nav";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("player");
 
 export interface ProfileOwnerActions {
   onEdit: () => void;
@@ -29,9 +33,10 @@ export interface ProfileOwnerActions {
   signingOut?: boolean;
 }
 
-const fmtRating = (n: number): string => n.toLocaleString("es-ES");
+const fmtRating = (n: number): string => n.toLocaleString(getIntlLocale());
 
 export function ProfileIdentityCard({ snap, owner, social }: { snap: PlayerIdentitySnapshot; owner?: ProfileOwnerActions | null; social?: React.ReactNode }) {
+  useLocale();
   const { player } = snap;
   const comp = snap.competitive;
   const team = snap.favoriteTeam;
@@ -46,7 +51,7 @@ export function ProfileIdentityCard({ snap, owner, social }: { snap: PlayerIdent
     <div className="mx-auto w-full max-w-xl" data-scene="player-identity" data-view={snap.view} data-player={player.userId}>
       <Stage grid className="relative overflow-hidden px-5 py-8 text-center sm:px-10 sm:py-12" data-testid="profile-card" data-view={snap.view}>
         <span aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: `radial-gradient(520px 300px at 50% 0%, ${accent}33, transparent 70%)` }} />
-        <p className="nx-label">{snap.view === "SELF" ? "Tu perfil" : "Perfil de jugador"}</p>
+        <p className="nx-label">{snap.view === "SELF" ? t("Tu perfil") : t("Perfil de jugador")}</p>
 
         <div className="mt-5 flex justify-center">
           <PlayerAvatar avatar={player.avatar} username={player.username} frame={player.frame} />
@@ -61,9 +66,9 @@ export function ProfileIdentityCard({ snap, owner, social }: { snap: PlayerIdent
           <div className="mt-6 flex flex-col items-center gap-2" data-testid="profile-rank" data-rank-state={comp!.state} data-tier={ranked?.rank?.tierId}>
             <CompetitiveEmblem rank={comp!.rank} state={comp!.state} placement={comp!.placement} size="sm" position={null} animate={false} />
             <p className="font-display text-[20px] font-bold uppercase tracking-[0.08em]" style={{ color: ranked?.rank?.color ?? "var(--nx-gold)" }} data-field="rank-label">
-              {ranked ? ranked.rank!.label : `Colocación ${placing!.placement.played}/${placing!.placement.total}`}
+              {ranked ? td(ranked.rank!.label) : t("Colocación {played}/{total}", { played: placing!.placement.played, total: placing!.placement.total })}
             </p>
-            {rating !== null && <p className="nx-readout text-[15px] text-white/70" aria-label={`Rating ${rating}`} data-field="rating">{fmtRating(rating)}</p>}
+            {rating !== null && <p className="nx-readout text-[15px] text-white/70" aria-label={t("Rating {rating}", { rating })} data-field="rating">{fmtRating(rating)}</p>}
           </div>
         )}
 
@@ -74,14 +79,14 @@ export function ProfileIdentityCard({ snap, owner, social }: { snap: PlayerIdent
         )}
 
         {snap.memberSince !== null && (
-          <p className="mt-5 text-[13px] text-white/55" data-testid="member-since">Miembro desde {fmtMonth(snap.memberSince)}</p>
+          <p className="mt-5 text-[13px] text-white/55" data-testid="member-since">{t("Miembro desde {fecha}", { fecha: fmtMonth(snap.memberSince) })}</p>
         )}
 
         {isOwner && owner && (
           <div className="mx-auto mt-8 flex max-w-xs flex-col gap-2.5" data-testid="profile-owner-actions">
-            <ProfileButton tone="primary" onClick={owner.onEdit} data-action="edit" className="w-full">Editar perfil</ProfileButton>
-            <Link href={ROUTES.accountSettings} data-action="account" className="nx-focus nx-clip-sm inline-flex min-h-[44px] w-full items-center justify-center border border-white/15 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/80 transition hover:bg-white/[0.08] hover:text-white">Cuenta y ajustes</Link>
-            <Link href="/coleccion/trofeos" data-action="trophy-room" className="nx-focus nx-clip-sm inline-flex min-h-[44px] w-full items-center justify-center border border-drl-gold/35 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-gold/90 transition hover:bg-drl-gold/10">Sala de Trofeos</Link>
+            <ProfileButton tone="primary" onClick={owner.onEdit} data-action="edit" className="w-full">{t("Editar perfil")}</ProfileButton>
+            <Link href={ROUTES.accountSettings} data-action="account" className="nx-focus nx-clip-sm inline-flex min-h-[44px] w-full items-center justify-center border border-white/15 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/80 transition hover:bg-white/[0.08] hover:text-white">{t("Cuenta y ajustes")}</Link>
+            <Link href="/coleccion/trofeos" data-action="trophy-room" className="nx-focus nx-clip-sm inline-flex min-h-[44px] w-full items-center justify-center border border-drl-gold/35 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-gold/90 transition hover:bg-drl-gold/10">{t("Sala de Trofeos")}</Link>
             <button
               type="button"
               onClick={owner.onSignOut}
@@ -89,7 +94,7 @@ export function ProfileIdentityCard({ snap, owner, social }: { snap: PlayerIdent
               data-action="sign-out"
               className="nx-focus nx-clip-sm mt-3 inline-flex min-h-[44px] w-full items-center justify-center border border-drl/45 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl transition hover:bg-drl/10 disabled:cursor-wait disabled:opacity-60"
             >
-              {owner.signingOut ? "Cerrando sesión…" : "Cerrar sesión"}
+              {owner.signingOut ? t("Cerrando sesión…") : t("Cerrar sesión")}
             </button>
           </div>
         )}

@@ -15,6 +15,10 @@ import type { EditionPreset, WalkoutInput } from "@/domain/walkout/input";
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import { CardVisual } from "@/components/cards/CardVisual";
 import { Card3D } from "@/components/visual/Card3D";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("walkout");
 
 export type WalkoutLayout = { tall: boolean; w: number; h: number };
 type Pt = { x: number; y: number };
@@ -93,6 +97,7 @@ export function PackPiece({ frame, art, preset }: { frame: WalkoutFrame; art: st
 }
 
 export function FlagPiece({ frame, input, layout, reduced, failed, walk = false }: { frame: WalkoutFrame; input: WalkoutInput; layout: WalkoutLayout; reduced: boolean; failed: boolean; walk?: boolean }) {
+  useLocale();
   const e = frame.p.flag ?? 0;
   const glow = reduced ? 0 : impactGlow(e);
   const w = layout.tall ? 190 : 250;
@@ -103,9 +108,9 @@ export function FlagPiece({ frame, input, layout, reduced, failed, walk = false 
         <div className="absolute -inset-10 rounded-full" style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.55), transparent)", opacity: glow }} />
         {showFlag
           // eslint-disable-next-line @next/next/no-img-element
-          ? <img src={input.flag!.src} alt={`Bandera: ${input.flag!.name}`} className="relative block w-full rounded-[6px]" style={{ aspectRatio: "4/3", objectFit: "cover", boxShadow: "0 18px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.18)" }} draggable={false} />
-          : <div className="relative flex aspect-[4/3] w-full items-center justify-center rounded-[6px] border border-white/25 bg-white/5 font-display text-4xl font-black uppercase tracking-[0.12em] text-white" aria-label={`Región: ${input.region ?? "sin región"}`}>{input.region ?? "—"}</div>}
-        <p className="mt-3 text-center font-display font-bold uppercase tracking-[0.3em] text-white/80" style={{ fontSize: DOCK_LABEL }}>{showFlag ? input.flag!.name : "Región"}</p>
+          ? <img src={input.flag!.src} alt={t("Bandera: {name}", { name: input.flag!.name })} className="relative block w-full rounded-[6px]" style={{ aspectRatio: "4/3", objectFit: "cover", boxShadow: "0 18px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.18)" }} draggable={false} />
+          : <div className="relative flex aspect-[4/3] w-full items-center justify-center rounded-[6px] border border-white/25 bg-white/5 font-display text-4xl font-black uppercase tracking-[0.12em] text-white" aria-label={t("Región: {v}", { v: td(input.region) ?? t("sin región") })}>{td(input.region) ?? "—"}</div>}
+        <p className="mt-3 text-center font-display font-bold uppercase tracking-[0.3em] text-white/80" style={{ fontSize: DOCK_LABEL }}>{showFlag ? input.flag!.name : t("Región")}</p>
       </div>
     </Piece>
   );
@@ -117,14 +122,15 @@ export function RolePiece({ frame, input, layout, reduced, accent, walk = false 
   return (
     <Piece testId="walkout-role" enter={e} dock={frame.p.team ?? frame.p.edition ?? 0} from={ENTRY(layout, walk, "role")} to={SLOTS(layout).role} big={roleBig(layout, walk)} small={layout.tall ? 0.34 : 0.4} gesture="rise" reduced={reduced}>
       <div className="text-center">
-        <p className="font-display font-black uppercase leading-none text-white" style={{ fontSize: layout.tall ? 54 : 96, letterSpacing: `${tracking}em`, textShadow: `0 0 30px ${accent}88` }}>{input.role}</p>
-        <p className="mt-3 inline-block rounded-sm border px-3 py-1 font-display font-bold tracking-[0.3em] text-white" style={{ borderColor: accent, fontSize: DOCK_LABEL }}>{input.roleAbbr}</p>
+        <p className="font-display font-black uppercase leading-none text-white" style={{ fontSize: layout.tall ? 54 : 96, letterSpacing: `${tracking}em`, textShadow: `0 0 30px ${accent}88` }}>{td(input.role)}</p>
+        <p className="mt-3 inline-block rounded-sm border px-3 py-1 font-display font-bold tracking-[0.3em] text-white" style={{ borderColor: accent, fontSize: DOCK_LABEL }}>{td(input.roleAbbr)}</p>
       </div>
     </Piece>
   );
 }
 
 export function TeamPiece({ frame, input, layout, reduced, failed, walk = false, retreat = 0 }: { frame: WalkoutFrame; input: WalkoutInput; layout: WalkoutLayout; reduced: boolean; failed: boolean; walk?: boolean; /** 0..1: con la persona en escena, el escudo se retira al carril tras el impacto. */ retreat?: number }) {
+  useLocale();
   const e = frame.p.team ?? 0;
   const glow = reduced ? 0 : impactGlow(e);
   const size = layout.tall ? 200 : 270;
@@ -135,8 +141,8 @@ export function TeamPiece({ frame, input, layout, reduced, failed, walk = false,
         <div className="absolute -inset-16 rounded-full" style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.7), transparent)", opacity: glow }} />
         {logo
           // eslint-disable-next-line @next/next/no-img-element
-          ? <img src={logo} alt={`Equipo: ${input.team.name}`} className="relative block w-full object-contain" style={{ height: size, filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.7))" }} draggable={false} />
-          : <div className="relative flex w-full items-center justify-center rounded-full border-2 border-white/40 bg-white/5 font-display font-black uppercase text-white" style={{ height: size, fontSize: size / Math.max(4, input.team.tag.length + 1.5) }} aria-label={`Equipo: ${input.team.name}`}>{input.team.tag}</div>}
+          ? <img src={logo} alt={t("Equipo: {name}", { name: input.team.name })} className="relative block w-full object-contain" style={{ height: size, filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.7))" }} draggable={false} />
+          : <div className="relative flex w-full items-center justify-center rounded-full border-2 border-white/40 bg-white/5 font-display font-black uppercase text-white" style={{ height: size, fontSize: size / Math.max(4, input.team.tag.length + 1.5) }} aria-label={t("Equipo: {name}", { name: input.team.name })}>{input.team.tag}</div>}
         {(logo || input.team.name !== input.team.tag) && <p className="relative mt-2 whitespace-nowrap text-center font-display font-bold uppercase tracking-[0.25em] text-white/85" style={{ fontSize: DOCK_LABEL }}>{input.team.name}</p>}
       </div>
     </Piece>
@@ -151,13 +157,14 @@ const TREATMENT: Record<EditionPreset["accentTreatment"], (p: EditionPreset) => 
 };
 
 export function EditionPiece({ frame, input, layout, reduced, preset }: { frame: WalkoutFrame; input: WalkoutInput; layout: WalkoutLayout; reduced: boolean; preset: EditionPreset }) {
+  useLocale();
   const e = frame.p.edition ?? 0;
   const sweep = reduced ? 1 : easeInOutCubic(e);
   return (
     <Piece testId="walkout-edition" enter={e} from={SLOTS(layout).edition} to={SLOTS(layout).edition} big={1} small={1} gesture="fade" reduced={reduced} z={25}>
       <div className="relative text-center">
         <div className="mx-auto h-px" style={{ width: `${sweep * (layout.tall ? 260 : 520)}px`, background: `linear-gradient(90deg, transparent, ${preset.accent}, transparent)` }} />
-        <p className="my-1.5 whitespace-nowrap bg-clip-text font-display font-black uppercase text-transparent" style={{ backgroundImage: TREATMENT[preset.accentTreatment](preset), fontSize: layout.tall ? 22 : 34, letterSpacing: "0.32em", filter: "drop-shadow(0 1px 5px rgba(0,0,0,0.85))" }}>{input.edition.label}</p>
+        <p className="my-1.5 whitespace-nowrap bg-clip-text font-display font-black uppercase text-transparent" style={{ backgroundImage: TREATMENT[preset.accentTreatment](preset), fontSize: layout.tall ? 22 : 34, letterSpacing: "0.32em", filter: "drop-shadow(0 1px 5px rgba(0,0,0,0.85))" }}>{td(input.edition.label)}</p>
         <div className="mx-auto h-px" style={{ width: `${sweep * (layout.tall ? 260 : 520)}px`, background: `linear-gradient(90deg, transparent, ${preset.accent}, transparent)` }} />
       </div>
     </Piece>
@@ -166,6 +173,7 @@ export function EditionPiece({ frame, input, layout, reduced, preset }: { frame:
 
 /** La MEDIA: primero el primer dígito (pausa), después el número entero de golpe. Mucho peso visual. */
 export function RatingPiece({ frame, input, layout, reduced, preset, walk = false }: { frame: WalkoutFrame; input: WalkoutInput; layout: WalkoutLayout; reduced: boolean; preset: EditionPreset; walk?: boolean }) {
+  useLocale();
   const first = frame.p.ovrFirst ?? 0, full = frame.p.ovrFull ?? 0;
   const s = String(input.ovr);
   const shown = full > 0 ? s : s.slice(0, 1);
@@ -176,8 +184,8 @@ export function RatingPiece({ frame, input, layout, reduced, preset, walk = fals
   return (
     <Piece testId="walkout-ovr" enter={first} dock={dock} from={walk ? BESIDE(layout) : CENTER(layout)} to={SLOTS(layout).ovr} big={walk && layout.tall ? 0.8 : 1} small={0.42} gesture="rise" reduced={reduced} z={26}>
       <div className="text-center" style={{ opacity: 1 - fadeOut }}>
-        <p className="font-display font-black leading-[0.85] text-white tabular-nums" style={{ fontSize: layout.tall ? 190 : 300, transform: `scale(${punch})`, textShadow: `0 0 60px ${preset.light}, 0 0 140px ${preset.light}88` }} aria-label={`Media ${input.ovr}`}>{shown}</p>
-        <p className="mt-1 font-display font-bold uppercase tracking-[0.5em] text-white/70" style={{ fontSize: DOCK_LABEL }}>Media</p>
+        <p className="font-display font-black leading-[0.85] text-white tabular-nums" style={{ fontSize: layout.tall ? 190 : 300, transform: `scale(${punch})`, textShadow: `0 0 60px ${preset.light}, 0 0 140px ${preset.light}88` }} aria-label={t("Media {ovr}", { ovr: input.ovr })}>{td(shown)}</p>
+        <p className="mt-1 font-display font-bold uppercase tracking-[0.5em] text-white/70" style={{ fontSize: DOCK_LABEL }}>{t("Media")}</p>
       </div>
     </Piece>
   );
@@ -195,9 +203,10 @@ export function NamePiece({ frame, input, layout, reduced }: { frame: WalkoutFra
 
 /** La carta CANÓNICA (Card3D → CardVisual → PlayerCard → CardArt): sale de la luz donde estaba la persona. */
 export const CardPiece = memo(function CardPiece({ enter, input, layout, reduced, preset }: { enter: number; input: WalkoutInput; layout: WalkoutLayout; reduced: boolean; preset: EditionPreset }) {
+  useLocale();
   const card = useMemo(() => (
     <Card3D mode="static" glow={preset.light} className="w-[300px]">
-      <CardVisual alt={`Carta de ${input.playerName}`} chamfer="18px" className="w-[300px]">
+      <CardVisual alt={t("Carta de {playerName}", { playerName: input.playerName })} chamfer="18px" className="w-[300px]">
         <PlayerCard card={input.card} size="lg" interactive={false} />
       </CardVisual>
     </Card3D>
@@ -217,14 +226,15 @@ export const CardPiece = memo(function CardPiece({ enter, input, layout, reduced
 
 /** Resumen accesible del estado final (lectores de pantalla y QA): nombre, media, equipo, rol, edición y país. */
 export function WalkoutSummary({ input }: { input: WalkoutInput }) {
+  useLocale();
   return (
     <section className="sr-only" aria-live="polite" data-testid="walkout-summary">
       <h2>{input.playerName}</h2>
-      <p>Media {input.ovr}</p>
-      <p>Equipo {input.team.name}</p>
-      <p>Rol {input.role}</p>
-      <p>Edición {input.edition.label}</p>
-      {input.flag && <p>País {input.flag.name}</p>}
+      <p>{t("Media")} {input.ovr}</p>
+      <p>{t("Equipo")} {input.team.name}</p>
+      <p>{t("Rol")} {td(input.role)}</p>
+      <p>{t("Edición")} {td(input.edition.label)}</p>
+      {input.flag && <p>{t("País")} {input.flag.name}</p>}
     </section>
   );
 }

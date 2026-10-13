@@ -6,6 +6,9 @@
  * viaja en el cuerpo: sale del token en la ruta.
  */
 import { DUEL_DECK_SIZE } from "@/domain/cardgame";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("deckBuilder");
 
 export const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 /** La versión es el `updated_at` exacto que devolvió el servidor (marca de tiempo ISO con zona). */
@@ -48,47 +51,47 @@ function parseVersion(v: unknown): string | null | undefined {
 }
 
 export function parseDeckRequest(body: unknown): ParsedRequest {
-  if (!body || typeof body !== "object" || Array.isArray(body)) return bad("Cuerpo no válido");
+  if (!body || typeof body !== "object" || Array.isArray(body)) return bad(t("Cuerpo no válido"));
   const b = body as Record<string, unknown>;
   const action = b.action;
-  if (typeof action !== "string" || !Object.prototype.hasOwnProperty.call(DECK_SCHEMA, action)) return bad("Acción inválida");
+  if (typeof action !== "string" || !Object.prototype.hasOwnProperty.call(DECK_SCHEMA, action)) return bad(t("Acción inválida"));
   const schema = DECK_SCHEMA[action as DeckAction];
   const extra = Object.keys(b).find((k) => !schema.allowed.includes(k));
-  if (extra) return bad("Campo no permitido");
+  if (extra) return bad(t("Campo no permitido"));
   const missing = schema.required.find((k) => b[k] === undefined);
-  if (missing) return bad(`Falta el campo: ${missing}`);
+  if (missing) return bad(t("Falta el campo: {missing}", { missing: td(missing) }));
 
   let id: string | undefined;
   if (b.id !== undefined) {
-    if (typeof b.id !== "string" || !UUID_RE.test(b.id)) return bad("Equipo no válido");
+    if (typeof b.id !== "string" || !UUID_RE.test(b.id)) return bad(t("Equipo no válido"));
     id = b.id.toLowerCase();
   }
   let name: string | undefined;
   if (b.name !== undefined) {
-    if (typeof b.name !== "string" || b.name.length > 200) return bad("Nombre de equipo no válido");
+    if (typeof b.name !== "string" || b.name.length > 200) return bad(t("Nombre de equipo no válido"));
     name = b.name;
   }
   let cards: string[] | undefined;
   if (b.cardUids !== undefined) {
     const parsed = parseUids(b.cardUids);
-    if (!parsed) return bad("Cartas no válidas");
+    if (!parsed) return bad(t("Cartas no válidas"));
     cards = parsed;
   }
   // En el cable se llama `baseVersion` (la versión sobre la que se editó); dentro, `expectedVersion`.
   const expected = parseVersion(b.baseVersion);
-  if (expected === undefined) return bad("Versión no válida");
-  if (b.confirmActive !== undefined && typeof b.confirmActive !== "boolean") return bad("Confirmación no válida");
+  if (expected === undefined) return bad(t("Versión no válida"));
+  if (b.confirmActive !== undefined && typeof b.confirmActive !== "boolean") return bad(t("Confirmación no válida"));
 
   switch (action as DeckAction) {
     case "save":
       return { ok: true, req: { action: "save", id, name: name!, cardUids: cards! } };
     case "save_composition":
-      if (!expected) return bad("Versión no válida");
+      if (!expected) return bad(t("Versión no válida"));
       return { ok: true, req: { action: "save_composition", id: id!, name: name!, cardUids: cards!, expectedVersion: expected } };
     case "create":
       return { ok: true, req: { action: "create", name: name ?? null, cardUids: cards ?? [] } };
     case "rename":
-      if (!expected) return bad("Versión no válida");
+      if (!expected) return bad(t("Versión no válida"));
       return { ok: true, req: { action: "rename", id: id!, name: name!, expectedVersion: expected } };
     case "duplicate":
       return { ok: true, req: { action: "duplicate", id: id! } };

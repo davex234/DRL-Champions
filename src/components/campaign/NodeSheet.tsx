@@ -14,6 +14,11 @@ import type { CampaignNodeView, CampaignSnapshot } from "@/domain/campaign/snaps
 import { OUTCOME_LABEL, STATUS_LABEL, nodeCode, nodeCta, type DeckLite } from "@/lib/campaign/presentation";
 import { CHAPTER_THEME, NodeGlyph } from "./CampaignMap";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("campaign");
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -31,6 +36,7 @@ export function NodeSheet({
   busy?: boolean;
   error?: string | null;
 }) {
+  useLocale();
   const panel = useRef<HTMLDivElement>(null);
   const chapter = snapshot.chapters.find((c) => c.id === node.chapterId);
   const theme = CHAPTER_THEME[chapter?.theme ?? ""] ?? CHAPTER_THEME.clasificatorio;
@@ -72,13 +78,13 @@ export function NodeSheet({
         <span aria-hidden className="mx-auto mb-3 block h-1 w-10 rounded-full bg-white/20 md:hidden" />
         <div className="flex items-start justify-between gap-3">
           <p className="nx-label" style={{ color: `rgb(${theme.rgb})` }}>
-            Capítulo {node.chapterOrder} · Nodo {nodeCode(node)} · {node.typeLabel}
+            {t("Capítulo")} {node.chapterOrder} {t("· Nodo")} {nodeCode(node)} · {td(node.typeLabel)}
           </p>
           <button
             type="button"
             data-autofocus
             onClick={onClose}
-            aria-label="Cerrar detalle del nodo"
+            aria-label={t("Cerrar detalle del nodo")}
             className="nx-focus -mr-2 -mt-2 grid h-11 w-11 shrink-0 place-items-center rounded-control text-white/70 hover:bg-white/[0.08] hover:text-white"
           >
             ✕
@@ -90,48 +96,48 @@ export function NodeSheet({
           <div className="min-w-0">
             <h2 id="node-sheet-title" className="font-display text-[26px] font-bold uppercase leading-none text-white">{node.name}</h2>
             <p className="mt-1.5 font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white/70" data-testid="node-status">
-              Estado: {STATUS_LABEL[node.status]}{node.isNext ? " · Siguiente" : ""}
+              {t("Estado:")} {td(STATUS_LABEL[node.status])}{node.isNext ? (" " + t("· Siguiente")) : ""}
             </p>
           </div>
         </div>
 
         <dl className="mt-5 grid gap-3 text-body">
-          <Row label="Rival">
+          <Row label={t("Rival")}>
             {o.playable ? (
               <>
-                <b className="text-white">{o.name}</b> <span className="text-white/50">({o.tag} · {o.region})</span>
+                <b className="text-white">{td(o.name)}</b> <span className="text-white/50">({o.tag} · {td(o.region)})</span>
                 <span className="mt-0.5 block text-caption text-ink-muted">
-                  {o.coreCount} jugadores del roster actual + {o.reinforcements} refuerzos reales de {o.region}. {o.cardTierLabel}. Fuerza Σ {o.sumOvr}.
+                  {t("{n} jugadores del roster actual + {m} refuerzos reales de {region}. {clase}. Fuerza Σ {ovr}.", { n: o.coreCount, m: o.reinforcements, region: td(o.region), clase: td(o.cardTierLabel), ovr: o.sumOvr })}
                 </span>
               </>
             ) : (
-              <span className="text-drl-gold">No disponible con el catálogo actual.</span>
+              <span className="text-drl-gold">{t("No disponible con el catálogo actual.")}</span>
             )}
           </Row>
-          <Row label="Dificultad">
-            <b className="text-white">{node.tierLabel}</b> <span className="text-white/60">· bot {node.botLabel}</span>
-            <span className="mt-0.5 block text-caption text-ink-muted">El bot nunca ve tus cartas sin jugar. Mismas reglas que cualquier duelo.</span>
+          <Row label={t("Dificultad")}>
+            <b className="text-white">{td(node.tierLabel)}</b> <span className="text-white/60">{t("· bot")} {td(node.botLabel)}</span>
+            <span className="mt-0.5 block text-caption text-ink-muted">{t("El bot nunca ve tus cartas sin jugar. Mismas reglas que cualquier duelo.")}</span>
           </Row>
-          <Row label="Objetivo">{node.objective}</Row>
-          <Row label="Tu equipo">
-            {!signedIn ? <span className="text-ink-muted">Inicia sesión para usar tu equipo.</span>
+          <Row label={t("Objetivo")}>{td(node.objective)}</Row>
+          <Row label={t("Tu equipo")}>
+            {!signedIn ? <span className="text-ink-muted">{t("Inicia sesión para usar tu equipo.")}</span>
               : deck ? (
                 <>
                   <b className="text-white">{deck.name}</b> <span className="text-white/60">· Σ {deck.sumOvr}</span>{" "}
-                  <span className={deck.valid ? "text-[#6fe0a0]" : "text-drl-gold"}>{deck.valid ? "· Listo" : "· No válido"}</span>
+                  <span className={deck.valid ? "text-[#6fe0a0]" : "text-drl-gold"}>{deck.valid ? t("· Listo") : t("· No válido")}</span>
                 </>
-              ) : decksKnown ? <span className="text-drl-gold">Sin equipo válido todavía.</span> : <span className="text-ink-muted">Leyendo tus equipos…</span>}
+              ) : decksKnown ? <span className="text-drl-gold">{t("Sin equipo válido todavía.")}</span> : <span className="text-ink-muted">{t("Leyendo tus equipos…")}</span>}
           </Row>
-          <Row label="Primera victoria">
+          <Row label={t("Primera victoria")}>
             {node.firstClearDone
-              ? <span className="text-[#6fe0a0]">Conseguida · +{node.firstClearCredits} créditos ya cobrados</span>
-              : <span><b className="text-drl-gold">+{node.firstClearCredits} créditos</b> <span className="text-ink-muted">una sola vez</span></span>}
-            <span className="mt-0.5 block text-caption text-ink-muted">Cada partida paga además como un duelo normal (con el tope diario de siempre).</span>
+              ? <span className="text-[#6fe0a0]">{t("Conseguida · +{n} créditos ya cobrados", { n: node.firstClearCredits })}</span>
+              : <span><b className="text-drl-gold">{t("+{n} créditos", { n: node.firstClearCredits })}</b> <span className="text-ink-muted">{t("una sola vez")}</span></span>}
+            <span className="mt-0.5 block text-caption text-ink-muted">{t("Cada partida paga además como un duelo normal (con el tope diario de siempre).")}</span>
           </Row>
-          <Row label="Tu historial">
-            {node.attempts === 0 ? <span className="text-ink-muted">Sin intentos todavía.</span> : (
+          <Row label={t("Tu historial")}>
+            {node.attempts === 0 ? <span className="text-ink-muted">{t("Sin intentos todavía.")}</span> : (
               <span>
-                Mejor resultado: <b className="text-white">{node.bestResult ? OUTCOME_LABEL[node.bestResult] : "—"}</b> · {node.attempts} {node.attempts === 1 ? "intento" : "intentos"} · {node.wins} {node.wins === 1 ? "victoria" : "victorias"}
+                {fill(t("Mejor resultado: {resultado} · {n} {n, plural, one {intento} other {intentos}} · {v} {v, plural, one {victoria} other {victorias}}", { ...slots("resultado"), n: node.attempts, v: node.wins }), { resultado: <b className="text-white">{node.bestResult ? td(OUTCOME_LABEL[node.bestResult]) : "—"}</b> })}
               </span>
             )}
           </Row>
@@ -139,22 +145,22 @@ export function NodeSheet({
 
         {cta.note && (
           <p role="status" className={cn("mt-4 border-l-2 px-3 py-2 text-caption", cta.enabled ? "border-drl-cyan text-ink-secondary" : "border-drl-gold text-drl-gold")}>
-            {cta.note}
+            {td(cta.note)}
           </p>
         )}
         {error && <p role="alert" className="mt-3 border border-drl/40 bg-drl/10 px-3 py-2 text-caption text-drl-glow">{playerMessage(error)}</p>}
 
         <div className="mt-5 grid gap-2">
           {cta.href && cta.enabled ? (
-            <NxButton variant="primary" size="lg" block href={cta.href} data-testid="node-cta" data-cta={cta.kind}>{busy ? "Preparando…" : cta.label}</NxButton>
+            <NxButton variant="primary" size="lg" block href={cta.href} data-testid="node-cta" data-cta={cta.kind}>{busy ? t("Preparando…") : td(cta.label)}</NxButton>
           ) : (
-            <NxButton variant="primary" size="lg" block disabled aria-disabled data-testid="node-cta" data-cta={cta.kind}>{cta.label}</NxButton>
+            <NxButton variant="primary" size="lg" block disabled aria-disabled data-testid="node-cta" data-cta={cta.kind}>{td(cta.label)}</NxButton>
           )}
           {signedIn && deck && cta.kind !== "EDIT_TEAM" && (
-            <NxButton variant="ghost" size="md" block href={`/duelos/mazos?deck=${deck.id}`}>Editar equipo</NxButton>
+            <NxButton variant="ghost" size="md" block href={`/duelos/mazos?deck=${deck.id}`}>{t("Editar equipo")}</NxButton>
           )}
           {showAbandon && (
-            <NxButton variant="ghost" size="md" block onClick={onAbandon} disabled={busy}>Abandonar el nodo en marcha</NxButton>
+            <NxButton variant="ghost" size="md" block onClick={onAbandon} disabled={busy}>{t("Abandonar el nodo en marcha")}</NxButton>
           )}
         </div>
       </div>
@@ -163,9 +169,10 @@ export function NodeSheet({
 }
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
+  useLocale();
   return (
     <div className="border-b border-white/[0.07] pb-3">
-      <dt className="nx-label">{label}</dt>
+      <dt className="nx-label">{td(label)}</dt>
       <dd className="mt-0.5 leading-relaxed text-ink-secondary">{children}</dd>
     </div>
   );

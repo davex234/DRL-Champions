@@ -9,12 +9,15 @@ import { PUBLISHER_SCHEMA_VERSION } from "./types";
 import { totalCards } from "@/data/catalog";
 import { internal, runtimeSnapshots, runtimePackEngine, runtimeRegistry } from "./runtime";
 import { applyCatalogRuntime } from "./catalog";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("publisher");
 
 /** Validación tras un rollback (el runtime coincide con la instantánea restaurada). */
 export function validateRestored(s: RuntimeSnapshot): RuntimeValidation {
   const issues: RuntimeValidationIssue[] = [];
-  if (totalCards() !== s.cards.length) issues.push({ severity: "error", section: "rollback", message: `catálogo ${totalCards()} ≠ instantánea ${s.cards.length}` });
-  if (runtimePackEngine().registry !== runtimeRegistry()) issues.push({ severity: "error", section: "rollback", message: "engines sin recrear tras rollback" });
+  if (totalCards() !== s.cards.length) issues.push({ severity: "error", section: "rollback", message: t("catálogo {v} ≠ instantánea {length}", { v: totalCards(), length: s.cards.length }) });
+  if (runtimePackEngine().registry !== runtimeRegistry()) issues.push({ severity: "error", section: "rollback", message: t("engines sin recrear tras rollback") });
   return { ok: !issues.some((i) => i.severity === "error"), issues };
 }
 
@@ -58,7 +61,7 @@ export function rollback(target: RollbackTarget, ctx: PublishCtx = {}): PublishR
       catalogVersion: internal.state().catalogVersion,
       catalogFingerprint: internal.state().catalogFingerprint,
       generationId: internal.state().generationId,
-      validation: ok ? validateRestored(snapshot!) : { ok: false, issues: [{ severity: "error", section: "rollback", message: "instantánea no encontrada" }] },
+      validation: ok ? validateRestored(snapshot!) : { ok: false, issues: [{ severity: "error", section: "rollback", message: t("instantánea no encontrada") }] },
       metrics: {
         durationMs, newCards: 0, updatedCards: 0,
         retiredCards: 0, catalogFingerprint: internal.state().catalogFingerprint,

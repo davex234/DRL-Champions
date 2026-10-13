@@ -35,6 +35,10 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/format";
 import { STAT_INFO, type CombatStatKey } from "@/lib/duel/types";
 import { EASE } from "@/design/motion";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export function ClashBanner({
   youStat, youValue, rivalStat, rivalValue, winner, hint, className,
@@ -50,6 +54,7 @@ export function ClashBanner({
   hint?: string;
   className?: string;
 }) {
+  useLocale();
   const mismoEje = youStat != null && youStat === rivalStat;
   /*
    * FASE 45 · EL ENFRENTAMIENTO RESUELTO ES OTRO MOMENTO, NO EL MISMO MAS PEQUENO.
@@ -123,7 +128,7 @@ export function ClashBanner({
             className="block font-display text-[13px] font-extrabold uppercase tracking-[0.3em] sm:text-[15px]"
             style={{ color }}
           >
-            {STAT_INFO[youStat!].label}
+            {td(STAT_INFO[youStat!].label)}
           </span>
         )}
 
@@ -131,11 +136,11 @@ export function ClashBanner({
           <>
             {!mismoEje && (
               <span className="block font-display text-[13px] font-extrabold uppercase tracking-[0.3em] text-white/30 sm:text-[15px]">
-                Sin declarar
+                {t("Sin declarar")}
               </span>
             )}
             {/* La pista solo si quien la usa la pide: en móvil la da la línea de controles. */}
-            {hint && <span className="mt-0.5 block text-[11px] text-white/35">{hint}</span>}
+            {hint && <span className="mt-0.5 block text-[11px] text-white/35">{td(hint)}</span>}
           </>
         ) : (
           <div
@@ -155,7 +160,7 @@ export function ClashBanner({
             />
             <Sello resuelto={resuelto} color={color} />
             <Columna
-              lado="Rival"
+              lado={t("Rival")}
               stat={mismoEje ? null : rivalStat}
               valor={rivalValue}
               destacada={winner === "B"}
@@ -185,11 +190,11 @@ export function ClashBanner({
             textShadow: `0 0 26px ${winner === "TIE" ? "#ffd35c" : winner === "A" ? "#2fe0ff" : "#ff2e63"}55`,
           }}
         >
-          {winner === "TIE" ? "Empate" : winner === "A" ? "Ganas el turno" : "Pierdes el turno"}
+          {winner === "TIE" ? t("Empate") : winner === "A" ? t("Ganas el turno") : t("Pierdes el turno")}
         </motion.span>
       )}
       {winner === "TIE" && (
-        <span className="nx-label mt-0.5 !text-[10px] text-white/45">0 puntos</span>
+        <span className="nx-label mt-0.5 !text-[10px] text-white/45">{t("0 puntos")}</span>
       )}
     </div>
   );
@@ -208,6 +213,7 @@ function Columna({
   /** El turno ya tiene veredicto: la cifra pasa a ser el objeto mas grande de la pantalla. */
   resuelto?: boolean;
 }) {
+  useLocale();
   const info = stat ? STAT_INFO[stat] : null;
   const color = info?.color ?? "rgba(255,255,255,0.55)";
 
@@ -221,13 +227,13 @@ function Columna({
         donde no puede haberla: un 87 en Stronghold es rojo aunque sea TUYO. El rotulo del bando
         va siempre encima, asi que quien gana el turno se lee sin depender de ningun color.
       */}
-      <span className="nx-label !text-[8px] opacity-70">{lado}</span>
+      <span className="nx-label !text-[8px] opacity-70">{td(lado)}</span>
       {info ? (
         <span
           className="block max-w-[9rem] truncate font-display text-[10px] font-extrabold uppercase tracking-[0.2em] sm:text-[11px]"
           style={{ color }}
         >
-          {info.label}
+          {td(info.label)}
         </span>
       ) : null}
       {/*
@@ -272,10 +278,11 @@ function Columna({
  * No dice nada que no este ya dicho: es tipografia y dos gradientes.
  */
 function Sello({ resuelto, color }: { resuelto: boolean; color: string }) {
+  useLocale();
   if (!resuelto) {
     return (
       <span className="pb-2 font-display text-[11px] font-bold uppercase tracking-[0.2em] text-white/30">
-        vs
+        {t("vs")}
       </span>
     );
   }
@@ -293,7 +300,7 @@ function Sello({ resuelto, color }: { resuelto: boolean; color: string }) {
         className="relative font-display text-[clamp(12px,1.9vh,18px)] font-extrabold uppercase tracking-[0.14em]"
         style={{ color: `${color}cc` }}
       >
-        vs
+        {t("vs")}
       </span>
     </span>
   );

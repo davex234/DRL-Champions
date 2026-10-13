@@ -24,6 +24,11 @@ import type { FormatDescriptor, FormatNode, TeamRef } from "@/domain/pickems/for
 import { predictedParticipants, scoreEntry, type PredictionContext, type MatchScore, type Pair } from "@/domain/pickems/prediction";
 import type { BracketView } from "@/server/services/pickemBrackets";
 import type { PickNotice } from "@/lib/pickems/bracketClient";
+import { ns, td } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("pickems");
 
 export interface BoardProps {
   view: BracketView;
@@ -48,11 +53,11 @@ function destinations(d: FormatDescriptor): Map<string, string[]> {
     const l = d.edges.find((e) => e.from === n.matchId && e.source === "LOSER");
     const q = d.qualifications.find((x) => x.from === n.matchId);
     const parts: string[] = [];
-    if (w) parts.push(`Ganador → ${label.get(w.to)}`);
-    else if (q) parts.push("Ganador → clasificado");
-    else if (d.kind !== "ROUND_ROBIN") parts.push("Ganador → campeón");
-    if (l) parts.push(`Perdedor → ${label.get(l.to)}`);
-    else if (d.kind !== "ROUND_ROBIN") parts.push("Perdedor eliminado");
+    if (w) parts.push(tr("Ganador → {round}", { round: roundText(label.get(w.to)) ?? "" }));
+    else if (q) parts.push(tr("Ganador → clasificado"));
+    else if (d.kind !== "ROUND_ROBIN") parts.push(tr("Ganador → campeón"));
+    if (l) parts.push(tr("Perdedor → {round}", { round: roundText(label.get(l.to)) ?? "" }));
+    else if (d.kind !== "ROUND_ROBIN") parts.push(tr("Perdedor eliminado"));
     out.set(n.matchId, parts);
   }
   return out;
@@ -130,6 +135,7 @@ function columnsOf(d: FormatDescriptor): Column[] {
 }
 
 function Elimination(s: Shared) {
+  useLocale();
   const d = s.view.descriptor;
   const cols = useMemo(() => columnsOf(d), [d]);
   const sections = useMemo(() => d.sections.filter((sec) => cols.some((c) => c.section === sec.id)), [d.sections, cols]);
@@ -146,7 +152,7 @@ function Elimination(s: Shared) {
     return (
       <div data-bracket-mode="mobile" className="space-y-3">
         {sections.length > 1 && (
-          <div role="tablist" aria-label="Secciones del cuadro" className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${sections.length}, minmax(0, 1fr))` }}>
+          <div role="tablist" aria-label={tr("Secciones del cuadro")} className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${sections.length}, minmax(0, 1fr))` }}>
             {sections.map((x) => {
               const on = x.id === sec;
               return (
@@ -154,26 +160,26 @@ function Elimination(s: Shared) {
                   onClick={() => setChosen(cols.find((c) => c.section === x.id)?.key ?? null)}
                   className={cn("nx-clip-sm nx-focus min-h-[44px] px-2 font-display text-[11px] font-bold uppercase tracking-[0.12em]", on ? "bg-white/[0.08] text-white" : "bg-white/[0.03] text-ink-secondary")}
                   style={{ boxShadow: on ? `inset 0 0 0 1.5px ${SECTION_TONE[x.id] ?? "var(--nx-cyan)"}` : "inset 0 0 0 1px rgba(255,255,255,0.1)" }}>
-                  {x.label}
+                  {td(x.label)}
                 </button>
               );
             })}
           </div>
         )}
-        <nav aria-label="Rondas" className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
+        <nav aria-label={tr("Rondas")} className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none]">
           {cols.filter((c) => c.section === sec).map((c) => (
             <button key={c.key} type="button" aria-pressed={c.key === selected?.key} onClick={() => setChosen(c.key)}
               className={cn("nx-clip-sm nx-focus min-h-[44px] shrink-0 px-3 font-display text-[11px] font-bold uppercase tracking-[0.12em]", c.key === selected?.key ? "bg-drl-cyan/15 text-white" : "bg-white/[0.04] text-ink-secondary")}>
-              {c.label} <span className="text-ink-faint">· {c.nodes.length}</span>
+              {roundText(c.label)} <span className="text-ink-faint">· {c.nodes.length}</span>
             </button>
           ))}
         </nav>
         {selected && (
-          <section aria-label={selected.label} className="space-y-3">
+          <section aria-label={roundText(selected.label)} className="space-y-3">
             {selected.nodes.map((n) => <Card key={n.matchId} s={s} n={n} compact />)}
           </section>
         )}
-        <p className="nx-label text-ink-faint">Cada pick alimenta el siguiente cruce de tu cuadro. Cambia de ronda arriba.</p>
+        <p className="nx-label text-ink-faint">{tr("Cada pick alimenta el siguiente cruce de tu cuadro. Cambia de ronda arriba.")}</p>
       </div>
     );
   }
@@ -187,7 +193,7 @@ function Elimination(s: Shared) {
     <div data-bracket-mode="desktop" className="relative">
       <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-base-900 to-transparent" />
       <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-base-900 to-transparent" />
-      <div ref={scrollRef} className="relative overflow-x-auto px-4 pb-3 [scrollbar-width:thin]" role="group" aria-label="Cuadro de predicción, desplazable en horizontal" tabIndex={0}>
+      <div ref={scrollRef} className="relative overflow-x-auto px-4 pb-3 [scrollbar-width:thin]" role="group" aria-label={tr("Cuadro de predicción, desplazable en horizontal")} tabIndex={0}>
         <div className="relative min-w-max">
           <BracketConnectors containerRef={scrollRef} edges={edges} version={`${cols.length}:${Object.keys(s.picks).length}:${s.narrow}:${mounted}`} />
           <div className="relative grid items-stretch gap-x-12 gap-y-10" style={{ gridTemplateColumns: template }}>
@@ -197,18 +203,19 @@ function Elimination(s: Shared) {
           </div>
         </div>
       </div>
-      <p className="mt-1 nx-label text-ink-faint">Línea continua: avanza el ganador · discontinua: cae el perdedor · desplaza para ver todo el cuadro</p>
+      <p className="mt-1 nx-label text-ink-faint">{tr("Línea continua: avanza el ganador · discontinua: cae el perdedor · desplaza para ver todo el cuadro")}</p>
     </div>
   );
 }
 
 function ColumnView({ s, c, style }: { s: Shared; c: Column; style?: CSSProperties }) {
+  useLocale();
   return (
-    <section aria-label={c.label} className="flex shrink-0 flex-col gap-3" style={style}>
+    <section aria-label={roundText(c.label)} className="flex shrink-0 flex-col gap-3" style={style}>
       <h3>
         <span className="nx-clip-sm inline-block px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.24em]"
           style={{ color: SECTION_TONE[c.section] ?? "var(--nx-cyan)", background: "rgba(6,8,14,0.85)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.14)" }}>
-          {c.label}
+          {roundText(c.label)}
         </span>
       </h3>
       <div className="flex flex-1 flex-col justify-around gap-5">
@@ -221,6 +228,7 @@ function ColumnView({ s, c, style }: { s: Shared; c: Column; style?: CSSProperti
 /* ═══════════════════════════════ GRUPOS ═══════════════════════════════ */
 
 function Groups(s: Shared) {
+  useLocale();
   const d = s.view.descriptor;
   const groups = d.sections;
   const [chosen, setChosen] = useState<string | null>(null);
@@ -229,28 +237,29 @@ function Groups(s: Shared) {
     return (
       <div data-bracket-mode="mobile" className="space-y-3">
         {groups.length > 1 && (
-          <div role="tablist" aria-label="Grupos" className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${Math.min(groups.length, 4)}, minmax(0, 1fr))` }}>
+          <div role="tablist" aria-label={tr("Grupos")} className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${Math.min(groups.length, 4)}, minmax(0, 1fr))` }}>
             {groups.map((g) => (
               <button key={g.id} role="tab" type="button" aria-selected={g.id === current?.id} onClick={() => setChosen(g.id)}
                 className={cn("nx-clip-sm nx-focus min-h-[44px] px-2 font-display text-[11px] font-bold uppercase tracking-[0.12em]", g.id === current?.id ? "bg-drl-cyan/15 text-white" : "bg-white/[0.04] text-ink-secondary")}>
-                {g.label}
+                {td(g.label)}
               </button>
             ))}
           </div>
         )}
-        {current && <GroupBody s={s} groupId={current.id} label={current.label} compact />}
+        {current && <GroupBody s={s} groupId={current.id} label={td(current.label)} compact />}
       </div>
     );
   }
   return (
     <div data-bracket-mode="desktop" className="space-y-8">
-      {groups.map((g) => <GroupBody key={g.id} s={s} groupId={g.id} label={g.label} />)}
-      <p className="nx-label text-ink-faint">Línea continua: avanza el ganador · discontinua: cae el perdedor</p>
+      {groups.map((g) => <GroupBody key={g.id} s={s} groupId={g.id} label={td(g.label)} />)}
+      <p className="nx-label text-ink-faint">{tr("Línea continua: avanza el ganador · discontinua: cae el perdedor")}</p>
     </div>
   );
 }
 
 function GroupBody({ s, groupId, label, compact }: { s: Shared; groupId: string; label: string; compact?: boolean }) {
+  useLocale();
   const d = s.view.descriptor;
   const nodes = d.nodes.filter((n) => n.section === groupId);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -261,8 +270,8 @@ function GroupBody({ s, groupId, label, compact }: { s: Shared; groupId: string;
 
   if (d.kind === "ROUND_ROBIN") {
     return (
-      <section aria-label={label}>
-        <h3 className="mb-2 font-display text-sm font-bold uppercase tracking-[0.2em] text-white">{label}</h3>
+      <section aria-label={td(label)}>
+        <h3 className="mb-2 font-display text-sm font-bold uppercase tracking-[0.2em] text-white">{td(label)}</h3>
         <div className={cn("grid gap-3", compact ? "grid-cols-1" : "grid-cols-[repeat(auto-fill,minmax(244px,1fr))]")}>
           {nodes.map((n) => <Card key={n.matchId} s={s} n={n} compact={compact} />)}
         </div>
@@ -272,44 +281,44 @@ function GroupBody({ s, groupId, label, compact }: { s: Shared; groupId: string;
 
   const by = (role: string) => nodes.filter((n) => n.role === role);
   const col = (title: string, list: FormatNode[], extra?: React.ReactNode) => (
-    <section aria-label={title} className="flex flex-col gap-3">
-      <h4><span className="nx-clip-sm inline-block px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.24em] text-drl-cyan" style={{ background: "rgba(6,8,14,0.85)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.14)" }}>{title}</span></h4>
+    <section aria-label={td(title)} className="flex flex-col gap-3">
+      <h4><span className="nx-clip-sm inline-block px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.24em] text-drl-cyan" style={{ background: "rgba(6,8,14,0.85)", boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.14)" }}>{td(title)}</span></h4>
       <div className="flex flex-1 flex-col justify-around gap-5">{list.map((n) => <Card key={n.matchId} s={s} n={n} compact={compact} />)}{extra}</div>
     </section>
   );
   const qualified = (
-    <section aria-label="Clasificados" className="flex flex-col gap-3">
-      <h4><span className="nx-clip-sm inline-block px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.24em] text-drl-gold" style={{ background: "rgba(6,8,14,0.85)", boxShadow: "inset 0 0 0 1px rgba(255,211,92,0.4)" }}>Clasificados</span></h4>
+    <section aria-label={tr("Clasificados")} className="flex flex-col gap-3">
+      <h4><span className="nx-clip-sm inline-block px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.24em] text-drl-gold" style={{ background: "rgba(6,8,14,0.85)", boxShadow: "inset 0 0 0 1px rgba(255,211,92,0.4)" }}>{tr("Clasificados")}</span></h4>
       <div className="flex flex-1 flex-col justify-around gap-5">
-        {quals.map((q, i) => <QualifiedBox key={q.key} s={s} fromId={q.from} label={i === 0 ? "1.º del grupo" : "2.º del grupo"} compact={compact} />)}
+        {quals.map((q, i) => <QualifiedBox key={q.key} s={s} fromId={q.from} label={i === 0 ? tr("1.º del grupo") : tr("2.º del grupo")} compact={compact} />)}
       </div>
     </section>
   );
 
   if (compact) {
     return (
-      <section aria-label={label} className="space-y-4">
-        {col("Apertura", by("OPENING"))}
-        {col("Ganadores", by("WINNERS"))}
-        {col("Eliminación", by("ELIMINATION"))}
-        {col("Decisivo", by("DECIDER"))}
+      <section aria-label={td(label)} className="space-y-4">
+        {col(tr("Apertura"), by("OPENING"))}
+        {col(tr("Ganadores"), by("WINNERS"))}
+        {col(tr("Eliminación"), by("ELIMINATION"))}
+        {col(tr("Decisivo"), by("DECIDER"))}
         {qualified}
       </section>
     );
   }
   return (
-    <section aria-label={label} className="relative">
-      <h3 className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-white">{label}</h3>
-      <div ref={scrollRef} className="relative overflow-x-auto pb-2 [scrollbar-width:thin]" role="group" aria-label={`${label}, desplazable en horizontal`} tabIndex={0}>
+    <section aria-label={td(label)} className="relative">
+      <h3 className="mb-3 font-display text-sm font-bold uppercase tracking-[0.2em] text-white">{td(label)}</h3>
+      <div ref={scrollRef} className="relative overflow-x-auto pb-2 [scrollbar-width:thin]" role="group" aria-label={tr("{label}, desplazable en horizontal", { label: td(label) })} tabIndex={0}>
         <div className="relative min-w-max">
           <BracketConnectors containerRef={scrollRef} edges={edges} version={`${groupId}:${Object.keys(s.picks).length}:${mounted}`} />
           <div className="relative grid grid-cols-[repeat(4,max-content)] items-stretch gap-x-12">
-            {col("Apertura", by("OPENING"))}
-            <section aria-label="Ganadores y Eliminación" className="flex flex-col justify-between gap-8">
-              {col("Ganadores", by("WINNERS"))}
-              {col("Eliminación", by("ELIMINATION"))}
+            {col(tr("Apertura"), by("OPENING"))}
+            <section aria-label={tr("Ganadores y Eliminación")} className="flex flex-col justify-between gap-8">
+              {col(tr("Ganadores"), by("WINNERS"))}
+              {col(tr("Eliminación"), by("ELIMINATION"))}
             </section>
-            {col("Decisivo", by("DECIDER"))}
+            {col(tr("Decisivo"), by("DECIDER"))}
             {qualified}
           </div>
         </div>
@@ -320,6 +329,7 @@ function GroupBody({ s, groupId, label, compact }: { s: Shared; groupId: string;
 
 /** Plaza: MI predicción (ganador de ese partido en mi cuadro) y, si ya se sabe, el clasificado REAL. */
 function QualifiedBox({ s, fromId, label, compact }: { s: Shared; fromId: string; label: string; compact?: boolean }) {
+  useLocale();
   const pair = s.pairs.get(fromId) ?? [null, null];
   const pick = s.picks[fromId];
   const mine: TeamRef | null = pair[0]?.id === pick ? pair[0] : pair[1]?.id === pick ? pair[1] : null;
@@ -328,13 +338,13 @@ function QualifiedBox({ s, fromId, label, compact }: { s: Shared; fromId: string
   const hit = !!realTeam && !!mine && realTeam.id === mine.id;
   return (
     <div className={cn("nx-clip-sm flex flex-col gap-1 px-3 py-2", compact ? "w-full" : "w-[220px]")} style={{ background: "rgba(8,10,18,0.94)", boxShadow: "inset 0 0 0 1px rgba(255,211,92,0.32)" }}>
-      <span className="nx-label text-drl-gold">{label}</span>
+      <span className="nx-label text-drl-gold">{td(label)}</span>
       <span className="flex items-center gap-2">
         {mine ? <TeamLogo team={mine.name} size={18} /> : <span aria-hidden className="h-[18px] w-[18px] rounded bg-white/5" />}
-        <span className="truncate font-display text-[12px] font-bold uppercase text-white">{mine?.name ?? "Sin predicción"}</span>
-        <span className="nx-label ml-auto">tu pick</span>
+        <span className="truncate font-display text-[12px] font-bold uppercase text-white">{mine?.name ?? tr("Sin predicción")}</span>
+        <span className="nx-label ml-auto">{tr("tu pick")}</span>
       </span>
-      {realTeam && <span className={cn("nx-label", hit ? "!text-ok" : "!text-bad")}>{hit ? "✓" : "✕"} Real: {realTeam.name}</span>}
+      {realTeam && <span className={cn("nx-label", hit ? "!text-ok" : "!text-bad")}>{hit ? "✓" : "✕"} {tr("Real:")} {realTeam.name}</span>}
     </div>
   );
 }

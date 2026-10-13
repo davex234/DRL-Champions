@@ -6,9 +6,14 @@ import { getCard, getPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { formatCredits } from "@/lib/format";
 import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { td, ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("events");
 
 /** Muestra una recompensa como una lista de chips legibles. */
 export function RewardChips({ reward }: { reward: Reward }) {
+  useLocale();
   const chips: { icon: string; text: string }[] = [];
   if (reward.credits) chips.push({ icon: "🪙", text: formatCredits(reward.credits) });
   if (reward.xp) chips.push({ icon: "✨", text: `${reward.xp} XP` });
@@ -32,13 +37,13 @@ export function RewardChips({ reward }: { reward: Reward }) {
    * en la promesa de un cosmético que nadie va a entregar.
    */
   if (reward.cosmetics?.length) {
-    chips.push({ icon: "🎖️", text: reward.cosmetics.length > 1 ? `${reward.cosmetics.length} cosméticos` : "Cosmético" });
+    chips.push({ icon: "🎖️", text: reward.cosmetics.length > 1 ? t("{length} cosméticos", { length: reward.cosmetics.length }) : t("Cosmético") });
   }
   if (reward.materials && Object.keys(reward.materials).length > 0) {
-    chips.push({ icon: "🧪", text: "Materiales" });
+    chips.push({ icon: "🧪", text: t("Materiales") });
   }
   /* Y una recompensa que no da nada lo dice, en vez de inventarse un premio. */
-  if (chips.length === 0) chips.push({ icon: "—", text: "Sin premio" });
+  if (chips.length === 0) chips.push({ icon: "—", text: t("Sin premio") });
 
   return (
     <div className="flex flex-wrap gap-1.5">
@@ -48,7 +53,7 @@ export function RewardChips({ reward }: { reward: Reward }) {
           className="inline-flex items-center gap-1 rounded-md bg-white/8 px-2 py-0.5 text-xs font-semibold text-white/80"
         >
           <GameGlyph symbol={c.icon} className="h-[1.1em] w-[1.1em]" />
-          {c.text}
+          {td(c.text)}
         </span>
       ))}
     </div>

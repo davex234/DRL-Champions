@@ -1,0 +1,18 @@
+{
+  "Capítulo {n}": "Chapter {n}",
+  "Cargando Road to Champions…": "Loading Road to Champions…",
+  "Crear equipo": "Create team",
+  "Editar equipo": "Edit team",
+  "Iniciar sesión": "Log in",
+  "La run cambió en otra pestaña. Se ha actualizado.": "The run changed in another tab. It has been updated.",
+  "Necesitas un equipo válido (diez cartas, dos por rol) para jugar cualquier nodo.": "You need a valid team (ten cards, two per role) to play any node.",
+  "No se pudo abandonar el nodo": "Couldn't abandon the node",
+  "No se pudo completar la acción": "Couldn't complete the action",
+  "No se pudo leer Road to Champions": "Couldn't read Road to Champions",
+  "Preparando Draft Gauntlet…": "Setting up Draft Gauntlet…",
+  "Preparando modos de juego…": "Setting up game modes…",
+  "Retomar": "Resume",
+  "Sin conexión. No se ha enviado nada.": "Offline. Nothing was sent.",
+  "jugar Draft Gauntlet": "Draft Gauntlet",
+  "«{name}» está en marcha. Termínalo o abandónalo antes de empezar otro nodo.": "«{name}» is in progress. Finish or abandon it before starting another node."
+}

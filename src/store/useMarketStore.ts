@@ -17,6 +17,9 @@ import { seedPriceHistory, generateBotListings } from "@/data/marketSeed";
 import { makeRng, seedFrom } from "@/sim/rng";
 import { useGameStore } from "./useGameStore";
 import { useEventsStore } from "./useEventsStore";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("store");
 
 const TARGET_BOT_LISTINGS = 54;
 const rngFrom = (seed: number): (() => number) => { const r = makeRng(seed); return () => r.next(); };
@@ -120,8 +123,8 @@ export const useMarketStore = create<MarketState>()(
         buyListing: (id) => {
           const now = Date.now();
           const listing = get().listings.find((l) => l.id === id);
-          if (!listing) return { ok: false, error: "El listado ya no está disponible" };
-          if (useGameStore.getState().credits < listing.price) return { ok: false, error: "Créditos insuficientes" };
+          if (!listing) return { ok: false, error: t("El listado ya no está disponible") };
+          if (useGameStore.getState().credits < listing.price) return { ok: false, error: t("Créditos insuficientes") };
           const eng = engine();
           const res = eng.buyListing(id, "user", now);
           if (!res.ok) return { ok: false, error: res.error };
@@ -134,11 +137,11 @@ export const useMarketStore = create<MarketState>()(
 
         listForSale: (uid, price, opts) => {
           const rounded = Math.round(price);
-          if (!Number.isFinite(rounded) || rounded < 25) return { ok: false, error: "El precio mínimo es 25" };
+          if (!Number.isFinite(rounded) || rounded < 25) return { ok: false, error: t("El precio mínimo es 25") };
           const game = useGameStore.getState();
-          if (game.isLocked(uid)) return { ok: false, error: "No puedes vender una carta bloqueada" };
+          if (game.isLocked(uid)) return { ok: false, error: t("No puedes vender una carta bloqueada") };
           const owned = game.removeOwnedCard(uid);
-          if (!owned) return { ok: false, error: "Carta no encontrada" };
+          if (!owned) return { ok: false, error: t("Carta no encontrada") };
           const eng = engine();
           const res = eng.createListing({ owned, price: rounded, visibility: opts?.visibility, reservedFor: opts?.reservedFor, expiresAt: opts?.expiresAt }, Date.now());
           if (!res.ok) { game.restoreOwnedCard(owned); return { ok: false, error: res.error }; } // no se pudo listar: se devuelve intacta

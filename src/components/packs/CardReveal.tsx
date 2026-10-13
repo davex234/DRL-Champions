@@ -16,6 +16,7 @@ import { ceremonyFor, stillCeremony, lastCardCeremony, rarityCeremony, MAX_BURST
 import { playReveal, playCue } from "@/lib/sound";
 import { buzz } from "@/lib/haptics";
 import { EASE } from "@/design/motion";
+import { td } from "@/i18n/runtime";
 
 /**
  * LA REVELACIÓN DE UNA CARTA.
@@ -446,7 +447,7 @@ export function CardReveal({
             transition={{ duration: reduced ? 0.1 : 0.7, delay: reduced ? 0 : Math.max(0, hold / 1000 - 0.75) }}
             data-testid="reveal-herald"
           >
-            {herald}
+            {td(herald)}
           </motion.p>
         )}
 

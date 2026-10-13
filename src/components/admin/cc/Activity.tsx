@@ -5,6 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { dateTime } from "./api";
 import { Empty, Pill } from "./ui";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("admin");
 
 export interface AuditItem { id: number; at: string; actor: string | null; actorName: string | null; action: string; entityType: string | null; entityId: string | null; detail: Record<string, unknown> }
 
@@ -27,8 +31,9 @@ export function entityHref(t: string | null, id: string | null): string | null {
 }
 
 export function ActivityList({ items, empty }: { items: AuditItem[]; empty: string }) {
+  useLocale();
   const [open, setOpen] = useState<number | null>(null);
-  if (!items.length) return <Empty title={empty} />;
+  if (!items.length) return <Empty title={td(empty)} />;
   return (
     <ol className="relative space-y-1 border-l border-white/[0.08] pl-4">
       {items.map((a) => {
@@ -38,11 +43,11 @@ export function ActivityList({ items, empty }: { items: AuditItem[]; empty: stri
           <li key={a.id} className="relative">
             <span aria-hidden className="absolute -left-[21px] top-3 h-2 w-2 rounded-full bg-drl-cyan/70" />
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-control px-2 py-1.5 hover:bg-white/[0.025]">
-              <Pill tone={TONE[a.action] ?? "default"}>{ACTION_LABEL[a.action] ?? a.action}</Pill>
+              <Pill tone={TONE[a.action] ?? "default"}>{td(ACTION_LABEL[a.action]) ?? td(a.action)}</Pill>
               {href ? <Link href={href} className="nx-focus text-[13px] text-ink-primary underline-offset-2 hover:underline">{a.entityId}</Link> : <span className="text-[13px] text-ink-secondary">{a.entityId ?? "—"}</span>}
-              <span className="text-[12px] text-ink-faint">por {a.actorName ?? (a.actor ? a.actor.slice(0, 8) : "sistema")} · {dateTime(a.at)}</span>
-              {reason && <span className="w-full truncate text-[12px] text-ink-muted">«{reason}»</span>}
-              <button type="button" onClick={() => setOpen(open === a.id ? null : a.id)} className="nx-focus ml-auto text-[11px] text-ink-faint hover:text-ink-secondary" aria-expanded={open === a.id}>{open === a.id ? "Ocultar detalle" : "Detalle"}</button>
+              <span className="text-[12px] text-ink-faint">{tr("por {autor} · {fecha}", { autor: td(a.actorName) ?? (a.actor ? a.actor.slice(0, 8) : tr("sistema")), fecha: dateTime(a.at) })}</span>
+              {reason && <span className="w-full truncate text-[12px] text-ink-muted">«{td(reason)}»</span>}
+              <button type="button" onClick={() => setOpen(open === a.id ? null : a.id)} className="nx-focus ml-auto text-[11px] text-ink-faint hover:text-ink-secondary" aria-expanded={open === a.id}>{open === a.id ? tr("Ocultar detalle") : tr("Detalle")}</button>
             </div>
             {open === a.id && <pre className="mb-2 ml-2 max-h-64 overflow-auto rounded-control bg-black/40 p-3 text-[11px] leading-relaxed text-ink-muted">{JSON.stringify(a.detail, null, 2)}</pre>}
           </li>

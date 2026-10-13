@@ -31,6 +31,11 @@ import { Badge } from "@/components/ui/Badge";
 import { Readout } from "@/components/ui/Readout";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { formatCredits, plural, cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("pickems");
 
 export interface PickemResultData {
   eventName: string;
@@ -84,6 +89,7 @@ export function PickemResultModal({
   pickemEventId: string;
   data: PickemResultData;
 }) {
+  useLocale();
   const [open, setOpen] = useState(false);
   const key = seenKey(data, pickemEventId);
   const ready = hasResult(data);
@@ -112,7 +118,7 @@ export function PickemResultModal({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Resultado de tus predicciones"
+      aria-label={tr("Resultado de tus predicciones")}
       className="fixed inset-0 z-[70] grid place-items-center bg-black/70 p-3 backdrop-blur-sm sm:p-4"
       onClick={close}
     >
@@ -128,10 +134,10 @@ export function PickemResultModal({
         <div className="flex shrink-0 items-start justify-between gap-3 border-b border-white/10 px-4 py-4 sm:px-6">
           <div>
             <p className="text-[10px] uppercase tracking-widest text-emerald-300/70">
-              Resultado de tus predicciones
+              {tr("Resultado de tus predicciones")}
             </p>
             <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">
-              {data.eventName}
+              {td(data.eventName)}
             </h2>
           </div>
           {/*
@@ -139,7 +145,7 @@ export function PickemResultModal({
             geometría prestada y por debajo del objetivo táctil. Ahora es la pieza de icono
             del sistema, con su chaflán y sus 44 px, y la marca está DIBUJADA.
           */}
-          <NxButton variant="icon" size="md" aria-label="Cerrar" onClick={close} className="shrink-0">
+          <NxButton variant="icon" size="md" aria-label={tr("Cerrar")} onClick={close} className="shrink-0">
             <svg viewBox="0 0 14 14" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
               <path d="M3 3l8 8" /><path d="M11 3l-8 8" />
             </svg>
@@ -152,13 +158,13 @@ export function PickemResultModal({
 
         <div className="flex shrink-0 flex-wrap justify-end gap-2 border-t border-white/10 px-4 py-3 sm:px-6 sm:py-4">
           <NxButton variant="secondary" size="md" href="/recompensas" onClick={close}>
-            Ver recompensas
+            {tr("Ver recompensas")}
           </NxButton>
           <NxButton variant="secondary" size="md" href="/ranking" onClick={close}>
-            Ver clasificación
+            {tr("Ver clasificación")}
           </NxButton>
           <NxButton variant="primary" size="md" onClick={close}>
-            Entendido
+            {tr("Entendido")}
           </NxButton>
         </div>
       </div>
@@ -173,6 +179,7 @@ export function PickemResultModal({
  * `/recompensas`, para que las dos superficies cuenten exactamente lo mismo.
  */
 export function PickemResultBody({ data }: { data: PickemResultData }) {
+  useLocale();
   const earned = data.score?.points ?? 0;
   const resolved = data.questions.filter((q) => q.locked && q.correct_option);
   const mine = resolved.filter((q) => data.answers[q.id]);
@@ -198,20 +205,20 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
     <div className="space-y-5">
       {/* ── Titular: puntos conseguidos ── */}
       <Piece tone="success" className="flex flex-wrap items-end gap-x-8 gap-y-3 px-5 py-4">
-        <Readout size="lg" label="Puntos conseguidos" value={`+${earned}`} tone="var(--nx-gold)" />
-        <Readout size="sm" label="Aciertos" value={`${hits.length} / ${mine.length}`} tone="var(--nx-ok)" />
+        <Readout size="lg" label={tr("Puntos conseguidos")} value={`+${earned}`} tone="var(--nx-gold)" />
+        <Readout size="sm" label={tr("Aciertos")} value={`${hits.length} / ${mine.length}`} tone="var(--nx-ok)" />
         <Readout
           size="sm"
-          label="Acierto"
+          label={tr("Acierto")}
           value={mine.length > 0 ? `${Math.round((hits.length / mine.length) * 100)}%` : "—"}
         />
       </Piece>
 
       {/* ── Qué predije y qué salió ── */}
       <div>
-        <SectionTitle as="h3">Tus predicciones corregidas</SectionTitle>
+        <SectionTitle as="h3">{tr("Tus predicciones corregidas")}</SectionTitle>
         {resolved.length === 0 ? (
-          <p className="text-sm text-white/45">Todavía no se ha corregido ninguna pregunta.</p>
+          <p className="text-sm text-white/45">{tr("Todavía no se ha corregido ninguna pregunta.")}</p>
         ) : (
           <div className="space-y-2">
             {resolved.map((q) => {
@@ -224,17 +231,17 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
                   className="px-4 py-3"
                 >
                   <p className="font-display text-xs uppercase tracking-wide text-white/70">
-                    {q.prompt}
+                    {td(q.prompt)}
                   </p>
                   <div className="mt-1.5 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm">
                     <span className="text-white/45">
-                      Predijiste:{" "}
+                      {tr("Predijiste:")}{" "}
                       <span className={cn("font-display", answer ? "text-white" : "text-white/35")}>
-                        {answer ? label(q, answer) : "no participaste"}
+                        {answer ? label(q, answer) : tr("no participaste")}
                       </span>
                     </span>
                     <span className="text-white/45">
-                      Resultado:{" "}
+                      {tr("Resultado:")}{" "}
                       <span className="font-display text-white">{label(q, q.correct_option)}</span>
                     </span>
                     <span
@@ -243,7 +250,7 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
                         hit ? "text-emerald-300" : answer ? "text-drl" : "text-white/35",
                       )}
                     >
-                      {hit ? `Acertaste · +${plural(q.points, "punto", "puntos")}` : answer ? "Fallaste · 0 puntos" : "No participaste · 0 puntos"}
+                      {hit ? tr("Acertaste · +{points}", { points: plural(q.points, "punto", "puntos") }) : answer ? tr("Fallaste · 0 puntos") : tr("No participaste · 0 puntos")}
                     </span>
                   </div>
                 </Plate>
@@ -255,22 +262,22 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
 
       {/* ── Recompensa concedida ── */}
       <div>
-        <SectionTitle as="h3">Recompensa obtenida</SectionTitle>
+        <SectionTitle as="h3">{tr("Recompensa obtenida")}</SectionTitle>
         {paid && paidTier ? (
           <Piece tone="gold" className="p-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <p className="font-display text-lg font-bold uppercase tracking-wide text-drl-gold">
-                {paidTier.label}
+                {td(paidTier.label)}
               </p>
               <span className="text-[10px] uppercase tracking-widest text-white/40">
-                escalón alcanzado con {plural(earned, "punto", "puntos")}
+                {tr("escalón alcanzado con {n, plural, one {# punto} other {# puntos}}", { n: earned })}
               </span>
             </div>
             <div className="mt-3 grid gap-2 sm:grid-cols-3">
-              <Prize label="Créditos" value={`${formatCredits(data.reward?.delta ?? paidTier.reward.credits ?? 0)} créditos`} />
-              <Prize label="XP" value={`${paidTier.reward.xp ?? 0} XP`} />
+              <Prize label={tr("Créditos")} value={tr("{v} créditos", { v: formatCredits(data.reward?.delta ?? paidTier.reward.credits ?? 0) })} />
+              <Prize label={tr("XP")} value={tr("{v} XP", { v: paidTier.reward.xp ?? 0 })} />
               <Prize
-                label="Sobres"
+                label={tr("Sobres")}
                 value={
                   paidTier.reward.packId
                     ? `${paidTier.reward.packCount ?? 1} × ${packLabel(paidTier.reward.packId)}`
@@ -281,58 +288,57 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
             {paidTier.reward.packId ? (
               <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-white/55">
                 <span>
-                  Tu carta está dentro del sobre: ábrelo para verla y añadirla a la colección.
+                  {tr("Tu carta está dentro del sobre: ábrelo para verla y añadirla a la colección.")}
                 </span>
                 <Link href="/inventario" className="text-drl hover:underline">
-                  Abrir mi sobre →
+                  {tr("Abrir mi sobre →")}
                 </Link>
               </p>
             ) : (
               <p className="mt-3 text-xs text-white/45">
-                Este escalón no incluye sobre, así que todavía no hay carta.{" "}
+                {tr("Este escalón no incluye sobre, así que todavía no hay carta.")}{" "}
                 {nextTier ? (
-                  <>Con {nextTier.minPoints} puntos llegarías a {nextTier.label}, que sí lleva sobre.</>
+                  tr("Con {n} puntos llegarías a {escalon}, que sí lleva sobre.", { n: nextTier.minPoints, escalon: td(nextTier.label) })
                 ) : null}
               </p>
             )}
             <p className="nx-label mt-2">
-              Saldo tras la recompensa: {formatCredits(data.reward?.balance_after ?? 0)} créditos
+              {tr("Saldo tras la recompensa: {n} créditos", { n: formatCredits(data.reward?.balance_after ?? 0) })}
             </p>
           </Piece>
         ) : tier ? (
           <Recessed depth="sm" className="px-4 py-3 text-body text-ink-muted">
-            Has alcanzado el escalón <span className="text-white">{tier.label}</span>. La recompensa
-            se abona al corregirse el torneo.
+            {fill(tr("Has alcanzado el escalón {escalon}. La recompensa se abona al corregirse el torneo.", slots("escalon")), { escalon: <span className="text-white">{td(tier.label)}</span> })}
           </Recessed>
         ) : (
           <Recessed depth="sm" className="px-4 py-3 text-body text-ink-muted">
-            Todavía no has alcanzado ningún escalón de recompensa.
-            {nextTier ? ` Te faltan ${nextTier.minPoints - earned} puntos para ${nextTier.label}.` : ""}
+            {tr("Todavía no has alcanzado ningún escalón de recompensa.")}
+            {nextTier ? tr(" Te faltan {v} puntos para {label}.", { v: nextTier.minPoints - earned, label: td(nextTier.label) }) : ""}
           </Recessed>
         )}
       </div>
 
       {/* ── Rango ── */}
       <div>
-        <SectionTitle as="h3">Tu rango</SectionTitle>
+        <SectionTitle as="h3">{tr("Tu rango")}</SectionTitle>
         <Plate
           className="p-4"
           style={{ borderColor: `${after.tier.color}55`, background: `${after.tier.color}0d` }}
         >
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <span className="font-display text-sm uppercase tracking-wide" style={{ color: before.color }}>
-              {before.label}
+              {td(before.label)}
             </span>
             <span className="text-white/35" aria-hidden>→</span>
             <span
               className="font-display text-lg font-bold uppercase tracking-wide"
               style={{ color: after.tier.color }}
             >
-              {after.tier.label}
+              {td(after.tier.label)}
             </span>
-            {promoted && <Badge tone="ok" dot>¡Has subido de rango!</Badge>}
+            {promoted && <Badge tone="ok" dot>{tr("¡Has subido de rango!")}</Badge>}
             <span className="ml-auto font-display text-sm tabular-nums text-white/70">
-              {after.points} pts
+              {after.points} {tr("pts")}
             </span>
           </div>
 
@@ -343,7 +349,7 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
             aria-valuenow={Math.round(after.progress * 100)}
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-label={after.next ? `Progreso hacia ${after.next.label}` : "Rango máximo alcanzado"}
+            aria-label={after.next ? tr("Progreso hacia {label}", { label: td(after.next.label) }) : tr("Rango máximo alcanzado")}
           >
             <span
               className="block h-full transition-[width] duration-normal motion-reduce:transition-none"
@@ -353,13 +359,11 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
 
           <p className="mt-1.5 text-[11px] uppercase tracking-widest text-white/40">
             {after.next ? (
-              <>
-                {after.points - after.tier.min} / {after.next.min - after.tier.min} · faltan{" "}
-                {after.toNext} para{" "}
-                <span style={{ color: after.next.color }}>{after.next.label}</span>
-              </>
+              fill(tr("{hecho} / {total} · faltan {n} para {rango}", { hecho: after.points - after.tier.min, total: after.next.min - after.tier.min, n: after.toNext, ...slots("rango") }), {
+                rango: <span style={{ color: after.next.color }}>{td(after.next.label)}</span>,
+              })
             ) : (
-              "Rango máximo alcanzado"
+              tr("Rango máximo alcanzado")
             )}
           </p>
         </Plate>
@@ -369,10 +373,11 @@ export function PickemResultBody({ data }: { data: PickemResultData }) {
 }
 
 function Prize({ label, value }: { label: string; value: string }) {
+  useLocale();
   return (
     <Recessed depth="sm" className="px-3 py-2">
-      <p className="nx-label">{label}</p>
-      <p className="mt-0.5 font-display text-[14px] font-bold text-white">{value}</p>
+      <p className="nx-label">{td(label)}</p>
+      <p className="mt-0.5 font-display text-[14px] font-bold text-white">{td(value)}</p>
     </Recessed>
   );
 }

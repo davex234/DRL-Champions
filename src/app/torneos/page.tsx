@@ -14,8 +14,13 @@ import { fetchEventsOverview, useLiveRefresh, type EventsOverviewSnapshot } from
 import { trackLiveEvent } from "@/lib/liveEvents/telemetry";
 import { EventsOverview } from "@/components/liveEvents/EventsOverview";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("torneos");
 
 export default function TorneosPage() {
+  useLocale();
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
   const [snap, setSnap] = useState<EventsOverviewSnapshot | null>(null);
@@ -24,7 +29,7 @@ export default function TorneosPage() {
   const load = useCallback(async () => {
     setError(null);
     try { setSnap(await fetchEventsOverview()); }
-    catch (e) { setError(e instanceof Error ? e.message : "No se pudieron leer los eventos"); throw e; }
+    catch (e) { setError(e instanceof Error ? e.message : t("No se pudieron leer los eventos")); throw e; }
   }, []);
   useEffect(() => { if (online && !loading) void load().catch(() => null); }, [online, loading, user, load]);
   useEffect(() => { trackLiveEvent("event_view"); }, []);
@@ -32,8 +37,8 @@ export default function TorneosPage() {
   const hasLive = (snap?.active ?? []).some((e) => e.liveCount > 0);
   useLiveRefresh({ enabled: online && snap !== null, status: (snap?.active.length ?? 0) > 0 ? "live" : (snap?.upcoming.length ?? 0) > 0 ? "upcoming" : "finished", hasLive, reload: load });
 
-  if (!online) return <NeedsAccount what="El circuito competitivo" />;
-  if (loading || (!snap && !error)) return <Loading label="Leyendo el circuito…" />;
-  if (error && !snap) return <ErrorState message={error} onRetry={() => void load().catch(() => null)} />;
+  if (!online) return <NeedsAccount what={t("El circuito competitivo")} />;
+  if (loading || (!snap && !error)) return <Loading label={t("Leyendo el circuito…")} />;
+  if (error && !snap) return <ErrorState message={td(error)} onRetry={() => void load().catch(() => null)} />;
   return <EventsOverview snap={snap!} />;
 }

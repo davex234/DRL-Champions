@@ -29,6 +29,10 @@ import { getAudioSettings, onAudioSettingsChange, primeAudio, setAudioSettings }
 import { trackFlow } from "@/lib/telemetry/client";
 import { describeOpeningMode, setOpeningAnimation, useOpeningAnimation, walkoutReduced } from "@/lib/walkout/animationPref";
 import type { StageKind } from "@/lib/walkout/stageChoice";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("packs");
 
 const btn = "nx-focus inline-flex h-11 min-h-[44px] items-center justify-center gap-2 rounded-full border px-5 font-display text-label font-bold uppercase tracking-wide2 transition";
 
@@ -48,6 +52,7 @@ export function PackWalkout({ item, index, total, reduced, onDone }: {
   /** Esta carta ya se presentó (o falló su animación): la ceremonia sigue. Se llama UNA vez. */
   onDone: () => void;
 }) {
+  useLocale();
   const ref = useRef<WalkoutHandle>(null);
   const continueRef = useRef<HTMLButtonElement>(null);
   const [done, setDone] = useState(false);
@@ -131,27 +136,27 @@ export function PackWalkout({ item, index, total, reduced, onDone }: {
 
       {total > 1 && (
         <p className="pointer-events-none absolute left-1/2 z-[80] -translate-x-1/2 rounded-full border border-white/15 bg-black/45 px-3 py-1 font-display text-caption font-bold uppercase tracking-wide2 text-white/75" style={{ top: tall ? -46 : 16, marginTop: tall ? 0 : "env(safe-area-inset-top)" }}>
-          Especial {index + 1} de {total}
+          {tr("Especial {n} de {total}", { n: index + 1, total })}
         </p>
       )}
 
       <button
-        type="button" onClick={toggleSound} aria-pressed={!muted} aria-label={muted ? "Activar el sonido" : "Silenciar el sonido"} data-testid="pack-walkout-sound"
+        type="button" onClick={toggleSound} aria-pressed={!muted} aria-label={muted ? tr("Activar el sonido") : tr("Silenciar el sonido")} data-testid="pack-walkout-sound"
         className={`${btn} absolute bottom-5 left-5 z-[80] border-white/20 bg-black/50 px-4 text-white/80 hover:bg-black/70`}
         style={{ marginBottom: "env(safe-area-inset-bottom)" }}
       >
-        {muted ? "🔇" : "🔊"}<span className="sr-only">{muted ? "Sonido apagado" : "Sonido encendido"}</span>
+        {muted ? "🔇" : "🔊"}<span className="sr-only">{muted ? tr("Sonido apagado") : tr("Sonido encendido")}</span>
       </button>
 
       {/* WALKOUT 0.8 · modo de animación desde el propio reproductor (si el 2D es por un fallo técnico, no se ofrece) */}
       {stage.kind && !technical2d && (
         <button
           type="button" onClick={switchMode} data-testid="pack-walkout-mode" data-mode={stage.kind} data-pref={pref} data-stage-why={stage.why}
-          aria-label={stage.kind === "3d" ? "Ver la versión 2D reducida" : "Ver la cinemática 3D"} title={describeOpeningMode(pref, reduced)}
+          aria-label={stage.kind === "3d" ? tr("Ver la versión 2D reducida") : tr("Ver la cinemática 3D")} title={describeOpeningMode(pref, reduced)}
           className={`${btn} absolute bottom-[76px] left-5 z-[80] border-white/20 bg-black/50 px-4 text-white/80 hover:bg-black/70`}
           style={{ marginBottom: "env(safe-area-inset-bottom)" }}
         >
-          {stage.kind === "3d" ? "Ver en 2D" : "Ver en 3D"}
+          {stage.kind === "3d" ? tr("Ver en 2D") : tr("Ver en 3D")}
         </button>
       )}
 
@@ -159,10 +164,10 @@ export function PackWalkout({ item, index, total, reduced, onDone }: {
         // en la esquina (donde estaba SALTAR): el nombre del jugador ocupa el centro de abajo
         <div className="absolute bottom-5 right-5 z-[80] flex gap-3" style={{ marginBottom: "env(safe-area-inset-bottom)" }}>
           <button type="button" onClick={replay} className={`${btn} border-white/25 bg-black/55 text-white/85 hover:bg-black/75`} data-testid="pack-walkout-replay">
-            Repetir
+            {tr("Repetir")}
           </button>
           <button ref={continueRef} type="button" onClick={finish} className={`${btn} border-white/40 bg-white text-[#05060b] hover:bg-white/90`} data-testid="pack-walkout-continue">
-            {index + 1 < total ? "Siguiente" : "Continuar"} →
+            {index + 1 < total ? tr("Siguiente") : tr("Continuar")} →
           </button>
         </div>
       )}

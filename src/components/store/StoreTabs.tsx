@@ -7,10 +7,15 @@
 import { useEffect, useState } from "react";
 import { playSound } from "@/lib/sound";
 import { css } from "./storeClasses";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("store");
 
 export interface StoreTab { id: string; label: string; count?: number }
 
 export function StoreTabs({ tabs }: { tabs: StoreTab[] }) {
+  useLocale();
   const [active, setActive] = useState(tabs[0]?.id ?? "");
 
   useEffect(() => {
@@ -34,7 +39,7 @@ export function StoreTabs({ tabs }: { tabs: StoreTab[] }) {
   }
 
   return (
-    <nav aria-label="Secciones de la tienda" className={`${css.tabs} sticky top-topbar z-30 -mx-4 px-4 py-2.5 md:-mx-8 md:px-8`}>
+    <nav aria-label={tr("Secciones de la tienda")} className={`${css.tabs} sticky top-topbar z-30 -mx-4 px-4 py-2.5 md:-mx-8 md:px-8`}>
       <ul className="flex gap-2 overflow-x-auto lg:justify-center" style={{ scrollbarWidth: "none" }}>
         {tabs.map((t) => (
           <li key={t.id} className="shrink-0">
@@ -44,7 +49,7 @@ export function StoreTabs({ tabs }: { tabs: StoreTab[] }) {
               aria-current={active === t.id ? "true" : undefined}
               className={`${css.tab} ${active === t.id ? css.tabActive : ""} nx-focus flex min-h-[44px] items-center gap-2 px-5 font-display text-label font-bold uppercase tracking-wide2 text-ink-secondary sm:min-w-[132px] sm:justify-center`}
             >
-              {t.label}
+              {td(t.label)}
               {t.count !== undefined && <span className="tabular-nums text-label text-white/45">{t.count}</span>}
             </button>
           </li>

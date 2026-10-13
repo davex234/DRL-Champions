@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const t = ns("supabase");
+
 /**
  * FASE 68 · ERRORES DE AUTH EN LENGUAJE DE JUGADOR.
  *
@@ -60,7 +64,7 @@ export function authLinkError(fragment: string): string | null {
   const error = q.get("error"), code = q.get("error_code");
   if (!error && !code) return null;
   if (code === "otp_expired" || /expired/i.test(q.get("error_description") ?? "")) {
-    return "El enlace ha caducado o ya se usó. Pide uno nuevo desde «Recuperar».";
+    return t("El enlace ha caducado o ya se usó. Pide uno nuevo desde «Recuperar».");
   }
-  return "El enlace no es válido. Pide uno nuevo desde «Recuperar».";
+  return t("El enlace no es válido. Pide uno nuevo desde «Recuperar».");
 }

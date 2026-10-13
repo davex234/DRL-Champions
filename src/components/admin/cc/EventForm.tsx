@@ -9,6 +9,10 @@
 import { useId } from "react";
 import { EVENT_TYPES, EVENT_TYPE_LABEL, EVENT_REGIONS } from "@/domain/admin/events";
 import { Field, Input, Select, Textarea } from "./ui";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("admin");
 
 export interface EventFormState { name: string; description: string; imageUrl: string; type: string; region: string; startsAt: string; endsAt: string }
 export const EMPTY_EVENT: EventFormState = { name: "", description: "", imageUrl: "", type: "masters", region: "", startsAt: "", endsAt: "" };
@@ -28,24 +32,26 @@ export function toPayload(s: EventFormState) {
 }
 
 export function EventInfoFields({ s, set }: { s: EventFormState; set: (p: Partial<EventFormState>) => void }) {
+  useLocale();
   const id = useId();
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      <Field label="Nombre" htmlFor={`${id}n`} hint="3–80 caracteres"><Input id={`${id}n`} value={s.name} maxLength={80} onChange={(e) => set({ name: e.target.value })} /></Field>
-      <Field label="Tipo" htmlFor={`${id}t`} hint="Decide los desafíos (y sus recompensas) que el juego le asignará"><Select id={`${id}t`} value={s.type} onChange={(e) => set({ type: e.target.value })}>{EVENT_TYPES.map((t) => <option key={t} value={t}>{EVENT_TYPE_LABEL[t]}</option>)}</Select></Field>
-      <Field label="Región" htmlFor={`${id}r`}><Select id={`${id}r`} value={s.region} onChange={(e) => set({ region: e.target.value })}><option value="">Global</option>{EVENT_REGIONS.map((r) => <option key={r} value={r}>{r}</option>)}</Select></Field>
-      <Field label="Imagen (opcional)" htmlFor={`${id}i`} hint="Ruta del proyecto (/…) o URL https. Metadato del panel."><Input id={`${id}i`} value={s.imageUrl} maxLength={300} onChange={(e) => set({ imageUrl: e.target.value.trim() })} placeholder="/branding/…" /></Field>
-      <div className="md:col-span-2"><Field label="Descripción (opcional)" htmlFor={`${id}d`} hint="Hasta 600 caracteres. Metadato del panel: el juego muestra nombre, tipo, región y fechas."><Textarea id={`${id}d`} value={s.description} maxLength={600} onChange={(e) => set({ description: e.target.value })} /></Field></div>
+      <Field label={tr("Nombre")} htmlFor={`${id}n`} hint={tr("3–80 caracteres")}><Input id={`${id}n`} value={s.name} maxLength={80} onChange={(e) => set({ name: e.target.value })} /></Field>
+      <Field label={tr("Tipo")} htmlFor={`${id}t`} hint={tr("Decide los desafíos (y sus recompensas) que el juego le asignará")}><Select id={`${id}t`} value={s.type} onChange={(e) => set({ type: e.target.value })}>{EVENT_TYPES.map((t) => <option key={t} value={t}>{td(EVENT_TYPE_LABEL[t])}</option>)}</Select></Field>
+      <Field label={tr("Región")} htmlFor={`${id}r`}><Select id={`${id}r`} value={s.region} onChange={(e) => set({ region: e.target.value })}><option value="">{tr("Global")}</option>{EVENT_REGIONS.map((r) => <option key={r} value={r}>{td(r)}</option>)}</Select></Field>
+      <Field label={tr("Imagen (opcional)")} htmlFor={`${id}i`} hint={tr("Ruta del proyecto (/…) o URL https. Metadato del panel.")}><Input id={`${id}i`} value={s.imageUrl} maxLength={300} onChange={(e) => set({ imageUrl: e.target.value.trim() })} placeholder={tr("/branding/…")} /></Field>
+      <div className="md:col-span-2"><Field label={tr("Descripción (opcional)")} htmlFor={`${id}d`} hint={tr("Hasta 600 caracteres. Metadato del panel: el juego muestra nombre, tipo, región y fechas.")}><Textarea id={`${id}d`} value={s.description} maxLength={600} onChange={(e) => set({ description: e.target.value })} /></Field></div>
     </div>
   );
 }
 
 export function EventDateFields({ s, set }: { s: EventFormState; set: (p: Partial<EventFormState>) => void }) {
+  useLocale();
   const id = useId();
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      <Field label={`Inicio (${tzName()})`} htmlFor={`${id}s`} hint={s.startsAt ? `UTC: ${localToIso(s.startsAt).replace("T", " ").slice(0, 16)}` : undefined}><Input id={`${id}s`} type="datetime-local" value={s.startsAt} onChange={(e) => set({ startsAt: e.target.value })} /></Field>
-      <Field label={`Fin (${tzName()})`} htmlFor={`${id}e`} hint={s.endsAt ? `UTC: ${localToIso(s.endsAt).replace("T", " ").slice(0, 16)}` : "Entre 1 hora y 120 días después del inicio"}><Input id={`${id}e`} type="datetime-local" value={s.endsAt} onChange={(e) => set({ endsAt: e.target.value })} /></Field>
+      <Field label={tr("Inicio ({v})", { v: tzName() })} htmlFor={`${id}s`} hint={s.startsAt ? tr("UTC: {v}", { v: localToIso(s.startsAt).replace("T", " ").slice(0, 16) }) : undefined}><Input id={`${id}s`} type="datetime-local" value={s.startsAt} onChange={(e) => set({ startsAt: e.target.value })} /></Field>
+      <Field label={tr("Fin ({v})", { v: tzName() })} htmlFor={`${id}e`} hint={s.endsAt ? tr("UTC: {v}", { v: localToIso(s.endsAt).replace("T", " ").slice(0, 16) }) : tr("Entre 1 hora y 120 días después del inicio")}><Input id={`${id}e`} type="datetime-local" value={s.endsAt} onChange={(e) => set({ endsAt: e.target.value })} /></Field>
     </div>
   );
 }

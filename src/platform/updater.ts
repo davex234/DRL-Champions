@@ -20,6 +20,9 @@ import { APP_VERSION } from "./version";
 import { recordUpdate, info as logInfo, error as logError } from "./log";
 import { type Channel, channelHeaders } from "./channels";
 import { isTauri, osName } from "./env";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("platform");
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Tipos públicos
@@ -310,12 +313,12 @@ export class UpdateController {
     const u = await this.backend.check(this.state.channel); // si lanza → lo gestiona el llamante (offline)
     if (!u) {
       this.pending = null;
-      recordUpdate(`Sin actualizaciones (canal ${this.state.channel})`);
+      recordUpdate(t("Sin actualizaciones (canal {channel})", { channel: this.state.channel }));
       this.patch({ phase: "up-to-date", available: null, notes: null, date: null, availableSize: null });
       return this.getState();
     }
     this.pending = u;
-    recordUpdate(`Actualización disponible: v${u.version} (canal ${this.state.channel})`);
+    recordUpdate(t("Actualización disponible: v{version} (canal {channel})", { version: td(u.version), channel: this.state.channel }));
     this.patch({ phase: "available", available: u.version, notes: u.notes ?? null, date: u.date ?? null });
     // Enriquecer con tamaño/notas (best-effort, no bloquea).
     try {
@@ -395,7 +398,7 @@ export class UpdateController {
   /** Reinicia la app para aplicar la actualización (cierra y reabre). */
   async restart(): Promise<boolean> {
     this.patch({ phase: "restarting", finishedAt: Date.now() });
-    recordUpdate("Reiniciando para aplicar la actualización…");
+    recordUpdate(t("Reiniciando para aplicar la actualización…"));
     try {
       await this.backend.relaunch();
       return true;

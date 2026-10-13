@@ -201,7 +201,7 @@ test("F64 H02 · entrada/registro: parte del juego (panel, campos con etiqueta y
   assert.match(f, /className="nx-field"[^>]*autoComplete="email"/);
   assert.match(f, /autoComplete=\{mode === "register" \? "new-password" : "current-password"\}/);
   assert.match(f, /role=\{msg\.ok \? "status" : "alert"\}/);
-  assert.ok(f.includes('["register", "Registro"]'), "las pruebas E2E buscan la pestaña «Registro»");
+  assert.ok(/\["register", (?:"Registro"|(?:t|tr|i18nT)\("Registro"\))\]/.test(f), "las pruebas E2E buscan la pestaña «Registro»");
   assert.match(f, /<NxButton type="submit"/);
   assert.ok(!/rounded-2xl|rounded-xl/.test(code(f)), "sin la caja redondeada de web");
   assert.match(f, /if \(mode === "register"\) return "\/";/, "F63 intacto");

@@ -27,11 +27,16 @@ import { Plate, Piece, Recessed } from "@/components/ui/Surface";
 import { Readout } from "@/components/ui/Readout";
 import { Badge } from "@/components/ui/Badge";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { ns, td as i18nTd, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const i18nT = ns("recompensas");
 
 const fmt = (s: string) =>
-  new Date(s).toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  new Date(s).toLocaleString(getIntlLocale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
 export default function RecompensasPage() {
+  useLocale();
   const configured = isSupabaseConfigured();
   const { user, profile } = useAuth();
 
@@ -81,7 +86,7 @@ export default function RecompensasPage() {
         setDetail(null);
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "No se pudieron cargar tus recompensas");
+      setError(e instanceof Error ? e.message : i18nT("No se pudieron cargar tus recompensas"));
     } finally {
       setLoading(false);
     }
@@ -100,7 +105,7 @@ export default function RecompensasPage() {
     return (
       <section className="animate-rise">
         <Header />
-        <NeedsAccount what="Tus recompensas" />
+        <NeedsAccount what={i18nT("Tus recompensas")} />
       </section>
     );
   }
@@ -110,9 +115,9 @@ export default function RecompensasPage() {
       <Header />
 
       {loading ? (
-        <Loading label="Cargando recompensas" />
+        <Loading label={i18nT("Cargando recompensas")} />
       ) : error ? (
-        <ErrorState message={error} onRetry={load} />
+        <ErrorState message={i18nTd(error)} onRetry={load} />
       ) : (
         <div className="space-y-8">
           {/* ── Última recompensa ── */}
@@ -122,19 +127,19 @@ export default function RecompensasPage() {
               return (
                 <Piece tone="success" className="p-6">
                   <p className="text-[10px] uppercase tracking-widest text-emerald-300/70">
-                    Última recompensa
+                    {i18nT("Última recompensa")}
                   </p>
                   <h2 className="mt-1 font-display text-2xl font-bold uppercase tracking-wide text-white">
-                    {d.label}
+                    {i18nTd(d.label)}
                   </h2>
                   {d.pickemEventId && titles[d.pickemEventId] && (
-                    <p className="mt-1 text-sm text-white/55">{titles[d.pickemEventId]}</p>
+                    <p className="mt-1 text-sm text-white/55">{i18nTd(titles[d.pickemEventId])}</p>
                   )}
                   <div className="mt-3 flex flex-wrap gap-2">
                     {latest.delta > 0 && (
-                      <Chip>🪙 {formatCredits(latest.delta)} créditos</Chip>
+                      <Chip>🪙 {formatCredits(latest.delta)} {i18nT("créditos")}</Chip>
                     )}
-                    {d.tier?.reward.xp ? <Chip>{d.tier.reward.xp} XP</Chip> : null}
+                    {d.tier?.reward.xp ? <Chip>{d.tier.reward.xp} {i18nT("XP")}</Chip> : null}
                     {d.tier?.reward.packId ? (
                       <Chip>{d.tier.reward.packCount ?? 1} × {packLabel(d.tier.reward.packId)}</Chip>
                     ) : null}
@@ -146,9 +151,9 @@ export default function RecompensasPage() {
           ) : (
             <EmptyState
               icon="🎁"
-              title="Todavía no tienes recompensas"
-              hint="Haz tus predicciones en un torneo: al corregirse, las recompensas llegan solas a tu cuenta."
-              action={{ href: "/pickems", label: "Ir a Pick'ems" }}
+              title={i18nT("Todavía no tienes recompensas")}
+              hint={i18nT("Haz tus predicciones en un torneo: al corregirse, las recompensas llegan solas a tu cuenta.")}
+              action={{ href: "/pickems", label: i18nT("Ir a Pick'ems") }}
             />
           )}
 
@@ -156,7 +161,7 @@ export default function RecompensasPage() {
           {detail && (
             <div>
               <SectionTitle as="h2" className="!mb-3 [&>*]:!text-[15px] [&>*]:!text-white">
-                Cómo la conseguiste
+                {i18nT("Cómo la conseguiste")}
               </SectionTitle>
               <Plate className="p-5">
                 <PickemResultBody data={detail} />
@@ -170,49 +175,49 @@ export default function RecompensasPage() {
           {profile && !detail && (
             <div>
               <SectionTitle as="h2" className="!mb-3 [&>*]:!text-[15px] [&>*]:!text-white">
-                Tu rango
+                {i18nT("Tu rango")}
               </SectionTitle>
               <RankBadge
                 points={profile.points ?? 0}
-                action={{ href: "/ranking", label: "Clasificación" }}
+                action={{ href: "/ranking", label: i18nT("Clasificación") }}
               />
             </div>
           )}
 
           {/* ── Resumen ── */}
           <div className="grid gap-4 sm:grid-cols-3">
-            <Stat label="Recompensas obtenidas" value={String(rewards.length)} />
-            <Stat label="Créditos ganados" value={`🪙 ${formatCredits(totalCredits)}`} tone="gold" />
+            <Stat label={i18nT("Recompensas obtenidas")} value={String(rewards.length)} />
+            <Stat label={i18nT("Créditos ganados")} value={`🪙 ${formatCredits(totalCredits)}`} tone="gold" />
             <Stat
-              label="Sobres sin abrir"
+              label={i18nT("Sobres sin abrir")}
               value={String(packTotal)}
               tone={packTotal > 0 ? "cyan" : undefined}
-              action={packTotal > 0 ? { href: "/inventario", label: "Abrir" } : undefined}
+              action={packTotal > 0 ? { href: "/inventario", label: i18nT("Abrir") } : undefined}
             />
           </div>
 
           {/* ── Escalones ── */}
           <div>
             <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">
-              Escalones de recompensa
+              {i18nT("Escalones de recompensa")}
             </h2>
             <p className="mb-3 max-w-2xl text-sm text-white/50">
-              En cada torneo se concede el escalón más alto que alcances con tus puntos de Pick&apos;ems.
+              {i18nT("En cada torneo se concede el escalón más alto que alcances con tus puntos de Pick'ems.")}
             </p>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {REWARD_TIERS.map((t) => (
                 <Plate key={t.id} className="p-4">
                   <div className="flex items-baseline justify-between gap-2">
                     <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-                      {t.label}
+                      {i18nTd(t.label)}
                     </p>
                     <span className="shrink-0 text-[10px] uppercase tracking-widest text-white/40">
                       {plural(t.minPoints, "pt", "pts")}
                     </span>
                   </div>
                   <ul className="mt-2 space-y-0.5 text-xs text-white/55">
-                    {t.reward.credits ? <li>🪙 {formatCredits(t.reward.credits)} créditos</li> : null}
-                    {t.reward.xp ? <li>{t.reward.xp} XP</li> : null}
+                    {t.reward.credits ? <li>🪙 {formatCredits(t.reward.credits)} {i18nT("créditos")}</li> : null}
+                    {t.reward.xp ? <li>{t.reward.xp} {i18nT("XP")}</li> : null}
                     {t.reward.packId ? (
                       <li>{t.reward.packCount ?? 1} × {packLabel(t.reward.packId)}</li>
                     ) : null}
@@ -225,19 +230,19 @@ export default function RecompensasPage() {
           {/* ── Historial ── */}
           <div>
             <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">
-              Historial de movimientos
+              {i18nT("Historial de movimientos")}
             </h2>
             {ledger.length === 0 ? (
-              <EmptyState icon="📜" title="Sin movimientos todavía" />
+              <EmptyState icon="📜" title={i18nT("Sin movimientos todavía")} />
             ) : (
               <Recessed depth="sm" className="overflow-x-auto">
                 <table className="w-full min-w-[520px] text-sm">
                   <thead>
                     <tr className="bg-base-800/60 text-left text-[10px] uppercase tracking-widest text-white/40">
-                      <th className="px-4 py-2.5 font-medium">Concepto</th>
-                      <th className="px-4 py-2.5 font-medium">Fecha</th>
-                      <th className="px-4 py-2.5 text-right font-medium">Importe</th>
-                      <th className="px-4 py-2.5 text-right font-medium">Saldo</th>
+                      <th className="px-4 py-2.5 font-medium">{i18nT("Concepto")}</th>
+                      <th className="px-4 py-2.5 font-medium">{i18nT("Fecha")}</th>
+                      <th className="px-4 py-2.5 text-right font-medium">{i18nT("Importe")}</th>
+                      <th className="px-4 py-2.5 text-right font-medium">{i18nT("Saldo")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -246,10 +251,10 @@ export default function RecompensasPage() {
                       return (
                         <tr key={r.id} className="border-t border-white/5">
                           <td className="px-4 py-2.5">
-                            <span className="text-white/85">{d.label}</span>
+                            <span className="text-white/85">{i18nTd(d.label)}</span>
                             {d.pickemEventId && titles[d.pickemEventId] && (
                               <span className="block text-[11px] text-white/40">
-                                {titles[d.pickemEventId]}
+                                {i18nTd(titles[d.pickemEventId])}
                               </span>
                             )}
                           </td>
@@ -276,13 +281,14 @@ export default function RecompensasPage() {
 }
 
 function Header() {
+  useLocale();
   return (
     <header className="mb-6">
       <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
-        Recompensas
+        {i18nT("Recompensas")}
       </h1>
       <p className="mt-1 text-white/50">
-        Todo lo que has ganado compitiendo, con su recibo.
+        {i18nT("Todo lo que has ganado compitiendo, con su recibo.")}
       </p>
     </header>
   );
@@ -304,6 +310,7 @@ function Stat({
   tone?: "gold" | "cyan";
   action?: { href: string; label: string };
 }) {
+  useLocale();
   /*
    * FASE 11 · La cifra pasa a `Readout`, la primitiva de la cifra competitiva: misma familia
    * condensada, cifras tabulares y su etiqueta en versalitas encima. Y el enlace de acción
@@ -313,13 +320,13 @@ function Stat({
     <Plate tone={tone === "gold" ? "gold" : tone === "cyan" ? "cyan" : "neutral"} className="p-5">
       <Readout
         size="md"
-        label={label}
+        label={i18nTd(label)}
         value={value}
         tone={tone === "gold" ? "var(--nx-gold)" : tone === "cyan" ? "var(--nx-cyan)" : undefined}
       />
       {action && (
         <Link href={action.href} className="nx-action mt-1">
-          {action.label} →
+          {i18nTd(action.label)} →
         </Link>
       )}
     </Plate>

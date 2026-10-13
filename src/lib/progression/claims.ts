@@ -15,6 +15,9 @@ import { useCallback, useRef, useState } from "react";
 import { claimAchievement, claimMission, claimPassLevel, ProgressionError } from "./client";
 import { claimOrder, type Claimable } from "@/domain/progression/hub";
 import { syncFromServer } from "@/lib/game/sync";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("progression");
 
 export interface ClaimOutcome { key: string; ok: boolean; error: string | null }
 
@@ -52,7 +55,7 @@ export function useClaims(onAfter: () => Promise<void> | void) {
         ok.push(c);
       } catch (e) {
         // 409 = ya reclamado / ya no reclamable / el pase cambió: el servidor manda; se relee y se sigue.
-        out.push({ key: c.key, ok: false, error: e instanceof ProgressionError ? e.message : "No se pudo reclamar" });
+        out.push({ key: c.key, ok: false, error: e instanceof ProgressionError ? e.message : t("No se pudo reclamar") });
       } finally {
         mark(c.key, false);
       }

@@ -32,6 +32,10 @@
  */
 import type { ReactNode } from "react";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coach");
 
 export interface MatchHUDProps {
   /** Número de ronda en curso. */
@@ -51,6 +55,7 @@ export interface MatchHUDProps {
 const SIDE_LABEL = { ATK: "Ataque", DEF: "Defensa" } as const;
 
 export function MatchHUD({ round, score, teams, side, map, state, aside }: MatchHUDProps) {
+  useLocale();
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 py-2 sm:px-4">
       {/* ── Izquierda: dónde estás ── */}
@@ -61,10 +66,10 @@ export function MatchHUD({ round, score, teams, side, map, state, aside }: Match
             side === "ATK" ? "bg-drl/20 text-drl-glow" : "bg-cyan-400/15 text-cyan-200",
           )}
         >
-          {SIDE_LABEL[side]}
+          {td(SIDE_LABEL[side])}
         </span>
         <span className="font-display text-[11px] uppercase tracking-[0.18em] text-ink-faint">
-          Ronda <b className="nx-readout text-[13px] text-white">{round}</b>
+          {t("Ronda")} <b className="nx-readout text-[13px] text-white">{round}</b>
         </span>
       </div>
 
@@ -76,7 +81,7 @@ export function MatchHUD({ round, score, teams, side, map, state, aside }: Match
       */}
       <div className="order-last flex w-full items-center justify-center gap-3 sm:order-none sm:w-auto sm:flex-1">
         <span className="min-w-0 flex-1 truncate text-right font-display text-[12px] font-bold uppercase tracking-wide text-white/75 sm:flex-none sm:max-w-[180px]">
-          {teams.home}
+          {td(teams.home)}
         </span>
         <span className="nx-readout shrink-0 text-[26px] leading-none text-white sm:text-[30px]">
           {score.home}
@@ -84,17 +89,17 @@ export function MatchHUD({ round, score, teams, side, map, state, aside }: Match
           {score.away}
         </span>
         <span className="min-w-0 flex-1 truncate font-display text-[12px] font-bold uppercase tracking-wide text-white/50 sm:flex-none sm:max-w-[180px]">
-          {teams.away}
+          {td(teams.away)}
         </span>
       </div>
 
       {/* ── Derecha: contexto y mandos ── */}
       <div className="ml-auto flex items-center gap-2.5">
         <span className="hidden font-display text-[10px] uppercase tracking-[0.22em] text-ink-faint md:inline">
-          {map}
+          {td(map)}
         </span>
         <span className="nx-clip-sm bg-white/6 px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
-          {state}
+          {td(state)}
         </span>
         {aside}
       </div>
@@ -125,11 +130,12 @@ export interface PrimaryActionProps {
 export function PrimaryAction({
   label, onClick, disabled, hint, tone = "go", secondary,
 }: PrimaryActionProps) {
+  useLocale();
   return (
     <div className="flex flex-wrap items-center gap-3 px-3 py-2.5 sm:px-4">
       {hint && (
         <p className="order-last w-full text-caption text-ink-muted sm:order-none sm:w-auto sm:flex-1">
-          {hint}
+          {td(hint)}
         </p>
       )}
       {secondary && (
@@ -138,7 +144,7 @@ export function PrimaryAction({
           onClick={secondary.onClick}
           className="nx-focus nx-clip-sm min-h-[44px] border border-white/15 px-5 font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white/70 transition hover:bg-white/8"
         >
-          {secondary.label}
+          {td(secondary.label)}
         </button>
       )}
       <button
@@ -153,7 +159,7 @@ export function PrimaryAction({
           disabled && "cursor-not-allowed opacity-40",
         )}
       >
-        {label}
+        {td(label)}
       </button>
     </div>
   );

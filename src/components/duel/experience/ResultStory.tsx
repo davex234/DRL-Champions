@@ -17,12 +17,17 @@ import { roundTally } from "@/lib/duel/gameplayUx";
 import {
   buildTimeline, decisionSteps, rewardPresentation, DECISION_TITLE, type CellState, type DecisionStep, type MatchMode,
 } from "@/lib/duel/experience";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 const OUTCOME_WORD: Record<DecisionStep["outcome"], string> = { YOU: "Para ti", RIVAL: "Para el rival", TIE: "Empate", UNKNOWN: "Sin dato" };
 const OUTCOME_TONE: Record<DecisionStep["outcome"], string> = { YOU: "text-ok", RIVAL: "text-drl", TIE: "text-drl-gold", UNKNOWN: "text-white/40" };
 const CELL_TONE: Record<CellState, string> = { WIN: "#3fc07a", LOSS: "#ff2e63", DRAW: "#ffd35c", CURRENT: "#3fd2ff", PENDING: "rgba(255,255,255,0.25)" };
 
 export function ResultStory({ view, mode, className }: { view: DuelMatchView; mode: MatchMode; className?: string }) {
+  useLocale();
   const reduced = useReducedMotion();
   const r = view.result;
   if (!r) return null;
@@ -32,12 +37,12 @@ export function ResultStory({ view, mode, className }: { view: DuelMatchView; mo
   const reward = rewardPresentation(mode, r);
 
   return (
-    <section aria-label="Resumen de la partida" data-testid="result-story" data-decided={r.decidedBy} className={cn("nx-clip-sm border border-white/10 bg-white/[0.03] px-4 py-4", className)}>
+    <section aria-label={t("Resumen de la partida")} data-testid="result-story" data-decided={r.decidedBy} className={cn("nx-clip-sm border border-white/10 bg-white/[0.03] px-4 py-4", className)}>
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="font-display text-body font-bold uppercase tracking-wide text-white">{DECISION_TITLE[r.decidedBy]}</h2>
-        <span className="text-caption text-ink-muted">Paso a paso</span>
+        <h2 className="font-display text-body font-bold uppercase tracking-wide text-white">{td(DECISION_TITLE[r.decidedBy])}</h2>
+        <span className="text-caption text-ink-muted">{t("Paso a paso")}</span>
       </div>
-      <ol className="mt-2 space-y-1.5" aria-label="Cómo se decidió, paso a paso">
+      <ol className="mt-2 space-y-1.5" aria-label={t("Cómo se decidió, paso a paso")}>
         {/*
           EL DESEMPATE SE REVELA PASO A PASO: turnos → (empate) → suma de OVR → (empate) → total de
           estadísticas. Cada criterio entra después del anterior; el que decidió se marca. Con movimiento
@@ -59,33 +64,33 @@ export function ResultStory({ view, mode, className }: { view: DuelMatchView; mo
                 decisive && "ring-1 ring-drl-gold/50",
               )}
             >
-              <span className="text-[12px] font-semibold text-white/85">{i + 1}. {s.label}</span>
+              <span className="text-[12px] font-semibold text-white/85">{i + 1}. {td(s.label)}</span>
               <b className="nx-readout text-[16px] tabular-nums text-white">{s.you ?? "—"} – {s.rival ?? "—"}</b>
-              <span className={cn("font-display text-[11px] font-bold uppercase tracking-[0.1em]", OUTCOME_TONE[s.outcome])}>{OUTCOME_WORD[s.outcome]}</span>
-              <span className="col-span-3 text-[11px] text-ink-muted">{s.note}</span>
+              <span className={cn("font-display text-[11px] font-bold uppercase tracking-[0.1em]", OUTCOME_TONE[s.outcome])}>{td(OUTCOME_WORD[s.outcome])}</span>
+              <span className="col-span-3 text-[11px] text-ink-muted">{td(s.note)}</span>
             </motion.li>
           );
         })}
       </ol>
 
       <div className="mt-4">
-        <p className="nx-label">Los {view.totalTurns} turnos</p>
-        <ol className="mt-1.5 grid grid-cols-10 gap-1" aria-label="Resultado de cada turno">
+        <p className="nx-label">{t("Los {n} turnos", { n: view.totalTurns })}</p>
+        <ol className="mt-1.5 grid grid-cols-10 gap-1" aria-label={t("Resultado de cada turno")}>
           {cells.map((c) => (
-            <li key={c.number} aria-label={c.label} data-cell={c.state} className="flex flex-col items-center rounded-[3px] border border-white/10 py-1">
+            <li key={c.number} aria-label={td(c.label)} data-cell={c.state} className="flex flex-col items-center rounded-[3px] border border-white/10 py-1">
               <span className="text-[9px] text-white/40">{c.number}</span>
               <span aria-hidden className="text-[13px] leading-none" style={{ color: CELL_TONE[c.state] }}>{c.glyph}</span>
             </li>
           ))}
         </ol>
         <p className="mt-1.5 text-caption text-ink-secondary">
-          Ganados <b className="text-white">{tally.won}</b> · Perdidos <b className="text-white">{tally.lost}</b> · Empatados <b className="text-white">{tally.tied}</b>
-          <span className="ml-2 text-ink-faint">(● ganado · ○ perdido · — empate)</span>
+          {t("Ganados")} <b className="text-white">{tally.won}</b> {t("· Perdidos")} <b className="text-white">{tally.lost}</b> {t("· Empatados")} <b className="text-white">{tally.tied}</b>
+          <span className="ml-2 text-ink-faint">{t("(● ganado · ○ perdido · — empate)")}</span>
         </p>
       </div>
 
       {reward.state !== "GRANTED" && (
-        <p className="mt-3 text-caption text-ink-muted" data-reward={reward.state}>{reward.note}</p>
+        <p className="mt-3 text-caption text-ink-muted" data-reward={reward.state}>{td(reward.note)}</p>
       )}
     </section>
   );

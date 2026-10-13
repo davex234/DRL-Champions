@@ -51,6 +51,11 @@ import { CardFocusSection } from "./strategy/CardFocusSection";
 import { SuggestSection } from "./strategy/SuggestSection";
 import { StrategyImpact } from "./strategy/StrategyImpact";
 import { getPlayer } from "@/data/catalog";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("duel");
 
 export type SaveOutcome =
   | { ok: true; deck: DuelDeckDTO }
@@ -115,6 +120,7 @@ const focusSlot = (key: string) => {
 };
 
 export function DeckBuilder(props: DeckBuilderProps) {
+  useLocale();
   const { deck, collection, activeSupported, onDirtyChange } = props;
   const init = props.initial ?? {};
   const nameId = useId();
@@ -186,8 +192,8 @@ export function DeckBuilder(props: DeckBuilderProps) {
     return { def, nick, target, impact: target ? informativeImpact(cards, target.uid, { ...def, uid: `def:${def.cardId}`, nick }, strategyCtx) : null };
   }, [explore, uids, pool, strategyCtx]);
   const compareSlotLabel = compare?.slotUid
-    ? board.slots.find((s) => s.uid === compare.slotUid)?.label ?? "Hueco"
-    : compareView ? `${compareView.role} · hueco libre` : "Hueco";
+    ? board.slots.find((s) => s.uid === compare.slotUid)?.label ?? t("Hueco")
+    : compareView ? t("{role} · hueco libre", { role: td(compareView.role) }) : t("Hueco");
 
   useEffect(() => { onDirtyChange?.(dirty); }, [dirty, onDirtyChange]);
 
@@ -215,14 +221,14 @@ export function DeckBuilder(props: DeckBuilderProps) {
     setNotice(null);
     if (action.kind === "add") {
       const r = tryAdd(uids, card.uid, pool, check);
-      if (r.ok) { apply(r.uids, `${card.nick} añadida al equipo como ${card.role}.`, card.uid); setSelectedUid(null); }
+      if (r.ok) { apply(r.uids, t("{nick} añadida al equipo como {role}.", { nick: card.nick, role: td(card.role) }), card.uid); setSelectedUid(null); }
       else setNotice({ tone: "warn", text: r.reason });
       return;
     }
     if (action.kind === "replace") {
       setSelectedUid(card.uid);
       setCollectionOpen(false);
-      setNotice({ tone: "warn", text: `${action.reason} Pulsa el hueco resaltado que quieres cambiar.` });
+      setNotice({ tone: "warn", text: t("{reason} Pulsa el hueco resaltado que quieres cambiar.", { reason: td(action.reason) }) });
       return;
     }
     if (action.kind === "in_deck") {
@@ -240,7 +246,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
       const r = tryPlace(uids, slot, selectedCard.uid, pool, check);
       if (!r.ok) { setNotice({ tone: "warn", text: r.reason }); return; }
       if (slot.uid) { openCompare(slot.uid, selectedCard.uid); return; }
-      apply(r.uids, `${selectedCard.nick} colocada en ${slot.label}.`, selectedCard.uid);
+      apply(r.uids, t("{nick} colocada en {label}.", { nick: selectedCard.nick, label: td(slot.label) }), selectedCard.uid);
       setSelectedUid(null);
       return;
     }
@@ -251,7 +257,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
     if (!slot.uid) return;
     const r = tryRemove(uids, slot.uid);
     if (!r.ok) return;
-    apply(r.uids, `${slot.card?.nick ?? "La carta"} quitada de ${slot.label}.`);
+    apply(r.uids, t("{v} quitada de {label}.", { v: slot.card?.nick ?? t("La carta"), label: td(slot.label) }));
     setReleased((cur) => { const n = new Set(cur); n.delete(slot.uid!); return n; });
     setSlotKeyOpen(null);
     requestAnimationFrame(() => focusSlot(slot.key));
@@ -259,14 +265,14 @@ export function DeckBuilder(props: DeckBuilderProps) {
 
   function removeUid(uid: string) {
     const r = tryRemove(uids, uid);
-    if (r.ok) apply(r.uids, "Carta no disponible quitada del equipo.");
+    if (r.ok) apply(r.uids, t("Carta no disponible quitada del equipo."));
   }
 
   function moveSlot(slot: BoardSlot, dir: -1 | 1) {
     if (!slot.uid) return;
     const next = moveInRole(uids, slot.uid, dir, pool);
     if (sameUids(next, uids)) return;
-    apply(next, `${slot.card?.nick ?? "La carta"} movida ${dir < 0 ? "arriba" : "abajo"} en ${slot.role}.`);
+    apply(next, t("{v} movida {v2} en {role}.", { v: slot.card?.nick ?? t("La carta"), v2: dir < 0 ? t("arriba") : t("abajo"), role: td(slot.role) }));
     const uid = slot.uid;
     requestAnimationFrame(() => {
       const key = buildBoard(next, pool).slots.find((s) => s.uid === uid)?.key;
@@ -283,7 +289,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
     if (r.ok) {
       setUids(r.uids);
       setReleased(new Set());
-      setAnnounce(`Autocompletado: ${r.added.length} cartas añadidas. Revisa y guarda.`);
+      setAnnounce(t("Autocompletado: {length} cartas añadidas. Revisa y guarda.", { length: r.added.length }));
     } else {
       setAnnounce(r.reason);
     }
@@ -293,9 +299,9 @@ export function DeckBuilder(props: DeckBuilderProps) {
     if (saving || savingRef.current) return false;
     setNotice(null);
     if (!nameCheck.ok) { setSaveError(nameCheck.reason); return false; }
-    if (check.lostUids.length) { setSaveError("Quita las cartas que ya no están disponibles para poder guardar."); return false; }
+    if (check.lostUids.length) { setSaveError(t("Quita las cartas que ya no están disponibles para poder guardar.")); return false; }
     const hard = issues.find((i) => i.kind === "conflict" || i.kind === "excess");
-    if (hard) { setSaveError(`No se puede guardar así: ${hard.message}`); return false; }
+    if (hard) { setSaveError(t("No se puede guardar así: {message}", { message: td(hard.message) })); return false; }
     savingRef.current = true;
     setSaving(true);
     setSaveError(null);
@@ -306,7 +312,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
         setName(out.deck.name);
         setConflict(null);
         setReviewing(false);
-        setAnnounce(out.deck.valid ? "Equipo guardado y listo para duelo." : "Equipo guardado, todavía incompleto.");
+        setAnnounce(out.deck.valid ? t("Equipo guardado y listo para duelo.") : t("Equipo guardado, todavía incompleto."));
         trackDeck("deck_saved");
         return true;
       }
@@ -327,7 +333,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
     setBaseline({ name: theirs.name, uids: theirs.cardUids });
     setConflict(null);
     setReviewing(false);
-    setAnnounce("Cargada la versión guardada del equipo.");
+    setAnnounce(t("Cargada la versión guardada del equipo."));
   }
 
   /** Fase 43 · deshacer los cambios locales: vuelve a lo guardado (sin tocar la base de datos). */
@@ -337,7 +343,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
     setAuto(null);
     setSaveError(null);
     setNotice(null);
-    setAnnounce("Cambios deshechos: el borrador vuelve a la versión guardada.");
+    setAnnounce(t("Cambios deshechos: el borrador vuelve a la versión guardada."));
   }
 
   function exit() {
@@ -348,7 +354,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
   const extras = board.extras;
   const theirsOnly = conflict ? conflict.cards.filter((c) => !uids.includes(c.uid)) : [];
   const mineOnly = conflict ? draftCards(uids, pool).filter((c) => !conflict.cardUids.includes(c.uid)) : [];
-  const rules = `${DUEL_DECK_SIZE} cartas · ${DUEL_ROLES.map((r) => roleCount(DUEL_COMPOSITION[r], r)).join(" · ")} · sin repetir jugador`;
+  const rules = t("{DUEL_DECK_SIZE} cartas · {v} · sin repetir jugador", { DUEL_DECK_SIZE, v: DUEL_ROLES.map((r) => roleCount(DUEL_COMPOSITION[r], r)).join(" · ") });
 
   const collectionPanel = (
     <CollectionPanel
@@ -369,12 +375,10 @@ export function DeckBuilder(props: DeckBuilderProps) {
 
   return (
     <div className="mx-auto w-full max-w-[1440px] pb-8" data-scene="team-builder" data-dirty={dirty} data-ready={check.ready}>
-      <div aria-live="polite" className="sr-only" data-testid="announce">{announce}</div>
+      <div aria-live="polite" className="sr-only" data-testid="announce">{td(announce)}</div>
       {props.firstTeam && (
-        <JourneyCoach eyebrow="Tu inicio · 4/6 · Tu primer equipo" title="Tu primer equipo" testId="journey-deck-coach" className="mb-3">
-          Diez cartas: dos por rol (Duelista, Controlador, Iniciador, Centinela y Flex), sin repetir jugador. Elige tú o pulsa
-          «Autocompletar equipo» (rellena con tus cartas de mayor OVR que cumplen las reglas). Cuenta cuando está <b className="text-white">guardado y completo</b>;
-          si es tu primer equipo legal, se activa al guardarlo.
+        <JourneyCoach eyebrow={t("Tu inicio · 4/6 · Tu primer equipo")} title={t("Tu primer equipo")} testId="journey-deck-coach" className="mb-3">
+          {fill(t("Diez cartas: dos por rol (Duelista, Controlador, Iniciador, Centinela y Flex), sin repetir jugador. Elige tú o pulsa «Autocompletar equipo» (rellena con tus cartas de mayor OVR que cumplen las reglas). Cuenta cuando está {estado}; si es tu primer equipo legal, se activa al guardarlo.", slots("estado")), { estado: <b className="text-white">{t("guardado y completo")}</b> })}
         </JourneyCoach>
       )}
 
@@ -385,14 +389,14 @@ export function DeckBuilder(props: DeckBuilderProps) {
           onClick={exit}
           className="nx-focus -ml-2 inline-flex min-h-[44px] items-center rounded-control px-2 font-display text-label uppercase tracking-wide2 text-ink-muted transition hover:bg-white/[0.06] hover:text-white"
         >
-          ‹ Mis equipos
+          {t("‹ Mis equipos")}
         </button>
-        <span className="nx-label hidden sm:inline">Nexus Team Builder</span>
+        <span className="nx-label hidden sm:inline">{t("Nexus Team Builder")}</span>
       </div>
 
       <div className="mt-1 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div className="min-w-0 flex-1">
-          <label htmlFor={nameId} className="sr-only">Nombre del equipo</label>
+          <label htmlFor={nameId} className="sr-only">{t("Nombre del equipo")}</label>
           <input
             id={nameId}
             value={name}
@@ -403,7 +407,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
             aria-describedby={nameCheck.ok ? undefined : nameErrId}
             className="nx-focus w-full max-w-[560px] rounded-control border border-transparent bg-transparent px-1 font-display text-[clamp(26px,4vw,42px)] font-bold uppercase leading-tight text-white outline-none transition hover:border-white/10 focus:border-drl/60 focus:bg-white/[0.04]"
           />
-          {!nameCheck.ok && <p id={nameErrId} role="alert" className="mt-0.5 text-caption text-bad">{nameCheck.reason}</p>}
+          {!nameCheck.ok && <p id={nameErrId} role="alert" className="mt-0.5 text-caption text-bad">{td(nameCheck.reason)}</p>}
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <span
               data-testid="deck-count"
@@ -412,15 +416,15 @@ export function DeckBuilder(props: DeckBuilderProps) {
               {countLabel(check.count)}
             </span>
             {deck ? (
-              <Badge tone={deck.valid ? "ok" : "warn"}>{deck.valid ? "Listo para duelo" : "Guardado incompleto"}</Badge>
+              <Badge tone={deck.valid ? "ok" : "warn"}>{deck.valid ? t("Listo para duelo") : t("Guardado incompleto")}</Badge>
             ) : (
-              <Badge tone="muted">Sin guardar</Badge>
+              <Badge tone="muted">{t("Sin guardar")}</Badge>
             )}
-            {deck?.active && <Badge tone="info" solid>Equipo activo</Badge>}
+            {deck?.active && <Badge tone="info" solid>{t("Equipo activo")}</Badge>}
             {analysis.count > 0 && <IdentityBadge analysis={analysis} />}
-            {dirty && <Badge tone="warn" data-testid="unsaved">Cambios sin guardar</Badge>}
+            {dirty && <Badge tone="warn" data-testid="unsaved">{t("Cambios sin guardar")}</Badge>}
           </div>
-          <p className="mt-1.5 text-[12px] text-ink-faint">{rules}</p>
+          <p className="mt-1.5 text-[12px] text-ink-faint">{td(rules)}</p>
         </div>
 
         <div className="flex flex-col items-stretch gap-1.5 sm:items-end">
@@ -433,20 +437,20 @@ export function DeckBuilder(props: DeckBuilderProps) {
               aria-busy={saving}
               data-testid="save-team"
             >
-              {saving ? "Guardando…" : deck && !dirty ? "Guardado" : "Guardar equipo"}
+              {saving ? t("Guardando…") : deck && !dirty ? t("Guardado") : t("Guardar equipo")}
             </NxButton>
             {deck && activeSupported && !deck.active && props.onActivate && (
               <NxButton variant="secondary" size="md" onClick={props.onActivate} disabled={dirty || !deck.valid || props.busy === "activate"} aria-busy={props.busy === "activate"} data-testid="activate-team">
-                Activar
+                {t("Activar")}
               </NxButton>
             )}
-            {dirty && <NxButton variant="ghost" size="md" onClick={revert} data-testid="revert-draft">Deshacer cambios</NxButton>}
-            {deck && props.onDuplicate && <NxButton variant="ghost" size="md" onClick={props.onDuplicate} disabled={dirty}>Duplicar</NxButton>}
-            {deck && props.onDelete && <NxButton variant="ghost" size="md" onClick={props.onDelete}>Eliminar</NxButton>}
+            {dirty && <NxButton variant="ghost" size="md" onClick={revert} data-testid="revert-draft">{t("Deshacer cambios")}</NxButton>}
+            {deck && props.onDuplicate && <NxButton variant="ghost" size="md" onClick={props.onDuplicate} disabled={dirty}>{t("Duplicar")}</NxButton>}
+            {deck && props.onDelete && <NxButton variant="ghost" size="md" onClick={props.onDelete}>{t("Eliminar")}</NxButton>}
           </div>
           {deck && activeSupported && !deck.active && (!deck.valid || dirty) && (
             <p className="text-[11px] text-ink-faint" data-testid="activate-hint">
-              {dirty ? "Guarda los cambios antes de activarlo." : "Solo un equipo completo y legal puede ser el activo."}
+              {dirty ? t("Guarda los cambios antes de activarlo.") : t("Solo un equipo completo y legal puede ser el activo.")}
             </p>
           )}
         </div>
@@ -456,39 +460,39 @@ export function DeckBuilder(props: DeckBuilderProps) {
       <div className="mt-3 space-y-2">
         {conflict && (
           <div role="alert" className="nx-clip-sm border border-drl-gold/50 bg-drl-gold/[0.08] px-4 py-3" data-testid="stale-version">
-            <p className="font-display text-body font-bold uppercase tracking-wide text-drl-gold">Este equipo cambió en otra pestaña.</p>
-            <p className="mt-0.5 text-caption text-ink-secondary">Tu borrador sigue aquí. Recarga la versión guardada o revisa las diferencias antes de decidir.</p>
+            <p className="font-display text-body font-bold uppercase tracking-wide text-drl-gold">{t("Este equipo cambió en otra pestaña.")}</p>
+            <p className="mt-0.5 text-caption text-ink-secondary">{t("Tu borrador sigue aquí. Recarga la versión guardada o revisa las diferencias antes de decidir.")}</p>
             {reviewing && (
               <div className="mt-2 grid gap-2 text-[12px] sm:grid-cols-2">
-                <div><p className="nx-label">Solo en la versión guardada</p><p className="text-white/80">{theirsOnly.map((c) => c.nick).join(", ") || "—"}{conflict.name !== name.trim() && ` · nombre «${conflict.name}»`}</p></div>
-                <div><p className="nx-label">Solo en tu borrador</p><p className="text-white/80">{mineOnly.map((c) => c.nick).join(", ") || "—"}</p></div>
+                <div><p className="nx-label">{t("Solo en la versión guardada")}</p><p className="text-white/80">{theirsOnly.map((c) => c.nick).join(", ") || "—"}{conflict.name !== name.trim() && t(" · nombre «{name}»", { name: conflict.name })}</p></div>
+                <div><p className="nx-label">{t("Solo en tu borrador")}</p><p className="text-white/80">{mineOnly.map((c) => c.nick).join(", ") || "—"}</p></div>
               </div>
             )}
             <div className="mt-2 flex flex-wrap gap-2">
-              <NxButton variant="secondary" size="sm" onClick={reloadTheirs}>Recargar</NxButton>
+              <NxButton variant="secondary" size="sm" onClick={reloadTheirs}>{t("Recargar")}</NxButton>
               {!reviewing ? (
-                <NxButton variant="ghost" size="sm" onClick={() => setReviewing(true)}>Revisar</NxButton>
+                <NxButton variant="ghost" size="sm" onClick={() => setReviewing(true)}>{t("Revisar")}</NxButton>
               ) : (
-                <NxButton variant="primary" size="sm" onClick={() => void save()} disabled={saving}>Guardar mi versión</NxButton>
+                <NxButton variant="primary" size="sm" onClick={() => void save()} disabled={saving}>{t("Guardar mi versión")}</NxButton>
               )}
             </div>
           </div>
         )}
         {saveError && (
           <p role="alert" className="rounded-lg border border-bad/40 bg-bad/[0.08] px-4 py-2.5 text-[13px] text-white" data-testid="save-error">
-            {saveError} <span className="text-ink-muted">Tu borrador no se ha perdido.</span>
+            {td(saveError)} <span className="text-ink-muted">{t("Tu borrador no se ha perdido.")}</span>
           </p>
         )}
         {extras.length > 0 && (
           <div className="nx-clip-sm border border-drl-gold/40 bg-drl-gold/[0.06] px-4 py-3" data-testid="lost-cards">
             <p className="text-[13px] font-semibold text-white">
-              {extras.length === 1 ? "Una carta de este equipo no puede estar en él." : `${extras.length} cartas de este equipo no pueden estar en él.`} El equipo no es legal hasta que las quites o las cambies.
+              {extras.length === 1 ? t("Una carta de este equipo no puede estar en él.") : t("{length} cartas de este equipo no pueden estar en él.", { length: extras.length })} {t("El equipo no es legal hasta que las quites o las cambies.")}
             </p>
             <ul className="mt-1.5 flex flex-wrap gap-2">
               {extras.map((x) => (
                 <li key={x.uid} className="flex items-center gap-2 rounded-lg bg-black/30 px-2 py-1 text-[12px] text-ink-secondary">
-                  <span>{x.card?.nick ?? "Carta"} · {x.issue}</span>
-                  <button type="button" onClick={() => removeUid(x.uid)} className="nx-action min-h-[32px] text-[11px]">Quitar</button>
+                  <span>{x.card?.nick ?? t("Carta")} · {td(x.issue)}</span>
+                  <button type="button" onClick={() => removeUid(x.uid)} className="nx-action min-h-[32px] text-[11px]">{t("Quitar")}</button>
                 </li>
               ))}
             </ul>
@@ -496,36 +500,36 @@ export function DeckBuilder(props: DeckBuilderProps) {
         )}
         {collection.length < DUEL_DECK_SIZE && (
           <div className="nx-clip-sm flex flex-wrap items-center gap-x-3 gap-y-1 border border-drl-cyan/35 bg-drl-cyan/[0.07] px-4 py-2.5" data-testid="few-cards">
-            <span className="font-display text-[12px] font-bold uppercase tracking-[0.12em] text-drl-cyan">Tienes {collection.length} de {DUEL_DECK_SIZE}</span>
-            <span className="text-[12px] text-white/60">Un equipo necesita {DUEL_DECK_SIZE} cartas tuyas.</span>
+            <span className="font-display text-[12px] font-bold uppercase tracking-[0.12em] text-drl-cyan">{t("Tienes {n} de {total}", { n: collection.length, total: DUEL_DECK_SIZE })}</span>
+            <span className="text-[12px] text-white/60">{t("Un equipo necesita {n} cartas tuyas.", { n: DUEL_DECK_SIZE })}</span>
             <Link href={(props.unopenedPacks ?? 0) > 0 ? "/inventario" : "/tienda"} className="nx-action ml-auto inline-flex min-h-[40px] items-center !text-drl-cyan">
-              {(props.unopenedPacks ?? 0) > 0 ? "Abrir mis sobres →" : "Conseguir un sobre →"}
+              {(props.unopenedPacks ?? 0) > 0 ? t("Abrir mis sobres →") : t("Conseguir un sobre →")}
             </Link>
           </div>
         )}
         {selectedCard && (
           <div className="nx-clip-sm flex flex-wrap items-center gap-x-3 gap-y-1 border border-drl-gold/40 bg-drl-gold/[0.07] px-4 py-2.5" role="status" data-testid="selection-banner">
-            <span className="font-display text-[12px] font-bold uppercase tracking-[0.12em] text-drl-gold">Colocar {selectedCard.nick}</span>
+            <span className="font-display text-[12px] font-bold uppercase tracking-[0.12em] text-drl-gold">{t("Colocar {nick}", { nick: selectedCard.nick })}</span>
             <span className="text-[12px] text-white/70">
-              {fits.size ? `Elige uno de los ${fits.size} huecos resaltados de ${selectedCard.role}.` : `No hay ningún hueco de ${selectedCard.role} donde pueda entrar ahora.`}
+              {fits.size ? t("Elige uno de los {size} huecos resaltados de {role}.", { size: fits.size, role: td(selectedCard.role) }) : t("No hay ningún hueco de {role} donde pueda entrar ahora.", { role: td(selectedCard.role) })}
             </span>
-            <button type="button" onClick={() => { setSelectedUid(null); setNotice(null); }} className="nx-action ml-auto min-h-[40px]">Cancelar</button>
+            <button type="button" onClick={() => { setSelectedUid(null); setNotice(null); }} className="nx-action ml-auto min-h-[40px]">{t("Cancelar")}</button>
           </div>
         )}
         {notice && (
           <p role="status" className={cn("rounded-lg border px-4 py-2 text-[13px]", notice.tone === "warn" ? "border-drl-gold/40 bg-drl-gold/[0.06] text-white" : "border-white/10 bg-white/[0.04] text-white/85")} data-testid="notice">
-            {notice.text}
+            {td(notice.text)}
           </p>
         )}
       </div>
 
       {/* ══ Colección · Tablero · Análisis ══ */}
       <div className="mt-4 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[300px_minmax(0,1fr)_300px]">
-        <aside className="hidden xl:block" aria-label="Tu colección">
+        <aside className="hidden xl:block" aria-label={t("Tu colección")}>
           <div className="nx-clip max-h-[calc(100vh-140px)] overflow-y-auto border border-white/10 bg-white/[0.02] p-3">{collectionPanel}</div>
         </aside>
 
-        <section aria-label="Tu equipo" className="min-w-0">
+        <section aria-label={t("Tu equipo")} className="min-w-0">
           <div className="nx-stage nx-clip relative overflow-hidden p-3 sm:p-4">
             <span aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: "radial-gradient(760px 320px at 50% 120%, rgba(63,210,255,0.12), transparent 70%)" }} />
             <TeamBoard
@@ -540,15 +544,15 @@ export function DeckBuilder(props: DeckBuilderProps) {
             />
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-2 xl:hidden">
-            <NxButton variant="secondary" size="md" onClick={() => setCollectionOpen(true)} data-testid="open-collection">+ Añadir cartas</NxButton>
-            <span className="text-[12px] text-ink-faint">o toca un hueco para ver sus candidatas</span>
+            <NxButton variant="secondary" size="md" onClick={() => setCollectionOpen(true)} data-testid="open-collection">{t("+ Añadir cartas")}</NxButton>
+            <span className="text-[12px] text-ink-faint">{t("o toca un hueco para ver sus candidatas")}</span>
           </div>
           <p className="mt-2 hidden text-[11px] text-ink-faint lg:block">
-            Teclado: Tab para moverte · Enter abre el hueco · Supr quita la carta · Alt+↑/↓ la mueve dentro de su rol.
+            {t("Teclado: Tab para moverte · Enter abre el hueco · Supr quita la carta · Alt+↑/↓ la mueve dentro de su rol.")}
           </p>
         </section>
 
-        <aside aria-label="Análisis del equipo" className="min-w-0">
+        <aside aria-label={t("Análisis del equipo")} className="min-w-0">
           <AnalysisPanel
             check={check}
             issues={issues}
@@ -573,7 +577,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
                 currentUids={uids}
                 initialObjective={init.suggestObjective ?? null}
                 initialPareto={init.pareto}
-                onApply={(next, label) => { apply(next, `Plantilla «${label}» aplicada al borrador. Revisa y guarda.`); setNotice({ tone: "info", text: `Plantilla «${label}» aplicada al borrador. No se ha guardado: revisa y pulsa «Guardar equipo».` }); }}
+                onApply={(next, label) => { apply(next, t("Plantilla «{label}» aplicada al borrador. Revisa y guarda.", { label: td(label) })); setNotice({ tone: "info", text: t("Plantilla «{label}» aplicada al borrador. No se ha guardado: revisa y pulsa «Guardar equipo».", { label: td(label) }) }); }}
               />
             }
           />
@@ -581,7 +585,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
       </div>
 
       {/* ══ Hojas ══ */}
-      <Sheet open={collectionOpen} size="lg" scene="collection-sheet" eyebrow={countLabel(check.count)} title="Añadir cartas" onClose={() => setCollectionOpen(false)}>
+      <Sheet open={collectionOpen} size="lg" scene="collection-sheet" eyebrow={countLabel(check.count)} title={t("Añadir cartas")} onClose={() => setCollectionOpen(false)}>
         {collectionPanel}
       </Sheet>
 
@@ -599,7 +603,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
           if (!slotOpen) return;
           if (slotOpen.uid) { openCompare(slotOpen.uid, card.uid); return; }
           const r = tryAdd(uids, card.uid, pool, check);
-          if (r.ok) { apply(r.uids, `${card.nick} colocada en ${slotOpen.label}.`, card.uid); setSlotKeyOpen(null); }
+          if (r.ok) { apply(r.uids, t("{nick} colocada en {label}.", { nick: card.nick, label: td(slotOpen.label) }), card.uid); setSlotKeyOpen(null); }
           else setNotice({ tone: "warn", text: r.reason });
         }}
         onCompare={(card) => slotOpen && openCompare(slotOpen.uid, card.uid)}
@@ -630,7 +634,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
         onClose={() => setCompare(null)}
         onConfirm={(next) => {
           const cand = compare ? pool.get(compare.candidateUid) : undefined;
-          apply(next, `${cand?.nick ?? "La carta"} entra en el equipo.`, cand?.uid ?? null);
+          apply(next, t("{v} entra en el equipo.", { v: cand?.nick ?? t("La carta") }), cand?.uid ?? null);
           setCompare(null);
           setSlotKeyOpen(null);
           setSelectedUid(null);
@@ -638,21 +642,21 @@ export function DeckBuilder(props: DeckBuilderProps) {
         }}
       />
 
-      <Sheet open={!!exploreView} size="lg" scene="explore-card" eyebrow="Carta que no tienes" title={exploreView ? exploreView.nick : "Carta"} onClose={() => setExplore(null)}>
+      <Sheet open={!!exploreView} size="lg" scene="explore-card" eyebrow={t("Carta que no tienes")} title={exploreView ? exploreView.nick : t("Carta")} onClose={() => setExplore(null)}>
         {exploreView && (
           <div data-testid="explore-card">
             <p className="text-caption text-ink-secondary">
-              {exploreView.def.role} · OVR <b className="nx-readout text-white">{exploreView.def.ovr}</b> · SH {exploreView.def.combat.stronghold} · GS {exploreView.def.combat.gamesense} · EF {exploreView.def.combat.entryfrag}
+              {td(exploreView.def.role)} {t("· OVR")} <b className="nx-readout text-white">{exploreView.def.ovr}</b> {t("· SH")} {exploreView.def.combat.stronghold} {t("· GS")} {exploreView.def.combat.gamesense} {t("· EF")} {exploreView.def.combat.entryfrag}
             </p>
             {exploreView.impact && exploreView.target ? (
               <>
-                <p className="mt-2 text-[12.5px] text-white">Comparada con tu {exploreView.def.role} <b>{exploreView.target.nick}</b>:</p>
+                <p className="mt-2 text-[12.5px] text-white">{fill(t("Comparada con tu {role} {nick}:", { role: td(exploreView.def.role), ...slots("nick") }), { nick: <b>{exploreView.target.nick}</b> })}</p>
                 <StrategyImpact impact={exploreView.impact} informative />
               </>
             ) : (
-              <p className="mt-2 text-caption text-ink-muted">Tu borrador no tiene ninguna carta de {exploreView.def.role} con la que compararla.</p>
+              <p className="mt-2 text-caption text-ink-muted">{t("Tu borrador no tiene ninguna carta de {rol} con la que compararla.", { rol: td(exploreView.def.role) })}</p>
             )}
-            <p className="mt-3 text-[12px] text-ink-muted">No la tienes: esta comparación es solo informativa y no se puede aplicar al equipo.</p>
+            <p className="mt-3 text-[12px] text-ink-muted">{t("No la tienes: esta comparación es solo informativa y no se puede aplicar al equipo.")}</p>
           </div>
         )}
       </Sheet>
@@ -660,18 +664,18 @@ export function DeckBuilder(props: DeckBuilderProps) {
       <Sheet
         open={confirmExit}
         scene="unsaved-exit"
-        eyebrow="Cambios sin guardar"
-        title="¿Salir del constructor?"
+        eyebrow={t("Cambios sin guardar")}
+        title={t("¿Salir del constructor?")}
         onClose={() => setConfirmExit(false)}
         footer={
           <div className="flex flex-wrap gap-2">
-            <NxButton variant="primary" size="md" onClick={async () => { if (await save()) { setConfirmExit(false); props.onExit(); } else setConfirmExit(false); }} disabled={saving}>Guardar y salir</NxButton>
-            <NxButton variant="danger" size="md" onClick={() => { setConfirmExit(false); props.onExit(); }}>Salir sin guardar</NxButton>
-            <NxButton variant="ghost" size="md" onClick={() => setConfirmExit(false)}>Seguir editando</NxButton>
+            <NxButton variant="primary" size="md" onClick={async () => { if (await save()) { setConfirmExit(false); props.onExit(); } else setConfirmExit(false); }} disabled={saving}>{t("Guardar y salir")}</NxButton>
+            <NxButton variant="danger" size="md" onClick={() => { setConfirmExit(false); props.onExit(); }}>{t("Salir sin guardar")}</NxButton>
+            <NxButton variant="ghost" size="md" onClick={() => setConfirmExit(false)}>{t("Seguir editando")}</NxButton>
           </div>
         }
       >
-        <p className="text-body text-ink-secondary">Tienes cambios en «{name.trim() || baseline.name}» que no se han guardado. Si sales sin guardar, se pierden.</p>
+        <p className="text-body text-ink-secondary">{t("Tienes cambios en «{nombre}» que no se han guardado. Si sales sin guardar, se pierden.", { nombre: name.trim() || baseline.name })}</p>
       </Sheet>
     </div>
   );

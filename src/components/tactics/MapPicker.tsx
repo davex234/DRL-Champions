@@ -13,6 +13,10 @@
 import { availableMaps, type TacticalMap } from "@/domain/tactics";
 import { MapThumb } from "./MapThumb";
 import { cn } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("tactics");
 
 export function MapPicker({
   value, onChange, className, compact = false,
@@ -23,12 +27,13 @@ export function MapPicker({
   /** En el editor el selector vive en una columna estrecha. */
   compact?: boolean;
 }) {
+  useLocale();
   const maps = availableMaps();
 
   return (
     <div
       role="radiogroup"
-      aria-label="Mapa"
+      aria-label={t("Mapa")}
       className={cn(
         "grid gap-2",
         compact ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4",
@@ -70,7 +75,7 @@ export function MapPicker({
                 {m.name}
               </span>
               <span className="font-display text-[10px] uppercase tracking-widest text-white/35">
-                {m.sites} sitios
+                {m.sites} {t("sitios")}
               </span>
             </span>
 

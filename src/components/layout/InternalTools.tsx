@@ -27,8 +27,13 @@ import Link from "next/link";
 import { Plate, Recessed } from "@/components/ui/Surface";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { useAdminSession } from "@/lib/supabase/useAdminSession";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("layout");
 
 export function InternalTools() {
+  useLocale();
   const gate = useAdminSession();
 
   /*
@@ -42,17 +47,16 @@ export function InternalTools() {
     <section aria-labelledby="h-herramientas" className="animate-rise">
       <Plate className="space-y-4 p-5">
         <SectionTitle as="h2" className="mb-0">
-          <span id="h-herramientas">Herramientas internas</span>
+          <span id="h-herramientas">{t("Herramientas internas")}</span>
         </SectionTitle>
 
         <Recessed className="flex flex-wrap items-center justify-between gap-4 p-4">
           <div className="min-w-0">
             <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">
-              Administración NEXUS
+              {t("Administración NEXUS")}
             </p>
             <p className="mt-1 max-w-prose text-[13px] leading-relaxed text-white/50">
-              Catálogo de cartas, pools de distribución, torneos y operaciones. Los cambios
-              afectan a todos los jugadores y quedan registrados con tu nombre.
+              {t("Catálogo de cartas, pools de distribución, torneos y operaciones. Los cambios afectan a todos los jugadores y quedan registrados con tu nombre.")}
             </p>
           </div>
 
@@ -63,7 +67,7 @@ export function InternalTools() {
                        shadow-[inset_0_0_0_1px_rgba(255,211,92,0.5)] transition duration-fast
                        hover:bg-drl-gold/10 hover:shadow-[inset_0_0_0_1px_rgba(255,211,92,0.9)]"
           >
-            Abrir panel →
+            {t("Abrir panel →")}
           </Link>
         </Recessed>
       </Plate>

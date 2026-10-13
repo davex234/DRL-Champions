@@ -13,10 +13,15 @@ import { Meter } from "@/components/ui/Meter";
 import { useAuth } from "@/lib/supabase/auth";
 import { fetchSeasonTrack, type SeasonOverview } from "@/lib/seasonTrack/client";
 import { matchGain } from "@/domain/seasonTrack/view";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
-const fmt = (n: number) => new Intl.NumberFormat("es-ES", { useGrouping: "always" } as Intl.NumberFormatOptions).format(n);
+const t = ns("seasonTrack");
+
+const fmt = (n: number) => new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" } as Intl.NumberFormatOptions).format(n);
 
 export function SeasonLevelUp({ from, to, rewards, onClose }: { from: number; to: number; rewards: number; onClose: () => void }) {
+  useLocale();
   const btn = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
     btn.current?.focus();
@@ -30,13 +35,13 @@ export function SeasonLevelUp({ from, to, rewards, onClose }: { from: number; to
       <div role="dialog" aria-modal="true" aria-labelledby="season-levelup-title" onClick={(e) => e.stopPropagation()}
         className="nx-clip relative w-full max-w-sm overflow-hidden border border-drl-gold/40 bg-[#0b0e17] px-6 py-8 text-center">
         <span aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(60% 50% at 50% 0%, rgba(255,206,79,0.28), transparent 70%)" }} />
-        <p className="relative font-display text-[12px] font-bold uppercase tracking-[0.3em] text-drl-gold">Subes de nivel</p>
+        <p className="relative font-display text-[12px] font-bold uppercase tracking-[0.3em] text-drl-gold">{t("Subes de nivel")}</p>
         <p id="season-levelup-title" className="relative mt-2 font-display text-[84px] font-black leading-none text-white">{to}</p>
-        {n > 1 && <p className="relative mt-1 font-display text-[14px] font-bold uppercase tracking-[0.14em] text-white/70">+{n} niveles</p>}
-        <p className="relative mt-3 text-[14px] text-white/70">{rewards > 0 ? (rewards === 1 ? "Tienes una recompensa nueva para reclamar." : `Tienes ${rewards} recompensas para reclamar.`) : "Sigue sumando XP de temporada."}</p>
+        {n > 1 && <p className="relative mt-1 font-display text-[14px] font-bold uppercase tracking-[0.14em] text-white/70">+{n} {t("niveles")}</p>}
+        <p className="relative mt-3 text-[14px] text-white/70">{rewards > 0 ? (rewards === 1 ? t("Tienes una recompensa nueva para reclamar.") : t("Tienes {rewards} recompensas para reclamar.", { rewards })) : t("Sigue sumando XP de temporada.")}</p>
         <div className="relative mt-6 flex flex-wrap justify-center gap-2">
-          {rewards > 0 && <Link href="/temporada/pase#ruta" className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center bg-drl-gold px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-[#221703]">Ver la ruta</Link>}
-          <button ref={btn} type="button" onClick={onClose} className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center border border-white/20 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white">Continuar</button>
+          {rewards > 0 && <Link href="/temporada/pase#ruta" className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center bg-drl-gold px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-[#221703]">{t("Ver la ruta")}</Link>}
+          <button ref={btn} type="button" onClick={onClose} className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center border border-white/20 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white">{t("Continuar")}</button>
         </div>
       </div>
     </div>
@@ -71,6 +76,7 @@ export function SeasonPostMatch({ matchId, className }: { matchId: string; class
 
 /** La pieza visual del post-partida (sin red): la usan `SeasonPostMatch`, el arnés y los tests. */
 export function SeasonPostMatchView({ data, matchId, className }: { data: SeasonOverview; matchId: string; className?: string }) {
+  useLocale();
   const [moment, setMoment] = useState(false);
   const g = matchGain(data, matchId);
   useEffect(() => { if (g && g.levelAfter > g.levelBefore) setMoment(true); }, [g?.levelAfter, g?.levelBefore]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -81,18 +87,18 @@ export function SeasonPostMatchView({ data, matchId, className }: { data: Season
     <>
       <Plate className={cn("p-4", className)} data-testid="season-postmatch" data-xp={g.matchXp + g.challengeXp}>
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <span className="nx-label">Ruta de temporada</span>
-          <span className="font-display text-[20px] font-bold tabular-nums text-drl-gold">+{fmt(g.matchXp + g.challengeXp)} XP</span>
+          <span className="nx-label">{t("Ruta de temporada")}</span>
+          <span className="font-display text-[20px] font-bold tabular-nums text-drl-gold">+{fmt(g.matchXp + g.challengeXp)} {t("XP")}</span>
         </div>
-        {g.challengeXp > 0 && <p className="mt-1 text-[12px] text-white/60">Partida +{fmt(g.matchXp)} · {g.challenges === 1 ? "reto completado" : `${g.challenges} retos completados`} +{fmt(g.challengeXp)}</p>}
-        <div className="mt-3 flex justify-between text-[12px] text-white/60"><span>Nivel {p.level}</span><span className="tabular-nums">{p.isMax ? "Máximo" : `${fmt(p.xpIntoLevel)} / ${fmt(p.xpForNext)}`}</span></div>
-        <Meter value={Math.round(p.progress * 100)} tone="gold" height={6} label={`Nivel ${p.level}`} className="mt-1" />
+        {g.challengeXp > 0 && <p className="mt-1 text-[12px] text-white/60">{t("Partida +")}{fmt(g.matchXp)} · {g.challenges === 1 ? t("reto completado") : t("{challenges} retos completados", { challenges: g.challenges })} +{fmt(g.challengeXp)}</p>}
+        <div className="mt-3 flex justify-between text-[12px] text-white/60"><span>{t("Nivel")} {p.level}</span><span className="tabular-nums">{p.isMax ? t("Máximo") : `${fmt(p.xpIntoLevel)} / ${fmt(p.xpForNext)}`}</span></div>
+        <Meter value={Math.round(p.progress * 100)} tone="gold" height={6} label={t("Nivel {level}", { level: p.level })} className="mt-1" />
         {touched.length > 0 && (
           <ul className="mt-3 space-y-1 text-[12px] text-white/70">
-            {touched.map((c) => <li key={c.id} className="flex justify-between gap-2"><span className="truncate">{c.label}</span><span className="tabular-nums">{c.completed ? "✓" : `${c.progress}/${c.target}`}</span></li>)}
+            {touched.map((c) => <li key={c.id} className="flex justify-between gap-2"><span className="truncate">{td(c.label)}</span><span className="tabular-nums">{c.completed ? "✓" : `${c.progress}/${c.target}`}</span></li>)}
           </ul>
         )}
-        <Link href="/temporada/pase" className="nx-focus nx-action mt-3 inline-flex min-h-[44px] items-center">Ver la ruta de temporada</Link>
+        <Link href="/temporada/pase" className="nx-focus nx-action mt-3 inline-flex min-h-[44px] items-center">{t("Ver la ruta de temporada")}</Link>
       </Plate>
       {moment && <SeasonLevelUp from={g.levelBefore} to={g.levelAfter} rewards={data.claimable.length} onClose={() => setMoment(false)} />}
     </>

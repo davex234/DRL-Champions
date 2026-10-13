@@ -9,6 +9,9 @@
 import type { WorldTeam } from "@/world";
 import { makeRng, seedOf } from "@/world";
 import type { DirectorStance, MarketPhilosophy, ListStatus, SquadNeed } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("market");
 
 const PHIL_LABEL: Record<MarketPhilosophy, string> = {
   develop_youth: "Cantera y proyecto",
@@ -36,11 +39,11 @@ export function directorStance(team: WorldTeam): DirectorStance {
   const patience = philosophy === "financial_control" ? 82 : philosophy === "long_project" ? 75 : philosophy === "win_now" ? 40 : 60;
   const youthBias = philosophy === "develop_youth" ? 88 : philosophy === "long_project" ? 65 : philosophy === "buy_stars" ? 25 : 40;
   const message =
-    philosophy === "win_now" ? "Queremos títulos ya: fichajes contrastados, sin miedo a gastar."
-    : philosophy === "buy_stars" ? "Buscamos estrellas que llenen el estadio."
-    : philosophy === "financial_control" ? "Cada crédito cuenta: vender bien antes de comprar."
-    : philosophy === "develop_youth" ? "Apostamos por la cantera y la proyección."
-    : "Construimos un proyecto sólido a varios años.";
+    philosophy === "win_now" ? t("Queremos títulos ya: fichajes contrastados, sin miedo a gastar.")
+    : philosophy === "buy_stars" ? t("Buscamos estrellas que llenen el estadio.")
+    : philosophy === "financial_control" ? t("Cada crédito cuenta: vender bien antes de comprar.")
+    : philosophy === "develop_youth" ? t("Apostamos por la cantera y la proyección.")
+    : t("Construimos un proyecto sólido a varios años.");
   return { philosophy, aggression, patience, youthBias, message: `${PHIL_LABEL[philosophy]} — ${message}` };
 }
 
@@ -56,13 +59,13 @@ export function directorAcceptsSale(
   fee: number,
   isStarterKey: boolean,
 ): { accept: boolean; reason: string } {
-  if (status === "protected") return { accept: false, reason: "Declarado INTRANSFERIBLE por el club." };
-  if (fee >= releaseClause) return { accept: true, reason: "Se paga la cláusula: no hay nada que negociar." };
+  if (status === "protected") return { accept: false, reason: t("Declarado INTRANSFERIBLE por el club.") };
+  if (fee >= releaseClause) return { accept: true, reason: t("Se paga la cláusula: no hay nada que negociar.") };
   const floor = status === "listed" || status === "loan_listed"
     ? value * 0.8
     : isStarterKey ? value * (1 + (stance.patience / 100) * 0.4) : value * 0.95;
-  if (fee >= floor) return { accept: true, reason: "La oferta cubre las expectativas del club." };
-  return { accept: false, reason: `El club pide al menos ${Math.round(floor)} por el jugador.` };
+  if (fee >= floor) return { accept: true, reason: t("La oferta cubre las expectativas del club.") };
+  return { accept: false, reason: t("El club pide al menos {floor} por el jugador.", { floor: Math.round(floor) }) };
 }
 
 /**

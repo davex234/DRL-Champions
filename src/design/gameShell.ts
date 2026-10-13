@@ -11,6 +11,9 @@
  * La tabla de rutas sigue siendo `nav.ts` (una sola fuente); aquí solo se presenta.
  */
 import { NAV_SECTIONS, MOBILE_NAV, IMMERSIVE_ROUTES, isImmersive, sectionForPath, type NavSection } from "./nav";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("design");
 
 // ───────────────────────────── Acción global ─────────────────────────────
 
@@ -38,9 +41,9 @@ export const PLAY_HREF = "/jugar";
 export function playCta(status: PlayStatusView | null): PlayCta {
   const r = status && !status.unknown ? status.resume : null;
   if (r && r.href.startsWith("/")) {
-    return { kind: "resume", label: "Continuar partida", href: r.href, ariaLabel: `Continuar partida: ${r.eyebrow}`, hint: r.eyebrow };
+    return { kind: "resume", label: t("Continuar partida"), href: r.href, ariaLabel: t("Continuar partida: {eyebrow}", { eyebrow: td(r.eyebrow) }), hint: r.eyebrow };
   }
-  return { kind: "play", label: "Jugar", href: PLAY_HREF, ariaLabel: "Jugar: elegir modo de juego", hint: null };
+  return { kind: "play", label: t("Jugar"), href: PLAY_HREF, ariaLabel: t("Jugar: elegir modo de juego"), hint: null };
 }
 
 // ───────────────────────────── Secciones ─────────────────────────────

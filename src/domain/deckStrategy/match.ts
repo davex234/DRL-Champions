@@ -10,6 +10,9 @@
  *   · Resolución final duel-combat-2: marcador → suma de OVR (+1 punto) → estadística total (sin punto) → empate.
  */
 import { AXES, METRIC_LABEL, type Axis } from "./catalog";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("deckStrategy");
 
 export interface TurnFact {
   number: number;
@@ -82,17 +85,17 @@ export function summarizeMatch(turns: readonly TurnFact[], result: ResultFact | 
     const tbRival = result.decidedBy === "OVR_TIEBREAK" && result.winner === "RIVAL" ? 1 : 0;
     consistent = ordered.length === 10 && result.scoreYou === wins + tbYou && result.scoreRival === losses + tbRival && result.tiedEncounters === ties;
     const lines: string[] = [];
-    const tiesLine = ties > 0 ? ` ${ties} ${ties === 1 ? "turno empatado" : "turnos empatados"}: un empate de turno no da punto a nadie.` : "";
+    const tiesLine = ties > 0 ? tr(" {ties} {v}: un empate de turno no da punto a nadie.", { ties, v: ties === 1 ? tr("turno empatado") : tr("turnos empatados") }) : "";
     if (result.decidedBy === "SCORE") {
-      lines.push(`Decidió el marcador: ${wins} turnos ganados contra ${losses}.${tiesLine}`);
+      lines.push(tr("Decidió el marcador: {wins} turnos ganados contra {losses}.{tiesLine}", { wins, losses, tiesLine: td(tiesLine) }));
     } else if (result.decidedBy === "OVR_TIEBREAK") {
-      lines.push(`Los turnos quedaron ${wins}–${losses}.${tiesLine}`);
-      lines.push(`Desempate por suma de OVR de los equipos: ${result.sumOvrYou} contra ${result.sumOvrRival}. Da 1 punto a ${tbYou ? "tu equipo" : "el rival"}: final ${result.scoreYou}–${result.scoreRival}.`);
+      lines.push(tr("Los turnos quedaron {wins}–{losses}.{tiesLine}", { wins, losses, tiesLine: td(tiesLine) }));
+      lines.push(tr("Desempate por suma de OVR de los equipos: {sumOvrYou} contra {sumOvrRival}. Da 1 punto a {v}: final {scoreYou}–{scoreRival}.", { sumOvrYou: result.sumOvrYou, sumOvrRival: result.sumOvrRival, v: tbYou ? tr("tu equipo") : tr("el rival"), scoreYou: result.scoreYou, scoreRival: result.scoreRival }));
     } else if (result.decidedBy === "STAT_MARGIN") {
-      lines.push(`Los turnos quedaron ${wins}–${losses} y la suma de OVR empató (${result.sumOvrYou}–${result.sumOvrRival}).${tiesLine}`);
-      lines.push(`Decidió la estadística total declarada en los diez turnos: ${result.statTotalYou} contra ${result.statTotalRival}. Este desempate no suma punto.`);
+      lines.push(tr("Los turnos quedaron {wins}–{losses} y la suma de OVR empató ({sumOvrYou}–{sumOvrRival}).{tiesLine}", { wins, losses, sumOvrYou: result.sumOvrYou, sumOvrRival: result.sumOvrRival, tiesLine: td(tiesLine) }));
+      lines.push(tr("Decidió la estadística total declarada en los diez turnos: {statTotalYou} contra {statTotalRival}. Este desempate no suma punto.", { statTotalYou: result.statTotalYou, statTotalRival: result.statTotalRival }));
     } else {
-      lines.push(`Empate: turnos ${wins}–${losses}, suma de OVR ${result.sumOvrYou ?? "—"}–${result.sumOvrRival ?? "—"} y estadística total ${result.statTotalYou}–${result.statTotalRival}.${tiesLine}`);
+      lines.push(tr("Empate: turnos {wins}–{losses}, suma de OVR {v}–{v2} y estadística total {statTotalYou}–{statTotalRival}.{tiesLine}", { wins, losses, v: result.sumOvrYou ?? "—", v2: result.sumOvrRival ?? "—", statTotalYou: result.statTotalYou, statTotalRival: result.statTotalRival, tiesLine: td(tiesLine) }));
     }
     resolution = { decidedBy: result.decidedBy, lines, tiebreakPointYou: tbYou, tiebreakPointRival: tbRival };
   }
@@ -100,13 +103,13 @@ export function summarizeMatch(turns: readonly TurnFact[], result: ResultFact | 
   // Máximo 3 hechos, sin «porque».
   const insights: string[] = [];
   const bestWin = [...axes].filter((a) => a.timesCompared > 0 && a.wins > a.losses).sort((a, b) => b.wins - a.wins || b.pointDelta - a.pointDelta || AXES.indexOf(a.axis) - AXES.indexOf(b.axis))[0];
-  if (bestWin) insights.push(`Ganaste ${frac(bestWin.wins, bestWin.timesCompared)} comparaciones de ${METRIC_LABEL[bestWin.axis]}.`);
+  if (bestWin) insights.push(tr("Ganaste {wins} comparaciones de {v}.", { wins: frac(bestWin.wins, bestWin.timesCompared), v: td(METRIC_LABEL[bestWin.axis]) }));
   const worst = [...axes].filter((a) => a.timesCompared > 0 && a.losses > a.wins).sort((a, b) => b.losses - a.losses || a.pointDelta - b.pointDelta || AXES.indexOf(a.axis) - AXES.indexOf(b.axis))[0];
-  if (worst) insights.push(`Perdiste ${frac(worst.losses, worst.timesCompared)} comparaciones de ${METRIC_LABEL[worst.axis]}.`);
-  if (ties > 0) insights.push(`${ties} ${ties === 1 ? "turno terminó" : "turnos terminaron"} en empate de estadística (0 puntos).`);
+  if (worst) insights.push(tr("Perdiste {losses} comparaciones de {v}.", { losses: frac(worst.losses, worst.timesCompared), v: td(METRIC_LABEL[worst.axis]) }));
+  if (ties > 0) insights.push(tr("{ties} {v} en empate de estadística (0 puntos).", { ties, v: ties === 1 ? tr("turno terminó") : tr("turnos terminaron") }));
   else {
     const allWon = cards.filter((c) => c.turns > 0 && c.wins === c.turns);
-    if (allWon.length > 0 && insights.length < 3) insights.push(`${allWon.length} de tus ${cards.length} cartas ganaron su turno.`);
+    if (allWon.length > 0 && insights.length < 3) insights.push(tr("{length} de tus {length2} cartas ganaron su turno.", { length: allWon.length, length2: cards.length }));
   }
   return { turns: ordered.length, complete: ordered.length === 10, wins, losses, ties, axes, cards, resolution, insights: insights.slice(0, 3), consistent, contextAxis: worst?.axis ?? null };
 }

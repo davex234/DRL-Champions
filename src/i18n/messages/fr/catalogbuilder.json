@@ -1,0 +1,19 @@
+{
+  "Colección de torneo con {length} cartas.": "Collection de tournoi de {length} cartes.",
+  "El catálogo incorpora {length} cartas nuevas ({length2} jugadores debutan).": "Le catalogue accueille {length} nouvelles cartes ({length2} joueurs font leurs débuts).",
+  "Nueva colección: {name}": "Nouvelle collection : {name}",
+  "Se añaden {length} cartas de {colName}": "{length} cartes de {colName} ajoutées",
+  "alta inexistente {id} en {packId}": "ajout inexistant {id} dans {packId}",
+  "carta sin jugador: {id}": "carte sans joueur : {id}",
+  "catalogFingerprint inválido": "catalogFingerprint invalide",
+  "enlace de carta inexistente: {cardId}": "lien de carte inexistant : {cardId}",
+  "entrada de carta inexistente: {cardId}": "entrée de carte inexistante : {cardId}",
+  "fila de carta inexistente: {ref}": "ligne de carte inexistante : {ref}",
+  "item inexistente {cardId} en {id}": "item inexistant {cardId} dans {id}",
+  "odds no normalizadas en {packId} ({oddsSum})": "odds non normalisées dans {packId} ({oddsSum})",
+  "ruta con carta inexistente: {from}→{to}": "route avec carte inexistante : {from}→{to}",
+  "ruta vía receta inexistente: {via}": "route via une recette inexistante : {via}",
+  "versión no semántica: {catalogVersion}": "version non sémantique : {catalogVersion}",
+  "{length} jugadores nuevos entran al catálogo": "{length} nouveaux joueurs rejoignent le catalogue",
+  "{n} carta(s) retiradas del catálogo": "{n} carte(s) retirée(s) du catalogue"
+}

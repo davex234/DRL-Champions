@@ -26,12 +26,17 @@ import type { DuelMatchView } from "@/lib/duel/types";
 import { TONE } from "./ResultScreen";
 import { RewardDisplay } from "@/components/rewards/RewardDisplay";
 import { DailyRewardSlot } from "./DailyRewardSlot";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export function QuickMatchResult({ view, onContinue }: {
   view: DuelMatchView;
   /** SEGUIR JUGANDO: otra partida rápida (la página la crea por su camino canónico, con su propio cerrojo). */
   onContinue: () => void;
 }) {
+  useLocale();
   // La arena monta `MotionConfig reducedMotion="user"`: esto es la preferencia del sistema (y se puede fijar en pruebas).
   const reduced = useReducedMotionConfig();
   const r = view.result;
@@ -89,12 +94,12 @@ export function QuickMatchResult({ view, onContinue }: {
           style={{ textShadow: `0 0 52px rgba(${tone.rgb},0.55)` }}
           data-testid="quick-result-verdict"
         >
-          {tone.title}
+          {td(tone.title)}
         </motion.h1>
 
         <div
           className="nx-readout mt-6 flex items-center justify-center gap-5 text-[clamp(56px,15vw,112px)] leading-none sm:gap-7"
-          aria-label={`Marcador final: tú ${r.scoreYou}, rival ${r.scoreRival}`}
+          aria-label={t("Marcador final: tú {scoreYou}, rival {scoreRival}", { scoreYou: r.scoreYou, scoreRival: r.scoreRival })}
           data-testid="quick-result-score"
         >
           <span className="text-[#2fe0ff]" style={{ textShadow: "0 0 30px rgba(47,224,255,0.55)" }}>{r.scoreYou}</span>
@@ -102,7 +107,7 @@ export function QuickMatchResult({ view, onContinue }: {
           <span className="text-drl" style={{ textShadow: "0 0 30px rgba(255,46,99,0.55)" }}>{r.scoreRival}</span>
         </div>
 
-        {r.reason && <p className="mx-auto mt-6 max-w-xl text-[15px] text-white/70 sm:text-base" data-testid="quick-result-reason">{r.reason}</p>}
+        {r.reason && <p className="mx-auto mt-6 max-w-xl text-[15px] text-white/70 sm:text-base" data-testid="quick-result-reason">{td(r.reason)}</p>}
 
         {/*
           DUEL GAMEPLAY UX 2.0 · RECOMPENSAS OBTENIDAS. Exactamente lo que el servidor CONCEDIÓ (recibo del libro mayor,
@@ -117,7 +122,7 @@ export function QuickMatchResult({ view, onContinue }: {
             transition={{ delay: reduced ? 0 : 0.4, duration: reduced ? 0 : 0.3, ease: EASE.out }}
             className="mx-auto mt-8 max-w-xl"
           >
-            <p className="font-display text-[11px] font-bold uppercase tracking-[0.24em] text-white/55">Recompensas obtenidas</p>
+            <p className="font-display text-[11px] font-bold uppercase tracking-[0.24em] text-white/55">{t("Recompensas obtenidas")}</p>
             <div className="mt-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
               {r.rewards.grants.map((g, i) => (
                 <RewardDisplay key={`${g.source}:${i}`} reward={g.reward} points={g.points || undefined} size="md" className="justify-center" />
@@ -141,10 +146,10 @@ export function QuickMatchResult({ view, onContinue }: {
           disabled={starting}
           onClick={() => { if (starting) return; setStarting(true); trackExperience("rematch_click"); onContinue(); }}
         >
-          {starting ? "Preparando…" : "Seguir jugando"}
+          {starting ? t("Preparando…") : t("Seguir jugando")}
         </NxButton>
         <NxButton variant="secondary" size="lg" className="flex-1" href={MAIN_MENU_HREF} data-action="menu">
-          Volver al menú principal
+          {t("Volver al menú principal")}
         </NxButton>
       </motion.div>
     </div>

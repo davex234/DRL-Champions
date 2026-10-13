@@ -45,7 +45,7 @@ test("F69 · /mercado: con cuenta solo la sala Global; el mercado local ni se si
   const s = code(read("src/app/mercado/page.tsx"));
   assert.match(s, /useEffect\(\(\) => \{\n\s*if \(serverEconomy\) return;\n\s*ensureSeeded\(\);\n\s*refreshMarket\(\);/);
   assert.match(s, /const tab: Tab = serverEconomy \? "global" : pickedTab;/);
-  assert.match(s, /serverEconomy\n\s*\? \[\["global", "Global"\]\]/);
+  assert.match(s, /serverEconomy\n\s*\? \[\["global", (?:"Global"|(?:t|tr|i18nT)\("Global"\))\]\]/);
 });
 
 test("F69 · /manager: el logro con premio en créditos locales no se reclama con cuenta", () => {

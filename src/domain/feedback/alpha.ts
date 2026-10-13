@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("feedback");
+
 /**
  * F86.2 · FEEDBACK DE LA CLOSED ALPHA (dominio puro: preguntas, validación y forma del envío).
  *
@@ -47,36 +51,36 @@ const fail = (error: string, code = "BAD_REQUEST"): FeedbackParse => ({ ok: fals
 
 /** Valida el cuerpo de un envío. Textos: recortados, vacío = null, ≤ 2000. Al menos UNA respuesta. */
 export function parseFeedback(body: unknown): FeedbackParse {
-  if (!body || typeof body !== "object" || Array.isArray(body)) return fail("Cuerpo no válido");
+  if (!body || typeof body !== "object" || Array.isArray(body)) return fail(tr("Cuerpo no válido"));
   const b = body as Record<string, unknown>;
   const extra = Object.keys(b).find((k) => !FEEDBACK_KEYS.has(k));
-  if (extra) return fail(`Campo no permitido: ${extra.slice(0, 40)}`, "FIELD_NOT_ALLOWED");
-  if (typeof b.id !== "string" || !UUID.test(b.id)) return fail("Falta la clave del envío");
+  if (extra) return fail(tr("Campo no permitido: {extra}", { extra: extra.slice(0, 40) }), "FIELD_NOT_ALLOWED");
+  if (typeof b.id !== "string" || !UUID.test(b.id)) return fail(tr("Falta la clave del envío"));
   const source = b.source === undefined ? "menu" : b.source;
-  if (typeof source !== "string" || !(FEEDBACK_SOURCES as readonly string[]).includes(source)) return fail("Origen no válido");
+  if (typeof source !== "string" || !(FEEDBACK_SOURCES as readonly string[]).includes(source)) return fail(tr("Origen no válido"));
   const texts = {} as Record<FeedbackTextField, string | null>;
   for (const f of FEEDBACK_TEXT_FIELDS) {
     const v = b[f];
     if (v === undefined || v === null) { texts[f] = null; continue; }
-    if (typeof v !== "string") return fail("Respuesta no válida");
+    if (typeof v !== "string") return fail(tr("Respuesta no válida"));
     const t = v.trim();
-    if (t.length > FEEDBACK_TEXT_MAX) return fail(`Cada respuesta puede tener como mucho ${FEEDBACK_TEXT_MAX} caracteres.`, "TOO_LONG");
+    if (t.length > FEEDBACK_TEXT_MAX) return fail(tr("Cada respuesta puede tener como mucho {FEEDBACK_TEXT_MAX} caracteres.", { FEEDBACK_TEXT_MAX }), "TOO_LONG");
     texts[f] = t.length ? t : null;
   }
   let hadError: boolean | null = null;
   if (b.hadError !== undefined && b.hadError !== null) {
-    if (typeof b.hadError !== "boolean") return fail("Respuesta no válida");
+    if (typeof b.hadError !== "boolean") return fail(tr("Respuesta no válida"));
     hadError = b.hadError;
   }
   let wouldReturn: number | null = null;
   if (b.wouldReturn !== undefined && b.wouldReturn !== null) {
     if (typeof b.wouldReturn !== "number" || !Number.isInteger(b.wouldReturn) || b.wouldReturn < 1 || b.wouldReturn > 10) {
-      return fail("La puntuación va del 1 al 10.");
+      return fail(tr("La puntuación va del 1 al 10."));
     }
     wouldReturn = b.wouldReturn;
   }
   const value: FeedbackInput = { id: b.id.toLowerCase(), source: source as FeedbackSource, ...texts, hadError, wouldReturn };
-  if (isEmptyFeedback(value)) return fail("Responde al menos una pregunta antes de enviar.", "EMPTY");
+  if (isEmptyFeedback(value)) return fail(tr("Responde al menos una pregunta antes de enviar."), "EMPTY");
   return { ok: true, value };
 }
 

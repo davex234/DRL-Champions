@@ -28,6 +28,9 @@
  * (que hoy usa `retired:true`) queda RETIRED y todos los demás ACTIVE, sin tocar sus datos.
  */
 import type { PackDef, PackLifecycle } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("packs");
 
 /**
  * Estado canónico de un sobre. Deriva de `lifecycle` (explícito) o de `retired` (heredado).
@@ -102,10 +105,10 @@ export function guardPurchase(pack: Pick<PackDef, "lifecycle" | "retired" | "cms
   if (state === "ACTIVE" && pack.cms) {
     const from = pack.cms.availableFrom ? Date.parse(pack.cms.availableFrom) : -Infinity;
     const to = pack.cms.availableTo ? Date.parse(pack.cms.availableTo) : Infinity;
-    if (!(now >= from && now < to)) return { ok: false, reason: "Este sobre no está a la venta ahora mismo", status: 409 };
+    if (!(now >= from && now < to)) return { ok: false, reason: t("Este sobre no está a la venta ahora mismo"), status: 409 };
   }
   if (state === "ACTIVE") return { ok: true };
-  if (state === "RETIRED") return { ok: false, reason: "Este sobre ya no está a la venta", status: 409 };
+  if (state === "RETIRED") return { ok: false, reason: t("Este sobre ya no está a la venta"), status: 409 };
   return NOT_FOUND; // DRAFT
 }
 

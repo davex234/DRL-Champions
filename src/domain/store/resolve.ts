@@ -17,6 +17,9 @@ import {
   type FeaturedHeroConfig, type GrantPlan, type MethodStatus, type OfferBase, type PackOfferConfig, type PaymentMethod, type ProductStatus,
   type PurchaseMode, type PurchaseOption, type ResolvedProduct, type StoreCapabilities, type StoreCatalogConfig, type StoreProductKind,
 } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("store");
 
 /** Lo que el sistema sabe hacer HOY. Cambia cuando exista la pasarela o una RPC de entrega nueva. */
 export const STORE_CAPABILITIES: StoreCapabilities = Object.freeze({
@@ -149,25 +152,25 @@ export function validateStoreCatalog(cfg: StoreCatalogConfig = STORE_CATALOG): s
   const ids = new Set<string>();
   const unique = (k: string, id: string) => { const key = `${k}:${id}`; if (ids.has(key)) issues.push(`id repetido ${key}`); ids.add(key); };
   const price = (label: string, o: { realMoneyPrice?: { cents: number } | null; gameCurrencyPrice?: number | null }) => {
-    if (o.realMoneyPrice && (!Number.isInteger(o.realMoneyPrice.cents) || o.realMoneyPrice.cents <= 0)) issues.push(`${label}: precio en euros no válido`);
-    if (o.gameCurrencyPrice != null && (!Number.isInteger(o.gameCurrencyPrice) || o.gameCurrencyPrice <= 0)) issues.push(`${label}: precio en créditos no válido`);
+    if (o.realMoneyPrice && (!Number.isInteger(o.realMoneyPrice.cents) || o.realMoneyPrice.cents <= 0)) issues.push(t("{label}: precio en euros no válido", { label: td(label) }));
+    if (o.gameCurrencyPrice != null && (!Number.isInteger(o.gameCurrencyPrice) || o.gameCurrencyPrice <= 0)) issues.push(t("{label}: precio en créditos no válido", { label: td(label) }));
   };
   const dates = (label: string, o: { startAt?: string; endAt?: string }) => {
-    for (const d of [o.startAt, o.endAt]) if (d !== undefined && Number.isNaN(Date.parse(d))) issues.push(`${label}: fecha no válida ${d}`);
-    if (o.startAt && o.endAt && Date.parse(o.startAt) >= Date.parse(o.endAt)) issues.push(`${label}: ventana vacía`);
+    for (const d of [o.startAt, o.endAt]) if (d !== undefined && Number.isNaN(Date.parse(d))) issues.push(t("{label}: fecha no válida {d}", { label: td(label), d: td(d) }));
+    if (o.startAt && o.endAt && Date.parse(o.startAt) >= Date.parse(o.endAt)) issues.push(t("{label}: ventana vacía", { label: td(label) }));
   };
   const sellablePack = (label: string, packId: string) => {
     const p = getPack(packId);
-    if (!p) issues.push(`${label}: sobre inexistente ${packId}`);
-    else if (!isPurchasable(p) || !isStoreVisible(p)) issues.push(`${label}: sobre no vendible (${p.lifecycle ?? (p.retired ? "RETIRED" : "?")}) ${packId}`);
-    else { const e = economySellable(p); if (!e.ok) issues.push(`${label}: compuerta económica ${packId}: ${e.issues.map((i) => i.code).join(", ")}`); }
+    if (!p) issues.push(t("{label}: sobre inexistente {packId}", { label: td(label), packId: td(packId) }));
+    else if (!isPurchasable(p) || !isStoreVisible(p)) issues.push(t("{label}: sobre no vendible ({v}) {packId}", { label: td(label), v: td(p.lifecycle) ?? (p.retired ? "RETIRED" : "?"), packId: td(packId) }));
+    else { const e = economySellable(p); if (!e.ok) issues.push(t("{label}: compuerta económica {packId}: {v}", { label: td(label), packId: td(packId), v: e.issues.map((i) => i.code).join(", ") })); }
   };
 
   for (const h of cfg.featuredHero) {
     unique("hero", h.id); dates(`hero ${h.id}`, h);
-    if (!DESIGNED_EDITIONS.has(h.editionId as VariantId)) issues.push(`hero ${h.id}: edición inexistente ${h.editionId}`);
-    if (h.cardIds.length === 0) issues.push(`hero ${h.id}: sin cartas`);
-    for (const id of h.cardIds) if (!getCard(id)) issues.push(`hero ${h.id}: carta inexistente ${id}`);
+    if (!DESIGNED_EDITIONS.has(h.editionId as VariantId)) issues.push(t("hero {id}: edición inexistente {editionId}", { id: h.id, editionId: h.editionId }));
+    if (h.cardIds.length === 0) issues.push(t("hero {id}: sin cartas", { id: h.id }));
+    for (const id of h.cardIds) if (!getCard(id)) issues.push(t("hero {id}: carta inexistente {id2}", { id: h.id, id2: id }));
     sellablePack(`hero ${h.id}`, h.packId);
   }
   for (const o of cfg.packOffers) {
@@ -180,22 +183,22 @@ export function validateStoreCatalog(cfg: StoreCatalogConfig = STORE_CATALOG): s
   }
   for (const o of cfg.cardOffers) {
     unique("card", o.id); dates(`card ${o.id}`, o); price(`card ${o.id}`, o);
-    if (!getCard(o.cardId)) issues.push(`card ${o.id}: carta inexistente ${o.cardId}`);
+    if (!getCard(o.cardId)) issues.push(t("card {id}: carta inexistente {cardId}", { id: o.id, cardId: o.cardId }));
   }
   for (const o of cfg.bundleOffers) {
     unique("bundle", o.id); dates(`bundle ${o.id}`, o); price(`bundle ${o.id}`, o);
     const c = o.contents;
-    if (c.packs.length + c.cardIds.length === 0 && c.credits <= 0) issues.push(`bundle ${o.id}: vacío`);
-    if (!Number.isInteger(c.credits) || c.credits < 0) issues.push(`bundle ${o.id}: créditos no válidos`);
+    if (c.packs.length + c.cardIds.length === 0 && c.credits <= 0) issues.push(t("bundle {id}: vacío", { id: o.id }));
+    if (!Number.isInteger(c.credits) || c.credits < 0) issues.push(t("bundle {id}: créditos no válidos", { id: o.id }));
     for (const x of c.packs) {
-      if (!Number.isInteger(x.count) || x.count <= 0) issues.push(`bundle ${o.id}: cantidad no válida de ${x.packId}`);
+      if (!Number.isInteger(x.count) || x.count <= 0) issues.push(t("bundle {id}: cantidad no válida de {packId}", { id: o.id, packId: x.packId }));
       if (o.enabled) sellablePack(`bundle ${o.id}`, x.packId);
     }
-    for (const id of c.cardIds) if (!getCard(id)) issues.push(`bundle ${o.id}: carta inexistente ${id}`);
+    for (const id of c.cardIds) if (!getCard(id)) issues.push(t("bundle {id}: carta inexistente {id2}", { id: o.id, id2: id }));
   }
   for (const o of [...cfg.packOffers, ...cfg.boxOffers, ...cfg.cardOffers, ...cfg.bundleOffers]) {
-    if (!Number.isFinite(o.sortOrder)) issues.push(`${o.id}: sortOrder no válido`);
-    if (!/^[a-z0-9_-]{1,64}$/.test(o.id)) issues.push(`${o.id}: id no válido`);
+    if (!Number.isFinite(o.sortOrder)) issues.push(t("{id}: sortOrder no válido", { id: o.id }));
+    if (!/^[a-z0-9_-]{1,64}$/.test(o.id)) issues.push(t("{id}: id no válido", { id: o.id }));
   }
   return issues;
 }

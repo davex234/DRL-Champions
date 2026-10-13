@@ -9,6 +9,10 @@ import { cn } from "@/lib/format";
 import { NxButton } from "@/components/ui/NxButton";
 import { authLinkError } from "@/lib/supabase/authErrors";
 import { SIGNUP_NAME_MAX, SIGNUP_NAME_MIN, SIGNUP_PASSWORD_MIN, signupName, signupNameError, signupPasswordError } from "@/domain/account/signup";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("auth");
 
 /**
  * F63 · ¿A DÓNDE VA QUIEN ACABA DE ENTRAR? Una cuenta recién creada (con sesión ya abierta) va a la portada, donde
@@ -28,6 +32,7 @@ type Mode = "login" | "register" | "recover";
 
 
 export function AuthForms() {
+  useLocale();
   const { signIn, signUp, resetPassword } = useAuth();
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("login");
@@ -68,8 +73,8 @@ export function AuthForms() {
       if (to) { router.push(to); return; }
     }
     if (res.error) setMsg({ ok: false, text: res.error });
-    else if (mode === "register") setMsg({ ok: true, text: "Cuenta creada. Revisa tu correo si se requiere confirmación." });
-    else if (mode === "recover") setMsg({ ok: true, text: "Te enviamos un enlace de recuperación." });
+    else if (mode === "register") setMsg({ ok: true, text: t("Cuenta creada. Revisa tu correo si se requiere confirmación.") });
+    else if (mode === "recover") setMsg({ ok: true, text: t("Te enviamos un enlace de recuperación.") });
   }
 
   /*
@@ -87,22 +92,22 @@ export function AuthForms() {
     f.classList.add("nx-shake");
   }, [msg]);
   const HEAD: Record<Mode, { title: string; line: string }> = {
-    login: { title: "Entra en NEXUS", line: "Tu colección, tus equipos y tu progreso te esperan en el servidor." },
-    register: { title: "Crea tu cuenta", line: "Recibirás tus sobres de bienvenida y créditos para empezar." },
-    recover: { title: "Recupera tu acceso", line: "Te enviamos un enlace para elegir una contraseña nueva." },
+    login: { title: t("Entra en NEXUS"), line: t("Tu colección, tus equipos y tu progreso te esperan en el servidor.") },
+    register: { title: t("Crea tu cuenta"), line: t("Recibirás tus sobres de bienvenida y créditos para empezar.") },
+    recover: { title: t("Recupera tu acceso"), line: t("Te enviamos un enlace para elegir una contraseña nueva.") },
   };
   const bad = msg && !msg.ok;
   return (
     <div className="nx-f63-stage mx-auto w-full max-w-md px-5 py-6 sm:px-7 sm:py-7" data-testid="auth-panel" data-mode={mode}>
-      <p className="nx-label !text-[11px] text-drl-glow">Cuenta NEXUS</p>
-      <h2 className="mt-1 font-display text-[clamp(26px,4vw,34px)] font-extrabold uppercase leading-none text-white">{HEAD[mode].title}</h2>
-      <p className="mt-2 text-[14px] leading-relaxed text-white/65">{HEAD[mode].line}</p>
+      <p className="nx-label !text-[11px] text-drl-glow">{t("Cuenta NEXUS")}</p>
+      <h2 className="mt-1 font-display text-[clamp(26px,4vw,34px)] font-extrabold uppercase leading-none text-white">{td(HEAD[mode].title)}</h2>
+      <p className="mt-2 text-[14px] leading-relaxed text-white/65">{td(HEAD[mode].line)}</p>
 
-      <div className="mt-5 grid grid-cols-3 gap-1 bg-black/30 p-1 nx-clip-sm" role="group" aria-label="Acceso">
+      <div className="mt-5 grid grid-cols-3 gap-1 bg-black/30 p-1 nx-clip-sm" role="group" aria-label={t("Acceso")}>
         {([
-          ["login", "Entrar"],
-          ["register", "Registro"],
-          ["recover", "Recuperar"],
+          ["login", t("Entrar")],
+          ["register", t("Registro")],
+          ["recover", t("Recuperar")],
         ] as [Mode, string][]).map(([m, label]) => (
           <button
             key={m}
@@ -114,7 +119,7 @@ export function AuthForms() {
               mode === m ? "bg-drl text-white" : "text-white/55 hover:bg-white/[0.06] hover:text-white",
             )}
           >
-            {label}
+            {td(label)}
           </button>
         ))}
       </div>
@@ -124,29 +129,29 @@ export function AuthForms() {
       <form ref={formRef} className="mt-4 space-y-3" onSubmit={submit}>
         {mode === "register" && (
           <label className="block">
-            <span className="nx-label mb-1 block !text-[10px] text-white/55">Nombre de jugador</span>
-            <input className="nx-field" autoComplete="username" placeholder="Cómo te verán los demás" required minLength={SIGNUP_NAME_MIN} maxLength={SIGNUP_NAME_MAX} value={username} onChange={(e) => setUsername(e.target.value)} data-testid="signup-name" />
-            <span className="mt-1 block text-[12px] text-white/45">De {SIGNUP_NAME_MIN} a {SIGNUP_NAME_MAX} caracteres. Se le añade un sufijo corto para que sea único.</span>
+            <span className="nx-label mb-1 block !text-[10px] text-white/55">{t("Nombre de jugador")}</span>
+            <input className="nx-field" autoComplete="username" placeholder={t("Cómo te verán los demás")} required minLength={SIGNUP_NAME_MIN} maxLength={SIGNUP_NAME_MAX} value={username} onChange={(e) => setUsername(e.target.value)} data-testid="signup-name" />
+            <span className="mt-1 block text-[12px] text-white/45">{t("De {min} a {max} caracteres. Se le añade un sufijo corto para que sea único.", { min: SIGNUP_NAME_MIN, max: SIGNUP_NAME_MAX })}</span>
           </label>
         )}
         <label className="block">
-          <span className="nx-label mb-1 block !text-[10px] text-white/55">Correo electrónico</span>
-          <input className="nx-field" type="email" autoComplete="email" placeholder="tu@correo.com" aria-invalid={bad ? true : undefined} value={email} onChange={(e) => setEmail(e.target.value)} />
+          <span className="nx-label mb-1 block !text-[10px] text-white/55">{t("Correo electrónico")}</span>
+          <input className="nx-field" type="email" autoComplete="email" placeholder={t("tu@correo.com")} aria-invalid={bad ? true : undefined} value={email} onChange={(e) => setEmail(e.target.value)} />
         </label>
         {mode !== "recover" && (
           <label className="block">
-            <span className="nx-label mb-1 block !text-[10px] text-white/55">Contraseña</span>
-            <input className="nx-field" type="password" autoComplete={mode === "register" ? "new-password" : "current-password"} placeholder="Contraseña" aria-invalid={bad ? true : undefined} value={password} onChange={(e) => setPassword(e.target.value)} />
-            {mode === "register" && <span className="mt-1 block text-[12px] text-white/45">Al menos {SIGNUP_PASSWORD_MIN} caracteres.</span>}
+            <span className="nx-label mb-1 block !text-[10px] text-white/55">{t("Contraseña")}</span>
+            <input className="nx-field" type="password" autoComplete={mode === "register" ? "new-password" : "current-password"} placeholder={t("Contraseña")} aria-invalid={bad ? true : undefined} value={password} onChange={(e) => setPassword(e.target.value)} />
+            {mode === "register" && <span className="mt-1 block text-[12px] text-white/45">{t("Al menos {n} caracteres.", { n: SIGNUP_PASSWORD_MIN })}</span>}
           </label>
         )}
 
         {msg && (
-          <p role={msg.ok ? "status" : "alert"} className={cn("text-[14px]", msg.ok ? "text-drl-cyan" : "text-drl-glow")}>{msg.text}</p>
+          <p role={msg.ok ? "status" : "alert"} className={cn("text-[14px]", msg.ok ? "text-drl-cyan" : "text-drl-glow")}>{td(msg.text)}</p>
         )}
 
         <NxButton type="submit" variant="primary" size="lg" block disabled={busy} aria-busy={busy}>
-          {busy ? "Un momento…" : mode === "login" ? "Entrar" : mode === "register" ? "Crear cuenta" : "Enviar enlace"}
+          {busy ? t("Un momento…") : mode === "login" ? t("Entrar") : mode === "register" ? t("Crear cuenta") : t("Enviar enlace")}
         </NxButton>
       </form>
     </div>

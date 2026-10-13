@@ -34,6 +34,10 @@ import type { PrestigeView } from "@/lib/game/prestige";
 import { buyPrestige } from "@/lib/game/prestige";
 import { formatCredits, cn } from "@/lib/format";
 import { CreditGlyph } from "@/components/ui/game/GameGlyph";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("collection");
 
 const PAGE = 8;
 
@@ -44,6 +48,7 @@ export function PrestigePanel({
   onChanged: () => void;
   notify?: (msg: string, ok?: boolean) => void;
 }) {
+  useLocale();
   const [shown, setShown] = useState(PAGE);
   const [busy, setBusy] = useState<string | null>(null);
 
@@ -55,11 +60,11 @@ export function PrestigePanel({
     try {
       const r = await buyPrestige(setId, tierId);
       notify?.(r.applied
-        ? `${r.label} · quedan ${formatCredits(r.credits)} créditos`
-        : "Ese escalón ya era tuyo");
+        ? tr("{label} · quedan {credits} créditos", { label: td(r.label), credits: formatCredits(r.credits) })
+        : tr("Ese escalón ya era tuyo"));
       onChanged();
     } catch (e) {
-      notify?.(e instanceof Error ? e.message : "No se pudo comprar", false);
+      notify?.(e instanceof Error ? e.message : tr("No se pudo comprar"), false);
     } finally {
       setBusy(null);
     }
@@ -68,21 +73,21 @@ export function PrestigePanel({
   const t = view.totals;
 
   return (
-    <section className="mt-8" aria-label="Prestigio">
+    <section className="mt-8" aria-label={tr("Prestigio")}>
       <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="nx-label">Prestigio</h2>
+          <h2 className="nx-label">{tr("Prestigio")}</h2>
           <p className="mt-1 text-[12.5px] text-white/50">
-            Mejora las insignias que ya te has ganado. Solo cambia cómo se ven.
+            {tr("Mejora las insignias que ya te has ganado. Solo cambia cómo se ven.")}
           </p>
         </div>
         <div className="flex gap-4">
           <span className="text-right">
-            <span className="nx-label block text-[9px]">Mejoradas</span>
+            <span className="nx-label block text-[9px]">{tr("Mejoradas")}</span>
             <span className="nx-readout text-[19px] text-white">{t.purchased}<span className="text-[12px] text-white/30">/{t.eligible}</span></span>
           </span>
           <span className="text-right">
-            <span className="nx-label block text-[9px]">Invertido</span>
+            <span className="nx-label block text-[9px]">{tr("Invertido")}</span>
             <span className="nx-readout text-[19px] text-drl-gold"><CreditGlyph className="align-[-2px]" /> {formatCredits(t.burned)}</span>
           </span>
         </div>
@@ -100,13 +105,13 @@ export function PrestigePanel({
             >
               <span aria-hidden style={{ color: o.color }}>◈</span>
               <span className="font-display text-[12px] font-bold uppercase tracking-[0.05em] text-white">
-                {o.label}
+                {td(o.label)}
               </span>
               <span
                 className="font-display text-[9px] font-bold uppercase tracking-[0.14em]"
                 style={{ color: o.color }}
               >
-                {o.tierLabel}
+                {td(o.tierLabel)}
               </span>
             </li>
           ))}
@@ -116,7 +121,7 @@ export function PrestigePanel({
       {/* ── LO QUE SE PUEDE MEJORAR ── */}
       {view.offers.length === 0 ? (
         <p className="nx-plate nx-clip-sm px-4 py-3 text-[12.5px] text-white/55">
-          Has llevado a élite todo lo que tienes. Completa más conjuntos para seguir.
+          {tr("Has llevado a élite todo lo que tienes. Completa más conjuntos para seguir.")}
         </p>
       ) : (
         <>
@@ -138,10 +143,10 @@ export function PrestigePanel({
                         className="font-display text-[9px] font-bold uppercase tracking-[0.14em]"
                         style={{ color: o.color }}
                       >
-                        {o.tierLabel}
+                        {td(o.tierLabel)}
                       </span>
                       <div className="mt-0.5 truncate font-display text-[13.5px] font-bold uppercase tracking-[0.04em] text-white">
-                        {o.label}
+                        {td(o.label)}
                       </div>
                     </div>
                     <span aria-hidden className="shrink-0 text-[15px]" style={{ color: o.color }}>◈</span>
@@ -159,11 +164,11 @@ export function PrestigePanel({
                         className="nx-clip-sm px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.12em] text-black transition duration-fast disabled:opacity-50"
                         style={{ background: o.color }}
                       >
-                        {busy === `${o.setId}:${o.tierId}` ? "…" : "Mejorar"}
+                        {busy === `${o.setId}:${o.tierId}` ? "…" : tr("Mejorar")}
                       </button>
                     ) : (
                       <span className="text-[11px] text-white/35">
-                        faltan {formatCredits(falta)}
+                        {tr("faltan")} {formatCredits(falta)}
                       </span>
                     )}
                   </div>
@@ -179,9 +184,9 @@ export function PrestigePanel({
                 onClick={() => setShown((n) => n + PAGE * 2)}
                 className="nx-focus nx-clip-sm min-h-[44px] border border-white/15 px-6 font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/[0.07]"
               >
-                Ver más mejoras
+                {tr("Ver más mejoras")}
               </button>
-              <span className="nx-label">{shown} de {view.offers.length}</span>
+              <span className="nx-label">{tr("{n} de {total}", { n: shown, total: view.offers.length })}</span>
             </div>
           )}
         </>

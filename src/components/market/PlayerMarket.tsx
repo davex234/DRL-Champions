@@ -45,6 +45,11 @@ import type { CardDef } from "@/domain/cards/types";
 import { ListingDetail } from "@/components/market/ListingDetail";
 import { Loading, EmptyState } from "@/components/ui/States";
 import { formatCredits, cn } from "@/lib/format";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("market");
 
 /**
  * Un ejemplar que el jugador puede publicar: su `uid` (lo único que viaja al servidor),
@@ -72,6 +77,7 @@ const SORTS: [Sort, string][] = [
 ];
 
 export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const [tab, setTab] = useState<Tab>("escaparate");
   const [cfg, setCfg] = useState<MarketConfigView | null>(null);
 
@@ -189,12 +195,12 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
     setBusy(id);
     try {
       await cancelMyListing(id);
-      notify("Listado retirado", true);
+      notify(tr("Listado retirado"), true);
       const r = await fetchMyListings();
       setMine(r.listings);
       await load();
     } catch (e) {
-      notify(e instanceof Error ? e.message : "No se pudo retirar", false);
+      notify(e instanceof Error ? e.message : tr("No se pudo retirar"), false);
     } finally { setBusy(null); }
   }
 
@@ -209,13 +215,13 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
     setBusy(`sell:${uid}`);
     try {
       const r = await listCardOnMarket(uid, price);
-      notify(r.repeated ? "Esa carta ya estaba publicada" : `Publicada por 🪙 ${formatCredits(r.price)}`, true);
+      notify(r.repeated ? tr("Esa carta ya estaba publicada") : tr("Publicada por 🪙 {price}", { price: formatCredits(r.price) }), true);
       await syncFromServer().catch(() => {});
       const m = await fetchMyListings();
       setMine(m.listings);
       await load();
     } catch (e) {
-      notify(e instanceof Error ? e.message : "No se pudo publicar", false);
+      notify(e instanceof Error ? e.message : tr("No se pudo publicar"), false);
     } finally { setBusy(null); }
   }
 
@@ -227,11 +233,9 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
       */}
       {!GLOBAL_MARKET_ENABLED && (
         <div className="nx-clip-sm flex flex-wrap items-center gap-x-4 gap-y-2 border border-warn/35 bg-warn/[0.07] px-4 py-3">
-          <span className="nx-label !text-warn">El mercado entre jugadores abrirá próximamente</span>
+          <span className="nx-label !text-warn">{tr("El mercado entre jugadores abrirá próximamente")}</span>
           <p className="min-w-0 flex-1 text-[13px] leading-snug text-white/65">
-            Puedes explorar el escaparate, abrir cualquier carta y comparar precios. Comprar y
-            vender se activarán cuando Operaciones abra el mercado; hasta entonces sus botones
-            se muestran, pero desactivados.
+            {tr("Puedes explorar el escaparate, abrir cualquier carta y comparar precios. Comprar y vender se activarán cuando Operaciones abra el mercado; hasta entonces sus botones se muestran, pero desactivados.")}
           </p>
         </div>
       )}
@@ -246,12 +250,12 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
               tab === t ? "bg-drl text-white shadow-glow" : "border border-white/12 text-white/55 hover:text-white",
             )}
           >
-            {t === "escaparate" ? "Escaparate" : t === "mis-ventas" ? "Mis ventas" : "Historial"}
+            {t === "escaparate" ? tr("Escaparate") : t === "mis-ventas" ? tr("Mis ventas") : tr("Historial")}
           </button>
         ))}
         {cfg && (
           <span className="nx-label ml-auto">
-            Comisión {feePct} % · mínimo 🪙 {formatCredits(cfg.minPrice)}
+            {tr("Comisión")} {td(feePct)} {tr("% · mínimo 🪙")} {formatCredits(cfg.minPrice)}
           </span>
         )}
       </div>
@@ -263,7 +267,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Buscar jugador o equipo…"
+              placeholder={tr("Buscar jugador o equipo…")}
               className="min-w-[200px] flex-1 rounded-control border border-white/10 bg-white/[0.04] px-3 py-2 text-sm outline-none transition-colors duration-fast focus:border-drl/60"
             />
             <div className="flex flex-wrap gap-1">
@@ -276,7 +280,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                     region === r ? "border-drl-cyan/60 bg-drl-cyan/10 text-drl-cyan" : "border-white/10 text-white/50 hover:text-white/80",
                   )}
                 >
-                  {r}
+                  {td(r)}
                 </button>
               ))}
             </div>
@@ -290,7 +294,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                     sort === id ? "border-white/40 bg-white/[0.08] text-white" : "border-white/10 text-white/50 hover:text-white/80",
                   )}
                 >
-                  {label}
+                  {td(label)}
                 </button>
               ))}
             </div>
@@ -298,7 +302,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
 
           {/* Rareza y media: filtro de cliente sobre lo cargado, sin peticiones. */}
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex flex-wrap gap-1" role="group" aria-label="Filtrar por rareza">
+            <div className="flex flex-wrap gap-1" role="group" aria-label={tr("Filtrar por rareza")}>
               {rarityOptions.map((r) => (
                 <button
                   key={r}
@@ -309,11 +313,11 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                     rarity === r ? "border-drl/60 bg-drl/10 text-white" : "border-white/10 text-white/50 hover:text-white/80",
                   )}
                 >
-                  {r}
+                  {td(r)}
                 </button>
               ))}
             </div>
-            <div className="flex flex-wrap gap-1" role="group" aria-label="Media mínima">
+            <div className="flex flex-wrap gap-1" role="group" aria-label={tr("Media mínima")}>
               {[0, 80, 85, 90].map((o) => (
                 <button
                   key={o}
@@ -324,21 +328,21 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                     minOvr === o ? "border-drl-gold/60 bg-drl-gold/10 text-drl-gold" : "border-white/10 text-white/50 hover:text-white/80",
                   )}
                 >
-                  {o === 0 ? "OVR ·" : `${o}+`}
+                  {o === 0 ? tr("OVR ·") : `${o}+`}
                 </button>
               ))}
             </div>
           </div>
 
           {listings === null ? (
-            <Loading label="Cargando el mercado" />
+            <Loading label={tr("Cargando el mercado")} />
           ) : visible.length === 0 ? (
             <EmptyState
               icon="🏷️"
-              title={listings.length === 0 ? "No hay nada en venta" : "Nada con estos filtros"}
+              title={listings.length === 0 ? tr("No hay nada en venta") : tr("Nada con estos filtros")}
               hint={listings.length === 0
-                ? "Cuando alguien publique una carta aparecerá aquí."
-                : "Prueba con otra rareza o baja la media mínima."}
+                ? tr("Cuando alguien publique una carta aparecerá aquí.")
+                : tr("Prueba con otra rareza o baja la media mínima.")}
             />
           ) : (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
@@ -358,7 +362,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
 
       {/* ═══════════ MIS VENTAS ═══════════ */}
       {tab === "mis-ventas" && (
-        mine === null ? <Loading label="Cargando tus listados" />
+        mine === null ? <Loading label={tr("Cargando tus listados")} />
         : (
           <div className="space-y-5">
             {/* Fase 23.1 · publicar una repetida en el mercado, por el camino del servidor. */}
@@ -367,10 +371,10 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
             {mine.length === 0 ? (
               <EmptyState
                 icon="📤"
-                title="No tienes cartas en venta"
+                title={tr("No tienes cartas en venta")}
                 hint={sellable.length > 0
-                  ? "Elige una de tus repetidas aquí arriba, ponle precio y publícala."
-                  : "Cuando abras sobres y tengas repetidas, podrás publicarlas aquí."}
+                  ? tr("Elige una de tus repetidas aquí arriba, ponle precio y publícala.")
+                  : tr("Cuando abras sobres y tengas repetidas, podrás publicarlas aquí.")}
               />
             ) : (
           <div className="grid gap-2">
@@ -384,10 +388,10 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                 </span>
                 <span className="min-w-0 flex-1">
                   <b className="block truncate font-display text-[14px] font-bold uppercase text-white">
-                    {l.nick} <span className="text-white/35">{l.variantLabel}</span>
+                    {l.nick} <span className="text-white/35">{td(l.variantLabel)}</span>
                   </b>
                   <span className="text-[12px] text-white/40">
-                    OVR {l.ovr}{l.serial ? ` · #${l.serial}` : ""}
+                    {tr("OVR")} {l.ovr}{l.serial ? ` · #${l.serial}` : ""}
                   </span>
                 </span>
                 <span className="nx-readout shrink-0 text-[16px] text-drl-gold">
@@ -396,19 +400,19 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                 {l.status === "active" && (
                   confirmCancel === l.id ? (
                     <div className="flex shrink-0 flex-wrap items-center gap-2">
-                      <span className="text-[11px] text-white/55">¿Retirar del mercado?</span>
+                      <span className="text-[11px] text-white/55">{tr("¿Retirar del mercado?")}</span>
                       <button
                         onClick={() => { setConfirmCancel(null); cancel(l.id); }}
                         disabled={busy === l.id}
                         className="nx-focus nx-clip-sm border border-drl/50 bg-drl/15 px-3 py-1.5 font-display text-[11px] font-bold uppercase tracking-[0.1em] text-white transition hover:bg-drl/25 disabled:opacity-40"
                       >
-                        Sí, retirar
+                        {tr("Sí, retirar")}
                       </button>
                       <button
                         onClick={() => setConfirmCancel(null)}
                         className="nx-focus nx-clip-sm border border-white/15 px-3 py-1.5 font-display text-[11px] font-bold uppercase tracking-[0.1em] text-white/60 transition hover:text-white"
                       >
-                        No
+                        {tr("No")}
                       </button>
                     </div>
                   ) : (
@@ -417,7 +421,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                       disabled={busy === l.id}
                       className="nx-focus nx-clip-sm shrink-0 border border-white/15 px-3 py-1.5 font-display text-[11px] font-bold uppercase tracking-[0.1em] text-white/70 transition hover:border-white/40 hover:text-white disabled:opacity-40"
                     >
-                      Retirar
+                      {tr("Retirar")}
                     </button>
                   )
                 )}
@@ -431,13 +435,13 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
 
       {/* ═══════════ HISTORIAL ═══════════ */}
       {tab === "historial" && (
-        trades === null ? <Loading label="Cargando tu historial" />
+        trades === null ? <Loading label={tr("Cargando tu historial")} />
         : trades.length === 0 ? (
-          <EmptyState icon="🧾" title="Todavía no has comprado ni vendido nada" />
+          <EmptyState icon="🧾" title={tr("Todavía no has comprado ni vendido nada")} />
         ) : (
           <div className="space-y-3">
-            <div className="flex flex-wrap gap-1" role="group" aria-label="Filtrar el historial">
-              {([["all", "Todo"], ["buy", "Mis compras"], ["sell", "Mis ventas"]] as [typeof side, string][]).map(([id, label]) => (
+            <div className="flex flex-wrap gap-1" role="group" aria-label={tr("Filtrar el historial")}>
+              {([["all", tr("Todo")], ["buy", tr("Mis compras")], ["sell", tr("Mis ventas")]] as [typeof side, string][]).map(([id, label]) => (
                 <button
                   key={id}
                   onClick={() => setSide(id)}
@@ -447,12 +451,12 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                     side === id ? "border-white/40 bg-white/[0.08] text-white" : "border-white/10 text-white/50 hover:text-white/80",
                   )}
                 >
-                  {label}
+                  {td(label)}
                 </button>
               ))}
             </div>
             {visibleTrades.length === 0 ? (
-              <EmptyState icon="🧾" title={side === "buy" ? "Todavía no has comprado nada" : "Todavía no has vendido nada"} />
+              <EmptyState icon="🧾" title={side === "buy" ? tr("Todavía no has comprado nada") : tr("Todavía no has vendido nada")} />
             ) : (
             <div className="grid gap-2">
             {visibleTrades.map((t) => (
@@ -464,7 +468,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                   className="nx-label w-[72px] shrink-0"
                   style={{ color: t.side === "buy" ? "#19e3ff" : "#3fc07a" }}
                 >
-                  {t.side === "buy" ? "Compra" : "Venta"}
+                  {t.side === "buy" ? tr("Compra") : tr("Venta")}
                 </span>
                 <b className="min-w-0 flex-1 truncate font-display text-[14px] font-bold uppercase text-white">
                   {t.nick}
@@ -473,10 +477,10 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
                   🪙 {formatCredits(t.price)}
                 </span>
                 {t.side === "sell" && t.fee > 0 && (
-                  <span className="nx-label shrink-0">comisión −{formatCredits(t.fee)}</span>
+                  <span className="nx-label shrink-0">{tr("comisión −{n}", { n: formatCredits(t.fee) })}</span>
                 )}
                 <span className="nx-label shrink-0 w-[92px] text-right">
-                  {new Date(t.createdAt).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}
+                  {new Date(t.createdAt).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short" })}
                 </span>
               </div>
             ))}
@@ -501,7 +505,7 @@ export function PlayerMarket({ notify }: { notify: (m: string, ok?: boolean) => 
 }
 
 const statusLabel = (s: string) =>
-  s === "active" ? "En venta" : s === "sold" ? "Vendida" : s === "cancelled" ? "Retirada" : "Caducada";
+  s === "active" ? tr("En venta") : s === "sold" ? tr("Vendida") : s === "cancelled" ? tr("Retirada") : tr("Caducada");
 
 const statusTint = (s: string) =>
   s === "active" ? "#19e3ff" : s === "sold" ? "#3fc07a" : "rgba(255,255,255,0.35)";
@@ -520,6 +524,7 @@ function ListingCard({
   delay: number;
   onOpen: () => void;
 }) {
+  useLocale();
   const def = useMemo(() => getCard(l.cardId), [l.cardId]);
   const ratio = l.reference > 0 ? l.price / l.reference : 1;
   const tone = ratio <= 0.8 ? "#3fc07a" : ratio >= 1.5 ? "#ff4d5e" : "rgba(255,255,255,0.45)";
@@ -528,7 +533,7 @@ function ListingCard({
     <button
       type="button"
       onClick={onOpen}
-      aria-label={`Ver ${l.nick} ${l.variantLabel}, OVR ${l.ovr}, 🪙 ${formatCredits(l.price)}`}
+      aria-label={tr("Ver {nick} {variantLabel}, OVR {ovr}, 🪙 {price}", { nick: l.nick, variantLabel: td(l.variantLabel), ovr: l.ovr, price: formatCredits(l.price) })}
       /* Microinteracción solo con movimiento permitido (§28): sin él, sin salto. */
       className="nx-focus group flex flex-col text-left transition duration-fast motion-safe:hover:-translate-y-0.5"
     >
@@ -542,17 +547,17 @@ function ListingCard({
         <div className="flex items-baseline justify-between gap-2">
           <span className="nx-readout text-[17px] text-drl-gold">🪙 {formatCredits(l.price)}</span>
           <span className="nx-label !text-[9px]" style={{ color: tone }}>
-            {ratio <= 0.8 ? "por debajo" : ratio >= 1.5 ? "por encima" : "en precio"}
+            {ratio <= 0.8 ? tr("por debajo") : ratio >= 1.5 ? tr("por encima") : tr("en precio")}
           </span>
         </div>
         <span className="mt-0.5 block text-[11px] text-white/35">
-          Referencia 🪙 {formatCredits(l.reference)}
+          {tr("Referencia 🪙")} {formatCredits(l.reference)}
         </span>
 
         <span
           className="nx-clip-sm mt-2 block w-full bg-white/[0.05] px-3 py-2 text-center font-display text-[12px] font-bold uppercase tracking-[0.1em] text-white/75 transition group-hover:bg-white/[0.1] group-hover:text-white"
         >
-          {canBuy ? "Ver carta" : "Ver carta · cerrado"}
+          {canBuy ? tr("Ver carta") : tr("Ver carta · cerrado")}
         </span>
       </div>
     </button>
@@ -585,6 +590,7 @@ export function SellComposer({
   busy: string | null;
   onPublish: (uid: string, price: number) => void;
 }) {
+  useLocale();
   const minPrice = cfg?.minPrice ?? 25;
   // Selección y precio arrancan resueltos en el primer render (no solo por efecto): así no
   // hay un parpadeo sin carta elegida y el formulario es utilizable de inmediato.
@@ -618,15 +624,15 @@ export function SellComposer({
   return (
     <div className="nx-clip-sm border border-white/[0.09] bg-white/[0.025] p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <span className="nx-label !text-white/80">Publicar una repetida</span>
-        <span className="nx-label">Comisión {feePct} % · mínimo 🪙 {formatCredits(minPrice)}</span>
+        <span className="nx-label !text-white/80">{tr("Publicar una repetida")}</span>
+        <span className="nx-label">{tr("Comisión")} {td(feePct)} {tr("% · mínimo 🪙")} {formatCredits(minPrice)}</span>
       </div>
 
       {/* ── Qué vendes: tus repetidas, como cartas ── */}
       <div
         className="nx-scroll mt-3 flex gap-2 overflow-x-auto pb-2"
         role="listbox"
-        aria-label="Elige la carta que vas a vender"
+        aria-label={tr("Elige la carta que vas a vender")}
       >
         {cards.map((c) => {
           const activa = c.uid === uid;
@@ -637,7 +643,7 @@ export function SellComposer({
               role="option"
               aria-selected={activa}
               onClick={() => setUid(c.uid)}
-              aria-label={`${getCard(c.def.id)?.id.split("__")[0] ?? c.def.id}${c.serial ? ` número ${c.serial}` : ""}`}
+              aria-label={`${getCard(c.def.id)?.id.split("__")[0] ?? c.def.id}${c.serial ? tr(" número {serial}", { serial: c.serial }) : ""}`}
               className={cn(
                 "nx-focus nx-clip-sm relative shrink-0 p-1 transition-colors duration-fast",
                 activa ? "bg-white/[0.12] ring-1 ring-drl-cyan/60" : "hover:bg-white/[0.05]",
@@ -657,25 +663,25 @@ export function SellComposer({
       {elegida && (
         <div className="mt-3 flex flex-wrap items-end gap-x-6 gap-y-3">
           <label className="block">
-            <span className="nx-label mb-1 block">Precio de venta</span>
+            <span className="nx-label mb-1 block">{tr("Precio de venta")}</span>
             <input
               type="number"
               min={minPrice}
               step={25}
               value={Number.isFinite(price) ? price : ""}
               onChange={(e) => setPrice(Math.round(Number(e.target.value)))}
-              aria-label="Precio de venta en créditos"
+              aria-label={tr("Precio de venta en créditos")}
               className="nx-focus min-h-[44px] w-[140px] rounded-control border border-white/12 bg-white/[0.04] px-3 text-body text-white outline-none transition-colors duration-fast focus:border-drl/60"
             />
           </label>
 
           <div>
-            <span className="nx-label block">Referencia</span>
+            <span className="nx-label block">{tr("Referencia")}</span>
             <span className="nx-readout text-[15px] text-white/70">🪙 {formatCredits(elegida.reference)}</span>
           </div>
 
           <div>
-            <span className="nx-label block">Recibes (tras comisión)</span>
+            <span className="nx-label block">{tr("Recibes (tras comisión)")}</span>
             <span className="nx-readout text-[16px] text-drl-gold">🪙 {formatCredits(net)}</span>
           </div>
 
@@ -683,19 +689,17 @@ export function SellComposer({
             type="button"
             disabled={!valido || cerrado || busy !== null}
             onClick={() => elegida && onPublish(elegida.uid, price)}
-            title={cerrado ? "El comercio entre jugadores todavía no está abierto" : undefined}
+            title={cerrado ? tr("El comercio entre jugadores todavía no está abierto") : undefined}
             className="nx-clip-sm ml-auto min-h-[44px] bg-drl px-5 font-display text-[12px] font-bold uppercase tracking-[0.1em] text-white shadow-glow transition hover:brightness-110 disabled:cursor-not-allowed disabled:bg-white/[0.06] disabled:text-white/35 disabled:shadow-none"
           >
-            {busy === `sell:${elegida.uid}` ? "Publicando…" : cerrado ? "Cerrado" : "Publicar"}
+            {busy === `sell:${elegida.uid}` ? tr("Publicando…") : cerrado ? tr("Cerrado") : tr("Publicar")}
           </button>
         </div>
       )}
 
       {/* Qué implica publicar, dicho antes de pulsar. */}
       <p className="mt-3 text-[12px] leading-snug text-white/45">
-        La carta queda <b className="text-white/70">retenida</b> mientras está en venta —sigues
-        viéndola en tu colección, pero no puedes desguazarla ni usarla— y puedes retirarla
-        cuando quieras. Al venderse recibes el precio menos la comisión.
+        {fill(tr("La carta queda {estado} mientras está en venta —sigues viéndola en tu colección, pero no puedes desguazarla ni usarla— y puedes retirarla cuando quieras. Al venderse recibes el precio menos la comisión.", slots("estado")), { estado: <b className="text-white/70">{tr("retenida")}</b> })}
       </p>
     </div>
   );
@@ -703,12 +707,13 @@ export function SellComposer({
 
 /** Enlace de vuelta, para que la frontera entre las tres pantallas quede dicha. */
 export function MarketBoundaryNote() {
+  useLocale();
   return (
     <p className="text-[13px] text-white/45">
-      El catálogo completo está en{" "}
-      <Link href="/coleccion" className="text-drl underline-offset-2 hover:underline">Mis cartas</Link>
-      {" "}y tus repetidas, en{" "}
-      <Link href="/inventario" className="text-drl underline-offset-2 hover:underline">Inventario</Link>.
+      {fill(tr("El catálogo completo está en {cartas} y tus repetidas, en {inventario}.", slots("cartas", "inventario")), {
+        cartas: <Link href="/coleccion" className="text-drl underline-offset-2 hover:underline">{tr("Mis cartas")}</Link>,
+        inventario: <Link href="/inventario" className="text-drl underline-offset-2 hover:underline">{tr("Inventario")}</Link>,
+      })}
     </p>
   );
 }

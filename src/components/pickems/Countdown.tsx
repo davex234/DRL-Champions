@@ -13,9 +13,13 @@
  */
 import { useEffect, useRef } from "react";
 import { useNow } from "@/lib/useNow";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export function formatRemaining(ms: number): string {
-  if (ms <= 0) return "Cerrada";
+  if (ms <= 0) return t("Cerrada");
   const s = Math.floor(ms / 1000);
   const d = Math.floor(s / 86400);
   const h = Math.floor((s % 86400) / 3600);
@@ -31,7 +35,7 @@ export function Countdown({
   to,
   onExpire,
   className,
-  prefix = "Cierra en",
+  prefix = t("Cierra en"),
 }: {
   /** Instante de cierre (ISO). */
   to: string;
@@ -40,6 +44,7 @@ export function Countdown({
   className?: string;
   prefix?: string;
 }) {
+  useLocale();
   const target = new Date(to).getTime();
   const now = useNow(1000);
   const remaining = now === 0 ? 1 : target - now;
@@ -53,11 +58,11 @@ export function Countdown({
   const urgent = remaining > 0 && remaining < 3600_000;
 
   return (
-    <span className={className} title={new Date(to).toLocaleString("es-ES")}>
+    <span className={className} title={new Date(to).toLocaleString(getIntlLocale())}>
       {remaining > 0 ? (
-        <>{prefix} <span className={urgent ? "text-drl" : undefined}>{formatRemaining(remaining)}</span></>
+        <>{td(prefix)} <span className={urgent ? "text-drl" : undefined}>{formatRemaining(remaining)}</span></>
       ) : (
-        "Cerrada"
+        t("Cerrada")
       )}
     </span>
   );

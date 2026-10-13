@@ -14,6 +14,10 @@ import { getVariant } from "@/domain/cards/variants";
 import { applyTax, dealScore } from "@/domain/market/fees";
 import { marketValue } from "@/domain/economy/pricing";
 import { formatCredits, formatRelative } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("market");
 
 /**
  * Ficha de detalle del mercado global: gráfica de evolución, estadísticas de
@@ -37,6 +41,7 @@ export function OnlineCardDetail({
   onChanged: () => void;
   notify: (m: string, ok?: boolean) => void;
 }) {
+  useLocale();
   const def = getCard(cardId);
   const [listings, setListings] = useState<Listing[]>([]);
   const [stats, setStats] = useState<CardPriceStats | null>(null);
@@ -56,7 +61,7 @@ export function OnlineCardDetail({
   async function buy(l: Listing) {
     const res = await buyListingOnline(l.id);
     if (res.error) return notify(res.error, false);
-    notify("¡Carta comprada en el mercado global!", true);
+    notify(t("¡Carta comprada en el mercado global!"), true);
     load();
     onChanged();
   }
@@ -80,7 +85,7 @@ export function OnlineCardDetail({
             <div>
               <h3 className="font-display text-2xl font-bold uppercase text-white">{player?.nick}</h3>
               <p className="text-sm" style={{ color: variant.palette.primary }}>
-                {variant.label} · OVR {def.ovr} · {player?.team} · {player?.region}
+                {td(variant.label)} {t("· OVR")} {def.ovr} · {player?.team} · {td(player?.region)}
               </p>
             </div>
             <button onClick={onClose} className="text-white/50 hover:text-white">✕</button>
@@ -88,14 +93,14 @@ export function OnlineCardDetail({
 
           {/* Estadísticas de precio */}
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <Stat label="Última" value={stats?.last_price ?? undefined} />
-            <Stat label="Media" value={stats?.avg_price ?? undefined} />
-            <Stat label="Mín" value={stats?.min_price ?? undefined} accent="#37e6a0" />
-            <Stat label="Máx" value={stats?.max_price ?? undefined} accent="#ff5c8a" />
+            <Stat label={t("Última")} value={stats?.last_price ?? undefined} />
+            <Stat label={t("Media")} value={stats?.avg_price ?? undefined} />
+            <Stat label={t("Mín")} value={stats?.min_price ?? undefined} accent="#37e6a0" />
+            <Stat label={t("Máx")} value={stats?.max_price ?? undefined} accent="#ff5c8a" />
           </div>
           <p className="mt-1 text-[11px] text-white/40">
-            Valor justo de referencia 🪙 {formatCredits(fair)}
-            {stats?.trade_count ? ` · ${stats.trade_count} ventas · volumen 🪙 ${formatCredits(stats.volume)}` : ""}
+            {t("Valor justo de referencia 🪙")} {formatCredits(fair)}
+            {stats?.trade_count ? t(" · {trade_count} ventas · volumen 🪙 {volume}", { trade_count: stats.trade_count, volume: formatCredits(stats.volume) }) : ""}
           </p>
 
           {/* Gráfica de evolución */}
@@ -104,26 +109,26 @@ export function OnlineCardDetail({
           </div>
 
           {/* Listados a la venta */}
-          <p className="mt-5 text-[10px] uppercase tracking-widest text-white/40">A la venta ahora ({listings.length})</p>
+          <p className="mt-5 text-[10px] uppercase tracking-widest text-white/40">{t("A la venta ahora (")}{listings.length})</p>
           <div className="mt-2 space-y-2">
-            {listings.length === 0 && <p className="text-sm text-white/40">Nadie vende esta carta ahora mismo.</p>}
+            {listings.length === 0 && <p className="text-sm text-white/40">{t("Nadie vende esta carta ahora mismo.")}</p>}
             {listings.slice(0, 6).map((l) => {
               const deal = dealScore(l.price, fair);
               const isMine = l.seller_id === currentUserId;
               return (
                 <div key={l.id} className="flex items-center justify-between rounded-lg border border-white/10 bg-base-700/50 px-3 py-2">
                   <span className="font-display text-sm text-white">
-                    {l.serial != null ? `#${l.serial}` : "Sin serie"}
+                    {l.serial != null ? `#${l.serial}` : t("Sin serie")}
                     <span className="ml-2 text-xs text-white/40">{formatRelative(new Date(l.created_at).getTime())}</span>
                     {deal != null && (
                       <span className={`ml-2 text-[11px] ${deal < 1 ? "text-drl-cyan" : "text-white/40"}`}>×{deal}</span>
                     )}
                   </span>
                   {isMine ? (
-                    <span className="text-xs text-white/40">Tuya</span>
+                    <span className="text-xs text-white/40">{t("Tuya")}</span>
                   ) : (
                     <button onClick={() => buy(l)} className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-3 py-1 font-display text-xs font-bold uppercase text-white shadow-glow transition hover:brightness-110">
-                      Comprar 🪙 {formatCredits(l.price)}
+                      {t("Comprar 🪙")} {formatCredits(l.price)}
                     </button>
                   )}
                 </div>
@@ -148,9 +153,10 @@ export function OnlineCardDetail({
 }
 
 function Stat({ label, value, accent = "#ffffff" }: { label: string; value?: number; accent?: string }) {
+  useLocale();
   return (
     <div className="rounded-lg border border-white/10 bg-base-700/40 px-2.5 py-2">
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
+      <p className="text-[10px] uppercase tracking-widest text-white/40">{td(label)}</p>
       <p className="font-display text-sm font-bold" style={{ color: accent }}>
         🪙 {value != null ? formatCredits(value) : "—"}
       </p>

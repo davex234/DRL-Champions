@@ -11,6 +11,9 @@ import { CAPABILITIES, CAPABILITY_LABEL, type Capability, type CapabilityProfile
 import type { Identity } from "../sim/identity/traits";
 import type { AgentClass, AgentInstance } from "./types";
 import { CLASS_LABEL } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("agents");
 
 export interface CompositionRatings {
   execute: number; control: number; info: number; retake: number;
@@ -116,16 +119,16 @@ function classifyStyle(r: CompositionRatings, cc: Record<AgentClass, number>): {
   };
   const archetype = Object.keys(scores).reduce((a, b) => (scores[b] > scores[a] ? b : a), "control");
   const LABEL: Record<string, string> = {
-    control: "Composición de control", aggressive: "Composición agresiva",
-    info: "Composición de información", postplant: "Composición de post-plant", flexible: "Composición flexible",
+    control: tr("Composición de control"), aggressive: tr("Composición agresiva"),
+    info: tr("Composición de información"), postplant: tr("Composición de post-plant"), flexible: tr("Composición flexible"),
   };
   const tags: string[] = [];
-  if (r.control >= 60) tags.push("vive del control");
-  if (r.entry >= 65) tags.push("busca duelos de apertura");
-  if (r.info >= 62) tags.push("juega por picks e info");
-  if (r.postplant >= 62) tags.push("abusa del post-plant");
-  if (r.retake >= 62) tags.push("fuerte en retake");
-  if (r.scaling >= 62) tags.push("escala a rondas largas");
+  if (r.control >= 60) tags.push(tr("vive del control"));
+  if (r.entry >= 65) tags.push(tr("busca duelos de apertura"));
+  if (r.info >= 62) tags.push(tr("juega por picks e info"));
+  if (r.postplant >= 62) tags.push(tr("abusa del post-plant"));
+  if (r.retake >= 62) tags.push(tr("fuerte en retake"));
+  if (r.scaling >= 62) tags.push(tr("escala a rondas largas"));
   if (tags.length === 0) tags.push("equilibrada");
   return { archetype, archetypeLabel: LABEL[archetype], playstyle: tags };
 }
@@ -137,23 +140,23 @@ function topCaps(avg: CapabilityProfile, high: boolean): string[] {
 
 function detectSynergies(r: CompositionRatings, cc: Record<AgentClass, number>, cov: Record<Capability, number>): string[] {
   const out: string[] = [];
-  if (cov.information >= 1 && cov.entry >= 1) out.push("Info + entrada: entradas con información.");
-  if (cc.initiator >= 2) out.push("Doble iniciador: dominio de la fase media y picks.");
-  if (r.control >= 60 && r.postplant >= 60) out.push("Control + post-plant: cierres de plante muy sólidos.");
-  if (cc.controller >= 1 && cc.duelist >= 1 && cov.utility >= 2) out.push("Humos + entrada: ejecuciones limpias.");
-  if (cc.sentinel >= 1 && r.info >= 55) out.push("Centinela + info: defensa que no se rompe a la primera.");
-  if (cov.lurk >= 1 && r.control >= 55) out.push("Control + lurk: el flanco castiga las rotaciones.");
+  if (cov.information >= 1 && cov.entry >= 1) out.push(tr("Info + entrada: entradas con información."));
+  if (cc.initiator >= 2) out.push(tr("Doble iniciador: dominio de la fase media y picks."));
+  if (r.control >= 60 && r.postplant >= 60) out.push(tr("Control + post-plant: cierres de plante muy sólidos."));
+  if (cc.controller >= 1 && cc.duelist >= 1 && cov.utility >= 2) out.push(tr("Humos + entrada: ejecuciones limpias."));
+  if (cc.sentinel >= 1 && r.info >= 55) out.push(tr("Centinela + info: defensa que no se rompe a la primera."));
+  if (cov.lurk >= 1 && r.control >= 55) out.push(tr("Control + lurk: el flanco castiga las rotaciones."));
   return out;
 }
 
 function detectRisks(r: CompositionRatings, cc: Record<AgentClass, number>): string[] {
   const out: string[] = [];
-  if (r.retake < 40) out.push("Retake flojo: si plantan, cuesta recuperar.");
-  if (r.info < 42) out.push("Poca información: jugarás a ciegas en la fase media.");
-  if (r.control < 42) out.push("Poco control de mapa: difícil ejecutar contra defensas firmes.");
-  if (r.entry >= 70 && r.control < 45) out.push("Demasiada entrada y poco control: ejecuciones a lo loco.");
-  if (cc.sentinel === 0) out.push("Sin centinela: el post-plant y el anclaje sufren.");
-  if (cc.controller === 0) out.push("Sin controlador: ejecuciones expuestas, sin humos.");
+  if (r.retake < 40) out.push(tr("Retake flojo: si plantan, cuesta recuperar."));
+  if (r.info < 42) out.push(tr("Poca información: jugarás a ciegas en la fase media."));
+  if (r.control < 42) out.push(tr("Poco control de mapa: difícil ejecutar contra defensas firmes."));
+  if (r.entry >= 70 && r.control < 45) out.push(tr("Demasiada entrada y poco control: ejecuciones a lo loco."));
+  if (cc.sentinel === 0) out.push(tr("Sin centinela: el post-plant y el anclaje sufren."));
+  if (cc.controller === 0) out.push(tr("Sin controlador: ejecuciones expuestas, sin humos."));
   return out;
 }
 
@@ -166,15 +169,15 @@ export interface CompositionMatchup {
 export function compareCompositions(ours: CompositionProfile, theirs: CompositionProfile): CompositionMatchup {
   const o = ours.ratings, t = theirs.ratings;
   const rec: string[] = [];
-  if (o.scaling > t.scaling + 8) rec.push("Nuestra composición escala mejor: alarga las rondas.");
-  if (t.retake < 40) rec.push("Ellos no tienen retake: prioriza plantar y jugar el post-plant.");
-  if (t.control < 42) rec.push("Les falta control: presiona el mapa, no podrán ejecutar limpio.");
-  if (o.entry > 70 && o.control < 45) rec.push("Tenemos demasiada entrada: añade control o caeréis al primer duelo.");
-  if (o.info < 42) rec.push("Nos falta información: juega más lento y saca info antes de comprometer.");
-  if (o.control < 42) rec.push("No tenemos control del mapa: evita defaults largos.");
-  if (o.info > t.info + 10) rec.push("Dominamos la información: castiga sus defaults con picks.");
-  if (o.entry > t.retake + 12) rec.push("Nuestra entrada supera su retake: ejecuciones rápidas.");
-  if (rec.length === 0) rec.push("Composiciones parejas: ganará la mejor ejecución.");
+  if (o.scaling > t.scaling + 8) rec.push(tr("Nuestra composición escala mejor: alarga las rondas."));
+  if (t.retake < 40) rec.push(tr("Ellos no tienen retake: prioriza plantar y jugar el post-plant."));
+  if (t.control < 42) rec.push(tr("Les falta control: presiona el mapa, no podrán ejecutar limpio."));
+  if (o.entry > 70 && o.control < 45) rec.push(tr("Tenemos demasiada entrada: añade control o caeréis al primer duelo."));
+  if (o.info < 42) rec.push(tr("Nos falta información: juega más lento y saca info antes de comprometer."));
+  if (o.control < 42) rec.push(tr("No tenemos control del mapa: evita defaults largos."));
+  if (o.info > t.info + 10) rec.push(tr("Dominamos la información: castiga sus defaults con picks."));
+  if (o.entry > t.retake + 12) rec.push(tr("Nuestra entrada supera su retake: ejecuciones rápidas."));
+  if (rec.length === 0) rec.push(tr("Composiciones parejas: ganará la mejor ejecución."));
 
   const edge = Math.max(-100, Math.min(100, Math.round(
     (o.execute - t.retake) * 0.3 + (o.control - t.control) * 0.25 +

@@ -10,6 +10,9 @@ import type { AnalyzerResult } from "@/analyzer";
 import type {
   AccoladeGrant, EditorialOverride, GeneratorLedger, OmittedCard, PlayerResolution, ReleaseState, RetiredCard,
 } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("cardgenerator");
 
 /* ── Overrides sobre GRANTS (set-mvp / grant-accolade / retire-card) ─────────
  * Los grants llegan con ids del ANALYZER; los overrides usan ids de CATÁLOGO, así que se
@@ -77,7 +80,7 @@ export function decideLifecycle(
 
     // Anti-dup: misma (jugador, familia, temporada) jamás se emite dos veces.
     if (keys.has(`${catalogId}:${family}:${season}`)) {
-      omitted.push({ playerId: catalogId, family, action: "duplicate", reason: `ya emitida en la temporada ${season}` });
+      omitted.push({ playerId: catalogId, family, action: "duplicate", reason: tr("ya emitida en la temporada {season}", { season }) });
       continue;
     }
 
@@ -111,11 +114,11 @@ export interface ConfidenceInput {
 export function confidenceOf(i: ConfidenceInput): { confidence: number; issues: string[] } {
   let c = 0.95;
   const issues: string[] = [];
-  if (i.resolution.status === "created") { c -= 0.05; issues.push("jugador nuevo (draft)"); }
-  if (!i.hasImage) { c -= 0.02; issues.push("sin foto"); }
-  if (!i.hasCountry) { c -= 0.04; issues.push("país sin resolver"); }
-  if (i.analyzerConfidence === "low") { c -= 0.1; issues.push("muestra estadística baja"); }
-  else if (i.analyzerConfidence === "medium") { c -= 0.03; issues.push("muestra estadística media"); }
+  if (i.resolution.status === "created") { c -= 0.05; issues.push(tr("jugador nuevo (draft)")); }
+  if (!i.hasImage) { c -= 0.02; issues.push(tr("sin foto")); }
+  if (!i.hasCountry) { c -= 0.04; issues.push(tr("país sin resolver")); }
+  if (i.analyzerConfidence === "low") { c -= 0.1; issues.push(tr("muestra estadística baja")); }
+  else if (i.analyzerConfidence === "medium") { c -= 0.03; issues.push(tr("muestra estadística media")); }
   return { confidence: Math.round(c * 100) / 100, issues };
 }
 

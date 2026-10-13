@@ -31,6 +31,9 @@ import {
   type ControlLedger, type GenerationRecord,
 } from "./types";
 import { makeEvents, withRecord } from "./internal";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("tournamentcontrol");
 
 export function createLedger(): ControlLedger {
   return { schemaVersion: TOURNAMENT_CONTROL_SCHEMA_VERSION, records: {}, order: [], events: [] };
@@ -43,8 +46,8 @@ const reject = <T>(ledger: ControlLedger, error: string): ControlActionResult<T>
 /** Registra en el panel un `OrchestratorResult` (importación + generación + publicación del run). */
 export function ingestRun(l: ControlLedger, run: OrchestratorResult, meta: ControlActionMeta): ControlActionResult<GenerationRecord> {
   const gen = run.outputs.generation;
-  if (!gen) return reject(l, `el run no llegó a generar cartas${run.failedStage ? ` (falló en ${run.failedStage})` : ""}`);
-  if (l.records[gen.generationId]) return reject(l, `generación ya registrada: ${gen.generationId}`);
+  if (!gen) return reject(l, t("el run no llegó a generar cartas{v}", { v: run.failedStage ? t(" (falló en {failedStage})", { failedStage: run.failedStage }) : "" }));
+  if (l.records[gen.generationId]) return reject(l, t("generación ya registrada: {generationId}", { generationId: gen.generationId }));
 
   const rec: GenerationRecord = {
     recordId: gen.generationId,
@@ -64,7 +67,7 @@ export function ingestRun(l: ControlLedger, run: OrchestratorResult, meta: Contr
     { kind: "generate", detail: `${gen.cards.length} cartas` },
   ];
   if (run.outputs.publish?.applied) {
-    specs.push({ kind: "publish", detail: `publicación directa del Orchestrator (runtime v${run.outputs.publish.runtimeVersion})` });
+    specs.push({ kind: "publish", detail: t("publicación directa del Orchestrator (runtime v{runtimeVersion})", { runtimeVersion: run.outputs.publish.runtimeVersion }) });
   }
   return { ledger: withRecord(l, rec, makeEvents(l, rec.recordId, rec.generationId, meta, specs)), value: rec };
 }
@@ -97,15 +100,15 @@ export function generateForReview(
   const importResult = importSnapshot(snapshot, ictx);
   if (!importResult.ok) {
     const errors = importResult.issues.filter((i) => i.severity === "error");
-    return reject(l, `modelo canónico inválido: ${errors.length} error(es)`);
+    return reject(l, t("modelo canónico inválido: {length} error(es)", { length: errors.length }));
   }
   const analysis = analyze(importResult.model, ctx.history);
   const gen = generateCards(analysis, {
     roster: ctx.roster, now: ctx.now,
     ledger: ctx.ledger, overrides: ctx.overrides, aliases: ctx.aliases, season: ctx.season,
   });
-  if (gen.skipped) return reject(l, `torneo ya procesado por el ledger del generador: ${gen.tournamentId}`);
-  if (l.records[gen.generationId]) return reject(l, `generación ya registrada: ${gen.generationId}`);
+  if (gen.skipped) return reject(l, t("torneo ya procesado por el ledger del generador: {tournamentId}", { tournamentId: gen.tournamentId }));
+  if (l.records[gen.generationId]) return reject(l, t("generación ya registrada: {generationId}", { generationId: gen.generationId }));
 
   const rec: GenerationRecord = {
     recordId: gen.generationId,
@@ -122,7 +125,7 @@ export function generateForReview(
   };
   const events = makeEvents(l, rec.recordId, rec.generationId, meta, [
     { kind: "import", detail: snapshot.tournament.name },
-    { kind: "generate", detail: `${gen.cards.length} cartas (sin publicar)` },
+    { kind: "generate", detail: t("{length} cartas (sin publicar)", { length: gen.cards.length }) },
   ]);
   return { ledger: withRecord(l, rec, events), value: rec };
 }
@@ -133,11 +136,11 @@ export function generateForReview(
 export function openReview(l: ControlLedger, recordId: string, meta: ControlActionMeta): ControlActionResult<GenerationRecord> {
   const rec = l.records[recordId];
   if (!rec) return reject(l, `registro desconocido: ${recordId}`);
-  if (rec.editorial) return reject(l, `la revisión de ${recordId} ya está abierta`);
+  if (rec.editorial) return reject(l, t("la revisión de {recordId} ya está abierta", { recordId: td(recordId) }));
   const editorial = submitGeneration(rec.generation, { ...meta, tournamentName: rec.tournamentName });
   const next: GenerationRecord = { ...rec, editorial };
   return {
-    ledger: withRecord(l, next, makeEvents(l, recordId, rec.generationId, meta, [{ kind: "open-review", detail: `${rec.generation.cards.length} cartas en review` }])),
+    ledger: withRecord(l, next, makeEvents(l, recordId, rec.generationId, meta, [{ kind: "open-review", detail: t("{length} cartas en review", { length: rec.generation.cards.length }) }])),
     value: next,
   };
 }
@@ -148,10 +151,10 @@ export function decideRecordCards(
 ): ControlActionResult<DecisionResult> {
   const rec = l.records[recordId];
   if (!rec) return reject(l, `registro desconocido: ${recordId}`);
-  if (!rec.editorial) return reject(l, `la revisión de ${recordId} no está abierta`);
+  if (!rec.editorial) return reject(l, t("la revisión de {recordId} no está abierta", { recordId: td(recordId) }));
   const r = decide(rec.editorial, cardIds, action, meta);
-  if (!r.applied.length) return reject(l, r.skipped[0]?.error ?? "ninguna transición aplicable");
-  const detail = `${action}: ${r.applied.length} carta(s)` + (r.skipped.length ? ` · ${r.skipped.length} rechazada(s)` : "");
+  if (!r.applied.length) return reject(l, r.skipped[0]?.error ?? t("ninguna transición aplicable"));
+  const detail = t("{action}: {length} carta(s)", { action, length: r.applied.length }) + (r.skipped.length ? ` · ${r.skipped.length} rechazada(s)` : "");
   return {
     ledger: withRecord(l, { ...rec, editorial: r.case }, makeEvents(l, recordId, rec.generationId, meta, [{ kind: "decision", detail: detail }])),
     value: r,
@@ -162,11 +165,11 @@ export function decideRecordCards(
 export function approveGenerationRecord(l: ControlLedger, recordId: string, meta: ControlActionMeta): ControlActionResult<DecisionResult> {
   const rec = l.records[recordId];
   if (!rec) return reject(l, `registro desconocido: ${recordId}`);
-  if (!rec.editorial) return reject(l, `la revisión de ${recordId} no está abierta`);
+  if (!rec.editorial) return reject(l, t("la revisión de {recordId} no está abierta", { recordId: td(recordId) }));
   const r = approveGeneration(rec.editorial, meta);
-  if (!r.applied.length) return reject(l, "sin cartas en review que aprobar");
+  if (!r.applied.length) return reject(l, t("sin cartas en review que aprobar"));
   return {
-    ledger: withRecord(l, { ...rec, editorial: r.case }, makeEvents(l, recordId, rec.generationId, meta, [{ kind: "decision", detail: `approve-generation: ${r.applied.length} carta(s)` }])),
+    ledger: withRecord(l, { ...rec, editorial: r.case }, makeEvents(l, recordId, rec.generationId, meta, [{ kind: "decision", detail: t("approve-generation: {length} carta(s)", { length: r.applied.length }) }])),
     value: r,
   };
 }
@@ -175,13 +178,13 @@ export function approveGenerationRecord(l: ControlLedger, recordId: string, meta
 export function reopenReview(l: ControlLedger, recordId: string, meta: ControlActionMeta): ControlActionResult<DecisionResult> {
   const rec = l.records[recordId];
   if (!rec) return reject(l, `registro desconocido: ${recordId}`);
-  if (!rec.editorial) return reject(l, `la revisión de ${recordId} no está abierta`);
+  if (!rec.editorial) return reject(l, t("la revisión de {recordId} no está abierta", { recordId: td(recordId) }));
   const reopenable = (["approved", "rejected", "hidden", "blocked"] as const)
     .flatMap((s) => cardsInState(rec.editorial!, s));
-  if (!reopenable.length) return reject(l, "nada que reabrir (ninguna carta en approved/rejected/hidden/blocked)");
+  if (!reopenable.length) return reject(l, t("nada que reabrir (ninguna carta en approved/rejected/hidden/blocked)"));
   const r = returnToReview(rec.editorial, reopenable, meta);
   return {
-    ledger: withRecord(l, { ...rec, editorial: r.case }, makeEvents(l, recordId, rec.generationId, meta, [{ kind: "reopen-review", detail: `${r.applied.length} carta(s) de vuelta a review` }])),
+    ledger: withRecord(l, { ...rec, editorial: r.case }, makeEvents(l, recordId, rec.generationId, meta, [{ kind: "reopen-review", detail: t("{length} carta(s) de vuelta a review", { length: r.applied.length }) }])),
     value: r,
   };
 }
@@ -193,7 +196,7 @@ export function duplicateForReview(l: ControlLedger, recordId: string, meta: Con
   const root = rec.revisionOf ?? rec.recordId;
   const revision = 2 + Object.values(l.records).filter((r) => r.revisionOf === root).length;
   const dupId = `${root}~R${revision}`;
-  if (l.records[dupId]) return reject(l, `revisión ya existente: ${dupId}`);
+  if (l.records[dupId]) return reject(l, t("revisión ya existente: {dupId}", { dupId: td(dupId) }));
   const dup: GenerationRecord = {
     ...rec,
     recordId: dupId,
@@ -202,7 +205,7 @@ export function duplicateForReview(l: ControlLedger, recordId: string, meta: Con
     editorial: submitGeneration(rec.generation, { ...meta, tournamentName: rec.tournamentName }),
   };
   return {
-    ledger: withRecord(l, dup, makeEvents(l, dupId, rec.generationId, meta, [{ kind: "duplicate", detail: `revisión R${revision} de ${root}` }])),
+    ledger: withRecord(l, dup, makeEvents(l, dupId, rec.generationId, meta, [{ kind: "duplicate", detail: t("revisión R{revision} de {root}", { revision, root: td(root) }) }])),
     value: dup,
   };
 }

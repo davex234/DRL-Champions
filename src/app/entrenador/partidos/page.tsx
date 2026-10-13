@@ -35,6 +35,10 @@ import { cn } from "@/lib/format";
 import { CoachHeader } from "@/components/coach/tc/CoachFrame";
 import { CoachIcon } from "@/components/coach/tc/CoachIcons";
 import { TacticalHeroArt } from "@/components/coach/tc/TacticalHeroArt";
+import { ns, td, lazyDateTimeFormat } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("entrenador");
 
 export default function PartidosJugadosPage() {
   return (
@@ -54,6 +58,7 @@ type Estado =
 const PAGINA = 30;
 
 function Historial() {
+  useLocale();
   const [estado, setEstado] = useState<Estado>({ fase: "cargando" });
   const [intento, setIntento] = useState(0);
   const [mas, setMas] = useState<"quieto" | "cargando" | "error">("quieto");
@@ -98,13 +103,13 @@ function Historial() {
       {/* FASE 51 · la cabecera de sala del Tactical Coach: el expediente es una sala más. */}
       <CoachHeader
         className="!mb-0"
-        kicker="Match Archive · expediente"
-        title="Partidos jugados"
+        kicker={tr("Match Archive · expediente")}
+        title={tr("Partidos jugados")}
         line={estado.fase === "listo" && estado.total > 0 ? (
           // El recorrido sigue: de aquí se vuelve a jugar o se sube a la carrera.
           <span className="flex flex-wrap gap-x-4 gap-y-1">
-            <Link href="/entrenador/partido" className="nx-action">Dirigir otro partido →</Link>
-            <Link href="/carrera" className="nx-action">Ver tu carrera →</Link>
+            <Link href="/entrenador/partido" className="nx-action">{tr("Dirigir otro partido →")}</Link>
+            <Link href="/carrera" className="nx-action">{tr("Ver tu carrera →")}</Link>
           </span>
         ) : undefined}
         actions={estado.fase === "listo" && estado.record.jugados > 0 ? <Balance record={estado.record} /> : undefined}
@@ -112,7 +117,7 @@ function Historial() {
 
       {estado.fase === "cargando" && (
         <Plate className="px-5 py-10 text-center">
-          <p className="text-body text-ink-faint">Cargando tu expediente…</p>
+          <p className="text-body text-ink-faint">{tr("Cargando tu expediente…")}</p>
         </Plate>
       )}
 
@@ -122,10 +127,10 @@ function Historial() {
       */}
       {estado.fase === "error" && (
         <Plate className="px-5 py-10 text-center">
-          <p className="text-body text-ink-muted">No se pudo leer tu expediente.</p>
+          <p className="text-body text-ink-muted">{tr("No se pudo leer tu expediente.")}</p>
           <div className="mt-4">
             <NxButton variant="secondary" size="md" onClick={() => setIntento((n) => n + 1)}>
-              Reintentar
+              {tr("Reintentar")}
             </NxButton>
           </div>
         </Plate>
@@ -133,24 +138,24 @@ function Historial() {
 
       {estado.fase === "sin-sesion" && (
         <Vacio
-          titulo="El historial vive en tu cuenta"
-          linea="Los partidos dirigidos se guardan en el servidor. Inicia sesión para que los tuyos consten."
-          cta={{ label: "Entrar o registrarse", href: "/cuenta" }}
+          titulo={tr("El historial vive en tu cuenta")}
+          linea={tr("Los partidos dirigidos se guardan en el servidor. Inicia sesión para que los tuyos consten.")}
+          cta={{ label: tr("Entrar o registrarse"), href: "/cuenta" }}
         />
       )}
 
       {estado.fase === "listo" && estado.matches.length === 0 && (
         <Vacio
-          titulo="Todavía no has dirigido ningún partido"
-          linea="Cuando termines uno, aparecerá aquí con su resultado, su rival y su mapa."
-          cta={{ label: "Jugar partido", href: "/entrenador/partido" }}
+          titulo={tr("Todavía no has dirigido ningún partido")}
+          linea={tr("Cuando termines uno, aparecerá aquí con su resultado, su rival y su mapa.")}
+          cta={{ label: tr("Jugar partido"), href: "/entrenador/partido" }}
         />
       )}
 
       {estado.fase === "listo" && estado.matches.length > 0 && (
-        <section aria-label="Partidos dirigidos" className="space-y-2.5">
+        <section aria-label={tr("Partidos dirigidos")} className="space-y-2.5">
           {/* El TOTAL, no los pintados: con paginación son dos números distintos. */}
-          <Rail label={`${estado.total} ${estado.total === 1 ? "partido" : "partidos"}`} />
+          <Rail label={tr("{n, plural, one {{n} partido} other {{n} partidos}}", { n: estado.total })} />
           {/*
             Fichas en rejilla, no filas a todo el ancho. Como fila, a 1440 px la ficha se estiraba
             hasta dejar el centro vacío y se leía como una tabla de administración; como pieza,
@@ -164,10 +169,10 @@ function Historial() {
           {estado.matches.length < estado.total && (
             <div className="flex flex-col items-center gap-1.5 pt-1">
               <NxButton variant="secondary" size="md" onClick={verMas} disabled={mas === "cargando"}>
-                {mas === "cargando" ? "Cargando…" : `Ver más · quedan ${estado.total - estado.matches.length}`}
+                {mas === "cargando" ? tr("Cargando…") : tr("Ver más · quedan {v}", { v: estado.total - estado.matches.length })}
               </NxButton>
               {mas === "error" && (
-                <span className="text-caption text-drl-glow">No se pudieron cargar. Vuelve a intentarlo.</span>
+                <span className="text-caption text-drl-glow">{tr("No se pudieron cargar. Vuelve a intentarlo.")}</span>
               )}
             </div>
           )}
@@ -179,6 +184,7 @@ function Historial() {
 
 /** El balance del entrenador. Cuatro cifras, todas derivadas de los mismos partidos. */
 function Balance({ record }: { record: CoachRecord }) {
+  useLocale();
   const dif = record.diferencialRondas;
   return (
     <div className="flex flex-wrap items-stretch gap-2.5">
@@ -190,7 +196,7 @@ function Balance({ record }: { record: CoachRecord }) {
         */}
         <Readout
           size="sm"
-          label="Balance"
+          label={tr("Balance")}
           value={`${record.ganados}–${record.perdidos}`}
           tone={record.ganados === record.perdidos ? undefined
             : record.ganados > record.perdidos ? "var(--nx-ok)" : "var(--nx-key)"}
@@ -199,7 +205,7 @@ function Balance({ record }: { record: CoachRecord }) {
       <Plate className="flex items-center px-4 py-2.5">
         <Readout
           size="sm"
-          label="Rondas"
+          label={tr("Rondas")}
           value={dif > 0 ? `+${dif}` : String(dif)}
           tone={dif >= 0 ? "var(--nx-ok)" : undefined}
         />
@@ -208,7 +214,7 @@ function Balance({ record }: { record: CoachRecord }) {
         <Plate className="flex items-center px-4 py-2.5">
           <Readout
             size="sm"
-            label="Racha"
+            label={tr("Racha")}
             value={`${Math.abs(record.racha)} ${record.racha > 0 ? "V" : "D"}`}
             tone={record.racha > 0 ? "var(--nx-ok)" : "var(--nx-key)"}
           />
@@ -218,10 +224,11 @@ function Balance({ record }: { record: CoachRecord }) {
   );
 }
 
-const FECHA = new Intl.DateTimeFormat("es-ES", { day: "2-digit", month: "short", year: "numeric" });
+const FECHA = lazyDateTimeFormat({ day: "2-digit", month: "short", year: "numeric" });
 const LADO = { ATK: "Ataque", DEF: "Defensa" } as const;
 
 function FichaPartido({ m }: { m: CoachMatchRow }) {
+  useLocale();
   const mapa = getTacticalMap(m.mapId);
   const fecha = m.finishedAt ? FECHA.format(new Date(m.finishedAt)) : "";
 
@@ -253,14 +260,14 @@ function FichaPartido({ m }: { m: CoachMatchRow }) {
               m.won ? "text-ok" : "text-drl-glow",
             )}
           >
-            {m.won ? "Victoria" : "Derrota"}
+            {m.won ? tr("Victoria") : tr("Derrota")}
           </b>
           <span className="min-w-0 text-right">
             <b className="block truncate font-display text-[13px] font-bold uppercase tracking-[0.14em] text-white/85">
               {mapa?.name ?? m.mapId}
             </b>
             {/* El sitio va dicho: el simulador juega UN sitio, no el mapa entero. */}
-            {m.mapSite && <span className="block text-caption text-ink-faint">sitio {m.mapSite}</span>}
+            {m.mapSite && <span className="block text-caption text-ink-faint">{tr("sitio")} {td(m.mapSite)}</span>}
           </span>
         </div>
 
@@ -273,10 +280,10 @@ function FichaPartido({ m }: { m: CoachMatchRow }) {
 
         {/* ── 3 · CONTRA QUIÉN · 4 · CUÁNDO ── */}
         <p className="mt-2.5 truncate font-display text-[14px] font-bold uppercase tracking-wide text-white">
-          <span className="text-ink-faint">vs</span> {m.rivalName}
+          <span className="text-ink-faint">{tr("vs")}</span> {m.rivalName}
         </p>
         <p className="mt-0.5 truncate text-caption text-ink-muted">
-          {fecha} · {LADO[m.startSide]} de salida · {m.teamName}
+          {td(fecha)} · {td(LADO[m.startSide])} {tr("de salida ·")} {m.teamName}
         </p>
 
         {/*
@@ -287,8 +294,8 @@ function FichaPartido({ m }: { m: CoachMatchRow }) {
           sala táctica—. Un número exacto que no significa nada es peor que no ponerlo.
         */}
         <p className="mt-3 border-t border-white/8 pt-2 text-caption text-ink-faint">
-          {m.rounds} {m.rounds === 1 ? "ronda" : "rondas"}
-          {m.mvp && <> · Destacado <b className="text-white/75">{m.mvp}</b></>}
+          {tr("{n, plural, one {{n} ronda} other {{n} rondas}}", { n: m.rounds })}
+          {m.mvp && <> {tr("· Destacado")} <b className="text-white/75">{m.mvp}</b></>}
         </p>
 
         {/*
@@ -302,7 +309,7 @@ function FichaPartido({ m }: { m: CoachMatchRow }) {
         */}
         <p className="mt-2.5">
           <Link href={`/entrenador/plan?match=${m.id}`} className="nx-coach-btn" data-variant="ghost" data-size="sm">
-            <CoachIcon name="plan" size={14} /> Plan táctico
+            <CoachIcon name="plan" size={14} /> {tr("Plan táctico")}
           </Link>
         </p>
       </div>
@@ -323,6 +330,7 @@ function Vacio({
   linea: string;
   cta: { label: string; href: string };
 }) {
+  useLocale();
   return (
     /*
      * FASE 51 · VACÍO PREMIUM. La sala táctica al fondo (arte original, sin assets externos), qué
@@ -335,27 +343,27 @@ function Vacio({
       <span aria-hidden className="nx-coach-pulse mx-auto mb-3 grid h-14 w-14 place-items-center text-[#2fe0ff]" style={{ filter: "drop-shadow(0 0 10px rgba(47,224,255,0.7))" }}>
         <CoachIcon name="history" size={40} />
       </span>
-      <p className="nx-coach-kicker">Expediente vacío</p>
+      <p className="nx-coach-kicker">{tr("Expediente vacío")}</p>
       <h2 className="mt-1.5 font-display text-[clamp(22px,3.5vw,34px)] font-extrabold uppercase leading-tight text-white">
-        {titulo}
+        {td(titulo)}
       </h2>
-      <p className="mx-auto mt-2 max-w-md text-[14.5px] leading-relaxed text-white/65">{linea}</p>
+      <p className="mx-auto mt-2 max-w-md text-[14.5px] leading-relaxed text-white/65">{td(linea)}</p>
       <ol className="mx-auto mt-6 grid max-w-2xl gap-2 text-left sm:grid-cols-3">
         {[
-          ["01", "Elige plantilla", "Tu equipo y el rival"],
-          ["02", "Dirige el partido", "Tácticas ronda a ronda"],
-          ["03", "Prepara el plan", "Jugadas para la revancha"],
+          ["01", tr("Elige plantilla"), tr("Tu equipo y el rival")],
+          ["02", tr("Dirige el partido"), tr("Tácticas ronda a ronda")],
+          ["03", tr("Prepara el plan"), tr("Jugadas para la revancha")],
         ].map(([n, t, d]) => (
           <li key={n} className="nx-coach-panel-flat px-3 py-2.5">
-            <b className="font-display text-[18px] font-extrabold text-[#2fe0ff]">{n}</b>
-            <span className="ml-2 font-display text-[12px] font-bold uppercase tracking-[0.1em] text-white">{t}</span>
-            <span className="mt-0.5 block text-[12px] text-white/50">{d}</span>
+            <b className="font-display text-[18px] font-extrabold text-[#2fe0ff]">{td(n)}</b>
+            <span className="ml-2 font-display text-[12px] font-bold uppercase tracking-[0.1em] text-white">{td(t)}</span>
+            <span className="mt-0.5 block text-[12px] text-white/50">{td(d)}</span>
           </li>
         ))}
       </ol>
       <div className="mt-6 flex flex-wrap justify-center gap-2">
-        <Link href={cta.href} className="nx-coach-btn">{cta.label}</Link>
-        <Link href="/entrenador" className="nx-coach-btn" data-variant="ghost">Volver al centro táctico</Link>
+        <Link href={cta.href} className="nx-coach-btn">{td(cta.label)}</Link>
+        <Link href="/entrenador" className="nx-coach-btn" data-variant="ghost">{tr("Volver al centro táctico")}</Link>
       </div>
     </section>
   );

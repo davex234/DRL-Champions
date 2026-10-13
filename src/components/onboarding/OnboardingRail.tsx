@@ -13,6 +13,10 @@ import { useAuth } from "@/lib/supabase/auth";
 import { useOnboarding } from "@/lib/onboarding/client";
 import { OnboardingPill } from "./OnboardingKit";
 import type { OnboardingStepId } from "@/domain/onboarding";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("onboarding");
 
 /**
  * Pantallas con su PROPIO bloque de la guía, y en qué pasos lo pintan. Fuera de esos pasos la franja sí aparece (p. ej.
@@ -30,6 +34,7 @@ export function railVisibleOn(pathname: string, current: OnboardingStepId | null
 }
 
 export function OnboardingRail() {
+  useLocale();
   const pathname = usePathname();
   const { user } = useAuth();
   const { view } = useOnboarding(user?.id ?? null, railVisibleOn(pathname));
@@ -37,13 +42,13 @@ export function OnboardingRail() {
   // Las órdenes (empezar, crear equipo) viven en la portada, que es donde se enseñan con su contexto.
   const href = view.next.command ? "/" : view.next.href;
   return (
-    <nav aria-label="Tu inicio" data-testid="onboarding-rail" data-step={view.current ?? ""} className="nx-f63-coach mb-4 flex flex-wrap items-center justify-between gap-2 px-3 py-2">
+    <nav aria-label={t("Tu inicio")} data-testid="onboarding-rail" data-step={view.current ?? ""} className="nx-f63-coach mb-4 flex flex-wrap items-center justify-between gap-2 px-3 py-2">
       <p className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
         <OnboardingPill view={view} />
-        <span className="font-display text-[13px] font-bold uppercase tracking-[0.1em] text-white">{view.next.title}</span>
+        <span className="font-display text-[13px] font-bold uppercase tracking-[0.1em] text-white">{td(view.next.title)}</span>
       </p>
       {/* F64 · el botón dice la ACCIÓN («Abrir el siguiente sobre»), no un «Continuar» genérico. */}
-      <Link href={href} className="nx-f62-cta shrink-0" data-testid="onboarding-rail-cta">{view.next.command ? "Ir a tu inicio" : view.next.cta} →</Link>
+      <Link href={href} className="nx-f62-cta shrink-0" data-testid="onboarding-rail-cta">{view.next.command ? t("Ir a tu inicio") : td(view.next.cta)} →</Link>
     </nav>
   );
 }

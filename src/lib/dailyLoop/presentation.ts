@@ -11,6 +11,9 @@ import type {
 import { DAILY_ROUTES, eventRoute } from "@/domain/dailyLoop";
 import { countdown } from "@/domain/season/time";
 import { remainingText, urgencyOf } from "@/domain/liveService";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+
+const tr = ns("dailyLoop");
 
 export type HeroVisual = "match" | "challenge" | "claim" | "pickem" | "objective" | "packs" | "team" | "campaign" | "ranked" | "quick" | "live" | "account";
 export type HeroTone = "key" | "gold" | "cyan" | "violet" | "green";
@@ -64,7 +67,7 @@ export function heroModel(snap: DailyLoopSnapshot, opts: { offline?: boolean; no
   const visual = VISUAL[a.id] ?? "quick";
   const offline = !!opts.offline;
   const secondary = a.kind === "play" && a.href !== DAILY_ROUTES.play && snap.signedIn
-    ? { label: "Ver todos los modos", href: DAILY_ROUTES.play, disabled: false }
+    ? { label: tr("Ver todos los modos"), href: DAILY_ROUTES.play, disabled: false }
     : null;
   return {
     eyebrow: a.eyebrow,
@@ -83,7 +86,7 @@ export function heroModel(snap: DailyLoopSnapshot, opts: { offline?: boolean; no
       const now = opts.now ?? snap.serverNow;
       const u = urgencyOf(a.endsAt ?? null, now); const left = remainingText(a.endsAt ?? null, now);
       if (!u || !left || u === "NORMAL") return null;
-      return { label: a.kind === "predict" ? `Cierra en ${left}` : `Se renueva en ${left}`, urgency: u };
+      return { label: a.kind === "predict" ? tr("Cierra en {left}", { left: td(left) }) : tr("Se renueva en {left}", { left: td(left) }), urgency: u };
     })(),
   };
 }
@@ -98,9 +101,9 @@ export const TODAY_STATUS_LABEL: Record<TodayItemStatus, string> = {
 export function expiresLabel(expiresAt: number | null, now: number): string | null {
   if (expiresAt === null || expiresAt <= now) return null;
   const c = countdown(expiresAt, now);
-  if (c.days > 0) return `Caduca en ${c.days} ${c.days === 1 ? "día" : "días"}`;
-  if (c.hours > 0) return `Caduca en ${c.hours} h`;
-  return `Caduca en ${Math.max(1, c.minutes)} min`;
+  if (c.days > 0) return tr("Caduca en {days, plural, one {# día} other {# días}}", { days: c.days });
+  if (c.hours > 0) return tr("Caduca en {hours} h", { hours: c.hours });
+  return tr("Caduca en {Math} min", { Math: Math.max(1, c.minutes) });
 }
 
 export interface TodayRow extends TodayItem { statusLabel: string; expires: string | null; pct: number | null }
@@ -131,7 +134,7 @@ const SEASON_STATUS: Record<SeasonFact["presentation"], string> = {
 
 function durationLabel(ms: number): string {
   const c = countdown(ms, 0);
-  if (c.days > 0) return `${c.days} ${c.days === 1 ? "día" : "días"}`;
+  if (c.days > 0) return tr("{n, plural, one {{n} día} other {{n} días}}", { n: c.days });
   if (c.hours > 0) return `${c.hours} h`;
   return `${Math.max(1, c.minutes)} min`;
 }
@@ -141,17 +144,17 @@ export function seasonModel(snap: DailyLoopSnapshot, now: number): SeasonModel |
   const s = snap.season?.current ?? snap.season?.next ?? null;
   if (!s) return null;
   const status = s.startsAtMs > now ? "UPCOMING" : s.endsAtMs <= now ? "ENDED" : s.status;
-  const timeLabel = status === "UPCOMING" ? `Empieza en ${durationLabel(s.startsAtMs - now)}`
-    : status === "ACTIVE" ? `Quedan ${durationLabel(s.endsAtMs - now)}` : null;
+  const timeLabel = status === "UPCOMING" ? tr("Empieza en {v}", { v: durationLabel(s.startsAtMs - now) })
+    : status === "ACTIVE" ? tr("Quedan {v}", { v: durationLabel(s.endsAtMs - now) }) : null;
   const pass = snap.season?.pass && snap.season.current ? {
-    levelLabel: `Pase · nivel ${snap.season.pass.level} de ${snap.season.pass.maxLevel}`,
-    xpLabel: `${snap.season.pass.xpIntoLevel} / ${snap.season.pass.xpForNext} XP del pase`,
+    levelLabel: tr("Pase · nivel {level} de {maxLevel}", { level: snap.season.pass.level, maxLevel: snap.season.pass.maxLevel }),
+    xpLabel: tr("{xpIntoLevel} / {xpForNext} XP del pase", { xpIntoLevel: snap.season.pass.xpIntoLevel, xpForNext: snap.season.pass.xpForNext }),
     pct: pct(snap.season.pass.progress, 1),
-    nextReward: snap.season.pass.nextReward ? `Nivel ${snap.season.pass.nextReward.level}: ${snap.season.pass.nextReward.label}` : null,
+    nextReward: snap.season.pass.nextReward ? tr("Nivel {level}: {label}", { level: snap.season.pass.nextReward.level, label: td(snap.season.pass.nextReward.label) }) : null,
   } : null;
   const account = snap.player ? {
-    levelLabel: `Cuenta · nivel ${snap.player.level}`,
-    xpLabel: `${snap.player.xpIntoLevel} / ${snap.player.xpForNext} XP de cuenta`,
+    levelLabel: tr("Cuenta · nivel {level}", { level: snap.player.level }),
+    xpLabel: tr("{xpIntoLevel} / {xpForNext} XP de cuenta", { xpIntoLevel: snap.player.xpIntoLevel, xpForNext: snap.player.xpForNext }),
     pct: pct(snap.player.progress, 1),
   } : null;
   const o = snap.objectives;
@@ -189,7 +192,7 @@ export function competitiveModel(snap: DailyLoopSnapshot, placementGames: number
   const c = snap.competitive;
   if (!c) return null;
   if (c.rating === null || c.gamesPlayed === 0) {
-    return { ratingLabel: "Sin rating todavía", positionLabel: null, stateLabel: "Sin partidas", recordLabel: null, form: [], placement: { value: 0, max: placementGames } };
+    return { ratingLabel: tr("Sin rating todavía"), positionLabel: null, stateLabel: /* i18n-id */ "Sin partidas", recordLabel: null, form: [], placement: { value: 0, max: placementGames } };
   }
   return {
     ratingLabel: `${c.rating}`,
@@ -214,10 +217,10 @@ export function campaignModel(snap: DailyLoopSnapshot): CampaignModel | null {
   const c = snap.campaign;
   if (!c) return null;
   return {
-    statusLabel: c.complete ? "Completada" : c.completed === 0 ? "Sin empezar" : "En curso",
+    statusLabel: c.complete ? "Completada" : c.completed === 0 ? /* i18n-id */ "Sin empezar" : /* i18n-id */ "En curso",
     progressLabel: `${c.completed} / ${c.total}`,
     pct: pct(c.completed, c.total),
-    next: !c.complete && c.next ? { label: `${c.next.name} · contra ${c.next.team}`, chapter: `Capítulo ${c.next.chapterOrder}`, href: `${DAILY_ROUTES.campaign}?node=${encodeURIComponent(c.next.nodeId)}` } : null,
+    next: !c.complete && c.next ? { label: tr("{name} · contra {team}", { name: td(c.next.name), team: c.next.team }), chapter: tr("Capítulo {n}", { n: c.next.chapterOrder }), href: `${DAILY_ROUTES.campaign}?node=${encodeURIComponent(c.next.nodeId)}` } : null,
   };
 }
 
@@ -239,7 +242,7 @@ export const formatWhen = (iso: string | null): string | null => {
   if (!iso) return null;
   const t = Date.parse(iso);
   if (!Number.isFinite(t)) return null;
-  return new Date(t).toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Madrid" });
+  return new Date(t).toLocaleString(getIntlLocale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Europe/Madrid" });
 };
 
 /**
@@ -248,18 +251,18 @@ export const formatWhen = (iso: string | null): string | null => {
  */
 export function liveBadge(e: Pick<LiveEventFact, "lifecycle" | "liveCount"> & { isDemo?: boolean }): LiveBadge {
   if (e.lifecycle === "ACTIVE" && e.isDemo) return "DEMO";
-  if (e.lifecycle === "ACTIVE") return e.liveCount > 0 ? "EN DIRECTO" : "EN CURSO";
-  return e.lifecycle === "UPCOMING" ? "PRÓXIMAMENTE" : "FINALIZADO";
+  if (e.lifecycle === "ACTIVE") return e.liveCount > 0 ? /* i18n-id */ "EN DIRECTO" : /* i18n-id */ "EN CURSO";
+  return e.lifecycle === "UPCOMING" ? /* i18n-id */ "PRÓXIMAMENTE" : /* i18n-id */ "FINALIZADO";
 }
 
 export function liveCard(e: LiveEventFact): LiveCardModel {
   const badge = liveBadge(e);
-  const vs = (a: string | null, b: string | null) => `${a ?? "Por determinar"} vs ${b ?? "Por determinar"}`;
+  const vs = (a: string | null, b: string | null) => `${a ?? tr("Por determinar")} vs ${b ?? tr("Por determinar")}`;
   const line = badge === "EN DIRECTO" && e.liveMatch
     ? `${vs(e.liveMatch.teamA, e.liveMatch.teamB)}${e.liveMatch.scoreA !== null && e.liveMatch.scoreB !== null ? ` · ${e.liveMatch.scoreA}-${e.liveMatch.scoreB}` : ""}`
     : e.nextMatch
-      ? `Próximo: ${vs(e.nextMatch.teamA, e.nextMatch.teamB)}${formatWhen(e.nextMatch.startTime) ? ` · ${formatWhen(e.nextMatch.startTime)}` : ""}`
-      : badge === "PRÓXIMAMENTE" && formatWhen(e.startDate) ? `Empieza ${formatWhen(e.startDate)}` : null;
+      ? tr("Próximo: {match}", { match: `${vs(e.nextMatch.teamA, e.nextMatch.teamB)}${formatWhen(e.nextMatch.startTime) ? ` · ${formatWhen(e.nextMatch.startTime)}` : ""}` })
+      : badge === "PRÓXIMAMENTE" && formatWhen(e.startDate) ? tr("Empieza {when}", { when: formatWhen(e.startDate) }) : null;
   return { id: e.id, name: e.name, badge, isLive: badge === "EN DIRECTO", line, href: eventRoute(e.id), demo: e.isDemo };
 }
 
@@ -281,19 +284,19 @@ export interface StashModel {
 export function stashModel(snap: DailyLoopSnapshot): StashModel {
   const n = snap.packs?.unopened ?? null;
   const packs = n === null ? null : n > 0
-    ? { label: `Tienes ${n} ${n === 1 ? "sobre sin abrir" : "sobres sin abrir"}`, cta: { label: n === 1 ? "Abrir sobre" : `Abrir ${n} sobres`, href: DAILY_ROUTES.inventory } }
-    : { label: "No tienes sobres por abrir", cta: { label: "Ver sobres", href: DAILY_ROUTES.packs } };
+    ? { label: tr("Tienes {n} {v}", { n, v: n === 1 ? tr("sobre sin abrir") : tr("sobres sin abrir") }), cta: { label: n === 1 ? tr("Abrir sobre") : tr("Abrir {n} sobres", { n }), href: DAILY_ROUTES.inventory } }
+    : { label: tr("No tienes sobres por abrir"), cta: { label: tr("Ver sobres"), href: DAILY_ROUTES.packs } };
   const col = snap.collection;
   const collection = col ? {
-    label: `${col.distinct} / ${col.catalog} cartas distintas`,
+    label: tr("{distinct} / {catalog} cartas distintas", { distinct: col.distinct, catalog: col.catalog }),
     pct: pct(col.distinct, col.catalog),
-    detail: `${col.owned} ${col.owned === 1 ? "carta en total" : "cartas en total"}`,
+    detail: `${col.owned} ${col.owned === 1 ? tr("carta en total") : tr("cartas en total")}`,
   } : null;
   const a = snap.achievements;
   const achievements = a ? a.claimable > 0
-    ? { label: `${a.claimable} ${a.claimable === 1 ? "logro por reclamar" : "logros por reclamar"}`, detail: `${a.claimed} de ${a.total} conseguidos`, href: DAILY_ROUTES.claims, claimable: true }
+    ? { label: `${a.claimable} ${a.claimable === 1 ? tr("logro por reclamar") : tr("logros por reclamar")}`, detail: tr("{claimed} de {total} conseguidos", { claimed: a.claimed, total: a.total }), href: DAILY_ROUTES.claims, claimable: true }
     : a.near
       ? { label: a.near.name, detail: `${a.near.current} / ${a.near.goal}`, href: DAILY_ROUTES.claims, claimable: false }
-      : { label: `${a.claimed} de ${a.total} logros`, detail: null, href: DAILY_ROUTES.claims, claimable: false } : null;
+      : { label: tr("{claimed} de {total} logros", { claimed: a.claimed, total: a.total }), detail: null, href: DAILY_ROUTES.claims, claimable: false } : null;
   return { packs, collection, achievements };
 }

@@ -99,6 +99,10 @@ import {
   DIFFICULTY_INFO, type BotDifficulty, type CombatStatKey, type DuelDeckDTO,
   type DuelMatchView, type DuelResultView, type DuelTurnView,
 } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duelos");
 
 /**
  * Lo que tarda la revelación en abrirse tras colocar la carta: el hueco en el que se ve la
@@ -108,11 +112,12 @@ import {
 const REVEAL_DELAY_MS = 340;
 
 export default function JugarPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading label="Preparando duelo…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="jugar duelos" />;
+  if (loading) return <Loading label={t("Preparando duelo…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("jugar duelos")} />;
   return (
-    <Suspense fallback={<Loading label="Preparando duelo…" />}>
+    <Suspense fallback={<Loading label={t("Preparando duelo…")} />}>
       <Play />
     </Suspense>
   );
@@ -121,6 +126,7 @@ export default function JugarPage() {
 type Stage = "loading" | "prematch" | "intro" | "match" | "result";
 
 function Play() {
+  useLocale();
   const router = useRouter();
   const params = useSearchParams();
 
@@ -261,7 +267,7 @@ function Play() {
       }
       setStage("prematch");
     } catch (e) {
-      setFatal(e instanceof Error ? e.message : "No se pudo preparar el duelo");
+      setFatal(e instanceof Error ? e.message : t("No se pudo preparar el duelo"));
       setStage("prematch");
     }
   }, [campaignNodeId, decorate, draftMode, router, firstMatch]);
@@ -398,14 +404,14 @@ function Play() {
         adoptView(serverView, before);
       } else if (e instanceof DuelError && e.status === 409 && serverView) {
         setView(decorate(serverView));
-        setError("Partida sincronizada: se muestra el estado del servidor.");
+        setError(t("Partida sincronizada: se muestra el estado del servidor."));
       } else if (!(e instanceof DuelError)) {
-        setError("Sincronizando partida…");
+        setError(t("Sincronizando partida…"));
         try {
           const r = await fetchDuelState(view.matchId);
           setView(decorate(r.view));
-          setError(r.view.history.length > before ? "Partida sincronizada: la jugada ya estaba registrada." : "Sin conexión: la jugada no llegó. Vuelve a intentarlo.");
-        } catch { setError("Sin conexión. Reintenta cuando vuelva la red: la partida sigue guardada."); }
+          setError(r.view.history.length > before ? t("Partida sincronizada: la jugada ya estaba registrada.") : t("Sin conexión: la jugada no llegó. Vuelve a intentarlo."));
+        } catch { setError(t("Sin conexión. Reintenta cuando vuelva la red: la partida sigue guardada.")); }
       } else {
         setError(playerMessage(e.message || "No se pudo jugar el turno")); // F86.2
       }
@@ -537,14 +543,14 @@ function Play() {
   if (stage === "loading") {
     return (
       <Arena>
-        <Loading label="Preparando duelo…" />
+        <Loading label={t("Preparando duelo…")} />
       </Arena>
     );
   }
   if (fatal && !view) {
     return (
       <Arena>
-        <ErrorState message={fatal} onRetry={boot} />
+        <ErrorState message={td(fatal)} onRetry={boot} />
       </Arena>
     );
   }
@@ -643,18 +649,18 @@ function Play() {
             onDeck={setDeckId}
             onStart={() => void begin(deckId, difficulty)}
             busy={busy}
-            error={error}
+            error={td(error)}
             onHelp={() => setHelp(true)}
             activeDeckId={activeDeckId}
           />
         ) : campaignFailed || campaign ? (
-          <ErrorState message={campaign ? "Ese nodo no existe en Road to Champions." : "No se pudo leer Road to Champions."} onRetry={boot} />
+          <ErrorState message={campaign ? t("Ese nodo no existe en Road to Champions.") : t("No se pudo leer Road to Champions.")} onRetry={boot} />
         ) : (
-          <Loading label="Leyendo Road to Champions…" />
+          <Loading label={t("Leyendo Road to Champions…")} />
         )
       )}
 
-      {stage === "prematch" && draftMode && <Loading label="Volviendo al gauntlet…" />}
+      {stage === "prematch" && draftMode && <Loading label={t("Volviendo al gauntlet…")} />}
 
       {stage === "prematch" && !campaignNodeId && !draftMode && (
         <PreMatch
@@ -665,7 +671,7 @@ function Play() {
           onDifficulty={setDifficulty}
           onStart={() => void begin(deckId, difficulty)}
           busy={busy}
-          error={error}
+          error={td(error)}
           onHelp={() => setHelp(true)}
           activeDeckId={activeDeckId}
           intro={firstMatch ? <FirstMatchCoach onHelp={() => setHelp(true)} /> : null}
@@ -679,9 +685,9 @@ function Play() {
           {recovered && (
             <Recessed className="mb-3 flex items-center justify-between gap-3 border-l-2 border-l-drl-cyan px-3 py-2" role="status">
               <p className="text-caption text-ink-secondary">
-                Partida recuperada desde el servidor: turno {Math.min(view.turn, view.totalTurns)} de {view.totalTurns}, marcador {view.scoreYou}–{view.scoreRival}.
+                {t("Partida recuperada desde el servidor: turno {n} de {total}, marcador {tu}–{rival}.", { n: Math.min(view.turn, view.totalTurns), total: view.totalTurns, tu: view.scoreYou, rival: view.scoreRival })}
               </p>
-              <NxButton variant="ghost" size="sm" onClick={() => setRecovered(false)} aria-label="Cerrar aviso">✕</NxButton>
+              <NxButton variant="ghost" size="sm" onClick={() => setRecovered(false)} aria-label={t("Cerrar aviso")}>✕</NxButton>
             </Recessed>
           )}
           {/* F63 · primera partida: la regla del papel (atacas / defiendes) la primera vez, ENCIMA del tablero, nunca sobre las cartas. */}
@@ -691,7 +697,7 @@ function Play() {
             onPlay={play}
             busy={busy || settling || reveal !== null || stage === "intro"}
             revealing={reveal !== null || settling}
-            error={error}
+            error={td(error)}
             onDismissError={() => setError(null)}
             arena={arenaMode}
             hudInTopBar
@@ -716,7 +722,7 @@ function Play() {
           view={view}
           xp={xp}
           onPlayAgain={draftMode ? () => router.push(DRAFT_ROUTE) : rematch}
-          playAgainLabel={draftMode ? "Volver al gauntlet" : undefined}
+          playAgainLabel={draftMode ? t("Volver al gauntlet") : undefined}
           mode={draftMode ? "DRAFT_GAUNTLET" : "PVE"}
           deckId={draftMode ? null : view.yourDeckId ?? null}
           // Fase 35 · en campaña el rival lo fija el nodo: la salida es «Volver al mapa», en el propio resultado.
@@ -774,6 +780,7 @@ function ArenaBar({
   onQuit: () => void;
   onHelp: () => void;
 }) {
+  useLocale();
   return (
     <MatchTopBar
       view={view}
@@ -786,7 +793,7 @@ function ArenaBar({
           <button
             type="button"
             onClick={onHelp}
-            aria-label="Cómo se juega"
+            aria-label={t("Cómo se juega")}
             className="nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 bg-black/40 font-display text-[15px] font-bold text-white/75 transition hover:bg-black/70 hover:text-white"
           >
             ?
@@ -796,7 +803,7 @@ function ArenaBar({
           <FullscreenToggle />
           {/* `md`: a 390 la salida es el ÚNICO control de la arena que debe medir 44 px; es la única salida. */}
           <NxButton variant="ghost" size="md" className="shrink-0" onClick={onQuit}>
-            Salir
+            {t("Salir")}
           </NxButton>
         </>
       }

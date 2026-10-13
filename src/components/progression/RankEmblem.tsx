@@ -42,6 +42,10 @@
 import { useId } from "react";
 import { RANKS, type RankTierId } from "@/domain/progression/rank";
 import { cn } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("progression");
 
 /** Núcleo del emblema. Tres siluetas para nueve escalones: la escalera se lee por tramos. */
 type Core = "hollow" | "shield" | "rhombus" | "star";
@@ -120,6 +124,7 @@ export function RankEmblem({
   ascending?: boolean;
   className?: string;
 }) {
+  useLocale();
   // `useId` da identificadores únicos por instancia: con veinte emblemas en una
   // clasificación, un `id="metal"` repetido hace que todos usen el degradado del primero.
   const uid = useId().replace(/:/g, "");
@@ -137,7 +142,7 @@ export function RankEmblem({
       height={size}
       className={cn(ascending && "motion-safe:animate-rise-in", className)}
       role="img"
-      aria-label={`Emblema de rango ${tierId}`}
+      aria-label={t("Emblema de rango {tierId}", { tierId })}
     >
       <defs>
         {/*

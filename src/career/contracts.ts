@@ -11,6 +11,9 @@ import { boardObjectivesFor } from "./club";
 import { globalReputationScore } from "./reputation";
 import { licenseRank } from "./licenses";
 import { attrOverall } from "./attributes";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 /** Rating global del entrenador (0..100): atributos + reputación + licencia + palmarés. */
 export function coachRating(career: ManagerCareer): number {
@@ -53,7 +56,7 @@ export function createContract(club: ClubView, terms: OfferTerms, season: number
   return {
     clubId: club.id,
     clubName: club.name,
-    role: "Head Coach",
+    role: t("Head Coach"),
     startSeason: season,
     endSeason: season + terms.years,
     years: terms.years,

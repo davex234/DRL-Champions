@@ -1,0 +1,18 @@
+{
+  "El circuito competitivo": "Der kompetitive Circuit",
+  "Esa recompensa ya estaba reclamada": "Diese Belohnung war bereits abgeholt",
+  "Evento no encontrado": "Event nicht gefunden",
+  "Leyendo el circuito…": "Circuit wird geladen…",
+  "Leyendo el evento…": "Event wird geladen…",
+  "Leyendo el partido…": "Match wird geladen…",
+  "No se pudieron leer los eventos": "Events konnten nicht gelesen werden",
+  "No se pudo leer el evento": "Event konnte nicht gelesen werden",
+  "No se pudo leer el partido": "Match konnte nicht gelesen werden",
+  "No se pudo reclamar": "Abholen fehlgeschlagen",
+  "Partido no encontrado": "Match nicht gefunden",
+  "Puede que se haya retirado del calendario.": "Möglicherweise wurde es aus dem Kalender entfernt.",
+  "Puede que se haya retirado del circuito.": "Möglicherweise wurde es aus dem Circuit entfernt.",
+  "Recompensa reclamada · {credits} créditos": "Belohnung abgeholt · {credits} Credits",
+  "Ver todos los eventos": "Alle Events ansehen",
+  "Volver al evento": "Zurück zum Event"
+}

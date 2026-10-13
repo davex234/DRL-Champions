@@ -26,6 +26,11 @@ import { STAT_INFO, type DuelMatchView } from "@/lib/duel/types";
 import { axisPresentation, buildTimeline, turnHeader, PHASE_LABEL, type CellState, type MatchPhase } from "@/lib/duel/experience";
 import { TurnDetailSheet } from "./TurnDetailSheet";
 import { RoleIcon } from "./RoleIcon";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("duel");
 
 const CELL: Record<CellState, { border: string; color: string; bg: string }> = {
   /* FASE 50 · el punto del jugador es cian, como su lado de la arena. */
@@ -63,6 +68,7 @@ export function MatchHud({
   compact?: boolean;
   className?: string;
 }) {
+  useLocale();
   const header = useMemo(() => turnHeader(view), [view]);
   const axis = useMemo(() => axisPresentation(view), [view]);
 
@@ -83,7 +89,7 @@ export function MatchHud({
       data-hud="turno"
       data-role={header.role ?? "none"}
       data-final={header.finalTurn}
-      aria-label="Estado del turno"
+      aria-label={t("Estado del turno")}
       className={cn(
         /*
          * FASE 50 · UNA CINTA DE LUZ, NO UNA CAJA. Centrada sobre el escenario, con los extremos
@@ -110,7 +116,7 @@ export function MatchHud({
       <span aria-hidden className="absolute inset-x-[22%] bottom-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${roleTone}, transparent)`, boxShadow: `0 0 12px ${roleTone}` }} />
 
       <h2 className="font-display text-[clamp(14px,1.9vw,18px)] font-bold tracking-[0.08em] text-white" data-testid="turn-label">
-        {header.label}
+        {td(header.label)}
       </h2>
       {header.roleLabel && (
         <span
@@ -122,7 +128,7 @@ export function MatchHud({
         >
           {/* F61 · espada / escudo en vez de ▲ / ▼: se entiende sin leer y sin distinguir colores. */}
           <RoleIcon kind={header.role === "ATTACK" ? "ATTACK" : "DEFENSE"} className="h-3.5 w-3.5" />
-          {header.roleLabel}
+          {td(header.roleLabel)}
         </span>
       )}
       {phase && (
@@ -131,12 +137,12 @@ export function MatchHud({
           data-phase={phase}
           className={cn("rounded-[3px] border px-2 py-0.5 font-display text-[10px] font-bold tracking-[0.16em]", PHASE_TONE[phase] ?? "border-white/15 text-white/60")}
         >
-          {PHASE_LABEL[phase]}
+          {td(PHASE_LABEL[phase])}
         </span>
       )}
       {header.finalLabel && (
         <span className="rounded-[3px] border border-drl-gold/55 bg-drl-gold/10 px-2 py-0.5 font-display text-[11px] font-bold tracking-[0.16em] text-drl-gold" data-testid="final-turn">
-          {header.finalLabel}
+          {td(header.finalLabel)}
         </span>
       )}
 
@@ -145,9 +151,9 @@ export function MatchHud({
         className={compact ? "sr-only" : "sr-only sm:not-sr-only sm:ml-auto sm:flex sm:items-center sm:gap-2"}
         role="status"
         aria-live="polite"
-        aria-label={`Marcador: tú ${view.scoreYou}, ${rivalName} ${view.scoreRival}`}
+        aria-label={t("Marcador: tú {scoreYou}, {rivalName} {scoreRival}", { scoreYou: view.scoreYou, rivalName, scoreRival: view.scoreRival })}
       >
-        <span className="nx-label !text-[#2fe0ff]/80">Tú</span>
+        <span className="nx-label !text-[#2fe0ff]/80">{t("Tú")}</span>
         <motion.b key={`y${view.scoreYou}`} initial={{ scale: 1.4, opacity: 0.6 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.3 }} className="nx-readout text-[20px] leading-none text-[#2fe0ff]">
           {view.scoreYou}
         </motion.b>
@@ -160,18 +166,18 @@ export function MatchHud({
 
       {header.matchPointLabel && (
         <p role="note" className="basis-full font-display text-[11px] font-bold tracking-[0.06em] text-drl-cyan" data-testid="match-point" data-point={header.matchPoint ?? ""}>
-          ◆ {header.matchPointLabel}
+          ◆ {td(header.matchPointLabel)}
         </p>
       )}
       {/* Defendiendo, el eje lo IMPONE el servidor y se dice. Atacando se elige abajo, en los controles. */}
       {axis.mode !== "CHOOSE" && axis.text && (
         <p className="basis-full font-display text-[11px] font-bold tracking-[0.1em] text-white/70" data-axis={axis.mode}>
           {axis.mode === "IMPOSED" && axis.rivalStat && axis.yourStat ? (
-            <>
-              EL RIVAL ATACA CON <b style={{ color: STAT_INFO[axis.rivalStat].color }}>{STAT_INFO[axis.rivalStat].label.toUpperCase()}</b>
-              {" · "}RESPONDES CON <b style={{ color: STAT_INFO[axis.yourStat].color }}>{STAT_INFO[axis.yourStat].label.toUpperCase()}</b>
-            </>
-          ) : axis.text}
+            fill(t("EL RIVAL ATACA CON {ataque} · RESPONDES CON {respuesta}", slots("ataque", "respuesta")), {
+              ataque: <b style={{ color: STAT_INFO[axis.rivalStat].color }}>{td(STAT_INFO[axis.rivalStat].label).toUpperCase()}</b>,
+              respuesta: <b style={{ color: STAT_INFO[axis.yourStat].color }}>{td(STAT_INFO[axis.yourStat].label).toUpperCase()}</b>,
+            })
+          ) : td(axis.text)}
         </p>
       )}
     </section>
@@ -191,13 +197,14 @@ export function TurnTimeline({
   layout?: "row" | "block";
   className?: string;
 }) {
+  useLocale();
   const cells = useMemo(() => buildTimeline(view), [view]);
   const [open, setOpen] = useState<number | null>(null);
   if (view.status !== "IN_PROGRESS") return null;
 
   return (
     <div className={cn("mx-auto w-full", className)} style={{ maxWidth: layout === "row" ? "var(--arena-w, 100%)" : undefined }} data-timeline={layout}>
-      <ol className={cn("grid gap-1", layout === "block" ? "grid-cols-5" : "grid-cols-10")} aria-label="Línea de turnos">
+      <ol className={cn("grid gap-1", layout === "block" ? "grid-cols-5" : "grid-cols-10")} aria-label={t("Línea de turnos")}>
         {cells.map((c) => {
           const s = CELL[c.state];
           const playable = c.state === "WIN" || c.state === "LOSS" || c.state === "DRAW";
@@ -207,7 +214,7 @@ export function TurnTimeline({
                 type="button"
                 disabled={!playable}
                 onClick={() => setOpen(c.number)}
-                aria-label={playable ? `${c.label}. Ver detalle` : c.label}
+                aria-label={playable ? t("{label}. Ver detalle", { label: td(c.label) }) : td(c.label)}
                 data-cell={c.state}
                 className="nx-focus flex min-h-[44px] w-full flex-col items-center justify-center rounded-[3px] border transition enabled:hover:brightness-125 disabled:cursor-default"
                 style={{ borderColor: s.border, background: s.bg }}
@@ -219,7 +226,7 @@ export function TurnTimeline({
           );
         })}
       </ol>
-      <p className="mt-1 text-center text-[10px] text-white/35">● ganado · ○ perdido · — empate · ◆ en juego · toca un turno jugado para ver su detalle</p>
+      <p className="mt-1 text-center text-[10px] text-white/35">{t("● ganado · ○ perdido · — empate · ◆ en juego · toca un turno jugado para ver su detalle")}</p>
       <TurnDetailSheet view={view} turnNumber={open} rivalName={rivalName} onClose={() => setOpen(null)} />
     </div>
   );

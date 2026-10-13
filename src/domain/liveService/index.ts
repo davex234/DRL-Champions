@@ -17,6 +17,9 @@
 import type { MetaObjective } from "@/domain/progression/meta";
 import { liveObjective } from "@/domain/progression/meta";
 import { periodWindow } from "@/domain/progression/periods";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("liveService");
 
 export const HOUR = 3600_000;
 export const DAY = 24 * HOUR;
@@ -51,7 +54,7 @@ export function remainingText(endsAt: number | null | undefined, now: number): s
 /** «Se renueva en 6 h 12 min» (cuenta atrás hacia un reset real del servidor). */
 export const resetText = (endsAt: number, now: number) => {
   const r = remainingText(endsAt, now);
-  return r ? `Se renueva en ${r}` : "Renovándose ahora";
+  return r ? t("Se renueva en {r}", { r: td(r) }) : t("Renovándose ahora");
 };
 
 /* ───────────────────────────── resets ───────────────────────────── */
@@ -93,8 +96,8 @@ export function rewardText(o: Pick<MetaObjective, "rewardCredits" | "xp" | "pack
   const parts: string[] = [];
   if (o.rewardCredits > 0) parts.push(`${o.rewardCredits} créditos`);
   if (o.packId) parts.push(`${o.packCount > 1 ? `${o.packCount} × ` : ""}${packName(o.packId)}`);
-  if (o.xp > 0) parts.push(`${o.xp} XP del pase`);
-  return parts.join(" · ") || "Sin recompensa";
+  if (o.xp > 0) parts.push(t("{xp} XP del pase", { xp: o.xp }));
+  return parts.join(" · ") || t("Sin recompensa");
 }
 
 /** Objetivos vivos de un tipo, en orden estable: reclamables, en progreso (más avanzados primero), cobrados. */
@@ -144,15 +147,15 @@ export function expiringItems(i: ExpiringInput, max = 3): ExpiringItem[] {
   const out: ExpiringItem[] = [];
   const push = (x: Omit<ExpiringItem, "urgency">) => { const u = urgencyOf(x.endsAt, i.now); if (u && u !== "NORMAL") out.push({ ...x, urgency: u }); };
   if (i.pickem && i.pickem.pending > 0 && i.pickem.nextLockAt !== null) {
-    push({ id: "pickem", label: i.pickem.eventName ? `Pick'em · ${i.pickem.eventName}` : "Pick'em", detail: `${i.pickem.pending} ${i.pickem.pending === 1 ? "predicción pendiente" : "predicciones pendientes"} · cierra en ${remainingText(i.pickem.nextLockAt, i.now)}`, endsAt: i.pickem.nextLockAt, href: i.routes.pickems, source: "pickems" });
+    push({ id: "pickem", label: i.pickem.eventName ? t("Pick'em · {eventName}", { eventName: td(i.pickem.eventName) }) : t("Pick'em"), detail: t("{pending} {v} · cierra en {nextLockAt}", { pending: i.pickem.pending, v: i.pickem.pending === 1 ? t("predicción pendiente") : t("predicciones pendientes"), nextLockAt: remainingText(i.pickem.nextLockAt, i.now) }), endsAt: i.pickem.nextLockAt, href: i.routes.pickems, source: "pickems" });
   }
   for (const c of [...i.today, ...i.thisWeek]) {
     if (c.endsAt === null) continue;
-    if (c.status === "CLAIMABLE") push({ id: `claim:${c.id}`, label: c.label, detail: `Completado · recógelo antes de que se renueve (${remainingText(c.endsAt, i.now)})`, endsAt: c.endsAt, href: i.routes.claims, source: "claim" });
-    else if (c.status === "IN_PROGRESS" && urgencyOf(c.endsAt, i.now) === "VERY_SOON" && c.current > 0) push({ id: `objective:${c.id}`, label: c.label, detail: `${c.progressLabel} · se renueva en ${remainingText(c.endsAt, i.now)}`, endsAt: c.endsAt, href: i.routes.objective(c.metric), source: "objective" });
+    if (c.status === "CLAIMABLE") push({ id: `claim:${c.id}`, label: c.label, detail: t("Completado · recógelo antes de que se renueve ({endsAt})", { endsAt: remainingText(c.endsAt, i.now) }), endsAt: c.endsAt, href: i.routes.claims, source: "claim" });
+    else if (c.status === "IN_PROGRESS" && urgencyOf(c.endsAt, i.now) === "VERY_SOON" && c.current > 0) push({ id: `objective:${c.id}`, label: c.label, detail: t("{progressLabel} · se renueva en {endsAt}", { progressLabel: td(c.progressLabel), endsAt: remainingText(c.endsAt, i.now) }), endsAt: c.endsAt, href: i.routes.objective(c.metric), source: "objective" });
   }
   if (i.seasonEndsAt !== null && i.seasonEndsAt - i.now <= 7 * DAY && i.seasonEndsAt > i.now) {
-    out.push({ id: "season", label: "La temporada termina", detail: `Quedan ${remainingText(i.seasonEndsAt, i.now)}`, endsAt: i.seasonEndsAt, urgency: urgencyOf(i.seasonEndsAt, i.now) ?? "NORMAL", href: i.routes.season, source: "season" });
+    out.push({ id: "season", label: t("La temporada termina"), detail: t("Quedan {seasonEndsAt}", { seasonEndsAt: remainingText(i.seasonEndsAt, i.now) }), endsAt: i.seasonEndsAt, urgency: urgencyOf(i.seasonEndsAt, i.now) ?? "NORMAL", href: i.routes.season, source: "season" });
   }
   return out.sort((a, b) => a.endsAt - b.endsAt || a.id.localeCompare(b.id)).slice(0, max);
 }
@@ -193,20 +196,20 @@ export const RETURNING_MAX_FACTS = 3;
 export function returningContext(i: ReturningInput): ReturningContext | null {
   if (i.lastActivityAt === null || i.now - i.lastActivityAt < RETURNING_MIN_DAYS * DAY) return null;
   const facts: string[] = [];
-  if (i.activeMatch) facts.push("Tu partida sigue abierta: puedes continuarla.");
-  if (i.draftRun) facts.push(`Tu Draft Gauntlet sigue en curso (fase ${i.draftRun.stage} de 5).`);
+  if (i.activeMatch) facts.push(t("Tu partida sigue abierta: puedes continuarla."));
+  if (i.draftRun) facts.push(t("Tu Draft Gauntlet sigue en curso (fase {stage} de 5).", { stage: i.draftRun.stage }));
   if (i.pickem && i.pickem.pending > 0 && i.pickem.nextLockAt !== null && i.pickem.nextLockAt > i.now) {
-    facts.push(`${i.pickem.eventName ? `El Pick'em de ${i.pickem.eventName}` : "Un Pick'em"} cierra en ${remainingText(i.pickem.nextLockAt, i.now)}.`);
+    facts.push(t("{v} cierra en {nextLockAt}.", { v: i.pickem.eventName ? t("El Pick'em de {eventName}", { eventName: i.pickem.eventName }) : t("Un Pick'em"), nextLockAt: remainingText(i.pickem.nextLockAt, i.now) }));
   }
-  if (i.claimable > 0) facts.push(`Tienes ${i.claimable} ${i.claimable === 1 ? "recompensa" : "recompensas"} por reclamar.`);
+  if (i.claimable > 0) facts.push(t("Tienes {claimable} {v} por reclamar.", { claimable: i.claimable, v: i.claimable === 1 ? t("recompensa") : t("recompensas") }));
   const dailyResets = resetsBetween("daily", i.lastActivityAt, i.now);
   const weeklyResets = resetsBetween("weekly", i.lastActivityAt, i.now);
   const weeklyActive = i.thisWeek.find((c) => c.status === "IN_PROGRESS" && c.current > 0);
-  if (weeklyResets === 0 && weeklyActive) facts.push(`Tu objetivo semanal «${weeklyActive.label}» sigue activo (${weeklyActive.progressLabel}).`);
-  if (dailyResets > 0 && i.today.length > 0) facts.push("Hay objetivos diarios nuevos.");
-  if (weeklyResets > 0 && i.thisWeek.length > 0) facts.push("Hay objetivos semanales nuevos.");
-  if (i.liveEventName) facts.push(`${i.liveEventName} está en directo.`);
-  if (i.seasonEndsAt !== null && i.seasonEndsAt > i.now) facts.push(`La temporada termina en ${remainingText(i.seasonEndsAt, i.now)}.`);
+  if (weeklyResets === 0 && weeklyActive) facts.push(t("Tu objetivo semanal «{label}» sigue activo ({progressLabel}).", { label: td(weeklyActive.label), progressLabel: td(weeklyActive.progressLabel) }));
+  if (dailyResets > 0 && i.today.length > 0) facts.push(t("Hay objetivos diarios nuevos."));
+  if (weeklyResets > 0 && i.thisWeek.length > 0) facts.push(t("Hay objetivos semanales nuevos."));
+  if (i.liveEventName) facts.push(t("{liveEventName} está en directo.", { liveEventName: td(i.liveEventName) }));
+  if (i.seasonEndsAt !== null && i.seasonEndsAt > i.now) facts.push(t("La temporada termina en {seasonEndsAt}.", { seasonEndsAt: remainingText(i.seasonEndsAt, i.now) }));
   return {
     daysAway: Math.floor((i.now - i.lastActivityAt) / DAY), lastActivityAt: i.lastActivityAt, dailyResets, weeklyResets,
     facts: facts.slice(0, RETURNING_MAX_FACTS),
@@ -217,19 +220,19 @@ export function returningContext(i: ReturningInput): ReturningContext | null {
 export function ledgerRecent(r: { reason: string; delta: number; created_at: string }, i: number, packName: (id: string) => string = (id) => id): RecentFact | null {
   const at = Date.parse(r.created_at);
   if (!Number.isFinite(at)) return null;
-  const plus = r.delta > 0 ? ` (+${r.delta} créditos)` : "";
+  const plus = r.delta > 0 ? t(" (+{delta} créditos)", { delta: r.delta }) : "";
   const id = `ledger:${i}`;
-  if (r.reason === "duel_win") return { id, label: `Victoria en partida rápida${plus}`, at };
-  if (r.reason === "duel_draw") return { id, label: `Empate en partida rápida${plus}`, at };
-  if (r.reason === "duel_loss") return { id, label: `Partida rápida jugada${plus}`, at };
-  if (r.reason.startsWith("duel_capped_")) return { id, label: "Partida jugada (tope diario de recompensas alcanzado)", at };
-  if (r.reason === "mission_reward") return { id, label: `Objetivo cobrado${plus}`, at };
-  if (r.reason === "achievement") return { id, label: `Logro cobrado${plus}`, at };
-  if (r.reason === "pass_reward") return { id, label: `Nivel del pase cobrado${plus}`, at };
-  if (r.reason === "campaign_first_clear") return { id, label: `Primera victoria en Road to Champions${plus}`, at };
-  if (r.reason.startsWith("pickem_reward")) return { id, label: `Recompensa de Pick'em${plus}`, at };
-  if (r.reason.startsWith("event_challenge")) return { id, label: `Desafío de evento completado${plus}`, at };
-  if (r.reason.startsWith("buy_pack:")) return { id, label: `Conseguiste un ${packName(r.reason.slice("buy_pack:".length))}`, at };
+  if (r.reason === "duel_win") return { id, label: t("Victoria en partida rápida{plus}", { plus: td(plus) }), at };
+  if (r.reason === "duel_draw") return { id, label: t("Empate en partida rápida{plus}", { plus: td(plus) }), at };
+  if (r.reason === "duel_loss") return { id, label: t("Partida rápida jugada{plus}", { plus: td(plus) }), at };
+  if (r.reason.startsWith("duel_capped_")) return { id, label: t("Partida jugada (tope diario de recompensas alcanzado)"), at };
+  if (r.reason === "mission_reward") return { id, label: t("Objetivo cobrado{plus}", { plus: td(plus) }), at };
+  if (r.reason === "achievement") return { id, label: t("Logro cobrado{plus}", { plus: td(plus) }), at };
+  if (r.reason === "pass_reward") return { id, label: t("Nivel del pase cobrado{plus}", { plus: td(plus) }), at };
+  if (r.reason === "campaign_first_clear") return { id, label: t("Primera victoria en Road to Champions{plus}", { plus: td(plus) }), at };
+  if (r.reason.startsWith("pickem_reward")) return { id, label: t("Recompensa de Pick'em{plus}", { plus: td(plus) }), at };
+  if (r.reason.startsWith("event_challenge")) return { id, label: t("Desafío de evento completado{plus}", { plus: td(plus) }), at };
+  if (r.reason.startsWith("buy_pack:")) return { id, label: t("Conseguiste un {v}", { v: packName(r.reason.slice("buy_pack:".length)) }), at };
   return null;
 }
 

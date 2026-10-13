@@ -9,6 +9,9 @@
 import type { Rng } from "@/world";
 import type { DirectorStance, ListStatus, PlayerOffer, NegotiationRound } from "./types";
 import { directorAcceptsSale } from "./director";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("market");
 
 export interface BidContext {
   value: number;
@@ -42,7 +45,7 @@ export function evaluateBid(ctx: BidContext, bid: { fee: number; salary: number;
 
   // Puja insultante (muy por debajo) ⇒ rechazo seco.
   const floor = ctx.status === "listed" ? ctx.value * 0.8 : ctx.value * 0.95;
-  if (bid.fee < floor * 0.55) return { kind: "reject", note: "La oferta es ridícula; el club se ofende." };
+  if (bid.fee < floor * 0.55) return { kind: "reject", note: t("La oferta es ridícula; el club se ofende.") };
 
   // Contraoferta: fee mínimo aceptable + salario que pida el jugador.
   const wantFee = round5(Math.max(bid.fee, sale.accept ? bid.fee : floor) * (1 + (ctx.stance.patience / 100) * 0.12));
@@ -54,7 +57,7 @@ export function evaluateBid(ctx: BidContext, bid: { fee: number; salary: number;
     fee: wantFee + jitter,
     salary: wantSalary,
     years: wantYears,
-    note: !sale.accept ? sale.reason : "El jugador pide mejor contrato.",
+    note: !sale.accept ? sale.reason : t("El jugador pide mejor contrato."),
   };
 }
 

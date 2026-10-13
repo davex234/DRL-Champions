@@ -16,6 +16,9 @@ import { packIdentity, type PackCategory } from "./packIdentity";
 import { guidanceFor } from "@/domain/packs/guidance";
 import { teamPackIdentity } from "@/data/teamIdentities";
 import { plural } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("packs");
 
 /** Las pestañas del catálogo, de cara al jugador. Derivan de `packIdentity.category`. */
 export type CatalogTab = "rareza" | "regiones" | "equipos" | "eventos";
@@ -113,8 +116,8 @@ export function featuredPacks(visible: PackDef[]): { pack: PackDef; why: string 
     seen.add(id.category);
     const g = guidanceFor(p.id);
     const why = p.team
-      ? `Probabilidad aumentada de ${teamPackIdentity(p.team)?.displayName ?? p.team}`
-      : g?.headline ?? (p.price <= 0 ? "Gratis" : plural(p.cardCount, "carta", "cartas"));
+      ? tr("Probabilidad aumentada de {v}", { v: teamPackIdentity(p.team)?.displayName ?? p.team })
+      : g?.headline ?? (p.price <= 0 ? tr("Gratis") : plural(p.cardCount, "carta", "cartas"));
     out.push({ pack: p, why });
     if (out.length >= 3) break;
   }

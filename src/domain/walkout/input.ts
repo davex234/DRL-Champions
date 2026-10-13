@@ -18,6 +18,9 @@ import { ROLE_ABBR } from "@/lib/flags";
 import { countryDisplayName } from "@/lib/duel/hintVisuals";
 import { ISO3166_ALPHA3 } from "./iso3166";
 import { NON_NATIONALITY_CODES } from "@/data/flags";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("walkout");
 
 /**
  * 0.4 · `WalkoutCardIdentity`: LA identidad de la carta que se revela, ÚNICA fuente de verdad de la escena entera (piezas,
@@ -79,7 +82,7 @@ export function walkoutInputFromCard(card: CardDef, player: Pick<Player, "nick" 
     flag: src && name ? { iso, src, name } : null,
     region: player?.region ?? null,
     team: {
-      name: team.label || "Agente libre",
+      name: team.label || t("Agente libre"),
       tag: team.identity?.tag ?? (card.team || team.label || "—"),
       logoSrc: team.identity ? hintTeamLogoSrc(team.identity.canonicalId) : null,
     },
@@ -106,7 +109,7 @@ export function applyDevOverrides(id: WalkoutInput, o: {
   if (o.flag) {
     const f = o.flag === "none" ? null : o.flag;
     out = { ...out, flag: f, nationality: f ? { iso: f.iso, name: f.name, code: ISO3166_ALPHA3[f.iso] ?? null, status: "country" } : { iso: null, name: null, code: null, status: "missing" } };
-    overrides.push({ field: "flag", label: f ? `país ${f.iso}` : "sin país" });
+    overrides.push({ field: "flag", label: f ? t("país {iso}", { iso: f.iso }) : t("sin país") });
   }
   if (o.team) { out = { ...out, team: o.team }; overrides.push({ field: "team", label: `equipo ${o.team.tag}` }); }
   if (o.role) { out = { ...out, role: o.role.role, roleAbbr: o.role.abbr }; overrides.push({ field: "role", label: `rol ${o.role.role}` }); }

@@ -17,6 +17,10 @@ import { DISKS, checkSpace, jobBytesFor, type DownloadKind, type Game } from "@/
 import { cn } from "@/lib/format";
 import { Meter } from "@/components/ui/Meter";
 import { NxButton } from "@/components/ui/NxButton";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 export function InstallModal({
   game, kind, defaultPath, onConfirm, onClose, motionScale,
@@ -28,6 +32,7 @@ export function InstallModal({
   onClose: () => void;
   motionScale: number;
 }) {
+  useLocale();
   const [diskId, setDiskId] = useState(() => DISKS.find((d) => d.path === defaultPath)?.id ?? DISKS[0].id);
   const [folder, setFolder] = useState("");
 
@@ -66,7 +71,7 @@ export function InstallModal({
           onClick={onClose}
           role="dialog"
           aria-modal="true"
-          aria-label={`Instalar ${game.name}`}
+          aria-label={t("Instalar {name}", { name: game.name })}
         >
           <motion.div
             initial={{ opacity: 0, y: 22, scale: 0.98 }}
@@ -82,16 +87,16 @@ export function InstallModal({
             >
               <div>
                 <p className="font-display text-[9.5px] font-bold uppercase tracking-[0.28em] text-white/40">
-                  {kind === "update" ? "Actualizar" : "Instalar"}
+                  {kind === "update" ? t("Actualizar") : t("Instalar")}
                 </p>
                 <h2 className="font-display text-[22px] font-black uppercase leading-none tracking-wide text-white">
-                  {game.title}
+                  {td(game.title)}
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Cerrar"
+                aria-label={t("Cerrar")}
                 className="nx-clip-sm h-8 w-8 text-white/45 transition hover:bg-white/10 hover:text-white"
               >
                 ✕
@@ -101,7 +106,7 @@ export function InstallModal({
             <div className="space-y-5 p-6">
               <div>
                 <p className="mb-2 font-display text-label font-bold uppercase tracking-[0.24em] text-white/40">
-                  Ubicación de instalación
+                  {t("Ubicación de instalación")}
                 </p>
                 <div className="space-y-1.5">
                   {DISKS.map((d) => {
@@ -126,7 +131,7 @@ export function InstallModal({
                           {on && <span className="h-2 w-2 rounded-full bg-drl" />}
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-[12.5px] font-semibold text-white/85">{d.label}</span>
+                          <span className="block truncate text-[12.5px] font-semibold text-white/85">{td(d.label)}</span>
                           <span className="block truncate font-mono text-[10.5px] text-white/35">{d.path}</span>
                         </span>
                         <span className={cn("shrink-0 nx-readout text-[12px]", s.ok ? "text-white/60" : "text-bad")}>
@@ -140,7 +145,7 @@ export function InstallModal({
 
               <div>
                 <label className="mb-1.5 block font-display text-label font-bold uppercase tracking-[0.24em] text-white/40">
-                  Subcarpeta (opcional)
+                  {t("Subcarpeta (opcional)")}
                 </label>
                 <input
                   value={folder}
@@ -155,9 +160,9 @@ export function InstallModal({
               {/* Ocupación del disco: barra doble — lo usado y lo que pasará a estar usado. */}
               <div className="nx-clip-sm bg-black/30 p-4" style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}>
                 <div className="mb-2 grid grid-cols-3 gap-3">
-                  <Stat label="Descarga" value={formatBytes(bytes)} />
-                  <Stat label="Espacio necesario" value={formatBytes(space.requiredBytes)} tone={space.ok ? undefined : "var(--nx-bad)"} />
-                  <Stat label="Disponible" value={formatBytes(space.freeBytes)} tone={space.ok ? "var(--nx-ok)" : "var(--nx-bad)"} />
+                  <Stat label={t("Descarga")} value={formatBytes(bytes)} />
+                  <Stat label={t("Espacio necesario")} value={formatBytes(space.requiredBytes)} tone={space.ok ? undefined : "var(--nx-bad)"} />
+                  <Stat label={t("Disponible")} value={formatBytes(space.freeBytes)} tone={space.ok ? "var(--nx-ok)" : "var(--nx-bad)"} />
                 </div>
                 <div className="relative">
                   <Meter value={afterPct} tone={space.ok ? "info" : "bad"} height={7} />
@@ -167,8 +172,8 @@ export function InstallModal({
                 </div>
                 <p className="mt-2 text-caption" style={{ color: space.ok ? "rgba(255,255,255,0.4)" : "var(--nx-bad)" }}>
                   {space.ok
-                    ? `Quedarán ${formatBytes(space.freeBytes - space.requiredBytes)} libres en ${disk.label}.`
-                    : `Faltan ${formatBytes(space.missingBytes)} en ${disk.label}. Elige otra unidad.`}
+                    ? t("Quedarán {v} libres en {label}.", { v: formatBytes(space.freeBytes - space.requiredBytes), label: td(disk.label) })
+                    : t("Faltan {missingBytes} en {label}. Elige otra unidad.", { missingBytes: formatBytes(space.missingBytes), label: td(disk.label) })}
                 </p>
               </div>
             </div>
@@ -179,7 +184,7 @@ export function InstallModal({
                 onClick={onClose}
                 className="font-display text-caption font-bold uppercase tracking-[0.2em] text-white/45 transition hover:text-white"
               >
-                Cancelar
+                {t("Cancelar")}
               </button>
               <NxButton
                 variant="primary" accent={kind === "update" ? "gold" : "primary"}
@@ -187,7 +192,7 @@ export function InstallModal({
                 disabled={!space.ok}
                 onClick={() => onConfirm(path)}
               >
-                {kind === "update" ? "Actualizar ahora" : "Instalar"}
+                {kind === "update" ? t("Actualizar ahora") : t("Instalar")}
               </NxButton>
             </div>
           </motion.div>
@@ -198,10 +203,11 @@ export function InstallModal({
 }
 
 function Stat({ label, value, tone }: { label: string; value: string; tone?: string }) {
+  useLocale();
   return (
     <div className="min-w-0">
-      <p className="truncate font-display text-[9px] font-bold uppercase tracking-[0.2em] text-white/30">{label}</p>
-      <p className="nx-readout truncate text-[14px]" style={{ color: tone ?? "var(--nx-ink)" }}>{value}</p>
+      <p className="truncate font-display text-[9px] font-bold uppercase tracking-[0.2em] text-white/30">{td(label)}</p>
+      <p className="nx-readout truncate text-[14px]" style={{ color: tone ?? "var(--nx-ink)" }}>{td(value)}</p>
     </div>
   );
 }

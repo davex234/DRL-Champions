@@ -16,6 +16,9 @@ import {
   type PlatformTransportKind,
 } from "./types";
 import type { InstanceManager } from "./servers";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("platform");
 
 // ───────────────────────────── Protocol Registry ─────────────────────────────
 
@@ -107,13 +110,13 @@ export class Gateway {
     // 3) Auth (JWT) — jugadores/roles necesitan token válido salvo el sistema.
     if (h.principal.role !== "system") {
       if (!h.token || !this.auth.verify(h.token, now) || h.token.sub !== h.principal.id) {
-        return this.reject(base, "auth inválida");
+        return this.reject(base, tr("auth inválida"));
       }
     }
     base.state = "authenticated";
     // 4) Routing a instancia (más cercana / menos cargada).
     const alloc = this.instances.allocate(id, h.region);
-    if (!alloc) return this.reject(base, "sin capacidad (backpressure)");
+    if (!alloc) return this.reject(base, tr("sin capacidad (backpressure)"));
     base.state = "routed"; base.instanceId = alloc.instance.id;
     this.sessions.set(id, base);
     return { ok: true, session: base, instanceId: alloc.instance.id };
@@ -149,7 +152,7 @@ export class ApiGateway {
   /** ¿Autorizada la llamada `method` por `caller` en `now`? */
   authorize(method: string, caller: Principal, now: number): { ok: boolean; reason?: string } {
     const r = this.routes.get(method);
-    if (!r) return { ok: false, reason: "método desconocido" };
+    if (!r) return { ok: false, reason: tr("método desconocido") };
     if (!this.limiter.allow(`${caller.id}:${method}`, now)) return { ok: false, reason: "rate limit" };
     if (r.scope === "private" && !hasRank(caller.role, r.minRole)) return { ok: false, reason: "permiso insuficiente" };
     if (r.scope === "public" && !hasRank(caller.role, r.minRole)) return { ok: false, reason: "permiso insuficiente" };

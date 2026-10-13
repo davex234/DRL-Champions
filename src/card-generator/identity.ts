@@ -9,6 +9,9 @@ import { statsFromMetrics } from "@/domain/cards/statsFromMetrics";
 import type { Player, RoleId } from "@/domain/cards/types";
 import type { AnalyzerResult, PlayerReport } from "@/analyzer";
 import type { GeneratorCtx, PlayerResolution } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("cardgenerator");
 
 const ROLE_MAP: Record<string, RoleId> = {
   duelist: "Duelista", initiator: "Iniciador", sentinel: "Centinela", controller: "Controlador",
@@ -68,7 +71,7 @@ export function resolvePlayers(analysis: AnalyzerResult, ctx: GeneratorCtx): Pla
     if (alias) {
       out.push(byId.has(alias)
         ? { analyzerId: p.playerId, nick: p.nick, status: "resolved", playerId: alias, reason: "alias inyectado" }
-        : { analyzerId: p.playerId, nick: p.nick, status: "ambiguous", reason: `alias "${alias}" no existe en el roster` });
+        : { analyzerId: p.playerId, nick: p.nick, status: "ambiguous", reason: tr("alias \"{alias}\" no existe en el roster", { alias: td(alias) }) });
       continue;
     }
     const direct = byId.get(stripPrefix(p.playerId));
@@ -82,12 +85,12 @@ export function resolvePlayers(analysis: AnalyzerResult, ctx: GeneratorCtx): Pla
       continue;
     }
     if (nickMatches.length > 1) {
-      out.push({ analyzerId: p.playerId, nick: p.nick, status: "ambiguous", reason: `${nickMatches.length} jugadores con nick "${p.nick}" — requiere alias` });
+      out.push({ analyzerId: p.playerId, nick: p.nick, status: "ambiguous", reason: tr("{length} jugadores con nick \"{nick}\" — requiere alias", { length: nickMatches.length, nick: p.nick }) });
       continue;
     }
     const draft = buildDraft(p, analysis, ctx, taken);
     taken.add(draft.id);
-    out.push({ analyzerId: p.playerId, nick: p.nick, status: "created", playerId: draft.id, draft, reason: "jugador nuevo (draft)" });
+    out.push({ analyzerId: p.playerId, nick: p.nick, status: "created", playerId: draft.id, draft, reason: tr("jugador nuevo (draft)") });
   }
   return out;
 }

@@ -48,6 +48,11 @@ import { getVariant } from "@/domain/cards/variants";
 import type { CombatStats } from "@/domain/cards/combat";
 import type { Player, VariantId } from "@/domain/cards/types";
 import { PACKS } from "@/data/packs";
+import { ns, td as i18nTd, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const i18nT = ns("admin");
 
 interface EntryRow {
   cardId: string; playerId: string; nick: string; team: string;
@@ -89,9 +94,10 @@ interface Sim {
 
 type Accion = null | "activar" | "retirar" | "borrador" | "quitar";
 
-const num = (n: number): string => n.toLocaleString("es-ES", { maximumFractionDigits: 4 });
+const num = (n: number): string => n.toLocaleString(getIntlLocale(), { maximumFractionDigits: 4 });
 
 export default function PoolSheetPage() {
+  useLocale();
   const params = useParams<{ id: string }>();
   const poolId = decodeURIComponent(String(params.id));
   const { running, error, clear, run } = useAsync<unknown>();
@@ -117,7 +123,7 @@ export default function PoolSheetPage() {
       try { return await fn(); } catch (e) {
         const err = e as Error & { conflict?: boolean; current?: number };
         if (err.conflict) {
-          setConflicto(`${err.message}${err.current ? ` La revisión vigente es r${err.current}.` : ""}`);
+          setConflicto(`${err.message}${err.current ? i18nT(" La revisión vigente es r{current}.", { current: err.current }) : ""}`);
         }
         throw err;
       }
@@ -134,13 +140,13 @@ export default function PoolSheetPage() {
   const editable = estado === "DRAFT" || estado === "ACTIVE";
   const totalPaginas = sheet ? Math.max(1, Math.ceil(sheet.entriesTotal / sheet.pageSize)) : 1;
 
-  if (!sheet && running) return <Stage className="p-6"><Loading label="Cargando el pool…" /></Stage>;
+  if (!sheet && running) return <Stage className="p-6"><Loading label={i18nT("Cargando el pool…")} /></Stage>;
   if (!sheet || !pool) {
     return (
       <Stage className="space-y-4 p-6">
-        <ErrorBar error={error} onClose={clear} />
-        <ErrorState message={`No se pudo cargar el pool ${poolId}`} onRetry={() => void cargar()} />
-        <NxButton href="/admin/pools" variant="secondary">Volver al listado</NxButton>
+        <ErrorBar error={i18nTd(error)} onClose={clear} />
+        <ErrorState message={i18nT("No se pudo cargar el pool {poolId}", { poolId: i18nTd(poolId) })} onRetry={() => void cargar()} />
+        <NxButton href="/admin/pools" variant="secondary">{i18nT("Volver al listado")}</NxButton>
       </Stage>
     );
   }
@@ -152,8 +158,8 @@ export default function PoolSheetPage() {
       {/* ── Cabecera ── */}
       <SheetHeading
         kicker={sheet.packs.length > 0
-          ? `Pool · reparte en ${sheet.packs.map((p) => p.nombre).join(", ")}`
-          : "Pool · sin sobre vinculado"}
+          ? i18nT("Pool · reparte en {v}", { v: sheet.packs.map((p) => p.nombre).join(", ") })
+          : i18nT("Pool · sin sobre vinculado")}
         title={String(pool.name)}
         badges={
           <>
@@ -173,60 +179,59 @@ export default function PoolSheetPage() {
           </>
         }
         action={<div className="flex flex-wrap gap-2">
-          <NxButton href="/admin/pools" variant="ghost">← Pools</NxButton>
+          <NxButton href="/admin/pools" variant="ghost">{i18nT("← Pools")}</NxButton>
           {estado === "DRAFT" && (
-            <NxButton variant="primary" onClick={() => setAccion("activar")}>Publicar</NxButton>
+            <NxButton variant="primary" onClick={() => setAccion("activar")}>{i18nT("Publicar")}</NxButton>
           )}
           {estado === "ACTIVE" && (
             <>
-              <NxButton variant="secondary" onClick={() => setAccion("borrador")}>Volver a borrador</NxButton>
-              <NxButton variant="danger" onClick={() => setAccion("retirar")}>Retirar</NxButton>
+              <NxButton variant="secondary" onClick={() => setAccion("borrador")}>{i18nT("Volver a borrador")}</NxButton>
+              <NxButton variant="danger" onClick={() => setAccion("retirar")}>{i18nT("Retirar")}</NxButton>
             </>
           )}
           {estado === "RETIRED" && (
-            <NxButton variant="secondary" onClick={() => setAccion("activar")}>Reactivar</NxButton>
+            <NxButton variant="secondary" onClick={() => setAccion("activar")}>{i18nT("Reactivar")}</NxButton>
           )}
         </div>}
       />
 
-      <ErrorBar error={conflicto ? null : error} onClose={clear} />
+      <ErrorBar error={conflicto ? null : i18nTd(error)} onClose={clear} />
 
       {conflicto && (
         <Plate className="space-y-2 border border-drl-gold/40 p-4" role="alert">
           <p className="font-display text-sm font-bold uppercase tracking-wider text-drl-gold">
-            Otro administrador se ha adelantado
+            {i18nT("Otro administrador se ha adelantado")}
           </p>
-          <p className="text-sm text-white/70">{conflicto}</p>
+          <p className="text-sm text-white/70">{i18nTd(conflicto)}</p>
           <p className="text-sm text-white/50">
-            No se ha guardado nada. Recarga para ver la configuración que hay ahora y decide
-            sobre esa base.
+            {i18nT("No se ha guardado nada. Recarga para ver la configuración que hay ahora y decide sobre esa base.")}
           </p>
-          <NxButton variant="secondary" onClick={() => void cargar()}>Recargar el pool</NxButton>
+          <NxButton variant="secondary" onClick={() => void cargar()}>{i18nT("Recargar el pool")}</NxButton>
         </Plate>
       )}
 
       {aviso && (
         <Recessed className="flex items-center justify-between gap-3 p-3">
-          <p className="text-sm text-white/70">{aviso}</p>
-          <NxButton variant="ghost" onClick={() => setAviso(null)} aria-label="Cerrar aviso">✕</NxButton>
+          <p className="text-sm text-white/70">{i18nTd(aviso)}</p>
+          <NxButton variant="ghost" onClick={() => setAviso(null)} aria-label={i18nT("Cerrar aviso")}>✕</NxButton>
         </Recessed>
       )}
 
       {/* ── Resumen ── */}
       <section aria-labelledby="h-resumen">
         <h2 id="h-resumen" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          Resumen
+          {i18nT("Resumen")}
         </h2>
         <Plate className="space-y-4 p-4">
           <FieldGrid cols={4}>
-            <Field label="Entradas INCLUDE">{num(r.includes)}</Field>
-            <Field label="Entradas EXCLUDE">{num(r.excludes)}</Field>
-            <Field label="Peso total">{num(r.pesoTotal)}</Field>
-            <Field label="Peso que reparte">{num(r.pesoActivo)}</Field>
-            <Field label="Cartas elegibles">{num(r.elegibles)}</Field>
-            <Field label="En borrador">{r.draft > 0 ? <span className="text-drl-gold">{r.draft}</span> : 0}</Field>
-            <Field label="Retiradas">{r.retiradas > 0 ? <span className="text-drl-gold">{r.retiradas}</span> : 0}</Field>
-            <Field label="Versión de distribución">{sheet.distributionVersion}</Field>
+            <Field label={i18nT("Entradas INCLUDE")}>{num(r.includes)}</Field>
+            <Field label={i18nT("Entradas EXCLUDE")}>{num(r.excludes)}</Field>
+            <Field label={i18nT("Peso total")}>{num(r.pesoTotal)}</Field>
+            <Field label={i18nT("Peso que reparte")}>{num(r.pesoActivo)}</Field>
+            <Field label={i18nT("Cartas elegibles")}>{num(r.elegibles)}</Field>
+            <Field label={i18nT("En borrador")}>{r.draft > 0 ? <span className="text-drl-gold">{r.draft}</span> : 0}</Field>
+            <Field label={i18nT("Retiradas")}>{r.retiradas > 0 ? <span className="text-drl-gold">{r.retiradas}</span> : 0}</Field>
+            <Field label={i18nT("Versión de distribución")}>{sheet.distributionVersion}</Field>
           </FieldGrid>
 
           {(r.draft > 0 || r.retiradas > 0) && (
@@ -234,17 +239,12 @@ export default function PoolSheetPage() {
               <p className="text-[12px] leading-relaxed text-white/60">
                 {r.draft > 0 && (
                   <>
-                    <strong className="text-drl-gold">{r.draft}</strong> entrada(s) apuntan a cartas
-                    en <code>DRAFT</code>: el sorteo no las reparte, y activar este pool con ellas
-                    dentro se rechaza.{" "}
+                    {fill(i18nT("{n} entrada(s) apuntan a cartas en {estado}: el sorteo no las reparte, y activar este pool con ellas dentro se rechaza.", slots("n", "estado")), { n: <strong className="text-drl-gold">{r.draft}</strong>, estado: <code>DRAFT</code> })}{" "}
                   </>
                 )}
                 {r.retiradas > 0 && (
                   <>
-                    <strong className="text-drl-gold">{r.retiradas}</strong> apuntan a cartas{" "}
-                    <code>RETIRED</code>: <strong>se conservan a propósito</strong>. Retirar una
-                    carta la saca de los sobres nuevos, no la borra del histórico del pool ni de
-                    las manos de quien la tenga.
+                    {fill(i18nT("{n} apuntan a cartas {estado}: {conservan}. Retirar una carta la saca de los sobres nuevos, no la borra del histórico del pool ni de las manos de quien la tenga.", slots("n", "estado", "conservan")), { n: <strong className="text-drl-gold">{r.retiradas}</strong>, estado: <code>RETIRED</code>, conservan: <strong>{i18nT("se conservan a propósito")}</strong> })}
                   </>
                 )}
               </p>
@@ -253,14 +253,14 @@ export default function PoolSheetPage() {
 
           <div>
             <p className="mb-2 font-display text-label uppercase tracking-wider text-white/40">
-              Reparto por rareza (solo cartas elegibles)
+              {i18nT("Reparto por rareza (solo cartas elegibles)")}
             </p>
             <div className="flex flex-wrap gap-2">
               {Object.entries(r.porBucket).map(([b, v]) => (
                 <Recessed key={b} className="min-w-[110px] p-2">
                   <BucketBadge bucket={b} />
-                  <p className="mt-1 text-sm tabular-nums text-white">{num(v.cartas)} cartas</p>
-                  <p className="text-[11px] tabular-nums text-white/45">peso {num(v.peso)}</p>
+                  <p className="mt-1 text-sm tabular-nums text-white">{num(v.cartas)} {i18nT("cartas")}</p>
+                  <p className="text-[11px] tabular-nums text-white/45">{i18nT("peso")} {num(v.peso)}</p>
                 </Recessed>
               ))}
             </div>
@@ -271,32 +271,32 @@ export default function PoolSheetPage() {
       {/* ── Sobres ── */}
       <section aria-labelledby="h-sobres">
         <h2 id="h-sobres" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          Sobres que usan este pool ({sheet.packs.length})
+          {i18nT("Sobres que usan este pool ({n})", { n: sheet.packs.length })}
         </h2>
         <Plate className="space-y-3 p-4">
           {sheet.packs.length === 0 ? (
             <p className="text-sm text-white/50">
-              Ningún sobre lo usa todavía, así que no reparte nada aunque esté activo.
+              {i18nT("Ningún sobre lo usa todavía, así que no reparte nada aunque esté activo.")}
             </p>
           ) : (
             <div className="flex flex-wrap gap-2">
               {sheet.packs.map((p) => (
                 <Recessed key={p.packId} className="p-3">
-                  <p className="text-sm text-white">{p.nombre}</p>
+                  <p className="text-sm text-white">{i18nTd(p.nombre)}</p>
                   <p className="font-mono text-[11px] text-white/40">{p.packId}</p>
                   <p className="mt-1 text-[12px] text-white/50">
-                    prioridad {p.priority}
-                    {!p.existe && <Badge tone="bad" className="ml-2">el sobre no existe en código</Badge>}
+                    {i18nT("prioridad")} {p.priority}
+                    {!p.existe && <Badge tone="bad" className="ml-2">{i18nT("el sobre no existe en código")}</Badge>}
                   </p>
                   <NxButton
                     variant="tertiary" className="mt-2" disabled={running}
-                    aria-label={`Desvincular ${p.nombre} de este pool`}
+                    aria-label={i18nT("Desvincular {nombre} de este pool", { nombre: i18nTd(p.nombre) })}
                     onClick={() => void ejecutar(
                       () => adminPoolApi("unbind", { packId: p.packId, poolId }),
-                      `«${p.nombre}» ya no usa este pool.`,
+                      i18nT("«{nombre}» ya no usa este pool.", { nombre: i18nTd(p.nombre) }),
                     )}
                   >
-                    Desvincular
+                    {i18nT("Desvincular")}
                   </NxButton>
                 </Recessed>
               ))}
@@ -315,7 +315,7 @@ export default function PoolSheetPage() {
             running={running}
             onBind={(packId, nombre) => void ejecutar(
               () => adminPoolApi("bind", { packId, poolId, priority: 10 }),
-              `«${nombre}» reparte ahora este pool.`,
+              i18nT("«{nombre}» reparte ahora este pool.", { nombre: i18nTd(nombre) }),
             )}
           />
 
@@ -327,11 +327,13 @@ export default function PoolSheetPage() {
           */}
           <Recessed className="p-3">
             <p className="text-[12px] leading-relaxed text-white/60">
-              Cuando un sobre tiene <strong>varios pools</strong>, sus cartas se{" "}
-              <strong className="text-white">UNEN</strong>. La prioridad <strong>no</strong> hace
-              exclusivo a un pool: solo decide <strong>qué peso manda</strong> cuando la misma
-              carta aparece en dos de ellos —gana el de prioridad más baja—. Para que una carta
-              NO salga, hay que excluirla (<code>EXCLUDE</code>), que gana siempre.
+              {fill(i18nT("Cuando un sobre tiene {varios}, sus cartas se {unen}. La prioridad {no} hace exclusivo a un pool: solo decide {peso} cuando la misma carta aparece en dos de ellos —gana el de prioridad más baja—. Para que una carta NO salga, hay que excluirla ({exclude}), que gana siempre.", slots("varios", "unen", "no", "peso", "exclude")), {
+                varios: <strong>{i18nT("varios pools")}</strong>,
+                unen: <strong className="text-white">{i18nT("UNEN")}</strong>,
+                no: <strong>{i18nT("no")}</strong>,
+                peso: <strong>{i18nT("qué peso manda")}</strong>,
+                exclude: <code>EXCLUDE</code>,
+              })}
             </p>
           </Recessed>
         </Plate>
@@ -340,18 +342,18 @@ export default function PoolSheetPage() {
       {/* ── Entradas ── */}
       <section aria-labelledby="h-entradas">
         <h2 id="h-entradas" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          Cartas del pool ({num(sheet.entriesTotal)})
+          {i18nT("Cartas del pool ({n})", { n: num(sheet.entriesTotal) })}
         </h2>
         <Plate className="p-4">
           <div className="mb-3 flex flex-wrap items-end gap-3">
             <label className="block min-w-0 flex-1" htmlFor="buscar-entrada">
               <span className="font-display text-label uppercase tracking-wider text-white/50">
-                Buscar en el pool
+                {i18nT("Buscar en el pool")}
               </span>
               <input
                 id="buscar-entrada" value={q}
                 onChange={(e) => { setQ(e.target.value); setPage(1); }}
-                placeholder="card id…" aria-label="Buscar carta dentro del pool"
+                placeholder={i18nT("card id…")} aria-label={i18nT("Buscar carta dentro del pool")}
                 className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-3 text-sm text-white outline-none focus-visible:border-drl"
               />
             </label>
@@ -364,23 +366,23 @@ export default function PoolSheetPage() {
             onWeight={(entry, weight) => void ejecutar(
               () => adminPoolApi("entryUpsert", {
                 poolId, cardId: entry.cardId, weight, mode: entry.mode,
-                reason: `Peso de ${entry.cardId}: ${entry.weight} → ${weight}`,
+                reason: i18nT("Peso de {cardId}: {weight} → {weight2}", { cardId: entry.cardId, weight: entry.weight, weight2: weight }),
                 expectedRevision: sheet.revision,
               }),
-              `Peso de ${entry.cardId} actualizado a ${weight}.`,
+              i18nT("Peso de {cardId} actualizado a {weight}.", { cardId: entry.cardId, weight }),
             )}
             onQuitar={(entry) => { setAQuitar(entry); setAccion("quitar"); }}
           />
 
           {totalPaginas > 1 && (
-            <nav className="mt-3 flex flex-wrap items-center gap-2" aria-label="Paginación de entradas">
+            <nav className="mt-3 flex flex-wrap items-center gap-2" aria-label={i18nT("Paginación de entradas")}>
               <NxButton variant="secondary" disabled={page <= 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}>← Anterior</NxButton>
+                onClick={() => setPage((p) => Math.max(1, p - 1))}>{i18nT("← Anterior")}</NxButton>
               <span className="text-sm tabular-nums text-white/50">
                 {page} / {totalPaginas}
               </span>
               <NxButton variant="secondary" disabled={page >= totalPaginas}
-                onClick={() => setPage((p) => p + 1)}>Siguiente →</NxButton>
+                onClick={() => setPage((p) => p + 1)}>{i18nT("Siguiente →")}</NxButton>
             </nav>
           )}
         </Plate>
@@ -403,20 +405,20 @@ export default function PoolSheetPage() {
       {/* ── Diario ── */}
       <section aria-labelledby="h-diario">
         <h2 id="h-diario" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          Diario ({sheet.audit.length})
+          {i18nT("Diario ({n})", { n: sheet.audit.length })}
         </h2>
         <Plate className="overflow-hidden">
           {sheet.audit.length === 0 ? (
-            <p className="p-4 text-sm text-white/40">Sin movimientos registrados.</p>
+            <p className="p-4 text-sm text-white/40">{i18nT("Sin movimientos registrados.")}</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full min-w-[560px] border-collapse text-sm">
-                <caption className="sr-only">Cambios registrados sobre este pool</caption>
+                <caption className="sr-only">{i18nT("Cambios registrados sobre este pool")}</caption>
                 <thead>
                   <tr className="border-b border-white/10 text-left">
-                    {["Cuándo", "Qué", "Detalle"].map((h) => (
+                    {[i18nT("Cuándo"), i18nT("Qué"), i18nT("Detalle")].map((h) => (
                       <th key={h} scope="col"
-                        className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{h}</th>
+                        className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{i18nTd(h)}</th>
                     ))}
                   </tr>
                 </thead>
@@ -437,29 +439,26 @@ export default function PoolSheetPage() {
         </Plate>
       </section>
 
-      <Rail label={`Pool ${poolId} · revisión ${sheet.revision} · distribución v${sheet.distributionVersion}`} />
+      <Rail label={i18nT("Pool {poolId} · revisión {revision} · distribución v{distributionVersion}", { poolId: i18nTd(poolId), revision: sheet.revision, distributionVersion: sheet.distributionVersion })} />
 
       {/* ── Confirmaciones ── */}
       <ConfirmDialog
         open={accion === "activar"}
-        title={estado === "RETIRED" ? "Reactivar el pool" : "Publicar el pool"}
-        confirmLabel="Publicar" running={running}
+        title={estado === "RETIRED" ? i18nT("Reactivar el pool") : i18nT("Publicar el pool")}
+        confirmLabel={i18nT("Publicar")} running={running}
         onCancel={() => setAccion(null)}
         onConfirm={(motivo) => void ejecutar(
           () => adminPoolApi("publish", { poolId, state: "ACTIVE", reason: motivo, expectedRevision: sheet.revision }),
-          "Pool activo. La distribución se ha invalidado sin reiniciar el servidor.",
+          i18nT("Pool activo. La distribución se ha invalidado sin reiniciar el servidor."),
         )}
         body={
           <div className="space-y-2 text-sm text-white/70">
             <p>
-              Pasará a <strong>ACTIVE</strong>. Sus{" "}
-              <strong className="text-white">{num(r.elegibles)}</strong> cartas elegibles podrán
-              salir en los {sheet.packs.length} sobre(s) vinculado(s).
+              {fill(i18nT("Pasará a {estado}. Sus {n} cartas elegibles podrán salir en los {sobres} sobre(s) vinculado(s).", { ...slots("estado", "n"), sobres: sheet.packs.length }), { estado: <strong>{i18nT("ACTIVE")}</strong>, n: <strong className="text-white">{num(r.elegibles)}</strong> })}
             </p>
             {r.draft > 0 && (
               <p className="text-drl-gold">
-                Hay {r.draft} entrada(s) con cartas en DRAFT: la activación se rechazará hasta
-                que se publiquen o se quiten.
+                {i18nT("Hay {n} entrada(s) con cartas en DRAFT: la activación se rechazará hasta que se publiquen o se quiten.", { n: r.draft })}
               </p>
             )}
           </div>
@@ -467,45 +466,42 @@ export default function PoolSheetPage() {
       />
       <ConfirmDialog
         open={accion === "retirar"}
-        title="Retirar el pool" confirmLabel="Retirar" tone="danger" running={running}
+        title={i18nT("Retirar el pool")} confirmLabel={i18nT("Retirar")} tone="danger" running={running}
         onCancel={() => setAccion(null)}
         onConfirm={(motivo) => void ejecutar(
           () => adminPoolApi("publish", { poolId, state: "RETIRED", reason: motivo, expectedRevision: sheet.revision }),
-          "Pool retirado. Deja de repartir; no se ha borrado nada.",
+          i18nT("Pool retirado. Deja de repartir; no se ha borrado nada."),
         )}
         body={
           <>
-            Dejará de aportar cartas a los sobres. <strong>No se destruye nada</strong>: sus
-            entradas siguen, y los ejemplares que ya salieron de él siguen en manos de sus
-            dueños, en sus mazos y en el mercado.
+            {fill(i18nT("Dejará de aportar cartas a los sobres. {nada}: sus entradas siguen, y los ejemplares que ya salieron de él siguen en manos de sus dueños, en sus mazos y en el mercado.", slots("nada")), { nada: <strong>{i18nT("No se destruye nada")}</strong> })}
           </>
         }
       />
       <ConfirmDialog
         open={accion === "borrador"}
-        title="Volver a borrador" confirmLabel="A borrador" running={running}
+        title={i18nT("Volver a borrador")} confirmLabel={i18nT("A borrador")} running={running}
         onCancel={() => setAccion(null)}
         onConfirm={(motivo) => void ejecutar(
           () => adminPoolApi("publish", { poolId, state: "DRAFT", reason: motivo, expectedRevision: sheet.revision }),
-          "Pool en borrador. Deja de repartir mientras se trabaja en él.",
+          i18nT("Pool en borrador. Deja de repartir mientras se trabaja en él."),
         )}
-        body={<>Deja de repartir mientras se edita. Los sobres vinculados se quedan sin este pool hasta que vuelva a publicarse.</>}
+        body={<>{i18nT("Deja de repartir mientras se edita. Los sobres vinculados se quedan sin este pool hasta que vuelva a publicarse.")}</>}
       />
       <ConfirmDialog
         open={accion === "quitar" && !!aQuitar}
-        title={`Quitar ${aQuitar?.cardId ?? ""} del pool`}
-        confirmLabel="Quitar" tone="danger" running={running}
+        title={i18nT("Quitar {v} del pool", { v: aQuitar?.cardId ?? "" })}
+        confirmLabel={i18nT("Quitar")} tone="danger" running={running}
         onCancel={() => { setAccion(null); setAQuitar(null); }}
         onConfirm={(motivo) => void ejecutar(
           () => adminPoolApi("entryRemove", {
             poolId, cardId: aQuitar!.cardId, reason: motivo, expectedRevision: sheet.revision,
           }),
-          `${aQuitar!.cardId} fuera del pool.`,
+          i18nT("{cardId} fuera del pool.", { cardId: aQuitar!.cardId }),
         )}
         body={
           <>
-            Deja de poder salir por este pool. Los ejemplares ya repartidos{" "}
-            <strong>no se tocan</strong>: siguen existiendo con su serie y su versión.
+            {fill(i18nT("Deja de poder salir por este pool. Los ejemplares ya repartidos {intactos}: siguen existiendo con su serie y su versión.", slots("intactos")), { intactos: <strong>{i18nT("no se tocan")}</strong> })}
           </>
         }
       />
@@ -527,6 +523,7 @@ function BindPack({
   poolId: string; vinculados: string[]; running: boolean;
   onBind: (packId: string, nombre: string) => void;
 }) {
+  useLocale();
   const libres = useMemo(
     () => PACKS.filter((p) => !vinculados.includes(p.id)),
     [vinculados],
@@ -538,7 +535,7 @@ function BindPack({
     return (
       <Recessed className="p-3">
         <p className="text-[12px] text-white/50">
-          Este pool ya está vinculado a todos los sobres del catálogo.
+          {i18nT("Este pool ya está vinculado a todos los sobres del catálogo.")}
         </p>
       </Recessed>
     );
@@ -548,12 +545,12 @@ function BindPack({
   return (
     <Recessed className="space-y-2 p-3">
       <p className="font-display text-label uppercase tracking-wider text-white/50">
-        Vincular a un sobre
+        {i18nT("Vincular a un sobre")}
       </p>
       <div className="flex flex-wrap items-end gap-3">
         <div className="min-w-[220px] flex-1">
           <Select
-            label="Sobre" value={sel} onChange={setSel} noEmpty
+            label={i18nT("Sobre")} value={sel} onChange={setSel} noEmpty
             options={libres.map((p) => ({ value: p.id, label: `${p.name} · ${p.id}` }))}
           />
         </div>
@@ -561,14 +558,13 @@ function BindPack({
           variant="secondary" disabled={running || !sel}
           onClick={() => onBind(sel, nombre)}
         >
-          Vincular
+          {i18nT("Vincular")}
         </NxButton>
       </div>
       <p className="text-[12px] leading-relaxed text-white/45">
-        El sobre empezará a repartir estas cartas en cuanto el pool esté <strong>activo</strong>.
-        Si el sobre ya usa otro pool, los dos se <strong>unen</strong>.
+        {fill(i18nT("El sobre empezará a repartir estas cartas en cuanto el pool esté {activo}. Si el sobre ya usa otro pool, los dos se {unen}.", slots("activo", "unen")), { activo: <strong>{i18nT("activo")}</strong>, unen: <strong>{i18nT("unen")}</strong> })}
       </p>
-      <span className="sr-only">Pool {poolId}</span>
+      <span className="sr-only">{i18nT("Pool")} {poolId}</span>
     </Recessed>
   );
 }
@@ -582,19 +578,20 @@ function EntriesTable({
   onWeight: (e: EntryRow, weight: number) => void;
   onQuitar: (e: EntryRow) => void;
 }) {
+  useLocale();
   if (entries.length === 0) {
-    return <p className="py-6 text-sm text-white/40">Ninguna carta con ese filtro.</p>;
+    return <p className="py-6 text-sm text-white/40">{i18nT("Ninguna carta con ese filtro.")}</p>;
   }
   return (
     <>
       <div className="hidden overflow-x-auto md:block">
         <table className="w-full min-w-[860px] border-collapse text-sm">
-          <caption className="sr-only">Cartas del pool con su peso y su cuota</caption>
+          <caption className="sr-only">{i18nT("Cartas del pool con su peso y su cuota")}</caption>
           <thead>
             <tr className="border-b border-white/10 text-left">
-              {["Carta", "Variante", "Rareza", "OVR", "Estado", "Modo", "Peso", "Cuota", ""].map((h, i) => (
+              {[i18nT("Carta"), i18nT("Variante"), i18nT("Rareza"), "OVR", i18nT("Estado"), i18nT("Modo"), i18nT("Peso"), i18nT("Cuota"), ""].map((h, i) => (
                 <th key={h || i} scope="col"
-                  className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{h}</th>
+                  className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{i18nTd(h)}</th>
               ))}
             </tr>
           </thead>
@@ -608,14 +605,14 @@ function EntriesTable({
                     <span className="font-mono text-[11px] text-white/40">{e.cardId}</span>
                   </Link>
                 </td>
-                <td className="px-3 py-2 text-white/70">{e.variantLabel}</td>
+                <td className="px-3 py-2 text-white/70">{i18nTd(e.variantLabel)}</td>
                 <td className="px-3 py-2"><BucketBadge bucket={e.rarityBucket} rank={e.rarityRank} /></td>
                 <td className="px-3 py-2 font-display font-bold tabular-nums text-white">{e.ovr}</td>
                 <td className="px-3 py-2">
                   <LifecycleBadge state={e.cardLifecycle} />
-                  {!e.elegible && <Badge tone="warn" className="ml-1">no reparte</Badge>}
+                  {!e.elegible && <Badge tone="warn" className="ml-1">{i18nT("no reparte")}</Badge>}
                 </td>
-                <td className="px-3 py-2 text-white/60">{e.mode}</td>
+                <td className="px-3 py-2 text-white/60">{i18nTd(e.mode)}</td>
                 <td className="px-3 py-2">
                   <WeightInput entry={e} editable={editable} running={running} onWeight={onWeight} />
                 </td>
@@ -625,7 +622,7 @@ function EntriesTable({
                 <td className="px-3 py-2">
                   {editable && (
                     <NxButton variant="tertiary" onClick={() => onQuitar(e)}
-                      aria-label={`Quitar ${e.cardId} del pool`}>Quitar</NxButton>
+                      aria-label={i18nT("Quitar {cardId} del pool", { cardId: e.cardId })}>{i18nT("Quitar")}</NxButton>
                   )}
                 </td>
               </tr>
@@ -640,7 +637,7 @@ function EntriesTable({
             <div className="flex items-start justify-between gap-2">
               <Link href={`/admin/cartas/${encodeURIComponent(e.cardId)}`}
                 className="flex min-h-[44px] min-w-0 flex-col justify-center">
-                <span className="truncate text-sm text-white">{e.nick} · {e.variantLabel}</span>
+                <span className="truncate text-sm text-white">{e.nick} · {i18nTd(e.variantLabel)}</span>
                 <span className="truncate font-mono text-[11px] text-drl-cyan">{e.cardId}</span>
               </Link>
               <BucketBadge bucket={e.rarityBucket} rank={e.rarityRank} />
@@ -648,12 +645,12 @@ function EntriesTable({
             <div className="mt-2 flex flex-wrap items-end gap-3">
               <WeightInput entry={e} editable={editable} running={running} onWeight={onWeight} />
               <p className="text-[12px] text-white/50">
-                cuota <span className="tabular-nums text-white/80">{e.mode === "INCLUDE" ? fmtCuota(e.cuota) : "—"}</span>
+                {i18nT("cuota")} <span className="tabular-nums text-white/80">{e.mode === "INCLUDE" ? fmtCuota(e.cuota) : "—"}</span>
               </p>
               <LifecycleBadge state={e.cardLifecycle} />
               {editable && (
                 <NxButton variant="tertiary" onClick={() => onQuitar(e)}
-                  aria-label={`Quitar ${e.cardId} del pool`}>Quitar</NxButton>
+                  aria-label={i18nT("Quitar {cardId} del pool", { cardId: e.cardId })}>{i18nT("Quitar")}</NxButton>
               )}
             </div>
           </div>
@@ -670,6 +667,7 @@ function WeightInput({
   entry: EntryRow; editable: boolean; running: boolean;
   onWeight: (e: EntryRow, weight: number) => void;
 }) {
+  useLocale();
   const [v, setV] = useState(String(entry.weight));
   useEffect(() => { setV(String(entry.weight)); }, [entry.weight]);
 
@@ -681,14 +679,14 @@ function WeightInput({
 
   return (
     <label className="block">
-      <span className="sr-only">Peso de {entry.cardId}</span>
+      <span className="sr-only">{i18nT("Peso de {carta}", { carta: entry.cardId })}</span>
       <input
         type="number" inputMode="decimal" min={0.0001} step="any"
         value={v} disabled={!editable || running}
         onChange={(e) => setV(e.target.value)}
         onBlur={guardar}
         onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); guardar(); } }}
-        aria-label={`Peso de ${entry.cardId}`}
+        aria-label={i18nT("Peso de {cardId}", { cardId: entry.cardId })}
         className="min-h-[44px] w-[92px] border border-white/15 bg-base-800 px-2 text-sm tabular-nums text-white outline-none focus-visible:border-drl disabled:opacity-40"
       />
     </label>
@@ -708,6 +706,7 @@ function AddCard({
   poolId: string; revision: number; pesoTotal: number;
   onHecho: (msg: string) => void; onConflicto: (m: string) => void;
 }) {
+  useLocale();
   const { running, error, clear, run } = useAsync<unknown>();
   const [q, setQ] = useState("");
   const [rows, setRows] = useState<CandidataCarta[]>([]);
@@ -763,12 +762,12 @@ function AddCard({
         });
       } catch (e) {
         const err = e as Error & { conflict?: boolean; current?: number };
-        if (err.conflict) onConflicto(`${err.message}${err.current ? ` La revisión vigente es r${err.current}.` : ""}`);
+        if (err.conflict) onConflicto(`${err.message}${err.current ? i18nT(" La revisión vigente es r{current}.", { current: err.current }) : ""}`);
         throw err;
       }
     });
     if (r === null) return;
-    onHecho(`${sel!.cardId} añadida con peso ${weight}.`);
+    onHecho(i18nT("{cardId} añadida con peso {weight}.", { cardId: sel!.cardId, weight: i18nTd(weight) }));
     setSel(null); setPreview(null); setQ(""); setRows([]); setWeight("1"); setMotivo("");
   };
 
@@ -782,24 +781,24 @@ function AddCard({
   return (
     <section aria-labelledby="h-anadir">
       <h2 id="h-anadir" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-        Añadir una carta
+        {i18nT("Añadir una carta")}
       </h2>
       <Plate className="space-y-4 p-4">
-        <ErrorBar error={error} onClose={clear} />
+        <ErrorBar error={i18nTd(error)} onClose={clear} />
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="min-w-0 space-y-3">
             <label className="block" htmlFor="buscar-carta">
               <span className="font-display text-label uppercase tracking-wider text-white/50">
-                Buscar carta publicada
+                {i18nT("Buscar carta publicada")}
               </span>
               <input
                 id="buscar-carta" value={q} onChange={(e) => setQ(e.target.value)}
-                placeholder="jugador o card id…" aria-label="Buscar carta para añadir al pool"
+                placeholder={i18nT("jugador o card id…")} aria-label={i18nT("Buscar carta para añadir al pool")}
                 className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-3 text-sm text-white outline-none focus-visible:border-drl"
               />
             </label>
 
-            <div className="max-h-64 space-y-1 overflow-y-auto" role="listbox" aria-label="Cartas encontradas">
+            <div className="max-h-64 space-y-1 overflow-y-auto" role="listbox" aria-label={i18nT("Cartas encontradas")}>
               {rows.map((c) => (
                 <button
                   key={c.cardId} type="button" role="option" aria-selected={sel?.cardId === c.cardId}
@@ -808,7 +807,7 @@ function AddCard({
                     ${sel?.cardId === c.cardId ? "border-drl bg-drl/10" : "border-white/10 hover:bg-white/5"}`}
                 >
                   <span className="min-w-0">
-                    <span className="block truncate text-sm text-white/90">{c.nick} · {c.variantLabel}</span>
+                    <span className="block truncate text-sm text-white/90">{c.nick} · {i18nTd(c.variantLabel)}</span>
                     <span className="block truncate font-mono text-[11px] text-white/40">{c.cardId}</span>
                   </span>
                   <span className="flex shrink-0 items-center gap-2">
@@ -818,14 +817,14 @@ function AddCard({
                 </button>
               ))}
               {q.trim() && rows.length === 0 && !running && (
-                <p className="px-1 py-3 text-sm text-white/40">Ninguna carta publicada con ese texto.</p>
+                <p className="px-1 py-3 text-sm text-white/40">{i18nT("Ninguna carta publicada con ese texto.")}</p>
               )}
             </div>
 
             {sel && (
               <div className="grid gap-3 sm:grid-cols-2">
                 <label className="block" htmlFor="peso-nuevo">
-                  <span className="font-display text-label uppercase tracking-wider text-white/50">Peso</span>
+                  <span className="font-display text-label uppercase tracking-wider text-white/50">{i18nT("Peso")}</span>
                   <input
                     id="peso-nuevo" type="number" inputMode="decimal" min={0.0001} step="any"
                     value={weight} onChange={(e) => setWeight(e.target.value)}
@@ -833,30 +832,30 @@ function AddCard({
                     className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-3 text-sm tabular-nums text-white outline-none focus-visible:border-drl"
                   />
                   <span id="peso-nuevo-h" className="mt-1 block text-[11px] text-white/35">
-                    Relativo al resto. {cuotaPrevista !== null
-                      ? `Quedaría en ${fmtCuota(cuotaPrevista)} del pool.`
-                      : "Las entradas EXCLUDE no llevan cuota."}
+                    {i18nT("Relativo al resto.")} {cuotaPrevista !== null
+                      ? i18nT("Quedaría en {cuotaPrevista} del pool.", { cuotaPrevista: fmtCuota(cuotaPrevista) })
+                      : i18nT("Las entradas EXCLUDE no llevan cuota.")}
                   </span>
                 </label>
-                <Select label="Modo" value={mode} onChange={setMode} noEmpty
+                <Select label={i18nT("Modo")} value={mode} onChange={setMode} noEmpty
                   options={[
-                    { value: "INCLUDE", label: "INCLUDE — puede salir" },
-                    { value: "EXCLUDE", label: "EXCLUDE — nunca sale" },
+                    { value: "INCLUDE", label: i18nT("INCLUDE — puede salir") },
+                    { value: "EXCLUDE", label: i18nT("EXCLUDE — nunca sale") },
                   ]} />
                 <label className="block sm:col-span-2" htmlFor="motivo-anadir">
                   <span className="font-display text-label uppercase tracking-wider text-white/50">
-                    Motivo (queda registrado)
+                    {i18nT("Motivo (queda registrado)")}
                   </span>
                   <textarea
                     id="motivo-anadir" rows={2} value={motivo}
                     onChange={(e) => setMotivo(e.target.value)}
-                    placeholder="Por qué entra esta carta en el pool"
+                    placeholder={i18nT("Por qué entra esta carta en el pool")}
                     className="mt-1 w-full resize-y border border-white/15 bg-base-800 px-3 py-2 text-sm text-white outline-none focus-visible:border-drl"
                   />
                 </label>
                 <div className="sm:col-span-2">
                   <NxButton variant="primary" disabled={!puede} onClick={() => void anadir()}>
-                    {running ? "Añadiendo…" : "Añadir al pool"}
+                    {running ? i18nT("Añadiendo…") : i18nT("Añadir al pool")}
                   </NxButton>
                 </div>
               </div>
@@ -871,7 +870,7 @@ function AddCard({
             ) : (
               <Recessed className="grid min-h-[220px] place-items-center p-4">
                 <p className="text-sm text-white/35">
-                  {sel ? "Cargando la carta…" : "Elige una carta para verla."}
+                  {sel ? i18nT("Cargando la carta…") : i18nT("Elige una carta para verla.")}
                 </p>
               </Recessed>
             )}
@@ -892,6 +891,7 @@ function AddCard({
 function PreviewCarta({
   player, variantId, ovr, combat,
 }: { player: Player; variantId: string; ovr: number; combat: CombatStats }) {
+  useLocale();
   const variant = useMemo(() => {
     try { return getVariant(variantId as VariantId); } catch { return null; }
   }, [variantId]);
@@ -901,7 +901,7 @@ function PreviewCarta({
       player={player} variant={variant}
       stats={player.stats} ovr={ovr} combat={combat}
       size="md"
-      nota="Es la definición vigente de la carta."
+      nota={i18nT("Es la definición vigente de la carta.")}
     />
   );
 }
@@ -909,6 +909,7 @@ function PreviewCarta({
 // ───────────────────────────── Probabilidad y simulación ─────────────────────────────
 
 function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[] }) {
+  useLocale();
   const { running, error, clear, run } = useAsync<unknown>();
   const [packId, setPackId] = useState(packs[0] ?? "");
   const [cardId, setCardId] = useState(entries[0]?.cardId ?? "");
@@ -934,12 +935,11 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
     return (
       <section aria-labelledby="h-prob">
         <h2 id="h-prob" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          Probabilidad
+          {i18nT("Probabilidad")}
         </h2>
         <Plate className="p-4">
           <p className="text-sm text-white/50">
-            Este pool no está vinculado a ningún sobre, así que no hay probabilidad que
-            calcular: no puede salir nada de él.
+            {i18nT("Este pool no está vinculado a ningún sobre, así que no hay probabilidad que calcular: no puede salir nada de él.")}
           </p>
         </Plate>
       </section>
@@ -949,46 +949,46 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
   return (
     <section aria-labelledby="h-prob">
       <h2 id="h-prob" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-        Probabilidad y simulación
+        {i18nT("Probabilidad y simulación")}
       </h2>
       <Plate className="space-y-4 p-4">
-        <ErrorBar error={error} onClose={clear} />
+        <ErrorBar error={i18nTd(error)} onClose={clear} />
 
         <div className="grid gap-3 sm:grid-cols-3">
-          <Select label="Sobre" value={packId} onChange={setPackId} noEmpty
+          <Select label={i18nT("Sobre")} value={packId} onChange={setPackId} noEmpty
             options={packs.map((p) => ({ value: p, label: p }))} />
-          <Select label="Carta" value={cardId} onChange={setCardId} noEmpty
+          <Select label={i18nT("Carta")} value={cardId} onChange={setCardId} noEmpty
             options={entries.map((e) => ({ value: e.cardId, label: `${e.nick} · ${e.variantLabel}` }))} />
           <div className="flex items-end">
             <NxButton variant="secondary" disabled={running || !packId || !cardId}
-              onClick={() => void calcular()}>Calcular probabilidad</NxButton>
+              onClick={() => void calcular()}>{i18nT("Calcular probabilidad")}</NxButton>
           </div>
         </div>
 
         {odds && (
           <Recessed className="space-y-3 p-4">
-            <p className="font-mono text-[12px] text-drl-cyan">{odds.cardId} · {odds.packName}</p>
+            <p className="font-mono text-[12px] text-drl-cyan">{odds.cardId} · {i18nTd(odds.packName)}</p>
             {!odds.enPool ? (
               <p className="text-sm text-drl-gold">
-                No puede salir de este sobre: {odds.motivo}. Probabilidad <strong>0</strong>.
+                {fill(i18nT("No puede salir de este sobre: {motivo}. Probabilidad {cero}.", { motivo: i18nTd(odds.motivo) ?? "", ...slots("cero") }), { cero: <strong>0</strong> })}
               </p>
             ) : (
               <>
                 {/* La descomposición, para que el número no sea un oráculo. */}
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[13px]">
                   <Trozo t="P(bucket)" v={fmtCuota(odds.pBucket)}
-                    pie={`${odds.bucket} · renormalizado sobre los buckets con stock`} />
+                    pie={i18nT("{bucket} · renormalizado sobre los buckets con stock", { bucket: i18nTd(odds.bucket) })} />
                   <span className="text-white/30">×</span>
-                  <Trozo t="P(carta | bucket)" v={fmtCuota(odds.pEnBucket)}
-                    pie={`peso ${num(odds.weight)} de ${num(odds.pesoBucket)} · ${odds.cartasEnBucket} cartas`} />
+                  <Trozo t={i18nT("P(carta | bucket)")} v={fmtCuota(odds.pEnBucket)}
+                    pie={i18nT("peso {weight} de {pesoBucket} · {cartasEnBucket} cartas", { weight: num(odds.weight), pesoBucket: num(odds.pesoBucket), cartasEnBucket: odds.cartasEnBucket })} />
                   <span className="text-white/30">=</span>
-                  <Trozo t="P en un hueco" v={fmtCuota(odds.pPorHueco)} destacado />
+                  <Trozo t={i18nT("P en un hueco")} v={fmtCuota(odds.pPorHueco)} destacado />
                 </div>
 
                 <FieldGrid cols={3}>
-                  <Field label="Cartas por sobre">{odds.huecos}</Field>
-                  <Field label="Al menos una en el sobre">{fmtCuota(odds.pAlMenosUna)}</Field>
-                  <Field label="Peso en el pool">{num(odds.weight)}</Field>
+                  <Field label={i18nT("Cartas por sobre")}>{odds.huecos}</Field>
+                  <Field label={i18nT("Al menos una en el sobre")}>{fmtCuota(odds.pAlMenosUna)}</Field>
+                  <Field label={i18nT("Peso en el pool")}>{num(odds.weight)}</Field>
                 </FieldGrid>
 
                 {/*
@@ -996,25 +996,21 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
                   informe: quien lee el porcentaje es quien las necesita.
                 */}
                 <p className="text-[11px] leading-relaxed text-white/45">
-                  «P en un hueco» vale para un hueco <strong>sin garantía ni pity en juego</strong>:
-                  los huecos garantizados sortean con otro mínimo de rareza y el pity fuerza el
-                  bucket, así que su probabilidad es distinta. «Al menos una» supone huecos
-                  independientes — el anti-duplicado y las garantías los correlacionan, así que
-                  es una aproximación, no una promesa.
+                  {fill(i18nT("«P en un hueco» vale para un hueco {condicion}: los huecos garantizados sortean con otro mínimo de rareza y el pity fuerza el bucket, así que su probabilidad es distinta. «Al menos una» supone huecos independientes — el anti-duplicado y las garantías los correlacionan, así que es una aproximación, no una promesa.", slots("condicion")), { condicion: <strong>{i18nT("sin garantía ni pity en juego")}</strong> })}
                 </p>
 
                 {odds.composicion.length > 1 && (
                   <div>
                     <p className="mb-1 font-display text-label uppercase tracking-wider text-white/40">
-                      Composición: {odds.composicion.length} pools en este sobre
+                      {i18nT("Composición: {n} pools en este sobre", { n: odds.composicion.length })}
                     </p>
                     <ul className="space-y-1 text-[12px] text-white/60">
                       {odds.composicion.map((c) => (
                         <li key={c.poolId}>
-                          <code className="text-drl-cyan">{c.poolId}</code> · prioridad {c.priority} ·{" "}
-                          {c.weight === null ? "no la contiene"
-                            : c.manda ? <strong className="text-white">peso {num(c.weight)} (manda)</strong>
-                            : `peso ${num(c.weight)} (no manda)`}
+                          <code className="text-drl-cyan">{c.poolId}</code> {i18nT("· prioridad")} {c.priority} ·{" "}
+                          {c.weight === null ? i18nT("no la contiene")
+                            : c.manda ? <strong className="text-white">{i18nT("peso {weight} (manda)", { weight: num(c.weight) })}</strong>
+                            : i18nT("peso {weight} (no manda)", { weight: num(c.weight) })}
                         </li>
                       ))}
                     </ul>
@@ -1028,7 +1024,7 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
         {/* ── Simulación ── */}
         <div className="flex flex-wrap items-end gap-3 border-t border-white/10 pt-4">
           <label className="block" htmlFor="aperturas">
-            <span className="font-display text-label uppercase tracking-wider text-white/50">Aperturas</span>
+            <span className="font-display text-label uppercase tracking-wider text-white/50">{i18nT("Aperturas")}</span>
             <input
               id="aperturas" type="number" min={1} max={20000} step={500}
               value={aperturas} onChange={(e) => setAperturas(e.target.value)}
@@ -1037,28 +1033,26 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
             />
           </label>
           <NxButton variant="secondary" disabled={running || !packId} onClick={() => void simular()}>
-            {running ? "Simulando…" : "Simular"}
+            {running ? i18nT("Simulando…") : i18nT("Simular")}
           </NxButton>
           <p id="aperturas-h" className="max-w-md text-[11px] text-white/40">
-            La simulación le pregunta al motor qué decidiría. <strong>No acuña nada</strong>: no
-            crea ejemplares, ni movimientos de mercado, ni entradas de economía. Máximo 20.000.
+            {fill(i18nT("La simulación le pregunta al motor qué decidiría. {nada}: no crea ejemplares, ni movimientos de mercado, ni entradas de economía. Máximo 20.000.", slots("nada")), { nada: <strong>{i18nT("No acuña nada")}</strong> })}
           </p>
         </div>
 
         {sim && (
           <Recessed className="space-y-3 p-4">
             <p className="text-[12px] text-white/50">
-              {num(sim.aperturas)} aperturas · {num(sim.cartas)} cartas · {sim.ms} ms ·
-              distribución v{sim.distributionVersion}
+              {i18nT("{aperturas} aperturas · {cartas} cartas · {ms} ms · distribución v{version}", { aperturas: num(sim.aperturas), cartas: num(sim.cartas), ms: sim.ms, version: sim.distributionVersion })}
             </p>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[420px] border-collapse text-sm">
-                <caption className="sr-only">Reparto por rareza: esperado frente a observado</caption>
+                <caption className="sr-only">{i18nT("Reparto por rareza: esperado frente a observado")}</caption>
                 <thead>
                   <tr className="border-b border-white/10 text-left">
-                    {["Rareza", "Esperado", "Observado", "n"].map((h) => (
+                    {[i18nT("Rareza"), i18nT("Esperado"), i18nT("Observado"), "n"].map((h) => (
                       <th key={h} scope="col"
-                        className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{h}</th>
+                        className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{i18nTd(h)}</th>
                     ))}
                   </tr>
                 </thead>
@@ -1076,16 +1070,16 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
             </div>
             <details>
               <summary className="min-h-[44px] cursor-pointer py-2 text-sm text-drl-cyan">
-                Las {sim.top.length} cartas más repartidas
+                {i18nT("Las {n} cartas más repartidas", { n: sim.top.length })}
               </summary>
               <div className="overflow-x-auto">
                 <table className="mt-2 w-full min-w-[560px] border-collapse text-sm">
-                  <caption className="sr-only">Cartas más repartidas en la simulación</caption>
+                  <caption className="sr-only">{i18nT("Cartas más repartidas en la simulación")}</caption>
                   <thead>
                     <tr className="border-b border-white/10 text-left">
-                      {["Carta", "Peso", "Esperado", "Observado", "n"].map((h) => (
+                      {[i18nT("Carta"), i18nT("Peso"), i18nT("Esperado"), i18nT("Observado"), "n"].map((h) => (
                         <th key={h} scope="col"
-                          className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{h}</th>
+                          className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">{i18nTd(h)}</th>
                       ))}
                     </tr>
                   </thead>
@@ -1093,7 +1087,7 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
                     {sim.top.map((t) => (
                       <tr key={t.cardId} className="border-b border-white/5">
                         <td className="px-3 py-2">
-                          <span className="text-white/80">{t.nick} · {t.variantLabel}</span>
+                          <span className="text-white/80">{t.nick} · {i18nTd(t.variantLabel)}</span>
                           <span className="block font-mono text-[11px] text-white/35">{t.cardId}</span>
                         </td>
                         <td className="px-3 py-2 tabular-nums text-white/60">{num(t.weight)}</td>
@@ -1116,20 +1110,21 @@ function Probabilidad({ packs, entries }: { packs: string[]; entries: EntryRow[]
 function Trozo({ t, v, pie, destacado }: { t: string; v: string; pie?: string; destacado?: boolean }) {
   return (
     <span className="inline-block">
-      <span className="block font-display text-label uppercase tracking-wider text-white/40">{t}</span>
-      <span className={`block tabular-nums ${destacado ? "text-drl-cyan" : "text-white"}`}>{v}</span>
-      {pie && <span className="block font-sans text-[10px] text-white/35">{pie}</span>}
+      <span className="block font-display text-label uppercase tracking-wider text-white/40">{i18nTd(t)}</span>
+      <span className={`block tabular-nums ${destacado ? "text-drl-cyan" : "text-white"}`}>{i18nTd(v)}</span>
+      {pie && <span className="block font-sans text-[10px] text-white/35">{i18nTd(pie)}</span>}
     </span>
   );
 }
 
 function DetalleDiario({ detail }: { detail: Record<string, unknown> }) {
+  useLocale();
   if (!detail) return <>—</>;
   const partes: string[] = [];
   if (detail.reason) partes.push(String(detail.reason));
   if (Array.isArray(detail.weight)) partes.push(`peso ${String(detail.weight[0] ?? "—")} → ${String(detail.weight[1])}`);
-  if (Array.isArray(detail.altas) && detail.altas.length) partes.push(`+${detail.altas.length} cartas`);
-  if (Array.isArray(detail.bajas) && detail.bajas.length) partes.push(`−${detail.bajas.length} cartas`);
+  if (Array.isArray(detail.altas) && detail.altas.length) partes.push(i18nT("+{length} cartas", { length: detail.altas.length }));
+  if (Array.isArray(detail.bajas) && detail.bajas.length) partes.push(i18nT("−{length} cartas", { length: detail.bajas.length }));
   if (detail.from && detail.to) partes.push(`${String(detail.from)} → ${String(detail.to)}`);
   if (detail.packId) partes.push(`sobre ${String(detail.packId)}`);
   return <>{partes.join(" · ") || "—"}</>;

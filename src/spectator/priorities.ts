@@ -8,6 +8,9 @@
  */
 import { ovr, ZONES, PLANT_ZONE, type RoundState, type SimEvent, type SimPlayer, type ZoneId } from "../sim";
 import type { FocusCandidate } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("spectator");
 
 const TRADE_WINDOW = 30; // ticks (~1.5 s) para considerar un kill "reciente"
 const LURK_ISOLATION = 240; // un lurk a esta distancia de sus aliados es "interesante"
@@ -71,7 +74,7 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
         situation: "clutch", tier: "critical", focusPlayerId: lone.id,
         focusZone: nearestZoneId(lone.pos), camera: "clutch",
         priority: 84 + Math.min(x - 1, 3) * 4, // 1v1:84 · 1v2:88 · 1v3:92 · 1v4+:96
-        reason: `Clutch 1v${x} de ${lone.name}`,
+        reason: t("Clutch 1v{x} de {name}", { x, name: lone.name }),
       }));
     }
   }
@@ -83,7 +86,7 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
       situation: "defuse", tier: "critical", focusPlayerId: defuser?.id ?? null,
       focusZone: nearestZoneId(s.spike.pos), camera: "defuse",
       priority: 90 + Math.round(s.spike.defuseProgress * 5),
-      reason: `Desactivando el spike${defuser ? ` (${defuser.name})` : ""}`,
+      reason: t("Desactivando el spike{v}", { v: defuser ? ` (${defuser.name})` : "" }),
     }));
   }
 
@@ -94,7 +97,7 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
       situation: "plant", tier: "critical", focusPlayerId: planter?.id ?? null,
       focusZone: nearestZoneId(PLANT_ZONE), camera: "plant",
       priority: 86 + Math.round(s.spike.plantProgress * 4),
-      reason: `Plantando el spike${planter ? ` (${planter.name})` : ""}`,
+      reason: t("Plantando el spike{v}", { v: planter ? ` (${planter.name})` : "" }),
     }));
   }
 
@@ -107,7 +110,7 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
         situation: "retake", tier: "critical", focusPlayerId: lead.id,
         focusZone: nearestZoneId(s.spike.pos), camera: "retake",
         priority: 76 + Math.min(def.length, 4),
-        reason: `Retake en marcha (${pushing.length} def)`,
+        reason: t("Retake en marcha ({length} def)", { length: pushing.length }),
       }));
     }
   }
@@ -123,19 +126,19 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
       out.push(cand({
         situation: "first_duel", tier: "combat", focusPlayerId: focus.id,
         focusZone: nearestZoneId(focus.pos), camera: "player",
-        priority: 80 + starBonus(focus), reason: `Primer duelo (${focus.name})`,
+        priority: 80 + starBonus(focus), reason: t("Primer duelo ({name})", { name: focus.name }),
       }));
     } else if (trade) {
       out.push(cand({
         situation: "trade", tier: "combat", focusPlayerId: focus.id,
         focusZone: nearestZoneId(focus.pos), camera: "player",
-        priority: 74 + starBonus(focus), reason: `Trade en juego (${focus.name})`,
+        priority: 74 + starBonus(focus), reason: t("Trade en juego ({name})", { name: focus.name }),
       }));
     } else {
       out.push(cand({
         situation: "duel", tier: "combat", focusPlayerId: focus.id,
         focusZone: nearestZoneId(focus.pos), camera: "player",
-        priority: 64 + starBonus(focus), reason: `Duelo (${focus.name})`,
+        priority: 64 + starBonus(focus), reason: t("Duelo ({name})", { name: focus.name }),
       }));
     }
   }
@@ -153,7 +156,7 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
       out.push(cand({
         situation: "lurk", tier: "combat", focusPlayerId: lurk.id,
         focusZone: nearestZoneId(lurk.pos), camera: "player",
-        priority: 56 + starBonus(lurk), reason: `Lurk de ${lurk.name} por el flanco`,
+        priority: 56 + starBonus(lurk), reason: t("Lurk de {name} por el flanco", { name: lurk.name }),
       }));
     }
   }
@@ -168,7 +171,7 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
       out.push(cand({
         situation: "rotation", tier: "tactical", focusPlayerId: focus.id,
         focusZone: nearestZoneId(focus.pos), camera: "tactical",
-        priority: 46, reason: "Reposicionamiento del equipo",
+        priority: 46, reason: t("Reposicionamiento del equipo"),
       }));
     }
   }
@@ -177,14 +180,14 @@ export function detectCandidates(s: RoundState, events: SimEvent[]): FocusCandid
   if (live && (s.phase === "SETUP" || s.phase === "EXECUTE")) {
     out.push(cand({
       situation: "default", tier: "tactical", focusPlayerId: null,
-      focusZone: "site", camera: "tactical", priority: 34, reason: "Fase de control del mapa",
+      focusZone: "site", camera: "tactical", priority: 34, reason: t("Fase de control del mapa"),
     }));
   }
 
   // Lull (garantiza siempre una decisión válida).
   out.push(cand({
     situation: "lull", tier: "tactical", focusPlayerId: null,
-    focusZone: "site", camera: "cinematic", priority: 16, reason: "Sin acción destacada",
+    focusZone: "site", camera: "cinematic", priority: 16, reason: t("Sin acción destacada"),
   }));
 
   return out;

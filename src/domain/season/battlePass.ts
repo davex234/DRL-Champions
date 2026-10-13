@@ -8,6 +8,9 @@
  */
 import type { PassTrack, ProgressionView } from "@/lib/progression/client";
 import type { Reward } from "@/battlepass/types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("season");
 
 export type LaneState = "AVAILABLE" | "CLAIMED" | "LOCKED";
 
@@ -53,9 +56,9 @@ export function passRows(view: ProgressionView): PassLevelRow[] {
       const open = laneOpen(view, track);
       const state: LaneState = entry.claimed ? "CLAIMED" : entry.claimable ? "AVAILABLE" : "LOCKED";
       const lockReason = state !== "LOCKED" ? null
-        : level > view.level ? `Nivel ${level}`
-        : !open ? (track === "competitive" ? "Se abre en Oro" : "Premium")
-        : "Bloqueado";
+        : level > view.level ? t("Nivel {level}", { level })
+        : !open ? (track === "competitive" ? t("Se abre en Oro") : t("Premium"))
+        : t("Bloqueado");
       lanes.push({ track, label, reward: entry.reward, state, lockReason });
     }
     rows.push({ level, reached: level <= view.level, current: level === Math.max(1, view.level), lanes });

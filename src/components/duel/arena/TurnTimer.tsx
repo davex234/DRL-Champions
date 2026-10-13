@@ -10,6 +10,10 @@
 import { cn } from "@/lib/format";
 import { TURN_DECISION_MS, formatClock, timerUrgency } from "@/lib/duel/turnClock";
 import type { DuelTimeoutView } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 const TONE = {
   normal: "text-white/90",
@@ -19,10 +23,11 @@ const TONE = {
 } as const;
 
 export function TurnTimer({ ms, yours, className }: { ms: number | null; yours: boolean; className?: string }) {
+  useLocale();
   if (ms === null) return null;
   const urgency = timerUrgency(ms);
   const fraction = Math.max(0, Math.min(1, ms / TURN_DECISION_MS));
-  const label = yours ? "Tu tiempo" : "Rival";
+  const label = yours ? t("Tu tiempo") : t("Rival");
   return (
     <span
       role="timer"
@@ -36,7 +41,7 @@ export function TurnTimer({ ms, yours, className }: { ms: number | null; yours: 
         className,
       )}
     >
-      <span className="hidden font-display text-[8px] font-bold uppercase tracking-[0.22em] text-white/50 sm:block">{label}</span>
+      <span className="hidden font-display text-[8px] font-bold uppercase tracking-[0.22em] text-white/50 sm:block">{td(label)}</span>
       <b
         className={cn(
           "nx-readout text-[17px] tabular-nums sm:text-[19px]",
@@ -55,13 +60,14 @@ export function TurnTimer({ ms, yours, className }: { ms: number | null; yours: 
       </span>
       {/* Solo se anuncia al cruzar los umbrales: un anuncio por segundo sería ruido. */}
       <span className="sr-only" aria-live="polite">
-        {yours && urgency === "warn" ? "Quedan 10 segundos" : yours && urgency === "critical" ? "Quedan 5 segundos" : ""}
+        {yours && urgency === "warn" ? t("Quedan 10 segundos") : yours && urgency === "critical" ? t("Quedan 5 segundos") : ""}
       </span>
     </span>
   );
 }
 
 export function TimeoutNotice({ notice, className }: { notice: DuelTimeoutView | null; className?: string }) {
+  useLocale();
   if (!notice) return null;
   return (
     <div
@@ -73,9 +79,9 @@ export function TimeoutNotice({ notice, className }: { notice: DuelTimeoutView |
         className,
       )}
     >
-      <b className="block font-display text-[12px] font-bold uppercase tracking-[0.2em] text-[#ff2e63]">Tiempo agotado</b>
+      <b className="block font-display text-[12px] font-bold uppercase tracking-[0.2em] text-[#ff2e63]">{t("Tiempo agotado")}</b>
       <span className="block text-[11px] text-white/80">
-        {notice.you ? "Jugada automática" : "El rival agotó su tiempo · jugada automática"}
+        {notice.you ? t("Jugada automática") : t("El rival agotó su tiempo · jugada automática")}
       </span>
     </div>
   );

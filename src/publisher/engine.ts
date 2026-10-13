@@ -26,6 +26,9 @@ import { applyMarketplaceRuntime } from "./marketplace";
 import { applySearchRuntime } from "./search";
 import { applyNewsRuntime } from "./news";
 import { restoreSnapshot } from "./rollback";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("publisher");
 
 /** Validación del RUNTIME tras aplicar (registry/engines/pools/secciones sin referencias viejas). */
 export function validateRuntime(build: CatalogBuildResult): RuntimeValidation {
@@ -33,22 +36,22 @@ export function validateRuntime(build: CatalogBuildResult): RuntimeValidation {
   const err = (section: string, message: string): void => { issues.push({ severity: "error", section, message }); };
 
   const registry = runtimeRegistry();
-  if (totalCards() !== build.catalog.cards.length) err("catalog", `catálogo vivo ${totalCards()} ≠ build ${build.catalog.cards.length}`);
+  if (totalCards() !== build.catalog.cards.length) err("catalog", t("catálogo vivo {v} ≠ build {length}", { v: totalCards(), length: build.catalog.cards.length }));
   if (registry.total !== build.catalog.cards.length) err("registry", `registry ${registry.total} ≠ build ${build.catalog.cards.length}`);
-  for (const id of build.diff.added) if (!registry.has(id)) err("registry", `alta no indexada: ${id}`);
+  for (const id of build.diff.added) if (!registry.has(id)) err("registry", t("alta no indexada: {id}", { id }));
 
   // Singletones recreados: engines ligados EXACTAMENTE al registry/catálogo vigentes.
-  if (runtimePackEngine().registry !== registry) err("engines", "PackEngine apunta a un registry antiguo");
-  if (runtimeCraftEngine().registry !== registry) err("engines", "CraftEngine apunta a un registry antiguo");
-  if (registry.cards !== CARDS) err("engines", "registry no construido sobre el catálogo vivo vigente");
+  if (runtimePackEngine().registry !== registry) err("engines", t("PackEngine apunta a un registry antiguo"));
+  if (runtimeCraftEngine().registry !== registry) err("engines", t("CraftEngine apunta a un registry antiguo"));
+  if (registry.cards !== CARDS) err("engines", t("registry no construido sobre el catálogo vivo vigente"));
 
-  if (runtimeSearch().rows.length !== build.search.rows.length) err("search", "índice de búsqueda no publicado");
+  if (runtimeSearch().rows.length !== build.search.rows.length) err("search", t("índice de búsqueda no publicado"));
   const cols = new Set(runtimeCollections().map((c) => c.id));
-  for (const c of build.collections.collections) if (!cols.has(c.id)) err("collections", `colección no publicada: ${c.id}`);
+  for (const c of build.collections.collections) if (!cols.has(c.id)) err("collections", t("colección no publicada: {id}", { id: c.id }));
   const market = new Set(runtimeMarketEntries().map((e) => e.cardId));
-  for (const e of build.marketplace.entries) if (!market.has(e.cardId)) err("marketplace", `entrada no publicada: ${e.cardId}`);
+  for (const e of build.marketplace.entries) if (!market.has(e.cardId)) err("marketplace", t("entrada no publicada: {cardId}", { cardId: e.cardId }));
   const newsIds = new Set(runtimeNews().map((n) => n.id));
-  for (const n of build.news) if (!newsIds.has(n.id)) err("news", `noticia no publicada: ${n.id}`);
+  for (const n of build.news) if (!newsIds.has(n.id)) err("news", t("noticia no publicada: {id}", { id: n.id }));
 
   return { ok: !issues.some((i) => i.severity === "error"), issues };
 }

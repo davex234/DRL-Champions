@@ -13,6 +13,9 @@
 import { tryReplace, checkDraft, draftCards, type Pool } from "@/domain/deckBuilder/builder";
 import { AXES, METRICS, METRIC_LABEL, metricOf, type Axis, type Metric, type StrategyContext } from "./catalog";
 import { analyzeDeck, type DeckAnalysis, type OrientationKind, type StrategyCard } from "./analysis";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+
+const t = ns("deckStrategy");
 
 export type MetricDelta = Record<Metric, number>;
 
@@ -53,14 +56,14 @@ export function fitSentences(current: StrategyCard, candidate: StrategyCard, bef
   const up = AXES.filter((a) => candidate.combat[a] > current.combat[a]).map((a) => METRIC_LABEL[a]);
   const down = AXES.filter((a) => candidate.combat[a] < current.combat[a]).map((a) => METRIC_LABEL[a]);
   const join = (xs: string[]) => (xs.length <= 1 ? xs.join("") : `${xs.slice(0, -1).join(", ")} y ${xs[xs.length - 1]}`);
-  if (up.length && down.length) out.push(`Sube ${join(up)}, pero reduce ${join(down)}.`);
+  if (up.length && down.length) out.push(t("Sube {up}, pero reduce {down}.", { up: join(up), down: join(down) }));
   else if (up.length) out.push(`Sube ${join(up)}.`);
   else if (down.length) out.push(`Reduce ${join(down)}.`);
-  else out.push("Mismos valores en los tres ejes.");
+  else out.push(t("Mismos valores en los tres ejes."));
   const weakest = before.orientation?.weakest ?? null;
-  if (weakest && candidate.combat[weakest] > current.combat[weakest]) out.push(`Mejora el eje más débil del equipo (${METRIC_LABEL[weakest]}).`);
+  if (weakest && candidate.combat[weakest] > current.combat[weakest]) out.push(t("Mejora el eje más débil del equipo ({v}).", { v: td(METRIC_LABEL[weakest]) }));
   const order = (c: StrategyCard) => [...AXES].sort((a, b) => c.combat[b] - c.combat[a] || AXES.indexOf(a) - AXES.indexOf(b)).join(">");
-  if (order(current) === order(candidate)) out.push(`Mantiene el mismo orden de ejes que ${current.nick}.`);
+  if (order(current) === order(candidate)) out.push(t("Mantiene el mismo orden de ejes que {nick}.", { nick: current.nick }));
   return out.slice(0, 3);
 }
 
@@ -118,14 +121,14 @@ export function swapAlternatives(uids: readonly string[], slotUid: string, pool:
 /** «+3», «−2», «=» con un decimal si hace falta. El signo va en texto. */
 export function signedText(d: number, decimals = 1): string {
   const r = Math.round(d * 10 ** decimals) / 10 ** decimals;
-  const abs = Math.abs(r).toLocaleString("es-ES", { maximumFractionDigits: decimals });
+  const abs = Math.abs(r).toLocaleString(getIntlLocale(), { maximumFractionDigits: decimals });
   return r > 0 ? `+${abs}` : r < 0 ? `−${abs}` : "=";
 }
 
 /** «Gamesense sube 0,3», para lectores de pantalla. */
 export function deltaAria(m: Metric, d: number): string {
   const r = Math.round(d * 10) / 10;
-  return r === 0 ? `${METRIC_LABEL[m]} sin cambios` : `${METRIC_LABEL[m]} ${signs(r)} ${Math.abs(r).toLocaleString("es-ES")}`;
+  return r === 0 ? t("{v} sin cambios", { v: td(METRIC_LABEL[m]) }) : `${METRIC_LABEL[m]} ${signs(r)} ${Math.abs(r).toLocaleString(getIntlLocale())}`;
 }
 
 /**

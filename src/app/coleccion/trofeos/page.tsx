@@ -22,15 +22,21 @@ import { fetchMastery, type MasteryView } from "@/lib/game/mastery";
 import { fetchPrestige, type PrestigeView } from "@/lib/game/prestige";
 import { Toast } from "@/components/ui/Toast";
 import { useToast } from "@/lib/useToast";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coleccion");
 
 export default function TrophyRoomPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading kind="hub" label="Cargando tu Sala de Trofeos…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="la Sala de Trofeos" />;
+  if (loading) return <Loading kind="hub" label={t("Cargando tu Sala de Trofeos…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("la Sala de Trofeos")} />;
   return <TrophyRoomRoute />;
 }
 
 function TrophyRoomRoute() {
+  useLocale();
   const [room, setRoom] = useState<TrophyRoomView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const load = useCallback(async () => {
@@ -50,8 +56,8 @@ function TrophyRoomRoute() {
   // Reclamar maestría o mejorar una insignia cambia las insignias de la sala: se relee también la foto de la sala.
   const onBadgesChanged = useCallback(() => { reloadMastery(); void load(); }, [reloadMastery, load]);
 
-  if (error) return <ErrorState message={error} onRetry={load} />;
-  if (!room) return <Loading kind="hub" label="Cargando tu Sala de Trofeos…" />;
+  if (error) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!room) return <Loading kind="hub" label={t("Cargando tu Sala de Trofeos…")} />;
   return (
     <TrophyRoomScreen room={room}>
       {mastery && <MasteryPanel view={mastery} onChanged={onBadgesChanged} notify={notify} />}

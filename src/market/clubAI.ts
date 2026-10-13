@@ -14,6 +14,9 @@ import { applyLoanOut, applyLoanReturn } from "./apply";
 import { directorStance } from "./director";
 import { squadNeeds, needsRole } from "./needs";
 import { marketValue, askingFee } from "./value";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("market");
 
 const NOTABLE_FEE = 9000;
 
@@ -92,7 +95,7 @@ export function runAiMarket(world: WorldState, userClubId: string | null, at: nu
     const t = world.transfers[i];
     if (t.kind === "transfer" && t.fee >= NOTABLE_FEE) {
       const p = world.players[t.playerId];
-      events.push({ id: `mkt:${t.season}:signing:${t.playerId}:${i}`, type: t.fee >= 22000 ? "bomb" : "signing", season: t.season, at, playerId: t.playerId, playerNick: t.nick, fromClub: t.from, toClub: t.to, fee: t.fee, detail: `${t.to ? world.teams[t.to]?.name : "?"} ficha a ${t.nick} por ${t.fee}.`, magnitude: Math.min(100, 40 + t.fee / 800) });
+      events.push({ id: `mkt:${t.season}:signing:${t.playerId}:${i}`, type: t.fee >= 22000 ? "bomb" : "signing", season: t.season, at, playerId: t.playerId, playerNick: t.nick, fromClub: t.from, toClub: t.to, fee: t.fee, detail: tr("{v} ficha a {nick} por {fee}.", { v: t.to ? td(world.teams[t.to]?.name) : "?", nick: t.nick, fee: t.fee }), magnitude: Math.min(100, 40 + t.fee / 800) });
     }
   }
   return events;
@@ -144,8 +147,8 @@ function mkIncoming(playerId: string, nick: string, role: WorldPlayer["role"], f
     toClub: fromClubId, toClubName: fromClubName,  // comprador = club IA
     initiator: "ai", direction: "incoming", kind: "transfer",
     fee, salary, years: 3, bonus: 0, releaseClause: Math.round(fee * 1.8), loan: null, swapPlayerId: null,
-    status: "pending", rounds: [{ by: "ai", fee, salary, years: 3, note: `${fromClubName} ofrece ${fee} por tu jugador.` }],
-    note: `${fromClubName} (${stance.philosophy}) puja por ${nick}.`,
+    status: "pending", rounds: [{ by: "ai", fee, salary, years: 3, note: tr("{fromClubName} ofrece {fee} por tu jugador.", { fromClubName: td(fromClubName), fee }) }],
+    note: tr("{fromClubName} ({philosophy}) puja por {nick}.", { fromClubName: td(fromClubName), philosophy: stance.philosophy, nick }),
   };
 }
 
@@ -158,7 +161,7 @@ export function generateRumors(world: WorldState, events: MarketEvent[], season:
   // Estrellas descontentas ⇒ rumor de salida.
   const unhappy = Object.values(world.players).filter((p) => p.teamId && p.contract && p.contract.happiness < 38 && progress(p.dev) > 70).slice(0, 4);
   for (const p of unhappy) {
-    rumors.push({ id: `rumor:unhappy:${p.id}:${season}`, season, text: `${p.nick} estaría descontento en ${world.teams[p.teamId!]?.name} y podría salir.`, playerId: p.id, clubId: p.teamId, heat: 70 });
+    rumors.push({ id: `rumor:unhappy:${p.id}:${season}`, season, text: tr("{nick} estaría descontento en {name} y podría salir.", { nick: p.nick, name: td(world.teams[p.teamId!]?.name) }), playerId: p.id, clubId: p.teamId, heat: 70 });
   }
   return rumors.sort((a, b) => b.heat - a.heat).slice(0, 10);
 }

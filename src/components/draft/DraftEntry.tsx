@@ -14,13 +14,18 @@ import { NxButton } from "@/components/ui/NxButton";
 import { packArtwork } from "@/data/packArtwork";
 import { creditsLabel } from "@/lib/duels/selector";
 import type { DraftEconomyView } from "@/domain/draft/economy";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("draft");
 
 export function DraftRewardLadder({ economy, className, reached = null }: { economy: DraftEconomyView; className?: string; reached?: number | null }) {
+  useLocale();
   const art = packArtwork(economy.jackpot.packId);
   const steps = economy.table.slice(0, -1);
   const top = economy.table[economy.table.length - 1];
   return (
-    <ol aria-label="Premios por victorias" data-testid="draft-reward-ladder" className={cn("grid grid-cols-5 items-end gap-1.5", className)}>
+    <ol aria-label={t("Premios por victorias")} data-testid="draft-reward-ladder" className={cn("grid grid-cols-5 items-end gap-1.5", className)}>
       {steps.map((l) => (
         <li
           key={l.wins}
@@ -42,12 +47,12 @@ export function DraftRewardLadder({ economy, className, reached = null }: { econ
       >
         {art && <img src={art} alt="" loading="lazy" decoding="async" className="nx-draft-jackpot-art -my-4 h-[96px] w-auto shrink-0 -rotate-6 drop-shadow-[0_8px_18px_rgba(255,211,92,0.55)]" />}
         <span className="min-w-0 flex-1 leading-none">
-          <span className="block font-display text-[13px] font-bold uppercase tracking-[0.12em] text-drl-gold">Gran premio · 5 V</span>
+          <span className="block font-display text-[13px] font-bold uppercase tracking-[0.12em] text-drl-gold">{t("Gran premio · 5 V")}</span>
           <span className="mt-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <span className="nx-readout text-[24px] tabular-nums text-white">{creditsLabel(top.credits)}</span>
-            <span className="font-display text-[14px] font-bold uppercase tracking-[0.06em] text-white">+ {economy.jackpot.packName}</span>
+            <span className="font-display text-[14px] font-bold uppercase tracking-[0.06em] text-white">+ {td(economy.jackpot.packName)}</span>
           </span>
-          <span className="mt-1 block text-[11px] font-bold uppercase tracking-[0.08em] text-white/60">1 por semana</span>
+          <span className="mt-1 block text-[11px] font-bold uppercase tracking-[0.08em] text-white/60">{t("1 por semana")}</span>
         </span>
       </li>
     </ol>
@@ -65,13 +70,14 @@ export function DraftEntryButton({
   className?: string;
   size?: "md" | "lg";
 }) {
+  useLocale();
   const [confirming, setConfirming] = useState(false);
   const amount = creditsLabel(fee);
   if (!confirming || disabled) {
     return (
       <NxButton variant="primary" size={size} block className={className} data-cta="primary" data-step="enter" data-testid={testId}
         disabled={disabled || busy} onClick={() => setConfirming(true)}>
-        {busy ? "Entrando…" : `Entrar · ${amount}`}
+        {busy ? t("Entrando…") : t("Entrar · {amount}", { amount: td(amount) })}
       </NxButton>
     );
   }
@@ -79,13 +85,13 @@ export function DraftEntryButton({
     <div className={cn("space-y-1.5", className)} data-testid="draft-entry-confirm">
       <NxButton variant="primary" size={size} block data-cta="primary" data-step="confirm" data-testid={testId} disabled={busy}
         onClick={onConfirm} autoFocus>
-        {busy ? "Entrando…" : `Confirmar · ${amount}`}
+        {busy ? t("Entrando…") : t("Confirmar · {amount}", { amount: td(amount) })}
       </NxButton>
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[12px] uppercase tracking-[0.1em] text-white/60">Se cobra al confirmar</span>
+        <span className="text-[12px] uppercase tracking-[0.1em] text-white/60">{t("Se cobra al confirmar")}</span>
         <button type="button" className="nx-focus min-h-[36px] px-2 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white/70 hover:text-white"
           onClick={() => setConfirming(false)} disabled={busy} data-testid="draft-entry-cancel">
-          Cancelar
+          {t("Cancelar")}
         </button>
       </div>
     </div>

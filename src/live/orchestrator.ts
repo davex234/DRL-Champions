@@ -24,6 +24,9 @@ import {
   type EcoEvent, tournamentFinished, championEvent, mvpEvent, debutEvent, transferEvent, historicAce,
 } from "./events";
 import { createAnalytics, finalizeAnalytics, type Analytics } from "./analytics";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("live");
 
 export interface LiveCard {
   playerId: string; nick: string; family: string; kind: string;
@@ -75,7 +78,7 @@ export async function runLiveCycle(
 
       const teams = (await viaProviders(providers, game, "fetchTeams", (p) => p.fetchTeams(raw.id), (v) => v.length === 0, [], a.attempts, now)).value;
       const result = (await viaProviders(providers, game, "fetchResult", (p) => p.fetchResult(raw.id), (v) => v == null, null, a.attempts, now)).value;
-      if (!result) { a.errors.push(`${t.name}: sin resultados`); log(`ERROR ${t.name}: sin resultados (continúa)`); continue; }
+      if (!result) { a.errors.push(tr("{name}: sin resultados", { name: t.name })); log(`ERROR ${t.name}: sin resultados (continúa)`); continue; }
 
       a.tournamentsProcessed++;
       eco.push(tournamentFinished(tc.id, t.name, season, now()));

@@ -53,19 +53,19 @@ test("A1 · la pre-partida enseña TODOS los mazos y lee la validación del serv
 test("A2 · con un mazo inválido no se puede empezar: se dicen los roles que faltan y se ofrece completar el equipo", () => {
   assert.ok(PREMATCH.includes("disabled={!canStart}"));
   assert.ok(PREMATCH.includes("const canStart = Boolean(chosen && readiness?.ready) && !busy;"));
-  assert.ok(PREMATCH.includes("No puedes empezar con «{chosen.name}»"));
-  assert.ok(PREMATCH.includes('aria-label="Roles que faltan"'));
+  assert.ok(PREMATCH.includes('{t("No puedes empezar con «{name}»", { name: chosen.name })}'));
+  assert.ok(PREMATCH.includes('aria-label={t("Roles que faltan")}'));
   assert.ok(PREMATCH.includes("Completar equipo"));
   assert.ok(PREMATCH.includes("href={`/duelos/mazos?deck=${chosen.id}`}"));
 });
 
 test("A3 · los textos que leen los verificadores no cambian: Preparación, Fácil/Normal/Difícil, Comenzar duelo, Continuar", () => {
-  assert.ok(PREMATCH.includes(">\n              Preparación\n"));
+  assert.ok(PREMATCH.includes('>\n              {t("Preparación")}\n'));
   assert.ok(PREMATCH.includes("Comenzar duelo"));
   // Ajuste UX · FÁCIL/NORMAL/DIFÍCIL en mayúsculas SOLO por CSS: el DOM conserva «Fácil»/«Normal»/«Difícil» (DIFFICULTY_INFO).
-  assert.ok(/Mayúsculas SOLO por CSS/.test(PREMATCH) && PREMATCH.includes("{info.label}"), "las etiquetas de dificultad salen de DIFFICULTY_INFO");
+  assert.ok(/Mayúsculas SOLO por CSS/.test(PREMATCH) && PREMATCH.includes("{td(info.label)}"), "las etiquetas de dificultad salen de DIFFICULTY_INFO");
   assert.ok(MOMENT.includes("Continuar"));
-  assert.ok(JUGAR.includes('label="Preparando duelo…"'));
+  assert.ok(JUGAR.includes('label={t("Preparando duelo…")}'));
 });
 
 test("A4 · la intro es saltable, se va sola, respeta reduced-motion y no bloquea ninguna petición", () => {
@@ -111,7 +111,7 @@ test("A7 · el rival solo se revela cuando lo dice el servidor: `pendingRival` /
 
 test("A8 · la revelación nombra las estadísticas por su nombre real y el veredicto viene de `outcome`", () => {
   assert.ok(MOMENT.includes("const v = roundVerdict(turn);"));
-  assert.ok(MOMENT.includes("{v.detail}"));
+  assert.ok(MOMENT.includes("{td(v.detail)}"));
   assert.ok(MOMENT.includes('const youWin = turn.outcome === "A";'));
   assert.ok(!/turn\.you\.value\s*>\s*turn\.rival\.value/.test(code(MOMENT)), "no decide quién gana comparando valores");
 });
@@ -137,7 +137,7 @@ test("A10 · marcador e historial: pista de turnos, columna reservada y tira en 
   assert.ok(played.includes("min-h-[calc(var(--pos)*1.16)]"), "la fila de posiciones reserva su altura: la mesa no salta");
   assert.ok(!BOARD.includes("xl:grid-cols-[minmax(0,1fr)_300px]"), "la columna lateral fija ya no existe");
   assert.ok(RESULT.includes("<RoundStrip history={view.history}"));
-  assert.ok(SUMMARY.includes('aria-label="Historial por turnos"'));
+  assert.ok(SUMMARY.includes('aria-label={tr("Historial por turnos")}'));
 });
 
 test("A11 · el final: CARTA DESTACADA (nunca «MVP»), recompensa, XP y nivel salen de datos del servidor", () => {
@@ -200,7 +200,7 @@ test("B3 · el timeout es del servidor: la cuenta atrás no decide nada y el cie
 test("B4 · reconexión PvP: se reconstruye desde el servidor y se enseña el estado de la conexión", () => {
   assert.ok(PVP_ARENA.includes("connectionCopy(state.status, snap !== null)"));
   assert.ok(PVP_ARENA.includes("data-connection={state.status}"));
-  assert.ok(PVP_PAGE.includes('label="Recuperando la partida…"'));
+  assert.ok(PVP_PAGE.includes('label={t("Recuperando la partida…")}'));
   assert.ok(PVP_PAGE.includes('"reconnect" : "match_start"'));
   assert.ok(!/localStorage|sessionStorage/.test(code(PVP_PAGE) + code(PVP_ARENA)));
 });
@@ -234,8 +234,8 @@ test("B7 · la arena PvP sigue con un solo bucle de red: nada de fetch ni reloje
 /* ═══════════════════════ C · UX ═══════════════════════ */
 
 test("C1 · ayuda «?» en pre-partida, arena PvE y arena PvP; sin copiar la tabla de enfrentamientos", () => {
-  assert.ok(PREMATCH.includes('aria-label="Cómo se juega"'));
-  assert.ok(JUGAR.includes('aria-label="Cómo se juega"'));
+  assert.ok(PREMATCH.includes('aria-label={t("Cómo se juega")}'));
+  assert.ok(JUGAR.includes('aria-label={t("Cómo se juega")}'));
   assert.ok(PVP_ARENA.includes('<HelpSheet open={help} onClose={() => setHelp(false)} mode="PVP" />'));
   assert.ok(JUGAR.includes('<HelpSheet open={help} onClose={() => setHelp(false)} mode="PVE" />'));
   assert.ok(!/COMBAT_MATCHUP|stronghold.*entryfrag.*gamesense.*gamesense/.test(code(HELP)), "la respuesta obligada no se copia");
@@ -276,7 +276,7 @@ test("C6 · entrada al modo: la home ofrece JUGAR o CREAR/EDITAR EQUIPO según e
   // (prioridad única) y la home solo la pinta; el equipo no válido lleva a ESE equipo en el constructor.
   const DAILY = read("domain", "dailyLoop", "index.ts");
   assert.ok(HOME.includes("<DailyLobby") && HOME.includes("useDailyLoop("));
-  assert.ok(DAILY.includes('play: "/jugar"') && DAILY.includes('cta: "Crear equipo"') && DAILY.includes('cta: "Editar equipo"'));
+  assert.ok(DAILY.includes('play: "/jugar"') && /cta: (?:"Crear equipo"|(?:t|tr|i18nT)\("Crear equipo"\))/.test(DAILY) && /cta: (?:"Editar equipo"|(?:t|tr|i18nT)\("Editar equipo"\))/.test(DAILY));
   assert.ok(DAILY.includes("export const deckEditRoute = (deckId: string) => `${DAILY_ROUTES.decks}?deck=${encodeURIComponent(deckId)}`;"));
   assert.ok(DAILY.includes('if (d.valid > 0) return "READY";'));
   // F71 · /duelos: sin equipo válido cada modo enseña el CTA de `gameModes()` («Completar equipo»).
@@ -284,11 +284,11 @@ test("C6 · entrada al modo: la home ofrece JUGAR o CREAR/EDITAR EQUIPO según e
 });
 
 test("C7 · errores y estados de fallo: el error del servidor se enseña y se puede cerrar; sin partida se explica", () => {
-  assert.ok(BOARD.includes('aria-label="Cerrar aviso"'));
-  assert.ok(JUGAR.includes("<ErrorState message={fatal} onRetry={boot} />"));
+  assert.ok(BOARD.includes('aria-label={t("Cerrar aviso")}'));
+  assert.ok(/<ErrorState message=\{(?:td\()?fatal\)?\} onRetry=\{boot\} \/>/.test(JUGAR));
   // F63 · REESCRITO A PROPÓSITO: la primera sesión usa «equipo» en todas partes (terminología única del producto).
   assert.ok(PREMATCH.includes("No tienes ningún equipo listo"));
-  assert.ok(JUGAR.includes('<NeedsAccount what="jugar duelos" />'));
+  assert.ok(JUGAR.includes('<NeedsAccount what={t("jugar duelos")} />'));
 });
 
 /* ═══════════════════════ D · regresión (motor, balance, reglas, economía) ═══════════════════════ */

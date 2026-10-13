@@ -35,6 +35,10 @@
 import { PlayerCard } from "@/components/cards/PlayerCard";
 import type { CardDef } from "@/domain/cards/types";
 import { cn } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("home");
 
 /**
  * F63 · ¿EXISTE EL VÍDEO? Hasta que `public/video/nexus-lobby.*` exista, el `<video>` NO se monta: montarlo pedía tres
@@ -78,6 +82,7 @@ export function NexusHall({
   onVideoError: () => void;
   className?: string;
 }) {
+  useLocale();
   return (
     <div
       aria-hidden
@@ -145,7 +150,7 @@ export function NexusHall({
         }}
       />
       <span className="left-[58%] top-[43%] -translate-x-1/2 text-center font-display text-[10px] font-bold uppercase leading-[2.4] tracking-[0.5em] text-white/25">
-        Play<br />Collect<br />Compete<br />Belong
+        {t("Play")}<br />{t("Collect")}<br />{t("Compete")}<br />{t("Belong")}
       </span>
 
       {/* ── LAS CARTAS QUE VUELAN. Reales, del catálogo. ── */}
@@ -212,7 +217,7 @@ export function NexusHall({
               backgroundPosition: "center",
             }}
           />
-          <span className="font-display text-[10px] font-bold uppercase tracking-[0.42em] text-white/60">Nexus</span>
+          <span className="font-display text-[10px] font-bold uppercase tracking-[0.42em] text-white/60">{t("Nexus")}</span>
         </span>
       </span>
 

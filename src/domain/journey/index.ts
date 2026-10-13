@@ -22,6 +22,9 @@
  */
 import type { RoleId } from "@/domain/cards/types";
 import { DUEL_COMPOSITION, DUEL_ROLES } from "@/domain/cardgame/types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("journey");
 
 /* ───────────────────────────── rutas reales ───────────────────────────── */
 
@@ -180,7 +183,6 @@ export interface PlayerJourney {
   };
 }
 
-const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 export const shortageLabel = (s: readonly RoleShortage[]) => s.map((x) => `${x.need - x.have} ${x.role}`).join(" · ");
 
 export function buildPlayerJourney(f: JourneyFacts): PlayerJourney {
@@ -216,25 +218,25 @@ export function buildPlayerJourney(f: JourneyFacts): PlayerJourney {
 
 function nextActionFor(step: JourneyStepId, f: JourneyFacts): JourneyNextAction {
   // Fase 63 · el MISMO contador que la guía (`domain/onboarding`: bienvenida + estos cuatro + progreso = 6 pasos).
-  const eyebrow = `Tu inicio · ${JOURNEY_STEPS.indexOf(step) + 2}/6 · ${STEP_COPY[step].verb}`;
+  const eyebrow = t("Tu inicio · {v}/6 · {verb}", { v: JOURNEY_STEPS.indexOf(step) + 2, verb: td(STEP_COPY[step].verb) });
   const openHref = f.firstPackId ? JOURNEY_ROUTES.packRoute(f.firstPackId) : JOURNEY_ROUTES.freePack;
   switch (step) {
     case "open":
       return f.firstPackId
-        ? { step, eyebrow, title: "Abre tu primer sobre", detail: `Tienes ${plural(f.unopenedPacks, "sobre", "sobres")} esperando. Cada carta es un jugador real con sus estadísticas.`, cta: "Abrir mi primer sobre", href: openHref, secondary: null }
-        : { step, eyebrow, title: "Consigue tu primer sobre", detail: "El Sobre Inicial es gratis. Ábrelo y empieza tu colección.", cta: "Conseguir Sobre Inicial gratis", href: JOURNEY_ROUTES.freePack, secondary: null };
+        ? { step, eyebrow, title: t("Abre tu primer sobre"), detail: f.unopenedPacks === 1 ? t("Tienes {n} sobre esperando. Cada carta es un jugador real con sus estadísticas.", { n: f.unopenedPacks }) : t("Tienes {n} sobres esperando. Cada carta es un jugador real con sus estadísticas.", { n: f.unopenedPacks }), cta: t("Abrir mi primer sobre"), href: openHref, secondary: null }
+        : { step, eyebrow, title: t("Consigue tu primer sobre"), detail: t("El Sobre Inicial es gratis. Ábrelo y empieza tu colección."), cta: t("Conseguir Sobre Inicial gratis"), href: JOURNEY_ROUTES.freePack, secondary: null };
     case "collect": {
       const missing = shortageLabel(f.readiness.shortages);
       return f.unopenedPacks > 0
-        ? { step, eyebrow, title: "Sigue abriendo sobres", detail: `Para tu equipo te faltan jugadores distintos: ${missing}. Te ${f.unopenedPacks === 1 ? "queda" : "quedan"} ${plural(f.unopenedPacks, "sobre", "sobres")}.`, cta: f.unopenedPacks === 1 ? "Abrir mi último sobre" : "Abrir el siguiente sobre", href: openHref, secondary: { label: "Ver mi colección", href: JOURNEY_ROUTES.collection } }
-        : { step, eyebrow, title: "Completa tu equipo", detail: `Consigue las cartas que te faltan para completar tu equipo. Te faltan jugadores distintos: ${missing}. Mientras no puedas formarla, el Sobre Inicial es gratis y sus primeras cartas son de esos roles.`, cta: "Conseguir Sobre Inicial gratis", href: JOURNEY_ROUTES.freePack, secondary: { label: "Ver mi colección", href: JOURNEY_ROUTES.collection } };
+        ? { step, eyebrow, title: t("Sigue abriendo sobres"), detail: f.unopenedPacks === 1 ? t("Para tu equipo te faltan jugadores distintos: {missing}. Te queda {n} sobre.", { missing: td(missing), n: f.unopenedPacks }) : t("Para tu equipo te faltan jugadores distintos: {missing}. Te quedan {n} sobres.", { missing: td(missing), n: f.unopenedPacks }), cta: f.unopenedPacks === 1 ? t("Abrir mi último sobre") : t("Abrir el siguiente sobre"), href: openHref, secondary: { label: t("Ver mi colección"), href: JOURNEY_ROUTES.collection } }
+        : { step, eyebrow, title: t("Completa tu equipo"), detail: t("Consigue las cartas que te faltan para completar tu equipo. Te faltan jugadores distintos: {missing}. Mientras no puedas formarla, el Sobre Inicial es gratis y sus primeras cartas son de esos roles.", { missing: td(missing) }), cta: t("Conseguir Sobre Inicial gratis"), href: JOURNEY_ROUTES.freePack, secondary: { label: t("Ver mi colección"), href: JOURNEY_ROUTES.collection } };
     }
     case "build":
       return f.decks.firstInvalid
-        ? { step, eyebrow, title: "Termina tu primer equipo", detail: `«${f.decks.firstInvalid.name}» tiene ${f.decks.firstInvalid.size}/10 cartas. Dos por rol, sin repetir jugador. Guárdalo cuando esté completo.`, cta: "Ir al constructor", href: JOURNEY_ROUTES.editDeck(f.decks.firstInvalid.id), secondary: { label: "Ver mi colección", href: JOURNEY_ROUTES.collection } }
-        : { step, eyebrow, title: "Construye tu primer equipo", detail: "Ya tienes cartas para un equipo legal: diez cartas, dos por rol. Complétala tú o con «Completar equipo».", cta: "Ir al constructor", href: JOURNEY_ROUTES.newDeck, secondary: { label: "Ver mi colección", href: JOURNEY_ROUTES.collection } };
+        ? { step, eyebrow, title: t("Termina tu primer equipo"), detail: t("«{name}» tiene {size}/10 cartas. Dos por rol, sin repetir jugador. Guárdalo cuando esté completo.", { name: f.decks.firstInvalid.name, size: f.decks.firstInvalid.size }), cta: t("Ir al constructor"), href: JOURNEY_ROUTES.editDeck(f.decks.firstInvalid.id), secondary: { label: t("Ver mi colección"), href: JOURNEY_ROUTES.collection } }
+        : { step, eyebrow, title: t("Construye tu primer equipo"), detail: t("Ya tienes cartas para un equipo legal: diez cartas, dos por rol. Complétala tú o con «Completar equipo»."), cta: t("Ir al constructor"), href: JOURNEY_ROUTES.newDeck, secondary: { label: t("Ver mi colección"), href: JOURNEY_ROUTES.collection } };
     case "play":
-      return { step, eyebrow, title: f.readyDeck ? "Equipo listo" : "Juega tu primer combate", detail: "Diez turnos contra el bot Fácil. Ganes o pierdas, habrás jugado el núcleo de NEXUS.", cta: "Jugar mi primer combate", href: JOURNEY_ROUTES.firstMatch, secondary: null };
+      return { step, eyebrow, title: f.readyDeck ? t("Equipo listo") : t("Juega tu primer combate"), detail: t("Diez turnos contra el bot Fácil. Ganes o pierdas, habrás jugado el núcleo de NEXUS."), cta: t("Jugar mi primer combate"), href: JOURNEY_ROUTES.firstMatch, secondary: null };
   }
 }
 

@@ -23,6 +23,8 @@
  */
 import { READOUT } from "@/design/tokens";
 import { cn } from "@/lib/format";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export type ReadoutSize = keyof typeof READOUT;
 
@@ -47,6 +49,7 @@ export function Readout({
   tone?: string;
   align?: "left" | "center" | "right";
 }) {
+  useLocale();
   return (
     <div
       className={cn(
@@ -57,7 +60,7 @@ export function Readout({
       )}
       {...rest}
     >
-      {label && <span className="nx-label truncate">{label}</span>}
+      {label && <span className="nx-label truncate">{td(label)}</span>}
       <span className="flex items-baseline gap-1">
         <span
           className="nx-readout"

@@ -42,6 +42,11 @@ import {
 } from "@/lib/tactics/client";
 import { cn } from "@/lib/format";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("entrenador");
 
 const SIDE_LABEL: Record<string, string> = { attack: "Ataque", defense: "Defensa" };
 const SIDE_COLOR: Record<string, string> = { attack: "#ff2e8c", defense: "#2fe0ff" };
@@ -54,20 +59,22 @@ type CoachMatch = CoachMatchSummary;
  * el prerender de `next build` aborta (missing-suspense-with-csr-bailout).
  */
 export default function PlanTacticoPage() {
+  useLocale();
   return (
-    <Suspense fallback={<p className="nx-label text-white/40">Cargando…</p>}>
+    <Suspense fallback={<p className="nx-label text-white/40">{t("Cargando…")}</p>}>
       <PlanTactico />
     </Suspense>
   );
 }
 
 function PlanTactico() {
+  useLocale();
   const { user, loading } = useAuth();
   const params = useSearchParams();
   const matchId = params.get("match") ?? "";
 
   if (loading) return null;
-  if (!user) return <NeedsAccount what="el plan táctico" />;
+  if (!user) return <NeedsAccount what={t("el plan táctico")} />;
   if (!matchId) return <ElegirPartida />;
   return <PlanDePartida key={matchId} matchId={matchId} />;
 }
@@ -75,6 +82,7 @@ function PlanTactico() {
 /* ═══════════════════════ SIN PARTIDA: elegir una real ═══════════════════════ */
 
 function ElegirPartida() {
+  useLocale();
   const [lista, setLista] = useState<CoachMatch[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -82,32 +90,32 @@ function ElegirPartida() {
     let vivo = true;
     fetchCoachMatches(12)
       .then((r) => { if (vivo) setLista(r.matches); })
-      .catch(() => { if (vivo) setError("No se pudieron leer tus partidos."); });
+      .catch(() => { if (vivo) setError(t("No se pudieron leer tus partidos.")); });
     return () => { vivo = false; };
   }, []);
 
   return (
     <div data-testid="plan-select-match">
       <CoachHeader
-        kicker="Match Plan · preparación"
-        title={<>Plan de <span className="text-[#2fe0ff]">partido</span></>}
-        line="Elige una partida real y prepara su plan: composición del mapa, jugadas de ataque y defensa, y presentación al equipo."
-        actions={<Link href="/entrenador/partido" className="nx-coach-btn">Dirigir un partido</Link>}
+        kicker={t("Match Plan · preparación")}
+        title={<>{fill(t("Plan de {palabra}", slots("palabra")), { palabra: <span className="text-[#2fe0ff]">{t("partido")}</span> })}</>}
+        line={t("Elige una partida real y prepara su plan: composición del mapa, jugadas de ataque y defensa, y presentación al equipo.")}
+        actions={<Link href="/entrenador/partido" className="nx-coach-btn">{t("Dirigir un partido")}</Link>}
       />
 
       {error && <p className="nx-coach-conflict px-4 py-3 text-[13px] text-white">{playerMessage(error)}</p>}
-      {!error && lista === null && <p className="nx-label text-white/40">Cargando tus partidos…</p>}
+      {!error && lista === null && <p className="nx-label text-white/40">{t("Cargando tus partidos…")}</p>}
 
       {lista && lista.length === 0 && (
         <section data-testid="plan-no-matches" className="nx-coach-panel relative overflow-hidden px-6 py-10 text-center">
           <span aria-hidden className="mx-auto mb-3 grid h-14 w-14 place-items-center text-[#2fe0ff]"><CoachIcon name="plan" size={40} /></span>
-          <h2 className="font-display text-[22px] font-extrabold uppercase text-white">Todavía no hay partidas</h2>
+          <h2 className="font-display text-[22px] font-extrabold uppercase text-white">{t("Todavía no hay partidas")}</h2>
           <p className="nx-coach-muted mx-auto mt-2 max-w-md text-[14px] leading-relaxed">
-            El plan se hace sobre una partida que hayas dirigido. Juega la primera y vuelve aquí para prepararla.
+            {t("El plan se hace sobre una partida que hayas dirigido. Juega la primera y vuelve aquí para prepararla.")}
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <Link href="/entrenador/partido" className="nx-coach-btn">Dirigir partido</Link>
-            <Link href="/entrenador/strats" className="nx-coach-btn" data-variant="ghost">Ir a la pizarra</Link>
+            <Link href="/entrenador/partido" className="nx-coach-btn">{t("Dirigir partido")}</Link>
+            <Link href="/entrenador/strats" className="nx-coach-btn" data-variant="ghost">{t("Ir a la pizarra")}</Link>
           </div>
         </section>
       )}
@@ -132,15 +140,15 @@ function ElegirPartida() {
                     <b className="block truncate font-display text-[15px] font-extrabold uppercase tracking-[0.04em] text-white">
                       {mapa?.name ?? m.mapId}
                     </b>
-                    {m.rivalName && <span className="block truncate text-[12.5px] text-white/60">vs {m.rivalName}</span>}
-                    {m.finishedAt && <span className="nx-label block !text-white/35">{new Date(m.finishedAt).toLocaleDateString("es-ES")}</span>}
+                    {m.rivalName && <span className="block truncate text-[12.5px] text-white/60">{t("vs")} {m.rivalName}</span>}
+                    {m.finishedAt && <span className="nx-label block !text-white/35">{new Date(m.finishedAt).toLocaleDateString(getIntlLocale())}</span>}
                   </span>
                   <span className="shrink-0 text-right">
                     <b className="nx-readout block text-[20px] leading-none text-white">
                       {m.scoreHome}<span className="mx-0.5 text-white/30">-</span>{m.scoreAway}
                     </b>
                     <span className={cn("nx-label", m.won ? "!text-[rgb(63,214,150)]" : "!text-[#ff5aa8]")}>
-                      {m.won ? "Victoria" : "Derrota"}
+                      {m.won ? t("Victoria") : t("Derrota")}
                     </span>
                   </span>
                 </Link>
@@ -156,6 +164,7 @@ function ElegirPartida() {
 /* ═══════════════════════ CON PARTIDA: el plan ═══════════════════════ */
 
 function PlanDePartida({ matchId }: { matchId: string }) {
+  useLocale();
   const [match, setMatch] = useState<CoachMatch | null>(null);
   const [noEncontrada, setNoEncontrada] = useState(false);
   const [strats, setStrats] = useState<StratRow[]>([]);
@@ -184,7 +193,7 @@ function PlanDePartida({ matchId }: { matchId: string }) {
       setMatch(fila);
       setStrats(s); setComps(c); setAsignadas(a);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "No se pudo cargar el plan");
+      setError(e instanceof Error ? e.message : t("No se pudo cargar el plan"));
     } finally {
       setCargando(false);
     }
@@ -214,32 +223,32 @@ function PlanDePartida({ matchId }: { matchId: string }) {
       setAsignadas(await fetchMatchStrats(matchId));
     } catch (e) {
       // El 409 de mapa cruzado llega aquí con su mensaje: se enseña tal cual, no como «error».
-      setError(e instanceof TacticsError ? e.message : "No se pudo cambiar la asignación");
+      setError(e instanceof TacticsError ? e.message : t("No se pudo cambiar la asignación"));
     }
   }, [asignadaIds, matchId]);
 
   if (noEncontrada) {
     return (
       <section data-testid="plan-not-found" className="nx-coach-panel mx-auto max-w-xl px-6 py-10 text-center" data-tone="mag">
-        <p className="nx-coach-kicker !text-[#ff5aa8]">Match Plan</p>
-        <h1 className="mt-2 font-display text-[26px] font-extrabold uppercase text-white">Partida no encontrada</h1>
+        <p className="nx-coach-kicker !text-[#ff5aa8]">{t("Match Plan")}</p>
+        <h1 className="mt-2 font-display text-[26px] font-extrabold uppercase text-white">{t("Partida no encontrada")}</h1>
         <p className="nx-coach-muted mx-auto mt-2 max-w-sm text-[14px] leading-relaxed">
-          Ese enlace no lleva a ninguna de tus partidas. Elige una de tu historial para preparar su plan.
+          {t("Ese enlace no lleva a ninguna de tus partidas. Elige una de tu historial para preparar su plan.")}
         </p>
         <div className="mt-5 flex flex-wrap justify-center gap-2">
-          <Link href="/entrenador/plan" className="nx-coach-btn">Seleccionar partido</Link>
-          <Link href="/entrenador/partidos" className="nx-coach-btn" data-variant="ghost">Ver partidos</Link>
+          <Link href="/entrenador/plan" className="nx-coach-btn">{t("Seleccionar partido")}</Link>
+          <Link href="/entrenador/partidos" className="nx-coach-btn" data-variant="ghost">{t("Ver partidos")}</Link>
         </div>
       </section>
     );
   }
 
-  if (cargando && !match) return <p className="nx-label text-white/40">Cargando el plan…</p>;
+  if (cargando && !match) return <p className="nx-label text-white/40">{t("Cargando el plan…")}</p>;
   if (!match) {
     return (
       <section className="nx-coach-conflict px-4 py-3 text-[13px] text-white">
-        {error ?? "No se pudo cargar el plan"}{" "}
-        <button type="button" className="nx-coach-btn ml-2" data-variant="ghost" data-size="sm" onClick={() => void cargar()}>Reintentar</button>
+        {td(error) ?? t("No se pudo cargar el plan")}{" "}
+        <button type="button" className="nx-coach-btn ml-2" data-variant="ghost" data-size="sm" onClick={() => void cargar()}>{t("Reintentar")}</button>
       </section>
     );
   }
@@ -264,7 +273,7 @@ function PlanDePartida({ matchId }: { matchId: string }) {
           </span>
         )}
         <div className="min-w-0 flex-1">
-          <p className="nx-coach-kicker">Match Plan · briefing</p>
+          <p className="nx-coach-kicker">{t("Match Plan · briefing")}</p>
           <h1 className="mt-1 font-display text-[clamp(26px,4vh,46px)] font-extrabold uppercase leading-none tracking-[0.04em] text-white">
             {mapa?.name ?? match.mapId}
           </h1>
@@ -272,26 +281,26 @@ function PlanDePartida({ matchId }: { matchId: string }) {
             {match.teamName && <span className="font-display uppercase tracking-wide text-white/80">{match.teamName}</span>}
             {match.rivalName && (
               <span className="font-display uppercase tracking-wide">
-                <span className="text-white/35">vs </span>
+                <span className="text-white/35">{t("vs")} </span>
                 <b className="text-white">{match.rivalName}</b>
               </span>
             )}
-            {match.finishedAt && <span>{new Date(match.finishedAt).toLocaleDateString("es-ES")}</span>}
+            {match.finishedAt && <span>{new Date(match.finishedAt).toLocaleDateString(getIntlLocale())}</span>}
           </p>
         </div>
         {match.scoreHome != null && match.scoreAway != null && (
           <span className="shrink-0 text-right">
-            <span className="nx-label block !text-[9px] text-white/40">Resultado</span>
+            <span className="nx-label block !text-[9px] text-white/40">{t("Resultado")}</span>
             <b className="nx-readout text-[34px] leading-none text-white">
               {match.scoreHome}<span className="mx-1 text-white/30">-</span>{match.scoreAway}
             </b>
           </span>
         )}
         <span className="shrink-0 text-right">
-          <span className="nx-label block !text-[9px] text-white/40">En el plan</span>
+          <span className="nx-label block !text-[9px] text-white/40">{t("En el plan")}</span>
           <b className="nx-readout text-[34px] leading-none text-[#2fe0ff]" style={{ textShadow: "0 0 16px rgba(47,224,255,0.5)" }}>{asignadas.length}</b>
         </span>
-        <Link href="/entrenador/plan" className="nx-coach-btn w-full sm:w-auto" data-variant="ghost" data-size="sm">Cambiar partida</Link>
+        <Link href="/entrenador/plan" className="nx-coach-btn w-full sm:w-auto" data-variant="ghost" data-size="sm">{t("Cambiar partida")}</Link>
       </header>
 
       {error && <p data-testid="plan-error" className="nx-coach-conflict mb-4 px-3 py-2 text-[13px] text-white">{playerMessage(error)}</p>}
@@ -299,11 +308,12 @@ function PlanDePartida({ matchId }: { matchId: string }) {
       <div className="grid gap-5 lg:grid-cols-[minmax(260px,360px)_minmax(0,1fr)]">
         {/* ═══ COMPOSICIÓN ═══ */}
         <section data-testid="plan-composition">
-          <h2 className="nx-coach-kicker mb-2">01 · Composición</h2>
+          <h2 className="nx-coach-kicker mb-2">{t("01 · Composición")}</h2>
           {compsDelMapa.length === 0 ? (
             <p className="nx-coach-panel-flat px-4 py-6 text-center text-[13px] text-white/50">
-              No hay composiciones en {mapa?.name ?? match.mapId}.{" "}
-              <Link href="/entrenador/composiciones" className="text-[#2fe0ff] underline">Crear una</Link>
+              {fill(t("No hay composiciones en {mapa}. {enlace}", { mapa: mapa?.name ?? match.mapId, ...slots("enlace") }), {
+                enlace: <Link href="/entrenador/composiciones" className="text-[#2fe0ff] underline">{t("Crear una")}</Link>,
+              })}
             </p>
           ) : (
             <ul className="grid gap-2">
@@ -330,11 +340,11 @@ function PlanDePartida({ matchId }: { matchId: string }) {
 
         {/* ═══ JUGADAS ═══ */}
         <section data-testid="plan-strats">
-          <h2 className="nx-coach-kicker mb-2">02 · Jugadas de {mapa?.name ?? match.mapId}</h2>
+          <h2 className="nx-coach-kicker mb-2">{t("02 · Jugadas de {mapa}", { mapa: mapa?.name ?? match.mapId })}</h2>
           {disponibles.length === 0 ? (
             <p className="nx-coach-panel-flat px-4 py-6 text-center text-[13px] text-white/50">
-              No hay jugadas guardadas en este mapa.{" "}
-              <Link href="/entrenador/strats" className="text-[#2fe0ff] underline">Ir a la pizarra</Link>
+              {t("No hay jugadas guardadas en este mapa.")}{" "}
+              <Link href="/entrenador/strats" className="text-[#2fe0ff] underline">{t("Ir a la pizarra")}</Link>
             </p>
           ) : (
             (["attack", "defense"] as const).map((lado) => {
@@ -350,16 +360,16 @@ function PlanDePartida({ matchId }: { matchId: string }) {
                 >
                   <h3 className="flex items-baseline justify-between gap-2 px-3 py-2">
                     <span className="nx-label !text-[11px]" style={{ color }}>
-                      {lado === "attack" ? "▲" : "▼"} {SIDE_LABEL[lado]}
+                      {lado === "attack" ? "▲" : "▼"} {td(SIDE_LABEL[lado])}
                     </span>
                     <span className="nx-label !text-[9px] text-white/35">
-                      {grupo.length === 0 ? "sin jugadas" : `${grupo.length} ${grupo.length === 1 ? "jugada" : "jugadas"}`}
+                      {grupo.length === 0 ? t("sin jugadas") : t("{n, plural, one {{n} jugada} other {{n} jugadas}}", { n: grupo.length })}
                     </span>
                   </h3>
                   {grupo.length === 0 ? (
                     <p className="px-3 pb-3 text-[12.5px] leading-relaxed text-white/45">
-                      Ninguna jugada de {SIDE_LABEL[lado].toLowerCase()} guardada en {mapa?.name ?? match.mapId}.{" "}
-                      <Link href="/entrenador/strats" className="text-[#2fe0ff] underline">Dibujar una</Link>
+                      {lado === "attack" ? t("Ninguna jugada de ataque guardada en {map}.", { map: mapa?.name ?? match.mapId }) : t("Ninguna jugada de defensa guardada en {map}.", { map: mapa?.name ?? match.mapId })}{" "}
+                      <Link href="/entrenador/strats" className="text-[#2fe0ff] underline">{t("Dibujar una")}</Link>
                     </p>
                   ) : (
                   <ul className="grid gap-1.5 px-2 pb-2">
@@ -377,28 +387,28 @@ function PlanDePartida({ matchId }: { matchId: string }) {
                           }}>
                           <span className="min-w-0">
                             <b className="block truncate font-display text-[12.5px] font-bold uppercase tracking-[0.06em] text-white">{s.name}</b>
-                            <span className="nx-label text-white/45">{s.steps} paso{s.steps === 1 ? "" : "s"}</span>
+                            <span className="nx-label text-white/45">{t("{n, plural, one {# paso} other {# pasos}}", { n: s.steps })}</span>
                             {otraComp && (
                               <span data-testid="comp-incompatible" className="nx-label block !text-[9px] !text-[#ffd35c]">
-                                Creada con otra composición
+                                {t("Creada con otra composición")}
                               </span>
                             )}
                           </span>
                           {/* Presentar pesa más que asignar, y abrir es un enlace discreto. */}
                           <span className="flex shrink-0 items-center gap-1.5">
                             <Link href={`/entrenador/strats?abrir=${s.id}`}
-                              title="Abrir en la pizarra"
+                              title={t("Abrir en la pizarra")}
                               className="nx-label nx-focus px-2 py-1.5 text-white/50 hover:text-white">
-                              Abrir
+                              {t("Abrir")}
                             </Link>
                             <button type="button" data-testid={`assign-${s.id}`} onClick={() => void alternar(s)}
                               className="nx-coach-btn" data-variant="ghost" data-size="sm" aria-pressed={puesta}>
-                              {puesta ? "Quitar del plan" : "Asignar"}
+                              {puesta ? t("Quitar del plan") : t("Asignar")}
                             </button>
                             <button type="button" data-testid={`present-${s.id}`} onClick={() => setPresentando(s)}
-                              title="Presentar a pantalla completa"
+                              title={t("Presentar a pantalla completa")}
                               className="nx-coach-btn" data-size="sm">
-                              <CoachIcon name="present" size={14} /> Presentar
+                              <CoachIcon name="present" size={14} /> {t("Presentar")}
                             </button>
                           </span>
                         </li>
@@ -415,9 +425,9 @@ function PlanDePartida({ matchId }: { matchId: string }) {
 
       {/* ═══ LO ASIGNADO: lo que se lleva a la partida ═══ */}
       <section className="mt-6" data-testid="plan-assigned">
-        <h2 className="nx-coach-kicker mb-2">03 · En el plan · {asignadas.length}</h2>
+        <h2 className="nx-coach-kicker mb-2">{t("03 · En el plan ·")} {asignadas.length}</h2>
         {asignadas.length === 0 ? (
-          <p className="text-[13px] text-white/45">Todavía no has asignado ninguna jugada.</p>
+          <p className="text-[13px] text-white/45">{t("Todavía no has asignado ninguna jugada.")}</p>
         ) : (
           <ul className="flex flex-wrap gap-2">
             {asignadas.map((a) => (

@@ -25,6 +25,9 @@ import { DUEL_COMPOSITION, DUEL_ROLES } from "@/domain/cardgame/types";
 import { checkDraft, type Pool } from "@/domain/deckBuilder/builder";
 import { AXES, METRIC_LABEL, type Axis, type StrategyContext } from "./catalog";
 import { analyzeDeck, canonicalOrder, type DeckAnalysis, type StrategyCard } from "./analysis";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("deckStrategy");
 
 export type SuggestObjective = "BALANCED" | Axis;
 export const OBJECTIVES: readonly SuggestObjective[] = ["BALANCED", "stronghold", "gamesense", "entryfrag"];
@@ -238,11 +241,11 @@ export function suggestDeck(pool: Pool, objective: SuggestObjective, ctx: Strate
     if (!best || better(v, best.v)) best = { cards, v };
   }
   const empty = { objective, uids: [], cards: [], totals: null, analysis: null, rule: RULE[objective], explored: counter.n };
-  if (!best) return { ...empty, ok: false, reason: "No tienes cartas suficientes de todos los roles para un equipo legal." };
+  if (!best) return { ...empty, ok: false, reason: tr("No tienes cartas suficientes de todos los roles para un equipo legal.") };
   const cards = canonicalOrder(best.cards);
   const uids = cards.map((c) => c.uid);
   // Red de seguridad: lo que sale lo firma el validador canónico.
-  if (!checkDraft(uids, pool).ready) return { ...empty, ok: false, reason: "No se pudo formar un equipo legal con tus cartas." };
+  if (!checkDraft(uids, pool).ready) return { ...empty, ok: false, reason: tr("No se pudo formar un equipo legal con tus cartas.") };
   return { objective, ok: true, reason: null, uids, cards, totals: totalsOf(cards), analysis: analyzeDeck(cards, ctx), rule: RULE[objective], explored: counter.n };
 }
 
@@ -275,9 +278,9 @@ export function paretoOptions(pool: Pool, ctx: StrategyContext, max = 5): Pareto
     const top = [...front].sort((a, b) => cmp(a, b) || cmpLex(a.cards, b.cards))[0];
     if (top) picks.push({ ...top, label });
   };
-  add("Más OVR", (a, b) => b.totals.ovr - a.totals.ovr);
-  for (const ax of AXES) add(`Más ${METRIC_LABEL[ax]}`, (a, b) => b.totals[ax] - a.totals[ax]);
-  add("Más equilibrado", (a, b) => (better(bal(a), bal(b)) ? -1 : better(bal(b), bal(a)) ? 1 : 0));
+  add(tr("Más OVR"), (a, b) => b.totals.ovr - a.totals.ovr);
+  for (const ax of AXES) add(tr("Más {eje}", { eje: td(METRIC_LABEL[ax]) }), (a, b) => b.totals[ax] - a.totals[ax]);
+  add(tr("Más equilibrado"), (a, b) => (better(bal(a), bal(b)) ? -1 : better(bal(b), bal(a)) ? 1 : 0));
   const merged = new Map<string, ParetoOption>();
   for (const p of picks) {
     const k = p.cards.map((c) => c.uid).join(",");

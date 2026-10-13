@@ -88,7 +88,7 @@ test("71 · colección → constructor: la hoja «Añadir al equipo» abre el co
 
 test("72 · pre-partida: selección rápida de equipos, marca del activo y EDITAR EQUIPO sin duplicar el constructor", () => {
   const pre = code("src/components/duel/PreMatch.tsx");
-  assert.ok(pre.includes("decks.map((d) =>") && pre.includes('{d.id === activeDeckId && <Badge tone="info">Activo</Badge>}'));
+  assert.ok(pre.includes("decks.map((d) =>") && pre.includes('{d.id === activeDeckId && <Badge tone="info">{t("Activo")}</Badge>}'));
   assert.ok(pre.includes("Editar equipo") && pre.includes("href={`/duelos/mazos?deck=${chosen.id}`}"));
   assert.ok(!/TeamBoard|CollectionPanel|DeckBuilder/.test(pre));
 });
@@ -139,7 +139,7 @@ test("79 · FTUE coherente: crear el primer equipo, completar roles y jugar", ()
   assert.ok(code("src/server/services/loop.ts").includes('label: decks.length === 0 ? "Crea tu primer equipo" : "Termina tu equipo"'));
   // Fase 36: el héroe de la home dice CREAR EQUIPO y abre el constructor con uno nuevo.
   const daily = code("src/domain/dailyLoop/index.ts");
-  assert.ok(daily.includes('newDeck: "/duelos/mazos?nuevo=1"') && daily.includes('cta: "Crear equipo", label: "Crear equipo", href: DAILY_ROUTES.newDeck'));
+  assert.ok(daily.includes('newDeck: "/duelos/mazos?nuevo=1"') && /cta: (?:"Crear equipo"|(?:t|tr|i18nT)\("Crear equipo"\)), label: (?:"Crear equipo"|(?:t|tr|i18nT)\("Crear equipo"\)), href: DAILY_ROUTES\.newDeck/.test(daily));
   assert.ok(code("src/components/duel/deck/TeamHub.tsx").includes("Crear mi primer equipo"));
 });
 
@@ -307,7 +307,7 @@ test("una sola validación: el constructor usa el dominio y la composición can�
 test("no drag-only: añadir por clic, candidatas por hueco y teclado en los huecos", () => {
   const board = code("src/components/duel/deck/TeamBoard.tsx");
   assert.ok(board.includes('e.key === "Delete" || e.key === "Backspace"') && board.includes('e.altKey && e.key === "ArrowUp"'));
-  assert.ok(board.includes("aria-label={label}") && board.includes("aria-describedby={slot.issue ? issueId : undefined}"));
+  assert.ok(board.includes("aria-label={td(label)}") && board.includes("aria-describedby={slot.issue ? issueId : undefined}"));
   assert.ok(!/draggable|onDragStart/.test(board + code(BUILDER) + code("src/components/duel/deck/CollectionPanel.tsx")));
   const slot = code("src/components/duel/deck/SlotSheet.tsx");
   assert.ok(slot.includes("Sugerir carta") && slot.includes("Quitar") && slot.includes("↑ Subir") && slot.includes("↓ Bajar"));

@@ -31,6 +31,10 @@ import { DIFFICULTY_INFO, STAT_INFO, type BotDifficulty, type DuelDeckDTO } from
 import { deckReadiness } from "@/lib/duel/gameplayUx";
 import { PreMatchVersus } from "./experience/PreMatchVersus";
 import { PreMatchStrategy } from "./strategy/PreMatchStrategy";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 const LEVELS: BotDifficulty[] = ["EASY", "NORMAL", "HARD"];
 
@@ -57,6 +61,7 @@ export function PreMatch({
   /** Se llama UNA vez cuando las reglas ya se han pintado (para no volver a enseñarlas). */
   onRulesShown?: () => void;
 }) {
+  useLocale();
   const chosen = decks.find((d) => d.id === deckId) ?? null;
   const readiness = chosen ? deckReadiness(chosen) : null;
   const canStart = Boolean(chosen && readiness?.ready) && !busy;
@@ -70,13 +75,13 @@ export function PreMatch({
             href="/duelos"
             className="nx-focus -ml-2 inline-flex min-h-[44px] items-center rounded-control px-2 font-display text-label uppercase tracking-wide2 text-ink-muted transition duration-fast hover:bg-white/[0.06] hover:text-white"
           >
-            ‹ Duelos
+            {t("‹ Duelos")}
           </Link>
           {onHelp && (
             <button
               type="button"
               onClick={onHelp}
-              aria-label="Cómo se juega"
+              aria-label={t("Cómo se juega")}
               className="nx-focus grid h-11 w-11 place-items-center rounded-full border border-white/15 bg-white/[0.04] font-display text-[15px] font-bold text-white/75 transition hover:bg-white/[0.1] hover:text-white"
             >
               ?
@@ -86,17 +91,17 @@ export function PreMatch({
         <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
           <div className="min-w-0">
             <h1 className="font-display text-[clamp(28px,4.6vw,44px)] font-bold uppercase leading-none text-white">
-              Preparación
+              {t("Preparación")}
             </h1>
-            <p className="mt-1.5 text-body text-ink-muted">Elige con qué equipo juegas y a quién te enfrentas.</p>
+            <p className="mt-1.5 text-body text-ink-muted">{t("Elige con qué equipo juegas y a quién te enfrentas.")}</p>
           </div>
           {chosen && readiness?.ready && (
             <div className="flex flex-wrap items-stretch gap-2.5">
               <Plate className="flex items-center px-4 py-2.5">
-                <Readout size="sm" label="Tu equipo" value={chosen.name} tone="var(--nx-ok)" />
+                <Readout size="sm" label={t("Tu equipo")} value={chosen.name} tone="var(--nx-ok)" />
               </Plate>
               <Plate className="flex items-center px-4 py-2.5">
-                <Readout size="sm" label="Fuerza" value={"Σ " + chosen.sumOvr} tone="var(--nx-cyan)" />
+                <Readout size="sm" label={t("Fuerza")} value={"Σ " + chosen.sumOvr} tone="var(--nx-cyan)" />
               </Plate>
             </div>
           )}
@@ -106,13 +111,13 @@ export function PreMatch({
       {decks.length === 0 ? (
         <Plate className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">
-            No tienes ningún equipo listo
+            {t("No tienes ningún equipo listo")}
           </p>
           <p className="max-w-[46ch] text-body text-ink-muted">
-            Para jugar necesitas un equipo de diez cartas con dos de cada rol.
+            {t("Para jugar necesitas un equipo de diez cartas con dos de cada rol.")}
           </p>
           <NxButton variant="primary" size="lg" href="/duelos/mazos">
-            Ir al constructor
+            {t("Ir al constructor")}
           </NxButton>
         </Plate>
       ) : (
@@ -123,8 +128,8 @@ export function PreMatch({
           {chosen && readiness?.ready && <PreMatchStrategy cards={chosen.cards} className="mb-5" />}
 
           {/* ── Mazo ── */}
-          <section aria-label="Elegir equipo">
-            <SectionTitle as="h2">Tu equipo</SectionTitle>
+          <section aria-label={t("Elegir equipo")}>
+            <SectionTitle as="h2">{t("Tu equipo")}</SectionTitle>
             <div className="grid gap-2.5 sm:grid-cols-2">
               {decks.map((d) => {
                 const r = deckReadiness(d);
@@ -146,8 +151,8 @@ export function PreMatch({
                     <div className="flex items-center justify-between gap-2">
                       <b className="truncate font-display text-h3 font-bold uppercase tracking-wide text-white">{d.name}</b>
                       <span className="flex shrink-0 items-center gap-2">
-                        {d.id === activeDeckId && <Badge tone="info">Activo</Badge>}
-                        <Badge tone={r.ready ? "ok" : "warn"}>{r.ready ? "Listo" : "Incompleto"}</Badge>
+                        {d.id === activeDeckId && <Badge tone="info">{t("Activo")}</Badge>}
+                        <Badge tone={r.ready ? "ok" : "warn"}>{r.ready ? t("Listo") : t("Incompleto")}</Badge>
                         <span className="nx-label">
                           Σ <b className="nx-readout text-[13px] text-ink-secondary">{d.sumOvr}</b>
                         </span>
@@ -166,7 +171,7 @@ export function PreMatch({
                       ))}
                     </div>
                     {!r.ready && (
-                      <p className="mt-2 text-caption text-drl-gold">{r.summary}</p>
+                      <p className="mt-2 text-caption text-drl-gold">{td(r.summary)}</p>
                     )}
                   </button>
                 );
@@ -177,10 +182,10 @@ export function PreMatch({
             {chosen && readiness?.ready && (
               <div className="mt-3 flex flex-wrap items-center justify-between gap-2" data-testid="prematch-edit">
                 <p className="text-caption text-ink-muted">
-                  {chosen.id === activeDeckId ? "Juegas con tu equipo activo." : "Puedes elegir cualquiera de tus equipos listos."}
+                  {chosen.id === activeDeckId ? t("Juegas con tu equipo activo.") : t("Puedes elegir cualquiera de tus equipos listos.")}
                 </p>
                 <NxButton variant="ghost" size="sm" href={`/duelos/mazos?deck=${chosen.id}`}>
-                  Editar equipo
+                  {t("Editar equipo")}
                 </NxButton>
               </div>
             )}
@@ -190,32 +195,32 @@ export function PreMatch({
               <Recessed className="mt-3 flex flex-col gap-3 border-l-2 border-l-drl-gold px-4 py-3 sm:flex-row sm:items-center sm:justify-between" role="status">
                 <div className="min-w-0">
                   <b className="block font-display text-body font-bold uppercase tracking-wide text-white">
-                    No puedes empezar con «{chosen.name}»
+                    {t("No puedes empezar con «{name}»", { name: chosen.name })}
                   </b>
                   <p className="mt-0.5 text-caption leading-relaxed text-ink-secondary">
-                    {readiness.summary}. Un equipo de duelo son diez cartas con dos de cada rol.
+                    {td(readiness.summary)}{t(". Un equipo de duelo son diez cartas con dos de cada rol.")}
                   </p>
                   {readiness.missing.length > 0 && (
-                    <ul className="mt-1.5 flex flex-wrap gap-1.5" aria-label="Roles que faltan">
+                    <ul className="mt-1.5 flex flex-wrap gap-1.5" aria-label={t("Roles que faltan")}>
                       {readiness.missing.map((m) => (
                         <li key={m.role}>
-                          <Badge tone="warn">{m.count} × {m.role}</Badge>
+                          <Badge tone="warn">{m.count} × {td(m.role)}</Badge>
                         </li>
                       ))}
                     </ul>
                   )}
                 </div>
                 <NxButton variant="secondary" size="md" className="shrink-0" href={`/duelos/mazos?deck=${chosen.id}`}>
-                  Completar equipo
+                  {t("Completar equipo")}
                 </NxButton>
               </Recessed>
             )}
           </section>
 
           {/* ── Rival ── */}
-          <section className="mt-6" aria-label="Elegir dificultad">
-            <SectionTitle as="h2">Tu rival</SectionTitle>
-            <div className="grid grid-cols-3 gap-2" role="group" aria-label="Dificultad">
+          <section className="mt-6" aria-label={t("Elegir dificultad")}>
+            <SectionTitle as="h2">{t("Tu rival")}</SectionTitle>
+            <div className="grid grid-cols-3 gap-2" role="group" aria-label={t("Dificultad")}>
               {LEVELS.map((lv) => {
                 const info = DIFFICULTY_INFO[lv];
                 const on = difficulty === lv;
@@ -232,7 +237,7 @@ export function PreMatch({
                     )}
                   >
                     {/* Mayúsculas SOLO por CSS: el DOM sigue diciendo «Fácil», «Normal», «Difícil» (lo leen `duel:e2e`/`duel:shots`). */}
-                    <span className="truncate font-display text-body font-bold uppercase tracking-wide2 sm:text-h2">{info.label}</span>
+                    <span className="truncate font-display text-body font-bold uppercase tracking-wide2 sm:text-h2">{td(info.label)}</span>
                     {/* Seleccionada: además del color, una barra de acento (forma) — nunca solo color. */}
                     {on && <i aria-hidden className="absolute inset-x-3 bottom-0 h-[3px] rounded-full bg-drl" />}
                   </button>
@@ -246,7 +251,7 @@ export function PreMatch({
 
           {error && (
             <p role="alert" className="nx-clip-sm mt-4 border border-drl/40 bg-drl/10 px-3 py-2 text-body text-drl-glow">
-              {error}
+              {td(error)}
             </p>
           )}
 
@@ -260,10 +265,10 @@ export function PreMatch({
             disabled={!canStart}
             aria-disabled={!canStart}
           >
-            {busy ? "Preparando…" : "Comenzar duelo"}
+            {busy ? t("Preparando…") : t("Comenzar duelo")}
           </NxButton>
           {chosen && readiness && !readiness.ready && (
-            <p className="mt-2 text-center text-caption text-ink-faint">Completa el equipo para poder empezar.</p>
+            <p className="mt-2 text-center text-caption text-ink-faint">{t("Completa el equipo para poder empezar.")}</p>
           )}
         </>
       )}
@@ -273,21 +278,22 @@ export function PreMatch({
 
 /** Reglas compactas de siempre (3 claves). `onShown` se llama una vez, tras pintarse: así se marcan como vistas. */
 function RulesIntro({ onShown }: { onShown?: () => void }) {
+  useLocale();
   useEffect(() => { onShown?.(); }, [onShown]);
   return (
-    <section className="mt-6 grid gap-2 text-xs text-white/50 sm:grid-cols-3" aria-label="Reglas" data-testid="prematch-rules">
-      <Rule n="10 turnos">Cada carta gasta una estadística y no vuelve a jugarse. El ataque alterna cada turno.</Rule>
-      <Rule n="Declara y responde">
-        Quien ataca elige la estadística; el rival responde con la que impone la tabla del juego.
+    <section className="mt-6 grid gap-2 text-xs text-white/50 sm:grid-cols-3" aria-label={t("Reglas")} data-testid="prematch-rules">
+      <Rule n="10 turnos">{t("Cada carta gasta una estadística y no vuelve a jugarse. El ataque alterna cada turno.")}</Rule>
+      <Rule n={t("Declara y responde")}>
+        {t("Quien ataca elige la estadística; el rival responde con la que impone la tabla del juego.")}
       </Rule>
-      <Rule n="Gana el valor mayor">
+      <Rule n={t("Gana el valor mayor")}>
         {Object.values(STAT_INFO).map((s, i) => (
           <span key={s.abbr}>
             {i > 0 && " · "}
-            <b style={{ color: s.color }}>{s.label}</b>
+            <b style={{ color: s.color }}>{td(s.label)}</b>
           </span>
         ))}
-        . Si empatan, nadie puntúa.
+        {t(". Si empatan, nadie puntúa.")}
       </Rule>
     </section>
   );
@@ -296,7 +302,7 @@ function RulesIntro({ onShown }: { onShown?: () => void }) {
 function Rule({ n, children }: { n: string; children: React.ReactNode }) {
   return (
     <Plate className="px-3.5 py-2.5">
-      <b className="block font-display text-body font-bold uppercase tracking-wide text-white/85">{n}</b>
+      <b className="block font-display text-body font-bold uppercase tracking-wide text-white/85">{td(n)}</b>
       <span className="mt-0.5 block leading-relaxed">{children}</span>
     </Plate>
   );

@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const t = ns("account");
+
 /**
  * F86.2 · REGISTRO: lo que el formulario comprueba ANTES de llamar a GoTrue.
  *
@@ -16,16 +20,16 @@ const NAME_RE = /^[\p{L}\p{N}_.-]+$/u;
 /** Error en castellano o `null` si el nombre vale. */
 export function signupNameError(raw: string): string | null {
   const name = raw.trim();
-  if (name.length === 0) return "Elige un nombre de jugador: así te verán los demás.";
-  if (name.includes("@")) return "El nombre de jugador no puede ser un correo.";
-  if (name.length < SIGNUP_NAME_MIN) return `El nombre de jugador necesita al menos ${SIGNUP_NAME_MIN} caracteres.`;
-  if (name.length > SIGNUP_NAME_MAX) return `El nombre de jugador puede tener como mucho ${SIGNUP_NAME_MAX} caracteres.`;
-  if (!NAME_RE.test(name)) return "Usa solo letras, números, guion, punto o guion bajo (sin espacios).";
+  if (name.length === 0) return t("Elige un nombre de jugador: así te verán los demás.");
+  if (name.includes("@")) return t("El nombre de jugador no puede ser un correo.");
+  if (name.length < SIGNUP_NAME_MIN) return t("El nombre de jugador necesita al menos {SIGNUP_NAME_MIN} caracteres.", { SIGNUP_NAME_MIN });
+  if (name.length > SIGNUP_NAME_MAX) return t("El nombre de jugador puede tener como mucho {SIGNUP_NAME_MAX} caracteres.", { SIGNUP_NAME_MAX });
+  if (!NAME_RE.test(name)) return t("Usa solo letras, números, guion, punto o guion bajo (sin espacios).");
   return null;
 }
 
 export function signupPasswordError(password: string): string | null {
-  return password.length < SIGNUP_PASSWORD_MIN ? `La contraseña necesita al menos ${SIGNUP_PASSWORD_MIN} caracteres.` : null;
+  return password.length < SIGNUP_PASSWORD_MIN ? t("La contraseña necesita al menos {SIGNUP_PASSWORD_MIN} caracteres.", { SIGNUP_PASSWORD_MIN }) : null;
 }
 
 /** El nombre que se envía (sin espacios alrededor). */

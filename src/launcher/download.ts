@@ -21,6 +21,7 @@
  */
 import { advanceProgress, type ProgressSample } from "@/platform/updater";
 import type { DownloadJob, DownloadKind, DownloadStatus, Game, DiskLocation } from "./types";
+import { tdIn } from "@/i18n/runtime";
 
 /** Ancho de banda nominal de la conexión, en bytes/s (≈ 12,5 MB/s). */
 export const BASE_BANDWIDTH_BPS = 13_100_000;
@@ -222,7 +223,7 @@ const PHASE_LABEL: Record<DownloadStatus, string> = {
 };
 
 export function phaseLabel(status: DownloadStatus): string {
-  return PHASE_LABEL[status];
+  return tdIn("launcher", PHASE_LABEL[status]);
 }
 
 /* ── Disco ───────────────────────────────────────────────────────────────── */

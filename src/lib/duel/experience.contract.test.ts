@@ -49,19 +49,19 @@ test("80 · liquidación ranked sin cambios", () => {
 test("81 · la mano se elige con teclado: botones con nombre", () => {
   const hand = code("src/components/duel/arena/HandFan.tsx");
   assert.ok(/<button|DuelCard/.test(hand));
-  assert.ok(code("src/components/duel/DuelCard.tsx").includes("aria-label={`${card.nick}, ${card.role}, OVR ${card.ovr}`}"));
+  assert.ok(/aria-label=\{t\("\{nick\}, \{role\}, OVR \{ovr\}", \{ nick: card\.nick, role: (?:td\()?card\.role\)?, ovr: card\.ovr \}\)\}/.test(code("src/components/duel/DuelCard.tsx")));
 });
 
 test("82 · la línea de turnos es navegable: botones con etiqueta textual", () => {
   const hud = code(HUD);
-  assert.ok(hud.includes('type="button"') && hud.includes("aria-label={playable ? `${c.label}. Ver detalle` : c.label}"));
+  assert.ok(hud.includes('type="button"') && /aria-label=\{playable \? t\("\{label\}\. Ver detalle", \{ label: (?:td\()?c\.label\)? \}\) : (?:td\()?c\.label\)?\}/.test(hud));
   assert.ok(hud.includes("min-h-[44px]"));
 });
 
 test("83 · la repetición se controla con teclado", () => {
   const r = code(REPLAY);
   for (const k of ['"ArrowLeft"', '"ArrowRight"', '"Home"', '"End"', 'e.key === " "']) assert.ok(r.includes(k), k);
-  for (const l of ['label="Turno anterior"', 'label="Turno siguiente"', '"Pausar" : "Reproducir"']) assert.ok(r.includes(l), l);
+  for (const l of ['label={tr("Turno anterior")}', 'label={tr("Turno siguiente")}', 'tr("Pausar") : tr("Reproducir")']) assert.ok(r.includes(l), l);
 });
 
 test("84 · el resultado es textual", () => {

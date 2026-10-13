@@ -27,6 +27,9 @@ import {
   type DuelMatch, type DuelMatchResult, type DuelTurn, type MatchAction, type MatchError,
   type MatchView, type TurnPhase,
 } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("cardgame");
 
 const other = (s: Side): Side => (s === "A" ? "B" : "A");
 
@@ -341,34 +344,34 @@ export function matchView(m: DuelMatch): MatchView {
 export function explainMatchError(e: MatchError): string {
   switch (e.code) {
     case "INVALID_MATCH":
-      return `La partida no puede empezar: los mazos no cumplen el contrato (${e.combatErrors?.length ?? 0} problemas).`;
+      return tr("La partida no puede empezar: los mazos no cumplen el contrato ({v} problemas).", { v: e.combatErrors?.length ?? 0 });
     case "WRONG_PHASE":
-      return `Ahora no toca esa acción: la partida espera «${e.expectedPhase}» y se intentó «${e.actualPhase}».`;
+      return tr("Ahora no toca esa acción: la partida espera «{expectedPhase}» y se intentó «{actualPhase}».", { expectedPhase: td(e.expectedPhase), actualPhase: td(e.actualPhase) });
     case "CARD_ALREADY_USED":
-      return "Esa carta ya se usó en un turno anterior y no puede volver a jugarse.";
+      return tr("Esa carta ya se usó en un turno anterior y no puede volver a jugarse.");
     case "CARD_NOT_IN_SNAPSHOT":
-      return "Esa carta no está en tu mazo de esta partida.";
+      return tr("Esa carta no está en tu mazo de esta partida.");
     case "STAT_ALREADY_CONSUMED":
-      return "Esa carta ya gastó su estadística.";
+      return tr("Esa carta ya gastó su estadística.");
     case "ILLEGAL_STAT_MATCHUP":
-      return "Esa estadística no puede enfrentarse a la declarada por el atacante.";
+      return tr("Esa estadística no puede enfrentarse a la declarada por el atacante.");
     case "MISSING_ATTACKER_CARD":
-      return "Falta elegir la carta atacante.";
+      return tr("Falta elegir la carta atacante.");
     case "MISSING_ATTACKER_STAT":
-      return "Falta declarar la estadística del atacante.";
+      return tr("Falta declarar la estadística del atacante.");
     case "MISSING_DEFENDER_CARD":
-      return "Falta elegir la carta defensora.";
+      return tr("Falta elegir la carta defensora.");
     case "MISSING_DEFENDER_STAT":
-      return "Falta declarar la estadística del defensor.";
+      return tr("Falta declarar la estadística del defensor.");
     case "MATCH_ALREADY_COMPLETE":
-      return "La partida ya ha terminado.";
+      return tr("La partida ya ha terminado.");
     case "INVALID_PLAN":
-      return "El plan de la partida no es válido.";
+      return tr("El plan de la partida no es válido.");
   }
 }
 
 /** Línea de historial de un turno, lista para mostrar. */
 export function explainTurn(t: DuelTurn): string {
   const winner = t.outcome === "TIE" ? "empate" : `gana ${t.outcome}`;
-  return `Turno ${t.number} · ataca ${t.attacker} · ${t.encounter.reason} · ${winner}`;
+  return tr("Turno {number} · ataca {attacker} · {reason} · {winner}", { number: t.number, attacker: t.attacker, reason: td(t.encounter.reason), winner });
 }

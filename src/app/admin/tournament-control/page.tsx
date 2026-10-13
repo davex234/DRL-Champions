@@ -17,6 +17,11 @@ import {
 import { useControlStore } from "@/tournament-control/store";
 import type { EditorialAction } from "@/editorial";
 import { cn } from "@/lib/format";
+import { ns, td as i18nTd, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("admin");
 
 const STATE_COLOR: Record<string, string> = {
   generated: "border-white/20 text-white/60",
@@ -47,6 +52,7 @@ const SORTS: { key: DashboardSortKey; label: string }[] = [
 ];
 
 export default function TournamentControlPage() {
+  useLocale();
   const ledger = useControlStore((s) => s.ledger);
   const lastError = useControlStore((s) => s.lastError);
   const store = useControlStore();
@@ -79,49 +85,48 @@ export default function TournamentControlPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-            Tournament <span className="text-drl">Control</span>
+            {t("Tournament")} <span className="text-drl">{t("Control")}</span>
           </h1>
-          <p className="mt-1 text-white/50">Ciclo de vida completo: importar → generar → revisar → publicar → rollback.</p>
+          <p className="mt-1 text-white/50">{t("Ciclo de vida completo: importar → generar → revisar → publicar → rollback.")}</p>
         </div>
         <div className="text-right text-[11px] text-white/45">
-          <p>runtime v{rt.runtimeVersion} {rt.generationId && <span className="font-mono text-white/70">· {rt.generationId}</span>}</p>
-          <p>{metrics.records} registro(s) · {metrics.tournaments} torneo(s) · {metrics.publications} publicación(es) · {metrics.rollbacks} rollback(s)</p>
+          <p>{t("runtime v")}{rt.runtimeVersion} {rt.generationId && <span className="font-mono text-white/70">· {rt.generationId}</span>}</p>
+          <p>{t("{registros} registro(s) · {torneos} torneo(s) · {publicaciones} publicación(es) · {rollbacks} rollback(s)", { registros: metrics.records, torneos: metrics.tournaments, publicaciones: metrics.publications, rollbacks: metrics.rollbacks })}</p>
         </div>
       </header>
 
       {lastError && (
-        <p className="rounded-xl border border-red-400/40 bg-red-400/10 px-3 py-2 text-[12px] text-red-300">⚠ {lastError}</p>
+        <p className="rounded-xl border border-red-400/40 bg-red-400/10 px-3 py-2 text-[12px] text-red-300">⚠ {i18nTd(lastError)}</p>
       )}
 
       {ledger.order.length === 0 ? (
         <div className="rounded-2xl border border-white/10 bg-base-700/40 p-10 text-center text-white/55">
-          <p className="font-display text-lg font-bold text-white/80">Sin torneos registrados</p>
+          <p className="font-display text-lg font-bold text-white/80">{t("Sin torneos registrados")}</p>
           <p className="mt-2 text-sm">
-            Genera un torneo con <code className="rounded bg-white/10 px-1.5 py-0.5 text-drl-cyan">npm run tournament:generate &lt;url&gt;</code>.
-            El panel registra generaciones vía <code className="text-drl-cyan">ingestRun</code> / <code className="text-drl-cyan">generateForReview</code> (F5 Watcher las alimentará automáticamente).
+            {fill(t("Genera un torneo con {comando}. El panel registra generaciones vía {ingest} / {review} (F5 Watcher las alimentará automáticamente).", slots("comando", "ingest", "review")), { comando: <code className="rounded bg-white/10 px-1.5 py-0.5 text-drl-cyan">npm run tournament:generate &lt;url&gt;</code>, ingest: <code className="text-drl-cyan">ingestRun</code>, review: <code className="text-drl-cyan">generateForReview</code> })}
           </p>
         </div>
       ) : (
         <>
           {/* Búsqueda + filtros + orden */}
           <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-base-700/40 p-3">
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar torneo / generación / carta…"
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t("Buscar torneo / generación / carta…")}
               className="w-64 rounded-lg border border-white/15 bg-base-800 px-2.5 py-1.5 text-[12px] text-white/80 outline-none placeholder:text-white/30" />
             <label className="flex items-center gap-1.5 text-[11px] text-white/50">
-              <span className="uppercase tracking-widest text-white/40">Estado</span>
+              <span className="uppercase tracking-widest text-white/40">{t("Estado")}</span>
               <select value={status} onChange={(e) => setStatus(e.target.value as RecordStatus | "")}
                 className="rounded-lg border border-white/15 bg-base-800 px-2 py-1.5 text-white/80 outline-none">
-                <option value="">Todos</option>
+                <option value="">{t("Todos")}</option>
                 {RECORD_STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
             </label>
             <div className="ml-auto flex items-center gap-1">
-              <span className="text-[10px] uppercase tracking-widest text-white/40">Orden</span>
+              <span className="text-[10px] uppercase tracking-widest text-white/40">{t("Orden")}</span>
               {SORTS.map((s) => (
                 <button key={s.key} onClick={() => setSort(s.key)}
                   className={cn("rounded-lg px-2.5 py-1.5 font-display text-[11px] uppercase tracking-wide",
                     sort === s.key ? "bg-drl text-white" : "text-white/50 hover:bg-white/10")}>
-                  {s.label}
+                  {i18nTd(s.label)}
                 </button>
               ))}
             </div>
@@ -129,11 +134,11 @@ export default function TournamentControlPage() {
 
           {search.trim() && (
             <div className="max-h-44 overflow-y-auto rounded-2xl border border-white/10 bg-base-700/40 p-3 text-[11px] leading-5 text-white/60">
-              {hits.length === 0 ? "Sin resultados." : hits.map((h, i) => (
+              {hits.length === 0 ? t("Sin resultados.") : hits.map((h, i) => (
                 <button key={`${h.kind}-${h.ref}-${i}`} onClick={() => { setSelected(h.recordId); setSearch(""); }}
                   className="block w-full truncate rounded px-1 text-left hover:bg-white/10">
                   <span className="mr-2 rounded-full border border-white/15 px-1.5 font-display text-[9px] uppercase text-white/40">{h.kind}</span>
-                  <span className="font-mono text-drl-cyan">{h.ref}</span> · {h.label}
+                  <span className="font-mono text-drl-cyan">{i18nTd(h.ref)}</span> · {i18nTd(h.label)}
                 </button>
               ))}
             </div>
@@ -143,7 +148,7 @@ export default function TournamentControlPage() {
           <div className="overflow-x-auto rounded-2xl border border-white/10 bg-base-700/40">
             <table className="w-full text-left text-[11px] leading-5 text-white/65">
               <thead className="border-b border-white/10 font-display text-[10px] uppercase tracking-widest text-white/40">
-                <tr>{["Torneo", "GenerationId", "Fecha", "Estado", "Cartas", "Aprob.", "Pend.", "Bloq.", "Rech.", "Publ.", "Runtime", "Catálogo"].map((h) => <th key={h} className="px-3 py-2">{h}</th>)}</tr>
+                <tr>{[t("Torneo"), "GenerationId", t("Fecha"), t("Estado"), t("Cartas"), t("Aprob."), t("Pend."), t("Bloq."), t("Rech."), t("Publ."), t("Runtime"), t("Catálogo")].map((h) => <th key={h} className="px-3 py-2">{i18nTd(h)}</th>)}</tr>
               </thead>
               <tbody>
                 {rows.map((r) => <Row key={r.recordId} r={r} selected={selected === r.recordId} onClick={() => setSelected(r.recordId)} />)}
@@ -156,7 +161,7 @@ export default function TournamentControlPage() {
             <div className="space-y-3 rounded-2xl border border-drl/30 bg-base-700/40 p-4">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="font-mono text-[12px] text-drl-cyan">{rec.recordId}</p>
-                <span className="text-[11px] text-white/45">{rec.tournamentName} · S{rec.season} · {rec.source}{rec.revisionOf ? ` · revisión de ${rec.revisionOf}` : ""}</span>
+                <span className="text-[11px] text-white/45">{i18nTd(rec.tournamentName)} · S{rec.season} · {rec.source}{rec.revisionOf ? t(" · revisión de {revisionOf}", { revisionOf: i18nTd(rec.revisionOf) }) : ""}</span>
                 <div className="ml-auto flex items-center gap-1">
                   {(["detalle", "historial", "metricas", "comparador"] as const).map((p) => (
                     <button key={p} onClick={() => setPanel(p)}
@@ -171,21 +176,21 @@ export default function TournamentControlPage() {
               {/* Acciones */}
               <div className="flex flex-wrap items-center gap-2">
                 {!rec.editorial && (
-                  <Action color="sky" onClick={() => store.open(rec.recordId, meta())}>▶ Abrir revisión</Action>
+                  <Action color="sky" onClick={() => store.open(rec.recordId, meta())}>{t("▶ Abrir revisión")}</Action>
                 )}
                 {rec.editorial && (
                   <>
                     <Action color="emerald" onClick={() => {
                       const inReview = reviewRows(rec).filter((r) => r.state === "review").slice(0, 25).map((r) => r.cardId);
                       if (inReview.length) store.decide(rec.recordId, inReview, "approve", meta());
-                    }}>✓ Aprobar lote</Action>
-                    <Action color="emerald" onClick={() => store.approveAll(rec.recordId, meta())}>✓✓ Aprobar generación</Action>
-                    <Action color="drl" onClick={() => void store.publish(rec.recordId, { ...meta(), roster: allPlayers() })}>⤴ Publicar aprobadas</Action>
-                    <Action color="white" onClick={() => store.reopen(rec.recordId, meta())}>↩ Reabrir revisión</Action>
+                    }}>{t("✓ Aprobar lote")}</Action>
+                    <Action color="emerald" onClick={() => store.approveAll(rec.recordId, meta())}>{t("✓✓ Aprobar generación")}</Action>
+                    <Action color="drl" onClick={() => void store.publish(rec.recordId, { ...meta(), roster: allPlayers() })}>{t("⤴ Publicar aprobadas")}</Action>
+                    <Action color="white" onClick={() => store.reopen(rec.recordId, meta())}>{t("↩ Reabrir revisión")}</Action>
                   </>
                 )}
-                <Action color="orange" onClick={() => store.rollback(rec.recordId, meta())}>⟲ Rollback</Action>
-                <Action color="white" onClick={() => store.duplicate(rec.recordId, meta())}>⧉ Duplicar para revisión</Action>
+                <Action color="orange" onClick={() => store.rollback(rec.recordId, meta())}>{t("⟲ Rollback")}</Action>
+                <Action color="white" onClick={() => store.duplicate(rec.recordId, meta())}>{t("⧉ Duplicar para revisión")}</Action>
                 <Action color="white" onClick={() => {
                   const report = buildReport(ledger, rec.recordId, rt, Date.now());
                   if (!report) return;
@@ -195,7 +200,7 @@ export default function TournamentControlPage() {
                   a.download = `informe-${rec.recordId}.json`;
                   a.click();
                   URL.revokeObjectURL(a.href);
-                }}>⇩ Exportar informe</Action>
+                }}>{t("⇩ Exportar informe")}</Action>
               </div>
 
               {panel === "detalle" && <DetailPanel rec={rec} onAct={(ids, a) => store.decide(rec.recordId, ids, a, meta())} />}
@@ -213,14 +218,15 @@ export default function TournamentControlPage() {
 }
 
 function Row({ r, selected, onClick }: { r: DashboardRow; selected: boolean; onClick: () => void }) {
+  useLocale();
   return (
     <tr onClick={onClick} className={cn("cursor-pointer border-b border-white/5 hover:bg-white/5", selected && "bg-drl/10")}>
-      <td className="px-3 py-2 text-white/80">{r.tournamentName}{r.revisionOf ? <span className="text-white/35"> · {r.recordId.split("~")[1]}</span> : ""}</td>
+      <td className="px-3 py-2 text-white/80">{i18nTd(r.tournamentName)}{r.revisionOf ? <span className="text-white/35"> · {i18nTd(r.recordId.split("~")[1])}</span> : ""}</td>
       <td className="px-3 py-2 font-mono text-[10px] text-drl-cyan">{r.generationId}</td>
-      <td className="px-3 py-2">{new Date(r.date).toLocaleDateString()}</td>
+      <td className="px-3 py-2">{new Date(r.date).toLocaleDateString(getIntlLocale())}</td>
       <td className="px-3 py-2">
         <span className={cn("rounded-full border px-2 py-0.5 font-display text-[9px] uppercase tracking-wide", STATE_COLOR[r.status])}>
-          {r.status}{r.live ? " · live" : ""}
+          {r.status}{r.live ? (" " + t("· live")) : ""}
         </span>
       </td>
       <td className="px-3 py-2">{r.cards}</td>
@@ -256,24 +262,25 @@ function DetailPanel({ rec, onAct }: {
   rec: import("@/tournament-control").GenerationRecord;
   onAct: (ids: string[], a: EditorialAction) => void;
 }) {
+  useLocale();
   const d = generationDetail(rec);
   const cards = reviewRows(rec);
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap gap-2 text-[11px] text-white/55">
-        <Chip label="Cartas" value={d.cards} />
-        <Chip label="Jugadores" value={`${d.players.resolved}+${d.players.created} nuevos`} />
-        <Chip label="Grants" value={d.grants} />
-        <Chip label="Badges" value={d.badges} />
-        <Chip label="Omitidas" value={d.omitted} />
-        <Chip label="Valor est." value={d.estimatedValueTotal} />
-        {Object.entries(d.byRarity).map(([k, v]) => <Chip key={k} label={k} value={v} />)}
+        <Chip label={t("Cartas")} value={d.cards} />
+        <Chip label={t("Jugadores")} value={t("{resolved}+{created} nuevos", { resolved: d.players.resolved, created: d.players.created })} />
+        <Chip label={t("Grants")} value={d.grants} />
+        <Chip label={t("Badges")} value={d.badges} />
+        <Chip label={t("Omitidas")} value={d.omitted} />
+        <Chip label={t("Valor est.")} value={d.estimatedValueTotal} />
+        {Object.entries(d.byRarity).map(([k, v]) => <Chip key={k} label={i18nTd(k)} value={v} />)}
       </div>
       <div className="grid max-h-80 gap-1 overflow-y-auto md:grid-cols-2 xl:grid-cols-3">
         {cards.map((c) => (
           <div key={c.cardId} className="flex items-center gap-2 rounded-lg border border-white/5 bg-base-800/60 px-2 py-1 text-[11px] text-white/60">
             <span className="font-mono text-[10px] text-drl-cyan">{c.cardId}</span>
-            <span>OVR {c.ovr}</span>
+            <span>{t("OVR")} {c.ovr}</span>
             {c.state && (
               <span className={cn("rounded-full border px-1.5 font-display text-[8px] uppercase", STATE_COLOR[c.state])}>{c.state}</span>
             )}
@@ -281,7 +288,7 @@ function DetailPanel({ rec, onAct }: {
               {c.actions.filter((a) => a !== "publish").map((a) => (
                 <button key={a} title={a} onClick={() => onAct([c.cardId], a)}
                   className="rounded border border-white/10 px-1 text-[10px] text-white/50 hover:bg-white/10">
-                  {ACTION_LABEL[a] ?? a}
+                  {i18nTd(ACTION_LABEL[a]) ?? a}
                 </button>
               ))}
             </span>
@@ -293,9 +300,10 @@ function DetailPanel({ rec, onAct }: {
 }
 
 function Chip({ label, value }: { label: string; value: string | number }) {
+  useLocale();
   return (
     <span className="rounded-full border border-white/10 px-2.5 py-1">
-      <span className="uppercase tracking-widest text-white/35">{label}</span> <b className="text-white/75">{value}</b>
+      <span className="uppercase tracking-widest text-white/35">{i18nTd(label)}</span> <b className="text-white/75">{value}</b>
     </span>
   );
 }
@@ -305,7 +313,7 @@ function HistoryPanel({ entries }: { entries: import("@/tournament-control").His
     <div className="max-h-72 overflow-y-auto rounded-xl border border-white/10 bg-base-800/60 p-3 text-[11px] leading-5 text-white/60">
       {entries.map((e, i) => (
         <p key={i} className="truncate border-b border-white/5 py-0.5 font-mono">
-          {new Date(e.at).toLocaleString()} · <span className={e.source === "control" ? "text-drl-cyan" : "text-sky-300"}>{e.source}</span> · <b className="text-white/80">{e.kind}</b> · {e.actor}
+          {new Date(e.at).toLocaleString(getIntlLocale())} · <span className={e.source === "control" ? "text-drl-cyan" : "text-sky-300"}>{e.source}</span> · <b className="text-white/80">{i18nTd(e.kind)}</b> · {i18nTd(e.actor)}
           {e.cardId ? <> · <span className="text-drl-cyan">{e.cardId}</span></> : ""} {e.detail ? ` · ${e.detail}` : ""}
         </p>
       ))}
@@ -314,20 +322,21 @@ function HistoryPanel({ entries }: { entries: import("@/tournament-control").His
 }
 
 function MetricsPanel({ rec }: { rec: import("@/tournament-control").GenerationRecord }) {
+  useLocale();
   const m = rec.metrics;
   return (
     <div className="flex flex-wrap gap-2 text-[11px] text-white/55">
-      <Chip label="Total" value={`${m.totalMs} ms`} />
-      {m.stages.map((s) => <Chip key={s.stage} label={s.stage} value={`${s.ms} ms`} />)}
-      <Chip label="Equipos" value={m.teams} />
-      <Chip label="Jugadores" value={m.players} />
-      <Chip label="Partidos" value={m.matches} />
-      <Chip label="Mapas" value={m.maps} />
-      <Chip label="Generadas" value={m.cardsGenerated} />
-      <Chip label="Materializadas" value={m.cardsMaterialized} />
-      <Chip label="Publicadas" value={m.cardsPublished} />
-      <Chip label="Catálogo" value={m.catalogVersion || "—"} />
-      <Chip label="Runtime" value={`v${m.runtimeVersion}`} />
+      <Chip label={t("Total")} value={t("{totalMs} ms", { totalMs: m.totalMs })} />
+      {m.stages.map((s) => <Chip key={s.stage} label={s.stage} value={t("{ms} ms", { ms: s.ms })} />)}
+      <Chip label={t("Equipos")} value={m.teams} />
+      <Chip label={t("Jugadores")} value={m.players} />
+      <Chip label={t("Partidos")} value={m.matches} />
+      <Chip label={t("Mapas")} value={m.maps} />
+      <Chip label={t("Generadas")} value={m.cardsGenerated} />
+      <Chip label={t("Materializadas")} value={m.cardsMaterialized} />
+      <Chip label={t("Publicadas")} value={m.cardsPublished} />
+      <Chip label={t("Catálogo")} value={m.catalogVersion || "—"} />
+      <Chip label={t("Runtime")} value={`v${m.runtimeVersion}`} />
     </div>
   );
 }
@@ -338,13 +347,14 @@ function ComparePanel({ ledger, rec, other, setOther }: {
   other: string | null;
   setOther: (id: string | null) => void;
 }) {
+  useLocale();
   const candidates = ledger.order.filter((id) => id !== rec.recordId);
   const b = other ? ledger.records[other] : undefined;
   const cmp = b ? compareGenerations(rec, b) : null;
   return (
     <div className="space-y-2 text-[11px] text-white/60">
       <label className="flex items-center gap-2">
-        <span className="uppercase tracking-widest text-white/40">Comparar con</span>
+        <span className="uppercase tracking-widest text-white/40">{t("Comparar con")}</span>
         <select value={other ?? ""} onChange={(e) => setOther(e.target.value || null)}
           className="rounded-lg border border-white/15 bg-base-800 px-2 py-1.5 text-white/80 outline-none">
           <option value="">—</option>
@@ -353,14 +363,14 @@ function ComparePanel({ ledger, rec, other, setOther }: {
       </label>
       {cmp && (
         <div className="grid gap-2 md:grid-cols-2">
-          <DiffList title={`Nuevas en B (${cmp.addedCards.length})`} items={cmp.addedCards} />
-          <DiffList title={`Eliminadas en B (${cmp.removedCards.length})`} items={cmp.removedCards} />
-          <DiffList title={`OVR modificados (${cmp.ovrChanged.length})`} items={cmp.ovrChanged.map((c) => `${c.cardId}: ${c.from} → ${c.to}`)} />
-          <DiffList title={`Rarezas modificadas (${cmp.rarityChanged.length})`} items={cmp.rarityChanged.map((c) => `${c.cardId}: ${c.from} → ${c.to}`)} />
-          <DiffList title={`Badges (${cmp.badgesChanged.length})`} items={cmp.badgesChanged.map((c) => `${c.cardId}: +${c.added.length} −${c.removed.length}`)} />
-          <DiffList title={`Colección (${cmp.collectionChanged.length})`} items={cmp.collectionChanged.map((c) => `${c.cardId}: ${c.inA ? "A" : "—"} / ${c.inB ? "B" : "—"}`)} />
-          <DiffList title={`Editoriales (${cmp.editorialChanged.length})`} items={cmp.editorialChanged.map((c) => `${c.cardId}: ${c.from} → ${c.to}`)} />
-          {cmp.identical && <p className="text-emerald-300">Las generaciones son idénticas.</p>}
+          <DiffList title={t("Nuevas en B ({length})", { length: cmp.addedCards.length })} items={cmp.addedCards} />
+          <DiffList title={t("Eliminadas en B ({length})", { length: cmp.removedCards.length })} items={cmp.removedCards} />
+          <DiffList title={t("OVR modificados ({length})", { length: cmp.ovrChanged.length })} items={cmp.ovrChanged.map((c) => `${c.cardId}: ${c.from} → ${c.to}`)} />
+          <DiffList title={t("Rarezas modificadas ({length})", { length: cmp.rarityChanged.length })} items={cmp.rarityChanged.map((c) => `${c.cardId}: ${c.from} → ${c.to}`)} />
+          <DiffList title={t("Badges ({length})", { length: cmp.badgesChanged.length })} items={cmp.badgesChanged.map((c) => `${c.cardId}: +${c.added.length} −${c.removed.length}`)} />
+          <DiffList title={t("Colección ({length})", { length: cmp.collectionChanged.length })} items={cmp.collectionChanged.map((c) => `${c.cardId}: ${c.inA ? "A" : "—"} / ${c.inB ? "B" : "—"}`)} />
+          <DiffList title={t("Editoriales ({length})", { length: cmp.editorialChanged.length })} items={cmp.editorialChanged.map((c) => `${c.cardId}: ${c.from} → ${c.to}`)} />
+          {cmp.identical && <p className="text-emerald-300">{t("Las generaciones son idénticas.")}</p>}
         </div>
       )}
     </div>
@@ -368,11 +378,12 @@ function ComparePanel({ ledger, rec, other, setOther }: {
 }
 
 function DiffList({ title, items }: { title: string; items: string[] }) {
+  useLocale();
   return (
     <div className="rounded-xl border border-white/10 bg-base-800/60 p-2">
-      <p className="mb-1 font-display text-[10px] uppercase tracking-widest text-white/40">{title}</p>
+      <p className="mb-1 font-display text-[10px] uppercase tracking-widest text-white/40">{i18nTd(title)}</p>
       <div className="max-h-32 overflow-y-auto font-mono text-[10px] leading-4 text-white/55">
-        {items.length === 0 ? "—" : items.map((it, i) => <p key={i} className="truncate">{it}</p>)}
+        {items.length === 0 ? "—" : items.map((it, i) => <p key={i} className="truncate">{i18nTd(it)}</p>)}
       </div>
     </div>
   );

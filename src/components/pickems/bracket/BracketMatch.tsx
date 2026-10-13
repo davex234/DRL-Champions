@@ -25,11 +25,17 @@ import { cn } from "@/lib/format";
 import { Countdown } from "../Countdown";
 import type { PickFeedback } from "@/lib/usePickem";
 import { canPickMatch, isDefined, type BracketMatch as Match } from "@/domain/pickems/bracket";
+import { ns, td, tdIn, getIntlLocale } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("pickems");
 
 const fmtWhen = (iso: string | null): string => {
-  if (!iso) return "Sin fecha";
+  if (!iso) return t("Sin fecha");
   const d = new Date(iso);
-  return `${d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })} · ${d.toLocaleDateString("es-ES", { day: "numeric", month: "short" })}`;
+  return `${d.toLocaleTimeString(getIntlLocale(), { hour: "2-digit", minute: "2-digit" })} · ${d.toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short" })}`;
 };
 
 const PICK_LABEL: Record<string, string> = {
@@ -58,6 +64,7 @@ export function BracketMatchCard({
   /** 24.5 · acaba de cambiar en este refresco (resultado, participante nuevo): brillo breve. */
   highlight?: boolean;
 }) {
+  useLocale();
   const defined = isDefined(m);
   const live = m.status === "live";
   const finished = m.status === "finished" || m.status === "completed";
@@ -74,14 +81,14 @@ export function BracketMatchCard({
   const rowLabel = (side: "a" | "b") => {
     const me = side === "a" ? m.teamA : m.teamB;
     const rival = side === "a" ? m.teamB : m.teamA;
-    return `Seleccionar ${me?.name ?? "por definir"} como ganador frente a ${rival?.name ?? "por definir"}`;
+    return t("Seleccionar {v} como ganador frente a {v2}", { v: me?.name ?? t("por definir"), v2: rival?.name ?? t("por definir") });
   };
 
   return (
     <article
       data-match-id={m.id}
       data-state={state ?? "none"}
-      aria-label={`${roundLabel}: ${m.teamA?.name ?? "Por definir"} contra ${m.teamB?.name ?? "Por definir"}`}
+      aria-label={t("{roundLabel}: {v} contra {v2}", { roundLabel: roundText(roundLabel), v: m.teamA?.name ?? t("Por definir"), v2: m.teamB?.name ?? t("Por definir") })}
       className={cn(
         "nx-clip-sm nx-bracket-card relative flex flex-col",
         compact ? "w-full" : "w-[260px] sm:w-[280px]",
@@ -97,13 +104,13 @@ export function BracketMatchCard({
     >
       {/* ── Cabecera: ronda · estado ── */}
       <header className="flex items-center justify-between gap-2 px-3 py-1.5">
-        <span className="nx-label truncate">{roundLabel}</span>
+        <span className="nx-label truncate">{roundText(roundLabel)}</span>
         {live ? (
-          <Badge tone="key" dot pulse>En juego</Badge>
+          <Badge tone="key" dot pulse>{t("En juego")}</Badge>
         ) : finished ? (
-          <span className="flex items-center gap-1.5"><StatusDot tone="muted" size={5} /><span className="nx-label">Final</span></span>
+          <span className="flex items-center gap-1.5"><StatusDot tone="muted" size={5} /><span className="nx-label">{t("Final")}</span></span>
         ) : m.lockState === "open" && m.locksAt ? (
-          <Countdown to={m.locksAt} onExpire={onExpire} prefix="Cierra en" className="nx-label shrink-0" />
+          <Countdown to={m.locksAt} onExpire={onExpire} prefix={t("Cierra en")} className="nx-label shrink-0" />
         ) : (
           <span className="nx-label shrink-0">{fmtWhen(m.startsAt)}</span>
         )}
@@ -146,7 +153,7 @@ export function BracketMatchCard({
                   won ? "text-white" : lost ? "text-ink-faint" : team ? "text-ink-primary" : "italic normal-case text-ink-faint",
                 )}
               >
-                {team?.name ?? "Por definir"}
+                {team?.name ?? t("Por definir")}
               </span>
               {won && <span aria-hidden className="h-4 w-[3px] shrink-0 bg-ok" />}
               <span
@@ -154,7 +161,7 @@ export function BracketMatchCard({
                   "nx-readout w-6 shrink-0 text-right text-[15px] tabular-nums",
                   won ? "text-white" : lost ? "text-ink-faint" : live ? "text-drl-cyan" : "text-ink-muted",
                 )}
-                aria-label={score === null ? "sin marcador" : `${score}`}
+                aria-label={score === null ? t("sin marcador") : `${score}`}
               >
                 {score === null ? "–" : score}
               </span>
@@ -189,26 +196,31 @@ export function BracketMatchCard({
       <footer className="flex flex-wrap items-center gap-x-2 gap-y-0.5 border-t border-white/[0.06] px-3 py-1.5" role="status" aria-live="polite">
         {feedback ? (
           <span className={cn("nx-label", feedback.kind === "saved" && "!text-ok", feedback.kind === "error" && "!text-bad", feedback.kind === "locked" && "!text-warn")}>
-            {feedback.message}
+            {td(feedback.message)}
           </span>
         ) : !defined ? (
-          <span className="nx-label">Por definir · sin predicción hasta que haya equipos</span>
+          <span className="nx-label">{t("Por definir · sin predicción hasta que haya equipos")}</span>
         ) : !m.questionId ? (
-          <span className="nx-label">Sin predicción disponible</span>
+          <span className="nx-label">{t("Sin predicción disponible")}</span>
         ) : hit ? (
-          <span className="nx-label !text-ok">✓ Tu pick: {(mySide === "a" ? m.teamA : m.teamB)?.name} · Acertada · +{m.pointsAward ?? m.points} pts</span>
+          <span className="nx-label !text-ok">{t("✓ Tu pick: {equipo} · Acertada · +{n} pts", { equipo: (mySide === "a" ? m.teamA : m.teamB)?.name ?? "", n: m.pointsAward ?? m.points })}</span>
         ) : miss ? (
-          <span className="nx-label !text-bad">✕ Tu pick: {(mySide === "a" ? m.teamA : m.teamB)?.name} · Fallada · +0 pts</span>
+          <span className="nx-label !text-bad">{t("✕ Tu pick: {equipo} · Fallada · +0 pts", { equipo: (mySide === "a" ? m.teamA : m.teamB)?.name ?? "" })}</span>
         ) : noPick ? (
-          <span className="nx-label !text-warn">Sin predicción{m.lockState !== "open" ? " · Cerrada" : ""}</span>
+          <span className="nx-label !text-warn">{m.lockState !== "open" ? t("Sin predicción · Cerrada") : t("Sin predicción")}</span>
         ) : state === "bloqueada" ? (
-          <span className="nx-label">Bloqueada · Tu pick: <b className="text-white">{(mySide === "a" ? m.teamA : m.teamB)?.name}</b></span>
+          <span className="nx-label">{fill(t("Bloqueada · Tu pick: {equipo}", slots("equipo")), { equipo: <b className="text-white">{(mySide === "a" ? m.teamA : m.teamB)?.name}</b> })}</span>
         ) : state === "elegida" ? (
-          <span className="nx-label">Tu pick: <b className="text-white">{(mySide === "a" ? m.teamA : m.teamB)?.name}</b>{!readOnly && " · puedes cambiarlo"} · +{m.points} pts</span>
+          <span className="nx-label">{fill(
+            readOnly
+              ? t("Tu pick: {equipo} · +{n} pts", { ...slots("equipo"), n: m.points })
+              : t("Tu pick: {equipo} · puedes cambiarlo · +{n} pts", { ...slots("equipo"), n: m.points }),
+            { equipo: <b className="text-white">{(mySide === "a" ? m.teamA : m.teamB)?.name}</b> },
+          )}</span>
         ) : (
-          <span className="nx-label">{PICK_LABEL[state ?? "pendiente"]} · <b className="text-drl-gold">+{m.points} pts</b></span>
+          <span className="nx-label">{tdIn("pickems", PICK_LABEL[state ?? "pendiente"])} · <b className="text-drl-gold">+{m.points} {t("pts")}</b></span>
         )}
-        {saving && <span className="nx-label ml-auto">Guardando…</span>}
+        {saving && <span className="nx-label ml-auto">{t("Guardando…")}</span>}
       </footer>
     </article>
   );

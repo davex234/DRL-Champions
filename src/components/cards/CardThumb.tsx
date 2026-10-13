@@ -6,6 +6,7 @@ import { getVariant } from "@/domain/cards/variants";
 import { variantIdentity } from "@/design/variantIdentity";
 import { VariantSeal } from "./layers/VariantSeal";
 import { CardArt } from "./CardArt";
+import { td } from "@/i18n/runtime";
 
 /**
  * Miniatura compacta de una carta para filas de listas (mercado, historial).
@@ -67,7 +68,7 @@ export function CardThumb({ card, width = 44 }: { card: CardDef; width?: number 
           className="absolute bottom-0 right-0 flex items-center gap-[2px] rounded-tl-[3px] px-[3px] py-[1px]"
           style={{ background: "rgba(6,8,14,0.88)", color: variant.palette.secondary }}
         >
-          <VariantSeal shape={identidad.seal} size={9} label={identidad.sealLabel} />
+          <VariantSeal shape={identidad.seal} size={9} label={td(identidad.sealLabel)} />
           {identidad.code && (
             <span className="font-display text-[7px] font-bold leading-none tracking-tight">
               {identidad.code}

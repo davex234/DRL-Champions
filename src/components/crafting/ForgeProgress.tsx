@@ -22,6 +22,10 @@ import { cn } from "@/lib/format";
 import { CardImage, cardName, classLabel } from "./CraftingUi";
 import { MysteryCard } from "./Forge";
 import p from "./forgeProgress.module.css";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("crafting");
 
 /* ═══════════════════ errores ═══════════════════ */
 
@@ -50,13 +54,13 @@ export function forgeErrorText(e: unknown): string {
   const code = (e as { code?: string | null })?.code ?? null;
   const status = (e as { status?: number })?.status ?? 0;
   if (code && ERRORS[code]) return ERRORS[code];
-  if (status === 401) return "Tu sesión caducó. Vuelve a entrar.";
-  if (status === 0 || status >= 500 || e instanceof TypeError) return "No hemos podido hablar con el servidor. Comprueba tu conexión y vuelve a intentarlo: si la forja ya se hizo, no se repetirá ni se entregará nada dos veces.";
+  if (status === 401) return tr("Tu sesión caducó. Vuelve a entrar.");
+  if (status === 0 || status >= 500 || e instanceof TypeError) return tr("No hemos podido hablar con el servidor. Comprueba tu conexión y vuelve a intentarlo: si la forja ya se hizo, no se repetirá ni se entregará nada dos veces.");
   const msg = e instanceof Error ? e.message : "";
-  return msg && !/^\s*[{[]/.test(msg) ? msg : "No se pudo completar la forja.";
+  return msg && !/^\s*[{[]/.test(msg) ? msg : tr("No se pudo completar la forja.");
 }
 
-export const variantLabel = (v: string) => (VARIANTS as Record<string, { label?: string }>)[v]?.label ?? v;
+export const variantLabel = (v: string) => td((VARIANTS as Record<string, { label?: string }>)[v]?.label) ?? v;
 
 /* ═══════════════════ núcleo, XP, maestría ═══════════════════ */
 
@@ -64,6 +68,7 @@ const TIER_GLOW = ["#ff2e63", "#19e3ff", "#a970ff", "#ffce4f", "#fff1b8"];
 export const coreTier = (level: number) => Math.min(4, Math.floor((Math.max(1, level) - 1) / 8));
 
 export function LevelCore({ level, maxLevel, size = 180, label = true }: { level: number; maxLevel: number; size?: number; label?: boolean }) {
+  useLocale();
   const tier = coreTier(level);
   const power = Math.min(1, 0.15 + (level - 1) / Math.max(1, maxLevel - 1));
   const rings = 1 + tier;
@@ -80,7 +85,7 @@ export function LevelCore({ level, maxLevel, size = 180, label = true }: { level
       </svg>
       {label && (
         <span className={p.level}>
-          <span className="font-display text-[11px] font-bold uppercase tracking-[0.3em] text-white/60">Nivel</span>
+          <span className="font-display text-[11px] font-bold uppercase tracking-[0.3em] text-white/60">{tr("Nivel")}</span>
           <span className="nx-readout text-white" style={{ fontSize: Math.round(size * 0.3), lineHeight: 1 }} data-testid="forge-level">{level}</span>
         </span>
       )}
@@ -89,15 +94,16 @@ export function LevelCore({ level, maxLevel, size = 180, label = true }: { level
 }
 
 export function XpBar({ into, need, total, maxed }: { into: number; need: number; total: number; maxed: boolean }) {
+  useLocale();
   const pct = maxed ? 100 : need > 0 ? Math.min(100, Math.round((into / need) * 100)) : 0;
   return (
     <div className="w-full space-y-1.5">
-      <div className={p.xp} role="progressbar" aria-label="Experiencia de Forja" aria-valuemin={0} aria-valuemax={maxed ? 1 : need} aria-valuenow={maxed ? 1 : into} data-testid="forge-xp">
+      <div className={p.xp} role="progressbar" aria-label={tr("Experiencia de Forja")} aria-valuemin={0} aria-valuemax={maxed ? 1 : need} aria-valuenow={maxed ? 1 : into} data-testid="forge-xp">
         <span style={{ width: `${pct}%` }} />
       </div>
       <p className="flex justify-between text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">
-        <span>{maxed ? "Nivel máximo" : <><b className="nx-readout text-white">{into.toLocaleString("es-ES")}</b> / {need.toLocaleString("es-ES")} XP</>}</span>
-        <span>Total {total.toLocaleString("es-ES")} XP</span>
+        <span>{maxed ? tr("Nivel máximo") : <><b className="nx-readout text-white">{into.toLocaleString(getIntlLocale())}</b> / {need.toLocaleString(getIntlLocale())} {tr("XP")}</>}</span>
+        <span>{tr("Total")} {total.toLocaleString(getIntlLocale())} {tr("XP")}</span>
       </p>
     </div>
   );
@@ -105,14 +111,15 @@ export function XpBar({ into, need, total, maxed }: { into: number; need: number
 
 const BRANCH_GLOW: Record<string, string> = { SOBRES: "#ffce4f", INTERCAMBIO: "#19e3ff", PROYECTOS: "#a970ff", COLECCION: "#3ee08f" };
 export function MasteryGrid({ mastery }: { mastery: MasteryView[] }) {
+  useLocale();
   return (
-    <ul className="grid grid-cols-2 gap-2 lg:grid-cols-4" aria-label="Maestría de Forja" data-testid="forge-mastery">
+    <ul className="grid grid-cols-2 gap-2 lg:grid-cols-4" aria-label={tr("Maestría de Forja")} data-testid="forge-mastery">
       {mastery.map((m) => (
         <li key={m.branch} className="border border-white/10 bg-white/[0.03] px-3 py-3" data-branch={m.branch} data-rank={m.rank} style={{ ["--pip" as string]: BRANCH_GLOW[m.branch] ?? "#19e3ff" }}>
-          <p className="font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white/70">{m.label}</p>
-          <p className="mt-1 flex items-baseline gap-2"><b className="nx-readout text-[24px] leading-none text-white">R{m.rank}</b><span className="text-[11px] uppercase tracking-[0.1em] text-white/45">de {m.maxRank}</span></p>
+          <p className="font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white/70">{td(m.label)}</p>
+          <p className="mt-1 flex items-baseline gap-2"><b className="nx-readout text-[24px] leading-none text-white">R{m.rank}</b><span className="text-[11px] uppercase tracking-[0.1em] text-white/45">{tr("de {max}", { max: m.maxRank })}</span></p>
           <div className={cn(p.pips, "mt-2")} aria-hidden>{Array.from({ length: m.maxRank }, (_, i) => <i key={i} className={i < m.rank ? p.on : undefined} />)}</div>
-          <p className="mt-2 text-[11px] text-white/55">{m.next === null ? "Rama completada" : <>{m.value} / {m.next} para el rango {m.rank + 1}</>}</p>
+          <p className="mt-2 text-[11px] text-white/55">{m.next === null ? tr("Rama completada") : tr("{valor} / {meta} para el rango {rango}", { valor: m.value, meta: m.next, rango: m.rank + 1 })}</p>
         </li>
       ))}
     </ul>
@@ -195,20 +202,21 @@ export function useMaterialPick(materials: SlotMaterials[] | null): MaterialPick
 }
 
 export function MaterialSelector({ materials, pick, testId = "material-selector" }: { materials: SlotMaterials[]; pick: MaterialPick; testId?: string }) {
+  useLocale();
   return (
     <div className="space-y-5" data-testid={testId}>
       {materials.map((m) => {
         const picked = pick.pickedInSlot(m.index);
         return (
-          <section key={m.index} aria-label={`Hueco ${m.index + 1}`} className="space-y-2" data-testid="material-slot" data-slot={m.index}>
+          <section key={m.index} aria-label={tr("Hueco {v}", { v: m.index + 1 })} className="space-y-2" data-testid="material-slot" data-slot={m.index}>
             <header className="flex flex-wrap items-baseline justify-between gap-2">
               <p className="font-display text-[14px] font-bold uppercase tracking-[0.12em] text-white">
-                Entregas {m.need} × {classLabel(m.slot.class)}{m.slot.variantId ? ` · ${variantLabel(m.slot.variantId)}` : ""}{m.slot.team ? ` · ${m.slot.team}` : ""}
+                {tr("Entregas")} {m.need} × {classLabel(m.slot.class)}{m.slot.variantId ? ` · ${variantLabel(m.slot.variantId)}` : ""}{m.slot.team ? ` · ${m.slot.team}` : ""}
               </p>
               <p className="nx-readout text-[18px] tabular-nums" aria-live="polite"><span className={picked === m.need ? "text-[#3ee08f]" : "text-white"}>{picked}</span><span className="text-white/40"> / {m.need}</span></p>
             </header>
             {m.candidates.length === 0 ? (
-              <p className="border border-white/10 bg-white/[0.02] px-4 py-3 text-[14px] text-white/65">No tienes duplicados que encajen. Solo cuentan copias repetidas fuera de tus equipos y sin contar tu última copia.</p>
+              <p className="border border-white/10 bg-white/[0.02] px-4 py-3 text-[14px] text-white/65">{tr("No tienes duplicados que encajen. Solo cuentan copias repetidas fuera de tus equipos y sin contar tu última copia.")}</p>
             ) : (
               <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6">
                 {m.candidates.map((c) => {
@@ -217,21 +225,21 @@ export function MaterialSelector({ materials, pick, testId = "material-selector"
                   const anyProtected = c.free.some((f) => f.protectedBy.length > 0);
                   const allow = !!pick.allowProtected[c.cardId];
                   const def = getCard(c.cardId);
-                  const reason = c.free.find((f) => f.protectedBy.length)?.protectedBy.includes("SHOWCASE") ? "Vitrina" : "Favorita";
+                  const reason = c.free.find((f) => f.protectedBy.length)?.protectedBy.includes("SHOWCASE") ? tr("Vitrina") : tr("Favorita");
                   return (
                     <li key={c.cardId} className={cn(p.cand, "flex flex-col gap-1.5 p-1.5")} data-testid="material-candidate" data-card={c.cardId} data-picked={n > 0} data-protected={anyProtected}>
-                      {anyProtected && <span className={p.lockMark}>★ {reason}</span>}
+                      {anyProtected && <span className={p.lockMark}>★ {td(reason)}</span>}
                       <button type="button" onClick={() => pick.add(m.index, c.cardId)} disabled={(protectedOnly && !allow) || picked >= m.need}
-                        aria-label={`Añadir ${cardName(c.cardId)} (${c.ovr}), ${n} elegidas de ${c.usable} entregables`} className="nx-focus relative block w-full disabled:cursor-not-allowed" data-testid="material-add">
+                        aria-label={tr("Añadir {cardId} ({ovr}), {n} elegidas de {usable} entregables", { cardId: cardName(c.cardId), ovr: c.ovr, n, usable: c.usable })} className="nx-focus relative block w-full disabled:cursor-not-allowed" data-testid="material-add">
                         <CardImage cardId={c.cardId} width={160} className={cn("!w-full", protectedOnly && !allow && "opacity-55")} />
                         {n > 0 && <span aria-hidden className="absolute right-1 top-1 grid h-7 min-w-7 place-items-center rounded-full bg-drl-cyan px-1 font-display text-[14px] font-extrabold text-black">✓{n > 1 ? n : ""}</span>}
                       </button>
                       <p className="truncate text-[11px] font-bold uppercase tracking-[0.06em] text-white/80" title={cardName(c.cardId)}>{def ? cardName(c.cardId) : c.cardId}</p>
-                      <p className="text-[10px] uppercase tracking-[0.08em] text-white/50">OVR {c.ovr} · {variantLabel(c.variantId)}</p>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-white/55">×{c.copies} · {c.usable} entregable{c.usable === 1 ? "" : "s"}</p>
+                      <p className="text-[10px] uppercase tracking-[0.08em] text-white/50">{tr("OVR")} {c.ovr} · {variantLabel(c.variantId)}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-white/55">×{c.copies} · {tr("{n, plural, one {# entregable} other {# entregables}}", { n: c.usable })}</p>
                       <div className="flex gap-1">
-                        {n > 0 && <button type="button" onClick={() => pick.remove(m.index, c.cardId)} className="nx-focus flex-1 border border-white/20 py-1 text-[12px] font-bold text-white hover:bg-white/10" aria-label={`Quitar una copia de ${cardName(c.cardId)}`} data-testid="material-remove">−</button>}
-                        {anyProtected && <button type="button" onClick={() => pick.toggleProtected(c.cardId)} aria-pressed={allow} className={cn("nx-focus flex-1 border py-1 text-[10px] font-bold uppercase tracking-[0.06em]", allow ? "border-drl-gold bg-drl-gold/15 text-drl-gold" : "border-white/15 text-white/60")} data-testid="material-allow-protected">{allow ? "Protegida: usar" : "Usar protegida"}</button>}
+                        {n > 0 && <button type="button" onClick={() => pick.remove(m.index, c.cardId)} className="nx-focus flex-1 border border-white/20 py-1 text-[12px] font-bold text-white hover:bg-white/10" aria-label={tr("Quitar una copia de {cardId}", { cardId: cardName(c.cardId) })} data-testid="material-remove">−</button>}
+                        {anyProtected && <button type="button" onClick={() => pick.toggleProtected(c.cardId)} aria-pressed={allow} className={cn("nx-focus flex-1 border py-1 text-[10px] font-bold uppercase tracking-[0.06em]", allow ? "border-drl-gold bg-drl-gold/15 text-drl-gold" : "border-white/15 text-white/60")} data-testid="material-allow-protected">{allow ? tr("Protegida: usar") : tr("Usar protegida")}</button>}
                       </div>
                     </li>
                   );
@@ -246,12 +254,13 @@ export function MaterialSelector({ materials, pick, testId = "material-selector"
 }
 
 export function AutoSelectBar({ pick, onAuto }: { pick: MaterialPick; onAuto?: (missing: number) => void }) {
+  useLocale();
   const [note, setNote] = useState<string | null>(null);
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <NxButton variant="ghost" size="sm" onClick={() => { const missing = pick.auto(); setNote(missing > 0 ? `Faltan ${missing} carta${missing === 1 ? "" : "s"}: sin protegidas ni últimas copias no llega.` : "Selección propuesta: duplicados primero y de menor valor. Revísala antes de forjar."); onAuto?.(missing); }} data-testid="forge-autoselect">Auto-seleccionar</NxButton>
-      <NxButton variant="ghost" size="sm" onClick={() => { pick.clear(); setNote(null); }}>Vaciar</NxButton>
-      {note && <p className="text-[12px] text-white/65" role="status">{note}</p>}
+      <NxButton variant="ghost" size="sm" onClick={() => { const missing = pick.auto(); setNote(missing > 0 ? tr("{n, plural, one {Falta # carta: sin protegidas ni últimas copias no llega.} other {Faltan # cartas: sin protegidas ni últimas copias no llega.}}", { n: missing }) : tr("Selección propuesta: duplicados primero y de menor valor. Revísala antes de forjar.")); onAuto?.(missing); }} data-testid="forge-autoselect">{tr("Auto-seleccionar")}</NxButton>
+      <NxButton variant="ghost" size="sm" onClick={() => { pick.clear(); setNote(null); }}>{tr("Vaciar")}</NxButton>
+      {note && <p className="text-[12px] text-white/65" role="status">{td(note)}</p>}
     </div>
   );
 }
@@ -259,34 +268,35 @@ export function AutoSelectBar({ pick, onAuto }: { pick: MaterialPick; onAuto?: (
 /* ═══════════════════ confirmación ═══════════════════ */
 
 export function ForgeConfirm({ uids, protectedUids, materials, output, ownNote }: { uids: string[]; protectedUids: string[]; materials: SlotMaterials[]; output: RecipeOutput; ownNote?: string[] }) {
+  useLocale();
   const cardByUid = new Map(materials.flatMap((m) => m.candidates.flatMap((c) => c.free.map((f) => [f.uid, c.cardId] as const))));
   const grouped = new Map<string, { n: number; prot: number }>();
   for (const u of uids) { const id = cardByUid.get(u) ?? "?"; const g = grouped.get(id) ?? { n: 0, prot: 0 }; g.n++; if (protectedUids.includes(u)) g.prot++; grouped.set(id, g); }
   return (
     <div className="space-y-4" data-testid="forge-confirm">
-      <section aria-label="Vas a entregar">
-        <p className="font-display text-[13px] font-bold uppercase tracking-[0.2em] text-drl">Vas a entregar · desaparecen</p>
+      <section aria-label={tr("Vas a entregar")}>
+        <p className="font-display text-[13px] font-bold uppercase tracking-[0.2em] text-drl">{tr("Vas a entregar · desaparecen")}</p>
         <ul className="mt-2 grid grid-cols-4 gap-2 sm:grid-cols-6">
           {[...grouped.entries()].map(([id, g]) => (
             <li key={id} className="relative text-center" data-testid="forge-confirm-item" data-card={id} data-qty={g.n}>
               <CardImage cardId={id} width={72} className="!w-full" />
               <span className="absolute right-0.5 top-0.5 rounded bg-black/80 px-1 text-[11px] font-bold text-white">×{g.n}</span>
-              {g.prot > 0 && <span className="mt-0.5 block text-[10px] font-bold uppercase text-drl-gold">★ {g.prot} protegida{g.prot > 1 ? "s" : ""}</span>}
+              {g.prot > 0 && <span className="mt-0.5 block text-[10px] font-bold uppercase text-drl-gold">★ {tr("{n, plural, one {# protegida} other {# protegidas}}", { n: g.prot })}</span>}
             </li>
           ))}
         </ul>
-        <p className="mt-2 text-[12px] text-white/60">De cada carta conservas al menos una copia. {protectedUids.length > 0 && <b className="text-drl-gold">Incluye {protectedUids.length} copia{protectedUids.length > 1 ? "s" : ""} protegida{protectedUids.length > 1 ? "s" : ""} que has confirmado.</b>}</p>
+        <p className="mt-2 text-[12px] text-white/60">{tr("De cada carta conservas al menos una copia.")} {protectedUids.length > 0 && <b className="text-drl-gold">{tr("{n, plural, one {Incluye # copia protegida que has confirmado.} other {Incluye # copias protegidas que has confirmado.}}", { n: protectedUids.length })}</b>}</p>
       </section>
       {ownNote && ownNote.length > 0 && (
-        <section aria-label="Se comprueba, no se consume">
-          <p className="font-display text-[12px] font-bold uppercase tracking-[0.2em] text-[#3ee08f]">Se comprueba · NO se consume</p>
-          <ul className="mt-1 space-y-0.5 text-[12px] text-white/70">{ownNote.map((t) => <li key={t}>✓ {t}</li>)}</ul>
+        <section aria-label={tr("Se comprueba, no se consume")}>
+          <p className="font-display text-[12px] font-bold uppercase tracking-[0.2em] text-[#3ee08f]">{tr("Se comprueba · NO se consume")}</p>
+          <ul className="mt-1 space-y-0.5 text-[12px] text-white/70">{ownNote.map((t) => <li key={t}>✓ {td(t)}</li>)}</ul>
         </section>
       )}
-      <section aria-label="Recibirás" className="flex flex-col items-center gap-2">
-        <p className="font-display text-[13px] font-bold uppercase tracking-[0.2em] text-[#3ee08f]">Recibirás</p>
+      <section aria-label={tr("Recibirás")} className="flex flex-col items-center gap-2">
+        <p className="font-display text-[13px] font-bold uppercase tracking-[0.2em] text-[#3ee08f]">{tr("Recibirás")}</p>
         {output.type === "CARD" ? <CardImage cardId={output.cardId} width={120} /> : <MysteryCard cls={output.class} width={110} />}
-        <p className="text-[12px] text-white/60">{output.type === "CARD" ? cardName(output.cardId) : `Una carta ${classLabel(output.class)} al azar entre las publicadas (la decide el servidor).`}</p>
+        <p className="text-[12px] text-white/60">{output.type === "CARD" ? cardName(output.cardId) : tr("Una carta {class} al azar entre las publicadas (la decide el servidor).", { class: classLabel(output.class) })}</p>
       </section>
     </div>
   );

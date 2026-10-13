@@ -25,6 +25,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getSupabase } from "@/lib/supabase/client";
 import type { MatchmakingView } from "@/domain/cardgame/matchmaking";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("duel");
 
 const ENDPOINT = "/api/game/duel/matchmaking";
 
@@ -73,9 +76,9 @@ const TOO_MANY_HUMANO = "Vas demasiado rápido. Espera unos segundos y vuelve a 
 /** Traduce el código del servidor a algo que una persona pueda leer. Los códigos son la autoridad. */
 function humanize(code: string | undefined, fallback: string): string {
   switch (code) {
-    case "ACTIVE_MATCH": return "Ya tienes un duelo PvP en curso. Termínalo o abandónalo antes de buscar otro.";
-    case "DECK_NOT_OWNED": return "Ese equipo no es tuyo o ya no es válido. Revísalo en Mis equipos.";
-    case "RETRY": return "Vuelve a intentarlo.";
+    case "ACTIVE_MATCH": return t("Ya tienes un duelo PvP en curso. Termínalo o abandónalo antes de buscar otro.");
+    case "DECK_NOT_OWNED": return t("Ese equipo no es tuyo o ya no es válido. Revísalo en Mis equipos.");
+    case "RETRY": return t("Vuelve a intentarlo.");
     default: return fallback;
   }
 }
@@ -146,11 +149,11 @@ export function usePvpQueue(enabled: boolean): UsePvpQueue {
         // F66 · caída del servidor o de la BD: la entrada de cola sigue viva ALLÍ. Se afloja y se sigue preguntando.
         frenados.current = Math.min(frenados.current + 1, BACKOFF_MS.length);
         esperaExtra.current = BACKOFF_MS[frenados.current - 1];
-        setState((s) => ({ ...s, error: "Sincronizando… seguimos buscando rival" }));
+        setState((s) => ({ ...s, error: t("Sincronizando… seguimos buscando rival") }));
         return;
       }
       if (!res.ok) {
-        setState((s) => ({ ...s, phase: "error", error: humanize(body.code, body.error ?? "No se pudo consultar la cola") }));
+        setState((s) => ({ ...s, phase: "error", error: humanize(body.code, body.error ?? t("No se pudo consultar la cola")) }));
         sondeando.current = false;
         return;
       }
@@ -164,7 +167,7 @@ export function usePvpQueue(enabled: boolean): UsePvpQueue {
        */
       frenados.current = Math.min(frenados.current + 1, BACKOFF_MS.length);
       esperaExtra.current = BACKOFF_MS[frenados.current - 1];
-      setState((s) => ({ ...s, error: "Sin conexión: seguimos buscando en el servidor…" }));
+      setState((s) => ({ ...s, error: t("Sin conexión: seguimos buscando en el servidor…") }));
     }
   }, [aplicar]);
 
@@ -220,14 +223,14 @@ export function usePvpQueue(enabled: boolean): UsePvpQueue {
         return;
       }
       if (!res.ok) {
-        setState((s) => ({ ...s, phase: "error", error: humanize(body.code, body.error ?? "No se pudo entrar en la cola") }));
+        setState((s) => ({ ...s, phase: "error", error: humanize(body.code, body.error ?? t("No se pudo entrar en la cola")) }));
         return;
       }
       sondeando.current = true;
       aplicar(body as MatchmakingView);
       programar();
     } catch (e) {
-      setState((s) => ({ ...s, phase: "error", error: e instanceof Error ? e.message : "Error de red" }));
+      setState((s) => ({ ...s, phase: "error", error: e instanceof Error ? e.message : t("Error de red") }));
     }
   }, [aplicar, programar]);
 
@@ -245,7 +248,7 @@ export function usePvpQueue(enabled: boolean): UsePvpQueue {
       if (res.ok) aplicar({ ...(body as MatchmakingView), entry: null });
       setState((s) => ({ ...s, phase: "idle", matchId: null, error: null }));
     } catch (e) {
-      setState((s) => ({ ...s, error: e instanceof Error ? e.message : "Error de red" }));
+      setState((s) => ({ ...s, error: e instanceof Error ? e.message : t("Error de red") }));
     }
   }, [aplicar]);
 

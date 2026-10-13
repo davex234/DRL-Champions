@@ -1,6 +1,9 @@
 import type { EventDef, EventType, MissionDef, WeeklyTaskDef } from "@/domain/events/types";
 import { EVENT_EDITIONS } from "@/domain/events/editions";
 import { availableMissions, LIVE_MISSION_FLAGS, type MissionFlags } from "@/domain/progression/missionAvailability";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("data");
 
 /** Nombre legible del torneo. */
 function tName(type: EventType): string {
@@ -11,16 +14,16 @@ function tName(type: EventType): string {
 function missions(type: EventType): MissionDef[] {
   const t = tName(type);
   return [
-    { id: "open10", label: "Abre 10 sobres", metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500} },
-    { id: "open50", label: "Abre 50 sobres", metric: "open_packs", goal: 50, passXp: 300, reward: { packId: "premium", packCount: 1} },
-    { id: "eventpacks", label: `Abre 5 Sobres ${t}`, metric: "open_event_packs", goal: 5, passXp: 200, reward: {} },
+    { id: "open10", label: tr("Abre 10 sobres"), metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500} },
+    { id: "open50", label: tr("Abre 50 sobres"), metric: "open_packs", goal: 50, passXp: 300, reward: { packId: "premium", packCount: 1} },
+    { id: "eventpacks", label: tr("Abre 5 Sobres {t}", { t: td(t) }), metric: "open_event_packs", goal: 5, passXp: 200, reward: {} },
     // «Carta del evento» solo si el catálogo tiene una edición de ese torneo (EWC no la tiene: no se ofrece).
-    ...(EVENT_EDITIONS[type].length ? [{ id: "getcard", label: `Consigue una carta ${t}`, metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000} } satisfies MissionDef] : []),
+    ...(EVENT_EDITIONS[type].length ? [{ id: "getcard", label: tr("Consigue una carta {t}", { t: td(t) }), metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000} } satisfies MissionDef] : []),
     // Ids estables; las condiciones son las del catálogo diseñado (ver `domain/events/editions`).
-    { id: "getmvp", label: "Consigue una carta legendaria", metric: "get_legendary", goal: 1, passXp: 250, reward: {} },
-    { id: "getwinner", label: "Consigue una carta épica o superior", metric: "get_epic", goal: 1, passXp: 200, reward: {} },
-    { id: "buy", label: "Compra una carta del mercado", metric: "market_buy", goal: 1, passXp: 80, reward: { credits: 1000 } },
-    { id: "sell", label: "Vende una carta", metric: "market_sell", goal: 1, passXp: 80, reward: { credits: 800} },
+    { id: "getmvp", label: tr("Consigue una carta legendaria"), metric: "get_legendary", goal: 1, passXp: 250, reward: {} },
+    { id: "getwinner", label: tr("Consigue una carta épica o superior"), metric: "get_epic", goal: 1, passXp: 200, reward: {} },
+    { id: "buy", label: tr("Compra una carta del mercado"), metric: "market_buy", goal: 1, passXp: 80, reward: { credits: 1000 } },
+    { id: "sell", label: tr("Vende una carta"), metric: "market_sell", goal: 1, passXp: 80, reward: { credits: 800} },
   ];
 }
 

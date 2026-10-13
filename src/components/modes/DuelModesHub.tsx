@@ -33,6 +33,10 @@ import { playSound } from "@/lib/sound";
 import { CompetitiveEmblem } from "@/components/competitive/ranked/CompetitiveEmblem";
 import { DraftEntryButton, DraftRewardLadder } from "@/components/draft/DraftEntry";
 import { AgentPanelArt, PanelImage } from "./ModePanel";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("modes");
 
 export const DUEL_TINT: Record<DuelModeId, string> = {
   QUICK: "63,192,122", RANKED: "255,46,99", FRIEND: "150,120,255", DRAFT_GAUNTLET: "255,211,92",
@@ -70,26 +74,28 @@ function Art({ id, on = false }: { id: DuelModeId; on?: boolean }) {
 const HERO_CTA = "min-h-[60px] !text-[20px] font-bold tracking-[0.18em]";
 
 function Cta({ id, cta, onDraftEnter, draftBusy }: { id: DuelModeId; cta: SelectorCta; onDraftEnter?: () => void; draftBusy?: boolean }) {
+  useLocale();
   const testId = `duel-mode-cta-${id}`;
   if (cta.kind === "enter") {
     return (
       <>
         <DraftEntryButton fee={cta.fee} disabled={cta.disabled || !onDraftEnter} busy={draftBusy} onConfirm={() => onDraftEnter?.()} testId={testId} className={HERO_CTA} />
-        {cta.reason && <p className="mt-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-drl-gold" data-testid="duel-draft-short">{cta.reason}</p>}
+        {cta.reason && <p className="mt-1.5 text-[12px] font-bold uppercase tracking-[0.1em] text-drl-gold" data-testid="duel-draft-short">{td(cta.reason)}</p>}
       </>
     );
   }
   if (cta.kind === "wait") {
-    return <NxButton variant="primary" size="lg" block disabled className={HERO_CTA} data-cta="primary" data-testid={testId}>{cta.label}</NxButton>;
+    return <NxButton variant="primary" size="lg" block disabled className={HERO_CTA} data-cta="primary" data-testid={testId}>{td(cta.label)}</NxButton>;
   }
   return (
     <NxButton variant="primary" size="lg" block href={cta.href} className={HERO_CTA} data-cta="primary" data-testid={testId} onClick={() => playSound("play.confirm")}>
-      {cta.label}
+      {td(cta.label)}
     </NxButton>
   );
 }
 
 function RankedBlock({ ranked }: { ranked: RankedInline | null | "loading" | "error" }) {
+  useLocale();
   if (ranked === "loading" || ranked === null) {
     return <div data-testid="duel-ranked-inline" data-state="loading" className="h-[120px] animate-pulse rounded bg-white/[0.05]" aria-busy="true" />;
   }
@@ -99,8 +105,8 @@ function RankedBlock({ ranked }: { ranked: RankedInline | null | "loading" | "er
     <div data-testid="duel-ranked-inline" data-state={ranked.state} className="flex items-center gap-4">
       <CompetitiveEmblem rank={ranked.rank ?? null} state={ranked.rank || ranked.state !== "RANKED" ? ranked.state : "UNRANKED"} placement={{ played: ranked.placementPlayed, total: ranked.placementTotal }} position={ranked.position} size="md" />
       <div className="min-w-0">
-        <p className="font-display text-[clamp(30px,3vw,44px)] font-bold uppercase leading-none text-white" data-field="rank" style={{ textShadow: "0 0 24px rgba(255,46,99,0.45)" }}>{h.big}</p>
-        <p className="nx-readout mt-2 text-[22px] leading-none text-white/90" data-field="rating">{h.label}</p>
+        <p className="font-display text-[clamp(30px,3vw,44px)] font-bold uppercase leading-none text-white" data-field="rank" style={{ textShadow: "0 0 24px rgba(255,46,99,0.45)" }}>{td(h.big)}</p>
+        <p className="nx-readout mt-2 text-[22px] leading-none text-white/90" data-field="rating">{td(h.label)}</p>
       </div>
     </div>
   );
@@ -132,6 +138,7 @@ export function DuelModesHub({
   cards, requested = null, onSelect, ranked = null, rankedGate = null, draftFacts, draftEconomy = null, credits = null,
   onDraftEnter, draftBusy = false, draftNotice = null, replays = [], offline = false, className,
 }: DuelModesHubProps) {
+  useLocale();
   const modes = duelModes(cards);
   const [selected, setSelected] = useState<DuelModeId>(() => initialDuelMode(modes, requested));
   const choose = (id: DuelModeId) => {
@@ -146,22 +153,22 @@ export function DuelModesHub({
       <div className={cn("space-y-4", className)} data-testid="duel-modes-hub" data-selected={selected}>
         <div className="flex items-end justify-between gap-3">
           <div>
-            <Link href="/jugar" data-testid="duels-back" className="nx-focus inline-flex min-h-[36px] items-center font-display text-label uppercase tracking-wide2 text-ink-muted hover:text-white">‹ Jugar</Link>
-            <h1 className="font-display text-[clamp(28px,4vw,44px)] font-bold uppercase leading-none text-white">Duelos</h1>
+            <Link href="/jugar" data-testid="duels-back" className="nx-focus inline-flex min-h-[36px] items-center font-display text-label uppercase tracking-wide2 text-ink-muted hover:text-white">{t("‹ Jugar")}</Link>
+            <h1 className="font-display text-[clamp(28px,4vw,44px)] font-bold uppercase leading-none text-white">{t("Duelos")}</h1>
           </div>
-          <NxButton variant="ghost" size="md" href="/duelos/mazos" data-testid="duels-decks">Mis equipos</NxButton>
+          <NxButton variant="ghost" size="md" href="/duelos/mazos" data-testid="duels-decks">{t("Mis equipos")}</NxButton>
         </div>
 
-        {offline && <p role="status" className="border-l-2 border-drl-gold bg-white/[0.03] px-4 py-2 text-caption text-drl-gold">Sin conexión · tu progreso está a salvo.</p>}
+        {offline && <p role="status" className="border-l-2 border-drl-gold bg-white/[0.03] px-4 py-2 text-caption text-drl-gold">{t("Sin conexión · tu progreso está a salvo.")}</p>}
 
-        <section aria-label="Modos de duelo" data-testid="duel-modes" className="grid grid-cols-1 gap-3 lg:grid-cols-5">
+        <section aria-label={t("Modos de duelo")} data-testid="duel-modes" className="grid grid-cols-1 gap-3 lg:grid-cols-5">
           {modes.map((c) => {
             const id = c.id as DuelModeId;
             const on = id === selected;
             const rgb = DUEL_TINT[id];
             const cta: SelectorCta = id === "RANKED" ? rankedCta(c, rankedGate)
               : id === "DRAFT_GAUNTLET" ? draftCta(c, draftFacts, draftEconomy?.entryFee ?? 0, credits)
-              : { kind: "link", label: c.status === "DISPONIBLE" ? (id === "FRIEND" ? "Retar" : "Jugar") : c.cta.label, href: c.cta.href };
+              : { kind: "link", label: c.status === "DISPONIBLE" ? (id === "FRIEND" ? t("Retar") : t("Jugar")) : c.cta.label, href: c.cta.href };
             const status = c.status !== "DISPONIBLE" && c.status !== "PROVISIONAL" && c.status !== "CARGANDO" ? c.status : null;
             const progress = id === "DRAFT_GAUNTLET" ? draftProgress(draftFacts) : null;
             return (
@@ -193,7 +200,7 @@ export function DuelModesHub({
                 <button
                   type="button"
                   aria-pressed={on}
-                  aria-label={`Elegir ${c.title}`}
+                  aria-label={t("Elegir {title}", { title: td(c.title) })}
                   data-testid={`duel-mode-select-${id}`}
                   onClick={() => choose(id)}
                   onFocus={() => focusEnvironment(DUEL_FOCUS[id])}
@@ -205,11 +212,11 @@ export function DuelModesHub({
                     className={cn("font-display font-bold uppercase leading-[0.88] text-white", on ? "text-[clamp(36px,3.6vw,58px)]" : "text-[clamp(26px,2.4vw,36px)]")}
                     style={{ textShadow: `0 0 34px rgba(${rgb},0.45), 0 2px 12px rgba(0,0,0,0.8)` }}
                   >
-                    {c.title}
+                    {td(c.title)}
                   </h2>
                   {(status || progress) && (
                     <p data-testid="mode-note" className="nx-readout mt-2 font-display text-[14px] font-bold uppercase tracking-[0.14em]" style={{ color: `rgb(${rgb})` }}>
-                      {progress ?? status}
+                      {td(progress) ?? td(status)}
                     </p>
                   )}
 
@@ -226,21 +233,21 @@ export function DuelModesHub({
                       {id === "DRAFT_GAUNTLET" && draftEconomy && !progress && c.status !== "INICIA SESIÓN" && (
                         <div className="space-y-2" data-testid="duel-draft-entry">
                           <p className="flex items-baseline gap-2">
-                            <span className="font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white/60">Entrada</span>
+                            <span className="font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white/60">{t("Entrada")}</span>
                             <span className="nx-readout text-[26px] leading-none text-drl-gold" data-field="entry-fee">{creditsLabel(draftEconomy.entryFee)}</span>
-                            <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-drl-gold/80">créditos</span>
+                            <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-drl-gold/80">{t("créditos")}</span>
                           </p>
                           <DraftRewardLadder economy={draftEconomy} />
                         </div>
                       )}
                       {id === "DRAFT_GAUNTLET" && draftNotice && (
-                        <p role="status" data-testid="duel-draft-notice" className="border-l-2 border-drl-gold bg-black/40 px-3 py-1.5 text-[12.5px] text-drl-gold">{draftNotice}</p>
+                        <p role="status" data-testid="duel-draft-notice" className="border-l-2 border-drl-gold bg-black/40 px-3 py-1.5 text-[12.5px] text-drl-gold">{td(draftNotice)}</p>
                       )}
                       <div>
-                        <Cta id={id} cta={cta} onDraftEnter={onDraftEnter} draftBusy={draftBusy} />
+                        <Cta id={id} cta={td(cta)} onDraftEnter={onDraftEnter} draftBusy={draftBusy} />
                         {id === "RANKED" && (
                           <Link href="/competitivo" data-testid="duel-ranked-details" className="nx-focus mt-2 inline-flex min-h-[36px] items-center font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white/55 hover:text-white">
-                            Ver clasificación ›
+                            {t("Ver clasificación ›")}
                           </Link>
                         )}
                       </div>
@@ -255,7 +262,7 @@ export function DuelModesHub({
         {replays.length > 0 && (
           <details data-testid="duel-replays" className="nx-clip-sm border border-white/10 bg-white/[0.02] px-4 py-2">
             <summary className="nx-focus flex min-h-[40px] cursor-pointer items-center font-display text-label uppercase tracking-wide2 text-ink-muted hover:text-white">
-              Repeticiones · {replays.length}
+              {t("Repeticiones ·")} {replays.length}
             </summary>
             <div className="mt-2 flex flex-col gap-1.5 pb-2">
               {replays.slice(0, 8).map((m) => {
@@ -263,7 +270,7 @@ export function DuelModesHub({
                 return (
                   <Link key={m.matchId} href={`/duelos/replay/${m.matchId}`} className="nx-focus nx-clip-sm flex items-center gap-3 border border-edge bg-white/[0.03] px-3 py-2 transition duration-fast hover:bg-white/[0.06]">
                     <span className="w-16 shrink-0 text-center"><Badge tone={tone}>{m.scoreYou}–{m.scoreRival}</Badge></span>
-                    <span className="min-w-0 flex-1 truncate text-body text-ink-secondary">{m.deckName}</span>
+                    <span className="min-w-0 flex-1 truncate text-body text-ink-secondary">{td(m.deckName)}</span>
                   </Link>
                 );
               })}

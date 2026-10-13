@@ -33,8 +33,13 @@ import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
 import { OnboardingProgressCoach } from "@/components/onboarding/OnboardingProgress";
 import { useOnboarding } from "@/lib/onboarding/client";
 import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("progression");
 
 export function ProgressionScreen({ embedded = false }: { embedded?: boolean }) {
+  useLocale();
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
   // La XP del store viene del servidor (`applyServerState`); es la misma que pinta la cabecera.
@@ -53,7 +58,7 @@ export function ProgressionScreen({ embedded = false }: { embedded?: boolean }) 
       const s = await fetchMetaSnapshot();
       setSnap(s);
       setReceivedAt(Date.now());
-    } catch (e) { setError(e instanceof Error ? e.message : "No se pudo leer tu progresión"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("No se pudo leer tu progresión")); }
   }, []);
 
   useEffect(() => { if (online && user) void load(); }, [online, user, load]);
@@ -65,49 +70,49 @@ export function ProgressionScreen({ embedded = false }: { embedded?: boolean }) 
     <div className={embedded ? "w-full" : "mx-auto w-full max-w-6xl px-4 py-6 md:py-8"} data-scene="progression-hub">
       <header className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <span className="font-display text-label uppercase tracking-wide2 text-drl">Progreso</span>
-          <h1 className="mt-1 font-display text-[clamp(28px,4vw,44px)] font-extrabold uppercase leading-none tracking-wide text-white">Tu progreso</h1>
+          <span className="font-display text-label uppercase tracking-wide2 text-drl">{t("Progreso")}</span>
+          <h1 className="mt-1 font-display text-[clamp(28px,4vw,44px)] font-extrabold uppercase leading-none tracking-wide text-white">{t("Tu progreso")}</h1>
           <p className="mt-2 max-w-xl text-sm text-ink-muted">
-            Nivel {info.level}. Qué estás progresando, qué puedes recoger ya, qué hacer hoy y qué te falta para la siguiente recompensa.
+            {t("Nivel")} {info.level}{t(". Qué estás progresando, qué puedes recoger ya, qué hacer hoy y qué te falta para la siguiente recompensa.")}
           </p>
         </div>
         <span className="flex flex-wrap gap-x-5 gap-y-2">
-          <Link href="/logros" className="nx-action">Logros y pase completos →</Link>
+          <Link href="/logros" className="nx-action">{t("Logros y pase completos →")}</Link>
           {/* IA 2026-10-07 · el historial de recompensas sale del menú: se consulta desde lo conseguido. */}
-          <Link href="/recompensas" className="nx-action" data-testid="progress-rewards-history">Historial de recompensas →</Link>
+          <Link href="/recompensas" className="nx-action" data-testid="progress-rewards-history">{t("Historial de recompensas →")}</Link>
         </span>
       </header>
 
       {onboarding.view && <OnboardingProgressCoach view={onboarding.view} />}
 
       {loading ? (
-        <Loading kind="hub" label="Leyendo tu progresión…" />
+        <Loading kind="hub" label={t("Leyendo tu progresión…")} />
       ) : !online || !user ? (
         <>
           <LevelHero level={level} className="mb-6" />
-          <NeedsAccount what="tus objetivos, la temporada y las recompensas" />
+          <NeedsAccount what={t("tus objetivos, la temporada y las recompensas")} />
         </>
       ) : error && !snap ? (
-        <ErrorState message={error} onRetry={load} />
+        <ErrorState message={td(error)} onRetry={load} />
       ) : !snap ? (
-        <Loading kind="hub" label="Leyendo tu progresión…" />
+        <Loading kind="hub" label={t("Leyendo tu progresión…")} />
       ) : (
         <ProgressionHub snap={snap} receivedAt={receivedAt} reload={load} />
       )}
 
       {/* ── CÓMO GANAR XP (derivado del código, no escrito a mano) ── */}
       <section className="mt-10">
-        <SectionTitle>Cómo se progresa</SectionTitle>
+        <SectionTitle>{t("Cómo se progresa")}</SectionTitle>
         <div className="grid gap-3 sm:grid-cols-2">
           {sources.map((s) => (
             <Plate key={s.id} className="flex items-start gap-3 p-4">
               <GameGlyph symbol={s.icon} className="mt-0.5 h-7 w-7 text-drl-cyan" />
               <div className="min-w-0">
                 <div className="flex flex-wrap items-baseline gap-x-2">
-                  <h3 className="font-display text-base font-bold text-white">{s.label}</h3>
-                  <span className="nx-readout text-caption text-drl-gold">{s.amount}</span>
+                  <h3 className="font-display text-base font-bold text-white">{td(s.label)}</h3>
+                  <span className="nx-readout text-caption text-drl-gold">{td(s.amount)}</span>
                 </div>
-                <p className="mt-1 text-caption leading-relaxed text-ink-muted">{s.hint}</p>
+                <p className="mt-1 text-caption leading-relaxed text-ink-muted">{td(s.hint)}</p>
               </div>
             </Plate>
           ))}

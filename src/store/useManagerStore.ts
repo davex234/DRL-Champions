@@ -67,6 +67,9 @@ import {
 import { useNewsStore } from "@/store/useNewsStore";
 import { useGameStore } from "@/store/useGameStore";
 import { useWorldStore } from "@/store/useWorldStore";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("store");
 
 const USER_COACH_ID = "coach-user";
 
@@ -200,12 +203,12 @@ export const useManagerStore = create<ManagerState>()(
         const career = createCoach({ ...input, now: Date.now() });
         const events = [{
           type: "first_contract" as const, season: 1, magnitude: 60,
-          detail: `${career.coach.name} comienza su carrera como entrenador.`, at: Date.now(),
+          detail: tr("{name} comienza su carrera como entrenador.", { name: career.coach.name }), at: Date.now(),
         }];
         set({ career: { ...career, events }, window: null, endgame: null });
         useNewsStore.getState().add(events.map((e) => ({
           id: `career:${e.season}:${e.type}:${e.at}`, at: e.at, kind: "event" as const,
-          title: "Nuevo entrenador en escena", body: e.detail, tags: ["carrera", e.type],
+          title: tr("Nuevo entrenador en escena"), body: e.detail, tags: ["carrera", e.type],
         })));
         // Ofertas iniciales del mercado del mundo.
         get().refreshOffers();
@@ -313,7 +316,7 @@ export const useManagerStore = create<ManagerState>()(
         }
         set({ career: result.career });
         useNewsStore.getState().add(
-          result.events.map((e) => ({ id: `career:${e.season}:${e.type}:${e.at}`, at: e.at, kind: "transfer" as const, title: "Mercado de entrenadores", body: e.detail, tags: ["carrera", e.type] })),
+          result.events.map((e) => ({ id: `career:${e.season}:${e.type}:${e.at}`, at: e.at, kind: "transfer" as const, title: tr("Mercado de entrenadores"), body: e.detail, tags: ["carrera", e.type] })),
         );
       },
 
@@ -355,7 +358,7 @@ export const useManagerStore = create<ManagerState>()(
         const next = patchManagement(career, (m) => ({ ...m, facilities: up.facilities, balance: m.balance - up.cost }));
         set({ career: next });
         if (career.clubId) applyClubDeltas(career.clubId, { budget: next.management!.balance, prestige: 0, fanbase: 0 });
-        useNewsStore.getState().add([{ id: `career:${career.season}:facility_upgraded:${id}:${Date.now()}`, at: Date.now(), kind: "event", title: "Mejora de instalaciones", body: `${career.currentTeam} mejora ${id}.`, tags: ["carrera", "facility_upgraded"] }]);
+        useNewsStore.getState().add([{ id: `career:${career.season}:facility_upgraded:${id}:${Date.now()}`, at: Date.now(), kind: "event", title: tr("Mejora de instalaciones"), body: `${career.currentTeam} mejora ${id}.`, tags: ["carrera", "facility_upgraded"] }]);
       },
 
       hireStaff: (member) => {
@@ -371,7 +374,7 @@ export const useManagerStore = create<ManagerState>()(
         const career = get().career;
         if (!career?.management) return;
         set({ career: patchManagement(career, (m) => ({ ...m, sponsors: signSponsor(m.sponsors, sponsor) })) });
-        useNewsStore.getState().add([{ id: `career:${career.season}:sponsor_signed:${sponsor.id}`, at: Date.now(), kind: "event", title: "Nuevo patrocinador", body: `${career.currentTeam} firma con ${sponsor.name}.`, tags: ["carrera", "sponsor_signed"] }]);
+        useNewsStore.getState().add([{ id: `career:${career.season}:sponsor_signed:${sponsor.id}`, at: Date.now(), kind: "event", title: tr("Nuevo patrocinador"), body: tr("{currentTeam} firma con {name}.", { currentTeam: td(career.currentTeam), name: sponsor.name }), tags: ["carrera", "sponsor_signed"] }]);
       },
 
       runScout: () => {
@@ -402,7 +405,7 @@ export const useManagerStore = create<ManagerState>()(
           useWorldStore.setState({ world: { ...w } });
         }
         set({ career: { ...career, management: res.management } });
-        useNewsStore.getState().add([{ id: `career:${career.season}:rookie_promoted:${prospectId}`, at: Date.now(), kind: "transfer", title: "Rookie promovido", body: `${res.prospect.name} asciende al primer equipo de ${career.currentTeam}.`, tags: ["carrera", "rookie_promoted"] }]);
+        useNewsStore.getState().add([{ id: `career:${career.season}:rookie_promoted:${prospectId}`, at: Date.now(), kind: "transfer", title: tr("Rookie promovido"), body: tr("{name} asciende al primer equipo de {currentTeam}.", { name: res.prospect.name, currentTeam: td(career.currentTeam) }), tags: ["carrera", "rookie_promoted"] }]);
       },
 
       trainPlayer: (playerId, session) => {
@@ -423,7 +426,7 @@ export const useManagerStore = create<ManagerState>()(
         if (!res) return;
         const withStaff = { ...res.management, staff: hireStaff(res.management.staff, res.member) };
         set({ career: { ...career, management: withStaff } });
-        useNewsStore.getState().add([{ id: `career:${career.season}:staff_hired:${prospectId}`, at: Date.now(), kind: "transfer", title: "Técnico de cantera", body: `${res.member.name} asciende al cuerpo técnico de ${career.currentTeam}.`, tags: ["carrera", "staff_hired"] }]);
+        useNewsStore.getState().add([{ id: `career:${career.season}:staff_hired:${prospectId}`, at: Date.now(), kind: "transfer", title: tr("Técnico de cantera"), body: tr("{name} asciende al cuerpo técnico de {currentTeam}.", { name: res.member.name, currentTeam: td(career.currentTeam) }), tags: ["carrera", "staff_hired"] }]);
       },
 
       // ── Fase 4: mercado de fichajes interactivo ──

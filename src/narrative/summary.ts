@@ -8,6 +8,9 @@
 import type {
   MatchShape, MatchSummary, NarrativeEvent, PlayerArc, Standout, StoryBeat, TeamId, TeamRef,
 } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("narrative");
 
 export interface SummaryInput {
   teams: Record<TeamId, TeamRef>;
@@ -34,7 +37,7 @@ export function buildSummary(s: SummaryInput): MatchSummary {
   const beats: StoryBeat[] = [];
   const { teams, score, winner } = s;
   if (!winner) {
-    return { headline: "Sin resolver", shape: s.shape.id, beats, mvp: null, turningPoint: null };
+    return { headline: tr("Sin resolver"), shape: s.shape.id, beats, mvp: null, turningPoint: null };
   }
   const loser: TeamId = winner === "A" ? "B" : "A";
 
@@ -42,18 +45,18 @@ export function buildSummary(s: SummaryInput): MatchSummary {
   beats.push({
     kind: "result", round: null, subjects: [nameOf(teams, winner)], magnitude: 100,
     refs: s.keyMoments.filter((e) => e.type === "match_end").map((e) => e.id),
-    text: `${nameOf(teams, winner)} venció a ${nameOf(teams, loser)} ${score[winner]}-${score[loser]}`
+    text: tr("{teams} venció a {teams2} {v}-{v2}", { teams: nameOf(teams, winner), teams2: nameOf(teams, loser), v: score[winner], v2: score[loser] })
       + (s.shape.descriptors.length ? ` (${s.shape.descriptors[0]})` : "") + ".",
   });
 
   // 2. Punto de inflexión.
   if (s.inflectionRound != null) {
     const cb = s.derived.find((e) => e.type === "comeback_started");
-    const detail = cb ? "le dieron la vuelta al marcador" : "cambió el control del mapa";
+    const detail = cb ? tr("le dieron la vuelta al marcador") : tr("cambió el control del mapa");
     beats.push({
       kind: "turning_point", round: s.inflectionRound, subjects: [nameOf(teams, winner)], magnitude: 80,
       refs: s.derived.filter((e) => e.type === "inflection").map((e) => e.id),
-      text: `El partido giró en la ronda ${s.inflectionRound}: ${nameOf(teams, winner)} ${detail}.`,
+      text: tr("El partido giró en la ronda {inflectionRound}: {teams} {detail}.", { inflectionRound: s.inflectionRound, teams: nameOf(teams, winner), detail: td(detail) }),
     });
   }
 
@@ -62,7 +65,7 @@ export function buildSummary(s: SummaryInput): MatchSummary {
   if (mvp) {
     beats.push({
       kind: "mvp", round: null, subjects: [mvp.name], magnitude: 70, refs: [],
-      text: `${mvp.name} fue el jugador del partido (${mvp.reason}).`,
+      text: tr("{name} fue el jugador del partido ({reason}).", { name: mvp.name, reason: td(mvp.reason) }),
     });
   }
 
@@ -71,7 +74,7 @@ export function buildSummary(s: SummaryInput): MatchSummary {
   if (dom && dom.favors) {
     beats.push({
       kind: "control", round: dom.round, subjects: [nameOf(teams, dom.favors)], magnitude: 60, refs: [dom.id],
-      text: `Desde la ronda ${dom.round}, ${nameOf(teams, dom.favors)} tomó el control del mapa.`,
+      text: tr("Desde la ronda {round}, {teams} tomó el control del mapa.", { round: dom.round, teams: nameOf(teams, dom.favors) }),
     });
   }
 
@@ -88,10 +91,10 @@ export function buildSummary(s: SummaryInput): MatchSummary {
   const hi = s.keyMoments.find((e) => e.type === "ace" || e.type === "clutch");
   if (hi) {
     const who = String(hi.data.byName ?? hi.participants[0]?.name ?? "Alguien");
-    const what = hi.type === "ace" ? "un ACE" : `un clutch 1v${hi.data.clutchSize}`;
+    const what = hi.type === "ace" ? tr("un ACE") : tr("un clutch 1v{clutchSize}", { clutchSize: hi.data.clutchSize });
     beats.push({
       kind: "highlight", round: hi.round, subjects: [who], magnitude: hi.importance, refs: [hi.id],
-      text: `${who} firmó ${what} en la ronda ${hi.round}.`,
+      text: tr("{who} firmó {what} en la ronda {round}.", { who: td(who), what: td(what), round: hi.round }),
     });
   }
 
@@ -100,7 +103,7 @@ export function buildSummary(s: SummaryInput): MatchSummary {
   if (to && to.favors) {
     beats.push({
       kind: "timeout", round: to.round, subjects: [nameOf(teams, to.favors)], magnitude: 50, refs: [to.id],
-      text: `El timeout de ${nameOf(teams, to.favors)} (ronda ${to.round}) cambió su plan.`,
+      text: tr("El timeout de {teams} (ronda {round}) cambió su plan.", { teams: nameOf(teams, to.favors), round: to.round }),
     });
   }
 

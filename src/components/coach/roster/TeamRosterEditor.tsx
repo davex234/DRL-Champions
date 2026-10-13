@@ -27,10 +27,16 @@ import { cardViews, type CardView } from "@/lib/match/cardView";
 import { CardArt } from "@/components/cards/CardArt";
 import type { RoleId } from "@/domain/cards/types";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("coach");
 
 const CYAN = "rgba(47,224,255,0.95)";
 
 export function TeamRosterEditor({ teamId, compact = false }: { teamId: string; compact?: boolean }) {
+  useLocale();
   const ownedCards = useGameStore((s) => s.ownedCards);
   const team = useTeamStore((s) => s.teams.find((t) => t.id === teamId) ?? null);
   const setStarters = useTeamStore((s) => s.setStarters);
@@ -60,7 +66,7 @@ export function TeamRosterEditor({ teamId, compact = false }: { teamId: string; 
     const next = [...starters];
     if (slot !== null && slot < next.length) next[slot] = c.uid;         // reemplazar
     else if (next.length < MAX_STARTERS) next.push(c.uid);               // añadir al primer hueco
-    else { setAviso("Quinteto completo: pulsa primero el titular que quieres cambiar."); return; }
+    else { setAviso(tr("Quinteto completo: pulsa primero el titular que quieres cambiar.")); return; }
     setStarters(team.id, next);
     setSlot(null);
     setAviso(null);
@@ -79,17 +85,17 @@ export function TeamRosterEditor({ teamId, compact = false }: { teamId: string; 
         <input
           value={team.name}
           onChange={(e) => renameTeam(team.id, e.target.value)}
-          aria-label="Nombre del equipo"
+          aria-label={tr("Nombre del equipo")}
           className="min-h-[44px] min-w-[12rem] flex-1 bg-black/40 px-3 font-display text-[15px] font-bold uppercase tracking-wide text-white outline-none shadow-[inset_0_0_0_1px_rgba(47,224,255,0.2)] focus:shadow-[inset_0_0_0_1px_rgba(47,224,255,0.8)]"
         />
         <span className={cn("nx-label", errors.length === 0 ? "!text-[rgb(63,214,150)]" : "!text-[#ffd35c]")} data-testid="team-status">
-          {errors.length === 0 ? "✓ Equipo listo" : `${starters.length}/${MAX_STARTERS} titulares`}
+          {errors.length === 0 ? tr("✓ Equipo listo") : tr("{length}/{MAX_STARTERS} titulares", { length: starters.length, MAX_STARTERS })}
         </span>
       </div>
 
       {/* ═══ TITULARES: cinco cartas ═══ */}
-      <section aria-label="Titulares">
-        <p className="nx-coach-kicker mb-2">Titulares · {starters.length}/{MAX_STARTERS}</p>
+      <section aria-label={tr("Titulares")}>
+        <p className="nx-coach-kicker mb-2">{tr("Titulares ·")} {starters.length}/{MAX_STARTERS}</p>
         <ol className={cn("grid grid-cols-5 gap-2 sm:gap-4", compact ? "max-w-[620px]" : "max-w-[860px]")} data-testid="team-starters">
           {Array.from({ length: MAX_STARTERS }, (_, i) => {
             const uid = starters[i];
@@ -103,20 +109,20 @@ export function TeamRosterEditor({ teamId, compact = false }: { teamId: string; 
                     className="nx-roster-card"
                     onClick={() => { setSlot(on ? null : i); setAviso(null); }}
                     aria-pressed={on}
-                    aria-label={c ? `${c.nick} · ${c.variantLabel}${on ? " (seleccionada)" : ""}` : "Carta que ya no tienes"}
+                    aria-label={c ? `${c.nick} · ${c.variantLabel}${on ? " (seleccionada)" : ""}` : tr("Carta que ya no tienes")}
                     data-card-id={c?.cardId}
                     data-testid={`starter-${i}`}
                   >
                     {c ? (
                       <CardArt src={c.art} alt={`${c.nick} · ${c.variantLabel}`} shadow={on ? "lifted" : "rest"} glow={on ? CYAN : null} glowSize={16} sizes="(max-width: 640px) 18vw, 160px" />
                     ) : (
-                      <span className="nx-roster-slot-empty text-[11px]">Carta que ya no tienes</span>
+                      <span className="nx-roster-slot-empty text-[11px]">{tr("Carta que ya no tienes")}</span>
                     )}
                   </button>
                 ) : (
-                  <button type="button" onClick={() => setSlot(on ? null : i)} aria-pressed={on} className="w-full" data-testid={`starter-${i}`} aria-label={`Puesto ${i + 1} vacío`}>
+                  <button type="button" onClick={() => setSlot(on ? null : i)} aria-pressed={on} className="w-full" data-testid={`starter-${i}`} aria-label={tr("Puesto {v} vacío", { v: i + 1 })}>
                     <span className="nx-roster-slot-empty font-display text-[13px]" data-active={on}>
-                      <span className="text-center leading-tight">{String(i + 1).padStart(2, "0")}<br /><span className="text-[9px] tracking-[0.2em]">VACÍO</span></span>
+                      <span className="text-center leading-tight">{String(i + 1).padStart(2, "0")}<br /><span className="text-[9px] tracking-[0.2em]">{tr("VACÍO")}</span></span>
                     </span>
                   </button>
                 )}
@@ -125,7 +131,7 @@ export function TeamRosterEditor({ teamId, compact = false }: { teamId: string; 
                 </span>
                 {c && on && (
                   <button type="button" onClick={() => quitar(i)} className="nx-coach-btn !min-h-[32px] !px-2.5" data-variant="mag" data-size="sm" data-testid={`remove-${i}`}>
-                    Quitar
+                    {tr("Quitar")}
                   </button>
                 )}
               </li>
@@ -133,42 +139,42 @@ export function TeamRosterEditor({ teamId, compact = false }: { teamId: string; 
           })}
         </ol>
         <p className={cn("mt-2 text-[12.5px]", aviso ? "text-[#ffd35c]" : "nx-coach-muted")} data-testid="team-hint" aria-live="polite">
-          {aviso ?? (slot !== null
-            ? `Puesto ${slot + 1} seleccionado: pulsa una carta de tu colección para ${starters[slot] ? "cambiarla" : "ponerla ahí"}.`
+          {td(aviso) ?? (slot !== null
+            ? tr("Puesto {v} seleccionado: pulsa una carta de tu colección para {v2}.", { v: slot + 1, v2: starters[slot] ? tr("cambiarla") : tr("ponerla ahí") })
             : starters.length < MAX_STARTERS
-              ? "Pulsa una carta de tu colección para añadirla al primer hueco libre."
-              : "Pulsa un titular para cambiarlo o quitarlo.")}
+              ? tr("Pulsa una carta de tu colección para añadirla al primer hueco libre.")
+              : tr("Pulsa un titular para cambiarlo o quitarlo."))}
         </p>
       </section>
 
       {errors.length > 0 && starters.length > 0 && (
         <ul className="space-y-1" data-testid="team-errors">
-          {errors.map((e, i) => <li key={i} className="nx-coach-conflict px-3 py-1.5 text-xs text-white/90">✕ {e.message}</li>)}
+          {errors.map((e, i) => <li key={i} className="nx-coach-conflict px-3 py-1.5 text-xs text-white/90">✕ {td(e.message)}</li>)}
         </ul>
       )}
 
       {/* ═══ TU COLECCIÓN: cartas ═══ */}
-      <section aria-label="Tu colección">
+      <section aria-label={tr("Tu colección")}>
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <p className="nx-coach-kicker mr-auto">Tu colección · {cards.length}</p>
+          <p className="nx-coach-kicker mr-auto">{tr("Tu colección ·")} {cards.length}</p>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar jugador o equipo…"
-            aria-label="Buscar jugador o equipo"
+            placeholder={tr("Buscar jugador o equipo…")}
+            aria-label={tr("Buscar jugador o equipo")}
             className="min-h-[40px] w-52 bg-black/40 px-3 text-xs text-white outline-none shadow-[inset_0_0_0_1px_rgba(47,224,255,0.2)] focus:shadow-[inset_0_0_0_1px_rgba(47,224,255,0.8)]"
           />
-          <div role="group" aria-label="Filtrar por rol" className="flex flex-wrap gap-1">
+          <div role="group" aria-label={tr("Filtrar por rol")} className="flex flex-wrap gap-1">
             {(["todos", ...roles] as const).map((r) => (
               <button key={r} type="button" onClick={() => setRol(r)} aria-pressed={rol === r} className="nx-coach-tool !min-h-[40px] !px-3">
-                {r === "todos" ? "Todos" : r}
+                {r === "todos" ? tr("Todos") : td(r)}
               </button>
             ))}
           </div>
         </div>
         {cards.length === 0 ? (
           <p className="nx-coach-panel-flat p-6 text-center text-sm text-white/55">
-            No tienes cartas todavía. Abre sobres en la <a href="/tienda" className="text-[#2fe0ff] underline">tienda</a>.
+            {fill(tr("No tienes cartas todavía. Abre sobres en la {enlace}.", slots("enlace")), { enlace: <a href="/tienda" className="text-[#2fe0ff] underline">{tr("tienda")}</a> })}
           </p>
         ) : (
           <ul className="grid grid-cols-3 gap-x-3 gap-y-4 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8" data-testid="collection-grid">
@@ -186,8 +192,8 @@ export function TeamRosterEditor({ teamId, compact = false }: { teamId: string; 
                     onClick={() => poner(c)}
                     disabled={bloqueada}
                     aria-pressed={titular}
-                    aria-label={`${c.nick} · ${c.variantLabel} · ${c.role} · ${c.ovr}${titular ? " (titular)" : mismoJugador ? " (ese jugador ya es titular)" : ""}`}
-                    title={mismoJugador ? "Ese jugador ya es titular" : lleno ? "Quinteto completo: elige un titular para cambiarlo" : undefined}
+                    aria-label={`${c.nick} · ${c.variantLabel} · ${c.role} · ${c.ovr}${titular ? tr(" (titular)") : mismoJugador ? tr(" (ese jugador ya es titular)") : ""}`}
+                    title={mismoJugador ? tr("Ese jugador ya es titular") : lleno ? tr("Quinteto completo: elige un titular para cambiarlo") : undefined}
                     data-card-id={c.cardId}
                     data-testid="collection-card"
                   >

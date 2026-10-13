@@ -9,5 +9,5 @@ import { join } from "node:path";
 
 test("F68 B014 · id mal formado (400) = partida no encontrada, con salida a /competitivo", () => {
   const s = readFileSync(join(process.cwd(), "src/app/duelos/competitivo/partida/[matchId]/page.tsx"), "utf8");
-  assert.match(s, /if \(error\?\.status === 404 \|\| error\?\.status === 400\) \{\s*return <EmptyState icon="🔒" title="Partida no encontrada"[^>]*action=\{\{ href: "\/competitivo", label: "Volver al competitivo" \}\} \/>;/);
+  assert.match(s, /if \(error\?\.status === 404 \|\| error\?\.status === 400\) \{\s*return <EmptyState icon="🔒" title=\{(?:t|tr|i18nT)\("Partida no encontrada"\)\}[^>]*action=\{\{ href: "\/competitivo", label: (?:"Volver al competitivo"|(?:t|tr|i18nT)\("Volver al competitivo"\)) \}\} \/>;/);
 });

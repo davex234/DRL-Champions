@@ -76,7 +76,7 @@ test("AUDIT-COACH-11 · sin nombres de Ascent en los doce mapas (A Main / B/Tree
 
 test("AUDIT-UI-1 · estados vacíos honestos: comparar sin jugador, colecciones vacías, Pick'em no publicado y jugada desconocida", () => {
   const cmp = code("src/app/social/comparar/page.tsx");
-  assert.ok(cmp.includes("if (!id) return <EmptyState") && cmp.includes('else setError("Jugador no encontrado")'));
+  assert.ok(cmp.includes("if (!id) return <EmptyState") && cmp.includes('else setError(t("Jugador no encontrado"))'));
   const col = code("src/app/colecciones/page.tsx");
   assert.ok(col.includes("const none = !loading && defs.length === 0;") && col.includes("Todavía no hay colecciones") && col.includes("{!none && ("));
   const pk = code("src/components/pickems/predict/PredictScreen.tsx");

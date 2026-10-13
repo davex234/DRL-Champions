@@ -22,6 +22,10 @@ import { hintPresentation } from "@/lib/duel/hintDisplay";
 import { CardArt } from "@/components/cards/CardArt";
 import { RoleMark } from "./RoleMark";
 import type { RoleId } from "@/domain/cards/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export type DuelCardSize = "xs" | "sm" | "md" | "lg";
 
@@ -88,6 +92,7 @@ function DuelCardBase({
   card, size = "md", highlightStat = null, selected = false, used = false, disabled = false,
   onClick, className, glow = null, hideCombat = false,
 }: DuelCardProps) {
+  useLocale();
   const player = getPlayer(card.playerId);
   const variant = getVariant(card.variantId);
   const palette = variant.palette;
@@ -190,7 +195,7 @@ function DuelCardBase({
       )}
       {used && (
         <span className="absolute inset-0 z-20 grid place-items-center font-display text-[10px] font-bold uppercase tracking-[0.2em] text-white/85 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
-          Usada
+          {t("Usada")}
         </span>
       )}
       {/* El trío de combate, dentro de la silueta de la carta: es con lo que se juega. */}
@@ -270,7 +275,7 @@ function DuelCardBase({
         <span className={cn("font-display font-bold leading-none", OVR_SIZE[size])}>{card.ovr}</span>
         {size !== "xs" && (
           <span className="font-display text-[8px] font-bold uppercase tracking-wider opacity-85">
-            {ROLE_ABBR[card.role] ?? card.role}
+            {td(ROLE_ABBR[card.role]) ?? td(card.role)}
           </span>
         )}
         {size !== "xs" && card.country && (
@@ -289,7 +294,7 @@ function DuelCardBase({
 
       {used && (
         <span className="absolute inset-0 z-20 grid place-items-center bg-base-900/55 font-display text-[10px] font-bold uppercase tracking-[0.2em] text-white/80">
-          Usada
+          {t("Usada")}
         </span>
       )}
 
@@ -309,7 +314,7 @@ function DuelCardBase({
         )}
         {size !== "xs" && !impresa && (
           <p className="mt-0.5 truncate text-center text-[7px] font-bold uppercase tracking-[0.14em] text-white/75">
-            {variant.label}
+            {td(variant.label)}
           </p>
         )}
         {trio}
@@ -326,7 +331,7 @@ function DuelCardBase({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      aria-label={`${card.nick}, ${card.role}, OVR ${card.ovr}`}
+      aria-label={t("{nick}, {role}, OVR {ovr}", { nick: card.nick, role: td(card.role), ovr: card.ovr })}
       className={cn(
         WIDTH[size],
         "shrink-0 rounded-xl transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl",
@@ -369,10 +374,11 @@ export function DuelCardBack({
    */
   layout?: "hand" | "committed";
 }) {
+  useLocale();
   const p = hint ? hintPresentation(hint) : null;
   const committed = layout === "committed";
-  const roleText = role ? `rol ${role}` : null;
-  const label = p ? (roleText ? `${p.ariaLabel}; ${roleText}` : p.ariaLabel) : roleText ? `Carta oculta; ${roleText}` : null;
+  const roleText = role ? t("rol {role}", { role: td(role) }) : null;
+  const label = p ? (roleText ? `${p.ariaLabel}; ${roleText}` : p.ariaLabel) : roleText ? t("Carta oculta; {roleText}", { roleText: td(roleText) }) : null;
   return (
     <div
       className={cn(WIDTH[size], "shrink-0", className)}

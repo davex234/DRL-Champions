@@ -6,6 +6,8 @@
  * que el jugador tiene delante.
  */
 import { cn } from "@/lib/format";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export function JourneyCoach({ eyebrow, title, children, className, testId = "journey-coach" }: {
   eyebrow: string;
@@ -14,10 +16,11 @@ export function JourneyCoach({ eyebrow, title, children, className, testId = "jo
   className?: string;
   testId?: string;
 }) {
+  useLocale();
   return (
-    <aside aria-label={title} data-testid={testId} className={cn("nx-clip-sm border border-drl/35 border-l-2 border-l-drl bg-drl/[0.05] px-4 py-3", className)}>
-      <p className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-drl-glow">{eyebrow}</p>
-      <p className="mt-0.5 font-display text-[17px] font-bold uppercase leading-tight text-white">{title}</p>
+    <aside aria-label={td(title)} data-testid={testId} className={cn("nx-clip-sm border border-drl/35 border-l-2 border-l-drl bg-drl/[0.05] px-4 py-3", className)}>
+      <p className="font-display text-[11px] font-bold uppercase tracking-[0.18em] text-drl-glow">{td(eyebrow)}</p>
+      <p className="mt-0.5 font-display text-[17px] font-bold uppercase leading-tight text-white">{td(title)}</p>
       <div className="mt-1.5 text-[13px] leading-relaxed text-ink-secondary">{children}</div>
     </aside>
   );

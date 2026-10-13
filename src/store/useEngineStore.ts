@@ -12,6 +12,9 @@ import { dispatchTelegram, isTelegramConfigured, makeNotification } from "@/engi
 import { useRosterStore } from "./useRosterStore";
 import { useNewsStore } from "./useNewsStore";
 import { buildCardNews, abilityLabels, ratingFromCardStats, rarityFor } from "@/intel";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("store");
 
 const cardKey = (c: { tournamentId: string; kind: string; playerId: string }) => `${c.tournamentId}:${c.kind}:${c.playerId}`;
 
@@ -140,7 +143,7 @@ export const useEngineStore = create<EngineState>()(
         set((s) => ({
           jobs: s.jobs.map((j) => (ids.has(j.id) ? { ...j, status: "done" } : j)),
           logs: [
-            { id: `log_t_${now}`, at: now, level: "info" as const, module: "Scheduler", message: `Ejecutados ${due.length} trabajos de monitor.` },
+            { id: `log_t_${now}`, at: now, level: "info" as const, module: "Scheduler", message: tr("Ejecutados {length} trabajos de monitor.", { length: due.length }) },
             ...s.logs,
           ].slice(0, 200),
         }));
@@ -168,7 +171,7 @@ export const useEngineStore = create<EngineState>()(
         set((s) => ({
           pickems: next,
           ...(rewarded
-            ? { notifications: [makeNotification("info", "info", `Pick'ems acertados (simulación): ${rewarded} · sin recompensa`), ...s.notifications].slice(0, 100) }
+            ? { notifications: [makeNotification("info", "info", tr("Pick'ems acertados (simulación): {rewarded} · sin recompensa", { rewarded })), ...s.notifications].slice(0, 100) }
             : {}),
         }));
       },

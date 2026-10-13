@@ -19,6 +19,10 @@ import {
   fetchGameState, buyPack as apiBuyPack, openPack as apiOpenPack,
   buyAndOpenPack as apiBuyAndOpen, type OpenedCardDTO,
 } from "./client";
+import { ns } from "@/i18n/runtime";
+import { beginCriticalOperation } from "@/i18n/critical";
+
+const t = ns("game");
 
 /** Vuelca en el store el estado real del servidor. Devuelve false si no hay sesión. */
 export async function syncFromServer(): Promise<boolean> {
@@ -64,7 +68,7 @@ export async function hydrateAccount(isCurrent: () => boolean = () => true): Pro
   if (isCurrent()) useGameStore.setState({ syncError: null });
   try {
     const ok = await syncFromServer();
-    if (!ok && isCurrent()) useGameStore.setState({ syncError: "Sin sesión" });
+    if (!ok && isCurrent()) useGameStore.setState({ syncError: t("Sin sesión") });
     return ok;
   } catch (e) {
     if (isCurrent()) {
@@ -112,10 +116,14 @@ export function toOpenedResults(opened: unknown): OpenedResult[] {
 /** Compra un sobre en el servidor y refresca la caché. */
 /** F68 · `ref` = clave de idempotencia del GESTO de compra: el mismo gesto reintentado nunca cobra dos veces. */
 export async function buyPackOnline(packId: string, ref?: string): Promise<void> {
+  // I18N · una compra en curso aplaza un cambio de idioma (no añade ni repite ninguna petición).
+  const endCritical = beginCriticalOperation();
+  try {
   await apiBuyPack(packId, ref);
   // F69 · la compra YA está cobrada: si la relectura falla, no se presenta como «compra fallida» (el HUD se pone al
   // día con la siguiente sincronización de CloudSync; reintentar con la misma clave no cobra dos veces).
   await syncFromServer().catch(() => undefined);
+  } finally { endCritical(); }
 }
 
 /**

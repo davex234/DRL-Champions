@@ -10,6 +10,9 @@
  * varios, cómo se agrupan (EN CURSO · PRÓXIMAMENTE · FINALIZADOS), cuándo los datos están
  * «viejos» respecto al ritmo real del worker, y qué puede hacer el jugador ahora mismo.
  */
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("liveEvents");
 
 /* ───────────────────────────── entradas ───────────────────────────── */
 
@@ -308,8 +311,8 @@ export function eventActions(input: ActionsInput): EventAction[] {
     const soon = lock !== null && lock - input.now <= CLOSING_SOON_MS;
     out.push({ kind: "pickem", label: "Haz tus predicciones", detail: `${p.pending} ${p.pending === 1 ? "predicción pendiente" : "predicciones pendientes"}${soon ? " · cierra pronto" : ""}`, href: `${hub}#pickems`, urgent: soon, count: p.pending });
   }
-  if (input.objectives.claimable > 0) out.push({ kind: "objective", label: "Reclama tu recompensa", detail: `${input.objectives.claimable} ${input.objectives.claimable === 1 ? "objetivo completado" : "objetivos completados"} sin reclamar`, href: `${hub}#objetivos`, urgent: true, count: input.objectives.claimable });
-  else if (input.objectives.pending > 0) out.push({ kind: "objective", label: "Avanza un objetivo", detail: `${input.objectives.pending} ${input.objectives.pending === 1 ? "objetivo del evento en marcha" : "objetivos del evento en marcha"}`, href: `${hub}#objetivos`, count: input.objectives.pending });
+  if (input.objectives.claimable > 0) out.push({ kind: "objective", label: "Reclama tu recompensa", detail: input.objectives.claimable === 1 ? tr("{n} objetivo completado sin reclamar", { n: input.objectives.claimable }) : tr("{n} objetivos completados sin reclamar", { n: input.objectives.claimable }), href: `${hub}#objetivos`, urgent: true, count: input.objectives.claimable });
+  else if (input.objectives.pending > 0) out.push({ kind: "objective", label: "Avanza un objetivo", detail: input.objectives.pending === 1 ? tr("{n} objetivo del evento en marcha", { n: input.objectives.pending }) : tr("{n} objetivos del evento en marcha", { n: input.objectives.pending }), href: `${hub}#objetivos`, count: input.objectives.pending });
   const live = input.liveMatches[0];
   if (live) out.push({ kind: "live", label: "Sigue el partido en directo", detail: `${live.teamA ?? "Por decidir"} vs ${live.teamB ?? "Por decidir"}`, href: `${hub}/partido/${live.id}`, urgent: true, count: input.liveMatches.length });
   else if (input.nextMatch) out.push({ kind: "next", label: "Próximo partido", detail: `${input.nextMatch.teamA ?? "Por decidir"} vs ${input.nextMatch.teamB ?? "Por decidir"}`, href: `${hub}/partido/${input.nextMatch.id}` });

@@ -4,6 +4,9 @@
  * reloj lógico). Solo constructores y consultas puras; nunca muta un caso.
  */
 import type { DecisionMeta, EditorialAction, EditorialCase, EditorialEvent, EditorialState } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("editorial");
 
 /** Siguiente número de secuencia del caso. */
 export const nextSeq = (c: Pick<EditorialCase, "history">): number =>
@@ -52,17 +55,17 @@ export function auditHistory(c: EditorialCase): string[] {
   const lastState = new Map<string, EditorialState>();
   let prevSeq = 0;
   for (const e of c.history) {
-    if (e.seq <= prevSeq) issues.push(`seq no monótona: ${e.seq} tras ${prevSeq}`);
+    if (e.seq <= prevSeq) issues.push(t("seq no monótona: {seq} tras {prevSeq}", { seq: e.seq, prevSeq }));
     prevSeq = e.seq;
-    if (e.generationId !== c.generationId) issues.push(`evento ${e.seq}: generationId ajeno`);
+    if (e.generationId !== c.generationId) issues.push(t("evento {seq}: generationId ajeno", { seq: e.seq }));
     if (!e.cardId) continue;
     const prev = lastState.get(e.cardId);
-    if (prev !== undefined && e.from !== prev) issues.push(`carta ${e.cardId}: evento ${e.seq} parte de "${e.from}" pero estaba en "${prev}"`);
+    if (prev !== undefined && e.from !== prev) issues.push(t("carta {cardId}: evento {seq} parte de \"{from}\" pero estaba en \"{prev}\"", { cardId: e.cardId, seq: e.seq, from: e.from, prev }));
     if (e.to) lastState.set(e.cardId, e.to);
   }
   // El estado final del historial debe coincidir con el estado vigente del caso.
   for (const [cardId, st] of lastState) {
-    if (c.states[cardId] !== st) issues.push(`carta ${cardId}: historial termina en "${st}" pero el estado vigente es "${c.states[cardId]}"`);
+    if (c.states[cardId] !== st) issues.push(t("carta {cardId}: historial termina en \"{st}\" pero el estado vigente es \"{v}\"", { cardId: td(cardId), st, v: c.states[cardId] }));
   }
   return issues;
 }

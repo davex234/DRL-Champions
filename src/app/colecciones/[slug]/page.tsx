@@ -19,6 +19,10 @@ import { collectionProgress } from "@/domain/collections/progress";
 import { rewardSummary } from "@/lib/collections/format";
 import type { CollectionDef } from "@/domain/collections/types";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("colecciones");
 
 export default function CollectionShowcasePage() {
   return (
@@ -29,6 +33,7 @@ export default function CollectionShowcasePage() {
 }
 
 function Showcase() {
+  useLocale();
   const params = useParams<{ slug: string }>();
   const slug = params?.slug;
   const ownedCards = useGameStore((s) => s.ownedCards);
@@ -45,13 +50,13 @@ function Showcase() {
     return () => { alive = false; };
   }, [slug]);
 
-  if (loading) return <p className="text-white/40">Cargando colección…</p>;
+  if (loading) return <p className="text-white/40">{t("Cargando colección…")}</p>;
   if (!def) {
     return (
       <div className="grid min-h-[50vh] place-items-center text-center">
         <div>
-          <p className="font-display text-2xl font-bold uppercase text-white">Colección no encontrada</p>
-          <Link href="/colecciones" className="mt-3 inline-block text-drl hover:underline">← Ver todas</Link>
+          <p className="font-display text-2xl font-bold uppercase text-white">{t("Colección no encontrada")}</p>
+          <Link href="/colecciones" className="mt-3 inline-block text-drl hover:underline">{t("← Ver todas")}</Link>
         </div>
       </div>
     );
@@ -65,15 +70,19 @@ function Showcase() {
     <section className="animate-rise space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <Link href="/colecciones" className="text-xs text-white/40 hover:text-white">← Colecciones</Link>
-          <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">{def.name}</h1>
+          <Link href="/colecciones" className="text-xs text-white/40 hover:text-white">{t("← Colecciones")}</Link>
+          <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">{td(def.name)}</h1>
           <p className="mt-1 text-white/50">
-            {def.source === "tournament" ? "Colección de torneo" : "Colección de evento"}
-            {def.tier ? ` · ${def.tier}` : ""} · {def.items.length} cartas · 🎁 {rewardSummary(def.reward)}
+            {t("{tipo}{tier} · {n} cartas · 🎁 {premio}", {
+              tipo: def.source === "tournament" ? t("Colección de torneo") : t("Colección de evento"),
+              tier: def.tier ? ` · ${def.tier}` : "",
+              n: def.items.length,
+              premio: rewardSummary(def.reward),
+            })}
           </p>
         </div>
         <div className="rounded-2xl border border-white/10 bg-base-700/60 px-5 py-3 text-center">
-          <p className="text-[10px] uppercase tracking-widest text-white/40">Mi progreso</p>
+          <p className="text-[10px] uppercase tracking-widest text-white/40">{t("Mi progreso")}</p>
           <p className="font-display text-2xl font-bold text-drl-cyan">{prog.pct}%</p>
           <p className="text-[11px] text-white/40">{prog.owned}/{prog.total}</p>
         </div>
@@ -82,10 +91,10 @@ function Showcase() {
       {/* Premiados destacados */}
       {specials.length > 0 && (
         <div>
-          <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">Premiados</h2>
+          <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">{t("Premiados")}</h2>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {specials.map((it) => (
-              <Tile key={it.cardId} cardId={it.cardId} label={it.label}
+              <Tile key={it.cardId} cardId={it.cardId} label={td(it.label)}
                 badge={categoryLabel(it.category)} owned={ownedIds.has(it.cardId)} />
             ))}
           </div>
@@ -95,11 +104,11 @@ function Showcase() {
       {/* Todas las cartas */}
       <div>
         <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">
-          Cartas <span className="text-white/40">({def.items.length})</span>
+          {t("Cartas")} <span className="text-white/40">({def.items.length})</span>
         </h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {def.items.map((it) => (
-            <Tile key={it.cardId} cardId={it.cardId} label={it.label} owned={ownedIds.has(it.cardId)} />
+            <Tile key={it.cardId} cardId={it.cardId} label={td(it.label)} owned={ownedIds.has(it.cardId)} />
           ))}
         </div>
       </div>
@@ -118,19 +127,20 @@ function categoryLabel(category: string): string {
 
 /** Tarjeta: PlayerCard si la carta existe en el catálogo; si no, placeholder. */
 function Tile({ cardId, label, owned, badge }: { cardId: string; label: string; owned: boolean; badge?: string }) {
+  useLocale();
   const card = getCard(cardId);
   return (
     <div className={cn("relative rounded-xl", !owned && "opacity-60")}>
       {badge && (
         <span className="absolute -top-1 left-1 z-10 rounded-full bg-drl px-2 py-0.5 text-[10px] font-bold uppercase text-white shadow-glow">
-          {badge}
+          {td(badge)}
         </span>
       )}
       {card ? (
         <PlayerCard card={card} size="sm" interactive={false} />
       ) : (
         <div className="grid aspect-[3/4] place-items-center rounded-xl border border-white/10 bg-base-700/50 p-2 text-center">
-          <span className="text-xs text-white/50">{label}</span>
+          <span className="text-xs text-white/50">{td(label)}</span>
         </div>
       )}
       {!owned && (

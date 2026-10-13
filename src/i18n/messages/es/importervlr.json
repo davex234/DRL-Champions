@@ -1,0 +1,17 @@
+{
+  "autoarista en {fromMatchId}": "autoarista en {fromMatchId}",
+  "cuadro: conflicto con resultados — {c}": "cuadro: conflicto con resultados — {c}",
+  "cuadro: transición no afirmada — {u}": "cuadro: transición no afirmada — {u}",
+  "el ganador de {fromMatchId} tiene dos destinos": "el ganador de {fromMatchId} tiene dos destinos",
+  "la página de VLR no parece un torneo (sin título de evento): {overview}": "la página de VLR no parece un torneo (sin título de evento): {overview}",
+  "partido {vlrId}: página de detalle no disponible ({v}); mapas omitidos": "partido {vlrId}: página de detalle no disponible ({v}); mapas omitidos",
+  "solo se descargaron {maxMatchPages}/{length} páginas de partido (maxMatchPages)": "solo se descargaron {maxMatchPages}/{length} páginas de partido (maxMatchPages)",
+  "{mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.": "{mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.",
+  "{tag}: clasificación no unívoca ({length} alimentadores, {length2} cajas)": "{tag}: clasificación no unívoca ({length} alimentadores, {length2} cajas)",
+  "{tag}: el ganador «{w}» de {fromMatchId} no juega {toMatchId}": "{tag}: el ganador «{w}» de {fromMatchId} no juega {toMatchId}",
+  "{tag}: el ganador «{w}» no es el clasificado «{q}»": "{tag}: el ganador «{w}» no es el clasificado «{q}»",
+  "{tag}: parejas sin el patrón (down, up)": "{tag}: parejas sin el patrón (down, up)",
+  "{tag}: sin destinos": "{tag}: sin destinos",
+  "{tag}: {length} alimentadores para {length2} destinos": "{tag}: {length} alimentadores para {length2} destinos",
+  "{tag}: «{w}» no ocupa el hueco {toSlot} de {toMatchId}": "{tag}: «{w}» no ocupa el hueco {toSlot} de {toMatchId}"
+}

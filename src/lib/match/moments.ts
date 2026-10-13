@@ -8,6 +8,9 @@
  */
 import type { RoundState, Side } from "@/sim";
 import type { MatchState } from "@/match";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("match");
 
 export type MomentKind =
   | "first_blood" | "ace" | "team_ace" | "clutch" | "thrifty" | "eco_win"
@@ -63,12 +66,12 @@ export function detectRoundMoments(match: MatchState, finished: RoundState): Mom
 
   // FLAWLESS: ganamos sin perder a nadie.
   if (homeWon && homeAlive === finished.players.filter((p) => p.side === us).length) {
-    out.push({ kind: "flawless", label: "FLAWLESS", sub: "Ronda perfecta", hex: "#7b5cff", priority: 70 });
+    out.push({ kind: "flawless", label: "FLAWLESS", sub: t("Ronda perfecta"), hex: "#7b5cff", priority: 70 });
   }
 
   // CLUTCH: ganamos siendo el último vivo.
   if (homeWon && homeAlive === 1) {
-    out.push({ kind: "clutch", label: "CLUTCH", sub: "1 contra el mundo", hex: CLUTCH, priority: 75 });
+    out.push({ kind: "clutch", label: "CLUTCH", sub: t("1 contra el mundo"), hex: CLUTCH, priority: 75 });
   }
 
   // ECO WIN / THRIFTY (con loadouts de la ronda).
@@ -79,9 +82,9 @@ export function detectRoundMoments(match: MatchState, finished: RoundState): Mom
     const homeBuy = home.buy;
     const awayBuy = away.buy;
     if ((homeBuy === "eco" || homeBuy === "save") && (awayBuy === "full" || awayBuy === "force")) {
-      out.push({ kind: "eco_win", label: "ECO WIN", sub: "Robo a pleno", hex: ECO, priority: 78 });
+      out.push({ kind: "eco_win", label: "ECO WIN", sub: t("Robo a pleno"), hex: ECO, priority: 78 });
     } else if (home.totalValue * 1.35 < away.totalValue) {
-      out.push({ kind: "thrifty", label: "THRIFTY", sub: "Ganada con menos", hex: ECO, priority: 60 });
+      out.push({ kind: "thrifty", label: "THRIFTY", sub: t("Ganada con menos"), hex: ECO, priority: 60 });
     }
   }
 
@@ -128,9 +131,9 @@ export function utilityStory(match: MatchState): string | null {
   }
   // F68 · habla de las RONDAS ganadas: si el partido se perdió, no puede decir «Ganasteis» (medido en la beta: 1–13).
   const lost = match.winner !== "home";
-  if (wonRounds > 0 && controlWins / wonRounds >= 0.6) return lost ? "Las rondas que ganasteis llegaron gracias al control del mapa." : "Ganasteis gracias al control del mapa.";
-  if (n > 0 && spentSum / n >= 4.5) return lost ? "La utilidad fue vuestra mejor arma, pero no bastó." : "La utilidad decidió: dominasteis con herramientas.";
-  if (wonRounds > 0 && controlWins / wonRounds <= 0.25) return lost ? "Las rondas que ganasteis fueron a pesar de ceder el control: puro aim y duelos." : "Ganasteis a pesar de ceder el control: puro aim y duelos.";
+  if (wonRounds > 0 && controlWins / wonRounds >= 0.6) return lost ? t("Las rondas que ganasteis llegaron gracias al control del mapa.") : t("Ganasteis gracias al control del mapa.");
+  if (n > 0 && spentSum / n >= 4.5) return lost ? t("La utilidad fue vuestra mejor arma, pero no bastó.") : t("La utilidad decidió: dominasteis con herramientas.");
+  if (wonRounds > 0 && controlWins / wonRounds <= 0.25) return lost ? t("Las rondas que ganasteis fueron a pesar de ceder el control: puro aim y duelos.") : t("Ganasteis a pesar de ceder el control: puro aim y duelos.");
   return null;
 }
 
@@ -157,8 +160,8 @@ export function coachRating(match: MatchState): CoachRating {
   const tacticalScore = Math.min(100, Math.round(variety * 11 + roundWinRate * 50 + comebackBonus));
 
   const label = won
-    ? score >= 88 ? "Dirección magistral" : score >= 76 ? "Gran lectura del partido" : "Victoria trabajada"
-    : score >= 60 ? "Buena dirección pese a la derrota" : "Partido para olvidar";
+    ? score >= 88 ? t("Dirección magistral") : score >= 76 ? t("Gran lectura del partido") : t("Victoria trabajada")
+    : score >= 60 ? t("Buena dirección pese a la derrota") : t("Partido para olvidar");
 
   return { grade: gradeOf(score), score, label, tactical: gradeOf(tacticalScore), roundWinRate, variety };
 }

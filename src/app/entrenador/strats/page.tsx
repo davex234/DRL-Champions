@@ -68,6 +68,10 @@ import {
 } from "@/lib/tactics/client";
 import { ROLE_ABBR } from "@/lib/flags";
 import { cn } from "@/lib/format";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("entrenador");
 
 /**
  * `useSearchParams()` obliga a Next a renderizar en cliente la rama que lo llama, y sin un
@@ -76,8 +80,9 @@ import { cn } from "@/lib/format";
  * `/entrenador/strats/revisar` y `/entrenador/plan`.
  */
 export default function StratsPage() {
+  useLocale();
   return (
-    <Suspense fallback={<Marco><Loading label="Cargando tus estrategias…" /></Marco>}>
+    <Suspense fallback={<Marco><Loading label={tr("Cargando tus estrategias…")} /></Marco>}>
       <Pizarra />
     </Suspense>
   );
@@ -87,6 +92,7 @@ export default function StratsPage() {
 interface Conflicto { version: string | null; nombre: string | null }
 
 function Pizarra() {
+  useLocale();
   const configured = isSupabaseConfigured();
   const { user } = useAuth();
   const { toast, notify } = useToast();
@@ -148,7 +154,7 @@ function Pizarra() {
     try {
       setRows(await fetchStrats());
     } catch (e) {
-      setError(e instanceof StratError ? e.message : "No se pudieron cargar tus estrategias");
+      setError(e instanceof StratError ? e.message : tr("No se pudieron cargar tus estrategias"));
     } finally {
       setLoading(false);
     }
@@ -235,7 +241,7 @@ function Pizarra() {
       if (comoCopia) setHist((h) => commit(h, plan));
       setGuardado(plan);
       setConflicto(null);
-      notify(comoCopia ? "Guardada como copia" : "Estrategia guardada");
+      notify(comoCopia ? tr("Guardada como copia") : tr("Estrategia guardada"));
       await refrescar();
     } catch (e) {
       if (e instanceof TacticsError && e.code === "VERSION_CONFLICT") {
@@ -246,7 +252,7 @@ function Pizarra() {
         });
         return;
       }
-      notify(e instanceof TacticsError || e instanceof StratError ? e.message : "No se pudo guardar");
+      notify(e instanceof TacticsError || e instanceof StratError ? e.message : tr("No se pudo guardar"));
     } finally {
       setSaving(false);
     }
@@ -256,18 +262,18 @@ function Pizarra() {
   const recargar = useCallback(async () => {
     const r = await refrescar();
     const fila = r?.find((x) => x.id === savedId);
-    if (!fila) { notify("Esa estrategia ya no existe. Puedes guardarla como copia."); return; }
+    if (!fila) { notify(tr("Esa estrategia ya no existe. Puedes guardarla como copia.")); return; }
     abrir(fila);
-    notify("Última versión cargada");
+    notify(tr("Última versión cargada"));
   }, [refrescar, savedId, abrir, notify]);
 
   const duplicar = useCallback(async (id: string) => {
     try {
       await duplicateStrat(id);
-      notify("Copia creada");
+      notify(tr("Copia creada"));
       await refrescar();
     } catch (e) {
-      notify(e instanceof StratError ? e.message : "No se pudo duplicar");
+      notify(e instanceof StratError ? e.message : tr("No se pudo duplicar"));
     }
   }, [notify, refrescar]);
 
@@ -275,10 +281,10 @@ function Pizarra() {
     try {
       await deleteStrat(id);
       if (savedId === id) nueva(map.id, strat.side);
-      notify("Estrategia eliminada");
+      notify(tr("Estrategia eliminada"));
       await refrescar();
     } catch (e) {
-      notify(e instanceof StratError ? e.message : "No se pudo eliminar");
+      notify(e instanceof StratError ? e.message : tr("No se pudo eliminar"));
       // FULL GAME AUDIT · si ya no existía (otra pestaña), la lista se pone al día igualmente.
       await refrescar().catch(() => undefined);
     }
@@ -286,11 +292,11 @@ function Pizarra() {
 
   // ── Estados previos al editor ──────────────────────────────────────────────
   if (!configured) {
-    return <Marco><ErrorState message="Esta instalación no tiene servidor: las estrategias se guardan en el servidor." /></Marco>;
+    return <Marco><ErrorState message={tr("Esta instalación no tiene servidor: las estrategias se guardan en el servidor.")} /></Marco>;
   }
-  if (!user) return <Marco><NeedsAccount what="Tus estrategias" /></Marco>;
-  if (loading) return <Marco><Loading label="Cargando tus estrategias…" /></Marco>;
-  if (error) return <Marco><ErrorState message={error} onRetry={() => void load()} /></Marco>;
+  if (!user) return <Marco><NeedsAccount what={tr("Tus estrategias")} /></Marco>;
+  if (loading) return <Marco><Loading label={tr("Cargando tus estrategias…")} /></Marco>;
+  if (error) return <Marco><ErrorState message={td(error)} onRetry={() => void load()} /></Marco>;
 
   const objetos = countObjects(estado);
   const soltar = () => { setTool({ kind: "select" }); setPendiente(null); };
@@ -303,11 +309,11 @@ function Pizarra() {
           <Campo
             value={strat.name}
             onChange={(v) => cambiar((s) => ({ ...s, name: v.slice(0, 60) }), "name")}
-            aria-label="Nombre de la estrategia"
+            aria-label={tr("Nombre de la estrategia")}
             className="min-w-[9rem] flex-1 !text-[15px] !font-bold"
           />
 
-          <div className="flex p-0.5 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.16)]" role="group" aria-label="Bando">
+          <div className="flex p-0.5 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.16)]" role="group" aria-label={tr("Bando")}>
             {(["attack", "defense"] as Side[]).map((s) => (
               <button
                 key={s}
@@ -322,20 +328,20 @@ function Pizarra() {
                     : "text-white/55 hover:text-white",
                 )}
               >
-                {s === "attack" ? "▲ " : "▼ "}{SIDE_LABEL[s]}
+                {s === "attack" ? "▲ " : "▼ "}{td(SIDE_LABEL[s])}
               </button>
             ))}
           </div>
 
-          <div className="flex" role="group" aria-label="Historial">
+          <div className="flex" role="group" aria-label={tr("Historial")}>
             <button
               type="button"
               className="nx-coach-tool"
               onClick={deshacer}
               disabled={!canUndo(hist)}
               data-testid="undo"
-              aria-label="Deshacer"
-              title={`Deshacer (Ctrl+Z) · ${hist.past.length}/${HISTORY_LIMIT}`}
+              aria-label={tr("Deshacer")}
+              title={tr("Deshacer (Ctrl+Z) · {length}/{HISTORY_LIMIT}", { length: hist.past.length, HISTORY_LIMIT })}
             >
               <CoachIcon name="undo" size={18} />
             </button>
@@ -345,8 +351,8 @@ function Pizarra() {
               onClick={rehacer}
               disabled={!canRedo(hist)}
               data-testid="redo"
-              aria-label="Rehacer"
-              title="Rehacer (Ctrl+Shift+Z / Ctrl+Y)"
+              aria-label={tr("Rehacer")}
+              title={tr("Rehacer (Ctrl+Shift+Z / Ctrl+Y)")}
             >
               <CoachIcon name="redo" size={18} />
             </button>
@@ -356,7 +362,7 @@ function Pizarra() {
             data-testid="save-state"
             className={cn("nx-label hidden shrink-0 sm:inline", sucio ? "!text-[#ffd35c]" : "!text-[rgb(63,214,150)]")}
           >
-            {sucio ? "● Sin guardar" : "✓ Guardada"}
+            {sucio ? tr("● Sin guardar") : tr("✓ Guardada")}
           </span>
 
           <button
@@ -366,9 +372,9 @@ function Pizarra() {
             disabled={strat.steps.length === 0}
             className="nx-coach-btn"
             data-variant="ghost"
-            title="Presenta la jugada a pantalla completa (Game Day)"
+            title={tr("Presenta la jugada a pantalla completa (Game Day)")}
           >
-            <CoachIcon name="present" size={16} /> Presentar
+            <CoachIcon name="present" size={16} /> {tr("Presentar")}
           </button>
 
           <button
@@ -379,11 +385,11 @@ function Pizarra() {
             className="nx-coach-btn"
           >
             <CoachIcon name="save" size={16} />
-            {saving ? "Guardando…" : savedId ? "Guardar" : "Guardar nueva"}
+            {saving ? tr("Guardando…") : savedId ? tr("Guardar") : tr("Guardar nueva")}
           </button>
           {savedId && (
             <Link href={`/entrenador/strats/revisar?id=${savedId}`} className="nx-coach-btn" data-variant="ghost" data-size="sm">
-              Revisar
+              {tr("Revisar")}
             </Link>
           )}
         </>
@@ -402,18 +408,18 @@ function Pizarra() {
         <div role="alert" data-testid="version-conflict" className="nx-coach-conflict mb-3 flex flex-wrap items-center gap-3 px-4 py-3">
           <div className="min-w-0 flex-1">
             <b className="block font-display text-[14px] font-extrabold uppercase tracking-[0.06em] text-white">
-              Esta jugada ha cambiado en otra sesión.
+              {tr("Esta jugada ha cambiado en otra sesión.")}
             </b>
             <span className="text-[13px] text-white/70">
-              {conflicto.nombre ? <>En el servidor está «{conflicto.nombre}». </> : null}
-              Tus cambios siguen aquí y no se han guardado. Elige qué hacer:
+              {conflicto.nombre ? <>{tr("En el servidor está «")}{td(conflicto.nombre)}». </> : null}
+              {tr("Tus cambios siguen aquí y no se han guardado. Elige qué hacer:")}
             </span>
           </div>
           <button type="button" className="nx-coach-btn" data-variant="ghost" data-testid="conflict-reload" onClick={() => void recargar()}>
-            Recargar última versión
+            {tr("Recargar última versión")}
           </button>
           <button type="button" className="nx-coach-btn" data-variant="mag" data-testid="conflict-copy" onClick={() => void guardar(true)} disabled={saving}>
-            Guardar como copia
+            {tr("Guardar como copia")}
           </button>
         </div>
       )}
@@ -433,7 +439,7 @@ function Pizarra() {
               onSoltar={soltar}
             />
             <span className="nx-label ml-auto hidden !text-white/40 md:inline">
-              {map.name} · {objetos} objeto{objetos === 1 ? "" : "s"}
+              {td(map.name)} · {tr("{n, plural, one {# objeto} other {# objetos}}", { n: objetos })}
             </span>
           </div>
 
@@ -492,14 +498,14 @@ function Pizarra() {
           </div>
 
           {/* ── LA LÍNEA DE PASOS 01–12, bajo el mapa ── */}
-          <nav aria-label="Secuencia" className="min-w-0">
+          <nav aria-label={tr("Secuencia")} className="min-w-0">
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 className="nx-coach-tool shrink-0"
                 onClick={() => { setStep((i) => Math.max(0, i - 1)); setSelectedId(null); }}
                 disabled={pasoVisible === 0}
-                aria-label="Paso anterior"
+                aria-label={tr("Paso anterior")}
               >
                 ‹
               </button>
@@ -513,10 +519,10 @@ function Pizarra() {
                       aria-pressed={i === pasoVisible}
                       aria-current={i === pasoVisible ? "step" : undefined}
                       className="nx-coach-step"
-                      title={s.label}
+                      title={td(s.label)}
                     >
                       <span className="nx-coach-step-num">{String(i + 1).padStart(2, "0")}.</span>
-                      <span className="nx-coach-step-name">{s.label}</span>
+                      <span className="nx-coach-step-name">{td(s.label)}</span>
                       <span aria-hidden className="nx-coach-step-dot" data-full={s.state.players.length >= TEAM_SIZE} />
                     </button>
                   </li>
@@ -527,10 +533,10 @@ function Pizarra() {
                     <button
                       type="button"
                       onClick={() => { cambiar((s) => addStep(s)); setStep(strat.steps.length); }}
-                      title="El paso nuevo empieza como una copia del actual"
+                      title={tr("El paso nuevo empieza como una copia del actual")}
                       className="nx-coach-step !items-center !text-[#2fe0ff]"
                     >
-                      + Paso
+                      {tr("+ Paso")}
                     </button>
                   </li>
                 )}
@@ -548,7 +554,7 @@ function Pizarra() {
                 className="nx-coach-tool shrink-0"
                 onClick={() => { setStep((i) => Math.min(strat.steps.length - 1, i + 1)); setSelectedId(null); }}
                 disabled={pasoVisible >= strat.steps.length - 1}
-                aria-label="Paso siguiente"
+                aria-label={tr("Paso siguiente")}
               >
                 ›
               </button>
@@ -558,23 +564,23 @@ function Pizarra() {
 
         {/* ── LAS HERRAMIENTAS, a la izquierda ── */}
         <nav
-          aria-label="Herramientas"
+          aria-label={tr("Herramientas")}
           className="nx-coach-toolrail order-2 flex flex-wrap items-start gap-3 p-2.5 xl:sticky xl:top-3 xl:order-1 xl:max-h-[calc(100vh-24px)] xl:flex-col xl:flex-nowrap xl:items-stretch xl:gap-2.5 xl:overflow-y-auto"
         >
-          <Grupo titulo="Mover">
+          <Grupo titulo={tr("Mover")}>
             <button
               type="button"
               className="nx-coach-tool"
               aria-pressed={tool.kind === "select"}
               onClick={soltar}
-              title="Seleccionar y mover"
-              aria-label="Seleccionar"
+              title={tr("Seleccionar y mover")}
+              aria-label={tr("Seleccionar")}
             >
               <ToolGlyph kind="select" />
             </button>
           </Grupo>
 
-          <Grupo titulo="Marcas">
+          <Grupo titulo={tr("Marcas")}>
             {UTILITY_KINDS.map((k) => {
               const on = tool.kind === "utility" && tool.utility === k;
               return (
@@ -582,8 +588,8 @@ function Pizarra() {
                   key={k}
                   type="button"
                   onClick={() => { setPendiente((p) => (p && p.kind === k ? p : null)); setTool({ kind: "utility", utility: k }); }}
-                  title={UTILITY_LABEL[k]}
-                  aria-label={UTILITY_LABEL[k]}
+                  title={td(UTILITY_LABEL[k])}
+                  aria-label={td(UTILITY_LABEL[k])}
                   aria-pressed={on}
                   className="nx-coach-tool"
                 >
@@ -595,7 +601,7 @@ function Pizarra() {
             })}
           </Grupo>
 
-          <Grupo titulo="Dibujo">
+          <Grupo titulo={tr("Dibujo")}>
             {DRAW_KINDS.map((k) => {
               const on = tool.kind === "draw" && tool.draw === k;
               return (
@@ -604,8 +610,8 @@ function Pizarra() {
                   type="button"
                   onClick={() => setTool({ kind: "draw", draw: k, color })}
                   aria-pressed={on}
-                  title={DRAW_LABEL[k]}
-                  aria-label={DRAW_LABEL[k]}
+                  title={td(DRAW_LABEL[k])}
+                  aria-label={td(DRAW_LABEL[k])}
                   className="nx-coach-tool"
                 >
                   <ToolGlyph kind={k} color={color} />
@@ -614,12 +620,12 @@ function Pizarra() {
             })}
           </Grupo>
 
-          <Grupo titulo="Color">
+          <Grupo titulo={tr("Color")}>
             {DRAW_COLORS.map((c) => (
               <button
                 key={c}
                 type="button"
-                aria-label={`Color ${c}`}
+                aria-label={tr("Color {c}", { c: td(c) })}
                 aria-pressed={color === c}
                 onClick={() => {
                   setColor(c);
@@ -636,20 +642,20 @@ function Pizarra() {
             ))}
           </Grupo>
 
-          <Grupo titulo="Texto">
+          <Grupo titulo={tr("Texto")}>
             <Campo
               value={texto}
               onChange={(v) => setTexto(v.slice(0, 120))}
-              aria-label="Texto de la anotación"
+              aria-label={tr("Texto de la anotación")}
               className="w-32 xl:w-full"
             />
             <button
               type="button"
               className="nx-coach-tool"
               aria-pressed={tool.kind === "text"}
-              onClick={() => setTool({ kind: "text", text: texto || "Nota" })}
-              aria-label="Colocar texto"
-              title="Colocar texto"
+              onClick={() => setTool({ kind: "text", text: texto || tr("Nota") })}
+              aria-label={tr("Colocar texto")}
+              title={tr("Colocar texto")}
             >
               <ToolGlyph kind="text" />
             </button>
@@ -658,7 +664,7 @@ function Pizarra() {
 
         {/* ── EL EQUIPO Y LO QUE SE EDITA, a la derecha ── */}
         <aside className="order-3 flex min-w-0 flex-col gap-3 xl:sticky xl:top-3 xl:order-3 xl:max-h-[calc(100vh-24px)] xl:self-start xl:overflow-y-auto xl:pr-1">
-          <Panel titulo="Equipo" valor={`${estado.players.length}/${TEAM_SIZE}`}>
+          <Panel titulo={tr("Equipo")} valor={`${estado.players.length}/${TEAM_SIZE}`}>
             {/*
               EL FLUJO: rol → agente → habilidad → colocar. Una ficha no puesta se coloca
               pulsándola aquí y luego el mapa; una puesta se selecciona para darle agente y
@@ -677,7 +683,7 @@ function Pizarra() {
                       disabled={!ficha && estado.players.length >= TEAM_SIZE}
                       onClick={() => (ficha ? (setSelectedId(ficha.id), soltar()) : setTool({ kind: "player", role }))}
                       aria-pressed={colocando || on}
-                      title={ficha ? `Seleccionar ${role}` : `Colocar ${role}`}
+                      title={ficha ? tr("Seleccionar {role}", { role: td(role) }) : tr("Colocar {role}", { role: td(role) })}
                       className="nx-coach-tool w-full !justify-start gap-2.5 !px-2.5 !py-1.5 text-left"
                       style={{ boxShadow: on || colocando ? undefined : `inset 3px 0 0 ${c}, inset 0 0 0 1px rgba(47,224,255,0.12)` }}
                     >
@@ -689,15 +695,15 @@ function Pizarra() {
                           className={cn("grid h-[30px] w-[30px] shrink-0 place-items-center text-[10px]", ficha ? "rounded-full" : "border border-dashed")}
                           style={{ color: c, borderColor: `${c}88`, background: ficha ? `${c}22` : undefined }}
                         >
-                          {ROLE_ABBR[role] ?? role.slice(0, 2)}
+                          {td(ROLE_ABBR[role]) ?? role.slice(0, 2)}
                         </span>
                       )}
                       <span className="min-w-0 flex-1 leading-tight">
                         <b className="block truncate text-[11.5px] text-white">
-                          {ficha?.agentId ? agentDisplayName(ficha.agentId) : ROLE_ABBR[role] ?? role}
+                          {ficha?.agentId ? agentDisplayName(ficha.agentId) : td(ROLE_ABBR[role]) ?? td(role)}
                         </b>
                         <span className="block truncate text-[9.5px] tracking-[0.14em] text-white/45">
-                          {ficha ? (ficha.agentId ? role : "sin agente") : colocando ? "pulsa el mapa" : "sin colocar"}
+                          {ficha ? (ficha.agentId ? td(role) : tr("sin agente")) : colocando ? tr("pulsa el mapa") : tr("sin colocar")}
                         </span>
                       </span>
                     </button>
@@ -730,19 +736,19 @@ function Pizarra() {
             }}
           />
 
-          <Panel titulo="Paso" valor={`${pasoVisible + 1} / ${strat.steps.length}`}>
+          <Panel titulo={tr("Paso")} valor={`${pasoVisible + 1} / ${strat.steps.length}`}>
             <div className="grid gap-2">
               <Campo
                 value={actual.label}
                 onChange={(v) => cambiar((s) => renameStep(s, pasoVisible, v), `label:${pasoVisible}`)}
-                aria-label="Nombre del paso"
+                aria-label={tr("Nombre del paso")}
               />
               <Campo
                 multiline
                 value={actual.notes}
                 onChange={(v) => cambiar((s) => renameStep(s, pasoVisible, actual.label, v), `notes:${pasoVisible}`)}
-                placeholder="Qué pasa en este paso…"
-                aria-label="Notas del paso"
+                placeholder={tr("Qué pasa en este paso…")}
+                aria-label={tr("Notas del paso")}
               />
               {pasoVisible > 0 && (
                 <button
@@ -752,32 +758,32 @@ function Pizarra() {
                   data-size="sm"
                   onClick={() => { cambiar((s) => removeStep(s, pasoVisible)); setStep((i) => Math.max(0, i - 1)); }}
                 >
-                  Borrar paso
+                  {tr("Borrar paso")}
                 </button>
               )}
             </div>
           </Panel>
 
           {/* Mapa y estrategias, plegados: siguen montados en el DOM (el selector ofrece sus doce). */}
-          <Plegable titulo="Mapa" valor={map.name}>
+          <Plegable titulo={tr("Mapa")} valor={map.name}>
             <MapPicker
               compact
               value={map.id}
               onChange={(m) => cambiar((s) => ({ ...s, mapId: m.id }))}
             />
             <Link href="/entrenador/mapas" className="nx-action mt-2 inline-block">
-              Estudiar los mapas →
+              {tr("Estudiar los mapas →")}
             </Link>
           </Plegable>
 
-          <Plegable titulo="Mis estrategias" valor={String(rows.length)} abierto={rows.length > 0}>
+          <Plegable titulo={tr("Mis estrategias")} valor={String(rows.length)} abierto={rows.length > 0}>
             <button type="button" className="nx-coach-btn w-full" data-variant="ghost" onClick={() => nueva(map.id, strat.side)}>
-              + Nueva estrategia
+              {tr("+ Nueva estrategia")}
             </button>
 
             {rows.length === 0 && (
               <p className="nx-coach-muted mt-2 text-[13px] leading-relaxed">
-                Todavía no has guardado ninguna. Coloca a los cinco, dibuja la jugada y pulsa Guardar.
+                {tr("Todavía no has guardado ninguna. Coloca a los cinco, dibuja la jugada y pulsa Guardar.")}
               </p>
             )}
 
@@ -794,19 +800,19 @@ function Pizarra() {
                     <button type="button" onClick={() => abrir(r)} className="nx-focus block w-full text-left">
                       <span className="block truncate font-display text-[13px] font-bold uppercase tracking-wide text-white">{r.name}</span>
                       <span className="nx-label mt-0.5 block">
-                        {m?.name ?? r.mapId} · {SIDE_LABEL[r.side]} · {r.steps} paso{r.steps === 1 ? "" : "s"}
+                        {m?.name ?? r.mapId} · {td(SIDE_LABEL[r.side])} · {tr("{n, plural, one {# paso} other {# pasos}}", { n: r.steps })}
                       </span>
                       <span className="nx-label block !text-white/35">
-                        {new Date(r.updatedAt).toLocaleDateString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                        {new Date(r.updatedAt).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
                       </span>
                     </button>
                     <div className="mt-1.5 flex flex-wrap gap-1">
-                      <Accion onClick={() => abrir(r)}>Abrir</Accion>
-                      <Accion onClick={() => void duplicar(r.id)}>Duplicar</Accion>
+                      <Accion onClick={() => abrir(r)}>{tr("Abrir")}</Accion>
+                      <Accion onClick={() => void duplicar(r.id)}>{tr("Duplicar")}</Accion>
                       <Link href={`/entrenador/strats/revisar?id=${r.id}`} className="nx-coach-btn" data-variant="ghost" data-size="sm">
-                        Revisar
+                        {tr("Revisar")}
                       </Link>
-                      <Accion danger onClick={() => void borrar(r.id)}>Borrar</Accion>
+                      <Accion danger onClick={() => void borrar(r.id)}>{tr("Borrar")}</Accion>
                     </div>
                   </div>
                 );
@@ -814,15 +820,15 @@ function Pizarra() {
             </div>
           </Plegable>
 
-          <Plegable titulo="Descripción" valor={strat.description ? "escrita" : "vacía"}>
+          <Plegable titulo={tr("Descripción")} valor={strat.description ? tr("escrita") : tr("vacía")}>
             <Campo
               multiline
               rows={3}
               id="strat-desc"
               value={strat.description}
               onChange={(v) => cambiar((s) => ({ ...s, description: v.slice(0, 600) }), "desc")}
-              placeholder="Para qué sirve esta jugada y cuándo llamarla."
-              aria-label="Descripción de la estrategia"
+              placeholder={tr("Para qué sirve esta jugada y cuándo llamarla.")}
+              aria-label={tr("Descripción de la estrategia")}
             />
           </Plegable>
         </aside>
@@ -840,19 +846,20 @@ function Pizarra() {
  * el titular grande de la sala.
  */
 function Marco({ children, barra }: { children: React.ReactNode; barra?: React.ReactNode }) {
+  useLocale();
   if (!barra) {
     return (
       <div className="space-y-3">
         <header className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <div className="min-w-0">
-            <span className="nx-coach-kicker">Tactical War Room</span>
+            <span className="nx-coach-kicker">{tr("Tactical War Room")}</span>
             <h1 className="font-display text-[clamp(22px,3vw,30px)] font-bold uppercase leading-none text-white">
-              Pizarra
+              {tr("Pizarra")}
             </h1>
           </div>
           <span className="ml-auto">
             <Link href="/entrenador/mapas" className="nx-action">
-              Estudiar los mapas →
+              {tr("Estudiar los mapas →")}
             </Link>
           </span>
         </header>
@@ -867,9 +874,9 @@ function Marco({ children, barra }: { children: React.ReactNode; barra?: React.R
         <span className="mr-1 hidden min-w-0 shrink-0 items-center gap-2 leading-none lg:flex">
           <span className="text-[#2fe0ff]" aria-hidden><CoachIcon name="board" size={22} /></span>
           <span>
-            <span className="nx-coach-kicker !text-[9px]">War Room</span>
+            <span className="nx-coach-kicker !text-[9px]">{tr("War Room")}</span>
             <b className="mt-0.5 block font-display text-[15px] font-bold uppercase leading-none tracking-wide text-white">
-              Pizarra
+              {tr("Pizarra")}
             </b>
           </span>
         </span>
@@ -885,7 +892,7 @@ function Marco({ children, barra }: { children: React.ReactNode; barra?: React.R
 function Grupo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
     <div className="min-w-0">
-      <p className="nx-coach-toolgroup-title mb-1">{titulo}</p>
+      <p className="nx-coach-toolgroup-title mb-1">{td(titulo)}</p>
       <div className="flex flex-wrap items-center gap-1 xl:grid xl:grid-cols-2">{children}</div>
     </div>
   );
@@ -896,8 +903,8 @@ function Panel({ titulo, valor, tone, children }: { titulo: string; valor?: stri
   return (
     <section className="nx-coach-panel p-3" data-tone={tone}>
       <header className="mb-2 flex items-center gap-2">
-        <h2 className="nx-coach-kicker flex-1">{titulo}</h2>
-        {valor && <span className="nx-label !text-white/55">{valor}</span>}
+        <h2 className="nx-coach-kicker flex-1">{td(titulo)}</h2>
+        {valor && <span className="nx-label !text-white/55">{td(valor)}</span>}
       </header>
       {children}
     </section>
@@ -920,8 +927,8 @@ function Plegable({
     <section className="nx-coach-panel p-0">
       <details open={abierto} className="group">
         <summary className="nx-focus flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-3">
-          <span className="nx-coach-kicker flex-1">{titulo}</span>
-          {valor && <span className="nx-label !text-white/55">{valor}</span>}
+          <span className="nx-coach-kicker flex-1">{td(titulo)}</span>
+          {valor && <span className="nx-label !text-white/55">{td(valor)}</span>}
           <span aria-hidden className="font-display text-[11px] text-white/40 transition-transform duration-150 group-open:rotate-90 motion-reduce:transition-none">
             ›
           </span>
@@ -972,20 +979,21 @@ function Campo({
  * armada, dice cuál.
  */
 function EstadoHerramienta({ tool, pendiente, onSoltar }: { tool: Tool; pendiente: string | null; onSoltar: () => void }) {
+  useLocale();
   const info: { icon: React.ReactNode; nombre: string; pista: string; color?: string } =
     tool.kind === "player"
       ? { icon: <span aria-hidden className="h-2.5 w-2.5 shrink-0" style={{ background: ROLE_COLOR[tool.role] ?? "#fff" }} />,
-          nombre: tool.role, pista: "Pulsa el mapa para colocar la ficha", color: ROLE_COLOR[tool.role] }
+          nombre: tool.role, pista: tr("Pulsa el mapa para colocar la ficha"), color: ROLE_COLOR[tool.role] }
       : tool.kind === "utility"
         ? { icon: <svg viewBox="-12 -12 24 24" aria-hidden style={{ width: 14, height: 14, color: UTILITY_COLOR[tool.utility] }}><UtilityGlyph kind={tool.utility} /></svg>,
             nombre: pendiente ? `${pendiente} · ${UTILITY_LABEL[tool.utility]}` : UTILITY_LABEL[tool.utility],
-            pista: "Pulsa el mapa para dejar la marca", color: UTILITY_COLOR[tool.utility] }
+            pista: tr("Pulsa el mapa para dejar la marca"), color: UTILITY_COLOR[tool.utility] }
         : tool.kind === "draw"
           ? { icon: <ToolGlyph kind={tool.draw} color={tool.color} />,
-              nombre: DRAW_LABEL[tool.draw], pista: "Pulsa y arrastra sobre el mapa", color: tool.color }
+              nombre: DRAW_LABEL[tool.draw], pista: tr("Pulsa y arrastra sobre el mapa"), color: tool.color }
           : tool.kind === "text"
-            ? { icon: <ToolGlyph kind="text" />, nombre: "Nota", pista: "Pulsa el mapa para dejar el texto" }
-            : { icon: <ToolGlyph kind="select" />, nombre: "Seleccionar", pista: "Arrastra para mover · rueda con Ctrl para acercar" };
+            ? { icon: <ToolGlyph kind="text" />, nombre: tr("Nota"), pista: tr("Pulsa el mapa para dejar el texto") }
+            : { icon: <ToolGlyph kind="select" />, nombre: tr("Seleccionar"), pista: tr("Arrastra para mover · rueda con Ctrl para acercar") };
 
   const armada = tool.kind !== "select";
 
@@ -1003,17 +1011,17 @@ function EstadoHerramienta({ tool, pendiente, onSoltar }: { tool: Tool; pendient
         className="min-w-0 truncate font-display text-[12px] font-bold uppercase tracking-wide"
         style={{ color: armada ? info.color ?? "#fff" : "rgba(255,255,255,0.8)" }}
       >
-        {info.nombre}
+        {td(info.nombre)}
       </b>
-      <span className="hidden truncate text-[12px] text-white/45 sm:block">{info.pista}</span>
+      <span className="hidden truncate text-[12px] text-white/45 sm:block">{td(info.pista)}</span>
       {armada && (
         <button
           type="button"
           onClick={onSoltar}
           className="nx-focus ml-1 shrink-0 font-display text-[11px] uppercase tracking-wide text-white/55 hover:text-white"
-          title="Volver a seleccionar"
+          title={tr("Volver a seleccionar")}
         >
-          Soltar
+          {tr("Soltar")}
         </button>
       )}
     </span>
@@ -1045,6 +1053,7 @@ function Inspector({
   /** Prepara la herramienta para colocar una habilidad: la siguiente pulsación decide DÓNDE. */
   onHabilidad: (abilityId: string | null, kind: UtilityKind | null, ownerId: string) => void;
 }) {
+  useLocale();
   const jugador = estado.players.find((p) => p.id === selectedId);
   const util = estado.utilities.find((u) => u.id === selectedId);
   const dibujo = estado.drawings.find((d) => d.id === selectedId);
@@ -1053,9 +1062,9 @@ function Inspector({
 
   if (!algo) {
     return (
-      <Panel titulo="Selección">
+      <Panel titulo={tr("Selección")}>
         <p className="nx-coach-muted text-[13px] leading-relaxed">
-          Nada seleccionado. Pulsa una ficha del mapa o del equipo para darle agente, habilidad o destino.
+          {tr("Nada seleccionado. Pulsa una ficha del mapa o del equipo para darle agente, habilidad o destino.")}
         </p>
       </Panel>
     );
@@ -1066,33 +1075,33 @@ function Inspector({
   const armadaAqui = !!jugador && pendiente?.ownerId === jugador.id;
   const pasos = jugador
     ? [
-        { t: "Agente", ok: !!jugador.agentId },
-        { t: "Habilidad", ok: armadaAqui },
-        { t: "Marca", ok: armadaAqui },
-        { t: "Colocar", ok: false },
+        { t: tr("Agente"), ok: !!jugador.agentId },
+        { t: tr("Habilidad"), ok: armadaAqui },
+        { t: tr("Marca"), ok: armadaAqui },
+        { t: tr("Colocar"), ok: false },
       ]
     : [];
 
   return (
-    <Panel titulo="Selección" tone="gold">
+    <Panel titulo={tr("Selección")} tone="gold">
       <div className="flex items-center gap-2">
         <span className="nx-label shrink-0 px-1.5 py-0.5 !text-[#2fe0ff] shadow-[inset_0_0_0_1px_rgba(47,224,255,0.5)]">
-          {jugador ? "Jugador" : util ? "Utilidad" : dibujo ? "Dibujo" : "Nota"}
+          {jugador ? tr("Jugador") : util ? tr("Utilidad") : dibujo ? tr("Dibujo") : tr("Nota")}
         </span>
         <b className="min-w-0 truncate font-display text-[13px] font-bold text-white">
           {jugador ? `${jugador.label} · ${jugador.role}`
-            : util ? UTILITY_LABEL[util.kind]
-              : dibujo ? DRAW_LABEL[dibujo.kind]
-                : nota?.text ?? "Nota"}
+            : util ? td(UTILITY_LABEL[util.kind])
+              : dibujo ? td(DRAW_LABEL[dibujo.kind])
+                : td(nota?.text) ?? tr("Nota")}
         </b>
       </div>
 
       {pasos.length > 0 && (
-        <ol className="mt-2.5 flex items-center gap-1 text-[9.5px] font-bold uppercase tracking-[0.14em]" aria-label="Flujo de la ficha">
+        <ol className="mt-2.5 flex items-center gap-1 text-[9.5px] font-bold uppercase tracking-[0.14em]" aria-label={tr("Flujo de la ficha")}>
           {pasos.map((p, i) => (
             <li key={p.t} className={cn("flex items-center gap-1", p.ok ? "text-[#2fe0ff]" : "text-white/35")}>
               {i > 0 && <span aria-hidden className="text-white/20">→</span>}
-              {p.ok ? "✓" : `${i + 1}`} {p.t}
+              {p.ok ? "✓" : `${i + 1}`} {td(p.t)}
             </li>
           ))}
         </ol>
@@ -1101,11 +1110,11 @@ function Inspector({
       <div className="mt-2.5 flex flex-wrap gap-1.5">
         {puedeFlecha && (
           <button type="button" className="nx-coach-btn" data-variant="ghost" data-size="sm" onClick={() => onFlecha(algo.id, !tieneFlecha)}>
-            {tieneFlecha ? "Quitar movimiento" : "Añadir movimiento"}
+            {tieneFlecha ? tr("Quitar movimiento") : tr("Añadir movimiento")}
           </button>
         )}
         <button type="button" className="nx-coach-btn" data-variant="mag" data-size="sm" onClick={() => onQuitar(algo.id)}>
-          Quitar
+          {tr("Quitar")}
         </button>
       </div>
 
@@ -1128,7 +1137,7 @@ function Inspector({
       {/* Una marca ya colocada dice de qué habilidad es, si se ató a alguna. */}
       {util?.abilityId && (
         <p className="mt-2.5 border-t border-[rgba(47,224,255,0.12)] pt-2.5 text-[12px] text-white/60">
-          Habilidad: <b className="text-white">{abilityDisplayName(util.abilityId)}</b>
+          {tr("Habilidad:")} <b className="text-white">{abilityDisplayName(util.abilityId)}</b>
         </p>
       )}
     </Panel>

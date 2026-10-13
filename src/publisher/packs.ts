@@ -8,6 +8,9 @@ import { getPack } from "@/data/packs";
 import type { PacksArtifact } from "@/catalog-builder";
 import type { RuntimeValidationIssue } from "./types";
 import { runtimeRegistry } from "./runtime";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("publisher");
 
 export function applyPacksRuntime(packs: PacksArtifact): { refreshed: number; issues: RuntimeValidationIssue[] } {
   const issues: RuntimeValidationIssue[] = [];
@@ -23,7 +26,7 @@ export function applyPacksRuntime(packs: PacksArtifact): { refreshed: number; is
     }
     for (const id of pool.added) {
       if (!built.flat.some((c) => c.id === id)) {
-        issues.push({ severity: "error", section: "packs", message: `alta ${id} ausente del pool runtime de ${pool.packId}` });
+        issues.push({ severity: "error", section: "packs", message: t("alta {id} ausente del pool runtime de {packId}", { id, packId: pool.packId }) });
       }
     }
     refreshed++;

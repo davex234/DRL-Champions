@@ -15,6 +15,9 @@
  * temporada», percentil. No hay datos persistidos que los sostengan.
  */
 import type { SeasonStatus } from "./calendar";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("season");
 
 export interface RatingEventFact { createdAt: number; result: "WIN" | "LOSS" | "DRAW"; oldRating: number; newRating: number }
 export interface PickemScoreFact { scoredAt: number; points: number; correct: number; total: number }
@@ -65,7 +68,7 @@ export function rankedRecap(events: RatingEventFact[], startsAtMs: number, endsA
 export function buildSeasonRecap(f: SeasonRecapFacts): SeasonRecap {
   const { season } = f;
   const kind: SeasonRecap["kind"] = season.status === "ENDED" ? "FINAL" : season.status === "ACTIVE" ? "SO_FAR" : "NONE";
-  const title = kind === "FINAL" ? `${season.name} completada` : kind === "SO_FAR" ? `${season.name} · hasta ahora` : season.name;
+  const title = kind === "FINAL" ? tr("{name} completada", { name: td(season.name) }) : kind === "SO_FAR" ? tr("{name} · hasta ahora", { name: td(season.name) }) : season.name;
   if (kind === "NONE") {
     return { kind, seasonId: season.id, title, pass: null, ranked: null, achievementsClaimed: null, pickems: null, cardsObtained: null, minimal: true };
   }

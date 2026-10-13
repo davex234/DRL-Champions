@@ -87,7 +87,7 @@ test("T79 · desafíos del día = objetivos diarios de duelos existentes (sin ta
 
 test("T80 · el hub dice JUGAR (F71: sin subtítulo) y la navegación entra por /jugar sin pasar de 7", () => {
   const hub = src("src/components/modes/GameModesHub.tsx");
-  assert.ok(hub.includes(">Jugar</h1>") && !hub.includes("Elige tu próximo desafío"));
+  assert.ok(hub.includes('>{t("Jugar")}</h1>') && !hub.includes("Elige tu próximo desafío"));
   const jugar = NAV_SECTIONS.find((s) => s.id === "jugar")!;
   assert.equal(jugar.href, "/jugar");
   assert.equal(jugar.items[0].href, "/jugar");
@@ -204,7 +204,7 @@ test("T94 · el rival no se revela carta a carta antes de jugar (información oc
 test("T100 · los nodos son botones reales con etiqueta completa y estado en texto", () => {
   const map = src("src/components/campaign/CampaignMap.tsx");
   assert.ok(map.includes('type="button"') && map.includes("aria-label={nodeAriaLabel(node)}") && map.includes('aria-haspopup="dialog"'));
-  assert.ok(map.includes("{STATUS_LABEL[node.status]}"));
+  assert.ok(/\{(?:td\()?STATUS_LABEL\[node\.status\]\)?\}/.test(map));
   const s = snap([done("c1-n1")]);
   assert.match(nodeAriaLabel(allNodeViews(s)[1]), /^Nodo 1-2 · Partida · Presión alta · contra .+ · dificultad Novato · Disponible · Siguiente$/);
 });
@@ -351,7 +351,7 @@ test("T117 · /api/game/duel no gana acciones ni campos de campaña", () => {
 
 test("T118 · la arena conserva sus textos fijados y el camino PvE normal", () => {
   const j = src("src/app/duelos/jugar/page.tsx");
-  assert.ok(j.includes("<ErrorState message={fatal} onRetry={boot} />"));
+  assert.ok(/<ErrorState message=\{(?:td\()?fatal\)?\} onRetry=\{boot\} \/>/.test(j));
   assert.ok(j.includes('variant="ghost" size="md" className="shrink-0" onClick={onQuit}'));
   assert.ok(j.includes("const r = nodeId ? await startCampaignNode(nodeId, id) : await startDuel(id, lv);"));
   // Fase 39 · la pre-partida rápida sigue ahí; en contexto de draft (`?draft=1`) no se elige equipo ni rival.
@@ -360,7 +360,7 @@ test("T118 · la arena conserva sus textos fijados y el camino PvE normal", () =
 
 test("T119 · la pre-partida rápida no cambia («Comenzar duelo», selector de dificultad)", () => {
   const p = src("src/components/duel/PreMatch.tsx");
-  assert.ok(p.includes('{busy ? "Preparando…" : "Comenzar duelo"}') && p.includes('const LEVELS: BotDifficulty[] = ["EASY", "NORMAL", "HARD"];'));
+  assert.ok(p.includes('{busy ? t("Preparando…") : t("Comenzar duelo")}') && p.includes('const LEVELS: BotDifficulty[] = ["EASY", "NORMAL", "HARD"];'));
 });
 
 test("T120 · la campaña no añade componentes dentro de components/duel (UI_FILES intacto)", () => {

@@ -25,11 +25,16 @@ import { playSound } from "@/lib/sound";
 import { ARENA_ACCENT } from "@/lib/duel/arenas";
 import { tiebreakPlan, TIEBREAK_STEP_MS } from "@/lib/duel/matchFlow";
 import type { DuelResultView } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 const TONO = { YOU: ARENA_ACCENT.player, RIVAL: ARENA_ACCENT.opponent, TIE: ARENA_ACCENT.draw, UNKNOWN: "#9aa3b5" } as const;
 const OUTCOME_TEXT = { YOU: "Para ti", RIVAL: "Para el rival", TIE: "Empate", UNKNOWN: "Sin dato" } as const;
 
 export function TiebreakReveal({ result, onDone }: { result: DuelResultView; onDone: () => void }) {
+  useLocale();
   const reduced = !!useReducedMotion();
   const plan = useMemo(() => tiebreakPlan(result, reduced), [result, reduced]);
   const per = reduced ? TIEBREAK_STEP_MS.reduced : TIEBREAK_STEP_MS.full;
@@ -57,7 +62,7 @@ export function TiebreakReveal({ result, onDone }: { result: DuelResultView; onD
     <motion.div
       role="dialog"
       aria-modal="true"
-      aria-label={plan.title}
+      aria-label={td(plan.title)}
       data-scene="tiebreak"
       data-decided={result.decidedBy}
       className="fixed inset-0 z-[78] grid place-items-center bg-[radial-gradient(70%_60%_at_50%_45%,rgba(40,30,4,0.55),rgba(3,4,10,0.9))] px-4"
@@ -75,9 +80,9 @@ export function TiebreakReveal({ result, onDone }: { result: DuelResultView; onD
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.34, ease: EASE.out }}
         >
-          {result.decidedBy === "NONE" ? "Empate total" : "Desempate"}
+          {result.decidedBy === "NONE" ? t("Empate total") : t("Desempate")}
         </motion.p>
-        <p className="nx-label mt-2 !text-white/60">{plan.title}</p>
+        <p className="nx-label mt-2 !text-white/60">{td(plan.title)}</p>
 
         <ol className="mt-7 flex flex-col gap-3" aria-live="polite">
           {plan.steps.slice(0, shown).map((s, i) => {
@@ -98,20 +103,20 @@ export function TiebreakReveal({ result, onDone }: { result: DuelResultView; onD
                   {s.you ?? "—"}
                 </b>
                 <span className="flex flex-col items-center">
-                  <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-white/75">{s.label}</span>
+                  <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-white/75">{td(s.label)}</span>
                   <span className="mt-1 rounded-full px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: tone, boxShadow: `inset 0 0 0 1px ${tone}77` }}>
-                    {OUTCOME_TEXT[s.outcome]}
+                    {td(OUTCOME_TEXT[s.outcome])}
                   </span>
                 </span>
                 <b className="nx-readout justify-self-start text-[clamp(26px,5vw,44px)] tabular-nums" style={{ color: s.outcome === "RIVAL" ? TONO.RIVAL : "#eef1f8" }}>
                   {s.rival ?? "—"}
                 </b>
-                <span className="col-span-3 text-[12.5px] text-white/65">{s.note}</span>
+                <span className="col-span-3 text-[12.5px] text-white/65">{td(s.note)}</span>
               </motion.li>
             );
           })}
         </ol>
-        <p className="nx-label mt-6 text-white/40">Toca para continuar</p>
+        <p className="nx-label mt-6 text-white/40">{t("Toca para continuar")}</p>
       </div>
     </motion.div>
   );

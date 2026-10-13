@@ -1,0 +1,22 @@
+{
+  "Comprobando tu sesión… vuelve a intentarlo en un momento.": "Vérification de ta session… réessaie dans un instant.",
+  "Con tu cuenta iniciada, créditos, XP y cartas los lleva el servidor: este modo local no concede ni cobra nada.": "Avec ton compte connecté, crédits, XP et cartes sont gérés par le serveur : ce mode local n'accorde ni ne débite rien.",
+  "Con tu cuenta, los sobres los abre el servidor. Estamos recuperando tu cuenta: vuelve a intentarlo en un momento.": "Avec ton compte, les packs sont ouverts par le serveur. Nous récupérons ton compte : réessaie dans un instant.",
+  "Cuenta online no configurada": "Compte en ligne non configuré",
+  "El mercado necesita una cuenta online": "Le marché nécessite un compte en ligne",
+  "Inicia sesión para continuar": "Connecte-toi pour continuer",
+  "Inicia sesión para entrar en el mercado": "Connecte-toi pour entrer sur le marché",
+  "La economía necesita una cuenta online": "L'économie nécessite un compte en ligne",
+  "La sesión cambió durante la carga": "La session a changé pendant le chargement",
+  "Necesitas iniciar sesión": "Tu dois te connecter",
+  "Necesitas una cuenta": "Il te faut un compte",
+  "No hemos podido recuperar tu cuenta. Comprueba la conexión y vuelve a intentarlo.": "Nous n'avons pas pu récupérer ton compte. Vérifie ta connexion et réessaie.",
+  "No se pudo cargar tu progreso": "Impossible de charger ta progression",
+  "No se pudo comprar el sobre": "Impossible d'acheter le pack",
+  "Resultado de apertura no válido": "Résultat d'ouverture invalide",
+  "Sin conexión": "Hors ligne",
+  "Sin sesión": "Sans session",
+  "{INVALID_OPEN_RESULT}: carta desconocida": "{INVALID_OPEN_RESULT} : carte inconnue",
+  "{INVALID_OPEN_RESULT}: carta sin identificador": "{INVALID_OPEN_RESULT} : carte sans identifiant",
+  "{INVALID_OPEN_RESULT}: sin cartas": "{INVALID_OPEN_RESULT} : aucune carte"
+}

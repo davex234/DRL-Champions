@@ -4,6 +4,9 @@
  */
 import type { WorldState, RankRow } from "./types";
 import { progress, ageBand } from "@/development";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("world");
 
 const top = <T>(xs: T[], n: number, score: (x: T) => number): T[] =>
   [...xs].sort((a, b) => score(b) - score(a)).slice(0, n);
@@ -15,11 +18,11 @@ export function recomputeRankings(world: WorldState): void {
   world.rankings.players = top(active, 10, (p) => p.value).map((p) => ({ id: p.id, name: p.nick, value: p.value, detail: teamName(p.teamId) }));
 
   world.rankings.teams = top(Object.values(world.teams), 10, (t) => t.prestige + t.titles * 6).map((t) => ({
-    id: t.id, name: t.name, value: Math.round(t.prestige + t.titles * 6), detail: `${t.titles} títulos · ${t.fanbase}k fans`,
+    id: t.id, name: t.name, value: Math.round(t.prestige + t.titles * 6), detail: tr("{titles} títulos · {fanbase}k fans", { titles: t.titles, fanbase: t.fanbase }),
   }));
 
   world.rankings.coaches = top(Object.values(world.coaches).filter((c) => c.teamId), 10, (c) => c.titles * 12 + c.rating).map((c) => ({
-    id: c.id, name: c.name, value: c.titles * 12 + c.rating, detail: `${c.titles} títulos`,
+    id: c.id, name: c.name, value: c.titles * 12 + c.rating, detail: tr("{titles} títulos", { titles: c.titles }),
   }));
 
   // Promesas: jóvenes con techo lejos del nivel actual.
@@ -29,7 +32,7 @@ export function recomputeRankings(world: WorldState): void {
     }));
 
   world.rankings.veterans = top(active.filter((p) => { const b = ageBand(p.dev.age, p.innate); return b === "veterano" || b === "declive"; }), 10,
-    (p) => p.value).map((p) => ({ id: p.id, name: p.nick, value: p.value, detail: `${p.dev.age}a · ${p.titles} títulos` }));
+    (p) => p.value).map((p) => ({ id: p.id, name: p.nick, value: p.value, detail: tr("{age}a · {titles} títulos", { age: p.dev.age, titles: p.titles }) }));
 
   world.rankings.rookies = top(active.filter((p) => p.origin === "academy" && p.dev.seasonsPlayed <= 1), 10,
     (p) => p.innate.potential).map((p) => ({ id: p.id, name: p.nick, value: p.innate.potential, detail: `${p.region}` }));

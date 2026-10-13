@@ -11,6 +11,9 @@ import { DESIGNED_EDITIONS, getVariant } from "@/domain/cards/variants";
 import { marketValue } from "@/domain/economy/pricing";
 import { salvageValue } from "@/domain/economy/salvage";
 import { packCardClass, PACK_CLASS_LABEL } from "@/domain/packs/packClass";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("admin");
 
 export const CARD_ROLES: readonly RoleId[] = ["Duelista", "Iniciador", "Controlador", "Centinela", "Flex"];
 export const PRINTED_KEYS: readonly (keyof PrintedStats)[] = ["dmg", "scr", "fks", "hs", "ast", "clu"];
@@ -26,13 +29,13 @@ const int = (v: unknown, lo: number, hi: number) => typeof v === "number" && Num
 
 export function validateCardDraft(i: CardDraftInput, opts: { requireArt: boolean }): CardFieldErrors {
   const e: CardFieldErrors = {};
-  if (!i.playerId || !/^[a-z0-9][a-z0-9_-]{1,39}$/.test(i.playerId)) e.playerId = "Elige un jugador";
-  if (!i.variantId || !DESIGNED_EDITIONS.has(i.variantId as VariantId)) e.variantId = "Elige una de las ediciones diseñadas";
-  if (!i.role || !(CARD_ROLES as string[]).includes(i.role)) e.role = "Elige el rol de la carta";
-  if (!int(i.ovr, 40, 99)) e.ovr = "OVR entero entre 40 y 99";
-  if (!i.stats || PRINTED_KEYS.some((k) => !int(i.stats![k], 1, 99))) e.stats = "Las seis estadísticas, enteros entre 1 y 99";
-  if (!i.team || !/^[A-Za-z0-9 .&-]{2,12}$/.test(i.team.trim())) e.team = "Equipo impreso de 2 a 12 caracteres (letras, cifras, espacio . & -)";
-  if (opts.requireArt && !i.imageAssetId) e.imageAssetId = "Sube el arte de la carta";
+  if (!i.playerId || !/^[a-z0-9][a-z0-9_-]{1,39}$/.test(i.playerId)) e.playerId = t("Elige un jugador");
+  if (!i.variantId || !DESIGNED_EDITIONS.has(i.variantId as VariantId)) e.variantId = t("Elige una de las ediciones diseñadas");
+  if (!i.role || !(CARD_ROLES as string[]).includes(i.role)) e.role = t("Elige el rol de la carta");
+  if (!int(i.ovr, 40, 99)) e.ovr = t("OVR entero entre 40 y 99");
+  if (!i.stats || PRINTED_KEYS.some((k) => !int(i.stats![k], 1, 99))) e.stats = t("Las seis estadísticas, enteros entre 1 y 99");
+  if (!i.team || !/^[A-Za-z0-9 .&-]{2,12}$/.test(i.team.trim())) e.team = t("Equipo impreso de 2 a 12 caracteres (letras, cifras, espacio . & -)");
+  if (opts.requireArt && !i.imageAssetId) e.imageAssetId = t("Sube el arte de la carta");
   return e;
 }
 
@@ -42,7 +45,7 @@ export const cardIdOf = (playerId: string, variantId: string): string => `${play
 export function economicClass(card: Pick<CardDef, "variantId" | "ovr">): { packClass: string | null; packClassLabel: string; marketValue: number; salvageValue: number; editionLabel: string } {
   const cls = packCardClass(card as CardDef);
   return {
-    packClass: cls, packClassLabel: cls ? PACK_CLASS_LABEL[cls] : "Sin clase",
+    packClass: cls, packClassLabel: cls ? PACK_CLASS_LABEL[cls] : t("Sin clase"),
     marketValue: marketValue(card), salvageValue: salvageValue(card as CardDef),
     editionLabel: getVariant(card.variantId as VariantId).label,
   };
@@ -54,10 +57,10 @@ export interface CardPublishRow { origin: string; lifecycle: string; presentatio
 export function cardPublishChecklist(r: CardPublishRow, assetOk: boolean): { key: string; label: string; ok: boolean }[] {
   const p = r.presentation;
   return [
-    { key: "draft", label: "Está en borrador", ok: ["DRAFT", "REVIEW", "APPROVED"].includes(r.lifecycle) },
-    { key: "printed", label: "OVR y seis estadísticas impresas", ok: !!p?.printed },
-    { key: "role", label: "Rol de la carta", ok: !!p?.role },
-    { key: "team", label: "Equipo impreso", ok: !!p?.team },
-    { key: "art", label: "Arte subido y aprobado", ok: !!p?.imageAssetId && !!p?.imagePath && assetOk },
+    { key: "draft", label: t("Está en borrador"), ok: ["DRAFT", "REVIEW", "APPROVED"].includes(r.lifecycle) },
+    { key: "printed", label: t("OVR y seis estadísticas impresas"), ok: !!p?.printed },
+    { key: "role", label: t("Rol de la carta"), ok: !!p?.role },
+    { key: "team", label: t("Equipo impreso"), ok: !!p?.team },
+    { key: "art", label: t("Arte subido y aprobado"), ok: !!p?.imageAssetId && !!p?.imagePath && assetOk },
   ];
 }

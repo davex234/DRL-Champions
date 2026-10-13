@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BrandMark } from "@/branding/Logo";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("pwa");
 
 /**
  * Pantalla de carga al arrancar.
@@ -12,6 +16,7 @@ import { BrandMark } from "@/branding/Logo";
  * dos primeros segundos de uso es lo que hace dudar de si estás en el producto correcto.
  */
 export function SplashScreen() {
+  useLocale();
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -44,10 +49,10 @@ export function SplashScreen() {
             </motion.div>
             <div className="text-center">
               <p className="font-display text-3xl font-bold uppercase tracking-[0.18em] text-white">
-                NE<span className="text-drl">XUS</span>
+                {tr("NE")}<span className="text-drl">{tr("XUS")}</span>
               </p>
               <p className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">
-                Valorant Cards
+                {tr("Valorant Cards")}
               </p>
             </div>
             <div className="mt-2 h-1 w-40 overflow-hidden rounded-full bg-white/10">

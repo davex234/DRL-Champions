@@ -4,30 +4,33 @@
  * con severidad. `ok` del import = no hay ninguna de severidad "error".
  */
 import { IMPORTER_SCHEMA_VERSION, type CanonicalModel, type ImportIssue } from "../types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("importer");
 
 type Push = (i: ImportIssue) => void;
 
 /** 1) SCHEMA — campos requeridos, tipos y rangos objetivos. */
 export function validateSchema(m: CanonicalModel, push: Push): void {
-  if (!m.tournament.id || !m.tournament.name) push({ kind: "schema", severity: "error", entity: "tournament", ref: m.tournament.id, message: "torneo sin id/nombre" });
-  for (const t of m.teams) if (!t.id || !t.name) push({ kind: "schema", severity: "error", entity: "team", ref: t.id, message: "equipo sin id/nombre" });
+  if (!m.tournament.id || !m.tournament.name) push({ kind: "schema", severity: "error", entity: "tournament", ref: m.tournament.id, message: tr("torneo sin id/nombre") });
+  for (const t of m.teams) if (!t.id || !t.name) push({ kind: "schema", severity: "error", entity: "team", ref: t.id, message: tr("equipo sin id/nombre") });
   for (const p of m.players) {
-    if (!p.id || !p.nick) push({ kind: "schema", severity: "error", entity: "player", ref: p.id, message: "jugador sin id/nick" });
-    if (!Array.isArray(p.agents)) push({ kind: "schema", severity: "warning", entity: "player", ref: p.id, message: "agents no es lista" });
+    if (!p.id || !p.nick) push({ kind: "schema", severity: "error", entity: "player", ref: p.id, message: tr("jugador sin id/nick") });
+    if (!Array.isArray(p.agents)) push({ kind: "schema", severity: "warning", entity: "player", ref: p.id, message: tr("agents no es lista") });
   }
   const pct = (v: number | undefined): boolean => v == null || (v >= 0 && v <= 100);
   for (const s of m.mapStats) {
     if (s.kills != null && s.kills < 0) push({ kind: "schema", severity: "warning", entity: "mapStat", ref: s.id, message: "kills negativos" });
-    if (!pct(s.kast) || !pct(s.hsPct)) push({ kind: "schema", severity: "warning", entity: "mapStat", ref: s.id, message: "porcentaje fuera de [0,100]" });
+    if (!pct(s.kast) || !pct(s.hsPct)) push({ kind: "schema", severity: "warning", entity: "mapStat", ref: s.id, message: tr("porcentaje fuera de [0,100]") });
     if (s.acs != null && s.acs < 0) push({ kind: "schema", severity: "warning", entity: "mapStat", ref: s.id, message: "acs negativo" });
   }
-  for (const st of m.standings) if (st.wins < 0 || st.losses < 0) push({ kind: "schema", severity: "warning", entity: "standing", ref: st.id, message: "récord negativo" });
+  for (const st of m.standings) if (st.wins < 0 || st.losses < 0) push({ kind: "schema", severity: "warning", entity: "standing", ref: st.id, message: tr("récord negativo") });
 }
 
 /** 2) IDENTITY — todo id resuelto, estable y con prefijo de tipo; nada "unknown". */
 export function validateIdentity(m: CanonicalModel, push: Push): void {
   const check = (id: string, prefix: string, entity: string): void => {
-    if (!id || !id.startsWith(`${prefix}:`) || id.endsWith(":unknown")) push({ kind: "identity", severity: "warning", entity, ref: id, message: `id no resuelto (${id})` });
+    if (!id || !id.startsWith(`${prefix}:`) || id.endsWith(":unknown")) push({ kind: "identity", severity: "warning", entity, ref: id, message: tr("id no resuelto ({id})", { id }) });
   };
   for (const t of m.teams) check(t.id, "t", "team");
   for (const p of m.players) check(p.id, "p", "player");
@@ -67,21 +70,21 @@ export function validateDuplicate(m: CanonicalModel, push: Push): void {
 
 /** 5) CONSISTENCY — invariantes objetivos (marcador vs mapas, ganador dentro del enfrentamiento). */
 export function validateConsistency(m: CanonicalModel, push: Push): void {
-  if (m.tournament.status === "finished" && m.matches.length === 0) push({ kind: "consistency", severity: "warning", entity: "tournament", ref: m.tournament.id, message: "torneo finalizado sin partidos" });
+  if (m.tournament.status === "finished" && m.matches.length === 0) push({ kind: "consistency", severity: "warning", entity: "tournament", ref: m.tournament.id, message: tr("torneo finalizado sin partidos") });
   for (const mt of m.matches) {
-    if (mt.winnerTeamId && mt.winnerTeamId !== mt.teamAId && mt.winnerTeamId !== mt.teamBId) push({ kind: "consistency", severity: "error", entity: "match", ref: mt.id, message: "ganador fuera del enfrentamiento" });
+    if (mt.winnerTeamId && mt.winnerTeamId !== mt.teamAId && mt.winnerTeamId !== mt.teamBId) push({ kind: "consistency", severity: "error", entity: "match", ref: mt.id, message: tr("ganador fuera del enfrentamiento") });
     const won = m.maps.filter((mm) => mm.matchId === mt.id && mm.winnerTeamId).length;
     if (mt.scoreA != null && mt.scoreB != null && won > 0 && mt.scoreA + mt.scoreB !== won) push({ kind: "consistency", severity: "warning", entity: "match", ref: mt.id, message: `marcador ${mt.scoreA}-${mt.scoreB} ≠ ${won} mapas jugados` });
   }
   for (const mm of m.maps) {
     const parent = m.index.matchById.get(mm.matchId);
-    if (parent && mm.winnerTeamId && mm.winnerTeamId !== parent.teamAId && mm.winnerTeamId !== parent.teamBId) push({ kind: "consistency", severity: "error", entity: "map", ref: mm.id, message: "ganador de mapa fuera del enfrentamiento" });
+    if (parent && mm.winnerTeamId && mm.winnerTeamId !== parent.teamAId && mm.winnerTeamId !== parent.teamBId) push({ kind: "consistency", severity: "error", entity: "map", ref: mm.id, message: tr("ganador de mapa fuera del enfrentamiento") });
   }
 }
 
 /** 6) VERSION — el modelo declara una versión de esquema soportada. */
 export function validateVersion(m: CanonicalModel, push: Push): void {
-  if (m.schemaVersion !== IMPORTER_SCHEMA_VERSION) push({ kind: "version", severity: "error", entity: "model", message: `versión de esquema no soportada: ${m.schemaVersion} (esperado ${IMPORTER_SCHEMA_VERSION})` });
+  if (m.schemaVersion !== IMPORTER_SCHEMA_VERSION) push({ kind: "version", severity: "error", entity: "model", message: tr("versión de esquema no soportada: {schemaVersion} (esperado {IMPORTER_SCHEMA_VERSION})", { schemaVersion: m.schemaVersion, IMPORTER_SCHEMA_VERSION }) });
 }
 
 /** Ejecuta las 6 validaciones. Puro; devuelve todos los issues. */

@@ -20,6 +20,11 @@ import { GameArtwork } from "./GameArtwork";
 import { StatusDot } from "@/components/ui/Badge";
 import { Meter } from "@/components/ui/Meter";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("launcher");
 
 export function GameRail({
   games, entries, jobs, selectedId, onSelect, motionScale,
@@ -31,6 +36,7 @@ export function GameRail({
   onSelect: (gameId: string) => void;
   motionScale: number;
 }) {
+  useLocale();
   const stateOf = (id: string) => effectiveState(entries[id], jobs[id]);
   const ordered = sortLibrary(games, stateOf);
   const installed = games.filter((g) => {
@@ -41,10 +47,10 @@ export function GameRail({
   return (
     <aside className="flex h-full min-h-0 w-[248px] shrink-0 flex-col border-r border-white/[0.06] bg-black/25 px-3 py-4">
       <SectionTitle className="px-1">
-        Biblioteca
+        {t("Biblioteca")}
       </SectionTitle>
       <p className="mb-3 px-1 text-caption text-white/35">
-        <span className="nx-readout text-white/70">{installed}</span> de {games.length} instalados
+        {fill(t("{installed} de {total} instalados", { ...slots("installed"), total: games.length }), { installed: <span className="nx-readout text-white/70">{installed}</span> })}
       </p>
 
       <nav className="nx-scroll -mx-1 min-h-0 flex-1 space-y-1 overflow-y-auto px-1">
@@ -85,7 +91,7 @@ export function GameRail({
                   className="absolute inset-0 grid place-items-center font-display text-[13px] font-black tracking-tight text-white"
                   style={{ textShadow: "0 2px 8px rgba(0,0,0,0.9)" }}
                 >
-                  {game.monogram}
+                  {td(game.monogram)}
                 </span>
                 <span
                   aria-hidden

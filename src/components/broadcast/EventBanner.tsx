@@ -10,10 +10,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { BroadcastState } from "@/broadcast";
 import { ATK, DEF, ACCENT } from "./theme";
 import { playCue, type BroadcastCue } from "@/lib/sound";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 interface Banner { id: string; text: string; sub?: string; hex: string; cue: BroadcastCue }
 
 export function EventBanner({ bs }: { bs: BroadcastState }) {
+  useLocale();
   const [banner, setBanner] = useState<Banner | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const prev = useRef({ plant: false, defuse: false, ace: false, clutch: false, firstBlood: false, ended: false });
@@ -62,13 +65,13 @@ export function EventBanner({ bs }: { bs: BroadcastState }) {
                 className="absolute inset-y-0 w-1/3 -skew-x-12 bg-white/15" />
               <div className="relative font-display text-[clamp(1.6rem,4vw,3rem)] font-black uppercase italic tracking-[0.08em]"
                 style={{ color: banner.hex, textShadow: `0 0 24px ${banner.hex}88` }}>
-                {banner.text}
+                {td(banner.text)}
               </div>
             </div>
             {banner.sub && (
               <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
                 className="mt-2 rounded bg-black/65 px-4 py-0.5 font-display text-xs uppercase tracking-[0.2em] text-white/85 backdrop-blur-sm">
-                {banner.sub}
+                {td(banner.sub)}
               </motion.div>
             )}
           </motion.div>

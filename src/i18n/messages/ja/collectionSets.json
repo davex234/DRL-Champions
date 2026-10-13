@@ -1,0 +1,23 @@
+{
+  "Bronce": "ブロンズ",
+  "Campeón · {name}": "チャンピオン · {name}",
+  "Competitiva {v} · {name}": "ランク{v} · {name}",
+  "Demasiadas peticiones: espera unos segundos.": "リクエストが多すぎます: 数秒待ってください。",
+  "Equipo completado": "チーム完成",
+  "La Sala de Trofeos no está disponible ahora mismo.": "トロフィールームは現在利用できません。",
+  "Maestría": "マスタリー",
+  "Mejor rango de temporada": "シーズン最高ランク",
+  "No se pudo cargar la Sala de Trofeos.": "トロフィールームを読み込めませんでした。",
+  "Oro": "ゴールド",
+  "Pick'em perfecto": "パーフェクトPick'em",
+  "Pick'em perfecto · {name}": "パーフェクトPick'em · {name}",
+  "Plata": "シルバー",
+  "Ruta de temporada": "シーズントラック",
+  "Temporada {v} · {label}": "シーズン{v} · {label}",
+  "Torneo": "トーナメント",
+  "Torneo · {date}": "トーナメント · {date}",
+  "Tu sesión ha caducado: vuelve a entrar.": "セッションが切れました: もう一度ログインしてください。",
+  "no obtenibles: {blocked}": "入手不可: {blocked}",
+  "sin carta obtenible: {blocked}": "入手可能なカードなし: {blocked}",
+  "{size} jugadores con carta impresa": "カード印刷済みの選手{size}人"
+}

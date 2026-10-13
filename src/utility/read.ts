@@ -8,6 +8,9 @@
 import type { RoundState, Side } from "../sim/types";
 import type { ZoneId } from "../sim/map/ascentA";
 import type { MapState } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("utility");
 
 const other = (s: Side): Side => (s === "ATK" ? "DEF" : "ATK");
 
@@ -60,25 +63,25 @@ export function mapReads(s: RoundState): string[] {
     return c > 0.45 && ZONE_LABEL[z];
   });
   const labels = [...new Set(controlled.map((z) => ZONE_LABEL[z]!))];
-  if (labels.includes("Main")) out.push("Hemos ganado el control de Main.");
-  else if (labels.includes("Mid")) out.push("Controlamos Mid.");
-  else if (labels.length >= 3) out.push("Dominamos el control del mapa.");
+  if (labels.includes("Main")) out.push(t("Hemos ganado el control de Main."));
+  else if (labels.includes("Mid")) out.push(t("Controlamos Mid."));
+  else if (labels.length >= 3) out.push(t("Dominamos el control del mapa."));
 
   // Utilidad enemiga invertida.
   const enemyUtil = utilitySummary(map, enemy);
   if (enemyUtil.fraction >= 0.7) {
-    out.push("Han invertido mucha utilidad.");
-    if (enemy === "DEF") out.push("Su retake será débil: prioriza plantar.");
-    out.push("Podemos acelerar: ya no tienen herramientas.");
+    out.push(t("Han invertido mucha utilidad."));
+    if (enemy === "DEF") out.push(t("Su retake será débil: prioriza plantar."));
+    out.push(t("Podemos acelerar: ya no tienen herramientas."));
   } else if (enemyUtil.fraction <= 0.2 && s.tick > 200) {
-    out.push("El rival guarda utilidad: cuidado con el contra-juego.");
+    out.push(t("El rival guarda utilidad: cuidado con el contra-juego."));
   }
 
   // Información: ¿el rival nos ve?
   const objZone = s.spike.planted ? "plant" : "site";
   const seenByEnemy = map.zones[objZone]?.info[enemy] ?? 0;
-  if (seenByEnemy < 0.2) out.push("Ya no tienen información de nosotros: podemos movernos.");
+  if (seenByEnemy < 0.2) out.push(t("Ya no tienen información de nosotros: podemos movernos."));
 
-  if (out.length === 0) out.push("Mapa en disputa: saca más control antes de comprometer.");
+  if (out.length === 0) out.push(t("Mapa en disputa: saca más control antes de comprometer."));
   return out;
 }

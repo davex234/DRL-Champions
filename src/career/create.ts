@@ -13,6 +13,9 @@ import { emptyHistory, joinTeam } from "./history";
 import { generateObjectives } from "./objectives";
 import { initBoard } from "./board";
 import { makeRng, seedOf } from "./rng";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 export interface CoachCreateInput {
   name: string;
@@ -86,7 +89,7 @@ export function createCoach(input: CoachCreateInput): ManagerCareer {
     stats,
     history,
     objectives,
-    personalGoal: input.personalGoal.trim() || "Convertirse en leyenda",
+    personalGoal: input.personalGoal.trim() || t("Convertirse en leyenda"),
     claimedAchievements: [],
     perfectSeasons: 0,
     events: [],

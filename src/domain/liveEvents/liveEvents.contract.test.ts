@@ -252,7 +252,7 @@ test("home · el circuito del vestíbulo usa el estado REAL de Live Events y no 
   const svc = read("src", "server", "services", "dailyLoop.ts");
   const pres = read("src", "lib", "dailyLoop", "presentation.ts");
   assert.ok(svc.includes("getEventsOverview(sb, userId, { now })"));
-  assert.ok(pres.includes('if (e.lifecycle === "ACTIVE") return e.liveCount > 0 ? "EN DIRECTO" : "EN CURSO";'));
+  assert.ok(/if \(e\.lifecycle === "ACTIVE"\) return e\.liveCount > 0 \? (?:\/\* i18n-id \*\/ )?"EN DIRECTO" : (?:\/\* i18n-id \*\/ )?"EN CURSO";/.test(pres));
   assert.ok(HOME.includes("<DailyLobby") && !/fetchTournaments|fetchMatches|deriveEventState/.test(HOME));
   assert.ok(LOBBY.includes("Entrar al evento") && LOBBY.includes("live?: { label: string;"), "la tarjeta del circuito sigue disponible");
 });
@@ -292,9 +292,9 @@ test("telemetría · cinco contextos con puerta, todos usados; flow reservado en
 });
 
 test("accesibilidad · estado con texto (no solo color), marcador con sr-only, progreso con aria, sin aria-live por segundo, foco visible, táctil 44", () => {
-  assert.ok(COMP("bits.tsx").includes('<span className="sr-only">{sr}</span>'));
+  assert.ok(/<span className="sr-only">\{(?:td\()?sr\)?\}<\/span>/.test(COMP("bits.tsx")));
   assert.ok(COMP("bits.tsx").includes("MATCH_TEXT") && COMP("bits.tsx").includes('"Programado"'));
-  assert.ok(COMP("EventProgressChecklist.tsx").includes("label={`${label}: ${done} de ${total}`}"));
+  assert.ok(/label=\{t\("\{label\}: \{done\} de \{total\}", \{ label(?:: td\(label\))?, done, total \}\)\}/.test(COMP("EventProgressChecklist.tsx")));
   assert.ok(!/aria-live="assertive"/.test(ALL_UI));
   assert.ok(!/useNow\(|setInterval/.test(code(ALL_UI)), "sin cuentas atrás por segundo en el hub");
   assert.ok((ALL_UI.match(/min-h-\[44px\]/g) ?? []).length >= 8);

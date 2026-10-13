@@ -25,6 +25,9 @@ import type { BadgeFact } from "@/domain/collectionSets/badges";
 import { normalizeTag } from "@/domain/account/tag";
 import type { FavoriteTeamFact } from "./favoriteTeam";
 import type { CareerStats, CareerHighlight, HistoryItem } from "./career";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("profile");
 
 /* ───────────────────────────── límites ───────────────────────────── */
 
@@ -385,7 +388,7 @@ export const monthOf = (ms: number | null | undefined): number | null => {
 export function publicName(username: string | null | undefined, userId: string): string {
   const u = (username ?? "").trim();
   if (u.length > 0 && !/@/.test(u)) return u.slice(0, 40);
-  return `Jugador NEXUS · ${userId.replace(/-/g, "").slice(0, 4).toUpperCase()}`;
+  return tr("Jugador NEXUS · {v}", { v: userId.replace(/-/g, "").slice(0, 4).toUpperCase() });
 }
 
 /** Acento del perfil: la paleta de la carta destacada (slot 1). Sin carta, el acento de la casa. */
@@ -450,7 +453,7 @@ export function pickemsSummary(rows: PickemScoreFact[]): PickemsSummary | null {
     points: rows.reduce((s, r) => s + r.points, 0),
     correct, total,
     accuracy: total > 0 ? Math.round((correct / total) * 100) : null,
-    recent: sorted.slice(0, 3).map((r) => ({ pickemEventId: r.pickemEventId, title: r.title ?? "Pick'em", points: r.points, correct: r.correct, total: r.total })),
+    recent: sorted.slice(0, 3).map((r) => ({ pickemEventId: r.pickemEventId, title: r.title ?? tr("Pick'em"), points: r.points, correct: r.correct, total: r.total })),
   };
 }
 
@@ -469,16 +472,16 @@ export function profileActivity(input: { matches: RecentMatchFact[]; claimed: { 
   const items: ActivityItem[] = [];
   for (const m of input.matches) {
     if (!m.letter) continue;
-    items.push({ id: `m:${m.matchId}`, kind: "RANKED_RESULT", at: m.at, title: `${LETTER_TEXT[m.letter]} en ranked`, detail: `contra ${m.rival.username} · ${m.scoreYou}–${m.scoreRival}` });
+    items.push({ id: `m:${m.matchId}`, kind: "RANKED_RESULT", at: m.at, title: tr("{v} en ranked", { v: td(LETTER_TEXT[m.letter]) }), detail: tr("contra {rival} · {you}–{them}", { rival: m.rival.username, you: m.scoreYou, them: m.scoreRival }) });
   }
   for (const c of input.claimed) {
     const a = byId.get(c.id);
     if (!a || c.claimedAt === null) continue;
-    items.push({ id: `a:${c.id}`, kind: "ACHIEVEMENT", at: dayOf(c.claimedAt), title: `Logro conseguido: ${a.name}`, detail: a.description });
+    items.push({ id: `a:${c.id}`, kind: "ACHIEVEMENT", at: dayOf(c.claimedAt), title: tr("Logro conseguido: {name}", { name: a.name }), detail: a.description });
   }
   for (const p of input.pickems) {
     if (p.scoredAt === null || p.total === 0) continue;
-    items.push({ id: `p:${p.pickemEventId}`, kind: "PICKEM_SCORED", at: dayOf(p.scoredAt), title: `Pick'em corregido: ${p.title ?? "Pick'em"}`, detail: `${p.correct} / ${p.total} aciertos · ${p.points} puntos` });
+    items.push({ id: `p:${p.pickemEventId}`, kind: "PICKEM_SCORED", at: dayOf(p.scoredAt), title: tr("Pick'em corregido: {v}", { v: td(p.title) ?? "Pick'em" }), detail: tr("{correct} / {total} aciertos · {points} puntos", { correct: p.correct, total: p.total, points: p.points }) });
   }
   return items.sort((a, b) => b.at - a.at).slice(0, input.max ?? 6);
 }

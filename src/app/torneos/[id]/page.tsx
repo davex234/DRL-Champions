@@ -24,10 +24,15 @@ import { EventHub } from "@/components/liveEvents/EventHub";
 import { PickemPanel } from "@/components/pickems/PickemPanel";
 import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
 import type { ObjectiveView } from "@/server/services/liveEvents";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("torneos");
 
 const STATUS: Record<EventHubSnapshot["state"]["lifecycle"], "upcoming" | "live" | "finished"> = { UPCOMING: "upcoming", ACTIVE: "live", COMPLETED: "finished" };
 
 export default function EventoPage({ params }: { params: Promise<{ id: string }> }) {
+  useLocale();
   const { id } = use(params);
   const { user, profile, loading, refreshProfile } = useAuth();
   const online = isSupabaseConfigured();
@@ -40,7 +45,7 @@ export default function EventoPage({ params }: { params: Promise<{ id: string }>
   const load = useCallback(async () => {
     setError(null);
     try { const s = await fetchEventHub(id); setSnap(s); setNow(s.serverNow); }
-    catch (e) { setError({ message: e instanceof Error ? e.message : "No se pudo leer el evento", status: e instanceof LiveEventsError ? e.status : 500 }); throw e; }
+    catch (e) { setError({ message: e instanceof Error ? e.message : t("No se pudo leer el evento"), status: e instanceof LiveEventsError ? e.status : 500 }); throw e; }
   }, [id]);
   useEffect(() => { if (online && !loading) void load().catch(() => null); }, [online, loading, user, load]);
   useEffect(() => { trackLiveEvent("event_view"); }, []);
@@ -52,19 +57,19 @@ export default function EventoPage({ params }: { params: Promise<{ id: string }>
     setClaiming(o.id);
     try {
       const r = await claimChallenge(snap.event.id, o.id);
-      notify(r.applied ? `Recompensa reclamada · ${formatCredits(r.credits)} créditos` : "Esa recompensa ya estaba reclamada", true);
+      notify(r.applied ? t("Recompensa reclamada · {credits} créditos", { credits: formatCredits(r.credits) }) : t("Esa recompensa ya estaba reclamada"), true);
       await load().catch(() => null);
       refreshProfile();
-    } catch (e) { notify(e instanceof Error ? e.message : "No se pudo reclamar", false); }
+    } catch (e) { notify(e instanceof Error ? e.message : t("No se pudo reclamar"), false); }
     finally { setClaiming(null); }
   }, [snap, claiming, notify, load, refreshProfile]);
 
-  if (!online) return <NeedsAccount what="El circuito competitivo" />;
-  if (loading || (!snap && !error)) return <Loading label="Leyendo el evento…" />;
+  if (!online) return <NeedsAccount what={t("El circuito competitivo")} />;
+  if (loading || (!snap && !error)) return <Loading label={t("Leyendo el evento…")} />;
   if (error?.status === 404 || error?.status === 400) {
-    return <EmptyState icon="🏟️" title="Evento no encontrado" hint="Puede que se haya retirado del circuito." action={{ href: "/torneos", label: "Ver todos los eventos" }} />;
+    return <EmptyState icon="🏟️" title={t("Evento no encontrado")} hint={t("Puede que se haya retirado del circuito.")} action={{ href: "/torneos", label: t("Ver todos los eventos") }} />;
   }
-  if (error && !snap) return <ErrorState message={error.message} onRetry={() => void load().catch(() => null)} />;
+  if (error && !snap) return <ErrorState message={td(error.message)} onRetry={() => void load().catch(() => null)} />;
 
   return (
     <>

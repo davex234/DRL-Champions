@@ -13,6 +13,9 @@ import { cosmetic } from "@/domain/cosmetics/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { isCollectionBadge, type CollectionSetDef } from "./types";
 import { RANK_V1 } from "@/domain/ranked/config";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+
+const tr = ns("collectionSets");
 
 export type BadgeKind = "TEAM" | "EDITION" | "MASTERY" | "SEASON" | "COMPETITIVE" | "TOURNAMENT" | "PICKEM";
 
@@ -42,7 +45,7 @@ export function badgeFact(
     return {
       id, label: set.title, kind: set.kind, logo: team ? set.logo : null,
       color: team ? TEAM_TINT : EDITION_TINT,
-      caption: team ? "Equipo completado" : `Edición ${getVariant(set.subjectId as never)?.label ?? ""}`.trim(),
+      caption: team ? tr("Equipo completado") : `Edición ${getVariant(set.subjectId as never)?.label ?? ""}`.trim(),
       setId: set.id,
     };
   }
@@ -53,7 +56,7 @@ export function badgeFact(
   if (id.startsWith(PICKEM_PREFIX)) return pickemBadgeFact(id);
   const def = cosmetic(id);
   if (!def || def.family !== "insignia") return null;
-  return { id, label: def.label, kind: "MASTERY", logo: null, color: def.color, caption: "Maestría", setId: null };
+  return { id, label: def.label, kind: "MASTERY", logo: null, color: def.color, caption: tr("Maestría"), setId: null };
 }
 
 export function badgeIndex<T extends Pick<CollectionSetDef, "reward">>(sets: readonly T[]): Map<string, T> {
@@ -72,7 +75,7 @@ export function seasonBadgeFact(id: string): BadgeFact | null {
   const m = /^insignia:temporada:temporada-(\d{1,3})-(oro|plata|bronce)$/.exec(id);
   if (!m) return null;
   const tier = SEASON_TIER[m[2]];
-  return { id, label: `Temporada ${m[1]} · ${tier.label}`, kind: "SEASON", logo: null, color: tier.color, caption: "Ruta de temporada", setId: null };
+  return { id, label: tr("Temporada {v} · {label}", { v: td(m[1]), label: td(tier.label) }), kind: "SEASON", logo: null, color: tier.color, caption: tr("Ruta de temporada"), setId: null };
 }
 
 /* ───────────── F84 · insignias de temporada competitiva (preparadas; no se otorgan en F84) ───────────── */
@@ -88,7 +91,7 @@ export function competitiveBadgeFact(id: string): BadgeFact | null {
   if (!m) return null;
   const tier = RANK_V1.tiers.find((t) => t.id === m[2]);
   if (!tier) return null;
-  return { id, label: `Competitiva ${m[1]} · ${tier.name}`, kind: "COMPETITIVE", logo: null, color: tier.color, caption: "Mejor rango de temporada", setId: null };
+  return { id, label: tr("Competitiva {v} · {name}", { v: td(m[1]), name: td(tier.name) }), kind: "COMPETITIVE", logo: null, color: tier.color, caption: tr("Mejor rango de temporada"), setId: null };
 }
 
 /* ───────────── F86 · trofeo de campeón de torneo ───────────── */
@@ -105,8 +108,8 @@ export function cupBadgeFact(id: string, cups?: ReadonlyMap<string, CupTrophyInf
   const slug = cupSlugOf(id);
   const info = slug ? cups?.get(slug) : undefined;
   if (!slug || !info) return null;
-  const date = info.completedAt ? new Date(info.completedAt).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : null;
-  return { id, label: `Campeón · ${info.name}`, kind: "TOURNAMENT", logo: null, color: CUP_GOLD, caption: date ? `Torneo · ${date}` : "Torneo", setId: null };
+  const date = info.completedAt ? new Date(info.completedAt).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }) : null;
+  return { id, label: tr("Campeón · {name}", { name: info.name }), kind: "TOURNAMENT", logo: null, color: CUP_GOLD, caption: date ? tr("Torneo · {date}", { date: td(date) }) : tr("Torneo"), setId: null };
 }
 
 /* ───────────── F87 · Pick'em perfecto (recompensa de un Pick'em 2.0 liquidado) ───────────── */
@@ -119,5 +122,5 @@ export function pickemBadgeFact(id: string): BadgeFact | null {
   const m = /^insignia:pickem:([a-z0-9]+(?:-[a-z0-9]+)*)-perfecto$/.exec(id);
   if (!m) return null;
   const name = m[1].split("-").map((w) => (/^\d+$/.test(w) ? w : w.charAt(0).toUpperCase() + w.slice(1))).join(" ");
-  return { id, label: `Pick'em perfecto · ${name}`, kind: "PICKEM", logo: null, color: PICKEM_TINT, caption: "Pick'em perfecto", setId: null };
+  return { id, label: tr("Pick'em perfecto · {name}", { name }), kind: "PICKEM", logo: null, color: PICKEM_TINT, caption: tr("Pick'em perfecto"), setId: null };
 }

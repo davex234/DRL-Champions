@@ -16,30 +16,36 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/lib/supabase/auth";
 import { useCupStatus, type CupStatusMatch } from "@/lib/cups/client";
 import { formatTag } from "@/domain/account/tag";
+import { ns, td } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("cups");
 
 export function liveNoticeFor(m: CupStatusMatch | null, pathname: string): { key: string; title: string; text: string; cta: string; href: string } | null {
   if (!m) return null;
   if (pathname === `/copas/${m.slug}` || pathname.startsWith("/duelos/pvp")) return null;
-  const rival = m.opponent ? `${m.opponent.username}${m.opponent.tag ? ` ${formatTag(m.opponent.tag)}` : ""}` : "tu rival";
+  const rival = m.opponent ? `${m.opponent.username}${m.opponent.tag ? ` ${formatTag(m.opponent.tag)}` : ""}` : t("tu rival");
   const key = `${m.slug}:${m.round}:${m.slot}:${m.state}:${m.opponentReady}`;
-  if (m.state === "ACTIVE" && m.gameMatchId) return { key, title: "Tu partida de torneo ha empezado", text: `${m.name} · ${m.roundName} contra ${rival}`, cta: "Entrar", href: `/duelos/pvp?match=${encodeURIComponent(m.gameMatchId)}` };
-  if (m.state === "READY" && m.opponentReady) return { key, title: "Tu rival te espera", text: `${m.name} · ${m.roundName}: ${rival} ya está listo`, cta: "Jugar", href: `/copas/${m.slug}` };
-  if (m.state === "READY") return { key, title: "Tu partida de torneo está lista", text: `${m.name} · ${m.roundName} contra ${rival}`, cta: "Jugar", href: `/copas/${m.slug}` };
+  if (m.state === "ACTIVE" && m.gameMatchId) return { key, title: t("Tu partida de torneo ha empezado"), text: t("{name} · {roundName} contra {rival}", { name: m.name, roundName: roundText(m.roundName), rival }), cta: t("Entrar"), href: `/duelos/pvp?match=${encodeURIComponent(m.gameMatchId)}` };
+  if (m.state === "READY" && m.opponentReady) return { key, title: t("Tu rival te espera"), text: t("{name} · {roundName}: {rival} ya está listo", { name: m.name, roundName: roundText(m.roundName), rival }), cta: t("Jugar"), href: `/copas/${m.slug}` };
+  if (m.state === "READY") return { key, title: t("Tu partida de torneo está lista"), text: t("{name} · {roundName} contra {rival}", { name: m.name, roundName: roundText(m.roundName), rival }), cta: t("Jugar"), href: `/copas/${m.slug}` };
   return null;
 }
 
 export function CupLiveNoticeView({ notice, onDismiss }: { notice: NonNullable<ReturnType<typeof liveNoticeFor>>; onDismiss?: () => void }) {
+  useLocale();
   return (
-    <section role="status" aria-live="polite" aria-label={notice.title} data-testid="cup-live-notice"
+    <section role="status" aria-live="polite" aria-label={td(notice.title)} data-testid="cup-live-notice"
       className="nx-clip mb-5 flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
       style={{ border: "1px solid rgba(25,227,255,0.6)", background: "radial-gradient(120% 140% at 0% 0%, rgba(25,227,255,0.18), transparent 60%), rgba(8,10,18,0.92)" }}>
       <div className="min-w-0">
-        <p className="font-display text-[12px] font-black uppercase tracking-[0.18em] text-[#19e3ff]">♜ {notice.title}</p>
-        <p className="truncate text-[13px] text-white/80">{notice.text}</p>
+        <p className="font-display text-[12px] font-black uppercase tracking-[0.18em] text-[#19e3ff]">♜ {td(notice.title)}</p>
+        <p className="truncate text-[13px] text-white/80">{td(notice.text)}</p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
-        <Link href={notice.href} className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center bg-[#19e3ff] px-5 font-display text-[13px] font-black uppercase tracking-[0.14em] text-[#02202a]" data-testid="cup-live-cta">{notice.cta}</Link>
-        {onDismiss && <button type="button" onClick={onDismiss} className="nx-focus min-h-[44px] px-3 text-[12px] text-white/60 hover:text-white" data-testid="cup-live-dismiss">Ahora no</button>}
+        <Link href={notice.href} className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center bg-[#19e3ff] px-5 font-display text-[13px] font-black uppercase tracking-[0.14em] text-[#02202a]" data-testid="cup-live-cta">{td(notice.cta)}</Link>
+        {onDismiss && <button type="button" onClick={onDismiss} className="nx-focus min-h-[44px] px-3 text-[12px] text-white/60 hover:text-white" data-testid="cup-live-dismiss">{t("Ahora no")}</button>}
       </div>
     </section>
   );

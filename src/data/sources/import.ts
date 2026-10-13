@@ -1,6 +1,9 @@
 import type { Player } from "@/domain/cards/types";
 import type { RawPlayer } from "./types";
 import { normalizeRawPlayer } from "./normalize";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("data");
 
 export interface ImportResult {
   players: Player[];
@@ -14,7 +17,7 @@ export function parseJsonPlayers(text: string): ImportResult {
   try {
     data = JSON.parse(text);
   } catch (e) {
-    return { players: [], errors: [`JSON inválido: ${(e as Error).message}`] };
+    return { players: [], errors: [t("JSON inválido: {message}", { message: td((e as Error).message) })] };
   }
   const arr = Array.isArray(data) ? data : [data];
   const players: Player[] = [];
@@ -22,7 +25,7 @@ export function parseJsonPlayers(text: string): ImportResult {
     try {
       const raw = row as RawPlayer;
       if (!raw.nick && !(row as { nombre?: string }).nombre) {
-        errors.push(`Fila ${i + 1}: falta "nick"/"nombre"`);
+        errors.push(t("Fila {v}: falta \"nick\"/\"nombre\"", { v: i + 1 }));
         return;
       }
       players.push(normalizeRawPlayer(coerceRaw(row as Record<string, unknown>)));
@@ -37,7 +40,7 @@ export function parseJsonPlayers(text: string): ImportResult {
 export function parseCsv(text: string): ImportResult {
   const errors: string[] = [];
   const rows = csvRows(text);
-  if (rows.length < 2) return { players: [], errors: ["CSV vacío o sin cabecera"] };
+  if (rows.length < 2) return { players: [], errors: [t("CSV vacío o sin cabecera")] };
   const header = rows[0].map((h) => h.trim().toLowerCase());
   const players: Player[] = [];
 

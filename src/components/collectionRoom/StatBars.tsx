@@ -7,9 +7,14 @@
 import type { CardDef } from "@/domain/cards/types";
 import { COMBAT_STAT_META, COMBAT_STAT_ORDER } from "@/domain/cards/combat";
 import { Meter } from "@/components/ui/Meter";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("collectionRoom");
 
 export function StatBars({ def }: { def: CardDef }) {
-  if (!def.combat) return <p className="text-caption text-ink-muted">Esta carta no tiene stats de combate en el catálogo.</p>;
+  useLocale();
+  if (!def.combat) return <p className="text-caption text-ink-muted">{t("Esta carta no tiene stats de combate en el catálogo.")}</p>;
   return (
     <dl className="space-y-2.5" data-testid="stat-bars">
       {COMBAT_STAT_ORDER.map((k) => {
@@ -17,8 +22,8 @@ export function StatBars({ def }: { def: CardDef }) {
         return (
           <div key={k}>
             <dt className="flex items-baseline justify-between gap-3 text-[13px]">
-              <span className="font-semibold text-white">{COMBAT_STAT_META[k].label}</span>
-              <span className="text-caption text-ink-muted">{COMBAT_STAT_META[k].full}</span>
+              <span className="font-semibold text-white">{td(COMBAT_STAT_META[k].label)}</span>
+              <span className="text-caption text-ink-muted">{td(COMBAT_STAT_META[k].full)}</span>
             </dt>
             <dd className="mt-1 flex items-center gap-3">
               <Meter value={Math.max(0, Math.min(100, value))} tone="info" height={8} label={`${COMBAT_STAT_META[k].full} (${COMBAT_STAT_META[k].label}): ${value}`} className="flex-1" />

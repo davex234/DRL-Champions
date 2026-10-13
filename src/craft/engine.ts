@@ -15,6 +15,9 @@ import { validateRecipe } from "./recipes";
 import { resolveInputs, resolveOutput } from "./resolve";
 import { craftEvents } from "./events";
 import type { CraftContext, CraftIssue, CraftResult, Materials, OwnedCard, Recipe, RecipeValidation } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("craft");
 
 export class CraftEngine {
   readonly registry: CardRegistry;
@@ -76,8 +79,8 @@ export class CraftEngine {
     // 2) Coste (materiales/créditos).
     const cost = recipe.cost ?? {};
     const costIssues: CraftIssue[] = [];
-    if (cost.materials && !hasMaterials(ctx.materials, cost.materials)) costIssues.push({ code: "INSUFFICIENT_MATERIALS", message: "Materiales insuficientes." });
-    if ((cost.credits ?? 0) > ctx.credits) costIssues.push({ code: "INSUFFICIENT_CREDITS", message: "Créditos insuficientes." });
+    if (cost.materials && !hasMaterials(ctx.materials, cost.materials)) costIssues.push({ code: "INSUFFICIENT_MATERIALS", message: t("Materiales insuficientes.") });
+    if ((cost.credits ?? 0) > ctx.credits) costIssues.push({ code: "INSUFFICIENT_CREDITS", message: t("Créditos insuficientes.") });
     if (costIssues.length) return CraftEngine.failResult(recipe, ctx, costIssues);
 
     // 3) Salida (identidad preservada; debe existir en el catálogo).

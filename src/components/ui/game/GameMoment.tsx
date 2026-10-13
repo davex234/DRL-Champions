@@ -12,6 +12,10 @@ import { playSound, type SoundEvent } from "@/lib/sound";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EMPTY_MOMENTS, MOMENT_COPY, momentsReducer, type Moment, type MomentKind } from "@/lib/gameExperience/moments";
 import { SPRING, reducedTransition } from "@/design/motion";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("ui");
 
 const Ctx = createContext<((m: Moment) => void) | null>(null);
 
@@ -63,6 +67,7 @@ export function GameMomentProvider({ children, placement = "top" }: { children: 
 }
 
 export function GameMomentView({ moment, onDismiss, inline = false, placement = "top" }: { moment: Moment | null; onDismiss?: () => void; inline?: boolean; placement?: "top" | "bottom" }) {
+  useLocale();
   const reduced = useReducedMotion();
   const copy = moment ? MOMENT_COPY[moment.kind] : null;
   // Pack Opening 3.0 · abajo, el rótulo se aparta de un dock de acciones si la pantalla lo declara (`--nx-moment-offset`,
@@ -97,12 +102,12 @@ export function GameMomentView({ moment, onDismiss, inline = false, placement = 
               <svg viewBox="0 0 24 24" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth={1.8}><path d="M12 2 21 7v10l-9 5-9-5V7z" /><path d="m8 12 3 3 5-6" /></svg>
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block font-display text-[18px] font-bold uppercase leading-none tracking-[0.1em]" style={{ color: "rgb(var(--m-rgb))" }}>{copy.title}</span>
-              <span className="mt-1 block truncate text-[14px] font-semibold text-white">{moment.fact}</span>
-              {moment.reward && <span className="nx-readout mt-0.5 block text-[13px] text-drl-gold">{moment.reward}</span>}
+              <span className="block font-display text-[18px] font-bold uppercase leading-none tracking-[0.1em]" style={{ color: "rgb(var(--m-rgb))" }}>{td(copy.title)}</span>
+              <span className="mt-1 block truncate text-[14px] font-semibold text-white">{td(moment.fact)}</span>
+              {moment.reward && <span className="nx-readout mt-0.5 block text-[13px] text-drl-gold">{td(moment.reward)}</span>}
             </span>
             {onDismiss && (
-              <button type="button" onClick={onDismiss} className="grid h-11 w-11 shrink-0 place-items-center text-white/50 hover:text-white" aria-label="Cerrar aviso">
+              <button type="button" onClick={onDismiss} className="grid h-11 w-11 shrink-0 place-items-center text-white/50 hover:text-white" aria-label={t("Cerrar aviso")}>
                 <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2}><path d="M6 6l12 12M18 6 6 18" /></svg>
               </button>
             )}

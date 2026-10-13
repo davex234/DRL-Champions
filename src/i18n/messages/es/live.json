@@ -1,0 +1,15 @@
+{
+  "Como {player}": "Como {player}",
+  "Gana un partido con un jugador campeón de {tournamentName}.": "Gana un partido con un jugador campeón de {tournamentName}.",
+  "Gana un partido con {player} en tu quinteto.": "Gana un partido con {player} en tu quinteto.",
+  "Gana usando jugadores con alta habilidad de Clutch.": "Gana usando jugadores con alta habilidad de Clutch.",
+  "Reta a {team}": "Reta a {team}",
+  "Reyes del clutch": "Reyes del clutch",
+  "fuente caída": "fuente caída",
+  "{name}: sin resultados": "{name}: sin resultados",
+  "{player} debuta en {name}": "{player} debuta en {name}",
+  "{player} ficha por {team}": "{player} ficha por {team}",
+  "{player} firma una actuación histórica": "{player} firma una actuación histórica",
+  "{player}, MVP de {name}": "{player}, MVP de {name}",
+  "{team}, campeón de {name}": "{team}, campeón de {name}"
+}

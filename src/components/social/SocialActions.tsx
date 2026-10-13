@@ -24,6 +24,10 @@ import { Toast } from "@/components/ui/Toast";
 import { PresenceDot, RowButton, remainingText } from "./bits";
 import { ChallengeSheet } from "./ChallengeSheet";
 import { ConfirmSheet } from "./ConfirmSheet";
+import { ns, td, tdIn, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("social");
 
 export function SocialActions({ playerId, enabled, showH2H = true }: { playerId: string; enabled: boolean; /** Fase 31: el perfil de jugador ya pinta su cara a cara; aquí se omite para no duplicarlo. */ showH2H?: boolean }) {
   const [view, setView] = useState<SocialPlayerView | null>(null);
@@ -39,6 +43,7 @@ type Sheet = { kind: "challenge"; previousMatchId: string | null } | { kind: "ac
 
 /** Panel puro (también en el arnés). `onChanged` se llama tras cada acción con éxito. */
 export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness = false, showH2H = true }: { view: SocialPlayerView; onChanged: () => void | Promise<void>; now?: number; harness?: boolean; showH2H?: boolean }) {
+  useLocale();
   const router = useRouter();
   const { toast, notify } = useToast(2600);
   const [busy, setBusy] = useState(false);
@@ -54,14 +59,14 @@ export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness 
     if (busy || harness) return false;
     setBusy(true);
     try { await fn(); notify(okMsg, true); announceSocialChange(); await onChanged(); return true; }
-    catch (e) { notify(e instanceof Error ? e.message : "No se pudo completar", false); return false; }
+    catch (e) { notify(e instanceof Error ? e.message : t("No se pudo completar"), false); return false; }
     finally { setBusy(false); }
   }, [busy, harness, notify, onChanged]);
 
   const ensureDecks = useCallback(async () => {
     if (decks || harness) return;
     try { const d = await fetchDuelDecks(); setDecks(d.decks); }
-    catch (e) { setSheetError(e instanceof Error ? e.message : "No se pudieron leer tus equipos"); }
+    catch (e) { setSheetError(e instanceof Error ? e.message : t("No se pudieron leer tus equipos")); }
   }, [decks, harness]);
 
   const confirmSheet = useCallback(async (deckId: string) => {
@@ -71,7 +76,7 @@ export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness 
       if (sheet.kind === "challenge") {
         await createChallenge(p.userId, deckId, sheet.previousMatchId);
         trackSocial("challenge_sent");
-        notify(`Reto enviado a ${p.username}`, true);
+        notify(t("Reto enviado a {username}", { username: p.username }), true);
         setSheet(null); announceSocialChange(); await onChanged();
       } else if (sheet.kind === "accept" && pending) {
         const r = await acceptChallenge(pending.id, deckId);
@@ -80,7 +85,7 @@ export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness 
         if (r.matchId) router.push(`/duelos/pvp?match=${r.matchId}`); else await onChanged();
       }
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "No se pudo completar";
+      const msg = e instanceof Error ? e.message : t("No se pudo completar");
       setSheetError(msg);
       if (e instanceof SocialError && ["EXPIRED", "NOT_PENDING", "BUSY", "IN_QUEUE", "UNAVAILABLE", "INCOMING_PENDING"].includes(e.code ?? "")) { setSheet(null); notify(msg, false); await onChanged(); }
     } finally { setBusy(false); }
@@ -88,8 +93,8 @@ export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness 
 
   const confirmDanger = useCallback(async () => {
     if (!sheet) return;
-    const ok = sheet.kind === "unfriend" ? await run(() => removeFriend(p.userId), `${p.username} ya no es tu amigo`)
-      : sheet.kind === "block" ? await run(() => blockUser(p.userId), `${p.username} bloqueado`) : false;
+    const ok = sheet.kind === "unfriend" ? await run(() => removeFriend(p.userId), t("{username} ya no es tu amigo", { username: p.username }))
+      : sheet.kind === "block" ? await run(() => blockUser(p.userId), t("{username} bloqueado", { username: p.username })) : false;
     if (ok) setSheet(null);
   }, [sheet, run, p]);
 
@@ -98,25 +103,25 @@ export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-3">
           {view.presence && <PresenceDot presence={view.presence} />}
-          <Badge tone={view.relation === "FRIENDS" ? "ok" : "muted"} data-testid="relation-badge">{view.relation === "FRIENDS" ? "Amigos" : view.relation === "BLOCKED_BY_ME" ? "Bloqueado" : RELATION_LABEL[view.relation] === "Añadir amigo" ? "Sin relación" : RELATION_LABEL[view.relation]}</Badge>
-          {view.friendsSince !== null && <span className="text-[11px] text-white/40">amigos desde {new Date(view.friendsSince).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}</span>}
+          <Badge tone={view.relation === "FRIENDS" ? "ok" : "muted"} data-testid="relation-badge">{view.relation === "FRIENDS" ? t("Amigos") : view.relation === "BLOCKED_BY_ME" ? t("Bloqueado") : RELATION_LABEL[view.relation] === "Añadir amigo" ? t("Sin relación") : tdIn("social", RELATION_LABEL[view.relation])}</Badge>
+          {view.friendsSince !== null && <span className="text-[11px] text-white/40">{t("amigos desde {fecha}", { fecha: new Date(view.friendsSince).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short" }) })}</span>}
         </div>
         <div className="flex flex-wrap gap-2">
-          {a.add && <RowButton tone="primary" onClick={() => void run(async () => { await sendFriendRequest(p.userId); trackSocial("friend_request"); }, `Solicitud enviada a ${p.username}`)} data-action="add">Añadir amigo</RowButton>}
-          {view.relation === "OUTGOING" && <><span className="nx-label self-center text-white/45" data-action="sent">Solicitud enviada</span><RowButton onClick={() => void run(() => removeFriend(p.userId), "Solicitud retirada")}>Retirar</RowButton></>}
-          {a.accept && <RowButton tone="primary" onClick={() => void run(async () => { await acceptFriend(p.userId); trackSocial("friend_accept"); }, `Ahora sois amigos: ${p.username}`)} data-action="accept">Aceptar</RowButton>}
-          {a.decline && <RowButton onClick={() => void run(() => declineFriend(p.userId), "Solicitud rechazada")}>Rechazar</RowButton>}
-          {a.challenge && !pending && <RowButton tone="primary" onClick={() => { setSheetError(null); setSheet({ kind: "challenge", previousMatchId: null }); void ensureDecks(); }} data-action="challenge">Retar</RowButton>}
-          {a.unblock && <RowButton onClick={() => void run(() => unblockUser(p.userId), `${p.username} desbloqueado`)} data-action="unblock">Desbloquear</RowButton>}
-          {view.relation !== "BLOCKED_BY_ME" && <a href={`/social/comparar?id=${p.userId}`} className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center border border-white/15 px-3 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/70 hover:bg-white/[0.08]" data-action="compare">Comparar</a>}
+          {a.add && <RowButton tone="primary" onClick={() => void run(async () => { await sendFriendRequest(p.userId); trackSocial("friend_request"); }, t("Solicitud enviada a {username}", { username: p.username }))} data-action="add">{t("Añadir amigo")}</RowButton>}
+          {view.relation === "OUTGOING" && <><span className="nx-label self-center text-white/45" data-action="sent">{t("Solicitud enviada")}</span><RowButton onClick={() => void run(() => removeFriend(p.userId), t("Solicitud retirada"))}>{t("Retirar")}</RowButton></>}
+          {a.accept && <RowButton tone="primary" onClick={() => void run(async () => { await acceptFriend(p.userId); trackSocial("friend_accept"); }, t("Ahora sois amigos: {username}", { username: p.username }))} data-action="accept">{t("Aceptar")}</RowButton>}
+          {a.decline && <RowButton onClick={() => void run(() => declineFriend(p.userId), t("Solicitud rechazada"))}>{t("Rechazar")}</RowButton>}
+          {a.challenge && !pending && <RowButton tone="primary" onClick={() => { setSheetError(null); setSheet({ kind: "challenge", previousMatchId: null }); void ensureDecks(); }} data-action="challenge">{t("Retar")}</RowButton>}
+          {a.unblock && <RowButton onClick={() => void run(() => unblockUser(p.userId), t("{username} desbloqueado", { username: p.username }))} data-action="unblock">{t("Desbloquear")}</RowButton>}
+          {view.relation !== "BLOCKED_BY_ME" && <a href={`/social/comparar?id=${p.userId}`} className="nx-focus nx-clip-sm inline-flex min-h-[44px] items-center border border-white/15 px-3 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/70 hover:bg-white/[0.08]" data-action="compare">{t("Comparar")}</a>}
           {/* F85 · lo destructivo va en un menú contextual, no como botón grande. */}
           {(a.unfriend || a.block) && (
             <div className="relative">
-              <RowButton aria-haspopup="menu" aria-expanded={menu} aria-label={`Más opciones con ${p.username}`} onClick={() => setMenu((m) => !m)} className="w-11 px-0" data-action="more">…</RowButton>
+              <RowButton aria-haspopup="menu" aria-expanded={menu} aria-label={t("Más opciones con {username}", { username: p.username })} onClick={() => setMenu((m) => !m)} className="w-11 px-0" data-action="more">…</RowButton>
               {menu && (
                 <div role="menu" className="absolute right-0 top-full z-20 mt-1 min-w-[180px] border border-white/12 bg-[#0b0e17] p-1 shadow-2xl">
-                  {a.unfriend && <button role="menuitem" type="button" className="nx-focus block min-h-[44px] w-full px-3 py-2 text-left text-[13px] text-white/80 hover:bg-white/[0.06]" onClick={() => { setMenu(false); setSheet({ kind: "unfriend" }); }} data-action="unfriend">Eliminar amigo</button>}
-                  {a.block && <button role="menuitem" type="button" className="nx-focus block min-h-[44px] w-full px-3 py-2 text-left text-[13px] text-drl-red hover:bg-drl-red/10" onClick={() => { setMenu(false); setSheet({ kind: "block" }); }} data-action="block">Bloquear</button>}
+                  {a.unfriend && <button role="menuitem" type="button" className="nx-focus block min-h-[44px] w-full px-3 py-2 text-left text-[13px] text-white/80 hover:bg-white/[0.06]" onClick={() => { setMenu(false); setSheet({ kind: "unfriend" }); }} data-action="unfriend">{t("Eliminar amigo")}</button>}
+                  {a.block && <button role="menuitem" type="button" className="nx-focus block min-h-[44px] w-full px-3 py-2 text-left text-[13px] text-drl-red hover:bg-drl-red/10" onClick={() => { setMenu(false); setSheet({ kind: "block" }); }} data-action="block">{t("Bloquear")}</button>}
                 </div>
               )}
             </div>
@@ -127,33 +132,33 @@ export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness 
       {pending && (
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.08] pt-3" data-testid="pending-challenge" data-direction={pending.direction}>
           <span className="text-caption text-white/80">
-            {pending.direction === "INCOMING" ? `${p.username} te ha retado a un duelo amistoso` : `Esperando respuesta de ${p.username}…`} · {remainingText(pending.expiresAt, now)}
+            {pending.direction === "INCOMING" ? t("{username} te ha retado a un duelo amistoso", { username: p.username }) : t("Esperando respuesta de {username}…", { username: p.username })} · {remainingText(pending.expiresAt, now)}
           </span>
           <div className="flex gap-2">
-            {pending.actions.accept && <RowButton tone="primary" onClick={() => { setSheetError(null); setSheet({ kind: "accept" }); void ensureDecks(); }}>Aceptar reto</RowButton>}
-            {pending.actions.decline && <RowButton onClick={() => void run(() => declineChallenge(pending.id), "Reto rechazado")}>Rechazar</RowButton>}
-            {pending.actions.cancel && <RowButton onClick={() => void run(() => cancelChallengeReq(pending.id), "Reto cancelado")}>Cancelar reto</RowButton>}
+            {pending.actions.accept && <RowButton tone="primary" onClick={() => { setSheetError(null); setSheet({ kind: "accept" }); void ensureDecks(); }}>{t("Aceptar reto")}</RowButton>}
+            {pending.actions.decline && <RowButton onClick={() => void run(() => declineChallenge(pending.id), t("Reto rechazado"))}>{t("Rechazar")}</RowButton>}
+            {pending.actions.cancel && <RowButton onClick={() => void run(() => cancelChallengeReq(pending.id), t("Reto cancelado"))}>{t("Cancelar reto")}</RowButton>}
           </div>
         </div>
       )}
 
       {showH2H && (<>
       <div className="mt-3 grid grid-cols-3 gap-3 border-t border-white/[0.08] pt-3" data-testid="h2h-split" data-total={`${view.h2h.total.wins}-${view.h2h.total.losses}-${view.h2h.total.draws}`}>
-        <H2HCell label="Ranked" h={view.h2h.ranked} />
-        <H2HCell label="Privados" h={view.h2h.private} />
-        <H2HCell label="Total" h={view.h2h.total} strong />
+        <H2HCell id="ranked" label={t("Ranked")} h={view.h2h.ranked} />
+        <H2HCell id="privados" label={t("Privados")} h={view.h2h.private} />
+        <H2HCell id="total" label={t("Total")} h={view.h2h.total} strong />
       </div>
-      <p className="mt-1 text-[11px] text-white/35">Tus victorias – las suyas. Los duelos privados no cuentan para el rating.</p>
+      <p className="mt-1 text-[11px] text-white/35">{t("Tus victorias – las suyas. Los duelos privados no cuentan para el rating.")}</p>
       </>)}
 
       {showH2H && view.recentPrivate.length > 0 && (
-        <ol className="mt-3 divide-y divide-white/[0.06] border-t border-white/[0.08] text-[12px]" aria-label="Últimos duelos privados">
+        <ol className="mt-3 divide-y divide-white/[0.06] border-t border-white/[0.08] text-[12px]" aria-label={t("Últimos duelos privados")}>
           {view.recentPrivate.map((m) => (
             <li key={m.matchId} className="flex items-center gap-3 py-1.5">
               <Badge tone={m.letter === "W" ? "ok" : m.letter === "L" ? "bad" : "muted"} className="w-[2.2rem] justify-center">{m.letter ?? "—"}</Badge>
-              <span className="flex-1 text-white/70">Duelo privado</span>
+              <span className="flex-1 text-white/70">{t("Duelo privado")}</span>
               <span className="nx-readout text-white/70">{m.scoreYou}–{m.scoreRival}</span>
-              <time className="text-[11px] text-white/35">{new Date(m.at).toLocaleDateString("es-ES", { day: "numeric", month: "short" })}</time>
+              <time className="text-[11px] text-white/35">{new Date(m.at).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short" })}</time>
             </li>
           ))}
         </ol>
@@ -165,24 +170,25 @@ export function SocialActionsPanel({ view, onChanged, now = Date.now(), harness 
         target={p}
         decks={decks}
         busy={busy}
-        error={sheetError}
+        error={td(sheetError)}
         rematch={sheet?.kind === "challenge" ? sheet.previousMatchId !== null : pending?.previousMatchId != null}
         onConfirm={confirmSheet}
         onClose={() => { if (!busy) setSheet(null); }}
       />
-      <ConfirmSheet open={sheet?.kind === "unfriend"} title="¿Eliminar amigo?" body={`${p.username} dejará de ser tu amigo. Vuestro historial de partidas se conserva.`} confirmLabel="Eliminar amigo" busy={busy} onConfirm={confirmDanger} onClose={() => { if (!busy) setSheet(null); }} />
-      <ConfirmSheet open={sheet?.kind === "block"} title="¿Bloquear jugador?" body={`${p.username} no podrá enviarte solicitudes ni retos. Sus retos pendientes se cancelan.`} confirmLabel="Bloquear" busy={busy} onConfirm={confirmDanger} onClose={() => { if (!busy) setSheet(null); }} />
+      <ConfirmSheet open={sheet?.kind === "unfriend"} title={t("¿Eliminar amigo?")} body={t("{username} dejará de ser tu amigo. Vuestro historial de partidas se conserva.", { username: p.username })} confirmLabel={t("Eliminar amigo")} busy={busy} onConfirm={confirmDanger} onClose={() => { if (!busy) setSheet(null); }} />
+      <ConfirmSheet open={sheet?.kind === "block"} title={t("¿Bloquear jugador?")} body={t("{username} no podrá enviarte solicitudes ni retos. Sus retos pendientes se cancelan.", { username: p.username })} confirmLabel={t("Bloquear")} busy={busy} onConfirm={confirmDanger} onClose={() => { if (!busy) setSheet(null); }} />
       <Toast toast={toast} />
     </Plate>
   );
 }
 
-function H2HCell({ label, h, strong }: { label: string; h: { wins: number; losses: number; draws: number; matches: number }; strong?: boolean }) {
+function H2HCell({ id, label, h, strong }: { id: "ranked" | "privados" | "total"; label: string; h: { wins: number; losses: number; draws: number; matches: number }; strong?: boolean }) {
+  useLocale();
   return (
     <div className="text-center">
-      <span className="nx-label">{label}</span>
-      <span className={`nx-readout mt-1 block text-[20px] ${strong ? "text-white" : "text-white/75"}`} data-h2h={label.toLowerCase()}>{h.matches === 0 ? "—" : h2hText(h)}</span>
-      <span className="text-[11px] text-white/35">{h.matches} {h.matches === 1 ? "partida" : "partidas"}</span>
+      <span className="nx-label">{td(label)}</span>
+      <span className={`nx-readout mt-1 block text-[20px] ${strong ? "text-white" : "text-white/75"}`} data-h2h={id}>{h.matches === 0 ? "—" : h2hText(h)}</span>
+      <span className="text-[11px] text-white/35">{h.matches} {h.matches === 1 ? t("partida") : t("partidas")}</span>
     </div>
   );
 }

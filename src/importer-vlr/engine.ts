@@ -20,6 +20,9 @@ import { parseMatchPage } from "./maps";
 import { toRawSnapshot } from "./normalize";
 import { findAll } from "./parser";
 import type { VlrImportOptions, VlrImportOutput, VlrFetcher, VlrEventRef } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("importervlr");
 
 const sleep = (ms: number): Promise<void> => (ms > 0 ? new Promise((r) => setTimeout(r, ms)) : Promise.resolve());
 
@@ -63,16 +66,16 @@ export async function importVlrTournament(url: string, opts: VlrImportOptions = 
         m.maps = detail.maps;
         m.teamRefs = detail.teamRefs;
       } catch (e) {
-        warnings.push(`partido ${m.vlrId}: página de detalle no disponible (${e instanceof Error ? e.message : String(e)}); mapas omitidos`);
+        warnings.push(t("partido {vlrId}: página de detalle no disponible ({v}); mapas omitidos", { vlrId: m.vlrId, v: e instanceof Error ? td(e.message) : String(e) }));
       }
     }
-    if (matches.length > maxMatchPages) warnings.push(`solo se descargaron ${maxMatchPages}/${matches.length} páginas de partido (maxMatchPages)`);
+    if (matches.length > maxMatchPages) warnings.push(t("solo se descargaron {maxMatchPages}/{length} páginas de partido (maxMatchPages)", { maxMatchPages, length: matches.length }));
   }
 
   /* El cuadro vive en la MISMA página del evento ya descargada. Falla en seguro: sin markup, sin aristas. */
   const structure = parseBracketStructure(eventHtml);
-  for (const c of structure.conflicts) warnings.push(`cuadro: conflicto con resultados — ${c}`);
-  for (const u of structure.unknown) warnings.push(`cuadro: transición no afirmada — ${u}`);
+  for (const c of structure.conflicts) warnings.push(t("cuadro: conflicto con resultados — {c}", { c: td(c) }));
+  for (const u of structure.unknown) warnings.push(t("cuadro: transición no afirmada — {u}", { u: td(u) }));
   const snapshot = toRawSnapshot(ref, info, teams, statsRows, matches, placements, structure);
 
   /*
@@ -86,8 +89,7 @@ export async function importVlrTournament(url: string, opts: VlrImportOptions = 
   const mapStatRows = snapshot.mapStats?.length ?? 0;
   if (mapsParsed > 0 && mapStatRows === 0) {
     warnings.push(
-      `${mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido ` +
-      `probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.`,
+      t("{mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.", { mapsParsed }),
     );
   }
 

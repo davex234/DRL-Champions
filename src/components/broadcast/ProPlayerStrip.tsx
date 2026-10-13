@@ -12,6 +12,7 @@ import { getItem } from "@/buy";
 import { formatCredits, cn } from "@/lib/format";
 import { sideHex } from "./theme";
 import { CardArt } from "@/components/cards/CardArt";
+import { td } from "@/i18n/runtime";
 
 const ROLE: Record<string, string> = { entry: "ENT", igl: "IGL", lurk: "LRK", anchor: "ANC", support: "SUP" };
 
@@ -89,7 +90,7 @@ export function ProPlayerStrip({
                 <div className={cn("flex items-center gap-1", right && "flex-row-reverse")}>
                   <span className={cn("truncate font-display text-[11px] font-bold uppercase tracking-wide",
                     dead ? "text-white/40 line-through" : "text-white")}>{p.name}</span>
-                  <span className="font-display text-[8px] tracking-widest text-white/35">{ROLE[p.role] ?? ""}</span>
+                  <span className="font-display text-[8px] tracking-widest text-white/35">{td(ROLE[p.role]) ?? ""}</span>
                   {flashed && p.alive && <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_6px_#fff]" />}
                 </div>
                 <div className={cn("flex items-center gap-1 text-[9px] text-white/55", right && "flex-row-reverse")}>

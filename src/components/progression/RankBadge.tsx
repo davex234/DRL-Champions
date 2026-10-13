@@ -29,6 +29,10 @@ import {
 } from "@/domain/progression/rank";
 import { RankEmblem } from "./RankEmblem";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("progression");
 
 export function RankBadge({
   points,
@@ -50,6 +54,7 @@ export function RankBadge({
   compact?: boolean;
   className?: string;
 }) {
+  useLocale();
   const r = rankProgress(points);
   const display = rankDisplay(points, position ?? null);
   const pct = Math.round(r.progress * 100);
@@ -102,18 +107,18 @@ export function RankBadge({
             )}
             style={{ color, textShadow: `0 0 22px ${color}66` }}
           >
-            {display.label}
+            {td(display.label)}
           </p>
-          <p className="nx-readout text-sm text-white/70">{r.points} pts</p>
-          {position != null && <p className="text-xs text-white/45">· #{position} del mundo en puntos</p>}
+          <p className="nx-readout text-sm text-white/70">{r.points} {t("pts")}</p>
+          {position != null && <p className="text-xs text-white/45">{t("· #{n} del mundo en puntos", { n: position })}</p>}
           {regionPosition != null && region && (
-            <p className="text-xs text-white/45">· #{regionPosition} de {REGION_LABEL[region]}</p>
+            <p className="text-xs text-white/45">{t("· #{n} de {region}", { n: regionPosition, region: td(REGION_LABEL[region]) })}</p>
           )}
         </div>
 
         {r.unranked ? (
           <p className="mt-2 text-[13px] text-white/55">
-            Todavía no tienes puntos. Gana duelos contra el bot o acierta predicciones de Pick&apos;ems para entrar en los rangos de puntos.
+            {t("Todavía no tienes puntos. Gana duelos contra el bot o acierta predicciones de Pick'ems para entrar en los rangos de puntos.")}
           </p>
         ) : (
           <>
@@ -139,7 +144,7 @@ export function RankBadge({
                 aria-valuenow={pct}
                 aria-valuemin={0}
                 aria-valuemax={100}
-                aria-label={r.next ? `Progreso hacia ${r.next.label}` : "Rango máximo alcanzado"}
+                aria-label={r.next ? t("Progreso hacia {label}", { label: td(r.next.label) }) : t("Rango máximo alcanzado")}
               >
                 <div
                   className="h-full rounded-full transition-[width] duration-slow ease-out"
@@ -167,14 +172,14 @@ export function RankBadge({
                     {r.points - r.tier.min} / {r.next.min - r.tier.min}
                   </span>
                   {r.toNextDivision > 0 && (
-                    <span className="tabular-nums">· {r.toNextDivision} para subir de división</span>
+                    <span className="tabular-nums">{t("· {n} para subir de división", { n: r.toNextDivision })}</span>
                   )}
-                  <span>· faltan {r.toNext} para</span>
-                  <span style={{ color: r.next.color }}>{r.next.label}</span>
+                  <span>{t("· faltan {n} para", { n: r.toNext })}</span>
+                  <span style={{ color: r.next.color }}>{td(r.next.label)}</span>
                 </>
               ) : (
                 <span style={{ color: display.champion ? CHAMPION_COLOR : undefined }}>
-                  {display.champion ? "Primero del mundo" : "Rango máximo alcanzado"}
+                  {display.champion ? t("Primero del mundo") : t("Rango máximo alcanzado")}
                 </span>
               )}
             </p>
@@ -188,7 +193,7 @@ export function RankBadge({
           /* FASE 11 · 44 px. Eran 36, y es la única acción de la insignia de rango. */
           className="nx-focus nx-clip-sm relative inline-flex min-h-[44px] shrink-0 items-center border border-white/15 bg-white/[0.05] px-4 font-display text-xs font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/12 hover:text-white"
         >
-          {action.label}
+          {td(action.label)}
         </Link>
       )}
     </div>

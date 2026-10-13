@@ -29,25 +29,14 @@ import type { Metadata } from "next";
 import { AdminGuard } from "@/components/layout/AdminGuard";
 import { AdminShell } from "@/components/admin/cc/AdminShell";
 import { ADMIN_ENABLED } from "@/config/admin";
+import { AdminDisabled } from "@/components/admin/cc/AdminDisabled";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false, nocache: true },
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  if (!ADMIN_ENABLED) {
-    return (
-      <div className="grid min-h-[60vh] place-items-center px-4 text-center">
-        <div>
-          <p className="font-display text-2xl font-bold uppercase text-white">Panel no disponible</p>
-          <p className="mt-2 max-w-sm text-white/50">
-            El panel de administración está desactivado en este despliegue
-            (<code className="text-drl">NEXT_PUBLIC_ADMIN</code>).
-          </p>
-        </div>
-      </div>
-    );
-  }
+  if (!ADMIN_ENABLED) return <AdminDisabled />;
   // F58 · el armazón del Control Center se pinta SOLO tras la confirmación del servidor (AdminGuard).
   return <AdminGuard><AdminShell>{children}</AdminShell></AdminGuard>;
 }

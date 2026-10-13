@@ -7,6 +7,9 @@
  * marcado como estimado).
  */
 import type { NarrativeEvent, TeamId } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("narrative");
 
 /** Línea de un jugador en una ronda concreta. */
 export interface PlayerRoundLine {

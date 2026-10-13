@@ -72,8 +72,13 @@ import { AdminEntry } from "./AdminEntry";
 import { ContentSync } from "./ContentSync";
 import { useAdminSession } from "@/lib/supabase/useAdminSession";
 import { OnboardingRail } from "@/components/onboarding/OnboardingRail";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("layout");
 
 export function GameShell({ children }: { children: React.ReactNode }) {
+  useLocale();
   const pathname = usePathname();
   const section = sectionForPath(pathname);
   /* Fase 44.1 · cada sección declara su ambiente (lobby, bóveda, cámara de sobres, sala táctica…). */
@@ -141,10 +146,10 @@ export function GameShell({ children }: { children: React.ReactNode }) {
         <TelemetryProbe />
 
         <a href="#contenido" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-drl focus:px-4 focus:py-3 focus:font-display focus:uppercase focus:text-white">
-          Saltar al contenido
+          {t("Saltar al contenido")}
         </a>
 
-        <TopBar activeSection={section} pathname={pathname} cta={cta} />
+        <TopBar activeSection={section} pathname={pathname} cta={td(cta)} />
 
         <GameMomentProvider>
           <main id="contenido" className="mx-auto w-full max-w-[1480px] px-4 pb-32 pt-6 md:px-8 lg:pb-12">
@@ -171,7 +176,7 @@ export function GameShell({ children }: { children: React.ReactNode }) {
           </main>
         </GameMomentProvider>
 
-        <MobileBar pathname={pathname} cta={cta} />
+        <MobileBar pathname={pathname} cta={td(cta)} />
         <SocialLive />
       </div>
     </MotionConfig>
@@ -193,6 +198,7 @@ function useOnline(): boolean {
 // ───────────────────────────── Barra superior ─────────────────────────────
 
 function TopBar({ activeSection, pathname, cta }: { activeSection: NavSection | null; pathname: string; cta: ReturnType<typeof playCta> }) {
+  useLocale();
   const [menu, setMenu] = useState(false);
   const { user } = useAuth();
   // F58.2 · arranca YA la comprobación de admin (compartida): el acceso está resuelto antes de abrir el menú.
@@ -204,14 +210,14 @@ function TopBar({ activeSection, pathname, cta }: { activeSection: NavSection | 
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="mx-auto flex h-topbar w-full max-w-[1480px] items-center gap-2 px-4 md:px-8">
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5 pr-2" aria-label="Lobby de NEXUS">
+        <Link href="/" className="group flex shrink-0 items-center gap-2.5 pr-2" aria-label={t("Lobby de NEXUS")}>
           <BrandMark size={36} className="shrink-0 drop-shadow-[0_0_12px_rgba(255,46,99,0.35)] transition-transform duration-fast group-hover:scale-105" />
           {/* Fase 44 · entre 1024 y 1279 px el texto del logo cede su sitio a JUGAR (la matriz responsive lo recortaba). */}
           <span className="hidden leading-none sm:block lg:hidden xl:block">
             <span className="block font-display text-[19px] font-bold tracking-wide text-white">
-              NE<span className="text-drl">XUS</span>
+              {t("NE")}<span className="text-drl">{t("XUS")}</span>
             </span>
-            <span className="nx-label block">Lobby</span>
+            <span className="nx-label block">{t("Lobby")}</span>
           </span>
         </Link>
 
@@ -221,7 +227,7 @@ function TopBar({ activeSection, pathname, cta }: { activeSection: NavSection | 
           Fase 9.6: la barra se estira a la ALTURA COMPLETA del cromo (`self-stretch`). Fase 44: JUGAR ya no está
           aquí como una entrada más; es el botón de la derecha. Aquí quedan las secciones de PREPARAR y PROGRESAR.
         */}
-        <nav className="ml-2 hidden items-stretch self-stretch lg:flex" aria-label="Secciones">
+        <nav className="ml-2 hidden items-stretch self-stretch lg:flex" aria-label={t("Secciones")}>
           {shellSections().map((s) => (
             <SectionMenu key={s.id} section={s} active={activeSection?.id === s.id} pathname={pathname} />
           ))}
@@ -233,12 +239,12 @@ function TopBar({ activeSection, pathname, cta }: { activeSection: NavSection | 
               sesión, el hueco del HUD ya es ENTRAR (que lleva al mismo sitio). */}
           {user && <AccountButton pathname={pathname} testId="shell-account" />}
           <PlayMenu pathname={pathname} active={activeSection?.id === "jugar"} />
-          <PlayButton cta={cta} size="bar" className="hidden lg:inline-flex" testId="shell-play" />
+          <PlayButton cta={td(cta)} size="bar" className="hidden lg:inline-flex" testId="shell-play" />
           <button
             type="button"
             onClick={() => setMenu(true)}
             className="grid h-11 w-11 place-items-center text-white/80 hover:text-white lg:hidden"
-            aria-label="Abrir menú"
+            aria-label={t("Abrir menú")}
             data-testid="shell-menu"
           >
             <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2}><path d="M4 7h16M4 12h16M4 17h10" /></svg>
@@ -264,6 +270,7 @@ function SectionMenu({
   active: boolean;
   pathname: string;
 }) {
+  useLocale();
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const ref = useRef<HTMLDivElement>(null);
@@ -310,7 +317,7 @@ function SectionMenu({
         onMouseMove={trackNavLight}
         onClick={() => playSound("ui.nav")}
       >
-        {section.label}
+        {tdIn("design", section.label)}
       </Link>
 
       {open && !single && (
@@ -333,6 +340,7 @@ function trackNavLight(e: React.MouseEvent<HTMLElement>) {
  * la portada). El ancho se ajusta al nombre más largo (`w-max`, con un mínimo común para que los menús no bailen).
  */
 export function SectionPanel({ id, section, pathname, badges, align = "left" }: { id: string; section: NavSection; pathname: string; badges: Record<string, number>; align?: "left" | "right" }) {
+  useLocale();
   return (
     <div
       id={id}
@@ -352,7 +360,7 @@ export function SectionPanel({ id, section, pathname, badges, align = "left" }: 
               active ? "bg-[rgb(var(--nx-tint)/0.16)] shadow-[inset_0_0_0_1px_rgb(var(--nx-tint)/0.55)]" : "hover:bg-white/[0.07]",
             )}
           >
-            <b className={cn(NAV_MENU_LABEL, "text-[16px] tracking-[0.04em] text-white")}>{it.label}</b>
+            <b className={cn(NAV_MENU_LABEL, "text-[16px] tracking-[0.04em] text-white")}>{tdIn("design", it.label)}</b>
             {n > 0 && (
               <span className="nx-clip-sm grid h-5 min-w-5 place-items-center bg-drl px-1.5 text-[10px] font-bold tabular-nums text-white">
                 {n}
@@ -369,6 +377,7 @@ export function SectionPanel({ id, section, pathname, badges, align = "left" }: 
 
 /** «MÁS»: el resto de «Jugar» (modos, competitivo, social, eventos, Pick'ems…) en un desplegable junto al botón. */
 function PlayMenu({ pathname, active }: { pathname: string; active: boolean }) {
+  useLocale();
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const ref = useRef<HTMLDivElement>(null);
@@ -395,7 +404,7 @@ function PlayMenu({ pathname, active }: { pathname: string; active: boolean }) {
         onMouseMove={trackNavLight}
         data-testid="shell-play-menu"
       >
-        Más
+        {t("Más")}
         <svg aria-hidden viewBox="0 0 24 24" className={cn("h-4 w-4 transition-transform duration-fast", open && "rotate-180")} fill="none" stroke="currentColor" strokeWidth={2.2}><path d="m6 9 6 6 6-6" /></svg>
         {n > 0 && <span className="nx-clip-sm grid h-5 min-w-5 place-items-center bg-drl px-1.5 text-[10px] font-bold tabular-nums text-white">{n}</span>}
       </button>
@@ -405,9 +414,10 @@ function PlayMenu({ pathname, active }: { pathname: string; active: boolean }) {
 }
 
 function MobileMenuSheet({ open, onClose, pathname }: { open: boolean; onClose: () => void; pathname: string }) {
+  useLocale();
   const badges = useBadges();
   return (
-    <GameSheet open={open} onClose={onClose} title="Menú" eyebrow="NEXUS" testId="shell-menu-sheet">
+    <GameSheet open={open} onClose={onClose} title={t("Menú")} eyebrow={t("NEXUS")} testId="shell-menu-sheet">
       <MobileMenuNav pathname={pathname} badges={badges} onNavigate={onClose} />
       {/* F58.2 · acceso interno, solo para administradores confirmados por el servidor. */}
       <AdminEntry variant="sheet" onNavigate={onClose} />
@@ -425,12 +435,13 @@ function MobileMenuSheet({ open, onClose, pathname }: { open: boolean; onClose: 
  * mayúsculas, centrado; la insignia se centra junto al nombre). Exportada para el contrato de navegación.
  */
 export function MobileMenuNav({ pathname, badges, onNavigate }: { pathname: string; badges: Record<string, number>; onNavigate?: () => void }) {
+  useLocale();
   const all = [playSection(), ...shellSections()].flatMap((s) => s.items);
   return (
-    <nav aria-label="Todas las secciones" className="space-y-5" data-menu-style="nav">
+    <nav aria-label={t("Todas las secciones")} className="space-y-5" data-menu-style="nav">
       {mobileMenu().map((g) => (
         <section key={g.id}>
-          <p className="nx-label mb-1.5">{g.label}</p>
+          <p className="nx-label mb-1.5">{td(g.label)}</p>
           <ul className="grid gap-1">
             {g.items.map((it) => {
               const item = all.find((x) => x.href === it.href);
@@ -444,7 +455,7 @@ export function MobileMenuNav({ pathname, badges, onNavigate }: { pathname: stri
                     aria-current={active ? "page" : undefined}
                     className={cn("nx-clip-sm nx-focus min-h-[48px]", NAV_MENU_ITEM, active ? "bg-[rgb(var(--nx-tint)/0.16)] shadow-[inset_0_0_0_1px_rgb(var(--nx-tint)/0.55)]" : "bg-white/[0.03] active:bg-white/[0.08]")}
                   >
-                    <b className={cn(NAV_MENU_LABEL, "text-[17px] tracking-[0.04em] text-white")}>{it.label}</b>
+                    <b className={cn(NAV_MENU_LABEL, "text-[17px] tracking-[0.04em] text-white")}>{tdIn("design", it.label)}</b>
                     {n > 0 && <span className="nx-clip-sm grid h-6 min-w-6 place-items-center bg-drl px-1.5 text-[11px] font-bold text-white">{n}</span>}
                   </Link>
                 </li>
@@ -486,6 +497,7 @@ function useBadges(): Record<string, number> {
  * moneda. Ahora hay UNA sola moneda, y vive en el servidor.
  */
 function Wallet() {
+  useLocale();
   // F81.2 · «rehidratado» no basta: la caché o la demo NO son de esta cuenta hasta que llegue su estado del servidor.
   const view = useEconomyView();
   const hydrated = useGameStore((s) => s.hydrated) && economyVisible(view);
@@ -501,7 +513,7 @@ function Wallet() {
   if (configured && !loading && !user) {
     return (
       <Link href="/cuenta" data-testid="hud-signin" className="nx-clip-sm nx-press flex min-h-[40px] items-center border border-drl/40 bg-drl/[0.1] px-3 font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white transition-colors duration-fast hover:bg-drl/20">
-        Entrar
+        {t("Entrar")}
       </Link>
     );
   }
@@ -511,14 +523,14 @@ function Wallet() {
       <Link
         href={ROUTES.accountProgress}
         className="nx-clip-sm hidden items-center gap-2.5 border border-white/10 bg-white/[0.04] px-2.5 py-1.5 transition-colors duration-fast hover:border-white/25 md:flex lg:hidden xl:flex"
-        aria-label={hydrated ? `Tu progreso · nivel ${level.level}` : "Tu progreso"}
+        aria-label={hydrated ? t("Tu progreso · nivel {level}", { level: level.level }) : t("Tu progreso")}
       >
         <span className="nx-clip-sm grid h-8 w-8 place-items-center bg-drl-cyan/15 font-display text-[15px] font-bold tabular-nums text-drl-cyan">
           {hydrated ? level.level : "—"}
         </span>
         <span className="w-[76px]">
           <span className="flex justify-between">
-            <span className="nx-label !text-[10px]">Nivel</span>
+            <span className="nx-label !text-[10px]">{t("Nivel")}</span>
             <span className="font-display text-[10px] font-bold tabular-nums text-white/50">
               {hydrated ? `${Math.round(level.progress * 100)}%` : ""}
             </span>
@@ -534,7 +546,7 @@ function Wallet() {
 
       <Currency
         value={hydrated ? formatCredits(credits) : "—"}
-        label="DRL Credits"
+        label={t("DRL Credits")}
         className="border-drl-gold/25 bg-drl-gold/[0.08] text-drl-gold"
       />
     </>
@@ -548,14 +560,15 @@ function Currency({
   label: string;
   className: string;
 }) {
+  useLocale();
   return (
     <span
       className={cn("nx-clip-sm flex items-center gap-1.5 border px-2.5 py-1.5", className)}
-      title={label}
+      title={td(label)}
     >
       <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2}><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z" /><path d="M12 8v8" /></svg>
-      <span className="nx-readout text-[16px]">{value}</span>
-      <span className="sr-only">{label}</span>
+      <span className="nx-readout text-[16px]">{td(value)}</span>
+      <span className="sr-only">{td(label)}</span>
     </span>
   );
 }
@@ -563,6 +576,7 @@ function Currency({
 // ───────────────────────────── Barra inferior (móvil) ─────────────────────────────
 
 function MobileBar({ pathname, cta }: { pathname: string; cta: ReturnType<typeof playCta> }) {
+  useLocale();
   const badges = useBadges();
   const active = sectionForPath(pathname);
 
@@ -570,7 +584,7 @@ function MobileBar({ pathname, cta }: { pathname: string; cta: ReturnType<typeof
     <nav
       className="nx-dock fixed inset-x-0 bottom-0 z-50 flex h-mobilebar items-stretch lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-      aria-label="Navegación principal"
+      aria-label={t("Navegación principal")}
     >
       {MOBILE_NAV.map((item) => {
         // IA 2026-10-07 · MI CUENTA no es una sección de la barra: se marca por su ruta. La Tienda ya no lleva el número
@@ -583,7 +597,7 @@ function MobileBar({ pathname, cta }: { pathname: string; cta: ReturnType<typeof
           return (
             <div key={item.href} className="relative flex min-w-0 flex-1 justify-center">
               <span className="absolute -top-6">
-                <PlayButton cta={cta} size="dock" testId="dock-play" />
+                <PlayButton cta={td(cta)} size="dock" testId="dock-play" />
                 {n > 0 && (
                   <span className="nx-clip-sm absolute -right-1 top-1 grid h-5 min-w-5 place-items-center bg-white px-1 text-[10px] font-bold tabular-nums text-drl">{n}</span>
                 )}
@@ -614,7 +628,7 @@ function MobileBar({ pathname, cta }: { pathname: string; cta: ReturnType<typeof
                 on ? "text-white" : "text-white/55",
               )}
             >
-              {item.label}
+              {tdIn("design", item.label)}
             </span>
             {n > 0 && (
               <span className="nx-clip-sm absolute right-[16%] top-2 grid h-4 min-w-4 place-items-center bg-drl px-1 text-[9px] font-bold tabular-nums text-white">

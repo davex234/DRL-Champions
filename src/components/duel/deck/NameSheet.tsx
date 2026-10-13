@@ -8,6 +8,10 @@ import { useEffect, useId, useState } from "react";
 import { checkDeckName, DECK_NAME_MAX } from "@/domain/deckBuilder/builder";
 import { NxButton } from "@/components/ui/NxButton";
 import { Sheet } from "./bits";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export function NameSheet({
   open, title, initial, busy, error, onSubmit, onClose,
@@ -20,6 +24,7 @@ export function NameSheet({
   onSubmit: (name: string) => void;
   onClose: () => void;
 }) {
+  useLocale();
   const inputId = useId();
   const hintId = useId();
   const [value, setValue] = useState(initial);
@@ -31,18 +36,18 @@ export function NameSheet({
     <Sheet
       open={open}
       scene="name-sheet"
-      eyebrow="Nombre del equipo"
-      title={title}
+      eyebrow={t("Nombre del equipo")}
+      title={td(title)}
       onClose={onClose}
       footer={
         <div className="flex flex-wrap gap-2">
-          <NxButton variant="primary" size="md" onClick={submit} disabled={!check.ok || busy} aria-busy={busy}>{busy ? "Guardando…" : "Guardar nombre"}</NxButton>
-          <NxButton variant="ghost" size="md" onClick={onClose} disabled={busy}>Cancelar</NxButton>
+          <NxButton variant="primary" size="md" onClick={submit} disabled={!check.ok || busy} aria-busy={busy}>{busy ? t("Guardando…") : t("Guardar nombre")}</NxButton>
+          <NxButton variant="ghost" size="md" onClick={onClose} disabled={busy}>{t("Cancelar")}</NxButton>
         </div>
       }
     >
       <form onSubmit={(e) => { e.preventDefault(); submit(); }}>
-        <label htmlFor={inputId} className="nx-label">Nombre</label>
+        <label htmlFor={inputId} className="nx-label">{t("Nombre")}</label>
         <input
           id={inputId}
           value={value}
@@ -54,9 +59,9 @@ export function NameSheet({
           className="nx-focus mt-1 min-h-[48px] w-full rounded-control border border-white/15 bg-white/[0.05] px-3 font-display text-lg uppercase text-white outline-none focus:border-drl/60"
         />
         <p id={hintId} className={check.ok ? "mt-1 text-[12px] text-ink-faint" : "mt-1 text-[12px] text-bad"}>
-          {check.ok ? `${[...value.trim()].length}/${DECK_NAME_MAX} · letras, números, espacios y . _ ' # & -` : check.reason}
+          {check.ok ? t("{length}/{DECK_NAME_MAX} · letras, números, espacios y . _ ' # & -", { length: [...value.trim()].length, DECK_NAME_MAX }) : td(check.reason)}
         </p>
-        {error && <p role="alert" className="mt-2 rounded-lg border border-bad/40 bg-bad/[0.08] px-3 py-2 text-[13px] text-white">{error}</p>}
+        {error && <p role="alert" className="mt-2 rounded-lg border border-bad/40 bg-bad/[0.08] px-3 py-2 text-[13px] text-white">{td(error)}</p>}
       </form>
     </Sheet>
   );

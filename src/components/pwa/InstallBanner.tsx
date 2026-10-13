@@ -3,6 +3,11 @@
 import { useEffect, useState } from "react";
 import { GameGlyph } from "@/components/ui/game/GameGlyph";
 import { BrandMark } from "@/branding/Logo";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("pwa");
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -13,6 +18,7 @@ const DISMISS_KEY = "drl-install-dismissed";
 
 /** Banner para instalar la PWA (con instrucciones específicas para iOS). */
 export function InstallBanner() {
+  useLocale();
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [isIOS, setIsIOS] = useState(false);
   const [show, setShow] = useState(false);
@@ -66,15 +72,17 @@ export function InstallBanner() {
       <BrandMark size={34} className="shrink-0 drop-shadow-[0_0_10px_rgba(255,46,99,0.35)]" />
       <div className="min-w-0 flex-1">
         <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-          Instalar NEXUS
+          {t("Instalar NEXUS")}
         </p>
         {isIOS && !deferred ? (
           <p className="text-xs text-white/55">
-            Pulsa <span className="text-white">Compartir</span> y luego{" "}
-            <span className="text-white">«Añadir a pantalla de inicio»</span>.
+            {fill(t("Pulsa {compartir} y luego {accion}.", slots("compartir", "accion")), {
+              compartir: <span className="text-white">{t("Compartir")}</span>,
+              accion: <span className="text-white">{t("«Añadir a pantalla de inicio»")}</span>,
+            })}
           </p>
         ) : (
-          <p className="text-xs text-white/55">Juega como una app, también sin conexión.</p>
+          <p className="text-xs text-white/55">{t("Juega como una app, también sin conexión.")}</p>
         )}
       </div>
       {deferred && (
@@ -87,7 +95,7 @@ export function InstallBanner() {
           */
           className="nx-focus nx-clip-sm nx-press min-h-[44px] shrink-0 bg-drl px-4 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
         >
-          Instalar
+          {t("Instalar")}
         </button>
       )}
       {/* 44x44 no: pero por debajo de 32 el pulgar falla, y este aspa está en casi todas
@@ -95,7 +103,7 @@ export function InstallBanner() {
       <button
         onClick={dismiss}
         className="nx-focus nx-clip-sm grid h-11 w-11 shrink-0 place-items-center text-white/40 transition duration-fast hover:bg-white/[0.08] hover:text-white"
-        aria-label="Cerrar"
+        aria-label={t("Cerrar")}
       >
         <GameGlyph name="close" className="h-4 w-4" />
       </button>

@@ -26,6 +26,11 @@ import { Meter } from "@/components/ui/Meter";
 import { cn } from "@/lib/format";
 import { CardBack } from "./CardBack";
 import { StatBars } from "./StatBars";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("collectionRoom");
 
 const BUCKET_TONE = { legendary: "gold", epic: "key", rare: "info", uncommon: "ok", common: "muted" } as const;
 export const SHOWCASE_MAX = 3;
@@ -49,6 +54,7 @@ export interface CardDetailProps {
 }
 
 export function CardDetailView(p: CardDetailProps) {
+  useLocale();
   const { def, player, ownership, access } = p;
   const reduce = useReducedMotion();
   const [flipped, setFlipped] = useState(!!p.initialFlipped);
@@ -59,8 +65,8 @@ export function CardDetailView(p: CardDetailProps) {
   const activeDeck = (p.decks ?? []).find((d) => d.active) ?? null;
   const teamCompareHref = access === "server" && activeDeck
     ? owned && rep
-      ? activeDeck.cardUids.includes(rep.uid) ? null : `/duelos/mazos?deck=${activeDeck.id}&add=${rep.uid}`
-      : `/duelos/mazos?deck=${activeDeck.id}&explorar=${encodeURIComponent(def.id)}`
+      ? activeDeck.cardUids.includes(rep.uid) ? null : t("/duelos/mazos?deck={id}&add={uid}", { id: activeDeck.id, uid: rep.uid })
+      : t("/duelos/mazos?deck={id}&explorar={id2}", { id: activeDeck.id, id2: encodeURIComponent(def.id) })
     : null;
   const mutationsOff = access !== "server" || !!p.offline;
   const showcaseFull = p.showcase.count >= SHOWCASE_MAX;
@@ -76,7 +82,7 @@ export function CardDetailView(p: CardDetailProps) {
             style={{ transformStyle: "preserve-3d", transition: reduce ? "none" : "transform 600ms cubic-bezier(0.4,0,0.2,1)", transform: flipped ? "rotateY(180deg)" : "none" }}
           >
             <div style={{ backfaceVisibility: "hidden" }} aria-hidden={flipped}>
-              <CardVisual uid={rep?.uid} alt={`Carta de ${player.nick}, ${variant.label}`} chamfer="16px" className="w-full">
+              <CardVisual uid={rep?.uid} alt={t("Carta de {nick}, {label}", { nick: player.nick, label: td(variant.label) })} chamfer="16px" className="w-full">
                 <PlayerCard card={def} size="lg" interactive={false} serial={rep?.serial ?? undefined} />
               </CardVisual>
             </div>
@@ -86,7 +92,7 @@ export function CardDetailView(p: CardDetailProps) {
           </div>
         </div>
         <NxButton variant="secondary" size="md" onClick={() => setFlipped((f) => !f)} aria-pressed={flipped} data-testid="card-flip">
-          {flipped ? "Ver el anverso" : "Girar la carta"}
+          {flipped ? t("Ver el anverso") : t("Girar la carta")}
         </NxButton>
       </div>
 
@@ -94,28 +100,28 @@ export function CardDetailView(p: CardDetailProps) {
       <div className="min-w-0 space-y-6">
         <header>
           <p className="flex flex-wrap items-center gap-2">
-            <Badge tone={BUCKET_TONE[rarity]}>{BUCKET_LABEL[rarity]}</Badge>
-            <Badge tone="muted">{variant.label}</Badge>
+            <Badge tone={BUCKET_TONE[rarity]}>{td(BUCKET_LABEL[rarity])}</Badge>
+            <Badge tone="muted">{td(variant.label)}</Badge>
             {access !== "anon" && (owned
-              ? <Badge tone="ok" dot>{ownership!.count > 1 ? `En tu colección · ×${ownership!.count}` : "En tu colección"}</Badge>
-              : <Badge tone="warn">No conseguida</Badge>)}
-            {ownership && ownership.showcaseUids.length > 0 && <Badge tone="gold">En tu vitrina</Badge>}
-            {ownership?.inActiveDeck && <Badge tone="info">En tu equipo activo</Badge>}
+              ? <Badge tone="ok" dot>{ownership!.count > 1 ? t("En tu colección · ×{count}", { count: ownership!.count }) : t("En tu colección")}</Badge>
+              : <Badge tone="warn">{t("No conseguida")}</Badge>)}
+            {ownership && ownership.showcaseUids.length > 0 && <Badge tone="gold">{t("En tu vitrina")}</Badge>}
+            {ownership?.inActiveDeck && <Badge tone="info">{t("En tu equipo activo")}</Badge>}
           </p>
           <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
             <div className="min-w-0">
               <h1 className="break-words font-display text-[clamp(34px,6vw,58px)] font-bold uppercase leading-[0.92] text-white">{player.nick}</h1>
-              <p className="mt-1 text-body text-ink-muted">{canonicalCardTeam(def, player).label} · {def.role ?? player.role} · {player.region}</p>
+              <p className="mt-1 text-body text-ink-muted">{td(canonicalCardTeam(def, player).label)} · {td(def.role) ?? td(player.role)} · {td(player.region)}</p>
             </div>
             <p className="text-right">
-              <span className="block font-display text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">OVR</span>
+              <span className="block font-display text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">{t("OVR")}</span>
               <span className="nx-readout text-[46px] leading-none text-white">{def.ovr}</span>
             </p>
           </div>
         </header>
 
         <section aria-labelledby="stats-title">
-          <h2 id="stats-title" className="mb-2 font-display text-[14px] font-bold uppercase tracking-[0.12em] text-white/70">Stats de combate</h2>
+          <h2 id="stats-title" className="mb-2 font-display text-[14px] font-bold uppercase tracking-[0.12em] text-white/70">{t("Stats de combate")}</h2>
           <StatBars def={def} />
         </section>
 
@@ -124,37 +130,37 @@ export function CardDetailView(p: CardDetailProps) {
           {access === "server" && (
             <NxButton variant={p.favorite.active ? "primary" : "secondary"} size="md" onClick={p.favorite.onToggle}
               disabled={mutationsOff || !p.favorite.available || p.favorite.busy} aria-pressed={p.favorite.active}
-              aria-label={p.favorite.active ? "Quitar de favoritos" : "Añadir a favoritos"} data-testid="card-favorite">
-              <span aria-hidden>{p.favorite.active ? "★" : "☆"}</span> {p.favorite.available ? (p.favorite.active ? "Favorita" : "Favorito") : "Favoritos no disponibles"}
+              aria-label={p.favorite.active ? t("Quitar de favoritos") : t("Añadir a favoritos")} data-testid="card-favorite">
+              <span aria-hidden>{p.favorite.active ? "★" : "☆"}</span> {p.favorite.available ? (p.favorite.active ? t("Favorita") : t("Favorito")) : t("Favoritos no disponibles")}
             </NxButton>
           )}
           {owned && access !== "anon" && p.onAddToDeck && (
-            <NxButton variant="secondary" size="md" onClick={p.onAddToDeck} disabled={!!p.offline} data-testid="card-add-deck">Añadir al equipo</NxButton>
+            <NxButton variant="secondary" size="md" onClick={p.onAddToDeck} disabled={!!p.offline} data-testid="card-add-deck">{t("Añadir al equipo")}</NxButton>
           )}
-          <NxButton variant="secondary" size="md" href={compareHref(def.id)} data-testid="card-compare-link">Comparar</NxButton>
+          <NxButton variant="secondary" size="md" href={compareHref(def.id)} data-testid="card-compare-link">{t("Comparar")}</NxButton>
           {/* Fase 43 · comparar para tu equipo activo: si es tuya, con opción de cambio en el constructor; si no, solo informativo. */}
           {teamCompareHref && def.combat && (
             <NxButton variant="secondary" size="md" href={teamCompareHref} data-testid="card-team-compare" data-actionable={owned}>
-              {owned ? "Comparar para equipo" : "Comparar con mi equipo"}
+              {owned ? t("Comparar para equipo") : t("Comparar con mi equipo")}
             </NxButton>
           )}
-          <NxButton variant="tertiary" size="md" href={`/coleccion?q=${encodeURIComponent(player.nick.toLowerCase())}`}>Ver en el álbum</NxButton>
+          <NxButton variant="tertiary" size="md" href={`/coleccion?q=${encodeURIComponent(player.nick.toLowerCase())}`}>{t("Ver en el álbum")}</NxButton>
         </div>
-        {p.message && <p role="status" className="text-caption text-warn">{p.message}</p>}
-        {p.offline && access === "server" && <p role="status" className="text-caption text-warn">Sin conexión: favoritos, vitrina y equipos vuelven cuando recuperes la red.</p>}
+        {p.message && <p role="status" className="text-caption text-warn">{td(p.message)}</p>}
+        {p.offline && access === "server" && <p role="status" className="text-caption text-warn">{t("Sin conexión: favoritos, vitrina y equipos vuelven cuando recuperes la red.")}</p>}
 
         {/* Tus copias */}
         {access === "anon" ? (
           <p className="nx-clip-sm border border-white/10 bg-black/25 p-4 text-body text-ink-muted">
-            <Link href="/cuenta" className="nx-focus inline-flex min-h-[44px] items-center text-drl-cyan underline-offset-2 hover:underline">Inicia sesión</Link> para ver tus copias, sus números de serie y añadirla a tu equipo.
+            {fill(t("{enlace} para ver tus copias, sus números de serie y añadirla a tu equipo.", slots("enlace")), { enlace: <Link href="/cuenta" className="nx-focus inline-flex min-h-[44px] items-center text-drl-cyan underline-offset-2 hover:underline">{t("Inicia sesión")}</Link> })}
           </p>
         ) : (
           <section aria-labelledby="copies-title" data-testid="card-copies">
             <h2 id="copies-title" className="mb-2 font-display text-[14px] font-bold uppercase tracking-[0.12em] text-white/70">
-              {p.loading ? "Tus copias…" : owned ? `Tus copias · ${ownership!.count}` : "Tus copias"}
+              {p.loading ? t("Tus copias…") : owned ? t("Tus copias · {count}", { count: ownership!.count }) : t("Tus copias")}
             </h2>
             {!owned ? (
-              <p className="text-body text-ink-muted">{p.loading ? "Leyendo tu colección…" : "Todavía no tienes ninguna copia de esta carta."}</p>
+              <p className="text-body text-ink-muted">{p.loading ? t("Leyendo tu colección…") : t("Todavía no tienes ninguna copia de esta carta.")}</p>
             ) : (
               <>
                 <ul className="space-y-2">
@@ -162,27 +168,29 @@ export function CardDetailView(p: CardDetailProps) {
                     const serial = formatSerial(inst.serial, variant.serialLimit);
                     const prestige = serialPrestige(inst.serial);
                     const inShowcase = ownership!.showcaseUids.includes(inst.uid);
-                    const deckNames = (p.decks ?? []).filter((d) => d.cardUids.includes(inst.uid)).map((d) => (d.active ? `${d.name} (activo)` : d.name));
+                    const deckNames = (p.decks ?? []).filter((d) => d.cardUids.includes(inst.uid)).map((d) => (d.active ? t("{name} (activo)", { name: d.name }) : d.name));
                     return (
                       <li key={inst.uid} data-serial={inst.serial ?? ""} className="nx-clip-sm flex flex-wrap items-center justify-between gap-2 border border-white/10 bg-black/25 px-3 py-2.5">
                         <span className="flex min-w-0 flex-wrap items-center gap-2">
-                          <span className="nx-readout text-[16px] text-white">{serial ?? `Copia ${i + 1}`}</span>
-                          {!serial && <span className="text-caption text-ink-muted">Sin número de serie</span>}
-                          {prestige && <Badge tone="gold">{prestige.label}</Badge>}
-                          {inShowcase && <Badge tone="gold">En vitrina</Badge>}
-                          {deckNames.length > 0 && <span className="text-caption text-ink-muted">En {deckNames.join(", ")}</span>}
+                          <span className="nx-readout text-[16px] text-white">{td(serial) ?? t("Copia {v}", { v: i + 1 })}</span>
+                          {!serial && <span className="text-caption text-ink-muted">{t("Sin número de serie")}</span>}
+                          {prestige && <Badge tone="gold">{td(prestige.label)}</Badge>}
+                          {inShowcase && <Badge tone="gold">{t("En vitrina")}</Badge>}
+                          {deckNames.length > 0 && <span className="text-caption text-ink-muted">{t("En {equipos}", { equipos: deckNames.join(", ") })}</span>}
                         </span>
                         {access === "server" && p.showcase.available && !inShowcase && (
                           showcaseFull
-                            ? <Link href="/jugador/me?editar=1" className="nx-focus inline-flex min-h-[44px] items-center text-caption text-drl-cyan hover:underline">Vitrina llena · editar en tu perfil</Link>
-                            : <NxButton variant="tertiary" size="md" disabled={mutationsOff || p.showcase.busy} onClick={() => p.showcase.onAdd?.(inst.uid)}>Poner en vitrina</NxButton>
+                            ? <Link href="/jugador/me?editar=1" className="nx-focus inline-flex min-h-[44px] items-center text-caption text-drl-cyan hover:underline">{t("Vitrina llena · editar en tu perfil")}</Link>
+                            : <NxButton variant="tertiary" size="md" disabled={mutationsOff || p.showcase.busy} onClick={() => p.showcase.onAdd?.(inst.uid)}>{t("Poner en vitrina")}</NxButton>
                         )}
                       </li>
                     );
                   })}
                 </ul>
-                <p className="mt-2 text-caption text-ink-muted">El número de serie es prestigio: no cambia las stats ni da recompensas.</p>
-                {p.decks && <p className="mt-1 text-caption text-ink-muted">{ownership!.deckIds.length === 0 ? "No la usas en ningún equipo." : `Usada en ${ownership!.deckIds.length} ${ownership!.deckIds.length === 1 ? "equipo" : "equipos"}${ownership!.inActiveDeck ? ", incluido tu equipo activo" : ""}.`}</p>}
+                <p className="mt-2 text-caption text-ink-muted">{t("El número de serie es prestigio: no cambia las stats ni da recompensas.")}</p>
+                {p.decks && <p className="mt-1 text-caption text-ink-muted">{ownership!.deckIds.length === 0 ? t("No la usas en ningún equipo.") : (ownership!.inActiveDeck
+                  ? t("Usada en {n, plural, one {# equipo} other {# equipos}}, incluido tu equipo activo.", { n: ownership!.deckIds.length })
+                  : t("Usada en {n, plural, one {# equipo} other {# equipos}}.", { n: ownership!.deckIds.length }))}</p>}
               </>
             )}
           </section>
@@ -191,16 +199,16 @@ export function CardDetailView(p: CardDetailProps) {
         {/* Variantes del jugador */}
         <section aria-labelledby="variants-title" data-testid="card-variants">
           <h2 id="variants-title" className="mb-2 font-display text-[14px] font-bold uppercase tracking-[0.12em] text-white/70">
-            Variantes de {player.nick}{access !== "anon" ? ` · ${p.variants.owned}/${p.variants.total}` : ` · ${p.variants.total}`}
+            {t("Variantes de {nick}", { nick: player.nick })}{access !== "anon" ? ` · ${p.variants.owned}/${p.variants.total}` : ` · ${p.variants.total}`}
           </h2>
           <ul className="flex flex-wrap gap-2">
             {p.variants.rows.map((r) => (
               <li key={r.cardId}>
                 <Link href={cardHref(r.cardId)} aria-current={r.cardId === def.id ? "page" : undefined}
-                  aria-label={`${r.label}, OVR ${r.ovr}${access !== "anon" ? (r.owned ? `, la tienes${r.count > 1 ? ` ×${r.count}` : ""}` : ", no conseguida") : ""}`}
+                  aria-label={t("{label}, OVR {ovr}{v}", { label: td(r.label), ovr: r.ovr, v: access !== "anon" ? (r.owned ? t(", la tienes{v}", { v: r.count > 1 ? ` ×${r.count}` : "" }) : t(", no conseguida")) : "" })}
                   className={cn("nx-focus nx-clip-sm inline-flex min-h-[44px] items-center gap-2 border px-3 text-[13px]",
                     r.cardId === def.id ? "border-drl-cyan/60 bg-drl-cyan/10 text-white" : "border-white/10 bg-black/25 text-white/80 hover:border-white/30")}>
-                  <span>{r.label}</span><span className="nx-readout">{r.ovr}</span>
+                  <span>{td(r.label)}</span><span className="nx-readout">{r.ovr}</span>
                   {access !== "anon" && <span className="text-[11px] text-white/55">{r.owned ? (r.count > 1 ? `×${r.count}` : "✓") : "—"}</span>}
                 </Link>
               </li>
@@ -211,11 +219,11 @@ export function CardDetailView(p: CardDetailProps) {
         {/* Sets a los que pertenece */}
         {(p.sets.team || p.sets.region) && access !== "anon" && (
           <section aria-labelledby="sets-title" className="grid gap-2 sm:grid-cols-2" data-testid="card-sets">
-            <h2 id="sets-title" className="sr-only">Sets de esta carta</h2>
+            <h2 id="sets-title" className="sr-only">{t("Sets de esta carta")}</h2>
             {[p.sets.team, p.sets.region].filter((s): s is CollectionSetProgress => !!s).map((s) => (
               <div key={s.id} className="nx-clip-sm border border-white/10 bg-black/25 p-3">
-                <p className="flex items-center justify-between gap-2 text-[13px]"><span className="font-semibold text-white">{s.label}</span><span className="nx-readout text-white/75">{s.owned}/{s.total}</span></p>
-                <Meter value={s.pct} tone={s.complete ? "ok" : s.near ? "gold" : "info"} height={5} label={`${s.label}: ${s.owned} de ${s.total}`} className="mt-1.5" />
+                <p className="flex items-center justify-between gap-2 text-[13px]"><span className="font-semibold text-white">{td(s.label)}</span><span className="nx-readout text-white/75">{s.owned}/{s.total}</span></p>
+                <Meter value={s.pct} tone={s.complete ? "ok" : s.near ? "gold" : "info"} height={5} label={t("{label}: {owned} de {total}", { label: td(s.label), owned: s.owned, total: s.total })} className="mt-1.5" />
               </div>
             ))}
           </section>
@@ -224,17 +232,17 @@ export function CardDetailView(p: CardDetailProps) {
         {/* Dónde puede salir */}
         {p.availability && (
           <section aria-labelledby="packs-title" data-testid="card-availability">
-            <h2 id="packs-title" className="mb-2 font-display text-[14px] font-bold uppercase tracking-[0.12em] text-white/70">Dónde puede salir</h2>
+            <h2 id="packs-title" className="mb-2 font-display text-[14px] font-bold uppercase tracking-[0.12em] text-white/70">{t("Dónde puede salir")}</h2>
             {p.availability.length === 0 ? (
-              <p className="text-body text-ink-muted">Ahora mismo no entra en ningún sobre a la venta.</p>
+              <p className="text-body text-ink-muted">{t("Ahora mismo no entra en ningún sobre a la venta.")}</p>
             ) : (
               <>
-                <p className="text-body text-ink-muted">Puede salir en {p.availability.length === 1 ? "este sobre" : `estos ${p.availability.length} sobres`} a la venta. No es una garantía: depende del sorteo de cada sobre.</p>
+                <p className="text-body text-ink-muted">{t("Puede salir en {n, plural, one {este sobre} other {estos # sobres}} a la venta. No es una garantía: depende del sorteo de cada sobre.", { n: p.availability.length })}</p>
                 <ul className="mt-2 flex flex-wrap gap-1.5">
                   {p.availability.slice(0, 8).map((a) => <li key={a.packId}><Badge tone="muted">{a.name}</Badge></li>)}
-                  {p.availability.length > 8 && <li><Badge tone="muted">+{p.availability.length - 8} más</Badge></li>}
+                  {p.availability.length > 8 && <li><Badge tone="muted">{t("+{n} más", { n: p.availability.length - 8 })}</Badge></li>}
                 </ul>
-                <NxButton variant="tertiary" size="md" href="/packs" className="mt-2">Ver sobres</NxButton>
+                <NxButton variant="tertiary" size="md" href="/packs" className="mt-2">{t("Ver sobres")}</NxButton>
               </>
             )}
           </section>

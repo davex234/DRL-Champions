@@ -5,6 +5,9 @@
  * "Gana con un jugador de {equipo} campeón"). Reglas, no hardcode. PURO y determinista.
  */
 import type { EcoEvent } from "./events";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("live");
 
 export interface Challenge {
   id: string;
@@ -25,13 +28,13 @@ export function generateChallenges(events: EcoEvent[]): Challenge[] {
 
   for (const e of events) {
     if (e.type === "champion" && e.team) {
-      add(mk({ kind: "team", season: e.season, title: `Reta a ${e.team}`, description: `Gana un partido con un jugador campeón de ${e.tournamentName}.`, criteria: { team: e.team }, reward: { credits: 2000, xp: 80 } }));
+      add(mk({ kind: "team", season: e.season, title: t("Reta a {team}", { team: e.team }), description: t("Gana un partido con un jugador campeón de {tournamentName}.", { tournamentName: td(e.tournamentName) }), criteria: { team: e.team }, reward: { credits: 2000, xp: 80 } }));
     }
     if (e.type === "historic_ace" && e.player) {
-      add(mk({ kind: "ability", season: e.season, title: "Reyes del clutch", description: "Gana usando jugadores con alta habilidad de Clutch.", criteria: { ability: "Clutch" }, reward: { credits: 1500, xp: 60 } }));
+      add(mk({ kind: "ability", season: e.season, title: t("Reyes del clutch"), description: t("Gana usando jugadores con alta habilidad de Clutch."), criteria: { ability: "Clutch" }, reward: { credits: 1500, xp: 60 } }));
     }
     if (e.type === "mvp" && e.player) {
-      add(mk({ kind: "player", season: e.season, title: `Como ${e.player}`, description: `Gana un partido con ${e.player} en tu quinteto.`, criteria: { player: e.player }, reward: { credits: 1800, xp: 70 } }));
+      add(mk({ kind: "player", season: e.season, title: t("Como {player}", { player: e.player }), description: t("Gana un partido con {player} en tu quinteto.", { player: e.player }), criteria: { player: e.player }, reward: { credits: 1800, xp: 70 } }));
     }
   }
   return [...out.values()];

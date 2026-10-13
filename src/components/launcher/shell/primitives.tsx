@@ -38,6 +38,8 @@
 import { ACCENT } from "@/design/tokens";
 import { cn } from "@/lib/format";
 import { Readout } from "@/components/ui/Readout";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 /** Avatar generado: monograma sobre placa con el color de la persona. Cero peticiones de red. */
 export function Avatar({ name, color, size = 34, ring }: { name: string; color: string; size?: number; ring?: string }) {
@@ -65,6 +67,7 @@ export function Avatar({ name, color, size = 34, ring }: { name: string; color: 
 export function Toggle({
   checked, onChange, label, hint, disabled,
 }: { checked: boolean; onChange: (v: boolean) => void; label: string; hint?: string; disabled?: boolean }) {
+  useLocale();
   return (
     <button
       type="button"
@@ -78,8 +81,8 @@ export function Toggle({
       )}
     >
       <span className="min-w-0">
-        <span className="block truncate text-body font-semibold text-ink-secondary">{label}</span>
-        {hint && <span className="mt-0.5 block truncate text-caption text-ink-muted">{hint}</span>}
+        <span className="block truncate text-body font-semibold text-ink-secondary">{td(label)}</span>
+        {hint && <span className="mt-0.5 block truncate text-caption text-ink-muted">{td(hint)}</span>}
       </span>
       <span
         className={cn(
@@ -103,16 +106,17 @@ export function Slider({
   value: number; min: number; max: number; step?: number;
   onChange: (v: number) => void; label: string; format?: (v: number) => string;
 }) {
+  useLocale();
   const pct = ((value - min) / (max - min)) * 100;
   return (
     <div className="px-4 py-3">
       <div className="flex items-baseline justify-between gap-4">
-        <span className="text-body font-semibold text-ink-secondary">{label}</span>
+        <span className="text-body font-semibold text-ink-secondary">{td(label)}</span>
         <Readout size="xs" tone={ACCENT.primary} value={format ? format(value) : value} align="right" />
       </div>
       <input
         type="range"
-        aria-label={label}
+        aria-label={td(label)}
         min={min}
         max={max}
         step={step}

@@ -29,6 +29,9 @@ import { availableMaps, getTacticalMap, type TacticalMap } from "./maps";
 import { NAV_GRAPHS } from "./navigation/maps";
 import { findPath, edgePolyline, pointAlong, cumulative } from "./navigation/pathfinding";
 import type { MapNavigationGraph, NavPathResult, NavPoint } from "./navigation/types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("tactics");
 
 export type Pt = { x: number; y: number };
 
@@ -43,7 +46,7 @@ export function isMatchMapId(id: unknown): id is string {
 
 export class InvalidMatchMapError extends Error {
   constructor(readonly mapId: unknown) {
-    super("Ese mapa no existe en el catálogo del Tactical Coach.");
+    super(tr("Ese mapa no existe en el catálogo del Tactical Coach."));
     this.name = "InvalidMatchMapError";
   }
 }

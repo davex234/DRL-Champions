@@ -23,6 +23,9 @@ import {
   BUCKET_LABEL, BUCKET_ORDER, buildCollectionSnapshot, cardHref, formatSerial, rarityOf, serialPrestige,
   type CollectionSetKind, type CollectionSnapshot, type OwnedInstanceFact, type SerialPrestigeTier,
 } from "@/domain/collection/room";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("packs");
 
 /* ═══════════════════════ entrada ═══════════════════════ */
 
@@ -183,9 +186,9 @@ export const openingKey = (uids: readonly string[]): string => [...uids].sort().
 export const heroTieWeight = (key: string, uid: string): number => fnv1a(`${key}#${uid}`);
 
 export function selectHero(items: readonly RevealItem[]): HeroPick {
-  if (items.length === 0) return { ok: false, reason: "EMPTY", detail: "la apertura no trae cartas" };
+  if (items.length === 0) return { ok: false, reason: "EMPTY", detail: t("la apertura no trae cartas") };
   const bad = items.filter((i) => typeof i.card.ovr !== "number" || !Number.isFinite(i.card.ovr));
-  if (bad.length > 0) return { ok: false, reason: "INVALID_OVR", detail: `sin OVR válido: ${bad.map((i) => i.cardId).join(", ")}` };
+  if (bad.length > 0) return { ok: false, reason: "INVALID_OVR", detail: t("sin OVR válido: {v}", { v: bad.map((i) => i.cardId).join(", ") }) };
   const max = Math.max(...items.map((i) => i.card.ovr));
   const tied = items.filter((i) => i.card.ovr === max);
   if (tied.length === 1) return { ok: true, hero: tied[0], tied };
@@ -200,7 +203,7 @@ export function selectHero(items: readonly RevealItem[]): HeroPick {
  * resumen y se dice cuántas no se pudieron mostrar (siguen guardadas en la colección).
  */
 export function cinematicFor(plan: Pick<RevealPlan, "hero" | "summary">): { ok: true } | { ok: false; reason: "EMPTY" | "INVALID_OVR" | "UNRESOLVED"; detail: string } {
-  if (plan.summary.unresolved > 0) return { ok: false, reason: "UNRESOLVED", detail: `${plan.summary.unresolved} carta(s) fuera del catálogo vivo` };
+  if (plan.summary.unresolved > 0) return { ok: false, reason: "UNRESOLVED", detail: t("{unresolved} carta(s) fuera del catálogo vivo", { unresolved: plan.summary.unresolved }) };
   if (!plan.hero.ok) return { ok: false, reason: plan.hero.reason, detail: plan.hero.detail };
   return { ok: true };
 }
@@ -236,8 +239,8 @@ export function beforeExcluding(current: readonly OwnedInstanceFact[], opened: r
 }
 
 function statusText(item: Pick<RevealItem, "status" | "copiesAfter" | "newVariant">): string {
-  if (item.status === "new") return item.newVariant ? " Nueva variante en tu colección." : " Nueva en tu colección.";
-  if (item.status === "duplicate") return ` Duplicada, ahora tienes ${item.copiesAfter}.`;
+  if (item.status === "new") return item.newVariant ? (" " + t("Nueva variante en tu colección.")) : (" " + t("Nueva en tu colección."));
+  if (item.status === "duplicate") return t(" Duplicada, ahora tienes {copiesAfter}.", { copiesAfter: item.copiesAfter });
   return "";
 }
 
@@ -301,7 +304,7 @@ export function buildRevealPlan(
 
   for (const it of items) {
     const who = it.player?.nick ?? it.cardId;
-    it.announcement = `Carta ${it.index + 1} de ${items.length}. ${who}. ${it.rarityLabel}. OVR ${it.card.ovr}.${it.serialText ? ` Serial ${it.serialText}.` : ""}${statusText(it)}`;
+    it.announcement = t("Carta {v} de {length}. {who}. {rarityLabel}. OVR {ovr}.{v2}{it}", { v: it.index + 1, length: items.length, who: td(who), rarityLabel: td(it.rarityLabel), ovr: it.card.ovr, v2: it.serialText ? ` Serial ${it.serialText}.` : "", it: statusText(it) });
   }
 
   const hero = selectHero(items);
@@ -385,25 +388,25 @@ export function classifyOpenFailure(error: unknown): OpenFailure {
   const msg = error instanceof Error ? error.message : typeof error === "string" ? error : "";
   // F81.1 · con cuenta, el motor local está prohibido: ni cartas locales ni «no tienes»; se reintenta (irá al servidor).
   if (/los sobres los abre el servidor/i.test(msg)) {
-    return { kind: "SESSION", title: "Recuperando tu cuenta", message: "Con tu cuenta, los sobres los abre el servidor. Vuelve a intentarlo en un momento: no se ha abierto nada.", retrySameKey: true };
+    return { kind: "SESSION", title: t("Recuperando tu cuenta"), message: t("Con tu cuenta, los sobres los abre el servidor. Vuelve a intentarlo en un momento: no se ha abierto nada."), retrySameKey: true };
   }
   // F81.1 · el servidor respondió algo que no se puede presentar: se dice, no se filtra ni se completa en el navegador.
   if (/resultado de apertura no válido/i.test(msg)) {
-    return { kind: "INVALID", title: "No se pudo mostrar la apertura", message: "El servidor devolvió un resultado que no se puede mostrar. Si el sobre llegó a abrirse, tus cartas están guardadas en tu colección.", retrySameKey: false };
+    return { kind: "INVALID", title: t("No se pudo mostrar la apertura"), message: t("El servidor devolvió un resultado que no se puede mostrar. Si el sobre llegó a abrirse, tus cartas están guardadas en tu colección."), retrySameKey: false };
   }
   if (error instanceof TypeError || /failed to fetch|networkerror|network request|load failed|fetch failed|sin conexión|timed out|timeout|aborted/i.test(msg) || (error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError"))) {
-    return { kind: "NETWORK", title: "Se perdió la conexión", message: "La conexión se cortó mientras se abría el sobre. Reintenta: si el servidor ya lo abrió, recuperarás exactamente las mismas cartas.", retrySameKey: true };
+    return { kind: "NETWORK", title: t("Se perdió la conexión"), message: t("La conexión se cortó mientras se abría el sobre. Reintenta: si el servidor ya lo abrió, recuperarás exactamente las mismas cartas."), retrySameKey: true };
   }
   if (/no tienes ese sobre/i.test(msg)) {
-    return { kind: "NO_PACK", title: "No te queda este sobre", message: "No queda ninguna unidad de este sobre. Si lo abriste en otra pestaña, tus cartas ya están en tu colección.", retrySameKey: false };
+    return { kind: "NO_PACK", title: t("No te queda este sobre"), message: t("No queda ninguna unidad de este sobre. Si lo abriste en otra pestaña, tus cartas ya están en tu colección."), retrySameKey: false };
   }
   if (/no autenticado|sesión/i.test(msg)) {
-    return { kind: "AUTH", title: "Inicia sesión", message: "Tu sesión ha caducado. Inicia sesión para abrir el sobre.", retrySameKey: false };
+    return { kind: "AUTH", title: t("Inicia sesión"), message: t("Tu sesión ha caducado. Inicia sesión para abrir el sobre."), retrySameKey: false };
   }
   if (/no encontrado|no está disponible|no disponible/i.test(msg)) {
-    return { kind: "UNAVAILABLE", title: "Sobre no disponible", message: "Este sobre no está disponible para abrir.", retrySameKey: false };
+    return { kind: "UNAVAILABLE", title: t("Sobre no disponible"), message: t("Este sobre no está disponible para abrir."), retrySameKey: false };
   }
-  return { kind: "SERVER", title: "No se pudo abrir", message: "El servidor no pudo completar la apertura. Reintentar es seguro: si llegó a abrirse recuperas las mismas cartas; si no, el sobre sigue en tu inventario.", retrySameKey: true };
+  return { kind: "SERVER", title: t("No se pudo abrir"), message: t("El servidor no pudo completar la apertura. Reintentar es seguro: si llegó a abrirse recuperas las mismas cartas; si no, el sobre sigue en tu inventario."), retrySameKey: true };
 }
 
 /* ═══════════════════════ máquina de estados de PRESENTACIÓN (F81) ═══════════════════════ */

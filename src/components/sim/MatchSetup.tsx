@@ -29,6 +29,10 @@ import { NxButton } from "@/components/ui/NxButton";
 import { Readout } from "@/components/ui/Readout";
 import { playCue } from "@/lib/sound";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("sim");
 
 const RIVALS: { id: RivalDifficulty; label: string; desc: string }[] = [
   { id: "easy", label: "Fácil", desc: "Rival de menor nivel" },
@@ -46,6 +50,7 @@ export function MatchSetup({ onPlay, initial }: {
   /** `side` se ignora a propósito: ya no es una preferencia que se pueda recordar. */
   initial?: { side?: Side; difficulty: RivalDifficulty } | null;
 }) {
+  useLocale();
   const [difficulty, setDifficulty] = useState<RivalDifficulty>(initial?.difficulty ?? "normal");
   const [fase, setFase] = useState<Fase>("listo");
   const [salido, setSalido] = useState<Side | null>(null);
@@ -83,12 +88,12 @@ export function MatchSetup({ onPlay, initial }: {
         el rival es un ajuste, no un paso obligatorio del recorrido.
       */}
       <Stage tone="primary" grid className="px-5 py-6 text-center sm:px-8">
-        <span className="nx-label">Preparar partido</span>
+        <span className="nx-label">{t("Preparar partido")}</span>
         <h2 className="mt-1 font-display text-[clamp(24px,4vw,36px)] font-bold uppercase leading-none text-white">
-          Dirigir partido
+          {t("Dirigir partido")}
         </h2>
         <p className="mx-auto mt-2 max-w-md text-body text-ink-muted">
-          A 13 rondas, con cambio de lado. Tú no disparas: decides.
+          {t("A 13 rondas, con cambio de lado. Tú no disparas: decides.")}
         </p>
 
         <div className="mt-5">
@@ -99,7 +104,7 @@ export function MatchSetup({ onPlay, initial }: {
             disabled={sorteando}
             className="w-full sm:w-auto sm:min-w-[280px]"
           >
-            {sorteando ? "Sorteando lado…" : "Sortear lado y jugar"}
+            {sorteando ? t("Sorteando lado…") : t("Sortear lado y jugar")}
           </NxButton>
         </div>
       </Stage>
@@ -112,12 +117,12 @@ export function MatchSetup({ onPlay, initial }: {
       <Plate className="px-5 py-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="min-w-0">
-            <span className="nx-label">Lado inicial</span>
+            <span className="nx-label">{t("Lado inicial")}</span>
             <p className="mt-0.5 text-caption text-ink-muted">
-              No se elige. Se sortea a partes iguales, como en una moneda.
+              {t("No se elige. Se sortea a partes iguales, como en una moneda.")}
             </p>
           </div>
-          <Readout size="sm" label="Reparto" value="50 / 50" tone="var(--nx-gold)" />
+          <Readout size="sm" label={t("Reparto")} value="50 / 50" tone="var(--nx-gold)" />
         </div>
 
         <div className="mt-3 grid grid-cols-2 gap-2.5" role="status" aria-live="polite">
@@ -150,10 +155,10 @@ export function MatchSetup({ onPlay, initial }: {
                   </Medallion>
                   <span className="min-w-0">
                     <b className="block font-display text-[14px] font-bold uppercase tracking-[0.06em] text-white">
-                      {SIDE_NAME[sd]}
+                      {td(SIDE_NAME[sd])}
                     </b>
                     <span className="block text-caption text-ink-faint">
-                      {ganador ? "Te toca" : salido ? "—" : "Posible"}
+                      {ganador ? t("Te toca") : salido ? "—" : t("Posible")}
                     </span>
                   </span>
                 </Plate>
@@ -165,14 +170,14 @@ export function MatchSetup({ onPlay, initial }: {
         {/* El resultado en palabras, para quien no ve el color ni la animación. */}
         {salido && (
           <p className="mt-2.5 text-center text-caption text-ok">
-            Sale <b className="text-white">{SIDE_NAME[salido]}</b>. Empiezas la primera mitad ahí.
+            {t("Sale")} <b className="text-white">{td(SIDE_NAME[salido])}</b>{t(". Empiezas la primera mitad ahí.")}
           </p>
         )}
       </Plate>
 
       {/* ═══ RIVAL ═══ */}
       <Plate className="px-5 py-4">
-        <span className="nx-label">Rival</span>
+        <span className="nx-label">{t("Rival")}</span>
         <div className="mt-2 grid gap-2 sm:grid-cols-3">
           {RIVALS.map((r) => (
             <button
@@ -189,8 +194,8 @@ export function MatchSetup({ onPlay, initial }: {
                 sorteando && "opacity-50",
               )}
             >
-              <p className="font-display text-[13px] font-bold uppercase tracking-wide text-white">{r.label}</p>
-              <p className="text-caption text-ink-faint">{r.desc}</p>
+              <p className="font-display text-[13px] font-bold uppercase tracking-wide text-white">{td(r.label)}</p>
+              <p className="text-caption text-ink-faint">{td(r.desc)}</p>
             </button>
           ))}
         </div>

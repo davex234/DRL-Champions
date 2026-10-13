@@ -15,6 +15,10 @@ import { Meter } from "@/components/ui/Meter";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/format";
 import { TONE_RGB, type HeroModel, type HeroVisual } from "@/lib/dailyLoop/presentation";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("dailyLoop");
 
 const ACCENT: Record<HeroModel["tone"], "primary" | "gold" | "cyan"> = { key: "primary", gold: "gold", cyan: "cyan", violet: "primary", green: "cyan" };
 const METER_TONE: Record<HeroModel["tone"], "key" | "gold" | "info" | "ok"> = { key: "key", gold: "gold", cyan: "info", violet: "info", green: "ok" };
@@ -34,6 +38,7 @@ const VISUAL_LABEL: Record<HeroVisual, string> = {
  * contenido no cambia nunca: lo decide el Live Service.
  */
 export function DailyHero({ hero, actionId, offline = false, tier = "stage", play = false }: { hero: HeroModel; actionId: string; offline?: boolean; tier?: "stage" | "context"; play?: boolean }) {
+  useLocale();
   const reduce = useReducedMotion();
   const rgb = TONE_RGB[hero.tone];
   const context = tier === "context";
@@ -69,28 +74,28 @@ export function DailyHero({ hero, actionId, offline = false, tier = "stage", pla
         >
           <p className="flex flex-wrap items-center gap-2">
             <span className="font-display text-[12px] font-bold uppercase tracking-[0.18em]" style={{ color: `rgb(${rgb})` }}>
-              {hero.eyebrow}
+              {td(hero.eyebrow)}
             </span>
-            {hero.urgent && !hero.deadline && <Badge tone="warn">Ahora</Badge>}
-            {hero.deadline && <Badge tone={hero.deadline.urgency === "VERY_SOON" ? "warn" : "info"} dot><span data-testid="daily-hero-deadline" data-urgency={hero.deadline.urgency}>{hero.deadline.label}</span></Badge>}
+            {hero.urgent && !hero.deadline && <Badge tone="warn">{t("Ahora")}</Badge>}
+            {hero.deadline && <Badge tone={hero.deadline.urgency === "VERY_SOON" ? "warn" : "info"} dot><span data-testid="daily-hero-deadline" data-urgency={hero.deadline.urgency}>{td(hero.deadline.label)}</span></Badge>}
           </p>
           <h1 id="daily-hero-title" className={cn("mt-2 break-words font-display font-bold uppercase leading-[0.94] tracking-[-0.005em] text-white", context ? "text-[clamp(24px,3.4vw,38px)]" : "text-[clamp(30px,5.6vw,62px)]")}>
-            {hero.title}
+            {td(hero.title)}
           </h1>
-          <p className="mt-3 max-w-xl text-body leading-relaxed text-ink-muted">{hero.detail}</p>
+          <p className="mt-3 max-w-xl text-body leading-relaxed text-ink-muted">{td(hero.detail)}</p>
           {hero.reason && (
             <p className="mt-2 max-w-xl text-[14px] font-semibold text-white/85" data-testid="daily-hero-reason">
-              <span className="sr-only">Por qué: </span><span aria-hidden className="mr-1.5" style={{ color: `rgb(${rgb})` }}>›</span>{hero.reason}
+              <span className="sr-only">{t("Por qué:")} </span><span aria-hidden className="mr-1.5" style={{ color: `rgb(${rgb})` }}>›</span>{td(hero.reason)}
             </p>
           )}
 
           {hero.progress && (
             <div className="mt-5 max-w-md">
               <div className="mb-1.5 flex items-baseline justify-between gap-3 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white/70">
-                <span>Progreso</span>
-                <span className="nx-readout text-[15px] text-white">{hero.progress.label}</span>
+                <span>{t("Progreso")}</span>
+                <span className="nx-readout text-[15px] text-white">{td(hero.progress.label)}</span>
               </div>
-              <Meter value={hero.progress.pct} tone={METER_TONE[hero.tone]} height={10} label={`Progreso ${hero.progress.label}`} />
+              <Meter value={hero.progress.pct} tone={METER_TONE[hero.tone]} height={10} label={t("Progreso {label}", { label: td(hero.progress.label) })} />
             </div>
           )}
 
@@ -98,36 +103,36 @@ export function DailyHero({ hero, actionId, offline = false, tier = "stage", pla
             {hero.cta.disabled ? (
               // Sin acento: el relleno del acento va por `style` y taparía el aspecto desactivado del sistema.
               <NxButton variant="primary" size="lg" disabled className="w-full sm:w-auto" data-testid="daily-primary-cta">
-                {hero.cta.label}
+                {td(hero.cta.label)}
               </NxButton>
             ) : play && !context ? (
               // Fase 44 · jugar/continuar: el botón del héroe es el botón JUGAR del juego (misma pieza visual que el armazón).
               <span className="nx-play-wrap w-full sm:w-auto">
                 <span aria-hidden className="nx-play-halo" />
                 <Link href={hero.cta.href} className="nx-play w-full sm:w-auto" data-size="hero" data-kind={hero.visual === "match" ? "resume" : "play"} data-game-cta="play" data-cta="primary" data-testid="daily-primary-cta">
-                  {hero.cta.label}
+                  {td(hero.cta.label)}
                 </Link>
               </span>
             ) : (
               <NxButton variant="primary" accent={ACCENT[hero.tone]} size={context ? "md" : "lg"} href={hero.cta.href} className="w-full sm:w-auto" data-testid="daily-primary-cta" data-cta={context ? "context" : "primary"}>
-                {hero.cta.label}
+                {td(hero.cta.label)}
               </NxButton>
             )}
             {hero.secondary && (hero.secondary.disabled ? (
-              <NxButton variant="secondary" size="lg" disabled className="w-full sm:w-auto">{hero.secondary.label}</NxButton>
+              <NxButton variant="secondary" size="lg" disabled className="w-full sm:w-auto">{td(hero.secondary.label)}</NxButton>
             ) : (
-              <NxButton variant="secondary" size="lg" href={hero.secondary.href} className="w-full sm:w-auto" data-testid="daily-secondary-cta">{hero.secondary.label}</NxButton>
+              <NxButton variant="secondary" size="lg" href={hero.secondary.href} className="w-full sm:w-auto" data-testid="daily-secondary-cta">{td(hero.secondary.label)}</NxButton>
             ))}
           </div>
           {offline && (
             <p role="status" className="mt-3 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-warn">
-              Sin conexión · las acciones vuelven cuando recuperes la red
+              {t("Sin conexión · las acciones vuelven cuando recuperes la red")}
             </p>
           )}
         </motion.div>
 
         {!context && (
-          <aside aria-label={VISUAL_LABEL[hero.visual]} className="min-w-0">
+          <aside aria-label={td(VISUAL_LABEL[hero.visual])} className="min-w-0">
             <HeroEmblem hero={hero} rgb={rgb} />
           </aside>
         )}
@@ -146,9 +151,9 @@ function HeroEmblem({ hero, rgb }: { hero: HeroModel; rgb: string }) {
       </svg>
       <span className="relative text-center">
         <span className="block font-display text-[64px] leading-none" style={{ color: `rgb(${rgb})`, textShadow: `0 0 36px rgba(${rgb}, 0.6)` }}>
-          {hero.count !== null ? hero.count : GLYPH[hero.visual]}
+          {hero.count !== null ? hero.count : td(GLYPH[hero.visual])}
         </span>
-        <span className="mt-2 block font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white/70">{VISUAL_LABEL[hero.visual]}</span>
+        <span className="mt-2 block font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white/70">{td(VISUAL_LABEL[hero.visual])}</span>
       </span>
     </div>
   );

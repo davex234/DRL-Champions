@@ -14,6 +14,10 @@ import { ModePanel, PanelImage } from "@/components/modes/ModePanel";
 import { CARDS } from "@/data/catalog";
 import { packArtwork } from "@/data/packArtwork";
 import { CardArt } from "@/components/cards/CardArt";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("season");
 
 /** Las tres áreas, en su orden. Exactamente tres: el contrato (`seasonHub.render.test`) lo fija. */
 export const SEASON_AREAS = [
@@ -23,6 +27,9 @@ export const SEASON_AREAS = [
 ] as const;
 
 export type SeasonAreaId = (typeof SEASON_AREAS)[number]["id"];
+
+/** El botón de cada área, traducido AQUÍ (con el catálogo de este módulo): «Entrar» a una sección no es «Entrar» a la cuenta. */
+const areaCta = (id: SeasonAreaId): string => (id === "PASS" ? t("Ver pase") : id === "OBJECTIVES" ? t("Ver objetivos") : t("Entrar"));
 
 const PANEL = "min-h-[232px] sm:min-h-[280px] lg:min-h-[540px]";
 
@@ -83,10 +90,11 @@ function CraftingArt() {
 const ART: Record<SeasonAreaId, () => React.ReactElement> = { PASS: PassArt, OBJECTIVES: ObjectivesArt, CRAFTING: CraftingArt };
 
 export function SeasonModesHub({ className }: { className?: string }) {
+  useLocale();
   return (
     <div className={cn("mx-auto w-full max-w-[1480px] space-y-4 px-4 pb-10 pt-5 md:px-8", className)} data-testid="season-hub">
-      <h1 className="font-display text-[clamp(28px,4vw,44px)] font-bold uppercase leading-none text-white">Temporada</h1>
-      <section aria-label="Temporada" data-testid="season-areas" className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-4">
+      <h1 className="font-display text-[clamp(28px,4vw,44px)] font-bold uppercase leading-none text-white">{t("Temporada")}</h1>
+      <section aria-label={t("Temporada")} data-testid="season-areas" className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-4">
         {SEASON_AREAS.map((a, i) => {
           const Art = ART[a.id];
           return (
@@ -97,8 +105,8 @@ export function SeasonModesHub({ className }: { className?: string }) {
               dataMode={a.id}
               rgb={a.rgb}
               focus={a.focus}
-              title={a.title}
-              cta={{ label: a.cta, href: a.href }}
+              title={td(a.title)}
+              cta={{ label: areaCta(a.id), href: a.href }}
               primary={i === 0}
               art={<Art />}
               className={PANEL}

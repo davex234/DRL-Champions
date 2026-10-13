@@ -35,6 +35,10 @@ import {
   type EntranceBeat, type FlowMode,
 } from "@/lib/duel/matchFlow";
 import { DIFFICULTY_INFO, type DuelMatchView } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 const TONO = { tu: ARENA_ACCENT.player, rival: ARENA_ACCENT.opponent } as const;
 
@@ -51,6 +55,7 @@ export function MatchIntro({
   /** Avatar público del rival (PvP), si el servidor lo dio. */
   rivalAvatar?: string | null;
 }) {
+  useLocale();
   const reduced = !!useReducedMotion();
   const human = mode === "ranked" || mode === "private";
   const copy = entranceCopy(mode, view, rivalName, human ? null : DIFFICULTY_INFO[view.difficulty]?.label ?? null);
@@ -88,7 +93,7 @@ export function MatchIntro({
     <motion.div
       role="dialog"
       aria-modal="true"
-      aria-label="Presentación del duelo"
+      aria-label={t("Presentación del duelo")}
       data-scene="intro"
       data-beat={beat}
       data-f61="entrance"
@@ -114,7 +119,7 @@ export function MatchIntro({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: EASE.out }}
               >
-                {copy.mode}
+                {td(copy.mode)}
               </motion.p>
               <motion.h2
                 className="nx-f61-kicker mt-3 font-display font-bold uppercase leading-[0.9]"
@@ -122,7 +127,7 @@ export function MatchIntro({
                 animate={{ opacity: 1, scale: 1, letterSpacing: "0.04em" }}
                 transition={{ duration: 0.42, ease: EASE.out }}
               >
-                {copy.kicker}
+                {td(copy.kicker)}
               </motion.h2>
               <motion.div
                 className="mt-6 flex items-center gap-3"
@@ -130,7 +135,7 @@ export function MatchIntro({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: reduced ? 0.15 : 0.22, duration: 0.3, ease: EASE.out }}
               >
-                {rivalAvatar && <span aria-hidden className="text-[34px] leading-none">{rivalAvatar}</span>}
+                {rivalAvatar && <span aria-hidden className="text-[34px] leading-none">{td(rivalAvatar)}</span>}
                 <span className="text-left">
                   <b className="block font-display text-[clamp(22px,4vw,40px)] font-bold uppercase leading-none text-white">{copy.rival}</b>
                   <span className="nx-label mt-1 block" style={{ color: `${TONO.rival}cc` }}>{copy.rivalTag}</span>
@@ -148,9 +153,9 @@ export function MatchIntro({
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.38, ease: EASE.out }}
                 >
-                  <span className="nx-label block" style={{ color: `${TONO.tu}cc` }}>Tú</span>
-                  <b className="nx-f61-vs-name block truncate font-display font-bold uppercase leading-none text-white">{copy.you}</b>
-                  <span className="nx-label mt-2 block">Fuerza Σ <b className="nx-readout text-[18px] text-white">{view.yourSumOvr}</b></span>
+                  <span className="nx-label block" style={{ color: `${TONO.tu}cc` }}>{t("Tú")}</span>
+                  <b className="nx-f61-vs-name block truncate font-display font-bold uppercase leading-none text-white">{td(copy.you)}</b>
+                  <span className="nx-label mt-2 block">{t("Fuerza Σ")} <b className="nx-readout text-[18px] text-white">{view.yourSumOvr}</b></span>
                 </motion.div>
 
                 <motion.span
@@ -161,9 +166,9 @@ export function MatchIntro({
                   transition={{ duration: 0.4, ease: EASE.out, delay: reduced ? 0.08 : 0.14 }}
                 >
                   <span className="nx-a50-vs-ring" />
-                  <span className="nx-a50-vs relative block font-display !text-[clamp(52px,11vw,132px)]" data-ready="true">VS</span>
+                  <span className="nx-a50-vs relative block font-display !text-[clamp(52px,11vw,132px)]" data-ready="true">{t("VS")}</span>
                 </motion.span>
-                <span className="sr-only">contra</span>
+                <span className="sr-only">{t("contra")}</span>
 
                 <motion.div
                   className="min-w-0 text-left"
@@ -173,7 +178,7 @@ export function MatchIntro({
                 >
                   <span className="nx-label block" style={{ color: `${TONO.rival}cc` }}>{copy.rivalTag}</span>
                   <b className="nx-f61-vs-name block truncate font-display font-bold uppercase leading-none text-white">{copy.rival}</b>
-                  <span className="nx-label mt-2 block">Fuerza Σ <b className="nx-readout text-[18px] text-white">{view.rivalSumOvr}</b></span>
+                  <span className="nx-label mt-2 block">{t("Fuerza Σ")} <b className="nx-readout text-[18px] text-white">{view.rivalSumOvr}</b></span>
                 </motion.div>
               </div>
               <motion.p
@@ -182,7 +187,7 @@ export function MatchIntro({
                 animate={{ opacity: 1 }}
                 transition={{ delay: reduced ? 0.25 : 0.42, duration: 0.3 }}
               >
-                {copy.opening} · {view.totalTurns} turnos
+                {td(copy.opening)} · {view.totalTurns} {t("turnos")}
               </motion.p>
             </motion.div>
           )}
@@ -193,7 +198,7 @@ export function MatchIntro({
                 EL RIVAL, BOCA ABAJO. Solo cuántas cartas tiene (un número público), nunca cuáles: en PvP el
                 snapshot llega redactado y en PvE su mazo no está en la vista.
               */}
-              <div className="flex items-center gap-3" aria-label={`Equipo rival: ${view.rivalRemaining} cartas ocultas`} data-testid="intro-rival-backs">
+              <div className="flex items-center gap-3" aria-label={t("Equipo rival: {rivalRemaining} cartas ocultas", { rivalRemaining: view.rivalRemaining })} data-testid="intro-rival-backs">
                 <span className="nx-label" style={{ color: `${TONO.rival}cc` }}>{copy.rival}</span>
                 <span className="flex">
                   {Array.from({ length: Math.min(view.rivalRemaining, 10) }, (_, i) => (
@@ -204,10 +209,10 @@ export function MatchIntro({
                 </span>
               </div>
 
-              <p className="nx-label mt-5 !text-[11px] !tracking-[0.3em]" style={{ color: `${TONO.tu}dd` }}>Tu equipo salta a la mesa</p>
+              <p className="nx-label mt-5 !text-[11px] !tracking-[0.3em]" style={{ color: `${TONO.tu}dd` }}>{t("Tu equipo salta a la mesa")}</p>
 
               {/* TUS DIEZ, por rol y fuerza. El asset es la carta: `DuelCard` pinta el arte impreso del catálogo. */}
-              <div className={cn("nx-f61-lineup mt-3 flex w-full items-end justify-center", narrow && "is-narrow flex-wrap")} aria-label="Tu mano">
+              <div className={cn("nx-f61-lineup mt-3 flex w-full items-end justify-center", narrow && "is-narrow flex-wrap")} aria-label={t("Tu mano")}>
                 {lineup.cards.map((c, i) => {
                   const star = lineup.stars.some((s) => s.uid === c.uid);
                   return (
@@ -227,14 +232,14 @@ export function MatchIntro({
 
               <motion.ul
                 className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1"
-                aria-label="Roles del equipo"
+                aria-label={t("Roles del equipo")}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: reduced ? 0.3 : 0.5, duration: 0.3 }}
               >
                 {lineup.roles.map((r) => (
                   <li key={r.role} className="font-display text-[11px] font-bold uppercase tracking-[0.16em] text-white/70">
-                    <span className="text-white">{r.count}</span> {ROLE_ABBR[r.role] ?? r.role}
+                    <span className="text-white">{r.count}</span> {td(ROLE_ABBR[r.role]) ?? td(r.role)}
                   </li>
                 ))}
                 <li className="font-display text-[11px] font-bold uppercase tracking-[0.16em] text-white/70">Σ <span className="text-white">{lineup.sumOvr}</span></li>
@@ -255,7 +260,7 @@ export function MatchIntro({
             onClick={onDone}
             className="nx-focus inline-flex min-h-[44px] items-center rounded-lg border border-white/15 bg-black/30 px-5 text-[11px] font-bold uppercase tracking-[0.14em] text-white/70 transition hover:bg-white/10 hover:text-white"
           >
-            Saltar
+            {t("Saltar")}
           </button>
         </div>
       </div>

@@ -17,6 +17,10 @@ import { campaignAreaCta, COACH_ROUTE, DUELS_ROUTE, type GameModeCard, type Play
 import { playSound } from "@/lib/sound";
 import { focusEnvironment } from "@/components/dailyLoop/LobbyPlayStage";
 import { AgentPanelArt, ModePanel, PanelImage } from "./ModePanel";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("modes");
 
 /** Tinte de cada área («r,g,b»): campaña oro de campeones, duelos magenta de arena, coach cian de pizarra. */
 export const AREA_TINT: Record<PlayAreaId, string> = { RTC: "255,211,92", DUELS: "255,46,99", COACH: "47,224,255" };
@@ -80,6 +84,7 @@ export function GameModesHub({
   offline?: boolean;
   className?: string;
 }) {
+  useLocale();
   const rtc = cards.find((c) => c.id === "ROAD_TO_CHAMPIONS") ?? null;
   /* Si hay partida abierta manda ella (F45): se sube arriba y es la acción dominante. */
   const open = cards.find((c) => c.status === "EN PARTIDA") ?? null;
@@ -89,10 +94,10 @@ export function GameModesHub({
 
   return (
     <div className={cn("space-y-4", className)} data-testid="game-modes-hub">
-      <h1 className="font-display text-[clamp(28px,4vw,44px)] font-bold uppercase leading-none text-white">Jugar</h1>
+      <h1 className="font-display text-[clamp(28px,4vw,44px)] font-bold uppercase leading-none text-white">{t("Jugar")}</h1>
 
       {offline && (
-        <p role="status" className="border-l-2 border-drl-gold bg-white/[0.03] px-4 py-2 text-caption text-drl-gold">Sin conexión · tu progreso está a salvo.</p>
+        <p role="status" className="border-l-2 border-drl-gold bg-white/[0.03] px-4 py-2 text-caption text-drl-gold">{t("Sin conexión · tu progreso está a salvo.")}</p>
       )}
 
       {open && (
@@ -105,31 +110,31 @@ export function GameModesHub({
           style={{ boxShadow: `inset 0 0 0 1px rgba(${MODE_TINT[open.id]},0.55)`, background: `radial-gradient(70% 140% at 0% 50%, rgba(${MODE_TINT[open.id]},0.26), transparent 62%), linear-gradient(160deg, rgba(12,15,26,0.82), rgba(6,8,14,0.9))` }}
         >
           <div className="min-w-0">
-            <p className="nx-label" style={{ color: `rgb(${MODE_TINT[open.id]})` }}>Partida en curso</p>
+            <p className="nx-label" style={{ color: `rgb(${MODE_TINT[open.id]})` }}>{t("Partida en curso")}</p>
             {/* F71 · una partida PvE abierta marca «en partida» a la vez RtC y Partida rápida (los hechos no dicen de
                 cuál viene), así que su nombre no se afirma: se dice lo que es seguro. PvP/Draft sí se saben. */}
-            <h2 className="mt-1 font-display text-[clamp(22px,3vw,32px)] font-bold uppercase leading-none text-white">{open.id === "ROAD_TO_CHAMPIONS" || open.id === "QUICK" ? "Continuar partida" : open.title}</h2>
+            <h2 className="mt-1 font-display text-[clamp(22px,3vw,32px)] font-bold uppercase leading-none text-white">{open.id === "ROAD_TO_CHAMPIONS" || open.id === "QUICK" ? t("Continuar partida") : td(open.title)}</h2>
           </div>
-          <NxButton variant="primary" size="lg" href={open.cta.href} className="shrink-0" data-cta="primary" onClick={() => playSound("play.confirm")} data-testid="play-hub-resume-cta">{open.cta.label}</NxButton>
+          <NxButton variant="primary" size="lg" href={open.cta.href} className="shrink-0" data-cta="primary" onClick={() => playSound("play.confirm")} data-testid="play-hub-resume-cta">{td(open.cta.label)}</NxButton>
         </section>
       )}
 
-      <section aria-label="Modos de juego" data-testid="play-areas" className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-4">
+      <section aria-label={t("Modos de juego")} data-testid="play-areas" className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-4">
         {rtc && (
           <ModePanel
             testId="play-area-RTC" ctaTestId="play-area-cta-RTC" dataMode="ROAD_TO_CHAMPIONS" rgb={AREA_TINT.RTC} focus="campaign"
-            title={<>Road to <span style={{ color: `rgb(${AREA_TINT.RTC})` }}>Champions</span></>}
-            note={rtcNote} cta={campaignAreaCta(rtc)} primary={!open} art={<RtcArt />} className={PANEL}
+            title={<>{t("Road to")} <span style={{ color: `rgb(${AREA_TINT.RTC})` }}>{t("Champions")}</span></>}
+            note={td(rtcNote)} cta={campaignAreaCta(rtc)} primary={!open} art={<RtcArt />} className={PANEL}
           />
         )}
         <ModePanel
           testId="play-area-DUELS" ctaTestId="play-area-cta-DUELS" rgb={AREA_TINT.DUELS} focus="ranked"
-          title="Duelos" cta={{ label: "Jugar", href: DUELS_ROUTE }} art={<DuelsArt />} className={PANEL}
+          title={t("Duelos")} cta={{ label: t("Jugar"), href: DUELS_ROUTE }} art={<DuelsArt />} className={PANEL}
         />
         <ModePanel
           testId="play-area-COACH" ctaTestId="play-area-cta-COACH" rgb={AREA_TINT.COACH} focus="quick"
-          title={<>Tactical <span style={{ color: `rgb(${AREA_TINT.COACH})` }}>Coach</span></>}
-          cta={{ label: "Entrar", href: COACH_ROUTE }} ctaKind="coach" art={<CoachArt />} className={PANEL}
+          title={<>{t("Tactical")} <span style={{ color: `rgb(${AREA_TINT.COACH})` }}>{t("Coach")}</span></>}
+          cta={{ label: t("Entrar"), href: COACH_ROUTE }} ctaKind="coach" art={<CoachArt />} className={PANEL}
         />
       </section>
     </div>

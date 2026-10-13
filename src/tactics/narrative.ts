@@ -4,6 +4,9 @@
  * narrativa de combate; NO modifica el Narrative Engine. PURO.
  */
 import type { RoundState, Side } from "../sim";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("tactics");
 
 export type TacticalEventType =
   | "perfect_fake" | "early_rotation" | "late_execute" | "slow_default" | "fast_execute"
@@ -65,7 +68,7 @@ export function detectTacticalEvents(rounds: RoundState[]): TacticalEvent[] {
       if (round.endReason === "detonation" && winner === "ATK") push("perfect_post_plant", "ATK", 60);
       if (round.endReason === "defuse" && winner === "DEF") {
         const adv = aliveOf(round, "DEF") <= aliveOf(round, "ATK");
-        push("retake_masterclass", "DEF", adv ? 80 : 55, adv ? "retake en desventaja" : "retake limpio");
+        push("retake_masterclass", "DEF", adv ? 80 : 55, adv ? tr("retake en desventaja") : tr("retake limpio"));
       }
     }
 

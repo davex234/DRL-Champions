@@ -37,6 +37,7 @@ import { cn } from "@/lib/format";
 import { useArtworkStore } from "@/store/useArtworkStore";
 import { artworkPintable, type CardArtworkRef } from "@/domain/cards/artwork";
 import { CardArt } from "./CardArt";
+import { td } from "@/i18n/runtime";
 
 export interface CardFaceProps {
   /** El artwork ya resuelto. `undefined` = no hay, y se dibuja como siempre. */
@@ -95,7 +96,7 @@ export function CardFace({ artwork, children, alt, className }: CardFaceProps) {
    */
   return (
     <div className={cn("relative", className)} data-card-art-wrap>
-      <CardArt src={url} alt={alt} onError={() => setFalló(true)} />
+      <CardArt src={url} alt={td(alt)} onError={() => setFalló(true)} />
     </div>
   );
 }

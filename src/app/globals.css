@@ -771,3 +771,14 @@ a[class*="h-"]:not([class*="min-h-"]) {
   outline: none;
   object-fit: contain;
 }
+
+/*
+ * I18N · JAPONÉS (2026-10-12). El japonés no lleva espacios: por omisión el navegador parte la línea por cualquier
+ * carácter y una etiqueta estrecha queda «en vertical» o cortada a mitad de palabra («プロフィー / ル»). `auto-phrase`
+ * parte por frases naturales (Chromium ≥ 119); donde no existe se ignora y queda el comportamiento de siempre.
+ * Solo afecta a `lang="ja"`.
+ */
+:lang(ja) {
+  word-break: auto-phrase;
+  line-break: strict;
+}

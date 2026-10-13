@@ -11,6 +11,9 @@
 import { eventPhase } from "@/domain/events/lifecycle";
 import { challengeSetFor } from "@/domain/events/challenges";
 import { cleanReason, type Parsed } from "./sanctions";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("admin");
 
 export const EVENT_TYPES = ["masters", "champions", "ewc", "international", "regional"] as const;
 export type AdminEventType = (typeof EVENT_TYPES)[number];
@@ -33,19 +36,19 @@ const clean = (v: unknown, max: number): string | null => (typeof v === "string"
 
 export function parseEventDraft(body: Record<string, unknown>, now: number): Parsed<EventDraftInput> {
   const name = clean(body.name, 80);
-  if (!name || name.length < 3) return { ok: false, error: "El nombre es obligatorio (3–80 caracteres)" };
+  if (!name || name.length < 3) return { ok: false, error: t("El nombre es obligatorio (3–80 caracteres)") };
   const description = clean(body.description, 600) || null;
   const imageUrl = typeof body.imageUrl === "string" && body.imageUrl.trim() ? body.imageUrl.trim() : null;
-  if (imageUrl && (!IMAGE.test(imageUrl) || imageUrl.includes(".."))) return { ok: false, error: "Imagen inválida (ruta /… del proyecto o URL https)" };
+  if (imageUrl && (!IMAGE.test(imageUrl) || imageUrl.includes(".."))) return { ok: false, error: t("Imagen inválida (ruta /… del proyecto o URL https)") };
   const type = body.type;
-  if (typeof type !== "string" || !(EVENT_TYPES as readonly string[]).includes(type)) return { ok: false, error: "Tipo de evento inválido" };
+  if (typeof type !== "string" || !(EVENT_TYPES as readonly string[]).includes(type)) return { ok: false, error: t("Tipo de evento inválido") };
   const region = body.region == null || body.region === "" ? null : body.region;
-  if (region !== null && !(EVENT_REGIONS as readonly unknown[]).includes(region)) return { ok: false, error: "Región inválida" };
+  if (region !== null && !(EVENT_REGIONS as readonly unknown[]).includes(region)) return { ok: false, error: t("Región inválida") };
   const s = Date.parse(String(body.startsAt ?? "")), e = Date.parse(String(body.endsAt ?? ""));
-  if (!Number.isFinite(s) || !Number.isFinite(e)) return { ok: false, error: "Fechas inválidas" };
-  if (e - s < EVENT_MIN_HOURS * 3_600_000) return { ok: false, error: "El evento debe durar al menos 1 hora" };
-  if (e - s > EVENT_MAX_DAYS * 86_400_000) return { ok: false, error: `El evento no puede durar más de ${EVENT_MAX_DAYS} días` };
-  if (e <= now) return { ok: false, error: "La fecha de fin ya ha pasado" };
+  if (!Number.isFinite(s) || !Number.isFinite(e)) return { ok: false, error: t("Fechas inválidas") };
+  if (e - s < EVENT_MIN_HOURS * 3_600_000) return { ok: false, error: t("El evento debe durar al menos 1 hora") };
+  if (e - s > EVENT_MAX_DAYS * 86_400_000) return { ok: false, error: t("El evento no puede durar más de {EVENT_MAX_DAYS} días", { EVENT_MAX_DAYS }) };
+  if (e <= now) return { ok: false, error: t("La fecha de fin ya ha pasado") };
   return { ok: true, value: { name, description, imageUrl, type: type as AdminEventType, region: region as EventDraftInput["region"], startsAt: new Date(s).toISOString(), endsAt: new Date(e).toISOString() } };
 }
 

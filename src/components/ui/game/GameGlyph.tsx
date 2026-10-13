@@ -10,6 +10,7 @@
  * nada (mejor ningún icono que un emoji suelto). Decorativo por defecto (`aria-hidden`): el texto de al lado nombra la cosa.
  */
 import { cn } from "@/lib/format";
+import { td } from "@/i18n/runtime";
 
 export type GlyphName =
   | "pack" | "packs" | "star" | "crown" | "cards" | "crest" | "globe" | "blades" | "duel" | "medal" | "coin" | "xp"
@@ -81,7 +82,7 @@ export function GameGlyph({
       className={cn("inline-block h-[1em] w-[1em] shrink-0", className)} data-glyph={g}
       {...(title ? { role: "img", "aria-label": title } : { "aria-hidden": true })}
     >
-      {title && <title>{title}</title>}
+      {title && <title>{td(title)}</title>}
       {PATHS[g].map((d, i) => <path key={i} d={d} />)}
     </svg>
   );

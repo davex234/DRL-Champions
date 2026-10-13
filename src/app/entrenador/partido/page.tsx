@@ -70,6 +70,10 @@ import { primeAudio, playCue } from "@/lib/sound";
 import { cn } from "@/lib/format";
 import { CoachHeader } from "@/components/coach/tc/CoachFrame";
 import { CoachIcon } from "@/components/coach/tc/CoachIcons";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("entrenador");
 
 const SPEEDS = [1, 2, 4, 8];
 /*
@@ -111,6 +115,7 @@ const DEFAULT_TEAM_NAME = "Equipo NEXUS";
 const MAP_REVEAL_MS = { normal: 1600, reduced: 500 } as const;
 
 function DirigirPartido() {
+  useLocale();
   /*
    * FASE 51.1 · EL MAPA LLEGA ELEGIDO desde JUGAR (`?map=`). Solo se acepta un id del catálogo
    * canónico: uno desconocido NO cae en un mapa genérico, se dice y se ofrece elegir otro.
@@ -264,7 +269,7 @@ function DirigirPartido() {
   const frame = snap && view ? buildRenderFrame({ state: snap, viewport: view.vp, broadcast: bs }) : null;
 
   const homeSide = match?.currentHomeSide ?? "ATK";
-  const tn = match?.config.teamNames ?? { home: "Local", away: "Rival" };
+  const tn = match?.config.teamNames ?? { home: tr("Local"), away: tr("Rival") };
   const names = {
     atk: homeSide === "ATK" ? tn.home : tn.away,
     def: homeSide === "ATK" ? tn.away : tn.home,
@@ -311,7 +316,7 @@ function DirigirPartido() {
       onClick={loop.reset}
       className="nx-focus min-h-[44px] px-2 font-display text-[10px] uppercase tracking-[0.18em] text-ink-faint transition hover:text-white"
     >
-      Abandonar
+      {tr("Abandonar")}
     </button>
   );
 
@@ -328,10 +333,10 @@ function DirigirPartido() {
               FASE 51.3 · durante la revelación del mapa no se pinta: esa pantalla es el mapa y nada más. */}
           {!(auto && !autoRef.current) && <CoachHeader
             className="!mb-0"
-            kicker="Coach Match Console"
-            title={<>Dirigir <span className="text-[#2fe0ff]">partido</span></>}
-            line="Tu composición, su mapa y un rival: preparas, compras y das las órdenes ronda a ronda."
-            actions={<Link href="/entrenador/jugar" className="nx-coach-btn" data-variant="ghost">← Cambiar composición</Link>}
+            kicker={tr("Coach Match Console")}
+            title={<>{tr("Dirigir")} <span className="text-[#2fe0ff]">{tr("partido")}</span></>}
+            line={tr("Tu composición, su mapa y un rival: preparas, compras y das las órdenes ronda a ronda.")}
+            actions={<Link href="/entrenador/jugar" className="nx-coach-btn" data-variant="ghost">{tr("← Cambiar composición")}</Link>}
           />}
           {!mapParam ? (
             <SinMapa />
@@ -354,12 +359,12 @@ function DirigirPartido() {
       */}
       {phase === "preparation" && loop.prep && (
         <ImmersiveStage
-          label="Sala táctica"
-          header={hud("Sala táctica", salir)}
+          label={tr("Sala táctica")}
+          header={hud(tr("Sala táctica"), salir)}
           footer={
             <PrimaryAction
-              label="Comenzar fase de compra"
-              hint="Confirma el plan de la ronda y pasa a repartir el dinero."
+              label={tr("Comenzar fase de compra")}
+              hint={tr("Confirma el plan de la ronda y pasa a repartir el dinero.")}
               onClick={() => { playCue("ui"); loop.confirmPreparation(prepInput ?? planPorDefecto(loop.prep!)); }}
             />
           }
@@ -373,12 +378,12 @@ function DirigirPartido() {
       {/* ═══ COMPRA ═══ */}
       {phase === "buy" && loop.buy && (
         <ImmersiveStage
-          label="Fase de compra"
-          header={hud("Fase de compra", salir)}
+          label={tr("Fase de compra")}
+          header={hud(tr("Fase de compra"), salir)}
           footer={
             <PrimaryAction
-              label="Jugar la ronda"
-              hint="Cierra el armamento y saca a los cinco al mapa."
+              label={tr("Jugar la ronda")}
+              hint={tr("Cierra el armamento y saca a los cinco al mapa.")}
               onClick={() => { playCue("whoosh"); loop.confirmBuy(buyTier ?? loop.buy!.recommendedTier ?? "full"); }}
             />
           }
@@ -399,8 +404,8 @@ function DirigirPartido() {
       */}
       {phase === "playing" && (
         <ImmersiveStage
-          label="Ronda en vivo"
-          header={hud("En vivo", (
+          label={tr("Ronda en vivo")}
+          header={hud(tr("En vivo"), (
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
@@ -411,7 +416,7 @@ function DirigirPartido() {
                   panel ? "bg-drl/20 text-drl-glow" : "border border-white/12 text-white/60 hover:bg-white/8",
                 )}
               >
-                Dirección
+                {tr("Dirección")}
               </button>
               {salir}
             </div>
@@ -448,7 +453,7 @@ function DirigirPartido() {
             {/* CAJÓN DE DIRECCIÓN. Todo lo que antes colgaba debajo, sin quitar nada. */}
             {panel && (
               <aside
-                aria-label="Panel de dirección"
+                aria-label={tr("Panel de dirección")}
                 className="absolute inset-y-0 right-0 z-30 w-full max-w-[340px] space-y-3 overflow-y-auto border-l border-white/10 bg-[#070a10]/95 p-3 backdrop-blur-sm"
               >
                 {snap && <CoachCommandDeck snap={snap} onCommand={(c) => { playCue("ui"); loop.command(c); }} />}
@@ -470,14 +475,14 @@ function DirigirPartido() {
       */}
       {phase === "roundEnd" && loop.roundEnd && (
         <ImmersiveStage
-          label="Fin de ronda"
-          header={hud(loop.roundEnd.won ? "Ronda ganada" : "Ronda perdida", salir)}
+          label={tr("Fin de ronda")}
+          header={hud(loop.roundEnd.won ? tr("Ronda ganada") : tr("Ronda perdida"), salir)}
           footer={
             <PrimaryAction
-              label={loop.roundEnd.isLast ? "Ver resultado del partido" : "Siguiente ronda"}
+              label={loop.roundEnd.isLast ? tr("Ver resultado del partido") : tr("Siguiente ronda")}
               hint={loop.roundEnd.isLast
-                ? "El partido está decidido."
-                : "Vuelves a la sala táctica para preparar la siguiente."}
+                ? tr("El partido está decidido.")
+                : tr("Vuelves a la sala táctica para preparar la siguiente.")}
               onClick={() => { playCue("ui"); loop.continueAfterRound(); }}
             />
           }
@@ -496,7 +501,7 @@ function DirigirPartido() {
       {/* ═══ FINAL ═══ */}
       {phase === "ended" && match && (
         <div className="space-y-5">
-          <MatchCeremony match={match} summary={loop.summary} />
+          <MatchCeremony match={match} summary={td(loop.summary)} />
           <PostMatchShow post={buildPostMatch(match)} casters={postMatchCasters(match)} />
           {/*
             Las acciones van DESPUÉS de todo el final y ancladas al pie: se ven al llegar, sin
@@ -527,6 +532,7 @@ function DirigirPartido() {
 
 /** Escenario cinemático: marco de retransmisión con viñeta, letterbox y "EN VIVO". */
 function Stage({ children, live, mapName }: { children: React.ReactNode; live?: boolean; mapName?: string }) {
+  useLocale();
   return (
     <div className="nx-coach-board relative aspect-video w-full overflow-hidden bg-[#070a0f] shadow-[0_10px_50px_rgba(0,0,0,0.6)]">
       {children}
@@ -539,7 +545,7 @@ function Stage({ children, live, mapName }: { children: React.ReactNode; live?: 
       {live && (
         <div className="pointer-events-none absolute right-3 top-2 z-10 flex items-center gap-1.5 rounded bg-black/55 px-2 py-0.5 backdrop-blur-sm">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 shadow-[0_0_6px_#ff0000]" />
-          <span className="font-display text-[9px] font-bold uppercase tracking-[0.25em] text-white/80">En vivo</span>
+          <span className="font-display text-[9px] font-bold uppercase tracking-[0.25em] text-white/80">{tr("En vivo")}</span>
         </div>
       )}
     </div>
@@ -555,13 +561,14 @@ function Stage({ children, live, mapName }: { children: React.ReactNode; live?: 
  * solo arriba, que es donde el jugador ya los busca.
  */
 function LiveControls({ loop, brainDebug, onBrain }: { loop: ReturnType<typeof useCoachMatch>; brainDebug: boolean; onBrain: () => void }) {
+  useLocale();
   const { match, snap } = loop;
   return (
     <div className="flex flex-wrap items-center gap-2 px-3 py-2 sm:px-4">
       <button onClick={() => loop.setPaused(!loop.paused)} className="nx-coach-btn" data-variant="ghost" data-size="sm">
-        {loop.paused ? "▶ Reanudar" : "⏸ Pausa"}
+        {loop.paused ? tr("▶ Reanudar") : tr("⏸ Pausa")}
       </button>
-      <div className="flex gap-1 p-0.5 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.16)]" role="group" aria-label="Velocidad">
+      <div className="flex gap-1 p-0.5 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.16)]" role="group" aria-label={tr("Velocidad")}>
         {SPEEDS.map((sp) => (
           <button key={sp} onClick={() => loop.setSpeed(sp)} aria-pressed={loop.speed === sp}
             className={cn("min-h-[36px] px-3 font-display text-xs transition", loop.speed === sp ? "bg-[#2fe0ff] text-[#021420]" : "text-white/55 hover:text-white")}>
@@ -571,16 +578,16 @@ function LiveControls({ loop, brainDebug, onBrain }: { loop: ReturnType<typeof u
       </div>
       <button onClick={loop.callTimeout} disabled={loop.timeoutsLeft <= 0 || loop.timeoutPanel != null || loop.micro != null}
         className="rounded-lg border border-cyan-400/40 bg-cyan-400/10 px-4 py-2 font-display text-xs uppercase tracking-wide text-cyan-200 transition enabled:hover:bg-cyan-400/20 disabled:cursor-not-allowed disabled:opacity-30">
-        ⏸ Timeout · {loop.timeoutsLeft}
+        {tr("⏸ Timeout ·")} {loop.timeoutsLeft}
       </button>
       <button onClick={onBrain}
         className={cn("rounded-lg border px-4 py-2 font-display text-xs uppercase tracking-wide transition",
           brainDebug ? "border-drl/50 bg-drl/15 text-drl" : "border-white/15 text-white/60 hover:bg-white/10")}>
-        🧠 Cerebro
+        {tr("🧠 Cerebro")}
       </button>
       {snap && (
         <span className="ml-auto rounded-lg border border-white/10 bg-base-900/60 px-3 py-1.5 font-display text-xs text-white/55">
-          Voz {snap.voz.left}/{snap.voz.total}
+          {tr("Voz")} {snap.voz.left}/{snap.voz.total}
         </span>
       )}
     </div>
@@ -591,24 +598,26 @@ function LiveControls({ loop, brainDebug, onBrain }: { loop: ReturnType<typeof u
 
 /** Sin mapa en la URL: no es un error, es que no se ha pasado por JUGAR. Se lleva allí. */
 function SinMapa() {
+  useLocale();
   return (
     <div className="nx-coach-panel mx-auto max-w-xl space-y-4 p-8 text-center" data-testid="match-no-map">
-      <p className="nx-coach-kicker">Antes de jugar</p>
-      <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">Elige tu composición</h2>
-      <p className="text-sm text-white/60">El mapa lo pone tu composición: uno de los doce del Tactical Coach.</p>
-      <Link href="/entrenador/jugar" className="nx-play-cta !min-h-[52px] !text-[16px]">Jugar</Link>
+      <p className="nx-coach-kicker">{tr("Antes de jugar")}</p>
+      <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">{tr("Elige tu composición")}</h2>
+      <p className="text-sm text-white/60">{tr("El mapa lo pone tu composición: uno de los doce del Tactical Coach.")}</p>
+      <Link href="/entrenador/jugar" className="nx-play-cta !min-h-[52px] !text-[16px]">{tr("Jugar")}</Link>
     </div>
   );
 }
 
 /** Mapa que no es del catálogo: se dice. No hay mapa genérico de reserva. */
 function MapaInvalido() {
+  useLocale();
   return (
     <div role="alert" className="nx-coach-panel mx-auto max-w-xl space-y-4 p-8 text-center" data-tone="mag" data-testid="match-invalid-map">
-      <p className="nx-coach-kicker !text-[#ff5aa8]">Mapa no válido</p>
-      <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">Ese mapa no existe en el Tactical Coach</h2>
-      <p className="text-sm text-white/60">Solo se juega en los doce mapas del catálogo. Elige una composición.</p>
-      <Link href="/entrenador/jugar" className="nx-coach-btn">Elegir composición</Link>
+      <p className="nx-coach-kicker !text-[#ff5aa8]">{tr("Mapa no válido")}</p>
+      <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">{tr("Ese mapa no existe en el Tactical Coach")}</h2>
+      <p className="text-sm text-white/60">{tr("Solo se juega en los doce mapas del catálogo. Elige una composición.")}</p>
+      <Link href="/entrenador/jugar" className="nx-coach-btn">{tr("Elegir composición")}</Link>
     </div>
   );
 }
@@ -623,6 +632,7 @@ function PrePartido({ starters, teamName, mapa, compId, onPlay }: {
   starters: string[] | null; teamName: string; mapa: ReturnType<typeof requireMatchMap>; compId: string | null;
   onPlay: (side: Side, difficulty: RivalDifficulty) => void;
 }) {
+  useLocale();
   const [comp, setComp] = useState<Composition | null>(null);
   useEffect(() => {
     if (!compId) return;
@@ -636,22 +646,22 @@ function PrePartido({ starters, teamName, mapa, compId, onPlay }: {
   return (
     <div className="space-y-4" data-testid="prematch">
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        <section className="nx-coach-panel p-4 sm:p-5" aria-label="Tu equipo" data-testid="prematch-team">
+        <section className="nx-coach-panel p-4 sm:p-5" aria-label={tr("Tu equipo")} data-testid="prematch-team">
           <div className="mb-3 flex items-center justify-between gap-2">
-            <p className="nx-coach-kicker">{starters ? "Tu equipo · 5 cartas" : "Equipo por defecto"}</p>
-            <Link href="/entrenador/equipos" className="nx-action">{starters ? "Cambiar" : "Usar mi plantilla"}</Link>
+            <p className="nx-coach-kicker">{starters ? tr("Tu equipo · 5 cartas") : tr("Equipo por defecto")}</p>
+            <Link href="/entrenador/equipos" className="nx-action">{starters ? tr("Cambiar") : tr("Usar mi plantilla")}</Link>
           </div>
           <b className="mb-3 block font-display text-[18px] font-extrabold uppercase text-white">{teamName}</b>
           {starters ? (
             <TeamCardStrip starters={starters} size={104} className="!gap-3" />
           ) : (
-            <p className="text-[13px] text-white/60" data-testid="prematch-default-team">Cinco jugadores reales, elegidos como el rival. Tu plantilla es opcional: si la armas, juegas con tus cartas.</p>
+            <p className="text-[13px] text-white/60" data-testid="prematch-default-team">{tr("Cinco jugadores reales, elegidos como el rival. Tu plantilla es opcional: si la armas, juegas con tus cartas.")}</p>
           )}
         </section>
-        <section className="nx-coach-panel flex flex-col p-4 sm:p-5" aria-label="Mapa" data-testid="prematch-map" data-map-id={mapa.id}>
+        <section className="nx-coach-panel flex flex-col p-4 sm:p-5" aria-label={tr("Mapa")} data-testid="prematch-map" data-map-id={mapa.id}>
           <div className="mb-3 flex items-center justify-between gap-2">
-            <p className="nx-coach-kicker">Mapa</p>
-            <Link href="/entrenador/jugar" className="nx-action">Cambiar</Link>
+            <p className="nx-coach-kicker">{tr("Mapa")}</p>
+            <Link href="/entrenador/jugar" className="nx-action">{tr("Cambiar")}</Link>
           </div>
           <div className="flex flex-1 items-center gap-4">
             <span className="relative w-[46%] max-w-[260px] shrink-0 bg-[#070a10] p-1 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.3)]">
@@ -659,14 +669,14 @@ function PrePartido({ starters, teamName, mapa, compId, onPlay }: {
             </span>
             <span>
               <b className="block font-display text-[clamp(28px,4vw,44px)] font-extrabold uppercase leading-none text-white">{mapa.name}</b>
-              <span className="nx-coach-muted mt-2 block text-[13px]">Se juega el sitio A.</span>
+              <span className="nx-coach-muted mt-2 block text-[13px]">{tr("Se juega el sitio A.")}</span>
             </span>
           </div>
         </section>
       </div>
 
-      <section className="nx-coach-panel flex flex-wrap items-center gap-3 p-4" aria-label="Composición" data-testid="prematch-comp">
-        <p className="nx-coach-kicker">Composición · 5 agentes</p>
+      <section className="nx-coach-panel flex flex-wrap items-center gap-3 p-4" aria-label={tr("Composición")} data-testid="prematch-comp">
+        <p className="nx-coach-kicker">{tr("Composición · 5 agentes")}</p>
         {comp ? (
           <>
             <b className="font-display text-[14px] uppercase text-white">{comp.name}</b>
@@ -674,7 +684,7 @@ function PrePartido({ starters, teamName, mapa, compId, onPlay }: {
             <AgentLineup agentIds={comp.agentIds} className="lg:max-w-[760px]" />
           </>
         ) : (
-          <span className="text-[13px] text-white/55">Sin composición para esta partida (opcional).</span>
+          <span className="text-[13px] text-white/55">{tr("Sin composición para esta partida (opcional).")}</span>
         )}
       </section>
 
@@ -689,6 +699,7 @@ function PrePartido({ starters, teamName, mapa, compId, onPlay }: {
  * Breve y automática (1,6 s; 0,5 s y sin animación con movimiento reducido). Tocarla adelanta.
  */
 function MapReveal({ mapa, onDone }: { mapa: ReturnType<typeof requireMatchMap>; onDone: () => void }) {
+  useLocale();
   const done = useRef(onDone);
   useEffect(() => { done.current = onDone; });
   useEffect(() => {
@@ -705,12 +716,12 @@ function MapReveal({ mapa, onDone }: { mapa: ReturnType<typeof requireMatchMap>;
       data-map-id={mapa.id}
       aria-live="polite"
     >
-      <span className="nx-coach-kicker !text-[#2fe0ff]">Partida encontrada</span>
+      <span className="nx-coach-kicker !text-[#2fe0ff]">{tr("Partida encontrada")}</span>
       <b className="font-display text-[clamp(36px,6vw,64px)] font-extrabold uppercase leading-none text-white">{mapa.name}</b>
       <span className="w-full max-w-[min(440px,42vh)] bg-[#070a10] p-1 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.35)]">
         <MapThumb map={mapa} full />
       </span>
-      <span className="nx-label text-white/45">Empieza el partido…</span>
+      <span className="nx-label text-white/45">{tr("Empieza el partido…")}</span>
     </button>
   );
 }

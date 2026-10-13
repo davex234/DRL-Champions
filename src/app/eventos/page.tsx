@@ -64,6 +64,11 @@ import { formatCredits, cn } from "@/lib/format";
 import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import Link from "next/link";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("eventos");
 
 export default function EventosPage() {
   return (
@@ -89,6 +94,7 @@ const OFFLINE_ONLY =
   "Con tu cuenta iniciada la economía la lleva el servidor: esta recompensa se borraría al sincronizar. Tu progresión real está en Progreso.";
 
 function Events() {
+  useLocale();
   const { toast, notify } = useToast();
   const seasonStart = useEventsStore((s) => s.seasonStart);
 
@@ -111,12 +117,12 @@ function Events() {
   return (
     <section className="animate-rise space-y-8">
       <header>
-        <span className="nx-label">Tienda</span>
+        <span className="nx-label">{tr("Tienda")}</span>
         <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
-          Centro de <span className="text-drl">Eventos</span>
+          {fill(tr("Centro de {word}", slots("word")), { word: <span className="text-drl">{tr("Eventos")}</span> })}
         </h1>
         <p className="mt-2 max-w-2xl text-[15px] text-white/55">
-          Misiones, recompensas y sobres exclusivos. Vuelve cada día.
+          {tr("Misiones, recompensas y sobres exclusivos. Vuelve cada día.")}
         </p>
       </header>
 
@@ -131,18 +137,15 @@ function Events() {
           className="nx-clip-sm flex flex-wrap items-center gap-x-4 gap-y-2 border border-warn/35 bg-warn/[0.07] px-4 py-3"
           role="status"
         >
-          <span className="nx-label !text-warn">Solo lectura con tu cuenta</span>
+          <span className="nx-label !text-warn">{tr("Solo lectura con tu cuenta")}</span>
           <p className="min-w-0 flex-1 text-[13px] leading-snug text-white/65">
-            Este evento se guarda en este dispositivo, así que sus recompensas no se pueden
-            conceder mientras juegas con cuenta: el saldo y las cartas los lleva el servidor
-            y las sobrescribiría. Tu progresión real —pase de temporada, misiones y
-            logros— está en Progreso.
+            {tr("Este evento se guarda en este dispositivo, así que sus recompensas no se pueden conceder mientras juegas con cuenta: el saldo y las cartas los lleva el servidor y las sobrescribiría. Tu progresión real —pase de temporada, misiones y logros— está en Progreso.")}
           </p>
           <Link
             href="/logros"
             className="nx-clip-sm shrink-0 border border-white/18 px-4 py-2 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/75 transition hover:border-white/40 hover:text-white"
           >
-            Ir a Progreso
+            {tr("Ir a Progreso")}
           </Link>
         </div>
       )}
@@ -173,6 +176,7 @@ function Events() {
 
 /* ----------------------------- Recompensas diarias ----------------------------- */
 function DailyStrip({ notify }: { notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const online = useOnline();
   const daily = useEventsStore((s) => s.daily);
   const claimDaily = useEventsStore((s) => s.claimDaily);
@@ -190,22 +194,22 @@ function DailyStrip({ notify }: { notify: (m: string, ok?: boolean) => void }) {
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="font-display text-lg font-bold uppercase tracking-wide text-white">
-            Recompensa diaria
+            {tr("Recompensa diaria")}
           </h2>
-          <p className="text-xs text-white/45">Racha actual: {daily.streak} día(s)</p>
+          <p className="text-xs text-white/45">{tr("Racha actual: {n} día(s)", { n: daily.streak })}</p>
         </div>
         <NxButton
           variant="primary"
           size="md"
           disabled={!canClaim || online}
-          title={online ? OFFLINE_ONLY : undefined}
+          title={online ? td(OFFLINE_ONLY) : undefined}
           onClick={() => {
             const res = claimDaily();
-            if (res.ok) notify(`¡Día ${res.streak} reclamado!`, true);
-            else notify(res.error ?? "Error", false);
+            if (res.ok) notify(tr("¡Día {streak} reclamado!", { streak: res.streak }), true);
+            else notify(res.error ?? tr("Error"), false);
           }}
         >
-          {canClaim ? `Reclamar día ${nextDay}` : "Vuelve mañana"}
+          {canClaim ? tr("Reclamar día {nextDay}", { nextDay }) : tr("Vuelve mañana")}
         </NxButton>
       </div>
       <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
@@ -219,7 +223,7 @@ function DailyStrip({ notify }: { notify: (m: string, ok?: boolean) => void }) {
                 : "border-white/10 bg-base-800/60",
             )}
           >
-            <p className="text-[10px] uppercase tracking-widest text-white/40">Día {i + 1}</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/40">{tr("Día")} {i + 1}</p>
             <div className="mt-1 flex justify-center">
               <RewardChips reward={r} />
             </div>
@@ -232,6 +236,7 @@ function DailyStrip({ notify }: { notify: (m: string, ok?: boolean) => void }) {
 
 /* ----------------------------- Hero del evento ----------------------------- */
 function EventHero({ event, notify }: { event: EventDef; notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const seasonStart = useEventsStore((s) => s.seasonStart);
   const win = eventWindow(event, seasonStart, Date.now());
 
@@ -242,21 +247,21 @@ function EventHero({ event, notify }: { event: EventDef; notify: (m: string, ok?
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <span className="font-display text-xs uppercase tracking-[0.3em]" style={{ color: event.accent }}>
-              {win.status === "active" ? "Evento en vivo" : win.status === "upcoming" ? "Próximamente" : "Finalizado"}
+              {win.status === "active" ? tr("Evento en vivo") : win.status === "upcoming" ? tr("Próximamente") : tr("Finalizado")}
             </span>
-            <h2 className="mt-1 font-display text-3xl font-bold uppercase text-white md:text-4xl">{event.name}</h2>
-            <p className="mt-1 max-w-md text-white/55">{event.subtitle}</p>
+            <h2 className="mt-1 font-display text-3xl font-bold uppercase text-white md:text-4xl">{td(event.name)}</h2>
+            <p className="mt-1 max-w-md text-white/55">{td(event.subtitle)}</p>
           </div>
           <div>
             <p className="mb-1 text-right text-[10px] uppercase tracking-widest text-white/40">
-              {win.status === "active" ? "Termina en" : win.status === "upcoming" ? "Empieza en" : ""}
+              {win.status === "active" ? tr("Termina en") : win.status === "upcoming" ? tr("Empieza en") : ""}
             </p>
             {win.status !== "ended" && <Countdown target={win.status === "active" ? win.end : win.start} accent={event.accent} />}
           </div>
         </div>
 
         {/* Sobres exclusivos */}
-        <h3 className="mb-3 mt-6 font-display text-sm uppercase tracking-wider text-white/70">Sobres exclusivos</h3>
+        <h3 className="mb-3 mt-6 font-display text-sm uppercase tracking-wider text-white/70">{tr("Sobres exclusivos")}</h3>
         {win.status === "active" ? (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {event.packIds.map((pid) => {
@@ -267,8 +272,8 @@ function EventHero({ event, notify }: { event: EventDef; notify: (m: string, ok?
         ) : (
           <p className="rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/45">
             {win.status === "upcoming"
-              ? "Los sobres estarán disponibles cuando empiece el evento."
-              : "El evento ha finalizado. Sus sobres ya no se pueden conseguir (las cartas obtenidas se conservan)."}
+              ? tr("Los sobres estarán disponibles cuando empiece el evento.")
+              : tr("El evento ha finalizado. Sus sobres ya no se pueden conseguir (las cartas obtenidas se conservan).")}
           </p>
         )}
       </div>
@@ -285,13 +290,14 @@ function EventHero({ event, notify }: { event: EventDef; notify: (m: string, ok?
  * convertir una moneda en otra, y la retirada se hizo expresamente sin conversion.
  */
 function EventTabs({ event, notify }: { event: EventDef; notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const [tab, setTab] = useState<"misiones" | "pase">("misiones");
   return (
     <div>
       <div className="nx-clip-sm mb-4 flex gap-1 bg-black/40 p-1">
         {([
-          ["misiones", "Misiones"],
-          ["pase", "Pase de evento"],
+          ["misiones", tr("Misiones")],
+          ["pase", tr("Pase de evento")],
         ] as ["misiones" | "pase", string][]).map(([id, label]) => (
           <NxButton
             key={id}
@@ -301,7 +307,7 @@ function EventTabs({ event, notify }: { event: EventDef; notify: (m: string, ok?
             className="flex-1"
             onClick={() => setTab(id)}
           >
-            {label}
+            {td(label)}
           </NxButton>
         ))}
       </div>
@@ -312,6 +318,7 @@ function EventTabs({ event, notify }: { event: EventDef; notify: (m: string, ok?
 }
 
 function MissionsPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const online = useOnline();
   const progress = useEventsStore((s) => s.progress[event.id]) ?? {};
   const claimed = useEventsStore((s) => s.claimedMissions);
@@ -326,29 +333,29 @@ function MissionsPanel({ event, notify }: { event: EventDef; notify: (m: string,
         return (
           <Plate key={m.id} tone={done && !isClaimed ? "primary" : "neutral"} className="p-4">
             <div className="flex items-start justify-between gap-2">
-              <p className="font-display text-sm font-bold uppercase text-white">{m.label}</p>
+              <p className="font-display text-sm font-bold uppercase text-white">{td(m.label)}</p>
               <Readout size="xs" className="shrink-0" value={`${cur}/${m.goal}`} />
             </div>
-            <Meter className="my-2" height={6} value={(cur / m.goal) * 100} label={m.label} />
+            <Meter className="my-2" height={6} value={(cur / m.goal) * 100} label={td(m.label)} />
             <div className="flex items-center justify-between gap-2">
               <RewardChips reward={{ ...m.reward, xp: m.passXp ? undefined : m.reward.xp }} />
               {isClaimed ? (
-                <Badge tone="ok" className="shrink-0">✓ Hecho</Badge>
+                <Badge tone="ok" className="shrink-0">{tr("✓ Hecho")}</Badge>
               ) : (
                 <button
                   disabled={!done || online}
-                  title={online ? OFFLINE_ONLY : undefined}
+                  title={online ? td(OFFLINE_ONLY) : undefined}
                   onClick={() => {
                     claimMission(event.id, m.id);
-                    notify("Recompensa de misión reclamada", true);
+                    notify(tr("Recompensa de misión reclamada"), true);
                   }}
                   className="shrink-0"
                 >
-                  Reclamar
+                  {tr("Reclamar")}
                 </button>
               )}
             </div>
-            <p className="mt-1.5 text-[10px] uppercase tracking-widest text-white/35">+{m.passXp} XP de pase</p>
+            <p className="mt-1.5 text-[10px] uppercase tracking-widest text-white/35">+{m.passXp} {tr("XP de pase")}</p>
           </Plate>
         );
       })}
@@ -357,6 +364,7 @@ function MissionsPanel({ event, notify }: { event: EventDef; notify: (m: string,
 }
 
 function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const online = useOnline();
   const xp = useEventsStore((s) => s.passXp[event.id]) ?? 0;
   const claimedLevels = useEventsStore((s) => s.claimedPassLevels[event.id]) ?? [];
@@ -367,15 +375,15 @@ function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
     <Plate className="p-5">
       <div className="mb-3 flex items-center justify-between">
         <div>
-          <p className="font-display text-lg font-bold uppercase text-white">Nivel {pp.level}<span className="text-white/40"> / {event.passLevels}</span></p>
-          <p className="text-xs text-white/45">Completa misiones para subir de nivel y reclamar recompensas.</p>
+          <p className="font-display text-lg font-bold uppercase text-white">{tr("Nivel")} {pp.level}<span className="text-white/40"> / {event.passLevels}</span></p>
+          <p className="text-xs text-white/45">{tr("Completa misiones para subir de nivel y reclamar recompensas.")}</p>
         </div>
         <div className="w-36">
           <div className="mb-1 flex justify-between text-[9px] text-white/40">
-            <span>XP</span>
+            <span>{tr("XP")}</span>
             <span>{pp.xpIntoLevel}/{pp.xpForNext}</span>
           </div>
-          <Meter value={pp.progress * 100} label="Progreso del pase de evento" />
+          <Meter value={pp.progress * 100} label={tr("Progreso del pase de evento")} />
         </div>
       </div>
 
@@ -393,7 +401,7 @@ function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
               )}
             >
               <div className="flex items-center justify-between">
-                <span className="font-display text-sm font-bold text-white">Nv {lvl}</span>
+                <span className="font-display text-sm font-bold text-white">{tr("Nv")} {lvl}</span>
                 {isClaimed && <span className="text-drl-cyan">✓</span>}
                 {!reached && <span className="text-white/40">🔒</span>}
               </div>
@@ -401,13 +409,13 @@ function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
               {claimable && (
                 <button
                   disabled={online}
-                  title={online ? OFFLINE_ONLY : undefined}
+                  title={online ? td(OFFLINE_ONLY) : undefined}
                   onClick={() => {
                     claimPassLevel(event.id, lvl);
-                    notify(`Nivel ${lvl} del pase reclamado`, true);
+                    notify(tr("Nivel {lvl} del pase reclamado", { lvl }), true);
                   }}
                 >
-                  Reclamar
+                  {tr("Reclamar")}
                 </button>
               )}
             </div>
@@ -420,6 +428,7 @@ function PassPanel({ event, notify }: { event: EventDef; notify: (m: string, ok?
 
 /* ----------------------------- Tareas semanales ----------------------------- */
 function WeeklyPanel({ notify }: { notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const online = useOnline();
   const seasonStart = useEventsStore((s) => s.seasonStart);
   const weeklyProgress = useEventsStore((s) => s.weeklyProgress);
@@ -430,7 +439,7 @@ function WeeklyPanel({ notify }: { notify: (m: string, ok?: boolean) => void }) 
 
   return (
     <div>
-      <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">Tareas semanales</h2>
+      <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">{tr("Tareas semanales")}</h2>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
         {weeklyTasks().map((t) => {
           const cur = Math.min(prog[t.metric] ?? 0, t.goal);
@@ -438,8 +447,8 @@ function WeeklyPanel({ notify }: { notify: (m: string, ok?: boolean) => void }) 
           const isClaimed = claimedWeekly.includes(`${wid}:${t.id}`);
           return (
             <Plate key={t.id} tone={done && !isClaimed ? "gold" : "neutral"} className="p-4">
-              <p className="font-display text-sm font-bold uppercase text-white">{t.label}</p>
-              <Meter className="my-2" height={6} tone="gold" value={(cur / t.goal) * 100} label={t.label} />
+              <p className="font-display text-sm font-bold uppercase text-white">{td(t.label)}</p>
+              <Meter className="my-2" height={6} tone="gold" value={(cur / t.goal) * 100} label={td(t.label)} />
               <div className="flex items-center justify-between gap-2">
                 <RewardChips reward={t.reward} />
                 {isClaimed ? (
@@ -447,14 +456,14 @@ function WeeklyPanel({ notify }: { notify: (m: string, ok?: boolean) => void }) 
                 ) : (
                   <button
                     disabled={!done || online}
-                    title={online ? OFFLINE_ONLY : undefined}
+                    title={online ? td(OFFLINE_ONLY) : undefined}
                     onClick={() => {
                       claimWeekly(t.id);
-                      notify("Tarea semanal reclamada", true);
+                      notify(tr("Tarea semanal reclamada"), true);
                     }}
                     className="shrink-0"
                   >
-                    Reclamar
+                    {tr("Reclamar")}
                   </button>
                 )}
               </div>
@@ -468,13 +477,14 @@ function WeeklyPanel({ notify }: { notify: (m: string, ok?: boolean) => void }) 
 
 /* ----------------------------- Otros eventos ----------------------------- */
 function OtherEvents({ seasonStart, now, onSelect }: { seasonStart: number; now: number; onSelect: (id: string) => void }) {
+  useLocale();
   return (
     <div>
-      <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">Calendario de eventos</h2>
+      <h2 className="mb-3 font-display text-xl font-bold uppercase tracking-wide text-white">{tr("Calendario de eventos")}</h2>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         {EVENTS.map((e) => {
           const w = eventWindow(e, seasonStart, now);
-          const label = w.status === "active" ? "En vivo" : w.status === "upcoming" ? "Próximamente" : "Finalizado";
+          const label = w.status === "active" ? tr("En vivo") : w.status === "upcoming" ? tr("Próximamente") : tr("Finalizado");
           return (
             <button
               key={e.id}
@@ -482,9 +492,9 @@ function OtherEvents({ seasonStart, now, onSelect }: { seasonStart: number; now:
               className="group relative overflow-hidden rounded-2xl border border-white/10 bg-base-700/50 p-4 text-left transition hover:-translate-y-1"
             >
               <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-20 blur-2xl" style={{ background: e.accent }} />
-              <span className="font-display text-[10px] uppercase tracking-widest" style={{ color: e.accent }}>{label}</span>
+              <span className="font-display text-[10px] uppercase tracking-widest" style={{ color: e.accent }}>{td(label)}</span>
               <h3 className="font-display text-lg font-bold uppercase text-white">{e.name}</h3>
-              <p className="text-xs text-white/45">{e.durationDays} días</p>
+              <p className="text-xs text-white/45">{e.durationDays} {tr("días")}</p>
             </button>
           );
         })}
@@ -495,6 +505,7 @@ function OtherEvents({ seasonStart, now, onSelect }: { seasonStart: number; now:
 
 /* ----------------------------- Notificaciones ----------------------------- */
 function NotificationsPanel() {
+  useLocale();
   const notifications = useEventsStore((s) => s.notifications);
   const markAllRead = useEventsStore((s) => s.markAllRead);
   if (notifications.length === 0) return null;
@@ -502,17 +513,17 @@ function NotificationsPanel() {
   return (
     <div>
       <div className="mb-3 flex items-center justify-between">
-        <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">Notificaciones</h2>
-        <button onClick={markAllRead} className="text-xs text-drl hover:underline">Marcar todo como leído</button>
+        <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">{tr("Notificaciones")}</h2>
+        <button onClick={markAllRead} className="text-xs text-drl hover:underline">{tr("Marcar todo como leído")}</button>
       </div>
       <div className="space-y-2">
         {notifications.slice(0, 12).map((n) => (
           <div key={n.id} className={cn("rounded-xl border px-4 py-2.5", n.read ? "border-white/10 bg-base-700/30" : "border-drl/30 bg-drl/5")}>
             <div className="flex items-center justify-between gap-2">
-              <p className="font-display text-sm font-semibold text-white">{n.title}</p>
+              <p className="font-display text-sm font-semibold text-white">{td(n.title)}</p>
               {!n.read && <span className="h-2 w-2 shrink-0 rounded-full bg-drl" />}
             </div>
-            <p className="text-xs text-white/50">{n.message}</p>
+            <p className="text-xs text-white/50">{td(n.message)}</p>
           </div>
         ))}
       </div>

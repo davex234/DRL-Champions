@@ -33,6 +33,10 @@ import {
 import { toGrid, type TacticalMap } from "@/domain/tactics";
 import { mapImageSrc } from "@/lib/assets";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("tactics");
 
 /** Posición de la cámara: centro en píxeles del PNG y aumento. */
 export interface Camera {
@@ -98,6 +102,7 @@ export function MapCanvas({
    */
   quietControls?: boolean;
 }) {
+  useLocale();
   const svgRef = useRef<SVGSVGElement>(null);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const panFrom = useRef<{ cx: number; cy: number; x: number; y: number } | null>(null);
@@ -269,7 +274,7 @@ export function MapCanvas({
         onPointerUp={endPointer}
         onPointerCancel={endPointer}
         role="application"
-        aria-label={`Mapa ${map.name}`}
+        aria-label={t("Mapa {name}", { name: td(map.name) })}
       >
         {/*
           CAPA BASE. El asset, entero y en su tamaño real. Nada de lo que hay encima lo
@@ -316,6 +321,7 @@ function CameraControls({
   /** Apagado hasta que se le acerca el puntero. Lo pide el modo presentacion. */
   quiet?: boolean;
 }) {
+  useLocale();
   const zoom = (factor: number) => onCamera({ ...camera, scale: camera.scale * factor });
   const btn =
     "nx-clip-sm grid h-11 w-11 place-items-center bg-[#0b0f18]/90 font-display text-[15px] " +
@@ -334,24 +340,24 @@ function CameraControls({
       {/* El zoom con rueda deja de ser evidente si hace falta Ctrl: se dice. */}
       <span
         className="nx-clip-sm pointer-events-auto hidden bg-[#0b0f18]/90 px-2.5 py-1.5 font-display text-[10px] uppercase tracking-wide text-white/40 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] backdrop-blur sm:block"
-        title="La rueda sola desplaza la página"
+        title={t("La rueda sola desplaza la página")}
       >
-        Ctrl + rueda
+        {t("Ctrl + rueda")}
       </span>
       <span className="nx-clip-sm pointer-events-auto bg-[#0b0f18]/90 px-2.5 py-1.5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] backdrop-blur">
         <b className="nx-readout text-[13px] text-white/60">{Math.round(camera.scale * 100)} %</b>
       </span>
       <span className="pointer-events-auto flex items-center gap-1.5">
-        <button type="button" className={btn} onClick={() => zoom(1 / 1.25)} aria-label="Alejar" title="Alejar">−</button>
-        <button type="button" className={btn} onClick={() => zoom(1.25)} aria-label="Acercar" title="Acercar">+</button>
+        <button type="button" className={btn} onClick={() => zoom(1 / 1.25)} aria-label={t("Alejar")} title={t("Alejar")}>−</button>
+        <button type="button" className={btn} onClick={() => zoom(1.25)} aria-label={t("Acercar")} title={t("Acercar")}>+</button>
         <button
           type="button"
           className={cn(btn, "w-auto px-3 text-[11px] uppercase tracking-wide")}
           onClick={() => onCamera(fitCamera(map))}
-          aria-label="Ajustar el mapa al área"
-          title="Ajustar al área"
+          aria-label={t("Ajustar el mapa al área")}
+          title={t("Ajustar al área")}
         >
-          Ajustar
+          {t("Ajustar")}
         </button>
       </span>
     </div>

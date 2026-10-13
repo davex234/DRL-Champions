@@ -8,3 +8,7 @@ Por qué aquí y no en `public/flags/`: ninguna carta del catálogo es de un jug
 `LOCAL_FLAGS` debe coincidir con los países del catálogo (lo fija un test). Esta bandera SOLO la usa el panel DEV del
 prototipo `/design-system/pack-walkout` para previsualizar el tema de país «España» de la arena; nunca se atribuye a
 un jugador.
+
+`pt.svg` (2026-10-12): flag-icons **7.5.0** (MIT), `flags/4x3/pt.svg`, copiada sin modificar desde
+`cdn.jsdelivr.net/npm/flag-icons@7.5.0`. sha256 del fichero: `a7a2cf0b44aaaaf4f3bdc0ee0fa308ec7085bdfedd3f72da1473d43fd2a569fb`. La usa el selector de idioma
+(«Português (PT)», `src/i18n/config.ts`); está aquí y no en `public/flags/` por el mismo motivo que `es.svg`.

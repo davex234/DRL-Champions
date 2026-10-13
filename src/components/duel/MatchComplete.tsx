@@ -19,6 +19,10 @@ import { cn } from "@/lib/format";
 import { EASE } from "@/design/motion";
 import { matchVerdict, VERDICT_TITLE } from "@/lib/duel/experience";
 import type { DuelResultView } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 /** Cuánto dura el golpe: lo justo para leerlo, nunca una cinemática. */
 export const MATCH_COMPLETE_MS = { full: 1200, reduced: 1000 } as const;
@@ -36,6 +40,7 @@ export function MatchComplete({ result, onDone, className }: {
   onDone: () => void;
   className?: string;
 }) {
+  useLocale();
   const reduced = !!useReducedMotion();
   const verdict = matchVerdict(result);
   const tono = TONO[verdict];
@@ -70,15 +75,15 @@ export function MatchComplete({ result, onDone, className }: {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: reduced ? 0.12 : 0.34, ease: EASE.out }}
         >
-          {VERDICT_TITLE[verdict]}
+          {td(VERDICT_TITLE[verdict])}
         </motion.p>
-        <p className="mt-2 text-[15px] text-white/70">{tono.sub}</p>
+        <p className="mt-2 text-[15px] text-white/70">{td(tono.sub)}</p>
         <p className="mt-5 flex items-center gap-3" data-testid="match-complete-score">
           <b className="nx-readout text-[clamp(30px,4vw,54px)] text-[#2fe0ff] tabular-nums">{result.scoreYou}</b>
           <span className="text-[18px] text-white/30">–</span>
           <b className="nx-readout text-[clamp(30px,4vw,54px)] text-drl tabular-nums">{result.scoreRival}</b>
         </p>
-        <p className="nx-label mt-4 text-white/40">Toca para ver el resultado</p>
+        <p className="nx-label mt-4 text-white/40">{t("Toca para ver el resultado")}</p>
       </div>
     </motion.div>
   );

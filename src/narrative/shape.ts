@@ -7,6 +7,9 @@
  */
 import type { MatchShape, MatchShapeId, TeamId } from "./types";
 import type { RoundRecord } from "./memory";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("narrative");
 
 export function classifyShape(
   records: RoundRecord[], score: Record<TeamId, number>, winner: TeamId | null,
@@ -34,43 +37,43 @@ export function classifyShape(
 
   if (maxDeficit >= 5) {
     id = maxDeficit >= 7 ? "miracle" : "comeback";
-    descriptors.push(`remontó un −${maxDeficit}`);
+    descriptors.push(t("remontó un −{maxDeficit}", { maxDeficit }));
     confidence = 0.8;
-    if (clutches >= 3) descriptors.push(`${clutches} rondas de clutch`);
+    if (clutches >= 3) descriptors.push(t("{clutches} rondas de clutch", { clutches }));
   } else if (margin >= 9) {
     id = "blowout";
-    descriptors.push(`paliza por ${score[winner]}-${score[loser]}`);
+    descriptors.push(t("paliza por {v}-{v2}", { v: score[winner], v2: score[loser] }));
     confidence = 0.85;
   } else if (margin >= 6) {
     id = "dominance";
-    descriptors.push(`dominio claro`);
+    descriptors.push(t("dominio claro"));
     confidence = 0.7;
   } else if (leadChanges >= 4) {
     id = "trading_blows";
-    descriptors.push(`${leadChanges} cambios de liderato`);
+    descriptors.push(t("{leadChanges} cambios de liderato", { leadChanges }));
     confidence = 0.7;
   } else if (margin <= 2 && total >= 14) {
     id = "nail_biter";
-    descriptors.push(`decidido por ${margin}`);
+    descriptors.push(t("decidido por {margin}", { margin }));
     confidence = 0.8;
-    if (clutches >= 2) descriptors.push("al filo");
+    if (clutches >= 2) descriptors.push(t("al filo"));
   } else if (maxStreak >= 6) {
     id = "snowball";
-    descriptors.push(`bola de nieve de ${maxStreak} rondas`);
+    descriptors.push(t("bola de nieve de {maxStreak} rondas", { maxStreak }));
     confidence = 0.75;
   } else if (leadSeries[Math.floor(leadSeries.length / 2)] < 0) {
     id = "comeback";
-    descriptors.push("le dieron la vuelta");
+    descriptors.push(t("le dieron la vuelta"));
     confidence = 0.6;
   } else {
     id = "one_sided";
-    descriptors.push(`control de ${winner}`);
+    descriptors.push(t("control de {winner}", { winner }));
     confidence = 0.55;
   }
 
   // ¿Colapso del perdedor? (iba ganando claro y lo perdió).
   if ((id === "comeback" || id === "miracle") && Math.max(...leadSeries.slice(0, Math.ceil(leadSeries.length / 2))) <= -3) {
-    descriptors.push("colapso del rival");
+    descriptors.push(t("colapso del rival"));
   }
   return { id, confidence, descriptors };
 }

@@ -7,6 +7,9 @@
  */
 import type { StarterStatus } from "@/server/services/starter";
 import { STARTER_COPY } from "@/domain/economy/starter";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("economy");
 
 export type StarterOfferKind = "open-owned" | "claim" | "not-needed" | "has-unopened" | "cap" | "checking" | "offline";
 
@@ -24,21 +27,21 @@ export interface StarterOffer {
 
 export function starterOffer(input: { owned: number; online: boolean; status: StarterStatus | null | undefined }): StarterOffer {
   if (input.owned > 0) {
-    return { kind: "open-owned", cta: "Abrir sobre", enabled: true, note: null, priceLabel: "Gratis" };
+    return { kind: "open-owned", cta: t("Abrir sobre"), enabled: true, note: null, priceLabel: "Gratis" };
   }
   if (!input.online) {
-    return { kind: "offline", cta: "Inicia sesión", enabled: false, note: "El Sobre Inicial gratis lo concede el servidor a cuentas que aún no pueden formar su plantilla.", priceLabel: "Gratis" };
+    return { kind: "offline", cta: t("Inicia sesión"), enabled: false, note: t("El Sobre Inicial gratis lo concede el servidor a cuentas que aún no pueden formar su plantilla."), priceLabel: "Gratis" };
   }
   const s = input.status;
-  if (s === undefined) return { kind: "checking", cta: "Comprobando…", enabled: false, note: null, priceLabel: "Gratis" };
-  if (s === null) return { kind: "checking", cta: "No disponible ahora", enabled: false, note: "No se pudo comprobar si te corresponde. Vuelve a intentarlo.", priceLabel: "Gratis" };
+  if (s === undefined) return { kind: "checking", cta: t("Comprobando…"), enabled: false, note: null, priceLabel: "Gratis" };
+  if (s === null) return { kind: "checking", cta: t("No disponible ahora"), enabled: false, note: t("No se pudo comprobar si te corresponde. Vuelve a intentarlo."), priceLabel: "Gratis" };
   if (s.eligible) {
     const missing = s.missingRoles.map((r) => `${r.role} ${r.have}/${r.need}`).join(" · ");
-    return { kind: "claim", cta: "Conseguir Sobre Inicial gratis", enabled: true, note: `${STARTER_COPY.collect}${missing ? ` Te faltan: ${missing}.` : ""}`, priceLabel: "Gratis" };
+    return { kind: "claim", cta: t("Conseguir Sobre Inicial gratis"), enabled: true, note: `${STARTER_COPY.collect}${missing ? t(" Te faltan: {missing}.", { missing: td(missing) }) : ""}`, priceLabel: "Gratis" };
   }
   switch (s.reason) {
-    case "HAS_UNOPENED_STARTER": return { kind: "has-unopened", cta: "Abrir sobre", enabled: true, note: STARTER_COPY.claimed, priceLabel: "Gratis" };
-    case "CLAIM_CAP": return { kind: "cap", cta: "No disponible", enabled: false, note: `${STARTER_COPY.cap} Consigue créditos jugando y abre un Sobre Estándar.`, priceLabel: "No disponible" };
-    default: return { kind: "not-needed", cta: "Ya no es necesario", enabled: false, note: STARTER_COPY.notNeeded, priceLabel: "No disponible" };
+    case "HAS_UNOPENED_STARTER": return { kind: "has-unopened", cta: t("Abrir sobre"), enabled: true, note: STARTER_COPY.claimed, priceLabel: "Gratis" };
+    case "CLAIM_CAP": return { kind: "cap", cta: t("No disponible"), enabled: false, note: t("{cap} Consigue créditos jugando y abre un Sobre Estándar.", { cap: td(STARTER_COPY.cap) }), priceLabel: t("No disponible") };
+    default: return { kind: "not-needed", cta: t("Ya no es necesario"), enabled: false, note: STARTER_COPY.notNeeded, priceLabel: t("No disponible") };
   }
 }

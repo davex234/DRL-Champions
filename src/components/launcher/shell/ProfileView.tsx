@@ -20,6 +20,10 @@ import { Readout } from "@/components/ui/Readout";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Plate } from "@/components/ui/Surface";
 import { Avatar } from "./primitives";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 export function ProfileView({
   user, entries, jobs, motionScale, onOpenGame,
@@ -30,6 +34,7 @@ export function ProfileView({
   motionScale: number;
   onOpenGame: (gameId: string) => void;
 }) {
+  useLocale();
   const games = getGames();
   const installed = games.filter((g) => {
     const s = effectiveState(entries[g.id], jobs[g.id]);
@@ -62,14 +67,14 @@ export function ProfileView({
             </h1>
             <p className="mt-1.5 flex items-center gap-2 text-[12px] text-white/50">
               <StatusDot tone={PRESENCE_TONE[user.presence]} size={7} pulse={user.presence !== "offline"} />
-              {PRESENCE_LABEL[user.presence]}
+              {tdIn("launcher", PRESENCE_LABEL[user.presence])}
             </p>
             <div className="mt-4 max-w-[380px]">
               <div className="flex items-baseline justify-between">
                 <span className="font-display text-label font-bold uppercase tracking-[0.24em] text-white/35">
-                  Nivel {user.level}
+                  {t("Nivel")} {user.level}
                 </span>
-                <span className="text-caption text-white/35">{Math.round(user.levelProgress * 100)} % al nivel {user.level + 1}</span>
+                <span className="text-caption text-white/35">{Math.round(user.levelProgress * 100)} {t("% al nivel")} {user.level + 1}</span>
               </div>
               <Meter value={user.levelProgress * 100} tone="warn" height={6} className="mt-1.5" />
             </div>
@@ -80,22 +85,22 @@ export function ProfileView({
       {/* Cifras */}
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Plate className="p-4">
-          <Readout size="xs" label="Juegos instalados" value={`${installed.length} / ${games.length}`} tone="var(--nx-cyan)" />
+          <Readout size="xs" label={t("Juegos instalados")} value={`${installed.length} / ${games.length}`} tone="var(--nx-cyan)" />
         </Plate>
         <Plate className="p-4">
-          <Readout size="xs" label="Espacio ocupado" value={formatBytes(diskUsed)} />
+          <Readout size="xs" label={t("Espacio ocupado")} value={formatBytes(diskUsed)} />
         </Plate>
         <Plate className="p-4">
-          <Readout size="xs" label="Sesiones registradas" value={`${minutes} min`} />
+          <Readout size="xs" label={t("Sesiones registradas")} value={t("{minutes} min", { minutes })} />
         </Plate>
         <Plate className="p-4">
-          <Readout size="xs" label="Amigos conectados" value={`${countConnected(friends)} / ${friends.length}`} tone="var(--nx-ok)" />
+          <Readout size="xs" label={t("Amigos conectados")} value={`${countConnected(friends)} / ${friends.length}`} tone="var(--nx-ok)" />
         </Plate>
       </div>
 
       {/* Biblioteca */}
       <section>
-        <SectionTitle>Mis juegos</SectionTitle>
+        <SectionTitle>{t("Mis juegos")}</SectionTitle>
         <Plate className="divide-y divide-white/[0.05]">
           {games.map((g) => {
             const entry = entries[g.id];
@@ -111,12 +116,12 @@ export function ProfileView({
                   className="nx-clip-sm grid h-9 w-9 shrink-0 place-items-center font-display text-[12px] font-black text-white"
                   style={{ background: `linear-gradient(150deg, ${g.palette.key}, ${g.palette.deep})` }}
                 >
-                  {g.monogram}
+                  {td(g.monogram)}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-display text-[13px] font-bold tracking-wide text-white/85">{g.name}</span>
                   <span className="block truncate text-caption text-white/35">
-                    {entry?.installPath ?? "Sin instalar"} · {entry?.installedVersion ? `v${entry.installedVersion}` : "—"}
+                    {entry?.installPath ?? t("Sin instalar")} · {entry?.installedVersion ? `v${entry.installedVersion}` : "—"}
                   </span>
                 </span>
                 <Badge dot tone={stateTone(state)}>{stateLabel(state, g, entry)}</Badge>
@@ -128,7 +133,7 @@ export function ProfileView({
 
       {/* Actividad */}
       <section>
-        <SectionTitle>Actividad reciente</SectionTitle>
+        <SectionTitle>{t("Actividad reciente")}</SectionTitle>
         <Plate className="divide-y divide-white/[0.05]">
           {ACTIVITY.map((a) => {
             const game = a.gameId ? getGame(a.gameId) : undefined;
@@ -139,7 +144,7 @@ export function ProfileView({
                   className="h-2 w-2 shrink-0 rounded-full"
                   style={{ background: game?.palette.key ?? "var(--nx-ink-faint)", boxShadow: `0 0 10px ${game?.palette.key ?? "transparent"}` }}
                 />
-                <span className="min-w-0 flex-1 truncate text-[12.5px] text-white/70">{a.text}</span>
+                <span className="min-w-0 flex-1 truncate text-[12.5px] text-white/70">{td(a.text)}</span>
                 <span className="shrink-0 text-caption text-white/30">{formatDate(a.at)}</span>
               </div>
             );

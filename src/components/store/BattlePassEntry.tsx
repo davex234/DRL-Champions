@@ -8,11 +8,14 @@
 import Link from "next/link";
 import { ROUTES } from "@/design/nav";
 import { PASS_PRODUCT, PAYMENTS_ENABLED, formatPrice } from "@/config/monetization";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("store");
 
 export function battlePassStoreLine(paymentsEnabled = PAYMENTS_ENABLED): string {
   return paymentsEnabled
     ? `${PASS_PRODUCT.label} · ${formatPrice(PASS_PRODUCT.price)}`
-    : `${PASS_PRODUCT.label} · ${formatPrice(PASS_PRODUCT.price)} · próximamente`;
+    : t("{label} · {price} · próximamente", { label: td(PASS_PRODUCT.label), price: formatPrice(PASS_PRODUCT.price) });
 }
 
 export function BattlePassEntry() {
@@ -30,12 +33,12 @@ export function BattlePassEntry() {
         <polyline points="300,120 360,92 420,104 480,64 540,76 600,30" fill="none" stroke="rgba(255,211,92,0.7)" strokeWidth="2.5" />
       </svg>
       <span className="min-w-0">
-        <span className="block font-display text-[11px] font-bold uppercase tracking-[0.24em] text-drl-gold">Temporada</span>
-        <span className="mt-1 block font-display text-[clamp(26px,3.4vw,40px)] font-extrabold uppercase leading-none text-white">Pase de batalla</span>
+        <span className="block font-display text-[11px] font-bold uppercase tracking-[0.24em] text-drl-gold">{t("Temporada")}</span>
+        <span className="mt-1 block font-display text-[clamp(26px,3.4vw,40px)] font-extrabold uppercase leading-none text-white">{t("Pase de batalla")}</span>
         <span className="mt-2 block text-[13px] text-white/70" data-testid="store-battle-pass-premium">{battlePassStoreLine()}</span>
       </span>
       <span className="nx-clip-sm shrink-0 bg-drl-gold px-4 py-3 font-display text-[13px] font-bold uppercase tracking-[0.14em] text-[#221703] transition group-hover:brightness-110">
-        Ver pase
+        {t("Ver pase")}
       </span>
     </Link>
   );

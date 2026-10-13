@@ -18,15 +18,20 @@ import { ACCENT } from "@/design/tokens";
 import { accentStyle, cardFacts, catalogPrice, packOf, packTone, rarityColor } from "./storeView";
 import { css } from "./storeClasses";
 import { CreditGlyph } from "@/components/ui/game/GameGlyph";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("store");
 
 // ───────────────────────────── piezas compartidas ─────────────────────────────
 
 export function SectionHead({ id, title, subtitle, action }: { id: string; title: string; subtitle: string; action?: ReactNode }) {
+  useLocale();
   return (
     <div className="mb-4 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-        <h2 id={id} className="font-display text-[clamp(22px,2.6vw,30px)] font-bold uppercase leading-none tracking-wide text-white">{title}</h2>
-        <p className="text-caption text-ink-muted">{subtitle}</p>
+        <h2 id={id} className="font-display text-[clamp(22px,2.6vw,30px)] font-bold uppercase leading-none tracking-wide text-white">{td(title)}</h2>
+        <p className="text-caption text-ink-muted">{td(subtitle)}</p>
       </div>
       {action}
     </div>
@@ -36,15 +41,16 @@ export function SectionHead({ id, title, subtitle, action }: { id: string; title
 const BADGE_TEXT = { FEATURED: "Destacado", NEW: "Nuevo" } as const;
 
 export function StatusChip({ product, owned = 0, hideSoon = false }: { product: ResolvedProduct; owned?: number; hideSoon?: boolean }) {
+  useLocale();
   const chips: { text: string; tone: string }[] = [];
-  if (product.badge) chips.push({ text: BADGE_TEXT[product.badge], tone: product.badge === "NEW" ? "text-ok border-ok/50" : "text-drl border-drl/60" });
-  if (product.status === "COMING_SOON" && !hideSoon) chips.push({ text: "Próximamente", tone: "text-white/70 border-white/25" });
-  if (owned > 0) chips.push({ text: `${owned} sin abrir`, tone: "text-drl-cyan border-drl-cyan/50" });
+  if (product.badge) chips.push({ text: tdIn("store", BADGE_TEXT[product.badge]), tone: product.badge === "NEW" ? "text-ok border-ok/50" : "text-drl border-drl/60" });
+  if (product.status === "COMING_SOON" && !hideSoon) chips.push({ text: t("Próximamente"), tone: "text-white/70 border-white/25" });
+  if (owned > 0) chips.push({ text: t("{owned} sin abrir", { owned }), tone: "text-drl-cyan border-drl-cyan/50" });
   if (chips.length === 0) return null;
   return (
     <span className="flex flex-wrap gap-1.5">
       {chips.map((c) => (
-        <span key={c.text} className={`nx-clip-sm border bg-black/40 px-2 py-1 font-display text-label font-bold uppercase tracking-wide2 ${c.tone}`}>{c.text}</span>
+        <span key={c.text} className={`nx-clip-sm border bg-black/40 px-2 py-1 font-display text-label font-bold uppercase tracking-wide2 ${c.tone}`}>{td(c.text)}</span>
       ))}
     </span>
   );
@@ -55,14 +61,15 @@ export function StatusChip({ product, owned = 0, hideSoon = false }: { product: 
  * viven en el detalle de compra.
  */
 export function CatalogPrice({ product }: { product: ResolvedProduct }) {
+  useLocale();
   const price = catalogPrice(product);
   return (
     <span className={`${price.kind === "credits" ? css.priceCredits : css.priceMoney} nx-clip-sm flex min-h-[36px] items-center justify-center gap-1.5 px-2`} data-testid="store-price">
       {price.kind === "credits" && <CreditGlyph />}
       <span className={`whitespace-nowrap font-display font-bold tabular-nums ${price.kind === "credits" ? "text-readout-sm text-drl-gold" : price.kind === "money" ? "text-readout-sm text-white" : "text-label uppercase tracking-wide text-white/75"}`}>
-        {price.text}
+        {td(price.text)}
       </span>
-      {price.kind === "credits" && <span className="sr-only">DRL Credits</span>}
+      {price.kind === "credits" && <span className="sr-only">{t("DRL Credits")}</span>}
     </span>
   );
 }
@@ -87,9 +94,10 @@ const ctaMuted = `${ctaClass} border border-white/15 bg-white/[0.04] text-white/
 function OfferCard({ product, name, owned = 0, index, tone, art, onSelect }: {
   product: ResolvedProduct; name: string; owned?: number; index: number; tone: string; art: ReactNode; onSelect: (p: ResolvedProduct) => void;
 }) {
+  useLocale();
   const available = product.status === "AVAILABLE";
   const free = catalogPrice(product).text === "Gratis";
-  const cta = !available ? "Ver" : free ? "Conseguir" : "Comprar";
+  const cta = !available ? t("Ver") : free ? t("Conseguir") : t("Comprar");
   return (
     <article
       className={`${css.product} flex min-w-0 flex-col`}
@@ -111,7 +119,7 @@ function OfferCard({ product, name, owned = 0, index, tone, art, onSelect }: {
         <h3 className="line-clamp-2 min-h-[2.5em] break-words font-display text-readout-sm font-bold uppercase leading-tight tracking-wide text-white sm:min-h-0" title={name}>{name}</h3>
         <CatalogPrice product={product} />
         <button type="button" className={available ? ctaPrimary : ctaMuted} onClick={() => onSelect(product)} aria-label={`${cta} ${name}`} aria-haspopup="dialog">
-          {cta}
+          {td(cta)}
         </button>
       </div>
     </article>
@@ -124,7 +132,7 @@ export function PackOfferCard({ product, owned, index, onSelect }: { product: Re
   const pack = packOf(product);
   if (!pack) return null;
   return (
-    <OfferCard product={product} name={pack.name} owned={owned} index={index} tone={packTone(pack)} onSelect={onSelect}
+    <OfferCard product={product} name={td(pack.name)} owned={owned} index={index} tone={packTone(pack)} onSelect={onSelect}
       art={<PackImage pack={pack} width={160} className={`${css.packArt} h-full w-full object-contain`} />} />
   );
 }
@@ -197,18 +205,19 @@ export function BoxVisual({ pack, width = 200, fluid = false }: { pack: PackDef;
 export function BoxOfferCard({ product, index, onSelect }: { product: ResolvedProduct; index: number; onSelect: (p: ResolvedProduct) => void }) {
   const pack = packOf(product);
   if (!pack) return null;
-  return <OfferCard product={product} name={product.name} index={index} tone={packTone(pack)} onSelect={onSelect} art={<BoxVisual pack={pack} fluid />} />;
+  return <OfferCard product={product} name={td(product.name)} index={index} tone={packTone(pack)} onSelect={onSelect} art={<BoxVisual pack={pack} fluid />} />;
 }
 
 // ───────────────────────────── CARTA ─────────────────────────────
 
 /** La carta se enseña con su ARTE COMPLETO (ya lleva OVR, nombre, rol y stats impresos). Edición y rareza: en el detalle. */
 export function CardOfferCard({ product, index, onSelect }: { product: ResolvedProduct; index: number; onSelect: (p: ResolvedProduct) => void }) {
+  useLocale();
   const f = product.cardId ? cardFacts(product.cardId) : null;
   if (!f) return null;
   return (
     <OfferCard product={product} name={f.nick} index={index} tone={rarityColor(f.rarity)} onSelect={onSelect}
-      art={<img data-card-art className={`${css.packArt} nx-card-art h-full w-full object-contain`} src={f.image} alt={`Carta de ${f.nick}`} width={750} height={1048} loading="lazy" decoding="async" />} />
+      art={<img data-card-art className={`${css.packArt} nx-card-art h-full w-full object-contain`} src={f.image} alt={t("Carta de {nick}", { nick: f.nick })} width={750} height={1048} loading="lazy" decoding="async" />} />
   );
 }
 
@@ -234,5 +243,5 @@ export function BundleArt({ product }: { product: ResolvedProduct }) {
 export function BundleOfferCard({ product, index, onSelect }: { product: ResolvedProduct; index: number; onSelect: (p: ResolvedProduct) => void }) {
   const packs = product.grant.packs.map((x) => getPack(x.packId)).filter((p): p is PackDef => !!p);
   const lead = packs[packs.length - 1] ?? packs[0];
-  return <OfferCard product={product} name={product.name} index={index} tone={lead ? packTone(lead) : ACCENT.cyan} onSelect={onSelect} art={<BundleArt product={product} />} />;
+  return <OfferCard product={product} name={td(product.name)} index={index} tone={lead ? packTone(lead) : ACCENT.cyan} onSelect={onSelect} art={<BundleArt product={product} />} />;
 }

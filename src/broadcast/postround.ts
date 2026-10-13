@@ -9,6 +9,9 @@ import { analyze, type RoundState, type Cause } from "../sim";
 import { detectRoundMoments, type MomentBadge } from "../lib/match/moments";
 import { detectAbilityEvents } from "../abilities";
 import { detectTacticalEvents } from "../tactics";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("broadcast");
 
 export interface PostRound {
   round: number;
@@ -42,17 +45,19 @@ export function buildPostRound(match: MatchState, finished: RoundState): PostRou
   // Qué decidió el coach esta ronda (última llamada o concepto).
   const calls = finished.events.filter((e) => e.type === "coachCall");
   const lastCall = calls.length ? String((calls[calls.length - 1].data as { id?: string }).id ?? "") : null;
-  const coachDecided = lastCall ? `Orden del entrenador: ${lastCall}.`
-    : match.currentDecision ? `Plan: ${match.currentDecision.concept}.` : "Sin intervención del entrenador.";
+  const coachDecided = lastCall ? t("Orden del entrenador: {lastCall}.", { lastCall: td(lastCall) })
+    : match.currentDecision ? `Plan: ${match.currentDecision.concept}.` : t("Sin intervención del entrenador.");
 
   // Qué cambió tácticamente.
   const tacticalChange = ours
-    ? `Fase ${ours.phase} · concepto ${ours.concept}${ours.adapted ? " (adaptado en caliente)" : ""}.`
-    : "Plan ejecutado sin adaptaciones.";
+    ? (ours.adapted
+      ? t("Fase {fase} · concepto {concepto} (adaptado en caliente).", { fase: ours.phase, concepto: ours.concept })
+      : t("Fase {fase} · concepto {concepto}.", { fase: ours.phase, concepto: ours.concept }))
+    : t("Plan ejecutado sin adaptaciones.");
 
   // Qué aprendió el "cerebro" del equipo (lecturas del rival).
   const reads = ours?.reads ?? [];
-  const brainLearned = reads.length ? reads[0] : (won ? "Confirma su lectura del rival." : "Toca recalibrar la lectura del rival.");
+  const brainLearned = reads.length ? reads[0] : (won ? t("Confirma su lectura del rival.") : t("Toca recalibrar la lectura del rival."));
 
   // Habilidad decisiva.
   const abEvents = detectAbilityEvents([finished]);
@@ -61,14 +66,14 @@ export function buildPostRound(match: MatchState, finished: RoundState): PostRou
 
   // Qué cambió (táctico de alto nivel).
   const tac = detectTacticalEvents([finished]).sort((x, y) => y.magnitude - x.magnitude)[0];
-  const whatChanged = tac ? tac.detail ?? tac.type.replace(/_/g, " ") : (moments[0]?.label ?? "Ronda de control.");
+  const whatChanged = tac ? tac.detail ?? tac.type.replace(/_/g, " ") : (moments[0]?.label ?? t("Ronda de control."));
 
   return {
     round: match.roundNumber,
     won,
     headline: a.headline,
     mvp: roundMvp(finished),
-    reason: a.causes[0]?.text ?? "Ronda equilibrada.",
+    reason: a.causes[0]?.text ?? t("Ronda equilibrada."),
     whatChanged,
     brainLearned,
     coachDecided,

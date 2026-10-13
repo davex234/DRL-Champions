@@ -28,6 +28,10 @@ import { SocialHub } from "@/components/social/SocialHub";
 import { ChallengeSheet } from "@/components/social/ChallengeSheet";
 import { ConfirmSheet } from "@/components/social/ConfirmSheet";
 import { isSocialTab, type SocialHandlers, type SocialTab } from "@/components/social/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("social");
 
 type Sheet =
   | { kind: "challenge"; target: SocialPlayer; previousMatchId: string | null }
@@ -37,6 +41,7 @@ type Sheet =
   | null;
 
 function Social() {
+  useLocale();
   const router = useRouter();
   const params = useSearchParams();
   const { user, loading } = useAuth();
@@ -67,7 +72,7 @@ function Social() {
     if (!owner) return;
     setError(null);
     try { const s = await fetchSocial(); if (s && uidRef.current === owner) { setOwned({ owner, snap: s }); setMoreFriends([]); setNow(Date.now()); } }
-    catch (e) { if (uidRef.current === owner) setError(e instanceof Error ? e.message : "No se pudo leer lo social"); }
+    catch (e) { if (uidRef.current === owner) setError(e instanceof Error ? e.message : tr("No se pudo leer lo social")); }
   }, []);
   useEffect(() => { setSheet(null); setResults(null); setQuery(""); if (online && uid) void load(); }, [online, uid, load]);
   useEffect(() => { trackSocial("social_view"); }, []);
@@ -107,7 +112,7 @@ function Social() {
     } catch (e) {
       if (my !== seq.current) return;
       setResults(null);
-      setSearchError(e instanceof Error ? e.message : "No se pudo buscar");
+      setSearchError(e instanceof Error ? e.message : tr("No se pudo buscar"));
     } finally { if (my === seq.current) setSearching(false); }
   }, []);
 
@@ -116,30 +121,30 @@ function Social() {
     if (busy) return false;
     setBusy(true);
     try { await fn(); notify(okMsg, true); announceSocialChange(); await load(); if (query.length >= 2) void onQuery(query); return true; }
-    catch (e) { notify(e instanceof Error ? e.message : "No se pudo completar", false); return false; }
+    catch (e) { notify(e instanceof Error ? e.message : tr("No se pudo completar"), false); return false; }
     finally { setBusy(false); }
   }, [busy, load, notify, query, onQuery]);
 
   const ensureDecks = useCallback(async () => {
     if (decks) return;
     try { const d = await fetchDuelDecks(); setDecks(d.decks); setActiveDeckId(d.activeDeckId); }
-    catch (e) { setSheetError(e instanceof Error ? e.message : "No se pudieron leer tus equipos"); }
+    catch (e) { setSheetError(e instanceof Error ? e.message : tr("No se pudieron leer tus equipos")); }
   }, [decks]);
 
   const openMatch = useCallback((matchId: string) => { router.push(`/duelos/pvp?match=${matchId}`); }, [router]);
 
   const handlers: SocialHandlers = useMemo(() => ({
     onFriendRequest: (p) => { void run(async () => { await sendFriendRequest(p.userId); trackSocial("friend_request"); }, `Solicitud enviada a ${p.username}`); },
-    onAcceptFriend: (p) => { void run(async () => { await acceptFriend(p.userId); trackSocial("friend_accept"); }, `Ahora sois amigos: ${p.username}`); },
-    onDeclineFriend: (p) => { void run(() => declineFriend(p.userId), "Solicitud rechazada"); },
-    onCancelRequest: (p) => { void run(() => removeFriend(p.userId), "Solicitud retirada"); },
+    onAcceptFriend: (p) => { void run(async () => { await acceptFriend(p.userId); trackSocial("friend_accept"); }, tr("Ahora sois amigos: {username}", { username: p.username })); },
+    onDeclineFriend: (p) => { void run(() => declineFriend(p.userId), tr("Solicitud rechazada")); },
+    onCancelRequest: (p) => { void run(() => removeFriend(p.userId), tr("Solicitud retirada")); },
     onUnfriend: (p) => setSheet({ kind: "unfriend", target: p }),
     onBlock: (p) => setSheet({ kind: "block", target: p }),
     onUnblock: (p) => { void run(() => unblockUser(p.userId), `${p.username} desbloqueado`); },
     onChallenge: (p, previousMatchId = null) => { setSheetError(null); setSheet({ kind: "challenge", target: p, previousMatchId }); void ensureDecks(); },
     onAcceptChallenge: (c) => { setSheetError(null); setSheet({ kind: "accept", challenge: c }); void ensureDecks(); },
-    onDeclineChallenge: (c) => { void run(() => declineChallenge(c.id), "Reto rechazado"); },
-    onCancelChallenge: (c) => { void run(() => cancelChallengeReq(c.id), "Reto cancelado"); },
+    onDeclineChallenge: (c) => { void run(() => declineChallenge(c.id), tr("Reto rechazado")); },
+    onCancelChallenge: (c) => { void run(() => cancelChallengeReq(c.id), tr("Reto cancelado")); },
     onOpenMatch: openMatch,
   }), [run, ensureDecks, openMatch]);
 
@@ -150,7 +155,7 @@ function Social() {
       if (sheet.kind === "challenge") {
         const r = await createChallenge(sheet.target.userId, deckId, sheet.previousMatchId);
         trackSocial("challenge_sent");
-        notify(r.code === "ALREADY_PENDING" ? "Ya tenías un reto pendiente con esa persona" : `Reto enviado a ${sheet.target.username}: esperando respuesta…`, true);
+        notify(r.code === "ALREADY_PENDING" ? tr("Ya tenías un reto pendiente con esa persona") : tr("Reto enviado a {username}: esperando respuesta…", { username: sheet.target.username }), true);
         setSheet(null); setTab("retos"); announceSocialChange(); await load();
       } else if (sheet.kind === "accept") {
         const r = await acceptChallenge(sheet.challenge.id, deckId);
@@ -160,7 +165,7 @@ function Social() {
         if (r.matchId) openMatch(r.matchId); else await load();
       }
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "No se pudo completar";
+      const msg = e instanceof Error ? e.message : tr("No se pudo completar");
       setSheetError(msg);
       if (e instanceof SocialError && ["EXPIRED", "NOT_PENDING", "BUSY", "IN_QUEUE", "UNAVAILABLE", "INCOMING_PENDING", "CHALLENGE_LIMIT"].includes(e.code ?? "")) {
         setSheet(null); notify(msg, false); await load();
@@ -173,8 +178,8 @@ function Social() {
     if (!sheet || (sheet.kind !== "unfriend" && sheet.kind !== "block")) return;
     const t = sheet.target;
     const ok = sheet.kind === "unfriend"
-      ? await run(() => removeFriend(t.userId), `${t.username} ya no es tu amigo`)
-      : await run(() => blockUser(t.userId), `${t.username} bloqueado`);
+      ? await run(() => removeFriend(t.userId), tr("{username} ya no es tu amigo", { username: t.username }))
+      : await run(() => blockUser(t.userId), tr("{username} bloqueado", { username: t.username }));
     if (ok) setSheet(null);
   }, [sheet, run]);
 
@@ -200,13 +205,13 @@ function Social() {
   const onMoreFriends = useCallback(async () => {
     if (!snap) return;
     try { const page = await fetchFriendsPage(snap.friends.length + moreFriends.length); if (page) setMoreFriends((m) => [...m, ...page.friends]); }
-    catch (e) { notify(e instanceof Error ? e.message : "No se pudieron leer más amigos", false); }
+    catch (e) { notify(e instanceof Error ? e.message : tr("No se pudieron leer más amigos"), false); }
   }, [snap, moreFriends.length, notify]);
 
-  if (loading) return <Loading label="Leyendo tu lista de amigos…" />;
-  if (!online || !user) return <NeedsAccount what="lo social (amigos y duelos amistosos)" />;
-  if (error && !snap) return <ErrorState message={error} onRetry={load} />;
-  if (!snap) return <Loading label="Leyendo tu lista de amigos…" />;
+  if (loading) return <Loading label={tr("Leyendo tu lista de amigos…")} />;
+  if (!online || !user) return <NeedsAccount what={tr("lo social (amigos y duelos amistosos)")} />;
+  if (error && !snap) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!snap) return <Loading label={tr("Leyendo tu lista de amigos…")} />;
 
   return (
     <>
@@ -228,24 +233,24 @@ function Social() {
         decks={decks}
         activeDeckId={activeDeckId}
         busy={busy}
-        error={sheetError}
+        error={td(sheetError)}
         onConfirm={confirmSheet}
         onClose={() => { if (!busy) setSheet(null); }}
       />
       <ConfirmSheet
         open={sheet?.kind === "unfriend"}
-        title="¿Eliminar amigo?"
-        body={sheet?.kind === "unfriend" ? `${sheet.target.username} dejará de ser tu amigo y no podréis retaros hasta volver a serlo. Vuestro historial de partidas se conserva.` : ""}
-        confirmLabel="Eliminar amigo"
+        title={tr("¿Eliminar amigo?")}
+        body={sheet?.kind === "unfriend" ? tr("{username} dejará de ser tu amigo y no podréis retaros hasta volver a serlo. Vuestro historial de partidas se conserva.", { username: sheet.target.username }) : ""}
+        confirmLabel={tr("Eliminar amigo")}
         busy={busy}
         onConfirm={confirmDanger}
         onClose={() => { if (!busy) setSheet(null); }}
       />
       <ConfirmSheet
         open={sheet?.kind === "block"}
-        title="¿Bloquear jugador?"
-        body={sheet?.kind === "block" ? `${sheet.target.username} no podrá enviarte solicitudes ni retos, y dejaréis de ser amigos. Sus retos pendientes se cancelan. Puedes desbloquearle desde Solicitudes.` : ""}
-        confirmLabel="Bloquear"
+        title={tr("¿Bloquear jugador?")}
+        body={sheet?.kind === "block" ? tr("{username} no podrá enviarte solicitudes ni retos, y dejaréis de ser amigos. Sus retos pendientes se cancelan. Puedes desbloquearle desde Solicitudes.", { username: sheet.target.username }) : ""}
+        confirmLabel={tr("Bloquear")}
         busy={busy}
         onConfirm={confirmDanger}
         onClose={() => { if (!busy) setSheet(null); }}
@@ -256,8 +261,9 @@ function Social() {
 }
 
 export default function SocialPage() {
+  useLocale();
   return (
-    <Suspense fallback={<Loading label="Cargando…" />}>
+    <Suspense fallback={<Loading label={tr("Cargando…")} />}>
       <Social />
     </Suspense>
   );

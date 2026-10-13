@@ -38,7 +38,7 @@ test("F69 · constructor a 1024: el nombre del rol no se parte; baja el recuento
 
 test("F69 · /cuenta CLS (reanudación): la carga reserva la pantalla y la tira de cifras no se sustituye por un cargador", () => {
   const s = read("src/app/cuenta/page.tsx");
-  assert.match(s, /if \(loading\) return <><Header \/><div className="min-h-screen"><Loading label="Cargando tu perfil" \/><\/div><\/>;/);
+  assert.match(s, /if \(loading\) return <><Header \/><div className="min-h-screen"><Loading label=\{(?:t|tr|i18nT)\("Cargando tu perfil"\)\} \/><\/div><\/>;/);
   assert.ok(!/statsLoading \? \(\s*<Loading/.test(s), "sin cargador de otra altura en lugar de la tira");
   assert.match(s, /aria-busy=\{statsLoading\} data-testid="cuenta-stats"/);
   // Mientras carga, lo que viene del servidor sale como «—» (nunca una cifra inventada).

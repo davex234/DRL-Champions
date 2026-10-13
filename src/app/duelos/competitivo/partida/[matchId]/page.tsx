@@ -12,8 +12,13 @@ import { fetchCompetitiveMatch, CompetitiveError, type CompetitiveMatchDetail } 
 import { trackCompetitive } from "@/lib/competitive/telemetry";
 import { MatchDetailView } from "@/components/competitive/MatchDetailView";
 import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duelos");
 
 export default function PartidaPage({ params }: { params: Promise<{ matchId: string }> }) {
+  useLocale();
   const { matchId } = use(params);
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
@@ -23,27 +28,27 @@ export default function PartidaPage({ params }: { params: Promise<{ matchId: str
   const load = useCallback(async () => {
     setError(null);
     try { setDetail(await fetchCompetitiveMatch(matchId)); }
-    catch (e) { setError({ message: e instanceof Error ? e.message : "No se pudo leer la partida", status: e instanceof CompetitiveError ? e.status : 500 }); }
+    catch (e) { setError({ message: e instanceof Error ? e.message : t("No se pudo leer la partida"), status: e instanceof CompetitiveError ? e.status : 500 }); }
   }, [matchId]);
   useEffect(() => { if (online && user) void load(); }, [online, user, load]);
   useEffect(() => { trackCompetitive("match_detail_view"); }, []);
 
-  if (loading) return <Loading label="Leyendo la partida…" />;
-  if (!online || !user) return <NeedsAccount what="el detalle de la partida" />;
+  if (loading) return <Loading label={t("Leyendo la partida…")} />;
+  if (!online || !user) return <NeedsAccount what={t("el detalle de la partida")} />;
   // F68 · un id mal formado (400) es, para el jugador, lo mismo que uno que no existe: nada que reintentar.
   if (error?.status === 404 || error?.status === 400) {
-    return <EmptyState icon="🔒" title="Partida no encontrada" hint="Solo los dos jugadores de una partida pueden ver su detalle." action={{ href: "/competitivo", label: "Volver al competitivo" }} />;
+    return <EmptyState icon="🔒" title={t("Partida no encontrada")} hint={t("Solo los dos jugadores de una partida pueden ver su detalle.")} action={{ href: "/competitivo", label: t("Volver al competitivo") }} />;
   }
   if (error?.status === 409) {
-    return <EmptyState icon="⏳" title="La partida no ha terminado" hint="El detalle se abre cuando el servidor la cierra." action={{ href: "/duelos/pvp", label: "Ir a la arena" }} />;
+    return <EmptyState icon="⏳" title={t("La partida no ha terminado")} hint={t("El detalle se abre cuando el servidor la cierra.")} action={{ href: "/duelos/pvp", label: t("Ir a la arena") }} />;
   }
-  if (error && !detail) return <ErrorState message={error.message} onRetry={load} />;
-  if (!detail) return <Loading label="Leyendo la partida…" />;
+  if (error && !detail) return <ErrorState message={td(error.message)} onRetry={load} />;
+  if (!detail) return <Loading label={t("Leyendo la partida…")} />;
 
   return (
     <div className="mx-auto w-full max-w-4xl space-y-4">
-      <Link href="/duelos/competitivo/historial" className="nx-action">‹ Historial</Link>
-      <MatchDetailView detail={detail} />
+      <Link href="/duelos/competitivo/historial" className="nx-action">{t("‹ Historial")}</Link>
+      <MatchDetailView detail={td(detail)} />
     </div>
   );
 }

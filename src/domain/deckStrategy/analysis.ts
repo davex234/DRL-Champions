@@ -24,6 +24,9 @@ import type { RoleId } from "@/domain/cards/types";
 import { DUEL_DECK_SIZE, DUEL_ROLES } from "@/domain/cardgame/types";
 import { AXES, METRICS, METRIC_LABEL, metricOf, type Axis, type CatalogCard, type Metric, type StrategyContext } from "./catalog";
 import { finite, percentileRank, quantile, summarize, type Summary } from "./stats";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+
+const t = ns("deckStrategy");
 
 /** Lo que el análisis lee de una carta del equipo (un ejemplar poseído o una definición). */
 export interface StrategyCard extends CatalogCard {
@@ -119,7 +122,7 @@ export const canonicalOrder = <T extends { role: RoleId; cardId: string; uid: st
 
 /** «P84»; los extremos se dicen como tales («P>99», «P<1») en vez de redondear a P100/P0. */
 export const pct = (p: number) => (p >= 99.5 ? "P>99" : p < 0.5 ? "P<1" : `P${Math.round(p)}`);
-const fmt1 = (x: number) => (Math.round(x * 10) / 10).toLocaleString("es-ES", { maximumFractionDigits: 1 });
+const fmt1 = (x: number) => (Math.round(x * 10) / 10).toLocaleString(getIntlLocale(), { maximumFractionDigits: 1 });
 
 export function orientationOf(z: Record<Axis, number>): Orientation {
   const ranked = [...AXES].sort((a, b) => z[b] - z[a] || AXES.indexOf(a) - AXES.indexOf(b));
@@ -127,19 +130,19 @@ export function orientationOf(z: Record<Axis, number>): Orientation {
   const gapSd = finite(z[a1] - z[a2]);
   const spreadSd = finite(z[a1] - z[a3]);
   if (gapSd >= ORIENTED_GAP_SD) {
-    return { kind: "ORIENTED", axes: [a1], weakest: a3, label: `Orientado a ${METRIC_LABEL[a1]}`, gapSd, spreadSd };
+    return { kind: "ORIENTED", axes: [a1], weakest: a3, label: t("Orientado a {v}", { v: td(METRIC_LABEL[a1]) }), gapSd, spreadSd };
   }
   if (spreadSd < BALANCED_SPREAD_SD) {
-    return { kind: "BALANCED", axes: [], weakest: null, label: "Equilibrado", gapSd, spreadSd };
+    return { kind: "BALANCED", axes: [], weakest: null, label: t("Equilibrado"), gapSd, spreadSd };
   }
-  return { kind: "MIXED", axes: [a1, a2], weakest: a3, label: "Perfil mixto", gapSd, spreadSd };
+  return { kind: "MIXED", axes: [a1, a2], weakest: a3, label: t("Perfil mixto"), gapSd, spreadSd };
 }
 
 /** Frase de balance entre los tres ejes. */
 export function balanceText(o: Orientation): string {
-  if (o.kind === "BALANCED") return "Perfil equilibrado: los tres ejes están a menos de media desviación típica entre sí.";
-  if (o.kind === "ORIENTED") return `${METRIC_LABEL[o.axes[0]]} destaca; ${METRIC_LABEL[o.weakest!]} es el eje más débil.`;
-  return `${METRIC_LABEL[o.axes[0]]} y ${METRIC_LABEL[o.axes[1]]} por encima de ${METRIC_LABEL[o.weakest!]}.`;
+  if (o.kind === "BALANCED") return t("Perfil equilibrado: los tres ejes están a menos de media desviación típica entre sí.");
+  if (o.kind === "ORIENTED") return t("{v} destaca; {v2} es el eje más débil.", { v: td(METRIC_LABEL[o.axes[0]]), v2: td(METRIC_LABEL[o.weakest!]) });
+  return t("{v} y {v2} por encima de {v3}.", { v: td(METRIC_LABEL[o.axes[0]]), v2: td(METRIC_LABEL[o.axes[1]]), v3: td(METRIC_LABEL[o.weakest!]) });
 }
 
 function tukey(values: { uid: string; v: number }[], metric: Metric): Outlier[] {
@@ -201,8 +204,8 @@ export function analyzeDeck(input: readonly StrategyCard[], ctx: StrategyContext
     if (count >= 2) {
       for (const m of METRICS) {
         const others = cards.filter((o) => o.uid !== c.uid).map((o) => metricOf(o, m));
-        if (values[m] > Math.max(...others)) facts.push(`Mayor ${METRIC_LABEL[m]} del equipo`);
-        else if (values[m] < Math.min(...others)) facts.push(`Menor ${METRIC_LABEL[m]} del equipo`);
+        if (values[m] > Math.max(...others)) facts.push(t("Mayor {v} del equipo", { v: td(METRIC_LABEL[m]) }));
+        else if (values[m] < Math.min(...others)) facts.push(t("Menor {v} del equipo", { v: td(METRIC_LABEL[m]) }));
       }
     }
     return {
@@ -226,35 +229,35 @@ export function analyzeDeck(input: readonly StrategyCard[], ctx: StrategyContext
     const cp = catalogPercentile;
     if (orientation.kind === "ORIENTED") {
       const a = orientation.axes[0];
-      strengths.push({ id: `oriented-${a}`, metric: a, text: `${METRIC_LABEL[a]} destaca sobre los otros dos ejes (media en ${pct(cp[a])} del catálogo).` });
+      strengths.push({ id: `oriented-${a}`, metric: a, text: t("{v} destaca sobre los otros dos ejes (media en {v2} del catálogo).", { v: td(METRIC_LABEL[a]), v2: pct(cp[a]) }) });
     }
     for (const a of [...AXES].sort((x, y) => cp[y] - cp[x])) {
-      if (level[a] === "ALTO" && !strengths.some((s) => s.metric === a)) strengths.push({ id: `high-${a}`, metric: a, text: `${METRIC_LABEL[a]} alto: la media está en ${pct(cp[a])} de las cartas del catálogo.` });
+      if (level[a] === "ALTO" && !strengths.some((s) => s.metric === a)) strengths.push({ id: `high-${a}`, metric: a, text: t("{v} alto: la media está en {v2} de las cartas del catálogo.", { v: td(METRIC_LABEL[a]), v2: pct(cp[a]) }) });
     }
-    if (level.ovr === "ALTO") strengths.push({ id: "high-ovr", metric: "ovr", text: `OVR medio alto: ${fmt1(metrics.ovr.mean)} (${pct(cp.ovr)} del catálogo).` });
-    if (shape === "CONSISTENT") strengths.push({ id: "consistent", metric: "ovr", text: `Plantilla consistente: poca diferencia de OVR entre cartas (${pct(dispersionPercentile!)} de dispersión).` });
+    if (level.ovr === "ALTO") strengths.push({ id: "high-ovr", metric: "ovr", text: t("OVR medio alto: {mean} ({ovr} del catálogo).", { mean: fmt1(metrics.ovr.mean), ovr: pct(cp.ovr) }) });
+    if (shape === "CONSISTENT") strengths.push({ id: "consistent", metric: "ovr", text: t("Plantilla consistente: poca diferencia de OVR entre cartas ({v} de dispersión).", { v: pct(dispersionPercentile!) }) });
 
     if (orientation.weakest) {
       const w = orientation.weakest;
-      weaknesses.push({ id: `weakest-${w}`, metric: w, text: `${METRIC_LABEL[w]} es tu eje más bajo (media en ${pct(cp[w])} del catálogo).` });
+      weaknesses.push({ id: `weakest-${w}`, metric: w, text: t("{v} es tu eje más bajo (media en {v2} del catálogo).", { v: td(METRIC_LABEL[w]), v2: pct(cp[w]) }) });
     }
     for (const a of [...AXES].sort((x, y) => cp[x] - cp[y])) {
-      if (level[a] === "BAJO" && !weaknesses.some((s) => s.metric === a)) weaknesses.push({ id: `low-${a}`, metric: a, text: `${METRIC_LABEL[a]} bajo: la media está en ${pct(cp[a])} de las cartas del catálogo.` });
+      if (level[a] === "BAJO" && !weaknesses.some((s) => s.metric === a)) weaknesses.push({ id: `low-${a}`, metric: a, text: t("{v} bajo: la media está en {v2} de las cartas del catálogo.", { v: td(METRIC_LABEL[a]), v2: pct(cp[a]) }) });
     }
     const focus = orientation.weakest;
     if (focus) {
       for (const r of roles) {
         if (r.count === 2 && r.uids.every((u) => metricOf(cards.find((c) => c.uid === u)!, focus) < metrics[focus].mean)) {
-          weaknesses.push({ id: `role-${r.role}-${focus}`, metric: focus, uids: r.uids, text: `Los dos ${PLURAL[r.role]} están por debajo de la media del equipo en ${METRIC_LABEL[focus]}.` });
+          weaknesses.push({ id: `role-${r.role}-${focus}`, metric: focus, uids: r.uids, text: t("Los dos {v} están por debajo de la media del equipo en {v2}.", { v: td(PLURAL[r.role]), v2: td(METRIC_LABEL[focus]) }) });
           break;
         }
       }
     }
     for (const o of outliers.filter((x) => x.metric === "ovr" && x.direction === "LOW")) {
       const c = cards.find((x) => x.uid === o.uid)!;
-      weaknesses.push({ id: `outlier-${o.uid}`, metric: "ovr", uids: [o.uid], text: `${c.nick} tiene un OVR muy por debajo del resto del equipo (${o.value}).` });
+      weaknesses.push({ id: `outlier-${o.uid}`, metric: "ovr", uids: [o.uid], text: t("{nick} tiene un OVR muy por debajo del resto del equipo ({value}).", { nick: c.nick, value: o.value }) });
     }
-    if (shape === "POLARIZED") weaknesses.push({ id: "polarized", metric: "ovr", text: `Plantilla polarizada: mucha diferencia de OVR entre cartas (${pct(dispersionPercentile!)} de dispersión).` });
+    if (shape === "POLARIZED") weaknesses.push({ id: "polarized", metric: "ovr", text: t("Plantilla polarizada: mucha diferencia de OVR entre cartas ({v} de dispersión).", { v: pct(dispersionPercentile!) }) });
   }
 
   return {

@@ -9,11 +9,14 @@ import {
 } from "@/domain/deckStrategy";
 import { catalogCards } from "./catalog";
 import { pct } from "@/domain/deckStrategy/analysis";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+
+const t = ns("deckStrategy");
 
 export const AXIS_COLOR: Record<Axis, string> = { stronghold: "#d94a4a", gamesense: "#3f86c4", entryfrag: "#3fa85f" };
 export const LEVEL_TEXT = { ALTO: "Alto", MEDIO: "Medio", BAJO: "Bajo" } as const;
 
-export const fmt1 = (x: number): string => (Math.round(x * 10) / 10).toLocaleString("es-ES", { minimumFractionDigits: 0, maximumFractionDigits: 1 });
+export const fmt1 = (x: number): string => (Math.round(x * 10) / 10).toLocaleString(getIntlLocale(), { minimumFractionDigits: 0, maximumFractionDigits: 1 });
 export const pLabel = (p: number | null | undefined): string => (p === null || p === undefined ? "—" : pct(p));
 
 export interface AxisRow { metric: Metric; label: string; abbr: string; value: number; valueText: string; percentile: string; level: string | null; bar: number; aria: string }
@@ -26,7 +29,9 @@ export function axisRows(a: DeckAnalysis): AxisRow[] {
     return {
       metric: m, label: METRIC_LABEL[m], abbr: METRIC_ABBR[m], value, valueText: a.count ? fmt1(value) : "—",
       percentile: pLabel(p), level, bar: p ?? Math.max(0, Math.min(100, value)),
-      aria: a.count ? `${METRIC_LABEL[m]} media ${fmt1(value)}${p !== null ? `, percentil ${Math.round(p)} de las cartas del catálogo, ${level?.toLowerCase()}` : ""}` : `${METRIC_LABEL[m]} sin cartas`,
+      aria: a.count ? (p !== null
+        ? t("{metric} media {value}, percentil {p} de las cartas del catálogo, {level}", { metric: td(METRIC_LABEL[m]), value: fmt1(value), p: Math.round(p), level: level ? td(level).toLowerCase() : undefined })
+        : t("{metric} media {value}", { metric: td(METRIC_LABEL[m]), value: fmt1(value) })) : t("{v} sin cartas", { v: td(METRIC_LABEL[m]) }),
     };
   });
 }
@@ -34,11 +39,11 @@ export function axisRows(a: DeckAnalysis): AxisRow[] {
 export interface IdentityModel { label: string; kind: string; balance: string | null; shape: string | null; partial: string | null }
 
 export function identityModel(a: DeckAnalysis): IdentityModel {
-  if (!a.complete) return { label: a.count === 0 ? "Sin cartas" : "Equipo incompleto", kind: "PARTIAL", balance: null, shape: null, partial: a.count === 0 ? null : `${a.count}/10: la orientación se calcula con las 10 cartas.` };
+  if (!a.complete) return { label: a.count === 0 ? t("Sin cartas") : t("Equipo incompleto"), kind: "PARTIAL", balance: null, shape: null, partial: a.count === 0 ? null : t("{count}/10: la orientación se calcula con las 10 cartas.", { count: a.count }) };
   const o = a.orientation!;
   return {
     label: o.label, kind: o.kind, balance: balanceText(o),
-    shape: a.shape === "POLARIZED" ? "Polarizado" : a.shape === "CONSISTENT" ? "Consistente" : null,
+    shape: a.shape === "POLARIZED" ? t("Polarizado") : a.shape === "CONSISTENT" ? t("Consistente") : null,
     partial: null,
   };
 }
@@ -54,7 +59,7 @@ export function deltaChips(d: Record<Metric, number>, decimals = 1): DeltaChip[]
 
 /** «STRONGHOLD 76 → 79 (+3)» con medias a un decimal y delta exacto redondeado. */
 export function impactLines(i: SwapImpact): { metric: Metric; label: string; before: string; after: string; delta: string; aria: string }[] {
-  return METRICS.map((m) => ({ metric: m, label: METRIC_LABEL[m], before: fmt1(i.before[m]), after: fmt1(i.after[m]), delta: signedText(i.delta[m]), aria: `${METRIC_LABEL[m]} de ${fmt1(i.before[m])} a ${fmt1(i.after[m])}: ${deltaAria(m, i.delta[m])}` }));
+  return METRICS.map((m) => ({ metric: m, label: METRIC_LABEL[m], before: fmt1(i.before[m]), after: fmt1(i.after[m]), delta: signedText(i.delta[m]), aria: t("{v} de {v2} a {v3}: {m}", { v: td(METRIC_LABEL[m]), v2: fmt1(i.before[m]), v3: fmt1(i.after[m]), m: deltaAria(m, i.delta[m]) }) }));
 }
 
 /* ───────────── cartas del cliente (DTO sin dataVersion) → carta estratégica ───────────── */

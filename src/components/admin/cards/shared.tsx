@@ -19,6 +19,10 @@ import { Plate, Recessed } from "@/components/ui/Surface";
 import { adminFetch } from "@/lib/supabase/adminClient";
 import type { Tone } from "@/components/ui/tone";
 import { cn } from "@/lib/format";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("admin");
 
 /** Un ciclo de vida ⇄ el tono que le corresponde. Un solo sitio decide el color de un estado. */
 export const LIFECYCLE_TONE: Record<string, Tone> = {
@@ -39,7 +43,7 @@ export const BUCKET_TONE: Record<string, Tone> = {
 export function LifecycleBadge({ state, className }: { state: string; className?: string }) {
   return (
     <Badge tone={LIFECYCLE_TONE[state] ?? "muted"} dot className={className}>
-      {state}
+      {td(state)}
     </Badge>
   );
 }
@@ -47,7 +51,7 @@ export function LifecycleBadge({ state, className }: { state: string; className?
 export function BucketBadge({ bucket, rank }: { bucket: string; rank?: number }) {
   return (
     <Badge tone={BUCKET_TONE[bucket] ?? "muted"}>
-      {bucket}{rank !== undefined ? ` · r${rank}` : ""}
+      {td(bucket)}{rank !== undefined ? ` · r${rank}` : ""}
     </Badge>
   );
 }
@@ -112,13 +116,14 @@ export function SheetHeading({
   meta?: React.ReactNode;
   action?: React.ReactNode;
 }) {
+  useLocale();
   return (
     <header className="flex flex-wrap items-start justify-between gap-3">
       <div className="min-w-0">
-        <p className="font-display text-label uppercase tracking-wide2 text-drl">{kicker}</p>
+        <p className="font-display text-label uppercase tracking-wide2 text-drl">{td(kicker)}</p>
         <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-2">
           <h1 className="min-w-0 truncate font-display text-h2 font-bold uppercase tracking-wide text-white">
-            {title}
+            {td(title)}
           </h1>
           {badges}
         </div>
@@ -179,15 +184,16 @@ export function useAsync<T>(): {
 
 /** Aviso de error. Ocupa sitio solo cuando hay algo que decir. */
 export function ErrorBar({ error, onClose }: { error: string | null; onClose?: () => void }) {
+  useLocale();
   if (!error) return null;
   return (
     // `Plate` tiene su propio vocabulario de tonos —neutral/primary/cyan/gold/success—, que
     // NO es el de `Badge`. `primary` es el rojo de la marca, que es el que este sistema usa
     // para lo que reclama atención; el papel de «error» lo dice el `role="alert"`.
     <Plate tone="primary" className="flex items-start justify-between gap-3 px-4 py-3">
-      <p className="text-sm text-white/85" role="alert">{error}</p>
+      <p className="text-sm text-white/85" role="alert">{td(error)}</p>
       {onClose && (
-        <NxButton variant="ghost" onClick={onClose} aria-label="Cerrar aviso">✕</NxButton>
+        <NxButton variant="ghost" onClick={onClose} aria-label={t("Cerrar aviso")}>✕</NxButton>
       )}
     </Plate>
   );
@@ -208,6 +214,7 @@ export function ConfirmDialog({
   tone?: "key" | "danger"; requireReason?: boolean; running?: boolean;
   onConfirm: (reason: string) => void; onCancel: () => void;
 }) {
+  useLocale();
   const [reason, setReason] = useState("");
   const first = useRef<HTMLTextAreaElement | HTMLButtonElement>(null);
   useEffect(() => { if (open) { setReason(""); first.current?.focus(); } }, [open]);
@@ -224,16 +231,16 @@ export function ConfirmDialog({
   return (
     <div
       className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4"
-      role="dialog" aria-modal="true" aria-label={title}
+      role="dialog" aria-modal="true" aria-label={td(title)}
       onClick={(e) => { if (e.target === e.currentTarget) onCancel(); }}
     >
       <Plate className="w-full max-w-lg p-5">
-        <h2 className="font-display text-lg font-bold uppercase tracking-wide text-white">{title}</h2>
+        <h2 className="font-display text-lg font-bold uppercase tracking-wide text-white">{td(title)}</h2>
         <div className="mt-2 text-sm text-white/70">{body}</div>
         {requireReason && (
           <label className="mt-4 block">
             <span className="font-display text-label uppercase tracking-wider text-white/50">
-              Motivo (queda registrado)
+              {t("Motivo (queda registrado)")}
             </span>
             <textarea
               ref={first as React.RefObject<HTMLTextAreaElement>}
@@ -241,18 +248,18 @@ export function ConfirmDialog({
               onChange={(e) => setReason(e.target.value)}
               rows={2}
               className="mt-1 w-full resize-y border border-white/15 bg-base-800 px-3 py-2 text-sm text-white outline-none focus-visible:border-drl"
-              placeholder="Por qué se hace este cambio"
+              placeholder={t("Por qué se hace este cambio")}
             />
           </label>
         )}
         <div className="mt-5 flex flex-wrap justify-end gap-2">
-          <NxButton variant="secondary" onClick={onCancel} disabled={running}>Cancelar</NxButton>
+          <NxButton variant="secondary" onClick={onCancel} disabled={running}>{t("Cancelar")}</NxButton>
           <NxButton
             variant={tone === "danger" ? "danger" : "primary"}
             onClick={() => onConfirm(reason.trim())}
             disabled={!puede || running}
           >
-            {running ? "…" : confirmLabel}
+            {running ? "…" : td(confirmLabel)}
           </NxButton>
         </div>
       </Plate>
@@ -264,9 +271,10 @@ export function ConfirmDialog({
 export function Field({
   label, children, className, mono,
 }: { label: string; children: React.ReactNode; className?: string; mono?: boolean }) {
+  useLocale();
   return (
     <div className={cn("min-w-0", className)}>
-      <div className="font-display text-label uppercase tracking-wider text-white/40">{label}</div>
+      <div className="font-display text-label uppercase tracking-wider text-white/40">{td(label)}</div>
       <div className={cn("truncate text-sm text-white/90", mono && "font-mono text-[12px]")}>
         {children}
       </div>
@@ -292,22 +300,23 @@ export function FieldGrid({ children, cols = 3 }: { children: React.ReactNode; c
  * en «tres copias que se parecen».
  */
 export function Select({
-  label, value, onChange, options, noEmpty, vacio = "Todas",
+  label, value, onChange, options, noEmpty, vacio = t("Todas"),
 }: {
   label: string; value: string; onChange: (v: string) => void;
   options: { value: string; label: string }[]; noEmpty?: boolean; vacio?: string;
 }) {
+  useLocale();
   return (
     <label className="min-w-0">
-      <span className="font-display text-label uppercase tracking-wider text-white/50">{label}</span>
+      <span className="font-display text-label uppercase tracking-wider text-white/50">{td(label)}</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        aria-label={label}
+        aria-label={td(label)}
         className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-2 text-sm text-white outline-none focus-visible:border-drl"
       >
-        {!noEmpty && <option value="">{vacio}</option>}
-        {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+        {!noEmpty && <option value="">{td(vacio)}</option>}
+        {options.map((o) => <option key={o.value} value={o.value}>{td(o.label)}</option>)}
       </select>
     </label>
   );
@@ -320,17 +329,18 @@ export function TextField({
   label: string; value: string; onChange: (v: string) => void;
   placeholder?: string; hint?: string; id?: string;
 }) {
+  useLocale();
   const auto = id ?? `f-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
     <label className="block min-w-0" htmlFor={auto}>
-      <span className="font-display text-label uppercase tracking-wider text-white/50">{label}</span>
+      <span className="font-display text-label uppercase tracking-wider text-white/50">{td(label)}</span>
       <input
         id={auto} value={value} onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
+        placeholder={td(placeholder)}
         aria-describedby={hint ? `${auto}-h` : undefined}
         className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-3 text-sm text-white outline-none focus-visible:border-drl"
       />
-      {hint && <span id={`${auto}-h`} className="mt-1 block text-[11px] text-white/35">{hint}</span>}
+      {hint && <span id={`${auto}-h`} className="mt-1 block text-[11px] text-white/35">{td(hint)}</span>}
     </label>
   );
 }
@@ -341,14 +351,14 @@ export const POOL_TONE: Record<string, Tone> = {
 };
 
 export function PoolBadge({ state }: { state: string }) {
-  return <Badge tone={POOL_TONE[state] ?? "muted"}>{state}</Badge>;
+  return <Badge tone={POOL_TONE[state] ?? "muted"}>{td(state)}</Badge>;
 }
 
 /** Porcentaje con tres decimales: 10/35 es 28,571 %, y ese detalle importa al repartir peso. */
 export const fmtCuota = (p: number): string =>
-  `${(p * 100).toLocaleString("es-ES", { minimumFractionDigits: 3, maximumFractionDigits: 3 })} %`;
+  `${(p * 100).toLocaleString(getIntlLocale(), { minimumFractionDigits: 3, maximumFractionDigits: 3 })} %`;
 
 export const fmtDate = (s?: string | null): string =>
-  s ? new Date(s).toLocaleString("es-ES", { dateStyle: "short", timeStyle: "short" }) : "—";
+  s ? new Date(s).toLocaleString(getIntlLocale(), { dateStyle: "short", timeStyle: "short" }) : "—";
 export const fmtPct = (p?: number | null): string =>
   p == null ? "—" : `${(p * 100).toFixed(p < 0.001 ? 4 : 2)} %`;

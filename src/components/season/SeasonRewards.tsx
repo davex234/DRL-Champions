@@ -27,19 +27,24 @@ import type { Reward } from "@/battlepass";
 import type { SeasonPassView } from "@/server/services/season";
 import { rewardParts, trackColumns, focusColumnIndex, type NodeState, type TrackNode } from "@/domain/season/hubView";
 import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill as fillRich, slots } from "@/i18n/rich";
+
+const t = ns("season");
 
 /** Como DRL Credits (`formatAmount`): agrupación SIEMPRE («1.500», no «1500»). */
-const fmt = (n: number) => new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(n);
+const fmt = (n: number) => new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" }).format(n);
 
 /** Nombre legible de una recompensa, hecho de sus partes reales (para aria y fichas). */
 export function rewardLabel(r: Reward | null | undefined): string {
   const parts = rewardParts(r).map((p) => {
-    if (p.kind === "pack") return `${p.count > 1 ? `${p.count}× ` : ""}${getPack(p.packId)?.name ?? `sobre ${p.packId}`}`;
-    if (p.kind === "credits") return `${fmt(p.amount)} créditos`;
-    if (p.kind === "card") { const c = getCard(p.cardId); const pl = c ? getPlayer(c.playerId) : null; return `carta ${pl?.nick ?? p.cardId}`; }
-    return `${fmt(p.amount)} XP de cuenta`;
+    if (p.kind === "pack") return `${p.count > 1 ? `${p.count}× ` : ""}${td(getPack(p.packId)?.name) ?? t("sobre {id}", { id: p.packId })}`;
+    if (p.kind === "credits") return t("{amount} créditos", { amount: fmt(p.amount) });
+    if (p.kind === "card") { const c = getCard(p.cardId); const pl = c ? getPlayer(c.playerId) : null; return t("carta {nick}", { nick: pl?.nick ?? p.cardId }); }
+    return t("{amount} XP de cuenta", { amount: fmt(p.amount) });
   });
-  return parts.length ? parts.join(" + ") : "Sin recompensa";
+  return parts.length ? parts.join(" + ") : t("Sin recompensa");
 }
 
 /**
@@ -91,6 +96,7 @@ function nodeClasses(state: NodeState, lane: "free" | "competitive", selected: b
 }
 
 export function SeasonRewardTrack({ pass }: { pass: SeasonPassView }) {
+  useLocale();
   const cols = useMemo(() => trackColumns(pass), [pass]);
   const focusIdx = focusColumnIndex(cols);
   const scroller = useRef<HTMLDivElement>(null);
@@ -131,20 +137,20 @@ export function SeasonRewardTrack({ pass }: { pass: SeasonPassView }) {
       <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(47,224,255,0.8),rgba(255,211,92,0.8),transparent)]" />
       <header className="flex flex-wrap items-end justify-between gap-3 px-4 pt-5 sm:px-6">
         <div>
-          <p className="nx-label !text-[#2fe0ff]">Pase · {pass.name}</p>
-          <h2 id="reward-track-title" className="mt-1 font-display text-[clamp(22px,2.6vw,32px)] font-extrabold uppercase leading-none text-white">Camino de recompensas</h2>
+          <p className="nx-label !text-[#2fe0ff]">{t("Pase · {nombre}", { nombre: pass.name })}</p>
+          <h2 id="reward-track-title" className="mt-1 font-display text-[clamp(22px,2.6vw,32px)] font-extrabold uppercase leading-none text-white">{t("Camino de recompensas")}</h2>
           <p className="mt-1.5 text-[13px] text-white/60">
-            Nivel <b className="text-white">{pass.level}</b> de {pass.maxLevel} · cada nivel del carril libre da recompensa; el competitivo se abre en Oro.
+            {fillRich(t("Nivel {nivel} de {max} · cada nivel del carril libre da recompensa; el competitivo se abre en Oro.", { ...slots("nivel"), max: pass.maxLevel }), { nivel: <b className="text-white">{pass.level}</b> })}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-white/60" aria-label="Leyenda">
-            <li className="flex items-center gap-1"><span aria-hidden className="h-2.5 w-2.5 rounded-sm bg-[#ffd35c]" />Reclamable</li>
-            <li className="flex items-center gap-1"><span aria-hidden className="h-2.5 w-2.5 rounded-sm bg-[#3fd696]" />Reclamado</li>
-            <li className="flex items-center gap-1"><span aria-hidden className="h-2.5 w-2.5 rounded-sm bg-white/25" />Bloqueado</li>
+          <ul className="flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-white/60" aria-label={t("Leyenda")}>
+            <li className="flex items-center gap-1"><span aria-hidden className="h-2.5 w-2.5 rounded-sm bg-[#ffd35c]" />{t("Reclamable")}</li>
+            <li className="flex items-center gap-1"><span aria-hidden className="h-2.5 w-2.5 rounded-sm bg-[#3fd696]" />{t("Reclamado")}</li>
+            <li className="flex items-center gap-1"><span aria-hidden className="h-2.5 w-2.5 rounded-sm bg-white/25" />{t("Bloqueado")}</li>
           </ul>
           <button type="button" onClick={() => centrar(focusIdx, true)} className="nx-focus min-h-[40px] border border-[rgba(47,224,255,0.45)] px-3 font-display text-[11px] font-bold uppercase tracking-[0.14em] text-[#2fe0ff] hover:bg-[rgba(47,224,255,0.08)]" data-testid="track-jump">
-            Ir a mi nivel
+            {t("Ir a mi nivel")}
           </button>
         </div>
       </header>
@@ -152,10 +158,10 @@ export function SeasonRewardTrack({ pass }: { pass: SeasonPassView }) {
       <div className="relative mt-4">
         {/* Etiquetas de carril, fijas a la izquierda (no se desplazan). */}
         <div aria-hidden className="pointer-events-none absolute bottom-0 left-0 top-[52px] z-10 hidden w-[88px] flex-col gap-2 bg-[linear-gradient(90deg,rgba(5,7,13,0.98)_70%,transparent)] pl-4 sm:flex">
-          <span className="flex h-[128px] items-center font-display text-[10px] font-bold uppercase tracking-[0.2em] text-[#2fe0ff]">Libre</span>
-          <span className="flex h-[128px] items-center font-display text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff5aa8]">Compe&shy;titivo</span>
+          <span className="flex h-[128px] items-center font-display text-[10px] font-bold uppercase tracking-[0.2em] text-[#2fe0ff]">{t("Libre")}</span>
+          <span className="flex h-[128px] items-center font-display text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff5aa8]">{t("Compe­titivo")}</span>
         </div>
-        <div ref={scroller} className="overflow-x-auto overscroll-x-contain px-4 pb-4 sm:pl-[96px] sm:pr-6 motion-safe:scroll-smooth [scrollbar-width:thin]" data-testid="track-scroller" role="region" aria-label="Niveles del pase, desplazable">
+        <div ref={scroller} className="overflow-x-auto overscroll-x-contain px-4 pb-4 sm:pl-[96px] sm:pr-6 motion-safe:scroll-smooth [scrollbar-width:thin]" data-testid="track-scroller" role="region" aria-label={t("Niveles del pase, desplazable")}>
           <ol className="relative flex w-max gap-2">
             {/* El raíl de progreso bajo las medallas. */}
             <span aria-hidden className="absolute left-0 right-0 top-[21px] h-[3px] rounded-full bg-white/10" />
@@ -170,10 +176,10 @@ export function SeasonRewardTrack({ pass }: { pass: SeasonPassView }) {
                         : c.level < pass.level ? "h-8 w-8 bg-[#0e2a36] text-[12px] text-[#2fe0ff] shadow-[inset_0_0_0_1.5px_rgba(47,224,255,0.7)]"
                           : "h-8 w-8 bg-[#0b0f1a] text-[12px] text-white/50 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2)]",
                     )}
-                    aria-label={c.current ? `Nivel ${c.level}, tu nivel actual` : `Nivel ${c.level}`}
+                    aria-label={c.current ? t("Nivel {level}, tu nivel actual", { level: c.level }) : t("Nivel {level}", { level: c.level })}
                   >
                     {c.level}
-                    {c.current && <span className="absolute -bottom-4 font-display text-[9px] font-bold tracking-[0.2em] text-[#2fe0ff]">TÚ</span>}
+                    {c.current && <span className="absolute -bottom-4 font-display text-[9px] font-bold tracking-[0.2em] text-[#2fe0ff]">{t("TÚ")}</span>}
                   </span>
                 </span>
                 {(["free", "competitive"] as const).map((lane) => {
@@ -187,20 +193,20 @@ export function SeasonRewardTrack({ pass }: { pass: SeasonPassView }) {
                       data-node={`${lane}-${n.level}`}
                       data-state={n.state}
                       aria-pressed={selected}
-                      aria-label={`Nivel ${n.level}, carril ${lane === "free" ? "libre" : "competitivo"}: ${rewardLabel(n.reward)}. ${STATE_LABEL[n.state]}.`}
+                      aria-label={t("Nivel {level}, carril {v}: {reward}. {v2}.", { level: n.level, v: lane === "free" ? t("libre") : t("competitivo"), reward: rewardLabel(n.reward), v2: td(STATE_LABEL[n.state]) })}
                       onClick={() => setSel(n)}
                       onKeyDown={(e) => onKey(e, i, lane)}
                       className={nodeClasses(n.state, lane, selected)}
                     >
                       <span aria-hidden className={cn("absolute inset-x-0 top-0 h-[2px]", lane === "free" ? "bg-[#2fe0ff]/60" : "bg-[#ff2e8c]/60")} />
                       {/* En móvil no hay columna de rótulos: el carril se dice dentro del nodo. */}
-                      <span aria-hidden className={cn("absolute left-1.5 top-1 font-display text-[8.5px] font-bold uppercase tracking-[0.14em] sm:hidden", lane === "free" ? "text-[#2fe0ff]/80" : "text-[#ff5aa8]/80")}>{lane === "free" ? "Libre" : "Compet."}</span>
+                      <span aria-hidden className={cn("absolute left-1.5 top-1 font-display text-[8.5px] font-bold uppercase tracking-[0.14em] sm:hidden", lane === "free" ? "text-[#2fe0ff]/80" : "text-[#ff5aa8]/80")}>{lane === "free" ? t("Libre") : t("Compet.")}</span>
                       <RewardVisual reward={n.reward} size={70} dim={n.state === "LOCKED" || n.state === "LANE_LOCKED"} />
                       <span className={cn(
                         "absolute inset-x-0 bottom-0 py-1 text-center font-display text-[9.5px] font-bold uppercase tracking-[0.14em]",
                         n.state === "CLAIMABLE" ? "bg-[#ffd35c] text-[#1a1204]" : n.state === "CLAIMED" ? "text-[#3fd696]" : "text-white/40",
                       )}>
-                        {n.state === "CLAIMED" ? "✓ Reclamado" : n.state === "CLAIMABLE" ? "Reclamar" : n.state === "LANE_LOCKED" ? <><GameGlyph name="lock" className="mr-1 align-[-2px]" />Oro</> : <GameGlyph name="lock" title="Bloqueado" />}
+                        {n.state === "CLAIMED" ? t("✓ Reclamado") : n.state === "CLAIMABLE" ? t("Reclamar") : n.state === "LANE_LOCKED" ? <><GameGlyph name="lock" className="mr-1 align-[-2px]" />{t("Oro")}</> : <GameGlyph name="lock" title={t("Bloqueado")} />}
                       </span>
                     </button>
                   );
@@ -218,25 +224,26 @@ export function SeasonRewardTrack({ pass }: { pass: SeasonPassView }) {
 
 /** La ficha de la recompensa seleccionada: el asset grande, lo que es y qué falta. Nada inventado. */
 function RewardDetail({ node, pass }: { node: TrackNode; pass: SeasonPassView }) {
-  const lane = node.track === "free" ? "Carril libre" : "Carril competitivo";
+  useLocale();
+  const lane = node.track === "free" ? t("Carril libre") : t("Carril competitivo");
   const faltaXp = node.level === pass.level + 1 ? Math.max(0, pass.xpForNext - pass.xpIntoLevel) : null;
   const frase =
-    node.state === "CLAIMED" ? "Ya la reclamaste."
-      : node.state === "CLAIMABLE" ? "La tienes desbloqueada: reclámala en Logros y pase."
-        : node.state === "LANE_LOCKED" ? `El carril competitivo se abre al llegar a Oro (${fmt(pass.competitiveMinPoints)} puntos; tienes ${fmt(pass.points)}).`
-          : faltaXp !== null ? `Te faltan ${fmt(faltaXp)} XP de pase para el nivel ${node.level}.`
-            : `Se desbloquea en el nivel ${node.level}.`;
+    node.state === "CLAIMED" ? t("Ya la reclamaste.")
+      : node.state === "CLAIMABLE" ? t("La tienes desbloqueada: reclámala en Logros y pase.")
+        : node.state === "LANE_LOCKED" ? t("El carril competitivo se abre al llegar a Oro ({competitiveMinPoints} puntos; tienes {points}).", { competitiveMinPoints: fmt(pass.competitiveMinPoints), points: fmt(pass.points) })
+          : faltaXp !== null ? t("Te faltan {faltaXp} XP de pase para el nivel {level}.", { faltaXp: fmt(faltaXp), level: node.level })
+            : t("Se desbloquea en el nivel {level}.", { level: node.level });
   return (
     <div className="flex flex-wrap items-center gap-5 border-t border-white/10 bg-black/30 px-4 py-4 sm:px-6" data-testid="reward-detail" aria-live="polite">
       <RewardVisual reward={node.reward} size={104} />
       <div className="min-w-0 flex-1">
-        <p className="nx-label">{lane} · Nivel {node.level}</p>
+        <p className="nx-label">{td(lane)} {t("· Nivel")} {node.level}</p>
         <p className="mt-1 font-display text-[18px] font-extrabold uppercase leading-tight text-white">{rewardLabel(node.reward)}</p>
-        <p className={cn("mt-1 text-[13.5px]", node.state === "CLAIMABLE" ? "text-[#ffd35c]" : node.state === "CLAIMED" ? "text-[#3fd696]" : "text-white/65")}>{frase}</p>
+        <p className={cn("mt-1 text-[13.5px]", node.state === "CLAIMABLE" ? "text-[#ffd35c]" : node.state === "CLAIMED" ? "text-[#3fd696]" : "text-white/65")}>{td(frase)}</p>
       </div>
       {node.state === "CLAIMABLE" && (
         <Link href="/logros" className="nx-focus inline-flex min-h-[44px] items-center bg-[#ffd35c] px-5 font-display text-[12px] font-extrabold uppercase tracking-[0.16em] text-[#1a1204] hover:brightness-110" data-testid="claim-link">
-          Reclamar en Logros →
+          {t("Reclamar en Logros →")}
         </Link>
       )}
     </div>

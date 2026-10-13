@@ -29,8 +29,13 @@ import { useGameMoment } from "@/components/ui/game/GameMoment";
 import { momentsFromProgress } from "@/lib/gameExperience/moments";
 import { RewardDisplay } from "@/components/rewards/RewardDisplay";
 import { RewardReveal } from "@/components/rewards/RewardReveal";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("progression");
 
 export function PostMatchProgress({ delta, onLevelUpSeen, className }: { delta: ProgressionDelta | null; onLevelUpSeen?: () => void; className?: string }) {
+  useLocale();
   const reduced = useReducedMotion();
   /* Fase 44 · objetivo completado / logro / nivel: rótulo de juego UNA vez por hecho real (la clave es la del evento). */
   const moment = useGameMoment();
@@ -66,7 +71,7 @@ export function PostMatchProgress({ delta, onLevelUpSeen, className }: { delta: 
   const nothing = sections.length === 0;
 
   return (
-    <section aria-label="Tu progreso" className={className} data-postmatch={nothing ? "none" : "changes"} data-sections={sections.join(",")}>
+    <section aria-label={t("Tu progreso")} className={className} data-postmatch={nothing ? "none" : "changes"} data-sections={sections.join(",")}>
       {delta.levelsGained.length > 0 && !levelSeen && (
         <LevelUpBanner levels={delta.levelsGained} from={before.level} onClose={() => { setLevelSeen(true); onLevelUpSeen?.(); }} autoCloseMs={600_000} />
       )}
@@ -75,47 +80,47 @@ export function PostMatchProgress({ delta, onLevelUpSeen, className }: { delta: 
         {sections.includes("ACCOUNT") && (
           <div data-section="account">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <span className="nx-label !text-[10px] text-[#7ff0ff]">Nivel de cuenta</span>
+              <span className="nx-label !text-[10px] text-[#7ff0ff]">{t("Nivel de cuenta")}</span>
               <span className="nx-readout text-[12px] text-white/70">
-                {level.level > before.level ? <><span className="text-white/40">Nivel {before.level}</span> → </> : null}
-                Nivel {level.level} · {formatCredits(level.xpIntoLevel)} / {formatCredits(level.xpForNext)} {XP_NAMES.account}
+                {level.level > before.level ? <><span className="text-white/40">{t("Nivel")} {before.level}</span> → </> : null}
+                {t("Nivel")} {level.level} · {formatCredits(level.xpIntoLevel)} / {formatCredits(level.xpForNext)} {td(XP_NAMES.account)}
                 {gained > 0 && <span className="ml-2 text-drl-cyan">+{formatCredits(gained)}</span>}
               </span>
             </div>
-            <Meter className="mt-2" value={level.progress * 100} tone="info" height={8} label={`Nivel de cuenta ${level.level}: ${Math.round(level.progress * 100)}%`} />
+            <Meter className="mt-2" value={level.progress * 100} tone="info" height={8} label={t("Nivel de cuenta {level}: {Math}%", { level: level.level, Math: Math.round(level.progress * 100) })} />
           </div>
         )}
 
         {nothing ? (
-          <p className="text-caption text-ink-muted">Esta actividad no ha movido tu progreso. <Link href="/misiones" className="nx-action">Ver objetivos →</Link></p>
+          <p className="text-caption text-ink-muted">{t("Esta actividad no ha movido tu progreso.")} <Link href="/misiones" className="nx-action">{t("Ver objetivos →")}</Link></p>
         ) : (
-          <ul className="mt-3 space-y-2.5" aria-label="Objetivos que han avanzado" data-section="objectives">
+          <ul className="mt-3 space-y-2.5" aria-label={t("Objetivos que han avanzado")} data-section="objectives">
             {shown.map((d) => {
               const claim = pending.find((c) => c.kind === "mission" && c.id === d.id) ?? null;
               const done = claims.claimed.some((c) => c.id === d.id) || (claim === null && d.completed);
               return (
                 <li key={d.id} data-delta={d.id} className="flex flex-col gap-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="min-w-0 truncate text-[13px] text-white/85">{d.label}</span>
+                    <span className="min-w-0 truncate text-[13px] text-white/85">{td(d.label)}</span>
                     <span className="nx-readout shrink-0 text-[12px] text-white/70">
                       <span className="text-white/40">{d.from}</span> → <span className={d.completed ? "text-ok" : "text-white"}>{d.to}</span> / {d.goal}
                     </span>
                   </div>
                   <motion.div initial={{ opacity: reduced ? 1 : 0.6 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-                    <Meter value={(d.to / Math.max(1, d.goal)) * 100} tone={d.completed ? "ok" : "info"} height={6} label={`${d.label}: ${d.to} de ${d.goal}`} />
+                    <Meter value={(d.to / Math.max(1, d.goal)) * 100} tone={d.completed ? "ok" : "info"} height={6} label={t("{label}: {to} de {goal}", { label: td(d.label), to: d.to, goal: d.goal })} />
                   </motion.div>
                   {d.completed && (
                     <div className="mt-1 flex flex-wrap items-center justify-between gap-2 rounded-md bg-[#ffd35c]/10 px-2.5 py-1.5 ring-1 ring-[#ffd35c]/40" data-objective-complete={d.id}>
-                      <span className="font-display text-[11px] font-extrabold uppercase tracking-[0.14em] text-drl-gold">Objetivo completado</span>
+                      <span className="font-display text-[11px] font-extrabold uppercase tracking-[0.14em] text-drl-gold">{t("Objetivo completado")}</span>
                       {claim && !done ? (
                         <span className="flex items-center gap-2">
                           <RewardDisplay reward={claim.reward} seasonXp={claim.seasonXp} size="sm" />
                           <button type="button" className="nx-f62-cta is-gold !min-h-[36px]" disabled={claims.busy.has(claim.key)} aria-busy={claims.busy.has(claim.key)} onClick={() => void claims.claimOne(claim)} data-testid="postmatch-claim">
-                            {claims.busy.has(claim.key) ? "…" : "Reclamar"}
+                            {claims.busy.has(claim.key) ? "…" : t("Reclamar")}
                           </button>
                         </span>
                       ) : (
-                        <span className="text-[12px] text-ok">Recogido</span>
+                        <span className="text-[12px] text-ok">{t("Recogido")}</span>
                       )}
                     </div>
                   )}
@@ -124,29 +129,29 @@ export function PostMatchProgress({ delta, onLevelUpSeen, className }: { delta: 
             })}
             {achievementsReady.map((a) => (
               <li key={a.key} className="flex flex-wrap items-center justify-between gap-2 text-[13px] text-drl-gold" data-delta={a.id} data-section="achievements">
-                <span>✦ {a.label} · listo</span>
-                <button type="button" className="nx-f62-cta is-gold !min-h-[36px]" disabled={claims.busy.has(a.key)} onClick={() => void claims.claimOne(a)}>Reclamar</button>
+                <span>✦ {td(a.label)} {t("· listo")}</span>
+                <button type="button" className="nx-f62-cta is-gold !min-h-[36px]" disabled={claims.busy.has(a.key)} onClick={() => void claims.claimOne(a)}>{t("Reclamar")}</button>
               </li>
             ))}
-            {more > 0 && <li className="text-caption text-ink-muted">+ {more} {more === 1 ? "progreso más" : "progresos más"} · <Link href="/misiones" className="nx-action">ver todos</Link></li>}
+            {more > 0 && <li className="text-caption text-ink-muted">+ {more} {more === 1 ? t("progreso más") : t("progresos más")} · <Link href="/misiones" className="nx-action">{t("ver todos")}</Link></li>}
           </ul>
         )}
 
         {sections.includes("SEASON") && (
           <div className="mt-3 border-t border-white/10 pt-3" data-section="season">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <span className="nx-label !text-[10px] text-[#ffe08a]">Temporada</span>
+              <span className="nx-label !text-[10px] text-[#ffe08a]">{t("Temporada")}</span>
               <span className="nx-readout text-[12px] text-white/70">
-                {seasonNow.level > seasonBefore.level ? <><span className="text-white/40">Nivel {seasonBefore.level}</span> → </> : null}
-                Nivel {seasonNow.level} / {seasonNow.maxLevel} · {formatCredits(seasonNow.xpIntoLevel)} / {formatCredits(seasonNow.xpForNext)} {XP_NAMES.season}
+                {seasonNow.level > seasonBefore.level ? <><span className="text-white/40">{t("Nivel")} {seasonBefore.level}</span> → </> : null}
+                {t("Nivel")} {seasonNow.level} / {seasonNow.maxLevel} · {formatCredits(seasonNow.xpIntoLevel)} / {formatCredits(seasonNow.xpForNext)} {td(XP_NAMES.season)}
               </span>
             </div>
-            <Meter className="mt-2" value={seasonNow.progress * 100} tone="gold" height={8} label={`Temporada nivel ${seasonNow.level}: ${Math.round(seasonNow.progress * 100)}%`} />
-            {seasonNow.level > seasonBefore.level && <Link href="/cuenta?seccion=progresion" className="nx-action mt-2 inline-block text-[12px]">Nuevas recompensas de temporada por reclamar →</Link>}
+            <Meter className="mt-2" value={seasonNow.progress * 100} tone="gold" height={8} label={t("Temporada nivel {level}: {Math}%", { level: seasonNow.level, Math: Math.round(seasonNow.progress * 100) })} />
+            {seasonNow.level > seasonBefore.level && <Link href="/cuenta?seccion=progresion" className="nx-action mt-2 inline-block text-[12px]">{t("Nuevas recompensas de temporada por reclamar →")}</Link>}
           </div>
         )}
 
-        {!nothing && <Link href="/cuenta?seccion=progresion" className="nx-action mt-3 inline-block text-[12px]">Ver todo tu progreso →</Link>}
+        {!nothing && <Link href="/cuenta?seccion=progresion" className="nx-action mt-3 inline-block text-[12px]">{t("Ver todo tu progreso →")}</Link>}
       </div>
 
       <AnimatePresence>

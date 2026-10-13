@@ -68,5 +68,5 @@ test("ACCESIBILIDAD · es una lista ordenada con etiqueta", () => {
   const markup = html(<LeaderboardTable rows={many(3)} currentUserId="x" />);
   assert.match(markup, /<ol/, "lista ordenada");
   assert.match(markup, /aria-label="Mejores pronosticadores del torneo"/, "con nombre accesible");
-  assert.match(SRC, /aria-label="Clasificación del torneo"/, "la sección se anuncia");
+  assert.match(SRC, /aria-label=\{(?:t|tr|i18nT)\("Clasificación del torneo"\)\}/, "la sección se anuncia");
 });

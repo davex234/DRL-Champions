@@ -13,6 +13,10 @@ import { GameGlyph } from "@/components/ui/game/GameGlyph";
 import { cn } from "@/lib/format";
 import { CardImage, PackArt, classLabel, packName } from "./CraftingUi";
 import s from "./forge.module.css";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("crafting");
 
 /** Color de interfaz por clase de carta (brillo del hueco y de la carta misteriosa). No es contenido: solo luz. */
 export const CLASS_GLOW: Record<PackCardClass, string> = {
@@ -37,11 +41,12 @@ export function ForgeStage({ children, className, testId }: { children: React.Re
 
 /** Cabecera mínima: miga + título grande. */
 export function ForgeTitle({ eyebrow, title, children }: { eyebrow?: React.ReactNode; title: string; children?: React.ReactNode }) {
+  useLocale();
   return (
     <header className="space-y-3">
-      {eyebrow}
+      {td(eyebrow)}
       <h1 className="font-display text-[40px] font-extrabold uppercase leading-[0.9] tracking-[0.03em] text-white sm:text-[58px]">
-        {title}
+        {td(title)}
       </h1>
       {children}
     </header>
@@ -92,26 +97,28 @@ export function PackFan({ packId, count, width = 92, dim = false }: { packId: st
 
 /** «Tienes / Necesitas» como marcador: «7 / 4» grande y debajo qué es cada cifra (no solo color: texto y ✓). */
 export function HaveNeed({ have, need, compact }: { have: number; need: number; compact?: boolean }) {
+  useLocale();
   const ok = have >= need;
   return (
-    <div className="flex flex-col items-center" aria-label={`Tienes ${have} de ${need}`} data-testid="pack-recipe-counts">
+    <div className="flex flex-col items-center" aria-label={tr("Tienes {have} de {need}", { have, need })} data-testid="pack-recipe-counts">
       <p className={cn("nx-readout flex items-baseline gap-2 leading-none tabular-nums", compact ? "text-[30px]" : "text-[40px]")}>
         <span className={ok ? "text-[#3ee08f]" : "text-white"}>{have}</span>
         <span aria-hidden className="text-white/30">/</span>
         <span className="text-white/70">{need}</span>
         {ok && <span aria-hidden className="ml-1 text-[18px] text-[#3ee08f]">✓</span>}
       </p>
-      <p className="mt-1 flex gap-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white/50"><span>Tienes</span><span>Necesitas</span></p>
+      <p className="mt-1 flex gap-5 text-[10px] font-bold uppercase tracking-[0.2em] text-white/50"><span>{tr("Tienes")}</span><span>{tr("Necesitas")}</span></p>
     </div>
   );
 }
 
 /** Barra de progreso segmentada + cifra grande. `role=progressbar` con valores (nunca solo color). */
 export function ForgeBar({ value, max, label, big }: { value: number; max: number; label: string; big?: boolean }) {
+  useLocale();
   const pct = max > 0 ? Math.min(100, Math.round((value / max) * 100)) : 0;
   return (
     <div className="flex min-w-0 items-center gap-3">
-      <div className={cn(s.bar, pct >= 100 && s.barDone, "flex-1", big && "!h-[14px]")} role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={max} aria-valuenow={value}>
+      <div className={cn(s.bar, pct >= 100 && s.barDone, "flex-1", big && "!h-[14px]")} role="progressbar" aria-label={td(label)} aria-valuemin={0} aria-valuemax={max} aria-valuenow={value}>
         <span style={{ width: `${pct}%` }} />
       </div>
       <b className={cn("nx-readout shrink-0 tabular-nums text-white", big ? "text-[22px]" : "text-[17px]")}>{value} / {max}</b>
@@ -121,27 +128,29 @@ export function ForgeBar({ value, max, label, big }: { value: number; max: numbe
 
 /** Recompensa con su arte: sobre → sobre real; créditos/XP → glifo + cifra. */
 export function RewardArt({ reward, claimed, size = "md" }: { reward: { credits?: number; xp?: number; packId?: string; packCount?: number }; claimed?: boolean; size?: "md" | "lg" }) {
+  useLocale();
   const big = size === "lg";
   const items: React.ReactNode[] = [];
   if (reward.packId && reward.packCount) items.push(
     <span key="p" className="flex items-center gap-2"><PackArt packId={reward.packId} width={big ? 58 : 44} dim={claimed} /><b className="font-display text-[15px] uppercase tracking-[0.06em]">+{reward.packCount} {packName(reward.packId)}</b></span>);
   if (reward.credits) items.push(
-    <span key="c" className="flex items-center gap-1.5"><GameGlyph name="coin" className={cn(big ? "h-7 w-7" : "h-6 w-6", "text-drl-gold")} /><b className="nx-readout text-[20px] tabular-nums">+{reward.credits.toLocaleString("es-ES")}</b><span className="sr-only">créditos</span></span>);
+    <span key="c" className="flex items-center gap-1.5"><GameGlyph name="coin" className={cn(big ? "h-7 w-7" : "h-6 w-6", "text-drl-gold")} /><b className="nx-readout text-[20px] tabular-nums">+{reward.credits.toLocaleString(getIntlLocale())}</b><span className="sr-only">{tr("créditos")}</span></span>);
   if (reward.xp) items.push(
-    <span key="x" className="flex items-center gap-1.5"><GameGlyph name="xp" className={cn(big ? "h-7 w-7" : "h-6 w-6", "text-drl-cyan")} /><b className="nx-readout text-[20px] tabular-nums">+{reward.xp}</b><span className="text-[12px] font-bold text-white/60">XP</span></span>);
+    <span key="x" className="flex items-center gap-1.5"><GameGlyph name="xp" className={cn(big ? "h-7 w-7" : "h-6 w-6", "text-drl-cyan")} /><b className="nx-readout text-[20px] tabular-nums">+{reward.xp}</b><span className="text-[12px] font-bold text-white/60">{tr("XP")}</span></span>);
   if (!items.length) return null;
   return <span className={cn("flex flex-wrap items-center gap-x-4 gap-y-2", claimed ? "text-white/45" : "text-drl-gold")} data-testid="mission-reward">{items}</span>;
 }
 
 /** Hueco de carta (vacío o con la copia elegida). */
 export function Slot({ cardId, color, onRemove, index }: { cardId?: string; color: string; onRemove?: () => void; index: number }) {
+  useLocale();
   return (
     <span className={cn(s.slot, cardId && s.slotFilled, "block w-full")} style={glowStyle(color)} data-slot={index} data-filled={cardId ? "1" : "0"}>
       {cardId ? (
         <>
           <CardImage cardId={cardId} width={120} className="!w-full" />
           <span aria-hidden className="absolute -right-1.5 -top-1.5 grid h-5 w-5 place-items-center rounded-full bg-drl-cyan text-[11px] font-bold text-black">✓</span>
-          {onRemove && <button type="button" onClick={onRemove} aria-label="Quitar esta copia" className="nx-focus absolute inset-0 rounded-[6px]" />}
+          {onRemove && <button type="button" onClick={onRemove} aria-label={tr("Quitar esta copia")} className="nx-focus absolute inset-0 rounded-[6px]" />}
         </>
       ) : <span aria-hidden className="absolute inset-0 grid place-items-center font-display text-[18px] text-white/15">+</span>}
     </span>
@@ -150,9 +159,10 @@ export function Slot({ cardId, color, onRemove, index }: { cardId?: string; colo
 
 /** Carta de salida ALEATORIA de una clase: nunca una carta concreta antes de que el servidor la decida. */
 export function MysteryCard({ cls, width = 170, label = true }: { cls: string; width?: number; label?: boolean }) {
+  useLocale();
   return (
     <span className="flex flex-col items-center gap-2" data-testid="mystery-card" data-class={cls}>
-      <span className={s.mystery} style={{ ...glowStyle(glowOf(cls)), width }} role="img" aria-label={`Carta ${classLabel(cls)} aleatoria`}>
+      <span className={s.mystery} style={{ ...glowStyle(glowOf(cls)), width }} role="img" aria-label={tr("Carta {cls} aleatoria", { cls: classLabel(cls) })}>
         <span aria-hidden className="absolute inset-0 grid place-items-center">
           <svg viewBox="0 0 100 100" className="w-[62%] opacity-60">
             <polygon points="50,4 92,28 92,72 50,96 8,72 8,28" fill="none" stroke="currentColor" strokeWidth="1.6" style={{ color: glowOf(cls) }} />
@@ -161,7 +171,7 @@ export function MysteryCard({ cls, width = 170, label = true }: { cls: string; w
         </span>
         <span aria-hidden className="absolute inset-x-0 bottom-[8%] text-center font-display text-[13px] font-bold uppercase tracking-[0.22em] text-white/85">{classLabel(cls)}</span>
       </span>
-      {label && <span className="font-display text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: glowOf(cls) }}>Carta {classLabel(cls)} aleatoria</span>}
+      {label && <span className="font-display text-[13px] font-bold uppercase tracking-[0.16em]" style={{ color: glowOf(cls) }}>{tr("Carta {cls} aleatoria", { cls: classLabel(cls) })}</span>}
     </span>
   );
 }
@@ -177,7 +187,7 @@ const STAMP = {
 export type StampKind = keyof typeof STAMP;
 export function Stamp({ kind, className }: { kind: StampKind; className?: string }) {
   const k = STAMP[kind];
-  return <span className={cn("inline-flex shrink-0 items-center gap-1.5 border px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-[0.16em]", k.c, className)} data-stamp={kind}><span aria-hidden>{k.i}</span>{k.t}</span>;
+  return <span className={cn("inline-flex shrink-0 items-center gap-1.5 border px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-[0.16em]", k.c, className)} data-stamp={kind}><span aria-hidden>{td(k.i)}</span>{td(k.t)}</span>;
 }
 
 export const haloClass = (live: boolean) => cn(s.halo, live && s.haloLive);
@@ -194,6 +204,7 @@ export const lane = { root: s.lane, in: s.laneIn, core: s.laneCore, out: s.laneO
  * COMPLETADO». ~1,8 s. Movimiento reducido: el resultado aparece por fundido, sin desplazamientos.
  */
 export function PackForgeSequence({ inputPackId, inputQty, outputPackId }: { inputPackId: string; inputQty: number; outputPackId: string }) {
+  useLocale();
   const reduced = useReducedMotion();
   const [phase, setPhase] = useState<"merge" | "flash" | "done">(reduced ? "done" : "merge");
   useEffect(() => {
@@ -225,9 +236,9 @@ export function PackForgeSequence({ inputPackId, inputQty, outputPackId }: { inp
         )}
       </div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: phase === "done" ? 1 : 0 }} transition={{ duration: 0.3 }}>
-        <p className="font-display text-[26px] font-extrabold uppercase tracking-[0.14em] text-[#3ee08f]">Craft completado</p>
+        <p className="font-display text-[26px] font-extrabold uppercase tracking-[0.14em] text-[#3ee08f]">{tr("Craft completado")}</p>
         <p className="font-display text-[17px] font-bold uppercase tracking-[0.12em] text-white">+1 {packName(outputPackId)}</p>
-        <p className="mt-1 text-[12px] text-white/50">Guardado en tus sobres sin abrir</p>
+        <p className="mt-1 text-[12px] text-white/50">{tr("Guardado en tus sobres sin abrir")}</p>
       </motion.div>
     </div>
   );
@@ -238,6 +249,7 @@ export function PackForgeSequence({ inputPackId, inputQty, outputPackId }: { inp
  * CONSEGUIDA». Movimiento reducido: fundido de una a otra.
  */
 export function CardRevealSequence({ cls, cardId, caption, sub }: { cls: string; cardId: string; caption: string; sub?: string }) {
+  useLocale();
   const reduced = useReducedMotion();
   const [shown, setShown] = useState(reduced);
   useEffect(() => { if (reduced) return; const t = setTimeout(() => setShown(true), 850); return () => clearTimeout(t); }, [reduced]);
@@ -258,9 +270,9 @@ export function CardRevealSequence({ cls, cardId, caption, sub }: { cls: string;
         </AnimatePresence>
       </div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: shown ? 1 : 0 }} transition={{ duration: 0.3 }}>
-        <p className="font-display text-[26px] font-extrabold uppercase tracking-[0.14em] text-[#3ee08f]">Carta conseguida</p>
-        <p className="font-display text-[16px] font-bold uppercase tracking-[0.12em] text-white">{caption}</p>
-        {sub && <p className="mt-1 text-[12px] text-white/55">{sub}</p>}
+        <p className="font-display text-[26px] font-extrabold uppercase tracking-[0.14em] text-[#3ee08f]">{tr("Carta conseguida")}</p>
+        <p className="font-display text-[16px] font-bold uppercase tracking-[0.12em] text-white">{td(caption)}</p>
+        {sub && <p className="mt-1 text-[12px] text-white/55">{td(sub)}</p>}
       </motion.div>
     </div>
   );

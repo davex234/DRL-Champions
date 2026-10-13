@@ -22,6 +22,9 @@ import { publish } from "@/publisher";
 import { decide } from "./approvals";
 import { cardsInState } from "./review";
 import type { DecisionMeta, EditorialCase, ExcludedCard, PublishApprovedResult } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("editorial");
 
 export const EDITORIAL_SCHEMA_VERSION = 1;
 
@@ -52,7 +55,7 @@ function filterGeneration(
   const dropped: PublishApprovedResult["droppedGrants"] = [];
   const grants = gen.grants.filter((g) => {
     if (excludedPlayers.has(g.playerId)) {
-      dropped.push({ playerId: g.playerId, accolade: g.accolade, reason: "jugador excluido por composición" });
+      dropped.push({ playerId: g.playerId, accolade: g.accolade, reason: t("jugador excluido por composición") });
       return false;
     }
     const p = playerOf(g.playerId);
@@ -60,7 +63,7 @@ function filterGeneration(
     const bad = variantsForAccolade(g.accolade, p)
       .find((v) => specIds.has(`${g.playerId}__${v}`) && !approved.has(`${g.playerId}__${v}`));
     if (bad) {
-      dropped.push({ playerId: g.playerId, accolade: g.accolade, reason: `deriva ${g.playerId}__${bad}, no aprobada` });
+      dropped.push({ playerId: g.playerId, accolade: g.accolade, reason: t("deriva {playerId}__{bad}, no aprobada", { playerId: g.playerId, bad }) });
       return false;
     }
     return true;
@@ -94,7 +97,7 @@ export async function publishApproved(c: EditorialCase, ctx: PublishApprovedCtx)
     .map((s) => ({ cardId: s.cardId, state: c.states[s.cardId], reason: `estado editorial "${c.states[s.cardId]}"` }));
 
   if (!approved.size) {
-    return { ok: false, error: "sin cartas aprobadas: nada que publicar", case: c, published: [], excluded: excludedBase, droppedGrants: [] };
+    return { ok: false, error: t("sin cartas aprobadas: nada que publicar"), case: c, published: [], excluded: excludedBase, droppedGrants: [] };
   }
 
   const specPlayer = new Map(gen.cards.map((s) => [s.cardId, s.playerId]));
@@ -119,17 +122,17 @@ export async function publishApproved(c: EditorialCase, ctx: PublishApprovedCtx)
     ...excludedBase,
     ...gen.cards
       .filter((s) => approved.has(s.cardId) && excludedPlayers.has(s.playerId))
-      .map((s) => ({ cardId: s.cardId, state: c.states[s.cardId], reason: "excluida por composición: su jugador deriva cartas no aprobadas" })),
+      .map((s) => ({ cardId: s.cardId, state: c.states[s.cardId], reason: t("excluida por composición: su jugador deriva cartas no aprobadas") })),
   ];
 
   if (!filtered.includedCards.length) {
-    return { ok: false, error: "todas las cartas aprobadas quedaron excluidas por composición", case: c, published: [], excluded, droppedGrants: filtered.dropped };
+    return { ok: false, error: t("todas las cartas aprobadas quedaron excluidas por composición"), case: c, published: [], excluded, droppedGrants: filtered.dropped };
   }
 
   const pub = publish(build, { now: ctx.at, persist: ctx.persist });
   if (!pub.ok) {
     return {
-      ok: false, error: `publicación ${pub.transaction.finalState}`, case: c,
+      ok: false, error: t("publicación {finalState}", { finalState: td(pub.transaction.finalState) }), case: c,
       publish: pub, build, materialization: mat, published: [], excluded, droppedGrants: filtered.dropped,
     };
   }

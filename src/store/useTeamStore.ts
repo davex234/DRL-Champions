@@ -19,6 +19,9 @@ import type { CoachSetup } from "@/sim";
 import { validateTeam, DECK_SCHEMA_VERSION, type CardRef, type Team, type Deck, type DeckKind, type TeamError } from "@/domain/teams/types";
 import { migrateDeck, cloneDeck, importDeck, exportDeck } from "@/deck/io";
 import type { DeckExport } from "@/deck/types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("store");
 
 function newId(): string {
   if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
@@ -88,7 +91,7 @@ export const useTeamStore = create<TeamStore>()(
         const now = Date.now();
         const team: Deck = {
           id,
-          name: name.trim() || "Nuevo equipo",
+          name: name.trim() || tr("Nuevo equipo"),
           starters: [],
           subs: [],
           reserves: [],
@@ -164,7 +167,7 @@ export const useTeamStore = create<TeamStore>()(
 
       validate: (id) => {
         const team = get().teams.find((t) => t.id === id);
-        if (!team) return [{ code: "UNKNOWN_CARD", message: "Equipo inexistente." }];
+        if (!team) return [{ code: "UNKNOWN_CARD", message: tr("Equipo inexistente.") }];
         return validateTeam(team, resolveCardRef);
       },
     }),

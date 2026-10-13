@@ -1,0 +1,18 @@
+{
+  "Clasificado": "Clasificado",
+  "Colocación {placementPlayed}/{placementTotal}": "Colocación {placementPlayed}/{placementTotal}",
+  "Completar equipo": "Completar equipo",
+  "Continuar": "Continuar",
+  "Continuar partida": "Continuar partida",
+  "Crear equipo": "Crear equipo",
+  "Draft {pick}/10": "Draft {pick}/10",
+  "Entrar · {fee}": "Entrar · {fee}",
+  "Jugar": "Jugar",
+  "Preparando…": "Preparando…",
+  "Rating {rating}": "Rating {rating}",
+  "Rating {rating}{v}": "Rating {rating}{v}",
+  "Sin clasificar": "Sin clasificar",
+  "Te faltan {v} créditos": "Te faltan {v} créditos",
+  "Ver competitivo": "Ver competitivo",
+  "{wins}/{total} victorias": "{wins}/{total} victorias"
+}

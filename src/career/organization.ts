@@ -12,6 +12,9 @@ import type { ClubView, ClubManagement } from "./types";
 import { facilityEffects, FACILITY_IDS, MAX_FACILITY_LEVEL } from "./facilities";
 import { staffEffects } from "./staff";
 import { makeRng, seedOf, type Rng } from "./rng";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("career");
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
@@ -116,11 +119,11 @@ export function computeFanbase(inp: FanbaseInputs): FanbaseResult {
   const delta = Math.round(club.fanbase * growthRate + (inp.champion ? 200 : 0) + inp.bigSignings * 40);
   const merchRevenue = Math.round(Math.max(0, club.fanbase * (moodScore / 100) * (1 + fx.fanEngagement) * 1.5));
   const message =
-    mood === "eufórica" ? "La afición está EN LLAMAS: récord de merchandising y ambiente."
-    : mood === "contenta" ? "La afición disfruta de la temporada."
-    : mood === "neutral" ? "La afición mantiene la calma."
-    : mood === "inquieta" ? "La afición empieza a impacientarse."
-    : "La afición está ENFADADA: caen abonos y ventas.";
+    mood === "eufórica" ? tr("La afición está EN LLAMAS: récord de merchandising y ambiente.")
+    : mood === "contenta" ? tr("La afición disfruta de la temporada.")
+    : mood === "neutral" ? tr("La afición mantiene la calma.")
+    : mood === "inquieta" ? tr("La afición empieza a impacientarse.")
+    : tr("La afición está ENFADADA: caen abonos y ventas.");
   return { delta, mood, moodScore, merchRevenue, message };
 }
 
@@ -167,14 +170,14 @@ export function runAiOrganizations(world: WorldState, protectTeamId: string | nu
       t.budget = Math.max(0, t.budget - spend);
       t.prestige = clamp(t.prestige + 0.6 + (good ? 0.5 : 0), 0, 100);
       t.fanbase = Math.round(t.fanbase * 1.01 + 40);
-      if (notable < cap && r.chance(0.25)) { events.push(mk("investment", world, t, `${t.name} invierte ${spend} en su organización.`, 45, at)); notable++; }
+      if (notable < cap && r.chance(0.25)) { events.push(mk("investment", world, t, tr("{name} invierte {spend} en su organización.", { name: t.name, spend }), 45, at)); notable++; }
     } else if (!rich && r.chance(0.5)) {
       // RECORTA: preserva presupuesto, prestigio se estanca/baja levemente.
       t.prestige = clamp(t.prestige - 0.15, 0, 100);
-      if (notable < cap && r.chance(0.15)) { events.push(mk("cost_cut", world, t, `${t.name} aplica un plan de austeridad.`, 30, at)); notable++; }
+      if (notable < cap && r.chance(0.15)) { events.push(mk("cost_cut", world, t, tr("{name} aplica un plan de austeridad.", { name: t.name }), 30, at)); notable++; }
     }
     // Construir academia (raro, clubes con proyecto).
-    if (t.prestige > 55 && r.chance(0.06) && notable < cap) { t.prestige = clamp(t.prestige + 0.8, 0, 100); events.push(mk("academy_built", world, t, `${t.name} inaugura una nueva academia.`, 55, at)); notable++; }
+    if (t.prestige > 55 && r.chance(0.06) && notable < cap) { t.prestige = clamp(t.prestige + 0.8, 0, 100); events.push(mk("academy_built", world, t, tr("{name} inaugura una nueva academia.", { name: t.name }), 55, at)); notable++; }
   }
   return events;
 }
@@ -204,5 +207,5 @@ export function orgNews(events: OrgEvent[]): NewsItem[] {
 
 /** Prestigio como "tier" del club (para dashboards). */
 export function prestigeTier(prestige: number): string {
-  return prestige >= 85 ? "Élite mundial" : prestige >= 68 ? "Top continental" : prestige >= 50 ? "Consolidado" : prestige >= 32 ? "Emergente" : "Modesto";
+  return prestige >= 85 ? tr("Élite mundial") : prestige >= 68 ? tr("Top continental") : prestige >= 50 ? tr("Consolidado") : prestige >= 32 ? tr("Emergente") : tr("Modesto");
 }

@@ -21,6 +21,10 @@ import { PLACEMENT_GAMES } from "@/domain/cardgame/rating/types";
 import { ENV_FOCUS_EVENT, type EnvironmentFocus } from "@/design/environment";
 import { playSound } from "@/lib/sound";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("dailyLoop");
 
 interface ModeLink { id: Exclude<EnvironmentFocus, null>; label: string; kicker: string; fact: string; href: string; rgb: string }
 
@@ -29,10 +33,10 @@ export function lobbyModes(snap: DailyLoopSnapshot): ModeLink[] {
   const comp = competitiveModel(snap, PLACEMENT_GAMES);
   const run = snap.service?.draftRun ?? null;
   return [
-    { id: "quick", label: "Partida rápida", kicker: "PvE", fact: "Contra un bot · 10 turnos", href: DAILY_ROUTES.quick, rgb: "25,227,255" },
-    { id: "campaign", label: "Road to Champions", kicker: "Campaña", fact: camp ? `${camp.progressLabel} nodos` : "Campaña contra rosters reales", href: DAILY_ROUTES.campaign, rgb: "90,140,255" },
-    { id: "ranked", label: "Competitivo", kicker: "Ranked", fact: comp ? (comp.stateLabel === "Sin partidas" ? "Sin rating todavía" : `Rating ${comp.ratingLabel}`) : "Rating y escalera", href: DAILY_ROUTES.competitive, rgb: "255,46,99" },
-    { id: "draft", label: "Draft Gauntlet", kicker: "Draft", fact: run ? (run.status === "DRAFTING" ? "Draft a medias" : `Fase ${run.stage} de 5`) : "Plantilla carta a carta", href: "/jugar/draft-gauntlet", rgb: "255,176,61" },
+    { id: "quick", label: t("Partida rápida"), kicker: t("PvE"), fact: t("Contra un bot · 10 turnos"), href: DAILY_ROUTES.quick, rgb: "25,227,255" },
+    { id: "campaign", label: t("Road to Champions"), kicker: t("Campaña"), fact: camp ? t("{progress} nodos", { progress: camp.progressLabel }) : t("Campaña contra rosters reales"), href: DAILY_ROUTES.campaign, rgb: "90,140,255" },
+    { id: "ranked", label: t("Competitivo"), kicker: t("Ranked"), fact: comp ? (comp.stateLabel === "Sin partidas" ? t("Sin rating todavía") : t("Rating {rating}", { rating: comp.ratingLabel })) : t("Rating y escalera"), href: DAILY_ROUTES.competitive, rgb: "255,46,99" },
+    { id: "draft", label: t("Draft Gauntlet"), kicker: t("Draft"), fact: run ? (run.status === "DRAFTING" ? t("Draft a medias") : t("Fase {stage} de 5", { stage: run.stage })) : t("Plantilla carta a carta"), href: "/jugar/draft-gauntlet", rgb: "255,176,61" },
   ];
 }
 
@@ -49,13 +53,14 @@ const GLYPH: Record<ModeLink["id"], React.ReactNode> = {
 };
 
 export function LobbyPlayStage({ snap, offline = false }: { snap: DailyLoopSnapshot; offline?: boolean }) {
+  useLocale();
   const deck = snap.deck;
   const ready = deck?.state === "READY";
   const modes = lobbyModes(snap);
-  const deckLine = !snap.signedIn ? "Entra para jugar con tus cartas"
-    : !deck ? "Tu equipo se comprueba al elegir modo"
+  const deckLine = !snap.signedIn ? t("Entra para jugar con tus cartas")
+    : !deck ? t("Tu equipo se comprueba al elegir modo")
       : ready && deck.active ? `${deck.active.name} · ${deck.active.sumOvr} OVR`
-        : deck.state === "NONE" ? "Todavía no tienes equipo" : "Tu equipo está incompleto";
+        : deck.state === "NONE" ? t("Todavía no tienes equipo") : t("Tu equipo está incompleto");
   return (
     <section
       aria-labelledby="lobby-play-title"
@@ -74,19 +79,19 @@ export function LobbyPlayStage({ snap, offline = false }: { snap: DailyLoopSnaps
 
       <div className="grid items-center gap-8 lg:min-h-[390px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="min-w-0">
-          <p className="nx-label text-drl">NEXUS · Lobby</p>
+          <p className="nx-label text-drl">{t("NEXUS · Lobby")}</p>
           <h2 id="lobby-play-title" className="mt-2 font-display text-[clamp(38px,5.8vw,76px)] font-bold uppercase leading-[0.88] text-white">
-            Tu próxima <span className="block text-drl" style={{ textShadow: "0 0 40px rgba(255,46,99,0.55)" }}>partida</span>
+            {t("Tu próxima")} <span className="block text-drl" style={{ textShadow: "0 0 40px rgba(255,46,99,0.55)" }}>{t("partida")}</span>
           </h2>
           <p className="mt-4 flex flex-wrap items-center gap-2 text-[15px] text-white/80" data-testid="lobby-deck-line" data-ready={ready ? "true" : "false"}>
             <span className={cn("nx-clip-sm inline-flex items-center gap-1.5 border px-2 py-1 font-display text-[12px] font-bold uppercase tracking-[0.14em]", ready ? "border-ok/50 text-ok" : "border-warn/50 text-warn")}>
               <span aria-hidden className={cn("h-1.5 w-1.5", ready ? "bg-ok" : "bg-warn")} />
-              {ready ? "Equipo listo" : "Equipo"}
+              {ready ? t("Equipo listo") : t("Equipo")}
             </span>
-            {deckLine}
+            {td(deckLine)}
             {snap.signedIn && deck && !ready && (
               <Link href={deck.state === "NONE" ? DAILY_ROUTES.newDeck : DAILY_ROUTES.decks} className="font-display text-[13px] font-bold uppercase tracking-[0.12em] text-drl-cyan underline-offset-4 hover:underline">
-                {deck.state === "NONE" ? "Crear equipo" : "Completar equipo"}
+                {deck.state === "NONE" ? t("Crear equipo") : t("Completar equipo")}
               </Link>
             )}
           </p>
@@ -94,10 +99,10 @@ export function LobbyPlayStage({ snap, offline = false }: { snap: DailyLoopSnaps
           <div className="mt-8 hidden lg:block">
             <PlayButton cta={playCta(null)} size="hero" testId="lobby-play" />
           </div>
-          {offline && <p role="status" className="mt-3 text-[13px] text-warn">Sin conexión: puedes elegir modo, las partidas empiezan al volver la red.</p>}
+          {offline && <p role="status" className="mt-3 text-[13px] text-warn">{t("Sin conexión: puedes elegir modo, las partidas empiezan al volver la red.")}</p>}
         </div>
 
-        <nav aria-label="Modos de juego" className="grid grid-cols-2 gap-3" data-testid="lobby-modes">
+        <nav aria-label={t("Modos de juego")} className="grid grid-cols-2 gap-3" data-testid="lobby-modes">
           {modes.map((m) => (
             <Link
               key={m.id}
@@ -112,10 +117,10 @@ export function LobbyPlayStage({ snap, offline = false }: { snap: DailyLoopSnaps
             >
               <span aria-hidden className="nx-mode-glow pointer-events-none absolute -right-10 -top-12 -z-10 h-36 w-36" style={{ background: `radial-gradient(closest-side, rgba(${m.rgb},0.55), transparent)` }} />
               <svg aria-hidden viewBox="0 0 64 64" className="nx-mode-art pointer-events-none absolute right-3 top-3 -z-10 h-9 w-9 opacity-40 xl:bottom-3 xl:top-auto xl:h-14 xl:w-14 xl:opacity-45" fill="none" stroke={`rgb(${m.rgb})`} strokeWidth="2">{GLYPH[m.id]}</svg>
-              <span className="font-display text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: `rgb(${m.rgb})` }}>{m.kicker}</span>
+              <span className="font-display text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: `rgb(${m.rgb})` }}>{td(m.kicker)}</span>
               <span>
-                <span className="block font-display text-[21px] font-bold uppercase leading-none text-white lg:text-[24px]">{m.label}</span>
-                <span className="mt-1.5 block text-[13px] text-white/65">{m.fact}</span>
+                <span className="block font-display text-[21px] font-bold uppercase leading-none text-white lg:text-[24px]">{td(m.label)}</span>
+                <span className="mt-1.5 block text-[13px] text-white/65">{td(m.fact)}</span>
               </span>
             </Link>
           ))}

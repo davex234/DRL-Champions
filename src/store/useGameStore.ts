@@ -16,6 +16,9 @@ import { xpForCardRank } from "@/domain/progression/levels";
 import { seedFrom } from "@/sim/rng";
 import { LEGACY_CACHE_OWNER, LocalEconomyBlockedError, localEconomyBlockReason, storedSessionPresent } from "@/lib/game/localEconomy";
 import { ACHIEVEMENTS, type AchievementContext } from "@/domain/progression/achievements";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("store");
 
 /** Resultado de revelar una carta al abrir un sobre. */
 export interface OpenedResult {
@@ -262,9 +265,9 @@ export const useGameStore = create<GameState>()(
         const blocked = localEconomyBlockReason();
         if (blocked) return { ok: false, error: blocked };
         const pack = getPack(packId);
-        if (!pack) return { ok: false, error: "Sobre no encontrado" };
+        if (!pack) return { ok: false, error: t("Sobre no encontrado") };
         const { credits } = get();
-        if (credits < pack.price) return { ok: false, error: "Créditos insuficientes" };
+        if (credits < pack.price) return { ok: false, error: t("Créditos insuficientes") };
         set((s) => ({
           credits: s.credits - pack.price,
           unopenedPacks: {
@@ -441,7 +444,7 @@ export const useGameStore = create<GameState>()(
 
       craft: (recipeId, selection) => {
         const recipe = getRecipe(recipeId);
-        if (!recipe) return { ok: false, error: "Receta inexistente" };
+        if (!recipe) return { ok: false, error: t("Receta inexistente") };
         const s0 = get();
         const now = Date.now();
         const seed = seedFrom(`craft|${recipeId}|${s0.ownedCards.length}|${s0.credits}`);

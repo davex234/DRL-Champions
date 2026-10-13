@@ -27,6 +27,10 @@ import {
 } from "@/domain/tactics/matchMap";
 import type { RenderFrame, RenderEntity } from "@/visualizer";
 import type { RoundState } from "@/sim";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coach");
 
 const ATK = "#ff3b5c";
 const DEF = "#19e3ff";
@@ -39,6 +43,7 @@ export function MapMatchBoard({ frame, mapId, snap, className }: {
   snap?: RoundState | null;
   className?: string;
 }) {
+  useLocale();
   const map = requireMatchMap(mapId);
   const vb = matchViewBox(map);
   /* Una unidad de dibujo proporcional al encuadre: las fichas miden lo mismo en los doce mapas. */
@@ -76,7 +81,7 @@ export function MapMatchBoard({ frame, mapId, snap, className }: {
       preserveAspectRatio="xMidYMid meet"
       className={className ?? "h-full w-full"}
       role="img"
-      aria-label={`Partido en ${map.name}`}
+      aria-label={t("Partido en {name}", { name: td(map.name) })}
     >
       <rect x={vb.x} y={vb.y} width={vb.w} height={vb.h} fill="#05080f" />
       {/* EL MAPA: el asset canónico, entero y sin escalar de forma permanente. */}
@@ -118,6 +123,7 @@ export function MapMatchBoard({ frame, mapId, snap, className }: {
 }
 
 function Entity({ e, U, px, at, apuntado }: { e: RenderEntity; U: number; px: (p: Pt) => Pt; at: Pt | null; apuntado: boolean }) {
+  useLocale();
   const p = at ?? px(e.transform.position);
   if (e.type === "spike") {
     return (
@@ -157,9 +163,9 @@ function Entity({ e, U, px, at, apuntado }: { e: RenderEntity; U: number; px: (p
           <path d={`M${p.x - U * 1.9},${p.y}h${U * 0.6}M${p.x + U * 1.3},${p.y}h${U * 0.6}M${p.x},${p.y - U * 1.9}v${U * 0.6}M${p.x},${p.y + U * 1.3}v${U * 0.6}`} />
         </g>
       )}
-      <text x={p.x} y={p.y + U * 0.28} textAnchor="middle" fontSize={U * 0.8} fontWeight={800} fill="#05080d">{ROLE_TAG[e.role ?? ""] ?? "?"}</text>
+      <text x={p.x} y={p.y + U * 0.28} textAnchor="middle" fontSize={U * 0.8} fontWeight={800} fill="#05080d">{td(ROLE_TAG[e.role ?? ""]) ?? "?"}</text>
       <text x={p.x} y={p.y - U * 1.25} textAnchor="middle" fontSize={U * 0.72} fontWeight={focus ? 800 : 600}
-        fill="#fff" fillOpacity={focus ? 1 : 0.8} stroke="#05080d" strokeWidth={U * 0.2} paintOrder="stroke">{e.label}</text>
+        fill="#fff" fillOpacity={focus ? 1 : 0.8} stroke="#05080d" strokeWidth={U * 0.2} paintOrder="stroke">{td(e.label)}</text>
     </g>
   );
 }

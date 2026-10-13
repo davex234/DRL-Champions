@@ -1,3 +1,7 @@
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("admin");
+
 /**
  * F60 · SUBIDAS DEL CMS — reglas PURAS (sin red, sin `sharp`) para decidir si unos bytes son la imagen que dicen ser.
  *
@@ -108,32 +112,32 @@ export type UploadCheck =
 export function checkUpload(kind: CmsAssetKind, name: string, declaredMime: string, bytes: Uint8Array,
   dims?: { width: number; height: number } | null): UploadCheck {
   const rule = ASSET_RULES[kind];
-  if (!rule) return { ok: false, error: "Tipo de asset no admitido" };
-  if (bytes.byteLength === 0) return { ok: false, error: "El fichero está vacío" };
-  if (bytes.byteLength > rule.maxBytes) return { ok: false, error: `Pesa ${(bytes.byteLength / MB).toFixed(1)} MB; el máximo para ${rule.label.toLowerCase()} es ${rule.maxBytes / MB} MB` };
-  if (/[\\/]|\.\./.test(name) || /[\u0000-\u001f]/.test(name)) return { ok: false, error: "Nombre de fichero no válido" };
+  if (!rule) return { ok: false, error: t("Tipo de asset no admitido") };
+  if (bytes.byteLength === 0) return { ok: false, error: t("El fichero está vacío") };
+  if (bytes.byteLength > rule.maxBytes) return { ok: false, error: t("Pesa {v} MB; el máximo para {label} es {v2} MB", { v: (bytes.byteLength / MB).toFixed(1), label: rule.label.toLowerCase(), v2: rule.maxBytes / MB }) };
+  if (/[\\/]|\.\./.test(name) || /[\u0000-\u001f]/.test(name)) return { ok: false, error: t("Nombre de fichero no válido") };
   const parts = name.toLowerCase().split(".");
-  if (parts.length < 2) return { ok: false, error: "El fichero necesita extensión" };
+  if (parts.length < 2) return { ok: false, error: t("El fichero necesita extensión") };
   const ext = parts[parts.length - 1];
   const inner = parts.slice(1, -1);
   const dangerous = ["html", "htm", "svg", "js", "php", "exe", "sh", "bat", "cmd", "xml", "xhtml"];
-  if (inner.some((p) => dangerous.includes(p)) || dangerous.includes(ext)) return { ok: false, error: "Doble extensión o tipo no permitido" };
+  if (inner.some((p) => dangerous.includes(p)) || dangerous.includes(ext)) return { ok: false, error: t("Doble extensión o tipo no permitido") };
 
   const format = sniffImage(bytes);
-  if (!format) return { ok: false, error: "El contenido no es una imagen admitida (PNG, WEBP, JPEG o AVIF). SVG no se admite." };
-  if (!rule.formats.includes(format)) return { ok: false, error: `${rule.label}: formato ${format.toUpperCase()} no admitido (${rule.formats.join(", ").toUpperCase()})` };
-  if (!EXT_OF[format].includes(ext)) return { ok: false, error: `La extensión .${ext} no corresponde al contenido (${format.toUpperCase()})` };
+  if (!format) return { ok: false, error: t("El contenido no es una imagen admitida (PNG, WEBP, JPEG o AVIF). SVG no se admite.") };
+  if (!rule.formats.includes(format)) return { ok: false, error: t("{label}: formato {format} no admitido ({v})", { label: td(rule.label), format: format.toUpperCase(), v: rule.formats.join(", ").toUpperCase() }) };
+  if (!EXT_OF[format].includes(ext)) return { ok: false, error: t("La extensión .{ext} no corresponde al contenido ({format})", { ext: td(ext), format: format.toUpperCase() }) };
   if (declaredMime && declaredMime !== MIME_OF[format] && !(format === "jpeg" && declaredMime === "image/jpg")) {
-    return { ok: false, error: `El tipo declarado (${declaredMime.slice(0, 40)}) no corresponde al contenido` };
+    return { ok: false, error: t("El tipo declarado ({declaredMime}) no corresponde al contenido", { declaredMime: declaredMime.slice(0, 40) }) };
   }
   const d = dims ?? headerDimensions(bytes, format);
   if (d) {
     const { width: w, height: h } = d;
-    if (!(w > 0 && h > 0)) return { ok: false, error: "Dimensiones ilegibles" };
-    if (w < rule.minW || h < rule.minH) return { ok: false, error: `${rule.label}: mínimo ${rule.minW}×${rule.minH} px (tiene ${w}×${h})` };
-    if (w > rule.maxW || h > rule.maxH) return { ok: false, error: `${rule.label}: máximo ${rule.maxW}×${rule.maxH} px (tiene ${w}×${h})` };
+    if (!(w > 0 && h > 0)) return { ok: false, error: t("Dimensiones ilegibles") };
+    if (w < rule.minW || h < rule.minH) return { ok: false, error: t("{label}: mínimo {minW}×{minH} px (tiene {w}×{h})", { label: td(rule.label), minW: rule.minW, minH: rule.minH, w, h }) };
+    if (w > rule.maxW || h > rule.maxH) return { ok: false, error: t("{label}: máximo {maxW}×{maxH} px (tiene {w}×{h})", { label: td(rule.label), maxW: rule.maxW, maxH: rule.maxH, w, h }) };
     const ar = w / h;
-    if (ar < rule.aspect[0] || ar > rule.aspect[1]) return { ok: false, error: `${rule.label}: proporción ${ar.toFixed(2)} fuera de [${rule.aspect[0]}, ${rule.aspect[1]}]` };
+    if (ar < rule.aspect[0] || ar > rule.aspect[1]) return { ok: false, error: t("{label}: proporción {ar} fuera de [{v}, {v2}]", { label: td(rule.label), ar: ar.toFixed(2), v: rule.aspect[0], v2: rule.aspect[1] }) };
   }
   return { ok: true, format, mime: MIME_OF[format], width: d?.width ?? null, height: d?.height ?? null };
 }

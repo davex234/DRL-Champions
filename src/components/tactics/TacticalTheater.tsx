@@ -36,6 +36,10 @@ import {
 } from "@/lib/tactics/playback";
 import { enterFullscreen, exitFullscreen, currentFullscreenElement, type FullscreenMode } from "@/lib/tactics/fullscreen";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("tactics");
 
 const SIDE_LABEL = { attack: "Ataque", defense: "Defensa" } as const;
 const SIDE_COLOR = { attack: "#ff2e63", defense: "#19e3ff" } as const;
@@ -49,6 +53,7 @@ export function TacticalTheater({
   open: boolean;
   onClose: () => void;
 }) {
+  useLocale();
   const root = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<FullscreenMode>("off");
   const total = strat.steps.length;
@@ -171,7 +176,7 @@ export function TacticalTheater({
       <header className="nx-coach-theater-hud flex shrink-0 items-center justify-between gap-4 px-[clamp(14px,2vw,34px)] py-[clamp(10px,1.6vh,20px)]">
         <div className="flex min-w-0 items-center gap-4">
           <span className="hidden font-display text-[12px] font-extrabold uppercase leading-none tracking-[0.3em] text-[#2fe0ff] sm:block">
-            Tactical<span className="block text-[9px] tracking-[0.42em] text-white/45">Coach</span>
+            {tr("Tactical")}<span className="block text-[9px] tracking-[0.42em] text-white/45">{tr("Coach")}</span>
           </span>
           <span className="hidden h-6 w-px bg-[rgba(47,224,255,0.25)] sm:block" />
           <b className="font-display text-[clamp(15px,2.4vh,26px)] font-extrabold uppercase tracking-[0.08em] text-white">
@@ -187,7 +192,7 @@ export function TacticalTheater({
             }}
           >
             {/* El lado NO se distingue sólo por color: lleva su palabra y su flecha. */}
-            {strat.side === "attack" ? "▲ " : "▼ "}{SIDE_LABEL[strat.side]}
+            {strat.side === "attack" ? "▲ " : "▼ "}{td(SIDE_LABEL[strat.side])}
           </span>
         </div>
 
@@ -200,10 +205,10 @@ export function TacticalTheater({
             onClick={alternarPantalla}
             data-testid="theater-fullscreen"
             aria-pressed={mode === "native"}
-            title={mode === "native" ? "Salir de pantalla completa" : "Pantalla completa"}
+            title={mode === "native" ? tr("Salir de pantalla completa") : tr("Pantalla completa")}
             className="nx-clip-sm nx-label hidden min-h-[40px] shrink-0 items-center px-3.5 text-[#2fe0ff] shadow-[inset_0_0_0_1px_rgba(47,224,255,0.4)] transition duration-fast hover:bg-[rgba(47,224,255,0.1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70 sm:flex"
           >
-            {mode === "native" ? "Ventana" : "⛶ Pantalla completa"}
+            {mode === "native" ? tr("Ventana") : tr("⛶ Pantalla completa")}
           </button>
           <button
             type="button"
@@ -211,7 +216,7 @@ export function TacticalTheater({
             data-testid="theater-close"
             className="nx-clip-sm nx-label flex min-h-[40px] shrink-0 items-center px-3.5 text-white/70 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] transition duration-fast hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70"
           >
-            Salir
+            {tr("Salir")}
           </button>
         </div>
       </header>
@@ -245,7 +250,7 @@ export function TacticalTheater({
         <aside className="hidden min-w-0 flex-col justify-center gap-1.5 xl:flex" data-testid="theater-composition">
           {agentIds.length > 0 && (
             <>
-              <span className="nx-label mb-1 !text-[9px] text-white/30">En el mapa</span>
+              <span className="nx-label mb-1 !text-[9px] text-white/30">{tr("En el mapa")}</span>
               {agentIds.map((id) => {
                 const a = agentById(id);
                 const c = agentColor(a);
@@ -312,10 +317,10 @@ export function TacticalTheater({
                 <span className="text-white/25">/{String(total).padStart(2, "0")}</span>
               </span>
               <b className="font-display text-[clamp(13px,1.9vh,19px)] font-extrabold uppercase leading-tight tracking-[0.08em] text-white">
-                {frame.step.label || "Paso"}
+                {td(frame.step.label) || tr("Paso")}
               </b>
               {frame.step.notes && (
-                <p className="text-[clamp(11px,1.4vh,14px)] leading-relaxed text-white/45">{frame.step.notes}</p>
+                <p className="text-[clamp(11px,1.4vh,14px)] leading-relaxed text-white/45">{td(frame.step.notes)}</p>
               )}
             </>
           )}
@@ -331,9 +336,9 @@ export function TacticalTheater({
         {frame.step && (
           <div className="mb-3 flex items-baseline gap-3 xl:hidden">
             <b className="font-display text-[clamp(13px,2vh,22px)] font-extrabold uppercase tracking-[0.1em] text-white">
-              {play.index + 1} / {total} · {frame.step.label || "Paso"}
+              {play.index + 1} / {total} · {td(frame.step.label) || tr("Paso")}
             </b>
-            {frame.step.notes && <span className="truncate text-[13px] text-white/50">{frame.step.notes}</span>}
+            {frame.step.notes && <span className="truncate text-[13px] text-white/50">{td(frame.step.notes)}</span>}
           </div>
         )}
         {agentIds.length > 0 && (
@@ -351,14 +356,14 @@ export function TacticalTheater({
         )}
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <Mando onClick={() => dispatch({ type: "prev" })} disabled={play.index === 0} testid="theater-prev" label="Paso anterior">←</Mando>
+          <Mando onClick={() => dispatch({ type: "prev" })} disabled={play.index === 0} testid="theater-prev" label={tr("Paso anterior")}>←</Mando>
           {/*
             REPRODUCIR es el control grande: es el único que se pulsa con el equipo delante y a
             un par de metros del portátil. Los otros dos acompañan.
           */}
           <button
             type="button" onClick={() => dispatch({ type: "toggle" })}
-            data-testid="theater-play" aria-label={play.playing ? "Pausar" : "Reproducir"}
+            data-testid="theater-play" aria-label={play.playing ? tr("Pausar") : tr("Reproducir")}
             className={cn(
               "nx-clip-sm grid h-11 w-14 shrink-0 place-items-center text-[15px] font-bold transition duration-fast",
               "focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70",
@@ -367,7 +372,7 @@ export function TacticalTheater({
                 : "bg-[rgba(47,224,255,0.14)] text-white shadow-[inset_0_0_0_1px_rgba(47,224,255,0.6)] hover:bg-[rgba(47,224,255,0.24)]",
             )}
           >{play.playing ? "❚❚" : "▶"}</button>
-          <Mando onClick={() => dispatch({ type: "next" })} disabled={play.index >= total - 1} testid="theater-next" label="Paso siguiente">→</Mando>
+          <Mando onClick={() => dispatch({ type: "next" })} disabled={play.index >= total - 1} testid="theater-next" label={tr("Paso siguiente")}>→</Mando>
 
           {/*
             LA LÍNEA DE TIEMPO. Cada paso es un tramo con su número y su nombre: mirándola se
@@ -381,7 +386,7 @@ export function TacticalTheater({
                 <button
                   type="button"
                   onClick={() => dispatch({ type: "goto", index: i })}
-                  aria-label={`Paso ${i + 1}${s.label ? `: ${s.label}` : ""}`}
+                  aria-label={tr("Paso {v}{v2}", { v: i + 1, v2: s.label ? `: ${s.label}` : "" })}
                   aria-current={i === play.index ? "step" : undefined}
                   className="group block w-full py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70"
                 >
@@ -411,7 +416,7 @@ export function TacticalTheater({
             ))}
           </ol>
 
-          <span className="nx-label hidden shrink-0 !text-[9px] text-white/25 xl:block">← → pasos · espacio reproduce</span>
+          <span className="nx-label hidden shrink-0 !text-[9px] text-white/25 xl:block">{tr("← → pasos · espacio reproduce")}</span>
         </div>
       </footer>
     </div>
@@ -435,14 +440,15 @@ function Mando({
   label: string;
   children: React.ReactNode;
 }) {
+  useLocale();
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
       data-testid={testid}
-      aria-label={label}
-      title={label}
+      aria-label={td(label)}
+      title={td(label)}
       className={
         "nx-clip-sm grid h-11 w-11 shrink-0 place-items-center text-[15px] text-white/75 transition duration-fast " +
         "shadow-[inset_0_0_0_1px_rgba(47,224,255,0.3)] hover:bg-[rgba(47,224,255,0.1)] hover:text-white " +

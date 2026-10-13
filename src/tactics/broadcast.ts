@@ -9,6 +9,9 @@ import { tacticalPhaseLabel } from "./phases";
 import { controlSpace } from "./spatial";
 import { LANE_CHOKE } from "./map";
 import type { Lane, TacticalPhaseId, TeamTacticState } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("tactics");
 
 // FULL GAME AUDIT (2026-10-07) · zonas por su función (`ZONE_LABEL`): «A Main»/«B/Tree» son de Ascent y no existen en los otros once mapas.
 const LANE_LABEL: Record<Lane, string> = { main: "la entrada principal", tree: "el flanco", mid: "mid" };
@@ -46,15 +49,15 @@ export interface TacticalBroadcast {
 
 function objectiveOf(s: RoundState, side: Side, phase: TacticalPhaseId): string {
   if (side === "ATK") {
-    if (s.spike.planted) return "Aguantar post-plant";
-    if (phase === "execute") return "Ejecutar el sitio";
-    if (phase === "fake") return "Vender la finta";
-    if (phase === "map_control" || phase === "default") return "Control de mapa";
-    return "Tomar espacio / info";
+    if (s.spike.planted) return tr("Aguantar post-plant");
+    if (phase === "execute") return tr("Ejecutar el sitio");
+    if (phase === "fake") return tr("Vender la finta");
+    if (phase === "map_control" || phase === "default") return tr("Control de mapa");
+    return tr("Tomar espacio / info");
   }
-  if (s.spike.planted) return phase === "retake" ? "Retomar el sitio" : "Preparar el retake";
-  if (phase === "rotation") return "Rotar al contacto";
-  return "Defender / sacar info";
+  if (s.spike.planted) return phase === "retake" ? tr("Retomar el sitio") : tr("Preparar el retake");
+  if (phase === "rotation") return tr("Rotar al contacto");
+  return tr("Defender / sacar info");
 }
 
 function sideBroadcast(s: RoundState, side: Side, st: TeamTacticState): SideTacticalBroadcast {

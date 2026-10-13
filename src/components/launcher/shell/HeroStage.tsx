@@ -28,6 +28,10 @@ import { Badge } from "@/components/ui/Badge";
 import { Meter } from "@/components/ui/Meter";
 import { NxButton } from "@/components/ui/NxButton";
 import { CTA } from "./cta";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 export function HeroStage({
   game, entry, job, motionScale, heavyEffects, onAction, onDetails, onCancel,
@@ -41,6 +45,7 @@ export function HeroStage({
   onDetails: () => void;
   onCancel: () => void;
 }) {
+  useLocale();
   const stageRef = useRef<HTMLDivElement>(null);
   useParallax(stageRef, motionScale * 0.6);
 
@@ -96,22 +101,22 @@ export function HeroStage({
               <Badge dot tone={job?.status === "paused" ? "warn" : tone}>
                 {job && busy ? phaseLabel(job.status) : stateLabel(entry.state, game, entry)}
               </Badge>
-              <Badge>{game.genre}</Badge>
-              <Badge>{game.developer}</Badge>
+              <Badge>{td(game.genre)}</Badge>
+              <Badge>{td(game.developer)}</Badge>
             </div>
 
             <h1
               className="font-display text-[clamp(2.6rem,5.2vw,4.6rem)] font-black uppercase leading-[0.88] tracking-[-0.01em] text-white"
               style={{ textShadow: `0 0 60px ${game.palette.key}55, 0 8px 40px rgba(0,0,0,0.9)` }}
             >
-              {game.title}
+              {td(game.title)}
             </h1>
 
             <p className="font-display text-[15px] font-semibold uppercase tracking-[0.2em]" style={{ color: game.palette.accent }}>
-              {game.tagline}
+              {td(game.tagline)}
             </p>
 
-            <p className="max-w-[560px] text-[13.5px] leading-relaxed text-white/60">{game.description}</p>
+            <p className="max-w-[560px] text-[13.5px] leading-relaxed text-white/60">{td(game.description)}</p>
           </motion.div>
         </AnimatePresence>
 
@@ -135,7 +140,7 @@ export function HeroStage({
             />
             <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-caption text-white/45">
               <span>{job.status === "downloading" ? formatSpeed(job.speedBps) : "—"}</span>
-              <span>{job.status === "downloading" ? `${formatEta(job.etaSec)} restantes` : phaseLabel(job.status)}</span>
+              <span>{job.status === "downloading" ? t("{etaSec} restantes", { etaSec: formatEta(job.etaSec) }) : phaseLabel(job.status)}</span>
               <span className="truncate">{job.installPath}</span>
             </div>
           </div>
@@ -148,10 +153,10 @@ export function HeroStage({
             onClick={() => onAction(action)}
             className="min-w-[220px]"
           >
-            {action.label}
+            {tdIn("launcher", action.label)}
           </NxButton>
           <NxButton variant="secondary" size="md" onClick={onDetails}>
-            Más información
+            {t("Más información")}
           </NxButton>
           {busy && job && job.status !== "installing" && (
             <button
@@ -159,13 +164,13 @@ export function HeroStage({
               onClick={onCancel}
               className="font-display text-caption font-bold uppercase tracking-[0.2em] text-white/40 transition hover:text-bad"
             >
-              Cancelar
+              {t("Cancelar")}
             </button>
           )}
           <div className="ml-auto hidden items-center gap-6 lg:flex">
-            <HeroFact label="Versión" value={game.version} />
-            <HeroFact label="Tamaño" value={formatBytes(game.sizeBytes)} />
-            <HeroFact label="Actualizado" value={game.updatedAt.replace(/-/g, ".")} />
+            <HeroFact label={t("Versión")} value={game.version} />
+            <HeroFact label={t("Tamaño")} value={formatBytes(game.sizeBytes)} />
+            <HeroFact label={t("Actualizado")} value={game.updatedAt.replace(/-/g, ".")} />
           </div>
         </div>
       </div>
@@ -174,10 +179,11 @@ export function HeroStage({
 }
 
 function HeroFact({ label, value }: { label: string; value: string }) {
+  useLocale();
   return (
     <div className="text-right">
-      <p className="font-display text-[9px] font-bold uppercase tracking-[0.26em] text-white/30">{label}</p>
-      <p className="nx-readout text-[15px] text-white/85">{value}</p>
+      <p className="font-display text-[9px] font-bold uppercase tracking-[0.26em] text-white/30">{td(label)}</p>
+      <p className="nx-readout text-[15px] text-white/85">{td(value)}</p>
     </div>
   );
 }

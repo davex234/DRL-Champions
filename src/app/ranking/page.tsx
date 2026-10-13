@@ -32,10 +32,16 @@ import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/S
 import { Plate, Recessed } from "@/components/ui/Surface";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("ranking");
 
 type Tab = "global" | "region" | "torneo";
 
 export default function RankingPage() {
+  useLocale();
   const configured = isSupabaseConfigured();
   const { user, profile } = useAuth();
 
@@ -70,7 +76,7 @@ export default function RankingPage() {
         if (profile.region) setScope(profile.region);
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "No se pudo cargar la clasificación");
+      setError(e instanceof Error ? e.message : t("No se pudo cargar la clasificación"));
     } finally {
       setLoading(false);
     }
@@ -102,21 +108,21 @@ export default function RankingPage() {
   return (
     <section className="animate-rise">
       <header className="mb-6">
-        <span className="nx-label">Progreso</span>
+        <span className="nx-label">{t("Progreso")}</span>
         <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
-          Clasificación
+          {t("Clasificación")}
         </h1>
         <p className="mt-2 text-[15px] text-white/55">
-          Clasificación por puntos: Pick&apos;ems y duelos contra el bot. El ranked PvP tiene su propia escalera por rating en Competitivo.
+          {t("Clasificación por puntos: Pick'ems y duelos contra el bot. El ranked PvP tiene su propia escalera por rating en Competitivo.")}
         </p>
       </header>
 
       {!configured ? (
-        <NeedsAccount what="La clasificación" />
+        <NeedsAccount what={t("La clasificación")} />
       ) : loading ? (
-        <Loading label="Cargando clasificación" />
+        <Loading label={t("Cargando clasificación")} />
       ) : error ? (
-        <ErrorState message={error} onRetry={load} />
+        <ErrorState message={td(error)} onRetry={load} />
       ) : (
         <>
           {/* ── Mi rango ── */}
@@ -127,7 +133,7 @@ export default function RankingPage() {
                 position={myPos}
                 regionPosition={myRegionPos}
                 region={profile.region ?? null}
-                action={{ href: "/pickems", label: "Sumar puntos" }}
+                action={{ href: "/pickems", label: t("Sumar puntos") }}
               />
             </div>
           )}
@@ -139,8 +145,8 @@ export default function RankingPage() {
             chaflán del sistema dentro de una superficie hundida, con 44 px de alto y la
             semántica de pestaña (`role="tab"` y `aria-selected`), que antes no tenían.
           */}
-          <Recessed depth="sm" className="mb-5 flex gap-1 p-1" role="tablist" aria-label="Ámbito de la clasificación">
-            {([["global", "Global"], ["region", "Por región"], ["torneo", "Por torneo"]] as [Tab, string][]).map(([id, label]) => (
+          <Recessed depth="sm" className="mb-5 flex gap-1 p-1" role="tablist" aria-label={t("Ámbito de la clasificación")}>
+            {([["global", t("Global")], ["region", t("Por región")], ["torneo", t("Por torneo")]] as [Tab, string][]).map(([id, label]) => (
               <button
                 key={id}
                 role="tab"
@@ -156,16 +162,16 @@ export default function RankingPage() {
                     : "text-ink-muted hover:text-white",
                 )}
               >
-                {label}
+                {td(label)}
               </button>
             ))}
           </Recessed>
 
           {tab === "global" ? (
             global.length === 0 ? (
-              <EmptyState icon="🏅" title="Todavía no hay clasificación"
-                hint="Haz tus predicciones en un torneo: en cuanto se corrijan, aparecerás aquí."
-                action={{ href: "/torneos", label: "Ir a los torneos" }} />
+              <EmptyState icon="🏅" title={t("Todavía no hay clasificación")}
+                hint={t("Haz tus predicciones en un torneo: en cuanto se corrijan, aparecerás aquí.")}
+                action={{ href: "/torneos", label: t("Ir a los torneos") }} />
             ) : (
               <>
                 <div className="space-y-2">
@@ -200,7 +206,7 @@ export default function RankingPage() {
             <>
               {/* Selector de región. No es un filtro del ranking global: cada región
                   tiene su propia tabla y su propio primero. */}
-              <div className="mb-4 flex flex-wrap gap-1.5" role="group" aria-label="Región">
+              <div className="mb-4 flex flex-wrap gap-1.5" role="group" aria-label={t("Región")}>
                 {RANK_REGIONS.map((rg) => (
                   <button
                     key={rg}
@@ -215,25 +221,24 @@ export default function RankingPage() {
                         : "text-ink-muted shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] hover:text-white",
                     )}
                   >
-                    {REGION_LABEL[rg]}
+                    {td(REGION_LABEL[rg])}
                   </button>
                 ))}
               </div>
 
               {user && profile && !profile.region && (
                 <p className="nx-rail nx-clip-sm mb-4 px-4 py-3 text-[13px] text-white/70">
-                  No has declarado tu región, así que no apareces en ninguna clasificación
-                  regional —sí en la global.{" "}
+                  {t("No has declarado tu región, así que no apareces en ninguna clasificación regional —sí en la global.")}{" "}
                   <Link href="/cuenta" className="text-drl underline-offset-2 hover:underline">
-                    Elígela en tu perfil
+                    {t("Elígela en tu perfil")}
                   </Link>.
                 </p>
               )}
 
               {regional.length === 0 ? (
-                <EmptyState icon="🌍" title={`Todavía no hay clasificación en ${REGION_LABEL[scope]}`}
-                  hint="Aparecerá en cuanto alguien de esa región puntúe en un torneo."
-                  action={{ href: "/pickems", label: "Ver Pick'ems" }} />
+                <EmptyState icon="🌍" title={t("Todavía no hay clasificación en {v}", { v: td(REGION_LABEL[scope]) })}
+                  hint={t("Aparecerá en cuanto alguien de esa región puntúe en un torneo.")}
+                  action={{ href: "/pickems", label: t("Ver Pick'ems") }} />
               ) : (
                 <>
                   <div className="space-y-2">
@@ -274,8 +279,8 @@ export default function RankingPage() {
                   estado, con la geometría de la casa y 44 px de objetivo táctil.
                 */
                 <div className="mb-4">
-                  <SectionTitle as="h2">Torneo</SectionTitle>
-                  <Recessed depth="sm" className="flex max-w-full gap-1 overflow-x-auto p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label="Torneo">
+                  <SectionTitle as="h2">{t("Torneo")}</SectionTitle>
+                  <Recessed depth="sm" className="flex max-w-full gap-1 overflow-x-auto p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label={t("Torneo")}>
                     {options.map((o) => (
                       <button
                         key={o.id}
@@ -288,7 +293,7 @@ export default function RankingPage() {
                           selected === o.id ? "bg-drl text-white" : "text-ink-muted hover:text-white",
                         )}
                       >
-                        {o.label}
+                        {td(o.label)}
                       </button>
                     ))}
                   </Recessed>
@@ -296,9 +301,9 @@ export default function RankingPage() {
               )}
 
               {tournament.length === 0 ? (
-                <EmptyState icon="🗳️" title="Este torneo aún no tiene clasificación"
-                  hint="Aparecerá cuando se corrijan las primeras predicciones."
-                  action={{ href: "/pickems", label: "Ver Pick'ems" }} />
+                <EmptyState icon="🗳️" title={t("Este torneo aún no tiene clasificación")}
+                  hint={t("Aparecerá cuando se corrijan las primeras predicciones.")}
+                  action={{ href: "/pickems", label: t("Ver Pick'ems") }} />
               ) : (
                 <div className="space-y-2">
                   {tournament.map((r, i) => (
@@ -328,12 +333,12 @@ export default function RankingPage() {
             estado, no una meta, y enseñarlo aquí sugeriría que hay algo que ganar por no
             haber jugado.
           */}
-          <section className="mt-10" aria-label="Los rangos de puntos">
+          <section className="mt-10" aria-label={t("Los rangos de puntos")}>
             <div className="mb-3 flex items-baseline justify-between gap-3">
               <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">
-                Rangos de puntos
+                {t("Rangos de puntos")}
               </h2>
-              <span className="nx-label">Ocho rangos · tres divisiones cada uno</span>
+              <span className="nx-label">{t("Ocho rangos · tres divisiones cada uno")}</span>
             </div>
 
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 xl:grid-cols-8">
@@ -354,7 +359,7 @@ export default function RankingPage() {
                         className="absolute -top-px left-1/2 -translate-x-1/2 px-2 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.14em]"
                         style={{ background: tier.color, color: "#06070d" }}
                       >
-                        Tu rango
+                        {t("Tu rango")}
                       </span>
                     )}
                     <RankEmblem
@@ -367,10 +372,10 @@ export default function RankingPage() {
                       className="mt-2 font-display text-[13px] font-bold uppercase tracking-[0.08em]"
                       style={{ color: reached ? tier.color : "rgba(255,255,255,0.4)" }}
                     >
-                      {tier.label}
+                      {td(tier.label)}
                     </b>
                     <span className="nx-readout mt-0.5 text-[11px] text-white/35">
-                      {tier.min === 1 ? "1 pt" : `${tier.min} pts`}
+                      {tier.min === 1 ? t("1 pt") : t("{min} pts", { min: tier.min })}
                     </span>
                   </div>
                 );
@@ -378,8 +383,7 @@ export default function RankingPage() {
             </div>
 
             <p className="mt-3 text-[13px] text-white/40">
-              La cúspide, <b className="text-drl-gold">Champion</b>, no se alcanza por puntos: la
-              ocupa quien va primero del mundo dentro de Nexus. Solo puede haber uno.
+              {fill(t("La cúspide, {rango}, no se alcanza por puntos: la ocupa quien va primero del mundo dentro de Nexus. Solo puede haber uno.", slots("rango")), { rango: <b className="text-drl-gold">{t("Champion")}</b> })}
             </p>
           </section>
 
@@ -388,8 +392,8 @@ export default function RankingPage() {
             debajo de 32. Sigue siendo una frase, pero su parte pulsable es un objetivo de 44.
           */}
           <p className="mt-8 flex flex-wrap items-center justify-center gap-x-1 text-center text-xs text-white/30">
-            Los puntos los reparte el servidor: al corregir cada torneo de Pick&apos;ems y al terminar cada duelo contra el bot.
-            <Link href="/pickems" className="nx-action !text-drl">Haz tus predicciones →</Link>
+            {t("Los puntos los reparte el servidor: al corregir cada torneo de Pick'ems y al terminar cada duelo contra el bot.")}
+            <Link href="/pickems" className="nx-action !text-drl">{t("Haz tus predicciones →")}</Link>
           </p>
         </>
       )}
@@ -407,6 +411,7 @@ function Row({
   detail?: string;
   isMe?: boolean;
 }) {
+  useLocale();
   // La etiqueta lleva división («Oro II»), y el primero del mundo aparece como Champion.
   const display = rankDisplay(points, position);
   return (
@@ -436,9 +441,9 @@ function Row({
       <span className="min-w-0 flex-1">
         <span className="block truncate font-display font-bold text-white">
           {username}
-          {isMe && <span className="ml-2 text-xs font-normal text-drl">tú</span>}
+          {isMe && <span className="ml-2 text-xs font-normal text-drl">{t("tú")}</span>}
         </span>
-        {detail && <span className="block text-[11px] text-white/40">{detail}</span>}
+        {detail && <span className="block text-[11px] text-white/40">{td(detail)}</span>}
       </span>
       {/* El emblema del rango, no solo su nombre: la escalera se ve tambien en la lista. */}
       <RankEmblem
@@ -450,10 +455,10 @@ function Row({
       />
       <span className="hidden shrink-0 font-display text-[11px] uppercase tracking-wider sm:block"
         style={{ color: display.color }}>
-        {display.label}
+        {td(display.label)}
       </span>
       <span className="w-20 shrink-0 text-right font-display text-sm font-bold tabular-nums text-drl-gold">
-        {points} pts
+        {points} {t("pts")}
       </span>
     </Plate>
   );

@@ -118,8 +118,8 @@ test("9 · eliminar amigo conserva el historial (solo borra la relación) y pide
   const fn = MIG48.slice(MIG48.indexOf("function public.social_unfriend"), MIG48.indexOf("function public.social_block"));
   assert.ok(fn.includes("delete from public.duel_friendships"));
   assert.ok(!/duel_matches/.test(fn), "nunca toca partidas");
-  assert.ok(SOCIAL_PAGE.includes('title="¿Eliminar amigo?"') && SOCIAL_PAGE.includes("Vuestro historial de partidas se conserva"));
-  assert.ok(ACTIONS.includes('title="¿Eliminar amigo?"'));
+  assert.ok(SOCIAL_PAGE.includes('title={tr("¿Eliminar amigo?")}') && SOCIAL_PAGE.includes("Vuestro historial de partidas se conserva"));
+  assert.ok(ACTIONS.includes('title={t("¿Eliminar amigo?")}'));
   assert.ok(CONFIRM.includes('role="alertdialog"'));
 });
 
@@ -322,14 +322,14 @@ test("41 · el vencimiento de turno y «tiene partida activa» cubren los dos mo
 test("42 · la misma arena: PvpArena solo añade el rótulo «Duelo privado · sin rating» y el rival; no hay PrivateArena ni motor duplicado", () => {
   assert.ok(PVP_ARENA.includes('mode?: "PVP" | "PVP_PRIVATE";') && PVP_ARENA.includes('data-testid="private-badge"'));
   assert.ok(PVP_ARENA.includes("Duelo privado · sin rating"));
-  assert.ok(PVP_ARENA.includes('rivalLabel: "Rival",'), "el tablero se proyecta igual que en ranked");
+  assert.ok(/rivalLabel: (?:"Rival"|(?:t|tr|i18nT)\("Rival"\)),/.test(PVP_ARENA), "el tablero se proyecta igual que en ranked");
   const files = readdirSync(join(process.cwd(), "src", "components", "duel", "pvp"));
   assert.ok(!files.some((f) => /PrivateArena|PrivateOutcome\.tsx|PrivateCombat/.test(f)), "sin copias de la arena");
   assert.ok(!/PrivateCombatEngine|PrivateMatch(Orchestrator|Engine)/.test(code(SERVICE) + code(PVP_SERVICE)));
 });
 
 test("43 · la misma reconexión: ?match=<uuid> entra directo, el sondeo es el mismo usePvpSync y la página no lleva estado local", () => {
-  assert.ok(PVP_PAGE.includes("usePvpSync(matchId)") && PVP_PAGE.includes('label="Recuperando la partida…"'));
+  assert.ok(PVP_PAGE.includes("usePvpSync(matchId)") && PVP_PAGE.includes('label={t("Recuperando la partida…")}'));
   assert.ok(PVP_PAGE.includes('const privada = snap?.mode === "PVP_PRIVATE";'), "el modo lo dice el snapshot, no la URL");
   assert.ok(!/localStorage|sessionStorage/.test(code(PVP_PAGE)));
   assert.ok(SYNC.includes("mode?: PvpPlayableMode;") && SYNC.includes('mode: rec.mode === "PVP_PRIVATE" ? "PVP_PRIVATE" : "PVP",'));
@@ -354,13 +354,13 @@ test("46 · el resultado privado: VICTORIA/DERROTA/EMPATE, marcador, carta desta
   assert.ok(PVP_OUTCOME.includes("privateDuel?: PrivateDuelPanelProps | null;"));
   // F86 · un cruce de torneo también es PVP_PRIVATE y tampoco tiene rating: «sin rating» = duelo privado O torneo.
   assert.ok(PVP_OUTCOME.includes("const unrated = !!privateDuel || !!cupMatch;"));
-  assert.ok(PVP_OUTCOME.includes('privateDuel ? "Duelo privado · sin rating" : "Duelo PvP"}'));
+  assert.ok(PVP_OUTCOME.includes('privateDuel ? tr("Duelo privado · sin rating") : tr("Duelo PvP")}'));
   assert.ok(/\{!unrated && \(\s*<Plate className="mt-3 px-4 py-4" data-testid="pvp-rating">/.test(PVP_OUTCOME));
   assert.ok(PVP_OUTCOME.includes("{!unrated && ladder && ("));
   assert.ok(PVP_OUTCOME.includes("{privateDuel && <PrivateDuelPanel {...privateDuel} />}"));
   assert.ok(PVP_OUTCOME.includes("<DecisionPanel result={view.result}") && PVP_OUTCOME.includes("<FeaturedCardPanel"));
   for (const l of ["Revancha", "Volver a Social", "Ver perfil", "Otro reto"]) assert.ok(PANEL.includes(l), l);
-  assert.ok(PANEL.includes('data-h2h={label.toLowerCase()}') && PANEL.includes('label="Privados"'));
+  assert.ok(PANEL.includes('data-h2h={id}') && PANEL.includes('id="privados" label={t("Privados")}'));
   assert.ok(!/fetch\(|useEffect/.test(code(PANEL)), "el panel es presentación pura");
 });
 
@@ -385,7 +385,7 @@ test("52 · el cara a cara se parte en tres lecturas y NUNCA suma privados al r�
   const COMPETITIVE = read("src", "server", "services", "competitive.ts");
   assert.ok((COMPETITIVE.match(/\.eq\("mode", "PVP"\)/g) ?? []).length >= 2, "historial y H2H ranked siguen siendo solo PVP");
   assert.ok(SERVICE.includes("h2h: h2hSplit(facts, viewerId, playerId)"));
-  assert.ok(ACTIONS.includes('<H2HCell label="Ranked"') && ACTIONS.includes('<H2HCell label="Privados"') && ACTIONS.includes('<H2HCell label="Total"'));
+  assert.ok(ACTIONS.includes('<H2HCell id="ranked" label={t("Ranked")}') && ACTIONS.includes('<H2HCell id="privados" label={t("Privados")}') && ACTIONS.includes('<H2HCell id="total" label={t("Total")}'));
   assert.ok(ACTIONS.includes("Los duelos privados no cuentan para el rating."));
 });
 

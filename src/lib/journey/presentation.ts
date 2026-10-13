@@ -10,6 +10,9 @@ import type { DailyLoopSnapshot } from "@/domain/dailyLoop";
 import { eventRoute } from "@/domain/dailyLoop";
 import { DISCOVERY, type DiscoveryDestination, type JourneyStep, type PlayerJourney } from "@/domain/journey";
 import { DUEL_ROLES } from "@/domain/cardgame/types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("journey");
 
 export type HomeJourneyMode = "mission" | "strip" | "discovery" | "none";
 
@@ -23,7 +26,7 @@ export function homeJourneyMode(snap: DailyLoopSnapshot, opts: { dismissed: bool
   return "mission";
 }
 
-export const STEP_STATE_LABEL = (s: JourneyStep) => (s.done ? "Hecho" : s.current ? "Ahora" : "Después");
+export const STEP_STATE_LABEL = (s: JourneyStep) => (s.done ? t("Hecho") : s.current ? t("Ahora") : t("Después"));
 
 export const WELCOME_PILLARS: readonly { verb: string; line: string }[] = [
   { verb: "Colecciona", line: "Cartas de jugadores reales, con sus estadísticas." },
@@ -63,5 +66,5 @@ export function roleChips(j: PlayerJourney): { role: RoleId; label: string; comp
 export function discoveryItems(snap: DailyLoopSnapshot): DiscoveryDestination[] {
   const f = snap.live?.featured ?? null;
   const live = f && !f.isDemo && f.lifecycle === "ACTIVE" && f.liveCount > 0 ? f : null;
-  return live ? [...DISCOVERY, { id: "live", title: live.name, line: "Hay partidos en directo ahora mismo.", href: eventRoute(live.id) }] : [...DISCOVERY];
+  return live ? [...DISCOVERY, { id: "live", title: live.name, line: t("Hay partidos en directo ahora mismo."), href: eventRoute(live.id) }] : [...DISCOVERY];
 }

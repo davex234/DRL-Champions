@@ -8,13 +8,18 @@
 import { use } from "react";
 import { PageHeader, LinkButton } from "@/components/admin/cc/ui";
 import { CardDetailView } from "@/components/admin/cms/CardCms";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("admin");
 
 export default function CardDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  useLocale();
   const { id } = use(params);
   const cardId = decodeURIComponent(id);
   return (
     <div className="space-y-5">
-      <PageHeader eyebrow="Contenido · Cartas" title={cardId} actions={<LinkButton href="/admin/cards">← Cartas</LinkButton>} />
+      <PageHeader eyebrow={t("Contenido · Cartas")} title={cardId} actions={<LinkButton href="/admin/cards">{t("← Cartas")}</LinkButton>} />
       <CardDetailView id={cardId} />
     </div>
   );

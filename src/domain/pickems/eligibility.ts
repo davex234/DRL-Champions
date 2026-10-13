@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const t = ns("pickems");
+
 /**
  * F87.2 · ELEGIBILIDAD PARA RECIBIR RECOMPENSAS de Pick'ems 2.0 (anti-farmeo mínimo y proporcionado).
  *
@@ -88,20 +92,20 @@ export function evaluateEligibility(x: EligibilityInput): Eligibility {
 
 /** Requisito en palabras (sin detalles internos de abuso). */
 export function requirementText(p: EligibilityPolicy | null): string {
-  if (!p) return "Este Pick'em no tiene definidos los requisitos para recibir premios.";
-  return `Para recibir premios, tu cuenta debe tener al menos ${p.minAccountAgeDays} días y ${p.minCompletedMatches} partidas jugadas antes del primer cierre del Pick'em.`;
+  if (!p) return t("Este Pick'em no tiene definidos los requisitos para recibir premios.");
+  return t("Para recibir premios, tu cuenta debe tener al menos {minAccountAgeDays} días y {minCompletedMatches} partidas jugadas antes del primer cierre del Pick'em.", { minAccountAgeDays: p.minAccountAgeDays, minCompletedMatches: p.minCompletedMatches });
 }
 
 /** Mensaje para el jugador según el código (no culpabiliza; dice qué falta). */
 export function eligibilityMessage(e: Eligibility): string {
   switch (e.code) {
-    case "ELIGIBLE": return e.final ? "Tu cuenta cumple los requisitos para recibir recompensas." : "Tu cuenta cumple los requisitos para recibir recompensas en este Pick'em.";
-    case "ACCOUNT_TOO_NEW": return "Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas: es demasiado reciente para este Pick'em.";
+    case "ELIGIBLE": return e.final ? t("Tu cuenta cumple los requisitos para recibir recompensas.") : t("Tu cuenta cumple los requisitos para recibir recompensas en este Pick'em.");
+    case "ACCOUNT_TOO_NEW": return t("Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas: es demasiado reciente para este Pick'em.");
     case "NOT_ENOUGH_MATCHES": return e.final
-      ? "Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas: no tenía suficientes partidas jugadas antes del primer cierre."
-      : `Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas: te faltan ${Math.max(0, e.matchesRequired - e.matches)} partida(s) antes del primer cierre.`;
-    case "ACCOUNT_TOO_NEW_AND_NOT_ENOUGH_MATCHES": return "Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas.";
-    default: return "Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas.";
+      ? t("Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas: no tenía suficientes partidas jugadas antes del primer cierre.")
+      : t("Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas: te faltan {Math} partida(s) antes del primer cierre.", { Math: Math.max(0, e.matchesRequired - e.matches) });
+    case "ACCOUNT_TOO_NEW_AND_NOT_ENOUGH_MATCHES": return t("Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas.");
+    default: return t("Puedes participar, pero esta cuenta todavía no cumple los requisitos para recibir recompensas.");
   }
 }
 

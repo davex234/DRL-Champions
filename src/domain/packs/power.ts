@@ -29,6 +29,9 @@
  * siguen con sus pools, pesos y sesgos de siempre. Precios, pesos, cartas por sobre y garantías no cambian.
  */
 import type { CardDef } from "../cards/types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("packs");
 
 export type PackPowerTier = "bronze" | "silver" | "gold" | "icon";
 
@@ -73,7 +76,7 @@ export function packPowerCap(packId: string): PackPowerCap | null {
   if (!rule) return null;
   return {
     maxOvr: rule.maxOvr,
-    headline: rule.maxOvr === null ? "Sin límite de OVR" : `OVR ${rule.maxOvr} como máximo`,
+    headline: rule.maxOvr === null ? t("Sin límite de OVR") : t("OVR {maxOvr} como máximo", { maxOvr: rule.maxOvr }),
     blurb: rule.blurb,
   };
 }

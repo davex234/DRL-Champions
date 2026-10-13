@@ -25,6 +25,10 @@ import { Plate, Recessed } from "@/components/ui/Surface";
 import { Readout } from "@/components/ui/Readout";
 import { StatusDot } from "@/components/ui/Badge";
 import { formatCredits } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export { describeReward } from "./PickemRewards";
 
@@ -47,6 +51,7 @@ export function PickemPanel({
   /** Puntos TOTALES del perfil, para calcular el salto de rango en el resumen. */
   totalPoints?: number;
 }) {
+  useLocale();
   const { bundle, loading, error, saving, feedback, pick, reload, retry } = usePickem(pickemEventId, userId);
   const now = useNow(1000);
 
@@ -73,7 +78,7 @@ export function PickemPanel({
   useEffect(() => {
     if (!feedback || feedback === lastFeedback.current) return;
     lastFeedback.current = feedback;
-    if (feedback.kind === "saved") onNotify("Predicción guardada", true);
+    if (feedback.kind === "saved") onNotify(t("Predicción guardada"), true);
     else if (feedback.kind === "error" || feedback.kind === "locked") onNotify(feedback.message, false);
   }, [feedback, onNotify]);
 
@@ -90,16 +95,16 @@ export function PickemPanel({
     totalPoints: totalPoints ?? score?.points ?? 0,
   }), [eventName, questions, answers, score, bundle?.reward, totalPoints]);
 
-  if (loading && !bundle) return <Loading label="Cargando predicciones" />;
-  if (error && !bundle) return <ErrorState message={error} onRetry={retry} />;
+  if (loading && !bundle) return <Loading label={t("Cargando predicciones")} />;
+  if (error && !bundle) return <ErrorState message={td(error)} onRetry={retry} />;
   if (questions.length === 0) {
     return (
       <Plate className="px-6 py-10 text-center">
         <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">
-          Sin preguntas todavía
+          {t("Sin preguntas todavía")}
         </p>
         <p className="mx-auto mt-1.5 max-w-[46ch] text-body text-ink-muted">
-          Este torneo aún no tiene predicciones publicadas.
+          {t("Este torneo aún no tiene predicciones publicadas.")}
         </p>
       </Plate>
     );
@@ -115,12 +120,12 @@ export function PickemPanel({
 
       {/* ── Marcador ── */}
       {userId && (
-        <Plate className="px-4 py-3.5 sm:px-5" aria-label="Tu marcador en este Pick'em">
+        <Plate className="px-4 py-3.5 sm:px-5" aria-label={t("Tu marcador en este Pick'em")}>
           <div className="flex flex-wrap items-end gap-x-8 gap-y-3">
-            <Readout size="lg" label="Tus puntos" value={score ? formatCredits(score.points) : "—"} unit={`/ ${total}`} tone="var(--nx-gold)" />
-            <Readout size="sm" label="Predicciones" value={`${p.answered} / ${p.total}`} />
-            {score && <Readout size="sm" label="Aciertos" value={String(score.correct)} tone="var(--nx-ok)" />}
-            <Readout size="sm" label="Posición" value={position ? `#${position}` : score ? "+100" : "Sin clasificar"} />
+            <Readout size="lg" label={t("Tus puntos")} value={score ? formatCredits(score.points) : "—"} unit={`/ ${total}`} tone="var(--nx-gold)" />
+            <Readout size="sm" label={t("Predicciones")} value={`${p.answered} / ${p.total}`} />
+            {score && <Readout size="sm" label={t("Aciertos")} value={String(score.correct)} tone="var(--nx-ok)" />}
+            <Readout size="sm" label={t("Posición")} value={position ? `#${position}` : score ? "+100" : t("Sin clasificar")} />
           </div>
           <Recessed depth="sm" className="mt-3 h-1.5 overflow-hidden">
             <span
@@ -130,7 +135,7 @@ export function PickemPanel({
               aria-valuenow={p.pct}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label="Predicciones completadas"
+              aria-label={t("Predicciones completadas")}
             />
           </Recessed>
         </Plate>
@@ -140,7 +145,7 @@ export function PickemPanel({
         <Recessed depth="sm" className="flex items-center gap-2.5 border-l-2 border-l-drl-cyan px-4 py-2.5">
           <StatusDot tone="info" pulse size={6} />
           <span className="text-body text-drl-cyan">
-            {p.pending === 1 ? "Te queda 1 predicción por hacer." : `Te quedan ${p.pending} predicciones por hacer.`}
+            {p.pending === 1 ? t("Te queda 1 predicción por hacer.") : t("Te quedan {pending} predicciones por hacer.", { pending: p.pending })}
           </span>
         </Recessed>
       )}

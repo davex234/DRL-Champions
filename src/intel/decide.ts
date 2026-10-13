@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const t = ns("intel");
+
 /**
  * LIVE INTEL — DECISIÓN DE CICLO DE VIDA DE LA CARTA.
  *
@@ -45,16 +49,16 @@ export function decideCard(opts: { rating: number; won: boolean; mvp: boolean; f
 
   // Edición especial: MVP o campeón siempre merece su edición (si no la tiene ya).
   if ((mvp || won) && !history.ownsFamilies.includes(family)) {
-    return { action: "special", reason: mvp ? "MVP del torneo" : "Campeón del torneo", tier: r.tier, tierLabel: r.label };
+    return { action: "special", reason: mvp ? t("MVP del torneo") : t("Campeón del torneo"), tier: r.tier, tierLabel: r.label };
   }
   // Sin historial → primera carta.
   if (history.bestRating == null) {
-    return { action: "new", reason: "Primera carta del jugador", tier: r.tier, tierLabel: r.label };
+    return { action: "new", reason: t("Primera carta del jugador"), tier: r.tier, tierLabel: r.label };
   }
   // Supera claramente su nivel → mejora.
   if (rating >= history.bestRating + IMPROVE_DELTA) {
-    return { action: "improve", reason: `Supera su histórico (${history.bestRating}→${rating})`, tier: r.tier, tierLabel: r.label };
+    return { action: "improve", reason: t("Supera su histórico ({bestRating}→{rating})", { bestRating: history.bestRating, rating }), tier: r.tier, tierLabel: r.label };
   }
   // No aporta sobre lo que ya tiene → no se crea.
-  return { action: "keep", reason: "No supera su carta actual", tier: r.tier, tierLabel: r.label };
+  return { action: "keep", reason: t("No supera su carta actual"), tier: r.tier, tierLabel: r.label };
 }

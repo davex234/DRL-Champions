@@ -33,6 +33,9 @@ import {
 } from "@/domain/liveService";
 import { PLACEMENT_GAMES } from "@/domain/cardgame/rating/types";
 import type { SeasonPresentation } from "@/domain/season/calendar";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("dailyLoop");
 
 /* ───────────────────────────── rutas (todas existen: lo prueba el contrato) ───────────────────────────── */
 
@@ -127,12 +130,12 @@ export interface PassFact {
 export function rewardLabel(r: { credits?: number; xp?: number; packId?: string; packCount?: number; cardId?: string; materials?: object; cosmetics?: readonly string[] } & Record<string, unknown>, packName: (id: string) => string): string {
   const parts: string[] = [];
   if (r.packId) parts.push(`${(r.packCount ?? 1) > 1 ? `${r.packCount} × ` : ""}${packName(r.packId)}`);
-  if (r.credits && r.credits > 0) parts.push(`${r.credits} créditos`);
-  if (r.cardId) parts.push("una carta");
-  if (r.xp && r.xp > 0) parts.push(`${r.xp} XP de cuenta`);
-  if (r.materials && Object.keys(r.materials).length > 0) parts.push("materiales");
-  if (Array.isArray(r.cosmetics) && r.cosmetics.length > 0) parts.push(r.cosmetics.length === 1 ? "un cosmético" : `${r.cosmetics.length} cosméticos`);
-  return parts.join(" + ") || "Recompensa del pase";
+  if (r.credits && r.credits > 0) parts.push(t("{n} créditos", { n: r.credits }));
+  if (r.cardId) parts.push(t("una carta"));
+  if (r.xp && r.xp > 0) parts.push(t("{xp} XP de cuenta", { xp: r.xp }));
+  if (r.materials && Object.keys(r.materials).length > 0) parts.push(t("materiales"));
+  if (Array.isArray(r.cosmetics) && r.cosmetics.length > 0) parts.push(r.cosmetics.length === 1 ? t("un cosmético") : t("{n} cosméticos", { n: r.cosmetics.length }));
+  return parts.join(" + ") || t("Recompensa del pase");
 }
 
 export interface DailyLoopFacts {
@@ -210,7 +213,19 @@ export interface DailyAction extends TodayAction {
 
 const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 const DIFFICULTY_LABEL: Record<Difficulty, string> = { EASY: "Fácil", NORMAL: "Normal", HARD: "Difícil" };
-const KIND_LABEL: Record<string, string> = { daily: "diario", weekly: "semanal", seasonal: "de temporada", progressive: "de progreso" };
+/** Frases ENTERAS por tipo de objetivo (el adjetivo no se inserta suelto: su sitio cambia con el idioma). */
+const nearEyebrow = (kind: string): string =>
+  kind === "daily" ? t("Objetivo diario casi completado")
+    : kind === "weekly" ? t("Objetivo semanal casi completado")
+      : kind === "seasonal" ? t("Objetivo de temporada casi completado")
+        : kind === "progressive" ? t("Objetivo de progreso casi completado")
+          : t("Objetivo casi completado");
+const kindDetail = (kind: string): string =>
+  kind === "daily" ? t("Objetivo diario")
+    : kind === "weekly" ? t("Objetivo semanal")
+      : kind === "seasonal" ? t("Objetivo de temporada")
+        : kind === "progressive" ? t("Objetivo de progreso")
+          : t("Objetivo");
 
 /** Dónde se avanza un objetivo, según la métrica REAL que mide. Sin métrica conocida, a Objetivos. */
 export function objectiveRoute(metric: string): string {
@@ -245,18 +260,18 @@ export function primaryResume(matches: readonly ActiveMatchFact[] | null): Daily
 }
 
 function resumeAction(m: ActiveMatchFact): DailyAction {
-  const base = { kind: "resume" as const, urgent: true, progress: null, source: "match" as const, cta: "Continuar partida", label: "Continuar partida" };
+  const base = { kind: "resume" as const, urgent: true, progress: null, source: "match" as const, cta: t("Continuar partida"), label: t("Continuar partida") };
   switch (m.mode) {
     case "RANKED":
-      return { ...base, id: "resume-ranked", eyebrow: "Competitivo · partida en curso", title: m.opponent ? `Contra ${m.opponent}` : "Tu partida ranked sigue abierta", detail: "Una partida contra otra persona está sin terminar.", href: pvpMatchRoute(m.id) };
+      return { ...base, id: "resume-ranked", eyebrow: t("Competitivo · partida en curso"), title: m.opponent ? t("Contra {opponent}", { opponent: m.opponent }) : t("Tu partida ranked sigue abierta"), detail: t("Una partida contra otra persona está sin terminar."), href: pvpMatchRoute(m.id) };
     case "PRIVATE":
-      return { ...base, id: "resume-private", eyebrow: "Reto privado · partida en curso", title: m.opponent ? `Contra ${m.opponent}` : "Tu duelo privado sigue abierto", detail: "Un duelo privado está sin terminar. No cuenta para el rating.", href: pvpMatchRoute(m.id) };
+      return { ...base, id: "resume-private", eyebrow: t("Reto privado · partida en curso"), title: m.opponent ? t("Contra {opponent}", { opponent: m.opponent }) : t("Tu duelo privado sigue abierto"), detail: t("Un duelo privado está sin terminar. No cuenta para el rating."), href: pvpMatchRoute(m.id) };
     case "CAMPAIGN":
-      return { ...base, id: "resume-campaign", eyebrow: "Road to Champions · partida en curso", title: m.node ? `Nodo «${m.node.name}»` : "Tu nodo sigue en marcha", detail: "Termina la partida para liquidar el nodo.", href: m.node ? campaignPlayRoute(m.node.id) : DAILY_ROUTES.quick };
+      return { ...base, id: "resume-campaign", eyebrow: t("Road to Champions · partida en curso"), title: m.node ? t("Nodo «{name}»", { name: m.node.name }) : t("Tu nodo sigue en marcha"), detail: t("Termina la partida para liquidar el nodo."), href: m.node ? campaignPlayRoute(m.node.id) : DAILY_ROUTES.quick };
     case "DRAFT":
-      return { ...base, id: "resume-draft", eyebrow: "Draft Gauntlet · combate en curso", title: "Tu combate del gauntlet sigue abierto", detail: "Termínalo para avanzar la run.", href: DRAFT_MATCH_HREF };
+      return { ...base, id: "resume-draft", eyebrow: t("Draft Gauntlet · combate en curso"), title: t("Tu combate del gauntlet sigue abierto"), detail: t("Termínalo para avanzar la run."), href: DRAFT_MATCH_HREF };
     default:
-      return { ...base, id: "resume-pve", eyebrow: "Partida rápida · en curso", title: m.difficulty ? `Contra el bot · ${DIFFICULTY_LABEL[m.difficulty]}` : "Tu duelo contra el bot sigue abierto", detail: "Tienes una partida sin terminar.", href: DAILY_ROUTES.quick };
+      return { ...base, id: "resume-pve", eyebrow: t("Partida rápida · en curso"), title: m.difficulty ? t("Contra el bot · {v}", { v: td(DIFFICULTY_LABEL[m.difficulty]) }) : t("Tu duelo contra el bot sigue abierto"), detail: t("Tienes una partida sin terminar."), href: DAILY_ROUTES.quick };
   }
 }
 
@@ -287,13 +302,13 @@ export function dailyCandidates(f: DailyLoopFacts): DailyAction[] {
   // «live» ya caducado) se sigue viendo en su bloque con la etiqueta «Demo», pero nunca como acción del vestíbulo.
   const liveNow = (f.live ?? []).find((e) => e.lifecycle === "ACTIVE" && e.liveCount > 0 && !e.isDemo) ?? null;
   const liveAction = (): DailyAction | null => liveNow ? {
-    id: "live", kind: "explore", eyebrow: "En directo", title: liveNow.name,
-    detail: liveNow.liveMatch ? `${liveNow.liveMatch.teamA ?? "Por determinar"} vs ${liveNow.liveMatch.teamB ?? "Por determinar"}` : plural(liveNow.liveCount, "partido en directo", "partidos en directo"),
-    cta: "Ver en directo", label: "Ver en directo", href: eventRoute(liveNow.id), progress: null, source: "live",
+    id: "live", kind: "explore", eyebrow: t("En directo"), title: liveNow.name,
+    detail: liveNow.liveMatch ? `${liveNow.liveMatch.teamA ?? t("Por determinar")} vs ${liveNow.liveMatch.teamB ?? t("Por determinar")}` : plural(liveNow.liveCount, t("partido en directo"), t("partidos en directo")),
+    cta: t("Ver en directo"), label: t("Ver en directo"), href: eventRoute(liveNow.id), progress: null, source: "live",
   } : null;
 
   if (!f.signedIn) {
-    out.push({ id: "sign-in", kind: "play", eyebrow: "NEXUS · duelos de cartas", title: "Entra y empieza tu colección", detail: "Los duelos, la campaña y el competitivo se juegan con cuenta.", cta: "Entrar para jugar", label: "Entrar para jugar", href: DAILY_ROUTES.account, progress: null, source: "account" });
+    out.push({ id: "sign-in", kind: "play", eyebrow: t("NEXUS · duelos de cartas"), title: t("Entra y empieza tu colección"), detail: t("Los duelos, la campaña y el competitivo se juegan con cuenta."), cta: t("Entrar para jugar"), label: t("Entrar para jugar"), href: DAILY_ROUTES.account, progress: null, source: "account" });
     const l = liveAction(); if (l) out.push(l);
     return out;
   }
@@ -304,7 +319,7 @@ export function dailyCandidates(f: DailyLoopFacts): DailyAction[] {
   // 1b · Fase 42 · run de Draft fuera de combate: importante, pero detrás de cualquier partida abierta (rango 0,7).
   if (f.draftRun) {
     const r = f.draftRun;
-    out.push({ id: "resume-draft-run", kind: "run", eyebrow: "Draft Gauntlet · run en curso", title: r.status === "DRAFTING" ? "Termina de elegir tu plantilla" : `Fase ${r.stage} de ${GAUNTLET_STAGES}: tu siguiente combate`, detail: r.status === "DRAFTING" ? "Tu draft está a medias. Retómalo donde lo dejaste." : "Tu plantilla está lista para el siguiente rival.", cta: "Volver al Draft", label: "Volver al Draft", href: DRAFT_ROUTE, progress: { value: Math.max(0, r.stage - (r.status === "READY" ? 1 : 0)), max: GAUNTLET_STAGES, label: `${Math.max(0, r.stage - (r.status === "READY" ? 1 : 0))} / ${GAUNTLET_STAGES} fases` }, source: "draft" });
+    out.push({ id: "resume-draft-run", kind: "run", eyebrow: t("Draft Gauntlet · run en curso"), title: r.status === "DRAFTING" ? t("Termina de elegir tu plantilla") : t("Fase {stage} de {GAUNTLET_STAGES}: tu siguiente combate", { stage: r.stage, GAUNTLET_STAGES }), detail: r.status === "DRAFTING" ? t("Tu draft está a medias. Retómalo donde lo dejaste.") : t("Tu plantilla está lista para el siguiente rival."), cta: t("Volver al Draft"), label: t("Volver al Draft"), href: DRAFT_ROUTE, progress: { value: Math.max(0, r.stage - (r.status === "READY" ? 1 : 0)), max: GAUNTLET_STAGES, label: t("{n} / {GAUNTLET_STAGES} fases", { n: Math.max(0, r.stage - (r.status === "READY" ? 1 : 0)), GAUNTLET_STAGES }) }, source: "draft" });
   }
   const activePve = matches.some((m) => m.mode === "PVE" || m.mode === "CAMPAIGN");
   const activePvp = matches.some((m) => m.mode === "RANKED" || m.mode === "PRIVATE");
@@ -312,7 +327,7 @@ export function dailyCandidates(f: DailyLoopFacts): DailyAction[] {
   // 2 · Retos recibidos.
   if (f.social && f.social.incoming > 0) {
     const n = f.social.incoming;
-    out.push({ id: "challenge", kind: "challenge", eyebrow: "Reto privado", title: f.social.from ? `Reto de ${f.social.from}${n > 1 ? ` y ${plural(n - 1, "reto más", "retos más")}` : ""}` : plural(n, "reto esperando respuesta", "retos esperando respuesta"), detail: "Acepta o rechaza antes de que caduque.", cta: "Responder reto", label: "Responder reto", href: DAILY_ROUTES.challenges, count: n, urgent: true, progress: null, source: "social" });
+    out.push({ id: "challenge", kind: "challenge", eyebrow: t("Reto privado"), title: f.social.from ? (n === 1 ? t("Reto de {from}", { from: td(f.social.from) }) : n === 2 ? t("Reto de {from} y {n} reto más", { from: td(f.social.from), n: n - 1 }) : t("Reto de {from} y {n} retos más", { from: td(f.social.from), n: n - 1 })) : plural(n, t("reto esperando respuesta"), t("retos esperando respuesta")), detail: t("Acepta o rechaza antes de que caduque."), cta: t("Responder reto"), label: t("Responder reto"), href: DAILY_ROUTES.challenges, count: n, urgent: true, progress: null, source: "social" });
   }
 
   const owned = f.progression?.metrics.ownedCards ?? null;
@@ -337,42 +352,42 @@ export function dailyCandidates(f: DailyLoopFacts): DailyAction[] {
       const claimEnds = claimableObjectives(p.objectives, f.now).map((o) => o.expiresAt).filter((x): x is number => x !== null);
       const claimEndsAt = claimEnds.length ? Math.min(...claimEnds) : null;
       const parts = [
-        levels ? plural(levels, "nivel del pase", "niveles del pase") : null,
-        missions ? plural(missions, "objetivo", "objetivos") : null,
-        achievements ? plural(achievements, "logro", "logros") : null,
+        levels ? plural(levels, t("nivel del pase"), t("niveles del pase")) : null,
+        missions ? plural(missions, t("objetivo"), t("objetivos")) : null,
+        achievements ? plural(achievements, t("logro"), t("logros")) : null,
       ].filter(Boolean);
-      out.push({ id: "claim", kind: "claim", eyebrow: "Recompensas listas", title: `${parts.join(" · ")} por reclamar`, detail: total === 1 ? "Ya te lo has ganado: recógelo en Logros." : "Ya te las has ganado: recógelas en Logros y pase.", cta: achievements > 0 && levels === 0 && missions === 0 ? "Reclamar logro" : "Reclamar", label: "Reclamar", href: DAILY_ROUTES.claims, count: total, progress: null, source: "progression", endsAt: claimEndsAt, urgency: urgencyOf(claimEndsAt, f.now) });
+      out.push({ id: "claim", kind: "claim", eyebrow: t("Recompensas listas"), title: t("{parts} por reclamar", { parts: parts.join(" · ") }), detail: total === 1 ? t("Ya te lo has ganado: recógelo en Logros.") : t("Ya te las has ganado: recógelas en Logros y pase."), cta: achievements > 0 && levels === 0 && missions === 0 ? t("Reclamar logro") : t("Reclamar"), label: t("Reclamar"), href: DAILY_ROUTES.claims, count: total, progress: null, source: "progression", endsAt: claimEndsAt, urgency: urgencyOf(claimEndsAt, f.now) });
     }
   }
 
   // 5 · Pick'ems pendientes (caducan al bloquearse).
   if (f.pickems && f.pickems.pending > 0) {
-    out.push({ id: "predict", kind: "predict", eyebrow: f.pickems.eventName ? `Pick'ems · ${f.pickems.eventName}` : "Pick'ems", title: plural(f.pickems.pending, "predicción sin hacer", "predicciones sin hacer"), detail: "Se cierran cuando empieza cada partido.", cta: "Haz tu predicción", label: "Haz tu predicción", href: DAILY_ROUTES.pickems, count: f.pickems.pending, urgent: true, progress: null, source: "pickems", endsAt: f.pickems.nextLockAt ?? null, urgency: urgencyOf(f.pickems.nextLockAt, f.now) });
+    out.push({ id: "predict", kind: "predict", eyebrow: f.pickems.eventName ? t("Pick'ems · {eventName}", { eventName: td(f.pickems.eventName) }) : t("Pick'ems"), title: plural(f.pickems.pending, t("predicción sin hacer"), t("predicciones sin hacer")), detail: t("Se cierran cuando empieza cada partido."), cta: t("Haz tu predicción"), label: t("Haz tu predicción"), href: DAILY_ROUTES.pickems, count: f.pickems.pending, urgent: true, progress: null, source: "pickems", endsAt: f.pickems.nextLockAt ?? null, urgency: urgencyOf(f.pickems.nextLockAt, f.now) });
   }
 
   // 6 · Objetivo casi completado (regla pura y viva: `nearObjective`).
   if (f.progression) {
     const near = nearObjective(f.progression.objectives, f.now);
     if (near) {
-      out.push({ id: "objective", kind: "objective", eyebrow: `Objetivo ${KIND_LABEL[String(near.kind)] ?? ""} casi completado`.replace(/\s+/g, " "), title: near.label, detail: `Te ${near.goal - near.current === 1 ? "falta" : "faltan"} ${near.goal - near.current} para completarlo.`, cta: "Completar objetivo", label: "Completar objetivo", href: objectiveRoute(near.metric), urgent: near.expiresAt !== null, progress: { value: near.current, max: near.goal, label: `${near.current} / ${near.goal}` }, source: "progression", endsAt: near.expiresAt, urgency: urgencyOf(near.expiresAt, f.now) });
+      out.push({ id: "objective", kind: "objective", eyebrow: nearEyebrow(String(near.kind)), title: near.label, detail: near.goal - near.current === 1 ? t("Te falta {n} para completarlo.", { n: near.goal - near.current }) : t("Te faltan {n} para completarlo.", { n: near.goal - near.current }), cta: t("Completar objetivo"), label: t("Completar objetivo"), href: objectiveRoute(near.metric), urgent: near.expiresAt !== null, progress: { value: near.current, max: near.goal, label: `${near.current} / ${near.goal}` }, source: "progression", endsAt: near.expiresAt, urgency: urgencyOf(near.expiresAt, f.now) });
     }
   }
 
   // 7 · Sobres sin abrir (en la primera sesión, solo cuando el recorrido ya no está en abrir/coleccionar).
   if (unopened !== null && unopened > 0 && !(guiding && (journey!.currentStep === "open" || journey!.currentStep === "collect"))) {
-    out.push({ id: "open", kind: "open", eyebrow: "Sobres", title: `Tienes ${plural(unopened, "sobre sin abrir", "sobres sin abrir")}`, detail: "Cada uno llena huecos de tu colección.", cta: unopened === 1 ? "Abrir sobre" : `Abrir ${unopened} sobres`, label: "Abrir sobres", href: DAILY_ROUTES.inventory, count: unopened, progress: null, source: "packs" });
+    out.push({ id: "open", kind: "open", eyebrow: t("Sobres"), title: t("Tienes {unopened}", { unopened: plural(unopened, t("sobre sin abrir"), t("sobres sin abrir")) }), detail: t("Cada uno llena huecos de tu colección."), cta: unopened === 1 ? t("Abrir sobre") : t("Abrir {unopened} sobres", { unopened }), label: t("Abrir sobres"), href: DAILY_ROUTES.inventory, count: unopened, progress: null, source: "packs" });
   }
 
   // 8 · Equipo: sin uno legal no se juega.
   const ds = deckState(f.decks);
   if (!guiding && (ds === "NONE" || ds === "INVALID")) {
     if (owned !== null && owned < 10) {
-      if ((unopened ?? 0) === 0) out.push({ id: "get-cards", kind: "build", eyebrow: "Tu equipo", title: "Necesitas diez cartas para jugar", detail: `Tienes ${plural(owned, "carta", "cartas")}. Consigue un sobre en la tienda.`, cta: "Conseguir sobres", label: "Conseguir sobres", href: DAILY_ROUTES.store, progress: { value: owned, max: 10, label: `${owned} / 10 cartas` }, source: "decks" });
+      if ((unopened ?? 0) === 0) out.push({ id: "get-cards", kind: "build", eyebrow: t("Tu equipo"), title: t("Necesitas diez cartas para jugar"), detail: owned === 1 ? t("Tienes {n} carta. Consigue un sobre en la tienda.", { n: owned }) : t("Tienes {n} cartas. Consigue un sobre en la tienda.", { n: owned }), cta: t("Conseguir sobres"), label: t("Conseguir sobres"), href: DAILY_ROUTES.store, progress: { value: owned, max: 10, label: t("{n} / 10 cartas", { n: owned }) }, source: "decks" });
     } else if (ds === "NONE") {
-      out.push({ id: "create-team", kind: "build", eyebrow: "Tu equipo", title: "Todavía no tienes equipo", detail: "Diez cartas, dos por rol. Sin equipo no hay duelos.", cta: "Crear equipo", label: "Crear equipo", href: DAILY_ROUTES.newDeck, progress: null, source: "decks" });
+      out.push({ id: "create-team", kind: "build", eyebrow: t("Tu equipo"), title: t("Todavía no tienes equipo"), detail: t("Diez cartas, dos por rol. Sin equipo no hay duelos."), cta: t("Crear equipo"), label: t("Crear equipo"), href: DAILY_ROUTES.newDeck, progress: null, source: "decks" });
     } else {
       const d = f.decks!.firstInvalid;
-      out.push({ id: "edit-team", kind: "build", eyebrow: "Tu equipo", title: d ? `«${d.name}» no está listo` : "Tu equipo no está listo", detail: "Necesita diez cartas legales, dos por rol.", cta: "Editar equipo", label: "Editar equipo", href: d ? deckEditRoute(d.id) : DAILY_ROUTES.decks, progress: d ? { value: Math.min(d.size, 10), max: 10, label: `${d.size} / 10 cartas` } : null, source: "decks" });
+      out.push({ id: "edit-team", kind: "build", eyebrow: t("Tu equipo"), title: d ? t("«{name}» no está listo", { name: d.name }) : t("Tu equipo no está listo"), detail: t("Necesita diez cartas legales, dos por rol."), cta: t("Editar equipo"), label: t("Editar equipo"), href: d ? deckEditRoute(d.id) : DAILY_ROUTES.decks, progress: d ? { value: Math.min(d.size, 10), max: 10, label: `${d.size} / 10 cartas` } : null, source: "decks" });
     }
   }
 
@@ -382,18 +397,18 @@ export function dailyCandidates(f: DailyLoopFacts): DailyAction[] {
   } else if (ds === "READY") {
     const c = f.campaign;
     if (c && !c.complete && c.next && !activePve) {
-      out.push({ id: "campaign", kind: "play", eyebrow: `Road to Champions · capítulo ${c.next.chapterOrder}`, title: `${c.next.name} · contra ${c.next.team}`, detail: `${c.completed} de ${c.total} nodos completados.`, cta: c.completed === 0 ? "Empezar Road to Champions" : "Continuar Road to Champions", label: "Continuar Road to Champions", href: campaignNodeRoute(c.next.nodeId), progress: { value: c.completed, max: c.total, label: `${c.completed} / ${c.total}` }, source: "campaign" });
+      out.push({ id: "campaign", kind: "play", eyebrow: t("Road to Champions · capítulo {chapterOrder}", { chapterOrder: c.next.chapterOrder }), title: `${c.next.name} · contra ${c.next.team}`, detail: t("{completed} de {total} nodos completados.", { completed: c.completed, total: c.total }), cta: c.completed === 0 ? t("Empezar Road to Champions") : t("Continuar Road to Champions"), label: t("Continuar Road to Champions"), href: campaignNodeRoute(c.next.nodeId), progress: { value: c.completed, max: c.total, label: `${c.completed} / ${c.total}` }, source: "campaign" });
     }
     const r = f.competitive;
     if (r && !activePvp) {
-      const title = r.gamesPlayed === 0 ? "Tu primera partida ranked"
-        : r.provisional ? `Provisional · ${r.gamesPlayed} de ${PLACEMENT_GAMES} partidas`
-          : r.position !== null ? `#${r.position} de ${r.rankedTotal} · rating ${r.rating}` : `Rating ${r.rating}`;
-      out.push({ id: "ranked", kind: "play", eyebrow: "Competitivo", title, detail: r.gamesPlayed === 0 ? "Contra otra persona, por rating." : r.provisional ? "Tu rating aún se está calibrando." : "Cada partida mueve tu rating.", cta: "Jugar competitivo", label: "Jugar competitivo", href: DAILY_ROUTES.pvp, progress: r.provisional && r.gamesPlayed > 0 ? { value: r.gamesPlayed, max: PLACEMENT_GAMES, label: `${r.gamesPlayed} / ${PLACEMENT_GAMES}` } : null, source: "competitive" });
+      const title = r.gamesPlayed === 0 ? t("Tu primera partida ranked")
+        : r.provisional ? t("Provisional · {gamesPlayed} de {PLACEMENT_GAMES} partidas", { gamesPlayed: r.gamesPlayed, PLACEMENT_GAMES })
+          : r.position !== null ? t("#{position} de {rankedTotal} · rating {rating}", { position: r.position, rankedTotal: r.rankedTotal, rating: r.rating }) : t("Rating {rating}", { rating: r.rating });
+      out.push({ id: "ranked", kind: "play", eyebrow: t("Competitivo"), title, detail: r.gamesPlayed === 0 ? t("Contra otra persona, por rating.") : r.provisional ? t("Tu rating aún se está calibrando.") : t("Cada partida mueve tu rating."), cta: t("Jugar competitivo"), label: t("Jugar competitivo"), href: DAILY_ROUTES.pvp, progress: r.provisional && r.gamesPlayed > 0 ? { value: r.gamesPlayed, max: PLACEMENT_GAMES, label: `${r.gamesPlayed} / ${PLACEMENT_GAMES}` } : null, source: "competitive" });
     }
-    if (!activePve) out.push({ id: "quick", kind: "play", eyebrow: "Partida rápida", title: "Tu equipo contra un bot", detail: "Diez turnos. Elige la dificultad.", cta: "Jugar partida rápida", label: "Jugar partida rápida", href: DAILY_ROUTES.quick, progress: null, source: "decks" });
+    if (!activePve) out.push({ id: "quick", kind: "play", eyebrow: t("Partida rápida"), title: t("Tu equipo contra un bot"), detail: t("Diez turnos. Elige la dificultad."), cta: t("Jugar partida rápida"), label: t("Jugar partida rápida"), href: DAILY_ROUTES.quick, progress: null, source: "decks" });
   } else if (ds === null && !activePve && !activePvp) {
-    out.push({ id: "play-hub", kind: "play", eyebrow: "Modos de juego", title: "Elige cómo jugar", detail: "Campaña, partida rápida, competitivo y retos.", cta: "Jugar", label: "Jugar", href: DAILY_ROUTES.play, progress: null, source: "fallback" });
+    out.push({ id: "play-hub", kind: "play", eyebrow: t("Modos de juego"), title: t("Elige cómo jugar"), detail: t("Campaña, partida rápida, competitivo y retos."), cta: t("Jugar"), label: t("Jugar"), href: DAILY_ROUTES.play, progress: null, source: "fallback" });
   }
 
   // 10 · Lo que pasa en el circuito (solo si hay un partido EN DIRECTO de verdad).
@@ -428,40 +443,40 @@ function playObjective(f: DailyLoopFacts): MetaObjective | null {
 export function reasonFor(a: DailyAction, f: DailyLoopFacts): string {
   const left = remainingText(a.endsAt ?? null, f.now);
   switch (a.id) {
-    case "resume-ranked": case "resume-private": return "Va antes que nada: hay otra persona en esa partida.";
-    case "resume-campaign": case "resume-pve": case "resume-draft": return "Va antes que nada: la dejaste a medias.";
-    case "resume-draft-run": return "Tu run de Draft Gauntlet sigue en curso.";
-    case "challenge": return "Un reto privado te espera y caduca si no respondes.";
-    case "journey-open": case "journey-collect": case "journey-build": case "journey-play": return "Es el siguiente paso de tu primera sesión.";
-    case "claim": return left && a.urgency !== "NORMAL" ? `Un objetivo completado se renueva en ${left}: cóbralo antes.` : "Ya está ganado: un toque y es tuyo.";
-    case "predict": return left ? `Tu predicción pendiente cierra en ${left}.` : "Hay predicciones abiertas que aún no has hecho.";
+    case "resume-ranked": case "resume-private": return t("Va antes que nada: hay otra persona en esa partida.");
+    case "resume-campaign": case "resume-pve": case "resume-draft": return t("Va antes que nada: la dejaste a medias.");
+    case "resume-draft-run": return t("Tu run de Draft Gauntlet sigue en curso.");
+    case "challenge": return t("Un reto privado te espera y caduca si no respondes.");
+    case "journey-open": case "journey-collect": case "journey-build": case "journey-play": return t("Es el siguiente paso de tu primera sesión.");
+    case "claim": return left && a.urgency !== "NORMAL" ? t("Un objetivo completado se renueva en {left}: cóbralo antes.", { left: td(left) }) : t("Ya está ganado: un toque y es tuyo.");
+    case "predict": return left ? t("Tu predicción pendiente cierra en {left}.", { left: td(left) }) : t("Hay predicciones abiertas que aún no has hecho.");
     case "objective": {
       // Por qué: lo que da al completarlo (recompensa REAL de su definición); el detalle ya dice cuánto falta.
       const o = f.progression?.objectives.find((x) => x.label === a.title && !x.claimed && !x.complete);
       const p = a.progress; const missing = p ? p.max - p.value : null;
-      const base = o ? `Completarlo te da ${rewardText(o, packDisplayName)}.` : missing !== null ? `Te ${missing === 1 ? "falta" : "faltan"} ${missing} para completar «${a.title}».` : `Estás cerca de completar «${a.title}».`;
-      return left && a.urgency === "VERY_SOON" ? `${base} Se renueva en ${left}.` : base;
+      const base = o ? t("Completarlo te da {o}.", { o: rewardText(o, packDisplayName) }) : missing !== null ? (missing === 1 ? t("Te falta {missing} para completar «{title}».", { missing, title: td(a.title) }) : t("Te faltan {missing} para completar «{title}».", { missing, title: td(a.title) })) : t("Estás cerca de completar «{title}».", { title: td(a.title) });
+      return left && a.urgency === "VERY_SOON" ? t("{base} Se renueva en {left}.", { base: td(base), left: td(left) }) : base;
     }
-    case "open": return "Tienes sobres sin abrir.";
-    case "get-cards": case "create-team": case "edit-team": return "Sin un equipo legal no se puede jugar.";
+    case "open": return t("Tienes sobres sin abrir.");
+    case "get-cards": case "create-team": case "edit-team": return t("Sin un equipo legal no se puede jugar.");
     case "campaign": case "ranked": case "quick": {
       const o = playObjective(f);
       if (o) {
         const missing = o.goal - o.current;
-        return `Avanza «${o.label}»: te ${missing === 1 ? "falta" : "faltan"} ${missing}.`;
+        return missing === 1 ? t("Avanza «{label}»: te falta {missing}.", { label: td(o.label), missing }) : t("Avanza «{label}»: te faltan {missing}.", { label: td(o.label), missing });
       }
-      if (a.id === "campaign") return "Tu campaña sigue donde la dejaste.";
+      if (a.id === "campaign") return t("Tu campaña sigue donde la dejaste.");
       if (a.id === "ranked") {
         const r = f.competitive;
-        if (r?.position) return `Estás en el puesto ${r.position} de ${r.rankedTotal}.`;
-        if (r?.provisional && r.gamesPlayed > 0) { const left = Math.max(0, PLACEMENT_GAMES - r.gamesPlayed); return `Te ${left === 1 ? "queda" : "quedan"} ${left} para clasificarte.`; }
-        return "Tu rating sube o baja con cada partida.";
+        if (r?.position) return t("Estás en el puesto {position} de {rankedTotal}.", { position: r.position, rankedTotal: r.rankedTotal });
+        if (r?.provisional && r.gamesPlayed > 0) { const left = Math.max(0, PLACEMENT_GAMES - r.gamesPlayed); return left === 1 ? t("Te queda {left} para clasificarte.", { left }) : t("Te quedan {left} para clasificarte.", { left }); }
+        return t("Tu rating sube o baja con cada partida.");
       }
-      return "Diez turnos contra el bot, cuando quieras.";
+      return t("Diez turnos contra el bot, cuando quieras.");
     }
-    case "live": return "Hay un partido en directo ahora mismo.";
-    case "sign-in": return "Los duelos se juegan con cuenta.";
-    default: return "Elige cómo quieres jugar.";
+    case "live": return t("Hay un partido en directo ahora mismo.");
+    case "sign-in": return t("Los duelos se juegan con cuenta.");
+    default: return t("Elige cómo quieres jugar.");
   }
 }
 
@@ -499,7 +514,7 @@ export function todayItems(f: DailyLoopFacts, primary: DailyAction | null = null
   for (const o of sorted) {
     items.push({
       id: `objective:${o.id}`, kind: "objective", label: o.label,
-      detail: o.complete ? "Completado · recógelo en Logros" : `Objetivo ${KIND_LABEL[String(o.kind)] ?? ""}`.trim(),
+      detail: o.complete ? t("Completado · recógelo en Logros") : kindDetail(String(o.kind)),
       href: o.complete ? DAILY_ROUTES.claims : objectiveRoute(o.metric),
       status: o.complete ? "CLAIMABLE" : near && o.id === near.id ? "NEAR" : "IN_PROGRESS",
       progress: { value: Math.min(o.current, o.goal), max: o.goal, label: `${Math.min(o.current, o.goal)} / ${o.goal}` },
@@ -507,12 +522,12 @@ export function todayItems(f: DailyLoopFacts, primary: DailyAction | null = null
     });
   }
   const extra: TodayItem[] = [];
-  if (f.pickems && f.pickems.pending > 0) extra.push({ id: "pickem", kind: "pickem", label: f.pickems.eventName ? `Pick'ems · ${f.pickems.eventName}` : "Pick'ems", detail: plural(f.pickems.pending, "predicción pendiente", "predicciones pendientes"), href: DAILY_ROUTES.pickems, status: "PENDING", progress: null, expiresAt: null });
+  if (f.pickems && f.pickems.pending > 0) extra.push({ id: "pickem", kind: "pickem", label: f.pickems.eventName ? t("Pick'ems · {eventName}", { eventName: td(f.pickems.eventName) }) : t("Pick'ems"), detail: plural(f.pickems.pending, t("predicción pendiente"), t("predicciones pendientes")), href: DAILY_ROUTES.pickems, status: "PENDING", progress: null, expiresAt: null });
   const c = f.campaign;
-  if (c && !c.complete && c.next && deckState(f.decks) === "READY") extra.push({ id: "campaign", kind: "campaign", label: `Road to Champions · ${c.next.name}`, detail: `Contra ${c.next.team}`, href: campaignNodeRoute(c.next.nodeId), status: "AVAILABLE", progress: { value: c.completed, max: c.total, label: `${c.completed} / ${c.total}` }, expiresAt: null });
+  if (c && !c.complete && c.next && deckState(f.decks) === "READY") extra.push({ id: "campaign", kind: "campaign", label: t("Road to Champions · {name}", { name: c.next.name }), detail: t("Contra {team}", { team: c.next.team }), href: campaignNodeRoute(c.next.nodeId), status: "AVAILABLE", progress: { value: c.completed, max: c.total, label: `${c.completed} / ${c.total}` }, expiresAt: null });
   const r = f.competitive;
-  if (r && r.gamesPlayed > 0 && r.provisional && deckState(f.decks) === "READY") extra.push({ id: "ranked", kind: "ranked", label: "Calibración ranked", detail: `Te ${PLACEMENT_GAMES - r.gamesPlayed === 1 ? "queda" : "quedan"} ${PLACEMENT_GAMES - r.gamesPlayed} para clasificarte`, href: DAILY_ROUTES.pvp, status: "IN_PROGRESS", progress: { value: r.gamesPlayed, max: PLACEMENT_GAMES, label: `${r.gamesPlayed} / ${PLACEMENT_GAMES}` }, expiresAt: null });
-  if (f.packs && f.packs.unopened > 0) extra.push({ id: "packs", kind: "packs", label: `Tienes ${plural(f.packs.unopened, "sobre sin abrir", "sobres sin abrir")}`, detail: "Ábrelos en el inventario", href: DAILY_ROUTES.inventory, status: "AVAILABLE", progress: null, expiresAt: null });
+  if (r && r.gamesPlayed > 0 && r.provisional && deckState(f.decks) === "READY") extra.push({ id: "ranked", kind: "ranked", label: t("Calibración ranked"), detail: PLACEMENT_GAMES - r.gamesPlayed === 1 ? t("Te queda {n} para clasificarte", { n: PLACEMENT_GAMES - r.gamesPlayed }) : t("Te quedan {n} para clasificarte", { n: PLACEMENT_GAMES - r.gamesPlayed }), href: DAILY_ROUTES.pvp, status: "IN_PROGRESS", progress: { value: r.gamesPlayed, max: PLACEMENT_GAMES, label: `${r.gamesPlayed} / ${PLACEMENT_GAMES}` }, expiresAt: null });
+  if (f.packs && f.packs.unopened > 0) extra.push({ id: "packs", kind: "packs", label: t("Tienes {unopened}", { unopened: plural(f.packs.unopened, t("sobre sin abrir"), t("sobres sin abrir")) }), detail: t("Ábrelos en el inventario"), href: DAILY_ROUTES.inventory, status: "AVAILABLE", progress: null, expiresAt: null });
 
   // Objetivos primero hasta dejar sitio a lo demás (como mucho 3 objetivos si hay extras).
   const room = Math.max(TODAY_MAX - extra.length, Math.min(3, items.length));

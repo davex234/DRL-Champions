@@ -9,6 +9,9 @@
  * Sin símbolos culturales ni referencias inventadas: bandera, colores y gráficos competitivos.
  */
 import { ISO3166_ALPHA3 } from "./iso3166";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("walkout");
 
 
 /** ISO 3166-1 alfa-2 → alfa-3 completo (0.4: cualquier nacionalidad, también las de cartas futuras). */
@@ -101,7 +104,7 @@ export function countryArenaTheme(input: ArenaCountryInput, palette: FlagPalette
   const n = input.nationality;
   if (n?.status === "noflag" && n.code && n.name) return { kind: "country", code: n.code, label: n.name, flagSrc: null, colors: [edition.light, edition.accent], layout: "field" };
   const region = input.region ? REGION_LABEL[input.region] ?? input.region.toUpperCase() : null;
-  if (region) return { kind: "region", code: region, label: `Región ${region}`, flagSrc: null, colors: [edition.light, edition.accent], layout: "field" };
+  if (region) return { kind: "region", code: region, label: t("Región {region}", { region: td(region) }), flagSrc: null, colors: [edition.light, edition.accent], layout: "field" };
   return { kind: "neutral", code: "", label: "", flagSrc: null, colors: [edition.light, edition.accent], layout: "field" };
 }
 

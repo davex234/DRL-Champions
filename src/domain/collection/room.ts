@@ -22,6 +22,9 @@ import { isPurchasable } from "@/domain/packs/lifecycle";
 import { isEligible } from "@/domain/packs/pool";
 import type { CardRegistry } from "@/collection/registry";
 import { canonicalCardTeam, canonicalTeam } from "@/data/teamIdentities";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("collection");
 
 /* ───────────────────────────── identidad y rutas ───────────────────────────── */
 
@@ -86,8 +89,8 @@ export type SerialPrestigeTier = "NUMBER_ONE" | "TOP_10" | "TOP_100";
 export function serialPrestige(serial: number | null | undefined): { tier: SerialPrestigeTier; label: string } | null {
   if (typeof serial !== "number" || !Number.isInteger(serial) || serial < 1) return null;
   if (serial === 1) return { tier: "NUMBER_ONE", label: "#1" };
-  if (serial <= 10) return { tier: "TOP_10", label: "Top 10" };
-  if (serial <= 100) return { tier: "TOP_100", label: "Top 100" };
+  if (serial <= 10) return { tier: "TOP_10", label: tr("Top 10") };
+  if (serial <= 100) return { tier: "TOP_100", label: tr("Top 100") };
   return null;
 }
 

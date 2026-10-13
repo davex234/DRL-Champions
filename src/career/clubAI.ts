@@ -10,6 +10,9 @@ import type { Rng } from "./rng";
 import { dismissalRisk } from "./board";
 import { termsFor, yearsLeft } from "./contracts";
 import { offerAppeal } from "./offers";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 /**
  * Decisión del club sobre el entrenador del usuario tras la temporada.
@@ -26,7 +29,7 @@ export function clubSeasonDecision(
 
   // 1) Despido (nunca aleatorio: probabilidad = riesgo calculado).
   if (risk >= 0.55 && rng.chance(risk)) {
-    const reason = failedMandatory > 0 ? "objetivos incumplidos" : career.board.pressure > 75 ? "presión insostenible" : "malos resultados";
+    const reason = failedMandatory > 0 ? t("objetivos incumplidos") : career.board.pressure > 75 ? t("presión insostenible") : t("malos resultados");
     return { kind: "fire", reason };
   }
 
@@ -51,7 +54,7 @@ export function clubSeasonDecision(
   }
 
   // 3) Aviso si la presión es alta pero aún no despiden.
-  if (risk >= 0.4) return { kind: "warn", reason: "la directiva exige resultados" };
+  if (risk >= 0.4) return { kind: "warn", reason: t("la directiva exige resultados") };
 
   return { kind: "keep" };
 }

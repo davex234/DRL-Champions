@@ -12,6 +12,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CoachIcon, type CoachIconName } from "./CoachIcons";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coach");
 
 /*
  * FASE 51.1 · JUGAR es la entrada rápida y la única sala destacada (`primary`). Cubre el asistente
@@ -36,27 +40,28 @@ export function isRoomActive(pathname: string, room: { href: string; exact?: boo
 }
 
 export function CoachFrame({ children }: { children: React.ReactNode }) {
+  useLocale();
   const pathname = usePathname() ?? "/entrenador";
   return (
     <div className="nx-coach" data-coach="4">
       <span aria-hidden className="nx-coach-bg" />
-      <nav aria-label="Tactical Coach" className="mb-4 flex items-center gap-3 border-b border-[rgba(47,224,255,0.14)]">
-        <Link href="/entrenador" className="hidden shrink-0 items-center gap-2 pr-2 lg:flex" aria-label="Tactical Coach · centro">
+      <nav aria-label={t("Tactical Coach")} className="mb-4 flex items-center gap-3 border-b border-[rgba(47,224,255,0.14)]">
+        <Link href="/entrenador" className="hidden shrink-0 items-center gap-2 pr-2 lg:flex" aria-label={t("Tactical Coach · centro")}>
           <span className="grid h-8 w-8 place-items-center text-[#2fe0ff]" style={{ filter: "drop-shadow(0 0 6px rgba(47,224,255,0.7))" }}>
             <CoachIcon name="hub" size={22} />
           </span>
           <span className="leading-none">
-            <b className="block font-display text-[13px] font-extrabold uppercase tracking-[0.18em] text-white">Tactical</b>
-            <span className="block font-display text-[9.5px] font-bold uppercase tracking-[0.34em] text-[#2fe0ff]">Coach</span>
+            <b className="block font-display text-[13px] font-extrabold uppercase tracking-[0.18em] text-white">{t("Tactical")}</b>
+            <span className="block font-display text-[9.5px] font-bold uppercase tracking-[0.34em] text-[#2fe0ff]">{t("Coach")}</span>
           </span>
         </Link>
         <div className="nx-coach-tabs min-w-0 flex-1">
           {COACH_ROOMS.map((r) => {
             const on = isRoomActive(pathname, r);
             return (
-              <Link key={r.href} href={r.href} aria-current={on ? "page" : undefined} className="nx-coach-tab" data-primary={r.primary ? "true" : undefined} title={r.hint}>
+              <Link key={r.href} href={r.href} aria-current={on ? "page" : undefined} className="nx-coach-tab" data-primary={r.primary ? "true" : undefined} title={td(r.hint)}>
                 <CoachIcon name={r.icon} size={15} />
-                {r.label}
+                {td(r.label)}
               </Link>
             );
           })}
@@ -77,11 +82,12 @@ export function CoachHeader({
   actions?: React.ReactNode;
   className?: string;
 }) {
+  useLocale();
   return (
     <header className={`nx-coach-rise mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 ${className ?? ""}`}>
       <div className="min-w-0">
-        <p className="nx-coach-kicker">{kicker}</p>
-        <h1 className="mt-1.5 font-display text-[clamp(28px,3.6vw,46px)] font-extrabold uppercase leading-[0.92] tracking-[0.01em] text-white">{title}</h1>
+        <p className="nx-coach-kicker">{td(kicker)}</p>
+        <h1 className="mt-1.5 font-display text-[clamp(28px,3.6vw,46px)] font-extrabold uppercase leading-[0.92] tracking-[0.01em] text-white">{td(title)}</h1>
         {line && <p className="nx-coach-muted mt-2 max-w-2xl text-[14px] leading-relaxed">{line}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}

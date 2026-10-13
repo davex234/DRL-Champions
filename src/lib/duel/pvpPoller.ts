@@ -26,6 +26,9 @@ import {
   PvpSyncError, isRetryable,
   type PvpPlayInput, type PvpSyncErrorKind, type PvpSyncTransport,
 } from "./pvpTransport";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("duel");
 
 // ───────────────────────────── estado de RED (no de juego) ─────────────────────────────
 
@@ -332,14 +335,14 @@ export class PvpSyncPoller {
  */
 export function syncLabel(state: SyncState): string {
   switch (state.status) {
-    case "IDLE": return "Conectando…";
-    case "SYNCING": return state.snapshot ? "Sincronizando…" : "Conectando…";
-    case "STALE": return "Reconectando…";
-    case "ERROR": return "No se pudo sincronizar";
-    case "TERMINAL": return "Partida terminada";
+    case "IDLE": return t("Conectando…");
+    case "SYNCING": return state.snapshot ? t("Sincronizando…") : t("Conectando…");
+    case "STALE": return t("Reconectando…");
+    case "ERROR": return t("No se pudo sincronizar");
+    case "TERMINAL": return t("Partida terminada");
     case "SYNCED":
-      if (!state.snapshot) return "Sincronizado";
-      return state.snapshot.isYourTurn ? "Tu turno" : "Turno rival";
+      if (!state.snapshot) return t("Sincronizado");
+      return state.snapshot.isYourTurn ? t("Tu turno") : t("Turno rival");
   }
 }
 

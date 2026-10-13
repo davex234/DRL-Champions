@@ -51,6 +51,11 @@ import { buzz } from "@/lib/haptics";
 import { ARENA_ACCENT } from "@/lib/duel/arenas";
 import { CLIMAX_LABEL, climaxLevel, momentBeats, momentHoldMs, statReveal } from "@/lib/duel/matchFlow";
 import { RoleIcon } from "./experience/RoleIcon";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("duel");
 
 /**
  * Los tonos de bando del tablero. Los mismos, y por el mismo motivo. FASE 50: salen de la
@@ -76,6 +81,7 @@ export function DuelMoment({
   onClose: () => void;
   autoCloseMs?: number;
 }) {
+  useLocale();
   const reduced = useReducedMotion();
   /* FASE 61 · el tramo de la partida (presentación): los dos últimos turnos pesan más; ninguna regla cambia. */
   const climax = climaxLevel(turn.number, totalTurns);
@@ -135,7 +141,7 @@ export function DuelMoment({
     <motion.div
       role="dialog"
       aria-live="polite"
-      aria-label={`Turno ${turn.number}: ${verdict}`}
+      aria-label={tr("Turno {number}: {verdict}", { number: turn.number, verdict: td(verdict) })}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -195,18 +201,18 @@ export function DuelMoment({
           FASE 61 · QUIÉN ATACA, CON ICONO Y TEXTO (no solo color). Y el tramo: «Recta final» / «Último turno».
         */}
         <div className="mb-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center" data-testid="moment-header">
-          <span className="font-display text-[11px] font-bold uppercase tracking-[0.24em] text-white/60">Turno {turn.number} de {totalTurns}</span>
+          <span className="font-display text-[11px] font-bold uppercase tracking-[0.24em] text-white/60">{tr("Turno {n} de {total}", { n: turn.number, total: totalTurns })}</span>
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 font-display text-[11px] font-bold uppercase tracking-[0.16em]"
             style={{ color: turn.attacker === "A" ? TONO.tu : TONO.rival, boxShadow: `inset 0 0 0 1px ${turn.attacker === "A" ? TONO.tu : TONO.rival}66` }}
             data-role={turn.attacker === "A" ? "ATTACK" : "DEFENSE"}
           >
             <RoleIcon kind={turn.attacker === "A" ? "ATTACK" : "DEFENSE"} className="h-3.5 w-3.5" />
-            {turn.attacker === "A" ? "Atacas tú" : "Defiendes"}
+            {turn.attacker === "A" ? tr("Atacas tú") : tr("Defiendes")}
           </span>
           {CLIMAX_LABEL[climax] && (
             <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-drl-gold" data-testid="moment-climax">
-              {CLIMAX_LABEL[climax]}
+              {td(CLIMAX_LABEL[climax])}
             </span>
           )}
         </div>
@@ -219,7 +225,7 @@ export function DuelMoment({
         <div className="flex flex-col items-stretch md:flex-row md:items-center md:justify-center md:gap-[clamp(12px,2.6vw,40px)]">
           {/* RIVAL — el mismo lado que ocupa en la zona de duelo. */}
           <Bando
-            card={rivalCard} side={turn.rival} label="Rival" tono={TONO.rival}
+            card={rivalCard} side={turn.rival} label={tr("Rival")} tono={TONO.rival}
             win={rivalWin} lose={youWin} from={-46} reduced={!!reduced} at={at} beats={T}
             flip
           />
@@ -235,9 +241,9 @@ export function DuelMoment({
               <span className="h-px flex-1 md:hidden" style={{ background: `linear-gradient(90deg, transparent, ${tono}66)` }} />
               <span aria-hidden className="relative grid shrink-0 place-items-center px-2">
                 <span className="nx-a50-vs-ring" />
-                <span className="nx-a50-vs relative block font-display !text-[clamp(30px,6vh,64px)]" data-ready="true">VS</span>
+                <span className="nx-a50-vs relative block font-display !text-[clamp(30px,6vh,64px)]" data-ready="true">{tr("VS")}</span>
               </span>
-              <span className="sr-only">contra</span>
+              <span className="sr-only">{tr("contra")}</span>
               <span className="h-px flex-1 md:hidden" style={{ background: `linear-gradient(90deg, ${tono}66, transparent)` }} />
             </motion.div>
 
@@ -255,13 +261,13 @@ export function DuelMoment({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: at(T.stat), duration: 0.28, ease: EASE.out }}
               >
-                <span className="nx-label block !text-[9px]">{eje.attacker === "YOU" ? "Declaras" : "Declara el rival"}</span>
+                <span className="nx-label block !text-[9px]">{eje.attacker === "YOU" ? tr("Declaras") : tr("Declara el rival")}</span>
                 <b className="block font-display text-[clamp(16px,2.4vw,24px)] font-extrabold uppercase leading-none tracking-[0.06em]" style={{ color: STAT_INFO[eje.declared].color }}>
-                  {eje.declaredLabel}
+                  {td(eje.declaredLabel)}
                 </b>
                 {eje.answered !== eje.declared && (
                   <span className="mt-0.5 block font-display text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">
-                    responde con <span style={{ color: STAT_INFO[eje.answered].color }}>{eje.answeredLabel}</span>
+                    {fill(tr("responde con {eje}", slots("eje")), { eje: <span style={{ color: STAT_INFO[eje.answered].color }}>{td(eje.answeredLabel)}</span> })}
                   </span>
                 )}
               </motion.div>
@@ -270,7 +276,7 @@ export function DuelMoment({
 
           {/* TÚ — igual que en la zona de duelo. */}
           <Bando
-            card={yourCard} side={turn.you} label="Tú" tono={TONO.tu}
+            card={yourCard} side={turn.you} label={tr("Tú")} tono={TONO.tu}
             win={youWin} lose={rivalWin} from={46} reduced={!!reduced} at={at} beats={T}
             espejo
           />
@@ -287,14 +293,14 @@ export function DuelMoment({
             className="font-display text-[clamp(26px,4.6vh,48px)] font-extrabold uppercase italic leading-none tracking-wide"
             style={{ color: tono, textShadow: `0 0 34px ${tono}88, 0 3px 0 rgba(0,0,0,0.6)` }}
           >
-            {exp.headline}
+            {td(exp.headline)}
           </p>
           {/* FASE 33 · la frase explica; la línea de datos debajo, en pequeño (sin decir dos veces lo mismo). */}
-          <p className="mx-auto mt-1.5 max-w-[46ch] text-[13px] text-white/85" data-reason={exp.reason}>{exp.text}</p>
+          <p className="mx-auto mt-1.5 max-w-[46ch] text-[13px] text-white/85" data-reason={exp.reason}>{td(exp.text)}</p>
           <p className="mt-1 font-display text-[10px] uppercase tracking-[0.16em] text-white/40" data-round={v.kind}>
-            {v.detail}
+            {td(v.detail)}
           </p>
-          {v.note && exp.reason !== "STAT_DRAW" && <p className="mt-0.5 text-xs text-white/45">{v.note}</p>}
+          {v.note && exp.reason !== "STAT_DRAW" && <p className="mt-0.5 text-xs text-white/45">{td(v.note)}</p>}
           <p className="nx-readout mt-2 text-[clamp(22px,3.2vh,32px)] tabular-nums" data-testid="moment-score">
             <span style={{ color: TONO.tu, textShadow: `0 0 16px ${TONO.tu}88` }}>{turn.scoreAfterYou}</span>
             <span className="text-white/25"> – </span>
@@ -307,7 +313,7 @@ export function DuelMoment({
           onClick={onClose}
           className="nx-clip-sm mx-auto mt-4 block border border-white/20 bg-black/50 px-6 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/75 transition hover:border-white/50 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2fe0ff]"
         >
-          Continuar
+          {tr("Continuar")}
         </button>
       </div>
     </motion.div>
@@ -345,6 +351,7 @@ function Bando({
    */
   flip?: boolean;
 }) {
+  useLocale();
   const info = STAT_INFO[side.stat];
   return (
     <motion.div
@@ -420,7 +427,7 @@ function Bando({
       </motion.div>
 
       <div className={cn("min-w-0 md:text-center", espejo && "text-right")}>
-        <span className="nx-label block" style={{ color: `${tono}bb` }}>{label}</span>
+        <span className="nx-label block" style={{ color: `${tono}bb` }}>{td(label)}</span>
         <motion.span
           className="block font-display text-[10px] font-extrabold uppercase tracking-[0.2em]"
           style={{ color: info.color }}
@@ -428,7 +435,7 @@ function Bando({
           animate={{ opacity: 1 }}
           transition={{ delay: at(beats.stat), duration: 0.22 }}
         >
-          {info.label}
+          {td(info.label)}
         </motion.span>
         <motion.div
           initial={reduced ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.8 }}
@@ -460,7 +467,7 @@ function Bando({
                 className="shrink-0 rounded-[3px] px-2 py-0.5 font-display text-[11px] font-bold uppercase tracking-normal"
                 style={{ color: tono, boxShadow: `inset 0 0 0 1.5px ${tono}88`, background: "rgba(6,8,14,0.92)" }}
               >
-                Gana
+                {tr("Gana")}
               </motion.span>
             )}
           </div>

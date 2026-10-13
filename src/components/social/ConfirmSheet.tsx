@@ -6,6 +6,10 @@
  */
 import { useEffect, useRef } from "react";
 import { NxButton } from "@/components/ui/NxButton";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("social");
 
 export interface ConfirmSheetProps {
   open: boolean;
@@ -18,6 +22,7 @@ export interface ConfirmSheetProps {
 }
 
 export function ConfirmSheet({ open, title, body, confirmLabel, busy, onConfirm, onClose }: ConfirmSheetProps) {
+  useLocale();
   const closeRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!open) return;
@@ -38,13 +43,13 @@ export function ConfirmSheet({ open, title, body, confirmLabel, busy, onConfirm,
       >
         <span aria-hidden className="mx-auto mb-3 block h-1 w-10 rounded-full bg-white/20 sm:hidden" />
         <div className="flex items-start justify-between gap-3">
-          <h2 id="confirm-sheet-title" className="font-display text-h2 font-bold uppercase tracking-wide text-white">{title}</h2>
-          <button ref={closeRef} type="button" onClick={onClose} aria-label="Cerrar" className="nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-white/70 transition hover:bg-white/10 hover:text-white">✕</button>
+          <h2 id="confirm-sheet-title" className="font-display text-h2 font-bold uppercase tracking-wide text-white">{td(title)}</h2>
+          <button ref={closeRef} type="button" onClick={onClose} aria-label={t("Cerrar")} className="nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-white/70 transition hover:bg-white/10 hover:text-white">✕</button>
         </div>
-        <p className="mt-3 text-body text-ink-secondary">{body}</p>
+        <p className="mt-3 text-body text-ink-secondary">{td(body)}</p>
         <div className="mt-5 flex flex-wrap gap-2">
-          <NxButton variant="danger" onClick={onConfirm} disabled={busy} data-testid="confirm-yes">{confirmLabel}</NxButton>
-          <NxButton variant="ghost" onClick={onClose} disabled={busy}>Cancelar</NxButton>
+          <NxButton variant="danger" onClick={onConfirm} disabled={busy} data-testid="confirm-yes">{td(confirmLabel)}</NxButton>
+          <NxButton variant="ghost" onClick={onClose} disabled={busy}>{t("Cancelar")}</NxButton>
         </div>
       </section>
     </div>

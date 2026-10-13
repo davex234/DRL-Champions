@@ -23,6 +23,11 @@ import { Badge } from "@/components/ui/Badge";
 import { Stage, Plate } from "@/components/ui/Surface";
 import { DuelCard } from "../DuelCard";
 import { fmtEdited } from "./bits";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("duel");
 
 export interface TeamHubProps {
   decks: DuelDeckDTO[];
@@ -47,9 +52,10 @@ const RULES = `${DUEL_DECK_SIZE} cartas · ${DUEL_ROLES.map((r) => roleCount(DUE
 
 const top3 = (d: DuelDeckDTO) => [...d.cards].sort((a, b) => b.ovr - a.ovr || a.nick.localeCompare(b.nick)).slice(0, 3);
 const avgOvr = (d: DuelDeckDTO) => (d.cards.length ? Math.round((d.cards.reduce((s, c) => s + c.ovr, 0) / d.cards.length) * 10) / 10 : null);
-const statusLabel = (d: DuelDeckDTO) => (d.valid ? "Listo para duelo" : d.status === "INCOMPLETE" || d.status === "EMPTY" ? "Incompleto" : "Revisar");
+const statusLabel = (d: DuelDeckDTO) => (d.valid ? t("Listo para duelo") : d.status === "INCOMPLETE" || d.status === "EMPTY" ? t("Incompleto") : t("Revisar"));
 
 export function TeamHub(p: TeamHubProps) {
+  useLocale();
   const active = p.decks.find((d) => d.id === p.activeDeckId) ?? null;
   const others = p.decks.filter((d) => d.id !== active?.id);
   const ready = p.decks.filter((d) => d.valid).length;
@@ -59,26 +65,26 @@ export function TeamHub(p: TeamHubProps) {
     <div className="mx-auto max-w-6xl" data-scene="team-hub">
       <header className="mb-5">
         <Link href="/duelos" className="nx-focus -ml-2 inline-flex min-h-[44px] items-center rounded-control px-2 font-display text-label uppercase tracking-wide2 text-ink-muted transition hover:bg-white/[0.06] hover:text-white">
-          ‹ Duelos
+          {t("‹ Duelos")}
         </Link>
         <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
           <div className="min-w-0">
-            <span className="nx-label">Nexus Team Builder</span>
-            <h1 className="font-display text-[clamp(28px,4.6vw,44px)] font-bold uppercase leading-none text-white">Mis equipos</h1>
-            <p className="mt-1.5 text-body text-ink-muted">{RULES}</p>
+            <span className="nx-label">{t("Nexus Team Builder")}</span>
+            <h1 className="font-display text-[clamp(28px,4.6vw,44px)] font-bold uppercase leading-none text-white">{t("Mis equipos")}</h1>
+            <p className="mt-1.5 text-body text-ink-muted">{td(RULES)}</p>
           </div>
           {p.decks.length > 0 && (
             <div className="flex flex-wrap items-center gap-2.5">
               <Plate className="flex items-center gap-4 px-4 py-2.5">
-                <span className="text-caption text-ink-muted">Equipos <b className="nx-readout text-[18px] text-white">{p.decks.length}</b>/{p.maxDecks}</span>
-                <span className="text-caption text-ink-muted">Listos <b className="nx-readout text-[18px] text-ok">{ready}</b></span>
+                <span className="text-caption text-ink-muted">{t("Equipos")} <b className="nx-readout text-[18px] text-white">{p.decks.length}</b>/{p.maxDecks}</span>
+                <span className="text-caption text-ink-muted">{t("Listos")} <b className="nx-readout text-[18px] text-ok">{ready}</b></span>
               </Plate>
-              {p.onCompare && <NxButton variant="secondary" size="md" onClick={p.onCompare} data-testid="compare-decks">Comparar equipos</NxButton>}
-              <NxButton variant="secondary" size="md" onClick={p.onCreate} disabled={atMax}>+ Nuevo equipo</NxButton>
+              {p.onCompare && <NxButton variant="secondary" size="md" onClick={p.onCompare} data-testid="compare-decks">{t("Comparar equipos")}</NxButton>}
+              <NxButton variant="secondary" size="md" onClick={p.onCreate} disabled={atMax}>{t("+ Nuevo equipo")}</NxButton>
             </div>
           )}
         </div>
-        {atMax && <p className="mt-2 text-caption text-drl-gold">Has llegado al máximo de {p.maxDecks} equipos. Borra o reutiliza uno para crear otro.</p>}
+        {atMax && <p className="mt-2 text-caption text-drl-gold">{t("Has llegado al máximo de {n} equipos. Borra o reutiliza uno para crear otro.", { n: p.maxDecks })}</p>}
       </header>
 
       {p.decks.length === 0 ? (
@@ -92,17 +98,17 @@ export function TeamHub(p: TeamHubProps) {
               <span aria-hidden className="text-lg text-drl-gold">◎</span>
               <p className="min-w-0 flex-1 text-body text-ink-secondary">
                 {!p.activeSupported
-                  ? "Elegir equipo activo todavía no está disponible en este servidor. Mientras, al jugar se propone tu primer equipo listo."
+                  ? t("Elegir equipo activo todavía no está disponible en este servidor. Mientras, al jugar se propone tu primer equipo listo.")
                   : ready > 0
-                    ? "No tienes equipo activo. Activa uno listo y será el que propongan la pre-partida, el PvP y los retos."
-                    : "Aún no tienes equipo activo: cuando completes un equipo podrás activarlo."}
+                    ? t("No tienes equipo activo. Activa uno listo y será el que propongan la pre-partida, el PvP y los retos.")
+                    : t("Aún no tienes equipo activo: cuando completes un equipo podrás activarlo.")}
               </p>
             </Plate>
           )}
 
           <section aria-labelledby="teams-others">
             <h2 id="teams-others" className="mb-2 font-display text-h3 font-bold uppercase tracking-wide text-white">
-              {active ? "Otros equipos" : "Tus equipos"}
+              {active ? t("Otros equipos") : t("Tus equipos")}
             </h2>
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {others.map((d) => (
@@ -126,8 +132,8 @@ export function TeamHub(p: TeamHubProps) {
                   className="nx-focus nx-clip flex min-h-[180px] flex-col items-center justify-center gap-2 border-2 border-dashed border-white/15 bg-white/[0.015] p-4 text-center transition hover:border-drl-cyan/60 hover:bg-drl-cyan/[0.04]"
                 >
                   <span aria-hidden className="font-display text-4xl leading-none text-drl-cyan">+</span>
-                  <span className="font-display text-body font-bold uppercase tracking-wide text-white">Crear equipo</span>
-                  <span className="text-caption text-ink-faint">{p.decks.length}/{p.maxDecks} usados</span>
+                  <span className="font-display text-body font-bold uppercase tracking-wide text-white">{t("Crear equipo")}</span>
+                  <span className="text-caption text-ink-faint">{p.decks.length}/{p.maxDecks} {t("usados")}</span>
                 </button>
               )}
             </div>
@@ -139,29 +145,30 @@ export function TeamHub(p: TeamHubProps) {
 }
 
 function FirstTeam({ collectionCount, unopenedPacks, onCreate }: { collectionCount: number; unopenedPacks: number; onCreate: () => void }) {
+  useLocale();
   const enough = collectionCount >= DUEL_DECK_SIZE;
   const steps = [
-    { n: 1, title: "Consigue cartas", body: enough ? `Tienes ${collectionCount}: suficientes para un equipo.` : `Tienes ${collectionCount} de ${DUEL_DECK_SIZE}.`, done: enough },
-    { n: 2, title: "Crea tu equipo", body: "Diez huecos, agrupados por rol.", done: false },
-    { n: 3, title: "Completa los roles", body: DUEL_ROLES.map((r) => roleCount(DUEL_COMPOSITION[r], r)).join(" · "), done: false },
-    { n: 4, title: "Juega", body: "PvE, PvP o un reto a un amigo.", done: false },
+    { n: 1, title: t("Consigue cartas"), body: enough ? t("Tienes {collectionCount}: suficientes para un equipo.", { collectionCount }) : t("Tienes {collectionCount} de {DUEL_DECK_SIZE}.", { collectionCount, DUEL_DECK_SIZE }), done: enough },
+    { n: 2, title: t("Crea tu equipo"), body: t("Diez huecos, agrupados por rol."), done: false },
+    { n: 3, title: t("Completa los roles"), body: DUEL_ROLES.map((r) => roleCount(DUEL_COMPOSITION[r], r)).join(" · "), done: false },
+    { n: 4, title: t("Juega"), body: t("PvE, PvP o un reto a un amigo."), done: false },
   ];
   return (
     <Stage className="flex flex-col items-center gap-4 px-6 py-10 text-center" data-testid="first-team">
-      <p className="font-display text-h2 font-bold uppercase tracking-wide text-white">Todavía no tienes ningún equipo</p>
+      <p className="font-display text-h2 font-bold uppercase tracking-wide text-white">{t("Todavía no tienes ningún equipo")}</p>
       <ol className="grid w-full max-w-3xl gap-2 text-left sm:grid-cols-4">
         {steps.map((s) => (
           <li key={s.n} className={cn("nx-clip-sm border px-3 py-2.5", s.done ? "border-ok/40 bg-ok/[0.06]" : "border-white/10 bg-white/[0.03]")}>
             <span className={cn("font-display text-[12px] font-bold", s.done ? "text-ok" : "text-drl-cyan")}>{s.done ? "✓" : s.n}</span>
-            <p className="font-display text-[13px] font-bold uppercase text-white">{s.title}</p>
-            <p className="text-[11.5px] leading-snug text-ink-muted">{s.body}</p>
+            <p className="font-display text-[13px] font-bold uppercase text-white">{td(s.title)}</p>
+            <p className="text-[11.5px] leading-snug text-ink-muted">{td(s.body)}</p>
           </li>
         ))}
       </ol>
-      <NxButton variant="primary" size="lg" onClick={onCreate}>Crear mi primer equipo</NxButton>
+      <NxButton variant="primary" size="lg" onClick={onCreate}>{t("Crear mi primer equipo")}</NxButton>
       {!enough && (
         <Link href={unopenedPacks > 0 ? "/inventario" : "/tienda"} className="nx-action inline-flex min-h-[44px] items-center">
-          {unopenedPacks > 0 ? `Abrir mis ${unopenedPacks} ${unopenedPacks === 1 ? "sobre" : "sobres"} →` : "Conseguir un sobre →"}
+          {unopenedPacks > 0 ? t("Abrir mis {unopenedPacks} {v} →", { unopenedPacks, v: unopenedPacks === 1 ? t("sobre") : t("sobres") }) : t("Conseguir un sobre →")}
         </Link>
       )}
     </Stage>
@@ -169,8 +176,9 @@ function FirstTeam({ collectionCount, unopenedPacks, onCreate }: { collectionCou
 }
 
 function RolePips({ deck }: { deck: DuelDeckDTO }) {
+  useLocale();
   return (
-    <div className="flex flex-wrap gap-x-3 gap-y-1" aria-label="Composición por rol">
+    <div className="flex flex-wrap gap-x-3 gap-y-1" aria-label={t("Composición por rol")}>
       {DUEL_ROLES.map((r) => {
         const have = deck.roleCounts[r] ?? 0;
         const need = DUEL_COMPOSITION[r];
@@ -180,7 +188,7 @@ function RolePips({ deck }: { deck: DuelDeckDTO }) {
             {Array.from({ length: need }, (_, i) => (
               <i key={i} aria-hidden className={cn("h-1.5 w-3 rounded-full", i < have ? (have > need ? "bg-bad" : "bg-ok") : "bg-white/12")} />
             ))}
-            <span className="sr-only">{r} {have} de {need}</span>
+            <span className="sr-only">{t("{rol} {n} de {total}", { rol: td(r), n: have, total: need })}</span>
           </span>
         );
       })}
@@ -192,6 +200,7 @@ function ActiveSpotlight({ deck, now, busy, onEdit, onDuplicate, onRename, onDel
   deck: DuelDeckDTO; now: number; busy: boolean;
   onEdit: (d: DuelDeckDTO) => void; onDuplicate: (d: DuelDeckDTO) => void; onRename: (d: DuelDeckDTO) => void; onDelete: (d: DuelDeckDTO) => void;
 }) {
+  useLocale();
   const r = deckReadiness(deck);
   const avg = avgOvr(deck);
   return (
@@ -199,31 +208,34 @@ function ActiveSpotlight({ deck, now, busy, onEdit, onDuplicate, onRename, onDel
       <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="info" solid>Equipo activo</Badge>
+            <Badge tone="info" solid>{t("Equipo activo")}</Badge>
             <Badge tone={deck.valid ? "ok" : "warn"}>{statusLabel(deck)}</Badge>
           </div>
           <h2 className="mt-2 truncate font-display text-[clamp(24px,3.6vw,36px)] font-bold uppercase leading-none text-white">{deck.name}</h2>
           <p className="mt-1 text-caption text-ink-muted">
-            <span className="nx-readout text-ink-secondary">{deck.cardUids.length}</span>/{DUEL_DECK_SIZE} cartas · OVR medio <span className="nx-readout text-ink-secondary">{avg ?? "—"}</span> · {fmtEdited(deck.updatedAt, now)}
+            {fill(t("{n}/{total} cartas · OVR medio {ovr} · {editado}", { ...slots("n", "ovr"), total: DUEL_DECK_SIZE, editado: fmtEdited(deck.updatedAt, now) }), {
+              n: <span className="nx-readout text-ink-secondary">{deck.cardUids.length}</span>,
+              ovr: <span className="nx-readout text-ink-secondary">{avg ?? "—"}</span>,
+            })}
           </p>
-          {!deck.valid && <p className="mt-1 text-caption text-drl-gold">{r.summary}. Mientras no esté listo no se propondrá para jugar.</p>}
+          {!deck.valid && <p className="mt-1 text-caption text-drl-gold">{t("{resumen}. Mientras no esté listo no se propondrá para jugar.", { resumen: td(r.summary) })}</p>}
           <div className="mt-3"><RolePips deck={deck} /></div>
           <div className="mt-4 flex flex-wrap gap-2">
             {/* Fase 44 · JUGAR CON ESTE EQUIPO es la única acción dominante del hub (nuevo equipo y activar pasan a secundarias). */}
-            {deck.valid && <NxButton variant="primary" size="lg" href={`/duelos/jugar?deck=${deck.id}`} data-cta="primary" aria-label={`Jugar con ${deck.name}`}>Jugar</NxButton>}
-            <NxButton variant={deck.valid ? "secondary" : "primary"} size="md" onClick={() => onEdit(deck)} disabled={busy}>Editar equipo</NxButton>
-            <NxButton variant="ghost" size="md" onClick={() => onDuplicate(deck)} disabled={busy}>Duplicar</NxButton>
-            <NxButton variant="ghost" size="md" onClick={() => onRename(deck)} disabled={busy}>Renombrar</NxButton>
-            <NxButton variant="ghost" size="md" onClick={() => onDelete(deck)} disabled={busy} aria-label={`Eliminar ${deck.name}`}>Eliminar</NxButton>
+            {deck.valid && <NxButton variant="primary" size="lg" href={`/duelos/jugar?deck=${deck.id}`} data-cta="primary" aria-label={t("Jugar con {name}", { name: deck.name })}>{t("Jugar")}</NxButton>}
+            <NxButton variant={deck.valid ? "secondary" : "primary"} size="md" onClick={() => onEdit(deck)} disabled={busy}>{t("Editar equipo")}</NxButton>
+            <NxButton variant="ghost" size="md" onClick={() => onDuplicate(deck)} disabled={busy}>{t("Duplicar")}</NxButton>
+            <NxButton variant="ghost" size="md" onClick={() => onRename(deck)} disabled={busy}>{t("Renombrar")}</NxButton>
+            <NxButton variant="ghost" size="md" onClick={() => onDelete(deck)} disabled={busy} aria-label={t("Eliminar {name}", { name: deck.name })}>{t("Eliminar")}</NxButton>
           </div>
         </div>
-        <div className="flex justify-center gap-2 sm:gap-3" aria-label="Cartas destacadas">
+        <div className="flex justify-center gap-2 sm:gap-3" aria-label={t("Cartas destacadas")}>
           {top3(deck).map((c) => (
             <Card3D key={c.uid} mode="hover" tilt={8} glow={getVariant(c.variantId).palette.primary} className="w-[88px] sm:w-[116px]">
               <DuelCard card={c} size="md" className="!w-full" />
             </Card3D>
           ))}
-          {deck.cards.length === 0 && <span className="text-caption text-ink-faint">Sin cartas todavía</span>}
+          {deck.cards.length === 0 && <span className="text-caption text-ink-faint">{t("Sin cartas todavía")}</span>}
         </div>
       </div>
     </Stage>
@@ -235,6 +247,7 @@ function DeckTile({ deck, now, busy, canActivate, onEdit, onActivate, onDuplicat
   onEdit: (d: DuelDeckDTO) => void; onActivate: (d: DuelDeckDTO) => void; onDuplicate: (d: DuelDeckDTO) => void;
   onRename: (d: DuelDeckDTO) => void; onDelete: (d: DuelDeckDTO) => void;
 }) {
+  useLocale();
   const r = deckReadiness(deck);
   const lost = deck.errors.some((e) => e.code === "CARD_NOT_OWNED" || e.code === "CARD_NOT_FOUND");
   return (
@@ -247,7 +260,7 @@ function DeckTile({ deck, now, busy, canActivate, onEdit, onActivate, onDuplicat
         <div className="min-w-0">
           <h3 className="truncate font-display text-h3 font-bold uppercase tracking-wide text-white">{deck.name}</h3>
           <p className="text-caption text-ink-faint">
-            <span className="nx-readout text-ink-secondary">{deck.cardUids.length}</span>/{DUEL_DECK_SIZE} cartas · {fmtEdited(deck.updatedAt, now)}
+            {fill(t("{n}/{total} cartas · {editado}", { ...slots("n"), total: DUEL_DECK_SIZE, editado: fmtEdited(deck.updatedAt, now) }), { n: <span className="nx-readout text-ink-secondary">{deck.cardUids.length}</span> })}
           </p>
         </div>
         <span className="shrink-0"><Badge tone={deck.valid ? "ok" : "warn"}>{statusLabel(deck)}</Badge></span>
@@ -264,17 +277,17 @@ function DeckTile({ deck, now, busy, canActivate, onEdit, onActivate, onDuplicat
       <div className="mt-3"><RolePips deck={deck} /></div>
       {!deck.valid && (
         <p className={cn("mt-2 text-[12px]", lost ? "text-drl-gold" : "text-ink-secondary")}>
-          {lost ? "Una carta de este equipo ya no está disponible." : r.summary}
+          {lost ? t("Una carta de este equipo ya no está disponible.") : td(r.summary)}
         </p>
       )}
 
       <div className="mt-auto flex flex-wrap gap-1.5 pt-3">
-        <NxButton variant={deck.valid ? "secondary" : "primary"} size="sm" onClick={() => onEdit(deck)} disabled={busy}>Editar</NxButton>
-        {canActivate && <NxButton variant="secondary" size="sm" onClick={() => onActivate(deck)} disabled={busy} aria-busy={busy}>Activar</NxButton>}
-        {deck.valid && <NxButton variant="ghost" size="sm" href={`/duelos/jugar?deck=${deck.id}`}>Jugar</NxButton>}
-        <NxButton variant="ghost" size="sm" onClick={() => onDuplicate(deck)} disabled={busy}>Duplicar</NxButton>
-        <NxButton variant="ghost" size="sm" onClick={() => onRename(deck)} disabled={busy}>Renombrar</NxButton>
-        <NxButton variant="ghost" size="sm" onClick={() => onDelete(deck)} disabled={busy} aria-label={`Eliminar ${deck.name}`}>Eliminar</NxButton>
+        <NxButton variant={deck.valid ? "secondary" : "primary"} size="sm" onClick={() => onEdit(deck)} disabled={busy}>{t("Editar")}</NxButton>
+        {canActivate && <NxButton variant="secondary" size="sm" onClick={() => onActivate(deck)} disabled={busy} aria-busy={busy}>{t("Activar")}</NxButton>}
+        {deck.valid && <NxButton variant="ghost" size="sm" href={`/duelos/jugar?deck=${deck.id}`}>{t("Jugar")}</NxButton>}
+        <NxButton variant="ghost" size="sm" onClick={() => onDuplicate(deck)} disabled={busy}>{t("Duplicar")}</NxButton>
+        <NxButton variant="ghost" size="sm" onClick={() => onRename(deck)} disabled={busy}>{t("Renombrar")}</NxButton>
+        <NxButton variant="ghost" size="sm" onClick={() => onDelete(deck)} disabled={busy} aria-label={t("Eliminar {name}", { name: deck.name })}>{t("Eliminar")}</NxButton>
       </div>
     </article>
   );

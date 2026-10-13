@@ -13,6 +13,10 @@
 import { cn } from "@/lib/format";
 import type { CampaignChapterView, CampaignNodeView, CampaignSnapshot } from "@/domain/campaign/snapshot";
 import { STATUS_LABEL, chapterLayout, nodeAriaLabel, nodeCode } from "@/lib/campaign/presentation";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("campaign");
 
 export const CHAPTER_THEME: Record<string, { rgb: string; label: string }> = {
   clasificatorio: { rgb: "25,227,255", label: "Clasificatorio" },
@@ -77,6 +81,7 @@ function statusTone(n: CampaignNodeView): string {
 export function NodeButton({
   node, rgb, selected, onSelect, layout,
 }: { node: CampaignNodeView; rgb: string; selected: boolean; onSelect: (id: string) => void; layout: "stack" | "row" }) {
+  useLocale();
   const locked = node.status === "LOCKED";
   return (
     <button
@@ -98,19 +103,19 @@ export function NodeButton({
       <NodeGlyph node={node} rgb={rgb} size={glyphSize(node)} />
       <span className={cn("block min-w-0", layout === "row" && "flex-1", layout === "stack" && "rounded-[4px] bg-[#070a12]/85 px-1.5 py-0.5")}>
         <span className="block font-display text-[11px] font-bold uppercase tracking-[0.14em] text-white/45">
-          {nodeCode(node)} · {node.typeLabel}
+          {nodeCode(node)} · {td(node.typeLabel)}
         </span>
         <span className={cn("block font-display text-[14px] font-bold uppercase leading-tight", locked ? "text-white/60" : "text-white", layout === "stack" && "line-clamp-2")}>
           {node.name}
         </span>
         {layout === "row" && (
           <span className="block truncate text-caption text-ink-muted">
-            {node.opponent.playable ? `vs ${node.opponent.name}` : "Rival no disponible"} · {node.tierLabel}
+            {node.opponent.playable ? t("vs {name}", { name: node.opponent.name }) : t("Rival no disponible")} · {td(node.tierLabel)}
           </span>
         )}
         <span className={cn("mt-0.5 block text-[11px] font-bold uppercase tracking-[0.12em]", statusTone(node))}>
-          {STATUS_LABEL[node.status]}
-          {node.isNext && " · Siguiente"}
+          {td(STATUS_LABEL[node.status])}
+          {node.isNext && (" " + t("· Siguiente"))}
         </span>
       </span>
     </button>
@@ -118,6 +123,7 @@ export function NodeButton({
 }
 
 function ChapterBand({ chapter, selectedId, onSelect }: { chapter: CampaignChapterView; selectedId: string | null; onSelect: (id: string) => void }) {
+  useLocale();
   const theme = themeOf(chapter.theme);
   const pts = chapterLayout(chapter.nodes.length);
   const lit = (i: number) => chapter.nodes[i].status === "COMPLETED";
@@ -142,17 +148,17 @@ function ChapterBand({ chapter, selectedId, onSelect }: { chapter: CampaignChapt
 
       <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div className="min-w-0">
-          <p className="nx-label" style={{ color: chapter.unlocked ? `rgb(${theme.rgb})` : undefined }}>Capítulo {chapter.order}</p>
+          <p className="nx-label" style={{ color: chapter.unlocked ? `rgb(${theme.rgb})` : undefined }}>{t("Capítulo")} {chapter.order}</p>
           <h2 id={`chapter-${chapter.id}`} className="font-display text-[clamp(22px,3vw,32px)] font-bold uppercase leading-none text-white">
             {chapter.name}
           </h2>
-          <p className="mt-1 max-w-[62ch] text-caption text-ink-muted">{chapter.description}</p>
+          <p className="mt-1 max-w-[62ch] text-caption text-ink-muted">{td(chapter.description)}</p>
         </div>
         <p className="flex items-center gap-2 font-display text-[12px] font-bold uppercase tracking-[0.14em]" data-testid={`chapter-progress-${chapter.id}`}>
           <span className="nx-readout text-[18px] text-white">{chapter.completed}/{chapter.total}</span>
-          <span className="text-white/50">nodos</span>
+          <span className="text-white/50">{t("nodos")}</span>
           <span className={cn("rounded-[3px] border px-2 py-0.5", chapter.complete ? "border-[#3fc07a]/60 text-[#6fe0a0]" : chapter.unlocked ? "border-white/20 text-white/70" : "border-white/10 text-white/40")}>
-            {chapter.complete ? "Completado" : chapter.unlocked ? "En curso" : "Bloqueado"}
+            {chapter.complete ? t("Completado") : chapter.unlocked ? t("En curso") : t("Bloqueado")}
           </span>
         </p>
       </header>
@@ -180,7 +186,7 @@ function ChapterBand({ chapter, selectedId, onSelect }: { chapter: CampaignChapt
       </div>
 
       {/* ── Móvil: vertical, un nodo por fila ── */}
-      <ol className="relative mt-4 space-y-1.5 md:hidden" aria-label={`Nodos del capítulo ${chapter.order}`}>
+      <ol className="relative mt-4 space-y-1.5 md:hidden" aria-label={t("Nodos del capítulo {order}", { order: chapter.order })}>
         <span aria-hidden className="absolute bottom-6 left-[37px] top-6 w-px" style={{ background: `linear-gradient(180deg, rgba(${theme.rgb},0.6), rgba(255,255,255,0.08))` }} />
         {chapter.nodes.map((n) => (
           <li key={n.id} className="relative">

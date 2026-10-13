@@ -23,6 +23,8 @@
 import { RECESSED } from "@/design/tokens";
 import { cn } from "@/lib/format";
 import { TONE, type Tone } from "./tone";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export function Meter({
   value, tone = "key", height = 8, striped, label, className,
@@ -37,6 +39,7 @@ export function Meter({
   label?: string;
   className?: string;
 }) {
+  useLocale();
   const color = TONE[tone];
   const pct = Math.max(0, Math.min(100, Number.isFinite(value) ? value : 0));
   return (
@@ -44,7 +47,7 @@ export function Meter({
       className={cn("relative w-full overflow-hidden rounded-full", className)}
       style={{ height, background: "rgba(0,0,0,0.55)", boxShadow: RECESSED.sm }}
       role="progressbar"
-      aria-label={label}
+      aria-label={td(label)}
       aria-valuenow={Math.round(pct)}
       aria-valuemin={0}
       aria-valuemax={100}

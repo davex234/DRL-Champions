@@ -9,6 +9,9 @@
 import type { ManagerCareer } from "@/career";
 import type { WorldState, StaffRole } from "@/world";
 import type { NewGamePlusSeed, Reconversion, ReconversionRole } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("endgame");
 
 const ROLE_MAP: Record<StaffRole, ReconversionRole> = {
   coach: "coach", analista: "analyst", caster: "caster", scout: "scout", manager: "sporting_director", embajador: "ambassador",
@@ -21,7 +24,7 @@ export function newGamePlusSeed(career: ManagerCareer, world: WorldState): NewGa
   // Reconversiones recientes (los jugadores del mundo que cuelgan el ratón y se reinventan).
   const reconversions: Reconversion[] = world.history.retirements.slice(-8).map((r) => {
     const role = ROLE_MAP[r.staffRole] ?? "legend";
-    return { id: `ngp:${r.nick}:${r.season}`, nick: r.nick, from: "jugador", newRole: role, note: `Se reconvierte en ${ROLE_LABEL[role]} (T${r.season})` };
+    return { id: `ngp:${r.nick}:${r.season}`, nick: r.nick, from: "jugador", newRole: role, note: tr("Se reconvierte en {v} (T{season})", { v: td(ROLE_LABEL[role]), season: r.season }) };
   });
   const legendsCarried = Object.values(world.players).filter((p) => p.titles >= 4).length + Object.values(world.coaches).filter((c) => c.fromPlayer).length;
   const recordsCarried = Object.keys(world.history.records).length;
@@ -30,7 +33,7 @@ export function newGamePlusSeed(career: ManagerCareer, world: WorldState): NewGa
     legendsCarried,
     recordsCarried,
     reconversions,
-    worldMemoryNote: `El mundo recuerda a ${career.coach.name}: sus récords, su Hall of Fame y sus jugadores perduran. El circuito sigue girando.`,
+    worldMemoryNote: tr("El mundo recuerda a {name}: sus récords, su Hall of Fame y sus jugadores perduran. El circuito sigue girando.", { name: career.coach.name }),
   };
 }
 

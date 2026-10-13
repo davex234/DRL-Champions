@@ -10,6 +10,9 @@ import { DUEL_MODE_IDS, type DraftModeFacts, type DuelModeId, type GameModeCard,
 import { DRAFT_MATCH_HREF, DRAFT_ROUTE, GAUNTLET_STAGES } from "@/domain/draft/rules";
 import { editDeckHref, rankedPlayHref, type RankedGate, type StandingState } from "@/domain/pvpLadder/ranked";
 import type { RankChip } from "@/domain/ranked/config";
+import { ns, getIntlLocale } from "@/i18n/runtime";
+
+const t = ns("duels");
 
 /** Estados en reposo: el botón corto del modo. En cualquier otro manda el de `gameModes()` (retomar, sesión…). */
 const RESTING: ReadonlySet<ModeStatus> = new Set(["DISPONIBLE", "PROVISIONAL"]);
@@ -43,28 +46,28 @@ export interface RankedInline {
 }
 
 export function rankedHeadline(r: RankedInline): { big: string; label: string } {
-  if (r.state === "UNRANKED") return { big: "Sin clasificar", label: `Rating ${r.rating}` };
-  if (r.state === "PLACEMENT") return { big: `Colocación ${r.placementPlayed}/${r.placementTotal}`, label: `Rating ${r.rating}` };
+  if (r.state === "UNRANKED") return { big: t("Sin clasificar"), label: t("Rating {rating}", { rating: r.rating }) };
+  if (r.state === "PLACEMENT") return { big: t("Colocación {placementPlayed}/{placementTotal}", { placementPlayed: r.placementPlayed, placementTotal: r.placementTotal }), label: t("Rating {rating}", { rating: r.rating }) };
   // F84 · clasificado = el RANGO (Titular II…); el puesto del Top, si lo hay, acompaña al rating.
-  if (r.rank) return { big: r.rank.label, label: `Rating ${r.rating}${r.position !== null ? ` · Top #${r.position}` : ""}` };
-  return { big: r.position !== null ? `#${r.position}` : "Clasificado", label: `Rating ${r.rating}` };
+  if (r.rank) return { big: r.rank.label, label: t("Rating {rating}{v}", { rating: r.rating, v: r.position !== null ? ` · Top #${r.position}` : "" }) };
+  return { big: r.position !== null ? `#${r.position}` : t("Clasificado"), label: t("Rating {rating}", { rating: r.rating }) };
 }
 
 /** Botón del competitivo: sin pasar por `/competitivo`. La puerta (equipo legal, partida abierta) es la de F55. */
 export function rankedCta(card: GameModeCard, gate: RankedGate | null | "error"): SelectorCta {
   if (!RESTING.has(card.status)) return { kind: "link", label: card.cta.label, href: card.cta.href };
-  if (gate === "error") return { kind: "link", label: "Ver competitivo", href: "/competitivo" };
-  if (!gate) return { kind: "wait", label: "Preparando…" };
+  if (gate === "error") return { kind: "link", label: t("Ver competitivo"), href: "/competitivo" };
+  if (!gate) return { kind: "wait", label: t("Preparando…") };
   switch (gate.kind) {
-    case "READY": return { kind: "link", label: "Jugar", href: rankedPlayHref(gate.deck.id) };
-    case "RESUME": return { kind: "link", label: "Continuar partida", href: `/duelos/pvp?match=${gate.matchId}` };
-    case "NO_DECKS": return { kind: "link", label: "Crear equipo", href: editDeckHref(null) };
-    case "INVALID_DECK": return { kind: "link", label: "Completar equipo", href: editDeckHref(gate.deck.id) };
-    default: return { kind: "link", label: "Ver competitivo", href: "/competitivo" };
+    case "READY": return { kind: "link", label: t("Jugar"), href: rankedPlayHref(gate.deck.id) };
+    case "RESUME": return { kind: "link", label: t("Continuar partida"), href: `/duelos/pvp?match=${gate.matchId}` };
+    case "NO_DECKS": return { kind: "link", label: t("Crear equipo"), href: editDeckHref(null) };
+    case "INVALID_DECK": return { kind: "link", label: t("Completar equipo"), href: editDeckHref(gate.deck.id) };
+    default: return { kind: "link", label: t("Ver competitivo"), href: "/competitivo" };
   }
 }
 
-const fmt = (n: number) => new Intl.NumberFormat("es-ES", { useGrouping: "always" } as Intl.NumberFormatOptions).format(n);
+const fmt = (n: number) => new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" } as Intl.NumberFormatOptions).format(n);
 export const creditsLabel = fmt;
 
 /**
@@ -73,18 +76,18 @@ export const creditsLabel = fmt;
  */
 export function draftCta(card: GameModeCard, facts: DraftModeFacts | null | "loading" | undefined, fee: number, credits: number | null): SelectorCta {
   if (card.status === "INICIA SESIÓN" || card.status === "NO DISPONIBLE") return { kind: "link", label: card.cta.label, href: card.cta.href };
-  if (facts === "loading" || facts === undefined) return { kind: "wait", label: "Preparando…" };
+  if (facts === "loading" || facts === undefined) return { kind: "wait", label: t("Preparando…") };
   if (!facts || !facts.available) return { kind: "link", label: card.cta.label, href: card.cta.href };
   if (facts.status && !facts.entryPending) {
-    return { kind: "link", label: "Continuar", href: facts.status === "IN_MATCH" ? DRAFT_MATCH_HREF : DRAFT_ROUTE };
+    return { kind: "link", label: t("Continuar"), href: facts.status === "IN_MATCH" ? DRAFT_MATCH_HREF : DRAFT_ROUTE };
   }
   const short = credits !== null && credits < fee;
-  return { kind: "enter", label: `Entrar · ${fmt(fee)}`, fee, disabled: short, reason: short ? `Te faltan ${fmt(fee - credits!)} créditos` : null };
+  return { kind: "enter", label: t("Entrar · {fee}", { fee: fmt(fee) }), fee, disabled: short, reason: short ? t("Te faltan {v} créditos", { v: fmt(fee - credits!) }) : null };
 }
 
 /** Progreso real de una run activa, corto: «Draft 3/10» o «2/5 victorias». */
 export function draftProgress(facts: DraftModeFacts | null | "loading" | undefined): string | null {
   if (!facts || facts === "loading" || !facts.status || facts.entryPending) return null;
-  if (facts.status === "DRAFTING") return `Draft ${facts.pick}/10`;
-  return `${facts.wins ?? Math.max(0, facts.stage - 1)}/${GAUNTLET_STAGES} victorias`;
+  if (facts.status === "DRAFTING") return t("Draft {pick}/10", { pick: facts.pick });
+  return t("{wins}/{total} victorias", { wins: facts.wins ?? Math.max(0, facts.stage - 1), total: GAUNTLET_STAGES });
 }

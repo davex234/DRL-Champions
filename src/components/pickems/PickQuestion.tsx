@@ -37,6 +37,11 @@ import type { PickFeedback } from "@/lib/usePickem";
 import {
   stateOf, awardedPoints, isLockedNow, type MyAnswer, type PickState,
 } from "@/domain/pickems/progress";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("pickems");
 
 export type { PickState as EstadoPick };
 
@@ -111,6 +116,7 @@ export function PickQuestion({
    */
   onExpire?: () => void;
 }) {
+  useLocale();
   const estado = stateOf(q, mine, now);
   const info = ESTADO[estado];
   const locked = isLockedNow(q, now);
@@ -137,7 +143,7 @@ export function PickQuestion({
       {/* ── Cabecera: qué es, qué vale y en qué estado está ── */}
       <div className="mb-2.5 flex flex-wrap items-start justify-between gap-x-3 gap-y-1.5">
         <div className="min-w-0 flex-1">
-          <span className="nx-label">{KIND_LABEL[q.kind] ?? q.kind}</span>
+          <span className="nx-label">{td(KIND_LABEL[q.kind]) ?? td(q.kind)}</span>
           <p
             className={cn(
               "font-display font-bold uppercase leading-tight tracking-[0.03em]",
@@ -145,7 +151,7 @@ export function PickQuestion({
               locked && !corregida ? "text-ink-secondary" : "text-white",
             )}
           >
-            {q.prompt}
+            {td(q.prompt)}
           </p>
         </div>
         <span className="flex shrink-0 items-center gap-2">
@@ -154,14 +160,14 @@ export function PickQuestion({
             <Readout
               size="xs"
               value={estado === "acertada" ? `+${awarded ?? q.points}` : estado === "fallada" ? "+0" : "—"}
-              unit="pts"
+              unit={t("pts")}
               tone={estado === "acertada" ? "var(--nx-ok)" : undefined}
-              aria-label={estado === "acertada" ? `Sumaste ${awarded ?? q.points} puntos` : "Cero puntos"}
+              aria-label={estado === "acertada" ? t("Sumaste {v} puntos", { v: awarded ?? q.points }) : t("Cero puntos")}
             />
           ) : (
-            <Readout size="xs" value={`+${q.points}`} unit="pts" tone="var(--nx-gold)" aria-label={`Vale ${q.points} puntos`} />
+            <Readout size="xs" value={`+${q.points}`} unit={t("pts")} tone="var(--nx-gold)" aria-label={t("Vale {points} puntos", { points: q.points })} />
           )}
-          <Badge tone={info.tone} solid={info.solid} dot={!info.solid}>{info.label}</Badge>
+          <Badge tone={info.tone} solid={info.solid} dot={!info.solid}>{tdIn("pickems", info.label)}</Badge>
         </span>
       </div>
 
@@ -170,7 +176,7 @@ export function PickQuestion({
         <div className="mx-auto flex max-w-[680px] items-stretch gap-2 sm:gap-3">
           <Opcion q={q} o={q.options[0]} mine={mine} corregida={corregida} canPick={canPick} saving={saving} feedback={feedback} onPick={onPick} duelo withLogo={withLogo} />
           <span className="flex shrink-0 items-center">
-            <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-ink-faint">vs</span>
+            <span className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-ink-faint">{t("vs")}</span>
           </span>
           <Opcion q={q} o={q.options[1]} mine={mine} corregida={corregida} canPick={canPick} saving={saving} feedback={feedback} onPick={onPick} duelo withLogo={withLogo} />
         </div>
@@ -181,7 +187,7 @@ export function PickQuestion({
             featured ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" : "grid-cols-2 lg:grid-cols-4",
           )}
           role="group"
-          aria-label={q.prompt}
+          aria-label={td(q.prompt)}
         >
           {q.options.map((o) => (
             <Opcion key={o.key} q={q} o={o} mine={mine} corregida={corregida} canPick={canPick} saving={saving} feedback={feedback} onPick={onPick} withLogo={withLogo} featured={featured} />
@@ -197,30 +203,30 @@ export function PickQuestion({
             feedback.kind === "error" && "!text-bad",
             feedback.kind === "locked" && "!text-warn")}>
             <StatusDot tone={feedback.kind === "saved" ? "ok" : feedback.kind === "saving" ? "info" : feedback.kind === "locked" ? "warn" : "bad"} pulse={feedback.kind === "saving"} size={5} />
-            {feedback.message}
+            {td(feedback.message)}
           </span>
         ) : corregida ? (
           <span className="nx-label">
             {estado === "acertada" ? (
               <>
-                <b className="text-ok">Acertada · +{awarded ?? q.points} {(awarded ?? q.points) === 1 ? "punto" : "puntos"}</b>
-                {awarded === null && <span className="text-ink-faint"> · pendiente de sumar</span>}
+                <b className="text-ok">{t("Acertada · +{n, plural, one {# punto} other {# puntos}}", { n: awarded ?? q.points })}</b>
+                {awarded === null && <span className="text-ink-faint"> {t("· pendiente de sumar")}</span>}
               </>
             ) : estado === "fallada" ? (
               <>
-                <b className="text-bad">Fallada · +0</b>
-                {" · Resultado: "}
+                <b className="text-bad">{t("Fallada · +0")}</b>
+                {" " + t("· Resultado:") + " "}
                 <b className="text-white">{labelOf(q, q.correct_option)}</b>
               </>
             ) : (
-              <>No participaste · Resultado: <b className="text-white">{labelOf(q, q.correct_option)}</b></>
+              <>{t("No participaste · Resultado:")} <b className="text-white">{labelOf(q, q.correct_option)}</b></>
             )}
           </span>
         ) : locked ? (
           <span className="nx-label">
             {mine
-              ? <>Bloqueada · <b className="text-white">{labelOf(q, mine.option)}</b> · pendiente del resultado</>
-              : <b className="text-warn">Sin predicción · Cerrada</b>}
+              ? fill(t("Bloqueada · {opcion} · pendiente del resultado", slots("opcion")), { opcion: <b className="text-white">{labelOf(q, mine.option)}</b> })
+              : <b className="text-warn">{t("Sin predicción · Cerrada")}</b>}
           </span>
         ) : (
           <>
@@ -228,10 +234,10 @@ export function PickQuestion({
               <StatusDot tone={mine ? "ok" : "info"} size={5} />
               <span className="nx-label">
                 {readOnly
-                  ? (mine ? <>Tu elección: <b className="text-white">{labelOf(q, mine.option)}</b></> : "Sin predicción")
+                  ? (mine ? <>{t("Tu elección:")} <b className="text-white">{labelOf(q, mine.option)}</b></> : t("Sin predicción"))
                   : mine
-                    ? <>Elegido: <b className="text-white">{labelOf(q, mine.option)}</b> · puedes cambiarlo hasta el cierre</>
-                    : "Elige una opción"}
+                    ? fill(t("Elegido: {opcion} · puedes cambiarlo hasta el cierre", slots("opcion")), { opcion: <b className="text-white">{labelOf(q, mine.option)}</b> })
+                    : t("Elige una opción")}
               </span>
             </span>
             <Countdown to={q.locks_at} onExpire={onExpire} className="nx-label ml-auto" />
@@ -264,6 +270,7 @@ function Opcion({
   withLogo: boolean;
   featured?: boolean;
 }) {
+  useLocale();
   const elegida = mine?.option === o.key;
   const correcta = corregida && q.correct_option === o.key;
   const falladaMia = corregida && elegida && !correcta;
@@ -283,7 +290,7 @@ function Opcion({
       type="button"
       disabled={!canPick}
       aria-pressed={elegida}
-      aria-label={`${o.label}${elegida ? " · tu elección" : ""}${correcta ? " · resultado" : ""}`}
+      aria-label={`${o.label}${elegida ? (" " + t("· tu elección")) : ""}${correcta ? (" " + t("· resultado")) : ""}`}
       onClick={() => onPick(o.key)}
       className={cn(
         "nx-clip-sm group relative flex min-w-0 flex-1 items-center gap-2 px-3 py-2 transition duration-fast motion-reduce:transition-none",
@@ -319,7 +326,7 @@ function Opcion({
             marcada ? "text-white" : !canPick ? "text-ink-faint" : "text-ink-secondary",
           )}
         >
-          {o.label}
+          {td(o.label)}
         </b>
         {/*
           La ETIQUETA de lo que es esta opción. Es la que hace que el estado no dependa del
@@ -327,7 +334,7 @@ function Opcion({
         */}
         {(elegida || correcta) && (
           <span className="nx-label mt-0.5 block truncate" style={{ color: tono }}>
-            {correcta && elegida ? "Tu elección · resultado" : correcta ? "Resultado" : "Tu elección"}
+            {correcta && elegida ? t("Tu elección · resultado") : correcta ? t("Resultado") : t("Tu elección")}
           </span>
         )}
       </span>

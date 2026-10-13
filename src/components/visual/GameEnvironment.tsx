@@ -21,6 +21,7 @@ import {
   ENVIRONMENTS, ENV_DIM_EVENT, ENV_FOCUS_EVENT, FOCUS_TINT, particleBudget,
   type Architecture, type EnvironmentFocus, type EnvironmentVariant,
 } from "@/design/environment";
+import { td } from "@/i18n/runtime";
 
 const c = (t: [number, number, number], a: number) => `rgba(${t[0]},${t[1]},${t[2]},${a})`;
 
@@ -177,7 +178,7 @@ function ArchitectureLayer({ kind, p, s }: { kind: Architecture; p: [number, num
         <defs><pattern id="tgrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" stroke={pl(0.07)} /></pattern></defs>
         <rect width="1600" height="1000" fill="url(#tgrid)" />
         {[[1250, 260], [300, 760], [1360, 780]].map(([x, y]) => <g key={x}><circle cx={x} cy={y} r="70" stroke={sl(0.2)} /><circle cx={x} cy={y} r="4" fill={sl(0.4)} /><line x1={x - 100} y1={y} x2={x + 100} y2={y} stroke={sl(0.14)} /><line x1={x} y1={y - 100} x2={x} y2={y + 100} stroke={sl(0.14)} /></g>)}
-        {["DUE", "CON", "INI", "CEN", "FLX"].map((r, i) => <g key={r}><polygon points={hex(1510, 240 + i * 120, 34)} stroke={pl(0.25)} /><text x="1510" y={245 + i * 120} textAnchor="middle" fontSize="15" fontFamily="Rajdhani, sans-serif" fontWeight="700" fill={pl(0.32)}>{r}</text></g>)}
+        {["DUE", "CON", "INI", "CEN", "FLX"].map((r, i) => <g key={r}><polygon points={hex(1510, 240 + i * 120, 34)} stroke={pl(0.25)} /><text x="1510" y={245 + i * 120} textAnchor="middle" fontSize="15" fontFamily="Rajdhani, sans-serif" fontWeight="700" fill={pl(0.32)}>{td(r)}</text></g>)}
         <path d="M120 180 L520 180 L560 220 L560 420" stroke={pl(0.16)} />
       </g>
     );

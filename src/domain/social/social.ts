@@ -8,6 +8,9 @@
  * Sin React, sin red, sin reloj implícito.
  */
 import { outcomeFor, sideOf, letterOf, type MatchFacts } from "@/domain/pvpLadder/ladder";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("social");
 
 /* ───────────────────────────── amistad ───────────────────────────── */
 
@@ -282,9 +285,9 @@ export type ActivityKind = "FRIENDS_NOW" | "PRIVATE_DUEL" | "RANKED_DUEL";
 export interface ActivityItem { id: string; kind: ActivityKind; who: string; at: number; letter?: "W" | "L" | "D" | null }
 
 export const ACTIVITY_LABEL: Record<ActivityKind, (who: string, letter?: "W" | "L" | "D" | null) => string> = {
-  FRIENDS_NOW: (who) => `Ahora sois amigos: ${who}`,
-  PRIVATE_DUEL: (who, l) => `Duelo privado contra ${who}${l === "W" ? " · victoria" : l === "L" ? " · derrota" : l === "D" ? " · empate" : ""}`,
-  RANKED_DUEL: (who, l) => `Ranked contra ${who}${l === "W" ? " · victoria" : l === "L" ? " · derrota" : l === "D" ? " · empate" : ""}`,
+  FRIENDS_NOW: (who) => t("Ahora sois amigos: {who}", { who: td(who) }),
+  PRIVATE_DUEL: (who, l) => t("Duelo privado contra {who}{v}", { who: td(who), v: l === "W" ? (" " + t("· victoria")) : l === "L" ? (" " + t("· derrota")) : l === "D" ? (" " + t("· empate")) : "" }),
+  RANKED_DUEL: (who, l) => t("Ranked contra {who}{v}", { who, v: l === "W" ? (" " + t("· victoria")) : l === "L" ? (" " + t("· derrota")) : l === "D" ? (" " + t("· empate")) : "" }),
 };
 
 export function activityOf(input: {

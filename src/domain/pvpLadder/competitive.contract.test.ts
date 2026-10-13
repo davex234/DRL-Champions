@@ -108,7 +108,7 @@ test("32+33 · posición actual siempre; cambio de puestos SOLO con foto antes y
   assert.ok(PVP_PAGE.includes("void beginLadder();") && PVP_PAGE.includes("void endLadder();"));
   assert.ok(PVP_PAGE.includes("if (!terminal || !matchId || !outcome.event || liquidada.current === matchId) return;"), "la foto «después» espera al asiento");
   assert.ok(CLIENT.includes("positions: positionDelta(before.current?.position ?? null, after.position)"));
-  assert.ok(PVP_OUTCOME.includes('{ladder.after.position != null ? `#${ladder.after.position}` : "Sin clasificar"}'));
+  assert.ok(PVP_OUTCOME.includes('{ladder.after.position != null ? `#${ladder.after.position}` : tr("Sin clasificar")}'));
   assert.ok(!/#0\b/.test(code(PVP_OUTCOME) + code(HERO) + code(BOARD)), "nunca #0");
 });
 
@@ -160,7 +160,7 @@ test("historial: ambos bandos, solo terminadas, más reciente primero, cursor po
 
 test("abandono/tiempo se nombran; en curso no es derrota", () => {
   assert.ok(HISTORY.includes("OUTCOME_LABEL[m.outcome]"));
-  assert.ok(DETAIL.includes('detail.lifecycle === "ABANDONED" ? "Abandono" : "Tiempo agotado"'));
+  assert.ok(DETAIL.includes('detail.lifecycle === "ABANDONED" ? t("Abandono") : t("Tiempo agotado")'));
 });
 
 test("perfil de rival: cara a cara solo entre los dos y desde mi perspectiva", () => {

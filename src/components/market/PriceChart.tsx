@@ -4,12 +4,17 @@ import { useEffect, useMemo, useState } from "react";
 import { fetchCardPriceDaily } from "@/lib/supabase/market";
 import type { CardPriceDaily } from "@/lib/supabase/types";
 import { formatCredits } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("market");
 
 /**
  * Gráfica de evolución de precio (cierre diario) en SVG puro, sin dependencias.
  * Incluye relleno de área, línea, guía/tooltip al pasar el ratón y ejes mín/máx.
  */
 export function PriceChart({ cardId, days = 60, height = 140 }: { cardId: string; days?: number; height?: number }) {
+  useLocale();
   const [data, setData] = useState<CardPriceDaily[]>([]);
   const [loading, setLoading] = useState(true);
   const [hover, setHover] = useState<number | null>(null);
@@ -47,7 +52,7 @@ export function PriceChart({ cardId, days = 60, height = 140 }: { cardId: string
   if (!geo) {
     return (
       <div style={{ height }} className="grid place-items-center rounded-lg border border-white/10 bg-base-700/30 text-xs text-white/40">
-        Sin historial de ventas suficiente para la gráfica.
+        {t("Sin historial de ventas suficiente para la gráfica.")}
       </div>
     );
   }
@@ -89,15 +94,15 @@ export function PriceChart({ cardId, days = 60, height = 140 }: { cardId: string
         <span>
           {hi ? (
             <>
-              {hi.day} · <span className="font-semibold text-white">🪙 {formatCredits(hi.close)}</span>
-              <span className="ml-1 text-white/40">({hi.trades} ventas)</span>
+              {td(hi.day)} · <span className="font-semibold text-white">🪙 {formatCredits(hi.close)}</span>
+              <span className="ml-1 text-white/40">{t("({n} ventas)", { n: hi.trades })}</span>
             </>
           ) : (
-            <>Evolución ({data.length} días)</>
+            t("Evolución ({n} días)", { n: data.length })
           )}
         </span>
         <span className="text-white/40">
-          mín 🪙 {formatCredits(geo.min)} · máx 🪙 {formatCredits(geo.max)}
+          {t("mín 🪙 {min} · máx 🪙 {max}", { min: formatCredits(geo.min), max: formatCredits(geo.max) })}
         </span>
       </div>
     </div>

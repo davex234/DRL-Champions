@@ -7,6 +7,9 @@
  * Mismo patrón que `detectTacticalEvents`/`detectAbilityEvents`. NO modifica ningún motor. PURO.
  */
 import type { RoundState, Side } from "@/sim";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("coach");
 
 export type CoachEventType =
   | "great_timeout" | "wrong_timeout" | "momentum_shift" | "coach_read"
@@ -72,13 +75,13 @@ export function detectCoachEvents(rounds: RoundState[]): CoachEvent[] {
       const recovery = calls.some((c) => RECOVERY.has(c.id));
 
       if (won && effective > 0) {
-        if (recovery) push("great_timeout", us, 55 + effective * 8, `${effective} llamada(s) salvaron la ronda`);
+        if (recovery) push("great_timeout", us, 55 + effective * 8, tr("{effective} llamada(s) salvaron la ronda", { effective }));
         else push("brilliant_call", us, 55 + effective * 8);
       }
-      if (won && effective >= 2) push("tactical_genius", us, 80, `${effective} ajustes en una ronda`);
-      if (won && aggressive && killsOf(round, us) <= killsOf(round, them)) push("risky_call", us, 65, "apuesta agresiva que salió");
-      if (!won && aggressive) push("risky_call", us, 40, "apuesta agresiva fallida");
-      if (!won && recovery) push("wrong_timeout", us, 45, "la pausa no cambió la ronda");
+      if (won && effective >= 2) push("tactical_genius", us, 80, tr("{effective} ajustes en una ronda", { effective }));
+      if (won && aggressive && killsOf(round, us) <= killsOf(round, them)) push("risky_call", us, 65, tr("apuesta agresiva que salió"));
+      if (!won && aggressive) push("risky_call", us, 40, tr("apuesta agresiva fallida"));
+      if (!won && recovery) push("wrong_timeout", us, 45, tr("la pausa no cambió la ronda"));
     }
 
     // — Lectura / adaptación táctica del lado entrenado —
@@ -102,8 +105,8 @@ export function detectCoachEvents(rounds: RoundState[]): CoachEvent[] {
     // — Giro de momentum / plan de remontada (nivel partido) —
     if (idx >= 1) {
       const prev = swing[idx - 1], cur = swing[idx];
-      if (prev <= -30 && cur >= 0) push("momentum_shift", us, 60, "el partido gira");
-      if (prev <= -50 && won && swing[idx - 1] < swing[idx]) push("comeback_plan", us, 70, "arranca la remontada");
+      if (prev <= -30 && cur >= 0) push("momentum_shift", us, 60, tr("el partido gira"));
+      if (prev <= -50 && won && swing[idx - 1] < swing[idx]) push("comeback_plan", us, 70, tr("arranca la remontada"));
     }
   });
 

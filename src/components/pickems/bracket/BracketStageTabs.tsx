@@ -5,6 +5,10 @@
  */
 import { cn } from "@/lib/format";
 import type { BracketStage } from "@/domain/pickems/bracket";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export function BracketStageTabs({
   stages, selected, onSelect, className,
@@ -14,9 +18,10 @@ export function BracketStageTabs({
   onSelect: (id: string | null) => void;
   className?: string;
 }) {
+  useLocale();
   if (stages.length < 2) return null;
   return (
-    <div role="group" aria-label="Fases del torneo" className={cn("flex flex-wrap gap-2", className)}>
+    <div role="group" aria-label={t("Fases del torneo")} className={cn("flex flex-wrap gap-2", className)}>
       {stages.map((s) => {
         const on = s.id === selected;
         return (
@@ -32,7 +37,7 @@ export function BracketStageTabs({
             style={{ boxShadow: on ? "inset 0 0 0 1.5px var(--nx-accent)" : "inset 0 0 0 1px rgba(255,255,255,0.12)" }}
           >
             {s.name}
-            <span className="nx-label ml-2">{s.bracket ? "cuadro" : "liga"}</span>
+            <span className="nx-label ml-2">{s.bracket ? t("cuadro") : t("liga")}</span>
           </button>
         );
       })}

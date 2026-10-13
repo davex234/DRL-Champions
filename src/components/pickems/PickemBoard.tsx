@@ -17,6 +17,10 @@ import { PickQuestion } from "./PickQuestion";
 import type { PickemQuestion } from "@/lib/game/client";
 import type { PickFeedback } from "@/lib/usePickem";
 import { groupQuestions, type AnswerMap } from "@/domain/pickems/progress";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export const PENDING_ANCHOR_ID = "pickems-pendientes";
 
@@ -35,6 +39,7 @@ export function PickemBoard({
   onPick: (q: PickemQuestion, option: string) => void;
   onExpire?: () => void;
 }) {
+  useLocale();
   const g = groupQuestions(questions, now);
   const pendientes = g.open.filter((q) => !answers[q.id]);
   const elegidas = g.open.filter((q) => !!answers[q.id]);
@@ -56,26 +61,26 @@ export function PickemBoard({
   );
 
   const bloques: { id?: string; titulo: string; lista: PickemQuestion[] }[] = [
-    { id: PENDING_ANCHOR_ID, titulo: "Pendientes", lista: pendientes },
-    { titulo: "Tus elecciones", lista: elegidas },
-    { titulo: "En juego", lista: g.inPlay },
-    ...(showResolved ? [{ titulo: "Corregidas", lista: g.resolved }] : []),
+    { id: PENDING_ANCHOR_ID, titulo: t("Pendientes"), lista: pendientes },
+    { titulo: t("Tus elecciones"), lista: elegidas },
+    { titulo: t("En juego"), lista: g.inPlay },
+    ...(showResolved ? [{ titulo: t("Corregidas"), lista: g.resolved }] : []),
   ];
 
   return (
     <div className="space-y-5">
       {g.featured.length > 0 && (
-        <section aria-label="Predicciones destacadas">
-          <SectionTitle as="h2">Predicción destacada</SectionTitle>
+        <section aria-label={t("Predicciones destacadas")}>
+          <SectionTitle as="h2">{t("Predicción destacada")}</SectionTitle>
           <div className="grid grid-cols-[minmax(0,1fr)] gap-3">{g.featured.map((q) => render(q, true))}</div>
         </section>
       )}
 
       {bloques.map(({ id, titulo, lista }) =>
         lista.length === 0 ? null : (
-          <section key={titulo} id={id} aria-label={titulo} className="scroll-mt-24">
+          <section key={titulo} id={id} aria-label={td(titulo)} className="scroll-mt-24">
             <SectionTitle as="h2">
-              {titulo} <span className="text-ink-faint">({lista.length})</span>
+              {td(titulo)} <span className="text-ink-faint">({lista.length})</span>
             </SectionTitle>
             {/* `minmax(0,1fr)`: la pista no puede crecer por un nombre largo sin salto; la pieza encoge y trunca. */}
             <div className="grid grid-cols-[minmax(0,1fr)] gap-2.5">{lista.map((q) => render(q))}</div>

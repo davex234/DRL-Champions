@@ -17,12 +17,13 @@ import {
 } from "@/domain/progression/meta";
 import type { AchievementView } from "@/server/services/progression";
 import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { getIntlLocale } from "@/i18n/runtime";
 
 const TONE: Record<AchievementStatus, "muted" | "info" | "gold" | "ok"> = {
   BLOQUEADO: "muted", EN_PROGRESO: "info", PENDIENTE_DE_RECOGER: "gold", CONSEGUIDO: "ok",
 };
 
-const fmtDate = (s: string) => new Date(s).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" });
+const fmtDate = (s: string) => new Date(s).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short", year: "numeric" });
 
 export function AchievementCard({ a }: { a: AchievementView }) {
   const status = achievementStatus(a);

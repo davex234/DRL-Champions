@@ -374,9 +374,9 @@ test("F61 SALIR 03 · modo partida enfocado: PvE y PvP sin armazón, y cada esta
   assert.ok(isImmersive("/duelos/jugar") && isImmersive("/duelos/pvp"));
   assert.ok(!isImmersive("/competitivo") && !isImmersive("/duelos"), "los centros siguen con su armazón");
   const page = read("src", "app", "duelos", "pvp", "page.tsx");
-  assert.ok(page.includes('<ExitLink href="/competitivo" label="Volver a Competitivo" />'), "antesala y error con salida");
+  assert.ok(page.includes('<ExitLink href="/competitivo" label={t("Volver a Competitivo")} />'), "antesala y error con salida");
   const arena = read("src", "components", "duel", "pvp", "PvpArena.tsx");
-  assert.ok(arena.includes('data-testid="pvp-leave">Salir</NxButton>'), "la partida con «Salir» → diálogo");
+  assert.ok(arena.includes('data-testid="pvp-leave">{t("Salir")}</NxButton>'), "la partida con «Salir» → diálogo");
   const outcome = read("src", "components", "duel", "pvp", "PvpOutcome.tsx");
   assert.ok(outcome.includes('data-testid="ranked-back"'), "el resultado con su vuelta");
 });

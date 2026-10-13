@@ -10,12 +10,13 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
 import { formatCredits } from "@/lib/format";
 import { SOURCE_LABEL, type RewardEntry, type RewardSource } from "@/domain/progression/meta";
+import { getIntlLocale } from "@/i18n/runtime";
 
 const TONE: Record<RewardSource, "key" | "gold" | "info" | "ok" | "warn" | "bad" | "muted"> = {
   duel: "key", achievement: "gold", mission: "info", pass: "info", pickem: "ok", event: "ok", starter: "muted", purchase: "muted", other: "muted",
 };
 
-const fmt = (s: string) => new Date(s).toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const fmt = (s: string) => new Date(s).toLocaleString(getIntlLocale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
 export function RewardHistory({ rewards, className, showLink = true }: { rewards: RewardEntry[]; className?: string; showLink?: boolean }) {
   return (

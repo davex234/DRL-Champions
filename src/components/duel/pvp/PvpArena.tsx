@@ -53,6 +53,11 @@ import { useLeaveGuard } from "@/lib/duel/useLeaveGuard";
 import { useRouter } from "next/navigation";
 import { planReveals, syncBanner, timeoutPresentation } from "@/lib/duel/experience";
 import type { DuelMatchView, DuelTurnView } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("duel");
 
 /** Una sola instancia por pestaña: el registro es un catálogo, no un estado. */
 const registry = new CardRegistry();
@@ -86,6 +91,7 @@ export interface PvpArenaProps {
 }
 
 export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError, mode = "PVP", rival = null, skipIntro = false }: PvpArenaProps) {
+  useLocale();
   const privada = mode === "PVP_PRIVATE";
   const router = useRouter();
   const [confirmando, setConfirmando] = useState(false);
@@ -117,7 +123,7 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
       registry,
       // En PvP no hay dificultad: el tablero usa `rivalLabel` y nunca pinta esta etiqueta.
       difficulty: "NORMAL",
-      rivalLabel: "Rival",
+      rivalLabel: t("Rival"),
     });
   }, [snap]);
 
@@ -188,7 +194,7 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
           <MatchIntro
             key="intro"
             view={view}
-            rivalName={rival?.username ?? "Rival"}
+            rivalName={rival?.username ?? t("Rival")}
             rivalAvatar={rival?.avatar ?? null}
             mode={privada ? "private" : "ranked"}
             from={skipIntro ? "LINEUP" : "FOUND"}
@@ -210,16 +216,16 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
       {/* ── Fase 29 · rótulo del duelo privado: quién hay enfrente y que aquí no hay rating en juego ── */}
       {privada && (
         <p className="nx-clip-sm flex flex-wrap items-center justify-between gap-2 border border-drl-cyan/35 bg-drl-cyan/[0.06] px-3 py-1.5 text-caption" data-testid="private-badge">
-          <span className="font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-cyan">Duelo privado · sin rating</span>
-          {rival && <span className="text-white/70"><span aria-hidden className="mr-1">{rival.avatar}</span>contra <b className="text-white">{rival.username}</b></span>}
+          <span className="font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-cyan">{t("Duelo privado · sin rating")}</span>
+          {rival && <span className="text-white/70"><span aria-hidden className="mr-1">{rival.avatar}</span>{fill(t("contra {nombre}", slots("nombre")), { nombre: <b className="text-white">{rival.username}</b> })}</span>}
         </p>
       )}
 
       {/* ── Fase 55 · rótulo ranked: contra quién (identidad pública del servidor) y que el rating está en juego ── */}
       {!privada && rival && (
         <p className="nx-clip-sm flex flex-wrap items-center justify-between gap-2 border border-drl/35 bg-drl/[0.06] px-3 py-1.5 text-caption" data-testid="ranked-badge">
-          <span className="font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-glow">Ranked · rating en juego</span>
-          <span className="text-white/70"><span aria-hidden className="mr-1">{rival.avatar}</span>contra <b className="text-white">{rival.username}</b> · jugador real</span>
+          <span className="font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-glow">{t("Ranked · rating en juego")}</span>
+          <span className="text-white/70"><span aria-hidden className="mr-1">{rival.avatar}</span>{fill(t("contra {nombre} · jugador real", slots("nombre")), { nombre: <b className="text-white">{rival.username}</b> })}</span>
         </p>
       )}
 
@@ -232,16 +238,16 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
             conexion.tone === "bad" ? "border-l-drl-red text-drl-red" : conexion.tone === "warn" ? "border-l-drl-gold text-drl-gold" : "border-l-drl-cyan text-drl-cyan"
           } bg-white/[0.03]`}
         >
-          {conexion.text}
+          {td(conexion.text)}
         </p>
       )}
 
       {/* ── Fase 33 · resincronización tras un conflicto de versión y turno vencido (plazo del servidor) ── */}
       {resync && (
-        <p role="status" data-resync="conflict" className="nx-clip-sm border-l-2 border-l-drl-gold bg-white/[0.03] px-3 py-1.5 text-caption text-drl-gold">{resync.text}</p>
+        <p role="status" data-resync="conflict" className="nx-clip-sm border-l-2 border-l-drl-gold bg-white/[0.03] px-3 py-1.5 text-caption text-drl-gold">{td(resync.text)}</p>
       )}
       {enJuego && tiempo.expired && tiempo.text && (
-        <p role="status" data-timeout={tuTurno ? "you" : "rival"} className="nx-clip-sm border-l-2 border-l-drl-red bg-white/[0.03] px-3 py-1.5 text-caption text-drl-red">{tiempo.text}</p>
+        <p role="status" data-timeout={tuTurno ? "you" : "rival"} className="nx-clip-sm border-l-2 border-l-drl-red bg-white/[0.03] px-3 py-1.5 text-caption text-drl-red">{td(tiempo.text)}</p>
       )}
 
       {/* ── Barra de estado del duelo ── */}
@@ -253,10 +259,10 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
             /* El cambio de turno SÍ merece anuncio: es lo que decide si puedes actuar. */
             aria-live="polite"
           >
-            {tuTurno ? "Tu turno" : "Turno del rival"}
+            {tuTurno ? t("Tu turno") : t("Turno del rival")}
           </span>
           {!tuTurno && enJuego && (
-            <span className="text-[11px] text-white/35">{rival ? `${rival.username} está decidiendo…` : "El rival está decidiendo…"}</span>
+            <span className="text-[11px] text-white/35">{rival ? t("{username} está decidiendo…", { username: rival.username }) : t("El rival está decidiendo…")}</span>
           )}
         </div>
 
@@ -266,7 +272,7 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
           <button
             type="button"
             onClick={() => setHelp(true)}
-            aria-label="Cómo se juega"
+            aria-label={t("Cómo se juega")}
             className="nx-focus grid h-9 w-9 shrink-0 place-items-center rounded-control border border-white/12 bg-white/[0.04] font-display text-[14px] font-bold text-white/70 transition hover:bg-white/[0.1] hover:text-white"
           >
             ?
@@ -276,17 +282,17 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
           <FullscreenToggle className="!h-9 !w-9 !min-h-0" />
           {/* F61 · la ruta es inmersiva: «Salir» abre el diálogo (seguir, salir sin abandonar o abandonar). */}
           {enJuego && !confirmando && (
-            <NxButton size="sm" variant="ghost" onClick={abrirSalida} data-testid="pvp-leave">Salir</NxButton>
+            <NxButton size="sm" variant="ghost" onClick={abrirSalida} data-testid="pvp-leave">{t("Salir")}</NxButton>
           )}
           {enJuego && (
             confirmando ? (
               <div className="flex items-center gap-2">
-                <span className="text-[11px] text-white/60">¿Abandonar? Cuenta como derrota.</span>
-                <NxButton size="sm" variant="danger" onClick={onAbandon} disabled={busy}>Sí, abandonar</NxButton>
-                <NxButton size="sm" variant="ghost" onClick={() => setConfirmando(false)}>No</NxButton>
+                <span className="text-[11px] text-white/60">{t("¿Abandonar? Cuenta como derrota.")}</span>
+                <NxButton size="sm" variant="danger" onClick={onAbandon} disabled={busy}>{t("Sí, abandonar")}</NxButton>
+                <NxButton size="sm" variant="ghost" onClick={() => setConfirmando(false)}>{t("No")}</NxButton>
               </div>
             ) : (
-              <NxButton size="sm" variant="ghost" onClick={() => setConfirmando(true)}>Abandonar</NxButton>
+              <NxButton size="sm" variant="ghost" onClick={() => setConfirmando(true)}>{t("Abandonar")}</NxButton>
             )
           )}
         </div>
@@ -302,7 +308,7 @@ export function PvpArena({ state, busy, error, onPlay, onAbandon, onDismissError
         waitingRival={!tuTurno && enJuego}
         revealing={revelar !== null}
         sync={{ status: state.status, isYourTurn: tuTurno, lifecycle: snap.lifecycle }}
-        error={error}
+        error={td(error)}
         onDismissError={onDismissError}
       />
     </div>

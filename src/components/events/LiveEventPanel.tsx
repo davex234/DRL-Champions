@@ -28,6 +28,8 @@
  * el mejor sitio del vestíbulo para no decir nada. Es la misma regla que la tira del ciclo.
  */
 import { useState } from "react";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 import Link from "next/link";
 import type { EventView } from "@/lib/game/events";
 import { claimChallenge } from "@/lib/game/events";
@@ -43,6 +45,8 @@ const PHASE: Record<string, { tint: string; urgent: boolean }> = {
 };
 
 /** Cuenta atrás legible. Sin segundos: un panel que parpadea cada segundo distrae. */
+const tr = ns("events");
+
 function humanize(ms: number | null): string | null {
   if (ms === null || ms <= 0) return null;
   const min = Math.floor(ms / 60000);
@@ -69,6 +73,7 @@ export function LiveEventPanel({
   onChanged: () => void;
   notify?: (msg: string) => void;
 }) {
+  useLocale();
   const [busy, setBusy] = useState<string | null>(null);
   const p = PHASE[view.event.phase] ?? PHASE.live;
   const countdown = humanize(view.event.msUntilNextPhase);
@@ -214,8 +219,8 @@ export function LiveEventPanel({
         >
           <span className="text-[12.5px] text-white/70">
             {view.pickem.openQuestions > 0
-              ? `${view.pickem.openQuestions} ${view.pickem.openQuestions === 1 ? "predicción abierta" : "predicciones abiertas"} · has enviado ${view.pickem.answered}`
-              : `Predicciones cerradas · enviaste ${view.pickem.answered}`}
+              ? tr("{n, plural, one {# predicción abierta} other {# predicciones abiertas}} · has enviado {answered}", { n: view.pickem.openQuestions, answered: view.pickem.answered })
+              : tr("Predicciones cerradas · enviaste {answered}", { answered: view.pickem.answered })}
           </span>
           <span aria-hidden className="text-[15px]" style={{ color: `rgb(${p.tint})` }}>◈</span>
         </Link>

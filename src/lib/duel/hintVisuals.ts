@@ -28,7 +28,7 @@ import type { HintType } from "@/domain/cardgame/hints";
 import type { Region, RoleId } from "@/domain/cards/types";
 import { canonicalCardTeam, canonicalTeam, TEAM_IDENTITIES } from "@/data/teamIdentities";
 import { hintTeamLogoSrc } from "@/data/teamLogos";
-import { COUNTRIES } from "@/data/countries";
+import { COUNTRIES, localizedCountryName } from "@/data/countries";
 import { isNationalityFlag } from "@/data/flags";
 import { getCard, getPlayer } from "@/data/catalog";
 import { flagSrc } from "@/lib/assets";
@@ -126,6 +126,8 @@ let regionNames: Intl.DisplayNames | null | undefined;
 export function countryDisplayName(iso: string): string | null {
   const code = (iso ?? "").toUpperCase();
   if (!/^[A-Z]{2}$/.test(code) || code === "ZZ") return null;
+  const localized = localizedCountryName(code);
+  if (localized) return localized;
   if (COUNTRIES[code]) return COUNTRIES[code];
   if (regionNames === undefined) { try { regionNames = new Intl.DisplayNames(["es"], { type: "region" }); } catch { regionNames = null; } }
   const name = regionNames?.of(code);

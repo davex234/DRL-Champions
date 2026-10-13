@@ -78,10 +78,10 @@ test("CEREMONIA · un sobre de UNA carta (caso genérico de la pieza): un dorso,
   const hand = html(<PackHand slots={[{ revealed: false }]} accent="#f5f0e6" mode="hand" />);
   assert.equal((hand.match(/data-card-back/g) ?? []).length, 1);
   const stage = read("src/components/packs/PackStage.tsx");
-  assert.ok(stage.includes('count === 1 ? "1 carta" : `${count} cartas`'));
+  assert.ok(stage.includes('count === 1 ? t("1 carta") : t("{count} cartas", { count })'));
   assert.ok(/\{count > 1 && <div[\s\S]*?Revelar todas/.test(stage), "«Revelar todas» solo con más de una carta");
   const exp = read("src/components/packs/PackOpeningExperience.tsx");
   // F81 · con una sola carta la hero ES el sobre: CONTINUAR lleva al resumen y no hay «resto».
-  assert.ok(read("src/components/packs/HeroReveal.tsx").includes('{total > 1 ? `Continuar · ${total - 1} más` : "Ver resumen"}'), "una carta: sin «resto»");
+  assert.ok(read("src/components/packs/HeroReveal.tsx").includes('{total > 1 ? tr("Continuar · {v} más", { v: total - 1 }) : tr("Ver resumen")}'), "una carta: sin «resto»");
   assert.ok(exp.includes('{phase === "rest" && <RestReveal'), "el resto solo existe como fase propia");
 });

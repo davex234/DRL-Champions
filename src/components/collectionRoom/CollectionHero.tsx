@@ -22,6 +22,10 @@ import { CardVisual } from "@/components/cards/CardVisual";
 import { Card3D } from "@/components/visual/Card3D";
 import { Meter } from "@/components/ui/Meter";
 import { Badge } from "@/components/ui/Badge";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("collectionRoom");
 
 const BUCKET_TONE = { legendary: "gold", epic: "key", rare: "info", uncommon: "ok", common: "muted" } as const;
 /** Luz de vitrina por rareza (rgb). */
@@ -34,6 +38,7 @@ export function CollectionHero({ snap, bestDef, mode, loading = false }: {
   mode: "server" | "local" | "anon";
   loading?: boolean;
 }) {
+  useLocale();
   const lowest = snap.serials.lowest;
   const lowestDef = lowest ? bestDefFor(lowest.cardId) : null;
   return (
@@ -44,11 +49,11 @@ export function CollectionHero({ snap, bestDef, mode, loading = false }: {
       <div className="grid gap-5 px-5 py-5 sm:gap-6 sm:px-9 sm:py-9 lg:min-h-[440px] lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.8fr)] lg:items-center">
         <div className="min-w-0">
           <p className="flex flex-wrap items-center gap-2">
-            <span className="font-display text-[12px] font-bold uppercase tracking-[0.18em] text-drl-cyan">Colección</span>
-            <Badge tone={mode === "server" ? "ok" : "muted"} dot>{mode === "server" ? "Guardada en el servidor" : mode === "local" ? "Modo local" : "Catálogo público"}</Badge>
+            <span className="font-display text-[12px] font-bold uppercase tracking-[0.18em] text-drl-cyan">{t("Colección")}</span>
+            <Badge tone={mode === "server" ? "ok" : "muted"} dot>{mode === "server" ? t("Guardada en el servidor") : mode === "local" ? t("Modo local") : t("Catálogo público")}</Badge>
           </p>
           <h1 id="collection-title" className="mt-2 font-display text-[clamp(34px,6vw,64px)] font-bold uppercase leading-[0.92] text-white">
-            {mode === "anon" ? "El álbum de NEXUS" : "Mi colección"}
+            {mode === "anon" ? t("El álbum de NEXUS") : t("Mi colección")}
           </h1>
 
           {mode === "anon" ? (
@@ -56,37 +61,37 @@ export function CollectionHero({ snap, bestDef, mode, loading = false }: {
             <div className="mt-5 max-w-xl" data-testid="collection-hero-public">
               <p className="flex flex-wrap items-baseline gap-x-3">
                 <span className="nx-readout text-[clamp(30px,5vw,46px)] leading-none text-white">{snap.catalogTotal}</span>
-                <span className="nx-readout text-[20px] text-white/60">cartas en el catálogo</span>
+                <span className="nx-readout text-[20px] text-white/60">{t("cartas en el catálogo")}</span>
               </p>
-              <p className="mt-2 text-body text-ink-muted">Inicia sesión para guardar tu colección y ver cuántas tienes.</p>
+              <p className="mt-2 text-body text-ink-muted">{t("Inicia sesión para guardar tu colección y ver cuántas tienes.")}</p>
             </div>
           ) : (
           <div className="mt-5 max-w-xl">
             <p className="flex flex-wrap items-baseline gap-x-3" aria-live="polite">
               <span className="nx-readout text-[clamp(30px,5vw,46px)] leading-none text-white">{loading ? "…" : snap.uniqueOwned}</span>
-              <span className="nx-readout text-[20px] text-white/60">/ {snap.catalogTotal} cartas</span>
-              {!loading && <span className="font-display text-[15px] font-bold uppercase tracking-[0.08em] text-drl-cyan">{snap.completionPct.toLocaleString("es-ES", { minimumFractionDigits: 1 })} %</span>}
+              <span className="nx-readout text-[20px] text-white/60">/ {snap.catalogTotal} {t("cartas")}</span>
+              {!loading && <span className="font-display text-[15px] font-bold uppercase tracking-[0.08em] text-drl-cyan">{snap.completionPct.toLocaleString(getIntlLocale(), { minimumFractionDigits: 1 })} %</span>}
             </p>
-            <Meter value={loading ? 0 : snap.completionPct} tone="info" height={10} label={`Álbum: ${snap.uniqueOwned} de ${snap.catalogTotal} cartas distintas`} className="mt-3" />
+            <Meter value={loading ? 0 : snap.completionPct} tone="info" height={10} label={t("Álbum: {uniqueOwned} de {catalogTotal} cartas distintas", { uniqueOwned: snap.uniqueOwned, catalogTotal: snap.catalogTotal })} className="mt-3" />
             {!loading && (
               <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2 text-[13px] sm:grid-cols-4">
-                <Fact label="Copias" value={String(snap.totalCopies)} />
-                <Fact label="Duplicadas" value={String(snap.duplicates)} />
-                <Fact label="OVR más alto" value={snap.highestOvr !== null ? String(snap.highestOvr) : "—"} />
-                <Fact label="Serial más bajo" value={lowest && lowestDef ? formatSerial(lowest.serial, getVariant(lowestDef.variantId).serialLimit) ?? "—" : "—"} />
+                <Fact label={t("Copias")} value={String(snap.totalCopies)} />
+                <Fact label={t("Duplicadas")} value={String(snap.duplicates)} />
+                <Fact label={t("OVR más alto")} value={snap.highestOvr !== null ? String(snap.highestOvr) : "—"} />
+                <Fact label={t("Serial más bajo")} value={lowest && lowestDef ? formatSerial(lowest.serial, getVariant(lowestDef.variantId).serialLimit) ?? "—" : "—"} />
               </dl>
             )}
           </div>
           )}
 
-          <ul className="mt-5 hidden max-w-xl grid-cols-1 gap-1.5 sm:grid sm:grid-cols-2" data-mobile="hidden" aria-label={mode === "anon" ? "Cartas por rareza" : "Progreso por rareza"}>
+          <ul className="mt-5 hidden max-w-xl grid-cols-1 gap-1.5 sm:grid sm:grid-cols-2" data-mobile="hidden" aria-label={mode === "anon" ? t("Cartas por rareza") : t("Progreso por rareza")}>
             {snap.sets.rarity.map((s) => (
               <li key={s.id} className="flex items-center gap-2 text-[12px]">
-                <Badge tone={BUCKET_TONE[s.key as keyof typeof BUCKET_TONE] ?? "muted"} className="w-[104px] justify-center">{BUCKET_LABEL[s.key as keyof typeof BUCKET_LABEL] ?? s.label}</Badge>
+                <Badge tone={BUCKET_TONE[s.key as keyof typeof BUCKET_TONE] ?? "muted"} className="w-[104px] justify-center">{td(BUCKET_LABEL[s.key as keyof typeof BUCKET_LABEL]) ?? td(s.label)}</Badge>
                 {mode === "anon"
                   ? <span className="nx-readout flex-1 text-right text-white/75">{s.total}</span>
                   : <>
-                    <Meter value={s.pct} tone="info" height={5} label={`${s.label}: ${s.owned} de ${s.total}`} className="flex-1" />
+                    <Meter value={s.pct} tone="info" height={5} label={t("{label}: {owned} de {total}", { label: td(s.label), owned: s.owned, total: s.total })} className="flex-1" />
                     <span className="nx-readout w-14 text-right text-white/75">{s.owned}/{s.total}</span>
                   </>}
               </li>
@@ -103,9 +108,9 @@ export function CollectionHero({ snap, bestDef, mode, loading = false }: {
               <span aria-hidden className="nx-vault-cone pointer-events-none absolute -top-10 left-1/2 -z-10 h-[120%] w-[340px] -translate-x-1/2" />
               <span aria-hidden className="nx-vault-halo pointer-events-none absolute left-1/2 top-[38%] -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2" />
               <div className="nx-vault-float">
-                <Link href={cardHref(bestDef.id)} className="nx-focus block" aria-label={`Tu carta de mayor OVR: ${bestDef.id}, OVR ${bestDef.ovr}. Abrir ficha`}>
+                <Link href={cardHref(bestDef.id)} className="nx-focus block" aria-label={t("Tu carta de mayor OVR: {id}, OVR {ovr}. Abrir ficha", { id: bestDef.id, ovr: bestDef.ovr })}>
                   <Card3D mode="hover" tilt={10} className="w-[140px] sm:w-[220px]">
-                    <CardVisual uid={snap.best.uid} alt={`Carta ${bestDef.id}`} chamfer="12px" className="w-full">
+                    <CardVisual uid={snap.best.uid} alt={t("Carta {id}", { id: bestDef.id })} chamfer="12px" className="w-full">
                       <PlayerCard card={bestDef} size="md" interactive={false} serial={snap.best.serial ?? undefined} />
                     </CardVisual>
                   </Card3D>
@@ -118,8 +123,8 @@ export function CollectionHero({ snap, bestDef, mode, loading = false }: {
                 <path d="M30 22v22c0 9 58 17 130 17s130-8 130-17V22" fill="rgba(6,8,14,0.85)" stroke={`rgba(${light},0.30)`} />
               </svg>
               <figcaption className="text-center">
-                <span className="block font-display text-[12px] font-bold uppercase tracking-[0.14em]" style={{ color: `rgb(${light})` }}>Tu carta de mayor OVR</span>
-                <span className="block text-caption text-ink-muted">OVR, después rareza y serial</span>
+                <span className="block font-display text-[12px] font-bold uppercase tracking-[0.14em]" style={{ color: `rgb(${light})` }}>{t("Tu carta de mayor OVR")}</span>
+                <span className="block text-caption text-ink-muted">{t("OVR, después rareza y serial")}</span>
               </figcaption>
             </figure>
           );
@@ -130,10 +135,11 @@ export function CollectionHero({ snap, bestDef, mode, loading = false }: {
 }
 
 function Fact({ label, value }: { label: string; value: string }) {
+  useLocale();
   return (
     <div>
-      <dt className="font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/50">{label}</dt>
-      <dd className="nx-readout text-[18px] text-white">{value}</dd>
+      <dt className="font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/50">{td(label)}</dt>
+      <dd className="nx-readout text-[18px] text-white">{td(value)}</dd>
     </div>
   );
 }

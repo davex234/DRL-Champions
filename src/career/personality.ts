@@ -7,6 +7,9 @@
  */
 import { makeIdentity, type Identity } from "@/sim/identity";
 import type { CoachPersonalityId } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 export const PERSONALITY_LABEL: Record<CoachPersonalityId, string> = {
   calm: "Calmado",
@@ -42,7 +45,7 @@ export function personalityIdentity(id: CoachPersonalityId): Identity {
 /** Etiquetas descriptivas derivadas del vector de identidad (para la UI/informe). */
 export function personalityTags(identity: Identity): string[] {
   const tags: string[] = [];
-  if (identity.composure >= 75) tags.push("Sangre fría");
+  if (identity.composure >= 75) tags.push(t("Sangre fría"));
   if (identity.aggression >= 75) tags.push("Proactivo");
   if (identity.patience >= 75) tags.push("Paciente");
   if (identity.creativity >= 75) tags.push("Creativo");

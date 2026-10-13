@@ -8,6 +8,9 @@
  */
 import { hintArt, type HintArt } from "./hintVisuals";
 import type { HintType, RivalCardHint } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("duel");
 
 /** Nombre del tipo SOLO para lectores de pantalla (no se pinta). */
 export const HINT_KIND_NAME: Record<HintType, string> = {
@@ -25,5 +28,5 @@ export interface HintPresentation extends HintArt {
 export function hintPresentation(h: RivalCardHint): HintPresentation | null {
   const art = hintArt(h);
   if (!art) return null;
-  return { ...art, ariaLabel: `Carta oculta · pista de ${HINT_KIND_NAME[h.type]}: ${art.name}` };
+  return { ...art, ariaLabel: t("Carta oculta · pista de {v}: {name}", { v: td(HINT_KIND_NAME[h.type]), name: art.name }) };
 }

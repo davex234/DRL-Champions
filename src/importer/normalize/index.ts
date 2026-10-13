@@ -14,6 +14,9 @@ import type {
   Bracket, Round, ProCoach, ProCoachStatus, Roster, RosterChange, ObjectiveAwards, BracketKind, RoundType,
   PlayerTournamentStat,
 } from "../model";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("importer");
 
 // ── Coerción determinista a los enums del dominio ──
 function coerceStatus(s?: string): MatchStatus {
@@ -66,7 +69,7 @@ export function normalizeSnapshot(p: ParsedSnapshot, ctx: ImportCtx): { model: C
       const team: ProTeam = { id, name: t.name, tag: t.tag, fullName: t.fullName, region: t.region, country: t.country, slug: t.slug, active: t.active ?? true };
       teams.push(team); teamSeen.set(id, team);
     } else {
-      issues.push({ kind: "duplicate", severity: "info", entity: "team", ref: id, message: `equipo duplicado colapsado: ${t.name}` });
+      issues.push({ kind: "duplicate", severity: "info", entity: "team", ref: id, message: tr("equipo duplicado colapsado: {name}", { name: t.name }) });
     }
   }
 
@@ -86,7 +89,7 @@ export function normalizeSnapshot(p: ParsedSnapshot, ctx: ImportCtx): { model: C
       };
       players.push(player); playerSeen.set(id, player);
     } else {
-      issues.push({ kind: "duplicate", severity: "info", entity: "player", ref: id, message: `jugador duplicado colapsado: ${pl.nick}` });
+      issues.push({ kind: "duplicate", severity: "info", entity: "player", ref: id, message: tr("jugador duplicado colapsado: {nick}", { nick: pl.nick }) });
     }
   }
 

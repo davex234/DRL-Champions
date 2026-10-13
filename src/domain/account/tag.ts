@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("account");
+
 /**
  * TAG PÚBLICO DE CUENTA — identificador PÚBLICO, único y PERMANENTE de una cuenta de Valorosters (puro, sin red).
  *
@@ -39,7 +43,7 @@ export const looksLikeTagQuery = (q: unknown): boolean => typeof q === "string" 
 export const formatTag = (tag: string): string => `#${tag}`;
 
 /** Texto accesible del tag. */
-export const tagAriaLabel = (tag: string): string => `Identificador de cuenta ${formatTag(tag)}`;
+export const tagAriaLabel = (tag: string): string => tr("Identificador de cuenta {tag}", { tag: formatTag(tag) });
 
 /** Capacidad del espacio y riesgo a una población dada (para el informe y los tests). */
 export function tagSpace(population: number, length = TAG_LENGTH, alphabet = TAG_ALPHABET.length) {

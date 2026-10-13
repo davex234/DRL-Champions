@@ -1,0 +1,362 @@
+{
+  "Abrir sobre": {
+    "en": "Open pack",
+    "de": "Pack öffnen",
+    "it": "Apri pacchetto",
+    "fr": "Ouvrir le pack",
+    "pt-PT": "Abrir pack",
+    "pt-BR": "Abrir pacote",
+    "ja": "パックを開封"
+  },
+  "Mi colección": {
+    "en": "My collection",
+    "de": "Meine Sammlung",
+    "it": "La mia collezione",
+    "fr": "Ma collection",
+    "pt-PT": "A minha coleção",
+    "pt-BR": "Minha coleção",
+    "ja": "マイコレクション"
+  },
+  "Colección": {
+    "en": "Collection",
+    "de": "Sammlung",
+    "it": "Collezione",
+    "fr": "Collection",
+    "pt-PT": "Coleção",
+    "pt-BR": "Coleção",
+    "ja": "コレクション"
+  },
+  "Probabilidades": {
+    "en": "Probabilities",
+    "de": "Wahrscheinlichkeiten",
+    "it": "Probabilità",
+    "fr": "Probabilités",
+    "pt-PT": "Probabilidades",
+    "pt-BR": "Probabilidades",
+    "ja": "排出率"
+  },
+  "Continuar": {
+    "en": "Continue",
+    "de": "Weiter",
+    "it": "Continua",
+    "fr": "Continuer",
+    "pt-PT": "Continuar",
+    "pt-BR": "Continuar",
+    "ja": "続ける"
+  },
+  "Omitir": {
+    "en": "Skip",
+    "de": "Überspringen",
+    "it": "Salta",
+    "fr": "Passer",
+    "pt-PT": "Saltar",
+    "pt-BR": "Pular",
+    "ja": "スキップ"
+  },
+  "Ajustes": {
+    "en": "Settings",
+    "de": "Einstellungen",
+    "it": "Impostazioni",
+    "fr": "Paramètres",
+    "pt-PT": "Definições",
+    "pt-BR": "Configurações",
+    "ja": "設定"
+  },
+  "Tienda": {
+    "en": "Shop",
+    "de": "Shop",
+    "it": "Negozio",
+    "fr": "Boutique",
+    "pt-PT": "Loja",
+    "pt-BR": "Loja",
+    "ja": "ショップ"
+  },
+  "Jugar": {
+    "en": "Play",
+    "de": "Spielen",
+    "it": "Gioca",
+    "fr": "Jouer",
+    "pt-PT": "Jogar",
+    "pt-BR": "Jogar",
+    "ja": "プレイ"
+  },
+  "Temporada": {
+    "en": "Season",
+    "de": "Saison",
+    "it": "Stagione",
+    "fr": "Saison",
+    "pt-PT": "Temporada",
+    "pt-BR": "Temporada",
+    "ja": "シーズン"
+  },
+  "Pase de batalla": {
+    "en": "Battle Pass",
+    "de": "Battle Pass",
+    "it": "Pass Battaglia",
+    "fr": "Passe de combat",
+    "pt-PT": "Passe de Batalha",
+    "pt-BR": "Passe de Batalha",
+    "ja": "バトルパス"
+  },
+  "Objetivos": {
+    "en": "Objectives",
+    "de": "Ziele",
+    "it": "Obiettivi",
+    "fr": "Objectifs",
+    "pt-PT": "Objetivos",
+    "pt-BR": "Objetivos",
+    "ja": "目標"
+  },
+  "Crafteo": {
+    "en": "Crafting",
+    "de": "Crafting",
+    "it": "Crafting",
+    "fr": "Crafting",
+    "pt-PT": "Crafting",
+    "pt-BR": "Crafting",
+    "ja": "クラフト"
+  },
+  "Clasificación": {
+    "en": "Leaderboard",
+    "de": "Rangliste",
+    "it": "Classifica",
+    "fr": "Classement",
+    "pt-PT": "Classificação",
+    "pt-BR": "Classificação",
+    "ja": "ランキング"
+  },
+  "Competitivo": {
+    "en": "Competitive",
+    "de": "Kompetitiv",
+    "it": "Competitivo",
+    "fr": "Compétitif",
+    "pt-PT": "Competitivo",
+    "pt-BR": "Competitivo",
+    "ja": "ランクマッチ"
+  },
+  "Torneos": {
+    "en": "Tournaments",
+    "de": "Turniere",
+    "it": "Tornei",
+    "fr": "Tournois",
+    "pt-PT": "Torneios",
+    "pt-BR": "Torneios",
+    "ja": "トーナメント"
+  },
+  "Eventos": {
+    "en": "Events",
+    "de": "Events",
+    "it": "Eventi",
+    "fr": "Événements",
+    "pt-PT": "Eventos",
+    "pt-BR": "Eventos",
+    "ja": "イベント"
+  },
+  "Entrenador": {
+    "en": "Coach",
+    "de": "Coach",
+    "it": "Allenatore",
+    "fr": "Coach",
+    "pt-PT": "Treinador",
+    "pt-BR": "Treinador",
+    "ja": "コーチ"
+  },
+  "Inventario": {
+    "en": "Inventory",
+    "de": "Inventar",
+    "it": "Inventario",
+    "fr": "Inventaire",
+    "pt-PT": "Inventário",
+    "pt-BR": "Inventário",
+    "ja": "インベントリ"
+  },
+  "Duelos": {
+    "en": "Duels",
+    "de": "Duelle",
+    "it": "Duelli",
+    "fr": "Duels",
+    "pt-PT": "Duelos",
+    "pt-BR": "Duelos",
+    "ja": "デュエル"
+  },
+  "Equipos": {
+    "en": "Teams",
+    "de": "Teams",
+    "it": "Squadre",
+    "fr": "Équipes",
+    "pt-PT": "Equipas",
+    "pt-BR": "Times",
+    "ja": "チーム"
+  },
+  "Mis equipos": {
+    "en": "My teams",
+    "de": "Meine Teams",
+    "it": "Le mie squadre",
+    "fr": "Mes équipes",
+    "pt-PT": "As minhas equipas",
+    "pt-BR": "Meus times",
+    "ja": "マイチーム"
+  },
+  "Mis cartas": {
+    "en": "My cards",
+    "de": "Meine Karten",
+    "it": "Le mie carte",
+    "fr": "Mes cartes",
+    "pt-PT": "As minhas cartas",
+    "pt-BR": "Minhas cartas",
+    "ja": "マイカード"
+  },
+  "Reclamar": {
+    "en": "Claim",
+    "de": "Abholen",
+    "it": "Riscatta",
+    "fr": "Récupérer",
+    "pt-PT": "Reclamar",
+    "pt-BR": "Resgatar",
+    "ja": "受け取る"
+  },
+  "Cancelar": {
+    "en": "Cancel",
+    "de": "Abbrechen",
+    "it": "Annulla",
+    "fr": "Annuler",
+    "pt-PT": "Cancelar",
+    "pt-BR": "Cancelar",
+    "ja": "キャンセル"
+  },
+  "Confirmar": {
+    "en": "Confirm",
+    "de": "Bestätigen",
+    "it": "Conferma",
+    "fr": "Confirmer",
+    "pt-PT": "Confirmar",
+    "pt-BR": "Confirmar",
+    "ja": "確認"
+  },
+  "Reintentar": {
+    "en": "Retry",
+    "de": "Erneut versuchen",
+    "it": "Riprova",
+    "fr": "Réessayer",
+    "pt-PT": "Tentar de novo",
+    "pt-BR": "Tentar novamente",
+    "ja": "再試行"
+  },
+  "Cerrar sesión": {
+    "en": "Log out",
+    "de": "Abmelden",
+    "it": "Esci",
+    "fr": "Se déconnecter",
+    "pt-PT": "Terminar sessão",
+    "pt-BR": "Sair",
+    "ja": "ログアウト"
+  },
+  "Iniciar sesión": {
+    "en": "Log in",
+    "de": "Anmelden",
+    "it": "Accedi",
+    "fr": "Se connecter",
+    "pt-PT": "Iniciar sessão",
+    "pt-BR": "Entrar",
+    "ja": "ログイン"
+  },
+  "Victoria": {
+    "en": "Victory",
+    "de": "Sieg",
+    "it": "Vittoria",
+    "fr": "Victoire",
+    "pt-PT": "Vitória",
+    "pt-BR": "Vitória",
+    "ja": "勝利"
+  },
+  "Derrota": {
+    "en": "Defeat",
+    "de": "Niederlage",
+    "it": "Sconfitta",
+    "fr": "Défaite",
+    "pt-PT": "Derrota",
+    "pt-BR": "Derrota",
+    "ja": "敗北"
+  },
+  "Empate": {
+    "en": "Draw",
+    "de": "Unentschieden",
+    "it": "Pareggio",
+    "fr": "Égalité",
+    "pt-PT": "Empate",
+    "pt-BR": "Empate",
+    "ja": "引き分け"
+  },
+  "Logros": {
+    "en": "Achievements",
+    "de": "Erfolge",
+    "it": "Traguardi",
+    "fr": "Succès",
+    "pt-PT": "Conquistas",
+    "pt-BR": "Conquistas",
+    "ja": "実績"
+  },
+  "Misiones": {
+    "en": "Missions",
+    "de": "Missionen",
+    "it": "Missioni",
+    "fr": "Missions",
+    "pt-PT": "Missões",
+    "pt-BR": "Missões",
+    "ja": "ミッション"
+  },
+  "Recompensas": {
+    "en": "Rewards",
+    "de": "Belohnungen",
+    "it": "Ricompense",
+    "fr": "Récompenses",
+    "pt-PT": "Recompensas",
+    "pt-BR": "Recompensas",
+    "ja": "報酬"
+  },
+  "Perfil": {
+    "en": "Profile",
+    "de": "Profil",
+    "it": "Profilo",
+    "fr": "Profil",
+    "pt-PT": "Perfil",
+    "pt-BR": "Perfil",
+    "ja": "プロフィール"
+  },
+  "Cuenta": {
+    "en": "Account",
+    "de": "Konto",
+    "it": "Account",
+    "fr": "Compte",
+    "pt-PT": "Conta",
+    "pt-BR": "Conta",
+    "ja": "アカウント"
+  },
+  "Cinemática 3D": {
+    "en": "3D cinematic",
+    "de": "3D-Sequenz",
+    "it": "Cinematica 3D",
+    "fr": "Cinématique 3D",
+    "pt-PT": "Cinemática 3D",
+    "pt-BR": "Cinemática 3D",
+    "ja": "3Dシネマティック"
+  },
+  "Automático": {
+    "en": "Automatic",
+    "de": "Automatisch",
+    "it": "Automatico",
+    "fr": "Automatique",
+    "pt-PT": "Automático",
+    "pt-BR": "Automático",
+    "ja": "自動"
+  },
+  "Reducidas": {
+    "en": "Reduced",
+    "de": "Reduziert",
+    "it": "Ridotte",
+    "fr": "Réduites",
+    "pt-PT": "Reduzidas",
+    "pt-BR": "Reduzidas",
+    "ja": "簡易"
+  }
+}

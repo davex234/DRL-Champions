@@ -39,6 +39,9 @@
  * `components/pickems/bracket/`.
  */
 import { stateOf, isLockedNow, type AnswerMap, type PickState, type QuestionLike } from "./progress";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("pickems");
 
 /* ═══════════════════════════════ ENTRADAS ═══════════════════════════════ */
 
@@ -106,7 +109,7 @@ interface Pattern { re: RegExp; rank: number | ((m: RegExpMatchArray) => number)
 /** Orden importa: lo específico antes que lo genérico («semifinal» contiene «final»). */
 const ELIM_PATTERNS: Pattern[] = [
   { re: /\bgrand\s*-?\s*final|\bgran\s*final/, rank: 100, label: "Gran Final", side: "grand" },
-  { re: /\bround\s*of\s*(\d+)|\bronda\s*de\s*(\d+)|\b(\d+)avos\b/, rank: (m) => 60 - Math.log2(Number(m[1] ?? m[2] ?? m[3])), label: (m) => `Ronda de ${m[1] ?? m[2] ?? m[3]}` },
+  { re: /\bround\s*of\s*(\d+)|\bronda\s*de\s*(\d+)|\b(\d+)avos\b/, rank: (m) => 60 - Math.log2(Number(m[1] ?? m[2] ?? m[3])), label: (m) => tr("Ronda de {v}", { v: td(m[1]) ?? td(m[2]) ?? td(m[3]) }) },
   { re: /\bquarter\s*-?\s*finals?|\bcuartos|\bqf\b/, rank: 70, label: "Cuartos" },
   { re: /\bsemi\s*-?\s*finals?|\bsemis?\b|\bsf\b/, rank: 80, label: "Semifinales" },
   { re: /\bfinals?\b/, rank: 90, label: "Final" },
@@ -123,7 +126,7 @@ const LEAGUE_RE = /\bweek\b|\bsemana\b|\bjornada\b|\bmatchday\b|\bday\s*\d+|\bd[
 export function parseRound(raw: string | null | undefined): RoundInfo {
   const original = (raw ?? "").trim();
   const s = norm(original);
-  if (!s) return { raw: original, side: "single", rank: null, elimination: false, league: false, label: "Partido" };
+  if (!s) return { raw: original, side: "single", rank: null, elimination: false, league: false, label: tr("Partido") };
 
   const lower = /\blower\b|\bloser'?s?\b|\bbajo\b|\bperdedores\b/.test(s);
   const upper = /\bupper\b|\bwinner'?s?\s*bracket\b|\balto\b/.test(s);
@@ -432,7 +435,7 @@ export function buildBracketModel(input: BuildInput): BracketModel {
     const allElim = own.every((r) => parseRound(inputById.get(r.matchIds[0])?.round ?? null).elimination);
     const bracket = kind ? (STAGE_BRACKET_KINDS.has(kind) || (kind === "group" && allElim)) : allElim;
     return {
-      id: sid, name: st?.name ?? (bracket ? "Eliminatorias" : "Fase de grupos"), kind,
+      id: sid, name: st?.name ?? (bracket ? "Eliminatorias" : tr("Fase de grupos")), kind,
       bracket: isBracketFormat(format) && bracket, roundIds: own.map((r) => r.id),
     };
   });
@@ -485,8 +488,8 @@ export function buildBracketModel(input: BuildInput): BracketModel {
         if (toId === raw.id) { issues.push(`${raw.id}: autoarista (${source})`); return; }
         const to = matches[toId];
         if (!to) { issues.push(`${raw.id}: destino inexistente ${toId} (${source})`); return; }
-        if (to.stageId !== from.stageId) { issues.push(`${raw.id}: destino ${toId} de otra fase (${source})`); return; }
-        if ((roundOrder.get(to.roundId) ?? 0) <= fromOrder) { issues.push(`${raw.id}: destino ${toId} no es una ronda posterior (${source})`); return; }
+        if (to.stageId !== from.stageId) { issues.push(tr("{id}: destino {toId} de otra fase ({source})", { id: raw.id, toId: td(toId), source: td(source) })); return; }
+        if ((roundOrder.get(to.roundId) ?? 0) <= fromOrder) { issues.push(tr("{id}: destino {toId} no es una ronda posterior ({source})", { id: raw.id, toId: td(toId), source: td(source) })); return; }
         structural.push({ from: raw.id, to: toId, source, slot: slotOf(slot), kind: "STRUCTURAL", evidence, confidence: "CONFIRMED", toKind: "match" });
       };
       consider("WINNER", raw.winner_to_match_id, raw.winner_to_slot);
@@ -496,7 +499,7 @@ export function buildBracketModel(input: BuildInput): BracketModel {
         const round = roundById.get(from.roundId);
         const node: QualificationNode = {
           id: qualificationNodeId(raw.winner_qualifies), key: raw.winner_qualifies,
-          label: raw.winner_qualifies_label || "Clasificado",
+          label: raw.winner_qualifies_label || tr("Clasificado"),
           stageId: from.stageId, side: round?.side ?? "single", fromMatchId: raw.id, source: "WINNER",
           team: finished(from) ? winnerTeam(from) : null,
         };
@@ -511,12 +514,12 @@ export function buildBracketModel(input: BuildInput): BracketModel {
     for (const e of structural) { const k = slotKey(e); if (k) slotCount.set(k, (slotCount.get(k) ?? 0) + 1); }
     let kept = structural.filter((e) => {
       const k = slotKey(e);
-      if (k && (slotCount.get(k) ?? 0) > 1) { issues.push(`${e.from}: hueco ${e.slot} de ${e.to} alimentado por más de un partido`); return false; }
+      if (k && (slotCount.get(k) ?? 0) > 1) { issues.push(tr("{from}: hueco {slot} de {to} alimentado por más de un partido", { from: td(e.from), slot: e.slot, to: td(e.to) })); return false; }
       return true;
     });
 
     // Ciclos: si los hay, el grafo estructural no es de fiar → se degrada sin aristas estructurales.
-    if (hasCycle(kept)) { issues.push("ciclo en la estructura confirmada: se descartan las aristas estructurales"); kept = []; }
+    if (hasCycle(kept)) { issues.push(tr("ciclo en la estructura confirmada: se descartan las aristas estructurales")); kept = []; }
 
     // Conflictos con la realidad: la estructura dice C, el resultado dice D (o el hueco no cuadra).
     kept = kept.filter((e) => {
@@ -528,17 +531,17 @@ export function buildBracketModel(input: BuildInput): BracketModel {
       const to = matches[e.to];
       const observed = nextMatchWith(from, team);
       if (observed && observed.to.id !== e.to) {
-        conflicts.push({ matchId: e.from, source: e.source, expectedTo: e.to, observedTo: observed.to.id, reason: `la estructura dice ${e.to}, el resultado lleva a ${team.name} a ${observed.to.id}` });
+        conflicts.push({ matchId: e.from, source: e.source, expectedTo: e.to, observedTo: observed.to.id, reason: tr("la estructura dice {to}, el resultado lleva a {name} a {id}", { to: td(e.to), name: team.name, id: observed.to.id }) });
         return false;
       }
       if (to.teamA && to.teamB && !sameTeam(to.teamA, team) && !sameTeam(to.teamB, team)) {
-        conflicts.push({ matchId: e.from, source: e.source, expectedTo: e.to, observedTo: null, reason: `${team.name} no juega ${e.to}` });
+        conflicts.push({ matchId: e.from, source: e.source, expectedTo: e.to, observedTo: null, reason: tr("{name} no juega {to}", { name: team.name, to: td(e.to) }) });
         return false;
       }
       if (e.slot) {
         const occupant = e.slot === "a" ? to.teamA : to.teamB;
         if (occupant && !sameTeam(occupant, team)) {
-          conflicts.push({ matchId: e.from, source: e.source, expectedTo: e.to, observedTo: e.to, reason: `${team.name} no ocupa el hueco ${e.slot} de ${e.to}` });
+          conflicts.push({ matchId: e.from, source: e.source, expectedTo: e.to, observedTo: e.to, reason: tr("{name} no ocupa el hueco {slot} de {to}", { name: team.name, slot: e.slot, to: td(e.to) }) });
           return false;
         }
       }

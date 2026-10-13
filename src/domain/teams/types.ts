@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const t = ns("teams");
+
 /**
  * ROSTER BUILDER — Tipos y validación de los EQUIPOS del entrenador.
  *
@@ -103,19 +107,19 @@ export function validateTeam(
   const errors: TeamError[] = [];
 
   if (!team.name.trim()) {
-    errors.push({ code: "EMPTY_NAME", message: "El equipo necesita un nombre." });
+    errors.push({ code: "EMPTY_NAME", message: t("El equipo necesita un nombre.") });
   }
 
   if (team.starters.length < MAX_STARTERS) {
     errors.push({
       code: "NOT_ENOUGH_STARTERS",
-      message: `Faltan titulares: ${team.starters.length}/${MAX_STARTERS}.`,
+      message: t("Faltan titulares: {length}/{MAX_STARTERS}.", { length: team.starters.length, MAX_STARTERS }),
     });
   }
   if (team.starters.length > MAX_STARTERS) {
     errors.push({
       code: "TOO_MANY_STARTERS",
-      message: `Demasiados titulares: ${team.starters.length}/${MAX_STARTERS}.`,
+      message: t("Demasiados titulares: {length}/{MAX_STARTERS}.", { length: team.starters.length, MAX_STARTERS }),
     });
   }
 
@@ -124,7 +128,7 @@ export function validateTeam(
   for (const uid of team.starters) {
     const ref = resolve(uid);
     if (!ref) {
-      errors.push({ code: "UNKNOWN_CARD", message: `Carta inexistente en tu colección (${uid}).` });
+      errors.push({ code: "UNKNOWN_CARD", message: t("Carta inexistente en tu colección ({uid}).", { uid }) });
     } else {
       refs.push(ref);
     }
@@ -134,7 +138,7 @@ export function validateTeam(
   const seenUid = new Set<string>();
   for (const uid of team.starters) {
     if (seenUid.has(uid)) {
-      errors.push({ code: "DUPLICATE_CARD", message: "No puedes alinear la misma carta dos veces." });
+      errors.push({ code: "DUPLICATE_CARD", message: t("No puedes alinear la misma carta dos veces.") });
       break;
     }
     seenUid.add(uid);
@@ -146,7 +150,7 @@ export function validateTeam(
     if (seenPlayer.has(ref.playerId)) {
       errors.push({
         code: "DUPLICATE_PLAYER",
-        message: "No puedes alinear dos cartas del mismo jugador.",
+        message: t("No puedes alinear dos cartas del mismo jugador."),
       });
       break;
     }
@@ -156,7 +160,7 @@ export function validateTeam(
   // Un titular no puede estar además en el banquillo.
   const starterSet = new Set(team.starters);
   if (team.subs.some((uid) => starterSet.has(uid))) {
-    errors.push({ code: "STARTER_IN_SUBS", message: "Un titular no puede estar también en suplentes." });
+    errors.push({ code: "STARTER_IN_SUBS", message: t("Un titular no puede estar también en suplentes.") });
   }
 
   return errors;

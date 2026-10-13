@@ -4,6 +4,9 @@
  * la narrativa; NO modifica el Narrative Engine. PURO.
  */
 import type { RoundState, Side } from "../sim";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("abilities");
 
 export type AbilityEventType =
   | "perfect_execute" | "perfect_utility" | "fake_utility" | "smart_recon" | "huge_entry"
@@ -64,14 +67,14 @@ export function detectAbilityEvents(rounds: RoundState[]): AbilityEvent[] {
     // Perfect execute: ATK ganó tras EXECUTE con ≥2 utils antes del primer duelo.
     if (winner === "ATK" && round.executeTick != null) {
       const preExec = bySide("ATK").filter((c) => c.tick <= round.executeTick! + TPS).length;
-      if (preExec >= 2) push("perfect_execute", "ATK", 65, `${preExec} utils en el execute`);
+      if (preExec >= 2) push("perfect_execute", "ATK", 65, t("{preExec} utils en el execute", { preExec }));
     }
 
     // Site lockdown / perfect retake (defensa).
     if (round.spike.planted) {
       if (round.endReason === "defuse" && winner === "DEF") {
         const retakeUtil = bySide("DEF").filter((c) => round.spike.plantedTick != null && c.tick >= round.spike.plantedTick).length;
-        if (retakeUtil >= 1) push("perfect_retake", "DEF", 70, `${retakeUtil} utils en el retake`);
+        if (retakeUtil >= 1) push("perfect_retake", "DEF", 70, t("{retakeUtil} utils en el retake", { retakeUtil }));
       }
     } else if (winner === "DEF") {
       const denies = bySide("DEF").filter((c) => c.effect === "delay" || c.effect === "deny_vision" || c.effect === "suppress").length;

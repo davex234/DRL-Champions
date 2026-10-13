@@ -29,6 +29,10 @@ import { JourneyDiscovery } from "@/components/journey/JourneyDiscovery";
 import { DailyHero } from "./DailyHero";
 import { LobbyPlayStage } from "./LobbyPlayStage";
 import { LiveBlock, NextRail, PlayBlock, ReturningBanner, SeasonBlock, StashBlock, TodayBlock } from "./DailyPanels";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("dailyLoop");
 
 export type LobbyNetwork = "online" | "offline" | "error";
 
@@ -50,6 +54,7 @@ export function DailyLobby({
   /** Tres cartas reales del catálogo para la bienvenida. */
   welcomeCards?: CardDef[];
 }) {
+  useLocale();
   const offline = network === "offline";
   const hero = heroModel(snap, { offline, now });
   const journeyMode = homeJourneyMode(snap, { dismissed: journeyDismissed });
@@ -61,7 +66,7 @@ export function DailyLobby({
       <div className="space-y-5 lg:space-y-6" data-testid="daily-lobby" data-network={network} data-stale={stale ? "true" : "false"} data-signed-in={snap.signedIn ? "true" : "false"}>
         {(network !== "online" || stale) && <NetworkNotice network={network} onRetry={onRetry} />}
         {snap.signedIn && snap.unavailable.length > 0 && network === "online" && (
-          <p role="status" data-testid="daily-partial" className="text-caption text-ink-muted">Parte del vestíbulo no ha respondido; esos bloques se enseñan sin datos y no se recomiendan.</p>
+          <p role="status" data-testid="daily-partial" className="text-caption text-ink-muted">{t("Parte del vestíbulo no ha respondido; esos bloques se enseñan sin datos y no se recomiendan.")}</p>
         )}
 
         {journeyMode !== "mission" && <ReturningBanner snap={snap} />}
@@ -106,22 +111,24 @@ export function DailyLobby({
 }
 
 function NetworkNotice({ network, onRetry }: { network: LobbyNetwork; onRetry?: () => void }) {
+  useLocale();
   const text = network === "offline"
-    ? "Sin conexión. Enseñamos lo último que sabíamos; nada de esto es nuevo."
-    : network === "error" ? "El servidor no ha respondido. Enseñamos la última foto que teníamos." : "Actualizando…";
+    ? t("Sin conexión. Enseñamos lo último que sabíamos; nada de esto es nuevo.")
+    : network === "error" ? t("El servidor no ha respondido. Enseñamos la última foto que teníamos.") : t("Actualizando…");
   return (
     <div role="status" data-testid="daily-network" className="nx-clip-sm flex flex-wrap items-center justify-between gap-3 border border-warn/40 bg-warn/[0.08] px-4 py-2.5">
-      <p className="font-display text-[13px] font-bold uppercase tracking-[0.1em] text-warn">{network === "offline" ? "Sin conexión" : "Sin respuesta"} <span className="ml-2 font-body text-[13px] normal-case tracking-normal text-white/80">{text}</span></p>
-      {onRetry && network !== "offline" && <NxButton variant="secondary" size="md" onClick={onRetry}>Reintentar</NxButton>}
+      <p className="font-display text-[13px] font-bold uppercase tracking-[0.1em] text-warn">{network === "offline" ? t("Sin conexión") : t("Sin respuesta")} <span className="ml-2 font-body text-[13px] normal-case tracking-normal text-white/80">{td(text)}</span></p>
+      {onRetry && network !== "offline" && <NxButton variant="secondary" size="md" onClick={onRetry}>{t("Reintentar")}</NxButton>}
     </div>
   );
 }
 
 /** Esqueleto: la silueta del vestíbulo, sin una sola cifra (no se sabe nada todavía). */
 export function DailyLobbySkeleton() {
+  useLocale();
   const bar = "nx-clip-sm animate-pulse bg-white/[0.05] motion-reduce:animate-none";
   return (
-    <div aria-busy="true" aria-label="Cargando tu vestíbulo" data-testid="daily-skeleton" className="space-y-5 lg:space-y-6">
+    <div aria-busy="true" aria-label={t("Cargando tu vestíbulo")} data-testid="daily-skeleton" className="space-y-5 lg:space-y-6">
       <div className="nx-clip relative overflow-hidden border border-white/10 bg-[linear-gradient(160deg,rgba(12,15,26,0.96),rgba(6,8,14,0.98))] px-5 py-8 sm:px-9 sm:py-11">
         <div className={`${bar} h-3 w-40`} />
         <div className={`${bar} mt-4 h-12 w-3/4 max-w-xl`} />
@@ -133,7 +140,7 @@ export function DailyLobbySkeleton() {
         <div className={`${bar} h-64`} />
         <div className={`${bar} h-64`} />
       </div>
-      <p className="sr-only" role="status">Cargando tu vestíbulo…</p>
+      <p className="sr-only" role="status">{t("Cargando tu vestíbulo…")}</p>
     </div>
   );
 }

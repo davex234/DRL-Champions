@@ -28,6 +28,10 @@ import { SealedPack } from "./SealedPack";
 import { packIdentity } from "./packIdentity";
 import { AmbientParticles, ParticleBurst } from "./Particles";
 import { PackHand, type HandSlot } from "./PackHand";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("packs");
 
 const INTRO_MS = 900;
 /** Duración del acto de apertura con resultado: tensión → rasgado → cartas saliendo → sobre fuera. */
@@ -139,6 +143,7 @@ export function PackStage({
   pointer?: { onPointerDown: PointerEventHandler; onPointerMove: PointerEventHandler; onPointerUp: PointerEventHandler };
   headingRef?: Ref<HTMLHeadingElement>;
 }) {
+  useLocale();
   const accent = pack.accent ?? "#ff2e63";
   const art = packIdentity(pack).artwork;
   const width = usePackWidth();
@@ -227,9 +232,9 @@ export function PackStage({
           />
         )}
         <motion.div className="flex flex-col items-center gap-1 text-center" initial={false} animate={{ opacity: stage === "hand" ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.35 }}>
-          <span className="font-display text-label font-bold uppercase tracking-wide2 text-ink-faint">{pack.name}</span>
+          <span className="font-display text-label font-bold uppercase tracking-wide2 text-ink-faint">{td(pack.name)}</span>
           <h2 ref={headingRef} tabIndex={-1} className="font-display text-[clamp(24px,5.5vw,40px)] font-bold uppercase leading-none text-white outline-none">
-            {count === 1 ? "1 carta" : `${count} cartas`}
+            {count === 1 ? t("1 carta") : t("{count} cartas", { count })}
           </h2>
         </motion.div>
 
@@ -245,13 +250,13 @@ export function PackStage({
           style={{ pointerEvents: stage === "hand" ? "auto" : "none" }}
         >
           <NxButton variant="primary" size="lg" onClick={onStartReveal} data-testid="pack-reveal" tabIndex={stage === "hand" ? 0 : -1}>
-            Revelar
+            {t("Revelar")}
           </NxButton>
           {/* Fase 57.3 · con UNA carta (Sobre Icon) no hay «una a una» ni «todas»: solo Revelar. */}
           {count > 1 && <div className="flex items-center gap-3">
-            <p className="text-caption text-ink-faint">Una a una · Espacio</p>
+            <p className="text-caption text-ink-faint">{t("Una a una · Espacio")}</p>
             <button type="button" onClick={onRevealAll} tabIndex={stage === "hand" ? 0 : -1} className="nx-focus min-h-[44px] px-2 text-caption text-ink-secondary underline-offset-2 hover:text-white hover:underline" data-testid="pack-reveal-all">
-              Revelar todas
+              {t("Revelar todas")}
             </button>
           </div>}
         </motion.div>
@@ -268,11 +273,11 @@ export function PackStage({
         >
           {sealed && (
             <div className="absolute flex flex-col items-center gap-1 px-6 text-center" style={{ top: "max(3.5rem, calc(env(safe-area-inset-top) + 3rem))" }}>
-              <span className="font-display text-label font-bold uppercase tracking-wide2 text-ink-faint">Nexus</span>
+              <span className="font-display text-label font-bold uppercase tracking-wide2 text-ink-faint">{t("Nexus")}</span>
               <h1 className="font-display text-h3 font-bold uppercase leading-none" style={{ color: accent }} data-testid="pack-name">
-                {pack.name}
+                {td(pack.name)}
               </h1>
-              <p className="font-display text-label uppercase tracking-wide2 text-ink-muted" data-testid="pack-count">{count === 1 ? "1 carta" : `${count} cartas`}</p>
+              <p className="font-display text-label uppercase tracking-wide2 text-ink-muted" data-testid="pack-count">{count === 1 ? t("1 carta") : t("{count} cartas", { count })}</p>
             </div>
           )}
 
@@ -346,9 +351,9 @@ export function PackStage({
           {stage === "ready" && (
             <div className="absolute flex flex-col items-center gap-3 px-6 text-center" style={{ bottom: "max(2.5rem, calc(env(safe-area-inset-bottom) + 1.5rem))" }}>
               <NxButton variant="primary" size="lg" onClick={onOpen} data-testid="pack-open">
-                Abrir sobre
+                {t("Abrir sobre")}
               </NxButton>
-              <p className="text-caption text-ink-faint">Toca · Espacio · Enter — o arrastra sobre la costura →</p>
+              <p className="text-caption text-ink-faint">{t("Toca · Espacio · Enter — o arrastra sobre la costura →")}</p>
               <div className="h-1 w-52 max-w-[70vw] overflow-hidden rounded-full bg-white/10" aria-hidden>
                 <div className="h-full rounded-full transition-[width] duration-instant" style={{ width: `${cutProgress * 100}%`, background: accent }} />
               </div>
@@ -357,8 +362,8 @@ export function PackStage({
 
           {stage === "requesting" && (
             <div role="status" aria-live="polite" className="absolute flex flex-col items-center gap-2 px-6 text-center" style={{ bottom: "max(3rem, calc(env(safe-area-inset-bottom) + 2rem))" }} data-testid="pack-requesting">
-              <p className="font-display text-caption uppercase tracking-[0.4em] text-white/85">Abriendo tu sobre</p>
-              <p className="max-w-xs text-caption text-ink-faint">El servidor decide y guarda tus cartas. No se revela nada hasta que lo confirme.</p>
+              <p className="font-display text-caption uppercase tracking-[0.4em] text-white/85">{t("Abriendo tu sobre")}</p>
+              <p className="max-w-xs text-caption text-ink-faint">{t("El servidor decide y guarda tus cartas. No se revela nada hasta que lo confirme.")}</p>
             </div>
           )}
         </div>

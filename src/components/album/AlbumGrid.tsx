@@ -33,6 +33,10 @@ import { Plate, Recessed } from "@/components/ui/Surface";
 import { NxButton } from "@/components/ui/NxButton";
 import { Badge } from "@/components/ui/Badge";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("album");
 
 export interface AlbumCard {
   cardId: string;
@@ -69,6 +73,7 @@ export function AlbumGrid({
   remaining: number;
   onMore: () => void;
 }) {
+  useLocale();
   return (
     <>
       {/*
@@ -89,7 +94,7 @@ export function AlbumGrid({
               status={c.owned ? undefined : "locked"}
               count={c.count}
               delay={card3DStagger(i, 0.012, 0.28)}
-              label={c.label ?? (c.owned ? `Ver ${c.def.id}` : `${c.def.id} — todavía no la tienes`)}
+              label={td(c.label) ?? (c.owned ? t("Ver {id}", { id: c.def.id }) : t("{id} — todavía no la tienes", { id: c.def.id }))}
               onClick={() => onOpen(c.cardId)}
             >
               {/*
@@ -98,16 +103,16 @@ export function AlbumGrid({
                 la cara es el fichero hecho a mano como si es el dibujado por capas.
                 `chamfer` es el de `sm`, para que el corte de la esquina sea el mismo.
               */}
-              <CardVisual uid={c.uid} alt={`Carta de ${c.def.id}`} chamfer="11px" className="w-[150px]">
+              <CardVisual uid={c.uid} alt={t("Carta de {id}", { id: c.def.id })} chamfer="11px" className="w-[150px]">
                 <PlayerCard card={c.def} size="sm" interactive={false} serial={c.serial} />
               </CardVisual>
             </Card3D>
             {(c.favorite || c.inShowcase || c.inActiveDeck || !c.owned) && (
               <span aria-hidden className="pointer-events-none absolute left-1.5 top-1.5 flex flex-col items-start gap-1">
-                {!c.owned && <Badge tone="muted" solid>No conseguida</Badge>}
+                {!c.owned && <Badge tone="muted" solid>{t("No conseguida")}</Badge>}
                 {c.owned && c.favorite && <Badge tone="gold" solid>★</Badge>}
-                {c.owned && c.inShowcase && <Badge tone="gold">Vitrina</Badge>}
-                {c.owned && c.inActiveDeck && <Badge tone="info">Equipo</Badge>}
+                {c.owned && c.inShowcase && <Badge tone="gold">{t("Vitrina")}</Badge>}
+                {c.owned && c.inActiveDeck && <Badge tone="info">{t("Equipo")}</Badge>}
               </span>
             )}
           </div>
@@ -117,10 +122,10 @@ export function AlbumGrid({
       {remaining > 0 && (
         <div className="mt-6 flex flex-col items-center gap-2">
           <NxButton variant="secondary" size="md" onClick={onMore}>
-            Ver {Math.min(remaining, 48)} cartas más
+            {t("Ver {n} cartas más", { n: Math.min(remaining, 48) })}
           </NxButton>
           <span className="font-display text-label uppercase tracking-wide2 text-ink-faint">
-            quedan {remaining}
+            {t("quedan")} {remaining}
           </span>
         </div>
       )}
@@ -136,6 +141,7 @@ export function AlbumGrid({
  * este sitio y cuál es el siguiente paso, sacado del estado real del jugador.
  */
 export function AlbumEmpty({ packs }: { packs: number }) {
+  useLocale();
   return (
     <Plate className="mb-5 flex flex-wrap items-center gap-5 p-5 sm:p-6">
       <div aria-hidden className="flex shrink-0 items-end gap-2">
@@ -151,11 +157,11 @@ export function AlbumEmpty({ packs }: { packs: number }) {
         ))}
       </div>
       <div className="min-w-[220px] flex-1">
-        <SectionTitle as="p">Tu álbum está vacío</SectionTitle>
+        <SectionTitle as="p">{t("Tu álbum está vacío")}</SectionTitle>
         <p className="max-w-[52ch] text-body leading-relaxed text-ink-muted">
           {packs > 0
-            ? `Tienes ${packs} ${packs === 1 ? "sobre sin abrir" : "sobres sin abrir"}. Cada carta que consigas ocupará su hueco aquí abajo, y las que aún no tienes se quedan a la vista para que sepas qué buscar.`
-            : "Aquí abajo está el catálogo entero. Las cartas que consigas ocuparán su hueco; las que no, se quedan a la vista para que sepas qué buscar."}
+            ? t("Tienes {packs} {v}. Cada carta que consigas ocupará su hueco aquí abajo, y las que aún no tienes se quedan a la vista para que sepas qué buscar.", { packs, v: packs === 1 ? t("sobre sin abrir") : t("sobres sin abrir") })
+            : t("Aquí abajo está el catálogo entero. Las cartas que consigas ocuparán su hueco; las que no, se quedan a la vista para que sepas qué buscar.")}
         </p>
       </div>
       <NxButton
@@ -165,7 +171,7 @@ export function AlbumEmpty({ packs }: { packs: number }) {
         href={packs > 0 ? "/inventario" : "/tienda"}
         className="shrink-0"
       >
-        {packs > 0 ? "Abrir sobres" : "Ir a la tienda"}
+        {packs > 0 ? t("Abrir sobres") : t("Ir a la tienda")}
       </NxButton>
     </Plate>
   );
@@ -176,6 +182,7 @@ export function AlbumEmpty({ packs }: { packs: number }) {
  * se ofrece es deshacerlo, no reintentar.
  */
 export function AlbumNoResults({ onClear }: { onClear: () => void }) {
+  useLocale();
   return (
     <Plate className="flex flex-col items-center gap-3 px-6 py-14 text-center">
       <div aria-hidden className="flex items-end gap-2 opacity-60">
@@ -183,13 +190,12 @@ export function AlbumNoResults({ onClear }: { onClear: () => void }) {
           <Recessed key={i} depth="sm" className="aspect-[3/4] w-[42px] outline outline-1 -outline-offset-1 outline-white/[0.08]" />
         ))}
       </div>
-      <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">Sin resultados</p>
+      <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">{t("Sin resultados")}</p>
       <p className="max-w-[44ch] text-body text-ink-muted">
-        Ninguna carta del álbum coincide con lo que has pedido. Prueba con otro nombre o quita
-        alguna condición.
+        {t("Ninguna carta del álbum coincide con lo que has pedido. Prueba con otro nombre o quita alguna condición.")}
       </p>
       <NxButton variant="secondary" size="md" onClick={onClear}>
-        Limpiar filtros
+        {t("Limpiar filtros")}
       </NxButton>
     </Plate>
   );

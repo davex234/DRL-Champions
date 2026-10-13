@@ -330,7 +330,7 @@ test("ERROR FATAL · sin traza para el jugador", () => {
 
 const SHELL = read("src/components/layout/GameShell.tsx");
 test("ARMAZÓN · JUGAR en barra y en el centro del dock; menú móvil; transiciones por familia", () => {
-  assert.ok(SHELL.includes('<PlayButton cta={cta} size="bar"') && SHELL.includes('size="dock"'));
+  assert.ok(SHELL.includes('<PlayButton cta={td(cta)} size="bar"') && SHELL.includes('size="dock"'));
   assert.ok(SHELL.includes("<MobileMenuSheet") && SHELL.includes('<MotionConfig reducedMotion="user">'));
   assert.ok(read("src/components/layout/PageTransition.tsx").includes("pageMotion(family, reduced)"));
 });
@@ -401,8 +401,8 @@ test("NO FAKE LIVE · evento DEMO con partido `live` en BD: «Partido de demo»,
   assert.match(html(<EventStatusBadge lifecycle="ACTIVE" label="En curso" />), /En curso/);
 });
 test("NO FAKE LIVE · tarjeta, héroe de evento y paso de progresión exigen evento real", () => {
-  assert.ok(read("src/components/liveEvents/EventCard.tsx").includes('(ev.isDemo ? "Partido de demo" : "En directo")'));
-  assert.ok(read("src/components/liveEvents/EventHero.tsx").includes('(event.isDemo ? "Partido de demo" : "En directo")'));
+  assert.ok(read("src/components/liveEvents/EventCard.tsx").includes('(ev.isDemo ? t("Partido de demo") : t("En directo"))'));
+  assert.ok(read("src/components/liveEvents/EventHero.tsx").includes('(event.isDemo ? t("Partido de demo") : t("En directo"))'));
   assert.ok(read("src/server/services/loop.ts").includes('circuit.liveMatch && !circuit.isDemo ? "Hay partido en directo"'));
 });
 

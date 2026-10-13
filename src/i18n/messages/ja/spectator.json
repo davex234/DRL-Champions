@@ -1,0 +1,14 @@
+{
+  "Clutch 1v{x} de {name}": "{name}の1v{x}クラッチ",
+  "Desactivando el spike{v}": "スパイクをディフューズ中{v}",
+  "Duelo ({name})": "デュエル（{name}）",
+  "Fase de control del mapa": "マップコントロール局面",
+  "Lurk de {name} por el flanco": "{name}がフランクからラーク",
+  "Plantando el spike{v}": "スパイクをプラント中{v}",
+  "Primer duelo ({name})": "ファーストデュエル（{name}）",
+  "Reposicionamiento del equipo": "チームの再配置",
+  "Retake en marcha ({length} def)": "リテイク進行中（ディフェンス{length}人）",
+  "Sin acción destacada": "注目のアクションなし",
+  "Trade en juego ({name})": "トレード発生中（{name}）",
+  "vista táctica": "戦術ビュー"
+}

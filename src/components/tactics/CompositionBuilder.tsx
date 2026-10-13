@@ -29,6 +29,10 @@ import { AGENT_CLASS_COLOR, AGENT_CLASS_LABEL, agentById, agentColor, agentRoleL
 import { AgentFullBody, AgentPortrait } from "@/components/agents/AgentArt";
 import { useRosterVersion } from "@/lib/tactics/useRosterVersion";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("tactics");
 
 export function CompositionBuilder({
   mapId, mapName, value, onSave, onCancel, saving = false, error = null,
@@ -42,6 +46,7 @@ export function CompositionBuilder({
   saving?: boolean;
   error?: string | null;
 }) {
+  useLocale();
   const [name, setName] = useState(value?.name ?? "");
   const [agentIds, setAgentIds] = useState<string[]>(value?.agentIds ?? []);
   const [filtro, setFiltro] = useState<TacticalRole | "todas">("todas");
@@ -92,11 +97,11 @@ export function CompositionBuilder({
     <section data-testid="composition-builder" className="space-y-4">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="nx-label text-white/40">{mapName} · composición</p>
+          <p className="nx-label text-white/40">{td(mapName)} {t("· composición")}</p>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Nombre de la composición"
+            placeholder={t("Nombre de la composición")}
             data-testid="composition-name"
             maxLength={60}
             className="mt-1 w-[min(88vw,460px)] border-b border-[rgba(47,224,255,0.25)] bg-transparent pb-1 font-display text-[clamp(20px,3.4vh,34px)] font-extrabold uppercase tracking-[0.04em] text-white outline-none placeholder:text-white/25 focus-visible:border-[#2fe0ff]"
@@ -147,8 +152,8 @@ export function CompositionBuilder({
                 data-filled={agente ? "true" : "false"}
                 data-legacy={agente?.legacy ? "true" : undefined}
                 onClick={() => (agente ? quitarSlot(i) : setSlot(activo ? null : i))}
-                aria-label={agente ? `${agente.name}. Pulsa para quitarlo del hueco ${i + 1}` : `Hueco ${i + 1} vacío`}
-                title={agente ? "Quitar del cinco" : "Elegir agente para este hueco"}
+                aria-label={agente ? t("{name}. Pulsa para quitarlo del hueco {v}", { name: agente.name, v: i + 1 }) : t("Hueco {v} vacío", { v: i + 1 })}
+                title={agente ? t("Quitar del cinco") : t("Elegir agente para este hueco")}
                 /* FASE 51 · una POSICIÓN de la plantilla, no una caja: filo del rol, número grabado y luz desde abajo. */
                 className={cn(
                   "group relative flex w-full flex-col items-center gap-1.5 px-1 pb-2.5 pt-2 transition duration-150",
@@ -210,7 +215,7 @@ export function CompositionBuilder({
                       </span>
                     </span>
                     <span className={cn("nx-label !text-[9px]", activo ? "!text-[#2fe0ff]" : "text-white/40")}>
-                      {activo ? "Elige agente" : "Vacío"}
+                      {activo ? t("Elige agente") : t("Vacío")}
                     </span>
                   </>
                 )}
@@ -224,19 +229,18 @@ export function CompositionBuilder({
       <div className="flex flex-wrap items-center gap-2" data-testid="composition-breakdown">
         {TACTICAL_ROLES.filter((c) => reparto[c] > 0).map((c) => (
           <span key={c} className="nx-label rounded-full px-2.5 py-1" style={{ color: AGENT_CLASS_COLOR[c], background: `${AGENT_CLASS_COLOR[c]}1a` }}>
-            {AGENT_CLASS_LABEL[c]} {reparto[c]}
+            {td(AGENT_CLASS_LABEL[c])} {reparto[c]}
           </span>
         ))}
         {reparto.legacy > 0 && (
           <span className="nx-label rounded-full px-2.5 py-1" style={{ color: LEGACY_COLOR, background: `${LEGACY_COLOR}1a` }}>
-            Modelo anterior {reparto.legacy}
+            {t("Modelo anterior")} {reparto.legacy}
           </span>
         )}
       </div>
       {antiguos.length > 0 && (
         <p data-testid="composition-legacy-note" className="text-[12px] text-white/55">
-          Esta composición es del modelo anterior de NEXUS ({antiguos.map((x) => agentById(x)?.name ?? x).join(", ")}).
-          Se conserva tal cual; pulsa cada hueco gris para quitarlo y elige un agente real.
+          {t("Esta composición es del modelo anterior de NEXUS (")}{antiguos.map((x) => agentById(x)?.name ?? x).join(", ")}{t("). Se conserva tal cual; pulsa cada hueco gris para quitarlo y elige un agente real.")}
         </p>
       )}
 
@@ -246,15 +250,15 @@ export function CompositionBuilder({
           <input
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar agente"
+            placeholder={t("Buscar agente")}
             data-testid="roster-search"
-            aria-label="Buscar agente"
+            aria-label={t("Buscar agente")}
             className="nx-focus min-h-[40px] w-44 bg-black/40 px-3 text-[12.5px] text-white outline-none shadow-[inset_0_0_0_1px_rgba(47,224,255,0.22)] placeholder:text-white/35 focus:shadow-[inset_0_0_0_1px_rgba(47,224,255,0.8)]"
           />
-          <div role="group" aria-label="Filtrar por rol" className="flex flex-wrap gap-1">
+          <div role="group" aria-label={t("Filtrar por rol")} className="flex flex-wrap gap-1">
             <button type="button" onClick={() => setFiltro("todas")} aria-pressed={filtro === "todas"}
               className={cn("nx-focus min-h-[40px] px-3 font-display text-[10.5px] font-bold uppercase tracking-[0.16em]", filtro === "todas" ? "bg-[rgba(47,224,255,0.16)] text-white shadow-[inset_0_0_0_1px_rgba(47,224,255,0.9)]" : "text-white/55 shadow-[inset_0_0_0_1px_rgba(47,224,255,0.14)] hover:text-white")}>
-              Todos · {searchAgents("").length}
+              {t("Todos ·")} {searchAgents("").length}
             </button>
             {TACTICAL_ROLES.map((c) => (
               <button key={c} type="button" onClick={() => setFiltro(c)} aria-pressed={filtro === c}
@@ -262,7 +266,7 @@ export function CompositionBuilder({
                 style={filtro === c
                   ? { background: `${AGENT_CLASS_COLOR[c]}26`, color: AGENT_CLASS_COLOR[c], boxShadow: `inset 0 0 0 1px ${AGENT_CLASS_COLOR[c]}` }
                   : { boxShadow: "inset 0 0 0 1px rgba(47,224,255,0.14)" }}>
-                {AGENT_CLASS_LABEL[c]} · {searchAgents("", c).length}
+                {td(AGENT_CLASS_LABEL[c])} · {searchAgents("", c).length}
               </button>
             ))}
           </div>
@@ -280,7 +284,7 @@ export function CompositionBuilder({
                   aria-pressed={puesto}
                   disabled={lleno}
                   onClick={() => alternar(a.id)}
-                  title={lleno ? "La composición ya tiene cinco agentes" : `${a.name} · ${AGENT_CLASS_LABEL[a.role]}`}
+                  title={lleno ? t("La composición ya tiene cinco agentes") : `${a.name} · ${AGENT_CLASS_LABEL[a.role]}`}
                   className={cn(
                     "nx-focus flex min-h-[54px] w-full items-center gap-2.5 px-2.5 py-2 text-left transition duration-150",
                     puesto ? "bg-[rgba(47,224,255,0.12)]" : "bg-[rgba(4,8,16,0.55)] hover:bg-[rgba(47,224,255,0.07)]",
@@ -297,7 +301,7 @@ export function CompositionBuilder({
                   <span className="min-w-0 flex-1 leading-tight">
                     <b className="block truncate font-display text-[12.5px] font-bold uppercase tracking-[0.08em] text-white">{a.name}</b>
                     <span className="block font-display text-[8px] font-bold uppercase tracking-[0.16em]" style={{ color: AGENT_CLASS_COLOR[a.role] }}>
-                      {AGENT_CLASS_LABEL[a.role]}
+                      {td(AGENT_CLASS_LABEL[a.role])}
                     </span>
                   </span>
                   {/* Dentro del cinco: se dice, además de con el color, con una marca. */}
@@ -326,13 +330,13 @@ export function CompositionBuilder({
         const soloFaltaNombre = !error && name.trim().length === 0 && problemas.length === 1;
         return (
           <p data-testid="composition-issue" className={cn("text-[12.5px]", soloFaltaNombre ? "text-white/45" : "text-[#ff5aa8]")}>
-            {error ?? problemas[0].message}
+            {td(error) ?? td(problemas[0].message)}
           </p>
         );
       })()}
       {!completa && problemas.length === 0 && !error && (
         <p className="text-[12px] text-white/40">
-          Faltan {COMPOSITION_SIZE - agentIds.length}. Se puede guardar a medias: sólo hace falta estar completa para llevarla a una partida.
+          {t("Faltan")} {COMPOSITION_SIZE - agentIds.length}{t(". Se puede guardar a medias: sólo hace falta estar completa para llevarla a una partida.")}
         </p>
       )}
 
@@ -344,7 +348,7 @@ export function CompositionBuilder({
           onClick={() => onSave({ id: value?.id, name, mapId, agentIds, notes: value?.notes ?? "" })}
           className="nx-coach-btn"
         >
-          {saving ? "Guardando…" : value ? "Guardar cambios" : "Crear composición"}
+          {saving ? t("Guardando…") : value ? t("Guardar cambios") : t("Crear composición")}
         </button>
         <button
           type="button"
@@ -352,7 +356,7 @@ export function CompositionBuilder({
           className="nx-coach-btn"
           data-variant="ghost"
         >
-          Cancelar
+          {t("Cancelar")}
         </button>
       </div>
     </section>
@@ -364,10 +368,11 @@ export function CompositionBuilder({
  * F59 · las CARAS reales (el legado sigue con su emblema gris, vía el respaldo de `AgentPortrait`).
  */
 export function CompositionStrip({ agentIds, size = 26 }: { agentIds: string[]; size?: number }) {
+  useLocale();
   return (
     <span className="flex items-center gap-1" data-testid="composition-strip">
       {agentIds.map((id) => <AgentPortrait key={id} agentId={id} size={size} title={agentById(id)?.name} />)}
-      {agentIds.length === 0 && <span className="nx-label text-white/30">Sin agentes</span>}
+      {agentIds.length === 0 && <span className="nx-label text-white/30">{t("Sin agentes")}</span>}
     </span>
   );
 }

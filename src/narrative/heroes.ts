@@ -7,6 +7,9 @@
  * etiqueta estructural derivada, no una frase escrita a mano por partido.
  */
 import type { PlayerArc, Standout, TeamId } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("narrative");
 
 export function selectStandouts(arcs: PlayerArc[], winner: TeamId | null): {
   heroes: Standout[];
@@ -29,7 +32,7 @@ export function selectStandouts(arcs: PlayerArc[], winner: TeamId | null): {
     const bestLoser = ranked.find((a) => a.team !== winner);
     if (bestLoser && bestLoser.impactScore > 0 && !heroes.some((h) => h.name === bestLoser.name)
       && bestLoser.impactScore >= (heroes[0]?.score ?? 0) * 0.7) {
-      heroes.push({ name: bestLoser.name, team: bestLoser.team, score: bestLoser.impactScore, reason: "héroe en la derrota", tags: bestLoser.states });
+      heroes.push({ name: bestLoser.name, team: bestLoser.team, score: bestLoser.impactScore, reason: t("héroe en la derrota"), tags: bestLoser.states });
     }
   }
 
@@ -45,13 +48,13 @@ export function selectStandouts(arcs: PlayerArc[], winner: TeamId | null): {
 }
 
 function heroReason(a: PlayerArc, onLoser: boolean): string {
-  if (a.aces > 0) return `${a.aces} ace${a.aces > 1 ? "s" : ""}`;
-  if (a.clutchWins > 0) return `${a.clutchWins} clutch${a.clutchWins > 1 ? "s" : ""} ganado${a.clutchWins > 1 ? "s" : ""}`;
-  if (onLoser) return "héroe en la derrota";
-  if (a.states.includes("dominant")) return "dominó el mapa";
+  if (a.aces > 0) return t("{n, plural, one {# ace} other {# aces}}", { n: a.aces });
+  if (a.clutchWins > 0) return t("{n, plural, one {# clutch ganado} other {# clutches ganados}}", { n: a.clutchWins });
+  if (onLoser) return t("héroe en la derrota");
+  if (a.states.includes("dominant")) return t("dominó el mapa");
   if (a.multikills >= 2) return `${a.multikills} multikills`;
-  if (a.roundsDecisive >= 3) return `${a.roundsDecisive} rondas decisivas`;
-  return "rendimiento de alto impacto";
+  if (a.roundsDecisive >= 3) return t("{roundsDecisive} rondas decisivas", { roundsDecisive: a.roundsDecisive });
+  return t("rendimiento de alto impacto");
 }
 
 function villainScore(a: PlayerArc, winner: TeamId | null): number {
@@ -67,10 +70,10 @@ function villainScore(a: PlayerArc, winner: TeamId | null): number {
 }
 
 function villainReason(a: PlayerArc): string {
-  if (a.states.includes("disappeared")) return "se desvaneció en el tramo final";
-  if (a.states.includes("tilt")) return "entró en tilt";
+  if (a.states.includes("disappeared")) return t("se desvaneció en el tramo final");
+  if (a.states.includes("tilt")) return t("entró en tilt");
   if (a.firstDeaths >= 3) return `${a.firstDeaths} primeras muertes`;
-  if (a.deaths > a.kills + 2) return "negativo en duelos clave";
-  if (a.states.includes("cold")) return "frío todo el partido";
-  return "bajo rendimiento";
+  if (a.deaths > a.kills + 2) return t("negativo en duelos clave");
+  if (a.states.includes("cold")) return t("frío todo el partido");
+  return t("bajo rendimiento");
 }

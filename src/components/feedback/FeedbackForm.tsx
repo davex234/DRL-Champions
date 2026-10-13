@@ -18,6 +18,10 @@ import {
   FEEDBACK_TEXT_MAX, isEmptyFeedback, type FeedbackSource,
 } from "@/domain/feedback/alpha";
 import { sendFeedback, newSubmissionId, FeedbackError } from "@/lib/feedback/client";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("feedback");
 
 interface Draft {
   hardToUnderstand: string; lostMoment: string; likedMost: string; likedLeast: string;
@@ -42,6 +46,7 @@ function clearDraft(userId: string) {
 }
 
 export function FeedbackForm({ userId, source }: { userId: string; source: FeedbackSource }) {
+  useLocale();
   const [draft, setDraft] = useState<Draft>(EMPTY);
   const [id, setId] = useState<string>("");
   const [busy, setBusy] = useState(false);
@@ -69,7 +74,7 @@ export function FeedbackForm({ userId, source }: { userId: string; source: Feedb
   async function submit(e?: React.FormEvent) {
     e?.preventDefault();
     if (busy || inFlight.current || !id) return;
-    if (empty) { setError("Responde al menos una pregunta antes de enviar."); return; }
+    if (empty) { setError(t("Responde al menos una pregunta antes de enviar.")); return; }
     inFlight.current = true;
     setBusy(true); setError(null);
     try {
@@ -81,7 +86,7 @@ export function FeedbackForm({ userId, source }: { userId: string; source: Feedb
       clearDraft(userId);
       setSent(true);
     } catch (err) {
-      setError(err instanceof FeedbackError ? err.message : "No se pudo enviar. Vuelve a intentarlo.");
+      setError(err instanceof FeedbackError ? err.message : t("No se pudo enviar. Vuelve a intentarlo."));
     } finally { inFlight.current = false; setBusy(false); }
   }
 
@@ -93,12 +98,12 @@ export function FeedbackForm({ userId, source }: { userId: string; source: Feedb
   if (sent) {
     return (
       <section className="nx-clip-sm mx-auto max-w-2xl border border-drl-cyan/30 bg-drl-cyan/[0.06] p-6 text-center" role="status" data-testid="feedback-sent">
-        <p className="font-display text-[12px] font-bold uppercase tracking-[0.2em] text-drl-cyan">Recibido</p>
-        <h2 className="mt-2 font-display text-[26px] font-extrabold uppercase text-white">¡Gracias!</h2>
-        <p className="mt-2 text-[14px] text-white/70">Lo leeremos con calma. Precisamente buscamos dónde falla la experiencia.</p>
+        <p className="font-display text-[12px] font-bold uppercase tracking-[0.2em] text-drl-cyan">{t("Recibido")}</p>
+        <h2 className="mt-2 font-display text-[26px] font-extrabold uppercase text-white">{t("¡Gracias!")}</h2>
+        <p className="mt-2 text-[14px] text-white/70">{t("Lo leeremos con calma. Precisamente buscamos dónde falla la experiencia.")}</p>
         <div className="mt-5 flex flex-wrap justify-center gap-3">
-          <NxButton variant="primary" href="/">Volver al inicio</NxButton>
-          <NxButton variant="secondary" onClick={another} data-testid="feedback-another">Enviar otra respuesta</NxButton>
+          <NxButton variant="primary" href="/">{t("Volver al inicio")}</NxButton>
+          <NxButton variant="secondary" onClick={another} data-testid="feedback-another">{t("Enviar otra respuesta")}</NxButton>
         </div>
       </section>
     );
@@ -106,47 +111,47 @@ export function FeedbackForm({ userId, source }: { userId: string; source: Feedb
 
   const area = (k: "hardToUnderstand" | "lostMoment" | "likedMost" | "likedLeast" | "errorDetail" | "comment", label: string, hint = "") => (
     <label key={k} className="block">
-      <span className="block font-display text-[14px] font-bold text-white">{label}</span>
-      {hint && <span className="mt-0.5 block text-[12px] text-white/45">{hint}</span>}
+      <span className="block font-display text-[14px] font-bold text-white">{td(label)}</span>
+      {hint && <span className="mt-0.5 block text-[12px] text-white/45">{td(hint)}</span>}
       <textarea className="nx-field mt-1.5 min-h-[88px] resize-y" maxLength={FEEDBACK_TEXT_MAX} value={draft[k]} onChange={(e) => set(k, e.target.value)} data-testid={`feedback-${k}`} />
     </label>
   );
 
   return (
     <form onSubmit={submit} className="mx-auto max-w-2xl space-y-5" data-testid="feedback-form" aria-describedby="feedback-intro">
-      <p id="feedback-intro" className="text-[14px] text-white/65">Todas las preguntas son opcionales. Sé sincero: nos ayuda mucho más saber qué falla que qué funciona. Solo lo lee el equipo de Valorosters.</p>
+      <p id="feedback-intro" className="text-[14px] text-white/65">{t("Todas las preguntas son opcionales. Sé sincero: nos ayuda mucho más saber qué falla que qué funciona. Solo lo lee el equipo de Valorosters.")}</p>
       {FEEDBACK_QUESTIONS.map((q) => area(q.field, q.label, q.hint))}
 
       <fieldset>
-        <legend className="font-display text-[14px] font-bold text-white">{FEEDBACK_ERROR_LABEL}</legend>
-        <div className="mt-2 flex gap-2" role="radiogroup" aria-label={FEEDBACK_ERROR_LABEL}>
+        <legend className="font-display text-[14px] font-bold text-white">{td(FEEDBACK_ERROR_LABEL)}</legend>
+        <div className="mt-2 flex gap-2" role="radiogroup" aria-label={td(FEEDBACK_ERROR_LABEL)}>
           {([[true, "Sí"], [false, "No"]] as const).map(([v, l]) => (
             <button key={l} type="button" role="radio" aria-checked={draft.hadError === v} onClick={() => set("hadError", draft.hadError === v ? null : v)}
               data-testid={`feedback-error-${v ? "yes" : "no"}`}
-              className={cn("nx-clip-sm nx-press min-h-[44px] min-w-[72px] px-4 font-display text-[13px] font-bold uppercase", draft.hadError === v ? "bg-drl text-white" : "bg-white/[0.06] text-white/70 hover:text-white")}>{l}</button>
+              className={cn("nx-clip-sm nx-press min-h-[44px] min-w-[72px] px-4 font-display text-[13px] font-bold uppercase", draft.hadError === v ? "bg-drl text-white" : "bg-white/[0.06] text-white/70 hover:text-white")}>{td(l)}</button>
           ))}
         </div>
         {draft.hadError && <div className="mt-3">{area("errorDetail", FEEDBACK_ERROR_DETAIL_LABEL)}</div>}
       </fieldset>
 
       <fieldset>
-        <legend className="font-display text-[14px] font-bold text-white">{FEEDBACK_RETURN_LABEL}</legend>
-        <div className="mt-2 flex flex-wrap gap-1.5" role="radiogroup" aria-label={FEEDBACK_RETURN_LABEL}>
+        <legend className="font-display text-[14px] font-bold text-white">{td(FEEDBACK_RETURN_LABEL)}</legend>
+        <div className="mt-2 flex flex-wrap gap-1.5" role="radiogroup" aria-label={td(FEEDBACK_RETURN_LABEL)}>
           {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
             <button key={n} type="button" role="radio" aria-checked={draft.wouldReturn === n} onClick={() => set("wouldReturn", draft.wouldReturn === n ? null : n)}
               data-testid={`feedback-return-${n}`}
               className={cn("nx-clip-sm nx-press h-11 w-11 font-display text-[15px] font-bold", draft.wouldReturn === n ? "bg-drl-cyan text-black" : "bg-white/[0.06] text-white/75 hover:text-white")}>{n}</button>
           ))}
         </div>
-        <p className="mt-1 text-[12px] text-white/40">1 = no volvería · 10 = volvería seguro</p>
+        <p className="mt-1 text-[12px] text-white/40">{t("1 = no volvería · 10 = volvería seguro")}</p>
       </fieldset>
 
       {area("comment", FEEDBACK_COMMENT_LABEL)}
 
-      {error && <p role="alert" className="text-[14px] text-drl-glow" data-testid="feedback-error">{error}</p>}
+      {error && <p role="alert" className="text-[14px] text-drl-glow" data-testid="feedback-error">{td(error)}</p>}
       <div className="flex flex-wrap items-center gap-3">
-        <NxButton type="submit" variant="primary" size="lg" disabled={busy || !id} aria-busy={busy} data-testid="feedback-submit">{busy ? "Enviando…" : "Enviar"}</NxButton>
-        <Link href="/" className="nx-focus text-[13px] text-white/55 underline-offset-4 hover:text-white hover:underline">Ahora no</Link>
+        <NxButton type="submit" variant="primary" size="lg" disabled={busy || !id} aria-busy={busy} data-testid="feedback-submit">{busy ? t("Enviando…") : t("Enviar")}</NxButton>
+        <Link href="/" className="nx-focus text-[13px] text-white/55 underline-offset-4 hover:text-white hover:underline">{t("Ahora no")}</Link>
       </div>
     </form>
   );

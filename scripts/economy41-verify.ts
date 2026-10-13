@@ -45,7 +45,7 @@ const ROOT = process.cwd();
 const read = (rel: string) => readFileSync(join(ROOT, rel), "utf8");
 const code = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:"'`])\/\/.*$/gm, "$1");
 const REG = new CardRegistry();
-const resolve = (id: string) => { const c = REG.card(id); const p = c ? REG.player(c.playerId) : undefined; return c && p ? { playerId: c.playerId, role: p.role, dataVersion: c.dataVersion ?? "", combat: !!c.combat } : null; };
+const resolve = (id: string) => { const c = REG.card(id); const p = c ? REG.player(c.playerId) : undefined; return c && p ? { playerId: c.playerId, role: c.role ?? p.role /* 2026-10-11 · el rol IMPRESO de la carta manda, como en el servicio real (starter.ts); con p.role el simulador medía 413 atrapadas y 6/9/12 que el juego no tiene: logs/onboarding/informe.md */, dataVersion: c.dataVersion ?? "", combat: !!c.combat } : null; };
 const U = "f41f41f4-0000-4000-8000-000000000001"; const V = "f41f41f4-0000-4000-8000-000000000002";
 const quiet = async <T,>(fn: () => Promise<T>) => { const e = console.error; const w = console.warn; console.error = () => {}; console.warn = () => {}; try { return await fn(); } finally { console.error = e; console.warn = w; } };
 const db = (...users: string[]) => { const d = new MemSupabase(); for (const u of users) d.seedUser(u); return d; };
@@ -201,7 +201,24 @@ async function main() {
     const comp = code(read("src/server/services/competitive.ts"));
     check("GET competitivo sin ensureRating ni getProgression", !/ensureRating\(|getProgression\(/.test(comp));
     const packsRoute = read("src/app/api/game/packs/route.ts");
-    check("cuerpo de sobres cerrado: el cliente no manda precio, carta ni cantidad", /const ALLOWED = \["action", "packId", "ref"\];/.test(packsRoute));
+    /*
+     * ICON (2026-10-09) añadió `expectedPrice` al cuerpo: el precio que el jugador VIO. El invariante de la Fase 41 no es
+     * la lista literal sino que el cliente no DECIDE el cobro. Se comprueba por comportamiento: un precio visto distinto
+     * del real rechaza sin cobrar, y uno correcto cobra el precio del catálogo del servidor (nunca el del cuerpo).
+     */
+    {
+      const price = getPack("estandar")!.price;
+      const dp = db(U); const before = credits(dp);
+      const low = await buyPack(dp.client, U, "estandar", "px-low", undefined, { expectedPrice: 1 });
+      const afterLow = credits(dp);
+      const good = await buyPack(dp.client, U, "estandar", "px-ok", undefined, { expectedPrice: price });
+      const closed = /const ALLOWED = \["action", "packId", "ref", "expectedPrice"\];/.test(packsRoute)
+        && /p_price: pack\.price,/.test(read("src/server/services/packs.ts"))
+        && !/p_price:\s*(opts|body)\b/.test(read("src/server/services/packs.ts"));
+      check("cuerpo de sobres cerrado: el cliente no decide precio, carta ni cantidad (el precio visto solo puede bloquear)",
+        closed && !low.ok && low.status === 409 && afterLow === before && good.ok && credits(dp) === before - price,
+        `precio visto 1 → ${low.ok ? "COBRADO" : low.status} (+0) · visto ${price} → cobra ${before - credits(dp)}`);
+    }
     check("cuerpo de créditos rechaza importes", /"credits", "amount", "balance", "delta", "price"/.test(read("src/app/api/game/credits/route.ts")));
     check("mercado global cerrado (GLOBAL_MARKET_ENABLED=false)", GLOBAL_MARKET_ENABLED === false);
     check("Draft Gauntlet sin economía (sin award en su flujo)", /DRAFT_GAUNTLET/.test(read("src/server/services/duels.ts")) && /Draft Gauntlet no da créditos/.test(read("src/lib/duel/experience.ts")));

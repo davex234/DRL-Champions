@@ -36,6 +36,10 @@ import { starterOffer } from "@/lib/economy/starterOffer";
 import { STARTER_POLICY } from "@/domain/economy/starter";
 import { PackPurchaseCta } from "@/components/economy/PackPurchaseCta";
 import type { StarterStatus } from "@/server/services/starter";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("packs");
 
 
 export default function PackDetailPage({ params }: { params: Promise<{ packId: string }> }) {
@@ -49,16 +53,18 @@ export default function PackDetailPage({ params }: { params: Promise<{ packId: s
 
 /** Estado a pantalla completa para «no encontrado / no disponible». Nunca revela un DRAFT. */
 function Unavailable({ title, body }: { title: string; body: string }) {
+  useLocale();
   return (
     <div className="mx-auto flex min-h-[60vh] w-full max-w-2xl flex-col items-center justify-center gap-4 px-4 text-center">
-      <h1 className="font-display text-2xl font-bold uppercase text-white">{title}</h1>
-      <p className="max-w-md text-sm text-ink-muted">{body}</p>
-      <NxButton variant="secondary" size="md" href="/packs">Volver al catálogo</NxButton>
+      <h1 className="font-display text-2xl font-bold uppercase text-white">{td(title)}</h1>
+      <p className="max-w-md text-sm text-ink-muted">{td(body)}</p>
+      <NxButton variant="secondary" size="md" href="/packs">{t("Volver al catálogo")}</NxButton>
     </div>
   );
 }
 
 function Detail({ packId }: { packId: string }) {
+  useLocale();
   const router = useRouter();
   const { toast, notify } = useToast();
   const { purchase, online } = usePackPurchase();
@@ -83,9 +89,9 @@ function Detail({ packId }: { packId: string }) {
   useEffect(() => { if (pack && isStoreVisible(pack)) trackFlow("pack_ceremony", `pack_viewed:${pack.id}`); }, [pack]);
 
   // Estados de ciclo de vida — sin filtrar contenido de un sobre no público.
-  if (!pack) return <Unavailable title="Sobre no encontrado" body="Este sobre no existe en el catálogo de NEXUS." />;
+  if (!pack) return <Unavailable title={t("Sobre no encontrado")} body={t("Este sobre no existe en el catálogo de NEXUS.")} />;
   if (!isStoreVisible(pack)) {
-    return <Unavailable title="Sobre no disponible" body="Este sobre no está disponible ahora mismo. Echa un vistazo al resto del catálogo." />;
+    return <Unavailable title={t("Sobre no disponible")} body={t("Este sobre no está disponible ahora mismo. Echa un vistazo al resto del catálogo.")} />;
   }
 
   const id = packIdentity(pack);
@@ -110,9 +116,9 @@ function Detail({ packId }: { packId: string }) {
     try {
       const res = await purchase(pack!.id);
       if (res.ok) { trackFlow("pack_ceremony", `pack_purchased:${pack!.id}`); router.push(`/abrir/${pack!.id}`); }
-      else notify(res.error ?? "No se pudo comprar el sobre", false);
+      else notify(res.error ?? t("No se pudo comprar el sobre"), false);
     } catch {
-      notify("Error de red. Inténtalo de nuevo.", false);
+      notify(t("Error de red. Inténtalo de nuevo."), false);
     } finally {
       inFlight.current = false;
       setBusy(false);
@@ -123,7 +129,7 @@ function Detail({ packId }: { packId: string }) {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-6 md:py-8">
       <Link href="/packs" className="nx-focus mb-5 inline-flex items-center gap-1 text-caption text-ink-muted hover:text-white">
-        ← Sobres
+        {t("← Sobres")}
       </Link>
 
       <div className="grid gap-6 md:grid-cols-[minmax(0,340px)_1fr] md:gap-10">
@@ -137,25 +143,25 @@ function Detail({ packId }: { packId: string }) {
         {/* ── Ficha ── */}
         <div className="flex flex-col">
           <div className="flex flex-wrap items-center gap-2">
-            <Badge tone="info" solid>{id.categoryLabel}</Badge>
-            {id.monogram && <Badge tone="muted">{id.monogram}</Badge>}
-            {owned > 0 && <Badge tone="info" dot>{owned} sin abrir</Badge>}
+            <Badge tone="info" solid>{td(id.categoryLabel)}</Badge>
+            {id.monogram && <Badge tone="muted">{td(id.monogram)}</Badge>}
+            {owned > 0 && <Badge tone="info" dot>{owned} {t("sin abrir")}</Badge>}
           </div>
 
-          <h1 className="mt-3 font-display text-3xl font-bold uppercase leading-none text-white">{pack.name}</h1>
-          {pack.description && <p className="mt-2 max-w-lg text-sm text-ink-muted">{pack.description}</p>}
+          <h1 className="mt-3 font-display text-3xl font-bold uppercase leading-none text-white">{td(pack.name)}</h1>
+          {pack.description && <p className="mt-2 max-w-lg text-sm text-ink-muted">{td(pack.description)}</p>}
 
           <div className="mt-5 flex flex-wrap items-end gap-x-8 gap-y-3">
-            <Readout size="md" label="Precio" value={offer ? offer.priceLabel : gratis ? "Gratis" : formatCredits(pack.price)} unit={gratis ? undefined : "créditos"} tone={offer && offer.priceLabel !== "Gratis" ? undefined : gratis ? "var(--nx-ok)" : "var(--nx-gold)"} />
-            <Readout size="sm" label="Contiene" value={pack.cardCount} unit={pack.cardCount === 1 ? "carta" : "cartas"} />
-            <Readout size="sm" label="Tu saldo" value={formatCredits(credits)} unit="créditos" />
+            <Readout size="md" label={t("Precio")} value={offer ? offer.priceLabel : gratis ? t("Gratis") : formatCredits(pack.price)} unit={gratis ? undefined : t("créditos")} tone={offer && offer.priceLabel !== "Gratis" ? undefined : gratis ? "var(--nx-ok)" : "var(--nx-gold)"} />
+            <Readout size="sm" label={t("Contiene")} value={pack.cardCount} unit={pack.cardCount === 1 ? t("carta") : t("cartas")} />
+            <Readout size="sm" label={t("Tu saldo")} value={formatCredits(credits)} unit={t("créditos")} />
           </div>
 
           {/* ── Probabilidades comprensibles (Fase 25): por carta, por sobre, garantía, equipo ── */}
           <PackOddsPanel odds={odds} />
 
           {/* ── CTA (Fase 41: componente compartido con el arnés) ── */}
-          <PackPurchaseCta pack={pack} cta={cta} credits={credits} owned={owned} offer={offer} busy={busy} onAction={handleCta} />
+          <PackPurchaseCta pack={pack} cta={td(cta)} credits={credits} owned={owned} offer={offer} busy={busy} onAction={handleCta} />
         </div>
       </div>
 

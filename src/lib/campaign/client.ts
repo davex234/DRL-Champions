@@ -11,6 +11,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getSupabase } from "@/lib/supabase/client";
 import type { CampaignSnapshot } from "@/domain/campaign/snapshot";
 import type { DuelMatchView } from "@/lib/duel/types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("campaign");
 
 export type { CampaignSnapshot };
 
@@ -51,11 +54,11 @@ async function post<T>(body: Record<string, unknown>, fallback: string): Promise
 
 /** Solo nodo y, si se elige, qué equipo TUYO. Nunca dificultad, rival ni recompensa. */
 export const startCampaignNode = (nodeId: string, deckId?: string | null) =>
-  post<{ view: DuelMatchView; nodeId: string; replay: boolean }>({ action: "start", nodeId, ...(deckId ? { deckId } : {}) }, "No se pudo lanzar el nodo");
+  post<{ view: DuelMatchView; nodeId: string; replay: boolean }>({ action: "start", nodeId, ...(deckId ? { deckId } : {}) }, tr("No se pudo lanzar el nodo"));
 
-export const syncCampaign = () => post<CampaignSnapshot>({ action: "sync" }, "No se pudo sincronizar la campaña");
+export const syncCampaign = () => post<CampaignSnapshot>({ action: "sync" }, tr("No se pudo sincronizar la campaña"));
 
-export const abandonCampaignNode = () => post<CampaignSnapshot>({ action: "abandon" }, "No se pudo abandonar el nodo");
+export const abandonCampaignNode = () => post<CampaignSnapshot>({ action: "abandon" }, tr("No se pudo abandonar el nodo"));
 
 export type CampaignLoad =
   | { state: "loading" }
@@ -83,7 +86,7 @@ export function useCampaign(opts: { sync?: boolean } = {}): { load: CampaignLoad
     } catch (e) {
       if (!alive.current) return;
       const offline = typeof navigator !== "undefined" && navigator.onLine === false;
-      setLoad(offline ? { state: "offline", snapshot: last.current } : { state: "error", message: e instanceof Error ? e.message : "No se pudo leer Road to Champions", snapshot: last.current });
+      setLoad(offline ? { state: "offline", snapshot: last.current } : { state: "error", message: e instanceof Error ? e.message : tr("No se pudo leer Road to Champions"), snapshot: last.current });
     }
   }, [wantSync]);
 

@@ -13,6 +13,9 @@
  */
 import type { CupMatchStatus, CupPlacement, CupResolution } from "./types";
 import { CUP_MAX_PARTICIPANTS, CUP_MIN_PARTICIPANTS } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("cups");
 
 export type CupSide = "A" | "B";
 export type SlotState = { kind: "PLAYER"; userId: string; seed: number | null } | { kind: "EMPTY" } | { kind: "PENDING" };
@@ -69,8 +72,8 @@ export function roundName(round: number, rounds: number): string {
   const stage = 2 ** (rounds - round + 1);
   if (stage === 2) return "Final";
   if (stage === 4) return "Semifinal";
-  if (stage === 8) return "Cuartos de final";
-  return `Ronda de ${stage}`;
+  if (stage === 8) return t("Cuartos de final");
+  return t("Ronda de {stage}", { stage });
 }
 
 /** Hasta dónde llegó quien cae en `round`. El perdedor de la final es subcampeón. */
@@ -222,36 +225,36 @@ export function bracketViolations(s: BracketState, seeded?: readonly string[]): 
   const out: string[] = [];
   const r1 = s.matches.filter((m) => m.round === 1);
   const firstRound = r1.flatMap((m) => [playerOf(m.a), playerOf(m.b)]).filter((x): x is string => !!x);
-  if (firstRound.length !== s.participants) out.push(`ronda 1 con ${firstRound.length} jugadores, se esperaban ${s.participants}`);
-  if (new Set(firstRound).size !== firstRound.length) out.push("un jugador aparece dos veces en la ronda 1");
-  if (seeded && [...seeded].sort().join() !== [...firstRound].sort().join()) out.push("los jugadores de la ronda 1 no son los inscritos");
+  if (firstRound.length !== s.participants) out.push(t("ronda 1 con {length} jugadores, se esperaban {participants}", { length: firstRound.length, participants: s.participants }));
+  if (new Set(firstRound).size !== firstRound.length) out.push(t("un jugador aparece dos veces en la ronda 1"));
+  if (seeded && [...seeded].sort().join() !== [...firstRound].sort().join()) out.push(t("los jugadores de la ronda 1 no son los inscritos"));
   const byes = r1.filter((m) => m.a.kind === "EMPTY" || m.b.kind === "EMPTY").length;
-  if (byes !== s.size - s.participants) out.push(`byes ${byes}, se esperaban ${s.size - s.participants}`);
-  if (r1.some((m) => m.a.kind === "EMPTY" && m.b.kind === "EMPTY")) out.push("cruce de ronda 1 sin nadie");
+  if (byes !== s.size - s.participants) out.push(t("byes {byes}, se esperaban {v}", { byes, v: s.size - s.participants }));
+  if (r1.some((m) => m.a.kind === "EMPTY" && m.b.kind === "EMPTY")) out.push(t("cruce de ronda 1 sin nadie"));
   for (let r = 1; r <= s.rounds; r++) {
     const ps = s.matches.filter((m) => m.round === r).flatMap((m) => [playerOf(m.a), playerOf(m.b)]).filter((x): x is string => !!x);
-    if (new Set(ps).size !== ps.length) out.push(`un jugador aparece dos veces en la ronda ${r}`);
+    if (new Set(ps).size !== ps.length) out.push(t("un jugador aparece dos veces en la ronda {r}", { r }));
   }
   for (const m of s.matches) {
     const a = playerOf(m.a), b = playerOf(m.b);
-    if (a && a === b) out.push(`cruce ${m.round}:${m.slot} con el mismo jugador dos veces`);
-    if (m.winnerId && m.winnerId !== a && m.winnerId !== b) out.push(`cruce ${m.round}:${m.slot}: el ganador no es participante`);
-    if ((m.status === "COMPLETED" || m.status === "BYE") && !m.winnerId) out.push(`cruce ${m.round}:${m.slot} terminado sin ganador`);
-    if (m.status === "VOID" && m.winnerId) out.push(`cruce ${m.round}:${m.slot} vacío con ganador`);
+    if (a && a === b) out.push(t("cruce {round}:{slot} con el mismo jugador dos veces", { round: m.round, slot: m.slot }));
+    if (m.winnerId && m.winnerId !== a && m.winnerId !== b) out.push(t("cruce {round}:{slot}: el ganador no es participante", { round: m.round, slot: m.slot }));
+    if ((m.status === "COMPLETED" || m.status === "BYE") && !m.winnerId) out.push(t("cruce {round}:{slot} terminado sin ganador", { round: m.round, slot: m.slot }));
+    if (m.status === "VOID" && m.winnerId) out.push(t("cruce {round}:{slot} vacío con ganador", { round: m.round, slot: m.slot }));
     if (m.round > 1) {
       for (const [side, src] of [["A", 2 * m.slot], ["B", 2 * m.slot + 1]] as const) {
         const from = matchAt(s, m.round - 1, src)!;
         const here = side === "A" ? m.a : m.b;
         const resolved = from.status === "COMPLETED" || from.status === "BYE" || from.status === "VOID";
-        if (!resolved && here.kind !== "PENDING") out.push(`cruce ${m.round}:${m.slot} lado ${side} relleno antes de que termine su origen`);
-        if (resolved && (here.kind === "PLAYER" ? here.userId : null) !== from.winnerId) out.push(`cruce ${m.round}:${m.slot} lado ${side} no es el ganador de su origen`);
+        if (!resolved && here.kind !== "PENDING") out.push(t("cruce {round}:{slot} lado {side} relleno antes de que termine su origen", { round: m.round, slot: m.slot, side }));
+        if (resolved && (here.kind === "PLAYER" ? here.userId : null) !== from.winnerId) out.push(t("cruce {round}:{slot} lado {side} no es el ganador de su origen", { round: m.round, slot: m.slot, side }));
       }
     }
   }
   const final = s.matches[s.matches.length - 1];
   const finalDone = final.status === "COMPLETED" || final.status === "BYE" || final.status === "VOID";
-  if (s.complete !== finalDone) out.push("«completo» no coincide con el estado de la final");
-  if (s.championId !== (finalDone ? final.winnerId : null)) out.push("el campeón no es el ganador de la final");
-  if (s.championId && s.eliminated.has(s.championId)) out.push("el campeón figura como eliminado");
+  if (s.complete !== finalDone) out.push(t("«completo» no coincide con el estado de la final"));
+  if (s.championId !== (finalDone ? final.winnerId : null)) out.push(t("el campeón no es el ganador de la final"));
+  if (s.championId && s.eliminated.has(s.championId)) out.push(t("el campeón figura como eliminado"));
   return out;
 }

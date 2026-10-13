@@ -11,6 +11,9 @@ import type { ClubView, SeasonOutcome } from "./types";
 import type { CoachLike } from "./market";
 import { derivePhilosophy } from "./club";
 import { makeRng, seedOf } from "./rng";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("career");
 
 /** Traduce un equipo del mundo a una `ClubView` (con filosofía determinista). */
 function toClubView(world: WorldState, teamId: string): ClubView | null {
@@ -66,7 +69,7 @@ export function seasonOutcomeFromWorld(world: WorldState, teamId: string): Seaso
   const finalist = last.pos <= 2;
   return {
     team: t.name,
-    competition: "Liga DRL",
+    competition: tr("Liga DRL"),
     tier: champion ? "continental" : "regional",
     wins: last.wins,
     losses: last.losses,

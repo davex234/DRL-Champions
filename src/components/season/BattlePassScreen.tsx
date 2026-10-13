@@ -22,8 +22,12 @@ import { RewardDisplay } from "@/components/rewards/RewardDisplay";
 import { PASS_PRODUCT, PAYMENTS_ENABLED, formatPrice } from "@/config/monetization";
 import { PASS_LANES, claimableCount, passRows, type PassLane } from "@/domain/season/battlePass";
 import type { PassTrack, ProgressionView } from "@/lib/progression/client";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
-const fmt = (n: number) => n.toLocaleString("es-ES", { useGrouping: "always" } as Intl.NumberFormatOptions);
+const t = ns("season");
+
+const fmt = (n: number) => n.toLocaleString(getIntlLocale(), { useGrouping: "always" } as Intl.NumberFormatOptions);
 /** Tinte de cada carril («r,g,b»), en el orden de `PASS_LANES`: gratis cian, competitivo magenta, premium oro. */
 const LANE_TINT = Object.fromEntries(PASS_LANES.map((l, i) => [l.track, ["25,227,255", "255,46,99", "255,211,92"][i]])) as Record<PassTrack, string>;
 
@@ -35,6 +39,7 @@ function CheckIcon() {
 }
 
 function LaneCell({ lane, level, busyKey, onClaim }: { lane: PassLane; level: number; busyKey: string | null; onClaim: (level: number, track: PassTrack) => void }) {
+  useLocale();
   const key = `${lane.track}:${level}`;
   const tint = LANE_TINT[lane.track];
   return (
@@ -47,7 +52,7 @@ function LaneCell({ lane, level, busyKey, onClaim }: { lane: PassLane; level: nu
         boxShadow: `inset 0 0 0 1px rgba(${tint},${lane.state === "AVAILABLE" ? 0.75 : 0.18})`,
       }}
     >
-      <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]" style={{ color: `rgb(${tint})` }}>{lane.label}</span>
+      <span className="font-display text-[11px] font-bold uppercase tracking-[0.18em]" style={{ color: `rgb(${tint})` }}>{td(lane.label)}</span>
       <RewardDisplay reward={lane.reward} size="sm" dim={lane.state === "CLAIMED"} className="min-w-0 flex-1" />
       {lane.state === "AVAILABLE" ? (
         <button
@@ -59,12 +64,12 @@ function LaneCell({ lane, level, busyKey, onClaim }: { lane: PassLane; level: nu
           className="nx-press nx-clip-sm min-h-[44px] w-full font-display text-[13px] font-bold uppercase tracking-[0.14em] text-[#07080e] transition hover:brightness-110 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           style={{ background: `rgb(${tint})` }}
         >
-          {busyKey === key ? "Reclamando…" : "Reclamar"}
+          {busyKey === key ? t("Reclamando…") : t("Reclamar")}
         </button>
       ) : lane.state === "CLAIMED" ? (
-        <span className="flex min-h-[44px] items-center gap-1.5 font-display text-[12px] font-bold uppercase tracking-[0.14em] text-emerald-300" data-testid="pass-claimed"><CheckIcon />Reclamado</span>
+        <span className="flex min-h-[44px] items-center gap-1.5 font-display text-[12px] font-bold uppercase tracking-[0.14em] text-emerald-300" data-testid="pass-claimed"><CheckIcon />{t("Reclamado")}</span>
       ) : (
-        <span className="flex min-h-[44px] items-center gap-1.5 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white/60" data-testid="pass-locked"><LockIcon />{lane.lockReason}</span>
+        <span className="flex min-h-[44px] items-center gap-1.5 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white/60" data-testid="pass-locked"><LockIcon />{td(lane.lockReason)}</span>
       )}
     </div>
   );
@@ -76,6 +81,7 @@ export function BattlePassScreen({ view, busyKey, onClaim }: {
   busyKey: string | null;
   onClaim: (level: number, track: PassTrack) => void;
 }) {
+  useLocale();
   const rows = passRows(view);
   const pending = claimableCount(view);
   const maxed = view.level >= view.season.maxLevel;
@@ -100,18 +106,18 @@ export function BattlePassScreen({ view, busyKey, onClaim }: {
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
           <div className="min-w-0">
             <p className="font-display text-[11px] font-bold uppercase tracking-[0.24em] text-drl-gold">
-              Pase de batalla · Temporada actual
+              {t("Pase de batalla · Temporada actual")}
             </p>
-            <h1 className="mt-1 font-display text-[clamp(26px,3.6vw,42px)] font-extrabold uppercase leading-none text-white" data-testid="pass-season">{view.season.name}</h1>
+            <h1 className="mt-1 font-display text-[clamp(26px,3.6vw,42px)] font-extrabold uppercase leading-none text-white" data-testid="pass-season">{td(view.season.name)}</h1>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <span data-testid="pass-tier" data-premium={view.premium ? "true" : "false"}
               className={cn("nx-clip-sm px-3 py-1.5 font-display text-[12px] font-bold uppercase tracking-[0.16em]", view.premium ? "bg-drl-gold text-[#221703]" : "border border-white/25 text-white")}>
-              {view.premium ? "Premium" : "Gratis"}
+              {view.premium ? t("Premium") : t("Gratis")}
             </span>
             {!view.premium && (
               <span data-testid="pass-premium-offer" className="nx-clip-sm border border-drl-gold/35 px-3 py-1.5 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-gold/80">
-                {PASS_PRODUCT.label} · {formatPrice(PASS_PRODUCT.price)}{!PAYMENTS_ENABLED && " · próximamente"}
+                {td(PASS_PRODUCT.label)} · {formatPrice(PASS_PRODUCT.price)}{!PAYMENTS_ENABLED && (" " + t("· próximamente"))}
               </span>
             )}
           </div>
@@ -119,27 +125,27 @@ export function BattlePassScreen({ view, busyKey, onClaim }: {
 
         <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
           <p className="font-display uppercase leading-none text-white" data-testid="pass-level" data-level={view.level}>
-            <span className="text-[13px] font-bold tracking-[0.18em] text-white/60">Nivel </span>
+            <span className="text-[13px] font-bold tracking-[0.18em] text-white/60">{t("Nivel")} </span>
             <span className="nx-readout text-[34px] font-bold">{view.level}</span>
             <span className="text-[15px] text-white/45"> / {view.season.maxLevel}</span>
           </p>
           <div className="min-w-[200px] flex-1">
-            <Meter value={maxed ? 100 : view.progress * 100} height={10} tone="info" label={`XP del pase: ${view.xpIntoLevel} de ${view.xpForNext}`} />
+            <Meter value={maxed ? 100 : view.progress * 100} height={10} tone="info" label={t("XP del pase: {xpIntoLevel} de {xpForNext}", { xpIntoLevel: view.xpIntoLevel, xpForNext: view.xpForNext })} />
             <p className="mt-1.5 flex flex-wrap justify-between gap-x-4 text-[12px] text-white/60" data-testid="pass-xp" data-xp={view.xpIntoLevel} data-next={view.xpForNext}>
-              <span className="nx-readout text-white">{maxed ? "Pase completado" : `${fmt(view.xpIntoLevel)} / ${fmt(view.xpForNext)} XP`}</span>
-              <Link href={ROUTES.objectives} className="nx-focus font-display font-bold uppercase tracking-[0.12em] text-drl-cyan hover:text-white" data-testid="pass-objectives-link">Ver objetivos →</Link>
+              <span className="nx-readout text-white">{maxed ? t("Pase completado") : t("{xpIntoLevel} / {xpForNext} XP", { xpIntoLevel: fmt(view.xpIntoLevel), xpForNext: fmt(view.xpForNext) })}</span>
+              <Link href={ROUTES.objectives} className="nx-focus font-display font-bold uppercase tracking-[0.12em] text-drl-cyan hover:text-white" data-testid="pass-objectives-link">{t("Ver objetivos →")}</Link>
             </p>
           </div>
           {pending > 0 && (
             <span className="font-display text-[12px] font-bold uppercase tracking-[0.14em] text-drl-gold" data-testid="pass-pending" role="status">
-              {pending === 1 ? "1 recompensa por reclamar" : `${pending} recompensas por reclamar`}
+              {pending === 1 ? t("1 recompensa por reclamar") : t("{pending} recompensas por reclamar", { pending })}
             </span>
           )}
         </div>
       </header>
 
       {/* ═══ TRACK DE RECOMPENSAS ═══ */}
-      <section aria-label="Recompensas del pase">
+      <section aria-label={t("Recompensas del pase")}>
         <ol
           ref={trackRef}
           data-testid="pass-track"
@@ -161,9 +167,9 @@ export function BattlePassScreen({ view, busyKey, onClaim }: {
                   r.reached ? "bg-white/[0.08] text-white" : "bg-white/[0.025] text-white/45")}
                 style={r.current ? { boxShadow: "inset 0 0 0 2px #ffd35c" } : undefined}
               >
-                <span className="text-[10px] font-bold tracking-[0.2em]">Nivel</span>
+                <span className="text-[10px] font-bold tracking-[0.2em]">{t("Nivel")}</span>
                 <span className="nx-readout text-[24px] font-bold leading-none">{r.level}</span>
-                {r.current && <span className="mt-1 text-[9px] font-bold tracking-[0.16em] text-drl-gold md:mt-0">Tú</span>}
+                {r.current && <span className="mt-1 text-[9px] font-bold tracking-[0.16em] text-drl-gold md:mt-0">{t("Tú")}</span>}
               </div>
               <div className="flex min-w-0 flex-col gap-2">
                 {r.lanes.map((lane) => <LaneCell key={lane.track} lane={lane} level={r.level} busyKey={busyKey} onClaim={onClaim} />)}

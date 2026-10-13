@@ -13,6 +13,10 @@ import { PreMatchVersus } from "@/components/duel/experience/PreMatchVersus";
 import type { DuelDeckDTO } from "@/lib/duel/types";
 import type { SocialPlayer } from "@/server/services/social";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("social");
 
 export interface ChallengeSheetProps {
   open: boolean;
@@ -30,6 +34,7 @@ export interface ChallengeSheetProps {
 }
 
 export function ChallengeSheet({ open, mode, target, decks, busy, error, rematch, onConfirm, onClose, activeDeckId = null }: ChallengeSheetProps) {
+  useLocale();
   const closeRef = useRef<HTMLButtonElement>(null);
   const [deckId, setDeckId] = useState<string | null>(null);
 
@@ -49,7 +54,7 @@ export function ChallengeSheet({ open, mode, target, decks, busy, error, rematch
   if (!open || !target) return null;
   const validos = decks?.filter((d) => d.valid) ?? [];
   const elegido = validos.find((d) => d.id === deckId) ?? null;
-  const titulo = mode === "send" ? (rematch ? "Pedir revancha" : "Retar a un amigo") : "Aceptar el reto";
+  const titulo = mode === "send" ? (rematch ? t("Pedir revancha") : t("Retar a un amigo")) : t("Aceptar el reto");
 
   return (
     <div className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm" onClick={onClose} data-scene="challenge-sheet" data-mode={mode}>
@@ -63,26 +68,26 @@ export function ChallengeSheet({ open, mode, target, decks, busy, error, rematch
         <span aria-hidden className="mx-auto mb-3 block h-1 w-10 rounded-full bg-white/20 sm:hidden" />
         <div className="flex items-start justify-between gap-3">
           <div>
-            <span className="nx-label">Duelo privado · sin rating</span>
-            <h2 id="challenge-sheet-title" className="font-display text-h2 font-bold uppercase tracking-wide text-white">{titulo}</h2>
+            <span className="nx-label">{t("Duelo privado · sin rating")}</span>
+            <h2 id="challenge-sheet-title" className="font-display text-h2 font-bold uppercase tracking-wide text-white">{td(titulo)}</h2>
             <p className="mt-1 text-caption text-ink-muted">
-              <span aria-hidden className="mr-1">{target.avatar}</span>{target.username} · misma arena y mismas reglas que el ranked; no mueve tu rating ni tu posición.
+              <span aria-hidden className="mr-1">{target.avatar}</span>{t("{nombre} · misma arena y mismas reglas que el ranked; no mueve tu rating ni tu posición.", { nombre: target.username })}
             </p>
           </div>
-          <button ref={closeRef} type="button" onClick={onClose} aria-label="Cerrar" className="nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-white/70 transition hover:bg-white/10 hover:text-white">✕</button>
+          <button ref={closeRef} type="button" onClick={onClose} aria-label={t("Cerrar")} className="nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-white/70 transition hover:bg-white/10 hover:text-white">✕</button>
         </div>
 
         <div className="mt-4">
-          <span className="nx-label">Tu equipo</span>
+          <span className="nx-label">{t("Tu equipo")}</span>
           {decks === null ? (
-            <p className="mt-2 text-caption text-ink-muted" role="status">Leyendo tus equipos…</p>
+            <p className="mt-2 text-caption text-ink-muted" role="status">{t("Leyendo tus equipos…")}</p>
           ) : validos.length === 0 ? (
             <div className="mt-2 rounded-xl border border-dashed border-white/15 p-4 text-center">
-              <p className="text-sm text-white">No tienes ningún equipo válido todavía.</p>
-              <Link href="/duelos/mazos" className="nx-action mt-2 inline-block">Ir a Mis equipos →</Link>
+              <p className="text-sm text-white">{t("No tienes ningún equipo válido todavía.")}</p>
+              <Link href="/duelos/mazos" className="nx-action mt-2 inline-block">{t("Ir a Mis equipos →")}</Link>
             </div>
           ) : (
-            <div className="mt-2 grid gap-2" role="radiogroup" aria-label="Elige un equipo">
+            <div className="mt-2 grid gap-2" role="radiogroup" aria-label={t("Elige un equipo")}>
               {decks.map((d) => {
                 const sel = d.id === deckId;
                 return (
@@ -103,11 +108,11 @@ export function ChallengeSheet({ open, mode, target, decks, busy, error, rematch
                   >
                     <span className="min-w-0">
                       <span className="block truncate text-sm text-white">{d.name}</span>
-                      <span className="block text-[11px] text-white/40">{d.valid ? `${d.cards.length} cartas · listo` : "No es legal todavía"}</span>
+                      <span className="block text-[11px] text-white/40">{d.valid ? t("{length} cartas · listo", { length: d.cards.length }) : t("No es legal todavía")}</span>
                     </span>
                     <span className="flex shrink-0 items-center gap-2">
-                      {d.id === activeDeckId && <span className="nx-label text-ok">Activo</span>}
-                      {sel && <span className="nx-label text-drl-cyan">Elegido</span>}
+                      {d.id === activeDeckId && <span className="nx-label text-ok">{t("Activo")}</span>}
+                      {sel && <span className="nx-label text-drl-cyan">{t("Elegido")}</span>}
                     </span>
                   </button>
                 );
@@ -123,12 +128,12 @@ export function ChallengeSheet({ open, mode, target, decks, busy, error, rematch
 
         <div className="mt-5 flex flex-wrap gap-2">
           <NxButton variant="primary" onClick={() => deckId && onConfirm(deckId)} disabled={busy || !deckId} data-testid="challenge-confirm">
-            {busy ? "Enviando…" : mode === "send" ? "Enviar reto" : "Aceptar y jugar"}
+            {busy ? t("Enviando…") : mode === "send" ? t("Enviar reto") : t("Aceptar y jugar")}
           </NxButton>
-          <NxButton variant="ghost" onClick={onClose} disabled={busy}>Cancelar</NxButton>
+          <NxButton variant="ghost" onClick={onClose} disabled={busy}>{t("Cancelar")}</NxButton>
         </div>
         <p className="mt-3 text-[11px] text-white/35">
-          {mode === "send" ? "Duelo AMISTOSO: sin rating, sin colocación y sin Top. El reto caduca en 5 minutos si no responde; puedes cancelarlo mientras esté pendiente." : "Al aceptar, la partida nace en el servidor y los dos entráis en la arena."}
+          {mode === "send" ? t("Duelo AMISTOSO: sin rating, sin colocación y sin Top. El reto caduca en 5 minutos si no responde; puedes cancelarlo mientras esté pendiente.") : t("Al aceptar, la partida nace en el servidor y los dos entráis en la arena.")}
         </p>
       </section>
     </div>

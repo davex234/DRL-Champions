@@ -10,10 +10,16 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "@/lib/format";
 import type { CupRoundView } from "@/server/services/cups";
 import { CupMatchCard, fmtDate } from "./CupParts";
+import { ns } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("cups");
 
 const ROW = 104; // alto reservado por cruce de la primera ronda (tarjeta + aire): el árbol entero se deriva de aquí
 
 export function CupBracket({ rounds, className }: { rounds: CupRoundView[]; className?: string }) {
+  useLocale();
   const mine = useMemo(() => {
     for (let i = rounds.length - 1; i >= 0; i--) {
       const m = rounds[i].matches.find((x) => x.you);
@@ -47,22 +53,22 @@ export function CupBracket({ rounds, className }: { rounds: CupRoundView[]; clas
   return (
     <section aria-labelledby="cup-bracket-title" className={cn("min-w-0", className)} data-testid="cup-bracket">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h2 id="cup-bracket-title" className="font-display text-[20px] font-black uppercase tracking-wide text-white">Cuadro</h2>
+        <h2 id="cup-bracket-title" className="font-display text-[20px] font-black uppercase tracking-wide text-white">{tr("Cuadro")}</h2>
         {mine && (
           <button type="button" onClick={goMine} data-testid="cup-go-mine"
             className="nx-focus nx-clip-sm min-h-[44px] px-4 font-display text-[12px] font-bold uppercase tracking-[0.14em] text-[#19e3ff] shadow-[inset_0_0_0_1px_rgba(25,227,255,0.5)] hover:bg-[#19e3ff]/10">
-            Ver mi partida
+            {tr("Ver mi partida")}
           </button>
         )}
       </div>
 
       {/* ── Escritorio: árbol ── */}
-      <div ref={tree} className="hidden max-w-full overflow-x-auto pb-2 lg:block" data-testid="cup-tree" role="region" aria-label="Cuadro completo, desplazable" tabIndex={0}>
+      <div ref={tree} className="hidden max-w-full overflow-x-auto pb-2 lg:block" data-testid="cup-tree" role="region" aria-label={tr("Cuadro completo, desplazable")} tabIndex={0}>
         <ol className="flex min-w-max gap-0" style={{ height: first * ROW }}>
           {rounds.map((r, ri) => (
-            <li key={r.round} className="flex w-[244px] shrink-0 flex-col" aria-label={r.name}>
+            <li key={r.round} className="flex w-[244px] shrink-0 flex-col" aria-label={roundText(r.name)}>
               <div className="mb-1 h-11 px-4">
-                <p className="font-display text-[13px] font-black uppercase tracking-[0.14em] text-white">{r.name}</p>
+                <p className="font-display text-[13px] font-black uppercase tracking-[0.14em] text-white">{roundText(r.name)}</p>
                 <p className="text-[11px] text-white/45">{fmtDate(r.availableAt)}</p>
               </div>
               <ol className="flex flex-1 flex-col">
@@ -85,18 +91,18 @@ export function CupBracket({ rounds, className }: { rounds: CupRoundView[]; clas
 
       {/* ── Móvil / tableta estrecha: pestañas por ronda + lista ── */}
       <div className="lg:hidden" data-testid="cup-rounds">
-        <div role="tablist" aria-label="Rondas" className="-mx-1 mb-3 flex max-w-full gap-1.5 overflow-x-auto px-1 pb-1">
+        <div role="tablist" aria-label={tr("Rondas")} className="-mx-1 mb-3 flex max-w-full gap-1.5 overflow-x-auto px-1 pb-1">
           {rounds.map((r) => (
             <button key={r.round} type="button" role="tab" aria-selected={r.round === shown.round} aria-controls="cup-round-panel" id={`cup-tab-${r.round}`}
               onClick={() => setTab(r.round)} data-testid="cup-round-tab"
               className={cn("nx-focus nx-clip-sm min-h-[44px] shrink-0 px-3 font-display text-[12px] font-bold uppercase tracking-[0.12em]",
                 r.round === shown.round ? "bg-white/[0.12] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.4)]" : "text-white/60 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)]")}>
-              {r.name}{r.matches.some((m) => m.you) ? " ●" : ""}
+              {roundText(r.name)}{r.matches.some((m) => m.you) ? " ●" : ""}
             </button>
           ))}
         </div>
         <div id="cup-round-panel" role="tabpanel" aria-labelledby={`cup-tab-${shown.round}`}>
-          <p className="mb-2 text-[12px] text-white/50">{shown.name} · desde {fmtDate(shown.availableAt)} hasta {fmtDate(shown.deadlineAt)}</p>
+          <p className="mb-2 text-[12px] text-white/50">{tr("{ronda} · desde {desde} hasta {hasta}", { ronda: roundText(shown.name), desde: fmtDate(shown.availableAt), hasta: fmtDate(shown.deadlineAt) })}</p>
           <ol className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {shown.matches.map((m) => (
               <li key={m.slot}><CupMatchCard m={m} roundTitle={shown.name} id={`cup-l-${m.round}-${m.slot}`} className="nx-focus outline-none" /></li>

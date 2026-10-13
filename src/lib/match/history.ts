@@ -21,6 +21,9 @@
 import type { MatchState } from "@/match";
 import { isMatchMapId } from "@/domain/tactics/matchMap";
 import { getSupabase } from "@/lib/supabase/client";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("match");
 
 /**
  * Lo que el simulador cubre HOY. Son constantes y no una lectura de la configuración porque
@@ -53,7 +56,7 @@ export interface CoachMatchSummary {
 export function resumirPartido(
   match: MatchState, difficulty: string,
 ): CoachMatchSummary {
-  const nombres = match.config.teamNames ?? { home: "Mi equipo", away: "Rival" };
+  const nombres = match.config.teamNames ?? { home: t("Mi equipo"), away: "Rival" };
   return {
     seed: match.config.seed,
     teamName: nombres.home,

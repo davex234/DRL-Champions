@@ -27,6 +27,11 @@ import { BracketConnectors } from "./BracketConnector";
 import { QualifiedNode } from "./QualifiedNode";
 import type { PickFeedback } from "@/lib/usePickem";
 import { layoutStage, edgeKey, type BracketModel, type BracketMatch, type BracketRound as Round, type QualificationNode } from "@/domain/pickems/bracket";
+import { ns } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export function TournamentBracket({
   model, stageId, saving, feedback, readOnly, onPick, onExpire, className, forceMode, changedIds,
@@ -44,6 +49,7 @@ export function TournamentBracket({
   /** 24.5 · ids de partido / nodo que acaban de cambiar: brillo breve, sin remontar nada. */
   changedIds?: Set<string>;
 }) {
+  useLocale();
   const layout = useMemo(() => layoutStage(model, stageId), [model, stageId]);
   const rounds = useMemo(() => [...layout.upper, ...layout.lower].map((c) => c.round), [layout]);
   const edges = useMemo(() => {
@@ -89,9 +95,9 @@ export function TournamentBracket({
   const hasLower = layout.lower.length > 0;
 
   return (
-    <div className={cn("nx-bracket", className)} aria-label="Cuadro de eliminatorias">
+    <div className={cn("nx-bracket", className)} aria-label={t("Cuadro de eliminatorias")}>
       {/* ── Navegación por rondas ── */}
-      <nav aria-label="Rondas" className="mb-3 flex flex-wrap gap-1.5">
+      <nav aria-label={t("Rondas")} className="mb-3 flex flex-wrap gap-1.5">
         {rounds.map((r) => {
           const on = r.id === selected;
           return (
@@ -107,7 +113,7 @@ export function TournamentBracket({
               style={{ boxShadow: on ? "inset 0 0 0 1.5px var(--nx-cyan)" : "inset 0 0 0 1px rgba(255,255,255,0.12)" }}
             >
               {r.side === "lower" && <span className="text-ink-faint">↓ </span>}
-              {r.label}{r.group ? ` · ${r.group}` : ""}
+              {roundText(r.label)}{r.group ? ` · ${r.group}` : ""}
             </button>
           );
         })}
@@ -127,8 +133,8 @@ export function TournamentBracket({
           ))}
           <p className="nx-label">
             {edges.length > 0
-              ? `${edges.length} ${edges.length === 1 ? "conexión" : "conexiones"} (${structural} de estructura, ${edges.length - structural} por resultado) · en escritorio se dibujan sobre el cuadro`
-              : "Las conexiones se dibujan a medida que el torneo avanza"}
+              ? t("{length} {v} ({structural} de estructura, {v2} por resultado) · en escritorio se dibujan sobre el cuadro", { length: edges.length, v: edges.length === 1 ? t("conexión") : t("conexiones"), structural, v2: edges.length - structural })
+              : t("Las conexiones se dibujan a medida que el torneo avanza")}
           </p>
         </div>
       ) : (
@@ -140,7 +146,7 @@ export function TournamentBracket({
             ref={scrollRef}
             className="nx-bracket-scroll relative overflow-x-auto overflow-y-hidden px-4 pb-3 pt-1 [scrollbar-width:thin]"
             role="group"
-            aria-label="Cuadro, desplazable en horizontal"
+            aria-label={t("Cuadro, desplazable en horizontal")}
             tabIndex={0}
           >
             <div className="relative min-w-max">
@@ -155,7 +161,7 @@ export function TournamentBracket({
               </div>
               {hasLower && (
                 <div className="relative mt-8 border-t border-dashed border-white/10 pt-6">
-                  <span className="nx-label absolute -top-2.5 left-0 bg-base-900 pr-2">Cuadro bajo</span>
+                  <span className="nx-label absolute -top-2.5 left-0 bg-base-900 pr-2">{t("Cuadro bajo")}</span>
                   <div className="relative flex items-stretch gap-10">
                     {layout.lower.map((c, i) => (
                       <BracketRound key={c.round.id} column={c} saving={saving} feedback={feedback} readOnly={readOnly} onPick={onPick} onExpire={onExpire} changedIds={changedIds}
@@ -170,9 +176,9 @@ export function TournamentBracket({
           </div>
           <p className="mt-1 nx-label" data-structural={structural} data-verified={edges.length - structural}>
             {edges.length > 0
-              ? `${edges.length} ${edges.length === 1 ? "conexión" : "conexiones"} · ${structural} de estructura confirmada, ${edges.length - structural} por resultado · desplaza para ver todo el cuadro`
-              : "Las conexiones se dibujan cuando la fuente confirma quién avanza · desplaza para ver todo el cuadro"}
-            {model.conflicts.length > 0 && ` · ${model.conflicts.length} ${model.conflicts.length === 1 ? "conflicto sin pintar" : "conflictos sin pintar"}`}
+              ? t("{length} {v} · {structural} de estructura confirmada, {v2} por resultado · desplaza para ver todo el cuadro", { length: edges.length, v: edges.length === 1 ? t("conexión") : t("conexiones"), structural, v2: edges.length - structural })
+              : t("Las conexiones se dibujan cuando la fuente confirma quién avanza · desplaza para ver todo el cuadro")}
+            {model.conflicts.length > 0 && ` · ${model.conflicts.length} ${model.conflicts.length === 1 ? t("conflicto sin pintar") : t("conflictos sin pintar")}`}
           </p>
         </div>
       )}
@@ -182,11 +188,12 @@ export function TournamentBracket({
 
 /** La columna final «Clasificados»: una caja por nodo de clasificación de la rama. */
 function QualifiedColumn({ nodes, index, changedIds }: { nodes: QualificationNode[]; index: number; changedIds?: Set<string> }) {
+  useLocale();
   return (
-    <section aria-label="Clasificados" className="nx-bracket-enter flex w-[220px] shrink-0 flex-col gap-4 sm:w-[240px]" style={{ ["--nx-enter-i" as string]: index }}>
+    <section aria-label={t("Clasificados")} className="nx-bracket-enter flex w-[220px] shrink-0 flex-col gap-4 sm:w-[240px]" style={{ ["--nx-enter-i" as string]: index }}>
       <h3 className="flex items-baseline gap-2">
         <span className="nx-clip-sm px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.28em]" style={{ color: "var(--nx-gold)", background: "rgba(6,8,14,0.85)", boxShadow: "inset 0 0 0 1px rgba(255,211,92,0.4)" }}>
-          Clasificados
+          {t("Clasificados")}
         </span>
         <span className="nx-label">{nodes.length}</span>
       </h3>

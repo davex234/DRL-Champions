@@ -7,6 +7,10 @@
  */
 import type { LivePresentation } from "@/broadcast";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("broadcast");
 
 const SIT: Record<string, string> = {
   clutch: "CLUTCH", defuse: "DESACTIVANDO", plant: "PLANTANDO", retake: "RETAKE",
@@ -15,17 +19,18 @@ const SIT: Record<string, string> = {
 };
 
 export function ObserverTag({ live }: { live: LivePresentation }) {
+  useLocale();
   const o = live.observer;
   const hot = ["clutch", "retake", "defuse", "plant"].includes(o.situation);
   return (
     <div className="flex flex-wrap items-center gap-2 rounded-xl border border-white/10 bg-base-900/70 px-3 py-1.5 backdrop-blur-sm">
       <span className={cn("rounded px-1.5 py-0.5 font-display text-[9px] font-black uppercase tracking-widest", hot ? "bg-drl text-white" : "bg-white/10 text-white/60")}>
-        {SIT[o.situation] ?? o.situation}
+        {td(SIT[o.situation]) ?? td(o.situation)}
       </span>
-      {o.focusName && <span className="font-display text-[11px] font-bold uppercase text-white">{o.focusName}</span>}
-      {o.reason && <span className="text-[10px] text-white/45">{o.reason}</span>}
-      {live.tacticalPhase && <span className="ml-auto text-[9px] uppercase tracking-widest text-cyan-300/70">fase {live.tacticalPhase}</span>}
-      {live.coachCall && <span className="rounded bg-drl/15 px-1.5 py-0.5 text-[9px] uppercase tracking-wide text-drl">call: {live.coachCall}</span>}
+      {o.focusName && <span className="font-display text-[11px] font-bold uppercase text-white">{td(o.focusName)}</span>}
+      {o.reason && <span className="text-[10px] text-white/45">{td(o.reason)}</span>}
+      {live.tacticalPhase && <span className="ml-auto text-[9px] uppercase tracking-widest text-cyan-300/70">{t("fase")} {td(live.tacticalPhase)}</span>}
+      {live.coachCall && <span className="rounded bg-drl/15 px-1.5 py-0.5 text-[9px] uppercase tracking-wide text-drl">{t("call:")} {td(live.coachCall)}</span>}
     </div>
   );
 }

@@ -5,6 +5,9 @@
  */
 import { runTournamentPipeline } from "./engine";
 import { STAGE_LABELS, type OrchestratorCtx, type OrchestratorEvents, type OrchestratorResult, type PipelineOutputs } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("tournamentorchestrator");
 
 const BAR = "========================================";
 const USAGE = [
@@ -27,9 +30,9 @@ function progressEvents(out: (line: string) => void): OrchestratorEvents {
   return {
     onStageStart(stage) {
       if (stage === "analyzer") out("\nAnalizando...\n");
-      if (stage === "card-generator") out("\nGenerando cartas...\n");
+      if (stage === "card-generator") out(("\n" + t("Generando cartas...") + "\n"));
       if (stage === "materializer") out("\nMaterializando...\n");
-      if (stage === "catalog-builder") out("\nConstruyendo catálogo...\n");
+      if (stage === "catalog-builder") out(("\n" + t("Construyendo catálogo...") + "\n"));
       if (stage === "publisher") out("\nPublicando...\n");
     },
     onStageEnd(stage, _ms, outputs: Readonly<Partial<PipelineOutputs>>) {
@@ -40,18 +43,18 @@ function progressEvents(out: (line: string) => void): OrchestratorEvents {
       }
       if (stage === "importer") {
         const m = outputs.importResult!.model;
-        out(`✓ ${m.teams.length} equipos`);
-        out(`✓ ${m.players.length} jugadores`);
+        out(t("✓ {length} equipos", { length: m.teams.length }));
+        out(t("✓ {length} jugadores", { length: m.players.length }));
         out(`✓ ${m.matches.length} partidos`);
         out(`✓ ${m.maps.length} mapas`);
       }
       if (stage === "analyzer") out("✓ Analyzer completado");
       if (stage === "performance") out("✓ Performance completado");
-      if (stage === "card-generator") out(`✓ ${outputs.generation!.cards.length} cartas generadas`);
+      if (stage === "card-generator") out(t("✓ {length} cartas generadas", { length: outputs.generation!.cards.length }));
       if (stage === "materializer") out(`✓ ${outputs.materialization!.cards.length} CardDefs`);
-      if (stage === "catalog-builder") out(`✓ Catálogo actualizado (v${outputs.build!.catalogVersion})`);
+      if (stage === "catalog-builder") out(t("✓ Catálogo actualizado (v{catalogVersion})", { catalogVersion: outputs.build!.catalogVersion }));
       if (stage === "publisher") {
-        out(outputs.publish!.applied ? "✓ Runtime actualizado" : "✓ Runtime sin cambios (publicación idempotente)");
+        out(outputs.publish!.applied ? "✓ Runtime actualizado" : t("✓ Runtime sin cambios (publicación idempotente)"));
       }
     },
   };
@@ -82,9 +85,9 @@ export async function runCli(
     return { exitCode: 0, result };
   }
 
-  out(`\n✗ Pipeline FALLIDO en el paso: ${STAGE_LABELS[result.failedStage!]} (${result.failedStage})\n`);
+  out(t("\n✗ Pipeline FALLIDO en el paso: {v} ({failedStage})\n", { v: td(STAGE_LABELS[result.failedStage!]), failedStage: result.failedStage }));
   if (result.error?.stack) out(result.error.stack);
-  else out(result.error?.message ?? "error desconocido");
+  else out(result.error?.message ?? t("error desconocido"));
   out("\n" + BAR);
   return { exitCode: 1, result };
 }

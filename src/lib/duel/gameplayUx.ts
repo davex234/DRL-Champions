@@ -15,6 +15,9 @@
 import { DUEL_ROLES } from "@/domain/cardgame/types";
 import type { RoleId } from "@/domain/cards/types";
 import { STAT_INFO, type DuelDeckDTO, type DuelMatchView, type DuelResultView, type DuelTurnView } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("duel");
 
 /* ───────────────────────────── pre-partida ───────────────────────────── */
 
@@ -32,18 +35,18 @@ const PLURAL: Record<RoleId, string> = {
 
 /** Lee la validación que ya hizo el servidor y la pone en una frase. No revalida nada. */
 export function deckReadiness(deck: Pick<DuelDeckDTO, "valid" | "missingByRole" | "cards" | "errors">): DeckReadiness {
-  if (deck.valid) return { ready: true, missing: [], summary: "Listo para jugar" };
+  if (deck.valid) return { ready: true, missing: [], summary: tr("Listo para jugar") };
   const missing = DUEL_ROLES
     .map((role) => ({ role, count: deck.missingByRole?.[role] ?? 0 }))
     .filter((m) => m.count > 0);
   if (missing.length === 0) {
     // Ilegal por otro motivo (jugador repetido, carta que ya no se posee…): el servidor lo explica.
-    const why = deck.errors?.[0]?.message ?? "El equipo no es válido todavía";
+    const why = deck.errors?.[0]?.message ?? tr("El equipo no es válido todavía");
     return { ready: false, missing, summary: why };
   }
-  const parts = missing.map((m) => `${m.count} ${m.count === 1 ? m.role : PLURAL[m.role]}`);
-  const list = parts.length <= 1 ? parts.join("") : `${parts.slice(0, -1).join(", ")} y ${parts[parts.length - 1]}`;
-  return { ready: false, missing, summary: `${missing.reduce((s, m) => s + m.count, 0) === 1 ? "Falta" : "Faltan"} ${list}` };
+  const parts = missing.map((m) => `${m.count} ${td(m.count === 1 ? m.role : PLURAL[m.role])}`);
+  const list = parts.length <= 1 ? parts.join("") : tr("{list} y {last}", { list: parts.slice(0, -1).join(", "), last: parts[parts.length - 1] });
+  return { ready: false, missing, summary: missing.reduce((s, m) => s + m.count, 0) === 1 ? tr("Falta {list}", { list }) : tr("Faltan {list}", { list }) };
 }
 
 /** El mazo con el que se entra: el elegido si es legal; si no, el primero legal; si no, ninguno. */
@@ -70,10 +73,10 @@ export function roundVerdict(turn: Pick<DuelTurnView, "outcome" | "you" | "rival
   const you = `${STAT_INFO[turn.you.stat].label} ${turn.you.value}`;
   const rival = `${STAT_INFO[turn.rival.stat].label} ${turn.rival.value}`;
   if (turn.outcome === "TIE") {
-    return { kind: "draw", title: "Empate", detail: `${you} contra ${rival}`, note: "Valores idénticos: nadie recibe punto y las dos cartas se gastan igual." };
+    return { kind: "draw", title: tr("Empate"), detail: tr("{you} contra {rival}", { you, rival }), note: tr("Valores idénticos: nadie recibe punto y las dos cartas se gastan igual.") };
   }
   const win = turn.outcome === "A";
-  return { kind: win ? "win" : "loss", title: win ? "Ganas el turno" : "Pierdes el turno", detail: `${you} contra ${rival}`, note: null };
+  return { kind: win ? "win" : "loss", title: win ? tr("Ganas el turno") : tr("Pierdes el turno"), detail: tr("{you} contra {rival}", { you, rival }), note: null };
 }
 
 /**
@@ -96,12 +99,12 @@ export function lockCopy(input: {
   hasCard: boolean;
   hasStat: boolean;
 }): LockCopy {
-  if (input.waitingRival) return { button: "Esperando al rival…", status: "El rival está decidiendo", locked: true };
+  if (input.waitingRival) return { button: tr("Esperando al rival…"), status: tr("El rival está decidiendo"), locked: true };
   // «Resolviendo…» es el texto que ya leen los scripts de QA mientras la jugada está en vuelo.
-  if (input.busy) return { button: "Resolviendo…", status: "Jugada enviada y bloqueada: el servidor resuelve el turno", locked: true };
-  if (!input.hasCard) return { button: "Elige una carta", status: null, locked: false };
-  if (input.attacking && !input.hasStat) return { button: "Elige una estadística", status: null, locked: false };
-  return { button: input.attacking ? "Declarar y atacar" : "Responder", status: null, locked: false };
+  if (input.busy) return { button: tr("Resolviendo…"), status: tr("Jugada enviada y bloqueada: el servidor resuelve el turno"), locked: true };
+  if (!input.hasCard) return { button: tr("Elige una carta"), status: null, locked: false };
+  if (input.attacking && !input.hasStat) return { button: tr("Elige una estadística"), status: null, locked: false };
+  return { button: input.attacking ? tr("Declarar y atacar") : tr("Responder"), status: null, locked: false };
 }
 
 /* ───────────────────────────── final ───────────────────────────── */
@@ -120,26 +123,28 @@ export function decisionCopy(r: Pick<DuelResultView, "decidedBy" | "scoreYou" | 
   switch (r.decidedBy) {
     case "OVR_TIEBREAK":
       return {
-        title: "Desempate por suma de OVR",
+        title: tr("Desempate por suma de OVR"),
         tiebreak: true,
         lines: [
-          `Los diez turnos acabaron igualados${r.tiedEncounters > 0 ? ` (${r.tiedEncounters} ${r.tiedEncounters === 1 ? "turno empatado" : "turnos empatados"})` : ""}.`,
-          `Decidió la suma de OVR de los equipos: ${r.sumOvrYou ?? "—"} contra ${r.sumOvrRival ?? "—"}. El desempate otorga un punto, por eso el marcador final es ${r.scoreYou}–${r.scoreRival}.`,
+          r.tiedEncounters > 0
+            ? tr("Los diez turnos acabaron igualados ({n, plural, one {# turno empatado} other {# turnos empatados}}).", { n: r.tiedEncounters })
+            : tr("Los diez turnos acabaron igualados."),
+          tr("Decidió la suma de OVR de los equipos: {v} contra {v2}. El desempate otorga un punto, por eso el marcador final es {scoreYou}–{scoreRival}.", { v: r.sumOvrYou ?? "—", v2: r.sumOvrRival ?? "—", scoreYou: r.scoreYou, scoreRival: r.scoreRival }),
         ],
       };
     case "STAT_MARGIN":
       return {
-        title: "Desempate por estadística total",
+        title: tr("Desempate por estadística total"),
         tiebreak: true,
         lines: [
-          "Marcador y suma de OVR quedaron igualados.",
-          `Decidió la estadística total declarada en los diez turnos: ${r.statTotalYou} contra ${r.statTotalRival}. Este desempate no otorga punto.`,
+          tr("Marcador y suma de OVR quedaron igualados."),
+          tr("Decidió la estadística total declarada en los diez turnos: {statTotalYou} contra {statTotalRival}. Este desempate no otorga punto.", { statTotalYou: r.statTotalYou, statTotalRival: r.statTotalRival }),
         ],
       };
     case "NONE":
-      return { title: "Empate total", tiebreak: true, lines: ["Marcador, suma de OVR y estadística total quedaron igualados. El empate es el resultado."] };
+      return { title: tr("Empate total"), tiebreak: true, lines: [tr("Marcador, suma de OVR y estadística total quedaron igualados. El empate es el resultado.")] };
     default:
-      return { title: "Por marcador", tiebreak: false, lines: [] };
+      return { title: tr("Por marcador"), tiebreak: false, lines: [] };
   }
 }
 
@@ -167,8 +172,8 @@ export function featuredCard(history: readonly Pick<DuelTurnView, "number" | "ou
       turn: t.number,
       margin,
       why: t.outcome === "A"
-        ? `Ganó el turno ${t.number} con ${STAT_INFO[t.you.stat].label} ${t.you.value} contra ${t.rival.value}.`
-        : `Tu valor más alto de la partida: ${STAT_INFO[t.you.stat].label} ${t.you.value} en el turno ${t.number}.`,
+        ? tr("Ganó el turno {number} con {label} {value} contra {value2}.", { number: t.number, label: td(STAT_INFO[t.you.stat].label), value: t.you.value, value2: t.rival.value })
+        : tr("Tu valor más alto de la partida: {label} {value} en el turno {number}.", { label: td(STAT_INFO[t.you.stat].label), value: t.you.value, number: t.number }),
     };
     if (!best) { best = cand; continue; }
     const better = margin > best.margin || (margin === best.margin && t.you.value > valueOf(history, best.turn));
@@ -205,8 +210,8 @@ export function introCopy(view: Pick<DuelMatchView, "yourDeckName" | "yourSumOvr
     rival: rivalName,
     youOvr: view.yourSumOvr,
     rivalOvr: view.rivalSumOvr,
-    opening: view.youAreAttacker ? "Abres tú el primer turno" : "Abre el rival",
-    turns: `${view.totalTurns} turnos · una carta y una estadística por turno`,
+    opening: view.youAreAttacker ? tr("Abres tú el primer turno") : tr("Abre el rival"),
+    turns: tr("{totalTurns} turnos · una carta y una estadística por turno", { totalTurns: view.totalTurns }),
   };
 }
 
@@ -219,13 +224,13 @@ export function connectionCopy(status: PvpConnectionKind, hasSnapshot: boolean):
   switch (status) {
     case "IDLE":
     case "SYNCING":
-      return hasSnapshot ? null : { text: "Recuperando la partida…", tone: "info" };
+      return hasSnapshot ? null : { text: tr("Recuperando la partida…"), tone: "info" };
     case "STALE":
       // F66 · STALE cubre la red caída (reintenta sola) y el conflicto (se resincroniza al momento con el estado del 409).
-      return { text: "Reconectando… sincronizando partida con el servidor", tone: "warn" };
+      return { text: tr("Reconectando… sincronizando partida con el servidor"), tone: "warn" };
     case "ERROR":
       // F66 · ERROR solo llega con fallos que NO se reintentan (sesión caducada, partida inexistente): decirlo tal cual.
-      return { text: "No se pudo recuperar la partida. Vuelve a entrar desde JUGAR", tone: "bad" };
+      return { text: tr("No se pudo recuperar la partida. Vuelve a entrar desde JUGAR"), tone: "bad" };
     default:
       return null;
   }

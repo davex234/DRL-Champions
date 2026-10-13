@@ -16,6 +16,10 @@ import { EASE } from "@/design/motion";
 import { cn } from "@/lib/format";
 import type { DuelMatchView } from "@/lib/duel/types";
 import { matchEndPresentation, type MatchVerdict } from "@/lib/duel/experience";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 const TONE: Record<MatchVerdict, { rgb: string; cls: string }> = {
   WIN: { rgb: "63,210,255", cls: "text-drl-cyan" },
@@ -36,6 +40,7 @@ export function MatchEndHero({
   rivalName?: string | null;
   className?: string;
 }) {
+  useLocale();
   const reduced = !!useReducedMotion();
   const p = matchEndPresentation({ verdict, view });
   const tone = TONE[verdict];
@@ -43,7 +48,7 @@ export function MatchEndHero({
 
   return (
     <motion.section
-      aria-label={`Resultado: ${p.title}`}
+      aria-label={t("Resultado: {title}", { title: td(p.title) })}
       data-testid="match-end-hero"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -67,8 +72,8 @@ export function MatchEndHero({
       )}
 
       <p className="nx-label">
-        {modeLabel}
-        {rivalName && <span className="text-white/60"> · contra {rivalName}</span>}
+        {td(modeLabel)}
+        {rivalName && <span className="text-white/60"> {t("· contra")} {rivalName}</span>}
       </p>
 
       <motion.h1
@@ -79,9 +84,9 @@ export function MatchEndHero({
         className={cn("mt-2 font-display text-[clamp(40px,10vw,78px)] font-bold uppercase leading-none", tone.cls)}
         style={{ textShadow: `0 0 44px rgba(${tone.rgb},0.55)` }}
       >
-        {p.title}
+        {td(p.title)}
       </motion.h1>
-      {cause && <p className="mt-2 text-sm text-white/60">{cause}</p>}
+      {cause && <p className="mt-2 text-sm text-white/60">{td(cause)}</p>}
 
       {p.score && (
         <motion.div
@@ -89,20 +94,20 @@ export function MatchEndHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: at(0.28), duration: 0.3, ease: EASE.out }}
           className="mt-4"
-          aria-label={`${p.score.label}: tú ${p.score.you}, rival ${p.score.rival}`}
+          aria-label={t("{label}: tú {you}, rival {rival}", { label: td(p.score.label), you: p.score.you, rival: p.score.rival })}
         >
           <div className="nx-readout flex items-center justify-center gap-5 text-[clamp(40px,10vw,72px)] leading-none">
             <span className="flex flex-col items-center">
-              <span className="nx-label !text-[10px]">Tú</span>
+              <span className="nx-label !text-[10px]">{t("Tú")}</span>
               <span className="text-white">{p.score.you}</span>
             </span>
             <span className="text-white/20">–</span>
             <span className="flex flex-col items-center">
-              <span className="nx-label !text-[10px]">Rival</span>
+              <span className="nx-label !text-[10px]">{t("Rival")}</span>
               <span className="text-white/70">{p.score.rival}</span>
             </span>
           </div>
-          <p className="mt-1 text-[11px] text-white/40">{p.score.label}{p.decision ? ` · ${p.decision}` : ""}</p>
+          <p className="mt-1 text-[11px] text-white/40">{td(p.score.label)}{p.decision ? ` · ${p.decision}` : ""}</p>
         </motion.div>
       )}
 
@@ -114,9 +119,9 @@ export function MatchEndHero({
           className="mx-auto mt-4 max-w-[52ch] text-caption text-ink-secondary"
           data-testid="last-turn"
         >
-          <span className="nx-label mr-1">Último turno · {p.lastTurn.number}</span>
-          <b className={cn("font-display uppercase tracking-wide", p.lastTurn.result ? TURN_TONE[p.lastTurn.result] : "text-white/70")}>{p.lastTurn.headline}</b>
-          <span className="block sm:inline sm:ml-1">{p.lastTurn.text}</span>
+          <span className="nx-label mr-1">{t("Último turno ·")} {p.lastTurn.number}</span>
+          <b className={cn("font-display uppercase tracking-wide", p.lastTurn.result ? TURN_TONE[p.lastTurn.result] : "text-white/70")}>{td(p.lastTurn.headline)}</b>
+          <span className="block sm:inline sm:ml-1">{td(p.lastTurn.text)}</span>
         </motion.p>
       )}
     </motion.section>

@@ -16,6 +16,9 @@
  *   · COMPETITIVO — rating PvP y escalera (F55): progreso APARTE, nunca mezclado con el nivel de cuenta.
  */
 import type { RewardLike } from "@/domain/rewards/display";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("progression");
 
 /* ─────────────────────────── tipos de entrada (forma de la lectura) ─────────────────────────── */
 
@@ -74,12 +77,12 @@ export function claimables(pass: PassIn, serverNow: number): Claimable[] {
     if (track === "competitive" && !pass.competitiveUnlocked) continue;
     for (const l of pass.tracks[track] ?? []) {
       if (!l.claimable || l.claimed) continue;
-      out.push({ kind: "level", key: `level:${track}:${l.level}`, id: String(l.level), label: `Temporada · nivel ${l.level}${track === "competitive" ? " (competitivo)" : ""}`, reward: l.reward, seasonXp: 0, track, level: l.level });
+      out.push({ kind: "level", key: `level:${track}:${l.level}`, id: String(l.level), label: track === "competitive" ? t("Temporada · nivel {level} (competitivo)", { level: l.level }) : t("Temporada · nivel {level}", { level: l.level }), reward: l.reward, seasonXp: 0, track, level: l.level });
     }
   }
   for (const a of pass.achievements) {
     if (!a.complete || a.claimed) continue;
-    out.push({ kind: "achievement", key: `achievement:${a.id}`, id: a.id, label: `Logro · ${a.name}`, reward: { credits: a.reward || undefined }, seasonXp: 0 });
+    out.push({ kind: "achievement", key: `achievement:${a.id}`, id: a.id, label: t("Logro · {name}", { name: a.name }), reward: { credits: a.reward || undefined }, seasonXp: 0 });
   }
   return out;
 }
@@ -197,14 +200,14 @@ const STATE_ORDER: Record<ObjectiveState, number> = { CLAIMABLE: 0, IN_PROGRESS:
 export function resetLabel(resetsAt: number | null, serverNow: number): string | null {
   if (resetsAt === null || !Number.isFinite(resetsAt) || !Number.isFinite(serverNow)) return null;
   const ms = resetsAt - serverNow;
-  if (ms <= 0) return "Renovando…";
+  if (ms <= 0) return t("Renovando…");
   const min = Math.floor(ms / 60_000);
   const d = Math.floor(min / 1440);
   const h = Math.floor((min % 1440) / 60);
   const m = min % 60;
-  if (d > 0) return `Renueva en ${d} d ${h} h`;
-  if (h > 0) return `Renueva en ${h} h ${m} min`;
-  return `Renueva en ${Math.max(1, m)} min`;
+  if (d > 0) return t("Renueva en {d} d {h} h", { d, h });
+  if (h > 0) return t("Renueva en {h} h {m} min", { h, m });
+  return t("Renueva en {Math} min", { Math: Math.max(1, m) });
 }
 
 /* ─────────────────────────── colección ─────────────────────────── */

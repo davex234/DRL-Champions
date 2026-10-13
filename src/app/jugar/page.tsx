@@ -16,10 +16,15 @@ import { fetchMetaSnapshot, type MetaSnapshot } from "@/lib/progression/meta";
 import { fetchCampaign, type CampaignSnapshot } from "@/lib/campaign/client";
 import { allNodeViews, gameModes, type ModeFacts } from "@/lib/campaign/presentation";
 import { trackCampaign } from "@/lib/campaign/telemetry";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("jugar");
 
 type Load<T> = { state: "loading" } | { state: "ready"; data: T } | { state: "error" };
 
 export default function JugarHubPage() {
+  useLocale();
   const configured = isSupabaseConfigured();
   const { user, loading } = useAuth();
   const signedIn = configured && !!user;
@@ -54,7 +59,7 @@ export default function JugarHubPage() {
     return () => { alive = false; };
   }, [configured, user, loading, online]);
 
-  if (loading) return <Loading kind="hub" label="Preparando modos de juego…" />;
+  if (loading) return <Loading kind="hub" label={t("Preparando modos de juego…")} />;
 
   const m = meta.state === "ready" ? meta.data : null;
   const c = campaign.state === "ready" ? campaign.data : null;
@@ -67,7 +72,7 @@ export default function JugarHubPage() {
     activePvp: !!m?.loop.steps.some((s) => s.id === "resume-pvp"),
     rankedProvisional: m?.loop.competitive ? m.loop.competitive.provisional : null,
     campaign: campaign.state === "loading" ? "loading" : c
-      ? { available: c.available, completed: c.summary.completed, total: c.summary.total, complete: c.summary.complete, nextName: next?.name ?? null, chapter: next ? `Capítulo ${next.chapterOrder}` : null }
+      ? { available: c.available, completed: c.summary.completed, total: c.summary.total, complete: c.summary.complete, nextName: next?.name ?? null, chapter: next ? t("Capítulo {n}", { n: next.chapterOrder }) : null }
       : null,
     // El hub no lee el draft: su estado se enseña en `/duelos`.
     draft: null,

@@ -1,3 +1,7 @@
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+
+const t = ns("rewards");
+
 /**
  * FASE 62 · UNA SOLA REPRESENTACIÓN DE LAS RECOMPENSAS (puro).
  *
@@ -36,7 +40,7 @@ export const XP_NAMES = {
   season: "XP de temporada",
 } as const;
 
-const fmt = (n: number) => n.toLocaleString("es-ES", { useGrouping: "always" } as Intl.NumberFormatOptions);
+const fmt = (n: number) => n.toLocaleString(getIntlLocale(), { useGrouping: "always" } as Intl.NumberFormatOptions);
 const pos = (n: unknown): number => (typeof n === "number" && Number.isFinite(n) && n > 0 ? Math.floor(n) : 0);
 
 export interface RewardContext {
@@ -55,31 +59,31 @@ export interface RewardContext {
  */
 export function rewardItems(r: RewardLike | null | undefined, ctx: RewardContext = {}): RewardItem[] {
   const out: RewardItem[] = [];
-  if (r?.cardId) out.push({ kind: "card", amount: 1, ref: r.cardId, label: ctx.cardName?.(r.cardId) ?? "Carta" });
+  if (r?.cardId) out.push({ kind: "card", amount: 1, ref: r.cardId, label: ctx.cardName?.(r.cardId) ?? t("Carta") });
   if (r?.packId) {
     const n = Math.max(1, pos(r.packCount) || 1);
-    const name = ctx.packName?.(r.packId) ?? "Sobre";
-    out.push({ kind: "pack", amount: n, ref: r.packId, label: n > 1 ? `${n} × ${name}` : name });
+    const name = ctx.packName?.(r.packId) ?? t("Sobre");
+    out.push({ kind: "pack", amount: n, ref: r.packId, label: n > 1 ? `${n} × ${td(name)}` : td(name) });
   }
-  if (pos(r?.credits)) out.push({ kind: "credits", amount: pos(r?.credits), label: `${fmt(pos(r?.credits))} créditos` });
+  if (pos(r?.credits)) out.push({ kind: "credits", amount: pos(r?.credits), label: t("{v} créditos", { v: fmt(pos(r?.credits)) }) });
   if (pos(ctx.seasonXp)) out.push({ kind: "seasonXp", amount: pos(ctx.seasonXp), label: `${fmt(pos(ctx.seasonXp))} ${XP_NAMES.season}` });
   if (pos(r?.xp)) out.push({ kind: "accountXp", amount: pos(r?.xp), label: `${fmt(pos(r?.xp))} ${XP_NAMES.account}` });
   for (const c of r?.cosmetics ?? []) out.push({ kind: "cosmetic", amount: 1, ref: c, label: cosmeticLabel(c) });
-  if (pos(ctx.points)) out.push({ kind: "points", amount: pos(ctx.points), label: `${fmt(pos(ctx.points))} puntos de rango` });
+  if (pos(ctx.points)) out.push({ kind: "points", amount: pos(ctx.points), label: t("{v} puntos de rango", { v: fmt(pos(ctx.points)) }) });
   return out;
 }
 
 /** `titulo:leyenda-s1` → «Título · Leyenda S1». Sin asset propio: texto (no se inventa imagen). */
 export function cosmeticLabel(id: string): string {
   const [family, rest = ""] = id.split(":");
-  const FAM: Record<string, string> = { avatar: "Avatar", titulo: "Título", marco: "Marco", banderin: "Banderín" };
+  const FAM: Record<string, string> = { avatar: t("Avatar"), titulo: t("Título"), marco: t("Marco"), banderin: t("Banderín") };
   const name = rest.split("-").map((w) => (/^s\d+$/.test(w) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1))).join(" ");
-  return `${FAM[family] ?? "Cosmético"} · ${name || id}`;
+  return `${FAM[family] ?? t("Cosmético")} · ${name || id}`;
 }
 
 /** Texto de una lista de piezas («1 × Sobre Plata · 600 créditos»). */
 export function rewardText(items: RewardItem[]): string {
-  return items.length ? items.map((i) => i.label).join(" · ") : "Sin recompensa";
+  return items.length ? items.map((i) => i.label).join(" · ") : t("Sin recompensa");
 }
 
 /**

@@ -26,6 +26,9 @@ import { predictCatalog, newVariantsFor, buildSpecCore } from "./specs";
 import { simRegistry, buildEligibility } from "./eligibility";
 import { resolveArtwork } from "./artwork";
 import { buildCollection } from "./collection";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("cardgenerator");
 
 /** Año del nombre del torneo ("Champions 2025" → 2025) como fallback de temporada. */
 const yearFromName = (name: string): number => {
@@ -216,7 +219,7 @@ export function generateCards(analysis: AnalyzerResult, ctx: GeneratorCtx): Card
       const grantedVariants = new Set(specs.filter((s) => s.playerId === catalogId).map((s) => s.variantId));
       for (const c of predicted) {
         if (grantedVariants.has(c.variantId)) continue;
-        pushSpec("base", c.variantId, { action: "new", reason: "Primera carta del jugador", tier: "comun", tierLabel: "Común" }, []);
+        pushSpec("base", c.variantId, { action: "new", reason: tr("Primera carta del jugador"), tier: "comun", tierLabel: "Común" }, []);
       }
     }
   }

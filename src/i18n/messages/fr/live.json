@@ -1,0 +1,15 @@
+{
+  "Como {player}": "Comme {player}",
+  "Gana un partido con un jugador campeón de {tournamentName}.": "Gagne un match avec un joueur champion de {tournamentName}.",
+  "Gana un partido con {player} en tu quinteto.": "Gagne un match avec {player} dans ton équipe.",
+  "Gana usando jugadores con alta habilidad de Clutch.": "Gagne avec des joueurs à forte compétence Clutch.",
+  "Reta a {team}": "Défie {team}",
+  "Reyes del clutch": "Rois du clutch",
+  "fuente caída": "source indisponible",
+  "{name}: sin resultados": "{name} : aucun résultat",
+  "{player} debuta en {name}": "{player} fait ses débuts à {name}",
+  "{player} ficha por {team}": "{player} signe chez {team}",
+  "{player} firma una actuación histórica": "{player} signe une performance historique",
+  "{player}, MVP de {name}": "{player}, MVP de {name}",
+  "{team}, campeón de {name}": "{team}, champion de {name}"
+}

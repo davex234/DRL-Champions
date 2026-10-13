@@ -14,6 +14,10 @@
 import { cn } from "@/lib/format";
 import { STAT_INFO, type CombatStatKey, type DuelDeckCardDTO } from "@/lib/duel/types";
 import { STAT_ABBR, STAT_GRID, STAT_KEYS, STAT_TERCIO, STAT_VALUE } from "./StatSelector";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 const RIVAL = "#ff2e63";
 
@@ -27,6 +31,7 @@ export function RivalStats({
   variant?: "side" | "strip";
   className?: string;
 }) {
+  useLocale();
   const state = card ? "revealed" : "hidden";
 
   if (variant === "strip") {
@@ -35,7 +40,7 @@ export function RivalStats({
         data-testid="rival-stats"
         data-rival-state={state}
         role="group"
-        aria-label={card ? `Estadísticas de la carta rival: ${STAT_KEYS.map((k) => `${STAT_INFO[k].abbr} ${card.combat[k]}`).join(", ")}` : "Carta rival oculta"}
+        aria-label={card ? t("Estadísticas de la carta rival: {v}", { v: STAT_KEYS.map((k) => `${STAT_INFO[k].abbr} ${card.combat[k]}`).join(", ") }) : t("Carta rival oculta")}
         className={cn("flex items-center justify-center gap-1.5", className)}
       >
         {STAT_KEYS.map((k) => {
@@ -63,7 +68,7 @@ export function RivalStats({
       data-testid="rival-stats"
       data-rival-state={state}
       role="group"
-      aria-label={card ? `Estadísticas de la carta rival: ${STAT_KEYS.map((k) => `${STAT_INFO[k].abbr} ${card.combat[k]}`).join(", ")}` : "Carta rival oculta"}
+      aria-label={card ? t("Estadísticas de la carta rival: {v}", { v: STAT_KEYS.map((k) => `${STAT_INFO[k].abbr} ${card.combat[k]}`).join(", ") }) : t("Carta rival oculta")}
       className={cn(STAT_GRID, className)}
     >
       {STAT_KEYS.map((k) => {

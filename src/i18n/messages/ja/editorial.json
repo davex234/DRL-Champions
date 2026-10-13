@@ -1,0 +1,14 @@
+{
+  "carta {cardId}: evento {seq} parte de \"{from}\" pero estaba en \"{prev}\"": "カード{cardId}: イベント{seq}は「{from}」から始まっていますが、実際は「{prev}」でした",
+  "carta {cardId}: historial termina en \"{st}\" pero el estado vigente es \"{v}\"": "カード{cardId}: 履歴は「{st}」で終わっていますが、現在の状態は「{v}」です",
+  "deriva {playerId}__{bad}, no aprobada": "{playerId}__{bad}が派生、未承認",
+  "evento {seq}: generationId ajeno": "イベント{seq}: 他のgenerationIdです",
+  "excluida por composición: su jugador deriva cartas no aprobadas": "構成により除外: このプレイヤーは未承認のカードを派生させます",
+  "jugador excluido por composición": "構成によりプレイヤーを除外",
+  "la carta no pertenece a esta generación": "このカードはこのジェネレーションに属していません",
+  "publicación {finalState}": "公開 {finalState}",
+  "seq no monótona: {seq} tras {prevSeq}": "seqが単調ではありません: {prevSeq}の後に{seq}",
+  "sin cartas aprobadas: nada que publicar": "承認済みカードなし: 公開するものがありません",
+  "todas las cartas aprobadas quedaron excluidas por composición": "承認済みのカードはすべて構成により除外されました",
+  "transición ilegal: {from} × {action}": "不正な遷移: {from} × {action}"
+}

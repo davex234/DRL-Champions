@@ -27,6 +27,12 @@ import type { DuelDeckDTO } from "@/lib/duel/types";
 import { readyCup, announceCupsChange, CupError } from "@/lib/cups/client";
 import { playerMessage } from "@/components/ui/game/GameStates";
 import { Countdown, fmtDate } from "./CupParts";
+import { ns, td } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("cups");
 
 export const CUP_RENEW_MS = 10_000;
 const keyOf = (m: { slug?: string; round: number; slot: number }, slug: string) => `${slug}:${m.round}:${m.slot}`;
@@ -43,6 +49,7 @@ export function CupMyMatchPanel({ slug, me, decks, activeDeckId, offset, status 
   /** Arnés visual: sin peticiones ni temporizadores. */
   harness?: boolean;
 }) {
+  useLocale();
   const m0 = me.match;
   const key = m0 ? keyOf(m0, slug) : null;
   // El sondeo de estado manda si habla de ESTE cruce (es más fresco que la ficha).
@@ -127,78 +134,78 @@ export function CupMyMatchPanel({ slug, me, decks, activeDeckId, offset, status 
   const opp = m0.opponent ?? (live?.opponent ? { ...live.opponent, seed: null, you: false, userId: "" } : null);
   const oppName = opp ? `${opp.username}${opp.tag ? ` ${formatTag(opp.tag)}` : ""}` : null;
   const playable = state === "READY";
-  const title = state === "ACTIVE" ? "Tu partida está lista"
-    : waiting ? "Esperando a tu rival"
-      : playable ? (opponentReady ? "Tu rival ya está listo" : "Tu partida está lista")
-        : state === "WAITING_WINDOW" ? "Tu próxima partida"
-          : state === "PENDING" ? "Esperando rival"
-            : state === "NO_SHOW_PENDING" ? "Plazo vencido · en revisión"
-              : state === "ACTION_REQUIRED" ? "Cruce en revisión" : "Tu último cruce";
+  const title = state === "ACTIVE" ? t("Tu partida está lista")
+    : waiting ? t("Esperando a tu rival")
+      : playable ? (opponentReady ? t("Tu rival ya está listo") : t("Tu partida está lista"))
+        : state === "WAITING_WINDOW" ? t("Tu próxima partida")
+          : state === "PENDING" ? t("Esperando rival")
+            : state === "NO_SHOW_PENDING" ? t("Plazo vencido · en revisión")
+              : state === "ACTION_REQUIRED" ? t("Cruce en revisión") : t("Tu último cruce");
   const tone = state === "ACTIVE" || waiting || (playable && opponentReady) ? "cyan" : playable ? "cyan" : state === "NO_SHOW_PENDING" || state === "ACTION_REQUIRED" ? "gold" : "neutral";
   const border = tone === "cyan" ? "rgba(25,227,255,0.55)" : tone === "gold" ? "rgba(255,206,79,0.5)" : "rgba(255,255,255,0.14)";
   const bg = tone === "cyan" ? "radial-gradient(120% 120% at 0% 0%, rgba(25,227,255,0.14), transparent 60%), rgba(255,255,255,0.03)"
     : tone === "gold" ? "radial-gradient(120% 120% at 0% 0%, rgba(255,206,79,0.12), transparent 60%), rgba(255,255,255,0.03)" : "rgba(255,255,255,0.03)";
-  const announce = state === "ACTIVE" ? "Tu partida de torneo está lista."
-    : waiting ? `Estás listo. Esperando a ${oppName ?? "tu rival"}.`
-      : playable && opponentReady ? "Tu rival ya está listo." : state === "NO_SHOW_PENDING" ? "El plazo de la ronda terminó. El cruce está en revisión."
-        : state === "ACTION_REQUIRED" ? "El cruce está en revisión." : "";
+  const announce = state === "ACTIVE" ? t("Tu partida de torneo está lista.")
+    : waiting ? t("Estás listo. Esperando a {v}.", { v: td(oppName) ?? t("tu rival") })
+      : playable && opponentReady ? t("Tu rival ya está listo.") : state === "NO_SHOW_PENDING" ? t("El plazo de la ronda terminó. El cruce está en revisión.")
+        : state === "ACTION_REQUIRED" ? t("El cruce está en revisión.") : "";
 
   return (
     <section aria-labelledby="cup-my-match-title" data-testid="cup-my-match" data-state={state} data-waiting={waiting ? "1" : "0"} data-opponent-ready={opponentReady ? "1" : "0"}
       className={cn("nx-clip relative px-4 py-4 sm:px-6", className)} style={{ border: `1px solid ${border}`, background: bg }}>
-      <p role="status" aria-live="polite" className="sr-only" data-testid="cup-announce">{announce}</p>
+      <p role="status" aria-live="polite" className="sr-only" data-testid="cup-announce">{td(announce)}</p>
       {m0.advancedFrom && (
-        <p className="mb-2 font-display text-[12px] font-bold uppercase tracking-[0.16em] text-[#ffce4f]" data-testid="cup-advanced">✓ Has ganado {m0.advancedFrom} · avanzas a {m0.roundName}</p>
+        <p className="mb-2 font-display text-[12px] font-bold uppercase tracking-[0.16em] text-[#ffce4f]" data-testid="cup-advanced">{t("✓ Has ganado {ronda} · avanzas a {siguiente}", { ronda: roundText(m0.advancedFrom), siguiente: roundText(m0.roundName) })}</p>
       )}
-      <p className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">{m0.roundName}</p>
-      <h2 id="cup-my-match-title" className="mt-0.5 font-display text-[22px] font-black uppercase leading-tight text-white sm:text-[26px]">{title}</h2>
+      <p className="font-display text-[11px] font-bold uppercase tracking-[0.2em] text-white/55">{roundText(m0.roundName)}</p>
+      <h2 id="cup-my-match-title" className="mt-0.5 font-display text-[22px] font-black uppercase leading-tight text-white sm:text-[26px]">{td(title)}</h2>
 
       <div className="mt-3 flex min-w-0 items-center gap-3">
         <span aria-hidden className="text-[28px] leading-none">{opp?.avatar ?? "❔"}</span>
         <div className="min-w-0">
-          <p className="text-[12px] uppercase tracking-[0.14em] text-white/45">Rival</p>
+          <p className="text-[12px] uppercase tracking-[0.14em] text-white/45">{t("Rival")}</p>
           <p className="truncate font-display text-[18px] font-black uppercase text-white" data-field="cup-opponent">
-            {opp ? opp.username : "Por decidir"}{opp?.tag && <span className="ml-2 font-mono text-[12px] font-normal text-white/50">{formatTag(opp.tag)}</span>}
+            {opp ? opp.username : t("Por decidir")}{opp?.tag && <span className="ml-2 font-mono text-[12px] font-normal text-white/50">{formatTag(opp.tag)}</span>}
           </p>
-          {!opp && m0.waitingFor && <p className="text-[12px] text-white/55">{m0.waitingFor}{(live?.rivalSource ?? m0.rivalSource) === "ACTIVE" ? " · se está jugando ahora" : ""}</p>}
+          {!opp && m0.waitingFor && <p className="text-[12px] text-white/55">{(live?.rivalSource ?? m0.rivalSource) === "ACTIVE" ? t("{espera} · se está jugando ahora", { espera: td(m0.waitingFor) }) : td(m0.waitingFor)}</p>}
           {opp && playable && !waiting && (
-            <p className="text-[12px]" style={{ color: opponentReady ? "#19e3ff" : "rgba(255,255,255,0.5)" }} data-field="cup-opponent-ready">{opponentReady ? "✓ Tu rival está listo y te espera" : "Tu rival aún no está listo"}</p>
+            <p className="text-[12px]" style={{ color: opponentReady ? "#19e3ff" : "rgba(255,255,255,0.5)" }} data-field="cup-opponent-ready">{opponentReady ? t("✓ Tu rival está listo y te espera") : t("Tu rival aún no está listo")}</p>
           )}
         </div>
       </div>
 
       {state === "WAITING_WINDOW" && (
-        <p className="mt-3 text-[13px] text-white/70"><Countdown to={m0.availableAt} offset={offset} prefix="Se puede jugar en" /> · plazo hasta {fmtDate(m0.deadlineAt)}</p>
+        <p className="mt-3 text-[13px] text-white/70">{fill(t("{cuenta} · plazo hasta {fecha}", { ...slots("cuenta"), fecha: fmtDate(m0.deadlineAt) }), { cuenta: <Countdown to={m0.availableAt} offset={offset} prefix={t("Se puede jugar en")} /> })}</p>
       )}
 
       {playable && (
         <>
-          <p className="mt-3 text-[13px] text-white/70"><Countdown to={m0.deadlineAt} offset={offset} prefix="Plazo:" /> · si nadie juega a tiempo, lo resuelve la organización.</p>
+          <p className="mt-3 text-[13px] text-white/70">{fill(t("{cuenta} · si nadie juega a tiempo, lo resuelve la organización.", slots("cuenta")), { cuenta: <Countdown to={m0.deadlineAt} offset={offset} prefix={t("Plazo:")} /> })}</p>
           {waiting ? (
             <div className="mt-4" data-testid="cup-waiting">
               <p className="flex items-center gap-2.5 font-display text-[16px] font-black uppercase tracking-[0.12em] text-[#19e3ff]">
                 <span aria-hidden className={cn("inline-block h-2.5 w-2.5 rounded-full bg-[#19e3ff]", !reduced && "animate-pulse motion-reduce:animate-none")} />
-                ✓ Listo · esperando a {oppName ?? "tu rival"}
+                {t("✓ Listo · esperando a {rival}", { rival: td(oppName) ?? t("tu rival") })}
               </p>
-              <p className="mt-1 text-[13px] text-white/70">Ya estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.</p>
-              {blocker === "OFFLINE" && <p role="alert" className="mt-2 text-[13px] text-[#ffce4f]" data-testid="cup-offline">Sin conexión. Seguirás esperando en cuanto vuelva la red (nadie pierde por esto).</p>}
-              <NxButton variant="ghost" size="md" className="mt-3 min-h-[44px]" onClick={() => setWaitingKey(null)} data-testid="cup-stop-waiting">Dejar de esperar</NxButton>
+              <p className="mt-1 text-[13px] text-white/70">{t("Ya estás listo. Entrarás en la partida automáticamente en cuanto tu rival esté preparado. Quédate en esta pantalla: si te vas, dejarás de estar listo.")}</p>
+              {blocker === "OFFLINE" && <p role="alert" className="mt-2 text-[13px] text-[#ffce4f]" data-testid="cup-offline">{t("Sin conexión. Seguirás esperando en cuanto vuelva la red (nadie pierde por esto).")}</p>}
+              <NxButton variant="ghost" size="md" className="mt-3 min-h-[44px]" onClick={() => setWaitingKey(null)} data-testid="cup-stop-waiting">{t("Dejar de esperar")}</NxButton>
             </div>
           ) : (
             <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
               <label className="min-w-0 flex-1">
-                <span className="mb-1 block text-[12px] uppercase tracking-[0.14em] text-white/55">Tu equipo</span>
+                <span className="mb-1 block text-[12px] uppercase tracking-[0.14em] text-white/55">{t("Tu equipo")}</span>
                 {valid.length ? (
                   <select value={deckId ?? ""} onChange={(e) => setDeckId(e.target.value)} data-testid="cup-deck"
                     className="nx-focus min-h-[44px] w-full rounded-md bg-white/[0.06] px-3 text-[14px] text-white ring-1 ring-white/15">
                     {valid.map((d) => <option key={d.id} value={d.id} className="bg-[#0b0d14]">{d.name}</option>)}
                   </select>
                 ) : (
-                  <span className="block text-[13px] text-white/60">{decks === null ? "Cargando tus equipos…" : <>No tienes un equipo válido. <a href="/duelos/mazos" className="nx-focus text-[#19e3ff] underline">Prepara uno</a>.</>}</span>
+                  <span className="block text-[13px] text-white/60">{decks === null ? t("Cargando tus equipos…") : fill(t("No tienes un equipo válido. {enlace}.", slots("enlace")), { enlace: <a href="/duelos/mazos" className="nx-focus text-[#19e3ff] underline">{t("Prepara uno")}</a> })}</span>
                 )}
               </label>
               <NxButton variant="primary" accent="cyan" size="lg" className="min-h-[48px] sm:min-w-[180px]" onClick={() => void ready(false)} disabled={busy || !deckId} data-testid="cup-play">
-                {busy ? "Preparando…" : opponentReady ? "Jugar ya" : "Jugar"}
+                {busy ? t("Preparando…") : opponentReady ? t("Jugar ya") : t("Jugar")}
               </NxButton>
             </div>
           )}
@@ -207,16 +214,16 @@ export function CupMyMatchPanel({ slug, me, decks, activeDeckId, offset, status 
 
       {state === "ACTIVE" && gameMatchId && (
         <div className="mt-4">
-          <p className="text-[13px] text-white/75">Los dos estáis listos: la partida ha empezado.</p>
-          <NxButton variant="primary" accent="cyan" size="lg" className="mt-3 min-h-[48px]" onClick={() => enter(gameMatchId)} data-testid="cup-enter">Entrar a la partida</NxButton>
+          <p className="text-[13px] text-white/75">{t("Los dos estáis listos: la partida ha empezado.")}</p>
+          <NxButton variant="primary" accent="cyan" size="lg" className="mt-3 min-h-[48px]" onClick={() => enter(gameMatchId)} data-testid="cup-enter">{t("Entrar a la partida")}</NxButton>
         </div>
       )}
       {(state === "ACTION_REQUIRED" || state === "NO_SHOW_PENDING") && (
-        <p className="mt-3 text-[13px] text-white/75" data-testid="cup-review">{state === "ACTION_REQUIRED" ? "La partida terminó sin un ganador claro (empate exacto o cierre por tiempo)." : "El plazo de la ronda terminó sin partida."} La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.</p>
+        <p className="mt-3 text-[13px] text-white/75" data-testid="cup-review">{state === "ACTION_REQUIRED" ? t("La partida terminó sin un ganador claro (empate exacto o cierre por tiempo).") : t("El plazo de la ronda terminó sin partida.")} {t("La organización resolverá el cruce; nadie avanza hasta entonces y no hay sorteo.")}</p>
       )}
-      {state === "PENDING" && <p className="mt-3 text-[13px] text-white/70">En cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».</p>}
-      {blocker === "SESSION" && <p role="alert" className="mt-3 text-[13px] text-[#ff6b8a]" data-testid="cup-session">Tu sesión ha caducado: ya no estás listo. <a href="/cuenta" className="nx-focus underline">Entra de nuevo</a> para seguir.</p>}
-      {error && <p role="alert" className="mt-3 text-[13px] text-[#ff6b8a]" data-testid="cup-error">{error}</p>}
+      {state === "PENDING" && <p className="mt-3 text-[13px] text-white/70">{t("En cuanto se decida tu rival, tu partida aparecerá aquí y en el menú «Torneos».")}</p>}
+      {blocker === "SESSION" && <p role="alert" className="mt-3 text-[13px] text-[#ff6b8a]" data-testid="cup-session">{fill(t("Tu sesión ha caducado: ya no estás listo. {entrar} para seguir.", slots("entrar")), { entrar: <a href="/cuenta" className="nx-focus underline">{t("Entra de nuevo")}</a> })}</p>}
+      {error && <p role="alert" className="mt-3 text-[13px] text-[#ff6b8a]" data-testid="cup-error">{td(error)}</p>}
     </section>
   );
 }

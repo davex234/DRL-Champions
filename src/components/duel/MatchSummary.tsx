@@ -20,6 +20,10 @@ import { XpProgress } from "@/components/ui/game/XpProgress";
 import { decisionCopy, roundVerdict } from "@/lib/duel/gameplayUx";
 import { cardOfTheMatch } from "@/lib/duel/experience";
 import type { DuelDeckCardDTO, DuelResultView, DuelTurnView } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("duel");
 
 const TONO = { win: "#3fc07a", loss: "#ff2e63", draw: "#ffd35c" } as const;
 
@@ -31,19 +35,20 @@ export function FeaturedCardPanel({
   cards: DuelDeckCardDTO[];
   className?: string;
 }) {
+  useLocale();
   const pick = cardOfTheMatch(history);
   const card = pick ? cards.find((c) => c.uid === pick.uid) ?? null : null;
   if (history.length === 0) return null;
   if (!pick || !card) {
     return (
       <p className={cn("text-caption text-ink-muted", className)} data-featured="none">
-        Carta destacada: sin carta de la partida, porque ninguna de tus cartas ganó su turno.
+        {tr("Carta destacada: sin carta de la partida, porque ninguna de tus cartas ganó su turno.")}
       </p>
     );
   }
   return (
     <section
-      aria-label="Carta destacada"
+      aria-label={tr("Carta destacada")}
       data-featured={card.uid}
       className={cn("nx-clip-sm flex items-center gap-4 border border-drl-gold/35 bg-drl-gold/[0.06] px-4 py-3", className)}
     >
@@ -51,22 +56,23 @@ export function FeaturedCardPanel({
         <DuelCard card={card} size="sm" highlightStat={history.find((t) => t.number === pick.turn)?.you.stat ?? null} />
       </div>
       <div className="min-w-0">
-        <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-drl-gold">Carta destacada</span>
+        <span className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-drl-gold">{tr("Carta destacada")}</span>
         <b className="mt-1 block truncate font-display text-h3 font-bold uppercase text-white">{card.nick}</b>
-        <p className="mt-0.5 text-caption leading-relaxed text-ink-secondary">{pick.why}</p>
+        <p className="mt-0.5 text-caption leading-relaxed text-ink-secondary">{td(pick.why)}</p>
       </div>
     </section>
   );
 }
 
 export function DecisionPanel({ result, className }: { result: DuelResultView; className?: string }) {
+  useLocale();
   const d = decisionCopy(result);
   if (!d.tiebreak) return null;
   return (
-    <Recessed depth="sm" className={cn("border-l-2 border-l-drl-gold px-4 py-2.5", className)} role="note" aria-label="Cómo se decidió">
-      <b className="block font-display text-body font-bold uppercase tracking-wide text-white">{d.title}</b>
+    <Recessed depth="sm" className={cn("border-l-2 border-l-drl-gold px-4 py-2.5", className)} role="note" aria-label={tr("Cómo se decidió")}>
+      <b className="block font-display text-body font-bold uppercase tracking-wide text-white">{td(d.title)}</b>
       {d.lines.map((l) => (
-        <p key={l} className="mt-0.5 text-caption leading-relaxed text-ink-secondary">{l}</p>
+        <p key={l} className="mt-0.5 text-caption leading-relaxed text-ink-secondary">{td(l)}</p>
       ))}
     </Recessed>
   );
@@ -85,10 +91,11 @@ export function RoundStrip({
   theirs: DuelDeckCardDTO[];
   className?: string;
 }) {
+  useLocale();
   if (history.length === 0) return null;
   const find = (pool: DuelDeckCardDTO[], uid: string) => pool.find((c) => c.uid === uid) ?? null;
   return (
-    <ol className={cn("flex gap-1.5 overflow-x-auto pb-1", className)} aria-label="Historial por turnos">
+    <ol className={cn("flex gap-1.5 overflow-x-auto pb-1", className)} aria-label={tr("Historial por turnos")}>
       {history.map((t) => {
         const v = roundVerdict(t);
         const tono = TONO[v.kind];
@@ -99,7 +106,7 @@ export function RoundStrip({
             key={t.number}
             className="nx-clip-sm flex w-[64px] shrink-0 flex-col items-center gap-1 border px-1 py-1.5"
             style={{ borderColor: `${tono}55`, background: `${tono}0d` }}
-            title={`Turno ${t.number}: ${v.title} · ${v.detail}`}
+            title={tr("Turno {n}: {title} · {detail}", { n: t.number, title: td(v.title), detail: td(v.detail) })}
           >
             <span className="nx-label !text-[9px]">T{t.number}</span>
             {rc ? <DuelCard card={rc} size="xs" className="!w-[40px]" /> : <span className="h-[56px] w-[40px] rounded bg-white/5" />}
@@ -125,5 +132,6 @@ export function RoundStrip({
  * cruzar un nivel, el tramo «ganado» se calculaba en negativo y pintaba la barra entera como ganada.
  */
 export function LevelProgressPanel({ xp, gained, className }: { xp: number; gained: number; className?: string }) {
-  return <XpProgress xp={xp} gained={gained} className={className} label="Nivel" />;
+  useLocale();
+  return <XpProgress xp={xp} gained={gained} className={className} label={tr("Nivel")} />;
 }

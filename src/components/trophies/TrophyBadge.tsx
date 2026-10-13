@@ -10,6 +10,10 @@
  */
 import { cn } from "@/lib/format";
 import type { BadgeFact } from "@/domain/collectionSets/badges";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("trophies");
 
 const SIZE = { sm: 44, md: 72, lg: 128, xl: 176 } as const;
 export type BadgeSize = keyof typeof SIZE;
@@ -23,6 +27,7 @@ export function TrophyBadge({ badge, size = "md", locked = false, className, sho
   className?: string;
   showLabel?: boolean;
 }) {
+  useLocale();
   const px = SIZE[size];
   // F86 · el trofeo de campeón de torneo lleva corona; el resto, su glifo de siempre.
   const glyph = badge.kind === "EDITION" ? "★" : badge.kind === "TOURNAMENT" ? "♛" : "◆";
@@ -34,7 +39,7 @@ export function TrophyBadge({ badge, size = "md", locked = false, className, sho
         <div aria-hidden className="absolute inset-0" style={{ clipPath: SHIELD, background: locked ? "rgba(255,255,255,0.18)" : `linear-gradient(160deg, ${badge.color}, rgba(255,255,255,0.25) 45%, ${badge.color}aa)` }} />
         <div aria-hidden className="absolute" style={{ inset: Math.max(2, Math.round(px / 28)), clipPath: SHIELD, background: "radial-gradient(70% 60% at 50% 35%, rgba(255,255,255,0.10), rgba(7,8,14,0.96) 70%)" }} />
         {badge.logo ? (
-          <img src={badge.logo} alt={`Escudo de ${badge.label}`} width={Math.round(px * 0.58)} height={Math.round(px * 0.58)}
+          <img src={badge.logo} alt={t("Escudo de {label}", { label: td(badge.label) })} width={Math.round(px * 0.58)} height={Math.round(px * 0.58)}
             className="relative object-contain" style={{ width: px * 0.58, height: px * 0.58, opacity: locked ? 0.45 : 1 }} draggable={false} />
         ) : (
           <span aria-hidden className="relative font-display font-black" style={{ fontSize: px * 0.36, color: locked ? "rgba(255,255,255,0.4)" : badge.color }}>{glyph}</span>
@@ -45,11 +50,11 @@ export function TrophyBadge({ badge, size = "md", locked = false, className, sho
       </div>
       {showLabel && (
         <figcaption className="max-w-[10rem] text-center leading-tight">
-          <span className="block truncate font-display text-[13px] font-bold uppercase tracking-wide text-white">{badge.label}</span>
-          <span className="block text-[11px] text-white/55">{locked ? "Bloqueada" : badge.caption}</span>
+          <span className="block truncate font-display text-[13px] font-bold uppercase tracking-wide text-white">{td(badge.label)}</span>
+          <span className="block text-[11px] text-white/55">{locked ? t("Bloqueada") : td(badge.caption)}</span>
         </figcaption>
       )}
-      {!showLabel && <figcaption className="sr-only">{badge.label}{locked ? " (bloqueada)" : ""}</figcaption>}
+      {!showLabel && <figcaption className="sr-only">{td(badge.label)}{locked ? (" " + t("(bloqueada)")) : ""}</figcaption>}
     </figure>
   );
 }

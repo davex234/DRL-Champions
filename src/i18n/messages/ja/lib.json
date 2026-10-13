@@ -1,0 +1,14 @@
+{
+  "Cerrada · el servidor ya no admite cambios": "締切済み · サーバーはこれ以上の変更を受け付けません",
+  "Cerrada · ya no admite cambios": "締切済み · これ以上変更できません",
+  "Error al guardar · {msg}": "保存に失敗しました · {msg}",
+  "Guardando…": "保存中…",
+  "No se pudieron cargar las predicciones": "予想を読み込めませんでした",
+  "No se pudo guardar": "保存できませんでした",
+  "Predicción guardada": "予想を保存しました",
+  "Sin conexión · la predicción no se ha enviado": "オフライン · 予想は送信されていません",
+  "hace un momento": "たった今",
+  "hace {d} d": "{d}日前",
+  "hace {h} h": "{h}時間前",
+  "hace {m} min": "{m}分前"
+}

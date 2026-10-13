@@ -21,8 +21,13 @@ import { NxButton } from "@/components/ui/NxButton";
 import { Badge } from "@/components/ui/Badge";
 import { Plate } from "@/components/ui/Surface";
 import { plural } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
-export function MyPacks({ compact = false, title = "Mis sobres" }: { compact?: boolean; title?: string }) {
+const t = ns("packs");
+
+export function MyPacks({ compact = false, title = t("Mis sobres") }: { compact?: boolean; title?: string }) {
+  useLocale();
   const unopened = useGameStore((s) => s.unopenedPacks);
   const groups = useMemo(() => ownedPackGroups(unopened, getPack), [unopened]);
   const total = totalOwnedPacks(unopened);
@@ -33,22 +38,22 @@ export function MyPacks({ compact = false, title = "Mis sobres" }: { compact?: b
       <Plate className="p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="nx-label">{title}</p>
-            <p className="mt-1 text-sm text-ink-muted">No tienes sobres sin abrir. Elige uno de la tienda y la ceremonia empieza aquí.</p>
+            <p className="nx-label">{td(title)}</p>
+            <p className="mt-1 text-sm text-ink-muted">{t("No tienes sobres sin abrir. Elige uno de la tienda y la ceremonia empieza aquí.")}</p>
           </div>
-          <NxButton variant="secondary" size="md" href="/packs#rareza">Ver la tienda</NxButton>
+          <NxButton variant="secondary" size="md" href="/packs#rareza">{t("Ver la tienda")}</NxButton>
         </div>
       </Plate>
     );
   }
 
   return (
-    <section aria-label={title} className={compact ? "" : "mb-8"}>
+    <section aria-label={td(title)} className={compact ? "" : "mb-8"}>
       <div className="mb-3 flex items-baseline justify-between gap-3">
         <h2 className="font-display text-label font-bold uppercase tracking-wide2 text-ink-muted">
-          {title} <span className="ml-1 nx-readout text-white">{total}</span>
+          {td(title)} <span className="ml-1 nx-readout text-white">{total}</span>
         </h2>
-        {!compact && <Link href="/inventario" className="nx-focus text-caption text-ink-faint hover:text-white">Inventario →</Link>}
+        {!compact && <Link href="/inventario" className="nx-focus text-caption text-ink-faint hover:text-white">{t("Inventario →")}</Link>}
       </div>
       <ul className={compact ? "flex gap-3 overflow-x-auto pb-1" : "grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"}>
         {groups.map(({ pack, count, retired }) => {
@@ -63,15 +68,15 @@ export function MyPacks({ compact = false, title = "Mis sobres" }: { compact?: b
                   </span>
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-display text-caption font-bold uppercase tracking-wide text-white">{pack.name}</p>
+                  <p className="truncate font-display text-caption font-bold uppercase tracking-wide text-white">{td(pack.name)}</p>
                   <p className="truncate text-caption text-ink-faint">
-                    {id.categoryLabel} · {plural(pack.cardCount, "carta", "cartas")}
-                    {retired && <> · <Badge tone="warn">Ya no se vende</Badge></>}
+                    {td(id.categoryLabel)} · {plural(pack.cardCount, "carta", "cartas")}
+                    {retired && <> · <Badge tone="warn">{t("Ya no se vende")}</Badge></>}
                   </p>
-                  <p className="sr-only">{count} {count === 1 ? "unidad" : "unidades"}</p>
+                  <p className="sr-only">{count} {count === 1 ? t("unidad") : t("unidades")}</p>
                 </div>
-                <NxButton variant="primary" size={compact ? "sm" : "md"} href={`/abrir/${pack.id}`} aria-label={`Abrir ${pack.name}`}>
-                  Abrir
+                <NxButton variant="primary" size={compact ? "sm" : "md"} href={`/abrir/${pack.id}`} aria-label={t("Abrir {name}", { name: td(pack.name) })}>
+                  {t("Abrir")}
                 </NxButton>
               </Plate>
             </li>

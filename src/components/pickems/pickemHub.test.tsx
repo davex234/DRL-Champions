@@ -286,7 +286,7 @@ test("GUARDADO · un envío a la vez, solo opciones del servidor, optimista con 
   assert.match(hook, /if \(savingRef\.current\) return;/, "doble submit bloqueado");
   assert.match(hook, /q\.options\.some\(\(o\) => o\.key === option\)/, "opción fuera de las del servidor: ni se intenta");
   assert.match(hook, /submitPick\(q\.id, option\)/, "escribe por /api/pickems");
-  assert.match(hook, /kind: "saved", message: "Predicción guardada"/, "solo tras confirmar el servidor");
+  assert.match(hook, /kind: "saved", message: (?:t|tr|i18nT)\("Predicción guardada"\)/, "solo tras confirmar el servidor");
   assert.match(hook, /\/cerrad\/i\.test\(msg\)/, "si el servidor responde cerrada, se recarga");
   assert.ok(!/localStorage/.test(hook), "la caché no es localStorage ni fuente de verdad");
 });

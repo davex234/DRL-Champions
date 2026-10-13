@@ -39,6 +39,9 @@
  * Sin React, sin red, sin reloj propio (la hora entra como argumento), sin azar.
  */
 import { JOURNEY_ROUTES, type JourneyFacts, type RoleShortage } from "@/domain/journey";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("onboarding");
 
 export const ONBOARDING_VERSION = 1 as const;
 
@@ -231,7 +234,6 @@ export function onboardingStatus(j: JourneyFacts, f: OnboardingFlags): { status:
   return base;
 }
 
-const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 export const missingRolesLabel = (s: readonly RoleShortage[]) => s.map((x) => `${x.need - x.have} ${x.role}`).join(" · ");
 
 function nextFor(step: OnboardingStepId, j: JourneyFacts, starter: StarterSnapshot | null): OnboardingNext {
@@ -239,23 +241,23 @@ function nextFor(step: OnboardingStepId, j: JourneyFacts, starter: StarterSnapsh
   const openHref = pack ? ONBOARDING_ROUTES.packRoute(pack) : ONBOARDING_ROUTES.freePack;
   switch (step) {
     case "welcome":
-      return { step, title: "Bienvenida a NEXUS", detail: "Colecciona cartas de jugadores reales, forma tu equipo y juega.", cta: "Empezar", href: ONBOARDING_ROUTES.home, command: "start", secondary: null };
+      return { step, title: tr("Bienvenida a NEXUS"), detail: tr("Colecciona cartas de jugadores reales, forma tu equipo y juega."), cta: tr("Empezar"), href: ONBOARDING_ROUTES.home, command: "start", secondary: null };
     case "open":
       return pack
-        ? { step, title: "Abre tu primer sobre", detail: "Los sobres añaden cartas a tu colección.", cta: "Abrir mi primer sobre", href: openHref, command: null, secondary: null }
-        : { step, title: "Consigue tu primer sobre", detail: "El Sobre Inicial es gratis mientras no puedas formar tu equipo.", cta: "Conseguir Sobre Inicial", href: ONBOARDING_ROUTES.freePack, command: null, secondary: null };
+        ? { step, title: tr("Abre tu primer sobre"), detail: tr("Los sobres añaden cartas a tu colección."), cta: tr("Abrir mi primer sobre"), href: openHref, command: null, secondary: null }
+        : { step, title: tr("Consigue tu primer sobre"), detail: tr("El Sobre Inicial es gratis mientras no puedas formar tu equipo."), cta: tr("Conseguir Sobre Inicial"), href: ONBOARDING_ROUTES.freePack, command: null, secondary: null };
     case "collection": {
       const missing = missingRolesLabel(j.readiness.shortages);
       return j.unopenedPacks > 0
-        ? { step, title: "Completa tu colección", detail: `Tu equipo necesita 2 jugadores distintos de cada rol. Te faltan: ${missing}. Te ${j.unopenedPacks === 1 ? "queda" : "quedan"} ${plural(j.unopenedPacks, "sobre", "sobres")}.`, cta: j.unopenedPacks === 1 ? "Abrir mi último sobre" : "Abrir el siguiente sobre", href: openHref, command: null, secondary: { label: "Ver mi colección", href: ONBOARDING_ROUTES.collection } }
-        : { step, title: "Completa tu colección", detail: `Te faltan jugadores distintos: ${missing}. Mientras no puedas formar tu equipo, el Sobre Inicial es gratis y sus primeras cartas son de esos roles.`, cta: "Conseguir Sobre Inicial", href: ONBOARDING_ROUTES.freePack, command: null, secondary: { label: "Ver mi colección", href: ONBOARDING_ROUTES.collection } };
+        ? { step, title: tr("Completa tu colección"), detail: j.unopenedPacks === 1 ? tr("Tu equipo necesita 2 jugadores distintos de cada rol. Te faltan: {missing}. Te queda {n} sobre.", { missing: td(missing), n: j.unopenedPacks }) : tr("Tu equipo necesita 2 jugadores distintos de cada rol. Te faltan: {missing}. Te quedan {n} sobres.", { missing: td(missing), n: j.unopenedPacks }), cta: j.unopenedPacks === 1 ? tr("Abrir mi último sobre") : tr("Abrir el siguiente sobre"), href: openHref, command: null, secondary: { label: tr("Ver mi colección"), href: ONBOARDING_ROUTES.collection } }
+        : { step, title: tr("Completa tu colección"), detail: tr("Te faltan jugadores distintos: {missing}. Mientras no puedas formar tu equipo, el Sobre Inicial es gratis y sus primeras cartas son de esos roles.", { missing: td(missing) }), cta: tr("Conseguir Sobre Inicial"), href: ONBOARDING_ROUTES.freePack, command: null, secondary: { label: tr("Ver mi colección"), href: ONBOARDING_ROUTES.collection } };
     }
     case "deck":
-      return { step, title: "Crea tu primer equipo", detail: "Tu equipo tiene 10 cartas: 2 de cada rol y sin repetir jugador. Lo montamos con tus mejores cartas; después puedes cambiarlo.", cta: "Crear mi primer equipo", href: ONBOARDING_ROUTES.home, command: "first-team", secondary: { label: "Montarlo yo", href: ONBOARDING_ROUTES.manualDeck } };
+      return { step, title: tr("Crea tu primer equipo"), detail: tr("Tu equipo tiene 10 cartas: 2 de cada rol y sin repetir jugador. Lo montamos con tus mejores cartas; después puedes cambiarlo."), cta: tr("Crear mi primer equipo"), href: ONBOARDING_ROUTES.home, command: "first-team", secondary: { label: tr("Montarlo yo"), href: ONBOARDING_ROUTES.manualDeck } };
     case "match":
-      return { step, title: "Tu equipo está listo", detail: "Diez turnos contra un bot. Ganes o pierdas, cuenta igual.", cta: "Jugar mi primera partida", href: ONBOARDING_ROUTES.firstMatch, command: null, secondary: null };
+      return { step, title: tr("Tu equipo está listo"), detail: tr("Diez turnos contra un bot. Ganes o pierdas, cuenta igual."), cta: tr("Jugar mi primera partida"), href: ONBOARDING_ROUTES.firstMatch, command: null, secondary: null };
     case "progress":
-      return { step, title: "Mira tu progreso", detail: "Tus partidas suman XP de cuenta y avanzan tus objetivos.", cta: "Ver mi progreso", href: ONBOARDING_ROUTES.progress, command: null, secondary: null };
+      return { step, title: tr("Mira tu progreso"), detail: tr("Tus partidas suman XP de cuenta y avanzan tus objetivos."), cta: tr("Ver mi progreso"), href: ONBOARDING_ROUTES.progress, command: null, secondary: null };
   }
 }
 
@@ -322,25 +324,25 @@ export function decideFlags(command: OnboardingCommand, j: JourneyFacts, f: Onbo
       return { ok: true, changed: true, flags: { ...f, skippedAt: now } };
     case "resume": {
       if (f.skippedAt === null) return same;
-      if (baseStatus(j, f).status === "COMPLETED") return { ok: false, status: 409, code: "NOT_SKIPPED", error: "Tu inicio ya está completado." };
+      if (baseStatus(j, f).status === "COMPLETED") return { ok: false, status: 409, code: "NOT_SKIPPED", error: tr("Tu inicio ya está completado.") };
       return { ok: true, changed: true, flags: { ...f, skippedAt: null, startedAt: f.startedAt ?? now } };
     }
     case "finish":
       if (f.finishedAt !== null) return same;
-      if (j.matchesCompleted < 1) return { ok: false, status: 409, code: "NOT_YET", error: "Juega tu primera partida antes de terminar el inicio." };
+      if (j.matchesCompleted < 1) return { ok: false, status: 409, code: "NOT_YET", error: tr("Juega tu primera partida antes de terminar el inicio.") };
       return { ok: true, changed: true, flags: { ...f, finishedAt: now, startedAt: f.startedAt ?? now } };
     case "first-team":
-      return { ok: false, status: 400, code: "BAD_COMMAND", error: "Orden no válida" };
+      return { ok: false, status: 400, code: "BAD_COMMAND", error: tr("Orden no válida") };
   }
 }
 
 /** Cuerpo estricto de `POST /api/game/onboarding`: `{ action }` y nada más. */
 export function parseOnboardingRequest(body: unknown): { ok: true; command: OnboardingCommand } | { ok: false; error: string } {
-  if (!body || typeof body !== "object" || Array.isArray(body)) return { ok: false, error: "Cuerpo no válido" };
+  if (!body || typeof body !== "object" || Array.isArray(body)) return { ok: false, error: tr("Cuerpo no válido") };
   const keys = Object.keys(body as object);
-  if (keys.length !== 1 || keys[0] !== "action") return { ok: false, error: "Cuerpo no válido" };
+  if (keys.length !== 1 || keys[0] !== "action") return { ok: false, error: tr("Cuerpo no válido") };
   const a = (body as { action: unknown }).action;
-  if (typeof a !== "string" || !(ONBOARDING_COMMANDS as readonly string[]).includes(a)) return { ok: false, error: "Orden no válida" };
+  if (typeof a !== "string" || !(ONBOARDING_COMMANDS as readonly string[]).includes(a)) return { ok: false, error: tr("Orden no válida") };
   return { ok: true, command: a as OnboardingCommand };
 }
 

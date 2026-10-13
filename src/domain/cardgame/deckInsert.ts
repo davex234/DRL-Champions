@@ -19,6 +19,9 @@ import type { CombatStats, RoleId, VariantId } from "./types";
 import { ALLOW_SAME_PLAYER_TWICE } from "./deck";
 import { DUEL_COMPOSITION, DUEL_DECK_SIZE } from "./types";
 import { getVariant } from "@/domain/cards/variants";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("cardgame");
 
 /** Lo mínimo que hace falta saber de una carta para planificar (DTO del mazo o carta abierta). */
 export interface DeckCardLike {
@@ -67,7 +70,7 @@ export function compareCards(next: DeckCardLike, current: DeckCardLike): StatDel
     rows.push({ key: k, label: COMBAT_LABEL[k], next: n, current: c, delta: n - c });
   }
   const rn = getVariant(next.variantId).rank; const rc = getVariant(current.variantId).rank;
-  rows.push({ key: "rank", label: "Rareza", next: rn, current: rc, delta: rn - rc });
+  rows.push({ key: "rank", label: t("Rareza"), next: rn, current: rc, delta: rn - rc });
   return rows;
 }
 
@@ -87,7 +90,7 @@ export function planDeckInsert(deck: { cards: DeckCardLike[] }, candidate: DeckC
   };
 
   if (uids.includes(candidate.uid)) {
-    return { kind: "blocked", role, reason: "Esta carta ya está en el mazo.", options: [], apply: () => null };
+    return { kind: "blocked", role, reason: t("Esta carta ya está en el mazo."), options: [], apply: () => null };
   }
   const sameCard = cards.find((c) => c.cardId === candidate.cardId);
   const samePlayer = cards.find((c) => c.playerId === candidate.playerId);
@@ -95,7 +98,7 @@ export function planDeckInsert(deck: { cards: DeckCardLike[] }, candidate: DeckC
     const cur = (sameCard ?? samePlayer)!;
     return {
       kind: "upgrade", role,
-      reason: `${candidate.nick} ya está en el mazo con otra versión. Solo puedes sustituirla.`,
+      reason: t("{nick} ya está en el mazo con otra versión. Solo puedes sustituirla.", { nick: candidate.nick }),
       options: [option(candidate, cur)],
       apply: (replaceUid) => (replaceUid === cur.uid ? withReplacement(cur.uid) : null),
     };
@@ -104,12 +107,12 @@ export function planDeckInsert(deck: { cards: DeckCardLike[] }, candidate: DeckC
   const roleFull = inRole.length >= (DUEL_COMPOSITION[role] ?? 0);
   const deckFull = cards.length >= DUEL_DECK_SIZE;
   if (!roleFull && !deckFull) {
-    return { kind: "free", role, reason: `Hay hueco de ${role}.`, options: [], apply: () => withReplacement() };
+    return { kind: "free", role, reason: t("Hay hueco de {role}.", { role: td(role) }), options: [], apply: () => withReplacement() };
   }
   const pool = roleFull ? inRole : cards;
   return {
     kind: "replace", role,
-    reason: roleFull ? `Los ${DUEL_COMPOSITION[role]} huecos de ${role} están ocupados.` : "El mazo está completo.",
+    reason: roleFull ? t("Los {v} huecos de {role} están ocupados.", { v: DUEL_COMPOSITION[role], role: td(role) }) : t("El mazo está completo."),
     options: pool.map((c) => option(candidate, c)).sort((a, b) => b.up - b.down - (a.up - a.down)),
     apply: (replaceUid) => (replaceUid && pool.some((c) => c.uid === replaceUid) ? withReplacement(replaceUid) : null),
   };

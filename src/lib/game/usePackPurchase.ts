@@ -15,6 +15,9 @@ import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { buyPackOnline } from "@/lib/game/sync";
 import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("game");
 
 export interface PackPurchase {
   /** true si hay sesión: la compra la cobra y valida el servidor. */
@@ -36,12 +39,12 @@ export function usePackPurchase(): PackPurchase {
           await buyPackOnline(packId, ref);
           return { ok: true };
         } catch (e) {
-          return { ok: false, error: e instanceof Error ? e.message : "No se pudo comprar el sobre" };
+          return { ok: false, error: e instanceof Error ? e.message : t("No se pudo comprar el sobre") };
         }
       }
       if (serverEconomy) return { ok: false, error: SESSION_PENDING }; // F69 · sesión resolviéndose
       const res = buyPackLocal(packId);
-      return res.ok ? { ok: true } : { ok: false, error: res.error ?? "No se pudo comprar el sobre" };
+      return res.ok ? { ok: true } : { ok: false, error: res.error ?? t("No se pudo comprar el sobre") };
     },
     [online, serverEconomy, buyPackLocal],
   );

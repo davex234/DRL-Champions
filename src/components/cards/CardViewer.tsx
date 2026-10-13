@@ -39,6 +39,10 @@ import { Flag } from "./layers/Flag";
 import { PriceSparkline } from "@/components/market/PriceSparkline";
 import { ROLE_KIT, accoladeLabels, recommendedAgent, buildDescription } from "./cardLore";
 import { CreditGlyph, GameGlyph } from "@/components/ui/game/GameGlyph";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("cards");
 
 const SEASON = "Temporada 2025";
 
@@ -68,6 +72,7 @@ export interface CardViewerProps {
 }
 
 export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose, actions, children }: CardViewerProps) {
+  useLocale();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -134,7 +139,7 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
       }}
       role="dialog"
       aria-modal="true"
-      aria-label={`Ficha de la carta ${card.id}`}
+      aria-label={tr("Ficha de la carta {id}", { id: card.id })}
       ref={layer}
       tabIndex={-1}
     >
@@ -149,7 +154,7 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
         {/* Botón cerrar flotante */}
         <button
           onClick={onClose}
-          aria-label="Cerrar"
+          aria-label={tr("Cerrar")}
           className="nx-clip-sm nx-press nx-focus absolute right-3 top-3 z-20 grid h-11 w-11 place-items-center border border-white/15 bg-black/40 text-white/70 backdrop-blur transition hover:bg-white/10 hover:text-white"
         >
           <GameGlyph name="close" className="h-4 w-4" />
@@ -174,11 +179,11 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
               {card.image ? (
                 /* Catálogo diseñado: la carta ES su imagen (con OVR, rol y estadísticas impresos). */
                 <CardFace artwork={{ url: card.image, cardId: card.id, cardVersion: 1, format: "webp" }}
-                  alt={`Carta de ${player.nick} · ${variant.label}`} chamfer="25px" className="w-[360px]">
+                  alt={tr("Carta de {nick} · {label}", { nick: player.nick, label: td(variant.label) })} chamfer="25px" className="w-[360px]">
                   <CardRenderer player={player} variant={variant} stats={card.stats} ovr={card.ovr} serial={serial} size="xl" interactive effects />
                 </CardFace>
               ) : (
-                <CardVisual uid={uid} alt={`Carta de ${card.id}`} chamfer="25px" className="w-[360px]">
+                <CardVisual uid={uid} alt={tr("Carta de {id}", { id: card.id })} chamfer="25px" className="w-[360px]">
                   <CardRenderer
                     player={player}
                     variant={variant}
@@ -209,13 +214,13 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
                 <h2 className="truncate font-display text-4xl font-black uppercase leading-none text-white">
                   {player.nick}
                 </h2>
-                {player.fullName && <p className="mt-1 text-sm text-white/45">{player.fullName}</p>}
+                {player.fullName && <p className="mt-1 text-sm text-white/45">{td(player.fullName)}</p>}
               </div>
               <div className="shrink-0 text-right">
                 <p className="font-display text-5xl font-black leading-none" style={{ color }}>
                   {card.ovr}
                 </p>
-                <p className="text-[10px] uppercase tracking-widest text-white/40">Rating</p>
+                <p className="text-[10px] uppercase tracking-widest text-white/40">{tr("Rating")}</p>
               </div>
             </div>
 
@@ -225,7 +230,7 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
                 className="rounded-full px-3 py-1 font-display text-sm font-bold uppercase tracking-wide"
                 style={{ background: color, color: variant.palette.text }}
               >
-                {variant.label}
+                {td(variant.label)}
               </span>
               <RankStars rank={variant.rank} color={color} />
               {variant.serialized && serial != null && (
@@ -238,30 +243,30 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
 
             {/* Meta grid */}
             <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
-              <Meta label="Equipo">
+              <Meta label={tr("Equipo")}>
                 <TeamLogo team={player.team} size={18} />
-                <span className="truncate">{canonicalCardTeam(card, player).label}</span>
+                <span className="truncate">{td(canonicalCardTeam(card, player).label)}</span>
               </Meta>
-              <Meta label="Nacionalidad">
+              <Meta label={tr("Nacionalidad")}>
                 <Flag iso={player.country} width={18} />
                 <span className="truncate">{countryName(player.country)}</span>
               </Meta>
-              <Meta label="Rol">{card.role ?? player.role}</Meta>
-              <Meta label="Región">{player.region}</Meta>
-              <Meta label="Edición">{variant.label}</Meta>
-              <Meta label="Temporada">{SEASON}</Meta>
-              <Meta label="Agente">{agent}</Meta>
-              <Meta label="Estado">{owned ? (locked ? "Bloqueada" : "En posesión") : "No obtenida"}</Meta>
-              {count > 1 && <Meta label="Copias">x{count}</Meta>}
+              <Meta label={tr("Rol")}>{td(card.role) ?? td(player.role)}</Meta>
+              <Meta label={tr("Región")}>{td(player.region)}</Meta>
+              <Meta label={tr("Edición")}>{td(variant.label)}</Meta>
+              <Meta label={tr("Temporada")}>{td(SEASON)}</Meta>
+              <Meta label={tr("Agente")}>{td(agent)}</Meta>
+              <Meta label={tr("Estado")}>{owned ? (locked ? tr("Bloqueada") : tr("En posesión")) : tr("No obtenida")}</Meta>
+              {count > 1 && <Meta label={tr("Copias")}>x{count}</Meta>}
             </div>
 
             {/* Estadísticas */}
-            <Section title="Estadísticas">
+            <Section title={tr("Estadísticas")}>
               <div className="grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
                 {displayedStats(card).map(({ key, full, value }) => (
                   <div key={key}>
                     <div className="flex justify-between text-xs">
-                      <span className="text-white/60">{full}</span>
+                      <span className="text-white/60">{td(full)}</span>
                       <span className="font-display font-bold tabular-nums text-white">{value}</span>
                     </div>
                     <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-white/10">
@@ -279,19 +284,19 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
             </Section>
 
             {/* Kit recomendado (habilidades + traits por rol) */}
-            <Section title={`Kit recomendado · ${card.role ?? player.role}`}>
+            <Section title={tr("Kit recomendado · {v}", { v: td(card.role) ?? td(player.role) })}>
               <div className="space-y-1.5">
                 {kit.abilities.map((a) => (
                   <div key={a.name} className="flex gap-2 text-[13px]">
-                    <span className="font-semibold text-white">{a.name}</span>
-                    <span className="text-white/45">— {a.desc}</span>
+                    <span className="font-semibold text-white">{td(a.name)}</span>
+                    <span className="text-white/45">— {td(a.desc)}</span>
                   </div>
                 ))}
               </div>
               <div className="mt-2 flex flex-wrap gap-1.5">
                 {kit.traits.map((t) => (
                   <span key={t} className="rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] text-white/70">
-                    {t}
+                    {td(t)}
                   </span>
                 ))}
               </div>
@@ -299,11 +304,11 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
 
             {/* Historial competitivo / palmarés */}
             {accolades.length > 0 && (
-              <Section title="Historial competitivo">
+              <Section title={tr("Historial competitivo")}>
                 <div className="flex flex-wrap gap-1.5">
                   {accolades.map((a) => (
                     <span key={a} className="rounded-lg border border-drl-gold/30 bg-drl-gold/10 px-2.5 py-1 text-[11px] font-semibold text-drl-gold">
-                      🏆 {a}
+                      🏆 {td(a)}
                     </span>
                   ))}
                 </div>
@@ -311,10 +316,10 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
             )}
 
             {/* Mercado */}
-            <Section title="Mercado">
+            <Section title={tr("Mercado")}>
               <div className="flex items-center justify-between rounded-xl border border-drl-gold/30 bg-drl-gold/10 px-4 py-2.5">
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-white/40">Valor estimado</p>
+                  <p className="text-[10px] uppercase tracking-widest text-white/40">{tr("Valor estimado")}</p>
                   <p className="font-display text-xl font-bold text-drl-gold"><CreditGlyph className="align-[-3px]" /> {formatCredits(value)}</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -331,8 +336,8 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
             </Section>
 
             {/* Descripción */}
-            <Section title="Descripción">
-              <p className="text-[13px] leading-relaxed text-white/65">{description}</p>
+            <Section title={tr("Descripción")}>
+              <p className="text-[13px] leading-relaxed text-white/65">{td(description)}</p>
             </Section>
 
             {children && <div className="mt-4 space-y-2">{children}</div>}
@@ -352,7 +357,7 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
                   }
                 >
                   <GameGlyph symbol={a.icon} className="h-4 w-4" />
-                  {a.label}
+                  {td(a.label)}
                 </button>
               ))}
             </div>
@@ -367,17 +372,19 @@ export function CardViewer({ card, serial, uid, ownership, priceSeries, onClose,
 
 // ───────── Subcomponentes ─────────
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  useLocale();
   return (
     <div className="mt-5">
-      <p className="mb-2 text-[10px] uppercase tracking-widest text-white/40">{title}</p>
+      <p className="mb-2 text-[10px] uppercase tracking-widest text-white/40">{td(title)}</p>
       {children}
     </div>
   );
 }
 function Meta({ label, children }: { label: string; children: React.ReactNode }) {
+  useLocale();
   return (
     <div className="rounded-lg border border-white/10 bg-base-700/40 px-3 py-2">
-      <p className="text-[9px] uppercase tracking-widest text-white/40">{label}</p>
+      <p className="text-[9px] uppercase tracking-widest text-white/40">{td(label)}</p>
       <div className="mt-0.5 flex items-center gap-1.5 font-display text-sm font-semibold capitalize text-white">
         {children}
       </div>
@@ -385,9 +392,10 @@ function Meta({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 function RankStars({ rank, color }: { rank: number; color: string }) {
+  useLocale();
   const stars = Math.max(1, Math.min(5, Math.ceil(rank / 3)));
   return (
-    <span className="flex items-center gap-0.5" title={`Rareza ${rank}`}>
+    <span className="flex items-center gap-0.5" title={tr("Rareza {rank}", { rank })}>
       {Array.from({ length: 5 }, (_, i) => (
         <span key={i} className="text-sm" style={{ color: i < stars ? color : "rgba(255,255,255,0.2)" }}>
           ★
@@ -397,12 +405,13 @@ function RankStars({ rank, color }: { rank: number; color: string }) {
   );
 }
 function StateChips({ owned, locked, count, serialized }: { owned: boolean; locked: boolean; count: number; serialized: boolean }) {
+  useLocale();
   return (
     <>
-      {!owned && <Chip className="border-white/20 bg-white/5 text-white/60"><GameGlyph name="lock" className="mr-1 align-[-2px]" />No obtenida</Chip>}
-      {locked && <Chip className="border-amber-400/40 bg-amber-400/10 text-amber-300">Bloqueada</Chip>}
-      {count > 1 && <Chip className="border-drl/40 bg-drl/15 text-drl">Repetida ×{count}</Chip>}
-      {serialized && <Chip className="border-drl-cyan/40 bg-drl-cyan/10 text-drl-cyan">Serie limitada</Chip>}
+      {!owned && <Chip className="border-white/20 bg-white/5 text-white/60"><GameGlyph name="lock" className="mr-1 align-[-2px]" />{tr("No obtenida")}</Chip>}
+      {locked && <Chip className="border-amber-400/40 bg-amber-400/10 text-amber-300">{tr("Bloqueada")}</Chip>}
+      {count > 1 && <Chip className="border-drl/40 bg-drl/15 text-drl">{tr("Repetida ×")}{count}</Chip>}
+      {serialized && <Chip className="border-drl-cyan/40 bg-drl-cyan/10 text-drl-cyan">{tr("Serie limitada")}</Chip>}
     </>
   );
 }

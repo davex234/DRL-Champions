@@ -8,6 +8,9 @@
  * a un jugador.
  */
 import type { CoachCallId, RoundState, Side } from "@/sim";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("match");
 
 export interface MicroOption {
   label: string;
@@ -48,11 +51,11 @@ export function detectMicro(round: RoundState, fired: Set<string>): MicroPrompt 
     return {
       key: "clutch",
       title: "CLUTCH",
-      situation: `Te quedas 1 contra ${b}. La ronda está en sus manos.`,
+      situation: t("Te quedas 1 contra {b}. La ronda está en sus manos.", { b }),
       options: [
-        { label: "Juega por picks (paciencia)", call: "play-picks", tone: "calm" },
-        ...(us === "DEF" && planted ? [{ label: "Compromete el retake", call: "rush" as CoachCallId, tone: "go" as const }] : []),
-        { label: "Salva el arma", call: "save", tone: "danger" },
+        { label: t("Juega por picks (paciencia)"), call: "play-picks", tone: "calm" },
+        ...(us === "DEF" && planted ? [{ label: t("Compromete el retake"), call: "rush" as CoachCallId, tone: "go" as const }] : []),
+        { label: t("Salva el arma"), call: "save", tone: "danger" },
         HOLD,
       ],
     };
@@ -64,21 +67,21 @@ export function detectMicro(round: RoundState, fired: Set<string>): MicroPrompt 
       ? {
           key: "postplant",
           title: "POST-PLANT",
-          situation: "Spike plantada. Hay que defender el plante.",
+          situation: t("Spike plantada. Hay que defender el plante."),
           options: [
-            { label: "Reagrupar y cerrar líneas", call: "regroup", tone: "calm" },
-            { label: "Jugar por picks", call: "play-picks", tone: "calm" },
+            { label: t("Reagrupar y cerrar líneas"), call: "regroup", tone: "calm" },
+            { label: t("Jugar por picks"), call: "play-picks", tone: "calm" },
             HOLD,
           ],
         }
       : {
           key: "postplant",
           title: "RETAKE",
-          situation: "El rival ha plantado. Toca decidir el retake.",
+          situation: t("El rival ha plantado. Toca decidir el retake."),
           options: [
-            { label: "Comprometer el retake YA", call: "rush", tone: "go" },
-            { label: "Jugar por picks (esperar error)", call: "play-picks", tone: "calm" },
-            { label: "Salvar la ronda", call: "save", tone: "danger" },
+            { label: t("Comprometer el retake YA"), call: "rush", tone: "go" },
+            { label: t("Jugar por picks (esperar error)"), call: "play-picks", tone: "calm" },
+            { label: t("Salvar la ronda"), call: "save", tone: "danger" },
             HOLD,
           ],
         };
@@ -88,12 +91,12 @@ export function detectMicro(round: RoundState, fired: Set<string>): MicroPrompt 
   if (b - a >= 2 && a > 0 && !fired.has("disadvantage")) {
     return {
       key: "disadvantage",
-      title: "EN DESVENTAJA",
-      situation: `Vamos ${a} contra ${b}. Hay que tomar una decisión.`,
+      title: t("EN DESVENTAJA"),
+      situation: t("Vamos {a} contra {b}. Hay que tomar una decisión.", { a, b }),
       options: [
-        { label: "Reagrupar", call: "regroup", tone: "calm" },
-        { label: "Jugar por picks", call: "play-picks", tone: "calm" },
-        { label: "Salvar el armamento", call: "save", tone: "danger" },
+        { label: t("Reagrupar"), call: "regroup", tone: "calm" },
+        { label: t("Jugar por picks"), call: "play-picks", tone: "calm" },
+        { label: t("Salvar el armamento"), call: "save", tone: "danger" },
         HOLD,
       ],
     };
@@ -104,10 +107,10 @@ export function detectMicro(round: RoundState, fired: Set<string>): MicroPrompt 
     return {
       key: "advantage",
       title: "VENTAJA",
-      situation: `Vamos ${a} contra ${b}. Ventana para ejecutar.`,
+      situation: t("Vamos {a} contra {b}. Ventana para ejecutar.", { a, b }),
       options: [
-        { label: "¡Execute ya!", call: "execute", tone: "go" },
-        { label: "Rush al sitio", call: "rush", tone: "go" },
+        { label: t("¡Execute ya!"), call: "execute", tone: "go" },
+        { label: t("Rush al sitio"), call: "rush", tone: "go" },
         HOLD,
       ],
     };

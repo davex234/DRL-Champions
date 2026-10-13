@@ -140,7 +140,7 @@ const COMPS = code(read("src", "app", "entrenador", "composiciones", "page.tsx")
 
 test("F511 J1 · el hub tiene JUGAR como acción protagonista", () => {
   assert.match(HUB, /href="\/entrenador\/jugar" className="nx-play-cta" data-testid="hub-play"/);
-  for (const g of ["Preparación", "Análisis", "Equipo"]) assert.match(HUB, new RegExp(`titulo="${g}"`));
+  for (const g of ["Preparación", "Análisis", "Equipo"]) assert.match(HUB, new RegExp(`titulo=(?:"${g}"|\\{(?:t|tr|i18nT)\\("${g}"\\)\\})`));
   const jugar = COACH_ROOMS.find((r) => r.href === "/entrenador/jugar");
   assert.ok(jugar?.primary, "JUGAR destacado en la navegación");
   assert.equal(COACH_ROOMS.filter((r) => r.primary).length, 1, "una sola sala destacada");

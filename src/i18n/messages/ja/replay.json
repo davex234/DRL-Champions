@@ -1,0 +1,5 @@
+{
+  "checksum inválido (replay corrupto)": "チェックサムが無効です（リプレイが破損）",
+  "divergencia de reconstrucción (el estado final no coincide)": "再構築の不一致（最終状態が一致しません）",
+  "versión incompatible ({version})": "互換性のないバージョン（{version}）"
+}

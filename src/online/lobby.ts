@@ -8,6 +8,9 @@ import type { MatchRosters, CoachSetup } from "@/sim";
 import { makeMatchConfig, type MatchConfig } from "@/match";
 import type { CoachConfig } from "@/coach";
 import type { ClientKind } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("online");
 
 export interface LobbyMember { id: string; name: string; kind: ClientKind; ready: boolean; side: "home" | "away" | null }
 
@@ -36,10 +39,10 @@ export function createLobby(id: string, host: { id: string; name: string; kind?:
 }
 
 export function joinLobby(lobby: Lobby, member: { id: string; name: string; kind?: ClientKind }): { lobby: Lobby; error: string | null } {
-  if (lobby.status !== "open") return { lobby, error: "La sala no admite entradas." };
+  if (lobby.status !== "open") return { lobby, error: t("La sala no admite entradas.") };
   if (lobby.members.some((m) => m.id === member.id)) return { lobby, error: null }; // idempotente
   const players = lobby.members.filter((m) => m.kind !== "observer").length;
-  if ((member.kind ?? "player") !== "observer" && players >= lobby.capacity) return { lobby, error: "Sala llena." };
+  if ((member.kind ?? "player") !== "observer" && players >= lobby.capacity) return { lobby, error: t("Sala llena.") };
   const side: "home" | "away" | null = (member.kind ?? "player") === "observer" ? null : (lobby.members.some((m) => m.side === "away") ? null : "away");
   return { lobby: { ...lobby, members: [...lobby.members, { id: member.id, name: member.name, kind: member.kind ?? "player", ready: false, side }] }, error: null };
 }

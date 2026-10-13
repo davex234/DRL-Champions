@@ -29,6 +29,10 @@ import { Badge, StatusDot } from "@/components/ui/Badge";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { cn } from "@/lib/format";
 import type { MatchRow } from "@/lib/game/client";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("tournaments");
 
 /** Estado del partido, en el vocabulario del producto. No se traduce nada nuevo. */
 const ESTADO: Record<string, { label: string; tone: "key" | "info" | "ok" | "muted" }> = {
@@ -37,8 +41,12 @@ const ESTADO: Record<string, { label: string; tone: "key" | "info" | "ok" | "mut
   upcoming: { label: "Programado", tone: "info" },
 };
 
+/** El estado, traducido AQUÍ (catálogo de este módulo): «Final» de partido terminado no es la ronda «Final». */
+const estadoText = (status: string, fallback: string): string =>
+  status === "live" ? t("En vivo") : status === "finished" ? t("Final") : status === "upcoming" ? t("Programado") : td(fallback);
+
 const fmtHora = (s: string | null): string =>
-  s ? new Date(s).toLocaleString("es-ES", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "Sin fecha";
+  s ? new Date(s).toLocaleString(getIntlLocale(), { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : t("Sin fecha");
 
 /**
  * UN ENFRENTAMIENTO.
@@ -61,6 +69,7 @@ export function MatchCard({
   pick?: { label: string; tone: "info" | "ok" | "bad" | "muted" } | null;
   className?: string;
 }) {
+  useLocale();
   const estado = ESTADO[m.status] ?? { label: m.status, tone: "muted" as const };
   const vivo = m.status === "live";
   const jugado = m.status === "finished";
@@ -79,7 +88,7 @@ export function MatchCard({
         hero ? "px-4 py-4 sm:px-6 sm:py-5" : "px-3 py-2.5 sm:px-4 sm:py-3",
         className,
       )}
-      aria-label={`${m.team_a ?? "Por decidir"} contra ${m.team_b ?? "Por decidir"}, ${estado.label}`}
+      aria-label={t("{v} contra {v2}, {label}", { v: td(m.team_a) ?? t("Por decidir"), v2: td(m.team_b) ?? t("Por decidir"), label: estadoText(m.status, estado.label) })}
     >
       {/*
         LA CABECERA DEL PARTIDO: ronda y estado. El estado se dice CON PALABRAS y con su
@@ -88,21 +97,21 @@ export function MatchCard({
       */}
       <div className="mb-1.5 flex items-center justify-between gap-2">
         <span className="flex min-w-0 items-center gap-2">
-          <span className="nx-label truncate">{m.round ?? "Partido"}</span>
+          <span className="nx-label truncate">{td(m.round) ?? t("Partido")}</span>
           {/*
             LA COSTURA ENTRE LOS DOS MODOS. Un partido sobre el que tienes algo en juego lo
             dice aquí, en el partido — que es donde el jugador lo busca. Antes había que
             adivinar que la pregunta «Semifinal: ¿quién gana A vs B?» y el partido «A vs B»
             de la tabla de abajo eran la misma cosa.
           */}
-          {pick && <Badge tone={pick.tone} dot>{pick.label}</Badge>}
+          {pick && <Badge tone={pick.tone} dot>{td(pick.label)}</Badge>}
         </span>
         {vivo ? (
-          <Badge tone="key" dot pulse>{estado.label}</Badge>
+          <Badge tone="key" dot pulse>{estadoText(m.status, estado.label)}</Badge>
         ) : (
           <span className="flex shrink-0 items-center gap-1.5">
             <StatusDot tone={estado.tone} size={5} />
-            <span className="nx-label">{jugado ? estado.label : fmtHora(m.start_time)}</span>
+            <span className="nx-label">{jugado ? estadoText(m.status, estado.label) : fmtHora(m.start_time)}</span>
           </span>
         )}
       </div>
@@ -133,6 +142,7 @@ function Bando({
   hero: boolean;
   align?: "left" | "right";
 }) {
+  useLocale();
   return (
     <span className={cn("flex min-w-0 flex-1 items-center gap-2", align === "right" && "justify-end")}>
       {/* El filo del bando: dice quién ganó sin depender del color del texto. */}
@@ -145,7 +155,7 @@ function Bando({
           align === "right" && "text-right",
         )}
       >
-        {nombre ?? "Por decidir"}
+        {td(nombre) ?? t("Por decidir")}
       </b>
       {align === "right" && gana && <span aria-hidden className="h-4 w-[3px] shrink-0 bg-ok" />}
     </span>
@@ -159,6 +169,7 @@ function Bando({
  * la fila. Antes del partido dice «VS», que es exactamente lo que hay.
  */
 function Marcador({ m, hero, vivo }: { m: MatchRow; hero: boolean; vivo: boolean }) {
+  useLocale();
   const sinJugar = m.status === "upcoming";
   return (
     <Recessed
@@ -175,7 +186,7 @@ function Marcador({ m, hero, vivo }: { m: MatchRow; hero: boolean; vivo: boolean
           sinJugar ? "text-ink-faint" : vivo ? "text-drl" : "text-white",
         )}
       >
-        {sinJugar ? "VS" : `${m.score_a ?? 0}–${m.score_b ?? 0}`}
+        {sinJugar ? t("VS") : `${m.score_a ?? 0}–${m.score_b ?? 0}`}
       </span>
     </Recessed>
   );
@@ -211,6 +222,7 @@ export function RoundLadder({
   picks?: Record<string, { label: string; tone: "info" | "ok" | "bad" | "muted" }>;
   className?: string;
 }) {
+  useLocale();
   const escalera =
     rounds.length > 1 &&
     rounds.length <= 4 &&
@@ -220,8 +232,8 @@ export function RoundLadder({
     return (
       <div className={cn("space-y-5", className)}>
         {rounds.map(([ronda, lista]) => (
-          <section key={ronda} aria-label={ronda}>
-            <Rail label={ronda} className="mb-2.5" />
+          <section key={ronda} aria-label={td(ronda)}>
+            <Rail label={td(ronda)} className="mb-2.5" />
             <div className="grid gap-2">
               {lista.map((m) => <MatchCard key={m.id} m={m} pick={picks?.[m.id]} />)}
             </div>
@@ -239,13 +251,13 @@ export function RoundLadder({
         className,
       )}
       role="group"
-      aria-label="Camino hacia la final"
+      aria-label={t("Camino hacia la final")}
     >
       <div className="flex min-w-max items-stretch gap-3">
         {rounds.map(([ronda, lista], i) => (
           <div key={ronda} className="flex w-[min(78vw,300px)] shrink-0 flex-col gap-2">
             <SectionTitle as="h3" className="!mb-1">
-              {ronda}
+              {td(ronda)}
             </SectionTitle>
             {/*
               Cada ronda se centra respecto a la anterior: es lo que hace que la escalera se

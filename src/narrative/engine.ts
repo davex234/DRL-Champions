@@ -18,6 +18,9 @@ import { selectStandouts } from "./heroes";
 import { deriveNodes, buildGraph } from "./graph";
 import { roundLeverage } from "./importance";
 import { buildSummary } from "./summary";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("narrative");
 
 export interface MatchMeta {
   teamNames?: Partial<Record<TeamId, string>>;
@@ -37,7 +40,7 @@ export class MatchNarrator {
 
   constructor(meta: MatchMeta = {}) {
     this.target = meta.target ?? 13;
-    this.teamNames = { A: meta.teamNames?.A ?? "Equipo A", B: meta.teamNames?.B ?? "Equipo B" };
+    this.teamNames = { A: meta.teamNames?.A ?? t("Equipo A"), B: meta.teamNames?.B ?? t("Equipo B") };
   }
 
   /** Ingiere una ronda YA terminada (RoundState con winner). No la muta. */
@@ -153,16 +156,16 @@ export class MatchNarrator {
 
 function whyKey(e: NarrativeEvent): string {
   switch (e.type) {
-    case "ace": return "un ace cambia la ronda por completo";
-    case "clutch": return `clutch 1v${e.data.clutchSize} bajo máxima presión`;
-    case "inflection": return "la balanza se inclinó aquí";
-    case "momentum_shift": return "cambio de control del mapa";
-    case "comeback_started": return "arranca la remontada";
-    case "collapse_started": return "empieza el colapso";
-    case "retake": return "retake que roba la ronda";
-    case "eco_win": return "ronda eco que rompe la economía rival";
-    case "timeout": return "intervención del coach";
-    default: return "momento de alto impacto";
+    case "ace": return t("un ace cambia la ronda por completo");
+    case "clutch": return t("clutch 1v{clutchSize} bajo máxima presión", { clutchSize: e.data.clutchSize });
+    case "inflection": return t("la balanza se inclinó aquí");
+    case "momentum_shift": return t("cambio de control del mapa");
+    case "comeback_started": return t("arranca la remontada");
+    case "collapse_started": return t("empieza el colapso");
+    case "retake": return t("retake que roba la ronda");
+    case "eco_win": return t("ronda eco que rompe la economía rival");
+    case "timeout": return t("intervención del coach");
+    default: return t("momento de alto impacto");
   }
 }
 

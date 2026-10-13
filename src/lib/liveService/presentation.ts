@@ -7,11 +7,14 @@
 import type { DailyAction, DailyLoopSnapshot } from "@/domain/dailyLoop";
 import type { ObjectiveCard, Urgency } from "@/domain/liveService";
 import { remainingText, resetText, URGENCY_LABEL, urgencyOf } from "@/domain/liveService";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("liveService");
 
 export interface DeadlineChip { label: string; urgency: Urgency; aria: string }
 
 /** Chip de plazo SOLO con fin real: texto + nivel (nunca color solo). */
-export function deadlineChip(endsAt: number | null | undefined, now: number, verb = "Cierra en"): DeadlineChip | null {
+export function deadlineChip(endsAt: number | null | undefined, now: number, verb = t("Cierra en")): DeadlineChip | null {
   const u = urgencyOf(endsAt ?? null, now);
   const left = remainingText(endsAt ?? null, now);
   if (!u || !left) return null;
@@ -35,8 +38,8 @@ export function objectiveSections(snap: DailyLoopSnapshot, now: number, routes: 
   const s = snap.service;
   if (!s) return null;
   return [
-    { kicker: "Hoy", title: "Objetivos de hoy", reset: resetText(s.resets.dailyEndsAt, now), rows: objectiveRows(s.today, routes), done: s.dailyDone, empty: "No hay objetivos diarios activos." },
-    { kicker: "Esta semana", title: "Objetivos de la semana", reset: resetText(s.resets.weeklyEndsAt, now), rows: objectiveRows(s.thisWeek, routes), done: s.weeklyDone, empty: "No hay objetivos semanales activos." },
+    { kicker: t("Hoy"), title: t("Objetivos de hoy"), reset: resetText(s.resets.dailyEndsAt, now), rows: objectiveRows(s.today, routes), done: s.dailyDone, empty: t("No hay objetivos diarios activos.") },
+    { kicker: t("Esta semana"), title: t("Objetivos de la semana"), reset: resetText(s.resets.weeklyEndsAt, now), rows: objectiveRows(s.thisWeek, routes), done: s.weeklyDone, empty: t("No hay objetivos semanales activos.") },
   ];
 }
 
@@ -47,8 +50,8 @@ export interface ReturningModel { title: string; subtitle: string; facts: string
 export function returningModel(snap: DailyLoopSnapshot): ReturningModel | null {
   const r = snap.service?.returning;
   if (!r || r.facts.length === 0) return null;
-  const subtitle = r.daysAway >= 2 ? `Tu última actividad fue hace ${r.daysAway} días.` : "Tu última actividad fue ayer o antes.";
-  return { title: "De vuelta en NEXUS", subtitle, facts: r.facts.slice(0, 3) };
+  const subtitle = r.daysAway >= 2 ? t("Tu última actividad fue hace {daysAway} días.", { daysAway: r.daysAway }) : t("Tu última actividad fue ayer o antes.");
+  return { title: t("De vuelta en NEXUS"), subtitle, facts: r.facts.slice(0, 3) };
 }
 
 /* ───────────────────────────── después de jugar ───────────────────────────── */
@@ -67,10 +70,10 @@ export interface AfterModel {
 }
 
 const noun = (metric: string, n: number) =>
-  metric === "duels_won" ? (n === 1 ? "victoria" : "victorias")
-    : metric === "duels_played" ? (n === 1 ? "partida" : "partidas")
-      : metric === "packs_opened" ? (n === 1 ? "sobre" : "sobres")
-        : metric === "distinct_cards" ? (n === 1 ? "carta nueva" : "cartas nuevas") : "más";
+  metric === "duels_won" ? (n === 1 ? t("victoria") : t("victorias"))
+    : metric === "duels_played" ? (n === 1 ? t("partida") : t("partidas"))
+      : metric === "packs_opened" ? (n === 1 ? t("sobre") : t("sobres"))
+        : metric === "distinct_cards" ? (n === 1 ? t("carta nueva") : t("cartas nuevas")) : t("más");
 
 /**
  * «Una más»: objetivos RELACIONADOS con lo que se acaba de hacer (sin extra de recompensa) y la siguiente acción que
@@ -86,12 +89,12 @@ export function afterActivityModel(snap: DailyLoopSnapshot | null, context: Afte
     .slice(0, 2)
     .map((c) => {
       const missing = c.goal - c.current;
-      const line = c.status === "CLAIMABLE" ? "Completado · recógelo en Logros" : `${missing} ${noun(c.metric, missing)} más para completarlo`;
+      const line = c.status === "CLAIMABLE" ? t("Completado · recógelo en Logros") : t("{missing} {metric} más para completarlo", { missing, metric: noun(c.metric, missing) });
       return { id: c.id, label: c.label, line, progressLabel: c.progressLabel, pct: c.goal > 0 ? (c.current / c.goal) * 100 : 0, claimable: c.status === "CLAIMABLE" };
     });
   const p: DailyAction = snap.primaryAction;
   const next = currentPath !== null && p.href === currentPath ? null : { label: p.cta, href: p.href, reason: p.reason ?? p.detail };
   const run = snap.service?.draftRun ?? null;
-  const draft = context === "draft" && run ? (run.status === "DRAFTING" ? "Tu draft sigue a medias." : `Siguiente: fase ${run.stage} de 5.`) : null;
+  const draft = context === "draft" && run ? (run.status === "DRAFTING" ? t("Tu draft sigue a medias.") : t("Siguiente: fase {stage} de 5.", { stage: run.stage })) : null;
   return { progress, next, draft, lobbyHref: "/" };
 }

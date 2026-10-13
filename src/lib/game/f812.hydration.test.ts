@@ -121,7 +121,7 @@ test("F81.2 · F · sesión caducada: UNKNOWN mientras se resuelve; si queda la 
   assert.match(sync, /if \(s\.cacheOwner \|\| s\.serverOwner\) \{\s*s\.resetGame\(\);/);
   const gate = code(read("src/components/layout/HydrationGate.tsx"));
   assert.match(gate, /testId="economy-unavailable"/);
-  assert.match(gate, /label: "Reintentar"/);
+  assert.match(gate, /label: (?:t|tr|i18nT)\("Reintentar"\)/);
 });
 
 test("F81.2 · G · login: la demo se esconde en cuanto aparece el usuario y hasta que llegue SU estado", () => {

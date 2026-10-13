@@ -182,6 +182,9 @@ test("IDEMPOTENCIA · el draft sigue sin economía: su copy solo puede NEGAR rec
   const frases = copy.split(String.fromCharCode(34)).filter((_, i) => i % 2 === 1);
   for (const text of frases) {
     if (!/crédito|sobre|XP/i.test(text)) continue;
+    // I18N · una clave con parámetros ("+{credits} créditos") era antes una plantilla con ${…}, que este barrido de
+    // literales entrecomillados nunca leyó: se conserva exactamente el mismo alcance (solo frases fijas).
+    if (/\{\w+\}/.test(text)) continue;
     assert.match(text, /[Ss]in recompensas|no da|0 /, `frase del draft que promete economía: ${text}`);
   }
 });

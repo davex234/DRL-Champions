@@ -42,6 +42,9 @@ import {
   type LiveEventSnapshot, type LiveChange,
 } from "@/domain/pickems/live";
 import { trackPickem } from "@/lib/telemetry/pickems";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("lib");
 
 export interface PickemBundle {
   event: PickemEventSummary | null;
@@ -176,7 +179,7 @@ export function usePickem(pickemEventId: string | null, userId: string | null, o
       setFailures(0);
       if (live) publishChanges(next);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "No se pudieron cargar las predicciones";
+      const msg = e instanceof Error ? e.message : tr("No se pudieron cargar las predicciones");
       if (bundleRef.current) {
         // Hay un lote válido: se conserva, se avisa y se reintentará con retroceso.
         setRefreshError(msg);
@@ -246,11 +249,11 @@ export function usePickem(pickemEventId: string | null, userId: string | null, o
     if (savingRef.current) return;                                   // un envío a la vez
     if (!q.options.some((o) => o.key === option)) return;             // solo opciones del servidor
     if (typeof navigator !== "undefined" && !navigator.onLine) {      // sin red no se afirma nada
-      showFeedback({ questionId: q.id, kind: "error", message: "Sin conexión · la predicción no se ha enviado" }, 4000);
+      showFeedback({ questionId: q.id, kind: "error", message: tr("Sin conexión · la predicción no se ha enviado") }, 4000);
       return;
     }
     if (isLockedNow(q, Date.now())) {
-      showFeedback({ questionId: q.id, kind: "locked", message: "Cerrada · ya no admite cambios" }, 3000);
+      showFeedback({ questionId: q.id, kind: "locked", message: tr("Cerrada · ya no admite cambios") }, 3000);
       return;
     }
     const previous = current.answers[q.id];
@@ -258,7 +261,7 @@ export function usePickem(pickemEventId: string | null, userId: string | null, o
 
     savingRef.current = q.id;
     setSaving(q.id);
-    showFeedback({ questionId: q.id, kind: "saving", message: "Guardando…" });
+    showFeedback({ questionId: q.id, kind: "saving", message: tr("Guardando…") });
 
     const apply = (answers: AnswerMap) => {
       setBundle((b) => {
@@ -274,19 +277,19 @@ export function usePickem(pickemEventId: string | null, userId: string | null, o
 
     try {
       await submitPick(q.id, option);
-      showFeedback({ questionId: q.id, kind: "saved", message: "Predicción guardada" }, 2500);
+      showFeedback({ questionId: q.id, kind: "saved", message: tr("Predicción guardada") }, 2500);
       trackPickem(previous ? "pickem_prediction_changed" : "pickem_prediction_saved");
     } catch (e) {
       const restored = { ...(bundleRef.current?.answers ?? {}) };
       if (previous) restored[q.id] = previous; else delete restored[q.id];
       apply(restored);
-      const msg = e instanceof Error ? e.message : "No se pudo guardar";
+      const msg = e instanceof Error ? e.message : tr("No se pudo guardar");
       if (/cerrad/i.test(msg)) {
-        showFeedback({ questionId: q.id, kind: "locked", message: "Cerrada · el servidor ya no admite cambios" }, 4000);
+        showFeedback({ questionId: q.id, kind: "locked", message: tr("Cerrada · el servidor ya no admite cambios") }, 4000);
         trackPickem("pickem_locked_seen");
         void load(true);
       } else {
-        showFeedback({ questionId: q.id, kind: "error", message: `Error al guardar · ${msg}` }, 4000);
+        showFeedback({ questionId: q.id, kind: "error", message: tr("Error al guardar · {msg}", { msg: td(msg) }) }, 4000);
       }
     } finally {
       savingRef.current = null;

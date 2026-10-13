@@ -24,6 +24,10 @@
 import { AGENTS } from "@/agents/catalog";
 import type { AgentClass } from "@/agents/types";
 import { getTacticalAgent, getLegacyAgent } from "@/domain/tactics/roster";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("tactics");
 
 /** Color por clase. El mismo vocabulario cromático que el resto de la pizarra. */
 export const AGENT_CLASS_COLOR: Record<AgentClass, string> = {
@@ -71,7 +75,7 @@ export function agentById(id: string | undefined | null): EmblemAgent | null {
 export const agentColor = (a: EmblemAgent | null): string => (!a ? "#9aa4bf" : a.legacy ? LEGACY_COLOR : AGENT_CLASS_COLOR[a.class]);
 
 /** Rótulo de rol: el real, o «Modelo anterior». */
-export const agentRoleLabel = (a: EmblemAgent | null): string => (!a ? "" : a.legacy ? "Modelo anterior" : AGENT_CLASS_LABEL[a.class]);
+export const agentRoleLabel = (a: EmblemAgent | null): string => (!a ? "" : a.legacy ? t("Modelo anterior") : td(AGENT_CLASS_LABEL[a.class]));
 
 /** El código del agente real, centrado en el `viewBox` de 32. */
 function Code({ code }: { code: string }) {
@@ -142,6 +146,7 @@ export function AgentEmblem({
   plain?: boolean;
   className?: string;
 }) {
+  useLocale();
   const agent = agentById(agentId);
   const color = agentColor(agent);
   const label = agent ? `${agent.name} · ${agentRoleLabel(agent)}` : agentId;
@@ -153,7 +158,7 @@ export function AgentEmblem({
       className={className}
       style={{ color }}
       role="img"
-      aria-label={label}
+      aria-label={td(label)}
       data-agent-kind={agent ? (agent.legacy ? "legacy" : "real") : "unknown"}
     >
       {!plain && (

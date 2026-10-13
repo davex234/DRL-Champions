@@ -10,6 +10,9 @@ import { liveStats, type LiveStatLine } from "./liveStats";
 import { extractHighlights, type HighlightClip } from "./replay";
 import { detectPresentationEvents, type PresentationEvent } from "./narrative";
 import type { WorldHistory } from "../world";
+import { ns as i18nNs } from "@/i18n/runtime";
+
+const t = i18nNs("broadcast");
 
 export interface PostMatch {
   headline: string;
@@ -34,7 +37,7 @@ export function buildPostMatch(match: MatchState, worldHistory?: WorldHistory): 
   const clutch = ns?.timeline.filter((e) => e.type === "clutch").sort((a, b) => b.impact - a.impact)[0];
 
   return {
-    headline: ns?.summary.headline ?? (match.winner === "home" ? "Victoria" : "Derrota"),
+    headline: ns?.summary.headline ?? (match.winner === "home" ? t("Victoria") : t("Derrota")),
     shape: ns?.match.shape.id ?? "—",
     beats: ns?.summary.beats.map((b) => b.text) ?? [],
     playerOfMatch: hero ? { name: hero.name, reason: hero.reason } : (match.mvp ? { name: match.mvp.name, reason: `${match.mvp.kills} bajas` } : null),

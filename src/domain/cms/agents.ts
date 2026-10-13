@@ -3,6 +3,9 @@
  * aquí para dar el error EN EL FORMULARIO antes de mandar nada y para que las pruebas las fijen.
  */
 import { isLegacyAgentId, type AbilitySlot, type TacticalRole } from "@/domain/tactics/roster";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("admin");
 
 export const AGENT_ROLES: readonly TacticalRole[] = ["duelist", "initiator", "controller", "sentinel"];
 export const ABILITY_SLOTS: readonly AbilitySlot[] = ["C", "Q", "E", "X"];
@@ -36,25 +39,25 @@ export function validateAgentDraft(input: AgentDraftInput, opts: { creating: boo
   const e: FieldErrors = {};
   if (opts.creating) {
     const id = input.id ?? "";
-    if (!AGENT_ID.test(id)) e.id = "Id: minúsculas y cifras, de 2 a 24 (p. ej. «kayo»)";
-    else if (isLegacyAgentId(id)) e.id = "Ese id pertenece a un agente del modelo anterior";
-    else if (opts.existingIds?.has(id)) e.id = "Ya existe un agente con ese id";
+    if (!AGENT_ID.test(id)) e.id = t("Id: minúsculas y cifras, de 2 a 24 (p. ej. «kayo»)");
+    else if (isLegacyAgentId(id)) e.id = t("Ese id pertenece a un agente del modelo anterior");
+    else if (opts.existingIds?.has(id)) e.id = t("Ya existe un agente con ese id");
   }
   if (input.name !== undefined) {
     const n = input.name.trim();
-    if (n.length < 2 || n.length > 24) e.name = "Nombre de 2 a 24 caracteres";
-    else if (/[<>]/.test(n)) e.name = "El nombre no puede contener < ni >";
-  } else if (opts.creating) e.name = "El nombre es obligatorio";
+    if (n.length < 2 || n.length > 24) e.name = t("Nombre de 2 a 24 caracteres");
+    else if (/[<>]/.test(n)) e.name = t("El nombre no puede contener < ni >");
+  } else if (opts.creating) e.name = t("El nombre es obligatorio");
   if (input.role !== undefined) {
-    if (!(AGENT_ROLES as string[]).includes(input.role)) e.role = "Rol: duelista, iniciador, controlador o centinela";
-  } else if (opts.creating) e.role = "El rol es obligatorio";
-  if (input.code !== undefined && input.code !== "" && !AGENT_CODE.test(input.code)) e.code = "Código de 2 a 4 mayúsculas o cifras";
+    if (!(AGENT_ROLES as string[]).includes(input.role)) e.role = t("Rol: duelista, iniciador, controlador o centinela");
+  } else if (opts.creating) e.role = t("El rol es obligatorio");
+  if (input.code !== undefined && input.code !== "" && !AGENT_CODE.test(input.code)) e.code = t("Código de 2 a 4 mayúsculas o cifras");
   if (input.abilities !== undefined) {
     const ab = input.abilities;
-    if (!Array.isArray(ab) || ab.length !== 4) e.abilities = "Cuatro habilidades: C, Q, E y X";
-    else if (ab.some((a, i) => a.slot !== ABILITY_SLOTS[i])) e.abilities = "Las habilidades van en orden C, Q, E, X";
+    if (!Array.isArray(ab) || ab.length !== 4) e.abilities = t("Cuatro habilidades: C, Q, E y X");
+    else if (ab.some((a, i) => a.slot !== ABILITY_SLOTS[i])) e.abilities = t("Las habilidades van en orden C, Q, E, X");
     else if (ab.some((a) => typeof a.name !== "string" || a.name.trim().length < 2 || a.name.trim().length > 48 || /[<>]/.test(a.name))) {
-      e.abilities = "Cada habilidad necesita un nombre de 2 a 48 caracteres";
+      e.abilities = t("Cada habilidad necesita un nombre de 2 a 48 caracteres");
     }
   }
   return e;
@@ -69,12 +72,12 @@ export interface AgentRecord {
 export function agentPublishChecklist(a: AgentRecord): { key: string; label: string; ok: boolean }[] {
   const needsArt = a.origin === "admin";
   return [
-    { key: "name", label: "Nombre", ok: a.name.trim().length >= 2 },
-    { key: "role", label: "Rol", ok: (AGENT_ROLES as string[]).includes(a.role) },
-    { key: "code", label: "Código de ficha", ok: !!a.code && AGENT_CODE.test(a.code) },
-    { key: "abilities", label: "Cuatro habilidades C/Q/E/X", ok: a.abilities.length === 4 && a.abilities.every((x, i) => x.slot === ABILITY_SLOTS[i] && x.name.trim().length >= 2) },
-    { key: "face", label: "Cara (retrato)", ok: !needsArt || !!a.faceAssetId },
-    { key: "full", label: "Cuerpo entero", ok: !needsArt || !!a.fullAssetId },
+    { key: "name", label: t("Nombre"), ok: a.name.trim().length >= 2 },
+    { key: "role", label: t("Rol"), ok: (AGENT_ROLES as string[]).includes(a.role) },
+    { key: "code", label: t("Código de ficha"), ok: !!a.code && AGENT_CODE.test(a.code) },
+    { key: "abilities", label: t("Cuatro habilidades C/Q/E/X"), ok: a.abilities.length === 4 && a.abilities.every((x, i) => x.slot === ABILITY_SLOTS[i] && x.name.trim().length >= 2) },
+    { key: "face", label: t("Cara (retrato)"), ok: !needsArt || !!a.faceAssetId },
+    { key: "full", label: t("Cuerpo entero"), ok: !needsArt || !!a.fullAssetId },
   ];
 }
 

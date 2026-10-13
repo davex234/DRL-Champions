@@ -1,0 +1,23 @@
+{
+  "Bronce": "Bronze",
+  "Campeón · {name}": "Campeão · {name}",
+  "Competitiva {v} · {name}": "Competitiva {v} · {name}",
+  "Demasiadas peticiones: espera unos segundos.": "Requisições demais: aguarde alguns segundos.",
+  "Equipo completado": "Time completado",
+  "La Sala de Trofeos no está disponible ahora mismo.": "A Sala de Troféus não está disponível no momento.",
+  "Maestría": "Maestria",
+  "Mejor rango de temporada": "Melhor ranque da temporada",
+  "No se pudo cargar la Sala de Trofeos.": "Não foi possível carregar a Sala de Troféus.",
+  "Oro": "Ouro",
+  "Pick'em perfecto": "Pick'em perfeito",
+  "Pick'em perfecto · {name}": "Pick'em perfeito · {name}",
+  "Plata": "Prata",
+  "Ruta de temporada": "Trilha da temporada",
+  "Temporada {v} · {label}": "Temporada {v} · {label}",
+  "Torneo": "Torneio",
+  "Torneo · {date}": "Torneio · {date}",
+  "Tu sesión ha caducado: vuelve a entrar.": "Sua sessão expirou: entre novamente.",
+  "no obtenibles: {blocked}": "não obteníveis: {blocked}",
+  "sin carta obtenible: {blocked}": "sem carta obtenível: {blocked}",
+  "{size} jugadores con carta impresa": "{size} jogadores com carta impressa"
+}

@@ -10,6 +10,9 @@ import type { WorldState, WorldPlayer, WorldTeam, Contract, Rng, TransferKind } 
 import { freshContract } from "@/world";
 import { ensurePlayer } from "@/live/timeline";
 import type { LoanTerms, ActiveLoan, MarketEvent, MarketEventType } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("market");
 
 let evtCounter = 0;
 function mkEvent(type: MarketEventType, world: WorldState, p: WorldPlayer, from: string | null, to: string | null, fee: number, detail: string, magnitude: number, at: number): MarketEvent {
@@ -72,8 +75,8 @@ export function applySigning(
   logTransfer(world, p, sellerId ?? null, buyerId, Math.round(fee), kind);
   const type: MarketEventType = fee >= 22000 ? "bomb" : "signing";
   const detail = isFree
-    ? `${buyer.name} ficha a ${p.nick} como agente libre.`
-    : `${buyer.name} ficha a ${p.nick}${seller ? ` (de ${seller.name})` : ""} por ${Math.round(fee)}.`;
+    ? tr("{name} ficha a {nick} como agente libre.", { name: buyer.name, nick: p.nick })
+    : tr("{name} ficha a {nick}{v} por {fee}.", { name: buyer.name, nick: p.nick, v: seller ? ` (de ${seller.name})` : "", fee: Math.round(fee) });
   return mkEvent(type, world, p, sellerId ?? null, buyerId, Math.round(fee), detail, Math.min(100, 40 + fee / 800), at);
 }
 
@@ -82,7 +85,7 @@ export function applySale(world: WorldState, sellerId: string, buyerId: string, 
   const p = world.players[playerId];
   if (!p) return null;
   const ev = applySigning(world, buyerId, playerId, fee, salary, years, Math.max(p.value * 2, fee * 1.5), rng, at);
-  if (ev) { ev.type = fee >= 22000 ? "bomb" : "sale"; ev.detail = `${world.teams[sellerId]?.name ?? "?"} vende a ${p.nick} por ${Math.round(fee)}.`; }
+  if (ev) { ev.type = fee >= 22000 ? "bomb" : "sale"; ev.detail = tr("{v} vende a {nick} por {fee}.", { v: td(world.teams[sellerId]?.name) ?? "?", nick: p.nick, fee: Math.round(fee) }); }
   return ev;
 }
 
@@ -137,7 +140,7 @@ export function applyLoanReturn(world: WorldState, loan: ActiveLoan, rng: Rng, a
   removeFromTeam(world, loan.playerId);
   addToTeam(world, owner, p, contractFrom(rng, p, p.contract?.salary ?? Math.round(p.value * 0.12), Math.max(1, p.contract?.years ?? 2), p.contract?.releaseClause));
   logTransfer(world, p, loan.loanClub, loan.ownerClub, 0, "loan_return");
-  return mkEvent("loan_return", world, p, loan.loanClub, loan.ownerClub, 0, `${p.nick} vuelve de su cesión a ${owner.name}.`, 25, at);
+  return mkEvent("loan_return", world, p, loan.loanClub, loan.ownerClub, 0, tr("{nick} vuelve de su cesión a {name}.", { nick: p.nick, name: owner.name }), 25, at);
 }
 
 /** INTERCAMBIO (swap): dos clubes cambian un jugador cada uno (con posible fee de compensación). */
@@ -151,5 +154,5 @@ export function applySwap(world: WorldState, clubA: string, playerA: string, clu
   addToTeam(world, a, pb, contractFrom(rng, pb, pb.contract?.salary ?? Math.round(pb.value * 0.12), 2, pb.contract?.releaseClause));
   logTransfer(world, pa, clubA, clubB, cashFromA, "swap");
   logTransfer(world, pb, clubB, clubA, 0, "swap");
-  return mkEvent("swap", world, pa, clubA, clubB, cashFromA, `Intercambio: ${pa.nick} ⇄ ${pb.nick} entre ${a.name} y ${b.name}.`, 55, at);
+  return mkEvent("swap", world, pa, clubA, clubB, cashFromA, tr("Intercambio: {nick} ⇄ {nick2} entre {name} y {name2}.", { nick: pa.nick, nick2: pb.nick, name: a.name, name2: b.name }), 55, at);
 }

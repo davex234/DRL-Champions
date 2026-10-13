@@ -13,8 +13,13 @@ import { trackCompetitive } from "@/lib/competitive/telemetry";
 import { MatchHistoryList } from "@/components/competitive/MatchHistoryList";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duelos");
 
 export default function HistorialPage() {
+  useLocale();
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
   const [rows, setRows] = useState<CompetitiveMatchRow[] | null>(null);
@@ -29,26 +34,26 @@ export default function HistorialPage() {
       if (!page) return;
       setRows((cur) => (before === null ? page.matches : [...(cur ?? []), ...page.matches]));
       setNext(page.nextBefore);
-    } catch (e) { setError(e instanceof Error ? e.message : "No se pudo leer el historial"); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("No se pudo leer el historial")); }
     finally { setBusy(false); }
   }, []);
   useEffect(() => { if (online && user) void load(null); }, [online, user, load]);
   useEffect(() => { trackCompetitive("history_view"); }, []);
 
-  if (loading) return <Loading label="Leyendo el historial…" />;
-  if (!online || !user) return <NeedsAccount what="tu historial ranked" />;
-  if (error && !rows) return <ErrorState message={error} onRetry={() => load(null)} />;
-  if (!rows) return <Loading label="Leyendo el historial…" />;
+  if (loading) return <Loading label={t("Leyendo el historial…")} />;
+  if (!online || !user) return <NeedsAccount what={t("tu historial ranked")} />;
+  if (error && !rows) return <ErrorState message={td(error)} onRetry={() => load(null)} />;
+  if (!rows) return <Loading label={t("Leyendo el historial…")} />;
 
   return (
     <div className="mx-auto w-full max-w-4xl space-y-5" data-scene="competitive-history">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <span className="font-display text-label uppercase tracking-wide2 text-drl">Competitivo</span>
-          <h1 className="mt-1 font-display text-2xl font-bold uppercase tracking-wide text-white md:text-3xl">Historial ranked</h1>
-          <p className="mt-1 text-sm text-ink-muted">Cada partida con su desenlace real y el asiento de rating que la liquidó.</p>
+          <span className="font-display text-label uppercase tracking-wide2 text-drl">{t("Competitivo")}</span>
+          <h1 className="mt-1 font-display text-2xl font-bold uppercase tracking-wide text-white md:text-3xl">{t("Historial ranked")}</h1>
+          <p className="mt-1 text-sm text-ink-muted">{t("Cada partida con su desenlace real y el asiento de rating que la liquidó.")}</p>
         </div>
-        <Link href="/competitivo" className="nx-action">‹ Competitivo</Link>
+        <Link href="/competitivo" className="nx-action">{t("‹ Competitivo")}</Link>
       </header>
       <MatchHistoryList matches={rows} hasMore={next !== null} loading={busy} onMore={() => load(next)} />
       {error && <p role="alert" className="text-caption text-drl">{playerMessage(error)}</p>}

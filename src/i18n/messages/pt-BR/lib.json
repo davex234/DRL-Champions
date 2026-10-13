@@ -1,0 +1,14 @@
+{
+  "Cerrada · el servidor ya no admite cambios": "Encerrada · o servidor não aceita mais alterações",
+  "Cerrada · ya no admite cambios": "Encerrada · não aceita mais alterações",
+  "Error al guardar · {msg}": "Erro ao salvar · {msg}",
+  "Guardando…": "Salvando…",
+  "No se pudieron cargar las predicciones": "Não foi possível carregar os palpites",
+  "No se pudo guardar": "Não foi possível salvar",
+  "Predicción guardada": "Palpite salvo",
+  "Sin conexión · la predicción no se ha enviado": "Sem conexão · o palpite não foi enviado",
+  "hace un momento": "agora há pouco",
+  "hace {d} d": "há {d} d",
+  "hace {h} h": "há {h} h",
+  "hace {m} min": "há {m} min"
+}

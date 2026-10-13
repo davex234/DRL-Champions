@@ -37,6 +37,10 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { CHROME } from "@/design/tokens";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("layout");
 
 /** Alto de la barra superior. Del token, no copiado: si cambia allí, cambia aquí solo. */
 const BARRA = CHROME.topBar;
@@ -71,6 +75,7 @@ export interface ImmersiveStageProps {
 }
 
 export function ImmersiveStage({ children, footer, header, className, label }: ImmersiveStageProps) {
+  useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const [completa, setCompleta] = useState(false);
   /*
@@ -114,7 +119,7 @@ export function ImmersiveStage({ children, footer, header, className, label }: I
   return (
     <section
       ref={ref}
-      aria-label={label}
+      aria-label={td(label)}
       data-immersive={completa ? "full" : "like"}
       /*
        * Los márgenes negativos cancelan el relleno vertical del `main` de `GameShell`
@@ -169,10 +174,10 @@ export function ImmersiveStage({ children, footer, header, className, label }: I
           type="button"
           onClick={alternar}
           aria-pressed={completa}
-          title={completa ? "Salir de pantalla completa" : "Pantalla completa"}
+          title={completa ? t("Salir de pantalla completa") : t("Pantalla completa")}
           className="nx-focus absolute right-2 top-2 z-30 grid h-11 w-11 place-items-center rounded-md border border-white/12 bg-black/45 text-white/60 backdrop-blur-sm transition hover:text-white"
         >
-          <span className="sr-only">{completa ? "Salir de pantalla completa" : "Pantalla completa"}</span>
+          <span className="sr-only">{completa ? t("Salir de pantalla completa") : t("Pantalla completa")}</span>
           <svg viewBox="0 0 16 16" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden>
             {completa ? (
               <path d="M6 1.5v4.5H1.5M10 14.5V10h4.5" strokeLinecap="round" strokeLinejoin="round" />

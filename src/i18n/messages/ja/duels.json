@@ -1,0 +1,18 @@
+{
+  "Clasificado": "ランク戦",
+  "Colocación {placementPlayed}/{placementTotal}": "認定戦 {placementPlayed}/{placementTotal}",
+  "Completar equipo": "チームを完成させる",
+  "Continuar": "続ける",
+  "Continuar partida": "マッチを続ける",
+  "Crear equipo": "チームを作成",
+  "Draft {pick}/10": "ドラフト{pick}/10",
+  "Entrar · {fee}": "参加 · {fee}",
+  "Jugar": "プレイ",
+  "Preparando…": "準備中…",
+  "Rating {rating}": "レーティング {rating}",
+  "Rating {rating}{v}": "レーティング {rating}{v}",
+  "Sin clasificar": "ランク外",
+  "Te faltan {v} créditos": "クレジットが{v}足りません",
+  "Ver competitivo": "ランクマッチを見る",
+  "{wins}/{total} victorias": "{wins}/{total}勝"
+}

@@ -19,8 +19,13 @@ import { playSound } from "@/lib/sound";
 import { RewardDisplay, rewardItemsFor } from "./RewardDisplay";
 import { rewardTier } from "@/domain/rewards/display";
 import type { Claimable } from "@/domain/progression/hub";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("rewards");
 
 export function RewardReveal({ claimed, onClose }: { claimed: Claimable[]; onClose: () => void }) {
+  useLocale();
   const reduced = !!useReducedMotion();
   const items = claimed.flatMap((c) => rewardItemsFor(c.reward, { seasonXp: c.seasonXp }));
   const tier = rewardTier(items);
@@ -41,17 +46,17 @@ export function RewardReveal({ claimed, onClose }: { claimed: Claimable[]; onClo
 
   const body = (
     <>
-      <span className="nx-label !text-[10px] text-drl-gold">{claimed.length === 1 ? "Recompensa recogida" : `${claimed.length} recompensas recogidas`}</span>
+      <span className="nx-label !text-[10px] text-drl-gold">{claimed.length === 1 ? t("Recompensa recogida") : t("{length} recompensas recogidas", { length: claimed.length })}</span>
       <div className="mt-2 flex flex-col gap-2">
         {claimed.map((c) => (
           <div key={c.key} className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-[12.5px] text-white/80">{c.label}</span>
+            <span className="text-[12.5px] text-white/80">{td(c.label)}</span>
             <RewardDisplay reward={c.reward} seasonXp={c.seasonXp} size={tier === "major" ? "md" : "sm"} />
           </div>
         ))}
       </div>
       {pack && (
-        <Link href={`/abrir/${pack}`} className="nx-f62-cta is-gold mt-3 inline-flex" data-testid="reveal-open-pack">Abrir sobre</Link>
+        <Link href={`/abrir/${pack}`} className="nx-f62-cta is-gold mt-3 inline-flex" data-testid="reveal-open-pack">{t("Abrir sobre")}</Link>
       )}
     </>
   );
@@ -59,7 +64,7 @@ export function RewardReveal({ claimed, onClose }: { claimed: Claimable[]; onClo
   if (tier === "major") {
     return (
       <motion.div
-        role="dialog" aria-modal="true" aria-label="Recompensas recogidas" data-testid="reward-reveal" data-tier={tier}
+        role="dialog" aria-modal="true" aria-label={t("Recompensas recogidas")} data-testid="reward-reveal" data-tier={tier}
         className="fixed inset-0 z-[85] grid place-items-center bg-black/70 px-4"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}
       >
@@ -69,7 +74,7 @@ export function RewardReveal({ claimed, onClose }: { claimed: Claimable[]; onClo
           transition={{ duration: reduced ? 0.2 : 0.34, ease: EASE.out }}
         >
           {body}
-          <button type="button" onClick={onClose} className="nx-f62-cta mt-4 w-full">Seguir</button>
+          <button type="button" onClick={onClose} className="nx-f62-cta mt-4 w-full">{t("Seguir")}</button>
         </motion.div>
       </motion.div>
     );

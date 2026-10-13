@@ -7,9 +7,14 @@ import { getCard } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { CardThumb } from "@/components/cards/CardThumb";
 import { formatCredits } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("market");
 
 /** Ranking de las cartas más valiosas del mercado. */
 export function TopCardsRanking({ limit = 25 }: { limit?: number }) {
+  useLocale();
   const [rows, setRows] = useState<TopCardRow[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +28,7 @@ export function TopCardsRanking({ limit = 25 }: { limit?: number }) {
     return <div className="grid min-h-[20vh] place-items-center"><div className="h-7 w-7 animate-spin rounded-full border-2 border-drl border-t-transparent" /></div>;
   }
   if (rows.length === 0) {
-    return <p className="py-10 text-center text-white/40">Aún no hay datos de mercado. Ejecuta la sincronización de referencia.</p>;
+    return <p className="py-10 text-center text-white/40">{t("Aún no hay datos de mercado. Ejecuta la sincronización de referencia.")}</p>;
   }
 
   return (
@@ -38,16 +43,16 @@ export function TopCardsRanking({ limit = 25 }: { limit?: number }) {
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-sm font-bold uppercase text-white">{r.nick ?? r.card_id}</p>
               <p className="truncate text-xs" style={{ color: variant?.palette.primary ?? "#8b96a3" }}>
-                {variant?.label ?? `Rareza ${r.rank}`} · OVR {r.ovr ?? "—"} · {r.team ?? ""}
+                {td(variant?.label) ?? t("Rareza {rank}", { rank: r.rank })} {t("· OVR")} {r.ovr ?? "—"} · {r.team ?? ""}
               </p>
               <p className="text-[11px] text-white/40">
-                {r.trade_count ? `${r.trade_count} ventas` : "sin ventas"}
-                {r.cheapest_active != null ? ` · desde 🪙 ${formatCredits(r.cheapest_active)}` : ""}
+                {r.trade_count ? t("{trade_count} ventas", { trade_count: r.trade_count }) : t("sin ventas")}
+                {r.cheapest_active != null ? t(" · desde 🪙 {cheapest_active}", { cheapest_active: formatCredits(r.cheapest_active) }) : ""}
               </p>
             </div>
             <div className="text-right">
               <p className="font-display text-sm font-bold text-drl-gold">🪙 {formatCredits(r.value ?? 0)}</p>
-              <p className="text-[10px] uppercase tracking-widest text-white/40">valor</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/40">{t("valor")}</p>
             </div>
           </div>
         );

@@ -7,6 +7,9 @@
  */
 import { seedFrom } from "@/sim/rng";
 import type { ClientIdentity, ClientKind } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("online");
 
 export interface AuthSession { id: string; name: string; token: string | null }
 
@@ -30,5 +33,5 @@ export function makeIdentity(name: string, kind: ClientKind = "player", auth: Au
 }
 
 export function makeServerIdentity(): ClientIdentity {
-  return { id: "server", name: "Servidor autoritativo", kind: "server", token: null };
+  return { id: "server", name: t("Servidor autoritativo"), kind: "server", token: null };
 }

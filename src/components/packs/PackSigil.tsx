@@ -33,6 +33,7 @@
  * a 272 en la ceremonia.
  */
 import type { PackSigilKind } from "./packIdentity";
+import { td } from "@/i18n/runtime";
 
 export function PackSigil({
   kind,
@@ -131,7 +132,7 @@ export function PackSigil({
                 letterSpacing: "0.02em",
               }}
             >
-              {monogram}
+              {td(monogram)}
             </text>
           )}
         </>

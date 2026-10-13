@@ -14,6 +14,12 @@ import { PHASE_LABEL, MATCH_LABEL, type MatchDisplayState } from "@/domain/cups/
 import type { CupPhase } from "@/domain/cups/types";
 import type { CupMatchView, CupPlayer } from "@/server/services/cups";
 import { formatTag } from "@/domain/account/tag";
+import { ns, td, tdIn, getIntlLocale } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("cups");
 
 const GOLD = "#ffce4f";
 const CYAN = "#19e3ff";
@@ -33,7 +39,7 @@ export function CupPhaseChip({ phase, className }: { phase: CupPhase; className?
     <span data-testid="cup-phase" data-phase={phase}
       className={cn("inline-flex items-center gap-1.5 whitespace-nowrap px-2 py-0.5 font-display text-[11px] font-bold uppercase tracking-[0.14em]", className)}
       style={{ color: c, boxShadow: `inset 0 0 0 1px ${c}66`, background: `${c === GOLD || c === CYAN || c === RED ? c : "#ffffff"}12` }}>
-      <span aria-hidden>{PHASE_GLYPH[phase]}</span>{PHASE_LABEL[phase]}
+      <span aria-hidden>{td(PHASE_GLYPH[phase])}</span>{tdIn("cups", PHASE_LABEL[phase])}
     </span>
   );
 }
@@ -58,44 +64,46 @@ export function Countdown({ to, offset = 0, prefix, className }: { to: string; o
     const id = window.setInterval(() => setNow(Date.now() + offset), left < 3_600_000 ? 1_000 : 30_000);
     return () => window.clearInterval(id);
   }, [target, offset]);
-  const date = new Date(target).toLocaleString("es-ES", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  const date = new Date(target).toLocaleString(getIntlLocale(), { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
   return (
     <span className={cn("tabular-nums", className)} data-testid="cup-countdown">
-      {prefix} <time dateTime={to} title={date} aria-label={`${prefix} ${remainingText(target - now)} (${date})`}>{remainingText(target - now)}</time>
+      {td(prefix)} <time dateTime={to} title={td(date)} aria-label={`${prefix} ${remainingText(target - now)} (${date})`}>{remainingText(target - now)}</time>
     </span>
   );
 }
 
-export const fmtDate = (iso: string) => new Date(iso).toLocaleString("es-ES", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-export const fmtDay = (iso: string) => new Date(iso).toLocaleDateString("es-ES", { day: "numeric", month: "short", year: "numeric" });
+export const fmtDate = (iso: string) => new Date(iso).toLocaleString(getIntlLocale(), { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+export const fmtDay = (iso: string) => new Date(iso).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short", year: "numeric" });
 
 /* ───────────── participante ───────────── */
 
 export function playerLabel(p: CupPlayer | null): string {
-  if (!p) return "por decidir";
-  return `${p.username}${p.tag ? ` ${formatTag(p.tag)}` : ""}${p.you ? " (tú)" : ""}`;
+  if (!p) return t("por decidir");
+  const name = `${p.username}${p.tag ? ` ${formatTag(p.tag)}` : ""}`;
+  return p.you ? t("{name} (tú)", { name }) : name;
 }
 
-export function CupPlayerLine({ p, empty, emptyText = "Por decidir", winner, loser, compact = false }: {
+export function CupPlayerLine({ p, empty, emptyText = t("Por decidir"), winner, loser, compact = false }: {
   p: CupPlayer | null; empty?: boolean; emptyText?: string; winner?: boolean; loser?: boolean; compact?: boolean;
 }) {
+  useLocale();
   if (!p) {
     return (
       <div className={cn("flex min-w-0 items-center gap-2", compact ? "h-7" : "h-9")} data-field="cup-slot-empty">
         <span aria-hidden className="w-5 shrink-0 text-right text-[11px] text-white/25">–</span>
-        <span className="truncate text-[13px] italic text-white/40">{empty ? "Pase directo" : emptyText}</span>
+        <span className="truncate text-[13px] italic text-white/40">{empty ? t("Pase directo") : td(emptyText)}</span>
       </div>
     );
   }
   return (
     <div className={cn("flex min-w-0 items-center gap-2", compact ? "h-7" : "h-9", loser && "opacity-55")} data-field="cup-slot" data-you={p.you ? "1" : "0"}>
-      <span className="w-5 shrink-0 text-right font-mono text-[11px] text-white/45" title="Cabeza de serie">{p.seed ?? ""}</span>
+      <span className="w-5 shrink-0 text-right font-mono text-[11px] text-white/45" title={t("Cabeza de serie")}>{p.seed ?? ""}</span>
       <span aria-hidden className="shrink-0 text-[15px] leading-none">{p.avatar}</span>
       <span className="min-w-0 flex-1 truncate">
         <span className={cn("font-display text-[14px] uppercase tracking-wide", winner ? "font-black text-white" : "font-bold text-white/85", p.you && "text-[#19e3ff]")}>{p.username}</span>
         {p.tag && !compact && <span className="ml-1.5 font-mono text-[11px] text-white/45" data-field="cup-tag">{formatTag(p.tag)}</span>}
       </span>
-      {winner && <span className="shrink-0 font-display text-[11px] font-black uppercase tracking-wider" style={{ color: GOLD }}>✓ Gana</span>}
+      {winner && <span className="shrink-0 font-display text-[11px] font-black uppercase tracking-wider" style={{ color: GOLD }}>{t("✓ Gana")}</span>}
     </div>
   );
 }
@@ -107,12 +115,14 @@ const STATE_TONE: Partial<Record<MatchDisplayState, string>> = {
 };
 
 export function matchAria(m: CupMatchView, roundTitle: string): string {
-  const who = `${playerLabel(m.a)} contra ${playerLabel(m.b)}`;
-  const res = m.winner ? `, gana ${playerLabel(m.winner === "A" ? m.a : m.b)}${m.score ? ` ${m.score.a} a ${m.score.b}` : ""}` : "";
-  return `${roundTitle}, cruce ${m.slot + 1}: ${m.state === "BYE" ? `${playerLabel(m.a ?? m.b)} pasa directo` : who}${res}. ${MATCH_LABEL[m.state]}.`;
+  const who = m.state === "BYE" ? t("{player} pasa directo", { player: playerLabel(m.a ?? m.b) }) : t("{a} contra {b}", { a: playerLabel(m.a), b: playerLabel(m.b) });
+  const winner = m.winner ? playerLabel(m.winner === "A" ? m.a : m.b) : "";
+  const result = !m.winner ? "" : m.score ? t(", gana {player} {a} a {b}", { player: winner, a: String(m.score.a), b: String(m.score.b) }) : t(", gana {player}", { player: winner });
+  return t("{round}, cruce {n}: {who}{result}. {state}.", { round: roundText(roundTitle), n: String(m.slot + 1), who, result, state: tdIn("cups", MATCH_LABEL[m.state]) });
 }
 
 export function CupMatchCard({ m, roundTitle, className, id }: { m: CupMatchView; roundTitle: string; className?: string; id?: string }) {
+  useLocale();
   const tone = STATE_TONE[m.state];
   const aWin = m.winner === "A", bWin = m.winner === "B";
   return (
@@ -125,11 +135,11 @@ export function CupMatchCard({ m, roundTitle, className, id }: { m: CupMatchView
       <div className="mt-0.5 flex items-center justify-between gap-2 border-t border-white/[0.06] pt-1">
         <span className="truncate text-[10.5px] font-bold uppercase tracking-[0.12em]" style={{ color: tone ?? "rgba(255,255,255,0.45)" }} data-field="cup-match-state">
           {m.state === "ACTIVE" && <span aria-hidden className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#ff2e63] align-middle motion-reduce:animate-none" />}
-          {MATCH_LABEL[m.state]}
+          {tdIn("cups", MATCH_LABEL[m.state])}
         </span>
         {m.score && <span className="shrink-0 font-mono text-[11px] text-white/70" data-field="cup-score">{m.score.a}–{m.score.b}</span>}
         {!m.score && m.winner && m.resolution && m.resolution !== "PLAYED" && m.resolution !== "BYE" && (
-          <span className="shrink-0 text-[10.5px] text-white/50">{m.resolution === "ABANDON" ? "por abandono" : "decisión de la organización"}</span>
+          <span className="shrink-0 text-[10.5px] text-white/50">{m.resolution === "ABANDON" ? t("por abandono") : t("decisión de la organización")}</span>
         )}
       </div>
     </article>
@@ -139,6 +149,7 @@ export function CupMatchCard({ m, roundTitle, className, id }: { m: CupMatchView
 /* ───────────── campeón ───────────── */
 
 export function ChampionMoment({ champion, cupName, completedAt, youWon }: { champion: CupPlayer; cupName: string; completedAt: string | null; youWon: boolean }) {
+  useLocale();
   const reduce = useReducedMotion();
   return (
     <motion.section aria-labelledby="cup-champion-title" data-testid="cup-champion" data-you={youWon ? "1" : "0"}
@@ -149,7 +160,7 @@ export function ChampionMoment({ champion, cupName, completedAt, youWon }: { cha
         <motion.div aria-hidden className="pointer-events-none absolute inset-0" initial={{ opacity: 0.9 }} animate={{ opacity: 0 }} transition={{ duration: 1.6 }}
           style={{ background: `radial-gradient(60% 60% at 50% 40%, ${GOLD}55, transparent 70%)` }} />
       )}
-      <p className="font-display text-[12px] font-black uppercase tracking-[0.3em]" style={{ color: GOLD }}>{youWon ? "¡Eres el campeón!" : "Campeón"}</p>
+      <p className="font-display text-[12px] font-black uppercase tracking-[0.3em]" style={{ color: GOLD }}>{youWon ? t("¡Eres el campeón!") : t("Campeón")}</p>
       <div className="mx-auto mt-3 grid h-20 w-20 place-items-center" aria-hidden
         style={{ clipPath: "polygon(50% 0, 100% 14%, 100% 64%, 50% 100%, 0 64%, 0 14%)", background: `linear-gradient(160deg, ${GOLD}, rgba(255,255,255,0.25) 45%, ${GOLD}aa)` }}>
         <span className="grid h-[72px] w-[72px] place-items-center text-[34px]" style={{ clipPath: "polygon(50% 0, 100% 14%, 100% 64%, 50% 100%, 0 64%, 0 14%)", background: "radial-gradient(70% 60% at 50% 35%, rgba(255,255,255,0.10), rgba(7,8,14,0.96) 70%)", color: GOLD }}>♛</span>
@@ -158,13 +169,13 @@ export function ChampionMoment({ champion, cupName, completedAt, youWon }: { cha
         <span aria-hidden className="mr-2">{champion.avatar}</span>{champion.username}
       </h2>
       {champion.tag && <p className="mt-1 font-mono text-[13px] text-white/60">{formatTag(champion.tag)}</p>}
-      <p className="mt-3 text-[13px] text-white/70">{cupName}{completedAt ? ` · ${fmtDay(completedAt)}` : ""}</p>
+      <p className="mt-3 text-[13px] text-white/70">{td(cupName)}{completedAt ? ` · ${fmtDay(completedAt)}` : ""}</p>
       {/* F86.2 · el campeón llega a su trofeo con un toque (antes el texto lo nombraba pero no llevaba a ningún sitio). */}
       {youWon ? (
-        <p className="mt-1 text-[12px] text-white/50">Tu trofeo ya está en tu{" "}
-          <Link href="/coleccion/trofeos" data-testid="cup-champion-trophies" className="nx-focus font-bold underline underline-offset-2" style={{ color: GOLD }}>Sala de Trofeos</Link>.
-        </p>
-      ) : <p className="mt-1 text-[12px] text-white/50">El trofeo de campeón es permanente y único.</p>}
+        <p className="mt-1 text-[12px] text-white/50">{fill(t("Tu trofeo ya está en tu {sala}.", slots("sala")), {
+          sala: <Link href="/coleccion/trofeos" data-testid="cup-champion-trophies" className="nx-focus font-bold underline underline-offset-2" style={{ color: GOLD }}>{t("Sala de Trofeos")}</Link>,
+        })}</p>
+      ) : <p className="mt-1 text-[12px] text-white/50">{t("El trofeo de campeón es permanente y único.")}</p>}
     </motion.section>
   );
 }

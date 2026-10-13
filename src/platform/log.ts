@@ -7,6 +7,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getAdapter } from "./store";
 import { platformName } from "./env";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("platform");
 
 export type LogLevel = "info" | "warn" | "error" | "debug";
 export interface LogEntry { at: number; level: LogLevel; scope: string; msg: string; data?: unknown }
@@ -38,7 +41,7 @@ export async function flushLogs(): Promise<void> {
 
 // --- Eventos típicos del cliente ---
 export const recordStart = (): void => info("boot", `DRL Champions arrancando (${platformName()})`);
-export const recordLoadTime = (ms: number): void => info("boot", `Carga completada en ${ms} ms`, { ms });
+export const recordLoadTime = (ms: number): void => info("boot", t("Carga completada en {ms} ms", { ms }), { ms });
 export const recordUpdate = (m: string, d?: unknown): void => info("update", m, d);
 export const recordLive = (m: string, d?: unknown): void => info("live", m, d);
 export const recordSync = (m: string, d?: unknown): void => info("sync", m, d);

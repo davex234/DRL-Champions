@@ -12,6 +12,11 @@ import { cn } from "@/lib/format";
 import { BracketMatchCard } from "./BracketMatch";
 import type { PickFeedback } from "@/lib/usePickem";
 import type { BracketColumn, BracketMatch } from "@/domain/pickems/bracket";
+import { ns, td } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export const roundAnchorId = (roundId: string) => `bracket-${roundId.replace(/[^a-z0-9]+/gi, "-")}`;
 
@@ -30,11 +35,12 @@ export function BracketRound({
   /** 24.5 · ids que acaban de cambiar en este refresco. */
   changedIds?: Set<string>;
 }) {
+  useLocale();
   const { round, matches } = column;
   return (
     <section
       id={roundAnchorId(round.id)}
-      aria-label={round.label}
+      aria-label={roundText(round.label)}
       className={cn("flex shrink-0 flex-col", compact ? "w-full gap-3" : "w-[260px] gap-4 sm:w-[280px]", className)}
       style={style}
     >
@@ -47,10 +53,10 @@ export function BracketRound({
             boxShadow: `inset 0 0 0 1px ${round.side === "grand" ? "rgba(255,211,92,0.4)" : round.side === "lower" ? "rgba(255,255,255,0.18)" : "rgba(25,227,255,0.35)"}`,
           }}
         >
-          {round.label}
+          {roundText(round.label)}
         </span>
-        {round.group && <span className="nx-label" style={{ color: "var(--nx-gold)" }}>Grupo {round.group}</span>}
-        <span className="nx-label">{matches.length} {matches.length === 1 ? "partido" : "partidos"}</span>
+        {round.group && <span className="nx-label" style={{ color: "var(--nx-gold)" }}>{t("Grupo")} {td(round.group)}</span>}
+        <span className="nx-label">{matches.length} {matches.length === 1 ? t("partido") : t("partidos")}</span>
       </h3>
       <div className={cn("flex flex-1 flex-col gap-4", !compact && "justify-around")}>
         {matches.map((m) => (

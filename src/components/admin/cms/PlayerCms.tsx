@@ -9,6 +9,10 @@ import { useRouter } from "next/navigation";
 import { Button, ErrorBox, Field, Input, Select, Panel } from "@/components/admin/cc/ui";
 import { adminPost, useAdminQuery } from "@/components/admin/cc/api";
 import { AssetUploader, DirtyBar, useUnsavedGuard, type UploadedAsset } from "./cms";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("admin");
 
 const REGIONS = ["EMEA", "Americas", "Pacific", "China"];
 const ROLES = ["Duelista", "Iniciador", "Centinela", "Controlador", "Flex"];
@@ -18,22 +22,23 @@ export interface PlayerFormValue { nick: string; fullName: string; team: string;
 const empty: PlayerFormValue = { nick: "", fullName: "", team: "", teamTag: "", region: "EMEA", role: "Duelista", country: "", status: "active", stats: Object.fromEntries(STATS.map((k) => [k, ""])) };
 
 function Fields({ v, set, idPrefix }: { v: PlayerFormValue; set: (p: Partial<PlayerFormValue>) => void; idPrefix: string }) {
+  useLocale();
   return (
     <div className="space-y-3">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <Field label="Nick" htmlFor={`${idPrefix}-nick`}><Input id={`${idPrefix}-nick`} value={v.nick} maxLength={24} onChange={(e) => set({ nick: e.target.value })} /></Field>
-        <Field label="Nombre completo" htmlFor={`${idPrefix}-fn`}><Input id={`${idPrefix}-fn`} value={v.fullName} maxLength={80} onChange={(e) => set({ fullName: e.target.value })} /></Field>
-        <Field label="Equipo actual" htmlFor={`${idPrefix}-team`} hint="No cambia el equipo impreso de sus cartas."><Input id={`${idPrefix}-team`} value={v.team} maxLength={40} onChange={(e) => set({ team: e.target.value })} /></Field>
-        <Field label="Tag de equipo" htmlFor={`${idPrefix}-tag`}><Input id={`${idPrefix}-tag`} value={v.teamTag} maxLength={6} onChange={(e) => set({ teamTag: e.target.value })} /></Field>
-        <Field label="Región" htmlFor={`${idPrefix}-reg`}><Select id={`${idPrefix}-reg`} value={v.region} onChange={(e) => set({ region: e.target.value })}>{REGIONS.map((r) => <option key={r}>{r}</option>)}</Select></Field>
-        <Field label="Rol del jugador" htmlFor={`${idPrefix}-role`}><Select id={`${idPrefix}-role`} value={v.role} onChange={(e) => set({ role: e.target.value })}>{ROLES.map((r) => <option key={r}>{r}</option>)}</Select></Field>
-        <Field label="País (ISO)" htmlFor={`${idPrefix}-cty`}><Input id={`${idPrefix}-cty`} value={v.country} maxLength={2} onChange={(e) => set({ country: e.target.value.toUpperCase() })} /></Field>
-        <Field label="Estado" htmlFor={`${idPrefix}-st`}><Select id={`${idPrefix}-st`} value={v.status} onChange={(e) => set({ status: e.target.value })}><option value="active">Activo</option><option value="inactive">Inactivo / retirado</option></Select></Field>
+        <Field label={t("Nick")} htmlFor={`${idPrefix}-nick`}><Input id={`${idPrefix}-nick`} value={v.nick} maxLength={24} onChange={(e) => set({ nick: e.target.value })} /></Field>
+        <Field label={t("Nombre completo")} htmlFor={`${idPrefix}-fn`}><Input id={`${idPrefix}-fn`} value={v.fullName} maxLength={80} onChange={(e) => set({ fullName: e.target.value })} /></Field>
+        <Field label={t("Equipo actual")} htmlFor={`${idPrefix}-team`} hint={t("No cambia el equipo impreso de sus cartas.")}><Input id={`${idPrefix}-team`} value={v.team} maxLength={40} onChange={(e) => set({ team: e.target.value })} /></Field>
+        <Field label={t("Tag de equipo")} htmlFor={`${idPrefix}-tag`}><Input id={`${idPrefix}-tag`} value={v.teamTag} maxLength={6} onChange={(e) => set({ teamTag: e.target.value })} /></Field>
+        <Field label={t("Región")} htmlFor={`${idPrefix}-reg`}><Select id={`${idPrefix}-reg`} value={v.region} onChange={(e) => set({ region: e.target.value })}>{REGIONS.map((r) => <option key={r}>{td(r)}</option>)}</Select></Field>
+        <Field label={t("Rol del jugador")} htmlFor={`${idPrefix}-role`}><Select id={`${idPrefix}-role`} value={v.role} onChange={(e) => set({ role: e.target.value })}>{ROLES.map((r) => <option key={r}>{td(r)}</option>)}</Select></Field>
+        <Field label={t("País (ISO)")} htmlFor={`${idPrefix}-cty`}><Input id={`${idPrefix}-cty`} value={v.country} maxLength={2} onChange={(e) => set({ country: e.target.value.toUpperCase() })} /></Field>
+        <Field label={t("Estado")} htmlFor={`${idPrefix}-st`}><Select id={`${idPrefix}-st`} value={v.status} onChange={(e) => set({ status: e.target.value })}><option value="active">{t("Activo")}</option><option value="inactive">{t("Inactivo / retirado")}</option></Select></Field>
       </div>
       <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
         {STATS.map((k) => <Field key={k} label={k.toUpperCase()} htmlFor={`${idPrefix}-${k}`}><Input id={`${idPrefix}-${k}`} inputMode="numeric" value={v.stats[k]} onChange={(e) => set({ stats: { ...v.stats, [k]: e.target.value.replace(/\D/g, "").slice(0, 2) } })} /></Field>)}
       </div>
-      <p className="text-[11px] text-ink-faint">Las seis estadísticas heredadas del jugador (1–99). Las de la CARTA se imprimen en cada carta.</p>
+      <p className="text-[11px] text-ink-faint">{t("Las seis estadísticas heredadas del jugador (1–99). Las de la CARTA se imprimen en cada carta.")}</p>
     </div>
   );
 }
@@ -44,26 +49,28 @@ const toPatch = (v: PlayerFormValue) => ({
 });
 
 export function NewPlayerForm() {
+  useLocale();
   const router = useRouter();
   const [id, setId] = useState(""); const [v, setV] = useState<PlayerFormValue>(empty);
   const [busy, setBusy] = useState(false); const [error, setError] = useState<string | null>(null);
   useUnsavedGuard(!!v.nick && !busy);
   const create = async () => {
     setBusy(true); setError(null);
-    try { await adminPost("/api/admin/cms/players", { action: "save", id, patch: toPatch(v), reason: "alta desde el panel" }); router.push(`/admin/players/${encodeURIComponent(id)}`); }
-    catch (e) { setError(e instanceof Error ? e.message : "No se pudo crear"); setBusy(false); }
+    try { await adminPost("/api/admin/cms/players", { action: "save", id, patch: toPatch(v), reason: t("alta desde el panel") }); router.push(`/admin/players/${encodeURIComponent(id)}`); }
+    catch (e) { setError(e instanceof Error ? e.message : t("No se pudo crear")); setBusy(false); }
   };
   return (
-    <Panel title="Nuevo jugador">
-      <Field label="Id" htmlFor="np-id" hint="Minúsculas, cifras, _ o -. Es la mitad izquierda del id de sus cartas."><Input id="np-id" value={id} maxLength={40} onChange={(e) => setId(e.target.value.toLowerCase())} /></Field>
+    <Panel title={t("Nuevo jugador")}>
+      <Field label={t("Id")} htmlFor="np-id" hint={t("Minúsculas, cifras, _ o -. Es la mitad izquierda del id de sus cartas.")}><Input id="np-id" value={id} maxLength={40} onChange={(e) => setId(e.target.value.toLowerCase())} /></Field>
       <div className="mt-3"><Fields v={v} set={(p) => setV({ ...v, ...p })} idPrefix="np" /></div>
-      {error && <div className="mt-3"><ErrorBox error={error} /></div>}
-      <div className="mt-4 flex justify-end"><Button onClick={create} disabled={busy || !id || !v.nick}>{busy ? "Creando…" : "Crear jugador"}</Button></div>
+      {error && <div className="mt-3"><ErrorBox error={td(error)} /></div>}
+      <div className="mt-4 flex justify-end"><Button onClick={create} disabled={busy || !id || !v.nick}>{busy ? t("Creando…") : t("Crear jugador")}</Button></div>
     </Panel>
   );
 }
 
 export function PlayerEditPanel({ id, player, onSaved }: { id: string; player: { nick: string; full_name: string | null; team: string | null; team_tag: string | null; region: string | null; role: string | null; country: string | null; status: string | null; stats: Record<string, number> | null }; onSaved: () => void }) {
+  useLocale();
   const rel = useAdminQuery<{ version: number | null }>(`/api/admin/cms/players?id=${encodeURIComponent(id)}`);
   const initial: PlayerFormValue = {
     nick: player.nick, fullName: player.full_name ?? "", team: player.team ?? "", teamTag: player.team_tag ?? "", region: player.region ?? "EMEA", role: player.role ?? "Duelista",
@@ -77,16 +84,16 @@ export function PlayerEditPanel({ id, player, onSaved }: { id: string; player: {
   const save = async () => {
     setBusy(true); setError(null);
     try {
-      await adminPost("/api/admin/cms/players", { action: "save", id, expectedVersion: rel.data?.version, reason: "edición desde el panel", patch: { ...toPatch(v), ...(photo ? { photoAssetId: photo.id } : {}) } });
+      await adminPost("/api/admin/cms/players", { action: "save", id, expectedVersion: rel.data?.version, reason: t("edición desde el panel"), patch: { ...toPatch(v), ...(photo ? { photoAssetId: photo.id } : {}) } });
       setPhoto(null); rel.reload(); onSaved();
-    } catch (e) { setError(e instanceof Error ? e.message : "No se pudo guardar"); } finally { setBusy(false); }
+    } catch (e) { setError(e instanceof Error ? e.message : t("No se pudo guardar")); } finally { setBusy(false); }
   };
   return (
-    <Panel title="Editar jugador" subtitle="Cambios auditados, con control de concurrencia. Estado «inactivo» en lugar de borrar.">
+    <Panel title={t("Editar jugador")} subtitle={t("Cambios auditados, con control de concurrencia. Estado «inactivo» en lugar de borrar.")}>
       <Fields v={v} set={(p) => setV({ ...v, ...p })} idPrefix="pe" />
-      <div className="mt-3"><AssetUploader kind="player_photo" subjectId={id} onUploaded={setPhoto} label="Foto del jugador (opcional)" /></div>
-      {error && <div className="mt-3"><ErrorBox error={error} /></div>}
-      <DirtyBar dirty={dirty} saving={busy} onSave={save} onReset={() => { setV(initial); setPhoto(null); }} label="Guardar cambios" disabled={rel.data?.version == null} />
+      <div className="mt-3"><AssetUploader kind="player_photo" subjectId={id} onUploaded={setPhoto} label={t("Foto del jugador (opcional)")} /></div>
+      {error && <div className="mt-3"><ErrorBox error={td(error)} /></div>}
+      <DirtyBar dirty={dirty} saving={busy} onSave={save} onReset={() => { setV(initial); setPhoto(null); }} label={t("Guardar cambios")} disabled={rel.data?.version == null} />
     </Panel>
   );
 }

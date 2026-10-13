@@ -15,6 +15,9 @@
  * Sin React, sin red, sin reloj implícito.
  */
 import { deriveRank, type DerivedRank } from "./config";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("ranked");
 
 export interface CompetitiveTopRules {
   /** Tamaño máximo de la clasificación numerada (Top 500). */
@@ -101,11 +104,11 @@ export interface TopEligibility {
  */
 export function topEligibility(standing: Pick<CompetitiveStanding, "state" | "record">, lastMatchAt: number | null, rules: CompetitiveTopRules, now: number): TopEligibility {
   const missing: string[] = [];
-  if (standing.state !== "RANKED") missing.push("Completa tu colocación");
+  if (standing.state !== "RANKED") missing.push(t("Completa tu colocación"));
   const left = rules.minSeasonMatches - standing.record.matches;
-  if (left > 0) missing.push(`Juega ${left} ${left === 1 ? "partida" : "partidas"} más esta temporada`);
+  if (left > 0) missing.push(t("Juega {left} {v} más esta temporada", { left, v: left === 1 ? t("partida") : t("partidas") }));
   const fresh = lastMatchAt !== null && now - lastMatchAt <= rules.activeDays * 86_400_000;
-  if (standing.state === "RANKED" && !fresh) missing.push(`Juega una partida (actividad en los últimos ${rules.activeDays} días)`);
+  if (standing.state === "RANKED" && !fresh) missing.push(t("Juega una partida (actividad en los últimos {activeDays} días)", { activeDays: rules.activeDays }));
   return { eligible: missing.length === 0, missing };
 }
 
@@ -171,20 +174,20 @@ export function rankMovement(ev: { oldRating: number; newRating: number; seasonM
 export function rankMovementLabel(m: RankMovement): string {
   const sign = m.delta > 0 ? `+${m.delta}` : `${m.delta}`;
   switch (m.kind) {
-    case "PLACEMENT_PROGRESS": return `Colocación ${m.placement!.played} / ${m.placement!.total} · ${sign}`;
-    case "PLACEMENT_COMPLETE": return `Rango obtenido: ${m.after!.label}`;
-    case "PROMOTION": return `Ascenso a ${m.after!.label}`;
-    case "DEMOTION": return `Descenso a ${m.after!.label}`;
-    case "SAME": return `${m.after!.label} · ${sign}`;
-    default: return `Rating ${sign}`;
+    case "PLACEMENT_PROGRESS": return t("Colocación {played} / {total} · {sign}", { played: m.placement!.played, total: m.placement!.total, sign: td(sign) });
+    case "PLACEMENT_COMPLETE": return t("Rango obtenido: {rank}", { rank: td(m.after!.label) });
+    case "PROMOTION": return t("Ascenso a {rank}", { rank: td(m.after!.label) });
+    case "DEMOTION": return t("Descenso a {rank}", { rank: td(m.after!.label) });
+    case "SAME": return `${td(m.after!.label)} · ${sign}`;
+    default: return t("Rating {sign}", { sign });
   }
 }
 
 /** Etiqueta corta del estado para chips y listas. */
 export function standingLabel(s: Pick<CompetitiveStanding, "state" | "rank" | "placement">): string {
   if (s.state === "RANKED" && s.rank) return s.rank.label;
-  if (s.state === "PLACEMENT") return `Colocación ${s.placement.played}/${s.placement.total}`;
-  return "Sin clasificar";
+  if (s.state === "PLACEMENT") return t("Colocación {played}/{total}", { played: s.placement.played, total: s.placement.total });
+  return t("Sin clasificar");
 }
 
 /** Defaults de la Temporada competitiva 1 (espejo de 0065; la BD manda). */

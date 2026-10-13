@@ -15,8 +15,9 @@ import { OUTCOME_LABEL, PLACEMENT_GAMES } from "@/domain/pvpLadder/ladder";
 import type { CompetitivePlayerView } from "@/server/services/competitive";
 import { RecentForm } from "./RecentForm";
 import { outcomeTone } from "./MatchHistoryList";
+import { getIntlLocale } from "@/i18n/runtime";
 
-const fmt = (ms: number) => new Date(ms).toLocaleDateString("es-ES", { day: "numeric", month: "short" });
+const fmt = (ms: number) => new Date(ms).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short" });
 
 export function PlayerProfile({ view, isSelf, social }: { view: CompetitivePlayerView; isSelf: boolean; social?: React.ReactNode }) {
   const r = view.rating;

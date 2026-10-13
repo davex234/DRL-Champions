@@ -33,11 +33,16 @@ import { fetchMetaSnapshot, type MetaSnapshot } from "@/lib/progression/meta";
 import { ProgressionHub } from "@/components/progression/hub/ProgressionHub";
 import { Crumbs } from "@/components/crafting/CraftingUi";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("misiones");
 
 export default function MisionesPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading kind="hub" label="Cargando tus misiones…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="tus objetivos" />;
+  if (loading) return <Loading kind="hub" label={t("Cargando tus misiones…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("tus objetivos")} />;
   return <Missions />;
 }
 
@@ -67,6 +72,7 @@ function Medallion({ m }: { m: Mission }) {
 const SEEN_KEY = "nx-f74-missions-seen";
 
 function Missions() {
+  useLocale();
   const [snap, setSnap] = useState<MissionsSnapshot | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -75,7 +81,7 @@ function Missions() {
   const announced = useRef(false);
   const load = useCallback(async () => {
     setError(null);
-    try { setSnap(await fetchMissions()); } catch (e) { setError(e instanceof Error ? e.message : "No se pudieron cargar tus misiones"); }
+    try { setSnap(await fetchMissions()); } catch (e) { setError(e instanceof Error ? e.message : t("No se pudieron cargar tus misiones")); }
   }, []);
   useEffect(() => { void load(); }, [load]);
 
@@ -88,8 +94,8 @@ function Missions() {
     const hadHistory = Object.keys(seen).length > 0;
     const moved = snap.missions.filter((m) => (seen[m.id] ?? 0) < m.progress);
     const completed = moved.find((m) => m.progress >= m.target);
-    if (hadHistory && completed) notify(`Misión completada · ${completed.name}`);
-    else if (hadHistory && moved[0]) notify(`Misión actualizada · ${moved[0].progress} / ${moved[0].target}`);
+    if (hadHistory && completed) notify(t("Misión completada · {name}", { name: completed.name }));
+    else if (hadHistory && moved[0]) notify(t("Misión actualizada · {progress} / {target}", { progress: moved[0].progress, target: moved[0].target }));
     try { localStorage.setItem(SEEN_KEY, JSON.stringify(Object.fromEntries(snap.missions.map((m) => [m.id, m.progress])))); } catch { /* sin almacenamiento */ }
   }, [snap, notify]);
 
@@ -99,9 +105,9 @@ function Missions() {
     try {
       const r = await claimMissionReq(id);
       setSnap(r.snapshot);
-      setNotice({ ok: true, text: r.repeated ? "Esa recompensa ya estaba reclamada." : "Recompensa reclamada." });
+      setNotice({ ok: true, text: r.repeated ? t("Esa recompensa ya estaba reclamada.") : t("Recompensa reclamada.") });
       await syncFromServer().catch(() => undefined);
-    } catch (e) { setNotice({ ok: false, text: e instanceof Error ? e.message : "No se pudo reclamar" }); await load(); }
+    } catch (e) { setNotice({ ok: false, text: e instanceof Error ? e.message : t("No se pudo reclamar") }); await load(); }
     finally { setBusy(null); }
   };
 
@@ -109,12 +115,12 @@ function Missions() {
     <>
       {/* «Objetivos» UNA vez: el título. La miga solo vuelve a Temporada y la vista de objetivos no repite su encabezado
           (antes: título + pestaña + encabezado). Crafteo se alcanza desde el hub de Temporada. */}
-      <ForgeTitle title="Objetivos" eyebrow={<Crumbs items={[{ href: "/temporada", label: "← Temporada" }]} />} />
+      <ForgeTitle title={t("Objetivos")} eyebrow={<Crumbs items={[{ href: "/temporada", label: t("← Temporada") }]} />} />
       <PassObjectives />
     </>
   );
-  if (error && !snap) return <ForgeStage className="mx-auto w-full max-w-[1120px] space-y-6 px-4 pb-10 pt-5 sm:px-6" testId="missions-hub">{header}<ErrorState message={error} onRetry={load} /></ForgeStage>;
-  if (!snap) return <ForgeStage className="mx-auto w-full max-w-[1120px] space-y-6 px-4 pb-10 pt-5 sm:px-6" testId="missions-hub">{header}<Loading kind="hub" label="Cargando tus misiones…" /></ForgeStage>;
+  if (error && !snap) return <ForgeStage className="mx-auto w-full max-w-[1120px] space-y-6 px-4 pb-10 pt-5 sm:px-6" testId="missions-hub">{header}<ErrorState message={td(error)} onRetry={load} /></ForgeStage>;
+  if (!snap) return <ForgeStage className="mx-auto w-full max-w-[1120px] space-y-6 px-4 pb-10 pt-5 sm:px-6" testId="missions-hub">{header}<Loading kind="hub" label={t("Cargando tus misiones…")} /></ForgeStage>;
   const standalone = snap.missions.filter((m) => !m.projectId);
   const order = { COMPLETED: 0, ACTIVE: 1, LOCKED: 2, CLAIMED: 3 } as const;
   const sorted = [...standalone].sort((a, b) => order[a.state] - order[b.state] || a.sortOrder - b.sortOrder);
@@ -124,20 +130,20 @@ function Missions() {
   return (
     <ForgeStage className="mx-auto w-full max-w-[1120px] space-y-6 px-4 pb-10 pt-5 sm:px-6" testId="missions-hub">
       {header}
-      <h2 className="font-display text-[18px] font-bold uppercase tracking-[0.12em] text-white" data-testid="special-missions-title">Misiones especiales</h2>
-      {notice && <p role="status" className={notice.ok ? "text-[14px] text-[#3ee08f]" : "text-[14px] text-drl"}>{notice.text}</p>}
-      {!snap.available ? <Unavailable what="Misiones" /> : (
+      <h2 className="font-display text-[18px] font-bold uppercase tracking-[0.12em] text-white" data-testid="special-missions-title">{t("Misiones especiales")}</h2>
+      {notice && <p role="status" className={notice.ok ? "text-[14px] text-[#3ee08f]" : "text-[14px] text-drl"}>{td(notice.text)}</p>}
+      {!snap.available ? <Unavailable what={t("Misiones")} /> : (
         <>
-          <dl className="grid grid-cols-3 gap-2 sm:gap-3" data-testid="missions-summary" aria-label="Resumen de tus misiones">
+          <dl className="grid grid-cols-3 gap-2 sm:gap-3" data-testid="missions-summary" aria-label={t("Resumen de tus misiones")}>
             {[
-              { k: "active", label: "Activas", n: standalone.filter((m) => m.state === "ACTIVE").length, tone: "text-drl-cyan", bar: "bg-drl-cyan" },
-              { k: "done", label: "Completadas", n: standalone.filter((m) => m.state === "COMPLETED" || m.state === "CLAIMED").length, tone: "text-[#3ee08f]", bar: "bg-[#3ee08f]" },
-              { k: "rewards", label: "Recompensas", n: standalone.filter((m) => m.state === "COMPLETED" && m.hasReward).length, tone: "text-drl-gold", bar: "bg-drl-gold" },
+              { k: "active", label: t("Activas"), n: standalone.filter((m) => m.state === "ACTIVE").length, tone: "text-drl-cyan", bar: "bg-drl-cyan" },
+              { k: "done", label: t("Completadas"), n: standalone.filter((m) => m.state === "COMPLETED" || m.state === "CLAIMED").length, tone: "text-[#3ee08f]", bar: "bg-[#3ee08f]" },
+              { k: "rewards", label: t("Recompensas"), n: standalone.filter((m) => m.state === "COMPLETED" && m.hasReward).length, tone: "text-drl-gold", bar: "bg-drl-gold" },
             ].map((x) => (
               <Panel key={x.k} data-summary={x.k} className="flex flex-col items-start gap-1 px-4 py-3 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-4">
                 <span aria-hidden className={cn("hidden h-10 w-1.5 sm:block", x.bar)} />
                 <dd className={cn("nx-readout text-[34px] leading-none tabular-nums sm:text-[46px]", x.tone)}>{x.n}</dd>
-                <dt className="font-display text-[11px] font-bold uppercase tracking-[0.16em] text-white/65 sm:text-[13px]">{x.label}</dt>
+                <dt className="font-display text-[11px] font-bold uppercase tracking-[0.16em] text-white/65 sm:text-[13px]">{td(x.label)}</dt>
               </Panel>
             ))}
           </dl>
@@ -145,10 +151,10 @@ function Missions() {
           {sorted.length === 0 ? (
             <Panel className="flex items-center gap-4 p-6">
               <GameGlyph name="star" className="h-10 w-10 text-white/40" />
-              <p className="text-[15px] text-white/70">No hay misiones activas ahora mismo. Las nuevas aparecerán aquí.</p>
+              <p className="text-[15px] text-white/70">{t("No hay misiones activas ahora mismo. Las nuevas aparecerán aquí.")}</p>
             </Panel>
           ) : (
-            <ul className="grid gap-3 md:grid-cols-2" aria-label="Misiones">
+            <ul className="grid gap-3 md:grid-cols-2" aria-label={t("Misiones")}>
               {sorted.map((m) => {
                 const k = stampOf(m);
                 const claimable = m.state === "COMPLETED" && m.hasReward;
@@ -162,15 +168,15 @@ function Missions() {
                         <h2 className="min-w-0 break-words font-display text-[18px] font-extrabold uppercase leading-tight tracking-[0.04em] text-white sm:text-[21px]">{m.name}</h2>
                         <Stamp kind={k} />
                       </div>
-                      {m.description && <p className="-mt-1 truncate text-[13px] text-white/55" title={m.description}>{m.description}</p>}
-                      <ForgeBar value={m.progress} max={m.target} label={`Progreso de ${m.name}`} big />
+                      {m.description && <p className="-mt-1 truncate text-[13px] text-white/55" title={td(m.description)}>{td(m.description)}</p>}
+                      <ForgeBar value={m.progress} max={m.target} label={t("Progreso de {name}", { name: m.name })} big />
                       {m.state === "LOCKED" && m.dependsOn.length > 0 && (
-                        <p className="text-[12px] uppercase tracking-[0.12em] text-white/50"><span aria-hidden>🔒 </span>Tras: {m.dependsOn.map(nameOf).join(" · ")}</p>
+                        <p className="text-[12px] uppercase tracking-[0.12em] text-white/50"><span aria-hidden>🔒 </span>{t("Tras:")} {m.dependsOn.map(nameOf).join(" · ")}</p>
                       )}
                       <div className="mt-auto flex flex-wrap items-center justify-between gap-3">
                         {m.hasReward ? <RewardArt reward={m.reward} claimed={m.state === "CLAIMED"} /> : <span />}
                         {claimable && (
-                          <NxButton variant="primary" size="md" className={ctaReadyClass} onClick={() => claim(m.id)} disabled={busy !== null} data-testid="mission-claim">{busy === m.id ? "Reclamando…" : "Reclamar"}</NxButton>
+                          <NxButton variant="primary" size="md" className={ctaReadyClass} onClick={() => claim(m.id)} disabled={busy !== null} data-testid="mission-claim">{busy === m.id ? t("Reclamando…") : t("Reclamar")}</NxButton>
                         )}
                       </div>
                     </div>
@@ -188,11 +194,11 @@ function Missions() {
                   <CardImage cardId={lead.targetCardId} width={96} dim={lead.state === "LOCKED"} />
                 </span>
                 <span className="min-w-0 flex-1 space-y-2">
-                  <span className="block font-display text-[12px] font-bold uppercase tracking-[0.22em] text-drl-gold">Proyectos de carta · {snap.projects.length}</span>
+                  <span className="block font-display text-[12px] font-bold uppercase tracking-[0.22em] text-drl-gold">{t("Proyectos de carta ·")} {snap.projects.length}</span>
                   <span className="block font-display text-[22px] font-extrabold uppercase leading-tight text-white sm:text-[28px]">{lead.name}</span>
-                  <span className="block max-w-[420px]"><ForgeBar value={lead.completed} max={lead.total} label={`Misiones de ${lead.name}`} /></span>
+                  <span className="block max-w-[420px]"><ForgeBar value={lead.completed} max={lead.total} label={t("Misiones de {name}", { name: lead.name })} /></span>
                 </span>
-                <span aria-hidden className="hidden font-display text-[14px] font-bold uppercase tracking-[0.2em] text-drl group-hover:text-white sm:block">Ver →</span>
+                <span aria-hidden className="hidden font-display text-[14px] font-bold uppercase tracking-[0.2em] text-drl group-hover:text-white sm:block">{t("Ver →")}</span>
               </Panel>
             </Link>
           )}
@@ -209,6 +215,7 @@ function Missions() {
  * misiones especiales de debajo siguen funcionando.
  */
 function PassObjectives() {
+  useLocale();
   const [meta, setMeta] = useState<{ snap: MetaSnapshot; at: number } | null>(null);
   const [failed, setFailed] = useState(false);
   const load = useCallback(async () => {
@@ -219,7 +226,7 @@ function PassObjectives() {
     } catch { setFailed(true); }
   }, []);
   useEffect(() => { void load(); }, [load]);
-  if (failed && !meta) return <ErrorState message="No se pudieron cargar los objetivos de la temporada" onRetry={load} />;
-  if (!meta) return <Loading kind="hub" label="Cargando objetivos…" />;
+  if (failed && !meta) return <ErrorState message={t("No se pudieron cargar los objetivos de la temporada")} onRetry={load} />;
+  if (!meta) return <Loading kind="hub" label={t("Cargando objetivos…")} />;
   return <div data-testid="pass-objectives"><ProgressionHub snap={meta.snap} receivedAt={meta.at} reload={load} view="objectives" /></div>;
 }

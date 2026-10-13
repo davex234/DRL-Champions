@@ -1,0 +1,15 @@
+{
+  "Carta inexistente": "カードが存在しません",
+  "El listado ya no está disponible": "この出品はすでに利用できません",
+  "Importe inválido": "金額が無効です",
+  "Instancia inválida": "インスタンスが無効です",
+  "La oferta ya no está activa": "このオファーはすでに無効です",
+  "Listado de usuario sin escrow": "エスクローなしのユーザー出品",
+  "Listado reservado a otro comprador": "別の購入者のために予約された出品です",
+  "No puedes cancelar un listado ajeno": "他のユーザーの出品はキャンセルできません",
+  "No puedes comprar tu propio listado": "自分の出品は購入できません",
+  "No puedes modificar un listado ajeno": "他のユーザーの出品は編集できません",
+  "No puedes ofertar en tu propio listado": "自分の出品にオファーはできません",
+  "Precio inválido": "無効な価格です",
+  "Vendido pero activo": "売却済みですが有効のままです"
+}

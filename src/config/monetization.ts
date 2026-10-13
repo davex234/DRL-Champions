@@ -1,3 +1,5 @@
+import { getIntlLocale } from "@/i18n/runtime";
+
 /**
  * MONETIZACIÓN — precios y paquetes (Fases 9E y 9F).
  *
@@ -33,7 +35,7 @@ export interface Price {
 }
 
 export const formatPrice = (p: Price): string =>
-  new Intl.NumberFormat("es-ES", { style: "currency", currency: p.currency }).format(p.cents / 100);
+  new Intl.NumberFormat(getIntlLocale(), { style: "currency", currency: p.currency }).format(p.cents / 100);
 
 // ───────────────────────────── Pase de temporada ─────────────────────────────
 

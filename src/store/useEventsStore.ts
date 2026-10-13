@@ -10,6 +10,9 @@ import { dailyReward } from "@/domain/events/daily";
 import { isEpicOrBetterCard, isEventEdition, isLegendaryCard } from "@/domain/events/editions";
 import { useGameStore } from "./useGameStore";
 import type { OpenedResult } from "./useGameStore";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("store");
 
 type MetricMap = Partial<Record<MissionMetric, number>>;
 
@@ -103,9 +106,9 @@ export const useEventsStore = create<EventsState>()(
             const prev = seen[ev.id];
             if (prev !== w.status) {
               if (w.status === "active")
-                add({ kind: "event_start", title: `Evento activo: ${ev.name}`, message: ev.subtitle });
+                add({ kind: "event_start", title: tr("Evento activo: {name}", { name: ev.name }), message: ev.subtitle });
               else if (w.status === "ended" && prev === "active")
-                add({ kind: "event_end", title: `${ev.name} ha finalizado`, message: "Sus sobres ya no están disponibles." });
+                add({ kind: "event_end", title: `${ev.name} ha finalizado`, message: tr("Sus sobres ya no están disponibles.") });
               seen[ev.id] = w.status;
             }
             if (w.status !== "active") continue;
@@ -113,7 +116,7 @@ export const useEventsStore = create<EventsState>()(
               const key = `${ev.id}:${m.id}`;
               const prog = s.progress[ev.id]?.[m.metric] ?? 0;
               if (prog >= m.goal && !s.claimedMissions.includes(key) && !notifiedM.includes(key)) {
-                add({ kind: "mission", title: "Misión lista", message: `${m.label} — reclama tu recompensa` });
+                add({ kind: "mission", title: tr("Misión lista"), message: tr("{label} — reclama tu recompensa", { label: td(m.label) }) });
                 notifiedM.push(key);
               }
             }
@@ -194,7 +197,7 @@ export const useEventsStore = create<EventsState>()(
             claimedMissions: [...st.claimedMissions, key],
             passXp: { ...st.passXp, [eventId]: (st.passXp[eventId] ?? 0) + mission.passXp },
           }));
-          notify({ kind: "reward", title: "Misión completada", message: `${mission.label} · +recompensa` });
+          notify({ kind: "reward", title: tr("Misión completada"), message: tr("{label} · +recompensa", { label: td(mission.label) }) });
         },
 
         claimWeekly: (taskId) => {
@@ -208,7 +211,7 @@ export const useEventsStore = create<EventsState>()(
           if ((s.weeklyProgress[wid]?.[task.metric] ?? 0) < task.goal) return;
           grantReward(task.reward);
           set((st) => ({ claimedWeekly: [...st.claimedWeekly, key] }));
-          notify({ kind: "reward", title: "Tarea semanal completada", message: task.label });
+          notify({ kind: "reward", title: tr("Tarea semanal completada"), message: task.label });
         },
 
         claimPassLevel: (eventId, level) => {
@@ -226,7 +229,7 @@ export const useEventsStore = create<EventsState>()(
               [eventId]: [...(st.claimedPassLevels[eventId] ?? []), level],
             },
           }));
-          notify({ kind: "reward", title: `Pase nivel ${level}`, message: "Recompensa del pase reclamada" });
+          notify({ kind: "reward", title: tr("Pase nivel {level}", { level }), message: tr("Recompensa del pase reclamada") });
         },
 
         claimDaily: () => {
@@ -234,18 +237,18 @@ export const useEventsStore = create<EventsState>()(
           const s = get();
           if (s.daily.lastClaimTs != null) {
             const diff = dayDiff(now, s.daily.lastClaimTs);
-            if (diff === 0) return { ok: false, error: "Ya has reclamado hoy" };
+            if (diff === 0) return { ok: false, error: tr("Ya has reclamado hoy") };
             const streak = diff === 1 ? s.daily.streak + 1 : 1;
             const reward = dailyReward(streak);
             grantReward(reward);
             set({ daily: { streak, lastClaimTs: now } });
-            notify({ kind: "daily", title: `Recompensa diaria · Día ${streak}`, message: "¡Vuelve mañana para más!" });
+            notify({ kind: "daily", title: tr("Recompensa diaria · Día {streak}", { streak }), message: tr("¡Vuelve mañana para más!") });
             return { ok: true, reward, streak };
           }
           const reward = dailyReward(1);
           grantReward(reward);
           set({ daily: { streak: 1, lastClaimTs: now } });
-          notify({ kind: "daily", title: "Recompensa diaria · Día 1", message: "¡Vuelve mañana para más!" });
+          notify({ kind: "daily", title: tr("Recompensa diaria · Día 1"), message: tr("¡Vuelve mañana para más!") });
           return { ok: true, reward, streak: 1 };
         },
 

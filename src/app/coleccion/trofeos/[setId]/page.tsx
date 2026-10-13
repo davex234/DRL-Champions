@@ -15,15 +15,21 @@ import { CompletionMoment, type CompletionMomentData } from "@/components/trophi
 import { claimCollectionSet, fetchTrophyRoom, trophyErrorText, type TrophyRoomView } from "@/lib/collectionSets/client";
 import { saveFeaturedBadges } from "@/lib/player/client";
 import { trackCollections } from "@/lib/collectionSets/telemetry";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coleccion");
 
 export default function TrophySetPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading kind="hub" label="Cargando colección…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="la Sala de Trofeos" />;
+  if (loading) return <Loading kind="hub" label={t("Cargando colección…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("la Sala de Trofeos")} />;
   return <TrophySetRoute />;
 }
 
 function TrophySetRoute() {
+  useLocale();
   const params = useParams<{ setId: string }>();
   const setId = decodeURIComponent(String(params?.setId ?? ""));
   const router = useRouter();
@@ -52,7 +58,7 @@ function TrophySetRoute() {
       if (r.outcome === "COMPLETED") { trackCollections("collection_completed"); trackCollections("badge_unlocked"); }
       setRoom(await fetchTrophyRoom());
     } catch (e) {
-      setClaimError(trophyErrorText(e, "No se pudo reclamar la insignia. Inténtalo de nuevo."));
+      setClaimError(trophyErrorText(e, t("No se pudo reclamar la insignia. Inténtalo de nuevo.")));
       void load();
     } finally { busy.current = false; setClaiming(false); }
   }, [set, load]);
@@ -73,13 +79,13 @@ function TrophySetRoute() {
     } finally { setEquipping(false); }
   }, [moment, room, router]);
 
-  if (error) return <ErrorState message={error} onRetry={load} />;
-  if (!room) return <Loading kind="hub" label="Cargando colección…" />;
-  if (!set) return <ErrorState message="Esa colección no existe o ya no está disponible." />;
+  if (error) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!room) return <Loading kind="hub" label={t("Cargando colección…")} />;
+  if (!set) return <ErrorState message={t("Esa colección no existe o ya no está disponible.")} />;
   const alreadyFeatured = !!moment?.badge && room.featuredBadgeIds.includes(moment.badge.id);
   return (
     <>
-      <SetDetailScreen set={set} onClaim={claim} claiming={claiming} error={claimError} />
+      <SetDetailScreen set={set} onClaim={claim} claiming={claiming} error={td(claimError)} />
       <CompletionMoment data={moment} onClose={() => setMoment(null)} onEquip={moment?.badge && !alreadyFeatured ? equip : undefined} equipping={equipping} />
     </>
   );

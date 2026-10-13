@@ -24,6 +24,10 @@ import { EventObjectives } from "./EventObjectives";
 import { EventRewards } from "./EventRewards";
 import { EventActivity } from "./EventActivity";
 import { SyncNotice } from "./bits";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("liveEvents");
 
 export interface EventHubProps {
   snap: EventHubSnapshot;
@@ -40,13 +44,14 @@ export interface EventHubProps {
 }
 
 export function EventHub({ snap, now, pickemPanel, onClaim, claiming, onAction, onPickemCta, onCollectionCta, onPackCta, forceBracketMode }: EventHubProps) {
+  useLocale();
   return (
     <div className="mx-auto w-full max-w-5xl space-y-7" data-scene="event-hub" data-event={snap.event.id} data-lifecycle={snap.state.lifecycle}>
-      <Link href="/torneos" className="nx-focus -ml-2 inline-flex min-h-[44px] items-center rounded-control px-2 font-display text-label uppercase tracking-wide2 text-ink-muted transition hover:bg-white/[0.06] hover:text-white">‹ Eventos</Link>
+      <Link href="/torneos" className="nx-focus -ml-2 inline-flex min-h-[44px] items-center rounded-control px-2 font-display text-label uppercase tracking-wide2 text-ink-muted transition hover:bg-white/[0.06] hover:text-white">{t("‹ Eventos")}</Link>
       <EventHero snap={snap} />
       <SyncNotice sync={snap.sync} />
       {snap.event.isDemo && (
-        <Recessed depth="sm" className="border-l-2 border-l-drl-gold px-4 py-2.5"><p className="text-caption leading-relaxed text-ink-secondary">Evento de demostración: los equipos son reales, pero los resultados no corresponden a partidos reales. Tus predicciones, puntos y recompensas sí son reales.</p></Recessed>
+        <Recessed depth="sm" className="border-l-2 border-l-drl-gold px-4 py-2.5"><p className="text-caption leading-relaxed text-ink-secondary">{t("Evento de demostración: los equipos son reales, pero los resultados no corresponden a partidos reales. Tus predicciones, puntos y recompensas sí son reales.")}</p></Recessed>
       )}
       <LiveStrip eventId={snap.event.id} live={snap.liveMatches} next={snap.nextMatches[0] ?? null} />
       <EventActionsPanel actions={snap.actions} onGo={onAction} />

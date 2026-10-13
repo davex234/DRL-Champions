@@ -10,6 +10,9 @@ import type {
   RawCoach, RawRosterChange, RawMatch, RawMatchMap, RawMapPlayerStat, RawRound, RawStanding,
   RawAwards, RawPlayerTournamentStat, ImportIssue,
 } from "../types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("importer");
 
 export interface ParsedSnapshot {
   tournament: RawTournament;
@@ -46,28 +49,28 @@ export function parseSnapshot(raw: RawSnapshot): ParseOutput {
   };
 
   const teams = arr(raw.teams).filter((t) => {
-    if (!t || typeof t.name !== "string" || !t.name.trim()) { drop("team", t?.id ?? "?", "equipo sin nombre"); return false; }
+    if (!t || typeof t.name !== "string" || !t.name.trim()) { drop("team", t?.id ?? "?", tr("equipo sin nombre")); return false; }
     return true;
   });
   const players = arr(raw.players).filter((p) => {
-    if (!p || typeof p.nick !== "string" || !p.nick.trim()) { drop("player", p?.id ?? "?", "jugador sin nick"); return false; }
+    if (!p || typeof p.nick !== "string" || !p.nick.trim()) { drop("player", p?.id ?? "?", tr("jugador sin nick")); return false; }
     return true;
   });
   const coaches = arr(raw.coaches).filter((c) => {
-    if (!c || typeof c.name !== "string" || !c.name.trim()) { drop("coach", c?.id ?? "?", "coach sin nombre"); return false; }
+    if (!c || typeof c.name !== "string" || !c.name.trim()) { drop("coach", c?.id ?? "?", tr("coach sin nombre")); return false; }
     return true;
   });
   const matches = arr(raw.matches).filter((m) => {
-    if (!m || !m.id) { drop("match", "?", "partido sin id"); return false; }
-    if (!m.teamA || !m.teamB) { drop("match", m.id, "partido sin ambos equipos"); return false; }
+    if (!m || !m.id) { drop("match", "?", tr("partido sin id")); return false; }
+    if (!m.teamA || !m.teamB) { drop("match", m.id, tr("partido sin ambos equipos")); return false; }
     return true;
   });
   const maps = arr(raw.maps).filter((mm) => {
-    if (!mm || !mm.id || !mm.matchId) { drop("map", mm?.id ?? "?", "mapa sin id/matchId"); return false; }
+    if (!mm || !mm.id || !mm.matchId) { drop("map", mm?.id ?? "?", tr("mapa sin id/matchId")); return false; }
     return true;
   });
   const mapStats = arr(raw.mapStats).filter((s) => {
-    if (!s || !s.matchMapId || !s.matchId || !s.player) { drop("mapStat", s?.id ?? "?", "stat sin refs"); return false; }
+    if (!s || !s.matchMapId || !s.matchId || !s.player) { drop("mapStat", s?.id ?? "?", tr("stat sin refs")); return false; }
     return true;
   });
   /*
@@ -76,15 +79,15 @@ export function parseSnapshot(raw: RawSnapshot): ParseOutput {
    * numerador cambiaría el significado del dato. En los dos casos se descarta con su aviso.
    */
   const playerTournamentStats = arr(raw.playerTournamentStats).filter((s) => {
-    if (!s || !s.player) { drop("playerTournamentStat", "?", "agregado sin jugador"); return false; }
+    if (!s || !s.player) { drop("playerTournamentStat", "?", tr("agregado sin jugador")); return false; }
     if (s.clutchesWon !== undefined && s.clutchSituations === undefined) {
-      drop("playerTournamentStat", s.player, "clutches sin denominador (situaciones jugadas)");
+      drop("playerTournamentStat", s.player, tr("clutches sin denominador (situaciones jugadas)"));
       return false;
     }
     return true;
   });
   const rounds = arr(raw.rounds).filter((r) => {
-    if (!r || !r.matchMapId || typeof r.index !== "number") { drop("round", r?.id ?? "?", "ronda sin matchMapId/index"); return false; }
+    if (!r || !r.matchMapId || typeof r.index !== "number") { drop("round", r?.id ?? "?", tr("ronda sin matchMapId/index")); return false; }
     return true;
   });
 
@@ -109,7 +112,7 @@ export function parseSnapshot(raw: RawSnapshot): ParseOutput {
   };
 
   if (!raw.tournament || !raw.tournament.id || !raw.tournament.name) {
-    issues.push({ kind: "parse", severity: "error", entity: "tournament", ref: raw.tournament?.id ?? "?", message: "torneo sin id/nombre" });
+    issues.push({ kind: "parse", severity: "error", entity: "tournament", ref: raw.tournament?.id ?? "?", message: tr("torneo sin id/nombre") });
   }
 
   return { snapshot, issues };

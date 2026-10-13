@@ -23,6 +23,10 @@
 import { useId, useRef, type KeyboardEvent } from "react";
 import { cn } from "@/lib/format";
 import { STAT_INFO, type CombatStatKey, type DuelDeckCardDTO } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export const STAT_KEYS: readonly CombatStatKey[] = ["stronghold", "gamesense", "entryfrag"];
 
@@ -48,6 +52,7 @@ export const STAT_TERCIO = "nx-clip-sm relative flex w-full items-center justify
 export const STAT_GRID = "grid grid-cols-3 gap-1.5 lg:min-h-0 lg:flex-1 lg:grid-cols-1 lg:grid-rows-[repeat(3,minmax(0,1fr))] lg:gap-2.5";
 
 export function StatSelector({ card, attacking, stat, required, locked, onSelect, className }: StatSelectorProps) {
+  useLocale();
   const uid = useId();
   const group = useRef<HTMLDivElement>(null);
 
@@ -89,7 +94,7 @@ export function StatSelector({ card, attacking, stat, required, locked, onSelect
               data-testid={`stat-option-${info.abbr}`}
               data-state="forced"
               role="group"
-              aria-label={`Estadística obligada: ${info.label}${value !== null ? `, ${value}` : ""}`}
+              aria-label={t("Estadística obligada: {label}{v}", { label: td(info.label), v: value !== null ? `, ${value}` : "" })}
               className={STAT_TERCIO}
               style={{ borderColor: info.color, boxShadow: `0 0 26px ${info.color}55, inset 0 0 22px ${info.color}33`, background: `linear-gradient(120deg, ${info.color}33, rgba(0,0,0,0.6) 62%)` }}
             >
@@ -100,7 +105,7 @@ export function StatSelector({ card, attacking, stat, required, locked, onSelect
                   className="inline-flex items-center gap-1 rounded-sm px-1.5 py-[1px] font-display text-[9px] font-extrabold uppercase tracking-[0.14em] text-black lg:text-[11px]"
                   style={{ background: info.color }}
                 >
-                  <LockGlyph /><span className="hidden xl:inline">Obligada</span>
+                  <LockGlyph /><span className="hidden xl:inline">{t("Obligada")}</span>
                 </span>
               </span>
               <b aria-hidden className={cn(STAT_VALUE, "text-white")}>{value ?? "—"}</b>
@@ -116,7 +121,7 @@ export function StatSelector({ card, attacking, stat, required, locked, onSelect
     <div
       ref={group}
       role="group"
-      aria-label="¿Con qué peleas?"
+      aria-label={t("¿Con qué peleas?")}
       data-testid="stat-options"
       data-layout="side"
       onKeyDown={onKey}

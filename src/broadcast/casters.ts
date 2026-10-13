@@ -12,6 +12,9 @@ import type { MatchState } from "../match";
 import { answerQuestions } from "../narrative";
 import { detectRoundMoments } from "../lib/match/moments";
 import type { BroadcastState } from "./types";
+import { ns as i18nNs, td } from "@/i18n/runtime";
+
+const t = i18nNs("broadcast");
 
 export type CasterVoice = "pbp" | "color" | "analista";
 export type CasterTone = "hype" | "tenso" | "calmado" | "analisis";
@@ -26,7 +29,7 @@ export interface CasterLine {
 }
 
 export interface CasterNames { atk: string; def: string }
-const teamName = (names: CasterNames | undefined, side: Side) => names ? names[side === "ATK" ? "atk" : "def"] : (side === "ATK" ? "el ataque" : "la defensa");
+const teamName = (names: CasterNames | undefined, side: Side) => names ? names[side === "ATK" ? "atk" : "def"] : (side === "ATK" ? t("el ataque") : t("la defensa"));
 const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0);
 
 /**
@@ -43,38 +46,38 @@ export function liveCasters(snap: RoundState, bs: BroadcastState, names?: Caster
   for (const e of snap.events.filter((e) => e.tick === snap.tick && e.type === "kill")) {
     const d = e.data as { byName?: string; headshot?: boolean; oneShot?: boolean; wallbang?: boolean; traded?: boolean };
     const who = d.byName ?? "alguien";
-    if (d.wallbang) push("pbp", "hype", `wb:${who}`, `¡WALLBANG de ${who}! Sabía exactamente dónde estaba.`);
-    else if (d.oneShot && d.headshot) push("pbp", "hype", `ot:${who}`, `¡ONE TAP de ${who}! Un solo balazo a la cabeza.`);
-    else if (d.traded) push("pbp", "tenso", `tr:${who}`, `¡${who} responde el trade al instante!`);
-    else if (d.headshot) push("pbp", "hype", `hs:${who}`, `¡${who} se lleva el duelo a la cabeza!`);
-    else push("pbp", "hype", `k:${who}`, `¡Baja de ${who}!`);
+    if (d.wallbang) push("pbp", "hype", `wb:${who}`, t("¡WALLBANG de {who}! Sabía exactamente dónde estaba.", { who: td(who) }));
+    else if (d.oneShot && d.headshot) push("pbp", "hype", `ot:${who}`, t("¡ONE TAP de {who}! Un solo balazo a la cabeza.", { who: td(who) }));
+    else if (d.traded) push("pbp", "tenso", `tr:${who}`, t("¡{who} responde el trade al instante!", { who: td(who) }));
+    else if (d.headshot) push("pbp", "hype", `hs:${who}`, t("¡{who} se lleva el duelo a la cabeza!", { who: td(who) }));
+    else push("pbp", "hype", `k:${who}`, t("¡Baja de {who}!", { who: td(who) }));
   }
 
   // — Flags grandes —
-  if (f.ace && f.aceBy) push("pbp", "hype", "ace", `¡¡ACE de ${f.aceBy}!! Se los ha llevado a todos.`);
-  if (f.clutch && f.clutchSide) push("pbp", "tenso", "clutch", `${bs.observer.focusName ?? "Un jugador"} se queda SOLO en el clutch. Silencio absoluto.`);
-  if (f.firstBlood) push("pbp", "hype", "fb", "¡Primera sangre! Arranca la ronda con ventaja.");
-  if (f.plant) push("pbp", "tenso", "plant", "¡Spike plantada! Empieza la cuenta atrás.");
-  if (f.defuse) push("pbp", "tenso", "defuse", "¡Están desactivando! ¿Llegan a tiempo?");
+  if (f.ace && f.aceBy) push("pbp", "hype", "ace", t("¡¡ACE de {aceBy}!! Se los ha llevado a todos.", { aceBy: td(f.aceBy) }));
+  if (f.clutch && f.clutchSide) push("pbp", "tenso", "clutch", t("{v} se queda SOLO en el clutch. Silencio absoluto.", { v: td(bs.observer.focusName) ?? t("Un jugador") }));
+  if (f.firstBlood) push("pbp", "hype", "fb", t("¡Primera sangre! Arranca la ronda con ventaja."));
+  if (f.plant) push("pbp", "tenso", "plant", t("¡Spike plantada! Empieza la cuenta atrás."));
+  if (f.defuse) push("pbp", "tenso", "defuse", t("¡Están desactivando! ¿Llegan a tiempo?"));
 
   // — Color: lecturas de estado (mental, mapa, números) —
   const enemy: Side = snap.coachSide === "ATK" ? "DEF" : "ATK";
   const enemPlayers = snap.players.filter((p) => p.side === enemy);
   const enemTilt = avg(enemPlayers.map((p) => p.mental.tilt));
   const enemConf = avg(enemPlayers.map((p) => p.mental.confidence));
-  if (enemTilt >= 55 || enemConf <= 36) push("color", "analisis", "broken", `${teamName(names, enemy)} está completamente roto mentalmente.`);
+  if (enemTilt >= 55 || enemConf <= 36) push("color", "analisis", "broken", t("{names} está completamente roto mentalmente.", { names: teamName(names, enemy) }));
   else {
     const us = snap.players.filter((p) => p.side === snap.coachSide);
-    if (avg(us.map((p) => p.mental.confidence)) >= 70) push("color", "calmado", "conf", `${teamName(names, snap.coachSide)} juega con una confianza enorme ahora mismo.`);
+    if (avg(us.map((p) => p.mental.confidence)) >= 70) push("color", "calmado", "conf", t("{names} juega con una confianza enorme ahora mismo.", { names: teamName(names, snap.coachSide) }));
   }
   if (snap.map) {
     const ctrl = snap.map.control;
     const dom: Side | null = ctrl.ATK >= ctrl.DEF + 6 ? "ATK" : ctrl.DEF >= ctrl.ATK + 6 ? "DEF" : null;
-    if (dom) push("color", "analisis", "map", `El mapa pertenece a ${teamName(names, dom)}.`);
+    if (dom) push("color", "analisis", "map", t("El mapa pertenece a {names}.", { names: teamName(names, dom) }));
   }
   if (Math.abs(bs.stats.numbersAdvantage) >= 2) {
     const side = bs.stats.numbersAdvantage > 0 ? snap.coachSide : enemy;
-    push("color", "tenso", "adv", `Ventaja numérica clara para ${teamName(names, side)}.`);
+    push("color", "tenso", "adv", t("Ventaja numérica clara para {names}.", { names: teamName(names, side) }));
   }
 
   return out;
@@ -100,7 +103,7 @@ export function roundEndCasters(match: MatchState, finished: RoundState, names?:
   const k: Record<string, number> = {};
   for (const r of last3) for (const e of r.events) if (e.type === "kill") { const nm = String((e.data as { byName?: string }).byName ?? ""); if (nm) k[nm] = (k[nm] ?? 0) + 1; }
   const star = Object.entries(k).sort((x, y) => y[1] - x[1])[0];
-  if (last3.length >= 3 && star && star[1] >= 6) out.push({ id: `re:${n}:star`, voice: "color", tone: "analisis", text: `${star[0]} lleva tres rondas dominando: ${star[1]} bajas en ese tramo.`, at: n });
+  if (last3.length >= 3 && star && star[1] >= 6) out.push({ id: `re:${n}:star`, voice: "color", tone: "analisis", text: t("{v} lleva tres rondas dominando: {v2} bajas en ese tramo.", { v: td(star[0]), v2: star[1] }), at: n });
   return out;
 }
 

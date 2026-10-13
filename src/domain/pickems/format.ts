@@ -40,6 +40,9 @@
  */
 import { parseRound } from "./bracket";
 import { isPlaceholderTeamName } from "./questions";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("pickems");
 
 export const PICKEM_FORMAT_VERSION = 1 as const;
 export const PICKEM_SCORING_VERSION = "pickem-scoring-v1" as const;
@@ -177,7 +180,7 @@ export function elimRoundLabel(side: string, raw: string | null): string {
   const of = /round\s*of\s*(\d+)/.exec(r);
   const num = /round\s*(\d+)/.exec(r);
   const base = /grand\s*-?\s*final/.test(r) ? "Gran Final" : /quarter/.test(r) ? "Cuartos" : /semi/.test(r) ? "Semifinales"
-    : /\bfinals?\b/.test(r) ? "Final" : of ? `Ronda de ${of[1]}` : num ? `Ronda ${num[1]}` : (raw ?? "Partido");
+    : /\bfinals?\b/.test(r) ? "Final" : of ? tr("Ronda de {v}", { v: td(of[1]) }) : num ? `Ronda ${num[1]}` : (raw ?? "Partido");
   if (side === "grand" || base === "Gran Final") return "Gran Final";
   if (side === "lower") return base === "Final" ? "Final baja" : `${base} · baja`;
   if (side === "upper") return base === "Final" ? "Final alta" : `${base} · alta`;
@@ -240,7 +243,7 @@ export function deriveFormat(input: DeriveInput): DeriveResult {
   const kind = input.kind ?? (detected && detected !== "SWISS" ? detected : null);
   const issues: FormatIssue[] = [];
   if (detected === "SWISS" || !kind) {
-    issues.push({ severity: "ERROR", code: detected === "SWISS" ? "FORMAT_UNSUPPORTED" : "FORMAT_UNKNOWN", message: detected === "SWISS" ? "Formato suizo: los cruces no existen hasta que se publican; no hay cuadro que predecir." : "No se reconoce el formato de estas fases." });
+    issues.push({ severity: "ERROR", code: detected === "SWISS" ? "FORMAT_UNSUPPORTED" : "FORMAT_UNKNOWN", message: detected === "SWISS" ? tr("Formato suizo: los cruces no existen hasta que se publican; no hay cuadro que predecir.") : tr("No se reconoce el formato de estas fases.") });
     return { descriptor: null, detected, issues };
   }
 
@@ -255,7 +258,7 @@ export function deriveFormat(input: DeriveInput): DeriveResult {
       const r = (m.round ?? "").toLowerCase();
       const isOpening = /opening/.test(r), isWinners = /winner/.test(r), isElim = /elimination/.test(r), isDecider = /decider/.test(r);
       const role: GslRole | null = isOpening ? "OPENING" : isWinners ? "WINNERS" : isElim ? "ELIMINATION" : isDecider ? "DECIDER" : null;
-      if (!role) { issues.push({ severity: "ERROR", code: "ROUND_UNKNOWN", matchId: m.id, message: `Ronda GSL no reconocida: «${m.round ?? ""}».` }); continue; }
+      if (!role) { issues.push({ severity: "ERROR", code: "ROUND_UNKNOWN", matchId: m.id, message: tr("Ronda GSL no reconocida: «{v}».", { v: td(m.round) ?? "" }) }); continue; }
       addSection(`group:${g}`, `Grupo ${g}`, g.charCodeAt(0));
       nodes.push({
         matchId: m.id, stageId: m.stage_id, section: `group:${g}`, role, roundLabel: GSL_LABEL[role],
@@ -276,13 +279,13 @@ export function deriveFormat(input: DeriveInput): DeriveResult {
     for (const m of matches) {
       const i = info.get(m.id)!;
       const side = kind === "SINGLE_ELIMINATION" ? "single" : i.side === "single" ? "upper" : i.side;
-      if (i.rank === null) issues.push({ severity: "ERROR", code: "ROUND_UNKNOWN", matchId: m.id, message: `Ronda sin orden reconocible: «${m.round ?? ""}».` });
+      if (i.rank === null) issues.push({ severity: "ERROR", code: "ROUND_UNKNOWN", matchId: m.id, message: tr("Ronda sin orden reconocible: «{v}».", { v: td(m.round) ?? "" }) });
       const list = ranks.get(side) ?? [];
       if (i.rank !== null && !list.includes(i.rank)) list.push(i.rank);
       ranks.set(side, list);
     }
     for (const list of ranks.values()) list.sort((a, b) => a - b);
-    const SECTION_LABEL: Record<string, [string, number]> = { single: ["Cuadro", 0], upper: ["Cuadro alto", 0], lower: ["Cuadro bajo", 1], grand: ["Gran final", 2] };
+    const SECTION_LABEL: Record<string, [string, number]> = { single: [tr("Cuadro"), 0], upper: [tr("Cuadro alto"), 0], lower: [tr("Cuadro bajo"), 1], grand: [tr("Gran final"), 2] };
     for (const m of matches) {
       const i = info.get(m.id)!;
       const side = kind === "SINGLE_ELIMINATION" ? "single" : i.side === "single" ? "upper" : i.side;
@@ -312,20 +315,20 @@ export function deriveFormat(input: DeriveInput): DeriveResult {
     if (m.progression_confidence !== "CONFIRMED") continue;
     if (m.winner_to_match_id) {
       if (ids.has(m.winner_to_match_id)) edges.push({ from: m.id, to: m.winner_to_match_id, source: "WINNER", slot: slotOf(m.winner_to_slot), origin: "SOURCE" });
-      else issues.push({ severity: "WARNING", code: "EDGE_OUT_OF_SCOPE", matchId: m.id, message: `El ganador va a ${m.winner_to_match_id}, fuera de este ámbito.` });
+      else issues.push({ severity: "WARNING", code: "EDGE_OUT_OF_SCOPE", matchId: m.id, message: tr("El ganador va a {winner_to_match_id}, fuera de este ámbito.", { winner_to_match_id: m.winner_to_match_id }) });
     }
     if (m.loser_to_match_id) {
       if (ids.has(m.loser_to_match_id)) edges.push({ from: m.id, to: m.loser_to_match_id, source: "LOSER", slot: slotOf(m.loser_to_slot), origin: "SOURCE" });
-      else issues.push({ severity: "WARNING", code: "EDGE_OUT_OF_SCOPE", matchId: m.id, message: `El perdedor va a ${m.loser_to_match_id}, fuera de este ámbito.` });
+      else issues.push({ severity: "WARNING", code: "EDGE_OUT_OF_SCOPE", matchId: m.id, message: tr("El perdedor va a {loser_to_match_id}, fuera de este ámbito.", { loser_to_match_id: m.loser_to_match_id }) });
     }
-    if (m.winner_qualifies) qualifications.push({ from: m.id, key: m.winner_qualifies, label: m.winner_qualifies_label || "Clasificado", origin: "SOURCE" });
+    if (m.winner_qualifies) qualifications.push({ from: m.id, key: m.winner_qualifies, label: m.winner_qualifies_label || tr("Clasificado"), origin: "SOURCE" });
   }
 
   // ── ADMIN (solo donde la fuente calla; contradecirla es un error, no una sustitución) ──
   for (const a of input.adminEdges ?? []) {
     const clash = edges.find((e) => e.from === a.from && e.source === a.source);
     if (clash) {
-      if (clash.to !== a.to) issues.push({ severity: "ERROR", code: "ADMIN_CONTRADICTS_SOURCE", matchId: a.from, message: `La arista de admin (${a.source} → ${a.to}) contradice la de la fuente (→ ${clash.to}).` });
+      if (clash.to !== a.to) issues.push({ severity: "ERROR", code: "ADMIN_CONTRADICTS_SOURCE", matchId: a.from, message: tr("La arista de admin ({source} → {to}) contradice la de la fuente (→ {to2}).", { source: td(a.source), to: td(a.to), to2: td(clash.to) }) });
       continue;
     }
     edges.push({ ...a, slot: slotOf(a.slot), origin: "ADMIN" });
@@ -366,14 +369,14 @@ export function deriveFormat(input: DeriveInput): DeriveResult {
       const of = (r: GslRole) => nodes.filter((n) => n.section === `group:${g}` && n.role === r);
       const opening = of("OPENING"), winners = of("WINNERS"), elim = of("ELIMINATION"), decider = of("DECIDER");
       if (opening.length !== 2 || winners.length !== 1 || elim.length !== 1 || decider.length !== 1) {
-        issues.push({ severity: "ERROR", code: "GSL_SHAPE", message: `El grupo ${g} no tiene la forma GSL (2 Apertura, 1 Ganadores, 1 Eliminación, 1 Decisivo).` });
+        issues.push({ severity: "ERROR", code: "GSL_SHAPE", message: tr("El grupo {g} no tiene la forma GSL (2 Apertura, 1 Ganadores, 1 Eliminación, 1 Decisivo).", { g: td(g) }) });
         continue;
       }
       for (const o of opening) { derive(o.matchId, winners[0].matchId, "WINNER"); derive(o.matchId, elim[0].matchId, "LOSER"); }
       derive(elim[0].matchId, decider[0].matchId, "WINNER");
       derive(winners[0].matchId, decider[0].matchId, "LOSER");
       for (const q of [winners[0], decider[0]]) {
-        if (!qualifications.some((x) => x.from === q.matchId)) qualifications.push({ from: q.matchId, key: `qualified:group-${g.toLowerCase()}:${q === winners[0] ? "winners" : "decider"}`, label: `Clasificado · Grupo ${g}`, origin: "FORMAT_DERIVED" });
+        if (!qualifications.some((x) => x.from === q.matchId)) qualifications.push({ from: q.matchId, key: `qualified:group-${g.toLowerCase()}:${q === winners[0] ? "winners" : "decider"}`, label: tr("Clasificado · Grupo {g}", { g: td(g) }), origin: "FORMAT_DERIVED" });
       }
     }
   }
@@ -489,41 +492,41 @@ export function validateFormat(d: FormatDescriptor, real: RealMatchRow[]): Forma
   const realById = new Map(real.map((m) => [m.id, m]));
   const nodeIds = new Set<string>();
 
-  if (!SUPPORTED_FORMATS.includes(d.kind)) err("FORMAT_UNSUPPORTED", `Formato no soportado: ${d.kind}.`);
-  if (d.nodes.length === 0) err("EMPTY", "El ámbito no tiene partidos.");
+  if (!SUPPORTED_FORMATS.includes(d.kind)) err("FORMAT_UNSUPPORTED", tr("Formato no soportado: {kind}.", { kind: td(d.kind) }));
+  if (d.nodes.length === 0) err("EMPTY", tr("El ámbito no tiene partidos."));
 
   for (const n of d.nodes) {
     if (nodeIds.has(n.matchId)) err("DUPLICATE_MATCH", `Partido duplicado: ${n.matchId}.`, n.matchId);
     nodeIds.add(n.matchId);
     const r = realById.get(n.matchId);
-    if (!r) { err("MATCH_MISSING", `El partido ${n.matchId} no existe en los datos reales.`, n.matchId); continue; }
-    if (r.event_id && r.event_id !== d.eventId) err("MATCH_OTHER_EVENT", `El partido ${n.matchId} es de otro evento.`, n.matchId);
-    if (!r.start_time || !Number.isFinite(Date.parse(r.start_time))) err("DATE_MISSING", `El partido ${n.matchId} no tiene hora de inicio (sin ella no hay cierre).`, n.matchId);
-    if (!(n.points > 0)) err("POINTS", `El partido ${n.matchId} no vale puntos.`, n.matchId);
+    if (!r) { err("MATCH_MISSING", tr("El partido {matchId} no existe en los datos reales.", { matchId: n.matchId }), n.matchId); continue; }
+    if (r.event_id && r.event_id !== d.eventId) err("MATCH_OTHER_EVENT", tr("El partido {matchId} es de otro evento.", { matchId: n.matchId }), n.matchId);
+    if (!r.start_time || !Number.isFinite(Date.parse(r.start_time))) err("DATE_MISSING", tr("El partido {matchId} no tiene hora de inicio (sin ella no hay cierre).", { matchId: n.matchId }), n.matchId);
+    if (!(n.points > 0)) err("POINTS", tr("El partido {matchId} no vale puntos.", { matchId: n.matchId }), n.matchId);
   }
 
   const seen = new Set<string>();
   for (const e of d.edges) {
     const k = `${e.from}:${e.source}`;
-    if (seen.has(k)) err("DOUBLE_PATH", `El ${e.source === "WINNER" ? "ganador" : "perdedor"} de ${e.from} tiene dos destinos.`, e.from);
+    if (seen.has(k)) err("DOUBLE_PATH", tr("El {v} de {from} tiene dos destinos.", { v: e.source === "WINNER" ? tr("ganador") : tr("perdedor"), from: td(e.from) }), e.from);
     seen.add(k);
-    if (e.from === e.to) err("SELF_EDGE", `Autoarista en ${e.from}.`, e.from);
-    if (!nodeIds.has(e.from) || !nodeIds.has(e.to)) err("EDGE_DANGLING", `Arista ${e.from} → ${e.to} con un extremo fuera del ámbito.`, e.from);
+    if (e.from === e.to) err("SELF_EDGE", tr("Autoarista en {from}.", { from: td(e.from) }), e.from);
+    if (!nodeIds.has(e.from) || !nodeIds.has(e.to)) err("EDGE_DANGLING", tr("Arista {from} → {to} con un extremo fuera del ámbito.", { from: td(e.from), to: td(e.to) }), e.from);
   }
   for (const n of d.nodes) {
     const inc = d.edges.filter((e) => e.to === n.matchId);
-    if (inc.length > 2) err("SLOT_OVERFLOW", `${n.matchId} recibe ${inc.length} equipos.`, n.matchId);
-    for (const s of [1, 2] as const) if (inc.filter((e) => e.slot === s).length > 1) err("SLOT_TAKEN", `El hueco ${s} de ${n.matchId} lo alimentan dos partidos.`, n.matchId);
+    if (inc.length > 2) err("SLOT_OVERFLOW", tr("{matchId} recibe {length} equipos.", { matchId: n.matchId, length: inc.length }), n.matchId);
+    for (const s of [1, 2] as const) if (inc.filter((e) => e.slot === s).length > 1) err("SLOT_TAKEN", tr("El hueco {s} de {matchId} lo alimentan dos partidos.", { s, matchId: n.matchId }), n.matchId);
   }
 
   const topo = topoOrder(d);
-  if (!topo) err("CYCLE", "El grafo tiene un ciclo.");
+  if (!topo) err("CYCLE", tr("El grafo tiene un ciclo."));
 
   // Huecos: los partidos que no son de entrada necesitan sus DOS alimentadores.
   for (const n of d.nodes) {
     const inc = d.edges.filter((e) => e.to === n.matchId).length;
-    if (!isEntryNode(d, n) && inc < 2) err("SLOT_UNKNOWN", `${n.roundLabel} (${n.matchId}): ${2 - inc} hueco(s) sin origen conocido.`, n.matchId);
-    if (isEntryNode(d, n) && inc > 0) err("ENTRY_FED", `${n.matchId} es de entrada pero lo alimenta otro partido.`, n.matchId);
+    if (!isEntryNode(d, n) && inc < 2) err("SLOT_UNKNOWN", tr("{roundLabel} ({matchId}): {v} hueco(s) sin origen conocido.", { roundLabel: td(n.roundLabel), matchId: n.matchId, v: 2 - inc }), n.matchId);
+    if (isEntryNode(d, n) && inc > 0) err("ENTRY_FED", tr("{matchId} es de entrada pero lo alimenta otro partido.", { matchId: n.matchId }), n.matchId);
   }
 
   // Caminos por formato.
@@ -533,37 +536,37 @@ export function validateFormat(d: FormatDescriptor, real: RealMatchRow[]): Forma
   const nodeOf = new Map(d.nodes.map((n) => [n.matchId, n]));
   const terminals = d.nodes.filter((n) => !winnerOut(n.matchId) && !qualifies(n.matchId));
   if (d.kind === "SINGLE_ELIMINATION") {
-    if (terminals.length !== 1) err("FINAL_COUNT", `Eliminación simple con ${terminals.length} finales.`);
-    for (const e of d.edges) if (e.source === "LOSER") err("LOSER_PATH", `En eliminación simple el perdedor queda fuera (${e.from}).`, e.from);
+    if (terminals.length !== 1) err("FINAL_COUNT", tr("Eliminación simple con {length} finales.", { length: terminals.length }));
+    for (const e of d.edges) if (e.source === "LOSER") err("LOSER_PATH", tr("En eliminación simple el perdedor queda fuera ({from}).", { from: td(e.from) }), e.from);
   }
   if (d.kind === "DOUBLE_ELIMINATION") {
     const grand = d.nodes.filter((n) => n.section === "grand");
-    if (grand.length !== 1) err("GRAND_FINAL", `Doble eliminación con ${grand.length} grandes finales.`);
-    if (terminals.length !== 1 || terminals[0]?.section !== "grand") err("FINAL_COUNT", "La única final debe ser la Gran Final.");
+    if (grand.length !== 1) err("GRAND_FINAL", tr("Doble eliminación con {length} grandes finales.", { length: grand.length }));
+    if (terminals.length !== 1 || terminals[0]?.section !== "grand") err("FINAL_COUNT", tr("La única final debe ser la Gran Final."));
     for (const n of d.nodes.filter((x) => x.section === "upper")) {
       const l = loserOut(n.matchId);
-      if (!l) err("LOSER_MISSING", `${n.roundLabel} (${n.matchId}): falta adónde cae el perdedor.`, n.matchId);
-      else if (nodeOf.get(l.to)?.section !== "lower") err("LOSER_PATH", `El perdedor de ${n.matchId} debe caer al cuadro bajo.`, n.matchId);
+      if (!l) err("LOSER_MISSING", tr("{roundLabel} ({matchId}): falta adónde cae el perdedor.", { roundLabel: td(n.roundLabel), matchId: n.matchId }), n.matchId);
+      else if (nodeOf.get(l.to)?.section !== "lower") err("LOSER_PATH", tr("El perdedor de {matchId} debe caer al cuadro bajo.", { matchId: n.matchId }), n.matchId);
     }
-    for (const n of d.nodes.filter((x) => x.section !== "upper")) if (loserOut(n.matchId)) err("LOSER_PATH", `Solo el cuadro alto tiene segunda vida (${n.matchId}).`, n.matchId);
+    for (const n of d.nodes.filter((x) => x.section !== "upper")) if (loserOut(n.matchId)) err("LOSER_PATH", tr("Solo el cuadro alto tiene segunda vida ({matchId}).", { matchId: n.matchId }), n.matchId);
   }
   if (d.kind === "GSL_GROUPS") {
     for (const n of d.nodes) {
       const role = n.role;
-      if (!role) err("GSL_PATH", `${n.matchId} no tiene papel GSL.`, n.matchId);
-      if (role === "OPENING" && (!winnerOut(n.matchId) || !loserOut(n.matchId))) err("GSL_PATH", `Apertura ${n.matchId}: faltan los caminos de ganador y perdedor.`, n.matchId);
-      if (role === "WINNERS" && (!qualifies(n.matchId) || !loserOut(n.matchId))) err("GSL_PATH", `Ganadores ${n.matchId}: falta la plaza o la caída al Decisivo.`, n.matchId);
-      if (role === "ELIMINATION" && (!winnerOut(n.matchId) || loserOut(n.matchId))) err("GSL_PATH", `Eliminación ${n.matchId}: el ganador va al Decisivo y el perdedor queda fuera.`, n.matchId);
-      if (role === "DECIDER" && !qualifies(n.matchId)) err("GSL_PATH", `Decisivo ${n.matchId}: falta la plaza.`, n.matchId);
-      for (const e of d.edges.filter((x) => x.from === n.matchId)) if (nodeOf.get(e.to)?.section !== n.section) err("GSL_PATH", `${n.matchId} alimenta un partido de otro grupo.`, n.matchId);
+      if (!role) err("GSL_PATH", tr("{matchId} no tiene papel GSL.", { matchId: n.matchId }), n.matchId);
+      if (role === "OPENING" && (!winnerOut(n.matchId) || !loserOut(n.matchId))) err("GSL_PATH", tr("Apertura {matchId}: faltan los caminos de ganador y perdedor.", { matchId: n.matchId }), n.matchId);
+      if (role === "WINNERS" && (!qualifies(n.matchId) || !loserOut(n.matchId))) err("GSL_PATH", tr("Ganadores {matchId}: falta la plaza o la caída al Decisivo.", { matchId: n.matchId }), n.matchId);
+      if (role === "ELIMINATION" && (!winnerOut(n.matchId) || loserOut(n.matchId))) err("GSL_PATH", tr("Eliminación {matchId}: el ganador va al Decisivo y el perdedor queda fuera.", { matchId: n.matchId }), n.matchId);
+      if (role === "DECIDER" && !qualifies(n.matchId)) err("GSL_PATH", tr("Decisivo {matchId}: falta la plaza.", { matchId: n.matchId }), n.matchId);
+      for (const e of d.edges.filter((x) => x.from === n.matchId)) if (nodeOf.get(e.to)?.section !== n.section) err("GSL_PATH", tr("{matchId} alimenta un partido de otro grupo.", { matchId: n.matchId }), n.matchId);
     }
   }
-  if (d.kind === "ROUND_ROBIN" && d.edges.length > 0) err("RR_EDGES", "Un todos contra todos no tiene aristas de avance.");
+  if (d.kind === "ROUND_ROBIN" && d.edges.length > 0) err("RR_EDGES", tr("Un todos contra todos no tiene aristas de avance."));
 
   // Fechas: un destino no puede empezar antes que su alimentador (los cierres irían al revés).
   for (const e of d.edges) {
     const a = Date.parse(realById.get(e.from)?.start_time ?? ""), b = Date.parse(realById.get(e.to)?.start_time ?? "");
-    if (Number.isFinite(a) && Number.isFinite(b) && b < a) err("DATE_ORDER", `${e.to} empieza antes que su alimentador ${e.from}.`, e.to);
+    if (Number.isFinite(a) && Number.isFinite(b) && b < a) err("DATE_ORDER", tr("{to} empieza antes que su alimentador {from}.", { to: td(e.to), from: td(e.from) }), e.to);
   }
 
   // Coherencia con los resultados reales ya jugados (y con los equipos ya colocados por la fuente).
@@ -574,7 +577,7 @@ export function validateFormat(d: FormatDescriptor, real: RealMatchRow[]): Forma
     const loser = winner === f.team_a_id ? f.team_b_id : winner === f.team_b_id ? f.team_a_id : null;
     const team = e.source === "WINNER" ? winner : loser;
     const tA = teamRef(t.team_a_id, t.team_a)?.id ?? null, tB = teamRef(t.team_b_id, t.team_b)?.id ?? null;
-    if (team && tA && tB && team !== tA && team !== tB) err("RESULT_CONTRADICTS", `El ${e.source === "WINNER" ? "ganador" : "perdedor"} real de ${e.from} no juega ${e.to}.`, e.from);
+    if (team && tA && tB && team !== tA && team !== tB) err("RESULT_CONTRADICTS", tr("El {v} real de {from} no juega {to}.", { v: e.source === "WINNER" ? tr("ganador") : tr("perdedor"), from: td(e.from), to: td(e.to) }), e.from);
   }
 
   // Equipos: semillas de entrada por definir = se podrán predecir cuando la fuente las publique.
@@ -594,7 +597,7 @@ export function validateFormat(d: FormatDescriptor, real: RealMatchRow[]): Forma
     for (const n of d.nodes) {
       let cur = n.matchId;
       for (let i = 0; i < d.nodes.length && winnerOut(cur); i++) cur = winnerOut(cur)!.to;
-      if (!finalIds.has(cur) && !qualifies(cur)) err("UNREACHABLE", `Desde ${n.matchId} no se llega a una final ni a una plaza.`, n.matchId);
+      if (!finalIds.has(cur) && !qualifies(cur)) err("UNREACHABLE", tr("Desde {matchId} no se llega a una final ni a una plaza.", { matchId: n.matchId }), n.matchId);
     }
   }
   return issues;

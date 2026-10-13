@@ -40,6 +40,10 @@ import { ProfileView } from "./ProfileView";
 import { SettingsView } from "./SettingsView";
 import { StoreView } from "./StoreView";
 import { TopBar } from "./TopBar";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 /** Detección de `prefers-reduced-motion`. El sistema operativo tiene la última palabra. */
 function usePrefersReducedMotion(): boolean {
@@ -56,6 +60,7 @@ function usePrefersReducedMotion(): boolean {
 }
 
 export function LauncherShell({ up }: { up: UpdaterApi }) {
+  useLocale();
   const router = useRouter();
   const { toast, notify } = useToast();
   const reducedMotion = usePrefersReducedMotion();
@@ -109,7 +114,7 @@ export function LauncherShell({ up }: { up: UpdaterApi }) {
       if (!ids.includes(id)) {
         const g = getGame(id);
         const e = store.getState().entries[id];
-        if (g && e?.state === "ready" && settings.notifications) notify(`${g.name} está listo para jugar`, true);
+        if (g && e?.state === "ready" && settings.notifications) notify(t("{name} está listo para jugar", { name: g.name }), true);
       }
     }
     prevJobIds.current = ids;
@@ -158,23 +163,23 @@ export function LauncherShell({ up }: { up: UpdaterApi }) {
           break;
         case "pause":
           s.pause(target.id);
-          notify(`${target.name} en pausa`, true);
+          notify(t("{name} en pausa", { name: target.name }), true);
           break;
         case "resume":
           s.resume(target.id);
-          notify(`Reanudando ${target.name}`, true);
+          notify(t("Reanudando {name}", { name: target.name }), true);
           break;
         case "retry":
           s.resume(target.id);
-          notify(`Reintentando ${target.name}`, true);
+          notify(t("Reintentando {name}", { name: target.name }), true);
           break;
         case "play":
           s.markPlayed(target.id);
           if (target.route) {
-            notify(`Iniciando ${target.name}…`, true);
+            notify(t("Iniciando {name}…", { name: target.name }), true);
             router.push(target.route);
           } else {
-            notify(`${target.name} no está disponible en esta compilación`, false);
+            notify(t("{name} no está disponible en esta compilación", { name: target.name }), false);
           }
           break;
         case "finalizing":
@@ -189,7 +194,7 @@ export function LauncherShell({ up }: { up: UpdaterApi }) {
       if (!installFor) return;
       store.getState().startDownload(installFor.game.id, path, installFor.kind);
       notify(
-        `${installFor.kind === "update" ? "Actualizando" : "Instalando"} ${installFor.game.name}`,
+        `${installFor.kind === "update" ? t("Actualizando") : t("Instalando")} ${installFor.game.name}`,
         true,
       );
       setInstallFor(null);
@@ -201,7 +206,7 @@ export function LauncherShell({ up }: { up: UpdaterApi }) {
     (gameId: string) => {
       store.getState().cancel(gameId);
       const g = getGame(gameId);
-      if (g) notify(`Descarga de ${g.name} cancelada`, false);
+      if (g) notify(t("Descarga de {name} cancelada", { name: g.name }), false);
     },
     [notify, store],
   );
@@ -210,7 +215,7 @@ export function LauncherShell({ up }: { up: UpdaterApi }) {
     (gameId: string) => {
       store.getState().uninstall(gameId);
       const g = getGame(gameId);
-      if (g) notify(`${g.name} desinstalado`, true);
+      if (g) notify(t("{name} desinstalado", { name: g.name }), true);
     },
     [notify, store],
   );
@@ -328,11 +333,11 @@ export function LauncherShell({ up }: { up: UpdaterApi }) {
                   onChange={(patch) => store.getState().updateSettings(patch)}
                   onReset={() => {
                     store.getState().resetSettings();
-                    notify("Ajustes restablecidos", true);
+                    notify(t("Ajustes restablecidos"), true);
                   }}
                   onResetLibrary={() => {
                     store.getState().resetLibrary();
-                    notify("Biblioteca vaciada", true);
+                    notify(t("Biblioteca vaciada"), true);
                   }}
                 />
               )}

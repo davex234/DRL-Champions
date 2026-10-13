@@ -1,0 +1,15 @@
+{
+  "cardCount inválido": "無効なcardCount",
+  "clase '{c}' con probabilidad ({name}) y sin cartas": "クラス'{c}'に確率 ({name}) がありますがカードがありません",
+  "garantía '{minBucket}' sin stock en el pool": "確定枠'{minBucket}'のプールに在庫がありません",
+  "garantía con count inválido": "確定枠のcountが無効です",
+  "garantías exceden cardCount": "確定枠がcardCountを超えています",
+  "guaranteedMin '{guaranteedMin}' sin stock en el pool": "guaranteedMin'{guaranteedMin}'のプールに在庫がありません",
+  "inclinación por OVR inválida ({ovrTilt})": "無効なOVR傾斜 ({ovrTilt})",
+  "pity '{minBucket}' sin stock en el pool": "pity'{minBucket}'のプールに在庫がありません",
+  "pity.threshold inválido": "無効なpity.threshold",
+  "plan por ranuras con {cards} cartas y el sobre tiene {cardCount}": "スロットプランは{cards}枚ですが、パックは{cardCount}枚です",
+  "pool vacío (ninguna carta elegible)": "プールが空です (対象カードなし)",
+  "probabilidades inválidas (negativas/NaN)": "無効な確率です (負の値/NaN)",
+  "todas las probabilidades a cero sin garantías": "確定枠なしで全確率がゼロです"
+}

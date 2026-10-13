@@ -61,11 +61,16 @@ import { trackSocial } from "@/lib/social/telemetry";
 import { ChallengeSheet } from "@/components/social/ChallengeSheet";
 import { MatchEnding } from "@/components/duel/experience/MatchEnding";
 import { NxButton } from "@/components/ui/NxButton";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duelos");
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const registry = new CardRegistry();
 
 function Arena() {
+  useLocale();
   const router = useRouter();
   const params = useSearchParams();
   const urlMatch = params.get("match");
@@ -117,7 +122,7 @@ function Arena() {
         setActiveDeckId(d.activeDeckId);
         setDeckId((cur) => cur ?? d.decks.find((x) => x.valid && x.id === d.activeDeckId)?.id ?? d.decks.find((x) => x.valid)?.id ?? null);
       } catch (e) {
-        if (vivo) setFallo(e instanceof Error ? e.message : "No se pudieron cargar tus equipos");
+        if (vivo) setFallo(e instanceof Error ? e.message : t("No se pudieron cargar tus equipos"));
       } finally {
         if (vivo) setCargando(false);
       }
@@ -224,7 +229,7 @@ function Arena() {
     setBusy(true); setRevanchaError(null);
     void createChallenge(priv.rival.userId, deckIdElegido, matchId)
       .then(() => { trackSocial("challenge_sent"); setRevancha(false); setRevanchaEnviada(true); announceSocialChange(); })
-      .catch((e: unknown) => setRevanchaError(e instanceof Error ? e.message : "No se pudo pedir la revancha"))
+      .catch((e: unknown) => setRevanchaError(e instanceof Error ? e.message : t("No se pudo pedir la revancha")))
       .finally(() => setBusy(false));
   }, [priv, matchId, busy]);
 
@@ -316,12 +321,12 @@ function Arena() {
      */
     void play({ actionId: crypto.randomUUID(), expectedVersion: state.stateVersion, cardUid, stat })
       .catch((e: unknown) => {
-        const msg = e instanceof Error ? e.message : "No se pudo jugar";
+        const msg = e instanceof Error ? e.message : t("No se pudo jugar");
         /*
          * `STALE_VERSION` significa que el estado avanzó por debajo. No es un error del jugador
          * y no se reintenta sola: se sincroniza y se le dice qué pasó, que es lo honesto.
          */
-        setErrorAccion(/stale|cambió/i.test(msg) ? "La partida avanzó mientras decidías. Vuelve a intentarlo." : msg);
+        setErrorAccion(/stale|cambió/i.test(msg) ? t("La partida avanzó mientras decidías. Vuelve a intentarlo.") : msg);
         syncNow();
       })
       .finally(() => { actionLock.current = false; setBusy(false); });
@@ -333,7 +338,7 @@ function Arena() {
     setBusy(true); setErrorAccion(null);
     // No se navega ni se asume nada: se espera a que el servidor confirme el cierre.
     void abandon()
-      .catch((e: unknown) => setErrorAccion(e instanceof Error ? e.message : "No se pudo abandonar"))
+      .catch((e: unknown) => setErrorAccion(e instanceof Error ? e.message : t("No se pudo abandonar")))
       .finally(() => { actionLock.current = false; setBusy(false); });
   }, [busy, abandon]);
 
@@ -423,7 +428,7 @@ function Arena() {
   // ── Veredicto: lo dice el servidor ──
   const view = useMemo(() => {
     if (!snap) return null;
-    return buildMatchView(snap.match, { side: snap.yourSide, registry, difficulty: "NORMAL", rivalLabel: "Rival" });
+    return buildMatchView(snap.match, { side: snap.yourSide, registry, difficulty: "NORMAL", rivalLabel: t("Rival") });
   }, [snap]);
 
   const verdict: PvpVerdict | null = useMemo(() => {
@@ -447,10 +452,10 @@ function Arena() {
   }, [snap, terminal, view, outcome.event]);
 
   // ── Render ──
-  if (cuenta === "checking" || cargando) return <Loading label="Preparando el duelo…" />;
-  if (cuenta === "no") return <NeedsAccount what="los duelos PvP" />;
+  if (cuenta === "checking" || cargando) return <Loading label={t("Preparando el duelo…")} />;
+  if (cuenta === "no") return <NeedsAccount what={t("los duelos PvP")} />;
   /* F61 · la ruta es inmersiva (sin armazón): los estados sin salida propia llevan la suya. */
-  if (fallo) return <><ExitLink href="/competitivo" label="Volver a Competitivo" /><ErrorState message={fallo} onRetry={() => location.reload()} /></>;
+  if (fallo) return <><ExitLink href="/competitivo" label={t("Volver a Competitivo")} /><ErrorState message={td(fallo)} onRetry={() => location.reload()} /></>;
 
   if (terminal && verdict) {
     return (
@@ -468,7 +473,7 @@ function Arena() {
           rank={privada ? null : outcome.rank ?? null}
           onAgain={privada ? otra : otraRanked}
           onBack={() => router.push(cupDeEsta ? `/copas/${cupDeEsta.slug}` : privada ? "/duelos" : "/competitivo")}
-          backLabel={cupDeEsta ? "Volver al torneo" : privada ? "Volver a Duelos" : "Volver a Competitivo"}
+          backLabel={cupDeEsta ? t("Volver al torneo") : privada ? t("Volver a Duelos") : t("Volver a Competitivo")}
           cupMatch={cupDeEsta ? { name: cupDeEsta.name, roundName: cupDeEsta.roundName, href: `/copas/${cupDeEsta.slug}`, outcome: cupDeEsta.outcome, nextRoundName: cupDeEsta.nextRoundName } : null}
           rivalName={privada ? null : matchup?.rival.username ?? null}
           rivalHref={!privada && matchup && matchup.matchId === matchId ? playerHref(matchup.rival.userId) : null}
@@ -485,7 +490,7 @@ function Arena() {
         />
         {privada && !cupDeEsta && revanchaEnviada && (
           <p role="status" className="mx-auto mt-3 w-full max-w-2xl px-4 text-center text-caption text-drl-cyan" data-testid="rematch-sent">
-            Revancha pedida: tu rival recibe el aviso. Si la acepta, entraréis los dos en la partida.
+            {t("Revancha pedida: tu rival recibe el aviso. Si la acepta, entraréis los dos en la partida.")}
           </p>
         )}
         {privada && !cupDeEsta && (
@@ -496,7 +501,7 @@ function Arena() {
             target={priv?.rival ?? null}
             decks={decks}
             busy={busy}
-            error={revanchaError}
+            error={td(revanchaError)}
             onConfirm={pedirRevancha}
             onClose={() => { if (!busy) setRevancha(false); }}
           />
@@ -522,7 +527,7 @@ function Arena() {
         <PvpArena
           state={state}
           busy={busy}
-          error={errorAccion}
+          error={td(errorAccion)}
           onPlay={onPlay}
           onAbandon={onAbandon}
           onDismissError={() => setErrorAccion(null)}
@@ -537,8 +542,8 @@ function Arena() {
   /* Fase 28 · «Rival encontrado» cuando la partida acaba de nacer en la cola; «Recuperando» al volver por URL. */
   if (matchId && !snap) {
     return fijado
-      ? <Loading label="Recuperando la partida…" />
-      : <Loading label="Rival encontrado · preparando la arena…" />;
+      ? <Loading label={t("Recuperando la partida…")} />
+      : <Loading label={t("Rival encontrado · preparando la arena…")} />;
   }
 
   // FASE 55 · buscando: la pantalla de cola ranked (verdad del emparejador: humanos, ventana por rating, caducidad).
@@ -558,7 +563,7 @@ function Arena() {
 
   return (
     <>
-      <ExitLink href="/competitivo" label="Volver a Competitivo" />
+      <ExitLink href="/competitivo" label={t("Volver a Competitivo")} />
       <PvpLobby
         decks={decks}
         deckId={deckId}
@@ -575,7 +580,7 @@ function Arena() {
       />
       {cola.error && (
         <div className="mx-auto mt-3 w-full max-w-2xl px-4">
-          <ErrorState message={cola.error} onRetry={cola.refresh} />
+          <ErrorState message={td(cola.error)} onRetry={cola.refresh} />
         </div>
       )}
     </>
@@ -584,16 +589,18 @@ function Arena() {
 
 /** F61 · salida de las pantallas de la ruta inmersiva que no traen una (antesala, error). */
 function ExitLink({ href, label }: { href: string; label: string }) {
+  useLocale();
   return (
     <div className="mx-auto w-full max-w-2xl px-4 pt-4">
-      <NxButton variant="ghost" size="md" href={href} data-testid="pvp-exit">← {label}</NxButton>
+      <NxButton variant="ghost" size="md" href={href} data-testid="pvp-exit">← {td(label)}</NxButton>
     </div>
   );
 }
 
 export default function PvpPage() {
+  useLocale();
   return (
-    <Suspense fallback={<Loading label="Cargando…" />}>
+    <Suspense fallback={<Loading label={t("Cargando…")} />}>
       <ArenaPorPartida />
     </Suspense>
   );

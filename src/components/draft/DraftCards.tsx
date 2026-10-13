@@ -31,6 +31,10 @@ import { cardHref } from "@/domain/collection/room";
 import type { DraftCardDTO } from "@/domain/draft/snapshot";
 import type { RoleId } from "@/domain/cards/types";
 import { ROLE_SHORT, STAT_KEYS, STAT_LABEL, type StatKey } from "@/lib/draft/presentation";
+import { ns, td as i18nTd } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("draft");
 
 function FallbackFace({ card, className }: { card: DraftCardDTO; className?: string }) {
   const v = getVariant(card.variantId);
@@ -38,7 +42,7 @@ function FallbackFace({ card, className }: { card: DraftCardDTO; className?: str
     <div data-testid="draft-card-fallback" className={cn("nx-clip flex aspect-[5/7] w-full flex-col justify-between border-2 p-3 text-left", className)} style={{ borderColor: v.palette.primary, background: `linear-gradient(160deg, ${v.palette.primary}33, #07080e 70%)` }}>
       <div className="flex items-start justify-between gap-2">
         <span className="nx-readout text-[34px] leading-none text-white">{card.ovr}</span>
-        <span className="font-display text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">{ROLE_SHORT[card.role]}</span>
+        <span className="font-display text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">{i18nTd(ROLE_SHORT[card.role])}</span>
       </div>
       <div>
         <p className="break-words font-display text-[22px] font-bold uppercase leading-none text-white">{card.nick}</p>
@@ -56,9 +60,10 @@ export function DraftCardFace({ card, forceFallback = false, size = "md" }: { ca
 }
 
 function StatRow({ label, value }: { label: string; value: number | null }) {
+  useLocale();
   return (
     <div className="flex items-baseline justify-between gap-2 border-b border-white/[0.06] py-1 last:border-b-0">
-      <dt className="text-[11px] uppercase tracking-[0.12em] text-white/55">{label}</dt>
+      <dt className="text-[11px] uppercase tracking-[0.12em] text-white/55">{i18nTd(label)}</dt>
       <dd className="nx-readout text-[16px] tabular-nums text-white">{value ?? "—"}</dd>
     </div>
   );
@@ -109,6 +114,7 @@ export function DraftOption({
   onSelect: (index: number) => void;
   forceFallback?: boolean;
 }) {
+  useLocale();
   const v = getVariant(card.variantId);
   const fx = draftPresence(card.variantId);
   const reduced = useReducedMotion();
@@ -147,7 +153,7 @@ export function DraftOption({
             glow={v.palette.primary}
             onClick={disabled ? undefined : () => onSelect(index)}
             disabled={disabled}
-            label={`Opción ${index + 1}: ${card.nick}, ${card.team}, ${card.role}, OVR ${card.ovr}`}
+            label={t("Opción {v}: {nick}, {team}, {role}, OVR {ovr}", { v: index + 1, nick: card.nick, team: card.team, role: i18nTd(card.role), ovr: card.ovr })}
             className="mx-auto w-full max-w-[250px]"
           >
             <DraftCardFace card={card} forceFallback={forceFallback} />
@@ -164,12 +170,12 @@ export function DraftOption({
         </p>
         <p className="mt-0.5 break-words text-[12px] uppercase tracking-[0.1em] text-white/60">{card.team}</p>
         <p className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-[11px] uppercase tracking-[0.12em] text-white/70">
-          <span>{card.role}</span><span style={{ color: v.palette.primary }}>{v.label}</span><span>OVR <b className="nx-readout text-white">{card.ovr}</b></span>
+          <span>{i18nTd(card.role)}</span><span style={{ color: v.palette.primary }}>{i18nTd(v.label)}</span><span>{t("OVR")} <b className="nx-readout text-white">{card.ovr}</b></span>
         </p>
         <dl className="mt-1.5">
-          {STAT_KEYS.map((k) => <StatRow key={k} label={STAT_LABEL[k]} value={card.combat?.[k] ?? null} />)}
+          {STAT_KEYS.map((k) => <StatRow key={k} label={i18nTd(STAT_LABEL[k])} value={card.combat?.[k] ?? null} />)}
         </dl>
-        <Link href={cardHref(card.cardId)} className="nx-focus mt-1 inline-flex min-h-[44px] items-center text-[11px] font-bold uppercase tracking-[0.14em] text-drl-cyan hover:text-white">Ver carta ›</Link>
+        <Link href={cardHref(card.cardId)} className="nx-focus mt-1 inline-flex min-h-[44px] items-center text-[11px] font-bold uppercase tracking-[0.14em] text-drl-cyan hover:text-white">{t("Ver carta ›")}</Link>
       </div>
     </motion.article>
   );
@@ -177,8 +183,9 @@ export function DraftOption({
 
 /** F72 · `freshIndex` = el hueco recién incorporado: entra con un destello corto (sin él, estático). */
 export function RosterStrip({ slots, className, freshIndex = null }: { slots: { index: number; role: RoleId; card: DraftCardDTO | null; current: boolean }[]; className?: string; freshIndex?: number | null }) {
+  useLocale();
   return (
-    <ol aria-label="Plantilla temporal" data-testid="draft-roster" className={cn("grid grid-cols-5 gap-1.5 sm:grid-cols-10", className)}>
+    <ol aria-label={t("Plantilla temporal")} data-testid="draft-roster" className={cn("grid grid-cols-5 gap-1.5 sm:grid-cols-10", className)}>
       {slots.map((s) => {
         const def = s.card ? getCard(s.card.cardId) : undefined;
         return (
@@ -200,7 +207,7 @@ export function RosterStrip({ slots, className, freshIndex = null }: { slots: { 
                 {def ? <CardThumb card={def} width={40} /> : <span className="nx-readout grid aspect-[5/7] w-10 place-items-center rounded-md border border-white/20 text-[14px] text-white">{s.card.ovr}</span>}
               </motion.span>
             ) : <span className="grid aspect-[5/7] w-10 place-items-center rounded-md text-[16px] text-white/25">+</span>}
-            <span className="w-full truncate text-center text-[10px] uppercase tracking-[0.08em] text-white/60">{s.card ? s.card.nick : ROLE_SHORT[s.role]}</span>
+            <span className="w-full truncate text-center text-[10px] uppercase tracking-[0.08em] text-white/60">{s.card ? s.card.nick : i18nTd(ROLE_SHORT[s.role])}</span>
           </li>
         );
       })}
@@ -209,17 +216,18 @@ export function RosterStrip({ slots, className, freshIndex = null }: { slots: { 
 }
 
 export function ComparePanel({ option, rows }: { option: DraftCardDTO; rows: { against: DraftCardDTO; rows: { stat: StatKey | "ovr"; option: number; picked: number }[] }[] }) {
+  useLocale();
   return (
-    <section aria-label="Comparar con tu plantilla" data-testid="draft-compare" className="nx-clip-sm border border-white/10 bg-black/30 px-3 py-2">
-      <p className="nx-label">Comparar · {option.role}</p>
+    <section aria-label={t("Comparar con tu plantilla")} data-testid="draft-compare" className="nx-clip-sm border border-white/10 bg-black/30 px-3 py-2">
+      <p className="nx-label">{t("Comparar ·")} {i18nTd(option.role)}</p>
       {rows.length === 0 ? (
-        <p className="mt-1 text-caption text-ink-muted">Aún no tienes ningún {option.role} en la plantilla.</p>
+        <p className="mt-1 text-caption text-ink-muted">{t("Aún no tienes ningún {rol} en la plantilla.", { rol: i18nTd(option.role) })}</p>
       ) : (
         <div className="mt-1 overflow-x-auto">
           <table className="w-full min-w-[260px] text-left text-[12px]">
             <thead>
               <tr className="text-white/50">
-                <th className="py-1 font-normal uppercase tracking-[0.1em]">Stat</th>
+                <th className="py-1 font-normal uppercase tracking-[0.1em]">{t("Stat")}</th>
                 <th className="py-1 font-normal uppercase tracking-[0.1em]">{option.nick}</th>
                 {rows.map((r) => <th key={r.against.cardId} className="py-1 font-normal uppercase tracking-[0.1em]">{r.against.nick}</th>)}
               </tr>
@@ -227,7 +235,7 @@ export function ComparePanel({ option, rows }: { option: DraftCardDTO; rows: { a
             <tbody>
               {rows[0].rows.map((row, i) => (
                 <tr key={row.stat} className="border-t border-white/[0.06]">
-                  <td className="py-1 uppercase tracking-[0.1em] text-white/60">{row.stat === "ovr" ? "OVR" : STAT_LABEL[row.stat]}</td>
+                  <td className="py-1 uppercase tracking-[0.1em] text-white/60">{row.stat === "ovr" ? t("OVR") : i18nTd(STAT_LABEL[row.stat])}</td>
                   <td className="nx-readout py-1 tabular-nums text-white">{row.option}</td>
                   {rows.map((r) => <td key={r.against.cardId} className="nx-readout py-1 tabular-nums text-white/80">{r.rows[i].picked}</td>)}
                 </tr>

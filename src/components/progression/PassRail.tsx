@@ -39,6 +39,10 @@ import type { Reward } from "@/domain/events/types";
 import type { PassTrackLevelView } from "@/server/services/progression";
 import { getPack } from "@/data/packs";
 import { formatCredits, cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("progression");
 
 /** Qué clase de recompensa domina el nivel. Decide el glifo y si el nivel es un hito. */
 type RewardKind = "credits" | "pack" | "cosmetic" | "card" | "materials" | "xp" | "none";
@@ -106,14 +110,14 @@ function RewardGlyph({ kind, className }: { kind: RewardKind; className?: string
 /** Una línea corta que describe la recompensa. Sin emoji: el glifo ya lo dice. */
 export function describeReward(r: Reward): string {
   const parts: string[] = [];
-  if (r.credits) parts.push(`${formatCredits(r.credits)} créditos`);
+  if (r.credits) parts.push(td("{v} créditos", { v: formatCredits(r.credits) }));
   if (r.packId) {
     const pack = getPack(r.packId);
-    parts.push(`${r.packCount ?? 1}× ${pack?.name ?? r.packId}`);
+    parts.push(`${r.packCount ?? 1}× ${td(pack?.name ?? r.packId)}`);
   }
   if (r.materials) {
     const total = Object.values(r.materials).reduce((s, n) => s + (n ?? 0), 0);
-    if (total > 0) parts.push(`${total} materiales`);
+    if (total > 0) parts.push(`${total} ${td("materiales")}`);
   }
   // Los ids cosméticos son «familia:nombre»; al jugador se le enseña la familia.
   if (r.cosmetics?.length) {
@@ -141,6 +145,7 @@ export function PassRail({
   busy: boolean;
   onClaim: (level: number) => void;
 }) {
+  useLocale();
   const railRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -209,18 +214,18 @@ export function PassRail({
                   className="absolute -top-5 font-display text-[9px] font-bold uppercase tracking-[0.16em]"
                   style={{ color: `rgb(${tint})` }}
                 >
-                  Estás aquí
+                  {t("Estás aquí")}
                 </span>
               )}
               {isNext && (
-                <span className="nx-label absolute -top-5 !text-[9px]">Siguiente</span>
+                <span className="nx-label absolute -top-5 !text-[9px]">{t("Siguiente")}</span>
               )}
 
               <button
                 type="button"
                 disabled={!l.claimable || busy}
                 onClick={() => onClaim(l.level)}
-                aria-label={`Nivel ${l.level}: ${describeReward(l.reward)}`}
+                aria-label={t("Nivel {level}: {reward}", { level: l.level, reward: describeReward(l.reward) })}
                 className={cn(
                   "nx-plate nx-clip-sm relative grid shrink-0 place-items-center transition duration-fast",
                   l.claimable && "cursor-pointer hover:brightness-125",
@@ -287,7 +292,7 @@ export function PassRail({
                     l.claimable ? "text-ok" : "text-white/25",
                   )}
                 >
-                  {l.claimed ? "Reclamado" : l.claimable ? "Reclamar" : "Bloqueado"}
+                  {l.claimed ? t("Reclamado") : l.claimable ? t("Reclamar") : t("Bloqueado")}
                 </span>
               )}
             </div>
@@ -312,6 +317,7 @@ export function NextReward({
   tint: string;
   currentLevel: number;
 }) {
+  useLocale();
   if (!level) return null;
   const kind = kindOf(level.reward);
   const away = Math.max(0, level.level - currentLevel);
@@ -329,12 +335,12 @@ export function NextReward({
       </span>
       <div className="min-w-0">
         <span className="nx-label block">
-          {away === 0 ? "Listo para reclamar" : away === 1 ? "A un nivel" : `A ${away} niveles`}
+          {away === 0 ? t("Listo para reclamar") : away === 1 ? t("A un nivel") : t("A {away} niveles", { away })}
         </span>
         <b className="mt-0.5 block truncate font-display text-[15px] font-bold text-white">
           {describeReward(level.reward)}
         </b>
-        <span className="text-[11px] text-white/40">Nivel {level.level}</span>
+        <span className="text-[11px] text-white/40">{t("Nivel")} {level.level}</span>
       </div>
     </div>
   );

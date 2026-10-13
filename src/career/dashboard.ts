@@ -14,6 +14,9 @@ import { ledgerTotals } from "./clubEconomy";
 import { facilityEffects } from "./facilities";
 import { staffEffects } from "./staff";
 import { computePrestige, clubValue, prestigeTier, ORG_POSITIONS, type PrestigeBreakdown, type ClubValue, type FanbaseMood } from "./organization";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 export interface CoachDashboard {
   employed: boolean;
@@ -45,7 +48,7 @@ export function careerDashboard(career: ManagerCareer, club?: ClubView | null): 
   // Riesgo "en vivo" estimado contra la expectativa del club (si lo conocemos).
   let risk = career.board.pressure / 100;
   if (club && c) {
-    const synthetic = { team: club.name, competition: "Liga DRL", tier: "regional" as const, wins: 0, losses: 0, champion: false, finalist: false, mvpAwarded: false, placement: club.position, fieldSize: club.totalTeams };
+    const synthetic = { team: club.name, competition: t("Liga DRL"), tier: "regional" as const, wins: 0, losses: 0, champion: false, finalist: false, mvpAwarded: false, placement: club.position, fieldSize: club.totalTeams };
     const evald = evaluateBoardObjectives(objectives, synthetic, club);
     const failed = evald.filter((o) => o.mandatory && o.status === "failed").length;
     risk = dismissalRisk(career, club, failed, synthetic);

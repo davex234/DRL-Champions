@@ -16,6 +16,9 @@ import { BUCKET_COLOR } from "@/components/packs/PackOdds";
 import { PACK_CLASS_COLOR } from "@/domain/packs/packClass";
 import { packIdentity, teamCardCount } from "@/components/packs/packIdentity";
 import type { PaymentMethod, PurchaseOption, ResolvedProduct } from "@/domain/store/types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("store");
 
 /** `#rrggbb` → `r g b`, para `rgb(var(--x) / α)`. */
 export const rgbVar = (hex: string): string => hexToRgbTriplet(hex).replace(/,/g, " ");
@@ -32,7 +35,7 @@ export function packTone(pack: Pick<PackDef, "id" | "accent" | "guaranteedMin" |
 
 export const accentStyle = (hex: string): CSSProperties => ({ ["--acc-rgb" as string]: rgbVar(hex) });
 
-export const rarityLabel = (b: RarityBucket): string => BUCKET_LABEL[b];
+export const rarityLabel = (b: RarityBucket): string => td(BUCKET_LABEL[b]);
 export const rarityColor = (b: RarityBucket): string => BUCKET_COLOR[b];
 
 /*
@@ -73,7 +76,7 @@ export function packOddsGroup(pack: PackDef): OddsGroup {
   }
   const gMin = odds.guaranteedMin;
   return {
-    ...base, source: odds.source, guarantee: gMin ? `Garantiza al menos una ${BUCKET_LABEL[gMin].toLowerCase()} o superior` : null,
+    ...base, source: odds.source, guarantee: gMin ? t("Garantiza al menos una {v} o superior", { v: td(BUCKET_LABEL[gMin]).toLowerCase() }) : null,
     rows: odds.rows.filter((r) => !r.impossible && r.perCard > 0).map((r) => ({ key: r.bucket, label: r.label, pct: pct(r.perCard), perCard: r.perCard, color: BUCKET_COLOR[r.bucket] })),
   };
 }
@@ -83,8 +86,8 @@ export function iconView(icon: IconOdds | null): OddsGroup["icon"] {
   if (!icon) return null;
   return {
     text: icon.text,
-    cards: icon.guaranteed ? [...icon.cards.map((c) => `${c.label} · OVR ${c.ovr}: ${tablePct(c.p)} por carta`), ...(icon.top ? [ICON_COPY.topAtLeastOne(icon.top.ovr, icon.top.atLeastOne)] : [])] : [],
-    method: icon.quality ? `${icon.quality.levels.map((l) => `Nivel ${formatGame(l.value)}: ${finePct(l.p)}`).join(" · ")}. ${icon.quality.method}` : null,
+    cards: icon.guaranteed ? [...icon.cards.map((c) => t("{label} · OVR {ovr}: {p} por carta", { label: td(c.label), ovr: c.ovr, p: tablePct(c.p) })), ...(icon.top ? [ICON_COPY.topAtLeastOne(icon.top.ovr, icon.top.atLeastOne)] : [])] : [],
+    method: icon.quality ? `${icon.quality.levels.map((l) => t("Nivel {value}: {p}", { value: formatGame(l.value), p: finePct(l.p) })).join(" · ")}. ${icon.quality.method}` : null,
   };
 }
 
@@ -103,7 +106,7 @@ export function catalogPrice(p: ResolvedProduct): { kind: "credits" | "money" | 
   if (game) return { kind: "credits", text: formatGame(game.price) };
   const money = p.options.find((o) => o.method === "REAL_MONEY" && o.price !== null);
   if (money) return { kind: "money", text: formatMoney(money.price) };
-  return { kind: "pending", text: "Precio por anunciar" };
+  return { kind: "pending", text: t("Precio por anunciar") };
 }
 
 /** Nombre comercial: el de la oferta, y en una carta el del jugador (el `name` de la oferta es el id de la carta). */
@@ -145,20 +148,20 @@ export function cardFacts(cardId: string): CardFacts | null {
 export const packOf = (p: ResolvedProduct): PackDef | undefined => p.previewPack ?? (p.packId ? getPack(p.packId) : undefined);
 
 export const formatMoney = (cents: number | null): string =>
-  cents === null ? "Por anunciar" : formatPrice({ cents, currency: "EUR" });
+  cents === null ? t("Por anunciar") : formatPrice({ cents, currency: "EUR" });
 
 export const formatGame = (credits: number | null): string =>
-  credits === null ? "Por anunciar" : credits === 0 ? "Gratis" : formatCredits(credits);
+  credits === null ? t("Por anunciar") : credits === 0 ? t("Gratis") : formatCredits(credits);
 
 export const METHOD_LABEL: Record<PaymentMethod, string> = { GAME_CURRENCY: "DRL Credits", REAL_MONEY: "Dinero real" };
 
 /** Texto corto del estado de un método, para el botón o la etiqueta. */
 export function optionNote(o: PurchaseOption): string {
   switch (o.status) {
-    case "AVAILABLE": return "Disponible";
-    case "PRICE_PENDING": return "Precio por anunciar";
-    case "CHECKOUT_PENDING": return "Próximamente";
-    case "FULFILMENT_PENDING": return "Próximamente";
+    case "AVAILABLE": return t("Disponible");
+    case "PRICE_PENDING": return t("Precio por anunciar");
+    case "CHECKOUT_PENDING": return t("Próximamente");
+    case "FULFILMENT_PENDING": return t("Próximamente");
   }
 }
 
@@ -167,11 +170,11 @@ export function contentsLines(p: ResolvedProduct): string[] {
   const out: string[] = [];
   for (const x of p.grant.packs) {
     const pack = getPack(x.packId);
-    out.push(`${x.count} × ${pack?.name ?? x.packId}${pack ? ` (${x.count * pack.cardCount === 1 ? "1 carta" : `${x.count * pack.cardCount} cartas`})` : ""}`);
+    out.push(`${x.count} × ${pack?.name ?? x.packId}${pack ? ` (${x.count * pack.cardCount === 1 ? t("1 carta") : t("{n} cartas", { n: x.count * pack.cardCount })})` : ""}`);
   }
   for (const id of p.grant.cardIds) {
     const f = cardFacts(id);
-    out.push(f ? `Carta garantizada: ${f.nick} · ${f.edition} (${rarityLabel(f.rarity)})` : id);
+    out.push(f ? t("Carta garantizada: {nick} · {edition} ({rarity})", { nick: f.nick, edition: td(f.edition), rarity: rarityLabel(f.rarity) }) : id);
   }
   if (p.grant.credits > 0) out.push(`${formatCredits(p.grant.credits)} DRL Credits`);
   return out;

@@ -20,12 +20,18 @@ import { getPlayer } from "@/data/catalog";
 import type { CardDef } from "@/domain/cards/types";
 import type { OnboardingView } from "@/domain/onboarding";
 import { OnboardingCta, OnboardingPill, OnboardingSecondary, type OnboardingHere } from "./OnboardingKit";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("onboarding");
 
 export function cardRoleOf(card: CardDef): string | null {
   return card.role ?? getPlayer(card.playerId)?.role ?? null;
 }
 
 export function FirstCardLesson({ card, view, here }: { card: CardDef; view: OnboardingView; here?: OnboardingHere }) {
+  useLocale();
   const player = getPlayer(card.playerId);
   const role = cardRoleOf(card);
   const printed = displayedStats(card);
@@ -38,40 +44,40 @@ export function FirstCardLesson({ card, view, here }: { card: CardDef; view: Onb
           <PlayerCard card={card} size="md" interactive={false} />
         </div>
         <div className="min-w-0">
-          <p className="nx-label !text-[11px] text-drl-glow">Tu primera carta</p>
+          <p className="nx-label !text-[11px] text-drl-glow">{t("Tu primera carta")}</p>
           <h2 id="f63-first-card" className="mt-1 font-display text-[clamp(24px,3.4vw,34px)] font-extrabold uppercase leading-none text-white">{player?.nick ?? card.id}</h2>
-          <p className="mt-2 text-[14px] leading-relaxed text-white/75">Cada carta es un jugador real. Esto es lo que tienes que saber:</p>
+          <p className="mt-2 text-[14px] leading-relaxed text-white/75">{t("Cada carta es un jugador real. Esto es lo que tienes que saber:")}</p>
           <dl className="mt-3 grid gap-2 sm:grid-cols-2">
             <div className="nx-f63-callout px-3 py-2" data-testid="lesson-ovr">
-              <dt className="nx-label !text-[10px] text-white/60">OVR</dt>
-              <dd className="flex items-baseline gap-2"><span className="nx-readout text-[26px] text-white">{card.ovr}</span><span className="text-[13px] text-white/70">Su valoración general, de 1 a 99.</span></dd>
+              <dt className="nx-label !text-[10px] text-white/60">{t("OVR")}</dt>
+              <dd className="flex items-baseline gap-2"><span className="nx-readout text-[26px] text-white">{card.ovr}</span><span className="text-[13px] text-white/70">{t("Su valoración general, de 1 a 99.")}</span></dd>
             </div>
             <div className="nx-f63-callout px-3 py-2" data-testid="lesson-role">
-              <dt className="nx-label !text-[10px] text-white/60">Rol de la carta</dt>
-              <dd className="flex items-baseline gap-2"><span className="font-display text-[20px] font-bold uppercase text-white">{role ?? "—"}</span><span className="text-[13px] text-white/70">Tu equipo lleva 2 de cada rol.</span></dd>
+              <dt className="nx-label !text-[10px] text-white/60">{t("Rol de la carta")}</dt>
+              <dd className="flex items-baseline gap-2"><span className="font-display text-[20px] font-bold uppercase text-white">{td(role) ?? "—"}</span><span className="text-[13px] text-white/70">{t("Tu equipo lleva 2 de cada rol.")}</span></dd>
             </div>
           </dl>
           {combat && (
             <div className="mt-3" data-testid="lesson-combat">
-              <p className="text-[13px] text-white/75"><b className="text-white">En la partida</b> compite con tres estadísticas de combate:</p>
+              <p className="text-[13px] text-white/75">{fill(t("{momento} compite con tres estadísticas de combate:", slots("momento")), { momento: <b className="text-white">{t("En la partida")}</b> })}</p>
               <ul className="mt-1.5 grid grid-cols-3 gap-2">
                 {COMBAT_STAT_ORDER.map((k) => (
                   <li key={k} className="nx-f63-stat px-2 py-1.5 text-center">
-                    <span className="block font-display text-[12px] font-bold tracking-[0.12em]" style={{ color: COMBAT_STAT_META[k].color }}>{COMBAT_STAT_META[k].label}</span>
+                    <span className="block font-display text-[12px] font-bold tracking-[0.12em]" style={{ color: COMBAT_STAT_META[k].color }}>{td(COMBAT_STAT_META[k].label)}</span>
                     <span className="nx-readout block text-[20px] text-white">{combat[k]}</span>
-                    <span className="block text-[11px] text-white/55">{COMBAT_STAT_META[k].full}</span>
+                    <span className="block text-[11px] text-white/55">{td(COMBAT_STAT_META[k].full)}</span>
                   </li>
                 ))}
               </ul>
             </div>
           )}
           <details className="mt-3 text-[13px] text-white/70" data-testid="lesson-printed">
-            <summary className="nx-focus min-h-[44px] cursor-pointer py-2 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white/80">Las seis cifras de la carta</summary>
-            <p>Son el rendimiento real del jugador:</p>
+            <summary className="nx-focus min-h-[44px] cursor-pointer py-2 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white/80">{t("Las seis cifras de la carta")}</summary>
+            <p>{t("Son el rendimiento real del jugador:")}</p>
             <ul className="mt-1.5 grid grid-cols-2 gap-1.5 sm:grid-cols-3">
               {printed.map((s) => (
                 <li key={s.key} className="nx-f63-stat flex items-baseline justify-between gap-2 px-2 py-1">
-                  <span><b className="font-display tracking-[0.1em] text-white">{s.label}</b> <span className="text-white/55">{s.full}</span></span>
+                  <span><b className="font-display tracking-[0.1em] text-white">{td(s.label)}</b> <span className="text-white/55">{td(s.full)}</span></span>
                   <span className="nx-readout text-white">{s.value}</span>
                 </li>
               ))}
@@ -92,10 +98,11 @@ export function FirstCardLesson({ card, view, here }: { card: CardDef; view: Onb
 
 /** Tras el PRIMER sobre el siguiente sitio es la colección (paso 3); abrir el siguiente sobre queda como segunda opción. */
 function NextToCollection({ view, here }: { view: OnboardingView; here?: OnboardingHere }) {
+  useLocale();
   const n = view.next!;
   return (
     <>
-      <OnboardingCta next={{ ...n, cta: "Ver mi colección", href: n.secondary!.href, command: null, secondary: null }} testId="onboarding-to-collection" />
+      <OnboardingCta next={{ ...n, cta: t("Ver mi colección"), href: n.secondary!.href, command: null, secondary: null }} testId="onboarding-to-collection" />
       <OnboardingCta next={{ ...n, secondary: null }} testId="onboarding-open-next" tone="secondary" here={here} />
     </>
   );
@@ -107,14 +114,15 @@ function NextToCollection({ view, here }: { view: OnboardingView; here?: Onboard
  * y no hacía nada).
  */
 export function OnboardingPackNext({ view, here }: { view: OnboardingView; here?: OnboardingHere }) {
+  useLocale();
   if (!view.next) return null;
   return (
-    <section aria-label="Tu inicio" data-testid="onboarding-pack-next" data-step={view.current ?? ""} className="nx-f63-coach nx-f63-rise mx-auto mb-6 max-w-4xl px-4 py-3.5">
+    <section aria-label={t("Tu inicio")} data-testid="onboarding-pack-next" data-step={view.current ?? ""} className="nx-f63-coach nx-f63-rise mx-auto mb-6 max-w-4xl px-4 py-3.5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="min-w-0">
           <OnboardingPill view={view} />
-          <p className="mt-1.5 font-display text-[18px] font-extrabold uppercase leading-tight text-white">{view.next.title}</p>
-          <p className="text-[13px] text-white/70">{view.next.detail}</p>
+          <p className="mt-1.5 font-display text-[18px] font-extrabold uppercase leading-tight text-white">{td(view.next.title)}</p>
+          <p className="text-[13px] text-white/70">{td(view.next.detail)}</p>
         </div>
         <div className="flex flex-col gap-2 sm:flex-row">
           <OnboardingCta next={view.next} here={here} />

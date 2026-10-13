@@ -24,6 +24,11 @@ import { toAsset, publicUrl } from "@/lib/assets/repos";
 import { sha256Hex, imageDimensions } from "@/lib/assets/storage";
 import type { AssetRow, AssetDuplicateRow } from "@/lib/supabase/assets.types";
 import { cn } from "@/lib/format";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("admin");
 
 const inputCls =
   "w-full rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none";
@@ -47,7 +52,7 @@ async function authHeader(): Promise<Record<string, string> | null> {
 
 async function callAdmin(action: string, payload: Record<string, unknown> = {}) {
   const h = await authHeader();
-  if (!h) return { error: "Inicia sesión como administrador" };
+  if (!h) return { error: tr("Inicia sesión como administrador") };
   const res = await fetch("/api/admin/assets", {
     method: "POST",
     headers: { "content-type": "application/json", ...h },
@@ -58,7 +63,7 @@ async function callAdmin(action: string, payload: Record<string, unknown> = {}) 
 
 async function callAdminForm(action: string, fields: Record<string, string | undefined>, file?: File | null) {
   const h = await authHeader();
-  if (!h) return { error: "Inicia sesión como administrador" };
+  if (!h) return { error: tr("Inicia sesión como administrador") };
   const fd = new FormData();
   fd.append("action", action);
   for (const [k, v] of Object.entries(fields)) if (v != null && v !== "") fd.append(k, v);
@@ -83,6 +88,7 @@ const SUBJECT_LABEL: Record<SubjectType, string> = {
 };
 
 function Assets() {
+  useLocale();
   const { toast, notify } = useToast();
   const online = isSupabaseConfigured();
 
@@ -132,8 +138,7 @@ function Assets() {
       <section className="animate-rise space-y-4">
         <Header />
         <div className="rounded-2xl border border-white/10 bg-base-700/40 p-6 text-white/60">
-          El Asset Manager requiere Supabase configurado y sesión de administrador. En modo local el
-          juego sigue resolviendo imágenes desde <code className="text-drl">/public</code> con fallbacks.
+          {fill(tr("El Asset Manager requiere Supabase configurado y sesión de administrador. En modo local el juego sigue resolviendo imágenes desde {ruta} con fallbacks.", slots("ruta")), { ruta: <code className="text-drl">/public</code> })}
         </div>
       </section>
     );
@@ -144,11 +149,11 @@ function Assets() {
       <Header />
 
       <div className="flex flex-wrap gap-1 rounded-xl border border-white/10 bg-base-800 p-1">
-        {([["library", "Biblioteca"], ["upload", "Subir"], ["duplicates", "Duplicados"]] as const).map(([k, l]) => (
+        {([["library", tr("Biblioteca")], ["upload", tr("Subir")], ["duplicates", tr("Duplicados")]] as const).map(([k, l]) => (
           <button key={k} onClick={() => setTab(k)}
             className={cn("rounded-lg px-4 py-2 font-display text-sm uppercase tracking-wide transition",
               tab === k ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white")}>
-            {l}
+            {td(l)}
           </button>
         ))}
       </div>
@@ -162,30 +167,30 @@ function Assets() {
         <>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <label className="block">
-              <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Tipo</span>
+              <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Tipo")}</span>
               <select className={inputCls} value={fKind} onChange={(e) => setFKind(e.target.value as AssetKind | "")}>
-                <option value="">Todos</option>
-                {ASSET_KINDS.map((k) => <option key={k.kind} value={k.kind}>{k.label}</option>)}
+                <option value="">{tr("Todos")}</option>
+                {ASSET_KINDS.map((k) => <option key={k.kind} value={k.kind}>{td(k.label)}</option>)}
               </select>
             </label>
             <label className="block">
-              <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Estado</span>
+              <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Estado")}</span>
               <select className={inputCls} value={fStatus} onChange={(e) => setFStatus(e.target.value as AssetStatus | "")}>
-                <option value="">Todos</option>
-                {ASSET_STATUSES.map((s) => <option key={s.status} value={s.status}>{s.label}</option>)}
+                <option value="">{tr("Todos")}</option>
+                {ASSET_STATUSES.map((s) => <option key={s.status} value={s.status}>{td(s.label)}</option>)}
               </select>
             </label>
             <label className="col-span-2 block">
               <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">
-                Buscar (jugador / equipo / torneo / nombre)
+                {tr("Buscar (jugador / equipo / torneo / nombre)")}
               </span>
               <input className={inputCls} value={fQuery} onChange={(e) => setFQuery(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && search()} placeholder="aspas, Fnatic, masters-toronto…" />
+                onKeyDown={(e) => e.key === "Enter" && search()} placeholder={tr("aspas, Fnatic, masters-toronto…")} />
             </label>
           </div>
 
           <p className="text-xs text-white/40">
-            {loading ? "Buscando…" : `${assets.length} assets`}
+            {loading ? tr("Buscando…") : tr("{length} assets", { length: assets.length })}
           </p>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -200,7 +205,7 @@ function Assets() {
 
       {tab === "duplicates" && (
         <Duplicates dups={dups} onDedupe={(checksum) =>
-          act("dedupe", { checksum }, "Duplicados eliminados (conservado el mejor)")} />
+          act("dedupe", { checksum }, tr("Duplicados eliminados (conservado el mejor)"))} />
       )}
 
       <AnimatePresence>
@@ -216,19 +221,19 @@ function Assets() {
 }
 
 function Header() {
+  useLocale();
   return (
     <header className="flex flex-wrap items-end justify-between gap-3">
       <div>
         <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-          Asset <span className="text-drl">Manager</span>
+          {tr("Asset")} <span className="text-drl">{tr("Manager")}</span>
         </h1>
         <p className="mt-1 text-white/50">
-          Fotos, logos, banderas, plantillas, fondos, animaciones y efectos — con versiones,
-          aprobación, deduplicado y resolución automática del mejor medio.
+          {tr("Fotos, logos, banderas, plantillas, fondos, animaciones y efectos — con versiones, aprobación, deduplicado y resolución automática del mejor medio.")}
         </p>
       </div>
       <a href="/admin" className="rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 font-display text-sm uppercase tracking-wide text-white/70 transition hover:bg-white/10">
-        ← Admin
+        {tr("← Admin")}
       </a>
     </header>
   );
@@ -243,6 +248,7 @@ function UploadForm({
   notify: (m: string, ok?: boolean) => void;
   onDone: () => void;
 }) {
+  useLocale();
   const [kind, setKind] = useState<AssetKind>("player_photo");
   const [subjectId, setSubjectId] = useState("");
   const [name, setName] = useState("");
@@ -256,7 +262,7 @@ function UploadForm({
   const subjectType = subjectTypeForKind(kind);
 
   async function submit() {
-    if (!file) { notify("Selecciona un fichero", false); return; }
+    if (!file) { notify(tr("Selecciona un fichero"), false); return; }
     setBusy(true);
     try {
       const checksum = await sha256Hex(file);
@@ -268,7 +274,7 @@ function UploadForm({
         height: dims?.height != null ? String(dims.height) : undefined,
       }, file);
       if (r.error) { notify(r.error, false); return; }
-      notify(r.duplicate ? "Subido (¡ojo! checksum duplicado)" : "Asset subido (pendiente de aprobar)", true);
+      notify(r.duplicate ? tr("Subido (¡ojo! checksum duplicado)") : tr("Asset subido (pendiente de aprobar)"), true);
       setFile(null); setName(""); setSubjectId("");
       onDone();
     } finally {
@@ -280,51 +286,51 @@ function UploadForm({
     <div className="rounded-2xl border border-white/10 bg-base-700/40 p-5">
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <label className="block">
-          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Tipo de asset</span>
+          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Tipo de asset")}</span>
           <select className={inputCls} value={kind} onChange={(e) => setKind(e.target.value as AssetKind)}>
-            {ASSET_KINDS.map((k) => <option key={k.kind} value={k.kind}>{k.label}</option>)}
+            {ASSET_KINDS.map((k) => <option key={k.kind} value={k.kind}>{td(k.label)}</option>)}
           </select>
         </label>
         <label className="block">
           <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">
-            {SUBJECT_LABEL[subjectType]}{subjectType !== "none" ? " (id)" : ""}
+            {td(SUBJECT_LABEL[subjectType])}{subjectType !== "none" ? (" " + tr("(id)")) : ""}
           </span>
           <input className={inputCls} value={subjectId} onChange={(e) => setSubjectId(e.target.value)}
             list="asset-subjects" disabled={subjectType === "none"}
-            placeholder={subjectType === "player" ? "id del jugador" : subjectType === "team" ? "nombre del equipo" : subjectType === "country" ? "ES, BR…" : "id"} />
+            placeholder={subjectType === "player" ? tr("id del jugador") : subjectType === "team" ? tr("nombre del equipo") : subjectType === "country" ? tr("ES, BR…") : tr("id")} />
           <datalist id="asset-subjects">
             {subjectType === "player" && players.map((p) => <option key={p.id} value={p.id}>{p.nick}</option>)}
             {subjectType === "team" && teamNames.map((t) => <option key={t} value={t} />)}
           </datalist>
         </label>
         <label className="block">
-          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Nombre</span>
-          <input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} placeholder="(auto del fichero)" />
+          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Nombre")}</span>
+          <input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} placeholder={tr("(auto del fichero)")} />
         </label>
         <label className="block">
-          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Fuente</span>
+          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Fuente")}</span>
           <select className={inputCls} value={source} onChange={(e) => setSource(e.target.value)}>
-            {ASSET_SOURCES.map((s) => <option key={s.source} value={s.source}>{s.label}</option>)}
+            {ASSET_SOURCES.map((s) => <option key={s.source} value={s.source}>{td(s.label)}</option>)}
           </select>
         </label>
         <label className="block">
-          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Calidad (0-100)</span>
+          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Calidad (0-100)")}</span>
           <input className={inputCls} type="number" min={0} max={100} value={quality} onChange={(e) => setQuality(e.target.value)} />
         </label>
         <label className="block">
-          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Prioridad</span>
+          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Prioridad")}</span>
           <input className={inputCls} type="number" value={priority} onChange={(e) => setPriority(e.target.value)} />
         </label>
         <label className="col-span-2 block sm:col-span-3">
-          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Licencia</span>
+          <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Licencia")}</span>
           <input className={inputCls} value={license} onChange={(e) => setLicense(e.target.value)}
-            placeholder="© Riot Games / CC-BY / propietaria…" />
+            placeholder={tr("© Riot Games / CC-BY / propietaria…")} />
         </label>
       </div>
 
       <label className="mt-4 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-white/20 bg-base-800/60 px-4 py-8 text-center transition hover:border-drl/50">
         <span className="text-sm text-white/60">
-          {file ? `${file.name} · ${(file.size / 1024).toFixed(0)} KB` : "Pulsa para elegir imagen/medio (PNG, WEBP, MP4, WEBM, JSON…)"}
+          {file ? tr("{name} · {v} KB", { name: file.name, v: (file.size / 1024).toFixed(0) }) : tr("Pulsa para elegir imagen/medio (PNG, WEBP, MP4, WEBM, JSON…)")}
         </span>
         <input type="file" className="hidden"
           accept="image/*,video/mp4,video/webm,application/json,.lottie"
@@ -334,10 +340,10 @@ function UploadForm({
       <div className="mt-4">
         <button onClick={submit} disabled={busy || !file}
           className="rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110 disabled:opacity-40">
-          {busy ? "Subiendo…" : "Subir asset"}
+          {busy ? tr("Subiendo…") : tr("Subir asset")}
         </button>
         <p className="mt-2 text-xs text-white/40">
-          Checksum (sha-256) y resolución se calculan en el navegador antes de subir.
+          {tr("Checksum (sha-256) y resolución se calculan en el navegador antes de subir.")}
         </p>
       </div>
     </div>
@@ -361,6 +367,7 @@ function AssetCard({
   onReplaced: () => Promise<void>;
   notify: (m: string, ok?: boolean) => void;
 }) {
+  useLocale();
   const url = previewUrl(asset);
   const isImg = !asset.format || /^(png|jpg|jpeg|webp|gif|avif|svg)$/i.test(asset.format);
 
@@ -373,7 +380,7 @@ function AssetCard({
       height: dims?.height != null ? String(dims.height) : undefined,
     }, file);
     if (r.error) { notify(r.error, false); return; }
-    notify(`Nueva versión v${r.version}`, true);
+    notify(tr("Nueva versión v{version}", { version: r.version }), true);
     await onReplaced();
   }
 
@@ -398,25 +405,25 @@ function AssetCard({
         <p className="text-[11px] text-white/40">
           {asset.width && asset.height ? `${asset.width}×${asset.height} · ` : ""}Q{asset.quality} · P{asset.priority} · {asset.source}
         </p>
-        {asset.license && <p className="truncate text-[10px] text-white/30" title={asset.license}>{asset.license}</p>}
+        {asset.license && <p className="truncate text-[10px] text-white/30" title={td(asset.license)}>{td(asset.license)}</p>}
 
         <div className="flex flex-wrap gap-1 pt-1">
           {asset.status !== "approved" &&
-            <Mini onClick={() => onAct("approve", { id: asset.id }, "Aprobado")}>Aprobar</Mini>}
+            <Mini onClick={() => onAct("approve", { id: asset.id }, tr("Aprobado"))}>{tr("Aprobar")}</Mini>}
           {asset.status !== "rejected" &&
-            <Mini onClick={() => onAct("reject", { id: asset.id }, "Rechazado")}>Rechazar</Mini>}
+            <Mini onClick={() => onAct("reject", { id: asset.id }, tr("Rechazado"))}>{tr("Rechazar")}</Mini>}
           <Mini onClick={() => {
-            const v = prompt("Prioridad", String(asset.priority));
-            if (v != null) onAct("set_priority", { id: asset.id, priority: Number(v) }, "Prioridad actualizada");
-          }}>Prioridad</Mini>
+            const v = prompt(tr("Prioridad"), String(asset.priority));
+            if (v != null) onAct("set_priority", { id: asset.id, priority: Number(v) }, tr("Prioridad actualizada"));
+          }}>{tr("Prioridad")}</Mini>
           <label className="cursor-pointer rounded-md border border-white/15 px-2 py-1 font-display text-[11px] uppercase tracking-wide text-white/70 transition hover:bg-white/10">
-            Reemplazar
+            {tr("Reemplazar")}
             <input type="file" className="hidden" accept="image/*,video/mp4,video/webm,application/json,.lottie"
               onChange={(e) => e.target.files?.[0] && replace(e.target.files[0])} />
           </label>
-          <Mini onClick={onVersions}>Versiones</Mini>
-          <Mini danger onClick={() => confirm(`¿Eliminar "${asset.name}"?`) &&
-            onAct("delete", { id: asset.id }, "Asset eliminado")}>Eliminar</Mini>
+          <Mini onClick={onVersions}>{tr("Versiones")}</Mini>
+          <Mini danger onClick={() => confirm(tr("¿Eliminar \"{name}\"?", { name: asset.name })) &&
+            onAct("delete", { id: asset.id }, tr("Asset eliminado"))}>{tr("Eliminar")}</Mini>
         </div>
       </div>
     </div>
@@ -435,20 +442,21 @@ function Mini({ children, onClick, danger }: { children: React.ReactNode; onClic
 
 // --- Duplicados --------------------------------------------------------------
 function Duplicates({ dups, onDedupe }: { dups: AssetDuplicateRow[]; onDedupe: (checksum: string) => void }) {
+  useLocale();
   if (!dups.length) {
-    return <div className="rounded-2xl border border-white/10 bg-base-700/40 p-6 text-white/50">No hay duplicados (por checksum).</div>;
+    return <div className="rounded-2xl border border-white/10 bg-base-700/40 p-6 text-white/50">{tr("No hay duplicados (por checksum).")}</div>;
   }
   return (
     <div className="space-y-2">
       {dups.map((d) => (
         <div key={d.checksum} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/10 bg-base-700/40 p-4">
           <div>
-            <p className="font-display text-sm text-white">{d.kind} · {d.copies} copias</p>
+            <p className="font-display text-sm text-white">{td(d.kind)} · {d.copies} {tr("copias")}</p>
             <p className="font-mono text-[11px] text-white/35">{d.checksum.slice(0, 24)}…</p>
           </div>
           <button onClick={() => onDedupe(d.checksum)}
             className="rounded-lg border border-drl/40 bg-drl/10 px-4 py-2 font-display text-xs uppercase tracking-wide text-drl transition hover:bg-drl/20">
-            Conservar el mejor · eliminar {d.copies - 1}
+            {tr("Conservar el mejor · eliminar")} {d.copies - 1}
           </button>
         </div>
       ))}
@@ -458,6 +466,7 @@ function Duplicates({ dups, onDedupe }: { dups: AssetDuplicateRow[]; onDedupe: (
 
 // --- Modal de versiones ------------------------------------------------------
 function VersionsModal({ groupId, name, onClose }: { groupId: string; name: string; onClose: () => void }) {
+  useLocale();
   const [versions, setVersions] = useState<Asset[]>([]);
   useEffect(() => {
     callAdmin("versions", { groupId }).then((r) => {
@@ -471,7 +480,7 @@ function VersionsModal({ groupId, name, onClose }: { groupId: string; name: stri
       <motion.div className="max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-white/10 bg-base-800 p-6"
         initial={{ scale: 0.94, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.94 }} onClick={(e) => e.stopPropagation()}>
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="font-display text-lg font-bold uppercase text-white">Versiones · {name}</h3>
+          <h3 className="font-display text-lg font-bold uppercase text-white">{tr("Versiones ·")} {name}</h3>
           <button onClick={onClose} className="text-white/50 hover:text-white">✕</button>
         </div>
         <div className="space-y-2">
@@ -481,12 +490,12 @@ function VersionsModal({ groupId, name, onClose }: { groupId: string; name: stri
               <div key={v.id} className="flex items-center gap-3 rounded-xl border border-white/10 bg-base-700/40 p-3">
                 <div className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-lg bg-base-900/60">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {url ? <img src={url} alt={v.name} className="h-full w-full object-contain" /> : <span className="text-[10px] text-white/40">{v.format}</span>}
+                  {url ? <img src={url} alt={v.name} className="h-full w-full object-contain" /> : <span className="text-[10px] text-white/40">{td(v.format)}</span>}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="font-display text-sm text-white">v{v.version}{v.isCurrent ? " · vigente" : ""}</p>
+                  <p className="font-display text-sm text-white">v{v.version}{v.isCurrent ? (" " + tr("· vigente")) : ""}</p>
                   <p className="text-[11px] text-white/40">
-                    {v.status} · {v.width && v.height ? `${v.width}×${v.height} · ` : ""}{new Date(v.createdAt).toLocaleString()}
+                    {v.status} · {v.width && v.height ? `${v.width}×${v.height} · ` : ""}{new Date(v.createdAt).toLocaleString(getIntlLocale())}
                   </p>
                 </div>
               </div>

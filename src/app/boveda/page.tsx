@@ -21,6 +21,10 @@
  */
 import Link from "next/link";
 import { playSound } from "@/lib/sound";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("boveda");
 
 const ACCESOS = [
   {
@@ -47,6 +51,7 @@ const ACCESOS = [
 ];
 
 export default function BovedaPage() {
+  useLocale();
   return (
     <main className="relative isolate min-h-[100dvh] px-[clamp(16px,3vw,56px)] py-[clamp(24px,5vh,64px)]">
       <header className="mb-[clamp(20px,4vh,48px)]">
@@ -55,17 +60,17 @@ export default function BovedaPage() {
           onClick={() => playSound("ui.back")}
           className="nx-label text-white/45 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70"
         >
-          ‹ Menú principal
+          {t("‹ Menú principal")}
         </Link>
         <h1 className="mt-3 font-display text-[clamp(30px,6vh,64px)] font-extrabold uppercase leading-none tracking-[0.04em] text-white">
-          Inventario
+          {t("Inventario")}
         </h1>
         <p className="mt-2 font-display text-[clamp(10px,1.5vh,14px)] font-bold uppercase tracking-[0.3em] text-white/45">
-          Tus cartas, tu poder
+          {t("Tus cartas, tu poder")}
         </p>
       </header>
 
-      <nav aria-label="Secciones del inventario" className="flex max-w-[980px] flex-col gap-[clamp(10px,1.8vh,20px)]">
+      <nav aria-label={t("Secciones del inventario")} className="flex max-w-[980px] flex-col gap-[clamp(10px,1.8vh,20px)]">
         {ACCESOS.map((a) => (
           <Link
             key={a.href}
@@ -79,12 +84,12 @@ export default function BovedaPage() {
             <span className="relative flex items-center gap-4 pl-3">
               <span className="min-w-0 flex-1">
                 <b className="block font-display text-[clamp(20px,3.6vh,38px)] font-extrabold uppercase leading-none tracking-[0.04em] text-white">
-                  {a.titulo}
+                  {td(a.titulo)}
                 </b>
                 <span className="mt-1.5 block font-display text-[clamp(9px,1.2vh,12px)] font-bold uppercase tracking-[0.26em] text-white/55">
-                  {a.sub}
+                  {td(a.sub)}
                 </span>
-                <span className="mt-2 block max-w-[52ch] text-[12px] leading-snug text-white/40">{a.d}</span>
+                <span className="mt-2 block max-w-[52ch] text-[12px] leading-snug text-white/40">{td(a.d)}</span>
               </span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round"
                 className="nx-menu-arrow h-6 w-6 shrink-0 text-white/70">

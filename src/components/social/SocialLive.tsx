@@ -22,6 +22,10 @@ import { OUTGOING_POLL_MS } from "@/domain/social/social";
 import { fetchDuelDecks } from "@/lib/duel/client";
 import { RankInline } from "@/components/competitive/ranked/CompetitiveEmblem";
 import { RowButton, remainingText } from "./bits";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("social");
 
 const SEEN = "drl:social-seen:";
 function seen(key: string): boolean { try { return window.sessionStorage.getItem(SEEN + key) === "1"; } catch { return false; } }
@@ -48,6 +52,7 @@ export function SocialPresence() {
 }
 
 export function SocialLive({ pathname: forcedPath = null }: { pathname?: string | null } = {}) {
+  useLocale();
   const { user } = useAuth();
   const pulse = useSocialPulse(!!user);
   const router = useRouter();
@@ -77,13 +82,13 @@ export function SocialLive({ pathname: forcedPath = null }: { pathname?: string 
     if ((c.status === "MATCHED" || c.status === "ACCEPTED") && c.matchId && pulse?.activeMatchId === c.matchId) {
       markSeen(key);
       if (path.includes(c.matchId) || currentMatchParam() === c.matchId) return;
-      setNote({ key, text: `¡${c.challenged.username} ha aceptado! Entrando en la partida…`, tone: "ok" });
+      setNote({ key, text: tr("¡{username} ha aceptado! Entrando en la partida…", { username: c.challenged.username }), tone: "ok" });
       const t = window.setTimeout(() => router.push(`/duelos/pvp?match=${c.matchId}`), reduced ? 300 : 1400);
       return () => window.clearTimeout(t);
     }
     if (c.status === "DECLINED" || c.status === "EXPIRED") {
       markSeen(key);
-      setNote({ key, text: c.status === "DECLINED" ? `${c.challenged.username} ha rechazado tu reto` : `Tu reto a ${c.challenged.username} ha caducado`, tone: "muted" });
+      setNote({ key, text: c.status === "DECLINED" ? tr("{username} ha rechazado tu reto", { username: c.challenged.username }) : tr("Tu reto a {username} ha caducado", { username: c.challenged.username }), tone: "muted" });
       const t = window.setTimeout(() => setNote(null), 5000);
       return () => window.clearTimeout(t);
     }
@@ -115,7 +120,7 @@ export function SocialLive({ pathname: forcedPath = null }: { pathname?: string 
       if (r.matchId) router.push(`/duelos/pvp?match=${r.matchId}`);
     } catch (e) {
       close(c.id);
-      setNote({ key: c.id, text: e instanceof SocialError ? e.message : "No se pudo aceptar el reto", tone: "muted" });
+      setNote({ key: c.id, text: e instanceof SocialError ? e.message : tr("No se pudo aceptar el reto"), tone: "muted" });
       announceSocialChange();
     } finally { setBusy(false); }
   }, [busy, close, router]);
@@ -142,7 +147,7 @@ export function SocialLive({ pathname: forcedPath = null }: { pathname?: string 
             className={`nx-clip-sm pointer-events-auto max-w-md border px-4 py-3 text-[13px] shadow-xl ${note.tone === "ok" ? "border-ok/50 bg-[#0b1710]/95 text-white" : "border-white/15 bg-[#0b0e17]/95 text-white/80"}`}
             data-testid="challenge-note"
           >
-            {note.text}
+            {td(note.text)}
           </motion.p>
         )}
       </AnimatePresence>
@@ -154,10 +159,11 @@ export function SocialLive({ pathname: forcedPath = null }: { pathname?: string 
 export function IncomingChallengeCard({ challenge: incoming, now, busy, reduced, onAccept, onDecline, onClose }: {
   challenge: ChallengeView; now: number; busy: boolean; reduced: boolean; onAccept: () => void; onDecline: () => void; onClose: () => void;
 }) {
+  useLocale();
   return (
           <motion.section
             role="region"
-            aria-label={`${incoming.challenger.username} te reta a un duelo amistoso`}
+            aria-label={tr("{username} te reta a un duelo amistoso", { username: incoming.challenger.username })}
             aria-live="polite"
             initial={reduced ? false : { opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={reduced ? { opacity: 0 } : { opacity: 0, y: 16 }}
             transition={{ duration: reduced ? 0 : 0.28 }}
@@ -170,15 +176,15 @@ export function IncomingChallengeCard({ challenge: incoming, now, busy, reduced,
                 <p className="truncate font-display text-[15px] font-bold uppercase tracking-wide text-white">{incoming.challenger.username}</p>
                 {incoming.rivalRank && <RankInline rank={incoming.rivalRank.rank} state={incoming.rivalRank.state} className="max-w-full" />}
                 <p className="mt-0.5 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-drl-cyan">
-                  {incoming.previousMatchId ? "Te pide la revancha" : "Te reta a un duelo amistoso"}
+                  {incoming.previousMatchId ? tr("Te pide la revancha") : tr("Te reta a un duelo amistoso")}
                 </p>
-                <p className="text-[11px] text-white/50">Sin rating ni colocación · {remainingText(incoming.expiresAt, now)}</p>
+                <p className="text-[11px] text-white/50">{tr("Sin rating ni colocación ·")} {remainingText(incoming.expiresAt, now)}</p>
               </div>
-              <button type="button" onClick={onClose} className="nx-focus grid h-11 w-11 shrink-0 place-items-center text-white/50 hover:text-white" aria-label="Ocultar el aviso (el reto sigue en Social)">×</button>
+              <button type="button" onClick={onClose} className="nx-focus grid h-11 w-11 shrink-0 place-items-center text-white/50 hover:text-white" aria-label={tr("Ocultar el aviso (el reto sigue en Social)")}>×</button>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
-              <RowButton tone="primary" onClick={onAccept} disabled={busy} data-action="accept">{busy ? "Entrando…" : "Aceptar"}</RowButton>
-              <RowButton onClick={onDecline} disabled={busy} data-action="decline">Rechazar</RowButton>
+              <RowButton tone="primary" onClick={onAccept} disabled={busy} data-action="accept">{busy ? tr("Entrando…") : tr("Aceptar")}</RowButton>
+              <RowButton onClick={onDecline} disabled={busy} data-action="decline">{tr("Rechazar")}</RowButton>
             </div>
           </motion.section>
   );

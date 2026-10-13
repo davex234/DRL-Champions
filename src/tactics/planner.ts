@@ -16,6 +16,9 @@ import {
   leastDefendedLane, patternStrength, predictedAttackLane, worstAttackLane, tacticalReads,
 } from "./opponent";
 import { spatialAttackLane } from "./spatial";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("tactics");
 
 const TEMPO_TICK: Record<string, number> = { slow: 110, mid: 80, fast: 45 };
 
@@ -56,7 +59,7 @@ export function buildAttackState(s: RoundState, side: Side, seed: TeamSeed, rng:
     concept = conceptFromOrder(seed.order);
     lane = seed.order.lane ?? least;
     tempo = seed.order.tempo ?? tempo;
-    notes.push(`orden del coach: ${concept}${seed.order.lane ? " " + seed.order.lane : ""}`);
+    notes.push(t("orden del coach: {concept}{v}", { concept, v: seed.order.lane ? " " + seed.order.lane : "" }));
   } else if (seed.economy.buy === "eco") {
     concept = "eco_rush"; lane = least; tempo = "fast";
     notes.push(`eco: rush a ${lane}`);
@@ -71,7 +74,7 @@ export function buildAttackState(s: RoundState, side: Side, seed: TeamSeed, rng:
     if (worst.net >= 2) {
       // Llevamos perdiendo un carril → FINTA y golpea por el otro (rompe el patrón).
       concept = "fake"; lane = otherAttackLane(worst.lane);
-      notes.push(`anti-strat: re-pega por ${lane} con finta`);
+      notes.push(t("anti-strat: re-pega por {lane} con finta", { lane }));
     } else if (comp) {
       const rt = comp.ratings;
       const weights = {
@@ -85,13 +88,13 @@ export function buildAttackState(s: RoundState, side: Side, seed: TeamSeed, rng:
       lane = concept === "play_picks" ? "mid" : least;
       // El RITMO emerge de la comp: entrada alta → rápido; control alto → lento.
       tempo = rt.entry > rt.control + 8 ? "fast" : rt.control > rt.entry + 8 ? "slow" : "mid";
-      notes.push(`composición ${comp.archetype} → ${concept} (${tempo})`);
+      notes.push(t("composición {archetype} → {concept} ({tempo})", { archetype: td(comp.archetype), concept, tempo: td(tempo) }));
     } else if (aggr > 64 && r < 0.5) {
       concept = r < 0.25 ? "explode" : "split"; lane = least;
       notes.push(`${concept} agresivo a ${lane}`);
     } else {
       concept = "default"; lane = least;
-      notes.push(`default lento, control de mid → hit ${lane}`);
+      notes.push(t("default lento, control de mid → hit {lane}", { lane }));
     }
   }
 
@@ -102,7 +105,7 @@ export function buildAttackState(s: RoundState, side: Side, seed: TeamSeed, rng:
   if (seed.useSpatial && !seed.order?.lane) {
     const sl = spatialAttackLane(m);
     if (sl !== lane && m.defendLane[sl === "main" ? "main" : "mid"] <= m.defendLane[lane === "main" ? "main" : "mid"]) {
-      notes.push(`espacial: carril de menor exposición → ${sl}`);
+      notes.push(t("espacial: carril de menor exposición → {sl}", { sl }));
       lane = sl;
     }
   }
@@ -136,13 +139,13 @@ export function buildDefenseState(s: RoundState, side: Side, seed: TeamSeed, rng
     concept = conceptFromOrder(seed.order);
     lane = seed.order.lane ?? lane;
     style = seed.order.style ?? style;
-    notes.push(`orden del coach: ${concept}`);
+    notes.push(t("orden del coach: {concept}", { concept }));
   } else if (pat.strength >= 0.66) {
     concept = "stack"; lane = pat.lane;
-    notes.push(`anti-strat: stack ${lane} (patrón ${(pat.strength * 100) | 0}%)`);
+    notes.push(t("anti-strat: stack {lane} (patrón {v}%)", { lane, v: (pat.strength * 100) | 0 }));
   } else if (pred.confidence >= 0.5 && m.rounds >= 3) {
     concept = "stack"; lane = pred.lane;
-    notes.push(`stack ${lane} (lo más atacado)`);
+    notes.push(t("stack {lane} (lo más atacado)", { lane }));
   } else if (s.composition?.[side]) {
     // La COMPOSICIÓN decide la postura defensiva de forma emergente.
     const rt = s.composition[side].ratings;
@@ -155,13 +158,13 @@ export function buildDefenseState(s: RoundState, side: Side, seed: TeamSeed, rng
     };
     concept = weightedPick(w, rng.next());
     if (concept === "stack" || concept === "crossfire") lane = pred.lane;
-    notes.push(`composición ${s.composition[side].archetype} → ${concept}`);
+    notes.push(t("composición {archetype} → {concept}", { archetype: td(s.composition[side].archetype), concept }));
   } else if (aggr > 64 && rng.next() < 0.5) {
     concept = "aggro_info";
-    notes.push("aggro info temprana");
+    notes.push(t("aggro info temprana"));
   } else {
     concept = "spread";
-    notes.push("spread defensivo");
+    notes.push(t("spread defensivo"));
   }
 
   // Estilo de retake: la orden del coach manda; si no, economía + agresividad.

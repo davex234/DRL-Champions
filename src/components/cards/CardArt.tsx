@@ -23,6 +23,7 @@
  * usarla también (lo fija `cardArt.contract.test`).
  */
 import { cn } from "@/lib/format";
+import { td } from "@/i18n/runtime";
 
 /** Medidas reales de los WebP del catálogo. La caja respeta esta proporción: nada se estira ni se recorta. */
 export const CARD_ART_W = 750;
@@ -78,7 +79,7 @@ export function CardArt({
   return (
     <img
       src={src}
-      alt={alt}
+      alt={td(alt)}
       data-card-art
       width={CARD_ART_W}
       height={CARD_ART_H}

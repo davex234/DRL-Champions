@@ -46,6 +46,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/format";
 import { DURATION } from "@/design/tokens";
 import { EASE } from "@/design/motion";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("visual");
 
 export type Card3DMode =
   | "static"
@@ -104,6 +108,7 @@ export function Card3D({
   label,
   disabled = false,
 }: Card3DProps) {
+  useLocale();
   const reduced = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const [pose, setPose] = useState({ rx: 0, ry: 0, gx: 50, gy: 50, lifted: false });
@@ -195,7 +200,7 @@ export function Card3D({
           className="pointer-events-none absolute -left-px -top-px z-20 bg-drl px-2 py-[3px] font-display text-[9px] font-bold uppercase tracking-[0.14em] text-white shadow-glow"
           style={{ clipPath: "polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%)" }}
         >
-          Nueva
+          {t("Nueva")}
         </span>
       )}
 
@@ -250,7 +255,7 @@ export function Card3D({
     return (
       <Tag
         type={onClick ? "button" : undefined}
-        aria-label={label}
+        aria-label={td(label)}
         onClick={onClick}
         disabled={onClick ? disabled : undefined}
         className={cn(
@@ -317,7 +322,7 @@ export function Card3D({
       <Tag
         ref={ref as never}
         type={onClick ? "button" : undefined}
-        aria-label={label}
+        aria-label={td(label)}
         onClick={onClick}
         onPointerMove={onPointerMove}
         onPointerLeave={reset}

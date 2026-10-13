@@ -10,6 +10,9 @@ import type { RoundState, Side } from "../sim";
 import type { Lane, OpponentModel } from "./types";
 import { LANES } from "./types";
 import { laneOfPos } from "./map";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("tactics");
 
 /** Carril dominante de un conjunto de jugadores (voto por posición final). */
 function majorityLane(s: RoundState, side: Side): Lane {
@@ -103,10 +106,10 @@ export function tacticalReads(m: OpponentModel): string[] {
   const atk = predictedAttackLane(m);
   const pat = patternStrength(m);
   const least = leastDefendedLane(m);
-  if (pat.strength >= 0.66) reads.push(`repiten ${LANE_NAME[pat.lane]} (patrón ${(pat.strength * 100) | 0}%)`);
-  if (atk.confidence >= 0.5) reads.push(`atacan sobre todo por ${LANE_NAME[atk.lane]}`);
+  if (pat.strength >= 0.66) reads.push(t("repiten {v} (patrón {v2}%)", { v: td(LANE_NAME[pat.lane]), v2: (pat.strength * 100) | 0 }));
+  if (atk.confidence >= 0.5) reads.push(t("atacan sobre todo por {v}", { v: td(LANE_NAME[atk.lane]) }));
   const defTotal = LANES.reduce((a, l) => a + m.defendLane[l], 0);
-  if (defTotal > 0) reads.push(`no defienden ${LANE_NAME[least]}`);
-  if (m.dominantFragger) reads.push(`jugador clave: ${m.dominantFragger}`);
+  if (defTotal > 0) reads.push(t("no defienden {v}", { v: td(LANE_NAME[least]) }));
+  if (m.dominantFragger) reads.push(t("jugador clave: {dominantFragger}", { dominantFragger: td(m.dominantFragger) }));
   return reads;
 }

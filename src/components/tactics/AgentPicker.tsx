@@ -33,6 +33,11 @@ import { AGENT_CLASS_COLOR, AGENT_CLASS_LABEL } from "./AgentEmblem";
 import { AgentPortrait } from "@/components/agents/AgentArt";
 import { useRosterVersion } from "@/lib/tactics/useRosterVersion";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("tactics");
 
 /**
  * Marcas de la pizarra que puede llevar una habilidad. `spike` y `waypoint` no son habilidades de
@@ -49,6 +54,7 @@ export interface AgentPickerProps {
 }
 
 export function AgentPicker({ value, onChange, para }: AgentPickerProps) {
+  useLocale();
   const [rol, setRol] = useState<TacticalRole | "all">("all");
   const [q, setQ] = useState("");
   const rosterV = useRosterVersion();
@@ -58,29 +64,30 @@ export function AgentPicker({ value, onChange, para }: AgentPickerProps) {
 
   return (
     <div className="space-y-2">
-      <p className="nx-label">Agente{para ? ` · ${para}` : ""}</p>
+      <p className="nx-label">{t("Agente")}{para ? ` · ${para}` : ""}</p>
       {legado && (
         <div className="border-l-2 border-white/25 pl-2.5 text-caption text-ink-muted" data-testid="legacy-agent-note">
-          <b className="text-white/80">{legado.name}</b> es del modelo anterior de NEXUS. Se conserva
-          en esta jugada; elige un agente real para sustituirlo o{" "}
-          <button type="button" className="nx-focus underline" onClick={() => onChange(null)}>quítalo</button>.
+          {fill(t("{agente} es del modelo anterior de NEXUS. Se conserva en esta jugada; elige un agente real para sustituirlo o {quitar}.", slots("agente", "quitar")), {
+            agente: <b className="text-white/80">{legado.name}</b>,
+            quitar: <button type="button" className="nx-focus underline" onClick={() => onChange(null)}>{t("quítalo")}</button>,
+          })}
         </div>
       )}
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="Buscar agente"
-        aria-label="Buscar agente"
+        placeholder={t("Buscar agente")}
+        aria-label={t("Buscar agente")}
         data-testid="picker-search"
         /* Mismo estilo que el buscador del constructor de composiciones. */
         className="nx-focus w-full rounded-md border border-white/12 bg-black/30 px-2.5 py-1.5 text-[12px] text-white outline-none placeholder:text-white/30"
       />
       {/* Filtro por rol. Los cuatro roles reales, más «todas». */}
       <div className="flex flex-wrap gap-1">
-        <Pastilla activa={rol === "all"} onClick={() => setRol("all")}>Todas</Pastilla>
+        <Pastilla activa={rol === "all"} onClick={() => setRol("all")}>{t("Todas")}</Pastilla>
         {TACTICAL_ROLES.map((r) => (
           <Pastilla key={r} activa={rol === r} onClick={() => setRol(r)} color={AGENT_CLASS_COLOR[r]}>
-            {AGENT_CLASS_LABEL[r]}
+            {td(AGENT_CLASS_LABEL[r])}
           </Pastilla>
         ))}
       </div>
@@ -103,11 +110,11 @@ export function AgentPicker({ value, onChange, para }: AgentPickerProps) {
             <AgentPortrait agentId={a.id} size={30} decorative state={value === a.id ? "selected" : "normal"} />
             <span className="min-w-0">
               <b className="block truncate font-display text-[12px] font-bold uppercase tracking-wide">{a.name}</b>
-              <span className="block truncate text-[10px] text-ink-faint">{AGENT_CLASS_LABEL[a.role]}</span>
+              <span className="block truncate text-[10px] text-ink-faint">{td(AGENT_CLASS_LABEL[a.role])}</span>
             </span>
           </button>
         ))}
-        {lista.length === 0 && <p className="col-span-2 text-caption text-ink-faint">Ningún agente con ese nombre.</p>}
+        {lista.length === 0 && <p className="col-span-2 text-caption text-ink-faint">{t("Ningún agente con ese nombre.")}</p>}
       </div>
     </div>
   );
@@ -123,6 +130,7 @@ export interface AbilityPickerProps {
 }
 
 export function AbilityPicker({ agentId, value, onChange }: AbilityPickerProps) {
+  useLocale();
   const agent = getTacticalAgent(agentId);
   const [marca, setMarca] = useState<UtilityKind>("marker");
   /*
@@ -136,16 +144,16 @@ export function AbilityPicker({ agentId, value, onChange }: AbilityPickerProps) 
   if (!agent) {
     return (
       <div className="space-y-1.5">
-        <p className="nx-label">Habilidades</p>
+        <p className="nx-label">{t("Habilidades")}</p>
         <p className="text-caption text-ink-faint">
-          Elige un agente real para ver sus cuatro habilidades.
+          {t("Elige un agente real para ver sus cuatro habilidades.")}
         </p>
       </div>
     );
   }
   return (
     <div className="space-y-1.5">
-      <p className="nx-label">Habilidades de {agent.name}</p>
+      <p className="nx-label">{t("Habilidades de {agente}", { agente: td(agent.name) })}</p>
       <div className="grid gap-1.5">
         {agent.abilities.map((ab) => {
           const activa = sel === ab.id;
@@ -165,13 +173,13 @@ export function AbilityPicker({ agentId, value, onChange }: AbilityPickerProps) 
               <span
                 className="grid h-7 w-7 shrink-0 place-items-center font-display text-[12px] font-extrabold"
                 style={{ color: AGENT_CLASS_COLOR[agent.role], background: `${AGENT_CLASS_COLOR[agent.role]}1c` }}
-                aria-label={`Tecla ${ab.slot}`}
+                aria-label={t("Tecla {slot}", { slot: ab.slot })}
               >
                 {ab.slot}
               </span>
               <span className="min-w-0 flex-1">
                 <b className="block truncate font-display text-[12px] font-bold uppercase tracking-wide">{ab.name}</b>
-                <span className="block truncate text-[10px] text-ink-faint">{ab.ultimate ? "Definitiva" : "Habilidad"}</span>
+                <span className="block truncate text-[10px] text-ink-faint">{ab.ultimate ? t("Definitiva") : t("Habilidad")}</span>
               </span>
             </button>
           );
@@ -179,7 +187,7 @@ export function AbilityPicker({ agentId, value, onChange }: AbilityPickerProps) 
       </div>
       {elegida && (
         <div className="space-y-1" data-testid="ability-mark">
-          <p className="text-[10px] uppercase tracking-wide text-ink-faint">Marcar {elegida.name} en el mapa como</p>
+          <p className="text-[10px] uppercase tracking-wide text-ink-faint">{t("Marcar {habilidad} en el mapa como", { habilidad: elegida.name })}</p>
           <div className="flex flex-wrap gap-1">
             {ABILITY_MARKS.map((k) => (
               <Pastilla
@@ -192,7 +200,7 @@ export function AbilityPicker({ agentId, value, onChange }: AbilityPickerProps) 
                   <svg viewBox="-9 -9 18 18" className="h-3 w-3" aria-hidden style={{ color: UTILITY_COLOR[k] }}>
                     <UtilityGlyph kind={k} />
                   </svg>
-                  {UTILITY_LABEL[k]}
+                  {td(UTILITY_LABEL[k])}
                 </span>
               </Pastilla>
             ))}
@@ -200,7 +208,7 @@ export function AbilityPicker({ agentId, value, onChange }: AbilityPickerProps) 
         </div>
       )}
       <p className="text-[10px] leading-snug text-ink-faint">
-        Nombres y teclas del juego real. La marca del mapa la eliges tú: la habilidad no la decide.
+        {t("Nombres y teclas del juego real. La marca del mapa la eliges tú: la habilidad no la decide.")}
       </p>
     </div>
   );

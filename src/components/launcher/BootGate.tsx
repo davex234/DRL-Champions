@@ -24,12 +24,17 @@ import { BootSplash } from "./BootSplash";
 import { OfflineScreen } from "./OfflineScreen";
 import { UpdateRequiredScreen } from "./UpdateRequiredScreen";
 import { LauncherHome } from "./LauncherHome";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 type Screen = "splash" | "welcome" | "uptodate" | "offline" | "update" | "home";
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 const MIN_SPLASH_MS = 1300;
 
 export function BootGate() {
+  useLocale();
   const up = useUpdater();
   const [screen, setScreen] = useState<Screen>("splash");
   const [bootMsg, setBootMsg] = useState("Inicializando…");
@@ -39,11 +44,11 @@ export function BootGate() {
     const t0 = Date.now();
     setScreen("splash");
 
-    setBootMsg("Inicializando plataforma…");
+    setBootMsg(t("Inicializando plataforma…"));
     try {
       await initPlatform();
     } catch (e) {
-      logWarn("boot", `initPlatform falló: ${(e as Error).message}`);
+      logWarn("boot", t("initPlatform falló: {message}", { message: td((e as Error).message) }));
     }
 
     const prefs = await loadUpdatePrefs();
@@ -55,14 +60,14 @@ export function BootGate() {
     const lastSeen = await loadLastSeenVersion();
     await saveLastSeenVersion(current);
     if (lastSeen && lastSeen !== current) {
-      recordUpdate(`Actualización aplicada: ${lastSeen} → ${current}`);
+      recordUpdate(t("Actualización aplicada: {lastSeen} → {current}", { lastSeen: td(lastSeen), current: td(current) }));
       const dt = Date.now() - t0;
       if (dt < MIN_SPLASH_MS) await sleep(MIN_SPLASH_MS - dt);
       setScreen("welcome");
       await sleep(2200);
     }
 
-    setBootMsg("Comprobando conexión…");
+    setBootMsg(t("Comprobando conexión…"));
     const online = isOnline();
     const elapsed = Date.now() - t0;
     if (elapsed < MIN_SPLASH_MS) await sleep(MIN_SPLASH_MS - elapsed);
@@ -76,12 +81,12 @@ export function BootGate() {
       return;
     }
 
-    setBootMsg("Buscando actualizaciones…");
+    setBootMsg(t("Buscando actualizaciones…"));
     let phase: string;
     try {
       phase = (await ctrl.check()).phase;
     } catch (e) {
-      recordUpdate(`Comprobación fallida (servidor inaccesible): ${(e as Error).message}`);
+      recordUpdate(t("Comprobación fallida (servidor inaccesible): {message}", { message: td((e as Error).message) }));
       setScreen("offline");
       return;
     }
@@ -109,18 +114,18 @@ export function BootGate() {
 
   switch (screen) {
     case "splash":
-      return <BootSplash variant="loading" title={bootMsg} />;
+      return <BootSplash variant="loading" title={td(bootMsg)} />;
     case "welcome":
       return (
         <BootSplash
           variant="success"
-          title="DRL Champions actualizado correctamente"
-          subtitle={`Bienvenido a la versión ${buildInfo().version}`}
+          title={t("DRL Champions actualizado correctamente")}
+          subtitle={t("Bienvenido a la versión {version}", { version: td(buildInfo().version) })}
           version={buildInfo().full}
         />
       );
     case "uptodate":
-      return <BootSplash variant="success" title="DRL Champions está actualizado" version={buildInfo().full} />;
+      return <BootSplash variant="success" title={t("DRL Champions está actualizado")} version={buildInfo().full} />;
     case "offline":
       return (
         <OfflineScreen

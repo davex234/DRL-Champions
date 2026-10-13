@@ -26,6 +26,10 @@ import { EASE } from "@/design/motion";
 import { buildTimeline, turnHeader } from "@/lib/duel/experience";
 import { ARENA_ACCENT, ARENA_MODE_LABEL, arenaFor, type ArenaMode } from "@/lib/duel/arenas";
 import type { DuelMatchView } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export function MatchTopBar({
   view, mode = "quick", rivalName, difficultyLabel, controls, timer, className,
@@ -42,6 +46,7 @@ export function MatchTopBar({
   timer?: React.ReactNode;
   className?: string;
 }) {
+  useLocale();
   const arena = arenaFor(mode);
   const header = useMemo(() => turnHeader(view), [view]);
   const turno = Math.min(view.turn, view.totalTurns);
@@ -69,18 +74,18 @@ export function MatchTopBar({
             />
             {arena.branding && (
               <span className="hidden flex-col leading-none lg:flex">
-                <b className="font-display text-[20px] font-extrabold tracking-[0.06em] text-white">{arena.branding.wordmark}</b>
-                <span className="mt-0.5 font-display text-[9px] font-bold uppercase tracking-[0.34em] text-white/45">{arena.branding.sub}</span>
+                <b className="font-display text-[20px] font-extrabold tracking-[0.06em] text-white">{td(arena.branding.wordmark)}</b>
+                <span className="mt-0.5 font-display text-[9px] font-bold uppercase tracking-[0.34em] text-white/45">{td(arena.branding.sub)}</span>
               </span>
             )}
           </span>
           <span aria-hidden className="hidden h-8 w-px shrink-0 bg-white/12 lg:block" />
           <span className="min-w-0 leading-tight">
             <b className="block truncate font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white sm:text-[13px]">
-              {ARENA_MODE_LABEL[mode]}
+              {td(ARENA_MODE_LABEL[mode])}
             </b>
             <span className="block truncate text-[11px] text-white/55">
-              vs {rivalName} · {difficultyLabel}
+              {t("vs")} {rivalName} · {td(difficultyLabel)}
             </span>
           </span>
         </div>
@@ -89,7 +94,7 @@ export function MatchTopBar({
         {enJuego && (
           <div className="hidden w-[clamp(220px,26vw,380px)] shrink-0 flex-col items-center gap-1 sm:flex" data-testid="topbar-turn">
             <span className="flex items-baseline gap-1.5 font-display font-bold uppercase tracking-[0.14em] text-white">
-              <span className="text-[12px] text-white/60">Turno</span>
+              <span className="text-[12px] text-white/60">{t("Turno")}</span>
               <span className="relative inline-grid overflow-hidden text-[20px] leading-none tabular-nums">
                 <AnimatePresence mode="popLayout" initial={false}>
                   <motion.span
@@ -108,12 +113,12 @@ export function MatchTopBar({
             <TurnSegments view={view} className="w-full" />
             <span className="flex items-center gap-2 font-display text-[10px] font-bold uppercase tracking-[0.22em]">
               <span style={{ color: view.youAreAttacker ? ARENA_ACCENT.player : ARENA_ACCENT.opponent }}>
-                {view.youAreAttacker ? "▲ Fase de ataque" : "▼ Fase de defensa"}
+                {view.youAreAttacker ? t("▲ Fase de ataque") : t("▼ Fase de defensa")}
               </span>
               {/* Último turno y punto de partida: los decide `turnHeader` sobre la vista, no esta barra. */}
-              {header.finalLabel && <span style={{ color: ARENA_ACCENT.draw }} data-testid="topbar-final">· {header.finalLabel}</span>}
+              {header.finalLabel && <span style={{ color: ARENA_ACCENT.draw }} data-testid="topbar-final">· {td(header.finalLabel)}</span>}
               {!header.finalLabel && header.matchPointLabel && (
-                <span className="truncate text-drl-cyan" data-testid="topbar-match-point">◆ {header.matchPointLabel}</span>
+                <span className="truncate text-drl-cyan" data-testid="topbar-match-point">◆ {td(header.matchPointLabel)}</span>
               )}
             </span>
           </div>
@@ -124,10 +129,10 @@ export function MatchTopBar({
           {enJuego && timer}
           <span
             className="flex shrink-0 items-center gap-1.5 rounded-[3px] border border-white/10 bg-black/45 px-2.5 py-1 sm:px-3"
-            aria-label={`Marcador: tú ${view.scoreYou}, ${rivalName} ${view.scoreRival}`}
+            aria-label={t("Marcador: tú {scoreYou}, {rivalName} {scoreRival}", { scoreYou: view.scoreYou, rivalName, scoreRival: view.scoreRival })}
             role="status"
           >
-            <span className="nx-label hidden !text-[#2fe0ff]/80 md:inline">Tú</span>
+            <span className="nx-label hidden !text-[#2fe0ff]/80 md:inline">{t("Tú")}</span>
             <b className="nx-readout text-[20px] leading-none tabular-nums" style={{ color: ARENA_ACCENT.player, textShadow: `0 0 14px ${ARENA_ACCENT.player}88` }}>
               {view.scoreYou}
             </b>
@@ -135,7 +140,7 @@ export function MatchTopBar({
             <b className="nx-readout text-[20px] leading-none tabular-nums" style={{ color: ARENA_ACCENT.opponent, textShadow: `0 0 14px ${ARENA_ACCENT.opponent}88` }}>
               {view.scoreRival}
             </b>
-            <span className="nx-label hidden !text-drl/80 md:inline">Rival</span>
+            <span className="nx-label hidden !text-drl/80 md:inline">{t("Rival")}</span>
           </span>
           {controls}
         </div>
@@ -149,12 +154,13 @@ export function MatchTopBar({
  * color Y con texto accesible (el `title` y la etiqueta de la lista), nunca solo con color.
  */
 export function TurnSegments({ view, className }: { view: DuelMatchView; className?: string }) {
+  useLocale();
   const cells = useMemo(() => buildTimeline(view), [view]);
   return (
-    <ol className={cn("flex items-center gap-[3px]", className)} aria-label="Pista de turnos">
+    <ol className={cn("flex items-center gap-[3px]", className)} aria-label={t("Pista de turnos")}>
       {cells.map((c) => (
-        <li key={c.number} className="nx-a50-seg" data-cell={c.state} title={c.label}>
-          <span className="sr-only">{c.label}</span>
+        <li key={c.number} className="nx-a50-seg" data-cell={c.state} title={td(c.label)}>
+          <span className="sr-only">{td(c.label)}</span>
         </li>
       ))}
     </ol>

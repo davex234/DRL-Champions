@@ -17,6 +17,10 @@ import { DUEL_COMPOSITION, DUEL_ROLES } from "@/domain/cardgame";
 import type { Board, BoardSlot } from "@/domain/deckBuilder/builder";
 import { DuelCard } from "../DuelCard";
 import { ROLE_GLYPH } from "./bits";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export interface TeamBoardProps {
   board: Board;
@@ -33,8 +37,9 @@ export interface TeamBoardProps {
 }
 
 export function TeamBoard({ board, selectedSlot, fits, released, freshUid, onSlot, onRemove, onMove }: TeamBoardProps) {
+  useLocale();
   return (
-    <div className="grid gap-2.5 lg:grid-cols-5 lg:gap-3" role="list" aria-label="Tu equipo por roles" data-testid="team-board">
+    <div className="grid gap-2.5 lg:grid-cols-5 lg:gap-3" role="list" aria-label={t("Tu equipo por roles")} data-testid="team-board">
       {DUEL_ROLES.map((role) => {
         const slots = board.byRole[role];
         const filled = slots.filter((s) => s.uid).length;
@@ -44,7 +49,7 @@ export function TeamBoard({ board, selectedSlot, fits, released, freshUid, onSlo
           <section
             key={role}
             role="listitem"
-            aria-label={`${role}: ${filled} de ${need}`}
+            aria-label={t("{role}: {filled} de {need}", { role: td(role), filled, need })}
             data-role={role}
             className={cn(
               "nx-clip-sm flex items-center gap-3 border p-2.5 transition-colors lg:flex-col lg:items-stretch lg:p-3",
@@ -54,8 +59,8 @@ export function TeamBoard({ board, selectedSlot, fits, released, freshUid, onSlo
             {/* F69 · a 1024 las cinco columnas son estrechas: el rol partía la palabra («CONTRO/LADOR»); ahora baja el recuento, no la palabra. */}
             <header className="flex w-[86px] shrink-0 flex-col gap-1 lg:w-auto lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-x-2">
               <span className="font-display text-[10.5px] font-bold uppercase leading-tight tracking-[0.02em] text-white [overflow-wrap:anywhere] sm:text-[12px] sm:tracking-[0.12em] lg:text-[10.5px] lg:tracking-[0.02em] xl:text-[12px] xl:tracking-[0.08em]">
-                <span aria-hidden className="mr-1 text-drl-cyan">{ROLE_GLYPH[role]}</span>
-                {role}
+                <span aria-hidden className="mr-1 text-drl-cyan">{td(ROLE_GLYPH[role])}</span>
+                {td(role)}
               </span>
               <span className={cn("nx-readout text-[12px] tabular-nums", complete ? "text-ok" : "text-white/50")}>
                 {filled}/{need}
@@ -95,17 +100,18 @@ function SlotTile({
   onRemove: (slot: BoardSlot) => void;
   onMove: (slot: BoardSlot, dir: -1 | 1) => void;
 }) {
+  useLocale();
   const issueId = useId();
   const card = slot.card;
   const label = card
-    ? `${slot.label}: ${card.nick}, OVR ${card.ovr}${slot.state === "INVALID" ? `. Problema: ${slot.issue}` : ""}${fit === "replace" ? ". Pulsa para sustituirla por la carta elegida" : ". Pulsa para cambiar, comparar o quitar"}`
-    : `${slot.label}: vacío. ${fit === "add" ? "Pulsa para colocar aquí la carta elegida" : "Pulsa para elegir carta"}`;
+    ? t("{label}: {nick}, OVR {ovr}{problem}{action}", { label: td(slot.label), nick: card.nick, ovr: card.ovr, problem: slot.state === "INVALID" ? t(". Problema: {issue}", { issue: td(slot.issue) }) : "", action: fit === "replace" ? t(". Pulsa para sustituirla por la carta elegida") : t(". Pulsa para cambiar, comparar o quitar") })
+    : t("{label}: vacío. {v}", { label: td(slot.label), v: fit === "add" ? t("Pulsa para colocar aquí la carta elegida") : t("Pulsa para elegir carta") });
 
   return (
     <div className="min-w-0" data-slot={slot.key} data-state={slot.state} data-fit={fit ?? "none"}>
       <button
         type="button"
-        aria-label={label}
+        aria-label={td(label)}
         aria-pressed={selected}
         aria-describedby={slot.issue ? issueId : undefined}
         onClick={() => onSlot(slot)}
@@ -140,20 +146,20 @@ function SlotTile({
             )}
           >
             <span aria-hidden className={cn("font-display text-2xl leading-none", fit === "add" ? "text-drl-cyan" : "text-white/25")}>+</span>
-            <span className="nx-label !text-[9px] leading-tight">{fit === "add" ? "Colocar aquí" : slot.role}</span>
+            <span className="nx-label !text-[9px] leading-tight">{fit === "add" ? t("Colocar aquí") : td(slot.role)}</span>
           </span>
         )}
         {slot.state === "INVALID" && (
           <span aria-hidden className="absolute -right-1 -top-1 z-20 grid h-6 w-6 place-items-center rounded-full bg-bad font-display text-[13px] font-bold text-white">!</span>
         )}
         {card && released && (
-          <span className="absolute -left-1 -top-1 z-20 rounded bg-drl-gold px-1 text-[9px] font-bold uppercase text-black">Libre</span>
+          <span className="absolute -left-1 -top-1 z-20 rounded bg-drl-gold px-1 text-[9px] font-bold uppercase text-black">{t("Libre")}</span>
         )}
         {fit === "replace" && (
-          <span className="absolute inset-x-1 bottom-1 z-20 rounded bg-drl-gold/90 px-1 text-center text-[9px] font-bold uppercase text-black">Sustituir</span>
+          <span className="absolute inset-x-1 bottom-1 z-20 rounded bg-drl-gold/90 px-1 text-center text-[9px] font-bold uppercase text-black">{t("Sustituir")}</span>
         )}
       </button>
-      {slot.issue && <p id={issueId} className="mx-auto mt-1 line-clamp-3 max-w-[150px] text-[10.5px] leading-snug text-bad">{slot.issue}</p>}
+      {slot.issue && <p id={issueId} className="mx-auto mt-1 line-clamp-3 max-w-[150px] text-[10.5px] leading-snug text-bad">{td(slot.issue)}</p>}
     </div>
   );
 }

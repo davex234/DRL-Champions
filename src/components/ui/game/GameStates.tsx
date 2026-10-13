@@ -10,6 +10,10 @@
 import { useEffect } from "react";
 import { NxButton } from "@/components/ui/NxButton";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("ui");
 
 type Glyph = "alert" | "empty" | "offline" | "lock" | "pack" | "cards" | "team" | "trophy";
 
@@ -34,15 +38,16 @@ export function StateGlyph({ glyph, className }: { glyph: Glyph; className?: str
 export interface StateAction { href?: string; onClick?: () => void; label: string }
 
 function Actions({ primary, secondary }: { primary?: StateAction; secondary?: StateAction[] }) {
+  useLocale();
   if (!primary && !secondary?.length) return null;
   return (
     <div className="mt-6 flex flex-col items-stretch justify-center gap-2 sm:flex-row sm:items-center">
       {primary && (primary.href !== undefined
-        ? <NxButton variant="primary" size="lg" href={primary.href}>{primary.label}</NxButton>
-        : <NxButton variant="primary" size="lg" onClick={primary.onClick}>{primary.label}</NxButton>)}
+        ? <NxButton variant="primary" size="lg" href={primary.href}>{td(primary.label)}</NxButton>
+        : <NxButton variant="primary" size="lg" onClick={primary.onClick}>{td(primary.label)}</NxButton>)}
       {secondary?.map((a) => (a.href !== undefined
-        ? <NxButton key={a.label} variant="secondary" size="lg" href={a.href}>{a.label}</NxButton>
-        : <NxButton key={a.label} variant="secondary" size="lg" onClick={a.onClick}>{a.label}</NxButton>))}
+        ? <NxButton key={a.label} variant="secondary" size="lg" href={a.href}>{td(a.label)}</NxButton>
+        : <NxButton key={a.label} variant="secondary" size="lg" onClick={a.onClick}>{td(a.label)}</NxButton>))}
     </div>
   );
 }
@@ -63,6 +68,7 @@ export function GamePanelState({
   testId?: string;
   role?: "alert" | "status";
 }) {
+  useLocale();
   const rgb = TONE_RGB[tone];
   return (
     <section
@@ -74,9 +80,9 @@ export function GamePanelState({
       <span className="mx-auto grid h-16 w-16 place-items-center" style={{ color: `rgb(${rgb})` }}>
         <StateGlyph glyph={glyph} className="h-11 w-11" />
       </span>
-      {eyebrow && <p className="nx-label mt-3" style={{ color: `rgba(${rgb},0.9)` }}>{eyebrow}</p>}
-      <p className="mt-2 font-display text-[clamp(22px,3vw,30px)] font-bold uppercase leading-tight tracking-[0.04em] text-white">{title}</p>
-      {hint && <p className="mx-auto mt-2 max-w-md text-[15px] leading-relaxed text-white/60">{hint}</p>}
+      {eyebrow && <p className="nx-label mt-3" style={{ color: `rgba(${rgb},0.9)` }}>{td(eyebrow)}</p>}
+      <p className="mt-2 font-display text-[clamp(22px,3vw,30px)] font-bold uppercase leading-tight tracking-[0.04em] text-white">{td(title)}</p>
+      {hint && <p className="mx-auto mt-2 max-w-md text-[15px] leading-relaxed text-white/60">{td(hint)}</p>}
       <Actions primary={primary} secondary={secondary} />
     </section>
   );
@@ -95,6 +101,7 @@ export function GameError({
   className?: string;
   lobbyHref?: string;
 }) {
+  useLocale();
   useEffect(() => {
     if (detail !== undefined) console.error("[nexus]", detail instanceof Error ? detail.message : detail);
   }, [detail]);
@@ -104,11 +111,11 @@ export function GameError({
       testId="game-error"
       glyph="alert"
       tone="key"
-      eyebrow="Algo ha fallado"
-      title="No se ha podido cargar"
+      eyebrow={t("Algo ha fallado")}
+      title={t("No se ha podido cargar")}
       hint={playerMessage(message)}
-      primary={onRetry ? { label: "Reintentar", onClick: onRetry } : { label: "Volver al lobby", href: lobbyHref }}
-      secondary={onRetry ? [{ label: "Volver al lobby", href: lobbyHref }] : undefined}
+      primary={onRetry ? { label: t("Reintentar"), onClick: onRetry } : { label: t("Volver al lobby"), href: lobbyHref }}
+      secondary={onRetry ? [{ label: t("Volver al lobby"), href: lobbyHref }] : undefined}
       className={className}
     />
   );
@@ -121,7 +128,7 @@ export function GameError({
 export const TECHNICAL_PATTERN = /(failed to fetch|networkerror|internal server error|http \d{3}|error \d{3}|status \d{3}|typeerror|syntaxerror|referenceerror|unexpected token|\bjson\b|pgrst|supabase|postgres|\bsql\b|stack trace|\bundefined\b|\bnull\b|\bNaN\b|econnrefused|aborterror|something went wrong|load failed|network connection|operation was aborted|\bjwt\b|permission denied|violates|check constraint|duplicate key|row-level security)/i;
 
 export function playerMessage(message?: string | null): string {
-  if (!message || TECHNICAL_PATTERN.test(message)) return "La conexión con el servidor ha fallado. Tu progreso está a salvo: vuelve a intentarlo en unos segundos.";
+  if (!message || TECHNICAL_PATTERN.test(message)) return t("La conexión con el servidor ha fallado. Tu progreso está a salvo: vuelve a intentarlo en unos segundos.");
   return message;
 }
 
@@ -136,17 +143,19 @@ export function GameEmpty({
   className?: string;
   testId?: string;
 }) {
-  return <GamePanelState glyph={glyph} title={title} hint={hint} primary={primary} secondary={secondary} className={className} testId={testId} role="status" />;
+  useLocale();
+  return <GamePanelState glyph={glyph} title={td(title)} hint={td(hint)} primary={primary} secondary={secondary} className={className} testId={testId} role="status" />;
 }
 
 /** Aviso sin conexión, coherente en todo el juego. No ofrece acciones que necesitan red. */
 export function GameOffline({ className, compact = false }: { className?: string; compact?: boolean }) {
+  useLocale();
   return (
     <div role="status" data-testid="game-offline" className={cn("nx-clip-sm flex items-center gap-3 border border-warn/40 bg-warn/[0.08] px-4", compact ? "py-2" : "py-3", className)}>
       <StateGlyph glyph="offline" className="h-5 w-5 shrink-0 text-warn" />
       <p className="text-[14px] leading-snug text-white/85">
-        <b className="mr-2 font-display text-[14px] uppercase tracking-[0.12em] text-warn">Estás sin conexión</b>
-        Los datos mostrados pueden estar desactualizados.
+        <b className="mr-2 font-display text-[14px] uppercase tracking-[0.12em] text-warn">{t("Estás sin conexión")}</b>
+        {t("Los datos mostrados pueden estar desactualizados.")}
       </p>
     </div>
   );

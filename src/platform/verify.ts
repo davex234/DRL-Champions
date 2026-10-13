@@ -12,6 +12,9 @@
  */
 import { isTauri, tauri } from "./env";
 import { info as logInfo, warn as logWarn, error as logError } from "./log";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("platform");
 
 export interface FileEntry {
   path: string; // relativo a la raíz de recursos
@@ -117,7 +120,7 @@ export async function fetchFileManifest(baseUrl: string, channel: string): Promi
     if (!res.ok) return null;
     return (await res.json()) as FileManifest;
   } catch (e) {
-    logWarn("verify", `No se pudo obtener files.json: ${(e as Error).message}`);
+    logWarn("verify", tr("No se pudo obtener files.json: {message}", { message: td((e as Error).message) }));
     return null;
   }
 }
@@ -132,11 +135,11 @@ export async function verifyInstallation(baseUrl: string, channel: string): Prom
   }
   const manifest = await fetchFileManifest(baseUrl, channel);
   if (!manifest) {
-    logWarn("verify", "Sin manifiesto remoto; no se puede verificar integridad.");
+    logWarn("verify", tr("Sin manifiesto remoto; no se puede verificar integridad."));
     return { ok: true, checked: 0, missing: [], corrupt: [], okFiles: [], durationMs: 0 };
   }
   const report = await verifyManifest(manifest, tauriReader());
   if (report.ok) logInfo("verify", `Integridad OK (${report.checked} archivos, ${report.durationMs} ms)`);
-  else logError("verify", `Integridad FALLA: ${report.missing.length} faltan, ${report.corrupt.length} corruptos`);
+  else logError("verify", tr("Integridad FALLA: {length} faltan, {length2} corruptos", { length: report.missing.length, length2: report.corrupt.length }));
   return report;
 }

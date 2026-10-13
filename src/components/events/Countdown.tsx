@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { countdown } from "@/domain/events/time";
+import { td, ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("events");
 
 /** Cuenta atrás en vivo (días · horas · minutos · segundos) hasta `target`. */
 export function Countdown({ target, accent = "#ff2e63" }: { target: number; accent?: string }) {
+  useLocale();
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
@@ -13,10 +18,10 @@ export function Countdown({ target, accent = "#ff2e63" }: { target: number; acce
 
   const c = countdown(target - now);
   const units: [number, string][] = [
-    [c.days, "Días"],
-    [c.hours, "Horas"],
-    [c.minutes, "Min"],
-    [c.seconds, "Seg"],
+    [c.days, tr("Días")],
+    [c.hours, tr("Horas")],
+    [c.minutes, tr("Min")],
+    [c.seconds, tr("Seg")],
   ];
 
   return (
@@ -30,7 +35,7 @@ export function Countdown({ target, accent = "#ff2e63" }: { target: number; acce
           <div className="font-display text-xl font-bold tabular-nums text-white">
             {String(v).padStart(2, "0")}
           </div>
-          <div className="text-[9px] uppercase tracking-widest text-white/45">{label}</div>
+          <div className="text-[9px] uppercase tracking-widest text-white/45">{td(label)}</div>
         </div>
       ))}
     </div>

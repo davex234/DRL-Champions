@@ -10,6 +10,10 @@ import { useMemo, useState } from "react";
 import { compileChalkboard, type ChalkStep, type ChalkStepKind, type ChalkboardPlan } from "@/coach";
 import type { Lane } from "@/tactics";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coach");
 
 const INTENT_STEPS: { kind: ChalkStepKind; label: string; lane?: boolean }[] = [
   { kind: "default", label: "Default" }, { kind: "split", label: "Split", lane: true },
@@ -23,6 +27,7 @@ const UTIL_STEPS: { kind: ChalkStepKind; label: string }[] = [
 const LANES: { id: Lane; label: string }[] = [{ id: "main", label: "A" }, { id: "mid", label: "Mid" }, { id: "tree", label: "B" }];
 
 export function ChalkboardBuilder({ onApply }: { onApply: (plan: ChalkboardPlan) => void }) {
+  useLocale();
   const [steps, setSteps] = useState<ChalkStep[]>([]);
   const [lane, setLane] = useState<Lane>("main");
   const plan = useMemo(() => compileChalkboard(steps), [steps]);
@@ -33,12 +38,12 @@ export function ChalkboardBuilder({ onApply }: { onApply: (plan: ChalkboardPlan)
   return (
     <div className="rounded-2xl border border-white/10 bg-base-700/30 p-4">
       <div className="mb-2 flex items-center justify-between">
-        <p className="font-display text-[11px] uppercase tracking-widest text-white/45">Pizarra táctica</p>
+        <p className="font-display text-[11px] uppercase tracking-widest text-white/45">{t("Pizarra táctica")}</p>
         <div className="flex gap-1">
           {LANES.map((l) => (
             <button key={l.id} onClick={() => setLane(l.id)}
               className={cn("rounded px-2 py-0.5 font-display text-[10px] uppercase transition", lane === l.id ? "bg-drl text-white" : "border border-white/10 text-white/50")}>
-              {l.label}
+              {td(l.label)}
             </button>
           ))}
         </div>
@@ -47,7 +52,7 @@ export function ChalkboardBuilder({ onApply }: { onApply: (plan: ChalkboardPlan)
       {/* Secuencia construida */}
       <div className="mb-2 flex min-h-[2rem] flex-wrap items-center gap-1 rounded-lg border border-white/10 bg-base-900/40 p-2">
         {steps.length === 0 ? (
-          <span className="text-[11px] text-white/30">Encadena pasos para construir el plan…</span>
+          <span className="text-[11px] text-white/30">{t("Encadena pasos para construir el plan…")}</span>
         ) : steps.map((s, i) => (
           <span key={i} className="flex items-center gap-1">
             {i > 0 && <span className="text-white/25">→</span>}
@@ -67,7 +72,7 @@ export function ChalkboardBuilder({ onApply }: { onApply: (plan: ChalkboardPlan)
           {INTENT_STEPS.map((st) => (
             <button key={st.kind} onClick={() => add(st.kind, !!st.lane)}
               className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-display text-[10px] uppercase tracking-wide text-white/70 transition hover:bg-white/15">
-              {st.label}{st.lane ? ` ${lane}` : ""}
+              {td(st.label)}{st.lane ? ` ${lane}` : ""}
             </button>
           ))}
         </div>
@@ -75,7 +80,7 @@ export function ChalkboardBuilder({ onApply }: { onApply: (plan: ChalkboardPlan)
           {UTIL_STEPS.map((st) => (
             <button key={st.kind} onClick={() => add(st.kind, false)}
               className="rounded-md border border-cyan-400/20 bg-cyan-400/5 px-2 py-1 font-display text-[10px] uppercase tracking-wide text-cyan-200/80 transition hover:bg-cyan-400/15">
-              {st.label}
+              {td(st.label)}
             </button>
           ))}
         </div>
@@ -83,10 +88,10 @@ export function ChalkboardBuilder({ onApply }: { onApply: (plan: ChalkboardPlan)
 
       {/* Compilado */}
       <div className="mt-3 flex items-center justify-between gap-3 border-t border-white/10 pt-2">
-        <p className="text-[11px] text-white/55">{plan.valid ? plan.summary : "Plan incompleto"}</p>
+        <p className="text-[11px] text-white/55">{plan.valid ? td(plan.summary) : t("Plan incompleto")}</p>
         <button onClick={() => plan.valid && onApply(plan)} disabled={!plan.valid}
           className="shrink-0 rounded-lg border border-drl/40 bg-drl/15 px-3 py-1.5 font-display text-[11px] font-bold uppercase tracking-wide text-drl transition enabled:hover:bg-drl/25 disabled:opacity-30">
-          Usar pizarra ▸
+          {t("Usar pizarra ▸")}
         </button>
       </div>
     </div>

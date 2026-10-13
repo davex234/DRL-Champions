@@ -42,6 +42,10 @@ import { trackExperience } from "@/lib/duel/experienceTelemetry";
 import type { MatchMode } from "@/lib/duel/experience";
 import { buzz } from "@/lib/haptics";
 import { MatchStrategyPanel } from "./strategy/MatchStrategyPanel";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 /** Tono de cada desenlace. Exportado: el resultado mínimo de PARTIDA RÁPIDA (`QuickMatchResult`) usa la misma identidad. */
 export const TONE = {
@@ -81,6 +85,7 @@ export function ResultScreen({
   /** Fase 43 · equipo propio usado (para «Ajustar equipo»). En Draft no hay equipo propio: `null`. */
   deckId?: string | null;
 }) {
+  useLocale();
   const reduced = useReducedMotion();
   const r = view.result;
   const kind = r ? (r.isDraw ? "draw" : r.winner === "YOU" ? "win" : "loss") : null;
@@ -142,7 +147,7 @@ export function ResultScreen({
         {kind !== "loss" && !reduced && <span aria-hidden className="nx-result-sweep" style={{ ["--sweep-rgb" as string]: tone.rgb }} />}
 
         <p className="nx-label">
-          {view.yourDeckName} · {view.rivalLabel ? view.rivalLabel : `dificultad ${DIFFICULTY_INFO[view.difficulty].label}`}
+          {td(view.yourDeckName)} · {view.rivalLabel ? td(view.rivalLabel) : t("dificultad {label}", { label: td(DIFFICULTY_INFO[view.difficulty].label) })}
         </p>
 
         <motion.h1
@@ -155,7 +160,7 @@ export function ResultScreen({
           )}
           style={{ textShadow: `0 0 46px rgba(${tone.rgb},0.55)` }}
         >
-          {tone.title}
+          {td(tone.title)}
         </motion.h1>
 
         <div className="nx-readout mt-4 flex items-center justify-center gap-5 text-[clamp(46px,12vw,88px)]">
@@ -164,7 +169,7 @@ export function ResultScreen({
           <span className="text-drl" style={{ textShadow: "0 0 30px rgba(255,46,99,0.55)" }}>{r.scoreRival}</span>
         </div>
 
-        <p className="mx-auto mt-4 max-w-xl text-sm text-white/60">{r.reason}</p>
+        <p className="mx-auto mt-4 max-w-xl text-sm text-white/60">{td(r.reason)}</p>
       </motion.section>
 
       {/* Cómo se decidió, SOLO cuando no fue por marcador. Con las cifras del resolver. */}
@@ -187,9 +192,9 @@ export function ResultScreen({
            */
           className="nx-f61-rewards mt-4 flex flex-wrap items-stretch justify-center gap-3 px-1 py-2"
           style={{ ["--reward-rgb" as string]: tone.rgb }}
-          aria-label="Recompensa del duelo"
+          aria-label={t("Recompensa del duelo")}
         >
-          <span className="nx-label basis-full text-center !text-white/70">Recompensa</span>
+          <span className="nx-label basis-full text-center !text-white/70">{t("Recompensa")}</span>
 
           {/*
             FASE 45 · LAS RECOMPENSAS SE REVELAN UNA DETRÁS DE OTRA (90 ms), no aparecen todas de golpe. Son las MISMAS
@@ -198,28 +203,28 @@ export function ResultScreen({
           {r.award.points > 0 ? (
             <Premio delay={0} reduced={reduced}>
             <Link href="/ranking" className="group">
-              <span className="nx-label block">Puntos de rango</span>
+              <span className="nx-label block">{t("Puntos de rango")}</span>
               <span className="nx-readout mt-1 block text-[26px] text-drl-cyan">+{r.award.points}</span>
               <span className="mt-0.5 block text-[11px] text-white/40 transition-colors group-hover:text-white/60">
-                Ver clasificación →
+                {t("Ver clasificación →")}
               </span>
             </Link>
             </Premio>
           ) : (
             <Premio delay={0} reduced={reduced}>
-              <span className="nx-label block">Puntos de rango</span>
+              <span className="nx-label block">{t("Puntos de rango")}</span>
               <span className="nx-readout mt-1 block text-[26px] text-white/30">—</span>
-              <span className="mt-0.5 block text-[11px] text-white/40">El rango solo sube ganando</span>
+              <span className="mt-0.5 block text-[11px] text-white/40">{t("El rango solo sube ganando")}</span>
             </Premio>
           )}
 
           <Premio delay={0.09} reduced={reduced}>
-            <span className="nx-label block">Créditos</span>
+            <span className="nx-label block">{t("Créditos")}</span>
             <span className="nx-readout mt-1 block text-[26px] text-drl-gold">+{r.award.credits}</span>
           </Premio>
           <Premio delay={0.18} reduced={reduced}>
             {/* F62 · con su nombre: es XP de CUENTA (la de temporada se gana reclamando objetivos). */}
-            <span className="nx-label block">XP de cuenta</span>
+            <span className="nx-label block">{t("XP de cuenta")}</span>
             <span className="nx-readout mt-1 block text-[26px] text-white">+{r.award.xp}</span>
           </Premio>
 
@@ -227,7 +232,7 @@ export function ResultScreen({
             href="/logros"
             className="nx-clip-sm inline-flex min-h-[44px] items-center self-center border border-white/15 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/70 transition hover:border-white/40 hover:text-white"
           >
-            Ver progreso
+            {t("Ver progreso")}
           </Link>
         </motion.section>
       )}
@@ -263,29 +268,29 @@ export function ResultScreen({
             */}
             {playAgainLabel === "Revancha" ? (
               <span className="flex flex-col items-center leading-tight">
-                <span>Jugar otra</span>
-                <span className="text-[10px] font-bold tracking-[0.14em] opacity-80">Revancha · mismo equipo y rival</span>
+                <span>{t("Jugar otra")}</span>
+                <span className="text-[10px] font-bold tracking-[0.14em] opacity-80">{t("Revancha · mismo equipo y rival")}</span>
               </span>
-            ) : playAgainLabel}
+            ) : td(playAgainLabel)}
           </NxButton>
           {onChange && (
             <NxButton variant="secondary" size="lg" className="flex-1" onClick={onChange}>
-              Cambiar rival o equipo
+              {t("Cambiar rival o equipo")}
             </NxButton>
           )}
           <NxButton variant="secondary" size="lg" className="flex-1" onClick={onReplay}>
-            Ver la partida
+            {t("Ver la partida")}
           </NxButton>
           <NxButton variant="secondary" size="lg" className="flex-1" onClick={onDecks}>
-            Mis equipos
+            {t("Mis equipos")}
           </NxButton>
         </div>
         <div className="mt-2 flex flex-wrap justify-center gap-2">
           <NxButton variant="ghost" size="md" href="/">
-            Volver al lobby
+            {t("Volver al lobby")}
           </NxButton>
           <NxButton variant="ghost" size="md" href="/duelos">
-            Salir a Duelos
+            {t("Salir a Duelos")}
           </NxButton>
         </div>
       </motion.div>
@@ -309,37 +314,37 @@ export function ResultScreen({
       <MatchStrategyPanel history={view.history} result={r} deckId={mode === "DRAFT_GAUNTLET" ? null : deckId} className="mt-4" />
 
       {/* ── Cifras ── */}
-      <section className="mt-6 flex flex-wrap gap-x-9 gap-y-5 border-y border-white/[0.08] px-1 py-5" aria-label="Resumen">
-        <Stat label="Turnos ganados" value={`${tally.won} / ${tally.lost}`} hint="tuyos / del rival" />
-        <Stat label="Turnos empatados" value={String(r.tiedEncounters)} hint={r.tiedEncounters > 0 ? "nadie puntuó" : "ninguno"} />
-        <Stat label="Estadística total" value={`${r.statTotalYou} – ${r.statTotalRival}`} hint="declarada en 10 turnos" />
+      <section className="mt-6 flex flex-wrap gap-x-9 gap-y-5 border-y border-white/[0.08] px-1 py-5" aria-label={t("Resumen")}>
+        <Stat label={t("Turnos ganados")} value={`${tally.won} / ${tally.lost}`} hint={t("tuyos / del rival")} />
+        <Stat label={t("Turnos empatados")} value={String(r.tiedEncounters)} hint={r.tiedEncounters > 0 ? t("nadie puntuó") : t("ninguno")} />
+        <Stat label={t("Estadística total")} value={`${r.statTotalYou} – ${r.statTotalRival}`} hint={t("declarada en 10 turnos")} />
         {r.sumOvrYou != null ? (
-          <Stat label="Suma de OVR" value={`${r.sumOvrYou} – ${r.sumOvrRival}`} hint="desempate del diseño" />
+          <Stat label={t("Suma de OVR")} value={`${r.sumOvrYou} – ${r.sumOvrRival}`} hint={t("desempate del diseño")} />
         ) : (
-          <Stat label="Suma de OVR" value="—" hint="no hizo falta" />
+          <Stat label={t("Suma de OVR")} value="—" hint={t("no hizo falta")} />
         )}
       </section>
 
       {/* ── Historial en miniatura ── */}
-      <section className="mt-6" aria-label="Turno a turno">
-        <SectionTitle as="h2">Turno a turno</SectionTitle>
+      <section className="mt-6" aria-label={t("Turno a turno")}>
+        <SectionTitle as="h2">{t("Turno a turno")}</SectionTitle>
         <RoundStrip history={view.history} yours={[...view.yourUsed, ...view.yourHand]} theirs={view.rivalUsed} />
       </section>
 
       {/* ── Cartas usadas ── */}
-      <section className="mt-6" aria-label="Cartas utilizadas">
-        <SectionTitle as="h2">Tus cartas</SectionTitle>
+      <section className="mt-6" aria-label={t("Cartas utilizadas")}>
+        <SectionTitle as="h2">{t("Tus cartas")}</SectionTitle>
         <div className="flex flex-wrap gap-1.5">
           {view.yourUsed.map((c) => <DuelCard key={c.uid} card={c} size="xs" />)}
         </div>
-        <div className="mt-4"><SectionTitle as="h2">Cartas del rival</SectionTitle></div>
+        <div className="mt-4"><SectionTitle as="h2">{t("Cartas del rival")}</SectionTitle></div>
         <div className="flex flex-wrap gap-1.5">
           {view.rivalUsed.map((c) => <DuelCard key={c.uid} card={c} size="xs" />)}
         </div>
       </section>
 
-      <section className="mt-6" aria-label="Historial completo">
-        <SectionTitle as="h2">Los diez turnos</SectionTitle>
+      <section className="mt-6" aria-label={t("Historial completo")}>
+        <SectionTitle as="h2">{t("Los diez turnos")}</SectionTitle>
         <TurnHistory turns={view.history} />
       </section>
     </div>
@@ -347,11 +352,12 @@ export function ResultScreen({
 }
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
+  useLocale();
   return (
     <div className="min-w-[108px]">
-      <span className="nx-label block">{label}</span>
-      <b className="nx-readout mt-1 block text-[24px]">{value}</b>
-      {hint && <span className="mt-1 block text-[11px] text-white/35">{hint}</span>}
+      <span className="nx-label block">{td(label)}</span>
+      <b className="nx-readout mt-1 block text-[24px]">{td(value)}</b>
+      {hint && <span className="mt-1 block text-[11px] text-white/35">{td(hint)}</span>}
     </div>
   );
 }

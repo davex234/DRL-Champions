@@ -21,6 +21,10 @@ import { RankedLadder } from "./RankedLadder";
 import { CompetitiveRewards } from "@/components/competitive/CompetitiveRewards";
 import { RatingChart } from "@/components/competitive/RatingChart";
 import { RankLegend } from "./RankLegend";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("competitive");
 
 export interface RankedCenterProps {
   snap: CompetitiveSnapshot;
@@ -35,6 +39,7 @@ export interface RankedCenterProps {
 }
 
 export function RankedCenter({ snap, gate, legalDecks, onChooseDeck, resumeHref, loadingDecks, deckError, onRetryDecks, loadLadderPage }: RankedCenterProps) {
+  useLocale();
   const rows: StandingEntry[] = [...snap.leaderboardTop, ...snap.aroundMe].map((e) => ({ position: e.position, rating: e.rating, username: e.username, isSelf: e.isSelf }));
   const recent = snap.recentMatches.slice(0, 5);
   return (
@@ -47,17 +52,17 @@ export function RankedCenter({ snap, gate, legalDecks, onChooseDeck, resumeHref,
       <SeasonStrip season={snap.season} />
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <section aria-label="Últimas partidas" className="space-y-3">
+        <section aria-label={t("Últimas partidas")} className="space-y-3">
           <div className="flex flex-wrap items-end justify-between gap-2">
-            <h2 className="font-display text-[20px] font-bold uppercase tracking-wide text-white">Últimas partidas</h2>
+            <h2 className="font-display text-[20px] font-bold uppercase tracking-wide text-white">{t("Últimas partidas")}</h2>
             {snap.recentMatches.length > 0 && (
-              <Link href="/duelos/competitivo/historial" className="nx-action" onClick={() => trackCompetitive("history_view")} data-testid="ranked-history-link">Historial completo →</Link>
+              <Link href="/duelos/competitivo/historial" className="nx-action" onClick={() => trackCompetitive("history_view")} data-testid="ranked-history-link">{t("Historial completo →")}</Link>
             )}
           </div>
           <RecentMatchCards matches={recent} />
           {snap.ratingSeries.length > 1 && (
             <div className="pt-2">
-              <p className="nx-label mb-1.5">Evolución del rating</p>
+              <p className="nx-label mb-1.5">{t("Evolución del rating")}</p>
               <RatingChart points={snap.ratingSeries} />
             </div>
           )}
@@ -69,8 +74,8 @@ export function RankedCenter({ snap, gate, legalDecks, onChooseDeck, resumeHref,
 
       <RankLegend version={snap.competitive.season?.rankConfigVersion ?? null} current={snap.competitive.standing.rank?.step ?? null} />
 
-      <section aria-label="Recompensas competitivas" className="space-y-2">
-        <h2 className="font-display text-[20px] font-bold uppercase tracking-wide text-white">Recompensas competitivas</h2>
+      <section aria-label={t("Recompensas competitivas")} className="space-y-2">
+        <h2 className="font-display text-[20px] font-bold uppercase tracking-wide text-white">{t("Recompensas competitivas")}</h2>
         <CompetitiveRewards rewards={snap.rewards} />
       </section>
     </div>

@@ -1,6 +1,9 @@
 import type { EventDef, EventType, MissionDef } from "@/domain/events/types";
 import { EVENT_EDITIONS } from "@/domain/events/editions";
 import type { Tournament } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("engine");
 
 /** Mapea el tipo de torneo a un tipo de evento del juego. */
 function eventType(t: Tournament): EventType {
@@ -11,12 +14,12 @@ function eventType(t: Tournament): EventType {
 
 function missions(label: string, type: EventType): MissionDef[] {
   return [
-    { id: "open10", label: "Abre 10 sobres", metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500} },
-    { id: "eventpacks", label: `Abre 5 Sobres ${label}`, metric: "open_event_packs", goal: 5, passXp: 200, reward: {} },
+    { id: "open10", label: tr("Abre 10 sobres"), metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500} },
+    { id: "eventpacks", label: tr("Abre 5 Sobres {label}", { label: td(label) }), metric: "open_event_packs", goal: 5, passXp: 200, reward: {} },
     // Mismas reglas que `data/events` (catálogo diseñado): sin edición del torneo, no hay «carta del evento».
-    ...(EVENT_EDITIONS[type].length ? [{ id: "getcard", label: `Consigue una carta ${label}`, metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000} } satisfies MissionDef] : []),
-    { id: "getmvp", label: "Consigue una carta legendaria", metric: "get_legendary", goal: 1, passXp: 250, reward: {} },
-    { id: "getwinner", label: "Consigue una carta épica o superior", metric: "get_epic", goal: 1, passXp: 200, reward: {} },
+    ...(EVENT_EDITIONS[type].length ? [{ id: "getcard", label: tr("Consigue una carta {label}", { label: td(label) }), metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000} } satisfies MissionDef] : []),
+    { id: "getmvp", label: tr("Consigue una carta legendaria"), metric: "get_legendary", goal: 1, passXp: 250, reward: {} },
+    { id: "getwinner", label: tr("Consigue una carta épica o superior"), metric: "get_epic", goal: 1, passXp: 200, reward: {} },
   ];
 }
 
@@ -33,7 +36,7 @@ export function generateEvent(t: Tournament): EventDef {
   return {
     id: `auto-${t.id}`,
     name: t.name,
-    subtitle: "Evento generado automáticamente por DRL Data Engine.",
+    subtitle: tr("Evento generado automáticamente por DRL Data Engine."),
     type,
     accent,
     startOffsetDays: 0,

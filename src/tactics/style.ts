@@ -11,6 +11,9 @@
 import type { Identity } from "../sim/identity/traits";
 import { clampTrait, unit } from "../sim/identity/traits";
 import type { CompositionProfile } from "../agents/composition";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("tactics");
 
 export interface TeamStyle {
   tempo: number;        // 1 = explosivo/rápido, 0 = lento/metódico
@@ -91,7 +94,7 @@ export function teamStyle(
     retake: clamp01(0.7 * cRetake + 0.3 * cInfo),
     save: clamp01(0.6 * discId + 0.4 * cScaling),
     archetype: composition?.archetype ?? "balanced",
-    label: composition?.archetypeLabel ?? "Equilibrado",
+    label: composition?.archetypeLabel ?? t("Equilibrado"),
     summary: "",
   };
 
@@ -108,13 +111,13 @@ export function teamStyle(
 /** Frase de identidad emergente (sin nombre de equipo). */
 function summarize(s: TeamStyle): string {
   const bits: string[] = [];
-  bits.push(s.tempo > 0.62 ? "ejecuta rápido" : s.tempo < 0.4 ? "juega lento" : "tempo medio");
-  if (s.control > 0.6) bits.push("control de mapa / defaults largos");
-  if (s.lurk > 0.6) bits.push("vive de lurks");
-  if (s.fake > 0.6) bits.push("vende fakes");
-  if (s.aggression > 0.62) bits.push("busca primeros duelos");
-  if (s.patience > 0.62) bits.push("castiga pushes");
-  if (s.retake > 0.62) bits.push("fuerte en retake");
-  if (s.trade > 0.62) bits.push("entra en parejas");
+  bits.push(s.tempo > 0.62 ? t("ejecuta rápido") : s.tempo < 0.4 ? t("juega lento") : t("tempo medio"));
+  if (s.control > 0.6) bits.push(t("control de mapa / defaults largos"));
+  if (s.lurk > 0.6) bits.push(t("vive de lurks"));
+  if (s.fake > 0.6) bits.push(t("vende fakes"));
+  if (s.aggression > 0.62) bits.push(t("busca primeros duelos"));
+  if (s.patience > 0.62) bits.push(t("castiga pushes"));
+  if (s.retake > 0.62) bits.push(t("fuerte en retake"));
+  if (s.trade > 0.62) bits.push(t("entra en parejas"));
   return bits.slice(0, 4).join(" · ");
 }

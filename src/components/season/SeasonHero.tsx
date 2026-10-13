@@ -15,6 +15,10 @@ import type { SeasonHubSnapshot } from "@/server/services/season";
 import type { TodayAction } from "@/domain/progression/meta";
 import { SeasonCountdown } from "./SeasonCountdown";
 import { RewardVisual, rewardLabel } from "./SeasonRewards";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("season");
 
 const THEME: Record<SeasonPresentation, { rgb: string; accent: string; glyph: string }> = {
   UPCOMING: { rgb: "123,92,255", accent: "text-[#b7a4ff]", glyph: "◇" },
@@ -26,15 +30,16 @@ const THEME: Record<SeasonPresentation, { rgb: string; accent: string; glyph: st
 
 export function heroCta(snap: SeasonHubSnapshot): { label: string; href: string } {
   const s = snap.season;
-  if (!snap.personal) return { label: "Entra para seguir tu temporada", href: "/cuenta" };
-  if (s.status === "ENDED") return { label: "Ver tu resumen", href: "#resumen" };
-  if (s.status === "UPCOMING") return { label: "Ver calendario", href: "#calendario" };
+  if (!snap.personal) return { label: t("Entra para seguir tu temporada"), href: "/cuenta" };
+  if (s.status === "ENDED") return { label: t("Ver tu resumen"), href: "#resumen" };
+  if (s.status === "UPCOMING") return { label: t("Ver calendario"), href: "#calendario" };
   const first: TodayAction | undefined = snap.personal.actions[0];
   if (first) return { label: first.label, href: first.href };
-  return { label: "Juega ranked", href: "/duelos/pvp" };
+  return { label: t("Juega ranked"), href: "/duelos/pvp" };
 }
 
 export function SeasonHero({ snap, clock, onExpire, className }: { snap: SeasonHubSnapshot; clock: ServerClock | null; onExpire?: () => void; className?: string }) {
+  useLocale();
   const s = snap.season;
   const theme = THEME[s.presentation];
   const elapsed = elapsedFraction(s.startsAtMs, s.endsAtMs, snap.serverNow);
@@ -68,26 +73,26 @@ export function SeasonHero({ snap, clock, onExpire, className }: { snap: SeasonH
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
         <div className="min-w-0">
           <p className="flex flex-wrap items-center gap-2">
-            <span className="nx-label">NEXUS · Campaña</span>
+            <span className="nx-label">{t("NEXUS · Campaña")}</span>
             <span data-testid="season-status" className={cn("inline-flex items-center gap-1.5 rounded-[3px] border px-2 py-0.5 font-display text-[11px] font-bold uppercase tracking-[0.16em]", theme.accent)} style={{ borderColor: `rgba(${theme.rgb},0.5)`, background: `rgba(${theme.rgb},0.08)` }}>
-              <span aria-hidden>{theme.glyph}</span>{PRESENTATION_LABEL[s.presentation]}
+              <span aria-hidden>{theme.glyph}</span>{td(PRESENTATION_LABEL[s.presentation])}
             </span>
             {/* «Archivo» solo para una temporada TERMINADA que no es la actual (una próxima no es archivo). */}
-            {!snap.isCurrent && s.status === "ENDED" && <span className="nx-label !text-white/50">Archivo</span>}
+            {!snap.isCurrent && s.status === "ENDED" && <span className="nx-label !text-white/50">{t("Archivo")}</span>}
           </p>
           <h1 id="season-title" className="mt-3 font-display text-[clamp(34px,6.4vw,76px)] font-bold uppercase leading-[0.9] tracking-[0.01em] text-white">
-            NEXUS <span className="text-white/30">—</span> <span className={theme.accent} style={{ textShadow: `0 0 40px rgba(${theme.rgb},0.45)` }}>{kicker}</span>
+            {t("NEXUS")} <span className="text-white/30">—</span> <span className={theme.accent} style={{ textShadow: `0 0 40px rgba(${theme.rgb},0.45)` }}>{td(kicker)}</span>
           </h1>
-          {rest && <p className="mt-2 font-display text-[clamp(16px,2vw,22px)] font-bold uppercase tracking-[0.22em] text-white/60">{rest}</p>}
+          {rest && <p className="mt-2 font-display text-[clamp(16px,2vw,22px)] font-bold uppercase tracking-[0.22em] text-white/60">{td(rest)}</p>}
 
           {/* Tiempo transcurrido: solo tiempo. No es un «% de temporada completada». */}
           <div className="mt-6 max-w-xl">
             <div className="flex items-baseline justify-between gap-2 text-caption">
               <time dateTime={s.startsAt} className="text-ink-muted">{formatShortDate(s.startsAtMs)}</time>
-              <span className="nx-label">{s.status === "UPCOMING" ? `${totalDays} días de temporada` : s.status === "ENDED" ? `${totalDays} días · finalizada` : `Día ${day} de ${totalDays}`}</span>
+              <span className="nx-label">{s.status === "UPCOMING" ? t("{totalDays} días de temporada", { totalDays }) : s.status === "ENDED" ? t("{totalDays} días · finalizada", { totalDays }) : t("Día {day} de {totalDays}", { day, totalDays })}</span>
               <time dateTime={s.endsAt} className="text-ink-muted">{formatShortDate(s.endsAtMs)}</time>
             </div>
-            <div className="relative mt-1.5 h-2 overflow-hidden rounded-full bg-black/60" role="progressbar" aria-label="Tiempo transcurrido de la temporada" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(elapsed * 100)} aria-valuetext={s.status === "UPCOMING" ? "Aún no ha empezado" : s.status === "ENDED" ? "Finalizada" : `Día ${day} de ${totalDays}`}>
+            <div className="relative mt-1.5 h-2 overflow-hidden rounded-full bg-black/60" role="progressbar" aria-label={t("Tiempo transcurrido de la temporada")} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(elapsed * 100)} aria-valuetext={s.status === "UPCOMING" ? t("Aún no ha empezado") : s.status === "ENDED" ? t("Finalizada") : t("Día {day} de {totalDays}", { day, totalDays })}>
               <span className="absolute inset-y-0 left-0 rounded-full" style={{ width: `${elapsed * 100}%`, background: `linear-gradient(90deg, rgba(${theme.rgb},0.5), rgba(${theme.rgb},1))`, boxShadow: `0 0 12px rgba(${theme.rgb},0.8)` }} />
               {Array.from({ length: Math.max(0, Math.round(totalDays / 7) - 1) }, (_, i) => (
                 <span key={i} aria-hidden className="absolute inset-y-0 w-px bg-white/15" style={{ left: `${((i + 1) * 7 * 86_400_000 / s.durationMs) * 100}%` }} />
@@ -118,39 +123,39 @@ export function SeasonHero({ snap, clock, onExpire, className }: { snap: SeasonH
                 <b className="relative font-display text-[34px] font-extrabold leading-none text-white" style={{ textShadow: `0 0 18px rgba(${theme.rgb},0.8)` }}>{pass.level}</b>
               </span>
               <span>
-                <span className="nx-label">Nivel de temporada</span>
-                <p className="font-display text-[24px] font-extrabold uppercase leading-none text-white">Nivel {pass.level}<span className="text-[15px] text-white/40"> / {pass.maxLevel}</span></p>
+                <span className="nx-label">{t("Nivel de temporada")}</span>
+                <p className="font-display text-[24px] font-extrabold uppercase leading-none text-white">{t("Nivel")} {pass.level}<span className="text-[15px] text-white/40"> / {pass.maxLevel}</span></p>
               </span>
             </div>
             <div className="min-w-[200px] flex-1">
-              <div className="h-3 overflow-hidden rounded-full bg-black/60 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]" role="progressbar" aria-label={`XP de pase: ${pass.xpIntoLevel} de ${pass.xpForNext}`} aria-valuemin={0} aria-valuemax={pass.xpForNext} aria-valuenow={pass.xpIntoLevel}>
+              <div className="h-3 overflow-hidden rounded-full bg-black/60 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]" role="progressbar" aria-label={t("XP de pase: {xpIntoLevel} de {xpForNext}", { xpIntoLevel: pass.xpIntoLevel, xpForNext: pass.xpForNext })} aria-valuemin={0} aria-valuemax={pass.xpForNext} aria-valuenow={pass.xpIntoLevel}>
                 <span className="block h-full rounded-full transition-[width] duration-700 motion-reduce:transition-none" style={{ width: `${pass.progress * 100}%`, background: `linear-gradient(90deg, rgba(${theme.rgb},0.6), rgba(${theme.rgb},1))`, boxShadow: `0 0 12px rgba(${theme.rgb},0.8)` }} />
               </div>
               <p className="mt-1.5 flex flex-wrap justify-between gap-2 font-display text-[12px] font-bold uppercase tracking-[0.12em] text-white/75">
-                <span><b className="tabular-nums text-white">{new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(pass.xpIntoLevel)}</b> / {new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(pass.xpForNext)} XP de pase</span>
-                {pass.level < pass.maxLevel && <span className="text-white/50">Faltan {new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(Math.max(0, pass.xpForNext - pass.xpIntoLevel))}</span>}
+                <span><b className="tabular-nums text-white">{new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" }).format(pass.xpIntoLevel)}</b> / {new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" }).format(pass.xpForNext)} {t("XP de pase")}</span>
+                {pass.level < pass.maxLevel && <span className="text-white/50">{t("Faltan")} {new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" }).format(Math.max(0, pass.xpForNext - pass.xpIntoLevel))}</span>}
               </p>
             </div>
             {pass.nextReward && (
               <div className="flex items-center gap-3" data-testid="hero-next-reward">
                 <RewardVisual reward={pass.nextReward.reward} size={56} />
                 <span className="leading-tight">
-                  <span className="nx-label !text-[#ffd35c]">Siguiente · nivel {pass.nextReward.level}</span>
+                  <span className="nx-label !text-[#ffd35c]">{t("Siguiente · nivel")} {pass.nextReward.level}</span>
                   <b className="block max-w-[180px] font-display text-[13px] uppercase text-white">{rewardLabel(pass.nextReward.reward)}</b>
                 </span>
               </div>
             )}
             {snap.personal && (
-              <div title="La XP de cuenta sube tu nivel de perfil; la XP de pase solo la dan las misiones." className="border-l border-white/10 pl-4">
-                <span className="nx-label">Nivel de cuenta</span>
+              <div title={t("La XP de cuenta sube tu nivel de perfil; la XP de pase solo la dan las misiones.")} className="border-l border-white/10 pl-4">
+                <span className="nx-label">{t("Nivel de cuenta")}</span>
                 <p className="nx-readout text-[20px] leading-none text-white/70">{snap.personal.account.level}</p>
               </div>
             )}
           </div>
         ) : (
-          <p className="text-caption text-ink-muted">{snap.personal ? (s.status === "UPCOMING" ? "El pase de esta temporada se abre cuando empiece." : "Tu recorrido de esta temporada está en el resumen.") : "Entra con tu cuenta para ver tu pase, tus objetivos y tu ranked de esta temporada."}</p>
+          <p className="text-caption text-ink-muted">{snap.personal ? (s.status === "UPCOMING" ? t("El pase de esta temporada se abre cuando empiece.") : t("Tu recorrido de esta temporada está en el resumen.")) : t("Entra con tu cuenta para ver tu pase, tus objetivos y tu ranked de esta temporada.")}</p>
         )}
-        <NxButton variant="primary" size="lg" href={cta.href} className="shrink-0" data-testid="hero-cta">{cta.label}</NxButton>
+        <NxButton variant="primary" size="lg" href={cta.href} className="shrink-0" data-testid="hero-cta">{td(cta.label)}</NxButton>
       </div>
     </section>
   );

@@ -28,6 +28,10 @@
  */
 import Link from "next/link";
 import { useAdminSession } from "@/lib/supabase/useAdminSession";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("layout");
 
 /*
  * La comprobación vive en `useAdminSession`, no aquí.
@@ -38,6 +42,7 @@ import { useAdminSession } from "@/lib/supabase/useAdminSession";
  * cambia ni un paso: mismo endpoint, mismo `admin === true`, mismo fallo cerrado.
  */
 export function AdminGuard({ children }: { children: React.ReactNode }) {
+  useLocale();
   const gate = useAdminSession();
 
   if (gate === "granted") return <>{children}</>;
@@ -46,21 +51,21 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
     <div className="grid min-h-[60vh] place-items-center px-4 text-center">
       {gate === "checking" ? (
         <p className="font-display text-sm uppercase tracking-widest text-white/40">
-          Comprobando permisos…
+          {t("Comprobando permisos…")}
         </p>
       ) : (
         <div>
-          <p className="font-display text-2xl font-bold uppercase text-white">Acceso restringido</p>
+          <p className="font-display text-2xl font-bold uppercase text-white">{t("Acceso restringido")}</p>
           <p className="mt-2 max-w-sm text-white/50">
             {gate === "unconfigured"
-              ? "Esta zona necesita el backend configurado para comprobar permisos de administración."
-              : "Esta zona es solo para administradores. Inicia sesión con una cuenta autorizada."}
+              ? t("Esta zona necesita el backend configurado para comprobar permisos de administración.")
+              : t("Esta zona es solo para administradores. Inicia sesión con una cuenta autorizada.")}
           </p>
           <Link
             href="/cuenta"
             className="mt-5 inline-block rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 font-display text-sm uppercase text-white/70 transition hover:bg-white/10"
           >
-            Ir a mi cuenta
+            {t("Ir a mi cuenta")}
           </Link>
         </div>
       )}

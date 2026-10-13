@@ -16,6 +16,9 @@
  */
 import { isComplete, legacyAgentIds, type Composition } from "./composition";
 import { isMatchMapId, matchMaps } from "./matchMap";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("tactics");
 
 export type Difficulty = "easy" | "normal" | "hard";
 export const DEFAULT_DIFFICULTY: Difficulty = "normal";
@@ -77,8 +80,8 @@ export function quickPlayScreen(s: { loading: boolean; error: boolean; playable:
  * `getSession` falla cerrado y responde 401—. Se dice eso, que es lo que pasa.
  */
 export function compositionsErrorText(status: number | null): string {
-  if (status === 401 || status === 403) return "No hemos podido verificar tu sesión. Vuelve a intentarlo o entra de nuevo.";
-  return "No hemos podido cargar tus composiciones.";
+  if (status === 401 || status === 403) return t("No hemos podido verificar tu sesión. Vuelve a intentarlo o entra de nuevo.");
+  return t("No hemos podido cargar tus composiciones.");
 }
 
 /**
@@ -86,7 +89,7 @@ export function compositionsErrorText(status: number | null): string {
  * herramienta completa. El sufijo evita dos con el mismo nombre sin preguntar nada.
  */
 export function autoCompositionName(existing: readonly string[]): string {
-  const base = "Composición rápida";
+  const base = t("Composición rápida");
   const usados = new Set(existing.map((n) => n.trim().toLowerCase()));
   if (!usados.has(base.toLowerCase())) return base;
   for (let i = 2; i < 999; i++) {

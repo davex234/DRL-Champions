@@ -1,0 +1,9 @@
+{
+  "El tema por defecto no lleva fechas": "Das Standard-Theme hat keinen Zeitraum",
+  "Estado inválido": "Ungültiger Status",
+  "Fecha inválida": "Ungültiges Datum",
+  "La fecha de fin debe ser posterior a la de inicio": "Das Enddatum muss nach dem Startdatum liegen",
+  "Nombre inválido (2–60 caracteres)": "Ungültiger Name (2–60 Zeichen)",
+  "Prioridad inválida (0–1000)": "Ungültige Priorität (0–1000)",
+  "Slug inválido (a-z, 0-9 y guiones; «default» está reservado)": "Ungültiger Slug (a-z, 0-9 und Bindestriche; „default“ ist reserviert)"
+}

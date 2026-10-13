@@ -30,6 +30,10 @@ import { buzz } from "@/lib/haptics";
 import { CardBack } from "./CardBack";
 import { ParticleBurst } from "./Particles";
 import { MAX_BURST, rarityCeremony } from "./ceremony";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("packs");
 
 export type HeroStage = "buildup" | "hero" | "hero_hold";
 
@@ -72,6 +76,7 @@ export function HeroReveal({
   onAdvance: () => void;
   continueRef?: Ref<HTMLButtonElement>;
 }) {
+  useLocale();
   const variant = getVariant(item.card.variantId);
   const accent = variant.palette.primary;
   const spec = rarityCeremony(item.rarity);
@@ -126,11 +131,11 @@ export function HeroReveal({
       data-rarity={item.rarity}
       data-reduced={String(reduced)}
       role="group"
-      aria-roledescription="carta protagonista"
-      aria-label={revealed ? `${player?.nick ?? item.cardId}, OVR ${item.card.ovr}` : "Revelando la mejor carta del sobre"}
+      aria-roledescription={tr("carta protagonista")}
+      aria-label={revealed ? tr("{v}, OVR {ovr}", { v: player?.nick ?? item.cardId, ovr: item.card.ovr }) : tr("Revelando la mejor carta del sobre")}
     >
       <p className="sr-only" aria-live="polite" data-testid="hero-announcement">
-        {stage === "buildup" ? "Revelando la mejor carta del sobre." : `${player?.nick ?? item.cardId}. ${item.rarityLabel}. OVR ${item.card.ovr}.`}
+        {stage === "buildup" ? tr("Revelando la mejor carta del sobre.") : tr("{v}. {rarityLabel}. OVR {ovr}.", { v: player?.nick ?? item.cardId, rarityLabel: td(item.rarityLabel), ovr: item.card.ovr })}
       </p>
 
       {/* LA SALA: se apaga en la tensión y se tiñe del color REAL de la hero (luz, no movimiento: también reducido). */}
@@ -221,7 +226,7 @@ export function HeroReveal({
             )}
             <div className="absolute inset-0" data-face="front" aria-hidden={!revealed}
               style={reduced ? { opacity: revealed ? 1 : 0, transition: `opacity ${flipMs}ms ease ${Math.round(flipMs * 0.2)}ms` } : { backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-              <CardVisual uid={result.uid} alt={`Carta de ${item.cardId}`} chamfer="21px" className="w-[300px]">
+              <CardVisual uid={result.uid} alt={tr("Carta de {cardId}", { cardId: item.cardId })} chamfer="21px" className="w-[300px]">
                 <PlayerCard card={result.card} size="lg" serial={result.serial} interactive={false} />
               </CardVisual>
             </div>
@@ -232,22 +237,22 @@ export function HeroReveal({
       {/* LA FICHA + CONTINUAR · mismo hueco en todos los estados: la escena no salta. */}
       <div className="relative mt-4 flex min-h-[170px] w-full max-w-md shrink-0 flex-col items-center gap-2 text-center" onClick={(e) => e.stopPropagation()}>
         {stage === "buildup" && (
-          <p className="font-display text-label font-bold uppercase tracking-wide2 text-white/70" data-testid="hero-buildup-copy">La mejor carta del sobre…</p>
+          <p className="font-display text-label font-bold uppercase tracking-wide2 text-white/70" data-testid="hero-buildup-copy">{tr("La mejor carta del sobre…")}</p>
         )}
         {revealed && (
           <motion.div className="flex flex-col items-center gap-1.5" initial={{ opacity: 0, y: reduced ? 0 : 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reduced ? 0.15 : flipMs / 1000 * 0.6 }} data-testid="hero-info">
             <div className="flex flex-wrap items-center justify-center gap-2" data-testid="hero-badges">
-              <span className="nx-clip-sm px-4 py-1 font-display text-caption font-bold uppercase tracking-wide" style={{ background: accent, color: variant.palette.text }} data-badge="rarity">{item.rarityLabel}</span>
-              <span className="nx-clip-sm border border-white/15 px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white/80" data-badge="edition">{variant.label}</span>
-              {item.status === "new" && <span className="nx-clip-sm bg-drl px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white" data-badge="new">{item.newVariant ? "Nueva variante" : "Nueva en tu colección"}</span>}
-              {item.status === "duplicate" && <span className="nx-clip-sm bg-white/10 px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white/85" data-badge="duplicate">Duplicada · ×{item.copiesAfter}</span>}
-              {item.serialText && <span className="nx-clip-sm bg-white/10 px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white/85" data-badge="serial">{item.serialText}</span>}
+              <span className="nx-clip-sm px-4 py-1 font-display text-caption font-bold uppercase tracking-wide" style={{ background: accent, color: variant.palette.text }} data-badge="rarity">{td(item.rarityLabel)}</span>
+              <span className="nx-clip-sm border border-white/15 px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white/80" data-badge="edition">{td(variant.label)}</span>
+              {item.status === "new" && <span className="nx-clip-sm bg-drl px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white" data-badge="new">{item.newVariant ? tr("Nueva variante") : tr("Nueva en tu colección")}</span>}
+              {item.status === "duplicate" && <span className="nx-clip-sm bg-white/10 px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white/85" data-badge="duplicate">{tr("Duplicada · ×")}{item.copiesAfter}</span>}
+              {item.serialText && <span className="nx-clip-sm bg-white/10 px-3 py-1 font-display text-label font-bold uppercase tracking-wide2 text-white/85" data-badge="serial">{td(item.serialText)}</span>}
             </div>
             {player && (
               <p className="font-display text-caption uppercase tracking-wide2 text-ink-muted" data-testid="hero-line">
                 <b className="text-white">{player.nick}</b><span className="mx-1.5 text-ink-faint">·</span>
-                <span className="nx-readout text-white">{item.card.ovr}</span> OVR<span className="mx-1.5 text-ink-faint">·</span>
-                {item.card.role ?? player.role}{team && <><span className="mx-1.5 text-ink-faint">·</span>{team}</>}
+                <span className="nx-readout text-white">{item.card.ovr}</span> {tr("OVR")}<span className="mx-1.5 text-ink-faint">·</span>
+                {td(item.card.role) ?? td(player.role)}{team && <><span className="mx-1.5 text-ink-faint">·</span>{team}</>}
               </p>
             )}
           </motion.div>
@@ -255,7 +260,7 @@ export function HeroReveal({
         {stage === "hero_hold" && (
           <motion.div className="mt-2 flex w-full flex-col items-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }}>
             <NxButton ref={continueRef} variant="primary" size="lg" onClick={(e) => { e.stopPropagation(); onContinue(); }} data-testid="hero-continue" className="!min-h-[56px] w-full max-w-[320px]">
-              {total > 1 ? `Continuar · ${total - 1} más` : "Ver resumen"}
+              {total > 1 ? tr("Continuar · {v} más", { v: total - 1 }) : tr("Ver resumen")}
             </NxButton>
           </motion.div>
         )}

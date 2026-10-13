@@ -25,6 +25,9 @@
  * CERRADA (`EmptyPackClassError`). Con el catálogo actual ninguno está vacío (lo fija `packClass.test.ts`).
  */
 import type { CardDef } from "../cards/types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("packs");
 
 export type PackCardClass = "base" | "plata" | "oro" | "masters" | "champions" | "prime" | "icon";
 
@@ -209,15 +212,15 @@ export function planTableIssues(plan: MainPackPlan): string[] {
   const out: string[] = [];
   const sum = (t: ClassTable) => PACK_CLASS_ORDER.reduce((s, c) => s + t[c], 0);
   const ints = (t: ClassTable) => PACK_CLASS_ORDER.every((c) => Number.isInteger(t[c]) && t[c] >= 0);
-  if (!ints(plan.regular) || (plan.cards > 1 ? sum(plan.regular) !== 1000 : sum(plan.regular) !== 0)) out.push(`tabla normal inválida (suma ${sum(plan.regular)} ‰)`);
+  if (!ints(plan.regular) || (plan.cards > 1 ? sum(plan.regular) !== 1000 : sum(plan.regular) !== 0)) out.push(tr("tabla normal inválida (suma {regular} ‰)", { regular: sum(plan.regular) }));
   const bp = plan.iconChanceBp;
   if (bp === undefined) {
-    if (!ints(plan.featured) || sum(plan.featured) !== 1000) out.push(`tabla destacada inválida (suma ${sum(plan.featured)} ‰)`);
+    if (!ints(plan.featured) || sum(plan.featured) !== 1000) out.push(tr("tabla destacada inválida (suma {featured} ‰)", { featured: sum(plan.featured) }));
     return out;
   }
-  if (!Number.isInteger(bp) || bp < 0 || bp > 10000) out.push(`probabilidad de Icon por sobre inválida (${bp})`);
-  if (plan.regular.icon !== 0 || plan.featured.icon !== 0) out.push("Icon en una tabla de un plan con Icon por sobre (doble ruta)");
-  if (!ints(plan.featured) || (bp < 10000 && sum(plan.featured) <= 0)) out.push(`tabla destacada sin Icon inválida (suma ${sum(plan.featured)})`);
+  if (!Number.isInteger(bp) || bp < 0 || bp > 10000) out.push(tr("probabilidad de Icon por sobre inválida ({bp})", { bp }));
+  if (plan.regular.icon !== 0 || plan.featured.icon !== 0) out.push(tr("Icon en una tabla de un plan con Icon por sobre (doble ruta)"));
+  if (!ints(plan.featured) || (bp < 10000 && sum(plan.featured) <= 0)) out.push(tr("tabla destacada sin Icon inválida (suma {featured})", { featured: sum(plan.featured) }));
   return out;
 }
 
@@ -361,7 +364,15 @@ export function featuredGuarantee(plan: MainPackPlan): { classes: PackCardClass[
   const f = effectiveFeatured(plan);
   const active = PACK_CLASS_ORDER.filter((c) => f[c] > 0);
   if (active.length === 0 || active.some((c) => PACK_CLASS_ORDER.indexOf(c) < PACK_CLASS_ORDER.indexOf("champions"))) return null;
-  return { classes: active, label: `${active.map((c) => PACK_CLASS_LABEL[c]).join(" o ")} garantizada en la carta destacada` };
+  return { classes: active, label: tr("{v} garantizada en la carta destacada", { v: classesOr(active) }) };
+}
+
+/** «A», «A o B», «A, B o C» en el idioma activo (las etiquetas de clase son dato; en español queda como siempre). */
+function classesOr(classes: readonly PackCardClass[]): string {
+  const [a, b, c] = classes.map((k) => td(PACK_CLASS_LABEL[k]));
+  if (classes.length === 2) return tr("{a} o {b}", { a, b });
+  if (classes.length === 3) return tr("{a}, {b} o {c}", { a, b, c });
+  return classes.length === 1 ? a : classes.map((k) => td(PACK_CLASS_LABEL[k])).join(", ");
 }
 
 /** Plan por ranuras del sobre (Pack Opening 3.0), o `null` si el sobre sigue con sus reglas de siempre (pesos por rareza). */
@@ -396,7 +407,7 @@ export function activeClasses(dist: ClassDistribution): PackCardClass[] {
 export function classGuarantee(dist: ClassDistribution): { classes: PackCardClass[]; label: string } | null {
   const active = activeClasses(dist);
   if (active.length === 0 || active.length > 2) return null;
-  return { classes: active, label: `${active.map((c) => PACK_CLASS_LABEL[c]).join(" o ")} garantizada` };
+  return { classes: active, label: tr("{v} garantizada", { v: classesOr(active) }) };
 }
 
 /** Color de cada clase (presentación). Base/Plata/Oro de metal; el resto, de su edición. */
@@ -407,7 +418,7 @@ export const PACK_CLASS_COLOR: Readonly<Record<PackCardClass, string>> = {
 /** Un cubo contractual (probabilidad > 0) sin cartas: la apertura se aborta, nunca cae a otro cubo ni al catálogo. */
 export class EmptyPackClassError extends Error {
   constructor(readonly packId: string, readonly packClass: PackCardClass) {
-    super(`Sobre ${packId}: la clase ${packClass} tiene probabilidad > 0 y ninguna carta elegible`);
+    super(tr("Sobre {packId}: la clase {packClass} tiene probabilidad > 0 y ninguna carta elegible", { packId: td(packId), packClass }));
     this.name = "EmptyPackClassError";
   }
 }

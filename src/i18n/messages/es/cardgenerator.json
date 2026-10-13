@@ -1,0 +1,12 @@
+{
+  "Primera carta del jugador": "Primera carta del jugador",
+  "alias \"{alias}\" no existe en el roster": "alias \"{alias}\" no existe en el roster",
+  "jugador nuevo (draft)": "jugador nuevo (draft)",
+  "líder del torneo en {kind} ({best})": "líder del torneo en {kind} ({best})",
+  "muestra estadística baja": "muestra estadística baja",
+  "muestra estadística media": "muestra estadística media",
+  "país sin resolver": "país sin resolver",
+  "sin foto": "sin foto",
+  "ya emitida en la temporada {season}": "ya emitida en la temporada {season}",
+  "{length} jugadores con nick \"{nick}\" — requiere alias": "{length} jugadores con nick \"{nick}\" — requiere alias"
+}

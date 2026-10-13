@@ -24,6 +24,9 @@ import { packClassPools } from "./packPools";
 import { marketValue } from "../economy/pricing";
 import { salvageValue } from "../economy/salvage";
 import { getPack } from "@/data/packs";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("packs");
 
 export type EconomyIssueCode = "VALUE_PER_CREDIT_OUTLIER" | "P95_TOO_HIGH" | "SALVAGE_ARBITRAGE" | "POOL_TOO_SMALL" | "TEAM_POOL_TOO_SMALL" | "PLAN_REQUIRED" | "EMPTY_CLASS";
 export interface EconomyIssue { code: EconomyIssueCode; message: string }
@@ -80,13 +83,13 @@ export function packEconomyReport(pack: PackDef): PackEconomyReport {
   const issues: EconomyIssue[] = [];
   if (gatedPack(pack)) {
     const lim = economyLimits(pack);
-    if (!m.hasPlan) issues.push({ code: "PLAN_REQUIRED", message: "Sin plan por ranuras: sortearía con los pesos por rareza heredados" });
-    if (m.emptyClass) issues.push({ code: "EMPTY_CLASS", message: `La clase ${m.emptyClass} tiene probabilidad y ninguna carta en el pool` });
-    if (m.perCredit !== null && m.perCredit > lim.maxPerCredit + 1e-9) issues.push({ code: "VALUE_PER_CREDIT_OUTLIER", message: `Rinde ${m.perCredit.toFixed(3)} de valor por crédito; el Sobre Plata, ${lim.maxPerCredit.toFixed(3)}` });
-    if (m.hasPlan && !m.emptyClass && m.p95 > lim.maxP95 + 1e-9) issues.push({ code: "P95_TOO_HIGH", message: `Carta ≥ 95 en el ${(m.p95 * 100).toFixed(2)} % de los sobres; el Sobre Plata, ${(lim.maxP95 * 100).toFixed(2)} %` });
-    if (m.salvageOverPrice !== null && m.salvageOverPrice > SALVAGE_MAX_OVER_PRICE) issues.push({ code: "SALVAGE_ARBITRAGE", message: `Desguazar lo que trae recupera el ${(m.salvageOverPrice * 100).toFixed(1)} % del precio (máx. ${SALVAGE_MAX_OVER_PRICE * 100} %)` });
-    if (m.poolSize < MIN_POOL) issues.push({ code: "POOL_TOO_SMALL", message: `Solo ${m.poolSize} cartas posibles (mín. ${MIN_POOL})` });
-    if (pack.team && m.teamCards < MIN_TEAM_CARDS) issues.push({ code: "TEAM_POOL_TOO_SMALL", message: `Solo ${m.teamCards} cartas de ${pack.team} (mín. ${MIN_TEAM_CARDS})` });
+    if (!m.hasPlan) issues.push({ code: "PLAN_REQUIRED", message: tr("Sin plan por ranuras: sortearía con los pesos por rareza heredados") });
+    if (m.emptyClass) issues.push({ code: "EMPTY_CLASS", message: tr("La clase {emptyClass} tiene probabilidad y ninguna carta en el pool", { emptyClass: m.emptyClass }) });
+    if (m.perCredit !== null && m.perCredit > lim.maxPerCredit + 1e-9) issues.push({ code: "VALUE_PER_CREDIT_OUTLIER", message: tr("Rinde {perCredit} de valor por crédito; el Sobre Plata, {maxPerCredit}", { perCredit: m.perCredit.toFixed(3), maxPerCredit: lim.maxPerCredit.toFixed(3) }) });
+    if (m.hasPlan && !m.emptyClass && m.p95 > lim.maxP95 + 1e-9) issues.push({ code: "P95_TOO_HIGH", message: tr("Carta ≥ 95 en el {v} % de los sobres; el Sobre Plata, {v2} %", { v: (m.p95 * 100).toFixed(2), v2: (lim.maxP95 * 100).toFixed(2) }) });
+    if (m.salvageOverPrice !== null && m.salvageOverPrice > SALVAGE_MAX_OVER_PRICE) issues.push({ code: "SALVAGE_ARBITRAGE", message: tr("Desguazar lo que trae recupera el {v} % del precio (máx. {v2} %)", { v: (m.salvageOverPrice * 100).toFixed(1), v2: SALVAGE_MAX_OVER_PRICE * 100 }) });
+    if (m.poolSize < MIN_POOL) issues.push({ code: "POOL_TOO_SMALL", message: tr("Solo {poolSize} cartas posibles (mín. {MIN_POOL})", { poolSize: m.poolSize, MIN_POOL }) });
+    if (pack.team && m.teamCards < MIN_TEAM_CARDS) issues.push({ code: "TEAM_POOL_TOO_SMALL", message: tr("Solo {teamCards} cartas de {team} (mín. {MIN_TEAM_CARDS})", { teamCards: m.teamCards, team: td(pack.team), MIN_TEAM_CARDS }) });
   }
   const { emptyClass: _e, ...rest } = m;
   void _e;
@@ -99,5 +102,5 @@ export function packEconomyReport(pack: PackDef): PackEconomyReport {
 export function economySellable(pack: PackDef): { ok: true } | { ok: false; reason: string; issues: EconomyIssue[] } {
   if (!gatedPack(pack)) return { ok: true };
   const r = packEconomyReport(pack);
-  return r.issues.length === 0 ? { ok: true } : { ok: false, reason: "Este sobre no está a la venta: no supera la compuerta económica", issues: r.issues };
+  return r.issues.length === 0 ? { ok: true } : { ok: false, reason: tr("Este sobre no está a la venta: no supera la compuerta económica"), issues: r.issues };
 }

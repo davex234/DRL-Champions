@@ -6,14 +6,17 @@
  *   · EQUIPO ACTIVO: el servidor aceptó `set_active` para ese equipo.
  */
 import type { Moment } from "./moments";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("gameExperience");
 
 export interface DeckFactForMoment { id: string; name: string; valid: boolean; version?: string | null; updatedAt?: string | number | null }
 
 export function deckReadyMoment(wasValid: boolean | null, saved: DeckFactForMoment): Moment | null {
   if (!saved.valid || wasValid === true) return null;
-  return { key: `deck-ready:${saved.id}:${saved.version ?? saved.updatedAt ?? "v"}`, kind: "deck-ready", fact: `${saved.name} · 10 cartas, 2 por rol`, reward: null };
+  return { key: `deck-ready:${saved.id}:${saved.version ?? saved.updatedAt ?? "v"}`, kind: "deck-ready", fact: t("{name} · 10 cartas, 2 por rol", { name: saved.name }), reward: null };
 }
 
 export function deckActiveMoment(deck: DeckFactForMoment, stamp: number): Moment {
-  return { key: `deck-active:${deck.id}:${stamp}`, kind: "deck-active", fact: `${deck.name} jugará tus partidas`, reward: null };
+  return { key: `deck-active:${deck.id}:${stamp}`, kind: "deck-active", fact: t("{name} jugará tus partidas", { name: deck.name }), reward: null };
 }

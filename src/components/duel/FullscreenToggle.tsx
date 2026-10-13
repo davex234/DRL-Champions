@@ -8,8 +8,13 @@
  * obliga a nadie). Accesible: objetivo táctil de 44 px, `aria-pressed`, foco visible.
  */
 import { useFullscreen } from "@/lib/useFullscreen";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export function FullscreenToggle({ className }: { className?: string }) {
+  useLocale();
   const { supported, active, toggle } = useFullscreen();
   if (!supported) return null;
   return (
@@ -17,8 +22,8 @@ export function FullscreenToggle({ className }: { className?: string }) {
       type="button"
       onClick={() => toggle()}
       aria-pressed={active}
-      aria-label={active ? "Salir de pantalla completa" : "Pantalla completa"}
-      title={active ? "Salir de pantalla completa" : "Pantalla completa"}
+      aria-label={active ? t("Salir de pantalla completa") : t("Pantalla completa")}
+      title={active ? t("Salir de pantalla completa") : t("Pantalla completa")}
       className={
         "nx-focus grid h-11 w-11 min-h-[44px] shrink-0 place-items-center rounded-full border border-white/15 bg-black/40 text-white/70 backdrop-blur transition hover:bg-black/70 hover:text-white " +
         (className ?? "")

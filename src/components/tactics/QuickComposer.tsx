@@ -18,14 +18,19 @@ import { AGENT_CLASS_COLOR, AGENT_CLASS_LABEL } from "./AgentEmblem";
 import { AgentPortrait } from "@/components/agents/AgentArt";
 import { useRosterVersion } from "@/lib/tactics/useRosterVersion";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
-export function QuickComposer({ onPlay, saving = false, error = null, cta = "Guardar y jugar" }: {
+const t = ns("tactics");
+
+export function QuickComposer({ onPlay, saving = false, error = null, cta = t("Guardar y jugar") }: {
   /** Los cinco agentes elegidos. El nombre y el mapa NO se piden aquí. */
   onPlay: (agentIds: string[]) => void;
   saving?: boolean;
   error?: string | null;
   cta?: string;
 }) {
+  useLocale();
   useRosterVersion(); // F60: un agente publicado desde el panel aparece sin recargar
   const [sel, setSel] = useState<string[]>([]);
   const lleno = sel.length >= COMPOSITION_SIZE;
@@ -35,7 +40,7 @@ export function QuickComposer({ onPlay, saving = false, error = null, cta = "Gua
     <section className="space-y-4" data-testid="quick-composer">
       {/* ═══ LA BARRA DE LO ELEGIDO: compacta, sin tarjetas gigantes ═══ */}
       <div className="nx-coach-panel flex flex-wrap items-center gap-x-3 gap-y-2 bg-[#080d14] p-3" data-testid="quick-picked">
-        <p className="nx-coach-kicker !m-0">Tu composición</p>
+        <p className="nx-coach-kicker !m-0">{t("Tu composición")}</p>
         <ul className="flex flex-1 flex-wrap items-center gap-1.5">
           {Array.from({ length: COMPOSITION_SIZE }, (_, i) => {
             const id = sel[i];
@@ -46,7 +51,7 @@ export function QuickComposer({ onPlay, saving = false, error = null, cta = "Gua
                   <button
                     type="button"
                     onClick={() => alternar(a.id)}
-                    title={`Quitar a ${a.name}`}
+                    title={t("Quitar a {name}", { name: a.name })}
                     data-testid={`quick-picked-${a.id}`}
                     className="nx-focus flex min-h-[38px] items-center gap-1.5 px-2 py-1 transition hover:opacity-80"
                     style={{ boxShadow: `inset 0 0 0 1px ${AGENT_CLASS_COLOR[a.role]}` }}
@@ -72,11 +77,11 @@ export function QuickComposer({ onPlay, saving = false, error = null, cta = "Gua
           onClick={() => onPlay(sel)}
           data-testid="quick-save-play"
         >
-          {saving ? "Empezando…" : cta}
+          {saving ? t("Empezando…") : td(cta)}
         </button>
       </div>
 
-      {error && <p role="alert" className="nx-coach-conflict px-4 py-3 text-[13px] text-white" data-testid="quick-error">{error}</p>}
+      {error && <p role="alert" className="nx-coach-conflict px-4 py-3 text-[13px] text-white" data-testid="quick-error">{td(error)}</p>}
 
       {/* ═══ LOS 29 AGENTES: token, nombre y su clase. Nada más ═══ */}
       <ul className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6" data-testid="quick-roster">
@@ -101,7 +106,7 @@ export function QuickComposer({ onPlay, saving = false, error = null, cta = "Gua
                 <span className="min-w-0 flex-1 leading-tight">
                   <b className="block truncate font-display text-[12.5px] font-bold uppercase tracking-[0.08em] text-white">{a.name}</b>
                   <span className="block font-display text-[8px] font-bold uppercase tracking-[0.16em]" style={{ color: AGENT_CLASS_COLOR[a.role] }}>
-                    {AGENT_CLASS_LABEL[a.role]}
+                    {td(AGENT_CLASS_LABEL[a.role])}
                   </span>
                 </span>
                 {on && <span aria-hidden className="font-display text-[13px] font-bold text-[#2fe0ff]">✓</span>}

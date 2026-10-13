@@ -63,6 +63,10 @@ import { Slot } from "./ArenaSurface";
 import { EASE } from "@/design/motion";
 import { ARENA_ACCENT } from "@/lib/duel/arenas";
 import type { DuelDeckCardDTO, DuelTurnView, Side } from "@/lib/duel/types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("duel");
 
 /** Qué pasó en el turno en el que se jugó esta carta, DESDE MI PUNTO DE VISTA. */
 type Suerte = "win" | "loss" | "tie" | null;
@@ -110,6 +114,7 @@ export function PlayedRow({
   slots: number;
   className?: string;
 }) {
+  useLocale();
   /*
    * MÓVIL: una fila, tan larga como la partida. Lo jugado más la posición que viene, con un
    * mínimo de cuatro para que la mesa no arranque con una tira de una casilla. Se calcula
@@ -143,7 +148,7 @@ export function PlayedRow({
       /* `nx-posiciones` usa estas dos: la fila corta en móvil, las diez de frente en `sm`. */
       style={{ "--pos-cols": slots, "--pos-cols-sm": enMóvil } as React.CSSProperties}
       role="list"
-      aria-label={side === "A" ? "Tus cartas en la mesa" : "Cartas del rival en la mesa"}
+      aria-label={side === "A" ? tr("Tus cartas en la mesa") : tr("Cartas del rival en la mesa")}
     >
       {Array.from({ length: slots }, (_, i) => {
         const c = cards[i];
@@ -249,9 +254,9 @@ export function PlayedRow({
                     <span
                       className="absolute -right-1 -top-1 grid h-4 w-4 place-items-center rounded-full border font-display text-[8px] font-bold"
                       style={{ background: "#0b0f18", borderColor: marca.color, color: marca.color }}
-                      title={`${marca.titulo} · turno ${turno?.number}`}
+                      title={tr("{titulo} · turno {number}", { titulo: td(marca.titulo), number: turno?.number })}
                     >
-                      {marca.letra}
+                      {td(marca.letra)}
                     </span>
                   </>
                 )}

@@ -12,6 +12,9 @@ import type { CoachCommandId } from "@/coach";
 import { teamEconomyView, type TeamEconomyView } from "@/economy";
 import { scout, type ScoutReport } from "./scouting";
 import { liveCoachReads } from "./coachLive";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("match");
 
 export interface FormRow { name: string; confidence: number; tilt: number; morale: number; momentum: number }
 export interface AggStat { attempts: number; success: number }
@@ -105,27 +108,27 @@ export function timeoutDossier(match: MatchState, round?: RoundState | null, sco
 
   const patterns: string[] = [];
   if (s.rounds >= 2) {
-    if (s.predictedAttack.confidence >= 0.5) patterns.push(`Atacan por ${s.predictedAttack.label} (${Math.round(s.predictedAttack.confidence * 100)}%).`);
+    if (s.predictedAttack.confidence >= 0.5) patterns.push(t("Atacan por {label} ({Math}%).", { label: td(s.predictedAttack.label), Math: Math.round(s.predictedAttack.confidence * 100) }));
     if (s.pattern.strength >= 0.5) patterns.push(`Repiten ${s.pattern.label} (${Math.round(s.pattern.strength * 100)}%).`);
     patterns.push(`Defienden menos ${s.leastDefended.label}.`);
-    if (s.dominantFragger) patterns.push(`Su jugador caliente: ${s.dominantFragger}.`);
+    if (s.dominantFragger) patterns.push(t("Su jugador caliente: {dominantFragger}.", { dominantFragger: td(s.dominantFragger) }));
   }
 
   const reads = round ? liveCoachReads(match, round, s).slice(0, 4).map((r) => r.text) : [];
   const stats = aggregate(match);
 
   const diagnosis: string[] = [];
-  if (lossStreak >= 2) diagnosis.push(`Llevamos ${lossStreak} rondas seguidas perdidas.`);
-  if (match.momentum < -30) diagnosis.push("El rival tiene toda la inercia.");
-  if (stats.executes.attempts >= 2 && stats.executes.success / stats.executes.attempts < 0.4) diagnosis.push("Nuestros executes no están entrando: cambia el ritmo o el carril.");
-  if (stats.retakes.attempts >= 2 && stats.retakes.success / stats.retakes.attempts < 0.4) diagnosis.push("Fallamos los retakes: compromételos antes y con utilidad.");
+  if (lossStreak >= 2) diagnosis.push(t("Llevamos {lossStreak} rondas seguidas perdidas.", { lossStreak }));
+  if (match.momentum < -30) diagnosis.push(t("El rival tiene toda la inercia."));
+  if (stats.executes.attempts >= 2 && stats.executes.success / stats.executes.attempts < 0.4) diagnosis.push(t("Nuestros executes no están entrando: cambia el ritmo o el carril."));
+  if (stats.retakes.attempts >= 2 && stats.retakes.success / stats.retakes.attempts < 0.4) diagnosis.push(t("Fallamos los retakes: compromételos antes y con utilidad."));
   const avgTilt = form.length ? form.reduce((a, f) => a + f.tilt, 0) / form.length : 0;
-  if (avgTilt >= 50) diagnosis.push("El equipo está tilteado: toca calmar.");
-  if (diagnosis.length === 0) diagnosis.push("Partido parejo; ajustar pequeños detalles.");
+  if (avgTilt >= 50) diagnosis.push(t("El equipo está tilteado: toca calmar."));
+  if (diagnosis.length === 0) diagnosis.push(t("Partido parejo; ajustar pequeños detalles."));
 
   const proposal = losing
-    ? `Cambiemos el lado: ataquemos por ${s.leastDefended.label}, donde menos defienden, con paciencia.`
-    : `Mantengamos lo que funciona y cerremos por ${s.leastDefended.label}; sin regalar duelos.`;
+    ? t("Cambiemos el lado: ataquemos por {label}, donde menos defienden, con paciencia.", { label: td(s.leastDefended.label) })
+    : t("Mantengamos lo que funciona y cerremos por {label}; sin regalar duelos.", { label: td(s.leastDefended.label) });
 
   const suggestedCommands: CoachCommandId[] = [];
   if (avgTilt >= 50) suggestedCommands.push("calm");
@@ -134,7 +137,7 @@ export function timeoutDossier(match: MatchState, round?: RoundState | null, sco
   if (s.pattern.strength >= 0.6) suggestedCommands.push("stack");
 
   return {
-    situation: `Marcador ${homeScore}-${awayScore}. ${losing ? "Vamos por detrás." : homeScore === awayScore ? "Todo igualado." : "Vamos por delante."}`,
+    situation: t("Marcador {home}-{away}. {state}", { home: homeScore, away: awayScore, state: losing ? t("Vamos por detrás.") : homeScore === awayScore ? t("Todo igualado.") : t("Vamos por delante.") }),
     score: { home: homeScore, away: awayScore },
     momentum: match.momentum,
     lossStreak,

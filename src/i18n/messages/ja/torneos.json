@@ -1,0 +1,18 @@
+{
+  "El circuito competitivo": "競技サーキット",
+  "Esa recompensa ya estaba reclamada": "その報酬はすでに受け取り済みです",
+  "Evento no encontrado": "イベントが見つかりません",
+  "Leyendo el circuito…": "サーキットを読み込み中…",
+  "Leyendo el evento…": "イベントを読み込み中…",
+  "Leyendo el partido…": "マッチを読み込み中…",
+  "No se pudieron leer los eventos": "イベントを読み込めませんでした",
+  "No se pudo leer el evento": "イベントを読み込めませんでした",
+  "No se pudo leer el partido": "マッチを読み込めませんでした",
+  "No se pudo reclamar": "受け取れませんでした",
+  "Partido no encontrado": "マッチが見つかりません",
+  "Puede que se haya retirado del calendario.": "カレンダーから削除された可能性があります。",
+  "Puede que se haya retirado del circuito.": "サーキットから削除された可能性があります。",
+  "Recompensa reclamada · {credits} créditos": "報酬を受け取りました · {credits}クレジット",
+  "Ver todos los eventos": "すべてのイベントを見る",
+  "Volver al evento": "イベントに戻る"
+}

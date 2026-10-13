@@ -124,7 +124,7 @@ test("BP-8 · sin cambios de economía ni de temporada: Temporada 2 sigue en DRA
 test("BP-9 · Objetivos: «Objetivos» una sola vez (título); sin pestaña repetida ni encabezado duplicado", () => {
   const page = code("src/app/misiones/page.tsx");
   assert.ok(!page.includes("<HubNav"));
-  assert.match(page, /<ForgeTitle title="Objetivos" eyebrow=\{<Crumbs items=\{\[\{ href: "\/temporada", label: "← Temporada" \}\]\} \/>\} \/>/);
+  assert.match(page, /<ForgeTitle title=\{(?:t|tr|i18nT)\("Objetivos"\)\} eyebrow=\{<Crumbs items=\{\[\{ href: "\/temporada", label: (?:t|tr|i18nT)\("← Temporada"\) \}\]\} \/>\} \/>/);
   const hub = code("src/components/progression/hub/ProgressionHub.tsx");
-  assert.ok(hub.includes('{view === "full" && <SectionHead id="h-objetivos" kicker="Qué hacer ahora" title="Objetivos" />}'));
+  assert.ok(hub.includes('{view === "full" && <SectionHead id="h-objetivos" kicker={t("Qué hacer ahora")} title={t("Objetivos")} />}'));
 });

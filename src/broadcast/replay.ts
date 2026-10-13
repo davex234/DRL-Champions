@@ -8,6 +8,9 @@ import type { MatchState } from "../match";
 import { detectRoundMoments } from "../lib/match/moments";
 import { detectCombatEvents } from "../combat2";
 import type { WorldHistory } from "../world";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("broadcast");
 
 export type HighlightKind =
   | "ace" | "clutch" | "1vx" | "triple" | "wallbang" | "one_tap" | "perfect_execute"
@@ -65,10 +68,10 @@ export function extractHighlights(match: MatchState, worldHistory?: WorldHistory
   // Hitos históricos del Living World (reutiliza el Timeline/records del mundo).
   if (worldHistory) {
     const tr = worldHistory.records["transfer"];
-    if (tr) out.push({ id: `h:w:transfer`, kind: "historic_transfer", label: "Fichaje récord", round: 0, magnitude: 95, source: "world", detail: `${tr.holder} (${tr.value})` });
+    if (tr) out.push({ id: `h:w:transfer`, kind: "historic_transfer", label: t("Fichaje récord"), round: 0, magnitude: 95, source: "world", detail: `${tr.holder} (${tr.value})` });
     for (const key of ["dynasty", "clutch"]) {
       const r = worldHistory.records[key];
-      if (r) out.push({ id: `h:w:${key}`, kind: "record", label: key === "dynasty" ? "Dinastía histórica" : "Mejor clutch", round: 0, magnitude: 90, source: "world", detail: `${r.holder}` });
+      if (r) out.push({ id: `h:w:${key}`, kind: "record", label: key === "dynasty" ? t("Dinastía histórica") : t("Mejor clutch"), round: 0, magnitude: 90, source: "world", detail: `${r.holder}` });
     }
   }
 

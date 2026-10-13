@@ -20,6 +20,9 @@ import type { DuelDeckCardDTO, DuelMatchView, DuelResultView, DuelTurnView, Comb
 import { STAT_INFO } from "./types";
 import { decisionSteps, type DecisionStep } from "./experience";
 import type { RoleId } from "@/domain/cards/types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("duel");
 
 /* ═══════════════════════ 1 · LA ENTRADA ═══════════════════════ */
 
@@ -95,12 +98,12 @@ export function entranceCopy(
   /* Contra el bot sin nombre propio, el tablero lo nombra por su dificultad: aquí se dice qué es (un bot) y a qué nivel. */
   const botByLevel = !human && difficultyLabel !== null && rivalName === difficultyLabel;
   return {
-    kicker: human ? "Rival encontrado" : mode === "campaign" ? "Rival del nodo" : mode === "draft" ? "Combate del gauntlet" : "Rival preparado",
+    kicker: human ? tr("Rival encontrado") : mode === "campaign" ? tr("Rival del nodo") : mode === "draft" ? tr("Combate del gauntlet") : tr("Rival preparado"),
     mode: MODE_LABEL[mode],
     you: view.yourDeckName,
-    rival: botByLevel ? "Bot" : rivalName,
-    rivalTag: human ? "Jugador real" : difficultyLabel ? (botByLevel ? `Dificultad ${difficultyLabel}` : `Bot · ${difficultyLabel}`) : "Bot",
-    opening: view.youAreAttacker ? "Abres tú: atacas en el turno 1" : "Abre el rival: defiendes en el turno 1",
+    rival: botByLevel ? tr("Bot") : rivalName,
+    rivalTag: human ? tr("Jugador real") : difficultyLabel ? (botByLevel ? tr("Dificultad {difficulty}", { difficulty: td(difficultyLabel) }) : tr("Bot · {difficulty}", { difficulty: td(difficultyLabel) })) : tr("Bot"),
+    opening: view.youAreAttacker ? tr("Abres tú: atacas en el turno 1") : tr("Abre el rival: defiendes en el turno 1"),
   };
 }
 
@@ -146,11 +149,11 @@ export function roleBanner(
   waitingRival = false,
 ): RoleBanner {
   if (view.status !== "IN_PROGRESS") return { kind: "NONE", title: "", sub: "" };
-  if (waitingRival) return { kind: "WAIT", title: "Esperando al rival", sub: view.youAreAttacker ? "Tu ataque está enviado" : "El rival está eligiendo" };
-  if (view.youAreAttacker) return { kind: "ATTACK", title: "Atacas", sub: "Elige carta y estadística" };
+  if (waitingRival) return { kind: "WAIT", title: tr("Esperando al rival"), sub: view.youAreAttacker ? tr("Tu ataque está enviado") : tr("El rival está eligiendo") };
+  if (view.youAreAttacker) return { kind: "ATTACK", title: tr("Atacas"), sub: tr("Elige carta y estadística") };
   const imposed = view.requiredStat ? STAT_INFO[view.requiredStat].label : null;
-  if (!view.pendingRival) return { kind: "DEFENSE", title: "Defiendes", sub: "El rival está declarando" };
-  return { kind: "DEFENSE", title: "Defiendes", sub: imposed ? `Respondes con ${imposed}` : "Responde con una carta" };
+  if (!view.pendingRival) return { kind: "DEFENSE", title: tr("Defiendes"), sub: tr("El rival está declarando") };
+  return { kind: "DEFENSE", title: tr("Defiendes"), sub: imposed ? tr("Respondes con {imposed}", { imposed: td(imposed) }) : tr("Responde con una carta") };
 }
 
 /** El tramo de la partida. Presentación: sube un grado la luz y el sonido; no toca ni un milisegundo del servidor. */
@@ -206,7 +209,7 @@ export function statReveal(turn: Pick<DuelTurnView, "attacker" | "you" | "rival"
   const answered = youAttack ? turn.rival.stat : turn.you.stat;
   const dl = STAT_INFO[declared].label;
   const al = STAT_INFO[answered].label;
-  return { attacker: youAttack ? "YOU" : "RIVAL", declared, answered, declaredLabel: dl, answeredLabel: al, line: declared === answered ? dl : `${dl} contra ${al}` };
+  return { attacker: youAttack ? "YOU" : "RIVAL", declared, answered, declaredLabel: dl, answeredLabel: al, line: declared === answered ? dl : tr("{declared} contra {answered}", { declared: dl, answered: al }) };
 }
 
 /* ═══════════════════════ 4 · EL FINAL ═══════════════════════ */
@@ -231,9 +234,9 @@ export function tiebreakPlan(result: DuelResultView | null | undefined, reduced:
   if (!result || result.decidedBy === "SCORE") return null;
   const steps = decisionSteps(result);
   const per = reduced ? TIEBREAK_STEP_MS.reduced : TIEBREAK_STEP_MS.full;
-  const title = result.decidedBy === "OVR_TIEBREAK" ? "Desempate · suma de OVR"
-    : result.decidedBy === "STAT_MARGIN" ? "Desempate · total de estadísticas"
-      : "Empate total";
+  const title = result.decidedBy === "OVR_TIEBREAK" ? tr("Desempate · suma de OVR")
+    : result.decidedBy === "STAT_MARGIN" ? tr("Desempate · total de estadísticas")
+      : tr("Empate total");
   return { title, steps, totalMs: per * (steps.length + 1), bonusPoint: result.decidedBy === "OVR_TIEBREAK" };
 }
 
@@ -274,36 +277,36 @@ export function leaveConsequence(mode: FlowMode): LeaveConsequence {
   switch (mode) {
     case "draft":
       return {
-        title: "¿Volver al gauntlet?",
-        body: "El combate queda guardado en tu run: puedes retomarlo desde Draft Gauntlet.",
-        keep: { label: "Volver al gauntlet", note: "El combate sigue guardado." },
+        title: tr("¿Volver al gauntlet?"),
+        body: tr("El combate queda guardado en tu run: puedes retomarlo desde Draft Gauntlet."),
+        keep: { label: tr("Volver al gauntlet"), note: tr("El combate sigue guardado.") },
         abandon: null,
-        stay: "Seguir jugando",
+        stay: tr("Seguir jugando"),
       };
     case "ranked":
     case "private":
       return {
-        title: "¿Salir de la partida?",
-        body: "Tu rival sigue en la mesa y el reloj de tu turno corre en el servidor.",
-        keep: { label: "Salir sin abandonar", note: "La partida sigue: si se agota tu tiempo de turno, la pierdes por tiempo." },
-        abandon: { label: "Abandonar", note: mode === "ranked" ? "Cuenta como derrota y mueve tu rating." : "Cuenta como derrota del duelo privado (sin rating)." },
-        stay: "Seguir jugando",
+        title: tr("¿Salir de la partida?"),
+        body: tr("Tu rival sigue en la mesa y el reloj de tu turno corre en el servidor."),
+        keep: { label: tr("Salir sin abandonar"), note: tr("La partida sigue: si se agota tu tiempo de turno, la pierdes por tiempo.") },
+        abandon: { label: tr("Abandonar"), note: mode === "ranked" ? tr("Cuenta como derrota y mueve tu rating.") : tr("Cuenta como derrota del duelo privado (sin rating).") },
+        stay: tr("Seguir jugando"),
       };
     case "campaign":
       return {
-        title: "¿Salir de la partida?",
-        body: "Puedes dejarla guardada y volver luego, o abandonarla.",
-        keep: { label: "Salir y guardar", note: "La retomas desde JUGAR · Continuar partida." },
-        abandon: { label: "Abandonar", note: "La partida se descarta: no cuenta ni da recompensa. El nodo se puede reintentar." },
-        stay: "Seguir jugando",
+        title: tr("¿Salir de la partida?"),
+        body: tr("Puedes dejarla guardada y volver luego, o abandonarla."),
+        keep: { label: tr("Salir y guardar"), note: tr("La retomas desde JUGAR · Continuar partida.") },
+        abandon: { label: tr("Abandonar"), note: tr("La partida se descarta: no cuenta ni da recompensa. El nodo se puede reintentar.") },
+        stay: tr("Seguir jugando"),
       };
     default:
       return {
-        title: "¿Salir de la partida?",
-        body: "Puedes dejarla guardada y volver luego, o abandonarla.",
-        keep: { label: "Salir y guardar", note: "La retomas desde JUGAR · Continuar partida." },
-        abandon: { label: "Abandonar", note: "La partida se descarta: no cuenta ni da recompensa. Sin penalización." },
-        stay: "Seguir jugando",
+        title: tr("¿Salir de la partida?"),
+        body: tr("Puedes dejarla guardada y volver luego, o abandonarla."),
+        keep: { label: tr("Salir y guardar"), note: tr("La retomas desde JUGAR · Continuar partida.") },
+        abandon: { label: tr("Abandonar"), note: tr("La partida se descarta: no cuenta ni da recompensa. Sin penalización.") },
+        stay: tr("Seguir jugando"),
       };
   }
 }

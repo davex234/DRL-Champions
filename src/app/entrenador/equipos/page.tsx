@@ -19,6 +19,10 @@ import { CoachHeader } from "@/components/coach/tc/CoachFrame";
 import { TeamRosterEditor, TeamCardStrip } from "@/components/coach/roster/TeamRosterEditor";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { cn } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("entrenador");
 
 export default function EquiposPage() {
   return (
@@ -29,6 +33,7 @@ export default function EquiposPage() {
 }
 
 function Plantilla() {
+  useLocale();
   const teams = useTeamStore((s) => s.teams);
   const activeTeamId = useTeamStore((s) => s.activeTeamId);
   const store = useTeamStore();
@@ -43,17 +48,17 @@ function Plantilla() {
     <section className="space-y-6">
       <CoachHeader
         className="!mb-0"
-        kicker="Plantilla · tus cinco jugadores/cartas"
-        title={<>Mis <span className="text-[#2fe0ff]">Equipos</span></>}
-        line="Cada titular es una carta concreta de tu colección. Se guarda en este dispositivo."
-        actions={<Link href="/entrenador/jugar" className="nx-coach-btn">Jugar →</Link>}
+        kicker={tr("Plantilla · tus cinco jugadores/cartas")}
+        title={<>{tr("Mis")} <span className="text-[#2fe0ff]">{tr("Equipos")}</span></>}
+        line={tr("Cada titular es una carta concreta de tu colección. Se guarda en este dispositivo.")}
+        actions={<Link href="/entrenador/jugar" className="nx-coach-btn">{tr("Jugar →")}</Link>}
       />
 
       <div className="grid gap-5 lg:grid-cols-[300px_1fr]">
         {/* Lista de equipos: cada uno con sus cinco cartas en miniatura. */}
         <aside className="space-y-2">
-          <button onClick={createTeam} className="nx-coach-btn w-full" data-testid="new-team">+ Nuevo equipo</button>
-          {teams.length === 0 && <p className="px-1 py-4 text-sm text-white/50">Aún no tienes equipos.</p>}
+          <button onClick={createTeam} className="nx-coach-btn w-full" data-testid="new-team">{tr("+ Nuevo equipo")}</button>
+          {teams.length === 0 && <p className="px-1 py-4 text-sm text-white/50">{tr("Aún no tienes equipos.")}</p>}
           {teams.map((t) => {
             const ok = validateTeam(t, resolveCardRef).length === 0;
             return (
@@ -65,11 +70,11 @@ function Plantilla() {
               >
                 <span className="flex items-center justify-between gap-2">
                   <b className="truncate font-display text-sm text-white">{t.logo ? `${t.logo} ` : ""}{t.name}</b>
-                  {activeTeamId === t.id && <span className="nx-label !text-[rgb(63,214,150)]">Activo</span>}
+                  {activeTeamId === t.id && <span className="nx-label !text-[rgb(63,214,150)]">{tr("Activo")}</span>}
                 </span>
                 <TeamCardStrip starters={t.starters} size={38} />
                 <span className={cn("nx-label", ok ? "!text-white/45" : "!text-[#ffd35c]")}>
-                  {t.starters.length}/{MAX_STARTERS} · {ok ? "listo" : "incompleto"}
+                  {t.starters.length}/{MAX_STARTERS} · {ok ? tr("listo") : tr("incompleto")}
                 </span>
               </button>
             );
@@ -85,17 +90,17 @@ function Plantilla() {
                 className="nx-coach-btn"
                 data-variant={activeTeamId === editing.id ? "ghost" : undefined}
               >
-                {activeTeamId === editing.id ? "✓ Activo" : "Marcar activo"}
+                {activeTeamId === editing.id ? tr("✓ Activo") : tr("Marcar activo")}
               </button>
               <button onClick={() => { store.deleteTeam(editing.id); setEditingId(null); }} className="nx-coach-btn" data-variant="mag">
-                Eliminar
+                {tr("Eliminar")}
               </button>
             </div>
             <TeamRosterEditor teamId={editing.id} />
           </div>
         ) : (
           <div className="nx-coach-panel-flat grid place-items-center p-12 text-center text-white/55">
-            Crea o selecciona un equipo para empezar.
+            {tr("Crea o selecciona un equipo para empezar.")}
           </div>
         )}
       </div>

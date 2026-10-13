@@ -11,6 +11,9 @@ import type { ConditionKind, TeamTacticState } from "./types";
 import { otherLane } from "./map";
 import { assignAttack, assignDefense, contactLane } from "./assign";
 import { tacticalPhase } from "./phases";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("tactics");
 
 const aliveN = (s: RoundState, side: Side) => s.players.filter((p) => p.side === side && p.alive).length;
 
@@ -54,11 +57,11 @@ function stepTeam(s: RoundState, side: Side, st: TeamTacticState, rng: Rng): voi
     if (bestTo === "rehit") {
       st.lane = otherLane(st.lane);
       st.adapted = true;
-      st.notes.push(`adapta: re-hit por ${st.lane} (contacto malo en ${prevNode})`);
+      st.notes.push(t("adapta: re-hit por {lane} (contacto malo en {prevNode})", { lane: st.lane, prevNode: td(prevNode) }));
     } else if (bestTo === "save") {
-      st.notes.push("adapta: save (en desventaja)");
+      st.notes.push(t("adapta: save (en desventaja)"));
     } else if (bestTo === "react" && bestWhen === "contactDetected") {
-      st.notes.push(`rota al contacto (${contactLane(s).lane})`);
+      st.notes.push(t("rota al contacto ({lane})", { lane: contactLane(s).lane }));
     }
   }
   void rng;

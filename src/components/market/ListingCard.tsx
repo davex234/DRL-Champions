@@ -31,6 +31,10 @@ import { TrendBadge } from "@/components/market/TrendBadge";
 import { computeTrend } from "@/domain/market/history";
 import type { PriceRecord } from "@/domain/market/types";
 import { formatCredits } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("market");
 
 export interface ListingView {
   id: string;
@@ -53,6 +57,7 @@ export function ListingCard({
   onOpen: () => void;
   onBuy: () => void;
 }) {
+  useLocale();
   const alcanza = credits >= listing.price;
   /* La diferencia solo se dice cuando es lo bastante grande para cambiar una decisión. */
   const delta = listing.reference > 0
@@ -73,14 +78,14 @@ export function ListingCard({
       <button
         type="button"
         onClick={onOpen}
-        aria-label={`Ver ${listing.def.id} en venta por ${listing.price} créditos`}
+        aria-label={t("Ver {id} en venta por {price} créditos", { id: listing.def.id, price: listing.price })}
         className="nx-focus block transition-transform duration-fast motion-safe:hover:-translate-y-1"
       >
         <PlayerCard card={listing.def} size="sm" interactive={false} serial={listing.serial} />
       </button>
 
       <div className="flex items-end justify-between gap-2">
-        <Readout size="sm" label="Precio" value={formatCredits(listing.price)} tone="var(--nx-gold)" />
+        <Readout size="sm" label={t("Precio")} value={formatCredits(listing.price)} tone="var(--nx-gold)" />
         {tendencia !== "stable" && <TrendBadge record={listing.history} />}
       </div>
 
@@ -93,7 +98,7 @@ export function ListingCard({
         los botones de compra de una misma fila dejan de estar alineados.
       */}
       <p className="flex min-h-[22px] items-center gap-1.5 text-caption text-ink-faint">
-        <span>Ref. {formatCredits(listing.reference)}</span>
+        <span>{t("Ref.")} {formatCredits(listing.reference)}</span>
         {desviado && (
           <Badge tone={delta > 0 ? "warn" : "ok"}>
             {delta > 0 ? `+${delta}%` : `${delta}%`}
@@ -108,7 +113,7 @@ export function ListingCard({
         disabled={busy || !alcanza}
         onClick={onBuy}
       >
-        {alcanza ? "Comprar" : "Sin saldo"}
+        {alcanza ? t("Comprar") : t("Sin saldo")}
       </NxButton>
     </article>
   );

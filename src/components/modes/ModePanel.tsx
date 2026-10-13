@@ -14,6 +14,8 @@ import { focusEnvironment } from "@/components/dailyLoop/LobbyPlayStage";
 import type { EnvironmentFocus } from "@/design/environment";
 import { playSound } from "@/lib/sound";
 import { getAgentArtwork } from "@/domain/tactics/agentArt";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export interface ModePanelProps {
   /** `data-testid` del panel (el `<article>`). El del CTA es `ctaTestId`. */
@@ -38,6 +40,7 @@ export interface ModePanelProps {
 }
 
 export function ModePanel({ testId, ctaTestId, rgb, focus, title, note, cta, primary, ctaKind, art, className, titleClassName, dataMode }: ModePanelProps) {
+  useLocale();
   return (
     <article
       data-testid={testId}
@@ -62,14 +65,14 @@ export function ModePanel({ testId, ctaTestId, rgb, focus, title, note, cta, pri
           className={cn("font-display font-bold uppercase leading-[0.88] text-white", titleClassName ?? "text-[clamp(34px,4.2vw,56px)]")}
           style={{ textShadow: `0 0 34px rgba(${rgb},0.45), 0 2px 12px rgba(0,0,0,0.8)` }}
         >
-          {title}
+          {td(title)}
         </h2>
         {note && (
           <p data-testid="mode-note" className="nx-readout mt-2 font-display text-[15px] font-bold uppercase tracking-[0.14em]" style={{ color: `rgb(${rgb})` }}>
-            {note}
+            {td(note)}
           </p>
         )}
-        <ModeCta rgb={rgb} href={cta.href} label={cta.label} testId={ctaTestId} dataCta={primary ? "primary" : ctaKind} />
+        <ModeCta rgb={rgb} href={cta.href} label={td(cta.label)} testId={ctaTestId} dataCta={primary ? "primary" : ctaKind} />
       </div>
     </article>
   );
@@ -86,6 +89,7 @@ export function ModePanel({ testId, ctaTestId, rgb, focus, title, note, cta, pri
  * exterior. `data-cta` no cambia su significado: sigue marcando la única acción dominante de la pantalla.
  */
 export function ModeCta({ rgb, href, label, testId, dataCta }: { rgb: string; href: string; label: string; testId: string; dataCta?: string }) {
+  useLocale();
   const [r, g, b] = rgb.split(",").map((v) => Number(v) / 255);
   const lin = (v: number) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
   const light = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b) > 0.4;
@@ -98,7 +102,7 @@ export function ModeCta({ rgb, href, label, testId, dataCta }: { rgb: string; hr
       className="nx-mode-cta nx-clip-sm nx-press relative mt-5 flex min-h-[64px] w-full items-center justify-between gap-4 px-5 font-display text-[19px] font-bold uppercase leading-tight tracking-[0.12em] sm:min-h-[68px] sm:px-6"
       style={{ ["--cta-rgb" as string]: rgb, ["--cta-ink" as string]: light ? "#07080e" : "#ffffff" } as CSSProperties}
     >
-      <span data-cta-label className="min-w-0">{label}</span>
+      <span data-cta-label className="min-w-0">{td(label)}</span>
       <span aria-hidden className="flex shrink-0 items-center gap-2.5">
         <span className="nx-mode-cta-ticks"><i /><i /><i /></span>
         <svg data-cta-arrow className="nx-mode-cta-arrow" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="square">

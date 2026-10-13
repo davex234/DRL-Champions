@@ -5,6 +5,9 @@
  */
 import type { CanonicalModel } from "@/importer";
 import type { TeamReport, StoryTag } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("analyzer");
 
 export function computeStory(teams: TeamReport[], model: CanonicalModel): StoryTag[] {
   const tags: StoryTag[] = [];
@@ -16,9 +19,9 @@ export function computeStory(teams: TeamReport[], model: CanonicalModel): StoryT
   const grandFinal = finals.length ? finals.reduce((a, b) => ((b.matchOrder ?? 0) > (a.matchOrder ?? 0) ? b : a)) : undefined;
 
   if (champ) {
-    if (champ.perfectRun) tags.push({ kind: "perfect-playoffs", teamId: champ.teamId, reason: `campeón sin perder mapas (${champ.mapsWon}-0)` });
+    if (champ.perfectRun) tags.push({ kind: "perfect-playoffs", teamId: champ.teamId, reason: tr("campeón sin perder mapas ({mapsWon}-0)", { mapsWon: champ.mapsWon }) });
     if (champ.winrate === 1 && champ.roundDiff >= 20 && champ.series >= 3) tags.push({ kind: "dominated", teamId: champ.teamId, reason: `100% series, +${champ.roundDiff} rounds` });
-    if (champ.cinderellaRun) { tags.push({ kind: "underdog", teamId: champ.teamId, reason: "campeón fuera del top-8 de ranking" }); tags.push({ kind: "miracle-run", teamId: champ.teamId, reason: "campeón partiendo de baja semilla" }); }
+    if (champ.cinderellaRun) { tags.push({ kind: "underdog", teamId: champ.teamId, reason: tr("campeón fuera del top-8 de ranking") }); tags.push({ kind: "miracle-run", teamId: champ.teamId, reason: tr("campeón partiendo de baja semilla") }); }
   }
 
   if (grandFinal && grandFinal.winnerTeamId && grandFinal.scoreA != null && grandFinal.scoreB != null) {
@@ -29,7 +32,7 @@ export function computeStory(teams: TeamReport[], model: CanonicalModel): StoryT
   }
 
   // Reverse sweep (flag objetivo del Team Analyzer).
-  for (const t of teams) if (t.reverseSweep) tags.push({ kind: "reverse-sweep", teamId: t.teamId, reason: "remontada desde 0-2 en una serie" });
+  for (const t of teams) if (t.reverseSweep) tags.push({ kind: "reverse-sweep", teamId: t.teamId, reason: tr("remontada desde 0-2 en una serie") });
 
   // Upset — mayor sorpresa por ranking (requiere worldRanking; si no hay, se omite).
   let bestUpset: { winner: string; loser: string; gap: number } | undefined;
@@ -43,11 +46,11 @@ export function computeStory(teams: TeamReport[], model: CanonicalModel): StoryT
       if (!bestUpset || gap > bestUpset.gap) bestUpset = { winner: m.winnerTeamId, loser: loserId!, gap };
     }
   }
-  if (bestUpset) tags.push({ kind: "upset", teamId: bestUpset.winner, reason: `venció a un top-${model.index.teamById.get(bestUpset.loser)?.worldRanking} (${teamName(bestUpset.loser)})` });
+  if (bestUpset) tags.push({ kind: "upset", teamId: bestUpset.winner, reason: tr("venció a un top-{worldRanking} ({loser})", { worldRanking: model.index.teamById.get(bestUpset.loser)?.worldRanking, loser: teamName(bestUpset.loser) }) });
 
   // Collapse — cabeza de grupo que cae eliminado en playoffs sin podio.
   for (const t of teams) {
-    if (t.groupWinner && t.eliminated && (t.placement ?? 99) > 3) tags.push({ kind: "collapse", teamId: t.teamId, reason: `1º de grupo, eliminado en puesto ${t.placement}` });
+    if (t.groupWinner && t.eliminated && (t.placement ?? 99) > 3) tags.push({ kind: "collapse", teamId: t.teamId, reason: tr("1º de grupo, eliminado en puesto {placement}", { placement: t.placement }) });
   }
 
   return tags;

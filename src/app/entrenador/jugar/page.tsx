@@ -42,6 +42,10 @@ import { QuickComposer } from "@/components/tactics/QuickComposer";
 import { CoachHeader } from "@/components/coach/tc/CoachFrame";
 import { HydrationGate } from "@/components/layout/HydrationGate";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("entrenador");
 
 const DIF_LABEL: Record<Difficulty, string> = { easy: "Fácil", normal: "Normal", hard: "Difícil" };
 /** Con Supabase caído la ruta tarda ~38 s en fallar: no se espera tanto para enseñar el error. */
@@ -58,6 +62,7 @@ export default function JugarPage() {
 }
 
 function Jugar() {
+  useLocale();
   const router = useRouter();
   /* `?comp=` = la composición recién guardada en /entrenador/composiciones (?volver=jugar): llega elegida. */
   const compParam = useSearchParams().get("comp");
@@ -113,15 +118,15 @@ function Jugar() {
       });
       const href = quickPlayHref(guardada, difficulty);
       if (href) router.push(href);
-      else { setSaveError("La composición no ha quedado lista para jugar. Inténtalo otra vez."); setSaving(false); }
+      else { setSaveError(t("La composición no ha quedado lista para jugar. Inténtalo otra vez.")); setSaving(false); }
     } catch (e) {
-      setSaveError(e instanceof TacticsError ? e.message : "No se ha podido guardar. Inténtalo otra vez.");
+      setSaveError(e instanceof TacticsError ? e.message : t("No se ha podido guardar. Inténtalo otra vez."));
       setSaving(false);
     }
   };
 
   if (authLoading) return null;
-  if (!user) return <NeedsAccount what="tus composiciones" />;
+  if (!user) return <NeedsAccount what={t("tus composiciones")} />;
 
   const pantalla = creando && !error && !cargando ? "create" : quickPlayScreen({ loading: cargando, error: !!error, playable: jugables.length });
 
@@ -129,28 +134,28 @@ function Jugar() {
     <div className="space-y-5" data-testid="play-flow" data-screen={pantalla}>
       <CoachHeader
         className="!mb-0"
-        kicker="Tactical Coach · Jugar"
-        title={pantalla === "create" ? <>Elige <span className="text-[#2fe0ff]">5 agentes</span></> : <>Elige <span className="text-[#2fe0ff]">composición</span></>}
-        line={pantalla === "create" ? "Se guarda sola y empieza la partida. El mapa lo ponemos nosotros." : "Pulsa una y juega."}
+        kicker={t("Tactical Coach · Jugar")}
+        title={pantalla === "create" ? <>{t("Elige")} <span className="text-[#2fe0ff]">{t("5 agentes")}</span></> : <>{t("Elige")} <span className="text-[#2fe0ff]">{t("composición")}</span></>}
+        line={pantalla === "create" ? t("Se guarda sola y empieza la partida. El mapa lo ponemos nosotros.") : t("Pulsa una y juega.")}
       />
 
       {/* ═══ CARGANDO: nada que decidir todavía ═══ */}
       {pantalla === "loading" && (
-        <p className="nx-label text-white/45" data-testid="play-loading" aria-live="polite">Cargando composiciones…</p>
+        <p className="nx-label text-white/45" data-testid="play-loading" aria-live="polite">{t("Cargando composiciones…")}</p>
       )}
 
       {/* ═══ ERROR ≠ VACÍO: se dice y se reintenta. Sin editor debajo ═══ */}
       {pantalla === "error" && error && (
         <div role="alert" className="nx-coach-panel mx-auto max-w-xl space-y-4 p-8 text-center" data-tone="mag" data-testid="play-error">
-          <p className="nx-coach-kicker !text-[#ff5aa8]">No se ha podido cargar</p>
-          <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">{error.text}</h2>
-          <p className="text-sm text-white/55">No hemos tocado nada: tus composiciones siguen donde estaban.</p>
+          <p className="nx-coach-kicker !text-[#ff5aa8]">{t("No se ha podido cargar")}</p>
+          <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">{td(error.text)}</h2>
+          <p className="text-sm text-white/55">{t("No hemos tocado nada: tus composiciones siguen donde estaban.")}</p>
           <div className="flex flex-wrap justify-center gap-2">
-            <button type="button" className="nx-coach-btn" onClick={() => void leer()} data-testid="play-retry">Reintentar</button>
-            <Link href="/entrenador" className="nx-coach-btn" data-variant="ghost">Volver al centro</Link>
+            <button type="button" className="nx-coach-btn" onClick={() => void leer()} data-testid="play-retry">{t("Reintentar")}</button>
+            <Link href="/entrenador" className="nx-coach-btn" data-variant="ghost">{t("Volver al centro")}</Link>
           </div>
           {process.env.NODE_ENV !== "production" && error.status != null && (
-            <p className="nx-label text-white/35" data-testid="play-error-diag">GET /api/game/compositions · {error.status}</p>
+            <p className="nx-label text-white/35" data-testid="play-error-diag">{t("GET /api/game/compositions ·")} {error.status}</p>
           )}
         </div>
       )}
@@ -158,7 +163,7 @@ function Jugar() {
       {/* ═══ ELIGE COMPOSICIÓN ═══ */}
       {pantalla === "choose" && (
         <>
-          <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3" role="radiogroup" aria-label="Composición" data-testid="play-comp-list">
+          <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3" role="radiogroup" aria-label={t("Composición")} data-testid="play-comp-list">
             {jugables.map((c) => {
               const on = c.id === selId;
               const mapa = getTacticalMap(c.mapId);
@@ -195,18 +200,18 @@ function Jugar() {
               onClick={() => sel && jugar(sel)}
               data-testid="play-start"
             >
-              Jugar
+              {t("Jugar")}
             </button>
             <button type="button" onClick={() => { setCreando(true); setSaveError(null); }} className="nx-coach-btn" data-variant="ghost" data-testid="play-new-comp">
-              + Nueva composición
+              {t("+ Nueva composición")}
             </button>
-            {!sel && <span className="text-[13px] text-white/55">Elige una composición.</span>}
+            {!sel && <span className="text-[13px] text-white/55">{t("Elige una composición.")}</span>}
           </div>
 
           {otras.length > 0 && (
             <p className="text-[12.5px] text-white/45" data-testid="play-incomplete-comps">
-              {otras.length} {otras.length === 1 ? "composición incompleta" : "composiciones incompletas"}.{" "}
-              <Link href="/entrenador/composiciones" className="text-[#2fe0ff] underline">Completarlas en Composiciones</Link>
+              {t("{n, plural, one {{n} composición incompleta} other {{n} composiciones incompletas}}", { n: otras.length })}.{" "}
+              <Link href="/entrenador/composiciones" className="text-[#2fe0ff] underline">{t("Completarlas en Composiciones")}</Link>
             </p>
           )}
         </>
@@ -215,10 +220,10 @@ function Jugar() {
       {/* ═══ ELIGE 5 AGENTES (sin composiciones, o «+ Nueva») ═══ */}
       {pantalla === "create" && (
         <>
-          <QuickComposer onPlay={(ids) => void guardarYJugar(ids)} saving={saving} error={saveError} />
+          <QuickComposer onPlay={(ids) => void guardarYJugar(ids)} saving={saving} error={td(saveError)} />
           {jugables.length > 0 && (
             <button type="button" onClick={() => setCreando(false)} className="nx-coach-btn" data-variant="ghost" data-testid="play-back-list">
-              ← Volver a mis composiciones
+              {t("← Volver a mis composiciones")}
             </button>
           )}
         </>
@@ -228,15 +233,15 @@ function Jugar() {
       {pantalla !== "loading" && pantalla !== "error" && (
         <details className="nx-coach-panel-flat group px-4 py-3" data-testid="play-options">
           <summary className="nx-focus flex min-h-[40px] cursor-pointer list-none items-center gap-2 font-display text-[12px] font-bold uppercase tracking-[0.16em] text-white/60">
-            Opciones <span aria-hidden className="transition-transform group-open:rotate-90">›</span>
-            <span className="ml-auto font-normal normal-case tracking-normal text-white/40">Rival {DIF_LABEL[difficulty].toLowerCase()}</span>
+            {t("Opciones")} <span aria-hidden className="transition-transform group-open:rotate-90">›</span>
+            <span className="ml-auto font-normal normal-case tracking-normal text-white/40">{t("Rival")} {DIF_LABEL[difficulty].toLowerCase()}</span>
           </summary>
           <div className="mt-3">
-            <p className="nx-coach-kicker mb-2">Rival</p>
-            <div role="radiogroup" aria-label="Dificultad del rival" className="flex flex-wrap gap-1.5">
+            <p className="nx-coach-kicker mb-2">{t("Rival")}</p>
+            <div role="radiogroup" aria-label={t("Dificultad del rival")} className="flex flex-wrap gap-1.5">
               {DIFFICULTIES.map((d) => (
                 <button key={d} type="button" role="radio" aria-checked={difficulty === d} onClick={() => setDifficulty(d)} className="nx-coach-tool !px-4" data-testid={`play-dif-${d}`}>
-                  {DIF_LABEL[d]}
+                  {td(DIF_LABEL[d])}
                 </button>
               ))}
             </div>

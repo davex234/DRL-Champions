@@ -17,6 +17,10 @@ import { Leaderboard } from "@/components/competitive/Leaderboard";
 import { NxButton } from "@/components/ui/NxButton";
 import { trackCompetitive } from "@/lib/competitive/telemetry";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("competitive");
 
 export interface RankedLadderProps {
   /** Primera página (top) que ya vino con el snapshot. */
@@ -35,6 +39,7 @@ export interface RankedLadderProps {
 }
 
 export function RankedLadder({ top, aroundMe = [], topSize = 500, rules = null, rankedTotal, selfPosition, loadPage, pageSize = 25, className }: RankedLadderProps) {
+  useLocale();
   const [page, setPage] = useState<{ offset: number; entries: LadderEntry[]; hasPrev: boolean; hasNext: boolean } | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +52,7 @@ export function RankedLadder({ top, aroundMe = [], topSize = 500, rules = null, 
       if (p) setPage({ offset: p.offset, entries: p.entries, hasPrev: p.hasPrev, hasNext: p.hasNext });
       trackCompetitive("leaderboard_view");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "No se pudo leer la clasificación");
+      setError(e instanceof Error ? e.message : t("No se pudo leer la clasificación"));
     } finally {
       setBusy(false);
     }
@@ -60,35 +65,35 @@ export function RankedLadder({ top, aroundMe = [], topSize = 500, rules = null, 
   const selfVisible = view.entries.some((e) => e.isSelf);
 
   return (
-    <section aria-label="Clasificación" className={cn("space-y-3", className)} data-testid="ranked-ladder" data-offset={view.offset}>
+    <section aria-label={t("Clasificación")} className={cn("space-y-3", className)} data-testid="ranked-ladder" data-offset={view.offset}>
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="font-display text-[20px] font-bold uppercase tracking-wide text-white">Clasificación · Top {topSize}</h2>
+          <h2 className="font-display text-[20px] font-bold uppercase tracking-wide text-white">{t("Clasificación · Top")} {topSize}</h2>
           <p className="text-caption text-ink-faint">
-            Global · {rankedTotal} {rankedTotal === 1 ? "jugador clasificado" : "jugadores clasificados"}
+            {t("Global ·")} {rankedTotal} {rankedTotal === 1 ? t("jugador clasificado") : t("jugadores clasificados")}
             {from > 0 && ` · #${from}–#${to}`}
           </p>
         </div>
         {selfPosition !== null && selfOffset !== null && !selfVisible && loadPage && (
-          <NxButton variant="secondary" size="sm" onClick={() => void go(selfOffset)} disabled={busy} data-testid="ladder-me">Ir a mi posición (#{selfPosition})</NxButton>
+          <NxButton variant="secondary" size="sm" onClick={() => void go(selfOffset)} disabled={busy} data-testid="ladder-me">{t("Ir a mi posición (#")}{selfPosition})</NxButton>
         )}
       </div>
 
       <Leaderboard entries={view.entries} title={undefined} emptyText={rules
-        ? `Todavía no hay nadie en el Top esta temporada. Entra completando tu colocación (${rules.placementGames} partidas), con al menos ${rules.minSeasonMatches} partidas de temporada y una en los últimos ${rules.activeDays} días.`
-        : "Todavía no hay nadie en la escalera. Tu primera partida ranked liquidada la abre."} />
+        ? t("Todavía no hay nadie en el Top esta temporada. Entra completando tu colocación ({placementGames} partidas), con al menos {minSeasonMatches} partidas de temporada y una en los últimos {activeDays} días.", { placementGames: rules.placementGames, minSeasonMatches: rules.minSeasonMatches, activeDays: rules.activeDays })
+        : t("Todavía no hay nadie en la escalera. Tu primera partida ranked liquidada la abre.")} />
 
       {!page && !selfVisible && aroundMe.length > 0 && (
-        <Leaderboard entries={aroundMe} title="Tu zona" caption={selfPosition !== null ? `Tú: #${selfPosition}` : undefined} className="pt-1" />
+        <Leaderboard entries={aroundMe} title={t("Tu zona")} caption={selfPosition !== null ? t("Tú: #{selfPosition}", { selfPosition }) : undefined} className="pt-1" />
       )}
 
       {error && <p className="text-caption text-drl-glow" role="alert">{playerMessage(error)}</p>}
 
       {loadPage && (view.hasPrev || view.hasNext) && (
-        <nav aria-label="Páginas de la clasificación" className="flex items-center justify-between gap-2">
-          <NxButton variant="ghost" size="sm" onClick={() => void go(Math.max(0, view.offset - pageSize))} disabled={busy || !view.hasPrev} data-testid="ladder-prev">‹ Anteriores</NxButton>
-          <span className="text-[11.5px] text-white/45">{busy ? "Cargando…" : `Página ${Math.floor(view.offset / pageSize) + 1} de ${Math.max(1, Math.ceil(rankedTotal / pageSize))}`}</span>
-          <NxButton variant="ghost" size="sm" onClick={() => void go(view.offset + pageSize)} disabled={busy || !view.hasNext} data-testid="ladder-next">Siguientes ›</NxButton>
+        <nav aria-label={t("Páginas de la clasificación")} className="flex items-center justify-between gap-2">
+          <NxButton variant="ghost" size="sm" onClick={() => void go(Math.max(0, view.offset - pageSize))} disabled={busy || !view.hasPrev} data-testid="ladder-prev">{t("‹ Anteriores")}</NxButton>
+          <span className="text-[11.5px] text-white/45">{busy ? t("Cargando…") : t("Página {v} de {Math}", { v: Math.floor(view.offset / pageSize) + 1, Math: Math.max(1, Math.ceil(rankedTotal / pageSize)) })}</span>
+          <NxButton variant="ghost" size="sm" onClick={() => void go(view.offset + pageSize)} disabled={busy || !view.hasNext} data-testid="ladder-next">{t("Siguientes ›")}</NxButton>
         </nav>
       )}
     </section>

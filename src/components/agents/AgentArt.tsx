@@ -19,6 +19,8 @@ import { agentArtTuning, agentIdFromName, getAgentArtwork, type AgentArtAsset } 
 import { AgentEmblem, agentById, agentColor, agentRoleLabel, AGENT_CLASS_COLOR, AGENT_CLASS_LABEL } from "@/components/tactics/AgentEmblem";
 import { cn } from "@/lib/format";
 import { useRosterVersion } from "@/lib/tactics/useRosterVersion";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export type AgentArtState = "normal" | "selected" | "disabled" | "dead" | "ally" | "enemy";
 
@@ -28,7 +30,7 @@ export type AgentArtState = "normal" | "selected" | "disabled" | "dead" | "ally"
  */
 export interface AgentArtPreview { name: string; role: string; face?: AgentArtAsset | null; full?: AgentArtAsset | null }
 const previewColor = (p: AgentArtPreview) => (AGENT_CLASS_COLOR as Record<string, string>)[p.role] ?? "#9aa4bf";
-const previewLabel = (p: AgentArtPreview) => `${p.name} · ${(AGENT_CLASS_LABEL as Record<string, string>)[p.role] ?? p.role}`;
+const previewLabel = (p: AgentArtPreview) => `${p.name} · ${td((AGENT_CLASS_LABEL as Record<string, string>)[p.role]) ?? p.role}`;
 
 /** Ficheros declarados que fallaron en esta sesión: una petición, no veinte. */
 const fallidos = new Set<string>();
@@ -67,6 +69,7 @@ export function AgentPortrait({
   title?: string;
   preview?: AgentArtPreview;
 }) {
+  useLocale();
   useRosterVersion(); // F60: re-pinta al llegar el catálogo real (arte subido desde el panel)
   const art = preview ? preview.face ?? null : getAgentArtwork(agentId, "face");
   const [show, fail] = useArtSrc(art?.src ?? null);
@@ -83,7 +86,7 @@ export function AgentPortrait({
       data-agent={agentId}
       data-art={show ? "image" : "emblem"}
       data-state={state}
-      title={title}
+      title={td(title)}
       className={cn("relative inline-block shrink-0 align-middle", className)}
       style={box}
     >
@@ -134,7 +137,7 @@ export function AgentPortrait({
 export function AgentChip({ value, size = 20, hideName = false, className }: { value: string | null | undefined; size?: number; hideName?: boolean; className?: string }) {
   if (!value) return <span className={className}>—</span>;
   const id = agentIdFromName(value);
-  if (!id) return <span className={className}>{value}</span>;
+  if (!id) return <span className={className}>{td(value)}</span>;
   const name = agentById(id)?.name ?? value;
   return (
     <span className={cn("inline-flex items-center gap-1.5 align-middle", className)} data-testid="agent-chip" data-agent={id}>
@@ -264,7 +267,7 @@ export function AgentFullBody({
       <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3" style={{ background: `linear-gradient(to top, #070a12f0, ${color}14 70%, transparent)` }} />
       {showName && (preview || agent) && (
         <span className="absolute inset-x-0 bottom-1.5 truncate px-1 text-center font-display text-[13px] font-bold uppercase tracking-[0.06em] text-white drop-shadow">
-          {preview?.name ?? agent?.name}
+          {preview?.name ?? td(agent?.name)}
         </span>
       )}
       {state === "dead" && <span aria-hidden className="pointer-events-none absolute inset-0 grid place-items-center text-4xl font-black text-white/80">✕</span>}

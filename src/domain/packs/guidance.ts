@@ -28,6 +28,9 @@
 import { PACK_STATS, packStats, type PackStatRow } from "@/data/packStats";
 import { PACKS } from "@/data/packs";
 import { BUCKET_LABEL, type RarityBucket } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("packs");
 
 const BUCKETS: RarityBucket[] = ["common", "uncommon", "rare", "epic", "legendary"];
 
@@ -89,8 +92,8 @@ export function guidanceFor(packId: string): PackGuidance | null {
    * épica elegible está cobrando por algo que no puede dar. Le pasa hoy al sobre China.
    */
   if (row.impossible.length > 0) {
-    const names = row.impossible.map((b) => BUCKET_LABEL[b].toLowerCase()).join(" ni ");
-    warnings.push(`No contiene ninguna carta ${names}: no hay jugadores de esta selección con esa rareza.`);
+    const names = row.impossible.map((b) => td(BUCKET_LABEL[b]).toLowerCase()).reduce((a, b) => t("{a} ni {b}", { a, b }));
+    warnings.push(t("No contiene ninguna carta {names}: no hay jugadores de esta selección con esa rareza.", { names }));
   }
 
   /*
@@ -106,8 +109,8 @@ export function guidanceFor(packId: string): PackGuidance | null {
       : null;
     warnings.push(
       factor && factor > 1
-        ? `Para AMPLIAR colección sale caro: cada carta común cuesta unas ${factor} veces más que en el sobre barato.`
-        : "Está pensado para perseguir rareza, no para ampliar colección.",
+        ? t("Para AMPLIAR colección sale caro: cada carta común cuesta unas {factor} veces más que en el sobre barato.", { factor })
+        : t("Está pensado para perseguir rareza, no para ampliar colección."),
     );
   }
 
@@ -120,18 +123,18 @@ export function guidanceFor(packId: string): PackGuidance | null {
    */
   const def = PACKS.find((p) => p.id === packId);
   const targeted = def?.restrictRegion
-    ? `jugadores de ${def.restrictRegion}`
+    ? t("jugadores de {restrictRegion}", { restrictRegion: def.restrictRegion })
     : def?.restrictGroups?.length
-      ? "cartas de torneo"
+      ? t("cartas de torneo")
       : null;
 
   const headline = bestFor !== null
     ? isBreadth
-      ? `La vía más barata para AMPLIAR colección: ${BUCKET_LABEL[bestFor].toLowerCase()} desde ${Math.round(bestCost!)} créditos por carta.`
-      : `La vía más barata para conseguir una ${BUCKET_LABEL[bestFor].toLowerCase()}: unos ${Math.round(bestCost!)} créditos por carta.`
+      ? t("La vía más barata para AMPLIAR colección: {v} desde {Math} créditos por carta.", { v: td(BUCKET_LABEL[bestFor]).toLowerCase(), Math: Math.round(bestCost!) })
+      : t("La vía más barata para conseguir una {v}: unos {Math} créditos por carta.", { v: td(BUCKET_LABEL[bestFor]).toLowerCase(), Math: Math.round(bestCost!) })
     : targeted
-      ? `Sortea solo entre ${targeted}. No es el más barato: es el más dirigido.`
-      : "Ningún otro sobre lo supera en nada: hay opciones más baratas para cualquier rareza.";
+      ? t("Sortea solo entre {targeted}. No es el más barato: es el más dirigido.", { targeted: td(targeted) })
+      : t("Ningún otro sobre lo supera en nada: hay opciones más baratas para cualquier rareza.");
 
   return { bestFor, bestCost, headline, warnings, costPerRarity: row.costPerRarity };
 }

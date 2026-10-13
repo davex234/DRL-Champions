@@ -19,8 +19,13 @@ import type { DuelDeckDTO } from "@/lib/duel/types";
 import { rankedGate } from "@/domain/pvpLadder/ranked";
 import { RankedCenter } from "@/components/competitive/ranked/RankedCenter";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("competitivo");
 
 export default function CompetitivoPage() {
+  useLocale();
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
   /*
@@ -44,14 +49,14 @@ export default function CompetitivoPage() {
     if (!owner) return;
     setError(null);
     try { const s = await fetchCompetitive(); if (s && uidRef.current === owner) setOwned({ owner, snap: s }); }
-    catch (e) { if (uidRef.current === owner) setError(e instanceof Error ? e.message : "No se pudo leer el competitivo"); }
+    catch (e) { if (uidRef.current === owner) setError(e instanceof Error ? e.message : t("No se pudo leer el competitivo")); }
   }, []);
   const loadDecks = useCallback(async () => {
     const owner = uidRef.current;
     if (!owner) return;
     setDeckError(null);
     try { const w = await fetchDuelDecks(); if (uidRef.current === owner) setOwnedDecks({ owner, list: w.decks, activeDeckId: w.activeDeckId }); }
-    catch (e) { if (uidRef.current === owner) setDeckError(e instanceof Error ? e.message : "No se pudieron leer tus equipos"); }
+    catch (e) { if (uidRef.current === owner) setDeckError(e instanceof Error ? e.message : t("No se pudieron leer tus equipos")); }
   }, []);
   useEffect(() => { setChosen(null); setError(null); setDeckError(null); if (online && uid) { void load(); void loadDecks(); } }, [online, uid, load, loadDecks]);
   useEffect(() => { trackCompetitive("competitive_view"); }, []);
@@ -63,10 +68,10 @@ export default function CompetitivoPage() {
     : null), [decks, chosen, resume]);
   const legalDecks = useMemo(() => (decks?.list ?? []).filter((d) => d.valid), [decks]);
 
-  if (loading) return <Loading kind="hub" label="Leyendo tu puesto…" />;
-  if (!online || !user) return <NeedsAccount what="el modo competitivo" />;
-  if (error && !snap) return <ErrorState message={error} onRetry={load} />;
-  if (!snap) return <Loading kind="hub" label="Leyendo tu puesto…" />;
+  if (loading) return <Loading kind="hub" label={t("Leyendo tu puesto…")} />;
+  if (!online || !user) return <NeedsAccount what={t("el modo competitivo")} />;
+  if (error && !snap) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!snap) return <Loading kind="hub" label={t("Leyendo tu puesto…")} />;
   return (
     <RankedCenter
       snap={snap}

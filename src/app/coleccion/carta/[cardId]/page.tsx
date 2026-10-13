@@ -18,6 +18,10 @@ import { AddToDeckSheet } from "@/components/deck/AddToDeckSheet";
 import type { DeckCardLike } from "@/domain/cardgame/deckInsert";
 import { saveShowcase } from "@/lib/player/client";
 import { NxButton } from "@/components/ui/NxButton";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coleccion");
 
 export default function CardPage({ params }: { params: Promise<{ cardId: string }> }) {
   const { cardId } = use(params);
@@ -29,6 +33,7 @@ function decode(raw: string): string {
 }
 
 function CardRoute({ raw }: { raw: string }) {
+  useLocale();
   const id = decode(raw);
   const room = useCollectionRoom();
   const [deckCard, setDeckCard] = useState<DeckCardLike | null>(null);
@@ -47,9 +52,9 @@ function CardRoute({ raw }: { raw: string }) {
   if (!def || !player) {
     return (
       <div className="nx-clip-sm mx-auto max-w-lg border border-white/10 bg-black/30 p-6 text-center" data-testid="card-not-found">
-        <h1 className="font-display text-[24px] font-bold uppercase text-white">Carta no encontrada</h1>
-        <p className="mt-2 text-body text-ink-muted">Ese enlace no corresponde a ninguna carta del catálogo de NEXUS.</p>
-        <NxButton variant="primary" size="md" href="/coleccion" className="mt-4">Ir a la colección</NxButton>
+        <h1 className="font-display text-[24px] font-bold uppercase text-white">{t("Carta no encontrada")}</h1>
+        <p className="mt-2 text-body text-ink-muted">{t("Ese enlace no corresponde a ninguna carta del catálogo de NEXUS.")}</p>
+        <NxButton variant="primary" size="md" href="/coleccion" className="mt-4">{t("Ir a la colección")}</NxButton>
       </div>
     );
   }
@@ -71,10 +76,10 @@ function CardRoute({ raw }: { raw: string }) {
     setBusy("showcase"); setMessage(null);
     try {
       await saveShowcase([...showcaseData.uids, uid].slice(0, 3), showcaseData.version);
-      setMessage("Añadida a tu vitrina.");
+      setMessage(t("Añadida a tu vitrina."));
       room.personal.refresh();
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "No se pudo guardar la vitrina");
+      setMessage(e instanceof Error ? e.message : t("No se pudo guardar la vitrina"));
     } finally {
       setBusy(null);
     }
@@ -86,8 +91,8 @@ function CardRoute({ raw }: { raw: string }) {
 
   return (
     <div className="space-y-5">
-      <nav aria-label="Migas" className="flex flex-wrap items-center gap-2 text-caption text-ink-muted">
-        <Link href="/coleccion" className="nx-focus inline-flex min-h-[44px] items-center hover:text-white">← Colección</Link>
+      <nav aria-label={t("Migas")} className="flex flex-wrap items-center gap-2 text-caption text-ink-muted">
+        <Link href="/coleccion" className="nx-focus inline-flex min-h-[44px] items-center hover:text-white">{t("← Colección")}</Link>
         <span aria-hidden>/</span>
         <span className="text-white/80">{player.nick}</span>
       </nav>
@@ -108,7 +113,7 @@ function CardRoute({ raw }: { raw: string }) {
         favorite={{ available: room.snap.favoritesAvailable, active: room.snap.favorites.includes(def.id), busy: busy === "fav", onToggle: toggleFavorite }}
         showcase={{ available: room.snap.showcaseAvailable && !!showcaseData, count: showcaseData?.uids.length ?? 0, busy: busy === "showcase", onAdd: addShowcase }}
         onAddToDeck={deckCandidate ? () => setDeckCard(deckCandidate) : undefined}
-        message={message}
+        message={td(message)}
       />
       {deckCard && <AddToDeckSheet card={deckCard} origin="card_detail" onClose={() => { setDeckCard(null); room.personal.refresh(); }} />}
     </div>

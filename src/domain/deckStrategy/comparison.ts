@@ -7,6 +7,9 @@ import { DUEL_ROLES } from "@/domain/cardgame/types";
 import { METRICS, METRIC_LABEL, type Metric, type StrategyContext } from "./catalog";
 import { analyzeDeck, type DeckAnalysis, type StrategyCard } from "./analysis";
 import { signedText } from "./swap";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("deckStrategy");
 
 export interface CompareRowM { metric: Metric; label: string; a: number; b: number; diff: number; text: string }
 export interface CompareRoleRow { role: RoleId; a: number | null; b: number | null; diff: number | null }
@@ -25,9 +28,9 @@ export interface DeckComparison {
 
 export function diffText(nameA: string, nameB: string, metric: Metric, diff: number): string {
   const r = Math.round(diff * 10) / 10;
-  if (r === 0) return `Mismo ${METRIC_LABEL[metric]} medio.`;
+  if (r === 0) return t("Mismo {v} medio.", { v: td(METRIC_LABEL[metric]) });
   const who = r > 0 ? nameA : nameB;
-  return `${who} tiene ${signedText(Math.abs(r))} de ${METRIC_LABEL[metric]} medio.`;
+  return t("{who} tiene {v} de {v2} medio.", { who: td(who), v: signedText(Math.abs(r)), v2: td(METRIC_LABEL[metric]) });
 }
 
 export function compareDecks(nameA: string, cardsA: readonly StrategyCard[], nameB: string, cardsB: readonly StrategyCard[], ctx: StrategyContext): DeckComparison {

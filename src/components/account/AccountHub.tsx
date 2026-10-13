@@ -23,6 +23,10 @@ import { ProgressionScreen } from "@/components/progression/ProgressionScreen";
 import { FeedbackForm } from "@/components/feedback/FeedbackForm";
 import { FEEDBACK_SOURCES, type FeedbackSource } from "@/domain/feedback/alpha";
 import { ACCOUNT_TABS, type AccountSection } from "./accountSections";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("account");
 
 export { ACCOUNT_TABS, accountSectionOf, type AccountSection } from "./accountSections";
 
@@ -43,11 +47,12 @@ export function AccountHub({ userId, section, source, settings }: {
   /** La pestaña CUENTA: la pantalla de ajustes que ya existía (la pasa la página). */
   settings: ReactNode;
 }) {
+  useLocale();
   const feedbackSource: FeedbackSource = source && (FEEDBACK_SOURCES as readonly string[]).includes(source) ? (source as FeedbackSource) : "menu";
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 md:py-8" data-testid="account-hub" data-section={section}>
       <header className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h1 className="font-display text-[clamp(28px,4vw,44px)] font-extrabold uppercase leading-none tracking-wide text-white">Mi cuenta</h1>
+        <h1 className="font-display text-[clamp(28px,4vw,44px)] font-extrabold uppercase leading-none tracking-wide text-white">{tr("Mi cuenta")}</h1>
         <Link
           href={ROUTES.feedback}
           data-testid="account-feedback"
@@ -58,11 +63,11 @@ export function AccountHub({ userId, section, source, settings }: {
           )}
         >
           <FeedbackIcon />
-          Dar feedback
+          {tr("Dar feedback")}
         </Link>
       </header>
 
-      <nav aria-label="Secciones de Mi cuenta" className="mb-6 grid grid-cols-3 gap-2 sm:flex" data-testid="account-tabs">
+      <nav aria-label={tr("Secciones de Mi cuenta")} className="mb-6 grid grid-cols-3 gap-2 sm:flex" data-testid="account-tabs">
         {ACCOUNT_TABS.map((t) => {
           const on = section === t.id;
           return (
@@ -76,7 +81,7 @@ export function AccountHub({ userId, section, source, settings }: {
                 on ? "border-drl-cyan/70 bg-drl-cyan/15 text-white shadow-[inset_0_-3px_0_#19e3ff]" : "border-white/10 bg-white/[0.03] text-white/60 hover:text-white",
               )}
             >
-              {t.label}
+              {td(t.label)}
             </Link>
           );
         })}
@@ -88,8 +93,8 @@ export function AccountHub({ userId, section, source, settings }: {
         {section === "cuenta" && settings}
         {section === "feedback" && (
           <section aria-labelledby="h-feedback" className="mx-auto max-w-3xl">
-            <h2 id="h-feedback" className="mb-1 font-display text-2xl font-bold uppercase tracking-wide text-white">Dar feedback</h2>
-            <p className="mb-5 text-[13px] text-white/60">Tu opinión llega al equipo ligada a tu cuenta (nunca con tu correo).</p>
+            <h2 id="h-feedback" className="mb-1 font-display text-2xl font-bold uppercase tracking-wide text-white">{tr("Dar feedback")}</h2>
+            <p className="mb-5 text-[13px] text-white/60">{tr("Tu opinión llega al equipo ligada a tu cuenta (nunca con tu correo).")}</p>
             <FeedbackForm userId={userId} source={feedbackSource} />
           </section>
         )}

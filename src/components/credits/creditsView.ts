@@ -5,6 +5,9 @@
  */
 import { CREDITS_ART, type CreditsArt } from "@/data/creditsArt";
 import type { CreditProduct } from "@/domain/economy/drlCredits";
+import { ns, getIntlLocale } from "@/i18n/runtime";
+
+const t = ns("credits");
 
 /** `drlc-starter` → `starter`. El arte de un paquete se elige por su id, nunca por su posición. */
 export const artKey = (productId: string): string => productId.replace(/^drlc-/, "");
@@ -29,9 +32,9 @@ export const PACK_TAGLINE: Readonly<Record<string, string>> = {
  * DERIVA (es el de más créditos), así que no afirma nada que no sea cierto.
  */
 export function packBadge(p: CreditProduct, all: readonly CreditProduct[]): string | null {
-  if (p.metadata?.badge) return p.metadata.badge === "El más elegido" ? "Más elegido" : p.metadata.badge;
+  if (p.metadata?.badge) return p.metadata.badge === "El más elegido" ? t("Más elegido") : p.metadata.badge;
   const max = Math.max(...all.map((x) => x.credits));
-  return p.credits === max && all.length > 1 ? "Mayor paquete" : null;
+  return p.credits === max && all.length > 1 ? t("Mayor paquete") : null;
 }
 
-export const formatAmount = (n: number): string => new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(Math.trunc(n));
+export const formatAmount = (n: number): string => new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" }).format(Math.trunc(n));

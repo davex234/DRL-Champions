@@ -31,6 +31,11 @@ import { Badge } from "@/components/ui/Badge";
 import { adminDownload } from "@/lib/supabase/adminClient";
 import { adminFetch } from "@/lib/supabase/adminClient";
 import { adminApi, useAsync, ErrorBar } from "./shared";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("admin");
 
 export interface VersionArtifact {
   version: number;
@@ -57,6 +62,7 @@ export function CardArtifacts({
   versions: readonly VersionArtifact[];
   instancesByVersion: Record<string, number>;
 }) {
+  useLocale();
   const { running, error, clear, run } = useAsync<unknown>();
   const [estados, setEstados] = useState<Record<number, EstadoVersion>>({});
   const [aviso, setAviso] = useState<string | null>(null);
@@ -90,11 +96,11 @@ export function CardArtifacts({
       if (!res.ok) throw new Error((cuerpo as { error?: string }).error ?? `HTTP ${res.status}`);
       const a = cuerpo as ArtworkAsset;
       setAviso(a.assetVersion > 1
-        ? `Artwork de la v${version} reemplazado (revisión ${a.assetVersion} del asset). El anterior se conserva.`
-        : `Artwork de la v${version} subido — ${a.format.toUpperCase()} · ${KB(a.bytes)}.`);
+        ? t("Artwork de la v{version} reemplazado (revisión {assetVersion} del asset). El anterior se conserva.", { version, assetVersion: a.assetVersion })
+        : t("Artwork de la v{version} subido — {format} · {bytes}.", { version, format: a.format.toUpperCase(), bytes: KB(a.bytes) }));
       await cargar();
     } catch (e) {
-      setErrorLocal(e instanceof Error ? e.message : "No se pudo subir el artwork");
+      setErrorLocal(e instanceof Error ? e.message : t("No se pudo subir el artwork"));
     } finally {
       setOcupado(null);
     }
@@ -103,7 +109,7 @@ export function CardArtifacts({
   const descargar = async (url: string, nombre: string, clave: string): Promise<void> => {
     setOcupado(clave); setErrorLocal(null);
     try { await adminDownload(url, nombre); }
-    catch (e) { setErrorLocal(e instanceof Error ? e.message : "No se pudo descargar"); }
+    catch (e) { setErrorLocal(e instanceof Error ? e.message : t("No se pudo descargar")); }
     finally { setOcupado(null); }
   };
 
@@ -114,7 +120,7 @@ export function CardArtifacts({
     setOcupado(null);
     if (r) {
       const d = r as { cached: boolean; substituted: number };
-      setAviso(`Render técnico de la v${version} ${d.cached ? "ya existía" : "generado"} · ${d.substituted} elementos con marcador.`);
+      setAviso(d.cached ? t("Render técnico de la v{version} ya existía · {substituted} elementos con marcador.", { version, substituted: d.substituted }) : t("Render técnico de la v{version} generado · {substituted} elementos con marcador.", { version, substituted: d.substituted }));
       await cargar();
     }
   };
@@ -122,14 +128,14 @@ export function CardArtifacts({
   return (
     <section aria-labelledby="h-artefactos">
       <h2 id="h-artefactos" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-        Artwork de la carta ({versions.length} versión{versions.length === 1 ? "" : "es"})
+        {t("Artwork de la carta ({n, plural, one {# versión} other {# versiones}})", { n: versions.length })}
       </h2>
 
       <Plate className="space-y-3 p-4">
-        <ErrorBar error={error ?? errorLocal} onClose={() => { clear(); setErrorLocal(null); }} />
+        <ErrorBar error={td(error) ?? td(errorLocal)} onClose={() => { clear(); setErrorLocal(null); }} />
         {aviso && (
           <Recessed className="px-3 py-2" role="status">
-            <p className="text-[13px] text-white/75">{aviso}</p>
+            <p className="text-[13px] text-white/75">{td(aviso)}</p>
           </Recessed>
         )}
 
@@ -144,12 +150,12 @@ export function CardArtifacts({
               <div className="flex flex-wrap items-center gap-2">
                 <Badge tone={vigente ? "ok" : "muted"}>v{v.version}</Badge>
                 <span className="font-display text-sm font-bold uppercase tracking-wide text-white">
-                  Versión {v.version}
+                  {t("Versión")} {v.version}
                 </span>
                 <span className="text-[12px] text-white/45">
-                  OVR {v.ovr} · {ejemplares === 0
-                    ? "sin ejemplares"
-                    : `${ejemplares} ejemplar${ejemplares === 1 ? "" : "es"}`}
+                  {t("OVR")} {v.ovr} · {ejemplares === 0
+                    ? t("sin ejemplares")
+                    : t("{n, plural, one {# ejemplar} other {# ejemplares}}", { n: ejemplares })}
                 </span>
               </div>
 
@@ -158,7 +164,7 @@ export function CardArtifacts({
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <p className="font-display text-label uppercase tracking-wider text-white/50">
-                      Artwork
+                      {t("Artwork")}
                     </p>
                     <p className="mt-0.5 flex items-center gap-2 text-[13px]">
                       <span aria-hidden className={art ? "text-drl-ok" : "text-white/25"}>
@@ -166,13 +172,13 @@ export function CardArtifacts({
                       </span>
                       <span className={art ? "text-white/80" : "text-white/45"}>
                         {art
-                          ? `Disponible · ${art.format.toUpperCase()} · ${KB(art.bytes)}`
-                          : "Sin artwork"}
+                          ? t("Disponible · {format} · {bytes}", { format: art.format.toUpperCase(), bytes: KB(art.bytes) })
+                          : t("Sin artwork")}
                       </span>
                     </p>
                     {art && (
                       <p className="mt-0.5 font-mono text-[11px] text-white/30">
-                        {art.name} · rev. {art.assetVersion} · {art.checksum.slice(0, 12)}…
+                        {art.name} {t("· rev.")} {art.assetVersion} · {art.checksum.slice(0, 12)}…
                       </p>
                     )}
                   </div>
@@ -186,7 +192,7 @@ export function CardArtifacts({
                     <input
                       ref={(el) => { inputs.current[v.version] = el; }}
                       type="file" accept="image/png,image/webp" className="sr-only"
-                      aria-label={`Artwork para la versión ${v.version}`}
+                      aria-label={t("Artwork para la versión {version}", { version: v.version })}
                       onChange={(e) => {
                         const f = e.target.files?.[0];
                         if (f) void subir(v.version, f);
@@ -199,8 +205,8 @@ export function CardArtifacts({
                       onClick={() => inputs.current[v.version]?.click()}
                     >
                       {ocupado === `${v.version}:subir`
-                        ? "Subiendo…"
-                        : art ? "Reemplazar" : "Subir artwork"}
+                        ? t("Subiendo…")
+                        : art ? t("Reemplazar") : t("Subir artwork")}
                     </NxButton>
 
                     {art?.url && (
@@ -217,14 +223,14 @@ export function CardArtifacts({
                                      shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)] transition duration-fast
                                      hover:bg-white/5 hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]"
                         >
-                          Ver
+                          {t("Ver")}
                         </a>
                         <NxButton
                           variant="secondary" disabled={ocupado !== null}
                           onClick={() => void descargar(
                             art.url!, `${cardId}.v${v.version}.${art.format}`, `${v.version}:dl`)}
                         >
-                          {ocupado === `${v.version}:dl` ? "…" : "Descargar"}
+                          {ocupado === `${v.version}:dl` ? "…" : t("Descargar")}
                         </NxButton>
                       </>
                     )}
@@ -236,13 +242,11 @@ export function CardArtifacts({
                   <div className="mt-3 flex flex-wrap items-start gap-3">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={art.url} alt={`Artwork de ${cardId} versión ${v.version}`}
+                      src={art.url} alt={t("Artwork de {cardId} versión {version}", { cardId: td(cardId), version: v.version })}
                       className="nx-clip-sm block max-h-64 w-auto border border-white/10 bg-base-800"
                     />
                     <p className="max-w-prose text-[12px] leading-relaxed text-white/45">
-                      Este es el fichero que usa la <strong className="text-white/70">versión {v.version}</strong>.
-                      Un ejemplar acuñado bajo esta versión enseñará esta ilustración aunque
-                      después se publiquen versiones nuevas.
+                      {fill(t("Este es el fichero que usa la {version}. Un ejemplar acuñado bajo esta versión enseñará esta ilustración aunque después se publiquen versiones nuevas.", slots("version")), { version: <strong className="text-white/70">{t("versión {n}", { n: v.version })}</strong> })}
                     </p>
                   </div>
                 )}
@@ -252,10 +256,10 @@ export function CardArtifacts({
               <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/5 pt-3">
                 <div className="min-w-0">
                   <p className="font-display text-label uppercase tracking-wider text-white/50">
-                    Definición · JSON
+                    {t("Definición · JSON")}
                   </p>
                   <p className="mt-0.5 font-mono text-[11px] text-white/35">
-                    {cardId}.v{v.version}.json · {v.checksum.slice(0, 12)}…
+                    {cardId}.v{v.version}{t(".json ·")} {v.checksum.slice(0, 12)}…
                   </p>
                 </div>
                 <NxButton
@@ -264,19 +268,17 @@ export function CardArtifacts({
                     `/api/admin/cards?cardId=${encodeURIComponent(cardId)}&version=${v.version}`,
                     `${cardId}.v${v.version}.json`, `${v.version}:json`)}
                 >
-                  {ocupado === `${v.version}:json` ? "…" : "Descargar JSON"}
+                  {ocupado === `${v.version}:json` ? "…" : t("Descargar JSON")}
                 </NxButton>
               </div>
 
               {/* ── El render técnico, al final y dicho por su nombre ── */}
               <details className="border-t border-white/5 pt-3">
                 <summary className="cursor-pointer font-display text-label uppercase tracking-wider text-white/35">
-                  Render técnico {est?.render.generated ? "· generado" : ""}
+                  {est?.render.generated ? t("Render técnico · generado") : t("Render técnico")}
                 </summary>
                 <p className="mt-1.5 max-w-prose text-[12px] leading-relaxed text-white/45">
-                  Exportación del pipeline a partir de los datos de la versión. Sirve para
-                  comprobar que la carta dice lo que debe; <strong className="text-white/70">no
-                  es el arte final</strong> — ese se diseña a mano y se sube arriba.
+                  {fill(t("Exportación del pipeline a partir de los datos de la versión. Sirve para comprobar que la carta dice lo que debe; {aviso} — ese se diseña a mano y se sube arriba.", slots("aviso")), { aviso: <strong className="text-white/70">{t("no es el arte final")}</strong> })}
                 </p>
                 <div className="mt-2 flex flex-wrap items-center gap-2">
                   <NxButton
@@ -284,8 +286,8 @@ export function CardArtifacts({
                     onClick={() => void generarRender(v.version)}
                   >
                     {ocupado === `${v.version}:render`
-                      ? "Generando…"
-                      : est?.render.generated ? "Regenerar" : "Generar render"}
+                      ? t("Generando…")
+                      : est?.render.generated ? t("Regenerar") : t("Generar render")}
                   </NxButton>
                   {est?.render.generated && ["png", "webp"].map((k) => (
                     est.render.files.some((f) => f.kind === k) ? (
@@ -307,12 +309,7 @@ export function CardArtifacts({
 
         <Recessed className="p-3">
           <p className="text-[12px] leading-relaxed text-white/50">
-            El artwork se guarda en el gestor de assets con la clave{" "}
-            <code className="text-drl-cyan">{cardId}#v&lt;N&gt;</code>, así que cada versión
-            tiene el suyo y reemplazar uno no toca los demás. Subir un artwork{" "}
-            <strong className="text-white/70">no modifica</strong> el OVR, el trío, la rareza,
-            el valor ni la huella de la carta: es un asset asociado, no un dato de la
-            definición.
+            {fill(t("El artwork se guarda en el gestor de assets con la clave {clave}, así que cada versión tiene el suyo y reemplazar uno no toca los demás. Subir un artwork {nomodifica} el OVR, el trío, la rareza, el valor ni la huella de la carta: es un asset asociado, no un dato de la definición.", slots("clave", "nomodifica")), { clave: <code className="text-drl-cyan">{cardId}#v&lt;N&gt;</code>, nomodifica: <strong className="text-white/70">{t("no modifica")}</strong> })}
           </p>
         </Recessed>
       </Plate>

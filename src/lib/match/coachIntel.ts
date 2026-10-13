@@ -12,6 +12,9 @@ import type { Identity, MentalState, Role, RosterEntry } from "@/sim";
 import { initialMental, neutralIdentity } from "@/sim";
 import type { ScoutReport } from "./scouting";
 import { LANE_LABEL } from "./scouting";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("match");
 
 // --------------------------------------------------------------------------
 // Tarjeta psicológica de jugador
@@ -41,20 +44,20 @@ const ROLE_LABEL: Record<Role, string> = {
 };
 
 export function roleLabel(role: Role): string {
-  return ROLE_LABEL[role] ?? role;
+  return td(ROLE_LABEL[role]) ?? role;
 }
 
 /** Etiqueta de estilo a partir del rasgo dominante del ADN. */
 export function styleLabel(id: Identity): string {
   const candidates: [number, string][] = [
-    [id.entryDrive, "Entry agresivo"],
-    [id.lurkTendency, "Lurker / flanco"],
-    [id.clutchFactor, "Jugador de clutch"],
-    [id.utilityLean, "Maestro de utilidad"],
-    [id.aggression, "Agresivo"],
-    [id.patience, "Paciente / ancla"],
-    [id.leadershipDrive, "Cerebro / IGL"],
-    [id.creativity, "Impredecible"],
+    [id.entryDrive, t("Entry agresivo")],
+    [id.lurkTendency, t("Lurker / flanco")],
+    [id.clutchFactor, t("Jugador de clutch")],
+    [id.utilityLean, t("Maestro de utilidad")],
+    [id.aggression, t("Agresivo")],
+    [id.patience, t("Paciente / ancla")],
+    [id.leadershipDrive, t("Cerebro / IGL")],
+    [id.creativity, t("Impredecible")],
   ];
   candidates.sort((a, b) => b[0] - a[0]);
   return candidates[0][1];
@@ -127,25 +130,25 @@ export function recommendationReasons(
 
   if (scout.rounds >= 2) {
     if (scout.predictedAttack.confidence >= 0.5) {
-      out.push(`El rival ataca sobre todo por ${scout.predictedAttack.label} (${Math.round(scout.predictedAttack.confidence * 100)}%).`);
+      out.push(t("El rival ataca sobre todo por {label} ({Math}%).", { label: td(scout.predictedAttack.label), Math: Math.round(scout.predictedAttack.confidence * 100) }));
     }
     if (scout.pattern.strength >= 0.66) {
-      out.push(`Repite ${scout.pattern.label} en bucle: castígalo o fíntalo.`);
+      out.push(t("Repite {label} en bucle: castígalo o fíntalo.", { label: td(scout.pattern.label) }));
     }
     if (scout.dominantFragger) {
-      out.push(`Cuidado con ${scout.dominantFragger}: está dominando los duelos.`);
+      out.push(t("Cuidado con {dominantFragger}: está dominando los duelos.", { dominantFragger: td(scout.dominantFragger) }));
     }
   }
 
   // F69 · F68-011: en la ronda 1 los dos equipos tienen el dinero inicial; «tocada» no aplica.
   if (match.roundNumber > 1 && scout.enemyEconomy.buyingPower < 0.5) {
-    out.push("Su economía está tocada: aprovecha la ventaja de armamento.");
+    out.push(t("Su economía está tocada: aprovecha la ventaja de armamento."));
   }
 
-  if (match.momentum > 40) out.push("El momentum es nuestro.");
-  else if (match.momentum < -40) out.push("El momentum es suyo: hay que cortar la racha.");
+  if (match.momentum > 40) out.push(t("El momentum es nuestro."));
+  else if (match.momentum < -40) out.push(t("El momentum es suyo: hay que cortar la racha."));
 
-  if (out.length === 0) out.push("Ronda equilibrada: ejecuta tu plan con limpieza.");
+  if (out.length === 0) out.push(t("Ronda equilibrada: ejecuta tu plan con limpieza."));
   return out;
 }
 
@@ -165,22 +168,22 @@ export function timeoutAnalysis(match: MatchState, scout: ScoutReport): TimeoutA
   const lossStreak = match.economy?.home.lossStreak ?? 0;
 
   const diagnosis: string[] = [];
-  if (lossStreak >= 2) diagnosis.push(`Llevamos ${lossStreak} rondas seguidas perdidas.`);
-  if (match.momentum < -30) diagnosis.push("El rival tiene toda la inercia.");
+  if (lossStreak >= 2) diagnosis.push(t("Llevamos {lossStreak} rondas seguidas perdidas.", { lossStreak }));
+  if (match.momentum < -30) diagnosis.push(t("El rival tiene toda la inercia."));
   if (scout.rounds >= 2 && scout.predictedAttack.confidence >= 0.5) {
-    diagnosis.push(`Insisten por ${scout.predictedAttack.label} y nos está costando leerlo.`);
+    diagnosis.push(t("Insisten por {label} y nos está costando leerlo.", { label: td(scout.predictedAttack.label) }));
   }
   if ((match.economy?.away ? scout.enemyEconomy.buyingPower : 1) > 1) {
-    diagnosis.push("Su economía está saneada: no podemos regalar rondas.");
+    diagnosis.push(t("Su economía está saneada: no podemos regalar rondas."));
   }
-  if (diagnosis.length === 0) diagnosis.push("Partido parejo; toca ajustar pequeños detalles.");
+  if (diagnosis.length === 0) diagnosis.push(t("Partido parejo; toca ajustar pequeños detalles."));
 
   const proposal = losing
-    ? `Cambiemos el lado del mapa: ataquemos por ${scout.leastDefended.label}, donde menos defienden, y juguemos con paciencia.`
-    : `Mantengamos lo que funciona y cerremos por ${scout.leastDefended.label}; no regalemos duelos.`;
+    ? t("Cambiemos el lado del mapa: ataquemos por {label}, donde menos defienden, y juguemos con paciencia.", { label: td(scout.leastDefended.label) })
+    : t("Mantengamos lo que funciona y cerremos por {label}; no regalemos duelos.", { label: td(scout.leastDefended.label) });
 
   return {
-    situation: `Marcador ${homeScore}-${awayScore}. ${losing ? "Vamos por detrás." : homeScore === awayScore ? "Todo igualado." : "Vamos por delante."}`,
+    situation: t("Marcador {home}-{away}. {state}", { home: homeScore, away: awayScore, state: losing ? t("Vamos por detrás.") : homeScore === awayScore ? t("Todo igualado.") : t("Vamos por delante.") }),
     diagnosis,
     proposal,
   };

@@ -1,3 +1,7 @@
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("pickems");
+
 /**
  * PREGUNTAS DE PICK'EM A PARTIR DE PARTIDOS REALES (Fase 10).
  *
@@ -146,7 +150,7 @@ export function buildMatchQuestions(matches: MatchInput[], now = Date.now()): Qu
     .map((m, i) => ({
       kind: "match_winner" as const,
       matchId: m.id,
-      prompt: `¿Quién gana ${m.team_a} vs ${m.team_b}?`,
+      prompt: t("¿Quién gana {team_a} vs {team_b}?", { team_a: td(m.team_a), team_b: td(m.team_b) }),
       options: [
         { key: "a", label: m.team_a! },
         { key: "b", label: m.team_b! },
@@ -210,7 +214,7 @@ export function buildScoreQuestions(matches: MatchInput[], now = Date.now()): Qu
     .map((m, i) => ({
       kind: "match_score" as const,
       matchId: m.id,
-      prompt: `¿Con qué resultado gana ${m.team_a} o ${m.team_b}?`,
+      prompt: t("¿Con qué resultado gana {team_a} o {team_b}?", { team_a: td(m.team_a), team_b: td(m.team_b) }),
       options: SCORE_LINES.map((s) => ({
         key: scoreOptionKey(s.a, s.b),
         label: `${m.team_a} ${s.a}-${s.b} ${m.team_b}`,
@@ -270,7 +274,7 @@ export function buildQualificationQuestions(matches: QualificationMatchInput[], 
     .map((m, i) => ({
       kind: "advance" as const,
       matchId: m.id,
-      prompt: `¿Quién se clasifica? ${m.team_a} vs ${m.team_b}`,
+      prompt: t("¿Quién se clasifica? {team_a} vs {team_b}", { team_a: td(m.team_a), team_b: td(m.team_b) }),
       options: [
         { key: "a", label: m.team_a! },
         { key: "b", label: m.team_b! },

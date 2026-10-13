@@ -1,0 +1,23 @@
+{
+  "\n✗ Pipeline FALLIDO en el paso: {v} ({failedStage})\n": "\n✗ パイプライン失敗：ステップ {v}（{failedStage}）\n",
+  " (rollback automático a runtime v{runtimeVersion})": " (runtime v{runtimeVersion}へ自動ロールバック)",
+  "Analyzer": "Analyzer",
+  "Card Generator": "Card Generator",
+  "Catalog Builder": "Catalog Builder",
+  "Construyendo catálogo...": "カタログを構築中...",
+  "Generando cartas...": "カードを生成中...",
+  "Importer": "Importer",
+  "Importer VLR": "Importer VLR",
+  "Materializer": "Materializer",
+  "Performance Analyzer": "Performance Analyzer",
+  "Publisher": "Publisher",
+  "error desconocido": "不明なエラー",
+  "modelo canónico inválido: {length} error(es) — {v}": "無効な正規モデル：{length}件のエラー — {v}",
+  "publicación {finalState}{v}: {v2}": "公開 {finalState}{v}：{v2}",
+  "sin detalle": "詳細なし",
+  "✓ Catálogo actualizado (v{catalogVersion})": "✓ カタログを更新しました（v{catalogVersion}）",
+  "✓ Runtime sin cambios (publicación idempotente)": "✓ ランタイムは変更なし（冪等な公開）",
+  "✓ {length} cartas generadas": "✓ カードを{length}枚生成しました",
+  "✓ {length} equipos": "✓ チーム{length}件",
+  "✓ {length} jugadores": "✓ プレイヤー{length}人"
+}

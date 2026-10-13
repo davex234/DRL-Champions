@@ -10,6 +10,10 @@ import Link from "next/link";
 import { useAdminQuery, fmt, pct } from "@/components/admin/cc/api";
 import { PageHeader, Panel, LevelBadge, Loading, ErrorBox, Stat, DataTable, Bars, Tabs, type Level } from "@/components/admin/cc/ui";
 import { PACK_CLASS_LABEL, type PackCardClass } from "@/domain/packs/packClass";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("admin");
 
 interface Eco {
   band: { median: number; lo: number; hi: number };
@@ -24,6 +28,7 @@ interface Eco {
 }
 
 export default function Economy() {
+  useLocale();
   const q = useAdminQuery<Eco>("/api/admin/packs?view=economy");
   const [win, setWin] = useState<"7" | "30">("7");
   const d = q.data;
@@ -32,47 +37,47 @@ export default function Economy() {
   const overall: Level = d ? (d.health.some((h) => h.level === "CRITICAL") ? "CRITICAL" : d.health.some((h) => h.level === "WARNING") ? "WARNING" : "HEALTHY") : "INFO";
   return (
     <>
-      <PageHeader eyebrow="Juego" title="Economía" description="Solo observación: las reglas (marketValue, desguace, probabilidades, precios) son canónicas y están congeladas por F57.6." />
-      {q.error && <ErrorBox error={q.error} onRetry={q.reload} />}
+      <PageHeader eyebrow={t("Juego")} title={t("Economía")} description={t("Solo observación: las reglas (marketValue, desguace, probabilidades, precios) son canónicas y están congeladas por F57.6.")} />
+      {q.error && <ErrorBox error={td(q.error)} onRetry={q.reload} />}
       {!d && !q.error && <Loading rows={8} />}
       {d && (
         <div className="space-y-6">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-            <Stat label="Salud económica" value={<LevelBadge level={overall} label={overall === "HEALTHY" ? "Sana" : overall === "WARNING" ? "Avisos" : "Crítica"} />} hint={`${d.health.length} comprobaciones`} />
-            <Stat label="Créditos en circulación" value={fmt(d.credits)} accent="gold" />
-            <Stat label={`Entradas ${win} d`} value={fmt(sources)} accent="ok" hint="créditos creados (libro mayor)" />
-            <Stat label={`Salidas ${win} d`} value={fmt(sinks)} accent="bad" hint="créditos gastados" />
+            <Stat label={t("Salud económica")} value={<LevelBadge level={overall} label={overall === "HEALTHY" ? t("Sana") : overall === "WARNING" ? t("Avisos") : t("Crítica")} />} hint={t("{length} comprobaciones", { length: d.health.length })} />
+            <Stat label={t("Créditos en circulación")} value={fmt(d.credits)} accent="gold" />
+            <Stat label={t("Entradas {win} d", { win })} value={fmt(sources)} accent="ok" hint={t("créditos creados (libro mayor)")} />
+            <Stat label={t("Salidas {win} d", { win })} value={fmt(sinks)} accent="bad" hint={t("créditos gastados")} />
           </div>
-          <Panel title="Comprobaciones" subtitle="Calculadas con packStats, el catálogo y las tablas F57.3">
-            <ul className="grid gap-2 md:grid-cols-2">{d.health.map((h) => <li key={h.id} className="flex items-start gap-3 rounded-card border border-white/[0.07] px-3 py-2.5"><LevelBadge level={h.level} /><span><span className="block text-[14px] text-ink-primary">{h.label}</span><span className="text-[12px] text-ink-muted">{h.detail}</span></span></li>)}</ul>
+          <Panel title={t("Comprobaciones")} subtitle={t("Calculadas con packStats, el catálogo y las tablas F57.3")}>
+            <ul className="grid gap-2 md:grid-cols-2">{d.health.map((h) => <li key={h.id} className="flex items-start gap-3 rounded-card border border-white/[0.07] px-3 py-2.5"><LevelBadge level={h.level} /><span><span className="block text-[14px] text-ink-primary">{td(h.label)}</span><span className="text-[12px] text-ink-muted">{td(h.detail)}</span></span></li>)}</ul>
           </Panel>
           <div className="grid gap-6 xl:grid-cols-2">
-            <Panel title="Valor por clase" subtitle="marketValue y desguace (F57.5B)">
-              <DataTable caption="Valor por clase" rows={d.byClass} rowKey={(r) => r.cls}
+            <Panel title={t("Valor por clase")} subtitle={t("marketValue y desguace (F57.5B)")}>
+              <DataTable caption={t("Valor por clase")} rows={d.byClass} rowKey={(r) => r.cls}
                 cols={[
-                  { key: "c", label: "Clase", render: (r) => <b className="text-ink-primary">{PACK_CLASS_LABEL[r.cls]}</b> },
-                  { key: "n", label: "Cartas", align: "right", render: (r) => r.cards },
-                  { key: "m", label: "Mediana", align: "right", render: (r) => fmt(r.valueMedian) },
-                  { key: "a", label: "Media", align: "right", render: (r) => fmt(r.valueMean) },
-                  { key: "r", label: "Rango", align: "right", render: (r) => `${fmt(r.valueMin)}–${fmt(r.valueMax)}` },
-                  { key: "s", label: "Desguace med.", align: "right", render: (r) => fmt(r.salvageMedian) },
+                  { key: "c", label: t("Clase"), render: (r) => <b className="text-ink-primary">{td(PACK_CLASS_LABEL[r.cls])}</b> },
+                  { key: "n", label: t("Cartas"), align: "right", render: (r) => r.cards },
+                  { key: "m", label: t("Mediana"), align: "right", render: (r) => fmt(r.valueMedian) },
+                  { key: "a", label: t("Media"), align: "right", render: (r) => fmt(r.valueMean) },
+                  { key: "r", label: t("Rango"), align: "right", render: (r) => `${fmt(r.valueMin)}–${fmt(r.valueMax)}` },
+                  { key: "s", label: t("Desguace med."), align: "right", render: (r) => fmt(r.salvageMedian) },
                 ]} />
             </Panel>
-            <Panel title="Sobres más abiertos" subtitle={`Últimas ${fmt(d.openSample)} aperturas (economy_ops)`}>
-              <Bars label="Aperturas por sobre" data={d.mostOpened.slice(0, 10).map((p) => ({ label: p.name, value: p.opens }))} accent="gold" />
+            <Panel title={t("Sobres más abiertos")} subtitle={t("Últimas {openSample} aperturas (economy_ops)", { openSample: fmt(d.openSample) })}>
+              <Bars label={t("Aperturas por sobre")} data={d.mostOpened.slice(0, 10).map((p) => ({ label: p.name, value: p.opens }))} accent="gold" />
             </Panel>
           </div>
-          <Panel title="Fuentes y sumideros" subtitle="credit_transactions agrupado por motivo" actions={<Tabs label="Ventana" value={win} onChange={setWin} items={[{ id: "7", label: "7 días" }, { id: "30", label: "30 días" }]} />}>
-            <DataTable caption="Libro mayor por motivo" rows={ledger} rowKey={(r) => r.bucket} empty="Sin movimientos en la ventana" initialSort={{ key: "i", dir: "desc" }}
+          <Panel title={t("Fuentes y sumideros")} subtitle={t("credit_transactions agrupado por motivo")} actions={<Tabs label={t("Ventana")} value={win} onChange={setWin} items={[{ id: "7", label: t("7 días") }, { id: "30", label: t("30 días") }]} />}>
+            <DataTable caption={t("Libro mayor por motivo")} rows={ledger} rowKey={(r) => r.bucket} empty={t("Sin movimientos en la ventana")} initialSort={{ key: "i", dir: "desc" }}
               cols={[
-                { key: "b", label: "Motivo", render: (r) => <span className="text-ink-primary">{r.bucket}</span> },
-                { key: "e", label: "Asientos", align: "right", render: (r) => fmt(Number(r.entries)), sort: (r) => Number(r.entries) },
-                { key: "i", label: "Entradas", align: "right", render: (r) => <span className="text-ok">{fmt(Number(r.credits_in))}</span>, sort: (r) => Number(r.credits_in) },
-                { key: "o", label: "Salidas", align: "right", render: (r) => <span className="text-bad">{fmt(Number(r.credits_out))}</span>, sort: (r) => Number(r.credits_out) },
+                { key: "b", label: t("Motivo"), render: (r) => <span className="text-ink-primary">{td(r.bucket)}</span> },
+                { key: "e", label: t("Asientos"), align: "right", render: (r) => fmt(Number(r.entries)), sort: (r) => Number(r.entries) },
+                { key: "i", label: t("Entradas"), align: "right", render: (r) => <span className="text-ok">{fmt(Number(r.credits_in))}</span>, sort: (r) => Number(r.credits_in) },
+                { key: "o", label: t("Salidas"), align: "right", render: (r) => <span className="text-bad">{fmt(Number(r.credits_out))}</span>, sort: (r) => Number(r.credits_out) },
               ]} />
           </Panel>
-          <Panel title="Economía por sobre" subtitle={`Banda de la línea principal: ${d.band.lo.toFixed(2)}–${d.band.hi.toFixed(2)}× (mediana ${d.band.median.toFixed(2)}×)`} actions={<Link href="/admin/packs" className="nx-focus text-[12px] text-drl-cyan hover:underline">Ver sobres →</Link>}>
-            <Bars label="Valor por crédito de los sobres a la venta" data={d.packs.filter((p) => p.lifecycle === "ACTIVE" && p.evOverPrice != null).map((p) => ({ label: p.name, value: p.evOverPrice!, sub: `· desguace ${pct(p.salvageOverPrice, 0)}` }))} format={(n) => `${n.toFixed(2)}×`} accent="drl" />
+          <Panel title={t("Economía por sobre")} subtitle={t("Banda de la línea principal: {lo}–{hi}× (mediana {median}×)", { lo: d.band.lo.toFixed(2), hi: d.band.hi.toFixed(2), median: d.band.median.toFixed(2) })} actions={<Link href="/admin/packs" className="nx-focus text-[12px] text-drl-cyan hover:underline">{t("Ver sobres →")}</Link>}>
+            <Bars label={t("Valor por crédito de los sobres a la venta")} data={d.packs.filter((p) => p.lifecycle === "ACTIVE" && p.evOverPrice != null).map((p) => ({ label: p.name, value: p.evOverPrice!, sub: `· desguace ${pct(p.salvageOverPrice, 0)}` }))} format={(n) => `${n.toFixed(2)}×`} accent="drl" />
           </Panel>
         </div>
       )}

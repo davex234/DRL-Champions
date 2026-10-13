@@ -19,6 +19,11 @@ import { cn } from "@/lib/format";
 import { rankChip, type DerivedRank } from "@/domain/ranked/config";
 import { rankMovementLabel, type RankMovement } from "@/domain/ranked/standing";
 import { CompetitiveEmblem } from "./CompetitiveEmblem";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("competitive");
 
 const KEY = (matchId: string) => `drl:rank-ceremony:${matchId}`;
 
@@ -69,6 +74,7 @@ export function RankChange({ movement, matchId, positions = null, position = nul
   rankedTotal?: number | null;
   className?: string;
 }) {
+  useLocale();
   const reduced = !!useReducedMotion();
   const animate = useCeremonyOnce(matchId, reduced);
   const m = movement;
@@ -76,19 +82,19 @@ export function RankChange({ movement, matchId, positions = null, position = nul
 
   const sign = m.delta > 0 ? `+${m.delta}` : `${m.delta}`;
   const posLine = positions === null || position === null ? null
-    : positions > 0 ? `Subes ${positions} ${positions === 1 ? "puesto" : "puestos"} en el Top (#${position})`
-      : positions < 0 ? `Bajas ${-positions} ${positions === -1 ? "puesto" : "puestos"} en el Top (#${position})` : `Mantienes el #${position} del Top`;
+    : positions > 0 ? (positions === 1 ? tr("Subes {n} puesto en el Top (#{position})", { n: positions, position }) : tr("Subes {n} puestos en el Top (#{position})", { n: positions, position }))
+      : positions < 0 ? (positions === -1 ? tr("Bajas {n} puesto en el Top (#{position})", { n: -positions, position }) : tr("Bajas {n} puestos en el Top (#{position})", { n: -positions, position })) : tr("Mantienes el #{position} del Top", { position });
 
   const common = { "data-testid": "rank-change", "data-kind": m.kind, "data-animated": animate ? "true" : "false" };
-  const capNote = m.pairCapped && <p className="mt-2 text-center text-[11.5px] text-white/55" data-field="pair-cap">Partida contada sin cambio de rating: ya habéis jugado varias partidas puntuadas entre vosotros en las últimas horas.</p>;
+  const capNote = m.pairCapped && <p className="mt-2 text-center text-[11.5px] text-white/55" data-field="pair-cap">{tr("Partida contada sin cambio de rating: ya habéis jugado varias partidas puntuadas entre vosotros en las últimas horas.")}</p>;
 
   if (m.kind === "PLACEMENT_PROGRESS" && m.placement) {
     return (
       <section aria-label={rankMovementLabel(m)} className={cn("nx-clip mt-3 border border-drl-cyan/40 px-4 py-4 text-center", className)} style={{ background: "radial-gradient(90% 120% at 50% 0%, rgba(25,227,255,0.14), rgba(0,0,0,0.3) 70%)" }} {...common}>
-        <p className="nx-label !text-drl-cyan">Colocación</p>
+        <p className="nx-label !text-drl-cyan">{tr("Colocación")}</p>
         <p className="mt-1 font-display text-[28px] font-bold uppercase leading-none text-white" data-field="placement">{m.placement.played} / {m.placement.total}</p>
         <Segments played={m.placement.played} total={m.placement.total} animateLast={animate} />
-        <p className="mt-2 text-[13px] text-white/70">Rating {m.oldRating} → <b className="text-white">{m.newRating}</b> <span className={m.delta >= 0 ? "text-drl-cyan" : "text-drl-glow"}>({sign})</span>. {m.placement.total - m.placement.played === 1 ? "Una partida más y se revela tu rango." : `Te faltan ${m.placement.total - m.placement.played} para revelar tu rango.`}</p>
+        <p className="mt-2 text-[13px] text-white/70">{tr("Rating")} {m.oldRating} → <b className="text-white">{m.newRating}</b> <span className={m.delta >= 0 ? "text-drl-cyan" : "text-drl-glow"}>({td(sign)})</span>. {m.placement.total - m.placement.played === 1 ? tr("Una partida más y se revela tu rango.") : tr("Te faltan {v} para revelar tu rango.", { v: m.placement.total - m.placement.played })}</p>
         {capNote}
       </section>
     );
@@ -105,14 +111,14 @@ export function RankChange({ movement, matchId, positions = null, position = nul
   if (m.kind === "DEMOTION" && m.before && m.after) {
     return (
       <section aria-label={rankMovementLabel(m)} className={cn("nx-clip mt-3 border border-white/15 bg-white/[0.03] px-4 py-4", className)} {...common}>
-        <p className="text-center font-display text-[22px] font-bold uppercase tracking-wide" style={{ color: TONE.down }} data-field="ceremony-word"><span aria-hidden className="mr-1.5">▼</span>Descenso</p>
+        <p className="text-center font-display text-[22px] font-bold uppercase tracking-wide" style={{ color: TONE.down }} data-field="ceremony-word"><span aria-hidden className="mr-1.5">▼</span>{tr("Descenso")}</p>
         <div className="mt-3 flex items-center justify-center gap-4">
-          <RankSide rank={m.before} label="Antes" dim />
+          <RankSide rank={m.before} label={tr("Antes")} dim />
           <span aria-hidden className="text-[20px] text-white/35">→</span>
-          <RankSide rank={m.after} label="Ahora" />
+          <RankSide rank={m.after} label={tr("Ahora")} />
         </div>
-        <p className="mt-2 text-center text-[13px] text-white/70">Rating {m.oldRating} → <b className="text-white">{m.newRating}</b> ({sign}). Te faltan {m.after.pointsToNext} para volver a {m.after.nextLabel}.</p>
-        {posLine && <p className="mt-1 text-center text-[11.5px] text-white/45" data-field="positions">{posLine}</p>}
+        <p className="mt-2 text-center text-[13px] text-white/70">{fill(tr("Rating {antes} → {ahora} ({cambio}). Te faltan {n} para volver a {rango}.", { antes: m.oldRating, ...slots("ahora"), cambio: td(sign), n: m.after.pointsToNext, rango: td(m.after.nextLabel) }), { ahora: <b className="text-white">{m.newRating}</b> })}</p>
+        {posLine && <p className="mt-1 text-center text-[11.5px] text-white/45" data-field="positions">{td(posLine)}</p>}
         {capNote}
       </section>
     );
@@ -125,26 +131,27 @@ export function RankChange({ movement, matchId, positions = null, position = nul
       <div className="flex items-center gap-4">
         <CompetitiveEmblem rank={rankChip(after)} state="RANKED" size="md" animate={animate} />
         <div className="min-w-0 flex-1">
-          <p className="font-display text-[22px] font-bold uppercase leading-none text-white" data-field="rank-label">{after.label}</p>
-          <p className="mt-1 nx-readout text-[26px] leading-none" style={{ color: m.delta >= 0 ? TONE.up : TONE.down }} data-field="delta">{sign}</p>
+          <p className="font-display text-[22px] font-bold uppercase leading-none text-white" data-field="rank-label">{td(after.label)}</p>
+          <p className="mt-1 nx-readout text-[26px] leading-none" style={{ color: m.delta >= 0 ? TONE.up : TONE.down }} data-field="delta">{td(sign)}</p>
           {after.progress !== null && m.before?.progress != null && (
             <DivisionBar from={m.before.progress} to={after.progress} color={after.color} animate={animate} label={`${after.label} → ${after.nextLabel}`} />
           )}
-          <p className="mt-1 text-[12px] text-white/60">{after.pointsToNext !== null ? `${after.pointsToNext} para ${after.nextLabel}` : "Cumbre: defiende tu puesto en el Top"}</p>
+          <p className="mt-1 text-[12px] text-white/60">{after.pointsToNext !== null ? tr("{pointsToNext} para {nextLabel}", { pointsToNext: after.pointsToNext, nextLabel: td(after.nextLabel) }) : tr("Cumbre: defiende tu puesto en el Top")}</p>
         </div>
       </div>
-      {posLine && <p className="mt-2 text-[11.5px] text-white/45" data-field="positions">{posLine}</p>}
+      {posLine && <p className="mt-2 text-[11.5px] text-white/45" data-field="positions">{td(posLine)}</p>}
       {capNote}
     </section>
   );
 }
 
 function RankSide({ rank, label, dim = false }: { rank: DerivedRank; label: string; dim?: boolean }) {
+  useLocale();
   return (
     <span className={cn("flex flex-col items-center gap-1", dim && "opacity-60")}>
-      <span className="nx-label !text-[10px]">{label}</span>
+      <span className="nx-label !text-[10px]">{td(label)}</span>
       <CompetitiveEmblem rank={rankChip(rank)} state="RANKED" size="sm" animate={false} />
-      <span className="font-display text-[13px] font-bold uppercase" style={{ color: rank.color }}>{rank.label}</span>
+      <span className="font-display text-[13px] font-bold uppercase" style={{ color: rank.color }}>{td(rank.label)}</span>
     </span>
   );
 }
@@ -165,8 +172,9 @@ function Segments({ played, total, animateLast }: { played: number; total: numbe
 }
 
 function DivisionBar({ from, to, color, animate, label }: { from: number; to: number; color: string; animate: boolean; label: string }) {
+  useLocale();
   return (
-    <div className="nx-clip-sm relative mt-2 h-2 overflow-hidden bg-white/10" role="img" aria-label={`Progreso en la división: ${Math.round(to * 100)} %. ${label}`}>
+    <div className="nx-clip-sm relative mt-2 h-2 overflow-hidden bg-white/10" role="img" aria-label={tr("Progreso en la división: {Math} %. {label}", { Math: Math.round(to * 100), label: td(label) })}>
       <motion.div className="absolute inset-y-0 left-0" style={{ background: color }} initial={animate ? { width: `${from * 100}%` } : false} animate={{ width: `${Math.max(3, to * 100)}%` }} transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }} />
     </div>
   );
@@ -176,6 +184,7 @@ interface CeremonyProps { m: RankMovement; animate: boolean; posLine: string | n
 
 /** ASCENSO: viejo → contador cruza la frontera → destello → nuevo. ≈ 3 s; con movimiento reducido, el final quieto. */
 function Promotion({ m, before, after, animate, posLine, common, className, capNote }: CeremonyProps & { before: DerivedRank; after: DerivedRank }) {
+  useLocale();
   const [phase, setPhase] = useState<"old" | "new">(animate ? "old" : "new");
   useEffect(() => {
     if (!animate) { setPhase("new"); return; }
@@ -194,7 +203,7 @@ function Promotion({ m, before, after, animate, posLine, common, className, capN
           style={{ borderColor: tone }} initial={{ scale: 0.3, opacity: 0.9 }} animate={{ scale: big ? 3.2 : 2.4, opacity: 0 }} transition={{ delay: i * 0.25, duration: 1.2, ease: "easeOut" }} />
       ))}
       <p className="font-display text-[clamp(26px,7vw,42px)] font-bold uppercase leading-none tracking-wide" style={{ color: tone, textShadow: `0 0 26px ${tone}99` }} data-field="ceremony-word">
-        <span aria-hidden className="mr-2">▲</span>Ascenso
+        <span aria-hidden className="mr-2">▲</span>{tr("Ascenso")}
       </p>
       <div className="relative mx-auto mt-3 grid h-[176px] place-items-center">
         <AnimatePresence mode="wait" initial={false}>
@@ -209,10 +218,10 @@ function Promotion({ m, before, after, animate, posLine, common, className, capN
           )}
         </AnimatePresence>
       </div>
-      <p className="font-display text-[24px] font-bold uppercase leading-none text-white" data-field="rank-label">{phase === "new" ? after.label : before.label}</p>
-      <p className="mt-1 text-[13px] text-white/60" data-field="rank-from">desde {before.label}</p>
+      <p className="font-display text-[24px] font-bold uppercase leading-none text-white" data-field="rank-label">{phase === "new" ? td(after.label) : td(before.label)}</p>
+      <p className="mt-1 text-[13px] text-white/60" data-field="rank-from">{tr("desde {rango}", { rango: td(before.label) })}</p>
       <p className="mt-2 nx-readout text-[30px] leading-none text-white tabular-nums" data-field="rating">{shown} <span className="text-[18px]" style={{ color: tone }}>({m.delta > 0 ? `+${m.delta}` : m.delta})</span></p>
-      {posLine && <p className="mt-1.5 text-[11.5px] text-white/50" data-field="positions">{posLine}</p>}
+      {posLine && <p className="mt-1.5 text-[11.5px] text-white/50" data-field="positions">{td(posLine)}</p>}
       {capNote}
     </section>
   );
@@ -220,6 +229,7 @@ function Promotion({ m, before, after, animate, posLine, common, className, capN
 
 /** RANGO OBTENIDO al cerrar la colocación: segmentos completos → revelación del emblema. */
 function Reveal({ m, after, animate, posLine, common, className, capNote }: CeremonyProps & { after: DerivedRank }) {
+  useLocale();
   const [shownRank, setShownRank] = useState(!animate);
   useEffect(() => {
     if (!animate) { setShownRank(true); return; }
@@ -232,9 +242,9 @@ function Reveal({ m, after, animate, posLine, common, className, capNote }: Cere
   return (
     <section aria-label={rankMovementLabel(m)} className={cn("nx-clip relative mt-3 overflow-hidden border px-4 py-6 text-center", className)}
       style={{ borderColor: `${tone}88`, background: `radial-gradient(100% 120% at 50% 10%, ${tone}38, rgba(0,0,0,0.4) 72%)` }} {...common}>
-      <p className="nx-label !text-drl-gold">Colocación completada · {total} / {total}</p>
+      <p className="nx-label !text-drl-gold">{tr("Colocación completada ·")} {total} / {total}</p>
       <Segments played={total} total={total} animateLast={animate} />
-      <p className="mt-3 font-display text-[clamp(24px,6vw,36px)] font-bold uppercase leading-none tracking-[0.08em] text-white" data-field="ceremony-word">Rango obtenido</p>
+      <p className="mt-3 font-display text-[clamp(24px,6vw,36px)] font-bold uppercase leading-none tracking-[0.08em] text-white" data-field="ceremony-word">{tr("Rango obtenido")}</p>
       <div className="relative mx-auto mt-3 grid h-[196px] place-items-center">
         {shownRank ? (
           <motion.div initial={animate ? { opacity: 0, scale: 0.4, rotate: -8 } : false} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
@@ -248,9 +258,9 @@ function Reveal({ m, after, animate, posLine, common, className, capNote }: Cere
             initial={{ scale: 0.3, opacity: 1 }} animate={{ scale: 3, opacity: 0 }} transition={{ duration: 1.3, ease: "easeOut" }} />
         )}
       </div>
-      <p className="font-display text-[30px] font-bold uppercase leading-none" style={{ color: tone, textShadow: `0 0 24px ${tone}88` }} data-field="rank-label">{shownRank ? after.label : "…"}</p>
-      <p className="mt-2 nx-readout text-[20px] text-white" data-field="rating">Rating {m.newRating} <span className="text-[14px] text-white/55">({m.delta > 0 ? `+${m.delta}` : m.delta} en esta partida)</span></p>
-      {posLine && <p className="mt-1 text-[11.5px] text-white/50" data-field="positions">{posLine}</p>}
+      <p className="font-display text-[30px] font-bold uppercase leading-none" style={{ color: tone, textShadow: `0 0 24px ${tone}88` }} data-field="rank-label">{shownRank ? td(after.label) : "…"}</p>
+      <p className="mt-2 nx-readout text-[20px] text-white" data-field="rating">{tr("Rating")} {m.newRating} <span className="text-[14px] text-white/55">{tr("({cambio} en esta partida)", { cambio: m.delta > 0 ? `+${m.delta}` : m.delta })}</span></p>
+      {posLine && <p className="mt-1 text-[11.5px] text-white/50" data-field="positions">{td(posLine)}</p>}
       {capNote}
     </section>
   );

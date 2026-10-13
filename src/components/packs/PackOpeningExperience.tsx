@@ -73,6 +73,10 @@ import dynamic from "next/dynamic";
 import { PACK_WALKOUT_3D_ENABLED } from "@/config/features";
 import { PACK_WALKOUT_DEV_KEY, packWalkoutAllowed, packWalkoutQueue, walkoutFlow, type PackWalkoutItem } from "@/domain/walkout/packWalkout";
 import { useAdminSession } from "@/lib/supabase/useAdminSession";
+import { ns, td } from "@/i18n/runtime";
+import { useCriticalOperation, useLocale } from "@/i18n/react";
+
+const tr = ns("packs");
 
 /*
  * WALKOUT 0.5 · el walkout se carga BAJO DEMANDA (solo si esta apertura trae una carta especial y el despliegue lo
@@ -81,7 +85,7 @@ import { useAdminSession } from "@/lib/supabase/useAdminSession";
 const loadPackWalkout = () => import("./PackWalkout");
 const PackWalkout = dynamic(() => loadPackWalkout().then((m) => m.PackWalkout), {
   ssr: false,
-  loading: () => <div className="absolute inset-0 z-surface grid place-items-center bg-[#030409] font-display text-label font-bold uppercase tracking-wide2 text-white/60" role="status">Preparando…</div>,
+  loading: () => <div className="absolute inset-0 z-surface grid place-items-center bg-[#030409] font-display text-label font-bold uppercase tracking-wide2 text-white/60" role="status">{tr("Preparando…")}</div>,
 });
 
 /** Pregunta al servidor si la cuenta es admin SOLO cuando el despliegue es «admins» (con «off» no se monta: 0 peticiones). */
@@ -117,6 +121,9 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
   /** WALKOUT 0.5 · SOLO arneses QA (fuera de producción no cuenta): presenta el walkout aunque el despliegue esté en «off». */
   qaWalkout?: boolean;
 }) {
+  useLocale();
+  // I18N · con la apertura en pantalla, un cambio de idioma (otra pestaña, la cuenta) espera a que termine.
+  useCriticalOperation(true);
   const router = useRouter();
   const reduced = !!useReducedMotion();
   usePacksVersion(); // F60: un sobre del panel llega con la sincronización de contenido
@@ -444,29 +451,29 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
 
   /* ─────────────── estados límite ─────────────── */
   if (!pack) {
-    return <PackStatus kind="not_found" title="Ese sobre no existe" message="El enlace apunta a un sobre que no está en el catálogo. Puede que fuera de un evento que ya terminó, o que la dirección esté mal escrita." packsLeft={packsLeft} onNavigate={navigate} />;
+    return <PackStatus kind="not_found" title={tr("Ese sobre no existe")} message={tr("El enlace apunta a un sobre que no está en el catálogo. Puede que fuera de un evento que ya terminó, o que la dirección esté mal escrita.")} packsLeft={packsLeft} onNavigate={navigate} />;
   }
   // Fase 21.2 (§13): un sobre DRAFT no se abre por la ruta pública —lo rechaza también el servidor (`guardPublicOpen`)—.
   if (!isPubliclyOpenable(pack) && results.length === 0) {
-    return <PackStatus kind="unavailable" title="Sobre no disponible" message={`«${pack.name}» no está disponible para abrir ahora mismo. Echa un vistazo al resto del catálogo.`} packsLeft={packsLeft} onNavigate={navigate} />;
+    return <PackStatus kind="unavailable" title={tr("Sobre no disponible")} message={tr("«{name}» no está disponible para abrir ahora mismo. Echa un vistazo al resto del catálogo.", { name: td(pack.name) })} packsLeft={packsLeft} onNavigate={navigate} />;
   }
   if (phase === "recovering") {
-    return <PackStatus kind="recovering" title="Recuperando tu sobre" message="Había una apertura en marcha en esta pestaña. Estamos pidiendo al servidor su resultado — no se abre ningún sobre nuevo." packsLeft={packsLeft} onNavigate={navigate} />;
+    return <PackStatus kind="recovering" title={tr("Recuperando tu sobre")} message={tr("Había una apertura en marcha en esta pestaña. Estamos pidiendo al servidor su resultado — no se abre ningún sobre nuevo.")} packsLeft={packsLeft} onNavigate={navigate} />;
   }
   if (phase === "error" && state.failure) {
     const failure = state.failure;
     return (
       <PackStatus
-        kind="error" title={failure.title} message={failure.message} packsLeft={packsLeft} onNavigate={navigate}
+        kind="error" title={td(failure.title)} message={td(failure.message)} packsLeft={packsLeft} onNavigate={navigate}
         onRetry={failure.retrySameKey ? () => { dispatch({ type: "DISMISS_ERROR" }); void triggerOpen(); } : undefined}
       />
     );
   }
   if (phase === "no_pack") {
-    return <PackStatus kind="no_pack" title={state.failure?.title ?? "No te queda este sobre"} message={state.failure?.message ?? "No queda ninguna unidad de este sobre."} packsLeft={packsLeft} onNavigate={navigate} />;
+    return <PackStatus kind="no_pack" title={td(state.failure?.title) ?? tr("No te queda este sobre")} message={td(state.failure?.message) ?? tr("No queda ninguna unidad de este sobre.")} packsLeft={packsLeft} onNavigate={navigate} />;
   }
   if (available <= 0 && phase === "ready" && !(online && hasPendingOpen(packId))) {
-    return <PackStatus kind="missing" title="No tienes este sobre" message={`No queda ninguna unidad de «${pack.name}» en tu inventario. Consigue uno en la tienda o revisa los que ya tienes pendientes.`} packsLeft={packsLeft} onNavigate={navigate} />;
+    return <PackStatus kind="missing" title={tr("No tienes este sobre")} message={tr("No queda ninguna unidad de «{name}» en tu inventario. Consigue uno en la tienda o revisa los que ya tienes pendientes.", { name: td(pack.name) })} packsLeft={packsLeft} onNavigate={navigate} />;
   }
 
   const best = plan.summary.featured;
@@ -495,7 +502,7 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
         onClick={() => navigate(phase === "summary" ? "/coleccion" : "/packs")}
         className="nx-focus absolute right-4 top-4 z-overlay grid h-11 w-11 min-h-[44px] place-items-center rounded-full border border-white/15 bg-black/40 text-white/70 transition hover:bg-black/70 hover:text-white"
         style={{ marginTop: "env(safe-area-inset-top)" }}
-        aria-label="Cerrar la apertura"
+        aria-label={tr("Cerrar la apertura")}
       >
         <GameGlyph name="close" className="h-4 w-4" />
       </button>
@@ -553,23 +560,23 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
           onClick={skipToSummary}
           className="nx-focus absolute left-4 top-4 z-overlay inline-flex h-11 min-h-[44px] items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-4 font-display text-label font-bold uppercase tracking-wide2 text-white/75 transition hover:bg-black/70 hover:text-white"
           style={{ marginTop: "env(safe-area-inset-top)" }}
-          aria-label="Saltar la animación y ver todas las cartas"
+          aria-label={tr("Saltar la animación y ver todas las cartas")}
           data-testid="pack-skip"
         >
-          Omitir ⏭
+          {tr("Omitir ⏭")}
         </button>
       )}
 
       {phase === "summary" && plan.items.length === 0 && results.length > 0 && (
-        <PackStatus kind="error" title="No se pudieron mostrar tus cartas" message="El sobre se abrió y las cartas están guardadas en tu colección, pero no se pudieron presentar aquí. Ábrelas en tu colección." packsLeft={packsLeft} onNavigate={navigate} />
+        <PackStatus kind="error" title={tr("No se pudieron mostrar tus cartas")} message={tr("El sobre se abrió y las cartas están guardadas en tu colección, pero no se pudieron presentar aquí. Ábrelas en tu colección.")} packsLeft={packsLeft} onNavigate={navigate} />
       )}
 
       {phase === "summary" && plan.items.length > 0 && (
         <div className="absolute inset-0 overflow-y-auto px-4 py-8" style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}>
           {!state.cinematic && (
             <p role="status" className="mx-auto mb-4 max-w-xl text-center text-caption text-ink-muted" data-testid="summary-no-cinematic">
-              Tus cartas ya están guardadas. Esta vez se muestran sin animación.
-              {plan.summary.unresolved > 0 && ` ${plan.summary.unresolved === 1 ? "Una carta no se pudo mostrar aquí" : `${plan.summary.unresolved} cartas no se pudieron mostrar aquí`}: está${plan.summary.unresolved === 1 ? "" : "n"} en tu colección.`}
+              {tr("Tus cartas ya están guardadas. Esta vez se muestran sin animación.")}
+              {plan.summary.unresolved > 0 && " " + tr("{n, plural, one {Una carta no se pudo mostrar aquí: está en tu colección.} other {# cartas no se pudieron mostrar aquí: están en tu colección.}}", { n: plan.summary.unresolved })}
             </p>
           )}
           <PackSummary

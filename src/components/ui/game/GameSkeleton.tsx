@@ -9,13 +9,18 @@
  * Ninguna cifra: todavía no se sabe nada. `aria-busy` + texto para lector de pantalla.
  */
 import { cn } from "@/lib/format";
+import { td, ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("ui");
 
 export type SkeletonKind = "hero" | "cards" | "deck" | "hub" | "profile";
 
-export function GameSkeleton({ kind, label = "Cargando…", count = 6, className }: { kind: SkeletonKind; label?: string; count?: number; className?: string }) {
+export function GameSkeleton({ kind, label = t("Cargando…"), count = 6, className }: { kind: SkeletonKind; label?: string; count?: number; className?: string }) {
+  useLocale();
   return (
     <div aria-busy="true" data-testid={`game-skeleton-${kind}`} className={cn("w-full", className)}>
-      <span className="sr-only" role="status">{label}</span>
+      <span className="sr-only" role="status">{td(label)}</span>
       {kind === "hero" && (
         <div className="nx-clip border border-white/10 bg-[linear-gradient(160deg,rgba(12,15,26,0.96),rgba(6,8,14,0.98))] px-6 py-9 sm:px-10">
           <div className="nx-skel nx-clip-sm h-3 w-40" />

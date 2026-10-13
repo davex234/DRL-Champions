@@ -11,6 +11,10 @@ import { PRESENCE_LABEL, type Presence } from "@/domain/social/social";
 import type { SocialPlayer } from "@/server/services/social";
 import type { RankBadge } from "@/server/services/competitive";
 import { RankInline } from "@/components/competitive/ranked/CompetitiveEmblem";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("social");
 
 export const PRESENCE_TONE: Record<Presence, "ok" | "warn" | "muted" | "info"> = { IN_MATCH: "warn", IN_QUEUE: "info", ONLINE: "ok", OFFLINE: "muted" };
 
@@ -19,7 +23,7 @@ export function PresenceDot({ presence, className }: { presence: Presence; class
   return (
     <span className={`inline-flex items-center gap-1.5 text-[11px] text-white/60 ${className ?? ""}`} data-presence={presence}>
       <StatusDot tone={PRESENCE_TONE[presence]} pulse={presence === "ONLINE" || presence === "IN_MATCH"} />
-      <span>{PRESENCE_LABEL[presence]}</span>
+      <span>{td(PRESENCE_LABEL[presence])}</span>
     </span>
   );
 }
@@ -44,6 +48,7 @@ const placementOf = (label: string) => { const m = /(\d+)\/(\d+)/.exec(label); r
 export const profileHref = (userId: string) => playerHref(userId);
 
 export function PlayerLine({ player, presence, sub, size = "md", tags }: { player: SocialPlayer; presence?: Presence | null; sub?: React.ReactNode; size?: "sm" | "md"; tags?: React.ReactNode }) {
+  useLocale();
   const av = size === "sm" ? "h-9 w-9 text-lg" : "h-11 w-11 text-2xl";
   return (
     <div className="flex min-w-0 items-center gap-3">
@@ -55,7 +60,7 @@ export function PlayerLine({ player, presence, sub, size = "md", tags }: { playe
         <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-white/45">
           {presence && <PresenceDot presence={presence} />}
           {tags}
-          {sub}
+          {td(sub)}
         </div>
       </div>
     </div>
@@ -81,18 +86,18 @@ export function RowButton({ tone = "ghost", className, children, ...rest }: Reac
 /** Tiempo que le queda a un reto, en palabras. Solo presentación: quien caduca es el servidor. */
 export function remainingText(expiresAt: number, now: number): string {
   const left = expiresAt - now;
-  if (left <= 0) return "Caducado";
+  if (left <= 0) return t("Caducado");
   const h = Math.floor(left / 3600_000);
-  if (h >= 1) return `Caduca en ${h} h`;
+  if (h >= 1) return t("Caduca en {h} h", { h });
   // F85 · un reto dura 5 min: cuenta atrás m:ss.
   const s = Math.floor(left / 1000);
-  return `Caduca en ${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+  return t("Caduca en {Math}:{v}", { Math: Math.floor(s / 60), v: String(s % 60).padStart(2, "0") });
 }
 
 export const ago = (at: number, now: number): string => {
   const d = Math.max(0, now - at);
-  if (d < 60_000) return "ahora mismo";
-  if (d < 3600_000) return `hace ${Math.floor(d / 60_000)} min`;
-  if (d < 86_400_000) return `hace ${Math.floor(d / 3600_000)} h`;
-  return `hace ${Math.floor(d / 86_400_000)} d`;
+  if (d < 60_000) return t("ahora mismo");
+  if (d < 3600_000) return t("hace {n} min", { n: Math.floor(d / 60_000) });
+  if (d < 86_400_000) return t("hace {n} h", { n: Math.floor(d / 3600_000) });
+  return t("hace {n} d", { n: Math.floor(d / 86_400_000) });
 };

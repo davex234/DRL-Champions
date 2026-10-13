@@ -11,6 +11,10 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrandMark } from "@/branding/Logo";
 import { formatBytes, formatSpeed, formatEta, getLogs, type UpdateState, type LogEntry } from "@/platform";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 const STEPS: { phase: UpdateState["phase"]; label: string }[] = [
   { phase: "downloading", label: "Descargando" },
@@ -48,6 +52,7 @@ export function UpdateRequiredScreen({
   onRetry: () => void;
   onExit: () => void;
 }) {
+  useLocale();
   const [showLogs, setShowLogs] = useState(false);
   const { phase } = state;
 
@@ -74,7 +79,7 @@ export function UpdateRequiredScreen({
         <div className="flex flex-col items-center text-center">
           <BrandMark size={96} />
           <p className="mt-5 font-display text-3xl font-black uppercase tracking-wide">
-            DRL <span className="text-drl">CHAMPIONS</span>
+            {t("DRL")} <span className="text-drl">{t("CHAMPIONS")}</span>
           </p>
           <motion.h1
             key={phase}
@@ -82,12 +87,12 @@ export function UpdateRequiredScreen({
             animate={{ opacity: 1, y: 0 }}
             className="mt-4 font-display text-xl font-bold uppercase tracking-wide text-drl-gold"
           >
-            {PHASE_TITLE[phase] ?? "Actualización"}
+            {td(PHASE_TITLE[phase]) ?? t("Actualización")}
           </motion.h1>
           <p className="mt-2 text-white/55">
-            <span className="text-white/35">v{state.current}</span>
+            <span className="text-white/35">v{td(state.current)}</span>
             <span className="mx-2 text-drl-gold">→</span>
-            <span className="font-bold text-drl-gold">v{state.available}</span>
+            <span className="font-bold text-drl-gold">v{td(state.available)}</span>
             {state.availableSize != null && (
               <span className="ml-3 text-white/40">· {formatBytes(state.availableSize)}</span>
             )}
@@ -97,8 +102,8 @@ export function UpdateRequiredScreen({
         {/* Notas del parche (solo antes de empezar) */}
         {phase === "available" && state.notes && (
           <div className="mt-6 max-h-44 overflow-y-auto rounded-2xl border border-white/10 bg-base-800/50 p-4 text-[13px] leading-relaxed text-white/70 backdrop-blur">
-            <p className="mb-1 text-[10px] uppercase tracking-widest text-white/40">Notas del parche</p>
-            <p className="whitespace-pre-line">{state.notes}</p>
+            <p className="mb-1 text-[10px] uppercase tracking-widest text-white/40">{t("Notas del parche")}</p>
+            <p className="whitespace-pre-line">{td(state.notes)}</p>
           </div>
         )}
 
@@ -119,11 +124,11 @@ export function UpdateRequiredScreen({
                     {state.percent.toFixed(0)}% · {formatBytes(state.bytesDownloaded)} / {formatBytes(state.bytesTotal)}
                   </span>
                   <span className="tabular-nums">
-                    {formatSpeed(state.speedBps)} · {formatEta(state.etaSec)} restante
+                    {formatSpeed(state.speedBps)} · {formatEta(state.etaSec)} {t("restante")}
                   </span>
                 </>
               ) : (
-                <span className="text-drl-gold">{PHASE_TITLE[phase]}…</span>
+                <span className="text-drl-gold">{td(PHASE_TITLE[phase])}…</span>
               )}
             </div>
           </div>
@@ -139,7 +144,7 @@ export function UpdateRequiredScreen({
                 <div key={s.label} className="flex-1">
                   <div className={`h-1.5 rounded-full transition-colors ${reached ? "bg-drl-gold" : "bg-white/10"}`} />
                   <p className={`mt-1.5 text-center text-[10px] uppercase tracking-wider transition-colors ${active ? "text-drl-gold" : reached ? "text-white/70" : "text-white/30"}`}>
-                    {s.label}
+                    {td(s.label)}
                   </p>
                 </div>
               );
@@ -151,13 +156,13 @@ export function UpdateRequiredScreen({
         <div className="mt-8 flex flex-col gap-2">
           <AnimatePresence mode="wait">
             {phase === "available" && (
-              <Action key="upd" onClick={onUpdate} primary>⤓ ACTUALIZAR</Action>
+              <Action key="upd" onClick={onUpdate} primary>{t("⤓ ACTUALIZAR")}</Action>
             )}
             {phase === "downloaded" && (
-              <Action key="ins" onClick={onInstall} primary>⚙ INSTALAR</Action>
+              <Action key="ins" onClick={onInstall} primary>{t("⚙ INSTALAR")}</Action>
             )}
             {phase === "ready" && (
-              <Action key="res" onClick={onRestart} primary>↻ REINICIAR Y APLICAR</Action>
+              <Action key="res" onClick={onRestart} primary>{t("↻ REINICIAR Y APLICAR")}</Action>
             )}
           </AnimatePresence>
 
@@ -166,13 +171,12 @@ export function UpdateRequiredScreen({
             disabled={inProgress}
             className="w-full rounded-2xl border border-white/15 bg-white/5 px-6 py-3 font-display text-sm font-bold uppercase tracking-wider text-white/75 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30"
           >
-            Salir
+            {t("Salir")}
           </button>
         </div>
 
         <p className="mt-5 text-center text-[11px] text-white/35">
-          DRL Champions se mantiene actualizado automáticamente. La firma de cada versión se
-          verifica antes de instalar.
+          {t("DRL Champions se mantiene actualizado automáticamente. La firma de cada versión se verifica antes de instalar.")}
         </p>
       </motion.div>
     </div>
@@ -208,6 +212,7 @@ function ErrorView({
   showLogs: boolean;
   setShowLogs: (v: boolean) => void;
 }) {
+  useLocale();
   const logs: LogEntry[] = showLogs ? getLogs().slice(-40).reverse() : [];
   return (
     <div className="relative grid min-h-screen place-items-center overflow-hidden bg-base-900 text-white">
@@ -219,34 +224,34 @@ function ErrorView({
         className="relative w-full max-w-lg rounded-3xl border border-rose-400/20 bg-base-800/60 p-8 text-center backdrop-blur"
       >
         <p className="text-4xl">⚠️</p>
-        <h1 className="mt-3 font-display text-2xl font-black uppercase">No se ha podido actualizar</h1>
+        <h1 className="mt-3 font-display text-2xl font-black uppercase">{t("No se ha podido actualizar")}</h1>
         <div className="mt-4 rounded-xl border border-rose-400/25 bg-rose-500/10 px-4 py-3 text-left">
-          <p className="text-[11px] uppercase tracking-widest text-rose-300/80">Código de error</p>
-          <p className="font-mono text-sm font-bold text-rose-200">{state.errorCode ?? "UNKNOWN"}</p>
-          <p className="mt-2 text-[11px] uppercase tracking-widest text-rose-300/80">Descripción</p>
-          <p className="text-[13px] text-white/80">{state.error ?? "Error desconocido."}</p>
+          <p className="text-[11px] uppercase tracking-widest text-rose-300/80">{t("Código de error")}</p>
+          <p className="font-mono text-sm font-bold text-rose-200">{state.errorCode ?? t("UNKNOWN")}</p>
+          <p className="mt-2 text-[11px] uppercase tracking-widest text-rose-300/80">{t("Descripción")}</p>
+          <p className="text-[13px] text-white/80">{td(state.error) ?? t("Error desconocido.")}</p>
         </div>
 
         <div className="mt-6 grid grid-cols-3 gap-2">
           <button onClick={onRetry} className="rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-4 py-3 font-display text-sm font-bold uppercase text-white transition hover:brightness-110">
-            ↻ Reintentar
+            {t("↻ Reintentar")}
           </button>
           <button onClick={() => setShowLogs(!showLogs)} className="rounded-xl border border-white/15 bg-white/5 px-4 py-3 font-semibold text-white/80 transition hover:bg-white/10">
-            📜 Registros
+            {t("📜 Registros")}
           </button>
           <button onClick={onExit} className="rounded-xl border border-white/15 bg-white/5 px-4 py-3 font-semibold text-white/80 transition hover:bg-white/10">
-            Salir
+            {t("Salir")}
           </button>
         </div>
 
         {showLogs && (
           <div className="mt-4 max-h-52 overflow-y-auto rounded-xl border border-white/10 bg-base-900/80 p-3 text-left font-mono text-[10px]">
             {logs.length === 0 ? (
-              <p className="text-white/40">Sin registros.</p>
+              <p className="text-white/40">{t("Sin registros.")}</p>
             ) : (
               logs.map((l, i) => (
                 <p key={i} className={l.level === "error" ? "text-rose-300" : l.level === "warn" ? "text-amber-300" : "text-white/55"}>
-                  [{l.scope}] {l.msg}
+                  [{td(l.scope)}] {td(l.msg)}
                 </p>
               ))
             )}

@@ -33,7 +33,10 @@ test("F68 B002 · tienda: UNA clave por gesto (al abrir el diálogo), la misma e
 
 test("F68 B002 · la clave llega al servidor: buyPackOnline → buyPack(packId, ref) → {action:'buy', packId, ref}", () => {
   const sync = code(read("src/lib/game/sync.ts"));
-  assert.match(sync, /export async function buyPackOnline\(packId: string, ref\?: string\): Promise<void> \{\s*await apiBuyPack\(packId, ref\);/);
+  // I18N · el cuerpo puede ir dentro de la guardia de cambio de idioma (no añade petición): la PRIMERA llamada sigue siendo la compra con su clave.
+  assert.match(sync, /export async function buyPackOnline\(packId: string, ref\?: string\): Promise<void> \{\s*(?:const endCritical = beginCriticalOperation\(\);\s*try \{\s*)?await apiBuyPack\(packId, ref\);/);
+  const buyBody = sync.slice(sync.indexOf("export async function buyPackOnline("));
+  assert.equal((buyBody.slice(0, buyBody.indexOf("\nexport ", 1) > 0 ? buyBody.indexOf("\nexport ", 1) : undefined).match(/apiBuyPack\(/g) ?? []).length, 1, "una sola petición de compra");
   const client = code(read("src/lib/game/client.ts"));
   // ICON (2026-10-09) · + el precio que esta pestaña enseña (`seenPrice`): solo puede BLOQUEAR un cobro distinto.
   assert.match(client, /export const buyPack = \(packId: string, ref = newGesture\(\)\) =>\s*postJson<[^>]+>\(\s*"\/api\/game\/packs", \{ action: "buy", packId, ref, \.\.\.seenPrice\(packId\) \}\);/);

@@ -12,6 +12,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { playSound } from "@/lib/sound";
 import { playerMessage } from "@/components/ui/game/GameStates";
 import { SPRING, reducedTransition } from "@/design/motion";
+import { td } from "@/i18n/runtime";
 
 export interface ToastState {
   id: number;
@@ -52,7 +53,7 @@ export function Toast({ toast }: { toast: ToastState | null }) {
               {toast.ok ? <path d="m8 12 3 3 5-6" /> : <path d="M12 7.5v5.5M12 16v.5" />}
             </svg>
             <span className="font-display text-[15px] font-bold uppercase leading-snug tracking-[0.06em] text-white">
-              {toast.ok ? toast.msg : playerMessage(toast.msg)}
+              {toast.ok ? td(toast.msg) : playerMessage(toast.msg)}
               {(toast.count ?? 1) > 1 && <span className="nx-readout ml-2 text-white/60" data-testid="toast-count">×{toast.count}</span>}
             </span>
           </motion.div>

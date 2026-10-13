@@ -49,6 +49,10 @@ import { DailyLobbySkeleton, type LobbyNetwork } from "@/components/dailyLoop/Da
 import { MainMenu } from "@/components/home/MainMenu";
 import { pickHallCards, pickHeroCard } from "@/lib/home/selection";
 import { publish as publishOnboarding } from "@/lib/onboarding/client";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("app");
 
 /** Hechos cuando no se sabe nada del servidor: nada personal, nada inventado. */
 function unknownFacts(signedIn: boolean): DailyLoopFacts {
@@ -59,6 +63,7 @@ function unknownFacts(signedIn: boolean): DailyLoopFacts {
 }
 
 export default function HomePage() {
+  useLocale();
   const configured = isSupabaseConfigured();
   const { user, loading: authLoading } = useAuth();
   const loop = useDailyLoop({ enabled: configured && !authLoading, userKey: user?.id ?? null });
@@ -93,7 +98,7 @@ export default function HomePage() {
   const hero = useMemo(() => pickHeroCard(ownedCards, getCard, getVariant, CARDS), [ownedCards]);
   const hallCards = useMemo(() => pickHallCards(ownedCards, getCard, getVariant, CARDS, hero), [ownedCards, hero]);
   const heroOwned = useMemo(
-    () => (hero && ownedCards.some((o) => o.cardId === hero.id) ? "En tu colección" : null),
+    () => (hero && ownedCards.some((o) => o.cardId === hero.id) ? tr("En tu colección") : null),
     [hero, ownedCards],
   );
 

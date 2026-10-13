@@ -12,6 +12,10 @@ import { Badge } from "@/components/ui/Badge";
 import { DemoBadge } from "@/components/ui/States";
 import { cn } from "@/lib/format";
 import { PHASE_LABEL, type EventPhase } from "@/domain/pickems/progress";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export interface SwitcherEvent {
   id: string;
@@ -31,16 +35,17 @@ export function EventSwitcher({
   onSelect: (id: string) => void;
   className?: string;
 }) {
+  useLocale();
   const groups = ORDER
     .map((phase) => ({ phase, items: events.filter((e) => e.phase === phase) }))
     .filter((g) => g.items.length > 0);
   if (groups.length === 0) return null;
 
   return (
-    <nav className={cn("space-y-2", className)} aria-label="Torneos con Pick'ems">
+    <nav className={cn("space-y-2", className)} aria-label={t("Torneos con Pick'ems")}>
       {groups.map(({ phase, items }) => (
         <div key={phase} className="flex flex-wrap items-center gap-2">
-          <span className="nx-label w-[88px] shrink-0">{GROUP_LABEL[phase]}</span>
+          <span className="nx-label w-[88px] shrink-0">{td(GROUP_LABEL[phase])}</span>
           <div className="flex min-w-0 flex-1 gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {items.map((e) => {
               const on = e.id === selected;
@@ -64,8 +69,8 @@ export function EventSwitcher({
                     {e.name}
                   </span>
                   {e.isDemo && <DemoBadge />}
-                  {on && <Badge tone="key" solid>Viendo</Badge>}
-                  <span className="sr-only">· {PHASE_LABEL[e.phase]}</span>
+                  {on && <Badge tone="key" solid>{t("Viendo")}</Badge>}
+                  <span className="sr-only">· {td(PHASE_LABEL[e.phase])}</span>
                 </button>
               );
             })}

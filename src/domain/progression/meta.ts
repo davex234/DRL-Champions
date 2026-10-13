@@ -14,6 +14,9 @@ import { ACHIEVEMENTS } from "./achievements";
 import { CURRENT_SEASON } from "@/data/season";
 import { describeLedger, packLabel } from "@/domain/pickems/ledger";
 import type { MissionKind } from "@/battlepass/types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("progression");
 
 /* ───────────────────────────── nivel de cuenta (canónico) ───────────────────────────── */
 
@@ -202,19 +205,19 @@ export function describeReward(row: LedgerLike): RewardEntry {
 
   const duel = /^duel_(capped_)?(win|loss|draw)$/.exec(r);
   if (duel) {
-    return { ...base, source: "duel", label: `${DUEL_LABEL[duel[2]]}${duel[1] ? " · tope diario, sin pago" : ""}` };
+    return { ...base, source: "duel", label: duel[1] ? tr("{resultado} · tope diario, sin pago", { resultado: td(DUEL_LABEL[duel[2]]) }) : DUEL_LABEL[duel[2]] };
   }
   if (r === "achievement") {
     const id = (row.ref ?? "").replace(/^achievement:/, "");
     const def = ACHIEVEMENTS.find((a) => a.id === id);
-    return { ...base, source: "achievement", label: def ? `Logro · ${def.name}` : "Logro" };
+    return { ...base, source: "achievement", label: def ? tr("Logro · {name}", { name: td(def.name) }) : tr("Logro") };
   }
   if (r === "mission_reward") {
     // ref = mission:<season>:<id>:<ts>[#i]
     const parts = (row.ref ?? "").split("#")[0].split(":");
     const def = CURRENT_SEASON.missionPool.find((m) => m.id === parts[2]);
     return {
-      ...base, source: "mission", label: def ? `Objetivo · ${def.label}` : "Objetivo",
+      ...base, source: "mission", label: def ? tr("Objetivo · {label}", { label: td(def.label) }) : tr("Objetivo"),
       pack: def?.reward.packId ? { packId: def.reward.packId, count: def.reward.packCount ?? 1, label: packLabel(def.reward.packId) } : null,
       xp: def ? def.xp : null,
     };
@@ -226,9 +229,9 @@ export function describeReward(row: LedgerLike): RewardEntry {
     const level = Number(parts[3]);
     const t = track === "premium" ? CURRENT_SEASON.premium : track === "competitive" ? CURRENT_SEASON.competitive ?? {} : CURRENT_SEASON.free;
     const reward = Number.isFinite(level) ? t[level] : undefined;
-    const trackLabel = track === "competitive" ? "competitivo" : track === "premium" ? "de aspecto" : "libre";
+    const trackLabel = track === "competitive" ? tr("competitivo") : track === "premium" ? tr("de aspecto") : tr("libre");
     return {
-      ...base, source: "pass", label: Number.isFinite(level) ? `Pase · nivel ${level} (carril ${trackLabel})` : "Pase",
+      ...base, source: "pass", label: Number.isFinite(level) ? tr("Pase · nivel {level} (carril {trackLabel})", { level, trackLabel }) : tr("Pase"),
       pack: reward?.packId ? { packId: reward.packId, count: reward.packCount ?? 1, label: packLabel(reward.packId) } : null,
     };
   }
@@ -240,8 +243,8 @@ export function describeReward(row: LedgerLike): RewardEntry {
       xp: d.tier?.reward.xp ?? null,
     };
   }
-  if (r.startsWith("event_challenge:")) return { ...base, source: "event", label: "Desafío de evento" };
-  if (r === "starter_grant") return { ...base, source: "starter", label: "Créditos de bienvenida" };
+  if (r.startsWith("event_challenge:")) return { ...base, source: "event", label: tr("Desafío de evento") };
+  if (r === "starter_grant") return { ...base, source: "starter", label: tr("Créditos de bienvenida") };
   if (r.startsWith("buy_pack:")) return { ...base, source: "purchase", label: describeLedger(r, row.ref).label, credits: 0 };
   return { ...base, source: "other", label: r };
 }
@@ -330,7 +333,7 @@ export function todayActions(input: { steps: TodayAction[]; objectives: MetaObje
   const near = nearObjective(input.objectives, input.now);
   if (near) {
     list.push({
-      id: `objective-${near.id}`, kind: "objective", label: "Continúa tu objetivo",
+      id: `objective-${near.id}`, kind: "objective", label: tr("Continúa tu objetivo"),
       detail: `${near.label} · ${near.current} / ${near.goal}`, href: "/misiones",
       urgent: near.expiresAt !== null,
     });
@@ -343,16 +346,16 @@ export function continueCta(actions: TodayAction[]): { label: string; href: stri
   const a = actions[0];
   if (!a) return null;
   const label: Record<TodayKind, string> = {
-    resume: "Retoma tu duelo",
-    run: "Vuelve a tu Draft",
-    challenge: "Responde al reto",
-    claim: "Reclama tus recompensas",
-    predict: "Haz tus Pick'ems",
-    objective: "Continúa tu objetivo",
-    open: a.count && a.count > 0 ? `Abre tus ${a.count} ${a.count === 1 ? "sobre" : "sobres"}` : "Abre tus sobres",
-    build: "Completa tu equipo",
-    play: "Juega un duelo",
-    explore: "Sigue el circuito",
+    resume: tr("Retoma tu duelo"),
+    run: tr("Vuelve a tu Draft"),
+    challenge: tr("Responde al reto"),
+    claim: tr("Reclama tus recompensas"),
+    predict: tr("Haz tus Pick'ems"),
+    objective: tr("Continúa tu objetivo"),
+    open: a.count && a.count > 0 ? tr("Abre tus {count} {v}", { count: a.count, v: a.count === 1 ? tr("sobre") : tr("sobres") }) : tr("Abre tus sobres"),
+    build: tr("Completa tu equipo"),
+    play: tr("Juega un duelo"),
+    explore: tr("Sigue el circuito"),
   };
   return { label: label[a.kind], href: a.href, kind: a.kind };
 }
@@ -369,10 +372,10 @@ export interface FtueState {
 
 export function ftueState(input: { packsOpened: number; duelsPlayed: number; hasValidDeck: boolean; level: number; unopenedPacks: number }): FtueState {
   const steps: FtueStep[] = [
-    { id: "open", label: "Abre tu primer sobre", done: input.packsOpened > 0, href: input.unopenedPacks > 0 ? "/inventario" : "/packs" },
-    { id: "deck", label: "Crear mi primer equipo", done: input.hasValidDeck, href: "/duelos/mazos" },
-    { id: "duel", label: "Juega tu primer duelo", done: input.duelsPlayed > 0, href: "/duelos/jugar" },
-    { id: "level", label: "Progresa: sube de nivel", done: input.level > 1, href: "/cuenta?seccion=progresion" },
+    { id: "open", label: tr("Abre tu primer sobre"), done: input.packsOpened > 0, href: input.unopenedPacks > 0 ? "/inventario" : "/packs" },
+    { id: "deck", label: tr("Crear mi primer equipo"), done: input.hasValidDeck, href: "/duelos/mazos" },
+    { id: "duel", label: tr("Juega tu primer duelo"), done: input.duelsPlayed > 0, href: "/duelos/jugar" },
+    { id: "level", label: tr("Progresa: sube de nivel"), done: input.level > 1, href: "/cuenta?seccion=progresion" },
   ];
   return { isNew: input.packsOpened === 0 && input.duelsPlayed === 0, steps };
 }
@@ -391,13 +394,13 @@ export interface ProgressEvent { id: string; kind: ProgressEventKind; text: stri
  */
 export function progressEvents(before: MetaEventsInput, after: MetaEventsInput): ProgressEvent[] {
   const out: ProgressEvent[] = [];
-  for (const l of levelsGained(before.xp, after.xp)) out.push({ id: `level:${l}`, kind: "LEVEL_UP", text: `¡Nivel ${l}!` });
+  for (const l of levelsGained(before.xp, after.xp)) out.push({ id: `level:${l}`, kind: "LEVEL_UP", text: tr("¡Nivel {l}!", { l }) });
   for (const d of objectiveDeltas(before.objectives, after.objectives)) {
-    if (d.completed) out.push({ id: `objective:${d.id}:${after.objectives.find((o) => o.id === d.id)?.assignedAt ?? 0}`, kind: "OBJECTIVE_COMPLETE", text: `Objetivo completado · ${d.label}` });
+    if (d.completed) out.push({ id: `objective:${d.id}:${after.objectives.find((o) => o.id === d.id)?.assignedAt ?? 0}`, kind: "OBJECTIVE_COMPLETE", text: tr("Objetivo completado · {label}", { label: td(d.label) }) });
   }
   const prevDone = new Set(before.achievements.filter((a) => a.complete).map((a) => a.id));
   for (const a of after.achievements) {
-    if (a.complete && !prevDone.has(a.id)) out.push({ id: `achievement:${a.id}`, kind: "ACHIEVEMENT", text: `Logro conseguido · ${a.name}` });
+    if (a.complete && !prevDone.has(a.id)) out.push({ id: `achievement:${a.id}`, kind: "ACHIEVEMENT", text: tr("Logro conseguido · {name}", { name: a.name }) });
   }
   return out;
 }

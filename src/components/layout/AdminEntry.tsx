@@ -15,6 +15,10 @@ import Link from "next/link";
 import { useAdminSession, type AdminGate } from "@/lib/supabase/useAdminSession";
 import { cn } from "@/lib/format";
 import { NAV_MENU_ITEM, NAV_MENU_LABEL, NAV_MENU_ROW } from "@/design/nav";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("layout");
 
 function ShieldIcon({ className }: { className?: string }) {
   return (
@@ -40,6 +44,7 @@ export function AdminEntry({ variant, onNavigate }: { variant: "menu" | "sheet";
 
 /** La vista, separada del hook para poder probarla con cada estado (anónimo, usuario, comprobando, admin). */
 export function AdminEntryView({ gate, variant, onNavigate }: { gate: AdminGate; variant: "menu" | "sheet"; onNavigate?: () => void }) {
+  useLocale();
   if (gate !== "granted") return null;
   const remember = () => {
     try { sessionStorage.setItem(ADMIN_RETURN_KEY, safeReturnPath(location.pathname + location.search)); } catch { /* sin almacenamiento: vuelve al lobby */ }
@@ -52,7 +57,7 @@ export function AdminEntryView({ gate, variant, onNavigate }: { gate: AdminGate;
         {/* Navegación global limpia (2026-10-07): solo el nombre, centrado; el escudo y el dorado lo siguen distinguiendo. */}
         <Link href="/admin" onClick={remember} className={cn("nx-clip-sm nx-focus transition-colors duration-fast hover:bg-white/[0.07]", NAV_MENU_ITEM, NAV_MENU_ROW)}>
           <ShieldIcon className="h-4 w-4 shrink-0 text-drl-gold" />
-          <b className={cn(NAV_MENU_LABEL, "text-[16px] tracking-[0.04em] text-drl-gold")}>Administración</b>
+          <b className={cn(NAV_MENU_LABEL, "text-[16px] tracking-[0.04em] text-drl-gold")}>{t("Administración")}</b>
         </Link>
       </div>
     );
@@ -60,11 +65,11 @@ export function AdminEntryView({ gate, variant, onNavigate }: { gate: AdminGate;
 
   return (
     <section className="mt-5" data-testid="admin-entry">
-      <p className="nx-label mb-1.5">Herramientas internas</p>
+      <p className="nx-label mb-1.5">{t("Herramientas internas")}</p>
       <Link href="/admin" onClick={remember}
         className={cn("nx-clip-sm nx-focus min-h-[48px] border border-drl-gold/25 bg-drl-gold/[0.05] active:bg-drl-gold/[0.12]", NAV_MENU_ITEM)}>
         <ShieldIcon className="h-5 w-5 shrink-0 text-drl-gold" />
-        <b className={cn(NAV_MENU_LABEL, "text-[17px] tracking-[0.04em] text-drl-gold")}>Administración</b>
+        <b className={cn(NAV_MENU_LABEL, "text-[17px] tracking-[0.04em] text-drl-gold")}>{t("Administración")}</b>
       </Link>
     </section>
   );

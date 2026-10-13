@@ -3,6 +3,7 @@ import "./globals.css";
 import "./game-experience.css";
 import { GameShell } from "@/components/layout/GameShell";
 import { AuthProvider } from "@/lib/supabase/auth";
+import { I18nProvider } from "@/i18n/react";
 
 const TITLE = "DRL Champions — Manager de esports de Valorant";
 const DESC = "No disparas. Piensas. Dirige a tu equipo profesional de Valorant: estrategia, economía, scouting, composición y lectura del rival.";
@@ -75,7 +76,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <AuthProvider>
-          <GameShell>{children}</GameShell>
+          <I18nProvider>
+            <GameShell>{children}</GameShell>
+          </I18nProvider>
         </AuthProvider>
       </body>
     </html>

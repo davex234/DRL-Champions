@@ -21,7 +21,7 @@ const BUY = {
 test("F69 F68-012 · en el partido, la compra tiene UNA sola orden: el pie «Jugar la ronda»", () => {
   const page = read("src/app/entrenador/partido/page.tsx");
   assert.match(page, /<BuyPhasePanel buy=\{loop\.buy\} onChange=\{setBuyTier\} \/>/, "el panel no recibe onConfirm");
-  assert.match(page, /label="Jugar la ronda"[\s\S]{0,200}loop\.confirmBuy\(buyTier \?\? loop\.buy!\.recommendedTier \?\? "full"\)/, "el pie compra lo marcado");
+  assert.match(page, /label=\{(?:t|tr|i18nT)\("Jugar la ronda"\)\}[\s\S]{0,200}loop\.confirmBuy\(buyTier \?\? loop\.buy!\.recommendedTier \?\? "full"\)/, "el pie compra lo marcado");
   const html = renderToStaticMarkup(<BuyPhasePanel buy={BUY} onChange={() => undefined} />);
   assert.ok(!/Comprar y empezar ronda/i.test(html), "sin botón duplicado dentro del panel");
 });
@@ -29,7 +29,7 @@ test("F69 F68-012 · en el partido, la compra tiene UNA sola orden: el pie «Jug
 test("F69 F68-012 · la sala táctica tampoco duplica «Comenzar fase de compra»", () => {
   const page = read("src/app/entrenador/partido/page.tsx");
   assert.match(page, /<CoachTacticalPanel prep=\{loop\.prep\} onChange=\{setPrepInput\} \/>/);
-  assert.match(page, /label="Comenzar fase de compra"[\s\S]{0,260}loop\.confirmPreparation\(prepInput \?\? planPorDefecto\(loop\.prep!\)\)/);
+  assert.match(page, /label=\{(?:t|tr|i18nT)\("Comenzar fase de compra"\)\}[\s\S]{0,260}loop\.confirmPreparation\(prepInput \?\? planPorDefecto\(loop\.prep!\)\)/);
   assert.match(read("src/components/coach/CoachTacticalPanel.tsx"), /\{onConfirm && \(\n\s*<button onClick=\{\(\) => onConfirm\(input\)\}/);
 });
 

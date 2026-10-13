@@ -7,6 +7,9 @@
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { adminFetch } from "@/lib/supabase/adminClient";
+import { ns, getIntlLocale } from "@/i18n/runtime";
+
+const tr = ns("admin");
 
 export class AdminApiError extends Error { constructor(message: string, public status: number) { super(message); } }
 
@@ -37,7 +40,7 @@ export function useAdminQuery<T>(url: string | null): Query<T> {
     setState((s) => ({ ...s, loading: true, error: null }));
     adminGet<T>(url)
       .then((data) => { if (my === seq.current) setState({ data, error: null, loading: false }); })
-      .catch((e) => { if (my === seq.current) setState({ data: null, error: e instanceof Error ? e.message : "Error", loading: false }); });
+      .catch((e) => { if (my === seq.current) setState({ data: null, error: e instanceof Error ? e.message : tr("Error"), loading: false }); });
   }, [url, tick]);
   const reload = useCallback(() => setTick((t) => t + 1), []);
   return { ...state, reload };
@@ -57,7 +60,7 @@ export function useDebounced<T>(value: T, ms = 250): T {
 }
 
 export const fmt = (n: number | null | undefined, d = 0): string =>
-  n == null || !Number.isFinite(n) ? "—" : n.toLocaleString("es-ES", { maximumFractionDigits: d, minimumFractionDigits: d });
-export const pct = (x: number | null | undefined, d = 1): string => (x == null || !Number.isFinite(x) ? "—" : `${(x * 100).toLocaleString("es-ES", { maximumFractionDigits: d, minimumFractionDigits: d })} %`);
-export const dateTime = (iso: string | null | undefined): string => (iso ? new Date(iso).toLocaleString("es-ES", { dateStyle: "medium", timeStyle: "short" }) : "—");
-export const dateOnly = (iso: string | null | undefined): string => (iso ? new Date(iso).toLocaleDateString("es-ES", { dateStyle: "medium" }) : "—");
+  n == null || !Number.isFinite(n) ? "—" : n.toLocaleString(getIntlLocale(), { maximumFractionDigits: d, minimumFractionDigits: d });
+export const pct = (x: number | null | undefined, d = 1): string => (x == null || !Number.isFinite(x) ? "—" : `${(x * 100).toLocaleString(getIntlLocale(), { maximumFractionDigits: d, minimumFractionDigits: d })} %`);
+export const dateTime = (iso: string | null | undefined): string => (iso ? new Date(iso).toLocaleString(getIntlLocale(), { dateStyle: "medium", timeStyle: "short" }) : "—");
+export const dateOnly = (iso: string | null | undefined): string => (iso ? new Date(iso).toLocaleDateString(getIntlLocale(), { dateStyle: "medium" }) : "—");

@@ -14,6 +14,9 @@
  * Solo PRESENTACIÓN y solo en este dispositivo (localStorage, como el sonido): ni cuenta, ni servidor, ni economía.
  */
 import { useSyncExternalStore } from "react";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("walkout");
 
 export type OpeningAnimation = "cinematic" | "auto" | "reduced";
 export const OPENING_ANIMATION_KEY = "drl:opening-animation:v1";
@@ -66,7 +69,7 @@ export function walkoutReduced(pref: OpeningAnimation, systemReduced: boolean): 
 
 /** Qué modo está activo, en palabras del jugador (ajustes y reproductor). */
 export function describeOpeningMode(pref: OpeningAnimation, systemReduced: boolean): string {
-  if (pref === "cinematic") return "Cinemática 3D";
-  if (pref === "reduced") return "Reducidas (2D)";
-  return systemReduced ? "Automático · 2D (tu sistema pide menos movimiento)" : "Automático · 3D";
+  if (pref === "cinematic") return t("Cinemática 3D");
+  if (pref === "reduced") return t("Reducidas (2D)");
+  return systemReduced ? t("Automático · 2D (tu sistema pide menos movimiento)") : t("Automático · 3D");
 }

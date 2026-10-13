@@ -14,6 +14,10 @@ import { rgbVar } from "@/components/store/storeView";
 import { css as storeCss } from "@/components/store/storeClasses";
 import { CREDITS_HERO_ART, PACK_TAGLINE, artKey, creditsArtFor, formatAmount } from "./creditsView";
 import { creditsCss as css } from "./creditsClasses";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("credits");
 
 const GOLD_RGB = rgbVar(ACCENT.gold);
 
@@ -31,6 +35,7 @@ export function DrlCoin({ size = 28 }: { size?: number }) {
 }
 
 export function CreditsHero({ balance, balanceLabel }: { balance: number | null; balanceLabel: string }) {
+  useLocale();
   return (
     <section
       id="creditos"
@@ -42,29 +47,29 @@ export function CreditsHero({ balance, balanceLabel }: { balance: number | null;
       <span aria-hidden className={storeCss.heroShards} />
 
       <div className={`${storeCss.heroText} relative z-10 flex flex-col justify-center px-5 pb-2 pt-6 sm:px-8 lg:px-12 lg:py-10`}>
-        <p className="font-display text-label font-bold uppercase tracking-wide2 text-drl-gold">Tienda</p>
+        <p className="font-display text-label font-bold uppercase tracking-wide2 text-drl-gold">{t("Tienda")}</p>
         <h1 id="credits-title" className="mt-2 font-display text-[clamp(40px,7vw,84px)] font-bold uppercase leading-[0.9] tracking-tight text-white">
-          DRL <span className={css.goldText}>Credits</span>
+          {t("DRL")} <span className={css.goldText}>{t("Credits")}</span>
         </h1>
-        <p className="mt-3 font-display text-[clamp(15px,1.6vw,21px)] font-bold uppercase tracking-[0.14em] text-white">Impulsa tu colección</p>
+        <p className="mt-3 font-display text-[clamp(15px,1.6vw,21px)] font-bold uppercase tracking-[0.14em] text-white">{t("Impulsa tu colección")}</p>
         <p className="mt-3 max-w-[46ch] text-body text-ink-secondary">
-          La moneda de NEXUS: compra sobres y todo lo que la tienda tenga a la venta. Cuantos más créditos, más cartas.
+          {t("La moneda de NEXUS: compra sobres y todo lo que la tienda tenga a la venta. Cuantos más créditos, más cartas.")}
         </p>
 
         <div className="mt-6 flex flex-wrap items-stretch gap-3">
           <div className={`${css.balance} nx-clip-sm flex items-center gap-3 px-4 py-3`} aria-live="polite">
             <DrlCoin size={36} />
             <div>
-              <p className="font-display text-label font-bold uppercase tracking-wide2 text-ink-muted">{balanceLabel}</p>
+              <p className="font-display text-label font-bold uppercase tracking-wide2 text-ink-muted">{td(balanceLabel)}</p>
               <p className="font-display text-readout-md font-bold tabular-nums text-drl-gold">
-                {balance === null ? "—" : formatAmount(balance)} <span className="text-caption font-bold uppercase text-ink-secondary">DRL Credits</span>
+                {balance === null ? "—" : formatAmount(balance)} <span className="text-caption font-bold uppercase text-ink-secondary">{t("DRL Credits")}</span>
               </p>
             </div>
           </div>
           {/* Honesto sin ser un cartel: antes de cualquier acción queda claro que aún no se cobra. */}
           <p id="credits-payments-note" className={`${css.note} nx-clip-sm flex max-w-[34ch] items-center gap-2.5 px-3 py-2.5 text-caption text-ink-secondary`}>
             <span aria-hidden className={css.noteDot} />
-            <span><strong className="font-bold text-white">Pagos con dinero real: próximamente.</strong> Hoy no se cobra nada; los créditos se ganan jugando.</span>
+            <span><strong className="font-bold text-white">{t("Pagos con dinero real: próximamente.")}</strong> {t("Hoy no se cobra nada; los créditos se ganan jugando.")}</span>
           </p>
         </div>
       </div>
@@ -72,7 +77,7 @@ export function CreditsHero({ balance, balanceLabel }: { balance: number | null;
       <div className="relative min-h-[220px] sm:min-h-[320px] lg:min-h-0">
         <img
           src={CREDITS_HERO_ART.file}
-          alt="Cofre NEXUS rebosante de monedas DRL Credits, rodeado de pilas de monedas"
+          alt={t("Cofre NEXUS rebosante de monedas DRL Credits, rodeado de pilas de monedas")}
           width={CREDITS_HERO_ART.width}
           height={CREDITS_HERO_ART.height}
           fetchPriority="high"
@@ -80,7 +85,7 @@ export function CreditsHero({ balance, balanceLabel }: { balance: number | null;
           className={`${css.heroArt} absolute inset-0 m-auto h-full w-full object-contain`}
         />
         <p className="absolute right-6 top-5 hidden text-right font-display text-caption font-bold uppercase leading-relaxed tracking-[0.34em] text-white/75 xl:block">
-          Más créditos<br />Más cartas<br /><span className="text-drl-gold">Más leyendas</span>
+          {t("Más créditos")}<br />{t("Más cartas")}<br /><span className="text-drl-gold">{t("Más leyendas")}</span>
         </p>
       </div>
     </section>
@@ -88,6 +93,7 @@ export function CreditsHero({ balance, balanceLabel }: { balance: number | null;
 }
 
 export function CreditPackCard({ product, badge, index, paymentsOpen }: { product: CreditProduct; badge: string | null; index: number; paymentsOpen: boolean }) {
+  useLocale();
   const art = creditsArtFor(product.productId);
   const key = artKey(product.productId);
   const top = badge === "Mayor paquete";
@@ -95,21 +101,21 @@ export function CreditPackCard({ product, badge, index, paymentsOpen }: { produc
     <article
       className={`${css.card} ${badge === "Más elegido" ? css.cardPopular : ""} ${top ? css.cardTop : ""} flex w-[72%] shrink-0 snap-start flex-col sm:w-auto`}
       style={{ ["--d" as string]: `${index * 70}ms` } as CSSProperties}
-      aria-label={`${product.name}: ${formatAmount(product.credits)} DRL Credits`}
+      aria-label={t("{name}: {credits} DRL Credits", { name: td(product.name), credits: formatAmount(product.credits) })}
     >
-      {badge && <span className={`${css.badge} ${top ? css.badgeTop : ""} font-display text-label font-bold uppercase tracking-wide2`}>{badge}</span>}
+      {badge && <span className={`${css.badge} ${top ? css.badgeTop : ""} font-display text-label font-bold uppercase tracking-wide2`}>{td(badge)}</span>}
       <div className="px-4 pt-5">
-        <h2 className="font-display text-caption font-bold uppercase tracking-wide2 text-white">{product.name}</h2>
+        <h2 className="font-display text-caption font-bold uppercase tracking-wide2 text-white">{td(product.name)}</h2>
         <p className="mt-1 font-display text-readout-lg font-bold leading-none tabular-nums">
           <span className={css.goldText}>{formatAmount(product.credits)}</span>
         </p>
-        <p className="mt-1 font-display text-caption font-bold uppercase tracking-wide text-drl-gold/80">DRL Credits</p>
+        <p className="mt-1 font-display text-caption font-bold uppercase tracking-wide text-drl-gold/80">{t("DRL Credits")}</p>
       </div>
       <div className={`${css.art} relative mx-auto -mt-1 w-full`}>
         {art && (
           <img
             src={art.file}
-            alt={`${formatAmount(product.credits)} DRL Credits: ${art.chest === "premium" ? "cofre premium rebosante y montañas de monedas" : art.chest === "standard" ? "cofre abierto lleno de monedas" : art.coins > 30 ? "muchas pilas de monedas" : art.coins > 10 ? "pequeñas pilas de monedas" : "unas pocas monedas"}`}
+            alt={t("{credits} DRL Credits: {v}", { credits: formatAmount(product.credits), v: art.chest === "premium" ? t("cofre premium rebosante y montañas de monedas") : art.chest === "standard" ? t("cofre abierto lleno de monedas") : art.coins > 30 ? t("muchas pilas de monedas") : art.coins > 10 ? t("pequeñas pilas de monedas") : t("unas pocas monedas") })}
             width={art.width}
             height={art.height}
             loading="lazy"
@@ -120,10 +126,10 @@ export function CreditPackCard({ product, badge, index, paymentsOpen }: { produc
         )}
       </div>
       <div className="mt-auto space-y-2.5 px-4 pb-4">
-        <p className="text-caption text-ink-secondary">{PACK_TAGLINE[key] ?? ""}</p>
+        <p className="text-caption text-ink-secondary">{td(PACK_TAGLINE[key]) ?? ""}</p>
         <div className={`${css.divider}`} aria-hidden />
         <p className={`${css.price} nx-clip-sm flex items-center justify-center gap-2 py-2 font-display text-caption font-bold uppercase tracking-wide`}>
-          <span aria-hidden className="text-drl-gold">€</span> · Por anunciar
+          <span aria-hidden className="text-drl-gold">€</span> {t("· Por anunciar")}
         </p>
         <button
           type="button"
@@ -131,7 +137,7 @@ export function CreditPackCard({ product, badge, index, paymentsOpen }: { produc
           aria-describedby="credits-payments-note"
           className={`${css.cta} nx-focus nx-clip-sm w-full py-2.5 font-display text-label font-bold uppercase tracking-wide2`}
         >
-          Próximamente
+          {t("Próximamente")}
         </button>
       </div>
     </article>

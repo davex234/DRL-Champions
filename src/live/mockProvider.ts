@@ -7,6 +7,9 @@
  */
 import type { RawTournament, RawTeam, RawMatch, RawResult, RawPlayerStat } from "@/engine/types";
 import type { LiveDataProvider, ProviderHealth } from "./provider";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("live");
 
 export interface MockTournament {
   tournament: RawTournament;
@@ -30,7 +33,7 @@ export function makeMockProvider(opts: MockProviderOpts): LiveDataProvider {
     id: opts.id,
     priority: () => opts.priority,
     supports: (g) => g === game,
-    health: async (): Promise<ProviderHealth> => (opts.healthy === false ? { ok: false, error: "fuente caída" } : { ok: true, latencyMs: 12 }),
+    health: async (): Promise<ProviderHealth> => (opts.healthy === false ? { ok: false, error: tr("fuente caída") } : { ok: true, latencyMs: 12 }),
     discover: async () => opts.tournaments.map((t) => t.tournament),
     fetchTournament: async (id) => find(id)?.tournament ?? null,
     fetchTeams: async (id) => find(id)?.teams ?? [],

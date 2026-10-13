@@ -13,26 +13,31 @@ import Link from "next/link";
 import { cn } from "@/lib/format";
 import type { LadderEntry } from "@/server/services/competitive";
 import { RankInline } from "@/components/competitive/ranked/CompetitiveEmblem";
+import { ns, td as i18nTd } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("competitive");
 
 const href = (e: LadderEntry) => playerHref(e.userId);
 
-export function Leaderboard({ entries, title, caption, className, emptyText = "Todavía no hay nadie en la escalera. La primera partida liquidada la abre." }: {
+export function Leaderboard({ entries, title, caption, className, emptyText = t("Todavía no hay nadie en la escalera. La primera partida liquidada la abre.") }: {
   entries: LadderEntry[]; title?: string; caption?: string; className?: string; emptyText?: string;
 }) {
+  useLocale();
   if (entries.length === 0) {
     return (
-      <section aria-label={title ?? "Escalera"} className={className} data-leaderboard="empty">
-        {title && <h3 className="nx-label mb-2">{title}</h3>}
-        <p className="nx-clip-sm border-l-2 border-l-drl/60 bg-white/[0.03] px-4 text-left !text-[14px] !text-white/70 py-5 text-center text-caption text-ink-muted">{emptyText}</p>
+      <section aria-label={i18nTd(title) ?? t("Escalera")} className={className} data-leaderboard="empty">
+        {title && <h3 className="nx-label mb-2">{i18nTd(title)}</h3>}
+        <p className="nx-clip-sm border-l-2 border-l-drl/60 bg-white/[0.03] px-4 text-left !text-[14px] !text-white/70 py-5 text-center text-caption text-ink-muted">{i18nTd(emptyText)}</p>
       </section>
     );
   }
   return (
-    <section aria-label={title ?? "Escalera"} className={className} data-leaderboard={entries.length}>
+    <section aria-label={i18nTd(title) ?? t("Escalera")} className={className} data-leaderboard={entries.length}>
       {(title || caption) && (
         <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-          {title && <h3 className="nx-label">{title}</h3>}
-          {caption && <span className="text-caption text-ink-faint">{caption}</span>}
+          {title && <h3 className="nx-label">{i18nTd(title)}</h3>}
+          {caption && <span className="text-caption text-ink-faint">{i18nTd(caption)}</span>}
         </div>
       )}
 
@@ -42,10 +47,10 @@ export function Leaderboard({ entries, title, caption, className, emptyText = "T
           <thead>
             <tr className="bg-base-800/60 text-left text-[10px] uppercase tracking-widest text-white/40">
               <th scope="col" className="px-3 py-2.5 font-medium">#</th>
-              <th scope="col" className="px-3 py-2.5 font-medium">Jugador</th>
-              <th scope="col" className="px-3 py-2.5 font-medium">Rango</th>
-              <th scope="col" className="px-3 py-2.5 text-right font-medium">Rating</th>
-              <th scope="col" className="px-3 py-2.5 text-right font-medium" title="Victorias–derrotas en la temporada competitiva">Temporada</th>
+              <th scope="col" className="px-3 py-2.5 font-medium">{t("Jugador")}</th>
+              <th scope="col" className="px-3 py-2.5 font-medium">{t("Rango")}</th>
+              <th scope="col" className="px-3 py-2.5 text-right font-medium">{t("Rating")}</th>
+              <th scope="col" className="px-3 py-2.5 text-right font-medium" title={t("Victorias–derrotas en la temporada competitiva")}>{t("Temporada")}</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +66,7 @@ export function Leaderboard({ entries, title, caption, className, emptyText = "T
                   <Link href={href(e)} className="nx-focus inline-flex min-h-[32px] items-center gap-2 text-white">
                     <span aria-hidden>{e.avatar}</span>
                     <span className="max-w-[220px] truncate">{e.username}</span>
-                    {e.isSelf && <span className="nx-label !text-drl-cyan">← tú</span>}
+                    {e.isSelf && <span className="nx-label !text-drl-cyan">{t("← tú")}</span>}
                   </Link>
                 </td>
                 <td className="px-3 py-2">{e.rank && <RankInline rank={e.rank} />}</td>
@@ -74,7 +79,7 @@ export function Leaderboard({ entries, title, caption, className, emptyText = "T
       </div>
 
       {/* Móvil: tarjetas, ≥44 px. */}
-      <ol className="space-y-1.5 sm:hidden" aria-label={title ?? "Escalera"}>
+      <ol className="space-y-1.5 sm:hidden" aria-label={i18nTd(title) ?? t("Escalera")}>
         {entries.map((e) => (
           <li key={e.userId} aria-current={e.isSelf ? "true" : undefined}>
             <Link
@@ -87,7 +92,7 @@ export function Leaderboard({ entries, title, caption, className, emptyText = "T
               <span className="nx-readout w-11 shrink-0 text-[14px] text-white/70">#{e.position}</span>
               <span aria-hidden className="shrink-0">{e.avatar}</span>
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-[14px] text-white">{e.username}{e.isSelf && <span className="nx-label ml-2 !text-drl-cyan">← tú</span>}</span>
+                <span className="block truncate text-[14px] text-white">{e.username}{e.isSelf && <span className="nx-label ml-2 !text-drl-cyan">{t("← tú")}</span>}</span>
                 {e.rank && <RankInline rank={e.rank} className="mt-0.5 max-w-full" />}
               </span>
               <span className="text-right">

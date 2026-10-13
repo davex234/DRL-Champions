@@ -24,6 +24,10 @@ import type { StageKind } from "@/lib/walkout/stageChoice";
 import { isMuted } from "@/lib/sound";
 import { WalkoutStage } from "./WalkoutStage";
 import { CardPiece, EditionPiece, FlagPiece, NamePiece, PackPiece, RatingPiece, RolePiece, TeamPiece, WalkoutSummary, type WalkoutLayout } from "./Reveals";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("walkout");
 
 export interface WalkoutHandle {
   play: () => void;
@@ -128,6 +132,7 @@ function useLayout(): WalkoutLayout {
 export const WalkoutDirector = forwardRef<WalkoutHandle, WalkoutDirectorProps>(function WalkoutDirector(
   { input, intensity, reduced, packArt = null, forceStage = null, audioOn = true, celebration = "RANDOM", autoPlay = false, startAtBeat = null, onStatus, onComplete }, ref,
 ) {
+  useLocale();
   const tl = useMemo(() => buildTimeline(intensity, { reduced }), [intensity, reduced]);
   const from = startAtBeat ? tl.beats.find((b) => b.id === startAtBeat)?.at ?? 0 : 0;
   const preset = editionPreset(input.edition.id);
@@ -253,14 +258,14 @@ export const WalkoutDirector = forwardRef<WalkoutHandle, WalkoutDirectorProps>(f
       {/* 0.4 · en modo normal la carta manda; si el panel DEV fuerza algo, se dice (nunca pasa por la identidad real) */}
       {input.overrides.length > 0 && (
         <p className="pointer-events-none absolute left-1/2 top-2 z-[75] -translate-x-1/2 rounded-sm border border-amber-300/60 bg-amber-500/20 px-3 py-1 font-display text-[11px] font-bold uppercase tracking-[0.25em] text-amber-200" data-testid="walkout-dev-forced">
-          DEV · forzado: {input.overrides.map((o) => o.label).join(" · ")}
+          {tr("DEV · forzado:")} {input.overrides.map((o) => o.label).join(" · ")}
         </p>
       )}
-      {preparing && !ready && <p className="absolute inset-0 z-[60] flex items-center justify-center font-display text-sm font-bold uppercase tracking-[0.4em] text-white/70" role="status">Preparando…</p>}
+      {preparing && !ready && <p className="absolute inset-0 z-[60] flex items-center justify-center font-display text-sm font-bold uppercase tracking-[0.4em] text-white/70" role="status">{tr("Preparando…")}</p>}
 
       {!done && status === "playing" && (
         <button type="button" onClick={skip} data-testid="walkout-skip" className="absolute bottom-5 right-5 z-[70] rounded-sm border border-white/30 bg-black/50 px-4 py-2 font-display text-xs font-bold uppercase tracking-[0.3em] text-white/85 backdrop-blur hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
-          Saltar
+          {tr("Saltar")}
         </button>
       )}
 

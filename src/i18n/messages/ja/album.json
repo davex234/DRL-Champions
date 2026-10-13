@@ -1,0 +1,20 @@
+{
+  "Abrir sobres": "パックを開封",
+  "Aquí abajo está el catálogo entero. Las cartas que consigas ocuparán su hueco; las que no, se quedan a la vista para que sepas qué buscar.": "ここには全カタログが並びます。入手したカードは所定の枠に入り、未入手のカードは何を探せばいいかわかるよう表示されたままです。",
+  "Carta de {id}": "{id}のカード",
+  "Equipo": "チーム",
+  "Ir a la tienda": "ショップへ",
+  "Limpiar filtros": "フィルターをクリア",
+  "Ninguna carta del álbum coincide con lo que has pedido. Prueba con otro nombre o quita alguna condición.": "リクエストに一致するアルバムのカードはありません。別の名前を試すか、条件を外してください。",
+  "No conseguida": "未入手",
+  "Sin resultados": "結果なし",
+  "Tienes {packs} {v}. Cada carta que consigas ocupará su hueco aquí abajo, y las que aún no tienes se quedan a la vista para que sepas qué buscar.": "{packs}{v}があります。入手したカードは下の所定の枠に入り、まだ持っていないカードは何を探せばいいかわかるよう表示されたままです。",
+  "Tu álbum está vacío": "アルバムは空です",
+  "Ver {id}": "{id}を見る",
+  "Ver {n} cartas más": "さらに{n}枚を見る",
+  "Vitrina": "ショーケース",
+  "quedan": "残り",
+  "sobre sin abrir": "未開封のパック",
+  "sobres sin abrir": "未開封のパック",
+  "{id} — todavía no la tienes": "{id} — まだ持っていません"
+}

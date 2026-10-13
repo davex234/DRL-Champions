@@ -11,6 +11,11 @@ import { cn } from "@/lib/format";
 import { useCountdown } from "@/lib/season/client";
 import { countdownSentence, formatSeasonDate, type ServerClock } from "@/domain/season/time";
 import type { SeasonView } from "@/server/services/season";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("season");
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -23,6 +28,7 @@ export function SeasonCountdown({
   size?: "lg" | "sm";
   className?: string;
 }) {
+  useLocale();
   const target = season.status === "UPCOMING" ? season.startsAtMs : season.status === "ACTIVE" ? season.endsAtMs : null;
   const c = useCountdown(target, clock, onExpire);
   const big = size === "lg";
@@ -30,7 +36,7 @@ export function SeasonCountdown({
   if (season.status === "ENDED" || !c) {
     return (
       <div className={cn("min-w-0", className)} data-countdown="ended">
-        <span className="nx-label">Finalizó el</span>
+        <span className="nx-label">{t("Finalizó el")}</span>
         <p className={cn("font-display font-bold uppercase text-white/85", big ? "mt-1 text-[clamp(18px,2.4vw,26px)]" : "text-[14px]")}>
           <time dateTime={season.endsAt}>{formatSeasonDate(season.endsAtMs)}</time>
         </p>
@@ -38,18 +44,18 @@ export function SeasonCountdown({
     );
   }
 
-  const verb = season.status === "UPCOMING" ? "Comienza en" : "Termina en";
+  const verb = season.status === "UPCOMING" ? /* i18n-id */ "Comienza en" : /* i18n-id */ "Termina en";
   const urgent = season.status === "ACTIVE" && c.underDay;
   const unit = (value: string, label: string) => (
     <span className="flex flex-col items-center">
-      <b className={cn("nx-readout tabular-nums leading-none text-white", big ? "text-[clamp(44px,7vw,84px)]" : "text-[22px]")} style={{ textShadow: urgent ? "0 0 26px rgba(255,211,92,0.55)" : "0 0 26px rgba(25,227,255,0.35)" }}>{value}</b>
-      <span className={cn("nx-label mt-1", !big && "!text-[9px]")}>{label}</span>
+      <b className={cn("nx-readout tabular-nums leading-none text-white", big ? "text-[clamp(44px,7vw,84px)]" : "text-[22px]")} style={{ textShadow: urgent ? "0 0 26px rgba(255,211,92,0.55)" : "0 0 26px rgba(25,227,255,0.35)" }}>{td(value)}</b>
+      <span className={cn("nx-label mt-1", !big && "!text-[9px]")}>{td(label)}</span>
     </span>
   );
 
   return (
     <div className={cn("min-w-0", className)} data-countdown={c.underDay ? "clock" : "days"}>
-      <span className={cn("nx-label", urgent && "!text-drl-gold")}>{season.status === "UPCOMING" ? "Comienza en" : urgent ? "Último día · tiempo restante" : "Tiempo restante"}</span>
+      <span className={cn("nx-label", urgent && "!text-drl-gold")}>{season.status === "UPCOMING" ? t("Comienza en") : urgent ? t("Último día · tiempo restante") : t("Tiempo restante")}</span>
       <div role="timer" aria-label={countdownSentence(c, verb)} className={cn("flex items-end", big ? "mt-2 gap-4 sm:gap-6" : "mt-1 gap-2")}>
         {c.underDay ? (
           <>
@@ -61,14 +67,14 @@ export function SeasonCountdown({
           </>
         ) : (
           <>
-            {unit(String(c.days), c.days === 1 ? "día" : "días")}
-            {unit(pad(c.hours), c.hours === 1 ? "hora" : "horas")}
+            {unit(String(c.days), t("{n, plural, one {día} other {días}}", { n: c.days }))}
+            {unit(pad(c.hours), t("{n, plural, one {hora} other {horas}}", { n: c.hours }))}
           </>
         )}
       </div>
       {big && (
         <p className="mt-2 text-caption text-ink-muted">
-          {season.status === "UPCOMING" ? "Empieza" : "Termina"} el <time dateTime={season.status === "UPCOMING" ? season.startsAt : season.endsAt}>{formatSeasonDate(season.status === "UPCOMING" ? season.startsAtMs : season.endsAtMs)}</time>
+          {fill(season.status === "UPCOMING" ? t("Empieza el {fecha}", slots("fecha")) : t("Termina el {fecha}", slots("fecha")), { fecha: <time dateTime={season.status === "UPCOMING" ? season.startsAt : season.endsAt}>{formatSeasonDate(season.status === "UPCOMING" ? season.startsAtMs : season.endsAtMs)}</time> })}
         </p>
       )}
     </div>

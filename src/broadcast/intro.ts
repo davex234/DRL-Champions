@@ -5,6 +5,9 @@
  */
 import type { MatchState } from "../match";
 import type { RosterEntry } from "../sim";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("broadcast");
 
 export interface IntroPlayer { name: string; role: string; ovr: number }
 export interface IntroTeam { name: string; players: IntroPlayer[]; strength: number }
@@ -47,8 +50,8 @@ export function buildMatchIntro(match: MatchState, opts: { homeStreak?: number; 
   const favName = favorite === "home" ? home.name : away.name;
   const dogName = underdog === "home" ? home.name : away.name;
   const storyline = gap >= 6
-    ? `${favName} parte como claro favorito, pero ${dogName} buscará la sorpresa.`
-    : `Duelo parejo entre ${home.name} y ${away.name}: cualquier detalle decidirá.`;
+    ? t("{favName} parte como claro favorito, pero {dogName} buscará la sorpresa.", { favName: td(favName), dogName: td(dogName) })
+    : t("Duelo parejo entre {name} y {name2}: cualquier detalle decidirá.", { name: home.name, name2: away.name });
 
   return {
     home, away, map: "Ascent",

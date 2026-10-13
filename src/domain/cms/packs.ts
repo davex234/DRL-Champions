@@ -14,6 +14,9 @@ import { PACKS, getPack } from "@/data/packs";
 import { packLifecycle } from "@/domain/packs/lifecycle";
 import { isIconPack } from "@/domain/packs/packClass";
 import type { PackDef } from "@/domain/packs/types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("admin");
 
 export type CmsPackLifecycle = "DRAFT" | "ACTIVE" | "RETIRED";
 
@@ -41,23 +44,23 @@ export type PackFieldErrors = Partial<Record<keyof PackDraftInput, string>>;
 export function validatePackDraft(i: PackDraftInput, opts: { creating: boolean }): PackFieldErrors {
   const e: PackFieldErrors = {};
   if (opts.creating) {
-    if (!i.id || !CMS_PACK_ID.test(i.id) || i.id.length > 48) e.id = "Id: «cms-» + minúsculas/cifras con guiones (máx. 48)";
-    else if (getPack(i.id) && !getPack(i.id)?.cms) e.id = "Ese id ya lo usa un sobre del juego";
+    if (!i.id || !CMS_PACK_ID.test(i.id) || i.id.length > 48) e.id = tr("Id: «cms-» + minúsculas/cifras con guiones (máx. 48)");
+    else if (getPack(i.id) && !getPack(i.id)?.cms) e.id = tr("Ese id ya lo usa un sobre del juego");
   }
   if (i.name !== undefined || opts.creating) {
     const n = (i.name ?? "").trim();
-    if (n.length < 3 || n.length > 60) e.name = "Nombre de 3 a 60 caracteres";
-    else if (/[<>]/.test(n)) e.name = "El nombre no puede contener < ni >";
+    if (n.length < 3 || n.length > 60) e.name = tr("Nombre de 3 a 60 caracteres");
+    else if (/[<>]/.test(n)) e.name = tr("El nombre no puede contener < ni >");
   }
-  if (i.description !== undefined && (i.description.length > 400 || /[<>]/.test(i.description))) e.description = "Descripción de hasta 400 caracteres, sin < ni >";
+  if (i.description !== undefined && (i.description.length > 400 || /[<>]/.test(i.description))) e.description = tr("Descripción de hasta 400 caracteres, sin < ni >");
   if (i.templatePackId !== undefined || opts.creating) {
-    if (!i.templatePackId || !isValidTemplate(i.templatePackId)) e.templatePackId = "Elige un sobre plantilla activo y de pago";
+    if (!i.templatePackId || !isValidTemplate(i.templatePackId)) e.templatePackId = tr("Elige un sobre plantilla activo y de pago");
   }
-  if (i.accent != null && i.accent !== "" && !/^#[0-9a-fA-F]{6}$/.test(i.accent)) e.accent = "Color #rrggbb";
+  if (i.accent != null && i.accent !== "" && !/^#[0-9a-fA-F]{6}$/.test(i.accent)) e.accent = tr("Color #rrggbb");
   const from = i.availableFrom ? Date.parse(i.availableFrom) : null;
   const to = i.availableTo ? Date.parse(i.availableTo) : null;
-  if ((i.availableFrom && Number.isNaN(from)) || (i.availableTo && Number.isNaN(to))) e.availableFrom = "Fecha inválida";
-  else if (from !== null && to !== null && to <= from) e.availableTo = "El fin debe ser posterior al inicio";
+  if ((i.availableFrom && Number.isNaN(from)) || (i.availableTo && Number.isNaN(to))) e.availableFrom = tr("Fecha inválida");
+  else if (from !== null && to !== null && to <= from) e.availableTo = tr("El fin debe ser posterior al inicio");
   return e;
 }
 
@@ -99,12 +102,12 @@ export interface GateResult { ok: boolean; blockers: string[]; warnings: string[
 /** Los invariantes EXISTENTES (F57.6), aplicados a la simulación del sobre nuevo. */
 export function packPublishGate(s: CmsSimSummary | null, band: { lo: number; hi: number }, templateId: string): GateResult {
   const blockers: string[] = []; const warnings: string[] = [];
-  if (!s) return { ok: false, blockers: ["Falta la simulación"], warnings };
-  if (s.error) blockers.push(`La simulación falla: ${s.error}`);
-  if (s.eligibleCards <= 0) blockers.push("El pool no deja ninguna carta elegible");
-  if (!(s.salvageOverPrice < 0.7)) blockers.push(`Liquidación ${Math.round(s.salvageOverPrice * 100)} % ≥ 70 % del precio: bucle económico`);
-  if (!isIconPack(templateId) && s.evOverPrice > band.hi) blockers.push(`Valor/precio ${s.evOverPrice.toFixed(2)}× por encima de la banda (${band.hi.toFixed(2)}×): dominaría la línea principal`);
-  if (!isIconPack(templateId) && s.evOverPrice < band.lo * 0.5) warnings.push(`Valor/precio ${s.evOverPrice.toFixed(2)}× muy por debajo de la banda: poco atractivo`);
-  if (s.eligibleCards < 10) warnings.push(`Sólo ${s.eligibleCards} cartas elegibles: se repetirán mucho`);
+  if (!s) return { ok: false, blockers: [tr("Falta la simulación")], warnings };
+  if (s.error) blockers.push(tr("La simulación falla: {error}", { error: td(s.error) }));
+  if (s.eligibleCards <= 0) blockers.push(tr("El pool no deja ninguna carta elegible"));
+  if (!(s.salvageOverPrice < 0.7)) blockers.push(tr("Liquidación {Math} % ≥ 70 % del precio: bucle económico", { Math: Math.round(s.salvageOverPrice * 100) }));
+  if (!isIconPack(templateId) && s.evOverPrice > band.hi) blockers.push(tr("Valor/precio {evOverPrice}× por encima de la banda ({hi}×): dominaría la línea principal", { evOverPrice: s.evOverPrice.toFixed(2), hi: band.hi.toFixed(2) }));
+  if (!isIconPack(templateId) && s.evOverPrice < band.lo * 0.5) warnings.push(tr("Valor/precio {evOverPrice}× muy por debajo de la banda: poco atractivo", { evOverPrice: s.evOverPrice.toFixed(2) }));
+  if (s.eligibleCards < 10) warnings.push(tr("Sólo {eligibleCards} cartas elegibles: se repetirán mucho", { eligibleCards: s.eligibleCards }));
   return { ok: blockers.length === 0, blockers, warnings };
 }

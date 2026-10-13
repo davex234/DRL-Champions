@@ -17,6 +17,10 @@ import { cn } from "@/lib/format";
 import { StatusDot } from "@/components/ui/Badge";
 import { Meter } from "@/components/ui/Meter";
 import { Avatar } from "./primitives";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 const PRESENCES: PresenceId[] = ["online", "in-queue", "away", "offline"];
 
@@ -31,6 +35,7 @@ export function ProfileMenu({
   onExit: () => void;
   motionScale: number;
 }) {
+  useLocale();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -70,24 +75,24 @@ export function ProfileMenu({
               </p>
               <p className="flex items-center gap-1.5 text-caption text-white/45">
                 <StatusDot tone={PRESENCE_TONE[user.presence]} size={6} />
-                {PRESENCE_LABEL[user.presence]}
+                {tdIn("launcher", PRESENCE_LABEL[user.presence])}
               </p>
             </div>
           </div>
 
           <div className="border-b border-white/[0.07] px-4 py-3">
             <div className="flex items-baseline justify-between">
-              <span className="font-display text-label font-bold uppercase tracking-[0.24em] text-white/35">Nivel</span>
+              <span className="font-display text-label font-bold uppercase tracking-[0.24em] text-white/35">{t("Nivel")}</span>
               <span className="nx-readout text-[15px] text-drl-gold">{user.level}</span>
             </div>
             <Meter value={user.levelProgress * 100} tone="warn" height={5} className="mt-2" />
             <p className="mt-1.5 text-[10.5px] text-white/35">
-              {Math.round(user.levelProgress * 100)} % hacia el nivel {user.level + 1}
+              {Math.round(user.levelProgress * 100)} {t("% hacia el nivel")} {user.level + 1}
             </p>
           </div>
 
           <div className="border-b border-white/[0.07] px-2 py-2">
-            <p className="px-2 pb-1.5 font-display text-label font-bold uppercase tracking-[0.24em] text-white/35">Estado</p>
+            <p className="px-2 pb-1.5 font-display text-label font-bold uppercase tracking-[0.24em] text-white/35">{t("Estado")}</p>
             <div className="grid grid-cols-2 gap-1">
               {PRESENCES.map((p) => (
                 <button
@@ -100,14 +105,14 @@ export function ProfileMenu({
                   )}
                 >
                   <StatusDot tone={PRESENCE_TONE[p]} size={6} />
-                  {PRESENCE_LABEL[p]}
+                  {tdIn("launcher", PRESENCE_LABEL[p])}
                 </button>
               ))}
             </div>
           </div>
 
           <div className="border-b border-white/[0.07] px-4 py-3">
-            <p className="pb-2 font-display text-label font-bold uppercase tracking-[0.24em] text-white/35">Actividad reciente</p>
+            <p className="pb-2 font-display text-label font-bold uppercase tracking-[0.24em] text-white/35">{t("Actividad reciente")}</p>
             <ul className="space-y-2">
               {ACTIVITY.slice(0, 3).map((a) => (
                 <li key={a.id} className="flex gap-2">
@@ -117,7 +122,7 @@ export function ProfileMenu({
                     style={{ background: getGame(a.gameId ?? "")?.palette.key ?? "var(--nx-ink-faint)" }}
                   />
                   <span className="min-w-0">
-                    <span className="block truncate text-[11.5px] text-white/70">{a.text}</span>
+                    <span className="block truncate text-[11.5px] text-white/70">{td(a.text)}</span>
                     <span className="block text-label text-white/30">{formatDate(a.at)}</span>
                   </span>
                 </li>
@@ -126,10 +131,10 @@ export function ProfileMenu({
           </div>
 
           <div className="p-1.5">
-            <MenuItem onClick={() => onNavigate("profile")}>Ver perfil completo</MenuItem>
-            <MenuItem onClick={() => onNavigate("settings")}>Configuración</MenuItem>
+            <MenuItem onClick={() => onNavigate("profile")}>{t("Ver perfil completo")}</MenuItem>
+            <MenuItem onClick={() => onNavigate("settings")}>{t("Configuración")}</MenuItem>
             <MenuItem onClick={onExit} danger>
-              Cerrar el cliente
+              {t("Cerrar el cliente")}
             </MenuItem>
           </div>
         </motion.div>

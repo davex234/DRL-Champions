@@ -13,6 +13,9 @@ import { generateAcademyIntake, generateAcademyStaff } from "./academy";
 import { sponsorSatisfaction } from "./sponsors";
 import { computePrestige, computeFanbase, type OrgEvent } from "./organization";
 import { careerNews } from "./news";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 function ev(type: CoachCareerEvent["type"], season: number, magnitude: number, detail: string, at: number): CoachCareerEvent {
   return { type, season, magnitude, detail, at };
@@ -91,13 +94,13 @@ export function runManagementSeason(
 
   const events: CoachCareerEvent[] = [];
   const orgEvents: OrgEvent[] = [];
-  if (balance < 0) events.push(ev("financial_trouble", season, 70, `${club.name} cierra la temporada en NÚMEROS ROJOS (${balance}).`, at));
-  else if (ledger.net > 15000) events.push(ev("investment", season, 45, `${club.name} cierra con superávit de ${ledger.net}.`, at));
+  if (balance < 0) events.push(ev("financial_trouble", season, 70, t("{name} cierra la temporada en NÚMEROS ROJOS ({balance}).", { name: club.name, balance }), at));
+  else if (ledger.net > 15000) events.push(ev("investment", season, 45, t("{name} cierra con superávit de {net}.", { name: club.name, net: ledger.net }), at));
   const wonder = intake.find((p) => p.potential >= 90);
-  if (wonder) events.push(ev("prospect_scouted", season + 1, 60, `La academia de ${club.name} produce una joya: ${wonder.name} (potencial ${wonder.potential}).`, at));
-  if (staffIntake.length) orgEvents.push({ id: `org:${season}:staff_signed:${club.id}`, type: "staff_signed", season: season + 1, at, clubId: club.id, clubName: club.name, detail: `La academia de ${club.name} forma nuevo cuerpo técnico (${staffIntake.map((s) => s.name).join(", ")}).`, magnitude: 40 });
+  if (wonder) events.push(ev("prospect_scouted", season + 1, 60, t("La academia de {name} produce una joya: {name2} (potencial {potential}).", { name: club.name, name2: wonder.name, potential: wonder.potential }), at));
+  if (staffIntake.length) orgEvents.push({ id: `org:${season}:staff_signed:${club.id}`, type: "staff_signed", season: season + 1, at, clubId: club.id, clubName: club.name, detail: t("La academia de {name} forma nuevo cuerpo técnico ({v}).", { name: club.name, v: staffIntake.map((s) => s.name).join(", ") }), magnitude: 40 });
   if (fan.mood === "eufórica") orgEvents.push({ id: `org:${season}:fan_record:${club.id}`, type: "fan_record", season, at, clubId: club.id, clubName: club.name, detail: `${club.name}: ${fan.message}`, magnitude: 55 });
-  if (ledger.net > 30000) orgEvents.push({ id: `org:${season}:income_record:${club.id}`, type: "income_record", season, at, clubId: club.id, clubName: club.name, detail: `${club.name} bate su récord de ingresos (${ledger.net}).`, magnitude: 60 });
+  if (ledger.net > 30000) orgEvents.push({ id: `org:${season}:income_record:${club.id}`, type: "income_record", season, at, clubId: club.id, clubName: club.name, detail: t("{name} bate su récord de ingresos ({net}).", { name: club.name, net: ledger.net }), magnitude: 60 });
 
   return { management, clubDeltas: { budget: balance, prestige: prestigeBd.total, fanbase: fan.delta }, events, news: careerNews(events), orgEvents };
 }

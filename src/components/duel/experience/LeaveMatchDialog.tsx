@@ -13,6 +13,8 @@
 import { useEffect, useRef } from "react";
 import { NxButton } from "@/components/ui/NxButton";
 import type { LeaveConsequence } from "@/lib/duel/matchFlow";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export function LeaveMatchDialog({
   open, consequence, busy = false, onStay, onKeep, onAbandon,
@@ -24,6 +26,7 @@ export function LeaveMatchDialog({
   onKeep?: () => void;
   onAbandon?: () => void;
 }) {
+  useLocale();
   const stayRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!open) return;
@@ -44,27 +47,27 @@ export function LeaveMatchDialog({
         className="nx-clip w-full max-w-md border border-white/15 bg-[#080b14] p-5 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.9)]"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id="leave-title" className="font-display text-[20px] font-bold uppercase tracking-[0.04em] text-white">{consequence.title}</h2>
-        <p id="leave-body" className="mt-2 text-[14px] text-white/70">{consequence.body}</p>
+        <h2 id="leave-title" className="font-display text-[20px] font-bold uppercase tracking-[0.04em] text-white">{td(consequence.title)}</h2>
+        <p id="leave-body" className="mt-2 text-[14px] text-white/70">{td(consequence.body)}</p>
 
         <div className="mt-5 flex flex-col gap-2">
           <NxButton ref={stayRef} variant="primary" size="lg" onClick={onStay} disabled={busy} data-testid="leave-stay">
-            {consequence.stay}
+            {td(consequence.stay)}
           </NxButton>
           {consequence.keep && onKeep && (
             <div>
               <NxButton variant="secondary" size="lg" className="w-full" onClick={onKeep} disabled={busy} data-testid="leave-keep">
-                {consequence.keep.label}
+                {td(consequence.keep.label)}
               </NxButton>
-              <p className="mt-1 text-center text-[12px] text-white/50">{consequence.keep.note}</p>
+              <p className="mt-1 text-center text-[12px] text-white/50">{td(consequence.keep.note)}</p>
             </div>
           )}
           {consequence.abandon && onAbandon && (
             <div>
               <NxButton variant="danger" size="md" className="w-full" onClick={onAbandon} disabled={busy} data-testid="leave-abandon">
-                {consequence.abandon.label}
+                {td(consequence.abandon.label)}
               </NxButton>
-              <p className="mt-1 text-center text-[12px] text-white/50">{consequence.abandon.note}</p>
+              <p className="mt-1 text-center text-[12px] text-white/50">{td(consequence.abandon.note)}</p>
             </div>
           )}
         </div>

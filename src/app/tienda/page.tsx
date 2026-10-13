@@ -42,6 +42,10 @@ import { css } from "@/components/store/storeClasses";
 import { BattlePassEntry } from "@/components/store/BattlePassEntry";
 import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
 import "./store.css";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("tienda");
 
 export default function TiendaPage() {
   return (
@@ -55,6 +59,7 @@ export default function TiendaPage() {
 const PACKS_FOLDED = 8;
 
 function Store() {
+  useLocale();
   const router = useRouter();
   const { toast, notify } = useToast();
   const { user } = useAuth();
@@ -96,14 +101,14 @@ function Store() {
         await buyPackOnline(packId, gesture.current ?? undefined);
         return true;
       } catch (e) {
-        setPhase({ at: "failed", message: e instanceof Error ? e.message : "No se pudo comprar" });
+        setPhase({ at: "failed", message: e instanceof Error ? e.message : tr("No se pudo comprar") });
         return false;
       }
     }
     // F69 · sesión aún resolviéndose: ni compra local (saldo inventado) ni servidor (sin token).
     if (serverEconomy) { setPhase({ at: "failed", message: SESSION_PENDING }); return false; }
     const res = buyPack(packId);
-    if (!res.ok) { setPhase({ at: "failed", message: res.error ?? "No se pudo comprar" }); return false; }
+    if (!res.ok) { setPhase({ at: "failed", message: res.error ?? tr("No se pudo comprar") }); return false; }
     return true;
   }
 
@@ -117,7 +122,7 @@ function Store() {
       if (await purchase(packId)) {
         gesture.current = null; // compra hecha: otra compra será otro gesto (otra apertura del diálogo)
         setPhase({ at: "done", balance: useGameStore.getState().credits });
-        notify(`${selected!.name} añadido a tu inventario`, true);
+        notify(tr("{name} añadido a tu inventario", { name: td(selected!.name) }), true);
       }
     } finally { inFlight.current = false; setBusy(false); }
   }
@@ -129,11 +134,11 @@ function Store() {
   }
 
   const tabs = [
-    { id: "destacado", label: "Destacado" },
-    { id: "sobres", label: "Sobres", count: view.packs.length },
-    { id: "cajas", label: "Cajas", count: view.boxes.length },
-    { id: "cartas", label: "Cartas", count: view.cards.length },
-    { id: "packs", label: "Packs", count: view.bundles.length },
+    { id: "destacado", label: tr("Destacado") },
+    { id: "sobres", label: tr("Sobres"), count: view.packs.length },
+    { id: "cajas", label: tr("Cajas"), count: view.boxes.length },
+    { id: "cartas", label: tr("Cartas"), count: view.cards.length },
+    { id: "packs", label: tr("Packs"), count: view.bundles.length },
   ].filter((t) => t.id !== "destacado" || view.hero);
 
   return (
@@ -151,11 +156,11 @@ function Store() {
       <section id="sobres" aria-labelledby="h-sobres" className={css.section}>
         <SectionHead
           id="h-sobres"
-          title="Sobres"
-          subtitle="Consigue cartas aleatorias y amplía tu colección."
+          title={tr("Sobres")}
+          subtitle={tr("Consigue cartas aleatorias y amplía tu colección.")}
           action={
             <button type="button" onClick={() => setAllPacks((v) => !v)} className="nx-action nx-focus" aria-expanded={allPacks} aria-controls="lista-sobres">
-              {allPacks ? "Ver menos" : `Ver todos · ${view.packs.length}`} →
+              {allPacks ? tr("Ver menos") : tr("Ver todos · {length}", { length: view.packs.length })} →
             </button>
           }
         />
@@ -165,16 +170,16 @@ function Store() {
           ))}
         </div>
         {/* Puente al catálogo por categoría (Fase 21.4): la ficha completa de cada sobre vive en /packs. */}
-        <nav aria-label="Explorar el catálogo de sobres" className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="mr-1 font-display text-label uppercase tracking-wide2 text-ink-faint">Catálogo</span>
+        <nav aria-label={tr("Explorar el catálogo de sobres")} className="mt-4 flex flex-wrap items-center gap-2">
+          <span className="mr-1 font-display text-label uppercase tracking-wide2 text-ink-faint">{tr("Catálogo")}</span>
           {[
-            { href: "/packs", label: "Todos" },
-            { href: "/packs#rareza", label: "Rareza" },
-            { href: "/packs#regiones", label: "Regiones" },
-            { href: "/packs#equipos", label: "Equipos" },
+            { href: "/packs", label: tr("Todos") },
+            { href: "/packs#rareza", label: tr("Rareza") },
+            { href: "/packs#regiones", label: tr("Regiones") },
+            { href: "/packs#equipos", label: tr("Equipos") },
           ].map((c) => (
             <Link key={c.label} href={c.href} className="nx-focus nx-clip-sm bg-white/[0.04] px-3 py-2 font-display text-label font-bold uppercase tracking-wide2 text-ink-secondary shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)] transition hover:bg-white/[0.08] hover:text-white">
-              {c.label}
+              {td(c.label)}
             </Link>
           ))}
         </nav>
@@ -183,7 +188,7 @@ function Store() {
       {/* ── CAJAS ── */}
       {view.boxes.length > 0 && (
         <section id="cajas" aria-labelledby="h-cajas" className={css.section}>
-          <SectionHead id="h-cajas" title="Cajas" subtitle="10 sobres del mismo tipo, a tu inventario y sin abrir." />
+          <SectionHead id="h-cajas" title={tr("Cajas")} subtitle={tr("10 sobres del mismo tipo, a tu inventario y sin abrir.")} />
           <div className={`${css.grid} grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`}>
             {view.boxes.map((p, i) => <BoxOfferCard key={p.productId} product={p} index={i} onSelect={select} />)}
           </div>
@@ -193,7 +198,7 @@ function Store() {
       {/* ── CARTAS ── (F72.4: misma tarjeta que el resto; edición, rareza y OVR en el detalle) */}
       {view.cards.length > 0 && (
         <section id="cartas" aria-labelledby="h-cartas" className={css.section}>
-          <SectionHead id="h-cartas" title="Cartas destacadas" subtitle="Cartas concretas de la tienda NEXUS. No es el Marketplace." />
+          <SectionHead id="h-cartas" title={tr("Cartas destacadas")} subtitle={tr("Cartas concretas de la tienda NEXUS. No es el Marketplace.")} />
           <div className={`${css.grid} grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`}>
             {view.cards.map((p, i) => <CardOfferCard key={p.productId} product={p} index={i} onSelect={select} />)}
           </div>
@@ -203,7 +208,7 @@ function Store() {
       {/* ── PACKS ── (el contenido de cada pack, en el detalle) */}
       {view.bundles.length > 0 && (
         <section id="packs" aria-labelledby="h-packs" className={css.section}>
-          <SectionHead id="h-packs" title="Packs especiales" subtitle="Sobres, cartas y créditos en un solo producto." />
+          <SectionHead id="h-packs" title={tr("Packs especiales")} subtitle={tr("Sobres, cartas y créditos en un solo producto.")} />
           <div className={`${css.grid} grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4`}>
             {view.bundles.map((p, i) => <BundleOfferCard key={p.productId} product={p} index={i} onSelect={select} />)}
           </div>
@@ -211,8 +216,7 @@ function Store() {
       )}
 
       <p className="text-caption text-ink-faint">
-        Los precios en créditos los fija y los cobra el servidor. El pago con dinero real todavía no está activo: nada se cobra
-        ni se concede sin un pago confirmado.
+        {tr("Los precios en créditos los fija y los cobra el servidor. El pago con dinero real todavía no está activo: nada se cobra ni se concede sin un pago confirmado.")}
       </p>
 
       {selected && (

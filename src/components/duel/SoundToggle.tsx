@@ -8,8 +8,13 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/format";
 import { isMuted, setMuted, playCue } from "@/lib/sound";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export function SoundToggle({ className }: { className?: string }) {
+  useLocale();
   const [muted, setM] = useState(false);
   useEffect(() => { setM(isMuted()); }, []);
 
@@ -25,8 +30,8 @@ export function SoundToggle({ className }: { className?: string }) {
       type="button"
       onClick={toggle}
       aria-pressed={muted}
-      aria-label={muted ? "Activar sonido" : "Silenciar sonido"}
-      title={muted ? "Activar sonido" : "Silenciar sonido"}
+      aria-label={muted ? t("Activar sonido") : t("Silenciar sonido")}
+      title={muted ? t("Activar sonido") : t("Silenciar sonido")}
       className={cn(
         "nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-control border border-white/12 bg-white/[0.04] text-white/70 transition hover:bg-white/[0.1] hover:text-white",
         muted && "text-white/40",

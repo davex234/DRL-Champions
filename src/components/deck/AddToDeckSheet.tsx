@@ -28,6 +28,10 @@ import { trackFlow } from "@/lib/telemetry/client";
 import { NxButton } from "@/components/ui/NxButton";
 import { Badge } from "@/components/ui/Badge";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("deck");
 
 export interface AddToDeckSheetProps {
   card: DeckCardLike;
@@ -47,6 +51,7 @@ const toLike = (c: DuelDeckDTO["cards"][number]): DeckCardLike => ({
 });
 
 export function AddToDeckSheet({ card, onClose, onSaved, origin = "card", loadDecks = fetchDuelDecks, persist = saveDuelDeck }: AddToDeckSheetProps) {
+  useLocale();
   const router = useRouter();
   const { user } = useAuth();
   // Con `loadDecks`/`persist` inyectados (pruebas, arnés QA) no hace falta sesión: el servidor es el inyectado.
@@ -63,7 +68,7 @@ export function AddToDeckSheet({ card, onClose, onSaved, origin = "card", loadDe
     if (!online) return;
     trackFlow("deck_builder", `add_from_card:${origin}`);
     // FASE 32 · se propone el equipo ACTIVO si existe; si no, el primero, como antes.
-    loadDecks().then((r) => { setDecks(r.decks); setDeckId(r.decks.find((d) => d.id === r.activeDeckId)?.id ?? r.decks[0]?.id ?? null); }).catch((e) => setError(e instanceof Error ? e.message : "No se pudieron cargar tus mazos"));
+    loadDecks().then((r) => { setDecks(r.decks); setDeckId(r.decks.find((d) => d.id === r.activeDeckId)?.id ?? r.decks[0]?.id ?? null); }).catch((e) => setError(e instanceof Error ? e.message : t("No se pudieron cargar tus mazos")));
   }, [online, loadDecks, origin]);
 
   const deck = useMemo(() => decks?.find((d) => d.id === deckId) ?? null, [decks, deckId]);
@@ -77,14 +82,14 @@ export function AddToDeckSheet({ card, onClose, onSaved, origin = "card", loadDe
   async function confirm() {
     if (!deck || !plan || busy) return;
     const uids = plan.kind === "free" ? plan.apply() : plan.apply(replaceUid ?? undefined);
-    if (!uids) { setError("Elige a quién sustituir."); return; }
+    if (!uids) { setError(t("Elige a quién sustituir.")); return; }
     setBusy(true); setError(null);
     try {
       const r = await persist({ id: deck.id, name: deck.name, cardUids: uids });
       setDone(r.deck);
       onSaved?.(r.deck);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "El servidor no aceptó el equipo");
+      setError(e instanceof Error ? e.message : t("El servidor no aceptó el equipo"));
     } finally {
       setBusy(false);
     }
@@ -109,64 +114,64 @@ export function AddToDeckSheet({ card, onClose, onSaved, origin = "card", loadDe
         >
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <p className="nx-label">Añadir al equipo</p>
+              <p className="nx-label">{t("Añadir al equipo")}</p>
               <h2 id="add-to-deck-title" className="mt-1 truncate font-display text-h3 font-bold uppercase leading-none text-white">{card.nick}</h2>
               <p className="mt-1 text-caption" style={{ color: variant.palette.primary }}>
-                {variant.label} · OVR <span className="nx-readout text-white">{card.ovr}</span> · {card.role}
-                {card.serial != null && <span className="text-ink-faint"> · Nº {card.serial}</span>}
+                {td(variant.label)} {t("· OVR")} <span className="nx-readout text-white">{card.ovr}</span> · {td(card.role)}
+                {card.serial != null && <span className="text-ink-faint"> {t("· Nº")} {card.serial}</span>}
               </p>
             </div>
-            <button type="button" onClick={onClose} aria-label="Cerrar" className="nx-focus nx-press nx-clip-sm grid h-11 w-11 min-h-[44px] place-items-center border border-white/15 text-white/70 hover:text-white"><GameGlyph name="close" className="h-4 w-4" /></button>
+            <button type="button" onClick={onClose} aria-label={t("Cerrar")} className="nx-focus nx-press nx-clip-sm grid h-11 w-11 min-h-[44px] place-items-center border border-white/15 text-white/70 hover:text-white"><GameGlyph name="close" className="h-4 w-4" /></button>
           </div>
 
           {!online && (
             <div className="mt-5 space-y-3">
-              <p className="text-sm text-ink-muted">Los equipos se guardan con tu cuenta. Entra para añadir esta carta a un equipo, o ábrela en el constructor.</p>
+              <p className="text-sm text-ink-muted">{t("Los equipos se guardan con tu cuenta. Entra para añadir esta carta a un equipo, o ábrela en el constructor.")}</p>
               <div className="flex flex-wrap gap-2">
-                <NxButton variant="primary" size="md" onClick={() => router.push("/duelos/mazos")}>Ir al constructor</NxButton>
-                <NxButton variant="secondary" size="md" onClick={() => router.push("/cuenta")}>Entrar</NxButton>
+                <NxButton variant="primary" size="md" onClick={() => router.push("/duelos/mazos")}>{t("Ir al constructor")}</NxButton>
+                <NxButton variant="secondary" size="md" onClick={() => router.push("/cuenta")}>{t("Entrar")}</NxButton>
               </div>
             </div>
           )}
 
           {online && done && (
             <div className="mt-5 space-y-3" role="status" aria-live="polite">
-              <p className="font-display text-caption font-bold uppercase tracking-wide text-drl-cyan">Guardado en «{done.name}»</p>
+              <p className="font-display text-caption font-bold uppercase tracking-wide text-drl-cyan">{t("Guardado en «{nombre}»", { nombre: done.name })}</p>
               <p className="text-sm text-ink-muted">
-                {done.cards.length}/{DUEL_DECK_SIZE} cartas · {done.valid ? "listo para jugar" : done.errors[0]?.message ?? "aún incompleto"}
+                {t("{n}/{total} cartas · {estado}", { n: done.cards.length, total: DUEL_DECK_SIZE, estado: done.valid ? t("listo para jugar") : td(done.errors[0]?.message) ?? t("aún incompleto") })}
               </p>
               <div className="flex flex-wrap gap-2">
-                <NxButton variant="primary" size="md" onClick={() => router.push(`/duelos/mazos?deck=${done.id}`)}>Ver el equipo</NxButton>
-                <NxButton variant="secondary" size="md" onClick={onClose}>Seguir</NxButton>
+                <NxButton variant="primary" size="md" onClick={() => router.push(`/duelos/mazos?deck=${done.id}`)}>{t("Ver el equipo")}</NxButton>
+                <NxButton variant="secondary" size="md" onClick={onClose}>{t("Seguir")}</NxButton>
               </div>
             </div>
           )}
 
           {online && !done && (
             <div className="mt-5 space-y-4">
-              {decks === null && !error && <p className="text-sm text-ink-muted" role="status">Cargando tus equipos…</p>}
+              {decks === null && !error && <p className="text-sm text-ink-muted" role="status">{t("Cargando tus equipos…")}</p>}
               {decks && decks.length === 0 && (
                 <div className="space-y-3">
-                  <p className="text-sm text-ink-muted">Todavía no tienes ningún equipo. Créalo con esta carta dentro.</p>
+                  <p className="text-sm text-ink-muted">{t("Todavía no tienes ningún equipo. Créalo con esta carta dentro.")}</p>
                   <NxButton variant="primary" size="md" disabled={busy} onClick={async () => {
                     setBusy(true); setError(null);
-                    try { const r = await persist({ name: "Mi equipo", cardUids: [card.uid] }); setDone(r.deck); onSaved?.(r.deck); }
-                    catch (e) { setError(e instanceof Error ? e.message : "No se pudo crear el equipo"); }
+                    try { const r = await persist({ name: t("Mi equipo"), cardUids: [card.uid] }); setDone(r.deck); onSaved?.(r.deck); }
+                    catch (e) { setError(e instanceof Error ? e.message : t("No se pudo crear el equipo")); }
                     finally { setBusy(false); }
-                  }}>Crear equipo con esta carta</NxButton>
+                  }}>{t("Crear equipo con esta carta")}</NxButton>
                 </div>
               )}
               {decks && decks.length > 0 && (
                 <>
                   <label className="block">
-                    <span className="nx-label">Equipo</span>
+                    <span className="nx-label">{t("Equipo")}</span>
                     <select
                       value={deckId ?? ""}
                       onChange={(e) => setDeckId(e.target.value)}
                       className="nx-focus mt-1 w-full rounded-lg border border-white/15 bg-base-900 px-3 py-2.5 text-sm text-white"
                     >
                       {decks.map((d) => (
-                        <option key={d.id} value={d.id}>{d.name} · {d.cards.length}/{DUEL_DECK_SIZE}{d.valid ? "" : " · incompleto"}</option>
+                        <option key={d.id} value={d.id}>{d.name} · {d.cards.length}/{DUEL_DECK_SIZE}{d.valid ? "" : (" " + t("· incompleto"))}</option>
                       ))}
                     </select>
                   </label>
@@ -176,20 +181,20 @@ export function AddToDeckSheet({ card, onClose, onSaved, origin = "card", loadDe
                       onClick={() => router.push(`/duelos/mazos?deck=${deckId}&add=${card.uid}`)}
                       className="nx-action inline-flex min-h-[44px] items-center text-[12px]"
                     >
-                      Abrir en el constructor con esta carta →
+                      {t("Abrir en el constructor con esta carta →")}
                     </button>
                   )}
 
                   {plan && (
                     <div className="space-y-3">
                       <p className="text-sm text-ink-secondary">
-                        {plan.kind === "free" && <><Badge tone="ok">Hueco libre</Badge> {plan.reason} Se añade sin quitar ninguna carta.</>}
-                        {plan.kind === "replace" && <><Badge tone="warn">Sustituir</Badge> {plan.reason} Elige a quién sustituye.</>}
-                        {plan.kind === "upgrade" && <><Badge tone="info">Misma identidad</Badge> {plan.reason}</>}
-                        {plan.kind === "blocked" && <><Badge tone="muted">Sin cambios</Badge> {plan.reason}</>}
+                        {plan.kind === "free" && <><Badge tone="ok">{t("Hueco libre")}</Badge> {td(plan.reason)} {t("Se añade sin quitar ninguna carta.")}</>}
+                        {plan.kind === "replace" && <><Badge tone="warn">{t("Sustituir")}</Badge> {td(plan.reason)} {t("Elige a quién sustituye.")}</>}
+                        {plan.kind === "upgrade" && <><Badge tone="info">{t("Misma identidad")}</Badge> {td(plan.reason)}</>}
+                        {plan.kind === "blocked" && <><Badge tone="muted">{t("Sin cambios")}</Badge> {td(plan.reason)}</>}
                       </p>
                       {plan.options.length > 0 && (
-                        <ul className="space-y-2" role="radiogroup" aria-label="Carta a sustituir">
+                        <ul className="space-y-2" role="radiogroup" aria-label={t("Carta a sustituir")}>
                           {plan.options.map((o) => (
                             <CompareRow key={o.current.uid} option={o} next={card} selected={replaceUid === o.current.uid} onSelect={() => setReplaceUid(o.current.uid)} />
                           ))}
@@ -206,9 +211,9 @@ export function AddToDeckSheet({ card, onClose, onSaved, origin = "card", loadDe
                       disabled={busy || !plan || plan.kind === "blocked" || (plan.kind !== "free" && !replaceUid)}
                       aria-busy={busy}
                     >
-                      {busy ? "Guardando…" : plan?.kind === "free" ? "Añadir al equipo" : "Sustituir y guardar"}
+                      {busy ? t("Guardando…") : plan?.kind === "free" ? t("Añadir al equipo") : t("Sustituir y guardar")}
                     </NxButton>
-                    <NxButton variant="ghost" size="md" onClick={onClose}>Cancelar</NxButton>
+                    <NxButton variant="ghost" size="md" onClick={onClose}>{t("Cancelar")}</NxButton>
                   </div>
                 </>
               )}
@@ -222,6 +227,7 @@ export function AddToDeckSheet({ card, onClose, onSaved, origin = "card", loadDe
 }
 
 function CompareRow({ option, next, selected, onSelect }: { option: ReplaceOption; next: DeckCardLike; selected: boolean; onSelect: () => void }) {
+  useLocale();
   const cur = option.current;
   const cv = getVariant(cur.variantId);
   return (
@@ -232,19 +238,19 @@ function CompareRow({ option, next, selected, onSelect }: { option: ReplaceOptio
       >
         <div className="flex items-center justify-between gap-2">
           <span className="min-w-0 truncate font-display text-caption font-bold uppercase tracking-wide text-white">
-            {next.nick} <span className="text-ink-faint">vs</span> {cur.nick}
+            {next.nick} <span className="text-ink-faint">{t("vs")}</span> {cur.nick}
           </span>
-          <span className="shrink-0 text-caption text-ink-faint">{option.up} suben · {option.down} bajan</span>
+          <span className="shrink-0 text-caption text-ink-faint">{t("{sube} suben · {baja} bajan", { sube: option.up, baja: option.down })}</span>
         </div>
         <div className="mt-2 grid grid-cols-5 gap-1 text-center">
           {option.compare.map((r) => (
             <div key={r.key} className="nx-clip-sm bg-black/30 px-1 py-1">
-              <p className="text-[10px] uppercase tracking-wide text-ink-faint">{r.label}</p>
+              <p className="text-[10px] uppercase tracking-wide text-ink-faint">{td(r.label)}</p>
               <p className="nx-readout text-[13px] text-white">
-                {r.key === "rank" ? getVariant(next.variantId).label.split(" ")[0] : r.next}
+                {r.key === "rank" ? td(getVariant(next.variantId).label.split(" ")[0]) : r.next}
               </p>
               <p className="text-[11px]" style={{ color: r.delta > 0 ? "var(--nx-ok)" : r.delta < 0 ? "var(--nx-bad)" : "var(--nx-ink-faint, #6b7280)" }}>
-                {r.key === "rank" ? cv.label.split(" ")[0] : r.current} {r.delta > 0 ? "▲" : r.delta < 0 ? "▼" : "="}
+                {r.key === "rank" ? td(cv.label.split(" ")[0]) : r.current} {r.delta > 0 ? "▲" : r.delta < 0 ? "▼" : "="}
               </p>
             </div>
           ))}

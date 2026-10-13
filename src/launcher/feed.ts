@@ -5,6 +5,9 @@
  * es la diferencia entre un carrusel decorativo y una sección de noticias de verdad.
  */
 import type { LauncherNews, NewsCategory } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("launcher");
 
 export const NEWS: LauncherNews[] = [
   {
@@ -114,5 +117,5 @@ const MONTHS = [
 export function formatDate(iso: string): string {
   const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
   if (!y || !m || !d) return iso;
-  return `${d} de ${MONTHS[m - 1]} de ${y}`;
+  return t("{d} de {v} de {y}", { d, v: td(MONTHS[m - 1]), y });
 }

@@ -7,12 +7,17 @@
  */
 import { PageHeader, LinkButton } from "@/components/admin/cc/ui";
 import { NewCardWizard } from "@/components/admin/cms/CardCms";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("admin");
 
 export default function NewCardPage() {
+  useLocale();
   return (
     <div className="space-y-5">
-      <PageHeader eyebrow="Contenido · Cartas" title="Nueva carta" description="La carta es su arte: lo impreso (rol, OVR, seis stats, equipo) describe la imagen que subes. Termina en borrador."
-        actions={<LinkButton href="/admin/cards">← Cartas</LinkButton>} />
+      <PageHeader eyebrow={t("Contenido · Cartas")} title={t("Nueva carta")} description={t("La carta es su arte: lo impreso (rol, OVR, seis stats, equipo) describe la imagen que subes. Termina en borrador.")}
+        actions={<LinkButton href="/admin/cards">{t("← Cartas")}</LinkButton>} />
       <NewCardWizard />
     </div>
   );

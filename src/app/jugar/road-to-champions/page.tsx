@@ -22,16 +22,22 @@ import type { DuelDeckDTO } from "@/lib/duel/types";
 import { findNodeView } from "@/domain/campaign/snapshot";
 import { CAMPAIGN_ROUTE, NODE_ID_PATTERN, allNodeViews, campaignNodeHref, campaignPlayHref, type DeckLite } from "@/lib/campaign/presentation";
 import { trackCampaign } from "@/lib/campaign/telemetry";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("jugar");
 
 export default function RoadToChampionsPage() {
+  useLocale();
   return (
-    <Suspense fallback={<Loading label="Cargando Road to Champions…" />}>
+    <Suspense fallback={<Loading label={t("Cargando Road to Champions…")} />}>
       <RoadToChampions />
     </Suspense>
   );
 }
 
 function RoadToChampions() {
+  useLocale();
   const router = useRouter();
   const params = useSearchParams();
   const configured = isSupabaseConfigured();
@@ -85,14 +91,14 @@ function RoadToChampions() {
   async function abandon() {
     setBusy(true);
     setError(null);
-    try { setSnapshot(await abandonCampaignNode()); } catch (e) { setError(e instanceof Error ? e.message : "No se pudo abandonar el nodo"); } finally { setBusy(false); }
+    try { setSnapshot(await abandonCampaignNode()); } catch (e) { setError(e instanceof Error ? e.message : t("No se pudo abandonar el nodo")); } finally { setBusy(false); }
   }
 
-  if (load.state === "loading" || loading) return <Loading label="Cargando Road to Champions…" />;
+  if (load.state === "loading" || loading) return <Loading label={t("Cargando Road to Champions…")} />;
   if (!snapshot) {
     return load.state === "offline"
       ? <CampaignNotice kind="offline" onRetry={() => void reload()} />
-      : <ErrorState message={load.state === "error" ? load.message : "No se pudo leer Road to Champions"} onRetry={() => void reload()} />;
+      : <ErrorState message={load.state === "error" ? td(load.message) : t("No se pudo leer Road to Champions")} onRetry={() => void reload()} />;
   }
 
   const node = selectedId ? findNodeView(snapshot, selectedId) : null;
@@ -105,15 +111,15 @@ function RoadToChampions() {
 
       <div className="space-y-2">
         {load.state === "offline" && <CampaignNotice kind="offline" onRetry={() => void reload()} />}
-        {load.state === "error" && <CampaignNotice kind="error" message={load.message} onRetry={() => void reload()} />}
+        {load.state === "error" && <CampaignNotice kind="error" message={td(load.message)} onRetry={() => void reload()} />}
         {!snapshot.available && <CampaignNotice kind="unavailable" />}
-        {snapshot.available && !signedIn && <CampaignNotice kind="signin" action={{ label: "Iniciar sesión", href: "/cuenta" }} />}
+        {snapshot.available && !signedIn && <CampaignNotice kind="signin" action={{ label: t("Iniciar sesión"), href: "/cuenta" }} />}
         {snapshot.available && signedIn && openNode && (
-          <CampaignNotice kind="active" message={`«${openNode.name}» está en marcha. Termínalo o abandónalo antes de empezar otro nodo.`} action={{ label: "Retomar", href: campaignPlayHref(openNode.id) }} />
+          <CampaignNotice kind="active" message={t("«{name}» está en marcha. Termínalo o abandónalo antes de empezar otro nodo.", { name: openNode.name })} action={{ label: t("Retomar"), href: campaignPlayHref(openNode.id) }} />
         )}
         {snapshot.available && signedIn && snapshot.summary.complete && <CampaignNotice kind="complete" />}
         {signedIn && decks !== null && !decks.some((d) => d.valid) && snapshot.available && (
-          <CampaignNotice kind="active" message="Necesitas un equipo válido (diez cartas, dos por rol) para jugar cualquier nodo." action={{ label: decks.length === 0 ? "Crear equipo" : "Editar equipo", href: decks.length === 0 ? "/duelos/mazos?nuevo=1" : `/duelos/mazos?deck=${decks[0].id}` }} />
+          <CampaignNotice kind="active" message={t("Necesitas un equipo válido (diez cartas, dos por rol) para jugar cualquier nodo.")} action={{ label: decks.length === 0 ? t("Crear equipo") : t("Editar equipo"), href: decks.length === 0 ? "/duelos/mazos?nuevo=1" : `/duelos/mazos?deck=${decks[0].id}` }} />
         )}
       </div>
 
@@ -130,7 +136,7 @@ function RoadToChampions() {
           onClose={close}
           onAbandon={() => void abandon()}
           busy={busy}
-          error={error}
+          error={td(error)}
         />
       )}
     </div>

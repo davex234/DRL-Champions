@@ -126,8 +126,8 @@ test("RAREZA · la receta por rareza no canta tiers inventados (sin heraldo prop
 test("A11Y · anuncio por carta, cara oculta a lectores hasta girar, salto y cierre con nombre", () => {
   assert.ok(REVEAL.includes('aria-live="polite" data-testid="reveal-announcement"'));
   assert.ok(REVEAL.includes("aria-hidden={!revealed}"));
-  assert.ok(CEREMONY.includes('aria-label="Saltar la animación y ver todas las cartas"'));
-  assert.ok(CEREMONY.includes('aria-label="Cerrar la apertura"'));
+  assert.ok(CEREMONY.includes('aria-label={tr("Saltar la animación y ver todas las cartas")}'));
+  assert.ok(CEREMONY.includes('aria-label={tr("Cerrar la apertura")}'));
 });
 
 test("A11Y · botones propios con diana de 44 px", () => {

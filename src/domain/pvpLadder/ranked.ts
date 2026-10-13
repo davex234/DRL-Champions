@@ -20,6 +20,9 @@
 import { PLACEMENT_GAMES, INITIAL_RATING } from "@/domain/cardgame/rating";
 import type { RatingResult } from "@/domain/cardgame/rating";
 import { rankedRecap } from "@/domain/season/recap";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("pvpLadder");
 
 /* ───────────────────────────── entradas mínimas ───────────────────────────── */
 
@@ -86,7 +89,7 @@ const clamp01 = (x: number) => (Number.isFinite(x) ? Math.max(0, Math.min(1, x))
 
 /** Etiqueta del puesto. Nunca «#0». */
 export function positionLabel(position: number | null): string {
-  return position !== null && position >= 1 ? `#${position}` : "Sin clasificar";
+  return position !== null && position >= 1 ? `#${position}` : t("Sin clasificar");
 }
 
 /* ───────────────────────────── movimiento tras una partida ───────────────────────────── */
@@ -128,10 +131,10 @@ export function rankedMovement(before: LadderPhoto | null, after: LadderPhoto): 
 /** Texto del movimiento: con palabras, nunca solo con color. */
 export function movementLabel(m: RankedMovement): string | null {
   switch (m.kind) {
-    case "PROMOTION": return `Subes ${m.positions} ${m.positions === 1 ? "puesto" : "puestos"}`;
-    case "DEMOTION": return `Bajas ${-(m.positions ?? 0)} ${m.positions === -1 ? "puesto" : "puestos"}`;
-    case "HOLD": return "Mantienes tu puesto";
-    case "ENTERED": return "Entras en la escalera";
+    case "PROMOTION": return t("{n, plural, one {Subes {n} puesto} other {Subes {n} puestos}}", { n: m.positions ?? 0 });
+    case "DEMOTION": return t("{n, plural, one {Bajas {n} puesto} other {Bajas {n} puestos}}", { n: -(m.positions ?? 0) });
+    case "HOLD": return t("Mantienes tu puesto");
+    case "ENTERED": return t("Entras en la escalera");
     default: return null;
   }
 }
@@ -179,7 +182,7 @@ export function rankedGate(input: { signedIn: boolean; decks: readonly Readiness
 /** Qué le falta a un mazo, en frases del validador del servidor (sin duplicados, acotado). */
 export function deckIssues(deck: ReadinessDeck): string[] {
   const out = [...new Set(deck.errors.map((e) => e.message).filter(Boolean))];
-  if (out.length === 0) out.push("Este mazo no es legal todavía: revísalo en el editor.");
+  if (out.length === 0) out.push(t("Este mazo no es legal todavía: revísalo en el editor."));
   return out.slice(0, 4);
 }
 
@@ -272,7 +275,7 @@ export interface MatchupSide { username: string; avatar: string; rating: number;
 /** Diferencia de rating contada desde tu lado («+34 sobre ti», «−12»). Solo cifras del servidor. */
 export function matchupEdge(you: MatchupSide, rival: MatchupSide): { diff: number; label: string } {
   const diff = rival.rating - you.rating;
-  const label = diff === 0 ? "Mismo rating" : diff > 0 ? `Rival +${diff} de rating` : `Tú +${-diff} de rating`;
+  const label = diff === 0 ? t("Mismo rating") : diff > 0 ? t("Rival +{diff} de rating", { diff }) : t("Tú +{v} de rating", { v: -diff });
   return { diff, label };
 }
 

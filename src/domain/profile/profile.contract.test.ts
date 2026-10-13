@@ -68,7 +68,7 @@ test("los jugadores esports (Fase 30) no se enlazan a usuarios NEXUS por coincid
 
 test("cuenta ≠ perfil: /cuenta conserva sesión y ajustes y muestra la tarjeta TU PERFIL; la navegación separa los dos", () => {
   assert.ok(CUENTA.includes('<ProfilePreviewCard enabled={!!user} className="mt-4" />'));
-  assert.ok(CUENTA.includes('aria-label="Ajustes del perfil"') && CUENTA.includes("signOut"));
+  assert.ok(CUENTA.includes('aria-label={t("Ajustes del perfil")}') && CUENTA.includes("signOut"));
   assert.ok(CUENTA.includes('import { AVATARS } from "@/domain/profile/avatars";') && !/const AVATARS = \[/.test(CUENTA));
   const progreso = NAV_SECTIONS.find((s) => s.id === "progreso")!;
   // IA 2026-10-07 · Mi perfil y Cuenta ya no son entradas del menú de Temporada: viven en MI CUENTA (icono + dock), donde
@@ -144,7 +144,10 @@ test("editor: reutiliza CollectionEngine, applyFilter e instancesOf (sin segunda
   const ed = COMP("ShowcaseEditor.tsx");
   assert.ok(ed.includes("new CollectionEngine(owned).ownedViews()") && ed.includes("applyFilter(views,") && ed.includes("instancesOf(owned, cardId)"));
   for (const l of ["Buscar carta", "Equipo", "Rol", "Rareza", "Duplicadas"]) assert.ok(ed.includes(l), l);
-  assert.ok(ed.includes("aria-label={`Subir slot ${i + 1}`}") && ed.includes("aria-label={`Bajar slot ${i + 1}`}") && ed.includes("aria-label={`Quitar slot ${i + 1}`}"));
+  // I18N · la plantilla pasó a clave con parámetro: mismo texto, mismo `i + 1`, en el mismo aria-label.
+  for (const verbo of ["Subir", "Bajar", "Quitar"]) {
+    assert.ok(new RegExp("aria-label=\\{(?:`" + verbo + " slot \\$\\{i \\+ 1\\}`|(?:t|tr|i18nT)\\(\"" + verbo + " slot \\{(\\w+)\\}\", \\{ \\1: i \\+ 1 \\}\\))\\}").test(ed), verbo);
+  }
   assert.ok(ed.includes('data-testid="instance-picker"') && ed.includes("Exponer esta copia"));
   assert.ok(ed.includes('role="dialog"') && ed.includes('aria-modal="true"') && ed.includes('e.key === "Escape"'));
 });
@@ -203,7 +206,7 @@ test("63–65 · consultas acotadas y agrupadas; sin service key en cliente; rat
 test("avatar: el servidor solo acepta el conjunto cerrado de emojis; el perfil nunca lo pinta como imagen", () => {
   assert.ok(SERVICE.includes('if (!isAllowedAvatar(avatar)) return fail(400, "Avatar no válido", "BAD_AVATAR");'));
   assert.ok(!/<img[^>]*avatar|src=\{[^}]*avatar/.test(UI));
-  assert.ok(COMP("bits.tsx").includes('aria-label={`Avatar de ${username}`}'));
+  assert.ok(COMP("bits.tsx").includes('aria-label={t("Avatar de {username}", { username })}'));
 });
 
 test("un 5xx del servicio nunca viaja crudo", () => {

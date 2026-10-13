@@ -30,6 +30,10 @@ import { CardRenderer, type CardSize } from "@/components/cards/CardRenderer";
 import { Badge } from "@/components/ui/Badge";
 import type { Player, PlayerStats, VariantDef } from "@/domain/cards/types";
 import { COMBAT_STAT_META, type CombatStats } from "@/domain/cards/combat";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("admin");
 
 export function CardPreview({
   player,
@@ -51,6 +55,7 @@ export function CardPreview({
   /** Una línea de contexto bajo la carta. Por ejemplo, de qué versión se está hablando. */
   nota?: string;
 }) {
+  useLocale();
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="flex items-center gap-2">
@@ -58,8 +63,8 @@ export function CardPreview({
           El aviso va FUERA de la carta, no encima: tapar la carta para decir que es una
           previsualización estropea justo lo que se ha venido a mirar.
         */}
-        <Badge tone="warn">Preview · sin ejemplar</Badge>
-        <Badge tone="muted">{variant.label}</Badge>
+        <Badge tone="warn">{t("Preview · sin ejemplar")}</Badge>
+        <Badge tone="muted">{td(variant.label)}</Badge>
       </div>
 
       <Card3D mode="hover" glow={variant.palette.primary} tilt={9}>
@@ -76,11 +81,11 @@ export function CardPreview({
       </Card3D>
 
       {/* El trío de combate no se pinta en la cara de la carta, y es lo que se está editando. */}
-      <dl className="flex items-center gap-3" aria-label="Trío de combate de la carta">
+      <dl className="flex items-center gap-3" aria-label={t("Trío de combate de la carta")}>
         {(["stronghold", "gamesense", "entryfrag"] as const).map((k) => (
           <div key={k} className="text-center">
             <dt className="font-display text-label uppercase tracking-wider text-white/40">
-              {COMBAT_STAT_META[k].label}
+              {td(COMBAT_STAT_META[k].label)}
             </dt>
             <dd
               className="font-display text-xl font-bold tabular-nums"
@@ -94,8 +99,8 @@ export function CardPreview({
 
       <p className="max-w-[300px] text-center text-[11px] leading-relaxed text-white/40">
         {variant.serialized && variant.serialLimit
-          ? `Serializada: cada ejemplar llevará un número del 1 al ${variant.serialLimit}. Aquí no se enseña ninguno porque todavía no existe.`
-          : "Sin numerar: esta variante no lleva número de serie."}
+          ? t("Serializada: cada ejemplar llevará un número del 1 al {serialLimit}. Aquí no se enseña ninguno porque todavía no existe.", { serialLimit: variant.serialLimit })
+          : t("Sin numerar: esta variante no lleva número de serie.")}
         {nota ? ` ${nota}` : ""}
       </p>
     </div>

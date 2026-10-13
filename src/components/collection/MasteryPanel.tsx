@@ -28,6 +28,10 @@ import type { MasteryView, MasterySetView } from "@/lib/game/mastery";
 import { claimMastery } from "@/lib/game/mastery";
 import { cosmetic } from "@/domain/cosmetics/catalog";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("collection");
 
 /** Tono por eje. Tabla, no `switch`: un eje nuevo sale neutro en vez de romper. */
 const AXIS: Record<string, { tint: string; label: string }> = {
@@ -53,6 +57,7 @@ function SetRow({
   onClaim: (setId: string, at: number) => void;
   busy: string | null;
 }) {
+  useLocale();
   const a = AXIS[set.axis] ?? NEUTRAL;
   const pct = set.total === 0 ? 0 : Math.round((set.owned / set.total) * 100);
   const next = set.tiers.find((t) => t.claimable) ?? null;
@@ -72,13 +77,13 @@ function SetRow({
             className="font-display text-[9px] font-bold uppercase tracking-[0.14em]"
             style={{ color: `rgb(${a.tint})` }}
           >
-            {a.label}
+            {td(a.label)}
           </span>
           <div className={cn(
             "mt-0.5 truncate font-display text-[13.5px] font-bold uppercase tracking-[0.04em]",
             done ? "text-white" : "text-white/85",
           )}>
-            {set.label}
+            {td(set.label)}
           </div>
         </div>
 
@@ -90,7 +95,7 @@ function SetRow({
             className="nx-clip-sm shrink-0 px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.12em] text-black transition duration-fast disabled:opacity-50"
             style={{ background: `rgb(${a.tint})` }}
           >
-            {busy === `${set.id}:${next.at}` ? "…" : "Insignia"}
+            {busy === `${set.id}:${next.at}` ? "…" : tr("Insignia")}
           </button>
         ) : (
           <span className="nx-readout shrink-0 text-[12px] text-white/45">
@@ -111,8 +116,8 @@ function SetRow({
           {next
             ? badgeNames(next.reward.cosmetics)
             : set.nextLabel
-              ? `Faltan ${set.toNext} para ${set.nextLabel}`
-              : "Completo"}
+              ? tr("Faltan {toNext} para {nextLabel}", { toNext: set.toNext, nextLabel: td(set.nextLabel) })
+              : tr("Completo")}
         </span>
         {/* Las insignias ya conseguidas de este conjunto, como puntos. */}
         <span className="flex shrink-0 gap-1" aria-hidden>
@@ -138,6 +143,7 @@ export function MasteryPanel({
   onChanged: () => void;
   notify?: (msg: string, ok?: boolean) => void;
 }) {
+  useLocale();
   const [shown, setShown] = useState(PAGE);
   const [busy, setBusy] = useState<string | null>(null);
 
@@ -146,11 +152,11 @@ export function MasteryPanel({
     try {
       const r = await claimMastery(setId, at);
       notify?.(r.applied
-        ? `Insignia conseguida · ${badgeNames(r.reward.cosmetics) || r.label}`
-        : "Esa insignia ya era tuya");
+        ? tr("Insignia conseguida · {v}", { v: badgeNames(r.reward.cosmetics) || td(r.label) })
+        : tr("Esa insignia ya era tuya"));
       onChanged();
     } catch (e) {
-      notify?.(e instanceof Error ? e.message : "No se pudo reclamar", false);
+      notify?.(e instanceof Error ? e.message : tr("No se pudo reclamar"), false);
     } finally {
       setBusy(null);
     }
@@ -159,26 +165,26 @@ export function MasteryPanel({
   const t = view.totals;
 
   return (
-    <section className="mt-8" aria-label="Maestría de colección">
+    <section className="mt-8" aria-label={tr("Maestría de colección")}>
       <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="nx-label">Maestría</h2>
+          <h2 className="nx-label">{tr("Maestría")}</h2>
           <p className="mt-1 text-[12.5px] text-white/50">
-            {t.sets} conjuntos sobre las cartas que ya tienes. Pagan insignias, no créditos.
+            {tr("{n} conjuntos sobre las cartas que ya tienes. Pagan insignias, no créditos.", { n: t.sets })}
           </p>
         </div>
         <div className="flex gap-4">
           <span className="text-right">
-            <span className="nx-label block text-[9px]">Completos</span>
+            <span className="nx-label block text-[9px]">{tr("Completos")}</span>
             <span className="nx-readout text-[19px] text-white">{t.completed}</span>
           </span>
           <span className="text-right">
-            <span className="nx-label block text-[9px]">Insignias</span>
+            <span className="nx-label block text-[9px]">{tr("Insignias")}</span>
             <span className="nx-readout text-[19px] text-white">{t.badgesEarned}</span>
           </span>
           {t.claimable > 0 && (
             <span className="text-right">
-              <span className="nx-label block text-[9px]">Sin reclamar</span>
+              <span className="nx-label block text-[9px]">{tr("Sin reclamar")}</span>
               <span className="nx-readout text-[19px] text-drl-gold">{t.claimable}</span>
             </span>
           )}
@@ -199,9 +205,9 @@ export function MasteryPanel({
             /* FASE 12 · 44 px y chaflán: medía 167 × 42 y usaba `rounded-control`. */
             className="nx-focus nx-clip-sm min-h-[44px] border border-white/15 px-6 font-display text-[13px] font-bold uppercase tracking-[0.12em] text-white/80 transition duration-fast hover:bg-white/[0.07]"
           >
-            Ver más conjuntos
+            {tr("Ver más conjuntos")}
           </button>
-          <span className="nx-label">{shown} de {view.sets.length}</span>
+          <span className="nx-label">{tr("{n} de {total}", { n: shown, total: view.sets.length })}</span>
         </div>
       )}
     </section>

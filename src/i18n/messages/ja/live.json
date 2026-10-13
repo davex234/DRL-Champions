@@ -1,0 +1,15 @@
+{
+  "Como {player}": "{player}のように",
+  "Gana un partido con un jugador campeón de {tournamentName}.": "{tournamentName}の優勝選手を使ってマッチに勝利しよう。",
+  "Gana un partido con {player} en tu quinteto.": "{player}をチームに入れてマッチに勝利しよう。",
+  "Gana usando jugadores con alta habilidad de Clutch.": "クラッチ能力の高い選手を使って勝利しよう。",
+  "Reta a {team}": "{team}に挑戦",
+  "Reyes del clutch": "クラッチキング",
+  "fuente caída": "ソース停止中",
+  "{name}: sin resultados": "{name}: 結果なし",
+  "{player} debuta en {name}": "{player}が{name}でデビュー",
+  "{player} ficha por {team}": "{player}が{team}に加入",
+  "{player} firma una actuación histórica": "{player}が歴史的なパフォーマンスを披露",
+  "{player}, MVP de {name}": "{player}、{name}のMVP",
+  "{team}, campeón de {name}": "{team}、{name}優勝"
+}

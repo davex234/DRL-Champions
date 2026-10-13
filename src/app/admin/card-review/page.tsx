@@ -16,6 +16,11 @@ import { useReviewStore } from "@/review/store";
 import { availableActions, type EditorialAction, type EditorialCase, type EditorialState } from "@/editorial";
 import { useEditorialStore } from "@/editorial/store";
 import { cn } from "@/lib/format";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("admin");
 
 const SORTS: { key: ReviewSortKey; label: string }[] = [
   { key: "ovr", label: "OVR" },
@@ -49,6 +54,7 @@ const RARITY_COLOR: Record<string, string> = {
 };
 
 export default function CardReviewPage() {
+  useLocale();
   const model = useReviewStore((s) => s.model);
   const editorialCase = useEditorialStore((s) => (model ? s.cases[model.generationId] : undefined));
   const decideCards = useEditorialStore((s) => s.decideCards);
@@ -84,18 +90,18 @@ export default function CardReviewPage() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-            Card <span className="text-drl">Review</span>
+            {t("Card")} <span className="text-drl">{t("Review")}</span>
           </h1>
-          <p className="mt-1 text-white/50">Última generación publicada — solo lectura.</p>
+          <p className="mt-1 text-white/50">{t("Última generación publicada — solo lectura.")}</p>
         </div>
         {model && (
           <div className="text-right text-[11px] text-white/45">
             <p className="font-mono text-white/70">{model.generationId}</p>
             <p>
-              {model.tournamentName} · catálogo v{model.catalogVersion} · runtime v{model.runtimeVersion}
+              {t("{torneo} · catálogo v{catalogo} · runtime v{runtime}", { torneo: td(model.tournamentName), catalogo: model.catalogVersion, runtime: model.runtimeVersion })}
               <span className={cn("ml-2 rounded-full border px-2 py-0.5 font-display uppercase tracking-wide",
                 inRuntime ? "border-emerald-400/40 text-emerald-300" : "border-white/20 text-white/50")}>
-                {inRuntime ? "en runtime" : `grabada (runtime v${runtimeVersion()} de esta sesión)`}
+                {inRuntime ? t("en runtime") : t("grabada (runtime v{v} de esta sesión)", { v: runtimeVersion() })}
               </span>
             </p>
           </div>
@@ -104,49 +110,48 @@ export default function CardReviewPage() {
 
       {!model ? (
         <div className="rounded-2xl border border-white/10 bg-base-700/40 p-10 text-center text-white/55">
-          <p className="font-display text-lg font-bold text-white/80">Sin generación publicada</p>
+          <p className="font-display text-lg font-bold text-white/80">{t("Sin generación publicada")}</p>
           <p className="mt-2 text-sm">
-            Ejecuta <code className="rounded bg-white/10 px-1.5 py-0.5 text-drl-cyan">npm run tournament:generate &lt;url&gt;</code> —
-            la próxima publicación quedará registrada aquí.
+            {fill(t("Ejecuta {comando} — la próxima publicación quedará registrada aquí.", slots("comando")), { comando: <code className="rounded bg-white/10 px-1.5 py-0.5 text-drl-cyan">npm run tournament:generate &lt;url&gt;</code> })}
           </p>
         </div>
       ) : (
         <>
           {/* Resumen */}
           <div className="grid gap-3 sm:grid-cols-5">
-            <Stat label="Cartas" value={model.counts.cards} />
-            <Stat label="Jugadores" value={model.counts.players} />
-            <Stat label="Colecciones" value={model.counts.collections} />
-            <Stat label="Elegibles en sobres" value={model.counts.packsEligible} />
-            <Stat label="Elegibles en mercado" value={model.counts.marketEligible} />
+            <Stat label={t("Cartas")} value={model.counts.cards} />
+            <Stat label={t("Jugadores")} value={model.counts.players} />
+            <Stat label={t("Colecciones")} value={model.counts.collections} />
+            <Stat label={t("Elegibles en sobres")} value={model.counts.packsEligible} />
+            <Stat label={t("Elegibles en mercado")} value={model.counts.marketEligible} />
           </div>
 
           {/* Filtros + orden */}
           <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-base-700/40 p-3">
-            <Select label="Equipo" value={filter.team ?? ""} options={facets.teams}
+            <Select label={t("Equipo")} value={filter.team ?? ""} options={facets.teams}
               onChange={(v) => setFilter((f) => ({ ...f, team: v || undefined }))} />
-            <Select label="Jugador" value={filter.player ?? ""} options={facets.players}
+            <Select label={t("Jugador")} value={filter.player ?? ""} options={facets.players}
               onChange={(v) => setFilter((f) => ({ ...f, player: v || undefined }))} />
-            <Select label="Rareza" value={filter.rarity ?? ""} options={facets.rarities}
+            <Select label={t("Rareza")} value={filter.rarity ?? ""} options={facets.rarities}
               onChange={(v) => setFilter((f) => ({ ...f, rarity: (v || undefined) as ReviewFilter["rarity"] }))} />
-            <Select label="Colección" value={filter.collection ?? ""} options={facets.collections.map((c) => c.id)}
+            <Select label={t("Colección")} value={filter.collection ?? ""} options={facets.collections.map((c) => c.id)}
               labels={Object.fromEntries(facets.collections.map((c) => [c.id, c.name]))}
               onChange={(v) => setFilter((f) => ({ ...f, collection: v || undefined }))} />
-            <Select label="Torneo" value={filter.tournament ?? ""} options={facets.tournaments}
+            <Select label={t("Torneo")} value={filter.tournament ?? ""} options={facets.tournaments}
               onChange={(v) => setFilter((f) => ({ ...f, tournament: v || undefined }))} />
-            <Select label="Estado" value={filter.status ?? ""} options={facets.statuses}
+            <Select label={t("Estado")} value={filter.status ?? ""} options={facets.statuses}
               onChange={(v) => setFilter((f) => ({ ...f, status: (v || undefined) as ReviewFilter["status"] }))} />
-            <Select label="Variante" value={filter.variant ?? ""} options={facets.variants}
+            <Select label={t("Variante")} value={filter.variant ?? ""} options={facets.variants}
               onChange={(v) => setFilter((f) => ({ ...f, variant: v || undefined }))} />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar carta / jugador / equipo…"
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t("Buscar carta / jugador / equipo…")}
               className="w-48 rounded-lg border border-white/15 bg-base-800 px-2.5 py-1.5 text-[12px] text-white/80 outline-none placeholder:text-white/30" />
             <div className="ml-auto flex items-center gap-1">
-              <span className="text-[10px] uppercase tracking-widest text-white/40">Orden</span>
+              <span className="text-[10px] uppercase tracking-widest text-white/40">{t("Orden")}</span>
               {SORTS.map((s) => (
                 <button key={s.key} onClick={() => setSort(s.key)}
                   className={cn("rounded-lg px-2.5 py-1.5 font-display text-[11px] uppercase tracking-wide",
                     sort === s.key ? "bg-drl text-white" : "text-white/50 hover:bg-white/10")}>
-                  {s.label}
+                  {td(s.label)}
                 </button>
               ))}
             </div>
@@ -155,19 +160,19 @@ export default function CardReviewPage() {
           {/* Circuito editorial (Fase 4): lote, torneo completo e historial — solo si la generación está en revisión */}
           {editorialCase ? (
             <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-white/10 bg-base-700/40 p-3">
-              <span className="text-[10px] uppercase tracking-widest text-white/40">Editorial</span>
+              <span className="text-[10px] uppercase tracking-widest text-white/40">{t("Editorial")}</span>
               <button onClick={() => act(rows.filter((r) => editorialCase.states[r.cardId] === "review").map((r) => r.cardId), "approve")}
                 className="rounded-lg border border-emerald-400/40 px-3 py-1.5 font-display text-[11px] uppercase tracking-wide text-emerald-300 hover:bg-emerald-400/10">
-                ✓ Aprobar lote ({rows.filter((r) => editorialCase.states[r.cardId] === "review").length} filtradas)
+                {t("✓ Aprobar lote ({n} filtradas)", { n: rows.filter((r) => editorialCase.states[r.cardId] === "review").length })}
               </button>
               <button onClick={() => model && approveAll(model.generationId, { actor: "admin", at: Date.now() })}
                 className="rounded-lg border border-emerald-400/40 px-3 py-1.5 font-display text-[11px] uppercase tracking-wide text-emerald-300 hover:bg-emerald-400/10">
-                ✓✓ Aprobar torneo completo
+                {t("✓✓ Aprobar torneo completo")}
               </button>
               <button onClick={() => setShowHistory((v) => !v)}
                 className={cn("rounded-lg border px-3 py-1.5 font-display text-[11px] uppercase tracking-wide",
                   showHistory ? "border-drl/60 text-drl" : "border-white/15 text-white/50 hover:bg-white/10")}>
-                🕘 Historial ({editorialCase.history.length})
+                {t("🕘 Historial ({n})", { n: editorialCase.history.length })}
               </button>
               <span className="ml-auto text-[11px] text-white/40">
                 {(["review", "approved", "published", "rejected", "hidden", "blocked"] as EditorialState[])
@@ -177,13 +182,13 @@ export default function CardReviewPage() {
             </div>
           ) : (
             <p className="rounded-2xl border border-white/10 bg-base-700/40 p-3 text-[11px] text-white/40">
-              Esta generación no está en el circuito editorial (se somete con <code className="text-drl-cyan">submitGeneration</code> al generarla).
+              {fill(t("Esta generación no está en el circuito editorial (se somete con {fn} al generarla).", slots("fn")), { fn: <code className="text-drl-cyan">submitGeneration</code> })}
             </p>
           )}
 
           {editorialCase && showHistory && <HistoryPanel c={editorialCase} />}
 
-          <p className="text-[11px] text-white/40">{rows.length} de {model.rows.length} cartas</p>
+          <p className="text-[11px] text-white/40">{t("{n} de {total} cartas", { n: rows.length, total: model.rows.length })}</p>
 
           {/* Cartas */}
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -200,9 +205,10 @@ export default function CardReviewPage() {
 }
 
 function Stat({ label, value }: { label: string; value: number }) {
+  useLocale();
   return (
     <div className="rounded-2xl border border-white/10 bg-base-700/40 p-3">
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
+      <p className="text-[10px] uppercase tracking-widest text-white/40">{td(label)}</p>
       <p className="font-display text-2xl font-bold text-white">{value}</p>
     </div>
   );
@@ -211,27 +217,29 @@ function Stat({ label, value }: { label: string; value: number }) {
 function Select({ label, value, options, labels, onChange }: {
   label: string; value: string; options: string[]; labels?: Record<string, string>; onChange: (v: string) => void;
 }) {
+  useLocale();
   return (
     <label className="flex items-center gap-1.5 text-[11px] text-white/50">
-      <span className="uppercase tracking-widest text-white/40">{label}</span>
+      <span className="uppercase tracking-widest text-white/40">{td(label)}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)}
         className="rounded-lg border border-white/15 bg-base-800 px-2 py-1.5 text-white/80 outline-none">
-        <option value="">Todos</option>
-        {options.map((o) => <option key={o} value={o}>{labels?.[o] ?? o}</option>)}
+        <option value="">{t("Todos")}</option>
+        {options.map((o) => <option key={o} value={o}>{td(labels?.[o]) ?? td(o)}</option>)}
       </select>
     </label>
   );
 }
 
 function HistoryPanel({ c }: { c: EditorialCase }) {
+  useLocale();
   const events = [...c.history].reverse().slice(0, 200);
   return (
     <div className="max-h-72 overflow-y-auto rounded-2xl border border-white/10 bg-base-700/40 p-3 text-[11px] leading-5 text-white/60">
       {events.map((e) => (
         <p key={e.seq} className="truncate border-b border-white/5 py-0.5 font-mono">
-          #{String(e.seq).padStart(4, "0")} · {new Date(e.at).toLocaleString()} · <b className="text-white/80">{e.actor}</b> · {e.action}
-          {e.cardId ? <> · <span className="text-drl-cyan">{e.cardId}</span> · {e.from} → <b className="text-white/80">{e.to}</b></> : " · (generación)"}
-          {e.comment ? ` · "${e.comment}"` : ""}{e.reason ? ` · motivo: ${e.reason}` : ""}
+          #{String(e.seq).padStart(4, "0")} · {new Date(e.at).toLocaleString(getIntlLocale())} · <b className="text-white/80">{td(e.actor)}</b> · {e.action}
+          {e.cardId ? <> · <span className="text-drl-cyan">{e.cardId}</span> · {e.from} → <b className="text-white/80">{e.to}</b></> : (" " + t("· (generación)"))}
+          {e.comment ? ` · "${e.comment}"` : ""}{e.reason ? t(" · motivo: {reason}", { reason: td(e.reason) }) : ""}
         </p>
       ))}
     </div>
@@ -243,6 +251,7 @@ function ReviewCard({ row: r, editorialState, onAction }: {
   editorialState?: EditorialState;
   onAction?: (a: EditorialAction) => void;
 }) {
+  useLocale();
   const hasImage = r.artwork.hasCustom && /^(\/|https?:)/.test(r.artwork.image);
   return (
     <article className="flex gap-3 rounded-2xl border border-white/10 bg-base-700/40 p-3">
@@ -261,7 +270,7 @@ function ReviewCard({ row: r, editorialState, onAction }: {
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <p className="truncate font-display text-sm font-bold text-white">{r.player} <span className="font-normal text-white/40">· {r.team}</span></p>
-            <p className="truncate text-[11px] text-white/45">{r.tournamentName} · S{r.season}</p>
+            <p className="truncate text-[11px] text-white/45">{td(r.tournamentName)} · S{r.season}</p>
           </div>
           <span className={cn("shrink-0 rounded-full border px-2 py-0.5 font-display text-[10px] uppercase tracking-wide", RARITY_COLOR[r.rarityBucket] ?? RARITY_COLOR.common)}>
             {r.rarityBucket}
@@ -270,18 +279,18 @@ function ReviewCard({ row: r, editorialState, onAction }: {
 
         <p className="mt-1 truncate font-mono text-[11px] text-drl-cyan">{r.cardId}</p>
         <p className="truncate">
-          <b className="text-white/80">OVR {r.ovr}</b> · {r.variantId}{r.serialized ? ` · serie /${r.serialLimit ?? "?"}` : ""} · {r.decision} · {r.status}/{r.releaseState}
+          <b className="text-white/80">{t("OVR")} {r.ovr}</b> · {r.variantId}{r.serialized ? t(" · serie /{v}", { v: r.serialLimit ?? "?" }) : ""} · {td(r.decision)} · {r.status}/{r.releaseState}
         </p>
         {r.badges.length > 0 && <p className="truncate text-amber-200/80">🏅 {r.badges.join(" · ")}</p>}
         <p className="truncate text-white/45">
-          Colección: {r.collections.map((c) => c.name).join(", ") || "—"}
+          {t("Colección:")} {r.collections.map((c) => c.name).join(", ") || "—"}
         </p>
         <p className="truncate text-white/45">
-          Sobres: {r.packs.length ? r.packs.join(", ") : "no elegible"} · Mercado: {r.market.tradable ? `sí (${r.market.initialValue})` : "restringida"}
+          {t("Sobres:")} {r.packs.length ? r.packs.join(", ") : t("no elegible")} {t("· Mercado:")} {r.market.tradable ? t("sí ({initialValue})", { initialValue: r.market.initialValue }) : t("restringida")}
         </p>
-        <p className="truncate text-white/40" title={r.rules.join(", ")}>Reglas: {r.rules.join(", ") || "—"}</p>
+        <p className="truncate text-white/40" title={r.rules.join(", ")}>{t("Reglas:")} {r.rules.join(", ") || "—"}</p>
         {r.evidence.length > 0 && (
-          <p className="truncate text-white/40" title={r.evidence.join(" · ")}>Evidencia: {r.evidence.join(" · ")}</p>
+          <p className="truncate text-white/40" title={r.evidence.join(" · ")}>{t("Evidencia:")} {r.evidence.join(" · ")}</p>
         )}
         <p className="truncate text-[10px] text-white/30">{r.generationId}</p>
 
@@ -294,7 +303,7 @@ function ReviewCard({ row: r, editorialState, onAction }: {
             {availableActions(editorialState).filter((a) => a !== "publish").map((a) => (
               <button key={a} onClick={() => onAction(a)}
                 className="rounded border border-white/15 px-1.5 py-0.5 text-[10px] text-white/60 hover:bg-white/10">
-                {ACTION_LABEL[a] ?? a}
+                {td(ACTION_LABEL[a]) ?? a}
               </button>
             ))}
           </div>

@@ -11,6 +11,9 @@ import { makeCardId } from "@/collection";
 import { bucketForRank } from "@/domain/packs/types";
 import { BUCKETS } from "./materials";
 import type { InputMatch, OutputSpec, OwnedCard, CraftIssue } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("craft");
 
 const bidx = (b: ReturnType<typeof bucketForRank>): number => BUCKETS.indexOf(b);
 
@@ -55,13 +58,13 @@ export function resolveInputs(
     const picked: OwnedCard[] = [];
     for (const uid of selection) {
       const o = byUid.get(uid);
-      if (!o) { issues.push({ code: "CARD_NOT_FOUND", message: `Instancia inexistente: ${uid}` }); continue; }
-      if (!allowLocked && locks.has(uid)) { issues.push({ code: "LOCKED_CARD", message: `Carta bloqueada: ${uid}` }); continue; }
-      if (!matchesInput(registry, own, o, m)) { issues.push({ code: "SELECTION_MISMATCH", message: `La carta no cumple la receta: ${uid}` }); continue; }
+      if (!o) { issues.push({ code: "CARD_NOT_FOUND", message: t("Instancia inexistente: {uid}", { uid }) }); continue; }
+      if (!allowLocked && locks.has(uid)) { issues.push({ code: "LOCKED_CARD", message: t("Carta bloqueada: {uid}", { uid }) }); continue; }
+      if (!matchesInput(registry, own, o, m)) { issues.push({ code: "SELECTION_MISMATCH", message: t("La carta no cumple la receta: {uid}", { uid }) }); continue; }
       picked.push(o);
     }
-    if (picked.length < m.count) issues.push({ code: "NOT_ENOUGH_INPUTS", message: `Faltan entradas: ${picked.length}/${m.count}` });
-    else if (m.samePlayer && new Set(picked.map((o) => registry.card(o.cardId)!.playerId)).size > 1) issues.push({ code: "NOT_SAME_PLAYER", message: "Las entradas deben ser del mismo jugador." });
+    if (picked.length < m.count) issues.push({ code: "NOT_ENOUGH_INPUTS", message: t("Faltan entradas: {length}/{count}", { length: picked.length, count: m.count }) });
+    else if (m.samePlayer && new Set(picked.map((o) => registry.card(o.cardId)!.playerId)).size > 1) issues.push({ code: "NOT_SAME_PLAYER", message: t("Las entradas deben ser del mismo jugador.") });
     return { picked: picked.slice(0, m.count), issues };
   }
 
@@ -75,7 +78,7 @@ export function resolveInputs(
       if (!(allowLocked || !locks.has(o.uid)) || !matchesInput(registry, own, o, m)) continue;
       if (!best || worstFirst(registry, o, best) < 0) best = o;
     }
-    if (!best) { issues.push({ code: "NOT_ENOUGH_INPUTS", message: "Faltan entradas: 0/1" }); return { picked: [], issues }; }
+    if (!best) { issues.push({ code: "NOT_ENOUGH_INPUTS", message: t("Faltan entradas: 0/1") }); return { picked: [], issues }; }
     return { picked: [best], issues };
   }
 
@@ -85,11 +88,11 @@ export function resolveInputs(
     const byPlayer = new Map<string, OwnedCard[]>();
     for (const o of candidates) { const p = registry.card(o.cardId)!.playerId; (byPlayer.get(p) ?? byPlayer.set(p, []).get(p)!).push(o); }
     const eligible = [...byPlayer.entries()].filter(([, list]) => list.length >= m.count).sort((a, b) => (a[0] < b[0] ? -1 : 1))[0];
-    if (!eligible) { issues.push({ code: "NOT_ENOUGH_INPUTS", message: `Faltan entradas del mismo jugador: 0/${m.count}` }); return { picked: [], issues }; }
+    if (!eligible) { issues.push({ code: "NOT_ENOUGH_INPUTS", message: t("Faltan entradas del mismo jugador: 0/{count}", { count: m.count }) }); return { picked: [], issues }; }
     return { picked: eligible[1].slice(0, m.count), issues };
   }
 
-  if (candidates.length < m.count) issues.push({ code: "NOT_ENOUGH_INPUTS", message: `Faltan entradas: ${candidates.length}/${m.count}` });
+  if (candidates.length < m.count) issues.push({ code: "NOT_ENOUGH_INPUTS", message: t("Faltan entradas: {length}/{count}", { length: candidates.length, count: m.count }) });
   return { picked: candidates.slice(0, m.count), issues };
 }
 
@@ -128,7 +131,7 @@ export function resolveOutput(registry: CardRegistry, out: OutputSpec, picked: O
     }
   }
 
-  if (!cardId) { issues.push({ code: "OUTPUT_NOT_IN_CATALOG", message: "La salida no se pudo resolver a una carta existente." }); return { cardIds: [], issues }; }
-  if (!registry.has(cardId) && !registry.card(cardId)) { issues.push({ code: "OUTPUT_NOT_IN_CATALOG", message: `La carta de salida no existe: ${cardId}` }); return { cardIds: [], issues }; }
+  if (!cardId) { issues.push({ code: "OUTPUT_NOT_IN_CATALOG", message: t("La salida no se pudo resolver a una carta existente.") }); return { cardIds: [], issues }; }
+  if (!registry.has(cardId) && !registry.card(cardId)) { issues.push({ code: "OUTPUT_NOT_IN_CATALOG", message: t("La carta de salida no existe: {cardId}", { cardId: td(cardId) }) }); return { cardIds: [], issues }; }
   return { cardIds: [cardId], issues };
 }

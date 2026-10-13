@@ -17,6 +17,10 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SPRING, reducedTransition } from "@/design/motion";
 import { lockScroll } from "@/lib/gameExperience/scrollLock";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("ui");
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -69,6 +73,7 @@ export function GameSheet({
   className?: string;
   testId?: string;
 }) {
+  useLocale();
   const reduced = useReducedMotion();
   const panel = useRef<HTMLDivElement>(null);
   const id = useId();
@@ -79,7 +84,7 @@ export function GameSheet({
         <div className="fixed inset-0 z-[80] flex items-end justify-center sm:items-stretch sm:justify-end" data-testid={`${testId}-layer`}>
           <motion.button
             type="button"
-            aria-label="Cerrar"
+            aria-label={tr("Cerrar")}
             tabIndex={-1}
             className="nx-scrim absolute inset-0 cursor-default"
             onClick={() => { if (dismissable) onClose(); }}
@@ -103,11 +108,11 @@ export function GameSheet({
           >
             <header className="flex items-start justify-between gap-4 px-5 pb-3 pt-6">
               <div>
-                {eyebrow && <p className="nx-label">{eyebrow}</p>}
-                <h2 id={id} className="font-display text-[26px] font-bold uppercase leading-none tracking-[0.04em] text-white">{title}</h2>
+                {eyebrow && <p className="nx-label">{td(eyebrow)}</p>}
+                <h2 id={id} className="font-display text-[26px] font-bold uppercase leading-none tracking-[0.04em] text-white">{td(title)}</h2>
               </div>
               {dismissable && (
-                <button type="button" onClick={onClose} className="grid h-11 w-11 shrink-0 place-items-center text-white/60 hover:text-white" aria-label="Cerrar">
+                <button type="button" onClick={onClose} className="grid h-11 w-11 shrink-0 place-items-center text-white/60 hover:text-white" aria-label={tr("Cerrar")}>
                   <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2}><path d="M5 5l14 14M19 5 5 19" /></svg>
                 </button>
               )}
@@ -133,6 +138,7 @@ export function GameModal({
   className?: string;
   testId?: string;
 }) {
+  useLocale();
   const reduced = useReducedMotion();
   const panel = useRef<HTMLDivElement>(null);
   const id = useId();
@@ -149,7 +155,7 @@ export function GameModal({
       {open && (
         <div className="fixed inset-0 z-[90] grid place-items-center p-4" data-testid={`${testId}-layer`}>
           <motion.button
-            type="button" aria-label="Cerrar" tabIndex={-1}
+            type="button" aria-label={tr("Cerrar")} tabIndex={-1}
             className="nx-scrim absolute inset-0 cursor-default"
             onClick={() => { if (dismissable) onClose(); }}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -167,8 +173,8 @@ export function GameModal({
             exit={reduced ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
             transition={reduced ? reducedTransition : { duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            {eyebrow && <p className="nx-label">{eyebrow}</p>}
-            <h2 id={id} className="font-display text-[26px] font-bold uppercase leading-tight tracking-[0.04em] text-white">{title}</h2>
+            {eyebrow && <p className="nx-label">{td(eyebrow)}</p>}
+            <h2 id={id} className="font-display text-[26px] font-bold uppercase leading-tight tracking-[0.04em] text-white">{td(title)}</h2>
             {children && <div className="mt-3 text-[15px] leading-relaxed text-white/70">{children}</div>}
             {actions && <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">{actions}</div>}
           </motion.div>

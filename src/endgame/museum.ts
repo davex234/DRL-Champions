@@ -10,6 +10,9 @@ import type { WorldState } from "@/world";
 import { clubLegacy } from "@/legacy";
 import type { Museum, MuseumItem, MuseumSection } from "./types";
 import { clubIdOf } from "./util";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("endgame");
 
 export function buildMuseum(career: ManagerCareer, world: WorldState): Museum {
   const clubId = clubIdOf(career, world);
@@ -19,13 +22,13 @@ export function buildMuseum(career: ManagerCareer, world: WorldState): Museum {
   const add = (section: MuseumSection, title: string, subtitle: string, season: number, detail: string) => items.push({ section, title, subtitle, season, detail });
 
   if (legacy) {
-    for (const t of legacy.titles) add("trophies", `Título ${t.competition}`, "Campeón", t.season, `T${t.season}`);
+    for (const t of legacy.titles) add("trophies", tr("Título {competicion}", { competicion: t.competition }), "Campeón", t.season, `T${t.season}`);
     for (const l of legacy.legends) add(l.kind === "coach" ? "coaches" : "players", l.name, l.kind === "coach" ? "Entrenador histórico" : "Jugador histórico", 0, l.note);
     // Camisetas retiradas: los 3 mejores jugadores.
     for (const l of legacy.legends.filter((x) => x.kind === "player").slice(0, 3)) add("jerseys", l.name, "Camiseta retirada", 0, `Pico ${l.peakRating}`);
-    for (const s of legacy.legendarySeasons) add("seasons", `Temporada ${s}`, "Legendaria", s, "Campeón con dominio");
+    for (const s of legacy.legendarySeasons) add("seasons", tr("Temporada {n}", { n: s }), "Legendaria", s, "Campeón con dominio");
     if (legacy.records.biggestTransfer) add("transfers", legacy.records.biggestTransfer.nick, "Fichaje histórico", legacy.records.biggestTransfer.season, `${legacy.records.biggestTransfer.fee}`);
-    for (const d of legacy.dynasties) add("records", `Dinastía ${d.titles}×`, "Récord de club", d.to, `T${d.from}–${d.to}`);
+    for (const d of legacy.dynasties) add("records", tr("Dinastía {n}×", { n: d.titles }), "Récord de club", d.to, `T${d.from}–${d.to}`);
   }
 
   // Partidos/hitos históricos del mundo relacionados con el club.

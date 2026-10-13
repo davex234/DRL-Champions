@@ -9,6 +9,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import type { BroadcastState } from "@/broadcast";
 import { ATK, DEF, sideHex } from "./theme";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("broadcast");
 
 const SIT: Record<string, string> = {
   clutch: "CLUTCH", defuse: "DEFUSE", plant: "PLANT", retake: "RETAKE",
@@ -22,6 +26,7 @@ const OBJ: Record<string, string> = {
 };
 
 export function BroadcastDock({ bs, momentum }: { bs: BroadcastState; momentum: number }) {
+  useLocale();
   const atkPct = Math.round(bs.stats.winProb.atk * 100);
   const plan = bs.plan;
   // momentum hacia el equipo entrenado → conviértelo a ATK/DEF para colorear
@@ -33,13 +38,13 @@ export function BroadcastDock({ bs, momentum }: { bs: BroadcastState; momentum: 
       className="pointer-events-none flex items-stretch gap-2">
       {/* PLAN del entrenador */}
       <div className="flex min-w-0 items-center gap-2 rounded-md border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-md">
-        <span className="font-display text-[8px] uppercase tracking-[0.25em] text-drl">Plan</span>
+        <span className="font-display text-[8px] uppercase tracking-[0.25em] text-drl">{t("Plan")}</span>
         {plan ? (
           <div className="min-w-0">
             <p className="truncate font-display text-[12px] font-bold uppercase tracking-wide text-white">
-              {plan.concept ?? plan.entry}{plan.changed && <span className="ml-1 text-[8px] text-amber-300">●</span>}
+              {td(plan.concept) ?? td(plan.entry)}{plan.changed && <span className="ml-1 text-[8px] text-amber-300">●</span>}
             </p>
-            <p className="truncate text-[9px] text-white/45">{OBJ[plan.objective] ?? plan.objective} · {plan.tempo} · riesgo {plan.risk}</p>
+            <p className="truncate text-[9px] text-white/45">{td(OBJ[plan.objective]) ?? td(plan.objective)} · {td(plan.tempo)} {t("· riesgo")} {td(plan.risk)}</p>
           </div>
         ) : <span className="text-[10px] text-white/40">—</span>}
       </div>
@@ -48,7 +53,7 @@ export function BroadcastDock({ bs, momentum }: { bs: BroadcastState; momentum: 
       <div className="flex flex-1 flex-col justify-center rounded-md border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-md">
         <div className="flex items-center justify-between text-[9px] uppercase tracking-[0.18em]">
           <span className="font-bold" style={{ color: ATK }}>{atkPct}%</span>
-          <span className="text-white/35">{bs.stats.prediction.label}</span>
+          <span className="text-white/35">{td(bs.stats.prediction.label)}</span>
           <span className="font-bold" style={{ color: DEF }}>{100 - atkPct}%</span>
         </div>
         <div className="relative mt-1 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
@@ -58,7 +63,7 @@ export function BroadcastDock({ bs, momentum }: { bs: BroadcastState; momentum: 
         </div>
         {/* momentum */}
         <div className="mt-1 flex items-center gap-1.5">
-          <span className="font-display text-[8px] uppercase tracking-[0.2em] text-white/35">Mom.</span>
+          <span className="font-display text-[8px] uppercase tracking-[0.2em] text-white/35">{t("Mom.")}</span>
           <div className="relative h-1 flex-1 overflow-hidden rounded-full bg-white/10">
             <div className="absolute inset-y-0 left-1/2 w-px bg-white/30" />
             <div className="absolute inset-y-0 transition-all duration-500" style={{
@@ -73,7 +78,7 @@ export function BroadcastDock({ bs, momentum }: { bs: BroadcastState; momentum: 
       <div className="flex items-center gap-3 rounded-md border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-md">
         {bs.mvp && (
           <div className="text-right">
-            <p className="font-display text-[8px] uppercase tracking-[0.2em] text-amber-300">MVP ronda</p>
+            <p className="font-display text-[8px] uppercase tracking-[0.2em] text-amber-300">{t("MVP ronda")}</p>
             <p className="font-display text-[12px] font-bold uppercase text-white">{bs.mvp.name} <span className="text-white/40">{bs.mvp.kills}K</span></p>
           </div>
         )}
@@ -81,9 +86,9 @@ export function BroadcastDock({ bs, momentum }: { bs: BroadcastState; momentum: 
           <motion.div key={bs.observer.focusPlayerId ?? "tac"}
             initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}
             className="border-l border-white/10 pl-3 text-right">
-            <p className="font-display text-[12px] font-bold uppercase text-white">{bs.observer.focusName ?? "Vista táctica"}</p>
+            <p className="font-display text-[12px] font-bold uppercase text-white">{td(bs.observer.focusName) ?? t("Vista táctica")}</p>
             <p className="font-display text-[9px] uppercase tracking-[0.2em]" style={{ color: sideHex(bs.match.coachSide) }}>
-              {SIT[bs.observer.situation] ?? bs.observer.situation}
+              {td(SIT[bs.observer.situation]) ?? bs.observer.situation}
             </p>
           </motion.div>
         </AnimatePresence>

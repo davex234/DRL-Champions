@@ -30,6 +30,7 @@
  */
 import { useMemo } from "react";
 import type { Player, RarityPalette } from "@/domain/cards/types";
+import { td } from "@/i18n/runtime";
 
 /**
  * Generador determinista a partir de una cadena.
@@ -254,7 +255,7 @@ export function PlayerSigil({
           letterSpacing="0.5"
           style={{ fontFamily: "var(--font-display), system-ui, sans-serif" }}
         >
-          {mono}
+          {td(mono)}
         </text>
 
         {/* Base: apoya el emblema y funde con el degradado inferior de la carta. */}

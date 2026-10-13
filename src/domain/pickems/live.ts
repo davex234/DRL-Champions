@@ -22,6 +22,9 @@
  */
 import type { BracketModel, BracketMatch, BracketRound, QualificationNode, BracketTeam } from "./bracket";
 import { progressOf, positionOf, stateOf, type AnswerMap, type EventPhase, type PickState, type QuestionLike } from "./progress";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("pickems");
 
 /* ═══════════════════════════════ ESTADO DEL EVENTO ═══════════════════════════════ */
 
@@ -214,7 +217,7 @@ export function deriveLiveEventSnapshot(input: LiveInput): LiveEventSnapshot {
         const pts = st.state === "acertada" ? (mine?.pointsAward ?? null) : 0;
         activity.push({
           id: `pick:${q.id}`, kind: "PREDICTION_RESOLVED", at: m.startsAt,
-          title: st.state === "acertada" ? "Acertaste" : "Fallaste",
+          title: st.state === "acertada" ? t("Acertaste") : t("Fallaste"),
           detail: `${m.teamA?.name} vs ${m.teamB?.name}`, outcome: st.state, points: pts,
         });
       }
@@ -224,11 +227,11 @@ export function deriveLiveEventSnapshot(input: LiveInput): LiveEventSnapshot {
   for (const n of qualified) {
     if (!n.team) continue;
     const from = model.matches[n.fromMatchId];
-    activity.push({ id: `qual:${n.key}`, kind: "QUALIFIED", at: from?.startsAt ?? null, title: `${n.team.name} se clasifica`, detail: n.label, team: n.team.name });
+    activity.push({ id: `qual:${n.key}`, kind: "QUALIFIED", at: from?.startsAt ?? null, title: t("{name} se clasifica", { name: n.team.name }), detail: n.label, team: n.team.name });
   }
   const rewardTier = input.reward ? (/^pickem_reward:(.+)$/.exec(input.reward.reason)?.[1] ?? null) : null;
   if (input.reward && rewardTier) {
-    activity.push({ id: `reward:${rewardTier}`, kind: "REWARD_EARNED", at: input.reward.created_at, title: "Recompensa conseguida", detail: rewardTier });
+    activity.push({ id: `reward:${rewardTier}`, kind: "REWARD_EARNED", at: input.reward.created_at, title: t("Recompensa conseguida"), detail: rewardTier });
   }
   activity.sort((a, b) => (Date.parse(b.at ?? "") || 0) - (Date.parse(a.at ?? "") || 0));
 
@@ -369,11 +372,11 @@ export const isUrgent = (locksAt: string | null | undefined, now: number): boole
 /** «hace 2 min», «hace 1 h». Sin segundos: nadie necesita verlos cambiar. */
 export function agoLabel(then: number, now: number): string {
   const s = Math.max(0, Math.round((now - then) / 1000));
-  if (s < 60) return "hace un momento";
+  if (s < 60) return t("hace un momento");
   const m = Math.floor(s / 60);
-  if (m < 60) return `hace ${m} min`;
+  if (m < 60) return t("hace {n} min", { n: m });
   const h = Math.floor(m / 60);
-  return `hace ${h} h`;
+  return t("hace {n} h", { n: h });
 }
 
 /** Puntos ganables por lo pendiente + lo elegido: reutiliza el progreso de 24.2. */

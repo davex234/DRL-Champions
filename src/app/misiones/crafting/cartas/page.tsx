@@ -32,36 +32,42 @@ import { CardRevealSequence, ForgeBar, ForgeCore, ForgeStage, ForgeTitle, Myster
 import { fetchForge, fetchMissions, forgeCraftReq, newGesture, type ForgeCraftResult, type ForgeSnapshot, type MissionsSnapshot } from "@/lib/crafting/client";
 import { AutoSelectBar, ForgeConfirm, forgeErrorText, useMaterialPick } from "@/components/crafting/ForgeProgress";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("misiones");
 
 export default function CardCraftingPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading kind="hub" label="Cargando…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="el crafteo de cartas" />;
-  return <Suspense fallback={<Loading kind="hub" label="Cargando…" />}><CardCrafting /></Suspense>;
+  if (loading) return <Loading kind="hub" label={tr("Cargando…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={tr("el crafteo de cartas")} />;
+  return <Suspense fallback={<Loading kind="hub" label={tr("Cargando…")} />}><CardCrafting /></Suspense>;
 }
 
 function CardCrafting() {
+  useLocale();
   const params = useSearchParams();
   const router = useRouter();
   const tab = params.get("tab") === "proyectos" ? "proyectos" : "intercambio";
   const setTab = (t: "intercambio" | "proyectos") => router.replace(t === "proyectos" ? "/misiones/crafting/cartas?tab=proyectos" : "/misiones/crafting/cartas");
   return (
     <ForgeStage className="mx-auto w-full max-w-[1180px] space-y-6 px-4 pb-10 pt-5 sm:px-6" testId="card-crafting">
-      <ForgeTitle title="Forja de cartas" eyebrow={<Crumbs items={[{ href: "/temporada", label: "Temporada" }, { href: "/misiones/crafting", label: "Crafteo" }, { label: "Cartas" }]} />}>
+      <ForgeTitle title={tr("Forja de cartas")} eyebrow={<Crumbs items={[{ href: "/temporada", label: tr("Temporada") }, { href: "/misiones/crafting", label: tr("Crafteo") }, { label: tr("Cartas") }]} />}>
         <HubNav active="crafting" />
       </ForgeTitle>
-      <div role="tablist" aria-label="Cartas" className="grid grid-cols-2 gap-2 sm:flex">
+      <div role="tablist" aria-label={tr("Cartas")} className="grid grid-cols-2 gap-2 sm:flex">
         {(["intercambio", "proyectos"] as const).map((t) => (
           <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} data-testid={`cards-tab-${t}`}
             className={cn("nx-focus flex items-center justify-center gap-2 border px-5 py-3 font-display text-[15px] font-bold uppercase tracking-[0.18em] transition sm:min-w-[220px]",
               tab === t ? "border-drl-cyan/70 bg-drl-cyan/15 text-white shadow-[inset_0_-3px_0_#19e3ff]" : "border-white/10 bg-white/[0.03] text-white/55 hover:text-white")}>
-            <GameGlyph name={t === "intercambio" ? "cards" : "crown"} className="h-5 w-5" />{t === "intercambio" ? "Intercambio" : "Proyectos"}
+            <GameGlyph name={t === "intercambio" ? "cards" : "crown"} className="h-5 w-5" />{t === "intercambio" ? tr("Intercambio") : tr("Proyectos")}
           </button>
         ))}
         {/* IA 2026-10-07 · las RECETAS AVANZADAS producen cartas: se entran desde aquí (su ruta no cambia). */}
         <Link href="/misiones/crafting/avanzado" data-testid="cards-advanced-link"
           className="nx-focus flex items-center justify-center gap-2 border border-[#a970ff]/45 bg-[#a970ff]/10 px-5 py-3 font-display text-[15px] font-bold uppercase tracking-[0.18em] text-white/80 transition hover:text-white sm:min-w-[220px]">
-          <GameGlyph name="star" className="h-5 w-5" />Recetas avanzadas
+          <GameGlyph name="star" className="h-5 w-5" />{tr("Recetas avanzadas")}
         </Link>
       </div>
       {tab === "intercambio" ? <Exchange /> : <Projects />}
@@ -80,6 +86,7 @@ type ExchangeRecipe = ForgeSnapshot["exchange"][number];
 type PickKey = `${number}:${string}`;
 
 function Exchange() {
+  useLocale();
   const [snap, setSnap] = useState<ForgeSnapshot | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [recipeId, setRecipeId] = useState<string | null>(null);
@@ -114,17 +121,17 @@ function Exchange() {
     finally { setBusy(false); }
   };
 
-  if (error && !snap) return <ErrorState message={error} onRetry={load} />;
-  if (!snap) return <Loading kind="hub" label="Cargando tus cartas…" />;
-  if (!snap.available) return <Unavailable what="El intercambio de cartas" />;
-  if (snap.exchange.length === 0) return <Panel className="p-6 text-[15px] text-white/70">No hay recetas de intercambio activas ahora mismo.</Panel>;
+  if (error && !snap) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!snap) return <Loading kind="hub" label={tr("Cargando tus cartas…")} />;
+  if (!snap.available) return <Unavailable what={tr("El intercambio de cartas")} />;
+  if (snap.exchange.length === 0) return <Panel className="p-6 text-[15px] text-white/70">{tr("No hay recetas de intercambio activas ahora mismo.")}</Panel>;
   const full = !!recipe && pick.complete;
   const cols = recipe ? (recipe.inputQty <= 7 ? recipe.inputQty : Math.ceil(recipe.inputQty / 2)) : 7;
 
   return (
-    <section aria-label="Intercambio" className="space-y-5" data-testid="exchange">
+    <section aria-label={tr("Intercambio")} className="space-y-5" data-testid="exchange">
       {/* La transformación: de qué clase a qué clase. */}
-      <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-5" role="radiogroup" aria-label="Receta">
+      <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-5" role="radiogroup" aria-label={tr("Receta")}>
         {snap.exchange.map((r) => {
           const on = r.id === recipeId;
           const free = r.materials[0]?.availableTotal ?? 0;
@@ -137,8 +144,8 @@ function Exchange() {
                 <span>{classLabel(r.inputClass)} → {classLabel(r.outputClass)}</span>
                 <span aria-hidden className="h-2.5 w-2.5 shrink-0 rotate-45" style={{ background: glowOf(r.outputClass) }} />
               </span>
-              <span className="flex items-baseline gap-2"><b className="nx-readout text-[22px] leading-none tabular-nums text-white">{r.inputQty}</b><span className="text-[11px] uppercase tracking-[0.12em] text-white/50">copias</span></span>
-              <span className={cn("text-[11px] font-bold uppercase tracking-[0.1em]", free >= r.inputQty ? "text-[#3ee08f]" : "text-white/45")}>{free} libres</span>
+              <span className="flex items-baseline gap-2"><b className="nx-readout text-[22px] leading-none tabular-nums text-white">{r.inputQty}</b><span className="text-[11px] uppercase tracking-[0.12em] text-white/50">{tr("copias")}</span></span>
+              <span className={cn("text-[11px] font-bold uppercase tracking-[0.1em]", free >= r.inputQty ? "text-[#3ee08f]" : "text-white/45")}>{free} {tr("libres")}</span>
             </button>
           );
         })}
@@ -151,18 +158,18 @@ function Exchange() {
             style={{ ["--forge-glow" as string]: glowOf(recipe.outputClass) }}>
             <div className="space-y-3">
               <div className="flex items-baseline justify-between gap-3">
-                <p className="nx-label">Entregas</p>
+                <p className="nx-label">{tr("Entregas")}</p>
                 <p className="nx-readout text-[26px] leading-none tabular-nums" data-testid="exchange-count"><span className={full ? "text-[#3ee08f]" : "text-white"}>{count}</span><span className="text-white/35"> / {recipe.inputQty}</span></p>
               </div>
-              <div className="grid gap-1.5 sm:gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }} aria-label={`${count} de ${recipe.inputQty} huecos llenos`}>
+              <div className="grid gap-1.5 sm:gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }} aria-label={tr("{count} de {inputQty} huecos llenos", { count, inputQty: recipe.inputQty })}>
                 {Array.from({ length: recipe.inputQty }, (_, i) => <Slot key={i} index={i} cardId={slots[i]} color={glowOf(recipe.inputClass)} onRemove={slots[i] ? () => pick.remove(0, slots[i]) : undefined} />)}
               </div>
               <AutoSelectBar pick={pick} />
             </div>
             <div className="flex flex-col items-center gap-3">
               <ForgeCore on={full} color={glowOf(recipe.outputClass)} />
-              <NxButton variant="primary" size="lg" onClick={start} disabled={!recipe.live || !full} data-testid="exchange-craft" className={cn("min-w-[180px]", full && ctaReadyClass)}>Craftear</NxButton>
-              {count === 0 && <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/45">Elige {recipe.inputQty} duplicados</p>}
+              <NxButton variant="primary" size="lg" onClick={start} disabled={!recipe.live || !full} data-testid="exchange-craft" className={cn("min-w-[180px]", full && ctaReadyClass)}>{tr("Craftear")}</NxButton>
+              {count === 0 && <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/45">{tr("Elige {n} duplicados", { n: recipe.inputQty })}</p>}
             </div>
             <div className="flex justify-center"><MysteryCard cls={recipe.outputClass} width={150} /></div>
           </Panel>
@@ -170,10 +177,10 @@ function Exchange() {
           {m.candidates.length === 0 ? (
             <Panel className="flex items-center gap-4 p-6">
               <GameGlyph name="cards" className="h-10 w-10 shrink-0 text-white/35" />
-              <p className="text-[15px] text-white/70">No tienes duplicados {classLabel(recipe.inputClass)} libres. Solo cuentan copias repetidas fuera de tus equipos.</p>
+              <p className="text-[15px] text-white/70">{tr("No tienes duplicados {clase} libres. Solo cuentan copias repetidas fuera de tus equipos.", { clase: classLabel(recipe.inputClass) })}</p>
             </Panel>
           ) : (
-            <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6" aria-label={`Duplicados ${classLabel(recipe.inputClass)}`}>
+            <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-6" aria-label={tr("Duplicados {inputClass}", { inputClass: classLabel(recipe.inputClass) })}>
               {m.candidates.map((c) => {
                 const n = pick.counts[`0:${c.cardId}` as PickKey] ?? 0; const def = getCard(c.cardId);
                 const anyProtected = c.free.some((f) => f.protectedBy.length > 0);
@@ -183,18 +190,18 @@ function Exchange() {
                 const cannot = n >= cap || count >= recipe.inputQty;
                 return (
                   <li key={c.cardId} className="relative flex flex-col items-center gap-1.5" data-testid="exchange-candidate" data-card={c.cardId} data-picked={n} data-protected={anyProtected}>
-                    {anyProtected && <span className="absolute left-1 top-1 z-10 border border-drl-gold/70 bg-black/80 px-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-drl-gold">★ protegida</span>}
+                    {anyProtected && <span className="absolute left-1 top-1 z-10 border border-drl-gold/70 bg-black/80 px-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-drl-gold">{tr("★ protegida")}</span>}
                     <button type="button" data-testid="exchange-add" onClick={() => pick.add(0, c.cardId)} disabled={cannot}
-                      aria-label={`Añadir ${cardName(c.cardId)} (${def?.ovr ?? ""}), ${n} de ${cap} libres`}
+                      aria-label={tr("Añadir {cardId} ({v}), {n} de {cap} libres", { cardId: cardName(c.cardId), v: def?.ovr ?? "", n, cap })}
                       className={cn(pickClass(n > 0), "nx-focus relative block w-full rounded-[8px] disabled:cursor-default", n === 0 && cannot && "opacity-55", protectedOnly && !allow && "opacity-55")}>
                       <CardImage cardId={c.cardId} width={200} className="!w-full" />
                       {n > 0 && <span className="absolute right-1 top-1 grid h-8 min-w-8 place-items-center rounded-full bg-drl-cyan px-1.5 font-display text-[15px] font-extrabold text-black shadow-[0_0_14px_#19e3ff]" aria-hidden>✓{n > 1 ? ` ${n}` : ""}</span>}
                     </button>
-                    {n > 0 && <button type="button" data-testid="exchange-remove" onClick={() => pick.remove(0, c.cardId)} aria-label={`Quitar una copia de ${cardName(c.cardId)}`}
+                    {n > 0 && <button type="button" data-testid="exchange-remove" onClick={() => pick.remove(0, c.cardId)} aria-label={tr("Quitar una copia de {cardId}", { cardId: cardName(c.cardId) })}
                       className="nx-focus absolute left-1 top-8 grid h-8 w-8 place-items-center rounded-full border border-white/30 bg-black/75 text-[18px] font-bold text-white hover:bg-drl">−</button>}
-                    <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/55">{c.usable} libres · ×{c.copies}</span>
+                    <span className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/55">{c.usable} {tr("libres · ×")}{c.copies}</span>
                     {anyProtected && <button type="button" onClick={() => pick.toggleProtected(c.cardId)} aria-pressed={allow} data-testid="exchange-allow-protected"
-                      className={cn("nx-focus w-full border py-1 text-[10px] font-bold uppercase tracking-[0.08em]", allow ? "border-drl-gold bg-drl-gold/15 text-drl-gold" : "border-white/15 text-white/60")}>{allow ? "Protegida: usar" : "Usar protegida"}</button>}
+                      className={cn("nx-focus w-full border py-1 text-[10px] font-bold uppercase tracking-[0.08em]", allow ? "border-drl-gold bg-drl-gold/15 text-drl-gold" : "border-white/15 text-white/60")}>{allow ? tr("Protegida: usar") : tr("Usar protegida")}</button>}
                   </li>
                 );
               })}
@@ -202,15 +209,15 @@ function Exchange() {
           )}
         </>
       )}
-      <GameModal open={open} onClose={close} title={result ? "Forja" : "Confirmar forja"} eyebrow="Forja · Cartas" testId="card-craft-dialog" dismissable={!busy} className="max-w-2xl"
-        actions={result ? <NxButton variant="primary" size="lg" onClick={close} data-autofocus>Continuar</NxButton> : <>
-          <NxButton variant="ghost" onClick={close} disabled={busy}>Cancelar</NxButton>
-          <NxButton variant="primary" size="lg" onClick={confirm} disabled={busy} data-testid="card-craft-confirm" data-autofocus>{busy ? "Crafteando…" : "Confirmar forja"}</NxButton>
+      <GameModal open={open} onClose={close} title={result ? tr("Forja") : tr("Confirmar forja")} eyebrow={tr("Forja · Cartas")} testId="card-craft-dialog" dismissable={!busy} className="max-w-2xl"
+        actions={result ? <NxButton variant="primary" size="lg" onClick={close} data-autofocus>{tr("Continuar")}</NxButton> : <>
+          <NxButton variant="ghost" onClick={close} disabled={busy}>{tr("Cancelar")}</NxButton>
+          <NxButton variant="primary" size="lg" onClick={confirm} disabled={busy} data-testid="card-craft-confirm" data-autofocus>{busy ? tr("Crafteando…") : tr("Confirmar forja")}</NxButton>
         </>}>
         {recipe && !result && <ForgeConfirm uids={pick.uids} protectedUids={pick.protectedUids} materials={recipe.materials} output={{ type: "CLASS", class: recipe.outputClass }} />}
-        {failure && <p role="alert" className="mt-3 text-center text-[14px] text-drl">{failure}</p>}
+        {failure && <p role="alert" className="mt-3 text-center text-[14px] text-drl">{td(failure)}</p>}
         {result && result.outputs[0] && recipe && (
-          <CardRevealSequence cls={recipe.outputClass} cardId={result.outputs[0].cardId} caption={`${cardName(result.outputs[0].cardId)} · ${getCard(result.outputs[0].cardId)?.ovr ?? ""}`} sub="Añadida a tu colección" />
+          <CardRevealSequence cls={recipe.outputClass} cardId={result.outputs[0].cardId} caption={`${cardName(result.outputs[0].cardId)} · ${getCard(result.outputs[0].cardId)?.ovr ?? ""}`} sub={tr("Añadida a tu colección")} />
         )}
       </GameModal>
     </section>
@@ -220,24 +227,25 @@ function Exchange() {
 /* ═══════════════════════════ PROYECTOS ═══════════════════════════ */
 
 function Projects() {
+  useLocale();
   const [snap, setSnap] = useState<MissionsSnapshot | null>(null);
   const [error, setError] = useState<string | null>(null);
   const load = useCallback(async () => {
     setError(null);
-    try { setSnap(await fetchMissions()); } catch (e) { setError(e instanceof Error ? e.message : "No se pudieron cargar los proyectos"); }
+    try { setSnap(await fetchMissions()); } catch (e) { setError(e instanceof Error ? e.message : tr("No se pudieron cargar los proyectos")); }
   }, []);
   useEffect(() => { void load(); }, [load]);
-  if (error && !snap) return <ErrorState message={error} onRetry={load} />;
-  if (!snap) return <Loading kind="hub" label="Cargando proyectos…" />;
-  if (!snap.available) return <Unavailable what="Los proyectos de carta" />;
+  if (error && !snap) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!snap) return <Loading kind="hub" label={tr("Cargando proyectos…")} />;
+  if (!snap.available) return <Unavailable what={tr("Los proyectos de carta")} />;
   if (snap.projects.length === 0) return (
     <Panel className="flex items-center gap-4 p-6">
       <GameGlyph name="crown" className="h-10 w-10 shrink-0 text-white/35" />
-      <p className="text-[15px] text-white/70">No hay proyectos de carta activos ahora mismo.</p>
+      <p className="text-[15px] text-white/70">{tr("No hay proyectos de carta activos ahora mismo.")}</p>
     </Panel>
   );
   return (
-    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label="Proyectos" data-testid="projects">
+    <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label={tr("Proyectos")} data-testid="projects">
       {snap.projects.map((p) => {
         const ready = p.state === "COMPLETED";
         return (
@@ -249,7 +257,7 @@ function Projects() {
                 </span>
                 <h2 className="font-display text-[20px] font-extrabold uppercase leading-tight tracking-[0.06em] text-white">{p.name}</h2>
                 <Stamp kind={p.state === "COMPLETED" ? "COMPLETED" : p.state === "CLAIMED" ? "CLAIMED" : p.state === "LOCKED" ? "LOCKED" : "ACTIVE"} />
-                <div className="w-full"><ForgeBar value={p.completed} max={p.total} label={`Misiones de ${p.name}`} /></div>
+                <div className="w-full"><ForgeBar value={p.completed} max={p.total} label={tr("Misiones de {name}", { name: p.name })} /></div>
               </Panel>
             </Link>
           </li>

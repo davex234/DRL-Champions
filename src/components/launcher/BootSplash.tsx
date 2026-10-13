@@ -6,6 +6,10 @@
  */
 import { motion } from "framer-motion";
 import { BrandMark } from "@/branding/Logo";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 export function BootSplash({
   variant = "loading",
@@ -18,6 +22,7 @@ export function BootSplash({
   subtitle?: string;
   version?: string;
 }) {
+  useLocale();
   return (
     <div className="relative grid min-h-screen place-items-center overflow-hidden bg-base-900 text-white">
       <div className="absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-drl/20 blur-3xl" />
@@ -38,7 +43,7 @@ export function BootSplash({
         </motion.div>
 
         <p className="mt-8 font-display text-3xl font-black uppercase tracking-wide">
-          DRL <span className="text-drl">CHAMPIONS</span>
+          {t("DRL")} <span className="text-drl">{t("CHAMPIONS")}</span>
         </p>
 
         <div className="mt-6 flex items-center gap-3 text-white/70">
@@ -54,17 +59,17 @@ export function BootSplash({
               ✓
             </motion.span>
           )}
-          <span className="text-sm">{title}</span>
+          <span className="text-sm">{td(title)}</span>
         </div>
 
-        {subtitle && <p className="mt-2 text-[12px] text-white/40">{subtitle}</p>}
+        {subtitle && <p className="mt-2 text-[12px] text-white/40">{td(subtitle)}</p>}
         {version && (
-          <p className="mt-1 font-display text-sm font-bold text-drl-gold">Versión {version}</p>
+          <p className="mt-1 font-display text-sm font-bold text-drl-gold">{t("Versión")} {td(version)}</p>
         )}
       </motion.div>
 
       <p className="absolute bottom-6 text-[10px] uppercase tracking-[0.3em] text-white/25">
-        DRL Champions © · Esports Manager
+        {t("DRL Champions © · Esports Manager")}
       </p>
     </div>
   );

@@ -15,20 +15,26 @@ import { GameLoader } from "@/components/ui/game/GameLoader";
 import { GameSkeleton, type SkeletonKind } from "@/components/ui/game/GameSkeleton";
 import { GameEmpty, GameError, GamePanelState } from "@/components/ui/game/GameStates";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("ui");
 
 /**
  * F64 · con `kind`, la SILUETA de lo que va a aparecer (sin saltos de maquetación al llegar los datos); sin él, el
  * cargador de la marca (cuando no hay forma que anticipar: arrancar una partida, abrir un sobre…).
  */
-export function Loading({ label = "Cargando…", className, kind }: { label?: string; className?: string; kind?: SkeletonKind }) {
-  if (kind) return <GameSkeleton kind={kind} label={label} className={className} />;
-  return <GameLoader label={label} className={className} />;
+export function Loading({ label = t("Cargando…"), className, kind }: { label?: string; className?: string; kind?: SkeletonKind }) {
+  useLocale();
+  if (kind) return <GameSkeleton kind={kind} label={td(label)} className={className} />;
+  return <GameLoader label={td(label)} className={className} />;
 }
 
 export function ErrorState({
   message, onRetry, className,
 }: { message: string; onRetry?: () => void; className?: string }) {
-  return <GameError message={message} onRetry={onRetry} className={className} />;
+  useLocale();
+  return <GameError message={td(message)} onRetry={onRetry} className={className} />;
 }
 
 export function EmptyState({
@@ -41,12 +47,13 @@ export function EmptyState({
   action?: { href: string; label: string };
   className?: string;
 }) {
+  useLocale();
   return (
     <GameEmpty
-      title={title}
-      hint={hint}
+      title={td(title)}
+      hint={td(hint)}
       primary={action ? { href: action.href, label: action.label } : undefined}
-      secondary={action?.href === "/jugar" ? undefined : [{ href: "/jugar", label: "Jugar" }]}
+      secondary={action?.href === "/jugar" ? undefined : [{ href: "/jugar", label: t("Jugar") }]}
       className={className}
     />
   );
@@ -54,15 +61,16 @@ export function EmptyState({
 
 /** Pantalla para funciones que exigen cuenta online. */
 export function NeedsAccount({ what }: { what: string }) {
+  useLocale();
   return (
     <GamePanelState
       glyph="lock"
       tone="cyan"
-      eyebrow="Cuenta NEXUS"
-      title="Necesitas una cuenta"
-      hint={`${what} se guarda en el servidor, así que hace falta iniciar sesión para que sea tuyo de verdad.`}
-      primary={{ href: "/cuenta", label: "Entrar o registrarse" }}
-      secondary={[{ href: "/", label: "Volver al lobby" }]}
+      eyebrow={t("Cuenta NEXUS")}
+      title={t("Necesitas una cuenta")}
+      hint={t("{what} se guarda en el servidor, así que hace falta iniciar sesión para que sea tuyo de verdad.", { what: td(what) })}
+      primary={{ href: "/cuenta", label: t("Entrar o registrarse") }}
+      secondary={[{ href: "/", label: t("Volver al lobby") }]}
       testId="needs-account"
     />
   );
@@ -70,15 +78,16 @@ export function NeedsAccount({ what }: { what: string }) {
 
 /** Distintivo de datos de demostración (no son resultados reales). */
 export function DemoBadge({ className }: { className?: string }) {
+  useLocale();
   return (
     <span
-      title="Datos de demostración: este torneo no refleja resultados reales"
+      title={t("Datos de demostración: este torneo no refleja resultados reales")}
       className={cn(
         "nx-clip-sm border border-drl-gold/40 bg-drl-gold/10 px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-wider text-drl-gold",
         className,
       )}
     >
-      Demo
+      {t("Demo")}
     </span>
   );
 }

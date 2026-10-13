@@ -10,6 +10,11 @@
  * pantalla exclusiva) descarga/verifica/instala/reinicia. Nunca interrumpe un partido.
  */
 import { motion } from "framer-motion";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("launcher");
 
 export function UpdateNotification({
   version,
@@ -22,6 +27,7 @@ export function UpdateNotification({
   onUpdate: () => void;
   onDismiss: () => void;
 }) {
+  useLocale();
   return (
     <motion.div
       initial={{ opacity: 0, y: 24, x: 24 }}
@@ -35,20 +41,19 @@ export function UpdateNotification({
         <div className="flex items-center gap-2">
           <span className="grid h-7 w-7 place-items-center rounded-full bg-drl-gold/15 text-drl-gold">⬆</span>
           <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-            {inMatch ? "Actualización disponible" : "Nueva versión disponible"}
+            {inMatch ? t("Actualización disponible") : t("Nueva versión disponible")}
           </p>
         </div>
 
         <p className="mt-2 text-[12px] text-white/60">
           {inMatch ? (
             <>
-              Se instalará cuando termine el partido. Versión{" "}
-              <span className="font-bold text-drl-gold">v{version}</span>.
+              {t("Se instalará cuando termine el partido. Versión")}{" "}
+              <span className="font-bold text-drl-gold">v{td(version)}</span>.
             </>
           ) : (
             <>
-              Ya está lista la versión <span className="font-bold text-drl-gold">v{version}</span>.
-              Actualiza para tener las últimas mejoras.
+              {fill(t("Ya está lista la versión {version}. Actualiza para tener las últimas mejoras.", slots("version")), { version: <span className="font-bold text-drl-gold">v{td(version)}</span> })}
             </>
           )}
         </p>
@@ -58,13 +63,13 @@ export function UpdateNotification({
             onClick={onUpdate}
             className="flex-1 rounded-xl bg-gradient-to-r from-drl-gold to-[#c9962a] px-3 py-2 font-display text-xs font-bold uppercase tracking-wide text-base-900 transition hover:brightness-110"
           >
-            {inMatch ? "Actualizar ahora" : "Actualizar"}
+            {inMatch ? t("Actualizar ahora") : t("Actualizar")}
           </button>
           <button
             onClick={onDismiss}
             className="rounded-xl border border-white/15 bg-white/5 px-3 py-2 font-display text-xs font-bold uppercase tracking-wide text-white/70 transition hover:bg-white/10"
           >
-            {inMatch ? "Más tarde" : "Después"}
+            {inMatch ? t("Más tarde") : t("Después")}
           </button>
         </div>
       </div>

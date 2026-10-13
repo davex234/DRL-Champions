@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("admin");
+
 /**
  * F58 · SANCIONES — el modelo de dominio de la moderación persistida (tabla `user_sanctions`, migración 0055).
  *
@@ -53,19 +57,19 @@ export function cleanReason(v: unknown): string | null {
 
 /** Valida la entrada de una sanción. No confía en el formulario: tipo, duración y motivo se comprueban aquí. */
 export function parseSanctionInput(body: Record<string, unknown>): Parsed<SanctionInput> {
-  if (!isUuid(body.userId)) return { ok: false, error: "Usuario inválido" };
+  if (!isUuid(body.userId)) return { ok: false, error: tr("Usuario inválido") };
   const type = body.type;
-  if (type !== "ban" && type !== "suspension") return { ok: false, error: "Tipo de sanción inválido" };
+  if (type !== "ban" && type !== "suspension") return { ok: false, error: tr("Tipo de sanción inválido") };
   const reason = cleanReason(body.reason);
-  if (!reason) return { ok: false, error: `El motivo es obligatorio (${REASON_MIN}–${REASON_MAX} caracteres)` };
+  if (!reason) return { ok: false, error: tr("El motivo es obligatorio ({REASON_MIN}–{REASON_MAX} caracteres)", { REASON_MIN, REASON_MAX }) };
   const rawHours = body.hours;
   let hours: number | null;
   if (rawHours === null || rawHours === undefined || rawHours === "permanent") {
-    if (type === "suspension") return { ok: false, error: "Una suspensión necesita duración" };
+    if (type === "suspension") return { ok: false, error: tr("Una suspensión necesita duración") };
     hours = null;
   } else {
     const h = Number(rawHours);
-    if (!Number.isInteger(h) || h < 1 || h > MAX_TEMP_HOURS) return { ok: false, error: `Duración inválida (1–${MAX_TEMP_HOURS} h)` };
+    if (!Number.isInteger(h) || h < 1 || h > MAX_TEMP_HOURS) return { ok: false, error: tr("Duración inválida (1–{MAX_TEMP_HOURS} h)", { MAX_TEMP_HOURS }) };
     hours = h;
   }
   return { ok: true, value: { userId: body.userId, type, reason, hours } };

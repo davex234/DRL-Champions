@@ -57,6 +57,9 @@
  * Parsing PURO: sin DOM, sin red. Igual que el resto del conector.
  */
 import { findAll, textOf, decodeEntities } from "./parser";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("importervlr");
 
 export type BracketLineDir = "up" | "down" | "straight";
 
@@ -228,13 +231,13 @@ export function deriveBracketStructure(containers: VlrBracketContainer[]): VlrBr
       if (to.qualified) {
         const targets = to.items;
         if (feeders.length !== 1 || targets.length !== 1 || feeders[0].line !== "straight") {
-          unknown.push(`${tag}: clasificación no unívoca (${feeders.length} alimentadores, ${targets.length} cajas)`);
+          unknown.push(tr("{tag}: clasificación no unívoca ({length} alimentadores, {length2} cajas)", { tag, length: feeders.length, length2: targets.length }));
           continue;
         }
         const f = feeders[0];
         const w = winnerName(f);
         const q = targets[0].teams[0]?.name;
-        if (w && q && norm(w) !== norm(q)) { conflicts.push(`${tag}: el ganador «${w}» no es el clasificado «${q}»`); continue; }
+        if (w && q && norm(w) !== norm(q)) { conflicts.push(tr("{tag}: el ganador «{w}» no es el clasificado «{q}»", { tag, w: td(w), q: td(q) })); continue; }
         const key = `qualified:${slugOf(cont.group ?? "bracket")}:${slugOf(from.label)}`;
         edges.push({
           fromMatchId: f.matchId!, source: "WINNER", qualificationKey: key,
@@ -245,7 +248,7 @@ export function deriveBracketStructure(containers: VlrBracketContainer[]): VlrBr
       }
 
       const targets = to.items.filter((it) => !it.empty && it.matchId);
-      if (targets.length === 0) { unknown.push(`${tag}: sin destinos`); continue; }
+      if (targets.length === 0) { unknown.push(tr("{tag}: sin destinos", { tag })); continue; }
 
       const candidate: VlrStructuralEdge[] = [];
       if (feeders.length === 2 * targets.length) {
@@ -257,14 +260,14 @@ export function deriveBracketStructure(containers: VlrBracketContainer[]): VlrBr
           candidate.push({ fromMatchId: a.matchId!, source: "WINNER", toMatchId: targets[i].matchId!, toSlot: 1, evidence: "SOURCE_STRUCTURED_HTML", confidence: "CONFIRMED" });
           candidate.push({ fromMatchId: b.matchId!, source: "WINNER", toMatchId: targets[i].matchId!, toSlot: 2, evidence: "SOURCE_STRUCTURED_HTML", confidence: "CONFIRMED" });
         }
-        if (!ok) { unknown.push(`${tag}: parejas sin el patrón (down, up)`); continue; }
+        if (!ok) { unknown.push(tr("{tag}: parejas sin el patrón (down, up)", { tag })); continue; }
       } else if (feeders.length === targets.length) {
         // Uno a uno, en orden. Sin hueco: la página no dice cuál.
         for (let i = 0; i < targets.length; i++) {
           candidate.push({ fromMatchId: feeders[i].matchId!, source: "WINNER", toMatchId: targets[i].matchId!, evidence: "SOURCE_STRUCTURED_HTML", confidence: "CONFIRMED" });
         }
       } else {
-        unknown.push(`${tag}: ${feeders.length} alimentadores para ${targets.length} destinos`);
+        unknown.push(tr("{tag}: {length} alimentadores para {length2} destinos", { tag, length: feeders.length, length2: targets.length }));
         continue;
       }
 
@@ -278,9 +281,9 @@ export function deriveBracketStructure(containers: VlrBracketContainer[]): VlrBr
         const dest = byId.get(e.toMatchId!)!;
         const names = dest.teams.map((t) => norm(t.name)).filter(Boolean);
         if (names.length === 0) continue; // destino aún sin equipos: nada que contrastar
-        if (!names.includes(norm(w))) { contradiction = `${tag}: el ganador «${w}» de ${e.fromMatchId} no juega ${e.toMatchId}`; break; }
+        if (!names.includes(norm(w))) { contradiction = tr("{tag}: el ganador «{w}» de {fromMatchId} no juega {toMatchId}", { tag, w: td(w), fromMatchId: e.fromMatchId, toMatchId: e.toMatchId }); break; }
         if (e.toSlot && dest.teams[e.toSlot - 1]?.name && norm(dest.teams[e.toSlot - 1].name) !== norm(w)) {
-          contradiction = `${tag}: «${w}» no ocupa el hueco ${e.toSlot} de ${e.toMatchId}`; break;
+          contradiction = tr("{tag}: «{w}» no ocupa el hueco {toSlot} de {toMatchId}", { tag, w: td(w), toSlot: e.toSlot, toMatchId: e.toMatchId }); break;
         }
       }
       if (contradiction) { conflicts.push(contradiction); continue; }
@@ -291,8 +294,8 @@ export function deriveBracketStructure(containers: VlrBracketContainer[]): VlrBr
   // Integridad básica: sin autoaristas, sin dos ganadores del mismo partido a dos sitios.
   const seenFrom = new Set<string>();
   const clean = edges.filter((e) => {
-    if (e.toMatchId === e.fromMatchId) { conflicts.push(`autoarista en ${e.fromMatchId}`); return false; }
-    if (seenFrom.has(e.fromMatchId)) { conflicts.push(`el ganador de ${e.fromMatchId} tiene dos destinos`); return false; }
+    if (e.toMatchId === e.fromMatchId) { conflicts.push(tr("autoarista en {fromMatchId}", { fromMatchId: e.fromMatchId })); return false; }
+    if (seenFrom.has(e.fromMatchId)) { conflicts.push(tr("el ganador de {fromMatchId} tiene dos destinos", { fromMatchId: e.fromMatchId })); return false; }
     seenFrom.add(e.fromMatchId);
     return true;
   });

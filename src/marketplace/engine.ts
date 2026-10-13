@@ -19,6 +19,9 @@ import {
   type OpResult, type Effect, type ListingInput, type OfferInput, type ValueModifiers, type MarketAnalytics,
   type MarketValidation, type MarketIssue,
 } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("marketplace");
 
 const MAX_PRICE = 1_000_000_000; // tope anti-overflow
 const MIN_PRICE = 25;
@@ -70,9 +73,9 @@ export class MarketEngine {
 
   createListing(input: ListingInput, now: number, seed = now): OpResult {
     const o = input.owned;
-    if (!o || !o.uid || !o.cardId) return this.fail("Instancia inválida");
-    if (!this.registry.card(o.cardId)) return this.fail("Carta inexistente");
-    if (!this.validPrice(Math.round(input.price))) return this.fail("Precio inválido");
+    if (!o || !o.uid || !o.cardId) return this.fail(tr("Instancia inválida"));
+    if (!this.registry.card(o.cardId)) return this.fail(tr("Carta inexistente"));
+    if (!this.validPrice(Math.round(input.price))) return this.fail(tr("Precio inválido"));
 
     const price = Math.round(input.price);
     const sellerId = input.sellerId ?? USER;
@@ -90,8 +93,8 @@ export class MarketEngine {
 
   cancelListing(id: string, now: number): OpResult {
     const l = this.byId.get(id);
-    if (!l || (l.status ?? "active") !== "active") return this.fail("El listado ya no está disponible");
-    if (l.sellerId !== USER) return this.fail("No puedes cancelar un listado ajeno");
+    if (!l || (l.status ?? "active") !== "active") return this.fail(tr("El listado ya no está disponible"));
+    if (l.sellerId !== USER) return this.fail(tr("No puedes cancelar un listado ajeno"));
     l.status = "cancelled";
     this.deactivate(l);
     const effect: Effect = { ...freshEffect(), restore: l.escrow ? [l.escrow] : [] };
@@ -100,10 +103,10 @@ export class MarketEngine {
 
   updatePrice(id: string, price: number, now: number): OpResult {
     const l = this.byId.get(id);
-    if (!l || (l.status ?? "active") !== "active") return this.fail("El listado ya no está disponible");
-    if (l.sellerId !== USER) return this.fail("No puedes modificar un listado ajeno");
+    if (!l || (l.status ?? "active") !== "active") return this.fail(tr("El listado ya no está disponible"));
+    if (l.sellerId !== USER) return this.fail(tr("No puedes modificar un listado ajeno"));
     const p = Math.round(price);
-    if (!this.validPrice(p)) return this.fail("Precio inválido");
+    if (!this.validPrice(p)) return this.fail(tr("Precio inválido"));
     const old = l.price; l.price = p;
     return { ok: true, events: [ev("price_changed", now, { listingId: id, cardId: l.cardId, data: { from: old, to: p } })], effect: freshEffect() };
   }
@@ -111,9 +114,9 @@ export class MarketEngine {
   /** Compra instantánea (el comprador paga el precio; adquiere la carta). */
   buyListing(id: string, buyerId: string, now: number): OpResult {
     const l = this.byId.get(id);
-    if (!l || (l.status ?? "active") !== "active") return this.fail("El listado ya no está disponible");
-    if (l.sellerId === buyerId) return this.fail("No puedes comprar tu propio listado");
-    if (l.visibility === "private" && l.reservedFor && l.reservedFor !== buyerId) return this.fail("Listado reservado a otro comprador");
+    if (!l || (l.status ?? "active") !== "active") return this.fail(tr("El listado ya no está disponible"));
+    if (l.sellerId === buyerId) return this.fail(tr("No puedes comprar tu propio listado"));
+    if (l.visibility === "private" && l.reservedFor && l.reservedFor !== buyerId) return this.fail(tr("Listado reservado a otro comprador"));
 
     return this.settleTrade(l, l.price, buyerId, now);
   }
@@ -121,12 +124,12 @@ export class MarketEngine {
   // ─────────────────────── Ofertas ───────────────────────
 
   placeOffer(input: OfferInput, now: number, seed = now): OpResult {
-    if (!this.registry.card(input.cardId)) return this.fail("Carta inexistente");
-    if (!this.validPrice(Math.round(input.amount))) return this.fail("Importe inválido");
+    if (!this.registry.card(input.cardId)) return this.fail(tr("Carta inexistente"));
+    if (!this.validPrice(Math.round(input.amount))) return this.fail(tr("Importe inválido"));
     if (input.listingId) {
       const l = this.byId.get(input.listingId);
-      if (!l || (l.status ?? "active") !== "active") return this.fail("El listado ya no está disponible");
-      if (l.sellerId === input.from) return this.fail("No puedes ofertar en tu propio listado");
+      if (!l || (l.status ?? "active") !== "active") return this.fail(tr("El listado ya no está disponible"));
+      if (l.sellerId === input.from) return this.fail(tr("No puedes ofertar en tu propio listado"));
     }
     const offer: MarketOffer = {
       id: this.nextId("O", seed), listingId: input.listingId, cardId: input.cardId, serial: input.serial,
@@ -138,16 +141,16 @@ export class MarketEngine {
 
   rejectOffer(id: string, now: number): OpResult {
     const o = this.offersById.get(id);
-    if (!o || (o.status !== "pending" && o.status !== "countered")) return this.fail("La oferta ya no está activa");
+    if (!o || (o.status !== "pending" && o.status !== "countered")) return this.fail(tr("La oferta ya no está activa"));
     o.status = "rejected";
     return { ok: true, events: [ev("offer_rejected", now, { offerId: id, cardId: o.cardId })], effect: freshEffect() };
   }
 
   counterOffer(id: string, amount: number, now: number): OpResult {
     const o = this.offersById.get(id);
-    if (!o || o.status !== "pending") return this.fail("La oferta ya no está activa");
+    if (!o || o.status !== "pending") return this.fail(tr("La oferta ya no está activa"));
     const a = Math.round(amount);
-    if (!this.validPrice(a)) return this.fail("Importe inválido");
+    if (!this.validPrice(a)) return this.fail(tr("Importe inválido"));
     o.status = "countered"; o.counterAmount = a;
     return { ok: true, events: [ev("offer_created", now, { offerId: id, cardId: o.cardId, data: { counter: a } })], effect: freshEffect() };
   }
@@ -155,11 +158,11 @@ export class MarketEngine {
   /** Acepta una oferta (o su contraoferta): liquida la operación. El vendedor del listado la acepta. */
   acceptOffer(id: string, now: number): OpResult {
     const o = this.offersById.get(id);
-    if (!o || (o.status !== "pending" && o.status !== "countered")) return this.fail("La oferta ya no está activa");
+    if (!o || (o.status !== "pending" && o.status !== "countered")) return this.fail(tr("La oferta ya no está activa"));
     const amount = o.status === "countered" ? (o.counterAmount ?? o.amount) : o.amount;
 
     const l = o.listingId ? this.byId.get(o.listingId) : undefined;
-    if (o.listingId && (!l || (l.status ?? "active") !== "active")) return this.fail("El listado ya no está disponible");
+    if (o.listingId && (!l || (l.status ?? "active") !== "active")) return this.fail(tr("El listado ya no está disponible"));
 
     o.status = "accepted";
     const accepted = ev("offer_accepted", now, { offerId: id, cardId: o.cardId, data: { amount } });
@@ -266,9 +269,9 @@ export class MarketEngine {
   validate(): MarketValidation {
     const issues: MarketIssue[] = [];
     for (const l of this.byId.values()) {
-      if (!this.validPrice(l.price)) issues.push({ code: "BAD_PRICE", message: "Precio inválido", listingId: l.id });
-      if ((l.status ?? "active") === "sold" && this.activeSet(l.cardId).has(l.id)) issues.push({ code: "SOLD_ACTIVE", message: "Vendido pero activo", listingId: l.id });
-      if (l.sellerId === USER && (l.status ?? "active") === "active" && !l.escrow) issues.push({ code: "NO_ESCROW", message: "Listado de usuario sin escrow", listingId: l.id });
+      if (!this.validPrice(l.price)) issues.push({ code: "BAD_PRICE", message: tr("Precio inválido"), listingId: l.id });
+      if ((l.status ?? "active") === "sold" && this.activeSet(l.cardId).has(l.id)) issues.push({ code: "SOLD_ACTIVE", message: tr("Vendido pero activo"), listingId: l.id });
+      if (l.sellerId === USER && (l.status ?? "active") === "active" && !l.escrow) issues.push({ code: "NO_ESCROW", message: tr("Listado de usuario sin escrow"), listingId: l.id });
     }
     return { ok: issues.length === 0, issues };
   }

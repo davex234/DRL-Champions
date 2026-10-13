@@ -49,3 +49,13 @@ export const GLOBAL_MARKET_ENABLED = false;
  * producción esa vía no existe (ver `domain/walkout/packWalkout · packWalkoutAllowed`).
  */
 export const PACK_WALKOUT_3D_ENABLED: "off" | "admins" | "all" = "all";
+
+/**
+ * TRADUCCIONES OPCIONALES DEL CONTENIDO EDITABLE (i18n, 2026-10-11) — APAGADO.
+ *
+ * El contenido del CMS se guarda en español. Sus traducciones opcionales son una capa aparte (`i18n/content.ts`) que
+ * sale de la tabla ADITIVA `content_translations` (propuesta en `docs/i18n/proposals/`, SIN aplicar). Mientras esto esté
+ * en `false` el juego no pide la capa y el contenido se ve en español, que es el respaldo. Encenderlo exige aplicar
+ * antes esa tabla; apagarlo no pierde nada.
+ */
+export const CONTENT_TRANSLATIONS_ENABLED = false;

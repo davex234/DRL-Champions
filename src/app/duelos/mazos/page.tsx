@@ -43,13 +43,18 @@ import { Sheet } from "@/components/duel/deck/bits";
 import { trackCreateStart, trackDeck } from "@/lib/deckBuilder/telemetry";
 import { AUTO_ACTIVATED_NOTICE, AUTO_ACTIVATE_FAILED_NOTICE, isFirstTeamContext, shouldAutoActivate } from "@/lib/journey/deck";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duelos");
 
 export default function MazosPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading kind="deck" label="Cargando tus equipos…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="Tu equipo de duelo" />;
+  if (loading) return <Loading kind="deck" label={t("Cargando tus equipos…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("Tu equipo de duelo")} />;
   return (
-    <Suspense fallback={<Loading kind="deck" label="Cargando tus equipos…" />}>
+    <Suspense fallback={<Loading kind="deck" label={t("Cargando tus equipos…")} />}>
       <MotionConfig reducedMotion="user">
         <Teams />
       </MotionConfig>
@@ -65,6 +70,7 @@ const urlOf = (v: View) =>
 const messageOf = (e: unknown, fallback: string) => (e instanceof Error ? e.message : fallback);
 
 function Teams() {
+  useLocale();
   const router = useRouter();
   const params = useSearchParams();
   const { toast, notify } = useToast();
@@ -108,7 +114,7 @@ function Teams() {
       return w;
     } catch (e) {
       // Si ya había foto se CONSERVA: vaciarla enseñaría «no tienes equipos» cuando lo que falló es la red.
-      setError(messageOf(e, "No se pudieron cargar tus equipos"));
+      setError(messageOf(e, t("No se pudieron cargar tus equipos")));
       return null;
     }
   }, []);
@@ -135,7 +141,7 @@ function Teams() {
   // Un `?deck=` que no es tuyo (o ya no existe) no abre nada: vuelve al hub y lo dice.
   useEffect(() => {
     if (!ws || view.kind !== "builder" || !view.deckId || editing) return;
-    notify("Ese equipo no existe o no es tuyo", false);
+    notify(t("Ese equipo no existe o no es tuyo"), false);
     go({ kind: "hub" });
   }, [ws, view, editing, go, notify]);
 
@@ -191,7 +197,7 @@ function Teams() {
         setView({ kind: "builder", deckId: r.deck.id, addUid: null });
         window.history.replaceState(null, "", urlOf({ kind: "builder", deckId: r.deck.id, addUid: null }));
         { const m = deckReadyMoment(null, r.deck); if (m) moment(m); }
-        if (!(await autoActivate(r.deck))) notify(r.deck.valid ? "Equipo creado y listo para duelo" : "Equipo creado (incompleto)", r.deck.valid);
+        if (!(await autoActivate(r.deck))) notify(r.deck.valid ? t("Equipo creado y listo para duelo") : t("Equipo creado (incompleto)"), r.deck.valid);
         return { ok: true, deck: r.deck };
       }
       // Servidor anterior a la Fase 32 (sin versión): guardado de siempre.
@@ -200,7 +206,7 @@ function Teams() {
         : await saveDuelDeck({ id: editing.id, name: draft.name, cardUids: draft.cardUids });
       replaceDeck(r.deck);
       { const m = deckReadyMoment(editing.valid, r.deck); if (m) moment(m); }
-      if (!(await autoActivate(r.deck))) notify(r.deck.valid ? "Equipo guardado y listo para duelo" : "Equipo guardado (incompleto)", r.deck.valid);
+      if (!(await autoActivate(r.deck))) notify(r.deck.valid ? t("Equipo guardado y listo para duelo") : t("Equipo guardado (incompleto)"), r.deck.valid);
       return { ok: true, deck: r.deck };
     } catch (e) {
       if (e instanceof DuelError && e.code === "CONFLICT") {
@@ -208,7 +214,7 @@ function Teams() {
         if (current) replaceDeck(current);
         return { ok: false, kind: "conflict", current, message: e.message };
       }
-      return { ok: false, kind: "error", message: messageOf(e, "No se pudo guardar el equipo") };
+      return { ok: false, kind: "error", message: messageOf(e, t("No se pudo guardar el equipo")) };
     }
   }, [editing, notify, replaceDeck, autoActivate, moment]);
 
@@ -218,11 +224,11 @@ function Teams() {
     try {
       await activateTeamDeck(d.id, d.version ?? null);
       trackDeck("deck_activated");
-      notify(`«${d.name}» es tu equipo activo`, true);
+      notify(t("«{name}» es tu equipo activo", { name: d.name }), true);
       moment(deckActiveMoment(d, Date.now()));
       await load();
     } catch (e) {
-      notify(messageOf(e, "No se pudo activar el equipo"), false);
+      notify(messageOf(e, t("No se pudo activar el equipo")), false);
       if (e instanceof DuelError && (e.code === "CONFLICT" || e.code === "DECK_NOT_READY")) await load();
     } finally {
       setBusy(null);
@@ -234,10 +240,10 @@ function Teams() {
     setBusyId(d.id);
     try {
       const r = await duplicateTeamDeck(d.id);
-      notify(`Creado «${r.deck.name}»`, true);
+      notify(t("Creado «{name}»", { name: r.deck.name }), true);
       await load();
     } catch (e) {
-      notify(messageOf(e, "No se pudo duplicar el equipo"), false);
+      notify(messageOf(e, t("No se pudo duplicar el equipo")), false);
     } finally {
       setBusyId(null);
     }
@@ -250,11 +256,11 @@ function Teams() {
     try {
       if (!renaming.version) throw new DuelError("Recarga la página para renombrar este equipo.", 409);
       await renameTeamDeck(renaming.id, name, renaming.version);
-      notify("Nombre guardado", true);
+      notify(t("Nombre guardado"), true);
       setRenaming(null);
       await load();
     } catch (e) {
-      setRenameError(messageOf(e, "No se pudo renombrar"));
+      setRenameError(messageOf(e, t("No se pudo renombrar")));
       if (e instanceof DuelError && e.code === "CONFLICT") await load();
     } finally {
       setRenameBusy(false);
@@ -266,12 +272,12 @@ function Teams() {
     setDeleteBusy(true);
     try {
       const r = await deleteTeamDeck(toDelete.id, toDelete.version ?? null, !!toDelete.active);
-      notify(r.wasActive ? "Equipo eliminado. Ya no tienes equipo activo: elige otro." : "Equipo eliminado", true);
+      notify(r.wasActive ? t("Equipo eliminado. Ya no tienes equipo activo: elige otro.") : t("Equipo eliminado"), true);
       setToDelete(null);
       if (view.kind === "builder") { setDirty(false); go({ kind: "hub" }); }
       await load();
     } catch (e) {
-      notify(messageOf(e, "No se pudo eliminar"), false);
+      notify(messageOf(e, t("No se pudo eliminar")), false);
       setToDelete(null);
       if (e instanceof DuelError && e.code === "CONFLICT") await load();
     } finally {
@@ -290,12 +296,12 @@ function Teams() {
     openBuilder(null);
   }, [ws, openBuilder]);
 
-  if (error && !ws) return <ErrorState message={error} onRetry={() => void load()} />;
-  if (!ws) return <Loading kind="deck" label="Cargando tus equipos…" />;
+  if (error && !ws) return <ErrorState message={td(error)} onRetry={() => void load()} />;
+  if (!ws) return <Loading kind="deck" label={t("Cargando tus equipos…")} />;
 
   const deleteBody = toDelete?.active
-    ? "Es tu equipo activo. Si lo borras te quedarás sin equipo activo hasta que elijas otro. Tus cartas no se tocan."
-    : "Se borra la composición de este equipo. Tus cartas no se tocan.";
+    ? t("Es tu equipo activo. Si lo borras te quedarás sin equipo activo hasta que elijas otro. Tus cartas no se tocan.")
+    : t("Se borra la composición de este equipo. Tus cartas no se tocan.");
 
   return (
     <>
@@ -303,7 +309,7 @@ function Teams() {
       {error && (
         <div role="alert" className="mx-auto mb-3 flex max-w-6xl flex-wrap items-center gap-2 rounded-lg border border-bad/40 bg-bad/[0.08] px-4 py-2 text-[13px] text-white">
           <span className="flex-1">{playerMessage(error)}</span>
-          <NxButton variant="ghost" size="sm" onClick={() => void load()}>Reintentar</NxButton>
+          <NxButton variant="ghost" size="sm" onClick={() => void load()}>{t("Reintentar")}</NxButton>
         </div>
       )}
 
@@ -326,7 +332,7 @@ function Teams() {
           initial={{ ...(view.addUid ? { selectedUid: view.addUid } : {}), focusAxis: labInit.focusAxis, explore: labInit.explore }}
         />
       ) : view.kind === "builder" ? (
-        <Loading label="Abriendo el equipo…" />
+        <Loading label={t("Abriendo el equipo…")} />
       ) : (
         <TeamHub
           decks={ws.decks}
@@ -347,33 +353,33 @@ function Teams() {
         />
       )}
 
-      <Sheet open={comparing} size="lg" scene="deck-compare" eyebrow="Mis equipos" title="Comparar equipos" onClose={() => setComparing(false)}>
+      <Sheet open={comparing} size="lg" scene="deck-compare" eyebrow={t("Mis equipos")} title={t("Comparar equipos")} onClose={() => setComparing(false)}>
         {comparing && <DeckCompareView decks={ws.decks} />}
       </Sheet>
 
       <NameSheet
         open={!!renaming}
-        title={renaming ? `Renombrar «${renaming.name}»` : "Renombrar"}
+        title={renaming ? t("Renombrar «{name}»", { name: renaming.name }) : t("Renombrar")}
         initial={renaming?.name ?? ""}
         busy={renameBusy}
-        error={renameError}
+        error={td(renameError)}
         onSubmit={(n) => void onRename(n)}
         onClose={() => { if (!renameBusy) setRenaming(null); }}
       />
       <ConfirmSheet
         open={!!toDelete}
-        title={toDelete ? `¿Eliminar «${toDelete.name}»?` : "Eliminar"}
+        title={toDelete ? t("¿Eliminar «{name}»?", { name: toDelete.name }) : t("Eliminar")}
         body={deleteBody}
-        confirmLabel={toDelete?.active ? "Eliminar equipo activo" : "Eliminar equipo"}
+        confirmLabel={toDelete?.active ? t("Eliminar equipo activo") : t("Eliminar equipo")}
         busy={deleteBusy}
         onConfirm={() => void onDelete()}
         onClose={() => { if (!deleteBusy) setToDelete(null); }}
       />
       <ConfirmSheet
         open={!!leaveTo}
-        title="Tienes cambios sin guardar"
-        body="Si sales ahora, perderás los cambios de este equipo."
-        confirmLabel="Salir sin guardar"
+        title={t("Tienes cambios sin guardar")}
+        body={t("Si sales ahora, perderás los cambios de este equipo.")}
+        confirmLabel={t("Salir sin guardar")}
         onConfirm={() => { const to = leaveTo; setLeaveTo(null); setDirty(false); if (to) router.push(to); }}
         onClose={() => setLeaveTo(null)}
       />

@@ -19,6 +19,10 @@ import { cn } from "@/lib/format";
 import type { PickemQuestion } from "@/lib/game/client";
 import { stateOf, awardedPoints, type AnswerMap } from "@/domain/pickems/progress";
 import { KIND_LABEL } from "./PickQuestion";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 const labelOf = (q: PickemQuestion, key: string | null | undefined) =>
   q.options.find((o) => o.key === key)?.label ?? key ?? "—";
@@ -49,11 +53,12 @@ export function PickemResults({
   limit?: number;
   className?: string;
 }) {
+  useLocale();
   const rows = limit ? questions.slice(0, limit) : questions;
   if (rows.length === 0) return null;
 
   return (
-    <ol className={cn("space-y-2", className)} aria-label="Resultados recientes">
+    <ol className={cn("space-y-2", className)} aria-label={t("Resultados recientes")}>
       {rows.map((q) => {
         const mine = answers[q.id];
         const estado = stateOf(q, mine);
@@ -72,20 +77,20 @@ export function PickemResults({
               <Glifo tipo={hit ? "acierto" : miss ? "fallo" : "neutro"} />
               <div className="min-w-0 flex-1">
                 <p className="truncate font-display text-[13px] font-bold uppercase tracking-wide text-white">
-                  <span className="text-ink-faint">{KIND_LABEL[q.kind] ?? q.kind} · </span>{q.prompt}
+                  <span className="text-ink-faint">{td(KIND_LABEL[q.kind]) ?? td(q.kind)} · </span>{td(q.prompt)}
                 </p>
                 <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-caption">
                   <span className="flex items-center gap-1.5 text-ink-muted">
-                    Tu predicción:
+                    {t("Tu predicción:")}
                     {mine ? (
                       <b className="flex items-center gap-1 text-white">
                         {withLogo && <TeamLogo team={labelOf(q, mine.option)} size={16} />}
                         {labelOf(q, mine.option)}
                       </b>
-                    ) : <b className="text-ink-faint">no participaste</b>}
+                    ) : <b className="text-ink-faint">{t("no participaste")}</b>}
                   </span>
                   <span className="flex items-center gap-1.5 text-ink-muted">
-                    Resultado:
+                    {t("Resultado:")}
                     <b className="flex items-center gap-1 text-white">
                       {withLogo && <TeamLogo team={labelOf(q, q.correct_option)} size={16} />}
                       {labelOf(q, q.correct_option)}
@@ -95,16 +100,16 @@ export function PickemResults({
               </div>
               <div className="flex shrink-0 flex-col items-end gap-1">
                 {hit
-                  ? <Badge tone="ok" solid>Acertada</Badge>
+                  ? <Badge tone="ok" solid>{t("Acertada")}</Badge>
                   : miss
-                    ? <Badge tone="bad" dot>Fallada</Badge>
-                    : <Badge tone="muted" dot>No jugada</Badge>}
+                    ? <Badge tone="bad" dot>{t("Fallada")}</Badge>
+                    : <Badge tone="muted" dot>{t("No jugada")}</Badge>}
                 <span
                   className={cn("nx-readout text-[16px] tabular-nums", hit ? "text-ok" : "text-ink-faint")}
-                  aria-label={mine ? `${pts} puntos` : "sin puntos"}
+                  aria-label={mine ? t("{pts} puntos", { pts }) : t("sin puntos")}
                 >
                   +{pts}
-                  {hit && awarded === null && <span className="nx-label ml-1">pend.</span>}
+                  {hit && awarded === null && <span className="nx-label ml-1">{t("pend.")}</span>}
                 </span>
               </div>
             </Plate>

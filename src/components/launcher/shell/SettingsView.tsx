@@ -22,6 +22,10 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Plate } from "@/components/ui/Surface";
 import { Segmented } from "@/components/ui/Segmented";
 import { Slider, Toggle } from "./primitives";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 export function SettingsView({
   settings, onChange, onReset, onResetLibrary, up, version, motionScale,
@@ -34,6 +38,7 @@ export function SettingsView({
   version: string;
   motionScale: number;
 }) {
+  useLocale();
   const updateAvailable = up.state.phase === "available";
 
   return (
@@ -45,34 +50,34 @@ export function SettingsView({
     >
       <header>
         <h1 className="font-display text-[34px] font-black uppercase leading-none tracking-tight text-white">
-          Config<span className="text-drl">uración</span>
+          {t("Config")}<span className="text-drl">{t("uración")}</span>
         </h1>
-        <p className="mt-1.5 text-[13px] text-white/45">Ajustes del cliente. Se guardan al instante en este equipo.</p>
+        <p className="mt-1.5 text-[13px] text-white/45">{t("Ajustes del cliente. Se guardan al instante en este equipo.")}</p>
       </header>
 
       {/* ── General ── */}
       <section>
-        <SectionTitle>General</SectionTitle>
+        <SectionTitle>{t("General")}</SectionTitle>
         <Plate className="divide-y divide-white/[0.05]">
           <Toggle
-            label="Iniciar con el sistema"
-            hint="El cliente arranca minimizado al encender el equipo."
+            label={t("Iniciar con el sistema")}
+            hint={t("El cliente arranca minimizado al encender el equipo.")}
             checked={settings.autoStart}
             onChange={(v) => onChange({ autoStart: v })}
           />
           <Toggle
-            label="Minimizar al cerrar"
-            hint="La ventana se va a la bandeja en lugar de cerrarse."
+            label={t("Minimizar al cerrar")}
+            hint={t("La ventana se va a la bandeja en lugar de cerrarse.")}
             checked={settings.minimizeToTray}
             onChange={(v) => onChange({ minimizeToTray: v })}
           />
-          <Row label="Idioma" hint="Idioma de la interfaz del cliente.">
+          <Row label={t("Idioma")} hint={t("Idioma de la interfaz del cliente.")}>
             <Segmented
               value={settings.language}
               onChange={(v) => onChange({ language: v })}
               options={[
-                { value: "es", label: "Español" },
-                { value: "en", label: "English" },
+                { value: "es", label: t("Español") },
+                { value: "en", label: t("English") },
               ]}
             />
           </Row>
@@ -81,28 +86,28 @@ export function SettingsView({
 
       {/* ── Launcher ── */}
       <section>
-        <SectionTitle>Launcher</SectionTitle>
+        <SectionTitle>{t("Launcher")}</SectionTitle>
         <Plate className="divide-y divide-white/[0.05]">
-          <Row label="Animaciones" hint="Afecta al parallax del hero, a las transiciones y a las partículas.">
+          <Row label={t("Animaciones")} hint={t("Afecta al parallax del hero, a las transiciones y a las partículas.")}>
             <Segmented
               value={settings.animations}
               onChange={(v: MotionLevel) => onChange({ animations: v })}
               options={[
-                { value: "full", label: MOTION_LABEL.full },
-                { value: "reduced", label: MOTION_LABEL.reduced },
-                { value: "off", label: MOTION_LABEL.off },
+                { value: "full", label: tdIn("launcher", MOTION_LABEL.full) },
+                { value: "reduced", label: tdIn("launcher", MOTION_LABEL.reduced) },
+                { value: "off", label: tdIn("launcher", MOTION_LABEL.off) },
               ]}
             />
           </Row>
           <Toggle
-            label="Aceleración gráfica"
-            hint="Desactívala si el cliente va a tirones: apaga desenfoques y capas pesadas."
+            label={t("Aceleración gráfica")}
+            hint={t("Desactívala si el cliente va a tirones: apaga desenfoques y capas pesadas.")}
             checked={settings.hardwareAcceleration}
             onChange={(v) => onChange({ hardwareAcceleration: v })}
           />
           <Toggle
-            label="Notificaciones"
-            hint="Avisos de descarga terminada, novedades y actualizaciones."
+            label={t("Notificaciones")}
+            hint={t("Avisos de descarga terminada, novedades y actualizaciones.")}
             checked={settings.notifications}
             onChange={(v) => onChange({ notifications: v })}
           />
@@ -111,9 +116,9 @@ export function SettingsView({
 
       {/* ── Descargas ── */}
       <section>
-        <SectionTitle>Descargas</SectionTitle>
+        <SectionTitle>{t("Descargas")}</SectionTitle>
         <Plate className="divide-y divide-white/[0.05]">
-          <Row label="Ubicación predeterminada" hint="Se propone al instalar un título nuevo.">
+          <Row label={t("Ubicación predeterminada")} hint={t("Se propone al instalar un título nuevo.")}>
             <select
               value={settings.installPath}
               onChange={(e) => onChange({ installPath: e.target.value })}
@@ -121,27 +126,27 @@ export function SettingsView({
             >
               {DISKS.map((d) => (
                 <option key={d.id} value={d.path}>
-                  {d.path} · {formatBytes(d.freeBytes)} libres
+                  {d.path} · {formatBytes(d.freeBytes)} {t("libres")}
                 </option>
               ))}
             </select>
           </Row>
           <Slider
-            label="Límite de velocidad"
+            label={t("Límite de velocidad")}
             value={settings.speedLimitMbps}
             min={0}
             max={100}
             step={5}
             onChange={(v) => onChange({ speedLimitMbps: v })}
-            format={(v) => (v === 0 ? "Sin límite" : `${v} MB/s`)}
+            format={(v) => (v === 0 ? t("Sin límite") : `${v} MB/s`)}
           />
           <Toggle
-            label="Descargas en segundo plano"
-            hint="Siguen bajando aunque el cliente esté minimizado."
+            label={t("Descargas en segundo plano")}
+            hint={t("Siguen bajando aunque el cliente esté minimizado.")}
             checked={settings.backgroundDownloads}
             onChange={(v) => onChange({ backgroundDownloads: v })}
           />
-          <Row label="Descargas simultáneas" hint="Las que excedan el cupo esperan en cola.">
+          <Row label={t("Descargas simultáneas")} hint={t("Las que excedan el cupo esperan en cola.")}>
             <Segmented
               value={String(settings.concurrentDownloads)}
               onChange={(v) => onChange({ concurrentDownloads: Number(v) })}
@@ -157,9 +162,9 @@ export function SettingsView({
 
       {/* ── Interfaz ── */}
       <section>
-        <SectionTitle>Interfaz</SectionTitle>
+        <SectionTitle>{t("Interfaz")}</SectionTitle>
         <Plate className="divide-y divide-white/[0.05]">
-          <Row label="Tema" hint="Color del lienzo del cliente.">
+          <Row label={t("Tema")} hint={t("Color del lienzo del cliente.")}>
             <Segmented
               value={settings.theme}
               onChange={(v: ThemeId) => onChange({ theme: v })}
@@ -171,7 +176,7 @@ export function SettingsView({
             />
           </Row>
           <Slider
-            label="Intensidad de efectos"
+            label={t("Intensidad de efectos")}
             value={settings.effectIntensity}
             min={0}
             max={100}
@@ -184,26 +189,26 @@ export function SettingsView({
 
       {/* ── Cliente (actualizador real) ── */}
       <section>
-        <SectionTitle>Cliente</SectionTitle>
+        <SectionTitle>{t("Cliente")}</SectionTitle>
         <Plate className="divide-y divide-white/[0.05]">
           <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3.5">
             <div>
-              <p className="text-[13px] font-semibold text-white/85">Versión instalada</p>
+              <p className="text-[13px] font-semibold text-white/85">{t("Versión instalada")}</p>
               <p className="mt-0.5 text-caption text-white/40">
-                Canal {channelInfo(up.channel).label} · {up.state.phase === "error" ? "última comprobación fallida" : "al día"}
+                {t("Canal")} {td(channelInfo(up.channel).label)} · {up.state.phase === "error" ? t("última comprobación fallida") : t("al día")}
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <span className="nx-readout text-[16px] text-white">v{version}</span>
+              <span className="nx-readout text-[16px] text-white">v{td(version)}</span>
               {updateAvailable ? (
-                <Badge dot tone="warn">Actualización disponible</Badge>
+                <Badge dot tone="warn">{t("Actualización disponible")}</Badge>
               ) : (
-                <Badge dot tone="ok">Actualizado</Badge>
+                <Badge dot tone="ok">{t("Actualizado")}</Badge>
               )}
             </div>
           </div>
 
-          <Row label="Canal de actualización" hint="Estable recibe menos cambios; las ramas de prueba, antes.">
+          <Row label={t("Canal de actualización")} hint={t("Estable recibe menos cambios; las ramas de prueba, antes.")}>
             <Segmented
               value={up.channel}
               onChange={(c) => void up.changeChannel(c as Channel)}
@@ -212,35 +217,35 @@ export function SettingsView({
           </Row>
 
           <Toggle
-            label="Buscar actualizaciones al iniciar"
+            label={t("Buscar actualizaciones al iniciar")}
             checked={up.prefs.checkOnStart}
             onChange={(v) => void up.setPrefs({ checkOnStart: v })}
           />
           <Toggle
-            label="Descargar automáticamente"
+            label={t("Descargar automáticamente")}
             checked={up.prefs.autoDownload}
             onChange={(v) => void up.setPrefs({ autoDownload: v })}
           />
           <Toggle
-            label="Instalar y reiniciar automáticamente"
-            hint="Aplica la actualización sin preguntar cuando termina la descarga."
+            label={t("Instalar y reiniciar automáticamente")}
+            hint={t("Aplica la actualización sin preguntar cuando termina la descarga.")}
             checked={up.prefs.autoInstall}
             onChange={(v) => void up.setPrefs({ autoInstall: v, autoRestart: v })}
           />
 
           <div className="flex flex-wrap items-center gap-2 px-4 py-3.5">
             <NxButton size="md" variant={updateAvailable ? "primary" : "secondary"} accent={updateAvailable ? "gold" : "primary"} onClick={() => void up.check()} disabled={up.busy}>
-              Buscar actualizaciones
+              {t("Buscar actualizaciones")}
             </NxButton>
             <NxButton size="md" variant="secondary" onClick={() => void up.verify()} disabled={up.busy}>
-              Verificar archivos
+              {t("Verificar archivos")}
             </NxButton>
             <NxButton size="md" variant="secondary" onClick={() => void up.repair()} disabled={up.busy}>
-              Reparar
+              {t("Reparar")}
             </NxButton>
             {updateAvailable && (
               <NxButton size="md" variant="primary" onClick={() => void up.start()} disabled={up.busy}>
-                Actualizar cliente
+                {t("Actualizar cliente")}
               </NxButton>
             )}
           </div>
@@ -248,10 +253,10 @@ export function SettingsView({
           {up.verifyReport && (
             <p className={cn("px-4 py-3 text-[12px]", up.verifyReport.ok ? "text-ok" : "text-bad")}>
               {up.verifyReport.checked === 0
-                ? "Verificación no disponible aquí (solo en el cliente de escritorio con manifiesto)."
+                ? t("Verificación no disponible aquí (solo en el cliente de escritorio con manifiesto).")
                 : up.verifyReport.ok
-                  ? `✓ ${up.verifyReport.checked} archivos verificados — todo correcto.`
-                  : `✗ ${up.verifyReport.missing.length} faltan y ${up.verifyReport.corrupt.length} están corruptos. Pulsa Reparar.`}
+                  ? t("✓ {checked} archivos verificados — todo correcto.", { checked: up.verifyReport.checked })
+                  : t("✗ {length} faltan y {length2} están corruptos. Pulsa Reparar.", { length: up.verifyReport.missing.length, length2: up.verifyReport.corrupt.length })}
             </p>
           )}
         </Plate>
@@ -259,16 +264,16 @@ export function SettingsView({
 
       {/* ── Zona de restablecimiento ── */}
       <section>
-        <SectionTitle>Restablecer</SectionTitle>
+        <SectionTitle>{t("Restablecer")}</SectionTitle>
         <Plate className="flex flex-wrap items-center gap-3 p-4">
           <p className="min-w-[220px] flex-1 text-[12px] text-white/45">
-            Devuelve los ajustes o la biblioteca a su estado inicial. No afecta al cliente instalado.
+            {t("Devuelve los ajustes o la biblioteca a su estado inicial. No afecta al cliente instalado.")}
           </p>
           <NxButton size="md" variant="secondary" onClick={onReset}>
-            Ajustes por defecto
+            {t("Ajustes por defecto")}
           </NxButton>
           <NxButton size="md" variant="danger" onClick={onResetLibrary}>
-            Vaciar biblioteca
+            {t("Vaciar biblioteca")}
           </NxButton>
         </Plate>
       </section>
@@ -277,11 +282,12 @@ export function SettingsView({
 }
 
 function Row({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+  useLocale();
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-3">
       <div className="min-w-0">
-        <p className="text-[13px] font-semibold text-white/85">{label}</p>
-        {hint && <p className="mt-0.5 text-caption text-white/40">{hint}</p>}
+        <p className="text-[13px] font-semibold text-white/85">{td(label)}</p>
+        {hint && <p className="mt-0.5 text-caption text-white/40">{td(hint)}</p>}
       </div>
       {children}
     </div>

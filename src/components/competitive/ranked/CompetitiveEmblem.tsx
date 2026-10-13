@@ -15,6 +15,10 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/format";
 import type { RankChip } from "@/domain/ranked/config";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("competitive");
 
 export type EmblemState = "RANKED" | "PLACEMENT" | "UNRANKED";
 export type EmblemSize = "xl" | "lg" | "md" | "sm" | "xs";
@@ -113,18 +117,19 @@ export function CompetitiveEmblem({
   className?: string;
   animate?: boolean;
 }) {
+  useLocale();
   const reduced = useReducedMotion();
   const still = reduced || !animate;
   const ranked = state === "RANKED" && rank !== null;
   const color = ranked ? rank.color : state === "PLACEMENT" ? "#19e3ff" : "rgba(255,255,255,0.35)";
   const tier = ranked ? stepTier(rank) : 0;
   const frames = ranked ? FRAMES[tier] : 0;
-  const label = ranked ? `Rango: ${rank.label}` : state === "PLACEMENT" ? `Colocación: ${placement?.played ?? 0} de ${placement?.total ?? 5} partidas` : "Sin clasificar";
+  const label = ranked ? t("Rango: {label}", { label: td(rank.label) }) : state === "PLACEMENT" ? t("Colocación: {v} de {v2} partidas", { v: placement?.played ?? 0, v2: placement?.total ?? 5 }) : t("Sin clasificar");
   const pips = ranked && rank.division !== null ? 4 - rank.division : 0;
 
   return (
     <div
-      role="img" aria-label={position ? `${label} · puesto ${position}` : label}
+      role="img" aria-label={position ? t("{label} · puesto {position}", { label: td(label), position }) : td(label)}
       className={cn("relative grid shrink-0 place-items-center", DIM[size], className)}
       data-testid="competitive-emblem" data-state={state} data-tier={ranked ? rank.tierId : undefined} data-division={ranked ? rank.division ?? "elite" : undefined}
     >
@@ -184,11 +189,12 @@ function stepTier(rank: RankChip): number {
 
 /** Chip en línea: emblema mini + nombre escrito («Titular II») para filas y listas. */
 export function RankInline({ rank, state = "RANKED", placement, className }: { rank: RankChip | null; state?: EmblemState; placement?: { played: number; total: number }; className?: string }) {
-  const text = state === "RANKED" && rank ? rank.label : state === "PLACEMENT" ? `Colocación ${placement?.played ?? 0}/${placement?.total ?? 5}` : "Sin clasificar";
+  useLocale();
+  const text = state === "RANKED" && rank ? rank.label : state === "PLACEMENT" ? t("Colocación {v}/{v2}", { v: placement?.played ?? 0, v2: placement?.total ?? 5 }) : t("Sin clasificar");
   return (
     <span className={cn("inline-flex min-w-0 items-center gap-1.5", className)} data-testid="rank-inline" data-tier={rank?.tierId}>
       <CompetitiveEmblem rank={rank} state={state} placement={placement} size="xs" animate={false} />
-      <span className="truncate font-display text-[12.5px] font-bold uppercase tracking-[0.06em]" style={{ color: state === "RANKED" && rank ? rank.color : undefined }}>{text}</span>
+      <span className="truncate font-display text-[12.5px] font-bold uppercase tracking-[0.06em]" style={{ color: state === "RANKED" && rank ? rank.color : undefined }}>{td(text)}</span>
     </span>
   );
 }

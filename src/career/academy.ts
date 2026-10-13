@@ -14,6 +14,9 @@ import type { ClubManagement, AcademyProspect, StaffProspect, StaffRoleId } from
 import { facilityEffects } from "./facilities";
 import { STAFF_PERSONALITIES } from "./staff";
 import type { Rng } from "./rng";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 const ROLES: RoleId[] = ["Duelista", "Iniciador", "Centinela", "Controlador", "Flex"];
 /** La academia NO solo produce jugadores: también forma cuerpo técnico (Fase 5). */
@@ -104,9 +107,9 @@ export function promoteStaffProspect(mgmt: ClubManagement, prospectId: string): 
   if (!p) return null;
   const member = {
     id: `staff:${p.role}:${p.id}`, role: p.role, name: p.name, rating: p.rating,
-    salary: Math.round(600 + p.rating * 22), experience: 10, specialty: "cantera propia",
+    salary: Math.round(600 + p.rating * 22), experience: 10, specialty: t("cantera propia"),
     personality: p.personality, potential: p.potential, prestige: Math.round(p.rating * 0.5),
-    contractYears: 3, history: [`Formado en la academia (T${p.signedSeason})`],
+    contractYears: 3, history: [t("Formado en la academia (T{signedSeason})", { signedSeason: p.signedSeason })],
   };
   return { management: { ...mgmt, academyStaff: (mgmt.academyStaff ?? []).filter((x) => x.id !== prospectId) }, member };
 }

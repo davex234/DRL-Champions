@@ -72,6 +72,10 @@ import { climaxLevel, roleBanner, type RoleBanner } from "@/lib/duel/matchFlow";
 import { RoleIcon } from "./experience/RoleIcon";
 import { StatSelector } from "./arena/StatSelector";
 import { RivalStats } from "./arena/RivalStats";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 /* FASE 50 · los tonos de bando salen de la configuración de la arena: cian tú, rojo el rival. */
 const TONO_TU = ARENA_ACCENT.player;
@@ -106,6 +110,7 @@ export function MatchBoard({
    */
   waitingRival?: boolean;
 }) {
+  useLocale();
   const [card, setCard] = useState<string | null>(null);
   const [stat, setStat] = useState<CombatStatKey | null>(null);
   /*
@@ -315,7 +320,7 @@ export function MatchBoard({
             className={hudInTopBar ? "hidden" : undefined}
             left={
               <>
-                <span className="nx-label shrink-0">Turno</span>
+                <span className="nx-label shrink-0">{t("Turno")}</span>
                 {/*
                   EL TURNO CAMBIA, NO SE SUSTITUYE. Antes el número saltaba de 5 a 6 sin más:
                   la única señal de que la partida había avanzado era un glifo distinto. Con
@@ -359,7 +364,7 @@ export function MatchBoard({
                     view.youAreAttacker ? "text-[#2fe0ff]" : "text-drl",
                   )}
                 >
-                  {view.youAreAttacker ? "Atacas tú" : "Ataca el rival"}
+                  {view.youAreAttacker ? t("Atacas tú") : t("Ataca el rival")}
                 </span>
               ) : null
             }
@@ -377,7 +382,7 @@ export function MatchBoard({
                 <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-drl shadow-[0_0_10px_#ff2e63]" />
                 <span className="truncate font-display text-[12px] font-bold uppercase tracking-[0.14em] text-white">{rivalName}</span>
                 <span className="nx-label hidden !text-drl/80 sm:inline">
-                  · {view.rivalRemaining} {view.rivalRemaining === 1 ? "carta" : "cartas"}
+                  · {view.rivalRemaining} {view.rivalRemaining === 1 ? t("carta") : t("cartas")}
                 </span>
               </span>
               <RivalHand count={view.rivalRemaining} hints={view.rivalHints} roles={view.rivalRoles ?? []} />
@@ -400,7 +405,7 @@ export function MatchBoard({
             />
           </ZoneBand>
 
-          <ZoneRail tone={TONO_RIVAL} label="Zona de duelo" className="mt-[clamp(4px,0.8vh,10px)]" />
+          <ZoneRail tone={TONO_RIVAL} label={t("Zona de duelo")} className="mt-[clamp(4px,0.8vh,10px)]" />
 
           {/* ─────────── ZONA DE ENFRENTAMIENTO ─────────── */}
           <ClashBand>
@@ -428,7 +433,7 @@ export function MatchBoard({
               />
 
               {/* Carta del rival: la de arriba, porque es su lado de la mesa. */}
-              <Hueco tone={TONO_RIVAL} label="Carta rival" filled={Boolean(view.pendingRival)}>
+              <Hueco tone={TONO_RIVAL} label={t("Carta rival")} filled={Boolean(view.pendingRival)}>
                 {view.pendingRival ? (
                   /*
                    * DUEL GAMEPLAY UX 2.0 · EL RIVAL YA COMPROMETIÓ SU CARTA, BOCA ABAJO. Cae a la mesa como antes, pero es
@@ -449,7 +454,7 @@ export function MatchBoard({
                     role="img"
                     aria-label={committedLabel(view.pendingRival)}
                   >
-                    <DuelCardBack size="lg" className="!w-full" layout="committed" hint={view.pendingRival.hint} role={view.pendingRival.role} />
+                    <DuelCardBack size="lg" className="!w-full" layout="committed" hint={td(view.pendingRival.hint)} role={view.pendingRival.role} />
                   </motion.div>
                 ) : (
                   /*
@@ -480,11 +485,11 @@ export function MatchBoard({
                 youValue={valorTuyo}
                 rivalStat={ejeRival}
                 rivalValue={valorRival}
-                hint={attacking ? "Elige carta y estadística" : "Elige con qué carta respondes"}
+                hint={attacking ? t("Elige carta y estadística") : t("Elige con qué carta respondes")}
               />
 
               {/* Tu carta: la de abajo. */}
-              <Hueco tone={TONO_TU} label="Tu carta" filled={Boolean(chosen)} active={!chosen}>
+              <Hueco tone={TONO_TU} label={t("Tu carta")} filled={Boolean(chosen)} active={!chosen}>
                 {chosen && (
                   <motion.div
                     key={chosen.uid}
@@ -533,7 +538,7 @@ export function MatchBoard({
             />
           </ClashBand>
 
-          <ZoneRail tone={TONO_TU} label="Tu equipo" className="mb-[clamp(4px,0.8vh,10px)]" />
+          <ZoneRail tone={TONO_TU} label={t("Tu equipo")} className="mb-[clamp(4px,0.8vh,10px)]" />
 
           {/* ─────────── BANDA DEL JUGADOR ─────────── */}
           <ZoneBand side="jugador">
@@ -568,13 +573,13 @@ export function MatchBoard({
         */}
         <section
           data-testid="rival-panel"
-          aria-label="Carta del rival"
+          aria-label={t("Carta del rival")}
           className="hidden lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:flex lg:min-h-0 lg:flex-col lg:gap-3 lg:self-stretch lg:overflow-hidden lg:border lg:border-[#ff2e63]/25 lg:px-4 lg:py-4 lg:[contain:size]"
           style={{ background: "rgba(18,4,10,0.86)" }}
         >
           <p className="flex items-center gap-2 font-display text-[15px] font-bold tracking-[0.04em] text-white/80">
             <span aria-hidden className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: TONO_RIVAL, boxShadow: `0 0 8px ${TONO_RIVAL}` }} />
-            {rivalName ?? "Rival"}
+            {rivalName ?? t("Rival")}
           </p>
           <RivalStats card={null} stat={view.pendingRival?.stat ?? null} className="lg:flex-1" />
         </section>
@@ -583,7 +588,7 @@ export function MatchBoard({
           data-arena="controles"
           data-testid="stat-panel"
           data-choosing={chosen && (attacking || required) && !waitingRival ? "true" : "false"}
-          aria-label="Tu jugada"
+          aria-label={t("Tu jugada")}
           className={cn(
             "nx-a50-controls nx-stat-panel mx-auto flex w-full flex-col gap-2 px-3 py-[clamp(6px,1vh,10px)] sm:px-6",
             /* Hoja inferior (debajo de `lg`): canto superior marcado, en el flujo; no tapa la carta ni la mesa. */
@@ -614,18 +619,18 @@ export function MatchBoard({
                 style={{ background: ready ? TONO_TU : TONO_RIVAL, boxShadow: `0 0 8px ${ready ? TONO_TU : TONO_RIVAL}` }}
               />
               {waitingRival
-                ? "Esperando al rival…"
+                ? t("Esperando al rival…")
                 : !attacking
-                  ? "Responde con una carta"
+                  ? t("Responde con una carta")
                   : !chosen
-                    ? "Elige tu carta"
-                    : "Declara la estadística"}
+                    ? t("Elige tu carta")
+                    : t("Declara la estadística")}
             </p>
 
             {/* El cerrojo se dice, no solo se nota: qué está pasando mientras la mesa no responde. */}
             {lock.locked && lock.status && (
               <p className="mt-0.5 truncate pl-3.5 text-[11px] text-drl-cyan/90" data-lock="on" aria-live="polite">
-                {lock.status}
+                {td(lock.status)}
               </p>
             )}
 
@@ -633,8 +638,8 @@ export function MatchBoard({
 
             {error && (
               <p role="alert" className="mt-1 flex items-start gap-2 pl-3.5 text-[11px] text-drl-glow">
-                <span className="min-w-0 flex-1">{error}</span>
-                <button type="button" onClick={onDismissError} aria-label="Cerrar aviso" className="shrink-0 opacity-60 hover:opacity-100">✕</button>
+                <span className="min-w-0 flex-1">{td(error)}</span>
+                <button type="button" onClick={onDismissError} aria-label={t("Cerrar aviso")} className="shrink-0 opacity-60 hover:opacity-100">✕</button>
               </p>
             )}
           </div>
@@ -669,7 +674,7 @@ export function MatchBoard({
               className="nx-a50-cta relative w-full shrink-0 px-5 py-[clamp(10px,1.6vh,14px)] font-display text-sm font-extrabold uppercase tracking-[0.16em] transition disabled:cursor-not-allowed sm:w-auto sm:min-w-[200px] sm:self-center lg:w-full lg:py-4 lg:text-base"
             >
               {/* El texto del botón es la máquina de estados del turno (ver `lockCopy`). */}
-              {lock.button}
+              {td(lock.button)}
             </button>
           </div>
         </section>
@@ -686,12 +691,12 @@ export function MatchBoard({
           style={{ maxWidth: "var(--arena-w, 100%)" }}
           left={
             <span className="nx-label !text-[#2fe0ff]/85">
-              Tu mano · {view.yourHand.length} {view.yourHand.length === 1 ? "carta" : "cartas"}
+              {t("Tu mano ·")} {view.yourHand.length} {view.yourHand.length === 1 ? t("carta") : t("cartas")}
             </span>
           }
           right={
             <span className="nx-label hidden truncate sm:inline">
-              {view.yourDeckName} · Σ{" "}
+              {td(view.yourDeckName)} · Σ{" "}
               <b className="nx-readout text-[12px] text-white/70">{view.yourSumOvr}</b>
             </span>
           }
@@ -760,6 +765,7 @@ function MatchHistoryDrawer({
   rivalName: string;
   hasHistory: boolean;
 }) {
+  useLocale();
   const [open, setOpen] = useState(false);
 
   /* Escape cierra. Un cajón del que no se sale con Escape es un cajón roto. */
@@ -792,7 +798,7 @@ function MatchHistoryDrawer({
             "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70",
           )}
         >
-          Historial
+          {t("Historial")}
           {hasHistory && (
             <b className="nx-readout ml-1.5 text-[11px] text-white/80">{view.history.length}</b>
           )}
@@ -810,14 +816,14 @@ function MatchHistoryDrawer({
           >
             <button
               type="button"
-              aria-label="Cerrar historial"
+              aria-label={t("Cerrar historial")}
               className="absolute inset-0 bg-black/70"
               onClick={() => setOpen(false)}
             />
             <motion.aside
               role="dialog"
               aria-modal="true"
-              aria-label="Historial de la partida"
+              aria-label={t("Historial de la partida")}
               data-testid="match-history-drawer"
               initial={{ x: 40 }}
               animate={{ x: 0 }}
@@ -828,19 +834,19 @@ function MatchHistoryDrawer({
               className="relative h-full w-[min(92vw,340px)] overflow-y-auto border-l border-white/10 bg-[#080b14] p-4"
             >
               <div className="mb-3 flex items-center justify-between">
-                <h2 className="nx-label">Historial</h2>
+                <h2 className="nx-label">{t("Historial")}</h2>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
                   className="nx-label rounded-md px-2 py-1 text-white/45 hover:text-white/85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/70"
                 >
-                  Cerrar
+                  {t("Cerrar")}
                 </button>
               </div>
 
               {view.status === "IN_PROGRESS" && (
                 <div className="mb-4">
-                  <h3 className="nx-label mb-2 text-white/40">Turnos</h3>
+                  <h3 className="nx-label mb-2 text-white/40">{t("Turnos")}</h3>
                   <TurnTimeline view={view} rivalName={rivalName} layout="block" />
                 </div>
               )}
@@ -849,7 +855,7 @@ function MatchHistoryDrawer({
                 <TurnHistory turns={[...view.history].reverse()} />
               ) : (
                 <p className="rounded-xl border border-dashed border-white/10 px-3 py-4 text-center text-[11px] leading-relaxed text-white/30">
-                  Aquí se apunta cada turno en cuanto se resuelve.
+                  {t("Aquí se apunta cada turno en cuanto se resuelve.")}
                 </p>
               )}
             </motion.aside>
@@ -893,6 +899,7 @@ function Marcador({
   fuerza: number;
   className?: string;
 }) {
+  useLocale();
   const rival = lado === "rival";
   const color = rival ? TONO_RIVAL : TONO_TU;
   return (
@@ -905,7 +912,7 @@ function Marcador({
         className="mb-1 font-display text-[10px] font-bold uppercase tracking-[0.3em]"
         style={{ color: `${color}cc` }}
       >
-        {rival ? etiqueta ?? "Bot" : "Tú"}
+        {rival ? td(etiqueta) ?? t("Bot") : t("Tú")}
       </span>
       {/*
         FASE 45 · EL MARCADOR SE MUEVE SOLO CUANDO CAMBIA. El número entra desde abajo al sumar un punto (la `key` es
@@ -932,9 +939,9 @@ function Marcador({
         </span>
       </b>
       <span className="mt-1.5 max-w-[130px] truncate text-center font-display text-[10px] font-bold uppercase tracking-[0.14em] text-white/55">
-        {nombre}
+        {td(nombre)}
       </span>
-      <span className="nx-label mt-0.5" title="Suma de OVR del equipo">
+      <span className="nx-label mt-0.5" title={t("Suma de OVR del equipo")}>
         Σ <b className="nx-readout text-[12px] text-white/70">{fuerza}</b>
       </span>
     </div>
@@ -963,7 +970,7 @@ function Hueco({
       tone={tone}
       filled={filled}
       active={active}
-      label={filled ? undefined : label}
+      label={filled ? undefined : td(label)}
       /*
        * FASE 8 · EN MÓVIL, LA CARTA EN JUEGO MANDA MÁS.
        *
@@ -1023,6 +1030,7 @@ function PlacaCentral({
   rivalValue: number | null;
   hint: string;
 }) {
+  useLocale();
   return (
     <div className="flex w-[clamp(52px,9vw,86px)] shrink-0 flex-col items-center gap-1.5 md:w-[min(30vw,300px)]">
       {/*
@@ -1039,9 +1047,9 @@ function PlacaCentral({
         >
           <span className="flex items-center gap-2 font-display text-[clamp(20px,2.3vw,30px)] font-extrabold uppercase italic leading-none tracking-[0.05em]">
             <RoleIcon kind={role.kind} className="h-[0.9em] w-[0.9em]" />
-            {role.title}
+            {td(role.title)}
           </span>
-          <span className="mt-1 font-display text-[10px] font-bold uppercase tracking-[0.18em] text-white/65">{role.sub}</span>
+          <span className="mt-1 font-display text-[10px] font-bold uppercase tracking-[0.18em] text-white/65">{td(role.sub)}</span>
         </div>
       )}
       {/*
@@ -1054,7 +1062,7 @@ function PlacaCentral({
         <span className="nx-a50-vs-ring" />
         <span className="nx-a50-vs-pulse relative block">
           <span className="nx-a50-vs block font-display" data-ready={ready ? "true" : "false"}>
-            VS
+            {t("VS")}
           </span>
         </span>
       </span>
@@ -1066,7 +1074,7 @@ function PlacaCentral({
         youValue={youValue}
         rivalStat={rivalStat}
         rivalValue={rivalValue}
-        hint={hint}
+        hint={td(hint)}
       />
     </div>
   );
@@ -1075,5 +1083,5 @@ function PlacaCentral({
 /** AJUSTE · nombre accesible de la carta comprometida: boca abajo + su pista y su rol públicos (nunca quién es). */
 function committedLabel(p: NonNullable<DuelMatchView["pendingRival"]>): string {
   const pista = p.hint ? hintPresentation(p.hint)?.ariaLabel.replace(/^Carta oculta · /, "") : null;
-  return ["Carta del rival, boca abajo hasta que respondas", pista, p.role ? `rol ${p.role}` : null].filter(Boolean).join("; ");
+  return [t("Carta del rival, boca abajo hasta que respondas"), pista, p.role ? t("rol {role}", { role: td(p.role) }) : null].filter(Boolean).join("; ");
 }

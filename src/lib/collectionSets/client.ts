@@ -6,6 +6,9 @@
  */
 import { getSupabase } from "@/lib/supabase/client";
 import type { TrophyRoomView, ClaimView, SetView } from "@/server/services/collectionSets";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("collectionSets");
 
 export type { TrophyRoomView, ClaimView, SetView };
 
@@ -37,11 +40,11 @@ export async function claimCollectionSet(setId: string): Promise<ClaimView> {
   return parse(await fetch("/api/game/collection-sets", { method: "POST", headers: await headers(true), body: JSON.stringify({ action: "claim", setId }) }));
 }
 
-export function trophyErrorText(e: unknown, fallback = "No se pudo cargar la Sala de Trofeos."): string {
+export function trophyErrorText(e: unknown, fallback = tr("No se pudo cargar la Sala de Trofeos.")): string {
   if (e instanceof TrophyError) {
-    if (e.status === 429) return "Demasiadas peticiones: espera unos segundos.";
-    if (e.status === 503) return "La Sala de Trofeos no está disponible ahora mismo.";
-    if (e.status === 401) return "Tu sesión ha caducado: vuelve a entrar.";
+    if (e.status === 429) return tr("Demasiadas peticiones: espera unos segundos.");
+    if (e.status === 503) return tr("La Sala de Trofeos no está disponible ahora mismo.");
+    if (e.status === 401) return tr("Tu sesión ha caducado: vuelve a entrar.");
     if (e.status === 409 || e.status === 404) return e.message;
   }
   return fallback;

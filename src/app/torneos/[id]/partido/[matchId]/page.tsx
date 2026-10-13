@@ -13,8 +13,13 @@ import { fetchEventMatch, useLiveRefresh, LiveEventsError, type EventMatchSnapsh
 import { trackLiveEvent } from "@/lib/liveEvents/telemetry";
 import { MatchCenter } from "@/components/liveEvents/MatchCenter";
 import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("torneos");
 
 export default function PartidoPage({ params }: { params: Promise<{ id: string; matchId: string }> }) {
+  useLocale();
   const { id, matchId } = use(params);
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
@@ -24,7 +29,7 @@ export default function PartidoPage({ params }: { params: Promise<{ id: string; 
   const load = useCallback(async () => {
     setError(null);
     try { setSnap(await fetchEventMatch(matchId)); }
-    catch (e) { setError({ message: e instanceof Error ? e.message : "No se pudo leer el partido", status: e instanceof LiveEventsError ? e.status : 500 }); throw e; }
+    catch (e) { setError({ message: e instanceof Error ? e.message : t("No se pudo leer el partido"), status: e instanceof LiveEventsError ? e.status : 500 }); throw e; }
   }, [matchId]);
   useEffect(() => { if (online && !loading) void load().catch(() => null); }, [online, loading, user, load]);
   useEffect(() => { trackLiveEvent("event_match_view"); }, []);
@@ -32,11 +37,11 @@ export default function PartidoPage({ params }: { params: Promise<{ id: string; 
   const label = snap?.match.label;
   useLiveRefresh({ enabled: online && snap !== null, status: label === "EN CURSO" ? "live" : label === "FINALIZADO" ? "finished" : "upcoming", hasLive: label === "EN CURSO", reload: load });
 
-  if (!online) return <NeedsAccount what="El circuito competitivo" />;
-  if (loading || (!snap && !error)) return <Loading label="Leyendo el partido…" />;
+  if (!online) return <NeedsAccount what={t("El circuito competitivo")} />;
+  if (loading || (!snap && !error)) return <Loading label={t("Leyendo el partido…")} />;
   if (error?.status === 404 || error?.status === 400) {
-    return <EmptyState icon="🏟️" title="Partido no encontrado" hint="Puede que se haya retirado del calendario." action={{ href: `/torneos/${id}`, label: "Volver al evento" }} />;
+    return <EmptyState icon="🏟️" title={t("Partido no encontrado")} hint={t("Puede que se haya retirado del calendario.")} action={{ href: `/torneos/${id}`, label: t("Volver al evento") }} />;
   }
-  if (error && !snap) return <ErrorState message={error.message} onRetry={() => void load().catch(() => null)} />;
+  if (error && !snap) return <ErrorState message={td(error.message)} onRetry={() => void load().catch(() => null)} />;
   return <MatchCenter snap={snap!} onPickemCta={() => trackLiveEvent("event_pickem_cta")} />;
 }

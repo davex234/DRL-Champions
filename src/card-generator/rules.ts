@@ -8,6 +8,9 @@
 import type { AnalyzerResult, PlayerReport, ConfidenceLevel } from "@/analyzer";
 import type { TournamentType } from "@/engine/types";
 import type { RuleSet, Rule, AccoladeGrant, BadgeGrant } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("cardgenerator");
 
 export interface RuleEvaluation {
   grants: AccoladeGrant[];
@@ -65,7 +68,7 @@ function targetsOf(rule: Rule, analysis: AnalyzerResult): Target[] {
       const played = r.players.filter((p) => p.maps > 0);
       if (!played.length) return [];
       const best = played.reduce((a, b) => (f(b) > f(a) || (f(b) === f(a) && b.playerId < a.playerId) ? b : a));
-      return [{ playerId: best.playerId, teamId: best.teamId, value: f(best), evidence: `líder del torneo en ${kind} (${f(best)})` }];
+      return [{ playerId: best.playerId, teamId: best.teamId, value: f(best), evidence: tr("líder del torneo en {kind} ({best})", { kind: td(kind), best: f(best) }) }];
     }
     case "playerReport": {
       const f = FIELD[kind];

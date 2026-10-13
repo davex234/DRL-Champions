@@ -22,6 +22,9 @@ import { evaluateObjectives } from "./objectives";
 import { detectCareerEvents } from "./narrative";
 import { careerNews } from "./news";
 import { makeRng, seedOf } from "./rng";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("career");
 
 /**
  * Crecimiento con rendimientos decrecientes: cuanto más alto el atributo, menos sube.
@@ -54,7 +57,7 @@ function objectiveEvents(career: ManagerCareer, achievedIds: string[], at: numbe
       type: "objective_achieved" as const,
       season: career.season,
       magnitude: 40,
-      detail: `Objetivo cumplido: ${o?.text ?? id}.`,
+      detail: t("Objetivo cumplido: {v}.", { v: td(o?.text) ?? id }),
       at,
     };
   });

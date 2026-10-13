@@ -15,6 +15,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { NxButton } from "@/components/ui/NxButton";
 import { ratingWindowFor } from "@/domain/cardgame/rating";
 import { QUEUE_TTL_SECONDS } from "@/domain/cardgame/matchmaking";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("duel");
 
 export interface RankedSearchProps {
   waitingSeconds: number;
@@ -28,6 +33,7 @@ export interface RankedSearchProps {
 const mmss = (s: number) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
 export function RankedSearch({ waitingSeconds, position, rating, deckName, busy, onCancel }: RankedSearchProps) {
+  useLocale();
   const reduced = useReducedMotion();
   const win = ratingWindowFor(waitingSeconds);
   const open = win >= 100_000;
@@ -36,8 +42,8 @@ export function RankedSearch({ waitingSeconds, position, rating, deckName, busy,
 
   return (
     <section className="mx-auto flex w-full max-w-xl flex-col items-center px-4 py-8 text-center" data-testid="ranked-searching" aria-labelledby="ranked-searching-title">
-      <p className="nx-label !text-drl">Ranked · duelo PvP</p>
-      <h1 id="ranked-searching-title" className="mt-1 font-display text-[clamp(30px,7vw,48px)] font-bold uppercase leading-none tracking-wide text-white">Buscando rival</h1>
+      <p className="nx-label !text-drl">{t("Ranked · duelo PvP")}</p>
+      <h1 id="ranked-searching-title" className="mt-1 font-display text-[clamp(30px,7vw,48px)] font-bold uppercase leading-none tracking-wide text-white">{t("Buscando rival")}</h1>
 
       {/* Radar: anillos que se abren (quietos con movimiento reducido). Decorativo. */}
       <div className="relative my-7 grid h-52 w-52 place-items-center sm:h-60 sm:w-60" aria-hidden>
@@ -55,38 +61,38 @@ export function RankedSearch({ waitingSeconds, position, rating, deckName, busy,
             animate={{ rotate: 360 }} transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }} />
         )}
         <span className="relative text-center">
-          <span className="nx-label block !text-white/55">En cola</span>
+          <span className="nx-label block !text-white/55">{t("En cola")}</span>
           <span className="nx-readout block text-[40px] leading-none text-white tabular-nums" data-testid="pvp-wait">{mmss(waitingSeconds)}</span>
         </span>
       </div>
 
       <dl className="grid w-full grid-cols-3 gap-2" data-testid="ranked-search-facts">
         <div className="nx-clip-sm border border-white/10 bg-black/25 px-2 py-2">
-          <dt className="nx-label !text-[9.5px] !text-white/45">Tu rating</dt>
+          <dt className="nx-label !text-[9.5px] !text-white/45">{t("Tu rating")}</dt>
           <dd className="nx-readout text-[20px] text-white">{rating ?? "—"}</dd>
         </div>
         <div className="nx-clip-sm border border-white/10 bg-black/25 px-2 py-2">
-          <dt className="nx-label !text-[9.5px] !text-white/45">Rivales aceptables</dt>
-          <dd className="nx-readout text-[20px] text-drl-cyan" data-field="window">{open ? "Cualquiera" : `±${win}`}</dd>
+          <dt className="nx-label !text-[9.5px] !text-white/45">{t("Rivales aceptables")}</dt>
+          <dd className="nx-readout text-[20px] text-drl-cyan" data-field="window">{open ? t("Cualquiera") : `±${win}`}</dd>
         </div>
         <div className="nx-clip-sm border border-white/10 bg-black/25 px-2 py-2">
-          <dt className="nx-label !text-[9.5px] !text-white/45">Esperan más que tú</dt>
+          <dt className="nx-label !text-[9.5px] !text-white/45">{t("Esperan más que tú")}</dt>
           <dd className="nx-readout text-[20px] text-white/80">{position ?? 0}</dd>
         </div>
       </dl>
 
       <p className="mt-4 text-[13px] leading-snug text-white/65" data-testid="ranked-search-truth">
-        Solo jugadores reales: la cola ranked <b className="text-white">no tiene bots</b>. El servidor empareja por rating y abre la búsqueda cuanto más esperas.
+        {fill(t("Solo jugadores reales: la cola ranked {sinbots}. El servidor empareja por rating y abre la búsqueda cuanto más esperas.", slots("sinbots")), { sinbots: <b className="text-white">{t("no tiene bots")}</b> })}
       </p>
-      {deckName && <p className="mt-2 text-[12px] text-white/45">Con el equipo <b className="text-white/75">{deckName}</b></p>}
+      {deckName && <p className="mt-2 text-[12px] text-white/45">{fill(t("Con el equipo {nombre}", slots("nombre")), { nombre: <b className="text-white/75">{td(deckName)}</b> })}</p>}
       {quiet && (
         <p className="nx-clip-sm mt-4 border border-l-2 border-drl-gold/30 border-l-drl-gold bg-drl-gold/[0.06] px-3 py-2 text-left text-[12.5px] text-white/75" role="status" data-testid="ranked-search-quiet">
-          Ahora mismo hay poca gente buscando. Puedes seguir esperando —la búsqueda caduca en {mmss(left)}— o cancelar y volver más tarde.
+          {t("Ahora mismo hay poca gente buscando. Puedes seguir esperando —la búsqueda caduca en {tiempo}— o cancelar y volver más tarde.", { tiempo: mmss(left) })}
         </p>
       )}
 
       <div className="mt-6">
-        <NxButton variant="ghost" onClick={onCancel} disabled={busy} data-testid="ranked-cancel">Cancelar búsqueda</NxButton>
+        <NxButton variant="ghost" onClick={onCancel} disabled={busy} data-testid="ranked-cancel">{t("Cancelar búsqueda")}</NxButton>
       </div>
     </section>
   );

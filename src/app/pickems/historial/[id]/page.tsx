@@ -30,8 +30,14 @@ import { Badge } from "@/components/ui/Badge";
 import { Readout } from "@/components/ui/Readout";
 import { NxButton } from "@/components/ui/NxButton";
 import { formatCredits } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("pickems");
 
 export default function PickemHistoryDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  useLocale();
   const { id } = use(params);
   const configured = isSupabaseConfigured();
   const { user, loading: authLoading } = useAuth();
@@ -44,7 +50,7 @@ export default function PickemHistoryDetailPage({ params }: { params: Promise<{ 
   // `t` late por minuto (useNow(60_000)); el cuadro se reconstruye a ese ritmo, que es suficiente.
   const tMinute = Math.floor(t / 60_000) * 60_000;
   const ev = bundle?.event ?? null;
-  const name = ev?.events?.name ?? ev?.title ?? "Torneo";
+  const name = ev?.events?.name ?? ev?.title ?? tr("Torneo");
   const phase = ev
     ? eventPhase({ status: ev.status, eventStatus: ev.events?.status, startDate: ev.events?.start_date, endDate: ev.events?.end_date }, questions, t)
     : "finalizado";
@@ -64,54 +70,55 @@ export default function PickemHistoryDetailPage({ params }: { params: Promise<{ 
     <section className="animate-rise">
       <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <Link href="/pickems/historial" className="nx-focus text-[13px] text-drl underline-offset-2 hover:underline">
-          ← Mi historial
+          {tr("← Mi historial")}
         </Link>
-        <NxButton variant="tertiary" size="md" href="/pickems">Ir a Pick&apos;ems →</NxButton>
+        <NxButton variant="tertiary" size="md" href="/pickems">{tr("Ir a Pick'ems →")}</NxButton>
       </header>
 
       {!configured || (!authLoading && !user) ? (
-        <NeedsAccount what="Tus predicciones" />
+        <NeedsAccount what={tr("Tus predicciones")} />
       ) : loading && !bundle ? (
-        <Loading label="Cargando el torneo" />
+        <Loading label={tr("Cargando el torneo")} />
       ) : error && !bundle ? (
-        <ErrorState message={error} onRetry={retry} />
+        <ErrorState message={td(error)} onRetry={retry} />
       ) : !ev ? (
-        <ErrorState message="Este torneo no existe o ya no está disponible." onRetry={retry} />
+        <ErrorState message={tr("Este torneo no existe o ya no está disponible.")} onRetry={retry} />
       ) : (
         <div className="space-y-5">
-          <Stage tone={phase === "activo" ? "cyan" : "neutral"} grid className="p-5 sm:p-6" aria-label="Resumen del torneo">
+          <Stage tone={phase === "activo" ? "cyan" : "neutral"} grid className="p-5 sm:p-6" aria-label={tr("Resumen del torneo")}>
             <div className="flex flex-wrap items-center gap-2">
-              <Badge tone={phase === "activo" ? "key" : phase === "proximo" ? "info" : "muted"} dot>{PHASE_LABEL[phase]}</Badge>
+              <Badge tone={phase === "activo" ? "key" : phase === "proximo" ? "info" : "muted"} dot>{td(PHASE_LABEL[phase])}</Badge>
               {ev.events?.source === "demo" && <DemoBadge />}
-              {phase !== "activo" && <Badge tone="muted">Solo lectura</Badge>}
+              {phase !== "activo" && <Badge tone="muted">{tr("Solo lectura")}</Badge>}
             </div>
             <h1 className="mt-2 font-display text-[clamp(24px,4vw,40px)] font-bold uppercase leading-none text-white">{name}</h1>
 
             {participated ? (
-              <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-5" aria-label="Tu resultado en este torneo">
-                <Readout size="md" label="Predicciones" value={`${p.answered} / ${p.total}`} />
-                <Readout size="md" label="Acertadas" value={String(p.hits)} tone="var(--nx-ok)" />
-                <Readout size="md" label="Falladas" value={String(p.misses)} tone="var(--nx-bad)" />
-                <Readout size="md" label="Puntos" value={score ? formatCredits(score.points) : "—"} tone="var(--nx-gold)" />
-                <Readout size="md" label="Posición" value={position ? `#${position}` : score ? "+100" : "Sin clasificar"} tone={position ? "var(--nx-accent)" : undefined} />
+              <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-5" aria-label={tr("Tu resultado en este torneo")}>
+                <Readout size="md" label={tr("Predicciones")} value={`${p.answered} / ${p.total}`} />
+                <Readout size="md" label={tr("Acertadas")} value={String(p.hits)} tone="var(--nx-ok)" />
+                <Readout size="md" label={tr("Falladas")} value={String(p.misses)} tone="var(--nx-bad)" />
+                <Readout size="md" label={tr("Puntos")} value={score ? formatCredits(score.points) : "—"} tone="var(--nx-gold)" />
+                <Readout size="md" label={tr("Posición")} value={position ? `#${position}` : score ? "+100" : tr("Sin clasificar")} tone={position ? "var(--nx-accent)" : undefined} />
               </div>
             ) : (
-              <p className="mt-3 text-body text-ink-muted">No participaste en este torneo.</p>
+              <p className="mt-3 text-body text-ink-muted">{tr("No participaste en este torneo.")}</p>
             )}
 
             {reward?.tier && (
-              <p className="mt-3"><Badge tone="gold" solid>Recompensa conseguida · {reward.tier.label}</Badge></p>
+              <p className="mt-3"><Badge tone="gold" solid>{tr("Recompensa conseguida · {premio}", { premio: td(reward.tier.label) })}</Badge></p>
             )}
             {phase === "activo" && (
               <p className="mt-3 text-caption text-ink-muted">
-                Este torneo sigue abierto: para cambiar una predicción ve a{" "}
-                <Link href="/pickems" className="text-drl underline-offset-2 hover:underline">Pick&apos;ems</Link>.
+                {fill(tr("Este torneo sigue abierto: para cambiar una predicción ve a {enlace}.", slots("enlace")), {
+                  enlace: <Link href="/pickems" className="text-drl underline-offset-2 hover:underline">{tr("Pick'ems")}</Link>,
+                })}
               </p>
             )}
           </Stage>
 
           {questions.length === 0 ? (
-            <p className="text-body text-ink-muted">Este torneo no tiene preguntas publicadas.</p>
+            <p className="text-body text-ink-muted">{tr("Este torneo no tiene preguntas publicadas.")}</p>
           ) : useBracket && model ? (
             <BracketPickemView
               model={model}

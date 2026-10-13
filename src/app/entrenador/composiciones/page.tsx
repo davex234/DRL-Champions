@@ -27,6 +27,10 @@ import { CoachIcon } from "@/components/coach/tc/CoachIcons";
 import { fetchCompositions, saveComposition, deleteComposition, TacticsError } from "@/lib/tactics/client";
 import { cn } from "@/lib/format";
 import { playerMessage } from "@/components/ui/game/GameStates";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("entrenador");
 
 /** `useSearchParams` necesita su frontera de Suspense o `next build` aborta el prerender. */
 export default function ComposicionesPage() {
@@ -38,6 +42,7 @@ export default function ComposicionesPage() {
 }
 
 function ComposicionesLab() {
+  useLocale();
   const { user, loading } = useAuth();
   const router = useRouter();
   const params = useSearchParams();
@@ -59,7 +64,7 @@ function ComposicionesLab() {
   const recargar = useCallback(async () => {
     setCargando(true);
     try { setTodas(await fetchCompositions()); }
-    catch (e) { setError(e instanceof Error ? e.message : "No se pudieron cargar"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("No se pudieron cargar")); }
     finally { setCargando(false); }
   }, []);
 
@@ -106,7 +111,7 @@ function ComposicionesLab() {
       await recargar();
     } catch (e) {
       // El mensaje del servidor es el bueno: dice exactamente qué regla se ha roto.
-      setError(e instanceof TacticsError ? e.message : "No se pudo guardar");
+      setError(e instanceof TacticsError ? e.message : t("No se pudo guardar"));
     } finally {
       setGuardando(false);
     }
@@ -122,37 +127,37 @@ function ComposicionesLab() {
 
   const borrar = useCallback(async (c: Composition) => {
     try { await deleteComposition(c.id); setConfirmando(null); await recargar(); }
-    catch (e) { setError(e instanceof Error ? e.message : "No se pudo borrar"); }
+    catch (e) { setError(e instanceof Error ? e.message : t("No se pudo borrar")); }
   }, [recargar]);
 
   if (loading) return null;
-  if (!user) return <NeedsAccount what="tus composiciones" />;
+  if (!user) return <NeedsAccount what={t("tus composiciones")} />;
 
   return (
     <main className="w-full pb-8" data-testid="composition-lab">
       <CoachHeader
-        kicker="Tactical Coach · Composiciones"
-        title={<>Team <span className="text-[#2fe0ff]">Composition</span> Lab</>}
-        line="Cinco agentes del roster real por mapa. Elige el mapa, llena los cinco puestos y guárdala para llevarla a la pizarra y al plan de partido."
+        kicker={t("Tactical Coach · Composiciones")}
+        title={<>{t("Team")} <span className="text-[#2fe0ff]">{t("Composition")}</span> {t("Lab")}</>}
+        line={t("Cinco agentes del roster real por mapa. Elige el mapa, llena los cinco puestos y guárdala para llevarla a la pizarra y al plan de partido.")}
         actions={
           <>
-            <Link href="/entrenador" className="nx-coach-btn" data-variant="ghost" data-size="sm">← El Entrenador</Link>
-            <Link href="/entrenador/strats" className="nx-coach-btn" data-variant="ghost" data-size="sm">Ir a la pizarra →</Link>
+            <Link href="/entrenador" className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("← El Entrenador")}</Link>
+            <Link href="/entrenador/strats" className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("Ir a la pizarra →")}</Link>
           </>
         }
       />
       {volverAJugar && (
         <p data-testid="back-to-play" className="nx-coach-panel-flat mb-4 flex flex-wrap items-center gap-3 px-4 py-3 text-[13px] text-white/80">
-          <b className="font-display uppercase tracking-[0.12em] text-[#2fe0ff]">Jugar</b>
-          Crea la composición para {mapa?.name ?? mapId}: al guardarla vuelves directamente a tu partida.
-          <Link href={`/entrenador/jugar?paso=composicion&map=${encodeURIComponent(mapId)}`} className="nx-coach-btn ml-auto" data-variant="ghost" data-size="sm">Volver sin guardar</Link>
+          <b className="font-display uppercase tracking-[0.12em] text-[#2fe0ff]">{t("Jugar")}</b>
+          {t("Crea la composición para {map}: al guardarla vuelves directamente a tu partida.", { map: mapa?.name ?? mapId })}
+          <Link href={`/entrenador/jugar?paso=composicion&map=${encodeURIComponent(mapId)}`} className="nx-coach-btn ml-auto" data-variant="ghost" data-size="sm">{t("Volver sin guardar")}</Link>
         </p>
       )}
 
       {/* ═══ LOS DOCE MAPAS: la planta se reconoce antes que el nombre ═══ */}
       <div
         role="radiogroup"
-        aria-label="Mapa"
+        aria-label={t("Mapa")}
         className="mb-5 grid grid-cols-4 gap-1.5 sm:grid-cols-6 xl:grid-cols-12"
         data-testid="map-selector"
       >
@@ -167,7 +172,7 @@ function ComposicionesLab() {
               aria-checked={on}
               data-testid={`map-${m.id}`}
               onClick={() => { setMapId(m.id); setEditando(null); }}
-              title={`${m.name} · ${m.sites} sitios`}
+              title={t("{name} · {sites} sitios", { name: m.name, sites: m.sites })}
               className={cn(
                 "group relative min-w-0 overflow-hidden p-1 text-left transition duration-150",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2fe0ff]",
@@ -192,14 +197,14 @@ function ComposicionesLab() {
 
       <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
         {/* ═══ EL LABORATORIO: constructor o fichas ═══ */}
-        <section className="nx-coach-panel min-w-0 px-4 py-5 sm:px-6" aria-label={`Composiciones de ${mapa?.name ?? mapId}`}>
+        <section className="nx-coach-panel min-w-0 px-4 py-5 sm:px-6" aria-label={t("Composiciones de {v}", { v: mapa?.name ?? mapId })}>
           {editando ? (
             <CompositionBuilder
               mapId={mapId}
               mapName={mapa?.name ?? mapId}
               value={editando === "nueva" ? null : editando}
               saving={guardando}
-              error={error}
+              error={td(error)}
               onSave={guardar}
               onCancel={() => { setEditando(null); setError(null); }}
             />
@@ -207,7 +212,7 @@ function ComposicionesLab() {
             <>
               <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <p className="nx-coach-kicker">
-                  {cargando ? "Cargando…" : `${delMapa.length} en ${mapa?.name ?? mapId}`}
+                  {cargando ? t("Cargando…") : t("{length} en {v}", { length: delMapa.length, v: mapa?.name ?? mapId })}
                 </p>
                 <button
                   type="button"
@@ -215,7 +220,7 @@ function ComposicionesLab() {
                   onClick={() => { setEditando("nueva"); setError(null); }}
                   className="nx-coach-btn"
                 >
-                  + Nueva composición
+                  {t("+ Nueva composición")}
                 </button>
               </div>
 
@@ -225,9 +230,9 @@ function ComposicionesLab() {
                 <div className="grid place-items-center gap-3 px-4 py-12 text-center">
                   <span className="text-[#2fe0ff]/70"><CoachIcon name="comp" size={40} /></span>
                   <p className="font-display text-[16px] font-bold uppercase tracking-[0.08em] text-white">
-                    Todavía no hay composiciones en {mapa?.name ?? mapId}.
+                    {t("Todavía no hay composiciones en {mapa}.", { mapa: mapa?.name ?? mapId })}
                   </p>
-                  <p className="nx-coach-muted max-w-sm text-[13px]">Monta los cinco que jugarán este mapa. Se puede guardar a medias.</p>
+                  <p className="nx-coach-muted max-w-sm text-[13px]">{t("Monta los cinco que jugarán este mapa. Se puede guardar a medias.")}</p>
                 </div>
               ) : (
                 <ul className="grid gap-3 md:grid-cols-2" data-testid="composition-list">
@@ -246,7 +251,7 @@ function ComposicionesLab() {
                         <div className="flex items-baseline justify-between gap-2">
                           <b className="min-w-0 truncate font-display text-[16px] font-extrabold uppercase tracking-[0.05em] text-white">{c.name}</b>
                           <span className={cn("nx-label shrink-0", isComplete(c) ? "!text-[rgb(63,214,150)]" : "!text-[#ffd35c]")}>
-                            {c.agentIds.length} / 5{c.primary ? " · Principal" : ""}
+                            {c.agentIds.length} / 5{c.primary ? (" " + t("· Principal")) : ""}
                           </span>
                         </div>
 
@@ -255,21 +260,21 @@ function ComposicionesLab() {
                         </div>
                         {antiguos.length > 0 && (
                           <span data-testid={`legacy-${c.id}`} className="self-start px-2 py-0.5 font-display text-[10px] font-bold uppercase tracking-[0.14em] text-[#9aa4bf] shadow-[inset_0_0_0_1px_rgba(154,164,191,0.45)]">
-                            Modelo anterior · {antiguos.length} {antiguos.length === 1 ? "agente" : "agentes"} por sustituir
+                            {t("{n, plural, one {Modelo anterior · {n} agente por sustituir} other {Modelo anterior · {n} agentes por sustituir}}", { n: antiguos.length })}
                           </span>
                         )}
 
                         <div className="mt-auto flex flex-wrap items-center gap-1.5 border-t border-[rgba(47,224,255,0.1)] pt-2.5">
-                          <button type="button" onClick={() => setEditando(c)} data-testid={`edit-${c.id}`} className="nx-coach-btn" data-variant="ghost" data-size="sm">Editar</button>
-                          <button type="button" onClick={() => void duplicar(c)} className="nx-coach-btn" data-variant="ghost" data-size="sm">Duplicar</button>
+                          <button type="button" onClick={() => setEditando(c)} data-testid={`edit-${c.id}`} className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("Editar")}</button>
+                          <button type="button" onClick={() => void duplicar(c)} className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("Duplicar")}</button>
                           {confirmando === c.id ? (
                             <span className="flex flex-wrap items-center gap-1.5" data-testid={`confirm-${c.id}`}>
-                              <span className="text-[11px] text-white/55">¿Seguro? Las jugadas que la usaban se quedan sin composición.</span>
-                              <button type="button" onClick={() => void borrar(c)} className="nx-coach-btn" data-variant="mag" data-size="sm">Sí, borrar</button>
-                              <button type="button" onClick={() => setConfirmando(null)} className="nx-coach-btn" data-variant="ghost" data-size="sm">No</button>
+                              <span className="text-[11px] text-white/55">{t("¿Seguro? Las jugadas que la usaban se quedan sin composición.")}</span>
+                              <button type="button" onClick={() => void borrar(c)} className="nx-coach-btn" data-variant="mag" data-size="sm">{t("Sí, borrar")}</button>
+                              <button type="button" onClick={() => setConfirmando(null)} className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("No")}</button>
                             </span>
                           ) : (
-                            <button type="button" onClick={() => setConfirmando(c.id)} className="ml-auto min-h-[36px] px-3 font-display text-[11px] font-bold uppercase tracking-[0.14em] text-[#ff5aa8] shadow-[inset_0_0_0_1px_rgba(255,46,140,0.45)] hover:bg-[rgba(255,46,140,0.1)]">Borrar</button>
+                            <button type="button" onClick={() => setConfirmando(c.id)} className="ml-auto min-h-[36px] px-3 font-display text-[11px] font-bold uppercase tracking-[0.14em] text-[#ff5aa8] shadow-[inset_0_0_0_1px_rgba(255,46,140,0.45)] hover:bg-[rgba(255,46,140,0.1)]">{t("Borrar")}</button>
                           )}
                         </div>
                       </li>
@@ -283,7 +288,7 @@ function ComposicionesLab() {
 
         {/* ═══ EL MAPA ELEGIDO: la planta grande y los atajos ═══ */}
         {mapa && (
-          <aside className="nx-coach-panel-flat order-first h-fit p-3 xl:order-none xl:sticky xl:top-4" aria-label={`Mapa ${mapa.name}`}>
+          <aside className="nx-coach-panel-flat order-first h-fit p-3 xl:order-none xl:sticky xl:top-4" aria-label={t("Mapa {name}", { name: mapa.name })}>
             <div className="relative aspect-square overflow-hidden bg-[#040810] shadow-[inset_0_0_0_1px_rgba(47,224,255,0.2)]">
               <MapThumb map={mapa} priority />
               <span aria-hidden className="nx-coach-corner" data-c="tl" /><span aria-hidden className="nx-coach-corner" data-c="tr" />
@@ -291,12 +296,12 @@ function ComposicionesLab() {
             </div>
             <div className="mt-3 flex items-baseline justify-between gap-2">
               <b className="font-display text-[22px] font-extrabold uppercase leading-none text-white">{mapa.name}</b>
-              <span className="nx-label !text-[#2fe0ff]">{mapa.sites} sitios</span>
+              <span className="nx-label !text-[#2fe0ff]">{mapa.sites} {t("sitios")}</span>
             </div>
-            <p className="nx-coach-muted mt-1.5 text-[12.5px] leading-snug">{mapa.identity}</p>
+            <p className="nx-coach-muted mt-1.5 text-[12.5px] leading-snug">{td(mapa.identity)}</p>
             <div className="mt-3 grid grid-cols-2 gap-1.5">
-              <Link href="/entrenador/strats" className="nx-coach-btn" data-variant="ghost" data-size="sm">Pizarra</Link>
-              <Link href={`/entrenador/mapas#${mapa.id}`} className="nx-coach-btn" data-variant="ghost" data-size="sm">Estudiar</Link>
+              <Link href="/entrenador/strats" className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("Pizarra")}</Link>
+              <Link href={`/entrenador/mapas#${mapa.id}`} className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("Estudiar")}</Link>
             </div>
           </aside>
         )}

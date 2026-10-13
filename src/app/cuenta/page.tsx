@@ -35,6 +35,7 @@ import { useEconomyView } from "@/lib/game/serverEconomy";
 import { Toast } from "@/components/ui/Toast";
 import { AudioSettingsPanel } from "@/components/ui/game/AudioSettingsPanel";
 import { OpeningAnimationSettings } from "@/components/ui/game/OpeningAnimationSettings";
+import { LanguageSettings } from "@/components/ui/game/LanguageSettings";
 import { useToast } from "@/lib/useToast";
 import { formatCredits, cn } from "@/lib/format";
 import { equippedDefs } from "@/domain/cosmetics/catalog";
@@ -67,6 +68,11 @@ import { playerMessage } from "@/components/ui/game/GameStates";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AccountHub, accountSectionOf } from "@/components/account/AccountHub";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("cuenta");
 
 
 
@@ -79,6 +85,7 @@ const NO_CARDS: ReturnType<typeof useGameStore.getState>["ownedCards"] = [];
  * pasa a ser la pestaña CUENTA de MI CUENTA. Su lógica no cambia.
  */
 function AccountSettings() {
+  useLocale();
   const { configured, loading, user, profile, signOut, refreshProfile, recovering } = useAuth();
   const { toast, notify } = useToast();
   const [savingAvatar, setSavingAvatar] = useState<string | null>(null);
@@ -154,7 +161,7 @@ function AccountSettings() {
     const { error } = await getSupabase()!.from("profiles").update({ avatar }).eq("id", user.id);
     await refreshProfile();
     setSavingAvatar(null);
-    notify(error ? "No se pudo cambiar el avatar" : "Avatar actualizado", !error);
+    notify(error ? t("No se pudo cambiar el avatar") : t("Avatar actualizado"), !error);
   }
 
   if (!configured) {
@@ -163,8 +170,8 @@ function AccountSettings() {
         <Header />
         <EmptyState
           icon="📦"
-          title="Modo local"
-          hint="Estás jugando con tu progreso guardado en este dispositivo. Para competir en torneos, Pick'ems y clasificación hace falta una cuenta online."
+          title={t("Modo local")}
+          hint={t("Estás jugando con tu progreso guardado en este dispositivo. Para competir en torneos, Pick'ems y clasificación hace falta una cuenta online.")}
         />
       </section>
     );
@@ -172,7 +179,7 @@ function AccountSettings() {
 
   // F69 · CLS: mientras carga, la página reserva la altura de la pantalla; si no, el pie («Instalar NEXUS») entraba en
   // pantalla y saltaba abajo al llegar la ficha (0,068 del CLS a 1440).
-  if (loading) return <><Header /><div className="min-h-screen"><Loading label="Cargando tu perfil" /></div></>;
+  if (loading) return <><Header /><div className="min-h-screen"><Loading label={t("Cargando tu perfil")} /></div></>;
 
   // F67 · vuelta desde el correo de «recuperar contraseña»: primero se fija la nueva.
   if (recovering) {
@@ -188,6 +195,7 @@ function AccountSettings() {
     return (
       <section className="animate-rise">
         <Header signedOut />
+        <LanguageSettings compact className="mx-auto mb-4 max-w-md" />
         <AuthForms />
       </section>
     );
@@ -262,10 +270,10 @@ function AccountSettings() {
                 className="nx-clip-sm px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-[0.14em]"
                 style={{ background: `${display.color}22`, color: display.color }}
               >
-                {display.label}
+                {td(display.label)}
               </span>
               {profile.region && (
-                <span className="nx-label">{REGION_LABEL[profile.region as RankRegion]}</span>
+                <span className="nx-label">{td(REGION_LABEL[profile.region as RankRegion])}</span>
               )}
             </div>
 
@@ -280,10 +288,10 @@ function AccountSettings() {
                 <span
                   className="nx-clip-sm inline-flex items-center gap-1.5 px-2.5 py-1 font-display text-[11px] font-bold uppercase tracking-[0.12em]"
                   style={{ background: `${look.banderin.color}22`, color: look.banderin.color }}
-                  title={`Banderín: ${look.banderin.label}`}
+                  title={t("Banderín: {label}", { label: td(look.banderin.label) })}
                 >
                   <span aria-hidden>{look.banderin.glyph ?? "⬢"}</span>
-                  {look.banderin.label}
+                  {td(look.banderin.label)}
                 </span>
               )}
             </h1>
@@ -296,7 +304,7 @@ function AccountSettings() {
                     className="font-display text-[13px] font-bold uppercase tracking-[0.16em]"
                     style={{ color: look.titulo.color }}
                   >
-                    {look.titulo.label}
+                    {td(look.titulo.label)}
                   </span>
                 )}
                 {/*
@@ -308,10 +316,10 @@ function AccountSettings() {
                   <span
                     className="inline-flex items-center gap-1.5 font-display text-[11px] font-bold uppercase tracking-[0.14em]"
                     style={{ color: look.insignia.color }}
-                    title={`Insignia: ${look.insignia.label}`}
+                    title={t("Insignia: {label}", { label: td(look.insignia.label) })}
                   >
                     <span aria-hidden>{look.insignia.glyph ?? "◆"}</span>
-                    {look.insignia.label}
+                    {td(look.insignia.label)}
                   </span>
                 )}
               </p>
@@ -330,13 +338,13 @@ function AccountSettings() {
                 usa el armazón. La columna se queda donde está —no se toca el esquema— y el
                 arreglo del dato queda documentado como deuda.
               */}
-              <span>Nivel {nivel.level}</span>
+              <span>{t("Nivel")} {nivel.level}</span>
               <span aria-hidden>·</span>
-              <span>{formatCredits(profile.xp)} XP</span>
+              <span>{formatCredits(profile.xp)} {t("XP")}</span>
               {/* F69 · F68-013: el puesto es de la clasificación por PUNTOS, no del ranked (rating). */}
-              {position != null && (<><span aria-hidden>·</span><span>#{position} del mundo en puntos</span></>)}
+              {position != null && (<><span aria-hidden>·</span><span>{t("#{pos} del mundo en puntos", { pos: position })}</span></>)}
               {regionPosition != null && profile.region && (
-                <><span aria-hidden>·</span><span>#{regionPosition} de {REGION_LABEL[profile.region as RankRegion]}</span></>
+                <><span aria-hidden>·</span><span>{t("#{pos} de {region}", { pos: regionPosition, region: td(REGION_LABEL[profile.region as RankRegion]) })}</span></>
               )}
             </p>
 
@@ -348,28 +356,28 @@ function AccountSettings() {
             */}
             <div className="mt-4 max-w-lg space-y-3">
               <Barra
-                titulo="Nivel"
+                titulo={t("Nivel")}
                 valor={nivel.level}
                 progreso={nivel.progress}
                 color="var(--nx-cyan)"
-                pie={`${formatCredits(nivel.xpIntoLevel)} / ${formatCredits(nivel.xpForNext)} XP para el nivel ${nivel.level + 1}`}
-                etiqueta={`Progreso hacia el nivel ${nivel.level + 1}`}
+                pie={t("{xpIntoLevel} / {xpForNext} XP para el nivel {v}", { xpIntoLevel: formatCredits(nivel.xpIntoLevel), xpForNext: formatCredits(nivel.xpForNext), v: nivel.level + 1 })}
+                etiqueta={t("Progreso hacia el nivel {v}", { v: nivel.level + 1 })}
               />
 
               {rank.unranked ? (
                 <p className="max-w-md text-[13px] text-white/55">
-                  Todavía no tienes puntos. Gana duelos contra el bot o acierta predicciones de Pick&apos;ems para entrar en los rangos de puntos.
+                  {t("Todavía no tienes puntos. Gana duelos contra el bot o acierta predicciones de Pick'ems para entrar en los rangos de puntos.")}
                 </p>
               ) : (
                 <Barra
-                  titulo="Rango de puntos"
+                  titulo={t("Rango de puntos")}
                   valor={display.label}
                   progreso={rank.progress}
                   color={display.color}
                   pie={rank.next
-                    ? `${rank.toNext} puntos para ${rank.next.label}`
-                    : display.champion ? "Primero del mundo" : "Rango de puntos máximo alcanzado"}
-                  etiqueta={rank.next ? `Progreso hacia ${rank.next.label}` : "Rango de puntos máximo"}
+                    ? t("{toNext} puntos para {label}", { toNext: rank.toNext, label: td(rank.next.label) })
+                    : display.champion ? t("Primero del mundo") : t("Rango de puntos máximo alcanzado")}
+                  etiqueta={rank.next ? t("Progreso hacia {label}", { label: td(rank.next.label) }) : t("Rango de puntos máximo")}
                 />
               )}
             </div>
@@ -388,8 +396,8 @@ function AccountSettings() {
               } : undefined}
               aria-label={
                 look.avatar
-                  ? `Avatar: ${look.avatar.label}${look.marco ? ` con marco ${look.marco.label}` : ""}`
-                  : `Avatar: ${profile.avatar}`
+                  ? t("Avatar: {label}{v}", { label: td(look.avatar.label), v: look.marco ? t(" con marco {label}", { label: look.marco.label }) : "" })
+                  : t("Avatar: {avatar}", { avatar: profile.avatar })
               }
             >
               {look.avatar
@@ -405,7 +413,7 @@ function AccountSettings() {
               onClick={() => signOut()}
               className="nx-focus nx-clip-sm min-h-[44px] border border-white/15 px-3.5 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/60 transition hover:border-white/35 hover:text-white"
             >
-              Cerrar sesión
+              {t("Cerrar sesión")}
             </button>
           </div>
         </div>
@@ -418,20 +426,20 @@ function AccountSettings() {
         {/* F69 · CLS: la tira se pinta siempre; mientras cargan, las cifras del servidor salen como «—» (nunca
             inventadas). Antes un cargador de otra altura ocupaba su sitio y empujaba todo lo de debajo al llegar. */}
         <div className="relative flex flex-wrap gap-x-8 gap-y-4 border-t border-edge bg-black/30 px-5 py-3 sm:px-9" aria-busy={statsLoading} data-testid="cuenta-stats">
-          <Readout label="Puntos" value={String(points)} accent="#ffd35c" href="/ranking" />
-          <Readout label="Torneos" value={statsLoading ? "—" : String(pickems.events)} href="/pickems" />
+          <Readout label={t("Puntos")} value={String(points)} accent="#ffd35c" href="/ranking" />
+          <Readout label={t("Torneos")} value={statsLoading ? "—" : String(pickems.events)} href="/pickems" />
           <Readout
-            label="Aciertos"
+            label={t("Aciertos")}
             value={!statsLoading && pickems.total > 0 ? `${pickems.correct}/${pickems.total}` : "—"}
-            foot={!statsLoading && accuracy != null ? `${accuracy}% de acierto` : undefined}
+            foot={!statsLoading && accuracy != null ? t("{accuracy}% de acierto", { accuracy }) : undefined}
           />
-          <Readout label="Recompensas" value={statsLoading ? "—" : String(rewards)} href="/recompensas" />
+          <Readout label={t("Recompensas")} value={statsLoading ? "—" : String(rewards)} href="/recompensas" />
           <Readout
-            label="Colección" value={collectionReady ? String(distinct) : "—"} suffix={`/${TOTAL_CARDS}`}
-            foot={collectionReady ? `${ownedCards.length} cartas` : undefined} accent="#7b5cff" href="/coleccion"
+            label={t("Colección")} value={collectionReady ? String(distinct) : "—"} suffix={`/${TOTAL_CARDS}`}
+            foot={collectionReady ? t("{n} cartas", { n: ownedCards.length }) : undefined} accent="#7b5cff" href="/coleccion"
           />
-          <Readout label="Sobres" value={statsLoading ? "—" : String(packs)} href={!statsLoading && packs > 0 ? "/inventario" : "/tienda"} />
-          <Readout label="DRL Credits" value={formatCredits(profile.credits)} accent="#ffd35c" />
+          <Readout label={t("Sobres")} value={statsLoading ? "—" : String(packs)} href={!statsLoading && packs > 0 ? "/inventario" : "/tienda"} />
+          <Readout label={t("DRL Credits")} value={formatCredits(profile.credits)} accent="#ffd35c" />
         </div>
       </div>
 
@@ -451,11 +459,11 @@ function AccountSettings() {
         de ser una vitrina.
       */}
       {prestige && prestige.owned.length > 0 && (
-        <section aria-label="Prestigio">
+        <section aria-label={t("Prestigio")}>
           <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
-            <h2 className="nx-label">Prestigio</h2>
+            <h2 className="nx-label">{t("Prestigio")}</h2>
             <span className="nx-label text-[9px]">
-              {prestige.totals.purchased} de {prestige.totals.eligible} insignias mejoradas
+              {t("{n} de {total} insignias mejoradas", { n: prestige.totals.purchased, total: prestige.totals.eligible })}
             </span>
           </div>
           <ul className="flex flex-wrap gap-2">
@@ -469,13 +477,13 @@ function AccountSettings() {
                 <span aria-hidden className="text-[15px]" style={{ color: o.color }}>◈</span>
                 <span>
                   <span className="block font-display text-[12.5px] font-bold uppercase tracking-[0.05em] text-white">
-                    {o.label}
+                    {td(o.label)}
                   </span>
                   <span
                     className="block font-display text-[9px] font-bold uppercase tracking-[0.16em]"
                     style={{ color: o.color }}
                   >
-                    {o.tierLabel}
+                    {td(o.tierLabel)}
                   </span>
                 </span>
               </li>
@@ -486,10 +494,10 @@ function AccountSettings() {
 
       {/* ═══════════════ VITRINA ═══════════════ */}
       {showcase.length > 0 && (
-        <section aria-label="Lo mejor de tu colección">
+        <section aria-label={t("Lo mejor de tu colección")}>
           <div className="mb-3 flex items-baseline justify-between gap-3">
-            <h2 className="nx-label">Lo mejor de tu colección</h2>
-            <Link href="/coleccion" className="nx-action">Ver todas →</Link>
+            <h2 className="nx-label">{t("Lo mejor de tu colección")}</h2>
+            <Link href="/coleccion" className="nx-action">{t("Ver todas →")}</Link>
           </div>
           <div className="flex flex-wrap gap-4">
             {showcase.map((c, i) => {
@@ -522,9 +530,9 @@ function AccountSettings() {
         las estadísticas —doce emoji desplegados nada más entrar— y eso es lo que hacía que
         el perfil se leyera como la pantalla de ajustes de una cuenta.
       */}
-      <section aria-label="Ajustes del perfil">
+      <section aria-label={t("Ajustes del perfil")}>
         <Plate className="space-y-5 p-5">
-        <SectionTitle as="h2">Ajustes</SectionTitle>
+        <SectionTitle as="h2">{t("Ajustes")}</SectionTitle>
 
         {/* Fase 44 · sonido: general, efectos y silencio (solo en este dispositivo). */}
         <AudioSettingsPanel className="max-w-md" />
@@ -532,15 +540,18 @@ function AccountSettings() {
         {/* WALKOUT 0.8 · animaciones de apertura (solo en este dispositivo) */}
         <OpeningAnimationSettings className="max-w-md" />
 
+        {/* I18N · idioma del juego (dispositivo y, con sesión, cuenta) */}
+        <LanguageSettings className="max-w-md" />
+
         <div>
-          <SectionTitle as="h3">Avatar</SectionTitle>
+          <SectionTitle as="h3">{t("Avatar")}</SectionTitle>
           <div className="flex flex-wrap gap-2">
             {AVATARS.map((a) => (
               <button
                 key={a}
                 onClick={() => setAvatar(a)}
                 disabled={savingAvatar !== null}
-                aria-label={`Elegir avatar ${a}`}
+                aria-label={t("Elegir avatar {a}", { a: td(a) })}
                 aria-pressed={profile.avatar === a}
                 /*
                   FASE 11 · 44 px, no 40, y chaflán en vez de `rounded-lg`. Doce avatares
@@ -554,7 +565,7 @@ function AccountSettings() {
                     : "bg-white/5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] hover:bg-white/10",
                 )}
               >
-                {a}
+                {td(a)}
               </button>
             ))}
           </div>
@@ -567,7 +578,7 @@ function AccountSettings() {
           y eso es exactamente lo que dice el texto de abajo.
         */}
         <div>
-          <SectionTitle as="h3">Región competitiva</SectionTitle>
+          <SectionTitle as="h3">{t("Región competitiva")}</SectionTitle>
           <div className="flex flex-wrap gap-1.5">
             {RANK_REGIONS.map((rg) => (
               <button
@@ -582,9 +593,9 @@ function AccountSettings() {
                     const next: RankRegion | null = profile.region === rg ? null : rg;
                     await setMyRegion(next);
                     await refreshProfile();
-                    notify(next ? `Región: ${REGION_LABEL[next]}` : "Región retirada", true);
+                    notify(next ? t("Región: {v}", { v: td(REGION_LABEL[next]) }) : t("Región retirada"), true);
                   } catch (e) {
-                    notify(e instanceof Error ? playerMessage(e.message) : "No se pudo guardar", false);
+                    notify(e instanceof Error ? playerMessage(e.message) : t("No se pudo guardar"), false);
                   } finally {
                     setSavingRegion(false);
                   }
@@ -597,14 +608,14 @@ function AccountSettings() {
                     : "text-ink-muted shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] hover:text-white",
                 )}
               >
-                {REGION_LABEL[rg]}
+                {td(REGION_LABEL[rg])}
               </button>
             ))}
           </div>
           <p className="mt-2 text-[13px] text-white/45">
             {profile.region
-              ? `Apareces en la clasificación de ${REGION_LABEL[profile.region]} y en la global.`
-              : "Sin región solo apareces en la clasificación global. Elige una para entrar también en la regional."}
+              ? t("Apareces en la clasificación de {v} y en la global.", { v: td(REGION_LABEL[profile.region]) })
+              : t("Sin región solo apareces en la clasificación global. Elige una para entrar también en la regional.")}
           </p>
         </div>
         </Plate>
@@ -619,8 +630,7 @@ function AccountSettings() {
       <InternalTools />
 
       <p className="text-xs text-white/35">
-        Tu saldo, tus cartas, tus puntos y tu rating ranked los guarda y los valida el servidor.
-        Nada de esto se puede modificar desde este dispositivo.
+        {t("Tu saldo, tus cartas, tus puntos y tu rating ranked los guarda y los valida el servidor. Nada de esto se puede modificar desde este dispositivo.")}
       </p>
 
       <Toast toast={toast} />
@@ -662,10 +672,11 @@ function Readout({
   accent?: string;
   href?: string;
 }) {
+  useLocale();
   const body = (
     <>
-      <NxReadout size="md" label={label} value={value} unit={suffix} tone={accent} />
-      {foot && <span className="mt-0.5 block text-caption text-ink-faint">{foot}</span>}
+      <NxReadout size="md" label={td(label)} value={value} unit={td(suffix)} tone={accent} />
+      {foot && <span className="mt-0.5 block text-caption text-ink-faint">{td(foot)}</span>}
     </>
   );
   return href
@@ -699,7 +710,7 @@ function Barra({
   return (
     <div>
       <div className="mb-1 flex items-baseline justify-between gap-3">
-        <span className="nx-label">{titulo}</span>
+        <span className="nx-label">{td(titulo)}</span>
         <b className="font-display text-[13px] font-bold uppercase tracking-wide" style={{ color }}>
           {valor}
         </b>
@@ -708,7 +719,7 @@ function Barra({
         depth="sm"
         className="h-2.5 overflow-hidden"
         role="progressbar"
-        aria-label={etiqueta}
+        aria-label={td(etiqueta)}
         aria-valuenow={pct}
         aria-valuemin={0}
         aria-valuemax={100}
@@ -722,27 +733,28 @@ function Barra({
           }}
         />
       </Recessed>
-      <p className="nx-label mt-1.5">{pie}</p>
+      <p className="nx-label mt-1.5">{td(pie)}</p>
     </div>
   );
 }
 
 function Header({ signedOut = false }: { signedOut?: boolean }) {
+  useLocale();
   // F64 · sin sesión esta pantalla es la PUERTA del juego, no «tu perfil».
   if (signedOut) {
     return (
       <header className="mb-6 text-center">
-        <p className="nx-label text-drl">NEXUS</p>
-        <h1 className="mt-1 font-display text-[clamp(30px,5vw,48px)] font-extrabold uppercase leading-none tracking-wide text-white">Tu cuenta de <span className="text-drl">jugador</span></h1>
+        <p className="nx-label text-drl">{t("NEXUS")}</p>
+        <h1 className="mt-1 font-display text-[clamp(30px,5vw,48px)] font-extrabold uppercase leading-none tracking-wide text-white">{fill(t("Tu cuenta de {palabra}", slots("palabra")), { palabra: <span className="text-drl">{t("jugador")}</span> })}</h1>
       </header>
     );
   }
   return (
     <header className="mb-6">
       <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-        Mi <span className="text-drl">Perfil</span>
+        {fill(t("Mi {palabra}", slots("palabra")), { palabra: <span className="text-drl">{t("Perfil")}</span> })}
       </h1>
-      <p className="mt-1 text-white/50">Tu progreso competitivo de un vistazo.</p>
+      <p className="mt-1 text-white/50">{t("Tu progreso competitivo de un vistazo.")}</p>
     </header>
   );
 }
@@ -753,8 +765,9 @@ function Header({ signedOut = false }: { signedOut?: boolean }) {
  * `useSearchParams` va bajo `Suspense` (si no, el build aborta en la generación estática).
  */
 export default function CuentaPage() {
+  useLocale();
   return (
-    <Suspense fallback={<div className="min-h-screen"><Loading label="Cargando tu cuenta" /></div>}>
+    <Suspense fallback={<div className="min-h-screen"><Loading label={t("Cargando tu cuenta")} /></div>}>
       <CuentaRoute />
     </Suspense>
   );

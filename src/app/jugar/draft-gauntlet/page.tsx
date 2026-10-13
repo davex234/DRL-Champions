@@ -17,15 +17,21 @@ import { DraftError, abandonDraft, pickDraft, startDraft, startDraftMatch, useDr
 import { draftKeyIntent, pickUiReducer, type PickUi } from "@/lib/draft/presentation";
 import { DRAFT_MATCH_HREF } from "@/domain/draft/rules";
 import { syncFromServer } from "@/lib/game/sync";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("jugar");
 
 export default function DraftGauntletPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading label="Preparando Draft Gauntlet…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="jugar Draft Gauntlet" />;
+  if (loading) return <Loading label={tr("Preparando Draft Gauntlet…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={tr("jugar Draft Gauntlet")} />;
   return <DraftGauntletRoute />;
 }
 
 function DraftGauntletRoute() {
+  useLocale();
   const router = useRouter();
   const { load, reload, setSnapshot } = useDraft();
   const snapshot = load.state === "loading" ? null : load.snapshot;
@@ -56,11 +62,11 @@ function DraftGauntletRoute() {
     } catch (e) {
       if (e instanceof DraftError && e.snapshot) {
         setSnapshot(e.snapshot);
-        setNotice({ tone: "warn", text: e.code === "STALE_VERSION" ? "La run cambió en otra pestaña. Se ha actualizado." : e.message });
+        setNotice({ tone: "warn", text: e.code === "STALE_VERSION" ? tr("La run cambió en otra pestaña. Se ha actualizado.") : e.message });
       } else if (typeof navigator !== "undefined" && navigator.onLine === false) {
-        setNotice({ tone: "warn", text: "Sin conexión. No se ha enviado nada." });
+        setNotice({ tone: "warn", text: tr("Sin conexión. No se ha enviado nada.") });
       } else {
-        setNotice({ tone: "error", text: e instanceof Error ? e.message : "No se pudo completar la acción" });
+        setNotice({ tone: "error", text: e instanceof Error ? e.message : tr("No se pudo completar la acción") });
         void reload();
       }
     } finally {

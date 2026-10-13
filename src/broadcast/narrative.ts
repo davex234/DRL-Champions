@@ -8,6 +8,9 @@
 import type { MatchState } from "../match";
 import type { RoundState } from "../sim";
 import { coachRating } from "../lib/match/moments";
+import { ns as i18nNs } from "@/i18n/runtime";
+
+const tr = i18nNs("broadcast");
 
 export type PresentationEventType =
   | "legendary_clutch" | "great_tactical_read" | "perfect_retake" | "perfect_execute"
@@ -40,27 +43,27 @@ export function detectPresentationEvents(match: MatchState): PresentationEvent[]
         const size = Number((ev.data as { clutchSize?: number }).clutchSize ?? 1);
         const team = ev.favors === "A" ? "home" : "away";
         if (size >= 3) push("legendary_clutch", team, 80 + size * 4, ev.round, `1v${size}`, ev.participants[0]?.name);
-        if (ev.round >= match.config.win.firstTo - 1) push("game_saving_play", team, 78, ev.round, "jugada que salva el partido", ev.participants[0]?.name);
+        if (ev.round >= match.config.win.firstTo - 1) push("game_saving_play", team, 78, ev.round, tr("jugada que salva el partido"), ev.participants[0]?.name);
       }
     }
   }
 
   // — Eventos tácticos: lectura / retake / execute —
   for (const t of match.tacticalEvents) {
-    if (t.type === "anti_strat_success") push("great_tactical_read", t.team, 60 + t.magnitude * 0.3, t.round, "lectura perfecta del rival");
+    if (t.type === "anti_strat_success") push("great_tactical_read", t.team, 60 + t.magnitude * 0.3, t.round, tr("lectura perfecta del rival"));
     if (t.type === "retake_masterclass") push("perfect_retake", t.team, 70 + t.magnitude * 0.3, t.round, t.detail);
-    if (t.type === "fast_execute") push("perfect_execute", t.team, 60 + t.magnitude * 0.3, t.round, "ejecución relámpago");
+    if (t.type === "fast_execute") push("perfect_execute", t.team, 60 + t.magnitude * 0.3, t.round, tr("ejecución relámpago"));
   }
 
   // — Coach masterclass —
   const cr = coachRating(match);
-  if (cr.grade === "S" || cr.grade === "A") push("coach_masterclass", homeWon ? "home" : "away", cr.score, 0, `nota ${cr.grade} del entrenador`);
+  if (cr.grade === "S" || cr.grade === "A") push("coach_masterclass", homeWon ? "home" : "away", cr.score, 0, tr("nota {grade} del entrenador", { grade: cr.grade }));
   for (const c of match.coachEvents) if (c.type === "tactical_genius" || c.type === "brilliant_call") push("coach_masterclass", c.team, 55 + c.magnitude * 0.3, c.round, c.detail);
 
   // — Momentum / punto de inflexión —
   if (ns) {
-    for (const sh of ns.momentum.shifts) if (sh.magnitude >= 30) push("momentum_swing", sh.to === "A" ? "home" : "away", 50 + sh.magnitude, sh.round, "vuelco de momentum");
-    if (ns.summary.turningPoint != null) push("the_turning_point", homeWon ? "home" : "away", 70, ns.summary.turningPoint, "el punto de inflexión");
+    for (const sh of ns.momentum.shifts) if (sh.magnitude >= 30) push("momentum_swing", sh.to === "A" ? "home" : "away", 50 + sh.magnitude, sh.round, tr("vuelco de momentum"));
+    if (ns.summary.turningPoint != null) push("the_turning_point", homeWon ? "home" : "away", 70, ns.summary.turningPoint, tr("el punto de inflexión"));
   }
 
   // — Forma del partido: blowout/comeback/miracle —
@@ -69,12 +72,12 @@ export function detectPresentationEvents(match: MatchState): PresentationEvent[]
     const winnerTeam = homeWon ? "home" : "away";
     const loserTeam = homeWon ? "away" : "home";
     if (shape === "blowout" || shape === "dominance" || shape === "one_sided") {
-      push("historic_victory", winnerTeam, 85, 0, "victoria aplastante");
-      push("historic_defeat", loserTeam, 80, 0, "derrota histórica");
-      push("map_domination", winnerTeam, 80, 0, "dominio total");
+      push("historic_victory", winnerTeam, 85, 0, tr("victoria aplastante"));
+      push("historic_defeat", loserTeam, 80, 0, tr("derrota histórica"));
+      push("map_domination", winnerTeam, 80, 0, tr("dominio total"));
     }
-    if (shape === "comeback" || shape === "collapse") push("reverse_sweep", winnerTeam, 82, 0, "le dan la vuelta");
-    if (shape === "miracle") push("impossible_comeback", winnerTeam, 95, 0, "remontada imposible");
+    if (shape === "comeback" || shape === "collapse") push("reverse_sweep", winnerTeam, 82, 0, tr("le dan la vuelta"));
+    if (shape === "miracle") push("impossible_comeback", winnerTeam, 95, 0, tr("remontada imposible"));
   }
 
   // — Map domination por control acumulado (si no salió por shape) —
@@ -85,15 +88,15 @@ export function detectPresentationEvents(match: MatchState): PresentationEvent[]
       home += r.map.control[r.coachSide];
       away += r.map.control[r.coachSide === "ATK" ? "DEF" : "ATK"];
     }
-    if (home >= away * 1.5 && home > 0) push("map_domination", "home", 70, 0, "control de mapa dominante");
-    else if (away >= home * 1.5 && away > 0) push("map_domination", "away", 70, 0, "control de mapa dominante");
+    if (home >= away * 1.5 && home > 0) push("map_domination", "home", 70, 0, tr("control de mapa dominante"));
+    else if (away >= home * 1.5 && away > 0) push("map_domination", "away", 70, 0, tr("control de mapa dominante"));
   }
 
   // — Match point + MVP final —
   const target = match.config.win.firstTo;
   if (match.score.home >= target - 1 || match.score.away >= target - 1) {
     const side = match.score.home >= match.score.away ? "home" : "away";
-    push("match_point_pressure", side, 75, match.roundNumber, "presión de match point");
+    push("match_point_pressure", side, 75, match.roundNumber, tr("presión de match point"));
   }
   // Mental collapse: villano que se desvanece.
   if (ns && ns.villains[0]?.tags.includes("disappeared")) push("mental_collapse", ns.villains[0].team === "A" ? "home" : "away", 70, 0, ns.villains[0].reason, ns.villains[0].name);

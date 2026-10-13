@@ -24,6 +24,10 @@ import { Plate } from "@/components/ui/Surface";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Loading, EmptyState } from "@/components/ui/States";
 import { formatCredits } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 /** Miles con el mismo formato que el resto del juego (puntos, no créditos). */
 const fmt = (n: number) => formatCredits(n);
@@ -43,6 +47,7 @@ export function TournamentLeaderboard({
   rows?: TournamentRankingRow[] | null;
   className?: string;
 }) {
+  useLocale();
   const [fetched, setFetched] = useState<TournamentRankingRow[] | null>(null);
 
   useEffect(() => {
@@ -58,21 +63,21 @@ export function TournamentLeaderboard({
   const rows = given !== undefined ? given : fetched;
 
   return (
-    <section className={className ?? "mt-4"} aria-label="Clasificación del torneo">
+    <section className={className ?? "mt-4"} aria-label={t("Clasificación del torneo")}>
       <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <SectionTitle as="h2">Clasificación del torneo</SectionTitle>
+        <SectionTitle as="h2">{t("Clasificación del torneo")}</SectionTitle>
         <Link href="/ranking" className="nx-focus text-[13px] text-drl underline-offset-2 hover:underline">
-          Ver clasificación completa →
+          {t("Ver clasificación completa →")}
         </Link>
       </div>
 
       {rows === null ? (
-        <Loading label="Cargando la clasificación" />
+        <Loading label={t("Cargando la clasificación")} />
       ) : rows.length === 0 ? (
         <EmptyState
           icon="🏆"
-          title="Todavía sin clasificación"
-          hint="Aparecerá en cuanto se corrijan las primeras predicciones de este torneo."
+          title={t("Todavía sin clasificación")}
+          hint={t("Aparecerá en cuanto se corrijan las primeras predicciones de este torneo.")}
         />
       ) : (
         <LeaderboardTable rows={rows} currentUserId={currentUserId} />
@@ -91,12 +96,13 @@ export function LeaderboardTable({
   rows: TournamentRankingRow[];
   currentUserId?: string;
 }) {
+  useLocale();
   const top = rows.slice(0, TOP);
   const myIndex = rows.findIndex((r) => r.user_id === currentUserId);
   const meBelow = myIndex >= TOP ? { row: rows[myIndex], position: myIndex + 1 } : null;
 
   return (
-    <ol className="space-y-2" aria-label="Mejores pronosticadores del torneo">
+    <ol className="space-y-2" aria-label={t("Mejores pronosticadores del torneo")}>
       {top.map((r, i) => (
         <LeaderRow key={r.user_id} position={i + 1} row={r} isMe={r.user_id === currentUserId} />
       ))}
@@ -111,6 +117,7 @@ export function LeaderboardTable({
 }
 
 function LeaderRow({ position, row, isMe }: { position: number; row: TournamentRankingRow; isMe?: boolean }) {
+  useLocale();
   const podium = position <= 3;
   return (
     <li>
@@ -135,12 +142,12 @@ function LeaderRow({ position, row, isMe }: { position: number; row: TournamentR
         <span className="min-w-0 flex-1">
           <span className="block truncate font-display font-bold text-white">
             {row.username}
-            {isMe && <span className="ml-2 text-xs font-normal text-drl">tú</span>}
+            {isMe && <span className="ml-2 text-xs font-normal text-drl">{t("tú")}</span>}
           </span>
-          <span className="block text-[11px] text-white/40">{row.correct}/{row.total} aciertos</span>
+          <span className="block text-[11px] text-white/40">{row.correct}/{row.total} {t("aciertos")}</span>
         </span>
         <span className="nx-readout shrink-0 text-[16px] tabular-nums text-drl-gold">
-          {fmt(row.points)} <span className="text-[10px] text-white/40">pts</span>
+          {fmt(row.points)} <span className="text-[10px] text-white/40">{t("pts")}</span>
         </span>
       </Plate>
     </li>

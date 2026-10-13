@@ -33,6 +33,9 @@ import {
   type DuelDeckSnapshot, type EncounterOutcome, type EncounterSide, type ResolvedEncounter,
   type Side, type SideInput,
 } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("cardgame");
 
 /** Lee una estadística del trío congelado. Único punto de acceso a `combat`. */
 const statValue = (card: DuelDeckCard, stat: CombatStatKey): number => card.combat[stat];
@@ -351,32 +354,32 @@ export function resolveCombat(
 
 /** Frase de un código de rechazo. Los códigos nunca se muestran al jugador. */
 export function explainCombatError(e: CombatError): string {
-  const who = e.side ? `Mazo ${e.side}` : "El combate";
+  const who = e.side ? `Mazo ${e.side}` : tr("El combate");
   switch (e.code) {
     case "SNAPSHOT_SCHEMA_UNSUPPORTED":
-      return `${who}: versión de esquema no soportada (esperada ${e.expected}, recibida ${e.actual}).`;
+      return tr("{who}: versión de esquema no soportada (esperada {expected}, recibida {actual}).", { who: td(who), expected: e.expected, actual: e.actual });
     case "SNAPSHOT_SIZE":
-      return `${who}: debe tener ${e.expected} cartas y tiene ${e.actual}.`;
+      return tr("{who}: debe tener {expected} cartas y tiene {actual}.", { who: td(who), expected: e.expected, actual: e.actual });
     case "SNAPSHOT_COMPOSITION":
-      return `${who}: necesita ${e.expected} cartas de ${e.role} y tiene ${e.actual}.`;
+      return tr("{who}: necesita {expected} cartas de {role} y tiene {actual}.", { who: td(who), expected: e.expected, role: td(e.role), actual: e.actual });
     case "SNAPSHOT_CHECKSUM_MISMATCH":
-      return `${who}: la huella no coincide. El mazo se modificó después de congelarlo.`;
+      return tr("{who}: la huella no coincide. El mazo se modificó después de congelarlo.", { who: td(who) });
     case "SNAPSHOT_MISSING_COMBAT":
-      return `${who}: una carta no tiene estadísticas de combate válidas.`;
+      return tr("{who}: una carta no tiene estadísticas de combate válidas.", { who: td(who) });
     case "SNAPSHOT_DUPLICATE_CARD":
-      return `${who}: contiene la misma carta dos veces.`;
+      return tr("{who}: contiene la misma carta dos veces.", { who: td(who) });
     case "DATA_VERSION_MISMATCH":
-      return `Los dos mazos son de temporadas distintas (${e.expected} y ${e.actual}).`;
+      return tr("Los dos mazos son de temporadas distintas ({expected} y {actual}).", { expected: e.expected, actual: e.actual });
     case "PLAN_SIZE":
-      return `El plan debe tener ${e.expected} enfrentamientos y tiene ${e.actual}.`;
+      return tr("El plan debe tener {expected} enfrentamientos y tiene {actual}.", { expected: e.expected, actual: e.actual });
     case "PLAN_CARD_NOT_IN_SNAPSHOT":
-      return `${who}: el plan usa una carta que no está en el mazo.`;
+      return tr("{who}: el plan usa una carta que no está en el mazo.", { who: td(who) });
     case "PLAN_CARD_REUSED":
-      return `${who}: una carta se usa dos veces; cada carta gasta una sola estadística.`;
+      return tr("{who}: una carta se usa dos veces; cada carta gasta una sola estadística.", { who: td(who) });
     case "PLAN_CARD_UNUSED":
-      return `${who}: una carta se queda sin jugar.`;
+      return tr("{who}: una carta se queda sin jugar.", { who: td(who) });
     case "PLAN_ILLEGAL_MATCHUP":
-      return `Emparejamiento no permitido: ${e.matchup?.[0]} contra ${e.matchup?.[1]}.`;
+      return tr("Emparejamiento no permitido: {v} contra {v2}.", { v: e.matchup?.[0], v2: e.matchup?.[1] });
   }
 }
 
@@ -387,19 +390,19 @@ export function explainCombatError(e: CombatError): string {
 export function explainCombatReason(r: CombatResult): string {
   switch (r.decidedBy) {
     case "SCORE":
-      return `Ganó más enfrentamientos (${r.scoreA}-${r.scoreB}).`;
+      return tr("Ganó más enfrentamientos ({scoreA}-{scoreB}).", { scoreA: r.scoreA, scoreB: r.scoreB });
     case "OVR_TIEBREAK":
-      return `Empate a ${Math.min(r.scoreA, r.scoreB)}; desempate por suma de las medias: ${r.tiebreak?.sumOvrA} contra ${r.tiebreak?.sumOvrB}.`;
+      return tr("Empate a {scoreA}; desempate por suma de las medias: {sumOvrA} contra {sumOvrB}.", { scoreA: Math.min(r.scoreA, r.scoreB), sumOvrA: r.tiebreak?.sumOvrA, sumOvrB: r.tiebreak?.sumOvrB });
     case "STAT_MARGIN":
-      return `Empate en enfrentamientos y en suma de medias (${r.tiebreak?.sumOvrA}); desempate por estadística total declarada: ${r.marginTiebreak?.statTotalA} contra ${r.marginTiebreak?.statTotalB}.`;
+      return tr("Empate en enfrentamientos y en suma de medias ({sumOvrA}); desempate por estadística total declarada: {statTotalA} contra {statTotalB}.", { sumOvrA: r.tiebreak?.sumOvrA, statTotalA: r.marginTiebreak?.statTotalA, statTotalB: r.marginTiebreak?.statTotalB });
     case "NONE":
       if (r.status === "DRAW") {
-        return `Empate en enfrentamientos (${r.scoreA}-${r.scoreB}), en suma de medias (${r.tiebreak?.sumOvrA}) y en estadística total declarada (${r.statTotalA}). Empate.`;
+        return tr("Empate en enfrentamientos ({scoreA}-{scoreB}), en suma de medias ({sumOvrA}) y en estadística total declarada ({statTotalA}). Empate.", { scoreA: r.scoreA, scoreB: r.scoreB, sumOvrA: r.tiebreak?.sumOvrA, statTotalA: r.statTotalA });
       }
       if (r.status === "UNRESOLVED_TIEBREAK") {
-        return `Empate a ${r.scoreA} y las medias de los dos mazos coinciden (${r.tiebreak?.sumOvrA}). Estas reglas no tienen desempate para este caso.`;
+        return tr("Empate a {scoreA} y las medias de los dos mazos coinciden ({sumOvrA}). Estas reglas no tienen desempate para este caso.", { scoreA: r.scoreA, sumOvrA: r.tiebreak?.sumOvrA });
       }
-      return "El combate no llegó a resolverse.";
+      return tr("El combate no llegó a resolverse.");
   }
 }
 
@@ -418,7 +421,7 @@ export function auditCombatResult(r: CombatResult): string {
   return (
     "FINAL RESULT\n\n" +
     `Score:\n${r.scoreA}-${r.scoreB}\n\n` +
-    `OVR:\n${r.tiebreak ? `${r.tiebreak.sumOvrA}-${r.tiebreak.sumOvrB}` : "no aplicado"}\n\n` +
+    `OVR:\n${r.tiebreak ? `${r.tiebreak.sumOvrA}-${r.tiebreak.sumOvrB}` : tr("no aplicado")}\n\n` +
     `Stat total:\n${r.statTotalA}-${r.statTotalB}\n\n` +
     `Rules:\n${r.resolverVersion}\n\n` +
     `Result:\n${result}\n\n` +
@@ -431,7 +434,7 @@ export function explainCombatResult(r: CombatResult): string {
   if (r.status === "INVALID_INPUT") {
     return r.errors.length === 1
       ? explainCombatError(r.errors[0])
-      : `El combate no se puede resolver: ${r.errors.length} problemas en la entrada.`;
+      : tr("El combate no se puede resolver: {length} problemas en la entrada.", { length: r.errors.length });
   }
   if (r.status === "UNRESOLVED_TIEBREAK" || r.status === "DRAW") {
     return explainCombatReason(r);
@@ -439,9 +442,9 @@ export function explainCombatResult(r: CombatResult): string {
   const marcador = `${r.scoreA}-${r.scoreB}`;
   const nombre = r.winner === "A" ? r.deckA.deckName : r.deckB.deckName;
   if (r.decidedBy === "STAT_MARGIN") {
-    return `Gana ${nombre} (${marcador}) por estadística total declarada: ${r.marginTiebreak?.statTotalA} contra ${r.marginTiebreak?.statTotalB}.`;
+    return tr("Gana {nombre} ({marcador}) por estadística total declarada: {statTotalA} contra {statTotalB}.", { nombre: td(nombre), marcador: td(marcador), statTotalA: r.marginTiebreak?.statTotalA, statTotalB: r.marginTiebreak?.statTotalB });
   }
   return r.tiebreak
-    ? `Gana ${nombre} (${marcador}) por desempate: ${r.tiebreak.sumOvrA} contra ${r.tiebreak.sumOvrB} de media acumulada.`
+    ? tr("Gana {nombre} ({marcador}) por desempate: {sumOvrA} contra {sumOvrB} de media acumulada.", { nombre: td(nombre), marcador: td(marcador), sumOvrA: r.tiebreak.sumOvrA, sumOvrB: r.tiebreak.sumOvrB })
     : `Gana ${nombre} (${marcador}).`;
 }

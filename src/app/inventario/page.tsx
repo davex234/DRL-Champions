@@ -55,6 +55,11 @@ import { GameEmpty } from "@/components/ui/game/GameStates";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { CreditGlyph } from "@/components/ui/game/GameGlyph";
 import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("inventario");
 
 export default function InventarioPage() {
   return (
@@ -65,6 +70,7 @@ export default function InventarioPage() {
 }
 
 function Inventory() {
+  useLocale();
   const { toast, notify } = useToast();
   const unopenedPacks = useGameStore((s) => s.unopenedPacks);
   const ownedCards = useGameStore((s) => s.ownedCards);
@@ -101,15 +107,15 @@ function Inventory() {
       const r = await salvage([...preview.uids, ...confirmed], undefined, confirmed);
       notify(
         r.repeated
-          ? "Ese desguace ya estaba hecho"
-          : `Desguazadas ${r.salvaged} cartas · ${formatCredits(r.paid)} créditos`,
+          ? t("Ese desguace ya estaba hecho")
+          : t("Desguazadas {salvaged} cartas · {paid} créditos", { salvaged: r.salvaged, paid: formatCredits(r.paid) }),
         true,
       );
       // El servidor manda: se recarga el estado en vez de suponer el resultado.
       await syncFromServer().catch(() => {});
       await loadPreview();
     } catch (e) {
-      notify(e instanceof Error ? e.message : "No se pudo desguazar", false);
+      notify(e instanceof Error ? e.message : t("No se pudo desguazar"), false);
     } finally {
       setBusy(false);
     }
@@ -134,19 +140,20 @@ function Inventory() {
     <section className="space-y-8">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <span className="nx-label">Colección · Inventario</span>
+          <span className="nx-label">{t("Colección · Inventario")}</span>
           <h1 className="mt-1 font-display text-[clamp(30px,5vw,52px)] font-bold uppercase leading-none text-white">
-            Mis sobres
+            {t("Mis sobres")}
           </h1>
           {/* Fase 44 · el Mercado está cerrado: la pantalla ya no lo anuncia. */}
           <p className="mt-2 max-w-lg text-[15px] text-white/60">
-            Tus sobres sin abrir y tus cartas repetidas. Todas tus cartas están en{" "}
-            <Link href="/coleccion" className="text-drl-cyan underline-offset-2 hover:underline">tu colección</Link>.
+            {fill(t("Tus sobres sin abrir y tus cartas repetidas. Todas tus cartas están en {enlace}.", slots("enlace")), {
+              enlace: <Link href="/coleccion" className="text-drl-cyan underline-offset-2 hover:underline">{t("tu colección")}</Link>,
+            })}
           </p>
         </div>
         <div className="flex gap-2.5">
-          <Stat label="Sobres" value={String(totalPacks)} tone="var(--nx-cyan)" />
-          <Stat label="Duplicados" value={String(dups.length)} tone="var(--nx-gold)" />
+          <Stat label={t("Sobres")} value={String(totalPacks)} tone="var(--nx-cyan)" />
+          <Stat label={t("Duplicados")} value={String(dups.length)} tone="var(--nx-gold)" />
         </div>
       </header>
 
@@ -176,7 +183,7 @@ function Inventory() {
       */}
       <div>
         <SectionTitle>
-          Sobres sin abrir
+          {t("Sobres sin abrir")}
           {packEntries.length > 0 && (
             <span className="text-drl-cyan"> · {packEntries.reduce((n, [, c]) => n + c, 0)}</span>
           )}
@@ -184,10 +191,10 @@ function Inventory() {
         {packEntries.length === 0 ? (
           <GameEmpty
             glyph="pack"
-            title="No tienes sobres"
-            hint="Los sobres se consiguen en la tienda con créditos, y jugando te llevas créditos y recompensas."
-            primary={{ href: "/tienda", label: "Conseguir sobres" }}
-            secondary={[{ href: "/jugar", label: "Jugar" }]}
+            title={t("No tienes sobres")}
+            hint={t("Los sobres se consiguen en la tienda con créditos, y jugando te llevas créditos y recompensas.")}
+            primary={{ href: "/tienda", label: t("Conseguir sobres") }}
+            secondary={[{ href: "/jugar", label: t("Jugar") }]}
             testId="inventory-empty-packs"
           />
         ) : (
@@ -217,14 +224,14 @@ function Inventory() {
                     </div>
                   </div>
                   <p className="mt-2 text-center font-display text-sm font-bold uppercase text-white">
-                    {pack.name} <span className="text-white/40">×{count}</span>
+                    {td(pack.name)} <span className="text-white/40">×{count}</span>
                   </p>
                   {/*
                     FASE 13 · Era «×3 · toca para abrir» en gris del 40 %. Es la acción
                     principal de la pantalla y se leía como un pie de foto.
                   */}
                   <p className="mt-2 flex min-h-[44px] items-center justify-center bg-drl-cyan/10 font-display text-[15px] font-bold uppercase tracking-[0.14em] text-drl-cyan transition-colors duration-fast group-hover:bg-drl-cyan/20">
-                    Abrir
+                    {t("Abrir")}
                   </p>
                 </Link>
               );
@@ -236,7 +243,7 @@ function Inventory() {
       {/* Duplicados */}
       <div>
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h2 className="nx-label">Duplicados <span className="text-white/25">· {dups.length}</span></h2>
+          <h2 className="nx-label">{t("Duplicados")} <span className="text-white/25">· {dups.length}</span></h2>
 
           {/*
             CON CUENTA: desguace de servidor. El importe lo pone el servidor y llega en la
@@ -248,8 +255,8 @@ function Inventory() {
             ? preview && salvageCount > 0 && (
                 <NxButton variant="primary" accent="gold" onClick={doSalvage} disabled={busy} data-testid="salvage-confirm">
                   {busy
-                    ? "Desguazando…"
-                    : `Desguazar ${salvageCount} · ${formatCredits(preview.total + confirmedValue)} créditos`}
+                    ? t("Desguazando…")
+                    : t("Desguazar {salvageCount} · {v} créditos", { salvageCount, v: formatCredits(preview.total + confirmedValue) })}
                 </NxButton>
               )
             : dups.length > 0 && (
@@ -259,10 +266,10 @@ function Inventory() {
                   onClick={() => {
                     if (serverEconomy) { notify(SESSION_PENDING, false); return; } // F69 · sesión resolviéndose
                     quickSellMany(dups.map((d) => d.uid));
-                    notify(`Desguazadas ${dups.length} cartas · ${formatCredits(dupsValue)} créditos`, true);
+                    notify(t("Desguazadas {length} cartas · {dupsValue} créditos", { length: dups.length, dupsValue: formatCredits(dupsValue) }), true);
                   }}
                 >
-                  Desguazar {dups.length} · <CreditGlyph className="align-[-2px]" /> {formatCredits(dupsValue)}
+                  {t("Desguazar")} {dups.length} · <CreditGlyph className="align-[-2px]" /> {formatCredits(dupsValue)}
                 </NxButton>
               )}
         </div>
@@ -275,21 +282,20 @@ function Inventory() {
         {((online && preview && preview.uids.length > 0) || (!online && dups.length > 0)) && (
           <div className="nx-clip-sm mb-4 border border-drl-gold/25 bg-drl-gold/[0.06] px-4 py-3">
             <p className="text-[13px] leading-snug text-white/70">
-              El desguace convierte cartas repetidas en créditos y{" "}
-              <b className="text-white">siempre conserva un ejemplar</b> de cada una. Paga una
-              pequeña parte del valor de mercado de la carta (un 6 %), pensada para que abrir
-              sobres y desguazarlos no salga rentable.
+              {fill(t("El desguace convierte cartas repetidas en créditos y {conserva} de cada una. Paga una pequeña parte del valor de mercado de la carta (un 6 %), pensada para que abrir sobres y desguazarlos no salga rentable.", slots("conserva")), {
+                conserva: <b className="text-white">{t("siempre conserva un ejemplar")}</b>,
+              })}
             </p>
             {online && preview && <div className="mt-2.5 flex flex-wrap gap-x-6 gap-y-2">
               {preview.lines.slice(0, 4).map((l) => (
                 <span key={l.cardId} className="text-[12px] text-white/45">
                   <b className="text-white/75">{l.salvageable}×</b>{" "}
-                  {getCard(l.cardId)?.id.split("__")[0] ?? l.cardId}{" "}
+                  {td(getCard(l.cardId)?.id.split("__")[0]) ?? l.cardId}{" "}
                   <span className="text-drl-gold"><CreditGlyph className="align-[-2px]" /> {formatCredits(l.subtotal)}</span>
                 </span>
               ))}
               {preview.lines.length > 4 && (
-                <span className="text-[12px] text-white/35">y {preview.lines.length - 4} más</span>
+                <span className="text-[12px] text-white/35">{t("y {n} más", { n: preview.lines.length - 4 })}</span>
               )}
             </div>}
           </div>
@@ -303,8 +309,9 @@ function Inventory() {
             {protectedList.length > 0 && (
               <>
                 <p className="text-[13px] leading-snug text-white/70">
-                  <b className="text-white">{protectedList.length} {protectedList.length === 1 ? "copia protegida" : "copias protegidas"}</b>{" "}
-                  (favoritas o en tu vitrina) no se desguazan. Marca solo las que quieras desguazar igualmente:
+                  {fill(t("{copias} (favoritas o en tu vitrina) no se desguazan. Marca solo las que quieras desguazar igualmente:", slots("copias")), {
+                    copias: <b className="text-white">{t("{n, plural, one {# copia protegida} other {# copias protegidas}}", { n: protectedList.length })}</b>,
+                  })}
                 </p>
                 <ul className="mt-2 flex flex-wrap gap-2">
                   {protectedList.map((c) => {
@@ -314,8 +321,8 @@ function Inventory() {
                         <label className={`nx-focus flex cursor-pointer items-center gap-2 border px-2.5 py-1.5 text-[12px] ${on ? "border-drl-gold/70 text-white" : "border-white/15 text-white/65"}`}>
                           <input type="checkbox" checked={on} data-testid="salvage-protected-copy" data-uid={c.uid}
                             onChange={() => setConfirmed((x) => (on ? x.filter((u) => u !== c.uid) : [...x, c.uid]))} />
-                          {getCard(c.cardId)?.id.split("__")[0] ?? c.cardId}
-                          <span className="text-white/40">· {c.protectedBy.map((p) => (p === "FAVORITE" ? "favorita" : "vitrina")).join(" + ")}</span>
+                          {td(getCard(c.cardId)?.id.split("__")[0]) ?? c.cardId}
+                          <span className="text-white/40">· {c.protectedBy.map((p) => (p === "FAVORITE" ? t("favorita") : t("vitrina"))).join(" + ")}</span>
                         </label>
                       </li>
                     );
@@ -324,13 +331,13 @@ function Inventory() {
               </>
             )}
             {preview.inDeck > 0 && (
-              <p className="mt-2 text-[12px] text-white/45">{preview.inDeck} {preview.inDeck === 1 ? "copia repetida está" : "copias repetidas están"} en tus equipos y no se desguaza{preview.inDeck === 1 ? "" : "n"}.</p>
+              <p className="mt-2 text-[12px] text-white/45">{t("{n, plural, one {# copia repetida está en tus equipos y no se desguaza.} other {# copias repetidas están en tus equipos y no se desguazan.}}", { n: preview.inDeck })}</p>
             )}
           </div>
         )}
         {dups.length === 0 ? (
           <p className="nx-clip-sm border border-white/10 bg-white/[0.02] px-5 py-4 text-[15px] text-white/60" data-testid="inventory-no-duplicates">
-            Sin cartas repetidas: cada carta que abras suma a tu colección.
+            {t("Sin cartas repetidas: cada carta que abras suma a tu colección.")}
           </p>
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -344,7 +351,7 @@ function Inventory() {
                * de la versión que esté vigente hoy.
                */
               return (
-                <CardVisual key={d.uid} uid={d.uid} alt={`Carta de ${def.id}`} chamfer="11px" className="w-[150px]">
+                <CardVisual key={d.uid} uid={d.uid} alt={t("Carta de {id}", { id: def.id })} chamfer="11px" className="w-[150px]">
                   <PlayerCard card={def} size="sm" interactive={false} serial={d.serial} />
                 </CardVisual>
               );
@@ -365,9 +372,10 @@ function Inventory() {
  * placa del sistema con la cifra del sistema, y el color llega por variable de token.
  */
 function Stat({ label, value, tone }: { label: string; value: string; tone: string }) {
+  useLocale();
   return (
     <Plate className="px-4 py-2.5">
-      <Readout size="sm" align="center" label={label} value={value} tone={tone} />
+      <Readout size="sm" align="center" label={td(label)} value={value} tone={tone} />
     </Plate>
   );
 }

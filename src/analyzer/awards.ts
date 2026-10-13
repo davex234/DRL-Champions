@@ -5,6 +5,9 @@
  */
 import type { CanonicalModel } from "@/importer";
 import type { PlayerReport, TeamReport, AwardResult, AwardKind } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("analyzer");
 
 /** Primer máximo estable (items ya vienen ordenados de forma determinista). */
 function best<T>(items: T[], val: (t: T) => number, filter?: (t: T) => boolean): { item: T; value: number } | undefined {
@@ -49,9 +52,9 @@ export function computeAwards(players: PlayerReport[], teams: TeamReport[], mode
    */
   const conAgregado = players.filter((p) => p.tournamentClutchesWon !== undefined);
   if (conAgregado.length) {
-    push("best-clutch", best(conAgregado, (p) => p.tournamentClutchesWon ?? 0), "más clutches ganados en el torneo", 1);
+    push("best-clutch", best(conAgregado, (p) => p.tournamentClutchesWon ?? 0), tr("más clutches ganados en el torneo"), 1);
   } else {
-    push("best-clutch", best(players, (p) => p.clutches), "más clutches", 1);
+    push("best-clutch", best(players, (p) => p.clutches), tr("más clutches"), 1);
   }
 
   // Best flex — más agentes distintos (evidencia). Omite si nadie tiene ≥3.
@@ -59,27 +62,27 @@ export function computeAwards(players: PlayerReport[], teams: TeamReport[], mode
   if (flex && flex.value >= 3) out.push({ kind: "best-flex", playerId: flex.item.playerId, teamId: flex.item.teamId, value: flex.value, reason: `${flex.value} agentes distintos` });
 
   // Best rookie / IGL — solo si el rol/estatus lo evidencia; si no, se OMITE.
-  push("best-rookie", best(players, (p) => p.mvpScore, (p) => (model.index.playerById.get(p.playerId)?.status ?? "").toLowerCase().includes("rookie")), "mejor rookie");
-  push("best-igl", best(players, (p) => p.mvpScore, (p) => roleIs(p, "igl")), "mejor IGL");
+  push("best-rookie", best(players, (p) => p.mvpScore, (p) => (model.index.playerById.get(p.playerId)?.status ?? "").toLowerCase().includes("rookie")), tr("mejor rookie"));
+  push("best-igl", best(players, (p) => p.mvpScore, (p) => roleIs(p, "igl")), tr("mejor IGL"));
 
   // Best coach — coach del campeón (objetivo). Omite si no hay coach.
   const champ = teams.find((t) => t.champion);
   if (champ) {
     const coach = model.coaches.find((c) => c.teamId === champ.teamId);
-    if (coach) out.push({ kind: "best-coach", coachId: coach.id, teamId: champ.teamId, value: 100, reason: `coach del campeón (${champ.name})` });
+    if (coach) out.push({ kind: "best-coach", coachId: coach.id, teamId: champ.teamId, value: 100, reason: tr("coach del campeón ({name})", { name: champ.name }) });
   }
 
   // Best team — campeón; si no hay, mayor winrate.
   const bestTeam = champ ?? best(teams, (t) => t.winrate * 1000 + t.roundDiff)?.item;
-  if (bestTeam) out.push({ kind: "best-team", teamId: bestTeam.teamId, value: Math.round(bestTeam.winrate * 100), reason: champ ? "campeón" : "mejor winrate" });
+  if (bestTeam) out.push({ kind: "best-team", teamId: bestTeam.teamId, value: Math.round(bestTeam.winrate * 100), reason: champ ? tr("campeón") : tr("mejor winrate") });
 
   // Sorpresa / decepción — requiere worldRanking; si no hay, se OMITE (no se inventa).
   const ranked = teams.map((t) => ({ t, wr: model.index.teamById.get(t.teamId)?.worldRanking })).filter((x): x is { t: TeamReport; wr: number } => typeof x.wr === "number" && typeof x.t.placement === "number");
   if (ranked.length) {
     const surprise = ranked.reduce((a, b) => ((b.wr - b.t.placement!) > (a.wr - a.t.placement!) ? b : a));
-    if (surprise.wr - surprise.t.placement! > 3) out.push({ kind: "biggest-surprise", teamId: surprise.t.teamId, value: surprise.wr - surprise.t.placement!, reason: `puesto ${surprise.t.placement} con ranking #${surprise.wr}` });
+    if (surprise.wr - surprise.t.placement! > 3) out.push({ kind: "biggest-surprise", teamId: surprise.t.teamId, value: surprise.wr - surprise.t.placement!, reason: tr("puesto {placement} con ranking #{wr}", { placement: surprise.t.placement, wr: surprise.wr }) });
     const disap = ranked.reduce((a, b) => ((b.t.placement! - b.wr) > (a.t.placement! - a.wr) ? b : a));
-    if (disap.t.placement! - disap.wr > 3) out.push({ kind: "biggest-disappointment", teamId: disap.t.teamId, value: disap.t.placement! - disap.wr, reason: `puesto ${disap.t.placement} con ranking #${disap.wr}` });
+    if (disap.t.placement! - disap.wr > 3) out.push({ kind: "biggest-disappointment", teamId: disap.t.teamId, value: disap.t.placement! - disap.wr, reason: tr("puesto {placement} con ranking #{wr}", { placement: disap.t.placement, wr: disap.wr }) });
   }
 
   // most-improved: requiere historial entre torneos (no disponible en un solo torneo) → se OMITE.

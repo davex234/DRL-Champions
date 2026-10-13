@@ -44,6 +44,9 @@ import { isTeamPackCard, teamPackIdentity } from "./teamIdentities";
 import { CardRegistry } from "@/collection/registry";
 import { BUCKETS, buildPool } from "@/domain/packs/pool";
 import { packPlan, packCardClass, ovrTiltWeight, PACK_CLASS_ORDER } from "@/domain/packs/packClass";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("data");
 
 export type TeamRegion = NonNullable<PackDef["restrictRegion"]>;
 export type TeamPackStatus = "READY" | "PARTIAL" | "BLOCKED";
@@ -440,7 +443,7 @@ export function proposedTeamPack(entry: TeamPackAuditEntry): PackDef | null {
   return {
     id: entry.packId,
     name: `Sobre ${entry.canonical}`,
-    description: `Más probabilidad de cartas de ${entry.canonical}. Sortea entre jugadores de ${entry.region}.`,
+    description: tr("Más probabilidad de cartas de {canonical}. Sortea entre jugadores de {region}.", { canonical: td(entry.canonical), region: td(entry.region) }),
     ...teamPackEconomics(entry.region),
     restrictRegion: entry.region,
     team: entry.packTeam,

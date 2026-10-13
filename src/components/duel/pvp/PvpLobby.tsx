@@ -25,6 +25,10 @@ import { EmptyState } from "@/components/ui/States";
 import type { DuelDeckDTO } from "@/lib/duel/types";
 import { PreMatchVersus } from "@/components/duel/experience/PreMatchVersus";
 import { PreMatchStrategy } from "@/components/duel/strategy/PreMatchStrategy";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 export interface PvpLobbyProps {
   decks: DuelDeckDTO[];
@@ -54,6 +58,7 @@ export function PvpLobby({
   decks, deckId, onDeck, onSearch, onCancel, onDecks,
   searching, waitingSeconds, position, rating, busy, activeDeckId = null,
 }: PvpLobbyProps) {
+  useLocale();
   const validos = decks.filter((d) => d.valid);
   const elegido = decks.find((d) => d.id === deckId) ?? null;
 
@@ -61,38 +66,37 @@ export function PvpLobby({
   if (searching) {
     return (
       <Stage className="mx-auto w-full max-w-xl px-4 py-8 text-center" data-testid="pvp-searching">
-        <p className="nx-label">Ranked · Duelo PvP</p>
-        <h1 className="mt-1 text-2xl font-semibold text-white">Buscando rival…</h1>
+        <p className="nx-label">{t("Ranked · Duelo PvP")}</p>
+        <h1 className="mt-1 text-2xl font-semibold text-white">{t("Buscando rival…")}</h1>
         <p className="mt-1 text-sm text-white/45">
-          El servidor busca a alguien con un rating parecido. Cuanto más esperes, más se abre la
-          búsqueda.
+          {t("El servidor busca a alguien con un rating parecido. Cuanto más esperes, más se abre la búsqueda.")}
         </p>
 
         <Plate className="mt-5 flex items-center justify-center gap-8 px-4 py-5">
           <div className="text-center">
-            <span className="nx-label">En cola</span>
+            <span className="nx-label">{t("En cola")}</span>
             <Reloj s={waitingSeconds} />
           </div>
           {position !== null && (
             <div className="text-center">
-              <span className="nx-label">Esperan más que tú</span>
+              <span className="nx-label">{t("Esperan más que tú")}</span>
               <span className="nx-readout mt-1 block text-[26px] tabular-nums text-white/70">{position}</span>
             </div>
           )}
           {rating !== null && (
             <div className="text-center">
-              <span className="nx-label">Tu rating</span>
+              <span className="nx-label">{t("Tu rating")}</span>
               <span className="nx-readout mt-1 block text-[26px] tabular-nums text-white/70">{rating}</span>
             </div>
           )}
         </Plate>
 
         {elegido && (
-          <p className="mt-3 text-xs text-white/40">Con el equipo <b className="text-white/70">{elegido.name}</b></p>
+          <p className="mt-3 text-xs text-white/40">{t("Con el equipo")} <b className="text-white/70">{elegido.name}</b></p>
         )}
 
         <div className="mt-6">
-          <NxButton variant="ghost" onClick={onCancel} disabled={busy}>Cancelar búsqueda</NxButton>
+          <NxButton variant="ghost" onClick={onCancel} disabled={busy}>{t("Cancelar búsqueda")}</NxButton>
         </div>
       </Stage>
     );
@@ -101,14 +105,14 @@ export function PvpLobby({
   // ── ELECCIÓN DE MAZO ──────────────────────────────────────────────────────
   return (
     <Stage className="mx-auto w-full max-w-2xl px-4 py-6" data-testid="pvp-lobby">
-      <SectionTitle as="h1">Duelo PvP</SectionTitle>
+      <SectionTitle as="h1">{t("Duelo PvP")}</SectionTitle>
       <p className="-mt-2 mb-3 text-sm text-white/45">
-        Contra otra persona. El rival lo elige el servidor según tu rating.
+        {t("Contra otra persona. El rival lo elige el servidor según tu rating.")}
       </p>
 
       {rating !== null && (
         <Plate className="mt-3 flex items-center justify-between px-4 py-3">
-          <span className="nx-label">Tu rating PvP</span>
+          <span className="nx-label">{t("Tu rating PvP")}</span>
           <span className="nx-readout text-[24px] tabular-nums text-white" data-testid="pvp-my-rating">{rating}</span>
         </Plate>
       )}
@@ -119,14 +123,14 @@ export function PvpLobby({
       {elegido?.valid && <PreMatchStrategy cards={elegido.cards} className="mt-3" />}
 
       <div className="mt-4">
-        <p className="nx-label mb-2">Elige equipo</p>
+        <p className="nx-label mb-2">{t("Elige equipo")}</p>
 
         {validos.length === 0 ? (
           <EmptyState
             icon="🃏"
-            title="No tienes ningún equipo válido"
-            hint="Un equipo de duelo son 10 cartas con la composición de roles exigida. Móntalo en Mis equipos."
-            action={{ href: "/duelos/mazos", label: "Ir a Mis equipos" }}
+            title={t("No tienes ningún equipo válido")}
+            hint={t("Un equipo de duelo son 10 cartas con la composición de roles exigida. Móntalo en Mis equipos.")}
+            action={{ href: "/duelos/mazos", label: t("Ir a Mis equipos") }}
           />
         ) : (
           <div className="grid gap-2">
@@ -151,12 +155,12 @@ export function PvpLobby({
                   <span className="min-w-0">
                     <span className="block truncate text-sm text-white">{d.name}</span>
                     <span className="block text-[11px] text-white/40">
-                      {d.valid ? `${d.cards.length} cartas · listo` : "No es legal todavía"}
+                      {d.valid ? t("{length} cartas · listo", { length: d.cards.length }) : t("No es legal todavía")}
                     </span>
                   </span>
                   <span className="flex shrink-0 items-center gap-2">
-                    {d.id === activeDeckId && <span className="nx-label text-ok">Activo</span>}
-                    {sel && <span className="nx-label text-drl-cyan">Elegido</span>}
+                    {d.id === activeDeckId && <span className="nx-label text-ok">{t("Activo")}</span>}
+                    {sel && <span className="nx-label text-drl-cyan">{t("Elegido")}</span>}
                   </span>
                 </button>
               );
@@ -172,9 +176,9 @@ export function PvpLobby({
           disabled={busy || !deckId || !elegido?.valid}
           data-testid="pvp-search"
         >
-          Buscar rival
+          {t("Buscar rival")}
         </NxButton>
-        <NxButton variant="ghost" onClick={onDecks}>Mis equipos</NxButton>
+        <NxButton variant="ghost" onClick={onDecks}>{t("Mis equipos")}</NxButton>
       </div>
     </Stage>
   );

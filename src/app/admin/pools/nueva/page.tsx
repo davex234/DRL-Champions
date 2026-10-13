@@ -26,11 +26,17 @@ import { Stage, Plate, Recessed, Rail } from "@/components/ui/Surface";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { NxButton } from "@/components/ui/NxButton";
 import { adminPoolApi, useAsync, ErrorBar, Select, TextField } from "@/components/admin/cards/shared";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("admin");
 
 /** `content_pools.id` es texto y viaja en la URL: se acota a lo que no necesita escaparse. */
 const ID_VALIDO = /^[a-z0-9][a-z0-9-]{1,62}$/;
 
 export default function NuevoPoolPage() {
+  useLocale();
   const router = useRouter();
   const { running, error, clear, run } = useAsync<unknown>();
 
@@ -63,75 +69,68 @@ export default function NuevoPoolPage() {
     <Stage data-admin-panel="pool-nuevo" className="space-y-5 p-4 sm:p-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <SectionTitle>Nuevo pool</SectionTitle>
+          <SectionTitle>{t("Nuevo pool")}</SectionTitle>
           <p className="mt-1 max-w-2xl text-sm text-white/50">
-            Un conjunto de cartas con peso, que uno o varios sobres pueden usar. Nace vacío y en
-            borrador: no reparte nada hasta que se llena y se publica.
+            {t("Un conjunto de cartas con peso, que uno o varios sobres pueden usar. Nace vacío y en borrador: no reparte nada hasta que se llena y se publica.")}
           </p>
         </div>
-        <NxButton href="/admin/pools" variant="ghost">← Pools</NxButton>
+        <NxButton href="/admin/pools" variant="ghost">{t("← Pools")}</NxButton>
       </header>
 
-      <ErrorBar error={error} onClose={clear} />
+      <ErrorBar error={td(error)} onClose={clear} />
 
       <section aria-labelledby="h-identidad">
         <h2 id="h-identidad" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          1 · Identidad
+          {t("1 · Identidad")}
         </h2>
         <Plate className="space-y-3 p-4">
           <div className="grid gap-3 sm:grid-cols-2">
             <TextField
-              label="ID" value={id} onChange={(v) => setId(v.toLowerCase())}
-              placeholder="evento-invierno-2026"
+              label={t("ID")} value={id} onChange={(v) => setId(v.toLowerCase())}
+              placeholder={t("evento-invierno-2026")}
               hint={id && !idOk
-                ? "Minúsculas, números y guiones; entre 2 y 63 caracteres."
-                : "Va en la URL y en el diario. No se puede cambiar después."}
+                ? t("Minúsculas, números y guiones; entre 2 y 63 caracteres.")
+                : t("Va en la URL y en el diario. No se puede cambiar después.")}
             />
-            <TextField label="Nombre" value={name} onChange={setName}
-              placeholder="Pool del Evento de Invierno" />
+            <TextField label={t("Nombre")} value={name} onChange={setName}
+              placeholder={t("Pool del Evento de Invierno")} />
           </div>
-          <TextField label="Descripción" value={description} onChange={setDescription}
-            placeholder="Para qué existe este pool" />
+          <TextField label={t("Descripción")} value={description} onChange={setDescription}
+            placeholder={t("Para qué existe este pool")} />
         </Plate>
       </section>
 
       <section aria-labelledby="h-modo">
         <h2 id="h-modo" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          2 · Modo y contexto
+          {t("2 · Modo y contexto")}
         </h2>
         <Plate className="space-y-3 p-4">
           <div className="grid gap-3 sm:grid-cols-3">
-            <Select label="Modo" value={mode} onChange={setMode} noEmpty
+            <Select label={t("Modo")} value={mode} onChange={setMode} noEmpty
               options={[
-                { value: "EXPLICIT", label: "EXPLICIT — la lista es la pertenencia" },
-                { value: "RULE", label: "RULE — solo aporta pesos" },
-                { value: "MIXED", label: "MIXED — restringe y admite reglas" },
+                { value: "EXPLICIT", label: t("EXPLICIT — la lista es la pertenencia") },
+                { value: "RULE", label: t("RULE — solo aporta pesos") },
+                { value: "MIXED", label: t("MIXED — restringe y admite reglas") },
               ]} />
-            <TextField label="Temporada (opcional)" value={seasonId} onChange={setSeasonId}
-              placeholder="vct-2026" />
-            <TextField label="Evento (opcional)" value={eventId} onChange={setEventId}
-              placeholder="masters-toronto" />
+            <TextField label={t("Temporada (opcional)")} value={seasonId} onChange={setSeasonId}
+              placeholder={t("vct-2026")} />
+            <TextField label={t("Evento (opcional)")} value={eventId} onChange={setEventId}
+              placeholder={t("masters-toronto")} />
           </div>
 
           <Recessed className="p-3">
             <p className="text-[12px] leading-relaxed text-white/55">
               {mode === "EXPLICIT" && (
-                <>Con <strong className="text-white">EXPLICIT</strong>, solo pueden salir las cartas
-                que estén en la lista. Es el modo de los 12 pools que existen hoy.</>
+                <>{fill(t("Con {modo}, solo pueden salir las cartas que estén en la lista. Es el modo de los 12 pools que existen hoy.", slots("modo")), { modo: <strong className="text-white">{t("EXPLICIT")}</strong> })}</>
               )}
               {mode === "RULE" && (
-                <>Con <strong className="text-white">RULE</strong>, la pertenencia la siguen
-                decidiendo las restricciones del sobre; este pool solo cambia el peso de las
-                cartas que nombre.</>
+                <>{fill(t("Con {modo}, la pertenencia la siguen decidiendo las restricciones del sobre; este pool solo cambia el peso de las cartas que nombre.", slots("modo")), { modo: <strong className="text-white">{t("RULE")}</strong> })}</>
               )}
               {mode === "MIXED" && (
-                <>Con <strong className="text-white">MIXED</strong>, la lista restringe la
-                pertenencia y además se admiten reglas.</>
+                <>{fill(t("Con {modo}, la lista restringe la pertenencia y además se admiten reglas.", slots("modo")), { modo: <strong className="text-white">{t("MIXED")}</strong> })}</>
               )}
               {" "}
-              En los tres casos un pool <strong>estrecha y repondera</strong>: nunca ensancha. Un
-              sobre de EMEA seguirá sin repartir cartas de Pacific aunque este pool las nombre,
-              porque las restricciones del sobre se evalúan antes.
+              {fill(t("En los tres casos un pool {accion}: nunca ensancha. Un sobre de EMEA seguirá sin repartir cartas de Pacific aunque este pool las nombre, porque las restricciones del sobre se evalúan antes.", slots("accion")), { accion: <strong>{t("estrecha y repondera")}</strong> })}
             </p>
           </Recessed>
         </Plate>
@@ -139,32 +138,31 @@ export default function NuevoPoolPage() {
 
       <section aria-labelledby="h-crear">
         <h2 id="h-crear" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          3 · Crear
+          {t("3 · Crear")}
         </h2>
         <Plate className="space-y-3 p-4">
           <label className="block" htmlFor="motivo-pool">
             <span className="font-display text-label uppercase tracking-wider text-white/50">
-              Motivo del alta (queda registrado)
+              {t("Motivo del alta (queda registrado)")}
             </span>
             <textarea
               id="motivo-pool" rows={2} value={reason} onChange={(e) => setReason(e.target.value)}
-              placeholder="Por qué se crea este pool"
+              placeholder={t("Por qué se crea este pool")}
               className="mt-1 w-full resize-y border border-white/15 bg-base-800 px-3 py-2 text-sm text-white outline-none focus-visible:border-drl"
             />
           </label>
           <div className="flex flex-wrap items-center gap-3">
             <NxButton variant="primary" disabled={!puede} onClick={() => void crear()}>
-              {running ? "Creando…" : "Crear en borrador"}
+              {running ? t("Creando…") : t("Crear en borrador")}
             </NxButton>
             <p className="text-[12px] text-white/40">
-              Nace en <strong>DRAFT</strong>, vacío y sin sobre vinculado. No afecta a ninguna
-              apertura hasta que se le añadan cartas, se vincule a un sobre y se publique.
+              {fill(t("Nace en {estado}, vacío y sin sobre vinculado. No afecta a ninguna apertura hasta que se le añadan cartas, se vincule a un sobre y se publique.", slots("estado")), { estado: <strong>{t("DRAFT")}</strong> })}
             </p>
           </div>
         </Plate>
       </section>
 
-      <Rail label="Un pool vacío en borrador no cambia nada de lo que hoy reparten los sobres" />
+      <Rail label={t("Un pool vacío en borrador no cambia nada de lo que hoy reparten los sobres")} />
     </Stage>
   );
 }

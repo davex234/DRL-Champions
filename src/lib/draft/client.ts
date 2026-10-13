@@ -11,6 +11,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getSupabase } from "@/lib/supabase/client";
 import type { DraftSnapshot } from "@/domain/draft/snapshot";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("draft");
 
 export type { DraftSnapshot };
 
@@ -56,17 +59,17 @@ async function post<T>(body: Record<string, unknown>, fallback: string): Promise
 }
 
 /** Solo `actionId`. Nunca semilla ni cartas. */
-export const startDraft = (actionId = newActionId()) => post<DraftSnapshot>({ action: "start", actionId }, "No se pudo empezar la run");
+export const startDraft = (actionId = newActionId()) => post<DraftSnapshot>({ action: "start", actionId }, tr("No se pudo empezar la run"));
 
 /** Solo el id público de la carta elegida, la versión vista y el `actionId`. */
 export const pickDraft = (choiceId: string, expectedVersion: number, actionId = newActionId()) =>
-  post<DraftSnapshot>({ action: "pick", actionId, expectedVersion, choiceId }, "No se pudo confirmar la elección");
+  post<DraftSnapshot>({ action: "pick", actionId, expectedVersion, choiceId }, tr("No se pudo confirmar la elección"));
 
 export const startDraftMatch = (expectedVersion: number, actionId = newActionId()) =>
-  post<{ snapshot: DraftSnapshot; matchId: string }>({ action: "start_match", actionId, expectedVersion }, "No se pudo empezar el combate");
+  post<{ snapshot: DraftSnapshot; matchId: string }>({ action: "start_match", actionId, expectedVersion }, tr("No se pudo empezar el combate"));
 
 export const abandonDraft = (expectedVersion: number, actionId = newActionId()) =>
-  post<DraftSnapshot>({ action: "abandon", actionId, expectedVersion, confirm: true }, "No se pudo abandonar la run");
+  post<DraftSnapshot>({ action: "abandon", actionId, expectedVersion, confirm: true }, tr("No se pudo abandonar la run"));
 
 export type DraftLoad =
   | { state: "loading" }
@@ -89,7 +92,7 @@ export function useDraft(): { load: DraftLoad; reload: () => Promise<void>; setS
     } catch (e) {
       if (!alive.current) return;
       const offline = typeof navigator !== "undefined" && navigator.onLine === false;
-      setLoad(offline ? { state: "offline", snapshot: last.current } : { state: "error", message: e instanceof Error ? e.message : "No se pudo leer Draft Gauntlet", snapshot: last.current });
+      setLoad(offline ? { state: "offline", snapshot: last.current } : { state: "error", message: e instanceof Error ? e.message : tr("No se pudo leer Draft Gauntlet"), snapshot: last.current });
     }
   }, []);
 

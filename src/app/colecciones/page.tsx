@@ -26,6 +26,11 @@ import { NxButton } from "@/components/ui/NxButton";
 import { Badge } from "@/components/ui/Badge";
 import { Readout } from "@/components/ui/Readout";
 import { useServerEconomy, SERVER_ECONOMY_ONLY } from "@/lib/game/serverEconomy";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("colecciones");
 
 export default function ColeccionesPage() {
   return (
@@ -39,6 +44,7 @@ type StatusFilter = "todas" | "completas" | "incompletas";
 type SourceFilter = "todas" | "tournament" | "local";
 
 function Colecciones() {
+  useLocale();
   const { toast, notify } = useToast();
   const ownedCards = useGameStore((s) => s.ownedCards);
   const rosterVersion = useRosterStore((s) => s.version);
@@ -89,12 +95,13 @@ function Colecciones() {
             la pasada global: seis tamaños distintos de H1 para el mismo papel.
           */}
           <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
-            Mis <span className="text-drl">Colecciones</span>
+            {fill(t("Mis {palabra}", slots("palabra")), { palabra: <span className="text-drl">{t("Colecciones")}</span> })}
           </h1>
           {!none && (
             <p className="mt-1 text-white/50">
-              {overall.completed}/{overall.collections} completas · {overall.owned}/{overall.total} cartas ·{" "}
-              {overall.pct}% global.
+              {t("{hechas}/{colecciones} completas · {tengo}/{total} cartas · {pct}% global.", {
+                hechas: overall.completed, colecciones: overall.collections, tengo: overall.owned, total: overall.total, pct: overall.pct,
+              })}
             </p>
           )}
         </div>
@@ -115,51 +122,50 @@ function Colecciones() {
         <Campo
           value={query}
           onChange={setQuery}
-          placeholder="Buscar colección…"
-          aria-label="Buscar colección"
+          placeholder={t("Buscar colección…")}
+          aria-label={t("Buscar colección")}
           className="min-w-[12rem] flex-1"
         />
         <Segmented
-          label="Fuente"
+          label={t("Fuente")}
           value={source}
           onChange={setSource}
           options={[
-            { value: "todas" as SourceFilter, label: "Todas" },
-            { value: "tournament" as SourceFilter, label: "Torneos" },
-            { value: "local" as SourceFilter, label: "Eventos" },
+            { value: "todas" as SourceFilter, label: t("Todas") },
+            { value: "tournament" as SourceFilter, label: t("Torneos") },
+            { value: "local" as SourceFilter, label: t("Eventos") },
           ]}
         />
         <Segmented
-          label="Estado"
+          label={t("Estado")}
           value={status}
           onChange={setStatus}
           options={[
-            { value: "todas" as StatusFilter, label: "Cualquiera" },
-            { value: "completas" as StatusFilter, label: "Completas" },
-            { value: "incompletas" as StatusFilter, label: "Incompletas" },
+            { value: "todas" as StatusFilter, label: t("Cualquiera") },
+            { value: "completas" as StatusFilter, label: t("Completas") },
+            { value: "incompletas" as StatusFilter, label: t("Incompletas") },
           ]}
         />
       </div>}
 
       {loading ? (
         /* El mismo estado de carga que el resto del producto, no un párrafo suelto. */
-        <Loading label="Cargando colecciones" />
+        <Loading label={t("Cargando colecciones")} />
       ) : none ? (
         <Plate className="px-6 py-10 text-center" data-testid="collections-none">
-          <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">Todavía no hay colecciones</p>
+          <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">{t("Todavía no hay colecciones")}</p>
           <p className="mx-auto mt-1.5 max-w-[56ch] text-body text-ink-muted">
-            Los sets de colección y sus insignias están en la Sala de Trofeos.
+            {t("Los sets de colección y sus insignias están en la Sala de Trofeos.")}
           </p>
-          <Link href="/coleccion/trofeos" className="nx-action mt-3 inline-flex min-h-[44px] items-center">Ir a la Sala de Trofeos →</Link>
+          <Link href="/coleccion/trofeos" className="nx-action mt-3 inline-flex min-h-[44px] items-center">{t("Ir a la Sala de Trofeos →")}</Link>
         </Plate>
       ) : rows.length === 0 ? (
         <Plate className="px-6 py-10 text-center">
           <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">
-            Ninguna colección coincide
+            {t("Ninguna colección coincide")}
           </p>
           <p className="mx-auto mt-1.5 max-w-[56ch] text-body text-ink-muted">
-            Las colecciones de torneo aparecen cuando un torneo se cierra; las de eventos
-            están siempre disponibles.
+            {t("Las colecciones de torneo aparecen cuando un torneo se cierra; las de eventos están siempre disponibles.")}
           </p>
         </Plate>
       ) : (
@@ -174,10 +180,10 @@ function Colecciones() {
                     {/* FASE 12 · 44 px: el nombre era el enlace de la tarjeta y medía 23 de alto. */}
                     <Link href={`/colecciones/${def.slug}`}
                       className="nx-focus inline-flex min-h-[44px] items-center font-display text-lg font-bold uppercase text-white transition-colors duration-fast hover:text-drl">
-                      {def.name}
+                      {td(def.name)}
                     </Link>
                     <p className="text-[11px] uppercase tracking-widest text-white/40">
-                      {def.source === "tournament" ? "Torneo" : "Evento"}{def.tier ? ` · ${def.tier}` : ""}
+                      {def.source === "tournament" ? t("Torneo") : t("Evento")}{def.tier ? ` · ${def.tier}` : ""}
                     </p>
                   </div>
                   <Readout size="md" value={`${prog.pct}%`} tone="var(--nx-cyan)" className="shrink-0" align="right" />
@@ -192,7 +198,7 @@ function Colecciones() {
                     depth="sm"
                     className="h-2 flex-1 overflow-hidden"
                     role="progressbar"
-                    aria-label={`Progreso de ${def.name}`}
+                    aria-label={t("Progreso de {name}", { name: td(def.name) })}
                     aria-valuenow={prog.pct}
                     aria-valuemin={0}
                     aria-valuemax={100}
@@ -216,21 +222,21 @@ function Colecciones() {
                     {rewardSummary(def.reward)}
                   </span>
                   {isClaimed ? (
-                    <Badge tone="info" dot>Reclamado</Badge>
+                    <Badge tone="info" dot>{t("Reclamado")}</Badge>
                   ) : (
                     <NxButton
                       variant="primary"
                       size="md"
                       disabled={!prog.complete || serverEconomy}
-                      title={serverEconomy ? SERVER_ECONOMY_ONLY : undefined}
-                      onClick={() => { if (serverEconomy) return; if (claim(claimId, def.reward)) notify(`¡Recompensa de ${def.name} reclamada!`, true); }}
+                      title={serverEconomy ? td(SERVER_ECONOMY_ONLY) : undefined}
+                      onClick={() => { if (serverEconomy) return; if (claim(claimId, def.reward)) notify(t("¡Recompensa de {name} reclamada!", { name: td(def.name) }), true); }}
                     >
-                      Reclamar
+                      {t("Reclamar")}
                     </NxButton>
                   )}
                 </div>
                 {prog.missing.length > 0 && (
-                  <p className="nx-label mt-2">Faltan {prog.missing.length} cartas.</p>
+                  <p className="nx-label mt-2">{t("Faltan {n} cartas.", { n: prog.missing.length })}</p>
                 )}
               </Piece>
             );

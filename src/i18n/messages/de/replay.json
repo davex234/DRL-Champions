@@ -1,0 +1,5 @@
+{
+  "checksum inválido (replay corrupto)": "ungültige Prüfsumme (Replay beschädigt)",
+  "divergencia de reconstrucción (el estado final no coincide)": "Rekonstruktionsabweichung (Endzustand stimmt nicht überein)",
+  "versión incompatible ({version})": "inkompatible Version ({version})"
+}

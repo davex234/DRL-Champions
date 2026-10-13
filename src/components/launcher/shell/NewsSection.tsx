@@ -15,12 +15,17 @@ import { cn } from "@/lib/format";
 import { NewsArtwork } from "./GameArtwork";
 import { Badge } from "@/components/ui/Badge";
 import { SectionTitle } from "@/components/ui/SectionTitle";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 /* ── Tarjeta ─────────────────────────────────────────────────────────────── */
 
 export function NewsCard({
   item, onOpen, index, motionScale, tall,
 }: { item: LauncherNews; onOpen: () => void; index: number; motionScale: number; tall?: boolean }) {
+  useLocale();
   const accent = item.accent || CATEGORY_ACCENT[item.category];
   const game = getGame(item.gameId);
   return (
@@ -52,14 +57,14 @@ export function NewsCard({
             className="nx-clip-sm px-2 py-0.5 font-display text-[9px] font-black uppercase tracking-[0.22em]"
             style={{ color: "var(--nx-canvas)", background: accent }}
           >
-            {item.category}
+            {td(item.category)}
           </span>
           {game && <Badge>{game.name}</Badge>}
         </div>
         <h3 className="font-display text-[16px] font-black uppercase leading-tight tracking-wide text-white">
-          {item.title}
+          {td(item.title)}
         </h3>
-        <p className={cn("text-[11.5px] leading-snug text-white/55", tall ? "line-clamp-3" : "line-clamp-2")}>{item.excerpt}</p>
+        <p className={cn("text-[11.5px] leading-snug text-white/55", tall ? "line-clamp-3" : "line-clamp-2")}>{td(item.excerpt)}</p>
         <p className="pt-0.5 font-display text-[9.5px] font-bold uppercase tracking-[0.2em] text-white/30">
           {formatDate(item.date)}
         </p>
@@ -73,6 +78,7 @@ export function NewsCard({
 export function NewsSection({
   onOpen, onSeeAll, motionScale,
 }: { onOpen: (item: LauncherNews) => void; onSeeAll: () => void; motionScale: number }) {
+  useLocale();
   const items = getNews().slice(0, 3);
   return (
     <section>
@@ -83,11 +89,11 @@ export function NewsSection({
             onClick={onSeeAll}
             className="font-display text-label font-bold uppercase tracking-[0.2em] text-white/40 transition hover:text-white"
           >
-            Ver todas
+            {t("Ver todas")}
           </button>
         }
       >
-        Novedades
+        {t("Novedades")}
       </SectionTitle>
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {items.map((item, i) => (
@@ -103,14 +109,15 @@ export function NewsSection({
 export function NewsView({
   onOpen, motionScale,
 }: { onOpen: (item: LauncherNews) => void; motionScale: number }) {
+  useLocale();
   const [lead, ...rest] = getNews();
   return (
     <div className="space-y-6">
       <header>
         <h1 className="font-display text-[34px] font-black uppercase leading-none tracking-tight text-white">
-          Nove<span className="text-drl">dades</span>
+          {t("Nove")}<span className="text-drl">{t("dades")}</span>
         </h1>
-        <p className="mt-1.5 text-[13px] text-white/45">Todo lo que ha cambiado en el catálogo, por orden de publicación.</p>
+        <p className="mt-1.5 text-[13px] text-white/45">{t("Todo lo que ha cambiado en el catálogo, por orden de publicación.")}</p>
       </header>
 
       {lead && <NewsCard item={lead} index={0} motionScale={motionScale} onOpen={() => onOpen(lead)} tall />}
@@ -129,6 +136,7 @@ export function NewsView({
 export function NewsReader({
   item, onClose, motionScale,
 }: { item: LauncherNews | null; onClose: () => void; motionScale: number }) {
+  useLocale();
   return (
     <AnimatePresence>
       {item && (
@@ -153,7 +161,7 @@ export function NewsReader({
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Cerrar"
+                aria-label={t("Cerrar")}
                 className="nx-clip-sm absolute right-3 top-3 h-8 w-8 bg-black/60 text-white/60 transition hover:bg-black/85 hover:text-white"
               >
                 ✕
@@ -163,25 +171,25 @@ export function NewsReader({
                   className="nx-clip-sm inline-block px-2.5 py-1 font-display text-[9.5px] font-black uppercase tracking-[0.24em]"
                   style={{ color: "var(--nx-canvas)", background: item.accent }}
                 >
-                  {item.category}
+                  {td(item.category)}
                 </span>
                 <h2 className="font-display text-[30px] font-black uppercase leading-none tracking-tight text-white">
-                  {item.title}
+                  {td(item.title)}
                 </h2>
               </div>
             </div>
 
             <div className="nx-scroll max-h-[calc(86vh-220px)] overflow-y-auto p-6">
               <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-white/[0.07] pb-4">
-                <Badge>{getGame(item.gameId)?.name ?? "Cliente"}</Badge>
+                <Badge>{getGame(item.gameId)?.name ?? t("Cliente")}</Badge>
                 <span className="font-display text-label font-bold uppercase tracking-[0.2em] text-white/30">
                   {formatDate(item.date)}
                 </span>
               </div>
-              <p className="mb-4 text-[15px] font-semibold leading-relaxed text-white/80">{item.excerpt}</p>
+              <p className="mb-4 text-[15px] font-semibold leading-relaxed text-white/80">{td(item.excerpt)}</p>
               {item.body.map((p, i) => (
                 <p key={i} className="mb-3.5 text-[13.5px] leading-[1.75] text-white/55">
-                  {p}
+                  {td(p)}
                 </p>
               ))}
             </div>

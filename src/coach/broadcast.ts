@@ -6,6 +6,9 @@
 import type { RoundState } from "@/sim";
 import type { CoachDecision } from "./types";
 import type { CoachEvent } from "./narrative";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("coach");
 
 export interface CoachBroadcastContext {
   objective: string;
@@ -61,11 +64,11 @@ export function coachLiveBroadcast(s: RoundState): CoachLiveBroadcast {
   if (cf.tempoBias < 0) biases.push("ritmo↓");
   if (cf.aggressionBias > 0) biases.push("agresivo");
   if (cf.aggressionBias < 0) biases.push("paciente");
-  if (cf.laneFocus) biases.push(`foco en ${LANE_LABEL[cf.laneFocus] ?? cf.laneFocus}`);
+  if (cf.laneFocus) biases.push(t("foco en {v}", { v: td(LANE_LABEL[cf.laneFocus]) ?? cf.laneFocus }));
   if (cf.stack) biases.push("stack");
   if (cf.forceRotation) biases.push("rotar");
-  if (cf.saveUtility) biases.push("guarda util.");
-  if (cf.pushUtility) biases.push("usa util.");
+  if (cf.saveUtility) biases.push(t("guarda util."));
+  if (cf.pushUtility) biases.push(t("usa util."));
   if (cf.iglOverrideId) biases.push("IGL cambiado");
   if (cf.forceRetake) biases.push("retake");
 

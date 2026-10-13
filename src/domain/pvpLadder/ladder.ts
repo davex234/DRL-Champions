@@ -12,6 +12,9 @@
  */
 import { PLACEMENT_GAMES, isProvisional, INITIAL_RATING } from "@/domain/cardgame/rating";
 import type { RatingResult } from "@/domain/cardgame/rating";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("pvpLadder");
 
 export { PLACEMENT_GAMES, isProvisional, INITIAL_RATING };
 
@@ -199,13 +202,13 @@ export function highestRating(allNewRatings: number[], initial = INITIAL_RATING)
 
 /** Resumen textual del gráfico (accesibilidad). */
 export function seriesSummary(points: RatingPoint[]): string {
-  if (points.length === 0) return "Sin partidas liquidadas todavía.";
+  if (points.length === 0) return t("Sin partidas liquidadas todavía.");
   const first = points[0].rating - points[0].delta;
   const last = points[points.length - 1].rating;
   const min = Math.min(...points.map((p) => p.rating));
   const max = Math.max(...points.map((p) => p.rating));
   const diff = last - first;
-  return `${points.length} ${points.length === 1 ? "partida" : "partidas"}: de ${first} a ${last} (${diff >= 0 ? "+" : ""}${diff}), mínimo ${min}, máximo ${max}.`;
+  return t("{length} {v}: de {first} a {last} ({v2}{diff}), mínimo {min}, máximo {max}.", { length: points.length, v: points.length === 1 ? t("partida") : t("partidas"), first, last, v2: diff >= 0 ? "+" : "", diff, min, max });
 }
 
 /* ───────────────────────────── cartas ───────────────────────────── */
@@ -239,16 +242,16 @@ export function positionDelta(before: number | null, after: number | null): numb
 export function positionChangeLabel(before: number | null, after: number | null): string | null {
   const d = positionDelta(before, after);
   if (d === null) return null;
-  if (d > 0) return `Subes ${d} ${d === 1 ? "puesto" : "puestos"}`;
-  if (d < 0) return `Bajas ${-d} ${d === -1 ? "puesto" : "puestos"}`;
-  return "Mantienes tu puesto";
+  if (d > 0) return d === 1 ? t("Subes {n} puesto", { n: d }) : t("Subes {n} puestos", { n: d });
+  if (d < 0) return d === -1 ? t("Bajas {n} puesto", { n: -d }) : t("Bajas {n} puestos", { n: -d });
+  return t("Mantienes tu puesto");
 }
 
 /** Frase de la home: solo lo derivable. Nunca promete una posición tras una victoria. */
 export function competitiveHint(input: { position: number | null; total: number; provisional: boolean; gamesPlayed: number; pointsToAbove: number | null }): string | null {
   if (input.gamesPlayed === 0) return null;
-  if (input.provisional) return `Provisional: ${input.gamesPlayed} de ${PLACEMENT_GAMES} partidas para clasificarte`;
+  if (input.provisional) return t("Provisional: {gamesPlayed} de {PLACEMENT_GAMES} partidas para clasificarte", { gamesPlayed: input.gamesPlayed, PLACEMENT_GAMES });
   if (input.position === null) return null;
-  if (input.pointsToAbove !== null && input.pointsToAbove > 0) return `Estás #${input.position} · te faltan ${input.pointsToAbove} puntos para pasar al siguiente`;
-  return `Estás #${input.position} de ${input.total}`;
+  if (input.pointsToAbove !== null && input.pointsToAbove > 0) return t("Estás #{position} · te faltan {pointsToAbove} puntos para pasar al siguiente", { position: input.position, pointsToAbove: input.pointsToAbove });
+  return t("Estás #{position} de {total}", { position: input.position, total: input.total });
 }

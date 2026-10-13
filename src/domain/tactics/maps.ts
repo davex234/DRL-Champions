@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const t = ns("tactics");
+
 /**
  * MAPAS TÁCTICOS DE NEXUS.
  *
@@ -154,8 +158,8 @@ const map = (
   frame,
   sites,
   identity: sites === 3
-    ? "Tres sitios de plantado (A, B y C)."
-    : "Dos sitios de plantado (A y B).",
+    ? t("Tres sitios de plantado (A, B y C).")
+    : t("Dos sitios de plantado (A y B)."),
   available: true,
 });
 

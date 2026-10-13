@@ -7,6 +7,9 @@ import { makeEvent } from "./history";
 import { canApply, nextState } from "./workflow";
 import { cardsInState } from "./review";
 import type { DecisionMeta, DecisionResult, EditorialAction, EditorialCase } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("editorial");
 
 /** Aplica UNA acción a un conjunto de cartas. La única puerta de cambio de estado. */
 export function decide(c: EditorialCase, cardIds: string[], action: EditorialAction, meta: DecisionMeta): DecisionResult {
@@ -19,11 +22,11 @@ export function decide(c: EditorialCase, cardIds: string[], action: EditorialAct
   for (const cardId of cardIds) {
     const from = states[cardId];
     if (from === undefined) {
-      skipped.push({ cardId, error: "la carta no pertenece a esta generación" });
+      skipped.push({ cardId, error: t("la carta no pertenece a esta generación") });
       continue;
     }
     if (!canApply(from, action)) {
-      skipped.push({ cardId, error: `transición ilegal: ${from} × ${action}` });
+      skipped.push({ cardId, error: t("transición ilegal: {from} × {action}", { from, action }) });
       continue;
     }
     const to = nextState(from, action)!;

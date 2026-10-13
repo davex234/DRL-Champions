@@ -25,6 +25,10 @@
 import { useId } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("packs");
 
 /** Silueta con chaflán en el viewBox 100×140 (5/7): esquinas cortadas como el CardArt. */
 const SHAPE = "M9 1 H91 L99 9 V131 L91 139 H9 L1 131 V9 Z";
@@ -50,6 +54,7 @@ export function CardBack({
   pulse?: boolean;
   style?: React.CSSProperties;
 }) {
+  useLocale();
   const reduced = useReducedMotion();
   const carga = chargeColor ?? accent;
   const anima = pulse && !reduced;
@@ -98,7 +103,7 @@ export function CardBack({
         {/* Galones arriba y abajo: la geometría de la casa. */}
         <path d="M38 16 L50 22 L62 16" fill="none" stroke={accent} strokeOpacity="0.55" strokeWidth="1" />
         <path d="M38 124 L50 118 L62 124" fill="none" stroke={accent} strokeOpacity="0.55" strokeWidth="1" />
-        <text x="50" y="106" textAnchor="middle" fontSize="7.2" letterSpacing="2.4" fill="#ffffff" fillOpacity="0.72" fontFamily="var(--font-display), system-ui, sans-serif" fontWeight="700">NEXUS</text>
+        <text x="50" y="106" textAnchor="middle" fontSize="7.2" letterSpacing="2.4" fill="#ffffff" fillOpacity="0.72" fontFamily="var(--font-display), system-ui, sans-serif" fontWeight="700">{t("NEXUS")}</text>
       </svg>
 
       {/* El sigilo de NEXUS. Dimensionado en porcentaje: el mismo dorso sirve a 92 y a 300 px. */}

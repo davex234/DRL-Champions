@@ -17,6 +17,9 @@ import { clubSeasonDecision } from "./clubAI";
 import { dismiss } from "./negotiate";
 import { generateOffers } from "./offers";
 import { careerNews } from "./news";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("career");
 
 function ev(type: CoachCareerEvent["type"], season: number, magnitude: number, detail: string, at: number): CoachCareerEvent {
   return { type, season, magnitude, detail, at };
@@ -28,7 +31,7 @@ export function applyMatchToCareer(prev: ManagerCareer, o: MatchOutcome, at: num
   const board = boardAfterMatch(step.career.board, o);
   const extra: CoachCareerEvent[] = [];
   if (board.pressure >= 85 && step.career.board.pressure < 85) {
-    extra.push(ev("max_pressure", step.career.season, 75, `La presión sobre ${prev.coach.name} alcanza el límite.`, at));
+    extra.push(ev("max_pressure", step.career.season, 75, t("La presión sobre {name} alcanza el límite.", { name: prev.coach.name }), at));
   }
   const events = [...step.events, ...extra];
   const career = { ...step.career, board, events: [...step.career.events, ...extra].slice(-400) };
@@ -65,7 +68,7 @@ export function runCareerSeason(prev: ManagerCareer, club: ClubView, clubs: Club
 
   // 5) Eventos de objetivos/presión.
   if (failedMandatory > 0 && decision.kind !== "fire") {
-    events.push(ev("objectives_failed", playedSeason, 60, `${prev.coach.name} no cumple ${failedMandatory} objetivo(s) obligatorio(s) de ${club.name}.`, at));
+    events.push(ev("objectives_failed", playedSeason, 60, t("{name} no cumple {failedMandatory} objetivo(s) obligatorio(s) de {name2}.", { name: prev.coach.name, failedMandatory, name2: club.name }), at));
   }
 
   // 6) Aplica la decisión del club.
@@ -76,7 +79,7 @@ export function runCareerSeason(prev: ManagerCareer, club: ClubView, clubs: Club
   } else if (decision.kind === "renew") {
     // La renovación es una OFERTA que el usuario decide aceptar (no automática).
     career = { ...career, offers: [decision.offer, ...career.offers.filter((x) => x.status === "pending")].slice(0, 6) };
-    events.push(ev("offer_received", career.season, 45, `${club.name} ofrece renovación a ${prev.coach.name}.`, at));
+    events.push(ev("offer_received", career.season, 45, t("{name} ofrece renovación a {name2}.", { name: club.name, name2: prev.coach.name }), at));
   } else if (decision.kind === "warn") {
     events.push(ev("max_pressure", playedSeason, 65, `${club.name}: ${decision.reason}.`, at));
   }
@@ -88,7 +91,7 @@ export function runCareerSeason(prev: ManagerCareer, club: ClubView, clubs: Club
     const fresh = offers.filter((of) => !career.offers.some((e) => e.clubId === of.clubId && e.status === "pending"));
     if (fresh.length) {
       career = { ...career, offers: [...fresh, ...career.offers.filter((x) => x.status === "pending")].slice(0, 6) };
-      events.push(ev("offer_received", career.season, 40, `${prev.coach.name} recibe ${fresh.length} oferta(s) del mercado.`, at));
+      events.push(ev("offer_received", career.season, 40, t("{name} recibe {length} oferta(s) del mercado.", { name: prev.coach.name, length: fresh.length }), at));
     }
   }
 

@@ -9,15 +9,20 @@ import type { PlayerCardModel } from "@/lib/match/coachIntel";
 import { roleLabel } from "@/lib/match/coachIntel";
 import { formatCredits } from "@/lib/format";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coach");
 
 /** Barra 0..100. `invert` = más alto es PEOR (tilt/fatiga/presión). */
 function Bar({ label, value, invert = false, icon }: { label: string; value: number; invert?: boolean; icon: string }) {
+  useLocale();
   const v = Math.max(0, Math.min(100, Math.round(value)));
   const good = invert ? 100 - v : v;
   const color = good >= 66 ? "#37e6a0" : good >= 33 ? "#ffd35c" : "#ff4d6a";
   return (
     <div className="flex items-center gap-1.5">
-      <span className="w-4 text-center text-[11px]" title={label}>{icon}</span>
+      <span className="w-4 text-center text-[11px]" title={td(label)}>{icon}</span>
       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-white/10">
         <div className="h-full rounded-full transition-all" style={{ width: `${v}%`, background: color }} />
       </div>
@@ -27,6 +32,7 @@ function Bar({ label, value, invert = false, icon }: { label: string; value: num
 }
 
 export function PlayerStatusCard({ card }: { card: PlayerCardModel }) {
+  useLocale();
   // Momentum -100..100 → 0..100 para mostrarlo como "forma".
   const form = (card.mental.momentum + 100) / 2;
   return (
@@ -49,26 +55,26 @@ export function PlayerStatusCard({ card }: { card: PlayerCardModel }) {
       </div>
 
       <div className="space-y-1">
-        <Bar label="Confianza" value={card.mental.confidence} icon="💪" />
-        <Bar label="Moral" value={card.mental.morale} icon="🔥" />
-        <Bar label="Forma" value={form} icon="📈" />
-        <Bar label="Tilt" value={card.mental.tilt} invert icon="😤" />
-        <Bar label="Cansancio" value={card.mental.fatigue} invert icon="🥵" />
-        <Bar label="Presión" value={card.mental.pressure} invert icon="🎯" />
+        <Bar label={t("Confianza")} value={card.mental.confidence} icon="💪" />
+        <Bar label={t("Moral")} value={card.mental.morale} icon="🔥" />
+        <Bar label={t("Forma")} value={form} icon="📈" />
+        <Bar label={t("Tilt")} value={card.mental.tilt} invert icon="😤" />
+        <Bar label={t("Cansancio")} value={card.mental.fatigue} invert icon="🥵" />
+        <Bar label={t("Presión")} value={card.mental.pressure} invert icon="🎯" />
       </div>
 
       <div className="flex items-center justify-between border-t border-white/5 pt-1.5 text-[10px]">
-        <span className="text-white/45">Obed. <span className="text-white/75">{Math.round(card.obedience * 100)}%</span></span>
+        <span className="text-white/45">{t("Obed.")} <span className="text-white/75">{Math.round(card.obedience * 100)}%</span></span>
         <span className="font-semibold text-drl-cyan">{formatCredits(card.credits)}</span>
       </div>
 
       {card.recent.length > 0 && (
         <div className="flex items-center gap-1">
-          <span className="text-[9px] uppercase tracking-widest text-white/30">Racha</span>
+          <span className="text-[9px] uppercase tracking-widest text-white/30">{t("Racha")}</span>
           {card.recent.map((w, i) => (
             <span key={i} className={cn("h-2 w-2 rounded-full", w ? "bg-emerald-400" : "bg-rose-500/70")} />
           ))}
-          {card.killsLastRound > 0 && <span className="ml-auto text-[10px] text-white/40">{card.killsLastRound}K última</span>}
+          {card.killsLastRound > 0 && <span className="ml-auto text-[10px] text-white/40">{card.killsLastRound}{t("K última")}</span>}
         </div>
       )}
     </div>

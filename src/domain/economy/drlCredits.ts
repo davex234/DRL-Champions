@@ -1,3 +1,5 @@
+import { getIntlLocale } from "@/i18n/runtime";
+
 /**
  * DRL CREDITS — la moneda oficial de DRL Cards (Fase 18).
  *
@@ -112,7 +114,7 @@ export function isValidAmount(n: unknown): n is number {
 
 /** Formato español: «1.000 DRL Credits». Sin decimales, porque la moneda no los tiene. */
 export const formatDRLC = (n: number): string =>
-  `${new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(Math.trunc(n))} ${CURRENCY_NAME}`;
+  `${new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" }).format(Math.trunc(n))} ${CURRENCY_NAME}`;
 
 /** Formato con signo, para el historial: «+5.000 DRL Credits», «−750 DRL Credits». */
 export const formatDelta = (n: number): string =>

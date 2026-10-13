@@ -29,18 +29,24 @@ import { rankedGate, type RankedGate } from "@/domain/pvpLadder/ranked";
 import { rankChip } from "@/domain/ranked/config";
 import { DRAFT_ROUTE } from "@/domain/draft/rules";
 import { syncFromServer } from "@/lib/game/sync";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duelos");
 
 type Load<T> = { state: "loading" } | { state: "ready"; data: T } | { state: "error" };
 
 export default function DuelosPage() {
+  useLocale();
   return (
-    <Suspense fallback={<Loading kind="hub" label="Cargando duelos…" />}>
+    <Suspense fallback={<Loading kind="hub" label={t("Cargando duelos…")} />}>
       <Duelos />
     </Suspense>
   );
 }
 
 function Duelos() {
+  useLocale();
   const configured = isSupabaseConfigured();
   const router = useRouter();
   const params = useSearchParams();
@@ -147,7 +153,7 @@ function Duelos() {
       if (snap.run && snap.run.entry?.paid !== false) router.push(DRAFT_ROUTE);
     } catch (e) {
       if (e instanceof DraftError && e.snapshot) setDraft({ state: "ready", data: e.snapshot });
-      setDraftNotice(e instanceof DraftError && e.code === "INSUFFICIENT_CREDITS" ? "No tienes créditos suficientes para la entrada." : e instanceof Error ? e.message : "No se pudo entrar");
+      setDraftNotice(e instanceof DraftError && e.code === "INSUFFICIENT_CREDITS" ? t("No tienes créditos suficientes para la entrada.") : e instanceof Error ? e.message : t("No se pudo entrar"));
       await syncFromServer().catch(() => undefined);
     } finally {
       entering.current = false;
@@ -155,7 +161,7 @@ function Duelos() {
     }
   }, [router]);
 
-  if (loading || (signedIn && meta.state === "loading")) return <Loading kind="hub" label="Cargando duelos…" />;
+  if (loading || (signedIn && meta.state === "loading")) return <Loading kind="hub" label={t("Cargando duelos…")} />;
 
   return (
     <DuelModesHub

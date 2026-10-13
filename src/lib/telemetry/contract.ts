@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const t = ns("telemetry");
+
 /**
  * TELEMETRÍA — EL CONTRATO (Fase 14, bloque 4).
  *
@@ -311,14 +315,14 @@ export function shapeError(e: TelemetryInput): string | null {
       return null;
     case "zone_entered":
       if (!e.zone) return "zone_entered requiere zone";
-      if (e.severity || e.source) return "zone_entered no lleva severity ni source";
+      if (e.severity || e.source) return t("zone_entered no lleva severity ni source");
       return null;
     case "flow_started":
       if (!e.flow) return "flow_started requiere flow";
-      if (e.severity || e.source) return "flow_started no lleva severity ni source";
+      if (e.severity || e.source) return t("flow_started no lleva severity ni source");
       return null;
     case "session_started":
-      if (e.flow || e.severity || e.source) return "session_started no lleva flow, severity ni source";
+      if (e.flow || e.severity || e.source) return t("session_started no lleva flow, severity ni source");
       return null;
     default:
       return "event_name desconocido";

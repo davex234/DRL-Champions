@@ -9,6 +9,8 @@
  * `ProfileCollections` (inventario + Collection Sets de F82).
  */
 import Link from "next/link";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 import { Plate } from "@/components/ui/Surface";
 import { Badge } from "@/components/ui/Badge";
 import { Readout } from "@/components/ui/Readout";
@@ -22,9 +24,12 @@ import { ProfileButton, fmtDay } from "./bits";
 import { GameGlyph } from "@/components/ui/game/GameGlyph";
 import { RankInline } from "@/components/competitive/ranked/CompetitiveEmblem";
 
+const tr = ns("player");
+
 /* ───────────── trofeos ───────────── */
 
 export function FeaturedTrophies({ snap, onEdit }: { snap: PlayerIdentitySnapshot; onEdit?: () => void }) {
+  useLocale();
   const isSelf = snap.view === "SELF";
   const featured = snap.featured;
   return (
@@ -53,8 +58,8 @@ export function FeaturedTrophies({ snap, onEdit }: { snap: PlayerIdentitySnapsho
         <Plate className="flex flex-wrap items-center justify-between gap-3 px-4 py-4 text-caption text-ink-muted">
           <span>
             {snap.achievements.completed === 0
-              ? (isSelf ? "Aún no hay logros para mostrar. Cuando reclames uno, podrás destacarlo aquí." : "Aún no hay logros para mostrar.")
-              : (isSelf ? "Destaca hasta 3 de tus logros conseguidos." : `Ha conseguido ${snap.achievements.completed} ${snap.achievements.completed === 1 ? "logro" : "logros"}.`)}
+              ? (isSelf ? tr("Aún no hay logros para mostrar. Cuando reclames uno, podrás destacarlo aquí.") : tr("Aún no hay logros para mostrar."))
+              : (isSelf ? tr("Destaca hasta 3 de tus logros conseguidos.") : tr("{n, plural, one {Ha conseguido # logro.} other {Ha conseguido # logros.}}", { n: snap.achievements.completed }))}
           </span>
           {isSelf && snap.achievements.completed > 0 && <ProfileButton onClick={onEdit}>Destacar logros</ProfileButton>}
         </Plate>
@@ -132,7 +137,7 @@ function StandingRail({ snap }: { snap: PlayerIdentitySnapshot }) {
   const st = snap.standing;
   const r = snap.ranked;
   if (!st || !r) return null;
-  const who = snap.view === "SELF" ? "Te faltan" : "Le faltan";
+  const self = snap.view === "SELF";
   const comp = snap.competitive;
   const placement = comp ? (comp.state === "PLACEMENT" ? { ...comp.placement, remaining: comp.placement.total - comp.placement.played } : null) : st.state === "PLACEMENT" ? st.placement : null;
   const n = (x: { userId: string; username: string; position: number; rating: number } | null, side: "above" | "below") => (
@@ -160,7 +165,9 @@ function StandingRail({ snap }: { snap: PlayerIdentitySnapshot }) {
           <ol className="mt-1.5 grid gap-1" style={{ gridTemplateColumns: `repeat(${placement.total}, minmax(0, 1fr))` }} aria-label={`Colocación: ${placement.played} de ${placement.total} partidas`}>
             {Array.from({ length: placement.total }, (_, i) => <li key={i} className={`nx-clip-sm h-2 ${i < placement.played ? "bg-drl-cyan" : "bg-white/10"}`} />)}
           </ol>
-          <p className="mt-1 text-[11px] text-white/45">{who} {placement.remaining} para {comp ? "revelar su rango de la temporada" : "salir de colocación"}.</p>
+          <p className="mt-1 text-[11px] text-white/45">{comp
+            ? (self ? tr("Te faltan {n} para revelar su rango de la temporada.", { n: placement.remaining }) : tr("Le faltan {n} para revelar su rango de la temporada.", { n: placement.remaining }))
+            : (self ? tr("Te faltan {n} para salir de colocación.", { n: placement.remaining }) : tr("Le faltan {n} para salir de colocación.", { n: placement.remaining }))}</p>
         </div>
       )}
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">

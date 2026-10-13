@@ -23,10 +23,16 @@ import { MapPicker } from "@/components/tactics/MapPicker";
 import { CoachHeader } from "@/components/coach/tc/CoachFrame";
 import { useAuth } from "@/lib/supabase/auth";
 import { fetchStrats, fetchCompositions } from "@/lib/tactics/client";
+import { ns, td, formatNumber } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("entrenador");
 
 interface Preparado { strats: Record<string, number>; comps: Record<string, number> }
 
 export default function MapasPage() {
+  useLocale();
   const { user } = useAuth();
   const [id, setId] = useState(DEFAULT_MAP_ID);
   const map: TacticalMap = getTacticalMap(id) ?? availableMaps()[0];
@@ -54,12 +60,12 @@ export default function MapasPage() {
   return (
     <div className="space-y-3">
       <CoachHeader
-        kicker="Map Intelligence"
-        title={<>Mapas · <span className="text-[#2fe0ff]">{map.name}</span></>}
+        kicker={t("Map Intelligence")}
+        title={<>{t("Mapas ·")} <span className="text-[#2fe0ff]">{td(map.name)}</span></>}
         actions={
           <>
-            <Link href="/entrenador/composiciones" className="nx-coach-btn" data-variant="ghost">Composiciones</Link>
-            <Link href="/entrenador/strats" className="nx-coach-btn">Ir a la pizarra →</Link>
+            <Link href="/entrenador/composiciones" className="nx-coach-btn" data-variant="ghost">{t("Composiciones")}</Link>
+            <Link href="/entrenador/strats" className="nx-coach-btn">{t("Ir a la pizarra →")}</Link>
           </>
         }
       />
@@ -82,34 +88,32 @@ export default function MapasPage() {
 
           {/* Los datos del mapa como CIFRAS. */}
           <dl className="grid grid-cols-2 gap-2 sm:grid-cols-4" data-testid="map-intel">
-            <Cifra label="Sitios" value={map.sites} />
-            <Cifra label="Resolución" value={`${map.width} × ${map.height}`} />
-            <Cifra label="Proporción" value={aspectRatio(map).toFixed(3).replace(".", ",")} />
+            <Cifra label={t("Sitios")} value={map.sites} />
+            <Cifra label={t("Resolución")} value={`${map.width} × ${map.height}`} />
+            <Cifra label={t("Proporción")} value={formatNumber(aspectRatio(map), { minimumFractionDigits: 3, maximumFractionDigits: 3 })} />
             {preparado ? (
-              <Cifra label="Tu preparación" value={`${jugadas} jug. · ${comps} comp.`} tone="#2fe0ff" />
+              <Cifra label={t("Tu preparación")} value={t("{jugadas} jug. · {comps} comp.", { jugadas, comps })} tone="#2fe0ff" />
             ) : (
-              <Cifra label="Mapa" value={map.name} tone="#2fe0ff" />
+              <Cifra label={t("Mapa")} value={map.name} tone="#2fe0ff" />
             )}
           </dl>
         </section>
 
         <aside className="space-y-3">
           <section className="nx-coach-panel p-3">
-            <h2 className="nx-coach-kicker mb-2">Elegir mapa</h2>
+            <h2 className="nx-coach-kicker mb-2">{t("Elegir mapa")}</h2>
             <MapPicker compact value={map.id} onChange={(m) => setId(m.id)} />
           </section>
 
           <section className="nx-coach-panel p-3">
-            <h2 className="nx-coach-kicker mb-1.5">{map.name}</h2>
-            <p className="text-[14px] leading-relaxed text-white/75">{map.identity}</p>
+            <h2 className="nx-coach-kicker mb-1.5">{td(map.name)}</h2>
+            <p className="text-[14px] leading-relaxed text-white/75">{td(map.identity)}</p>
             <div className="mt-3 flex flex-wrap gap-1.5">
-              <Link href="/entrenador/strats" className="nx-coach-btn" data-size="sm">Dibujar una jugada</Link>
-              <Link href="/entrenador/composiciones" className="nx-coach-btn" data-variant="ghost" data-size="sm">Preparar composición</Link>
+              <Link href="/entrenador/strats" className="nx-coach-btn" data-size="sm">{t("Dibujar una jugada")}</Link>
+              <Link href="/entrenador/composiciones" className="nx-coach-btn" data-variant="ghost" data-size="sm">{t("Preparar composición")}</Link>
             </div>
             <p className="nx-coach-muted mt-3 border-t border-[rgba(47,224,255,0.12)] pt-2.5 text-[12px] leading-relaxed">
-              Son assets de mapa adaptados para NEXUS y se usan como capa visual de la
-              herramienta. Los rótulos de los sitios forman parte del propio asset: la
-              pizarra dibuja <em>encima</em>, nunca sobre la imagen.
+              {fill(t("Son assets de mapa adaptados para NEXUS y se usan como capa visual de la herramienta. Los rótulos de los sitios forman parte del propio asset: la pizarra dibuja {encima}, nunca sobre la imagen.", slots("encima")), { encima: <em>{t("encima")}</em> })}
             </p>
           </section>
         </aside>
@@ -119,9 +123,10 @@ export default function MapasPage() {
 }
 
 function Cifra({ label, value, tone }: { label: string; value: React.ReactNode; tone?: string }) {
+  useLocale();
   return (
     <div className="nx-coach-stat px-3 py-2.5">
-      <dt className="nx-label !text-[9.5px] !text-white/45">{label}</dt>
+      <dt className="nx-label !text-[9.5px] !text-white/45">{td(label)}</dt>
       <dd className="mt-1 truncate font-display text-[17px] font-extrabold uppercase leading-none" style={{ color: tone ?? "#fff" }}>{value}</dd>
     </div>
   );

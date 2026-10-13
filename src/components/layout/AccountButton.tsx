@@ -10,6 +10,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/format";
 import { ROUTES } from "@/design/nav";
+import { td } from "@/i18n/runtime";
 
 export const ACCOUNT_LABEL = "Mi cuenta";
 
@@ -27,8 +28,8 @@ export function AccountButton({ pathname, testId = "account-button", className }
   return (
     <Link
       href={ROUTES.account}
-      aria-label={ACCOUNT_LABEL}
-      title={ACCOUNT_LABEL}
+      aria-label={td(ACCOUNT_LABEL)}
+      title={td(ACCOUNT_LABEL)}
       aria-current={on ? "page" : undefined}
       data-testid={testId}
       className={cn(

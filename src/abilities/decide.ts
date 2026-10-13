@@ -12,6 +12,9 @@ import { nearestZone, type ZoneId } from "../sim/map/ascentA";
 import { clampTrait } from "../sim/identity/traits";
 import { abilitiesFor } from "./agentAbilities";
 import type { Ability, AbilityChoice, AbilityEffect } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("abilities");
 
 /** Contexto de despliegue que entrega el Utility Engine (reutiliza su lectura del mapa). */
 export interface DeployCtx {
@@ -107,10 +110,10 @@ export function chooseAbility(s: RoundState, p: SimPlayer, ctx: DeployCtx, rng: 
 
 function objectiveText(ab: Ability, side: Side, planted: boolean): string {
   const map: Partial<Record<AbilityEffect, string>> = {
-    deny_vision: "cortar visión", reveal: "sacar información", blind: "cegar para abrir",
-    delay: "ralentizar el avance", create_space: "crear espacio", control: "controlar la zona",
-    anchor: "anclar el sitio", protect: "proteger el espacio", fake: "vender una finta",
-    entry: "abrir la entrada", post_plant: "proteger el post-plant", decoy: "señuelo", suppress: "suprimir el ángulo",
+    deny_vision: t("cortar visión"), reveal: t("sacar información"), blind: t("cegar para abrir"),
+    delay: t("ralentizar el avance"), create_space: t("crear espacio"), control: t("controlar la zona"),
+    anchor: t("anclar el sitio"), protect: t("proteger el espacio"), fake: t("vender una finta"),
+    entry: t("abrir la entrada"), post_plant: t("proteger el post-plant"), decoy: t("señuelo"), suppress: t("suprimir el ángulo"),
   };
-  return map[ab.effect] ?? (planted ? "jugar el post-plant" : side === "ATK" ? "tomar espacio" : "defender");
+  return map[ab.effect] ?? (planted ? t("jugar el post-plant") : side === "ATK" ? t("tomar espacio") : t("defender"));
 }

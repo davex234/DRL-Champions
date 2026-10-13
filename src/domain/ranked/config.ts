@@ -1,3 +1,7 @@
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("ranked");
+
 /**
  * F84 · RANKED 2.0 — CONFIGURACIÓN DE RANGOS VERSIONADA (puro).
  *
@@ -74,26 +78,26 @@ export function rankConfig(version: string | null | undefined): RankConfig {
  */
 export function validateRankConfig(c: RankConfig): string[] {
   const out: string[] = [];
-  if (!c.version.trim()) out.push("versión vacía");
-  if (!(Number.isInteger(c.divisionWidth) && c.divisionWidth > 0)) out.push("divisionWidth debe ser un entero positivo");
-  if (c.tiers.length < 2) out.push("hacen falta al menos dos tiers");
-  if (c.tiers[0]?.floor !== 0) out.push("el primer tier debe empezar en 0");
+  if (!c.version.trim()) out.push(tr("versión vacía"));
+  if (!(Number.isInteger(c.divisionWidth) && c.divisionWidth > 0)) out.push(tr("divisionWidth debe ser un entero positivo"));
+  if (c.tiers.length < 2) out.push(tr("hacen falta al menos dos tiers"));
+  if (c.tiers[0]?.floor !== 0) out.push(tr("el primer tier debe empezar en 0"));
   const ids = new Set<string>();
   c.tiers.forEach((t, i) => {
     if (ids.has(t.id)) out.push(`id repetido: ${t.id}`);
     ids.add(t.id);
     const next = c.tiers[i + 1];
-    if (next && !(next.floor > t.floor)) out.push(`suelos no crecientes: ${t.id} → ${next.id}`);
-    if (t.divisions === null && next) out.push(`solo el último tier puede no tener divisiones (${t.id})`);
+    if (next && !(next.floor > t.floor)) out.push(tr("suelos no crecientes: {id} → {id2}", { id: t.id, id2: next.id }));
+    if (t.divisions === null && next) out.push(tr("solo el último tier puede no tener divisiones ({id})", { id: t.id }));
     // El primer tier recoge desde 0: su anchura real es la de sus divisiones contadas desde su suelo ALTO.
     if (t.divisions !== null && next && i > 0 && next.floor - t.floor !== t.divisions * c.divisionWidth) {
-      out.push(`hueco o solape en ${t.id}: ${next.floor - t.floor} ≠ ${t.divisions * c.divisionWidth}`);
+      out.push(tr("hueco o solape en {id}: {v} ≠ {v2}", { id: t.id, v: next.floor - t.floor, v2: t.divisions * c.divisionWidth }));
     }
     if (t.divisions !== null && next && i === 0 && next.floor - t.divisions * c.divisionWidth <= 0) {
-      out.push(`el primer tier no tiene sitio para sus divisiones`);
+      out.push(tr("el primer tier no tiene sitio para sus divisiones"));
     }
   });
-  if (c.tiers[c.tiers.length - 1]?.divisions !== null) out.push("el último tier (élite) no debe tener divisiones");
+  if (c.tiers[c.tiers.length - 1]?.divisions !== null) out.push(tr("el último tier (élite) no debe tener divisiones"));
   return out;
 }
 

@@ -11,6 +11,9 @@ import { tick, type RoundState } from "@/sim";
 import { reconstruct, applyRoundCommands, commandsForRound, matchScalars, type InputLog } from "@/online";
 import { FULL_VERSION } from "@/platform/version";
 import { REPLAY_VERSION, MIN_REPLAY_VERSION, type Replay, type ReplayMeta, type RoundBoundary } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("replay");
 
 // ── Integridad / versión ──
 function fnv1a(s: string): number { let h = 2166136261 >>> 0; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
@@ -47,10 +50,10 @@ export function isReplayCompatible(replay: { version: number }): boolean {
  * solo corrupción de inputs sino DIVERGENCIA DE RECONSTRUCCIÓN (otro build/motor reconstruye distinto).
  */
 export function verifyReplay(replay: Replay): { ok: boolean; error?: string } {
-  if (!isReplayCompatible(replay)) return { ok: false, error: `versión incompatible (${replay.version})` };
-  if (checksumReplay(replay.config, replay.log) !== replay.checksum) return { ok: false, error: "checksum inválido (replay corrupto)" };
+  if (!isReplayCompatible(replay)) return { ok: false, error: t("versión incompatible ({version})", { version: replay.version }) };
+  if (checksumReplay(replay.config, replay.log) !== replay.checksum) return { ok: false, error: t("checksum inválido (replay corrupto)") };
   if (replay.stateChecksum !== undefined && stateChecksum(replay.config, replay.log) !== replay.stateChecksum) {
-    return { ok: false, error: "divergencia de reconstrucción (el estado final no coincide)" };
+    return { ok: false, error: t("divergencia de reconstrucción (el estado final no coincide)") };
   }
   return { ok: true };
 }

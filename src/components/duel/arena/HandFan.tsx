@@ -39,6 +39,10 @@ import { getVariant } from "@/domain/cards/variants";
 import { DuelCard, DuelCardBack } from "../DuelCard";
 import type { CombatStatKey, DuelDeckCardDTO, RivalCardHint } from "@/lib/duel/types";
 import type { RoleId } from "@/domain/cards/types";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 /** Cian del jugador, el mismo de la arena. */
 const CIAN = "#2fe0ff";
@@ -54,13 +58,14 @@ export function PlayerHand({
   disabled?: boolean;
   className?: string;
 }) {
+  useLocale();
   const [hover, setHover] = useState<string | null>(null);
 
   if (cards.length === 0) {
     return (
       <div className={cn("grid min-h-[120px] place-items-center", className)}>
         <span className="font-display text-[10px] uppercase tracking-[0.24em] text-white/25">
-          Sin cartas en la mano
+          {t("Sin cartas en la mano")}
         </span>
       </div>
     );
@@ -85,7 +90,7 @@ export function PlayerHand({
       )}
       style={{ perspective: 1200 }}
       role="group"
-      aria-label="Tu mano"
+      aria-label={t("Tu mano")}
     >
       {cards.map((c, i) => {
         const centro = (n - 1) / 2;
@@ -179,11 +184,12 @@ export const RIVAL_BACK_HALO = "drop-shadow(0 0 8px rgba(255,46,99,0.45)) drop-s
 export const RIVAL_HAND_HALO_SHADOW = "0 0 14px rgba(255,46,99,0.40), 0 10px 18px rgba(0,0,0,0.55)";
 
 export function RivalHand({ count, hints = [], roles = [], className }: { count: number; hints?: readonly (RivalCardHint | null)[]; roles?: readonly (RoleId | null)[]; className?: string }) {
+  useLocale();
   if (count <= 0) {
     return (
       <div className={cn("flex min-h-[clamp(20px,2.8vh,32px)] items-center justify-center", className)}>
         <span className="font-display text-[10px] uppercase tracking-[0.24em] text-drl/40">
-          Sin cartas
+          {t("Sin cartas")}
         </span>
       </div>
     );
@@ -198,7 +204,7 @@ export function RivalHand({ count, hints = [], roles = [], className }: { count:
     <div
       className={cn("flex min-h-[clamp(20px,2.8vh,32px)] items-start justify-center", conPistas && "relative isolate", className)}
       style={{ perspective: 900 }}
-      aria-label={`El rival tiene ${count} ${count === 1 ? "carta" : "cartas"} ocultas`}
+      aria-label={t("El rival tiene {count} {v} ocultas", { count, v: count === 1 ? t("carta") : t("cartas") })}
       role={conPistas ? "group" : "img"}
       data-testid="rival-hand"
     >

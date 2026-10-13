@@ -50,6 +50,11 @@ import { PlayerMarket, MarketBoundaryNote } from "@/components/market/PlayerMark
 import { TopCardsRanking } from "@/components/market/TopCardsRanking";
 import { RarityStatsPanel } from "@/components/market/RarityStatsPanel";
 import { applyTax, taxPercent } from "@/domain/market/fees";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("mercado");
 
 type Tab = "comprar" | "ventas" | "compras" | "global";
 const REGIONS: (Region | "Todas")[] = ["Todas", "EMEA", "Americas", "Pacific", "China"];
@@ -91,6 +96,7 @@ export default function MercadoPage() {
 }
 
 function Market() {
+  useLocale();
   const { toast, notify } = useToast();
   const ensureSeeded = useMarketStore((s) => s.ensureSeeded);
   const refreshMarket = useMarketStore((s) => s.refreshMarket);
@@ -114,8 +120,8 @@ function Market() {
   const tab: Tab = serverEconomy ? "global" : pickedTab;
 
   const tabs: [Tab, string][] = serverEconomy
-    ? [["global", "Global"]]
-    : [["comprar", "Comprar"], ["ventas", "Mis anuncios"], ["compras", "Historial"]];
+    ? [["global", tr("Global")]]
+    : [["comprar", tr("Comprar")], ["ventas", tr("Mis anuncios")], ["compras", tr("Historial")]];
 
   const credits = useGameStore((s) => s.credits);
   const listings = useMarketStore((s) => s.listings);
@@ -127,32 +133,32 @@ function Market() {
       <header className="mb-5 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
         <div>
           {/* La etiqueta decía «Colección»: era el rótulo de otra pantalla copiado aquí. */}
-          <span className="font-display text-label uppercase tracking-wide2 text-drl">Mercado</span>
+          <span className="font-display text-label uppercase tracking-wide2 text-drl">{tr("Mercado")}</span>
           <h1 className="mt-1 font-display text-[clamp(30px,5vw,46px)] font-bold uppercase leading-none text-white">
-            Transferencias
+            {tr("Transferencias")}
           </h1>
           <p className="mt-2 max-w-xl text-body text-ink-muted">
             {online
-              ? "Compra y vende cartas entre jugadores (Global)."
-              : "Compra y vende cartas con DRL Credits."}
+              ? tr("Compra y vende cartas entre jugadores (Global).")
+              : tr("Compra y vende cartas con DRL Credits.")}
           </p>
           <div className="mt-1"><MarketBoundaryNote /></div>
         </div>
 
         <div className="flex flex-wrap items-stretch gap-2.5">
           <Plate className="flex items-center px-4 py-2.5">
-            <Readout size="sm" label="A la venta" value={enVenta} tone="var(--nx-cyan)" />
+            <Readout size="sm" label={tr("A la venta")} value={enVenta} tone="var(--nx-cyan)" />
           </Plate>
           <Plate className="flex items-center px-4 py-2.5">
-            <Readout size="sm" label="Tu saldo" value={`🪙 ${formatCredits(credits)}`} tone="var(--nx-gold)" />
+            <Readout size="sm" label={tr("Tu saldo")} value={`🪙 ${formatCredits(credits)}`} tone="var(--nx-gold)" />
           </Plate>
           {tab !== "global" && (
             <NxButton
               variant="secondary"
               size="md"
-              onClick={() => { refreshMarket(); notify("Mercado actualizado", true); }}
+              onClick={() => { refreshMarket(); notify(tr("Mercado actualizado"), true); }}
             >
-              ↻ Actualizar
+              {tr("↻ Actualizar")}
             </NxButton>
           )}
         </div>
@@ -161,7 +167,7 @@ function Market() {
       {/* Las tres salas del mercado. Segmentado del sistema: una elección, no tres pestañas. */}
       <div className="mb-5">
         <Segmented
-          label="Sala del mercado"
+          label={tr("Sala del mercado")}
           value={tab}
           onChange={(v) => setTab(v as Tab)}
           options={tabs.map(([id, label]) => ({ value: id, label }))}
@@ -197,20 +203,18 @@ function Market() {
  * una fase visual.
  */
 function GlobalMarketDisabled() {
+  useLocale();
   return (
     <div className="rounded-2xl border border-drl-gold/30 bg-drl-gold/5 p-8 text-center">
       <p className="text-4xl">🔒</p>
       <p className="mt-3 font-display text-lg font-bold uppercase tracking-wide text-white">
-        Mercado global temporalmente cerrado
+        {tr("Mercado global temporalmente cerrado")}
       </p>
       <p className="mx-auto mt-2 max-w-md text-sm text-white/60">
-        Estamos migrando la propiedad de las cartas al servidor para que los intercambios entre
-        jugadores sean seguros y verificables. Mientras tanto, el mercado global no acepta
-        operaciones.
+        {tr("Estamos migrando la propiedad de las cartas al servidor para que los intercambios entre jugadores sean seguros y verificables. Mientras tanto, el mercado global no acepta operaciones.")}
       </p>
       <p className="mx-auto mt-3 max-w-md text-sm text-white/45">
-        El <span className="text-white/70">mercado local</span> y tu colección siguen funcionando con
-        normalidad. Ninguna carta ni ningún crédito se pierde.
+        {fill(tr("El {local} y tu colección siguen funcionando con normalidad. Ninguna carta ni ningún crédito se pierde.", slots("local")), { local: <span className="text-white/70">{tr("mercado local")}</span> })}
       </p>
     </div>
   );
@@ -234,6 +238,7 @@ const GLOBAL_SORTS: [ListingSearchParams["sort"], string][] = [
 ];
 
 function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const ownedCards = useGameStore((s) => s.ownedCards);
   const addOwnedCard = useGameStore((s) => s.addOwnedCard);
   const removeOwnedCard = useGameStore((s) => s.removeOwnedCard);
@@ -301,27 +306,27 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
     const res = await buyListingOnline(row.id);
     if (res.error) return notify(res.error, false);
     addOwnedCard(row.card_id, row.serial ?? undefined);
-    notify("¡Carta comprada en el mercado global!", true);
+    notify(tr("¡Carta comprada en el mercado global!"), true);
     search();
   }
   async function cancelL(l: Listing) {
     const res = await cancelListingOnline(l.id);
     if (res.error) return notify(res.error, false);
     addOwnedCard(l.card_id, l.serial ?? undefined);
-    notify("Listado cancelado", true);
+    notify(tr("Listado cancelado"), true);
     refreshMine();
   }
   async function cancelO(o: Offer) {
     const res = await cancelOffer(o.id);
     if (res.error) return notify(res.error, false);
-    notify("Oferta cancelada · créditos reembolsados", true);
+    notify(tr("Oferta cancelada · créditos reembolsados"), true);
     refreshMine();
   }
   async function publish() {
     const sel = owned.find((o) => o.inst.uid === sellUid);
-    if (!sel || !sel.def) return notify("Selecciona una carta", false);
+    if (!sel || !sel.def) return notify(tr("Selecciona una carta"), false);
     const removed = removeOwnedCard(sel.inst.uid);
-    if (!removed) return notify("Carta no disponible", false);
+    if (!removed) return notify(tr("Carta no disponible"), false);
     const res = await listCardOnline(removed.cardId, removed.serial ?? null, sellPrice);
     if (res.error) {
       // BUG-07: `addOwnedCard` acuñaba un uid NUEVO y perdía obtainedAt, el origen sellado
@@ -330,7 +335,7 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
       restoreOwnedCard(removed);
       return notify(res.error, false);
     }
-    notify("Carta publicada en el mercado global", true);
+    notify(tr("Carta publicada en el mercado global"), true);
     setSellUid("");
     refreshMine();
     search();
@@ -338,9 +343,9 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
 
   const sellNet = applyTax(sellPrice, taxBps);
   const subs: [GlobalSub, string][] = [
-    ["comprar", "Comprar"],
-    ["ofertas", `Mis ofertas${myOffers.length ? ` (${myOffers.length})` : ""}`],
-    ["analitica", "Analítica"],
+    ["comprar", tr("Comprar")],
+    ["ofertas", tr("Mis ofertas{v}", { v: myOffers.length ? ` (${myOffers.length})` : "" })],
+    ["analitica", tr("Analítica")],
   ];
 
   return (
@@ -351,7 +356,7 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
           <button key={id} onClick={() => setSub(id)}
             className={cn("flex-1 rounded-lg px-3 py-1.5 font-display text-xs uppercase tracking-wide transition",
               sub === id ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white")}>
-            {label}
+            {td(label)}
           </button>
         ))}
       </div>
@@ -360,41 +365,41 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
         <>
           {/* Publicar */}
           <div className="rounded-2xl border border-white/10 bg-base-700/40 p-4">
-            <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Poner a la venta</h2>
+            <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">{tr("Poner a la venta")}</h2>
             <div className="flex flex-wrap items-end gap-2">
               <label className="min-w-[220px] flex-1">
-                <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Carta</span>
+                <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Carta")}</span>
                 <select value={sellUid} onChange={(e) => setSellUid(e.target.value)} className="w-full rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none">
-                  <option value="">Elige una carta…</option>
+                  <option value="">{tr("Elige una carta…")}</option>
                   {owned.map(({ inst, def }) => (
                     <option key={inst.uid} value={inst.uid}>
-                      {getPlayer(def!.playerId)?.nick} · {getVariant(def!.variantId).label}
-                      {inst.serial != null ? ` #${inst.serial}` : ""} (OVR {def!.ovr})
+                      {getPlayer(def!.playerId)?.nick} · {td(getVariant(def!.variantId).label)}
+                      {inst.serial != null ? ` #${inst.serial}` : ""} {tr("(OVR")} {def!.ovr})
                     </option>
                   ))}
                 </select>
               </label>
               <label>
-                <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">Precio 🪙</span>
+                <span className="mb-0.5 block text-[10px] uppercase tracking-widest text-white/40">{tr("Precio 🪙")}</span>
                 <input type="number" min={25} value={sellPrice} onChange={(e) => setSellPrice(Number(e.target.value))} className="w-32 rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none" />
               </label>
               <button onClick={publish} className="rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-5 py-2.5 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
-                Publicar
+                {tr("Publicar")}
               </button>
             </div>
             <p className="mt-2 text-[11px] text-white/40">
-              Recibirás 🪙 {formatCredits(sellNet.net)} tras el impuesto de mercado del {taxPercent(taxBps)}% (🪙 {formatCredits(sellNet.tax)}).
+              {tr("Recibirás 🪙 {neto} tras el impuesto de mercado del {pct}% (🪙 {impuesto}).", { neto: formatCredits(sellNet.net), pct: taxPercent(taxBps), impuesto: formatCredits(sellNet.tax) })}
             </p>
           </div>
 
           {/* Mis listados globales */}
           {mine.length > 0 && (
             <div>
-              <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Tus listados globales ({mine.length})</h2>
+              <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">{tr("Tus listados globales ({n})", { n: mine.length })}</h2>
               <div className="space-y-2">
                 {mine.map((l) => (
                   <OnlineRow key={l.id} listing={l} action={
-                    <button onClick={() => cancelL(l)} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10">Cancelar</button>
+                    <button onClick={() => cancelL(l)} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10">{tr("Cancelar")}</button>
                   } />
                 ))}
               </div>
@@ -404,18 +409,18 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
           {/* Búsqueda server-side */}
           <div className="space-y-3 rounded-2xl border border-white/10 bg-base-700/40 p-4">
             <div className="flex flex-wrap items-center gap-2">
-              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar jugador o equipo…"
+              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={tr("Buscar jugador o equipo…")}
                 className="min-w-[200px] flex-1 rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none" />
               <select value={sort} onChange={(e) => setSort(e.target.value as ListingSearchParams["sort"])}
                 className="rounded-lg border border-white/10 bg-base-800 px-3 py-2 text-sm text-white focus:border-drl focus:outline-none">
-                {GLOBAL_SORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                {GLOBAL_SORTS.map(([v, l]) => <option key={v} value={v}>{td(l)}</option>)}
               </select>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {REGIONS.map((r) => <Chip key={r} active={region === r} onClick={() => setRegion(r)}>{r}</Chip>)}
+              {REGIONS.map((r) => <Chip key={r} active={region === r} onClick={() => setRegion(r)}>{td(r)}</Chip>)}
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {RANK_BANDS.map((b, i) => <Chip key={b.label} active={band === i} onClick={() => setBand(i)}>{b.label}</Chip>)}
+              {RANK_BANDS.map((b, i) => <Chip key={b.label} active={band === i} onClick={() => setBand(i)}>{td(b.label)}</Chip>)}
             </div>
           </div>
 
@@ -423,7 +428,7 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
           {loading ? (
             <div className="grid min-h-[20vh] place-items-center"><div className="h-7 w-7 animate-spin rounded-full border-2 border-drl border-t-transparent" /></div>
           ) : rows.length === 0 ? (
-            <p className="py-10 text-center text-white/40">No hay cartas a la venta con estos filtros.</p>
+            <p className="py-10 text-center text-white/40">{tr("No hay cartas a la venta con estos filtros.")}</p>
           ) : (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {rows.map((row) => {
@@ -437,14 +442,14 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
                     </button>
                     {row.deal != null && (
                       <span className={cn("self-start rounded-full px-2 py-0.5 text-[11px]", row.deal < 1 ? "bg-drl-cyan/15 text-drl-cyan" : "bg-white/5 text-white/40")}>
-                        ×{row.deal} vs valor
+                        ×{row.deal} {tr("vs valor")}
                       </span>
                     )}
                     {isMine ? (
-                      <span className="rounded-lg border border-white/10 px-2 py-2 text-center text-xs text-white/40">Tuya</span>
+                      <span className="rounded-lg border border-white/10 px-2 py-2 text-center text-xs text-white/40">{tr("Tuya")}</span>
                     ) : (
                       <button onClick={() => buy(row)} className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-2 py-2 font-display text-xs font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110">
-                        Comprar 🪙 {formatCredits(row.price)}
+                        {tr("Comprar 🪙")} {formatCredits(row.price)}
                       </button>
                     )}
                   </div>
@@ -457,9 +462,9 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
 
       {sub === "ofertas" && (
         <div>
-          <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">Tus ofertas activas ({myOffers.length})</h2>
+          <h2 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-white">{tr("Tus ofertas activas (")}{myOffers.length})</h2>
           {myOffers.length === 0 ? (
-            <Empty>No tienes ofertas activas. Haz una desde la ficha de una carta.</Empty>
+            <Empty>{tr("No tienes ofertas activas. Haz una desde la ficha de una carta.")}</Empty>
           ) : (
             <div className="space-y-2">
               {myOffers.map((o) => {
@@ -470,9 +475,9 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
                     {def && <CardThumb card={def} />}
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-display text-sm font-bold uppercase text-white">{player?.nick ?? o.card_id}</p>
-                      <p className="text-[11px] text-white/40">{o.kind === "listing" ? "Oferta a un listado" : "Orden de compra"} · retenido 🪙 {formatCredits(o.price)}</p>
+                      <p className="text-[11px] text-white/40">{tr("{tipo} · retenido 🪙 {precio}", { tipo: o.kind === "listing" ? tr("Oferta a un listado") : tr("Orden de compra"), precio: formatCredits(o.price) })}</p>
                     </div>
-                    <button onClick={() => cancelO(o)} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10">Cancelar</button>
+                    <button onClick={() => cancelO(o)} className="rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 font-display text-xs uppercase text-white transition hover:bg-white/10">{tr("Cancelar")}</button>
                   </div>
                 );
               })}
@@ -488,7 +493,7 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
               <button key={id} onClick={() => setAnalytics(id)}
                 className={cn("flex-1 rounded-lg px-3 py-1.5 font-display text-xs uppercase tracking-wide transition",
                   analytics === id ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white")}>
-                {id === "ranking" ? "Cartas más valiosas" : "Por rareza"}
+                {id === "ranking" ? tr("Cartas más valiosas") : tr("Por rareza")}
               </button>
             ))}
           </div>
@@ -514,6 +519,7 @@ function GlobalTab({ userId, notify }: { userId: string; notify: (m: string, ok?
 }
 
 function OnlineRow({ listing, action }: { listing: Listing; action: React.ReactNode }) {
+  useLocale();
   const def = getCard(listing.card_id);
   const player = def ? getPlayer(def.playerId) : undefined;
   if (!def || !player) return null;
@@ -524,9 +530,9 @@ function OnlineRow({ listing, action }: { listing: Listing; action: React.ReactN
       <div className="min-w-0 flex-1">
         <p className="truncate font-display text-sm font-bold uppercase text-white">{player.nick}</p>
         <p className="truncate text-xs" style={{ color: variant.palette.primary }}>
-          {variant.label} · OVR {def.ovr}{listing.serial != null ? ` · #${listing.serial}` : ""}
+          {td(variant.label)} {tr("· OVR")} {def.ovr}{listing.serial != null ? ` · #${listing.serial}` : ""}
         </p>
-        <p className="text-[11px] text-white/40">Valor ref. 🪙 {formatCredits(instanceValue(def, listing.serial ?? undefined))}</p>
+        <p className="text-[11px] text-white/40">{tr("Valor ref. 🪙")} {formatCredits(instanceValue(def, listing.serial ?? undefined))}</p>
       </div>
       <div className="text-right">
         <p className="font-display text-sm font-bold text-drl-gold">🪙 {formatCredits(listing.price)}</p>
@@ -538,6 +544,7 @@ function OnlineRow({ listing, action }: { listing: Listing; action: React.ReactN
 
 /* ----------------------------- COMPRAR ----------------------------- */
 function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const listings = useMarketStore((s) => s.listings);
   const priceHistory = useMarketStore((s) => s.priceHistory);
   const buyListing = useMarketStore((s) => s.buyListing);
@@ -594,7 +601,7 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
     setBusy(true);
     try {
       const res = buyListing(id);
-      notify(res.ok ? "Carta adquirida" : res.error ?? "Error", res.ok);
+      notify(res.ok ? tr("Carta adquirida") : res.error ?? tr("Error"), res.ok);
       if (res.ok) setDetailId(null);
     } finally {
       setBusy(false);
@@ -642,13 +649,13 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
         matched={filtered.length}
         facets={[
           {
-            label: "Región",
+            label: tr("Región"),
             value: region,
             onChange: (v) => setRegion(v as Region | "Todas"),
             options: REGIONS.map((r) => ({ value: r, label: r })),
           },
           {
-            label: "Rareza",
+            label: tr("Rareza"),
             value: rarity,
             onChange: (v) => setRarity(v as RarityLabel),
             options: RARITIES.map((r) => ({ value: r, label: r })),
@@ -657,13 +664,13 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
             label: "OVR",
             value: String(ovrMin),
             onChange: (v) => setOvrMin(Number(v)),
-            options: OVR_MINS.map((o) => ({ value: String(o), label: o === 0 ? "Cualquiera" : `${o}+` })),
+            options: OVR_MINS.map((o) => ({ value: String(o), label: o === 0 ? tr("Cualquiera") : `${o}+` })),
           },
           {
-            label: "Equipo",
+            label: tr("Equipo"),
             value: team,
             onChange: setTeam,
-            options: [{ value: "Todos", label: "Todos" }, ...TEAMS.map((t) => ({ value: t, label: t }))],
+            options: [{ value: "Todos", label: /* i18n-id */ "Todos" }, ...TEAMS.map((t) => ({ value: t, label: t }))],
           },
         ]}
       />
@@ -671,16 +678,16 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
       {filtered.length === 0 ? (
         <Plate className="flex flex-col items-center gap-3 px-6 py-14 text-center">
           <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">
-            {activeFilters > 0 || query ? "Sin resultados" : "El mercado está vacío"}
+            {activeFilters > 0 || query ? tr("Sin resultados") : tr("El mercado está vacío")}
           </p>
           <p className="max-w-[46ch] text-body text-ink-muted">
             {activeFilters > 0 || query
-              ? "Ninguna carta a la venta coincide con lo que has pedido. Prueba con otro nombre o quita alguna condición."
-              : "Ahora mismo no hay cartas a la venta. Pulsa «Actualizar» para ver si han entrado nuevas."}
+              ? tr("Ninguna carta a la venta coincide con lo que has pedido. Prueba con otro nombre o quita alguna condición.")
+              : tr("Ahora mismo no hay cartas a la venta. Pulsa «Actualizar» para ver si han entrado nuevas.")}
           </p>
           {(activeFilters > 0 || query) && (
             <NxButton variant="secondary" size="md" onClick={clearFilters}>
-              Limpiar filtros
+              {tr("Limpiar filtros")}
             </NxButton>
           )}
         </Plate>
@@ -719,6 +726,7 @@ function BuyTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
  * Antes esta sala solo sabía decir «publícalas desde tu colección».
  */
 function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
+  useLocale();
   const listings = useMarketStore((s) => s.listings);
   const cancelListing = useMarketStore((s) => s.cancelListing);
   const listForSale = useMarketStore((s) => s.listForSale);
@@ -752,7 +760,7 @@ function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
     setBusy(true);
     try {
       const res = listForSale(uid, price);
-      notify(res.ok ? "Carta publicada en el mercado" : res.error ?? "No se pudo publicar", res.ok);
+      notify(res.ok ? tr("Carta publicada en el mercado") : res.error ?? tr("No se pudo publicar"), res.ok);
     } finally {
       setBusy(false);
     }
@@ -762,19 +770,19 @@ function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
     <div className="space-y-6">
       <SellPanel cards={sellable} busy={busy} onPublish={publish} />
 
-      <section aria-label="Cartas en venta">
+      <section aria-label={tr("Cartas en venta")}>
         {/*
           El contador desaparece en cero. En la escala de cifras el «0» a este tamaño se lee
           como una «D» —«EN VENTA D»—, y de todas formas la frase de abajo ya dice que no hay
           nada. Un número que hay que descifrar es peor que ningún número.
         */}
         <SectionTitle>
-          En venta
+          {tr("En venta")}
           {myListings.length > 0 && <span className="nx-readout ml-1.5 text-ink-secondary">{myListings.length}</span>}
         </SectionTitle>
         {myListings.length === 0 ? (
           <Plate className="px-5 py-8 text-center text-body text-ink-muted">
-            Todavía no tienes ninguna carta publicada.
+            {tr("Todavía no tienes ninguna carta publicada.")}
           </Plate>
         ) : (
           <div className="space-y-2">
@@ -788,10 +796,10 @@ function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
                     size="md"
                     onClick={() => {
                       cancelListing(l.id);
-                      notify("Anuncio retirado, carta devuelta", true);
+                      notify(tr("Anuncio retirado, carta devuelta"), true);
                     }}
                   >
-                    Retirar
+                    {tr("Retirar")}
                   </NxButton>
                 }
               />
@@ -800,14 +808,14 @@ function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
         )}
       </section>
 
-      <section aria-label="Ventas completadas">
+      <section aria-label={tr("Ventas completadas")}>
         <SectionTitle>
-          Vendidas
+          {tr("Vendidas")}
           {sales.length > 0 && <span className="nx-readout ml-1.5 text-ink-secondary">{sales.length}</span>}
         </SectionTitle>
         {sales.length === 0 ? (
           <Plate className="px-5 py-8 text-center text-body text-ink-muted">
-            Todavía no has vendido nada.
+            {tr("Todavía no has vendido nada.")}
           </Plate>
         ) : (
           <div className="space-y-2">
@@ -823,15 +831,16 @@ function SalesTab({ notify }: { notify: (m: string, ok?: boolean) => void }) {
 
 /* ----------------------------- MIS COMPRAS ----------------------------- */
 function PurchasesTab() {
+  useLocale();
   const purchases = useMarketStore((s) => s.purchases);
   return (
     <div>
       <SectionTitle>
-        Historial de compras
+        {tr("Historial de compras")}
         {purchases.length > 0 && <span className="nx-readout ml-1.5 text-ink-secondary">{purchases.length}</span>}
       </SectionTitle>
       {purchases.length === 0 ? (
-        <Plate className="px-5 py-8 text-center text-body text-ink-muted">Todavía no has comprado nada en el mercado.</Plate>
+        <Plate className="px-5 py-8 text-center text-body text-ink-muted">{tr("Todavía no has comprado nada en el mercado.")}</Plate>
       ) : (
         <div className="space-y-2">
           {purchases.map((tx, i) => (
@@ -851,6 +860,7 @@ function PurchasesTab() {
  * Ni los datos ni el orden cambian: solo dejan de ser un dialecto aparte.
  */
 function ListingRow({ listing, action }: { listing: MarketListing; action: React.ReactNode }) {
+  useLocale();
   const def = getCard(listing.cardId);
   const player = getPlayer(listing.cardId.split("__")[0]);
   if (!def || !player) return null;
@@ -861,13 +871,13 @@ function ListingRow({ listing, action }: { listing: MarketListing; action: React
       <div className="min-w-0 flex-1">
         <p className="truncate font-display text-body font-bold uppercase text-white">{player.nick}</p>
         <p className="truncate text-caption" style={{ color: variant.palette.primary }}>
-          {variant.label} · OVR {def.ovr}
+          {td(variant.label)} {tr("· OVR")} {def.ovr}
           {listing.serial != null ? ` · #${listing.serial}` : ""}
         </p>
-        <p className="text-caption text-ink-faint">Publicada {formatRelative(listing.listedAt)}</p>
+        <p className="text-caption text-ink-faint">{tr("Publicada")} {formatRelative(listing.listedAt)}</p>
       </div>
       <div className="flex shrink-0 items-center gap-4">
-        <Readout size="sm" label="Precio" value={formatCredits(listing.price)} tone="var(--nx-gold)" />
+        <Readout size="sm" label={tr("Precio")} value={formatCredits(listing.price)} tone="var(--nx-gold)" />
         {action}
       </div>
     </Plate>
@@ -887,6 +897,7 @@ function TxRow({
   at: number;
   positive?: boolean;
 }) {
+  useLocale();
   const def = getCard(cardId);
   const player = getPlayer(cardId.split("__")[0]);
   if (!def || !player) return null;
@@ -897,7 +908,7 @@ function TxRow({
       <div className="min-w-0 flex-1">
         <p className="truncate font-display text-body font-bold uppercase text-white">{player.nick}</p>
         <p className="truncate text-caption" style={{ color: variant.palette.primary }}>
-          {variant.label} · OVR {def.ovr}
+          {td(variant.label)} {tr("· OVR")} {def.ovr}
           {serial != null ? ` · #${serial}` : ""}
         </p>
         <p className="text-caption text-ink-faint">{formatRelative(at)}</p>
@@ -905,7 +916,7 @@ function TxRow({
       {/* El signo dice la dirección; el color, si entra o sale. Cifra en la escala de READOUT. */}
       <Readout
         size="sm"
-        label={positive ? "Cobrado" : "Pagado"}
+        label={positive ? tr("Cobrado") : tr("Pagado")}
         value={`${positive ? "+" : "−"}${formatCredits(price)}`}
         tone={positive ? "var(--nx-cyan)" : "var(--nx-gold)"}
       />

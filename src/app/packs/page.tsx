@@ -29,6 +29,10 @@ import { trackFlow } from "@/lib/telemetry/client";
 import { formatCredits } from "@/lib/format";
 import { Plate } from "@/components/ui/Surface";
 import { Badge } from "@/components/ui/Badge";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("packs");
 
 export default function PacksHubPage() {
   return (
@@ -46,6 +50,7 @@ function tabFromHash(available: (CatalogTab | "todos")[]): CatalogTab | "todos" 
 }
 
 function Hub() {
+  useLocale();
   const unopened = useGameStore((s) => s.unopenedPacks);
   const credits = useGameStore((s) => s.credits);
   const tabs = useMemo(() => availableTabs(), []);
@@ -67,17 +72,17 @@ function Hub() {
       {/* ── Cabecera ── */}
       <header className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="nx-label">Jugar · Sobres</p>
+          <p className="nx-label">{tr("Jugar · Sobres")}</p>
           <h1 className="font-display text-2xl font-bold uppercase tracking-wide text-white md:text-3xl">
-            Sobres
+            {tr("Sobres")}
           </h1>
           <p className="mt-1 max-w-lg text-sm text-ink-muted">
-            Abre los que tienes, mira qué puede salir de cada uno y consigue el siguiente.
+            {tr("Abre los que tienes, mira qué puede salir de cada uno y consigue el siguiente.")}
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-caption text-ink-faint">Tu saldo</span>
-          <span className="nx-readout text-sm font-bold text-drl-gold">{formatCredits(credits)} <span className="text-caption font-normal text-ink-faint">créditos</span></span>
+          <span className="text-caption text-ink-faint">{tr("Tu saldo")}</span>
+          <span className="nx-readout text-sm font-bold text-drl-gold">{formatCredits(credits)} <span className="text-caption font-normal text-ink-faint">{tr("créditos")}</span></span>
         </div>
       </header>
 
@@ -86,8 +91,8 @@ function Hub() {
 
       {/* ── 2 · DESTACADOS ── */}
       {featured.length > 0 && (
-        <section aria-label="Destacados" className="mb-8">
-          <h2 className="mb-3 font-display text-label font-bold uppercase tracking-wide2 text-ink-muted">Destacados</h2>
+        <section aria-label={tr("Destacados")} className="mb-8">
+          <h2 className="mb-3 font-display text-label font-bold uppercase tracking-wide2 text-ink-muted">{tr("Destacados")}</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             {featured.map(({ pack, why }) => {
               const id = packIdentity(pack);
@@ -96,7 +101,7 @@ function Hub() {
                   key={pack.id}
                   href={`/packs/${pack.id}`}
                   className="nx-focus group"
-                  aria-label={`${pack.name}: ${why}`}
+                  aria-label={`${td(pack.name)}: ${why}`}
                 >
                   <Plate className="relative flex items-center gap-4 overflow-hidden p-4 transition-colors hover:bg-white/[0.06]">
                     <div aria-hidden className="absolute inset-0 opacity-60" style={{ background: `radial-gradient(70% 90% at 0% 50%, ${pack.accent}22, transparent 70%)` }} />
@@ -104,12 +109,12 @@ function Hub() {
                       <SealedPack pack={pack} cutProgress={0} width={64} />
                     </div>
                     <div className="relative min-w-0">
-                      <p className="font-display text-label font-bold uppercase tracking-wide2 text-ink-faint">{id.categoryLabel}</p>
-                      <p className="truncate font-display text-base font-bold text-white">{pack.name}</p>
-                      <p className="mt-0.5 line-clamp-2 text-caption text-ink-secondary">{why}</p>
+                      <p className="font-display text-label font-bold uppercase tracking-wide2 text-ink-faint">{td(id.categoryLabel)}</p>
+                      <p className="truncate font-display text-base font-bold text-white">{td(pack.name)}</p>
+                      <p className="mt-0.5 line-clamp-2 text-caption text-ink-secondary">{td(why)}</p>
                       <p className="mt-1 nx-readout text-caption" style={{ color: pack.price <= 0 ? "var(--nx-ok)" : "var(--nx-gold)" }}>
-                        {pack.price <= 0 ? "Gratis" : `${formatCredits(pack.price)} créditos`}
-                        {(unopened[pack.id] ?? 0) > 0 && <Badge tone="info" className="ml-2">{unopened[pack.id]} sin abrir</Badge>}
+                        {pack.price <= 0 ? tr("Gratis") : tr("{price} créditos", { price: formatCredits(pack.price) })}
+                        {(unopened[pack.id] ?? 0) > 0 && <Badge tone="info" className="ml-2">{unopened[pack.id]} {tr("sin abrir")}</Badge>}
                       </p>
                     </div>
                   </Plate>
@@ -121,10 +126,10 @@ function Hub() {
       )}
 
       {/* ── 3 · TIENDA ── */}
-      <section aria-label="Tienda de sobres">
+      <section aria-label={tr("Tienda de sobres")}>
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-display text-label font-bold uppercase tracking-wide2 text-ink-muted">Tienda</h2>
-          <nav aria-label="Categorías de sobres" className="flex flex-wrap gap-2">
+          <h2 className="font-display text-label font-bold uppercase tracking-wide2 text-ink-muted">{tr("Tienda")}</h2>
+          <nav aria-label={tr("Categorías de sobres")} className="flex flex-wrap gap-2">
             {tabs.map((t) => {
               const active = t === tab;
               return (
@@ -140,7 +145,7 @@ function Hub() {
                       : "bg-white/[0.04] text-ink-muted shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)] hover:text-white hover:bg-white/[0.08]")
                   }
                 >
-                  {CATALOG_TAB_LABEL[t]}
+                  {td(CATALOG_TAB_LABEL[t])}
                 </button>
               );
             })}
@@ -149,15 +154,15 @@ function Hub() {
 
         {groups.length === 0 ? (
           <div className="nx-clip flex min-h-[240px] flex-col items-center justify-center gap-2 bg-white/[0.02] p-8 text-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]">
-            <p className="font-display text-lg font-bold text-white">No hay sobres en esta categoría</p>
-            <p className="text-sm text-ink-muted">Prueba con otra pestaña.</p>
+            <p className="font-display text-lg font-bold text-white">{tr("No hay sobres en esta categoría")}</p>
+            <p className="text-sm text-ink-muted">{tr("Prueba con otra pestaña.")}</p>
           </div>
         ) : (
           groups.map((g) => (
             <section key={g.tab} className="mb-8">
               {(tab === "todos") && (
                 <h3 className="mb-3 font-display text-label font-bold uppercase tracking-wide2 text-ink-faint">
-                  {g.label}
+                  {td(g.label)}
                   <span className="ml-2 text-ink-faint/70">{g.packs.length}</span>
                 </h3>
               )}

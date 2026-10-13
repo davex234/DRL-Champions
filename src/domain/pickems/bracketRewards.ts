@@ -17,6 +17,9 @@
  *   contiene «si es Champions, da X».
  */
 import { REWARD_ELIGIBILITY_V1 } from "./eligibility";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+
+const tr = ns("pickems");
 export type RewardTierId = "PARTICIPATION" | "GOOD" | "GREAT" | "ELITE" | "PERFECT";
 export const TIER_ORDER: readonly RewardTierId[] = ["PARTICIPATION", "GOOD", "GREAT", "ELITE", "PERFECT"];
 export const TIER_LABEL: Record<RewardTierId, string> = {
@@ -119,40 +122,40 @@ export function validateRewards(cfg: BracketRewardConfig, cat: CatalogLookup): R
   const out: RewardIssue[] = [];
   const err = (code: string, message: string, tier?: RewardTierId) => out.push({ severity: "ERROR", code, message, tier });
   const warn = (code: string, message: string, tier?: RewardTierId) => out.push({ severity: "WARNING", code, message, tier });
-  if (!(cfg.minCompletion >= 0.5 && cfg.minCompletion <= 1)) err("MIN_COMPLETION", "La participación mínima debe estar entre 50 % y 100 %.");
+  if (!(cfg.minCompletion >= 0.5 && cfg.minCompletion <= 1)) err("MIN_COMPLETION", tr("La participación mínima debe estar entre 50 % y 100 %."));
   const ids = new Set<RewardTierId>();
   for (const t of cfg.tiers) {
-    if (!TIER_ORDER.includes(t.id)) { err("TIER_UNKNOWN", `Escalón desconocido: ${t.id}.`); continue; }
-    if (ids.has(t.id)) err("TIER_DUP", `Escalón repetido: ${t.id}.`, t.id);
+    if (!TIER_ORDER.includes(t.id)) { err("TIER_UNKNOWN", tr("Escalón desconocido: {id}.", { id: t.id })); continue; }
+    if (ids.has(t.id)) err("TIER_DUP", tr("Escalón repetido: {id}.", { id: t.id }), t.id);
     ids.add(t.id);
     const needsRatio = t.id === "GOOD" || t.id === "GREAT" || t.id === "ELITE";
-    if (needsRatio && !(typeof t.minRatio === "number" && t.minRatio > 0 && t.minRatio < 1)) err("RATIO", `${TIER_LABEL[t.id]}: proporción mínima entre 0 y 1.`, t.id);
-    if (!needsRatio && t.minRatio !== null) err("RATIO", `${TIER_LABEL[t.id]} no usa proporción.`, t.id);
+    if (needsRatio && !(typeof t.minRatio === "number" && t.minRatio > 0 && t.minRatio < 1)) err("RATIO", tr("{v}: proporción mínima entre 0 y 1.", { v: td(TIER_LABEL[t.id]) }), t.id);
+    if (!needsRatio && t.minRatio !== null) err("RATIO", tr("{v} no usa proporción.", { v: td(TIER_LABEL[t.id]) }), t.id);
     const r = t.reward ?? {};
     const any = !!r.packId || (r.cardIds?.length ?? 0) > 0 || (r.cosmetics?.length ?? 0) > 0 || (r.credits ?? 0) > 0;
-    if (!any) err("EMPTY_TIER", `${TIER_LABEL[t.id]} no entrega nada.`, t.id);
+    if (!any) err("EMPTY_TIER", tr("{v} no entrega nada.", { v: td(TIER_LABEL[t.id]) }), t.id);
     if (r.packId) {
-      if (cat.packPrice(r.packId) === null) err("PACK_UNKNOWN", `Sobre inexistente: ${r.packId}.`, t.id);
+      if (cat.packPrice(r.packId) === null) err("PACK_UNKNOWN", tr("Sobre inexistente: {packId}.", { packId: r.packId }), t.id);
       const n = r.packCount ?? 1;
-      if (!(Number.isInteger(n) && n >= 1 && n <= MAX_PACK_COUNT)) err("PACK_COUNT", `Entre 1 y ${MAX_PACK_COUNT} sobres.`, t.id);
+      if (!(Number.isInteger(n) && n >= 1 && n <= MAX_PACK_COUNT)) err("PACK_COUNT", tr("Entre 1 y {MAX_PACK_COUNT} sobres.", { MAX_PACK_COUNT }), t.id);
     }
-    if ((r.cardIds?.length ?? 0) > MAX_CARD_COUNT) err("CARD_COUNT", `Como mucho ${MAX_CARD_COUNT} carta por escalón.`, t.id);
-    for (const c of r.cardIds ?? []) if (!cat.cardExists(c)) err("CARD_UNKNOWN", `Carta inexistente: ${c}.`, t.id);
-    for (const c of r.cosmetics ?? []) if (!/^insignia:pickem:[a-z0-9-]{3,64}$/.test(c)) err("COSMETIC", `Solo insignias «${PICKEM_BADGE_PREFIX}…»: ${c}.`, t.id);
-    if ((r.credits ?? 0) < 0 || !Number.isInteger(r.credits ?? 0)) err("CREDITS", "Créditos enteros y no negativos.", t.id);
-    if ((r.credits ?? 0) > MAX_TIER_CREDITS) err("CREDITS_CAP", `Más de ${MAX_TIER_CREDITS} créditos en un escalón.`, t.id);
+    if ((r.cardIds?.length ?? 0) > MAX_CARD_COUNT) err("CARD_COUNT", tr("Como mucho {MAX_CARD_COUNT} carta por escalón.", { MAX_CARD_COUNT }), t.id);
+    for (const c of r.cardIds ?? []) if (!cat.cardExists(c)) err("CARD_UNKNOWN", tr("Carta inexistente: {c}.", { c: td(c) }), t.id);
+    for (const c of r.cosmetics ?? []) if (!/^insignia:pickem:[a-z0-9-]{3,64}$/.test(c)) err("COSMETIC", tr("Solo insignias «{PICKEM_BADGE_PREFIX}…»: {c}.", { PICKEM_BADGE_PREFIX, c: td(c) }), t.id);
+    if ((r.credits ?? 0) < 0 || !Number.isInteger(r.credits ?? 0)) err("CREDITS", tr("Créditos enteros y no negativos."), t.id);
+    if ((r.credits ?? 0) > MAX_TIER_CREDITS) err("CREDITS_CAP", tr("Más de {MAX_TIER_CREDITS} créditos en un escalón.", { MAX_TIER_CREDITS }), t.id);
     if ((r.credits ?? 0) > 0) warn("CREDITS_USED", `${TIER_LABEL[t.id]} da créditos: preferible sobres/coleccionables.`, t.id);
   }
   // Listones crecientes y valor no decreciente: subir de escalón nunca puede empeorar.
   const ordered = TIER_ORDER.map((id) => cfg.tiers.find((t) => t.id === id)).filter((t): t is TierConfig => !!t);
   let lastRatio = 0, lastValue = 0;
   for (const t of ordered) {
-    if (t.minRatio !== null) { if (t.minRatio <= lastRatio) err("RATIO_ORDER", `${TIER_LABEL[t.id]}: su listón debe superar al anterior.`, t.id); lastRatio = t.minRatio; }
+    if (t.minRatio !== null) { if (t.minRatio <= lastRatio) err("RATIO_ORDER", tr("{v}: su listón debe superar al anterior.", { v: td(TIER_LABEL[t.id]) }), t.id); lastRatio = t.minRatio; }
     const v = tierValue(t.reward, cat);
-    if (v < lastValue) err("VALUE_ORDER", `${TIER_LABEL[t.id]} vale menos que un escalón inferior.`, t.id);
+    if (v < lastValue) err("VALUE_ORDER", tr("{v} vale menos que un escalón inferior.", { v: td(TIER_LABEL[t.id]) }), t.id);
     lastValue = Math.max(lastValue, v);
   }
-  if (cfg.status === "ACTIVE" && cfg.tiers.length === 0) err("ACTIVE_EMPTY", "No se pueden activar recompensas vacías.");
+  if (cfg.status === "ACTIVE" && cfg.tiers.length === 0) err("ACTIVE_EMPTY", tr("No se pueden activar recompensas vacías."));
   return out;
 }
 
@@ -259,8 +262,8 @@ export function isRewardRulesV1(cfg: BracketRewardConfig, badgeSlug: string): bo
 export function describeTierReward(r: TierReward, packName: (id: string) => string): string[] {
   const out: string[] = [];
   if (r.packId) out.push(`${(r.packCount ?? 1) > 1 ? `${r.packCount}× ` : ""}${packName(r.packId)}`);
-  for (const _c of r.cardIds ?? []) out.push("Carta conmemorativa");
-  for (const c of r.cosmetics ?? []) if (c.startsWith(PICKEM_BADGE_PREFIX)) out.push("Insignia «Pick'em perfecto»");
-  if ((r.credits ?? 0) > 0) out.push(`${(r.credits ?? 0).toLocaleString("es-ES")} créditos`);
+  for (const _c of r.cardIds ?? []) out.push(tr("Carta conmemorativa"));
+  for (const c of r.cosmetics ?? []) if (c.startsWith(PICKEM_BADGE_PREFIX)) out.push(tr("Insignia «Pick'em perfecto»"));
+  if ((r.credits ?? 0) > 0) out.push(`${(r.credits ?? 0).toLocaleString(getIntlLocale())} créditos`);
   return out;
 }

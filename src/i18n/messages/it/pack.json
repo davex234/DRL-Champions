@@ -1,0 +1,15 @@
+{
+  "cardCount inválido": "cardCount non valido",
+  "clase '{c}' con probabilidad ({name}) y sin cartas": "classe '{c}' con probabilità ({name}) e senza carte",
+  "garantía '{minBucket}' sin stock en el pool": "garanzia '{minBucket}' senza stock nel pool",
+  "garantía con count inválido": "garanzia con count non valido",
+  "garantías exceden cardCount": "le garanzie superano cardCount",
+  "guaranteedMin '{guaranteedMin}' sin stock en el pool": "guaranteedMin '{guaranteedMin}' senza stock nel pool",
+  "inclinación por OVR inválida ({ovrTilt})": "inclinazione per OVR non valida ({ovrTilt})",
+  "pity '{minBucket}' sin stock en el pool": "pity '{minBucket}' senza stock nel pool",
+  "pity.threshold inválido": "pity.threshold non valido",
+  "plan por ranuras con {cards} cartas y el sobre tiene {cardCount}": "piano a slot con {cards} carte e il pacchetto ne ha {cardCount}",
+  "pool vacío (ninguna carta elegible)": "pool vuoto (nessuna carta idonea)",
+  "probabilidades inválidas (negativas/NaN)": "probabilità non valide (negative/NaN)",
+  "todas las probabilidades a cero sin garantías": "tutte le probabilità a zero senza garanzie"
+}

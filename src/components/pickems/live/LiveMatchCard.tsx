@@ -16,11 +16,16 @@ import type { PickFeedback } from "@/lib/usePickem";
 import type { LiveMatch } from "@/domain/pickems/live";
 import { isUrgent } from "@/domain/pickems/live";
 import type { BracketMatch } from "@/domain/pickems/bracket";
+import { ns, getIntlLocale } from "@/i18n/runtime";
+import { roundText } from "@/lib/bracket/roundText";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 const fmtWhen = (iso: string | null): string => {
-  if (!iso) return "Sin fecha";
+  if (!iso) return t("Sin fecha");
   const d = new Date(iso);
-  return `${d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })} · ${d.toLocaleDateString("es-ES", { day: "numeric", month: "short" })}`;
+  return `${d.toLocaleTimeString(getIntlLocale(), { hour: "2-digit", minute: "2-digit" })} · ${d.toLocaleDateString(getIntlLocale(), { day: "numeric", month: "short" })}`;
 };
 
 export function LiveMatchCard({
@@ -39,12 +44,13 @@ export function LiveMatchCard({
   id?: string;
   className?: string;
 }) {
+  useLocale();
   const urgent = mode === "next" && isUrgent(m.locksAt, now);
   const tone = mode === "live" ? "25,227,255" : urgent ? "255,211,92" : "255,255,255";
   return (
     <section
       id={id}
-      aria-label={mode === "live" ? `En directo: ${m.teamA?.name ?? "Por definir"} contra ${m.teamB?.name ?? "Por definir"}` : "Siguiente partido"}
+      aria-label={mode === "live" ? t("En directo: {v} contra {v2}", { v: m.teamA?.name ?? t("Por definir"), v2: m.teamB?.name ?? t("Por definir") }) : t("Siguiente partido")}
       data-live-mode={mode}
       className={cn("nx-clip relative", className)}
       style={{
@@ -55,15 +61,15 @@ export function LiveMatchCard({
       <header className="flex flex-wrap items-center justify-between gap-2 px-3 pt-2.5 sm:px-4">
         <span className="flex items-center gap-2">
           {mode === "live"
-            ? <Badge tone="key" dot pulse>En directo</Badge>
-            : <span className="flex items-center gap-1.5"><StatusDot tone="info" size={5} /><span className="nx-label !text-white">Siguiente partido</span></span>}
-          <span className="nx-label">{m.stageName ? `${m.stageName} · ` : ""}{m.roundLabel}</span>
+            ? <Badge tone="key" dot pulse>{t("En directo")}</Badge>
+            : <span className="flex items-center gap-1.5"><StatusDot tone="info" size={5} /><span className="nx-label !text-white">{t("Siguiente partido")}</span></span>}
+          <span className="nx-label">{m.stageName ? `${m.stageName} · ` : ""}{roundText(m.roundLabel)}</span>
         </span>
         {mode === "live" ? (
           <span className="nx-label">{fmtWhen(m.startsAt)}</span>
         ) : m.lockState === "open" && m.locksAt ? (
           <span className={cn("nx-label", urgent && "!text-drl-gold")} data-urgent={urgent ? "true" : undefined}>
-            <Countdown to={m.locksAt} onExpire={onExpire} prefix={urgent ? "¡Cierra en" : "Cierra en"} />
+            <Countdown to={m.locksAt} onExpire={onExpire} prefix={urgent ? t("¡Cierra en") : t("Cierra en")} />
           </span>
         ) : (
           <span className="nx-label">{fmtWhen(m.startsAt)}</span>

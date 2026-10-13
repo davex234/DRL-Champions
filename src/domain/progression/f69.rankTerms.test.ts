@@ -14,10 +14,10 @@ const code = (s: string) => s.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\{\/\*[\
 
 test("F69 F68-013 · /cuenta: el rango de la ficha se llama «Rango de puntos» y su puesto es «en puntos»", () => {
   const s = code(read("src/app/cuenta/page.tsx"));
-  assert.match(s, /titulo="Rango de puntos"/);
+  assert.match(s, /titulo=\{(?:t|tr|i18nT)\("Rango de puntos"\)\}/);
   assert.match(s, /del mundo en puntos/);
   assert.ok(!/entras en la escalera/.test(s), "«escalera» es del ranked, no de los puntos");
-  assert.match(s, /Gana duelos contra el bot o acierta predicciones de Pick&apos;ems/, "las fuentes reales de puntos");
+  assert.match(s, /Gana duelos contra el bot o acierta predicciones de Pick(?:&apos;|')ems/, "las fuentes reales de puntos");
   // Reanudación F69: ningún «rango» suelto en texto visible (el sondeo vivo lo encontraba en el pie y en el tope).
   const visible = [...s.matchAll(/"([^"]*)"|>([^<>{}]+)</g)].map((m) => m[1] ?? m[2]).join(" | ");
   assert.ok(!/\b[Rr]ango\b(?! de puntos)/.test(visible), "todo «rango» visible dice de qué sistema es");
@@ -25,8 +25,8 @@ test("F69 F68-013 · /cuenta: el rango de la ficha se llama «Rango de puntos» 
 
 test("F69 F68-013 · resumen ranked en /cuenta: rating Elo y puesto ranked, sin tiers con nombre, enlace canónico", () => {
   const s = code(read("src/components/competitive/CompetitiveSummary.tsx"));
-  assert.match(s, /label="Rating ranked \(Elo\)"/);
-  assert.match(s, /label="Puesto ranked"/);
+  assert.match(s, /label=\{(?:t|tr|i18nT)\("Rating ranked \(Elo\)"\)\}/);
+  assert.match(s, /label=\{(?:t|tr|i18nT)\("Puesto ranked"\)\}/);
   assert.ok(!/\b(Bronce|Plata|Oro|Platino|Diamante|Maestro|Élite|Nexus|Bronze|Silver|Gold)\b/.test(s), "sin rangos con nombre para el Elo");
   assert.ok(!/RankBadge|RankEmblem|rankProgress/.test(s), "no mezcla los rangos de puntos");
   assert.match(s, /href="\/competitivo"/);
@@ -34,8 +34,8 @@ test("F69 F68-013 · resumen ranked en /cuenta: rating Elo y puesto ranked, sin 
 
 test("F69 F68-013 · /ranking e insignia: «rangos de puntos», no «la escalera» (que es del ranked)", () => {
   const r = code(read("src/app/ranking/page.tsx"));
-  assert.match(r, /aria-label="Los rangos de puntos"/);
-  assert.match(r, />\s*Rangos de puntos\s*</);
+  assert.match(r, /aria-label=\{(?:t|tr|i18nT)\("Los rangos de puntos"\)\}/);
+  assert.match(r, />\s*\{(?:t|tr|i18nT)\("Rangos de puntos"\)\}\s*</);
   assert.ok(!/>\s*La escalera\s*</.test(r));
   const b = code(read("src/components/progression/RankBadge.tsx"));
   assert.ok(!/entras en la escalera/.test(b));

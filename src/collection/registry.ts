@@ -9,6 +9,9 @@
 import { CARDS, getCard as catalogGetCard, getPlayer as catalogGetPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import type { CardDef, Player, VariantDef, VariantId, VariantGroup, Region, RoleId, SetDef } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("collection");
 
 /** Card Identity: parte un cardId en su jugador + variante. */
 export function parseCardId(cardId: string): { playerId: string; variantId: VariantId } {
@@ -92,7 +95,7 @@ export class CardRegistry {
     }
     for (const s of SERIES) { const ids = this.cards.filter((c) => s.match(c.variantId)).map((c) => c.id); if (ids.length) out.push({ id: s.id, kind: "series", label: s.label, cardIds: ids }); }
     // Temporada base (única hoy): todo el catálogo. Fases futuras añaden temporadas nuevas.
-    out.push({ id: "season-s1", kind: "season", label: "Temporada 1", cardIds: this.cards.map((c) => c.id) });
+    out.push({ id: "season-s1", kind: "season", label: t("Temporada 1"), cardIds: this.cards.map((c) => c.id) });
     return out;
   }
 }

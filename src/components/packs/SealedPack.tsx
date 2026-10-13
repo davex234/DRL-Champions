@@ -6,6 +6,10 @@ import { cn } from "@/lib/format";
 import type { PackDef } from "@/domain/packs/types";
 import { packIdentity } from "./packIdentity";
 import { PackSigil } from "./PackSigil";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("packs");
 
 /**
  * EL SOBRE SELLADO — el objeto que se compra y se abre.
@@ -82,6 +86,7 @@ export function SealedPack({
   /** FASE 57 · la solapa ya se arrancó: el cuerpo se recorta por la costura con borde dentado y sale luz de dentro. */
   torn?: boolean;
 }) {
+  useLocale();
   const reduced = useReducedMotion();
   const id = packIdentity(pack);
   /*
@@ -266,7 +271,7 @@ export function SealedPack({
               className="mt-1.5 font-display font-bold uppercase text-white"
               style={{ fontSize: 21 * k, letterSpacing: `${0.28 * k}em`, textIndent: `${0.28 * k}em` }}
             >
-              Nexus
+              {t("Nexus")}
             </p>
             {/*
               LA CATEGORÍA, no «Valorant Cards». El subtítulo de marca era el mismo en los
@@ -282,7 +287,7 @@ export function SealedPack({
                 color: `${accent}b0`,
               }}
             >
-              {id.categoryLabel}
+              {td(id.categoryLabel)}
             </p>
           </div>
         )}
@@ -301,7 +306,7 @@ export function SealedPack({
             className="font-display font-bold uppercase"
             style={{ color: accent, fontSize: 14 * k, letterSpacing: `${0.14 * k}em` }}
           >
-            {pack.name}
+            {td(pack.name)}
           </p>
         </div>
         )}

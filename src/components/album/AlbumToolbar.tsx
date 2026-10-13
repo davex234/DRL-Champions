@@ -28,6 +28,11 @@ import { NxButton } from "@/components/ui/NxButton";
 import { Badge } from "@/components/ui/Badge";
 import { Chip } from "@/components/ui/Chip";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("album");
 
 export type AlbumOwnership = "todas" | "owned" | "missing";
 /** Fase 25 · equipo, serial y reciente se ordenan con datos reales del motor/instancias. */
@@ -65,6 +70,7 @@ export function AlbumToolbar({
   shown: number;
   matched: number;
 }) {
+  useLocale();
   const filtrando = activeCount > 0 || query !== "" || ownership !== "todas";
 
   return (
@@ -77,15 +83,15 @@ export function AlbumToolbar({
             <input
               value={query}
               onChange={(e) => onQuery(e.target.value)}
-              placeholder="Buscar jugador o equipo…"
-              aria-label="Buscar en el álbum"
+              placeholder={t("Buscar jugador o equipo…")}
+              aria-label={t("Buscar en el álbum")}
               className="nx-focus min-h-[44px] w-full bg-transparent text-body text-white placeholder:text-ink-faint focus:outline-none"
             />
             {query && (
               <button
                 type="button"
                 onClick={() => onQuery("")}
-                aria-label="Borrar la búsqueda"
+                aria-label={t("Borrar la búsqueda")}
                 className="nx-focus shrink-0 px-1 text-ink-muted transition-colors hover:text-white"
               >
                 ✕
@@ -95,27 +101,27 @@ export function AlbumToolbar({
         </Recessed>
 
         <Segmented
-          label="Estado de la carta"
+          label={t("Estado de la carta")}
           value={ownership}
           onChange={onOwnership}
           options={[
-            { value: "todas", label: "Todas" },
-            { value: "owned", label: "Tengo" },
-            { value: "missing", label: "Faltan" },
+            { value: "todas", label: t("Todas") },
+            { value: "owned", label: t("Tengo") },
+            { value: "missing", label: t("Faltan") },
           ]}
         />
 
         <Segmented
-          label="Orden"
+          label={t("Orden")}
           value={sort}
           onChange={onSort}
           options={[
-            { value: "rarity", label: "Rareza" },
-            { value: "ovr", label: "OVR" },
-            { value: "name", label: "A-Z" },
-            { value: "team", label: "Equipo" },
-            { value: "serial", label: "Serial" },
-            { value: "recent", label: "Reciente" },
+            { value: "rarity", label: t("Rareza") },
+            { value: "ovr", label: t("OVR") },
+            { value: "name", label: t("A-Z") },
+            { value: "team", label: t("Equipo") },
+            { value: "serial", label: t("Serial") },
+            { value: "recent", label: t("Reciente") },
           ]}
         />
 
@@ -125,7 +131,7 @@ export function AlbumToolbar({
           onClick={onToggle}
           aria-expanded={open}
         >
-          Filtros
+          {t("Filtros")}
           {activeCount > 0 && <span className="nx-readout text-caption">{activeCount}</span>}
           <span aria-hidden className={cn("transition-transform duration-fast", open && "rotate-180")}>▾</span>
         </NxButton>
@@ -136,12 +142,12 @@ export function AlbumToolbar({
           {facets.map((f) => (
             <div key={f.label} className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <span className="w-[68px] shrink-0 font-display text-label uppercase tracking-wide2 text-ink-faint">
-                {f.label}
+                {td(f.label)}
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {f.options.map((o) => (
                   <Chip key={o.value} active={f.value === o.value} onClick={() => f.onChange(o.value)}>
-                    {o.label}
+                    {td(o.label)}
                   </Chip>
                 ))}
               </div>
@@ -158,18 +164,20 @@ export function AlbumToolbar({
       {filtrando && (
         <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-edge pt-2.5">
           <span className="text-caption text-ink-faint">
-            <span className="nx-readout text-ink-secondary">{shown}</span> de{" "}
-            <span className="nx-readout text-ink-secondary">{matched}</span> cartas
+            {fill(t("{shown} de {matched} cartas", slots("shown", "matched")), {
+              shown: <span className="nx-readout text-ink-secondary">{shown}</span>,
+              matched: <span className="nx-readout text-ink-secondary">{matched}</span>,
+            })}
           </span>
           <span aria-hidden className="h-3 w-px bg-edge" />
           <span className="flex flex-wrap items-center gap-1.5">
-            {query && <Badge tone="info">Buscando «{query}»</Badge>}
+            {query && <Badge tone="info">{t("Buscando «{query}»", { query })}</Badge>}
             {ownership !== "todas" && (
-              <Badge tone="key">{ownership === "owned" ? "Solo las que tengo" : "Solo las que faltan"}</Badge>
+              <Badge tone="key">{ownership === "owned" ? t("Solo las que tengo") : t("Solo las que faltan")}</Badge>
             )}
             {facets.filter((f) => f.value !== f.options[0]?.value).map((f) => (
               <Badge key={f.label} tone="muted">
-                {f.options.find((o) => o.value === f.value)?.label ?? f.value}
+                {td(f.options.find((o) => o.value === f.value)?.label) ?? f.value}
               </Badge>
             ))}
           </span>
@@ -178,7 +186,7 @@ export function AlbumToolbar({
             onClick={onClear}
             className="nx-focus ml-auto font-display text-label uppercase tracking-wide2 text-ink-muted transition-colors hover:text-white"
           >
-            Limpiar
+            {t("Limpiar")}
           </button>
         </div>
       )}

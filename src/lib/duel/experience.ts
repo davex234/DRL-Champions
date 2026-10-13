@@ -24,6 +24,9 @@ import {
   STAT_INFO,
   type CombatStatKey, type DuelDeckCardDTO, type DuelMatchView, type DuelReplay, type DuelResultView, type DuelTurnView,
 } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("duel");
 
 /** Fase 39 · `DRAFT_GAUNTLET` es el mismo final PvE pero sin recompensa ni rating (v1). */
 export type MatchMode = "PVE" | "PVP" | "PVP_PRIVATE" | "DRAFT_GAUNTLET";
@@ -163,15 +166,15 @@ export function turnHeader(view: Pick<DuelMatchView, "status" | "turn" | "totalT
   const mp = live ? matchPoint(view.scoreYou, view.scoreRival, turn, total) : { point: null, secured: null };
   return {
     turn, total,
-    label: `TURNO ${turn} DE ${total}`,
+    label: tr("TURNO {turn} DE {total}", { turn, total }),
     role,
     roleLabel: role === "ATTACK" ? "ATACAS" : role === "DEFENSE" ? "DEFIENDES" : null,
     finalTurn: live && turn === total,
-    finalLabel: live && turn === total ? "ÚLTIMO TURNO" : null,
+    finalLabel: live && turn === total ? tr("ÚLTIMO TURNO") : null,
     matchPoint: mp.point,
-    matchPointLabel: mp.point === "YOU" ? "PUNTO DE PARTIDA · si ganas este turno, ganas el duelo"
-      : mp.point === "RIVAL" ? "PUNTO DE PARTIDA DEL RIVAL · si gana este turno, gana el duelo"
-        : mp.point === "BOTH" ? "TURNO DECISIVO · quien gane este turno gana el duelo" : null,
+    matchPointLabel: mp.point === "YOU" ? tr("PUNTO DE PARTIDA · si ganas este turno, ganas el duelo")
+      : mp.point === "RIVAL" ? tr("PUNTO DE PARTIDA DEL RIVAL · si gana este turno, gana el duelo")
+        : mp.point === "BOTH" ? tr("TURNO DECISIVO · quien gane este turno gana el duelo") : null,
     secured: mp.secured,
   };
 }
@@ -197,13 +200,13 @@ export const STAT_ORDER: CombatStatKey[] = ["stronghold", "gamesense", "entryfra
  */
 export function axisPresentation(view: Pick<DuelMatchView, "status" | "youAreAttacker" | "pendingRival" | "requiredStat">): AxisPresentation {
   if (view.status !== "IN_PROGRESS") return { mode: "NONE", options: [], rivalStat: null, yourStat: null, text: null };
-  if (view.youAreAttacker) return { mode: "CHOOSE", options: [...STAT_ORDER], rivalStat: null, yourStat: null, text: "ATACAS · ELIGE CARTA Y ESTADÍSTICA" };
+  if (view.youAreAttacker) return { mode: "CHOOSE", options: [...STAT_ORDER], rivalStat: null, yourStat: null, text: tr("ATACAS · ELIGE CARTA Y ESTADÍSTICA") };
   const rs = view.pendingRival?.stat;
   const req = view.requiredStat;
   if (isStat(rs) && isStat(req)) {
-    return { mode: "IMPOSED", options: [], rivalStat: rs, yourStat: req, text: `EL RIVAL ATACA CON ${statLabel(rs).toUpperCase()} · RESPONDES CON ${statLabel(req).toUpperCase()}` };
+    return { mode: "IMPOSED", options: [], rivalStat: rs, yourStat: req, text: tr("EL RIVAL ATACA CON {v} · RESPONDES CON {v2}", { v: statLabel(rs).toUpperCase(), v2: statLabel(req).toUpperCase() }) };
   }
-  return { mode: "WAITING_ATTACK", options: [], rivalStat: null, yourStat: null, text: "EL RIVAL ESTÁ ELIGIENDO SU ATAQUE" };
+  return { mode: "WAITING_ATTACK", options: [], rivalStat: null, yourStat: null, text: tr("EL RIVAL ESTÁ ELIGIENDO SU ATAQUE") };
 }
 
 /* ═════════════════════════════ turno resuelto ═════════════════════════════ */
@@ -236,7 +239,7 @@ export interface TurnExplanation {
  */
 export function explainTurn(t: DuelTurnView | null | undefined): TurnExplanation {
   const unknown = (partial: Partial<TurnExplanation> = {}): TurnExplanation => ({
-    reason: "UNKNOWN", result: null, headline: "TURNO RESUELTO", text: UNKNOWN_TURN_TEXT, point: null,
+    reason: "UNKNOWN", result: null, headline: tr("TURNO RESUELTO"), text: UNKNOWN_TURN_TEXT, point: null,
     scoreYou: null, scoreRival: null, contested: null, ...partial,
   });
   if (!t) return unknown();
@@ -255,10 +258,10 @@ export function explainTurn(t: DuelTurnView | null | undefined): TurnExplanation
   const consistent = result === "WIN" ? you.value > rival.value : result === "LOSS" ? you.value < rival.value : you.value === rival.value;
   if (!consistent) return unknown({ ...scores, result, point, headline: TURN_HEADLINE[result], contested });
   const text = result === "WIN"
-    ? `Tu ${contested.you.label} ${you.value} supera a ${contested.rival.label} ${rival.value} del rival.`
+    ? tr("Tu {label} {value} supera a {label2} {value2} del rival.", { label: td(contested.you.label), value: you.value, label2: td(contested.rival.label), value2: rival.value })
     : result === "LOSS"
-      ? `${contested.rival.label} ${rival.value} del rival supera a tu ${contested.you.label} ${you.value}.`
-      : `Empate a ${you.value}: ningún jugador suma punto.`;
+      ? tr("{label} {value} del rival supera a tu {label2} {value2}.", { label: td(contested.rival.label), value: rival.value, label2: td(contested.you.label), value2: you.value })
+      : tr("Empate a {value}: ningún jugador suma punto.", { value: you.value });
   return {
     reason: result === "WIN" ? "STAT_WIN" : result === "LOSS" ? "STAT_LOSS" : "STAT_DRAW",
     result, headline: TURN_HEADLINE[result], text, point, ...scores, contested,
@@ -288,8 +291,8 @@ export function buildTimeline(view: Pick<DuelMatchView, "totalTurns" | "turn" | 
     if (t) { state = turnResult(t); role = t.attacker === "A" ? "ATTACK" : "DEFENSE"; }
     else if (live && n === view.turn) { state = "CURRENT"; role = view.youAreAttacker ? "ATTACK" : "DEFENSE"; }
     else state = "PENDING";
-    const roleWord = role === "ATTACK" ? (t ? ", atacaste" : ", atacas") : role === "DEFENSE" ? (t ? ", defendiste" : ", defiendes") : "";
-    return { number: n, state, role, glyph: GLYPH[state], label: `Turno ${n}: ${STATE_WORD[state]}${roleWord}` };
+    const roleWord = role === "ATTACK" ? (t ? tr(", atacaste") : tr(", atacas")) : role === "DEFENSE" ? (t ? tr(", defendiste") : tr(", defiendes")) : "";
+    return { number: n, state, role, glyph: GLYPH[state], label: tr("Turno {n}: {v}{roleWord}", { n, v: td(STATE_WORD[state]), roleWord }) };
   });
 }
 
@@ -340,25 +343,25 @@ export function decisionSteps(r: DuelResultView): DecisionStep[] {
   const steps: DecisionStep[] = [];
   const pre = r.decidedBy === "OVR_TIEBREAK" ? Math.min(r.scoreYou, r.scoreRival) : null;
   steps.push({
-    key: "SCORE", label: "Turnos ganados",
+    key: "SCORE", label: tr("Turnos ganados"),
     you: pre ?? r.scoreYou, rival: pre ?? r.scoreRival,
     outcome: r.decidedBy === "SCORE" ? (winner ?? "UNKNOWN") : "TIE",
-    note: r.decidedBy === "SCORE" ? "Gana quien suma más turnos." : "Empate en turnos ganados.",
+    note: r.decidedBy === "SCORE" ? tr("Gana quien suma más turnos.") : tr("Empate en turnos ganados."),
   });
   if (r.decidedBy === "SCORE") return steps;
   const ovrKnown = isNum(r.sumOvrYou) && isNum(r.sumOvrRival);
   steps.push({
-    key: "OVR", label: "Suma de OVR",
+    key: "OVR", label: tr("Suma de OVR"),
     you: ovrKnown ? r.sumOvrYou : null, rival: ovrKnown ? r.sumOvrRival : null,
     outcome: r.decidedBy === "OVR_TIEBREAK" ? (winner ?? "UNKNOWN") : ovrKnown ? "TIE" : "UNKNOWN",
-    note: r.decidedBy === "OVR_TIEBREAK" ? "La suma de OVR desempata y da un punto." : "Empate también en OVR.",
+    note: r.decidedBy === "OVR_TIEBREAK" ? tr("La suma de OVR desempata y da un punto.") : tr("Empate también en OVR."),
   });
   if (r.decidedBy === "OVR_TIEBREAK") return steps;
   steps.push({
-    key: "STAT_TOTAL", label: "Total de estadísticas",
+    key: "STAT_TOTAL", label: tr("Total de estadísticas"),
     you: isNum(r.statTotalYou) ? r.statTotalYou : null, rival: isNum(r.statTotalRival) ? r.statTotalRival : null,
     outcome: r.decidedBy === "STAT_MARGIN" ? (winner ?? "UNKNOWN") : "TIE",
-    note: r.decidedBy === "STAT_MARGIN" ? "El total de estadísticas declaradas decide, sin punto adicional." : "Empate total. Ningún jugador suma punto.",
+    note: r.decidedBy === "STAT_MARGIN" ? tr("El total de estadísticas declaradas decide, sin punto adicional.") : tr("Empate total. Ningún jugador suma punto."),
   });
   return steps;
 }
@@ -391,7 +394,7 @@ export function cardOfTheMatch(history: DuelTurnView[]): CardOfTheMatch | null {
     .sort((a, b) => b.margin - a.margin || b.value - a.value || a.turn - b.turn || a.uid.localeCompare(b.uid));
   const best = candidates[0];
   if (!best) return null;
-  return { ...best, why: `Ganó el turno ${best.turn}: ${statLabel(best.stat)} ${best.value} contra ${best.rivalValue} (+${best.margin}).` };
+  return { ...best, why: tr("Ganó el turno {turn}: {stat} {value} contra {rivalValue} (+{margin}).", { turn: best.turn, stat: statLabel(best.stat), value: best.value, rivalValue: best.rivalValue, margin: best.margin }) };
 }
 
 /* ─────────── rating y recompensa ─────────── */
@@ -408,16 +411,16 @@ export interface RatingPresentation {
 
 /** Rating SOLO en ranked y SOLO desde el evento real de la liquidación. Nunca se resta nada. */
 export function ratingPresentation(mode: MatchMode, event: RatingEvent | null | undefined): RatingPresentation {
-  if (mode !== "PVP") return { state: "NOT_APPLICABLE", before: null, after: null, delta: null, deltaLabel: null, provisional: false, note: mode === "PVP_PRIVATE" ? "Duelo privado: no mueve el rating." : null };
+  if (mode !== "PVP") return { state: "NOT_APPLICABLE", before: null, after: null, delta: null, deltaLabel: null, provisional: false, note: mode === "PVP_PRIVATE" ? tr("Duelo privado: no mueve el rating.") : null };
   if (!event || !isNum(event.oldRating) || !isNum(event.newRating) || !isNum(event.delta)) {
-    return { state: "PENDING", before: null, after: null, delta: null, deltaLabel: null, provisional: false, note: "El rating llegará en cuanto el servidor liquide la partida." };
+    return { state: "PENDING", before: null, after: null, delta: null, deltaLabel: null, provisional: false, note: tr("El rating llegará en cuanto el servidor liquide la partida.") };
   }
   const provisional = event.kFactor === K_PROVISIONAL;
   return {
     state: "READY", before: event.oldRating, after: event.newRating, delta: event.delta,
     deltaLabel: event.delta > 0 ? `+${event.delta}` : event.delta < 0 ? `−${Math.abs(event.delta)}` : "0",
     provisional,
-    note: provisional ? "Rating provisional: las primeras 10 partidas mueven más el rating." : null,
+    note: provisional ? tr("Rating provisional: las primeras 10 partidas mueven más el rating.") : null,
   };
 }
 
@@ -429,19 +432,19 @@ export interface RewardPresentation {
 
 /** Recompensa SOLO la del servidor (`result.award`). Se abona sola al terminar: no hay «Reclamar». */
 export function rewardPresentation(mode: MatchMode, result: Pick<DuelResultView, "award"> | null | undefined): RewardPresentation {
-  if (mode === "DRAFT_GAUNTLET") return { state: "NOT_APPLICABLE", credits: 0, xp: 0, points: 0, note: "Draft Gauntlet no da créditos, sobres ni XP en esta versión." };
-  if (mode !== "PVE") return { state: "NOT_APPLICABLE", credits: 0, xp: 0, points: 0, note: "Los duelos PvP no dan créditos ni XP." };
+  if (mode === "DRAFT_GAUNTLET") return { state: "NOT_APPLICABLE", credits: 0, xp: 0, points: 0, note: tr("Draft Gauntlet no da créditos, sobres ni XP en esta versión.") };
+  if (mode !== "PVE") return { state: "NOT_APPLICABLE", credits: 0, xp: 0, points: 0, note: tr("Los duelos PvP no dan créditos ni XP.") };
   const a = result?.award;
-  if (!a || !isNum(a.credits) || !isNum(a.xp) || !isNum(a.points)) return { state: "UNAVAILABLE", credits: 0, xp: 0, points: 0, note: "Recompensa no disponible." };
-  if (a.credits <= 0 && a.xp <= 0 && a.points <= 0) return { state: "NONE", credits: 0, xp: 0, points: 0, note: "Esta partida no da recompensa." };
-  return { state: "GRANTED", credits: a.credits, xp: a.xp, points: a.points, note: "Abonada automáticamente al terminar." };
+  if (!a || !isNum(a.credits) || !isNum(a.xp) || !isNum(a.points)) return { state: "UNAVAILABLE", credits: 0, xp: 0, points: 0, note: tr("Recompensa no disponible.") };
+  if (a.credits <= 0 && a.xp <= 0 && a.points <= 0) return { state: "NONE", credits: 0, xp: 0, points: 0, note: tr("Esta partida no da recompensa.") };
+  return { state: "GRANTED", credits: a.credits, xp: a.xp, points: a.points, note: tr("Abonada automáticamente al terminar.") };
 }
 
 /** Acciones siguientes por modo, con los textos que ya tiene el producto. */
 export function resultActions(mode: MatchMode): { id: string; label: string }[] {
-  if (mode === "PVP") return [{ id: "search", label: "Buscar otro rival" }, { id: "replay", label: "Ver la partida" }, { id: "ranked", label: "Ver la escalera" }, { id: "team", label: "Mis equipos" }];
-  if (mode === "PVP_PRIVATE") return [{ id: "rematch", label: "Revancha" }, { id: "social", label: "Volver a Social" }, { id: "replay", label: "Ver la partida" }, { id: "team", label: "Mis equipos" }];
-  return [{ id: "again", label: "Revancha" }, { id: "change", label: "Cambiar rival o equipo" }, { id: "replay", label: "Ver la partida" }, { id: "team", label: "Mis equipos" }];
+  if (mode === "PVP") return [{ id: "search", label: tr("Buscar otro rival") }, { id: "replay", label: tr("Ver la partida") }, { id: "ranked", label: tr("Ver la escalera") }, { id: "team", label: tr("Mis equipos") }];
+  if (mode === "PVP_PRIVATE") return [{ id: "rematch", label: tr("Revancha") }, { id: "social", label: tr("Volver a Social") }, { id: "replay", label: tr("Ver la partida") }, { id: "team", label: tr("Mis equipos") }];
+  return [{ id: "again", label: tr("Revancha") }, { id: "change", label: tr("Cambiar rival o equipo") }, { id: "replay", label: tr("Ver la partida") }, { id: "team", label: tr("Mis equipos") }];
 }
 
 /* ─────────── transición de final de partida ─────────── */
@@ -466,9 +469,9 @@ export function matchEndPresentation(i: { verdict: MatchVerdict; view: Pick<Duel
   const r = i.view?.result ?? null;
   const last = i.view?.lastTurn ?? null;
   const score = r
-    ? { you: r.scoreYou, rival: r.scoreRival, label: "Marcador final" as const }
+    ? { you: r.scoreYou, rival: r.scoreRival, label: /* i18n-id */ "Marcador final" as const }
     : last && isNum(last.scoreAfterYou) && isNum(last.scoreAfterRival)
-      ? { you: last.scoreAfterYou, rival: last.scoreAfterRival, label: "Marcador al cierre" as const }
+      ? { you: last.scoreAfterYou, rival: last.scoreAfterRival, label: /* i18n-id */ "Marcador al cierre" as const }
       : null;
   const e = last ? explainTurn(last) : null;
   return {
@@ -501,7 +504,7 @@ export function planReveals(lastSeen: number | null, history: DuelTurnView[]): {
 /** Aviso de resincronización tras un conflicto de versión (el poller ya pide el estado completo). */
 export function syncBanner(status: SyncStatusLike, errorKind: string | null | undefined): { text: string; tone: "warn" } | null {
   if (errorKind === "CONFLICT" && (status === "STALE" || status === "SYNCING")) {
-    return { text: "La partida avanzó mientras decidías. Actualizando al estado del servidor…", tone: "warn" };
+    return { text: tr("La partida avanzó mientras decidías. Actualizando al estado del servidor…"), tone: "warn" };
   }
   return null;
 }
@@ -517,7 +520,7 @@ export function timeoutPresentation(remainingMs: number | null, isYourTurn: bool
     show: true,
     urgent: remainingMs <= 15_000,
     expired,
-    text: expired ? (isYourTurn ? "Se agotó tu tiempo. Esperando al servidor…" : "El tiempo del rival se agotó. El servidor está cerrando el turno…") : null,
+    text: expired ? (isYourTurn ? tr("Se agotó tu tiempo. Esperando al servidor…") : tr("El tiempo del rival se agotó. El servidor está cerrando el turno…")) : null,
   };
 }
 
@@ -574,9 +577,9 @@ export function buildReplayTimeline(replay: DuelReplay | null | undefined, expec
   const missingCards = frames.some((f) => !f.yourCard || !f.rivalCard);
   const short = ordered.length < expectedTurns;
   const notes = [
-    short ? `La partida terminó en el turno ${ordered[ordered.length - 1].number}.` : null,
-    gaps ? "Faltan turnos en el registro de esta partida." : null,
-    missingCards ? "Faltan datos de alguna carta." : null,
+    short ? tr("La partida terminó en el turno {number}.", { number: ordered[ordered.length - 1].number }) : null,
+    gaps ? tr("Faltan turnos en el registro de esta partida.") : null,
+    missingCards ? tr("Faltan datos de alguna carta.") : null,
   ].filter(Boolean);
   return {
     availability: short || gaps || missingCards ? "PARTIAL" : "FULL",

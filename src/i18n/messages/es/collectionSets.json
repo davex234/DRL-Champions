@@ -1,0 +1,23 @@
+{
+  "Bronce": "Bronce",
+  "Campeón · {name}": "Campeón · {name}",
+  "Competitiva {v} · {name}": "Competitiva {v} · {name}",
+  "Demasiadas peticiones: espera unos segundos.": "Demasiadas peticiones: espera unos segundos.",
+  "Equipo completado": "Equipo completado",
+  "La Sala de Trofeos no está disponible ahora mismo.": "La Sala de Trofeos no está disponible ahora mismo.",
+  "Maestría": "Maestría",
+  "Mejor rango de temporada": "Mejor rango de temporada",
+  "No se pudo cargar la Sala de Trofeos.": "No se pudo cargar la Sala de Trofeos.",
+  "Oro": "Oro",
+  "Pick'em perfecto": "Pick'em perfecto",
+  "Pick'em perfecto · {name}": "Pick'em perfecto · {name}",
+  "Plata": "Plata",
+  "Ruta de temporada": "Ruta de temporada",
+  "Temporada {v} · {label}": "Temporada {v} · {label}",
+  "Torneo": "Torneo",
+  "Torneo · {date}": "Torneo · {date}",
+  "Tu sesión ha caducado: vuelve a entrar.": "Tu sesión ha caducado: vuelve a entrar.",
+  "no obtenibles: {blocked}": "no obtenibles: {blocked}",
+  "sin carta obtenible: {blocked}": "sin carta obtenible: {blocked}",
+  "{size} jugadores con carta impresa": "{size} jugadores con carta impresa"
+}

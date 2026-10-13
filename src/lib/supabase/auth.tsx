@@ -6,6 +6,10 @@ import { getSupabase, isSupabaseConfigured } from "./client";
 import type { Profile } from "./types";
 import { authErrorMessage } from "./authErrors";
 import { fetchOwnProfile } from "./ownProfile";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("supabase");
 
 interface AuthContextValue {
   configured: boolean;
@@ -37,6 +41,7 @@ export function sameUser(a: User | null, b: User | null): boolean {
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  useLocale();
   const configured = isSupabaseConfigured();
   const [loading, setLoading] = useState(configured);
   const [user, setUser] = useState<User | null>(null);
@@ -113,7 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const updatePassword: AuthContextValue["updatePassword"] = useCallback(async (password) => {
     const sb = getSupabase();
     if (!sb) return NOT_CONFIGURED;
-    if (password.length < 8) return { error: "La contraseña necesita al menos 8 caracteres." };
+    if (password.length < 8) return { error: t("La contraseña necesita al menos 8 caracteres.") };
     const { error } = await sb.auth.updateUser({ password });
     if (error) return { error: authErrorMessage(error) };
     setRecovering(false);

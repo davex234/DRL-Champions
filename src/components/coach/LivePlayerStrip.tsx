@@ -9,6 +9,10 @@ import type { RoundState, SimPlayer, Intent } from "@/sim";
 import { cn } from "@/lib/format";
 import { CardArt } from "@/components/cards/CardArt";
 import { ZONE_LABEL } from "@/domain/tactics/matchMap";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coach");
 
 const INTENT_LABEL: Record<Intent, string> = {
   move: "Avanza", hold: "Aguanta", push: "Empuja", rotate: "Rota", fight: "Duelo",
@@ -22,6 +26,7 @@ function abilityLeft(s: RoundState, p: SimPlayer): { left: number; total: number
 }
 
 function Ficha({ s, p, card }: { s: RoundState; p: SimPlayer; card?: string }) {
+  useLocale();
   const hp = Math.max(0, Math.round(p.hp));
   const shield = Math.max(0, Math.round(p.shield ?? 0));
   const weapon = p.loadout?.primary ?? p.loadout?.sidearm ?? "—";
@@ -45,19 +50,19 @@ function Ficha({ s, p, card }: { s: RoundState; p: SimPlayer; card?: string }) {
           <div className="h-full rounded-full transition-all" style={{ width: `${hp}%`, background: hpColor }} />
         </div>
         <span className="w-6 text-right text-[9px] tabular-nums text-white/60">{hp}</span>
-        {shield > 0 && <span className="text-[9px] text-cyan-300" title="escudo">🛡{shield}</span>}
+        {shield > 0 && <span className="text-[9px] text-cyan-300" title={t("escudo")}>🛡{shield}</span>}
       </div>
       {/* Arma + utilidad + info */}
       <div className="flex items-center justify-between text-[9px] text-white/50">
-        <span className="truncate" title="arma">🔫 {weapon}</span>
-        <span title="utilidad disponible">⚡{util.left}/{util.total}</span>
-        {known > 0 && <span title="enemigos con info">👁{known}</span>}
+        <span className="truncate" title={t("arma")}>🔫 {td(weapon)}</span>
+        <span title={t("utilidad disponible")}>⚡{util.left}/{util.total}</span>
+        {known > 0 && <span title={t("enemigos con info")}>👁{known}</span>}
       </div>
       {/* Objetivo + pulso mental */}
       <div className="flex items-center justify-between border-t border-white/5 pt-1 text-[9px]">
-        <span className="text-white/55">{p.alive ? `${INTENT_LABEL[p.intent]} · ${ZONE_LABEL[p.targetZone as keyof typeof ZONE_LABEL] ?? p.targetZone}` : "Eliminado"}</span>
+        <span className="text-white/55">{p.alive ? `${tdIn("coach", INTENT_LABEL[p.intent])} · ${td(ZONE_LABEL[p.targetZone as keyof typeof ZONE_LABEL]) ?? p.targetZone}` : t("Eliminado")}</span>
         <span className={cn(tilt >= 55 ? "text-rose-300" : conf >= 65 ? "text-emerald-300" : "text-white/40")}>
-          {tilt >= 55 ? `tilt ${tilt}` : `conf ${conf}`}
+          {tilt >= 55 ? t("tilt {tilt}", { tilt }) : t("conf {conf}", { conf })}
         </span>
       </div>
     </div>

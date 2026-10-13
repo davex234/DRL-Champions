@@ -71,7 +71,7 @@ test("DRAFT · un sobre no público no se abre por la ruta pública", () => {
 test("ACCIONES FINALES · ver colección, abrir otro y volver a sobres", () => {
   // Pack Opening 3.0 · «Ir a mi colección» lleva a /coleccion (antes «Ver en mi colección» abría la ficha de la hero,
   // que ya tiene su propio «Ver carta →»).
-  assert.match(SUMMARY, /onNavigate\("\/coleccion"\)\} data-testid="summary-view-collection">\s*Ir a mi colección/);
+  assert.match(SUMMARY, /onNavigate\("\/coleccion"\)\} data-testid="summary-view-collection">\s*\{(?:t|tr|i18nT)\("Ir a mi colección"\)\}/);
   assert.match(SUMMARY, /Abrir otro sobre/);
   assert.match(SUMMARY, /Volver a sobres/);
   assert.match(SUMMARY, /onNavigate\("\/packs"\)/, "volver lleva al catálogo");
@@ -88,9 +88,9 @@ test("REVEAL · muestra el resultado real carta a carta con su plan (rareza, nue
   assert.match(SUMMARY, /serial=\{it\.serial \?\? undefined\}/, "el resumen muestra el serial devuelto");
   // La marca va en TEXTO bajo cada carta (la cinta sobre la carta tapaba el OVR). Pack Opening 3.0: una insignia pequeña
   // con la MISMA semántica — nueva variante ≠ nueva ≠ duplicada ×N (según la colección de antes).
-  assert.match(SUMMARY, /item\.status === "new" && item\.newVariant\) return <span[^>]*data-caption-status="new-variant">Nueva variante<\/span>/, "marca nueva variante");
-  assert.match(SUMMARY, /item\.status === "new"\) return <span[^>]*data-caption-status="new">Nueva<\/span>/, "marca nueva según la colección de antes");
-  assert.match(SUMMARY, /item\.status === "duplicate"\) return <span[^>]*data-caption-status="duplicate">Duplicada ×\{item\.copiesAfter\}<\/span>/, "duplicada ×N");
+  assert.match(SUMMARY, /item\.status === "new" && item\.newVariant\) return <span[^>]*data-caption-status="new-variant">\{(?:t|tr|i18nT)\("Nueva variante"\)\}<\/span>/, "marca nueva variante");
+  assert.match(SUMMARY, /item\.status === "new"\) return <span[^>]*data-caption-status="new">\{(?:t|tr|i18nT)\("Nueva"\)\}<\/span>/, "marca nueva según la colección de antes");
+  assert.match(SUMMARY, /item\.status === "duplicate"\) return <span[^>]*data-caption-status="duplicate">\{(?:t|tr|i18nT)\("Duplicada ×\{n\}", \{ n: item\.copiesAfter \}\)\}<\/span>/, "duplicada ×N");
   assert.ok(!/status=\{(?:it|featured)\.status === "new"/.test(SUMMARY), "sin cinta que tape el OVR");
-  assert.match(read("./HeroReveal.tsx"), /Continuar · \$\{total - 1\} más/, "cuántas quedan tras la hero");
+  assert.match(read("./HeroReveal.tsx"), /(?:t|tr|i18nT)\("Continuar · \{v\} más", \{ v: total - 1 \}\)/, "cuántas quedan tras la hero");
 });

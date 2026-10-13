@@ -10,6 +10,9 @@
 import type {
   DownloadJob, Game, GameAction, GameStateId, LibraryEntry, DownloadKind,
 } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("launcher");
 
 /** Entrada por defecto de un título que el usuario nunca ha tocado. */
 export function initialEntry(game: Game): LibraryEntry {
@@ -90,19 +93,19 @@ export function primaryAction(game: Game, entry: LibraryEntry, job?: DownloadJob
 export function stateLabel(state: GameStateId, game?: Game, entry?: LibraryEntry): string {
   switch (state) {
     case "not-installed":
-      return "No instalado";
+      return t("No instalado");
     case "installing":
-      return "Instalando";
+      return t("Instalando");
     case "updating":
-      return "Actualizando";
+      return t("Actualizando");
     case "paused":
-      return "En pausa";
+      return t("En pausa");
     case "error":
-      return "Error";
+      return t("Error");
     case "installed":
-      return game && entry && hasUpdate(game, entry) ? "Actualización disponible" : "Instalado";
+      return game && entry && hasUpdate(game, entry) ? t("Actualización disponible") : t("Instalado");
     case "ready":
-      return "Listo para jugar";
+      return t("Listo para jugar");
   }
 }
 

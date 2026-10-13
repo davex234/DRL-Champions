@@ -28,6 +28,11 @@ import { playerMessage } from "@/components/ui/game/GameStates";
 import { TrophyBadge } from "@/components/trophies/TrophyBadge";
 import type { BadgeFact } from "@/domain/collectionSets/badges";
 import type { FavoriteTeamFact } from "@/domain/profile/favoriteTeam";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("player");
 
 const BADGES_MAX = 3;
 
@@ -73,6 +78,7 @@ const move = <T,>(list: T[], i: number, d: -1 | 1): T[] => {
 };
 
 export function ShowcaseEditor(props: ShowcaseEditorProps) {
+  useLocale();
   const { open, tab, onTab, onClose, owned, busy, error } = props;
   const closeRef = useRef<HTMLButtonElement>(null);
   const [uids, setUids] = useState<string[]>(props.initialUids);
@@ -119,7 +125,7 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
     // Otra copia de la MISMA carta ya expuesta: se sustituye en su slot (una carta, una copia).
     const sameCardIdx = uids.findIndex((u) => byUid.get(u.toLowerCase())?.cardId === cardId);
     if (sameCardIdx >= 0) { const next = [...uids]; next[sameCardIdx] = uid; setUids(next); return; }
-    if (uids.length >= SHOWCASE_MAX) { setNotice(`Tu vitrina ya tiene ${SHOWCASE_MAX} cartas: quita una para añadir otra.`); return; }
+    if (uids.length >= SHOWCASE_MAX) { setNotice(tr("Tu vitrina ya tiene {SHOWCASE_MAX} cartas: quita una para añadir otra.", { SHOWCASE_MAX })); return; }
     setUids([...uids, uid]);
   };
   const onCard = (cardId: string) => {
@@ -143,17 +149,17 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
         <header className="flex items-start justify-between gap-3 border-b border-white/[0.08] px-5 pb-3 pt-3 sm:px-7 sm:pt-5">
           <div>
             <span aria-hidden className="mx-auto mb-2 block h-1 w-10 rounded-full bg-white/20 sm:hidden" />
-            <span className="nx-label">Tu perfil de jugador</span>
-            <h2 id="profile-editor-title" className="font-display text-h2 font-bold uppercase tracking-wide text-white">Editar perfil</h2>
+            <span className="nx-label">{tr("Tu perfil de jugador")}</span>
+            <h2 id="profile-editor-title" className="font-display text-h2 font-bold uppercase tracking-wide text-white">{tr("Editar perfil")}</h2>
           </div>
-          <button ref={closeRef} type="button" onClick={onClose} aria-label="Cerrar" className="nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-white/70 transition hover:bg-white/10 hover:text-white">✕</button>
+          <button ref={closeRef} type="button" onClick={onClose} aria-label={tr("Cerrar")} className="nx-focus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 text-white/70 transition hover:bg-white/10 hover:text-white">✕</button>
         </header>
 
-        <div role="tablist" aria-label="Qué editar" className="flex gap-1 overflow-x-auto border-b border-white/[0.08] px-5 sm:px-7">
-          {([["cards", "Vitrina"], ["achievements", "Logros"], ...(props.onSaveBadges ? [["badges", "Insignias"]] : []), ...(props.onSaveTeam ? [["team", "Equipo favorito"]] : []), ["avatar", "Avatar"]] as [EditorTab, string][]).map(([id, label]) => (
+        <div role="tablist" aria-label={tr("Qué editar")} className="flex gap-1 overflow-x-auto border-b border-white/[0.08] px-5 sm:px-7">
+          {([["cards", tr("Vitrina")], ["achievements", tr("Logros")], ...(props.onSaveBadges ? [["badges", tr("Insignias")]] : []), ...(props.onSaveTeam ? [["team", tr("Equipo favorito")]] : []), ["avatar", tr("Avatar")]] as [EditorTab, string][]).map(([id, label]) => (
             <button key={id} type="button" role="tab" aria-selected={tab === id} onClick={() => onTab(id)} data-tab={id}
               className={`nx-focus relative inline-flex min-h-[44px] items-center px-3 font-display text-[11px] font-bold uppercase tracking-[0.12em] ${tab === id ? "text-white" : "text-white/50 hover:text-white/80"}`}>
-              {label}{tab === id && <span aria-hidden className="absolute inset-x-2 -bottom-px h-0.5 bg-drl" />}
+              {td(label)}{tab === id && <span aria-hidden className="absolute inset-x-2 -bottom-px h-0.5 bg-drl" />}
             </button>
           ))}
         </div>
@@ -161,7 +167,7 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4 sm:px-7" role="tabpanel">
           {tab === "cards" && (
             <div className="space-y-4" data-testid="editor-cards">
-              <ol className="grid gap-2 sm:grid-cols-3" aria-label="Tus slots de vitrina">
+              <ol className="grid gap-2 sm:grid-cols-3" aria-label={tr("Tus slots de vitrina")}>
                 {Array.from({ length: SHOWCASE_MAX }, (_, i) => {
                   const inst = uids[i] ? byUid.get(uids[i].toLowerCase()) : undefined;
                   const def = inst ? getCard(inst.cardId) : null;
@@ -170,52 +176,52 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                     <li key={i} className={`nx-clip-sm flex items-center gap-3 border px-3 py-2 ${i === 0 ? "border-drl-gold/40 bg-drl-gold/[0.05]" : "border-white/10 bg-white/[0.02]"}`} data-slot={i + 1} data-uid={inst?.uid ?? ""}>
                       {def ? <CardThumb card={def} width={48} /> : <span aria-hidden className="grid h-[67px] w-12 place-items-center border border-dashed border-white/15 text-white/25">+</span>}
                       <div className="min-w-0 flex-1">
-                        <span className="nx-label">{i === 0 ? "Slot 1 · destacada" : `Slot ${i + 1}`}</span>
+                        <span className="nx-label">{i === 0 ? tr("Slot 1 · destacada") : tr("Slot {v}", { v: i + 1 })}</span>
                         {def && inst ? (
                           <>
                             <span className="block truncate font-display text-[13px] font-bold uppercase text-white">{getPlayer(def.playerId)?.nick ?? def.playerId}</span>
-                            <span className="block text-[11px] text-white/50">{variant?.label} · {serialText(inst.serial ?? null, variant?.serialLimit ?? null)}</span>
+                            <span className="block text-[11px] text-white/50">{td(variant?.label)} · {serialText(inst.serial ?? null, variant?.serialLimit ?? null)}</span>
                           </>
-                        ) : <span className="block text-[12px] text-white/40">Vacío</span>}
+                        ) : <span className="block text-[12px] text-white/40">{tr("Vacío")}</span>}
                       </div>
                       {inst && (
                         <div className="flex flex-col gap-1">
-                          <button type="button" onClick={() => setUids(move(uids, i, -1))} disabled={i === 0} aria-label={`Subir slot ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↑</button>
-                          <button type="button" onClick={() => setUids(move(uids, i, 1))} disabled={i >= uids.length - 1} aria-label={`Bajar slot ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↓</button>
+                          <button type="button" onClick={() => setUids(move(uids, i, -1))} disabled={i === 0} aria-label={tr("Subir slot {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↑</button>
+                          <button type="button" onClick={() => setUids(move(uids, i, 1))} disabled={i >= uids.length - 1} aria-label={tr("Bajar slot {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↓</button>
                         </div>
                       )}
-                      {inst && <button type="button" onClick={() => setUids(uids.filter((_, k) => k !== i))} aria-label={`Quitar slot ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-drl">✕</button>}
+                      {inst && <button type="button" onClick={() => setUids(uids.filter((_, k) => k !== i))} aria-label={tr("Quitar slot {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-drl">✕</button>}
                     </li>
                   );
                 })}
               </ol>
-              {notice && <p role="status" className="text-caption text-drl-gold">{notice}</p>}
+              {notice && <p role="status" className="text-caption text-drl-gold">{td(notice)}</p>}
 
               <div className="grid gap-2 sm:grid-cols-[1.4fr_1fr_1fr_1fr_auto]" data-testid="editor-filters">
-                <label className="sr-only" htmlFor="showcase-search">Buscar carta</label>
-                <input id="showcase-search" type="search" value={text} onChange={(e) => { setText(e.target.value); setShown(PAGE); }} placeholder="Buscar jugador, equipo o variante…" className="nx-focus nx-clip-sm min-h-[44px] border border-white/12 bg-white/[0.04] px-3 text-body text-white placeholder:text-white/30" />
-                <label className="sr-only" htmlFor="showcase-team">Equipo</label>
+                <label className="sr-only" htmlFor="showcase-search">{tr("Buscar carta")}</label>
+                <input id="showcase-search" type="search" value={text} onChange={(e) => { setText(e.target.value); setShown(PAGE); }} placeholder={tr("Buscar jugador, equipo o variante…")} className="nx-focus nx-clip-sm min-h-[44px] border border-white/12 bg-white/[0.04] px-3 text-body text-white placeholder:text-white/30" />
+                <label className="sr-only" htmlFor="showcase-team">{tr("Equipo")}</label>
                 <select id="showcase-team" value={team} onChange={(e) => { setTeam(e.target.value); setShown(PAGE); }} className="nx-focus nx-clip-sm min-h-[44px] border border-white/12 bg-[#11151f] px-2 text-[13px] text-white">
-                  <option value="">Todos los equipos</option>{teams.map((t) => <option key={t} value={t}>{t}</option>)}
+                  <option value="">{tr("Todos los equipos")}</option>{teams.map((t) => <option key={t} value={t}>{td(t)}</option>)}
                 </select>
-                <label className="sr-only" htmlFor="showcase-role">Rol</label>
+                <label className="sr-only" htmlFor="showcase-role">{tr("Rol")}</label>
                 <select id="showcase-role" value={role} onChange={(e) => { setRole(e.target.value as RoleId | ""); setShown(PAGE); }} className="nx-focus nx-clip-sm min-h-[44px] border border-white/12 bg-[#11151f] px-2 text-[13px] text-white">
-                  <option value="">Todos los roles</option>{ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
+                  <option value="">{tr("Todos los roles")}</option>{ROLES.map((r) => <option key={r} value={r}>{td(r)}</option>)}
                 </select>
-                <label className="sr-only" htmlFor="showcase-rarity">Rareza</label>
+                <label className="sr-only" htmlFor="showcase-rarity">{tr("Rareza")}</label>
                 <select id="showcase-rarity" value={rarity} onChange={(e) => { setRarity(e.target.value as RarityBucket | ""); setShown(PAGE); }} className="nx-focus nx-clip-sm min-h-[44px] border border-white/12 bg-[#11151f] px-2 text-[13px] text-white">
-                  <option value="">Todas las rarezas</option>{BUCKETS.map((b) => <option key={b} value={b}>{BUCKET_LABEL[b]}</option>)}
+                  <option value="">{tr("Todas las rarezas")}</option>{BUCKETS.map((b) => <option key={b} value={b}>{td(BUCKET_LABEL[b])}</option>)}
                 </select>
-                <button type="button" aria-pressed={dups} onClick={() => { setDups(!dups); setShown(PAGE); }} className={`nx-focus nx-clip-sm min-h-[44px] border px-3 font-display text-[11px] font-bold uppercase tracking-[0.1em] ${dups ? "border-drl-cyan/60 text-drl-cyan" : "border-white/12 text-white/60"}`}>Duplicadas</button>
+                <button type="button" aria-pressed={dups} onClick={() => { setDups(!dups); setShown(PAGE); }} className={`nx-focus nx-clip-sm min-h-[44px] border px-3 font-display text-[11px] font-bold uppercase tracking-[0.1em] ${dups ? "border-drl-cyan/60 text-drl-cyan" : "border-white/12 text-white/60"}`}>{tr("Duplicadas")}</button>
               </div>
 
               {owned.length === 0 ? (
-                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">Aún no tienes cartas. Abre un sobre y vuelve para exponerlas.</p>
+                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">{tr("Aún no tienes cartas. Abre un sobre y vuelve para exponerlas.")}</p>
               ) : filtered.length === 0 ? (
-                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">Ninguna carta de tu colección coincide con estos filtros.</p>
+                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">{tr("Ninguna carta de tu colección coincide con estos filtros.")}</p>
               ) : (
                 <>
-                  <p className="text-[11px] text-white/40">{filtered.length} {filtered.length === 1 ? "carta" : "cartas"} de tu colección</p>
+                  <p className="text-[11px] text-white/40">{tr("{n, plural, one {# carta} other {# cartas}} de tu colección", { n: filtered.length })}</p>
                   <ul className="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-8" data-testid="editor-grid">
                     {filtered.slice(0, shown).map((v) => {
                       const def = getCard(v.cardId);
@@ -225,7 +231,7 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                       return (
                         <li key={v.cardId}>
                           <button type="button" onClick={() => onCard(v.cardId)} aria-pressed={on} data-card={v.cardId} data-count={v.count}
-                            aria-label={`${v.nick}, ${v.label}, ${BUCKET_LABEL[bucket]}${v.count > 1 ? `, ${v.count} copias` : ""}${on ? ", en tu vitrina" : ""}`}
+                            aria-label={`${v.nick}, ${td(v.label)}, ${td(BUCKET_LABEL[bucket])}${v.count > 1 ? tr(", {n} copias", { n: v.count }) : ""}${on ? tr(", en tu vitrina") : ""}`}
                             className={`nx-focus flex w-full flex-col items-center gap-1 p-1.5 text-center transition hover:-translate-y-0.5 ${on ? "text-drl-cyan" : ""}`}>
                             {/* CARD ART = CARD VISUAL: la elegida brilla sobre su silueta; ni caja ni fondo alrededor. */}
                             <span className="block" style={on ? { filter: "drop-shadow(0 0 8px #19e3ff)" } : undefined}><CardThumb card={def} width={56} /></span>
@@ -239,7 +245,7 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                       );
                     })}
                   </ul>
-                  {shown < filtered.length && <button type="button" onClick={() => setShown(shown + PAGE)} className="nx-focus min-h-[44px] font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-cyan">Ver más cartas</button>}
+                  {shown < filtered.length && <button type="button" onClick={() => setShown(shown + PAGE)} className="nx-focus min-h-[44px] font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-cyan">{tr("Ver más cartas")}</button>}
                 </>
               )}
             </div>
@@ -247,21 +253,21 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
 
           {tab === "achievements" && (
             <div className="space-y-4" data-testid="editor-achievements">
-              <p className="text-caption text-ink-muted">Elige hasta {FEATURED_MAX} logros que ya hayas conseguido. Se muestran en este orden.</p>
+              <p className="text-caption text-ink-muted">{tr("Elige hasta {max} logros que ya hayas conseguido. Se muestran en este orden.", { max: FEATURED_MAX })}</p>
               {props.claimed.length === 0 ? (
-                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">Todavía no has conseguido ningún logro. Recoge uno en Logros y pase y vuelve.</p>
+                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">{tr("Todavía no has conseguido ningún logro. Recoge uno en Logros y pase y vuelve.")}</p>
               ) : (
                 <>
-                  <ol className="grid gap-2 sm:grid-cols-3" aria-label="Logros destacados, en orden">
+                  <ol className="grid gap-2 sm:grid-cols-3" aria-label={tr("Logros destacados, en orden")}>
                     {Array.from({ length: FEATURED_MAX }, (_, i) => {
                       const a = props.claimed.find((x) => x.id === featured[i]);
                       return (
                         <li key={i} className="nx-clip-sm flex items-center gap-2 border border-white/10 bg-white/[0.02] px-3 py-2" data-featured-slot={i + 1}>
                           <span aria-hidden className="grid h-10 w-10 place-items-center text-xl">{a?.icon ?? "·"}</span>
-                          <span className="min-w-0 flex-1 truncate text-[13px] text-white">{a?.name ?? "Vacío"}</span>
+                          <span className="min-w-0 flex-1 truncate text-[13px] text-white">{a?.name ?? tr("Vacío")}</span>
                           {a && <>
-                            <button type="button" onClick={() => setFeatured(move(featured, i, -1))} disabled={i === 0} aria-label={`Subir logro ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↑</button>
-                            <button type="button" onClick={() => setFeatured(featured.filter((_, k) => k !== i))} aria-label={`Quitar logro ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-drl">✕</button>
+                            <button type="button" onClick={() => setFeatured(move(featured, i, -1))} disabled={i === 0} aria-label={tr("Subir logro {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↑</button>
+                            <button type="button" onClick={() => setFeatured(featured.filter((_, k) => k !== i))} aria-label={tr("Quitar logro {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-drl">✕</button>
                           </>}
                         </li>
                       );
@@ -277,8 +283,8 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                             disabled={!on && featured.length >= FEATURED_MAX}
                             className={`nx-focus nx-clip-sm flex min-h-[56px] w-full items-center gap-3 border px-3 py-2 text-left disabled:opacity-40 ${on ? "border-drl-gold/60 bg-drl-gold/10" : "border-white/[0.09] bg-white/[0.02] hover:bg-white/[0.06]"}`}>
                             <span aria-hidden className="text-2xl">{a.icon}</span>
-                            <span className="min-w-0"><span className="block font-display text-[13px] font-bold uppercase text-white">{a.name}</span><span className="block truncate text-[11px] text-white/50">{a.description}</span></span>
-                            {on && <Badge tone="gold" className="ml-auto">Destacado</Badge>}
+                            <span className="min-w-0"><span className="block font-display text-[13px] font-bold uppercase text-white">{a.name}</span><span className="block truncate text-[11px] text-white/50">{td(a.description)}</span></span>
+                            {on && <Badge tone="gold" className="ml-auto">{tr("Destacado")}</Badge>}
                           </button>
                         </li>
                       );
@@ -291,22 +297,22 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
 
           {tab === "badges" && (
             <div className="space-y-4" data-testid="editor-badges">
-              <p className="text-caption text-ink-muted">Elige hasta {BADGES_MAX} insignias desbloqueadas. Se muestran en tu perfil en este orden.</p>
+              <p className="text-caption text-ink-muted">{tr("Elige hasta {max} insignias desbloqueadas. Se muestran en tu perfil en este orden.", { max: BADGES_MAX })}</p>
               {(props.badges ?? []).length === 0 ? (
-                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">Aún no tienes insignias. Completa una colección en la Sala de Trofeos.</p>
+                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">{tr("Aún no tienes insignias. Completa una colección en la Sala de Trofeos.")}</p>
               ) : (
                 <>
-                  <ol className="grid gap-2 sm:grid-cols-3" aria-label="Insignias destacadas, en orden">
+                  <ol className="grid gap-2 sm:grid-cols-3" aria-label={tr("Insignias destacadas, en orden")}>
                     {Array.from({ length: BADGES_MAX }, (_, i) => {
                       const b = (props.badges ?? []).find((x) => x.id === badgeSel[i]);
                       return (
                         <li key={i} className="nx-clip-sm flex items-center gap-2 border border-white/10 bg-white/[0.02] px-3 py-2" data-badge-slot={i + 1}>
                           {b ? <TrophyBadge badge={b} size="sm" /> : <span aria-hidden className="grid h-10 w-10 place-items-center text-white/30">·</span>}
-                          <span className="min-w-0 flex-1 truncate text-[13px] text-white">{b?.label ?? "Vacío"}</span>
+                          <span className="min-w-0 flex-1 truncate text-[13px] text-white">{td(b?.label) ?? tr("Vacío")}</span>
                           {b && <>
-                            <button type="button" onClick={() => setBadgeSel(move(badgeSel, i, -1))} disabled={i === 0} aria-label={`Subir insignia ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↑</button>
-                            <button type="button" onClick={() => setBadgeSel(move(badgeSel, i, 1))} disabled={i >= badgeSel.length - 1} aria-label={`Bajar insignia ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↓</button>
-                            <button type="button" onClick={() => setBadgeSel(badgeSel.filter((_, k) => k !== i))} aria-label={`Quitar insignia ${i + 1}`} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-drl">✕</button>
+                            <button type="button" onClick={() => setBadgeSel(move(badgeSel, i, -1))} disabled={i === 0} aria-label={tr("Subir insignia {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↑</button>
+                            <button type="button" onClick={() => setBadgeSel(move(badgeSel, i, 1))} disabled={i >= badgeSel.length - 1} aria-label={tr("Bajar insignia {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-white/70 disabled:opacity-30">↓</button>
+                            <button type="button" onClick={() => setBadgeSel(badgeSel.filter((_, k) => k !== i))} aria-label={tr("Quitar insignia {v}", { v: i + 1 })} className="nx-focus grid h-11 w-11 place-items-center border border-white/10 text-drl">✕</button>
                           </>}
                         </li>
                       );
@@ -322,8 +328,8 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                             disabled={!on && badgeSel.length >= BADGES_MAX}
                             className={`nx-focus nx-clip-sm flex min-h-[56px] w-full items-center gap-3 border px-3 py-2 text-left disabled:opacity-40 ${on ? "border-drl-gold/60 bg-drl-gold/10" : "border-white/[0.09] bg-white/[0.02] hover:bg-white/[0.06]"}`}>
                             <TrophyBadge badge={b} size="sm" />
-                            <span className="min-w-0"><span className="block truncate font-display text-[13px] font-bold uppercase text-white">{b.label}</span><span className="block truncate text-[11px] text-white/50">{b.caption}</span></span>
-                            {on && <Badge tone="gold" className="ml-auto">Destacada</Badge>}
+                            <span className="min-w-0"><span className="block truncate font-display text-[13px] font-bold uppercase text-white">{td(b.label)}</span><span className="block truncate text-[11px] text-white/50">{td(b.caption)}</span></span>
+                            {on && <Badge tone="gold" className="ml-auto">{tr("Destacada")}</Badge>}
                           </button>
                         </li>
                       );
@@ -336,14 +342,14 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
 
           {tab === "team" && props.onSaveTeam && (
             <div className="space-y-4" data-testid="editor-team">
-              <p className="text-caption text-ink-muted">Elige tu equipo esports favorito. Solo equipos reales de Valorosters; el escudo es el oficial del producto.</p>
-              <input type="search" value={teamQuery} onChange={(e) => setTeamQuery(e.target.value)} placeholder="Buscar equipo…" aria-label="Buscar equipo"
+              <p className="text-caption text-ink-muted">{tr("Elige tu equipo esports favorito. Solo equipos reales de Valorosters; el escudo es el oficial del producto.")}</p>
+              <input type="search" value={teamQuery} onChange={(e) => setTeamQuery(e.target.value)} placeholder={tr("Buscar equipo…")} aria-label={tr("Buscar equipo")}
                 className="nx-focus w-full rounded-md bg-white/[0.05] px-3 py-2 text-[14px] text-white ring-1 ring-white/15 placeholder:text-white/40" />
-              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3" aria-label="Equipos">
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3" aria-label={tr("Equipos")}>
                 <li>
                   <button type="button" aria-pressed={favTeam === null} onClick={() => setFavTeam(null)} data-team-option=""
                     className={`nx-focus nx-clip-sm flex min-h-[56px] w-full items-center gap-3 border px-3 py-2 text-left ${favTeam === null ? "border-drl-cyan/60 bg-drl-cyan/10" : "border-white/[0.09] bg-white/[0.02] hover:bg-white/[0.06]"}`}>
-                    <span className="font-display text-[12px] font-bold uppercase tracking-wide text-white/70">Sin equipo favorito</span>
+                    <span className="font-display text-[12px] font-bold uppercase tracking-wide text-white/70">{tr("Sin equipo favorito")}</span>
                   </button>
                 </li>
                 {(props.teamOptions ?? []).filter((t) => !teamQuery.trim() || `${t.name} ${t.tag}`.toLowerCase().includes(teamQuery.trim().toLowerCase())).map((t) => (
@@ -351,7 +357,7 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                     <button type="button" aria-pressed={favTeam === t.id} onClick={() => setFavTeam(t.id)} data-team-option={t.id}
                       className={`nx-focus nx-clip-sm flex min-h-[56px] w-full items-center gap-2 border px-2 py-2 text-left ${favTeam === t.id ? "border-drl-cyan/60 bg-drl-cyan/10" : "border-white/[0.09] bg-white/[0.02] hover:bg-white/[0.06]"}`}>
                       <TeamMark team={t} />
-                      <span className="ml-auto shrink-0 text-[10.5px] uppercase tracking-[0.12em] text-white/40">{t.region}</span>
+                      <span className="ml-auto shrink-0 text-[10.5px] uppercase tracking-[0.12em] text-white/40">{td(t.region)}</span>
                     </button>
                   </li>
                 ))}
@@ -361,11 +367,11 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
 
           {tab === "avatar" && (
             <div className="space-y-3" data-testid="editor-avatar">
-              <p className="text-caption text-ink-muted">Tu avatar se ve en tu perfil, en la escalera y en Social.</p>
+              <p className="text-caption text-ink-muted">{tr("Tu avatar se ve en tu perfil, en la escalera y en Social.")}</p>
               <div className="flex flex-wrap gap-2">
                 {AVATARS.map((a) => (
-                  <button key={a} type="button" onClick={() => props.onSaveAvatar(a)} disabled={busy} aria-pressed={props.avatar === a} aria-label={`Elegir avatar ${a}`}
-                    className={`nx-focus nx-clip-sm grid h-14 w-14 place-items-center border text-3xl transition ${props.avatar === a ? "border-drl-cyan/70 bg-drl-cyan/10" : "border-white/10 bg-white/[0.03] hover:bg-white/[0.08]"}`}>{a}</button>
+                  <button key={a} type="button" onClick={() => props.onSaveAvatar(a)} disabled={busy} aria-pressed={props.avatar === a} aria-label={tr("Elegir avatar {a}", { a: td(a) })}
+                    className={`nx-focus nx-clip-sm grid h-14 w-14 place-items-center border text-3xl transition ${props.avatar === a ? "border-drl-cyan/70 bg-drl-cyan/10" : "border-white/10 bg-white/[0.03] hover:bg-white/[0.08]"}`}>{td(a)}</button>
                 ))}
               </div>
             </div>
@@ -373,13 +379,13 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
         </div>
 
         <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-white/[0.08] px-5 py-3 pb-[calc(12px+env(safe-area-inset-bottom))] sm:px-7">
-          {error ? <p role="alert" className="text-caption text-drl">{playerMessage(error)}</p> : <span className="text-[11px] text-white/35">Lo valida el servidor: solo tus cartas y tus logros conseguidos.</span>}
+          {error ? <p role="alert" className="text-caption text-drl">{playerMessage(error)}</p> : <span className="text-[11px] text-white/35">{tr("Lo valida el servidor: solo tus cartas y tus logros conseguidos.")}</span>}
           <div className="flex gap-2">
-            <NxButton variant="ghost" onClick={onClose} disabled={busy}>Cerrar</NxButton>
-            {tab === "cards" && <NxButton variant="primary" onClick={() => props.onSaveShowcase(uids)} disabled={busy || sameList(uids, props.initialUids)} data-testid="save-showcase">{busy ? "Guardando…" : "Guardar vitrina"}</NxButton>}
-            {tab === "badges" && props.onSaveBadges && <NxButton variant="primary" onClick={() => props.onSaveBadges?.(badgeSel)} disabled={busy || sameList(badgeSel, props.initialBadges ?? [])} data-testid="save-badges">{busy ? "Guardando…" : "Guardar insignias"}</NxButton>}
-            {tab === "team" && props.onSaveTeam && <NxButton variant="primary" onClick={() => props.onSaveTeam?.(favTeam)} disabled={busy || favTeam === (props.initialTeam ?? null)} data-testid="save-team">{busy ? "Guardando…" : "Guardar equipo"}</NxButton>}
-            {tab === "achievements" && <NxButton variant="primary" onClick={() => props.onSaveFeatured(featured)} disabled={busy || sameList(featured, props.initialFeatured)} data-testid="save-featured">{busy ? "Guardando…" : "Guardar logros"}</NxButton>}
+            <NxButton variant="ghost" onClick={onClose} disabled={busy}>{tr("Cerrar")}</NxButton>
+            {tab === "cards" && <NxButton variant="primary" onClick={() => props.onSaveShowcase(uids)} disabled={busy || sameList(uids, props.initialUids)} data-testid="save-showcase">{busy ? tr("Guardando…") : tr("Guardar vitrina")}</NxButton>}
+            {tab === "badges" && props.onSaveBadges && <NxButton variant="primary" onClick={() => props.onSaveBadges?.(badgeSel)} disabled={busy || sameList(badgeSel, props.initialBadges ?? [])} data-testid="save-badges">{busy ? tr("Guardando…") : tr("Guardar insignias")}</NxButton>}
+            {tab === "team" && props.onSaveTeam && <NxButton variant="primary" onClick={() => props.onSaveTeam?.(favTeam)} disabled={busy || favTeam === (props.initialTeam ?? null)} data-testid="save-team">{busy ? tr("Guardando…") : tr("Guardar equipo")}</NxButton>}
+            {tab === "achievements" && <NxButton variant="primary" onClick={() => props.onSaveFeatured(featured)} disabled={busy || sameList(featured, props.initialFeatured)} data-testid="save-featured">{busy ? tr("Guardando…") : tr("Guardar logros")}</NxButton>}
           </div>
         </footer>
 
@@ -387,10 +393,10 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
           <div className="absolute inset-0 z-10 flex flex-col rounded-t-2xl bg-[#0b0e17] sm:rounded-2xl" data-testid="instance-picker" data-card={picker}>
             <div className="flex items-start justify-between gap-3 border-b border-white/[0.08] px-5 py-3 sm:px-7">
               <div>
-                <span className="nx-label">Elige la copia que quieres exponer</span>
-                <h3 className="font-display text-h3 font-bold uppercase text-white">{getVariant(pickerDef.variantId as VariantId).label} · {pickerCopies.length} copias</h3>
+                <span className="nx-label">{tr("Elige la copia que quieres exponer")}</span>
+                <h3 className="font-display text-h3 font-bold uppercase text-white">{td(getVariant(pickerDef.variantId as VariantId).label)} · {pickerCopies.length} {tr("copias")}</h3>
               </div>
-              <button type="button" onClick={() => setPicker(null)} aria-label="Volver a la colección" className="nx-focus grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70">✕</button>
+              <button type="button" onClick={() => setPicker(null)} aria-label={tr("Volver a la colección")} className="nx-focus grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white/70">✕</button>
             </div>
             <ul className="min-h-0 flex-1 space-y-2 overflow-y-auto px-5 py-4 sm:px-7">
               {pickerCopies.map((c) => {
@@ -402,9 +408,9 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
                     <CardThumb card={pickerDef} width={44} />
                     <span className="min-w-0 flex-1">
                       <span className="block font-display text-[15px] font-bold text-white">{serialText(c.serial ?? null, v.serialLimit ?? null)}</span>
-                      <span className="block text-[11px] text-white/50">{v.label} · <Badge tone={RARITY_TONE[b]}>{BUCKET_LABEL[b]}</Badge> · obtenida el {fmtDay(c.obtainedAt)}</span>
+                      <span className="block text-[11px] text-white/50">{fill(tr("{variante} · {rareza} · obtenida el {fecha}", { variante: td(v.label), ...slots("rareza"), fecha: fmtDay(c.obtainedAt) }), { rareza: <Badge tone={RARITY_TONE[b]}>{td(BUCKET_LABEL[b])}</Badge> })}</span>
                     </span>
-                    <ProfileButton tone={on ? "primary" : "ghost"} aria-pressed={on} onClick={() => { toggleInstance(c.uid, c.cardId); setPicker(null); }}>{on ? "Quitar de la vitrina" : "Exponer esta copia"}</ProfileButton>
+                    <ProfileButton tone={on ? "primary" : "ghost"} aria-pressed={on} onClick={() => { toggleInstance(c.uid, c.cardId); setPicker(null); }}>{on ? tr("Quitar de la vitrina") : tr("Exponer esta copia")}</ProfileButton>
                   </li>
                 );
               })}

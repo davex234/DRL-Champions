@@ -10,17 +10,22 @@ import Link from "next/link";
 import { ForgePanel } from "./ForgePanel";
 import { Plate } from "@/components/ui/Surface";
 import { useServerEconomy, SERVER_ECONOMY_ONLY } from "@/lib/game/serverEconomy";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("craft");
 
 export function ForgeGate() {
+  useLocale();
   const serverEconomy = useServerEconomy();
   if (!serverEconomy) return <ForgePanel />;
   return (
     <Plate className="p-5" data-testid="forge-server-notice">
-      <p className="font-display text-sm font-bold uppercase tracking-[0.08em] text-white">La forja no está disponible con cuenta</p>
-      <p className="mt-2 max-w-xl text-caption leading-relaxed text-ink-muted">{SERVER_ECONOMY_ONLY}</p>
+      <p className="font-display text-sm font-bold uppercase tracking-[0.08em] text-white">{t("La forja no está disponible con cuenta")}</p>
+      <p className="mt-2 max-w-xl text-caption leading-relaxed text-ink-muted">{td(SERVER_ECONOMY_ONLY)}</p>
       <p className="mt-3 text-caption text-ink-muted">
-        Para convertir cartas repetidas en créditos usa el desguace de{" "}
-        <Link href="/inventario" className="nx-action !text-drl">Inventario</Link>.
+        {fill(t("Para convertir cartas repetidas en créditos usa el desguace de {enlace}.", slots("enlace")), { enlace: <Link href="/inventario" className="nx-action !text-drl">{t("Inventario")}</Link> })}
       </p>
     </Plate>
   );

@@ -10,6 +10,10 @@
  */
 import type { RendererProps } from "../renderer";
 import type { RenderEntity, RenderEffect } from "../types";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("visualizer");
 
 const ATK = "#ff3b5c";
 const DEF = "#19e3ff";
@@ -18,6 +22,7 @@ const teamHex = (t?: string) => (t === "ATK" ? ATK : DEF);
 const has = (e: RenderEntity, kind: string) => e.effects.some((f) => f.kind === kind);
 
 export function SvgRenderer({ frame, className }: RendererProps) {
+  useLocale();
   const { camera, world, entities, effects } = frame;
   const vb = `${camera.viewBox.x} ${camera.viewBox.y} ${camera.viewBox.w} ${camera.viewBox.h}`;
   const rot = camera.rotation
@@ -43,7 +48,7 @@ export function SvgRenderer({ frame, className }: RendererProps) {
 
         {/* Zonas */}
         {world.zones.map((z) => (
-          <text key={z.id} x={z.position.x} y={z.position.y - 18} textAnchor="middle" className="fill-white/15" fontSize={12} fontWeight={600}>{z.label}</text>
+          <text key={z.id} x={z.position.x} y={z.position.y - 18} textAnchor="middle" className="fill-white/15" fontSize={12} fontWeight={600}>{td(z.label)}</text>
         ))}
         {/* Muros */}
         {world.walls.map((w, i) => (
@@ -51,7 +56,7 @@ export function SvgRenderer({ frame, className }: RendererProps) {
         ))}
         {/* Zona de plant */}
         <circle cx={world.plant.position.x} cy={world.plant.position.y} r={world.plant.radius} fill="#ffce4f0a" stroke="#ffce4f33" strokeDasharray="6 6" />
-        <text x={world.plant.position.x} y={world.plant.position.y + 4} textAnchor="middle" fontSize={10} className="fill-amber-300/30" fontWeight={700}>SITE</text>
+        <text x={world.plant.position.x} y={world.plant.position.y + 4} textAnchor="middle" fontSize={10} className="fill-amber-300/30" fontWeight={700}>{tr("SITE")}</text>
 
         {/* Efectos de escena */}
         {effects.map((e, i) => <Effect key={i} e={e} />)}
@@ -78,6 +83,7 @@ function Effect({ e }: { e: RenderEffect }) {
 }
 
 function Entity({ e }: { e: RenderEntity }) {
+  useLocale();
   if (e.type === "spike") {
     const p = e.transform.position;
     return (
@@ -98,7 +104,7 @@ function Entity({ e }: { e: RenderEntity }) {
       <g opacity={0.34}>
         <circle cx={p.x} cy={p.y} r={7} fill="none" stroke={color} strokeWidth={1} strokeDasharray="2 2" />
         <text x={p.x} y={p.y + 4} textAnchor="middle" fontSize={12} fill={color}>✕</text>
-        <text x={p.x} y={p.y + 17} textAnchor="middle" fontSize={7.5} className="fill-white/30">{e.label}</text>
+        <text x={p.x} y={p.y + 17} textAnchor="middle" fontSize={7.5} className="fill-white/30">{td(e.label)}</text>
       </g>
     );
   }
@@ -117,10 +123,10 @@ function Entity({ e }: { e: RenderEntity }) {
       {/* cuerpo */}
       <circle cx={p.x} cy={p.y} r={8} fill={color} stroke="#05080d" strokeWidth={1.5} />
       {has(e, "flash") && <circle cx={p.x} cy={p.y} r={11} fill="#ffffffcc" />}
-      <text x={p.x} y={p.y + 3} textAnchor="middle" fontSize={9} fontWeight={800} fill="#05080d">{ROLE_TAG[e.role ?? ""] ?? "?"}</text>
+      <text x={p.x} y={p.y + 3} textAnchor="middle" fontSize={9} fontWeight={800} fill="#05080d">{td(ROLE_TAG[e.role ?? ""]) ?? "?"}</text>
       {/* placa de nombre */}
       <text x={p.x} y={p.y - 13} textAnchor="middle" fontSize={8} fontWeight={focus ? 700 : 500}
-        className={focus ? "fill-white" : "fill-white/55"}>{e.label}</text>
+        className={focus ? "fill-white" : "fill-white/55"}>{td(e.label)}</text>
     </g>
   );
 }

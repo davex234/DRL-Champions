@@ -10,6 +10,9 @@ import { progress, ageBand, freshRelationship, teamChemistry, type Relationship 
 import type { SquadView, SquadPlayerView, TransferWindow, ListStatus, SquadSlot } from "./types";
 import { squadNeeds } from "./needs";
 import { marketValue } from "./value";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("market");
 
 function toSquadPlayer(p: WorldPlayer, team: WorldTeam, slot: SquadSlot, status: ListStatus, loanInfo: string | null): SquadPlayerView {
   const mv = marketValue(p, team);
@@ -42,7 +45,7 @@ export function squadView(world: WorldState, clubId: string, listStatus: Record<
   const bench = benchP.map((p) => toSquadPlayer(p, team, "bench", listStatus[p.id] ?? "normal", null));
   const loanedOut = loans.map((l) => {
     const p = world.players[l.playerId];
-    return p ? toSquadPlayer(p, team, "loaned_out", "loan_listed", `Cedido a ${world.teams[l.loanClub]?.name ?? "?"} hasta T${l.endSeason}`) : null;
+    return p ? toSquadPlayer(p, team, "loaned_out", "loan_listed", t("Cedido a {v} hasta T{endSeason}", { v: td(world.teams[l.loanClub]?.name) ?? "?", endSeason: l.endSeason })) : null;
   }).filter((x): x is SquadPlayerView => !!x);
 
   const all = [...starters, ...bench];

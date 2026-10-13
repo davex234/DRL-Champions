@@ -10,6 +10,9 @@ import type { ConceptId, ConceptOrder, Lane } from "@/tactics";
 import type { Tempo } from "@/sim";
 import type { CoachConcept } from "./types";
 import type { UtilityFocus } from "./manual";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("coach");
 
 export type ChalkStepKind =
   | "split" | "stack" | "lurk" | "default" | "fake" | "execute" | "rush"
@@ -109,7 +112,7 @@ export function compileChalkboard(steps: ChalkStep[]): ChalkboardPlan {
 
   return {
     order, concept, tempo, utility, lurkers,
-    summary: parts.length ? parts.join(" · ") : "plan por defecto",
+    summary: parts.length ? parts.join(" · ") : t("plan por defecto"),
     valid: steps.some((s) => ["split", "stack", "execute", "rush", "fake", "default", "lurk", "retake", "save"].includes(s.kind)),
   };
 }

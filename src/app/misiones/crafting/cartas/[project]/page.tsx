@@ -30,15 +30,21 @@ import { cn } from "@/lib/format";
 import { claimProjectReq, fetchForge, fetchMissions, type ForgeSnapshot, type MissionsSnapshot } from "@/lib/crafting/client";
 import { forgeErrorText } from "@/components/crafting/ForgeProgress";
 import Link from "next/link";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("misiones");
 
 export default function ProjectPage() {
+  useLocale();
   const { user, loading } = useAuth();
-  if (loading) return <Loading kind="hub" label="Cargando el proyecto…" />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what="los proyectos de carta" />;
+  if (loading) return <Loading kind="hub" label={t("Cargando el proyecto…")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("los proyectos de carta")} />;
   return <Project />;
 }
 
 function Project() {
+  useLocale();
   const { project } = useParams<{ project: string }>();
   const [snap, setSnap] = useState<MissionsSnapshot | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -48,7 +54,7 @@ function Project() {
   const [forge, setForge] = useState<ForgeSnapshot | null>(null);
   const load = useCallback(async () => {
     setError(null);
-    try { setSnap(await fetchMissions()); } catch (e) { setError(e instanceof Error ? e.message : "No se pudo cargar el proyecto"); }
+    try { setSnap(await fetchMissions()); } catch (e) { setError(e instanceof Error ? e.message : t("No se pudo cargar el proyecto")); }
     // F79 · etapas 2.0 (reúne / fabrica): si la Forja no responde, el proyecto se ve como en F73.
     try { setForge(await fetchForge()); } catch { setForge(null); }
   }, []);
@@ -62,8 +68,8 @@ function Project() {
     finally { setBusy(false); }
   };
 
-  if (error && !snap) return <ErrorState message={error} onRetry={load} />;
-  if (!snap) return <Loading kind="hub" label="Cargando el proyecto…" />;
+  if (error && !snap) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!snap) return <Loading kind="hub" label={t("Cargando el proyecto…")} />;
   const p = snap.projects.find((x) => x.id === project);
   const missions = snap.missions.filter((m) => m.projectId === project);
 
@@ -78,67 +84,67 @@ function Project() {
   return (
     <ForgeStage className="mx-auto w-full max-w-[1180px] space-y-6 px-4 pb-10 pt-5 sm:px-6" testId="project-page">
       <header className="space-y-3">
-        <Crumbs items={[{ href: "/temporada", label: "Temporada" }, { href: "/misiones/crafting", label: "Crafteo" }, { href: "/misiones/crafting/cartas?tab=proyectos", label: "Proyectos" }, { label: p?.name ?? "Proyecto" }]} />
+        <Crumbs items={[{ href: "/temporada", label: t("Temporada") }, { href: "/misiones/crafting", label: t("Crafteo") }, { href: "/misiones/crafting/cartas?tab=proyectos", label: t("Proyectos") }, { label: p?.name ?? t("Proyecto") }]} />
         <HubNav active="crafting" />
       </header>
-      {!snap.available ? <Unavailable what="Los proyectos de carta" /> : !p ? (
-        <Panel className="p-6 text-[15px] text-white/70">Este proyecto no existe o ya no está activo.</Panel>
+      {!snap.available ? <Unavailable what={t("Los proyectos de carta")} /> : !p ? (
+        <Panel className="p-6 text-[15px] text-white/70">{t("Este proyecto no existe o ya no está activo.")}</Panel>
       ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_minmax(0,340px)] lg:items-start lg:gap-8 xl:grid-cols-[1fr_minmax(0,400px)] xl:gap-10">
           {/* LA CARTA OBJETIVO (arriba en móvil, a la derecha en escritorio). */}
-          <section aria-label="Carta objetivo" className="order-1 flex flex-col items-center gap-4 text-center lg:order-2 lg:sticky lg:top-24">
+          <section aria-label={t("Carta objetivo")} className="order-1 flex flex-col items-center gap-4 text-center lg:order-2 lg:sticky lg:top-24">
             <span className={cn(haloClass(ready), "relative")} style={{ ["--forge-glow" as string]: ready ? "#ffce4f" : "#19e3ff" }}>
               <span className={cn("block transition", !ready && !done && "brightness-[0.82] saturate-[0.8]")}>
                 <CardImage cardId={p.targetCardId} width={340} dim={p.state === "LOCKED"} className="max-w-[72vw]" />
               </span>
               {!ready && !done && (
                 <span aria-hidden className="pointer-events-none absolute inset-x-[8%] bottom-[5%] border border-white/15 bg-black/70 py-1.5 font-display text-[12px] font-bold uppercase tracking-[0.24em] text-white/80 backdrop-blur">
-                  {p.state === "LOCKED" ? "🔒 Bloqueada" : "En progreso"}
+                  {p.state === "LOCKED" ? t("🔒 Bloqueada") : t("En progreso")}
                 </span>
               )}
             </span>
             <div className="w-full max-w-[340px] space-y-3">
               {ready && (
-                <NxButton variant="primary" size="lg" block onClick={() => claim(p.id)} disabled={busy} data-testid="project-claim" className={ctaReadyClass}>{busy ? "Reclamando…" : "Reclamar carta"}</NxButton>
+                <NxButton variant="primary" size="lg" block onClick={() => claim(p.id)} disabled={busy} data-testid="project-claim" className={ctaReadyClass}>{busy ? t("Reclamando…") : t("Reclamar carta")}</NxButton>
               )}
-              {done && <p className="font-display text-[20px] font-extrabold uppercase tracking-[0.14em] text-[#3ee08f]">Carta conseguida</p>}
-              {p.state === "COMPLETED" && !extrasMet && <p className="text-[13px] text-white/70" data-testid="project-extras-pending">Misiones completas. Te faltan las etapas de la Forja (reunir o fabricar) para reclamar.</p>}
+              {done && <p className="font-display text-[20px] font-extrabold uppercase tracking-[0.14em] text-[#3ee08f]">{t("Carta conseguida")}</p>}
+              {p.state === "COMPLETED" && !extrasMet && <p className="text-[13px] text-white/70" data-testid="project-extras-pending">{t("Misiones completas. Te faltan las etapas de la Forja (reunir o fabricar) para reclamar.")}</p>}
               <Stamp kind={done ? "CLAIMED" : ready ? "COMPLETED" : p.state === "LOCKED" ? "LOCKED" : "ACTIVE"} />
-              {failure && <p role="alert" className="text-[14px] text-drl">{failure}</p>}
+              {failure && <p role="alert" className="text-[14px] text-drl">{td(failure)}</p>}
             </div>
           </section>
 
           {/* LA CAMPAÑA: progreso y etapas. */}
-          <section aria-label="Progreso del proyecto" className="order-2 space-y-5 lg:order-1">
+          <section aria-label={t("Progreso del proyecto")} className="order-2 space-y-5 lg:order-1">
             <div className="space-y-2">
-              <p className="font-display text-[12px] font-bold uppercase tracking-[0.24em] text-drl-gold">Proyecto de carta</p>
+              <p className="font-display text-[12px] font-bold uppercase tracking-[0.24em] text-drl-gold">{t("Proyecto de carta")}</p>
               <h1 className="font-display text-[36px] font-extrabold uppercase leading-[0.95] tracking-[0.03em] text-white sm:text-[52px]">{p.name}</h1>
-              {p.description && <p className="max-w-[560px] text-[14px] text-white/65">{p.description}</p>}
+              {p.description && <p className="max-w-[560px] text-[14px] text-white/65">{td(p.description)}</p>}
             </div>
             <Panel tone={ready ? "ready" : done ? "done" : undefined} className="flex items-center gap-5 px-5 py-4">
               <div>
-                <p className="nx-label !text-[10px]">Progreso</p>
+                <p className="nx-label !text-[10px]">{t("Progreso")}</p>
                 <p className="nx-readout text-[40px] leading-none tabular-nums text-white" data-testid="project-progress">{p.completed} / {p.total}</p>
-                <p className="nx-label !text-[10px]">Misiones</p>
+                <p className="nx-label !text-[10px]">{t("Misiones")}</p>
               </div>
-              <div className="flex-1"><ForgeBar value={p.completed} max={p.total} label={`Misiones de ${p.name}`} big /></div>
+              <div className="flex-1"><ForgeBar value={p.completed} max={p.total} label={t("Misiones de {name}", { name: p.name })} big /></div>
             </Panel>
             {stages && stages.some((st) => st.kind !== "MISSIONS" && st.kind !== "CLAIM") ? (
               <div className="space-y-5" data-testid="project-stages">
                 {stages.filter((st) => st.kind !== "CLAIM").map((st) => (
-                  <section key={st.index} aria-label={st.title} className="space-y-2" data-testid="project-stage" data-kind={st.kind} data-done={st.done}>
-                    <p className={cn("font-display text-[13px] font-bold uppercase tracking-[0.2em]", st.done ? "text-[#3ee08f]" : "text-white/70")}>{st.done ? "✓ " : ""}{st.title}</p>
+                  <section key={st.index} aria-label={td(st.title)} className="space-y-2" data-testid="project-stage" data-kind={st.kind} data-done={st.done}>
+                    <p className={cn("font-display text-[13px] font-bold uppercase tracking-[0.2em]", st.done ? "text-[#3ee08f]" : "text-white/70")}>{st.done ? "✓ " : ""}{td(st.title)}</p>
                     {st.kind === "MISSIONS" ? (
-                      <ol className="relative space-y-3" aria-label={`Misiones · ${st.title}`}>
+                      <ol className="relative space-y-3" aria-label={t("Misiones · {title}", { title: td(st.title) })}>
                         {missions.filter((m) => st.items.some((it) => it.refId === m.id)).map((m, i) => <MissionRow key={m.id} m={m} i={i} nameOf={nameOf} />)}
                       </ol>
                     ) : (
                       <Panel tone={st.done ? "done" : undefined} className="space-y-1.5 px-4 py-3">
-                        {st.kind === "OWN" && <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#3ee08f]">Se comprueba · no se consume</p>}
+                        {st.kind === "OWN" && <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#3ee08f]">{t("Se comprueba · no se consume")}</p>}
                         {st.items.map((it, j) => (
                           <div key={j} className="flex items-center justify-between gap-3 text-[14px]">
-                            <span className={it.done ? "text-white/80" : "text-white/60"}>{it.done ? "✓" : "○"} {it.label}</span>
-                            {st.kind === "FABRICATE" && !it.done ? <Link href="/misiones/crafting/avanzado" className="nx-focus text-[12px] font-bold uppercase tracking-[0.12em] text-drl-cyan">Forjar →</Link>
+                            <span className={it.done ? "text-white/80" : "text-white/60"}>{it.done ? "✓" : "○"} {td(it.label)}</span>
+                            {st.kind === "FABRICATE" && !it.done ? <Link href="/misiones/crafting/avanzado" className="nx-focus text-[12px] font-bold uppercase tracking-[0.12em] text-drl-cyan">{t("Forjar →")}</Link>
                               : it.target !== undefined ? <b className="nx-readout tabular-nums text-white/80">{Math.min(it.progress ?? 0, it.target)} / {it.target}</b> : null}
                           </div>
                         ))}
@@ -148,7 +154,7 @@ function Project() {
                 ))}
               </div>
             ) : (
-            <ol className="relative space-y-3" aria-label="Misiones del proyecto">
+            <ol className="relative space-y-3" aria-label={t("Misiones del proyecto")}>
               <span aria-hidden className="absolute bottom-6 left-[22px] top-6 w-[2px] bg-gradient-to-b from-drl-cyan/60 via-white/15 to-white/5" />
               {missions.map((m, i) => <MissionRow key={m.id} m={m} i={i} nameOf={nameOf} />)}
             </ol>
@@ -157,9 +163,9 @@ function Project() {
         </div>
       )}
 
-      <GameModal open={!!claimed} onClose={() => setClaimed(null)} title="Proyecto completado" eyebrow="Forja · Proyecto" testId="project-claim-dialog" className="max-w-lg"
-        actions={<NxButton variant="primary" size="lg" onClick={() => setClaimed(null)} data-autofocus>Continuar</NxButton>}>
-        {claimed && <CardRevealSequence cls={cls} cardId={claimed} caption={`${cardName(claimed)} · ${getCard(claimed)?.ovr ?? ""}`} sub="Ya en tu colección" />}
+      <GameModal open={!!claimed} onClose={() => setClaimed(null)} title={t("Proyecto completado")} eyebrow={t("Forja · Proyecto")} testId="project-claim-dialog" className="max-w-lg"
+        actions={<NxButton variant="primary" size="lg" onClick={() => setClaimed(null)} data-autofocus>{t("Continuar")}</NxButton>}>
+        {claimed && <CardRevealSequence cls={cls} cardId={claimed} caption={`${cardName(claimed)} · ${getCard(claimed)?.ovr ?? ""}`} sub={t("Ya en tu colección")} />}
       </GameModal>
     </ForgeStage>
   );
@@ -168,6 +174,7 @@ function Project() {
 type MissionRowView = MissionsSnapshot["missions"][number];
 /** Una misión del proyecto (nodo ✓ / número / 🔒 con su dependencia real). F74 · misma marca; F79 · reutilizable por etapa. */
 function MissionRow({ m, i, nameOf }: { m: MissionRowView; i: number; nameOf: (id: string) => string }) {
+  useLocale();
   const ok = m.state === "COMPLETED" || m.state === "CLAIMED";
   const locked = m.state === "LOCKED";
   return (
@@ -178,10 +185,10 @@ function MissionRow({ m, i, nameOf }: { m: MissionRowView; i: number; nameOf: (i
       <Panel tone={ok ? "done" : undefined} className={cn("flex min-w-0 flex-1 flex-col gap-2 px-4 py-3 xl:flex-row xl:items-center xl:gap-5", locked && "opacity-70")}>
         <div className="min-w-0 flex-1">
           <p className="font-display text-[16px] font-bold uppercase tracking-[0.05em] text-white">{m.name}</p>
-          {locked && m.dependsOn.length > 0 ? <p className="text-[12px] uppercase tracking-[0.1em] text-white/50">Tras: {m.dependsOn.map(nameOf).join(" · ")}</p>
-            : m.description ? <p className="truncate text-[13px] text-white/55" title={m.description}>{m.description}</p> : null}
+          {locked && m.dependsOn.length > 0 ? <p className="text-[12px] uppercase tracking-[0.1em] text-white/50">{t("Tras:")} {m.dependsOn.map(nameOf).join(" · ")}</p>
+            : m.description ? <p className="truncate text-[13px] text-white/55" title={td(m.description)}>{td(m.description)}</p> : null}
         </div>
-        <div className="flex items-center gap-3 xl:contents"><div className="min-w-0 flex-1 xl:w-[200px] xl:flex-none"><ForgeBar value={m.progress} max={m.target} label={`${locked ? "Bloqueada" : "Progreso"}: ${m.name}`} /></div>
+        <div className="flex items-center gap-3 xl:contents"><div className="min-w-0 flex-1 xl:w-[200px] xl:flex-none"><ForgeBar value={m.progress} max={m.target} label={`${locked ? t("Bloqueada") : t("Progreso")}: ${m.name}`} /></div>
         <Stamp kind={ok ? "DONE" : locked ? "LOCKED" : "ACTIVE"} /></div>
       </Panel>
     </li>

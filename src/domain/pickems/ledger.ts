@@ -9,6 +9,9 @@
  * Es una función PURA: no toca red ni estado.
  */
 import { REWARD_TIERS, type RewardTier } from "./rewards";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("pickems");
 
 export type LedgerKind = "reward" | "purchase" | "starter" | "other";
 
@@ -51,7 +54,7 @@ export function describeLedger(reason: string, ref: string | null): LedgerEntry 
     const pickemEventId = parts[0] === "pickem" && parts[1] ? parts[1] : null;
     return {
       kind: "reward",
-      label: tier ? `Recompensa · ${tier.label}` : "Recompensa de Pick'ems",
+      label: tier ? tr("Recompensa · {label}", { label: td(tier.label) }) : tr("Recompensa de Pick'ems"),
       tier,
       pickemEventId,
     };
@@ -60,14 +63,14 @@ export function describeLedger(reason: string, ref: string | null): LedgerEntry 
   if (reason.startsWith("buy_pack:")) {
     return {
       kind: "purchase",
-      label: `Compra · ${packLabel(reason.slice("buy_pack:".length))}`,
+      label: tr("Compra · {v}", { v: packLabel(reason.slice("buy_pack:".length)) }),
       tier: null,
       pickemEventId: null,
     };
   }
 
   if (reason === "starter_grant") {
-    return { kind: "starter", label: "Créditos de bienvenida", tier: null, pickemEventId: null };
+    return { kind: "starter", label: tr("Créditos de bienvenida"), tier: null, pickemEventId: null };
   }
 
   return { kind: "other", label: reason, tier: null, pickemEventId: null };

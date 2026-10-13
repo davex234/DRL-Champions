@@ -13,6 +13,11 @@ import { cn } from "@/lib/format";
 import type {
   DashboardData, ReleaseEntry, ProviderStatus, HealthItem, HealthLevel, ReleaseStatus, DistributionData,
 } from "@/server/releases/types";
+import { ns, td as i18nTd, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const i18nT = ns("admin");
 
 const CHANNELS = ["all", "stable", "beta", "developer", "nightly"] as const;
 type ChannelFilter = (typeof CHANNELS)[number];
@@ -40,7 +45,7 @@ const fmtBytes = (n: number | null | undefined): string => {
 const fmtMs = (n: number | null | undefined): string => (n == null ? "—" : n < 1000 ? `${n} ms` : `${(n / 1000).toFixed(1)} s`);
 const fmtDate = (s: string | null): string => {
   if (!s) return "—";
-  try { return new Date(s).toLocaleString("es-ES", { dateStyle: "short", timeStyle: "short" }); } catch { return s; }
+  try { return new Date(s).toLocaleString(getIntlLocale(), { dateStyle: "short", timeStyle: "short" }); } catch { return s; }
 };
 const shortHash = (h: string | null | undefined): string => (h ? `${h.slice(0, 10)}…` : "—");
 
@@ -59,6 +64,7 @@ export default function ReleasesDashboardPage() {
 }
 
 function Dashboard() {
+  useLocale();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -97,22 +103,22 @@ function Dashboard() {
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-            Release <span className="text-drl">Dashboard</span>
+            {i18nT("Release")} <span className="text-drl">{i18nT("Dashboard")}</span>
           </h1>
           <p className="mt-1 text-white/50">
-            Centro de control de publicación · provider activo:{" "}
+            {i18nT("Centro de control de publicación · provider activo:")}{" "}
             <span className="font-display uppercase text-drl-cyan">{data?.activeProvider ?? "—"}</span>
-            {data && <span className="ml-2 text-white/30">actualizado {fmtDate(data.generatedAt)}</span>}
+            {data && <span className="ml-2 text-white/30">{i18nT("actualizado {fecha}", { fecha: fmtDate(data.generatedAt) })}</span>}
           </p>
         </div>
         <button onClick={load} disabled={loading}
           className="rounded-xl border border-white/15 px-4 py-2.5 font-display text-xs uppercase tracking-wide text-white/70 transition hover:bg-white/10 disabled:opacity-50">
-          {loading ? "Cargando…" : "↻ Refrescar"}
+          {loading ? i18nT("Cargando…") : i18nT("↻ Refrescar")}
         </button>
       </header>
 
-      {error && <Banner tone="error">No se pudo leer el dashboard: {error}. ¿Has ejecutado <code>npm run ci:pipeline</code>?</Banner>}
-      {!loading && data && !data.hasData && <Banner tone="warn">No hay releases todavía. Ejecuta <code>npm run ci:pipeline</code> para generar y publicar una.</Banner>}
+      {error && <Banner tone="error">{fill(i18nT("No se pudo leer el dashboard: {error}. ¿Has ejecutado {comando}?", { error: i18nTd(error), ...slots("comando") }), { comando: <code>npm run ci:pipeline</code> })}</Banner>}
+      {!loading && data && !data.hasData && <Banner tone="warn">{fill(i18nT("No hay releases todavía. Ejecuta {comando} para generar y publicar una.", slots("comando")), { comando: <code>npm run ci:pipeline</code> })}</Banner>}
 
       {data && (
         <>
@@ -128,19 +134,19 @@ function Dashboard() {
               {CHANNELS.map((c) => (
                 <button key={c} onClick={() => setChannel(c)}
                   className={cn("rounded-md px-3 py-1 font-display text-xs uppercase tracking-wide transition", channel === c ? "bg-drl text-white" : "text-white/50 hover:text-white")}>
-                  {c === "all" ? "Todos" : c}
+                  {c === "all" ? i18nT("Todos") : c}
                 </button>
               ))}
             </div>
             <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className={selectCls}>
-              <option value="all">Estado: todos</option>
-              {["published", "ready", "failed", "building", "queued", "unknown"].map((s) => <option key={s} value={s}>{s}</option>)}
+              <option value="all">{i18nT("Estado: todos")}</option>
+              {["published", "ready", "failed", "building", "queued", "unknown"].map((s) => <option key={s} value={s}>{i18nTd(s)}</option>)}
             </select>
             <select value={providerFilter} onChange={(e) => setProviderFilter(e.target.value)} className={selectCls}>
-              <option value="all">Provider: todos</option>
-              {providersInData.map((p) => <option key={p} value={p}>{p}</option>)}
+              <option value="all">{i18nT("Provider: todos")}</option>
+              {providersInData.map((p) => <option key={p} value={p}>{i18nTd(p)}</option>)}
             </select>
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Buscar versión / commit…"
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={i18nT("Buscar versión / commit…")}
               className="flex-1 min-w-[160px] rounded-lg border border-white/10 bg-base-800 px-3 py-1.5 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none" />
             <span className="text-xs text-white/40">{filtered.length}/{releases.length}</span>
           </div>
@@ -168,40 +174,41 @@ function Dashboard() {
 
 // ── Historial & Logs (Release ↔ Rollback) ──
 function TimelinePanel({ data }: { data: DashboardData }) {
+  useLocale();
   const [open, setOpen] = useState<number | null>(null);
   if (data.timeline.length === 0 && data.rollbacks.length === 0) return null;
   return (
     <div className="grid gap-3 lg:grid-cols-2">
-      <Panel title={`Historial (Release ↔ Rollback) · ${data.timeline.length}`}>
+      <Panel title={i18nT("Historial (Release ↔ Rollback) · {length}", { length: data.timeline.length })}>
         <div className="max-h-72 space-y-1 overflow-auto">
           {data.timeline.map((e, i) => (
             <div key={i} className="flex items-center gap-2 text-[12px]">
               <span>{e.type === "rollback" ? (e.result === "ok" ? "⏪" : "⛔") : "📦"}</span>
-              <span className={cn("font-display uppercase text-[10px] px-1.5 py-0.5 rounded", e.type === "rollback" ? "bg-amber-400/15 text-amber-200" : "bg-white/5 text-white/50")}>{e.channel}</span>
-              <span className="truncate text-white/70" title={e.detail}>{e.detail}</span>
+              <span className={cn("font-display uppercase text-[10px] px-1.5 py-0.5 rounded", e.type === "rollback" ? "bg-amber-400/15 text-amber-200" : "bg-white/5 text-white/50")}>{i18nTd(e.channel)}</span>
+              <span className="truncate text-white/70" title={i18nTd(e.detail)}>{i18nTd(e.detail)}</span>
               <span className="ml-auto shrink-0 text-white/30">{fmtDate(e.at)}</span>
             </div>
           ))}
         </div>
       </Panel>
-      <Panel title={`Logs de Rollback · ${data.rollbacks.length}`}>
-        {data.rollbacks.length === 0 ? <p className="text-[12px] text-white/35">Sin rollbacks registrados.</p> : (
+      <Panel title={i18nT("Logs de Rollback · {length}", { length: data.rollbacks.length })}>
+        {data.rollbacks.length === 0 ? <p className="text-[12px] text-white/35">{i18nT("Sin rollbacks registrados.")}</p> : (
           <div className="max-h-72 space-y-1 overflow-auto">
             {data.rollbacks.map((ev, i) => (
               <div key={i} className="rounded-lg border border-white/10 bg-base-800/50">
                 <button onClick={() => setOpen(open === i ? null : i)} className="flex w-full items-center gap-2 px-2.5 py-1.5 text-left text-[12px]">
                   <span>{ev.result === "ok" ? "🟢" : "🔴"}</span>
-                  <span className="text-white/75">{ev.from ?? "?"} → {ev.to}</span>
+                  <span className="text-white/75">{i18nTd(ev.from) ?? "?"} → {i18nTd(ev.to)}</span>
                   <span className="ml-auto text-white/30">{fmtMs(ev.durationMs)}</span>
                 </button>
                 {open === i && (
                   <div className="border-t border-white/5 px-2.5 py-2 font-mono text-[10px] text-white/55">
-                    <p>canal: {ev.channel} · provider: {ev.provider ?? "—"}</p>
-                    <p>usuario: {ev.user ?? "—"} · motivo: {ev.reason ?? "—"}</p>
-                    <p>resultado: {ev.result}{ev.reverted ? " (revertido)" : ""} · código: {ev.code ?? "—"}</p>
-                    <p>archivos: {ev.files} · firma: {ev.signed ? "sí" : "no"}</p>
-                    {ev.verify && <p>verify: {ev.verify.ok ? "✓" : "✗"} ({ev.verify.checked} comprobados, {ev.verify.mismatches.length} difieren, {ev.verify.missing.length} faltan)</p>}
-                    {ev.error && <p className="text-rose-300">error: {ev.error}</p>}
+                    <p>{i18nT("canal:")} {i18nTd(ev.channel)} {i18nT("· provider:")} {i18nTd(ev.provider) ?? "—"}</p>
+                    <p>{i18nT("usuario:")} {i18nTd(ev.user) ?? "—"} {i18nT("· motivo:")} {i18nTd(ev.reason) ?? "—"}</p>
+                    <p>{i18nT("resultado:")} {ev.result}{ev.reverted ? (" " + i18nT("(revertido)")) : ""} {i18nT("· código:")} {ev.code ?? "—"}</p>
+                    <p>{i18nT("archivos:")} {ev.files} {i18nT("· firma:")} {ev.signed ? i18nT("sí") : i18nT("no")}</p>
+                    {ev.verify && <p>{i18nT("verify:")} {ev.verify.ok ? "✓" : "✗"} {i18nT("({comprobados} comprobados, {difieren} difieren, {faltan} faltan)", { comprobados: ev.verify.checked, difieren: ev.verify.mismatches.length, faltan: ev.verify.missing.length })}</p>}
+                    {ev.error && <p className="text-rose-300">{i18nT("error:")} {i18nTd(ev.error)}</p>}
                   </div>
                 )}
               </div>
@@ -215,24 +222,25 @@ function TimelinePanel({ data }: { data: DashboardData }) {
 
 // ── Estadísticas (zona superior) ──
 function StatsStrip({ data }: { data: DashboardData }) {
+  useLocale();
   const s = data.stats;
   const items: [string, string, string?][] = [
-    ["Releases", String(s.releases)],
-    ["Builds", String(s.builds)],
-    ["Publicadas", String(s.published), "#37e6a0"],
-    ["Rollback", String(s.rollbackReady), "#19e3ff"],
-    ["Errores", String(s.errors), s.errors ? "#ff4d6a" : undefined],
-    ["Tiempo medio", fmtMs(s.avgBuildMs ?? s.avgUploadMs)],
-    ["Tamaño medio", fmtBytes(s.avgBytes)],
-    ["Canales", String(s.channels)],
-    ["Provider", s.activeProvider, "#ffce4f"],
+    [i18nT("Releases"), String(s.releases)],
+    [i18nT("Builds"), String(s.builds)],
+    [i18nT("Publicadas"), String(s.published), "#37e6a0"],
+    [i18nT("Rollback"), String(s.rollbackReady), "#19e3ff"],
+    [i18nT("Errores"), String(s.errors), s.errors ? "#ff4d6a" : undefined],
+    [i18nT("Tiempo medio"), fmtMs(s.avgBuildMs ?? s.avgUploadMs)],
+    [i18nT("Tamaño medio"), fmtBytes(s.avgBytes)],
+    [i18nT("Canales"), String(s.channels)],
+    [i18nT("Provider"), s.activeProvider, "#ffce4f"],
   ];
   return (
     <div className="grid grid-cols-3 gap-2 sm:grid-cols-5 lg:grid-cols-9">
       {items.map(([label, value, accent]) => (
         <div key={label} className="rounded-xl border border-white/10 bg-base-800/60 p-3 text-center">
-          <p className="font-display text-xl font-bold leading-tight" style={{ color: accent ?? "#e8eef5" }}>{value}</p>
-          <p className="mt-0.5 text-[9px] uppercase tracking-wide text-white/40">{label}</p>
+          <p className="font-display text-xl font-bold leading-tight" style={{ color: accent ?? "#e8eef5" }}>{i18nTd(value)}</p>
+          <p className="mt-0.5 text-[9px] uppercase tracking-wide text-white/40">{i18nTd(label)}</p>
         </div>
       ))}
     </div>
@@ -241,14 +249,15 @@ function StatsStrip({ data }: { data: DashboardData }) {
 
 // ── Pipeline stepper ──
 function PipelineStepper({ data }: { data: DashboardData }) {
+  useLocale();
   const p = data.pipeline;
   const reached = new Set((p?.transitions ?? []).map((t) => t.state));
   const elapsed = new Map((p?.transitions ?? []).map((t) => [t.state, t.elapsedMs]));
   const failed = p?.state === "failed";
   const currentIdx = PHASE_ORDER.findIndex((ph) => ph.key === p?.state);
   return (
-    <Panel title="Estado del pipeline" right={p ? <span className="text-[11px] text-white/40">{p.label} · {fmtMs(p.durationMs)}</span> : undefined}>
-      {!p ? <p className="text-[12px] text-white/35">Sin pipeline-state.json (ejecuta el Build Cloud).</p> : (
+    <Panel title={i18nT("Estado del pipeline")} right={p ? <span className="text-[11px] text-white/40">{i18nTd(p.label)} · {fmtMs(p.durationMs)}</span> : undefined}>
+      {!p ? <p className="text-[12px] text-white/35">{i18nT("Sin pipeline-state.json (ejecuta el Build Cloud).")}</p> : (
         <div className="flex flex-wrap items-center gap-1.5">
           {PHASE_ORDER.map((ph, i) => {
             const done = reached.has(ph.key);
@@ -261,7 +270,7 @@ function PipelineStepper({ data }: { data: DashboardData }) {
                   done ? "border-emerald-400/25 bg-emerald-400/10" : "border-white/10 bg-white/[0.03]")}>
                   <p className={cn("font-display text-[11px] uppercase tracking-wide",
                     isCurrent && failed ? "text-rose-300" : isCurrent ? "text-drl-cyan" : done ? "text-emerald-300" : "text-white/35")}>
-                    {done ? "✓ " : ""}{ph.label}
+                    {done ? "✓ " : ""}{i18nTd(ph.label)}
                   </p>
                   {elapsed.has(ph.key) && <p className="text-[9px] text-white/30">+{fmtMs(elapsed.get(ph.key)!)}</p>}
                 </div>
@@ -269,7 +278,7 @@ function PipelineStepper({ data }: { data: DashboardData }) {
               </div>
             );
           })}
-          {failed && p.error && <p className="w-full text-[11px] text-rose-300">⚠ {p.error}</p>}
+          {failed && p.error && <p className="w-full text-[11px] text-rose-300">⚠ {i18nTd(p.error)}</p>}
         </div>
       )}
     </Panel>
@@ -278,15 +287,16 @@ function PipelineStepper({ data }: { data: DashboardData }) {
 
 // ── Dashboard Health ──
 function HealthGrid({ items }: { items: HealthItem[] }) {
+  useLocale();
   return (
-    <Panel title="Dashboard Health">
+    <Panel title={i18nT("Dashboard Health")}>
       <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-5">
         {items.map((h) => (
           <div key={h.key} className="flex items-start gap-2 rounded-lg border border-white/10 bg-base-800/50 px-2.5 py-2">
-            <span className="text-sm leading-none">{DOT[h.level]}</span>
+            <span className="text-sm leading-none">{i18nTd(DOT[h.level])}</span>
             <div className="min-w-0">
-              <p className="truncate font-display text-[11px] uppercase tracking-wide text-white/80">{h.label}</p>
-              <p className="truncate text-[10px] text-white/35" title={h.detail}>{h.detail}</p>
+              <p className="truncate font-display text-[11px] uppercase tracking-wide text-white/80">{i18nTd(h.label)}</p>
+              <p className="truncate text-[10px] text-white/35" title={i18nTd(h.detail)}>{i18nTd(h.detail)}</p>
             </div>
           </div>
         ))}
@@ -297,8 +307,9 @@ function HealthGrid({ items }: { items: HealthItem[] }) {
 
 // ── Providers ──
 function ProvidersRow({ providers }: { providers: ProviderStatus[] }) {
+  useLocale();
   return (
-    <Panel title="Providers (Transport Engine)">
+    <Panel title={i18nT("Providers (Transport Engine)")}>
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {providers.map((p) => (
           <div key={p.name} className={cn("rounded-xl border bg-base-800/50 p-3", p.active ? "border-drl/40" : "border-white/10")}>
@@ -306,12 +317,12 @@ function ProvidersRow({ providers }: { providers: ProviderStatus[] }) {
               <p className="font-display text-sm font-bold uppercase tracking-wide text-white">{p.name}</p>
               <span className="text-sm">{!p.configured ? "⚪" : p.healthy ? "🟢" : "🔴"}</span>
             </div>
-            <p className="mt-1 text-[11px] text-white/45">{p.configured ? (p.healthy ? "Operativo" : "Con errores") : "No configurado"}{p.active && " · activo"}</p>
+            <p className="mt-1 text-[11px] text-white/45">{p.configured ? (p.healthy ? i18nT("Operativo") : i18nT("Con errores")) : i18nT("No configurado")}{p.active && (" " + i18nT("· activo"))}</p>
             <dl className="mt-2 space-y-0.5 text-[10px] text-white/50">
-              <Row k="Health" v={p.detail} />
-              <Row k="Latencia" v={p.latencyMs == null ? "—" : `${p.latencyMs} ms`} />
-              <Row k="Última pub." v={p.lastPublish ? p.lastPublish.full : "—"} />
-              {p.errors.length > 0 && <Row k="Errores" v={String(p.errors.length)} tone="error" />}
+              <Row k={i18nT("Health")} v={p.detail} />
+              <Row k={i18nT("Latencia")} v={p.latencyMs == null ? "—" : `${p.latencyMs} ms`} />
+              <Row k={i18nT("Última pub.")} v={p.lastPublish ? p.lastPublish.full : "—"} />
+              {p.errors.length > 0 && <Row k={i18nT("Errores")} v={String(p.errors.length)} tone="error" />}
             </dl>
           </div>
         ))}
@@ -325,26 +336,27 @@ const REGION_FLAG: Record<string, string> = { europe: "🇪🇺", eu: "🇪🇺"
 const DIST_DOT: Record<string, string> = { ok: "🟢", "partial-ready": "🟡", partial: "🟡", failed: "🔴", ready: "🟢" };
 
 function DistributionMap({ distribution }: { distribution: DistributionData[] }) {
+  useLocale();
   if (!distribution || distribution.length === 0) return null;
   return (
     <>
       {distribution.map((d) => (
-        <Panel key={d.channel} title={`Mapa de distribución · ${d.channel} · ${d.full}`} right={
-          <span className="text-[11px] text-white/45">{DIST_DOT[d.status] ?? "⚪"} {d.status} · {d.analytics.succeeded}/{d.analytics.targets} destinos · {fmtMs(d.analytics.totalMs)}</span>
+        <Panel key={d.channel} title={i18nT("Mapa de distribución · {channel} · {full}", { channel: i18nTd(d.channel), full: i18nTd(d.full) })} right={
+          <span className="text-[11px] text-white/45">{i18nTd(DIST_DOT[d.status]) ?? "⚪"} {i18nTd(d.status)} · {d.analytics.succeeded}/{d.analytics.targets} {i18nT("destinos ·")} {fmtMs(d.analytics.totalMs)}</span>
         }>
           {/* Analítica resumida */}
           <div className="mb-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
-            <Metric label="Regiones" value={d.regions.length} />
-            <Metric label="Destinos" value={d.analytics.targets} />
-            <Metric label="OK" value={d.analytics.succeeded} accent="#37e6a0" />
-            <Metric label="Retries" value={d.analytics.retries} accent={d.analytics.retries ? "#ffce4f" : undefined} />
-            <Metric label="Mirrors" value={d.analytics.mirrorsUsed} accent="#19e3ff" />
-            <Metric label="Pendientes" value={d.targets.filter((t) => t.pending).length} accent={d.missingRequired.length ? "#ff4d6a" : undefined} />
+            <Metric label={i18nT("Regiones")} value={d.regions.length} />
+            <Metric label={i18nT("Destinos")} value={d.analytics.targets} />
+            <Metric label={i18nT("OK")} value={d.analytics.succeeded} accent="#37e6a0" />
+            <Metric label={i18nT("Retries")} value={d.analytics.retries} accent={d.analytics.retries ? "#ffce4f" : undefined} />
+            <Metric label={i18nT("Mirrors")} value={d.analytics.mirrorsUsed} accent="#19e3ff" />
+            <Metric label={i18nT("Pendientes")} value={d.targets.filter((t) => t.pending).length} accent={d.missingRequired.length ? "#ff4d6a" : undefined} />
           </div>
 
           {d.missingRequired.length > 0 && (
             <div className="mb-3 rounded-lg border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-[12px] text-rose-200">
-              ⛔ Regiones requeridas pendientes: <strong>{d.missingRequired.join(", ")}</strong> — la release NO está Ready.
+              {fill(i18nT("⛔ Regiones requeridas pendientes: {regiones} — la release NO está Ready.", slots("regiones")), { regiones: <strong>{d.missingRequired.join(", ")}</strong> })}
             </div>
           )}
 
@@ -357,19 +369,19 @@ function DistributionMap({ distribution }: { distribution: DistributionData[] })
                 <div key={reg.region} className={cn("rounded-xl border bg-base-800/50 p-3", reg.status === "ok" ? "border-emerald-400/25" : reg.status === "partial" ? "border-amber-400/30" : "border-rose-500/30")}>
                   <div className="flex items-center justify-between">
                     <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-                      {REGION_FLAG[reg.region.toLowerCase()] ?? "📍"} {reg.region}
-                      {isPrimaryRegion && <span className="ml-1.5 rounded bg-drl/20 px-1.5 py-0.5 text-[9px] uppercase text-drl">primaria</span>}
+                      {i18nTd(REGION_FLAG[reg.region.toLowerCase()]) ?? "📍"} {i18nTd(reg.region)}
+                      {isPrimaryRegion && <span className="ml-1.5 rounded bg-drl/20 px-1.5 py-0.5 text-[9px] uppercase text-drl">{i18nT("primaria")}</span>}
                     </p>
-                    <span className="text-sm">{DIST_DOT[reg.status] ?? "⚪"}</span>
+                    <span className="text-sm">{i18nTd(DIST_DOT[reg.status]) ?? "⚪"}</span>
                   </div>
                   <dl className="mt-2 space-y-0.5 text-[10px] text-white/50">
-                    <Row k="Estado" v={`${reg.ok}/${reg.total} (${reg.status})`} tone={reg.status === "failed" ? "error" : undefined} />
-                    <Row k="Mirror principal" v={reg.primary ?? "—"} />
-                    <Row k="Mirrors" v={reg.mirrors.length ? reg.mirrors.join(", ") : "—"} />
-                    <Row k="Subida" v={fmtMs(reg.uploadMs)} />
-                    <Row k="Tamaño" v={fmtBytes(reg.bytes)} />
-                    {reg.pending.length > 0 && <Row k="Pendiente" v={reg.pending.join(", ")} tone="error" />}
-                    <Row k="Fallback" v={cdn?.fallbackOrder.join(" → ") ?? "—"} />
+                    <Row k={i18nT("Estado")} v={`${reg.ok}/${reg.total} (${reg.status})`} tone={reg.status === "failed" ? "error" : undefined} />
+                    <Row k={i18nT("Mirror principal")} v={reg.primary ?? "—"} />
+                    <Row k={i18nT("Mirrors")} v={reg.mirrors.length ? reg.mirrors.join(", ") : "—"} />
+                    <Row k={i18nT("Subida")} v={fmtMs(reg.uploadMs)} />
+                    <Row k={i18nT("Tamaño")} v={fmtBytes(reg.bytes)} />
+                    {reg.pending.length > 0 && <Row k={i18nT("Pendiente")} v={reg.pending.join(", ")} tone="error" />}
+                    <Row k={i18nT("Fallback")} v={cdn?.fallbackOrder.join(" → ") ?? "—"} />
                   </dl>
                 </div>
               );
@@ -379,24 +391,24 @@ function DistributionMap({ distribution }: { distribution: DistributionData[] })
           {/* Health por destino + CDN */}
           <div className="mt-3 grid gap-2 lg:grid-cols-2">
             <div className="rounded-xl border border-white/10 bg-base-800/40 p-3">
-              <p className="mb-1.5 text-[10px] uppercase tracking-widest text-white/40">Health por destino</p>
+              <p className="mb-1.5 text-[10px] uppercase tracking-widest text-white/40">{i18nT("Health por destino")}</p>
               <div className="space-y-1">
                 {d.health.map((h) => (
                   <div key={h.id} className="flex items-center gap-2 text-[11px]">
                     <span>{h.status === "down" ? "🔴" : h.score >= 70 ? "🟢" : "🟡"}</span>
-                    <span className="text-white/70">{h.region}/{h.name}</span>
-                    <span className="ml-auto text-white/35">score {h.score} · {h.latencyMs}ms · {fmtBytes(h.speedBps)}/s</span>
+                    <span className="text-white/70">{i18nTd(h.region)}/{h.name}</span>
+                    <span className="ml-auto text-white/35">{i18nT("score {score} · {latencia}ms · {velocidad}/s", { score: h.score, latencia: h.latencyMs, velocidad: fmtBytes(h.speedBps) })}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="rounded-xl border border-white/10 bg-base-800/40 p-3">
-              <p className="mb-1.5 text-[10px] uppercase tracking-widest text-white/40">CDN · región primaria: {d.cdn.primaryRegion ?? "—"}</p>
+              <p className="mb-1.5 text-[10px] uppercase tracking-widest text-white/40">{i18nT("CDN · región primaria:")} {d.cdn.primaryRegion ?? "—"}</p>
               <div className="space-y-1 text-[11px]">
                 {d.cdn.regions.map((c) => (
                   <div key={c.region} className="flex items-center gap-2">
-                    <span className="text-white/60">{REGION_FLAG[c.region.toLowerCase()] ?? "📍"} {c.region}</span>
-                    <span className="ml-auto truncate text-white/35" title={c.endpoint ?? ""}>{c.healthy}/{c.total} · ppal {c.primary ?? "—"}</span>
+                    <span className="text-white/60">{i18nTd(REGION_FLAG[c.region.toLowerCase()]) ?? "📍"} {i18nTd(c.region)}</span>
+                    <span className="ml-auto truncate text-white/35" title={i18nTd(c.endpoint) ?? ""}>{c.healthy}/{c.total} {i18nT("· ppal")} {i18nTd(c.primary) ?? "—"}</span>
                   </div>
                 ))}
               </div>
@@ -410,40 +422,41 @@ function DistributionMap({ distribution }: { distribution: DistributionData[] })
 
 // ── Tabla de operaciones ──
 function ReleasesTable({ releases, onSelect, onRollback }: { releases: ReleaseEntry[]; onSelect: (r: ReleaseEntry) => void; onRollback: (r: ReleaseEntry) => void }) {
+  useLocale();
   return (
     <div className="overflow-x-auto rounded-2xl border border-white/10">
       <table className="w-full min-w-[1100px] text-sm">
         <thead className="bg-base-700/60 text-left text-[10px] uppercase tracking-widest text-white/40">
           <tr>
-            {["Versión", "Build", "Canal", "Estado", "Destino", "Publicado", "Tamaño", "Tiempo", "Firma", "Hash", "Rollback", "Acciones"].map((h) => (
-              <th key={h} className="whitespace-nowrap px-3 py-2">{h}</th>
+            {[i18nT("Versión"), i18nT("Build"), i18nT("Canal"), i18nT("Estado"), i18nT("Destino"), i18nT("Publicado"), i18nT("Tamaño"), i18nT("Tiempo"), i18nT("Firma"), i18nT("Hash"), i18nT("Rollback"), i18nT("Acciones")].map((h) => (
+              <th key={h} className="whitespace-nowrap px-3 py-2">{i18nTd(h)}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {releases.length === 0 && <tr><td colSpan={12} className="px-3 py-8 text-center text-white/35">Sin releases para este filtro.</td></tr>}
+          {releases.length === 0 && <tr><td colSpan={12} className="px-3 py-8 text-center text-white/35">{i18nT("Sin releases para este filtro.")}</td></tr>}
           {releases.map((r) => {
             const topHash = r.files.find((f) => f.sha256)?.sha256 ?? null;
             return (
               <tr key={`${r.channel}-${r.full}`} className="cursor-pointer border-t border-white/5 hover:bg-white/5" onClick={() => onSelect(r)}>
                 <td className="px-3 py-2">
-                  <span className="font-display font-bold text-white">{r.version}</span>
-                  {r.isCurrent && <span className="ml-1.5 rounded bg-drl/20 px-1.5 py-0.5 text-[9px] uppercase text-drl">vigente</span>}
+                  <span className="font-display font-bold text-white">{i18nTd(r.version)}</span>
+                  {r.isCurrent && <span className="ml-1.5 rounded bg-drl/20 px-1.5 py-0.5 text-[9px] uppercase text-drl">{i18nT("vigente")}</span>}
                 </td>
                 <td className="px-3 py-2 text-white/60">{r.build ?? "—"}</td>
-                <td className="px-3 py-2"><span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] uppercase text-white/60">{r.channel}</span></td>
+                <td className="px-3 py-2"><span className="rounded-full bg-white/5 px-2 py-0.5 text-[10px] uppercase text-white/60">{i18nTd(r.channel)}</span></td>
                 <td className="px-3 py-2"><span className={cn("rounded-full border px-2 py-0.5 text-[10px] uppercase", STATUS_STYLE[r.status])}>{r.status}</span></td>
-                <td className="px-3 py-2 text-white/60">{r.provider ?? "—"}</td>
+                <td className="px-3 py-2 text-white/60">{i18nTd(r.provider) ?? "—"}</td>
                 <td className="whitespace-nowrap px-3 py-2 text-white/55">{fmtDate(r.date)}</td>
                 <td className="px-3 py-2 text-white/60">{fmtBytes(r.totalBytes)}</td>
                 <td className="px-3 py-2 text-white/60">{fmtMs(r.buildMs ?? r.uploadMs)}</td>
-                <td className="px-3 py-2">{r.signed ? <span className="text-emerald-300">✓ firmada</span> : <span className="text-white/30">—</span>}</td>
+                <td className="px-3 py-2">{r.signed ? <span className="text-emerald-300">{i18nT("✓ firmada")}</span> : <span className="text-white/30">—</span>}</td>
                 <td className="px-3 py-2 font-mono text-[10px] text-white/45" title={topHash ?? ""}>{shortHash(topHash)}</td>
-                <td className="px-3 py-2">{r.rollbackAvailable ? <span className="text-amber-200">disponible</span> : <span className="text-white/30">—</span>}</td>
+                <td className="px-3 py-2">{r.rollbackAvailable ? <span className="text-amber-200">{i18nT("disponible")}</span> : <span className="text-white/30">—</span>}</td>
                 <td className="px-3 py-2" onClick={(e) => e.stopPropagation()}>
                   <div className="flex flex-wrap gap-1">
-                    <MiniBtn onClick={() => onSelect(r)}>Ver</MiniBtn>
-                    {r.rollbackAvailable && <MiniBtn onClick={() => onRollback(r)} tone="amber">Rollback</MiniBtn>}
+                    <MiniBtn onClick={() => onSelect(r)}>{i18nT("Ver")}</MiniBtn>
+                    {r.rollbackAvailable && <MiniBtn onClick={() => onRollback(r)} tone="amber">{i18nT("Rollback")}</MiniBtn>}
                   </div>
                 </td>
               </tr>
@@ -457,6 +470,7 @@ function ReleasesTable({ releases, onSelect, onRollback }: { releases: ReleaseEn
 
 // ── Detalle (drawer) ──
 function DetailDrawer({ release: r, onClose, onRollback }: { release: ReleaseEntry; onClose: () => void; onRollback: (r: ReleaseEntry) => void }) {
+  useLocale();
   const [copied, setCopied] = useState<string | null>(null);
   const dl = (name: string) => `/api/admin/releases?download=${encodeURIComponent(r.channel)}/${encodeURIComponent(name)}`;
   const copyUrl = (f: { name: string; url?: string | null }) => {
@@ -469,34 +483,34 @@ function DetailDrawer({ release: r, onClose, onRollback }: { release: ReleaseEnt
         initial={{ x: 40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 40, opacity: 0 }} onClick={(e) => e.stopPropagation()}>
         <div className="mb-4 flex items-start justify-between">
           <div>
-            <h3 className="font-display text-2xl font-bold uppercase text-white">{r.version}<span className="text-white/30">+{r.build}</span></h3>
-            <p className="text-[12px] text-white/45">{r.channel} · <span className={cn("rounded px-1.5 py-0.5 text-[10px] uppercase", STATUS_STYLE[r.status])}>{r.status}</span></p>
+            <h3 className="font-display text-2xl font-bold uppercase text-white">{i18nTd(r.version)}<span className="text-white/30">+{r.build}</span></h3>
+            <p className="text-[12px] text-white/45">{i18nTd(r.channel)} · <span className={cn("rounded px-1.5 py-0.5 text-[10px] uppercase", STATUS_STYLE[r.status])}>{r.status}</span></p>
           </div>
           <button onClick={onClose} className="text-white/50 hover:text-white">✕</button>
         </div>
 
         <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[12px]">
-          <Info k="Commit" v={r.commit ?? "—"} mono />
-          <Info k="Branch" v={r.branch ?? "—"} />
-          <Info k="Autor" v={r.author ?? "—"} />
-          <Info k="Fecha" v={fmtDate(r.date)} />
-          <Info k="Provider" v={r.provider ?? "—"} />
-          <Info k="Destino" v={r.destination ?? "—"} mono />
-          <Info k="Tiempo build" v={fmtMs(r.buildMs)} />
-          <Info k="Tiempo subida" v={fmtMs(r.uploadMs)} />
-          <Info k="Tamaño" v={fmtBytes(r.totalBytes)} />
-          <Info k="Firma" v={r.signed ? "firmada" : "no firmada"} />
-          <Info k="Manifiestos" v={`latest ${r.manifests.hasLatest ? "✓" : "—"} · meta ${r.manifests.hasMeta ? "✓" : "—"} · files ${r.manifests.hasFiles ? "✓" : "—"}`} />
-          <Info k="Rollback" v={r.rollbackAvailable ? `disponible (${r.rollbackTargets.join(", ") || "anillo"})` : "—"} />
+          <Info k={i18nT("Commit")} v={r.commit ?? "—"} mono />
+          <Info k={i18nT("Branch")} v={r.branch ?? "—"} />
+          <Info k={i18nT("Autor")} v={r.author ?? "—"} />
+          <Info k={i18nT("Fecha")} v={fmtDate(r.date)} />
+          <Info k={i18nT("Provider")} v={r.provider ?? "—"} />
+          <Info k={i18nT("Destino")} v={r.destination ?? "—"} mono />
+          <Info k={i18nT("Tiempo build")} v={fmtMs(r.buildMs)} />
+          <Info k={i18nT("Tiempo subida")} v={fmtMs(r.uploadMs)} />
+          <Info k={i18nT("Tamaño")} v={fmtBytes(r.totalBytes)} />
+          <Info k={i18nT("Firma")} v={r.signed ? i18nT("firmada") : i18nT("no firmada")} />
+          <Info k={i18nT("Manifiestos")} v={`latest ${r.manifests.hasLatest ? "✓" : "—"} · meta ${r.manifests.hasMeta ? "✓" : "—"} · files ${r.manifests.hasFiles ? "✓" : "—"}`} />
+          <Info k={i18nT("Rollback")} v={r.rollbackAvailable ? `disponible (${r.rollbackTargets.join(", ") || "anillo"})` : "—"} />
         </div>
 
         {r.notes && (
-          <Section title="Notas">
-            <pre className="whitespace-pre-wrap rounded-lg border border-white/10 bg-base-800/60 p-3 text-[11px] text-white/60">{r.notes}</pre>
+          <Section title={i18nT("Notas")}>
+            <pre className="whitespace-pre-wrap rounded-lg border border-white/10 bg-base-800/60 p-3 text-[11px] text-white/60">{i18nTd(r.notes)}</pre>
           </Section>
         )}
 
-        <Section title={`Artefactos (${r.files.length})`}>
+        <Section title={i18nT("Artefactos ({length})", { length: r.files.length })}>
           <div className="space-y-1">
             {r.files.map((f) => (
               <div key={f.name} className="flex items-center justify-between gap-2 rounded-lg border border-white/10 bg-base-800/50 px-3 py-1.5 text-[11px]">
@@ -505,8 +519,8 @@ function DetailDrawer({ release: r, onClose, onRollback }: { release: ReleaseEnt
                   <p className="truncate text-[10px] text-white/35">{fmtBytes(f.size)} · {shortHash(f.sha256)}</p>
                 </div>
                 <div className="flex shrink-0 gap-1">
-                  <button type="button" onClick={() => adminDownload(dl(f.name), f.name)} className="rounded border border-white/15 px-2 py-0.5 text-white/70 hover:bg-white/10">Descargar</button>
-                  <button onClick={() => copyUrl(f)} className="rounded border border-white/15 px-2 py-0.5 text-white/70 hover:bg-white/10">{copied === f.name ? "✓" : "URL"}</button>
+                  <button type="button" onClick={() => adminDownload(dl(f.name), f.name)} className="rounded border border-white/15 px-2 py-0.5 text-white/70 hover:bg-white/10">{i18nT("Descargar")}</button>
+                  <button onClick={() => copyUrl(f)} className="rounded border border-white/15 px-2 py-0.5 text-white/70 hover:bg-white/10">{copied === f.name ? "✓" : i18nT("URL")}</button>
                 </div>
               </div>
             ))}
@@ -514,33 +528,33 @@ function DetailDrawer({ release: r, onClose, onRollback }: { release: ReleaseEnt
         </Section>
 
         {r.verify && (
-          <Section title="Verificación">
-            <p className="text-[11px] text-white/55">{r.verify.ok ? "✓ Byte-idéntico" : "✗ Discrepancias"} · {r.verify.checked} comprobados · {r.verify.mismatches.length} difieren · {r.verify.missing.length} faltan</p>
+          <Section title={i18nT("Verificación")}>
+            <p className="text-[11px] text-white/55">{r.verify.ok ? i18nT("✓ Byte-idéntico") : i18nT("✗ Discrepancias")} · {i18nT("{comprobados} comprobados · {difieren} difieren · {faltan} faltan", { comprobados: r.verify.checked, difieren: r.verify.mismatches.length, faltan: r.verify.missing.length })}</p>
           </Section>
         )}
 
         {r.pipeline && (
-          <Section title="Pipeline (log)">
+          <Section title={i18nT("Pipeline (log)")}>
             <div className="space-y-0.5 font-mono text-[10px] text-white/55">
-              {r.pipeline.transitions.map((t, i) => <p key={i}>{t.state} <span className="text-white/25">+{fmtMs(t.elapsedMs)}</span></p>)}
-              {r.pipeline.error && <p className="text-rose-300">error: {r.pipeline.error}</p>}
+              {r.pipeline.transitions.map((t, i) => <p key={i}>{i18nTd(t.state)} <span className="text-white/25">+{fmtMs(t.elapsedMs)}</span></p>)}
+              {r.pipeline.error && <p className="text-rose-300">{i18nT("error:")} {i18nTd(r.pipeline.error)}</p>}
             </div>
           </Section>
         )}
 
         {r.reportMd && (
-          <Section title="Release Report">
-            <pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-lg border border-white/10 bg-base-800/60 p-3 text-[10px] text-white/55">{r.reportMd}</pre>
+          <Section title={i18nT("Release Report")}>
+            <pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-lg border border-white/10 bg-base-800/60 p-3 text-[10px] text-white/55">{i18nTd(r.reportMd)}</pre>
           </Section>
         )}
 
         <div className="mt-5 flex gap-2">
           {r.rollbackAvailable && (
             <button onClick={() => onRollback(r)} className="rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-2 font-display text-xs uppercase tracking-wide text-amber-200 hover:bg-amber-400/20">
-              Preparar Rollback
+              {i18nT("Preparar Rollback")}
             </button>
           )}
-          <button type="button" onClick={() => adminDownload(dl("release-report.json"), "release-report.json")} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">Descargar report</button>
+          <button type="button" onClick={() => adminDownload(dl("release-report.json"), "release-report.json")} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">{i18nT("Descargar report")}</button>
         </div>
       </motion.aside>
     </motion.div>
@@ -555,6 +569,7 @@ interface RollbackResult { ok: boolean; ready: boolean; error: string | null; co
 const RB_PHASES = ["Rolling back", "Verifying", "Publishing", "Ready"];
 
 function RollbackModal({ target, current, allReleases, onClose, onDone }: { target: ReleaseEntry; current: ReleaseEntry | null; allReleases: ReleaseEntry[]; onClose: () => void; onDone: () => void }) {
+  useLocale();
   const channel = target.channel;
   const [selectedFull, setSelectedFull] = useState(target.full);
   const [step, setStep] = useState<"loading" | "plan" | "confirm" | "running" | "done" | "error">("loading");
@@ -586,7 +601,7 @@ function RollbackModal({ target, current, allReleases, onClose, onDone }: { targ
       clearInterval(timer);
       setResult(r);
       if (r.ok) { setActivePhase(RB_PHASES.length - 1); setStep("done"); setTimeout(onDone, 1600); }
-      else { setErr(r.error ?? r.code ?? "rollback fallido"); setStep("error"); }
+      else { setErr(r.error ?? r.code ?? i18nT("rollback fallido")); setStep("error"); }
     } catch (e) { clearInterval(timer); setErr(e instanceof Error ? e.message : String(e)); setStep("error"); }
   };
 
@@ -595,56 +610,56 @@ function RollbackModal({ target, current, allReleases, onClose, onDone }: { targ
     <motion.div className="fixed inset-0 z-[85] grid place-items-center bg-black/80 p-4 backdrop-blur" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={step === "running" ? undefined : onClose}>
       <motion.div className="w-full max-w-xl rounded-2xl border border-amber-400/30 bg-base-900 p-6" initial={{ scale: 0.94, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.94 }} onClick={(e) => e.stopPropagation()}>
         <div className="mb-4 flex items-center justify-between">
-          <h3 className="font-display text-xl font-bold uppercase text-amber-200">Rollback · {channel}</h3>
+          <h3 className="font-display text-xl font-bold uppercase text-amber-200">{i18nT("Rollback ·")} {i18nTd(channel)}</h3>
           {step !== "running" && <button onClick={onClose} className="text-white/50 hover:text-white">✕</button>}
         </div>
 
-        {step === "loading" && <p className="py-8 text-center text-white/50">Leyendo history.json…</p>}
+        {step === "loading" && <p className="py-8 text-center text-white/50">{i18nT("Leyendo history.json…")}</p>}
 
         {(step === "plan" || step === "confirm") && plan && (
           <>
             {/* Paso 1/2: versiones disponibles del anillo */}
             <label className="mb-3 block">
-              <span className="mb-1 block text-[10px] uppercase tracking-widest text-white/40">Versión destino (anillo)</span>
+              <span className="mb-1 block text-[10px] uppercase tracking-widest text-white/40">{i18nT("Versión destino (anillo)")}</span>
               <select value={selectedFull} onChange={(e) => setSelectedFull(e.target.value)} className={cn(selectCls, "w-full")}>
-                {targetsInChannel.length === 0 && <option value={selectedFull}>{selectedFull}</option>}
-                {targetsInChannel.map((t) => <option key={t.full} value={t.full}>{t.full} · {fmtDate(t.date)}{t.signed ? " · firmada" : ""}</option>)}
+                {targetsInChannel.length === 0 && <option value={selectedFull}>{i18nTd(selectedFull)}</option>}
+                {targetsInChannel.map((t) => <option key={t.full} value={t.full}>{i18nTd(t.full)} · {fmtDate(t.date)}{t.signed ? (" " + i18nT("· firmada")) : ""}</option>)}
               </select>
             </label>
 
             {/* Paso 3: comparación */}
             <div className="space-y-2 text-[13px]">
-              <FlowStep label="Release actual" value={current ? `${current.version}+${current.build}` : (plan.current?.full ?? "—")} sub={channel} tone="current" />
-              <div className="pl-4 text-white/30">↓ rollback</div>
-              <FlowStep label="Volver a" value={plan.target?.full ?? selectedFull} sub={plan.target ? fmtDate(plan.target.date) : undefined} tone="target" />
+              <FlowStep label={i18nT("Release actual")} value={current ? `${current.version}+${current.build}` : (plan.current?.full ?? "—")} sub={i18nTd(channel)} tone="current" />
+              <div className="pl-4 text-white/30">{i18nT("↓ rollback")}</div>
+              <FlowStep label={i18nT("Volver a")} value={plan.target?.full ?? selectedFull} sub={plan.target ? fmtDate(plan.target.date) : undefined} tone="target" />
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
-              <Mini k="Firma destino" v={plan.target?.signed ? "✓ firmada" : "✗ sin firma"} tone={plan.target?.signed ? "ok" : "error"} />
-              <Mini k="Tamaño" v={fmtBytes(plan.target?.totalBytes)} />
-              <Mini k="Archivos afectados" v={String(plan.diff.affected.length)} />
-              <Mini k="Hashes" v={`${plan.target?.files.length ?? 0} con SHA256`} />
+              <Mini k={i18nT("Firma destino")} v={plan.target?.signed ? "✓ firmada" : i18nT("✗ sin firma")} tone={plan.target?.signed ? "ok" : "error"} />
+              <Mini k={i18nT("Tamaño")} v={fmtBytes(plan.target?.totalBytes)} />
+              <Mini k={i18nT("Archivos afectados")} v={String(plan.diff.affected.length)} />
+              <Mini k={i18nT("Hashes")} v={i18nT("{v} con SHA256", { v: plan.target?.files.length ?? 0 })} />
             </div>
             <div className="mt-2 rounded-lg border border-white/10 bg-base-800/60 p-2.5">
-              <p className="mb-1 text-[10px] uppercase tracking-widest text-white/40">Cambios ({plan.diff.affected.length})</p>
+              <p className="mb-1 text-[10px] uppercase tracking-widest text-white/40">{i18nT("Cambios ({n})", { n: plan.diff.affected.length })}</p>
               <div className="max-h-28 space-y-0.5 overflow-auto font-mono text-[10px] text-white/55">
-                {plan.diff.affected.length === 0 && <p className="text-white/30">— (idénticos)</p>}
-                {plan.diff.changed.map((f) => <p key={f}><span className="text-amber-300">~</span> {f}</p>)}
-                {plan.diff.added.map((f) => <p key={f}><span className="text-emerald-300">+</span> {f}</p>)}
-                {plan.diff.removed.map((f) => <p key={f}><span className="text-rose-300">−</span> {f}</p>)}
+                {plan.diff.affected.length === 0 && <p className="text-white/30">{i18nT("— (idénticos)")}</p>}
+                {plan.diff.changed.map((f) => <p key={f}><span className="text-amber-300">~</span> {i18nTd(f)}</p>)}
+                {plan.diff.added.map((f) => <p key={f}><span className="text-emerald-300">+</span> {i18nTd(f)}</p>)}
+                {plan.diff.removed.map((f) => <p key={f}><span className="text-rose-300">−</span> {i18nTd(f)}</p>)}
               </div>
             </div>
 
-            {!valid && <div className="mt-3 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3 text-[12px] text-rose-200">⛔ {plan.reason} <span className="text-rose-300/60">({plan.code})</span></div>}
+            {!valid && <div className="mt-3 rounded-lg border border-rose-500/30 bg-rose-500/10 p-3 text-[12px] text-rose-200">⛔ {i18nTd(plan.reason)} <span className="text-rose-300/60">({plan.code})</span></div>}
 
             {step === "plan" && valid && (
               <>
                 <label className="mt-3 block">
-                  <span className="mb-1 block text-[10px] uppercase tracking-widest text-white/40">Motivo (opcional, queda en el log)</span>
-                  <input value={reason} onChange={(e) => setReason(e.target.value)} placeholder="p.ej. regresión crítica en 1.0.3" className="w-full rounded-lg border border-white/10 bg-base-800 px-3 py-1.5 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none" />
+                  <span className="mb-1 block text-[10px] uppercase tracking-widest text-white/40">{i18nT("Motivo (opcional, queda en el log)")}</span>
+                  <input value={reason} onChange={(e) => setReason(e.target.value)} placeholder={i18nT("p.ej. regresión crítica en 1.0.3")} className="w-full rounded-lg border border-white/10 bg-base-800 px-3 py-1.5 text-sm text-white placeholder:text-white/30 focus:border-drl focus:outline-none" />
                 </label>
                 <div className="mt-4 flex justify-end gap-2">
-                  <button onClick={onClose} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">Cancelar</button>
-                  <button onClick={() => setStep("confirm")} className="rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-2 font-display text-xs uppercase tracking-wide text-amber-200 hover:bg-amber-400/20">Continuar</button>
+                  <button onClick={onClose} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">{i18nT("Cancelar")}</button>
+                  <button onClick={() => setStep("confirm")} className="rounded-xl border border-amber-400/40 bg-amber-400/10 px-4 py-2 font-display text-xs uppercase tracking-wide text-amber-200 hover:bg-amber-400/20">{i18nT("Continuar")}</button>
                 </div>
               </>
             )}
@@ -653,16 +668,14 @@ function RollbackModal({ target, current, allReleases, onClose, onDone }: { targ
             {step === "confirm" && (
               <div className="mt-4">
                 <div className="rounded-lg border border-amber-400/30 bg-amber-400/5 p-3 text-[13px] text-amber-100">
-                  <p className="font-display font-bold text-amber-200">¿Seguro que deseas volver a la versión {selectedFull}?</p>
+                  <p className="font-display font-bold text-amber-200">{i18nT("¿Seguro que deseas volver a la versión {version}?", { version: i18nTd(selectedFull) ?? "" })}</p>
                   <p className="mt-1 text-amber-100/75">
-                    Se restaurará desde el anillo, se verificará byte a byte (SHA256 + firma) y se republicará en el canal{" "}
-                    <strong>{channel}</strong> con el provider activo. Los launchers que abran el juego verán{" "}
-                    <strong>{selectedFull}</strong> como versión publicada (aunque sea anterior).
+                    {fill(i18nT("Se restaurará desde el anillo, se verificará byte a byte (SHA256 + firma) y se republicará en el canal {canal} con el provider activo. Los launchers que abran el juego verán {version} como versión publicada (aunque sea anterior).", slots("canal", "version")), { canal: <strong>{i18nTd(channel)}</strong>, version: <strong>{i18nTd(selectedFull)}</strong> })}
                   </p>
                 </div>
                 <div className="mt-4 flex justify-end gap-2">
-                  <button onClick={() => setStep("plan")} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">Atrás</button>
-                  <button onClick={execute} className="rounded-xl border border-amber-400/50 bg-amber-400/20 px-4 py-2 font-display text-xs uppercase tracking-wide text-amber-100 hover:bg-amber-400/30">Sí, hacer rollback</button>
+                  <button onClick={() => setStep("plan")} className="rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">{i18nT("Atrás")}</button>
+                  <button onClick={execute} className="rounded-xl border border-amber-400/50 bg-amber-400/20 px-4 py-2 font-display text-xs uppercase tracking-wide text-amber-100 hover:bg-amber-400/30">{i18nT("Sí, hacer rollback")}</button>
                 </div>
               </div>
             )}
@@ -676,31 +689,31 @@ function RollbackModal({ target, current, allReleases, onClose, onDone }: { targ
               {RB_PHASES.map((label, i) => (
                 <div key={label} className="flex flex-1 items-center gap-1.5">
                   <div className={cn("flex-1 rounded-lg border px-2 py-2 text-center transition", i < activePhase ? "border-emerald-400/30 bg-emerald-400/10" : i === activePhase ? "border-amber-400/50 bg-amber-400/15" : "border-white/10 bg-white/[0.03]")}>
-                    <p className={cn("font-display text-[10px] uppercase tracking-wide", i < activePhase ? "text-emerald-300" : i === activePhase ? "text-amber-200" : "text-white/35")}>{i < activePhase ? "✓ " : ""}{label}</p>
+                    <p className={cn("font-display text-[10px] uppercase tracking-wide", i < activePhase ? "text-emerald-300" : i === activePhase ? "text-amber-200" : "text-white/35")}>{i < activePhase ? "✓ " : ""}{i18nTd(label)}</p>
                   </div>
                   {i < RB_PHASES.length - 1 && <span className="text-white/20">→</span>}
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-center text-[12px] text-white/45">Ejecutando rollback real (TransportEngine.rollback)…</p>
+            <p className="mt-4 text-center text-[12px] text-white/45">{i18nT("Ejecutando rollback real (TransportEngine.rollback)…")}</p>
           </div>
         )}
 
         {step === "done" && result && (
           <div className="py-4 text-center">
-            <p className="font-display text-2xl text-emerald-300">✓ Rollback completado</p>
-            <p className="mt-1 text-[13px] text-white/60">Ahora publicada: <strong className="text-white">{result.full}</strong> en {channel}</p>
-            <p className="mt-1 text-[11px] text-white/40">Verificación {result.verify?.ok ? "✓ byte-idéntica" : "—"} · {fmtMs(result.durationMs)} · desde {result.rolledBackFrom ?? "—"}</p>
-            <p className="mt-3 text-[11px] text-drl-cyan">Actualizando dashboard…</p>
+            <p className="font-display text-2xl text-emerald-300">{i18nT("✓ Rollback completado")}</p>
+            <p className="mt-1 text-[13px] text-white/60">{fill(i18nT("Ahora publicada: {version} en {canal}", { ...slots("version"), canal: i18nTd(channel) ?? "" }), { version: <strong className="text-white">{i18nTd(result.full)}</strong> })}</p>
+            <p className="mt-1 text-[11px] text-white/40">{i18nT("Verificación {estado} · {duracion} · desde {origen}", { estado: result.verify?.ok ? i18nT("✓ byte-idéntica") : "—", duracion: fmtMs(result.durationMs), origen: i18nTd(result.rolledBackFrom) ?? "—" })}</p>
+            <p className="mt-3 text-[11px] text-drl-cyan">{i18nT("Actualizando dashboard…")}</p>
           </div>
         )}
 
         {step === "error" && (
           <div className="py-6 text-center">
-            <p className="font-display text-xl text-rose-300">⛔ Rollback cancelado</p>
-            <p className="mt-2 text-[13px] text-rose-200/80">{err}</p>
-            {result?.reverted && <p className="mt-1 text-[11px] text-amber-200/70">Se revirtió a la versión previa (sin cambios efectivos).</p>}
-            <button onClick={onClose} className="mt-4 rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">Cerrar</button>
+            <p className="font-display text-xl text-rose-300">{i18nT("⛔ Rollback cancelado")}</p>
+            <p className="mt-2 text-[13px] text-rose-200/80">{i18nTd(err)}</p>
+            {result?.reverted && <p className="mt-1 text-[11px] text-amber-200/70">{i18nT("Se revirtió a la versión previa (sin cambios efectivos).")}</p>}
+            <button onClick={onClose} className="mt-4 rounded-xl border border-white/15 px-4 py-2 font-display text-xs uppercase tracking-wide text-white/70 hover:bg-white/10">{i18nT("Cerrar")}</button>
           </div>
         )}
       </motion.div>
@@ -709,17 +722,18 @@ function RollbackModal({ target, current, allReleases, onClose, onDone }: { targ
 }
 
 function Mini({ k, v, tone }: { k: string; v: string; tone?: "ok" | "error" }) {
-  return <div className="rounded-lg border border-white/10 bg-base-800/50 px-2.5 py-1.5"><p className="text-[9px] uppercase tracking-widest text-white/35">{k}</p><p className={cn("font-display text-white/80", tone === "ok" && "text-emerald-300", tone === "error" && "text-rose-300")}>{v}</p></div>;
+  return <div className="rounded-lg border border-white/10 bg-base-800/50 px-2.5 py-1.5"><p className="text-[9px] uppercase tracking-widest text-white/35">{i18nTd(k)}</p><p className={cn("font-display text-white/80", tone === "ok" && "text-emerald-300", tone === "error" && "text-rose-300")}>{i18nTd(v)}</p></div>;
 }
 
 // ── primitivas UI ──
 const selectCls = "rounded-lg border border-white/10 bg-base-800 px-2.5 py-1.5 text-xs text-white focus:border-drl focus:outline-none";
 
 function Panel({ title, right, children }: { title: string; right?: React.ReactNode; children: React.ReactNode }) {
+  useLocale();
   return (
     <div className="rounded-2xl border border-white/10 bg-base-700/40 p-4">
       <div className="mb-2.5 flex items-center justify-between">
-        <p className="text-[10px] uppercase tracking-widest text-white/40">{title}</p>
+        <p className="text-[10px] uppercase tracking-widest text-white/40">{i18nTd(title)}</p>
         {right}
       </div>
       {children}
@@ -727,10 +741,11 @@ function Panel({ title, right, children }: { title: string; right?: React.ReactN
   );
 }
 function Metric({ label, value, accent }: { label: string; value: number; accent?: string }) {
+  useLocale();
   return (
     <div className="rounded-xl border border-white/10 bg-base-900/40 p-2 text-center">
       <p className="font-display text-lg font-bold leading-tight" style={{ color: accent ?? "#e8eef5" }}>{value}</p>
-      <p className="text-[9px] uppercase tracking-wide text-white/40">{label}</p>
+      <p className="text-[9px] uppercase tracking-wide text-white/40">{i18nTd(label)}</p>
     </div>
   );
 }
@@ -738,22 +753,24 @@ function Banner({ tone, children }: { tone: "error" | "warn"; children: React.Re
   return <div className={cn("rounded-xl border px-4 py-3 text-sm", tone === "error" ? "border-rose-500/30 bg-rose-500/10 text-rose-200" : "border-amber-400/30 bg-amber-400/10 text-amber-100")}>{children}</div>;
 }
 function Row({ k, v, tone }: { k: string; v: string; tone?: "error" }) {
-  return <div className="flex justify-between gap-2"><dt className="text-white/35">{k}</dt><dd className={cn("truncate text-right", tone === "error" ? "text-rose-300" : "text-white/60")} title={v}>{v}</dd></div>;
+  return <div className="flex justify-between gap-2"><dt className="text-white/35">{i18nTd(k)}</dt><dd className={cn("truncate text-right", tone === "error" ? "text-rose-300" : "text-white/60")} title={i18nTd(v)}>{i18nTd(v)}</dd></div>;
 }
 function Info({ k, v, mono }: { k: string; v: string; mono?: boolean }) {
-  return <div className="border-b border-white/5 py-1"><p className="text-[10px] uppercase tracking-widest text-white/35">{k}</p><p className={cn("truncate text-white/75", mono && "font-mono text-[11px]")} title={v}>{v}</p></div>;
+  return <div className="border-b border-white/5 py-1"><p className="text-[10px] uppercase tracking-widest text-white/35">{i18nTd(k)}</p><p className={cn("truncate text-white/75", mono && "font-mono text-[11px]")} title={i18nTd(v)}>{i18nTd(v)}</p></div>;
 }
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return <div className="mt-4"><p className="mb-1.5 text-[10px] uppercase tracking-widest text-white/40">{title}</p>{children}</div>;
+  useLocale();
+  return <div className="mt-4"><p className="mb-1.5 text-[10px] uppercase tracking-widest text-white/40">{i18nTd(title)}</p>{children}</div>;
 }
 function MiniBtn({ children, onClick, tone }: { children: React.ReactNode; onClick: () => void; tone?: "amber" }) {
   return <button onClick={onClick} className={cn("rounded-md border px-2 py-1 font-display text-[10px] uppercase tracking-wide transition", tone === "amber" ? "border-amber-400/40 text-amber-200 hover:bg-amber-400/10" : "border-white/15 text-white/70 hover:bg-white/10 hover:text-white")}>{children}</button>;
 }
 function FlowStep({ label, value, sub, tone }: { label: string; value: string; sub?: string; tone: "current" | "target" }) {
+  useLocale();
   return (
     <div className={cn("rounded-lg border px-3 py-2", tone === "current" ? "border-drl/30 bg-drl/10" : "border-emerald-400/25 bg-emerald-400/5")}>
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
-      <p className="font-display font-bold text-white">{value}{sub && <span className="ml-2 text-[11px] font-normal text-white/40">{sub}</span>}</p>
+      <p className="text-[10px] uppercase tracking-widest text-white/40">{i18nTd(label)}</p>
+      <p className="font-display font-bold text-white">{i18nTd(value)}{sub && <span className="ml-2 text-[11px] font-normal text-white/40">{i18nTd(sub)}</span>}</p>
     </div>
   );
 }

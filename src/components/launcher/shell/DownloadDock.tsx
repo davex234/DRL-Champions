@@ -18,6 +18,10 @@ import { cn } from "@/lib/format";
 import { StatusDot } from "@/components/ui/Badge";
 import { Meter } from "@/components/ui/Meter";
 import { TONE } from "@/components/ui/tone";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 export function DownloadDock({
   jobs, expanded, onToggleExpanded, onPause, onResume, onCancel, onSelect, motionScale,
@@ -31,6 +35,7 @@ export function DownloadDock({
   onSelect: (gameId: string) => void;
   motionScale: number;
 }) {
+  useLocale();
   const [head, ...rest] = jobs;
 
   return (
@@ -80,7 +85,7 @@ export function DownloadDock({
                   onClick={onToggleExpanded}
                   className="nx-clip-sm shrink-0 bg-white/[0.06] px-3 py-2 font-display text-label font-bold uppercase tracking-[0.16em] text-white/60 transition hover:bg-white/[0.12] hover:text-white"
                 >
-                  +{rest.length} en cola {expanded ? "▾" : "▴"}
+                  +{rest.length} {t("en cola")} {expanded ? "▾" : "▴"}
                 </button>
               )
             }
@@ -102,6 +107,7 @@ function DockRow({
   onSelect: (id: string) => void;
   extra?: React.ReactNode;
 }) {
+  useLocale();
   const game = getGame(job.gameId);
   const pct = overallPercent(job);
   const active = job.status === "downloading";
@@ -121,7 +127,7 @@ function DockRow({
             {game?.name ?? job.gameId}
           </span>
           <span className="block truncate text-[10.5px] uppercase tracking-wider" style={{ color: `${TONE[tone]}cc` }}>
-            {job.kind === "update" ? "Actualización" : "Instalación"} · {phaseLabel(job.status)}
+            {job.kind === "update" ? t("Actualización") : t("Instalación")} · {phaseLabel(job.status)}
           </span>
         </span>
       </button>
@@ -131,8 +137,8 @@ function DockRow({
           <span className="truncate text-caption text-white/45">
             {formatBytes(job.downloadedBytes)} / {formatBytes(job.totalBytes)}
             {active && <span className="ml-3 text-white/30">{formatSpeed(job.speedBps)}</span>}
-            {active && <span className="ml-3 text-white/30">{formatEta(job.etaSec)} restantes</span>}
-            {job.error && <span className="ml-3 text-bad">{job.error}</span>}
+            {active && <span className="ml-3 text-white/30">{formatEta(job.etaSec)} {t("restantes")}</span>}
+            {job.error && <span className="ml-3 text-bad">{td(job.error)}</span>}
           </span>
           <span className="nx-readout shrink-0 text-[13px] text-white">{pct.toFixed(0)}%</span>
         </div>
@@ -142,9 +148,9 @@ function DockRow({
       {extra}
 
       <div className="flex shrink-0 items-center gap-1.5">
-        {canPause(job.status) && <DockButton onClick={() => onPause(job.gameId)} label="Pausar" glyph="❚❚" />}
-        {canResume(job.status) && <DockButton onClick={() => onResume(job.gameId)} label="Reanudar" glyph="▶" primary />}
-        {canCancel(job.status) && <DockButton onClick={() => onCancel(job.gameId)} label="Cancelar" glyph="✕" danger />}
+        {canPause(job.status) && <DockButton onClick={() => onPause(job.gameId)} label={t("Pausar")} glyph="❚❚" />}
+        {canResume(job.status) && <DockButton onClick={() => onResume(job.gameId)} label={t("Reanudar")} glyph="▶" primary />}
+        {canCancel(job.status) && <DockButton onClick={() => onCancel(job.gameId)} label={t("Cancelar")} glyph="✕" danger />}
       </div>
     </div>
   );
@@ -153,12 +159,13 @@ function DockRow({
 function DockButton({
   onClick, label, glyph, primary, danger,
 }: { onClick: () => void; label: string; glyph: string; primary?: boolean; danger?: boolean }) {
+  useLocale();
   return (
     <button
       type="button"
       onClick={onClick}
-      title={label}
-      aria-label={label}
+      title={td(label)}
+      aria-label={td(label)}
       className={cn(
         "nx-clip-sm grid h-9 w-9 place-items-center text-caption transition",
         primary

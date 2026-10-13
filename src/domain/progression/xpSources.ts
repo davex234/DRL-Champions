@@ -10,6 +10,9 @@
 import { xpForCardRank } from "./levels";
 import { duelPayoutTable } from "./duelRewards";
 import { ALL_VARIANTS } from "@/domain/cards/variants";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("progression");
 
 export interface XpSource {
   id: string;
@@ -44,31 +47,31 @@ export function xpSources(): XpSource[] {
   return [
     {
       id: "pack",
-      label: "Abrir sobres",
-      hint: "Cada carta suma XP de cuenta según su rareza. Cuanto mejor la carta, más XP.",
-      amount: `+${pack.min}–${pack.max} XP de cuenta por carta`,
+      label: tr("Abrir sobres"),
+      hint: tr("Cada carta suma XP de cuenta según su rareza. Cuanto mejor la carta, más XP."),
+      amount: tr("+{min}–{max} XP de cuenta por carta", { min: pack.min, max: pack.max }),
       icon: "📦",
     },
     {
       id: "duel-win",
-      label: "Ganar duelos",
-      hint: "Ganar da más XP de cuenta en dificultades más altas.",
-      amount: `+${duel.easy} · ${duel.normal} · ${duel.hard} XP de cuenta`,
+      label: tr("Ganar duelos"),
+      hint: tr("Ganar da más XP de cuenta en dificultades más altas."),
+      amount: tr("+{easy} · {normal} · {hard} XP de cuenta", { easy: duel.easy, normal: duel.normal, hard: duel.hard }),
       icon: "⚔️",
     },
     {
       id: "duel-play",
-      label: "Jugar duelos",
-      hint: "Empatar o perder también da algo de XP de cuenta por haber jugado.",
-      amount: `+${duelPayoutTable().loss.EASY.xp}–${duelPayoutTable().draw.HARD.xp} XP de cuenta`,
+      label: tr("Jugar duelos"),
+      hint: tr("Empatar o perder también da algo de XP de cuenta por haber jugado."),
+      amount: tr("+{xp}–{xp2} XP de cuenta", { xp: duelPayoutTable().loss.EASY.xp, xp2: duelPayoutTable().draw.HARD.xp }),
       icon: "🎮",
     },
     {
       id: "objectives",
-      label: "Reclamar objetivos",
+      label: tr("Reclamar objetivos"),
       /* FASE 62 · son OTRA XP: la de temporada (el pase). No suben el nivel de cuenta. */
-      hint: "Cada objetivo reclamado suma XP de temporada (el pase) y su recompensa. Los niveles de temporada abren recompensas del carril.",
-      amount: "XP de temporada",
+      hint: tr("Cada objetivo reclamado suma XP de temporada (el pase) y su recompensa. Los niveles de temporada abren recompensas del carril."),
+      amount: tr("XP de temporada"),
       icon: "🏅",
     },
   ];

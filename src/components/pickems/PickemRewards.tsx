@@ -26,13 +26,17 @@ import { Plate } from "@/components/ui/Surface";
 import { Badge } from "@/components/ui/Badge";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { formatCredits, cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("pickems");
 
 /** Resume una recompensa en una línea legible. */
 export function describeReward(r: Reward): string {
   const parts: string[] = [];
-  if (r.credits) parts.push(`${formatCredits(r.credits)} créditos`);
+  if (r.credits) parts.push(td("{v} créditos", { v: formatCredits(r.credits) }));
   if (r.xp) parts.push(`${r.xp} XP`);
-  if (r.packId) parts.push(`${r.packCount ?? 1} × ${packLabel(r.packId)}`);
+  if (r.packId) parts.push(`${r.packCount ?? 1} × ${td(packLabel(r.packId))}`);
   return parts.join(" · ") || "—";
 }
 
@@ -69,12 +73,13 @@ export function PickemRewards({
   reward: LedgerRow | null;
   className?: string;
 }) {
+  useLocale();
   const rows = tierStatuses(score, reward);
   const current = tierForPoints(score?.points ?? 0);
 
   return (
-    <section className={className} aria-label="Recompensas del torneo">
-      <SectionTitle as="h2">Recompensas del torneo</SectionTitle>
+    <section className={className} aria-label={tr("Recompensas del torneo")}>
+      <SectionTitle as="h2">{tr("Recompensas del torneo")}</SectionTitle>
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {rows.map(({ tier, status, missing }) => {
           const done = status === "conseguida";
@@ -89,29 +94,30 @@ export function PickemRewards({
               <div className="flex items-center justify-between gap-2">
                 <b className={cn("truncate font-display text-[13px] font-bold uppercase tracking-wide",
                   done ? "text-drl-gold" : reached ? "text-ok" : "text-ink-secondary")}>
-                  {tier.label}
+                  {td(tier.label)}
                 </b>
                 {done
-                  ? <Badge tone="gold" solid>{STATUS_LABEL.conseguida}</Badge>
+                  ? <Badge tone="gold" solid>{td(STATUS_LABEL.conseguida)}</Badge>
                   : reached
-                    ? <Badge tone="ok" dot>{STATUS_LABEL.alcanzada}</Badge>
-                    : <span className="nx-label shrink-0">{tier.minPoints} pts</span>}
+                    ? <Badge tone="ok" dot>{td(STATUS_LABEL.alcanzada)}</Badge>
+                    : <span className="nx-label shrink-0">{tier.minPoints} {tr("pts")}</span>}
               </div>
               <p className="mt-1.5 text-caption text-ink-muted">{describeReward(tier.reward)}</p>
               <p className="mt-1 nx-label">
                 {done
-                  ? "Ya en tu cuenta"
+                  ? tr("Ya en tu cuenta")
                   : reached
-                    ? "Se abona al corregir el torneo"
-                    : `Te faltan ${missing} ${missing === 1 ? "punto" : "puntos"}`}
+                    ? tr("Se abona al corregir el torneo")
+                    : tr("Te faltan {n, plural, one {# punto} other {# puntos}}", { n: missing })}
               </p>
             </Plate>
           );
         })}
       </div>
       <p className="mt-2.5 text-caption text-ink-faint">
-        Se concede el escalón más alto alcanzado{current ? ` (ahora: ${current.label})` : ""}, de forma
-        automática al corregirse el torneo. No hay nada que reclamar.
+        {current
+          ? tr("Se concede el escalón más alto alcanzado (ahora: {escalon}), de forma automática al corregirse el torneo. No hay nada que reclamar.", { escalon: td(current.label) })
+          : tr("Se concede el escalón más alto alcanzado, de forma automática al corregirse el torneo. No hay nada que reclamar.")}
       </p>
     </section>
   );

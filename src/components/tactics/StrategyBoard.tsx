@@ -45,6 +45,10 @@ import { AgentEmblemGlyph, agentById } from "./AgentEmblem";
 import { AgentFaceSvg } from "@/components/agents/AgentArt";
 import { MapCanvas, type Camera } from "./MapCanvas";
 import { UtilityGlyph } from "./UtilityGlyph";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("tactics");
 
 /** Qué hace el siguiente clic sobre el mapa. */
 export type Tool =
@@ -76,6 +80,7 @@ export function StrategyBoard({
   readOnly?: boolean;
   className?: string;
 }) {
+  useLocale();
   /** Una centésima de la anchura del mapa: la unidad con la que se dimensiona todo. */
   const U = map.width / 100;
   const [draft, setDraft] = useState<Point[] | null>(null);
@@ -201,7 +206,7 @@ export function StrategyBoard({
               {p.to && <Arrow from={c} to={px(p.to)} color={color} U={U} />}
               <Token
                 cx={c.px} cy={c.py} r={2.4 * U} color={color} selected={on}
-                label={ROLE_ABBR[p.role] ?? p.role.slice(0, 2)} U={U}
+                label={td(ROLE_ABBR[p.role]) ?? p.role.slice(0, 2)} U={U}
                 agentId={p.agentId}
                 title={agente ? `${p.label} · ${agente.name} (${p.role})` : `${p.label} (${p.role})`}
                 onDown={(e) => beginDrag(e, p.id, actions, readOnly)}
@@ -249,7 +254,7 @@ export function StrategyBoard({
                 transform={`translate(${c.px} ${c.py})`}
                 tabIndex={readOnly ? -1 : 0}
                 role={readOnly ? undefined : "button"}
-                aria-label={UTILITY_LABEL[u.kind]}
+                aria-label={td(UTILITY_LABEL[u.kind])}
                 onPointerDown={(e) => beginDrag(e, u.id, actions, readOnly)}
                 onKeyDown={(e) => keyMove(e, u.id, u, actions)}
                 style={{ cursor: readOnly ? "default" : "grab", outline: "none" }}
@@ -291,7 +296,7 @@ export function StrategyBoard({
               transform={`translate(${c.px} ${c.py})`}
               tabIndex={readOnly ? -1 : 0}
               role={readOnly ? undefined : "button"}
-              aria-label={`Nota: ${a.text}`}
+              aria-label={t("Nota: {text}", { text: td(a.text) })}
               onPointerDown={(e) => beginDrag(e, a.id, actions, readOnly)}
               onKeyDown={(e) => keyMove(e, a.id, a, actions)}
               style={{ cursor: readOnly ? "default" : "grab", outline: "none" }}
@@ -306,7 +311,7 @@ export function StrategyBoard({
                 fill="#ffffff" fontSize={1.7 * U} fontWeight={600}
                 style={{ pointerEvents: "none", userSelect: "none" }}
               >
-                {a.text}
+                {td(a.text)}
               </text>
             </g>
           );
@@ -412,17 +417,18 @@ function Token({
   onDown: (e: React.PointerEvent) => void;
   onKey: (e: React.KeyboardEvent) => void;
 }) {
+  useLocale();
   return (
     <g
       transform={`translate(${cx} ${cy})`}
       tabIndex={0}
       role="button"
-      aria-label={title}
+      aria-label={td(title)}
       onPointerDown={onDown}
       onKeyDown={onKey}
       style={{ cursor: "grab", outline: "none" }}
     >
-      <title>{title}</title>
+      <title>{td(title)}</title>
       {/*
         FASE 51 · la ficha es una pieza sobre el plano, no un círculo plano: sombra en el suelo, halo
         del color del rol y anillo interior. Solo presentación: el centro y el radio no cambian, así
@@ -446,7 +452,7 @@ function Token({
           fill={color} fontSize={1.8 * U} fontWeight={700}
           style={{ pointerEvents: "none", userSelect: "none" }}
         >
-          {label}
+          {td(label)}
         </text>
       )}
     </g>

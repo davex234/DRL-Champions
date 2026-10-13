@@ -40,8 +40,13 @@ import { favoriteTeamOptions } from "@/domain/profile/favoriteTeam";
 import { CARDS, getPlayer } from "@/data/catalog";
 import { ShowcaseEditor, type EditorTab } from "@/components/player/ShowcaseEditor";
 import { SocialActions } from "@/components/social/SocialActions";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("player");
 
 export function PlayerProfileScreen({ id, embedded = false }: { id: string; embedded?: boolean }) {
+  useLocale();
   const router = useRouter();
   const { user, loading, refreshProfile, signOut } = useAuth();
   const online = isSupabaseConfigured();
@@ -75,7 +80,7 @@ export function PlayerProfileScreen({ id, embedded = false }: { id: string; embe
       const next = await fetchPlayerIdentity(id);
       if (keyRef.current === key) setLoaded({ key, snap: next }); // respuesta de otra cuenta/perfil: se descarta
     } catch (e) {
-      if (keyRef.current === key) setError({ message: e instanceof Error ? e.message : "No se pudo leer el perfil", status: e instanceof PlayerError ? e.status : 500 });
+      if (keyRef.current === key) setError({ message: e instanceof Error ? e.message : t("No se pudo leer el perfil"), status: e instanceof PlayerError ? e.status : 500 });
     }
   }, [id]);
   useEffect(() => { if (online && !loading && id !== "me") void load(); }, [online, loading, user, id, load]);
@@ -100,7 +105,7 @@ export function PlayerProfileScreen({ id, embedded = false }: { id: string; embe
       await load();
       if (context === "profile_edit") refreshProfile();
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "No se pudo guardar";
+      const msg = e instanceof Error ? e.message : t("No se pudo guardar");
       setEditorError(msg);
       if (e instanceof PlayerError && e.code === "CONFLICT") { await load(); notify(msg, false); }
     } finally { setBusy(false); }
@@ -120,14 +125,14 @@ export function PlayerProfileScreen({ id, embedded = false }: { id: string; embe
     router.replace("/cuenta");
   }, [signOut, router]);
 
-  if (!online) return <NeedsAccount what="Los perfiles de jugador" />;
-  if (loading) return <Loading kind="profile" label="Leyendo el perfil…" />;
-  if (id === "me") return user ? <Loading kind="profile" label="Abriendo tu perfil…" /> : <NeedsAccount what="Tu perfil de jugador" />;
+  if (!online) return <NeedsAccount what={t("Los perfiles de jugador")} />;
+  if (loading) return <Loading kind="profile" label={t("Leyendo el perfil…")} />;
+  if (id === "me") return user ? <Loading kind="profile" label={t("Abriendo tu perfil…")} /> : <NeedsAccount what={t("Tu perfil de jugador")} />;
   if (error?.status === 404 || error?.status === 400) {
-    return <EmptyState icon="👤" title="Jugador no encontrado" hint="Puede que el enlace sea incorrecto o que el perfil ya no esté disponible." action={{ href: "/social?tab=buscar", label: "Buscar jugadores" }} />;
+    return <EmptyState icon="👤" title={t("Jugador no encontrado")} hint={t("Puede que el enlace sea incorrecto o que el perfil ya no esté disponible.")} action={{ href: "/social?tab=buscar", label: t("Buscar jugadores") }} />;
   }
-  if (error && !snap) return <ErrorState message={error.message} onRetry={() => void load()} />;
-  if (!snap) return <Loading kind="profile" label="Leyendo el perfil…" />;
+  if (error && !snap) return <ErrorState message={td(error.message)} onRetry={() => void load()} />;
+  if (!snap) return <Loading kind="profile" label={t("Leyendo el perfil…")} />;
 
   return (
     <div data-embedded={embedded ? "true" : undefined} data-testid="player-profile-screen">
@@ -156,16 +161,16 @@ export function PlayerProfileScreen({ id, embedded = false }: { id: string; embe
           initialFeatured={snap.self.featuredIds}
           avatar={snap.player.avatar}
           busy={busy}
-          error={editorError}
-          onSaveShowcase={(uids) => void onSave(() => saveShowcase(uids, snap.self!.version), "Vitrina guardada", "showcase_edit")}
-          onSaveFeatured={(ids) => void onSave(() => saveFeaturedAchievements(ids, snap.self!.version), "Logros destacados guardados", "achievement_feature")}
-          onSaveAvatar={(a) => void onSave(() => saveAvatar(a), "Avatar actualizado", "profile_edit")}
+          error={td(editorError)}
+          onSaveShowcase={(uids) => void onSave(() => saveShowcase(uids, snap.self!.version), t("Vitrina guardada"), "showcase_edit")}
+          onSaveFeatured={(ids) => void onSave(() => saveFeaturedAchievements(ids, snap.self!.version), t("Logros destacados guardados"), "achievement_feature")}
+          onSaveAvatar={(a) => void onSave(() => saveAvatar(a), t("Avatar actualizado"), "profile_edit")}
           badges={snap.self.ownedBadges}
           initialBadges={snap.self.featuredBadgeIds}
-          onSaveBadges={(ids) => void onSave(() => saveFeaturedBadges(ids, snap.self!.version), "Insignias destacadas guardadas", "profile_edit")}
+          onSaveBadges={(ids) => void onSave(() => saveFeaturedBadges(ids, snap.self!.version), t("Insignias destacadas guardadas"), "profile_edit")}
           teamOptions={teamOptions}
           initialTeam={snap.favoriteTeam?.id ?? null}
-          onSaveTeam={(teamId) => void onSave(() => saveFavoriteTeam(teamId, snap.self!.version), teamId ? "Equipo favorito guardado" : "Equipo favorito quitado", "profile_edit")}
+          onSaveTeam={(teamId) => void onSave(() => saveFavoriteTeam(teamId, snap.self!.version), teamId ? t("Equipo favorito guardado") : t("Equipo favorito quitado"), "profile_edit")}
         />
       )}
       <Toast toast={toast} />

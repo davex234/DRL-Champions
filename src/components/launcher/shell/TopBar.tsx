@@ -17,6 +17,10 @@ import { cn } from "@/lib/format";
 import type { LauncherView } from "@/store/useLauncherStore";
 import { Badge, StatusDot } from "@/components/ui/Badge";
 import { Avatar } from "./primitives";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 const NAV: { id: LauncherView; label: string }[] = [
   { id: "home", label: "Inicio" },
@@ -40,16 +44,17 @@ export function TopBar({
   /** El menú de usuario se monta aquí para anclarse al avatar. */
   children?: React.ReactNode;
 }) {
+  useLocale();
   return (
     <header className="nx-drag relative z-chrome flex h-[58px] shrink-0 items-center gap-6 border-b border-white/[0.06] bg-black/40 px-4 backdrop-blur-xl">
       <div className="flex items-center gap-2.5">
         <BrandMark size={30} />
         <div className="leading-none">
           <p className="font-display text-[15px] font-black uppercase tracking-[0.14em] text-white">
-            NE<span className="text-drl">XUS</span>
+            {t("NE")}<span className="text-drl">{t("XUS")}</span>
           </p>
           <p className="mt-[3px] font-display text-[8.5px] font-bold uppercase tracking-[0.3em] text-white/30">
-            Client {version}
+            {t("Client")} {td(version)}
           </p>
         </div>
       </div>
@@ -67,7 +72,7 @@ export function TopBar({
                 active ? "text-white" : "text-white/40 hover:text-white/80",
               )}
             >
-              {item.label}
+              {tdIn("launcher", item.label)}
               {active && (
                 <motion.span
                   layoutId="nav-underline"
@@ -84,9 +89,9 @@ export function TopBar({
       <div className="nx-no-drag ml-auto flex items-center gap-3">
         <span className="hidden items-center gap-2 text-[10.5px] uppercase tracking-[0.18em] text-white/40 lg:flex">
           <StatusDot tone={online ? "ok" : "warn"} size={6} pulse={online} />
-          {online ? "Servicios operativos" : "Sin conexión"}
+          {online ? t("Servicios operativos") : t("Sin conexión")}
           <span className="text-white/15">·</span>
-          <span className="text-white/30">{channelLabel}</span>
+          <span className="text-white/30">{td(channelLabel)}</span>
         </span>
 
         {updateAvailable && (
@@ -95,7 +100,7 @@ export function TopBar({
             onClick={() => onView("settings")}
             className="nx-focus transition hover:brightness-125"
           >
-            <Badge tone="gold" dot pulse>Cliente</Badge>
+            <Badge tone="gold" dot pulse>{t("Cliente")}</Badge>
           </button>
         )}
 
@@ -115,7 +120,7 @@ export function TopBar({
               <span className="block font-display text-[12px] font-bold uppercase tracking-wide text-white">{user.name}</span>
               <span className="flex items-center gap-1 text-[9.5px] uppercase tracking-wider text-white/35">
                 <StatusDot tone={PRESENCE_TONE[user.presence]} size={5} />
-                Nivel {user.level}
+                {t("Nivel")} {user.level}
               </span>
             </span>
             <span aria-hidden className={cn("text-[9px] text-white/40 transition-transform duration-fast", profileOpen && "rotate-180")}>

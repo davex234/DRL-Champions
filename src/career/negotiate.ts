@@ -10,6 +10,9 @@ import { createContract } from "./contracts";
 import { initBoard } from "./board";
 import { initManagement } from "./management";
 import { joinTeam } from "./history";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("career");
 
 function ev(type: CoachCareerEvent["type"], season: number, magnitude: number, detail: string, at: number): CoachCareerEvent {
   return { type, season, magnitude, detail, at };
@@ -23,9 +26,9 @@ export function acceptOffer(career: ManagerCareer, offer: Offer, club: ClubView,
   const events: CoachCareerEvent[] = [];
   const historic = offer.prestige >= 75 && contract.salary >= 8000;
   events.push(ev(wasFirst && career.clubId === null && career.stats.matchesPlayed === 0 ? "first_contract" : "contract_signed", career.season,
-    historic ? 80 : 55, `${career.coach.name} firma con ${club.name} (${contract.years} temporadas, ${contract.salary}/año).`, at));
-  if (historic) events.push(ev("historic_contract", career.season, 88, `Contrato histórico: ${career.coach.name} llega a ${club.name}.`, at));
-  events.push(ev("new_project", career.season, 50, `Nuevo proyecto en ${club.name}: ${PHIL[offer.philosophy]}.`, at));
+    historic ? 80 : 55, t("{name} firma con {name2} ({years} temporadas, {salary}/año).", { name: career.coach.name, name2: club.name, years: contract.years, salary: contract.salary }), at));
+  if (historic) events.push(ev("historic_contract", career.season, 88, t("Contrato histórico: {name} llega a {name2}.", { name: career.coach.name, name2: club.name }), at));
+  events.push(ev("new_project", career.season, 50, t("Nuevo proyecto en {name}: {v}.", { name: club.name, v: td(PHIL[offer.philosophy]) }), at));
 
   const next: ManagerCareer = {
     ...career,
@@ -53,7 +56,7 @@ export function renewContract(career: ManagerCareer, offer: Offer, at: number): 
       career.season,
     ),
   };
-  const events = [ev("contract_renewed", career.season, 55, `${career.coach.name} renueva con ${offer.clubName} (${contract.years} temporadas).`, at)];
+  const events = [ev("contract_renewed", career.season, 55, t("{name} renueva con {clubName} ({years} temporadas).", { name: career.coach.name, clubName: td(offer.clubName), years: contract.years }), at)];
   const next: ManagerCareer = {
     ...career,
     contract,
@@ -66,8 +69,8 @@ export function renewContract(career: ManagerCareer, offer: Offer, at: number): 
 
 /** Despido: deja el club, contrato terminado, daño de confianza y a buscar mercado. */
 export function dismiss(career: ManagerCareer, reason: string, at: number): { career: ManagerCareer; events: CoachCareerEvent[] } {
-  const club = career.currentTeam ?? "el club";
-  const events = [ev("dismissed", career.season, 70, `${career.coach.name} es destituido de ${club} (${reason}).`, at)];
+  const club = career.currentTeam ?? t("el club");
+  const events = [ev("dismissed", career.season, 70, t("{name} es destituido de {club} ({reason}).", { name: career.coach.name, club: td(club), reason: td(reason) }), at)];
   const history = {
     ...career.history,
     spells: career.history.spells.map((s) => (s.toSeason === null ? { ...s, toSeason: career.season } : s)),
@@ -89,7 +92,7 @@ export function dismiss(career: ManagerCareer, reason: string, at: number): { ca
 /** Rechaza una oferta (la marca y registra el evento). */
 export function rejectOffer(career: ManagerCareer, offerId: string, at: number): { career: ManagerCareer; events: CoachCareerEvent[] } {
   const offer = career.offers.find((o) => o.id === offerId);
-  const events = offer ? [ev("offer_rejected", career.season, 30, `${career.coach.name} rechaza la oferta de ${offer.clubName}.`, at)] : [];
+  const events = offer ? [ev("offer_rejected", career.season, 30, t("{name} rechaza la oferta de {clubName}.", { name: career.coach.name, clubName: td(offer.clubName) }), at)] : [];
   return {
     career: { ...career, offers: career.offers.map((o) => (o.id === offerId ? { ...o, status: "rejected" } : o)), events: [...career.events, ...events].slice(-400) },
     events,

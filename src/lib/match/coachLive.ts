@@ -12,6 +12,9 @@ import type { RoundState, Side } from "@/sim";
 import type { CoachCommandId } from "@/coach";
 import { mapReads, utilitySummary, executeProbability } from "@/utility";
 import { scout, type ScoutReport } from "./scouting";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("match");
 
 export interface CoachRead {
   id: string;
@@ -39,8 +42,8 @@ export function liveCoachReads(match: MatchState, round: RoundState, scoutReport
 
   // — Números (lo más urgente) —
   const a = aliveN(round, us), b = aliveN(round, them);
-  if (a - b >= 2 && round.phase !== "ENDED") add("adv", `Ventaja ${a}v${b}: ventana para comprometer.`, 88, "us", us === "ATK" ? "force_execute" : "rotate");
-  else if (b - a >= 2 && a > 0) add("dis", `Desventaja ${a}v${b}: no regaléis duelos.`, 90, "us", "patience");
+  if (a - b >= 2 && round.phase !== "ENDED") add("adv", t("Ventaja {a}v{b}: ventana para comprometer.", { a, b }), 88, "us", us === "ATK" ? "force_execute" : "rotate");
+  else if (b - a >= 2 && a > 0) add("dis", t("Desventaja {a}v{b}: no regaléis duelos.", { a, b }), 90, "us", "patience");
 
   // — Mapa vivo (Utility) —
   for (const [i, txt] of mapReads(round).entries()) add(`map${i}`, txt, 55 - i * 4, "map");
@@ -49,34 +52,34 @@ export function liveCoachReads(match: MatchState, round: RoundState, scoutReport
   if (round.map) {
     const u = utilitySummary(round.map, us);
     if (u.fraction >= 0.6 && round.tick < 150 && !round.spike.planted) {
-      add("util_early", "Estáis gastando la utilidad demasiado pronto: guardad para la entrada.", 70, "utility", "save_utility");
+      add("util_early", t("Estáis gastando la utilidad demasiado pronto: guardad para la entrada."), 70, "utility", "save_utility");
     }
     const ep = executeProbability(round);
-    if (us === "ATK" && ep >= 70 && round.phase !== "EXECUTE") add("exec_ok", `Buen control (${ep}%): podéis ejecutar.`, 66, "map", "force_execute");
-    if (us === "ATK" && ep <= 35 && round.phase !== "EXECUTE") add("exec_no", `Poco control (${ep}%): sacad más espacio antes.`, 62, "map", "patience");
+    if (us === "ATK" && ep >= 70 && round.phase !== "EXECUTE") add("exec_ok", t("Buen control ({ep}%): podéis ejecutar.", { ep }), 66, "map", "force_execute");
+    if (us === "ATK" && ep <= 35 && round.phase !== "EXECUTE") add("exec_no", t("Poco control ({ep}%): sacad más espacio antes.", { ep }), 62, "map", "patience");
   }
 
   // — Modelo del rival (Scout) —
   const s = scoutReport ?? scout(match);
   if (s.rounds >= 2) {
-    if (s.pattern.strength >= 0.6) add("pattern", `Repiten ${s.pattern.label} en bucle: castígalo o fíntalo.`, 64, "enemy", "stack");
-    else if (s.predictedAttack.confidence >= 0.5) add("predict", `Atacan sobre todo por ${s.predictedAttack.label} (${Math.round(s.predictedAttack.confidence * 100)}%).`, 58, "enemy");
-    if (s.ourWorst.net <= -2) add("ourworst", `Perdemos mucho por ${s.ourWorst.label}: evítalo o cámbialo.`, 60, "us", "spread");
-    if (s.dominantFragger) add("fragger", `Cuidado con ${s.dominantFragger}: domina los duelos.`, 50, "enemy", "trade");
+    if (s.pattern.strength >= 0.6) add("pattern", t("Repiten {patron} en bucle: castígalo o fíntalo.", { patron: td(s.pattern.label) }), 64, "enemy", "stack");
+    else if (s.predictedAttack.confidence >= 0.5) add("predict", t("Atacan sobre todo por {zona} ({pct}%).", { zona: td(s.predictedAttack.label), pct: Math.round(s.predictedAttack.confidence * 100) }), 58, "enemy");
+    if (s.ourWorst.net <= -2) add("ourworst", t("Perdemos mucho por {zona}: evítalo o cámbialo.", { zona: td(s.ourWorst.label) }), 60, "us", "spread");
+    if (s.dominantFragger) add("fragger", t("Cuidado con {jugador}: domina los duelos.", { jugador: s.dominantFragger }), 50, "enemy", "trade");
   }
 
   // — Economía —
   const lossStreak = match.economy?.home.lossStreak ?? 0;
-  if (lossStreak >= 2) add("eco", `${lossStreak} rondas perdidas seguidas: cuida la economía.`, 52, "economy", "save");
-  if (match.roundNumber > 1 && s.enemyEconomy.buyingPower < 0.5) add("enemyeco", "Su economía está tocada: aprovecha el armamento.", 48, "economy", "aggression");
+  if (lossStreak >= 2) add("eco", t("{n} rondas perdidas seguidas: cuida la economía.", { n: lossStreak }), 52, "economy", "save");
+  if (match.roundNumber > 1 && s.enemyEconomy.buyingPower < 0.5) add("enemyeco", t("Su economía está tocada: aprovecha el armamento."), 48, "economy", "aggression");
 
   // — Estado mental del equipo —
   const ours = round.players.filter((p) => p.side === us);
   const tilt = avg(ours.map((p) => p.mental.tilt));
   const conf = avg(ours.map((p) => p.mental.confidence));
-  if (tilt >= 55) add("tilt", "El equipo está nervioso (tilt alto): cálmalos.", 68, "mental", "calm");
-  else if (conf >= 70) add("hot", "El equipo está inspirado: aprovéchalo.", 46, "mental", "motivate");
-  else if (conf <= 38) add("cold", "El equipo está frío: una palabra de ánimo ayudaría.", 56, "mental", "motivate");
+  if (tilt >= 55) add("tilt", t("El equipo está nervioso (tilt alto): cálmalos."), 68, "mental", "calm");
+  else if (conf >= 70) add("hot", t("El equipo está inspirado: aprovéchalo."), 46, "mental", "motivate");
+  else if (conf <= 38) add("cold", t("El equipo está frío: una palabra de ánimo ayudaría."), 56, "mental", "motivate");
 
   return out.sort((x, y) => y.priority - x.priority);
 }

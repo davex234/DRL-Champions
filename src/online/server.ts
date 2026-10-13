@@ -15,6 +15,9 @@ import { PROTOCOL_VERSION, localHandshake, incompatibilityReason, type Handshake
 import { type Lobby, type LobbyDraft, createLobby, joinLobby, setReady, startLobby } from "./lobby";
 import { newHeartbeat, dueForPing, timedOut, onPingSent, onPongReceived, type Heartbeat } from "./heartbeat";
 import { applyRoundCommands, matchScalars, snapshotRound, diffRound, newInputLog, appendCommand } from "./replication";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("online");
 
 interface Conn {
   id: string;
@@ -114,7 +117,7 @@ export class OnlineServer {
     const c = this.conns.get(from); if (!c || !c.authed) return;
     // El PRIMER cliente en entrar crea la sala y es el host (autoridad de arranque).
     if (!this.lobby) {
-      if (!this.draft) { this.send(from, "error", { reason: "Sin configuración de sala." }); return; }
+      if (!this.draft) { this.send(from, "error", { reason: tr("Sin configuración de sala.") }); return; }
       this.lobby = createLobby("lobby-1", { id: from, name: c.name, kind: c.kind as "player" | "observer" }, this.draft, 2);
     } else {
       const res = joinLobby(this.lobby, { id: from, name: c.name, kind: c.kind as "player" | "observer" });
@@ -132,7 +135,7 @@ export class OnlineServer {
   private onStart(from: string): void {
     if (!this.lobby || from !== this.lobby.hostId) return;   // solo el host arranca (autoridad)
     const res = startLobby(this.lobby);
-    if (!res) { this.send(from, "error", { reason: "No se puede arrancar." }); return; }
+    if (!res) { this.send(from, "error", { reason: tr("No se puede arrancar.") }); return; }
     this.lobby = res.lobby;
     this.startMatch(res.config);
   }

@@ -1,0 +1,17 @@
+{
+  "autoarista en {fromMatchId}": "self-edge at {fromMatchId}",
+  "cuadro: conflicto con resultados — {c}": "bracket: conflict with results — {c}",
+  "cuadro: transición no afirmada — {u}": "bracket: unconfirmed transition — {u}",
+  "el ganador de {fromMatchId} tiene dos destinos": "the winner of {fromMatchId} has two destinations",
+  "la página de VLR no parece un torneo (sin título de evento): {overview}": "the VLR page doesn't look like a tournament (no event title): {overview}",
+  "partido {vlrId}: página de detalle no disponible ({v}); mapas omitidos": "match {vlrId}: detail page unavailable ({v}); maps skipped",
+  "solo se descargaron {maxMatchPages}/{length} páginas de partido (maxMatchPages)": "only {maxMatchPages}/{length} match pages were downloaded (maxMatchPages)",
+  "{mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.": "{mapsParsed} maps read and NO scoreboard rows: the match page markup has probably changed. Without these rows, all per-player stats will be zero.",
+  "{tag}: clasificación no unívoca ({length} alimentadores, {length2} cajas)": "{tag}: ambiguous qualification ({length} feeders, {length2} boxes)",
+  "{tag}: el ganador «{w}» de {fromMatchId} no juega {toMatchId}": "{tag}: the winner «{w}» of {fromMatchId} doesn't play {toMatchId}",
+  "{tag}: el ganador «{w}» no es el clasificado «{q}»": "{tag}: the winner «{w}» is not the qualified team «{q}»",
+  "{tag}: parejas sin el patrón (down, up)": "{tag}: pairs without the (down, up) pattern",
+  "{tag}: sin destinos": "{tag}: no destinations",
+  "{tag}: {length} alimentadores para {length2} destinos": "{tag}: {length} feeders for {length2} destinations",
+  "{tag}: «{w}» no ocupa el hueco {toSlot} de {toMatchId}": "{tag}: «{w}» doesn't fill slot {toSlot} of {toMatchId}"
+}

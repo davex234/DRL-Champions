@@ -8,6 +8,9 @@
 import type { RoundState, SimPlayer } from "../sim/types";
 import { memoryTau, recallEnemies } from "./memory";
 import type { Hypothesis } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("brain");
 
 export interface Beliefs {
   list: Hypothesis[];
@@ -58,11 +61,11 @@ export function deriveBeliefs(s: RoundState, p: SimPlayer): Beliefs {
   const saving = !sawEnemyUtil && s.tick > 300 ? 0.4 : 0.12;
 
   const list: Hypothesis[] = [];
-  if (stackProb >= 0.45 && stackLane) list.push({ id: "stack", label: `Creo que stackean ${stackLane}`, prob: stackProb });
-  if (rotated >= 0.4) list.push({ id: "rotated", label: "Creo que han rotado", prob: rotated });
-  if (waiting >= 0.5) list.push({ id: "waiting", label: "Creo que esperan", prob: waiting });
-  if (saving >= 0.35) list.push({ id: "saving", label: "Creo que guardan", prob: saving });
-  if (list.length === 0) list.push({ id: "unsure", label: "No tengo claro qué hacen", prob: 0.5 });
+  if (stackProb >= 0.45 && stackLane) list.push({ id: "stack", label: t("Creo que stackean {stackLane}", { stackLane }), prob: stackProb });
+  if (rotated >= 0.4) list.push({ id: "rotated", label: t("Creo que han rotado"), prob: rotated });
+  if (waiting >= 0.5) list.push({ id: "waiting", label: t("Creo que esperan"), prob: waiting });
+  if (saving >= 0.35) list.push({ id: "saving", label: t("Creo que guardan"), prob: saving });
+  if (list.length === 0) list.push({ id: "unsure", label: t("No tengo claro qué hacen"), prob: 0.5 });
 
   return { list, enemyKnown, nearest, stackLane, stackProb, rotated, waiting, saving, planted: s.spike.planted };
 }

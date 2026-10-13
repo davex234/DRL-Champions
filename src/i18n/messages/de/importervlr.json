@@ -1,0 +1,17 @@
+{
+  "autoarista en {fromMatchId}": "Selbstkante in {fromMatchId}",
+  "cuadro: conflicto con resultados — {c}": "Turnierbaum: Konflikt mit Ergebnissen — {c}",
+  "cuadro: transición no afirmada — {u}": "Turnierbaum: Übergang nicht bestätigt — {u}",
+  "el ganador de {fromMatchId} tiene dos destinos": "der Sieger von {fromMatchId} hat zwei Ziele",
+  "la página de VLR no parece un torneo (sin título de evento): {overview}": "die VLR-Seite sieht nicht nach einem Turnier aus (kein Event-Titel): {overview}",
+  "partido {vlrId}: página de detalle no disponible ({v}); mapas omitidos": "Match {vlrId}: Detailseite nicht verfügbar ({v}); Maps ausgelassen",
+  "solo se descargaron {maxMatchPages}/{length} páginas de partido (maxMatchPages)": "nur {maxMatchPages}/{length} Match-Seiten heruntergeladen (maxMatchPages)",
+  "{mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.": "{mapsParsed} Maps gelesen und KEINE Scoreboard-Zeile: Das Markup der Match-Seite hat sich wahrscheinlich geändert. Ohne diese Zeilen sind alle Spielerstatistiken null.",
+  "{tag}: clasificación no unívoca ({length} alimentadores, {length2} cajas)": "{tag}: Qualifikation nicht eindeutig ({length} Zubringer, {length2} Boxen)",
+  "{tag}: el ganador «{w}» de {fromMatchId} no juega {toMatchId}": "{tag}: der Sieger „{w}“ von {fromMatchId} spielt nicht in {toMatchId}",
+  "{tag}: el ganador «{w}» no es el clasificado «{q}»": "{tag}: Der Sieger „{w}“ ist nicht der Qualifizierte „{q}“",
+  "{tag}: parejas sin el patrón (down, up)": "{tag}: Paare ohne das Muster (down, up)",
+  "{tag}: sin destinos": "{tag}: ohne Ziele",
+  "{tag}: {length} alimentadores para {length2} destinos": "{tag}: {length} Zubringer für {length2} Ziele",
+  "{tag}: «{w}» no ocupa el hueco {toSlot} de {toMatchId}": "{tag}: „{w}“ belegt nicht den Slot {toSlot} von {toMatchId}"
+}

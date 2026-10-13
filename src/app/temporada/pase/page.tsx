@@ -29,8 +29,14 @@ import { Toast } from "@/components/ui/Toast";
 import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
 import { SeasonTrackScreen, remaining } from "@/components/seasonTrack/SeasonTrackScreen";
 import { BattlePassScreen } from "@/components/season/BattlePassScreen";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const tr = ns("temporada");
 
 export default function BattlePassPage() {
+  useLocale();
   const { loading, user } = useAuth();
   const online = isSupabaseConfigured();
   const track = useSeasonTrack(!loading && user ? user.id : null);
@@ -46,24 +52,26 @@ export default function BattlePassPage() {
     try {
       const out = await claimSeasonReward(s.id, level);
       if (out.overview) track.setData(out.overview); else void track.reload();
-      setNotice({ ok: true, text: out.outcome === "CLAIMED" ? `Recompensa del nivel ${level} reclamada.` : `La recompensa del nivel ${level} ya era tuya.` });
+      setNotice({ ok: true, text: out.outcome === "CLAIMED" ? tr("Recompensa del nivel {level} reclamada.", { level }) : tr("La recompensa del nivel {level} ya era tuya.", { level }) });
     } catch (e) {
-      setNotice({ ok: false, text: e instanceof SeasonError ? e.message : "No se pudo reclamar. Inténtalo de nuevo." });
+      setNotice({ ok: false, text: e instanceof SeasonError ? e.message : tr("No se pudo reclamar. Inténtalo de nuevo.") });
       void track.reload();
     } finally { setClaiming(null); }
   }, [track, claiming]);
 
-  if (!online) return <EmptyState icon="🗓️" title="Pase no disponible sin conexión" hint="El pase se lee del servidor." action={{ href: "/temporada", label: "Volver a Temporada" }} />;
-  if (loading || (user && track.loading && !track.data)) return <Loading kind="hub" label="Leyendo el pase…" />;
+  if (!online) return <EmptyState icon="🗓️" title={tr("Pase no disponible sin conexión")} hint={tr("El pase se lee del servidor.")} action={{ href: "/temporada", label: tr("Volver a Temporada") }} />;
+  if (loading || (user && track.loading && !track.data)) return <Loading kind="hub" label={tr("Leyendo el pase…")} />;
   if (routeMode && track.data) return <SeasonTrackScreen data={track.data} onClaim={(l) => void onClaim(l)} claimingLevel={claiming} notice={notice} variant="pass" />;
-  if (!user) return <NeedsAccount what="tu pase de batalla" />;
+  if (!user) return <NeedsAccount what={tr("tu pase de batalla")} />;
 
   const next = track.data?.phase === "SCHEDULED" ? track.data.season : null;
   return (
     <>
       {next && (
         <p className="nx-clip mx-auto mt-4 max-w-6xl border border-drl-cyan/40 bg-drl-cyan/[0.07] px-4 py-3 text-[13px] text-white/80" data-testid="season-next-banner">
-          <b className="font-display uppercase tracking-wide text-drl-cyan">Próxima temporada:</b> {next.name} empieza en {remaining(Math.max(0, next.startsAt - (track.data?.serverNow ?? 0)))}.
+          {fill(tr("{titulo} {nombre} empieza en {tiempo}.", { ...slots("titulo"), nombre: td(next.name), tiempo: remaining(Math.max(0, next.startsAt - (track.data?.serverNow ?? 0))) }), {
+            titulo: <b className="font-display uppercase tracking-wide text-drl-cyan">{tr("Próxima temporada:")}</b>,
+          })}
         </p>
       )}
       <LegacyPass />
@@ -73,6 +81,7 @@ export default function BattlePassPage() {
 
 /** El pase de la temporada del calendario (`nexus-s1`): vista canónica + reclamo real por carril y nivel. */
 function LegacyPass() {
+  useLocale();
   const { toast, notify } = useToast();
   const [view, setView] = useState<ProgressionView | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -80,7 +89,7 @@ function LegacyPass() {
 
   const load = useCallback(async () => {
     setError(null);
-    try { setView(await fetchProgression()); } catch (e) { setError(e instanceof Error ? e.message : "No se pudo leer el pase"); }
+    try { setView(await fetchProgression()); } catch (e) { setError(e instanceof Error ? e.message : tr("No se pudo leer el pase")); }
   }, []);
   useEffect(() => { void load(); }, [load]);
 
@@ -90,9 +99,9 @@ function LegacyPass() {
     setBusy(`${track}:${level}`);
     try {
       await claimPassLevel(level, track);
-      notify(`Recompensa del nivel ${level} reclamada`, true);
+      notify(tr("Recompensa del nivel {level} reclamada", { level }), true);
     } catch (e) {
-      notify(e instanceof Error ? e.message : "No se pudo reclamar", false);
+      notify(e instanceof Error ? e.message : tr("No se pudo reclamar"), false);
     } finally {
       await load();
       await syncFromServer().catch(() => undefined);
@@ -100,8 +109,8 @@ function LegacyPass() {
     }
   }, [busy, load, notify]);
 
-  if (error && !view) return <ErrorState message={error} onRetry={load} />;
-  if (!view) return <Loading kind="hub" label="Leyendo el pase…" />;
+  if (error && !view) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!view) return <Loading kind="hub" label={tr("Leyendo el pase…")} />;
   return (
     <>
       <BattlePassScreen view={view} busyKey={busy} onClaim={(l, t) => void claim(l, t)} />

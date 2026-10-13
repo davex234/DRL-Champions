@@ -12,6 +12,10 @@ import { Rail } from "@/components/ui/Surface";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Plate } from "@/components/ui/Surface";
 import type { EventHubSnapshot, PickemView } from "@/server/services/liveEvents";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("liveEvents");
 
 const PICK_LABEL: Record<PickemView["byMatch"][string]["state"], { label: string; tone: "info" | "ok" | "bad" | "muted" }> = {
   open: { label: "Puedes predecir", tone: "info" }, picked: { label: "Tu predicción", tone: "ok" }, locked: { label: "Predicción cerrada", tone: "muted" },
@@ -21,13 +25,14 @@ const PICK_LABEL: Record<PickemView["byMatch"][string]["state"], { label: string
 const SHOW = 8;
 
 export function EventMatches({ snap }: { snap: EventHubSnapshot }) {
+  useLocale();
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const groups = useMemo(() => {
     const byStage = new Map<string, { name: string; rounds: Map<string, EventHubSnapshot["matches"]> }>();
     for (const m of snap.matches) {
       const sk = m.stage_id ?? "-";
-      const st = byStage.get(sk) ?? { name: m.stageName ?? "Partidos", rounds: new Map() };
-      const rk = m.round ?? "Partidos";
+      const st = byStage.get(sk) ?? { name: m.stageName ?? t("Partidos"), rounds: new Map() };
+      const rk = m.round ?? t("Partidos");
       const list = st.rounds.get(rk) ?? [];
       list.push(m); st.rounds.set(rk, list); byStage.set(sk, st);
     }
@@ -37,15 +42,15 @@ export function EventMatches({ snap }: { snap: EventHubSnapshot }) {
 
   if (snap.matches.length === 0) {
     return (
-      <section aria-label="Partidos" data-testid="event-matches" data-count={0}>
-        <SectionTitle>Partidos</SectionTitle>
-        <Plate className="px-6 py-8 text-center"><p className="font-display text-h3 font-bold uppercase tracking-wide text-white">Sin partidos publicados</p><p className="mx-auto mt-1.5 max-w-[46ch] text-body text-ink-muted">El calendario todavía no está publicado.</p></Plate>
+      <section aria-label={t("Partidos")} data-testid="event-matches" data-count={0}>
+        <SectionTitle>{t("Partidos")}</SectionTitle>
+        <Plate className="px-6 py-8 text-center"><p className="font-display text-h3 font-bold uppercase tracking-wide text-white">{t("Sin partidos publicados")}</p><p className="mx-auto mt-1.5 max-w-[46ch] text-body text-ink-muted">{t("El calendario todavía no está publicado.")}</p></Plate>
       </section>
     );
   }
   return (
-    <section aria-label="Partidos" data-testid="event-matches" data-count={snap.matches.length} className="space-y-5">
-      <SectionTitle>Partidos <span className="ml-2 text-ink-faint">({snap.matches.length})</span></SectionTitle>
+    <section aria-label={t("Partidos")} data-testid="event-matches" data-count={snap.matches.length} className="space-y-5">
+      <SectionTitle>{t("Partidos")} <span className="ml-2 text-ink-faint">({snap.matches.length})</span></SectionTitle>
       {groups.map(([stageKey, st]) => (
         <div key={stageKey} className="space-y-3">
           {groups.length > 1 && <Rail label={st.name} />}
@@ -54,8 +59,8 @@ export function EventMatches({ snap }: { snap: EventHubSnapshot }) {
             const expanded = open[key] || list.length <= SHOW;
             const shown = expanded ? list : list.slice(0, SHOW);
             return (
-              <section key={key} aria-label={round}>
-                <p className="nx-label mb-2">{round} · {list.length}</p>
+              <section key={key} aria-label={td(round)}>
+                <p className="nx-label mb-2">{td(round)} · {list.length}</p>
                 <div className="grid gap-2">
                   {shown.map((m) => {
                     const pick = snap.pickem?.byMatch[m.id];
@@ -68,7 +73,7 @@ export function EventMatches({ snap }: { snap: EventHubSnapshot }) {
                 </div>
                 {!expanded && (
                   <button type="button" onClick={() => setOpen((o) => ({ ...o, [key]: true }))} className="nx-focus mt-2 min-h-[44px] font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-cyan">
-                    Ver los {list.length} partidos
+                    {t("Ver los {n} partidos", { n: list.length })}
                   </button>
                 )}
               </section>

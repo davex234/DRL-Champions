@@ -23,6 +23,10 @@ import type { PickemQuestion } from "@/lib/game/client";
 import type { PickFeedback } from "@/lib/usePickem";
 import { FEATURED_KINDS, type AnswerMap } from "@/domain/pickems/progress";
 import type { BracketModel, BracketMatch } from "@/domain/pickems/bracket";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("pickems");
 
 export function BracketPickemView({
   model, questions, answers, now, saving, feedback, canPick, readOnly, onPick, onExpire, showResolved = false, bracketMode, changedIds, initialStageId,
@@ -46,6 +50,7 @@ export function BracketPickemView({
   /** 24.5 · fase a abrir (la del partido en directo / siguiente), si el evento la conoce. */
   initialStageId?: string | null;
 }) {
+  useLocale();
   const bracketStages = model.stages.filter((s) => s.bracket);
   const [stageId, setStageId] = useState<string | null>(() => {
     if (initialStageId !== undefined && model.stages.some((s) => s.id === initialStageId)) return initialStageId;
@@ -85,8 +90,8 @@ export function BracketPickemView({
       <BracketStageTabs stages={model.stages} selected={stageId} onSelect={setStageId} />
 
       {featured.length > 0 && (
-        <section aria-label="Predicciones destacadas">
-          <SectionTitle as="h2">Predicción destacada</SectionTitle>
+        <section aria-label={t("Predicciones destacadas")}>
+          <SectionTitle as="h2">{t("Predicción destacada")}</SectionTitle>
           <div className="grid grid-cols-[minmax(0,1fr)] gap-3">
             {featured.map((q) => (
               <PickQuestion key={q.id} q={q} mine={answers[q.id]} now={now} saving={saving === q.id}
@@ -99,10 +104,10 @@ export function BracketPickemView({
       )}
 
       {stage?.bracket ? (
-        <section aria-label={`Cuadro · ${stage.name}`}>
+        <section aria-label={t("Cuadro · {name}", { name: td(stage.name) })}>
           <SectionTitle as="h2">
-            {bracketStages.length > 1 || model.stages.length > 1 ? stage.name : "Cuadro de eliminatorias"}
-            <span className="text-ink-faint"> ({stage.roundIds.length} {stage.roundIds.length === 1 ? "ronda" : "rondas"})</span>
+            {bracketStages.length > 1 || model.stages.length > 1 ? td(stage.name) : t("Cuadro de eliminatorias")}
+            <span className="text-ink-faint"> ({stage.roundIds.length} {stage.roundIds.length === 1 ? t("ronda") : t("rondas")})</span>
           </SectionTitle>
           <TournamentBracket
             model={model}
@@ -123,14 +128,14 @@ export function BracketPickemView({
             canPick={canPick} readOnly={readOnly} showResolved={showResolved} onPick={onPick} onExpire={onExpire} />
         ) : (
           <Plate className="px-6 py-8 text-center">
-            <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">Sin predicciones en esta fase</p>
+            <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">{t("Sin predicciones en esta fase")}</p>
           </Plate>
         )
       ) : null}
 
       {stage?.bracket && leftover.length > 0 && (
-        <section aria-label="Más predicciones">
-          <SectionTitle as="h2">Más predicciones <span className="text-ink-faint">({leftover.length})</span></SectionTitle>
+        <section aria-label={t("Más predicciones")}>
+          <SectionTitle as="h2">{t("Más predicciones")} <span className="text-ink-faint">({leftover.length})</span></SectionTitle>
           <PickemBoard questions={leftover} answers={answers} now={now} saving={saving} feedback={feedback}
             canPick={canPick} readOnly={readOnly} showResolved={showResolved} onPick={onPick} onExpire={onExpire} />
         </section>

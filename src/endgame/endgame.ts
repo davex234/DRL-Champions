@@ -17,6 +17,9 @@ import { pressConference } from "./press";
 import { hallOfFameInduction } from "./induction";
 import { newGamePlusSeed } from "./newgameplus";
 import { clubIdOf } from "./util";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("endgame");
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 
@@ -34,7 +37,7 @@ export function buildEndgame(career: ManagerCareer, world: WorldState, at: numbe
   const rankIdx = clubId ? world.rankings.teams.findIndex((r) => r.id === clubId) : -1;
   const worldRankPos = rankIdx >= 0 ? rankIdx + 1 : world.rankings.teams.length;
   const impactScore = clamp(Math.round(stats.reputationScore * 0.4 + Math.min(30, stats.titles * 3) + Math.min(20, stats.playersTrained * 0.5) + (induction.inducted ? 10 : 0)), 0, 100);
-  const headline = `${career.coach.name} se retira: ${stats.titles} títulos y un legado de ${induction.tier}`;
+  const headline = t("{name} se retira: {titles} títulos y un legado de {tier}", { name: career.coach.name, titles: stats.titles, tier: td(induction.tier) });
 
   const endgame: EndgameState = {
     coachName: career.coach.name,
@@ -50,12 +53,12 @@ export function buildEndgame(career: ManagerCareer, world: WorldState, at: numbe
   const ev = (type: EndgameEventType, subject: string, detail: string, magnitude: number): EndgameEvent =>
     ({ id: `endgame:${career.season}:${type}:${subject}`.replace(/\s+/g, "_"), type, season: career.season, at, subject, detail, magnitude });
   const events: EndgameEvent[] = [
-    ev("retirement", career.coach.name, `${career.coach.name} anuncia su retirada tras ${stats.seasonsCoached} temporadas y ${stats.titles} títulos.`, 96),
-    ev("last_season", museum.clubName ?? career.coach.name, `${career.coach.name} dirige su última temporada.`, 80),
+    ev("retirement", career.coach.name, t("{name} anuncia su retirada tras {seasonsCoached} temporadas y {titles} títulos.", { name: career.coach.name, seasonsCoached: stats.seasonsCoached, titles: stats.titles }), 96),
+    ev("last_season", museum.clubName ?? career.coach.name, t("{name} dirige su última temporada.", { name: career.coach.name }), 80),
   ];
   if (induction.inducted) events.push(ev("hall_of_fame", career.coach.name, induction.citation, 98));
-  const topRec = records.career[3]; if (topRec) events.push(ev("career_record", career.coach.name, `Legado económico: ${topRec.value} generados en su carrera.`, 70));
-  if (ngp.reconversions[0]) events.push(ev("successor", ngp.reconversions[0].nick, `${ngp.reconversions[0].nick} ${ngp.reconversions[0].note} — la escuela de ${career.coach.name} continúa.`, 72));
+  const topRec = records.career[3]; if (topRec) events.push(ev("career_record", career.coach.name, t("Legado económico: {value} generados en su carrera.", { value: td(topRec.value) }), 70));
+  if (ngp.reconversions[0]) events.push(ev("successor", ngp.reconversions[0].nick, t("{nick} {note} — la escuela de {name} continúa.", { nick: ngp.reconversions[0].nick, note: td(ngp.reconversions[0].note), name: career.coach.name }), 72));
   events.push(ev("legacy", career.coach.name, ngp.worldMemoryNote, 85));
 
   return { endgame, events };

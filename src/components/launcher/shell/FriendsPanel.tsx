@@ -20,8 +20,14 @@ import { StatusDot } from "@/components/ui/Badge";
 import { TONE } from "@/components/ui/tone";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Avatar } from "./primitives";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("launcher");
 
 export function FriendsPanel({ motionScale, onOpenGame }: { motionScale: number; onOpenGame: (gameId: string) => void }) {
+  useLocale();
   const [query, setQuery] = useState("");
   const friends = useMemo(() => sortFriends(getFriends()), []);
   const connected = countConnected(friends);
@@ -34,18 +40,18 @@ export function FriendsPanel({ motionScale, onOpenGame }: { motionScale: number;
   return (
     <aside className="flex h-full min-h-0 w-[280px] shrink-0 flex-col border-l border-white/[0.06] bg-black/25 px-3 py-4">
       <SectionTitle className="px-1">
-        Amigos
+        {t("Amigos")}
       </SectionTitle>
 
       <div className="mb-3 px-1">
         <p className="mb-2 text-caption text-white/35">
-          <span className="nx-readout text-ok">{connected}</span> conectados de {friends.length}
+          {fill(t("{n} conectados de {total}", { ...slots("n"), total: friends.length }), { n: <span className="nx-readout text-ok">{connected}</span> })}
         </p>
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Buscar amigo…"
-          aria-label="Buscar amigo"
+          placeholder={t("Buscar amigo…")}
+          aria-label={t("Buscar amigo")}
           className="nx-clip-sm w-full bg-black/50 px-3 py-2 text-[12px] text-white placeholder:text-white/25 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-drl/60"
           style={{ boxShadow: "inset 0 1px 3px rgba(0,0,0,0.8)" }}
         />
@@ -53,7 +59,7 @@ export function FriendsPanel({ motionScale, onOpenGame }: { motionScale: number;
 
       <div className="nx-scroll -mx-1 min-h-0 flex-1 space-y-0.5 overflow-y-auto px-1">
         {visible.length === 0 ? (
-          <p className="px-2 py-6 text-center text-[12px] text-white/30">Nadie coincide con «{query}».</p>
+          <p className="px-2 py-6 text-center text-[12px] text-white/30">{t("Nadie coincide con «")}{query}».</p>
         ) : (
           visible.map((f, i) => {
             const game = f.gameId ? getGame(f.gameId) : undefined;
@@ -84,7 +90,7 @@ export function FriendsPanel({ motionScale, onOpenGame }: { motionScale: number;
                     <span className="shrink-0 text-[9.5px] font-bold text-white/25">{f.tag}</span>
                   </span>
                   <span className="mt-0.5 block truncate text-[10.5px]" style={{ color: on ? TONE[PRESENCE_TONE[f.presence]] : undefined }}>
-                    {f.activity ?? PRESENCE_LABEL[f.presence]}
+                    {td(f.activity) ?? tdIn("launcher", PRESENCE_LABEL[f.presence])}
                   </span>
                   {game && (
                     <span className="mt-0.5 block truncate text-label uppercase tracking-wider text-white/30">{game.name}</span>
@@ -101,7 +107,7 @@ export function FriendsPanel({ motionScale, onOpenGame }: { motionScale: number;
           type="button"
           className="nx-clip-sm w-full bg-white/[0.04] py-2.5 font-display text-caption font-bold uppercase tracking-[0.2em] text-white/60 transition hover:bg-white/[0.09] hover:text-white"
         >
-          + Añadir amigo
+          {t("+ Añadir amigo")}
         </button>
       </div>
     </aside>

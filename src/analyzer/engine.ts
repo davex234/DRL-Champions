@@ -11,6 +11,9 @@ import { computeStory } from "./story";
 import { tournamentType } from "./rating";
 import { clamp } from "./aggregate";
 import { ANALYZER_SCHEMA_VERSION, type TournamentReport, type TeamReport, type TournamentRecord } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("analyzer");
 
 const successOf = (t: TeamReport): number =>
   clamp(t.champion ? 1 : t.runnerUp ? 0.8 : t.thirdPlace ? 0.65 : t.reachedPlayoff ? 0.5 : 0.35 + 0.15 * t.winrate, 0, 1);
@@ -22,9 +25,9 @@ function records(model: CanonicalModel): TournamentRecord[] {
     for (const s of model.mapStats) { const v = f(s); if (typeof v === "number" && v > bv) { bv = v; b = s; } }
     if (b) out.push({ kind, playerId: b.playerId, matchId: b.matchId, value: Math.round(bv), label });
   };
-  top("Mayor ACS en un mapa", "top-map-acs", (s) => s.acs);
-  top("Más kills en un mapa", "top-map-kills", (s) => s.kills);
-  top("Más clutches en un mapa", "top-map-clutches", (s) => s.clutches);
+  top(tr("Mayor ACS en un mapa"), "top-map-acs", (s) => s.acs);
+  top(tr("Más kills en un mapa"), "top-map-kills", (s) => s.kills);
+  top(tr("Más clutches en un mapa"), "top-map-clutches", (s) => s.clutches);
   return out;
 }
 

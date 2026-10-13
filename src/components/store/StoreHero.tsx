@@ -14,6 +14,10 @@ import type { FeaturedHeroConfig } from "@/domain/store/types";
 import { NxButton } from "@/components/ui/NxButton";
 import { cardFacts, rarityColor, rgbVar } from "./storeView";
 import { css } from "./storeClasses";
+import { ns, td, tdIn, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("store");
 
 /** Posiciones del abanico (en % del ancho del escenario): la primera carta es la protagonista. */
 const FAN = [
@@ -25,12 +29,13 @@ const FAN = [
 ];
 
 export function StoreHero({ hero, onCta }: { hero: FeaturedHeroConfig; onCta: () => void }) {
+  useLocale();
   const pack = getPack(hero.packId);
   const art = pack ? packArtwork(pack.id) : null;
   const cards = hero.cardIds.map(cardFacts).filter((c): c is NonNullable<typeof c> => !!c).slice(0, FAN.length);
   const rarity = cards[0]?.rarity ?? "epic";
   const heroRgb = rgbVar(rarityColor(rarity));
-  const endDate = hero.endAt ? new Date(hero.endAt).toLocaleDateString("es-ES", { day: "numeric", month: "long" }) : null;
+  const endDate = hero.endAt ? new Date(hero.endAt).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "long" }) : null;
 
   return (
     <section
@@ -45,18 +50,18 @@ export function StoreHero({ hero, onCta }: { hero: FeaturedHeroConfig; onCta: ()
       <div className={`${css.heroText} relative z-10 flex flex-col justify-center px-5 pb-0 pt-6 sm:px-8 lg:px-12 lg:py-10`}>
         {/* F72.4 · arte dominante + título + CTA: la línea «edición · rareza · N cartas» repetía el título y sale. */}
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-display text-label font-bold uppercase tracking-wide2">
-          <span style={{ color: rarityColor(rarity) }}>{hero.eyebrow}</span>
-          {endDate && <span className="text-ink-muted">Hasta el {endDate}</span>}
+          <span style={{ color: rarityColor(rarity) }}>{tdIn("store", hero.eyebrow)}</span>
+          {endDate && <span className="text-ink-muted">{t("Hasta el {fecha}", { fecha: endDate })}</span>}
         </p>
         <h1 id="store-hero-title" className={`${css.heroTitle} mt-2 font-display text-[clamp(40px,7vw,84px)] font-bold uppercase leading-[0.9] tracking-tight`}>
-          {hero.title}
+          {td(hero.title)}
         </h1>
         <p className="mt-3 font-display text-[clamp(15px,1.6vw,20px)] font-bold uppercase tracking-[0.14em] text-white">
-          {hero.subtitle}
+          {td(hero.subtitle)}
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <NxButton variant="primary" size="lg" onClick={onCta}>{hero.ctaLabel}</NxButton>
-          <NxButton variant="ghost" size="lg" href="#cartas">Ver cartas</NxButton>
+          <NxButton variant="primary" size="lg" onClick={onCta}>{td(hero.ctaLabel)}</NxButton>
+          <NxButton variant="ghost" size="lg" href="#cartas">{t("Ver cartas")}</NxButton>
         </div>
       </div>
 

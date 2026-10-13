@@ -3,6 +3,9 @@
  * aquí no se recalcula ningún progreso, solo se elige qué enseñar y en qué orden.
  */
 import type { SetView } from "@/domain/collectionSets/view";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("trophies");
 
 export type TrophyFilter = "ALL" | "IN_PROGRESS" | "COMPLETED" | "LOCKED";
 export type TrophyKind = "ALL" | "TEAM" | "EDITION";
@@ -46,8 +49,9 @@ export function visibleSets(list: readonly SetView[], o: { filter: TrophyFilter;
 
 /** Texto de lo que falta, para la tarjeta y el lector de pantalla. */
 export function remainingText(s: SetView): string {
-  if (s.state === "COMPLETED") return "Completada";
-  if (s.state === "CLAIMABLE") return "¡Lista para reclamar!";
-  const unit = s.kind === "TEAM" ? (s.missing === 1 ? "jugador restante" : "jugadores restantes") : (s.missing === 1 ? "carta restante" : "cartas restantes");
-  return `${s.missing} ${unit}`;
+  if (s.state === "COMPLETED") return t("Completada");
+  if (s.state === "CLAIMABLE") return t("¡Lista para reclamar!");
+  return s.kind === "TEAM"
+    ? t("{n, plural, one {{n} jugador restante} other {{n} jugadores restantes}}", { n: s.missing })
+    : t("{n, plural, one {{n} carta restante} other {{n} cartas restantes}}", { n: s.missing });
 }

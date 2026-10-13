@@ -36,6 +36,9 @@ import { activeIconQuality, iconValueLevels, ICON_QUALITY_PACKS, type IconQualit
 import { marketValue } from "@/domain/economy/pricing";
 import { getPack } from "@/data/packs";
 import { packClassPools } from "./packPools";
+import { ns, td, tdIn, getIntlLocale, getLocale } from "@/i18n/runtime";
+
+const tr = ns("packs");
 
 export const BUCKET_ORDER: RarityBucket[] = ["common", "uncommon", "rare", "epic", "legendary"];
 
@@ -143,22 +146,22 @@ const IDENTITY_CACHE = new Map<string, ClassOddsSlots>();
 
 /** Porcentaje de una tabla/media con un decimal y coma (62,6 %, 0,3 %): nunca se redondea a «0 %» ni a «<1 %». */
 export function tablePct(p: number): string {
-  return `${(Math.round(p * 1000) / 10).toLocaleString("es-ES")} %`;
+  return `${(Math.round(p * 1000) / 10).toLocaleString(getIntlLocale())} %`;
 }
 /** Probabilidad exacta pequeña con dos cifras útiles (0,31 %, 8,2 %, 62 %). */
 export function finePct(p: number): string {
   const v = p * 100;
   const r = v >= 10 ? Math.round(v) : v >= 1 ? Math.round(v * 10) / 10 : Math.round(v * 100) / 100;
-  return `${r.toLocaleString("es-ES")} %`;
+  return `${r.toLocaleString(getIntlLocale())} %`;
 }
 /** Las tres frases de ranuras y mejor carta que enseñan la ficha y el detalle de compra (mismo texto, mismo cálculo). */
 export function slotLines(slots: ClassOddsSlots): { regular: string | null; featured: string; best: string; tilt: string | null } {
   return {
     // Un sobre de 1 carta (Icon) no tiene huecos normales: no se enseña una línea vacía.
-    regular: slots.regular.count === 0 ? null : `${slots.regular.count} ${slots.regular.count === 1 ? "carta normal" : "cartas normales"}: ${slots.regular.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}`,
-    featured: `Carta destacada (1 por sobre): ${slots.featured.rows.map((r) => `${r.label} ${tablePct(r.p)}`).join(" · ")}`,
-    best: `Mejor carta del sobre: OVR 90+ ${finePct(slots.bestAtLeast.ovr90)} · 93+ ${finePct(slots.bestAtLeast.ovr93)} · 95 ${finePct(slots.bestAtLeast.ovr95)}`,
-    tilt: slots.ovrTilt > 0 ? "Dentro de cada clase, en este sobre las cartas de OVR más alto son menos probables; todas pueden salir." : null,
+    regular: slots.regular.count === 0 ? null : `${slots.regular.count} ${slots.regular.count === 1 ? tr("carta normal") : tr("cartas normales")}: ${slots.regular.rows.map((r) => `${tdIn("packs", r.label)} ${tablePct(r.p)}`).join(" · ")}`,
+    featured: tr("Carta destacada (1 por sobre): {v}", { v: slots.featured.rows.map((r) => `${tdIn("packs", r.label)} ${tablePct(r.p)}`).join(" · ") }),
+    best: tr("Mejor carta del sobre: OVR 90+ {ovr90} · 93+ {ovr93} · 95 {ovr95}", { ovr90: finePct(slots.bestAtLeast.ovr90), ovr93: finePct(slots.bestAtLeast.ovr93), ovr95: finePct(slots.bestAtLeast.ovr95) }),
+    tilt: slots.ovrTilt > 0 ? tr("Dentro de cada clase, en este sobre las cartas de OVR más alto son menos probables; todas pueden salir.") : null,
   };
 }
 
@@ -200,16 +203,16 @@ export function classOddsFor(pack: Pick<PackDef, "id" | "cardCount">): ClassOdds
 
 /** «1 %», «12,5 %»: puntos básicos con los decimales que tengan (nunca redondeados). */
 export function bpPct(p: number): string {
-  return `${(Math.round(p * 1e6) / 1e4).toLocaleString("es-ES", { maximumFractionDigits: 2 })} %`;
+  return `${(Math.round(p * 1e6) / 1e4).toLocaleString(getIntlLocale(), { maximumFractionDigits: 2 })} %`;
 }
 
 /** Frases EXACTAS de la ficha (el encargo las fija). */
 export const ICON_COPY = {
-  chance: (p: number) => `Probabilidad de conseguir al menos una carta ICON en este sobre: ${bpPct(p)}`,
-  guaranteed: (n: number) => (n === 1 ? "Contiene exactamente 1 carta ICON garantizada." : `Contiene exactamente ${n} cartas ICON garantizadas.`),
+  chance: (p: number) => tr("Probabilidad de conseguir al menos una carta ICON en este sobre: {p}", { p: bpPct(p) }),
+  guaranteed: (n: number) => (n === 1 ? tr("Contiene exactamente 1 carta ICON garantizada.") : tr("Contiene exactamente {n} cartas ICON garantizadas.", { n })),
   independent: "Cada carta se sortea por separado: pueden repetirse.",
   favorsLow: "Las ICON de menor valor tienen mayor probabilidad de aparecer.",
-  topAtLeastOne: (ovr: number, p: number) => `Probabilidad de al menos una ICON de ${ovr} OVR: ${(Math.round(p * 10000) / 100).toLocaleString("es-ES")} %.`,
+  topAtLeastOne: (ovr: number, p: number) => tr("Probabilidad de al menos una ICON de {ovr} OVR: {v} %.", { ovr, v: (Math.round(p * 10000) / 100).toLocaleString(getIntlLocale()) }),
 } as const;
 
 const ICON_ODDS_CACHE = new Map<string, IconOdds | null>();
@@ -219,9 +222,10 @@ const ICON_ODDS_CACHE = new Map<string, IconOdds | null>();
  * ICON: cuántas garantiza y la probabilidad EXACTA de cada Icon POR CARTA (pool real × tabla de calidad aprobada).
  */
 export function iconOddsFor(pack: Pick<PackDef, "id">): IconOdds | null {
-  if (ICON_ODDS_CACHE.has(pack.id)) return ICON_ODDS_CACHE.get(pack.id)!;
+  const cacheKey = `${getLocale()}:${pack.id}`;
+  if (ICON_ODDS_CACHE.has(cacheKey)) return ICON_ODDS_CACHE.get(cacheKey)!;
   const atLeastOne = iconChanceOf(pack.id);
-  if (atLeastOne === null) { ICON_ODDS_CACHE.set(pack.id, null); return null; }
+  if (atLeastOne === null) { ICON_ODDS_CACHE.set(cacheKey, null); return null; }
   const count = guaranteedIcons(pack.id);
   const plan = packPlan(pack.id)!;
   const guaranteed = count > 0 && count === plan.cards;
@@ -245,7 +249,7 @@ export function iconOddsFor(pack: Pick<PackDef, "id">): IconOdds | null {
       quality = {
         table,
         levels: levels.map((lv, i) => ({ value: lv.value, p: table.shares[i] / 1000, cards: lv.cardIds.length })),
-        method: "Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad.",
+        method: tr("Cada Icon pertenece a un nivel según su valor de mercado (mismo valor, mismo nivel). Para cada carta se sortea primero el nivel con su probabilidad y después una carta del nivel, todas con la misma probabilidad."),
       };
     }
     // Varias cartas: probabilidad EXACTA de al menos una de la Icon de más OVR (independientes): 1 − (1 − p)^n.
@@ -256,10 +260,10 @@ export function iconOddsFor(pack: Pick<PackDef, "id">): IconOdds | null {
     }
   }
   const text = guaranteed
-    ? [ICON_COPY.guaranteed(count), ...(count > 1 ? [ICON_COPY.independent] : []), ...(favorsLowValue ? [ICON_COPY.favorsLow] : [])].join(" ")
+    ? [ICON_COPY.guaranteed(count), ...(count > 1 ? [td(ICON_COPY.independent)] : []), ...(favorsLowValue ? [td(ICON_COPY.favorsLow)] : [])].join(" ")
     : ICON_COPY.chance(atLeastOne);
   const out: IconOdds = { atLeastOne, guaranteed, count, text, cards, favorsLowValue, quality, top };
-  ICON_ODDS_CACHE.set(pack.id, out);
+  ICON_ODDS_CACHE.set(cacheKey, out);
   return out;
 }
 
@@ -288,8 +292,8 @@ export function atLeastOneIn(perCard: number, cardCount: number): number {
 /** Copia del sobre de equipo: aumentada, nunca «contiene». */
 export function teamBoostCopy(team: string, teamCards: number): string {
   return teamCards > 0
-    ? `Probabilidad aumentada de jugadores de ${team}: ${teamCards} cartas del equipo pueden salir y son más probables que el resto, pero no están garantizadas.`
-    : `Probabilidad aumentada de jugadores de ${team}. No está garantizado que salga uno.`;
+    ? tr("Probabilidad aumentada de jugadores de {team}: {teamCards} cartas del equipo pueden salir y son más probables que el resto, pero no están garantizadas.", { team, teamCards })
+    : tr("Probabilidad aumentada de jugadores de {team}. No está garantizado que salga uno.", { team });
 }
 
 export function packOddsFor(

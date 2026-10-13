@@ -25,6 +25,9 @@
  */
 import { TACTICAL_MAPS } from "./maps";
 import { getTacticalAgent, getLegacyAgent, isKnownAgentId, isSelectableAgentId, agentDisplayName, TACTICAL_ROLES, type TacticalRole } from "./roster";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("tactics");
 
 export const COMPOSITION_SIZE = 5;
 export const MAX_COMPOSITION_NAME = 60;
@@ -65,27 +68,27 @@ export function validateComposition(c: Pick<Composition, "name" | "mapId" | "age
   const out: CompositionIssue[] = [];
   const name = (c.name ?? "").trim();
 
-  if (name.length === 0) out.push({ code: "NAME_REQUIRED", message: "La composición necesita un nombre." });
+  if (name.length === 0) out.push({ code: "NAME_REQUIRED", message: t("La composición necesita un nombre.") });
   if (name.length > MAX_COMPOSITION_NAME) {
-    out.push({ code: "NAME_TOO_LONG", message: `El nombre no puede pasar de ${MAX_COMPOSITION_NAME} caracteres.` });
+    out.push({ code: "NAME_TOO_LONG", message: t("El nombre no puede pasar de {MAX_COMPOSITION_NAME} caracteres.", { MAX_COMPOSITION_NAME }) });
   }
   if ((c.notes ?? "").length > MAX_COMPOSITION_NOTES) {
-    out.push({ code: "NOTES_TOO_LONG", message: `Las notas no pueden pasar de ${MAX_COMPOSITION_NOTES} caracteres.` });
+    out.push({ code: "NOTES_TOO_LONG", message: t("Las notas no pueden pasar de {MAX_COMPOSITION_NOTES} caracteres.", { MAX_COMPOSITION_NOTES }) });
   }
-  if (!MAP_IDS.has(c.mapId)) out.push({ code: "UNKNOWN_MAP", message: `El mapa «${c.mapId}» no existe.` });
+  if (!MAP_IDS.has(c.mapId)) out.push({ code: "UNKNOWN_MAP", message: t("El mapa «{mapId}» no existe.", { mapId: c.mapId }) });
 
   const ids = (c.agentIds ?? []).filter(Boolean);
   if (ids.length > COMPOSITION_SIZE) {
-    out.push({ code: "TOO_MANY_AGENTS", message: `Una composición son ${COMPOSITION_SIZE} agentes como mucho.` });
+    out.push({ code: "TOO_MANY_AGENTS", message: t("Una composición son {COMPOSITION_SIZE} agentes como mucho.", { COMPOSITION_SIZE }) });
   }
   const vistos = new Set<string>();
   for (const id of ids) {
     if (!isKnownAgentId(id)) {
-      out.push({ code: "UNKNOWN_AGENT", message: `El agente «${id}» no existe.`, agentId: id });
+      out.push({ code: "UNKNOWN_AGENT", message: t("El agente «{id}» no existe.", { id }), agentId: id });
       continue;
     }
     if (vistos.has(id)) {
-      out.push({ code: "DUPLICATE_AGENT", message: "No se puede repetir un agente en la misma composición.", agentId: id });
+      out.push({ code: "DUPLICATE_AGENT", message: t("No se puede repetir un agente en la misma composición."), agentId: id });
     }
     vistos.add(id);
   }
@@ -111,39 +114,39 @@ export function validateComposition(c: Pick<Composition, "name" | "mapId" | "age
  */
 export function validateCompositionPayload(raw: unknown): CompositionIssue[] {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
-    return [{ code: "INVALID_PAYLOAD", message: "Composición no válida." }];
+    return [{ code: "INVALID_PAYLOAD", message: t("Composición no válida.") }];
   }
   const r = raw as Record<string, unknown>;
   const out: CompositionIssue[] = [];
   for (const campo of ["name", "mapId", "notes"] as const) {
     if (r[campo] !== undefined && typeof r[campo] !== "string") {
-      out.push({ code: "INVALID_PAYLOAD", message: "Composición no válida." });
+      out.push({ code: "INVALID_PAYLOAD", message: t("Composición no válida.") });
       return out;
     }
   }
   if (r.agentIds !== undefined && !Array.isArray(r.agentIds)) {
-    return [{ code: "INVALID_PAYLOAD", message: "La lista de agentes no es válida." }];
+    return [{ code: "INVALID_PAYLOAD", message: t("La lista de agentes no es válida.") }];
   }
   const ids = (r.agentIds as unknown[] | undefined) ?? [];
   if (ids.length > COMPOSITION_SIZE) {
-    out.push({ code: "TOO_MANY_AGENTS", message: `Una composición son ${COMPOSITION_SIZE} agentes como mucho.` });
+    out.push({ code: "TOO_MANY_AGENTS", message: t("Una composición son {COMPOSITION_SIZE} agentes como mucho.", { COMPOSITION_SIZE }) });
   }
   const vistos = new Set<string>();
   for (const id of ids) {
     if (typeof id !== "string") {
-      out.push({ code: "INVALID_PAYLOAD", message: "La lista de agentes no es válida." });
+      out.push({ code: "INVALID_PAYLOAD", message: t("La lista de agentes no es válida.") });
       continue;
     }
     if (!isKnownAgentId(id)) {
-      out.push({ code: "UNKNOWN_AGENT", message: `El agente «${id}» no existe.`, agentId: id });
+      out.push({ code: "UNKNOWN_AGENT", message: t("El agente «{id}» no existe.", { id }), agentId: id });
       continue;
     }
     if (!isSelectableAgentId(id)) {
-      out.push({ code: "LEGACY_AGENT", message: `«${agentDisplayName(id)}» es del modelo anterior: cámbialo por un agente del roster actual.`, agentId: id });
+      out.push({ code: "LEGACY_AGENT", message: t("«{id}» es del modelo anterior: cámbialo por un agente del roster actual.", { id: agentDisplayName(id) }), agentId: id });
       continue;
     }
     if (vistos.has(id)) {
-      out.push({ code: "DUPLICATE_AGENT", message: "No se puede repetir un agente en la misma composición.", agentId: id });
+      out.push({ code: "DUPLICATE_AGENT", message: t("No se puede repetir un agente en la misma composición."), agentId: id });
     }
     vistos.add(id);
   }

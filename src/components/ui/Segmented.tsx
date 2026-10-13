@@ -16,12 +16,15 @@
  * Cuando las opciones no son excluyentes o son muchas, esto NO es la pieza: eso es `Chip`.
  */
 import { cn } from "@/lib/format";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 export function Segmented<T extends string>({
   value, options, onChange, className, label,
 }: { value: T; options: { value: T; label: string }[]; onChange: (v: T) => void; className?: string; label?: string }) {
+  useLocale();
   return (
-    <div role="radiogroup" aria-label={label} className={cn("nx-clip-sm inline-flex gap-0.5 bg-black/40 p-0.5", className)}>
+    <div role="radiogroup" aria-label={td(label)} className={cn("nx-clip-sm inline-flex gap-0.5 bg-black/40 p-0.5", className)}>
       {options.map((o) => {
         const on = o.value === value;
         return (
@@ -38,7 +41,7 @@ export function Segmented<T extends string>({
               on ? "bg-white/90 text-black" : "text-ink-muted hover:bg-white/10 hover:text-white",
             )}
           >
-            {o.label}
+            {td(o.label)}
           </button>
         );
       })}

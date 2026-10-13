@@ -21,9 +21,13 @@ import { missionGroups, nextSteps, type MissionView, type NextStep } from "@/dom
 import type { SeasonPersonal } from "@/server/services/season";
 import { RewardVisual, rewardLabel } from "./SeasonRewards";
 import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("season");
 
 /** Como DRL Credits (`formatAmount`): agrupación SIEMPRE («1.500», no «1500»). */
-const fmt = (n: number) => new Intl.NumberFormat("es-ES", { useGrouping: "always" }).format(n);
+const fmt = (n: number) => new Intl.NumberFormat(getIntlLocale(), { useGrouping: "always" }).format(n);
 
 const STATE: Record<MissionView["state"], { label: string; cls: string }> = {
   ACTIVE: { label: "En curso", cls: "text-[#2fe0ff] shadow-[inset_0_0_0_1px_rgba(47,224,255,0.45)]" },
@@ -32,38 +36,39 @@ const STATE: Record<MissionView["state"], { label: string; cls: string }> = {
 };
 
 export function SeasonMissions({ objectives, serverNow }: { objectives: NonNullable<SeasonPersonal["objectives"]>; serverNow: number }) {
+  useLocale();
   const groups = missionGroups(objectives.all ?? objectives.list);
   return (
     <section aria-labelledby="missions-title" data-testid="season-missions" className="space-y-4">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="nx-label !text-[#ff5aa8]">Misiones de temporada</p>
-          <h2 id="missions-title" className="mt-1 font-display text-[clamp(22px,2.6vw,32px)] font-extrabold uppercase leading-none text-white">Tus misiones</h2>
-          <p className="mt-1.5 text-[13px] text-white/60">Cada misión da XP de pase al reclamarla: es lo que sube tu nivel de temporada.</p>
+          <p className="nx-label !text-[#ff5aa8]">{t("Misiones de temporada")}</p>
+          <h2 id="missions-title" className="mt-1 font-display text-[clamp(22px,2.6vw,32px)] font-extrabold uppercase leading-none text-white">{t("Tus misiones")}</h2>
+          <p className="mt-1.5 text-[13px] text-white/60">{t("Cada misión da XP de pase al reclamarla: es lo que sube tu nivel de temporada.")}</p>
         </div>
         {objectives.claimable > 0 && (
           <Link href="/logros" className="nx-focus inline-flex min-h-[44px] items-center bg-[#ffd35c] px-4 font-display text-[12px] font-extrabold uppercase tracking-[0.14em] text-[#1a1204] hover:brightness-110" data-testid="missions-claim">
-            Reclamar {objectives.claimable} en Logros →
+            {t("Reclamar {n} en Logros →", { n: objectives.claimable })}
           </Link>
         )}
       </header>
 
       {(objectives.rotationPending || objectives.unassigned) && (
         <p role="status" className="border-l-2 border-l-[#2fe0ff] bg-white/[0.03] px-3 py-2 text-[13px] text-white/75" data-testid="missions-rotation">
-          {objectives.unassigned ? "Aún no tienes misiones asignadas." : "Hay una tanda nueva de misiones."} Se asignan al abrir{" "}
-          <Link href="/logros" className="text-[#2fe0ff] underline">Logros y pase</Link>.
+          {objectives.unassigned ? t("Aún no tienes misiones asignadas.") : t("Hay una tanda nueva de misiones.")} {t("Se asignan al abrir")}{" "}
+          <Link href="/logros" className="text-[#2fe0ff] underline">{t("Logros y pase")}</Link>.
         </p>
       )}
 
       {groups.length === 0 ? (
-        <p className="border border-white/10 bg-white/[0.03] px-4 py-6 text-center text-[14px] text-white/60" data-testid="missions-empty">No hay misiones activas en este momento.</p>
+        <p className="border border-white/10 bg-white/[0.03] px-4 py-6 text-center text-[14px] text-white/60" data-testid="missions-empty">{t("No hay misiones activas en este momento.")}</p>
       ) : (
         <div className="grid gap-4 lg:grid-cols-2">
           {groups.map((g) => (
             <div key={g.kind} className="nx-clip-sm border border-white/10 bg-[linear-gradient(180deg,rgba(12,16,28,0.95),rgba(6,8,14,0.95))] p-3 sm:p-4" data-mission-kind={g.kind}>
               <div className="mb-2.5 flex items-baseline justify-between gap-2">
-                <h3 className="font-display text-[14px] font-extrabold uppercase tracking-[0.16em] text-white">{g.label}</h3>
-                <span className="nx-label !text-white/50">{g.missions.filter((m) => m.state !== "ACTIVE").length}/{g.missions.length} hechas</span>
+                <h3 className="font-display text-[14px] font-extrabold uppercase tracking-[0.16em] text-white">{td(g.label)}</h3>
+                <span className="nx-label !text-white/50">{g.missions.filter((m) => m.state !== "ACTIVE").length}/{g.missions.length} {t("hechas")}</span>
               </div>
               <ul className="space-y-2">
                 {g.missions.map((m) => <li key={`${m.id}@${m.assignedAt}`}><MissionCard m={m} serverNow={serverNow} /></li>)}
@@ -77,6 +82,7 @@ export function SeasonMissions({ objectives, serverNow }: { objectives: NonNulla
 }
 
 function MissionCard({ m, serverNow }: { m: MissionView; serverNow: number }) {
+  useLocale();
   const s = STATE[m.state];
   const renueva = m.expiresAt && m.state !== "CLAIMED" && m.expiresAt > serverNow ? formatCountdown(countdown(m.expiresAt, serverNow)).primary.toLowerCase() : null;
   const pack = m.packId ? packArtwork(m.packId) : null;
@@ -93,18 +99,18 @@ function MissionCard({ m, serverNow }: { m: MissionView; serverNow: number }) {
     >
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <b className="min-w-0 font-display text-[14px] font-bold uppercase leading-tight tracking-[0.04em] text-white">{m.label}</b>
-          <span className={cn("px-1.5 py-0.5 font-display text-[9.5px] font-bold uppercase tracking-[0.14em]", s.cls)}>{s.label}</span>
+          <b className="min-w-0 font-display text-[14px] font-bold uppercase leading-tight tracking-[0.04em] text-white">{td(m.label)}</b>
+          <span className={cn("px-1.5 py-0.5 font-display text-[9.5px] font-bold uppercase tracking-[0.14em]", s.cls)}>{td(s.label)}</span>
         </div>
         <div className="mt-2 flex items-center gap-2">
           <div
             className="h-2 flex-1 overflow-hidden rounded-full bg-black/60"
             role="progressbar"
-            aria-label={`Progreso de «${m.label}»`}
+            aria-label={t("Progreso de «{label}»", { label: td(m.label) })}
             aria-valuemin={0}
             aria-valuemax={m.goal}
             aria-valuenow={Math.min(m.current, m.goal)}
-            aria-valuetext={m.state === "ACTIVE" ? `${fmt(Math.min(m.current, m.goal))} de ${fmt(m.goal)}` : s.label}
+            aria-valuetext={m.state === "ACTIVE" ? t("{v} de {goal}", { v: fmt(Math.min(m.current, m.goal)), goal: fmt(m.goal) }) : td(s.label)}
           >
             <span
               className={cn("block h-full rounded-full transition-[width] duration-500 motion-reduce:transition-none", m.state === "ACTIVE" ? "bg-[linear-gradient(90deg,#1aa6e6,#2fe0ff)]" : m.state === "COMPLETE" ? "bg-[#ffd35c]" : "bg-[#3fd696]")}
@@ -118,15 +124,15 @@ function MissionCard({ m, serverNow }: { m: MissionView; serverNow: number }) {
           {m.packId && (
             <span className="inline-flex items-center gap-1 text-white/80">
               {pack && <img src={pack} alt="" width={14} height={20} loading="lazy" decoding="async" className="h-5 w-auto" />}
-              {m.packCount > 1 ? `${m.packCount}× ` : ""}{getPack(m.packId)?.name ?? m.packId}
+              {m.packCount > 1 ? `${m.packCount}× ` : ""}{td(getPack(m.packId)?.name ?? m.packId)}
             </span>
           )}
-          {m.xp > 0 && <span className="font-display font-bold text-[#2fe0ff]">+{fmt(m.xp)} XP de pase</span>}
-          {renueva && <span className="ml-auto text-white/45" data-testid="mission-renews">Renueva en {renueva}</span>}
+          {m.xp > 0 && <span className="font-display font-bold text-[#2fe0ff]">+{fmt(m.xp)} {t("XP de pase")}</span>}
+          {renueva && <span className="ml-auto text-white/45" data-testid="mission-renews">{t("Renueva en {tiempo}", { tiempo: td(renueva) })}</span>}
         </div>
         {m.state === "COMPLETE" && (
           <Link href="/logros" className="nx-focus mt-2 inline-flex min-h-[36px] items-center font-display text-[11px] font-bold uppercase tracking-[0.14em] text-[#ffd35c] underline-offset-4 hover:underline">
-            Reclamar en Logros →
+            {t("Reclamar en Logros →")}
           </Link>
         )}
       </div>
@@ -136,6 +142,7 @@ function MissionCard({ m, serverNow }: { m: MissionView; serverNow: number }) {
 
 /** «¿Qué hago ahora?», con cifras exactas de la foto: reclamar, la misión más cercana y el siguiente nivel. */
 export function SeasonNextSteps({ personal }: { personal: SeasonPersonal }) {
+  useLocale();
   const pass = personal.pass;
   const steps = nextSteps({
     pass,
@@ -146,22 +153,23 @@ export function SeasonNextSteps({ personal }: { personal: SeasonPersonal }) {
   if (steps.length === 0) return null;
   return (
     <section aria-labelledby="next-title" data-testid="season-next" className="grid gap-3 md:grid-cols-3">
-      <h2 id="next-title" className="sr-only">Siguiente objetivo</h2>
+      <h2 id="next-title" className="sr-only">{t("Siguiente objetivo")}</h2>
       {steps.map((st) => <StepCard key={st.kind} st={st} />)}
     </section>
   );
 }
 
 function StepCard({ st }: { st: NextStep }) {
+  useLocale();
   const base = "nx-clip-sm relative flex min-h-[104px] items-center gap-3 overflow-hidden border px-4 py-3";
   if (st.kind === "claim") {
     return (
       <Link href={st.href} className={cn(base, "nx-focus border-[rgba(255,211,92,0.6)] bg-[rgba(255,211,92,0.08)] hover:bg-[rgba(255,211,92,0.14)]")} data-step="claim">
         <span aria-hidden className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#ffd35c] text-[20px] text-[#1a1204]"><GameGlyph name="star" className="h-5 w-5" strokeWidth={2.2} /></span>
         <span className="min-w-0">
-          <span className="nx-label !text-[#ffd35c]">Ahora</span>
-          <b className="block font-display text-[16px] font-extrabold uppercase leading-tight text-white">{st.count} {st.count === 1 ? "recompensa" : "recompensas"} por reclamar</b>
-          <span className="text-[12.5px] text-white/65">En Logros y pase →</span>
+          <span className="nx-label !text-[#ffd35c]">{t("Ahora")}</span>
+          <b className="block font-display text-[16px] font-extrabold uppercase leading-tight text-white">{st.count} {st.count === 1 ? t("recompensa") : t("recompensas")} {t("por reclamar")}</b>
+          <span className="text-[12.5px] text-white/65">{t("En Logros y pase →")}</span>
         </span>
       </Link>
     );
@@ -171,9 +179,9 @@ function StepCard({ st }: { st: NextStep }) {
       <div className={cn(base, "border-[rgba(47,224,255,0.35)] bg-[rgba(47,224,255,0.05)]")} data-step="mission">
         <span aria-hidden className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[rgba(47,224,255,0.15)] font-display text-[15px] font-extrabold text-[#2fe0ff]">{st.remaining}</span>
         <span className="min-w-0">
-          <span className="nx-label !text-[#2fe0ff]">Misión más cercana</span>
-          <b className="block font-display text-[15px] font-extrabold uppercase leading-tight text-white">Te {st.remaining === 1 ? "falta" : "faltan"} {fmt(st.remaining)} para «{st.label}»</b>
-          <span className="text-[12.5px] text-white/65">{fmt(st.current)} / {fmt(st.goal)}{st.xp > 0 ? ` · +${fmt(st.xp)} XP de pase` : ""}{st.rewardCredits > 0 ? ` · ${fmt(st.rewardCredits)} créditos` : ""}</span>
+          <span className="nx-label !text-[#2fe0ff]">{t("Misión más cercana")}</span>
+          <b className="block font-display text-[15px] font-extrabold uppercase leading-tight text-white">{t("{n, plural, one {Te falta {count} para «{label}»} other {Te faltan {count} para «{label}»}}", { n: st.remaining, count: fmt(st.remaining), label: td(st.label) })}</b>
+          <span className="text-[12.5px] text-white/65">{fmt(st.current)} / {fmt(st.goal)}{st.xp > 0 ? t(" · +{xp} XP de pase", { xp: fmt(st.xp) }) : ""}{st.rewardCredits > 0 ? t(" · {rewardCredits} créditos", { rewardCredits: fmt(st.rewardCredits) }) : ""}</span>
         </span>
       </div>
     );
@@ -182,9 +190,9 @@ function StepCard({ st }: { st: NextStep }) {
     <div className={cn(base, "border-white/15 bg-white/[0.03]")} data-step="level">
       <span className="shrink-0"><RewardVisual reward={st.reward} size={52} /></span>
       <span className="min-w-0">
-        <span className="nx-label">Siguiente nivel · {st.nextLevel}</span>
-        <b className="block font-display text-[15px] font-extrabold uppercase leading-tight text-white">Te faltan {fmt(st.xpRemaining)} XP de pase</b>
-        <span className="text-[12.5px] text-white/65">{st.reward ? rewardLabel(st.reward) : "Sin recompensa en el carril libre"}</span>
+        <span className="nx-label">{t("Siguiente nivel ·")} {st.nextLevel}</span>
+        <b className="block font-display text-[15px] font-extrabold uppercase leading-tight text-white">{t("Te faltan")} {fmt(st.xpRemaining)} {t("XP de pase")}</b>
+        <span className="text-[12.5px] text-white/65">{st.reward ? rewardLabel(st.reward) : t("Sin recompensa en el carril libre")}</span>
       </span>
     </div>
   );

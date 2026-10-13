@@ -40,6 +40,9 @@ import type { RoleId } from "@/domain/cards/types";
  */
 import { isKnownAgentId, isKnownAbilityId } from "./roster";
 import { getTacticalMap, type Side } from "./maps";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("tactics");
 
 export const STRAT_VERSION = 2;
 
@@ -270,7 +273,7 @@ export function cloneStrat(s: Strat): Strat {
  * poder pensar, y lo que se quiere es empezar a mover. Si el mapa define zonas se usa la
  * base; los assets no las traen, así que casi siempre se cae al borde por defecto.
  */
-export function emptyStrat(id: string, mapId: string, side: Side, name = "Nueva estrategia"): Strat {
+export function emptyStrat(id: string, mapId: string, side: Side, name = tr("Nueva estrategia")): Strat {
   const mapDef = getTacticalMap(mapId);
   const spawn = mapDef?.zones?.find(
     (z) => z.kind === "spawn" && z.id.startsWith(side === "attack" ? "atk" : "def"),
@@ -291,7 +294,7 @@ export function emptyStrat(id: string, mapId: string, side: Side, name = "Nueva 
     steps: [{
       id: "s0",
       at: 0,
-      label: "Preparación",
+      label: tr("Preparación"),
       notes: "",
       state: {
         ...emptyStepState(),
@@ -336,7 +339,7 @@ export function addStep(strat: Strat, label?: string, at?: number): Strat {
     steps: [...strat.steps, {
       id: uid("s"),
       at: Math.max(0, Math.round(at ?? (previo?.at ?? 0) + 15)),
-      label: label ?? `Paso ${n}`,
+      label: label ?? tr("Paso {n}", { n }),
       notes: "",
       state: previo ? cloneStepState(previo.state) : emptyStepState(),
     }],
@@ -466,34 +469,34 @@ export function validateStrat(strat: Strat): { ok: boolean; issues: StratIssue[]
   const issues: StratIssue[] = [];
 
   if (!getTacticalMap(strat.mapId)) {
-    issues.push({ code: "MAP_UNKNOWN", message: `El mapa «${strat.mapId}» no existe` });
+    issues.push({ code: "MAP_UNKNOWN", message: tr("El mapa «{mapId}» no existe", { mapId: strat.mapId }) });
   }
 
   if (strat.steps.length === 0) {
-    issues.push({ code: "NO_STEPS", message: "Una estrategia necesita al menos un paso" });
+    issues.push({ code: "NO_STEPS", message: tr("Una estrategia necesita al menos un paso") });
   }
   if (strat.steps.length > MAX_STEPS) {
-    issues.push({ code: "TOO_MANY", message: `Una estrategia admite ${MAX_STEPS} pasos como mucho` });
+    issues.push({ code: "TOO_MANY", message: tr("Una estrategia admite {MAX_STEPS} pasos como mucho", { MAX_STEPS }) });
   }
 
   strat.steps.forEach((st, i) => {
     const n = i + 1;
     if (st.state.players.length > TEAM_SIZE) {
-      issues.push({ code: "TEAM_SIZE", message: `El paso ${n} tiene ${st.state.players.length} jugadores y el tope son ${TEAM_SIZE}` });
+      issues.push({ code: "TEAM_SIZE", message: tr("El paso {n} tiene {length} jugadores y el tope son {TEAM_SIZE}", { n, length: st.state.players.length, TEAM_SIZE }) });
     }
     const roles = st.state.players.map((p) => p.role);
     if (new Set(roles).size !== roles.length) {
-      issues.push({ code: "ROLE_DUPLICATE", message: `El paso ${n} repite un rol` });
+      issues.push({ code: "ROLE_DUPLICATE", message: tr("El paso {n} repite un rol", { n }) });
     }
     // FULL GAME AUDIT (2026-10-07) · dos jugadores no pueden llevar el MISMO agente (como en las composiciones).
     const agents = st.state.players.map((p) => p.agentId).filter((a): a is string => typeof a === "string" && a.length > 0);
     if (new Set(agents).size !== agents.length) {
-      issues.push({ code: "AGENT_DUPLICATE", message: `El paso ${n} repite un agente` });
+      issues.push({ code: "AGENT_DUPLICATE", message: tr("El paso {n} repite un agente", { n }) });
     }
     if (st.state.utilities.length > MAX_UTILITIES
       || st.state.drawings.length > MAX_DRAWINGS
       || st.state.annotations.length > MAX_ANNOTATIONS) {
-      issues.push({ code: "TOO_MANY", message: `El paso ${n} tiene demasiados elementos para leerse` });
+      issues.push({ code: "TOO_MANY", message: tr("El paso {n} tiene demasiados elementos para leerse", { n }) });
     }
 
     const fuera =
@@ -502,7 +505,7 @@ export function validateStrat(strat: Strat): { ok: boolean; issues: StratIssue[]
       || st.state.annotations.some((a) => !dentro(a))
       || st.state.drawings.some((d) => d.points.some((p) => !dentro(p)));
     if (fuera) {
-      issues.push({ code: "OUT_OF_BOUNDS", message: `El paso ${n} tiene elementos fuera del mapa` });
+      issues.push({ code: "OUT_OF_BOUNDS", message: tr("El paso {n} tiene elementos fuera del mapa", { n }) });
     }
   });
 
@@ -666,7 +669,7 @@ export function sanitizeStrat(raw: unknown, fallbackId: string): Strat | null {
   }
 
   if (steps.length === 0) {
-    steps = [{ id: "s0", at: 0, label: "Preparación", notes: "", state: emptyStepState() }];
+    steps = [{ id: "s0", at: 0, label: tr("Preparación"), notes: "", state: emptyStepState() }];
   }
 
   const tags = (Array.isArray(r.tags) ? r.tags : [])

@@ -26,8 +26,14 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { RoundEndView } from "@/components/sim/useCoachMatch";
 import { Stage, Plate } from "@/components/ui/Surface";
 import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("coach");
 
 export function RoundOutcome({ view }: { view: RoundEndView }) {
+  useLocale();
   const reduced = useReducedMotion();
   const { causes } = view;
 
@@ -45,7 +51,7 @@ export function RoundOutcome({ view }: { view: RoundEndView }) {
       >
         <Stage tone={view.won ? "success" : "primary"} className="px-5 py-6 text-center">
           <span className="nx-label">
-            Ronda {view.roundNumber}
+            {t("Ronda")} {view.roundNumber}
             {view.reason ? ` · ${view.reason}` : ""}
           </span>
           <h2
@@ -54,7 +60,7 @@ export function RoundOutcome({ view }: { view: RoundEndView }) {
               view.won ? "text-ok" : "text-drl-glow",
             )}
           >
-            {causes.headline}
+            {td(causes.headline)}
           </h2>
           <p className="nx-readout mt-2 text-[28px] leading-none text-white">
             {view.score.home}
@@ -67,7 +73,7 @@ export function RoundOutcome({ view }: { view: RoundEndView }) {
             <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
               {view.topFragger && (
                 <span className="nx-clip-sm bg-white/6 px-2.5 py-1 text-caption text-white/70">
-                  Destacado <b className="text-white">{view.topFragger.name}</b> · {view.topFragger.kills} bajas
+                  {fill(t("Destacado {player} · {kills} bajas", { ...slots("player"), kills: view.topFragger.kills }), { player: <b className="text-white">{view.topFragger.name}</b> })}
                 </span>
               )}
               {view.moments.map((m, i) => (
@@ -76,7 +82,7 @@ export function RoundOutcome({ view }: { view: RoundEndView }) {
                   className="nx-clip-sm px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-[0.18em]"
                   style={{ color: m.hex, background: `${m.hex}18`, boxShadow: `inset 0 0 0 1px ${m.hex}55` }}
                 >
-                  {m.label}
+                  {td(m.label)}
                 </span>
               ))}
             </div>
@@ -86,7 +92,7 @@ export function RoundOutcome({ view }: { view: RoundEndView }) {
 
       {/* ═══ POR QUÉ PASÓ ═══ Debajo, y sin prisa. */}
       <Plate className="px-4 py-3.5">
-        <span className="nx-label">Por qué pasó</span>
+        <span className="nx-label">{t("Por qué pasó")}</span>
         <ul className="mt-2 space-y-1.5">
           {causes.causes.map((c, i) => (
             <li
@@ -100,7 +106,7 @@ export function RoundOutcome({ view }: { view: RoundEndView }) {
                     : "border-white/15 text-ink-muted",
               )}
             >
-              {c.text}
+              {td(c.text)}
             </li>
           ))}
         </ul>

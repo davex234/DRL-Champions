@@ -30,6 +30,8 @@
  */
 import { CHAMFER, DEPTH, SURFACE, SURFACES } from "@/design/tokens";
 import { cn } from "@/lib/format";
+import { td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
 type Tone = "neutral" | "primary" | "cyan" | "gold" | "success";
 
@@ -131,13 +133,15 @@ export function Recessed({
 export function Rail({
   label, tone = "neutral", className, ...rest
 }: React.HTMLAttributes<HTMLDivElement> & { label?: string; tone?: Tone }) {
+  useLocale();
   const c = TINT[tone];
   return (
     <div data-surface="rail" className={cn("relative flex items-center gap-3", className)} {...rest}>
       <Filo tint={c} />
       {label && (
         <span
-          className="nx-clip-sm shrink-0 px-2.5 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.3em]"
+          /* min-w-0 (no shrink-0): un rótulo largo parte en dos líneas centrado en vez de salirse de la pantalla (390 px) */
+          className="nx-clip-sm min-w-0 text-center px-2.5 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.3em]"
           style={{
             ["--nx-chamfer-sm" as string]: CHAMFER.medallion,
             color: `rgb(${c} / 0.85)`,
@@ -145,7 +149,7 @@ export function Rail({
             boxShadow: `inset 0 0 0 1px rgb(${c} / 0.28)`,
           }}
         >
-          {label}
+          {td(label)}
         </span>
       )}
       <Filo tint={c} />

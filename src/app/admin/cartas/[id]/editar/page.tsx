@@ -52,6 +52,11 @@ import { applyStatBoost } from "@/domain/cards/ovr";
 import { marketValue } from "@/domain/economy/pricing";
 import { salvageValue } from "@/domain/economy/salvage";
 import type { Player, VariantId, CardDef } from "@/domain/cards/types";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("admin");
 
 interface EditorData {
   cardId: string;
@@ -72,6 +77,7 @@ interface EditorData {
 const EJES = ["stronghold", "gamesense", "entryfrag"] as const;
 
 export default function EditarCartaPage() {
+  useLocale();
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const cardId = decodeURIComponent(String(params.id));
@@ -154,7 +160,7 @@ export default function EditarCartaPage() {
         const err = e as Error & { conflict?: boolean; current?: number };
         if (err.conflict) {
           setConflicto(
-            `${err.message}${err.current ? ` La versión vigente ahora es la v${err.current}.` : ""}`,
+            `${err.message}${err.current ? t(" La versión vigente ahora es la v{current}.", { current: err.current }) : ""}`,
           );
         }
         throw err;
@@ -166,13 +172,13 @@ export default function EditarCartaPage() {
     router.push(`/admin/cartas/${encodeURIComponent(cardId)}`);
   };
 
-  if (!data && running) return <Stage className="p-6"><Loading label="Cargando el editor…" /></Stage>;
+  if (!data && running) return <Stage className="p-6"><Loading label={t("Cargando el editor…")} /></Stage>;
   if (!data) {
     return (
       <Stage className="space-y-4 p-6">
-        <ErrorBar error={error} onClose={clear} />
-        <ErrorState message={`No se pudo abrir el editor de ${cardId}`} onRetry={() => void cargar()} />
-        <NxButton href="/admin/cartas" variant="secondary">Volver al listado</NxButton>
+        <ErrorBar error={td(error)} onClose={clear} />
+        <ErrorState message={t("No se pudo abrir el editor de {cardId}", { cardId: td(cardId) })} onRetry={() => void cargar()} />
+        <NxButton href="/admin/cartas" variant="secondary">{t("Volver al listado")}</NxButton>
       </Stage>
     );
   }
@@ -193,25 +199,24 @@ export default function EditarCartaPage() {
           <p className="mt-1 font-mono text-[12px] text-drl-cyan">{data.cardId}</p>
         </div>
         <div className="flex gap-2">
-          <NxButton href={`/admin/cartas/${encodeURIComponent(cardId)}`} variant="ghost">← Ficha</NxButton>
+          <NxButton href={`/admin/cartas/${encodeURIComponent(cardId)}`} variant="ghost">{t("← Ficha")}</NxButton>
         </div>
       </header>
 
       {/* Con conflicto manda la banda de abajo, que explica qué hacer. No se dice dos veces. */}
-      <ErrorBar error={conflicto ? null : error} onClose={clear} />
+      <ErrorBar error={conflicto ? null : td(error)} onClose={clear} />
 
       {conflicto && (
         <Plate tone="gold" className="space-y-2 p-4" role="alert">
           <p className="font-display text-sm font-bold uppercase tracking-wider text-drl-gold">
-            Otro administrador se ha adelantado
+            {t("Otro administrador se ha adelantado")}
           </p>
-          <p className="text-sm text-white/70">{conflicto}</p>
+          <p className="text-sm text-white/70">{td(conflicto)}</p>
           <p className="text-sm text-white/50">
-            No se ha guardado nada. Tus tres números siguen en el formulario: anótalos si los
-            necesitas, recarga para ver lo que hay ahora y decide sobre esa base.
+            {t("No se ha guardado nada. Tus tres números siguen en el formulario: anótalos si los necesitas, recarga para ver lo que hay ahora y decide sobre esa base.")}
           </p>
           <NxButton variant="secondary" onClick={() => void cargar()}>
-            Recargar la versión actual
+            {t("Recargar la versión actual")}
           </NxButton>
         </Plate>
       )}
@@ -219,9 +224,7 @@ export default function EditarCartaPage() {
       {!editable && (
         <Plate tone="neutral" className="p-4">
           <p className="text-sm text-white/70">
-            Una carta en <strong>{data.lifecycle}</strong> no se edita. Es el final del ciclo de
-            vida: su definición y su historial se conservan tal cual, y ni se versiona ni se
-            borra. Si hay que retomarla, primero hay que moverla de estado desde la ficha.
+            {fill(t("Una carta en {estado} no se edita. Es el final del ciclo de vida: su definición y su historial se conservan tal cual, y ni se versiona ni se borra. Si hay que retomarla, primero hay que moverla de estado desde la ficha.", slots("estado")), { estado: <strong>{td(data.lifecycle)}</strong> })}
           </p>
         </Plate>
       )}
@@ -232,22 +235,20 @@ export default function EditarCartaPage() {
           <div className="min-w-0 space-y-5">
             <section aria-labelledby="h-trio">
               <h2 id="h-trio" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-                1 · Trío de combate (lo único que se escribe)
+                {t("1 · Trío de combate (lo único que se escribe)")}
               </h2>
               <Plate className="space-y-4 p-4">
                 <p className="text-sm text-white/50">
-                  Son los valores <strong>base</strong> del jugador, sin el bonus de la variante.
-                  La carta suma después los{" "}
-                  <strong className="text-white/80">+{data.variant.statBoost}</strong> de{" "}
-                  {data.variant.label}.
+                  {fill(t("Son los valores {base} del jugador, sin el bonus de la variante. La carta suma después los {bonus} de {variante}.", { ...slots("base", "bonus"), variante: td(data.variant.label) }), {
+                    base: <strong>{t("base")}</strong>,
+                    bonus: <strong className="text-white/80">+{data.variant.statBoost}</strong>,
+                  })}
                 </p>
 
                 {!data.baseExact && (
                   <Recessed className="border border-drl-gold/30 p-3">
                     <p className="text-[12px] leading-relaxed text-drl-gold">
-                      El trío guardado no se reconstruye exactamente desde su base (algún eje
-                      está en el tope de la escala). Los números de abajo son la base mínima
-                      compatible: guardar sin tocarlos deja la carta como está.
+                      {t("El trío guardado no se reconstruye exactamente desde su base (algún eje está en el tope de la escala). Los números de abajo son la base mínima compatible: guardar sin tocarlos deja la carta como está.")}
                     </p>
                   </Recessed>
                 )}
@@ -260,7 +261,7 @@ export default function EditarCartaPage() {
                           className="font-display text-label uppercase tracking-wider"
                           style={{ color: COMBAT_STAT_META[k].color }}
                         >
-                          {COMBAT_STAT_META[k].label} · {COMBAT_STAT_META[k].full}
+                          {td(COMBAT_STAT_META[k].label)} · {td(COMBAT_STAT_META[k].full)}
                         </span>
                       </label>
                       <input
@@ -272,9 +273,9 @@ export default function EditarCartaPage() {
                         className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-3 font-display text-lg font-bold tabular-nums text-white outline-none focus-visible:border-drl"
                       />
                       <p id={`eje-${k}-ayuda`} className="mt-1 text-[11px] text-white/35">
-                        base 0-99 · en carta {derivada?.combat[k] ?? "—"}
+                        {t("base 0-99 · en carta {valor}", { valor: derivada?.combat[k] ?? "—" })}
                         {data.baseCombat[k] !== base[k] && (
-                          <span className="text-drl-gold"> · era {data.baseCombat[k]}</span>
+                          <span className="text-drl-gold"> {t("· era {valor}", { valor: data.baseCombat[k] })}</span>
                         )}
                       </p>
                     </div>
@@ -287,19 +288,18 @@ export default function EditarCartaPage() {
                     disabled={!hayCambios}
                     onClick={() => setBase(data.baseCombat)}
                   >
-                    Deshacer cambios
+                    {t("Deshacer cambios")}
                   </NxButton>
                   {data.generator ? (
                     <NxButton
                       variant="tertiary"
                       onClick={() => setBase(data.generator!.combat)}
                     >
-                      Restaurar el trío derivado ({data.generator.combat.stronghold}/
-                      {data.generator.combat.gamesense}/{data.generator.combat.entryfrag})
+                      {t("Restaurar el trío derivado ({trio})", { trio: `${data.generator.combat.stronghold}/${data.generator.combat.gamesense}/${data.generator.combat.entryfrag}` })}
                     </NxButton>
                   ) : (
                     <Badge tone="warn">
-                      Sin trío derivable: {data.generatorReason ?? "el generador rechaza a este jugador"}
+                      {t("Sin trío derivable:")} {td(data.generatorReason) ?? t("el generador rechaza a este jugador")}
                     </Badge>
                   )}
                 </div>
@@ -309,52 +309,46 @@ export default function EditarCartaPage() {
             {/* ── Lo derivado ── */}
             <section aria-labelledby="h-derivado">
               <h2 id="h-derivado" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-                2 · Lo que se deriva (no se escribe)
+                {t("2 · Lo que se deriva (no se escribe)")}
               </h2>
               <Plate className="space-y-4 p-4">
                 <div className="flex flex-wrap items-end gap-6">
                   <div>
-                    <p className="font-display text-label uppercase tracking-wider text-white/40">OVR</p>
+                    <p className="font-display text-label uppercase tracking-wider text-white/40">{t("OVR")}</p>
                     <p className="font-display text-4xl font-bold tabular-nums text-white">
                       {derivada?.ovr ?? "—"}
                       {original && derivada && derivada.ovr !== original.ovr && (
                         <span className="ml-2 align-middle font-display text-sm text-drl-gold">
-                          era {original.ovr}
+                          {t("era {valor}", { valor: original.ovr })}
                         </span>
                       )}
                     </p>
                   </div>
                   <p className="max-w-sm text-[12px] leading-relaxed text-white/40">
-                    Sale de <code className="text-white/60">computeCombatOvr()</code> sobre el
-                    trío ya boosteado: media ponderada del trío ordenado de mayor a menor,
-                    reescalada contra el anclaje congelado de VCT-2026.
+                    {fill(t("Sale de {fn} sobre el trío ya boosteado: media ponderada del trío ordenado de mayor a menor, reescalada contra el anclaje congelado de VCT-2026.", slots("fn")), { fn: <code className="text-white/60">computeCombatOvr()</code> })}
                   </p>
                 </div>
 
                 <FieldGrid cols={4}>
-                  <Field label="Rank">{data.variant.rank}</Field>
-                  <Field label="Bucket">{data.variant.bucket}</Field>
-                  <Field label="Stat boost">+{data.variant.statBoost}</Field>
-                  <Field label="Serializada">
-                    {data.variant.serialized ? `sí · /${data.variant.serialLimit ?? "?"}` : "no"}
+                  <Field label={t("Rank")}>{data.variant.rank}</Field>
+                  <Field label={t("Bucket")}>{td(data.variant.bucket)}</Field>
+                  <Field label={t("Stat boost")}>+{data.variant.statBoost}</Field>
+                  <Field label={t("Serializada")}>
+                    {data.variant.serialized ? t("sí · /{v}", { v: data.variant.serialLimit ?? "?" }) : t("no")}
                   </Field>
-                  <Field label="Valor de mercado">
-                    {derivada ? `${marketValue(derivada.card).toLocaleString("es-ES")} cr` : "—"}
+                  <Field label={t("Valor de mercado")}>
+                    {derivada ? t("{v} cr", { v: marketValue(derivada.card).toLocaleString(getIntlLocale()) }) : "—"}
                   </Field>
-                  <Field label="Desguace">
-                    {derivada ? `${salvageValue(derivada.card).toLocaleString("es-ES")} cr` : "—"}
+                  <Field label={t("Desguace")}>
+                    {derivada ? t("{v} cr", { v: salvageValue(derivada.card).toLocaleString(getIntlLocale()) }) : "—"}
                   </Field>
-                  <Field label="Origen de la definición">{data.origin}</Field>
-                  <Field label="Ejemplares acuñados">{ejemplaresIntactos}</Field>
+                  <Field label={t("Origen de la definición")}>{td(data.origin)}</Field>
+                  <Field label={t("Ejemplares acuñados")}>{ejemplaresIntactos}</Field>
                 </FieldGrid>
 
                 <Recessed className="p-3">
                   <p className="text-[11px] leading-relaxed text-white/45">
-                    Rank, bucket y boost los fija la variante; las seis estadísticas heredadas
-                    salen del jugador más el boost; la huella la firma el servidor sobre la
-                    fila final. Si el trío que guardas difiere del derivado, la carta queda
-                    marcada <code className="text-drl-gold">editorial</code>: deja de ser un
-                    dato de VLR y pasa a ser una decisión con nombre y motivo.
+                    {fill(t("Rank, bucket y boost los fija la variante; las seis estadísticas heredadas salen del jugador más el boost; la huella la firma el servidor sobre la fila final. Si el trío que guardas difiere del derivado, la carta queda marcada {marca}: deja de ser un dato de VLR y pasa a ser una decisión con nombre y motivo.", slots("marca")), { marca: <code className="text-drl-gold">editorial</code> })}
                   </p>
                 </Recessed>
               </Plate>
@@ -364,7 +358,7 @@ export default function EditarCartaPage() {
           {/* ── Derecha: la carta de verdad ── */}
           <section aria-labelledby="h-preview" className="min-w-0">
             <h2 id="h-preview" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-              3 · Cómo queda
+              {t("3 · Cómo queda")}
             </h2>
             <Plate className="p-4">
               {derivada ? (
@@ -375,10 +369,10 @@ export default function EditarCartaPage() {
                   ovr={derivada.ovr}
                   combat={derivada.combat}
                   size="lg"
-                  nota={esBorrador ? "Es un borrador: todavía no la tiene nadie." : undefined}
+                  nota={esBorrador ? t("Es un borrador: todavía no la tiene nadie.") : undefined}
                 />
               ) : (
-                <p className="p-6 text-sm text-white/40">Sin datos suficientes para la preview.</p>
+                <p className="p-6 text-sm text-white/40">{t("Sin datos suficientes para la preview.")}</p>
               )}
             </Plate>
           </section>
@@ -389,7 +383,7 @@ export default function EditarCartaPage() {
       {editable && (
         <section aria-labelledby="h-guardar">
           <h2 id="h-guardar" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-            4 · Guardar
+            {t("4 · Guardar")}
           </h2>
           <Plate className="flex flex-wrap items-center gap-3 p-4">
             <NxButton
@@ -397,23 +391,23 @@ export default function EditarCartaPage() {
               disabled={!hayCambios || running}
               onClick={() => setConfirmando(true)}
             >
-              {esBorrador ? "Guardar el borrador" : "Publicar una versión nueva"}
+              {esBorrador ? t("Guardar el borrador") : t("Publicar una versión nueva")}
             </NxButton>
             <p className="text-[12px] text-white/40">
               {esBorrador
-                ? "Se edita en sitio: no hay ejemplares, así que no hay historia que preservar."
-                : `Se crea la versión v${data.definitionVersion + 1}. Los ${ejemplaresIntactos} ejemplares ya acuñados siguen apuntando a la suya y no cambian.`}
+                ? t("Se edita en sitio: no hay ejemplares, así que no hay historia que preservar.")
+                : t("Se crea la versión v{v}. Los {ejemplaresIntactos} ejemplares ya acuñados siguen apuntando a la suya y no cambian.", { v: data.definitionVersion + 1, ejemplaresIntactos })}
             </p>
           </Plate>
         </section>
       )}
 
-      <Rail label="El trío lo escribe una persona; el resto lo deriva el servidor" />
+      <Rail label={t("El trío lo escribe una persona; el resto lo deriva el servidor")} />
 
       <ConfirmDialog
         open={confirmando}
-        title={esBorrador ? "Guardar el borrador" : `Publicar la versión v${data.definitionVersion + 1}`}
-        confirmLabel={esBorrador ? "Guardar" : "Publicar versión"}
+        title={esBorrador ? t("Guardar el borrador") : t("Publicar la versión v{v}", { v: data.definitionVersion + 1 })}
+        confirmLabel={esBorrador ? t("Guardar") : t("Publicar versión")}
         running={running}
         onCancel={() => setConfirmando(false)}
         onConfirm={(motivo) => void guardar(motivo)}
@@ -421,23 +415,21 @@ export default function EditarCartaPage() {
           <div className="space-y-2 text-sm text-white/70">
             <p className="font-mono text-[12px] text-drl-cyan">{data.cardId}</p>
             <p>
-              Trío base {data.baseCombat.stronghold}/{data.baseCombat.gamesense}/
+              {t("Trío base")} {data.baseCombat.stronghold}/{data.baseCombat.gamesense}/
               {data.baseCombat.entryfrag} → <strong className="text-white">
                 {base.stronghold}/{base.gamesense}/{base.entryfrag}
               </strong>
             </p>
             {original && derivada && (
-              <p>OVR {original.ovr} → <strong className="text-white">{derivada.ovr}</strong></p>
+              <p>{t("OVR")} {original.ovr} → <strong className="text-white">{derivada.ovr}</strong></p>
             )}
             {esBorrador ? (
               <p className="text-white/50">
-                Es un borrador: se reescribe su versión 1 y no hay ejemplares a los que afectar.
+                {t("Es un borrador: se reescribe su versión 1 y no hay ejemplares a los que afectar.")}
               </p>
             ) : (
               <p className="text-white/50">
-                Se crea una versión nueva. <strong className="text-white">{ejemplaresIntactos}</strong>{" "}
-                ejemplares ya acuñados se quedan exactamente como están: siguen apuntando a la
-                versión bajo la que nacieron.
+                {fill(t("Se crea una versión nueva. {n} ejemplares ya acuñados se quedan exactamente como están: siguen apuntando a la versión bajo la que nacieron.", slots("n")), { n: <strong className="text-white">{ejemplaresIntactos}</strong> })}
               </p>
             )}
           </div>

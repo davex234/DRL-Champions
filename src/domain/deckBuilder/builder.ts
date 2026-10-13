@@ -29,6 +29,9 @@ import {
 import { compareCards } from "@/domain/cardgame/deckInsert";
 import { COMBAT_STAT_META, COMBAT_STAT_ORDER, type CombatStatKey, type CombatStats } from "@/domain/cards/combat";
 import type { Region, RoleId, VariantId } from "@/domain/cards/types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("deckBuilder");
 
 /* ───────────────────────────── carta del constructor ───────────────────────────── */
 
@@ -137,12 +140,12 @@ export interface Issue {
 }
 
 /** «6 / 10 CARTAS». */
-export const countLabel = (count: number): string => `${count} / ${DUEL_DECK_SIZE} CARTAS`;
+export const countLabel = (count: number): string => t("{count} / {DUEL_DECK_SIZE} CARTAS", { count, DUEL_DECK_SIZE });
 
 /** «Faltan: 1 Controlador · 1 Centinela · 2 Flex», o null si no falta ningún rol. */
 export function missingText(v: DuelDeckValidation): string | null {
   const roles = DUEL_ROLES.filter((r) => v.missingByRole[r] > 0);
-  return roles.length ? `Faltan: ${roles.map((r) => roleCount(v.missingByRole[r], r)).join(" · ")}` : null;
+  return roles.length ? t("Faltan: {roles}", { roles: roles.map((r) => roleCount(v.missingByRole[r], r)).join(" · ") }) : null;
 }
 
 const dupPlayersFor = (v: DuelDeckValidation, playerId: string): boolean =>
@@ -168,12 +171,12 @@ export function describeIssues(check: DraftCheck, uids: readonly string[], pool:
         if (actual <= expected || !e.role) break;
         const role = e.role;
         const inRole = uids.filter((u) => pool.get(u)?.role === role);
-        out.push({ kind: "excess", code: e.code, role, message: `Sobra ${roleCount(actual - expected, role)}: solo caben ${expected}.`, uids: inRole.slice(expected) });
+        out.push({ kind: "excess", code: e.code, role, message: t("Sobra {v}: solo caben {expected}.", { v: roleCount(actual - expected, role), expected }), uids: inRole.slice(expected) });
         break;
       }
       case "DECK_SIZE": {
         const actual = e.actual ?? 0;
-        if (actual > DUEL_DECK_SIZE) out.push({ kind: "excess", code: e.code, message: `Sobran ${actual - DUEL_DECK_SIZE} cartas: un equipo tiene ${DUEL_DECK_SIZE}.`, uids: [] });
+        if (actual > DUEL_DECK_SIZE) out.push({ kind: "excess", code: e.code, message: t("Sobran {v} cartas: un equipo tiene {DUEL_DECK_SIZE}.", { v: actual - DUEL_DECK_SIZE, DUEL_DECK_SIZE }), uids: [] });
         break;
       }
       case "DUPLICATE_PLAYER": {
@@ -187,7 +190,7 @@ export function describeIssues(check: DraftCheck, uids: readonly string[], pool:
       case "DUPLICATE_CARD": {
         const card = e.uid ? pool.get(e.uid) : undefined;
         if (card && dupPlayersFor(v, card.playerId)) break; // ya lo cuenta el jugador repetido
-        out.push({ kind: "conflict", code: e.code, message: "No puedes usar la misma carta dos veces en el mismo equipo.", uids: e.uid ? [e.uid] : [] });
+        out.push({ kind: "conflict", code: e.code, message: t("No puedes usar la misma carta dos veces en el mismo equipo."), uids: e.uid ? [e.uid] : [] });
         break;
       }
       case "CARD_NOT_OWNED":
@@ -281,7 +284,7 @@ export function buildBoard(uids: readonly string[], pool: Pool, check: DraftChec
       slots.push(slot);
     }
     for (const u of perRole[role].slice(quota)) {
-      extras.push({ uid: u, card: pool.get(u) ?? null, issue: problems.get(u) ?? `Sobra: solo caben ${quota} de ${role}.` });
+      extras.push({ uid: u, card: pool.get(u) ?? null, issue: problems.get(u) ?? t("Sobra: solo caben {quota} de {role}.", { quota, role: td(role) }) });
     }
   }
   return { slots, byRole, extras };
@@ -329,9 +332,9 @@ function explainBlock(fresh: DuelDeckError[], card: BuilderCard, uids: readonly 
       return blocked("DUPLICATE_PLAYER", DUPLICATE_PLAYER_TEXT, other);
     }
     case "ROLE_COUNT":
-      return blocked("ROLE_FULL", `Los ${DUEL_COMPOSITION[card.role]} huecos de ${card.role} están ocupados. Sustituye una carta.`);
+      return blocked("ROLE_FULL", t("Los {v} huecos de {role} están ocupados. Sustituye una carta.", { v: DUEL_COMPOSITION[card.role], role: td(card.role) }));
     case "DECK_SIZE":
-      return blocked("DECK_FULL", `El equipo ya tiene ${DUEL_DECK_SIZE} cartas. Sustituye una.`);
+      return blocked("DECK_FULL", t("El equipo ya tiene {DUEL_DECK_SIZE} cartas. Sustituye una.", { DUEL_DECK_SIZE }));
     case "INCOMPATIBLE_DATA_VERSION":
       return blocked("DATA_VERSION", explainDeckError(e));
     default:
@@ -341,10 +344,10 @@ function explainBlock(fresh: DuelDeckError[], card: BuilderCard, uids: readonly 
 
 /** Añadir una carta al borrador (a su rol). Mutación canónica `addCard`. */
 export function tryAdd(uids: readonly string[], uid: string, pool: Pool, before: DraftCheck = checkDraft(uids, pool)): EditResult {
-  if (uids.includes(uid)) return blocked("ALREADY_IN", "Esta carta ya está en el equipo.", uid);
+  if (uids.includes(uid)) return blocked("ALREADY_IN", t("Esta carta ya está en el equipo."), uid);
   const card = pool.get(uid);
-  if (!card) return blocked("NOT_OWNED", "Esta carta no está en tu colección.");
-  if (uids.length >= DUEL_DECK_SIZE) return blocked("DECK_FULL", `El equipo ya tiene ${DUEL_DECK_SIZE} cartas. Sustituye una.`);
+  if (!card) return blocked("NOT_OWNED", t("Esta carta no está en tu colección."));
+  if (uids.length >= DUEL_DECK_SIZE) return blocked("DECK_FULL", t("El equipo ya tiene {DUEL_DECK_SIZE} cartas. Sustituye una.", { DUEL_DECK_SIZE }));
   const next = addCard(draftDeck(uids), uid, 0).cards;
   const fresh = newHardErrors(before, checkDraft(next, pool));
   return fresh.length ? explainBlock(fresh, card, uids, pool, null) : { ok: true, uids: next };
@@ -352,13 +355,13 @@ export function tryAdd(uids: readonly string[], uid: string, pool: Pool, before:
 
 /** Sustituir una carta por otra en el MISMO hueco. Mutación canónica `replaceCard` (conserva la posición). */
 export function tryReplace(uids: readonly string[], oldUid: string, newUid: string, pool: Pool, before: DraftCheck = checkDraft(uids, pool)): EditResult {
-  if (!uids.includes(oldUid)) return blocked("NOT_IN_DECK", "Esa carta ya no está en el equipo.");
+  if (!uids.includes(oldUid)) return blocked("NOT_IN_DECK", t("Esa carta ya no está en el equipo."));
   if (oldUid === newUid) return { ok: true, uids: [...uids] };
-  if (uids.includes(newUid)) return blocked("ALREADY_IN", "Esta carta ya está en el equipo.", newUid);
+  if (uids.includes(newUid)) return blocked("ALREADY_IN", t("Esta carta ya está en el equipo."), newUid);
   const card = pool.get(newUid);
-  if (!card) return blocked("NOT_OWNED", "Esta carta no está en tu colección.");
+  if (!card) return blocked("NOT_OWNED", t("Esta carta no está en tu colección."));
   const old = pool.get(oldUid);
-  if (old && old.role !== card.role) return blocked("WRONG_ROLE", `Este hueco es de ${old.role}; ${card.nick} juega de ${card.role}.`);
+  if (old && old.role !== card.role) return blocked("WRONG_ROLE", t("Este hueco es de {role}; {nick} juega de {role2}.", { role: td(old.role), nick: card.nick, role2: td(card.role) }));
   const next = replaceCard(draftDeck(uids), oldUid, newUid, 0).cards;
   const fresh = newHardErrors(before, checkDraft(next, pool));
   return fresh.length ? explainBlock(fresh, card, uids, pool, oldUid) : { ok: true, uids: next };
@@ -367,14 +370,14 @@ export function tryReplace(uids: readonly string[], oldUid: string, newUid: stri
 /** Colocar una carta en un hueco concreto: vacío ⇒ añadir; ocupado ⇒ sustituir. */
 export function tryPlace(uids: readonly string[], slot: BoardSlot, uid: string, pool: Pool, before: DraftCheck = checkDraft(uids, pool)): EditResult {
   const card = pool.get(uid);
-  if (!card) return blocked("NOT_OWNED", "Esta carta no está en tu colección.");
-  if (card.role !== slot.role) return blocked("WRONG_ROLE", `Este hueco es de ${slot.role}; ${card.nick} juega de ${card.role}.`);
+  if (!card) return blocked("NOT_OWNED", t("Esta carta no está en tu colección."));
+  if (card.role !== slot.role) return blocked("WRONG_ROLE", t("Este hueco es de {role}; {nick} juega de {role2}.", { role: td(slot.role), nick: card.nick, role2: td(card.role) }));
   return slot.uid ? tryReplace(uids, slot.uid, uid, pool, before) : tryAdd(uids, uid, pool, before);
 }
 
 /** Quitar siempre es posible: un equipo a medias es un estado legítimo. Mutación canónica `removeCard`. */
 export function tryRemove(uids: readonly string[], uid: string): EditResult {
-  if (!uids.includes(uid)) return blocked("NOT_IN_DECK", "Esa carta ya no está en el equipo.");
+  if (!uids.includes(uid)) return blocked("NOT_IN_DECK", t("Esa carta ya no está en el equipo."));
   return { ok: true, uids: removeCard(draftDeck(uids), uid, 0).cards };
 }
 
@@ -585,9 +588,9 @@ export interface Suggestion { card: BuilderCard | null; reason: string }
  */
 export function suggestForSlot(slot: BoardSlot, uids: readonly string[], pool: Pool): Suggestion {
   const legal = candidatesForSlot(slot, uids, pool).filter((c) => c.ok).map((c) => c.card).sort(byOvr);
-  if (!legal.length) return { card: null, reason: "No tienes cartas compatibles para este hueco." };
+  if (!legal.length) return { card: null, reason: t("No tienes cartas compatibles para este hueco.") };
   const best = legal[0];
-  if (slot.card && best.ovr <= slot.card.ovr) return { card: null, reason: "Ya tienes en este hueco la mejor OVR disponible." };
+  if (slot.card && best.ovr <= slot.card.ovr) return { card: null, reason: t("Ya tienes en este hueco la mejor OVR disponible.") };
   return { card: best, reason: SUGGEST_REASON };
 }
 
@@ -619,7 +622,7 @@ export function autocomplete(uids: readonly string[], pool: Pool, opts: AutoOpti
   const keepCheck = checkDraft(keep, pool);
   if (keepCheck.hard.length) {
     const first = describeIssues(keepCheck, keep, pool).find((i) => i.kind !== "missing");
-    return { ok: false, reason: `Las cartas fijadas no pueden ir juntas: ${first?.message ?? explainDeckError(keepCheck.hard[0])}`, shortages: [], explored: 0 };
+    return { ok: false, reason: t("Las cartas fijadas no pueden ir juntas: {v}", { v: td(first?.message) ?? explainDeckError(keepCheck.hard[0]) }), shortages: [], explored: 0 };
   }
   const keepCards = keep.map((u) => pool.get(u)!);
   const need = Object.fromEntries(DUEL_ROLES.map((r) => [r, DUEL_COMPOSITION[r] - keepCards.filter((c) => c.role === r).length])) as Record<RoleId, number>;
@@ -692,11 +695,11 @@ export function normalizeDeckName(raw: unknown): string {
 export type NameCheck = { ok: true; name: string } | { ok: false; reason: string };
 
 export function checkDeckName(raw: unknown): NameCheck {
-  if (typeof raw !== "string") return { ok: false, reason: "Nombre de equipo no válido." };
+  if (typeof raw !== "string") return { ok: false, reason: t("Nombre de equipo no válido.") };
   const name = normalizeDeckName(raw);
-  if (!name) return { ok: false, reason: "Ponle un nombre al equipo." };
-  if ([...name].length > DECK_NAME_MAX) return { ok: false, reason: `Máximo ${DECK_NAME_MAX} caracteres.` };
-  if (!DECK_NAME_RE.test(name)) return { ok: false, reason: "Usa solo letras, números, espacios y . _ ' # & -" };
+  if (!name) return { ok: false, reason: t("Ponle un nombre al equipo.") };
+  if ([...name].length > DECK_NAME_MAX) return { ok: false, reason: t("Máximo {DECK_NAME_MAX} caracteres.", { DECK_NAME_MAX }) };
+  if (!DECK_NAME_RE.test(name)) return { ok: false, reason: t("Usa solo letras, números, espacios y . _ ' # & -") };
   return { ok: true, name };
 }
 

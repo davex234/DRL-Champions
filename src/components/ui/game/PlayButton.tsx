@@ -12,6 +12,10 @@ import Link from "next/link";
 import { cn } from "@/lib/format";
 import type { PlayCta } from "@/design/gameShell";
 import { playSound } from "@/lib/sound";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("ui");
 
 export type PlayButtonSize = "bar" | "hero" | "dock";
 
@@ -24,6 +28,7 @@ export function PlayButton({
   onClick?: () => void;
   testId?: string;
 }) {
+  useLocale();
   return (
     <span className={cn("nx-play-wrap inline-flex", className)}>
       <span aria-hidden className="nx-play-halo" />
@@ -38,18 +43,18 @@ export function PlayButton({
         data-cta="primary"
         data-motion-level="1"
         data-testid={testId}
-        aria-label={cta.ariaLabel}
+        aria-label={td(cta.ariaLabel)}
       >
         {size === "dock" ? (
           <>
             <PlayGlyph className="h-5 w-5" />
-            <span>{cta.kind === "resume" ? "Seguir" : cta.label}</span>
+            <span>{cta.kind === "resume" ? t("Seguir") : td(cta.label)}</span>
           </>
         ) : (
           <>
             <span className="flex flex-col items-start">
-              <span>{cta.label}</span>
-              {size === "hero" && cta.hint && <span className="nx-play-hint">{cta.hint}</span>}
+              <span>{td(cta.label)}</span>
+              {size === "hero" && cta.hint && <span className="nx-play-hint">{td(cta.hint)}</span>}
             </span>
             <PlayGlyph className={cn("nx-play-icon", size === "hero" ? "h-7 w-7" : "h-4 w-4")} />
           </>

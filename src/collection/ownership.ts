@@ -8,6 +8,9 @@
 import { groupCollection, type CollectionEntry } from "@/store/selectors";
 import type { CardRegistry } from "./registry";
 import type { OwnedCard } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("collection");
 
 export interface OwnershipIssue { uid: string; cardId: string; reason: string }
 export interface OwnershipValidation { ok: boolean; issues: OwnershipIssue[] }
@@ -52,8 +55,8 @@ export class OwnershipIndex {
       if (!def) { issues.push({ uid: o.uid, cardId: o.cardId, reason: "cardId inexistente" }); continue; }
       const v = registry.variant(def.variantId);
       if (o.serial != null) {
-        if (!v.serialized) issues.push({ uid: o.uid, cardId: o.cardId, reason: "serie en variante no serializada" });
-        else if (o.serial < 1 || (v.serialLimit != null && o.serial > v.serialLimit)) issues.push({ uid: o.uid, cardId: o.cardId, reason: "serie fuera de límite" });
+        if (!v.serialized) issues.push({ uid: o.uid, cardId: o.cardId, reason: t("serie en variante no serializada") });
+        else if (o.serial < 1 || (v.serialLimit != null && o.serial > v.serialLimit)) issues.push({ uid: o.uid, cardId: o.cardId, reason: t("serie fuera de límite") });
       }
     }
     return { ok: issues.length === 0, issues };

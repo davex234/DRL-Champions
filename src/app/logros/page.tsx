@@ -46,6 +46,11 @@ import { NxButton } from "@/components/ui/NxButton";
 import { useToast } from "@/lib/useToast";
 import { formatCredits, cn } from "@/lib/format";
 import { CreditGlyph, GameGlyph } from "@/components/ui/game/GameGlyph";
+import { ns, td, tdIn } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("logros");
 
 const TRACK_INFO: Record<PassTrack, { label: string; blurb: string; tint: string }> = {
   free: {
@@ -103,15 +108,17 @@ const labelForKind = (kind: string) =>
   KIND_LABEL[kind] ?? kind.charAt(0).toUpperCase() + kind.slice(1).replace(/[-_]/g, " ");
 
 export default function LogrosPage() {
+  useLocale();
   const { user, loading } = useAuth();
   const online = isSupabaseConfigured();
 
-  if (loading) return <Loading kind="hub" label="Cargando tu progreso…" />;
-  if (!online || !user) return <NeedsAccount what="el pase y los logros" />;
+  if (loading) return <Loading kind="hub" label={t("Cargando tu progreso…")} />;
+  if (!online || !user) return <NeedsAccount what={t("el pase y los logros")} />;
   return <Progression />;
 }
 
 function Progression() {
+  useLocale();
   const { toast, notify } = useToast();
   const [view, setView] = useState<ProgressionView | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -122,7 +129,7 @@ function Progression() {
     try {
       setView(await fetchProgression());
     } catch (e) {
-      setError(e instanceof Error ? e.message : "No se pudo cargar tu progreso");
+      setError(e instanceof Error ? e.message : t("No se pudo cargar tu progreso"));
     }
   }, []);
 
@@ -138,7 +145,7 @@ function Progression() {
       await load();
       await syncFromServer().catch(() => undefined); // F68 · el HUD (store de juego) enseña el saldo cobrado sin recargar
     } catch (e) {
-      notify(e instanceof Error ? e.message : "No se pudo completar", false);
+      notify(e instanceof Error ? e.message : t("No se pudo completar"), false);
     } finally {
       setBusy(null);
     }
@@ -162,8 +169,8 @@ function Progression() {
     return [...known, ...unknown].map((kind) => ({ kind, items: by.get(kind)! }));
   }, [view]);
 
-  if (error && !view) return <ErrorState message={error} onRetry={load} />;
-  if (!view) return <Loading kind="hub" label="Cargando tu progreso…" />;
+  if (error && !view) return <ErrorState message={td(error)} onRetry={load} />;
+  if (!view) return <Loading kind="hub" label={t("Cargando tu progreso…")} />;
 
   const claimedAchievements = view.achievements.filter((a) => a.claimed).length;
   /** En curso primero: lo que se puede terminar hoy va por delante de lo ya cerrado. */
@@ -186,9 +193,9 @@ function Progression() {
               "radial-gradient(720px 340px at 10% 118%, rgba(25,227,255,0.28), transparent 66%), radial-gradient(560px 320px at 92% -10%, rgba(123,92,255,0.16), transparent 62%)",
           }}
         />
-        <span className="nx-label">Pase de temporada</span>
+        <span className="nx-label">{t("Pase de temporada")}</span>
         <h1 className="mt-1 font-display text-[clamp(30px,6vw,54px)] font-bold uppercase leading-none text-white">
-          {view.season.name}
+          {td(view.season.name)}
         </h1>
 
         <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-5">
@@ -207,7 +214,7 @@ function Progression() {
               className="nx-plate nx-clip-sm relative grid h-[104px] w-[104px] place-items-center"
               style={{ borderColor: "rgba(25,227,255,0.55)", ["--nx-chamfer-sm" as string]: "16px" }}
             >
-              <span className="nx-label absolute top-3">Nivel</span>
+              <span className="nx-label absolute top-3">{t("Nivel")}</span>
               <Readout size="lg" className="mt-3" align="center" tone="var(--nx-cyan)" value={view.level} />
               <span className="absolute bottom-2.5 font-display text-[10px] tabular-nums text-white/35">
                 / {view.season.maxLevel}
@@ -217,21 +224,21 @@ function Progression() {
 
           <div className="min-w-[220px] flex-1">
             <div className="flex justify-between">
-              <span className="nx-label">Experiencia</span>
-              <Readout size="xs" align="right" value={`${view.xpIntoLevel} / ${view.xpForNext}`} unit="XP" />
+              <span className="nx-label">{t("Experiencia")}</span>
+              <Readout size="xs" align="right" value={`${view.xpIntoLevel} / ${view.xpForNext}`} unit={t("XP")} />
             </div>
-            <Meter className="mt-2" height={10} tone="info" value={view.progress * 100} label="Experiencia del pase" />
+            <Meter className="mt-2" height={10} tone="info" value={view.progress * 100} label={t("Experiencia del pase")} />
             <p className="nx-label mt-2">
               {view.level >= view.season.maxLevel
-                ? "Pase completado"
-                : `${view.xpForNext - view.xpIntoLevel} XP para el nivel ${view.level + 1}`}
+                ? t("Pase completado")
+                : t("{v} XP para el nivel {v2}", { v: view.xpForNext - view.xpIntoLevel, v2: view.level + 1 })}
             </p>
           </div>
         </div>
       </section>
 
       {/* ═══════════════ LOS TRES CARRILES ═══════════════ */}
-      <section aria-label="Carriles del pase" className="space-y-5">
+      <section aria-label={t("Carriles del pase")} className="space-y-5">
         {(["free", "competitive", "premium"] as PassTrack[]).map((track) => {
           const info = TRACK_INFO[track];
           const levels = view.tracks[track];
@@ -263,10 +270,10 @@ function Progression() {
                     className="font-display text-xl font-bold uppercase tracking-[0.06em]"
                     style={{ color: open ? `rgb(${info.tint})` : "rgba(255,255,255,0.4)" }}
                   >
-                    {info.label}
-                    {!open && <span className="ml-2 text-[11px] tracking-normal text-white/35">· bloqueado</span>}
+                    {td(info.label)}
+                    {!open && <span className="ml-2 text-[11px] tracking-normal text-white/35">{t("· bloqueado")}</span>}
                   </h2>
-                  <p className="text-[13px] text-white/45">{info.blurb}</p>
+                  <p className="text-[13px] text-white/45">{td(info.blurb)}</p>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
@@ -276,14 +283,18 @@ function Progression() {
 
                   {track === "competitive" && !open && (
                     <p className="text-[13px] text-white/60">
-                      Te faltan{" "}
-                      <b className="tabular-nums text-drl">
-                        {Math.max(0, view.competitiveMinPoints - view.points)}
-                      </b>{" "}
-                      puntos ·{" "}
-                      <Link href="/pickems" className="text-drl underline-offset-2 hover:underline">
-                        súmalos aquí
-                      </Link>
+                      {fill(t("Te faltan {puntos} puntos · {enlace}", slots("puntos", "enlace")), {
+                        puntos: (
+                          <b className="tabular-nums text-drl">
+                            {Math.max(0, view.competitiveMinPoints - view.points)}
+                          </b>
+                        ),
+                        enlace: (
+                          <Link href="/pickems" className="text-drl underline-offset-2 hover:underline">
+                            {t("súmalos aquí")}
+                          </Link>
+                        ),
+                      })}
                     </p>
                   )}
 
@@ -298,7 +309,7 @@ function Progression() {
                 tint={info.tint}
                 busy={busy !== null}
                 onClaim={(level) =>
-                  run(`lvl-${track}-${level}`, () => claimPassLevel(level, track), "Recompensa reclamada")
+                  run(`lvl-${track}-${level}`, () => claimPassLevel(level, track), t("Recompensa reclamada"))
                 }
               />
             </div>
@@ -307,22 +318,22 @@ function Progression() {
       </section>
 
       {/* ═══════════════ OBJETIVOS ═══════════════ */}
-      <section aria-label="Objetivos" className="space-y-6">
+      <section aria-label={t("Objetivos")} className="space-y-6">
         <div className="flex items-baseline justify-between gap-3">
-          <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">Objetivos</h2>
-          <span className="nx-label">{view.missions.length} activos</span>
+          <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">{t("Objetivos")}</h2>
+          <span className="nx-label">{view.missions.length} {t("activos")}</span>
         </div>
 
         {groups.length === 0 ? (
           <p className="nx-clip border border-dashed border-white/12 px-5 py-6 text-center text-[13px] text-white/50">
-            No hay objetivos activos ahora mismo. Vuelve cuando empiece la siguiente tanda.
+            {t("No hay objetivos activos ahora mismo. Vuelve cuando empiece la siguiente tanda.")}
           </p>
         ) : (
           groups.map(({ kind, items }) => (
             <div key={kind}>
               <div className="mb-2.5 flex items-baseline gap-3">
-                <h3 className="nx-label !text-white/70">{labelForKind(kind)}</h3>
-                {KIND_HINT[kind] && <span className="text-[11px] text-white/30">{KIND_HINT[kind]}</span>}
+                <h3 className="nx-label !text-white/70">{tdIn("logros", labelForKind(kind))}</h3>
+                {KIND_HINT[kind] && <span className="text-[11px] text-white/30">{td(KIND_HINT[kind])}</span>}
                 <span className="ml-auto nx-label">
                   {items.filter((m) => m.claimed).length} / {items.length}
                 </span>
@@ -333,7 +344,7 @@ function Progression() {
                     key={m.id}
                     mission={m}
                     busy={busy !== null}
-                    onClaim={() => run(`m-${m.id}`, () => claimMission(m.id), "Misión reclamada")}
+                    onClaim={() => run(`m-${m.id}`, () => claimMission(m.id), t("Misión reclamada"))}
                   />
                 ))}
               </div>
@@ -350,15 +361,15 @@ function Progression() {
         id— porque es lo que el jugador lleva de uno en uno.
       */}
       {view.cosmetics.length > 0 && (
-        <section aria-label="Aspecto">
+        <section aria-label={t("Aspecto")}>
           <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
             <div>
-              <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">Aspecto</h2>
+              <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">{t("Aspecto")}</h2>
               <p className="text-[13px] text-white/45">
-                Lo que has desbloqueado. Solo cambia cómo se te ve: nada de esto afecta a un duelo.
+                {t("Lo que has desbloqueado. Solo cambia cómo se te ve: nada de esto afecta a un duelo.")}
               </p>
             </div>
-            <span className="nx-label">{view.cosmetics.length} desbloqueados</span>
+            <span className="nx-label">{view.cosmetics.length} {t("desbloqueados")}</span>
           </div>
 
           <div className="space-y-4">
@@ -367,7 +378,7 @@ function Progression() {
               const current = view.equipped?.[family] ?? null;
               return (
                 <div key={family}>
-                  <h3 className="nx-label mb-2 !text-white/70">{family}</h3>
+                  <h3 className="nx-label mb-2 !text-white/70">{td(family)}</h3>
                   <div className="flex flex-wrap gap-2">
                     {items.map((id) => {
                       const on = current === id;
@@ -378,7 +389,7 @@ function Progression() {
                           disabled={busy !== null}
                           onClick={() =>
                             run(`cos-${id}`, () => equipCosmetic(family, on ? null : id),
-                              on ? "Retirado" : "Equipado")
+                              on ? t("Retirado") : t("Equipado"))
                           }
                           aria-pressed={on}
                           className={cn(
@@ -402,14 +413,14 @@ function Progression() {
       )}
 
       {/* ═══════════════ LOGROS ═══════════════ */}
-      <section aria-label="Logros">
+      <section aria-label={t("Logros")}>
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-3">
           <div>
-            <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">Logros</h2>
-            <p className="text-[13px] text-white/45">Permanentes. No caducan y no se reinician con la temporada.</p>
+            <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">{t("Logros")}</h2>
+            <p className="text-[13px] text-white/45">{t("Permanentes. No caducan y no se reinician con la temporada.")}</p>
           </div>
           <span className="nx-label">
-            {claimedAchievements} de {view.achievements.length} reclamados
+            {t("{n} de {total} reclamados", { n: claimedAchievements, total: view.achievements.length })}
           </span>
         </div>
 
@@ -435,9 +446,9 @@ function Progression() {
                   <GameGlyph symbol={a.icon} className="h-7 w-7" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <b className="block font-display text-[15px] font-bold text-white">{a.name}</b>
-                  <p className="text-[12.5px] leading-snug text-white/45">{a.description}</p>
-                  <Meter className="mt-2" height={6} tone="gold" value={pct} label={a.name} />
+                  <b className="block font-display text-[15px] font-bold text-white">{td(a.name)}</b>
+                  <p className="text-[12.5px] leading-snug text-white/45">{td(a.description)}</p>
+                  <Meter className="mt-2" height={6} tone="gold" value={pct} label={td(a.name)} />
                   <span className="nx-readout mt-1.5 block text-[12px] text-white/45">
                     {a.current} / {a.goal} · <CreditGlyph className="align-[-2px]" /> {formatCredits(a.reward)}
                   </span>
@@ -447,10 +458,10 @@ function Progression() {
                   variant={a.complete && !a.claimed ? "primary" : "secondary"}
                   accent="gold"
                   disabled={!a.complete || a.claimed || busy !== null}
-                  onClick={() => run(`a-${a.id}`, () => claimAchievement(a.id), `+${formatCredits(a.reward)} créditos`)}
+                  onClick={() => run(`a-${a.id}`, () => claimAchievement(a.id), t("+{reward} créditos", { reward: formatCredits(a.reward) }))}
                   className="shrink-0 self-center"
                 >
-                  {a.claimed ? "✓" : a.complete ? "Reclamar" : "—"}
+                  {a.claimed ? "✓" : a.complete ? t("Reclamar") : "—"}
                 </NxButton>
               </div>
             );
@@ -471,6 +482,7 @@ function MissionCard({
   busy: boolean;
   onClaim: () => void;
 }) {
+  useLocale();
   const pct = m.goal > 0 ? Math.min(100, (m.current / m.goal) * 100) : 0;
   return (
     <div
@@ -482,13 +494,13 @@ function MissionCard({
         m.claimed && "opacity-55",
       )}
     >
-      <b className="font-display text-[15px] font-bold text-white">{m.label}</b>
+      <b className="font-display text-[15px] font-bold text-white">{td(m.label)}</b>
 
-      <Meter className="mt-2.5" height={6} tone="info" value={pct} label={m.label} />
+      <Meter className="mt-2.5" height={6} tone="info" value={pct} label={td(m.label)} />
       <span className="nx-readout mt-1.5 text-[12px] text-white/45">
         {m.current} / {m.goal}
         {m.rewardCredits > 0 && <> · <CreditGlyph className="align-[-2px]" /> {formatCredits(m.rewardCredits)}</>}
-        {m.xp > 0 && ` · ${m.xp} XP`}
+        {m.xp > 0 && t(" · {xp} XP", { xp: m.xp })}
       </span>
 
       <NxButton
@@ -499,7 +511,7 @@ function MissionCard({
         onClick={onClaim}
         className="mt-3"
       >
-        {m.claimed ? "Reclamada" : m.complete ? "Reclamar" : "En curso"}
+        {m.claimed ? t("Reclamada") : m.complete ? t("Reclamar") : t("En curso")}
       </NxButton>
     </div>
   );
@@ -520,16 +532,17 @@ function MissionCard({
  * más honesto un «próximamente» que un botón que cobra en una moneda que no existe.
  */
 function PremiumOffer() {
+  useLocale();
   return (
     <div className="flex flex-wrap items-center gap-2">
       <button
         type="button"
         disabled
-        title="Todavía no hay pasarela de pago."
+        title={t("Todavía no hay pasarela de pago.")}
         className="nx-clip-sm cursor-not-allowed border border-drl-gold/25 px-4 py-2 font-display text-[12px] font-bold uppercase tracking-[0.1em] text-drl-gold/50"
       >
         {formatPrice(PASS_PRODUCT.price)}
-        {!PAYMENTS_ENABLED && <span className="ml-2 tracking-normal">· próximamente</span>}
+        {!PAYMENTS_ENABLED && <span className="ml-2 tracking-normal">{t("· próximamente")}</span>}
       </button>
     </div>
   );

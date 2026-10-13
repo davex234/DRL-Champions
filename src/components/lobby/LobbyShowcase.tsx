@@ -24,6 +24,10 @@ import { PlayerCard } from "@/components/cards/PlayerCard";
 import { Card3D } from "@/components/visual/Card3D";
 import { Recessed } from "@/components/ui/Surface";
 import { NxButton } from "@/components/ui/NxButton";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("lobby");
 
 export interface ShowcaseCard {
   uid: string;
@@ -43,6 +47,7 @@ export function LobbyShowcase({
    */
   offerAction?: boolean;
 }) {
+  useLocale();
   if (cards.length === 0) return <EmptyShowcase packs={packs} offerAction={offerAction} />;
 
   return (
@@ -58,7 +63,7 @@ export function LobbyShowcase({
      */
     <div
       className="relative h-[168px] w-full sm:h-[196px] lg:h-[224px] xl:h-[248px]"
-      aria-label="Lo mejor de tu colección"
+      aria-label={t("Lo mejor de tu colección")}
     >
       <div className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-2">
         <div className="flex items-center origin-center scale-[0.66] sm:scale-[0.8] lg:scale-90 xl:scale-100">
@@ -97,8 +102,9 @@ export function LobbyShowcase({
  * estado del jugador, no de una suposición.
  */
 function EmptyShowcase({ packs, offerAction }: { packs: number; offerAction: boolean }) {
+  useLocale();
   return (
-    <div className="flex justify-center lg:justify-end" aria-label="Tu vitrina, todavía vacía">
+    <div className="flex justify-center lg:justify-end" aria-label={t("Tu vitrina, todavía vacía")}>
       <div className="flex flex-col items-center gap-3 px-4 sm:px-8">
         {/*
           Los huecos llevan `outline` y no un borde: `Recessed` fija su sombra por `style`, y
@@ -118,11 +124,11 @@ function EmptyShowcase({ packs, offerAction }: { packs: number; offerAction: boo
           ))}
         </div>
         <div className="text-center">
-          <p className="font-display text-label uppercase tracking-wide2 text-ink-muted">Tu vitrina</p>
+          <p className="font-display text-label uppercase tracking-wide2 text-ink-muted">{t("Tu vitrina")}</p>
           <p className="mt-1 max-w-[24ch] text-caption text-ink-muted">
             {packs > 0
-              ? `Tienes ${packs} ${packs === 1 ? "sobre" : "sobres"} esperando. Ábrelos y las mejores cartas se enseñan aquí.`
-              : "Las tres mejores cartas de tu colección se enseñan aquí."}
+              ? t("Tienes {packs} {v} esperando. Ábrelos y las mejores cartas se enseñan aquí.", { packs, v: packs === 1 ? t("sobre") : t("sobres") })
+              : t("Las tres mejores cartas de tu colección se enseñan aquí.")}
           </p>
           {offerAction && (
             <NxButton
@@ -132,7 +138,7 @@ function EmptyShowcase({ packs, offerAction }: { packs: number; offerAction: boo
               className="mt-3"
               href={packs > 0 ? "/inventario" : "/tienda"}
             >
-              {packs > 0 ? "Abrir sobres" : "Ir a la tienda"}
+              {packs > 0 ? t("Abrir sobres") : t("Ir a la tienda")}
             </NxButton>
           )}
         </div>

@@ -75,7 +75,7 @@ test("46 · «En directo» solo con partido live; el siguiente lleva cuenta atr�
 test("22 · varios en directo: el resumen los lista todos (contrato de la página)", () => {
   const page = readFileSync(new URL("../../../app/pickems/page.tsx", import.meta.url), "utf8");
   assert.match(page, /snapshot\.liveMatches\.length > 1 && \(/);
-  assert.match(page, /En directo <span[^>]*>· \{snapshot\.liveMatches\.length\} partidos/);
+  assert.match(page, /\{(?:t|tr|i18nT)\("En directo"\)\} <span[^>]*>· \{snapshot\.liveMatches\.length\} \{(?:t|tr|i18nT)\("partidos"\)\}/);
   assert.match(page, /snapshot\.liveMatches\.map\(\(m\) => \(/);
 });
 
@@ -124,7 +124,7 @@ test("20 · navegación del evento: anclas; «Cuadro» solo con bracket (contrat
   const out = html(<EventNav items={[{ id: "resumen", label: "Resumen" }, { id: "cuadro", label: "Cuadro" }]} />);
   assert.match(out, /href="#resumen"/); assert.match(out, /href="#cuadro"/);
   const page = readFileSync(new URL("../../../app/pickems/page.tsx", import.meta.url), "utf8");
-  assert.match(page, /\.\.\.\(useBracket \? \[\{ id: "cuadro", label: "Cuadro" \}\] : \[\]\)/);
+  assert.match(page, /\.\.\.\(useBracket \? \[\{ id: "cuadro", label: (?:t|tr|i18nT)\("Cuadro"\) \}\] : \[\]\)/);
   assert.match(page, /id="resumen"/); assert.match(page, /id="predicciones"/); assert.match(page, /id="clasificacion"/); assert.match(page, /id="recompensas"/);
 });
 

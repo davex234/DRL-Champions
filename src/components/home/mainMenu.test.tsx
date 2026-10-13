@@ -81,7 +81,7 @@ test("HOME 07 · el menú secundario es un diálogo con salida por Escape y por 
   assert.match(code(MORE), /role="dialog"/);
   assert.match(code(MORE), /aria-modal="true"/);
   assert.match(code(MENU), /e\.key === "Escape"/, "Escape abre y cierra");
-  assert.match(code(MORE), /aria-label="Cerrar menú"/);
+  assert.match(code(MORE), /aria-label=\{(?:t|tr|i18nT)\("Cerrar menú"\)\}/);
 });
 
 test("HOME 08 · la Home deja de llevar el armazón de secciones (barra de navegación web)", () => {

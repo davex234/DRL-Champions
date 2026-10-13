@@ -16,6 +16,9 @@ import { marketValue, askingFee } from "./value";
 import { evaluateBid, applyRound, affordable, type BidContext } from "./negotiate";
 import { generateIncomingOffers, generateRumors } from "./clubAI";
 import { applySigning, applySale, applyRenewal, applyRelease, applyLoanOut, applyLoanReturn } from "./apply";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("market");
 
 const clamp100 = (n: number) => Math.max(0, Math.min(100, Math.round(n)));
 type Step = { window: TransferWindow; event: MarketEvent | null; error?: string };
@@ -44,11 +47,11 @@ function toTarget(p: WorldPlayer, world: WorldState, userTeam: WorldTeam, needs:
   const { fit, chem } = fitAndChem(p, userTeam, world, needs);
   const listed = false;
   return {
-    id: p.id, nick: p.nick, region: p.region, role: p.role, teamId: p.teamId, teamName: team?.name ?? "Agente libre",
+    id: p.id, nick: p.nick, region: p.region, role: p.role, teamId: p.teamId, teamName: team?.name ?? tr("Agente libre"),
     rating: Math.round(progress(p.dev)), potential: p.innate.potential, age: p.dev.age, value: mv.value,
     askingFee: p.teamId ? askingFee(mv, years, listed) : 0, wageDemand: mv.wageDemand, releaseClause: mv.releaseClause,
     contractYears: years, status: "normal", fit, chemistry: chem, report: scoutPlayer(p.innate, p.dev),
-    rumor: p.contract && p.contract.happiness < 40 ? "Descontento en su club" : null,
+    rumor: p.contract && p.contract.happiness < 40 ? tr("Descontento en su club") : null,
   };
 }
 
@@ -121,7 +124,7 @@ function accrue(window: TransferWindow, spend: number, earn: number): TransferWi
 /** Reordena el roster del club para fijar los 5 titulares (los demás quedan de suplentes). */
 export function setLineup(world: WorldState, window: TransferWindow, starterIds: string[]): Step {
   const team = world.teams[window.clubId];
-  if (!team) return err(window, "Sin club.");
+  if (!team) return err(window, tr("Sin club."));
   const present = starterIds.filter((id) => team.roster.includes(id));
   const rest = team.roster.filter((id) => !present.includes(id));
   team.roster = [...present.slice(0, 5), ...rest, ...present.slice(5)];
@@ -149,17 +152,17 @@ function window0status(world: WorldState, p: WorldPlayer): ListStatus { return p
 export function makeOffer(world: WorldState, window: TransferWindow, targetId: string, bid: { fee: number; salary: number; years: number }, at: number): Step {
   const p = world.players[targetId];
   const buyer = world.teams[window.clubId];
-  if (!p || !buyer) return err(window, "Objetivo o club no válido.");
-  if (p.teamId === window.clubId) return err(window, "Ya es de tu club.");
+  if (!p || !buyer) return err(window, tr("Objetivo o club no válido."));
+  if (p.teamId === window.clubId) return err(window, tr("Ya es de tu club."));
   const isFree = !p.teamId;
   const rng = makeRng(seedOf(window.seed, "bid-out", targetId, window.season, window.offers.length));
 
   let offer: PlayerOffer = {
     id: `offer:out:${targetId}:${window.season}`, season: window.season, playerId: targetId, playerNick: p.nick, role: p.role,
-    fromClub: p.teamId ?? "", fromClubName: p.teamId ? world.teams[p.teamId]?.name ?? "?" : "Agente libre",
+    fromClub: p.teamId ?? "", fromClubName: p.teamId ? world.teams[p.teamId]?.name ?? "?" : tr("Agente libre"),
     toClub: window.clubId, toClubName: buyer.name, initiator: "user", direction: "outgoing", kind: isFree ? "free" : "transfer",
     fee: bid.fee, salary: bid.salary, years: bid.years, bonus: 0, releaseClause: Math.round(marketValue(p, p.teamId ? world.teams[p.teamId] : null).value * 2), loan: null, swapPlayerId: null,
-    status: "pending", rounds: [{ by: "user", fee: bid.fee, salary: bid.salary, years: bid.years, note: "Oferta inicial." }], note: "",
+    status: "pending", rounds: [{ by: "user", fee: bid.fee, salary: bid.salary, years: bid.years, note: tr("Oferta inicial.") }], note: "",
   };
 
   if (isFree) {
@@ -167,16 +170,16 @@ export function makeOffer(world: WorldState, window: TransferWindow, targetId: s
     const mv = marketValue(p, null);
     if (bid.salary >= mv.wageDemand * 0.92 && bid.years >= 1) {
       const ev = applySigning(world, window.clubId, targetId, 0, bid.salary, bid.years, mv.releaseClause, rng, at);
-      offer = applyRound(offer, { by: "ai", fee: 0, salary: bid.salary, years: bid.years, note: "El jugador firma." }, "accepted");
+      offer = applyRound(offer, { by: "ai", fee: 0, salary: bid.salary, years: bid.years, note: tr("El jugador firma.") }, "accepted");
       return finalizeBuy(world, window, offer, ev, 0);
     }
-    offer = applyRound(offer, { by: "ai", fee: 0, salary: Math.round(mv.wageDemand), years: Math.max(2, bid.years), note: `Pide ${Math.round(mv.wageDemand)}/temp.` }, "countered");
+    offer = applyRound(offer, { by: "ai", fee: 0, salary: Math.round(mv.wageDemand), years: Math.max(2, bid.years), note: tr("Pide {wageDemand}/temp.", { wageDemand: Math.round(mv.wageDemand) }) }, "countered");
     return ok(upsertOffer(window, offer));
   }
 
   const verdict = evaluateBid(bidContext(world, p), bid, rng);
   if (verdict.kind === "accept") {
-    if (!affordable(buyer.budget, bid.fee)) { offer = { ...offer, status: "rejected", note: "No tienes presupuesto." }; return err(upsertOffer(window, offer), "Presupuesto insuficiente."); }
+    if (!affordable(buyer.budget, bid.fee)) { offer = { ...offer, status: "rejected", note: tr("No tienes presupuesto.") }; return err(upsertOffer(window, offer), tr("Presupuesto insuficiente.")); }
     const ev = applySigning(world, window.clubId, targetId, bid.fee, bid.salary, bid.years, offer.releaseClause, rng, at);
     offer = applyRound(offer, { by: "ai", fee: bid.fee, salary: bid.salary, years: bid.years, note: verdict.note }, "accepted");
     return finalizeBuy(world, window, offer, ev, bid.fee);
@@ -189,16 +192,16 @@ export function makeOffer(world: WorldState, window: TransferWindow, targetId: s
 /** El usuario mejora su puja sobre una negociación en curso. */
 export function counterOffer(world: WorldState, window: TransferWindow, offerId: string, bid: { fee: number; salary: number; years: number }, at: number): Step {
   const existing = window.offers.find((o) => o.id === offerId && o.direction === "outgoing");
-  if (!existing) return err(window, "Negociación no encontrada.");
-  if (existing.rounds.length >= 8) return err(window, "Negociación agotada.");
+  if (!existing) return err(window, tr("Negociación no encontrada."));
+  if (existing.rounds.length >= 8) return err(window, tr("Negociación agotada."));
   const p = world.players[existing.playerId];
   const buyer = world.teams[window.clubId];
-  if (!p || !buyer) return err(window, "Datos no válidos.");
+  if (!p || !buyer) return err(window, tr("Datos no válidos."));
   const rng = makeRng(seedOf(window.seed, "bid-out", existing.playerId, window.season, existing.rounds.length));
-  let offer = applyRound(existing, { by: "user", fee: bid.fee, salary: bid.salary, years: bid.years, note: "Mejora la puja." }, "pending");
+  let offer = applyRound(existing, { by: "user", fee: bid.fee, salary: bid.salary, years: bid.years, note: tr("Mejora la puja.") }, "pending");
   const verdict = evaluateBid(bidContext(world, p), bid, rng);
   if (verdict.kind === "accept") {
-    if (!affordable(buyer.budget, bid.fee)) return err(window, "Presupuesto insuficiente.");
+    if (!affordable(buyer.budget, bid.fee)) return err(window, tr("Presupuesto insuficiente."));
     const ev = applySigning(world, window.clubId, existing.playerId, bid.fee, bid.salary, bid.years, offer.releaseClause, rng, at);
     offer = applyRound(offer, { by: "ai", fee: bid.fee, salary: bid.salary, years: bid.years, note: verdict.note }, "accepted");
     return finalizeBuy(world, window, offer, ev, bid.fee);
@@ -211,15 +214,15 @@ export function counterOffer(world: WorldState, window: TransferWindow, offerId:
 /** El usuario ACEPTA la contraoferta de la IA (paga lo que pide el vendedor). */
 export function acceptCounter(world: WorldState, window: TransferWindow, offerId: string, at: number): Step {
   const offer = window.offers.find((o) => o.id === offerId && o.direction === "outgoing");
-  if (!offer || offer.status !== "countered") return err(window, "No hay contraoferta que aceptar.");
+  if (!offer || offer.status !== "countered") return err(window, tr("No hay contraoferta que aceptar."));
   const buyer = world.teams[window.clubId];
-  if (!buyer) return err(window, "Sin club.");
-  if (!affordable(buyer.budget, offer.fee)) return err(window, "Presupuesto insuficiente.");
+  if (!buyer) return err(window, tr("Sin club."));
+  if (!affordable(buyer.budget, offer.fee)) return err(window, tr("Presupuesto insuficiente."));
   const rng = makeRng(seedOf(window.seed, "accept", offer.playerId, window.season));
   const ev = offer.kind === "free"
     ? applySigning(world, window.clubId, offer.playerId, 0, offer.salary, offer.years, offer.releaseClause, rng, at)
     : applySigning(world, window.clubId, offer.playerId, offer.fee, offer.salary, offer.years, offer.releaseClause, rng, at);
-  const done = applyRound(offer, { by: "user", fee: offer.fee, salary: offer.salary, years: offer.years, note: "Acepta la contraoferta." }, "accepted");
+  const done = applyRound(offer, { by: "user", fee: offer.fee, salary: offer.salary, years: offer.years, note: tr("Acepta la contraoferta.") }, "accepted");
   return finalizeBuy(world, window, done, ev, offer.kind === "free" ? 0 : offer.fee);
 }
 
@@ -242,14 +245,14 @@ function upsertOffer(window: TransferWindow, offer: PlayerOffer): TransferWindow
 /** El usuario responde a una puja de un club IA por uno de sus jugadores. */
 export function respondIncoming(world: WorldState, window: TransferWindow, offerId: string, action: "accept" | "reject" | "counter", counterFee = 0, at = 0): Step {
   const offer = window.offers.find((o) => o.id === offerId && o.direction === "incoming");
-  if (!offer || offer.status === "accepted") return err(window, "Oferta no válida.");
+  if (!offer || offer.status === "accepted") return err(window, tr("Oferta no válida."));
   const rng = makeRng(seedOf(window.seed, "sell", offer.playerId, window.season, offer.rounds.length));
-  if (action === "reject") return ok(upsertOffer(window, { ...offer, status: "rejected", note: "Rechazada por el club." }));
+  if (action === "reject") return ok(upsertOffer(window, { ...offer, status: "rejected", note: tr("Rechazada por el club.") }));
   if (action === "counter") {
     // El usuario pide más; el club IA acepta si la mejora es razonable (≤ 25% sobre su puja).
     const accept = counterFee <= offer.fee * 1.25 && rng.chance(0.7);
     if (accept) return executeSale(world, window, { ...offer, fee: Math.round(counterFee) }, at);
-    return ok(upsertOffer(window, applyRound(offer, { by: "ai", fee: offer.fee, salary: offer.salary, years: offer.years, note: "El club comprador no sube más." }, "countered")));
+    return ok(upsertOffer(window, applyRound(offer, { by: "ai", fee: offer.fee, salary: offer.salary, years: offer.years, note: tr("El club comprador no sube más.") }, "countered")));
   }
   return executeSale(world, window, offer, at); // accept
 }
@@ -257,7 +260,7 @@ export function respondIncoming(world: WorldState, window: TransferWindow, offer
 function executeSale(world: WorldState, window: TransferWindow, offer: PlayerOffer, at: number): Step {
   const rng = makeRng(seedOf(window.seed, "exec-sell", offer.playerId, window.season));
   const ev = applySale(world, window.clubId, offer.toClub, offer.playerId, offer.fee, offer.salary, offer.years, rng, at);
-  let w = upsertOffer(window, { ...offer, status: "accepted", note: "Vendido." });
+  let w = upsertOffer(window, { ...offer, status: "accepted", note: tr("Vendido.") });
   w = accrue(w, 0, offer.fee);
   w = pushLog(w, ev);
   return ok(w, ev);
@@ -267,7 +270,7 @@ function executeSale(world: WorldState, window: TransferWindow, offer: PlayerOff
 
 export function renewPlayer(world: WorldState, window: TransferWindow, playerId: string, salary: number, years: number, at: number): Step {
   const p = world.players[playerId];
-  if (!p || p.teamId !== window.clubId) return err(window, "No es de tu club.");
+  if (!p || p.teamId !== window.clubId) return err(window, tr("No es de tu club."));
   const rng = makeRng(seedOf(window.seed, "renew", playerId, window.season));
   const ev = applyRenewal(world, playerId, salary, years, rng, at);
   return ok(pushLog(window, ev), ev);
@@ -275,7 +278,7 @@ export function renewPlayer(world: WorldState, window: TransferWindow, playerId:
 
 export function releasePlayer(world: WorldState, window: TransferWindow, playerId: string, at: number): Step {
   const p = world.players[playerId];
-  if (!p || p.teamId !== window.clubId) return err(window, "No es de tu club.");
+  if (!p || p.teamId !== window.clubId) return err(window, tr("No es de tu club."));
   const ev = applyRelease(world, playerId, at);
   const listStatus = { ...window.listStatus }; delete listStatus[playerId];
   return ok(pushLog({ ...window, listStatus }, ev), ev);
@@ -284,10 +287,10 @@ export function releasePlayer(world: WorldState, window: TransferWindow, playerI
 /** Cede a un jugador del usuario a un club que lo necesite (préstamo real y persistente). */
 export function loanOutPlayer(world: WorldState, window: TransferWindow, playerId: string, loanClubId: string, terms: Omit<LoanTerms, "ownerClub">, at: number): Step {
   const p = world.players[playerId];
-  if (!p || p.teamId !== window.clubId) return err(window, "No es de tu club.");
+  if (!p || p.teamId !== window.clubId) return err(window, tr("No es de tu club."));
   const rng = makeRng(seedOf(window.seed, "loan-out", playerId, window.season));
   const res = applyLoanOut(world, window.clubId, loanClubId, playerId, { ...terms, ownerClub: window.clubId }, rng, at);
-  if (!res) return err(window, "No se pudo formalizar la cesión.");
+  if (!res) return err(window, tr("No se pudo formalizar la cesión."));
   return ok(pushLog({ ...window, loans: [...window.loans, res.loan] }, res.event), res.event);
 }
 

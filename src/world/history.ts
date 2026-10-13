@@ -5,6 +5,9 @@
  */
 import type { WorldState, RecordHolder } from "./types";
 import type { SeasonResult } from "./season";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("world");
 
 function setRecord(world: WorldState, key: string, holder: string, value: number, season: number, force = false): void {
   const cur = world.history.records[key];
@@ -50,11 +53,11 @@ export function worldChronicle(world: WorldState): string[] {
   const r = world.history.records;
   const line = (k: string, fmt: (h: RecordHolder) => string) => (r[k] ? fmt(r[k]) : null);
   return [
-    line("dynasty", (h) => `La mayor dinastía: ${h.holder} (${h.value} títulos seguidos).`),
-    line("failure", (h) => `El mayor fracaso: ${h.holder}.`),
-    world.history.rookieOfYear.length ? `Rookie del año (T${world.history.rookieOfYear[world.history.rookieOfYear.length - 1].season}): ${world.history.rookieOfYear[world.history.rookieOfYear.length - 1].nick}.` : null,
-    line("coach", (h) => `El mejor coach: ${h.holder} (${h.value} títulos).`),
-    line("clutch", (h) => `El mejor clutch: ${h.holder}.`),
-    line("transfer", (h) => `La transferencia más cara: ${h.holder} (${h.value}).`),
+    line("dynasty", (h) => tr("La mayor dinastía: {holder} ({value} títulos seguidos).", { holder: td(h.holder), value: h.value })),
+    line("failure", (h) => tr("El mayor fracaso: {holder}.", { holder: td(h.holder) })),
+    world.history.rookieOfYear.length ? tr("Rookie del año (T{season}): {nick}.", { season: world.history.rookieOfYear[world.history.rookieOfYear.length - 1].season, nick: world.history.rookieOfYear[world.history.rookieOfYear.length - 1].nick }) : null,
+    line("coach", (h) => tr("El mejor coach: {holder} ({value} títulos).", { holder: td(h.holder), value: h.value })),
+    line("clutch", (h) => tr("El mejor clutch: {holder}.", { holder: td(h.holder) })),
+    line("transfer", (h) => tr("La transferencia más cara: {holder} ({value}).", { holder: td(h.holder), value: h.value })),
   ].filter((x): x is string => x != null);
 }

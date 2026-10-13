@@ -14,6 +14,9 @@ import {
   getUpdateController, isOnline, loadUpdatePrefs, clampPollMinutes,
   recordUpdate, type UpdateState,
 } from "@/platform";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("launcher");
 
 // Fases en las que NO se debe lanzar otra comprobación (hay un flujo en curso).
 const BUSY: ReadonlySet<UpdateState["phase"]> = new Set([
@@ -42,7 +45,7 @@ export function useUpdateWatcher(): { state: UpdateState; available: boolean } {
     void loadUpdatePrefs().then((prefs) => {
       if (cancelled || !prefs.periodicCheck) return;
       const ms = clampPollMinutes(prefs.pollMinutes) * 60_000;
-      recordUpdate(`Watcher activo: comprobación cada ${clampPollMinutes(prefs.pollMinutes)} min`);
+      recordUpdate(t("Watcher activo: comprobación cada {pollMinutes} min", { pollMinutes: clampPollMinutes(prefs.pollMinutes) }));
       timer = setInterval(() => void tick(), ms);
     });
 

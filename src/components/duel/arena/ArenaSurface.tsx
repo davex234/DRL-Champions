@@ -39,6 +39,10 @@
  */
 import { cn } from "@/lib/format";
 import { ARENA_ACCENT } from "@/lib/duel/arenas";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("duel");
 
 /** Tonos de bando. Salen de la configuración de la arena, y en el tablero no se escriben en otro sitio. */
 export const TONO = {
@@ -150,6 +154,7 @@ export function ZoneBand({
   children: React.ReactNode;
   className?: string;
 }) {
+  useLocale();
   const arriba = side === "rival";
   return (
     <section
@@ -157,7 +162,7 @@ export function ZoneBand({
       data-side={side}
       className={cn("nx-a50-zone relative px-[calc(var(--pos-pad)*1.6)] py-[clamp(4px,0.9vh,10px)]", className)}
       style={{ "--pos": "var(--pos-hist)" } as React.CSSProperties}
-      aria-label={arriba ? "Zona del rival" : "Tu zona"}
+      aria-label={arriba ? t("Zona del rival") : t("Tu zona")}
     >
       <span aria-hidden className="nx-a50-plate" />
       {children}
@@ -172,6 +177,7 @@ export function ZoneBand({
  * lectores de pantalla ya tienen el nombre de cada zona.
  */
 export function ZoneRail({ label, tone, className }: { label: string; tone: string; className?: string }) {
+  useLocale();
   return (
     <div className={cn("relative flex items-center gap-3 px-[var(--pos-pad)]", className)} aria-hidden>
       <Filo tone={tone} hacia="derecha" />
@@ -179,7 +185,7 @@ export function ZoneRail({ label, tone, className }: { label: string; tone: stri
         className="nx-a50-rail-tag shrink-0 px-3 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.32em]"
         style={{ color: `${tone}ee`, "--tag": tone } as React.CSSProperties}
       >
-        {label}
+        {td(label)}
       </span>
       <Filo tone={tone} hacia="izquierda" />
     </div>
@@ -206,12 +212,13 @@ function Filo({ tone, hacia }: { tone: string; hacia: "derecha" | "izquierda" })
  * cae el charco de luz del foco, teñido por el bando que ataca (`--env-tone`, heredado).
  */
 export function ClashBand({ children, className }: { children: React.ReactNode; className?: string }) {
+  useLocale();
   return (
     <section
       data-arena="clash"
       className={cn("nx-a50-duel relative px-[var(--pos-pad)] py-[clamp(4px,1vh,12px)]", className)}
       aria-live="polite"
-      aria-label="Zona de duelo"
+      aria-label={t("Zona de duelo")}
     >
       <span aria-hidden className="nx-clash-pool" />
       <span aria-hidden className="nx-a50-duel-line" />
@@ -240,6 +247,7 @@ export function Slot({
   className?: string;
   label?: string;
 }) {
+  useLocale();
   return (
     <div
       data-slot={filled ? "lleno" : "vacio"}
@@ -287,7 +295,7 @@ export function Slot({
               className="absolute inset-x-0 bottom-2 whitespace-pre-line text-center font-display text-[9px] font-bold uppercase leading-tight tracking-[0.22em]"
               style={{ color: `${tone}99` }}
             >
-              {label}
+              {td(label)}
             </span>
           )}
         </>

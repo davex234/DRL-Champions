@@ -1,0 +1,12 @@
+{
+  "Primera carta del jugador": "選手の初カード",
+  "alias \"{alias}\" no existe en el roster": "エイリアス「{alias}」はロースターに存在しません",
+  "jugador nuevo (draft)": "新規選手(ドラフト)",
+  "líder del torneo en {kind} ({best})": "{kind}の大会トップ({best})",
+  "muestra estadística baja": "ステータスのサンプルが少ない",
+  "muestra estadística media": "ステータスのサンプルが中程度",
+  "país sin resolver": "国が未解決",
+  "sin foto": "写真なし",
+  "ya emitida en la temporada {season}": "シーズン{season}で発行済み",
+  "{length} jugadores con nick \"{nick}\" — requiere alias": "ニックネーム「{nick}」の選手が{length}人います — エイリアスが必要です"
+}

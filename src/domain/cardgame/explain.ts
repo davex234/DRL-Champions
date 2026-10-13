@@ -9,6 +9,9 @@
  */
 import type { DuelDeckError, DuelDeckValidation, RoleId } from "./types";
 import { DUEL_DECK_SIZE } from "./types";
+import { ns, td } from "@/i18n/runtime";
+
+const t = ns("cardgame");
 
 /** Etiqueta del rol tal y como se muestra. `Controlador` es el «Smoker» del documento de diseño. */
 export const ROLE_LABEL: Record<RoleId, string> = {
@@ -19,8 +22,6 @@ export const ROLE_LABEL: Record<RoleId, string> = {
   Flex: "Flex",
 };
 
-const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
-
 /** Frase explicable para un error concreto. */
 export function explainDeckError(e: DuelDeckError): string {
   switch (e.code) {
@@ -28,32 +29,36 @@ export function explainDeckError(e: DuelDeckError): string {
       const actual = e.actual ?? 0;
       if (actual < DUEL_DECK_SIZE) {
         const falta = DUEL_DECK_SIZE - actual;
-        return `El mazo debe tener ${DUEL_DECK_SIZE} cartas: te ${plural(falta, "falta", "faltan")} ${falta}.`;
+        return falta === 1
+          ? t("El mazo debe tener {DUEL_DECK_SIZE} cartas: te falta {n}.", { DUEL_DECK_SIZE, n: falta })
+          : t("El mazo debe tener {DUEL_DECK_SIZE} cartas: te faltan {n}.", { DUEL_DECK_SIZE, n: falta });
       }
-      return `El mazo debe tener ${DUEL_DECK_SIZE} cartas: tienes ${actual}.`;
+      return t("El mazo debe tener {DUEL_DECK_SIZE} cartas: tienes {actual}.", { DUEL_DECK_SIZE, actual });
     }
     case "ROLE_COUNT": {
       const role = ROLE_LABEL[e.role ?? "Flex"];
       const expected = e.expected ?? 0;
       const actual = e.actual ?? 0;
       return actual < expected
-        ? `Necesitas ${expected} ${plural(expected, "carta", "cartas")} de ${role}; ahora tienes ${actual}.`
-        : `Solo puedes llevar ${expected} de ${role}; ahora tienes ${actual}.`;
+        ? expected === 1
+          ? t("Necesitas {expected} carta de {role}; ahora tienes {actual}.", { expected, role: td(role), actual })
+          : t("Necesitas {expected} cartas de {role}; ahora tienes {actual}.", { expected, role: td(role), actual })
+        : t("Solo puedes llevar {expected} de {role}; ahora tienes {actual}.", { expected, role: td(role), actual });
     }
     case "DUPLICATE_CARD":
-      return "No puedes usar la misma carta dos veces en el mismo mazo.";
+      return t("No puedes usar la misma carta dos veces en el mismo mazo.");
     case "DUPLICATE_PLAYER":
-      return "No puedes llevar dos cartas del mismo jugador, ni siquiera de variantes distintas.";
+      return t("No puedes llevar dos cartas del mismo jugador, ni siquiera de variantes distintas.");
     case "CARD_NOT_FOUND":
-      return "Una de las cartas del mazo ya no existe en el catálogo.";
+      return t("Una de las cartas del mazo ya no existe en el catálogo.");
     case "CARD_NOT_OWNED":
-      return "Esa carta no pertenece a tu colección.";
+      return t("Esa carta no pertenece a tu colección.");
     case "CARD_NO_COMBAT":
-      return "Esa carta no tiene estadísticas de combate y no puede jugarse.";
+      return t("Esa carta no tiene estadísticas de combate y no puede jugarse.");
     case "INCOMPATIBLE_DATA_VERSION":
-      return `El mazo mezcla cartas de temporadas distintas (${(e.versions ?? []).join(", ")}). Todas deben ser de la misma.`;
+      return t("El mazo mezcla cartas de temporadas distintas ({v}). Todas deben ser de la misma.", { v: (e.versions ?? []).join(", ") });
     case "INVALID_CARD":
-      return "Una de las cartas del mazo no es válida.";
+      return t("Una de las cartas del mazo no es válida.");
   }
 }
 
@@ -62,11 +67,11 @@ export function explainDeckError(e: DuelDeckError): string {
  * error va aparte.
  */
 export function explainDeckValidation(v: DuelDeckValidation): string {
-  if (v.valid) return "Mazo listo para duelo.";
+  if (v.valid) return t("Mazo listo para duelo.");
   if (v.errors.length === 1) return explainDeckError(v.errors[0]);
   const faltan = Object.values(v.missingByRole).reduce((a, b) => a + b, 0);
-  if (faltan > 0) return `Te ${plural(faltan, "falta", "faltan")} ${faltan} ${plural(faltan, "carta", "cartas")} por colocar.`;
-  return `El mazo tiene ${v.errors.length} problemas que resolver.`;
+  if (faltan > 0) return faltan === 1 ? t("Te falta {n} carta por colocar.", { n: faltan }) : t("Te faltan {n} cartas por colocar.", { n: faltan });
+  return t("El mazo tiene {length} problemas que resolver.", { length: v.errors.length });
 }
 
 /** Todos los errores traducidos, sin repetir la misma frase dos veces. */

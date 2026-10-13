@@ -47,6 +47,11 @@ import { deriveCard, type CombatStats } from "@/domain/cards/combat";
 import { applyStatBoost } from "@/domain/cards/ovr";
 import { marketValue } from "@/domain/economy/pricing";
 import type { Player, VariantId, CardDef } from "@/domain/cards/types";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("admin");
 
 interface PlayerRow {
   id: string; nick: string; team: string; region: string; role: string; country: string;
@@ -57,6 +62,7 @@ interface PlayerRow {
 }
 
 export default function NuevaCartaPage() {
+  useLocale();
   const router = useRouter();
   const { running, error, clear, run } = useAsync<unknown>();
 
@@ -158,35 +164,34 @@ export default function NuevaCartaPage() {
     <Stage data-admin-panel="nueva" className="space-y-5 p-4 sm:p-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <SectionTitle>Nueva carta</SectionTitle>
+          <SectionTitle>{t("Nueva carta")}</SectionTitle>
           <p className="mt-1 max-w-2xl text-sm text-white/50">
-            Elige un jugador y una variante. Las estadísticas las deriva el servidor con las
-            mismas funciones que generan el catálogo — aquí no se escribe un OVR a mano.
+            {t("Elige un jugador y una variante. Las estadísticas las deriva el servidor con las mismas funciones que generan el catálogo — aquí no se escribe un OVR a mano.")}
           </p>
         </div>
-        <NxButton href="/admin/cartas" variant="ghost">← Listado</NxButton>
+        <NxButton href="/admin/cartas" variant="ghost">{t("← Listado")}</NxButton>
       </header>
 
-      <ErrorBar error={error} onClose={clear} />
+      <ErrorBar error={td(error)} onClose={clear} />
 
       <div className="grid gap-5 lg:grid-cols-2">
         {/* ── 1. Jugador ── */}
         <section aria-labelledby="h-jugador" className="min-w-0">
           <h2 id="h-jugador" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-            1 · Jugador
+            {t("1 · Jugador")}
           </h2>
           <Plate className="p-4">
             <label className="block">
-              <span className="font-display text-label uppercase tracking-wider text-white/50">Buscar</span>
+              <span className="font-display text-label uppercase tracking-wider text-white/50">{t("Buscar")}</span>
               <input
                 value={q} onChange={(e) => setQ(e.target.value)}
-                placeholder="nick del jugador…" aria-label="Buscar jugador por nick"
+                placeholder={t("nick del jugador…")} aria-label={t("Buscar jugador por nick")}
                 className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-3 text-sm text-white outline-none focus-visible:border-drl"
               />
             </label>
 
-            <div className="mt-3 max-h-72 space-y-1 overflow-y-auto" role="listbox" aria-label="Jugadores">
-              {running && players.length === 0 && <Loading label="Buscando…" />}
+            <div className="mt-3 max-h-72 space-y-1 overflow-y-auto" role="listbox" aria-label={t("Jugadores")}>
+              {running && players.length === 0 && <Loading label={t("Buscando…")} />}
               {players.map((p) => (
                 <button
                   key={p.id} type="button" role="option" aria-selected={sel?.id === p.id}
@@ -197,16 +202,16 @@ export default function NuevaCartaPage() {
                   <span className="min-w-0">
                     <span className="block truncate text-sm text-white/90">{p.nick}</span>
                     <span className="block truncate text-[11px] text-white/40">
-                      {p.team || "sin equipo"} · {p.region} · {p.role} · {p.existing.length} cartas
+                      {p.team || t("sin equipo")} · {td(p.region)} · {td(p.role)} · {t("{n} cartas", { n: p.existing.length })}
                     </span>
                   </span>
                   <Badge tone={p.derivable ? "ok" : "warn"}>
-                    {p.derivable ? "derivable" : (p.reason ?? "sin métricas")}
+                    {p.derivable ? t("derivable") : (td(p.reason) ?? t("sin métricas"))}
                   </Badge>
                 </button>
               ))}
               {!running && players.length === 0 && (
-                <p className="px-1 py-3 text-sm text-white/40">Ningún jugador con ese nick.</p>
+                <p className="px-1 py-3 text-sm text-white/40">{t("Ningún jugador con ese nick.")}</p>
               )}
             </div>
           </Plate>
@@ -215,13 +220,13 @@ export default function NuevaCartaPage() {
         {/* ── 2. Variante ── */}
         <section aria-labelledby="h-variante" className="min-w-0">
           <h2 id="h-variante" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-            2 · Variante
+            {t("2 · Variante")}
           </h2>
           <Plate className="p-4">
             {!sel ? (
-              <p className="text-sm text-white/40">Elige antes un jugador.</p>
+              <p className="text-sm text-white/40">{t("Elige antes un jugador.")}</p>
             ) : (
-              <div className="max-h-72 space-y-1 overflow-y-auto" role="listbox" aria-label="Variantes">
+              <div className="max-h-72 space-y-1 overflow-y-auto" role="listbox" aria-label={t("Variantes")}>
                 {variantes.map((v) => (
                   <button
                     key={v.id} type="button" role="option" aria-selected={variantId === v.id}
@@ -231,10 +236,10 @@ export default function NuevaCartaPage() {
                       ${variantId === v.id ? "border-drl bg-drl/10" : "border-white/10 hover:bg-white/5"}
                       ${v.yaExiste ? "cursor-not-allowed opacity-35" : ""}`}
                   >
-                    <span className="min-w-0 truncate text-sm text-white/90">{v.label}</span>
+                    <span className="min-w-0 truncate text-sm text-white/90">{td(v.label)}</span>
                     <span className="flex shrink-0 items-center gap-2">
                       <BucketBadge bucket={v.bucket} rank={v.rank} />
-                      {v.yaExiste && <Badge tone="muted">ya existe</Badge>}
+                      {v.yaExiste && <Badge tone="muted">{t("ya existe")}</Badge>}
                     </span>
                   </button>
                 ))}
@@ -242,7 +247,7 @@ export default function NuevaCartaPage() {
             )}
             {sel && variantId && (
               <Recessed className="mt-3 p-3">
-                <p className="font-display text-label uppercase tracking-wider text-white/40">Card ID que se creará</p>
+                <p className="font-display text-label uppercase tracking-wider text-white/40">{t("Card ID que se creará")}</p>
                 <p className="font-mono text-[13px] text-drl-cyan">{sel.id}__{variantId}</p>
               </Recessed>
             )}
@@ -254,7 +259,7 @@ export default function NuevaCartaPage() {
       {sel && variantId && (
         <section aria-labelledby="h-preview">
           <h2 id="h-preview" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-            Cómo va a quedar
+            {t("Cómo va a quedar")}
           </h2>
           <Plate className="p-4">
             {previsualizacion ? (
@@ -266,39 +271,39 @@ export default function NuevaCartaPage() {
                   ovr={previsualizacion.ovr}
                   combat={previsualizacion.combat}
                   size="lg"
-                  nota="Todavía no existe: se creará como borrador."
+                  nota={t("Todavía no existe: se creará como borrador.")}
                 />
                 <div className="min-w-0 space-y-4">
                   <div className="flex flex-wrap items-end gap-6">
                     <div>
-                      <p className="font-display text-label uppercase tracking-wider text-white/40">OVR</p>
+                      <p className="font-display text-label uppercase tracking-wider text-white/40">{t("OVR")}</p>
                       <p className="font-display text-4xl font-bold tabular-nums text-white">
                         {previsualizacion.ovr}
                       </p>
                     </div>
                     <p className="max-w-sm text-[12px] leading-relaxed text-white/40">
-                      Derivado con <code className="text-white/60">deriveCard()</code>: el trío
-                      base más el <strong className="text-white/70">+{previsualizacion.variant.statBoost}</strong>{" "}
-                      de la variante, y de ahí el OVR. Es la misma función que usará el
-                      servidor al guardar, así que esta cifra es la que se va a persistir.
+                      {fill(t("Derivado con {fn}: el trío base más el {bonus} de la variante, y de ahí el OVR. Es la misma función que usará el servidor al guardar, así que esta cifra es la que se va a persistir.", slots("fn", "bonus")), {
+                        fn: <code className="text-white/60">deriveCard()</code>,
+                        bonus: <strong className="text-white/70">+{previsualizacion.variant.statBoost}</strong>,
+                      })}
                     </p>
                   </div>
                   <FieldGrid cols={4}>
-                    <Field label="Jugador">{sel.nick}</Field>
-                    <Field label="Equipo">{sel.team || "—"}</Field>
-                    <Field label="Rol">{sel.role}</Field>
-                    <Field label="Región / País">{sel.region} · {sel.country || "—"}</Field>
-                    <Field label="Variante">{previsualizacion.variant.label}</Field>
-                    <Field label="Rank / Bucket">
+                    <Field label={t("Jugador")}>{sel.nick}</Field>
+                    <Field label={t("Equipo")}>{sel.team || "—"}</Field>
+                    <Field label={t("Rol")}>{td(sel.role)}</Field>
+                    <Field label={t("Región / País")}>{td(sel.region)} · {sel.country || "—"}</Field>
+                    <Field label={t("Variante")}>{td(previsualizacion.variant.label)}</Field>
+                    <Field label={t("Rank / Bucket")}>
                       {previsualizacion.variant.rank} · {bucketForRank(previsualizacion.variant.rank)}
                     </Field>
-                    <Field label="Serializada">
+                    <Field label={t("Serializada")}>
                       {previsualizacion.variant.serialized
-                        ? `sí · /${previsualizacion.variant.serialLimit ?? "?"}`
-                        : "no"}
+                        ? t("sí · /{v}", { v: previsualizacion.variant.serialLimit ?? "?" })
+                        : t("no")}
                     </Field>
-                    <Field label="Valor de mercado">
-                      {marketValue(previsualizacion.card).toLocaleString("es-ES")} cr
+                    <Field label={t("Valor de mercado")}>
+                      {t("{v} cr", { v: marketValue(previsualizacion.card).toLocaleString(getIntlLocale()) })}
                     </Field>
                   </FieldGrid>
                 </div>
@@ -306,8 +311,8 @@ export default function NuevaCartaPage() {
             ) : (
               <p className="text-sm text-white/40">
                 {necesitaEditorial
-                  ? "Completa el trío editorial (tres enteros de 0 a 99) para ver la carta."
-                  : "Sin trío derivable para este jugador."}
+                  ? t("Completa el trío editorial (tres enteros de 0 a 99) para ver la carta.")
+                  : t("Sin trío derivable para este jugador.")}
               </p>
             )}
           </Plate>
@@ -318,14 +323,14 @@ export default function NuevaCartaPage() {
       {necesitaEditorial && (
         <section aria-labelledby="h-editorial">
           <h2 id="h-editorial" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-            3 · Trío editorial
+            {t("3 · Trío editorial")}
           </h2>
           <Plate tone="gold" className="space-y-3 p-4">
             <p className="text-sm text-white/70">
-              <strong>{sel!.nick}</strong> no genera carta automáticamente ({sel!.reason}). El generador se
-              niega a inventar estadísticas cuando no hay métricas, así que la única vía es que una
-              persona las autorice y explique por qué. La carta quedará marcada como{" "}
-              <code className="text-drl-gold">editorial</code>.
+              {fill(t("{jugador} no genera carta automáticamente ({motivo}). El generador se niega a inventar estadísticas cuando no hay métricas, así que la única vía es que una persona las autorice y explique por qué. La carta quedará marcada como {marca}.", { ...slots("jugador", "marca"), motivo: td(sel!.reason) ?? "" }), {
+                jugador: <strong>{sel!.nick}</strong>,
+                marca: <code className="text-drl-gold">editorial</code>,
+              })}
             </p>
             <div className="grid gap-3 sm:grid-cols-3">
               {(["stronghold", "gamesense", "entryfrag"] as const).map((k) => (
@@ -343,12 +348,12 @@ export default function NuevaCartaPage() {
             </div>
             <label className="block">
               <span className="font-display text-label uppercase tracking-wider text-white/50">
-                Justificación del trío (obligatoria)
+                {t("Justificación del trío (obligatoria)")}
               </span>
               <textarea
                 rows={2} value={editorial.reason}
                 onChange={(e) => setEditorial({ ...editorial, reason: e.target.value })}
-                placeholder="De dónde salen estos números y quién los autoriza"
+                placeholder={t("De dónde salen estos números y quién los autoriza")}
                 className="mt-1 w-full resize-y border border-white/15 bg-base-800 px-3 py-2 text-sm text-white outline-none focus-visible:border-drl"
               />
             </label>
@@ -359,33 +364,31 @@ export default function NuevaCartaPage() {
       {/* ── Motivo y alta ── */}
       <section aria-labelledby="h-alta">
         <h2 id="h-alta" className="mb-2 font-display text-label uppercase tracking-widest text-white/40">
-          {necesitaEditorial ? "4" : "3"} · Crear
+          {t("{n} · Crear", { n: necesitaEditorial ? "4" : "3" })}
         </h2>
         <Plate className="space-y-3 p-4">
           <label className="block">
             <span className="font-display text-label uppercase tracking-wider text-white/50">
-              Motivo del alta (queda registrado)
+              {t("Motivo del alta (queda registrado)")}
             </span>
             <textarea
               rows={2} value={reason} onChange={(e) => setReason(e.target.value)}
-              placeholder="Por qué se crea esta carta"
+              placeholder={t("Por qué se crea esta carta")}
               className="mt-1 w-full resize-y border border-white/15 bg-base-800 px-3 py-2 text-sm text-white outline-none focus-visible:border-drl"
             />
           </label>
           <div className="flex flex-wrap items-center gap-3">
             <NxButton variant="primary" disabled={!puedeCrear} onClick={() => void crear()}>
-              {running ? "Creando…" : "Crear como borrador"}
+              {running ? t("Creando…") : t("Crear como borrador")}
             </NxButton>
             <p className="text-[12px] text-white/40">
-              Nace en <strong>DRAFT</strong>: existe en la base de datos, pero no está en el catálogo
-              jugable, no entra en pools activos y no puede salir en sobres. Publicar es el paso
-              siguiente, desde su ficha.
+              {fill(t("Nace en {estado}: existe en la base de datos, pero no está en el catálogo jugable, no entra en pools activos y no puede salir en sobres. Publicar es el paso siguiente, desde su ficha.", slots("estado")), { estado: <strong>{t("DRAFT")}</strong> })}
             </p>
           </div>
         </Plate>
       </section>
 
-      <Rail label="Las estadísticas las deriva el dominio; el panel solo elige jugador y variante" />
+      <Rail label={t("Las estadísticas las deriva el dominio; el panel solo elige jugador y variante")} />
     </Stage>
   );
 }

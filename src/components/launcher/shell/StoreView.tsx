@@ -17,6 +17,10 @@ import { Badge } from "@/components/ui/Badge";
 import { NxButton } from "@/components/ui/NxButton";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { Plate } from "@/components/ui/Surface";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("launcher");
 
 export function StoreView({
   entries, jobs, motionScale, onOpen, onInstall,
@@ -27,6 +31,7 @@ export function StoreView({
   onOpen: (gameId: string) => void;
   onInstall: (game: Game) => void;
 }) {
+  useLocale();
   const games = getGames();
   const [featured, ...rest] = games;
 
@@ -39,9 +44,9 @@ export function StoreView({
     >
       <header>
         <h1 className="font-display text-[34px] font-black uppercase leading-none tracking-tight text-white">
-          Tien<span className="text-drl">da</span>
+          {t("Tien")}<span className="text-drl">{t("da")}</span>
         </h1>
-        <p className="mt-1.5 text-[13px] text-white/45">Catálogo completo del sello. Todos los títulos, sin coste de entrada.</p>
+        <p className="mt-1.5 text-[13px] text-white/45">{t("Catálogo completo del sello. Todos los títulos, sin coste de entrada.")}</p>
       </header>
 
       {/* Destacado */}
@@ -49,20 +54,20 @@ export function StoreView({
         <GameArtwork game={featured} variant="tile" parallax={false} />
         <div className="relative flex flex-wrap items-end justify-between gap-6 p-7">
           <div className="max-w-[520px] space-y-2.5">
-            <Badge>Destacado</Badge>
+            <Badge>{t("Destacado")}</Badge>
             <h2 className="font-display text-[36px] font-black uppercase leading-none tracking-tight text-white">
-              {featured.title}
+              {td(featured.title)}
             </h2>
-            <p className="text-[13px] leading-relaxed text-white/60">{featured.description}</p>
+            <p className="text-[13px] leading-relaxed text-white/60">{td(featured.description)}</p>
           </div>
           <NxButton size="lg" variant="primary" onClick={() => onOpen(featured.id)}>
-            Ver título
+            {t("Ver título")}
           </NxButton>
         </div>
       </div>
 
       <section>
-        <SectionTitle>Catálogo</SectionTitle>
+        <SectionTitle>{t("Catálogo")}</SectionTitle>
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {rest.map((game, i) => {
             const entry = entries[game.id];
@@ -89,9 +94,9 @@ export function StoreView({
                   <div className="space-y-2.5 p-4">
                     <div className="flex flex-wrap items-center gap-2">
                       <Badge dot tone={stateTone(state)}>{stateLabel(state, game, entry)}</Badge>
-                      <Badge>{game.genre}</Badge>
+                      <Badge>{td(game.genre)}</Badge>
                     </div>
-                    <p className="line-clamp-2 text-[12px] leading-snug text-white/50">{game.tagline}</p>
+                    <p className="line-clamp-2 text-[12px] leading-snug text-white/50">{td(game.tagline)}</p>
                     <div className="flex items-center justify-between pt-1">
                       <span className="text-caption text-white/35">{formatBytes(game.sizeBytes)}</span>
                       <NxButton
@@ -99,7 +104,7 @@ export function StoreView({
                         variant={owned ? "secondary" : "primary"}
                         onClick={() => (owned ? onOpen(game.id) : onInstall(game))}
                       >
-                        {owned ? "Ver" : "Instalar"}
+                        {owned ? t("Ver") : t("Instalar")}
                       </NxButton>
                     </div>
                   </div>

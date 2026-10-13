@@ -33,6 +33,10 @@ import { Loading, EmptyState } from "@/components/ui/States";
 import {
   adminPoolApi, useAsync, ErrorBar, PoolBadge, Select, fmtDate,
 } from "@/components/admin/cards/shared";
+import { ns, td as i18nTd, getIntlLocale } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("admin");
 
 interface PoolRow {
   id: string; name: string; description: string | null;
@@ -49,9 +53,10 @@ interface Respuesta {
   facets: { lifecycles: string[]; packs: string[]; seasons: string[]; events: string[] };
 }
 
-const num = (n: number): string => n.toLocaleString("es-ES");
+const num = (n: number): string => n.toLocaleString(getIntlLocale());
 
 export default function PoolsPage() {
+  useLocale();
   const { running, error, clear, run } = useAsync<unknown>();
   const [data, setData] = useState<Respuesta | null>(null);
   const [q, setQ] = useState("");
@@ -96,38 +101,36 @@ export default function PoolsPage() {
     <Stage data-admin-panel="pools" className="space-y-5 p-4 sm:p-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <SectionTitle>Pools y distribución</SectionTitle>
+          <SectionTitle>{t("Pools y distribución")}</SectionTitle>
           <p className="mt-1 max-w-2xl text-sm text-white/50">
-            Qué cartas pueden salir en qué sobres y con qué peso. Las reglas del sobre
-            —cuántas cartas, probabilidad por rareza, pity, garantías— viven en código y no se
-            tocan desde aquí.
+            {t("Qué cartas pueden salir en qué sobres y con qué peso. Las reglas del sobre —cuántas cartas, probabilidad por rareza, pity, garantías— viven en código y no se tocan desde aquí.")}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <NxButton href="/admin/cartas" variant="ghost">▣ Cartas</NxButton>
-          <NxButton href="/admin/pools/nueva" variant="primary">Nuevo pool</NxButton>
+          <NxButton href="/admin/cartas" variant="ghost">{t("▣ Cartas")}</NxButton>
+          <NxButton href="/admin/pools/nueva" variant="primary">{t("Nuevo pool")}</NxButton>
         </div>
       </header>
 
-      <ErrorBar error={error} onClose={clear} />
+      <ErrorBar error={i18nTd(error)} onClose={clear} />
 
       {/* ── Filtros ── */}
       <Plate className="p-4">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <label className="block min-w-0" htmlFor="buscar-pool">
-            <span className="font-display text-label uppercase tracking-wider text-white/50">Buscar</span>
+            <span className="font-display text-label uppercase tracking-wider text-white/50">{t("Buscar")}</span>
             <input
               id="buscar-pool" value={q} onChange={(e) => setQ(e.target.value)}
-              placeholder="nombre o id del pool…" aria-label="Buscar pool por nombre o id"
+              placeholder={t("nombre o id del pool…")} aria-label={t("Buscar pool por nombre o id")}
               className="mt-1 min-h-[44px] w-full border border-white/15 bg-base-800 px-3 text-sm text-white outline-none focus-visible:border-drl"
             />
           </label>
-          <Select label="Estado" value={lifecycle} onChange={setLifecycle}
+          <Select label={t("Estado")} value={lifecycle} onChange={setLifecycle}
             options={(data?.facets.lifecycles ?? []).map((v) => ({ value: v, label: v }))} />
-          <Select label="Sobre" value={packId} onChange={setPackId}
-            options={(data?.facets.packs ?? []).map((v) => ({ value: v, label: v }))} vacio="Todos" />
-          <Select label="Evento" value={eventId} onChange={setEventId}
-            options={(data?.facets.events ?? []).map((v) => ({ value: v, label: v }))} vacio="Todos" />
+          <Select label={t("Sobre")} value={packId} onChange={setPackId}
+            options={(data?.facets.packs ?? []).map((v) => ({ value: v, label: v }))} vacio={t("Todos")} />
+          <Select label={t("Evento")} value={eventId} onChange={setEventId}
+            options={(data?.facets.events ?? []).map((v) => ({ value: v, label: v }))} vacio={t("Todos")} />
         </div>
         <div className="mt-3 flex flex-wrap items-center gap-3">
           {/*
@@ -145,42 +148,42 @@ export default function PoolsPage() {
             <span aria-hidden className="font-display text-base leading-none">
               {soloActivos ? "◉" : "○"}
             </span>
-            Solo los que reparten hoy
+            {t("Solo los que reparten hoy")}
           </button>
           {hayFiltros && (
-            <NxButton variant="tertiary" onClick={limpiar}>Limpiar filtros</NxButton>
+            <NxButton variant="tertiary" onClick={limpiar}>{t("Limpiar filtros")}</NxButton>
           )}
         </div>
       </Plate>
 
       {/* ── Resumen ── */}
       <Recessed className="flex flex-wrap gap-x-8 gap-y-2 p-4">
-        <Dato label="Pools" valor={num(rows.length)} />
-        <Dato label="Reparten hoy" valor={num(resumen.activos)} />
-        <Dato label="Entradas en total" valor={num(resumen.entradas)} />
-        <Dato label="Con avisos" valor={num(resumen.problemas)}
+        <Dato label={t("Pools")} valor={num(rows.length)} />
+        <Dato label={t("Reparten hoy")} valor={num(resumen.activos)} />
+        <Dato label={t("Entradas en total")} valor={num(resumen.entradas)} />
+        <Dato label={t("Con avisos")} valor={num(resumen.problemas)}
           tono={resumen.problemas > 0 ? "warn" : undefined} />
       </Recessed>
 
       {/* ── Resultado ── */}
       {!primerCarga && running ? (
-        <Loading label="Cargando pools…" />
+        <Loading label={t("Cargando pools…")} />
       ) : rows.length === 0 ? (
-        <EmptyState title="Sin pools" hint="Ningún pool cumple estos filtros." />
+        <EmptyState title={t("Sin pools")} hint={t("Ningún pool cumple estos filtros.")} />
       ) : (
         <>
           {/* Escritorio: tabla densa */}
           <Plate className="hidden overflow-hidden md:block">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[900px] border-collapse text-sm">
-                <caption className="sr-only">Pools de distribución de cartas</caption>
+                <caption className="sr-only">{t("Pools de distribución de cartas")}</caption>
                 <thead>
                   <tr className="border-b border-white/10 text-left">
-                    {["Pool", "Estado", "Modo", "Cartas", "Peso", "Sobres", "Reparte", "Rev.", "Modificado"]
+                    {[t("Pool"), t("Estado"), t("Modo"), t("Cartas"), t("Peso"), t("Sobres"), t("Reparte"), t("Rev."), t("Modificado")]
                       .map((h) => (
                         <th key={h} scope="col"
                           className="px-3 py-2 font-display text-label uppercase tracking-wider text-white/40">
-                          {h}
+                          {i18nTd(h)}
                         </th>
                       ))}
                   </tr>
@@ -197,22 +200,22 @@ export default function PoolsPage() {
                         </Link>
                       </td>
                       <td className="px-3 py-2"><PoolBadge state={r.lifecycle} /></td>
-                      <td className="px-3 py-2 text-white/60">{r.mode}</td>
+                      <td className="px-3 py-2 text-white/60">{i18nTd(r.mode)}</td>
                       <td className="px-3 py-2 tabular-nums text-white">
                         {num(r.includes)}
                         {r.excludes > 0 && <span className="text-white/40"> −{num(r.excludes)}</span>}
                         {r.noPublicadas > 0 && (
-                          <Badge tone="warn" className="ml-2">{r.noPublicadas} sin publicar</Badge>
+                          <Badge tone="warn" className="ml-2">{r.noPublicadas} {t("sin publicar")}</Badge>
                         )}
                       </td>
                       <td className="px-3 py-2 tabular-nums text-white/70">{num(r.pesoTotal)}</td>
                       <td className="px-3 py-2 text-white/60">
-                        {r.packs.length ? r.packs.join(", ") : <span className="text-white/30">ninguno</span>}
+                        {r.packs.length ? r.packs.join(", ") : <span className="text-white/30">{t("ninguno")}</span>}
                       </td>
                       <td className="px-3 py-2">
                         {r.lifecycle === "ACTIVE" && r.disponible && r.nPacks > 0
-                          ? <Badge tone="ok">sí</Badge>
-                          : <Badge tone="muted">no</Badge>}
+                          ? <Badge tone="ok">{t("sí")}</Badge>
+                          : <Badge tone="muted">{t("no")}</Badge>}
                       </td>
                       <td className="px-3 py-2 tabular-nums text-white/50">r{r.revision}</td>
                       <td className="px-3 py-2 text-[12px] text-white/45">{fmtDate(r.updatedAt)}</td>
@@ -236,12 +239,12 @@ export default function PoolsPage() {
                   <PoolBadge state={r.lifecycle} />
                 </div>
                 <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[12px] text-white/50">
-                  <span>{num(r.includes)} cartas</span>
-                  <span>peso {num(r.pesoTotal)}</span>
-                  <span>{r.packs.length ? r.packs.join(", ") : "sin sobre"}</span>
+                  <span>{num(r.includes)} {t("cartas")}</span>
+                  <span>{t("peso")} {num(r.pesoTotal)}</span>
+                  <span>{r.packs.length ? r.packs.join(", ") : t("sin sobre")}</span>
                   <span>r{r.revision}</span>
-                  {r.lifecycle === "ACTIVE" && r.disponible && r.nPacks > 0 && <Badge tone="ok">reparte</Badge>}
-                  {r.noPublicadas > 0 && <Badge tone="warn">{r.noPublicadas} sin publicar</Badge>}
+                  {r.lifecycle === "ACTIVE" && r.disponible && r.nPacks > 0 && <Badge tone="ok">{t("reparte")}</Badge>}
+                  {r.noPublicadas > 0 && <Badge tone="warn">{r.noPublicadas} {t("sin publicar")}</Badge>}
                 </div>
               </Link>
             ))}
@@ -249,17 +252,18 @@ export default function PoolsPage() {
         </>
       )}
 
-      <Rail label="Un pool estrecha y repondera lo que el sobre ya permite; nunca lo ensancha" />
+      <Rail label={t("Un pool estrecha y repondera lo que el sobre ya permite; nunca lo ensancha")} />
     </Stage>
   );
 }
 
 function Dato({ label, valor, tono }: { label: string; valor: string; tono?: "warn" }) {
+  useLocale();
   return (
     <div>
-      <p className="font-display text-label uppercase tracking-wider text-white/40">{label}</p>
+      <p className="font-display text-label uppercase tracking-wider text-white/40">{i18nTd(label)}</p>
       <p className={`font-display text-xl font-bold tabular-nums ${tono === "warn" ? "text-drl-gold" : "text-white"}`}>
-        {valor}
+        {i18nTd(valor)}
       </p>
     </div>
   );

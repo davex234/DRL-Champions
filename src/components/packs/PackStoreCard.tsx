@@ -17,6 +17,11 @@ import { classOddsFor, tablePct } from "@/domain/packs/odds";
 import { PACK_CLASS_COLOR } from "@/domain/packs/packClass";
 import { CreditGlyph } from "@/components/ui/game/GameGlyph";
 import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("packs");
 
 const BUCKET_COLOR: Record<RarityBucket, string> = {
   common: "#8b96a3",
@@ -35,6 +40,7 @@ export function PackStoreCard({
   pack: PackDef;
   onNotify: (msg: string, ok: boolean) => void;
 }) {
+  useLocale();
   const router = useRouter();
   const { user } = useAuth();
   // Con sesión, la compra la valida y la cobra el SERVIDOR. Sin sesión se usa la
@@ -72,13 +78,13 @@ export function PackStoreCard({
         await buyPackOnline(pack.id);
         return true;
       } catch (e) {
-        onNotify(e instanceof Error ? e.message : "No se pudo comprar", false);
+        onNotify(e instanceof Error ? e.message : t("No se pudo comprar"), false);
         return false;
       }
     }
     if (serverEconomy) { onNotify(SESSION_PENDING, false); return false; } // F69 · sesión resolviéndose
     const res = buyPack(pack.id);
-    if (!res.ok) { onNotify(res.error ?? "Error", false); return false; }
+    if (!res.ok) { onNotify(res.error ?? t("Error"), false); return false; }
     return true;
   }
 
@@ -86,7 +92,7 @@ export function PackStoreCard({
     if (busy) return;
     setBusy(true);
     try {
-      if (await purchase()) onNotify(`${pack.name} comprado`, true);
+      if (await purchase()) onNotify(t("{name} comprado", { name: td(pack.name) }), true);
     } finally { setBusy(false); }
   }
 
@@ -121,7 +127,7 @@ export function PackStoreCard({
             </span>
           )}
           <h3 className="mt-2 font-display text-xl font-bold uppercase tracking-wide text-white">
-            {pack.name}
+            {td(pack.name)}
           </h3>
         </div>
         {owned > 0 && (
@@ -131,7 +137,7 @@ export function PackStoreCard({
         )}
       </div>
 
-      <p className="mt-2 min-h-[40px] text-sm text-white/55">{pack.description}</p>
+      <p className="mt-2 min-h-[40px] text-sm text-white/55">{td(pack.description)}</p>
 
       {/*
         EL SOBRE ES EL PRODUCTO, y hasta ahora se enseñaba como una miniatura de 100×148 px
@@ -172,8 +178,8 @@ export function PackStoreCard({
       {classOdds ? (
         <>
           <div className="mb-1 flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
-            <span>Probabilidad por carta</span>
-            {classOdds.guarantee && <span className="text-drl-gold">{classOdds.guarantee}</span>}
+            <span>{t("Probabilidad por carta")}</span>
+            {classOdds.guarantee && <span className="text-drl-gold">{td(classOdds.guarantee)}</span>}
           </div>
           <div className="flex h-2 overflow-hidden rounded-full">
             {classOdds.rows.map((r) => (
@@ -187,10 +193,10 @@ export function PackStoreCard({
       ) : (<>
       {/* Reparto de rareza — el REAL, medido con el motor de sorteo */}
       <div className="mb-1 flex items-center justify-between text-[10px] uppercase tracking-wider text-white/40">
-        <span>{stats ? "Reparto real" : "Probabilidades"}</span>
+        <span>{stats ? t("Reparto real") : t("Probabilidades")}</span>
         {pack.guaranteedMin && (
           <span style={{ color: BUCKET_COLOR[pack.guaranteedMin] }}>
-            {BUCKET_LABEL[pack.guaranteedMin]}+ garantizada
+            {td(BUCKET_LABEL[pack.guaranteedMin])}{t("+ garantizada")}
           </span>
         )}
       </div>
@@ -217,15 +223,15 @@ export function PackStoreCard({
       */}
       {guidance && (
         <div className="mt-3 border-t border-white/8 pt-2.5">
-          <p className="text-[11.5px] leading-snug text-white/60">{guidance.headline}</p>
+          <p className="text-[11.5px] leading-snug text-white/60">{td(guidance.headline)}</p>
           {guidance.warnings.map((w) => (
             <p key={w} className="mt-1 text-[11px] leading-snug text-drl-gold/70">
-              {w}
+              {td(w)}
             </p>
           ))}
           {typeof guidance.costPerRarity.rare === "number" && (
             <p className="mt-1.5 font-display text-[10px] uppercase tracking-[0.1em] text-white/30">
-              Rara ≈ <CreditGlyph className="align-[-2px]" /> {formatCredits(Math.round(guidance.costPerRarity.rare))} por carta
+              {fill(t("Rara ≈ {moneda} {n} por carta", { ...slots("moneda"), n: formatCredits(Math.round(guidance.costPerRarity.rare)) }), { moneda: <CreditGlyph className="align-[-2px]" /> })}
             </p>
           )}
         </div>
@@ -238,7 +244,7 @@ export function PackStoreCard({
           disabled={busy || (owned === 0 && !canAfford)}
           className="flex-1 rounded-control bg-gradient-to-r from-drl to-[#7b1733] px-4 py-3 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {busy ? "Procesando…" : owned > 0 ? "Abrir" : pack.price === 0 ? "Conseguir y abrir" : "Comprar y abrir"}
+          {busy ? t("Procesando…") : owned > 0 ? t("Abrir") : pack.price === 0 ? t("Conseguir y abrir") : t("Comprar y abrir")}
         </button>
         {pack.price > 0 && (
           <button
@@ -251,7 +257,7 @@ export function PackStoreCard({
         )}
       </div>
       <p className="mt-2 text-center font-display text-sm font-bold text-drl-gold">
-        {pack.price === 0 ? "GRATIS" : <><CreditGlyph className="mr-1 align-[-2px]" />{formatCredits(pack.price)}</>}
+        {pack.price === 0 ? t("GRATIS") : <><CreditGlyph className="mr-1 align-[-2px]" />{formatCredits(pack.price)}</>}
       </p>
     </motion.div>
   );

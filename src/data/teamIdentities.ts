@@ -36,6 +36,9 @@
 import { TEAM_PACK_AUDIT } from "./teamPackCatalog";
 import type { TeamRegion } from "./teamPackCatalog";
 import { repairMojibake } from "./teamText";
+import { ns } from "@/i18n/runtime";
+
+const tr = ns("data");
 
 export type IdentityStatus = "verified" | "unverified";
 
@@ -235,7 +238,7 @@ export const TEAM_IDENTITIES: TeamIdentity[] = [
     ["dragon-ranger-gaming", "Dragon Ranger Gaming", "DRG", "China", ["DRG"], ["Dragon Ranger Gaming"]],
   ] as const).map(([canonicalId, displayName, tag, region, current, full]): TeamIdentity => ({
     canonicalId, displayName, tag, region, currentAliases: [...current], historicalAliases: [...full], status: "unverified",
-    unverifiedReason: "Equipo del catálogo diseñado fuera de la auditoría de roster 20.2: identidad para colección, maestría y logros; no es rival de campaña ni Team Pack.",
+    unverifiedReason: tr("Equipo del catálogo diseñado fuera de la auditoría de roster 20.2: identidad para colección, maestría y logros; no es rival de campaña ni Team Pack."),
   })),
 ];
 
@@ -385,7 +388,7 @@ export function masterySetIdForAlias(alias: string): string {
  */
 export function canonicalTeam(team: string | null | undefined): { key: string; label: string; identity: TeamIdentity | undefined } {
   const t = repairMojibake((team ?? "").trim());
-  if (!t) return { key: "raw:?", label: "Sin equipo", identity: undefined };
+  if (!t) return { key: "raw:?", label: tr("Sin equipo"), identity: undefined };
   const identity = resolveTeamIdentity(t);
   return identity ? { key: identity.canonicalId, label: identity.displayName, identity } : { key: `raw:${t}`, label: t, identity: undefined };
 }

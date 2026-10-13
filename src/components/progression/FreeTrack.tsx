@@ -13,6 +13,11 @@ import Link from "next/link";
 import { describeReward } from "./PassRail";
 import type { PassTrackLevelView } from "@/server/services/progression";
 import { cn } from "@/lib/format";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("progression");
 
 export type TrackState = "BLOQUEADO" | "DISPONIBLE" | "CONSEGUIDO";
 
@@ -23,6 +28,7 @@ export function trackState(l: Pick<PassTrackLevelView, "claimed" | "claimable">)
 }
 
 export function FreeTrack({ levels, currentLevel, maxLevel, className }: { levels: PassTrackLevelView[]; currentLevel: number; maxLevel: number; className?: string }) {
+  useLocale();
   const scroller = useRef<HTMLOListElement>(null);
   const available = levels.filter((l) => l.claimable).length;
 
@@ -39,18 +45,18 @@ export function FreeTrack({ levels, currentLevel, maxLevel, className }: { level
   }, [currentLevel]);
 
   return (
-    <section aria-label="Carril libre del pase" className={className} data-track-available={available}>
+    <section aria-label={t("Carril libre del pase")} className={className} data-track-available={available}>
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
         <p className="text-caption text-ink-muted">
-          Nivel <b className="nx-readout text-white">{currentLevel}</b> / {maxLevel} del pase ·{" "}
-          {available > 0 ? <span className="text-drl-gold">{available} {available === 1 ? "recompensa disponible" : "recompensas disponibles"}</span> : "recompensas de cada nivel"}
+          {fill(t("Nivel {nivel} / {max} del pase ·", { ...slots("nivel"), max: maxLevel }), { nivel: <b className="nx-readout text-white">{currentLevel}</b> })}{" "}
+          {available > 0 ? <span className="text-drl-gold">{t("{n, plural, one {# recompensa disponible} other {# recompensas disponibles}}", { n: available })}</span> : t("recompensas de cada nivel")}
         </p>
-        <Link href="/logros" className="nx-action">Ver el pase completo →</Link>
+        <Link href="/logros" className="nx-action">{t("Ver el pase completo →")}</Link>
       </div>
       <ol
         ref={scroller}
         className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 [scrollbar-width:thin]"
-        aria-label="Niveles"
+        aria-label={t("Niveles")}
       >
         {levels.map((l) => {
           const state = trackState(l);
@@ -66,7 +72,7 @@ export function FreeTrack({ levels, currentLevel, maxLevel, className }: { level
                   : state === "DISPONIBLE" ? "border-drl-gold/60 bg-drl-gold/[0.10]"
                     : reached ? "border-white/20 bg-white/[0.04]" : "border-white/[0.08] bg-white/[0.02] opacity-70",
               )}
-              title={`Nivel ${l.level}: ${describeReward(l.reward)}`}
+              title={t("Nivel {level}: {reward}", { level: l.level, reward: describeReward(l.reward) })}
             >
               <span className="flex items-center justify-between">
                 <span className="nx-readout text-[16px] text-white">{l.level}</span>
@@ -74,7 +80,7 @@ export function FreeTrack({ levels, currentLevel, maxLevel, className }: { level
               </span>
               <span className="text-[11.5px] leading-snug text-white/70">{describeReward(l.reward)}</span>
               <span className="nx-label !text-[9px]">
-                {state === "CONSEGUIDO" ? "Conseguido" : state === "DISPONIBLE" ? "Disponible" : "Bloqueado"}
+                {state === "CONSEGUIDO" ? t("Conseguido") : state === "DISPONIBLE" ? t("Disponible") : t("Bloqueado")}
               </span>
             </li>
           );

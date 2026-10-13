@@ -5,6 +5,9 @@ import type {
   Listing, Transaction, Offer, OfferKind, CardPriceStats, CardPriceDaily,
   MarketConfig, ListingSearchRow, TopCardRow, RarityStatRow,
 } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("supabase");
 
 type Result<T> = { data?: T; error?: string };
 
@@ -70,7 +73,7 @@ export async function fetchMyTransactions(userId: string): Promise<Transaction[]
 /** Deposita la carta en el inventario de servidor y la publica en el mercado. */
 export async function listCardOnline(cardId: string, serial: number | null, price: number): Promise<Result<string>> {
   const sb = getSupabase();
-  if (!sb) return { error: "No configurado" };
+  if (!sb) return { error: t("No configurado") };
   const dep = await sb.rpc("deposit_card", { p_card_id: cardId, p_serial: serial });
   if (dep.error) return { error: dep.error.message };
   const res = await sb.rpc("create_listing", { p_card_id: cardId, p_serial: serial, p_price: price });
@@ -80,14 +83,14 @@ export async function listCardOnline(cardId: string, serial: number | null, pric
 /** Compra un listado (transferencia atómica validada en servidor). */
 export async function buyListingOnline(listingId: string): Promise<Result<string>> {
   const sb = getSupabase();
-  if (!sb) return { error: "No configurado" };
+  if (!sb) return { error: t("No configurado") };
   const res = await sb.rpc("buy_listing", { p_listing_id: listingId });
   return res.error ? { error: res.error.message } : { data: res.data as string };
 }
 
 export async function cancelListingOnline(listingId: string): Promise<Result<null>> {
   const sb = getSupabase();
-  if (!sb) return { error: "No configurado" };
+  if (!sb) return { error: t("No configurado") };
   const res = await sb.rpc("cancel_listing", { p_listing_id: listingId });
   return res.error ? { error: res.error.message } : {};
 }
@@ -130,7 +133,7 @@ export async function makeOffer(args: {
   price: number;
 }): Promise<Result<string>> {
   const sb = getSupabase();
-  if (!sb) return { error: "No configurado" };
+  if (!sb) return { error: t("No configurado") };
   const res = await sb.rpc("make_offer", {
     p_kind: args.kind,
     p_card_id: args.cardId ?? null,
@@ -143,14 +146,14 @@ export async function makeOffer(args: {
 
 export async function cancelOffer(offerId: string): Promise<Result<null>> {
   const sb = getSupabase();
-  if (!sb) return { error: "No configurado" };
+  if (!sb) return { error: t("No configurado") };
   const res = await sb.rpc("cancel_offer", { p_offer_id: offerId });
   return res.error ? { error: res.error.message } : {};
 }
 
 export async function acceptOffer(offerId: string): Promise<Result<string>> {
   const sb = getSupabase();
-  if (!sb) return { error: "No configurado" };
+  if (!sb) return { error: t("No configurado") };
   const res = await sb.rpc("accept_offer", { p_offer_id: offerId });
   return res.error ? { error: res.error.message } : { data: res.data as string };
 }

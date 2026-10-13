@@ -13,12 +13,17 @@ import { compareHref, isValidCardId } from "@/domain/collection/room";
 import { CardCompareView } from "@/components/collectionRoom/CardCompareView";
 import { useCollectionRoom } from "@/components/collectionRoom/useCollectionRoom";
 import { NxButton } from "@/components/ui/NxButton";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("coleccion");
 
 export default function ComparePage() {
   return <HydrationGate><Suspense fallback={null}><Compare /></Suspense></HydrationGate>;
 }
 
 function Compare() {
+  useLocale();
   const params = useSearchParams();
   const router = useRouter();
   const room = useCollectionRoom();
@@ -28,17 +33,17 @@ function Compare() {
 
   return (
     <div className="space-y-5">
-      <nav aria-label="Migas" className="text-caption text-ink-muted">
-        <Link href={a ? `/coleccion/carta/${encodeURIComponent(a.id)}` : "/coleccion"} className="nx-focus inline-flex min-h-[44px] items-center hover:text-white">← {a ? "Volver a la ficha" : "Colección"}</Link>
+      <nav aria-label={t("Migas")} className="text-caption text-ink-muted">
+        <Link href={a ? `/coleccion/carta/${encodeURIComponent(a.id)}` : "/coleccion"} className="nx-focus inline-flex min-h-[44px] items-center hover:text-white">← {a ? t("Volver a la ficha") : t("Colección")}</Link>
       </nav>
       <header>
-        <p className="font-display text-[12px] font-bold uppercase tracking-[0.18em] text-drl-cyan">Colección</p>
-        <h1 className="font-display text-[clamp(28px,5vw,46px)] font-bold uppercase leading-none text-white">Comparar cartas</h1>
+        <p className="font-display text-[12px] font-bold uppercase tracking-[0.18em] text-drl-cyan">{t("Colección")}</p>
+        <h1 className="font-display text-[clamp(28px,5vw,46px)] font-bold uppercase leading-none text-white">{t("Comparar cartas")}</h1>
       </header>
       {!a ? (
         <div className="nx-clip-sm border border-white/10 bg-black/30 p-6 text-center" data-testid="compare-missing">
-          <p className="text-body text-ink-muted">Abre la ficha de una carta y pulsa «Comparar» para elegir con cuál.</p>
-          <NxButton variant="primary" size="md" href="/coleccion" className="mt-3">Ir a la colección</NxButton>
+          <p className="text-body text-ink-muted">{t("Abre la ficha de una carta y pulsa «Comparar» para elegir con cuál.")}</p>
+          <NxButton variant="primary" size="md" href="/coleccion" className="mt-3">{t("Ir a la colección")}</NxButton>
         </div>
       ) : (
         <CardCompareView a={a} b={b} candidates={room.cards} ownedIds={new Set(room.snap.byCard.keys())} onPickB={(id) => router.replace(compareHref(a.id, id))} />
