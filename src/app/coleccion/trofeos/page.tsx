@@ -46,7 +46,8 @@ function TrophyRoomRoute() {
   useLocale();
   const [room, setRoom] = useState<TeamCollectionsView | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { toast, notify } = useToast();
+  // El aviso de una recompensa dura más que un aviso corriente: en la primera carga la cortinilla de arranque lo tapaba entero.
+  const { toast, notify } = useToast(6500);
   const settling = useRef(false);
   const load = useCallback(async () => {
     setError(null);
