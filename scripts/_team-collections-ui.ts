@@ -101,7 +101,9 @@ async function apiChecks() {
   check("API · insignias", "9 · China completa: desbloqueada una vez y guardada", okBurst.reduce((n, x) => n + x.regions.filter((r) => r === "China").length, 0) === 1 && (() => { const b = lastChina.regions.find((r) => r.region === "China")!; return b.unlocked && b.permanent && !!b.unlockedAt; })());
   const empty = await settle("tcempty");
   check(R, "cuenta sin cartas: nada que liquidar, nada concedido", empty.status === 200 && (empty.json as Settle).xpGained === 0 && (empty.json as Settle).teams.length === 0 && (empty.json as Settle).regions.length === 0 && (empty.json as Settle).view.teams.every((t) => t.firstCompletedAt === null));
-  check(R, "una cuenta no ve las compleciones de otra", ((await api("/api/game/team-collections?team=navi", "tcempty")).json as Tile).firstCompletedAt === null && ((await api("/api/game/team-collections?team=navi", "tcchina")).json as Tile).firstCompletedAt === null);
+  // NAVI lo han completado tcfive y tcchina; los equipos de China, tcchina. Quien no lo ha hecho no ve nada de eso.
+  const chinaTeam = lastChina.teams.find((t) => t.region === "China")!.id;
+  check(R, "una cuenta no ve las compleciones de otra", ((await api("/api/game/team-collections?team=navi", "tcempty")).json as Tile).firstCompletedAt === null && ((await api(`/api/game/team-collections?team=${chinaTeam}`, "tcfive")).json as Tile).firstCompletedAt === null && ((await api(`/api/game/team-collections?team=${chinaTeam}`, "tcchina")).json as Tile).xpAwarded === XP);
 
   // ── Sesión, parámetros y cuerpo ──
   const X = "API · seguridad";
@@ -269,8 +271,11 @@ async function autoSettle(locale: string, width: number) {
     await tab.goto(`${BASE}/coleccion/trofeos`, 600);
     const xp = EXPECT.teams * XP;
     const toast = await waitFor(tab, `[...document.querySelectorAll('[role="status"], [role="alert"], [aria-live]')].some((el) => (el.textContent ?? '').replace(/[^0-9]/g, '').includes('${xp}'))`, 30000);
+    // La foto, cuando la cortinilla de arranque ya se ha ido y el aviso sigue en pantalla.
+    await waitFor(tab, SETTLED, 8000);
+    const visible = await tab.js<boolean>(`[...document.querySelectorAll('[role="status"], [role="alert"], [aria-live]')].some((el) => (el.textContent ?? '').replace(/[^0-9]/g, '').includes('${xp}'))`);
     await tab.shot(join(OUT, `${locale}-${width}-tcall-aviso.png`)).catch(() => null);
-    check(S, "aviso de la recompensa con los XP ganados", toast, { xp });
+    check(S, "aviso de la recompensa con los XP ganados, visible tras la cortinilla de arranque", toast && visible, { xp, aviso: toast, sigueVisible: visible });
     await sleep(1500);
     const room = await tab.js<Room>(ROOM);
     check(S, "las cuatro insignias quedan guardadas (permanentes) sin tocar nada", room.badges.length === 4 && room.badges.every((x) => x.unlocked && x.permanent && x.since) && room.feature, room.badges);
@@ -318,7 +323,7 @@ async function profileFlow(locale: string, width: number) {
     const seen = await waitFor(other.tab, `!!document.querySelector('[data-testid="profile-card"][data-view="PUBLIC"] [data-testid="profile-badges"] [data-badge="insignia:regional:china"]')`, 30000);
     await sleep(600); await other.tab.shot(join(dir, "perfil-ajeno.png")).catch(() => null);
     check(S, "y la ve otro jugador en el perfil público", seen);
-    check(S, "el perfil público solo enseña lo destacado y no ofrece editar", (await other.tab.js<number>(`document.querySelectorAll('[data-testid="profile-badges"] [data-badge]').length`)) === 1 && !(await other.tab.js<boolean>(`!!document.querySelector('[data-action="edit"]')`)));
+    check(S, "el perfil público solo enseña lo destacado y no ofrece editar", (await other.tab.js<number>(`document.querySelectorAll('[data-testid="profile-badges"] > li[data-badge]').length`)) === 1 && !(await other.tab.js<boolean>(`!!document.querySelector('[data-action="edit"]')`)));
   } catch (e) { check(S, "EJECUCIÓN (ajeno)", false, String(e)); } finally { await other.b.close(); }
 }
 
