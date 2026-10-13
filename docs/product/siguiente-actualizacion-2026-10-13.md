@@ -9,6 +9,10 @@ Punto de partida: la rama `arch/stabilization` contiene exactamente el código p
 
 ## 1. Lectura de cartas limitada a 1.000 por cuenta
 
+> **Hecho en la rama local `feat/collection-pagination`** (candidata `drl-0.1.1-1-4b1f4c01`, sin desplegar). Causa,
+> arquitectura, mediciones y riesgos en `colecciones-ilimitadas-2026-10-13.md`. Lo que sigue es el planteamiento
+> original, conservado como registro.
+
 - **Qué pasa.** `loadGameState` (`src/server/services/inventory.ts`) lee `user_cards` en una sola petición, sin
   paginar. PostgREST corta en `max_rows = 1000`, así que una cuenta con más de 1.000 cartas recibiría la colección
   incompleta. Las cartas no se pierden: siguen en la base, pero la aplicación no las ve todas.
