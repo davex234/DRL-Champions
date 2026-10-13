@@ -179,8 +179,26 @@ async function summaryByScan(sb: SupabaseClient, userId: string): Promise<Collec
   return { ...summarize(all), via: "scan" };
 }
 
-/** Resumen por carta de la colección del jugador. Completo o error; nunca parcial. */
-export async function loadCollectionSummary(sb: SupabaseClient, userId: string, opts: { now?: number } = {}): Promise<CollectionSummary> {
+/**
+ * Lecturas del resumen EN VUELO, por cliente y usuario. Una misma petición lo pide desde varios servicios a la vez
+ * (misiones, equipos, vestíbulo…): comparten la lectura que ya está viajando en vez de lanzar otra idéntica. No es
+ * una caché: la entrada desaparece en cuanto la lectura termina, así que nadie recibe un resumen anterior a su llamada.
+ */
+const inFlight = new WeakMap<object, Map<string, Promise<CollectionSummary>>>();
+
+/** Resumen por carta de la colección del jugador. Completo o error; nunca parcial. No modificar el objeto devuelto. */
+export function loadCollectionSummary(sb: SupabaseClient, userId: string, opts: { now?: number } = {}): Promise<CollectionSummary> {
+  let byUser = inFlight.get(sb);
+  if (!byUser) inFlight.set(sb, (byUser = new Map()));
+  const running = byUser.get(userId);
+  if (running) return running;
+  const mine = byUser;
+  const p = readSummary(sb, userId, opts).finally(() => { if (mine.get(userId) === p) mine.delete(userId); });
+  byUser.set(userId, p);
+  return p;
+}
+
+async function readSummary(sb: SupabaseClient, userId: string, opts: { now?: number }): Promise<CollectionSummary> {
   const now = opts.now ?? Date.now();
   if (now >= rpcMissingUntil) {
     const { data, error } = await sb.rpc("app_collection_summary", { p_user: userId });

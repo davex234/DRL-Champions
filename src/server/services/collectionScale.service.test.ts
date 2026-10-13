@@ -162,6 +162,22 @@ test("RESUMEN · la función de la base y el recorrido por cursor dan lo MISMO; 
   assert.deepEqual({ ...rpc, via: null }, { ...scan, via: null });
 });
 
+test("RESUMEN · lecturas simultáneas del mismo usuario comparten UNA lectura en vuelo; después se vuelve a leer (no es caché)", async () => {
+  const db = world(1_500);
+  db.reads = 0;
+  const [x, y, z] = await Promise.all([loadCollectionSummary(db.client, A), loadCollectionSummary(db.client, A), loadCollectionSummary(db.client, B)]);
+  assert.equal(x, y, "misma lectura");
+  assert.equal(z.total, 7, "otro usuario, otra lectura");
+  const afterParallel = db.reads;
+  assert.equal(afterParallel, 2 + 1, "A: 2 páginas (1.500 filas) una sola vez · B: 1 página");
+  db.table("user_cards").push({ uid: uid("a", 77_777), user_id: A, card_id: DEFS[0].id, serial: null, origin: "pack", locked: false, obtained_at: new Date().toISOString(), minted_version: 1 });
+  assert.equal((await loadCollectionSummary(db.client, A)).total, 1_501, "una llamada posterior ve la carta nueva");
+  __resetSummaryRpcProbe();
+  const broken = Object.assign(Object.create(db) as MemSupabase, { rpc: async () => ({ data: null, error: { code: "XX000", message: "boom" } }) });
+  await assert.rejects(loadCollectionSummary(broken as never, A), IncompleteReadError);
+  assert.equal((await loadCollectionSummary(db.client, A)).total, 1_501, "un fallo no deja nada pegado");
+});
+
 test("RESUMEN · un error de la función que NO es «no existe» lanza (no se disimula con un recorrido)", async () => {
   const db = world(10);
   (db as unknown as Record<string, unknown>).rpc_app_collection_summary = () => { throw new Error("permission denied for function"); };
