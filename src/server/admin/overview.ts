@@ -5,6 +5,8 @@
  * Regla de la fase: NADA INVENTADO. Cada cifra sale de una consulta o de una constante real del repositorio; lo que no
  * se puede medir se devuelve como `null` y el panel enseña un estado vacío.
  */
+import { teamCollectionsModel } from "@/server/services/teamCollections";
+import { BADGE_REGIONS } from "@/domain/teamCollections/model";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { fail, ok, type AdminResult } from "./http";
 import { listAudit, type AuditRow } from "./audit";
@@ -404,7 +406,25 @@ export async function teamsView(sb: SupabaseClient) {
       packs: PACKS.filter((p) => p.team && aliases.has(p.team) || p.team === ti.tag).map((p) => ({ id: p.id, name: p.name })),
     };
   });
-  return ok({ rows: rows.sort((a, b) => b.cards - a.cards || a.name.localeCompare(b.name)) });
+  /*
+   * COLECCIONES POR EQUIPO · lo que el jugador ve en Colecciones sale del catálogo publicado, agrupado por equipo
+   * impreso. Aquí se enseña lo que le falta a esos datos: equipos con cartas pero sin región (no cuentan para ninguna
+   * insignia regional), cartas sin equipo y equipos del registro que todavía no tienen ninguna carta.
+   */
+  let collections: { teams: number; cards: number; byRegion: Record<string, { teams: number; cards: number }>; unassigned: { id: string; title: string; cards: number }[]; teamless: string[]; withoutCards: string[]; withoutLogo: string[] } | null = null;
+  try {
+    const m = await teamCollectionsModel(sb);
+    const have = new Set(m.teams.map((t) => t.id));
+    const byRegion: Record<string, { teams: number; cards: number }> = {};
+    for (const r of BADGE_REGIONS) byRegion[r] = { teams: 0, cards: 0 };
+    for (const t of m.teams) if (t.region) { byRegion[t.region].teams++; byRegion[t.region].cards += t.cards.length; }
+    collections = {
+      teams: m.teams.length, cards: m.teams.reduce((n, t) => n + t.cards.length, 0), byRegion, unassigned: m.unassigned, teamless: m.teamless,
+      withoutCards: TEAM_IDENTITIES.filter((ti) => !have.has(ti.canonicalId)).map((ti) => ti.displayName),
+      withoutLogo: m.teams.filter((t) => !t.logo).map((t) => t.title),
+    };
+  } catch { /* sin catálogo legible, el panel de equipos sigue funcionando */ }
+  return ok({ rows: rows.sort((a, b) => b.cards - a.cards || a.name.localeCompare(b.name)), collections });
 }
 
 export async function teamDetail(sb: SupabaseClient, id: string) {

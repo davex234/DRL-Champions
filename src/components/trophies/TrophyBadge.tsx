@@ -20,12 +20,14 @@ export type BadgeSize = keyof typeof SIZE;
 
 const SHIELD = "polygon(50% 0, 100% 14%, 100% 64%, 50% 100%, 0 64%, 0 14%)";
 
-export function TrophyBadge({ badge, size = "md", locked = false, className, showLabel = false }: {
+export function TrophyBadge({ badge, size = "md", locked = false, className, showLabel = false, monogram }: {
   badge: Pick<BadgeFact, "id" | "label" | "logo" | "color" | "kind" | "caption">;
   size?: BadgeSize;
   locked?: boolean;
   className?: string;
   showLabel?: boolean;
+  /** Equipo sin logo en el producto: su etiqueta corta en vez del glifo. Nunca un logo inventado. */
+  monogram?: string;
 }) {
   useLocale();
   const px = SIZE[size];
@@ -42,7 +44,7 @@ export function TrophyBadge({ badge, size = "md", locked = false, className, sho
           <img src={badge.logo} alt={t("Escudo de {label}", { label: td(badge.label) })} width={Math.round(px * 0.58)} height={Math.round(px * 0.58)}
             className="relative object-contain" style={{ width: px * 0.58, height: px * 0.58, opacity: locked ? 0.45 : 1 }} draggable={false} />
         ) : (
-          <span aria-hidden className="relative font-display font-black" style={{ fontSize: px * 0.36, color: locked ? "rgba(255,255,255,0.4)" : badge.color }}>{glyph}</span>
+          <span aria-hidden className="relative font-display font-black uppercase" style={{ fontSize: monogram ? px * Math.min(0.3, 0.92 / Math.max(3, monogram.length)) : px * 0.36, color: locked ? "rgba(255,255,255,0.4)" : badge.color }}>{monogram ?? glyph}</span>
         )}
         {locked && (
           <span aria-hidden className="absolute -bottom-0.5 -right-1 grid place-items-center rounded-full bg-black/85 text-white/80 ring-1 ring-white/25" style={{ width: Math.max(16, px / 4), height: Math.max(16, px / 4), fontSize: Math.max(9, px / 8) }}>🔒</span>

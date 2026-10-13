@@ -137,12 +137,11 @@ test("LIMPIEZA /COLECCION · la página de cartas no pinta sets, maestría ni ob
   const page = read("src/app/coleccion/page.tsx");
   assert.ok(!/MasteryPanel|PrestigePanel|CollectionObjectives|fetchMastery|fetchPrestige|CollectionBook/.test(page));
   assert.ok(!/CollectionBook/.test(read("src/components/collectionRoom/CollectionRoomScreen.tsx")));
-  // Sets: Sala de Trofeos (F82) + Maestría y Prestigio, mismos componentes y lecturas, ahora allí.
+  // Colecciones por equipo (2026-10-13): la Sala de Trofeos pinta equipos e insignias regionales; el bloque antiguo de
+  // insignias, la Maestría y el Prestigio ya no se montan allí (contrato en src/domain/teamCollections).
   const trophies = read("src/app/coleccion/trofeos/page.tsx");
-  assert.match(trophies, /<TrophyRoomScreen room=\{room\}>/);
-  assert.match(trophies, /<MasteryPanel view=\{mastery\}/);
-  assert.match(trophies, /<PrestigePanel view=\{prestige\}/);
-  assert.match(trophies, /fetchMastery\(\)/);
+  assert.match(trophies, /<TrophyRoomScreen room=\{room\} \/>/);
+  assert.ok(!/MasteryPanel|PrestigePanel|fetchMastery|fetchPrestige/.test(trophies.replace(/\/\*[\s\S]*?\*\//g, "")));
   // Objetivos y logros: Progresión (reclama) y Logros.
   assert.match(read("src/components/progression/ProgressionScreen.tsx"), /<ProgressionHub/);
   assert.match(read("src/app/logros/page.tsx"), /claimAchievement\(a\.id\)/);

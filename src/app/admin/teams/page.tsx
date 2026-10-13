@@ -12,16 +12,32 @@ const tr = ns("admin");
 
 interface Row { id: string; name: string; tag: string; region: string; status: string; players: number; cards: number; packs: { id: string; name: string }[] }
 
+interface Collections { teams: number; cards: number; byRegion: Record<string, { teams: number; cards: number }>; unassigned: { id: string; title: string; cards: number }[]; teamless: string[]; withoutCards: string[]; withoutLogo: string[] }
+
 export default function Teams() {
   useLocale();
   const router = useRouter();
   const [q, setQ] = useState("");
-  const data = useAdminQuery<{ rows: Row[] }>("/api/admin/catalog?view=teams");
+  const data = useAdminQuery<{ rows: Row[]; collections?: Collections | null }>("/api/admin/catalog?view=teams");
+  const col = data.data?.collections ?? null;
   const t = q.trim().toLowerCase();
   const rows = (data.data?.rows ?? []).filter((r) => !t || r.name.toLowerCase().includes(t) || r.tag.toLowerCase().includes(t));
   return (
     <>
       <PageHeader eyebrow={tr("Contenido")} title={tr("Equipos")} description={tr("Las identidades de equipo viven en código (teamIdentities.ts) y se leen aquí. No hay escritura de equipos desde el panel: el equipo impreso de cada carta es histórico y no debe reescribirse en silencio.")} />
+      {col && (
+        <Panel title={tr("Colecciones de equipo")} subtitle={tr("Lo que ve el jugador en Colección → Colecciones: una colección por equipo con cartas publicadas, y una insignia por región. Sale del catálogo publicado; no hay lista fija.")}>
+          <div className="flex flex-wrap gap-2" data-testid="team-collections-summary">
+            <Pill tone="cyan">{tr("{teams} equipos · {cards} cartas", { teams: fmt(col.teams), cards: fmt(col.cards) })}</Pill>
+            {Object.entries(col.byRegion).map(([r, v]) => <Pill key={r} tone={v.teams ? "ok" : "warn"}>{r}: {tr("{teams} equipos · {cards} cartas", { teams: fmt(v.teams), cards: fmt(v.cards) })}</Pill>)}
+          </div>
+          {col.unassigned.length > 0 && <p className="mt-3 text-[13px] text-amber-300" data-testid="teams-without-region">{tr("Equipos con cartas pero sin región (no cuentan para ninguna insignia regional):")} {col.unassigned.map((t) => `${t.title} (${t.cards})`).join(", ")}</p>}
+          {col.teamless.length > 0 && <p className="mt-2 text-[13px] text-amber-300">{tr("Cartas publicadas sin equipo:")} {col.teamless.join(", ")}</p>}
+          {Object.entries(col.byRegion).some(([, v]) => v.teams === 0) && <p className="mt-2 text-[13px] text-amber-300">{tr("Regiones sin equipos (su insignia no se puede conseguir):")} {Object.entries(col.byRegion).filter(([, v]) => v.teams === 0).map(([r]) => r).join(", ")}</p>}
+          {col.withoutCards.length > 0 && <p className="mt-2 text-[13px] text-ink-faint">{tr("Equipos del registro sin cartas (no aparecen en Colecciones):")} {col.withoutCards.join(", ")}</p>}
+          {col.withoutLogo.length > 0 && <p className="mt-2 text-[13px] text-ink-faint">{tr("Equipos sin logo (se pintan con su etiqueta):")} {col.withoutLogo.join(", ")}</p>}
+        </Panel>
+      )}
       <Panel>
         <div className="mb-4 flex"><SearchBox value={q} onChange={setQ} placeholder={tr("nombre o etiqueta…")} label={tr("Buscar equipos")} /></div>
         {data.error && <ErrorBox error={td(data.error)} onRetry={data.reload} />}

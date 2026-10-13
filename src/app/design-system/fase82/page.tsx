@@ -2,21 +2,22 @@
 
 /**
  * F82 · ARNÉS QA DE LA SALA DE TROFEOS (`/design-system/fase82?scene=…`). 404 en producción (middleware), salvo
- * `NEXUS_QA_HARNESS=1`. Monta las pantallas REALES (`TrophyRoomScreen`, `SetDetailScreen`, `CompletionMoment`,
+ * `NEXUS_QA_HARNESS=1`. Monta las pantallas REALES (`SetDetailScreen`, `CompletionMoment`,
  * `PlayerIdentityView` + editor) con fixtures construidas por el dominio sobre el catálogo real. Sin servidor ni BD.
  *
- *   scene = room | room-empty | detail-progress | detail-claimable | detail-completed | detail-edition | moment
+ *   La sala (colecciones por equipo e insignias regionales) tiene su arnés en `/design-system/colecciones-equipos`.
+ *
+ *   scene = detail-progress | detail-claimable | detail-completed | detail-edition | moment
  *         | profile-own | profile-public | profile-empty | editor-badges
  */
 import { useEffect, useState } from "react";
-import { TrophyRoomScreen } from "@/components/trophies/TrophyRoomScreen";
 import { SetDetailScreen } from "@/components/trophies/SetDetailScreen";
 import { CompletionMoment } from "@/components/trophies/CompletionMoment";
 import { PlayerIdentityView } from "@/components/player/PlayerIdentityView";
 import { ShowcaseEditor } from "@/components/player/ShowcaseEditor";
-import { profile, room, view } from "./fixtures";
+import { profile, view } from "./fixtures";
 
-const SCENES = ["room", "room-empty", "detail-progress", "detail-claimable", "detail-completed", "detail-edition", "moment", "profile-own", "profile-public", "profile-empty", "editor-badges"] as const;
+const SCENES = ["detail-progress", "detail-claimable", "detail-completed", "detail-edition", "moment", "profile-own", "profile-public", "profile-empty", "editor-badges"] as const;
 type Scene = (typeof SCENES)[number];
 
 export default function Fase82Harness() {
@@ -24,13 +25,11 @@ export default function Fase82Harness() {
   const [moment, setMoment] = useState(true);
   useEffect(() => {
     const s = new URLSearchParams(window.location.search).get("scene") as Scene;
-    setScene(SCENES.includes(s) ? s : "room");
+    setScene(SCENES.includes(s) ? s : "detail-progress");
   }, []);
   if (!scene) return null;
   return (
     <main data-harness="fase82" data-scene={scene} className="min-h-screen">
-      {scene === "room" && <TrophyRoomScreen room={room()} />}
-      {scene === "room-empty" && <TrophyRoomScreen room={room(true)} />}
       {scene === "detail-progress" && <SetDetailScreen set={view("g2")} />}
       {scene === "detail-claimable" && <SetDetailScreen set={view("team-heretics")} onClaim={() => setMoment(true)} />}
       {scene === "detail-completed" && <SetDetailScreen set={view("karmine-corp")} />}
