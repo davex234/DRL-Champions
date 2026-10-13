@@ -109,7 +109,7 @@ test("F64 I03 · los puntos de pintado de las rutas principales ya no escupen el
     "src/components/progression/CollectionObjectives.tsx", "src/components/season/SeasonPanels.tsx", "src/app/logros/page.tsx",
     "src/components/progression/ProgressionScreen.tsx", "src/components/season/SeasonRewards.tsx", "src/components/season/SeasonMissions.tsx",
     "src/components/pwa/InstallBanner.tsx", "src/components/store/StoreProducts.tsx", "src/components/packs/PackStoreCard.tsx",
-    "src/components/shop/ShopHero.tsx", "src/app/inventario/page.tsx", "src/components/collection/PrestigePanel.tsx",
+    "src/components/shop/ShopHero.tsx", "src/app/inventario/page.tsx",
     "src/components/collection/TeamCollection.tsx", "src/components/cards/CardViewer.tsx",
   ];
   for (const f of files) {

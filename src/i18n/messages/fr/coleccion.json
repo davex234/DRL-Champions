@@ -1,16 +1,20 @@
 {
+  "+{xp} XP de temporada": "+{xp} XP de saison",
   "Abre la ficha de una carta y pulsa «Comparar» para elegir con cuál.": "Ouvre la fiche d'une carte et touche « Comparer » pour choisir avec laquelle.",
   "Añadida a tu vitrina.": "Ajoutée à ta vitrine.",
   "Cargando colección…": "Chargement de la collection…",
-  "Cargando tu Sala de Trofeos…": "Chargement de ta Salle des trophées…",
+  "Cargando tus colecciones…": "Chargement de tes collections…",
   "Carta no encontrada": "Carte introuvable",
   "Colección": "Collection",
   "Comparar cartas": "Comparer les cartes",
   "Ese enlace no corresponde a ninguna carta del catálogo de NEXUS.": "Ce lien ne correspond à aucune carte du catalogue NEXUS.",
+  "Insignia de {region} desbloqueada": "Badge {region} débloqué",
   "Ir a la colección": "Aller à la collection",
   "Migas": "Fil d'Ariane",
   "No se pudo guardar la vitrina": "Impossible d'enregistrer la vitrine",
   "Volver a la ficha": "Retour à la fiche",
-  "la Sala de Trofeos": "la Salle des trophées",
+  "tus colecciones": "tes collections",
+  "{equipo} completado": "{equipo} terminée",
+  "{n} equipos completados": "{n} équipes terminées",
   "← Colección": "← Collection"
 }

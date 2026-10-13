@@ -98,7 +98,7 @@ test("TAG-6 · perfil propio y ajeno: #TAG bajo el nombre, botón copiable acces
     assert.ok(h.includes(`aria-label="Identificador de cuenta #${tag}. Pulsa para copiarlo"`) && /<button[^>]*data-testid="account-tag"/.test(h), "botón (teclado) con nombre accesible");
     assert.ok(h.includes('role="status"'), "el «Tag copiado» se anuncia");
     assert.ok(h.indexOf('data-field="player-name"') < h.indexOf('data-testid="account-tag"'), "debajo del nombre");
-    assert.ok(!/Nivel de cuenta|Partidas|Victorias|Temporada actual|Colecci[oó]n|Insignias|Cartas destacadas/.test(h.replace(/<[^>]+>/g, " ")), "el perfil sigue siendo identidad");
+    assert.ok(!/Nivel de cuenta|Partidas|Victorias|Temporada actual|Colecci[oó]n(?!es)|Insignias|Cartas destacadas/.test(h.replace(/<[^>]+>/g, " ")), "el perfil sigue siendo identidad");
   }
   const none = renderToStaticMarkup(<ProfileIdentityCard snap={{ ...PUBLIC_FULL, player: { ...PUBLIC_FULL.player, tag: null } }} />);
   assert.ok(!none.includes('data-testid="account-tag"'));

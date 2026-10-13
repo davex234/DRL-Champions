@@ -130,7 +130,7 @@ export function CupsHubView({ hub, signedIn, offset = 0, onMore, loadingMore = f
               ))}
             </ol>
           )}
-          <p className="mt-2 text-[12px] text-white/50">{fill(t("Tus trofeos de campeón están en la {sala}.", slots("sala")), { sala: <Link href="/coleccion/trofeos" className="nx-focus text-[#19e3ff] underline-offset-2 hover:underline">{t("Sala de Trofeos")}</Link> })}</p>
+          <p className="mt-2 text-[12px] text-white/50">{fill(t("Puedes destacar tus trofeos de campeón en {perfil}.", slots("perfil")), { perfil: <Link href="/jugador/me?editar=insignias" className="nx-focus text-[#19e3ff] underline-offset-2 hover:underline">{t("tu perfil")}</Link> })}</p>
         </section>
       )}
       {!signedIn && <p className="mt-10 text-[13px] text-white/60">{fill(t("{entrar} para inscribirte y ver tus partidas.", slots("entrar")), { entrar: <Link href="/cuenta" className="nx-focus text-[#19e3ff] underline">{t("Entra")}</Link> })}</p>}

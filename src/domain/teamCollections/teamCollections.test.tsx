@@ -364,14 +364,38 @@ test("SERVIDOR · equipo inexistente o clave no válida", async () => {
   for (const id of ["g2", "team-heretics", "100t", "raw:Equipo Nuevo"]) assert.ok(TEAM_ID_PATTERN.test(id), id);
 });
 
-test("SERVIDOR · la ruta es de solo lectura, exige sesión y solo acepta `team`", () => {
+test("SERVIDOR · la ruta: lectura pura en GET, una sola acción cerrada en POST, siempre con sesión", () => {
   const route = read("src/app/api/game/team-collections/route.ts");
-  assert.ok(!/export async function (POST|PUT|PATCH|DELETE)/.test(route));
-  assert.match(route, /if \(!session\) return bad\([^)]*401\)/);
+  assert.ok(!/export async function (PUT|PATCH|DELETE)/.test(route));
+  assert.equal((route.match(/if \(!session\) return bad\([^)]*401\)/g) ?? []).length, 2);
   assert.match(route, /keys\.some\(\(k\) => k !== "team"\)/);
   assert.match(route, /takeRate\(session\.admin, session\.userId, "collection_read"\)/);
+  // POST: solo `{ action: "settle" }`, sin más campos; el cliente no dice qué equipo ni qué cartas.
+  assert.match(route, /if \(body\.action !== "settle"\) return bad\(/);
+  assert.match(route, /Object\.keys\(body\)\.some\(\(k\) => k !== "action"\)/);
+  assert.match(route, /takeRate\(session\.admin, session\.userId, "collection_write"\)/);
+  assert.match(route, /settleTeamCollections\(session\.admin, session\.userId\)/);
   const svc = read("src/server/services/teamCollections.ts");
-  assert.ok(!/\.insert\(|\.update\(|\.upsert\(|\.delete\(|\.rpc\(/.test(svc), "el servicio no escribe ni llama a RPC propias");
+  const get = svc.slice(svc.indexOf("export async function getTeamCollections"), svc.indexOf("// ───────────────────────────── Liquidación"));
+  assert.ok(!/\.insert\(|\.update\(|\.upsert\(|\.delete\(|\.rpc\(/.test(get), "leer no escribe ni liquida");
   assert.match(svc, /loadCollectionSummary\(sb, userId\)/);
   assert.ok(!/readUserCards\(|from\("user_cards"\)/.test(svc), "no recorre el inventario: usa el resumen por carta");
+});
+
+test("7 · EQUIPOS SIN CARTAS · un equipo del registro sin cartas no es una colección; con su primera carta aparece con su región", () => {
+  const m = live();
+  // BLG está en el registro (China) y hoy no tiene ninguna carta.
+  const blg = TEAM_IDENTITIES.find((t) => t.displayName === "BLG")!;
+  assert.equal(blg.region, "China");
+  assert.ok(!m.teams.some((t) => t.id === blg.canonicalId));
+  assert.ok(m.teams.every((t) => t.cards.length > 0), "ninguna colección vacía");
+  const china = regionBadges(m.teams, new Set()).find((r) => r.region === "China")!;
+  // Se publica su primera carta (etiqueta impresa «BLG», la de su identidad).
+  const grown = buildTeamCollections({ cards: [...CARDS, { ...CARDS[0], id: "blg-primera", team: blg.displayName }], player: getPlayer });
+  const t = grown.teams.find((x) => x.id === blg.canonicalId)!;
+  assert.deepEqual([t.cards.length, t.region, t.title], [1, "China", blg.displayName]);
+  assert.equal(grown.teams.length, m.teams.length + 1);
+  const after = regionBadges(grown.teams, new Set(idsOf(m, (x) => x.region === "China"))).find((r) => r.region === "China")!;
+  assert.deepEqual([after.teams, after.total, after.unlocked], [china.teams + 1, china.total + 1, false], "la región crece y quien la tenía completa hoy ya no la completa");
+  assert.deepEqual(grown.unassigned, []);
 });

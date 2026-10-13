@@ -16,11 +16,11 @@ import { PACKS } from "@/data/packs";
 import { CardRegistry } from "@/collection/registry";
 import { getVariant } from "@/domain/cards/variants";
 import { cardHref, packsThatCanContain } from "@/domain/collection/room";
-import type { TeamDetailView } from "@/domain/teamCollections/model";
+import { TEAM_COLLECTION_XP, type TeamDetailView } from "@/domain/teamCollections/model";
 import { cn } from "@/lib/format";
 import { REGION_TINT } from "./teamCollectionsModel";
 import { TeamShield, remainingCards } from "./TrophyRoomScreen";
-import { ns, td } from "@/i18n/runtime";
+import { ns, td, getIntlLocale } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 
 const t = ns("trophies");
@@ -76,7 +76,7 @@ export function TeamDetailScreen({ team }: { team: TeamDetailView }) {
   const have = team.cards.filter((c) => c.owned);
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-6 md:py-8" data-testid="set-detail" data-set={team.id} data-state={team.state}>
-      <nav className="mb-3 text-[13px]"><Link href="/coleccion/trofeos" className="nx-focus text-white/60 hover:text-white">{t("← Sala de Trofeos")}</Link></nav>
+      <nav className="mb-3 text-[13px]"><Link href="/coleccion/trofeos" className="nx-focus text-white/60 hover:text-white">{t("← Colecciones")}</Link></nav>
 
       <header className="nx-clip relative flex flex-col items-center gap-5 overflow-hidden bg-white/[0.03] p-5 text-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.10)] sm:flex-row sm:text-left">
         <TeamShield team={team} size="lg" locked={!done} />
@@ -91,6 +91,16 @@ export function TeamDetailScreen({ team }: { team: TeamDetailView }) {
           </div>
           <p className={cn("mt-1.5 text-[14px]", done ? "font-bold text-emerald-300" : "text-white/70")}>{remainingCards(team)}</p>
           <p className="mt-1 text-[12px] text-white/55">{t("Hacen falta todas las cartas del equipo: cada edición de cada jugador cuenta por separado.")}</p>
+          {team.firstCompletedAt ? (
+            <p className="mt-1 text-[12px] text-emerald-300/90" data-testid="first-completion" data-xp={team.xpAwarded ?? "pending"}>
+              {t("Completada por primera vez el {fecha}.", { fecha: new Date(team.firstCompletedAt).toLocaleDateString(getIntlLocale(), { day: "numeric", month: "long", year: "numeric" }) })}{" "}
+              {team.xpAwarded !== null
+                ? (team.xpAwarded > 0 ? t("+{xp} XP de temporada.", { xp: team.xpAwarded }) : "")
+                : t("Sus {xp} XP se sumarán cuando haya una temporada activa.", { xp: TEAM_COLLECTION_XP })}
+            </p>
+          ) : (
+            <p className="mt-1 text-[12px] text-[#ffce4f]/90" data-testid="first-completion-reward">{t("Complétala por primera vez y ganas {xp} XP de temporada.", { xp: TEAM_COLLECTION_XP })}</p>
+          )}
         </div>
       </header>
 

@@ -6,11 +6,15 @@
  * (F84: emblema + rango + división + rating, solo si está clasificado o en colocación), equipo favorito (si lo tiene),
  * «miembro desde» y las acciones que tocan:
  *
- *   PROPIO   EDITAR PERFIL (editor existente) · CUENTA Y AJUSTES · SALA DE TROFEOS · CERRAR SESIÓN (logout canónico)
+ *   PROPIO   EDITAR PERFIL (editor existente) · CUENTA Y AJUSTES · COLECCIONES · CERRAR SESIÓN (logout canónico)
  *   AJENO    las acciones sociales de F85 (añadir, solicitud, aceptar, amigos, retar, comparar, bloquear en el menú)
  *
- * Todo lo demás (estadísticas, temporada, colección, historial, insignias, vitrina) vive en SU pantalla: Ranked,
- * Temporada, Colección, Sala de Trofeos, Social. Los datos siguen en el servidor: aquí simplemente no se pintan.
+ * Las INSIGNIAS DESTACADAS (hasta 3, las que el jugador eligió entre las que tiene desbloqueadas: regionales de
+ * Americas/EMEA/Pacific/China, y las anteriores que conserve) se pintan bajo el equipo favorito, en perfil propio y
+ * ajeno. Solo llegan del servidor las que POSEE: una bloqueada nunca se enseña.
+ *
+ * Todo lo demás (estadísticas, temporada, colección, historial, vitrina) vive en SU pantalla: Ranked,
+ * Temporada, Colección, Colecciones, Social. Los datos siguen en el servidor: aquí simplemente no se pintan.
  * Presentación pura sobre la foto del servidor (SELF / PUBLIC ya vienen distintas); las acciones de cuenta solo existen
  * si quien monta la tarjeta pasa `owner` (y `ProfileOwnerView` solo lo hace con una foto SELF).
  */
@@ -20,6 +24,7 @@ import { CompetitiveEmblem } from "@/components/competitive/ranked/CompetitiveEm
 import type { PlayerIdentitySnapshot } from "@/domain/profile/identity";
 import { PlayerAvatar, ProfileButton, TeamMark, fmtMonth } from "./bits";
 import { AccountTag } from "./AccountTag";
+import { TrophyBadge } from "@/components/trophies/TrophyBadge";
 // IA 2026-10-07 · «Cuenta y ajustes» abre la pestaña CUENTA de Mi cuenta (antes, `/cuenta` a secas era esa pantalla).
 import { ROUTES } from "@/design/nav";
 import { ns, td, getIntlLocale } from "@/i18n/runtime";
@@ -78,6 +83,12 @@ export function ProfileIdentityCard({ snap, owner, social }: { snap: PlayerIdent
           </div>
         )}
 
+        {snap.badges.length > 0 && (
+          <ol className="mt-6 flex flex-wrap items-start justify-center gap-5" aria-label={t("Insignias destacadas")} data-testid="profile-badges">
+            {snap.badges.map((b) => <li key={b.id} data-badge={b.id}><TrophyBadge badge={b} size="md" showLabel /></li>)}
+          </ol>
+        )}
+
         {snap.memberSince !== null && (
           <p className="mt-5 text-[13px] text-white/55" data-testid="member-since">{t("Miembro desde {fecha}", { fecha: fmtMonth(snap.memberSince) })}</p>
         )}
@@ -86,7 +97,7 @@ export function ProfileIdentityCard({ snap, owner, social }: { snap: PlayerIdent
           <div className="mx-auto mt-8 flex max-w-xs flex-col gap-2.5" data-testid="profile-owner-actions">
             <ProfileButton tone="primary" onClick={owner.onEdit} data-action="edit" className="w-full">{t("Editar perfil")}</ProfileButton>
             <Link href={ROUTES.accountSettings} data-action="account" className="nx-focus nx-clip-sm inline-flex min-h-[44px] w-full items-center justify-center border border-white/15 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-white/80 transition hover:bg-white/[0.08] hover:text-white">{t("Cuenta y ajustes")}</Link>
-            <Link href="/coleccion/trofeos" data-action="trophy-room" className="nx-focus nx-clip-sm inline-flex min-h-[44px] w-full items-center justify-center border border-drl-gold/35 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-gold/90 transition hover:bg-drl-gold/10">{t("Sala de Trofeos")}</Link>
+            <Link href="/coleccion/trofeos" data-action="trophy-room" className="nx-focus nx-clip-sm inline-flex min-h-[44px] w-full items-center justify-center border border-drl-gold/35 px-4 font-display text-[11px] font-bold uppercase tracking-[0.12em] text-drl-gold/90 transition hover:bg-drl-gold/10">{t("Colecciones")}</Link>
             <button
               type="button"
               onClick={owner.onSignOut}

@@ -212,7 +212,8 @@ test("0050 · aplicada en la Fase 35.1, aditiva, sin schema_migrations; tabla so
   // F87.1 · 0072 (corte de autoridad de recompensas de Pick'ems; aditiva, no toca equipos).
   // F87.2 · 0073 (launch guard de Pick'ems; no toca equipos).
   // COLECCIONES ILIMITADAS · 0074 (índices de cursor de user_cards + resumen por carta; aditiva, no toca duel_decks).
-  assert.ok(Math.max(...nums) <= 74);
+  // COLECCIONES POR EQUIPO · 0075 (primeras compleciones de equipo e insignias regionales; aditiva, no toca duel_decks).
+  assert.ok(Math.max(...nums) <= 75);
   assert.ok(readdirSync(join(ROOT, "supabase", "migrations")).filter((f) => f.startsWith("0058")).every((f) => f === "0058_hardening_grants.sql"));
   assert.ok(readdirSync(join(ROOT, "supabase", "migrations")).filter((f) => f.startsWith("0057")).every((f) => f.includes("admin_cms")));
   assert.ok(readdirSync(join(ROOT, "supabase", "migrations")).filter((f) => f.startsWith("0056")).every((f) => f.includes("agents_catalog_miks_veto")));

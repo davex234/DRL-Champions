@@ -27,7 +27,6 @@
   "No se pudo cambiar el avatar": "アバターを変更できませんでした",
   "No se pudo guardar": "保存できませんでした",
   "Perfil": "プロフィール",
-  "Prestigio": "プレステージ",
   "Primero del mundo": "世界1位",
   "Progreso hacia el nivel {v}": "レベル{v}までの進捗",
   "Progreso hacia {label}": "{label}までの進捗",
@@ -51,7 +50,6 @@
   "jugador": "プレイヤーアカウント",
   "{accuracy}% de acierto": "的中率{accuracy}%",
   "{n} cartas": "カード{n}枚",
-  "{n} de {total} insignias mejoradas": "バッジ{total}個中{n}個をアップグレード済み",
   "{toNext} puntos para {label}": "{label}まであと{toNext}ポイント",
   "{xpIntoLevel} / {xpForNext} XP para el nivel {v}": "レベル{v}まで {xpIntoLevel} / {xpForNext} XP"
 }

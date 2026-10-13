@@ -27,7 +27,6 @@
   "No se pudo cambiar el avatar": "Couldn't change the avatar",
   "No se pudo guardar": "Couldn't save",
   "Perfil": "Profile",
-  "Prestigio": "Prestige",
   "Primero del mundo": "First in the world",
   "Progreso hacia el nivel {v}": "Progress toward level {v}",
   "Progreso hacia {label}": "Progress toward {label}",
@@ -51,7 +50,6 @@
   "jugador": "player account",
   "{accuracy}% de acierto": "{accuracy}% accuracy",
   "{n} cartas": "{n} cards",
-  "{n} de {total} insignias mejoradas": "{n} of {total} badges upgraded",
   "{toNext} puntos para {label}": "{toNext} points to {label}",
   "{xpIntoLevel} / {xpForNext} XP para el nivel {v}": "{xpIntoLevel} / {xpForNext} XP to level {v}"
 }

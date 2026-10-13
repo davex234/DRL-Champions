@@ -334,7 +334,7 @@ export function ShowcaseEditor(props: ShowcaseEditorProps) {
             <div className="space-y-4" data-testid="editor-badges">
               <p className="text-caption text-ink-muted">{tr("Elige hasta {max} insignias desbloqueadas. Se muestran en tu perfil en este orden.", { max: BADGES_MAX })}</p>
               {(props.badges ?? []).length === 0 ? (
-                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">{tr("Aún no tienes insignias. Completa una colección en la Sala de Trofeos.")}</p>
+                <p className="nx-clip-sm border border-dashed border-white/12 px-4 py-6 text-center text-caption text-ink-muted">{tr("Aún no tienes insignias. Completa todos los equipos de una región en Colecciones.")}</p>
               ) : (
                 <>
                   <ol className="grid gap-2 sm:grid-cols-3" aria-label={tr("Insignias destacadas, en orden")}>

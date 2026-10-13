@@ -21,9 +21,9 @@ const html = (el: React.ReactElement) => renderToStaticMarkup(el);
 const text = (h: string) => h.replace(/<[^>]+>/g, " ").replace(/&#x27;|&#39;/g, "'").replace(/&amp;/g, "&").replace(/\s+/g, " ");
 const noop = () => {};
 const owner = { onEdit: noop, onSignOut: noop };
-const DASHBOARD = /Nivel de cuenta|XP|Partidas|Victorias|Derrotas|Empates|% de victorias|Temporada|Colecci[oó]n|Historial|Insignias|Expón tus cartas|Elegir cartas|Cartas destacadas|Momentos|Pick'ems|Actividad/;
+const DASHBOARD = /Nivel de cuenta|XP|Partidas|Victorias|Derrotas|Empates|% de victorias|Temporada|Colecci[oó]n(?!es)|Historial|Insignias|Expón tus cartas|Elegir cartas|Cartas destacadas|Momentos|Pick'ems|Actividad/;
 
-test("PI-1 · propio: identidad + EDITAR PERFIL, CUENTA Y AJUSTES, SALA DE TROFEOS y CERRAR SESIÓN (destructiva, sin competir con editar)", () => {
+test("PI-1 · propio: identidad + EDITAR PERFIL, CUENTA Y AJUSTES, COLECCIONES y CERRAR SESIÓN (destructiva, sin competir con editar)", () => {
   const h = html(<ProfileOwnerView snap={OWN_FULL} onEdit={noop} onSignOut={noop} />);
   const t = text(h);
   assert.ok(h.includes('data-testid="profile-card"') && h.includes('data-view="SELF"'));

@@ -286,6 +286,7 @@
   "Lanzar un nodo, sincronizar tras la partida o abandonar son gestos humanos separados por una partida de minutos. 20/min tolera reintentos y corta la automatización.": "Launching a node, syncing after the match or abandoning are human gestures separated by a match lasting minutes. 20/min tolerates retries and stops automation.",
   "Las insignias del perfil todavía no están disponibles": "Profile badges aren't available yet",
   "Las misiones aún no están disponibles": "Missions aren't available yet",
+  "Las recompensas de colección aún no están disponibles": "Collection rewards aren't available yet",
   "Las temporadas aún no están disponibles": "Seasons aren't available yet",
   "Lista de cartas no válida": "Invalid card list",
   "Logro no encontrado": "Achievement not found",

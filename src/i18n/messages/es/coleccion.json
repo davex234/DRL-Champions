@@ -1,16 +1,20 @@
 {
+  "+{xp} XP de temporada": "+{xp} XP de temporada",
   "Abre la ficha de una carta y pulsa «Comparar» para elegir con cuál.": "Abre la ficha de una carta y pulsa «Comparar» para elegir con cuál.",
   "Añadida a tu vitrina.": "Añadida a tu vitrina.",
   "Cargando colección…": "Cargando colección…",
-  "Cargando tu Sala de Trofeos…": "Cargando tu Sala de Trofeos…",
+  "Cargando tus colecciones…": "Cargando tus colecciones…",
   "Carta no encontrada": "Carta no encontrada",
   "Colección": "Colección",
   "Comparar cartas": "Comparar cartas",
   "Ese enlace no corresponde a ninguna carta del catálogo de NEXUS.": "Ese enlace no corresponde a ninguna carta del catálogo de NEXUS.",
+  "Insignia de {region} desbloqueada": "Insignia de {region} desbloqueada",
   "Ir a la colección": "Ir a la colección",
   "Migas": "Migas",
   "No se pudo guardar la vitrina": "No se pudo guardar la vitrina",
   "Volver a la ficha": "Volver a la ficha",
-  "la Sala de Trofeos": "la Sala de Trofeos",
+  "tus colecciones": "tus colecciones",
+  "{equipo} completado": "{equipo} completado",
+  "{n} equipos completados": "{n} equipos completados",
   "← Colección": "← Colección"
 }

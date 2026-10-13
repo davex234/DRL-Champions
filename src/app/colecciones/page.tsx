@@ -155,9 +155,9 @@ function Colecciones() {
         <Plate className="px-6 py-10 text-center" data-testid="collections-none">
           <p className="font-display text-h3 font-bold uppercase tracking-wide text-white">{t("Todavía no hay colecciones")}</p>
           <p className="mx-auto mt-1.5 max-w-[56ch] text-body text-ink-muted">
-            {t("Los sets de colección y sus insignias están en la Sala de Trofeos.")}
+            {t("Las colecciones de equipo y las insignias regionales están en Colecciones.")}
           </p>
-          <Link href="/coleccion/trofeos" className="nx-action mt-3 inline-flex min-h-[44px] items-center">{t("Ir a la Sala de Trofeos →")}</Link>
+          <Link href="/coleccion/trofeos" className="nx-action mt-3 inline-flex min-h-[44px] items-center">{t("Ir a Colecciones →")}</Link>
         </Plate>
       ) : rows.length === 0 ? (
         <Plate className="px-6 py-10 text-center">

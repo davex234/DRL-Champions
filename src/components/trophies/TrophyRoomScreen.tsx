@@ -6,7 +6,8 @@
  *
  *   · Colecciones: una tarjeta por equipo con cartas en el catálogo. Completar un equipo = tener TODAS sus cartas.
  *     Se enseñan 3 al entrar y «Ver más equipos» añade 6 cada vez, hasta que no queda ninguno.
- *   · Insignias regionales: Americas, EMEA, Pacific y China. Cada una pide todos los equipos de su región.
+ *   · Insignias regionales: Americas, EMEA, Pacific y China. Cada una pide todos los equipos de su región y, una vez
+ *     desbloqueada, es permanente y se puede destacar en el perfil.
  *
  * El bloque antiguo de insignias (las de cada set, Maestría y Prestigio) ya no se pinta aquí.
  */
@@ -15,12 +16,13 @@ import { useMemo, useState } from "react";
 import { Meter } from "@/components/ui/Meter";
 import { Segmented } from "@/components/ui/Segmented";
 import { cn } from "@/lib/format";
-import { visibleTeamCount, type TeamCollectionsView, type TeamTileView } from "@/domain/teamCollections/model";
+import { TEAM_COLLECTION_XP, visibleTeamCount, type TeamCollectionsView, type TeamTileView } from "@/domain/teamCollections/model";
 import { TrophyBadge } from "./TrophyBadge";
 import { RegionBadge } from "./RegionBadge";
 import { REGION_TINT, TEAM_FILTER_LABEL, TEAM_SORT_LABEL, visibleTeams, type TeamFilter, type TeamSort } from "./teamCollectionsModel";
 import { ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
 
 const tr = ns("trophies");
 
@@ -40,8 +42,10 @@ export function remainingCards(s: Pick<TeamTileView, "state" | "missing">): stri
 }
 
 /** El escudo de un equipo: su logo real o, si el producto no lo tiene, su etiqueta. */
-export function TeamShield({ team, size, locked }: { team: Pick<TeamTileView, "id" | "title" | "tag" | "logo">; size: "md" | "lg"; locked: boolean }) {
-  return <TrophyBadge badge={{ id: team.id, label: team.title, logo: team.logo, color: TEAM_TINT, kind: "TEAM", caption: "" }} size={size} locked={locked} monogram={team.logo ? undefined : team.tag} />;
+export function TeamShield({ team, size, locked }: { team: Pick<TeamTileView, "id" | "title" | "tag" | "logo" | "region">; size: "md" | "lg"; locked: boolean }) {
+  // Sin logo en el producto: la etiqueta del equipo con el acento de SU región. Mismo escudo, misma jerarquía.
+  const color = team.logo || !team.region ? TEAM_TINT : REGION_TINT[team.region];
+  return <TrophyBadge badge={{ id: team.id, label: team.title, logo: team.logo, color, kind: "TEAM", caption: "" }} size={size} locked={locked} monogram={team.logo ? undefined : team.tag} />;
 }
 
 /** En móvil, una línea por dato (rótulo a la izquierda, valor a la derecha); desde `sm`, la ficha de siempre. */
@@ -104,8 +108,8 @@ export function TrophyRoomScreen({ room }: { room: TeamCollectionsView }) {
       <nav className="mb-3 text-[13px]"><Link href="/coleccion" className="nx-focus text-white/60 hover:text-white">{tr("← Colección")}</Link></nav>
       <header className="relative mb-6 overflow-hidden">
         <p className="font-display text-[12px] font-bold uppercase tracking-[0.35em] text-[#ffce4f]">{tr("Valorosters")}</p>
-        <h1 className="font-display text-[34px] font-black uppercase leading-none tracking-wide text-white md:text-[48px]">{tr("Sala de Trofeos")}</h1>
-        <p className="mt-2 max-w-2xl text-[14px] text-white/70">{tr("Completa la colección de un equipo consiguiendo todas sus cartas: cada edición cuenta por separado y las repetidas no sustituyen a las que faltan. Completa todos los equipos de una región para desbloquear su insignia.")}</p>
+        <h1 className="font-display text-[34px] font-black uppercase leading-none tracking-wide text-white md:text-[48px]">{tr("Colecciones")}</h1>
+        <p className="mt-2 max-w-2xl text-[14px] text-white/70">{tr("Completa la colección de un equipo consiguiendo todas sus cartas: cada edición cuenta por separado y las repetidas no sustituyen a las que faltan. La primera vez que completas un equipo ganas {xp} XP de temporada. Completa todos los equipos de una región para desbloquear su insignia.", { xp: TEAM_COLLECTION_XP })}</p>
       </header>
 
       <section aria-label={tr("Resumen de tu colección")} className="grid grid-cols-1 gap-2 sm:grid-cols-3">
@@ -116,7 +120,7 @@ export function TrophyRoomScreen({ room }: { room: TeamCollectionsView }) {
 
       <section aria-labelledby="sets-title" className="mt-8">
         <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
-          <h2 id="sets-title" className="font-display text-[22px] font-black uppercase tracking-wide text-white">{tr("Colecciones")}</h2>
+          <h2 id="sets-title" className="font-display text-[22px] font-black uppercase tracking-wide text-white">{tr("Equipos")}</h2>
           <label className="flex min-w-0 items-center gap-2 text-[12px] text-white/60">
             {tr("Ordenar")}
             <select value={sort} onChange={(e) => reset(setSort)(e.target.value as TeamSort)} data-testid="trophy-sort"
@@ -154,7 +158,10 @@ export function TrophyRoomScreen({ room }: { room: TeamCollectionsView }) {
 
       <section aria-labelledby="regions-title" className="mt-10">
         <h2 id="regions-title" className="mb-1 font-display text-[22px] font-black uppercase tracking-wide text-white">{tr("Insignias regionales")}</h2>
-        <p className="mb-4 max-w-2xl text-[13px] text-white/60">{tr("Consigue todas las cartas de todos los equipos de una región para desbloquear su insignia.")}</p>
+        <p className="mb-4 max-w-2xl text-[13px] text-white/60">
+          {tr("Consigue todas las cartas de todos los equipos de una región para desbloquear su insignia. Una vez desbloqueada es tuya para siempre.")}
+          {room.regions.some((b) => b.permanent) && <> {fill(tr("Destácalas en tu perfil desde {enlace}.", slots("enlace")), { enlace: <Link href="/jugador/me?editar=insignias" data-testid="feature-badges-link" className="nx-focus text-[#19e3ff] underline-offset-2 hover:underline">{tr("editar perfil")}</Link> })}</>}
+        </p>
         <ul className="grid grid-cols-2 gap-3 lg:grid-cols-4" data-testid="region-badges">
           {room.regions.map((b) => <RegionBadge key={b.region} badge={b} />)}
         </ul>

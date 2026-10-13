@@ -14,7 +14,6 @@ import { CARDS } from "@/data/catalog";
 import { isMissingRelation } from "@/server/services/f73Config";
 import { badgeFact, badgeIndex, cupSlugOf, type BadgeFact, type CupTrophyInfo } from "@/domain/collectionSets/badges";
 import { buildSetView, type SetView, type TrophyRoomView } from "@/domain/collectionSets/view";
-import { ingestSeasonEvent } from "./seasonTrack";
 
 export type { SetView, TrophyRoomView };
 import { SET_ID_PATTERN, type CollectionSetDef, type SetKind, type SetRequirement, type SetStatus } from "@/domain/collectionSets/types";
@@ -145,8 +144,9 @@ export async function claimSet(sb: SupabaseClient, userId: string, setId: unknow
   const res = (data ?? {}) as { code?: string; missing?: number; completedAt?: string };
   switch (res.code) {
     case "COMPLETED": case "ALREADY": {
-      // F83 · una colección completada AHORA (no las anteriores) da XP de temporada una vez (clave por set). Nunca lanza.
-      if (res.code === "COMPLETED") await ingestSeasonEvent(sb, userId, { kind: "COLLECTION", key: `collection:${setId}`, setId });
+      // Los 300 XP de temporada por colección los da ahora la PRIMERA compleción de un equipo con la regla nueva (todas
+      // sus cartas; `teamCollections.settleTeamCollections`, 0075). Este reclamo antiguo —una carta por jugador, sin
+      // pantalla desde las colecciones por equipo— ya no los concede: si lo hiciera, habría dos fuentes para lo mismo.
       const room = await getTrophyRoom(sb, userId);
       const set = room.data?.sets.find((s) => s.id === setId) ?? null;
       return ok({ setId, outcome: res.code, badge: set?.badge ?? null, completedAt: res.completedAt ?? set?.completedAt ?? null, set });

@@ -7,17 +7,20 @@
  *     CERRADA). Arquitectura preparada: F84 no otorga ninguna (ninguna temporada competitiva ha terminado).
  *   · `insignia:torneo:<slug>` del campeón de un torneo de jugadores (F86) → «Campeón · <torneo>» con su fecha. Una por
  *     torneo y con UN dueño (índice de 0069). Sin el torneo COMPLETADO a mano no se pinta (nada a ciegas).
+ *   · `insignia:regional:<región>` de las colecciones por equipo (0075) → la insignia de Americas, EMEA, Pacific o
+ *     China, con el emblema propio de la región. Se concede al completar todos los equipos de la región y es permanente.
  * No inventa logos: sin set conocido, se pinta con el lenguaje visual propio (tono + glifo).
  */
 import { cosmetic } from "@/domain/cosmetics/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { isCollectionBadge, type CollectionSetDef } from "./types";
 import { RANK_V1 } from "@/domain/ranked/config";
+import { REGION_BADGE_PREFIX, REGION_TINT, regionOfBadgeId } from "@/domain/teamCollections/model";
 import { ns, td, getIntlLocale } from "@/i18n/runtime";
 
 const tr = ns("collectionSets");
 
-export type BadgeKind = "TEAM" | "EDITION" | "MASTERY" | "SEASON" | "COMPETITIVE" | "TOURNAMENT" | "PICKEM";
+export type BadgeKind = "TEAM" | "EDITION" | "MASTERY" | "SEASON" | "COMPETITIVE" | "TOURNAMENT" | "PICKEM" | "REGION";
 
 export interface BadgeFact {
   id: string;
@@ -54,6 +57,7 @@ export function badgeFact(
   if (id.startsWith(COMPETITIVE_PREFIX)) return competitiveBadgeFact(id);
   if (id.startsWith(CUP_PREFIX)) return cupBadgeFact(id, cups);
   if (id.startsWith(PICKEM_PREFIX)) return pickemBadgeFact(id);
+  if (id.startsWith(REGION_BADGE_PREFIX)) return regionBadgeFact(id);
   const def = cosmetic(id);
   if (!def || def.family !== "insignia") return null;
   return { id, label: def.label, kind: "MASTERY", logo: null, color: def.color, caption: tr("Maestría"), setId: null };
@@ -123,4 +127,13 @@ export function pickemBadgeFact(id: string): BadgeFact | null {
   if (!m) return null;
   const name = m[1].split("-").map((w) => (/^\d+$/.test(w) ? w : w.charAt(0).toUpperCase() + w.slice(1))).join(" ");
   return { id, label: tr("Pick'em perfecto · {name}", { name }), kind: "PICKEM", logo: null, color: PICKEM_TINT, caption: tr("Pick'em perfecto"), setId: null };
+}
+
+/* ───────────── Insignias regionales (colecciones por equipo, 0075) ───────────── */
+
+/** `insignia:regional:emea` → «EMEA», «Insignia regional». Un id que no es una de las cuatro regiones no se pinta. */
+export function regionBadgeFact(id: string): BadgeFact | null {
+  const region = regionOfBadgeId(id);
+  if (!region) return null;
+  return { id, label: region, kind: "REGION", logo: null, color: REGION_TINT[region], caption: tr("Insignia regional"), setId: null };
 }

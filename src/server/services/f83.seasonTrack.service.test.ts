@@ -240,7 +240,7 @@ test("F83-S12 · vista: una lectura agregada SIN escrituras; sin temporada publi
   assert.equal(n.data!.phase, "NONE"); assert.equal(n.data!.legacy?.name, "Temporada 1 · Ascenso");
 });
 
-test("F83-S13 · colección F82 completada DURANTE la temporada → XP una vez; las completadas antes no se recompensan", async () => {
+test("F83-S13 · el reclamo antiguo de un set de F82 ya NO da XP de temporada (los da la primera compleción de un equipo, 0075)", async () => {
   // claimSet no recibe reloj: la temporada de esta prueba está activa HOY (hora real) y el emulador usa la misma hora.
   const db = fresh(); const saved = clock.now; clock.now = Date.now();
   db.tables.game_seasons = [{ ...seasonRow(), starts_at: iso(clock.now - DAY), ends_at: iso(clock.now + 80 * DAY), claim_until: iso(clock.now + 90 * DAY) }];
@@ -254,8 +254,8 @@ test("F83-S13 · colección F82 completada DURANTE la temporada → XP una vez; 
   };
   await claimSet(c, A, "team-g2-v1"); await claimSet(c, A, "team-g2-v1");
   clock.now = saved;
-  assert.equal(db.tables.season_xp_ledger.filter((l) => l.source === "COLLECTION").length, 1);
-  assert.equal(db.tables.season_xp_ledger.find((l) => l.source === "COLLECTION")!.amount, 300);
+  assert.equal(db.tables.user_collection_completions.length, 1, "el reclamo sigue funcionando para quien lo llame");
+  assert.equal(db.tables.season_xp_ledger.filter((l) => l.source === "COLLECTION").length, 0);
 });
 
 test("F83-S14 · perfil: solo nombre y nivel de la temporada activa/en gracia; nada del libro", async () => {

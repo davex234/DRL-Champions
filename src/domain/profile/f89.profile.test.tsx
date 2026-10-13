@@ -158,13 +158,13 @@ test("F89-P2 · colecciones: lo COMPLETADO (trofeo) sí; números de F82 (numera
 
 /* ═══════════════════ vistas y render ═══════════════════ */
 
-test("F89-V1 · PROPIETARIO: editar perfil, cuenta y ajustes, Sala de Trofeos y CERRAR SESIÓN; PÚBLICO: ninguna acción de cuenta", () => {
+test("F89-V1 · PROPIETARIO: editar perfil, cuenta y ajustes, Colecciones y CERRAR SESIÓN; PÚBLICO: ninguna acción de cuenta", () => {
   const own = text(html(<ProfileOwnerView snap={OWN_FULL} onEdit={noop} onSignOut={noop} />));
-  for (const t of ["Editar perfil", "Cuenta y ajustes", "Sala de Trofeos", "Cerrar sesión"]) assert.ok(own.includes(t), t);
+  for (const t of ["Editar perfil", "Cuenta y ajustes", "Colecciones", "Cerrar sesión"]) assert.ok(own.includes(t), t);
   // PERFIL = IDENTIDAD · insignias, vitrina y equipo se gestionan dentro de «Editar perfil», no con botones sueltos.
   for (const t of ["Gestionar insignias", "Copiar enlace", "Editar equipo", "Elegir cartas"]) assert.ok(!own.includes(t), t);
   const pub = text(html(<PublicProfileView snap={PUBLIC_FULL} />));
-  for (const t of ["Editar perfil", "Cuenta y ajustes", "Cerrar sesión", "Gestionar insignias", "Equipar insignias", "Elegir equipo favorito", "Editar vitrina", "Editar equipo", "Sala de Trofeos"]) assert.ok(!pub.includes(t), t);
+  for (const t of ["Editar perfil", "Cuenta y ajustes", "Cerrar sesión", "Gestionar insignias", "Equipar insignias", "Elegir equipo favorito", "Editar vitrina", "Editar equipo", "Colecciones"]) assert.ok(!pub.includes(t), t);
   assert.equal(html(<ProfileOwnerView snap={PUBLIC_FULL} onEdit={noop} onSignOut={noop} />), "", "la vista del propietario no monta nada sobre una foto ajena");
 });
 

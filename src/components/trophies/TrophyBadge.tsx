@@ -10,6 +10,8 @@
  */
 import { cn } from "@/lib/format";
 import type { BadgeFact } from "@/domain/collectionSets/badges";
+import { regionOfBadgeId } from "@/domain/teamCollections/model";
+import { RegionEmblem } from "./RegionEmblem";
 import { ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 
@@ -33,6 +35,8 @@ export function TrophyBadge({ badge, size = "md", locked = false, className, sho
   const px = SIZE[size];
   // F86 · el trofeo de campeón de torneo lleva corona; el resto, su glifo de siempre.
   const glyph = badge.kind === "EDITION" ? "★" : badge.kind === "TOURNAMENT" ? "♛" : "◆";
+  // Insignia regional: su emblema (silueta propia de la región), igual que en Colecciones.
+  const region = badge.kind === "REGION" ? regionOfBadgeId(badge.id) : null;
   return (
     <figure className={cn("m-0 inline-flex flex-col items-center gap-1.5", className)} data-testid="trophy-badge" data-badge={badge.id} data-locked={locked ? "1" : "0"}>
       <div className="relative grid place-items-center" style={{ width: px, height: px * 1.12 }}>
@@ -43,6 +47,8 @@ export function TrophyBadge({ badge, size = "md", locked = false, className, sho
         {badge.logo ? (
           <img src={badge.logo} alt={t("Escudo de {label}", { label: td(badge.label) })} width={Math.round(px * 0.58)} height={Math.round(px * 0.58)}
             className="relative object-contain" style={{ width: px * 0.58, height: px * 0.58, opacity: locked ? 0.45 : 1 }} draggable={false} />
+        ) : region ? (
+          <span className="relative" style={{ opacity: locked ? 0.5 : 1, marginTop: -px * 0.06 }}><RegionEmblem region={region} size={Math.round(px * 0.6)} color={locked ? "#c9d1e0" : badge.color} /></span>
         ) : (
           <span aria-hidden className="relative font-display font-black uppercase" style={{ fontSize: monogram ? px * Math.min(0.3, 0.92 / Math.max(3, monogram.length)) : px * 0.36, color: locked ? "rgba(255,255,255,0.4)" : badge.color }}>{monogram ?? glyph}</span>
         )}

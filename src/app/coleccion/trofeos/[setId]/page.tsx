@@ -24,7 +24,7 @@ export default function TrophySetPage() {
   useLocale();
   const { user, loading } = useAuth();
   if (loading) return <Loading kind="hub" label={t("Cargando colección…")} />;
-  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("la Sala de Trofeos")} />;
+  if (!isSupabaseConfigured() || !user) return <NeedsAccount what={t("tus colecciones")} />;
   return <TrophySetRoute />;
 }
 

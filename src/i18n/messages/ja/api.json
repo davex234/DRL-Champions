@@ -65,6 +65,7 @@
   "No puedes asignar más de {MAX_PER_MATCH} jugadas a una partida.": "1マッチに割り当てられるプレイは{MAX_PER_MATCH}個までです。",
   "No puedes tener más de {MAX_COMPOSITIONS_PER_MAP} composiciones en este mapa.": "このマップの構成は{MAX_COMPOSITIONS_PER_MAP}個までです。",
   "No se pudieron cargar las composiciones": "構成を読み込めませんでした",
+  "No se pudieron guardar tus recompensas de colección": "コレクション報酬を保存できませんでした",
   "No se pudieron leer tus cartas": "カードを読み込めませんでした",
   "No se pudieron leer tus colecciones": "コレクションを読み込めませんでした",
   "No se pudo asignar la jugada": "プレイを割り当てられませんでした",

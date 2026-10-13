@@ -27,7 +27,6 @@
   "No se pudo cambiar el avatar": "Impossibile cambiare l'avatar",
   "No se pudo guardar": "Impossibile salvare",
   "Perfil": "Profilo",
-  "Prestigio": "Prestigio",
   "Primero del mundo": "Primo al mondo",
   "Progreso hacia el nivel {v}": "Progressi verso il livello {v}",
   "Progreso hacia {label}": "Progressi verso {label}",
@@ -51,7 +50,6 @@
   "jugador": "giocatore",
   "{accuracy}% de acierto": "{accuracy}% di precisione",
   "{n} cartas": "{n} carte",
-  "{n} de {total} insignias mejoradas": "{n} su {total} distintivi migliorati",
   "{toNext} puntos para {label}": "{toNext} punti per {label}",
   "{xpIntoLevel} / {xpForNext} XP para el nivel {v}": "{xpIntoLevel} / {xpForNext} XP per il livello {v}"
 }

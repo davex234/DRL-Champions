@@ -123,7 +123,7 @@ test("F86-C7 · menú: «Torneos» en Jugar (≤ 7) con indicador; Pick'ems sigu
   assert.equal(RATE_POLICY.cup_write.limit, 30); assert.equal(RATE_POLICY.cup_read.limit, 60);
 });
 
-test("F86-C8 · perfil intacto: la tarjeta de identidad no lee torneos; el historial vive en /copas y el trofeo en la Sala de Trofeos", () => {
+test("F86-C8 · perfil intacto: la tarjeta de identidad no lee torneos; el historial vive en /copas y el trofeo se destaca como una insignia más", () => {
   const card = read("src", "components", "player", "ProfileIdentityCard.tsx");
   assert.ok(!/cup|torneo|tournament/i.test(card.replace(/\/\*[\s\S]*?\*\//g, "")), "sin datos de torneo en el perfil");
   assert.ok(read("src", "components", "cups", "CupsHubScreen.tsx").includes('aria-labelledby="cup-history"'));
@@ -188,7 +188,7 @@ test("F86-R2 · en curso: TU PARTIDA ESTÁ LISTA con rival (#TAG), ronda, plazo,
 
 test("F86-R3 · final: CAMPEÓN (jugador, #TAG, torneo, trofeo); el campeón ve su celebración; los demás, el campeón; cancelado sin campeón", () => {
   const champ = html(<CupDetailView detail={DETAIL_CHAMPION} signedIn decks={[]} />);
-  assert.ok(champ.includes('data-testid="cup-champion"') && champ.includes(">¡Eres el campeón!<") && champ.replace(/<[^>]+>/g, "").includes("Tu trofeo ya está en tu Sala de Trofeos.")); // F86.2 · «Sala de Trofeos» ahora es un enlace
+  assert.ok(champ.includes('data-testid="cup-champion"') && champ.includes(">¡Eres el campeón!<") && champ.replace(/<[^>]+>/g, "").includes("Tu trofeo ya es tuyo: destácalo en tu perfil.")); // F86.2 · «Sala de Trofeos» ahora es un enlace
   const pub = html(<CupDetailView detail={DETAIL_COMPLETED_PUBLIC} signedIn={false} decks={null} />);
   assert.ok(pub.includes(">Campeón<") && !pub.includes("¡Eres el campeón!"));
   const c = html(<CupDetailView detail={DETAIL_CANCELLED} signedIn decks={[]} />);
@@ -200,7 +200,7 @@ test("F86-R4 · hub: partida lista primero, mis torneos, secciones, archivo con 
   assert.ok(h.indexOf('data-testid="cup-ready-banner"') < h.indexOf('data-testid="cup-section-mis-torneos"'));
   for (const s of ["En inscripción", "Próximos", "En curso", "Finalizados", "Mis torneos", "Tu historial"]) assert.ok(h.includes(s), s);
   assert.ok(h.includes('data-testid="cups-more"'));
-  assert.ok(h.includes("Sala de Trofeos"));
+  assert.ok(h.replace(/<[^>]+>/g, "").includes("Puedes destacar tus trofeos de campeón en tu perfil.") && h.includes('href="/jugador/me?editar=insignias"'));
   const e = html(<CupsHubView hub={HUB_EMPTY} signedIn />);
   assert.ok(e.includes("No hay torneos abiertos ahora") && !e.includes('data-testid="cup-card"'), "sin torneos inventados");
 });

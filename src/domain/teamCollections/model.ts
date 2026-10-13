@@ -14,7 +14,11 @@
  *   · Una insignia regional se desbloquea con TODAS las cartas de TODOS los equipos de esa región. Una región sin
  *     equipos o sin cartas no se desbloquea nunca (no hay insignias vacías).
  *
- * Todo es estado derivado: nada se persiste ni se reclama. Lo que tienes hoy es lo que cuenta.
+ * El progreso es estado derivado: lo que tienes hoy es lo que cuenta. Dos cosas, en cambio, se guardan en el servidor
+ * (migración 0075) y este módulo solo las recibe como hechos (`Persisted`):
+ *   · la PRIMERA compleción de cada equipo, que da 300 XP de temporada una sola vez por cuenta y equipo;
+ *   · las insignias regionales ya desbloqueadas, que no se pierden aunque después se desguacen cartas.
+ * Aquí se decide QUÉ hay que liquidar (`settlePlan`); quién lo comprueba y lo escribe, de forma atómica, es la base.
  */
 import type { CardDef, Player, Region } from "@/domain/cards/types";
 import { canonicalCardTeam } from "@/data/teamIdentities";
@@ -22,6 +26,8 @@ import { hintTeamLogoSrc } from "@/data/teamLogos";
 
 /** Las cuatro regiones competitivas, en el orden en que se enseñan. */
 export const BADGE_REGIONS: readonly Region[] = ["Americas", "EMEA", "Pacific", "China"];
+/** Acento de cada región (el texto y el emblema dicen cuál es; el color solo acompaña). */
+export const REGION_TINT: Readonly<Record<Region, string>> = { Americas: "#ff8a4c", EMEA: "#b6f24a", Pacific: "#19e3ff", China: "#ff4d6d" };
 const isRegion = (v: unknown): v is Region => typeof v === "string" && (BADGE_REGIONS as readonly string[]).includes(v);
 
 export interface TeamCollectionCard {
@@ -133,20 +139,28 @@ export interface TeamTileView extends Progress {
   state: TeamState;
   /** Jugadores con carta en la colección (para buscar por jugador). */
   players: string[];
+  /** Primera vez que la cuenta completó este equipo (guardado en el servidor), o null. */
+  firstCompletedAt: string | null;
+  /** XP de temporada cobrados por esa primera compleción; null = aún no cobrados (sin completar, o pendientes). */
+  xpAwarded: number | null;
 }
 
-export function teamTile(team: TeamCollectionDef, owned: ReadonlySet<string>): TeamTileView {
+export function teamTile(team: TeamCollectionDef, owned: ReadonlySet<string>, persisted: Persisted = NOTHING_PERSISTED): TeamTileView {
   const p = teamProgress(team, owned);
-  return { id: team.id, title: team.title, tag: team.tag, region: team.region, logo: team.logo, state: teamState(p), players: [...new Set(team.cards.map((c) => c.nick))], ...p };
+  const done = persisted.teams.get(team.id);
+  return {
+    id: team.id, title: team.title, tag: team.tag, region: team.region, logo: team.logo, state: teamState(p),
+    players: [...new Set(team.cards.map((c) => c.nick))], firstCompletedAt: done?.completedAt ?? null, xpAwarded: done?.xpGranted ? done.xpAmount : null, ...p,
+  };
 }
 
 export interface TeamDetailView extends TeamTileView {
   cards: (TeamCollectionCard & { owned: boolean; copies: number })[];
 }
 
-export function teamDetail(team: TeamCollectionDef, counts: Readonly<Record<string, number>>): TeamDetailView {
+export function teamDetail(team: TeamCollectionDef, counts: Readonly<Record<string, number>>, persisted: Persisted = NOTHING_PERSISTED): TeamDetailView {
   const owned = new Set(Object.keys(counts).filter((id) => (counts[id] ?? 0) > 0));
-  return { ...teamTile(team, owned), cards: team.cards.map((c) => ({ ...c, owned: owned.has(c.id), copies: counts[c.id] ?? 0 })) };
+  return { ...teamTile(team, owned, persisted), cards: team.cards.map((c) => ({ ...c, owned: owned.has(c.id), copies: counts[c.id] ?? 0 })) };
 }
 
 // ───────────────────────────── Insignias regionales ─────────────────────────────
@@ -158,18 +172,45 @@ export interface RegionBadgeView extends Progress {
   teamsCompleted: number;
   /** Hay algo que completar. Sin equipos o sin cartas, la insignia no existe todavía y no se concede. */
   configured: boolean;
+  /** Tiene AHORA todas las cartas de todos los equipos de la región. */
+  completeNow: boolean;
+  /** Desbloqueo guardado en el servidor: ya no depende del inventario. */
+  permanent: boolean;
+  /** Cuándo se desbloqueó (si está guardado). */
+  unlockedAt: string | null;
+  /** Desbloqueada: guardada, o completa ahora mismo (a punto de guardarse). Nunca con cartas pendientes sin guardar. */
   unlocked: boolean;
 }
 
-export function regionBadges(teams: readonly TeamCollectionDef[], owned: ReadonlySet<string>): RegionBadgeView[] {
+/** Lo que el servidor tiene guardado de una cuenta (0075). Vacío = nada guardado, o la migración aún no está. */
+export interface Persisted {
+  /** equipo → primera compleción. `xpGranted: false` = sus XP siguen pendientes (no había temporada activa). */
+  teams: ReadonlyMap<string, { completedAt: string; xpGranted: boolean; xpAmount: number }>;
+  /** región → cuándo se desbloqueó su insignia. */
+  regions: ReadonlyMap<string, string>;
+}
+export const NOTHING_PERSISTED: Persisted = { teams: new Map(), regions: new Map() };
+
+/** XP de temporada por completar por primera vez la colección de un equipo. Una vez por cuenta y equipo. */
+export const TEAM_COLLECTION_XP = 300;
+
+/** Id del cosmético con el que se guarda una insignia regional (familia `insignia` de `user_cosmetics`). */
+export const REGION_BADGE_PREFIX = "insignia:regional:";
+export const regionBadgeId = (region: Region): string => `${REGION_BADGE_PREFIX}${region.toLowerCase()}`;
+/** `insignia:regional:emea` → `EMEA`. Cualquier otra cosa, null. */
+export const regionOfBadgeId = (id: string): Region | null =>
+  (id.startsWith(REGION_BADGE_PREFIX) ? BADGE_REGIONS.find((r) => regionBadgeId(r) === id) ?? null : null);
+
+export function regionBadges(teams: readonly TeamCollectionDef[], owned: ReadonlySet<string>, persisted: Persisted = NOTHING_PERSISTED): RegionBadgeView[] {
   return BADGE_REGIONS.map((region) => {
     const mine = teams.filter((t) => t.region === region && t.cards.length > 0);
     const each = mine.map((t) => teamProgress(t, owned));
     const p = progress(each.reduce((n, x) => n + x.total, 0), each.reduce((n, x) => n + x.owned, 0));
     const configured = mine.length > 0 && p.total > 0;
     // Todas las cartas de todos los equipos: se exige equipo a equipo, no solo la suma.
-    const unlocked = configured && each.every((x) => x.complete);
-    return { region, teams: mine.length, teamsCompleted: each.filter((x) => x.complete).length, configured, unlocked, ...p };
+    const completeNow = configured && each.every((x) => x.complete);
+    const unlockedAt = persisted.regions.get(region) ?? null;
+    return { region, teams: mine.length, teamsCompleted: each.filter((x) => x.complete).length, configured, completeNow, permanent: unlockedAt !== null, unlockedAt, unlocked: unlockedAt !== null || completeNow, ...p };
   });
 }
 
@@ -179,17 +220,43 @@ export interface TeamCollectionsView {
   teams: TeamTileView[];
   regions: RegionBadgeView[];
   totals: { teams: number; teamsCompleted: number; cards: number; owned: number; badges: number; badgesUnlocked: number };
+  /** Hay algo que el servidor debe liquidar (una primera compleción, sus XP o una insignia). El cliente lo pide con un POST. */
+  pending: boolean;
 }
 
-export function teamCollectionsView(model: Pick<TeamCollectionsModel, "teams">, owned: ReadonlySet<string>): TeamCollectionsView {
-  const teams = model.teams.map((t) => teamTile(t, owned));
-  const regions = regionBadges(model.teams, owned);
+/** Qué hay que pedirle a la base que compruebe y guarde. Solo lo que HOY se cumple y aún no consta. */
+export interface SettlePlan {
+  teams: { id: string; cards: string[] }[];
+  regions: { region: Region; teams: number; cards: string[] }[];
+}
+
+/**
+ * `seasonActive`: hay una temporada donde cobrar los XP. Sin ella, una compleción ya guardada con XP pendientes no
+ * genera trabajo (no hay dónde apuntarlos); en cuanto haya temporada, vuelve a entrar en el plan.
+ */
+export function settlePlan(model: Pick<TeamCollectionsModel, "teams">, owned: ReadonlySet<string>, persisted: Persisted, seasonActive: boolean): SettlePlan {
+  const teams = model.teams.filter((t) => {
+    const done = persisted.teams.get(t.id);
+    if (done) return !done.xpGranted && seasonActive;
+    return teamProgress(t, owned).complete;
+  }).map((t) => ({ id: t.id, cards: t.cards.map((c) => c.id) }));
+  const regions = regionBadges(model.teams, owned, persisted).filter((r) => r.completeNow && !r.permanent).map((r) => {
+    const mine = model.teams.filter((t) => t.region === r.region && t.cards.length > 0);
+    return { region: r.region, teams: mine.length, cards: mine.flatMap((t) => t.cards.map((c) => c.id)) };
+  });
+  return { teams, regions };
+}
+
+export function teamCollectionsView(model: Pick<TeamCollectionsModel, "teams">, owned: ReadonlySet<string>, persisted: Persisted = NOTHING_PERSISTED, pending = false): TeamCollectionsView {
+  const teams = model.teams.map((t) => teamTile(t, owned, persisted));
+  const regions = regionBadges(model.teams, owned, persisted);
   return {
-    teams, regions,
+    teams, regions, pending,
     totals: {
       teams: teams.length, teamsCompleted: teams.filter((t) => t.complete).length,
       cards: teams.reduce((n, t) => n + t.total, 0), owned: teams.reduce((n, t) => n + t.owned, 0),
-      badges: regions.filter((r) => r.configured).length, badgesUnlocked: regions.filter((r) => r.unlocked).length,
+      // Una insignia guardada cuenta aunque hoy su región no tenga equipos: es del jugador.
+      badges: regions.filter((r) => r.configured || r.permanent).length, badgesUnlocked: regions.filter((r) => r.unlocked).length,
     },
   };
 }

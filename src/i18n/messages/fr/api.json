@@ -65,6 +65,7 @@
   "No puedes asignar más de {MAX_PER_MATCH} jugadas a una partida.": "Tu ne peux pas assigner plus de {MAX_PER_MATCH} plays à un match.",
   "No puedes tener más de {MAX_COMPOSITIONS_PER_MAP} composiciones en este mapa.": "Tu ne peux pas avoir plus de {MAX_COMPOSITIONS_PER_MAP} compos sur cette map.",
   "No se pudieron cargar las composiciones": "Impossible de charger les compos",
+  "No se pudieron guardar tus recompensas de colección": "Impossible d'enregistrer tes récompenses de collection",
   "No se pudieron leer tus cartas": "Impossible de lire tes cartes",
   "No se pudieron leer tus colecciones": "Impossible de lire tes collections",
   "No se pudo asignar la jugada": "Impossible d'assigner le play",

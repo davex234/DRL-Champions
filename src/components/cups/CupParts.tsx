@@ -170,10 +170,11 @@ export function ChampionMoment({ champion, cupName, completedAt, youWon }: { cha
       </h2>
       {champion.tag && <p className="mt-1 font-mono text-[13px] text-white/60">{formatTag(champion.tag)}</p>}
       <p className="mt-3 text-[13px] text-white/70">{td(cupName)}{completedAt ? ` · ${fmtDay(completedAt)}` : ""}</p>
-      {/* F86.2 · el campeón llega a su trofeo con un toque (antes el texto lo nombraba pero no llevaba a ningún sitio). */}
+      {/* F86.2 · el campeón llega a su trofeo con un toque. Desde las colecciones por equipo, las insignias se enseñan en el
+          perfil: el enlace abre el editor en la pestaña de insignias, donde su trofeo ya está para destacarlo. */}
       {youWon ? (
-        <p className="mt-1 text-[12px] text-white/50">{fill(t("Tu trofeo ya está en tu {sala}.", slots("sala")), {
-          sala: <Link href="/coleccion/trofeos" data-testid="cup-champion-trophies" className="nx-focus font-bold underline underline-offset-2" style={{ color: GOLD }}>{t("Sala de Trofeos")}</Link>,
+        <p className="mt-1 text-[12px] text-white/50">{fill(t("Tu trofeo ya es tuyo: destácalo en {perfil}.", slots("perfil")), {
+          perfil: <Link href="/jugador/me?editar=insignias" data-testid="cup-champion-trophies" className="nx-focus font-bold underline underline-offset-2" style={{ color: GOLD }}>{t("tu perfil")}</Link>,
         })}</p>
       ) : <p className="mt-1 text-[12px] text-white/50">{t("El trofeo de campeón es permanente y único.")}</p>}
     </motion.section>

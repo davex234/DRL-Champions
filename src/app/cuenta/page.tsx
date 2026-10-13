@@ -39,7 +39,6 @@ import { LanguageSettings } from "@/components/ui/game/LanguageSettings";
 import { useToast } from "@/lib/useToast";
 import { formatCredits, cn } from "@/lib/format";
 import { equippedDefs } from "@/domain/cosmetics/catalog";
-import { fetchPrestige, type PrestigeView } from "@/lib/game/prestige";
 import { RankEmblem } from "@/components/progression/RankEmblem";
 import { CompetitiveSummary } from "@/components/competitive/CompetitiveSummary";
 import { SocialSummary } from "@/components/social/SocialSummary";
@@ -104,24 +103,6 @@ function AccountSettings() {
   const [packs, setPacks] = useState(0);
   const [pickems, setPickems] = useState<PickemSummary>({ events: 0, points: 0, correct: 0, total: 0 });
   const [statsLoading, setStatsLoading] = useState(true);
-
-  /*
-   * LA VITRINA DE PRESTIGIO (Fase 14). Es lo que convierte la ficha en identidad: el rango
-   * dice lo bien que juegas y la coleccion lo mucho que tienes, pero el prestigio dice a QUE
-   * le has dedicado creditos, que es una eleccion y no un numero.
-   *
-   * Falla en silencio y no bloquea nada: el perfil no puede quedarse en blanco porque una
-   * vitrina no haya llegado.
-   */
-  const [prestige, setPrestige] = useState<PrestigeView | null>(null);
-  useEffect(() => {
-    if (!user) { setPrestige(null); return; }
-    let alive = true;
-    fetchPrestige()
-      .then((v) => { if (alive) setPrestige(v); })
-      .catch(() => { if (alive) setPrestige(null); });
-    return () => { alive = false; };
-  }, [user]);
 
   const loadStats = useCallback(async () => {
     if (!user) return;
@@ -453,46 +434,6 @@ function AccountSettings() {
 
       {/* FASE 31 · cuenta ≠ perfil: aquí se ve cómo te ven los demás y se va a verlo o editarlo. */}
       <ProfilePreviewCard enabled={!!user} className="mt-4" />
-
-      {/*
-        VITRINA DE PRESTIGIO — entre la ficha y las cartas. Va aqui porque responde a
-        «quien es este jugador», que es la pregunta de la parte de arriba, y no a «que
-        tiene», que es la de abajo. Como mucho seis: una vitrina con veinte piezas deja
-        de ser una vitrina.
-      */}
-      {prestige && prestige.owned.length > 0 && (
-        <section aria-label={t("Prestigio")}>
-          <div className="mb-3 flex flex-wrap items-end justify-between gap-3">
-            <h2 className="nx-label">{t("Prestigio")}</h2>
-            <span className="nx-label text-[9px]">
-              {t("{n} de {total} insignias mejoradas", { n: prestige.totals.purchased, total: prestige.totals.eligible })}
-            </span>
-          </div>
-          <ul className="flex flex-wrap gap-2">
-            {prestige.owned.slice(0, 6).map((o) => (
-              <li
-                key={o.baseId}
-                className="nx-clip-sm flex items-center gap-2 border px-3.5 py-2.5"
-                style={{ borderColor: `${o.color}55`, background: `${o.color}14` }}
-                title={`${o.label} · ${o.tierLabel}`}
-              >
-                <span aria-hidden className="text-[15px]" style={{ color: o.color }}>◈</span>
-                <span>
-                  <span className="block font-display text-[12.5px] font-bold uppercase tracking-[0.05em] text-white">
-                    {td(o.label)}
-                  </span>
-                  <span
-                    className="block font-display text-[9px] font-bold uppercase tracking-[0.16em]"
-                    style={{ color: o.color }}
-                  >
-                    {td(o.tierLabel)}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
       {/* ═══════════════ VITRINA ═══════════════ */}
       {showcase.length > 0 && (

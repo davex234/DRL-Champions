@@ -21,5 +21,5 @@ export function visibleTeams(list: readonly TeamTileView[], o: { filter: TeamFil
   );
 }
 
-/** Acento de cada región (el texto y el icono dicen cuál es; el color solo acompaña). */
-export const REGION_TINT: Record<string, string> = { Americas: "#ff8a4c", EMEA: "#b6f24a", Pacific: "#19e3ff", China: "#ff4d6d" };
+/** Acento de cada región: vive en el dominio, lo usan también el perfil y el editor. */
+export { REGION_TINT } from "@/domain/teamCollections/model";

@@ -115,10 +115,10 @@ test("F862-T2 · Social: MI #TAG en la cabecera, copiable y con su para qué; si
 
 /* ───────────── torneo ───────────── */
 
-test("F862-C1 · campeón: «Sala de Trofeos» es un ENLACE; quien no ganó no lo ve; invitación al feedback al acabar tu torneo", () => {
+test("F862-C1 · campeón: su trofeo lleva con un ENLACE al perfil, donde se destaca; quien no ganó no lo ve; invitación al feedback al acabar tu torneo", () => {
   const champ = { userId: "u", username: "kaelis", avatar: "🦊", tag: "K7M2QXA" } as never;
   const won = renderToStaticMarkup(<ChampionMoment champion={champ} cupName="Copa" completedAt={null} youWon />);
-  assert.ok(/<a[^>]*data-testid="cup-champion-trophies"[^>]*href="\/coleccion\/trofeos"/.test(won), won.slice(-400));
+  assert.ok(/<a[^>]*data-testid="cup-champion-trophies"[^>]*href="\/jugador\/me\?editar=insignias"/.test(won), won.slice(-400));
   const lost = renderToStaticMarkup(<ChampionMoment champion={champ} cupName="Copa" completedAt={null} youWon={false} />);
   assert.ok(!lost.includes("cup-champion-trophies") && lost.includes("permanente y único"));
   const screen = read("src", "components", "cups", "CupDetailScreen.tsx");
