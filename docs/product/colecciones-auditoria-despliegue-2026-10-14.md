@@ -155,8 +155,8 @@ Detalle cosmético sin corregir: el aviso escribe los XP sin separador de miles 
 
 ## 9. Plan de despliegue (requiere tu autorización; nada de esto se ha ejecutado)
 
-Todo en el VPS como `nexusadmin`, con los guiones reales. `REL=drl-0.1.1-1-fe98c81a`. Ficheros revisados en `/tmp/tc-deploy`
-(copiar las dos migraciones, sus ROLLBACK y los guiones desde el tar de `fe98c81a` y el repositorio; los sha256 de las migraciones son
+Todo en el VPS como `nexusadmin`, con los guiones reales. `REL=drl-0.1.1-1-d523a42a`. Ficheros revisados en `/tmp/tc-deploy`
+(copiar las dos migraciones, sus ROLLBACK y los guiones desde el tar de `d523a42a` y el repositorio; los sha256 de las migraciones son
 `0075: adc8e1c2…f1aa26` y `0076: 4407dd75…5c404c0`).
 
 1. **Precondiciones**: `readlink /opt/nexus/projects/valorosters/current` = `releases/drl-0.1.1-1-4b1f4c01`;
@@ -221,5 +221,89 @@ se ha reiniciado ningún servicio de producción (`valorosters-app` sigue arranc
 ha modificado ningún dato real. Lo único escrito en el VPS fuera del stack de QA es la copia de seguridad
 `pre-0075-0076-audit/20261014T124558Z`. Los cambios sin confirmar de otras tareas (F78, PNG de QA, configuración) siguen
 intactos.
+
+## 13. Cierre definitivo (2026-10-14, tarde)
+
+**Candidato exacto: `drl-0.1.1-1-d523a42a`** — `valorosters-i18n-qa/rc/drl-0.1.1-1-d523a42a.tar`, sha256
+`4acdf145c568514b1386692d9ff56bb9cc619f79d6fa2a540d69726132fa2df6` (`sha256sum -c` OK), NO en `incoming/`. Sustituye a
+`fe98c81a`: el formato de los XP cambió un fichero de la release, así que `fe98c81a` ya no es el artefacto a desplegar.
+Diferencia con `fe98c81a` comprobada por huellas: **solo** `src/components/trophies/CollectionRewardNotice.tsx` y
+`src/lib/teamCollections/rewardNotice.test.tsx`. Migraciones y ROLLBACK, byte a byte los ensayados (0075 `adc8e1c2…`,
+0076 `4407dd75…`).
+
+**Git**: rama `feat/team-collections`, HEAD de código `9d474a7` (más este commit de documentación), sin upstream: nada
+publicado. Los 33 ficheros ajenos sin confirmar (F78, PNG de QA, configuración) siguen intactos.
+
+### Los siete fallos de la QA autenticada
+- Los siete, comprobados en `out/vrqa_run_auth.17.log`: `admin-inicio · sin restos de español — ["qa-nuevo"]` en en, de,
+  it, fr, pt-PT, pt-BR y ja (en español esa comprobación no se aplica). Ninguno más.
+- Detector (`scripts/_i18n-auth-lib.ts`): una lista de palabras españolas por idioma (todas incluyen `nuevo`) con límite
+  de palabra «no letra», así que el guion de `qa-nuevo` cuenta como límite.
+- **Prueba aislada del detector ejecutada hoy** con su propia lista: `qa-nuevo` → marcado en los 4 grupos de palabras;
+  `qa-omega`, `team_identity_create · qa-omega` y `g2` → no marcados.
+- Cronología verificada: el alta sintética que creó `qa-nuevo` corrió a las 14:20–14:23 UTC con el instrumento antiguo; la
+  clave neutra es `79da506` (14:35 UTC); la pasada autenticada, 14:35–15:04 UTC, leyó filas ya creadas. **No hay ninguna
+  pasada autenticada posterior a la corrección.**
+- La corrección es del **instrumento de QA**, no del producto: no forma parte de ninguna release (`scripts/_*` no entra).
+  El candidato no contiene ni necesita cambio para esto.
+- **Estado: causa demostrada y no funcional; instrumento corregido; sin evidencia de una pasada completa en verde.** Una
+  pasada nueva seguiría marcando lo mismo mientras las 6 filas `qa-nuevo` estén entre las 12 últimas del registro de
+  auditoría de QA (append-only: no se borran). No la he repetido: dura ~30 min y no aportaría evidencia distinta.
+
+### Aviso de XP
+- Corregido: `rewardText` usa `formatNumber` (ayuda de i18n del proyecto, `useGrouping: "always"`). Solo presentación;
+  ni el valor ni la liquidación cambian. Clave de traducción sin cambios (auditor sin problemas).
+- Pruebas: separador de cada uno de los 8 idiomas (12.300 · 12,300 · 12 300) con el mismo valor; texto completo en español.
+  29/29 en las suites afectadas, tipos y lint de los ficheros tocados sin errores [L].
+- Candidato `d523a42a`: puerta **6.587/6.587 · GATE_OK**; Colecciones en es, fr y ja (390 y 1440 + API) **446/0** [QA].
+  Captura del navegador: «+12.300 XP DE TEMPORADA» en la portada tras iniciar sesión. Francés y japonés verificados solo
+  por la prueba unitaria del formato (el paso del aviso del instrumento corre en español).
+- Sigue sin salir en la apertura de sobres, los duelos ni el lanzador (prueba de `GameShell`).
+
+### Originales de personajes (`a5f5f8f`)
+- 58 ficheros, 2.765.268 bytes (el mayor, 497 KB): `personajes/cara/*` (29) y `personajes/entero/*` (29); 28 avif, 23 webp,
+  4 png, 3 jpeg. El commit solo añade esos 58 y la excepción de `.gitignore` (`/cartas/` y `/sobres/`, 690 MB, siguen fuera).
+- **Los 58 son exactamente las fuentes del manifiesto** (`agentArtManifest.ts`): ninguno sobra ni falta.
+- Formato real = extensión en los 58. Sin EXIF, GPS, XMP, autor, copyright, rutas de usuario ni correos (barrido hoy).
+- Clon limpio (LF) de la rama en `a5f5f8f`: 6.579/6.579 sin datos añadidos (ejecutado en esta sesión).
+- **Recomendación**: es seguro publicarlos técnicamente (pequeños, sin datos privados, necesarios para CI). La única
+  objeción posible es de derechos: son arte de agentes de Valorant, ya publicado en `public/agents/` como derivados
+  (decisión F59). Si prefieres no tenerlos en el historial del remoto, saca `a5f5f8f` de la rama antes del push y CI
+  volverá a fallar en esas 3 pruebas. Decisión tuya.
+
+### Migraciones y recuperación — qué está verificado y con qué
+| Afirmación | Evidencia |
+|---|---|
+| Ensayo sobre copia restaurada y aislada | contenedor con la imagen de producción y `--network none`; `rehearsal-restore.log` y recuento de 25 tablas = backup; contenedor ya no existe [V] |
+| Filas existentes conservadas | `/tmp/tc-deploy/r-0.fp` = `r-3.fp` = `r-5.fp` (17 tablas) y `*-before.fp` = `*-after.fp` de cada aplicado [V, ficheros] |
+| Fallo intermedio de 0076 recuperable | `0076-broken.out`: `ERROR: division by zero` (fallo inyectado al final de su transacción); después 0075 3/3, 0076 0/2 y huella igual [V] |
+| Rollback conserva XP, cartas y créditos · rollback repetido rechazado · restaurar no duplica | **visto en la salida de la ejecución de esta sesión (`REHEARSAL_OK`), pero el guion no la guardó en fichero**: no queda artefacto en disco para estos tres pasos. Lo mismo lo prueban en QA `team-collections-0075.sh rollback/restore` (sesión anterior) |
+| Comando de vuelta | `bin/deploy.sh --activate drl-0.1.1-1-4b1f4c01`: el código exige `releases/<rel>/.next/BUILD_ID`, que existe y vale `drl-0.1.1-1-4b1f4c01` [V]. Compatible con 0075/0076 puestas: `grep` en `releases/drl-0.1.1-1-4b1f4c01/src` de sus tablas y funciones → 0 ficheros [V] |
+| Copia de seguridad | `pre-0075-0076-audit/20261014T124558Z`: `SHA256SUMS` OK hoy; simulacro de restauración DRILL_OK [V] |
+
+No se ha vuelto a ensayar nada: las evidencias bastan y el ensayo cuesta un contenedor de producción.
+
+### Logos y ruta antigua
+- Los 16 logos que faltan no retrasan la publicación: el escudo con la etiqueta y el color de la región es el fallback
+  probado en QA, y los logos oficiales se suben desde `/admin/teams/<equipo>`. No se ha inventado ninguno.
+- `/admin/collection-sets` se mantiene sin cambios. Su ocultación o retirada (y la del reclamo antiguo) va en otra tarea:
+  el perfil y los sondeos de salud dependen de `collection_sets`.
+
+### Riesgos residuales
+1. Los 7 fallos de la QA autenticada no tienen una pasada verde que los cierre (§13).
+2. Rollback/restauración de 0075/0076 sobre la copia de producción: resultado visto, sin log guardado.
+3. Aviso de XP en francés y japonés: verificado por prueba unitaria, no por captura.
+4. Los de §10 (liquidación solo cuando el jugador usa la app; sin temporada activa hasta el 30/11; logos; ruta antigua).
+
+### Despliegue y vuelta (sin ejecutar)
+Igual que §9 con `REL=drl-0.1.1-1-d523a42a`: backup → simulacro → `_collections-apply-0075-0076.sh precheck · ensayo ·
+aplicar-0075 · verificar · aplicar-0076 · verificar` → `cp` del tar a `incoming/` → `bin/deploy.sh drl-0.1.1-1-d523a42a` →
+humo y logs. Vuelta: `bin/deploy.sh --activate drl-0.1.1-1-4b1f4c01`; el esquema no hace falta tocarlo.
+
+### Confirmación
+No se ha desplegado, no se ha hecho push, no se ha aplicado ninguna migración en producción, no se ha reiniciado nada allí
+(`valorosters-app` arrancado desde el 13/10 16:38, 0 reinicios; `current` → `drl-0.1.1-1-4b1f4c01`; nada nuevo en
+`incoming/`) y no se ha modificado ningún dato real ni borrado ningún registro de auditoría. No se han reiniciado las seis
+esperas detenidas por falta de memoria.
 
 READY FOR DEPLOYMENT AUTHORIZATION
