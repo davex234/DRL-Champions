@@ -1,5 +1,8 @@
 # Colecciones por equipo · cierre (2026-10-14)
 
+> **Actualización (auditoría final, mismo día):** candidata vigente `drl-0.1.1-1-fe98c81a` y plan de despliegue en
+> `colecciones-auditoria-despliegue-2026-10-14.md`; `ea82a9f8` queda sustituida.
+
 **Estado: terminado en local y en el stack de QA aislado, con candidata preparada. Sin push, sin desplegar, sin tocar
 producción salvo lecturas (`BEGIN READ ONLY … ROLLBACK`).**
 
