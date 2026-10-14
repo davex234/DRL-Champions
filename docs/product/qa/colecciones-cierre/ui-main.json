@@ -1,0 +1,5383 @@
+{
+ "base": "http://127.0.0.1:3027",
+ "at": "2026-10-14T08:33:05.725Z",
+ "fase": "main",
+ "rows": [
+  {
+   "scope": "API",
+   "id": "tcempty · progreso = dominio (equipos, estado, región e insignias)",
+   "ok": true,
+   "detail": "{\"status\":200,\"totals\":{\"teams\":41,\"teamsCompleted\":0,\"cards\":331,\"owned\":0,\"badges\":4,\"badgesUnlocked\":0},\"pendiente\":false,\"ms\":718,\"bytes\":11581}"
+  },
+  {
+   "scope": "API",
+   "id": "tcempty · mismo inventario que /api/game/state (copias y cartas distintas)",
+   "ok": true,
+   "detail": "{\"copias\":0,\"distintas\":0}"
+  },
+  {
+   "scope": "API",
+   "id": "tcfive · progreso = dominio (equipos, estado, región e insignias)",
+   "ok": true,
+   "detail": "{\"status\":200,\"totals\":{\"teams\":41,\"teamsCompleted\":1,\"cards\":331,\"owned\":27,\"badges\":4,\"badgesUnlocked\":0},\"pendiente\":true,\"ms\":455,\"bytes\":11603}"
+  },
+  {
+   "scope": "API",
+   "id": "tcfive · mismo inventario que /api/game/state (copias y cartas distintas)",
+   "ok": true,
+   "detail": "{\"copias\":42,\"distintas\":27}"
+  },
+  {
+   "scope": "API",
+   "id": "tcchina · progreso = dominio (equipos, estado, región e insignias)",
+   "ok": true,
+   "detail": "{\"status\":200,\"totals\":{\"teams\":41,\"teamsCompleted\":16,\"cards\":331,\"owned\":134,\"badges\":4,\"badgesUnlocked\":1},\"pendiente\":true,\"ms\":393,\"bytes\":11654}"
+  },
+  {
+   "scope": "API",
+   "id": "tcchina · mismo inventario que /api/game/state (copias y cartas distintas)",
+   "ok": true,
+   "detail": "{\"copias\":134,\"distintas\":134}"
+  },
+  {
+   "scope": "API",
+   "id": "tcall · progreso = dominio (equipos, estado, región e insignias)",
+   "ok": true,
+   "detail": "{\"status\":200,\"totals\":{\"teams\":41,\"teamsCompleted\":41,\"cards\":331,\"owned\":331,\"badges\":4,\"badgesUnlocked\":4},\"pendiente\":true,\"ms\":408,\"bytes\":11746}"
+  },
+  {
+   "scope": "API",
+   "id": "tcall · mismo inventario que /api/game/state (copias y cartas distintas)",
+   "ok": true,
+   "detail": "{\"copias\":331,\"distintas\":331}"
+  },
+  {
+   "scope": "API",
+   "id": "1 · equipo con una carta por jugador: NO completo",
+   "ok": true,
+   "detail": "{\"id\":\"g2\",\"title\":\"G2\",\"tag\":\"G2\",\"region\":\"Americas\",\"logo\":\"/hints/teams/g2.png\",\"state\":\"IN_PROGRESS\",\"players\":[\"BABYBAY\",\"jawgemo\",\"leaf\",\"trent\",\"valyn\"],\"firstCompletedAt\":null,\"xpAwarded\":null,\"total\":20,\"owned\":5,\"missing\":15,\"complete\":false,\"pct\":25}"
+  },
+  {
+   "scope": "API",
+   "id": "2 · varias ediciones de un jugador: cada una es una carta de la colección",
+   "ok": true,
+   "detail": "{\"cartas\":20,\"porJugador\":[4,4,4,4,4]}"
+  },
+  {
+   "scope": "API",
+   "id": "3 · copias repetidas no completan otras ediciones",
+   "ok": true,
+   "detail": "{\"tienes\":5}"
+  },
+  {
+   "scope": "API · XP",
+   "id": "leer no concede nada: avisa de que hay algo que guardar",
+   "ok": true,
+   "detail": "{\"pendiente\":true}"
+  },
+  {
+   "scope": "API · XP",
+   "id": "primera compleción de NAVI: +300 XP, registrada",
+   "ok": true,
+   "detail": "{\"equipos\":[{\"id\":\"navi\",\"title\":\"NAVI\",\"xp\":300,\"first\":true}],\"xp\":300}"
+  },
+  {
+   "scope": "API · XP",
+   "id": "G2 incompleto (una carta por jugador, con copias): sin XP ni compleción",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · XP",
+   "id": "la compleción queda guardada con su fecha y sus XP",
+   "ok": true,
+   "detail": "{\"desde\":\"2026-10-14T08:11:30.48752+00:00\",\"xp\":300}"
+  },
+  {
+   "scope": "API · XP",
+   "id": "12 peticiones simultáneas después: ninguna concede nada",
+   "ok": true,
+   "detail": "[200,200,200,200,200,200,200,200,200,200,200,200]"
+  },
+  {
+   "scope": "API · XP",
+   "id": "tcchina · 8 liquidaciones simultáneas: XP = equipos completos × 300, una sola vez",
+   "ok": true,
+   "detail": "{\"xp\":4800,\"esperado\":4800,\"estados\":[200,200,200,200,200,200,200,200]}"
+  },
+  {
+   "scope": "API · insignias",
+   "id": "8 · EMEA a falta de UNA carta: bloqueada y sin guardar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · insignias",
+   "id": "9 · China completa: desbloqueada una vez y guardada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · XP",
+   "id": "cuenta sin cartas: nada que liquidar, nada concedido",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · XP",
+   "id": "una cuenta no ve las compleciones de otra",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "sin sesión → 401 (leer, detalle y liquidar)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "token falso → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "parámetro desconocido → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "equipo repetido, inexistente o no válido",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · otro usuario",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · equipo elegido por el cliente",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · XP elegidos por el cliente",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · otra acción",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · sin acción",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · lista",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · no JSON",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "cuerpo rechazado · cuerpo enorme",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "PUT no existe",
+   "ok": true,
+   "detail": "405"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "PATCH no existe",
+   "ok": true,
+   "detail": "405"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "DELETE no existe",
+   "ok": true,
+   "detail": "405"
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "tras todo lo anterior: mismo progreso, una sola compleción cobrada, nada pendiente",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "API · seguridad",
+   "id": "el inventario no ha cambiado",
+   "ok": true,
+   "detail": "{\"copias\":42,\"créditos\":6000}"
+  },
+  {
+   "scope": "API · perfil",
+   "id": "la insignia de China aparece entre las que se pueden destacar; las bloqueadas no",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "API · perfil",
+   "id": "destacar una insignia BLOQUEADA se rechaza en el servidor",
+   "ok": true,
+   "detail": "{\"status\":403,\"code\":\"LOCKED\"}"
+  },
+  {
+   "scope": "API · perfil",
+   "id": "destacar la insignia de OTRA cuenta se rechaza",
+   "ok": true,
+   "detail": "{\"status\":403,\"code\":\"LOCKED\"}"
+  },
+  {
+   "scope": "API",
+   "id": "cuenta de 50000 cartas · lectura ligera y liquidación rápida",
+   "ok": true,
+   "detail": "{\"ms\":[443,218,218,216,209],\"bytes\":11950,\"liquidar\":\"308 ms\",\"xp\":1500,\"equipos\":{\"teams\":41,\"teamsCompleted\":5,\"cards\":331,\"owned\":202,\"badges\":4,\"badgesUnlocked\":0}}"
+  },
+  {
+   "scope": "API",
+   "id": "cuenta de 60000 cartas · lectura ligera y liquidación rápida",
+   "ok": true,
+   "detail": "{\"ms\":[400,204,222,239,194],\"bytes\":11950,\"liquidar\":\"362 ms\",\"xp\":1500,\"equipos\":{\"teams\":41,\"teamsCompleted\":5,\"cards\":331,\"owned\":202,\"badges\":4,\"badgesUnlocked\":0}}"
+  },
+  {
+   "scope": "es · 1440 · tcall · primera visita",
+   "id": "antes de entrar: todo pendiente de guardar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcall · primera visita",
+   "id": "aviso de la recompensa con los XP ganados, visible tras la cortinilla de arranque",
+   "ok": true,
+   "detail": "{\"xp\":12300,\"aviso\":true,\"sigueVisible\":true}"
+  },
+  {
+   "scope": "es · 1440 · tcall · primera visita",
+   "id": "las cuatro insignias quedan guardadas (permanentes) sin tocar nada",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":true,\"permanent\":true,\"progress\":\"99/99\",\"since\":true},{\"region\":\"EMEA\",\"unlocked\":true,\"permanent\":true,\"progress\":\"101/101\",\"since\":true},{\"region\":\"Pacific\",\"unlocked\":true,\"permanent\":true,\"progress\":\"97/97\",\"since\":true},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "es · 1440 · tcall · primera visita",
+   "id": "servidor: todas las compleciones con sus XP y nada pendiente",
+   "ok": true,
+   "detail": "{\"pendiente\":false,\"conXp\":41}"
+  },
+  {
+   "scope": "es · 1440 · tcall · primera visita",
+   "id": "recargar no vuelve a conceder",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcall · primera visita",
+   "id": "sin errores de consola",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "scope": "admin · 1440",
+   "id": "7 · /admin/teams: colecciones del catálogo y equipos del registro sin cartas, identificados",
+   "ok": true,
+   "detail": "{\"texto\":\"チームコレクション プレイヤーが「コレクション → コレクションセット」で見る内容: 公開済みカードのあるチームごとに1つのコレクション、地域ごとに1つのバッジ。公開済みカタログから生成され、固定リストはありません。 41チーム · 331枚 Americas: 12チーム · 99枚 EMEA: 12チーム · 101枚 Pacific: 12チーム · 97枚 China: 5チーム · 34枚 カードのない登録チーム（コレクションには表示されません）: GEN, BLG, TE, JDG, G2 Gozen, KRX ロゴのないチーム（タグで表示）: All Gamers, Detona\",\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "es · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"bbl\",\"100t\",\"c9\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"100/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcchina",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":true,\"permanent\":true,\"progress\":\"99/99\",\"since\":true},{\"region\":\"EMEA\",\"unlocked\":true,\"permanent\":true,\"progress\":\"101/101\",\"since\":true},{\"region\":\"Pacific\",\"unlocked\":true,\"permanent\":true,\"progress\":\"97/97\",\"since\":true},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcall",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/34\",\"since\":false}]"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 390 · tcempty",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "es · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"bbl\",\"100t\",\"c9\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"100/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcchina",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":true,\"permanent\":true,\"progress\":\"99/99\",\"since\":true},{\"region\":\"EMEA\",\"unlocked\":true,\"permanent\":true,\"progress\":\"101/101\",\"since\":true},{\"region\":\"Pacific\",\"unlocked\":true,\"permanent\":true,\"progress\":\"97/97\",\"since\":true},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcall",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Colecciones\",\"h2\":[\"Equipos\",\"Insignias regionales\"]}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver más equipos"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipos\",\"Insignias regionales\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/34\",\"since\":false}]"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "es · 1440 · tcempty",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"es\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Collections\",\"h2\":[\"Teams\",\"Regional badges\"]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 of 41\"}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Show more teams"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regional badges\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "en · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Collections\",\"h2\":[\"Teams\",\"Regional badges\"]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 of 41\"}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Show more teams"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regional badges\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "en · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"en\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "en · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "en · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "de · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"bbl\",\"100t\",\"c9\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"100/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcchina",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":true,\"permanent\":true,\"progress\":\"99/99\",\"since\":true},{\"region\":\"EMEA\",\"unlocked\":true,\"permanent\":true,\"progress\":\"101/101\",\"since\":true},{\"region\":\"Pacific\",\"unlocked\":true,\"permanent\":true,\"progress\":\"97/97\",\"since\":true},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcall",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/34\",\"since\":false}]"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 390 · tcempty",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "de · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"bbl\",\"100t\",\"c9\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"100/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcchina",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":true,\"permanent\":true,\"progress\":\"99/99\",\"since\":true},{\"region\":\"EMEA\",\"unlocked\":true,\"permanent\":true,\"progress\":\"101/101\",\"since\":true},{\"region\":\"Pacific\",\"unlocked\":true,\"permanent\":true,\"progress\":\"97/97\",\"since\":true},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcall",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Sammlungen\",\"h2\":[\"Teams\",\"Regionale Abzeichen\"]}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 von 41\"}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mehr Teams anzeigen"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Teams\",\"Regionale Abzeichen\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/34\",\"since\":false}]"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "de · 1440 · tcempty",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"de\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Collezioni\",\"h2\":[\"Squadre\",\"Distintivi regionali\"]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 di 41\"}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mostra altre squadre"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Squadre\",\"Distintivi regionali\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "it · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Collezioni\",\"h2\":[\"Squadre\",\"Distintivi regionali\"]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 di 41\"}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Mostra altre squadre"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Squadre\",\"Distintivi regionali\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "it · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"it\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "it · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "it · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Collections\",\"h2\":[\"Équipes\",\"Badges régionaux\"]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 sur 41\"}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Voir plus d'équipes"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Équipes\",\"Badges régionaux\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "fr · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Collections\",\"h2\":[\"Équipes\",\"Badges régionaux\"]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 sur 41\"}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Voir plus d'équipes"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Équipes\",\"Badges régionaux\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "fr · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"fr\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "fr · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "fr · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Coleções\",\"h2\":[\"Equipas\",\"Emblemas regionais\"]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver mais equipas"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipas\",\"Emblemas regionais\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "pt-PT · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Coleções\",\"h2\":[\"Equipas\",\"Emblemas regionais\"]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver mais equipas"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Equipas\",\"Emblemas regionais\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "pt-PT · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-PT · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-PT · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Coleções\",\"h2\":[\"Times\",\"Emblemas regionais\"]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver mais times"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Times\",\"Emblemas regionais\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "pt-BR · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"Coleções\",\"h2\":[\"Times\",\"Emblemas regionais\"]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 de 41\"}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "Ver mais times"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"Times\",\"Emblemas regionais\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "pt-BR · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "pt-BR · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "pt-BR · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "ja · 390 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"bbl\",\"100t\",\"c9\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"100/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcchina",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":true,\"permanent\":true,\"progress\":\"99/99\",\"since\":true},{\"region\":\"EMEA\",\"unlocked\":true,\"permanent\":true,\"progress\":\"101/101\",\"since\":true},{\"region\":\"Pacific\",\"unlocked\":true,\"permanent\":true,\"progress\":\"97/97\",\"since\":true},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcall",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/34\",\"since\":false}]"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 390 · tcempty",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"nrg\",\"xlg\",\"g2\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"20/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"4/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"3/34\",\"since\":false}]"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "buscar un equipo",
+   "ok": true,
+   "detail": "[{\"id\":\"navi\",\"state\":\"COMPLETED\",\"progress\":\"4/4\"}]"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "al cambiar la búsqueda se vuelve a empezar por tres",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "detalle de G2 carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "detalle: todas las cartas, las tuyas marcadas, copias anotadas, recompensa anunciada y nada que reclamar",
+   "ok": true,
+   "detail": "{\"reqs\":20,\"ok\":5,\"progress\":\"5/20\",\"copies\":5,\"state\":\"IN_PROGRESS\",\"claim\":false,\"reward\":true}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "detalle-g2 · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "detalle de un equipo ya completado: primera compleción y sus 300 XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "detalle-navi-completado · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "un enlace antiguo de set lleva al mismo equipo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "equipo inexistente: mensaje, no pantalla rota",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "detalle-sin-logo · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "2 · Prestigio retirado de la cuenta: ni texto, ni controles, ni llamadas",
+   "ok": true,
+   "detail": "{\"text\":false,\"api\":false}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "cuenta · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "album · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcfive",
+   "id": "portada · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · perfil",
+   "id": "el editor se abre en la pestaña de insignias",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · perfil",
+   "id": "ofrece la insignia de China y no ofrece ninguna bloqueada",
+   "ok": true,
+   "detail": "[\"insignia:regional:china\"]"
+  },
+  {
+   "scope": "ja · 1440 · perfil",
+   "id": "5 · la insignia de China destacada se ve en el perfil propio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · perfil",
+   "id": "perfil propio · idioma, sin desborde, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · perfil",
+   "id": "el acceso del perfil se llama «Colecciones»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · perfil",
+   "id": "y la ve otro jugador en el perfil público",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · perfil",
+   "id": "el perfil público solo enseña lo destacado y no ofrece editar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"bbl\",\"100t\",\"c9\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"100/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcchina",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":true,\"permanent\":true,\"progress\":\"99/99\",\"since\":true},{\"region\":\"EMEA\",\"unlocked\":true,\"permanent\":true,\"progress\":\"101/101\",\"since\":true},{\"region\":\"Pacific\",\"unlocked\":true,\"permanent\":true,\"progress\":\"97/97\",\"since\":true},{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"34/34\",\"since\":true}]"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "true"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcall",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "inicio de sesión",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "Colecciones carga",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "8 · título «Colecciones» y apartado «Equipos»",
+   "ok": true,
+   "detail": "{\"h1\":\"コレクションセット\",\"h2\":[\"チーム\",\"地域バッジ\"]}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "5 · carga inicial: exactamente 3 equipos",
+   "ok": true,
+   "detail": "{\"equipos\":[\"100t\",\"all-gamers\",\"bbl\"],\"recuento\":\"3 / 41\"}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "botón «Ver más equipos» traducido",
+   "ok": true,
+   "detail": "チームをもっと見る"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "11 · sin bloque antiguo: solo Equipos e Insignias regionales",
+   "ok": true,
+   "detail": "{\"h2\":[\"チーム\",\"地域バッジ\"],\"antiguos\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "insignias regionales: las cuatro, en orden, con estado, permanencia y progreso del servidor",
+   "ok": true,
+   "detail": "[{\"region\":\"Americas\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/99\",\"since\":false},{\"region\":\"EMEA\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/101\",\"since\":false},{\"region\":\"Pacific\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/97\",\"since\":false},{\"region\":\"China\",\"unlocked\":false,\"permanent\":false,\"progress\":\"0/34\",\"since\":false}]"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "enlace para destacarlas en el perfil solo si hay alguna guardada",
+   "ok": true,
+   "detail": "false"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "nada pendiente tras entrar: lo que había que guardar se ha guardado",
+   "ok": true,
+   "detail": "{\"pendiente\":false}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "carga eficiente: sin lecturas del inventario, la Maestría, el Prestigio ni los sets",
+   "ok": true,
+   "detail": "{\"lecturas\":1}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "colecciones · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "6 · «Ver más equipos» añade seis cada vez",
+   "ok": true,
+   "detail": "{\"pasos\":[3,9,15,21,27,33,39,41]}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "7 · acaban saliendo todos, sin repetir, y el botón desaparece",
+   "ok": true,
+   "detail": "{\"equipos\":41,\"total\":41}"
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "sin más lecturas al pulsar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "ja · 1440 · tcempty",
+   "id": "colecciones-todas · idioma, sin desborde, sin textos cortados, sin claves, sin errores",
+   "ok": true,
+   "detail": "{\"lang\":\"ja\",\"overflow\":0,\"clipped\":[],\"keys\":[],\"errors\":[]}"
+  }
+ ]
+}
