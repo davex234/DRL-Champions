@@ -7,6 +7,8 @@
 #   team-collections-0075.sh season on|off   crea / retira una temporada SOLO de QA, publicada y activa (la base no tiene ninguna)
 #   team-collections-0075.sh sqltest     la función contra Postgres real: incompletos, sin temporada, XP una vez, concurrencia,
 #                                        insignias permanentes, entradas inválidas, permisos y aislamiento entre cuentas
+#   team-collections-0075.sh txfail      error a mitad de la liquidación: no queda nada; el reintento cobra 300 XP una vez
+#                                        (una transacción con ROLLBACK; necesita team-collections-0075.txfail.sql en $W)
 #   team-collections-0075.sh rollback    ejecuta el ROLLBACK: archivo de las dos tablas, nada perdido, segundo intento rechazado
 #   team-collections-0075.sh restore     vuelve a aplicar 0075 y devuelve las filas archivadas (nadie cobra dos veces)
 #   team-collections-0075.sh reset       deja las cuentas sintéticas sin compleciones ni insignias (para la QA de navegador)
@@ -168,6 +170,12 @@ case "${1:?backup|apply|season|sqltest|rollback|restore|reset}" in
     eq "cada compleción pertenece a quien tiene las cartas" "$(q "select string_agg(split_part(u.email, '@', 1) || '=' || n, ' ' order by u.email) from (select user_id, count(*) n from public.user_team_completions group by 1) c join auth.users u on u.id = c.user_id")" "coll-tcall=$NT coll-tcchina=1 coll-tcfive=1"
     eq "XP totales de la temporada de QA" "$(q "select sum(amount) from public.season_xp_ledger where season_id = '$SEASON'")" "$(( (NT + 2) * 300 ))"
     [ "$fail" = 0 ] && echo "SQLTEST_OK" || echo "SQLTEST_CON_FALLOS"
+    ;;
+  txfail)
+    # Error a mitad de la liquidación (disparador temporal en el libro de XP). Una transacción con ROLLBACK: no deja nada.
+    CHINA=$(uid_of tcchina); [ -n "$CHINA" ] || { echo "falta coll-tcchina"; exit 1; }
+    { cat "$W/tc-0075-vars.sql"; echo "\\set china '$CHINA'"; cat "$W/team-collections-0075.txfail.sql"; } | psqlq 2>&1 | tee "$W/txfail.out"
+    grep -q "^TXFAIL_0075_OK" "$W/txfail.out" && echo "TXFAIL_OK 0075" || { echo "TXFAIL_CON_FALLOS"; fail=1; }
     ;;
   rollback)
     BEFORE=$(q "select (select count(*) from public.user_team_completions) || ':' || (select count(*) from public.user_region_badges)")
