@@ -74,7 +74,11 @@ backups/
 # Arte fuente pesado (se archiva fuera; los assets de runtime viven en public/)
 /cartas/
 /sobres/
-/personajes/
+/personajes/*
+# F59 · los ORIGINALES del arte de agentes (58 imágenes, 2,8 MB) sí se versionan: el manifiesto y tres pruebas
+# (agentArt C, D, G) comprueban su procedencia, y sin ellos fallaban en cualquier clon limpio y en CI.
+!/personajes/cara/
+!/personajes/entero/
 # Referencias de diseño sueltas en la raíz
 /referencia*.png
 /inventario.png
