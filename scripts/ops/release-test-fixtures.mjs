@@ -30,16 +30,16 @@ for (const f of tests) {
   for (const m of src.matchAll(/["'`](docs\/[^"'`$]+\.[a-z0-9]+)["'`]/g)) wanted.add(m[1]);
   for (const m of src.matchAll(/join\([^)]*?"docs"((?:,\s*"[^"]+")+)\)/g)) wanted.add(["docs", ...[...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1])].join("/"));
 }
-// Carpetas que las pruebas recorren (no por ruta literal): SQL de operaciones.
-for (const f of tracked) if (/^docs\/operations\/(rollback|proposals)\//.test(f)) wanted.add(f);
+// Carpetas que las pruebas recorren (no por ruta literal): originales del arte de agentes y SQL de operaciones.
+for (const f of tracked) if (/^(personajes\/|docs\/operations\/(rollback|proposals)\/)/.test(f)) wanted.add(f);
 /*
- * Los originales del arte de agentes (`personajes/`) están en .gitignore a propósito (F59: no se versionan). Tres pruebas
- * de agentArt.test.ts los recorren, así que solo pasan donde existe la carpeta. Se toman de la copia de trabajo y se
- * cuentan aparte; si la carpeta no está, se avisa (la puerta fallará en esas tres, como en cualquier clon limpio).
+ * Los originales del arte de agentes (`personajes/cara`, `personajes/entero`) se versionan desde el 2026-10-14 y entran
+ * arriba como cualquier fichero de git. Si una copia tuviera alguno sin versionar, se añade aparte y se avisa.
  */
 const localOnly = [];
-const walk = (d) => { for (const e of readdirSync(d)) { const f = `${d}/${e}`; if (statSync(f).isDirectory()) walk(f); else localOnly.push(f); } };
-if (existsSync("personajes")) walk("personajes"); else console.warn("AVISO: no hay personajes/ en esta copia: 3 pruebas de agentArt fallarán en la puerta");
+const walk = (d) => { for (const e of readdirSync(d)) { const f = `${d}/${e}`; if (statSync(f).isDirectory()) walk(f); else if (!tracked.has(f)) localOnly.push(f); } };
+if (existsSync("personajes")) walk("personajes");
+if (localOnly.length) console.warn(`AVISO: ${localOnly.length} ficheros de personajes/ sin versionar en esta copia`);
 for (const f of localOnly) wanted.add(f);
 
 const list = [...wanted].sort();
