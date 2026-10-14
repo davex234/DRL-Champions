@@ -14,10 +14,9 @@ import { useAuth } from "@/lib/supabase/auth";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
 import { TrophyRoomScreen } from "@/components/trophies/TrophyRoomScreen";
-import { fetchTeamCollections, settleTeamCollections, teamCollectionsErrorText, type SettleView, type TeamCollectionsView } from "@/lib/teamCollections/client";
-import { Toast } from "@/components/ui/Toast";
-import { useToast } from "@/lib/useToast";
-import { ns, td } from "@/i18n/runtime";
+import { fetchTeamCollections, settleTeamCollections, teamCollectionsErrorText, type TeamCollectionsView } from "@/lib/teamCollections/client";
+import { summarizeSettle, useCollectionRewardStore } from "@/lib/teamCollections/rewardNotice";
+import { ns } from "@/i18n/runtime";
 import { trackCollections } from "@/lib/collectionSets/telemetry";
 import { useLocale } from "@/i18n/react";
 
@@ -31,23 +30,10 @@ export default function TrophyRoomPage() {
   return <TrophyRoomRoute />;
 }
 
-/** Lo que se acaba de guardar, en una frase: «G2 completado · +300 XP de temporada · Insignia de EMEA desbloqueada». */
-function settledText(r: SettleView): string | null {
-  const parts: string[] = [];
-  const first = r.teams.filter((x) => x.first);
-  if (first.length === 1) parts.push(t("{equipo} completado", { equipo: first[0].title }));
-  else if (first.length > 1) parts.push(t("{n} equipos completados", { n: first.length }));
-  if (r.xpGained > 0) parts.push(t("+{xp} XP de temporada", { xp: r.xpGained }));
-  for (const region of r.regions) parts.push(t("Insignia de {region} desbloqueada", { region: td(region) }));
-  return parts.length ? parts.join(" · ") : null;
-}
-
 function TrophyRoomRoute() {
   useLocale();
   const [room, setRoom] = useState<TeamCollectionsView | null>(null);
   const [error, setError] = useState<string | null>(null);
-  // El aviso de una recompensa dura más que un aviso corriente: en la primera carga la cortinilla de arranque lo tapaba entero.
-  const { toast, notify } = useToast(6500);
   const settling = useRef(false);
   const load = useCallback(async () => {
     setError(null);
@@ -65,15 +51,16 @@ function TrophyRoomRoute() {
         try {
           const r = await settleTeamCollections();
           setRoom(r.view);
-          const text = settledText(r);
-          if (text) notify(text);
+          // El aviso lo enseña el armazón (CollectionRewardNotice), el mismo que avisa de lo guardado en segundo plano.
+          const gained = summarizeSettle(r);
+          if (gained) useCollectionRewardStore.getState().push(gained);
         } catch { /* la lectura ya está pintada */ } finally { settling.current = false; }
       }
     } catch (e) { setError(teamCollectionsErrorText(e)); }
-  }, [notify]);
+  }, []);
   useEffect(() => { void load(); }, [load]);
 
   if (error) return <ErrorState message={error} onRetry={load} />;
   if (!room) return <Loading kind="hub" label={t("Cargando tus colecciones…")} />;
-  return <><TrophyRoomScreen room={room} /><Toast toast={toast} /></>;
+  return <TrophyRoomScreen room={room} />;
 }

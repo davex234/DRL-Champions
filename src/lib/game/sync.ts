@@ -24,6 +24,7 @@ import { beginCriticalOperation } from "@/i18n/critical";
 import { fetchInstancesByUid, toOwnedCard } from "./instances";
 import { useTeamStore } from "@/store/useTeamStore";
 import { settleTeamCollections } from "@/lib/teamCollections/client";
+import { summarizeSettle, useCollectionRewardStore } from "@/lib/teamCollections/rewardNotice";
 import type { CardOrigin } from "@/collection";
 
 const t = ns("game");
@@ -69,7 +70,11 @@ let lastCollectionSettle = -Infinity;
 export function settleCollectionsInBackground(settle: () => Promise<unknown> = settleTeamCollections, now = Date.now()): boolean {
   if (now - lastCollectionSettle < COLLECTION_SETTLE_EVERY_MS) return false;
   lastCollectionSettle = now;
-  void settle().catch(() => { /* se reintenta en la próxima sincronización o al entrar en Colecciones */ });
+  void settle().then((r) => {
+    // Lo que se acaba de guardar se avisa en el armazón (CollectionRewardNotice), aunque no se esté en Colecciones.
+    const gained = summarizeSettle(r);
+    if (gained) useCollectionRewardStore.getState().push(gained);
+  }).catch(() => { /* se reintenta en la próxima sincronización o al entrar en Colecciones */ });
   return true;
 }
 /** Para pruebas. */

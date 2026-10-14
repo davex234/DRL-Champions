@@ -38,6 +38,7 @@ import { RegisterSW } from "@/components/pwa/RegisterSW";
 import { InstallBanner } from "@/components/pwa/InstallBanner";
 import { PageTransition } from "./PageTransition";
 import { CloudSync } from "@/components/sync/CloudSync";
+import { CollectionRewardNotice } from "@/components/trophies/CollectionRewardNotice";
 import { useAuth } from "@/lib/supabase/auth";
 import { useEconomyView } from "@/lib/game/serverEconomy";
 import { economyVisible } from "@/lib/game/localEconomy";
@@ -143,6 +144,8 @@ export function GameShell({ children }: { children: React.ReactNode }) {
         <CloudSync />
         <ContentSync />
         <UpdateWatcher />
+        {/* Colecciones · recompensa guardada en segundo plano (solo aquí: las rutas inmersivas no se tapan). */}
+        <CollectionRewardNotice />
         <TelemetryProbe />
 
         <a href="#contenido" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-drl focus:px-4 focus:py-3 focus:font-display focus:uppercase focus:text-white">

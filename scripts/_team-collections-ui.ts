@@ -268,14 +268,16 @@ async function autoSettle(locale: string, width: number) {
   const { b, tab } = await open(locale, width, "tcall");
   try {
     check(S, "antes de entrar: todo pendiente de guardar", first.pending === true && first.regions.every((r) => r.unlocked && !r.permanent) && first.teams.every((t) => t.firstCompletedAt === null));
-    await tab.goto(`${BASE}/coleccion/trofeos`, 600);
+    // Desde 2026-10-14 la liquidación ocurre al sincronizar tras iniciar sesión (sin entrar en Colecciones) y el aviso lo
+    // enseña el armazón en la pantalla donde esté el jugador: se busca AQUÍ, antes de ir a Colecciones.
     const xp = EXPECT.teams * XP;
     const toast = await waitFor(tab, `[...document.querySelectorAll('[role="status"], [role="alert"], [aria-live]')].some((el) => (el.textContent ?? '').replace(/[^0-9]/g, '').includes('${xp}'))`, 30000);
     // La foto, cuando la cortinilla de arranque ya se ha ido y el aviso sigue en pantalla.
     await waitFor(tab, SETTLED, 8000);
     const visible = await tab.js<boolean>(`[...document.querySelectorAll('[role="status"], [role="alert"], [aria-live]')].some((el) => (el.textContent ?? '').replace(/[^0-9]/g, '').includes('${xp}'))`);
     await tab.shot(join(OUT, `${locale}-${width}-tcall-aviso.png`)).catch(() => null);
-    check(S, "aviso de la recompensa con los XP ganados, visible tras la cortinilla de arranque", toast && visible, { xp, aviso: toast, sigueVisible: visible });
+    check(S, "aviso de la recompensa con los XP ganados, visible tras la cortinilla de arranque (sin entrar en Colecciones)", toast && visible && !(await tab.js<string>(`location.pathname`)).startsWith("/coleccion/trofeos"), { xp, aviso: toast, sigueVisible: visible });
+    await tab.goto(`${BASE}/coleccion/trofeos`, 600); await waitFor(tab, `!!document.querySelector('[data-testid="set-grid"]')`, 30000);
     await sleep(1500);
     const room = await tab.js<Room>(ROOM);
     check(S, "las cuatro insignias quedan guardadas (permanentes) sin tocar nada", room.badges.length === 4 && room.badges.every((x) => x.unlocked && x.permanent && x.since) && room.feature, room.badges);
