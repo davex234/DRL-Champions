@@ -105,6 +105,19 @@ SQL
       bash -c "ln -sfn /app/node_modules /work/node_modules; mkdir -p /work/scripts/lib; cp /app/scripts/lib/cdp.ts /work/scripts/lib/; cp /qa/_team-identities-ui.ts /work/scripts/; cp /app/tsconfig.json /work/; exec node node_modules/tsx/dist/cli.mjs scripts/_team-identities-ui.ts $LANGS" > "$W/ui-identities.log" 2>&1 < /dev/null || true
     grep -E "^(FAIL|RESULTADO)" "$W/ui-identities.log" || tail -5 "$W/ui-identities.log"
     ;;
+  bgsettle)
+    # La liquidación ocurre SIN entrar en Colecciones (tras sincronizar con el servidor). Cuentas reiniciadas: tcfive con
+    # NAVI completo y nada guardado; temporada de QA activa.
+    G=$(docker inspect -f '{{range .Mounts}}{{if eq .Destination "/app"}}{{.Source}}{{end}}{{end}}' vrqa_app)
+    echo "build servida: $(cat "$G/.next/BUILD_ID")"
+    bash "$W/team-collections-0075.sh" reset; bash "$W/team-collections-0075.sh" season on
+    psqlq -c "delete from public.api_rate_limits where true" < /dev/null > /dev/null 2>&1 || true
+    docker run --rm --name vrqa_tc_bg --memory 4g --cpus 4 --shm-size 1g --network container:vrqa_app \
+      -e BASE_URL=http://127.0.0.1:3027 -e QA_ANON_KEY -e COLL_PW -e QA_CHROME_ARGS="--no-sandbox --disable-dev-shm-usage" -e HOME=/tmp \
+      -v "$G:/app:ro" -v "$W/_team-collections-bgsettle.ts:/qa/_team-collections-bgsettle.ts:ro" -w /work vrqa-chrome:2 \
+      bash -c "ln -sfn /app/node_modules /work/node_modules; mkdir -p /work/scripts/lib; cp /app/scripts/lib/cdp.ts /work/scripts/lib/; cp /qa/_team-collections-bgsettle.ts /work/scripts/; cp /app/tsconfig.json /work/; exec node node_modules/tsx/dist/cli.mjs scripts/_team-collections-bgsettle.ts" > "$W/ui-bgsettle.log" 2>&1 < /dev/null || true
+    grep -E "^(PASS|FAIL|RESULTADO)" "$W/ui-bgsettle.log" || tail -5 "$W/ui-bgsettle.log"
+    ;;
   identities-cleanup)
     # Borra SOLO lo sintético de `identities`: las dos cartas qa-tid-*, sus ejemplares, la identidad «QA Nuevo Equipo»
     # y la compleción/XP de ese equipo. Nada más.
