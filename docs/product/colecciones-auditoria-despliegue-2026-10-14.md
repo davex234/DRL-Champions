@@ -306,4 +306,61 @@ No se ha desplegado, no se ha hecho push, no se ha aplicado ninguna migración e
 `incoming/`) y no se ha modificado ningún dato real ni borrado ningún registro de auditoría. No se han reiniciado las seis
 esperas detenidas por falta de memoria.
 
-READY FOR DEPLOYMENT AUTHORIZATION
+## 14. Despliegue en producción (2026-10-14, autorizado por el propietario)
+
+**Versión anterior**: `drl-0.1.1-1-4b1f4c01` · **versión activa ahora**: `drl-0.1.1-1-d523a42a` (`current` y `.next/BUILD_ID`
+comprobados). Artefacto: sha256 `4acdf145c568514b1386692d9ff56bb9cc619f79d6fa2a540d69726132fa2df6` (`sha256sum -c` OK en
+`rc/` y otra vez en `incoming/`). Registros completos en `logs/team-collections/deploy-2026-10-14/` (sin secretos).
+Todo lo de esta sección se ha comprobado **directamente en producción** salvo lo marcado [QA].
+
+| Paso | Hora (UTC) | Resultado |
+|---|---|---|
+| Comprobaciones previas | 16:36 | `current` = `4b1f4c01`; app healthy, `/api/ready` ready, túnel y público 200; 302 GB libres; sin otra operación (candado de copias libre, sin build ni QA en marcha); los 151 ficheros del tar = HEAD validado, los 2 retirados ausentes; migraciones del tar = ensayadas (sha) |
+| `precheck` | 16:37 | dependencias de 0075/0076 presentes; 0075 0/3 y 0076 0/2; 2 cuentas, 130 cartas, `temporada-2` DRAFT |
+| Copia de seguridad | 16:38:43 | `backup-drlcards.sh` → `/opt/nexus/backups/supabase-drlcards/pre-0075-0076-deploy/20261014T163843Z` (BD 2.954.142 B, Storage 0 objetos), `SHA256SUMS` OK, `COMPLETE`. Configuración (`compose.yml`, `secrets/app.env`, `current`) en `pre-0075-0076-deploy-config/20261014T163843Z` con su `SHA256SUMS`, permisos 600/700. Off-site no configurado (no se envió nada). Copias anteriores intactas |
+| Copia utilizable | 16:39 | `restore-drill.sh` → DRILL_OK (25 tablas, 0 diferencias, 26 s) |
+| Ensayo completo sobre esa copia | 16:39–16:40 | REHEARSAL_OK (`rehearsal.log`): incluye 0076 roto a mitad, funcional con cuentas reales, rollback con datos (XP, cartas y créditos intactos, segundo rollback rechazado) y restauración sin doble cobro |
+| `ensayo` en producción | 16:40 | ENSAYO_OK: 0075+0076 en una transacción con ROLLBACK, sin rastro, 17 tablas intactas |
+| **0075** | 16:41:05 | APPLY_OK en 188 ms; 0 filas cambiadas; funciones anteriores intactas (237); tablas, RLS sin políticas, permisos y SECURITY DEFINER verificados; `verificar` OK |
+| Salud tras 0075 | 16:41 | app vieja healthy, ready 200, público 200, 0 errores |
+| **0076** | 16:41:40 | APPLY_OK en 152 ms; 0 filas cambiadas; `verificar` OK (0075 3/3, 0076 2/2) |
+| Restricciones de 0076 en producción (lectura) | 16:42 | región limitada a las 4, clave con formato, única e inmutable (la función devuelve TEAM_ID_LOCKED), etiqueta y nombre validados, la función exige `is_admin` y audita; 0 identidades; **0 cartas creadas desde el panel con equipo impreso**: no hay hoy ningún equipo sin identidad que pudiera convertirse en colección |
+| **Despliegue** | 16:42:09 → 16:45:46 | `bin/deploy.sh drl-0.1.1-1-d523a42a`: build en contenedor, BUILD_ID = nombre, `ACTIVA drl-0.1.1-1-d523a42a`, `EXIT=0`; solo se recreó `valorosters-app` |
+
+**Errores encontrados**: ninguno del despliegue. En el log de la base aparecen pares `NOT_ADMIN` / `permission denied for
+table profiles` cada vez que se consulta `/api/ready`: son la sonda de privacidad (comprueba que anónimo NO puede), ya
+estaban el 13/10 y a las 16:36 de hoy antes de tocar nada. No son un fallo.
+
+### Pruebas de humo en producción (sin sesión, sin escribir nada)
+- `status.sh`: app healthy (0 reinicios), `current` y BUILD_ID = `d523a42a`, `/api/ready` ready con todas sus
+  comprobaciones en verde (incluidas las de perfil 0063, colecciones antiguas 0062 y privacidad 0058), túnel 4 conexiones,
+  público 200.
+- Páginas 200: `/`, `/coleccion`, `/coleccion/trofeos`, `/coleccion/trofeos/g2`, `/jugador/me`, `/temporada`, `/cuenta`,
+  `/admin/teams` (esta última se protege en el cliente; sus datos, abajo).
+- Sin sesión → **401**: `GET` y `POST settle` de `/api/game/team-collections`, `GET`/`POST` de `/api/admin/cms/teams`,
+  `/api/admin/catalog?view=teams` y `/api/game/player?me=1`.
+- Humo de invitado en los **8 idiomas** contra `https://valorosters.com`: **132 PASS · 0 FAIL** (`smoke.log`).
+- Logs desde el arranque: 0 errores de la app; 0 errores de la base aparte de la sonda de privacidad.
+- Datos: las 25 tablas del recuento del backup, iguales ahora; créditos totales 30.901, 130 cartas; compleciones,
+  insignias, identidades y libro de XP de temporada: 0.
+
+### Lo que NO se ha podido probar en producción (pendiente, necesita una sesión real)
+No tengo credenciales de las cuentas de producción (ambas son del propietario) y no se crean cuentas ni datos para probar.
+Por eso **no están verificados en producción**: iniciar sesión, la pantalla de Colecciones con datos (3 + «Ver más
+equipos», detalle, ediciones, insignias), el perfil con insignias, `/admin/teams` con una sesión de administrador y la
+liquidación de XP/insignias. Todo eso está probado **solo en QA** sobre este mismo código (§8 y §13). El abono de XP real
+tampoco se puede ver hoy: nadie tiene un equipo completo y no hay temporada activa hasta el 30/11.
+Comprobación recomendada al propietario: entrar con su cuenta, abrir Colecciones y `/admin/teams`, y revisar luego
+`status.sh --logs`.
+
+### Vuelta atrás (no ha hecho falta)
+`bin/deploy.sh --activate drl-0.1.1-1-4b1f4c01`: `releases/drl-0.1.1-1-4b1f4c01` sigue con su build; el código anterior no
+usa ninguna tabla ni función de 0075/0076, así que no hay que tocar el esquema. No borrar las tablas nuevas ni restaurar la
+copia completa salvo pérdida de datos.
+
+### Confirmación
+No se ha hecho push (la rama no tiene upstream). No se han publicado los originales de `personajes/` (`a5f5f8f` solo existe
+en local). No se ha cambiado ningún saldo, carta, crédito, recompensa, precio ni probabilidad, ni se ha borrado ningún dato,
+tabla o registro de auditoría. No se ha tocado ningún otro proyecto ni servicio.
+
+**Versión activa en producción: `drl-0.1.1-1-d523a42a`.**
