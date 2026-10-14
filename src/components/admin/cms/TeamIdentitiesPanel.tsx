@@ -44,7 +44,7 @@ function IdentityForm({ printedTeam, initial, onSaved }: { printedTeam: string; 
     } catch (e) { setError(e instanceof Error ? e.message : t("No se pudo guardar el equipo")); } finally { setBusy(false); }
   };
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:items-end" data-testid="team-identity-form" data-printed={printedTeam}>
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:items-start" data-testid="team-identity-form" data-printed={printedTeam}>
       <Field label={t("Clave")} htmlFor={`${uid}-id`} hint={initial ? t("No se puede cambiar") : t("No se podrá cambiar después")}>
         <Input id={`${uid}-id`} value={teamId} onChange={(e) => setTeamId(e.target.value.toLowerCase())} disabled={!!initial} maxLength={32} autoComplete="off" />
       </Field>
@@ -56,7 +56,8 @@ function IdentityForm({ printedTeam, initial, onSaved }: { printedTeam: string; 
           {BADGE_REGIONS.map((r) => <option key={r} value={r}>{td(r)}</option>)}
         </Select>
       </Field>
-      <div className="flex items-center gap-2">
+      {/* Alineado con los campos (bajo sus rótulos), no con sus pistas. */}
+      <div className="flex items-center gap-2 lg:pt-[22px]">
         <Button onClick={save} disabled={busy || !region}>{busy ? t("Guardando…") : initial ? t("Guardar cambios") : t("Dar de alta")}</Button>
         {saved && <span role="status" className="text-[12px] text-ok">{t("Guardado")}</span>}
       </div>

@@ -74,18 +74,25 @@ case "${1:?seed|ui|perm|catalog|identities|identities-cleanup|cleanup}" in
     psqlq -q <<'SQL'
 begin;
 set local session_replication_role = replica;
+-- Dos jugadores sintéticos (copias de uno real con otra clave) del equipo «QA Nuevo Equipo» y su carta base cada uno:
+-- content_cards exige card_id = jugador__edición, así que una carta nueva necesita su jugador.
+insert into public.content_players (id, nick, full_name, team, team_tag, region, role, country, stats, metrics, editorial, accolades, image, status, origin, version, updated_at)
+select 'qa-tid-' || s.n, 'QA' || s.n, null, 'QA Nuevo Equipo', 'QNE', p.region, p.role, p.country, p.stats, p.metrics, p.editorial, p.accolades, null, p.status, 'admin', 1, now()
+from (select * from public.content_players where id in (select player_id from public.content_cards where lifecycle = 'PUBLISHED') order by id limit 1) p, (values (1), (2)) s(n)
+on conflict (id) do nothing;
 insert into public.content_cards (card_id, player_id, variant_id, ordinal, ovr, stats, combat, stat_boost, rarity_rank, rarity_bucket, data_version, source, generated_at, origin, lifecycle, definition_version, published_at, checksum, created_at, updated_at, presentation, presentation_rev)
-select 'qa-tid-' || s.n, c.player_id, c.variant_id, c.ordinal + 900 + s.n, c.ovr, c.stats, c.combat, c.stat_boost, c.rarity_rank, c.rarity_bucket, c.data_version, c.source, c.generated_at, 'admin', 'PUBLISHED', 1, now(), 'qa-tid', now(), now(),
-       coalesce(c.presentation, '{}'::jsonb) || '{"team": "QA Nuevo Equipo"}'::jsonb, 1
-from (select * from public.content_cards where lifecycle = 'PUBLISHED' and card_id not like 'qa-tid-%' order by card_id limit 1) c, (values (1), (2)) s(n)
+select 'qa-tid-' || s.n || '__base', 'qa-tid-' || s.n, 'base', 900 + s.n, c.ovr, c.stats, c.combat, c.stat_boost, c.rarity_rank, c.rarity_bucket, c.data_version, c.source, c.generated_at, 'admin', 'PUBLISHED', 1, now(), 'qa-tid', now(), now(),
+       -- Presentación como la de una carta creada en el CMS (0057): rol, lo impreso y el equipo impreso.
+       jsonb_build_object('role', 'Duelista', 'printed', jsonb_build_object('ovr', c.ovr, 'stats', c.stats), 'team', 'QA Nuevo Equipo'), 1
+from (select * from public.content_cards where lifecycle = 'PUBLISHED' and variant_id = 'base' and card_id not like 'qa-tid-%' order by card_id limit 1) c, (values (1), (2)) s(n)
 on conflict (card_id) do nothing;
 insert into public.content_card_versions (card_id, version, player_id, variant_id, ovr, combat, stats, stat_boost, rarity_rank, rarity_bucket, data_version, source, generated_at, checksum, effective_from)
-select 'qa-tid-' || s.n, 1, v.player_id, v.variant_id, v.ovr, v.combat, v.stats, v.stat_boost, v.rarity_rank, v.rarity_bucket, v.data_version, v.source, v.generated_at, 'qa-tid', now()
-from (select * from public.content_card_versions where card_id = (select card_id from public.content_cards where lifecycle = 'PUBLISHED' and card_id not like 'qa-tid-%' order by card_id limit 1) and version = 1) v, (values (1), (2)) s(n)
+select c.card_id, 1, c.player_id, c.variant_id, c.ovr, c.combat, c.stats, c.stat_boost, c.rarity_rank, c.rarity_bucket, c.data_version, c.source, c.generated_at, c.checksum, now()
+from public.content_cards c where c.card_id like 'qa-tid-%'
 on conflict do nothing;
 insert into public.user_cards (uid, user_id, card_id, origin, locked, obtained_at)
-select gen_random_uuid(), u.id, 'qa-tid-' || s.n, 'pack', false, now() from auth.users u, (values (1), (2)) s(n) where u.email = 'coll-tcall@example.invalid'
-  and not exists (select 1 from public.user_cards k where k.user_id = u.id and k.card_id = 'qa-tid-' || s.n);
+select gen_random_uuid(), u.id, 'qa-tid-' || s.n || '__base', 'pack', false, now() from auth.users u, (values (1), (2)) s(n) where u.email = 'coll-tcall@example.invalid'
+  and not exists (select 1 from public.user_cards k where k.user_id = u.id and k.card_id = 'qa-tid-' || s.n || '__base');
 update public.content_catalog_version set version = version + 1;
 commit;
 SQL
@@ -105,8 +112,9 @@ SQL
 begin;
 set local session_replication_role = replica;
 delete from public.user_cards where card_id like 'qa-tid-%';
-delete from public.content_card_versions where card_id like 'qa-tid-%' and checksum = 'qa-tid';
+delete from public.content_card_versions where card_id like 'qa-tid-%';
 delete from public.content_cards where card_id like 'qa-tid-%' and checksum = 'qa-tid';
+delete from public.content_players where id like 'qa-tid-%' and origin = 'admin';
 delete from public.content_team_identities where printed_team = 'QA Nuevo Equipo';
 delete from public.user_team_completions where team_id = 'qa-nuevo';
 update public.season_progress p set xp = p.xp - l.amount
@@ -117,7 +125,7 @@ delete from public.season_events where event_key = 'team-collection:qa-nuevo';
 update public.content_catalog_version set version = version + 1;
 commit;
 SQL
-    psqlq -c "select 'restos: ' || (select count(*) from public.content_cards where card_id like 'qa-tid-%') + (select count(*) from public.user_cards where card_id like 'qa-tid-%') + (select count(*) from public.content_team_identities where printed_team = 'QA Nuevo Equipo') + (select count(*) from public.user_team_completions where team_id = 'qa-nuevo')" < /dev/null
+    psqlq -c "select 'restos: ' || (select count(*) from public.content_cards where card_id like 'qa-tid-%') + (select count(*) from public.content_players where id like 'qa-tid-%') + (select count(*) from public.user_cards where card_id like 'qa-tid-%') + (select count(*) from public.content_team_identities where printed_team = 'QA Nuevo Equipo') + (select count(*) from public.user_team_completions where team_id = 'qa-nuevo')" < /dev/null
     ;;
   cleanup)
     psqlq -c "delete from auth.users where email like 'coll-tc%@example.invalid'" < /dev/null

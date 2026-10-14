@@ -32,6 +32,9 @@ if (mode === "up") {
   L.push("select 'catálogo materializado · versión ' || public._bump_catalog();");
   L.push(`do $$ begin if (select count(*) from public.content_cards where lifecycle = 'PUBLISHED') <> ${cards.length} then raise exception 'recuento de cartas distinto'; end if; end $$;`);
 } else {
+  // Las versiones son inmutables cuando hay ejemplares «acuñados» (las cuentas sintéticas tienen cartas): en QA, y solo
+  // para quitar lo que puso `up` sobre una base que no tenía content_*, se desactivan los disparadores en esta transacción.
+  L.push("set local session_replication_role = replica;");
   const ids = (xs: string[]) => `(${xs.map((x) => `'${x.replace(/'/g, "''")}'`).join(", ")})`;
   L.push(`delete from public.content_card_versions where card_id in ${ids(cards.map((c) => c.card_id))};`);
   L.push(`delete from public.content_cards where card_id in ${ids(cards.map((c) => c.card_id))};`);

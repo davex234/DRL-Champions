@@ -57,10 +57,17 @@ interface Tile { id: string; title: string; tag: string; region: string | null; 
 interface Badge { region: string; teams: number; total: number; owned: number; unlocked: boolean; permanent: boolean }
 interface View { teams: Tile[]; regions: Badge[]; pending: boolean }
 
+/** Lectura de Colecciones; si no es 200 se dice por qué (y se corta: sin vista no hay nada que comprobar). */
+async function view(who: string): Promise<View> {
+  const r = await api("/api/game/team-collections", who);
+  if (r.status !== 200 || !Array.isArray(r.json?.teams)) throw new Error(`GET team-collections (${who}) → ${r.status} ${JSON.stringify(r.json).slice(0, 300)}`);
+  return r.json as View;
+}
+
 async function apiChecks() {
   const S = "API · antes del alta";
-  const before = (await api("/api/game/team-collections", "tcall")).json as View;
-  const emptyBefore = (await api("/api/game/team-collections", "tcempty")).json as View;
+  const before = await view("tcall");
+  const emptyBefore = await view("tcempty");
   check(S, "sin identidad no es una colección", !before.teams.some((t) => t.title === PRINTED || t.id === ID), before.teams.length);
   check(S, "ni su detalle por la clave en bruto", (await api(`/api/game/team-collections?team=${encodeURIComponent(`raw:${PRINTED}`)}`, "tcall")).status === 404);
   const s0 = await post("/api/game/team-collections", "tcall", { action: "settle" });
@@ -85,20 +92,20 @@ async function apiChecks() {
   check(W, "cambiar la clave → 409", (await save("admin", { ...VALID, teamId: "qa-otra", expectedRev: 1 })).status === 409);
 
   const A = "API · con identidad";
-  const view = (await api("/api/game/team-collections", "tcall")).json as View;
-  const t = view.teams.find((x) => x.id === ID);
+  const withId = await view("tcall");
+  const t = withId.teams.find((x) => x.id === ID);
   check(A, "aparece con su clave, nombre, etiqueta y región, sin logo inventado", !!t && t.title === PRINTED && t.tag === "QNE" && t.region === "Pacific" && t.logo === null && t.total === 2, t);
-  check(A, "tcall lo tiene completo y hay algo que guardar", !!t && t.owned === 2 && t.state === "COMPLETED" && t.firstCompletedAt === null && view.pending === true, { t, pending: view.pending });
+  check(A, "tcall lo tiene completo y hay algo que guardar", !!t && t.owned === 2 && t.state === "COMPLETED" && t.firstCompletedAt === null && withId.pending === true, { t, pending: withId.pending });
   const burst = await Promise.all(Array.from({ length: 6 }, () => post("/api/game/team-collections", "tcall", { action: "settle" })));
   const okb = burst.filter((r) => r.status === 200).map((r) => r.json as { teams: { id: string; first: boolean; xp: number }[]; xpGained: number; regions: string[] });
   check(A, "6 liquidaciones a la vez: 300 XP una sola vez por el equipo nuevo", okb.reduce((n, r) => n + r.xpGained, 0) === XP && okb.flatMap((r) => r.teams).filter((x) => x.id === ID && x.first).length === 1, { estados: burst.map((r) => r.status), xp: okb.map((r) => r.xpGained) });
-  const after = (await api("/api/game/team-collections", "tcall")).json as View;
+  const after = await view("tcall");
   const pac = after.regions.find((r) => r.region === "Pacific")!, pac0 = before.regions.find((r) => r.region === "Pacific")!;
   check(A, "Pacific: un equipo y dos cartas más en la meta", pac.teams === pac0.teams + 1 && pac.total === pac0.total + 2, { antes: pac0, ahora: pac });
   check(A, "la insignia de Pacific ya conseguida sigue desbloqueada y permanente", pac0.permanent ? pac.unlocked && pac.permanent : true, { antes: pac0.permanent, ahora: [pac.unlocked, pac.permanent] });
   const det = (await api(`/api/game/team-collections?team=${ID}`, "tcall")).json as Tile;
   check(A, "detalle: primera compleción con sus 300 XP", det.xpAwarded === XP && !!det.firstCompletedAt, det);
-  const emptyAfter = (await api("/api/game/team-collections", "tcempty")).json as View;
+  const emptyAfter = await view("tcempty");
   const e = emptyAfter.teams.find((x) => x.id === ID);
   check(A, "otra cuenta: el equipo bloqueado 0/2 y la meta de Pacific sube", !!e && e.owned === 0 && e.state === "LOCKED" && e.firstCompletedAt === null && emptyAfter.regions.find((r) => r.region === "Pacific")!.total === emptyBefore.regions.find((r) => r.region === "Pacific")!.total + 2);
   const fix = await save("admin", { ...VALID, name: "QA Nuevo Equipo", tag: "QNE", region: "Pacific", expectedRev: 1 });
@@ -112,6 +119,11 @@ const noise = (e: string) => !/favicon|ERR_ABORTED|flagcdn|React DevTools|GPU st
 const PROBE = `(() => { const lines = [...new Set(document.body.innerText.split('\\n').map((l) => l.trim()).filter((l) => l.length > 2))];
   return { lang: document.documentElement.lang, overflow: document.documentElement.scrollWidth - innerWidth,
     keys: lines.filter((l) => /^[a-z]+(\\.[a-zA-Z0-9_]+){1,}$/.test(l) || /\\{[a-zA-Z_]+\\}/.test(l)).slice(0, 6) }; })()`;
+
+/** El idioma de la CUENTA (user_metadata, como lo guarda el selector de idioma) manda sobre el del navegador si es más reciente. */
+async function setAccountLocale(who: string, locale: string) {
+  await fetch(`${BASE}/auth/v1/user`, { method: "PUT", headers: { apikey: ANON, authorization: `Bearer ${await token(who)}`, "content-type": "application/json" }, body: JSON.stringify({ data: { locale, locale_at: Date.now() } }) });
+}
 
 async function open(locale: string, width: number, email: string, pw: string) {
   const b = await launch({ args });
@@ -128,6 +140,7 @@ async function open(locale: string, width: number, email: string, pw: string) {
 
 async function adminScreen(locale: string, width: number) {
   const S = `${locale} · ${width} · admin`;
+  await setAccountLocale("admin", locale);
   const { b, tab, inside } = await open(locale, width, ADMIN_EMAIL, ADMIN_PW);
   const dir = join(OUT, `${locale}-${width}`); mkdirSync(dir, { recursive: true });
   try {
@@ -136,7 +149,8 @@ async function adminScreen(locale: string, width: number) {
     check(S, "/admin/teams con el panel de equipos nuevos", await waitFor(tab, `!!document.querySelector('[data-testid="team-identities"]')`, 40000));
     await sleep(1500);
     const p = await tab.js<{ title: boolean; managed: string[]; pending: number; summary: boolean; logoCol: boolean; lang: string; overflow: number; keys: string[] }>(`(() => ({
-      title: document.body.innerText.includes(${JSON.stringify(PANEL[locale])}),
+      // El título del panel va en mayúsculas por CSS y innerText lo devuelve así.
+      title: document.body.innerText.toLocaleUpperCase().includes(${JSON.stringify(PANEL[locale].toLocaleUpperCase())}),
       managed: [...document.querySelectorAll('[data-testid="team-identity-managed"]')].map((d) => d.getAttribute('data-team')),
       pending: document.querySelectorAll('[data-testid="team-identity-pending"]').length,
       summary: !!document.querySelector('[data-testid="team-collections-summary"]'),
@@ -157,6 +171,7 @@ async function adminScreen(locale: string, width: number) {
 
 async function playerScreen(locale: string, width: number) {
   const S = `${locale} · ${width} · tcall`;
+  await setAccountLocale("tcall", locale);
   const { b, tab, inside } = await open(locale, width, "coll-tcall@example.invalid", PW);
   const dir = join(OUT, `${locale}-${width}`); mkdirSync(dir, { recursive: true });
   try {
@@ -179,7 +194,7 @@ async function playerScreen(locale: string, width: number) {
 
 (async () => {
   mkdirSync(OUT, { recursive: true });
-  await apiChecks();
+  try { await apiChecks(); } catch (e) { check("API", "EJECUCIÓN", false, String(e)); }
   for (const l of LOCS) await adminScreen(l, 1440);
   await adminScreen("es", 390);
   for (const [l, w] of [["es", 1440], ["es", 390], ["en", 1440], ["ja", 390]] as const) if (LOCS.includes(l)) await playerScreen(l, w);
