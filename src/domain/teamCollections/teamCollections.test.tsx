@@ -12,6 +12,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { CARDS, getPlayer } from "@/data/catalog";
 import { TEAM_IDENTITIES, canonicalCardTeam } from "@/data/teamIdentities";
 import type { CardDef } from "@/domain/cards/types";
+import { packCardClass } from "@/domain/packs/packClass";
 import {
   BADGE_REGIONS, FIRST_TEAMS, MORE_TEAMS, NOTHING_PERSISTED, buildTeamCollections, legacySetTeamId, regionBadges, settlePlan, sortTeams, teamCollectionsView,
   teamDetail, teamProgress, teamResolver, teamState, teamTile, visibleTeamCount, type ManagedTeamIdentity, type TeamCollectionsModel,
@@ -88,6 +89,34 @@ test("2 · un jugador con varias ediciones: cada una es un requisito y se cuenta
   assert.deepEqual([p.missing, p.complete, p.pct], [1, false, Math.min(99, Math.floor(((all.length - 1) / all.length) * 100))]);
   assert.equal(teamProgress(g2, new Set(all)).complete, true);
   assert.equal(new Set(editions.map((id) => g2.cards.find((c) => c.id === id)!.variantId)).size, editions.length, "son ediciones distintas");
+});
+
+test("2 · la normal no sustituye a la especial ni la especial a la normal (tampoco una ICON), con copias o sin ellas", () => {
+  const m = live();
+  // Un jugador con su carta base y una edición especial en el mismo equipo.
+  const pairs = m.teams.flatMap((t) => {
+    const base = t.cards.find((c) => c.variantId === "base" && t.cards.some((x) => x.playerId === c.playerId && x.variantId !== "base"));
+    return base ? [{ t, base, special: t.cards.find((x) => x.playerId === base.playerId && x.variantId !== "base")! }] : [];
+  });
+  assert.ok(pairs.length > 5, "el catálogo tiene jugadores con normal y especial");
+  for (const { t, base, special } of pairs) {
+    const all = t.cards.map((c) => c.id);
+    for (const [have, lack] of [[base, special], [special, base]]) {
+      const owned = new Set(all.filter((id) => id !== lack.id));
+      assert.ok(owned.has(have.id));
+      const p = teamProgress(t, owned);
+      assert.deepEqual([p.missing, p.complete], [1, false], `${t.id}: ${have.variantId} no sustituye a ${lack.variantId}`);
+    }
+  }
+  // La carta de clase ICON de un equipo es un requisito más: sin ella, por muchas copias del resto, no se completa.
+  const iconTeam = m.teams.find((t) => t.cards.some((c) => packCardClass({ variantId: c.variantId as CardDef["variantId"], ovr: c.ovr }) === "icon"));
+  if (iconTeam) {
+    const icon = iconTeam.cards.find((c) => packCardClass({ variantId: c.variantId as CardDef["variantId"], ovr: c.ovr }) === "icon")!;
+    const counts: Record<string, number> = {};
+    for (const c of iconTeam.cards) if (c.id !== icon.id) counts[c.id] = 9;
+    const d = teamDetail(iconTeam, counts);
+    assert.deepEqual([d.complete, d.missing, d.cards.find((c) => c.id === icon.id)!.owned], [false, 1, false]);
+  }
 });
 
 test("3 · las copias repetidas no completan ediciones distintas", () => {
