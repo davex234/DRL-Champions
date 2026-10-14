@@ -167,7 +167,13 @@ case "${1:?backup|apply|season|sqltest|rollback|restore|reset}" in
 
     echo "##### 10 · aislamiento entre cuentas"
     eq "la cuenta sin cartas no tiene nada" "$(q "select (select count(*) from public.user_team_completions where user_id = '$EMPTY') + (select count(*) from public.user_region_badges where user_id = '$EMPTY') + (select count(*) from public.season_xp_ledger where user_id = '$EMPTY')")" "0"
-    eq "cada compleción pertenece a quien tiene las cartas" "$(q "select string_agg(split_part(u.email, '@', 1) || '=' || n, ' ' order by u.email) from (select user_id, count(*) n from public.user_team_completions group by 1) c join auth.users u on u.id = c.user_id")" "coll-tcall=$NT coll-tcchina=1 coll-tcfive=1"
+    eq "compleciones de las cuentas de esta prueba" "$(q "select string_agg(split_part(u.email, '@', 1) || '=' || n, ' ' order by u.email) from (select user_id, count(*) n from public.user_team_completions group by 1) c join auth.users u on u.id = c.user_id where u.email like 'coll-tc%'")" "coll-tcall=$NT coll-tcchina=1 coll-tcfive=1"
+    # Cualquier compleción de la base (también de otras cuentas sintéticas que la QA de navegador liquidó al entrar) es de
+    # alguien que tuvo TODAS las cartas del equipo. tcchina se excluye: el paso 8 le quitó las suyas a propósito.
+    eq "ninguna compleción sin todas sus cartas (salvo la desguazada a propósito)" "$(qv "select count(*) from public.user_team_completions c join auth.users u on u.id = c.user_id
+         join lateral (select t->'cards' cards from jsonb_array_elements(:'plan_all_teams'::jsonb) t where t->>'id' = c.team_id) p on true
+         where u.email <> 'coll-tcchina@example.invalid'
+           and exists (select 1 from jsonb_array_elements_text(p.cards) x where not exists (select 1 from public.user_cards uc where uc.user_id = c.user_id and uc.card_id = x));")" "0"
     eq "XP totales de la temporada de QA" "$(q "select sum(amount) from public.season_xp_ledger where season_id = '$SEASON'")" "$(( (NT + 2) * 300 ))"
     [ "$fail" = 0 ] && echo "SQLTEST_OK" || echo "SQLTEST_CON_FALLOS"
     ;;

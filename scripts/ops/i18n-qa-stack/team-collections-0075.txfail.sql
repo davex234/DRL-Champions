@@ -10,10 +10,17 @@
 \set QUIET on
 begin;
 select set_config('qa.user', :'china', true), set_config('qa.plan', :'plan_china_team', true);
+-- Temporada activa: la de QA si ya hay una (las temporadas no se solapan); si no, una propia de esta transacción.
+select set_config('qa.season', coalesce((select id from public.game_seasons where status = 'PUBLISHED' and now() >= starts_at and now() < ends_at order by starts_at limit 1), 'qa-tc-txfail'), true);
 set local session_replication_role = replica;
 insert into public.game_seasons (id, number, name, description, status, starts_at, ends_at, claim_until, max_level, config, checksum, published_at)
-values ('qa-tc-txfail', 901, 'QA fallo a mitad', 'Solo stack de QA', 'PUBLISHED', now() - interval '1 day', now() + interval '30 days', now() + interval '40 days', :season_levels, :'season_config'::jsonb, 'qa', now());
+select 'qa-tc-txfail', 901, 'QA fallo a mitad', 'Solo stack de QA', 'PUBLISHED', now() - interval '1 day', now() + interval '30 days', now() + interval '40 days', :season_levels, :'season_config'::jsonb, 'qa', now()
+where current_setting('qa.season') = 'qa-tc-txfail';
+-- Partir de cero para esta cuenta sintética (todo se deshace con el ROLLBACK final).
 delete from public.user_team_completions where user_id = current_setting('qa.user')::uuid;
+delete from public.season_xp_ledger where user_id = current_setting('qa.user')::uuid and season_id = current_setting('qa.season');
+delete from public.season_events where user_id = current_setting('qa.user')::uuid and season_id = current_setting('qa.season');
+delete from public.season_progress where user_id = current_setting('qa.user')::uuid and season_id = current_setting('qa.season');
 set local session_replication_role = origin;
 
 create function pg_temp.qa_boom() returns trigger language plpgsql as $$ begin raise exception 'FALLO_SIMULADO_QA'; end $$;
@@ -24,15 +31,15 @@ declare u uuid := current_setting('qa.user')::uuid; plan jsonb := current_settin
 begin
   if u is null then raise exception 'falta coll-tcchina'; end if;
   begin
-    r := public.app_team_collections_settle(u, plan, '[]'::jsonb, 'qa-tc-txfail', 300);
+    r := public.app_team_collections_settle(u, plan, '[]'::jsonb, current_setting('qa.season'), 300);
   exception when others then
     if sqlerrm like '%FALLO_SIMULADO_QA%' then failed := true; else raise; end if;
   end;
   if not failed then raise exception 'FALLO: la liquidación no llegó al punto de fallo (%)', r; end if;
   if exists (select 1 from public.user_team_completions where user_id = u) then raise exception 'FALLO: quedó una compleción a medias'; end if;
-  if exists (select 1 from public.season_events where user_id = u and season_id = 'qa-tc-txfail') then raise exception 'FALLO: quedó el evento de temporada'; end if;
-  if exists (select 1 from public.season_xp_ledger where user_id = u and season_id = 'qa-tc-txfail') then raise exception 'FALLO: quedó un asiento de XP'; end if;
-  if exists (select 1 from public.season_progress where user_id = u and season_id = 'qa-tc-txfail' and xp > 0) then raise exception 'FALLO: quedó progreso'; end if;
+  if exists (select 1 from public.season_events where user_id = u and season_id = current_setting('qa.season')) then raise exception 'FALLO: quedó el evento de temporada'; end if;
+  if exists (select 1 from public.season_xp_ledger where user_id = u and season_id = current_setting('qa.season')) then raise exception 'FALLO: quedó un asiento de XP'; end if;
+  if exists (select 1 from public.season_progress where user_id = u and season_id = current_setting('qa.season') and xp > 0) then raise exception 'FALLO: quedó progreso'; end if;
   raise notice 'OK · fallo a mitad: ni compleción, ni evento, ni asiento, ni progreso';
 end $$;
 
@@ -41,11 +48,11 @@ drop trigger qa_boom on public.season_xp_ledger;
 do $$
 declare u uuid := current_setting('qa.user')::uuid; plan jsonb := current_setting('qa.plan')::jsonb; r jsonb;
 begin
-  r := public.app_team_collections_settle(u, plan, '[]'::jsonb, 'qa-tc-txfail', 300);
+  r := public.app_team_collections_settle(u, plan, '[]'::jsonb, current_setting('qa.season'), 300);
   if (r->>'xpGained')::int <> 300 then raise exception 'FALLO: el reintento dio % XP', r->>'xpGained'; end if;
-  r := public.app_team_collections_settle(u, plan, '[]'::jsonb, 'qa-tc-txfail', 300);
+  r := public.app_team_collections_settle(u, plan, '[]'::jsonb, current_setting('qa.season'), 300);
   if (r->>'xpGained')::int <> 0 then raise exception 'FALLO: el segundo reintento dio % XP', r->>'xpGained'; end if;
-  if (select coalesce(sum(amount), 0) from public.season_xp_ledger where user_id = u and season_id = 'qa-tc-txfail') <> 300 then raise exception 'FALLO: libro distinto de 300'; end if;
+  if (select coalesce(sum(amount), 0) from public.season_xp_ledger where user_id = u and season_id = current_setting('qa.season')) <> 300 then raise exception 'FALLO: libro distinto de 300'; end if;
   raise notice 'OK · reintento sin fallo: 300 XP una vez; el siguiente, 0';
 end $$;
 \echo TXFAIL_0075_OK
