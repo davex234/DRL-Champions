@@ -1,0 +1,506 @@
+[
+  {
+    "scope": "API · antes del alta",
+    "id": "sin identidad no es una colección",
+    "ok": true,
+    "detail": "41"
+  },
+  {
+    "scope": "API · antes del alta",
+    "id": "ni su detalle por la clave en bruto",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · antes del alta",
+    "id": "liquidar con sus dos cartas no da nada",
+    "ok": true,
+    "detail": "[]"
+  },
+  {
+    "scope": "API · antes del alta",
+    "id": "panel: anónimo 401, jugador 401",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · antes del alta",
+    "id": "panel: el equipo aparece como pendiente, con sus 2 cartas",
+    "ok": true,
+    "detail": "{\"available\":true,\"managed\":[],\"pending\":[{\"printedTeam\":\"QA Nuevo Equipo\",\"cards\":2}]}"
+  },
+  {
+    "scope": "API · alta",
+    "id": "jugador → 401",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · alta",
+    "id": "anónimo → 401",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · región inválida",
+    "ok": true,
+    "detail": "400"
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · sin región",
+    "ok": true,
+    "detail": "400"
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · clave de un equipo del código",
+    "ok": true,
+    "detail": "400"
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · clave mal formada",
+    "ok": true,
+    "detail": "400"
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · clave de set antiguo",
+    "ok": true,
+    "detail": "400"
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · etiqueta larga",
+    "ok": true,
+    "detail": "400"
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · texto impreso que no existe",
+    "ok": true,
+    "detail": "404"
+  },
+  {
+    "scope": "API · alta",
+    "id": "rechazado · texto de un equipo del código",
+    "ok": true,
+    "detail": "404"
+  },
+  {
+    "scope": "API · alta",
+    "id": "campo de más (actor elegido por el cliente) → 400",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · alta",
+    "id": "alta → 200, revisión 1",
+    "ok": true,
+    "detail": "{\"teamId\":\"qa-nuevo\",\"rev\":1}"
+  },
+  {
+    "scope": "API · alta",
+    "id": "el mismo envío otra vez → 409",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · alta",
+    "id": "cambiar la clave → 409",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "aparece con su clave, nombre, etiqueta y región, sin logo inventado",
+    "ok": true,
+    "detail": "{\"id\":\"qa-nuevo\",\"title\":\"QA Nuevo Equipo\",\"tag\":\"QNE\",\"region\":\"Pacific\",\"logo\":null,\"state\":\"COMPLETED\",\"players\":[\"QA1\",\"QA2\"],\"firstCompletedAt\":null,\"xpAwarded\":null,\"total\":2,\"owned\":2,\"missing\":0,\"complete\":true,\"pct\":100}"
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "tcall lo tiene completo y hay algo que guardar",
+    "ok": true,
+    "detail": "{\"t\":{\"id\":\"qa-nuevo\",\"title\":\"QA Nuevo Equipo\",\"tag\":\"QNE\",\"region\":\"Pacific\",\"logo\":null,\"state\":\"COMPLETED\",\"players\":[\"QA1\",\"QA2\"],\"firstCompletedAt\":null,\"xpAwarded\":null,\"total\":2,\"owned\":2,\"missing\":0,\"complete\":true,\"pct\":100},\"pending\":true}"
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "6 liquidaciones a la vez: 300 XP una sola vez por el equipo nuevo",
+    "ok": true,
+    "detail": "{\"estados\":[200,200,200,200,200,200],\"xp\":[0,300,0,0,0,0]}"
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "Pacific: un equipo y dos cartas más en la meta",
+    "ok": true,
+    "detail": "{\"antes\":{\"region\":\"Pacific\",\"teams\":12,\"teamsCompleted\":12,\"configured\":true,\"completeNow\":true,\"permanent\":true,\"unlockedAt\":\"2026-10-14T12:09:01.43543+00:00\",\"unlocked\":true,\"total\":97,\"owned\":97,\"missing\":0,\"complete\":true,\"pct\":100},\"ahora\":{\"region\":\"Pacific\",\"teams\":13,\"teamsCompleted\":13,\"configured\":true,\"completeNow\":true,\"permanent\":true,\"unlockedAt\":\"2026-10-14T12:09:01.43543+00:00\",\"u"
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "la insignia de Pacific ya conseguida sigue desbloqueada y permanente",
+    "ok": true,
+    "detail": "{\"antes\":true,\"ahora\":[true,true]}"
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "detalle: primera compleción con sus 300 XP",
+    "ok": true,
+    "detail": "{\"id\":\"qa-nuevo\",\"title\":\"QA Nuevo Equipo\",\"tag\":\"QNE\",\"region\":\"Pacific\",\"logo\":null,\"state\":\"COMPLETED\",\"players\":[\"QA1\",\"QA2\"],\"firstCompletedAt\":\"2026-10-14T12:13:07.296841+00:00\",\"xpAwarded\":300,\"total\":2,\"owned\":2,\"missing\":0,\"complete\":true,\"pct\":100,\"cards\":[{\"id\":\"qa-tid-1__base\",\"playerId\":\"qa-tid-1\",\"nick\":\"QA1\",\"variantId\":\"base\",\"ovr\":80,\"image\":null,\"owned\":true,\"copies\":1},{\"id\":\"qa"
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "otra cuenta: el equipo bloqueado 0/2 y la meta de Pacific sube",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "API · con identidad",
+    "id": "corregir con la revisión buena → 200 rev 2",
+    "ok": true,
+    "detail": "{\"teamId\":\"qa-nuevo\",\"rev\":2}"
+  },
+  {
+    "scope": "es · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"es\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "es · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"es\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "es · 1440 · admin",
+    "id": "ficha de un equipo del código: panel de logo con subida",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "en · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "en · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "en · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"en\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "en · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"en\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "de · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "de · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "de · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"de\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "de · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"de\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "it · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "it · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "it · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"it\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "it · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"it\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "fr · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "fr · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "fr · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"fr\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "fr · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"fr\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "pt-PT · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "pt-PT · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "pt-PT · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"pt-PT\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "pt-PT · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"pt-PT\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "pt-BR · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "pt-BR · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "pt-BR · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"pt-BR\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "pt-BR · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"pt-BR\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "ja · 1440 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "ja · 1440 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "ja · 1440 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"ja\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "ja · 1440 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"ja\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "es · 390 · admin",
+    "id": "inicio de sesión de admin",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 390 · admin",
+    "id": "/admin/teams con el panel de equipos nuevos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 390 · admin",
+    "id": "panel traducido, con el equipo dado de alta y su subida de logo; nada pendiente",
+    "ok": true,
+    "detail": "{\"title\":true,\"managed\":[\"qa-nuevo\"],\"pending\":0,\"summary\":true,\"logoCol\":true,\"lang\":\"es\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "es · 390 · admin",
+    "id": "idioma, sin desborde, sin claves, sin errores de consola",
+    "ok": true,
+    "detail": "{\"lang\":\"es\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "es · 1440 · tcall",
+    "id": "inicio de sesión",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 1440 · tcall",
+    "id": "detalle del equipo nuevo",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 1440 · tcall",
+    "id": "completo 2/2, 300 XP cobrados, escudo con su etiqueta (sin logo inventado)",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"es\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "es · 1440 · tcall",
+    "id": "idioma, sin desborde, sin claves, sin errores",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"es\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "es · 1440 · tcall",
+    "id": "Colecciones lo encuentra por su nombre",
+    "ok": true,
+    "detail": "[\"qa-nuevo\"]"
+  },
+  {
+    "scope": "es · 390 · tcall",
+    "id": "inicio de sesión",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 390 · tcall",
+    "id": "detalle del equipo nuevo",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "es · 390 · tcall",
+    "id": "completo 2/2, 300 XP cobrados, escudo con su etiqueta (sin logo inventado)",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"es\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "es · 390 · tcall",
+    "id": "idioma, sin desborde, sin claves, sin errores",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"es\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "es · 390 · tcall",
+    "id": "Colecciones lo encuentra por su nombre",
+    "ok": true,
+    "detail": "[\"qa-nuevo\"]"
+  },
+  {
+    "scope": "en · 1440 · tcall",
+    "id": "inicio de sesión",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "en · 1440 · tcall",
+    "id": "detalle del equipo nuevo",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "en · 1440 · tcall",
+    "id": "completo 2/2, 300 XP cobrados, escudo con su etiqueta (sin logo inventado)",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"en\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "en · 1440 · tcall",
+    "id": "idioma, sin desborde, sin claves, sin errores",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"en\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "en · 1440 · tcall",
+    "id": "Colecciones lo encuentra por su nombre",
+    "ok": true,
+    "detail": "[\"qa-nuevo\"]"
+  },
+  {
+    "scope": "ja · 390 · tcall",
+    "id": "inicio de sesión",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "ja · 390 · tcall",
+    "id": "detalle del equipo nuevo",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "scope": "ja · 390 · tcall",
+    "id": "completo 2/2, 300 XP cobrados, escudo con su etiqueta (sin logo inventado)",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"ja\",\"overflow\":0,\"keys\":[]}"
+  },
+  {
+    "scope": "ja · 390 · tcall",
+    "id": "idioma, sin desborde, sin claves, sin errores",
+    "ok": true,
+    "detail": "{\"state\":\"COMPLETED\",\"progress\":\"2/2\",\"xp\":\"300\",\"mono\":true,\"img\":0,\"lang\":\"ja\",\"overflow\":0,\"keys\":[],\"errors\":[]}"
+  },
+  {
+    "scope": "ja · 390 · tcall",
+    "id": "Colecciones lo encuentra por su nombre",
+    "ok": true,
+    "detail": "[\"qa-nuevo\"]"
+  }
+]
