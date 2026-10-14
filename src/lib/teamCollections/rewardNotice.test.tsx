@@ -35,10 +35,12 @@ test("AVISO · dos liquidaciones sin enseñar se suman; enseñarlo lo borra (una
   assert.equal(useCollectionRewardStore.getState().take(), null);
 });
 
-test("AVISO · lo monta el armazón normal (no las rutas inmersivas) y Colecciones avisa por el mismo camino", () => {
+test("AVISO · lo monta el armazón normal y la portada (no sobres, duelos ni lanzador) y Colecciones avisa por el mismo camino", () => {
   const shell = read("src/components/layout/GameShell.tsx");
   const immersive = shell.slice(shell.indexOf("if (isImmersive(pathname))"), shell.indexOf("const cta = playCta(status);"));
-  assert.ok(!immersive.includes("<CollectionRewardNotice"), "no tapa la apertura de un sobre ni un duelo");
+  // En las rutas inmersivas, solo en la portada (donde se llega al iniciar sesión); nunca en sobres, duelos ni lanzador.
+  assert.ok(immersive.includes(`{pathname === "/" && <CollectionRewardNotice />}`), "solo la portada");
+  assert.equal((immersive.match(/<CollectionRewardNotice/g) ?? []).length, 1, "no tapa la apertura de un sobre ni un duelo");
   assert.match(shell.slice(shell.indexOf("const cta = playCta(status);")), /<CollectionRewardNotice \/>/);
   const page = read("src/app/coleccion/trofeos/page.tsx");
   assert.match(page, /useCollectionRewardStore\.getState\(\)\.push\(gained\)/);

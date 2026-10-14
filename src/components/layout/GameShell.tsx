@@ -123,6 +123,9 @@ export function GameShell({ children }: { children: React.ReactNode }) {
           {/* La sonda va TAMBIÉN aquí: sin esto, la ceremonia del sobre y la partida
               de duelo —las dos zonas de mayor intención— serían invisibles. */}
           <TelemetryProbe />
+          {/* Colecciones · la portada (inmersiva) es donde se llega al iniciar sesión, cuando se liquida lo pendiente: el
+              aviso va también aquí. En la apertura de sobres, los duelos y el lanzador, no: espera a la siguiente pantalla. */}
+          {pathname === "/" && <CollectionRewardNotice />}
           {/* F85 · en la arena PvP, el aviso social vive (solo la revancha de la partida en pantalla, ya terminada); en
               las demás rutas inmersivas (sobre, entrenador), solo la presencia. */}
           {pathname.startsWith("/duelos/pvp") ? <SocialLive /> : <SocialPresence />}
