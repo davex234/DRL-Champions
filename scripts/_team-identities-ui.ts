@@ -4,7 +4,7 @@
  *   BASE_URL=http://127.0.0.1:3027 QA_ANON_KEY=… COLL_PW=… QA_ADMIN_EMAIL=… QA_ADMIN_PASSWORD=… npx tsx scripts/_team-identities-ui.ts [idiomas]
  *
  * Precondición (la prepara `team-collections.sh identities`): catálogo servido desde la base (content_cards) con DOS
- * cartas publicadas de un equipo impreso que el código no conoce («QA Nuevo Equipo»), y esas dos cartas en el inventario
+ * cartas publicadas de un equipo impreso que el código no conoce («QA Team Omega»), y esas dos cartas en el inventario
  * de la cuenta sintética `tcall`, que ya tiene completos todos los demás equipos (fase main de `_team-collections-ui.ts`).
  *
  *   1) API: el equipo sin identidad no es una colección (ni detalle, ni XP); el panel lo lista como pendiente; la ruta
@@ -28,7 +28,7 @@ const LOCS = (process.argv[2] ?? "es,en,de,it,fr,pt-PT,pt-BR,ja").split(",");
 const OUT = join(process.cwd(), process.env.UI_OUT ?? "logs/team-identities-ui");
 const NAV: Record<string, string[]> = { es: ["es-ES", "es"], en: ["en-GB", "en"], de: ["de-DE", "de"], it: ["it-IT", "it"], fr: ["fr-FR", "fr"], "pt-PT": ["pt-PT", "pt"], "pt-BR": ["pt-BR", "pt"], ja: ["ja-JP", "ja"] };
 const PANEL: Record<string, string> = { es: "Equipos nuevos del catálogo", en: "New catalog teams", de: "Neue Katalogteams", it: "Nuove squadre del catalogo", fr: "Nouvelles équipes du catalogue", "pt-PT": "Novas equipas do catálogo", "pt-BR": "Novos times do catálogo", ja: "カタログの新チーム" };
-const PRINTED = "QA Nuevo Equipo", ID = "qa-nuevo", XP = 300;
+const PRINTED = "QA Team Omega", ID = "qa-omega", XP = 300;
 
 const rows: { scope: string; id: string; ok: boolean; detail: string }[] = [];
 const check = (scope: string, id: string, ok: boolean, detail: unknown = "") => { const d = typeof detail === "string" ? detail : JSON.stringify(detail); rows.push({ scope, id, ok, detail: d.slice(0, 400) }); console.log(`${ok ? "PASS" : "FAIL"} · ${scope} · ${id} — ${d.slice(0, 240)}`); };
@@ -52,7 +52,7 @@ async function api(path: string, who?: string, init: RequestInit = {}): Promise<
 }
 const post = (path: string, who: string | undefined, body: unknown) => api(path, who, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
 const save = (who: string | undefined, b: Record<string, unknown>) => post("/api/admin/cms/teams", who, { action: "save", ...b });
-const VALID = { printedTeam: PRINTED, teamId: ID, name: "QA Nuevo Equipo", tag: "QNE", region: "Pacific", expectedRev: 0 };
+const VALID = { printedTeam: PRINTED, teamId: ID, name: "QA Team Omega", tag: "QTO", region: "Pacific", expectedRev: 0 };
 interface Tile { id: string; title: string; tag: string; region: string | null; total: number; owned: number; state: string; firstCompletedAt: string | null; xpAwarded: number | null; logo: string | null }
 interface Badge { region: string; teams: number; total: number; owned: number; unlocked: boolean; permanent: boolean }
 interface View { teams: Tile[]; regions: Badge[]; pending: boolean }
@@ -94,7 +94,7 @@ async function apiChecks() {
   const A = "API · con identidad";
   const withId = await view("tcall");
   const t = withId.teams.find((x) => x.id === ID);
-  check(A, "aparece con su clave, nombre, etiqueta y región, sin logo inventado", !!t && t.title === PRINTED && t.tag === "QNE" && t.region === "Pacific" && t.logo === null && t.total === 2, t);
+  check(A, "aparece con su clave, nombre, etiqueta y región, sin logo inventado", !!t && t.title === PRINTED && t.tag === "QTO" && t.region === "Pacific" && t.logo === null && t.total === 2, t);
   check(A, "tcall lo tiene completo y hay algo que guardar", !!t && t.owned === 2 && t.state === "COMPLETED" && t.firstCompletedAt === null && withId.pending === true, { t, pending: withId.pending });
   const burst = await Promise.all(Array.from({ length: 6 }, () => post("/api/game/team-collections", "tcall", { action: "settle" })));
   const okb = burst.filter((r) => r.status === 200).map((r) => r.json as { teams: { id: string; first: boolean; xp: number }[]; xpGained: number; regions: string[] });
@@ -108,7 +108,7 @@ async function apiChecks() {
   const emptyAfter = await view("tcempty");
   const e = emptyAfter.teams.find((x) => x.id === ID);
   check(A, "otra cuenta: el equipo bloqueado 0/2 y la meta de Pacific sube", !!e && e.owned === 0 && e.state === "LOCKED" && e.firstCompletedAt === null && emptyAfter.regions.find((r) => r.region === "Pacific")!.total === emptyBefore.regions.find((r) => r.region === "Pacific")!.total + 2);
-  const fix = await save("admin", { ...VALID, name: "QA Nuevo Equipo", tag: "QNE", region: "Pacific", expectedRev: 1 });
+  const fix = await save("admin", { ...VALID, name: "QA Team Omega", tag: "QTO", region: "Pacific", expectedRev: 1 });
   check(A, "corregir con la revisión buena → 200 rev 2", fix.status === 200 && fix.json?.rev === 2, fix.json);
 }
 
@@ -179,13 +179,13 @@ async function playerScreen(locale: string, width: number) {
     await tab.goto(`${BASE}/coleccion/trofeos/${ID}`, 1500);
     check(S, "detalle del equipo nuevo", await waitFor(tab, `!!document.querySelector('[data-testid="set-detail"]')`, 40000));
     await sleep(1500);
-    const d = await tab.js<{ state: string; progress: string; xp: string; mono: boolean; img: number; lang: string; overflow: number; keys: string[] }>(`(() => ({ state: document.querySelector('[data-testid="set-detail"]').getAttribute('data-state'), progress: document.querySelector('[data-testid="set-progress"]')?.textContent ?? '', xp: document.querySelector('[data-testid="first-completion"]')?.getAttribute('data-xp') ?? '', mono: document.querySelector('[data-testid="set-detail"] header').innerText.includes('QNE'), img: document.querySelectorAll('[data-testid="set-detail"] header img').length, ...${PROBE} }))()`);
+    const d = await tab.js<{ state: string; progress: string; xp: string; mono: boolean; img: number; lang: string; overflow: number; keys: string[] }>(`(() => ({ state: document.querySelector('[data-testid="set-detail"]').getAttribute('data-state'), progress: document.querySelector('[data-testid="set-progress"]')?.textContent ?? '', xp: document.querySelector('[data-testid="first-completion"]')?.getAttribute('data-xp') ?? '', mono: document.querySelector('[data-testid="set-detail"] header').innerText.includes('QTO'), img: document.querySelectorAll('[data-testid="set-detail"] header img').length, ...${PROBE} }))()`);
     const errors = tab.takeErrors().filter(noise);
     check(S, "completo 2/2, 300 XP cobrados, escudo con su etiqueta (sin logo inventado)", d.state === "COMPLETED" && d.progress === "2/2" && d.xp === String(XP) && d.mono && d.img === 0, d);
     check(S, "idioma, sin desborde, sin claves, sin errores", d.lang === locale && d.overflow <= 1 && d.keys.length === 0 && errors.length === 0, { ...d, errors: errors.slice(0, 2) });
     await tab.shot(join(dir, "detalle-equipo-nuevo.png")).catch(() => null);
     await tab.goto(`${BASE}/coleccion/trofeos`, 1500); await waitFor(tab, `!!document.querySelector('[data-testid="set-grid"]')`, 40000); await sleep(2000);
-    await tab.js(`(() => { const el = document.querySelector('[data-testid="trophy-search"]'); const d = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value'); d.set.call(el, 'QA Nuevo'); el.dispatchEvent(new Event('input', { bubbles: true })); })()`); await sleep(500);
+    await tab.js(`(() => { const el = document.querySelector('[data-testid="trophy-search"]'); const d = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value'); d.set.call(el, 'QA Team'); el.dispatchEvent(new Event('input', { bubbles: true })); })()`); await sleep(500);
     const ids = await tab.js<string[]>(`[...document.querySelectorAll('[data-testid="set-tile"]')].map((a) => a.getAttribute('data-set'))`);
     check(S, "Colecciones lo encuentra por su nombre", JSON.stringify(ids) === JSON.stringify([ID]), ids);
     await tab.shot(join(dir, "colecciones-busqueda-equipo-nuevo.png")).catch(() => null);

@@ -65,7 +65,7 @@ case "${1:?seed|ui|perm|catalog|identities|identities-cleanup|cleanup}" in
     ;;
   identities)
     # 0076 · equipo nuevo dado de alta desde el panel. Datos SINTÉTICOS (solo en esta base): dos cartas publicadas con
-    # el equipo impreso «QA Nuevo Equipo» (copias de una carta existente con otra clave) y esas dos cartas en el
+    # el equipo impreso «QA Team Omega» (copias de una carta existente con otra clave) y esas dos cartas en el
     # inventario de tcall. Después del instrumento se borra exactamente eso (la auditoría de 0055 es append-only y queda).
     LANGS="${2:-es,en,de,it,fr,pt-PT,pt-BR,ja}"
     G=$(docker inspect -f '{{range .Mounts}}{{if eq .Destination "/app"}}{{.Source}}{{end}}{{end}}' vrqa_app)
@@ -74,16 +74,16 @@ case "${1:?seed|ui|perm|catalog|identities|identities-cleanup|cleanup}" in
     psqlq -q <<'SQL'
 begin;
 set local session_replication_role = replica;
--- Dos jugadores sintéticos (copias de uno real con otra clave) del equipo «QA Nuevo Equipo» y su carta base cada uno:
+-- Dos jugadores sintéticos (copias de uno real con otra clave) del equipo «QA Team Omega» y su carta base cada uno:
 -- content_cards exige card_id = jugador__edición, así que una carta nueva necesita su jugador.
 insert into public.content_players (id, nick, full_name, team, team_tag, region, role, country, stats, metrics, editorial, accolades, image, status, origin, version, updated_at)
-select 'qa-tid-' || s.n, 'QA' || s.n, null, 'QA Nuevo Equipo', 'QNE', p.region, p.role, p.country, p.stats, p.metrics, p.editorial, p.accolades, null, p.status, 'admin', 1, now()
+select 'qa-tid-' || s.n, 'QA' || s.n, null, 'QA Team Omega', 'QTO', p.region, p.role, p.country, p.stats, p.metrics, p.editorial, p.accolades, null, p.status, 'admin', 1, now()
 from (select * from public.content_players where id in (select player_id from public.content_cards where lifecycle = 'PUBLISHED') order by id limit 1) p, (values (1), (2)) s(n)
 on conflict (id) do nothing;
 insert into public.content_cards (card_id, player_id, variant_id, ordinal, ovr, stats, combat, stat_boost, rarity_rank, rarity_bucket, data_version, source, generated_at, origin, lifecycle, definition_version, published_at, checksum, created_at, updated_at, presentation, presentation_rev)
 select 'qa-tid-' || s.n || '__base', 'qa-tid-' || s.n, 'base', 900 + s.n, c.ovr, c.stats, c.combat, c.stat_boost, c.rarity_rank, c.rarity_bucket, c.data_version, c.source, c.generated_at, 'admin', 'PUBLISHED', 1, now(), 'qa-tid', now(), now(),
        -- Presentación como la de una carta creada en el CMS (0057): rol, lo impreso y el equipo impreso.
-       jsonb_build_object('role', 'Duelista', 'printed', jsonb_build_object('ovr', c.ovr, 'stats', c.stats), 'team', 'QA Nuevo Equipo'), 1
+       jsonb_build_object('role', 'Duelista', 'printed', jsonb_build_object('ovr', c.ovr, 'stats', c.stats), 'team', 'QA Team Omega'), 1
 from (select * from public.content_cards where lifecycle = 'PUBLISHED' and variant_id = 'base' and card_id not like 'qa-tid-%' order by card_id limit 1) c, (values (1), (2)) s(n)
 on conflict (card_id) do nothing;
 insert into public.content_card_versions (card_id, version, player_id, variant_id, ovr, combat, stats, stat_boost, rarity_rank, rarity_bucket, data_version, source, generated_at, checksum, effective_from)
@@ -119,7 +119,7 @@ SQL
     grep -E "^(PASS|FAIL|RESULTADO)" "$W/ui-bgsettle.log" || tail -5 "$W/ui-bgsettle.log"
     ;;
   identities-cleanup)
-    # Borra SOLO lo sintético de `identities`: las dos cartas qa-tid-*, sus ejemplares, la identidad «QA Nuevo Equipo»
+    # Borra SOLO lo sintético de `identities`: las dos cartas qa-tid-*, sus ejemplares, la identidad «QA Team Omega»
     # y la compleción/XP de ese equipo. Nada más.
     psqlq -q <<'SQL'
 begin;
@@ -128,17 +128,17 @@ delete from public.user_cards where card_id like 'qa-tid-%';
 delete from public.content_card_versions where card_id like 'qa-tid-%';
 delete from public.content_cards where card_id like 'qa-tid-%' and checksum = 'qa-tid';
 delete from public.content_players where id like 'qa-tid-%' and origin = 'admin';
-delete from public.content_team_identities where printed_team = 'QA Nuevo Equipo';
-delete from public.user_team_completions where team_id = 'qa-nuevo';
+delete from public.content_team_identities where printed_team = 'QA Team Omega';
+delete from public.user_team_completions where team_id = 'qa-omega';
 update public.season_progress p set xp = p.xp - l.amount
-  from (select user_id, season_id, sum(amount) amount from public.season_xp_ledger where event_key = 'team-collection:qa-nuevo' group by 1, 2) l
+  from (select user_id, season_id, sum(amount) amount from public.season_xp_ledger where event_key = 'team-collection:qa-omega' group by 1, 2) l
  where p.user_id = l.user_id and p.season_id = l.season_id;
-delete from public.season_xp_ledger where event_key = 'team-collection:qa-nuevo';
-delete from public.season_events where event_key = 'team-collection:qa-nuevo';
+delete from public.season_xp_ledger where event_key = 'team-collection:qa-omega';
+delete from public.season_events where event_key = 'team-collection:qa-omega';
 update public.content_catalog_version set version = version + 1;
 commit;
 SQL
-    psqlq -c "select 'restos: ' || (select count(*) from public.content_cards where card_id like 'qa-tid-%') + (select count(*) from public.content_players where id like 'qa-tid-%') + (select count(*) from public.user_cards where card_id like 'qa-tid-%') + (select count(*) from public.content_team_identities where printed_team = 'QA Nuevo Equipo') + (select count(*) from public.user_team_completions where team_id = 'qa-nuevo')" < /dev/null
+    psqlq -c "select 'restos: ' || (select count(*) from public.content_cards where card_id like 'qa-tid-%') + (select count(*) from public.content_players where id like 'qa-tid-%') + (select count(*) from public.user_cards where card_id like 'qa-tid-%') + (select count(*) from public.content_team_identities where printed_team = 'QA Team Omega') + (select count(*) from public.user_team_completions where team_id = 'qa-omega')" < /dev/null
     ;;
   cleanup)
     psqlq -c "delete from auth.users where email like 'coll-tc%@example.invalid'" < /dev/null
