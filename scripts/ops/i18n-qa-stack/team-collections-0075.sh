@@ -65,7 +65,7 @@ case "${1:?backup|apply|season|sqltest|rollback|restore|reset}" in
       # Los disparadores de 0064 obligan a publicar desde el panel; aquí es una fila de QA, insertada sin ellos.
       qv "set session_replication_role = replica;
           insert into public.game_seasons (id, number, name, description, status, starts_at, ends_at, claim_until, max_level, config, checksum, published_at)
-          values ('$SEASON', 900, 'Temporada de QA', 'Solo stack de QA', 'PUBLISHED', now() - interval '1 day', now() + interval '30 days', now() + interval '40 days', :season_levels, :'season_config'::jsonb, 'qa', now())
+          values ('$SEASON', 900, 'QA-TC', 'QA-TC', 'PUBLISHED', now() - interval '1 day', now() + interval '30 days', now() + interval '40 days', :season_levels, :'season_config'::jsonb, 'qa', now())
           on conflict (id) do update set starts_at = excluded.starts_at, ends_at = excluded.ends_at, claim_until = excluded.claim_until, status = 'PUBLISHED';"
       echo "temporada de QA activa: $(q "select id || ' · ' || status || ' · hasta ' || ends_at::date from public.game_seasons where id = '$SEASON'")"
     else
