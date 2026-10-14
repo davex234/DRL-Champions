@@ -23,6 +23,7 @@ import { ns } from "@/i18n/runtime";
 import { beginCriticalOperation } from "@/i18n/critical";
 import { fetchInstancesByUid, toOwnedCard } from "./instances";
 import { useTeamStore } from "@/store/useTeamStore";
+import { settleTeamCollections } from "@/lib/teamCollections/client";
 import type { CardOrigin } from "@/collection";
 
 const t = ns("game");
@@ -54,6 +55,25 @@ export async function ensureInstances(uids: readonly string[]): Promise<void> {
     useGameStore.getState().addOwnedInstances(r.items.map(toOwnedCard), Object.fromEntries(r.items.map((i) => [i.uid, i.origin as CardOrigin])));
   } catch { /* presentación: el sobre ya está abierto */ }
 }
+
+/**
+ * COLECCIONES POR EQUIPO · la primera compleción de un equipo (300 XP de temporada), sus XP pendientes cuando empieza
+ * una temporada y las insignias regionales se guardan con `POST {action:"settle"}`. Antes solo se pedía al entrar en
+ * Colecciones: quien completaba un equipo abriendo sobres y no entraba allí no cobraba nada. Ahora se pide también tras
+ * cada sincronización con el servidor (al iniciar sesión, al recargar y tras las operaciones que cambian el
+ * inventario), en segundo plano y como mucho una vez por minuto. El servidor decide y comprueba todo; repetirlo es
+ * inofensivo; si falla (sin 0075, límite, red) no rompe nada y se reintenta en la próxima sincronización.
+ */
+export const COLLECTION_SETTLE_EVERY_MS = 60_000;
+let lastCollectionSettle = -Infinity;
+export function settleCollectionsInBackground(settle: () => Promise<unknown> = settleTeamCollections, now = Date.now()): boolean {
+  if (now - lastCollectionSettle < COLLECTION_SETTLE_EVERY_MS) return false;
+  lastCollectionSettle = now;
+  void settle().catch(() => { /* se reintenta en la próxima sincronización o al entrar en Colecciones */ });
+  return true;
+}
+/** Para pruebas. */
+export const resetCollectionSettleThrottle = () => { lastCollectionSettle = -Infinity; };
 
 /** Vuelca en el store el estado real del servidor. Devuelve false si no hay sesión. */
 export async function syncFromServer(): Promise<boolean> {
@@ -97,6 +117,7 @@ export async function syncFromServer(): Promise<boolean> {
     packsOpened: state.packsOpened,
     mintCounts: state.mintCounts,
   }, state.ownerId ?? null);
+  settleCollectionsInBackground();
   return true;
 }
 
