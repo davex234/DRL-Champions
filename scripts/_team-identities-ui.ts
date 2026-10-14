@@ -198,6 +198,8 @@ async function playerScreen(locale: string, width: number) {
   for (const l of LOCS) await adminScreen(l, 1440);
   await adminScreen("es", 390);
   for (const [l, w] of [["es", 1440], ["es", 390], ["en", 1440], ["ja", 390]] as const) if (LOCS.includes(l)) await playerScreen(l, w);
+  // Deja el idioma de las cuentas como estaba (sin preferencia): si no, las pasadas siguientes saldrían en el último idioma.
+  for (const who of ["admin", "tcall"]) await fetch(`${BASE}/auth/v1/user`, { method: "PUT", headers: { apikey: ANON, authorization: `Bearer ${await token(who)}`, "content-type": "application/json" }, body: JSON.stringify({ data: { locale: null, locale_at: null } }) }).catch(() => null);
   const fail = rows.filter((r) => !r.ok).length;
   writeFileSync(join(OUT, "results.json"), JSON.stringify(rows, null, 2));
   console.log(`RESULTADO · ${rows.length - fail} PASS · ${fail} FAIL`);
