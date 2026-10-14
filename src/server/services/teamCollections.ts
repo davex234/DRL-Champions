@@ -16,9 +16,11 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { serverCatalog } from "@/server/catalog";
 import {
-  buildTeamCollections, settlePlan, teamCollectionsView, teamDetail, NOTHING_PERSISTED, TEAM_COLLECTION_XP,
-  type Persisted, type TeamCollectionsModel, type TeamCollectionsView, type TeamDetailView,
+  buildTeamCollections, settlePlan, teamCollectionsView, teamDetail, teamResolver, NOTHING_PERSISTED, TEAM_COLLECTION_XP,
+  type ManagedTeamIdentity, type Persisted, type TeamCollectionsModel, type TeamCollectionsView, type TeamDetailView,
 } from "@/domain/teamCollections/model";
+import { hintTeamLogoSrc } from "@/data/teamLogos";
+import { ASSET_BUCKET } from "@/lib/assets/storage";
 import { phaseOf } from "@/domain/seasonTrack/types";
 import type { Region } from "@/domain/cards/types";
 import { isMissingRelation } from "./f73Config";
@@ -34,11 +36,53 @@ const fail = (status: number, code: string, error: string): TeamCollectionsResul
 /** Clave de equipo: la canónica (`team-heretics`) o `raw:<texto impreso>`. Cerrada para no aceptar cualquier cosa. */
 export const TEAM_ID_PATTERN = /^(?:[a-z0-9][a-z0-9-]{0,47}|raw:[^\u0000-\u001f]{1,48})$/;
 
+/** 0076 · identidades de los equipos dados de alta desde el panel. Sin la migración, ninguna (y `available: false`). */
+export async function managedTeamIdentities(sb: SupabaseClient): Promise<{ rows: ManagedTeamIdentity[]; available: boolean }> {
+  const { data, error } = await sb.from("content_team_identities").select("printed_team, team_id, name, tag, region, rev");
+  if (error) {
+    if (isMissingRelation(error)) return { rows: [], available: false };
+    throw new Error(error.message);
+  }
+  return {
+    available: true,
+    rows: ((data ?? []) as { printed_team: string; team_id: string; name: string; tag: string; region: string; rev: number }[])
+      .map((r) => ({ printedTeam: r.printed_team, teamId: r.team_id, name: r.name, tag: r.tag, region: r.region, rev: r.rev })),
+  };
+}
+
+/**
+ * Logos de equipo subidos al CMS (assets `team_logo` vigentes y aprobados, `subject_id` = clave del equipo), en su
+ * tamaño de 256 px si existe. Un logo es decoración: si no se pueden leer, se usan los del producto o la etiqueta.
+ */
+export async function cmsTeamLogoAssets(sb: SupabaseClient): Promise<Map<string, { id: string; url: string }>> {
+  const out = new Map<string, { id: string; url: string }>();
+  try {
+    // Del más antiguo al más nuevo: si un equipo tuviera dos vigentes, gana siempre el último subido.
+    const { data, error } = await sb.from("assets").select("id, subject_id, storage_path, meta, created_at").eq("kind", "team_logo").eq("is_current", true).eq("status", "approved").order("created_at", { ascending: true });
+    if (error) return out;
+    for (const r of (data ?? []) as { id: string; subject_id: string | null; storage_path: string | null; meta: { derived?: Record<string, string> } | null }[]) {
+      const path = r.meta?.derived?.w256 ?? r.storage_path;
+      if (!r.subject_id || !path) continue;
+      const url = sb.storage.from(ASSET_BUCKET).getPublicUrl(path).data.publicUrl;
+      if (url) out.set(r.subject_id, { id: r.id, url });
+    }
+  } catch { /* sin Storage legible: logos del producto */ }
+  return out;
+}
+export const cmsTeamLogos = async (sb: SupabaseClient): Promise<Map<string, string>> =>
+  new Map([...(await cmsTeamLogoAssets(sb))].map(([k, v]) => [k, v.url]));
+
 let warned = "";
-/** El modelo vigente: equipos y cartas del catálogo publicado. Lo usan el jugador y el panel de administración. */
+/**
+ * El modelo vigente: equipos y cartas del catálogo publicado, con las identidades del panel (0076) para los equipos
+ * impresos que el registro de código no conoce y los logos del CMS. Lo usan el jugador y el panel de administración.
+ */
 export async function teamCollectionsModel(sb: SupabaseClient): Promise<TeamCollectionsModel> {
-  const cat = await serverCatalog(sb);
-  const model = buildTeamCollections({ cards: cat.cards.filter((c) => cat.lifecycleOf(c.id) === "PUBLISHED"), player: (id) => cat.player(id) });
+  const [cat, managed, logos] = await Promise.all([serverCatalog(sb), managedTeamIdentities(sb), cmsTeamLogos(sb)]);
+  const model = buildTeamCollections({
+    cards: cat.cards.filter((c) => cat.lifecycleOf(c.id) === "PUBLISHED"), player: (id) => cat.player(id),
+    teamOf: teamResolver(managed.rows), logo: (id) => logos.get(id) ?? hintTeamLogoSrc(id),
+  });
   // Falta de región o de equipo: se avisa una vez por cambio, no en cada petición.
   const gaps = model.unassigned.length || model.teamless.length ? JSON.stringify({ unassigned: model.unassigned.map((t) => t.id), teamless: model.teamless.length }) : "";
   if (gaps !== warned) { warned = gaps; if (gaps) console.warn("[team-collections]", gaps); }

@@ -8,9 +8,10 @@
  *     jugador son tres requisitos, y diez copias de una no sustituyen a otra que falte.
  *   · No hay cantidades fijas ni lista de equipos escrita aquí: equipos, cartas y totales salen del catálogo que se le
  *     pase. Una carta nueva mueve la meta; un equipo nuevo aparece solo.
- *   · La región de un equipo es la de su identidad en el registro de equipos (el que enseña `/admin/teams`). Un equipo
- *     sin identidad no tiene región: se enseña en Colecciones, NO cuenta para ninguna insignia regional y se devuelve en
- *     `unassigned` para que alguien lo resuelva. Nunca se le adjudica una región por parecido.
+ *   · La región de un equipo es la de su identidad: la del registro de código (`teamIdentities.ts`) o, para un equipo
+ *     impreso que ese registro no conoce (alta desde el CMS), la que un admin le da en `/admin/teams` (0076). Un equipo
+ *     sin región NO es una colección del jugador: no se enseña, no da XP ni cuenta para ninguna insignia, y se devuelve
+ *     en `unassigned` para que alguien lo complete. Nunca se le adjudica una región por parecido.
  *   · Una insignia regional se desbloquea con TODAS las cartas de TODOS los equipos de esa región. Una región sin
  *     equipos o sin cartas no se desbloquea nunca (no hay insignias vacías).
  *
@@ -21,7 +22,7 @@
  * Aquí se decide QUÉ hay que liquidar (`settlePlan`); quién lo comprueba y lo escribe, de forma atómica, es la base.
  */
 import type { CardDef, Player, Region } from "@/domain/cards/types";
-import { canonicalCardTeam } from "@/data/teamIdentities";
+import { canonicalCardTeam, TEAM_CANONICAL_IDS } from "@/data/teamIdentities";
 import { hintTeamLogoSrc } from "@/data/teamLogos";
 
 /** Las cuatro regiones competitivas, en el orden en que se enseñan. */
@@ -64,10 +65,49 @@ export interface TeamCollectionsContext {
 /** Clave de «carta sin equipo»: no es un equipo, no forma colección. */
 const NO_TEAM = "raw:?";
 
+// ───────────────────────────── Equipos dados de alta desde el panel (0076) ─────────────────────────────
+
+/** Identidad de un equipo impreso que el registro de código no conoce, mantenida desde `/admin/teams`. */
+export interface ManagedTeamIdentity {
+  /** Texto impreso exacto (recortado) de sus cartas. */
+  printedTeam: string;
+  /** Clave de la colección. Inmutable: es la de la primera compleción guardada. */
+  teamId: string;
+  name: string;
+  tag: string;
+  region: string;
+  rev: number;
+}
+
+/** Clave de un equipo del panel: corta, en minúsculas, sin parecerse a `raw:` ni a un set antiguo (`team-g2-v1`). */
+export const MANAGED_TEAM_ID = /^(?!raw)(?!team-.+-v\d+$)[a-z0-9][a-z0-9-]{1,31}$/;
+export const TEAM_TAG = /^[A-Za-z0-9.]{1,6}$/;
+/** Claves que ya usa el registro de código: un equipo del panel nunca puede tomar una. */
+export const CODE_TEAM_IDS: ReadonlySet<string> = TEAM_CANONICAL_IDS;
+
+/**
+ * Equipo de una carta con las identidades del panel: el registro de código manda; solo un equipo impreso que él no
+ * resuelve (`raw:<texto>`) toma la identidad del panel que tenga ese mismo texto. Una fila con una clave ya usada por el
+ * código, con una clave mal formada o sin región válida se ignora (el equipo sigue sin identidad, y se avisa).
+ */
+export function teamResolver(managed: readonly ManagedTeamIdentity[]): NonNullable<TeamCollectionsContext["teamOf"]> {
+  const byPrinted = new Map(managed.filter((m) => MANAGED_TEAM_ID.test(m.teamId) && !CODE_TEAM_IDS.has(m.teamId) && isRegion(m.region)).map((m) => [m.printedTeam, m]));
+  return (card, player) => {
+    const base = canonicalCardTeam(card, player);
+    if (!base.key.startsWith("raw:") || base.key === NO_TEAM) return base;
+    const m = byPrinted.get(base.key.slice(4));
+    return m ? { key: m.teamId, label: m.name, identity: { tag: m.tag, region: m.region } } : base;
+  };
+}
+
 export interface TeamCollectionsModel {
+  /** Las colecciones del jugador: equipos con cartas Y con región. */
   teams: TeamCollectionDef[];
-  /** Equipos con cartas pero sin región en los datos administrados. */
-  unassigned: { id: string; title: string; cards: number }[];
+  /**
+   * Equipos con cartas pero SIN región: no se enseñan al jugador ni liquidan nada hasta que tengan identidad.
+   * `printed` = el texto impreso que hay que dar de alta en el panel (null si el fallo es del registro de código).
+   */
+  unassigned: { id: string; title: string; cards: number; printed: string | null }[];
   /** Cartas publicadas que no llevan ningún equipo. */
   teamless: string[];
 }
@@ -96,11 +136,11 @@ export function buildTeamCollections(ctx: TeamCollectionsContext): TeamCollectio
     }
     def.cards.push({ id: c.id, playerId: c.playerId, nick: player?.nick ?? c.playerId, variantId: c.variantId, ovr: c.ovr, image: c.image ?? null });
   }
-  const teams = [...byTeam.values()].sort((a, b) => a.title.localeCompare(b.title, "es") || a.id.localeCompare(b.id));
-  for (const t of teams) t.cards.sort((a, b) => a.nick.localeCompare(b.nick, "es") || a.playerId.localeCompare(b.playerId) || b.ovr - a.ovr || a.id.localeCompare(b.id));
+  const all = [...byTeam.values()].sort((a, b) => a.title.localeCompare(b.title, "es") || a.id.localeCompare(b.id));
+  for (const t of all) t.cards.sort((a, b) => a.nick.localeCompare(b.nick, "es") || a.playerId.localeCompare(b.playerId) || b.ovr - a.ovr || a.id.localeCompare(b.id));
   return {
-    teams, teamless: teamless.sort(),
-    unassigned: teams.filter((t) => t.region === null).map((t) => ({ id: t.id, title: t.title, cards: t.cards.length })),
+    teams: all.filter((t) => t.region !== null), teamless: teamless.sort(),
+    unassigned: all.filter((t) => t.region === null).map((t) => ({ id: t.id, title: t.title, cards: t.cards.length, printed: t.id.startsWith("raw:") ? t.id.slice(4) : null })),
   };
 }
 

@@ -10,6 +10,7 @@ import { getCard } from "@/data/catalog";
 import { PACK_CLASS_LABEL, type PackCardClass } from "@/domain/packs/packClass";
 import { ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
+import { AssetUploader } from "@/components/admin/cms/cms";
 
 const t = ns("admin");
 
@@ -18,6 +19,8 @@ interface Detail {
   players: { id: string; nick: string; team: string; role: string | null; region: string | null; current: boolean }[];
   cards: { id: string; playerId: string; variantId: string; ovr: number; printedTeam: string | null; packClass: PackCardClass | null; marketValue: number }[];
   packs: { id: string; name: string; price: number }[];
+  logo?: string | null;
+  logoAssetId?: string | null;
   note: string;
 }
 
@@ -39,6 +42,11 @@ export default function TeamPage() {
           <Panel title={t("Identidad")} subtitle={t("Solo lectura")}>
             <KV items={[[t("Alias actuales"), d.team.currentAliases.join(", ") || "—"], [t("Alias históricos"), d.team.historicalAliases.join(", ") || "—"], [t("Motivo sin verificar"), d.team.unverifiedReason], [t("Sobres del equipo"), d.packs.length ? d.packs.map((p) => `${p.name} (${fmt(p.price)} cr)`).join(" · ") : "—"]]} />
             <p className="mt-4 text-[12px] text-ink-faint">{td(d.note)}</p>
+          </Panel>
+          <Panel title={t("Logo")} subtitle={t("Solo el logo oficial del equipo, de una fuente verificada. Sin logo, Colecciones pinta su etiqueta.")}>
+            <div className="max-w-md" data-testid="team-logo-panel">
+              <AssetUploader kind="team_logo" subjectId={d.team.id} replaceOf={d.logoAssetId ?? null} current={d.logo ? { url: d.logo } : null} onUploaded={q.reload} label={t("Logo oficial del equipo")} />
+            </div>
           </Panel>
           <Panel title={t("Plantilla ({length})", { length: d.players.length })}>
             <DataTable caption={t("Jugadores del equipo")} rows={d.players} rowKey={(r) => r.id} onRowClick={(r) => router.push(`/admin/players/${encodeURIComponent(r.id)}`)} empty={t("Sin jugadores")}

@@ -242,6 +242,9 @@ export const TEAM_IDENTITIES: TeamIdentity[] = [
   })),
 ];
 
+/** Claves canónicas del registro. Colecciones (0076) las reserva: un equipo dado de alta en el panel no puede usar una. */
+export const TEAM_CANONICAL_IDS: ReadonlySet<string> = new Set(TEAM_IDENTITIES.map((t) => t.canonicalId));
+
 // ════════════════════════════ NORMALIZACIÓN ════════════════════════════
 
 /**

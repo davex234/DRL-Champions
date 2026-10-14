@@ -13,8 +13,8 @@ import { CARDS, getPlayer } from "@/data/catalog";
 import { TEAM_IDENTITIES, canonicalCardTeam } from "@/data/teamIdentities";
 import type { CardDef } from "@/domain/cards/types";
 import {
-  BADGE_REGIONS, FIRST_TEAMS, MORE_TEAMS, buildTeamCollections, legacySetTeamId, regionBadges, sortTeams, teamCollectionsView,
-  teamDetail, teamProgress, teamState, teamTile, visibleTeamCount, type TeamCollectionsModel,
+  BADGE_REGIONS, FIRST_TEAMS, MORE_TEAMS, NOTHING_PERSISTED, buildTeamCollections, legacySetTeamId, regionBadges, settlePlan, sortTeams, teamCollectionsView,
+  teamDetail, teamProgress, teamResolver, teamState, teamTile, visibleTeamCount, type ManagedTeamIdentity, type TeamCollectionsModel,
 } from "./model";
 import { visibleTeams } from "@/components/trophies/teamCollectionsModel";
 import { TrophyRoomScreen } from "@/components/trophies/TrophyRoomScreen";
@@ -105,16 +105,18 @@ test("3 · las copias repetidas no completan ediciones distintas", () => {
 
 // ───────────────────────────── 4 ─────────────────────────────
 
-test("4 · un equipo dado de alta con sus cartas aparece solo, y una carta nueva mueve la meta", () => {
+test("4 · un equipo nuevo SIN región no es una colección del jugador: queda bloqueado y listado para el panel", () => {
   const before = live();
   const extra: CardDef[] = CARDS.slice(0, 4).map((c, i) => ({ ...c, id: `nuevo-${i}`, team: "Equipo Nuevo" }));
   const m = buildTeamCollections({ cards: [...CARDS, ...extra], player: getPlayer });
-  assert.equal(m.teams.length, before.teams.length + 1);
-  const nuevo = m.teams.find((t) => t.title === "Equipo Nuevo")!;
-  assert.deepEqual([nuevo.cards.length, nuevo.region, nuevo.logo, nuevo.id], [4, null, null, "raw:Equipo Nuevo"]);
-  // Sin región en los datos: se detecta y no se adjudica a ninguna.
-  assert.deepEqual(m.unassigned, [{ id: "raw:Equipo Nuevo", title: "Equipo Nuevo", cards: 4 }]);
+  assert.equal(m.teams.length, before.teams.length, "no se enseña");
+  assert.ok(!m.teams.some((t) => t.title === "Equipo Nuevo"));
+  // Se detecta, con el texto impreso que hay que dar de alta, y no se adjudica a ninguna región.
+  assert.deepEqual(m.unassigned, [{ id: "raw:Equipo Nuevo", title: "Equipo Nuevo", cards: 4, printed: "Equipo Nuevo" }]);
   assert.deepEqual(regionBadges(m.teams, new Set()).map((r) => r.total), regionBadges(before.teams, new Set()).map((r) => r.total));
+  // Ni XP ni insignia: aunque se tengan todas sus cartas, no entra en lo que se liquida.
+  const all = new Set([...CARDS, ...extra].map((c) => c.id));
+  assert.ok(!settlePlan(m, all, NOTHING_PERSISTED, true).teams.some((t) => t.id.startsWith("raw:")));
   // Una carta más de un equipo existente: su total sube y quien lo tenía completo deja de tenerlo.
   const kc = team(before, "karmine-corp");
   const owned = new Set(kc.cards.map((c) => c.id));
@@ -122,6 +124,43 @@ test("4 · un equipo dado de alta con sus cartas aparece solo, y una carta nueva
   const source = CARDS.find((c) => c.id === kc.cards[0].id)!;
   const grown = buildTeamCollections({ cards: [...CARDS, { ...source, id: "kc-nueva" }], player: getPlayer });
   assert.deepEqual([team(grown, "karmine-corp").cards.length, teamProgress(team(grown, "karmine-corp"), owned).complete], [kc.cards.length + 1, false]);
+});
+
+const NUEVO: ManagedTeamIdentity = { printedTeam: "Equipo Nuevo", teamId: "equipo-nuevo", name: "Equipo Nuevo", tag: "EN", region: "EMEA", rev: 1 };
+
+test("4 · con identidad del panel (0076) el equipo nuevo aparece, con su región, y mueve la meta de esa insignia", () => {
+  const before = live();
+  const extra: CardDef[] = CARDS.slice(0, 4).map((c, i) => ({ ...c, id: `nuevo-${i}`, team: "Equipo Nuevo" }));
+  const m = buildTeamCollections({ cards: [...CARDS, ...extra], player: getPlayer, teamOf: teamResolver([NUEVO]) });
+  assert.equal(m.teams.length, before.teams.length + 1);
+  assert.deepEqual(m.unassigned, []);
+  const nuevo = team(m, "equipo-nuevo");
+  assert.deepEqual([nuevo.cards.length, nuevo.region, nuevo.tag, nuevo.title, nuevo.logo], [4, "EMEA", "EN", "Equipo Nuevo", null], "sin logo inventado");
+  const emea = (x: TeamCollectionsModel) => regionBadges(x.teams, new Set()).find((r) => r.region === "EMEA")!;
+  assert.deepEqual([emea(m).teams, emea(m).total], [emea(before).teams + 1, emea(before).total + 4]);
+  // Las demás regiones no cambian.
+  for (const r of ["Americas", "Pacific", "China"] as const) assert.equal(regionBadges(m.teams, new Set()).find((x) => x.region === r)!.total, regionBadges(before.teams, new Set()).find((x) => x.region === r)!.total);
+  // Completo → entra en lo que se liquida con su clave estable, no con el texto impreso.
+  assert.deepEqual(settlePlan(m, new Set(extra.map((c) => c.id)), NOTHING_PERSISTED, true).teams.map((t) => t.id), ["equipo-nuevo"]);
+});
+
+test("4 · el registro de código manda: una fila del panel no cambia un equipo conocido ni toma una clave suya, y una fila inválida se ignora", () => {
+  const before = live();
+  const extra: CardDef[] = CARDS.slice(0, 2).map((c, i) => ({ ...c, id: `nuevo-${i}`, team: "Equipo Nuevo" }));
+  const rows: ManagedTeamIdentity[] = [
+    { ...NUEVO, printedTeam: "NAVI", teamId: "otra-navi", region: "China" }, // NAVI ya lo resuelve el código
+    { ...NUEVO, teamId: "g2" }, // clave de un equipo del código
+  ];
+  const m = buildTeamCollections({ cards: [...CARDS, ...extra], player: getPlayer, teamOf: teamResolver(rows) });
+  assert.deepEqual(team(m, "navi").cards.map((c) => c.id), team(before, "navi").cards.map((c) => c.id));
+  assert.equal(team(m, "navi").region, team(before, "navi").region);
+  assert.ok(!m.teams.some((t) => t.id === "otra-navi"));
+  assert.equal(team(m, "g2").cards.length, team(before, "g2").cards.length, "G2 no recibe cartas ajenas");
+  assert.deepEqual(m.unassigned.map((u) => u.id), ["raw:Equipo Nuevo"], "la fila con clave reservada se ignora: sigue sin identidad");
+  for (const bad of [{ ...NUEVO, region: "Marte" }, { ...NUEVO, teamId: "raw-x" }, { ...NUEVO, teamId: "team-g2-v1" }, { ...NUEVO, teamId: "X" }]) {
+    const x = buildTeamCollections({ cards: [...CARDS, ...extra], player: getPlayer, teamOf: teamResolver([bad]) });
+    assert.deepEqual(x.unassigned.map((u) => u.id), ["raw:Equipo Nuevo"], JSON.stringify(bad));
+  }
 });
 
 test("4 · una carta sin equipo no forma colección y se avisa", () => {
@@ -346,11 +385,17 @@ test("4 · SERVIDOR · una carta publicada desde el panel con un equipo nuevo ap
   mem.tables.user_cards = [...navi.cards.filter((c) => c.id !== navi.cards[1].id).map((c) => c.id), "panel-navi"].map((card_id, i) => ({ uid: `u${i}`, user_id: U, card_id, serial: null, minted_version: 1, obtained_at: "2026-10-01T00:00:00Z", origin: "pack", locked: false }));
   const sb = mem as unknown as SupabaseClient;
   const v = (await getTeamCollections(sb, U)).data!;
+  assert.equal(v.teams.length, m.teams.length, "sin identidad, el equipo del panel aún no es una colección (y el borrador tampoco)");
+  assert.ok(!v.teams.some((t) => t.title === "Equipo Del Panel" || t.title === "Equipo En Borrador"));
+  // El admin le da identidad (0076): aparece con su clave y su región. El borrador sigue sin existir.
+  mem.tables.content_team_identities = [{ printed_team: "Equipo Del Panel", team_id: "equipo-del-panel", name: "Equipo Del Panel", tag: "EDP", region: "Pacific", rev: 1 }] as never;
+  const w = (await getTeamCollections(sb, U)).data!;
   resetServerCatalog();
-  assert.equal(v.teams.length, m.teams.length + 1, "un equipo más: el del panel (el borrador no)");
-  const nuevo = v.teams.find((t) => t.title === "Equipo Del Panel")!;
-  assert.deepEqual([nuevo.total, nuevo.region, nuevo.state], [1, null, "LOCKED"]);
-  assert.ok(!v.teams.some((t) => t.title === "Equipo En Borrador"));
+  assert.equal(w.teams.length, m.teams.length + 1, "un equipo más: el del panel (el borrador no)");
+  const nuevo = w.teams.find((t) => t.title === "Equipo Del Panel")!;
+  assert.deepEqual([nuevo.id, nuevo.total, nuevo.region, nuevo.tag, nuevo.state], ["equipo-del-panel", 1, "Pacific", "EDP", "LOCKED"]);
+  assert.ok(!w.teams.some((t) => t.title === "Equipo En Borrador"));
+  assert.equal(w.regions.find((r) => r.region === "Pacific")!.total, v.regions.find((r) => r.region === "Pacific")!.total + 1, "cuenta para Pacific");
   // NAVI: +1 por la carta del panel con su etiqueta, −1 por la retirada. Con las demás y la nueva, está completo.
   const n = v.teams.find((t) => t.id === "navi")!;
   assert.deepEqual([n.total, n.owned, n.state], [navi.cards.length, navi.cards.length, "COMPLETED"]);

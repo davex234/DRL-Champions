@@ -22,6 +22,7 @@ import { listF73, saveMission, saveProject, saveRecipe } from "./crafting";
 import { getForgeAdmin, previewForgeChange, saveForgeConfig } from "./forge";
 import { adminDeleteDraft, adminGenerate, adminListSets, adminNewVersion, adminPreview, adminPublish, adminRetire, adminUpdateDraft } from "./collectionSets";
 import { adminCancelSeason, adminCreateSeason, adminDeleteSeasonDraft, adminListSeasons, adminPreviewSeason, adminPublishSeason, adminUpdateSeason } from "./seasons";
+import { listTeamIdentities, saveTeamIdentity } from "./teams";
 import { TEAM_IDENTITIES } from "@/data/teamIdentities";
 import { ASSET_RULES, isCmsAssetKind } from "@/domain/cms/uploads";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
@@ -251,6 +252,20 @@ export function duelThemesCmsHandlers(deps: AdminDeps): { GET: H; POST: H } {
       const b = r.body;
       if (b.action === "save") return respond(await saveDuelTheme(sb, userId, b));
       if (b.action === "remove") return respond(await removeDuelTheme(sb, userId, b));
+      return unknownAction();
+    }),
+  };
+}
+
+// ────────────────────────── Colecciones por equipo · identidad de equipos nuevos (0076) ──────────────────────────
+export function teamsCmsHandlers(deps: AdminDeps): { GET: H; POST: H } {
+  return {
+    GET: (req) => runAdmin(req, deps, "admin_read", async ({ sb }) => respond(await listTeamIdentities(sb))),
+    POST: (req) => runAdmin(req, deps, "admin_write", async ({ sb, userId }) => {
+      const r = await readBody(req, ["action", "printedTeam", "teamId", "name", "tag", "region", "expectedRev"]);
+      if (!r.ok) return r.res;
+      const b = r.body;
+      if (b.action === "save") return respond(await saveTeamIdentity(sb, userId, b));
       return unknownAction();
     }),
   };

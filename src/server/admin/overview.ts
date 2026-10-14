@@ -5,7 +5,8 @@
  * Regla de la fase: NADA INVENTADO. Cada cifra sale de una consulta o de una constante real del repositorio; lo que no
  * se puede medir se devuelve como `null` y el panel enseña un estado vacío.
  */
-import { teamCollectionsModel } from "@/server/services/teamCollections";
+import { cmsTeamLogoAssets, cmsTeamLogos, managedTeamIdentities, teamCollectionsModel } from "@/server/services/teamCollections";
+import { hintTeamLogoSrc } from "@/data/teamLogos";
 import { BADGE_REGIONS } from "@/domain/teamCollections/model";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { fail, ok, type AdminResult } from "./http";
@@ -397,6 +398,7 @@ export async function teamsView(sb: SupabaseClient) {
   const players = (data ?? []) as { id: string; team: string | null; region: string | null }[];
   const cardsByPlayer = new Map<string, number>();
   for (const c of CARDS) cardsByPlayer.set(c.playerId, (cardsByPlayer.get(c.playerId) ?? 0) + 1);
+  const logos = await cmsTeamLogos(sb);
   const rows = TEAM_IDENTITIES.map((ti) => {
     const aliases = new Set([...ti.currentAliases, ...ti.historicalAliases, ti.displayName]);
     const members = players.filter((p) => p.team && aliases.has(p.team));
@@ -404,6 +406,8 @@ export async function teamsView(sb: SupabaseClient) {
       id: ti.canonicalId, name: ti.displayName, tag: ti.tag, region: ti.region, status: ti.status,
       players: members.length, cards: members.reduce((a, p) => a + (cardsByPlayer.get(p.id) ?? 0), 0),
       packs: PACKS.filter((p) => p.team && aliases.has(p.team) || p.team === ti.tag).map((p) => ({ id: p.id, name: p.name })),
+      // Colecciones por equipo · logo que se pinta (el subido al CMS manda sobre el del producto) y su procedencia.
+      logo: logos.get(ti.canonicalId) ?? hintTeamLogoSrc(ti.canonicalId), logoSource: logos.has(ti.canonicalId) ? "cms" : hintTeamLogoSrc(ti.canonicalId) ? "product" : null,
     };
   });
   /*
@@ -411,9 +415,9 @@ export async function teamsView(sb: SupabaseClient) {
    * impreso. Aquí se enseña lo que le falta a esos datos: equipos con cartas pero sin región (no cuentan para ninguna
    * insignia regional), cartas sin equipo y equipos del registro que todavía no tienen ninguna carta.
    */
-  let collections: { teams: number; cards: number; byRegion: Record<string, { teams: number; cards: number }>; unassigned: { id: string; title: string; cards: number }[]; teamless: string[]; withoutCards: string[]; withoutLogo: string[] } | null = null;
+  let collections: { teams: number; cards: number; byRegion: Record<string, { teams: number; cards: number }>; unassigned: { id: string; title: string; cards: number; printed: string | null }[]; teamless: string[]; withoutCards: string[]; withoutLogo: string[]; managed: number; identitiesAvailable: boolean } | null = null;
   try {
-    const m = await teamCollectionsModel(sb);
+    const [m, managed] = await Promise.all([teamCollectionsModel(sb), managedTeamIdentities(sb)]);
     const have = new Set(m.teams.map((t) => t.id));
     const byRegion: Record<string, { teams: number; cards: number }> = {};
     for (const r of BADGE_REGIONS) byRegion[r] = { teams: 0, cards: 0 };
@@ -422,6 +426,7 @@ export async function teamsView(sb: SupabaseClient) {
       teams: m.teams.length, cards: m.teams.reduce((n, t) => n + t.cards.length, 0), byRegion, unassigned: m.unassigned, teamless: m.teamless,
       withoutCards: TEAM_IDENTITIES.filter((ti) => !have.has(ti.canonicalId)).map((ti) => ti.displayName),
       withoutLogo: m.teams.filter((t) => !t.logo).map((t) => t.title),
+      managed: managed.rows.length, identitiesAvailable: managed.available,
     };
   } catch { /* sin catálogo legible, el panel de equipos sigue funcionando */ }
   return ok({ rows: rows.sort((a, b) => b.cards - a.cards || a.name.localeCompare(b.name)), collections });
@@ -435,12 +440,14 @@ export async function teamDetail(sb: SupabaseClient, id: string) {
   const players = (data ?? []) as { id: string; nick: string; team: string; role: string | null; region: string | null; image: string | null }[];
   const ids = new Set(players.map((p) => p.id));
   const cards = CARDS.filter((c) => ids.has(c.playerId)).map((c) => ({ id: c.id, playerId: c.playerId, variantId: c.variantId, ovr: c.ovr, printedTeam: c.team ?? null, packClass: packCardClass(c), marketValue: marketValue(c) }));
+  const cmsLogo = (await cmsTeamLogoAssets(sb)).get(ti.canonicalId);
   return ok({
     team: { id: ti.canonicalId, name: ti.displayName, tag: ti.tag, region: ti.region, status: ti.status, unverifiedReason: ti.unverifiedReason ?? null, currentAliases: ti.currentAliases, historicalAliases: ti.historicalAliases },
     players: players.map((p) => ({ ...p, current: ti.currentAliases.includes(p.team) })),
     cards, packs: PACKS.filter((p) => (p.team && aliases.includes(p.team)) || p.team === ti.tag).map((p) => ({ id: p.id, name: p.name, price: p.price })),
     editable: false,
-    note: "La identidad de los equipos vive en código (teamIdentities.ts) y el equipo IMPRESO de cada carta es histórico: cambiar el equipo actual de un jugador no reescribe ninguna carta. No hay escritura de equipos desde el panel.",
+    logo: cmsLogo?.url ?? hintTeamLogoSrc(ti.canonicalId), logoAssetId: cmsLogo?.id ?? null,
+    note: "La identidad de este equipo vive en código (teamIdentities.ts) y el equipo IMPRESO de cada carta es histórico: cambiar el equipo actual de un jugador no reescribe ninguna carta. Desde el panel solo se sube su logo.",
   });
 }
 

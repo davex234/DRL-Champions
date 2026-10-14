@@ -98,6 +98,8 @@ const DERIVED: Partial<Record<CmsAssetKind, { key: "w256" | "w96" | "w704" | "w9
   agent_full: [{ key: "w704", width: 704 }],
   /* F71 · fondo de arena: variante estrecha para móvil (como stage-960 de la arena por defecto). */
   background: [{ key: "w960", width: 960 }],
+  /* Colecciones por equipo · el escudo se pinta a ≤ 80 px: no hace falta servir el original (hasta 2 MB) en cada tarjeta. */
+  team_logo: [{ key: "w256", width: 256 }],
 };
 
 const sha256 = (b: Uint8Array) => createHash("sha256").update(b).digest("hex");
@@ -213,13 +215,14 @@ export async function assetUsage(sb: SupabaseClient): Promise<AssetUsage> {
     if (typeof asset !== "string" || !asset) return;
     use.set(asset, [...(use.get(asset) ?? []), { type, id }]);
   };
-  const [ag, pk, cc, pl, ev, bg] = await Promise.all([
+  const [ag, pk, cc, pl, ev, bg, tl] = await Promise.all([
     sb.from("agents").select("id, face_asset_id, full_asset_id"),
     sb.from("content_packs").select("id, art_asset_id"),
     sb.from("content_cards").select("card_id, presentation").not("presentation", "is", null),
     sb.from("content_players").select("id, photo_asset_id").not("photo_asset_id", "is", null),
     sb.from("admin_event_drafts").select("id, image_asset_id").not("image_asset_id", "is", null),
     sb.from("assets").select("id, meta").eq("kind", "background"),
+    sb.from("assets").select("id, subject_id").eq("kind", "team_logo").eq("is_current", true).eq("status", "approved").not("subject_id", "is", null).order("created_at", { ascending: true }),
   ]);
   for (const r of (ag.data ?? []) as { id: string; face_asset_id: string | null; full_asset_id: string | null }[]) { add(r.face_asset_id, "agent", r.id); add(r.full_asset_id, "agent", r.id); }
   for (const r of (pk.data ?? []) as { id: string; art_asset_id: string | null }[]) add(r.art_asset_id, "pack", r.id);
@@ -228,6 +231,10 @@ export async function assetUsage(sb: SupabaseClient): Promise<AssetUsage> {
   for (const r of (ev.data ?? []) as { id: string; image_asset_id: string | null }[]) add(r.image_asset_id, "event", r.id);
   // F71 · un fondo que es temática de duelo está EN USO (no es huérfano: no se puede borrar desde Assets).
   for (const r of (bg.data ?? []) as { id: string; meta: { duelTheme?: { slug?: string } } | null }[]) if (r.meta?.duelTheme?.slug) add(r.id, "duel_theme", r.meta.duelTheme.slug);
+  // Colecciones por equipo · el logo que pinta Colecciones (el último vigente de cada `subject_id`) está en uso.
+  const teamLogo = new Map<string, string>();
+  for (const r of (tl.data ?? []) as { id: string; subject_id: string | null }[]) if (r.subject_id) teamLogo.set(r.subject_id, r.id);
+  for (const [team, id] of teamLogo) add(id, "team", team);
   return use;
 }
 

@@ -182,6 +182,88 @@ const T2 = {
 };
 for (const [nsName, keys] of Object.entries(T2)) T[nsName] = { ...(T[nsName] ?? {}), ...keys };
 
+/** 0076 · alta de equipos nuevos desde /admin/teams, logos del CMS y datos incompletos. */
+const T3 = {
+  admin: {
+    "Clave": ["Key", "Schlüssel", "Chiave", "Clé", "Chave", "Chave", "キー"],
+    "Clave no válida: 2–32 caracteres en minúsculas, números y guiones": ["Invalid key: 2–32 lowercase letters, numbers and hyphens", "Ungültiger Schlüssel: 2–32 Kleinbuchstaben, Ziffern und Bindestriche", "Chiave non valida: 2–32 caratteri tra minuscole, numeri e trattini", "Clé invalide : 2 à 32 caractères en minuscules, chiffres et tirets", "Chave inválida: 2–32 caracteres em minúsculas, números e hífenes", "Chave inválida: 2–32 caracteres em minúsculas, números e hifens", "無効なキー: 小文字・数字・ハイフンで2〜32文字"],
+    "Dar de alta": ["Register", "Anlegen", "Registra", "Enregistrer", "Registar", "Cadastrar", "登録"],
+    "Datos del equipo no válidos": ["Invalid team data", "Ungültige Teamdaten", "Dati della squadra non validi", "Données d'équipe invalides", "Dados da equipa inválidos", "Dados do time inválidos", "チームデータが無効です"],
+    "El nombre debe tener entre 2 y 48 caracteres": ["The name must be 2 to 48 characters long", "Der Name muss 2 bis 48 Zeichen lang sein", "Il nome deve avere tra 2 e 48 caratteri", "Le nom doit comporter entre 2 et 48 caractères", "O nome deve ter entre 2 e 48 caracteres", "O nome deve ter entre 2 e 48 caracteres", "名前は2〜48文字にしてください"],
+    "Elige región…": ["Choose region…", "Region wählen…", "Scegli regione…", "Choisir une région…", "Escolhe a região…", "Escolha a região…", "地域を選択…"],
+    "Elige una región: Americas, EMEA, Pacific o China": ["Choose a region: Americas, EMEA, Pacific or China", "Wähle eine Region: Americas, EMEA, Pacific oder China", "Scegli una regione: Americas, EMEA, Pacific o China", "Choisis une région : Americas, EMEA, Pacific ou China", "Escolhe uma região: Americas, EMEA, Pacific ou China", "Escolha uma região: Americas, EMEA, Pacific ou China", "地域を選択してください: Americas、EMEA、Pacific、China"],
+    "Equipo impreso no válido": ["Invalid printed team", "Ungültiges aufgedrucktes Team", "Squadra stampata non valida", "Équipe imprimée invalide", "Equipa impressa inválida", "Time impresso inválido", "印字チームが無効です"],
+    "Equipos con cartas pero sin región (no se enseñan en Colecciones ni cuentan para ninguna insignia hasta darlos de alta):": [
+      "Teams with cards but no region (not shown in Collections and not counted for any badge until registered):",
+      "Teams mit Karten, aber ohne Region (werden bis zur Anlage nicht in Sammlungen angezeigt und zählen für kein Abzeichen):",
+      "Squadre con carte ma senza regione (non compaiono in Collezioni né contano per alcun distintivo finché non vengono registrate):",
+      "Équipes avec des cartes mais sans région (absentes de Collections et ne comptant pour aucun badge tant qu'elles ne sont pas enregistrées) :",
+      "Equipas com cartas mas sem região (não aparecem em Coleções nem contam para nenhum emblema até serem registadas):",
+      "Times com cartas mas sem região (não aparecem em Coleções nem contam para nenhum emblema até serem cadastrados):",
+      "カードはあるが地域のないチーム（登録するまで「コレクションセット」に表示されず、どのバッジにも数えられません）:",
+    ],
+    "Equipos impresos en cartas que el registro de código no conoce. Sin clave, nombre, etiqueta y región no forman colección para el jugador ni cuentan para ninguna insignia regional.": [
+      "Teams printed on cards that the code registry doesn't know. Without a key, name, tag and region they don't form a collection for players or count for any regional badge.",
+      "Auf Karten gedruckte Teams, die das Code-Register nicht kennt. Ohne Schlüssel, Name, Kürzel und Region bilden sie keine Sammlung für Spieler und zählen für kein regionales Abzeichen.",
+      "Squadre stampate sulle carte che il registro del codice non conosce. Senza chiave, nome, sigla e regione non formano una collezione per i giocatori né contano per alcun distintivo regionale.",
+      "Équipes imprimées sur des cartes que le registre du code ne connaît pas. Sans clé, nom, sigle et région, elles ne forment pas de collection pour les joueurs et ne comptent pour aucun badge régional.",
+      "Equipas impressas em cartas que o registo do código não conhece. Sem chave, nome, sigla e região, não formam coleção para o jogador nem contam para nenhum emblema regional.",
+      "Times impressos em cartas que o registro do código não conhece. Sem chave, nome, sigla e região, não formam coleção para o jogador nem contam para nenhum emblema regional.",
+      "コードの登録簿にない、カードに印字されたチーム。キー・名前・タグ・地域がないと、プレイヤーのコレクションにならず、地域バッジにも数えられません。",
+    ],
+    "Equipos nuevos del catálogo": ["New catalog teams", "Neue Katalogteams", "Nuove squadre del catalogo", "Nouvelles équipes du catalogue", "Novas equipas do catálogo", "Novos times do catálogo", "カタログの新チーム"],
+    "Esa clave ya es de un equipo del registro": ["That key already belongs to a registry team", "Dieser Schlüssel gehört bereits einem Team im Register", "Quella chiave appartiene già a una squadra del registro", "Cette clé appartient déjà à une équipe du registre", "Essa chave já pertence a uma equipa do registo", "Essa chave já pertence a um time do registro", "そのキーは登録簿のチームが使用中です"],
+    "Esa clave ya la usa otro equipo": ["That key is already used by another team", "Dieser Schlüssel wird bereits von einem anderen Team verwendet", "Quella chiave è già usata da un'altra squadra", "Cette clé est déjà utilisée par une autre équipe", "Essa chave já é usada por outra equipa", "Essa chave já é usada por outro time", "そのキーは別のチームが使用中です"],
+    "Falta la migración 0076: todavía no se pueden dar de alta equipos": ["Migration 0076 is missing: teams can't be registered yet", "Migration 0076 fehlt: Teams können noch nicht angelegt werden", "Manca la migrazione 0076: non è ancora possibile registrare squadre", "La migration 0076 manque : impossible d'enregistrer des équipes pour l'instant", "Falta a migração 0076: ainda não é possível registar equipas", "Falta a migração 0076: ainda não é possível cadastrar times", "マイグレーション0076が未適用のため、まだチームを登録できません"],
+    "Falta la migración 0076: todavía no se pueden dar de alta equipos desde el panel.": ["Migration 0076 is missing: teams can't be registered from the panel yet.", "Migration 0076 fehlt: Teams können noch nicht im Panel angelegt werden.", "Manca la migrazione 0076: non è ancora possibile registrare squadre dal pannello.", "La migration 0076 manque : impossible d'enregistrer des équipes depuis le panneau pour l'instant.", "Falta a migração 0076: ainda não é possível registar equipas a partir do painel.", "Falta a migração 0076: ainda não é possível cadastrar times pelo painel.", "マイグレーション0076が未適用のため、まだパネルからチームを登録できません。"],
+    "Guardado": ["Saved", "Gespeichert", "Salvato", "Enregistré", "Guardado", "Salvo", "保存しました"],
+    "La clave de un equipo no se puede cambiar una vez creada": ["A team's key can't be changed once created", "Der Schlüssel eines Teams kann nach dem Anlegen nicht geändert werden", "La chiave di una squadra non si può cambiare dopo la creazione", "La clé d'une équipe ne peut plus être modifiée une fois créée", "A chave de uma equipa não pode ser alterada depois de criada", "A chave de um time não pode ser alterada depois de criada", "チームのキーは作成後に変更できません"],
+    "La etiqueta debe tener de 1 a 6 letras, números o puntos": ["The tag must have 1 to 6 letters, numbers or dots", "Das Kürzel muss 1 bis 6 Buchstaben, Ziffern oder Punkte haben", "La sigla deve avere da 1 a 6 lettere, numeri o punti", "Le sigle doit comporter de 1 à 6 lettres, chiffres ou points", "A sigla deve ter de 1 a 6 letras, números ou pontos", "A sigla deve ter de 1 a 6 letras, números ou pontos", "タグは1〜6文字の英字・数字・ドットにしてください"],
+    "La identidad de este equipo vive en código (teamIdentities.ts) y el equipo IMPRESO de cada carta es histórico: cambiar el equipo actual de un jugador no reescribe ninguna carta. Desde el panel solo se sube su logo.": [
+      "This team's identity lives in code (teamIdentities.ts) and the PRINTED team on each card is historical: changing a player's current team doesn't rewrite any card. Only its logo is uploaded from the panel.",
+      "Die Identität dieses Teams liegt im Code (teamIdentities.ts), und das AUFGEDRUCKTE Team jeder Karte ist historisch: Das aktuelle Team eines Spielers zu ändern, schreibt keine Karte um. Im Panel wird nur sein Logo hochgeladen.",
+      "L'identità di questa squadra vive nel codice (teamIdentities.ts) e la squadra STAMPATA su ogni carta è storica: cambiare la squadra attuale di un giocatore non riscrive nessuna carta. Dal pannello si carica solo il suo logo.",
+      "L'identité de cette équipe vit dans le code (teamIdentities.ts) et l'équipe IMPRIMÉE sur chaque carte est historique : changer l'équipe actuelle d'un joueur ne réécrit aucune carte. Depuis le panneau, on ne téléverse que son logo.",
+      "A identidade desta equipa vive no código (teamIdentities.ts) e a equipa IMPRESSA em cada carta é histórica: mudar a equipa atual de um jogador não reescreve nenhuma carta. No painel só se carrega o seu logótipo.",
+      "A identidade deste time vive no código (teamIdentities.ts) e o time IMPRESSO em cada carta é histórico: mudar o time atual de um jogador não reescreve nenhuma carta. No painel só se envia o logo dele.",
+      "このチームの情報はコード（teamIdentities.ts）で管理され、各カードに印字されたチームは履歴です。選手の現在のチームを変えてもカードは書き換わりません。パネルではロゴのみアップロードできます。",
+    ],
+    "Las identidades de los equipos del catálogo diseñado viven en código (teamIdentities.ts) y se leen aquí; el equipo impreso de cada carta es histórico y no se reescribe. Los equipos nuevos que aparezcan al publicar cartas se dan de alta abajo, y el logo de cualquier equipo se sube desde su ficha.": [
+      "The identities of the designed catalog's teams live in code (teamIdentities.ts) and are read here; the printed team on each card is historical and isn't rewritten. New teams that appear when cards are published are registered below, and any team's logo is uploaded from its page.",
+      "Die Identitäten der Teams des gestalteten Katalogs liegen im Code (teamIdentities.ts) und werden hier gelesen; das aufgedruckte Team jeder Karte ist historisch und wird nicht umgeschrieben. Neue Teams, die beim Veröffentlichen von Karten auftauchen, werden unten angelegt, und das Logo jedes Teams wird auf seiner Seite hochgeladen.",
+      "Le identità delle squadre del catalogo progettato vivono nel codice (teamIdentities.ts) e si leggono qui; la squadra stampata su ogni carta è storica e non viene riscritta. Le nuove squadre che compaiono pubblicando carte si registrano qui sotto, e il logo di qualsiasi squadra si carica dalla sua scheda.",
+      "Les identités des équipes du catalogue conçu vivent dans le code (teamIdentities.ts) et sont lues ici ; l'équipe imprimée sur chaque carte est historique et n'est pas réécrite. Les nouvelles équipes qui apparaissent en publiant des cartes s'enregistrent ci-dessous, et le logo de chaque équipe se téléverse depuis sa fiche.",
+      "As identidades das equipas do catálogo desenhado vivem no código (teamIdentities.ts) e leem-se aqui; a equipa impressa em cada carta é histórica e não é reescrita. As novas equipas que apareçam ao publicar cartas registam-se abaixo, e o logótipo de qualquer equipa carrega-se a partir da sua ficha.",
+      "As identidades dos times do catálogo desenhado vivem no código (teamIdentities.ts) e são lidas aqui; o time impresso em cada carta é histórico e não é reescrito. Os novos times que aparecerem ao publicar cartas são cadastrados abaixo, e o logo de qualquer time é enviado pela página dele.",
+      "デザイン済みカタログのチーム情報はコード（teamIdentities.ts）で管理され、ここで読み取られます。各カードに印字されたチームは履歴で、書き換えられません。カード公開時に現れた新チームは下で登録し、各チームのロゴはチームのページからアップロードします。",
+    ],
+    "Logo de {equipo}": ["{equipo} logo", "Logo von {equipo}", "Logo di {equipo}", "Logo de {equipo}", "Logótipo de {equipo}", "Logo de {equipo}", "{equipo}のロゴ"],
+    "Logo oficial del equipo": ["Official team logo", "Offizielles Teamlogo", "Logo ufficiale della squadra", "Logo officiel de l'équipe", "Logótipo oficial da equipa", "Logo oficial do time", "チーム公式ロゴ"],
+    "Ningún equipo impreso del catálogo sin identidad se llama así": ["No printed team without identity in the catalog has that name", "Kein aufgedrucktes Team ohne Identität im Katalog heißt so", "Nessuna squadra stampata senza identità nel catalogo si chiama così", "Aucune équipe imprimée sans identité du catalogue ne porte ce nom", "Nenhuma equipa impressa sem identidade no catálogo tem esse nome", "Nenhum time impresso sem identidade no catálogo tem esse nome", "その名前の未登録の印字チームはカタログにありません"],
+    "No se podrá cambiar después": ["Can't be changed later", "Kann später nicht geändert werden", "Non si potrà cambiare in seguito", "Ne pourra plus être modifiée", "Não poderá ser alterada depois", "Não poderá ser alterada depois", "後から変更できません"],
+    "No se pudo guardar el equipo": ["Couldn't save the team", "Das Team konnte nicht gespeichert werden", "Impossibile salvare la squadra", "Impossible d'enregistrer l'équipe", "Não foi possível guardar a equipa", "Não foi possível salvar o time", "チームを保存できませんでした"],
+    "No se puede cambiar": ["Can't be changed", "Kann nicht geändert werden", "Non si può cambiare", "Non modifiable", "Não pode ser alterada", "Não pode ser alterada", "変更できません"],
+    "Otro admin cambió este equipo: recarga antes de guardar": ["Another admin changed this team: reload before saving", "Ein anderer Admin hat dieses Team geändert: Lade neu, bevor du speicherst", "Un altro admin ha modificato questa squadra: ricarica prima di salvare", "Un autre admin a modifié cette équipe : recharge avant d'enregistrer", "Outro admin alterou esta equipa: recarrega antes de guardar", "Outro admin alterou este time: recarregue antes de salvar", "別の管理者がこのチームを変更しました。保存する前に再読み込みしてください"],
+    "Revisión no válida": ["Invalid revision", "Ungültige Revision", "Revisione non valida", "Révision invalide", "Revisão inválida", "Revisão inválida", "無効なリビジョンです"],
+    "Solo el logo oficial del equipo, de una fuente verificada. Sin logo, Colecciones pinta su etiqueta.": [
+      "Only the team's official logo, from a verified source. Without a logo, Collections shows its tag.",
+      "Nur das offizielle Teamlogo aus einer verifizierten Quelle. Ohne Logo zeigt Sammlungen sein Kürzel.",
+      "Solo il logo ufficiale della squadra, da una fonte verificata. Senza logo, Collezioni mostra la sua sigla.",
+      "Uniquement le logo officiel de l'équipe, issu d'une source vérifiée. Sans logo, Collections affiche son sigle.",
+      "Só o logótipo oficial da equipa, de uma fonte verificada. Sem logótipo, Coleções mostra a sua sigla.",
+      "Só o logo oficial do time, de uma fonte verificada. Sem logo, Coleções mostra a sigla dele.",
+      "検証済みの出典によるチーム公式ロゴのみ。ロゴがない場合、「コレクションセット」にはタグが表示されます。",
+    ],
+    "Todos los equipos impresos del catálogo tienen identidad.": ["Every printed team in the catalog has an identity.", "Alle aufgedruckten Teams im Katalog haben eine Identität.", "Tutte le squadre stampate del catalogo hanno un'identità.", "Toutes les équipes imprimées du catalogue ont une identité.", "Todas as equipas impressas do catálogo têm identidade.", "Todos os times impressos do catálogo têm identidade.", "カタログのすべての印字チームに情報が登録されています。"],
+    "completos": ["complete", "vollständig", "completi", "complètes", "completos", "completos", "完了"],
+    "impreso «{texto}» · {n} cartas · rev. {rev}": ["printed “{texto}” · {n} cards · rev. {rev}", "aufgedruckt „{texto}“ · {n} Karten · Rev. {rev}", "stampato «{texto}» · {n} carte · rev. {rev}", "imprimé « {texto} » · {n} cartes · rév. {rev}", "impresso «{texto}» · {n} cartas · rev. {rev}", "impresso “{texto}” · {n} cartas · rev. {rev}", "印字「{texto}」 · {n}枚 · rev. {rev}"],
+    "sin cartas": ["no cards", "keine Karten", "senza carte", "sans cartes", "sem cartas", "sem cartas", "カードなし"],
+    "sin identidad": ["no identity", "ohne Identität", "senza identità", "sans identité", "sem identidade", "sem identidade", "未登録"],
+    "sin logo": ["no logo", "ohne Logo", "senza logo", "sans logo", "sem logótipo", "sem logo", "ロゴなし"],
+  },
+};
+for (const [nsName, keys] of Object.entries(T3)) T[nsName] = { ...(T[nsName] ?? {}), ...keys };
+
 let added = 0, pruned = 0, missing = [];
 for (const [li, locale] of LOCALES.entries()) {
   // Las claves reutilizadas se leen ANTES de podar nada.
