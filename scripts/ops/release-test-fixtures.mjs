@@ -15,8 +15,8 @@
  * cada fichero exista y esté en git: si una prueba nueva lee algo de `docs/` que no está, esto falla en voz alta.
  */
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { join, relative } from "node:path";
 
 const out = process.argv[2];
 if (!out) throw new Error("uso: release-test-fixtures.mjs <salida.tar>");
@@ -30,12 +30,23 @@ for (const f of tests) {
   for (const m of src.matchAll(/["'`](docs\/[^"'`$]+\.[a-z0-9]+)["'`]/g)) wanted.add(m[1]);
   for (const m of src.matchAll(/join\([^)]*?"docs"((?:,\s*"[^"]+")+)\)/g)) wanted.add(["docs", ...[...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1])].join("/"));
 }
-// Carpetas que las pruebas recorren (no por ruta literal): originales del arte de agentes y SQL de operaciones.
-for (const f of tracked) if (/^(personajes\/|docs\/operations\/(rollback|proposals)\/)/.test(f)) wanted.add(f);
+// Carpetas que las pruebas recorren (no por ruta literal): SQL de operaciones.
+for (const f of tracked) if (/^docs\/operations\/(rollback|proposals)\//.test(f)) wanted.add(f);
+/*
+ * Los originales del arte de agentes (`personajes/`) están en .gitignore a propósito (F59: no se versionan). Tres pruebas
+ * de agentArt.test.ts los recorren, así que solo pasan donde existe la carpeta. Se toman de la copia de trabajo y se
+ * cuentan aparte; si la carpeta no está, se avisa (la puerta fallará en esas tres, como en cualquier clon limpio).
+ */
+const localOnly = [];
+const walk = (d) => { for (const e of readdirSync(d)) { const f = `${d}/${e}`; if (statSync(f).isDirectory()) walk(f); else localOnly.push(f); } };
+if (existsSync("personajes")) walk("personajes"); else console.warn("AVISO: no hay personajes/ en esta copia: 3 pruebas de agentArt fallarán en la puerta");
+for (const f of localOnly) wanted.add(f);
 
 const list = [...wanted].sort();
-const missing = list.filter((f) => !tracked.has(f) || !existsSync(join(process.cwd(), f)));
+const missing = list.filter((f) => !(tracked.has(f) || localOnly.includes(f)) || !existsSync(join(process.cwd(), f)));
 if (missing.length) { console.error("Las pruebas leen ficheros que no están en git:\n" + missing.join("\n")); process.exit(1); }
 writeFileSync(`${out}.txt`, list.join("\n") + "\n");
-execFileSync("tar", ["-cf", out, "-T", `${out}.txt`]);
-console.log(`fixtures: ${list.length} ficheros → ${out}`);
+// Rutas relativas: GNU tar toma «C:/…» por un host remoto (Windows).
+const rel = relative(process.cwd(), out).split("\\").join("/");
+execFileSync("tar", ["-cf", rel, "-T", `${rel}.txt`]);
+console.log(`fixtures: ${list.length} ficheros (${localOnly.length} solo locales, de personajes/) → ${out}`);
