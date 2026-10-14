@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { Toast } from "@/components/ui/Toast";
 import { useToast } from "@/lib/useToast";
 import { useCollectionRewardStore, type RewardSummary } from "@/lib/teamCollections/rewardNotice";
-import { ns, td } from "@/i18n/runtime";
+import { formatNumber, ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 
 const t = ns("coleccion");
@@ -20,7 +20,8 @@ export function rewardText(r: RewardSummary): string | null {
   const parts: string[] = [];
   if (r.first.length === 1) parts.push(t("{equipo} completado", { equipo: r.first[0] }));
   else if (r.first.length > 1) parts.push(t("{n} equipos completados", { n: r.first.length }));
-  if (r.xp > 0) parts.push(t("+{xp} XP de temporada", { xp: r.xp }));
+  // Separador de miles del idioma («+12.300», «+12,300», «+12 300»): solo presentación, el valor no cambia.
+  if (r.xp > 0) parts.push(t("+{xp} XP de temporada", { xp: formatNumber(r.xp) }));
   for (const region of r.regions) parts.push(t("Insignia de {region} desbloqueada", { region: td(region) }));
   return parts.length ? parts.join(" · ") : null;
 }

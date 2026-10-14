@@ -9,6 +9,7 @@ import { join } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { summarizeSettle, useCollectionRewardStore } from "./rewardNotice";
 import { CollectionRewardNotice, rewardText, REWARD_NOTICE_MS } from "@/components/trophies/CollectionRewardNotice";
+import { formatNumber } from "@/i18n/runtime";
 
 const read = (p: string) => readFileSync(join(process.cwd(), p), "utf8");
 
@@ -24,6 +25,9 @@ test("AVISO · el texto es el de Colecciones, en una frase", () => {
   assert.equal(rewardText({ first: ["G2"], xp: 300, regions: ["EMEA"] }), "G2 completado · +300 XP de temporada · Insignia de EMEA desbloqueada");
   assert.equal(rewardText({ first: ["G2", "NAVI"], xp: 600, regions: [] }), "2 equipos completados · +600 XP de temporada");
   assert.equal(REWARD_NOTICE_MS, 6500, "dura lo bastante para verse tras la cortinilla de arranque");
+  // Miles con el separador del idioma activo (es por defecto en las pruebas); el valor no cambia.
+  assert.equal(rewardText({ first: [], xp: 12300, regions: [] }), "+12.300 XP de temporada");
+  assert.equal(rewardText({ first: ["G2"], xp: 300, regions: [] }), "G2 completado · +300 XP de temporada");
 });
 
 test("AVISO · dos liquidaciones sin enseñar se suman; enseñarlo lo borra (una sola vez)", () => {
@@ -50,3 +54,16 @@ test("AVISO · lo monta el armazón normal y la portada (no sobres, duelos ni la
   useCollectionRewardStore.getState().take();
   assert.ok(!/game-toast/.test(renderToStaticMarkup(<CollectionRewardNotice />)));
 });
+
+test("AVISO · los XP con el separador de miles de cada uno de los 8 idiomas (mismo valor)", () => {
+  // Separadores esperados: punto, coma o espacio (fino o duro) según el idioma.
+  const sep: Record<string, string> = { es: ".", en: ",", de: ".", it: ".", fr: " ", "pt-PT": " ", "pt-BR": ".", ja: "," };
+  const spaces = /[\s  ]/g;
+  for (const [loc, s] of Object.entries(sep)) {
+    const got = formatNumber(12300, undefined, loc as never);
+    assert.equal(got.replace(spaces, " "), `12${s}300`, loc);
+    assert.equal(got.replace(/\D/g, ""), "12300", `${loc}: el valor no cambia`);
+  }
+  assert.ok(read("src/components/trophies/CollectionRewardNotice.tsx").includes("xp: formatNumber(r.xp)"));
+});
+
