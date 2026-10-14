@@ -37,7 +37,7 @@ Leyenda: **[V]** verificado (pruebas o QA reales) · **[L]** solo en local · **
    y aviso de equipos con cartas pero sin región. [V]
 5. **Pruebas nuevas**: fallo a mitad de la liquidación contra Postgres real, 0076 contra Postgres real, servicio y ruta
    del panel, resolutor de identidades, logos. [V]
-6. **QA en el stack aislado** sobre la candidata nueva `drl-0.1.1-1-078f28f9` (§12). [QA]
+6. **QA en el stack aislado** sobre `drl-0.1.1-1-078f28f9` y la candidata final `drl-0.1.1-1-ea82a9f8` (§12). [QA]
 
 ## 3. Reglas (las que mandan en el código)
 
@@ -171,7 +171,7 @@ región sin traducir. [V]
 
 | Suite | Resultado |
 |---|---|
-| Pruebas del proyecto en el PC | ver §13 |
+| Pruebas del proyecto en el PC (incluye el trabajo F78 sin confirmar de la copia) | **6.588/6.588** |
 | Puerta de la candidata (contenedor, fuente de la release: `npm ci` + `next build` + `tsc` + pruebas) | **6.578/6.578, 0 fallos · GATE_OK** · antes: 6.527/6.535 |
 | 0075 contra Postgres real (QA) | 44/44: permisos, incompleto, sin temporada, 300 XP una vez, 24 y 16 sesiones a la vez, insignias, permanencia, entradas inválidas, aislamiento |
 | 0075 fallo a mitad (QA, nuevo) | sin compleción, evento, asiento ni progreso; el reintento cobra 300 una vez y el siguiente 0 |
@@ -190,7 +190,14 @@ completa, región inválida, repetición, concurrencia, permanencia, equipo nuev
 perfil: destacar desbloqueada, bloqueada, ajena, insignias antiguas conservadas · seguridad: RLS, permisos, aislamiento,
 índices, rollback.
 
-## 12. QA en el stack aislado (candidata `drl-0.1.1-1-078f28f9`)
+## 12. QA en el stack aislado
+
+**Candidata final: `drl-0.1.1-1-ea82a9f8`** (sha256 `861f2554…73e97`, en `valorosters-i18n-qa/rc/`, NO en `incoming/`) =
+fuente de producción `4b1f4c01` + 145 ficheros de la rama − 2 borrados; frontera exacta, F78 idéntico a producción, dos
+migraciones aditivas con rollback, economía intacta. La regresión larga se hizo sobre `drl-0.1.1-1-078f28f9`; entre las
+dos solo cambian **dos ficheros** (comprobado por huellas): `TeamIdentitiesPanel.tsx` (alineación del formulario) y
+`teamCollections.test.tsx` (una prueba nueva). Sobre `ea82a9f8` se repitieron la puerta, Colecciones (es) y el alta
+desde el panel en 8 idiomas.
 
 Servida como `vrqa_app` desde la build de la puerta. Cuentas sintéticas (`coll-tc*`, `coll-50000/60000`,
 `qa-*-i18n@example.invalid`), solo en la base del stack aislado.
@@ -201,8 +208,11 @@ Servida como `vrqa_app` desde la build de la puerta. Cuentas sintéticas (`coll-
 | Permanencia (se borran de la base las cartas de China de `tcchina`) | **6 PASS · 0 FAIL**: insignia y destacada siguen [QA] |
 | Visual de pantallas tocadas y vecinas, 8 idiomas × 390/768/1440 | **576 pantallas**: 0 en otro idioma, 0 desbordes, 0 cortados, 0 restos de español, 0 claves, 0 errores de consola, 0 de hidratación [QA] |
 | Humo de invitado, 8 idiomas | **132 PASS · 0 FAIL** [QA] |
-| QA autenticada de todo el juego, 8 idiomas | ver abajo |
-| Equipo nuevo desde el panel (catálogo servido desde la base) | ver abajo |
+| QA autenticada de todo el juego, 8 idiomas (sobres, compra ICON, crafteo, WALKOUT, equipos, tienda, cuenta, idioma entre dispositivos…) | **1.293 PASS · 0 FAIL** tras arreglar el entorno (abajo); igual que la versión publicada [QA] |
+| Colecciones (es) con el catálogo servido desde la base, como producción | **212 PASS · 0 FAIL** [QA] |
+| Equipo nuevo desde el panel, API + panel en 8 idiomas + Colecciones (`_team-identities-ui.ts`) | **84 PASS · 0 FAIL** sobre `ea82a9f8` [QA] |
+| Candidata final `ea82a9f8`: puerta | **6.579/6.579 · GATE_OK** |
+| Candidata final `ea82a9f8`: Colecciones, 8 idiomas × 2 anchos + API | **896 PASS · 0 FAIL** [QA] |
 
 Lo que comprueba la pasada de Colecciones (por cuenta: sin cartas, 5 cartas de G2 con copias, China completa, todo):
 progreso = dominio en las 4 cuentas; G2 con una carta por jugador no está completo; varias ediciones y copias; primera
@@ -222,11 +232,37 @@ saldo (1.000 créditos; el último gasto, de pasadas anteriores, es del 13/10 a 
 compra, apertura, crafteo y WALKOUT (que necesitan comprar un sobre de 2.500) fallaron en cadena; y la temporada
 sintética que crean los instrumentos de 0075 se llamaba «Temporada de QA», que el detector marcaba como «resto de
 español» en /temporada/pase. Arreglo, solo en el stack de QA: saldo sintético repuesto (misma convención que
-`collection-scale.sh`) y la temporada sintética renombrada a «QA-TC» (también en el script). Se repite la pasada entera.
+`collection-scale.sh`) y la temporada sintética renombrada a «QA-TC» (también en el script). Repetida entera: 1.293 · 0.
+
+**Alta de un equipo nuevo, de punta a punta** (catálogo de QA llevado a la base con `catalog up` y retirado con
+`catalog down`; datos sintéticos: dos jugadores y dos cartas «QA Nuevo Equipo» en el inventario de `tcall`): sin identidad
+no es colección, ni su clave en bruto tiene detalle, ni paga XP; el panel lo lista como pendiente; la ruta del panel
+rechaza anónimo y jugador (401), región inválida o vacía, clave del código, mal formada o de set antiguo, etiqueta larga
+(400), texto impreso inexistente o de un equipo del código (404) y campos de más (400); alta → 200 rev 1; repetir → 409;
+cambiar la clave → 409; con identidad aparece con clave, nombre, etiqueta y región y sin logo inventado; 6 liquidaciones a
+la vez → 300 XP una sola vez; Pacific sube un equipo y dos cartas en la meta y la insignia ya conseguida sigue; otra cuenta
+lo ve bloqueado 0/2; corrección → rev 2; el panel en 8 idiomas (1440) y en 390, la ficha con la subida de logo, el detalle
+del equipo nuevo y la búsqueda. Al terminar se borró solo lo sintético y la base de QA volvió a 0 cartas, 0 jugadores y
+0 identidades en `content_*`.
+
+Tropiezos de la QA, todos del entorno o de los instrumentos (corregidos y repetidos): los datos sintéticos del equipo
+nuevo no cumplían `content_cards_identity` ni tenían la presentación de una carta del CMS (la base y el cargador del
+catálogo los rechazaron: mientras duró, la QA dio 500 en ese stack); el `down` chocaba con la inmutabilidad de versiones;
+la cuenta de admin estaba guardada en japonés y el instrumento cambiaba el idioma de cuenta de `tcall` (la preferencia de
+cuenta manda sobre el navegador, como debe): ahora se fija y se deja sin preferencia al terminar.
+
+Capturas: `docs/product/qa/colecciones-cierre/` (01–21 Colecciones, perfil y permanencia; 30–39 alta de equipo nuevo;
+`ui-*.json` con todos los resultados).
 
 ## 13. Resultados finales en el PC
 
-(se completa al terminar)
+| Qué | Resultado |
+|---|---|
+| `npm test` | **6.588/6.588** (al empezar: 6.577) |
+| `npm run typecheck` | 0 errores |
+| `npm run lint` | 0 errores · 30 avisos (los mismos de antes) |
+| `npm run i18n:audit` | sin problemas: 13.825/13.825 por idioma |
+| Árbol con forma de release, las 8 pruebas que fallaban | 8 fallos sin los datos de prueba · 54/54 con ellos |
 
 ## 14. Riesgos y problemas conocidos
 
@@ -250,7 +286,7 @@ español» en /temporada/pase. Arreglo, solo en el stack de QA: saldo sintético
 2. Copia de seguridad de la base de producción (`backup-drlcards.sh`) y comprobación de lectura.
 3. Aplicar **0075** y después **0076**, cada una en una transacción (`psql -1`), como se ensayó en QA
    (`team-collections-0075.sh apply` / `team-collections-0076.sh apply`: huella de datos antes/después).
-4. Copiar `valorosters-i18n-qa/rc/drl-0.1.1-1-078f28f9.tar` a `incoming/` y `bin/deploy.sh drl-0.1.1-1-078f28f9`.
+4. Copiar `valorosters-i18n-qa/rc/drl-0.1.1-1-ea82a9f8.tar` (+ `.sha256`) a `incoming/` y `bin/deploy.sh drl-0.1.1-1-ea82a9f8`.
 5. Humo: `/api/ready` 200, Colecciones con una cuenta, `/admin/teams` con «Todos los equipos impresos del catálogo
    tienen identidad».
 
