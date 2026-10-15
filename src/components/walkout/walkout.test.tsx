@@ -171,8 +171,11 @@ test("W10 · cartas reales de cada edición diseñada → input completo, preset
 });
 
 test("W11 · equipo sin logo: siglas impresas (nunca un nombre recortado) · sin logo inventado", () => {
-  const prx = input("f0rsaken__base");
-  assert.equal(prx.team.logoSrc, null);
+  // Las 41 identidades de las cartas tienen logo desde el 2026-10-15: el caso «sin logo» (equipo dado de alta en el panel
+  // sin logo todavía) se fuerza sobre una carta real.
+  const real = input("f0rsaken__base");
+  assert.equal(real.team.logoSrc, "/hints/teams/paper-rex.png");
+  const prx = { ...real, team: { ...real.team, logoSrc: null } };
   assert.equal(prx.team.tag, "PRX");
   const html = renderToStaticMarkup(<TeamPiece frame={frameAt(buildTimeline("WALKOUT"), buildTimeline("WALKOUT").duration)} input={prx} layout={WIDE} reduced={false} failed={false} />);
   assert.match(text(html), /PRX/); assert.doesNotMatch(text(html), /\bPAPE\b/);

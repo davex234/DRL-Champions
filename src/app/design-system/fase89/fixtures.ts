@@ -95,7 +95,8 @@ export const OWN_FULL = full(SELF_ID, SELF_ID, "QA · David");
 export const PUBLIC_FULL = full(RIVAL_ID, SELF_ID, "QA · Kaelis");
 export const PUBLIC_ANON = full(RIVAL_ID, null, "QA · Kaelis");
 export const NO_BADGES_PUBLIC = full(RIVAL_ID, SELF_ID, "QA · Sin insignias", { badges: { featured: [], featuredIds: [], owned: [] } });
-export const NO_TEAM_LOGO = full(RIVAL_ID, SELF_ID, "QA · Equipo sin logo", { favoriteTeam: teamFact("paper-rex") });
+// GEN: identidad del registro sin cartas y sin logo (las 41 de las cartas lo tienen desde el 2026-10-15).
+export const NO_TEAM_LOGO = full(RIVAL_ID, SELF_ID, "QA · Equipo sin logo", { favoriteTeam: teamFact("gen") });
 export const LONG_TEXT = full(SELF_ID, SELF_ID, "QA·NombreLarguísimoDeJugadorParaRomperElLayout123", { favoriteTeam: teamFact("dragon-ranger-gaming") });
 export const XSS_NAME = full(RIVAL_ID, SELF_ID, `<img src=x onerror=alert(1)><script>alert(2)</script>`);
 

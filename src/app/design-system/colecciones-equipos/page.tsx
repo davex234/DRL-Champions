@@ -11,6 +11,7 @@
  *         | room-all        todo el catálogo: las cuatro insignias
  *         | room-new-team   un equipo recién dado de alta (sin identidad ni región) y una región sin equipos
  *         | detail-progress | detail-complete | detail-empty
+ *   team  = <clave>         (opcional) el equipo de detail-empty, para revisar el escudo y el logo de cualquiera
  */
 import { useEffect, useState } from "react";
 import { TrophyRoomScreen } from "@/components/trophies/TrophyRoomScreen";
@@ -45,9 +46,12 @@ function ownedFor(scene: Scene, m: TeamCollectionsModel): string[] {
 
 export default function TeamCollectionsHarness() {
   const [scene, setScene] = useState<Scene | null>(null);
+  const [emptyTeam, setEmptyTeam] = useState("paper-rex");
   useEffect(() => {
-    const s = new URLSearchParams(window.location.search).get("scene") as Scene;
+    const q = new URLSearchParams(window.location.search);
+    const s = q.get("scene") as Scene;
     setScene(SCENES.includes(s) ? s : "room");
+    if (/^[a-z0-9-]{2,32}$/.test(q.get("team") ?? "")) setEmptyTeam(q.get("team")!);
   }, []);
   if (!scene) return null;
   let m = model();
@@ -69,7 +73,7 @@ export default function TeamCollectionsHarness() {
       {scene.startsWith("room") && <TrophyRoomScreen room={teamCollectionsView(m, new Set(owned))} />}
       {scene === "detail-progress" && <TeamDetailScreen team={team("g2")} />}
       {scene === "detail-complete" && <TeamDetailScreen team={team("karmine-corp")} />}
-      {scene === "detail-empty" && <TeamDetailScreen team={team("paper-rex")} />}
+      {scene === "detail-empty" && m.teams.some((t) => t.id === emptyTeam) && <TeamDetailScreen team={team(emptyTeam)} />}
     </main>
   );
 }

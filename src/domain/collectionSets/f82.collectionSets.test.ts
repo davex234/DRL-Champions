@@ -78,11 +78,13 @@ test("setsTouchedBy: un sobre con una carta de G2 toca el set de G2 y no el de F
 
 // ───────────────────────── generador ─────────────────────────
 
-test("generador sobre la BD real: 23 borradores de equipo y 18 descartes, todos con motivo", () => {
+// 2026-10-15: con los 16 logos que faltaban ya nadie se descarta por NO_LOGO (antes 23 borradores y 18 descartes).
+test("generador sobre la BD real: 36 borradores de equipo y 5 descartes, todos con motivo", () => {
   const ok = teams.filter((d) => !isSkip(d));
   const skip = teams.filter(isSkip);
-  assert.equal(ok.length, 23, ok.map((d) => d.subjectId).join(","));
-  assert.equal(skip.length, 18);
+  assert.equal(ok.length, 36, ok.map((d) => d.subjectId).join(","));
+  assert.equal(skip.length, 5);
+  assert.ok(!skip.some((s) => s.skip.includes("NO_LOGO")));
   for (const s of skip) assert.ok(s.skip.length > 0, s.subjectId);
   assert.deepEqual(skip.filter((s) => s.skip.includes("TOO_FEW_PLAYERS")).map((s) => s.subjectId), ["envy"]);
   for (const id of ["drx", "edward-gaming", "gen-g", "sentinels"]) assert.ok(skip.find((s) => s.subjectId === id)?.skip.includes("IDENTITY_CONFLICT"), id);

@@ -342,8 +342,10 @@ test("PANTALLA · detalle: todas las cartas del equipo, las que faltan delante y
 
 test("PANTALLA · un equipo sin logo se pinta con su etiqueta, nunca con un logo inventado", () => {
   const m = live();
-  const prx = team(m, "paper-rex");
-  assert.equal(prx.logo, null);
+  // Las 41 identidades de las cartas tienen logo desde el 2026-10-15; el caso «sin logo» (un equipo dado de alta en el
+  // panel sin logo todavía) se fuerza sobre uno real.
+  assert.equal(team(m, "paper-rex").logo, "/hints/teams/paper-rex.png");
+  const prx = { ...team(m, "paper-rex"), logo: null };
   const h = renderToStaticMarkup(<TeamDetailScreen team={teamDetail(prx, {})} />);
   assert.ok(!/<img[^>]+alt="Escudo de/.test(h));
   assert.match(h, new RegExp(`>${prx.tag}</span>`));

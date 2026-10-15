@@ -1,8 +1,9 @@
 /**
- * F72.3 · ASSETS LOCALES DE LAS PISTAS — banderas (flag-icons, MIT) y los 25 logos de la biblioteca de trabajo.
+ * F72.3 · ASSETS LOCALES DE LAS PISTAS — banderas (flag-icons, MIT) y los logos de equipo (25 de la biblioteca de
+ * trabajo + los 16 que faltaban, añadidos el 2026-10-15).
  *
  * Integridad (registro ≡ carpeta ≡ hashes del README), cobertura de las 331 cartas, identidad canónica del equipo (el
- * impreso manda; alias → mismo logo), los 16 equipos pendientes NO disponibles, cero URL externa, reparto COUNTRY/TEAM
+ * impreso manda; alias → mismo logo), ninguna identidad de carta sin logo, cero URL externa, reparto COUNTRY/TEAM
  * y la prueba de fugas con su CONTROL NEGATIVO (el detector tiene que saltar si se le mete un dato oculto).
  */
 import { test } from "node:test";
@@ -26,16 +27,18 @@ const read = (p: string) => readFileSync(join(ROOT, p), "utf8");
 const sha = (p: string) => createHash("sha256").update(readFileSync(p)).digest("hex");
 const publicFile = (src: string) => resolve(PUBLIC, "." + src);
 
-/** Los 25 logos auditados en F72.2 (identidad canónica), y los 16 que NO existen (docs/product/qa/fase72-2/asset-sourcing.md). */
-const EXPECTED_LOGOS = [
+/** Los 25 logos auditados en F72.2 (identidad canónica). */
+const AUDITED_LOGOS = [
   "100t", "bbl", "c9", "dragon-ranger-gaming", "eg", "envy", "eternal-fire", "fnatic", "furia", "fut", "g2", "giantx",
   "karmine-corp", "kru", "leviatan", "loud", "m8", "mibr", "navi", "nrg", "pcific", "sentinels", "team-heretics",
   "team-liquid", "vitality",
 ];
-const PENDING_LOGOS = [
+/** Los 16 que faltaban en F72.2 (docs/product/qa/fase72-2/asset-sourcing.md), añadidos el 2026-10-15 (README, segunda tabla). */
+const ADDED_LOGOS = [
   "all-gamers", "detonation-focusme", "drx", "edward-gaming", "full-sense", "ge", "gen-g", "ns", "paper-rex", "rrq", "t1",
   "team-secret", "tyl", "vl", "xlg", "zeta-division",
 ];
+const EXPECTED_LOGOS = [...AUDITED_LOGOS, ...ADDED_LOGOS];
 
 const cardTeamId = (c: (typeof CARDS)[number]) => canonicalCardTeam(c, getPlayer(c.playerId)).key;
 const src = (c: (typeof CARDS)[number]): HintSource => {
@@ -44,7 +47,7 @@ const src = (c: (typeof CARDS)[number]): HintSource => {
 };
 const countryOf = (pid: string) => getPlayer(pid)?.country ?? "";
 
-test("A1 · logos: registro ≡ carpeta ≡ los 25 auditados; cada fichero existe, es PNG y su hash es el del README (copia sin modificar)", () => {
+test("A1 · logos: registro ≡ carpeta ≡ los 41 esperados; cada fichero existe, es PNG 200×200 y su hash es el del README", () => {
   const dir = join(PUBLIC, "hints", "teams");
   const onDisk = readdirSync(dir).filter((f) => f.endsWith(".png")).map((f) => f.replace(/\.png$/, ""));
   assert.deepEqual([...HINT_TEAM_LOGOS].sort(), [...onDisk].sort());
@@ -53,6 +56,8 @@ test("A1 · logos: registro ≡ carpeta ≡ los 25 auditados; cada fichero exist
   for (const id of HINT_TEAM_LOGOS) {
     const f = join(dir, `${id}.png`);
     assert.ok(readFileSync(f).subarray(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])), `${id} es PNG`);
+    // Cabecera IHDR: ancho y alto. Los añadidos siguen la convención de los auditados (200×200; DRG es la excepción histórica).
+    if (ADDED_LOGOS.includes(id)) assert.deepEqual([readFileSync(f).readUInt32BE(16), readFileSync(f).readUInt32BE(20)], [200, 200], `${id} 200×200`);
     assert.ok(readme.includes(`| ${id} |`) && readme.includes(sha(f)), `${id}: hash del README`);
     assert.ok(TEAM_IDENTITIES.some((t) => t.canonicalId === id), `${id} es una identidad canónica`);
   }
@@ -63,21 +68,19 @@ test("A1 · logos: registro ≡ carpeta ≡ los 25 auditados; cada fichero exist
   assert.equal(TEAM_LOGOS_AVAILABLE.size, 0);
 });
 
-test("A2 · los 16 equipos pendientes NO aparecen como disponibles (ni placeholder): su carta nunca lleva pista TEAM", () => {
-  for (const id of PENDING_LOGOS) {
-    assert.ok(TEAM_IDENTITIES.some((t) => t.canonicalId === id), id);
-    assert.equal(hintTeamLogoSrc(id), null, id);
-    assert.equal(hintArt({ type: "TEAM", value: id }), null, id);
-    assert.ok(!existsSync(join(PUBLIC, "hints", "teams", `${id}.png`)), id);
-  }
-  // Las 331 cartas: 41 identidades impresas = 25 con logo + los 16 pendientes, sin tercera categoría.
+test("A2 · ninguna identidad de las 331 cartas se queda sin logo (antes, 16 pendientes): cada una tiene fichero y pista TEAM", () => {
   const ids = new Set(CARDS.map(cardTeamId));
   assert.equal(CARDS.length, 331);
-  assert.deepEqual([...ids].filter((i) => !HINT_TEAM_LOGOS.has(i)).sort(), [...PENDING_LOGOS].sort());
   assert.equal(ids.size, 41);
-  for (const c of CARDS.filter((x) => !HINT_TEAM_LOGOS.has(cardTeamId(x)))) {
-    for (let s = 0; s < 40; s++) assert.notEqual(hintForCard(`m${s}`, src(c), countryOf, visualHintValue)?.type, "TEAM", c.id);
+  assert.deepEqual([...ids].filter((i) => !HINT_TEAM_LOGOS.has(i)), []);
+  for (const id of ADDED_LOGOS) {
+    assert.ok(TEAM_IDENTITIES.some((t) => t.canonicalId === id), id);
+    assert.equal(hintTeamLogoSrc(id), `${HINT_TEAM_LOGO_DIR}/${id}.png`, id);
+    assert.ok(hintArt({ type: "TEAM", value: id }), id);
+    assert.ok(existsSync(join(PUBLIC, "hints", "teams", `${id}.png`)), id);
   }
+  // Identidades del registro SIN cartas (GEN, KRX, BLG…): siguen sin logo; no se pinta uno de otra entidad (Gen.G ≠ GEN, DRX ≠ KRX).
+  for (const id of ["gen", "krx", "blg", "te", "jdg", "g2-gozen"]) assert.equal(hintTeamLogoSrc(id), null, id);
 });
 
 test("A3 · alias e identidad: TH ≡ Team Heretics → mismo logo; la pista usa el equipo IMPRESO de la carta, no el roster actual", () => {

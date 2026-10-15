@@ -20,7 +20,7 @@ import { TEAM_COLLECTION_XP, visibleTeamCount, type TeamCollectionsView, type Te
 import { TrophyBadge } from "./TrophyBadge";
 import { RegionBadge } from "./RegionBadge";
 import { REGION_TINT, TEAM_FILTER_LABEL, TEAM_SORT_LABEL, visibleTeams, type TeamFilter, type TeamSort } from "./teamCollectionsModel";
-import { ns, td } from "@/i18n/runtime";
+import { ns, td, tdIn } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 import { fill, slots } from "@/i18n/rich";
 
@@ -28,8 +28,9 @@ const tr = ns("trophies");
 
 export const trophyHref = (teamId: string) => `/coleccion/trofeos/${encodeURIComponent(teamId)}`;
 
+// El «✓» va fuera del texto: «✓ Completada» no es una clave de ningún idioma y `td` la dejaba en español.
 const STATE_CHIP: Record<TeamTileView["state"], { text: string; cls: string }> = {
-  COMPLETED: { text: "✓ Completada", cls: "bg-emerald-400/15 text-emerald-300 ring-1 ring-emerald-300/40" },
+  COMPLETED: { text: "Completada", cls: "bg-emerald-400/15 text-emerald-300 ring-1 ring-emerald-300/40" },
   IN_PROGRESS: { text: "En progreso", cls: "bg-white/[0.06] text-white/75 ring-1 ring-white/15" },
   LOCKED: { text: "Sin empezar", cls: "bg-white/[0.04] text-white/55 ring-1 ring-white/10" },
 };
@@ -74,7 +75,7 @@ export function TeamTile({ s }: { s: TeamTileView }) {
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-2">
           <h3 className="truncate font-display text-[17px] font-bold uppercase tracking-wide text-white">{s.title}</h3>
-          <span className={cn("shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider", STATE_CHIP[s.state].cls)}>{td(STATE_CHIP[s.state].text)}</span>
+          <span className={cn("shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider", STATE_CHIP[s.state].cls)}>{s.state === "COMPLETED" && "✓ "}{tdIn("trophies", STATE_CHIP[s.state].text)}</span>
         </div>
         <p className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.18em] text-white/45">
           {tr("Equipo")}

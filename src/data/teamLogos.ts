@@ -12,9 +12,13 @@ export const hasTeamLogo = (slug: string): boolean => TEAM_LOGOS_AVAILABLE.has(s
 
 /**
  * F72.3 · LOGOS DE EQUIPO PARA LAS PISTAS de cartas ocultas, por IDENTIDAD CANÓNICA (`canonicalId` de `teamIdentities`):
- * TH y «Team Heretics» → `team-heretics`. Ficheros en `public/hints/teams/<canonicalId>.png`, copiados sin modificar de la
- * biblioteca de trabajo NEXUSFICHAJES (procedencia y hashes en su README). Un test compara esta lista con la carpeta y con
- * las identidades de las 331 cartas.
+ * TH y «Team Heretics» → `team-heretics`. Ficheros en `public/hints/teams/<canonicalId>.png` (procedencia y hashes en su
+ * README). Un test compara esta lista con la carpeta y con las identidades de las 331 cartas. Es también la fuente de los
+ * «logos del producto» de Colecciones, el perfil y el walkout (un logo `team_logo` del CMS tiene prioridad sobre este).
+ *
+ * Los 25 primeros, copiados sin modificar de la biblioteca de trabajo NEXUSFICHAJES (= el logo de VLR, byte a byte). Los 16
+ * de la segunda fila (2026-10-15) completan las 41 identidades de las cartas: 10 del logo de VLR byte a byte y 6 de su
+ * variante oficial para fondo oscuro (la de VLR es negra o azul marino y no se ve en el escudo oscuro), reescalada a 200 px.
  *
  * Integración técnica APROBADA · derechos de marca para release pública SIN RESOLVER (release checklist).
  * No sustituye a `TEAM_LOGOS_AVAILABLE` (monogramas de `TeamLogo`, por slug), que sigue vacío y sin cambios.
@@ -22,6 +26,8 @@ export const hasTeamLogo = (slug: string): boolean => TEAM_LOGOS_AVAILABLE.has(s
 export const HINT_TEAM_LOGOS: ReadonlySet<string> = new Set<string>([
   "100t", "bbl", "c9", "dragon-ranger-gaming", "eg", "envy", "eternal-fire", "fnatic", "furia", "g2", "kru", "leviatan", "loud",
   "mibr", "nrg", "sentinels", "team-heretics", "team-liquid", "vitality", "fut", "giantx", "karmine-corp", "m8", "navi", "pcific",
+  "all-gamers", "detonation-focusme", "drx", "edward-gaming", "full-sense", "ge", "gen-g", "ns", "paper-rex", "rrq", "t1",
+  "team-secret", "tyl", "vl", "xlg", "zeta-division",
 ]);
 export const HINT_TEAM_LOGO_DIR = "/hints/teams";
 export const hintTeamLogoSrc = (canonicalId: string): string | null =>

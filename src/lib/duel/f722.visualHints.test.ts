@@ -75,7 +75,7 @@ test("V6 · el algoritmo no cambia: mismo hash de inicio, mismo orden cíclico; 
   const expected = [...HINT_TYPES.slice(start), ...HINT_TYPES.slice(0, start)].find((t) => visualHintValue(t, t === "COUNTRY" ? "ES" : t === "TEAM" ? "TH" : t === "REGION" ? "EMEA" : "Flex") !== null);
   assert.equal(h?.type, expected);
   // Sin ningún asset posible (sin país, Flex, liga/equipo sin icono): sin pista (dorso normal).
-  if (!HINT_ICONS_AVAILABLE.size) assert.equal(hintForCard("m-1", { ...card, team: "PRX" }, () => "", visualHintValue), null);
+  if (!HINT_ICONS_AVAILABLE.size) assert.equal(hintForCard("m-1", { ...card, team: "GEN" }, () => "", visualHintValue), null);
 });
 
 function match(): DuelMatch {

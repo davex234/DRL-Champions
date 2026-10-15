@@ -211,15 +211,16 @@ test("panel: anónimo y usuario normal 401 sin oráculo; nada escrito", async ()
   assert.equal((await h.POST(req("admin", { action: "generate", kind: "TEAM", userId: A }))).status, 400, "campo fuera de lista blanca");
 });
 
-test("panel: generar crea SOLO borradores (23 equipos), idempotente; nada se publica solo", async () => {
+// 2026-10-15: 36 equipos (antes 23): los 16 logos añadidos quitan los descartes por NO_LOGO.
+test("panel: generar crea SOLO borradores (36 equipos), idempotente; nada se publica solo", async () => {
   const db = fresh([]);
   const g = await adminGenerate(sb(db), ADMIN, { kind: "TEAM" });
   assert.ok(g.ok);
-  assert.equal(g.data!.created.length, 23); assert.equal(g.data!.skipped.length, 18);
+  assert.equal(g.data!.created.length, 36); assert.equal(g.data!.skipped.length, 5);
   assert.ok(db.tables.collection_sets.every((s) => s.status === "DRAFT"));
   const again = await adminGenerate(sb(db), ADMIN, { kind: "TEAM" });
   assert.ok(again.ok);
-  assert.equal(again.data!.created.length, 0); assert.equal(again.data!.existing.length, 23);
+  assert.equal(again.data!.created.length, 0); assert.equal(again.data!.existing.length, 36);
   const list = await adminListSets(sb(db));
   assert.ok(list.ok, (list as { error?: string }).error);
   assert.ok(list.data!.proposals.some((p) => "skip" in p.result));

@@ -176,7 +176,7 @@ test("F89-V2 · identidad: avatar, nombre, equipo favorito con logo REAL y alt, 
   // PERFIL = IDENTIDAD · insignias (Sala de Trofeos) y cartas destacadas (Colección) ya no se pintan aquí.
   assert.ok(!h.includes('data-testid="hero-badges"') && !h.includes('data-testid="hero-cards"') && !h.includes("data-card-art"));
   const noLogo = html(<PublicProfileView snap={NO_TEAM_LOGO} />);
-  assert.ok(noLogo.includes('data-team="paper-rex"') && !noLogo.includes("/hints/teams/paper-rex.png"), "sin logo real: sigla, nunca un escudo inventado");
+  assert.ok(noLogo.includes('data-team="gen"') && !noLogo.includes("/hints/teams/gen.png"), "sin logo real: sigla, nunca un escudo inventado");
 });
 
 test("F89-V3 · PERFIL = IDENTIDAD: ni estadísticas, ni historial, ni colecciones, ni momentos (los datos siguen en la foto)", () => {

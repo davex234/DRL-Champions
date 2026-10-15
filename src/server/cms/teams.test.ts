@@ -193,7 +193,7 @@ test("LOGOS · el logo vigente del CMS se pinta en Colecciones (256 px), gana el
   const v = (await getTeamCollections(sb, USER)).data!;
   resetServerCatalog();
   assert.equal(v.teams.find((t) => t.id === "g2")!.logo, "http://mem/assets/cms/team_logo/a-new/w256.webp");
-  assert.equal(v.teams.find((t) => t.id === "paper-rex")?.logo ?? null, null, "un logo rechazado no se pinta: etiqueta");
+  assert.equal(v.teams.find((t) => t.id === "paper-rex")?.logo ?? null, "/hints/teams/paper-rex.png", "un logo rechazado no se pinta: el del producto");
   // La limpieza de huérfanos del CMS no puede borrar el logo que se está pintando.
   const src = read("src/server/cms/assets.ts");
   assert.match(src, /eq\("kind", "team_logo"\)\.eq\("is_current", true\)\.eq\("status", "approved"\)/);

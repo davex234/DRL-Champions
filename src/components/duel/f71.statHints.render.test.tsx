@@ -170,8 +170,8 @@ test("F72.2 P2 · la pista es SOLO imagen: bandera sin ISO ni nombre; sin asset 
   // Ninguna OTRA imagen (foto del jugador) ni dato de la carta: solo el asset de la pista.
   assert.ok(!/PlayerPhoto|OVR|title=/.test(flag) && (flag.match(/<img/g) ?? []).length === 1 && !/<img(?![^>]*data-hint-art)/.test(flag));
   assert.ok(!/[\u{1F1E6}-\u{1F1FF}]/u.test(flag), "sin emoji de bandera");
-  // Rol, liga y equipo sin asset (F72.3: roles/ligas sin licencia, Paper Rex sin logo) y país sin bandera local: nada inventado.
-  for (const hint of [{ type: "ROLE", value: "DUELIST" }, { type: "REGION", value: "EMEA" }, { type: "TEAM", value: "paper-rex" }, { type: "ROLE", value: "Controlador" }, { type: "COUNTRY", value: "ZZ" }, { type: "COUNTRY", value: "UN" }, { type: "COUNTRY", value: "SE" }] as const) {
+  // Rol, liga y equipo sin asset (F72.3: roles/ligas sin licencia; GEN, sin cartas, sin logo) y país sin bandera local: nada inventado.
+  for (const hint of [{ type: "ROLE", value: "DUELIST" }, { type: "REGION", value: "EMEA" }, { type: "TEAM", value: "gen" }, { type: "ROLE", value: "Controlador" }, { type: "COUNTRY", value: "ZZ" }, { type: "COUNTRY", value: "UN" }, { type: "COUNTRY", value: "SE" }] as const) {
     const h = html(<DuelCardBack size="xs" hint={hint} />);
     assert.ok(!/rival-hint|aria-label|data-hint-art/.test(h), JSON.stringify(hint));
   }
