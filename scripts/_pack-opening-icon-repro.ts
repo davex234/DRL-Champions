@@ -8,8 +8,10 @@ import { mkdirSync } from "node:fs";
 import { BASE, api, goto, loginUi, open, sleep, token, waitFor } from "./_i18n-auth-lib";
 
 if (/valorosters\.com|:3005\b/.test(BASE)) throw new Error("solo contra el stack de QA aislado");
-const WANT = process.argv[2] ?? "mada__moments";
+const WANT = process.argv[2] ?? "mada__moments"; // «any» = no parar en ninguna carta concreta
 const MAX = Number(process.argv[3] ?? 6);
+const WIDTH = Number(process.argv[4] ?? 768);
+const TIMES = (process.argv[5] ?? "200,700,1200,2000,3000,5000").split(",").map(Number);
 const OUT = "/work/docs/pack-opening-repro";
 mkdirSync(OUT, { recursive: true });
 const PROBE = `(() => { const f = document.querySelector('[data-face="front"]'); const flip = f?.parentElement; if (!flip) return null;
@@ -20,7 +22,7 @@ const PROBE = `(() => { const f = document.querySelector('[data-face="front"]');
 
 (async () => {
   const tok = await token("PLAYER");
-  const c = await open(768, { reduced: false });
+  const c = await open(WIDTH, { reduced: false });
   await goto(c, "/cuenta", 1500);
   console.log("login", await loginUi(c, "PLAYER"));
   for (let n = 1; n <= MAX; n++) {
@@ -32,10 +34,11 @@ const PROBE = `(() => { const f = document.querySelector('[data-face="front"]');
     await waitFor(c.tab, `document.querySelector('[data-testid="pack-opening"]')?.dataset.phase === "hero"`, 25000);
     const id = await c.tab.js<string>(`document.querySelector('[data-testid="hero-reveal"]')?.dataset.cardId ?? ""`);
     const t0 = Date.now();
-    for (const at of [200, 700, 1200, 2000, 3000, 5000]) {
+    for (const at of TIMES) {
       while (Date.now() - t0 < at) await sleep(20);
-      console.log(n, id, at, JSON.stringify(await c.tab.js(PROBE)));
-      if (at === 2000 || at === 5000) await c.tab.shot(`${OUT}/${n}-${id}-${at}.png`);
+      const probe = await c.tab.js(PROBE);
+      await c.tab.shot(`${OUT}/${WIDTH}-${n}-${id}-${at}.png`);
+      console.log(n, id, at, `+${Date.now() - t0 - at}ms`, JSON.stringify(probe));
     }
     if (id === WANT) { console.log("ENCONTRADA", WANT); break; }
   }

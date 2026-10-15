@@ -22,7 +22,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { BASE, api, chooseLocale, collect, goto, loginUi, open, sleep, token, waitFor, type Client } from "./_i18n-auth-lib";
 
 if (/valorosters\.com|:3005\b/.test(BASE)) throw new Error("solo contra el stack de QA aislado");
-const OUT = "/work/docs/pack-opening-isolated-es";
+const OUT = process.env.QA_OUT ?? "/work/docs/pack-opening-isolated-es";
 mkdirSync(OUT, { recursive: true });
 const WIDTHS = (process.argv[2] ?? "390,768,1440").split(",").map(Number);
 const MOTIONS = (process.argv[3] ?? "normal,reduced").split(",");
@@ -104,8 +104,10 @@ async function openPack(c: Client, S: string, tag: string, pack: string, reduced
   if (await waitFor(c.tab, `${PHASE} === "opening"`, 25000)) { await sleep(reduced ? 200 : 700); await shot(c, `${tag}-${pack}-2-rotura`); }
   if (await waitFor(c.tab, `${PHASE} === "buildup"`, 8000)) {
     await sleep(reduced ? 150 : 450);
-    const a = await c.tab.js<Atm>(ATM);
-    check(P, "tensión: sala NEUTRA (no anticipa la rareza)", a?.key === "neutral", a);
+    // Fase y sala en la MISMA evaluación: si la tensión ya terminó (la carta gira), esta muestra no vale.
+    const st = await c.tab.js<{ ph: string; a: Atm }>(`({ ph: ${PHASE}, a: ${ATM} })`);
+    const a = st.a;
+    if (st.ph === "buildup") check(P, "tensión: sala NEUTRA (no anticipa la rareza)", a?.key === "neutral", a);
     const hb = await c.tab.js<{ id: string; ovr: number; filter: string }>(`({ id: document.querySelector('[data-testid="hero-reveal"]')?.dataset.cardId ?? "", ovr: Number(document.querySelector('[data-testid="hero-reveal"]')?.dataset.ovr ?? 0), filter: ${BACK_FILTER} })`);
     const hc = expectedClass(hb.id, hb.ovr);
     check(P, `tensión: el DORSO tampoco anticipa la rareza (sería ${hc})`, !backAnticipates(hb.filter, hc), hb.filter.slice(0, 160));

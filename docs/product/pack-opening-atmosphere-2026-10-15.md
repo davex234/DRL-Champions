@@ -159,3 +159,35 @@ Evidencias y procedencia: `docs/product/qa/pack-opening-production-2026-10-15/RE
 - En el stack de QA quedan 29 compras sintéticas y 1 Sobre ICON sintético sin abrir; `vrqa_app` sirve ahora la build `2b8f8817`.
 
 **Producción:** sin cambios (`2b8f8817`, `ready`, 0 errores, recuentos = línea base). Sin migraciones, sin despliegues, sin push.
+
+## 10. Release candidata con la corrección del dorso (2026-10-15, PREPARADA, NO desplegada)
+
+| | |
+|---|---|
+| Candidata | **`drl-0.1.1-1-06d507d2`** → `valorosters-i18n-qa/rc/drl-0.1.1-1-06d507d2.tar` |
+| sha256 | `f8560c30b7057dcedb7021e29292100f39dc4dd0627f77a5e3bc136e4c76c673` (97.945.600 B) |
+| Contenido | fuente de producción `drl-0.1.1-1-2b8f8817` + overlay de **3 ficheros** del commit `fca39ed` (sha256 del overlay `ff775a01…600e`): `src/components/packs/HeroReveal.tsx`, `src/components/packs/RestReveal.tsx`, `src/components/packs/packAtmosphere.test.tsx`. El padre de los 3 es byte a byte el de producción; la copia de trabajo = el commit |
+| Stage (`_pack-atmosphere-rc-stage.sh` con `RC_BASE=drl-0.1.1-1-2b8f8817`, `RC_WORK=/tmp/pa2-rc`) | 0 añadidos, 3 modificados, 0 retirados (= overlay exacto) · F78 = producción · sin migraciones (cabeza 0076) · ECONOMY_RULES_OK · PACKS_DOMAIN_OK · WALKOUT_OUT_OK |
+| Puerta (contenedor desechable) | **GATE_OK**: `npm ci` + `next build` + `tsc` + ESLint 0 errores (30 avisos de siempre) + i18n «sin problemas» + **6.607/6.607** pruebas · BUILD_HAS_ATMOSPHERE_OK · BUILD_ID = nombre |
+| Local | suite **6.616/6.616**, `tsc` 0, ESLint 0 errores, i18n OK, build OK; QA de navegador con fixtures **384/0** (36 chequeos del dorso) |
+| Aperturas REALES (stack aislado, candidata servida como `vrqa_app`, cuenta sintética, compras sintéticas) | 390/768/1440 × normal/reducido: **227 PASS · 1 FAIL**. El fallo era una carrera del instrumento: leyó la sala justo después de que la carta empezara a girar (capas: neutra al 100 % y Oro entrando desde 0 %). Corregido el instrumento, la combinación se repitió con **38/0**. **36/36 chequeos del dorso en verde** |
+| Evidencias | `docs/product/qa/pack-opening-dorso-fix-2026-10-15/`: `dorso-antes-despues-1440.png`, `dorso-antes-despues-390.png`, `color-solo-al-girar.png`, `candidata-06d507d2/` (serie completa) |
+
+Inspección visual de antes y después:
+- **Antes (`2b8f8817`):** en la tensión y en cada preparación, el dorso brilla con el color de la carta que viene: blanco (ICON), oro campeón (Champions), dorado (Oro), violeta (Masters).
+- **Después:** siempre neutro.
+- **El color llega al girar:** sala marfil, azul, etc., con la insignia y los efectos.
+- **Sin cambios en lo demás:** sin monigote, sin dorso en espejo, «Anterior» vuelve sin girar, y el resumen y los controles son los de siempre.
+
+**Problema de renderizado PREEXISTENTE (no corregido: fuera del alcance autorizado).**
+- *Qué pasa:* en la sala ICON, con renderizado por software (sin GPU), la carta recién girada puede tardar en pintarse. Durante ese tiempo solo se ve el marfil, aunque el DOM ya está correcto (giro −180°, imagen cargada y en primer plano). Las capturas tardan 0,6–1 s cada una: el navegador va saturado.
+- *Medición (`scripts/_pack-opening-icon-repro.ts`):* la zona de la carta sale vacía en la primera captura tras el giro en 2 de 3 aperturas con la candidata, y en 2 de 2 con la build de PRODUCCIÓN `2b8f8817`. En las capturas siguientes la carta aparece y se queda.
+- *Conclusión:* ya ocurre en producción, y la corrección del dorso no lo cambia.
+- *Por qué importa:* el Chrome del propietario tiene la aceleración gráfica desactivada.
+- *Arreglo propuesto, que necesita autorización aparte:* aligerar la sala ICON, por ejemplo el reflejo con `mix-blend-mode`, la corona de rayos de 170vmax con máscara, las motas y el destello. Después, volver a medir con el mismo instrumento.
+
+**Activar (requiere autorización y una copia de seguridad del mismo día verificada):**
+`ssh nexusadmin@212.95.40.144 'bash /tmp/pa2-rc/_pack-dorso-deploy.sh /opt/nexus/backups/supabase-drlcards/<carpeta>'`
+(guion `scripts/ops/_pack-dorso-deploy.sh`; comprueba que la viva es `2b8f8817`, la copia, el artefacto anterior `8f6cdf70…4d3b` y la candidata, y llama a `bin/deploy.sh`).
+**Rollback:** `cd /opt/nexus/projects/valorosters && bin/deploy.sh --activate drl-0.1.1-1-2b8f8817` (solo frontend, sin tocar la base).
+**Producción:** sin cambios (`2b8f8817`, `ready`, recuentos = línea base). Sin migraciones, sin despliegues, sin push.
