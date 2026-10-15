@@ -58,3 +58,21 @@ Estado: **en local, sin desplegar ni subir** (rama `feat/pack-opening-atmosphere
 - **Sin probar en producción con sesión real ni con aperturas reales.** Por diseño, la QA usa resultados fijos.
 - **Sobres de más de 5 cartas:** el resto pide un toque por carta, aunque «Omitir» sigue disponible siempre.
 - **Recuperación tras F5:** sigue yendo directo al resumen, sin ceremonia, como antes.
+
+## 6. Revisión final (2026-10-15, segunda pasada)
+
+Problemas encontrados y corregidos:
+1. **Finales de línea:** las primeras ediciones convirtieron 3 ficheros CRLF a LF (`fase81/page.tsx`, `RestReveal.tsx`, `packOpening.behavior.test.ts`). El diff mostraba 105 y 192 líneas en vez de 11 y 6. Restaurado; ningún fichero cambia ya de estilo.
+2. **«Animaciones de apertura» no llegaba a todas las piezas.** `SealedPack` y `CardBack` leían solo el sistema: con «Reducidas» y el sistema sin restricción, el sobre y el sigilo del dorso seguían moviéndose. Ahora tienen la propiedad opcional `reducedOverride`, que solo pasa la ceremonia; la tienda y las demás pantallas siguen con el sistema. Prueba SCN6.
+3. **«Anterior» ilegible en la sala marfil (Icon):** era el secundario translúcido, con texto blanco sobre marfil. En sala clara ahora tiene fondo oscuro. Prueba SCN7 y comprobación de contraste en la QA.
+4. **Instrumento de QA** (no del producto):
+   - `x ?? "" === "y"` hacía que las esperas no esperasen;
+   - un escape de expresión regular dentro de una plantilla estaba roto;
+   - el servidor lanzado aparte moría a mitad: ahora la QA arranca el suyo (`QA_SERVE=1`).
+
+Ampliaciones de la QA:
+- Sobres de 1, 5, 6, 7 y 10 cartas (escena de estrés `r-big`): recorrido completo en el orden del plan, «Omitir» desde el resto en menos de 40 ms, el resumen con las mismas cartas, 1 sola petición y 1 sola apertura.
+- «Cerrar» desde el resumen lleva a `/coleccion`.
+- Las 4 combinaciones de preferencia × sistema: el modo correcto, la cara visible y el dorso oculto sin estados intermedios, y avanzar, retroceder y omitir funcionando.
+
+Resultado: QA **348 PASS · 0 FAIL** (390/768/1440 × normal/reducido), suite **6.615/6.615**, `tsc` 0, ESLint 0 errores (los 30 avisos de siempre), i18n «sin problemas», build OK (con el aviso previo de `instrumentation.ts`).

@@ -13,8 +13,12 @@
  *   · CERRAR a mitad del resto → /packs; OMITIR en la tensión → resumen.
  *   · consola sin errores y ninguna respuesta ≥ 400 (los 503 de /api/content sin BD local se anotan aparte).
  * Capturas en docs/product/qa/pack-atmosphere-2026-10-15/, informe en logs/pack-atmosphere-qa/report.json.
+ *
+ *   QA_SERVE=1 …   el propio instrumento arranca `next start` (build ya hecha) con NEXUS_QA_HARNESS=1 y lo apaga al acabar:
+ *                  un servidor lanzado aparte por la herramienta puede morir a mitad (exit 127 / cortes a los 10 min).
  */
 import { mkdirSync, writeFileSync } from "node:fs";
+import { spawn, type ChildProcess } from "node:child_process";
 import { join } from "node:path";
 import { launch, sleep, type Tab } from "./lib/cdp";
 import { CARDS, getCard, getPlayer } from "../src/data/catalog";
@@ -134,6 +138,12 @@ async function mixed(tab: Tab, S: string, shots: boolean) {
     check(S, `mixed · carta ${k + 2}: al girar ya no queda la sala de la anterior (${prevKey})`, stale.length === 0, a?.layers);
     figures = Math.max(figures, await tab.js<number>(FIGURE));
     await sleep(650);
+    // Contraste de los botones sobre la sala, ya asentada (el color del botón tiene su transición CSS): texto y fondo del secundario bien separados.
+    const btn = await tab.js<{ fg: number; bg: number; a: number } | null>(`(() => { const b = document.querySelector('[data-testid="rest-back"]'); if (!b) return null;
+      const L = (c) => { const m = c.match(/[\\d.]+/g).map(Number); return { l: (m[0] + m[1] + m[2]) / 3, a: m.length > 3 ? m[3] : 1 }; };
+      const fg = L(getComputedStyle(b).color), bg = L(getComputedStyle(b).backgroundColor); return { fg: fg.l, bg: bg.l, a: bg.a }; })()`);
+    const roomLight = a?.tone === "light";
+    check(S, `mixed · carta ${k + 2}: «Anterior» legible sobre la sala ${a?.key}`, !!btn && (roomLight ? btn.a > 0.5 && Math.abs(btn.fg - btn.bg) > 120 : true), btn);
     if (k === 0 || k === E.rest.length - 1) await layoutOk(tab, S, `mixed carta ${k + 2}`);
     if (shots) await tab.shot(join(SHOTS, `${S.replace(/ · /g, "-")}-mixed-${k + 1}-${E.key(it.uid)}.png`));
     if (k === 1) {
@@ -193,6 +203,82 @@ async function closeAndSkip(tab: Tab, S: string) {
   check(S, "CERRAR a mitad del resto → /packs (lo abierto ya estaba guardado)", await waitFor(tab, `location.pathname === "/packs"`, 8000));
 }
 
+// Entre paréntesis: `x ?? "" === "y"` es `x ?? ("" === "y")` (siempre «cierto» con fase) y la espera no esperaba.
+const PHASE = `(document.querySelector('[data-testid="pack-opening"]')?.dataset.phase ?? "")`;
+const restAt = (k: number) => `(() => { const r = document.querySelector('[data-testid="rest-reveal"]'); return !!r && r.dataset.index === "${k}" && r.dataset.shown === "true"; })()`;
+/** Uids del resumen en orden de documento (sin repetir: la destacada puede salir dos veces). */
+const SUMMARY_UIDS = `[...new Set([...document.querySelectorAll('[data-testid="summary-card"]')].map((e) => e.dataset.uid))]`;
+/** Movimiento reducido: la cara se ve y el dorso no (sin estado intermedio). */
+const FACES = `(() => { const f = document.querySelector('[data-face="front"]'); const b = f?.parentElement?.querySelector('[data-card-back]');
+  return f && b ? { front: Number(getComputedStyle(f).opacity), back: Number(getComputedStyle(b).opacity) } : null; })()`;
+
+/** Sobres de 1, 5, 6, 7 y 10 cartas: recorrido carta a carta completo, OMITIR desde el resto y una sola petición. */
+async function packSizes(tab: Tab, S: string) {
+  for (const scene of ["w-icon", "normal", "plata-ref", "r-mixed", "r-big"] as F81Scene[]) {
+    const E = expected(scene); const n = E.res.length;
+    await open(tab, scene);
+    const hero = await waitFor(tab, `${PHASE} === "hero_hold"`, 20000);
+    const seen: string[] = [];
+    await click(tab, "hero-continue");
+    for (let k = 0; k < n - 1; k++) {
+      if (!(await waitFor(tab, restAt(k), 8000))) break;
+      seen.push(await tab.js<string>(`document.querySelector('[data-testid="rest-card"]').dataset.uid`));
+      await click(tab, "rest-continue");
+    }
+    const sum = await waitFor(tab, `${PHASE} === "summary"`, 6000);
+    const uids = await tab.js<string[]>(SUMMARY_UIDS);
+    const req = await tab.js<string>(`document.querySelector('[data-testid="pack-opening"]').dataset.requests`);
+    const opens = await tab.js<number>(`Number(sessionStorage.getItem('f81-opens') ?? '0')`);
+    check(S, `${n} carta(s) · ${scene}: hero + ${n - 1} carta(s) a carta en el orden del plan → resumen`, hero && sum && seen.join() === E.rest.map((i) => i.uid).join(), { seen: seen.length });
+    check(S, `${n} carta(s) · resumen = las MISMAS cartas, 1 petición, 1 apertura`, [...uids].sort().join() === E.res.map((r) => r.uid).sort().join() && req === "1" && opens === 1, { uids: uids.length, req, opens });
+    // OMITIR sin recorrer: desde la primera carta del resto (o desde la hero si es de 1 carta).
+    await open(tab, scene);
+    await waitFor(tab, `${PHASE} === "hero_hold"`, 20000);
+    if (n > 1) { await click(tab, "hero-continue"); await waitFor(tab, `${PHASE} === "rest"`, 4000); }
+    const t0 = Date.now();
+    await click(tab, "pack-skip");
+    const skipped = await waitFor(tab, `${PHASE} === "summary"`, 3000);
+    const uids2 = await tab.js<string[]>(SUMMARY_UIDS);
+    check(S, `${n} carta(s) · OMITIR → resumen sin recorrer (${Date.now() - t0} ms), mismas cartas, 1 apertura`,
+      skipped && [...uids2].sort().join() === E.res.map((r) => r.uid).sort().join() && (await tab.js<number>(`Number(sessionStorage.getItem('f81-opens') ?? '0')`)) === 1);
+  }
+  // CERRAR desde el resumen: a la colección, como antes.
+  await tab.js(`document.querySelector('[data-testid="pack-opening"] > button[aria-label]').click()`);
+  check(S, "CERRAR desde el resumen → /coleccion (como antes)", await waitFor(tab, `location.pathname === "/coleccion"`, 8000));
+}
+
+/** Preferencia «Animaciones de apertura» × sistema: decide el modo, y el recorrido (atrás incluido) funciona en todos. */
+async function prefCombos(tab: Tab, width: number) {
+  const combos: [string, string, boolean][] = [["reduce", "cinematic", false], ["no-preference", "reduced", true], ["reduce", "auto", true], ["no-preference", "auto", false]];
+  for (const [os, pref, want] of combos) {
+    const S = `${width} · sistema ${os} + preferencia ${pref}`;
+    await tab.setMedia([{ name: "prefers-reduced-motion", value: os }]);
+    await tab.goto(`${BASE}/design-system/fase81?scene=normal`, 300);
+    await tab.setStorage("drl:opening-animation:v1", pref);
+    await open(tab, "r-mixed");
+    await waitFor(tab, `${PHASE} === "hero_hold"`, 20000);
+    const red = await tab.js<string>(`document.querySelector('[data-testid="pack-opening"]').dataset.reduced`);
+    check(S, `modo de la apertura = ${want ? "reducido" : "completo"}`, red === String(want), red);
+    await sleep(900);
+    const f = await tab.js<{ front: number; back: number } | null>(FACES);
+    check(S, "hero: la cara visible y el dorso oculto (sin estado intermedio)", !!f && f.front > 0.99 && (want ? f.back < 0.01 : true), f);
+    await click(tab, "hero-continue");
+    const r0 = await waitFor(tab, restAt(0), 6000);
+    await click(tab, "rest-continue");
+    const r1 = await waitFor(tab, restAt(1), 6000);
+    await sleep(want ? 400 : 900);
+    const f1 = await tab.js<{ front: number; back: number } | null>(FACES);
+    await click(tab, "rest-back");
+    const b0 = await waitFor(tab, restAt(0), 3000);
+    const fb = await tab.js<{ front: number; back: number } | null>(FACES);
+    await click(tab, "pack-skip");
+    const sum = await waitFor(tab, `${PHASE} === "summary"`, 3000);
+    check(S, "avanzar · atrás (boca arriba) · omitir funcionan", r0 && r1 && b0 && sum, { r0, r1, b0, sum });
+    check(S, "cartas del resto: cara visible tras girar y al volver atrás", !!f1 && f1.front > 0.99 && !!fb && fb.front > 0.99 && (want ? f1.back < 0.01 && fb.back < 0.01 : true), { f1, fb });
+  }
+  await tab.setStorage("drl:opening-animation:v1", "auto");
+}
+
 async function run(width: number, motion: string) {
   const S = `${width} · ${motion}`;
   const b = await launch({ args: ["--mute-audio", "--hide-scrollbars"] });
@@ -209,6 +295,8 @@ async function run(width: number, motion: string) {
     await heroScene(tab, S, "r-icon", "icon", shots);
     await heroScene(tab, S, "r-gold", "oro", shots);
     if (width === 390) await closeAndSkip(tab, S);
+    if (motion === "normal") await packSizes(tab, S);
+    if (motion === "normal" && width !== 768) await prefCombos(tab, width);
     const env = bad.filter(envOnly), real = bad.filter((r) => !envOnly(r));
     let budget = env.length;
     const errors = tab.takeErrors().filter(noise).filter((e) => !(/status of 503/.test(e) && budget-- > 0));
@@ -218,7 +306,20 @@ async function run(width: number, motion: string) {
   } finally { await b.close(); }
 }
 
+async function serve(): Promise<ChildProcess | null> {
+  if (process.env.QA_SERVE !== "1") return null;
+  const port = new URL(BASE).port || "3019";
+  const child = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "-p", port], { env: { ...process.env, NEXUS_QA_HARNESS: "1" }, stdio: "ignore" });
+  for (let i = 0; i < 120; i++) {
+    try { if ((await fetch(`${BASE}/design-system/fase81`)).status === 200) return child; } catch { /* aún no */ }
+    await sleep(500);
+  }
+  child.kill(); throw new Error("el servidor de QA no arrancó");
+}
+
 (async () => {
+  const server = await serve();
+  process.on("exit", () => server?.kill());
   for (const w of WIDTHS) for (const m of MOTIONS) await run(w, m).catch((e) => check(`${w} · ${m}`, "ejecución", false, String(e?.stack ?? e)));
   const fail = rows.filter((r) => !r.ok);
   writeFileSync(join(LOGS, "report.json"), JSON.stringify({ base: BASE, at: new Date().toISOString(), pass: rows.length - fail.length, fail: fail.length, rows }, null, 2));

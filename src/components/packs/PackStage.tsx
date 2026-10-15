@@ -289,7 +289,7 @@ export function PackStage({
             style={{ transformPerspective: 1000 }}
             data-testid="ceremony-pack"
           >
-            <SealedPack pack={pack} cutProgress={lifted ? 0 : cutProgress} width={width} ceremony torn={torn} />
+            <SealedPack pack={pack} cutProgress={lifted ? 0 : cutProgress} width={width} ceremony torn={torn} reducedOverride={reduced} />
 
             {/* LAS DOS MITADES de la solapa: la franja superior del PROPIO arte, rota por un borde dentado, que sale despedida. */}
             {/* Reducido: las mitades se separan un poco y se desvanecen en su sitio, sin volar ni girar. */}

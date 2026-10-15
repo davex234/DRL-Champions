@@ -11,7 +11,7 @@ export type F81Scene = "normal" | "high" | "tie2" | "tieall" | "dup" | "single" 
   // WALKOUT 0.5 · aperturas con cartas especiales REALES (identidad = la de la carta: país, equipo, rol, edición, OVR)
   | "w-tr" | "w-jp" | "w-us" | "w-kr" | "w-mega" | "w-dup" | "w-std" | "w-ph" | "w-icon" | "w-icon3"
   // APERTURA 2026-10-15 · la sala por rareza: hero de cada clase y un sobre con TODAS las clases (cada revelado, su color)
-  | "r-masters" | "r-icon" | "r-gold" | "r-mixed" | "r-same";
+  | "r-masters" | "r-icon" | "r-gold" | "r-mixed" | "r-same" | "r-big";
 
 /** WALKOUT 0.5 · escenas del walkout en la apertura real (los ids existen en el catálogo; si no, la escena falla en el test). */
 export const WALKOUT_SCENES: Readonly<Record<Extract<F81Scene, `w-${string}`>, { packId: string; ids: readonly string[]; note: string }>> = {
@@ -77,6 +77,12 @@ export function f81Scene(scene: F81Scene): { packId: string; cards: CardDef[] } 
     case "r-mixed": return { packId: "champions", cards: [topOf("base"), topOf("icon"), topOf("plata"), topOf("masters"), topOf("prime"), topOf("oro"), topOf("champions")] };
     // Dos cartas seguidas de la misma clase: la sala no parpadea entre ellas.
     case "r-same": { const a = topOf("plata"); return { packId: "premium", cards: [topOf("oro"), a, topOf("plata", 99, [a.id])] }; }
+    // Estrés: 10 cartas (más que cualquier sobre real, que llega a 6), de todas las clases.
+    case "r-big": {
+      const picked: CardDef[] = [];
+      for (const cls of ["base", "plata", "oro", "masters", "champions", "prime", "icon", "base", "plata", "masters"] as const) picked.push(topOf(cls, 99, picked.map((c) => c.id)));
+      return { packId: "champions", cards: picked };
+    }
     case "plata-ref": return { packId: "premium", cards: ["munchkin__masters-sdc", "sato__base", "jemkin__base", "xross__future-star", "brawk__base", "aspas__base"].map((id) => CARDS.find((c) => c.id === id)!) };
   }
 }
@@ -85,4 +91,4 @@ export function f81Results(scene: F81Scene): OpenedResult[] {
   return f81Scene(scene).cards.map((card, i) => ({ uid: `f81-qa-${scene}-${i}`, card, isNew: true, value: 0, mintedVersion: 1 }));
 }
 
-export const F81_SCENES: F81Scene[] = ["normal", "high", "tie2", "tieall", "dup", "single", "invalid", "plata-ref", "team-g2", "w-tr", "w-jp", "w-us", "w-kr", "w-mega", "w-dup", "w-std", "w-ph", "w-icon", "w-icon3", "r-masters", "r-icon", "r-gold", "r-mixed", "r-same"];
+export const F81_SCENES: F81Scene[] = ["normal", "high", "tie2", "tieall", "dup", "single", "invalid", "plata-ref", "team-g2", "w-tr", "w-jp", "w-us", "w-kr", "w-mega", "w-dup", "w-std", "w-ph", "w-icon", "w-icon3", "r-masters", "r-icon", "r-gold", "r-mixed", "r-same", "r-big"];

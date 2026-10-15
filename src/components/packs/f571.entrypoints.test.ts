@@ -28,7 +28,7 @@ test("E1 · la ruta de apertura monta la ceremonia canónica y nada más", () =>
   const exp = code(read("src/components/packs/PackOpeningExperience.tsx"));
   assert.ok(exp.includes("<PackStage") && exp.includes("<HeroReveal") && exp.includes("<RestReveal") && exp.includes("<PackSummary")); // F81
   const stage = read("src/components/packs/PackStage.tsx");
-  for (const m of ['data-testid="ceremony-pack"', "data-tear-half", "RUPTURE_REDUCED_MS = 1600", "<SealedPack pack={pack} cutProgress={lifted ? 0 : cutProgress} width={width} ceremony torn={torn} />"]) {
+  for (const m of ['data-testid="ceremony-pack"', "data-tear-half", "RUPTURE_REDUCED_MS = 1600", "<SealedPack pack={pack} cutProgress={lifted ? 0 : cutProgress} width={width} ceremony torn={torn} reducedOverride={reduced} />"]) {
     assert.ok(stage.includes(m), `PackStage F57: ${m}`);
   }
 });

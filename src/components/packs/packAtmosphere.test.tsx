@@ -20,6 +20,7 @@ import type { RevealAtmosphere as Atmosphere } from "@/domain/packs/atmosphere";
 type Scene = { card: RevealItem | null; atmosphere: Atmosphere | null };
 import { f81Results, f81Scene } from "@/app/design-system/fase81/fixtures";
 import { RevealAtmosphere } from "./RevealAtmosphere";
+import { CardBack } from "./CardBack";
 
 const CAT = { cards: CARDS, getCard, getPlayer };
 const ROOT = process.cwd();
@@ -261,6 +262,18 @@ test("SCN5 · el elemento que gira en 3D no lleva `filter` (aplana preserve-3d: 
   assert.ok(style, "existe el elemento 3D");
   assert.doesNotMatch(style, /filter|opacity/);
   assert.match(src, /backfaceVisibility: "hidden", transform: "rotateY\(180deg\)"/, "la cara, de espaldas hasta el giro");
+});
+
+test("SCN6 · «Animaciones de apertura» llega también al sobre y al dorso (nada se mueve con «Reducidas»); la tienda sigue con el sistema", () => {
+  assert.match(read("src/components/packs/PackStage.tsx"), /<SealedPack [^>]*reducedOverride=\{reduced\}/);
+  assert.match(read("src/components/packs/RevealSpotlight.tsx"), /<CardBack [^>]*reducedOverride=\{reduced\}/);
+  for (const f of ["SealedPack.tsx", "CardBack.tsx"]) assert.match(read(`src/components/packs/${f}`), /const reduced = reducedOverride \?\? systemReduced;/, f);
+  const back = (o: Record<string, unknown>) => renderToStaticMarkup(createElement(CardBack, { accent: "#ffce4f", className: "w-[92px]", ...o }));
+  assert.equal(back({ reducedOverride: true }), back({ reducedOverride: true, pulse: false }), "reducido: el sigilo no respira");
+});
+
+test("SCN7 · en la sala clara (Icon) el botón secundario es legible (fondo oscuro, no blanco sobre marfil)", () => {
+  assert.match(read("src/components/packs/RestReveal.tsx"), /shown && atmosphere\.tone === "light" \? "!min-h-\[52px\] flex-1 !bg-\[#1a1408\]\/85 !text-white"/);
 });
 
 test("SCN4 · la escena no toca red, store, economía ni azar", () => {

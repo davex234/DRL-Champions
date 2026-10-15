@@ -67,6 +67,7 @@ export function SealedPack({
   width = 260,
   ceremony = false,
   torn = false,
+  reducedOverride,
 }: {
   /**
    * El sobre del catálogo. De aquí sale TODO: nombre, acento, escalón, categoría, símbolo y
@@ -85,9 +86,15 @@ export function SealedPack({
   ceremony?: boolean;
   /** FASE 57 · la solapa ya se arrancó: el cuerpo se recorta por la costura con borde dentado y sale luz de dentro. */
   torn?: boolean;
+  /**
+   * APERTURA 2026-10-15 · el movimiento ya decidido por la ceremonia (sistema + «Animaciones de apertura»). Sin él, el del
+   * sistema (la tienda, como siempre).
+   */
+  reducedOverride?: boolean;
 }) {
   useLocale();
-  const reduced = useReducedMotion();
+  const systemReduced = useReducedMotion();
+  const reduced = reducedOverride ?? systemReduced;
   const id = packIdentity(pack);
   /*
    * Un id de degradado por instancia. La tienda dibuja dieciséis sobres a la vez y dos `<defs>`

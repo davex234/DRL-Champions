@@ -41,6 +41,7 @@ export function CardBack({
   chargeColor,
   pulse = true,
   style,
+  reducedOverride,
 }: {
   /** Color del objeto del que salió la carta (el acento del sobre). */
   accent: string;
@@ -53,9 +54,15 @@ export function CardBack({
   /** Respiración del sigilo. Se apaga sola con `prefers-reduced-motion`. */
   pulse?: boolean;
   style?: React.CSSProperties;
+  /**
+   * APERTURA 2026-10-15 · el movimiento ya decidido por la pantalla (sistema + «Animaciones de apertura»). Sin él, el del
+   * sistema (tienda y demás pantallas, como siempre).
+   */
+  reducedOverride?: boolean;
 }) {
   useLocale();
-  const reduced = useReducedMotion();
+  const systemReduced = useReducedMotion();
+  const reduced = reducedOverride ?? systemReduced;
   const carga = chargeColor ?? accent;
   const anima = pulse && !reduced;
   const uid = useId().replace(/:/g, "");

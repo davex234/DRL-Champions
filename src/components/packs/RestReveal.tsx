@@ -114,7 +114,9 @@ function RestCard({ item, index, total, shown, reduced, scale, onShown, onNext, 
         header={<p className="font-display text-label font-bold uppercase tracking-wide2 text-white/70" data-testid="rest-prep">{tr("Carta {v} de {total}", { v: index + 2, total: total + 1 })}</p>}
       >
         <motion.div className="mt-2 flex w-full max-w-[360px] items-center justify-center gap-2" initial={false} animate={{ opacity: 1 }}>
-          <NxButton variant="secondary" size="lg" onClick={(e) => { e.stopPropagation(); onBack(); }} data-testid="rest-back" className="!min-h-[52px] flex-1" aria-label={tr("Carta anterior")}>
+          <NxButton variant="secondary" size="lg" onClick={(e) => { e.stopPropagation(); onBack(); }} data-testid="rest-back" aria-label={tr("Carta anterior")}
+            // Sala clara (Icon): el secundario translúcido de siempre es texto blanco sobre marfil → fondo oscuro legible.
+            className={shown && atmosphere.tone === "light" ? "!min-h-[52px] flex-1 !bg-[#1a1408]/85 !text-white" : "!min-h-[52px] flex-1"}>
             {tr("Anterior")}
           </NxButton>
           <NxButton variant="primary" size="lg" onClick={(e) => { e.stopPropagation(); onNext(); }} data-testid="rest-continue" data-action={!shown ? "reveal" : last ? "summary" : "next"} className="!min-h-[52px] flex-[1.4]">
