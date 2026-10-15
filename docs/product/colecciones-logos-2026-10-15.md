@@ -139,3 +139,27 @@ Total: **496 PASS · 0 FAIL**. Capturas en `logs/team-logos-qa/<idioma>-<ancho>/
 - **Alternativa por CMS**: si se prefiere no versionar marcas, los mismos 16 ficheros se pueden subir desde
   `/admin/teams/<id>` en producción (requiere autorización: escribe en la BD y el Storage de producción).
 - **Humo con sesión real** de Colecciones en producción: sigue pendiente desde el despliegue de `d523a42a`.
+
+## 9. Release `drl-0.1.1-1-baddbaed` (2026-10-15, preparada; activación pendiente del propietario)
+
+**Derechos de uso.** No existe licencia escrita para ninguno de los 41 logos, y este documento no la afirma. La
+checklist (`drlcards-release-checklist.md` §F) los sitúa como bloqueo de la **primera release pública**. Comprobado en
+producción: `DRL_PUBLIC_RELEASE` no está activado (Closed Alpha, 2 cuentas admin), y los 25 logos con el mismo estado
+ya se sirven hoy. Por eso la política no impide esta release, pero el punto sigue abierto antes de abrir al público.
+
+| Paso | Resultado |
+|---|---|
+| Commit local (sin push) | `8fe0e57`: solo los ficheros de esta tarea; F78, capturas y `settings.local.json` siguen sin confirmar y fuera |
+| Overlay | 30 ficheros del commit (16 PNG nuevos + 14 modificados), byte a byte el commit, sin CRLF; la versión anterior de los 14 = producción |
+| `_team-logos-rc-stage.sh stage` | base `d523a42a` (solo lectura): BOUNDARY_OK (30, 0 borrados) · F78 = producción · NO_MIGRATIONS_OK (cabeza 0076 = producción) · ECONOMY_RULES_OK (sin economía, catálogo, identidades, modelo de Colecciones ni middleware) · LOGOS_OK (16 PNG 200×200 registrados; los 25 anteriores intactos) |
+| Artefacto | `valorosters-i18n-qa/rc/drl-0.1.1-1-baddbaed.tar`, sha256 `2d19ca561919cf3fd967642ab02aa45f1036afada59c67aeba5f90273b1294cc`; no sobrescribe nada |
+| Puerta (contenedor desechable, entorno del stack de QA) | **GATE_OK**: `npm ci` + `next build` + `tsc` (app) + ESLint 0 errores (30 avisos) + i18n «sin problemas» + **6.587/6.587** pruebas; BUILD_ID = nombre. La build no contiene el literal «✓ Completada» y lleva los 41 PNG |
+| TypeScript de `scripts/` | falla en dos instrumentos `_` que ya vienen así en la fuente de `d523a42a` (`_f82-qa.ts`, `_fase70-1-uncached.ts`, idénticos en base y candidata); no los usa la app y la puerta original nunca lo ejecutó. Deuda previa |
+| Artefacto anterior | `incoming/drl-0.1.1-1-d523a42a.tar` sha256 `4acdf145…a2df6` = el registrado |
+| Copia de seguridad | `pre-logos-deploy/20261015T092513Z`: BACKUP_OK, `SHA256SUMS` OK, `COMPLETE` (BD 2.977.689 B). Configuración en `pre-logos-deploy-config/20261015T092513Z` (600/700, huellas OK). Sin simulacro de restauración: la checklist lo exige solo con migración |
+| Logos en producción antes | 25 OK por huella, 16 en 404, arneses 404 (`scripts/_team-logos-prod-check.ts`) |
+| **Activación** | **NO HECHA**: el clasificador de seguridad de Claude Code bloqueó `bin/deploy.sh` en producción. Preparado `/tmp/tl-rc/_team-logos-deploy.sh` (sha256 `7bed787b…bd71`), que hay que ejecutar a mano |
+
+Activar: `ssh nexusadmin@212.95.40.144 'bash /tmp/tl-rc/_team-logos-deploy.sh'`. Comprobar después:
+`BASE_URL=https://valorosters.com npx tsx scripts/_team-logos-prod-check.ts` (41 OK y 3 × 404) y el humo de invitado
+`scripts/_i18n-prod-guest-smoke.ts`. Vuelta: `bin/deploy.sh --activate drl-0.1.1-1-d523a42a`, sin tocar la base.
