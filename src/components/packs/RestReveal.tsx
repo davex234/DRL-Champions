@@ -1,90 +1,127 @@
 "use client";
 
 /**
- * F81 · EL RESTO DEL SOBRE — las demás cartas (sin la hero), en el orden de presentación (OVR descendente; empates en el
- * orden del servidor), girando en cascada rápida. PRESENTACIÓN PURA: las cartas ya son del jugador.
+ * EL RESTO DEL SOBRE — CARTA A CARTA (2026-10-15; antes, F81, una cascada de miniaturas). PRESENTACIÓN PURA: las cartas
+ * ya son del jugador. Orden = `plan.order` sin la hero (OVR descendente; empates en el orden del servidor), nunca otro.
  *
- * Avanza solo al resumen cuando termina la cascada (`restRevealMs`); un toque o «Ver resumen» lo adelanta. El botón no
- * existe hasta que termina la cascada: un doble clic en CONTINUAR no encadena «resto → resumen» sin ver las cartas.
+ * Cada carta tiene su propio momento: la sala vuelve a luz NEUTRA mientras el dorso se carga (`revealPrepMs`, más largo
+ * cuanto más alta la clase), la carta gira y la sala toma el color de SU rareza (`RevealAtmosphere`, en la pantalla
+ * madre). La posición la lleva la máquina (`revealReducer`: `restIndex`, `restShown`), así que un toque, Enter o →
+ * avanzan UN paso; ← o «Anterior» vuelven a una carta ya vista (boca arriba, sin girar otra vez) y, desde la primera, a
+ * la hero. Los puntos de arriba solo colorean cartas YA vistas: no adelantan la rareza de ninguna.
  */
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import type { RevealItem } from "@/domain/packs/reveal";
-import { REST_STAGGER_MS, REST_STAGGER_REDUCED_MS, restRevealMs } from "@/domain/packs/reveal";
+import { CARD_FLIP_MS, CARD_FLIP_REDUCED_MS, NEUTRAL_ATMOSPHERE, atmosphereForCard, revealPrepMs } from "@/domain/packs/atmosphere";
 import { getVariant } from "@/domain/cards/variants";
-import { PlayerCard } from "@/components/cards/PlayerCard";
-import { CardVisual } from "@/components/cards/CardVisual";
 import { NxButton } from "@/components/ui/NxButton";
-import { CardBack } from "./CardBack";
+import { playReveal } from "@/lib/sound";
+import { buzz } from "@/lib/haptics";
+import { RevealSpotlight, useSpotlightScale } from "./RevealSpotlight";
 import { ns } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 
 const tr = ns("packs");
 
-const W = 140; // `PlayerCard` sm se escala a esta anchura dentro de la cuadrícula
+/** Ficha + botones + puntos de posición. */
+const REST_RESERVED_H = 330;
 
-export function RestReveal({ items, reduced, onDone, onAdvance }: {
+export function RestReveal({ items, index, shown, reduced, onShown, onNext, onBack }: {
   items: readonly RevealItem[];
+  /** Carta en escena (0…n-1) y si ya giró: los lleva `revealReducer`. */
+  index: number;
+  shown: boolean;
   reduced: boolean;
-  onDone: () => void;
-  onAdvance: () => void;
+  onShown: () => void;
+  /** Un paso adelante (girar ya / la siguiente / el resumen). */
+  onNext: () => void;
+  /** Un paso atrás (la anterior ya vista; desde la primera, la hero). */
+  onBack: () => void;
 }) {
   useLocale();
-  const step = reduced ? REST_STAGGER_REDUCED_MS : REST_STAGGER_MS;
-  const total = restRevealMs(items.length, reduced);
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    const r = setTimeout(() => setReady(true), Math.max(0, total - 350));
-    const t = setTimeout(onDone, total + 900);
-    return () => { clearTimeout(r); clearTimeout(t); };
-  }, [total, onDone]);
-
+  const scale = useSpotlightScale(REST_RESERVED_H);
+  const item = items[Math.max(0, Math.min(items.length - 1, index))];
+  if (!item) return null;
   return (
-    <div className="absolute inset-0 z-floating flex flex-col items-center justify-center overflow-y-auto px-4 py-16" onClick={onAdvance} data-testid="rest-reveal" data-count={items.length}>
-      <p className="nx-label text-center">{tr("Y además")}</p>
-      <ul className="mt-3 flex max-w-4xl flex-wrap justify-center gap-3 sm:gap-4" data-testid="rest-cards">
-        {items.map((it, k) => {
-          const accent = getVariant(it.card.variantId).palette.primary;
-          const delay = (k * step) / 1000;
-          return (
-            <li key={it.uid} className="flex flex-col items-center" style={{ width: W }} data-testid="rest-card" data-uid={it.uid} data-ovr={it.card.ovr} data-status={it.status}>
-              <div className="relative" style={{ width: W, height: (W * 7) / 5, perspective: 900 }}>
-                {reduced ? (
-                  /* Movimiento reducido: sin giro; la cara aparece con un fundido corto, en la misma cascada. */
-                  <motion.div className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay, duration: 0.26 }}>
-                    <CardVisual uid={it.uid} alt={tr("Carta de {cardId}", { cardId: it.cardId })} chamfer="10px" className="w-full">
-                      <PlayerCard card={it.card} size="sm" serial={it.serial ?? undefined} interactive={false} className="!w-full" />
-                    </CardVisual>
-                  </motion.div>
-                ) : (
-                  <motion.div className="absolute inset-0" style={{ transformStyle: "preserve-3d" }}
-                    initial={{ rotateY: 0, opacity: 0, y: 18 }} animate={{ rotateY: 180, opacity: 1, y: 0 }}
-                    transition={{ delay, duration: 0.45, ease: "easeOut" }}>
-                    <CardBack accent={accent} chargeColor={accent} charged={1} pulse={false} className="absolute inset-0 w-full" style={{ backfaceVisibility: "hidden" }} />
-                    <div className="absolute inset-0" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}>
-                      <CardVisual uid={it.uid} alt={tr("Carta de {cardId}", { cardId: it.cardId })} chamfer="10px" className="w-full">
-                        <PlayerCard card={it.card} size="sm" serial={it.serial ?? undefined} interactive={false} className="!w-full" />
-                      </CardVisual>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-              <p className="mt-1.5 w-full truncate text-center font-display text-caption font-bold uppercase tracking-wide text-white">
-                {it.player?.nick ?? it.cardId}<span className="nx-readout ml-1.5 text-ink-secondary">{it.card.ovr}</span>
-              </p>
-              {it.status === "duplicate" && <p className="font-display text-label uppercase tracking-wide2 text-ink-faint">{tr("Duplicada · ×")}{it.copiesAfter}</p>}
-              {it.status === "new" && <p className="font-display text-label uppercase tracking-wide2 text-[#3fc07a]">{it.newVariant ? tr("Nueva variante") : tr("Nueva")}</p>}
-            </li>
-          );
-        })}
-      </ul>
-      <div className="mt-6 min-h-[56px]" onClick={(e) => e.stopPropagation()}>
-        {ready && (
-          <NxButton variant="primary" size="lg" onClick={onAdvance} data-testid="rest-continue" className="!min-h-[52px]">
-            {tr("Ver resumen")}
+    <div className="absolute inset-0 z-floating flex flex-col items-center justify-center overflow-hidden px-4 pt-14" onClick={onNext}
+      data-testid="rest-reveal" data-count={items.length} data-index={index} data-shown={String(shown)}>
+      <RestPips items={items} index={index} shown={shown} />
+      <RestCard key={item.uid} item={item} index={index} total={items.length} shown={shown} reduced={reduced} scale={scale} onShown={onShown} onNext={onNext} onBack={onBack} />
+    </div>
+  );
+}
+
+/** Posición en el resto. Una carta aún sin ver es un punto neutro: los puntos nunca anticipan una rareza. */
+function RestPips({ items, index, shown }: { items: readonly RevealItem[]; index: number; shown: boolean }) {
+  return (
+    <ol className="absolute left-1/2 top-4 flex -translate-x-1/2 items-center gap-1.5" style={{ marginTop: "env(safe-area-inset-top)" }} aria-hidden data-testid="rest-pips">
+      {items.map((it, k) => {
+        const seen = k < index || (k === index && shown);
+        const color = seen ? atmosphereForCard(it.card).glow : NEUTRAL_ATMOSPHERE.glow;
+        return (
+          <li key={it.uid} className="h-1.5 rounded-full transition-all duration-300"
+            style={{ width: k === index ? 22 : 8, background: color, opacity: seen || k === index ? 1 : 0.35, boxShadow: seen ? `0 0 8px ${color}` : undefined }}
+            data-seen={String(seen)} />
+        );
+      })}
+    </ol>
+  );
+}
+
+function RestCard({ item, index, total, shown, reduced, scale, onShown, onNext, onBack }: {
+  item: RevealItem; index: number; total: number; shown: boolean; reduced: boolean; scale: number;
+  onShown: () => void; onNext: () => void; onBack: () => void;
+}) {
+  const atmosphere = atmosphereForCard(item.card);
+  // Montada boca abajo = se revela AHORA; montada boca arriba = se ha vuelto a ella.
+  const fresh = useRef(!shown).current;
+  const flipMs = reduced ? CARD_FLIP_REDUCED_MS : CARD_FLIP_MS;
+  const prepMs = revealPrepMs(atmosphere.tier, reduced);
+
+  /* El reloj solo AVISA: el giro lo decide la máquina (`REST_SHOWN`). Un toque antes lo adelanta (`ADVANCE`). */
+  useEffect(() => {
+    if (shown) return;
+    const t = setTimeout(onShown, prepMs);
+    return () => clearTimeout(t);
+  }, [shown, prepMs, onShown]);
+  useEffect(() => {
+    if (!shown || !fresh) return;
+    playReveal(getVariant(item.card.variantId)?.rank ?? 1);
+    if (atmosphere.tier >= 2) buzz("point");
+    // Solo al girar ESTA carta.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shown]);
+
+  const last = index + 1 >= total;
+  return (
+    <div className="flex w-full flex-col items-center" data-testid="rest-card" data-uid={item.uid} data-card-id={item.cardId} data-ovr={item.card.ovr}
+      data-status={item.status} data-rarity={item.rarity} data-atmosphere={shown ? atmosphere.key : "neutral"} data-shown={String(shown)}>
+      <p className="sr-only" aria-live="polite">{shown ? item.announcement : ""}</p>
+      <RevealSpotlight
+        item={item}
+        card={item.card}
+        uid={item.uid}
+        serial={item.serial}
+        atmosphere={atmosphere}
+        revealed={shown}
+        fresh={fresh}
+        reduced={reduced}
+        flipMs={flipMs}
+        charge={shown ? 1 : 0.6}
+        accent={atmosphere.glow}
+        scale={scale}
+        header={<p className="font-display text-label font-bold uppercase tracking-wide2 text-white/70" data-testid="rest-prep">{tr("Carta {v} de {total}", { v: index + 2, total: total + 1 })}</p>}
+      >
+        <motion.div className="mt-2 flex w-full max-w-[360px] items-center justify-center gap-2" initial={false} animate={{ opacity: 1 }}>
+          <NxButton variant="secondary" size="lg" onClick={(e) => { e.stopPropagation(); onBack(); }} data-testid="rest-back" className="!min-h-[52px] flex-1" aria-label={tr("Carta anterior")}>
+            {tr("Anterior")}
           </NxButton>
-        )}
-      </div>
+          <NxButton variant="primary" size="lg" onClick={(e) => { e.stopPropagation(); onNext(); }} data-testid="rest-continue" data-action={!shown ? "reveal" : last ? "summary" : "next"} className="!min-h-[52px] flex-[1.4]">
+            {!shown ? tr("Revelar") : last ? tr("Ver resumen") : tr("Siguiente · {v} más", { v: total - index - 1 })}
+          </NxButton>
+        </motion.div>
+      </RevealSpotlight>
     </div>
   );
 }

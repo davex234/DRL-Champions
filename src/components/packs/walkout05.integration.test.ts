@@ -137,7 +137,7 @@ test("P17 · RECARGA a mitad (recuperación): resumen directo de lo guardado, si
   assert.equal(r.phase, "summary"); assert.equal(r.recovered, true);
   assert.equal(run(INITIAL_REVEAL, { type: "RECOVERED", count: 5 }).phase, "summary");
   const src = read("src/components/packs/PackOpeningExperience.tsx");
-  assert.match(src, /una recuperación va al resumen directo: el walkout no se repite tras recargar/);
+  assert.match(src, /una recuperación va al resumen directo: la ceremonia no se repite tras recargar/);
 });
 test("P18 · doble clic en ABRIR = una petición; con walkouts también (la máquina no cambia)", () => {
   const s = run(INITIAL_REVEAL, { type: "OPEN_REQUESTED" }, { type: "OPEN_REQUESTED" });
@@ -164,11 +164,12 @@ test("P20 · el walkout no conoce la red, el store, el inventario ni el servidor
     assert.doesNotMatch(src, /fetch\(|openPack|apiOpenPack|useGameStore|@\/server\/|supabase|economy|ownedCards|unopenedPacks/, f);
   }
 });
-test("P21 · la apertura sigue pidiendo UNA vez con la misma clave y guarda lo mismo: el walkout se calcula DESPUÉS del resultado y no entra en la petición", () => {
+test("P21 · la apertura sigue pidiendo UNA vez con la misma clave y guarda lo mismo; desde 2026-10-15 sin ritmo de walkouts", () => {
   const src = read("src/components/packs/PackOpeningExperience.tsx");
   assert.match(src, /const out = await openPackOutcome\(packId\);\n\s+res = out\.results;/);
   assert.match(src, /saveOpenReveal\(packId, res\);/);
-  assert.match(src, /dispatch\(\{ type: "OPEN_SUCCEEDED", count: res\.length, repeated, cinematic: heroIsPresentable\(res\), \.\.\.ceremonyFlow\(res\) \}\)/);
+  assert.match(src, /dispatch\(\{ type: "OPEN_SUCCEEDED", count: res\.length, repeated, cinematic: heroIsPresentable\(res\) \}\)/);
+  assert.doesNotMatch(src, /ceremonyFlow|walkoutFlow|packWalkoutQueue/);
   // REPETIR es solo la animación del director (ninguna llamada fuera de él)
   assert.match(read("src/components/packs/PackWalkout.tsx"), /const replay = \(\) => \{ primeAudio\(\); trackFlow\("pack_ceremony", "walkout_replay"\); ref\.current\?\.replay\(\); \};/);
 });
@@ -181,9 +182,9 @@ test("P22 · las escenas QA usan cartas REALES del catálogo y el número de car
 
 /* ───────── despliegue, carga, fallos ───────── */
 
-test("P23 · desde Walkout 0.7 el despliegue está en «all» (autorizado por el propietario); en producción no hay vía local ni de QA; «admins» solo con el veredicto explícito del servidor", () => {
-  assert.equal(PACK_WALKOUT_3D_ENABLED, "all");
-  assert.equal(packWalkoutAllowed({ rollout: PACK_WALKOUT_3D_ENABLED, admin: null, devOptIn: false, production: true }), true, "cualquier jugador, sin sesión admin ni ajustes locales");
+test("P23 · 2026-10-15: el walkout salió de la apertura («eliminar el monigote») y el interruptor queda en «off»; la regla de despliegue sigue siendo la misma", () => {
+  assert.equal(PACK_WALKOUT_3D_ENABLED, "off");
+  assert.equal(packWalkoutAllowed({ rollout: PACK_WALKOUT_3D_ENABLED, admin: null, devOptIn: false, production: true }), false, "nadie");
   const base = { rollout: "off" as const, admin: null, devOptIn: false, production: true };
   assert.equal(packWalkoutAllowed(base), false);
   assert.equal(packWalkoutAllowed({ ...base, devOptIn: true }), false, "en producción el opt-in local no cuenta");
@@ -192,13 +193,12 @@ test("P23 · desde Walkout 0.7 el despliegue está en «all» (autorizado por el
   for (const g of ["checking", "denied", "unconfigured", null] as const) assert.equal(packWalkoutAllowed({ ...base, rollout: "admins", admin: g }), false, String(g));
   assert.equal(packWalkoutAllowed({ ...base, rollout: "admins", admin: "granted" }), true);
   assert.equal(packWalkoutAllowed({ ...base, rollout: "all" }), true);
-  // sin «admins», ni siquiera se pregunta al servidor
-  assert.match(read("src/components/packs/PackOpeningExperience.tsx"), /\{PACK_WALKOUT_3D_ENABLED === "admins" && <AdminProbe onResult=\{setAdminGate\} \/>\}/);
+  // la apertura ni lee el interruptor ni pregunta al servidor si eres admin
+  assert.doesNotMatch(read("src/components/packs/PackOpeningExperience.tsx"), /PACK_WALKOUT_3D_ENABLED|AdminProbe|useAdminSession|packWalkoutAllowed/);
 });
-test("P24 · carga diferida: la apertura importa el walkout con next/dynamic (ssr:false); three.js solo lo importan los módulos de escena", () => {
+test("P24 · la apertura ya no carga el walkout (ni next/dynamic ni three.js); three.js solo lo importan los módulos de escena", () => {
   const src = read("src/components/packs/PackOpeningExperience.tsx");
-  assert.match(src, /const loadPackWalkout = \(\) => import\("\.\/PackWalkout"\);/);
-  assert.match(src, /dynamic\(\(\) => loadPackWalkout\(\)\.then\(\(m\) => m\.PackWalkout\), \{\n\s+ssr: false,/);
+  assert.doesNotMatch(src, /PackWalkout|loadPackWalkout|next\/dynamic/);
   assert.doesNotMatch(src, /from "@\/components\/walkout\/|from "three"/);
   assert.doesNotMatch(read("src/components/packs/PackWalkout.tsx"), /from "three"/);
 });
@@ -208,7 +208,7 @@ test("P25 · un fallo del walkout nunca bloquea: frontera de errores → se regi
   assert.match(src, /const onFail = useCallback\(\(e: unknown\) => \{[\s\S]*?finish\(\);/);
   assert.match(src, /className="absolute inset-x-0 bottom-0 z-surface isolate/);
   const exp = read("src/components/packs/PackOpeningExperience.tsx");
-  assert.match(exp, /<PackWalkout key=\{walkoutItem\.uid\}/, "una escena por carta: se desmonta y libera antes de la siguiente");
+  assert.doesNotMatch(exp, /<PackWalkout/, "2026-10-15: el walkout ya no se monta en la apertura (solo en /admin/walkout)");
 });
 test("P26 · audio que falla (contexto que lanza, nodo que no se crea) → la escena sigue en silencio, sin excepción", () => {
   const a = new WalkoutAudio(() => { throw new Error("audio roto"); });

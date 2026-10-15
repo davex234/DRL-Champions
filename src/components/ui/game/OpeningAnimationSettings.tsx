@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * WALKOUT 0.8 · AJUSTE «ANIMACIONES DE APERTURA» — Cinemática 3D · Automático · Reducidas (ver `lib/walkout/animationPref`).
+ * WALKOUT 0.8 · AJUSTE «ANIMACIONES DE APERTURA» — Cinemática · Automático · Reducidas (ver `lib/walkout/animationPref`).
  * Se guarda en este dispositivo, como el sonido. Botones nativos con `aria-pressed` (teclado y lector de pantalla), 44 px.
  */
 import { useEffect, useState } from "react";
@@ -28,7 +28,7 @@ export function OpeningAnimationSettings({ className }: { className?: string }) 
     <div className={cn("space-y-3", className)} data-testid="opening-animation-settings" data-pref={pref}>
       <div>
         <span className="font-display text-[15px] font-bold uppercase tracking-[0.08em] text-white">{t("Animaciones de apertura")}</span>
-        <span className="mt-0.5 block text-[12px] text-white/50">{t("Cómo se presentan las cartas especiales al abrir sobres")}</span>
+        <span className="mt-0.5 block text-[12px] text-white/50">{t("Cómo se presentan las cartas al abrir sobres")}</span>
       </div>
       <div role="group" aria-label={t("Animaciones de apertura")} className="grid grid-cols-3 gap-2">
         {OPENING_ANIMATIONS.map((o) => {

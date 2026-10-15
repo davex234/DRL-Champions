@@ -69,31 +69,19 @@ import { MAIN_PACK_LINE } from "@/domain/packs/packClass";
 import { NextUpAfter } from "@/components/liveService/NextUpAfter";
 import { PackStatus } from "./PackStatus";
 import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
-import dynamic from "next/dynamic";
-import { PACK_WALKOUT_3D_ENABLED } from "@/config/features";
-import { PACK_WALKOUT_DEV_KEY, packWalkoutAllowed, packWalkoutQueue, walkoutFlow, type PackWalkoutItem } from "@/domain/walkout/packWalkout";
-import { useAdminSession } from "@/lib/supabase/useAdminSession";
+import { RevealAtmosphere } from "./RevealAtmosphere";
+import { sceneAtmosphere } from "@/domain/packs/atmosphere";
+import { openingReduced, useOpeningAnimation } from "@/lib/walkout/animationPref";
 import { ns, td } from "@/i18n/runtime";
 import { useCriticalOperation, useLocale } from "@/i18n/react";
 
 const tr = ns("packs");
 
 /*
- * WALKOUT 0.5 · el walkout se carga BAJO DEMANDA (solo si esta apertura trae una carta especial y el despliegue lo
- * permite); three.js, a su vez, solo si su escenario 3D llega a montarse. Mientras llega el código, un fondo oscuro.
+ * APERTURA 2026-10-15 · SIN WALKOUT. La figura 3D (Walkout 0.5–0.9) ya no forma parte de la apertura: la protagonista es
+ * la carta. La escena es sobre → rotura → hero → resto carta a carta → resumen, y la sala toma el color de la RAREZA de
+ * cada carta al revelarla (`RevealAtmosphere`). El walkout sigue existiendo solo como vista previa en `/admin/walkout`.
  */
-const loadPackWalkout = () => import("./PackWalkout");
-const PackWalkout = dynamic(() => loadPackWalkout().then((m) => m.PackWalkout), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 z-surface grid place-items-center bg-[#030409] font-display text-label font-bold uppercase tracking-wide2 text-white/60" role="status">{tr("Preparando…")}</div>,
-});
-
-/** Pregunta al servidor si la cuenta es admin SOLO cuando el despliegue es «admins» (con «off» no se monta: 0 peticiones). */
-function AdminProbe({ onResult }: { onResult: (g: ReturnType<typeof useAdminSession>) => void }) {
-  const gate = useAdminSession();
-  useEffect(() => { onResult(gate); }, [gate, onResult]);
-  return null;
-}
 
 const CUT_DISTANCE = 220; // px de deslizamiento para abrir
 const CATALOG = { cards: CARDS, getCard, getPlayer };
@@ -111,21 +99,25 @@ function heroIsPresentable(res: readonly OpenedResult[]): boolean {
   return false;
 }
 
-export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
+export function PackOpeningExperience({ packId, qaOpen }: {
   packId: string;
   /**
    * F81 · SOLO arneses QA (`/design-system/fase81`, 404 en producción): un resultado FIJO en lugar del servidor/motor,
    * para probar la ceremonia real de forma determinista. La ruta pública (`/abrir/[packId]`) nunca lo pasa.
    */
   qaOpen?: (packId: string) => OpenedResult[];
-  /** WALKOUT 0.5 · SOLO arneses QA (fuera de producción no cuenta): presenta el walkout aunque el despliegue esté en «off». */
-  qaWalkout?: boolean;
 }) {
   useLocale();
   // I18N · con la apertura en pantalla, un cambio de idioma (otra pestaña, la cuenta) espera a que termine.
   useCriticalOperation(true);
   const router = useRouter();
-  const reduced = !!useReducedMotion();
+  /*
+   * Movimiento reducido: el del sistema, salvo que el jugador haya elegido otra cosa en «Animaciones de apertura»
+   * (Cinemáticas = animación completa; Reducidas = siempre corta). Solo cambia CÓMO se presenta, nunca qué sale.
+   */
+  const systemReduced = !!useReducedMotion();
+  const openingPref = useOpeningAnimation();
+  const reduced = openingReduced(openingPref, systemReduced);
   usePacksVersion(); // F60: un sobre del panel llega con la sincronización de contenido
   const pack = getPack(packId);
   const { user } = useAuth();
@@ -163,18 +155,6 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
   useMusicDuck(packMusicDuck(phase));
   useEffect(() => () => { if (phaseRef.current === "summary") clearOpenReveal(); }, []);
   const [results, setResults] = useState<OpenedResult[]>([]);
-  /*
-   * WALKOUT 0.5 · ¿se presenta el walkout a este jugador? (despliegue + veredicto del servidor + prueba local). La cola se
-   * FIJA al recibir el resultado: un veredicto que llegue tarde no cambia una ceremonia ya empezada.
-   */
-  const [adminGate, setAdminGate] = useState<ReturnType<typeof useAdminSession> | null>(null);
-  const [devOptIn, setDevOptIn] = useState(false);
-  useEffect(() => {
-    if (process.env.NODE_ENV === "production") return;
-    try { setDevOptIn(window.localStorage.getItem(PACK_WALKOUT_DEV_KEY) === "1"); } catch { /* sin almacenamiento: apagado */ }
-  }, []);
-  const walkoutOn = packWalkoutAllowed({ rollout: PACK_WALKOUT_3D_ENABLED, admin: adminGate, devOptIn, production: process.env.NODE_ENV === "production", qa: qaWalkout });
-  const [walkoutItems, setWalkoutItems] = useState<PackWalkoutItem[]>([]);
   const [before, setBefore] = useState<OwnedInstanceFact[] | null>(null);
   const [cutProgress, setCutProgress] = useState(0);
   /** Fase 25 · «Añadir al equipo» desde el resumen: la carta elegida para el mazo. */
@@ -219,19 +199,6 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
    * Abre el sobre. Con sesión iniciada la tirada la DECIDE EL SERVIDOR (`/api/game/packs`), y aquí solo se presenta
    * el resultado que devuelve. Sin sesión se usa el motor local (modo de un solo jugador).
    */
-  /**
-   * WALKOUT 0.5 · qué especiales de ESTE resultado (ya persistido) se presentan con un walkout y cómo encaja en el ritmo.
-   * Solo lee: ni una carta, ni un orden del contenido, ni una petición. Con el despliegue apagado → 0 walkouts.
-   */
-  const ceremonyFlow = useCallback((res: readonly OpenedResult[]) => {
-    if (!walkoutOn) { setWalkoutItems([]); return {}; }
-    const p = buildRevealPlan(toOpenedInstances(res), null, CATALOG);
-    const queue = packWalkoutQueue(p.order);
-    setWalkoutItems(queue);
-    if (queue.length > 0) void loadPackWalkout().catch(() => undefined);   // el código del walkout, mientras se rasga el sobre
-    return walkoutFlow(res.length, p.hero.ok ? p.hero.hero.uid : null, queue);
-  }, [walkoutOn]);
-
   const triggerOpen = useCallback(async () => {
     if (opened.current) return;
     opened.current = true;
@@ -276,9 +243,9 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
     saveOpenReveal(packId, res);
     if (!repeated) useEventsStore.getState().recordPackOpened(packId, res);
     trackFlow("pack_ceremony", `pack_opened:${packId}:${res.length}`);
-    dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res), ...ceremonyFlow(res) });
+    dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res) });
     playBurst();
-  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, currentHoldings, qaOpen, ceremonyFlow]);
+  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, currentHoldings, qaOpen]);
 
   /* F81 · INTRO (el sobre se rasga y suelta sus cartas) → TENSIÓN. Los relojes solo avisan; manda la máquina. */
   useEffect(() => {
@@ -357,8 +324,8 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
   /* F81 · la cinemática: relojes que solo avisan y gestos que avanzan un paso. Ninguno toca el resultado. */
   const onBuildupDone = useCallback(() => dispatch({ type: "BUILDUP_DONE" }), []);
   const onHeroShown = useCallback(() => dispatch({ type: "HERO_SHOWN" }), []);
-  const onRestDone = useCallback(() => dispatch({ type: "REST_DONE" }), []);
-  const onWalkoutDone = useCallback(() => dispatch({ type: "WALKOUT_DONE" }), []);
+  const onRestShown = useCallback(() => dispatch({ type: "REST_SHOWN" }), []);
+  const back = useCallback(() => { primeAudio(); dispatch({ type: "BACK" }); }, []);
   const advance = useCallback(() => { primeAudio(); dispatch({ type: "ADVANCE" }); }, []);
   const continueFromHero = useCallback(() => { trackFlow("pack_ceremony", "hero_continue"); dispatch({ type: "CONTINUE" }); }, []);
 
@@ -384,7 +351,6 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
     nextBefore.current = before ? [...before, ...openedInstances.map(toInstanceFact)] : undefined;
     nextHoldings.current = before ? (beforeHoldings ? holdingsPlus(beforeHoldings, openedInstances) : null) : undefined;
     setResults([]);
-    setWalkoutItems([]);
     setCutProgress(0);
     resetProgression(); // Fase 27: los deltas eran de la apertura anterior.
     personal.refresh();
@@ -420,7 +386,7 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
         const out = await openPackOutcome(packId);
         setResults(out.results);
         saveOpenReveal(packId, out.results);
-        // (una recuperación va al resumen directo: el walkout no se repite tras recargar)
+        // (una recuperación va al resumen directo: la ceremonia no se repite tras recargar)
         dispatch({ type: "OPEN_SUCCEEDED", count: out.results.length, repeated: out.repeated, cinematic: heroIsPresentable(out.results) });
       } catch (e) {
         opened.current = false;
@@ -442,7 +408,8 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
 
   /**
    * TECLADO. Enter/Espacio: abrir; durante la cinemática, avanzar UN paso (nunca se salta la hero); con la hero quieta,
-   * CONTINUAR. «S»/Escape: omitir al resumen — solo con el resultado ya en mano, así que nunca pierde nada.
+   * CONTINUAR. ←: en el resto, la carta anterior (o la hero). «S»/Escape: omitir al resumen — solo con el resultado ya en
+   * mano, así que nunca pierde nada.
    */
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -452,19 +419,19 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
         return;
       }
       if (!hasResult(state) || phase === "summary") return;
-      // WALKOUT 0.5 · durante un walkout, Escape/Enter/Espacio/→ son SUYOS (saltar esta animación / continuar); «S» omite todo.
-      if (phase === "walkout") { if (k === "s" || k === "S") { e.preventDefault(); skipToSummary(); } return; }
       if (k === "s" || k === "S" || k === "Escape") { e.preventDefault(); skipToSummary(); }
+      else if (k === "ArrowLeft" && phase === "rest") { e.preventDefault(); back(); }
       else if (k === "Enter" || k === " " || k === "ArrowRight") {
         e.preventDefault();
-        // Con el foco en CONTINUAR el navegador ya pulsa el botón con Enter/Espacio: no se cuenta dos veces.
+        // Con el foco en un botón el navegador ya lo pulsa con Enter/Espacio: no se cuenta dos veces.
         if (phase === "hero_hold" && document.activeElement === continueButton.current) return;
+        if (phase === "rest" && k !== "ArrowRight" && document.activeElement instanceof HTMLButtonElement) return;
         if (phase === "hero_hold") continueFromHero(); else advance();
       }
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [phase, state, openWithButton, advance, continueFromHero, skipToSummary]);
+  }, [phase, state, openWithButton, advance, back, continueFromHero, skipToSummary]);
 
   const navigate = useCallback((href: string) => {
     if (href === "/packs") clearOpenReveal();
@@ -500,24 +467,29 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
 
   const best = plan.summary.featured;
   const heroResult = best ? results.find((r) => r.uid === best.uid) : undefined;
-  const walkedUids = new Set(walkoutItems.map((w) => w.uid));
-  const restItems = plan.order.filter((i) => i.uid !== best?.uid && !walkedUids.has(i.uid));
-  const walkoutItem = phase === "walkout" ? walkoutItems[state.walkoutIndex] : undefined;
+  const restItems = plan.order.filter((i) => i.uid !== best?.uid);
   const slots: HandSlot[] = results.map((r) => ({ revealed: false, color: getVariant(r.card.variantId).palette.primary }));
   const stageKind = phase === "ready" || phase === "requesting" || phase === "opening" ? phase : null;
   const heroStage = phase === "buildup" || phase === "hero" || phase === "hero_hold" ? phase : null;
   const bestResult = heroResult;
   const showSkip = hasResult(state) && phase !== "summary";
+  /*
+   * LA SALA de la revelación: el color de la RAREZA de la carta que está en escena, y luz neutra mientras se prepara cada
+   * giro. Se calcula en el MISMO render que la carta: nunca enseña el color de la anterior. Sin sala: sobre cerrado,
+   * rotura y resumen (cada uno con su escena).
+   */
+  const { card: sceneCard, atmosphere } = sceneAtmosphere(state, best, restItems);
 
   return (
-    <div className="fixed inset-0 z-modal overflow-hidden bg-[#03040a]" data-testid="pack-opening" data-phase={phase} data-requests={state.requests} data-hero-uid={best?.uid ?? ""} data-walkouts={state.walkouts}>
-      {PACK_WALKOUT_3D_ENABLED === "admins" && <AdminProbe onResult={setAdminGate} />}
+    <div className="fixed inset-0 z-modal overflow-hidden bg-[#03040a]" data-testid="pack-opening" data-phase={phase} data-requests={state.requests} data-hero-uid={best?.uid ?? ""}
+      data-rest-index={phase === "rest" ? state.restIndex : ""} data-reduced={String(reduced)}>
       <PackBackdrop
         accent={accent}
         ambient={phase === "ready" || phase === "requesting"}
         reduced={reduced}
         intensity={phase === "ready" ? 0.6 : phase === "requesting" || phase === "opening" ? 1 : 0.45}
       />
+      <RevealAtmosphere atmosphere={atmosphere} reduced={reduced} cardUid={sceneCard?.uid ?? null} />
 
       {/* Cerrar. 44 px. Cerrar nunca pierde nada: lo abierto ya está guardado en el servidor. */}
       <button
@@ -565,12 +537,7 @@ export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
         />
       )}
 
-      {/* WALKOUT 0.5 · cada especial, su walkout (una escena por carta: se desmonta y libera antes de la siguiente) */}
-      {walkoutItem && (
-        <PackWalkout key={walkoutItem.uid} item={walkoutItem} index={state.walkoutIndex} total={walkoutItems.length} reduced={reduced} onDone={onWalkoutDone} />
-      )}
-
-      {phase === "rest" && <RestReveal items={restItems} reduced={reduced} onDone={onRestDone} onAdvance={advance} />}
+      {phase === "rest" && <RestReveal items={restItems} index={state.restIndex} shown={state.restShown} reduced={reduced} onShown={onRestShown} onNext={advance} onBack={back} />}
 
       {/*
         OMITIR desde que existe el resultado (intro, tensión, hero, resto): lleva al resumen de ESAS MISMAS cartas. No

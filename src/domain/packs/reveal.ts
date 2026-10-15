@@ -474,6 +474,14 @@ export interface RevealState {
   walkoutIndex: number;
   heroWalked: boolean;
   rest: number;
+  /**
+   * APERTURA 2026-10-15 · el resto se revela CARTA A CARTA (cada una con su ambiente de rareza): cuál está en escena
+   * (0…rest-1) y si ya giró. Solo presentación: el orden es el de `plan.order` sin la hero, nunca se reordena.
+   */
+  restIndex: number;
+  restShown: boolean;
+  /** La última carta del resto que YA giró (-1 = ninguna): al volver a avanzar tras retroceder, esas no giran otra vez. */
+  restSeen: number;
 }
 
 export type RevealEvent =
@@ -488,6 +496,8 @@ export type RevealEvent =
   | { type: "ADVANCE" }
   | { type: "CONTINUE" }
   | { type: "REST_DONE" }
+  | { type: "REST_SHOWN" }
+  | { type: "BACK" }
   | { type: "WALKOUT_DONE" }
   | { type: "SKIP" }
   | { type: "DISMISS_ERROR" }
@@ -495,7 +505,7 @@ export type RevealEvent =
 
 export const INITIAL_REVEAL: RevealState = {
   phase: "ready", count: 0, requests: 0, repeated: false, recovered: false, skipped: false, cinematic: true, failure: null,
-  walkouts: 0, walkoutIndex: 0, heroWalked: false, rest: 0,
+  walkouts: 0, walkoutIndex: 0, heroWalked: false, rest: 0, restIndex: 0, restShown: false, restSeen: -1,
 };
 
 const RESULT_PHASES: readonly RevealPhase[] = ["opening", "walkout", "buildup", "hero", "hero_hold", "rest", "summary"];
@@ -503,7 +513,14 @@ const RESULT_PHASES: readonly RevealPhase[] = ["opening", "walkout", "buildup", 
 export const hasResult = (s: RevealState): boolean => s.count > 0 && RESULT_PHASES.includes(s.phase);
 export const canOpen = (s: RevealState): boolean => s.phase === "ready";
 /** Tras la hero: el resto escalonado solo si quedan cartas (sin walkouts, las demás); con una sola, la hero ES el sobre. */
-const afterHero = (s: RevealState): RevealState => (s.rest > 0 ? { ...s, phase: "rest" } : { ...s, phase: "summary" });
+const afterHero = (s: RevealState): RevealState => (s.rest > 0 ? { ...s, phase: "rest", restIndex: 0, restShown: s.restSeen >= 0 } : { ...s, phase: "summary" });
+/** Un paso en el resto: girar la carta en escena; si ya giró, la siguiente (boca arriba si ya se vio); tras la última, el resumen. */
+const restStep = (s: RevealState): RevealState => {
+  if (!s.restShown) return { ...s, restShown: true, restSeen: Math.max(s.restSeen, s.restIndex) };
+  if (s.restIndex + 1 >= s.rest) return { ...s, phase: "summary" };
+  const next = s.restIndex + 1;
+  return { ...s, restIndex: next, restShown: next <= s.restSeen };
+};
 /** Tras la intro: los walkouts (si los hay) y después la hero de siempre. */
 const afterIntro = (s: RevealState): RevealState => (s.walkouts > 0 ? { ...s, phase: "walkout", walkoutIndex: 0 } : { ...s, phase: "buildup" });
 /** Tras el último walkout: la hero de siempre, salvo que la hero ya haya salido en su walkout. */
@@ -552,8 +569,14 @@ export function revealReducer(s: RevealState, e: RevealEvent): RevealState {
       if (s.phase === "opening" || s.phase === "buildup") return { ...s, phase: "hero" };
       if (s.phase === "hero") return { ...s, phase: "hero_hold" };
       if (s.phase === "hero_hold") return afterHero(s);
-      if (s.phase === "rest") return { ...s, phase: "summary" };
+      if (s.phase === "rest") return restStep(s);
       return s;
+    case "REST_SHOWN":
+      return s.phase === "rest" ? { ...s, restShown: true, restSeen: Math.max(s.restSeen, s.restIndex) } : s;
+    case "BACK":
+      // Volver a una carta YA vista (sin girarla otra vez); desde la primera del resto, a la hero quieta. Nada más retrocede.
+      if (s.phase !== "rest") return s;
+      return s.restIndex > 0 ? { ...s, restIndex: s.restIndex - 1, restShown: true } : { ...s, phase: "hero_hold" };
     case "CONTINUE":
       // El botón CONTINUAR solo existe con la hero quieta: un doble clic no encadena «resto → resumen».
       return s.phase === "hero_hold" ? afterHero(s) : s;
@@ -576,7 +599,7 @@ export const BUILDUP_MS: Record<RarityBucket, number> = { common: 650, uncommon:
 export const BUILDUP_REDUCED_MS = 550;
 export const HERO_FLIP_MS = 850;
 export const HERO_FLIP_REDUCED_MS = 450;
-/** El resto: una carta cada 110 ms (reducido 70 ms) y un respiro antes del resumen. */
+/** (F81, cascada antigua del resto; desde 2026-10-15 el resto va carta a carta: ver `domain/packs/atmosphere`.) */
 export const REST_STAGGER_MS = 110;
 export const REST_STAGGER_REDUCED_MS = 70;
 export const REST_SETTLE_MS = 650;

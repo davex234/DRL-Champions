@@ -15,15 +15,16 @@ import { packWalkoutAllowed } from "@/domain/walkout/packWalkout";
 
 const read = (p: string) => readFileSync(join(process.cwd(), p), "utf8");
 
-test("D01 · PACK_WALKOUT_3D_ENABLED = «all» desde Walkout 0.7 (nació en «off» en 0.6)", () => {
-  assert.equal(PACK_WALKOUT_3D_ENABLED, "all");
+test("D01 · PACK_WALKOUT_3D_ENABLED = «off» desde 2026-10-15 (el walkout salió de la apertura; «all» en 0.7–0.9)", () => {
+  assert.equal(PACK_WALKOUT_3D_ENABLED, "off");
 });
 
 test("D02 · en producción, ni la prueba local (localStorage) ni el arnés QA encienden el walkout", () => {
   assert.equal(packWalkoutAllowed({ rollout: "off", admin: null, devOptIn: true, production: true, qa: true }), false);
   assert.equal(packWalkoutAllowed({ rollout: "admins", admin: null, devOptIn: true, production: true, qa: true }), false);
+  // 2026-10-15 · la apertura ya no tiene vía alguna hacia el walkout (ni opt-in local ni arnés)
   const src = read("src/components/packs/PackOpeningExperience.tsx");
-  assert.match(src, /if \(process\.env\.NODE_ENV === "production"\) return;\s*\n\s*try \{ setDevOptIn\(window\.localStorage/);
+  assert.doesNotMatch(src, /PACK_WALKOUT_DEV_KEY|setDevOptIn|qaWalkout/);
 });
 
 test("D03 · /admin/walkout: protegida por el layout de /admin y sin ningún camino hacia la economía", () => {
@@ -74,8 +75,8 @@ test("D07 · /admin/walkout se pinta: una escena por cada una del arnés, con su
   const { packWalkoutQueue } = await import("@/domain/walkout/packWalkout");
   const { CARDS, getCard, getPlayer } = await import("@/data/catalog");
   const html = renderToStaticMarkup(createElement(Page));
-  assert.match(html, /data-rollout="all"/);
-  assert.match(html, /ALL — todos los jugadores/);
+  assert.match(html, /data-rollout="off"/);
+  assert.match(html, /OFF — nadie lo ve en la apertura real/);
   assert.ok(!/admin-walkout-stage/.test(html), "nada se reproduce hasta elegir escena");
   for (const s of Object.keys(WALKOUT_SCENES) as (keyof typeof WALKOUT_SCENES)[]) {
     const n = packWalkoutQueue(buildRevealPlan(toOpenedInstances(f81Results(s)), null, { cards: CARDS, getCard, getPlayer }).order).length;

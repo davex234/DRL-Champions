@@ -1,5 +1,6 @@
 /**
- * WALKOUT 0.8 · «ANIMACIONES DE APERTURA» — preferencia del jugador para el walkout de las cartas especiales.
+ * WALKOUT 0.8 · «ANIMACIONES DE APERTURA» — preferencia del jugador para la apertura de sobres (nació para el walkout de
+ * las cartas especiales; desde 2026-10-15 decide el movimiento de toda la apertura, que ya no lleva walkout).
  *
  *   CINEMÁTICA 3D  ("cinematic")  pide el walkout completo (persona 3D, túnel, celebración) aunque el sistema pida
  *                                  movimiento reducido. NUNCA salta una incompatibilidad técnica: sin WebGL, con el
@@ -22,9 +23,9 @@ export type OpeningAnimation = "cinematic" | "auto" | "reduced";
 export const OPENING_ANIMATION_KEY = "drl:opening-animation:v1";
 export const DEFAULT_OPENING_ANIMATION: OpeningAnimation = "auto";
 export const OPENING_ANIMATIONS: readonly { id: OpeningAnimation; label: string; hint: string }[] = [
-  { id: "cinematic", label: "Cinemática 3D", hint: "El walkout completo cuando tu navegador puede mostrar 3D" },
+  { id: "cinematic", label: "Cinemática", hint: "Animación completa aunque tu sistema pida menos movimiento" },
   { id: "auto", label: "Automático", hint: "Respeta la accesibilidad de tu sistema y la capacidad del equipo" },
-  { id: "reduced", label: "Reducidas", hint: "Presentación 2D corta, sin escena 3D" },
+  { id: "reduced", label: "Reducidas", hint: "Presentación corta, sin efectos de movimiento" },
 ];
 
 export function parseOpeningAnimation(raw: unknown): OpeningAnimation {
@@ -60,16 +61,21 @@ export function useOpeningAnimation(): OpeningAnimation {
   return useSyncExternalStore(onOpeningAnimationChange, getOpeningAnimation, () => DEFAULT_OPENING_ANIMATION);
 }
 
-/** ¿Se presenta el walkout en su versión reducida (2D corto)? La única decisión que la preferencia toma. */
-export function walkoutReduced(pref: OpeningAnimation, systemReduced: boolean): boolean {
+/**
+ * ¿Se presenta la apertura (y la vista previa del walkout) en su versión reducida? La única decisión que la preferencia
+ * toma. Desde 2026-10-15 rige la APERTURA DE SOBRES entera (el walkout ya no forma parte de ella).
+ */
+export function openingReduced(pref: OpeningAnimation, systemReduced: boolean): boolean {
   if (pref === "cinematic") return false;
   if (pref === "reduced") return true;
   return systemReduced;
 }
+/** Nombre histórico (Walkout 0.8): la vista previa del walkout lo sigue usando. */
+export const walkoutReduced = openingReduced;
 
 /** Qué modo está activo, en palabras del jugador (ajustes y reproductor). */
 export function describeOpeningMode(pref: OpeningAnimation, systemReduced: boolean): string {
-  if (pref === "cinematic") return t("Cinemática 3D");
-  if (pref === "reduced") return t("Reducidas (2D)");
-  return systemReduced ? t("Automático · 2D (tu sistema pide menos movimiento)") : t("Automático · 3D");
+  if (pref === "cinematic") return t("Cinemática");
+  if (pref === "reduced") return t("Reducidas");
+  return systemReduced ? t("Automático · reducidas (tu sistema pide menos movimiento)") : t("Automático · completas");
 }

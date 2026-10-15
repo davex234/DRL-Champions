@@ -66,8 +66,8 @@ test("A3 · la animación no toca el resultado: el plan conserva el ORDEN y las 
 
 test("A4 · la ceremonia sigue pidiendo UNA apertura al servidor y guarda el resultado antes de animar", () => {
   assert.ok(EXP.includes("const out = await openPackOutcome(packId);"));
-  // Walkout 0.5 · el éxito lleva además el ritmo de los walkouts (`ceremonyFlow`, solo presentación del resultado YA guardado)
-  const success = 'dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res), ...ceremonyFlow(res) });';
+  // 2026-10-15 · sin walkout: el éxito ya no lleva ritmo de walkouts (la apertura no tiene figura 3D)
+  const success = 'dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res) });';
   assert.ok(EXP.includes(success), "la ceremonia arranca con el resultado recibido");
   assert.ok(EXP.indexOf("saveOpenReveal(packId, res);") < EXP.indexOf(success), "el resultado se guarda antes de la ceremonia");
 });

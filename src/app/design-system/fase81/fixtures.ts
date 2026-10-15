@@ -3,12 +3,15 @@
  * y uids fijos por escena, para que el desempate de la hero sea reproducible.
  */
 import { CARDS } from "@/data/catalog";
+import { packCardClass, type PackCardClass } from "@/domain/packs/packClass";
 import type { CardDef } from "@/domain/cards/types";
 import type { OpenedResult } from "@/store/useGameStore";
 
 export type F81Scene = "normal" | "high" | "tie2" | "tieall" | "dup" | "single" | "invalid" | "plata-ref" | "team-g2"
   // WALKOUT 0.5 · aperturas con cartas especiales REALES (identidad = la de la carta: país, equipo, rol, edición, OVR)
-  | "w-tr" | "w-jp" | "w-us" | "w-kr" | "w-mega" | "w-dup" | "w-std" | "w-ph" | "w-icon" | "w-icon3";
+  | "w-tr" | "w-jp" | "w-us" | "w-kr" | "w-mega" | "w-dup" | "w-std" | "w-ph" | "w-icon" | "w-icon3"
+  // APERTURA 2026-10-15 · la sala por rareza: hero de cada clase y un sobre con TODAS las clases (cada revelado, su color)
+  | "r-masters" | "r-icon" | "r-gold" | "r-mixed" | "r-same";
 
 /** WALKOUT 0.5 · escenas del walkout en la apertura real (los ids existen en el catálogo; si no, la escena falla en el test). */
 export const WALKOUT_SCENES: Readonly<Record<Extract<F81Scene, `w-${string}`>, { packId: string; ids: readonly string[]; note: string }>> = {
@@ -40,6 +43,13 @@ const tieGroup = (min: number): CardDef[] => {
   return [...by.entries()].filter(([, v]) => v.length >= min).sort((a, b) => b[0] - a[0])[0][1];
 };
 
+/** La carta de mayor OVR de una clase (empate: id), con un techo opcional. Cartas REALES del catálogo. */
+const topOf = (cls: PackCardClass, maxOvr = 99, skip: readonly string[] = []): CardDef => {
+  const c = [...byOvr].reverse().find((x) => packCardClass(x) === cls && x.ovr <= maxOvr && !skip.includes(x.id));
+  if (!c) throw new Error(`sin carta de clase ${cls} ≤ ${maxOvr}`);
+  return c;
+};
+
 export function f81Scene(scene: F81Scene): { packId: string; cards: CardDef[] } {
   switch (scene) {
     case "normal": return { packId: "estandar", cards: (() => { const d = distinct(70, 5); return [d[1], d[3], d[0], d[4], d[2]]; })() };
@@ -57,6 +67,16 @@ export function f81Scene(scene: F81Scene): { packId: string; cards: CardDef[] } 
       const w = WALKOUT_SCENES[scene];
       return { packId: w.packId, cards: w.ids.map((id) => { const c = CARDS.find((x) => x.id === id); if (!c) throw new Error(`escena ${scene}: ${id} no está en el catálogo`); return c; }) };
     }
+    // Hero Masters (lila) sobre cartas Base de OVR menor.
+    case "r-masters": { const m = topOf("masters"); return { packId: "masters", cards: [topOf("base", m.ovr - 1), m, topOf("base", m.ovr - 3, [topOf("base", m.ovr - 1).id])] }; }
+    // Hero ICON (marfil) en un sobre de 3: la Icon manda.
+    case "r-icon": { const i = topOf("icon"); return { packId: "icon", cards: [topOf("oro", i.ovr - 1), i, topOf("plata")] }; }
+    // Hero Oro (dorado) con Plata y Base detrás.
+    case "r-gold": return { packId: "oro", cards: [topOf("plata"), topOf("oro"), topOf("base")] };
+    // Las siete clases en un sobre: la hero y cada carta del resto con SU sala, en el orden de presentación (OVR desc).
+    case "r-mixed": return { packId: "champions", cards: [topOf("base"), topOf("icon"), topOf("plata"), topOf("masters"), topOf("prime"), topOf("oro"), topOf("champions")] };
+    // Dos cartas seguidas de la misma clase: la sala no parpadea entre ellas.
+    case "r-same": { const a = topOf("plata"); return { packId: "premium", cards: [topOf("oro"), a, topOf("plata", 99, [a.id])] }; }
     case "plata-ref": return { packId: "premium", cards: ["munchkin__masters-sdc", "sato__base", "jemkin__base", "xross__future-star", "brawk__base", "aspas__base"].map((id) => CARDS.find((c) => c.id === id)!) };
   }
 }
@@ -65,4 +85,4 @@ export function f81Results(scene: F81Scene): OpenedResult[] {
   return f81Scene(scene).cards.map((card, i) => ({ uid: `f81-qa-${scene}-${i}`, card, isNew: true, value: 0, mintedVersion: 1 }));
 }
 
-export const F81_SCENES: F81Scene[] = ["normal", "high", "tie2", "tieall", "dup", "single", "invalid", "plata-ref", "team-g2", "w-tr", "w-jp", "w-us", "w-kr", "w-mega", "w-dup", "w-std", "w-ph", "w-icon", "w-icon3"];
+export const F81_SCENES: F81Scene[] = ["normal", "high", "tie2", "tieall", "dup", "single", "invalid", "plata-ref", "team-g2", "w-tr", "w-jp", "w-us", "w-kr", "w-mega", "w-dup", "w-std", "w-ph", "w-icon", "w-icon3", "r-masters", "r-icon", "r-gold", "r-mixed", "r-same"];

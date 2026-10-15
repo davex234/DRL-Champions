@@ -82,9 +82,9 @@ test("REVEAL · muestra el resultado real carta a carta con su plan (rareza, nue
   // F81 · la hero es una instancia del resultado real (por uid) y su plan; el resto, el orden de presentación del plan.
   assert.match(SRC, /const heroResult = best \? results\.find\(\(r\) => r\.uid === best\.uid\) : undefined;/, "la hero sale del resultado real");
   assert.match(SRC, /item=\{best\}/, "con el plan de esa carta");
-  // Walkout 0.5 · el resto: el resultado sin la hero y sin las especiales que ya salieron en su walkout (nada más)
-  assert.match(SRC, /plan\.order\.filter\(\(i\) => i\.uid !== best\?\.uid && !walkedUids\.has\(i\.uid\)\)/, "el resto: el resultado sin la hero");
-  assert.match(SRC, /const walkedUids = new Set\(walkoutItems\.map\(\(w\) => w\.uid\)\);/, "solo las ya presentadas en un walkout");
+  // 2026-10-15 · el resto: el resultado sin la hero (nada más: ya no hay walkouts), carta a carta en el orden del plan
+  assert.match(SRC, /const restItems = plan\.order\.filter\(\(i\) => i\.uid !== best\?\.uid\);/, "el resto: el resultado sin la hero");
+  assert.match(SRC, /<RestReveal items=\{restItems\} index=\{state\.restIndex\} shown=\{state\.restShown\}/, "una carta del resto cada vez, la que dice la máquina");
   assert.match(SUMMARY, /serial=\{it\.serial \?\? undefined\}/, "el resumen muestra el serial devuelto");
   // La marca va en TEXTO bajo cada carta (la cinta sobre la carta tapaba el OVR). Pack Opening 3.0: una insignia pequeña
   // con la MISMA semántica — nueva variante ≠ nueva ≠ duplicada ×N (según la colección de antes).

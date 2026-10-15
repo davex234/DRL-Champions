@@ -9,9 +9,8 @@
  *   scene = normal | high | tie2 | tieall | dup | single | invalid      (movimiento reducido: emulación del navegador)
  *   &reset=1  borra el revelado guardado en la pestaña (la recuperación tras F5 se prueba SIN él)
  *
- * WALKOUT 0.5 · `scene = w-tr | w-jp | w-us | w-kr | w-mega | w-dup | w-std` (cartas especiales reales) presenta el walkout
- * aunque el despliegue esté en «off» (`qaWalkout`, solo fuera de producción); `&walkout=0` lo apaga para comparar con la
- * apertura de siempre, `&walkout=1` lo enciende en cualquier escena.
+ * `scene = w-*` son aperturas con cartas especiales reales (nacieron para el walkout, que desde 2026-10-15 ya no forma parte
+ * de la apertura) y `r-masters | r-icon | r-gold | r-mixed | r-same` prueban la sala del color de cada rareza.
  */
 import { useEffect, useMemo, useState } from "react";
 import { useGameStore } from "@/store/useGameStore";
@@ -22,7 +21,6 @@ import { F81_SCENES as SCENES, f81Results, f81Scene, type F81Scene } from "./fix
 
 export default function Fase81Harness() {
   const [scene, setScene] = useState<F81Scene | null>(null);
-  const [walkout, setWalkout] = useState(false);
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const s = (q.get("scene") ?? "normal") as F81Scene;
@@ -37,7 +35,6 @@ export default function Fase81Harness() {
     const { packId } = f81Scene(sc);
     // Solo el store LOCAL del navegador: sin servidor ni economía.
     useGameStore.setState((st) => ({ unopenedPacks: { ...st.unopenedPacks, [packId]: Math.max(9, st.unopenedPacks[packId] ?? 0) } }));
-    setWalkout(q.get("walkout") === "1" || (sc.startsWith("w-") && q.get("walkout") !== "0"));
     setScene(sc);
   }, []);
   // Cuenta las «aperturas» en la pestaña (sobrevive a F5): la QA demuestra que recargar/omitir/doble clic no reabre.
@@ -47,8 +44,8 @@ export default function Fase81Harness() {
   } : undefined), [scene]);
   if (!scene || !qa) return <p className="p-6 text-ink-muted" data-testid="f81-loading">Cargando escena…</p>;
   return (
-    <div data-testid="f81-harness" data-scene={scene} data-walkout={walkout ? "1" : "0"}>
-      <PackOpeningExperience key={scene} packId={f81Scene(scene).packId} qaOpen={qa} qaWalkout={walkout} />
+    <div data-testid="f81-harness" data-scene={scene}>
+      <PackOpeningExperience key={scene} packId={f81Scene(scene).packId} qaOpen={qa} />
     </div>
   );
 }

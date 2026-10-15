@@ -36,6 +36,9 @@ export const GLOBAL_MARKET_ENABLED = false;
 /**
  * PACK WALKOUT 3D (Walkout 0.5) — la entrada humana en 3D DENTRO de la apertura real de sobres.
  * WALKOUT 0.7 (2026-10-08): ENCENDIDO PARA TODOS («all») por autorización expresa del propietario.
+ * APERTURA 2026-10-15: RETIRADO DE LA APERTURA a petición del propietario («eliminar el monigote»). La apertura ya no lee
+ * este interruptor (la protagonista es la carta, con la sala del color de su rareza); queda en «off» y solo lo enseña la
+ * vista previa protegida `/admin/walkout`.
  *
  * Es solo PRESENTACIÓN: el servidor decide y guarda las cartas antes de que empiece ninguna animación; esto únicamente
  * cambia cómo se enseñan las especiales (Champions S breve, Future Star walkout, Record Breaker/Moments mega). Con
@@ -48,7 +51,7 @@ export const GLOBAL_MARKET_ENABLED = false;
  * En `next dev`, un navegador puede activarlo SOLO para sí con `localStorage["drl:walkout3d"] = "1"`; en una build de
  * producción esa vía no existe (ver `domain/walkout/packWalkout · packWalkoutAllowed`).
  */
-export const PACK_WALKOUT_3D_ENABLED: "off" | "admins" | "all" = "all";
+export const PACK_WALKOUT_3D_ENABLED: "off" | "admins" | "all" = "off";
 
 /**
  * TRADUCCIONES OPCIONALES DEL CONTENIDO EDITABLE (i18n, 2026-10-11) — APAGADO.

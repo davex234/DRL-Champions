@@ -39,10 +39,11 @@ test("M02 · Automático respeta el sistema; Cinemática 3D lo ignora; Reducidas
 });
 
 test("M03 · el modo activo se dice en claro", () => {
-  assert.equal(describeOpeningMode("auto", true), "Automático · 2D (tu sistema pide menos movimiento)");
-  assert.equal(describeOpeningMode("auto", false), "Automático · 3D");
-  assert.equal(describeOpeningMode("cinematic", true), "Cinemática 3D");
-  assert.equal(describeOpeningMode("reduced", false), "Reducidas (2D)");
+  // 2026-10-15 · la preferencia rige toda la apertura (ya sin walkout): los modos ya no hablan de 3D
+  assert.equal(describeOpeningMode("auto", true), "Automático · reducidas (tu sistema pide menos movimiento)");
+  assert.equal(describeOpeningMode("auto", false), "Automático · completas");
+  assert.equal(describeOpeningMode("cinematic", true), "Cinemática");
+  assert.equal(describeOpeningMode("reduced", false), "Reducidas");
 });
 
 test("M04 · se guarda en este dispositivo y avisa a quien escucha", () => {
@@ -117,8 +118,8 @@ test("M10 · ajustes: tres modos con aria-pressed, Automático por defecto y mod
   const h = renderToStaticMarkup(<OpeningAnimationSettings />);
   for (const id of ["cinematic", "auto", "reduced"]) assert.match(h, new RegExp(`data-testid="opening-animation-${id}"`));
   assert.match(h, /aria-pressed="true"[^>]*data-testid="opening-animation-auto"/);
-  assert.match(h, /Cinemática 3D/); assert.match(h, /Automático/); assert.match(h, /Reducidas/);
-  assert.match(h, /Activo: Automático · 3D/);
+  assert.match(h, /Cinemática/); assert.match(h, /Automático/); assert.match(h, /Reducidas/);
+  assert.match(h, /Activo: Automático · completas/);
   assert.match(read("src/components/layout/GameShell.tsx"), /<OpeningAnimationSettings className=/);
   assert.match(read("src/app/cuenta/page.tsx"), /<OpeningAnimationSettings className=/);
 });
