@@ -140,7 +140,7 @@ Total: **496 PASS · 0 FAIL**. Capturas en `logs/team-logos-qa/<idioma>-<ancho>/
   `/admin/teams/<id>` en producción (requiere autorización: escribe en la BD y el Storage de producción).
 - **Humo con sesión real** de Colecciones en producción: sigue pendiente desde el despliegue de `d523a42a`.
 
-## 9. Release `drl-0.1.1-1-baddbaed` (2026-10-15, preparada; activación pendiente del propietario)
+## 9. Release `drl-0.1.1-1-baddbaed` (2026-10-15, DESPLEGADA)
 
 **Derechos de uso.** No existe licencia escrita para ninguno de los 41 logos, y este documento no la afirma. La
 checklist (`drlcards-release-checklist.md` §F) los sitúa como bloqueo de la **primera release pública**. Comprobado en
@@ -158,8 +158,21 @@ ya se sirven hoy. Por eso la política no impide esta release, pero el punto sig
 | Artefacto anterior | `incoming/drl-0.1.1-1-d523a42a.tar` sha256 `4acdf145…a2df6` = el registrado |
 | Copia de seguridad | `pre-logos-deploy/20261015T092513Z`: BACKUP_OK, `SHA256SUMS` OK, `COMPLETE` (BD 2.977.689 B). Configuración en `pre-logos-deploy-config/20261015T092513Z` (600/700, huellas OK). Sin simulacro de restauración: la checklist lo exige solo con migración |
 | Logos en producción antes | 25 OK por huella, 16 en 404, arneses 404 (`scripts/_team-logos-prod-check.ts`) |
-| **Activación** | **NO HECHA**: el clasificador de seguridad de Claude Code bloqueó `bin/deploy.sh` en producción. Preparado `/tmp/tl-rc/_team-logos-deploy.sh` (sha256 `7bed787b…bd71`), que hay que ejecutar a mano |
+| Activación | Primer intento bloqueado por el clasificador de Claude Code. Tras la autorización expresa del propietario, `/tmp/tl-rc/_team-logos-deploy.sh` (sha256 `7bed787b…bd71`, idéntico al del repositorio) se ejecutó de 16:45:14Z a 16:49:19Z: BACKUP_VERIFIED, PREV_ARTIFACT_OK, RC_OK, sha256 en `incoming/` OK, `bin/deploy.sh` (build + BUILD_ID + recrea solo `valorosters-app`) → **ACTIVA `drl-0.1.1-1-baddbaed`** |
 
-Activar: `ssh nexusadmin@212.95.40.144 'bash /tmp/tl-rc/_team-logos-deploy.sh'`. Comprobar después:
-`BASE_URL=https://valorosters.com npx tsx scripts/_team-logos-prod-check.ts` (41 OK y 3 × 404) y el humo de invitado
-`scripts/_i18n-prod-guest-smoke.ts`. Vuelta: `bin/deploy.sh --activate drl-0.1.1-1-d523a42a`, sin tocar la base.
+### 9.1 Verificación posterior (2026-10-15, ~16:50–17:00Z)
+
+| Comprobación | Resultado |
+|---|---|
+| Versión activa | `current -> releases/drl-0.1.1-1-baddbaed`, BUILD_ID `drl-0.1.1-1-baddbaed` |
+| `/api/ready` y `bin/status.sh` | `ready` (todos los checks ok, catálogo 331/331, privacidad 0058); túnel con 4 conexiones; público 200; app «healthy» |
+| Logos (`_team-logos-prod-check.ts`) | **41/41** con 200, `image/png` y sha256 = repositorio; arneses `/design-system/colecciones-equipos` y `gen.png` → 404 |
+| Humo de invitado, 8 idiomas | **132 PASS · 0 FAIL** |
+| Páginas principales | `/`, `/coleccion`, `/tienda`, `/jugar`, `/temporada`, `/cuenta`, `/api/health` → 200 |
+| Logs de la app desde el arranque | 0 líneas de error, fatal o unhandled |
+| Estáticos | 0 ficheros con «✓ Completada»; 41 PNG en `public/hints/teams` |
+| Migraciones | ninguna ejecutada; cabeza de ficheros 0076 = la de `d523a42a` |
+| Datos (solo lectura, mismas 25 tablas que la copia) | idénticos a la línea base (profiles 2, user_cards 130, user_packs 14, credit_transactions 80…); última transacción de créditos 2026-10-14 11:47Z, anterior al despliegue |
+
+**No comprobado en producción:** la etiqueta traducida a la vista, porque ninguna de las dos cuentas tiene un equipo completo. Está verificada en la QA local (8 idiomas, 496/0) y en la build (sin el literal).
+Vuelta atrás disponible: `bin/deploy.sh --activate drl-0.1.1-1-d523a42a`, sin tocar la base.
