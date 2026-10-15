@@ -142,7 +142,7 @@ export function RevealSpotlight({
                 : { duration: 0.35, ease: "easeOut" }
             }
           >
-            <CardBack accent={accent} chargeColor={accent} charged={revealed ? 1 : charge} className="w-[300px]"
+            <CardBack accent={accent} chargeColor={accent} charged={revealed ? 1 : charge} className="w-[300px]" reducedOverride={reduced}
               style={{ backfaceVisibility: "hidden", ...(reduced ? { opacity: revealed ? 0 : 1, transition: `opacity ${flipMs}ms ease` } : {}) }} />
             {!revealed && !reduced && (
               <motion.span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden" style={{ backfaceVisibility: "hidden" }}>
