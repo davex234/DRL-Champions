@@ -109,7 +109,8 @@ function RestCard({ item, index, total, shown, reduced, scale, onShown, onNext, 
         reduced={reduced}
         flipMs={flipMs}
         charge={shown ? 1 : 0.6}
-        accent={atmosphere.glow}
+        // El dorso se carga con luz NEUTRA: el color de la rareza llega al girar, nunca antes (QA real 2026-10-15).
+        accent={NEUTRAL_ATMOSPHERE.glow}
         scale={scale}
         header={<p className="font-display text-label font-bold uppercase tracking-wide2 text-white/70" data-testid="rest-prep">{tr("Carta {v} de {total}", { v: index + 2, total: total + 1 })}</p>}
       >

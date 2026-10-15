@@ -130,6 +130,13 @@ async function mixed(tab: Tab, S: string, shots: boolean) {
 
   for (let k = 0; k < E.rest.length; k++) {
     const it = E.rest[k];
+    // Preparación: el DORSO se carga con luz neutra, nunca con la de la carta que va a salir (hallazgo de la QA real).
+    if (await waitFor(tab, `(() => { const r = document.querySelector('[data-testid="rest-reveal"]'); return !!r && r.dataset.index === "${k}" && r.dataset.shown === "false"; })()`, 3000)) {
+      const filter = await tab.js<string>(`document.querySelector('[data-card-back]')?.style.filter ?? ""`);
+      const glow = atmosphereForCard(it.card).glow, neutral = "#9aa7c7";
+      const asRgb = (h: string) => `rgb(${parseInt(h.slice(1, 3), 16)}, ${parseInt(h.slice(3, 5), 16)}, ${parseInt(h.slice(5, 7), 16)})`;
+      check(S, `mixed · carta ${k + 2}: en la preparación el dorso no anticipa la rareza (${E.key(it.uid)})`, glow === neutral || !(filter.includes(asRgb(glow)) || filter.toLowerCase().includes(glow)), filter.slice(0, 160));
+    }
     const ok = await waitFor(tab, `(() => { const r = document.querySelector('[data-testid="rest-reveal"]'); return r && r.dataset.index === "${k}" && r.dataset.shown === "true"; })()`, 8000);
     a = await tab.js<Atm>(ATM);
     const prevKey = k === 0 ? E.key(E.hero!.uid) : E.key(E.rest[k - 1].uid);

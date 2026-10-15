@@ -276,6 +276,14 @@ test("SCN7 · en la sala clara (Icon) el botón secundario es legible (fondo osc
   assert.match(read("src/components/packs/RestReveal.tsx"), /shown && atmosphere\.tone === "light" \? "!min-h-\[52px\] flex-1 !bg-\[#1a1408\]\/85 !text-white"/);
 });
 
+test("SCN8 · el DORSO no anticipa la rareza: se carga con luz neutra en la hero y en cada carta del resto", () => {
+  for (const f of ["HeroReveal.tsx", "RestReveal.tsx"]) {
+    const src = read(`src/components/packs/${f}`);
+    assert.match(src, /accent=\{NEUTRAL_ATMOSPHERE\.glow\}/, f);
+    assert.doesNotMatch(src, /accent=\{atmosphere\.glow\}/, `${f}: el color de la carta antes del giro`);
+  }
+});
+
 test("SCN4 · la escena no toca red, store, economía ni azar", () => {
   for (const f of ["src/domain/packs/atmosphere.ts", "src/components/packs/RevealAtmosphere.tsx", "src/components/packs/RevealSpotlight.tsx", "src/components/packs/RestReveal.tsx", "src/components/packs/HeroReveal.tsx"]) {
     const s = read(f);

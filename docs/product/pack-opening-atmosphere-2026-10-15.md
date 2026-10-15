@@ -119,3 +119,43 @@ Después copia la candidata a `incoming/` y llama a `bin/deploy.sh`, que solo re
 | Migraciones / economía | ninguna migración; nada de servidor, probabilidades, precios, créditos ni inventario en la release |
 
 **Pendiente:** la animación no se ha probado con una apertura REAL en producción, a propósito: no se abrieron sobres ni se tocaron cuentas. Lo validado con resultados fijos (QA local 348/0) no equivale a eso. La primera apertura real de una cuenta es la prueba que falta. Rollback: `cd /opt/nexus/projects/valorosters && bin/deploy.sh --activate drl-0.1.1-1-baddbaed` (solo frontend, sin tocar la base).
+
+## 9. QA visual con aperturas reales (2026-10-15, después del despliegue)
+
+Evidencias y procedencia: `docs/product/qa/pack-opening-production-2026-10-15/README.md`.
+
+**Dónde.**
+- **Producción, como invitado** (solo lectura, sin abrir): el sobre cerrado, a 390/768/1440 × normal/reducido. **18/0**: se sirve la apertura nueva, 0 `<canvas>`/walkout y 0 chunks del walkout, consola limpia.
+- **Aperturas REALES en el stack de QA aislado del VPS**, con la **build exacta de producción** (BUILD_ID `2b8f8817`). En producción no hay ninguna cuenta de QA autorizada (solo las 2 reales) y no se creó nada.
+  - Cuenta sintética `@example.invalid`, con inicio de sesión por el formulario.
+  - Compra con créditos sintéticos por el endpoint de la tienda (Sobre Oro y Sobre ICON).
+  - Apertura por la interfaz: las cartas las decidió el servidor del stack.
+  - 6 combinaciones (390/768/1440 × normal/reducido), con salida en japonés y en español; más una reproducción a 768.
+  - Se vieron Oro, Masters (L y SDC, también como protagonista), Champions S, Prime (Future Star), ICON (Record Breaker y Moments, también dentro de un Sobre Oro) y Base/Plata por la QA de fixtures.
+  - Resultado de la pasada en español: **192 PASS · 35 FAIL**. Los 35 son un único hallazgo, abajo.
+
+**Inspección visual** (capturas abiertas y revisadas una a una):
+- Masters en lila/violeta, ICON en marfil, Oro en dorado, Champions S negro con oro y rayos, Prime en azul.
+- Cartas nítidas y centradas, sin deformar.
+- Sin monigote y sin dorso en espejo.
+- La sala anterior no queda tras el giro.
+- «Anterior» y «Siguiente» se leen y no pisan la carta; tampoco quedan huecos ni elementos cortados.
+- El resumen conserva sus acciones.
+- Los puntos de posición solo colorean cartas vistas.
+
+**Hallazgo (corregido en local, NO desplegado): el dorso anticipaba la rareza.**
+- *Qué pasaba:* la sala sí estaba neutra en la tensión y en cada preparación, pero el DORSO se cargaba con la luz de la clase de la carta que iba a salir (`accent={atmosphere.glow}` en `HeroReveal` y `RestReveal`). Por ejemplo: dorado antes de una Oro, violeta antes de una Masters, blanco antes de una ICON.
+- *Por qué no se vio antes:* la QA anterior solo miraba el fondo. Ahora el dorso se carga con la luz neutra y el color llega al girar.
+- *Pruebas:* prueba SCN8 y chequeo del filtro del dorso en las dos QA de navegador.
+- *Resultado local:* la QA de fixtures pasa **384/0** (36 chequeos del dorso) y la suite **6.616/6.616**.
+- *Evidencia:* `entregables/hallazgo-dorso-antes-despues.png`.
+- *Pendiente:* desplegarla exige una release nueva y autorización.
+
+**Investigado y no reproducido:** en la primera pasada (768 normal), una captura de la ICON Mada salió sin carta, aunque el DOM estaba correcto (giro −180°, imagen cargada y en primer plano). Se repitió en el mismo entorno, ancho y modo hasta volver a sacar a Mada: carta visible a 2 s y a 5 s. Tampoco apareció en las demás pasadas. Se interpreta como una captura tomada antes de que el compositor sin GPU del contenedor pintara la capa 3D. Queda anotado; no se cambió código por ello.
+
+**Notas.**
+- La cuenta QA tenía el japonés guardado de la QA i18n, y la primera pasada salió en japonés; la entrega se repitió en español.
+- Volver a cargar `/abrir/<sobre>` justo después de abrir muestra el resumen guardado: es la recuperación de F40, ya existente.
+- En el stack de QA quedan 29 compras sintéticas y 1 Sobre ICON sintético sin abrir; `vrqa_app` sirve ahora la build `2b8f8817`.
+
+**Producción:** sin cambios (`2b8f8817`, `ready`, 0 errores, recuentos = línea base). Sin migraciones, sin despliegues, sin push.

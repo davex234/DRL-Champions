@@ -20,7 +20,7 @@ import { useEffect, useMemo, useRef, useState, type Ref } from "react";
 import { motion } from "framer-motion";
 import type { OpenedResult } from "@/store/useGameStore";
 import { HERO_FLIP_MS, HERO_FLIP_REDUCED_MS, buildupMs, type RevealItem } from "@/domain/packs/reveal";
-import { atmosphereForCard } from "@/domain/packs/atmosphere";
+import { NEUTRAL_ATMOSPHERE, atmosphereForCard } from "@/domain/packs/atmosphere";
 import { getVariant } from "@/domain/cards/variants";
 import { NxButton } from "@/components/ui/NxButton";
 import { playCue, playReveal } from "@/lib/sound";
@@ -154,7 +154,8 @@ export function HeroReveal({
         reduced={reduced}
         flipMs={flipMs}
         charge={charge}
-        accent={atmosphere.glow}
+        // El dorso se carga con luz NEUTRA: el color de la rareza llega al girar, nunca antes (QA real 2026-10-15).
+        accent={NEUTRAL_ATMOSPHERE.glow}
         scale={scale}
         header={stage === "buildup" ? <p className="font-display text-label font-bold uppercase tracking-wide2 text-white/75" data-testid="hero-buildup-copy">{tr("La mejor carta del sobre…")}</p> : null}
       >
