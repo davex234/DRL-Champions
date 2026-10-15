@@ -76,3 +76,26 @@ Ampliaciones de la QA:
 - Las 4 combinaciones de preferencia × sistema: el modo correcto, la cara visible y el dorso oculto sin estados intermedios, y avanzar, retroceder y omitir funcionando.
 
 Resultado: QA **348 PASS · 0 FAIL** (390/768/1440 × normal/reducido), suite **6.615/6.615**, `tsc` 0, ESLint 0 errores (los 30 avisos de siempre), i18n «sin problemas», build OK (con el aviso previo de `instrumentation.ts`).
+
+## 7. Release preparada (NO desplegada)
+
+| | |
+|---|---|
+| Candidata | **`drl-0.1.1-1-2b8f8817`** → `valorosters-i18n-qa/rc/drl-0.1.1-1-2b8f8817.tar` |
+| sha256 | `8f6cdf70199c6c6df10175fa023bbefbbe7e2f6f5c2ec43891065fe03f544d3b` (97.945.600 B) |
+| Contenido | fuente de producción `drl-0.1.1-1-baddbaed` + overlay de 46 ficheros de `src/`, sacado del commit `515ad89` (sha256 del overlay `a66128ad…5dc1`). El padre de los 42 modificados es byte a byte el de producción; los otros 4 son nuevos |
+| Stage (`scripts/ops/_pack-atmosphere-rc-stage.sh stage`) | BOUNDARY_OK (46 = overlay exacto, 0 retirados) · F78 = producción · NO_MIGRATIONS_OK (cabeza 0076 = producción; sin `supabase/`, `docs/` ni instrumentos `_`) · ECONOMY_RULES_OK · PACKS_DOMAIN_OK (en `domain/packs` solo `reveal.ts` y `atmosphere.ts`) · WALKOUT_OUT_OK (`/admin/walkout` presente) |
+| Puerta (contenedor desechable, entorno del stack de QA) | **GATE_OK**: `npm ci` + `next build` + `tsc` + ESLint 0 errores (30 avisos de siempre) + i18n «sin problemas» + **6.606/6.606** pruebas (9 menos que en local: son del trabajo F78, que no viaja) · BUILD_HAS_ATMOSPHERE_OK · BUILD_ID = nombre |
+| Candidata fallida | `drl-0.1.1-1-92a99190` (sha256 `1e7aa9a5…c4ff`): la puerta la paró porque al commit `aed5ac6` le faltaba `RevealSpotlight.tsx`. Arreglado en `515ad89`. Se deja en `rc/` sin usar; no está en `incoming/` ni en `releases/` |
+| Producción | sin cambios: `current` → `baddbaed`, `/api/ready` ready, app sin reiniciar, artefacto anterior con sha256 `2d19ca56…94cc` intacto |
+
+**Activar** (decisión del propietario; hace falta una copia de seguridad del mismo día ya verificada):
+`ssh nexusadmin@212.95.40.144 'bash /tmp/pa-rc/_pack-atmosphere-deploy.sh /opt/nexus/backups/supabase-drlcards/<carpeta>'`
+(guion `scripts/ops/_pack-atmosphere-deploy.sh`, sha256 `e81b5dca…d4d1`). Antes de activar, el guion comprueba:
+- que la versión activa sigue siendo `baddbaed`;
+- la copia de seguridad;
+- la suma de control del artefacto anterior y de la candidata.
+
+Después copia la candidata a `incoming/` y llama a `bin/deploy.sh`, que solo recrea `valorosters-app` y no ejecuta migraciones.
+
+**Rollback:** `cd /opt/nexus/projects/valorosters && bin/deploy.sh --activate drl-0.1.1-1-baddbaed`. Solo frontend: no hay que restaurar la base de datos.
