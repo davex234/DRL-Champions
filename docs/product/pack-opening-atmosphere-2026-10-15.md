@@ -99,3 +99,23 @@ Resultado: QA **348 PASS · 0 FAIL** (390/768/1440 × normal/reducido), suite **
 Después copia la candidata a `incoming/` y llama a `bin/deploy.sh`, que solo recrea `valorosters-app` y no ejecuta migraciones.
 
 **Rollback:** `cd /opt/nexus/projects/valorosters && bin/deploy.sh --activate drl-0.1.1-1-baddbaed`. Solo frontend: no hay que restaurar la base de datos.
+
+## 8. Despliegue (2026-10-15, 20:10–20:14Z) — DESPLEGADA
+
+| | |
+|---|---|
+| Antes → ahora | `drl-0.1.1-1-baddbaed` → **`drl-0.1.1-1-2b8f8817`** (activación 20:10:04Z–20:13:45Z, autorizada por el propietario) |
+| Artefacto | sha256 `8f6cdf70199c6c6df10175fa023bbefbbe7e2f6f5c2ec43891065fe03f544d3b` = el registrado por la puerta. El valor del encargo (`8f6cdf70…bbefbd3b`, 35 caracteres) era ese mismo hash truncado: coinciden sus 32 primeros caracteres y el final |
+| Revalidación en el VPS | candidata = fuente de producción + 4 añadidos + 42 modificados (= overlay); 0 retirados; sin `supabase/`, servidor, API, sync, store ni economía; cabeza de migraciones 0076 = la de producción; walkout en `off` y sin referencias en la apertura |
+| Copia | `/opt/nexus/backups/supabase-drlcards/pre-pack-atmosphere-deploy/20261015T200918Z`: BACKUP_OK, `COMPLETE`, los 7 `SHA256SUMS` OK, `pg_restore --list` legible (2.484 entradas = `db.toc`), BD 2.978.807 B. Configuración en `pre-pack-atmosphere-deploy-config/20261015T200918Z` (`compose.yml`, `app.env`, `current.txt`; 700/600; huellas OK). Sin réplica externa (no configurada) |
+| Previas | `current` = baddbaed; `/api/ready` ready; artefacto anterior sha256 `2d19ca56…94cc` y `releases/drl-0.1.1-1-baddbaed` presentes; sin build, puerta, copia ni restauración en curso; ninguna tarea programada en esa franja |
+| Guion | `/tmp/pa-rc/_pack-atmosphere-deploy.sh`, sha256 `e81b5dca…d4d1` (el del repositorio): BACKUP_VERIFIED, PREV_ARTIFACT_OK, RC_OK, sha256 en `incoming/` OK → `bin/deploy.sh` |
+| Después | `current -> releases/drl-0.1.1-1-2b8f8817`, BUILD_ID igual. `/api/ready` ready con 20/20 checks. App healthy sin reinicios; túnel con 4 conexiones; público 200 |
+| Estáticos y páginas | chunk con la sala nueva servido (200, JavaScript). `/`, `/coleccion`, `/tienda`, `/packs`, `/jugar`, `/temporada`, `/cuenta`, `/abrir/estandar`, `/api/health`, `/api/ready` → 200. Arneses `/design-system/fase81` y `/design-system/pack-walkout` → 404. `/admin/walkout` → «Acceso restringido» para invitados |
+| Navegador (invitado, sin abrir sobres) | `/abrir/estandar` en el sobre cerrado: 0 chunks del walkout descargados, 0 `<canvas>` dentro de la apertura (el único es la capa global de ambiente), sin errores de consola ni respuestas ≥ 400 |
+| Humo | invitado en 8 idiomas **132/0**; logos 41/41 + 3 × 404 |
+| Logs | 0 líneas de error, fatal o unhandled desde el arranque |
+| Datos | 25 recuentos (solo lectura) = la copia previa = la línea base anterior (2 perfiles, 130 cartas, 14 sobres, 80 transacciones…); última transacción de créditos 2026-10-14 11:47Z, anterior al despliegue |
+| Migraciones / economía | ninguna migración; nada de servidor, probabilidades, precios, créditos ni inventario en la release |
+
+**Pendiente:** la animación no se ha probado con una apertura REAL en producción, a propósito: no se abrieron sobres ni se tocaron cuentas. Lo validado con resultados fijos (QA local 348/0) no equivale a eso. La primera apertura real de una cuenta es la prueba que falta. Rollback: `cd /opt/nexus/projects/valorosters && bin/deploy.sh --activate drl-0.1.1-1-baddbaed` (solo frontend, sin tocar la base).
