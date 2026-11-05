@@ -87,3 +87,11 @@ backups/
 
 # Runtime Windows (F70.2): logs rotados del supervisor y marcador STOP
 /logs/runtime/
+
+# Material local fuera del repo: config personal de Claude Code, documentos sueltos,
+# arte fuente de mapas (PSD/PNG) y guiones SQL de activación aplicados en producción.
+# (*.log y las capturas de docs/product/qa ya estaban ignorados arriba.)
+.claude/settings.local.json
+/PropuestaJuego*.pdf
+/mapas/
+/logs/
