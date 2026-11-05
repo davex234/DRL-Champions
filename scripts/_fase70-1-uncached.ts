@@ -1,4 +1,4 @@
-import { launch } from "C:/NEXUS-CENTRAL/DRLCards/scripts/lib/cdp";
+import { launch } from "./lib/cdp";
 (async () => {
   const b = await launch({ userDataDir: process.argv[2] });
   for (const r of ["/logros", "/social", "/temporada"]) {
