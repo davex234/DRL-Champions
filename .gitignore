@@ -93,5 +93,6 @@ backups/
 # (*.log y las capturas de docs/product/qa ya estaban ignorados arriba.)
 .claude/settings.local.json
 /PropuestaJuego*.pdf
-/mapas/
+/mapas/*
+!/mapas/finalizados/
 /logs/
