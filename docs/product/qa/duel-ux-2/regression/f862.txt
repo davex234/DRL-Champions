@@ -1,0 +1,161 @@
+PASS navegador limpio: sin sesión ni caché previa 0
+PASS portada sin sesión: «Crear cuenta» y «Entrar» a la vista 
+PASS «Crear cuenta» abre /cuenta en la pestaña de registro 
+PASS registro sin nombre → «Elige un nombre de jugador» y NINGUNA cuenta creada 
+PASS registro real por el formulario → sesión y portada {"ms":5007}
+PASS la cuenta nueva recibe su #TAG al nacer (7, alfabeto sin ambiguos) YRS5P97
+PASS el nombre público es el elegido (+ sufijo), nunca el correo 
+PASS sobres de bienvenida concedidos por el servidor (3 Inicial + 1 Bronce) estandar:1,inicial:3
+PASS portada tras registrarse: bienvenida con UN botón principal 
+PASS guía completa por la interfaz (sobres → colección → equipo → primera partida → progreso) ["/ → cta","/duelos/jugar → Comenzar duelo","/duelos/jugar → partida (10 turnos, resultado true)","/duelos/jugar → resultado mínimo → Volver al menú principal","/ → cta","SEGUIR JUGANDO (fin guía)"]
+PASS onboarding COMPLETED en el servidor + equipo válido y activo {"ob":"COMPLETED","decks":1}
+PASS sobres abiertos en el SERVIDOR (economy_ops), cartas en BD y la API del jugador las ve {"ops":3,"cardsDb":15,"api":15,"unopened":{"inicial":1}}
+PASS colección: cartas reales de ESTA cuenta 
+PASS /duelos → «Partida rápida» lleva a la preparación 
+PASS resultado de partida rápida MÍNIMO (veredicto, marcador, explicación, seguir / menú) DERROTA
+4
+–
+6
+
+Ganó más enfrentamientos (4-6).
+
+RECOMPENSAS OBTENIDAS
+
++40
+créditos
++25 XP de cuenta
+SEGUIR JUGANDO
+VOLVER AL MENÚ PRINCIPAL
+PASS …fuera de «Recompensas obtenidas»: sin puntos de rango, créditos, XP, nivel, misiones, logros ni botones de reclamar Derrota4–6Ganó más enfrentamientos (4-6).Seguir jugandoVolver al menú principal
+PASS …y dentro, solo lo del recibo (créditos, XP de cuenta, puntos de rango): nada de nivel, misiones, logros ni reclamar Recompensas obtenidas+40 créditos+25 XP de cuenta
+PASS «Seguir jugando» con DOBLE clic → UNA partida nueva (flujo canónico) {"before":2,"after":3,"inProg":1}
+PASS F5 en partida rápida → la misma partida se recupera 
+PASS ranked accesible: /competitivo con colocación / sin clasificar 
+PASS cola ranked: entrar → en cola → salir → fuera (sin MATCHED colgado) {"enq":200}
+PASS Social: MI #TAG visible y copiable, con su para qué YRS5P97
+PASS móvil 390: portada sin sesión con «Crear cuenta» a la vista y sin desbordar 
+PASS móvil 390 reducido: guía completa por la interfaz ["/ → cta","/duelos/jugar → Comenzar duelo","/duelos/jugar → partida (10 turnos, resultado true)","/duelos/jugar → resultado mínimo → Volver al menú principal","/ → cta","SEGUIR JUGANDO (fin guía)"]
+PASS móvil: equipo válido y activo 
+PASS móvil: B encuentra a A pegando su tag SIN «#» 
+PASS solicitud de amistad enviada por la UI PENDING|true
+PASS A acepta por la UI → amistad 
+PASS torneo QA no listado publicado (admin temporal) {"id":"44c909e5-4cf1-4309-b265-56cb2dd40c63","slug":"qa-f862-06194954","created":200,"published":200}
+PASS no listado: NO aparece en el hub público 
+PASS inscripción por la UI desde el enlace (1440) 
+PASS inscripción por la UI desde el enlace (390-reduced) 
+PASS 4 inscritos 
+PASS cuadro de 4 generado (2 semifinales + final) 
+PASS semifinal 0: N1 pulsa JUGAR → «esperando a tu rival» 
+PASS semifinal 0: UNA partida PVP_PRIVATE 
+PASS semifinal 0: N1 entra en la arena (3156 ms) 
+PASS semifinal 0: resultado del motor → cruce COMPLETADO 
+PASS semifinal 0: N1 ve «Has avanzado» en la arena 
+PASS semifinal 1: N2 pulsa JUGAR → «esperando a tu rival» 
+PASS semifinal 1: UNA partida PVP_PRIVATE 
+PASS semifinal 1: N2 entra en la arena (3397 ms) 
+PASS semifinal 1: resultado del motor → cruce COMPLETADO 
+PASS semifinal 1: N2 ve «Has avanzado» en la arena 
+PASS final: UNA partida 
+PASS campeón decidido por el motor (N1) COMPLETED|33329711-daf1-48ad-8e42-350be601e710
+PASS trofeo UNA vez 
+PASS el campeón ve «¡Campeón del torneo!» en la arena 
+PASS ficha: momento de campeón + invitación al feedback 
+PASS «Sala de Trofeos» lleva a /coleccion/trofeos y el trofeo está ahí 
+PASS las partidas del torneo son TOURNAMENT en la carrera propia 
+PASS /feedback con sesión: formulario de 7 preguntas 
+PASS F5 en el formulario: el borrador sigue (esta cuenta, este navegador) 
+PASS sin red: NO dice «enviado»; explica que no se envió Sin conexión: tu opinión no se ha enviado todavía. Vuelve a pulsar «Enviar» cuando vuelva la red.
+PASS con red, doble clic → «¡Gracias!» 
+PASS UNA fila de feedback (clave de envío fija) 
+PASS atrás tras enviar: no se reenvía nada 
+PASS feedback anónimo → 401 
+PASS feedback con userId falso → 400 
+PASS feedback vacío → 400 
+PASS feedback: no hay lectura para jugadores (GET → 405) 
+PASS REST directo: otra cuenta NO lee el feedback de nadie 403
+PASS REST directo: insertar feedback (o suplantar) → rechazado 403
+PASS REST directo: el embudo no lo ejecuta un jugador 403
+PASS panel alpha como usuario normal → 401 
+PASS panel alpha anónimo → 401 
+PASS inscribirse en un torneo ya cerrado → rechazado 
+PASS «listo» con equipo ajeno / cruce ajeno → 404 
+PASS admin: por defecto el feedback de cuentas de PRUEBA no se mezcla con el de testers reales {"hidden":2}
+PASS admin: el feedback aparece con nombre + #TAG, fecha y respuestas {"id":"7c2899b0-9e24-4412-9fe6-2a170155e6f9","createdAt":"2026-10-06T19:56:51.460611+00:00","source":"cup","username":"qaf68n1195006_3332","tag":"YRS5P97","hardToUnderstand":"QA F86.2 · prueba mecánica, no es opinión hum
+PASS admin: sin correos en la respuesta 
+PASS embudo (cuentas de prueba incluidas): N1 con sobre, equipo, rápida, ranked, social, amigo, torneo, final y feedback {"tag":"YRS5P97","cupFinal":true,"username":"qaf68n1195006_3332","createdAt":"2026-10-06T19:50:10.015301+00:00","cupPlayed":true,"deckSaved":true,"packOpened":true,"socialUsed":true,"friendAdded":true,"feedbackSent":true
+PASS embudo por defecto: las cuentas de prueba NO cuentan (cohorte real vacía en esta QA) 0
+PASS panel /admin/alpha (UI): feedback visible 
+PASS panel /admin/alpha (UI): embudo con sus 13 pasos 
+PASS cuadro de 5: tamaño 8, 3 rondas, 3 BYES en la primera ronda 4/7/3/3
+PASS cuadro de 8: 4 cruces en la primera ronda, 3 rondas, 0 BYES 4/7/3/0
+PASS cuadros representativos cancelados por el panel (auditado, sin campeón) 
+PASS «Valorosters Closed Alpha Cup» creada en BORRADOR, no listada (no publicada) 
+PASS la Closed Alpha Cup NO es visible para jugadores (borrador = 404) 
+PASS logout por la UI 
+PASS tras logout: portada de invitado, sin créditos ni datos de la cuenta 
+PASS cambio de cuenta A → B: el #TAG, el social y el resto son de B (nada de A) JBB4EUF
+PASS cambio de cuenta: el borrador de feedback de A no aparece en B 
+PASS volver a entrar (A) recupera su estado real (equipo activo y torneo) 
+PASS visual 1440 /: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /coleccion: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /duelos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /competitivo: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /social: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /copas/qa-f862-06194954: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /coleccion/trofeos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /jugador/me: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 /feedback: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /coleccion: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /duelos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /competitivo: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /social: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /copas/qa-f862-06194954: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /coleccion/trofeos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /jugador/me: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1440 reducido /feedback: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /coleccion: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /duelos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /competitivo: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /social: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /copas/qa-f862-06194954: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /coleccion/trofeos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /jugador/me: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 /feedback: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /coleccion: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /duelos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /competitivo: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /social: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /copas/qa-f862-06194954: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /coleccion/trofeos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /jugador/me: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 1024 reducido /feedback: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /coleccion: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /duelos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /competitivo: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /social: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /copas/qa-f862-06194954: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /coleccion/trofeos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /jugador/me: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 /feedback: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /coleccion: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /duelos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /competitivo: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /social: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /copas/qa-f862-06194954: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /coleccion/trofeos: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /jugador/me: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS visual 390 reducido /feedback: sin desbordamiento ni texto técnico {"ox":0,"tech":null}
+PASS 0 eventos de rating nuevos por el torneo (ranked intacto) 
+PASS 0 misiones contadas por partidas de torneo 
+PASS 0 XP de temporada por partidas de torneo 
+PASS 0 créditos por partidas de torneo 
+PASS limpieza: QA A sin admin; admins = exactamente las 2 cuentas reales 
+PASS cuentas reales INTACTAS (#NB2Z9BM y #H5ND8K7, admin, 0 torneos, 0 feedback, rating/créditos/XP iguales) NB2Z9BM|true|0|0|0 · H5ND8K7|true|0|0|0
+PASS Valorosters Open #1 sigue en BORRADOR; Temporada 2 en DRAFT 
+
+F86.2 ALPHA E2E: 146/146

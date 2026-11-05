@@ -1,0 +1,23 @@
+{
+  "Ascenso a {rank}": "Promozione a {rank}",
+  "Colocación {played} / {total} · {sign}": "Piazzamento {played} / {total} · {sign}",
+  "Colocación {played}/{total}": "Piazzamento {played}/{total}",
+  "Completa tu colocación": "Completa il tuo piazzamento",
+  "Descenso a {rank}": "Retrocessione a {rank}",
+  "Juega una partida (actividad en los últimos {activeDays} días)": "Gioca una partita (attività negli ultimi {activeDays} giorni)",
+  "Juega {left} {v} más esta temporada": "Gioca ancora {left} {v} in questa stagione",
+  "Rango obtenido: {rank}": "Grado ottenuto: {rank}",
+  "Rating {sign}": "Rating {sign}",
+  "Sin clasificar": "Non classificato",
+  "divisionWidth debe ser un entero positivo": "divisionWidth deve essere un intero positivo",
+  "el primer tier debe empezar en 0": "il primo tier deve iniziare da 0",
+  "el primer tier no tiene sitio para sus divisiones": "il primo tier non ha spazio per le sue divisioni",
+  "el último tier (élite) no debe tener divisiones": "l'ultimo tier (élite) non deve avere divisioni",
+  "hacen falta al menos dos tiers": "servono almeno due tier",
+  "hueco o solape en {id}: {v} ≠ {v2}": "buco o sovrapposizione in {id}: {v} ≠ {v2}",
+  "partida": "partita",
+  "partidas": "partite",
+  "solo el último tier puede no tener divisiones ({id})": "solo l'ultimo tier può non avere divisioni ({id})",
+  "suelos no crecientes: {id} → {id2}": "soglie minime non crescenti: {id} → {id2}",
+  "versión vacía": "versione vuota"
+}

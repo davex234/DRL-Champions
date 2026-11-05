@@ -1,0 +1,478 @@
+{
+  "sessions": [
+    {
+      "id": "D-r1-explorer",
+      "persona": "D",
+      "session": "explorer",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 241,
+      "actions": 68,
+      "screens": 20,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 9,
+      "api": 231,
+      "statuses": {
+        "200": 1971,
+        "204": 30,
+        "400": 1,
+        "404": 7
+      },
+      "bad": [
+        "404 /players/erde.png",
+        "404 /players/timotino.png",
+        "404 /players/aluba.png",
+        "404 /players/yatsuka.png",
+        "404 /players/guang.png",
+        "404 /api/game/duel",
+        "404 /api/game/player",
+        "400 /api/game/competitive"
+      ],
+      "notes": [],
+      "nav": [
+        {
+          "path": "/temporada",
+          "url": "/temporada",
+          "h": [
+            "NEXUS — TEMPORADA 1",
+            "Siguiente objetivo"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/competitivo",
+          "url": "/competitivo",
+          "h": [
+            "SIN CLASIFICAR",
+            "ÚLTIMAS PARTIDAS"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/logros",
+          "url": "/logros",
+          "h": [
+            "TEMPORADA 1 · ASCENSO",
+            "LIBRE"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/coleccion/equipos",
+          "url": "/coleccion/equipos",
+          "h": [
+            "COLECCIÓN POR EQUIPO",
+            "NRG"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/duelos/competitivo/historial",
+          "url": "/duelos/competitivo/historial",
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/eventos",
+          "url": "/eventos",
+          "h": [
+            "CENTRO DE EVENTOS",
+            "RECOMPENSA DIARIA"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/torneos",
+          "url": "/torneos",
+          "h": [
+            "EL CIRCUITO, EN DIRECTO",
+            "EN CURSO · 2"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/noticias",
+          "url": "/noticias",
+          "h": [
+            "NOTICIAS"
+          ],
+          "broken": 0,
+          "hScroll": false
+        }
+      ],
+      "invalid": [
+        {
+          "path": "/duelos/replay/00000000-0000-4000-8000-000000000000",
+          "h": [],
+          "text": "PARTIDA NO ENCONTRADA Solo los jugadores de una partida pueden ver su repetición. VOLVER A DUELOS JUGAR",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        },
+        {
+          "path": "/jugador/00000000-0000-4000-8000-000000000000",
+          "h": [],
+          "text": "JUGADOR NO ENCONTRADO Puede que el enlace sea incorrecto o que el perfil ya no esté disponible. BUSCAR JUGADORES JUGAR INSTALAR NEXUS Juega como una app, tambié",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        },
+        {
+          "path": "/coleccion/carta/no-existe",
+          "h": [
+            "CARTA NO ENCONTRADA"
+          ],
+          "text": "CARTA NO ENCONTRADA Ese enlace no corresponde a ninguna carta del catálogo de NEXUS. IR A LA COLECCIÓN INSTALAR NEXUS Juega como una app, también sin conexión. ",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        },
+        {
+          "path": "/abrir/no-existe",
+          "h": [
+            "ESE SOBRE NO EXISTE"
+          ],
+          "text": "APERTURA DE SOBRES ESE SOBRE NO EXISTE El enlace apunta a un sobre que no está en el catálogo. Puede que fuera de un evento que ya terminó, o que la dirección e",
+          "links": []
+        },
+        {
+          "path": "/duelos/competitivo/partida/nope",
+          "h": [],
+          "text": "ALGO HA FALLADO NO SE HA PODIDO CARGAR Partida no válida REINTENTAR VOLVER AL LOBBY",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        }
+      ],
+      "notFound": {
+        "h": [
+          "ESTA ZONA NO EXISTE"
+        ],
+        "back404": {
+          "text": "VOLVER AL JUEGO",
+          "href": "/"
+        },
+        "after": "/"
+      },
+      "history": {
+        "b1": "/torneos",
+        "b2": "/eventos",
+        "f1": "/torneos"
+      },
+      "profile": {
+        "h": [
+          "QAF68D101756_225E",
+          "EXPÓN TUS CARTAS FAVORITAS",
+          "COMPETITIVO",
+          "TEMPORADA ACTUAL",
+          "ESTADÍSTICAS",
+          "COLECCIÓN",
+          "TROFEOS · 0 / 7 LOGROS",
+          "EVENTOS · PICK'EMS"
+        ],
+        "testids": [
+          "hero-ranked",
+          "showcase",
+          "ranked-panel",
+          "profile-season",
+          "profile-stats",
+          "featured-achievements",
+          "profile-activity",
+          "season-block-profile",
+          "campaign-profile"
+        ],
+        "text": "🎮 TU PERFIL DE JUGADOR QAF68D101756_225E NIVEL 3 RATING — RANKED Sin clasificar Nivel de cuenta · progreso al 4 249 / 277 XP de cuenta EDITAR PERFIL COMPARTIR PERFIL CUENTA Y AJUSTES EDITAR EQUIPO EXPÓN TUS CARTAS FAVORITAS Elige hasta 3 cartas de tu colección —la copia concreta, con su serie— para enseñarlas en tu perfil. La primera será tu carta destacada. ELEGIR CARTAS COMPETITIVO Todavía no h"
+      },
+      "social": {
+        "h": [
+          "AMIGOS Y DUELOS PRIVADOS",
+          "QAF68D101756_225E"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "BUSCAR JUGADORES",
+          "AMIGOS",
+          "SOLICITUDES",
+          "BUSCAR JUGADORES",
+          "RETOS",
+          "RIVALES RECIENTES",
+          "BUSCAR JUGADORES",
+          "INSTALAR"
+        ]
+      }
+    },
+    {
+      "id": "D-r2-explorer",
+      "persona": "D",
+      "session": "explorer",
+      "tag": "r2",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 232,
+      "actions": 160,
+      "screens": 20,
+      "checks": {
+        "pass": 4,
+        "fail": []
+      },
+      "consoleErrors": 4,
+      "api": 269,
+      "statuses": {
+        "200": 2084,
+        "204": 33,
+        "400": 1,
+        "404": 2
+      },
+      "bad": [
+        "404 /api/game/duel",
+        "404 /api/game/player",
+        "400 /api/game/competitive"
+      ],
+      "notes": [],
+      "nav": [
+        {
+          "path": "/temporada",
+          "url": "/temporada",
+          "h": [
+            "NEXUS — TEMPORADA 1",
+            "Siguiente objetivo"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/competitivo",
+          "url": "/competitivo",
+          "h": [
+            "SIN CLASIFICAR",
+            "ÚLTIMAS PARTIDAS"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/logros",
+          "url": "/logros",
+          "h": [
+            "TEMPORADA 1 · ASCENSO",
+            "LIBRE"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/coleccion/equipos",
+          "url": "/coleccion/equipos",
+          "h": [
+            "COLECCIÓN POR EQUIPO",
+            "NRG"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/duelos/competitivo/historial",
+          "url": "/duelos/competitivo/historial",
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/eventos",
+          "url": "/eventos",
+          "h": [
+            "CENTRO DE EVENTOS",
+            "RECOMPENSA DIARIA"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/torneos",
+          "url": "/torneos",
+          "h": [
+            "EL CIRCUITO, EN DIRECTO",
+            "EN CURSO · 2"
+          ],
+          "broken": 0,
+          "hScroll": false
+        },
+        {
+          "path": "/noticias",
+          "url": "/noticias",
+          "h": [
+            "NOTICIAS"
+          ],
+          "broken": 0,
+          "hScroll": false
+        }
+      ],
+      "invalid": [
+        {
+          "path": "/duelos/replay/00000000-0000-4000-8000-000000000000",
+          "h": [],
+          "text": "PARTIDA NO ENCONTRADA Solo los jugadores de una partida pueden ver su repetición. VOLVER A DUELOS JUGAR",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        },
+        {
+          "path": "/jugador/00000000-0000-4000-8000-000000000000",
+          "h": [],
+          "text": "JUGADOR NO ENCONTRADO Puede que el enlace sea incorrecto o que el perfil ya no esté disponible. BUSCAR JUGADORES JUGAR INSTALAR NEXUS Juega como una app, tambié",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        },
+        {
+          "path": "/coleccion/carta/no-existe",
+          "h": [
+            "CARTA NO ENCONTRADA"
+          ],
+          "text": "CARTA NO ENCONTRADA Ese enlace no corresponde a ninguna carta del catálogo de NEXUS. IR A LA COLECCIÓN INSTALAR NEXUS Juega como una app, también sin conexión. ",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        },
+        {
+          "path": "/abrir/no-existe",
+          "h": [
+            "ESE SOBRE NO EXISTE"
+          ],
+          "text": "APERTURA DE SOBRES ESE SOBRE NO EXISTE El enlace apunta a un sobre que no está en el catálogo. Puede que fuera de un evento que ya terminó, o que la dirección e",
+          "links": []
+        },
+        {
+          "path": "/duelos/competitivo/partida/nope",
+          "h": [],
+          "text": "ALGO HA FALLADO NO SE HA PODIDO CARGAR Partida no válida REINTENTAR VOLVER AL LOBBY",
+          "links": [
+            "#contenido",
+            "/",
+            "/coleccion",
+            "/duelos/mazos"
+          ]
+        }
+      ],
+      "notFound": {
+        "h": [
+          "ESTA ZONA NO EXISTE"
+        ],
+        "back404": {
+          "text": "VOLVER AL JUEGO",
+          "href": "/"
+        },
+        "after": "/"
+      },
+      "history": {
+        "b1": "/torneos",
+        "b2": "/eventos",
+        "f1": "/torneos"
+      },
+      "profile": {
+        "h": [
+          "QAF68D101756_225E",
+          "EXPÓN TUS CARTAS FAVORITAS",
+          "COMPETITIVO",
+          "TEMPORADA ACTUAL",
+          "ESTADÍSTICAS",
+          "COLECCIÓN",
+          "TROFEOS · 0 / 7 LOGROS",
+          "EVENTOS · PICK'EMS"
+        ],
+        "testids": [
+          "hero-ranked",
+          "showcase",
+          "ranked-panel",
+          "profile-season",
+          "profile-stats",
+          "featured-achievements",
+          "profile-activity",
+          "season-block-profile",
+          "campaign-profile"
+        ],
+        "text": "🎮 TU PERFIL DE JUGADOR QAF68D101756_225E NIVEL 3 RATING — RANKED Sin clasificar Nivel de cuenta · progreso al 4 249 / 277 XP de cuenta EDITAR PERFIL COMPARTIR PERFIL CUENTA Y AJUSTES EDITAR EQUIPO EXPÓN TUS CARTAS FAVORITAS Elige hasta 3 cartas de tu colección —la copia concreta, con su serie— para enseñarlas en tu perfil. La primera será tu carta destacada. ELEGIR CARTAS COMPETITIVO Todavía no h"
+      },
+      "social": {
+        "h": [
+          "AMIGOS Y DUELOS PRIVADOS",
+          "QAF68D101756_225E"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "BUSCAR JUGADORES",
+          "AMIGOS 1",
+          "SOLICITUDES",
+          "BUSCAR JUGADORES",
+          "RETOS",
+          "RIVALES RECIENTES",
+          "RETAR",
+          "…",
+          "INSTALAR"
+        ]
+      }
+    }
+  ],
+  "social": {
+    "id": "DC-r1-social",
+    "persona": "D",
+    "session": "social",
+    "tag": "r1",
+    "width": 1440,
+    "reduced": false,
+    "durationSec": 34,
+    "actions": 15,
+    "screens": 6,
+    "checks": {
+      "pass": 2,
+      "fail": []
+    },
+    "consoleErrors": 0,
+    "api": 72,
+    "statuses": {
+      "200": 574,
+      "204": 7
+    },
+    "bad": [],
+    "notes": [],
+    "results": "🎮\nQAF68C101756_D413\nDe conectado\nRating 1021\nAÑADIR AMIGO",
+    "inbox": "RECIBIDAS · 1\n🎮\nQAF68D101756_225E\nrecibida ahora mi mo\nACEPTAR\nRECHAZAR\nBLOQUEAR\nENVIADAS · 0\n\nNo ha  enviado ninguna  olicitud pendiente.",
+    "friendsOther": "EN LÍNEA · 1\n\n🎮\nQAF68D101756_225E\nEn línea\nSin partida  ranked\nRETAR\n…"
+  }
+}

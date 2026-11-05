@@ -1,0 +1,19 @@
+PASS U0 · estado roto construido: H MATCHED → partida terminal {"id":"c1a7995a","match":"bb058da8","state":"MATCHED","reason":null,"mclosed":"ABANDONED","mstatus":"IN_PROGRESS","updated":"2026-10-05T09:23:23.630371+00:00"}
+PASS U1 · MATCHED muerto + JUGAR → «Buscando rival» en cola NUEVA; nunca sincroniza la partida muerta; sin jerga {"before":{"id":"c1a7995a","match":"bb058da8","state":"MATCHED","reason":null,"mclosed":"ABANDONED","mstatus":"IN_PROGRESS","updated":"2026-10-05T09:23:23.630371+00:00"},"screen":{"url":"/duelos/pvp","searching":true,"arena":false,"result":
+PASS U1b · consola sin errores []
+PASS P1 · doble clic en JUGAR → una sola búsqueda viva {"live":1}
+PASS O2 · cancelada desde otra sesión: la pantalla deja de buscar sola (sondeo), sin error {"url":"/duelos/pvp","searching":false,"arena":false,"result":false,"technical":false,"syncing":null}
+PASS Q1 · dos sesiones JUGAR a la vez → UNA búsqueda; las dos pantallas la muestran {"a":true,"b":true,"live":1}
+PASS L4 · emparejado: la sesión entra en la partida VIVA {"enq":"OK","mid":"0c7e0c64","syncing":"0c7e0c64"}
+PASS AD1 · F5 durante la partida ACTIVA → la MISMA partida (no cola nueva) {"url":"/duelos/pvp","searching":false,"arena":true,"result":false,"technical":false,"syncing":"0c7e0c64-b8aa-4c24-b8b2-6762b59e066b"}
+PASS Q2 · la otra sesión también reconecta a ESA partida 0c7e0c64
+PASS N2 · D abandona 
+PASS M1 · al terminar se ve el RESULTADO de esa partida {"url":"/duelos/pvp?match=0c7e0c64-b8aa-4c24-b8b2-6762b59e066b","searching":false,"arena":false,"result":true,"technical":false,"syncing":"0c7e0c64-b8aa-4c24-b8b2-6762b59e066b"}
+PASS AE1 · la URL fija la partida terminada (?match=) para que F5 conserve el resultado /duelos/pvp?match=0c7e0c64-b8aa-4c24-b8b2-6762b59e066b
+PASS AE2 · F5 en el resultado → mismo resultado, sin volver a buscar, sin presentarlo como activo {"url":"/duelos/pvp?match=0c7e0c64-b8aa-4c24-b8b2-6762b59e066b","searching":false,"arena":false,"result":true,"technical":false,"syncing":"0c7e0c64-b8aa-4c24-b8b2-6762b59e066b"}
+PASS J5 · otra sesión entra en /duelos/pvp después: antesala, NO el resultado viejo {"url":"/duelos/pvp","searching":false,"arena":false,"result":false,"technical":false,"syncing":null}
+PASS W3 · «Buscar otro rival» → búsqueda NUEVA (no la partida terminada) {"clicked":true,"again":{"url":"/duelos/pvp","searching":true,"arena":false,"result":false,"technical":false,"syncing":"0c7e0c64-b8aa-4c24-b8b2-6762b59e066b"}}
+PASS Q3 · consola sin errores en las dos sesiones []
+PASS Z3 · limpieza: 0 búsquedas vivas de QA 
+
+17/17 PASS

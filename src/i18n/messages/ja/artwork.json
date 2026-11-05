@@ -1,0 +1,14 @@
+{
+  "Brillo de carta": "カードの輝き",
+  "Fondo base de carta": "カードのベース背景",
+  "Foto de {playerId}": "{playerId}の写真",
+  "Logo de {slug}": "{slug}のロゴ",
+  "Logo del torneo {tournamentId}": "トーナメント{tournamentId}のロゴ",
+  "alias \"{alias}\" ya pertenece a {owner}": "エイリアス「{alias}」はすでに{owner}のものです",
+  "categoría sin placeholder oficial: {category}": "公式プレースホルダーのないカテゴリー:{category}",
+  "dimensiones no válidas: {width}x{height}": "無効なサイズ:{width}x{height}",
+  "formato {format} no permitido para {category}": "{category}には形式{format}を使用できません",
+  "resolución inválida {width}x{height} para {format}": "{format}には無効な解像度{width}x{height}です",
+  "ruta inválida: \"{path}\" (esperada /, http(s), data: o css:)": "無効なパス:「{path}」(想定:/、http(s)、data:、css:)",
+  "sin lector inyectado para cargar: {path}": "読み込み用のリーダーが注入されていません:{path}"
+}

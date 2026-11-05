@@ -1,0 +1,123 @@
+{
+  "server": ":3005 next start (build final F62), HTTP 200; túnel SSH 54521/54522 abierto",
+  "qaAccount": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "runs": {
+    "run1": {
+      "at": "2026-09-25T10:59:08.746Z",
+      "match": {
+        "post": {
+          "completed": [],
+          "claimButtons": 0,
+          "levelUp": null,
+          "beforeActions": null
+        },
+        "accountXpDelta": 0,
+        "creditsDelta": 0,
+        "ledgerDuel": {
+          "id": "2ff74d73-cb67-4e2d-aefc-99697a7f6d3c",
+          "delta": 40,
+          "reason": "duel_loss",
+          "ref": "duel:06b8cc80-ae1f-4b04-bffd-b11029ee710a",
+          "created_at": "2026-09-25T09:48:37.342576+00:00"
+        }
+      },
+      "claimAll": {
+        "offered": 4,
+        "serverPending": 4,
+        "keys": [
+          "mission:d-duelo-1",
+          "mission:w-victorias",
+          "mission:w-cartas-5",
+          "mission:s-mazo"
+        ],
+        "creditsDelta": 4550,
+        "expectedCredits": 4550,
+        "passXpDelta": 1100,
+        "expectedSeasonXp": 2900,
+        "season": [
+          0,
+          1
+        ],
+        "pendingAfter": [
+          "mission:w-victorias",
+          "mission:s-mazo",
+          "level:1"
+        ]
+      },
+      "levels": {
+        "offered": 3,
+        "keys": [
+          "mission:w-victorias",
+          "mission:s-mazo",
+          "level:1"
+        ],
+        "expectedCredits": 3060,
+        "creditsDelta": 260,
+        "pendingAfter": [
+          "level:2"
+        ],
+        "season": 2
+      }
+    },
+    "run2": {
+      "at": "2026-09-25T11:05:39.232Z",
+      "match": {
+        "post": {
+          "state": "changes",
+          "sections": "ACCOUNT,OBJECTIVES",
+          "completed": [],
+          "claimButtons": 0,
+          "levelUp": null,
+          "beforeActions": true
+        },
+        "accountXpDelta": 25,
+        "creditsDelta": 40,
+        "ledgerDuel": {
+          "id": "0cf7e211-ccee-48bd-933d-2c45aeeb0a1a",
+          "delta": 40,
+          "reason": "duel_loss",
+          "ref": "duel:43a206a0-4ae8-4538-9e9e-e1d2a2ed88fa",
+          "created_at": "2026-09-25T11:06:13.865504+00:00"
+        }
+      },
+      "claimAll": {
+        "offered": 1,
+        "serverPending": 1,
+        "keys": [
+          "level:2"
+        ],
+        "creditsDelta": 270,
+        "expectedCredits": 270,
+        "passXpDelta": 0,
+        "expectedSeasonXp": 0,
+        "season": [
+          2,
+          2
+        ],
+        "pendingAfter": []
+      },
+      "home": {
+        "dock": true,
+        "claimable": null,
+        "near": "Juega 25 duelos en la temporada 15 / 25Jugar",
+        "season": "Temporada · nivel 2/30Nivel 3: 280 créditos"
+      },
+      "after": {
+        "xp": 2064,
+        "credits": 8750,
+        "seasonLevel": 2,
+        "passXp": 2900,
+        "pending": []
+      }
+    }
+  },
+  "consoleErrors": {
+    "run2": [
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    ],
+    "note": "3 × 404 = vídeo de fondo de la portada (F46 «BACKGROUND VIDEO ASSET PENDING»), previo a F62"
+  },
+  "dbVerify": "== asientos de hoy (QA A) ==\n    t     | delta |     reason     |                     ref                      \n----------+-------+----------------+----------------------------------------------\n 11:00:14 |   250 | mission_reward | mission:nexus-s1:d-duelo-1:1790294400000:9\n 11:00:14 |  1800 | mission_reward | mission:nexus-s1:w-victorias:1789948800000:0\n 11:00:15 |  1000 | mission_reward | mission:nexus-s1:s-mazo:1789721869003:0\n 11:00:15 |  1500 | mission_reward | mission:nexus-s1:w-cartas-5:1789948800000:0\n 11:00:25 |   260 | pass_reward    | pass:nexus-s1:free:1\n 11:06:13 |    40 | duel_loss      | duel:43a206a0-4ae8-4538-9e9e-e1d2a2ed88fa\n 11:06:22 |   270 | pass_reward    | pass:nexus-s1:free:2\n(7 rows)\n\n== refs duplicadas (debe ser 0 filas) ==\n ref | count \n-----+-------\n(0 rows)\n\n== pase ==\n pass_xp | claimed_free | missions_claimed \n---------+--------------+------------------\n    2900 | [1, 2]       |                4\n(1 row)\n\n== perfil ==\n  xp  | credits \n------+---------\n 2064 |    8750\n(1 row)\n\n"
+}

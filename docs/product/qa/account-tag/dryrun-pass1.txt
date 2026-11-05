@@ -1,0 +1,58 @@
+== restaurado (23 errores de pg_restore, conocidos: roles de Supabase ausentes)
+PASS copia en 0067: app_admin_set_admin existe (t)
+PASS copia sin rastro de 0068 (0)
+== 40 perfiles · huellas de 20 tablas
+PASS 0068 aplica en UNA transacción (exit) (0)
+   tiempo: 243 ms
+PASS 0068 no cambia NINGÚN otro dato (perfiles salvo el tag, updated_at incluido; auth, inventario, economía, ranked, social, auditoría, temporada) (iguales)
+PASS todas las cuentas existentes tienen tag; 0 nulos; 0 duplicados; formato válido (0|0|0|40)
+PASS public_tag NOT NULL en la BD (NO)
+PASS UNIQUE real (constraint) y CHECK de formato (2)
+PASS cada tag está en el registro con SU cuenta (40)
+PASS admins intactos (2f86cbe8-f663-40fb-a87c-4896b9a45b62)
+PASS IDEMPOTENTE: reaplicar 0068 (exit) (0)
+PASS … y NINGUNA cuenta cambia de tag (e61b213b90591796422ba26b406579ab)
+== cuentas nuevas
+PASS cuenta nueva: tag automático válido (la BD lo pone) (t)
+PASS el registro guarda (tag → cuenta) de la cuenta nueva (1)
+PASS alta que INTENTA elegir tag (metadatos public_tag=AAAAAAA) → se ignora (t)
+PASS INSERT directo de un perfil con public_tag='BBBBBBB' → la BD lo sustituye (y reusa SU tag del registro) (true|true)
+== inmutabilidad (cualquier rol)
+PASS superusuario/service_role: UPDATE public_tag → ACCOUNT_TAG_IMMUTABLE (1)
+PASS poner el tag a NULL → rechazado (y NOT NULL) (1)
+PASS con la bandera del backfill pero OTRO tag → rechazado (1)
+PASS authenticated (su propia fila, RLS «edita tu perfil») → rechazado (1)
+FAIL anon → rechazado (esperado «1», obtenido «0»)
+PASS … y el tag sigue siendo el mismo (EKM9JWN)
+PASS cambiar el NOMBRE sigue funcionando y no toca el tag (EKM9JWN)
+== registro (append-only, sin acceso de cliente)
+PASS registro: UPDATE → APPEND_ONLY (1)
+PASS registro: DELETE → APPEND_ONLY (1)
+PASS registro: authenticated no lee ni inserta (1|1)
+PASS registro: tag con formato inválido → CHECK (1)
+PASS funciones internas sin EXECUTE para clientes (0)
+== borrado → el tag NUNCA se reutiliza
+PASS borrar la cuenta: perfil fuera, el registro conserva (tag → cuenta borrada) (0|1)
+PASS COLISIÓN forzada con un tag de cuenta BORRADA → reintento y tag DISTINTO (nunca se reutiliza) (true|true)
+PASS COLISIÓN forzada con un tag VIVO → el alta no falla: reintenta y recibe otro (true)
+PASS AGOTAMIENTO (el generador solo da tags ocupados) → ACCOUNT_TAG_EXHAUSTED tras 10 intentos, sin bucle infinito (207 ms) (1|rapido)
+PASS … y el alta fallida NO deja cuenta ni perfil a medias (0)
+PASS generador real restaurado (reaplicar 0068) (t)
+== 100.000 tags
+   100.000 tags del generador en 2017 ms · total|duplicados crudos (esperado ≈ 0,18 por cumpleaños)|formato inválido = 100000|0|0
+PASS 100.000 tags crudos: formato válido en todos (0)
+PASS 100.000 asignaciones por el REGISTRO (con resolución de colisiones): 100.000 tags y 0 duplicados (8646 ms) (100000|0)
+PASS … el registro (PK) contiene 100.000 tags nuevos únicos (0)
+== concurrencia
+PASS 100 altas SIMULTÁNEAS → 100 perfiles, 100 tags distintos y válidos (100|100|0)
+PASS 20 asignaciones simultáneas para la MISMA cuenta → un único tag (1|1)
+== auditoría de admins con el tag (0067 + instantánea)
+PASS GRANT_ADMIN registra id interno + target_tag + nombre (GRANTED|true|true|true)
+PASS último admin sigue protegido (LAST_ADMIN) y NOT_ADMIN intacto (1)
+== rollback
+PASS rollback aplica (exit) (0)
+FAIL rollback → sin columna ni disparadores; REGISTRO conservado; app_admin_set_admin = 0067 byte a byte (esperado «0|0|100148|true», obtenido «0|0|100148|false»)
+PASS 0068 se reaplica tras el rollback (0)
+PASS … y CADA cuenta recupera EXACTAMENTE su tag (el registro manda) (6625aff134f566a198e15a22c6c333bd)
+== 2 fallos
+DRYRUN_FAIL

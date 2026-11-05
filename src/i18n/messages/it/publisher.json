@@ -1,0 +1,17 @@
+{
+  "CraftEngine apunta a un registry antiguo": "CraftEngine punta a un registry obsoleto",
+  "PackEngine apunta a un registry antiguo": "PackEngine punta a un registry obsoleto",
+  "alta no indexada: {id}": "nuova voce non indicizzata: {id}",
+  "alta {id} ausente del pool runtime de {packId}": "aggiunta {id} assente dal pool runtime di {packId}",
+  "catálogo vivo {v} ≠ build {length}": "catalogo live {v} ≠ build {length}",
+  "catálogo {v} ≠ instantánea {length}": "catalogo {v} ≠ snapshot {length}",
+  "colección no publicada: {id}": "collezione non pubblicata: {id}",
+  "engines sin recrear tras rollback": "engine non ricreati dopo il rollback",
+  "enlace de carta ausente: {cardId}": "link della carta assente: {cardId}",
+  "entrada no publicada: {cardId}": "voce non pubblicata: {cardId}",
+  "instantánea no encontrada": "snapshot non trovato",
+  "noticia no publicada: {id}": "notizia non pubblicata: {id}",
+  "registry no construido sobre el catálogo vivo vigente": "registry non costruito sul catalogo live corrente",
+  "ruta {from}→{to} irresoluble en el runtime": "percorso {from}→{to} irrisolvibile nel runtime",
+  "índice de búsqueda no publicado": "indice di ricerca non pubblicato"
+}

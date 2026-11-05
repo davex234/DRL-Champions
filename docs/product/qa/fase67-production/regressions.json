@@ -1,0 +1,15 @@
+{
+  "F61": "huella dorada F61 MOTOR 01 verde; e2e F66 caos en Next 16.3.6: 10 turnos, final/desempate/recarga correctos",
+  "F62": "PvE paga una vez (+120 = premio, f66-pve-regress); progresión sin cambios",
+  "F63": "/api/game/onboarding 200; primera partida PvE = mismo playTurn",
+  "F64": "0 errores de consola, 0 desbordes, 9,5 peticiones API por pantalla (igual que F64 en el mismo conjunto), JS algo más ligero",
+  "F65": "lab.test verde, huella de buildOpponentDeck intacta, ninguna propuesta aplicada",
+  "F66": "e2e dos clientes caos verde; PvE 1×200/9×409 en BD real (tras el arreglo de versión de F67); IDOR/404 uniforme vigente",
+  "F58/F60": "adminControlCenter (16) y tests de subida verdes; admin 401 para usuario normal (smoke)",
+  "engineChanged": false,
+  "balanceChanged": false,
+  "economyChanged": false,
+  "cardsChanged": false,
+  "agentsChanged": false,
+  "migration": false
+}

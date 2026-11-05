@@ -1,0 +1,69 @@
+{
+  "phase": "F69",
+  "at": "2026-09-27T21:05Z",
+  "note": "F69 se hizo en dos pases de sesión: el primero (19:21–20:07Z) arregló F68-010/011/012/013, autoridad y copy, preparó 0058 v2 y el inventario, y se cortó; el segundo (este) revisó ese trabajo, lo completó y verificó en vivo. La línea base es la del arranque del primer pase, reverificada al empezar el segundo.",
+  "process": {
+    "listener": "127.0.0.1:3005 (solo loopback), PID 8088 `next start -H 127.0.0.1 -p 3005`, lanzado 14:20 local (build de cierre de F68)",
+    "buildId": "drl-0.1.1-1-9792433c (la build F68 real; el informe F68 citaba drl-0.1.1-1-97924337 y la de arranque abdcaffc)",
+    "tunnel": "ssh -N 54521/54522 → nexusadmin@212.95.40.144 (PID 27464), abierto",
+    "health": "/api/health 200 {status: ok, version 0.1.1, node v24.15.0}",
+    "ready": "/api/ready ready · migrationHead 0057_admin_cms · catálogo 331/331 · storage ok"
+  },
+  "tests": {
+    "reportedByBrief": 5364,
+    "atF69Start": "5364 (F68) → 5384 tras el primer pase",
+    "final": "ver regressions.json"
+  },
+  "cards": 331,
+  "agents": 29,
+  "migrationHead": "0057_admin_cms (código y BD viva; 0058 NO aplicada)",
+  "next": "16.3.6 (instalado y lockfile); sharp 0.35.4 dependencia directa",
+  "marketplace": "OFF (GLOBAL_MARKET_ENABLED=false)",
+  "payments": "OFF (PAYMENTS_ENABLED=false)",
+  "productionCheck": "24 PASS · 1 FAIL (backup-offsite) en F68",
+  "smoke": "67/67 en F68",
+  "workingTree": {
+    "head": "48dac2a",
+    "branch": "arch/stabilization",
+    "trackedModified": 302,
+    "untracked": 1118,
+    "totalStatusLines": 1420
+  },
+  "f68Open": {
+    "BLOCKER": 0,
+    "CRITICAL": 0,
+    "MAJOR": [
+      "F68-010"
+    ],
+    "POLISH": [
+      "F68-011",
+      "F68-012",
+      "F68-013"
+    ]
+  },
+  "environment": "Sin Docker local; BD real en el VPS por túnel SSH; app local con next start; otros proyectos (SPORT :3200/:8081) en la misma máquina, no tocados",
+  "resumedSession": {
+    "at": "2026-09-28T10:20Z",
+    "found": {
+      "listener": "ninguno (:3005 y túnel caídos)",
+      "lastBuild": "drl-0.1.1-1-d74dc352",
+      "tests": 5400,
+      "checkpoint": "run-final.sh escrito y sin ejecutar"
+    },
+    "final": {
+      "build": "drl-0.1.1-1-7e223fed",
+      "listener": "127.0.0.1:3005 (solo loopback) · next start -H 127.0.0.1 -p 3005",
+      "tunnel": "ssh -N 54521/54522 → VPS, abierto",
+      "tests": 5402,
+      "cards": 331,
+      "agents": 29,
+      "migrationHead": "0057_admin_cms (0058 NO aplicada)",
+      "next": "16.3.6",
+      "sharp": "0.35.4 directa",
+      "marketplace": "OFF",
+      "payments": "OFF",
+      "productionCheck": "24 PASS · 1 WARN · 1 FAIL",
+      "smoke": "68/68"
+    }
+  }
+}

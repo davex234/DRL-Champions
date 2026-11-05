@@ -1,0 +1,628 @@
+{
+  "rule": "detalle = productOdds(product) = packOddsFor(pack, packStats(pack.id), equipo) — la misma llamada que /packs/[packId]",
+  "sources": {
+    "class-table": "mainPackDistribution(packId): la tabla con la que openPack sortea cada hueco (línea principal)",
+    "measured": "PACK_STATS: 20.000 aperturas con el motor real (revalidado por packStats.test contra openPack)",
+    "weights": "pesos declarados normalizados (sin medición; hoy solo el Sobre Inicial, regalo con regla propia)"
+  },
+  "products": [
+    {
+      "productId": "pack:estandar",
+      "name": "Sobre Bronce",
+      "tables": [
+        {
+          "packId": "estandar",
+          "source": "class-table",
+          "ui": [
+            "Base 50 %",
+            "Plata 25 %",
+            "Oro 10 %",
+            "Masters 7 %",
+            "Champions 4 %",
+            "Prime 3 %",
+            "Icon 1 %"
+          ],
+          "server": {
+            "base": 50,
+            "plata": 25,
+            "oro": 10,
+            "masters": 7,
+            "champions": 4,
+            "prime": 3,
+            "icon": 1
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:premium",
+      "name": "Sobre Plata",
+      "tables": [
+        {
+          "packId": "premium",
+          "source": "class-table",
+          "ui": [
+            "Plata 50 %",
+            "Oro 25 %",
+            "Masters 10 %",
+            "Champions 7 %",
+            "Prime 5 %",
+            "Icon 3 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 50,
+            "oro": 25,
+            "masters": 10,
+            "champions": 7,
+            "prime": 5,
+            "icon": 3
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:oro",
+      "name": "Sobre Oro",
+      "tables": [
+        {
+          "packId": "oro",
+          "source": "class-table",
+          "ui": [
+            "Oro 50 %",
+            "Masters 23 %",
+            "Champions 10 %",
+            "Prime 10 %",
+            "Icon 7 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 0,
+            "oro": 50,
+            "masters": 23,
+            "champions": 10,
+            "prime": 10,
+            "icon": 7
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:champions",
+      "name": "Sobre Champions",
+      "tables": [
+        {
+          "packId": "champions",
+          "source": "class-table",
+          "ui": [
+            "Oro 15 %",
+            "Masters 20 %",
+            "Champions 30 %",
+            "Prime 20 %",
+            "Icon 15 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 0,
+            "oro": 15,
+            "masters": 20,
+            "champions": 30,
+            "prime": 20,
+            "icon": 15
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:icon",
+      "name": "Sobre Icon",
+      "tables": [
+        {
+          "packId": "icon",
+          "source": "class-table",
+          "ui": [
+            "Prime 70 %",
+            "Icon 30 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 0,
+            "oro": 0,
+            "masters": 0,
+            "champions": 0,
+            "prime": 70,
+            "icon": 30
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:masters",
+      "name": "Sobre Masters",
+      "tables": [
+        {
+          "packId": "masters",
+          "source": "class-table",
+          "ui": [
+            "Oro 25 %",
+            "Masters 40 %",
+            "Champions 15 %",
+            "Prime 12 %",
+            "Icon 8 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 0,
+            "oro": 25,
+            "masters": 40,
+            "champions": 15,
+            "prime": 12,
+            "icon": 8
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:ewc",
+      "name": "Sobre EWC",
+      "tables": [
+        {
+          "packId": "ewc",
+          "source": "measured",
+          "ui": [
+            "Común 7 %",
+            "Poco común 30 %",
+            "Rara 26 %",
+            "Épica 32 %",
+            "Legendaria 5 %"
+          ],
+          "server": {
+            "common": 0.0653,
+            "uncommon": 0.3044,
+            "rare": 0.256,
+            "epic": 0.323,
+            "legendary": 0.0513
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:inicial",
+      "name": "Sobre Inicial",
+      "tables": [
+        {
+          "packId": "inicial",
+          "source": "weights",
+          "ui": [
+            "Común 70 %",
+            "Poco común 26 %",
+            "Rara 4 %",
+            "Épica <1 %"
+          ],
+          "server": {
+            "common": 70,
+            "uncommon": 26,
+            "rare": 3.5,
+            "epic": 0.5,
+            "legendary": 0
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:emea",
+      "name": "Sobre EMEA",
+      "tables": [
+        {
+          "packId": "emea",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:americas",
+      "name": "Sobre Americas",
+      "tables": [
+        {
+          "packId": "americas",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:pacific",
+      "name": "Sobre Pacific",
+      "tables": [
+        {
+          "packId": "pacific",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:china",
+      "name": "Sobre China",
+      "tables": [
+        {
+          "packId": "china",
+          "source": "measured",
+          "ui": [
+            "Poco común 100 %"
+          ],
+          "server": {
+            "common": 0,
+            "uncommon": 1,
+            "rare": 0,
+            "epic": 0,
+            "legendary": 0
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:team-heretics",
+      "name": "Sobre Team Heretics",
+      "tables": [
+        {
+          "packId": "team-heretics",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:team-fnatic",
+      "name": "Sobre Fnatic",
+      "tables": [
+        {
+          "packId": "team-fnatic",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:team-g2",
+      "name": "Sobre G2",
+      "tables": [
+        {
+          "packId": "team-g2",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:team-liquid",
+      "name": "Sobre Team Liquid",
+      "tables": [
+        {
+          "packId": "team-liquid",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "pack:team-karmine",
+      "name": "Sobre Karmine Corp",
+      "tables": [
+        {
+          "packId": "team-karmine",
+          "source": "measured",
+          "ui": [
+            "Común 35 %",
+            "Poco común 40 %",
+            "Rara 18 %",
+            "Épica 6 %",
+            "Legendaria 1 %"
+          ],
+          "server": {
+            "common": 0.3521,
+            "uncommon": 0.3999,
+            "rare": 0.1782,
+            "epic": 0.0597,
+            "legendary": 0.0101
+          }
+        }
+      ]
+    },
+    {
+      "productId": "box:caja-estandar",
+      "name": "Caja Estándar",
+      "tables": [
+        {
+          "packId": "estandar",
+          "source": "class-table",
+          "ui": [
+            "Base 50 %",
+            "Plata 25 %",
+            "Oro 10 %",
+            "Masters 7 %",
+            "Champions 4 %",
+            "Prime 3 %",
+            "Icon 1 %"
+          ],
+          "server": {
+            "base": 50,
+            "plata": 25,
+            "oro": 10,
+            "masters": 7,
+            "champions": 4,
+            "prime": 3,
+            "icon": 1
+          }
+        }
+      ]
+    },
+    {
+      "productId": "box:caja-premium",
+      "name": "Caja Premium",
+      "tables": [
+        {
+          "packId": "premium",
+          "source": "class-table",
+          "ui": [
+            "Plata 50 %",
+            "Oro 25 %",
+            "Masters 10 %",
+            "Champions 7 %",
+            "Prime 5 %",
+            "Icon 3 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 50,
+            "oro": 25,
+            "masters": 10,
+            "champions": 7,
+            "prime": 5,
+            "icon": 3
+          }
+        }
+      ]
+    },
+    {
+      "productId": "box:caja-masters",
+      "name": "Caja Masters",
+      "tables": [
+        {
+          "packId": "masters",
+          "source": "class-table",
+          "ui": [
+            "Oro 25 %",
+            "Masters 40 %",
+            "Champions 15 %",
+            "Prime 12 %",
+            "Icon 8 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 0,
+            "oro": 25,
+            "masters": 40,
+            "champions": 15,
+            "prime": 12,
+            "icon": 8
+          }
+        }
+      ]
+    },
+    {
+      "productId": "box:caja-champions",
+      "name": "Caja Champions",
+      "tables": [
+        {
+          "packId": "champions",
+          "source": "class-table",
+          "ui": [
+            "Oro 15 %",
+            "Masters 20 %",
+            "Champions 30 %",
+            "Prime 20 %",
+            "Icon 15 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 0,
+            "oro": 15,
+            "masters": 20,
+            "champions": 30,
+            "prime": 20,
+            "icon": 15
+          }
+        }
+      ]
+    },
+    {
+      "productId": "bundle:pack-inicio",
+      "name": "Pack Inicio",
+      "tables": [
+        {
+          "packId": "estandar",
+          "source": "class-table",
+          "ui": [
+            "Base 50 %",
+            "Plata 25 %",
+            "Oro 10 %",
+            "Masters 7 %",
+            "Champions 4 %",
+            "Prime 3 %",
+            "Icon 1 %"
+          ],
+          "server": {
+            "base": 50,
+            "plata": 25,
+            "oro": 10,
+            "masters": 7,
+            "champions": 4,
+            "prime": 3,
+            "icon": 1
+          }
+        },
+        {
+          "packId": "premium",
+          "source": "class-table",
+          "ui": [
+            "Plata 50 %",
+            "Oro 25 %",
+            "Masters 10 %",
+            "Champions 7 %",
+            "Prime 5 %",
+            "Icon 3 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 50,
+            "oro": 25,
+            "masters": 10,
+            "champions": 7,
+            "prime": 5,
+            "icon": 3
+          }
+        }
+      ]
+    },
+    {
+      "productId": "bundle:pack-coleccionista",
+      "name": "Pack Coleccionista",
+      "tables": [
+        {
+          "packId": "premium",
+          "source": "class-table",
+          "ui": [
+            "Plata 50 %",
+            "Oro 25 %",
+            "Masters 10 %",
+            "Champions 7 %",
+            "Prime 5 %",
+            "Icon 3 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 50,
+            "oro": 25,
+            "masters": 10,
+            "champions": 7,
+            "prime": 5,
+            "icon": 3
+          }
+        },
+        {
+          "packId": "masters",
+          "source": "class-table",
+          "ui": [
+            "Oro 25 %",
+            "Masters 40 %",
+            "Champions 15 %",
+            "Prime 12 %",
+            "Icon 8 %"
+          ],
+          "server": {
+            "base": 0,
+            "plata": 0,
+            "oro": 25,
+            "masters": 40,
+            "champions": 15,
+            "prime": 12,
+            "icon": 8
+          }
+        }
+      ]
+    }
+  ]
+}

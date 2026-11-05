@@ -1,0 +1,300 @@
+{
+  "ficha:estandar@1440": {
+    "title": "Sobre Bronce",
+    "readouts": [
+      "Precio1.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio1.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "base 8150",
+      "plata 8525",
+      "oro 9210",
+      "masters 7",
+      "champions 4",
+      "prime 3",
+      "icon 1"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-estandar.webp"
+    ]
+  },
+  "ficha:premium@1440": {
+    "title": "Sobre Plata",
+    "readouts": [
+      "Precio2.500créditosContiene6cartasTu saldo6.000créditos",
+      "Precio2.500créditos",
+      "Precio",
+      "Contiene6cartas"
+    ],
+    "classRows": [
+      "plata 8550",
+      "oro 9225",
+      "masters 10",
+      "champions 7",
+      "prime 5",
+      "icon 3"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 6 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-premium.webp"
+    ]
+  },
+  "ficha:oro@1440": {
+    "title": "Sobre Oro",
+    "readouts": [
+      "Precio4.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio4.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "oro 9250",
+      "masters 23",
+      "champions 10",
+      "prime 10",
+      "icon 7"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-oro.webp"
+    ]
+  },
+  "ficha:masters@1440": {
+    "title": "Sobre Masters",
+    "readouts": [
+      "Precio5.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio5.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "oro 9225",
+      "masters 40",
+      "champions 15",
+      "prime 12",
+      "icon 8"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-masters.webp"
+    ]
+  },
+  "ficha:champions@1440": {
+    "title": "Sobre Champions",
+    "readouts": [
+      "Precio8.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio8.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "oro 9215",
+      "masters 20",
+      "champions 30",
+      "prime 20",
+      "icon 15"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-champions.webp"
+    ]
+  },
+  "ficha:icon@1440": {
+    "title": "Sobre Icon",
+    "readouts": [
+      "Precio12.500créditosContiene3cartasTu saldo6.000créditos",
+      "Precio12.500créditos",
+      "Precio",
+      "Contiene3cartas"
+    ],
+    "classRows": [
+      "prime 70",
+      "icon 30"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 3 cartas por sobre",
+    "guarantee": "Prime o Icon garantizada",
+    "art": [
+      "/packs/pack-icon.webp"
+    ]
+  },
+  "/packs@1440": {
+    "pricesSeen": [
+      "1.000",
+      "2.500",
+      "4.000",
+      "5.000",
+      "8.000",
+      "12.500"
+    ],
+    "oldPricesSeen": [],
+    "excerpt": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR JUGAR · SOBRES SOBRES Abre los que tienes, mira qué puede salir de cada uno y consigue el siguiente. Tu saldo 6.000 créditos MIS SOBRES 4 Inventario → ×3 SOBRE INICIAL Bienvenida · 5 cartas 3 unidades ABRIR ×1 SOBRE BRONCE Nexus · 5 cartas 1 unidad ABRIR DESTACADOS EQUIPO Sobre Team Heretics Probabilidad aumentada de Team Heretics 3.000 créditos NEXUS Sobre Bronce La vía más barata para AMPLIAR colección: común desde 235 créditos por carta. 1.000 créditos1 SIN ABRIR REGIONAL Sobre EMEA La vía más barata para conseguir una rara: unos 3367 créditos por carta. 3.000 créditos TIENDA TODOS RAREZA REGIONES EQUIPOS EVENTOS RAREZA5 3 SIN ABRIR BIENVENIDA Sobre Inicial Gratis ABRIR 1 SIN ABRIR NEXUS Sobre Bronce 1.000créditos ABRIR NEXUS Sobre Plata 2.500créditos VER SOBRE NEXUS Sobre Oro 4.000créditos VER SOBRE ICONO Sobre Icon 12.500créditos VER SOBRE REGIONES4 REGIONAL Sobre EMEA 3.000créditos VER SOBRE REGIONAL Sobre Americas 3.000créditos VER SOBRE REGIONAL Sobre Pacific 3.000créditos VER SOBRE REGIONAL Sobre China 3.000créditos VER SOBRE EQUIPOS5 EQUIPO · TH Sobre Team Heretics 3.000créditos VER SOBRE EQUIPO · FNC Sobre Fnatic 3.000créditos VER SOBRE EQUIPO · G2 Sobre G2 3.000créditos VER SOBRE EQUIPO · TL Sobre Team Liquid 3.000créditos VER SOBRE EQUIPO · KC Sobre Karmine Corp 3.000créditos VER SOBRE EVENTOS3 EVENTO Sobre Masters 5.000créditos VER EVENTO EVENTO Sobre "
+  },
+  "/tienda@1440": {
+    "pricesSeen": [
+      "1.000",
+      "2.500",
+      "4.000",
+      "5.000",
+      "8.000"
+    ],
+    "oldPricesSeen": [],
+    "excerpt": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR DESTACADO CHAMPIONS S · ÉPICA · 20 CARTAS CHAMPIONS S NUEVAS CARTAS. NUEVAS LEYENDAS. Las épicas de la temporada: los mejores del circuito en su mejor versión. Salen en el Sobre Champions y en el Sobre Icon. VER SOBRE CHAMPIONS VER CARTAS 5 DE 20 · CHAMPIONS S DESTACADO SOBRES 17 CAJAS 4 CARTAS 4 PACKS 2 SOBRES Consigue cartas aleatorias y amplía tu colección. VER TODOS · 17 → 1 SIN ABRIR SOBRE BRONCE NEXUS · 5 CARTAS ALEATORIAS Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % 🪙 1.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR O ABRIR DESTACADO SOBRE PLATA NEXUS · 6 CARTAS ALEATORIAS Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % 🪙 2.500 DRL Credits € · POR ANUNCIAR en euros COMPRAR SOBRE ORO NEXUS · 5 CARTAS ALEATORIAS Oro 50 % Masters 23 % Champions 10 % Prime 10 % Icon 7 % 🪙 4.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR NUEVO SOBRE CHAMPIONS EVENTO · 5 CARTAS ALEATORIAS Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % 🪙 8.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR CATÁLOGO TODOS RAREZA REGIONES EQUIPOS CAJAS 10 sobres del mismo tipo, a tu inventario y sin abrir. PRÓXIMAMENTE ×10 CAJA ESTÁNDAR 10 × Sobre Bronce · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % € · POR ANUNCIAR en euros PRÓXIMAMENTE PRÓXIMAMENTE ×10 CA"
+  },
+  "ficha:estandar@390": {
+    "title": "Sobre Bronce",
+    "readouts": [
+      "Precio1.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio1.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "base 8150",
+      "plata 8525",
+      "oro 9210",
+      "masters 7",
+      "champions 4",
+      "prime 3",
+      "icon 1"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-estandar.webp"
+    ]
+  },
+  "ficha:premium@390": {
+    "title": "Sobre Plata",
+    "readouts": [
+      "Precio2.500créditosContiene6cartasTu saldo6.000créditos",
+      "Precio2.500créditos",
+      "Precio",
+      "Contiene6cartas"
+    ],
+    "classRows": [
+      "plata 8550",
+      "oro 9225",
+      "masters 10",
+      "champions 7",
+      "prime 5",
+      "icon 3"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 6 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-premium.webp"
+    ]
+  },
+  "ficha:oro@390": {
+    "title": "Sobre Oro",
+    "readouts": [
+      "Precio4.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio4.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "oro 9250",
+      "masters 23",
+      "champions 10",
+      "prime 10",
+      "icon 7"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-oro.webp"
+    ]
+  },
+  "ficha:masters@390": {
+    "title": "Sobre Masters",
+    "readouts": [
+      "Precio5.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio5.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "oro 9225",
+      "masters 40",
+      "champions 15",
+      "prime 12",
+      "icon 8"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-masters.webp"
+    ]
+  },
+  "ficha:champions@390": {
+    "title": "Sobre Champions",
+    "readouts": [
+      "Precio8.000créditosContiene5cartasTu saldo6.000créditos",
+      "Precio8.000créditos",
+      "Precio",
+      "Contiene5cartas"
+    ],
+    "classRows": [
+      "oro 9215",
+      "masters 20",
+      "champions 30",
+      "prime 20",
+      "icon 15"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre",
+    "guarantee": null,
+    "art": [
+      "/packs/pack-champions.webp"
+    ]
+  },
+  "ficha:icon@390": {
+    "title": "Sobre Icon",
+    "readouts": [
+      "Precio12.500créditosContiene3cartasTu saldo6.000créditos",
+      "Precio12.500créditos",
+      "Precio",
+      "Contiene3cartas"
+    ],
+    "classRows": [
+      "prime 70",
+      "icon 30"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 3 cartas por sobre",
+    "guarantee": "Prime o Icon garantizada",
+    "art": [
+      "/packs/pack-icon.webp"
+    ]
+  },
+  "/packs@390": {
+    "pricesSeen": [
+      "1.000",
+      "2.500",
+      "4.000",
+      "5.000",
+      "8.000",
+      "12.500"
+    ],
+    "oldPricesSeen": [],
+    "excerpt": "Saltar al contenido 6.000 DRL Credits JUGAR · SOBRES SOBRES Abre los que tienes, mira qué puede salir de cada uno y consigue el siguiente. Tu saldo 6.000 créditos MIS SOBRES 4 Inventario → ×3 SOBRE INICIAL Bienvenida · 5 cartas 3 unidades ABRIR ×1 SOBRE BRONCE Nexus · 5 cartas 1 unidad ABRIR DESTACADOS EQUIPO Sobre Team Heretics Probabilidad aumentada de Team Heretics 3.000 créditos NEXUS Sobre Bronce La vía más barata para AMPLIAR colección: común desde 235 créditos por carta. 1.000 créditos1 SIN ABRIR REGIONAL Sobre EMEA La vía más barata para conseguir una rara: unos 3367 créditos por carta. 3.000 créditos TIENDA TODOS RAREZA REGIONES EQUIPOS EVENTOS RAREZA5 3 SIN ABRIR BIENVENIDA Sobre Inicial Gratis ABRIR 1 SIN ABRIR NEXUS Sobre Bronce 1.000créditos ABRIR NEXUS Sobre Plata 2.500créditos VER SOBRE NEXUS Sobre Oro 4.000créditos VER SOBRE ICONO Sobre Icon 12.500créditos VER SOBRE REGIONES4 REGIONAL Sobre EMEA 3.000créditos VER SOBRE REGIONAL Sobre Americas 3.000créditos VER SOBRE REGIONAL Sobre Pacific 3.000créditos VER SOBRE REGIONAL Sobre China 3.000créditos VER SOBRE EQUIPOS5 EQUIPO · TH Sobre Team Heretics 3.000créditos VER SOBRE EQUIPO · FNC Sobre Fnatic 3.000créditos VER SOBRE EQUIPO · G2 Sobre G2 3.000créditos VER SOBRE EQUIPO · TL Sobre Team Liquid 3.000créditos VER SOBRE EQUIPO · KC Sobre Karmine Corp 3.000créditos VER SOBRE EVENTOS3 EVENTO Sobre Masters 5.000créditos VER EVENTO EVENTO Sobre Champions 8.000créditos VER EVENTO EVENTO Sobre EWC 6.000créditos VER EVEN"
+  },
+  "/tienda@390": {
+    "pricesSeen": [
+      "1.000",
+      "2.500",
+      "4.000",
+      "5.000",
+      "8.000"
+    ],
+    "oldPricesSeen": [],
+    "excerpt": "Saltar al contenido 6.000 DRL Credits DESTACADO CHAMPIONS S · ÉPICA · 20 CARTAS CHAMPIONS S NUEVAS CARTAS. NUEVAS LEYENDAS. Las épicas de la temporada: los mejores del circuito en su mejor versión. Salen en el Sobre Champions y en el Sobre Icon. VER SOBRE CHAMPIONS VER CARTAS DESTACADO SOBRES 17 CAJAS 4 CARTAS 4 PACKS 2 SOBRES Consigue cartas aleatorias y amplía tu colección. VER TODOS · 17 → 1 SIN ABRIR SOBRE BRONCE NEXUS · 5 CARTAS ALEATORIAS Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % 🪙 1.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR O ABRIR DESTACADO SOBRE PLATA NEXUS · 6 CARTAS ALEATORIAS Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % 🪙 2.500 DRL Credits € · POR ANUNCIAR en euros COMPRAR SOBRE ORO NEXUS · 5 CARTAS ALEATORIAS Oro 50 % Masters 23 % Champions 10 % Prime 10 % Icon 7 % 🪙 4.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR NUEVO SOBRE CHAMPIONS EVENTO · 5 CARTAS ALEATORIAS Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % 🪙 8.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR CATÁLOGO TODOS RAREZA REGIONES EQUIPOS CAJAS 10 sobres del mismo tipo, a tu inventario y sin abrir. PRÓXIMAMENTE ×10 CAJA ESTÁNDAR 10 × Sobre Bronce · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % € · POR ANUNCIAR en euros PRÓXIMAMENTE PRÓXIMAMENTE ×10 CAJA PREMIUM 10 × Sobre Plata · 60 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Plata 50 % Oro 25 "
+  }
+}

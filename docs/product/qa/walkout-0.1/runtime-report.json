@@ -1,0 +1,140 @@
+{
+  "play: avanza en 3D": {
+    "ok": true,
+    "info": {
+      "status": "playing",
+      "stage": "3d",
+      "t": 2.17,
+      "summary": null,
+      "skip": true,
+      "canvases": 1,
+      "liveGl": 1,
+      "gl": 3,
+      "draws": 3244
+    }
+  },
+  "skip por teclado → final con resumen": {
+    "ok": true,
+    "info": {
+      "focused": "walkout-skip",
+      "end": {
+        "status": "done",
+        "stage": "3d",
+        "t": 11,
+        "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+        "skip": false,
+        "canvases": 1,
+        "liveGl": 1,
+        "gl": 3,
+        "draws": 3567
+      }
+    }
+  },
+  "tras saltar el escenario no dibuja más (sin reloj)": {
+    "ok": true,
+    "info": {
+      "d1": 3567,
+      "d2": 3567
+    }
+  },
+  "ninguna petición /api durante la escena": {
+    "ok": true,
+    "info": {
+      "during": [],
+      "shellAtLoad": [
+        "/api/telemetry"
+      ]
+    }
+  },
+  "repetir ×5: un lienzo del walkout, sin contextos nuevos vivos": {
+    "ok": true,
+    "info": {
+      "status": "playing",
+      "stage": "3d",
+      "t": 0.47,
+      "summary": null,
+      "skip": true,
+      "canvases": 1,
+      "liveGl": 1,
+      "gl": 3,
+      "draws": 5060
+    }
+  },
+  "cambiar edición ×3: un lienzo y los mismos contextos vivos (los anteriores liberados)": {
+    "ok": true,
+    "info": {
+      "liveBase": 1,
+      "afterSwitch": {
+        "status": "idle",
+        "stage": "3d",
+        "t": 0,
+        "summary": null,
+        "skip": false,
+        "canvases": 1,
+        "liveGl": 1,
+        "gl": 12,
+        "draws": 6072
+      }
+    }
+  },
+  "contexto perdido → escenario 2D y la escena sigue": {
+    "ok": true,
+    "info": {
+      "status": "playing",
+      "stage": "2d",
+      "t": 3.08,
+      "summary": null,
+      "skip": true,
+      "canvases": 0,
+      "liveGl": 0,
+      "gl": 12,
+      "draws": 8280
+    }
+  },
+  "sin errores de consola de la escena": {
+    "ok": true,
+    "info": []
+  },
+  "asset roto → respaldo y la escena termina": {
+    "ok": true,
+    "info": {
+      "s": {
+        "status": "done",
+        "stage": "3d",
+        "t": 11,
+        "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+        "skip": false,
+        "canvases": 1,
+        "liveGl": 1,
+        "gl": 3,
+        "draws": 11658
+      },
+      "fallback": {
+        "flagImg": false,
+        "teamImg": false,
+        "flagText": "EMEARegión",
+        "teamText": "BBLBBL Esports"
+      }
+    }
+  },
+  "reducido: termina en ≈3,3 s en 2D": {
+    "ok": true,
+    "info": {
+      "status": "done",
+      "stage": "2d",
+      "t": 3.3,
+      "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+      "skip": false,
+      "canvases": 0,
+      "liveGl": 0,
+      "gl": 2,
+      "draws": 0
+    }
+  },
+  "perfSwiftShader": {
+    "n": 305,
+    "p50": 16.7,
+    "p95": 100.1,
+    "max": 1233
+  }
+}

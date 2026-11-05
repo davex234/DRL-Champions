@@ -1,4 +1,7 @@
 import type { TournamentType, MatchStatus, RawResult, RawPlayerStat } from "./types";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("engine");
 
 /** Detecta el tipo de torneo a partir del nombre (extensible). */
 export function detectTournamentType(name: string): TournamentType {
@@ -33,17 +36,17 @@ export function identifyMvp(result: RawResult): { playerId: string; nick: string
   if (result.mvpPlayerId) {
     const s = result.stats.find((x) => x.playerId === result.mvpPlayerId);
     if (s) return { playerId: s.playerId, nick: s.nick, confidence: 0.97, issues };
-    issues.push("MVP indicado por la fuente no aparece en las estadísticas");
+    issues.push(t("MVP indicado por la fuente no aparece en las estadísticas"));
   }
   // Deducción por mejor ACS entre el equipo ganador.
   const winners = result.stats.filter((s) => s.teamId === result.winnerTeamId);
   const pool = winners.length ? winners : result.stats;
   const best = [...pool].sort((a, b) => (b.acs ?? 0) - (a.acs ?? 0))[0];
   if (!best) {
-    issues.push("No se pudo identificar al MVP");
+    issues.push(t("No se pudo identificar al MVP"));
     return { playerId: "", nick: "", confidence: 0, issues };
   }
-  issues.push("MVP deducido por ACS (no confirmado por la fuente)");
+  issues.push(t("MVP deducido por ACS (no confirmado por la fuente)"));
   return { playerId: best.playerId, nick: best.nick, confidence: 0.7, issues };
 }
 

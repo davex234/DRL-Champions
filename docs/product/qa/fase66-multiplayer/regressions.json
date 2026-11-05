@@ -1,0 +1,106 @@
+{
+  "at": "2026-09-26T20:02:53.806Z",
+  "allOk": true,
+  "rows": [
+    {
+      "kind": "page",
+      "path": "/",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/jugar",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/duelos/jugar",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/duelos/pvp",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/competitivo",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/progresion",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/como-jugar",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/coleccion",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/tienda",
+      "status": 200
+    },
+    {
+      "kind": "page",
+      "path": "/cuenta",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/play-status",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/daily-loop",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/onboarding",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/competitive",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/season",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/duels",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/meta",
+      "status": 200
+    },
+    {
+      "kind": "api",
+      "path": "/api/game/duel/matchmaking",
+      "status": 200
+    }
+  ],
+  "F61": "motor: huella dorada F61 MOTOR 01 verde (sin cambios) · final/desempate/recarga del resultado verificados en e2e (resultF5)",
+  "F62": "progresión: PvP no paga (rating una vez); PvE paga una vez (reward-integrity: +120 = award)",
+  "F63": "onboarding: primera partida PvE = mismo playTurn (ahora con versión); /api/game/onboarding 200",
+  "F64": "game feel: sin cambios de UI salvo copia de conexión honesta y resync; 0 errores de consola nuevos en e2e; 0 404",
+  "F65": "balance: ninguna propuesta aplicada; lab.test verde (huella de buildOpponentDeck intacta)",
+  "engineOrRulesChanged": false,
+  "cardsChanged": false,
+  "agentsChanged": false,
+  "economyChanged": false,
+  "migration": false
+}

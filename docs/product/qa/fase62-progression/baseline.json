@@ -1,0 +1,53 @@
+{
+  "measuredAt": "2026-09-25T10:20Z (antes de editar)",
+  "git": {
+    "branch": "arch/stabilization",
+    "head": "48dac2a",
+    "statusLines": 1300
+  },
+  "tests": {
+    "total": 5180,
+    "pass": 5180,
+    "fail": 0
+  },
+  "build": "build de F61 sirviendo en :3005 (PID verificado); no se recompiló antes de editar",
+  "migrationHead": "0057_admin_cms.sql",
+  "cards": 331,
+  "agents": 29,
+  "flags": {
+    "GLOBAL_MARKET_ENABLED": false,
+    "PAYMENTS_ENABLED": false
+  },
+  "f61": "intacta (suite F61 en verde; el resultado solo gana el hueco `progress`)",
+  "cms": "F60 intacta; /admin/system gana una comprobación de progresión",
+  "rewardInfrastructure": "services/rewards.award → RPC app_grant_reward (única vía), clave `ref` única en credit_transactions",
+  "seasonInfrastructure": "SEASON_CALENDAR (nexus-s1 2026-09-07 → 2026-11-30) + pase CURRENT_SEASON (30 niveles × 1.000 XP)",
+  "challengeInfrastructure": "misiones del pase (diaria ×3, semanal ×2, temporada, hitos) con rotación pura por ventana UTC; reclamo manual",
+  "qaAccountBefore": {
+    "id": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+    "meta": {
+      "level": {
+        "xp": 2039,
+        "level": 7,
+        "xpIntoLevel": 281,
+        "xpForNext": 492,
+        "progress": 0.5711382113821138,
+        "toNext": 211,
+        "nextTotal": 2250
+      },
+      "season": {
+        "id": "nexus-s1",
+        "name": "Temporada 1 · Ascenso",
+        "maxLevel": 30,
+        "level": 0,
+        "xpIntoLevel": 0,
+        "xpForNext": 1000,
+        "progress": 0,
+        "missionsCompleted": 0,
+        "durationDays": 84,
+        "endsAt": 1795996800000
+      },
+      "claimable": 4
+    }
+  }
+}

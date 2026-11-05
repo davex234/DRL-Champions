@@ -1,0 +1,214 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-23T12:54:43.113Z",
+  "note": "arnés /design-system/fase56 · QA SYNTHETIC; cartas reales del catálogo",
+  "rows": [
+    {
+      "name": "01-own-profile-1440",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "02-other-profile-1440",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "03-own-profile-390",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "04-other-profile-390",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "05-ranked-player",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "05b-ranked-hero",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "06-placement-player",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "06b-placement-hero",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "07-no-ranked-games",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "08-featured-cards",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "09-achievements",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "10-history",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "11-leaderboard-to-profile",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "12-nonexistent",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "13-tablet-768",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "13b-tablet-1024",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "14-long-name",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "14b-long-name-1440",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "15-empty-profile",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "16-season",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "17-anon",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-own-1920",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    },
+    {
+      "name": "r-own-1366",
+      "ok": true,
+      "errors": [],
+      "overflow": {
+        "scroll": false,
+        "pieces": []
+      }
+    }
+  ]
+}

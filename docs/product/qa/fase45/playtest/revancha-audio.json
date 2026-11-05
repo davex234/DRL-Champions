@@ -1,0 +1,41 @@
+{
+  "inicio": "2026-09-18T09:22:07.632Z",
+  "audioLobby": {
+    "contextosCreados": 0,
+    "enMarcha": 0,
+    "estados": [],
+    "elementosAudio": 0
+  },
+  "audioMatch": {
+    "contextosCreados": 0,
+    "enMarcha": 0,
+    "estados": [],
+    "elementosAudio": 0
+  },
+  "audioResult": {
+    "contextosCreados": 1,
+    "enMarcha": 1,
+    "estados": [
+      "running"
+    ],
+    "elementosAudio": 0
+  },
+  "antesDeRevancha": {
+    "veredicto": "VICTORIA",
+    "hayRevancha": true
+  },
+  "trasRevancha": {
+    "turno": null,
+    "marcador": null,
+    "hayRecinto": false
+  },
+  "audioRevancha": {
+    "contextosCreados": 1,
+    "enMarcha": 1,
+    "estados": [
+      "running"
+    ],
+    "elementosAudio": 0
+  },
+  "fin": "2026-09-18T09:23:41.217Z"
+}

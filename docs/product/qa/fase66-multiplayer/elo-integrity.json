@@ -1,0 +1,186 @@
+{
+  "realServer": {
+    "at": "2026-09-26T19:07:20.349Z",
+    "before": {
+      "A": {
+        "rating": 946,
+        "games": 3
+      },
+      "C": {
+        "rating": 980,
+        "games": 1
+      }
+    },
+    "after": {
+      "A": {
+        "rating": 928,
+        "games": 4
+      },
+      "C": {
+        "rating": 998,
+        "games": 2
+      }
+    },
+    "outcome": {
+      "A": {
+        "matchId": "07e6e6e7-82e5-4c2a-b299-739267dc1e77",
+        "oldRating": 946,
+        "delta": -18,
+        "newRating": 928,
+        "opponentRating": 980,
+        "kFactor": 40,
+        "result": "LOSS",
+        "createdAt": 1790449637540
+      },
+      "C": {
+        "matchId": "07e6e6e7-82e5-4c2a-b299-739267dc1e77",
+        "oldRating": 980,
+        "delta": 18,
+        "newRating": 998,
+        "opponentRating": 946,
+        "kFactor": 40,
+        "result": "WIN",
+        "createdAt": 1790449637540
+      }
+    },
+    "appliedOnce": true,
+    "zeroSum": 0,
+    "ok": true
+  },
+  "e2e": [
+    {
+      "idx": 1,
+      "once": true,
+      "before": {
+        "A": {
+          "rating": 935,
+          "games": 23
+        },
+        "B": {
+          "rating": 1039,
+          "games": 22
+        }
+      },
+      "after": {
+        "A": {
+          "rating": 926,
+          "games": 24
+        },
+        "B": {
+          "rating": 1048,
+          "games": 23
+        }
+      }
+    },
+    {
+      "idx": 2,
+      "once": true,
+      "before": {
+        "A": {
+          "rating": 926,
+          "games": 24
+        },
+        "B": {
+          "rating": 1048,
+          "games": 23
+        }
+      },
+      "after": {
+        "A": {
+          "rating": 918,
+          "games": 25
+        },
+        "B": {
+          "rating": 1056,
+          "games": 24
+        }
+      }
+    },
+    {
+      "idx": 3,
+      "once": true,
+      "before": {
+        "A": {
+          "rating": 918,
+          "games": 25
+        },
+        "B": {
+          "rating": 1056,
+          "games": 24
+        }
+      },
+      "after": {
+        "A": {
+          "rating": 911,
+          "games": 26
+        },
+        "B": {
+          "rating": 1063,
+          "games": 25
+        }
+      }
+    },
+    {
+      "idx": 4,
+      "once": true,
+      "before": {
+        "A": {
+          "rating": 911,
+          "games": 26
+        },
+        "B": {
+          "rating": 1063,
+          "games": 25
+        }
+      },
+      "after": {
+        "A": {
+          "rating": 904,
+          "games": 27
+        },
+        "B": {
+          "rating": 1070,
+          "games": 26
+        }
+      }
+    },
+    {
+      "idx": 5,
+      "once": true,
+      "before": {
+        "A": {
+          "rating": 904,
+          "games": 27
+        },
+        "B": {
+          "rating": 1070,
+          "games": 26
+        }
+      },
+      "after": {
+        "A": {
+          "rating": 897,
+          "games": 28
+        },
+        "B": {
+          "rating": 1077,
+          "games": 27
+        }
+      }
+    }
+  ],
+  "soakRatingUnchanged": true,
+  "resultF5": {
+    "ratingUnchanged": true,
+    "screen": {
+      "arena": false,
+      "intro": false,
+      "moment": false,
+      "turn": null,
+      "hand": 0,
+      "outcome": true,
+      "syncing": false,
+      "text": "DUELO PVP · CONTRA QA_CAMPAIGN_352_8C32 DERROTA TÚ 4 – RIVAL 5 Marcador final · Por turnos ganados ÚLTIMO TURNO · 10PUNTO PARA EL RIVALStronghold 83 del riva"
+    }
+  }
+}

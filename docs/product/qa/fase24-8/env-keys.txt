@@ -1,0 +1,7 @@
+##### env-keys
+NEXT_PUBLIC_SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+ESPORTS_AUTO_SYNC_ENABLED=
+ESPORTS_SYNC_ORIGIN=
+600 nexusadmin /opt/nexus/projects/drlcards-sync/env/esports-sync.env
+##### cron

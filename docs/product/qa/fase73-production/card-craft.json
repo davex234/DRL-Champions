@@ -1,0 +1,126 @@
+{
+  "at": "2026-09-30T15:24:18.215Z",
+  "baseUrl": "http://127.0.0.1:3005 (build de producción)",
+  "intercepted": false,
+  "pass": 8,
+  "fail": 0,
+  "results": [
+    {
+      "id": "UI · selección de 3 / 3 duplicados Plata",
+      "ok": true,
+      "detail": "3 / 3"
+    },
+    {
+      "id": "UI · resultado con arte real de la carta",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "SERVIDOR · las 3 copias entregadas ya no existen y hay exactamente 1 copia nueva",
+      "ok": true,
+      "detail": "posts=1 gone=3 new=cloud__base 46→44"
+    },
+    {
+      "id": "REINTENTO · misma ref ×10 → repeated con la MISMA carta de salida, inventario sin cambios",
+      "ok": true,
+      "detail": "200R,200R,200R,200R,200R,200R,200R,200R,200R,200R"
+    },
+    {
+      "id": "REUSO · las mismas 3 copias con otra ref → rechazo 4xx",
+      "ok": true,
+      "detail": "409 NOT_ELIGIBLE"
+    },
+    {
+      "id": "F5 · disponibles Plata = antes − 3",
+      "ok": true,
+      "detail": "5 → 2"
+    },
+    {
+      "id": "UI · sin errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "CLASE · la salida es de la clase Oro (packCardClass) y las entradas eran Plata",
+      "ok": true,
+      "detail": "salida cloud__base:oro:ovr86 · entradas plata ovr82–84 (scripts/_f73p-class.ts)"
+    }
+  ],
+  "before": {
+    "available": 5,
+    "candidates": [
+      {
+        "cardId": "beyn__base",
+        "copies": 2,
+        "available": 1,
+        "uids": [
+          "71819209-1c08-4713-af59-7ffa3b894fc8",
+          "cef4bbaa-ea86-4eb4-bb62-a6c986ba4c7a"
+        ]
+      },
+      {
+        "cardId": "bipo__base",
+        "copies": 2,
+        "available": 1,
+        "uids": [
+          "81532ee1-c001-4379-8f79-125f26dd5f35",
+          "ca53afe1-7fda-4a00-9e4a-841a85c1416b"
+        ]
+      },
+      {
+        "cardId": "boo__base",
+        "copies": 2,
+        "available": 1,
+        "uids": [
+          "6a96ba5e-e243-40a8-b442-64ca59348f06"
+        ]
+      },
+      {
+        "cardId": "eko__base",
+        "copies": 2,
+        "available": 1,
+        "uids": [
+          "2f2ba8fa-6364-4f50-8dc2-7758e11b8edc"
+        ]
+      },
+      {
+        "cardId": "invy__base",
+        "copies": 2,
+        "available": 1,
+        "uids": [
+          "764dc6fe-9fa1-4181-be8a-4d2e54ebe071"
+        ]
+      }
+    ],
+    "owned": 46
+  },
+  "uiPosts": [
+    {
+      "action": "craftCard",
+      "recipeId": "card-plata-oro",
+      "uids": [
+        "71819209-1c08-4713-af59-7ffa3b894fc8",
+        "81532ee1-c001-4379-8f79-125f26dd5f35",
+        "6a96ba5e-e243-40a8-b442-64ca59348f06"
+      ],
+      "ref": "d18eaa7815b6e9a910b3dc2b4eee8bde"
+    }
+  ],
+  "after": {
+    "owned": 44,
+    "newCards": [
+      {
+        "uid": "497ec307-01fa-41ba-a16f-5dd267b10e51",
+        "cardId": "cloud__base",
+        "obtainedAt": 1790781852801,
+        "mintedVersion": 1
+      }
+    ],
+    "consumed": [
+      "71819209-1c08-4713-af59-7ffa3b894fc8",
+      "81532ee1-c001-4379-8f79-125f26dd5f35",
+      "6a96ba5e-e243-40a8-b442-64ca59348f06"
+    ]
+  },
+  "outputCardId": "cloud__base"
+}

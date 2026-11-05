@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 339 160" width="339" height="160"><g transform="translate(16 16) scale(0.5)">
+    <defs>
+      <linearGradient id="h-sh" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#222637"/><stop offset="1" stop-color="#06070d"/>
+      </linearGradient>
+      <linearGradient id="h-cr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#aab4c4"/>
+      </linearGradient>
+      <linearGradient id="h-bl" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ff5c8a"/><stop offset="1" stop-color="#7b1733"/>
+      </linearGradient>
+      <linearGradient id="h-sl" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#ff2e63" stop-opacity="0"/><stop offset="1" stop-color="#ff5c8a" stop-opacity="0.55"/>
+      </linearGradient>
+    </defs>
+    <path d="M60 38 L196 38 L214 72 L214 150 L128 228 L42 150 L42 72 Z" fill="url(#h-sh)"/>
+    <path d="M60 38 L196 38 L214 72 L214 150 L128 228 L42 150 L42 72 Z" fill="none" stroke="#2b3142" stroke-width="3"/>
+    <path d="M70 50 L186 50 L202 77 L202 147 L128 212 L54 147 L54 77 Z" fill="none" stroke="#000" stroke-opacity="0.45" stroke-width="2"/>
+    <path d="M42 132 L214 96 L214 110 L42 146 Z" fill="url(#h-sl)"/>
+    <path d="M128 70 L149 103 L170 88 L177 138 L128 198 L79 138 L86 88 L107 103 Z" fill="url(#h-cr)"/>
+    <path d="M79 138 L177 138 L128 198 Z" fill="url(#h-bl)"/>
+    <path d="M128 70 L149 103 L170 88 L177 138 L128 198 L79 138 L86 88 L107 103 Z" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="1.4" stroke-linejoin="miter"/></g><g transform="translate(178 30) scale(0.64)"><path d="M10 14 L40 14 L54 30 L54 70 L40 86 L10 86 L10 14 M83 86 L83 14 L117 14 L127 24 L127 40 L117 50 L83 50 M103 50 L127 86 M156 14 L156 86 L198 86" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="butt" stroke-linejoin="miter"/></g><g transform="translate(178 106) scale(0.22)"><path d="M54 24 L42 14 L22 14 L10 28 L10 72 L22 86 L42 86 L54 76 M88 14 L88 86 M132 14 L132 86 M88 50 L132 50 M166 86 L188 14 L210 86 M175 60 L201 60 M244 86 L244 14 L270 56 L296 14 L296 86 M330 86 L330 14 L364 14 L374 26 L374 44 L364 54 L330 54 M411 14 L411 86 M450 30 L464 14 L482 14 L496 30 L496 70 L482 86 L464 86 L450 70 L450 30 M530 86 L530 14 L574 86 L574 14 M652 24 L640 14 L620 14 L608 26 L608 40 L618 50 L642 50 L652 62 L652 74 L640 86 L620 86 L608 76" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="9" stroke-linecap="butt" stroke-linejoin="miter"/></g></svg>

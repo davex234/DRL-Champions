@@ -1,0 +1,56 @@
+{
+ "at": "2026-09-24T19:28:57.520Z",
+ "suite": "npm test (node:test) — ver fase-60-admin-cms.md §Gates",
+ "tests": [
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "AGENTE · borrador → editar → cara y cuerpo → publicar (sólo completo) → runtime sin reiniciar → retirar → histórico"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "CACHÉ · otro proceso publica (sube la versión): el cargador lo ve al vencer el TTL, sin reiniciar"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SOBRE · borrador desde plantilla (economía heredada) → pool → simulación sin escrituras → puerta → publicar → runtime → retirar"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "CARTA · las 331 del catálogo diseñado siguen saliendo del manifiesto (presentación NULL no las toca)"
+  },
+  {
+   "file": "src/domain/cms/cms.domain.test.ts",
+   "test": "REGISTRO DE SOBRES · sólo entran sobres cms- ACTIVE/RETIRED; los de código no se tocan; el arte sale del propio sobre"
+  },
+  {
+   "file": "src/domain/cms/cms.domain.test.ts",
+   "test": "ROSTER VIVO · añade publicados, retira sin perder el histórico, nunca se vacía por una red caída"
+  },
+  {
+   "file": "src/domain/cms/cms.domain.test.ts",
+   "test": "UNA SOLA FUENTE · espejo esports e importador VLR se DERIVAN de la instantánea (ya no hay listas a mano)"
+  },
+  {
+   "file": "src/domain/cms/cms.domain.test.ts",
+   "test": "CLIENTE · la sincronización aplica agentes y sobres publicados, y un fallo de red no rompe nada"
+  }
+ ],
+ "production": [
+  {
+   "step": "baseline · recuentos antes",
+   "ok": true
+  },
+  {
+   "step": "agent · borrador NO aparece en el runtime (cargador)",
+   "ok": true
+  },
+  {
+   "step": "pack · borrador fuera del runtime (ni tienda ni apertura)",
+   "ok": true
+  },
+  {
+   "step": "cleanup · sin residuos: recuentos iguales que antes",
+   "ok": true
+  }
+ ]
+}

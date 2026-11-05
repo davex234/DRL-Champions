@@ -1,0 +1,116 @@
+{
+  "phase": "PRE-F70",
+  "policy": {
+    "default": "provider — el VPS NUNCA borra en el destino (credencial sin borrado posible; la retención la aplica el proveedor con reglas de ciclo de vida o versiones)",
+    "optional": "script — 14 diarias + 8 semanales (domingo) + 6 mensuales (día 1); SIEMPRE conserva la última verificada, todo lo de los últimos 7 días y las parciales de < 48 h; no borra nada si no hay ninguna verificada; solo corre tras un envío VERIFICADO",
+    "local": "LOCAL_KEEP en backup-drlcards.sh (0 por defecto = nada se borra; en la activación 14 para verified/): nunca borra la unidad de hoy, la última con copia off-site verificada ni una con envío en curso; no toca unidades sin COMPLETE"
+  },
+  "harness": {
+    "script": "scripts/ops/offsite-harness.sh",
+    "where": "VPS, directorio temporal mktemp (077) borrado al terminar; destino SIMULADO = backend local de rclone montado en el contenedor",
+    "run": "2026-09-28T13:29Z–13:35Z (quinta ejecución; las cuatro anteriores destaparon 3 defectos reales, ver design.json)",
+    "cases": {
+      "retention-empty-safe": {
+        "result": "PASS",
+        "detail": "sin unidades verificadas no se borra nada"
+      },
+      "retention-policy": {
+        "result": "PASS",
+        "detail": "before=16 after=10 keep=10 delete=6 · latest=1 7d=1 partial<48h=1 partialOld=0 weekly=1 monthly=1 day100=0"
+      },
+      "retention-provider-default": {
+        "result": "PASS",
+        "detail": "por defecto el VPS no borra nada en el destino"
+      },
+      "local-retention": {
+        "result": "PASS",
+        "detail": "exit=0 quedan: 20260917T051000Z 20260918T051000Z 20260919T051000Z 20260921T051000Z 20260928T133352Z  (borrada: 20260920T051000Z)"
+      },
+      "local-offsite-not-configured": {
+        "result": "PASS",
+        "detail": "sin configuración: backup local OK, sin intento de envío"
+      }
+    },
+    "pass": 52,
+    "raw": "raw/harness-run.txt",
+    "decisions": [
+      {
+        "action": "KEEP",
+        "unit": "20260928T123333Z",
+        "reason": "partial-recent"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260927T051000Z",
+        "reason": "latest"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260926T051000Z",
+        "reason": "window-7d"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260925T051000Z",
+        "reason": "window-7d"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260924T051000Z",
+        "reason": "window-7d"
+      },
+      {
+        "action": "DELETE",
+        "unit": "20260923T133333Z"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260923T051000Z",
+        "reason": "window-7d"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260922T051000Z",
+        "reason": "window-7d"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260920T051000Z",
+        "reason": "weekly"
+      },
+      {
+        "action": "DELETE",
+        "unit": "20260918T051000Z"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260913T051000Z",
+        "reason": "weekly"
+      },
+      {
+        "action": "DELETE",
+        "unit": "20260908T051000Z"
+      },
+      {
+        "action": "DELETE",
+        "unit": "20260819T051000Z"
+      },
+      {
+        "action": "DELETE",
+        "unit": "20260720T051000Z"
+      },
+      {
+        "action": "KEEP",
+        "unit": "20260701T051000Z",
+        "reason": "monthly"
+      },
+      {
+        "action": "DELETE",
+        "unit": "20260620T051000Z"
+      }
+    ],
+    "configUsed": "KEEP_DAILY=3 KEEP_WEEKLY=4 KEEP_MONTHLY=2 (valores de prueba)"
+  },
+  "realBackups": "no se borró NINGÚN backup real (la retención destructiva solo corrió sobre unidades sintéticas del arnés)",
+  "howToTune": "Con ~3,3 MB por unidad guardar cuesta poco; si crece, ajustar KEEP_* o las reglas del proveedor. No se han inventado precios."
+}

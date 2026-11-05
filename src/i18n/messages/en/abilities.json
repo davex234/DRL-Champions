@@ -1,0 +1,23 @@
+{
+  "abrir la entrada": "open the entry",
+  "anclar el sitio": "anchor the site",
+  "cegar para abrir": "flash to open",
+  "controlar la zona": "control the area",
+  "corta visión": "blocks vision",
+  "cortar visión": "block vision",
+  "crear espacio": "create space",
+  "defender": "defend",
+  "humo móvil": "mobile smoke",
+  "jugar el post-plant": "play the post-plant",
+  "proteger el espacio": "protect the space",
+  "proteger el post-plant": "protect the post-plant",
+  "ralentizar el avance": "slow the push",
+  "rompe línea": "breaks the line",
+  "sacar información": "gather info",
+  "señuelo": "decoy",
+  "suprimir el ángulo": "suppress the angle",
+  "tomar espacio": "take space",
+  "vender una finta": "sell a fake",
+  "{preExec} utils en el execute": "{preExec} utils on the execute",
+  "{retakeUtil} utils en el retake": "{retakeUtil} utils on the retake"
+}

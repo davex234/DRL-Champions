@@ -1,0 +1,21 @@
+import { launch, sleep } from "./lib/cdp";
+const BASE = "http://127.0.0.1:3016";
+const b = await launch({ args: ["--mute-audio", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"] });
+await b.tab.resize(1440, 900, 1);
+await b.tab.setMedia([{ name: "prefers-reduced-motion", value: "reduce" }]);
+await b.tab.goto(`${BASE}/design-system/fase81?scene=w-ph&reset=1`, 2500);
+await b.tab.js(`(() => { localStorage.setItem('drl:opening-animation:v1', 'cinematic'); return 1; })()`);
+await b.tab.goto(`${BASE}/design-system/fase81?scene=w-ph&reset=1`, 2500);
+for (let i = 0; i < 80 && (await b.tab.js(`document.querySelector('[data-testid=pack-opening]')?.dataset.phase`)) !== "ready"; i++) await sleep(250);
+await b.tab.js(`document.querySelector('[data-testid=pack-open]')?.click()`);
+for (let i = 0; i < 120 && (await b.tab.js(`document.querySelector('[data-testid=walkout-stage-3d]')?.dataset.human`)) !== "ready"; i++) await sleep(250);
+const before = await b.tab.js(`JSON.stringify({ phase: document.querySelector('[data-testid=pack-opening]')?.dataset.phase, stage: document.querySelector('[data-testid=pack-walkout]')?.dataset.walkoutStage, opens: sessionStorage.getItem('f81-opens') })`);
+await b.tab.js(`document.querySelector('[aria-label="Cerrar la apertura"]')?.click()`);
+await sleep(2500);
+const after = await b.tab.js(`JSON.stringify({ url: location.pathname, canvases: document.querySelectorAll('canvas').length, walkout: !!document.querySelector('[data-testid=pack-walkout]'), opens: sessionStorage.getItem('f81-opens') })`);
+await b.tab.goto(`${BASE}/design-system/fase81?scene=w-ph`, 3000);
+let back = "";
+for (let i = 0; i < 40; i++) { back = await b.tab.js(`JSON.stringify({ phase: document.querySelector('[data-testid=pack-opening]')?.dataset.phase, opens: sessionStorage.getItem('f81-opens') })`); if (/summary|ready/.test(back)) break; await sleep(250); }
+console.log("antes de cerrar:", before); console.log("tras CERRAR:", after); console.log("al volver:", back);
+console.log("errores:", JSON.stringify(b.tab.takeErrors().filter((e) => !/Failed to load resource|503|401|supabase/i.test(e))));
+await b.close();

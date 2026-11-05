@@ -1,0 +1,23 @@
+{
+  "Ascenso a {rank}": "{rank}に昇格",
+  "Colocación {played} / {total} · {sign}": "認定戦 {played} / {total} · {sign}",
+  "Colocación {played}/{total}": "認定戦 {played}/{total}",
+  "Completa tu colocación": "認定戦を完了しよう",
+  "Descenso a {rank}": "{rank}に降格",
+  "Juega una partida (actividad en los últimos {activeDays} días)": "マッチをプレイ（直近{activeDays}日間のアクティビティ）",
+  "Juega {left} {v} más esta temporada": "今シーズンあと{left}{v}プレイ",
+  "Rango obtenido: {rank}": "獲得ランク：{rank}",
+  "Rating {sign}": "レーティング {sign}",
+  "Sin clasificar": "ランク外",
+  "divisionWidth debe ser un entero positivo": "divisionWidthは正の整数にしてください",
+  "el primer tier debe empezar en 0": "最初のティアは0から始める必要があります",
+  "el primer tier no tiene sitio para sus divisiones": "最初のティアにディビジョンを置く余地がありません",
+  "el último tier (élite) no debe tener divisiones": "最後のティア（エリート）にはディビジョンを設定できません",
+  "hacen falta al menos dos tiers": "ティアは最低2つ必要です",
+  "hueco o solape en {id}: {v} ≠ {v2}": "{id}に隙間または重複があります：{v} ≠ {v2}",
+  "partida": "マッチ",
+  "partidas": "マッチ",
+  "solo el último tier puede no tener divisiones ({id})": "ディビジョンなしにできるのは最後のティアのみです（{id}）",
+  "suelos no crecientes: {id} → {id2}": "下限が増加していません：{id} → {id2}",
+  "versión vacía": "空のバージョン"
+}

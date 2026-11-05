@@ -1,0 +1,302 @@
+{
+  "sessions": [
+    {
+      "id": "C-r1-slownet",
+      "persona": "C",
+      "session": "slownet",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 66,
+      "actions": 50,
+      "screens": 6,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 14,
+      "api": 85,
+      "statuses": {
+        "0": 14,
+        "200": 694,
+        "204": 8
+      },
+      "bad": [],
+      "notes": [],
+      "timings": {
+        "home": {
+          "ms": 891,
+          "ok": true,
+          "sawLoading": true
+        },
+        "coleccion": {
+          "ms": 395,
+          "ok": true,
+          "sawLoading": false
+        },
+        "progresion": {
+          "ms": 2024,
+          "ok": true,
+          "sawLoading": true
+        },
+        "jugar": {
+          "ms": 374,
+          "ok": true,
+          "sawLoading": true
+        },
+        "tienda": {
+          "ms": 499,
+          "ok": true,
+          "sawLoading": false
+        }
+      },
+      "match": {
+        "matchId": "d82d7a1c-cab5-4bce-9b34-61a12e6841e3",
+        "shown": true,
+        "turns": 10,
+        "ms": 33228,
+        "stuck": 0,
+        "status": "COMPLETED",
+        "result": {
+          "winner": "RIVAL",
+          "you": 4,
+          "rival": 5,
+          "decidedBy": null
+        },
+        "difficulty": "NORMAL"
+      },
+      "recovered": true,
+      "offline": {
+        "url": "/coleccion",
+        "title": "DRL Champions — Manager de esports de Valorant",
+        "h": [
+          "MI COLECCIÓN",
+          "TUS CARTAS DE MAYOR OVR",
+          "COMPLETA TUS SETS",
+          "ÁLBUM"
+        ],
+        "testids": [
+          "env-particles",
+          "shell-play-menu",
+          "shell-play",
+          "shell-menu",
+          "collection-room",
+          "collection-offline",
+          "collection-hero",
+          "collection-best",
+          "collection-discovery",
+          "discovery-top",
+          "collection-book",
+          "collection-album",
+          "collection-search",
+          "collection-sort",
+          "collection-filters-toggle",
+          "install-banner",
+          "game-moment-region",
+          "dock-play"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "CARTAS",
+          "FORJA",
+          "EQUIPOS",
+          "REGIONES",
+          "ROLES",
+          "RAREZAS",
+          "EDICIONES",
+          "Team Secret 2/5",
+          "Fnatic 2/6",
+          "Cloud9 1/5",
+          "DetonatioN FocusMe 1/5",
+          "Gen.G 1/5",
+          "Team Liquid 2/11",
+          "ZETA DIVISION 1/6",
+          "FULL SENSE 1/10",
+          "FURIA 1/11",
+          "Team Heretics 1/11",
+          "Paper Rex 1/15",
+          "NRG 1/16",
+          "VER LOS 41 EQUIPOS",
+          "TODAS",
+          "POSEÍDAS",
+          "NO CONSEGUIDAS",
+          "FILTROS",
+          "VER 48 CARTAS MÁS",
+          "INSTALAR"
+        ],
+        "links": [
+          "#contenido",
+          "/",
+          "/coleccion",
+          "/duelos/mazos",
+          "/tienda",
+          "/temporada",
+          "/mundo",
+          "/jugador/me",
+          "/jugar",
+          "/coleccion/carta/alfajer__base",
+          "/coleccion/equipos",
+          "/coleccion/carta/alfajer__base",
+          "/coleccion/carta/brawk__masters-sdc",
+          "/coleccion/carta/miniboo__base",
+          "/coleccion/carta/eko__base",
+          "/coleccion/carta/boo__base",
+          "/coleccion/carta/invy__base",
+          "/coleccion/carta/sylvan__base",
+          "/coleccion/carta/v1c__base"
+        ],
+        "text": "Sin conexión: enseñamos tu colección tal como la teníamos. Favoritos, vitrina y equipos vuelven con la red. COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 15 / 331 cartas 4,5 % COPIAS 15 DUPLICADAS 0 OVR MÁS ALTO 90 SERIAL MÁS BAJO — LEGENDARIA 0/3 ÉPICA 0/20 RARA 0/20 POCO COMÚN 1/119 COMÚN 14/169 TU CARTA DE MAYOR OVR OVR, después rareza y serial CARTAS FORJA POR EQUIPO → TUS CARTAS DE MAYOR OVR LIBRO DE LA COLECCIÓN COMPLETA TUS SETS EQUIPOS REGIONES ROLES RAREZAS EDICIONES Team Secret 2/5 Fnatic 2/6 Cloud9 1/5 DetonatioN FocusMe 1/5 Gen.G 1/5 Team Liquid 2/11 ZETA DIVISION 1/6 FULL SENSE 1/10 FURIA 1/11 Team Heretics 1/11 Paper Rex 1/15 NRG 1/16 VER LOS 41 EQUIPOS ÁLBUM 331 cartas ⌕ Busc",
+        "hScroll": false,
+        "broken": []
+      }
+    },
+    {
+      "id": "G-r2-slownet",
+      "persona": "G",
+      "session": "slownet",
+      "tag": "r2",
+      "width": 390,
+      "reduced": true,
+      "durationSec": 63,
+      "actions": 50,
+      "screens": 6,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 9,
+      "api": 85,
+      "statuses": {
+        "0": 9,
+        "200": 549,
+        "204": 8
+      },
+      "bad": [],
+      "notes": [],
+      "timings": {
+        "home": {
+          "ms": 1000,
+          "ok": true,
+          "sawLoading": true
+        },
+        "coleccion": {
+          "ms": 359,
+          "ok": true,
+          "sawLoading": false
+        },
+        "progresion": {
+          "ms": 1963,
+          "ok": true,
+          "sawLoading": true
+        },
+        "jugar": {
+          "ms": 349,
+          "ok": true,
+          "sawLoading": true
+        },
+        "tienda": {
+          "ms": 495,
+          "ok": true,
+          "sawLoading": false
+        }
+      },
+      "match": {
+        "matchId": "e629c7b4-ea6c-4a97-bcd2-2ad41fb9db39",
+        "shown": true,
+        "turns": 10,
+        "ms": 26945,
+        "stuck": 0,
+        "status": "COMPLETED",
+        "result": {
+          "winner": "RIVAL",
+          "you": 1,
+          "rival": 8,
+          "decidedBy": null
+        },
+        "difficulty": "NORMAL"
+      },
+      "recovered": true,
+      "offline": {
+        "url": "/coleccion",
+        "title": "DRL Champions — Manager de esports de Valorant",
+        "h": [
+          "MI COLECCIÓN",
+          "TUS CARTAS DE MAYOR OVR",
+          "COMPLETA TUS SETS",
+          "ÁLBUM"
+        ],
+        "testids": [
+          "env-particles",
+          "shell-play-menu",
+          "shell-play",
+          "shell-menu",
+          "collection-room",
+          "collection-offline",
+          "collection-hero",
+          "collection-best",
+          "collection-discovery",
+          "discovery-top",
+          "collection-book",
+          "collection-album",
+          "collection-search",
+          "collection-sort",
+          "collection-filters-toggle",
+          "install-banner",
+          "game-moment-region",
+          "dock-play"
+        ],
+        "buttons": [
+          "CARTAS",
+          "FORJA",
+          "EQUIPOS",
+          "REGIONES",
+          "ROLES",
+          "RAREZAS",
+          "EDICIONES",
+          "Cloud9 1/5",
+          "DRX 1/5",
+          "Eternal Fire 1/5",
+          "MIBR 1/5",
+          "Sentinels 1/5",
+          "Team Secret 1/5",
+          "GE 2/11",
+          "Fnatic 1/6",
+          "ZETA DIVISION 1/6",
+          "M8 1/11",
+          "Team Liquid 1/11",
+          "FUT 1/15",
+          "VER LOS 41 EQUIPOS",
+          "TODAS",
+          "POSEÍDAS",
+          "NO CONSEGUIDAS",
+          "FILTROS",
+          "VER 48 CARTAS MÁS",
+          "INSTALAR"
+        ],
+        "links": [
+          "#contenido",
+          "/",
+          "/coleccion/carta/kaajak__base",
+          "/coleccion/equipos",
+          "/coleccion/carta/kaajak__base",
+          "/coleccion/carta/d4v41__masters-sdc",
+          "/coleccion/carta/zekken__base",
+          "/coleccion/carta/meteor__base",
+          "/coleccion/carta/udotan__masters-l",
+          "/coleccion/carta/mako__base",
+          "/coleccion/carta/cortezia__base",
+          "/coleccion/carta/starxo__masters-sdc",
+          "/",
+          "/coleccion",
+          "/jugar",
+          "/tienda",
+          "/jugador/me"
+        ],
+        "text": "Sin conexión: enseñamos tu colección tal como la teníamos. Favoritos, vitrina y equipos vuelven con la red. COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 15 / 331 cartas 4,5 % COPIAS 15 DUPLICADAS 0 OVR MÁS ALTO 91 SERIAL MÁS BAJO — TU CARTA DE MAYOR OVR OVR, después rareza y serial CARTAS FORJA POR EQUIPO → TUS CARTAS DE MAYOR OVR LIBRO DE LA COLECCIÓN COMPLETA TUS SETS EQUIPOS REGIONES ROLES RAREZAS EDICIONES Cloud9 1/5 DRX 1/5 Eternal Fire 1/5 MIBR 1/5 Sentinels 1/5 Team Secret 1/5 GE 2/11 Fnatic 1/6 ZETA DIVISION 1/6 M8 1/11 Team Liquid 1/11 FUT 1/15 VER LOS 41 EQUIPOS ÁLBUM 331 cartas ⌕ Buscar por jugador, equipo o carta TODAS POSEÍDAS NO CONSEGUIDAS Orden OVR (mayor primero) OVR (meno",
+        "hScroll": false,
+        "broken": []
+      }
+    }
+  ],
+  "note": "Latencia 400 ms + 1,5 Mbps de bajada (no caos de F66) y un corte breve en /progresion→/colección."
+}

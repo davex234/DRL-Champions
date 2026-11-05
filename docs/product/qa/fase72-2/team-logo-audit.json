@@ -1,0 +1,828 @@
+{
+  "cards": 331,
+  "identities": 41,
+  "registryIdentities": 47,
+  "withLocalLogo": 19,
+  "teams": [
+    {
+      "canonicalId": "100t",
+      "displayName": "100T",
+      "tag": "100T",
+      "region": "Americas",
+      "printedOnCards": [
+        "100T"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/100T",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/100T/Logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "Asuna.png",
+        "bang.png",
+        "Cryocells.png",
+        "d00mbr0s.png",
+        "Nbs.png",
+        "Timotino.png"
+      ]
+    },
+    {
+      "canonicalId": "all-gamers",
+      "displayName": "All Gamers",
+      "tag": "AG",
+      "region": "China",
+      "printedOnCards": [
+        "AG"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "CHINA/AG",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "Bai.png",
+        "ED101.png"
+      ]
+    },
+    {
+      "canonicalId": "bbl",
+      "displayName": "BBL Esports",
+      "tag": "BBL",
+      "region": "EMEA",
+      "printedOnCards": [
+        "BBL"
+      ],
+      "cards": 12,
+      "inRepo": false,
+      "sourceFolder": "EMEA/BBL",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/EMEA/BBL/LOGO.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "c9",
+      "displayName": "Cloud9",
+      "tag": "C9",
+      "region": "Americas",
+      "printedOnCards": [
+        "C9"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/C9",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/C9/Logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "FireBallOps.png",
+        "Immi.png",
+        "Jackk.png",
+        "OXY.png",
+        "v1c.png",
+        "Veer.png"
+      ]
+    },
+    {
+      "canonicalId": "detonation-focusme",
+      "displayName": "DetonatioN FocusMe",
+      "tag": "DFM",
+      "region": "Pacific",
+      "printedOnCards": [
+        "DFM"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/DFM",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "dragon-ranger-gaming",
+      "displayName": "Dragon Ranger Gaming",
+      "tag": "DRG",
+      "region": "China",
+      "printedOnCards": [
+        "DRG"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "CHINA/DRG",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/CHINA/DRG/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 900,
+        "height": 1022,
+        "alpha": true
+      },
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "drx",
+      "displayName": "DRX",
+      "tag": "DRX",
+      "region": "Pacific",
+      "printedOnCards": [
+        "DRX"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/DRX",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "edward-gaming",
+      "displayName": "EDward Gaming",
+      "tag": "EDG",
+      "region": "China",
+      "printedOnCards": [
+        "EDG"
+      ],
+      "cards": 9,
+      "inRepo": false,
+      "sourceFolder": "CHINA/EDG",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "eg",
+      "displayName": "Evil Geniuses",
+      "tag": "EG",
+      "region": "Americas",
+      "printedOnCards": [
+        "EG"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/EG",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/EG/Logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "bao.png",
+        "dgzin.png",
+        "Faded.png",
+        "meco1e.png",
+        "Paincakes.png",
+        "potter.png"
+      ]
+    },
+    {
+      "canonicalId": "envy",
+      "displayName": "ENVY",
+      "tag": "ENVY",
+      "region": "Americas",
+      "printedOnCards": [
+        "ENVY"
+      ],
+      "cards": 2,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/ENVY",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/ENVY/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "keznit2.png",
+        "nightz.png",
+        "Stunner.png",
+        "WKN.png"
+      ]
+    },
+    {
+      "canonicalId": "eternal-fire",
+      "displayName": "Eternal Fire",
+      "tag": "EF",
+      "region": "EMEA",
+      "printedOnCards": [
+        "EF"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "EMEA/EF",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/EMEA/EF/LOGO.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "fnatic",
+      "displayName": "Fnatic",
+      "tag": "FNC",
+      "region": "EMEA",
+      "printedOnCards": [
+        "FNATIC"
+      ],
+      "cards": 6,
+      "inRepo": false,
+      "sourceFolder": "EMEA/FNC",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/EMEA/FNC/LOGO.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "full-sense",
+      "displayName": "FULL SENSE",
+      "tag": "FS",
+      "region": "Pacific",
+      "printedOnCards": [
+        "FS"
+      ],
+      "cards": 10,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/FS",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "FrosT.png"
+      ]
+    },
+    {
+      "canonicalId": "furia",
+      "displayName": "FURIA",
+      "tag": "FUR",
+      "region": "Americas",
+      "printedOnCards": [
+        "FUR"
+      ],
+      "cards": 11,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/FUR",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/FUR/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "artzin.png",
+        "Kamino.png",
+        "koalanoob.png",
+        "shaW.png"
+      ]
+    },
+    {
+      "canonicalId": "fut",
+      "displayName": "FUT",
+      "tag": "FUT",
+      "region": "EMEA",
+      "printedOnCards": [
+        "FUT"
+      ],
+      "cards": 15,
+      "inRepo": false,
+      "sourceFolder": "EMEA/FUT",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "FUT.png"
+      ]
+    },
+    {
+      "canonicalId": "g2",
+      "displayName": "G2",
+      "tag": "G2",
+      "region": "Americas",
+      "printedOnCards": [
+        "G2"
+      ],
+      "cards": 20,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/G2",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/G2/LOGO.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "JoshRT.png",
+        "shhhack.png",
+        "trent.png"
+      ]
+    },
+    {
+      "canonicalId": "ge",
+      "displayName": "GE",
+      "tag": "GE",
+      "region": "Pacific",
+      "printedOnCards": [
+        "GE"
+      ],
+      "cards": 11,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/GE",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "Platoon.png",
+        "Udotan.png"
+      ]
+    },
+    {
+      "canonicalId": "gen-g",
+      "displayName": "Gen.G",
+      "tag": "GENG",
+      "region": "Pacific",
+      "printedOnCards": [
+        "GenG"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": null,
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "giantx",
+      "displayName": "GIANTX",
+      "tag": "GX",
+      "region": "EMEA",
+      "printedOnCards": [
+        "GX"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "EMEA/GX",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "GX.png"
+      ]
+    },
+    {
+      "canonicalId": "karmine-corp",
+      "displayName": "Karmine Corp",
+      "tag": "KC",
+      "region": "EMEA",
+      "printedOnCards": [
+        "KC"
+      ],
+      "cards": 4,
+      "inRepo": false,
+      "sourceFolder": "EMEA/KC",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "KC.png"
+      ]
+    },
+    {
+      "canonicalId": "kru",
+      "displayName": "KRÜ Esports",
+      "tag": "KRÜ",
+      "region": "Americas",
+      "printedOnCards": [
+        "KRÜ"
+      ],
+      "cards": 6,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/KRÜ",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/KRÜ/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "Dantedeu5.png",
+        "Heat.png",
+        "Less.png",
+        "mwzera.png",
+        "saadhak.png",
+        "ZONYK.png"
+      ]
+    },
+    {
+      "canonicalId": "leviatan",
+      "displayName": "Leviatán",
+      "tag": "LEV",
+      "region": "Americas",
+      "printedOnCards": [
+        "LEV"
+      ],
+      "cards": 14,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/LEV",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/LEV/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "blowz.png",
+        "kiNgg.png",
+        "Neon.png",
+        "Onur.png",
+        "Sato.png",
+        "spike.png"
+      ]
+    },
+    {
+      "canonicalId": "loud",
+      "displayName": "LOUD",
+      "tag": "LOUD",
+      "region": "Americas",
+      "printedOnCards": [
+        "LOUD"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/LOUD",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/LOUD/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "Bati.png",
+        "cauanzin.png",
+        "lukxo.png",
+        "Romanilly.png"
+      ]
+    },
+    {
+      "canonicalId": "m8",
+      "displayName": "M8",
+      "tag": "M8",
+      "region": "EMEA",
+      "printedOnCards": [
+        "GM8"
+      ],
+      "cards": 11,
+      "inRepo": false,
+      "sourceFolder": "EMEA/M8",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "M8.png"
+      ]
+    },
+    {
+      "canonicalId": "mibr",
+      "displayName": "MIBR",
+      "tag": "MIBR",
+      "region": "Americas",
+      "printedOnCards": [
+        "MIBR"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/MIBR",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/MIBR/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "aspas.png",
+        "fRoD.png",
+        "Happy.png",
+        "Mazino.png",
+        "tex.png",
+        "Verno.png"
+      ]
+    },
+    {
+      "canonicalId": "navi",
+      "displayName": "NAVI",
+      "tag": "NAVI",
+      "region": "EMEA",
+      "printedOnCards": [
+        "NAVI"
+      ],
+      "cards": 4,
+      "inRepo": false,
+      "sourceFolder": "EMEA/NAVI",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "NAVI.png"
+      ]
+    },
+    {
+      "canonicalId": "nrg",
+      "displayName": "NRG",
+      "tag": "NRG",
+      "region": "Americas",
+      "printedOnCards": [
+        "NRG"
+      ],
+      "cards": 16,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/NRG",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/NRG/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "bonkar.png",
+        "mitch.png",
+        "skuba.png"
+      ]
+    },
+    {
+      "canonicalId": "ns",
+      "displayName": "NS",
+      "tag": "NS",
+      "region": "Pacific",
+      "printedOnCards": [
+        "NS"
+      ],
+      "cards": 11,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/NS",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "paper-rex",
+      "displayName": "Paper Rex",
+      "tag": "PRX",
+      "region": "Pacific",
+      "printedOnCards": [
+        "PRX"
+      ],
+      "cards": 15,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/PRX",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "Cihan Göçer.png",
+        "Ethan Starke.png",
+        "glow.png",
+        "Kim Gyeong-min.png",
+        "Larsson.png",
+        "Titoune.png"
+      ]
+    },
+    {
+      "canonicalId": "pcific",
+      "displayName": "PCIFIC Esports",
+      "tag": "PCF",
+      "region": "EMEA",
+      "printedOnCards": [
+        "PCF"
+      ],
+      "cards": 6,
+      "inRepo": false,
+      "sourceFolder": "EMEA/PCF",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "PCF.png"
+      ]
+    },
+    {
+      "canonicalId": "rrq",
+      "displayName": "Rex Regum Qeon",
+      "tag": "RRQ",
+      "region": "Pacific",
+      "printedOnCards": [
+        "RRQ"
+      ],
+      "cards": 4,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/RRQ",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "Jovi.png"
+      ]
+    },
+    {
+      "canonicalId": "sentinels",
+      "displayName": "Sentinels",
+      "tag": "SEN",
+      "region": "Americas",
+      "printedOnCards": [
+        "SEN"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "AMERICAS/SEN",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/AMERICAS/SEN/logo.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": [
+        "cortezia.png",
+        "GUNTER.png",
+        "johnqt.png",
+        "Reduxx.png"
+      ]
+    },
+    {
+      "canonicalId": "t1",
+      "displayName": "T1",
+      "tag": "T1",
+      "region": "Pacific",
+      "printedOnCards": [
+        "T1"
+      ],
+      "cards": 15,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/T1",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "CheongGak.png",
+        "KDG.png"
+      ]
+    },
+    {
+      "canonicalId": "team-heretics",
+      "displayName": "Team Heretics",
+      "tag": "TH",
+      "region": "EMEA",
+      "printedOnCards": [
+        "TH"
+      ],
+      "cards": 11,
+      "inRepo": false,
+      "sourceFolder": "EMEA/TH",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/EMEA/TH/LOGO.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "team-liquid",
+      "displayName": "Team Liquid",
+      "tag": "TL",
+      "region": "EMEA",
+      "printedOnCards": [
+        "TL"
+      ],
+      "cards": 11,
+      "inRepo": false,
+      "sourceFolder": "EMEA/TL",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/EMEA/TL/LOGO.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "team-secret",
+      "displayName": "Team Secret",
+      "tag": "TS",
+      "region": "Pacific",
+      "printedOnCards": [
+        "TS"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/TS",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "Zeus.png"
+      ]
+    },
+    {
+      "canonicalId": "tyl",
+      "displayName": "TYL",
+      "tag": "TYL",
+      "region": "China",
+      "printedOnCards": [
+        "TYL"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": null,
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "vitality",
+      "displayName": "Team Vitality",
+      "tag": "VIT",
+      "region": "EMEA",
+      "printedOnCards": [
+        "VIT"
+      ],
+      "cards": 11,
+      "inRepo": false,
+      "sourceFolder": "EMEA/VIT",
+      "localLogo": "C:/NEXUS-CENTRAL/NEXUSFICHAJES/players/EQUIPOS/EMEA/VIT/LOGO.png",
+      "meta": {
+        "format": "png",
+        "width": 200,
+        "height": 200,
+        "alpha": true
+      },
+      "otherImagesInFolder": []
+    },
+    {
+      "canonicalId": "vl",
+      "displayName": "VL",
+      "tag": "VL",
+      "region": "Pacific",
+      "printedOnCards": [
+        "VL"
+      ],
+      "cards": 5,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/VL",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "Kalus.png",
+        "oonzmlp.png",
+        "Xuna.png"
+      ]
+    },
+    {
+      "canonicalId": "xlg",
+      "displayName": "XLG",
+      "tag": "XLG",
+      "region": "China",
+      "printedOnCards": [
+        "XLG"
+      ],
+      "cards": 10,
+      "inRepo": false,
+      "sourceFolder": "CHINA/XLG",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": [
+        "steady.png"
+      ]
+    },
+    {
+      "canonicalId": "zeta-division",
+      "displayName": "ZETA DIVISION",
+      "tag": "ZETA",
+      "region": "Pacific",
+      "printedOnCards": [
+        "ZETA"
+      ],
+      "cards": 6,
+      "inRepo": false,
+      "sourceFolder": "PACIFIC/ZETA",
+      "localLogo": null,
+      "meta": null,
+      "otherImagesInFolder": []
+    }
+  ]
+}

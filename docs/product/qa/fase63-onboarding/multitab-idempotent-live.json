@@ -1,0 +1,47 @@
+{
+  "at": "2026-09-26T15:57:48.553Z",
+  "account": "0692cbd0",
+  "deleted": [
+    {
+      "id": "aa7c7726",
+      "status": 400
+    }
+  ],
+  "parallel": [
+    {
+      "status": 200,
+      "deck": "aa7c7726",
+      "created": false
+    },
+    {
+      "status": 200,
+      "deck": "aa7c7726",
+      "created": false
+    },
+    {
+      "status": 200,
+      "deck": "aa7c7726",
+      "created": false
+    },
+    {
+      "status": 200,
+      "deck": "aa7c7726",
+      "created": false
+    },
+    {
+      "status": 200,
+      "deck": "aa7c7726",
+      "created": false
+    }
+  ],
+  "decksAfter": [
+    {
+      "id": "aa7c7726",
+      "name": "Mi primer equipo",
+      "valid": true,
+      "active": true
+    }
+  ],
+  "activeDeckId": "aa7c7726",
+  "oneTeam": true
+}

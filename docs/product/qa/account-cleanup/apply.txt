@@ -1,0 +1,7 @@
+== 2026-10-05T20:18:51Z · release drl-0.1.1-1-7cee7857 · cabeza 0070_alpha_feedback
+backup: /opt/nexus/backups/supabase-drlcards/pre-account-cleanup/20261005T201435Z (local en el VPS; NO off-site) · drill DRILL_OK · dry-run DRYRUN_OK
+sha256 procedimiento: 25c4cd12b1374d6e51f243d74732c2b506ded1b7ecb096d3f2bafaad9be9b0c1
+ANTES usuarios=49 admins=1 tags=50
+ RESUMEN usuarios=2 perfiles=2 admins=davex_234_3bef #NB2Z9BM, ValoRosters_b7cc #H5ND8K7 tags_registrados=50 auditoría=654 copas=17 inscripciones=72 cruces=66 sesiones=3 refresh_tokens=9 identities=2
+COMMIT
+exit=0

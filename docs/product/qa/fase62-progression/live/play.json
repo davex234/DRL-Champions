@@ -1,0 +1,76 @@
+{
+  "at": "2026-09-25T11:05:39.232Z",
+  "account": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "before": {
+    "xp": 2039,
+    "credits": 8440,
+    "seasonLevel": 2,
+    "passXp": 2900,
+    "pending": [
+      {
+        "key": "level:2",
+        "credits": 270,
+        "seasonXp": 0,
+        "pack": null
+      }
+    ]
+  },
+  "match": {
+    "post": {
+      "state": "changes",
+      "sections": "ACCOUNT,OBJECTIVES",
+      "completed": [],
+      "claimButtons": 0,
+      "levelUp": null,
+      "beforeActions": true
+    },
+    "accountXpDelta": 25,
+    "creditsDelta": 40,
+    "ledgerDuel": {
+      "id": "0cf7e211-ccee-48bd-933d-2c45aeeb0a1a",
+      "delta": 40,
+      "reason": "duel_loss",
+      "ref": "duel:43a206a0-4ae8-4538-9e9e-e1d2a2ed88fa",
+      "created_at": "2026-09-25T11:06:13.865504+00:00"
+    }
+  },
+  "hubClaimAll": {
+    "offered": 1,
+    "serverPending": 1,
+    "keys": [
+      "level:2"
+    ],
+    "creditsDelta": 270,
+    "expectedCredits": 270,
+    "passXpDelta": 0,
+    "expectedSeasonXp": 0,
+    "season": [
+      2,
+      2
+    ],
+    "pendingAfter": []
+  },
+  "refreshCounts": [
+    0,
+    0,
+    0
+  ],
+  "home": {
+    "dock": true,
+    "claimable": null,
+    "near": "Juega 25 duelos en la temporada 15 / 25Jugar",
+    "season": "Temporada · nivel 2/30Nivel 3: 280 créditos"
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "after": {
+    "xp": 2064,
+    "credits": 8750,
+    "seasonLevel": 2,
+    "passXp": 2900,
+    "pending": []
+  }
+}

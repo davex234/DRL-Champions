@@ -1,0 +1,24 @@
+{
+  "phase": 43,
+  "kind": "strategy-fuzz",
+  "decks": 100000,
+  "mutate": null,
+  "orientation": {
+    "Perfil mixto": 57238,
+    "Equilibrado": 8416,
+    "Orientado a Entryfrag": 12047,
+    "Orientado a Gamesense": 8917,
+    "Orientado a Stronghold": 3457
+  },
+  "analysisTimingMs": {
+    "n": 100000,
+    "p50": 0.0618,
+    "p95": 0.1607,
+    "p99": 0.264,
+    "max": 7.6111
+  },
+  "violations": 0,
+  "byInvariant": {},
+  "sample": [],
+  "ms": 53415
+}

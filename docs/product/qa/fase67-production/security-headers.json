@@ -1,0 +1,21 @@
+{
+  "present": {
+    "Content-Security-Policy": "default-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com; img-src 'self' data: blob: https: <supabase>; connect-src 'self' <supabase> wss <supabase> flagcdn.com",
+    "X-Frame-Options": "DENY",
+    "X-Content-Type-Options": "nosniff",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+    "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload (ignorado en http local)",
+    "Cross-Origin-Opener-Policy": "same-origin (F67)"
+  },
+  "removed": {
+    "X-Powered-By": "poweredByHeader: false (F67)"
+  },
+  "cache": {
+    "/_next/static": "public, max-age=31536000, immutable",
+    "html estático": "s-maxage=31536000 (purgar CDN al publicar)",
+    "api": "no-store en rutas con datos",
+    "public/cards": "max-age=0 (revalida)"
+  },
+  "hstsNote": "preload + includeSubDomains es irreversible en la práctica una vez enviado a la lista: confirmar el dominio definitivo antes de enviarlo"
+}

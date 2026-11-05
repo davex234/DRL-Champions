@@ -1,0 +1,50 @@
+{
+  "at": "2026-09-26",
+  "git": {
+    "head": "48dac2a",
+    "branch": "arch/stabilization",
+    "note": "árbol con ~1.300 entradas sin commitear de fases anteriores (no se tocó nada fuera de F63)"
+  },
+  "tests": {
+    "before": {
+      "total": 5208,
+      "pass": 5208,
+      "fail": 0
+    },
+    "after": {
+      "total": 5262,
+      "pass": 5262,
+      "fail": 0
+    }
+  },
+  "tsc": {
+    "web": "exit 0 (antes y después)",
+    "scripts": "exit 0 (antes y después)"
+  },
+  "build": {
+    "before": "exit 0",
+    "after": "exit 0"
+  },
+  "migrationHead": "0057_admin_cms.sql",
+  "liveDb": {
+    "contentCards": 331,
+    "agents": 29,
+    "publicTables": 122,
+    "accounts": 12,
+    "admins": 1,
+    "measuredVia": "ssh psql de solo lectura, 2026-09-26"
+  },
+  "catalogCode": 331,
+  "flags": {
+    "GLOBAL_MARKET_ENABLED": false,
+    "PAYMENTS_ENABLED": false
+  },
+  "accountsByActivity": {
+    "matches>=2": 3,
+    "matches=1": 1,
+    "activity_no_match": 1,
+    "no_activity": 7
+  },
+  "f61": "huella dorada del motor (F61 MOTOR 01) intacta: f61.match.test.tsx verde",
+  "f62": "/progresion hub + reclamos intactos; solo se añade el bloque de la guía encima"
+}

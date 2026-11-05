@@ -1,0 +1,2840 @@
+{
+  "at": "2026-09-25T10:21:45.026Z",
+  "account": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "/api/game/meta": {
+    "status": 200,
+    "keys": [
+      "serverNow",
+      "account",
+      "level",
+      "pass",
+      "objectives",
+      "loop",
+      "ledger",
+      "rewards",
+      "unopenedPacks",
+      "decks",
+      "duels",
+      "rating",
+      "ladder",
+      "ftue",
+      "season"
+    ],
+    "body": {
+      "serverNow": 1790331705236,
+      "account": {
+        "xp": 2039,
+        "credits": 3630,
+        "points": 70,
+        "packsOpened": 9,
+        "region": null,
+        "createdAt": "2026-09-18T08:57:49.00327+00:00"
+      },
+      "level": {
+        "xp": 2039,
+        "level": 7,
+        "xpIntoLevel": 281,
+        "xpForNext": 492,
+        "progress": 0.5711382113821138,
+        "toNext": 211,
+        "nextTotal": 2250
+      },
+      "pass": {
+        "serverNow": 1790331705236,
+        "season": {
+          "id": "nexus-s1",
+          "name": "Temporada 1 · Ascenso",
+          "maxLevel": 30
+        },
+        "level": 0,
+        "xp": 0,
+        "xpIntoLevel": 0,
+        "xpForNext": 1000,
+        "progress": 0,
+        "premium": false,
+        "competitiveUnlocked": false,
+        "competitiveMinPoints": 400,
+        "points": 70,
+        "equipped": {},
+        "tracks": {
+          "free": [
+            {
+              "level": 1,
+              "reward": {
+                "credits": 260
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 2,
+              "reward": {
+                "credits": 270
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 3,
+              "reward": {
+                "credits": 280
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 4,
+              "reward": {
+                "credits": 290
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 5,
+              "reward": {
+                "packId": "estandar",
+                "packCount": 1,
+                "credits": 600
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 6,
+              "reward": {
+                "credits": 310
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 7,
+              "reward": {
+                "credits": 320
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 8,
+              "reward": {
+                "credits": 330
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 9,
+              "reward": {
+                "credits": 340
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 10,
+              "reward": {
+                "packId": "premium",
+                "packCount": 1,
+                "credits": 1500
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 11,
+              "reward": {
+                "credits": 360
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 12,
+              "reward": {
+                "credits": 370
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 13,
+              "reward": {
+                "credits": 380
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 14,
+              "reward": {
+                "credits": 390
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 15,
+              "reward": {
+                "packId": "estandar",
+                "packCount": 1,
+                "credits": 600
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 16,
+              "reward": {
+                "credits": 410
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 17,
+              "reward": {
+                "credits": 420
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 18,
+              "reward": {
+                "credits": 430
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 19,
+              "reward": {
+                "credits": 440
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 20,
+              "reward": {
+                "packId": "premium",
+                "packCount": 1,
+                "credits": 1500
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 21,
+              "reward": {
+                "credits": 460
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 22,
+              "reward": {
+                "credits": 470
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 23,
+              "reward": {
+                "credits": 480
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 24,
+              "reward": {
+                "credits": 490
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 25,
+              "reward": {
+                "packId": "estandar",
+                "packCount": 1,
+                "credits": 600
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 26,
+              "reward": {
+                "credits": 510
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 27,
+              "reward": {
+                "credits": 520
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 28,
+              "reward": {
+                "credits": 530
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 29,
+              "reward": {
+                "credits": 540
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 30,
+              "reward": {
+                "packId": "premium",
+                "packCount": 1,
+                "credits": 1500
+              },
+              "claimed": false,
+              "claimable": false
+            }
+          ],
+          "competitive": [
+            {
+              "level": 5,
+              "reward": {
+                "credits": 2000
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 10,
+              "reward": {
+                "packId": "premium",
+                "packCount": 1
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 15,
+              "reward": {
+                "credits": 4000
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 20,
+              "reward": {
+                "packId": "premium",
+                "packCount": 2
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 25,
+              "reward": {
+                "credits": 8000
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 30,
+              "reward": {
+                "packId": "premium",
+                "packCount": 3,
+                "credits": 12000
+              },
+              "claimed": false,
+              "claimable": false
+            }
+          ],
+          "premium": [
+            {
+              "level": 1,
+              "reward": {
+                "cosmetics": [
+                  "avatar:nexus-visor"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 3,
+              "reward": {
+                "cosmetics": [
+                  "titulo:aspirante"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 5,
+              "reward": {
+                "cosmetics": [
+                  "marco:circuito"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 8,
+              "reward": {
+                "cosmetics": [
+                  "banderin:nexus-s1"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 10,
+              "reward": {
+                "cosmetics": [
+                  "avatar:nexus-halcon"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 13,
+              "reward": {
+                "cosmetics": [
+                  "titulo:analista"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 15,
+              "reward": {
+                "cosmetics": [
+                  "marco:neon"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 18,
+              "reward": {
+                "cosmetics": [
+                  "banderin:emea-s1"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 20,
+              "reward": {
+                "cosmetics": [
+                  "avatar:nexus-corona"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 23,
+              "reward": {
+                "cosmetics": [
+                  "titulo:estratega"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 25,
+              "reward": {
+                "cosmetics": [
+                  "marco:holografico"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 28,
+              "reward": {
+                "cosmetics": [
+                  "banderin:champions-s1"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            },
+            {
+              "level": 30,
+              "reward": {
+                "cosmetics": [
+                  "avatar:nexus-prime",
+                  "titulo:leyenda-s1",
+                  "marco:prime"
+                ]
+              },
+              "claimed": false,
+              "claimable": false
+            }
+          ]
+        },
+        "missions": [
+          {
+            "id": "d-duelo-win",
+            "label": "Gana un duelo",
+            "kind": "daily",
+            "current": 0,
+            "goal": 1,
+            "complete": false,
+            "claimed": false,
+            "rewardCredits": 400,
+            "xp": 300,
+            "metric": "duels_won",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1790294400000,
+            "expiresAt": 1790380800000
+          },
+          {
+            "id": "d-duelo-1",
+            "label": "Juega un duelo",
+            "kind": "daily",
+            "current": 1,
+            "goal": 1,
+            "complete": true,
+            "claimed": false,
+            "rewardCredits": 250,
+            "xp": 200,
+            "metric": "duels_played",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1790294400000,
+            "expiresAt": 1790380800000
+          },
+          {
+            "id": "d-pickem-1",
+            "label": "Haz una predicción",
+            "kind": "daily",
+            "current": 0,
+            "goal": 1,
+            "complete": false,
+            "claimed": false,
+            "rewardCredits": 200,
+            "xp": 150,
+            "metric": "picks_made",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1790294400000,
+            "expiresAt": 1790380800000
+          },
+          {
+            "id": "w-victorias",
+            "label": "Gana 3 duelos",
+            "kind": "weekly",
+            "current": 3,
+            "goal": 3,
+            "complete": true,
+            "claimed": false,
+            "rewardCredits": 1800,
+            "xp": 1000,
+            "metric": "duels_won",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1789948800000,
+            "expiresAt": 1790553600000
+          },
+          {
+            "id": "w-cartas-5",
+            "label": "Consigue 5 cartas nuevas",
+            "kind": "weekly",
+            "current": 5,
+            "goal": 5,
+            "complete": true,
+            "claimed": false,
+            "rewardCredits": 1500,
+            "xp": 900,
+            "metric": "distinct_cards",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1789948800000,
+            "expiresAt": 1790553600000
+          },
+          {
+            "id": "s-duelos-25",
+            "label": "Juega 25 duelos en la temporada",
+            "kind": "seasonal",
+            "current": 14,
+            "goal": 25,
+            "complete": false,
+            "claimed": false,
+            "rewardCredits": 0,
+            "xp": 2500,
+            "metric": "duels_played",
+            "packId": "estandar",
+            "packCount": 2,
+            "assignedAt": 1789721869003,
+            "expiresAt": null
+          },
+          {
+            "id": "s-mazo",
+            "label": "Guarda tu primer mazo de duelo",
+            "kind": "seasonal",
+            "current": 1,
+            "goal": 1,
+            "complete": true,
+            "claimed": false,
+            "rewardCredits": 1000,
+            "xp": 800,
+            "metric": "decks_saved",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1789721869003,
+            "expiresAt": null
+          },
+          {
+            "id": "s-region",
+            "label": "Declara tu región competitiva",
+            "kind": "seasonal",
+            "current": 0,
+            "goal": 1,
+            "complete": false,
+            "claimed": false,
+            "rewardCredits": 500,
+            "xp": 400,
+            "metric": "region_set",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1789721869003,
+            "expiresAt": null
+          },
+          {
+            "id": "p-coleccion-50",
+            "label": "Reúne 50 cartas distintas",
+            "kind": "progressive",
+            "current": 24,
+            "goal": 50,
+            "complete": false,
+            "claimed": false,
+            "rewardCredits": 3000,
+            "xp": 2000,
+            "metric": "distinct_cards",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1789721869003,
+            "expiresAt": null
+          },
+          {
+            "id": "p-coleccion-150",
+            "label": "Reúne 150 cartas distintas",
+            "kind": "progressive",
+            "current": 24,
+            "goal": 150,
+            "complete": false,
+            "claimed": false,
+            "rewardCredits": 0,
+            "xp": 5000,
+            "metric": "distinct_cards",
+            "packId": "premium",
+            "packCount": 2,
+            "assignedAt": 1789721869003,
+            "expiresAt": null
+          },
+          {
+            "id": "p-puntos-400",
+            "label": "Alcanza el rango Oro",
+            "kind": "progressive",
+            "current": 70,
+            "goal": 400,
+            "complete": false,
+            "claimed": false,
+            "rewardCredits": 5000,
+            "xp": 4000,
+            "metric": "points",
+            "packId": null,
+            "packCount": 0,
+            "assignedAt": 1789721869003,
+            "expiresAt": null
+          }
+        ],
+        "achievements": [
+          {
+            "id": "sobres-100",
+            "name": "Abridor en serie",
+            "description": "Abre 100 sobres.",
+            "icon": "📦",
+            "reward": 2500,
+            "goal": 100,
+            "current": 9,
+            "complete": false,
+            "claimed": false,
+            "claimedAt": null
+          },
+          {
+            "id": "sobres-1000",
+            "name": "Maestro de sobres",
+            "description": "Abre 1000 sobres.",
+            "icon": "🏭",
+            "reward": 25000,
+            "goal": 1000,
+            "current": 9,
+            "complete": false,
+            "claimed": false,
+            "claimedAt": null
+          },
+          {
+            "id": "primer-mvp",
+            "name": "Consigue una Champions S",
+            "description": "Obtén tu primera carta Champions S.",
+            "icon": "⭐",
+            "reward": 3000,
+            "goal": 1,
+            "current": 0,
+            "complete": false,
+            "claimed": false,
+            "claimedAt": null
+          },
+          {
+            "id": "primer-icon",
+            "name": "Consigue una leyenda",
+            "description": "Obtén tu primera carta legendaria (Record Breaker o Moments).",
+            "icon": "👑",
+            "reward": 10000,
+            "goal": 1,
+            "current": 0,
+            "complete": false,
+            "claimed": false,
+            "claimedAt": null
+          },
+          {
+            "id": "coleccionista",
+            "name": "Coleccionista",
+            "description": "Consigue 40 cartas distintas.",
+            "icon": "🗂️",
+            "reward": 4000,
+            "goal": 40,
+            "current": 24,
+            "complete": false,
+            "claimed": false,
+            "claimedAt": null
+          },
+          {
+            "id": "completa-heretics",
+            "name": "Completar Team Heretics",
+            "description": "Consigue todas las cartas de Team Heretics.",
+            "icon": "🐉",
+            "reward": 8000,
+            "goal": 11,
+            "current": 0,
+            "complete": false,
+            "claimed": false,
+            "claimedAt": null
+          },
+          {
+            "id": "completa-emea",
+            "name": "Completar EMEA",
+            "description": "Consigue todas las cartas de la región EMEA.",
+            "icon": "🌍",
+            "reward": 15000,
+            "goal": 100,
+            "current": 9,
+            "complete": false,
+            "claimed": false,
+            "claimedAt": null
+          }
+        ],
+        "cosmetics": []
+      },
+      "objectives": [
+        {
+          "id": "w-cartas-5",
+          "label": "Consigue 5 cartas nuevas",
+          "kind": "weekly",
+          "current": 5,
+          "goal": 5,
+          "complete": true,
+          "claimed": false,
+          "rewardCredits": 1500,
+          "xp": 900,
+          "metric": "distinct_cards",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1789948800000,
+          "expiresAt": 1790553600000
+        },
+        {
+          "id": "w-victorias",
+          "label": "Gana 3 duelos",
+          "kind": "weekly",
+          "current": 3,
+          "goal": 3,
+          "complete": true,
+          "claimed": false,
+          "rewardCredits": 1800,
+          "xp": 1000,
+          "metric": "duels_won",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1789948800000,
+          "expiresAt": 1790553600000
+        },
+        {
+          "id": "s-mazo",
+          "label": "Guarda tu primer mazo de duelo",
+          "kind": "seasonal",
+          "current": 1,
+          "goal": 1,
+          "complete": true,
+          "claimed": false,
+          "rewardCredits": 1000,
+          "xp": 800,
+          "metric": "decks_saved",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1789721869003,
+          "expiresAt": null
+        },
+        {
+          "id": "d-duelo-1",
+          "label": "Juega un duelo",
+          "kind": "daily",
+          "current": 1,
+          "goal": 1,
+          "complete": true,
+          "claimed": false,
+          "rewardCredits": 250,
+          "xp": 200,
+          "metric": "duels_played",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1790294400000,
+          "expiresAt": 1790380800000
+        },
+        {
+          "id": "s-duelos-25",
+          "label": "Juega 25 duelos en la temporada",
+          "kind": "seasonal",
+          "current": 14,
+          "goal": 25,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 0,
+          "xp": 2500,
+          "metric": "duels_played",
+          "packId": "estandar",
+          "packCount": 2,
+          "assignedAt": 1789721869003,
+          "expiresAt": null
+        },
+        {
+          "id": "p-coleccion-50",
+          "label": "Reúne 50 cartas distintas",
+          "kind": "progressive",
+          "current": 24,
+          "goal": 50,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 3000,
+          "xp": 2000,
+          "metric": "distinct_cards",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1789721869003,
+          "expiresAt": null
+        },
+        {
+          "id": "p-puntos-400",
+          "label": "Alcanza el rango Oro",
+          "kind": "progressive",
+          "current": 70,
+          "goal": 400,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 5000,
+          "xp": 4000,
+          "metric": "points",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1789721869003,
+          "expiresAt": null
+        },
+        {
+          "id": "p-coleccion-150",
+          "label": "Reúne 150 cartas distintas",
+          "kind": "progressive",
+          "current": 24,
+          "goal": 150,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 0,
+          "xp": 5000,
+          "metric": "distinct_cards",
+          "packId": "premium",
+          "packCount": 2,
+          "assignedAt": 1789721869003,
+          "expiresAt": null
+        },
+        {
+          "id": "s-region",
+          "label": "Declara tu región competitiva",
+          "kind": "seasonal",
+          "current": 0,
+          "goal": 1,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 500,
+          "xp": 400,
+          "metric": "region_set",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1789721869003,
+          "expiresAt": null
+        },
+        {
+          "id": "d-duelo-win",
+          "label": "Gana un duelo",
+          "kind": "daily",
+          "current": 0,
+          "goal": 1,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 400,
+          "xp": 300,
+          "metric": "duels_won",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1790294400000,
+          "expiresAt": 1790380800000
+        },
+        {
+          "id": "d-pickem-1",
+          "label": "Haz una predicción",
+          "kind": "daily",
+          "current": 0,
+          "goal": 1,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 200,
+          "xp": 150,
+          "metric": "picks_made",
+          "packId": null,
+          "packCount": 0,
+          "assignedAt": 1790294400000,
+          "expiresAt": 1790380800000
+        }
+      ],
+      "loop": {
+        "steps": [
+          {
+            "id": "claim",
+            "kind": "claim",
+            "label": "Reclama lo tuyo",
+            "detail": "4 misiones sin reclamar.",
+            "href": "/logros",
+            "count": 4,
+            "priority": 3
+          },
+          {
+            "id": "objective-s-duelos-25",
+            "kind": "objective",
+            "label": "Continúa tu objetivo",
+            "detail": "Juega 25 duelos en la temporada · 14 / 25",
+            "href": "/progresion#objetivos",
+            "priority": 3.5,
+            "urgent": false
+          },
+          {
+            "id": "play-duel",
+            "kind": "play",
+            "label": "Juega un duelo",
+            "detail": "Ganar en normal suma 14 puntos hacia Plata.",
+            "href": "/duelos/jugar",
+            "priority": 6
+          },
+          {
+            "id": "campaign",
+            "kind": "play",
+            "label": "Empieza Road to Champions",
+            "detail": "0/15 nodos · siguiente: Primer contacto contra NAVI.",
+            "href": "/jugar/road-to-champions?node=c1-n1",
+            "priority": 6.5
+          },
+          {
+            "id": "circuit",
+            "kind": "explore",
+            "label": "Sigue el circuito",
+            "detail": "DRL Masters Madrid 2026",
+            "href": "/torneos/demo-masters-madrid-2026",
+            "priority": 7
+          }
+        ],
+        "rank": {
+          "points": 70,
+          "label": "Bronce II",
+          "tierId": "bronce",
+          "color": "#a16a3c",
+          "progress": 0.46308724832214765,
+          "toNext": 80,
+          "nextLabel": "Plata",
+          "unranked": false
+        },
+        "circuit": {
+          "eventId": "demo-masters-madrid-2026",
+          "name": "DRL Masters Madrid 2026",
+          "isDemo": true,
+          "status": "ongoing",
+          "liveMatch": {
+            "teamA": "NRG",
+            "teamB": "Sentinels"
+          },
+          "openQuestions": 0,
+          "pendingPicks": 0
+        },
+        "duels": {
+          "played": 14,
+          "won": 5
+        },
+        "progression": {
+          "activeObjectives": 11,
+          "claimable": 4
+        },
+        "competitive": {
+          "rating": 946,
+          "gamesPlayed": 3,
+          "provisional": true,
+          "position": 2,
+          "rankedTotal": 2
+        }
+      },
+      "ledger": [
+        {
+          "id": "2ff74d73-cb67-4e2d-aefc-99697a7f6d3c",
+          "delta": 40,
+          "reason": "duel_loss",
+          "ref": "duel:06b8cc80-ae1f-4b04-bffd-b11029ee710a",
+          "created_at": "2026-09-25T09:48:37.342576+00:00"
+        },
+        {
+          "id": "a1c86ef4-99be-43ef-b42b-4bc34e12ada7",
+          "delta": 40,
+          "reason": "duel_loss",
+          "ref": "duel:05168de7-c61e-4c83-b29d-05477aba5977",
+          "created_at": "2026-09-25T09:46:50.53534+00:00"
+        },
+        {
+          "id": "7949f858-d499-45db-b7ac-fd67d63c11fd",
+          "delta": 40,
+          "reason": "duel_loss",
+          "ref": "duel:2ddd4e3f-1c4c-4fba-b38a-7931c7473606",
+          "created_at": "2026-09-25T09:41:56.3041+00:00"
+        },
+        {
+          "id": "a0348f3b-44f0-41c0-a26e-97aa5df78e74",
+          "delta": -750,
+          "reason": "buy_pack:estandar",
+          "ref": "pack:buy:1ff2c0ef-d469-494d-b5ee-e728f7fbc865:30c2b376-5226-48fb-b646-ec0d6279a056",
+          "created_at": "2026-09-23T14:35:18.853476+00:00"
+        },
+        {
+          "id": "9604ad29-2d06-4a7e-9748-3b3d1c3a4d1b",
+          "delta": -750,
+          "reason": "buy_pack:estandar",
+          "ref": "pack:buy:1ff2c0ef-d469-494d-b5ee-e728f7fbc865:6a2590e3-8b6c-42e9-ab5e-15ea65f865b4",
+          "created_at": "2026-09-23T14:30:39.22535+00:00"
+        },
+        {
+          "id": "446d2707-ed23-4658-b01a-0fc76ea7ed64",
+          "delta": -750,
+          "reason": "buy_pack:estandar",
+          "ref": "pack:buy:1ff2c0ef-d469-494d-b5ee-e728f7fbc865:f55-buy-54eb0101-ef4b-42ea-a292-dff3375b8534",
+          "created_at": "2026-09-23T12:09:14.968001+00:00"
+        },
+        {
+          "id": "4b789b50-8a1d-4142-907d-f47acc07ee62",
+          "delta": -750,
+          "reason": "buy_pack:estandar",
+          "ref": "pack:buy:1ff2c0ef-d469-494d-b5ee-e728f7fbc865:f55-buy-d6f77b85-c265-4596-be35-236678d679c3",
+          "created_at": "2026-09-23T12:09:14.189648+00:00"
+        },
+        {
+          "id": "a68c1a5d-7280-4dd6-96f1-26ecdedc6e33",
+          "delta": -750,
+          "reason": "buy_pack:estandar",
+          "ref": "pack:buy:1ff2c0ef-d469-494d-b5ee-e728f7fbc865:f55-buy-c2ab5a50-18df-4452-8a4f-8c5c5d04f73e",
+          "created_at": "2026-09-23T12:09:13.515301+00:00"
+        },
+        {
+          "id": "68204e52-e176-4e71-a641-0dffb5a6f49c",
+          "delta": 40,
+          "reason": "duel_loss",
+          "ref": "duel:e328e326-165d-49a6-a373-adb04f98ae70",
+          "created_at": "2026-09-18T09:39:55.135548+00:00"
+        },
+        {
+          "id": "02e61d62-9695-4572-b4bf-b80f5684b92e",
+          "delta": 220,
+          "reason": "duel_win",
+          "ref": "duel:f765e82e-552b-4fd5-a721-bb496bc7666b",
+          "created_at": "2026-09-18T09:37:55.617171+00:00"
+        },
+        {
+          "id": "20b6e659-cc7c-4a7d-8f40-66adaddd5dd2",
+          "delta": 220,
+          "reason": "duel_win",
+          "ref": "duel:89491bae-ac7e-46ba-ae31-557008f126b7",
+          "created_at": "2026-09-18T09:30:24.373705+00:00"
+        },
+        {
+          "id": "e36312b6-ff29-49d4-8fb3-b318844ea692",
+          "delta": 220,
+          "reason": "duel_win",
+          "ref": "duel:8c3b2994-075d-4568-92eb-3ab29dfff4df",
+          "created_at": "2026-09-18T09:29:24.173787+00:00"
+        }
+      ],
+      "rewards": [
+        {
+          "id": "2ff74d73-cb67-4e2d-aefc-99697a7f6d3c",
+          "at": "2026-09-25T09:48:37.342576+00:00",
+          "credits": 40,
+          "pack": null,
+          "xp": null,
+          "ref": "duel:06b8cc80-ae1f-4b04-bffd-b11029ee710a",
+          "source": "duel",
+          "label": "Duelo perdido"
+        },
+        {
+          "id": "a1c86ef4-99be-43ef-b42b-4bc34e12ada7",
+          "at": "2026-09-25T09:46:50.53534+00:00",
+          "credits": 40,
+          "pack": null,
+          "xp": null,
+          "ref": "duel:05168de7-c61e-4c83-b29d-05477aba5977",
+          "source": "duel",
+          "label": "Duelo perdido"
+        },
+        {
+          "id": "7949f858-d499-45db-b7ac-fd67d63c11fd",
+          "at": "2026-09-25T09:41:56.3041+00:00",
+          "credits": 40,
+          "pack": null,
+          "xp": null,
+          "ref": "duel:2ddd4e3f-1c4c-4fba-b38a-7931c7473606",
+          "source": "duel",
+          "label": "Duelo perdido"
+        },
+        {
+          "id": "68204e52-e176-4e71-a641-0dffb5a6f49c",
+          "at": "2026-09-18T09:39:55.135548+00:00",
+          "credits": 40,
+          "pack": null,
+          "xp": null,
+          "ref": "duel:e328e326-165d-49a6-a373-adb04f98ae70",
+          "source": "duel",
+          "label": "Duelo perdido"
+        },
+        {
+          "id": "02e61d62-9695-4572-b4bf-b80f5684b92e",
+          "at": "2026-09-18T09:37:55.617171+00:00",
+          "credits": 220,
+          "pack": null,
+          "xp": null,
+          "ref": "duel:f765e82e-552b-4fd5-a721-bb496bc7666b",
+          "source": "duel",
+          "label": "Duelo ganado"
+        },
+        {
+          "id": "20b6e659-cc7c-4a7d-8f40-66adaddd5dd2",
+          "at": "2026-09-18T09:30:24.373705+00:00",
+          "credits": 220,
+          "pack": null,
+          "xp": null,
+          "ref": "duel:89491bae-ac7e-46ba-ae31-557008f126b7",
+          "source": "duel",
+          "label": "Duelo ganado"
+        },
+        {
+          "id": "e36312b6-ff29-49d4-8fb3-b318844ea692",
+          "at": "2026-09-18T09:29:24.173787+00:00",
+          "credits": 220,
+          "pack": null,
+          "xp": null,
+          "ref": "duel:8c3b2994-075d-4568-92eb-3ab29dfff4df",
+          "source": "duel",
+          "label": "Duelo ganado"
+        }
+      ],
+      "unopenedPacks": 0,
+      "decks": {
+        "total": 1,
+        "valid": 1
+      },
+      "duels": {
+        "played": 14,
+        "won": 5
+      },
+      "rating": {
+        "rating": 946,
+        "gamesPlayed": 3,
+        "wins": 0,
+        "losses": 3,
+        "draws": 0,
+        "provisional": true,
+        "updatedAt": 1790330467848
+      },
+      "ladder": {
+        "position": 2,
+        "rankedTotal": 2
+      },
+      "ftue": {
+        "isNew": false,
+        "steps": [
+          {
+            "id": "open",
+            "label": "Abre tu primer sobre",
+            "done": true,
+            "href": "/packs"
+          },
+          {
+            "id": "deck",
+            "label": "Crear mi primer equipo",
+            "done": true,
+            "href": "/duelos/mazos"
+          },
+          {
+            "id": "duel",
+            "label": "Juega tu primer duelo",
+            "done": true,
+            "href": "/duelos/jugar"
+          },
+          {
+            "id": "level",
+            "label": "Progresa: sube de nivel",
+            "done": true,
+            "href": "/progresion"
+          }
+        ]
+      },
+      "season": {
+        "id": "nexus-s1",
+        "name": "Temporada 1 · Ascenso",
+        "maxLevel": 30,
+        "level": 0,
+        "xpIntoLevel": 0,
+        "xpForNext": 1000,
+        "progress": 0,
+        "missionsCompleted": 0,
+        "durationDays": 84,
+        "endsAt": 1795996800000
+      }
+    }
+  },
+  "/api/game/daily-loop": {
+    "status": 200,
+    "keys": [
+      "serverNow",
+      "signedIn",
+      "primaryAction",
+      "secondaryActions",
+      "today",
+      "player",
+      "objectives",
+      "season",
+      "competitive",
+      "campaign",
+      "live",
+      "collection",
+      "packs",
+      "achievements",
+      "social",
+      "deck",
+      "journey",
+      "unavailable",
+      "service"
+    ],
+    "body": {
+      "serverNow": 1790331706226,
+      "signedIn": true,
+      "primaryAction": {
+        "id": "claim",
+        "kind": "claim",
+        "eyebrow": "Recompensas listas",
+        "title": "4 objetivos por reclamar",
+        "detail": "Ya te las has ganado: recógelas en Logros y pase.",
+        "cta": "Reclamar",
+        "label": "Reclamar",
+        "href": "/logros",
+        "count": 4,
+        "progress": null,
+        "source": "progression",
+        "endsAt": 1790380800000,
+        "urgency": "NORMAL",
+        "reason": "Ya está ganado: un toque y es tuyo."
+      },
+      "secondaryActions": [
+        {
+          "id": "predict",
+          "kind": "predict",
+          "eyebrow": "Pick'ems · Valorant Champions 2026",
+          "title": "13 predicciones sin hacer",
+          "detail": "Se cierran cuando empieza cada partido.",
+          "cta": "Haz tu predicción",
+          "label": "Haz tu predicción",
+          "href": "/pickems",
+          "count": 13,
+          "urgent": true,
+          "progress": null,
+          "source": "pickems",
+          "endsAt": 1790398800000,
+          "urgency": "NORMAL",
+          "reason": "Tu predicción pendiente cierra en 18 h 38 min."
+        },
+        {
+          "id": "objective",
+          "kind": "objective",
+          "eyebrow": "Objetivo de temporada casi completado",
+          "title": "Juega 25 duelos en la temporada",
+          "detail": "Te faltan 11 para completarlo.",
+          "cta": "Completar objetivo",
+          "label": "Completar objetivo",
+          "href": "/jugar",
+          "urgent": false,
+          "progress": {
+            "value": 14,
+            "max": 25,
+            "label": "14 / 25"
+          },
+          "source": "progression",
+          "endsAt": null,
+          "urgency": null,
+          "reason": "Completarlo te da 2 × Sobre Bronce · 2500 XP del pase."
+        },
+        {
+          "id": "campaign",
+          "kind": "play",
+          "eyebrow": "Road to Champions · capítulo 1",
+          "title": "Primer contacto · contra NAVI",
+          "detail": "0 de 15 nodos completados.",
+          "cta": "Empezar Road to Champions",
+          "label": "Continuar Road to Champions",
+          "href": "/jugar/road-to-champions?node=c1-n1",
+          "progress": {
+            "value": 0,
+            "max": 15,
+            "label": "0 / 15"
+          },
+          "source": "campaign",
+          "reason": "Avanza «Gana un duelo»: te falta 1."
+        }
+      ],
+      "today": [
+        {
+          "id": "pickem",
+          "kind": "pickem",
+          "label": "Pick'ems · Valorant Champions 2026",
+          "detail": "13 predicciones pendientes",
+          "href": "/pickems",
+          "status": "PENDING",
+          "progress": null,
+          "expiresAt": null
+        },
+        {
+          "id": "campaign",
+          "kind": "campaign",
+          "label": "Road to Champions · Primer contacto",
+          "detail": "Contra NAVI",
+          "href": "/jugar/road-to-champions?node=c1-n1",
+          "status": "AVAILABLE",
+          "progress": {
+            "value": 0,
+            "max": 15,
+            "label": "0 / 15"
+          },
+          "expiresAt": null
+        },
+        {
+          "id": "ranked",
+          "kind": "ranked",
+          "label": "Calibración ranked",
+          "detail": "Te quedan 7 para clasificarte",
+          "href": "/duelos/pvp",
+          "status": "IN_PROGRESS",
+          "progress": {
+            "value": 3,
+            "max": 10,
+            "label": "3 / 10"
+          },
+          "expiresAt": null
+        }
+      ],
+      "player": {
+        "level": 7,
+        "xp": 2039,
+        "xpIntoLevel": 281,
+        "xpForNext": 492,
+        "progress": 0.5711382113821138
+      },
+      "objectives": {
+        "daily": {
+          "done": 1,
+          "total": 3
+        },
+        "weekly": {
+          "done": 2,
+          "total": 2
+        },
+        "near": {
+          "id": "s-duelos-25",
+          "label": "Juega 25 duelos en la temporada",
+          "kind": "seasonal",
+          "current": 14,
+          "goal": 25,
+          "complete": false,
+          "claimed": false,
+          "rewardCredits": 0,
+          "xp": 2500,
+          "metric": "duels_played",
+          "packId": "estandar",
+          "packCount": 2,
+          "assignedAt": 1789721869003,
+          "expiresAt": null
+        },
+        "claimable": 4,
+        "rotationPending": false
+      },
+      "season": {
+        "current": {
+          "id": "nexus-s1",
+          "name": "Temporada 1",
+          "status": "ACTIVE",
+          "presentation": "ACTIVE",
+          "startsAtMs": 1788739200000,
+          "endsAtMs": 1795996800000
+        },
+        "next": null,
+        "pass": {
+          "level": 0,
+          "maxLevel": 30,
+          "xp": 0,
+          "xpIntoLevel": 0,
+          "xpForNext": 1000,
+          "progress": 0,
+          "nextReward": {
+            "level": 1,
+            "track": "free",
+            "label": "260 créditos"
+          }
+        }
+      },
+      "competitive": {
+        "rating": 946,
+        "gamesPlayed": 3,
+        "wins": 0,
+        "losses": 3,
+        "draws": 0,
+        "provisional": true,
+        "position": 2,
+        "rankedTotal": 2,
+        "recent": [
+          "LOSS",
+          "LOSS",
+          "LOSS"
+        ]
+      },
+      "campaign": {
+        "completed": 0,
+        "total": 15,
+        "complete": false,
+        "next": {
+          "nodeId": "c1-n1",
+          "name": "Primer contacto",
+          "team": "NAVI",
+          "chapterOrder": 1
+        }
+      },
+      "live": {
+        "featured": {
+          "id": "vlr-2766",
+          "name": "Valorant Champions 2026",
+          "lifecycle": "ACTIVE",
+          "isDemo": false,
+          "startDate": "2026-09-24T00:00:00+00:00",
+          "endDate": "2026-10-18T00:00:00+00:00",
+          "liveCount": 1,
+          "liveMatch": {
+            "teamA": "Nongshim RedForce",
+            "teamB": "NRG",
+            "scoreA": 0,
+            "scoreB": 1
+          },
+          "nextMatch": {
+            "teamA": "Karmine Corp",
+            "teamB": "Xi Lai Gaming",
+            "startTime": "2026-09-25T08:00:00+00:00"
+          },
+          "pickem": {
+            "open": 13,
+            "pending": 13
+          }
+        },
+        "upcoming": null,
+        "pickemPending": 13
+      },
+      "collection": {
+        "owned": 25,
+        "distinct": 24,
+        "catalog": 331
+      },
+      "packs": {
+        "unopened": 0
+      },
+      "achievements": {
+        "total": 7,
+        "claimed": 0,
+        "claimable": 0,
+        "near": {
+          "id": "coleccionista",
+          "name": "Coleccionista",
+          "current": 24,
+          "goal": 40
+        }
+      },
+      "social": {
+        "incoming": 0,
+        "from": null
+      },
+      "deck": {
+        "state": "READY",
+        "active": {
+          "id": "bb5e6f05-36a7-4155-9ec7-690a7d9e2efe",
+          "name": "QA F55 Ranked",
+          "valid": true,
+          "size": 10,
+          "sumOvr": 830
+        },
+        "firstInvalid": null
+      },
+      "journey": null,
+      "unavailable": [],
+      "service": {
+        "resets": {
+          "dailyStartsAt": 1790294400000,
+          "dailyEndsAt": 1790380800000,
+          "weeklyStartsAt": 1789948800000,
+          "weeklyEndsAt": 1790553600000
+        },
+        "today": [
+          {
+            "id": "d-duelo-1",
+            "kind": "daily",
+            "label": "Juega un duelo",
+            "metric": "duels_played",
+            "current": 1,
+            "goal": 1,
+            "status": "CLAIMABLE",
+            "reward": "250 créditos · 200 XP del pase",
+            "endsAt": 1790380800000,
+            "progressLabel": "1 / 1"
+          },
+          {
+            "id": "d-duelo-win",
+            "kind": "daily",
+            "label": "Gana un duelo",
+            "metric": "duels_won",
+            "current": 0,
+            "goal": 1,
+            "status": "IN_PROGRESS",
+            "reward": "400 créditos · 300 XP del pase",
+            "endsAt": 1790380800000,
+            "progressLabel": "0 / 1"
+          },
+          {
+            "id": "d-pickem-1",
+            "kind": "daily",
+            "label": "Haz una predicción",
+            "metric": "picks_made",
+            "current": 0,
+            "goal": 1,
+            "status": "IN_PROGRESS",
+            "reward": "200 créditos · 150 XP del pase",
+            "endsAt": 1790380800000,
+            "progressLabel": "0 / 1"
+          }
+        ],
+        "thisWeek": [
+          {
+            "id": "w-cartas-5",
+            "kind": "weekly",
+            "label": "Consigue 5 cartas nuevas",
+            "metric": "distinct_cards",
+            "current": 5,
+            "goal": 5,
+            "status": "CLAIMABLE",
+            "reward": "1500 créditos · 900 XP del pase",
+            "endsAt": 1790553600000,
+            "progressLabel": "5 / 5"
+          },
+          {
+            "id": "w-victorias",
+            "kind": "weekly",
+            "label": "Gana 3 duelos",
+            "metric": "duels_won",
+            "current": 3,
+            "goal": 3,
+            "status": "CLAIMABLE",
+            "reward": "1800 créditos · 1000 XP del pase",
+            "endsAt": 1790553600000,
+            "progressLabel": "3 / 3"
+          }
+        ],
+        "dailyDone": false,
+        "weeklyDone": false,
+        "expiring": [],
+        "season": {
+          "endsAt": 1795996800000,
+          "daysLeft": 66,
+          "endingSoon": false
+        },
+        "returning": null,
+        "recent": [
+          {
+            "id": "ledger:0",
+            "label": "Partida rápida jugada (+40 créditos)",
+            "at": 1790329717342
+          },
+          {
+            "id": "ledger:1",
+            "label": "Partida rápida jugada (+40 créditos)",
+            "at": 1790329610535
+          },
+          {
+            "id": "ledger:2",
+            "label": "Partida rápida jugada (+40 créditos)",
+            "at": 1790329316304
+          }
+        ],
+        "draftRun": null,
+        "recoverable": 0
+      }
+    }
+  },
+  "/api/game/season": {
+    "status": 200,
+    "keys": [
+      "serverNow",
+      "calendar",
+      "season",
+      "isCurrent",
+      "events",
+      "personal"
+    ],
+    "body": {
+      "serverNow": 1790331706858,
+      "calendar": {
+        "serverNow": 1790331706858,
+        "phase": "IN_SEASON",
+        "current": {
+          "id": "nexus-s1",
+          "slug": "temporada-1",
+          "number": 1,
+          "name": "Temporada 1",
+          "displayName": "Temporada 1 · Ascenso",
+          "startsAt": "2026-09-07T00:00:00.000Z",
+          "endsAt": "2026-11-30T00:00:00.000Z",
+          "passSeasonId": "nexus-s1",
+          "themeKey": "ascenso",
+          "startsAtMs": 1788739200000,
+          "endsAtMs": 1795996800000,
+          "status": "ACTIVE",
+          "presentation": "ACTIVE",
+          "durationMs": 7257600000,
+          "elapsedMs": 1592506858,
+          "remainingMs": 5665093142,
+          "startsInMs": 0
+        },
+        "next": null,
+        "previous": null,
+        "seasons": [
+          {
+            "id": "nexus-s1",
+            "slug": "temporada-1",
+            "number": 1,
+            "name": "Temporada 1",
+            "displayName": "Temporada 1 · Ascenso",
+            "startsAt": "2026-09-07T00:00:00.000Z",
+            "endsAt": "2026-11-30T00:00:00.000Z",
+            "passSeasonId": "nexus-s1",
+            "themeKey": "ascenso",
+            "startsAtMs": 1788739200000,
+            "endsAtMs": 1795996800000,
+            "status": "ACTIVE",
+            "presentation": "ACTIVE",
+            "durationMs": 7257600000,
+            "elapsedMs": 1592506858,
+            "remainingMs": 5665093142,
+            "startsInMs": 0
+          }
+        ]
+      },
+      "season": {
+        "id": "nexus-s1",
+        "slug": "temporada-1",
+        "number": 1,
+        "name": "Temporada 1",
+        "displayName": "Temporada 1 · Ascenso",
+        "startsAt": "2026-09-07T00:00:00.000Z",
+        "endsAt": "2026-11-30T00:00:00.000Z",
+        "passSeasonId": "nexus-s1",
+        "themeKey": "ascenso",
+        "startsAtMs": 1788739200000,
+        "endsAtMs": 1795996800000,
+        "status": "ACTIVE",
+        "presentation": "ACTIVE",
+        "durationMs": 7257600000,
+        "elapsedMs": 1592506858,
+        "remainingMs": 5665093142,
+        "startsInMs": 0
+      },
+      "isCurrent": true,
+      "events": {
+        "available": true,
+        "live": [
+          {
+            "id": "demo-masters-madrid-2026",
+            "name": "DRL Masters Madrid 2026",
+            "label": "En curso",
+            "lifecycle": "ACTIVE",
+            "startDate": "2026-09-01T20:16:05.503+00:00",
+            "endDate": "2026-09-13T20:16:05.503+00:00",
+            "liveCount": 1,
+            "isDemo": true,
+            "pickem": {
+              "open": 0,
+              "pending": 0,
+              "nextLockAt": null
+            }
+          },
+          {
+            "id": "vlr-2766",
+            "name": "Valorant Champions 2026",
+            "label": "En curso",
+            "lifecycle": "ACTIVE",
+            "startDate": "2026-09-24T00:00:00+00:00",
+            "endDate": "2026-10-18T00:00:00+00:00",
+            "liveCount": 1,
+            "isDemo": false,
+            "pickem": {
+              "open": 13,
+              "pending": 13,
+              "nextLockAt": 1790398800000
+            }
+          }
+        ],
+        "upcoming": [],
+        "inWindow": [
+          {
+            "id": "demo-masters-madrid-2026",
+            "name": "DRL Masters Madrid 2026",
+            "label": "En curso",
+            "lifecycle": "ACTIVE",
+            "startDate": "2026-09-01T20:16:05.503+00:00",
+            "endDate": "2026-09-13T20:16:05.503+00:00",
+            "liveCount": 1,
+            "isDemo": true,
+            "pickem": {
+              "open": 0,
+              "pending": 0,
+              "nextLockAt": null
+            }
+          },
+          {
+            "id": "vlr-2766",
+            "name": "Valorant Champions 2026",
+            "label": "En curso",
+            "lifecycle": "ACTIVE",
+            "startDate": "2026-09-24T00:00:00+00:00",
+            "endDate": "2026-10-18T00:00:00+00:00",
+            "liveCount": 1,
+            "isDemo": false,
+            "pickem": {
+              "open": 13,
+              "pending": 13,
+              "nextLockAt": 1790398800000
+            }
+          }
+        ]
+      },
+      "personal": {
+        "account": {
+          "xp": 2039,
+          "level": 7,
+          "xpIntoLevel": 281,
+          "xpForNext": 492,
+          "progress": 0.5711382113821138,
+          "toNext": 211,
+          "nextTotal": 2250
+        },
+        "pass": {
+          "seasonId": "nexus-s1",
+          "name": "Temporada 1 · Ascenso",
+          "level": 0,
+          "maxLevel": 30,
+          "xp": 0,
+          "xpIntoLevel": 0,
+          "xpForNext": 1000,
+          "progress": 0,
+          "competitiveUnlocked": false,
+          "competitiveUnlockPending": false,
+          "competitiveMinPoints": 400,
+          "points": 70,
+          "tracks": {
+            "free": [
+              {
+                "level": 1,
+                "reward": {
+                  "credits": 260
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 2,
+                "reward": {
+                  "credits": 270
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 3,
+                "reward": {
+                  "credits": 280
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 4,
+                "reward": {
+                  "credits": 290
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 5,
+                "reward": {
+                  "packId": "estandar",
+                  "packCount": 1,
+                  "credits": 600
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 6,
+                "reward": {
+                  "credits": 310
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 7,
+                "reward": {
+                  "credits": 320
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 8,
+                "reward": {
+                  "credits": 330
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 9,
+                "reward": {
+                  "credits": 340
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 10,
+                "reward": {
+                  "packId": "premium",
+                  "packCount": 1,
+                  "credits": 1500
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 11,
+                "reward": {
+                  "credits": 360
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 12,
+                "reward": {
+                  "credits": 370
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 13,
+                "reward": {
+                  "credits": 380
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 14,
+                "reward": {
+                  "credits": 390
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 15,
+                "reward": {
+                  "packId": "estandar",
+                  "packCount": 1,
+                  "credits": 600
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 16,
+                "reward": {
+                  "credits": 410
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 17,
+                "reward": {
+                  "credits": 420
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 18,
+                "reward": {
+                  "credits": 430
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 19,
+                "reward": {
+                  "credits": 440
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 20,
+                "reward": {
+                  "packId": "premium",
+                  "packCount": 1,
+                  "credits": 1500
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 21,
+                "reward": {
+                  "credits": 460
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 22,
+                "reward": {
+                  "credits": 470
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 23,
+                "reward": {
+                  "credits": 480
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 24,
+                "reward": {
+                  "credits": 490
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 25,
+                "reward": {
+                  "packId": "estandar",
+                  "packCount": 1,
+                  "credits": 600
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 26,
+                "reward": {
+                  "credits": 510
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 27,
+                "reward": {
+                  "credits": 520
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 28,
+                "reward": {
+                  "credits": 530
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 29,
+                "reward": {
+                  "credits": 540
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 30,
+                "reward": {
+                  "packId": "premium",
+                  "packCount": 1,
+                  "credits": 1500
+                },
+                "claimed": false,
+                "claimable": false
+              }
+            ],
+            "competitive": [
+              {
+                "level": 5,
+                "reward": {
+                  "credits": 2000
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 10,
+                "reward": {
+                  "packId": "premium",
+                  "packCount": 1
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 15,
+                "reward": {
+                  "credits": 4000
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 20,
+                "reward": {
+                  "packId": "premium",
+                  "packCount": 2
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 25,
+                "reward": {
+                  "credits": 8000
+                },
+                "claimed": false,
+                "claimable": false
+              },
+              {
+                "level": 30,
+                "reward": {
+                  "packId": "premium",
+                  "packCount": 3,
+                  "credits": 12000
+                },
+                "claimed": false,
+                "claimable": false
+              }
+            ]
+          },
+          "claimable": {
+            "free": 0,
+            "competitive": 0
+          },
+          "nextReward": {
+            "track": "free",
+            "level": 1,
+            "reward": {
+              "credits": 260
+            }
+          }
+        },
+        "objectives": {
+          "daily": {
+            "done": 1,
+            "total": 3
+          },
+          "weekly": {
+            "done": 2,
+            "total": 2
+          },
+          "seasonal": {
+            "done": 1,
+            "total": 3
+          },
+          "progressive": {
+            "done": 0,
+            "total": 3
+          },
+          "list": [
+            {
+              "id": "w-cartas-5",
+              "label": "Consigue 5 cartas nuevas",
+              "kind": "weekly",
+              "current": 5,
+              "goal": 5,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 1500,
+              "xp": 900,
+              "metric": "distinct_cards",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789948800000,
+              "expiresAt": 1790553600000
+            },
+            {
+              "id": "w-victorias",
+              "label": "Gana 3 duelos",
+              "kind": "weekly",
+              "current": 3,
+              "goal": 3,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 1800,
+              "xp": 1000,
+              "metric": "duels_won",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789948800000,
+              "expiresAt": 1790553600000
+            },
+            {
+              "id": "s-mazo",
+              "label": "Guarda tu primer mazo de duelo",
+              "kind": "seasonal",
+              "current": 1,
+              "goal": 1,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 1000,
+              "xp": 800,
+              "metric": "decks_saved",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "d-duelo-1",
+              "label": "Juega un duelo",
+              "kind": "daily",
+              "current": 1,
+              "goal": 1,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 250,
+              "xp": 200,
+              "metric": "duels_played",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1790294400000,
+              "expiresAt": 1790380800000
+            },
+            {
+              "id": "s-duelos-25",
+              "label": "Juega 25 duelos en la temporada",
+              "kind": "seasonal",
+              "current": 14,
+              "goal": 25,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 0,
+              "xp": 2500,
+              "metric": "duels_played",
+              "packId": "estandar",
+              "packCount": 2,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "p-coleccion-50",
+              "label": "Reúne 50 cartas distintas",
+              "kind": "progressive",
+              "current": 24,
+              "goal": 50,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 3000,
+              "xp": 2000,
+              "metric": "distinct_cards",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            }
+          ],
+          "all": [
+            {
+              "id": "w-cartas-5",
+              "label": "Consigue 5 cartas nuevas",
+              "kind": "weekly",
+              "current": 5,
+              "goal": 5,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 1500,
+              "xp": 900,
+              "metric": "distinct_cards",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789948800000,
+              "expiresAt": 1790553600000
+            },
+            {
+              "id": "w-victorias",
+              "label": "Gana 3 duelos",
+              "kind": "weekly",
+              "current": 3,
+              "goal": 3,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 1800,
+              "xp": 1000,
+              "metric": "duels_won",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789948800000,
+              "expiresAt": 1790553600000
+            },
+            {
+              "id": "s-mazo",
+              "label": "Guarda tu primer mazo de duelo",
+              "kind": "seasonal",
+              "current": 1,
+              "goal": 1,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 1000,
+              "xp": 800,
+              "metric": "decks_saved",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "d-duelo-1",
+              "label": "Juega un duelo",
+              "kind": "daily",
+              "current": 1,
+              "goal": 1,
+              "complete": true,
+              "claimed": false,
+              "rewardCredits": 250,
+              "xp": 200,
+              "metric": "duels_played",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1790294400000,
+              "expiresAt": 1790380800000
+            },
+            {
+              "id": "s-duelos-25",
+              "label": "Juega 25 duelos en la temporada",
+              "kind": "seasonal",
+              "current": 14,
+              "goal": 25,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 0,
+              "xp": 2500,
+              "metric": "duels_played",
+              "packId": "estandar",
+              "packCount": 2,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "p-coleccion-50",
+              "label": "Reúne 50 cartas distintas",
+              "kind": "progressive",
+              "current": 24,
+              "goal": 50,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 3000,
+              "xp": 2000,
+              "metric": "distinct_cards",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "p-puntos-400",
+              "label": "Alcanza el rango Oro",
+              "kind": "progressive",
+              "current": 70,
+              "goal": 400,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 5000,
+              "xp": 4000,
+              "metric": "points",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "p-coleccion-150",
+              "label": "Reúne 150 cartas distintas",
+              "kind": "progressive",
+              "current": 24,
+              "goal": 150,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 0,
+              "xp": 5000,
+              "metric": "distinct_cards",
+              "packId": "premium",
+              "packCount": 2,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "s-region",
+              "label": "Declara tu región competitiva",
+              "kind": "seasonal",
+              "current": 0,
+              "goal": 1,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 500,
+              "xp": 400,
+              "metric": "region_set",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1789721869003,
+              "expiresAt": null
+            },
+            {
+              "id": "d-duelo-win",
+              "label": "Gana un duelo",
+              "kind": "daily",
+              "current": 0,
+              "goal": 1,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 400,
+              "xp": 300,
+              "metric": "duels_won",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1790294400000,
+              "expiresAt": 1790380800000
+            },
+            {
+              "id": "d-pickem-1",
+              "label": "Haz una predicción",
+              "kind": "daily",
+              "current": 0,
+              "goal": 1,
+              "complete": false,
+              "claimed": false,
+              "rewardCredits": 200,
+              "xp": 150,
+              "metric": "picks_made",
+              "packId": null,
+              "packCount": 0,
+              "assignedAt": 1790294400000,
+              "expiresAt": 1790380800000
+            }
+          ],
+          "claimable": 4,
+          "rotationPending": false,
+          "unassigned": true
+        },
+        "achievements": {
+          "total": 7,
+          "complete": 0,
+          "claimed": 0,
+          "claimable": 0,
+          "highlights": [
+            {
+              "id": "coleccionista",
+              "name": "Coleccionista",
+              "description": "Consigue 40 cartas distintas.",
+              "icon": "🗂️",
+              "reward": 4000,
+              "goal": 40,
+              "current": 24,
+              "complete": false,
+              "claimed": false,
+              "claimedAt": null
+            },
+            {
+              "id": "sobres-100",
+              "name": "Abridor en serie",
+              "description": "Abre 100 sobres.",
+              "icon": "📦",
+              "reward": 2500,
+              "goal": 100,
+              "current": 9,
+              "complete": false,
+              "claimed": false,
+              "claimedAt": null
+            },
+            {
+              "id": "completa-emea",
+              "name": "Completar EMEA",
+              "description": "Consigue todas las cartas de la región EMEA.",
+              "icon": "🌍",
+              "reward": 15000,
+              "goal": 100,
+              "current": 9,
+              "complete": false,
+              "claimed": false,
+              "claimedAt": null
+            },
+            {
+              "id": "sobres-1000",
+              "name": "Maestro de sobres",
+              "description": "Abre 1000 sobres.",
+              "icon": "🏭",
+              "reward": 25000,
+              "goal": 1000,
+              "current": 9,
+              "complete": false,
+              "claimed": false,
+              "claimedAt": null
+            }
+          ]
+        },
+        "competitive": {
+          "rating": 946,
+          "gamesPlayed": 3,
+          "wins": 0,
+          "losses": 3,
+          "draws": 0,
+          "provisional": true,
+          "position": 2,
+          "rankedTotal": 2,
+          "inSeason": {
+            "games": 3,
+            "wins": 0,
+            "losses": 3,
+            "draws": 0,
+            "startRating": 1000,
+            "finalRating": 946,
+            "highestRating": 980
+          },
+          "recent": [
+            {
+              "at": 1790330467848,
+              "result": "LOSS",
+              "delta": -16,
+              "newRating": 946
+            },
+            {
+              "at": 1790329897959,
+              "result": "LOSS",
+              "delta": -18,
+              "newRating": 962
+            },
+            {
+              "at": 1790165389577,
+              "result": "LOSS",
+              "delta": -20,
+              "newRating": 980
+            }
+          ]
+        },
+        "pickems": {
+          "pending": 13,
+          "inSeason": {
+            "scored": 0,
+            "points": 0,
+            "correct": 0
+          }
+        },
+        "collection": {
+          "distinct": 24,
+          "owned": 25,
+          "catalog": 331,
+          "obtainedInSeason": null,
+          "windowReliable": false
+        },
+        "actions": [
+          {
+            "id": "claim",
+            "kind": "claim",
+            "label": "Reclama tus recompensas",
+            "detail": "4 objetivos sin reclamar.",
+            "href": "/logros",
+            "count": 4
+          },
+          {
+            "id": "predict",
+            "kind": "predict",
+            "label": "Haz tus Pick'ems",
+            "detail": "13 predicciones abiertas sin responder.",
+            "href": "/pickems",
+            "count": 13,
+            "urgent": true
+          },
+          {
+            "id": "objective-s-duelos-25",
+            "kind": "objective",
+            "label": "Continúa tu objetivo",
+            "detail": "Juega 25 duelos en la temporada · 14 / 25",
+            "href": "/progresion#objetivos",
+            "urgent": false
+          },
+          {
+            "id": "play-ranked",
+            "kind": "play",
+            "label": "Juega ranked",
+            "detail": "3 partidas ranked en esta temporada.",
+            "href": "/duelos/pvp"
+          },
+          {
+            "id": "explore",
+            "kind": "explore",
+            "label": "Sigue el evento",
+            "detail": "DRL Masters Madrid 2026 · en directo en NEXUS.",
+            "href": "/torneos/demo-masters-madrid-2026"
+          }
+        ],
+        "recap": {
+          "kind": "SO_FAR",
+          "seasonId": "nexus-s1",
+          "title": "Temporada 1 · hasta ahora",
+          "pass": {
+            "level": 0,
+            "maxLevel": 30,
+            "xp": 0,
+            "missionsCompleted": 0,
+            "claimedFree": 0,
+            "claimedCompetitive": 0,
+            "source": "LIVE"
+          },
+          "ranked": {
+            "games": 3,
+            "wins": 0,
+            "losses": 3,
+            "draws": 0,
+            "startRating": 1000,
+            "finalRating": 946,
+            "highestRating": 980
+          },
+          "achievementsClaimed": 0,
+          "pickems": {
+            "scored": 0,
+            "points": 0,
+            "correct": 0
+          },
+          "cardsObtained": null,
+          "minimal": false
+        }
+      }
+    }
+  },
+  "/api/game/state": {
+    "status": 200,
+    "keys": [
+      "credits",
+      "xp",
+      "ownedCards",
+      "origins",
+      "lockedUids",
+      "unopenedPacks",
+      "pity",
+      "packsOpened",
+      "mintCounts",
+      "catalogPatch",
+      "artworks"
+    ],
+    "body": {
+      "credits": 3630,
+      "xp": 2039,
+      "ownedCards": [
+        {
+          "uid": "95134c7c-ba2d-4cdf-afe9-5644faefb679",
+          "cardId": "bao__base",
+          "obtainedAt": 1790165353644,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "682fd18b-ca75-49cd-ad30-e29ce19aa4c1",
+          "cardId": "monyet__base",
+          "obtainedAt": 1790165353644,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "a850634f-d8ba-40d1-a13f-edb180db10e9",
+          "cardId": "neon__base",
+          "obtainedAt": 1790165353644,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "fcac314b-0248-4be6-8528-a74edafc2c1b",
+          "cardId": "tenten__base",
+          "obtainedAt": 1790165353644,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "dc473a01-af26-4171-8324-109d07fab6da",
+          "cardId": "rb__masters-sdc",
+          "obtainedAt": 1790165353644,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "4fdecfd6-59b7-4920-b56c-f709e2fae6de",
+          "cardId": "filu__base",
+          "obtainedAt": 1790165354401,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "68181389-9af0-488c-ac16-f93194002b97",
+          "cardId": "monyet__base",
+          "obtainedAt": 1790165354401,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "0fd6352e-64a4-490b-afc2-e0f45f9a9be7",
+          "cardId": "s0pp__base",
+          "obtainedAt": 1790165354401,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "7caa1a42-62a3-4884-9bdc-592f763a825c",
+          "cardId": "starxo__masters-sdc",
+          "obtainedAt": 1790165354401,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "603d38c2-50a0-44cf-92c7-bebd65028f45",
+          "cardId": "seven__future-star",
+          "obtainedAt": 1790165354401,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "af8a4449-4efe-4c26-bbce-0429da73552e",
+          "cardId": "eggsterr__base",
+          "obtainedAt": 1790165355101,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "84876d83-9050-4b4a-818d-6b2a240d1f84",
+          "cardId": "leaf__base",
+          "obtainedAt": 1790165355101,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "cc9b7325-ded9-4ab0-9ee9-7d40c80f8dac",
+          "cardId": "silentzz__base",
+          "obtainedAt": 1790165355101,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "a930a19f-3be8-477c-be4e-25706b784ac2",
+          "cardId": "vora__base",
+          "obtainedAt": 1790165355101,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "92e686ff-60ce-44bc-99c8-b2a5a870b353",
+          "cardId": "loita__masters-sdc",
+          "obtainedAt": 1790165355101,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "330b91c7-2efd-4c8f-a4b8-dd7b99b1029b",
+          "cardId": "hyunmin__base",
+          "obtainedAt": 1790173852404,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "96dc46cc-0ab9-46e7-827f-0352e524f045",
+          "cardId": "wayne__base",
+          "obtainedAt": 1790173852404,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "1366a031-debd-4b93-a6d2-9bf17453d7ab",
+          "cardId": "zynx__base",
+          "obtainedAt": 1790173852404,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "941e452f-5721-4a45-b37e-c431ff6c7530",
+          "cardId": "d4v41__masters-l",
+          "obtainedAt": 1790173852404,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "eee908b9-b5a1-43e0-8dd3-c88dc8eb9f17",
+          "cardId": "f4ngeer__masters-sdc",
+          "obtainedAt": 1790173852404,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "fe638b3b-4ff9-4029-b5c7-cf47dee5d37a",
+          "cardId": "jemkin__base",
+          "obtainedAt": 1790174132301,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "1c7fa463-0dd5-45b2-b2df-d3465e24d608",
+          "cardId": "suygetsu__base",
+          "obtainedAt": 1790174132301,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "54055344-f480-4583-8c28-f81093be6c33",
+          "cardId": "virtyy__base",
+          "obtainedAt": 1790174132301,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "72b3906d-44e9-4696-85aa-9066fe13eb8f",
+          "cardId": "crewen__masters-sdc",
+          "obtainedAt": 1790174132301,
+          "mintedVersion": 1
+        },
+        {
+          "uid": "78c2869f-ad57-4204-a0a4-afa46727a251",
+          "cardId": "s0pp__masters-l",
+          "obtainedAt": 1790174132301,
+          "mintedVersion": 1
+        }
+      ],
+      "origins": {
+        "95134c7c-ba2d-4cdf-afe9-5644faefb679": "pack",
+        "682fd18b-ca75-49cd-ad30-e29ce19aa4c1": "pack",
+        "a850634f-d8ba-40d1-a13f-edb180db10e9": "pack",
+        "fcac314b-0248-4be6-8528-a74edafc2c1b": "pack",
+        "dc473a01-af26-4171-8324-109d07fab6da": "pack",
+        "4fdecfd6-59b7-4920-b56c-f709e2fae6de": "pack",
+        "68181389-9af0-488c-ac16-f93194002b97": "pack",
+        "0fd6352e-64a4-490b-afc2-e0f45f9a9be7": "pack",
+        "7caa1a42-62a3-4884-9bdc-592f763a825c": "pack",
+        "603d38c2-50a0-44cf-92c7-bebd65028f45": "pack",
+        "af8a4449-4efe-4c26-bbce-0429da73552e": "pack",
+        "84876d83-9050-4b4a-818d-6b2a240d1f84": "pack",
+        "cc9b7325-ded9-4ab0-9ee9-7d40c80f8dac": "pack",
+        "a930a19f-3be8-477c-be4e-25706b784ac2": "pack",
+        "92e686ff-60ce-44bc-99c8-b2a5a870b353": "pack",
+        "330b91c7-2efd-4c8f-a4b8-dd7b99b1029b": "pack",
+        "96dc46cc-0ab9-46e7-827f-0352e524f045": "pack",
+        "1366a031-debd-4b93-a6d2-9bf17453d7ab": "pack",
+        "941e452f-5721-4a45-b37e-c431ff6c7530": "pack",
+        "eee908b9-b5a1-43e0-8dd3-c88dc8eb9f17": "pack",
+        "fe638b3b-4ff9-4029-b5c7-cf47dee5d37a": "pack",
+        "1c7fa463-0dd5-45b2-b2df-d3465e24d608": "pack",
+        "54055344-f480-4583-8c28-f81093be6c33": "pack",
+        "72b3906d-44e9-4696-85aa-9066fe13eb8f": "pack",
+        "78c2869f-ad57-4204-a0a4-afa46727a251": "pack"
+      },
+      "lockedUids": [],
+      "unopenedPacks": {},
+      "pity": {
+        "version": 1,
+        "counters": {}
+      },
+      "packsOpened": 9,
+      "mintCounts": {},
+      "catalogPatch": {
+        "cards": [],
+        "players": []
+      },
+      "artworks": {}
+    }
+  },
+  "/api/game/play-status": {
+    "status": 200,
+    "keys": [
+      "serverNow",
+      "resume",
+      "unknown"
+    ],
+    "body": {
+      "serverNow": 1790331707869,
+      "resume": null,
+      "unknown": false
+    }
+  }
+}

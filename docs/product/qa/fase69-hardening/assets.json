@@ -1,0 +1,33 @@
+{
+  "phase": "F69",
+  "static": {
+    "cards": "331/331 imágenes presentes (production:check card-art)",
+    "agents": "29 agentes, 0 sin arte (agent-art)",
+    "packs": "32 sobres, 19 con arte, 0 rotos (pack-art; el resto usa arte procedural por diseño, F49/F57)",
+    "maps": "13 entradas en public/maps",
+    "teamLogosAndPortraits": "F64 TEAM_LOGOS_AVAILABLE y F68-005 PLAYER_PHOTOS_AVAILABLE: no se piden retratos/logos no publicados"
+  },
+  "runtime": {
+    "390": {
+      "images": 100,
+      "broken": 0,
+      "brokenImgsPerPage": 0,
+      "external": 0
+    },
+    "1024": {
+      "images": 100,
+      "broken": 0,
+      "brokenImgsPerPage": 0,
+      "external": 0
+    },
+    "1440": {
+      "images": 100,
+      "broken": 0,
+      "brokenImgsPerPage": 0,
+      "external": 0
+    }
+  },
+  "journeys": "0 respuestas 404 de assets en los journeys finales (B-pve, E/A-long, D-explorer, D-teams, AB-switch, K-new): los únicos 404/400 son las sondas deliberadas de ids inválidos",
+  "coach": "el Coach enseña los 5 agentes con su arte (explorador: «los agentes reales se ven con su arte» 5)",
+  "verdict": "PASS — 0 assets internos rotos"
+}

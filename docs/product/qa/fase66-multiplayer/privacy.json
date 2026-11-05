@@ -1,0 +1,24 @@
+{
+  "realServer": {
+    "at": "2026-09-26T19:07:20.348Z",
+    "rivalUnplayedCardsVisible": 0,
+    "emailsOnWire": 0,
+    "rivalUserIdOnWire": false,
+    "ownUserIdOnWire": false,
+    "topLevelKeys": [
+      "matchId",
+      "mode",
+      "lifecycle",
+      "stateVersion",
+      "yourSide",
+      "expectedSide",
+      "isYourTurn",
+      "closedBySide",
+      "match",
+      "turnStartedAt",
+      "turnDeadlineAt"
+    ],
+    "ok": true
+  },
+  "note": "404 idéntico byte a byte para partida ajena e inexistente (F66); sin correos ni ids de usuario del rival en el cable"
+}

@@ -1,0 +1,190 @@
+{
+  "phase": "F69",
+  "bug": "F68-010",
+  "decision": "El Tactical Coach es ENTRENAMIENTO: no da créditos, XP de cuenta, nivel ni recompensas económicas por una simulación local. Sin faucet nuevo, sin premio fijo, F57.6 intacta.",
+  "rootCause": "useCoachMatch.finish() llamaba a grantMatchOutcomeReward(match), que calculaba 150/50 créditos por ronda (+10 por baja, +300 al ganar) y 40/15 XP y lo aplicaba con applyReward() SOLO al store del navegador (useGameStore). El simulador corre en el cliente, el servidor no puede verificar el marcador y nunca abonó nada; el HUD (store de juego) pintaba ese saldo/nivel hasta que CloudSync.syncFromServer lo sobrescribía (al cargar, al volver el foco con freno de 5 s o al recargar).",
+  "fix": {
+    "files": [
+      "src/lib/match/rewards.ts (summarizeRound/summarizeMatch/recordCoachMatch: sin créditos ni XP)",
+      "src/components/sim/useCoachMatch.ts (finish → recordCoachMatch; expone `summary`)",
+      "src/components/coach/MatchCeremony.tsx (hoja del partido con rondas/bajas reales + «Partido de entrenamiento: no suma créditos ni XP.»)",
+      "src/app/entrenador/partido/page.tsx",
+      "scripts/fusion-verify.ts, scripts/playable-verify.ts (ya no esperan recompensa)"
+    ],
+    "kept": [
+      "historial real del Coach en coach_matches (servidor)",
+      "récord local del store y la Carrera del entrenador (registros no económicos)"
+    ]
+  },
+  "copy": "Ninguna pantalla del Coach promete créditos/XP (test F69 F68-010 · ninguna pantalla del Coach vuelve a pintar recompensas económicas). La ceremonia dice explícitamente que es entrenamiento.",
+  "reproduction": {
+    "persona": "D (QA 225e1fce)",
+    "build": "F68 drl-0.1.1-1-9792433c",
+    "at": "2026-09-27T19:25:54.301Z",
+    "serverBefore": {
+      "credits": 9430,
+      "xp": 552,
+      "level": null
+    },
+    "hudBefore": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "hudAtCeremony": {
+      "credits": 12280,
+      "level": 6,
+      "signin": false
+    },
+    "serverAfter": {
+      "credits": 9430,
+      "xp": 552,
+      "level": null
+    },
+    "hudAfterReload": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "reading": "HUD 9.430 → 12.280 créditos y nivel 3 → 6 en la ceremonia; servidor siempre 9.430 / 552 XP; tras recargar el HUD vuelve a 9.430 / nivel 3. Ceremonia con «+N créditos / +N XP»."
+  },
+  "finalLiveRun": {
+    "persona": "D (QA 225e1fce)",
+    "build": "F69 drl-0.1.1-1-5e7960dd",
+    "at": "2026-09-27T21:30:15.628Z",
+    "serverCreditsBefore": 9430,
+    "serverXpBefore": 552,
+    "hudBefore": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "hudAtCeremony": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "hudAfterSettle": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "hudAfterReload": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "serverCreditsAfter": 9430,
+    "serverXpAfter": 552,
+    "serverAfterReload": {
+      "credits": 9430,
+      "xp": 552,
+      "level": null
+    },
+    "coachHistory": {
+      "before": 5,
+      "after": 6
+    },
+    "verdict": {
+      "serverUnchanged": true,
+      "hudBeforeEqualsServer": true,
+      "hudCeremonyEqualsServer": true,
+      "hudSettleEqualsServer": true,
+      "hudReloadEqualsServer": true,
+      "hudLevelUnchanged": true,
+      "pistolRecommendsSave": false,
+      "buyCtas": [
+        "JUGAR LA RONDA"
+      ],
+      "historyGrew": true,
+      "rewardCopyShown": false
+    },
+    "consoleErrors": 0,
+    "network": {
+      "status": {
+        "200": 460,
+        "204": 6
+      },
+      "bad": []
+    },
+    "concurrentServerEvents": "ninguno (sin compras ni reclamos durante la partida; créditos y XP idénticos en las tres lecturas)"
+  },
+  "harnessNotes": [
+    "El veredicto de F69-repro comparaba el nivel del HUD con /api/game/state, que no trae nivel (null): falso negativo del arnés; corregido (créditos HUD↔servidor, XP servidor antes/después, nivel del HUD consigo mismo).",
+    "La primera pasada final no capturó la preparación de la ronda 1 porque esperaba el botón «Confirmar plan», que F68-012 quitó; corregido y repetido."
+  ],
+  "tests": [
+    "src/lib/match/f69.coachAuthority.test.ts (4)"
+  ],
+  "status": "FIXED — VERIFIED ON FINAL BUILD",
+  "finalLiveRunResumed": {
+    "persona": "D (QA 225e1fce)",
+    "build": "F69 definitiva drl-0.1.1-1-d74dc352 (código del Coach idéntico en la build final 10683a89)",
+    "at": "2026-09-28T10:35:43.175Z",
+    "instrument": "scripts/_fase69-coach.ts consolidado (bucle único de _fase68-coach2.ts con ganchos)",
+    "serverBefore": {
+      "credits": 9430,
+      "xp": 552,
+      "level": null
+    },
+    "hudBefore": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "hudAtCeremony": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "serverAfter": {
+      "credits": 9430,
+      "xp": 552,
+      "level": null
+    },
+    "hudAfterSettle": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "hudAfterReload": {
+      "credits": 9430,
+      "level": 3,
+      "signin": false
+    },
+    "serverAfterReload": {
+      "credits": 9430,
+      "xp": 552,
+      "level": null
+    },
+    "coachHistory": {
+      "before": 6,
+      "after": 7
+    },
+    "match": "VICTORIA 13–12, 25 rondas, 75 clics, 366 s",
+    "verdict": {
+      "serverUnchanged": true,
+      "hudBeforeEqualsServer": true,
+      "hudCeremonyEqualsServer": true,
+      "hudSettleEqualsServer": true,
+      "hudReloadEqualsServer": true,
+      "hudLevelUnchanged": true,
+      "pistolRecommendsSave": false,
+      "buyCtas": [
+        "JUGAR LA RONDA"
+      ],
+      "historyGrew": true,
+      "rewardCopyShown": false
+    },
+    "consoleErrors": 0,
+    "network": {
+      "status": {
+        "200": 473,
+        "204": 6
+      },
+      "bad": []
+    },
+    "secondMatchInExplorer": "D-f69final-explorer: otro partido completo, historial 7 → 8, HUD 9.430 al terminar",
+    "ledger": "reconcile-f69: libro de D = 6.000 + 3.430 = 9.430, 7 apuntes, ninguno del Coach"
+  }
+}

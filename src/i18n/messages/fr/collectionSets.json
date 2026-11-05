@@ -1,0 +1,20 @@
+{
+  "Bronce": "Bronze",
+  "Campeón · {name}": "Champion · {name}",
+  "Competitiva {v} · {name}": "Compétitif {v} · {name}",
+  "Equipo completado": "Équipe complétée",
+  "Insignia regional": "Badge régional",
+  "Maestría": "Maîtrise",
+  "Mejor rango de temporada": "Meilleur rang de saison",
+  "Oro": "Or",
+  "Pick'em perfecto": "Pick'em parfait",
+  "Pick'em perfecto · {name}": "Pick'em parfait · {name}",
+  "Plata": "Argent",
+  "Ruta de temporada": "Parcours de saison",
+  "Temporada {v} · {label}": "Saison {v} · {label}",
+  "Torneo": "Tournoi",
+  "Torneo · {date}": "Tournoi · {date}",
+  "no obtenibles: {blocked}": "non obtenables : {blocked}",
+  "sin carta obtenible: {blocked}": "aucune carte obtenable : {blocked}",
+  "{size} jugadores con carta impresa": "{size} joueurs avec une carte imprimée"
+}

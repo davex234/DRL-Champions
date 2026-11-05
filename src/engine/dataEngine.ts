@@ -14,6 +14,9 @@ import { generateCards } from "./cardGenerator";
 import { generateEvent } from "./eventGenerator";
 import { planMatchJobs } from "./scheduler";
 import { makeNotification } from "./notifications";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("engine");
 
 export interface RunReport {
   tournaments: Tournament[];
@@ -56,7 +59,7 @@ export async function runEngine(source: DataSource, alreadyProcessed: string[] =
         teams = await source.getTeams(t.id);
         rawMatches = await source.getMatches(t.id);
       } catch (e) {
-        report.notifications.push(makeNotification("scraping_error", "error", `Error obteniendo datos de ${t.name}: ${(e as Error).message}`));
+        report.notifications.push(makeNotification("scraping_error", "error", tr("Error obteniendo datos de {name}: {message}", { name: t.name, message: td((e as Error).message) })));
         log(report.logs, "DataEngine", "error", `Scraping ${t.name}: ${(e as Error).message}`);
         continue;
       }
@@ -78,11 +81,11 @@ export async function runEngine(source: DataSource, alreadyProcessed: string[] =
         try {
           result = await source.getResult(t.id);
         } catch (e) {
-          report.notifications.push(makeNotification("scraping_error", "error", `Sin resultados de ${t.name}: ${(e as Error).message}`));
+          report.notifications.push(makeNotification("scraping_error", "error", tr("Sin resultados de {name}: {message}", { name: t.name, message: td((e as Error).message) })));
           continue;
         }
         if (!result) {
-          report.notifications.push(makeNotification("inconsistent_data", "warn", `${t.name} marcado finalizado pero sin resultados.`));
+          report.notifications.push(makeNotification("inconsistent_data", "warn", tr("{name} marcado finalizado pero sin resultados.", { name: t.name })));
           continue;
         }
 
@@ -101,7 +104,7 @@ export async function runEngine(source: DataSource, alreadyProcessed: string[] =
             }
             if (c.status === "pending") {
               report.notifications.push(
-                makeNotification("approval_required", "warn", `Aprobación requerida (${Math.round(c.confidence * 100)}%): ${c.playerNick} ${c.kind.toUpperCase()} · ${t.name}`),
+                makeNotification("approval_required", "warn", tr("Aprobación requerida ({Math}%): {playerNick} {kind} · {name}", { Math: Math.round(c.confidence * 100), playerNick: c.playerNick, kind: c.kind.toUpperCase(), name: t.name })),
               );
             }
           }
@@ -109,13 +112,13 @@ export async function runEngine(source: DataSource, alreadyProcessed: string[] =
           report.events.push(generateEvent(t));
           log(report.logs, "EventEngine", "info", `Evento generado para ${t.name}.`);
         } catch (e) {
-          report.notifications.push(makeNotification("generation_error", "error", `Error generando cartas de ${t.name}: ${(e as Error).message}`));
+          report.notifications.push(makeNotification("generation_error", "error", tr("Error generando cartas de {name}: {message}", { name: t.name, message: td((e as Error).message) })));
           log(report.logs, "CardGenerator", "error", `${t.name}: ${(e as Error).message}`);
         }
       }
     }
   } catch (e) {
-    report.notifications.push(makeNotification("scraping_error", "error", `Fallo del engine: ${(e as Error).message}`));
+    report.notifications.push(makeNotification("scraping_error", "error", tr("Fallo del engine: {message}", { message: td((e as Error).message) })));
     log(report.logs, "DataEngine", "error", (e as Error).message);
   }
 

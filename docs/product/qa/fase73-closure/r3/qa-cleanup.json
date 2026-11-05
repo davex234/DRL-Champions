@@ -1,0 +1,124 @@
+{
+  "at": "2026-09-30T19:24:59.225Z",
+  "intercepted": false,
+  "pass": 3,
+  "fail": 0,
+  "results": [
+    {
+      "id": "LIMPIEZA · toda la configuración QA en RETIRED por el panel (auditado)",
+      "ok": true,
+      "detail": "[{\"id\":\"qa-f73-tras-equipo-r3\",\"status\":200},{\"id\":\"qa-f73-equipo-tr-r3\",\"status\":200},{\"id\":\"qa-f73-partidas-r3\",\"status\":200},{\"id\":\"qa-f73-abrir-r3\",\"status\":200},{\"id\":\"qa-f73-proyecto-r3\",\"status\":200}]"
+    },
+    {
+      "id": "LIMPIEZA · el jugador ya no ve misiones ni proyectos QA",
+      "ok": true,
+      "detail": "0 misiones · 0 proyectos"
+    },
+    {
+      "id": "LIMPIEZA · equipos de I y K en su composición original",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "ops": [
+    {
+      "id": "qa-f73-tras-equipo-r3",
+      "status": 200
+    },
+    {
+      "id": "qa-f73-equipo-tr-r3",
+      "status": 200
+    },
+    {
+      "id": "qa-f73-partidas-r3",
+      "status": 200
+    },
+    {
+      "id": "qa-f73-abrir-r3",
+      "status": 200
+    },
+    {
+      "id": "qa-f73-proyecto-r3",
+      "status": 200
+    }
+  ],
+  "db": {
+    "missions": [
+      {
+        "id": "qa-f73-tras-equipo",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-equipo-tr",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-partidas",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-craftear",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-tras-equipo-r2",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-equipo-tr-r2",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-partidas-r2",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-craftear-r2",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-tras-equipo-r3",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-equipo-tr-r3",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-partidas-r3",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-abrir-r3",
+        "status": "RETIRED"
+      }
+    ],
+    "projects": [
+      {
+        "id": "qa-f73-proyecto",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-proyecto-r2",
+        "status": "RETIRED"
+      },
+      {
+        "id": "qa-f73-proyecto-r3",
+        "status": "RETIRED"
+      }
+    ],
+    "recipes": {
+      "pack-estandar-premium": "4:ACTIVE",
+      "pack-premium-oro": "2:ACTIVE",
+      "pack-oro-masters": "2:ACTIVE",
+      "pack-masters-champions": "3:ACTIVE",
+      "pack-champions-icon": "2:ACTIVE",
+      "card-base-plata": "7:ACTIVE",
+      "card-plata-oro": "3:ACTIVE",
+      "card-oro-masters": "8:ACTIVE",
+      "card-masters-champions": "14:ACTIVE",
+      "card-champions-prime": "10:ACTIVE",
+      "card-prime-icon": "5:DISABLED"
+    }
+  }
+}

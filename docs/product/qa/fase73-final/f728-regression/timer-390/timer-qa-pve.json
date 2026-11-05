@@ -1,0 +1,75 @@
+{
+  "at": "2026-09-30T20:17:41.187Z",
+  "results": [
+    {
+      "id": "[390] tablero con contador en el HUD",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] el contador arranca en ~00:30 (servidor)",
+      "ok": true,
+      "detail": "primero=00:27"
+    },
+    {
+      "id": "[390] DEFENSA · el contador se vio bajar 10…5 4 3 2 1 0",
+      "ok": true,
+      "detail": "00:27 00:26 00:25 00:24 00:23 00:22 00:21 00:20 00:19 00:18 00:17 00:16 00:15 00:14 00:13 00:12 00:11 00:10 00:09 00:08 00:07 00:06 00:05 00:04 00:03 00:02 00:01 00:30 00:00"
+    },
+    {
+      "id": "[390] DEFENSA · a 0 la partida avanza SOLA (versión +1, un turno más, jugada automática registrada)",
+      "ok": true,
+      "detail": "{\"v\":[0,1],\"h\":[0,1],\"lagMs\":844}"
+    },
+    {
+      "id": "[390] DEFENSA · carta de TU mano y la estadística obligada",
+      "ok": true,
+      "detail": "{\"uid\":\"3dcbbf64-52ce-4e79-aac9-d2a2b44d9295\",\"nick\":\"koshmaras\",\"team\":\"TH\",\"role\":\"Duelista\",\"stat\":\"gamesense\",\"value\":68}"
+    },
+    {
+      "id": "[390] DEFENSA · resuelto cerca del plazo del servidor (≤ 4 s) y aviso «Tiempo agotado» sin modal",
+      "ok": true,
+      "detail": "retraso=844 ms aviso=true"
+    },
+    {
+      "id": "[390] DEFENSA · la decisión siguiente nace con plazo nuevo",
+      "ok": true,
+      "detail": "1790799428532 → 1790799459189"
+    },
+    {
+      "id": "[390] ATAQUE · el contador se vio bajar 10…5 4 3 2 1 0",
+      "ok": true,
+      "detail": "00:30 00:29 00:28 00:27 00:26 00:25 00:24 00:23 00:22 00:21 00:20 00:19 00:18 00:17 00:16 00:15 00:14 00:13 00:12 00:11 00:10 00:09 00:08 00:07 00:06 00:05 00:04 00:03 00:02 00:01 00:00"
+    },
+    {
+      "id": "[390] ATAQUE · a 0 la partida avanza SOLA (versión +1, un turno más, jugada automática registrada)",
+      "ok": true,
+      "detail": "{\"v\":[1,2],\"h\":[1,2],\"lagMs\":1073}"
+    },
+    {
+      "id": "[390] ATAQUE · carta de TU mano y estadística válida",
+      "ok": true,
+      "detail": "{\"uid\":\"28fb3332-0409-4f14-ad9f-6561374409fc\",\"nick\":\"invy\",\"team\":\"PRX\",\"role\":\"Iniciador\",\"stat\":\"entryfrag\",\"value\":53}"
+    },
+    {
+      "id": "[390] ATAQUE · resuelto cerca del plazo del servidor (≤ 4 s) y aviso «Tiempo agotado» sin modal",
+      "ok": true,
+      "detail": "retraso=1073 ms aviso=true"
+    },
+    {
+      "id": "[390] ATAQUE · la decisión siguiente nace con plazo nuevo",
+      "ok": true,
+      "detail": "1790799459189 → 1790799490059"
+    },
+    {
+      "id": "[390] vistos vencimientos atacando Y defendiendo",
+      "ok": true,
+      "detail": "DEFENSA,ATAQUE"
+    },
+    {
+      "id": "[390] 0 errores de consola / 0 Failed to fetch",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

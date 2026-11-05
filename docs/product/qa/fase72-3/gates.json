@@ -1,0 +1,148 @@
+{
+  "at": "2026-09-29T19:20:19.245Z",
+  "tests": {
+    "total": null,
+    "pass": null,
+    "fail": null
+  },
+  "tscWeb": "0 errores",
+  "tscScripts": "0 errores",
+  "lint": "0 errores · 27 warnings (mismo recuento que antes de F72.3)",
+  "build": {
+    "exit": 0,
+    "buildId": "drl-0.1.1-1-1288b7f9"
+  },
+  "smoke": {
+    "total": 74,
+    "failed": 0
+  },
+  "gateBrowser": {
+    "pass": 57,
+    "total": 57,
+    "f723": [
+      {
+        "id": "F72 /duelos: 4 modos seleccionables, PARTIDA RÁPIDA elegida con UN CTA (JUGAR)",
+        "ok": true,
+        "detail": "{\"selectable\":[true,true,true,true],\"selected\":\"QUICK\",\"ctas\":1,\"quick\":\"JUGAR\"}"
+      },
+      {
+        "id": "F72.2 pistas visuales: sin texto visible, con imagen (bandera/icono/logo)",
+        "ok": true,
+        "detail": "[{\"type\":\"COUNTRY\",\"label\":\"Carta oculta · pista de país: Corea del Sur\",\"text\":\"\",\"img\":false,\"shape\":\"flag\",\"art\":\"url(\\\"/flags/kr.svg\\\")\"},{\"type\":\"COUNTRY\",\"label\":\"Carta oculta · pista de país: Corea del Sur\",\"text\":\"\",\"img\":false,\"shape\":\"flag\",\"art\":\"url(\\\"/flags/kr.svg\\\")\"},{\"type\":\"COUNTRY\""
+      },
+      {
+        "id": "F72.3 pistas visuales: asset local (sin flagcdn ni ningún host)",
+        "ok": true,
+        "detail": "[\"url(\\\"/flags/kr.svg\\\")\",\"url(\\\"/flags/kr.svg\\\")\",\"url(\\\"/flags/kr.svg\\\")\",\"url(\\\"/flags/kr.svg\\\")\"]"
+      },
+      {
+        "id": "F72 JUGAR → DUELOS",
+        "ok": true,
+        "detail": "url=/duelos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DUELOS | PARTIDA RÁPIDA | COMPETITIVO | RETAR A UN AMIGO | DRAFT GAUNTLET"
+      },
+      {
+        "id": "F72 COMPETITIVO: rango y rating REALES dentro de /duelos (sin navegar)",
+        "ok": true,
+        "detail": "ui={\"state\":\"UNRANKED\",\"rank\":\"Sin clasificar\",\"rating\":\"Rating 1000\",\"href\":\"/duelos/pvp?buscar=1f0e1e3d-30e3-4068-813e-0dad85c3c084\",\"label\":\"Jugar\",\"path\":\"/duelos\",\"details\":\"/competitivo\"} api={\"rating\":1000,\"games\":0,\"position\":null}"
+      },
+      {
+        "id": "F72 COMPETITIVO: JUGAR → cola ranked directa, sin pasar por /competitivo",
+        "ok": true,
+        "detail": "queue={\"state\":\"QUEUED\",\"path\":\"/duelos/pvp\",\"searching\":true} nav=[\"/jugar\",\"/duelos\",\"/duelos/pvp\",\"/duelos/pvp\"]"
+      },
+      {
+        "id": "F72 COMPETITIVO: registro de navegación sin /competitivo",
+        "ok": true,
+        "detail": "[\"/jugar\",\"/duelos\",\"/duelos/pvp\",\"/duelos/pvp\"]"
+      },
+      {
+        "id": "F72 COMPETITIVO: búsqueda cancelada (el gate no deja a la cuenta QA en cola); 0 fetch fallidos, 0 errores",
+        "ok": true,
+        "detail": "cancel=200 console=0 fetch=0"
+      },
+      {
+        "id": "F72 JUGAR → DUELOS (draft)",
+        "ok": true,
+        "detail": "url=/duelos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DUELOS | PARTIDA RÁPIDA | COMPETITIVO | RETAR A UN AMIGO | DRAFT GAUNTLET"
+      },
+      {
+        "id": "F72 DRAFT: coste de entrada del servidor y escalera de premios en la tarjeta",
+        "ok": true,
+        "detail": "{\"fee\":\"2.000\",\"ladder\":6,\"cta\":\"Entrar · 2.000\",\"step\":\"enter\"} fee=2000"
+      },
+      {
+        "id": "F72 DRAFT: ENTRAR pide confirmación y todavía no cobra",
+        "ok": true,
+        "detail": "step=confirm saldo 8490→8490"
+      },
+      {
+        "id": "F72 DRAFT: confirmar → sala del draft y cobro EXACTO de la entrada, una vez",
+        "ok": true,
+        "detail": "room=true saldo 8490→6490 (−2000, entrada 2000) entry={\"fee\":2000,\"paid\":true}"
+      },
+      {
+        "id": "F72 DRAFT: 3 cartas con escenario y aura DETRÁS (la carta sigue siendo el botón)",
+        "ok": true,
+        "detail": "{\"options\":3,\"auras\":3,\"stage\":true,\"presence\":[\"common\",\"common\",\"common\"],\"cardOnTop\":3}"
+      },
+      {
+        "id": "F72 DRAFT: elegir marca UNA carta → CONFIRMAR → elección guardada",
+        "ok": true,
+        "detail": "{\"chosen\":{\"selected\":[\"true\",\"false\",\"false\"],\"confirm\":true},\"picked\":true}"
+      },
+      {
+        "id": "F72 DRAFT: recargar conserva la elección y NO cobra",
+        "ok": true,
+        "detail": "pick=1 saldo 6490→6490"
+      },
+      {
+        "id": "F72 DRAFT: run activa = CONTINUAR con su progreso real, sin segundo cobro",
+        "ok": true,
+        "detail": "{\"cta\":\"Continuar\",\"href\":\"/jugar/draft-gauntlet\",\"note\":\"Draft 1/10\"} esperado=Draft 1/10 → /jugar/draft-gauntlet saldo 6490→6490"
+      },
+      {
+        "id": "F72 DRAFT: 0 errores de consola y 0 fetch fallidos",
+        "ok": true,
+        "detail": "console=0 fetch=0"
+      }
+    ]
+  },
+  "productionCheck": {
+    "PASS": 17,
+    "WARN": 0,
+    "FAIL": 0
+  },
+  "health": 200,
+  "ready": {
+    "status": "ready",
+    "migrationHead": "0058_hardening_grants"
+  },
+  "supervisor": [
+    "tarea: Running",
+    "supervisor: 2892",
+    "puerto 3005: 127.0.0.1 pid=25228",
+    "puerto 54521: ::1 pid=20220",
+    "  GET / -> 200",
+    "  GET /api/health -> 200",
+    "  /api/ready -> ready (head 0058_hardening_grants)",
+    "  build servida -> drl-0.1.1-1-1288b7f9 (en disco: drl-0.1.1-1-1288b7f9)",
+    "£ltimas l¡neas del supervisor:"
+  ],
+  "browserQa": [
+    {
+      "width": 1440,
+      "pass": 16,
+      "total": 16
+    },
+    {
+      "width": 1024,
+      "pass": 12,
+      "total": 12
+    },
+    {
+      "width": 390,
+      "pass": 12,
+      "total": 12
+    }
+  ]
+}

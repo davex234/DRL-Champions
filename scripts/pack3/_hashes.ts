@@ -1,0 +1,14 @@
+import { createHash } from "node:crypto";
+import { PACKS } from "@/data/packs";
+import { PACK_STATS } from "@/data/packStats";
+import { MAIN_PACK_PLAN } from "@/domain/packs/packClass";
+import { packOddsFor } from "@/domain/packs/odds";
+const stable = (v: unknown): unknown => (Array.isArray(v) ? v.map(stable) : v && typeof v === "object" ? Object.fromEntries(Object.keys(v as object).sort().map((k) => [k, stable((v as Record<string, unknown>)[k])])) : v);
+const sha = (v: unknown) => createHash("sha256").update(JSON.stringify(stable(v))).digest("hex");
+const omit = (o: object, k: string) => Object.fromEntries(Object.entries(o).filter(([x]) => x !== k));
+console.log("packs", sha(PACKS.map((p) => omit(p, "price"))));
+console.log("plan", sha(MAIN_PACK_PLAN));
+console.log("odds", sha(Object.fromEntries(PACKS.map((p) => [p.id, packOddsFor(p, PACK_STATS[p.id] ?? null)]))));
+console.log("measured", sha(Object.fromEntries(Object.entries(PACK_STATS).map(([id, s]) => [id, omit(omit(s, "price"), "costPerRarity")]))));
+const nonMain = Object.fromEntries(Object.entries(PACK_STATS).filter(([id]) => !(id in MAIN_PACK_PLAN)).map(([id, s]) => [id, omit(omit(s, "price"), "costPerRarity")]));
+console.log("measuredNonMain", sha(nonMain));

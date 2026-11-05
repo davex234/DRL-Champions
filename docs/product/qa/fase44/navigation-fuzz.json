@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-10-07T10:01:29.807Z",
+  "seed": 44100,
+  "sequences": 100000,
+  "steps": 749128,
+  "nodes": 38,
+  "violations": {
+    "invalidRoute": 0,
+    "deadEnd": 0,
+    "marketplace": 0,
+    "lostActiveMatch": 0,
+    "redirectLoop": 0,
+    "immersiveWithoutExit": 0
+  },
+  "totalViolations": 0,
+  "samples": []
+}

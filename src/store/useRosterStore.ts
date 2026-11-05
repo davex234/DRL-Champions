@@ -117,6 +117,7 @@ export const useRosterStore = create<RosterState>()(
     }),
     {
       name: "drl-champions-roster",
+      version: 1,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({
         customPlayers: s.customPlayers,
@@ -124,6 +125,17 @@ export const useRosterStore = create<RosterState>()(
         removed: s.removed,
         version: s.version,
       }),
+      // Saves antiguos (persist sin versión = 0) → normaliza sin descartar jugadores/overrides.
+      migrate: (persisted) => {
+        const p = (persisted && typeof persisted === "object" ? persisted : {}) as Record<string, unknown>;
+        const arr = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
+        return {
+          customPlayers: arr(p.customPlayers),
+          overrides: p.overrides && typeof p.overrides === "object" ? (p.overrides as Record<string, unknown>) : {},
+          removed: arr<string>(p.removed),
+          version: typeof p.version === "number" ? p.version : 0,
+        } as Partial<RosterState>;
+      },
     },
   ),
 );

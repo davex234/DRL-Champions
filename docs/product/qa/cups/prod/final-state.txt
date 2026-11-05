@@ -1,0 +1,10 @@
+trophy room E 200 badges 0 sets 6 torneo 0
+/api/game/competitive 200
+/api/game/season-track 200
+/api/game/store 405
+/api/game/duels 200
+personal 9KZAWPC|true | inscripciones 0 | trofeos torneo 0
+admins 2f86cbe8
+copas qa-f86-muvaj6mq:COMPLETED:UNLISTED qa-f86-muvaj6mq-c:CANCELLED:UNLISTED valorosters-open-1:DRAFT:PUBLIC
+temporada-2 DRAFT
+flags "0069_player_cups"

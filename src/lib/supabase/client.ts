@@ -24,6 +24,13 @@ function normalizeSupabaseUrl(raw: string | undefined): string | undefined {
 }
 
 const SUPABASE_URL = normalizeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL);
+/*
+ * valorosters.com · con `NEXT_PUBLIC_SUPABASE_SAME_ORIGIN=1` el navegador habla con Supabase por SU PROPIO origen
+ * (Next reenvía /auth/v1, /rest/v1 y /storage/v1 al túnel: next.config.mjs). Así funciona igual desde
+ * https://valorosters.com que desde http://127.0.0.1:3005, sin depender de que el DNS exista.
+ */
+const SAME_ORIGIN = process.env.NEXT_PUBLIC_SUPABASE_SAME_ORIGIN === "1";
+const browserSupabaseUrl = (): string | undefined => (SAME_ORIGIN && typeof window !== "undefined" ? window.location.origin : SUPABASE_URL);
 const ANON = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
 
 let _client: SupabaseClient | null = null;
@@ -37,7 +44,7 @@ export function isSupabaseConfigured(): boolean {
 export function getSupabase(): SupabaseClient | null {
   if (!isSupabaseConfigured()) return null;
   if (!_client) {
-    _client = createClient(SUPABASE_URL as string, ANON as string, {
+    _client = createClient(browserSupabaseUrl() as string, ANON as string, {
       auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
     });
   }

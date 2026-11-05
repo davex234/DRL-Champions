@@ -1,0 +1,60 @@
+{
+  "question": "¿Qué tan lejos está el equipo inicial del meta y del PvE?",
+  "starterDecks": 300,
+  "notReady": 0,
+  "playerPolicy": "NORMAL (jugador casual)",
+  "matchesPerOpponent": 12000,
+  "starterSumOvr": {
+    "mean": 860.4,
+    "p10": 844,
+    "p50": 861,
+    "p90": 879
+  },
+  "starterCombatSum": {
+    "mean": 1957.3,
+    "p10": 1875,
+    "p50": 1955,
+    "p90": 2050
+  },
+  "metaSumOvr": 939,
+  "metaCombatSum": 2145,
+  "fieldSumOvrMean": null,
+  "winRate": {
+    "PvE EASY": {
+      "n": 12000,
+      "rate": 0.8247,
+      "lo": 0.8178,
+      "hi": 0.8314
+    },
+    "PvE NORMAL": {
+      "n": 12000,
+      "rate": 0.5059,
+      "lo": 0.497,
+      "hi": 0.5149
+    },
+    "PvE HARD": {
+      "n": 12000,
+      "rate": 0.2627,
+      "lo": 0.2549,
+      "hi": 0.2706
+    },
+    "campo (aleatorio, HARD)": {
+      "n": 12000,
+      "rate": 0.3782,
+      "lo": 0.3696,
+      "hi": 0.387
+    },
+    "meta OVR_MAX (HARD)": {
+      "n": 12000,
+      "rate": 0.036,
+      "lo": 0.0328,
+      "hi": 0.0395
+    },
+    "meta PEAK_MAX (HARD)": {
+      "n": 12000,
+      "rate": 0.0019,
+      "lo": 0.0013,
+      "hi": 0.0029
+    }
+  }
+}

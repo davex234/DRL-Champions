@@ -1,0 +1,61 @@
+##### log-tail
+[esports-sync-worker] exit=0 reason="noop: ningún evento toca"
+2026-09-14T09:36:02Z [wrapper] exit=0 duration_ms=488
+2026-09-14T09:38:01Z [wrapper] start release=releases/rel-20260914T093113Z-996d06fd args=
+[esports-sync-worker] event=run run_id=20260914093801-wpn7f1 mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=274 status=success
+══════════════════════════════════════════════════════════════════════════
+  ESPORTS SYNC · RUN · scheduled · 20260914093801-wpn7f1
+══════════════════════════════════════════════════════════════════════════
+  eventos: 2 comprobados · 0 tocaban · 0 ok · 0 con cambios · 0 con error · 0 omitidos
+  partidos: 0 en fuente · +0 nuevos · 0 cambios · 0 terminados · 0 rechazados · 0 inválidos
+  pickems: 0 evento(s) corregido(s) · 0 rectificación(es) · 0 usuarios puntuados
+  lock: adquirido
+  duración: 274 ms · siguiente: 2026-09-14T15:12:04.504Z
+══════════════════════════════════════════════════════════════════════════
+[esports-sync-worker] exit=0 reason="noop: ningún evento toca"
+2026-09-14T09:38:01Z [wrapper] exit=0 duration_ms=425
+2026-09-14T09:39:21Z [wrapper] start release=releases/rel-20260914T093113Z-996d06fd args=--dry-run --manual
+2026-09-14T09:39:22Z [wrapper] otra pasada en curso (flock): salgo 0
+[esports-sync-worker] event=event_sync run_mode=manual dry_run=true event=vlr-2766 vlr_event=2766 class=future status=dry-run reason="sin cambios" matches_changed=0 matches_finished=0 rejected=0 invalid=0 pickems_ran=false scored=false duration_ms=15278
+[esports-sync-worker] event=run run_id=20260914093921-fgdbxc mode=manual origin=worker-vps dry_run=true events_checked=2 events_due=1 events_synced=1 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=15358 status=success
+══════════════════════════════════════════════════════════════════════════
+  ESPORTS SYNC · DRY RUN · manual · 20260914093921-fgdbxc
+══════════════════════════════════════════════════════════════════════════
+  eventos: 2 comprobados · 1 tocaban · 1 ok · 0 con cambios · 0 con error · 0 omitidos
+  partidos: 34 en fuente · +0 nuevos · 0 cambios · 0 terminados · 0 rechazados · 0 inválidos
+  pickems: 0 evento(s) corregido(s) · 0 rectificación(es) · 0 usuarios puntuados
+  lock: no adquirido
+  duración: 15358 ms · siguiente: 2026-09-14T15:39:21.488Z
+
+Event: Valorant Champions 2026 (vlr-2766 · vlr 2766)
+  estado: dry-run — sin cambios · clase future
+  policy: intervalo 21600 s · siguiente 2026-09-14T15:39:21.488Z · clase future
+  matches:
+    34   unchanged
+    0    would create
+    0    would update
+    0    would finish
+    0    invalid
+  bracket:
+    20   confirmed edges
+    8    qualification nodes
+    0    conflicts
+  pickems:
+    0 events would require scoring
+  identidades sin resolver: 106
+══════════════════════════════════════════════════════════════════════════
+[esports-sync-worker] exit=0 reason="ok"
+2026-09-14T09:39:37Z [wrapper] exit=0 duration_ms=15498
+2026-09-14T09:40:01Z [wrapper] start release=releases/rel-20260914T093113Z-996d06fd args=
+[esports-sync-worker] event=run run_id=20260914094002-rsv599 mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=438 status=success
+══════════════════════════════════════════════════════════════════════════
+  ESPORTS SYNC · RUN · scheduled · 20260914094002-rsv599
+══════════════════════════════════════════════════════════════════════════
+  eventos: 2 comprobados · 0 tocaban · 0 ok · 0 con cambios · 0 con error · 0 omitidos
+  partidos: 0 en fuente · +0 nuevos · 0 cambios · 0 terminados · 0 rechazados · 0 inválidos
+  pickems: 0 evento(s) corregido(s) · 0 rectificación(es) · 0 usuarios puntuados
+  lock: adquirido
+  duración: 438 ms · siguiente: 2026-09-14T15:39:21.488Z
+══════════════════════════════════════════════════════════════════════════
+[esports-sync-worker] exit=0 reason="noop: ningún evento toca"
+2026-09-14T09:40:02Z [wrapper] exit=0 duration_ms=612

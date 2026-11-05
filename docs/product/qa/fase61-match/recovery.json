@@ -1,0 +1,54 @@
+{
+  "prematchF5": "sin partida activa → pre-partida (boot)",
+  "midTurnF5": {
+    "server": {
+      "turn": 5,
+      "score": [
+        0,
+        4
+      ],
+      "history": 4
+    },
+    "screen": {
+      "scenes": [],
+      "beat": null,
+      "role": "DEFENSE",
+      "turn": "TURNO 5 DE 10",
+      "moment": null,
+      "tiebreak": null,
+      "complete": null,
+      "result": null,
+      "recovered": true,
+      "leave": false,
+      "hand": 6
+    }
+  },
+  "postTurnF5": "la revelación ya estaba aplicada: la mesa vuelve en el turno siguiente con el marcador del servidor (sin reproducir el turno)",
+  "resultF5": {
+    "url": "/duelos/jugar?resultado=06b8cc80-ae1f-4b04-bffd-b11029ee710a",
+    "screen": {
+      "scenes": [
+        "result"
+      ],
+      "beat": null,
+      "role": null,
+      "turn": null,
+      "moment": null,
+      "tiebreak": null,
+      "complete": null,
+      "result": "loss",
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    "creditsAfterFinish": 3630,
+    "creditsAfterReload": 3630
+  },
+  "backButton": {
+    "dialog": true,
+    "url": "/duelos/jugar",
+    "stillInMatch": true
+  },
+  "pvpReconnect": "la primera foto no anima; con turnos jugados no hay entrada; el sondeo reintenta con retroceso (connectionCopy/syncBanner, F26/F33)",
+  "limitation": "PvE no sondea (cada petición nace de una acción): no hay «reconectando…» en PvE; un fallo de red se ve como error con reintento"
+}

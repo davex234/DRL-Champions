@@ -1,0 +1,23 @@
+{
+  "\n✗ Pipeline FALLIDO en el paso: {v} ({failedStage})\n": "\n✗ Pipeline FALHOU na etapa: {v} ({failedStage})\n",
+  " (rollback automático a runtime v{runtimeVersion})": " (rollback automático para runtime v{runtimeVersion})",
+  "Analyzer": "Analyzer",
+  "Card Generator": "Card Generator",
+  "Catalog Builder": "Catalog Builder",
+  "Construyendo catálogo...": "Construindo catálogo...",
+  "Generando cartas...": "Gerando cartas...",
+  "Importer": "Importer",
+  "Importer VLR": "Importer VLR",
+  "Materializer": "Materializer",
+  "Performance Analyzer": "Performance Analyzer",
+  "Publisher": "Publisher",
+  "error desconocido": "erro desconhecido",
+  "modelo canónico inválido: {length} error(es) — {v}": "modelo canônico inválido: {length} erro(s) — {v}",
+  "publicación {finalState}{v}: {v2}": "publicação {finalState}{v}: {v2}",
+  "sin detalle": "sem detalhe",
+  "✓ Catálogo actualizado (v{catalogVersion})": "✓ Catálogo atualizado (v{catalogVersion})",
+  "✓ Runtime sin cambios (publicación idempotente)": "✓ Runtime sem alterações (publicação idempotente)",
+  "✓ {length} cartas generadas": "✓ {length} cartas geradas",
+  "✓ {length} equipos": "✓ {length} times",
+  "✓ {length} jugadores": "✓ {length} jogadores"
+}

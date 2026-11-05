@@ -1,0 +1,50 @@
+{
+  "at": "2026-09-28T19:35:56.081Z",
+  "ok": true,
+  "results": [
+    {
+      "label": "event",
+      "theme": "champions-test",
+      "varWide": "url(\"http://127.0.0.1:3005/packs/pack-champions.webp\"), url(\"/game/arenas/nexus-champions/stage-1920.webp\")",
+      "bg": "url(\"http://127.0.0.1:3005/packs/pack-champions.webp\"), url(\"http://127.0.0.1:3005/game/arenas/nexus-champions/stage-1920.webp\")",
+      "layers": [
+        {
+          "u": "http://127.0.0.1:3005/packs/pack-champions.webp",
+          "ok": true
+        },
+        {
+          "u": "http://127.0.0.1:3005/game/arenas/nexus-champions/stage-1920.webp",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "label": "broken",
+      "theme": "broken-test",
+      "varWide": "url(\"http://127.0.0.1:3005/no-existe-f71.webp\"), url(\"/game/arenas/nexus-champions/stage-1920.webp\")",
+      "bg": "url(\"http://127.0.0.1:3005/no-existe-f71.webp\"), url(\"http://127.0.0.1:3005/game/arenas/nexus-champions/stage-1920.webp\")",
+      "layers": [
+        {
+          "u": "http://127.0.0.1:3005/no-existe-f71.webp",
+          "ok": false
+        },
+        {
+          "u": "http://127.0.0.1:3005/game/arenas/nexus-champions/stage-1920.webp",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "label": "default",
+      "theme": "default",
+      "varWide": "url(\"/game/arenas/nexus-champions/stage-1920.webp\")",
+      "bg": "url(\"http://127.0.0.1:3005/game/arenas/nexus-champions/stage-1920.webp\")",
+      "layers": [
+        {
+          "u": "http://127.0.0.1:3005/game/arenas/nexus-champions/stage-1920.webp",
+          "ok": true
+        }
+      ]
+    }
+  ]
+}

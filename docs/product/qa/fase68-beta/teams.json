@@ -1,0 +1,236 @@
+{
+  "sessions": [
+    {
+      "id": "C-r1-teams",
+      "persona": "C",
+      "session": "teams",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 14,
+      "screens": 3,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 46,
+      "statuses": {
+        "200": 400,
+        "204": 6
+      },
+      "bad": [],
+      "notes": [],
+      "partial": {
+        "candidates": 15,
+        "count": "1 / 10 CARTAS"
+      },
+      "invalid": {
+        "hint": "Solo un equipo completo y legal puede ser el activo.",
+        "saveErr": "",
+        "activateDisabled": true
+      },
+      "auto": {
+        "clicked": true,
+        "count": "10 / 10 CARTAS",
+        "result": "Añadidas 9 cartas. Revisa y guarda."
+      },
+      "afterAutoSave": {
+        "decks": [
+          {
+            "id": "d81fbae0",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "a5c56ba3",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "saveErr": ""
+      },
+      "activate": {
+        "clicked": true,
+        "active": "d81fbae0",
+        "newest": "d81fbae0"
+      },
+      "end": {
+        "decks": [
+          {
+            "id": "d81fbae0",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "a5c56ba3",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "active": "d81fbae0"
+      }
+    },
+    {
+      "id": "D-r1-teams",
+      "persona": "D",
+      "session": "teams",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 45,
+      "actions": 13,
+      "screens": 3,
+      "checks": {
+        "pass": 4,
+        "fail": [
+          "FAIL equipo incompleto: explica por qué no se puede activar (sin código crudo)",
+          "FAIL doble clic en guardar no duplica el equipo"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 47,
+      "statuses": {
+        "200": 381,
+        "204": 6
+      },
+      "bad": [],
+      "notes": [],
+      "partial": {
+        "candidates": 0,
+        "count": "0 / 10 CARTAS"
+      },
+      "invalid": {
+        "hint": "",
+        "saveErr": "",
+        "activateDisabled": null
+      },
+      "auto": {
+        "clicked": true,
+        "count": "10 / 10 CARTAS",
+        "result": "Añadidas 10 cartas. Revisa y guarda."
+      },
+      "afterAutoSave": {
+        "decks": [
+          {
+            "id": "31653b1f",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "ba06ee82",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "saveErr": ""
+      },
+      "activate": {
+        "clicked": false,
+        "active": "31653b1f",
+        "newest": "31653b1f"
+      },
+      "end": {
+        "decks": [
+          {
+            "id": "31653b1f",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "ba06ee82",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "active": "31653b1f"
+      }
+    },
+    {
+      "id": "B-fix-teams",
+      "persona": "B",
+      "session": "teams",
+      "tag": "fix",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 15,
+      "screens": 3,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 45,
+      "statuses": {
+        "200": 348,
+        "204": 6
+      },
+      "bad": [],
+      "notes": [],
+      "partial": {
+        "candidates": 36,
+        "count": "1 / 10 CARTAS"
+      },
+      "invalid": {
+        "hint": "Solo un equipo completo y legal puede ser el activo.",
+        "saveErr": "",
+        "activateDisabled": true
+      },
+      "auto": {
+        "clicked": true,
+        "count": "10 / 10 CARTAS",
+        "result": "Añadidas 9 cartas. Revisa y guarda."
+      },
+      "afterAutoSave": {
+        "decks": [
+          {
+            "id": "341ebf73",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "saveErr": ""
+      },
+      "activate": {
+        "clicked": true,
+        "active": "341ebf73",
+        "newest": "341ebf73"
+      },
+      "end": {
+        "decks": [
+          {
+            "id": "341ebf73",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "active": "341ebf73"
+      }
+    }
+  ],
+  "autoTeamNote": "Autocompletar: válido, guardado y activable; su calidad (F65: no óptimo) no se tocó."
+}

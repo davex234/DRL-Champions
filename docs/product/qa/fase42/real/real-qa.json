@@ -1,0 +1,146 @@
+{
+  "account": "8c326e52",
+  "base": "http://127.0.0.1:3005",
+  "at": "2026-09-16T19:14:45.586Z",
+  "kind": "REAL",
+  "db": {
+    "accounts": "11",
+    "credits_ne_ledger": "0",
+    "duplicate_refs": "0",
+    "mission_rows": "14",
+    "mission_repeat_in_window": "0",
+    "max_paid_duels_day": "4",
+    "pickem_reward_rows": "0",
+    "pickem_events": "3",
+    "pickem_questions_open": "17",
+    "events_total": "3",
+    "matches_live": "1",
+    "active_duels": "0",
+    "draft_runs_active": "0",
+    "db_now": "2026-09-16 19:14:46.596934+00"
+  },
+  "fp0": {
+    "credits": "6630",
+    "ledger_n": "17",
+    "cards": "40",
+    "matches": "7",
+    "pass_updated": "2026-09-16 18:11:17.874379+00"
+  },
+  "zeroWrite": {
+    "reads": 15,
+    "diff": [],
+    "ms": {
+      "daily-loop": [
+        1012,
+        471,
+        494,
+        507,
+        450
+      ],
+      "meta": [
+        612,
+        606,
+        590
+      ],
+      "loop": [
+        644,
+        579,
+        572
+      ]
+    }
+  },
+  "snapshot": {
+    "serverNow": 1789586087491,
+    "primary": {
+      "id": "claim",
+      "kind": "claim",
+      "reason": "Ya está ganado: un toque y es tuyo.",
+      "urgency": null
+    },
+    "secondary": [
+      "predict",
+      "campaign"
+    ],
+    "unavailable": [],
+    "resets": {
+      "dailyStartsAt": 1789516800000,
+      "dailyEndsAt": 1789603200000,
+      "weeklyStartsAt": 1789344000000,
+      "weeklyEndsAt": 1789948800000
+    },
+    "today": [
+      "d-abrir-1:CLAIMED:1 / 1",
+      "d-duelo-1:CLAIMED:1 / 1",
+      "d-duelo-win:CLAIMED:1 / 1"
+    ],
+    "thisWeek": [
+      "w-sobres-10:IN_PROGRESS:3 / 10",
+      "w-duelos-5:CLAIMED:5 / 5"
+    ],
+    "dailyDone": true,
+    "weeklyDone": false,
+    "expiring": [],
+    "season": {
+      "endsAt": 1795996800000,
+      "daysLeft": 75,
+      "endingSoon": false
+    },
+    "returning": null,
+    "recent": 3,
+    "draftRun": null,
+    "live": {
+      "featured": "DRL Masters Madrid 2026",
+      "upcoming": "Valorant Champions 2026"
+    },
+    "pickems": null
+  },
+  "live": {
+    "featured": {
+      "id": "demo-masters-madrid-2026",
+      "name": "DRL Masters Madrid 2026",
+      "lifecycle": "ACTIVE",
+      "isDemo": true,
+      "startDate": "2026-09-01T20:16:05.503+00:00",
+      "endDate": "2026-09-13T20:16:05.503+00:00",
+      "liveCount": 1,
+      "liveMatch": {
+        "teamA": "NRG",
+        "teamB": "Sentinels",
+        "scoreA": 1,
+        "scoreB": 1
+      },
+      "nextMatch": null,
+      "pickem": {
+        "open": 0,
+        "pending": 0
+      }
+    },
+    "upcoming": {
+      "id": "vlr-2766",
+      "name": "Valorant Champions 2026",
+      "lifecycle": "UPCOMING",
+      "isDemo": false,
+      "startDate": "2026-09-24T00:00:00+00:00",
+      "endDate": "2026-10-18T00:00:00+00:00",
+      "liveCount": 0,
+      "liveMatch": null,
+      "nextMatch": {
+        "teamA": "Team Liquid",
+        "teamB": "Paper Rex",
+        "startTime": "2026-09-24T05:00:00+00:00"
+      },
+      "pickem": {
+        "open": 17,
+        "pending": 17
+      }
+    }
+  },
+  "plays": [],
+  "fpFinal": {
+    "credits": "6630",
+    "ledger_n": "17",
+    "matches": "7"
+  },
+  "delta": [],
+  "failures": 0
+}

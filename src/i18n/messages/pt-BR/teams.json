@@ -1,0 +1,9 @@
+{
+  "Carta inexistente en tu colección ({uid}).": "Carta inexistente na sua coleção ({uid}).",
+  "Demasiados titulares: {length}/{MAX_STARTERS}.": "Titulares demais: {length}/{MAX_STARTERS}.",
+  "El equipo necesita un nombre.": "O time precisa de um nome.",
+  "Faltan titulares: {length}/{MAX_STARTERS}.": "Faltam titulares: {length}/{MAX_STARTERS}.",
+  "No puedes alinear dos cartas del mismo jugador.": "Você não pode escalar duas cartas do mesmo jogador.",
+  "No puedes alinear la misma carta dos veces.": "Você não pode escalar a mesma carta duas vezes.",
+  "Un titular no puede estar también en suplentes.": "Um titular não pode estar também nos reservas."
+}

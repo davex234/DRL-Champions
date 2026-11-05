@@ -1,0 +1,7 @@
+{
+  "backend": "Supabase Storage con STORAGE_BACKEND=file, FILE_STORAGE_BACKEND_PATH=/mnt = volumen supabase_storage_DRLCards",
+  "content": "0 ficheros, 4 KB; storage.objects = 0; 1 bucket «assets» (público, sin límite de tamaño ni MIME a nivel de bucket)",
+  "backup": "diario (nexus-backup.sh) + F67 con lista sha256 por fichero e inventario de storage.objects",
+  "restore": "drill: extracción y comparación fichero a fichero OK (0/0)",
+  "risk": "el día que haya subidas del CMS, el mismo procedimiento las cubre; ventana no atómica BD↔Storage documentada"
+}

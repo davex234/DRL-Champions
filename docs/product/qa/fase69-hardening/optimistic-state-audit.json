@@ -1,0 +1,86 @@
+{
+  "phase": "F69",
+  "rule": "La interfaz puede mostrar pendiente/cargando; NUNCA inventa un saldo, XP, nivel, Elo o inventario final. Con cuenta, el HUD es el store de juego y solo lo escribe syncFromServer/applyServerState.",
+  "method": [
+    "Barrido de todos los mutadores locales del store (addCredits, spendCredits, addXp, grantPack, grantCard, addMaterials, addCosmetics, applyReward, buyPack, buyAndOpen, openPackFromInventory, quickSell*, craft, add/removeOwnedCard) y de cada llamador.",
+    "Prueba viva del Coach (servidor/HUD antes, en la ceremonia, tras el freno de CloudSync y tras F5)."
+  ],
+  "surfaces": [
+    {
+      "surface": "Tactical Coach (resultado)",
+      "before": "créditos/XP/nivel locales (F68-010)",
+      "after": "ninguna mutación; hoja del partido con cifras reales",
+      "status": "FIXED"
+    },
+    {
+      "surface": "/colecciones (reclamo de colección)",
+      "before": "applyReward local con cuenta",
+      "after": "apagado con cuenta (título explica por qué)",
+      "status": "FIXED"
+    },
+    {
+      "surface": "/coleccion · Forja",
+      "before": "craft local (créditos/cartas/materiales) con cuenta",
+      "after": "ForgeGate: con cuenta, aviso + enlace al desguace del servidor en Inventario",
+      "status": "FIXED"
+    },
+    {
+      "surface": "/mercado salas locales",
+      "before": "compra/venta/liquidación contra bots con cuenta",
+      "after": "con cuenta solo la sala Global (servidor; mercado P2P OFF por flag)",
+      "status": "FIXED"
+    },
+    {
+      "surface": "/manager logros de carrera",
+      "before": "+créditos locales con cuenta",
+      "after": "no se reclaman con cuenta («Completado»)",
+      "status": "FIXED"
+    },
+    {
+      "surface": "Admin · simulador de Pick'ems",
+      "before": "+1.500 créditos, +60 XP, +1 sobre al store local",
+      "after": "solo cuenta aciertos simulados",
+      "status": "FIXED"
+    },
+    {
+      "surface": "Tienda / tarjeta de sobre / compra rápida / apertura / desguace",
+      "before": "camino local durante el instante en que la sesión se resuelve",
+      "after": "SESSION_PENDING: ni local ni servidor hasta tener sesión",
+      "status": "FIXED"
+    },
+    {
+      "surface": "Tienda (con cuenta)",
+      "behavior": "buyPackOnline → RPC idempotente (clave por gesto, F68-002) → syncFromServer; el saldo final es el del servidor",
+      "status": "OK"
+    },
+    {
+      "surface": "Apertura de sobres (con cuenta)",
+      "behavior": "openPackOutcome (un gesto por apertura) → cartas del servidor",
+      "status": "OK"
+    },
+    {
+      "surface": "Reclamos (progresión, logros, eventos)",
+      "behavior": "el servidor cobra; después syncFromServer (F68-008)",
+      "status": "OK"
+    },
+    {
+      "surface": "Resultado PvE / Draft / campaña",
+      "behavior": "el pago lo liquida el servidor al cerrar la partida; la interfaz lee el resultado",
+      "status": "OK"
+    },
+    {
+      "surface": "Ranked (Elo)",
+      "behavior": "RankedMovement con dos fotos del servidor (antes/después); sin cálculo local del delta",
+      "status": "OK"
+    },
+    {
+      "surface": "Otra pestaña",
+      "behavior": "CloudSync relee al volver foco/visibilidad (F68-007)",
+      "status": "OK"
+    }
+  ],
+  "closedList": "src/lib/game/f69.serverEconomy.test.ts fija la lista CERRADA de módulos con mutadores locales (6) y cada guardia",
+  "liveProof": "coach-authority.json: servidor 9.430 cr / 552 XP antes y después; HUD 9.430 / nivel 3 antes, en la ceremonia, tras el freno y tras F5",
+  "remainingLocalModes": "Solo SIN cuenta (modo local del navegador): ahí el store es la autoridad y es coherente consigo mismo",
+  "status": "0 mutaciones optimistas de valores autoritativos con cuenta"
+}

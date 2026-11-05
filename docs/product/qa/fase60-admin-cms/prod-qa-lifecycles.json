@@ -1,0 +1,404 @@
+{
+ "at": "2026-09-24T19:16:50.200Z",
+ "actor": "cuenta QA (admin temporal)",
+ "steps": [
+  {
+   "flow": "baseline",
+   "step": "recuentos antes",
+   "ok": true,
+   "detail": {
+    "publishedCards": 331,
+    "agents": 29,
+    "cmsPacks": 0,
+    "assets": 0
+   }
+  },
+  {
+   "flow": "agent",
+   "step": "crear borrador",
+   "ok": true,
+   "detail": {
+    "id": "qaf60agent",
+    "code": "QAF",
+    "name": "QA F60",
+    "role": "initiator",
+    "version": 1,
+    "abilities": [
+     {
+      "name": "Pulso QA",
+      "slot": "C"
+     },
+     {
+      "name": "Salto QA",
+      "slot": "Q"
+     },
+     {
+      "name": "Muro QA",
+      "slot": "E"
+     },
+     {
+      "name": "Final QA",
+      "slot": "X"
+     }
+    ],
+    "lifecycle": "DRAFT",
+    "faceAssetId": null,
+    "fullAssetId": null
+   }
+  },
+  {
+   "flow": "agent",
+   "step": "subir cara (sharp real, Storage real)",
+   "ok": true,
+   "detail": {
+    "status": 200
+   }
+  },
+  {
+   "flow": "agent",
+   "step": "subir cuerpo entero",
+   "ok": true,
+   "detail": {
+    "status": 200
+   }
+  },
+  {
+   "flow": "agent",
+   "step": "Storage sirve original y derivados",
+   "ok": true
+  },
+  {
+   "flow": "agent",
+   "step": "asignar arte + editar",
+   "ok": true,
+   "detail": {
+    "id": "qaf60agent",
+    "code": "QAF",
+    "name": "QA F60 Editado",
+    "role": "initiator",
+    "version": 2,
+    "abilities": [
+     {
+      "name": "Pulso QA",
+      "slot": "C"
+     },
+     {
+      "name": "Salto QA",
+      "slot": "Q"
+     },
+     {
+      "name": "Muro QA",
+      "slot": "E"
+     },
+     {
+      "name": "Final QA",
+      "slot": "X"
+     }
+    ],
+    "lifecycle": "DRAFT",
+    "faceAssetId": "8d70beb7-56bb-41df-aea0-2d5e654ced00",
+    "fullAssetId": "ff810c4b-1db2-44a1-956c-3f0683e0473d"
+   }
+  },
+  {
+   "flow": "agent",
+   "step": "concurrencia: versión vieja ⇒ 409",
+   "ok": true
+  },
+  {
+   "flow": "agent",
+   "step": "ficha: checklist completo (listo para publicar, NO se publica)",
+   "ok": true
+  },
+  {
+   "flow": "agent",
+   "step": "borrador NO aparece en el runtime (cargador)",
+   "ok": true
+  },
+  {
+   "flow": "agent",
+   "step": "borrador NO aparece en /api/content/agents",
+   "ok": true
+  },
+  {
+   "flow": "agent",
+   "step": "borrar borrador (sin referencias)",
+   "ok": true,
+   "detail": {
+    "deleted": "qaf60agent"
+   }
+  },
+  {
+   "flow": "card",
+   "step": "subir arte de carta",
+   "ok": true,
+   "detail": {
+    "status": 200
+   }
+  },
+  {
+   "flow": "card",
+   "step": "vista previa exacta (no escribe)",
+   "ok": true,
+   "detail": {
+    "economy": {
+     "packClass": "icon",
+     "packClassLabel": "Icon",
+     "marketValue": 2950,
+     "salvageValue": 180,
+     "editionLabel": "Moments"
+    },
+    "err": {}
+   }
+  },
+  {
+   "flow": "card",
+   "step": "crear BORRADOR atómico",
+   "ok": true,
+   "detail": {
+    "cardId": "aaaay__moments",
+    "version": 1,
+    "lifecycle": "DRAFT",
+    "catalogVersion": 785,
+    "presentationRev": 1
+   }
+  },
+  {
+   "flow": "card",
+   "step": "borrador fuera del catálogo público y de sobres",
+   "ok": true
+  },
+  {
+   "flow": "card",
+   "step": "ficha: imagen de Storage renderizable",
+   "ok": true,
+   "detail": {
+    "image": "http://127.0.0.1:54521/storage/v1/object/public/assets/cms/card_artwork/c28c5216-345c-49b1-823c-8d0e4b7df41f/original.png"
+   }
+  },
+  {
+   "flow": "card",
+   "step": "borrar borrador sin historia",
+   "ok": true,
+   "detail": {
+    "deleted": "aaaay__moments"
+   }
+  },
+  {
+   "flow": "pack",
+   "step": "crear borrador (economía heredada de Bronce)",
+   "ok": true,
+   "detail": {
+    "id": "cms-qa-f60",
+    "name": "QA F60 Sobre",
+    "price": 1000,
+    "accent": null,
+    "version": 1,
+    "cardCount": 5,
+    "lifecycle": "DRAFT",
+    "artAssetId": null,
+    "availableTo": null,
+    "description": "Prueba del CMS: no se publica.",
+    "availableFrom": null,
+    "templatePackId": "estandar"
+   }
+  },
+  {
+   "flow": "pack",
+   "step": "pool de elegibilidad pack-<id> (DRAFT) enlazado",
+   "ok": true,
+   "detail": {
+    "id": "pack-cms-qa-f60",
+    "exists": true,
+    "lifecycle": "DRAFT",
+    "mode": "EXPLICIT",
+    "revision": 2,
+    "entries": [],
+    "bound": true
+   }
+  },
+  {
+   "flow": "pack",
+   "step": "añadir 30 cartas (selección múltiple)",
+   "ok": true,
+   "detail": {
+    "status": 200,
+    "n": 30
+   }
+  },
+  {
+   "flow": "pack",
+   "step": "subir arte del sobre",
+   "ok": true,
+   "detail": {
+    "status": 200
+   }
+  },
+  {
+   "flow": "pack",
+   "step": "asignar arte",
+   "ok": true,
+   "detail": {
+    "id": "cms-qa-f60",
+    "name": "QA F60 Sobre",
+    "price": 1000,
+    "accent": null,
+    "version": 2,
+    "cardCount": 5,
+    "lifecycle": "DRAFT",
+    "artAssetId": "c3b3beff-816c-4a32-bc4f-d9cccbb78a06",
+    "availableTo": null,
+    "description": "Prueba del CMS: no se publica.",
+    "availableFrom": null,
+    "templatePackId": "estandar"
+   }
+  },
+  {
+   "flow": "pack",
+   "step": "simulación de servidor (no escribe)",
+   "ok": true,
+   "detail": {
+    "summary": {
+     "n": 2000,
+     "seed": "cms-v1",
+     "ev": 975,
+     "evOverPrice": 0.974875,
+     "salvageEV": 59,
+     "salvageOverPrice": 0.0591475,
+     "classes": {
+      "base": 0.571,
+      "plata": 0.3294,
+      "oro": 0.0996
+     },
+     "ovr": {
+      "p10": 77,
+      "p50": 79,
+      "p90": 85,
+      "max": 88
+     },
+     "primePct": 0,
+     "iconPct": 0,
+     "eligibleCards": 30,
+     "poolKey": "pack-cms-qa-f60#30.v4znbc",
+     "error": null,
+     "at": "2026-09-24T19:16:46.509Z"
+    },
+    "gate": {
+     "ok": true,
+     "blockers": [],
+     "warnings": [
+      "Valor/precio 0.97× muy por debajo de la banda: poco atractivo"
+     ]
+    }
+   }
+  },
+  {
+   "flow": "pack",
+   "step": "borrador fuera del runtime (ni tienda ni apertura)",
+   "ok": true
+  },
+  {
+   "flow": "pack",
+   "step": "borrar borrador + su pool dedicado",
+   "ok": true,
+   "detail": {
+    "deleted": "cms-qa-f60",
+    "poolDeleted": true
+   }
+  },
+  {
+   "flow": "asset",
+   "step": "subir + reemplazar = versión 2 del grupo",
+   "ok": true
+  },
+  {
+   "flow": "asset",
+   "step": "duplicado ⇒ el mismo asset (idempotente)",
+   "ok": true
+  },
+  {
+   "flow": "asset",
+   "step": "huérfanos detectados (todo lo QA quedó sin uso)",
+   "ok": true
+  },
+  {
+   "flow": "cleanup",
+   "step": "borrar asset 8d70beb7",
+   "ok": true
+  },
+  {
+   "flow": "cleanup",
+   "step": "borrar asset ff810c4b",
+   "ok": true
+  },
+  {
+   "flow": "cleanup",
+   "step": "borrar asset c28c5216",
+   "ok": true
+  },
+  {
+   "flow": "cleanup",
+   "step": "borrar asset c3b3beff",
+   "ok": true
+  },
+  {
+   "flow": "cleanup",
+   "step": "borrar asset 643a87ea",
+   "ok": true
+  },
+  {
+   "flow": "cleanup",
+   "step": "borrar asset a2e8f543",
+   "ok": true
+  },
+  {
+   "flow": "cleanup",
+   "step": "Storage ya no sirve ningún fichero QA",
+   "ok": true,
+   "detail": [
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400,
+    400
+   ]
+  },
+  {
+   "flow": "cleanup",
+   "step": "sin residuos: recuentos iguales que antes",
+   "ok": true,
+   "detail": {
+    "before": {
+     "publishedCards": 331,
+     "agents": 29,
+     "cmsPacks": 0,
+     "assets": 0
+    },
+    "after": {
+     "publishedCards": 331,
+     "agents": 29,
+     "cmsPacks": 0,
+     "assets": 0
+    }
+   }
+  },
+  {
+   "flow": "cleanup",
+   "step": "ni agente, ni carta, ni sobre, ni pool, ni enlace QA",
+   "ok": true
+  },
+  {
+   "flow": "audit",
+   "step": "cada escritura QA quedó auditada con el actor QA (registro inmutable)",
+   "ok": true,
+   "detail": {
+    "rows": 24
+   }
+  }
+ ],
+ "ok": true
+}

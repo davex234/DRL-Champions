@@ -1,0 +1,17 @@
+{
+  "cards": 331,
+  "agents": 29,
+  "migrationHeadOnDisk": "0058_hardening_grants.sql",
+  "migrationsAfter0058": [],
+  "marketplaceEnabled": false,
+  "paymentsEnabled": false,
+  "pricesUnchanged": true,
+  "f724Touched": [
+    "src/components/store/*",
+    "src/app/tienda/page.tsx",
+    "src/app/tienda/store.css",
+    "scripts/ops/browser-gate.ts (regex del botón)"
+  ],
+  "notTouched": "packs.ts, packClass.ts, packStats.ts, openPack.ts, odds.ts, storeCatalog.ts, resolve.ts, server/services/*, motor de duelo, economía, migraciones",
+  "heroConfigUnchanged": true
+}

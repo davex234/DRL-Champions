@@ -1,0 +1,13 @@
+ucc K|team-eternal-fire-v1|insignia:coleccion:team-eternal-fire|2026-10-03 19:54:52.805828+00|{"player:echo": "echo__base", "player:audaz": "audaz__base", "player:nekky": "nekky__base", "player:favian": "favian__base"}
+cos K|insignia:coleccion:team-eternal-fire|collection:team-eternal-fire-v1
+cards K|31|30
+ppc K|{insignia:coleccion:team-eternal-fire}|3
+ucc all|1
+cos insignia all|1
+published|6
+checksums|team-eternal-fire-v1|5bfcfbbf1d73
+checksums|team-fnatic-v1|06d34fca9033
+checksums|team-g2-v1|b307853bd912
+checksums|team-leviatan-v1|fc3a11ee24c9
+checksums|team-team-heretics-v1|c81789dd571e
+checksums|team-team-liquid-v1|1d6607c491b8

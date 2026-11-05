@@ -1,0 +1,92 @@
+[
+  {
+    "width": 1440,
+    "name": "1-plataforma",
+    "t": "1.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1082",
+    "file": "japan-RARE-1-plataforma-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7a-pose",
+    "t": "3.50",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1050",
+    "file": "japan-RARE-7a-pose-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "8-ovr",
+    "t": "4.20",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1169",
+    "file": "japan-RARE-8-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "5.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1094",
+    "file": "japan-RARE-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 390,
+    "name": "1-plataforma",
+    "t": "1.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "834",
+    "file": "japan-RARE-1-plataforma-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7a-pose",
+    "t": "3.50",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "761",
+    "file": "japan-RARE-7a-pose-390.png"
+  },
+  {
+    "width": 390,
+    "name": "8-ovr",
+    "t": "4.20",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "758",
+    "file": "japan-RARE-8-ovr-390.png"
+  },
+  {
+    "width": 390,
+    "name": "10-carta-final",
+    "t": "5.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "929",
+    "file": "japan-RARE-10-carta-final-390.png"
+  },
+  {
+    "width": 390,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

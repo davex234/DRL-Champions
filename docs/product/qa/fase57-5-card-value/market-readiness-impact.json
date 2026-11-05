@@ -1,0 +1,136 @@
+{
+  "anchorBand": {
+    "min": 0.2,
+    "max": 2.5
+  },
+  "current": {
+    "common": {
+      "editions": [
+        "base"
+      ],
+      "n": 169,
+      "meanValue": 184,
+      "entryCost": 235,
+      "anchorRatio": 0.78,
+      "cheapest": 100,
+      "salvage": 30,
+      "salvageRatio": 0.3
+    },
+    "uncommon": {
+      "editions": [
+        "masters-sdc",
+        "masters-l"
+      ],
+      "n": 119,
+      "meanValue": 769,
+      "entryCost": 2875,
+      "anchorRatio": 0.27,
+      "cheapest": 425,
+      "salvage": 70,
+      "salvageRatio": 0.16
+    },
+    "rare": {
+      "editions": [
+        "future-star"
+      ],
+      "n": 20,
+      "meanValue": 2903,
+      "entryCost": 6887,
+      "anchorRatio": 0.42,
+      "cheapest": 2250,
+      "salvage": 200,
+      "salvageRatio": 0.09
+    },
+    "epic": {
+      "editions": [
+        "champions-s"
+      ],
+      "n": 20,
+      "meanValue": 7751,
+      "entryCost": 4912,
+      "anchorRatio": 1.58,
+      "cheapest": 4550,
+      "salvage": 600,
+      "salvageRatio": 0.13
+    },
+    "legendary": {
+      "editions": [
+        "record-breaker",
+        "moments"
+      ],
+      "n": 3,
+      "meanValue": 31425,
+      "entryCost": 19841,
+      "anchorRatio": 1.58,
+      "cheapest": 27875,
+      "salvage": 1600,
+      "salvageRatio": 0.06
+    }
+  },
+  "proposed": {
+    "common": {
+      "editions": [
+        "base"
+      ],
+      "n": 169,
+      "meanValue": 243,
+      "entryCost": 235,
+      "anchorRatio": 1.03,
+      "cheapest": 50,
+      "salvage": 30,
+      "salvageRatio": 0.6
+    },
+    "uncommon": {
+      "editions": [
+        "masters-sdc",
+        "masters-l"
+      ],
+      "n": 119,
+      "meanValue": 1869,
+      "entryCost": 2875,
+      "anchorRatio": 0.65,
+      "cheapest": 530,
+      "salvage": 70,
+      "salvageRatio": 0.13
+    },
+    "rare": {
+      "editions": [
+        "future-star"
+      ],
+      "n": 20,
+      "meanValue": 12625,
+      "entryCost": 6887,
+      "anchorRatio": 1.83,
+      "cheapest": 7200,
+      "salvage": 200,
+      "salvageRatio": 0.03
+    },
+    "epic": {
+      "editions": [
+        "champions-s"
+      ],
+      "n": 20,
+      "meanValue": 5518,
+      "entryCost": 4912,
+      "anchorRatio": 1.12,
+      "cheapest": 1700,
+      "salvage": 600,
+      "salvageRatio": 0.35
+    },
+    "legendary": {
+      "editions": [
+        "record-breaker",
+        "moments"
+      ],
+      "n": 3,
+      "meanValue": 23800,
+      "entryCost": 19841,
+      "anchorRatio": 1.2,
+      "cheapest": 18400,
+      "salvage": 1600,
+      "salvageRatio": 0.09
+    }
+  },
+  "currentPasses": true,
+  "proposedPasses": true
+}

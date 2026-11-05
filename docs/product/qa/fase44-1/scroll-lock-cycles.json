@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-09-17T19:10:04.119Z",
+  "base": "http://127.0.0.1:3005",
+  "harness": {
+    "cycles": 100,
+    "ok": true,
+    "wheelAfter": 900
+  },
+  "mobileMenu": {
+    "cycles": 100,
+    "ok": true,
+    "touchAfter": 588
+  },
+  "sample": {
+    "harness": [
+      {
+        "i": 0,
+        "lockedSheet": "hidden",
+        "lockedBoth": "hidden",
+        "afterModal": "hidden",
+        "free": ""
+      },
+      {
+        "i": 1,
+        "lockedSheet": "hidden",
+        "lockedBoth": "hidden",
+        "afterModal": "hidden",
+        "free": ""
+      },
+      {
+        "i": 2,
+        "lockedSheet": "hidden",
+        "lockedBoth": "hidden",
+        "afterModal": "hidden",
+        "free": ""
+      }
+    ],
+    "menu": [
+      {
+        "i": 0,
+        "opened": true,
+        "locked": "hidden",
+        "free": ""
+      },
+      {
+        "i": 1,
+        "opened": true,
+        "locked": "hidden",
+        "free": ""
+      },
+      {
+        "i": 2,
+        "opened": true,
+        "locked": "hidden",
+        "free": ""
+      }
+    ]
+  }
+}

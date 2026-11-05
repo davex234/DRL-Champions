@@ -1,0 +1,315 @@
+{
+  "samplesPerPack": 200000,
+  "packs": {
+    "estandar": {
+      "name": "Sobre Bronce",
+      "price": 1000,
+      "cardCount": 5,
+      "evSimulated": 5723,
+      "evPackStats": 5673,
+      "evF575Audit": 5723,
+      "evOverPrice": 5.72,
+      "evOverPriceF575Audit": 5.72,
+      "p10": 835,
+      "p25": 1050,
+      "p50": 2090,
+      "p75": 7790,
+      "p90": 17300,
+      "p95": 22470,
+      "p99": 32220,
+      "min": 310,
+      "max": 80130,
+      "topTierCost": {
+        "prime": 7079,
+        "icon": 20404,
+        "primeOrIcon": 5416
+      }
+    },
+    "premium": {
+      "name": "Sobre Plata",
+      "price": 2500,
+      "cardCount": 6,
+      "evSimulated": 12958,
+      "evPackStats": 12922,
+      "evF575Audit": 12958,
+      "evOverPrice": 5.18,
+      "evOverPriceF575Audit": 5.19,
+      "p10": 1970,
+      "p25": 3270,
+      "p50": 8850,
+      "p75": 19940,
+      "p90": 30080,
+      "p95": 37030,
+      "p99": 53230,
+      "min": 1340,
+      "max": 110250,
+      "topTierCost": {
+        "prime": 9437,
+        "icon": 14968,
+        "primeOrIcon": 6351
+      }
+    },
+    "oro": {
+      "name": "Sobre Oro",
+      "price": 4000,
+      "cardCount": 5,
+      "evSimulated": 20652,
+      "evPackStats": 20542,
+      "evF575Audit": 20652,
+      "evOverPrice": 5.16,
+      "evOverPriceF575Audit": 5.17,
+      "p10": 4090,
+      "p25": 7660,
+      "p50": 17500,
+      "p75": 30110,
+      "p90": 41300,
+      "p95": 49250,
+      "p99": 64800,
+      "min": 1750,
+      "max": 114800,
+      "topTierCost": {
+        "prime": 9768,
+        "icon": 13144,
+        "primeOrIcon": 6600
+      }
+    },
+    "masters": {
+      "name": "Sobre Masters",
+      "price": 5000,
+      "cardCount": 5,
+      "evSimulated": 25503,
+      "evPackStats": 25402,
+      "evF575Audit": 25503,
+      "evOverPrice": 5.1,
+      "evOverPriceF575Audit": 5.11,
+      "p10": 7490,
+      "p25": 12940,
+      "p50": 23050,
+      "p75": 34800,
+      "p90": 47170,
+      "p95": 55200,
+      "p99": 69950,
+      "min": 1800,
+      "max": 121000,
+      "topTierCost": {
+        "prime": 10587,
+        "icon": 14666,
+        "primeOrIcon": 7437
+      }
+    },
+    "champions": {
+      "name": "Sobre Champions",
+      "price": 8000,
+      "cardCount": 5,
+      "evSimulated": 40963,
+      "evPackStats": 40768,
+      "evF575Audit": 40963,
+      "evOverPrice": 5.12,
+      "evOverPriceF575Audit": 5.12,
+      "p10": 18070,
+      "p25": 27320,
+      "p50": 39480,
+      "p75": 52650,
+      "p90": 65700,
+      "p95": 73700,
+      "p99": 88880,
+      "min": 2000,
+      "max": 132500,
+      "topTierCost": {
+        "prime": 11899,
+        "icon": 14381,
+        "primeOrIcon": 9050
+      }
+    },
+    "icon": {
+      "name": "Sobre Icon",
+      "price": 12500,
+      "cardCount": 3,
+      "evSimulated": 47943,
+      "evPackStats": 47797,
+      "evF575Audit": 47943,
+      "evOverPrice": 3.84,
+      "evOverPriceF575Audit": 3.83,
+      "p10": 33900,
+      "p25": 39600,
+      "p50": 47300,
+      "p75": 55300,
+      "p90": 63400,
+      "p95": 66200,
+      "p99": 72100,
+      "min": 21600,
+      "max": 79500,
+      "topTierCost": {
+        "prime": 12847,
+        "icon": 19026,
+        "primeOrIcon": 12500
+      }
+    }
+  },
+  "band": {
+    "medianOfFive": 5.16,
+    "maxDeviationPct": 10.85,
+    "iconVsMedian": 0.74
+  },
+  "iconPack": {
+    "minPossible": 21600,
+    "maxPossible": 79500
+  },
+  "allPacksPackStats": {
+    "estandar": {
+      "price": 1000,
+      "meanValue": 5673,
+      "evOverPrice": 5.67
+    },
+    "premium": {
+      "price": 2500,
+      "meanValue": 12922,
+      "evOverPrice": 5.17
+    },
+    "oro": {
+      "price": 4000,
+      "meanValue": 20542,
+      "evOverPrice": 5.14
+    },
+    "masters": {
+      "price": 5000,
+      "meanValue": 25402,
+      "evOverPrice": 5.08
+    },
+    "champions": {
+      "price": 8000,
+      "meanValue": 40768,
+      "evOverPrice": 5.1
+    },
+    "ewc": {
+      "price": 6000,
+      "meanValue": 34034,
+      "evOverPrice": 5.67
+    },
+    "emea": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "americas": {
+      "price": 3000,
+      "meanValue": 19211,
+      "evOverPrice": 6.4
+    },
+    "pacific": {
+      "price": 3000,
+      "meanValue": 18471,
+      "evOverPrice": 6.16
+    },
+    "china": {
+      "price": 3000,
+      "meanValue": 8062,
+      "evOverPrice": 2.69
+    },
+    "team-heretics": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "team-fnatic": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "team-navi": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "team-g2": {
+      "price": 3000,
+      "meanValue": 19211,
+      "evOverPrice": 6.4
+    },
+    "prime": {
+      "price": 10000,
+      "meanValue": 36712,
+      "evOverPrice": 3.67
+    },
+    "icon": {
+      "price": 12500,
+      "meanValue": 47797,
+      "evOverPrice": 3.82
+    },
+    "team-loud": {
+      "price": 3000,
+      "meanValue": 19211,
+      "evOverPrice": 6.4
+    },
+    "team-blg": {
+      "price": 3000,
+      "meanValue": 8062,
+      "evOverPrice": 2.69
+    },
+    "team-te": {
+      "price": 3000,
+      "meanValue": 8062,
+      "evOverPrice": 2.69
+    },
+    "team-jdg": {
+      "price": 3000,
+      "meanValue": 8062,
+      "evOverPrice": 2.69
+    },
+    "team-liquid": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "team-tyl": {
+      "price": 3000,
+      "meanValue": 8062,
+      "evOverPrice": 2.69
+    },
+    "team-karmine": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "team-m8": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "team-fut": {
+      "price": 3000,
+      "meanValue": 17897,
+      "evOverPrice": 5.97
+    },
+    "team-100t": {
+      "price": 3000,
+      "meanValue": 19211,
+      "evOverPrice": 6.4
+    },
+    "team-prx": {
+      "price": 3000,
+      "meanValue": 18471,
+      "evOverPrice": 6.16
+    },
+    "team-ns": {
+      "price": 3000,
+      "meanValue": 18471,
+      "evOverPrice": 6.16
+    },
+    "team-ge": {
+      "price": 3000,
+      "meanValue": 18471,
+      "evOverPrice": 6.16
+    },
+    "team-xlg": {
+      "price": 3000,
+      "meanValue": 8062,
+      "evOverPrice": 2.69
+    },
+    "team-lev": {
+      "price": 3000,
+      "meanValue": 19211,
+      "evOverPrice": 6.4
+    }
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "at": "2026-09-30T19:12:06.516Z",
+  "intercepted": false,
+  "pass": 9,
+  "fail": 0,
+  "results": [
+    {
+      "id": "PROYECTO · la carta objetivo es REAL del catálogo",
+      "ok": true,
+      "detail": "darker__base clase=base ovr=80"
+    },
+    {
+      "id": "ADMIN · panel abierto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · crear proyecto QA (DRAFT) con carta real",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA MATCH_PLAY ×5 (PvE)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA OPEN_PACK ×1 con recompensa +10 XP",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA DECK_MIN_COUNTRY TR ≥ 3 en el proyecto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA dependiente (MATCH_PLAY ×1 tras la de Turquía) en el proyecto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · activar el proyecto (tiene misiones activas)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "BD · las 4 misiones QA de esta pasada ACTIVE + su proyecto ACTIVE, auditados",
+      "ok": true,
+      "detail": "{\"mine\":[{\"id\":\"qa-f73-abrir-r3\",\"status\":\"ACTIVE\",\"condition\":{\"type\":\"OPEN_PACK\"},\"target\":1,\"deps\":[],\"project\":null,\"reward\":{\"xp\":10},\"version\":1},{\"id\":\"qa-f73-equipo-tr-r3\",\"status\":\"ACTIVE\",\"condition\":{\"min\":3,\"type\":\"DECK_MIN_COUNTRY\",\"modes\":[\"PVE\"],\"country\":\"TR\"},\"target\":1,\"deps\":[],\"project\":\"qa-f73-proyecto-r3\",\"reward\":{},\"version\":1},{\"id\":\"qa-f73-partidas-r3\",\"status\":\"ACTIVE\",\"condition\":{\"type\":\"MATCH_PLAY\",\"modes\":[\"PVE\"]},\"target\":5,\"deps\":[],\"project\":null,\"reward\":{},\"version\":1},{\"id\":\"qa-f73-tras-equipo-r3\",\"status\":\"ACTIVE\",\"condition\":{\"type\":\"MATCH_PLAY\",\"modes\":[\"PVE\"]},\"target\":1,\"deps\":[\"qa-f73-equipo-tr-r3\"],\"project\":\"qa-f73-proyecto-r3\",\"reward\":{},\"version\":1}],\"proj\":[{\"id\":\"qa-f73-proyecto-r3\",\"status\":\"ACTIVE\",\"card\":\"darker__base\",\"version\":2}],\"audit\":[\"f73_project_create\",\"f73_mission_create\",\"f73_mission_create\",\"f73_mission_create\",\"f73_mission_create\",\"f73_mission_save\",\"f73_mission_save\",\"f73_mission_save\",\"f73_mission_save\",\"f73_project_save\",\"f73_project_create\",\"f73_mission_create\",\"f73_mission_create\",\"f73_mission_create\",\"f73_mission_create\",\"f73_project_save\",\"f73_mission_save\",\"f73_mission_save\",\"f73_mission_save\",\"f73_mission_s"
+    }
+  ],
+  "db": {
+    "missions": [
+      {
+        "id": "qa-f73-abrir-r3",
+        "status": "ACTIVE",
+        "condition": {
+          "type": "OPEN_PACK"
+        },
+        "target": 1,
+        "deps": [],
+        "project": null,
+        "reward": {
+          "xp": 10
+        },
+        "version": 1
+      },
+      {
+        "id": "qa-f73-craftear",
+        "status": "RETIRED",
+        "condition": {
+          "type": "CRAFT_PACK"
+        },
+        "target": 1,
+        "deps": [],
+        "project": null,
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-craftear-r2",
+        "status": "RETIRED",
+        "condition": {
+          "type": "CRAFT_PACK"
+        },
+        "target": 1,
+        "deps": [],
+        "project": null,
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-equipo-tr",
+        "status": "RETIRED",
+        "condition": {
+          "min": 3,
+          "type": "DECK_MIN_COUNTRY",
+          "modes": [
+            "PVE"
+          ],
+          "country": "TR"
+        },
+        "target": 1,
+        "deps": [],
+        "project": "qa-f73-proyecto",
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-equipo-tr-r2",
+        "status": "RETIRED",
+        "condition": {
+          "min": 3,
+          "type": "DECK_MIN_COUNTRY",
+          "modes": [
+            "PVE"
+          ],
+          "country": "TR"
+        },
+        "target": 1,
+        "deps": [],
+        "project": "qa-f73-proyecto-r2",
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-equipo-tr-r3",
+        "status": "ACTIVE",
+        "condition": {
+          "min": 3,
+          "type": "DECK_MIN_COUNTRY",
+          "modes": [
+            "PVE"
+          ],
+          "country": "TR"
+        },
+        "target": 1,
+        "deps": [],
+        "project": "qa-f73-proyecto-r3",
+        "reward": {},
+        "version": 1
+      },
+      {
+        "id": "qa-f73-partidas",
+        "status": "RETIRED",
+        "condition": {
+          "type": "MATCH_PLAY",
+          "modes": [
+            "PVE"
+          ]
+        },
+        "target": 5,
+        "deps": [],
+        "project": null,
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-partidas-r2",
+        "status": "RETIRED",
+        "condition": {
+          "type": "MATCH_PLAY",
+          "modes": [
+            "PVE"
+          ]
+        },
+        "target": 5,
+        "deps": [],
+        "project": null,
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-partidas-r3",
+        "status": "ACTIVE",
+        "condition": {
+          "type": "MATCH_PLAY",
+          "modes": [
+            "PVE"
+          ]
+        },
+        "target": 5,
+        "deps": [],
+        "project": null,
+        "reward": {},
+        "version": 1
+      },
+      {
+        "id": "qa-f73-tras-equipo",
+        "status": "RETIRED",
+        "condition": {
+          "type": "MATCH_PLAY",
+          "modes": [
+            "PVE"
+          ]
+        },
+        "target": 1,
+        "deps": [
+          "qa-f73-equipo-tr"
+        ],
+        "project": "qa-f73-proyecto",
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-tras-equipo-r2",
+        "status": "RETIRED",
+        "condition": {
+          "type": "MATCH_PLAY",
+          "modes": [
+            "PVE"
+          ]
+        },
+        "target": 1,
+        "deps": [
+          "qa-f73-equipo-tr-r2"
+        ],
+        "project": "qa-f73-proyecto-r2",
+        "reward": {},
+        "version": 2
+      },
+      {
+        "id": "qa-f73-tras-equipo-r3",
+        "status": "ACTIVE",
+        "condition": {
+          "type": "MATCH_PLAY",
+          "modes": [
+            "PVE"
+          ]
+        },
+        "target": 1,
+        "deps": [
+          "qa-f73-equipo-tr-r3"
+        ],
+        "project": "qa-f73-proyecto-r3",
+        "reward": {},
+        "version": 1
+      }
+    ],
+    "projects": [
+      {
+        "id": "qa-f73-proyecto",
+        "status": "RETIRED",
+        "card": "darker__base",
+        "version": 2
+      },
+      {
+        "id": "qa-f73-proyecto-r2",
+        "status": "RETIRED",
+        "card": "darker__base",
+        "version": 3
+      },
+      {
+        "id": "qa-f73-proyecto-r3",
+        "status": "ACTIVE",
+        "card": "darker__base",
+        "version": 2
+      }
+    ],
+    "audit": [
+      "f73_project_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_mission_save",
+      "f73_mission_save",
+      "f73_mission_save",
+      "f73_mission_save",
+      "f73_project_save",
+      "f73_project_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_project_save",
+      "f73_mission_save",
+      "f73_mission_save",
+      "f73_mission_save",
+      "f73_mission_save",
+      "f73_project_save",
+      "f73_project_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_mission_create",
+      "f73_project_save"
+    ]
+  }
+}

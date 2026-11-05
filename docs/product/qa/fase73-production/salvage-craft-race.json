@@ -1,0 +1,70 @@
+{
+  "at": "2026-09-30T15:24:21.394Z",
+  "baseUrl": "http://127.0.0.1:3005 (build de producción)",
+  "intercepted": false,
+  "pass": 4,
+  "fail": 0,
+  "results": [
+    {
+      "id": "CARRERA · exactamente UNA de las dos operaciones gasta la copia X",
+      "ok": true,
+      "detail": "salvage=409/Ninguna de esas cartas se puede desguazar craft=200/ok"
+    },
+    {
+      "id": "CARRERA · X ya no existe y NO se duplicó nada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "CARRERA · recuento de copias coherente con la ganadora",
+      "ok": true,
+      "detail": "46 → 44 (esperado 44)"
+    },
+    {
+      "id": "CARRERA · créditos coherentes (solo cambian si ganó el desguace)",
+      "ok": true,
+      "detail": "5065 → 5065"
+    }
+  ],
+  "before": {
+    "available": 3,
+    "pick": [
+      "2fbce147-6169-4f93-acb6-57b08cdb7078",
+      "09b49b6c-7e1d-472e-9dc3-62443c8e421b",
+      "0b697bf5-064c-4729-98b8-93eb9e74655d"
+    ],
+    "X": "2fbce147-6169-4f93-acb6-57b08cdb7078",
+    "owned": 46,
+    "credits": 5065
+  },
+  "responses": {
+    "salvage": {
+      "status": 409,
+      "body": {
+        "error": "Ninguna de esas cartas se puede desguazar"
+      }
+    },
+    "craft": {
+      "status": 200,
+      "outputs": [
+        {
+          "uid": "6c085a80-3d1c-4501-9ea0-e70afc895b15",
+          "cardId": "jemkin__base"
+        }
+      ]
+    }
+  },
+  "after": {
+    "owned": 44,
+    "credits": 5065,
+    "xPresent": false
+  },
+  "preexistingBug": {
+    "status": "DOCUMENTADO, NO ARREGLADO (fuera de la autorización)",
+    "scope": "app_salvage_cards (previo a F73)",
+    "what": "El desguace comprueba «te queda al menos una copia» en Node, no dentro de la transacción con bloqueo. Dos operaciones simultáneas sobre copias DISTINTAS de la misma carta (desguace+desguace o desguace+intercambio) pueden dejar al jugador sin ninguna copia de esa carta.",
+    "notAffected": "La MISMA copia nunca se gasta dos veces (esta carrera lo demuestra en producción: solo ganó el intercambio).",
+    "reproducedInProduction": false,
+    "why": "No se reproduce a propósito en producción: dejaría a una cuenta sin la carta y no aporta nada que el análisis del código no pruebe."
+  }
+}

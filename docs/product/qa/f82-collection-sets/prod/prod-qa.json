@@ -1,0 +1,380 @@
+{
+ "at": "2026-10-06T19:24:33.778Z",
+ "base": "https://valorosters.com",
+ "qa": "505585ec",
+ "k": "5078d179",
+ "pass": 74,
+ "fail": 0,
+ "rows": [
+  {
+   "id": "health",
+   "ok": true,
+   "detail": "{\"status\":\"ok\",\"uptimeS\":510,\"version\":\"0.1.1\",\"node\":\"v24.15.0\"}"
+  },
+  {
+   "id": "ready + 0062 aplicada (cabeza ≥ 0062 y sonda «collections» en verde)",
+   "ok": true,
+   "detail": "{\"status\":200,\"head\":\"0073_pickems_launch_guard\",\"collections\":{\"id\":\"collections\",\"ok\":true,\"critical\":false,\"ms\":13,\"detail\":\"0062 aplicada (Collection Sets e insignias)\"}}"
+  },
+  {
+   "id": "anónimo GET sala → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo reclamo → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo panel → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · sala 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "QA · solo los 6 publicados (ningún borrador)",
+   "ok": true,
+   "detail": "[\"team-eternal-fire-v1\",\"team-fnatic-v1\",\"team-g2-v1\",\"team-leviatan-v1\",\"team-team-heretics-v1\",\"team-team-liquid-v1\"]"
+  },
+  {
+   "id": "QA · progreso por set",
+   "ok": true,
+   "detail": "{\"team-eternal-fire-v1\":\"0/4:LOCKED\",\"team-fnatic-v1\":\"0/5:LOCKED\",\"team-g2-v1\":\"1/5:IN_PROGRESS\",\"team-leviatan-v1\":\"2/5:IN_PROGRESS\",\"team-team-heretics-v1\":\"0/6:LOCKED\",\"team-team-liquid-v1\":\"0/5:LOCKED\"}"
+  },
+  {
+   "id": "QA · G2 en progreso con «qué falta»",
+   "ok": true,
+   "detail": "{\"owned\":1,\"missing\":4,\"faltan\":[\"jawgemo\",\"leaf\",\"trent\",\"valyn\"]}"
+  },
+  {
+   "id": "QA · requisitos sin satisfacer listan cartas elegibles",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · reclamar incompleto → 409 INCOMPLETE",
+   "ok": true,
+   "detail": "{\"error\":\"Te faltan 4 para completarla\",\"code\":\"INCOMPLETE\"}"
+  },
+  {
+   "id": "QA · reclamar BORRADOR → 404 (invisible)",
+   "ok": true,
+   "detail": "{\"error\":\"Esa colección no existe\",\"code\":\"NOT_FOUND\"}"
+  },
+  {
+   "id": "QA · id mal formado → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · «tengo todas» (campo extra) → 400 FIELD_NOT_ALLOWED",
+   "ok": true,
+   "detail": "{\"error\":\"Campo no permitido\",\"code\":\"FIELD_NOT_ALLOWED\"}"
+  },
+  {
+   "id": "QA · reclamar en nombre de otro (userId) → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Campo no permitido\",\"code\":\"FIELD_NOT_ALLOWED\"}"
+  },
+  {
+   "id": "QA · parámetro en la URL → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · destacar insignia NO poseída → 403 LOCKED",
+   "ok": true,
+   "detail": "{\"error\":\"Solo puedes destacar insignias que ya has desbloqueado\",\"code\":\"LOCKED\"}"
+  },
+  {
+   "id": "QA · destacar id inventado → 403 LOCKED",
+   "ok": true,
+   "detail": "{\"error\":\"Solo puedes destacar insignias que ya has desbloqueado\",\"code\":\"LOCKED\"}"
+  },
+  {
+   "id": "QA · 4 insignias → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Insignias no válidas (máximo 3)\",\"code\":\"BAD_BODY\"}"
+  },
+  {
+   "id": "QA · un cosmético que no es insignia → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Insignias no válidas (máximo 3)\",\"code\":\"BAD_BODY\"}"
+  },
+  {
+   "id": "QA · panel de sets como usuario normal → 401/403",
+   "ok": true,
+   "detail": "401"
+  },
+  {
+   "id": "QA · generar borradores como usuario normal → 401/403",
+   "ok": true,
+   "detail": "401"
+  },
+  {
+   "id": "FX · cuenta nueva registrada por el formulario real",
+   "ok": true,
+   "detail": "5078d179"
+  },
+  {
+   "id": "FX · Eternal Fire sin completar al nacer (le faltan cartas; ni reclamable ni completado)",
+   "ok": true,
+   "detail": "{\"state\":\"LOCKED\",\"missing\":4,\"needed\":[\"audaz__base\",\"echo__base\",\"favian__base\",\"nekky__base\"]}"
+  },
+  {
+   "id": "FX · cartas concedidas por /api/admin/users (auditado) y admin QA revocado al momento",
+   "ok": true,
+   "detail": "[200,200,200,200]"
+  },
+  {
+   "id": "K · Eternal Fire CLAIMABLE con sus cartas reales",
+   "ok": true,
+   "detail": "{\"owned\":4,\"required\":4,\"state\":\"CLAIMABLE\"}"
+  },
+  {
+   "id": "K · insignia de EF todavía bloqueada (en «locked», no en «unlocked»)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · insignia de EF con el logo REAL del equipo",
+   "ok": true,
+   "detail": "{\"id\":\"insignia:coleccion:team-eternal-fire\",\"label\":\"Eternal Fire\",\"kind\":\"TEAM\",\"logo\":\"/hints/teams/eternal-fire.png\",\"color\":\"#19e3ff\",\"caption\":\"Equipo completado\",\"setId\":\"team-eternal-fire-v1\"}"
+  },
+  {
+   "id": "K · login UI",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · UI sala: banner «lista para reclamar»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · UI sala: 6 colecciones",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · UI: momento de colección completada",
+   "ok": true,
+   "detail": "{\"text\":\"EQUIPO COMPLETADO\\n\\nEternal Fire\\nETERNAL FIRE\\n\\nInsignia desbloqueada: Eternal Fire\\n\\nDESTACAR EN MI PERFIL\\nCONTINUAR\",\"reduced\":\"0\",\"logo\":true}"
+  },
+  {
+   "id": "K · carrera: 6 API + doble clic UI → exactamente 1 COMPLETED",
+   "ok": true,
+   "detail": "{\"api\":[{\"status\":200,\"outcome\":\"ALREADY\"},{\"status\":200,\"outcome\":\"ALREADY\"},{\"status\":200,\"outcome\":\"ALREADY\"},{\"status\":200,\"outcome\":\"ALREADY\"},{\"status\":200,\"outcome\":\"ALREADY\"},{\"status\":200,\"outcome\":\"ALREADY\"}],\"ui\":{\"text\":\"EQUIPO COMPLETADO\\n\\nEternal Fire\\nETERNAL FIRE\\n\\nInsignia desbloqueada: Eternal Fire\\n\\nDESTACAR EN MI PERFIL\\nCONTINUAR\",\"reduced\":\"0\",\"logo\":true}}"
+  },
+  {
+   "id": "K · UI: botón DESTACAR EN MI PERFIL presente",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · UI detalle: ya no hay botón de reclamar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · F5: sigue COMPLETADO, sin reclamar otra vez",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · perfil propio: tarjeta de identidad simple (sin vitrina de insignias, Profile 2.0)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · room 1024: sin desbordamiento horizontal",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · detail-completed 1024: sin desbordamiento horizontal",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · profile-own 1024: sin desbordamiento horizontal",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · room 390: sin desbordamiento horizontal",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · detail-completed 390: sin desbordamiento horizontal",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · profile-own 390: sin desbordamiento horizontal",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · EF COMPLETED con fecha",
+   "ok": true,
+   "detail": "{\"state\":\"COMPLETED\",\"at\":\"2026-10-06T19:23:42.460082+00:00\"}"
+  },
+  {
+   "id": "K · insignia en «unlocked», fuera de «locked»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · compleciones recientes incluye EF",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · reintento → 200 ALREADY",
+   "ok": true,
+   "detail": "ALREADY"
+  },
+  {
+   "id": "K · destacar EF + una bloqueada (G2) → 403 LOCKED",
+   "ok": true,
+   "detail": "{\"error\":\"Solo puedes destacar insignias que ya has desbloqueado\",\"code\":\"LOCKED\"}"
+  },
+  {
+   "id": "K · featuredBadgeIds tras EQUIP = [EF]",
+   "ok": true,
+   "detail": "[\"insignia:coleccion:team-eternal-fire\"]"
+  },
+  {
+   "id": "K · mismo contenido → UNCHANGED",
+   "ok": true,
+   "detail": "{\"code\":\"UNCHANGED\",\"version\":1}"
+  },
+  {
+   "id": "K · quitar → SAVED",
+   "ok": true,
+   "detail": "{\"code\":\"SAVED\",\"version\":2}"
+  },
+  {
+   "id": "K · versión vieja (otra pestaña) → 409 CONFLICT",
+   "ok": true,
+   "detail": "{\"error\":\"Tu perfil cambió en otra pestaña: se ha recargado la versión actual\",\"code\":\"CONFLICT\"}"
+  },
+  {
+   "id": "K · volver a destacar → SAVED",
+   "ok": true,
+   "detail": "{\"code\":\"SAVED\",\"version\":3}"
+  },
+  {
+   "id": "K · perfil SELF: destacadas [EF] + lista propia para el editor",
+   "ok": true,
+   "detail": "{\"badges\":[\"insignia:coleccion:team-eternal-fire\"],\"owned\":1}"
+  },
+  {
+   "id": "perfil PÚBLICO de K visto por QA: insignia con logo real",
+   "ok": true,
+   "detail": "[{\"id\":\"insignia:coleccion:team-eternal-fire\",\"label\":\"Eternal Fire\",\"kind\":\"TEAM\",\"logo\":\"/hints/teams/eternal-fire.png\",\"color\":\"#19e3ff\",\"caption\":\"Equipo completado\",\"setId\":\"team-eternal-fire-v1\"}]"
+  },
+  {
+   "id": "perfil PÚBLICO: sin lista de insignias propias ni bloqueadas",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · login UI",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · UI 390: lista «te falta» + sin botón de reclamar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · UI 390 sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · UI: un borrador no aparece en la sala",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "página / → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion/trofeos → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /tienda → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /misiones/crafting → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /competitivo → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /progresion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /admin/collection-sets → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/state (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/me (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/competitive (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/forge (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/missions (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/crafting (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  }
+ ]
+}

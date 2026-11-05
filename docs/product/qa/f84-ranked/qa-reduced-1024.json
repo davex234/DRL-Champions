@@ -1,0 +1,308 @@
+{
+ "base": "http://127.0.0.1:3184",
+ "at": "2026-10-04T17:28:03.187Z",
+ "total": 38,
+ "passed": 38,
+ "failed": 0,
+ "checks": [
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "textos clave visibles",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "sin correos en pantalla",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "emblema del héroe con nombre accesible",
+   "ok": true,
+   "detail": "Rango: Titular II · puesto 212"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "un CTA de juego, táctil ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "h": 82.625,
+    "n": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-mid",
+   "name": "nombres largos truncados dentro de su fila",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "textos clave visibles",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "sin correos en pantalla",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "emblema del héroe con nombre accesible",
+   "ok": true,
+   "detail": "Rango: Cumbre · puesto 3"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "un CTA de juego, táctil ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "h": 82.625,
+    "n": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub-cumbre",
+   "name": "nombres largos truncados dentro de su fila",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-reveal",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-reveal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-reveal",
+   "name": "textos clave visibles",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-reveal",
+   "name": "sin correos en pantalla",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-reveal",
+   "name": "bloque de cambio de rango presente",
+   "ok": true,
+   "detail": "PLACEMENT_COMPLETE"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-reveal",
+   "name": "movimiento reducido: sin animar, misma información",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-promotion-tier",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-promotion-tier",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-promotion-tier",
+   "name": "textos clave visibles",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-promotion-tier",
+   "name": "sin correos en pantalla",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-promotion-tier",
+   "name": "bloque de cambio de rango presente",
+   "ok": true,
+   "detail": "PROMOTION"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-promotion-tier",
+   "name": "movimiento reducido: sin animar, misma información",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-demotion",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-demotion",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-demotion",
+   "name": "textos clave visibles",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-demotion",
+   "name": "sin correos en pantalla",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-demotion",
+   "name": "bloque de cambio de rango presente",
+   "ok": true,
+   "detail": "DEMOTION"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "result-demotion",
+   "name": "movimiento reducido: sin animar, misma información",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-ranked",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-ranked",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-ranked",
+   "name": "textos clave visibles",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-ranked",
+   "name": "sin correos en pantalla",
+   "ok": true
+  }
+ ]
+}

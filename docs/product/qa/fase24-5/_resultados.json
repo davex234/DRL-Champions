@@ -1,0 +1,282 @@
+[
+  {
+    "label": "/pickems @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @1440 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @1024 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @390 sin excepciones ni desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estado real: Próximamente · fase Group Stage · 0 en directo · siguiente Team Liquid vs Paper Rex · 0/34 partidos",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "real-future-champions-2026 @1440: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "real-future-champions-2026 @1024: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "real-future-champions-2026 @390: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "upcoming @1440: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "upcoming @1024: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "upcoming @390: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "active-one-live @1440: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "active-one-live @1024: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "active-one-live @390: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "active-multi-live @1440: sin desbordamiento, botones ≥ 44px, 2 directo(s) pintados = 2 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "active-multi-live @1024: sin desbordamiento, botones ≥ 44px, 2 directo(s) pintados = 2 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "active-multi-live @390: sin desbordamiento, botones ≥ 44px, 2 directo(s) pintados = 2 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "diff real del escenario: MATCH_FINISHED, MATCH_FINISHED, PREDICTION_RESOLVED, QUALIFIED, PARTICIPANT_SET, RANK_CHANGED, POINTS_CHANGED, REWARD_EARNED",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "just-resolved @1440: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "just-resolved @1024: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "just-resolved @390: sin desbordamiento, botones ≥ 44px, 0 directo(s) pintados = 0 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "refresh-error @1440: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "refresh-error @1024: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "refresh-error @390: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "league @1440: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "league @1024: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  },
+  {
+    "label": "league @390: sin desbordamiento, botones ≥ 44px, 1 directo(s) pintados = 1 reales",
+    "ok": true,
+    "detail": "0px · 0 pequeños"
+  }
+]

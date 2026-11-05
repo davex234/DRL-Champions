@@ -1,0 +1,1494 @@
+{
+  "generatedAt": "2026-10-04T16:17:37.348Z",
+  "config": {
+    "version": "rank-v1",
+    "divisionWidth": 30,
+    "tiers": [
+      {
+        "name": "Cantera",
+        "floor": 0
+      },
+      {
+        "name": "Promesa",
+        "floor": 860
+      },
+      {
+        "name": "Titular",
+        "floor": 950
+      },
+      {
+        "name": "Veterano",
+        "floor": 1040
+      },
+      {
+        "name": "Capitán",
+        "floor": 1130
+      },
+      {
+        "name": "Estrella",
+        "floor": 1220
+      },
+      {
+        "name": "Cumbre",
+        "floor": 1310
+      }
+    ]
+  },
+  "populations": [
+    {
+      "n": 10,
+      "sigma": 50,
+      "rounds": 50,
+      "rated": 10,
+      "ratings": {
+        "n": 10,
+        "min": 892,
+        "p10": 903,
+        "p25": 936,
+        "p50": 1006,
+        "p75": 1038,
+        "p90": 1090,
+        "p95": 1117,
+        "p99": 1139,
+        "max": 1144
+      },
+      "sd": 76,
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 30,
+        "Titular": 40,
+        "Veterano": 20,
+        "Capitán": 10,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": -5,
+        "perPlayer": -0.5
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.68,
+      "gamesPerPlayer": {
+        "n": 10,
+        "min": 28,
+        "p10": 33,
+        "p25": 36,
+        "p50": 38,
+        "p75": 47,
+        "p90": 48,
+        "p95": 48,
+        "p99": 48,
+        "max": 48
+      },
+      "activeLastRounds": 10
+    },
+    {
+      "n": 10,
+      "sigma": 100,
+      "rounds": 50,
+      "rated": 10,
+      "ratings": {
+        "n": 10,
+        "min": 861,
+        "p10": 905,
+        "p25": 940,
+        "p50": 994,
+        "p75": 1073,
+        "p90": 1113,
+        "p95": 1119,
+        "p99": 1125,
+        "max": 1126
+      },
+      "sd": 84,
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 30,
+        "Titular": 30,
+        "Veterano": 40,
+        "Capitán": 0,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 33,
+        "perPlayer": 3.3
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.65,
+      "gamesPerPlayer": {
+        "n": 10,
+        "min": 28,
+        "p10": 31,
+        "p25": 35,
+        "p50": 43,
+        "p75": 44,
+        "p90": 46,
+        "p95": 48,
+        "p99": 50,
+        "max": 50
+      },
+      "activeLastRounds": 10
+    },
+    {
+      "n": 10,
+      "sigma": 150,
+      "rounds": 50,
+      "rated": 10,
+      "ratings": {
+        "n": 10,
+        "min": 783,
+        "p10": 914,
+        "p25": 954,
+        "p50": 995,
+        "p75": 1083,
+        "p90": 1111,
+        "p95": 1131,
+        "p99": 1147,
+        "max": 1151
+      },
+      "sd": 101,
+      "tiers": {
+        "Cantera": 10,
+        "Promesa": 20,
+        "Titular": 40,
+        "Veterano": 20,
+        "Capitán": 10,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 15,
+        "perPlayer": 1.5
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.92,
+      "gamesPerPlayer": {
+        "n": 10,
+        "min": 30,
+        "p10": 35,
+        "p25": 38,
+        "p50": 41,
+        "p75": 43,
+        "p90": 46,
+        "p95": 46,
+        "p99": 46,
+        "max": 46
+      },
+      "activeLastRounds": 10
+    },
+    {
+      "n": 50,
+      "sigma": 50,
+      "rounds": 250,
+      "rated": 50,
+      "ratings": {
+        "n": 50,
+        "min": 793,
+        "p10": 899,
+        "p25": 947,
+        "p50": 998,
+        "p75": 1050,
+        "p90": 1105,
+        "p95": 1136,
+        "p99": 1171,
+        "max": 1182
+      },
+      "sd": 81,
+      "tiers": {
+        "Cantera": 2,
+        "Promesa": 26,
+        "Titular": 42,
+        "Veterano": 22,
+        "Capitán": 8,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": -35,
+        "perPlayer": -0.7
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.65,
+      "gamesPerPlayer": {
+        "n": 50,
+        "min": 8,
+        "p10": 20,
+        "p25": 28,
+        "p50": 40,
+        "p75": 56,
+        "p90": 62,
+        "p95": 63,
+        "p99": 65,
+        "max": 65
+      },
+      "activeLastRounds": 47
+    },
+    {
+      "n": 50,
+      "sigma": 100,
+      "rounds": 250,
+      "rated": 50,
+      "ratings": {
+        "n": 50,
+        "min": 713,
+        "p10": 922,
+        "p25": 948,
+        "p50": 998,
+        "p75": 1067,
+        "p90": 1105,
+        "p95": 1116,
+        "p99": 1146,
+        "max": 1162
+      },
+      "sd": 84,
+      "tiers": {
+        "Cantera": 4,
+        "Promesa": 22,
+        "Titular": 42,
+        "Veterano": 28,
+        "Capitán": 4,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 54,
+        "perPlayer": 1.08
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.84,
+      "gamesPerPlayer": {
+        "n": 50,
+        "min": 11,
+        "p10": 17,
+        "p25": 31,
+        "p50": 40,
+        "p75": 51,
+        "p90": 61,
+        "p95": 64,
+        "p99": 66,
+        "max": 67
+      },
+      "activeLastRounds": 49
+    },
+    {
+      "n": 50,
+      "sigma": 150,
+      "rounds": 250,
+      "rated": 50,
+      "ratings": {
+        "n": 50,
+        "min": 666,
+        "p10": 873,
+        "p25": 956,
+        "p50": 1012,
+        "p75": 1060,
+        "p90": 1126,
+        "p95": 1155,
+        "p99": 1274,
+        "max": 1283
+      },
+      "sd": 110,
+      "tiers": {
+        "Cantera": 8,
+        "Promesa": 16,
+        "Titular": 46,
+        "Veterano": 20,
+        "Capitán": 6,
+        "Estrella": 4,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 156,
+        "perPlayer": 3.12
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.92,
+      "gamesPerPlayer": {
+        "n": 50,
+        "min": 9,
+        "p10": 18,
+        "p25": 25,
+        "p50": 39,
+        "p75": 52,
+        "p90": 63,
+        "p95": 70,
+        "p99": 74,
+        "max": 78
+      },
+      "activeLastRounds": 48
+    },
+    {
+      "n": 100,
+      "sigma": 50,
+      "rounds": 500,
+      "rated": 100,
+      "ratings": {
+        "n": 100,
+        "min": 770,
+        "p10": 898,
+        "p25": 953,
+        "p50": 997,
+        "p75": 1054,
+        "p90": 1109,
+        "p95": 1132,
+        "p99": 1156,
+        "max": 1172
+      },
+      "sd": 81,
+      "tiers": {
+        "Cantera": 6,
+        "Promesa": 18,
+        "Titular": 42,
+        "Veterano": 27,
+        "Capitán": 7,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 97,
+        "perPlayer": 0.97
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.58,
+      "gamesPerPlayer": {
+        "n": 100,
+        "min": 11,
+        "p10": 19,
+        "p25": 29,
+        "p50": 39,
+        "p75": 51,
+        "p90": 63,
+        "p95": 69,
+        "p99": 71,
+        "max": 72
+      },
+      "activeLastRounds": 95
+    },
+    {
+      "n": 100,
+      "sigma": 100,
+      "rounds": 500,
+      "rated": 100,
+      "ratings": {
+        "n": 100,
+        "min": 778,
+        "p10": 877,
+        "p25": 942,
+        "p50": 991,
+        "p75": 1056,
+        "p90": 1114,
+        "p95": 1132,
+        "p99": 1200,
+        "max": 1286
+      },
+      "sd": 90,
+      "tiers": {
+        "Cantera": 5,
+        "Promesa": 23,
+        "Titular": 41,
+        "Veterano": 23,
+        "Capitán": 7,
+        "Estrella": 1,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": -213,
+        "perPlayer": -2.13
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.85,
+      "gamesPerPlayer": {
+        "n": 100,
+        "min": 5,
+        "p10": 18,
+        "p25": 25,
+        "p50": 41,
+        "p75": 53,
+        "p90": 61,
+        "p95": 66,
+        "p99": 73,
+        "max": 81
+      },
+      "activeLastRounds": 94
+    },
+    {
+      "n": 100,
+      "sigma": 150,
+      "rounds": 500,
+      "rated": 100,
+      "ratings": {
+        "n": 100,
+        "min": 742,
+        "p10": 875,
+        "p25": 948,
+        "p50": 1008,
+        "p75": 1057,
+        "p90": 1117,
+        "p95": 1161,
+        "p99": 1199,
+        "max": 1242
+      },
+      "sd": 96,
+      "tiers": {
+        "Cantera": 8,
+        "Promesa": 18,
+        "Titular": 39,
+        "Veterano": 26,
+        "Capitán": 8,
+        "Estrella": 1,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 66,
+        "perPlayer": 0.66
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.91,
+      "gamesPerPlayer": {
+        "n": 100,
+        "min": 7,
+        "p10": 16,
+        "p25": 28,
+        "p50": 41,
+        "p75": 53,
+        "p90": 64,
+        "p95": 66,
+        "p99": 71,
+        "max": 75
+      },
+      "activeLastRounds": 93
+    },
+    {
+      "n": 500,
+      "sigma": 50,
+      "rounds": 2500,
+      "rated": 500,
+      "ratings": {
+        "n": 500,
+        "min": 737,
+        "p10": 895,
+        "p25": 937,
+        "p50": 1002,
+        "p75": 1060,
+        "p90": 1109,
+        "p95": 1142,
+        "p99": 1178,
+        "max": 1269
+      },
+      "sd": 84,
+      "tiers": {
+        "Cantera": 4.4,
+        "Promesa": 24.2,
+        "Titular": 38.8,
+        "Veterano": 26.4,
+        "Capitán": 5.8,
+        "Estrella": 0.4,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 151,
+        "perPlayer": 0.3
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.66,
+      "gamesPerPlayer": {
+        "n": 500,
+        "min": 5,
+        "p10": 16,
+        "p25": 25,
+        "p50": 39,
+        "p75": 55,
+        "p90": 65,
+        "p95": 68,
+        "p99": 76,
+        "max": 87
+      },
+      "activeLastRounds": 475
+    },
+    {
+      "n": 500,
+      "sigma": 100,
+      "rounds": 2500,
+      "rated": 500,
+      "ratings": {
+        "n": 500,
+        "min": 752,
+        "p10": 882,
+        "p25": 938,
+        "p50": 1000,
+        "p75": 1066,
+        "p90": 1118,
+        "p95": 1145,
+        "p99": 1211,
+        "max": 1263
+      },
+      "sd": 90,
+      "tiers": {
+        "Cantera": 6.2,
+        "Promesa": 22.6,
+        "Titular": 37.8,
+        "Veterano": 25.4,
+        "Capitán": 7.2,
+        "Estrella": 0.8,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 490,
+        "perPlayer": 0.98
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.84,
+      "gamesPerPlayer": {
+        "n": 500,
+        "min": 6,
+        "p10": 16,
+        "p25": 25,
+        "p50": 41,
+        "p75": 54,
+        "p90": 63,
+        "p95": 67,
+        "p99": 77,
+        "max": 84
+      },
+      "activeLastRounds": 478
+    },
+    {
+      "n": 500,
+      "sigma": 150,
+      "rounds": 2500,
+      "rated": 500,
+      "ratings": {
+        "n": 500,
+        "min": 635,
+        "p10": 874,
+        "p25": 944,
+        "p50": 1005,
+        "p75": 1061,
+        "p90": 1124,
+        "p95": 1150,
+        "p99": 1249,
+        "max": 1375
+      },
+      "sd": 98,
+      "tiers": {
+        "Cantera": 7.6,
+        "Promesa": 19.8,
+        "Titular": 39.2,
+        "Veterano": 25.4,
+        "Capitán": 6,
+        "Estrella": 1.6,
+        "Cumbre": 0.4
+      },
+      "zeroSum": {
+        "netDriftTotal": 428,
+        "perPlayer": 0.86
+      },
+      "cumbre": {
+        "count": 2,
+        "minSkillWinrateVsAvg": 94,
+        "minGames": 56
+      },
+      "skillRatingCorrelation": 0.9,
+      "gamesPerPlayer": {
+        "n": 500,
+        "min": 6,
+        "p10": 16,
+        "p25": 25,
+        "p50": 38,
+        "p75": 55,
+        "p90": 64,
+        "p95": 68,
+        "p99": 76,
+        "max": 83
+      },
+      "activeLastRounds": 471
+    },
+    {
+      "n": 1000,
+      "sigma": 50,
+      "rounds": 5000,
+      "rated": 1000,
+      "ratings": {
+        "n": 1000,
+        "min": 786,
+        "p10": 894,
+        "p25": 941,
+        "p50": 1000,
+        "p75": 1057,
+        "p90": 1108,
+        "p95": 1132,
+        "p99": 1197,
+        "max": 1269
+      },
+      "sd": 83,
+      "tiers": {
+        "Cantera": 4.6,
+        "Promesa": 23.6,
+        "Titular": 39.1,
+        "Veterano": 27.5,
+        "Capitán": 4.7,
+        "Estrella": 0.5,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": 328,
+        "perPlayer": 0.33
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.6,
+      "gamesPerPlayer": {
+        "n": 1000,
+        "min": 5,
+        "p10": 16,
+        "p25": 24,
+        "p50": 40,
+        "p75": 54,
+        "p90": 65,
+        "p95": 71,
+        "p99": 80,
+        "max": 89
+      },
+      "activeLastRounds": 947
+    },
+    {
+      "n": 1000,
+      "sigma": 100,
+      "rounds": 5000,
+      "rated": 1000,
+      "ratings": {
+        "n": 1000,
+        "min": 688,
+        "p10": 885,
+        "p25": 941,
+        "p50": 995,
+        "p75": 1061,
+        "p90": 1115,
+        "p95": 1143,
+        "p99": 1199,
+        "max": 1298
+      },
+      "sd": 89,
+      "tiers": {
+        "Cantera": 6.1,
+        "Promesa": 22.4,
+        "Titular": 38.2,
+        "Veterano": 25.7,
+        "Capitán": 7.1,
+        "Estrella": 0.5,
+        "Cumbre": 0
+      },
+      "zeroSum": {
+        "netDriftTotal": -608,
+        "perPlayer": -0.61
+      },
+      "cumbre": {
+        "count": 0,
+        "minSkillWinrateVsAvg": null,
+        "minGames": null
+      },
+      "skillRatingCorrelation": 0.82,
+      "gamesPerPlayer": {
+        "n": 1000,
+        "min": 3,
+        "p10": 15,
+        "p25": 25,
+        "p50": 39,
+        "p75": 55,
+        "p90": 64,
+        "p95": 70,
+        "p99": 79,
+        "max": 88
+      },
+      "activeLastRounds": 939
+    },
+    {
+      "n": 1000,
+      "sigma": 150,
+      "rounds": 5000,
+      "rated": 1000,
+      "ratings": {
+        "n": 1000,
+        "min": 692,
+        "p10": 881,
+        "p25": 939,
+        "p50": 1002,
+        "p75": 1063,
+        "p90": 1120,
+        "p95": 1158,
+        "p99": 1223,
+        "max": 1408
+      },
+      "sd": 96,
+      "tiers": {
+        "Cantera": 7.4,
+        "Promesa": 21.7,
+        "Titular": 38.6,
+        "Veterano": 23.8,
+        "Capitán": 7.4,
+        "Estrella": 1,
+        "Cumbre": 0.1
+      },
+      "zeroSum": {
+        "netDriftTotal": -164,
+        "perPlayer": -0.16
+      },
+      "cumbre": {
+        "count": 1,
+        "minSkillWinrateVsAvg": 96,
+        "minGames": 73
+      },
+      "skillRatingCorrelation": 0.89,
+      "gamesPerPlayer": {
+        "n": 1000,
+        "min": 5,
+        "p10": 16,
+        "p25": 25,
+        "p50": 40,
+        "p75": 54,
+        "p90": 64,
+        "p95": 69,
+        "p99": 76,
+        "max": 91
+      },
+      "activeLastRounds": 934
+    }
+  ],
+  "longRun": [
+    {
+      "n": 500,
+      "sigma": 100,
+      "rounds": 12500,
+      "rated": 500,
+      "ratings": {
+        "n": 500,
+        "min": 582,
+        "p10": 808,
+        "p25": 891,
+        "p50": 999,
+        "p75": 1107,
+        "p90": 1192,
+        "p95": 1239,
+        "p99": 1300,
+        "max": 1479
+      },
+      "sd": 148,
+      "tiers": {
+        "Cantera": 18.6,
+        "Promesa": 21,
+        "Titular": 18.8,
+        "Veterano": 20.2,
+        "Capitán": 14,
+        "Estrella": 6.4,
+        "Cumbre": 1
+      },
+      "zeroSum": {
+        "netDriftTotal": -17,
+        "perPlayer": -0.03
+      },
+      "cumbre": {
+        "count": 5,
+        "minSkillWinrateVsAvg": 71,
+        "minGames": 155
+      },
+      "skillRatingCorrelation": 0.93,
+      "gamesPerPlayer": {
+        "n": 500,
+        "min": 44,
+        "p10": 81,
+        "p25": 123,
+        "p50": 201,
+        "p75": 273,
+        "p90": 321,
+        "p95": 339,
+        "p99": 356,
+        "max": 368
+      },
+      "activeLastRounds": 500
+    },
+    {
+      "n": 500,
+      "sigma": 150,
+      "rounds": 12500,
+      "rated": 500,
+      "ratings": {
+        "n": 500,
+        "min": 599,
+        "p10": 787,
+        "p25": 885,
+        "p50": 1001,
+        "p75": 1116,
+        "p90": 1208,
+        "p95": 1262,
+        "p99": 1371,
+        "max": 1521
+      },
+      "sd": 162,
+      "tiers": {
+        "Cantera": 19.8,
+        "Promesa": 19.2,
+        "Titular": 20.4,
+        "Veterano": 18,
+        "Capitán": 14.2,
+        "Estrella": 5.6,
+        "Cumbre": 2.8
+      },
+      "zeroSum": {
+        "netDriftTotal": 352,
+        "perPlayer": 0.7
+      },
+      "cumbre": {
+        "count": 14,
+        "minSkillWinrateVsAvg": 79,
+        "minGames": 85
+      },
+      "skillRatingCorrelation": 0.95,
+      "gamesPerPlayer": {
+        "n": 500,
+        "min": 39,
+        "p10": 79,
+        "p25": 125,
+        "p50": 197,
+        "p75": 273,
+        "p90": 321,
+        "p95": 333,
+        "p99": 358,
+        "max": 407
+      },
+      "activeLastRounds": 500
+    }
+  ],
+  "winrates": [
+    {
+      "winrate": 0.4,
+      "games": 20,
+      "trials": 400,
+      "skillVsAvg": -70,
+      "final": {
+        "n": 400,
+        "min": 788,
+        "p10": 887,
+        "p25": 913,
+        "p50": 951,
+        "p75": 983,
+        "p90": 1016,
+        "p95": 1034,
+        "p99": 1058,
+        "max": 1063
+      },
+      "tiers": {
+        "Cantera": 5,
+        "Promesa": 44.8,
+        "Titular": 46.5,
+        "Veterano": 3.8,
+        "Capitán": 0,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "medianRank": "Titular III"
+    },
+    {
+      "winrate": 0.4,
+      "games": 200,
+      "trials": 400,
+      "skillVsAvg": -70,
+      "final": {
+        "n": 400,
+        "min": 739,
+        "p10": 842,
+        "p25": 880,
+        "p50": 911,
+        "p75": 945,
+        "p90": 979,
+        "p95": 999,
+        "p99": 1029,
+        "max": 1051
+      },
+      "tiers": {
+        "Cantera": 15.3,
+        "Promesa": 61.5,
+        "Titular": 22.8,
+        "Veterano": 0.5,
+        "Capitán": 0,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "medianRank": "Promesa II"
+    },
+    {
+      "winrate": 0.5,
+      "games": 20,
+      "trials": 400,
+      "skillVsAvg": 0,
+      "final": {
+        "n": 400,
+        "min": 835,
+        "p10": 931,
+        "p25": 961,
+        "p50": 993,
+        "p75": 1033,
+        "p90": 1063,
+        "p95": 1084,
+        "p99": 1126,
+        "max": 1154
+      },
+      "tiers": {
+        "Cantera": 0.8,
+        "Promesa": 17.3,
+        "Titular": 61,
+        "Veterano": 20,
+        "Capitán": 1,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "medianRank": "Titular II"
+    },
+    {
+      "winrate": 0.5,
+      "games": 200,
+      "trials": 400,
+      "skillVsAvg": 0,
+      "final": {
+        "n": 400,
+        "min": 866,
+        "p10": 941,
+        "p25": 969,
+        "p50": 1001,
+        "p75": 1032,
+        "p90": 1059,
+        "p95": 1079,
+        "p99": 1128,
+        "max": 1148
+      },
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 14,
+        "Titular": 66.8,
+        "Veterano": 18.3,
+        "Capitán": 1,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "medianRank": "Titular II"
+    },
+    {
+      "winrate": 0.55,
+      "games": 20,
+      "trials": 400,
+      "skillVsAvg": 35,
+      "final": {
+        "n": 400,
+        "min": 895,
+        "p10": 958,
+        "p25": 989,
+        "p50": 1020,
+        "p75": 1051,
+        "p90": 1090,
+        "p95": 1112,
+        "p99": 1138,
+        "max": 1179
+      },
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 7.8,
+        "Titular": 58.5,
+        "Veterano": 32,
+        "Capitán": 1.8,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "medianRank": "Titular I"
+    },
+    {
+      "winrate": 0.55,
+      "games": 200,
+      "trials": 400,
+      "skillVsAvg": 35,
+      "final": {
+        "n": 400,
+        "min": 892,
+        "p10": 986,
+        "p25": 1013,
+        "p50": 1045,
+        "p75": 1079,
+        "p90": 1110,
+        "p95": 1138,
+        "p99": 1156,
+        "max": 1197
+      },
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 2.8,
+        "Titular": 41.8,
+        "Veterano": 49.5,
+        "Capitán": 6,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "medianRank": "Veterano III"
+    },
+    {
+      "winrate": 0.6,
+      "games": 20,
+      "trials": 400,
+      "skillVsAvg": 70,
+      "final": {
+        "n": 400,
+        "min": 912,
+        "p10": 980,
+        "p25": 1010,
+        "p50": 1042,
+        "p75": 1076,
+        "p90": 1113,
+        "p95": 1129,
+        "p99": 1164,
+        "max": 1184
+      },
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 3,
+        "Titular": 44.8,
+        "Veterano": 47.5,
+        "Capitán": 4.8,
+        "Estrella": 0,
+        "Cumbre": 0
+      },
+      "medianRank": "Veterano III"
+    },
+    {
+      "winrate": 0.6,
+      "games": 200,
+      "trials": 400,
+      "skillVsAvg": 70,
+      "final": {
+        "n": 400,
+        "min": 948,
+        "p10": 1030,
+        "p25": 1056,
+        "p50": 1084,
+        "p75": 1127,
+        "p90": 1157,
+        "p95": 1175,
+        "p99": 1206,
+        "max": 1260
+      },
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 0.3,
+        "Titular": 14.8,
+        "Veterano": 61.3,
+        "Capitán": 22.8,
+        "Estrella": 1,
+        "Cumbre": 0
+      },
+      "medianRank": "Veterano II"
+    },
+    {
+      "winrate": 0.7,
+      "games": 20,
+      "trials": 400,
+      "skillVsAvg": 147,
+      "final": {
+        "n": 400,
+        "min": 944,
+        "p10": 1024,
+        "p25": 1060,
+        "p50": 1092,
+        "p75": 1128,
+        "p90": 1162,
+        "p95": 1179,
+        "p99": 1217,
+        "max": 1259
+      },
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 0.3,
+        "Titular": 15.3,
+        "Veterano": 59.8,
+        "Capitán": 23.8,
+        "Estrella": 1,
+        "Cumbre": 0
+      },
+      "medianRank": "Veterano II"
+    },
+    {
+      "winrate": 0.7,
+      "games": 200,
+      "trials": 400,
+      "skillVsAvg": 147,
+      "final": {
+        "n": 400,
+        "min": 1023,
+        "p10": 1123,
+        "p25": 1151,
+        "p50": 1183,
+        "p75": 1219,
+        "p90": 1252,
+        "p95": 1273,
+        "p99": 1304,
+        "max": 1395
+      },
+      "tiers": {
+        "Cantera": 0,
+        "Promesa": 0,
+        "Titular": 0.8,
+        "Veterano": 11.5,
+        "Capitán": 63,
+        "Estrella": 24,
+        "Cumbre": 0.8
+      },
+      "medianRank": "Capitán II"
+    }
+  ],
+  "placements": [
+    {
+      "seed": "nuevo (1000, 0 partidas, K40)",
+      "record": "5-0",
+      "from": 1000,
+      "to": 1100,
+      "jump": 100,
+      "deltas": [
+        20,
+        20,
+        20,
+        20,
+        20
+      ],
+      "rank": "Veterano I"
+    },
+    {
+      "seed": "nuevo (1000, 0 partidas, K40)",
+      "record": "4-1",
+      "from": 1000,
+      "to": 1060,
+      "jump": 60,
+      "deltas": [
+        20,
+        20,
+        20,
+        20,
+        -20
+      ],
+      "rank": "Veterano III"
+    },
+    {
+      "seed": "nuevo (1000, 0 partidas, K40)",
+      "record": "3-2",
+      "from": 1000,
+      "to": 1020,
+      "jump": 20,
+      "deltas": [
+        20,
+        20,
+        20,
+        -20,
+        -20
+      ],
+      "rank": "Titular I"
+    },
+    {
+      "seed": "nuevo (1000, 0 partidas, K40)",
+      "record": "2-3",
+      "from": 1000,
+      "to": 980,
+      "jump": -20,
+      "deltas": [
+        20,
+        20,
+        -20,
+        -20,
+        -20
+      ],
+      "rank": "Titular II"
+    },
+    {
+      "seed": "nuevo (1000, 0 partidas, K40)",
+      "record": "1-4",
+      "from": 1000,
+      "to": 940,
+      "jump": -60,
+      "deltas": [
+        20,
+        -20,
+        -20,
+        -20,
+        -20
+      ],
+      "rank": "Promesa I"
+    },
+    {
+      "seed": "nuevo (1000, 0 partidas, K40)",
+      "record": "0-5",
+      "from": 1000,
+      "to": 900,
+      "jump": -100,
+      "deltas": [
+        -20,
+        -20,
+        -20,
+        -20,
+        -20
+      ],
+      "rank": "Promesa II"
+    },
+    {
+      "seed": "veterano real (1089, 29 partidas, K24)",
+      "record": "5-0",
+      "from": 1089,
+      "to": 1149,
+      "jump": 60,
+      "deltas": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rank": "Capitán III"
+    },
+    {
+      "seed": "veterano real (1089, 29 partidas, K24)",
+      "record": "4-1",
+      "from": 1089,
+      "to": 1125,
+      "jump": 36,
+      "deltas": [
+        12,
+        12,
+        12,
+        12,
+        -12
+      ],
+      "rank": "Veterano I"
+    },
+    {
+      "seed": "veterano real (1089, 29 partidas, K24)",
+      "record": "3-2",
+      "from": 1089,
+      "to": 1101,
+      "jump": 12,
+      "deltas": [
+        12,
+        12,
+        12,
+        -12,
+        -12
+      ],
+      "rank": "Veterano I"
+    },
+    {
+      "seed": "veterano real (1089, 29 partidas, K24)",
+      "record": "2-3",
+      "from": 1089,
+      "to": 1077,
+      "jump": -12,
+      "deltas": [
+        12,
+        12,
+        -12,
+        -12,
+        -12
+      ],
+      "rank": "Veterano II"
+    },
+    {
+      "seed": "veterano real (1089, 29 partidas, K24)",
+      "record": "1-4",
+      "from": 1089,
+      "to": 1053,
+      "jump": -36,
+      "deltas": [
+        12,
+        -12,
+        -12,
+        -12,
+        -12
+      ],
+      "rank": "Veterano III"
+    },
+    {
+      "seed": "veterano real (1089, 29 partidas, K24)",
+      "record": "0-5",
+      "from": 1089,
+      "to": 1029,
+      "jump": -60,
+      "deltas": [
+        -12,
+        -12,
+        -12,
+        -12,
+        -12
+      ],
+      "rank": "Titular I"
+    },
+    {
+      "seed": "bajo real (885, 30 partidas, K24)",
+      "record": "5-0",
+      "from": 885,
+      "to": 945,
+      "jump": 60,
+      "deltas": [
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "rank": "Promesa I"
+    },
+    {
+      "seed": "bajo real (885, 30 partidas, K24)",
+      "record": "4-1",
+      "from": 885,
+      "to": 921,
+      "jump": 36,
+      "deltas": [
+        12,
+        12,
+        12,
+        12,
+        -12
+      ],
+      "rank": "Promesa I"
+    },
+    {
+      "seed": "bajo real (885, 30 partidas, K24)",
+      "record": "3-2",
+      "from": 885,
+      "to": 897,
+      "jump": 12,
+      "deltas": [
+        12,
+        12,
+        12,
+        -12,
+        -12
+      ],
+      "rank": "Promesa II"
+    },
+    {
+      "seed": "bajo real (885, 30 partidas, K24)",
+      "record": "2-3",
+      "from": 885,
+      "to": 873,
+      "jump": -12,
+      "deltas": [
+        12,
+        12,
+        -12,
+        -12,
+        -12
+      ],
+      "rank": "Promesa III"
+    },
+    {
+      "seed": "bajo real (885, 30 partidas, K24)",
+      "record": "1-4",
+      "from": 885,
+      "to": 849,
+      "jump": -36,
+      "deltas": [
+        12,
+        -12,
+        -12,
+        -12,
+        -12
+      ],
+      "rank": "Cantera I"
+    },
+    {
+      "seed": "bajo real (885, 30 partidas, K24)",
+      "record": "0-5",
+      "from": 885,
+      "to": 825,
+      "jump": -60,
+      "deltas": [
+        -12,
+        -12,
+        -12,
+        -12,
+        -12
+      ],
+      "rank": "Cantera II"
+    }
+  ],
+  "lowPopulation": [
+    {
+      "n": 10,
+      "rated": 10,
+      "activeLast14": 10,
+      "note": "elegible = colocación completa (5) + ≥ 5 partidas de temporada + partida en los últimos 14 días"
+    },
+    {
+      "n": 50,
+      "rated": 50,
+      "activeLast14": 47,
+      "note": "elegible = colocación completa (5) + ≥ 5 partidas de temporada + partida en los últimos 14 días"
+    },
+    {
+      "n": 100,
+      "rated": 100,
+      "activeLast14": 89,
+      "note": "elegible = colocación completa (5) + ≥ 5 partidas de temporada + partida en los últimos 14 días"
+    },
+    {
+      "n": 500,
+      "rated": 500,
+      "activeLast14": 471,
+      "note": "elegible = colocación completa (5) + ≥ 5 partidas de temporada + partida en los últimos 14 días"
+    },
+    {
+      "n": 1000,
+      "rated": 1000,
+      "activeLast14": 941,
+      "note": "elegible = colocación completa (5) + ≥ 5 partidas de temporada + partida en los últimos 14 días"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+PASS POINT_SKY persona cargada ready
+PASS POINT_SKY escena 3D con la celebración pedida {"at":3.1,"cele":"ARMS_CROSSED","stage":"3d"}
+PASS POINT_SKY hoja docs/product/qa/walkout-0.9/stage/sheet-POINT_SKY-1440x900-RARE.png
+PASS SHUSH persona cargada ready
+PASS SHUSH escena 3D con la celebración pedida {"at":3.1,"cele":"ARMS_CROSSED","stage":"3d"}
+PASS SHUSH hoja docs/product/qa/walkout-0.9/stage/sheet-SHUSH-1440x900-RARE.png
+PASS HYPE_JUMP persona cargada ready
+PASS HYPE_JUMP escena 3D con la celebración pedida {"at":3.1,"cele":"ARMS_CROSSED","stage":"3d"}
+PASS HYPE_JUMP hoja docs/product/qa/walkout-0.9/stage/sheet-HYPE_JUMP-1440x900-RARE.png
+PASS ARMS_CROSSED persona cargada ready
+PASS ARMS_CROSSED escena 3D con la celebración pedida {"at":3.1,"cele":"ARMS_CROSSED","stage":"3d"}
+PASS ARMS_CROSSED hoja docs/product/qa/walkout-0.9/stage/sheet-ARMS_CROSSED-1440x900-RARE.png
+PASS sin errores de consola []

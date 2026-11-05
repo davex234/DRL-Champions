@@ -1,0 +1,60 @@
+PASS ready + 0066 aplicada (cabeza ≥ 0066) + check «social» {"head":"0069_player_cups"}
+PASS health 200 
+PASS anónimo GET → 401 
+PASS anónimo POST → 401 
+PASS A, B, C sin relaciones previas 0
+PASS búsqueda por prefijo SIN distinguir mayúsculas encuentra a B (relación NINGUNA, sin presencia) {"n":1,"rel":"NONE"}
+PASS búsqueda: sin correo, sin latido, sin metadatos 
+PASS búsqueda: el propio buscador no sale 
+PASS buscar por correo («@») → 400 (no hay enumeración por email) 400
+PASS consulta de 1 carácter → 400 
+PASS comodines del cliente neutralizados (%_ → consulta corta → 400) 400
+PASS consulta larga (300) → recortada, 200 sin resultados 200
+PASS paginación: 10 por página, desplazamiento acotado a 40 {"p1":10,"p2":10,"maxOff":40}
+PASS UUID como consulta → no devuelve a nadie por id 
+PASS A→B ×10 a la vez → todas 200 y UNA fila PENDING {"codes":["ALREADY_PENDING","REQUESTED"],"db":"PENDING:1"}
+PASS B · contador del servidor = 1 (la solicitud) 1
+PASS B · solicitud recibida de A en la foto (con rango F84) {"friends":0,"incoming":1,"outgoing":0,"challengesIn":0,"challengesOut":0,"blocked":0}
+PASS foto social sin datos privados 
+PASS aceptar mi PROPIA solicitud → 409 
+PASS K acepta una solicitud A→B que no es suya → 409 (sin efecto) 
+PASS B acepta ×5 a la vez → 1 ACCEPTED, resto 409, UNA amistad {"ok":1,"db":"ACCEPTED:1"}
+PASS A→C y C→A a la vez → UNA amistad ACCEPTED (cruzada converge) {"a":"REQUESTED","c":"ACCEPTED","db":"ACCEPTED:1"}
+PASS añadirse a uno mismo → 400 
+PASS id inventado → 404/400 
+PASS K elimina la amistad A↔B en su nombre → 409 NOT_FRIENDS (sin efecto) 
+PASS cuerpo con userId/bando falsos se ignora (el sujeto es el token) 
+PASS B ve a A «En línea» (latido reciente) y sin hora exacta ONLINE
+PASS K (no amigo) NO ve la presencia de A null
+PASS K busca a A: presencia null null
+PASS dos sesiones latiendo seguidas: UNA escritura (umbral de 20 s) {"ls1":"1791208553","ls2":"1791208553"}
+PASS el cliente no puede declararse «en partida» (pulse con presence=IN_MATCH se ignora) 
+PASS A, B y C con equipo legal {"a":true,"b":true,"c":true}
+PASS retar a un NO amigo (A→K) → 403 
+PASS retarse a uno mismo → 400 
+PASS retar con un mazo AJENO → rechazado 
+PASS A→B ×10 a la vez → UN reto (mismo challengeId) {"ids":1}
+PASS TTL 5 min por reloj de la BD 
+PASS B recibe el reto en el pulso (avatar, nombre, rango del retador) {"id":"92fca876-ee17-4585-ace2-7d84a87d19a2","badge":1}
+PASS B → A con uno pendiente de A → 409 «acepta su reto» (un reto por pareja) 
+PASS K acepta el reto A→B → 404 (no revela que existe) 
+PASS K cancela el reto A→B → 409 (sin efecto) 
+PASS A (retador) no puede aceptar su propio reto → 404 
+PASS B rechaza → DECLINED 
+PASS A ve su reto RECHAZADO (estado persistido en servidor) DECLINED
+PASS A cancela mientras PENDING → CANCELLED 
+PASS aceptar un reto cancelado → 409 
+PASS antes de caducar: sigue pendiente para B 
+PASS tras caducar (hora del servidor): aceptar → 409 EXPIRED, sin partida EXPIRED
+PASS B en cola ranked acepta → 409 IN_QUEUE; la cola NO se cancela en silencio {"join":200,"code":"IN_QUEUE","st":"QUEUED"}
+[429] challenge_create intento 0 cuerpo={"error":"Demasiados retos a la misma persona en poco tiempo: inténtalo más tarde","code":"CHALLENGE_LIMIT"}
+[429] challenge_create intento 39 cuerpo={"error":"Demasiados retos a la misma persona en poco tiempo: inténtalo más tarde","code":"CHALLENGE_LIMIT"}
+C:\NEXUS-CENTRAL\DRLCards\scripts\_f85-prod-qa.mts:29
+const post = async (w: any, body: any) => { for (let i = 0; i < 40; i++) { const r = await api(w, S, body, { noRetry: true }); if (r.status !== 429) return r; if (i === 0 || i === 39) console.log(`[429] ${body.action} intento ${i} cuerpo=${JSON.stringify(r.json).slice(0, 160)}`); await sleep(Math.max(2, Number(r.json?.retryAfter ?? 5)) * 1000); } throw new Error("429 persistente (90 s)"); };
+                                                                                                                                                                                                                                                                                                                                                                   ^
+
+Error: 429 persistente (90 s)
+    at post (C:\NEXUS-CENTRAL\DRLCards\scripts\_f85-prod-qa.mts:29:356)
+    at async <anonymous> (C:\NEXUS-CENTRAL\DRLCards\scripts\_f85-prod-qa.mts:153:14)
+
+Node.js v24.15.0

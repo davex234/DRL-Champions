@@ -1,0 +1,2607 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-22T11:39:00.556Z",
+  "note": "sesión simulada + fixtures reales (ver cabecera de scripts/_fase51-shots.ts)",
+  "rows": [
+    {
+      "file": "01-jugar-centro-tactico-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/meta",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/draft-gauntlet",
+        "GET /api/game/campaign",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "01-jugar-centro-tactico-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/meta",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/draft-gauntlet",
+        "GET /api/game/campaign",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "01-jugar-centro-tactico-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/meta",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/draft-gauntlet",
+        "GET /api/game/campaign",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "01-jugar-centro-tactico-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/meta",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/draft-gauntlet",
+        "GET /api/game/campaign",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "01-jugar-centro-tactico-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/meta",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/draft-gauntlet",
+        "GET /api/game/campaign",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "02-hub-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "02-hub-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "02-hub-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "02-hub-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "02-hub-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "03-composiciones-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "03-composiciones-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "03-composiciones-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "03-composiciones-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "03-composiciones-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "04-composicion-constructor-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        29
+      ]
+    },
+    {
+      "file": "04-composicion-constructor-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        29
+      ]
+    },
+    {
+      "file": "04-composicion-constructor-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        29
+      ]
+    },
+    {
+      "file": "04-composicion-constructor-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        29
+      ]
+    },
+    {
+      "file": "04-composicion-constructor-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        29
+      ]
+    },
+    {
+      "file": "05-composicion-filtro-rol-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "05-composicion-filtro-rol-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "05-composicion-filtro-rol-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "05-composicion-filtro-rol-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "05-composicion-filtro-rol-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "06-mapas-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "06-mapas-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "06-mapas-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "06-mapas-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "06-mapas-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "07-pizarra-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "07-pizarra-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "07-pizarra-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "07-pizarra-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "07-pizarra-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true
+      ]
+    },
+    {
+      "file": "08-pizarra-agente-habilidad-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "08-pizarra-agente-habilidad-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "08-pizarra-agente-habilidad-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "08-pizarra-agente-habilidad-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "08-pizarra-agente-habilidad-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "09-pizarra-herramienta-armada-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "09-pizarra-herramienta-armada-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "09-pizarra-herramienta-armada-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "09-pizarra-herramienta-armada-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "09-pizarra-herramienta-armada-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "10-pizarra-deshacer-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "10-pizarra-deshacer-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "10-pizarra-deshacer-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "10-pizarra-deshacer-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "10-pizarra-deshacer-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "11-pizarra-conflicto-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "11-pizarra-conflicto-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "11-pizarra-conflicto-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "11-pizarra-conflicto-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "11-pizarra-conflicto-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true
+      ]
+    },
+    {
+      "file": "12-teatro-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "12-teatro-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "12-teatro-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "12-teatro-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "12-teatro-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "file": "13-plan-seleccionar-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "13-plan-seleccionar-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "13-plan-seleccionar-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "13-plan-seleccionar-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "13-plan-seleccionar-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "14-plan-no-encontrada-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "14-plan-no-encontrada-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "14-plan-no-encontrada-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "14-plan-no-encontrada-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "14-plan-no-encontrada-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "15-dirigir-partido-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "15-dirigir-partido-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "15-dirigir-partido-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "15-dirigir-partido-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "15-dirigir-partido-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "16-partidos-vacio-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "16-partidos-vacio-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "16-partidos-vacio-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "16-partidos-vacio-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "16-partidos-vacio-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "17-plantilla-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "17-plantilla-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "17-plantilla-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "17-plantilla-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "17-plantilla-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": []
+    },
+    {
+      "file": "18-menu-entrenador-1024.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        "mas"
+      ]
+    },
+    {
+      "file": "18-menu-entrenador-1440.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        "mas"
+      ]
+    },
+    {
+      "file": "18-menu-entrenador-1920.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        "mas"
+      ]
+    },
+    {
+      "file": "18-menu-entrenador-390.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        "movil"
+      ]
+    },
+    {
+      "file": "18-menu-entrenador-768.png",
+      "errors": [
+        "[sync] no se pudo cargar el estado del servidor: Error: No autenticado\n    at r (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:65465)\n    at async m (http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:76559)\n    at async http://127.0.0.1:3005/_next/static/chunks/13_gs9moh_63u.js:9:116188"
+      ],
+      "miss": [
+        "GET /api/game/state",
+        "GET /api/game/play-status",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1",
+        "GET /api/game/social?badge=1",
+        "GET /api/game/live-events?badge=1"
+      ],
+      "gestos": [
+        "movil"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1624 @@
+{
+  "base": "http://127.0.0.1:3027",
+  "at": "2026-10-15T20:44:21.262Z",
+  "pass": 192,
+  "fail": 35,
+  "opened": [
+    {
+      "scope": "390 · normal",
+      "pack": "oro",
+      "cards": [
+        {
+          "id": "zmjjkk__masters-sdc",
+          "ovr": 91,
+          "cls": "masters"
+        },
+        {
+          "id": "scales__champions-s",
+          "ovr": 85,
+          "cls": "champions"
+        },
+        {
+          "id": "xavi8k__masters-l",
+          "ovr": 81,
+          "cls": "masters"
+        },
+        {
+          "id": "krostaly__masters-l",
+          "ovr": 79,
+          "cls": "masters"
+        },
+        {
+          "id": "crws__masters-l",
+          "ovr": 78,
+          "cls": "masters"
+        }
+      ]
+    },
+    {
+      "scope": "390 · normal",
+      "pack": "icon-single",
+      "cards": [
+        {
+          "id": "mada__moments",
+          "ovr": 95,
+          "cls": "icon"
+        }
+      ]
+    },
+    {
+      "scope": "390 · reduced",
+      "pack": "oro",
+      "cards": [
+        {
+          "id": "d4v41__masters-sdc",
+          "ovr": 88,
+          "cls": "masters"
+        },
+        {
+          "id": "zekken__base",
+          "ovr": 88,
+          "cls": "oro"
+        },
+        {
+          "id": "ethan__base",
+          "ovr": 87,
+          "cls": "oro"
+        },
+        {
+          "id": "skuba__base",
+          "ovr": 86,
+          "cls": "oro"
+        },
+        {
+          "id": "skuba__base",
+          "ovr": 86,
+          "cls": "oro"
+        }
+      ]
+    },
+    {
+      "scope": "390 · reduced",
+      "pack": "icon-single",
+      "cards": [
+        {
+          "id": "patmen__record-breaker",
+          "ovr": 92,
+          "cls": "icon"
+        }
+      ]
+    },
+    {
+      "scope": "768 · normal",
+      "pack": "oro",
+      "cards": [
+        {
+          "id": "patmen__record-breaker",
+          "ovr": 92,
+          "cls": "icon"
+        },
+        {
+          "id": "trent__base",
+          "ovr": 88,
+          "cls": "oro"
+        },
+        {
+          "id": "valyn__base",
+          "ovr": 87,
+          "cls": "oro"
+        },
+        {
+          "id": "kingg__masters-l",
+          "ovr": 85,
+          "cls": "masters"
+        },
+        {
+          "id": "xavi8k__masters-l",
+          "ovr": 81,
+          "cls": "masters"
+        }
+      ]
+    },
+    {
+      "scope": "768 · normal",
+      "pack": "icon-single",
+      "cards": [
+        {
+          "id": "patmen__record-breaker",
+          "ovr": 92,
+          "cls": "icon"
+        }
+      ]
+    },
+    {
+      "scope": "768 · reduced",
+      "pack": "oro",
+      "cards": [
+        {
+          "id": "kaajak__base",
+          "ovr": 91,
+          "cls": "oro"
+        },
+        {
+          "id": "alfajer__base",
+          "ovr": 90,
+          "cls": "oro"
+        },
+        {
+          "id": "wo0t__base",
+          "ovr": 88,
+          "cls": "oro"
+        },
+        {
+          "id": "rarga__masters-l",
+          "ovr": 87,
+          "cls": "masters"
+        },
+        {
+          "id": "munchkin__champions-s",
+          "ovr": 87,
+          "cls": "champions"
+        }
+      ]
+    },
+    {
+      "scope": "768 · reduced",
+      "pack": "icon-single",
+      "cards": [
+        {
+          "id": "patmen__record-breaker",
+          "ovr": 92,
+          "cls": "icon"
+        }
+      ]
+    },
+    {
+      "scope": "1440 · normal",
+      "pack": "oro",
+      "cards": [
+        {
+          "id": "yetujey__champions-s",
+          "ovr": 89,
+          "cls": "champions"
+        },
+        {
+          "id": "trent__base",
+          "ovr": 88,
+          "cls": "oro"
+        },
+        {
+          "id": "stax__champions-s",
+          "ovr": 88,
+          "cls": "champions"
+        },
+        {
+          "id": "karon__base",
+          "ovr": 86,
+          "cls": "oro"
+        },
+        {
+          "id": "oxy__base",
+          "ovr": 86,
+          "cls": "oro"
+        }
+      ]
+    },
+    {
+      "scope": "1440 · normal",
+      "pack": "icon-single",
+      "cards": [
+        {
+          "id": "patmen__record-breaker",
+          "ovr": 92,
+          "cls": "icon"
+        }
+      ]
+    },
+    {
+      "scope": "1440 · reduced",
+      "pack": "oro",
+      "cards": [
+        {
+          "id": "happywei__masters-sdc",
+          "ovr": 93,
+          "cls": "masters"
+        },
+        {
+          "id": "brawk__base",
+          "ovr": 88,
+          "cls": "oro"
+        },
+        {
+          "id": "zekken__base",
+          "ovr": 88,
+          "cls": "oro"
+        },
+        {
+          "id": "stax__champions-s",
+          "ovr": 88,
+          "cls": "champions"
+        },
+        {
+          "id": "cloud__base",
+          "ovr": 86,
+          "cls": "oro"
+        }
+      ]
+    },
+    {
+      "scope": "1440 · reduced",
+      "pack": "icon-single",
+      "cards": [
+        {
+          "id": "marteen__record-breaker",
+          "ovr": 95,
+          "cls": "icon"
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "scope": "390 · normal",
+      "id": "compra (créditos sintéticos) Sobre oro",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:oro\\\",\\\"qty\\\":1,\\\"packId\\\":\\\"oro\\\",\\\"credits\\\":794000}\"}"
+    },
+    {
+      "scope": "390 · normal",
+      "id": "compra (créditos sintéticos) Sobre icon-single",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:icon-single\\\",\\\"qty\\\":2,\\\"packId\\\":\\\"icon-single\\\",\\\"credits\\\":764000}\"}"
+    },
+    {
+      "scope": "390 · normal",
+      "id": "inicio de sesión por el formulario (cuenta QA sintética)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · normal",
+      "id": "idioma de la cuenta QA: español",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.992942}]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 17px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "hero zmjjkk__masters-sdc (OVR 91) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"1eaac5b5-7d3f-45d8-81c2-fe28e02dedb7\",\"tone\":\"dark\",\"layers\":[{\"key\":\"masters\",\"op\":1}]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 2: en la preparación el DORSO no anticipa la rareza (sería champions)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 224, 138) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 2/5 scales__champions-s (OVR 85) → sala champions",
+      "ok": true,
+      "detail": "{\"key\":\"champions\",\"uid\":\"cc7b6270-c0e2-410d-98a0-6e4b9b6e7c72\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.915671},{\"key\":\"champions\",\"op\":0.135153}]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 2: al girar ya no queda la sala de la anterior (masters)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.915671},{\"key\":\"champions\",\"op\":0.135153}]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 2 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 3: en la preparación el DORSO no anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 3/5 xavi8k__masters-l (OVR 81) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"d8e9538a-2fca-441b-9758-35230ba79bf4\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.674796},{\"key\":\"masters\",\"op\":0.338181}]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 3: al girar ya no queda la sala de la anterior (champions)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.674796},{\"key\":\"masters\",\"op\":0.338181}]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 3 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "ATRÁS → la carta anterior, boca arriba y con SU sala",
+      "ok": true,
+      "detail": "{\"key\":\"champions\",\"uid\":\"cc7b6270-c0e2-410d-98a0-6e4b9b6e7c72\",\"tone\":\"dark\",\"layers\":[{\"key\":\"masters\",\"op\":0.96683},{\"key\":\"champions\",\"op\":0.126605}]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "ADELANTE otra vez: lo ya visto sale boca arriba",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 4: en la preparación el DORSO no anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 4/5 krostaly__masters-l (OVR 79) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"cba684cd-cf62-4afc-9e0b-df5782b880b3\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.115352},{\"key\":\"masters\",\"op\":0.651477}]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 4: al girar ya no queda la sala de la anterior (masters)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.115352},{\"key\":\"masters\",\"op\":0.651477}]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 4 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 5: en la preparación el DORSO no anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 5/5 crws__masters-l (OVR 78) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"f2318710-24bb-4bf0-9a5a-38a0f0271989\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.256618},{\"key\":\"masters\",\"op\":0.636641}]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 5: al girar ya no queda la sala de la anterior (masters)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.256618},{\"key\":\"masters\",\"op\":0.636641}]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "carta 5 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "resumen: 5 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":5,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Abrir mis sobres · 100\"]}"
+    },
+    {
+      "scope": "390 · normal · oro",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "390 · normal · icon-single",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · normal · icon-single",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.960663}]}"
+    },
+    {
+      "scope": "390 · normal · icon-single",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería icon)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 255, 255) 0px 0px 11px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · normal · icon-single",
+      "id": "hero mada__moments (OVR 95) → sala icon",
+      "ok": true,
+      "detail": "{\"key\":\"icon\",\"uid\":\"0a1b469b-5a43-4cc4-96f2-7b23729fc125\",\"tone\":\"light\",\"layers\":[{\"key\":\"icon\",\"op\":1}]}"
+    },
+    {
+      "scope": "390 · normal · icon-single",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible; «Anterior» legible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · normal · icon-single",
+      "id": "resumen: 1 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":1,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Abrir otro sobre · 1\",\"Ir a mi colección\",\"Jugar\",\"Añadir al equipo\",\"Volver a sobres\"]}"
+    },
+    {
+      "scope": "390 · normal · icon-single",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "390 · normal",
+      "id": "sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · normal",
+      "id": "sin respuestas ≥ 400 (ninguna imagen rota)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced",
+      "id": "compra (créditos sintéticos) Sobre oro",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:oro\\\",\\\"qty\\\":1,\\\"packId\\\":\\\"oro\\\",\\\"credits\\\":752000}\"}"
+    },
+    {
+      "scope": "390 · reduced",
+      "id": "compra (créditos sintéticos) Sobre icon-single",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:icon-single\\\",\\\"qty\\\":2,\\\"packId\\\":\\\"icon-single\\\",\\\"credits\\\":722000}\"}"
+    },
+    {
+      "scope": "390 · reduced",
+      "id": "inicio de sesión por el formulario (cuenta QA sintética)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · reduced",
+      "id": "idioma de la cuenta QA: español",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.990893}]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 9px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "hero d4v41__masters-sdc (OVR 88) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"4d299b39-d14b-41a8-b491-84b43e9db734\",\"tone\":\"dark\",\"layers\":[{\"key\":\"masters\",\"op\":1}]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 2: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 2/5 zekken__base (OVR 88) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"26443668-5fe0-47ee-bf76-5e2f015172f7\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":0}]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 2: al girar ya no queda la sala de la anterior (masters)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":0}]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 2 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 3: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 3/5 ethan__base (OVR 87) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"ac3092d0-97cb-4459-8e00-e8685043d38a\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":0.976479}]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 3: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":0.976479}]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 3 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "ATRÁS → la carta anterior, boca arriba y con SU sala",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"26443668-5fe0-47ee-bf76-5e2f015172f7\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "ADELANTE otra vez: lo ya visto sale boca arriba",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 4: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 4/5 skuba__base (OVR 86) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"092c1bf1-4559-44d4-9136-8ee33c159992\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":0}]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 4: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":0}]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 4 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 5: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 5/5 skuba__base (OVR 86) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"897d3e3a-3728-465f-b142-1dc9d5431093\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.268314},{\"key\":\"oro\",\"op\":0.949814}]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 5: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.268314},{\"key\":\"oro\",\"op\":0.949814}]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "carta 5 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "resumen: 5 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":5,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Abrir mis sobres · 100\"]}"
+    },
+    {
+      "scope": "390 · reduced · oro",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "390 · reduced · icon-single",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "390 · reduced · icon-single",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":1}]}"
+    },
+    {
+      "scope": "390 · reduced · icon-single",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería icon)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 255, 255) 0px 0px 14px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "390 · reduced · icon-single",
+      "id": "hero patmen__record-breaker (OVR 92) → sala icon",
+      "ok": true,
+      "detail": "{\"key\":\"icon\",\"uid\":\"99705bcf-05a8-4ebc-9c86-6f68b223c305\",\"tone\":\"light\",\"layers\":[{\"key\":\"icon\",\"op\":1}]}"
+    },
+    {
+      "scope": "390 · reduced · icon-single",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible; «Anterior» legible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced · icon-single",
+      "id": "resumen: 1 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":1,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Abrir otro sobre · 1\",\"Ir a mi colección\",\"Jugar\",\"Añadir al equipo\",\"Volver a sobres\"]}"
+    },
+    {
+      "scope": "390 · reduced · icon-single",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "390 · reduced",
+      "id": "sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "390 · reduced",
+      "id": "sin respuestas ≥ 400 (ninguna imagen rota)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal",
+      "id": "compra (créditos sintéticos) Sobre oro",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:oro\\\",\\\"qty\\\":1,\\\"packId\\\":\\\"oro\\\",\\\"credits\\\":710000}\"}"
+    },
+    {
+      "scope": "768 · normal",
+      "id": "compra (créditos sintéticos) Sobre icon-single",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:icon-single\\\",\\\"qty\\\":2,\\\"packId\\\":\\\"icon-single\\\",\\\"credits\\\":680000}\"}"
+    },
+    {
+      "scope": "768 · normal",
+      "id": "inicio de sesión por el formulario (cuenta QA sintética)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · normal",
+      "id": "idioma de la cuenta QA: español",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería icon)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 255, 255) 0px 0px 14px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "hero patmen__record-breaker (OVR 92) → sala icon",
+      "ok": true,
+      "detail": "{\"key\":\"icon\",\"uid\":\"7c50f07c-4148-4132-9af6-edf60f5b05d9\",\"tone\":\"light\",\"layers\":[{\"key\":\"icon\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible; «Anterior» legible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 2: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 2/5 trent__base (OVR 88) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"93b3621f-f40c-4034-80e8-14daf00b9dbd\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.673458},{\"key\":\"oro\",\"op\":0.341339}]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 2: al girar ya no queda la sala de la anterior (icon)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.673458},{\"key\":\"oro\",\"op\":0.341339}]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 2 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 3: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 3/5 valyn__base (OVR 87) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"ba1d81ff-9ea8-4499-9caf-4f377957a0d2\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.89279},{\"key\":\"oro\",\"op\":0.210928}]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 3: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.89279},{\"key\":\"oro\",\"op\":0.210928}]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 3 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "ATRÁS → la carta anterior, boca arriba y con SU sala",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"93b3621f-f40c-4034-80e8-14daf00b9dbd\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "ADELANTE otra vez: lo ya visto sale boca arriba",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 4: en la preparación el DORSO no anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 4/5 kingg__masters-l (OVR 85) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"09945559-4da8-441e-a5f5-cef67a3175b1\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.716564},{\"key\":\"masters\",\"op\":0.360615}]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 4: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.716564},{\"key\":\"masters\",\"op\":0.360615}]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 4 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 5: en la preparación el DORSO no anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 5/5 xavi8k__masters-l (OVR 81) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"0ac78397-3282-4f01-80c6-411ad297dafd\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.721713},{\"key\":\"masters\",\"op\":0.354362}]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 5: al girar ya no queda la sala de la anterior (masters)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.721713},{\"key\":\"masters\",\"op\":0.354362}]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "carta 5 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "resumen: 5 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":5,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Abrir mis sobres · 100\"]}"
+    },
+    {
+      "scope": "768 · normal · oro",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "768 · normal · icon-single",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · normal · icon-single",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · normal · icon-single",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería icon)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 255, 255) 0px 0px 14px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · normal · icon-single",
+      "id": "hero patmen__record-breaker (OVR 92) → sala icon",
+      "ok": true,
+      "detail": "{\"key\":\"icon\",\"uid\":\"3076c60e-ec6d-46f9-b7c8-332d5dde4abe\",\"tone\":\"light\",\"layers\":[{\"key\":\"icon\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · normal · icon-single",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible; «Anterior» legible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal · icon-single",
+      "id": "resumen: 1 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":1,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Abrir otro sobre · 1\",\"Ir a mi colección\",\"Jugar\",\"Añadir al equipo\",\"Volver a sobres\"]}"
+    },
+    {
+      "scope": "768 · normal · icon-single",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "768 · normal",
+      "id": "sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · normal",
+      "id": "sin respuestas ≥ 400 (ninguna imagen rota)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced",
+      "id": "compra (créditos sintéticos) Sobre oro",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:oro\\\",\\\"qty\\\":1,\\\"packId\\\":\\\"oro\\\",\\\"credits\\\":668000}\"}"
+    },
+    {
+      "scope": "768 · reduced",
+      "id": "compra (créditos sintéticos) Sobre icon-single",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:icon-single\\\",\\\"qty\\\":2,\\\"packId\\\":\\\"icon-single\\\",\\\"credits\\\":638000}\"}"
+    },
+    {
+      "scope": "768 · reduced",
+      "id": "inicio de sesión por el formulario (cuenta QA sintética)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · reduced",
+      "id": "idioma de la cuenta QA: español",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 19px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "hero kaajak__base (OVR 91) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"5505acb7-cc0e-459a-aec3-8c08af3ca7d5\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 2: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 2/5 alfajer__base (OVR 90) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"6181f174-d5c1-41f8-8193-1272b915424a\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 2: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":1}]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 2 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 3: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 3/5 wo0t__base (OVR 88) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"24297cb4-1aa1-4457-ad9b-43d64d63622f\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":0}]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 3: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":0}]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 3 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "ATRÁS → la carta anterior, boca arriba y con SU sala",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"6181f174-d5c1-41f8-8193-1272b915424a\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "ADELANTE otra vez: lo ya visto sale boca arriba",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 4: en la preparación el DORSO no anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 4/5 rarga__masters-l (OVR 87) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"163420d3-7c61-48cf-b8cc-394b4b5331d8\",\"tone\":\"dark\",\"layers\":[{\"key\":\"masters\",\"op\":0}]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 4: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"masters\",\"op\":0}]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 4 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 5: en la preparación el DORSO no anticipa la rareza (sería champions)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 224, 138) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 5/5 munchkin__champions-s (OVR 87) → sala champions",
+      "ok": true,
+      "detail": "{\"key\":\"champions\",\"uid\":\"5d84bb35-fada-44e1-ad5b-3f844cedae43\",\"tone\":\"dark\",\"layers\":[{\"key\":\"champions\",\"op\":0}]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 5: al girar ya no queda la sala de la anterior (masters)",
+      "ok": true,
+      "detail": "[{\"key\":\"champions\",\"op\":0}]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "carta 5 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "resumen: 5 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":5,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Abrir mis sobres · 100\"]}"
+    },
+    {
+      "scope": "768 · reduced · oro",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "768 · reduced · icon-single",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "768 · reduced · icon-single",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0}]}"
+    },
+    {
+      "scope": "768 · reduced · icon-single",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería icon)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 255, 255) 0px 0px 11px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "768 · reduced · icon-single",
+      "id": "hero patmen__record-breaker (OVR 92) → sala icon",
+      "ok": true,
+      "detail": "{\"key\":\"icon\",\"uid\":\"7a4b5f5e-dcf0-415d-a21a-14d03895e252\",\"tone\":\"light\",\"layers\":[{\"key\":\"icon\",\"op\":1}]}"
+    },
+    {
+      "scope": "768 · reduced · icon-single",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible; «Anterior» legible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced · icon-single",
+      "id": "resumen: 1 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":1,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Abrir otro sobre · 1\",\"Ir a mi colección\",\"Jugar\",\"Añadir al equipo\",\"Volver a sobres\"]}"
+    },
+    {
+      "scope": "768 · reduced · icon-single",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "768 · reduced",
+      "id": "sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "768 · reduced",
+      "id": "sin respuestas ≥ 400 (ninguna imagen rota)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal",
+      "id": "compra (créditos sintéticos) Sobre oro",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:oro\\\",\\\"qty\\\":1,\\\"packId\\\":\\\"oro\\\",\\\"credits\\\":626000}\"}"
+    },
+    {
+      "scope": "1440 · normal",
+      "id": "compra (créditos sintéticos) Sobre icon-single",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:icon-single\\\",\\\"qty\\\":2,\\\"packId\\\":\\\"icon-single\\\",\\\"credits\\\":596000}\"}"
+    },
+    {
+      "scope": "1440 · normal",
+      "id": "inicio de sesión por el formulario (cuenta QA sintética)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · normal",
+      "id": "idioma de la cuenta QA: español",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.901699}]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería champions)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 224, 138) 0px 0px 11px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "hero yetujey__champions-s (OVR 89) → sala champions",
+      "ok": true,
+      "detail": "{\"key\":\"champions\",\"uid\":\"b71982f5-5a7e-4a65-be26-806cd785ef20\",\"tone\":\"dark\",\"layers\":[{\"key\":\"champions\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 2: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 2/5 trent__base (OVR 88) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"ee614b04-ad43-44f7-9226-6390456a5c3c\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.0716525},{\"key\":\"oro\",\"op\":0.677338}]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 2: al girar ya no queda la sala de la anterior (champions)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.0716525},{\"key\":\"oro\",\"op\":0.677338}]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 2 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 3: en la preparación el DORSO no anticipa la rareza (sería champions)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 224, 138) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 3/5 stax__champions-s (OVR 88) → sala champions",
+      "ok": true,
+      "detail": "{\"key\":\"champions\",\"uid\":\"40594257-ce2f-445b-838b-81bf23002701\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.421443},{\"key\":\"champions\",\"op\":0.509462}]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 3: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.421443},{\"key\":\"champions\",\"op\":0.509462}]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 3 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "ATRÁS → la carta anterior, boca arriba y con SU sala",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"ee614b04-ad43-44f7-9226-6390456a5c3c\",\"tone\":\"dark\",\"layers\":[{\"key\":\"champions\",\"op\":0.892025},{\"key\":\"oro\",\"op\":0.233723}]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "ADELANTE otra vez: lo ya visto sale boca arriba",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 4: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 4/5 karon__base (OVR 86) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"04646bb5-b4d1-448b-934d-bad904a9c4ce\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.338446},{\"key\":\"oro\",\"op\":0.561172}]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 4: al girar ya no queda la sala de la anterior (champions)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.338446},{\"key\":\"oro\",\"op\":0.561172}]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 4 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 5: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 5/5 oxy__base (OVR 86) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"4f56c76f-1e06-45cd-9441-381069ba3354\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.443095},{\"key\":\"oro\",\"op\":0.540535}]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 5: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"neutral\",\"op\":0.443095},{\"key\":\"oro\",\"op\":0.540535}]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "carta 5 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "resumen: 5 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":5,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Abrir mis sobres · 100\"]}"
+    },
+    {
+      "scope": "1440 · normal · oro",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "1440 · normal · icon-single",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · normal · icon-single",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0.981318}]}"
+    },
+    {
+      "scope": "1440 · normal · icon-single",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería icon)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 255, 255) 0px 0px 11px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · normal · icon-single",
+      "id": "hero patmen__record-breaker (OVR 92) → sala icon",
+      "ok": true,
+      "detail": "{\"key\":\"icon\",\"uid\":\"48e84c62-d3e9-49fa-bf6c-dbabcb1942bd\",\"tone\":\"light\",\"layers\":[{\"key\":\"icon\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · normal · icon-single",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible; «Anterior» legible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal · icon-single",
+      "id": "resumen: 1 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":1,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Abrir otro sobre · 1\",\"Ir a mi colección\",\"Jugar\",\"Añadir al equipo\",\"Volver a sobres\"]}"
+    },
+    {
+      "scope": "1440 · normal · icon-single",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "1440 · normal",
+      "id": "sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · normal",
+      "id": "sin respuestas ≥ 400 (ninguna imagen rota)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced",
+      "id": "compra (créditos sintéticos) Sobre oro",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:oro\\\",\\\"qty\\\":1,\\\"packId\\\":\\\"oro\\\",\\\"credits\\\":584000}\"}"
+    },
+    {
+      "scope": "1440 · reduced",
+      "id": "compra (créditos sintéticos) Sobre icon-single",
+      "ok": true,
+      "detail": "{\"status\":200,\"body\":\"{\\\"kind\\\":\\\"PACK_PURCHASED\\\",\\\"productId\\\":\\\"pack:icon-single\\\",\\\"qty\\\":2,\\\"packId\\\":\\\"icon-single\\\",\\\"credits\\\":554000}\"}"
+    },
+    {
+      "scope": "1440 · reduced",
+      "id": "inicio de sesión por el formulario (cuenta QA sintética)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · reduced",
+      "id": "idioma de la cuenta QA: español",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":0}]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería masters)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(180, 140, 255) 0px 0px 9px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "hero happywei__masters-sdc (OVR 93) → sala masters",
+      "ok": true,
+      "detail": "{\"key\":\"masters\",\"uid\":\"1e275c8f-4a96-472b-a47c-f3e41c1fff7f\",\"tone\":\"dark\",\"layers\":[{\"key\":\"masters\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 2: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 2/5 brawk__base (OVR 88) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"9c1ee1c6-88b5-40cf-9d6e-b4b6893819ce\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 2: al girar ya no queda la sala de la anterior (masters)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":1}]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 2 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 3: en la preparación el DORSO no anticipa la rareza (sería oro)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 206, 79) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 3/5 zekken__base (OVR 88) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"cbd75e92-ad0e-4400-afa8-d6daef89dff1\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 3: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":1}]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 3 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "ATRÁS → la carta anterior, boca arriba y con SU sala",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"9c1ee1c6-88b5-40cf-9d6e-b4b6893819ce\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "ADELANTE otra vez: lo ya visto sale boca arriba",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 4: en la preparación el DORSO no anticipa la rareza (sería champions)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 224, 138) 0px 0px 16px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 4/5 stax__champions-s (OVR 88) → sala champions",
+      "ok": true,
+      "detail": "{\"key\":\"champions\",\"uid\":\"c75782fd-4621-4b0b-b775-9e87a4fe4a7b\",\"tone\":\"dark\",\"layers\":[{\"key\":\"oro\",\"op\":0},{\"key\":\"neutral\",\"op\":0.00971073},{\"key\":\"champions\",\"op\":0.999657}]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 4: al girar ya no queda la sala de la anterior (oro)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro\",\"op\":0},{\"key\":\"neutral\",\"op\":0.00971073},{\"key\":\"champions\",\"op\":0.999657}]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 4 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 5/5 cloud__base (OVR 86) → sala oro",
+      "ok": true,
+      "detail": "{\"key\":\"oro\",\"uid\":\"51e885a4-67b8-48f3-ad6e-95b85ed0858f\",\"tone\":\"dark\",\"layers\":[{\"key\":\"champions\",\"op\":0},{\"key\":\"neutral\",\"op\":0.911935},{\"key\":\"oro\",\"op\":0.36012}]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 5: al girar ya no queda la sala de la anterior (champions)",
+      "ok": true,
+      "detail": "[{\"key\":\"champions\",\"op\":0},{\"key\":\"neutral\",\"op\":0.911935},{\"key\":\"oro\",\"op\":0.36012}]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "carta 5 · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "resumen: 5 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":5,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Ver carta →\",\"Abrir mis sobres · 100\"]}"
+    },
+    {
+      "scope": "1440 · reduced · oro",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "1440 · reduced · icon-single",
+      "id": "sobre listo para abrir (la cuenta lo tiene)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "scope": "1440 · reduced · icon-single",
+      "id": "tensión: sala NEUTRA (no anticipa la rareza)",
+      "ok": true,
+      "detail": "{\"key\":\"neutral\",\"uid\":\"\",\"tone\":\"dark\",\"layers\":[{\"key\":\"neutral\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · reduced · icon-single",
+      "id": "tensión: el DORSO tampoco anticipa la rareza (sería icon)",
+      "ok": false,
+      "detail": "drop-shadow(rgb(255, 255, 255) 0px 0px 11px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 10px 16px)"
+    },
+    {
+      "scope": "1440 · reduced · icon-single",
+      "id": "hero marteen__record-breaker (OVR 95) → sala icon",
+      "ok": true,
+      "detail": "{\"key\":\"icon\",\"uid\":\"2bba7d29-2ef4-47d7-8ef7-06a8f64dfae8\",\"tone\":\"light\",\"layers\":[{\"key\":\"icon\",\"op\":1}]}"
+    },
+    {
+      "scope": "1440 · reduced · icon-single",
+      "id": "hero · maquetación (carta, ficha y botones visibles sin solapes; imagen cargada; cara visible; «Anterior» legible)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced · icon-single",
+      "id": "resumen: 1 carta(s), 1 petición al servidor, sala retirada, acciones de siempre",
+      "ok": true,
+      "detail": "{\"uids\":1,\"req\":\"1\",\"atmGone\":true,\"actions\":[\"Crear mi primer equipo\",\"Montarlo yo\",\"Ver carta →\",\"Abrir otro sobre · 1\",\"Ir a mi colección\",\"Jugar\",\"Añadir al equipo\",\"Volver a sobres\"]}"
+    },
+    {
+      "scope": "1440 · reduced · icon-single",
+      "id": "sin monigote (walkout / <canvas>) en ninguna fase",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "scope": "1440 · reduced",
+      "id": "sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "scope": "1440 · reduced",
+      "id": "sin respuestas ≥ 400 (ninguna imagen rota)",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

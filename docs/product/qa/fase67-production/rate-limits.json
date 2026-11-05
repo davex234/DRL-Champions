@@ -1,0 +1,28 @@
+{
+  "architecture": "contador en Postgres (RPC app_rate_take, tabla api_rate_limits) → compartido por todos los procesos Node; falla ABIERTO si la BD no responde. /api/telemetry tiene un limitador en memoria propio (por proceso).",
+  "added": {
+    "economy_write": "30/min — packs, store, credits, progression, prestige, mastery, economy (POST)",
+    "upload_write": "20/min — /api/admin/assets"
+  },
+  "existing": [
+    "pvp_sync 150",
+    "pvp_action 40",
+    "mm_status 90",
+    "mm_write 20",
+    "social_*",
+    "deck_*",
+    "campaign_*",
+    "collection_*",
+    "draft_*",
+    "admin_read 240 / admin_write 20",
+    "onboarding_*",
+    "season/events/daily_loop/profile"
+  ],
+  "stillWithout": [
+    "game/competitive, state, meta, strats, match-strats, coach-matches, compositions (lecturas o con validación propia)",
+    "pickems, content/*",
+    "esports/* y market/sync-reference (protegidas por secreto)"
+  ],
+  "underLoad": "429 solo en play-status (cubeta por usuario, un único usuario QA generando todo el tráfico) = INTENCIONAL; 0×5xx",
+  "normalPlay": "e2e F66 regresión: 0×429 en una partida normal"
+}

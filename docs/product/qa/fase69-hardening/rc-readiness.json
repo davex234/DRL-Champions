@@ -1,0 +1,102 @@
+{
+  "phase": "F69",
+  "at": "2026-09-28",
+  "finalBuild": "drl-0.1.1-1-7e223fed",
+  "statuses": [
+    "READY",
+    "READY_WITH_EXTERNAL_ACTION",
+    "BLOCKED"
+  ],
+  "matrix": {
+    "GAMEPLAY": {
+      "status": "READY",
+      "evidence": "PvE 4 partidas (B), alta nueva con 2 partidas (K/L/K-resume), draft (F), huella dorada F61 PASS; F69-F cierra la partida rápida que retomaba un duelo PvP"
+    },
+    "PROGRESSION": {
+      "status": "READY",
+      "evidence": "progression.json: 12 cuentas sin reclamos indebidos; reclamar dos veces no paga; HUD al día tras reclamar"
+    },
+    "ONBOARDING": {
+      "status": "READY",
+      "evidence": "K (1440), L (390, reducido), K-resume (390): guía completa, COMPLETED en servidor, equipo válido"
+    },
+    "GAME_FEEL": {
+      "status": "READY",
+      "evidence": "0 errores de consola no explicados, 0 × 429/5xx, presupuesto de peticiones 10,4 ≤ 10,5 (margen estrecho anotado: OPS-REQ-BUDGET)"
+    },
+    "BALANCE": {
+      "status": "READY",
+      "evidence": "Motor de cartas intacto (huella dorada). Propuestas F65 P-1…P-4 siguen PROPOSED por decisión: no bloquean RC.",
+      "nextAction": "Decisión de producto futura sobre P-1…P-4 (no requerida para RC)"
+    },
+    "MULTIPLAYER": {
+      "status": "READY",
+      "evidence": "3 partidas ranked reales, Elo una vez por partida y conciliado; aislamiento PvE↔PvP con test; IDOR ranked 404 uniforme"
+    },
+    "TACTICAL_COACH": {
+      "status": "READY",
+      "evidence": "3 partidos completos en F69 final: 0 créditos/XP/nivel (servidor y HUD idénticos antes, en la ceremonia, tras sincronizar y tras F5; libro sin apuntes); pistola sin SAVE; una CTA"
+    },
+    "SECURITY": {
+      "status": "READY",
+      "evidence": "0058 aplicada y verificada (docs/product/qa/pre-f70-0058/): anon sin acceso a profiles, otra cuenta solo columnas públicas, RLS 27/27, smoke 74/74, security 22/22; /api/ready vigila el efecto (sonda privacy)",
+      "previous": {
+        "status": "BLOCKED",
+        "why": "0058 v3 preparada y probada pero NO aplicada: anon lee las 20 columnas de profiles (credits, xp, is_admin, last_seen_at…), vistas escribibles, helpers SECURITY DEFINER ejecutables por anon, TRUNCATE de cliente. Hoy no alcanzable desde Internet (Kong solo en 127.0.0.1 del VPS).",
+        "nextAction": "Autorización explícita del usuario → servir la build F69 (ya lo hace :3005) → backup verificado (BACKUP_OK) → 0058_preflight.sql → PROPOSAL.sql → 0058_postflight.sql → 0058_rls_tests.sql con cuenta QA → smoke:production (la línea informativa debe pasar a «ocultas»). Rollback probado."
+      }
+    },
+    "OPERATIONS": {
+      "status": "READY_WITH_EXTERNAL_ACTION",
+      "why": "Una sola instancia de la app en un PC Windows por túnel SSH; migraciones 0026–0057 sin registrar en schema_migrations; contenedores vector/edge_runtime en bucle en el VPS.",
+      "nextAction": "Hosting de la app con gestor de procesos (VPS o PaaS) y registrar 0026–0057 (manifiesto) con backup previo, en F70+"
+    },
+    "DATA_PRIVACY": {
+      "status": "READY",
+      "evidence": "0058 aplicada y verificada (docs/product/qa/pre-f70-0058/): anon sin acceso a profiles, otra cuenta solo columnas públicas, RLS 27/27, smoke 74/74, security 22/22; /api/ready vigila el efecto (sonda privacy)",
+      "previous": {
+        "status": "BLOCKED",
+        "why": "Mismo agujero que SECURITY (exposición de columnas privadas de profiles a anon/authenticated por REST). El código ya no depende de esas lecturas (GET /api/game/me) y el perfil social ya no da la hora exacta de conexión salvo a amigos.",
+        "nextAction": "Aplicar 0058 (ver SECURITY)"
+      }
+    },
+    "BACKUPS": {
+      "status": "BLOCKED",
+      "why": "Backups diarios verificados (manifiesto + SHA256SUMS) pero en el MISMO disco del VPS (production:check FAIL backup-offsite).",
+      "nextAction": "Decidir destino externo (bucket S3-compatible u otro host) y credenciales; el script ya acepta DEST configurable; después, repetir production:check"
+    },
+    "AUTH_EMAIL": {
+      "status": "BLOCKED",
+      "why": "GoTrue con SMTP Inbucket (no entrega correo real), SITE_URL/allow-list 127.0.0.1:3000, autoconfirmación ON (y por ello el registro revela correos existentes, SEC-REG-ENUM).",
+      "nextAction": "Proveedor SMTP real con credenciales, SITE_URL/allow-list al dominio definitivo, confirmación de correo ON; production:check auth-email pasará de WARN a PASS"
+    },
+    "DOMAIN_HTTPS": {
+      "status": "BLOCKED",
+      "why": "Sin dominio ni TLS (la app ya emite HSTS/COOP/CSP).",
+      "nextAction": "Elegir dominio y enrutado (proxy TLS delante de la app y, si se publica, de Kong con 0058 ya aplicada)"
+    },
+    "SOURCE_CONTROL": {
+      "status": "BLOCKED",
+      "why": "HEAD 48dac2a; 303 ficheros modificados y 9.601 sin seguimiento (incluye 2,55 GB de evidencia QA y 0,74 GB de arte original que no deben entrar en git tal cual).",
+      "nextAction": "Autorización explícita para F70: commit/etiqueta siguiendo release-file-inventory.json (código y assets requeridos sí; evidencia PNG y arte original a LFS/archivo externo; .env.local y deploy/drlcards-sync siguen ignorados)"
+    }
+  },
+  "summary": {
+    "READY": 9,
+    "READY_WITH_EXTERNAL_ACTION": 1,
+    "BLOCKED": 4
+  },
+  "productDebt": {
+    "BLOCKER": 0,
+    "CRITICAL": 0,
+    "MAJOR": 0,
+    "MINOR": 0,
+    "POLISH": 0
+  },
+  "verdict": "F69 GO. Tras PRE-F70: 0058 aplicada. RC sigue BLOCKED por externos: backup off-site (siguiente), SMTP, dominio+HTTPS, commit.",
+  "operationalUpdate": {
+    "at": "2026-09-28",
+    "change": "SECURITY y DATA_PRIVACY: BLOCKED → READY (0058 aplicada)",
+    "nextBlocker": "BACKUPS: OFF-SITE BACKUP (destino externo + credenciales)"
+  }
+}

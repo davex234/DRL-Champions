@@ -1,0 +1,273 @@
+{
+  "prices": {
+    "estandar": 1000,
+    "premium": 2500,
+    "oro": 4000,
+    "masters": 5000,
+    "champions": 8000,
+    "icon": 12500
+  },
+  "packs": {
+    "estandar": {
+      "name": "Sobre Bronce",
+      "price": 1000,
+      "cardCount": 5,
+      "current": {
+        "evAnalytic": 4553,
+        "evSimulated": 4547,
+        "diffPct": -0.14,
+        "ratio": 4.55,
+        "min": 500,
+        "p10": 775,
+        "p25": 875,
+        "p50": 1350,
+        "p75": 4275,
+        "p90": 10625,
+        "p95": 21750,
+        "p99": 36275,
+        "max": 100025
+      },
+      "proposed": {
+        "evAnalytic": 5725,
+        "evSimulated": 5723,
+        "diffPct": -0.04,
+        "ratio": 5.72,
+        "min": 310,
+        "p10": 835,
+        "p25": 1050,
+        "p50": 2090,
+        "p75": 7790,
+        "p90": 17300,
+        "p95": 22470,
+        "p99": 32220,
+        "max": 80130
+      },
+      "topTierCost": {
+        "prime": 7079,
+        "icon": 20404,
+        "primeOrIcon": 5416,
+        "perPrimeCard": 6667,
+        "perIconCard": 20000
+      }
+    },
+    "premium": {
+      "name": "Sobre Plata",
+      "price": 2500,
+      "cardCount": 6,
+      "current": {
+        "evAnalytic": 11222,
+        "evSimulated": 11221,
+        "diffPct": -0.01,
+        "ratio": 4.49,
+        "min": 1075,
+        "p10": 1300,
+        "p25": 1850,
+        "p50": 5200,
+        "p75": 12475,
+        "p90": 34625,
+        "p95": 39575,
+        "p99": 62025,
+        "max": 133400
+      },
+      "proposed": {
+        "evAnalytic": 12977,
+        "evSimulated": 12958,
+        "diffPct": -0.14,
+        "ratio": 5.19,
+        "min": 1340,
+        "p10": 1970,
+        "p25": 3270,
+        "p50": 8850,
+        "p75": 19940,
+        "p90": 30080,
+        "p95": 37030,
+        "p99": 53230,
+        "max": 110250
+      },
+      "topTierCost": {
+        "prime": 9437,
+        "icon": 14968,
+        "primeOrIcon": 6351,
+        "perPrimeCard": 8333,
+        "perIconCard": 13889
+      }
+    },
+    "oro": {
+      "name": "Sobre Oro",
+      "price": 4000,
+      "cardCount": 5,
+      "current": {
+        "evAnalytic": 17845,
+        "evSimulated": 17810,
+        "diffPct": -0.19,
+        "ratio": 4.46,
+        "min": 1125,
+        "p10": 2000,
+        "p25": 4200,
+        "p50": 10150,
+        "p75": 34125,
+        "p90": 41275,
+        "p95": 49100,
+        "p99": 71850,
+        "max": 140050
+      },
+      "proposed": {
+        "evAnalytic": 20675,
+        "evSimulated": 20652,
+        "diffPct": -0.11,
+        "ratio": 5.17,
+        "min": 1750,
+        "p10": 4090,
+        "p25": 7660,
+        "p50": 17500,
+        "p75": 30110,
+        "p90": 41300,
+        "p95": 49250,
+        "p99": 64800,
+        "max": 114800
+      },
+      "topTierCost": {
+        "prime": 9768,
+        "icon": 13144,
+        "primeOrIcon": 6600,
+        "perPrimeCard": 8000,
+        "perIconCard": 11429
+      }
+    },
+    "masters": {
+      "name": "Sobre Masters",
+      "price": 5000,
+      "cardCount": 5,
+      "current": {
+        "evAnalytic": 21981,
+        "evSimulated": 21937,
+        "diffPct": -0.2,
+        "ratio": 4.4,
+        "min": 1150,
+        "p10": 3575,
+        "p25": 7450,
+        "p50": 14050,
+        "p75": 36000,
+        "p90": 45575,
+        "p95": 62200,
+        "p99": 76825,
+        "max": 139625
+      },
+      "proposed": {
+        "evAnalytic": 25533,
+        "evSimulated": 25503,
+        "diffPct": -0.12,
+        "ratio": 5.11,
+        "min": 1800,
+        "p10": 7490,
+        "p25": 12940,
+        "p50": 23050,
+        "p75": 34800,
+        "p90": 47170,
+        "p95": 55200,
+        "p99": 69950,
+        "max": 121000
+      },
+      "topTierCost": {
+        "prime": 10587,
+        "icon": 14666,
+        "primeOrIcon": 7437,
+        "perPrimeCard": 8333,
+        "perIconCard": 12500
+      }
+    },
+    "champions": {
+      "name": "Sobre Champions",
+      "price": 8000,
+      "cardCount": 5,
+      "current": {
+        "evAnalytic": 39058,
+        "evSimulated": 39020,
+        "diffPct": -0.1,
+        "ratio": 4.88,
+        "min": 1225,
+        "p10": 12225,
+        "p25": 19100,
+        "p50": 38275,
+        "p75": 51525,
+        "p90": 72850,
+        "p95": 80350,
+        "p99": 104525,
+        "max": 166000
+      },
+      "proposed": {
+        "evAnalytic": 40957,
+        "evSimulated": 40963,
+        "diffPct": 0.02,
+        "ratio": 5.12,
+        "min": 2000,
+        "p10": 18070,
+        "p25": 27320,
+        "p50": 39480,
+        "p75": 52650,
+        "p90": 65700,
+        "p95": 73700,
+        "p99": 88880,
+        "max": 132500
+      },
+      "topTierCost": {
+        "prime": 11899,
+        "icon": 14381,
+        "primeOrIcon": 9050,
+        "perPrimeCard": 8000,
+        "perIconCard": 10667
+      }
+    },
+    "icon": {
+      "name": "Sobre Icon",
+      "price": 12500,
+      "cardCount": 3,
+      "current": {
+        "evAnalytic": 34378,
+        "evSimulated": 34418,
+        "diffPct": 0.12,
+        "ratio": 2.75,
+        "min": 6750,
+        "p10": 8300,
+        "p25": 9125,
+        "p50": 38100,
+        "p75": 39775,
+        "p90": 68775,
+        "p95": 69575,
+        "p99": 94275,
+        "max": 99600
+      },
+      "proposed": {
+        "evAnalytic": 47933,
+        "evSimulated": 47943,
+        "diffPct": 0.02,
+        "ratio": 3.83,
+        "min": 21600,
+        "p10": 33900,
+        "p25": 39600,
+        "p50": 47300,
+        "p75": 55300,
+        "p90": 63400,
+        "p95": 66200,
+        "p99": 72100,
+        "max": 79500
+      },
+      "topTierCost": {
+        "prime": 12847,
+        "icon": 19026,
+        "primeOrIcon": 12500,
+        "perPrimeCard": 5952,
+        "perIconCard": 13889
+      }
+    }
+  },
+  "band": {
+    "median": 5.17,
+    "maxDeviationPct": 10.64,
+    "iconVsMedian": 0.74
+  },
+  "iconPack": {
+    "minPossible": 21600,
+    "maxPossible": 79500
+  }
+}

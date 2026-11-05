@@ -1,0 +1,692 @@
+{
+  "generatedAt": "2026-09-17T16:44:16.722Z",
+  "note": "Capturas de la tanda cortada por memoria. La build se regeneró en los gates (next build): ninguna puede contarse; las que tenían metadatos se clasifican por su causa primaria.",
+  "shotsJsonGenerated": "2026-09-17T15:41:39.348Z",
+  "count": 136, "previousRunCount": 114,
+  "by": {
+    "INVALID_BUILD": 134,
+    "INVALID_BACKEND": 2
+  },
+  "rows": [
+    {
+      "file": "001-home-home-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "002-home-home-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "003-home-home-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "004-home-home-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "005-home-home-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "006-home-home-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "007-home-home-mid-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "008-home-home-mid-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "009-home-home-low-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "010-home-home-low-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "011-home-home-mobile-mid-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "012-home-home-mobile-low-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "013-home-home-hover-quick-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "014-home-home-hover-quick-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "015-home-home-hover-campaign-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "016-home-home-hover-campaign-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "017-home-home-hover-ranked-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "018-home-home-hover-ranked-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "019-home-home-hover-draft-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "020-home-home-hover-draft-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "021-home-harness-lobby-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "022-home-harness-lobby-focus-quick-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "023-home-harness-lobby-focus-ranked-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "024-home-harness-lobby-focus-campaign-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "025-home-harness-lobby-focus-draft-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "026-collection-collection-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "027-collection-collection-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "028-collection-collection-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "029-collection-collection-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "030-collection-collection-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "031-collection-collection-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "032-collection-collection-y700-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "033-collection-collection-y1400-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "034-collection-collection-y2400-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "035-collection-collection-wide-y900-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "036-collection-collection-wide-y1800-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "037-collection-collection-mobile-y800-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "038-collection-collection-mobile-y1800-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "039-collection-collection-2560-y-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "040-collection-harness-vault-legendary-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "041-collection-harness-vault-legendary-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "042-collection-harness-vault-epic-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "043-collection-harness-vault-epic-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "044-collection-harness-vault-rare-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "045-collection-harness-vault-rare-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "046-packs-shop-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "047-packs-shop-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "048-packs-shop-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "049-packs-shop-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "050-packs-shop-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "051-packs-shop-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "052-packs-shop-y700-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "053-packs-shop-y1400-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "054-packs-shop-mobile-y800-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "055-packs-shop-mobile-y1600-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "056-packs-inventory-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "057-packs-inventory-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "058-packs-inventory-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "059-packs-inventory-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "060-packs-inventory-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "061-packs-inventory-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "062-packs-harness-chamber-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "063-packs-harness-chamber-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "064-packs-harness-chamber-dim-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "065-packs-harness-chamber-dim-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "066-packs-ceremony-legendary-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "067-packs-ceremony-legendary-390.png",
+      "status": "INVALID_BACKEND",
+      "metadata": true
+    },
+    {
+      "file": "068-decks-decks-390.png",
+      "status": "INVALID_BACKEND",
+      "metadata": true
+    },
+    {
+      "file": "069-decks-decks-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "070-decks-decks-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "071-decks-decks-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "072-decks-decks-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "073-decks-decks-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "074-decks-decks-y700-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "075-decks-decks-y1400-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "076-decks-decks-mobile-y800-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "077-decks-decks-mobile-y1600-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "078-decks-strategy-lab-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "079-decks-strategy-lab-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "080-decks-harness-loadout-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "081-decks-harness-loadout-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "082-decks-decks-2560-y-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "083-campaign-campaign-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "084-campaign-campaign-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "085-campaign-campaign-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "086-campaign-campaign-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "087-campaign-campaign-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "088-campaign-campaign-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "089-campaign-campaign-y700-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "090-campaign-campaign-y1400-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "091-campaign-campaign-y2200-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "092-campaign-campaign-mobile-y800-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "093-campaign-campaign-mobile-y1800-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "094-campaign-campaign-mobile-y2800-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "095-campaign-harness-campaign-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "096-campaign-harness-campaign-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "097-campaign-campaign-wide-y-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "098-draft-draft-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "099-draft-draft-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "100-draft-draft-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "101-draft-draft-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "102-draft-draft-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "103-draft-draft-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "104-draft-draft-y600-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "105-draft-draft-y1200-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "106-draft-draft-mobile-y-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "107-draft-harness-draft-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "108-ranked-ranked-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "109-ranked-ranked-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "110-ranked-ranked-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "111-ranked-ranked-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "112-ranked-ranked-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "113-ranked-ranked-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "114-ranked-ranked-y600-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "115-ranked-ranked-y1200-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "116-ranked-ranked-mobile-y-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "117-ranked-harness-ranked-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "118-season-season-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "119-season-season-768.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "120-season-season-1024.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "121-season-season-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "122-season-season-1920.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "123-season-season-2560.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "124-season-season-y700-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "125-season-season-y1400-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "126-season-season-mobile-y-390.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "127-season-harness-season-1440.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "128-reduced-home-reduced-1440-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "129-reduced-home-reduced-390-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "130-reduced-collection-reduced-1440-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "131-reduced-collection-reduced-390-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "132-reduced-shop-reduced-1440-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "133-reduced-shop-reduced-390-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "134-reduced-decks-reduced-1440-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "135-reduced-decks-reduced-390-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    },
+    {
+      "file": "136-reduced-campaign-reduced-1440-reduced.png",
+      "status": "INVALID_BUILD",
+      "metadata": true
+    }
+  ]
+}

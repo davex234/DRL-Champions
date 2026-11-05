@@ -1,0 +1,13 @@
+{
+  "RPO": {
+    "current": "≤ 24 h (dump diario 04:30) — más los snapshots manuales pre-migración",
+    "vpsLoss": "TOTAL: las copias están en el mismo disco (sin copia externa) → BLOCKED hasta tener destino externo",
+    "zeroLoss": "NO: no hay replicación ni WAL archiving"
+  },
+  "RTO": {
+    "dbRestoreObserved": "28 s (Postgres listo 16 s + restore 6 s + validación 5 s + Storage 1 s) para 41 MB",
+    "appColdStart": "1,3 s hasta ready",
+    "appCrashRecovery": "2,8 s sin servicio",
+    "vpsLostEstimate": "2–4 h con el runbook de DR (host nuevo + Docker + stack Supabase + restore + env + túnel/proxy) si existe copia externa; sin copia externa: no recuperable"
+  }
+}

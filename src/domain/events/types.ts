@@ -7,8 +7,10 @@ export type MissionMetric =
   | "open_packs"
   | "open_event_packs"
   | "get_event_card"
-  | "get_mvp"
-  | "get_winner"
+  /** Legendaria (Record Breaker, Moments). Sustituye a «MVP», que ya no existe (catálogo diseñado). */
+  | "get_legendary"
+  /** Épica o superior (Champions S y legendarias). Sustituye a «Winner». */
+  | "get_epic"
   | "market_buy"
   | "market_sell";
 
@@ -17,13 +19,16 @@ export interface Reward {
   credits?: number;
   /** XP de cuenta (nivel global del jugador). */
   xp?: number;
-  /** Tokens de evento. */
-  tokens?: number;
   /** Sobres otorgados. */
   packId?: string;
   packCount?: number;
   /** Carta concreta otorgada (CardDef.id). */
   cardId?: string;
+  // ── Battle Pass (Collection Fase 6/7) — campos AÑADIDOS, todos opcionales ──
+  /** Materiales de crafting (polvo por rareza). Reutiliza el recurso de `@/craft`. */
+  materials?: Partial<Record<"common" | "uncommon" | "rare" | "epic" | "legendary", number>>;
+  /** Cosméticos de cuenta (títulos/iconos/avatares/marcos/cosméticos de coach o jugador). Ids con prefijo. */
+  cosmetics?: string[];
 }
 
 export interface MissionDef {
@@ -34,19 +39,6 @@ export interface MissionDef {
   reward: Reward;
   /** XP que aporta al pase de evento al completarse. */
   passXp: number;
-}
-
-export interface ShopItemDef {
-  id: string;
-  label: string;
-  description?: string;
-  /** Coste en tokens de evento. */
-  cost: number;
-  reward: Reward;
-  /** Límite de compras (opcional). */
-  stock?: number;
-  /** Marca de cosmético (no afecta a la jugabilidad). */
-  cosmetic?: boolean;
 }
 
 export interface EventDef {
@@ -61,9 +53,7 @@ export interface EventDef {
   /** Sobres exclusivos del evento (ids en packs.ts). */
   packIds: string[];
   /** Tokens otorgados por abrir un sobre del evento. */
-  tokensPerPack: number;
   missions: MissionDef[];
-  shop: ShopItemDef[];
   /** Niveles del pase de evento. */
   passLevels: number;
   /** XP necesaria por nivel del pase. */

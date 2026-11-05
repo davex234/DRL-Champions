@@ -1,0 +1,99 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "file": "docs/operations/proposals/0058_postflight.sql (sha256 0ae965de…)",
+  "result": [
+    {
+      "check": "H1 anon no lee profiles",
+      "result": "ok"
+    },
+    {
+      "check": "H1 authenticated sigue leyendo profiles",
+      "result": "ok"
+    },
+    {
+      "check": "H6 authenticated: columnas legibles",
+      "result": "ok"
+    },
+    {
+      "check": "H6 authenticated no lee credits/is_admin/last_seen_at",
+      "result": "ok"
+    },
+    {
+      "check": "H7 vistas heredadas fuera de clientes",
+      "result": "0 (esperado 0)"
+    },
+    {
+      "check": "H1 authenticated conserva UPDATE de columnas",
+      "result": "ok"
+    },
+    {
+      "check": "H2 sin INSERT/DELETE de cliente en profiles",
+      "result": "ok"
+    },
+    {
+      "check": "H2 política «crea tu perfil» retirada",
+      "result": "ok"
+    },
+    {
+      "check": "H3 tablas con TRUNCATE para clientes",
+      "result": "0 (esperado 0)"
+    },
+    {
+      "check": "H5 vistas escribibles por clientes",
+      "result": "0 (esperado 0)"
+    },
+    {
+      "check": "H5 vistas públicas siguen legibles",
+      "result": "ok"
+    },
+    {
+      "check": "H4 helpers ejecutables por anon",
+      "result": "0 (esperado 0)"
+    },
+    {
+      "check": "H4 service_role conserva recompute_*",
+      "result": "ok"
+    },
+    {
+      "check": "funciones de mercado con auth.uid() intactas",
+      "result": "ok"
+    }
+  ],
+  "allOk": true,
+  "rlsTests": {
+    "file": "docs/operations/proposals/0058_rls_tests.sql con set f69.qa_uid = QA A (d52916aa)",
+    "before": "13 ok / 14 abiertos (F69, en vivo)",
+    "after": {
+      "ok": 27,
+      "fail": 0
+    },
+    "endedIn": "ROLLBACK",
+    "raw": "raw/rls-after.txt"
+  },
+  "after": {
+    "grantsProfilesTableLevelClient": [],
+    "columnSelect": {
+      "anon": 0,
+      "authenticated": 6
+    },
+    "policies": [
+      {
+        "name": "edita tu perfil",
+        "cmd": "UPDATE",
+        "roles": [
+          "public"
+        ]
+      },
+      {
+        "name": "perfiles visibles para todos",
+        "cmd": "SELECT",
+        "roles": [
+          "public"
+        ]
+      }
+    ],
+    "truncateGrantsForClients": 0,
+    "schemaProbeUnchanged": true
+  },
+  "status": "PASS"
+}

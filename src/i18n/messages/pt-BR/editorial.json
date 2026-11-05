@@ -1,0 +1,14 @@
+{
+  "carta {cardId}: evento {seq} parte de \"{from}\" pero estaba en \"{prev}\"": "carta {cardId}: o evento {seq} parte de \"{from}\", mas estava em \"{prev}\"",
+  "carta {cardId}: historial termina en \"{st}\" pero el estado vigente es \"{v}\"": "carta {cardId}: o histórico termina em \"{st}\", mas o estado vigente é \"{v}\"",
+  "deriva {playerId}__{bad}, no aprobada": "deriva {playerId}__{bad}, não aprovada",
+  "evento {seq}: generationId ajeno": "evento {seq}: generationId alheio",
+  "excluida por composición: su jugador deriva cartas no aprobadas": "excluída por composição: o jogador dela deriva cartas não aprovadas",
+  "jugador excluido por composición": "jogador excluído por composição",
+  "la carta no pertenece a esta generación": "a carta não pertence a esta geração",
+  "publicación {finalState}": "publicação {finalState}",
+  "seq no monótona: {seq} tras {prevSeq}": "seq não monótona: {seq} após {prevSeq}",
+  "sin cartas aprobadas: nada que publicar": "sem cartas aprovadas: nada a publicar",
+  "todas las cartas aprobadas quedaron excluidas por composición": "todas as cartas aprovadas foram excluídas por composição",
+  "transición ilegal: {from} × {action}": "transição ilegal: {from} × {action}"
+}

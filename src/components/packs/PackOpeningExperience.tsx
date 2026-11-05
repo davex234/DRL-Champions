@@ -1,72 +1,298 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+/**
+ * PACK OPENING EXPERIENCE 3.0 · THE REVEAL (Fase 38).
+ *
+ * ══════════════════════════ EL SERVIDOR DECIDE, LA CEREMONIA PRESENTA ══════════════════════════
+ *
+ *   gesto → pestillo → UNA petición (`openPackOutcome`, clave de gesto fijada por `lib/game/sync`) → resultado
+ *   AUTORITATIVO recibido → rotura → cartas boca abajo → revelado carta a carta → resumen.
+ *
+ * Nada se revela antes de que el servidor confirme: mientras espera, el sobre solo usa el color DEL SOBRE. Si la
+ * petición falla, no hubo ceremonia: error honesto y reintento con la MISMA clave (recupera lo abierto o abre por
+ * primera vez, nunca dos). Ni una probabilidad, ni una carta, ni un serial se calculan en esta pantalla.
+ *
+ * ══════════════════════════ PRESENTACIÓN, NO ESTADO DE JUEGO ══════════════════════════
+ *
+ * La fase de la ceremonia es una máquina de estados PURA (`domain/packs/reveal · revealReducer`): no se persiste.
+ * Qué es nueva, duplicada ×N o nueva variante, la rareza real, el serial y su prestigio, el resumen (colección
+ * X → Y / TOTAL, sets, primera legendaria) salen de `buildRevealPlan` con el resultado persistido y la foto de la
+ * colección de ANTES de abrir (tomada al pulsar; encadenada al abrir otro, sin volver a pedirla). Si esa foto no
+ * existe, la pantalla no afirma nada sobre «nueva».
+ *
+ * ══════════════════════════ RECUPERACIÓN ══════════════════════════
+ *
+ *   · recarga con el revelado ya guardado en la pestaña → resumen directo (`loadOpenReveal`);
+ *   · recarga con la petición enviada y sin respuesta → se pide el resultado con la MISMA clave (`hasPendingOpen`);
+ *   · otra pestaña ya lo abrió → «no te queda este sobre», sin error fatal.
+ *
+ * Sin valor en monedas, sin «vender repetidas», sin mercado. El sobre entrega cartas; la carta es el premio.
+ */
+import { usePacksVersion } from "@/lib/packs/usePacksVersion";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { getPack } from "@/data/packs";
+import { CARDS, getCard, getPlayer } from "@/data/catalog";
 import { useGameStore, type OpenedResult } from "@/store/useGameStore";
 import { useEventsStore } from "@/store/useEventsStore";
 import { getVariant } from "@/domain/cards/variants";
-import { SealedPack } from "./SealedPack";
-import { AmbientParticles, ParticleBurst } from "./Particles";
-import { CardReveal } from "./CardReveal";
-import { PlayerCard } from "@/components/cards/PlayerCard";
-import { primeAudio, playCutTick, playBurst } from "@/lib/sound";
-import { formatCredits } from "@/lib/format";
+import type { OwnedInstanceFact } from "@/domain/collection/room";
+import {
+  INITIAL_REVEAL, beforeExcluding, buildRevealPlan, holdingsMinus, holdingsPlus, type PriorHoldings, cinematicFor, classifyOpenFailure, hasResult, revealReducer, toInstanceFact, toOpenedInstances,
+} from "@/domain/packs/reveal";
+import { primeAudio, playCutTick, playBurst, playCue } from "@/lib/sound";
+import { dimEnvironment, packChamberDim } from "@/design/environment";
+import { packMusicDuck } from "@/lib/audio/music";
+import { useMusicDuck } from "@/components/audio/MusicDirector";
+import { useAuth } from "@/lib/supabase/auth";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { openPackOutcome, hasPendingOpen } from "@/lib/game/sync";
+import { isPubliclyOpenable } from "@/domain/packs/lifecycle";
+import { saveOpenReveal, loadOpenReveal, clearOpenReveal, markOpenRevealSeen, isReloadOf } from "@/lib/game/openRecovery";
+import { useCollectionPersonal } from "@/lib/collection/client";
+import { trackFlow } from "@/lib/telemetry/client";
+import { AddToDeckSheet } from "@/components/deck/AddToDeckSheet";
+import type { DeckCardLike } from "@/domain/cardgame/deckInsert";
+import { toDeckCard } from "@/components/deck/deckCard";
+import { invalidateOnboarding, useOnboarding } from "@/lib/onboarding/client";
+import { FirstCardLesson, OnboardingPackNext } from "@/components/onboarding/FirstCardLesson";
+import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { useProgressionDelta } from "@/lib/progression/meta";
+import { PostMatchProgress } from "@/components/progression/PostMatchProgress";
+import type { HandSlot } from "./PackHand";
+import { PackBackdrop, PackStage, RUPTURE_MS, RUPTURE_REDUCED_MS } from "./PackStage";
+import { HeroReveal } from "./HeroReveal";
+import { RestReveal } from "./RestReveal";
+import { PackSummary } from "./PackSummary";
+import { MAIN_PACK_LINE } from "@/domain/packs/packClass";
+import { NextUpAfter } from "@/components/liveService/NextUpAfter";
+import { PackStatus } from "./PackStatus";
+import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
+import { RevealAtmosphere } from "./RevealAtmosphere";
+import { sceneAtmosphere } from "@/domain/packs/atmosphere";
+import { openingReduced, useOpeningAnimation } from "@/lib/walkout/animationPref";
+import { ns, td } from "@/i18n/runtime";
+import { useCriticalOperation, useLocale } from "@/i18n/react";
 
-type Phase = "sealed" | "burst" | "reveal" | "summary";
+const tr = ns("packs");
+
+/*
+ * APERTURA 2026-10-15 · SIN WALKOUT. La figura 3D (Walkout 0.5–0.9) ya no forma parte de la apertura: la protagonista es
+ * la carta. La escena es sobre → rotura → hero → resto carta a carta → resumen, y la sala toma el color de la RAREZA de
+ * cada carta al revelarla (`RevealAtmosphere`). El walkout sigue existiendo solo como vista previa en `/admin/walkout`.
+ */
 
 const CUT_DISTANCE = 220; // px de deslizamiento para abrir
+const CATALOG = { cards: CARDS, getCard, getPlayer };
 
-export function PackOpeningExperience({ packId }: { packId: string }) {
+/**
+ * F81 · ¿Se puede presentar una hero con este resultado PERSISTIDO? Si una carta no tiene OVR válido o no se resuelve en
+ * el catálogo, no se inventa nada: sin cinemática, resumen directo y la inconsistencia queda registrada (consola y
+ * telemetría). Las cartas siguen siendo del jugador: esto solo decide la PRESENTACIÓN.
+ */
+function heroIsPresentable(res: readonly OpenedResult[]): boolean {
+  const c = cinematicFor(buildRevealPlan(toOpenedInstances(res), null, CATALOG));
+  if (c.ok) return true;
+  console.error("[pack-opening] hero no presentable:", c.reason, c.detail);
+  trackFlow("pack_ceremony", `hero_unavailable:${c.reason}`);
+  return false;
+}
+
+export function PackOpeningExperience({ packId, qaOpen }: {
+  packId: string;
+  /**
+   * F81 · SOLO arneses QA (`/design-system/fase81`, 404 en producción): un resultado FIJO en lugar del servidor/motor,
+   * para probar la ceremonia real de forma determinista. La ruta pública (`/abrir/[packId]`) nunca lo pasa.
+   */
+  qaOpen?: (packId: string) => OpenedResult[];
+}) {
+  useLocale();
+  // I18N · con la apertura en pantalla, un cambio de idioma (otra pestaña, la cuenta) espera a que termine.
+  useCriticalOperation(true);
   const router = useRouter();
+  /*
+   * Movimiento reducido: el del sistema, salvo que el jugador haya elegido otra cosa en «Animaciones de apertura»
+   * (Cinemáticas = animación completa; Reducidas = siempre corta). Solo cambia CÓMO se presenta, nunca qué sale.
+   */
+  const systemReduced = !!useReducedMotion();
+  const openingPref = useOpeningAnimation();
+  const reduced = openingReduced(openingPref, systemReduced);
+  usePacksVersion(); // F60: un sobre del panel llega con la sincronización de contenido
   const pack = getPack(packId);
+  const { user } = useAuth();
+  const online = isSupabaseConfigured() && !!user;
+  const serverEconomy = useServerEconomy();
+  /*
+   * FASE 27 · EL SOBRE ALIMENTA EL META. Una lectura del servidor ANTES de abrir y otra al llegar
+   * al resumen: la diferencia (objetivos que avanzaron, logros conseguidos, XP) se enseña abajo.
+   * No se concede nada desde aquí: la apertura ya lo hizo todo en `app_apply_pack_open`.
+   */
+  const progression = useProgressionDelta();
+  const { begin: beginProgression, end: endProgression, reset: resetProgression } = progression;
   const available = useGameStore((s) => s.unopenedPacks[packId] ?? 0);
+  const packsLeft = useGameStore((s) => Object.values(s.unopenedPacks).reduce((n, c) => n + (c > 0 ? c : 0), 0));
   const openFromInventory = useGameStore((s) => s.openPackFromInventory);
-  const quickSellMany = useGameStore((s) => s.quickSellMany);
+  const storeCards = useGameStore((s) => s.ownedCards);
+  const storeCounts = useGameStore((s) => s.ownedCounts);
+  /* Fase 38 · la colección de ANTES (solo presentación: si no llega, la apertura sigue). */
+  const personal = useCollectionPersonal({ enabled: online, userKey: user?.id ?? null });
 
-  const [phase, setPhase] = useState<Phase>("sealed");
-  const [cutProgress, setCutProgress] = useState(0);
+  const [state, dispatch] = useReducer(revealReducer, INITIAL_REVEAL);
+  /** F68 · el bucle «abrir otro» para la guía (se asigna más abajo, cuando existe `openAnother`). */
+  const reopenRef = useRef<() => void>(() => undefined);
+  const phase = state.phase;
+  /*
+   * FASE 40 · al SALIR (navegación del cliente) de un resumen ya visto, el revelado guardado se borra: la recuperación es
+   * para una RECARGA a mitad de ceremonia (una recarga completa no ejecuta esta limpieza), no para que «Abrir el siguiente
+   * sobre» desde el vestíbulo o la colección enseñe otra vez el resumen del sobre anterior en vez de un sobre sellado.
+   */
+  const phaseRef = useRef(phase);
+  useEffect(() => { phaseRef.current = phase; }, [phase]);
+  /* Fase 44.1 · la cámara se apaga alrededor del sobre durante la ceremonia y vuelve al salir. */
+  useEffect(() => { dimEnvironment(packChamberDim(phase)); }, [phase]);
+  useEffect(() => () => dimEnvironment(0), []);
+  useMusicDuck(packMusicDuck(phase));
+  useEffect(() => () => { if (phaseRef.current === "summary") clearOpenReveal(); }, []);
   const [results, setResults] = useState<OpenedResult[]>([]);
-  const [revealIndex, setRevealIndex] = useState(0);
+  const [before, setBefore] = useState<OwnedInstanceFact[] | null>(null);
+  const [cutProgress, setCutProgress] = useState(0);
+  /** Fase 25 · «Añadir al equipo» desde el resumen: la carta elegida para el mazo. */
+  const [deckCard, setDeckCard] = useState<DeckCardLike | null>(null);
 
   const cutting = useRef(false);
   const startX = useRef(0);
   const lastTick = useRef(0);
   const opened = useRef(false);
+  /** Foto «antes» encadenada tras «abrir otro» (la de la apertura anterior + lo que salió). */
+  const nextBefore = useRef<OwnedInstanceFact[] | null | undefined>(undefined);
+  const handHeading = useRef<HTMLHeadingElement>(null);
+  const summaryHeading = useRef<HTMLHeadingElement>(null);
+  const continueButton = useRef<HTMLButtonElement>(null);
 
   const accent = pack?.accent ?? "#ff2e63";
 
-  const triggerOpen = useCallback(() => {
+  const currentFacts = useCallback((): OwnedInstanceFact[] | null => {
+    if (!online) return storeCards.map(toInstanceFact);
+    if (personal.data) return personal.data.instances;
+    return storeCards.length > 0 ? storeCards.map(toInstanceFact) : null;
+  }, [online, personal.data, storeCards]);
+
+  const openedInstances = useMemo(() => toOpenedInstances(results), [results]);
+  /*
+   * COLECCIONES ILIMITADAS · copias por carta de la foto previa. Con cuenta, los ejemplares de la foto son uno por
+   * carta: «ahora tienes N» y el total de copias salen de los recuentos del servidor, no de contar ejemplares.
+   */
+  const [beforeHoldings, setBeforeHoldings] = useState<PriorHoldings | null>(null);
+  const nextHoldings = useRef<PriorHoldings | null | undefined>(undefined);
+  const currentHoldings = useCallback((): PriorHoldings | null => {
+    if (!online) return null; // demo local: la foto trae todos los ejemplares
+    if (personal.data?.holdings) return personal.data.holdings;
+    if (!storeCounts) return null;
+    const out: Record<string, { count: number; numbered: number }> = {};
+    for (const id in storeCounts) out[id] = { count: storeCounts[id], numbered: 0 };
+    return out;
+  }, [online, personal.data, storeCounts]);
+  const plan = useMemo(() => buildRevealPlan(openedInstances, before, CATALOG, { reduced, holdings: beforeHoldings }), [openedInstances, before, reduced, beforeHoldings]);
+
+  /**
+   * Abre el sobre. Con sesión iniciada la tirada la DECIDE EL SERVIDOR (`/api/game/packs`), y aquí solo se presenta
+   * el resultado que devuelve. Sin sesión se usa el motor local (modo de un solo jugador).
+   */
+  const triggerOpen = useCallback(async () => {
     if (opened.current) return;
     opened.current = true;
-    const res = openFromInventory(packId);
+    dispatch({ type: "OPEN_REQUESTED" });
+    const snapshot = nextBefore.current !== undefined ? nextBefore.current : currentFacts();
+    nextBefore.current = undefined;
+    setBefore(snapshot);
+    setBeforeHoldings(nextHoldings.current !== undefined ? nextHoldings.current : currentHoldings());
+    nextHoldings.current = undefined;
+
+    let res: OpenedResult[] | null = null;
+    let repeated = false;
+    try {
+      // Fase 27 · lectura «antes» (solo lectura; si falla, no habrá deltas y ya está).
+      if (online && !qaOpen) await beginProgression();
+      // Fase 25/38 · con sesión, `openPackOutcome` fija UN gesto por apertura (ver `lib/game/sync`):
+      // reintentar tras un fallo de red repite la misma apertura, nunca abre un segundo sobre.
+      if (qaOpen) {
+        res = qaOpen(packId);
+      } else if (online) {
+        const out = await openPackOutcome(packId);
+        res = out.results;
+        repeated = out.repeated;
+      } else {
+        // F69 · sesión resolviéndose: no se abre en local (inventaría cartas en el HUD).
+        if (serverEconomy) throw new Error(SESSION_PENDING);
+        res = openFromInventory(packId);
+      }
+    } catch (e) {
+      opened.current = false;
+      dispatch({ type: "OPEN_FAILED", failure: classifyOpenFailure(e) });
+      return;
+    }
+
     if (!res || res.length === 0) {
-      router.push("/tienda");
+      opened.current = false;
+      dispatch({ type: "OPEN_FAILED", failure: classifyOpenFailure(new Error("No tienes ese sobre")) });
       return;
     }
     setResults(res);
-    useEventsStore.getState().recordPackOpened(packId, res);
+    // Fase 21.2: guarda el resultado para recuperarlo si el navegador recarga a mitad de la ceremonia.
+    saveOpenReveal(packId, res);
+    if (!repeated) useEventsStore.getState().recordPackOpened(packId, res);
+    trackFlow("pack_ceremony", `pack_opened:${packId}:${res.length}`);
+    dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res) });
     playBurst();
-    setPhase("burst");
-    setTimeout(() => {
-      setPhase("reveal");
-      setRevealIndex(0);
-    }, 900);
-  }, [openFromInventory, packId, router]);
+  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, currentHoldings, qaOpen]);
+
+  /* F81 · INTRO (el sobre se rasga y suelta sus cartas) → TENSIÓN. Los relojes solo avisan; manda la máquina. */
+  useEffect(() => {
+    if (phase !== "opening") return;
+    const t = setTimeout(() => {
+      playCue("whoosh");
+      dispatch({ type: "INTRO_DONE" });
+    }, reduced ? RUPTURE_REDUCED_MS : RUPTURE_MS);
+    return () => clearTimeout(t);
+  }, [phase, reduced]);
+
+  /* Fase 27 · lectura «después» al llegar al resumen: los deltas los calcula el cliente entre dos verdades del servidor. */
+  useEffect(() => {
+    if (phase === "summary" && online) void endProgression();
+  }, [phase, online, endProgression]);
+
+  /*
+   * F63 · LA GUÍA DE LA PRIMERA SESIÓN. Al llegar al resumen la foto de la guía ya es vieja (este sobre acaba de abrirse
+   * en el servidor): se invalida y se relee. Solo se pinta con una foto POSTERIOR a la apertura (`packsOpened > 0`).
+   */
+  const onboarding = useOnboarding(user?.id ?? null, online);
+  useEffect(() => {
+    if (phase === "summary" && online) invalidateOnboarding();
+  }, [phase, online]);
+  const guide = onboarding.view?.active && onboarding.view.context.packsOpened > 0 ? onboarding.view : null;
+  /* F68 · «abrir el siguiente sobre» del MISMO tipo es el bucle de esta pantalla, no una navegación a la misma URL. */
+  const guideHere = useMemo(() => ({ href: `/abrir/${packId}`, run: () => reopenRef.current() }), [packId]);
+
+  /* Foco controlado: hero quieta → CONTINUAR; resumen → su título. */
+  useEffect(() => {
+    if (phase === "hero_hold") continueButton.current?.focus({ preventScroll: true });
+    if (phase === "hero_hold") trackFlow("pack_ceremony", "hero_revealed");
+    if (phase === "summary") summaryHeading.current?.focus({ preventScroll: true });
+    if (phase === "summary") markOpenRevealSeen(packId);
+  }, [phase, packId]);
 
   // --- Interacción de corte (ratón / táctil) ---
   function onPointerDown(e: React.PointerEvent) {
-    if (phase !== "sealed") return;
+    if (phase !== "ready") return;
     primeAudio();
     cutting.current = true;
     startX.current = e.clientX;
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
   }
   function onPointerMove(e: React.PointerEvent) {
-    if (!cutting.current || phase !== "sealed") return;
-    const delta = e.clientX - startX.current;
-    const progress = Math.max(0, Math.min(1, delta / CUT_DISTANCE));
+    if (!cutting.current || phase !== "ready") return;
+    const progress = Math.max(0, Math.min(1, (e.clientX - startX.current) / CUT_DISTANCE));
     setCutProgress(progress);
     if (progress - lastTick.current > 0.08) {
       lastTick.current = progress;
@@ -75,11 +301,11 @@ export function PackOpeningExperience({ packId }: { packId: string }) {
     if (progress >= 0.92) {
       cutting.current = false;
       setCutProgress(1);
-      triggerOpen();
+      void triggerOpen();
     }
   }
   function onPointerUp() {
-    if (phase !== "sealed") return;
+    if (phase !== "ready") return;
     cutting.current = false;
     if (cutProgress < 0.92) {
       setCutProgress(0);
@@ -87,221 +313,290 @@ export function PackOpeningExperience({ packId }: { packId: string }) {
     }
   }
 
-  const handleNext = useCallback(() => {
-    setRevealIndex((i) => {
-      if (i + 1 >= results.length) {
-        setPhase("summary");
-        return i;
-      }
-      return i + 1;
-    });
+  /** Vía accesible: el mismo final sin arrastrar. */
+  const openWithButton = useCallback(() => {
+    if (phase !== "ready" || opened.current) return;
+    primeAudio();
+    setCutProgress(1);
+    void triggerOpen();
+  }, [phase, triggerOpen]);
+
+  /* F81 · la cinemática: relojes que solo avisan y gestos que avanzan un paso. Ninguno toca el resultado. */
+  const onBuildupDone = useCallback(() => dispatch({ type: "BUILDUP_DONE" }), []);
+  const onHeroShown = useCallback(() => dispatch({ type: "HERO_SHOWN" }), []);
+  const onRestShown = useCallback(() => dispatch({ type: "REST_SHOWN" }), []);
+  const back = useCallback(() => { primeAudio(); dispatch({ type: "BACK" }); }, []);
+  const advance = useCallback(() => { primeAudio(); dispatch({ type: "ADVANCE" }); }, []);
+  const continueFromHero = useCallback(() => { trackFlow("pack_ceremony", "hero_continue"); dispatch({ type: "CONTINUE" }); }, []);
+
+  /**
+   * SALTAR / REVELAR TODAS. Salta SOLO la presentación: el resultado ya está en `results`. No reabre, no vuelve a
+   * sortear, no llama al servidor.
+   */
+  const skipToSummary = useCallback(() => {
+    if (results.length === 0) return;
+    trackFlow("pack_ceremony", "opening_skipped");
+    dispatch({ type: "SKIP" });
   }, [results.length]);
 
-  // --- Estados límite ---
+  /**
+   * EL BUCLE. Otra unidad del MISMO sobre, sin salir de la pantalla: otra operación con OTRA clave (la anterior ya se
+   * confirmó y `lib/game/sync` la borró). La foto «antes» de la siguiente es la de esta más lo que acaba de salir.
+   */
+  const openAnother = useCallback(() => {
+    opened.current = false;
+    cutting.current = false;
+    lastTick.current = 0;
+    clearOpenReveal();
+    nextBefore.current = before ? [...before, ...openedInstances.map(toInstanceFact)] : undefined;
+    nextHoldings.current = before ? (beforeHoldings ? holdingsPlus(beforeHoldings, openedInstances) : null) : undefined;
+    setResults([]);
+    setCutProgress(0);
+    resetProgression(); // Fase 27: los deltas eran de la apertura anterior.
+    personal.refresh();
+    dispatch({ type: "RESET" });
+  }, [before, beforeHoldings, openedInstances, resetProgression, personal]);
+  reopenRef.current = openAnother;
+
+  /**
+   * RECUPERACIÓN TRAS RECARGA (Fase 21.2 / 38). Si el revelado ya se guardó en esta pestaña, se restaura y se va al
+   * resumen: `opened.current` queda marcado, así que nunca se reabre.
+   */
+  useEffect(() => {
+    if (opened.current || results.length > 0) return;
+    // Fase 40 · un resumen ya visto solo vuelve al RECARGAR esta pantalla, no al llegar desde otra.
+    const saved = loadOpenReveal(packId, { allowSeen: isReloadOf(window.location.pathname) });
+    if (saved && saved.length > 0) {
+      opened.current = true;
+      setResults(saved);
+      dispatch({ type: "RECOVERED", count: saved.length });
+    }
+    // Solo al montar / cambiar de sobre.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [packId]);
+
+  /* Fase 38 · recarga con la petición ENVIADA y sin respuesta: se pide el resultado con la MISMA clave. */
+  useEffect(() => {
+    if (!online || opened.current || results.length > 0 || phase !== "ready") return;
+    if (!hasPendingOpen(packId)) return;
+    opened.current = true;
+    dispatch({ type: "RECOVER_STARTED" });
+    void (async () => {
+      try {
+        const out = await openPackOutcome(packId);
+        setResults(out.results);
+        saveOpenReveal(packId, out.results);
+        // (una recuperación va al resumen directo: la ceremonia no se repite tras recargar)
+        dispatch({ type: "OPEN_SUCCEEDED", count: out.results.length, repeated: out.repeated, cinematic: heroIsPresentable(out.results) });
+      } catch (e) {
+        opened.current = false;
+        dispatch({ type: "OPEN_FAILED", failure: classifyOpenFailure(e) });
+      }
+    })();
+  }, [online, packId, results.length, phase]);
+
+  /* En una recuperación, la foto «antes» es la colección actual sin las instancias de esta apertura. */
+  useEffect(() => {
+    if (!state.recovered || before !== null || openedInstances.length === 0) return;
+    const current = currentFacts();
+    if (current) {
+      setBefore(beforeExcluding(current, openedInstances));
+      const h = currentHoldings();
+      setBeforeHoldings(h ? holdingsMinus(h, openedInstances) : null);
+    }
+  }, [state.recovered, before, openedInstances, currentFacts, currentHoldings]);
+
+  /**
+   * TECLADO. Enter/Espacio: abrir; durante la cinemática, avanzar UN paso (nunca se salta la hero); con la hero quieta,
+   * CONTINUAR. ←: en el resto, la carta anterior (o la hero). «S»/Escape: omitir al resumen — solo con el resultado ya en
+   * mano, así que nunca pierde nada.
+   */
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const k = e.key;
+      if (phase === "ready" && !opened.current) {
+        if (k === "Enter" || k === " ") { e.preventDefault(); openWithButton(); }
+        return;
+      }
+      if (!hasResult(state) || phase === "summary") return;
+      if (k === "s" || k === "S" || k === "Escape") { e.preventDefault(); skipToSummary(); }
+      else if (k === "ArrowLeft" && phase === "rest") { e.preventDefault(); back(); }
+      else if (k === "Enter" || k === " " || k === "ArrowRight") {
+        e.preventDefault();
+        // Con el foco en un botón el navegador ya lo pulsa con Enter/Espacio: no se cuenta dos veces.
+        if (phase === "hero_hold" && document.activeElement === continueButton.current) return;
+        if (phase === "rest" && k !== "ArrowRight" && document.activeElement instanceof HTMLButtonElement) return;
+        if (phase === "hero_hold") continueFromHero(); else advance();
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [phase, state, openWithButton, advance, back, continueFromHero, skipToSummary]);
+
+  const navigate = useCallback((href: string) => {
+    if (href === "/packs") clearOpenReveal();
+    router.push(href);
+  }, [router]);
+
+  /* ─────────────── estados límite ─────────────── */
   if (!pack) {
+    return <PackStatus kind="not_found" title={tr("Ese sobre no existe")} message={tr("El enlace apunta a un sobre que no está en el catálogo. Puede que fuera de un evento que ya terminó, o que la dirección esté mal escrita.")} packsLeft={packsLeft} onNavigate={navigate} />;
+  }
+  // Fase 21.2 (§13): un sobre DRAFT no se abre por la ruta pública —lo rechaza también el servidor (`guardPublicOpen`)—.
+  if (!isPubliclyOpenable(pack) && results.length === 0) {
+    return <PackStatus kind="unavailable" title={tr("Sobre no disponible")} message={tr("«{name}» no está disponible para abrir ahora mismo. Echa un vistazo al resto del catálogo.", { name: td(pack.name) })} packsLeft={packsLeft} onNavigate={navigate} />;
+  }
+  if (phase === "recovering") {
+    return <PackStatus kind="recovering" title={tr("Recuperando tu sobre")} message={tr("Había una apertura en marcha en esta pestaña. Estamos pidiendo al servidor su resultado — no se abre ningún sobre nuevo.")} packsLeft={packsLeft} onNavigate={navigate} />;
+  }
+  if (phase === "error" && state.failure) {
+    const failure = state.failure;
     return (
-      <Centered>
-        <p className="text-white/70">Sobre no encontrado.</p>
-        <BackButton onClick={() => router.push("/tienda")} />
-      </Centered>
+      <PackStatus
+        kind="error" title={td(failure.title)} message={td(failure.message)} packsLeft={packsLeft} onNavigate={navigate}
+        onRetry={failure.retrySameKey ? () => { dispatch({ type: "DISMISS_ERROR" }); void triggerOpen(); } : undefined}
+      />
     );
   }
-  if (available <= 0 && phase === "sealed") {
-    return (
-      <Centered>
-        <p className="font-display text-xl text-white">No tienes este sobre</p>
-        <p className="text-sm text-white/50">Compra uno en la tienda para abrirlo.</p>
-        <BackButton onClick={() => router.push("/tienda")} label="Ir a la tienda" />
-      </Centered>
-    );
+  if (phase === "no_pack") {
+    return <PackStatus kind="no_pack" title={td(state.failure?.title) ?? tr("No te queda este sobre")} message={td(state.failure?.message) ?? tr("No queda ninguna unidad de este sobre.")} packsLeft={packsLeft} onNavigate={navigate} />;
+  }
+  if (available <= 0 && phase === "ready" && !(online && hasPendingOpen(packId))) {
+    return <PackStatus kind="missing" title={tr("No tienes este sobre")} message={tr("No queda ninguna unidad de «{name}» en tu inventario. Consigue uno en la tienda o revisa los que ya tienes pendientes.", { name: td(pack.name) })} packsLeft={packsLeft} onNavigate={navigate} />;
   }
 
-  const totalValue = results.reduce((s, r) => s + r.value, 0);
-  const newCount = results.filter((r) => r.isNew).length;
-  const duplicates = results.filter((r) => !r.isNew);
+  const best = plan.summary.featured;
+  const heroResult = best ? results.find((r) => r.uid === best.uid) : undefined;
+  const restItems = plan.order.filter((i) => i.uid !== best?.uid);
+  const slots: HandSlot[] = results.map((r) => ({ revealed: false, color: getVariant(r.card.variantId).palette.primary }));
+  const stageKind = phase === "ready" || phase === "requesting" || phase === "opening" ? phase : null;
+  const heroStage = phase === "buildup" || phase === "hero" || phase === "hero_hold" ? phase : null;
+  const bestResult = heroResult;
+  const showSkip = hasResult(state) && phase !== "summary";
+  /*
+   * LA SALA de la revelación: el color de la RAREZA de la carta que está en escena, y luz neutra mientras se prepara cada
+   * giro. Se calcula en el MISMO render que la carta: nunca enseña el color de la anterior. Sin sala: sobre cerrado,
+   * rotura y resumen (cada uno con su escena).
+   */
+  const { card: sceneCard, atmosphere } = sceneAtmosphere(state, best, restItems);
 
   return (
-    <div className="fixed inset-0 z-[60] overflow-hidden bg-base-900">
-      {/* Fondo dinámico */}
-      <div
-        className="absolute inset-0 opacity-70 transition-opacity"
-        style={{
-          background: `radial-gradient(900px 600px at 50% 40%, ${accent}22, transparent 70%)`,
-        }}
+    <div className="fixed inset-0 z-modal overflow-hidden bg-[#03040a]" data-testid="pack-opening" data-phase={phase} data-requests={state.requests} data-hero-uid={best?.uid ?? ""}
+      data-rest-index={phase === "rest" ? state.restIndex : ""} data-reduced={String(reduced)}>
+      <PackBackdrop
+        accent={accent}
+        ambient={phase === "ready" || phase === "requesting"}
+        reduced={reduced}
+        intensity={phase === "ready" ? 0.6 : phase === "requesting" || phase === "opening" ? 1 : 0.45}
       />
-      <AmbientParticles color={accent} />
+      <RevealAtmosphere atmosphere={atmosphere} reduced={reduced} cardUid={sceneCard?.uid ?? null} />
 
-      {/* Botón cerrar */}
+      {/* Cerrar. 44 px. Cerrar nunca pierde nada: lo abierto ya está guardado en el servidor. */}
       <button
-        onClick={() => router.push(phase === "summary" ? "/coleccion" : "/tienda")}
-        className="absolute right-4 top-4 z-50 grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-black/40 text-white/70 backdrop-blur transition hover:bg-black/70 hover:text-white"
-        aria-label="Cerrar"
+        onClick={() => navigate(phase === "summary" ? "/coleccion" : "/packs")}
+        className="nx-focus absolute right-4 top-4 z-overlay grid h-11 w-11 min-h-[44px] place-items-center rounded-full border border-white/15 bg-black/40 text-white/70 transition hover:bg-black/70 hover:text-white"
+        style={{ marginTop: "env(safe-area-inset-top)" }}
+        aria-label={tr("Cerrar la apertura")}
       >
-        ✕
+        <GameGlyph name="close" className="h-4 w-4" />
       </button>
 
-      {/* FASE 1 + 2: sobre sellado y corte */}
-      <AnimatePresence>
-        {phase === "sealed" && (
-          <motion.div
-            key="sealed"
-            className="absolute inset-0 grid touch-none place-items-center"
-            exit={{ opacity: 0, scale: 1.1 }}
-            transition={{ duration: 0.4 }}
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerCancel={onPointerUp}
-          >
-            <motion.div
-              animate={{ y: [0, -14, 0], rotateZ: [-1.5, 1.5, -1.5] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <SealedPack accent={accent} name={pack.name} cutProgress={cutProgress} />
-            </motion.div>
-
-            <motion.div
-              className="absolute bottom-16 flex flex-col items-center gap-2 px-6 text-center"
-              animate={{ opacity: cutProgress > 0.05 ? 0 : 1 }}
-            >
-              <p className="font-display text-lg uppercase tracking-[0.25em] text-white">
-                Desliza para abrir
-              </p>
-              <p className="text-sm text-white/50">Arrastra el ratón o el dedo sobre el sobre →</p>
-              <div className="mt-2 h-1.5 w-48 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full"
-                  style={{ width: `${cutProgress * 100}%`, background: accent }}
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* FASE 3: explosión */}
-      {phase === "burst" && (
-        <div className="absolute inset-0 grid place-items-center">
-          <ParticleBurst color={accent} big count={110} />
-          <motion.div
-            className="absolute inset-0 bg-white"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 0.7, times: [0, 0.25, 1] }}
-          />
-        </div>
-      )}
-
-      {/* FASE 4: revelado carta a carta */}
-      {phase === "reveal" && results[revealIndex] && (
-        <CardReveal
-          key={results[revealIndex].uid}
-          result={results[revealIndex]}
-          index={revealIndex}
-          total={results.length}
-          onNext={handleNext}
+      {stageKind && (
+        <PackStage
+          pack={pack}
+          stage={stageKind}
+          count={results.length || pack.cardCount}
+          cutProgress={cutProgress}
+          slots={slots}
+          tease={null}
+          reduced={reduced}
+          onOpen={openWithButton}
+          onStartReveal={advance}
+          onRevealAll={skipToSummary}
+          pointer={{ onPointerDown, onPointerMove, onPointerUp }}
+          headingRef={handHeading}
         />
       )}
 
-      {/* FASE 5: resumen */}
-      {phase === "summary" && (
-        <motion.div
-          className="absolute inset-0 overflow-y-auto px-4 py-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+      {/* F81 · un toque durante la intro adelanta a la HERO (no al resumen). */}
+      {phase === "opening" && <div className="absolute inset-0 z-surface" onClick={advance} data-testid="intro-advance" aria-hidden />}
+
+      {heroStage && best && heroResult && (
+        <HeroReveal
+          key={best.uid}
+          stage={heroStage}
+          item={best}
+          result={heroResult}
+          total={results.length}
+          reduced={reduced}
+          onBuildupDone={onBuildupDone}
+          onHeroShown={onHeroShown}
+          onContinue={continueFromHero}
+          onAdvance={advance}
+          continueRef={continueButton}
+        />
+      )}
+
+      {phase === "rest" && <RestReveal items={restItems} index={state.restIndex} shown={state.restShown} reduced={reduced} onShown={onRestShown} onNext={advance} onBack={back} />}
+
+      {/*
+        OMITIR desde que existe el resultado (intro, tensión, hero, resto): lleva al resumen de ESAS MISMAS cartas. No
+        cancela nada ni vuelve a pedir nada al servidor — la apertura ya está guardada.
+      */}
+      {showSkip && (
+        <button
+          type="button"
+          onClick={skipToSummary}
+          className="nx-focus absolute left-4 top-4 z-overlay inline-flex h-11 min-h-[44px] items-center gap-1.5 rounded-full border border-white/15 bg-black/40 px-4 font-display text-label font-bold uppercase tracking-wide2 text-white/75 transition hover:bg-black/70 hover:text-white"
+          style={{ marginTop: "env(safe-area-inset-top)" }}
+          aria-label={tr("Saltar la animación y ver todas las cartas")}
+          data-testid="pack-skip"
         >
-          <div className="mx-auto max-w-4xl">
-            <h2 className="text-center font-display text-3xl font-bold uppercase tracking-wide text-white">
-              ¡Sobre abierto!
-            </h2>
-            <p className="mt-1 text-center text-white/50">{pack.name}</p>
+          {tr("Omitir ⏭")}
+        </button>
+      )}
 
-            <div className="mt-5 flex flex-wrap justify-center gap-3">
-              <Stat label="Cartas" value={String(results.length)} />
-              <Stat label="Nuevas" value={String(newCount)} accent="#37e6a0" />
-              <Stat label="Valor total" value={`🪙 ${formatCredits(totalValue)}`} accent="#ffd35c" />
-            </div>
+      {phase === "summary" && plan.items.length === 0 && results.length > 0 && (
+        <PackStatus kind="error" title={tr("No se pudieron mostrar tus cartas")} message={tr("El sobre se abrió y las cartas están guardadas en tu colección, pero no se pudieron presentar aquí. Ábrelas en tu colección.")} packsLeft={packsLeft} onNavigate={navigate} />
+      )}
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              {results
-                .slice()
-                .sort((a, b) => getVariant(b.card.variantId).rank - getVariant(a.card.variantId).rank)
-                .map((r) => (
-                  <motion.div
-                    key={r.uid}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="relative"
-                  >
-                    {r.isNew && (
-                      <span className="absolute -top-2 left-1/2 z-10 -translate-x-1/2 rounded-full bg-drl px-2 py-0.5 font-display text-[10px] font-bold uppercase text-white shadow-glow">
-                        Nueva
-                      </span>
-                    )}
-                    <PlayerCard card={r.card} size="sm" serial={r.serial} />
-                  </motion.div>
-                ))}
-            </div>
+      {phase === "summary" && plan.items.length > 0 && (
+        <div className="absolute inset-0 overflow-y-auto px-4 py-8" style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom))" }}>
+          {!state.cinematic && (
+            <p role="status" className="mx-auto mb-4 max-w-xl text-center text-caption text-ink-muted" data-testid="summary-no-cinematic">
+              {tr("Tus cartas ya están guardadas. Esta vez se muestran sin animación.")}
+              {plan.summary.unresolved > 0 && " " + tr("{n, plural, one {Una carta no se pudo mostrar aquí: está en tu colección.} other {# cartas no se pudieron mostrar aquí: están en tu colección.}}", { n: plan.summary.unresolved })}
+            </p>
+          )}
+          <PackSummary
+            packName={pack.name}
+            plan={plan}
+            available={available}
+            packsLeft={packsLeft}
+            recovered={state.recovered}
+            repeated={state.repeated}
+            reduced={reduced}
+            onOpenAnother={openAnother}
+            onNavigate={navigate}
+            onAddToDeck={bestResult && toDeckCard(bestResult) ? () => setDeckCard(toDeckCard(bestResult)) : undefined}
+            headingRef={summaryHeading}
+            accent={pack.accent}
+            intensity={MAIN_PACK_LINE.includes(pack.id) ? MAIN_PACK_LINE.indexOf(pack.id) + 1 : 3}
+            lead={guide ? (guide.context.packsOpened === 1 && best ? <FirstCardLesson card={best.card} view={guide} here={guideHere} /> : <OnboardingPackNext view={guide} here={guideHere} />) : null}
+            dockStatic={!!guide}
+          >
+            {/* Fase 27 · lo que este sobre ha movido en tus objetivos (dos lecturas del servidor). */}
+            {online && <PostMatchProgress delta={progression.delta} className="mx-auto mt-8 max-w-2xl" />}
+            {/* Fase 42 · qué sigue: objetivo de sobres que avanzó y la siguiente acción del vestíbulo (sin recompensa extra). */}
+            {/* F63 · durante la primera sesión el «qué sigue» lo dice la guía (arriba): no dos siguientes pasos a la vez. */}
+            {online && !guide && <NextUpAfter context="pack" className="mx-auto mt-4 max-w-2xl" />}
+          </PackSummary>
+        </div>
+      )}
 
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
-              {duplicates.length > 0 && (
-                <button
-                  onClick={() => {
-                    quickSellMany(duplicates.map((d) => d.uid));
-                    router.push("/coleccion");
-                  }}
-                  className="rounded-xl border border-drl-gold/40 bg-drl-gold/10 px-5 py-3 font-display text-sm uppercase tracking-wide text-drl-gold transition hover:bg-drl-gold/20"
-                >
-                  Vender {duplicates.length} duplicado(s) · 🪙{" "}
-                  {formatCredits(duplicates.reduce((s, d) => s + Math.round(d.value * 0.8), 0))}
-                </button>
-              )}
-              <button
-                onClick={() => router.push("/coleccion")}
-                className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 font-display text-sm uppercase tracking-wide text-white transition hover:bg-white/10"
-              >
-                Ver colección
-              </button>
-              <button
-                onClick={() => router.push("/tienda")}
-                className="rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-5 py-3 font-display text-sm uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
-              >
-                Abrir otro
-              </button>
-            </div>
-          </div>
-        </motion.div>
+      {deckCard && (
+        <AddToDeckSheet card={deckCard} origin="pack_summary" onClose={() => setDeckCard(null)} />
       )}
     </div>
-  );
-}
-
-function Stat({ label, value, accent = "#ffffff" }: { label: string; value: string; accent?: string }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-base-700/60 px-5 py-3 text-center">
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
-      <p className="font-display text-xl font-bold" style={{ color: accent }}>
-        {value}
-      </p>
-    </div>
-  );
-}
-
-function Centered({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="fixed inset-0 z-[60] grid place-items-center bg-base-900">
-      <div className="flex flex-col items-center gap-3 text-center">{children}</div>
-    </div>
-  );
-}
-
-function BackButton({ onClick, label = "Volver" }: { onClick: () => void; label?: string }) {
-  return (
-    <button
-      onClick={onClick}
-      className="mt-2 rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-5 py-2.5 font-display text-sm uppercase tracking-wide text-white shadow-glow"
-    >
-      {label}
-    </button>
   );
 }

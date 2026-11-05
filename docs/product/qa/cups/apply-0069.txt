@@ -1,0 +1,16 @@
+== 1. fichero
+sha256 OK ef3a8fd5bfb3d0375a9e5056c5be421de0bcb0d263900cec8e420dbc24ad65c9
+== 2. cabeza = 0068 por estado real, sin rastro de 0069
+perfiles: 40 · admins: 2f86cbe8 · huellas de 24 tablas · temporada-2: DRAFT
+== 3. aplicar (una transacción)
+exit=0 en 304 ms · 2026-10-05T13:29:24Z
+== 4. después
+DATOS_INTACTOS (0069 no cambió ninguna fila existente)
+tablas nuevas: 0 copas · 0 inscripciones · 0 cruces
+ADMINS_IGUALES
+CUENTA_PERSONAL_INTACTA (tag #9KZAWPC)
+privilegios de cliente (auth select cups, anon select cruces, auth insert inscripción, auth exec liquidar, anon exec inscribir): falsefalsefalsefalsefalse
+disparadores: cup_matches_guard,cup_registrations_guard,cups_guard
+trofeo único: 1
+F83 temporada-2: DRAFT
+APPLY_OK 0069

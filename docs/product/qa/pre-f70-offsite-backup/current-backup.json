@@ -1,0 +1,43 @@
+{
+  "phase": "PRE-F70",
+  "systems": [
+    {
+      "name": "nexus-backup.sh (infraestructura del VPS, COMPARTIDA por todos los proyectos NEXUS; fuera del repo)",
+      "schedule": "cron 30 4 * * *",
+      "contains": "pg_dump -Fc de supabase_db_DRLCards (validado con pg_restore -l) + tar.gz del volumen supabase_storage_DRLCards + tar de /opt/nexus/projects (config y secretos de TODOS los proyectos) + otras bases/volúmenes de NEXUS",
+      "path": "/opt/nexus/backups/{supabase-drlcards,supabase-drlcards-storage,config}/daily",
+      "retention": "14 días (find -mtime +14 -delete)",
+      "checksums": ".sha256 por fichero",
+      "manifest": "no",
+      "completionMarker": "no (.partial renombrado al terminar el dump)",
+      "permissions": "umask 077; directorios 700",
+      "failure": "cuenta fallos, exit 1 si alguno; registro /opt/nexus/logs/nexus-backup.log",
+      "offsite": "NO (lo dice su cabecera: el riesgo abierto más importante)",
+      "touchedInThisPhase": false,
+      "why": "compartido con otros proyectos y fuera del repo: tocarlo afecta a lo que no es DRLCards"
+    },
+    {
+      "name": "scripts/ops/backup-drlcards.sh (F67; CANÓNICO para DRLCards; en el repo)",
+      "schedule": "bajo demanda (ssh … bash -s); sin cron hasta la activación",
+      "unit": "<DEST>/<TS>/: db.dump (pg_dump -Fc) + db.toc + storage.tgz + storage-files.sha256 (sha256 de CADA objeto) + storage-objects.tsv + table-counts.tsv (25 tablas + auth.users) + manifest.json (cabeza esperada, imagen/versión de Postgres, sonda de esquema, tamaños, sha256) + SHA256SUMS (verificado con sha256sum -c) + COMPLETE",
+      "compression": "dump custom de Postgres (comprimido) + tar.gz",
+      "permissions": "umask 077 (ficheros 600, directorios 700)",
+      "disk": "exige MIN_FREE_MB=1024 libres y destino escribible",
+      "failure": "die() → exit 1 en cualquier paso; BACKUP_OK solo al final",
+      "restore": "scripts/ops/restore-drill.sh (Postgres desechable, --network none, recuentos + checksums de Storage)"
+    }
+  ],
+  "sizes": {
+    "dbDump": 3169365,
+    "storageTgz": 87,
+    "storageObjects": 0,
+    "unitBytes": 3320985,
+    "encryptedCms": 3331819,
+    "dailyDumpSeries": "2.103.859 B (2026-09-14) → 3.098.625 B (2026-09-28): +0,99 MB en 14 días (≈71 KB/día de media, con saltos por la QA de F68/F69)"
+  },
+  "rpo": "24 h como máximo (dump diario); el off-site no lo mejora: copia la unidad del día",
+  "rto": {
+    "observedDbRestoreDrill": "25 s en el arnés (F67: 28 s): Postgres desechable listo + pg_restore + validación + Storage",
+    "fullIncidentRecovery": "NO medido: incluye máquina nueva, Docker, stack Supabase, secretos, túnel/DNS y la app; no se promete"
+  }
+}

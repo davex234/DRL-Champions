@@ -1,0 +1,9 @@
+✔ es PURO: no muta el estado y es determinista (2.2864ms)
+ℹ tests 6133
+ℹ suites 0
+ℹ pass 6133
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 115950.9371

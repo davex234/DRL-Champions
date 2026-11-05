@@ -1,0 +1,43 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase39",
+  "generated": "2026-09-22T09:48:19.642Z",
+  "rows": [
+    {
+      "file": "pick-1-1440x900.png",
+      "scene": "pick-1",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "pick-1-390x844.png",
+      "scene": "pick-1",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "pick-5-1440x900.png",
+      "scene": "pick-5",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "pick-5-390x844.png",
+      "scene": "pick-5",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "draft-complete-1440x900.png",
+      "scene": "draft-complete",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "draft-complete-390x844.png",
+      "scene": "draft-complete",
+      "size": "390x844",
+      "errors": []
+    }
+  ]
+}

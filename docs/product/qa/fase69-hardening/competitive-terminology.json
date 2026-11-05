@@ -1,0 +1,76 @@
+{
+  "phase": "F69",
+  "bug": "F68-013",
+  "contract": {
+    "pvpRanked": "Rating ranked (Elo) + Puesto ranked / escalera; SIN tiers con nombre (contrato F28/F55)",
+    "pointsRanks": "Rango de puntos Bronce…Nexus por profiles.points (Pick'ems + duelos contra el bot): /cuenta y /ranking",
+    "pickems": "puntos del evento en Pick'ems (sistema aparte)"
+  },
+  "live": {
+    "390": {
+      "cuenta": {
+        "rangoDePuntos": " XP PARA EL NIVEL 9 RANGO DE PUNTOS BRONCE II 54 PUNTOS PARA PLATA 🎮 CERRAR SESIÓN PUNTOS 96 TORNEOS 0 ACIERT",
+        "ratingElo": "0 DRL CREDITS 4.900 RATING RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETIT",
+        "puestoRanked": "G RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETITIVO → AMIGOS 0 EN LÍNEA 0",
+        "oldRatingPvp": false,
+        "bareRango": false
+      },
+      "competitivo": {
+        "namedTierNearElo": false,
+        "sample": "SIN CLASIFICAR — COMPETITIVO · RANKED PVP SIN CLASIFICAR RATING 1000 SIN CLASIFICAR → TU PRIMERA PARTIDA TE METE EN LA ESCALERA Empiezas con 1000 de rating. Las 10 primeras partidas son de colocación: el rating se mueve más rápido. PARTIDAS 0 VICTORIAS 0 DERROTAS 0 % VICTORIAS — RANKED · DUELO DE CARTAS JUGAR COMPETITIVO TU EQUIPO Equipo 1 ✓ LEGAL Editar CAMBIAR EQUIPO Equipo 1 Mi primer equipo JU",
+        "usesPuesto": true,
+        "legacyRangoLoading": false
+      },
+      "ranking": {
+        "title": "PROGRESO CLASIFICACIÓN Clasificación por puntos: Pick'ems y duelos contra el bot. El ranked PvP tiene su propia escalera por rating en Competitivo. BRONCE II 96 pts · #1 del mundo en puntos",
+        "rangosDePuntos": true,
+        "laEscalera": false
+      }
+    },
+    "1024": {
+      "cuenta": {
+        "rangoDePuntos": " XP PARA EL NIVEL 9 RANGO DE PUNTOS BRONCE II 54 PUNTOS PARA PLATA 🎮 CERRAR SESIÓN PUNTOS 96 TORNEOS 0 ACIERT",
+        "ratingElo": "0 DRL CREDITS 4.900 RATING RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETIT",
+        "puestoRanked": "G RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETITIVO → AMIGOS 0 EN LÍNEA 0",
+        "oldRatingPvp": false,
+        "bareRango": false
+      },
+      "competitivo": {
+        "namedTierNearElo": false,
+        "sample": "SIN CLASIFICAR — COMPETITIVO · RANKED PVP SIN CLASIFICAR RATING 1000 SIN CLASIFICAR → TU PRIMERA PARTIDA TE METE EN LA ESCALERA Empiezas con 1000 de rating. Las 10 primeras partidas son de colocación: el rating se mueve más rápido. PARTIDAS 0 VICTORIAS 0 DERROTAS 0 % VICTORIAS — RANKED · DUELO DE CARTAS JUGAR COMPETITIVO TU EQUIPO Equipo 1 ✓ LEGAL Editar CAMBIAR EQUIPO Equipo 1 Mi primer equipo JU",
+        "usesPuesto": true,
+        "legacyRangoLoading": false
+      },
+      "ranking": {
+        "title": "PROGRESO CLASIFICACIÓN Clasificación por puntos: Pick'ems y duelos contra el bot. El ranked PvP tiene su propia escalera por rating en Competitivo. BRONCE II 96 pts · #1 del mundo en puntos",
+        "rangosDePuntos": true,
+        "laEscalera": false
+      }
+    },
+    "1440": {
+      "cuenta": {
+        "rangoDePuntos": " XP PARA EL NIVEL 9 RANGO DE PUNTOS BRONCE II 54 PUNTOS PARA PLATA 🎮 CERRAR SESIÓN PUNTOS 96 TORNEOS 0 ACIERT",
+        "ratingElo": "0 DRL CREDITS 4.900 RATING RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETIT",
+        "puestoRanked": "G RANKED (ELO) 1000 PUESTO RANKED Sin clasificar RÉCORD 0–0 PROVISIONAL 0/10 COMPETITIVO → AMIGOS 0 EN LÍNEA 0",
+        "oldRatingPvp": false,
+        "bareRango": false
+      },
+      "competitivo": {
+        "namedTierNearElo": false,
+        "sample": "SIN CLASIFICAR — COMPETITIVO · RANKED PVP SIN CLASIFICAR RATING 1000 SIN CLASIFICAR → TU PRIMERA PARTIDA TE METE EN LA ESCALERA Empiezas con 1000 de rating. Las 10 primeras partidas son de colocación: el rating se mueve más rápido. PARTIDAS 0 VICTORIAS 0 DERROTAS 0 % VICTORIAS — RANKED · DUELO DE CARTAS JUGAR COMPETITIVO TU EQUIPO Equipo 1 ✓ LEGAL Editar CAMBIAR EQUIPO Equipo 1 Mi primer equipo JU",
+        "usesPuesto": true,
+        "legacyRangoLoading": false
+      },
+      "ranking": {
+        "title": "PROGRESO CLASIFICACIÓN Clasificación por puntos: Pick'ems y duelos contra el bot. El ranked PvP tiene su propia escalera por rating en Competitivo. BRONCE II 96 pts · #1 del mundo en puntos",
+        "rangosDePuntos": true,
+        "laEscalera": false
+      }
+    }
+  },
+  "resumedFix": "El sondeo final encontró aún un «rango» suelto en /cuenta (pie «…tus puntos y tu rango…» y tope «Rango máximo»): ahora «rating ranked» y «Rango de puntos máximo»; el test F68-013 comprueba que ningún «rango» visible quede sin sistema.",
+  "tests": [
+    "src/domain/progression/f69.rankTerms.test.ts"
+  ],
+  "verdict": "FIXED — terminologyOk en 390/1024/1440"
+}

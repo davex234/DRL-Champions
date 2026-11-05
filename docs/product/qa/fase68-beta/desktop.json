@@ -1,0 +1,791 @@
+{
+  "width": 1440,
+  "sessions": [
+    {
+      "id": "A-final-auth",
+      "persona": "A",
+      "session": "auth",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 10,
+      "screens": 4,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 3,
+      "api": 14,
+      "statuses": {
+        "200": 260,
+        "204": 5
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "A-final2-auth",
+      "persona": "A",
+      "session": "auth",
+      "tag": "final2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 10,
+      "screens": 4,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 3,
+      "api": 14,
+      "statuses": {
+        "200": 261,
+        "204": 5
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "A-fix-auth",
+      "persona": "A",
+      "session": "auth",
+      "tag": "fix",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 39,
+      "actions": 9,
+      "screens": 3,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 3,
+      "api": 7,
+      "statuses": {
+        "200": 142,
+        "204": 3
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "A-r1-auth",
+      "persona": "A",
+      "session": "auth",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 38,
+      "actions": 9,
+      "screens": 3,
+      "checks": {
+        "pass": 2,
+        "fail": [
+          "FAIL contraseña mala: mensaje útil en español sin fuga"
+        ]
+      },
+      "consoleErrors": 3,
+      "api": 7,
+      "statuses": {
+        "200": 142,
+        "204": 3
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "A-r1-keyboard",
+      "persona": "A",
+      "session": "keyboard",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 27,
+      "actions": 43,
+      "screens": 5,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 52,
+      "statuses": {
+        "200": 547,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "A-r1-long",
+      "persona": "A",
+      "session": "long",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 162,
+      "actions": 128,
+      "screens": 42,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 197,
+      "statuses": {
+        "200": 796,
+        "204": 44
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "A-r1-new",
+      "persona": "A",
+      "session": "new",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 92,
+      "actions": 29,
+      "screens": 7,
+      "checks": {
+        "pass": 3,
+        "fail": [
+          "FAIL la guía acaba (SEGUIR JUGANDO)",
+          "FAIL onboarding COMPLETED en el servidor",
+          "FAIL tiene equipo válido y activo",
+          "FAIL portada sin guía tras terminar"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 118,
+      "statuses": {
+        "200": 831,
+        "204": 17
+      },
+      "bad": [],
+      "notes": [
+        {
+          "t": 38,
+          "kind": "friction",
+          "text": "la guía no avanza en /abrir/inicial",
+          "data": {
+            "welcome": false,
+            "starter": false,
+            "openFirst": false,
+            "packOpen": false,
+            "summary": true,
+            "firstCard": false,
+            "toCollection": false,
+            "packNext": true,
+            "collection": false,
+            "cont": false,
+            "team": false,
+            "cta": true,
+            "start": false,
+            "afterMatch": false,
+            "progress": false,
+            "finishBtn": false,
+            "mainActions": false,
+            "error": false,
+            "hand": 0
+          }
+        },
+        {
+          "t": 69,
+          "kind": "friction",
+          "text": "Partida rápida no muestra «Comenzar duelo»",
+          "data": {
+            "url": "/duelos/mazos",
+            "title": "DRL Champions — Manager de esports de Valorant",
+            "h": [
+              "MIS EQUIPOS"
+            ],
+            "testids": [
+              "shell-play-menu",
+              "shell-play",
+              "shell-menu",
+              "onboarding-rail",
+              "onboarding-pill",
+              "onboarding-rail-cta",
+              "first-team",
+              "game-moment-region",
+              "dock-play"
+            ],
+            "buttons": [
+              "MÁS 2",
+              "CREAR MI PRIMER EQUIPO"
+            ],
+            "links": [
+              "#contenido",
+              "/",
+              "/coleccion",
+              "/duelos/mazos",
+              "/tienda",
+              "/temporada",
+              "/mundo",
+              "/jugador/me",
+              "/jugar",
+              "/abrir/inicial",
+              "/duelos"
+            ],
+            "text": "TU INICIO · 3/6 COMPLETA TU COLECCIÓN ABRIR EL SIGUIENTE SOBRE → ‹ DUELOS NEXUS TEAM BUILDER MIS EQUIPOS 10 cartas · 2 Duelistas, 2 Controladores, 2 Iniciadores, 2 Centinelas, 2 Flex · sin repetir jugador TODAVÍA NO TIENES NINGÚN EQUIPO ✓ CONSIGUE CARTAS Tienes 10: suficientes para un equipo. 2 CREA TU EQUIPO Diez huecos, agrupados por rol. 3 COMPLETA LOS ROLES 2 Duelistas · 2 Controladores · 2 Iniciadores · 2 Centinelas · 2 Flex 4 JUEGA PvE, PvP o un reto a un amigo. CREAR MI PRIMER EQUIPO",
+            "hScroll": false,
+            "broken": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "A-r1-resume",
+      "persona": "A",
+      "session": "resume",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 173,
+      "actions": 94,
+      "screens": 6,
+      "checks": {
+        "pass": 9,
+        "fail": [
+          "FAIL 2.ª partida termina con resultado visible",
+          "FAIL resultado ofrece siguiente paso (Jugar otra / lobby)"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 152,
+      "statuses": {
+        "200": 956,
+        "204": 19
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "AB-r1-switch",
+      "persona": "A",
+      "session": "switch",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 78,
+      "actions": 33,
+      "screens": 22,
+      "checks": {
+        "pass": 7,
+        "fail": [
+          "FAIL de vuelta en A: HUD de A"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 199,
+      "statuses": {
+        "200": 1882,
+        "204": 23
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "C-r1-multitab",
+      "persona": "C",
+      "session": "multitab",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 12,
+      "screens": 2,
+      "checks": {
+        "pass": 0,
+        "fail": [
+          "FAIL 2.ª pestaña: el saldo se pone al día al volver o al navegar"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 33,
+      "statuses": {
+        "200": 173,
+        "204": 6
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "C-r1-multitab-same",
+      "persona": "C",
+      "session": "multitabsame",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 6,
+      "screens": 2,
+      "checks": {
+        "pass": 1,
+        "fail": [
+          "FAIL pestaña 2 (mismo navegador): el saldo se pone al día al volver o al navegar"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 23,
+      "statuses": {
+        "200": 199,
+        "204": 3
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "C-r1-new",
+      "persona": "C",
+      "session": "new",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 169,
+      "actions": 126,
+      "screens": 7,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 210,
+      "statuses": {
+        "200": 1126,
+        "204": 26
+      },
+      "bad": [],
+      "notes": [
+        {
+          "t": 34,
+          "kind": "bug",
+          "text": "F68-001 · «ABRIR EL SIGUIENTE SOBRE» no hace nada en /abrir/inicial: salida por la portada"
+        }
+      ]
+    },
+    {
+      "id": "C-r1-slownet",
+      "persona": "C",
+      "session": "slownet",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 66,
+      "actions": 50,
+      "screens": 6,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 14,
+      "api": 85,
+      "statuses": {
+        "0": 14,
+        "200": 694,
+        "204": 8
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "C-r1-store",
+      "persona": "C",
+      "session": "store",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 68,
+      "actions": 36,
+      "screens": 7,
+      "checks": {
+        "pass": 9,
+        "fail": [
+          "FAIL doble clic en comprar cobra UNA vez",
+          "FAIL doble clic en comprar añade UN sobre"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 132,
+      "statuses": {
+        "200": 866,
+        "204": 20
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "C-r1-teams",
+      "persona": "C",
+      "session": "teams",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 14,
+      "screens": 3,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 46,
+      "statuses": {
+        "200": 400,
+        "204": 6
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "CF-r2-switch",
+      "persona": "C",
+      "session": "switch",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 80,
+      "actions": 33,
+      "screens": 22,
+      "checks": {
+        "pass": 8,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 199,
+      "statuses": {
+        "200": 1898,
+        "204": 23
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "DC-r1-social",
+      "persona": "D",
+      "session": "social",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 34,
+      "actions": 15,
+      "screens": 6,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 72,
+      "statuses": {
+        "200": 574,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-final-return",
+      "persona": "E",
+      "session": "return",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 22,
+      "actions": 9,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 578,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-final2-return",
+      "persona": "E",
+      "session": "return",
+      "tag": "final2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 22,
+      "actions": 9,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 578,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-fix-multitab-same",
+      "persona": "E",
+      "session": "multitabsame",
+      "tag": "fix",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 29,
+      "actions": 6,
+      "screens": 2,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 23,
+      "statuses": {
+        "200": 199,
+        "204": 3
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r1-progress",
+      "persona": "E",
+      "session": "progress",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 42,
+      "actions": 12,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 72,
+      "statuses": {
+        "200": 546,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r1-return",
+      "persona": "E",
+      "session": "return",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 22,
+      "actions": 9,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 573,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r2-perf",
+      "persona": "E",
+      "session": "perf",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 106,
+      "actions": 4,
+      "screens": 23,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 1,
+      "api": 220,
+      "statuses": {
+        "200": 2007,
+        "204": 29
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r2-progress",
+      "persona": "E",
+      "session": "progress",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 40,
+      "actions": 9,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 524,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r2-return",
+      "persona": "E",
+      "session": "return",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 22,
+      "actions": 9,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 578,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "F-r2-keyboard",
+      "persona": "F",
+      "session": "keyboard",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 27,
+      "actions": 43,
+      "screens": 5,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 50,
+      "statuses": {
+        "200": 535,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "F-r2-new",
+      "persona": "F",
+      "session": "new",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 164,
+      "actions": 128,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 209,
+      "statuses": {
+        "200": 1073,
+        "204": 26
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "H-final-new",
+      "persona": "H",
+      "session": "new",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 163,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 11,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 199,
+      "statuses": {
+        "200": 1056,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "I-final-new",
+      "persona": "I",
+      "session": "new",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 163,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 11,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 207,
+      "statuses": {
+        "200": 1071,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "J-definitive-new",
+      "persona": "J",
+      "session": "new",
+      "tag": "definitive",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 165,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 11,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 205,
+      "statuses": {
+        "200": 1065,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    }
+  ]
+}

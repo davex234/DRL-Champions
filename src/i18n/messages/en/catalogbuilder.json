@@ -1,0 +1,19 @@
+{
+  "Colección de torneo con {length} cartas.": "Tournament collection with {length} cards.",
+  "El catálogo incorpora {length} cartas nuevas ({length2} jugadores debutan).": "The catalog adds {length} new cards ({length2} players make their debut).",
+  "Nueva colección: {name}": "New collection: {name}",
+  "Se añaden {length} cartas de {colName}": "{length} cards from {colName} added",
+  "alta inexistente {id} en {packId}": "nonexistent addition {id} in {packId}",
+  "carta sin jugador: {id}": "card without player: {id}",
+  "catalogFingerprint inválido": "invalid catalogFingerprint",
+  "enlace de carta inexistente: {cardId}": "nonexistent card link: {cardId}",
+  "entrada de carta inexistente: {cardId}": "nonexistent card entry: {cardId}",
+  "fila de carta inexistente: {ref}": "nonexistent card row: {ref}",
+  "item inexistente {cardId} en {id}": "nonexistent item {cardId} in {id}",
+  "odds no normalizadas en {packId} ({oddsSum})": "odds not normalized in {packId} ({oddsSum})",
+  "ruta con carta inexistente: {from}→{to}": "route with nonexistent card: {from}→{to}",
+  "ruta vía receta inexistente: {via}": "route via nonexistent recipe: {via}",
+  "versión no semántica: {catalogVersion}": "non-semantic version: {catalogVersion}",
+  "{length} jugadores nuevos entran al catálogo": "{length} new players join the catalog",
+  "{n} carta(s) retiradas del catálogo": "{n} card(s) retired from the catalog"
+}

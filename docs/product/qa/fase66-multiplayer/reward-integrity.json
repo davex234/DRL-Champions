@@ -1,0 +1,62 @@
+{
+  "realServer": {
+    "at": "2026-09-26T19:07:28.222Z",
+    "pve": {
+      "account": "40a1e10d",
+      "matchId": "8a331b06",
+      "creditsBefore": {
+        "credits": 17955,
+        "xp": 821
+      },
+      "sameTurnTen": {
+        "statuses": {
+          "200": 1,
+          "409": 9
+        },
+        "historyBefore": 0,
+        "historyAfter": 1,
+        "conflictCarriesView": true,
+        "ok": true
+      },
+      "lostResponseRetry": {
+        "historyBefore": 1,
+        "afterAbort": 1,
+        "retryStatus": 200,
+        "afterRetry": 2,
+        "ok": true
+      },
+      "refresh": {
+        "sameMatch": true,
+        "sameTurn": true,
+        "ok": true
+      },
+      "finish": {
+        "result": {
+          "winner": "YOU",
+          "score": "5-4",
+          "decidedBy": "SCORE",
+          "award": {
+            "points": 8,
+            "credits": 120,
+            "xp": 60
+          }
+        },
+        "postFinishStatuses": {
+          "200": 5,
+          "409": 8
+        },
+        "creditsAfter": {
+          "credits": 18075,
+          "xp": 881
+        },
+        "creditsDelta": 120,
+        "awardCredits": 120,
+        "replayStillThere": true,
+        "ok": true
+      }
+    },
+    "ok": true
+  },
+  "soakCreditsUnchanged": true,
+  "pvpRankedRewards": "PvP no paga créditos/XP (solo rating), comprobado en código: duelsPvp no llama a award()"
+}

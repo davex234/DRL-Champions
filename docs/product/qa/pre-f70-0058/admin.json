@@ -1,0 +1,14 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "liveAdminAccount": "no existe cuenta admin QA; no se creó ni se usó la cuenta del usuario",
+  "design": "verifyAdmin (src/lib/supabase/adminAuth.ts) resuelve el JWT y lee profiles.is_admin con service_role; 0058 no toca los privilegios de service_role (postflight «service_role conserva recompute_*» ok; RLS «service_role lee profiles» ok). /api/admin/session es la autoridad; useAdminSession obtiene la marca previa por /api/game/me.",
+  "normalUserDenied": [
+    "PASS admin: /api/admin/overview rechazado a un usuario normal {\"status\":404}",
+    "PASS admin: /api/admin/system rechazado a un usuario normal {\"status\":401}",
+    "PASS admin: /api/admin/cms/cards rechazado a un usuario normal {\"status\":401}"
+  ],
+  "smoke": "anónimo /api/admin/system 401, /api/admin/users 401; RPC admin como usuario 404",
+  "tests": "npm test 5405/5405, incluidos src/server/admin/adminControlCenter.test.ts (verifyAdmin, sanciones, auditoría) y 21 tests de admin",
+  "rlsNotWeakened": "ningún privilegio se reabrió para el panel",
+  "status": "PASS (sin prueba viva con admin real, por diseño)"
+}

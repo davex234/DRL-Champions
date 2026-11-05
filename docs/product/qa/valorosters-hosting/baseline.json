@@ -1,0 +1,11 @@
+{
+  "at": "2026-09-30T18:01:13.880Z",
+  "branch": "arch/stabilization",
+  "head": "48dac2a",
+  "worktreeEntries": 1522,
+  "note": "sin reset/clean/stash; cambios quirúrgicos",
+  "buildBefore": "drl-0.1.1-1-d78ae907",
+  "runtime": "Windows: tarea programada «DRLCards» + supervisor, next start en 127.0.0.1:3005",
+  "db": "Postgres del VPS por túnel SSH 127.0.0.1:54521/54522",
+  "f73": "operación cancelada: admin QA revocado 17:32:15Z, config QA RETIRED, partida QA abandonada"
+}

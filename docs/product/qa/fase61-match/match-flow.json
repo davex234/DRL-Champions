@@ -1,0 +1,90 @@
+{
+  "flow": [
+    "JUGAR / Comenzar duelo",
+    "FOUND (Rival preparado · bot / Rival encontrado · persona)",
+    "VERSUS",
+    "LINEUP (10 cartas reales)",
+    "campo (ATACAS / DEFIENDES / ESPERANDO AL RIVAL)",
+    "turno: cartas → eje → valores → comparación → veredicto → marcador",
+    "recta final (turnos 8–9) / último turno (10)",
+    "desempate en escena (solo si el marcador no decidió)",
+    "golpe final VICTORIA / DERROTA / EMPATE",
+    "resultado + recompensas del servidor",
+    "JUGAR OTRA / Cambiar rival o mazo / Volver al lobby"
+  ],
+  "timings": {
+    "entranceMs": {
+      "full": 3500,
+      "reduced": 2900
+    },
+    "momentBeatsS": {
+      "full": {
+        "cards": 0,
+        "stat": 0.34,
+        "values": 0.72,
+        "compare": 1.08,
+        "verdict": 1.28
+      },
+      "reduced": {
+        "cards": 0,
+        "stat": 0.22,
+        "values": 0.48,
+        "compare": 0.72,
+        "verdict": 0.86
+      }
+    },
+    "momentHoldMs": {
+      "normal": 3000,
+      "late": 3200,
+      "final": 3500,
+      "reducedNormal": 2600
+    },
+    "tiebreakStepMs": {
+      "full": 1150,
+      "reduced": 950
+    },
+    "matchCompleteMs": {
+      "full": 1200,
+      "reduced": 1000
+    }
+  },
+  "realPvE": {
+    "account": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+    "introBeats": [
+      "FOUND",
+      "VERSUS",
+      "LINEUP"
+    ],
+    "turns": [
+      "B|NORMAL",
+      "B|NORMAL",
+      "B|NORMAL",
+      "B|NORMAL",
+      "A|NORMAL",
+      "A|NORMAL",
+      "B|NORMAL",
+      "A|LATE",
+      "A|LATE",
+      "B|FINAL"
+    ],
+    "endSequence": [
+      "complete:LOSS",
+      "result:loss"
+    ],
+    "credits": [
+      3590,
+      3630
+    ],
+    "xp": [
+      2014,
+      2039
+    ]
+  },
+  "modes": {
+    "quick": "MatchIntro FOUND → VERSUS → LINEUP",
+    "campaign": "misma arena, rótulo «Rival del nodo»",
+    "draft": "misma arena; «Salir» vuelve al gauntlet con el combate guardado",
+    "ranked": "RankedMatchFound (F55) → MatchIntro desde LINEUP",
+    "private": "MatchIntro desde FOUND (duelo privado)"
+  }
+}

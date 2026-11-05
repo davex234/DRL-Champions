@@ -1,0 +1,54 @@
+{
+  "at": "2026-10-05T13:19:52.774Z",
+  "base": "http://127.0.0.1:3082",
+  "ms": 28819,
+  "pass": 9,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "S1 sesión guardada + servidor lento 1000 ms @1440 · /abrir/estandar · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "8:L[] 1228:[]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 1000 ms @1440 · /abrir/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":1228,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"ready\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /abrir/estandar · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "3:L[] 3082:[]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /abrir/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3082,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"ready\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 5000 ms @1440 · /abrir/estandar · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "5:L[] 5048:[]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 5000 ms @1440 · /abrir/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":5048,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"ready\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S2 HARD REFRESH (caché de la cuenta, servidor a 3 s) @1440 · /tienda · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "11:L[—] 3126:[2.120]"
+    },
+    {
+      "id": "S2 HARD REFRESH (caché de la cuenta, servidor a 3 s) @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3126,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":true}"
+    },
+    {
+      "id": "S1/S2 @1440 · consola: 0 errores inesperados (ni hidratación ni React)",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

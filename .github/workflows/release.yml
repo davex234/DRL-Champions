@@ -1,0 +1,100 @@
+# RELEASE — ejecuta el MISMO ReleasePipeline local (vía scripts/ci/run-pipeline.mjs) y, como
+# SIGUIENTE PASO, PUBLICA la release en el destino configurado (Transport Engine, Fase 3).
+# Sin secrets de publicación → provider `local` (efímero, prueba el flujo); con R2/GitHub/FS
+# configurados → publicación real. La selección del provider la decide el sistema de transporte.
+name: release
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Canal (stable/beta/developer/nightly)
+        required: false
+        default: stable
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+  TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+  UPDATE_ENDPOINT: ${{ vars.UPDATE_ENDPOINT }}
+  RELEASE_CHANNEL: ${{ inputs.channel || vars.RELEASE_CHANNEL || 'stable' }}
+  BUILD_CONFIGURATION: ${{ vars.BUILD_CONFIGURATION || 'release' }}
+  # ── Publicación (Fase 3) — todos opcionales; sin ellos se usa el provider `local` ──
+  DRL_PUBLISH_PROVIDER: ${{ vars.DRL_PUBLISH_PROVIDER }}
+  DRL_PUBLISH_FS_DIR: ${{ vars.DRL_PUBLISH_FS_DIR }}
+  DRL_PUBLISH_FS_URL: ${{ vars.DRL_PUBLISH_FS_URL }}
+  R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+  R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+  R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+  R2_BUCKET: ${{ vars.R2_BUCKET }}
+  R2_PUBLIC_BASE: ${{ vars.R2_PUBLIC_BASE }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # commit/branch para el report
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cargo / Rust / Tauri cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Next.js cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('src/**/*.ts','src/**/*.tsx') }}
+          restore-keys: next-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run Release Pipeline + Publish
+        shell: bash
+        run: |
+          FLAG=""
+          if [ -z "$TAURI_SIGNING_PRIVATE_KEY" ]; then
+            echo "::warning::Sin TAURI_SIGNING_PRIVATE_KEY → build sin instalador firmado (--no-bundle)."
+            FLAG="--no-bundle"
+          fi
+          # run-pipeline ejecuta el ReleasePipeline y, como siguiente paso, PUBLICA en el
+          # destino configurado (Transport Engine). Sin secrets → provider `local`.
+          node scripts/ci/run-pipeline.mjs $FLAG --channel "${RELEASE_CHANNEL}"
+
+      - name: Upload Release artifacts (exe/msi/latest/files/meta/report/state/publish)
+        uses: actions/upload-artifact@v4
+        with:
+          name: drl-release-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            dist/update/**
+
+      # Artefactos PUBLICADOS (lo que terminó en el provider, incl. el anillo de rollback).
+      - name: Upload Published artifacts (provider output)
+        uses: actions/upload-artifact@v4
+        with:
+          name: drl-published-${{ github.run_id }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: |
+            dist/published/**

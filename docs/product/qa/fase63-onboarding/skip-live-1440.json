@@ -1,0 +1,341 @@
+{
+  "at": "2026-09-26T15:56:49.611Z",
+  "evidence": {
+    "account": "0692cbd0",
+    "initial": {
+      "onboarding": {
+        "status": "NOT_STARTED",
+        "reason": null,
+        "current": "welcome",
+        "progress": "1/6",
+        "next": {
+          "cta": "Empezar",
+          "href": "/",
+          "command": "start"
+        },
+        "context": {
+          "firstPackId": "estandar",
+          "unopenedPacks": 4,
+          "ownedCards": 0,
+          "packsOpened": 0,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": false,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ],
+            "shortages": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ]
+          },
+          "readyDeck": null,
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 0,
+      "packsOpened": 0,
+      "unopenedPacks": {
+        "inicial": 3,
+        "estandar": 1
+      },
+      "ownedCards": 0,
+      "decks": [],
+      "activeDeckId": null
+    },
+    "dialogFocus": "Seguir con el tutorial",
+    "afterSkip": {
+      "onboarding": {
+        "status": "COMPLETED",
+        "reason": "SKIPPED",
+        "current": null,
+        "progress": "6/6",
+        "next": null,
+        "context": {
+          "firstPackId": "estandar",
+          "unopenedPacks": 4,
+          "ownedCards": 0,
+          "packsOpened": 0,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": false,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ],
+            "shortages": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ]
+          },
+          "readyDeck": null,
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 0,
+      "packsOpened": 0,
+      "unopenedPacks": {
+        "inicial": 3,
+        "estandar": 1
+      },
+      "ownedCards": 0,
+      "decks": [],
+      "activeDeckId": null
+    },
+    "homeAfterSkip": {
+      "onboardingUi": false
+    },
+    "inventoryUnchanged": true,
+    "railAfterSkip": false,
+    "afterResume": {
+      "onboarding": {
+        "status": "IN_PROGRESS",
+        "reason": null,
+        "current": "open",
+        "progress": "2/6",
+        "next": {
+          "cta": "Abrir mi primer sobre",
+          "href": "/abrir/estandar",
+          "command": null
+        },
+        "context": {
+          "firstPackId": "estandar",
+          "unopenedPacks": 4,
+          "ownedCards": 0,
+          "packsOpened": 0,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": false,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ],
+            "shortages": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ]
+          },
+          "readyDeck": null,
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 0,
+      "packsOpened": 0,
+      "unopenedPacks": {
+        "inicial": 3,
+        "estandar": 1
+      },
+      "ownedCards": 0,
+      "decks": [],
+      "activeDeckId": null
+    }
+  },
+  "captures": [
+    {
+      "name": "20-saltar-confirmacion",
+      "w": 1440,
+      "reduced": false,
+      "url": "/",
+      "measure": {
+        "docScrollW": 1440,
+        "W": 1440,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 7,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "21-tras-saltar",
+      "w": 1440,
+      "reduced": false,
+      "url": "/",
+      "measure": {
+        "docScrollW": 1440,
+        "W": 1440,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 7,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "22-como-jugar-retomar",
+      "w": 1440,
+      "reduced": false,
+      "url": "/como-jugar",
+      "measure": {
+        "docScrollW": 1440,
+        "W": 1440,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 0,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "23-retomado",
+      "w": 1440,
+      "reduced": false,
+      "url": "/",
+      "measure": {
+        "docScrollW": 1440,
+        "W": 1440,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 9,
+        "broken": []
+      },
+      "errors": []
+    }
+  ]
+}

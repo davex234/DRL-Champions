@@ -1,0 +1,57 @@
+PASS [390-icon-cinematic] hay al menos un walkout en el sobre {"phase":"opening","walkouts":"3"}
+PASS [390-icon-cinematic] walkout 1: persona 3D cargada {"idx":"0","card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","team":"M8","stage":"3d","cele":"HYPE_JUMP","human":"ready","humanMs":"2686"}
+PASS [390-icon-cinematic] walkout 1: bandera = nacionalidad real de la carta {"got":"CZE","want":"CZE"}
+PASS [390-icon-cinematic] walkout 1: escudo = equipo de la carta {"got":"M8","want":"M8"}
+PASS [390-icon-cinematic] walkout 1 completo sin Omitir: termina y ofrece Continuar {"end":{"t":"14.60","status":"done","cele":"HYPE_JUMP","done":"1","cont":true},"muestras":33,"ultimo":"14.60:done"}
+PASS [390-icon-cinematic] celebración de 0.9 elegida HYPE_JUMP
+PASS [390-icon-cinematic] walkout 2: persona 3D cargada {"idx":"1","card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","team":"100T","stage":"3d","cele":"ARMS_CROSSED","human":"ready","humanMs":"1675"}
+PASS [390-icon-cinematic] walkout 2: bandera = nacionalidad real de la carta {"got":"CAN","want":"CAN"}
+PASS [390-icon-cinematic] walkout 2: escudo = equipo de la carta {"got":"100T","want":"100T"}
+PASS [390-icon-cinematic] walkout 2: Omitir lleva al final 
+PASS [390-icon-cinematic] walkout 3: persona 3D cargada {"idx":"2","card":"loita__future-star","intensity":"WALKOUT","code":"TUR","team":"BBL","stage":"3d","cele":"HYPE_JUMP","human":"ready","humanMs":"1600"}
+PASS [390-icon-cinematic] walkout 3: bandera = nacionalidad real de la carta {"got":"TUR","want":"TUR"}
+PASS [390-icon-cinematic] walkout 3: escudo = equipo de la carta {"got":"BBL","want":"BBL"}
+PASS [390-icon-cinematic] walkout 3: Omitir lleva al final 
+PASS [390-icon-cinematic] Continuar llega al resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [390-icon-cinematic] cada walkout revela una carta sorteada de ese sobre (y uno por especial) {"walkouts":["marteen__record-breaker","timotino__future-star","loita__future-star"],"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [390-icon-cinematic] asset 3D de 0.9 descargado ["rocketbox-player.gltf","rocketbox-player.bin","rb-head-albedo.webp","rb-head-normal.webp","rb-body-orm.webp","rb-body-albedo.webp","rb-hair-alpha.webp","rb-body-normal.webp","rb-accent-mask.png","rb-accent-mask.png"]
+PASS [390-icon-cinematic] invitado: ninguna llamada nueva a /api/game durante la apertura (motor local) {"antes":0,"despues":0}
+PASS [390-icon-cinematic] sin errores de consola ni CSP []
+PASS [390-icon-cinematic] hay al menos un walkout en el sobre {"phase":"opening","walkouts":"3"}
+PASS [390-icon-cinematic] walkout 1: persona 3D cargada {"idx":"0","card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","team":"M8","stage":"3d","cele":"SHUSH","human":"ready","humanMs":"2954"}
+PASS [390-icon-cinematic] walkout 1: bandera = nacionalidad real de la carta {"got":"CZE","want":"CZE"}
+PASS [390-icon-cinematic] walkout 1: escudo = equipo de la carta {"got":"M8","want":"M8"}
+PASS [390-icon-cinematic] walkout 1 completo sin Omitir: termina y ofrece Continuar {"end":{"t":"14.60","status":"done","cele":"SHUSH","done":"1","cont":true},"muestras":32,"ultimo":"14.60:done"}
+PASS [390-icon-cinematic] celebración de 0.9 elegida SHUSH
+PASS [390-icon-cinematic] walkout 2: persona 3D cargada {"idx":"1","card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","team":"100T","stage":"3d","cele":"ARMS_CROSSED","human":"ready","humanMs":"2173"}
+PASS [390-icon-cinematic] walkout 2: bandera = nacionalidad real de la carta {"got":"CAN","want":"CAN"}
+PASS [390-icon-cinematic] walkout 2: escudo = equipo de la carta {"got":"100T","want":"100T"}
+PASS [390-icon-cinematic] walkout 2: Omitir lleva al final 
+PASS [390-icon-cinematic] walkout 3: persona 3D cargada {"idx":"2","card":"loita__future-star","intensity":"WALKOUT","code":"TUR","team":"BBL","stage":"3d","cele":"SHUSH","human":"ready","humanMs":"1758"}
+PASS [390-icon-cinematic] walkout 3: bandera = nacionalidad real de la carta {"got":"TUR","want":"TUR"}
+PASS [390-icon-cinematic] walkout 3: escudo = equipo de la carta {"got":"BBL","want":"BBL"}
+PASS [390-icon-cinematic] walkout 3: Omitir lleva al final 
+PASS [390-icon-cinematic] Continuar llega al resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [390-icon-cinematic] cada walkout revela una carta sorteada de ese sobre (y uno por especial) {"walkouts":["marteen__record-breaker","timotino__future-star","loita__future-star"],"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [390-icon-cinematic] asset 3D de 0.9 descargado ["rocketbox-player.gltf","rocketbox-player.bin","rb-head-albedo.webp","rb-head-normal.webp","rb-body-albedo.webp","rb-body-orm.webp","rb-body-normal.webp","rb-hair-alpha.webp","rb-accent-mask.png","rb-accent-mask.png","rb-accent-mask.png"]
+PASS [390-icon-cinematic] invitado: ninguna llamada nueva a /api/game durante la apertura (motor local) {"antes":0,"despues":0}
+PASS [390-icon-cinematic] sin errores de consola ni CSP []
+PASS [1280-icon-cinematic] hay al menos un walkout en el sobre {"phase":"opening","walkouts":"3"}
+PASS [1280-icon-cinematic] walkout 1: persona 3D cargada {"idx":"0","card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","team":"M8","stage":"3d","cele":"SHUSH","human":"ready","humanMs":"4695"}
+PASS [1280-icon-cinematic] walkout 1: bandera = nacionalidad real de la carta {"got":"CZE","want":"CZE"}
+PASS [1280-icon-cinematic] walkout 1: escudo = equipo de la carta {"got":"M8","want":"M8"}
+PASS [1280-icon-cinematic] walkout 1 completo sin Omitir: termina y ofrece Continuar {"end":{"t":"14.60","status":"done","cele":"SHUSH","done":"0","cont":false},"muestras":16,"ultimo":"14.60:done"}
+PASS [1280-icon-cinematic] celebración de 0.9 elegida SHUSH
+PASS [1280-icon-cinematic] walkout 2: persona 3D cargada {"idx":"1","card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","team":"100T","stage":"3d","cele":"SHUSH","human":"ready","humanMs":"2006"}
+PASS [1280-icon-cinematic] walkout 2: bandera = nacionalidad real de la carta {"got":"CAN","want":"CAN"}
+PASS [1280-icon-cinematic] walkout 2: escudo = equipo de la carta {"got":"100T","want":"100T"}
+PASS [1280-icon-cinematic] walkout 2: Omitir lleva al final 
+PASS [1280-icon-cinematic] walkout 3: persona 3D cargada {"idx":"2","card":"loita__future-star","intensity":"WALKOUT","code":"TUR","team":"BBL","stage":"3d","cele":"SHUSH","human":"ready","humanMs":"1745"}
+PASS [1280-icon-cinematic] walkout 3: bandera = nacionalidad real de la carta {"got":"TUR","want":"TUR"}
+PASS [1280-icon-cinematic] walkout 3: escudo = equipo de la carta {"got":"BBL","want":"BBL"}
+PASS [1280-icon-cinematic] walkout 3: Omitir lleva al final 
+PASS [1280-icon-cinematic] Continuar llega al resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [1280-icon-cinematic] cada walkout revela una carta sorteada de ese sobre (y uno por especial) {"walkouts":["marteen__record-breaker","timotino__future-star","loita__future-star"],"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [1280-icon-cinematic] asset 3D de 0.9 descargado ["rocketbox-player.gltf","rocketbox-player.bin","rb-head-albedo.webp","rb-head-normal.webp","rb-body-albedo.webp","rb-body-orm.webp","rb-body-normal.webp","rb-hair-alpha.webp","rb-accent-mask.png","rb-accent-mask.png","rb-accent-mask.png"]
+PASS [1280-icon-cinematic] invitado: ninguna llamada nueva a /api/game durante la apertura (motor local) {"antes":0,"despues":0}
+PASS [1280-icon-cinematic] sin errores de consola ni CSP []

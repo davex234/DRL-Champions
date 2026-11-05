@@ -1,0 +1,13 @@
+src/app/design-system/fase89/fixtures.ts
+src/app/design-system/fase89/page.tsx
+src/components/player/ProfileCareer.tsx
+src/components/player/ProfileCollections.tsx
+src/components/player/ProfileViews.tsx
+src/domain/profile/career.ts
+src/domain/profile/f89.profile.test.tsx
+src/domain/profile/favoriteTeam.ts
+src/server/services/f89.profile.service.test.ts
+supabase/migrations/0063_profile_favorite_team.sql
+---
+src/components/player/ProfileBadges.tsx
+

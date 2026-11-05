@@ -1,0 +1,4 @@
+DELETE 14
+DO
+después|2|2|0|1
+COMMIT

@@ -1,0 +1,9 @@
+{
+  "El tema por defecto no lleva fechas": "デフォルトテーマに日付はありません",
+  "Estado inválido": "無効なステータス",
+  "Fecha inválida": "無効な日付",
+  "La fecha de fin debe ser posterior a la de inicio": "終了日は開始日より後にしてください",
+  "Nombre inválido (2–60 caracteres)": "名前が無効です(2〜60文字)",
+  "Prioridad inválida (0–1000)": "優先度が無効です(0〜1000)",
+  "Slug inválido (a-z, 0-9 y guiones; «default» está reservado)": "slugが無効です(a-z、0-9、ハイフン。「default」は予約済み)"
+}

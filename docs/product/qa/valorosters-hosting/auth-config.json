@@ -1,0 +1,30 @@
+{
+  "at": "2026-09-30T18:01:13.880Z",
+  "gotrue": {
+    "SITE_URL": "http://127.0.0.1:3000 (sin cambiar)",
+    "URI_ALLOW_LIST": "https://127.0.0.1:3000 (sin cambiar)",
+    "DISABLE_SIGNUP": false,
+    "MAILER_AUTOCONFIRM": true,
+    "SMTP": "inbucket (no entrega correo)",
+    "API_EXTERNAL_URL": "http://127.0.0.1:54521/auth/v1 (sin cambiar)"
+  },
+  "impact": "login/registro por email+contraseña NO usan SITE_URL ni redirecciones; solo los enlaces de correo (que hoy no se entregan). Cambiarlos exige reiniciar el stack Supabase del VPS: pendiente de tu decisión.",
+  "browserPath": "el navegador llama a /auth/v1 del MISMO origen; Next lo reenvía al túnel",
+  "session": "supabase-js en localStorage (clave por host), token Bearer explícito en cada API: sin cookies de sesión, sin CSRF por cookies",
+  "gotrueAfter": {
+    "SITE_URL": "https://valorosters.com",
+    "URI_ALLOW_LIST": "https://valorosters.com,https://valorosters.com/**,http://127.0.0.1:3005/**",
+    "DISABLE_SIGNUP": false,
+    "MAILER_AUTOCONFIRM": true,
+    "SMTP": "inbucket (sin correo real)",
+    "API_EXTERNAL_URL": "sin cambiar (solo enlaces de correo)"
+  },
+  "change": {
+    "file": "/opt/nexus/projects/supabase-drlcards/compose.yml (2 líneas; backup compose.yml.bak-valorosters-20260930T181850Z)",
+    "restart": "docker compose up -d --no-deps auth: SOLO supabase_auth_DRLCards recreado; db/kong/rest/storage sin tocar (Up 2 weeks)",
+    "health": "auth healthy; /auth/v1/health vía dominio 200; /api/ready 200",
+    "rollback": "cp compose.yml.bak-valorosters-20260930T181850Z compose.yml && docker compose up -d --no-deps auth"
+  },
+  "preexisting": "edge_runtime y vector ya estaban en bucle de reinicio antes del cambio (no tocados)",
+  "updatedAt": "2026-09-30T18:31:43.689Z"
+}

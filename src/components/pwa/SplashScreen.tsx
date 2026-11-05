@@ -2,9 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { BrandMark } from "@/branding/Logo";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
 
-/** Pantalla de carga propia (logo DRL + animación ligera) al arrancar. */
+const tr = ns("pwa");
+
+/**
+ * Pantalla de carga al arrancar.
+ *
+ * Lleva el mismo nombre que el armazón (`GameShell`): antes decía «DRL CHAMPIONS ·
+ * Esports Manager» mientras la barra superior decía «NEXUS», y ver dos nombres en los
+ * dos primeros segundos de uso es lo que hace dudar de si estás en el producto correcto.
+ */
 export function SplashScreen() {
+  useLocale();
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -28,18 +40,20 @@ export function SplashScreen() {
           />
           <div className="relative flex flex-col items-center gap-5">
             <motion.div
-              className="grid h-24 w-24 place-items-center rounded-3xl bg-gradient-to-br from-drl to-[#7b1733] font-display text-5xl font-bold text-white shadow-glow"
               initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: [0.95, 1.02, 0.98], opacity: 1 }}
+              animate={{ scale: [0.97, 1.03, 0.99], opacity: 1 }}
               transition={{ scale: { duration: 1.6, repeat: Infinity, ease: "easeInOut" }, opacity: { duration: 0.4 } }}
+              className="drop-shadow-[0_0_30px_rgba(255,46,99,0.4)]"
             >
-              D
+              <BrandMark size={104} />
             </motion.div>
             <div className="text-center">
-              <p className="font-display text-2xl font-bold uppercase tracking-[0.15em] text-white">
-                DRL <span className="text-drl">Champions</span>
+              <p className="font-display text-3xl font-bold uppercase tracking-[0.18em] text-white">
+                {tr("NE")}<span className="text-drl">{tr("XUS")}</span>
               </p>
-              <p className="mt-1 text-[10px] uppercase tracking-[0.4em] text-white/40">Valorant Card Game</p>
+              <p className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.4em] text-white/40">
+                {tr("Valorant Cards")}
+              </p>
             </div>
             <div className="mt-2 h-1 w-40 overflow-hidden rounded-full bg-white/10">
               <motion.div

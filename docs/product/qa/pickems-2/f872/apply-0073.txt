@@ -1,0 +1,21 @@
+== 1. fichero
+sha256 OK 37739bed915b0d9f0bfc6ee9dc285d07c7dabca1a4e914ce1b977995cf275a7d
+== 2. cabeza = 0072 por estado real, sin rastro de 0073, sin recompensas activas
+perfiles: 2 · admins: 3befce61#NB2Z9BM,b7ccff02#H5ND8K7 · legacy: LEGACY_V1,LEGACY_V1,LEGACY_V1 · pagos legacy (n:suma): 1:500 · huellas de 23 tablas
+== 3. aplicar (una transacción)
+exit=0 en 182 ms · 2026-10-06T15:43:48Z
+== 4. después
+DATOS_INTACTOS (0073 no cambió ninguna fila)
+FUNCIONES_0073
+GUARDIAS_5
+GUARDIA_RECLAMO_CON_ELEGIBILIDAD
+GUARDIA_RECOMPENSAS_COMPLETA
+PRIVILEGIOS_CLIENTE_CERRADOS
+LEGACY_IGUAL
+ADMINS_IGUALES
+CUENTAS_IGUALES
+VALOROSTERS_500_MISMO_ASIENTO
+PAGOS_LEGACY_IGUALES
+POLITICA_V1
+Pick'ems 2.0: 1 ámbitos · 0 publicados · 0 con recompensas activas
+APPLY_OK 0073

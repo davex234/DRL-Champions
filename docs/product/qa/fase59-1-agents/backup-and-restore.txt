@@ -1,0 +1,3 @@
+backup: 212.95.40.144:/opt/nexus/backups/supabase-drlcards/pre-0056/ (TS 20260924T170728Z: full_pre0056 1902 entradas, agents_stats_pre0056 [agents, map_player_stats, player_stats], CSV agents 28 filas + 4 + 2 filas de Veto, SHA256SUMS_20260924T170728Z). Ficheros 20260924T170709Z = intento incompleto (fallo de comillas en \copy, sólo lectura), sin verificar.
+restaurar datos: update public.agents set role = 'duelist' where id = 'veto'; delete from public.agents where id = 'miks';  (o pg_restore --data-only -t agents del dump agents_stats_pre0056 tras vaciar la tabla en transacción)
+apply: 2026-09-24T17:08:43Z, una transacción, COMMIT tras CHECKS_OK

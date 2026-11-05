@@ -1,0 +1,57 @@
+{
+  "lab": "balance-lab-1",
+  "seed": 65000,
+  "scale": 1,
+  "suites": [
+    "mirror",
+    "side",
+    "field",
+    "paired",
+    "edition",
+    "strategies",
+    "hillclimb",
+    "bots",
+    "pve",
+    "starter",
+    "autodeck",
+    "rng",
+    "integrity"
+  ],
+  "gitHead": "48dac2a125fe04f5a1a36fa73af23118f757b922",
+  "node": "v24.15.0",
+  "engine": {
+    "orchestrator": "duel-turns-2",
+    "resolver": "duel-combat-2",
+    "rules": {
+      "version": "duel-combat-2",
+      "encounterTie": "NO_POINT",
+      "finalTiebreak": "STAT_MARGIN",
+      "terminal": "DRAW"
+    }
+  },
+  "catalog": {
+    "cards": 331,
+    "hash": "2a0e6c1"
+  },
+  "policies": [
+    "RANDOM",
+    "EASY",
+    "NORMAL",
+    "HARD",
+    "SMART",
+    "ORACLE"
+  ],
+  "strategies": [
+    "OVR_MAX",
+    "COMBAT_MAX",
+    "PEAK_MAX",
+    "BALANCED",
+    "SPEC_SH",
+    "SPEC_GS",
+    "SPEC_EF",
+    "LOW_OVR"
+  ],
+  "determinism": "Semillas por suite = SEED ^ fnv1a(suite); semilla de partida = fnv1a(`${SEED}:${suite}:${i}`). Mismo SEED + mismo catálogo ⇒ mismos números.",
+  "dbWrites": 0,
+  "network": 0
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "DRL Champions",
+  "version": "0.1.1",
+  "identifier": "gg.drl.champions",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:3000",
+    "beforeBuildCommand": "npm run build:desktop",
+    "frontendDist": "../out"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "DRL Champions",
+        "url": "/launcher",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 1024,
+        "minHeight": 640,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true,
+        "decorations": true,
+        "theme": "Dark"
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "createUpdaterArtifacts": true,
+    "targets": [
+      "nsis",
+      "msi",
+      "app",
+      "dmg",
+      "appimage",
+      "deb",
+      "rpm"
+    ],
+    "category": "Game",
+    "shortDescription": "Manager de esports de Valorant — No disparas, piensas.",
+    "longDescription": "DRL Champions: simulador y manager de esports de Valorant. Dirige a tu equipo profesional: estrategia, economía, scouting y composición.",
+    "copyright": "© DRL Champions",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "fileAssociations": [
+      {
+        "ext": [
+          "drlrep"
+        ],
+        "name": "DRL Replay",
+        "description": "DRL Champions replay",
+        "role": "Viewer"
+      }
+    ],
+    "windows": {
+      "nsis": {
+        "installMode": "perMachine",
+        "languages": [
+          "Spanish",
+          "English"
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMwOTIzREQ3REIzOTY0MjMKUldRalpEbmIxejJTd04zYlNwK2VURExhSzdkemtMZS8wQUNEK2ozd0tDUUZHN3A0L3hQakxFSFcK",
+      "endpoints": [
+        "https://update.drlchampions.com/latest.json?target={{target}}&arch={{arch}}&current={{current_version}}"
+      ]
+    },
+    "deep-link": {
+      "desktop": {
+        "schemes": [
+          "drl"
+        ]
+      }
+    }
+  }
+}

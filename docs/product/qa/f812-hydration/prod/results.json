@@ -1,0 +1,369 @@
+{
+  "at": "2026-10-06T19:23:12.625Z",
+  "release": "drl-0.1.1-1-dbe08499",
+  "user": "9dca3476",
+  "pass": 72,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "LOGIN UI (QA G, sin ralentizar)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "7:L[—] 1428:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "7:L[—] 1428:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /coleccion · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "23:L[—] 1474:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "23:L[—] 1474:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /inventario · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "27:L[—] 1349:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /inventario · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "27:L[—] 1349:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /packs/estandar · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "13:L[—] 1352:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /packs/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "13:L[—] 1352:[3.500]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /abrir/estandar · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "5:L[] 1257:P[]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · /abrir/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "5:L[] 1257:P[]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · / · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "11:S[] 1283:[]"
+    },
+    {
+      "id": "servidor +1000 ms @1440 · / · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "11:S[] 1283:[]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "7:L[—] 3379:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "7:L[—] 3379:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /coleccion · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "21:L[—] 3399:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "21:L[—] 3399:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /inventario · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "28:L[—] 3334:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /inventario · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "28:L[—] 3334:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /packs/estandar · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "11:L[—] 3274:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /packs/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "11:L[—] 3274:[3.500]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /abrir/estandar · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "6:L[] 3279:P[]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · /abrir/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "6:L[] 3279:P[]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · / · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "6:S[] 3352:[]"
+    },
+    {
+      "id": "servidor +3000 ms @1440 · / · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "6:S[] 3352:[]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "8:L[—] 5300:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "8:L[—] 5300:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /coleccion · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "20:L[—] 5332:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "20:L[—] 5332:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /inventario · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "29:L[—] 5387:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /inventario · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "29:L[—] 5387:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /packs/estandar · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "11:L[—] 5347:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /packs/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "11:L[—] 5347:[3.500]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /abrir/estandar · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "5:L[] 5267:P[]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · /abrir/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "5:L[] 5267:P[]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · / · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "6:S[] 5280:[]"
+    },
+    {
+      "id": "servidor +5000 ms @1440 · / · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "6:S[] 5280:[]"
+    },
+    {
+      "id": "Ctrl+F5 (servidor +3 s) @1440 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "5:L[—] 3377:[3.500]"
+    },
+    {
+      "id": "Ctrl+F5 (servidor +3 s) @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "5:L[—] 3377:[3.500]"
+    },
+    {
+      "id": "Ctrl+F5 sin ralentizar @1440 · /coleccion · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "4:L[—] 502:[3.500]"
+    },
+    {
+      "id": "Ctrl+F5 sin ralentizar @1440 · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "4:L[—] 502:[3.500]"
+    },
+    {
+      "id": "MULTIPESTAÑA (otra pestaña abierta) @1440 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "35:L[—] 3357:[3.500]"
+    },
+    {
+      "id": "MULTIPESTAÑA (otra pestaña abierta) @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "35:L[—] 3357:[3.500]"
+    },
+    {
+      "id": "LOGOUT UI",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "LOGOUT · nunca el saldo de la cuenta como visitante; HUD «Entrar»",
+      "ok": true,
+      "detail": "23:[—] 86:[—] 384:[—] 530:[3.500] 2817:I[]"
+    },
+    {
+      "id": "LOGOUT · la caché de la cuenta pasa a la demo de inicio (no se queda como «demo»)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"cards\":0,\"owner\":null,\"session\":false}"
+    },
+    {
+      "id": "LOGIN de nuevo (servidor +3 s)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "LOGIN · nunca la demo (6.000) como saldo de la cuenta; termina en el real (aterriza en /)",
+      "ok": true,
+      "detail": "7:[—] 58:I[] 2829:[—] 3132:R[—] 3290:[] 6070:R[]"
+    },
+    {
+      "id": "LOGIN UI @1024",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "servidor +3 s @1024 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "19:L[—] 3360:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @1024 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "19:L[—] 3360:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @1024 · /coleccion · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "32:L[—] 3359:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @1024 · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "32:L[—] 3359:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @1024 · / · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "26:S[] 3366:[]"
+    },
+    {
+      "id": "servidor +3 s @1024 · / · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "26:S[] 3366:[]"
+    },
+    {
+      "id": "Ctrl+F5 (servidor +3 s) @1024 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "3:L[—] 3434:[3.500]"
+    },
+    {
+      "id": "Ctrl+F5 (servidor +3 s) @1024 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "3:L[—] 3434:[3.500]"
+    },
+    {
+      "id": "LOGIN UI @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "servidor +3 s @390 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "15:L[—] 3318:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @390 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "15:L[—] 3318:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @390 · /coleccion · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "20:L[—] 3448:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @390 · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "20:L[—] 3448:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @390 · / · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "21:S[] 3344:[]"
+    },
+    {
+      "id": "servidor +3 s @390 · / · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "21:S[] 3344:[]"
+    },
+    {
+      "id": "servidor +3 s @390 · /packs/estandar · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "12:L[—] 3294:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @390 · /packs/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "12:L[—] 3294:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @390 · /inventario · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "6:L[—] 3297:[3.500]"
+    },
+    {
+      "id": "servidor +3 s @390 · /inventario · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "6:L[—] 3297:[3.500]"
+    },
+    {
+      "id": "Ctrl+F5 (servidor +3 s) @390 · /tienda · nunca demo/otra cifra",
+      "ok": true,
+      "detail": "4:L[—] 3389:[3.500]"
+    },
+    {
+      "id": "Ctrl+F5 (servidor +3 s) @390 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "4:L[—] 3389:[3.500]"
+    },
+    {
+      "id": "CONSOLA · 0 errores (ni hidratación ni avisos de React)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "SERVIDOR intacto (solo lectura): créditos, sobres, aperturas y cartas iguales",
+      "ok": true,
+      "detail": "{\"before\":{\"userId\":\"9dca3476-1f96-4bf9-a2d7-0bcc8200469a\",\"credits\":3500,\"unopened\":{\"estandar\":1},\"packsOpened\":4,\"cards\":20,\"xp\":504},\"after\":{\"userId\":\"9dca3476-1f96-4bf9-a2d7-0bcc8200469a\",\"credits\":3500,\"unopened\":{\"estandar\":1},\"packsOpened\":4,\"cards\":20,\"xp\":504}}"
+    }
+  ]
+}

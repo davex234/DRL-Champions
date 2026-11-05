@@ -1,0 +1,129 @@
+{
+ "at": "2026-10-06T16:52:12.974Z",
+ "base": "https://valorosters.com",
+ "account": "963f8f1d",
+ "total": 24,
+ "pass": 24,
+ "rows": [
+  {
+   "id": "A · `eligible:true` enviado por el cliente → rechazado (400, campo no permitido)",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "A · reclamar en el borrador de Champions → 404 (invisible)",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "A · REST app_pickem_reward_eligibility con sesión de jugador → sin acceso",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "A · REST app_pickem_claim con sesión de jugador → sin acceso",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "A · REST app_pickem_eligibility_summary con sesión de jugador → sin acceso",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "A · cuenta normal → panel admin de Pick'ems 401/403",
+   "ok": true,
+   "detail": "401"
+  },
+  {
+   "id": "A · cuenta normal → activar recompensas 401/403",
+   "ok": true,
+   "detail": "401"
+  },
+  {
+   "id": "login REAL de la cuenta QA",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B · 1440 playoffs-rewards-matches: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"false\",\"sym\":\"ⓘ\",\"overflow\":0,\"buttons\":8,\"noReward\":false}"
+  },
+  {
+   "id": "B · 1440 groups-ineligible: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"false\",\"sym\":\"ⓘ\",\"overflow\":0,\"buttons\":0,\"noReward\":true}"
+  },
+  {
+   "id": "B · 1440 playoffs-rewards-eligible: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"true\",\"sym\":\"✓\",\"overflow\":0,\"buttons\":8,\"noReward\":false}"
+  },
+  {
+   "id": "B · 1024 playoffs-rewards-matches: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"false\",\"sym\":\"ⓘ\",\"overflow\":0,\"buttons\":8,\"noReward\":false}"
+  },
+  {
+   "id": "B · 1024 groups-ineligible: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"false\",\"sym\":\"ⓘ\",\"overflow\":0,\"buttons\":0,\"noReward\":true}"
+  },
+  {
+   "id": "B · 1024 playoffs-rewards-eligible: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"true\",\"sym\":\"✓\",\"overflow\":0,\"buttons\":8,\"noReward\":false}"
+  },
+  {
+   "id": "B · 390 playoffs-rewards-matches: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"false\",\"sym\":\"ⓘ\",\"overflow\":0,\"buttons\":8,\"noReward\":false}"
+  },
+  {
+   "id": "B · 390 groups-ineligible: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"false\",\"sym\":\"ⓘ\",\"overflow\":0,\"buttons\":0,\"noReward\":true}"
+  },
+  {
+   "id": "B · 390 playoffs-rewards-eligible: participa y ve su elegibilidad (texto + símbolo), sin desbordamiento",
+   "ok": true,
+   "detail": "{\"el\":\"true\",\"sym\":\"✓\",\"overflow\":0,\"buttons\":8,\"noReward\":false}"
+  },
+  {
+   "id": "C · primera entrada: FÁCIL · NORMAL · DIFÍCIL, sin textos retirados, CON reglas",
+   "ok": true,
+   "detail": "{\"rules\":true,\"shown\":[\"FÁCIL\",\"NORMAL\",\"DIFÍCIL\"],\"removed\":false}"
+  },
+  {
+   "id": "C · F5: SIN reglas",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "C · salir y volver: SIN reglas, mismo selector",
+   "ok": true,
+   "detail": "{\"rules\":false,\"shown\":[\"FÁCIL\",\"NORMAL\",\"DIFÍCIL\"],\"removed\":false}"
+  },
+  {
+   "id": "C · 1024: sin desbordamiento, tres en fila, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tops\":1,\"minH\":59.359375}"
+  },
+  {
+   "id": "C · 390: sin desbordamiento, tres en fila, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tops\":1,\"minH\":56}"
+  },
+  {
+   "id": "C · Difícil seleccionado (aria-pressed)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "C · «Comenzar duelo» arranca la partida real",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

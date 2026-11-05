@@ -1,0 +1,45 @@
+{
+  "at": "2026-09-30T18:01:13.880Z",
+  "zone": "valorosters.com",
+  "nameservers": [
+    "kayden.ns.cloudflare.com",
+    "venus.ns.cloudflare.com"
+  ],
+  "recordsBefore": "ninguno (apex, www y api sin registros)",
+  "accessible": "registros creados por el usuario (Tunnel → drlcards, proxy ON) el 2026-09-30",
+  "why": "el cert.pem de cloudflared de este PC está limitado a la zona nexusclipflow.com: no puede crear registros en valorosters.com",
+  "requiredManual": [
+    {
+      "type": "CNAME",
+      "name": "valorosters.com (@)",
+      "target": "801a8447-a323-4df1-b777-7c7b3b7d7114.cfargotunnel.com",
+      "proxy": "ON (naranja)"
+    },
+    {
+      "type": "CNAME",
+      "name": "www",
+      "target": "801a8447-a323-4df1-b777-7c7b3b7d7114.cfargotunnel.com",
+      "proxy": "ON (naranja)"
+    }
+  ],
+  "strayRecordsCreatedByMistake": {
+    "zone": "nexusclipflow.com",
+    "names": [
+      "valorosters.com.nexusclipflow.com",
+      "www.valorosters.com.nexusclipflow.com"
+    ],
+    "pointTo": "túnel clipflow (ae8584ac…)",
+    "impact": "ninguno funcional: el catch-all de clipflow responde 404; clipflow.nexusclipflow.com intacto",
+    "action": "borrarlos en el panel de Cloudflare (cloudflared no puede borrar DNS)"
+  },
+  "resolution": {
+    "valorosters.com": [
+      "172.67.208.146",
+      "104.21.61.91",
+      "2606:4700:3034::ac43:d092",
+      "2606:4700:3034::6815:3d5b"
+    ],
+    "www.valorosters.com": "mismas IP de Cloudflare"
+  },
+  "updatedAt": "2026-09-30T18:31:43.689Z"
+}

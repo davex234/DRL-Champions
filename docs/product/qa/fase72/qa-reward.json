@@ -1,0 +1,23 @@
+{
+  "at": "2026-09-29T17:37:54.471Z",
+  "section": "reward",
+  "pass": 3,
+  "total": 3,
+  "results": [
+    {
+      "id": "run real: una entrada, recompensa del servidor = tabla por victorias, saldo conciliado",
+      "ok": true,
+      "detail": "combates=[\"WON\",\"WON\",\"WON\",\"WON\",\"WON\"] victorias=5 asientos=[[\"draft_entry\",-2000],[\"draft_reward:5W\",2100],[\"draft_jackpot:488f8f88-dd70-4ba6-9c28-5b4a3a84ef67\",0]] saldo 7265→7365 reward={\"wins\":5,\"credits\":2100,\"title\":true,\"jackpot\":true,\"jackpotPack\":\"Sobre Masters\",\"granted\":true}"
+    },
+    {
+      "id": "run real completada: sobre semanal (Masters) y título",
+      "ok": true,
+      "detail": "[{\"ref\":\"draft:jackpot:dbcb170a-9cdc-45b2-b4bb-d13bf3c4371d:2026-W40\",\"reason\":\"draft_jackpot:488f8f88-dd70-4ba6-9c28-5b4a3a84ef67\",\"delta\":0,\"balance_after\":7365,\"created_at\":\"2026-09-29T17:37:48.388104+00:00\"}]"
+    },
+    {
+      "id": "releer tras la recompensa (×3) no la duplica",
+      "ok": true,
+      "detail": "3→3"
+    }
+  ]
+}

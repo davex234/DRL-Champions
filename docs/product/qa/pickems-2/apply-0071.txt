@@ -1,0 +1,15 @@
+== 1. fichero
+sha256 OK 8c820ae82a3335cbf24df8efc93d42551b0a3ef661469d2863a9745b861a92f8
+== 2. cabeza = 0070 por estado real, sin rastro de 0071
+perfiles: 2 · admins: 3befce61#NB2Z9BM,b7ccff02#H5ND8K7 · huellas de 24 tablas
+== 3. aplicar (una transacción)
+exit=0 en 241 ms · 2026-10-06T08:47:07Z
+== 4. después
+DATOS_INTACTOS (0071 no cambió ninguna fila existente)
+tablas nuevas: 0 ámbitos · 0 picks · 0 reclamos
+ADMINS_IGUALES
+PERFILES_INTACTOS (2 cuentas)
+privilegios de cliente (auth select ámbitos, anon select picks, auth insert entradas, auth exec pick, anon exec reclamo, auth exec liquidar): falsefalsefalsefalsefalsefalse
+disparadores: pickem_brackets_guard,pickem_claims_guard,pickem_nodes_guard,pickem_picks_guard
+Pick'em v1 intacto: 3/63/1
+APPLY_OK 0071

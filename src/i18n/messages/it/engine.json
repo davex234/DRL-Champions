@@ -1,0 +1,22 @@
+{
+  "Abre 10 sobres": "Apri 10 pacchetti",
+  "Abre 5 Sobres {label}": "Apri 5 Pacchetti {label}",
+  "Aprobación requerida ({Math}%): {playerNick} {kind} · {name}": "Approvazione richiesta ({Math}%): {playerNick} {kind} · {name}",
+  "Consigue una carta legendaria": "Ottieni una carta leggendaria",
+  "Consigue una carta {label}": "Ottieni una carta {label}",
+  "Consigue una carta épica o superior": "Ottieni una carta epica o superiore",
+  "Error generando cartas de {name}: {message}": "Errore nella generazione delle carte di {name}: {message}",
+  "Error obteniendo datos de {name}: {message}": "Errore nel recupero dei dati di {name}: {message}",
+  "Evento generado automáticamente por DRL Data Engine.": "Evento generato automaticamente da DRL Data Engine.",
+  "Fallo del engine: {message}": "Errore dell'engine: {message}",
+  "Foto no encontrada (se usará silueta): {nick}": "Foto non trovata (verrà usata la sagoma): {nick}",
+  "Logo de equipo no encontrado: {tname}": "Logo della squadra non trovato: {tname}",
+  "MVP deducido por ACS (no confirmado por la fuente)": "MVP dedotto dall'ACS (non confermato dalla fonte)",
+  "MVP indicado por la fuente no aparece en las estadísticas": "L'MVP indicato dalla fonte non compare nelle statistiche",
+  "Mock (fixtures)": "Mock (fixtures)",
+  "No se pudo identificar al MVP": "Impossibile identificare l'MVP",
+  "País no resuelto: {v}": "Paese non risolto: {v}",
+  "Sin resultados de {name}: {message}": "Nessun risultato per {name}: {message}",
+  "VLR no configurado (NEXT_PUBLIC_VLR_API)": "VLR non configurato (NEXT_PUBLIC_VLR_API)",
+  "{name} marcado finalizado pero sin resultados.": "{name} segnato come concluso ma senza risultati."
+}

@@ -1,0 +1,4 @@
+
+> drl-champions@0.1.1 typecheck
+> tsc --noEmit --incremental false && tsc -p tsconfig.scripts.json --incremental false
+

@@ -1,0 +1,1062 @@
+{
+  "ranked": [
+    {
+      "id": "CE-final-ranked",
+      "checks": {
+        "pass": 8,
+        "fail": []
+      },
+      "matches": [
+        {
+          "i": 1,
+          "matchId": "e0fa00a6",
+          "queueMs": 13104,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "A",
+            "score": "6-4"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "e0fa00a6-bcfc-433e-87bd-7a84c438eabe",
+              "oldRating": 1040,
+              "delta": 17,
+              "newRating": 1057,
+              "opponentRating": 980,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790510958344
+            },
+            "b": {
+              "matchId": "e0fa00a6-bcfc-433e-87bd-7a84c438eabe",
+              "oldRating": 980,
+              "delta": -17,
+              "newRating": 963,
+              "opponentRating": 1040,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790510958344
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1040,
+                "games": 6,
+                "wins": 4,
+                "losses": 2
+              },
+              "b": {
+                "rating": 980,
+                "games": 7,
+                "wins": 3,
+                "losses": 4
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1057,
+                "games": 7,
+                "wins": 5,
+                "losses": 2
+              },
+              "b": {
+                "rating": 963,
+                "games": 8,
+                "wins": 3,
+                "losses": 5
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1040\n→\nDESPUÉS\n1057\n+17",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1040 → DESPUÉS 1057 +17",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 VICTORIA TÚ 6 – RIVAL 4 Marcador final · Po",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n980\n→\nDESPUÉS\n963\n-17",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 980 → DESPUÉS 963 -17",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 DERROTA TÚ 4 – RIVAL 6 Marcador final · Por",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": 17,
+            "b": -17
+          }
+        },
+        {
+          "i": 2,
+          "matchId": "aa27010e",
+          "queueMs": 2892,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "B",
+            "score": "5-6"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "aa27010e-8842-455a-b781-bd2234b902e8",
+              "oldRating": 1057,
+              "delta": 15,
+              "newRating": 1072,
+              "opponentRating": 963,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790511017383
+            },
+            "b": {
+              "matchId": "aa27010e-8842-455a-b781-bd2234b902e8",
+              "oldRating": 963,
+              "delta": -15,
+              "newRating": 948,
+              "opponentRating": 1057,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790511017383
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1057,
+                "games": 7,
+                "wins": 5,
+                "losses": 2
+              },
+              "b": {
+                "rating": 963,
+                "games": 8,
+                "wins": 3,
+                "losses": 5
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1072,
+                "games": 8,
+                "wins": 6,
+                "losses": 2
+              },
+              "b": {
+                "rating": 948,
+                "games": 9,
+                "wins": 3,
+                "losses": 6
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1057\n→\nDESPUÉS\n1072\n+15",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1057 → DESPUÉS 1072 +15",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 VICTORIA TÚ 6 – RIVAL 5 Marcador final · De",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n963\n→\nDESPUÉS\n948\n-15",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 963 → DESPUÉS 948 -15",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 DERROTA TÚ 5 – RIVAL 6 Marcador final · Des",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": 15,
+            "b": -15
+          }
+        }
+      ],
+      "history": {
+        "C": {
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "links": [
+            "/duelos/competitivo/partida/aa27010e-8842-455a-b781-bd2234b902e8",
+            "/duelos/competitivo/partida/e0fa00a6-bcfc-433e-87bd-7a84c438eabe",
+            "/duelos/competitivo/partida/efa986e7-4b7f-40e1-9e40-7454af9341b7",
+            "/duelos/competitivo/partida/a3f263be-ec5c-4752-bdd7-b9379495b7d7",
+            "/duelos/competitivo/partida/abef2973-5933-4573-81cf-9c9d2aedb8c3",
+            "/duelos/competitivo/partida/8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+            "/duelos/competitivo/partida/ebb823c6-a7af-4087-96db-e0aaa180cace",
+            "/duelos/competitivo/partida/44e646d5-918b-46bc-b648-778822520168"
+          ],
+          "recentApi": 0,
+          "onScreenIds": 2
+        },
+        "E": {
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "links": [
+            "/duelos/competitivo/partida/aa27010e-8842-455a-b781-bd2234b902e8",
+            "/duelos/competitivo/partida/e0fa00a6-bcfc-433e-87bd-7a84c438eabe",
+            "/duelos/competitivo/partida/efa986e7-4b7f-40e1-9e40-7454af9341b7",
+            "/duelos/competitivo/partida/a3f263be-ec5c-4752-bdd7-b9379495b7d7",
+            "/duelos/competitivo/partida/abef2973-5933-4573-81cf-9c9d2aedb8c3",
+            "/duelos/competitivo/partida/8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+            "/duelos/competitivo/partida/ebb823c6-a7af-4087-96db-e0aaa180cace",
+            "/duelos/competitivo/partida/44e646d5-918b-46bc-b648-778822520168"
+          ],
+          "recentApi": 0,
+          "onScreenIds": 2
+        }
+      },
+      "competitive": {
+        "C": {
+          "rating": {
+            "rating": 1072,
+            "games": 8,
+            "wins": 6,
+            "losses": 2
+          },
+          "text": "COLOCACIÓN #2 COMPETITIVO · RANKED PVP PUESTO 2 RATING 1072 ESCALERA #2 de 5 PARTIDAS DE COLOCACIÓN 8 / 10 Te faltan 2: después tu rating se asienta (cada partida mueve menos). ↓ ANTERIOR #3 · 998 qaf63n172049_40a1 TÚ #2 SIGUIENTE ↑ #1 · 1089 qa_campaign_352_8c32 +18 de rating para superar a qa_camp",
+          "hasRatingNumber": true,
+          "namedRanks": false
+        },
+        "E": {
+          "rating": {
+            "rating": 948,
+            "games": 9,
+            "wins": 3,
+            "losses": 6
+          },
+          "text": "COLOCACIÓN #4 COMPETITIVO · RANKED PVP PUESTO 4 RATING 948 ESCALERA #4 de 5 PARTIDAS DE COLOCACIÓN 9 / 10 Te faltan 1: después tu rating se asienta (cada partida mueve menos). ↓ ANTERIOR #5 · 885 qa_f45_085748_1ff2 TÚ #4 SIGUIENTE ↑ #3 · 998 qaf63n172049_40a1 +51 de rating para superar a qaf63n17204",
+          "hasRatingNumber": true,
+          "namedRanks": false
+        }
+      },
+      "start": {
+        "C": {
+          "rating": 1040,
+          "games": 6,
+          "wins": 4,
+          "losses": 2
+        },
+        "E": {
+          "rating": 980,
+          "games": 7,
+          "wins": 3,
+          "losses": 4
+        }
+      },
+      "end": {
+        "C": {
+          "rating": 1072,
+          "games": 8,
+          "wins": 6,
+          "losses": 2
+        },
+        "E": {
+          "rating": 948,
+          "games": 9,
+          "wins": 3,
+          "losses": 6
+        }
+      }
+    },
+    {
+      "id": "CE-r1-ranked",
+      "checks": {
+        "pass": 8,
+        "fail": [
+          "FAIL partida 1: la interfaz enseña el delta real (también negativo)",
+          "FAIL partida 2: la interfaz enseña el delta real (también negativo)",
+          "FAIL partida 3: la interfaz enseña el delta real (también negativo)"
+        ]
+      },
+      "matches": [
+        {
+          "i": 1,
+          "matchId": "44e646d5",
+          "queueMs": 13235,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "A",
+            "score": "6-5"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "44e646d5-918b-46bc-b648-778822520168",
+              "oldRating": 1000,
+              "delta": 21,
+              "newRating": 1021,
+              "opponentRating": 1020,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790504851494
+            },
+            "b": {
+              "matchId": "44e646d5-918b-46bc-b648-778822520168",
+              "oldRating": 1020,
+              "delta": -21,
+              "newRating": 999,
+              "opponentRating": 1000,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790504851494
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1000,
+                "games": 0,
+                "wins": 0,
+                "losses": 0
+              },
+              "b": {
+                "rating": 1020,
+                "games": 1,
+                "wins": 1,
+                "losses": 0
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1021,
+                "games": 1,
+                "wins": 1,
+                "losses": 0
+              },
+              "b": {
+                "rating": 999,
+                "games": 2,
+                "wins": 1,
+                "losses": 1
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1000\n→\nDESPUÉS\n1021\n+21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1000 → DESPUÉS 1021 +21",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 VICTORIA TÚ 6 – RIVAL 5 Marcador final · De",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n1020\n→\nDESPUÉS\n999\n-21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1020 → DESPUÉS 999 -21",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 DERROTA TÚ 5 – RIVAL 6 Marcador final · Des",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": 21,
+            "b": -21
+          }
+        },
+        {
+          "i": 2,
+          "matchId": "ebb823c6",
+          "queueMs": 3006,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "B",
+            "score": "4-6"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "ebb823c6-a7af-4087-96db-e0aaa180cace",
+              "oldRating": 1021,
+              "delta": -21,
+              "newRating": 1000,
+              "opponentRating": 999,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790504909579
+            },
+            "b": {
+              "matchId": "ebb823c6-a7af-4087-96db-e0aaa180cace",
+              "oldRating": 999,
+              "delta": 21,
+              "newRating": 1020,
+              "opponentRating": 1021,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790504909579
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1021,
+                "games": 1,
+                "wins": 1,
+                "losses": 0
+              },
+              "b": {
+                "rating": 999,
+                "games": 2,
+                "wins": 1,
+                "losses": 1
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1000,
+                "games": 2,
+                "wins": 1,
+                "losses": 1
+              },
+              "b": {
+                "rating": 1020,
+                "games": 3,
+                "wins": 2,
+                "losses": 1
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1021\n→\nDESPUÉS\n1000\n-21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1021 → DESPUÉS 1000 -21",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 DERROTA TÚ 4 – RIVAL 6 Marcador final · Por",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n999\n→\nDESPUÉS\n1020\n+21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 999 → DESPUÉS 1020 +21",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 VICTORIA TÚ 6 – RIVAL 4 Marcador final · Po",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": -21,
+            "b": 21
+          }
+        },
+        {
+          "i": 3,
+          "matchId": "8cdccd81",
+          "queueMs": 2952,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "A",
+            "score": "7-3"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+              "oldRating": 1000,
+              "delta": 21,
+              "newRating": 1021,
+              "opponentRating": 1020,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790504967240
+            },
+            "b": {
+              "matchId": "8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+              "oldRating": 1020,
+              "delta": -21,
+              "newRating": 999,
+              "opponentRating": 1000,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790504967240
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1000,
+                "games": 2,
+                "wins": 1,
+                "losses": 1
+              },
+              "b": {
+                "rating": 1020,
+                "games": 3,
+                "wins": 2,
+                "losses": 1
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1021,
+                "games": 3,
+                "wins": 2,
+                "losses": 1
+              },
+              "b": {
+                "rating": 999,
+                "games": 4,
+                "wins": 2,
+                "losses": 2
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1000\n→\nDESPUÉS\n1021\n+21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1000 → DESPUÉS 1021 +21",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 VICTORIA TÚ 7 – RIVAL 3 Marcador final · Po",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n1020\n→\nDESPUÉS\n999\n-21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1020 → DESPUÉS 999 -21",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 DERROTA TÚ 3 – RIVAL 7 Marcador final · Por",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": 21,
+            "b": -21
+          }
+        }
+      ],
+      "history": {
+        "C": {
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "links": [
+            "/duelos/competitivo/partida/8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+            "/duelos/competitivo/partida/ebb823c6-a7af-4087-96db-e0aaa180cace",
+            "/duelos/competitivo/partida/44e646d5-918b-46bc-b648-778822520168"
+          ],
+          "recentApi": 0,
+          "onScreenIds": 3
+        },
+        "E": {
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "links": [
+            "/duelos/competitivo/partida/8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+            "/duelos/competitivo/partida/ebb823c6-a7af-4087-96db-e0aaa180cace",
+            "/duelos/competitivo/partida/44e646d5-918b-46bc-b648-778822520168",
+            "/duelos/competitivo/partida/297ea5a8-2d74-4f18-a822-d6450c398a3f"
+          ],
+          "recentApi": 0,
+          "onScreenIds": 3
+        }
+      },
+      "competitive": {
+        "C": {
+          "rating": {
+            "rating": 1021,
+            "games": 3,
+            "wins": 2,
+            "losses": 1
+          },
+          "text": "COLOCACIÓN #2 COMPETITIVO · RANKED PVP PUESTO 2 RATING 1021 ESCALERA #2 de 5 PARTIDAS DE COLOCACIÓN 3 / 10 Te faltan 7: después tu rating se asienta (cada partida mueve menos). ↓ ANTERIOR #3 · 999 qaf63n154122_a9a8 TÚ #2 SIGUIENTE ↑ #1 · 1089 qa_campaign_352_8c32 +69 de rating para superar a qa_camp",
+          "hasRatingNumber": true,
+          "namedRanks": false
+        },
+        "E": {
+          "rating": {
+            "rating": 999,
+            "games": 4,
+            "wins": 2,
+            "losses": 2
+          },
+          "text": "COLOCACIÓN #3 COMPETITIVO · RANKED PVP PUESTO 3 RATING 999 ESCALERA #3 de 5 PARTIDAS DE COLOCACIÓN 4 / 10 Te faltan 6: después tu rating se asienta (cada partida mueve menos). ↓ ANTERIOR #4 · 998 qaf63n172049_40a1 TÚ #3 SIGUIENTE ↑ #2 · 1021 qaf68c101756_d413 +23 de rating para superar a qaf68c10175",
+          "hasRatingNumber": true,
+          "namedRanks": false
+        }
+      },
+      "start": {
+        "C": {
+          "rating": 1000,
+          "games": 0,
+          "wins": 0,
+          "losses": 0
+        },
+        "E": {
+          "rating": 1020,
+          "games": 1,
+          "wins": 1,
+          "losses": 0
+        }
+      },
+      "end": {
+        "C": {
+          "rating": 1021,
+          "games": 3,
+          "wins": 2,
+          "losses": 1
+        },
+        "E": {
+          "rating": 999,
+          "games": 4,
+          "wins": 2,
+          "losses": 2
+        }
+      }
+    },
+    {
+      "id": "CE-r2-ranked",
+      "checks": {
+        "pass": 11,
+        "fail": []
+      },
+      "matches": [
+        {
+          "i": 1,
+          "matchId": "abef2973",
+          "queueMs": 13096,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "B",
+            "score": "4-6"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "abef2973-5933-4573-81cf-9c9d2aedb8c3",
+              "oldRating": 1021,
+              "delta": -21,
+              "newRating": 1000,
+              "opponentRating": 999,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790509283977
+            },
+            "b": {
+              "matchId": "abef2973-5933-4573-81cf-9c9d2aedb8c3",
+              "oldRating": 999,
+              "delta": 21,
+              "newRating": 1020,
+              "opponentRating": 1021,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790509283977
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1021,
+                "games": 3,
+                "wins": 2,
+                "losses": 1
+              },
+              "b": {
+                "rating": 999,
+                "games": 4,
+                "wins": 2,
+                "losses": 2
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1000,
+                "games": 4,
+                "wins": 2,
+                "losses": 2
+              },
+              "b": {
+                "rating": 1020,
+                "games": 5,
+                "wins": 3,
+                "losses": 2
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1021\n→\nDESPUÉS\n1000\n-21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1021 → DESPUÉS 1000 -21",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 DERROTA TÚ 4 – RIVAL 6 Marcador final · Por",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n999\n→\nDESPUÉS\n1020\n+21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 999 → DESPUÉS 1020 +21",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 VICTORIA TÚ 6 – RIVAL 4 Marcador final · Po",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": -21,
+            "b": 21
+          }
+        },
+        {
+          "i": 2,
+          "matchId": "a3f263be",
+          "queueMs": 2901,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "A",
+            "score": "6-4"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "a3f263be-ec5c-4752-bdd7-b9379495b7d7",
+              "oldRating": 1000,
+              "delta": 21,
+              "newRating": 1021,
+              "opponentRating": 1020,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790509342786
+            },
+            "b": {
+              "matchId": "a3f263be-ec5c-4752-bdd7-b9379495b7d7",
+              "oldRating": 1020,
+              "delta": -21,
+              "newRating": 999,
+              "opponentRating": 1000,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790509342786
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1000,
+                "games": 4,
+                "wins": 2,
+                "losses": 2
+              },
+              "b": {
+                "rating": 1020,
+                "games": 5,
+                "wins": 3,
+                "losses": 2
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1021,
+                "games": 5,
+                "wins": 3,
+                "losses": 2
+              },
+              "b": {
+                "rating": 999,
+                "games": 6,
+                "wins": 3,
+                "losses": 3
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1000\n→\nDESPUÉS\n1021\n+21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1000 → DESPUÉS 1021 +21",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 VICTORIA TÚ 6 – RIVAL 4 Marcador final · Po",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n1020\n→\nDESPUÉS\n999\n-21",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1020 → DESPUÉS 999 -21",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 DERROTA TÚ 4 – RIVAL 6 Marcador final · Por",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": 21,
+            "b": -21
+          }
+        },
+        {
+          "i": 3,
+          "matchId": "efa986e7",
+          "queueMs": 2941,
+          "played": {
+            "a": 10,
+            "b": 10
+          },
+          "shown": {
+            "a": true,
+            "b": true
+          },
+          "lifecycle": "FINISHED",
+          "result": {
+            "winner": "A",
+            "score": "6-3"
+          },
+          "outcome": {
+            "a": {
+              "matchId": "efa986e7-4b7f-40e1-9e40-7454af9341b7",
+              "oldRating": 1021,
+              "delta": 19,
+              "newRating": 1040,
+              "opponentRating": 999,
+              "kFactor": 40,
+              "result": "WIN",
+              "createdAt": 1790509399874
+            },
+            "b": {
+              "matchId": "efa986e7-4b7f-40e1-9e40-7454af9341b7",
+              "oldRating": 999,
+              "delta": -19,
+              "newRating": 980,
+              "opponentRating": 1021,
+              "kFactor": 40,
+              "result": "LOSS",
+              "createdAt": 1790509399874
+            }
+          },
+          "rating": {
+            "before": {
+              "a": {
+                "rating": 1021,
+                "games": 5,
+                "wins": 3,
+                "losses": 2
+              },
+              "b": {
+                "rating": 999,
+                "games": 6,
+                "wins": 3,
+                "losses": 3
+              }
+            },
+            "after": {
+              "a": {
+                "rating": 1040,
+                "games": 6,
+                "wins": 4,
+                "losses": 2
+              },
+              "b": {
+                "rating": 980,
+                "games": 7,
+                "wins": 3,
+                "losses": 4
+              }
+            }
+          },
+          "ui": {
+            "a": {
+              "delta": "ANTES\n1021\n→\nDESPUÉS\n1040\n+19",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 1021 → DESPUÉS 1040 +19",
+              "outcome": "DUELO PVP · CONTRA QAF63N154122_A9A8 VICTORIA TÚ 6 – RIVAL 3 Marcador final · Po",
+              "again": true,
+              "nan": false
+            },
+            "b": {
+              "delta": "ANTES\n999\n→\nDESPUÉS\n980\n-19",
+              "rating": "RATING PVP Rating provisional: las primeras 10 partidas mueven más el rating. ANTES 999 → DESPUÉS 980 -19",
+              "outcome": "DUELO PVP · CONTRA QAF68C101756_D413 DERROTA TÚ 3 – RIVAL 6 Marcador final · Por",
+              "again": true,
+              "nan": false
+            }
+          },
+          "deltas": {
+            "a": 19,
+            "b": -19
+          }
+        }
+      ],
+      "history": {
+        "C": {
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "links": [
+            "/duelos/competitivo/partida/efa986e7-4b7f-40e1-9e40-7454af9341b7",
+            "/duelos/competitivo/partida/a3f263be-ec5c-4752-bdd7-b9379495b7d7",
+            "/duelos/competitivo/partida/abef2973-5933-4573-81cf-9c9d2aedb8c3",
+            "/duelos/competitivo/partida/8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+            "/duelos/competitivo/partida/ebb823c6-a7af-4087-96db-e0aaa180cace",
+            "/duelos/competitivo/partida/44e646d5-918b-46bc-b648-778822520168"
+          ],
+          "recentApi": 0,
+          "onScreenIds": 3
+        },
+        "E": {
+          "h": [
+            "HISTORIAL RANKED"
+          ],
+          "links": [
+            "/duelos/competitivo/partida/efa986e7-4b7f-40e1-9e40-7454af9341b7",
+            "/duelos/competitivo/partida/a3f263be-ec5c-4752-bdd7-b9379495b7d7",
+            "/duelos/competitivo/partida/abef2973-5933-4573-81cf-9c9d2aedb8c3",
+            "/duelos/competitivo/partida/8cdccd81-5c80-4cdc-9951-7127a4b05c51",
+            "/duelos/competitivo/partida/ebb823c6-a7af-4087-96db-e0aaa180cace",
+            "/duelos/competitivo/partida/44e646d5-918b-46bc-b648-778822520168",
+            "/duelos/competitivo/partida/297ea5a8-2d74-4f18-a822-d6450c398a3f"
+          ],
+          "recentApi": 0,
+          "onScreenIds": 3
+        }
+      },
+      "competitive": {
+        "C": {
+          "rating": {
+            "rating": 1040,
+            "games": 6,
+            "wins": 4,
+            "losses": 2
+          },
+          "text": "COLOCACIÓN #2 COMPETITIVO · RANKED PVP PUESTO 2 RATING 1040 ESCALERA #2 de 5 PARTIDAS DE COLOCACIÓN 6 / 10 Te faltan 4: después tu rating se asienta (cada partida mueve menos). ↓ ANTERIOR #3 · 998 qaf63n172049_40a1 TÚ #2 SIGUIENTE ↑ #1 · 1089 qa_campaign_352_8c32 +50 de rating para superar a qa_camp",
+          "hasRatingNumber": true,
+          "namedRanks": false
+        },
+        "E": {
+          "rating": {
+            "rating": 980,
+            "games": 7,
+            "wins": 3,
+            "losses": 4
+          },
+          "text": "COLOCACIÓN #4 COMPETITIVO · RANKED PVP PUESTO 4 RATING 980 ESCALERA #4 de 5 PARTIDAS DE COLOCACIÓN 7 / 10 Te faltan 3: después tu rating se asienta (cada partida mueve menos). ↓ ANTERIOR #5 · 885 qa_f45_085748_1ff2 TÚ #4 SIGUIENTE ↑ #3 · 998 qaf63n172049_40a1 +19 de rating para superar a qaf63n17204",
+          "hasRatingNumber": true,
+          "namedRanks": false
+        }
+      },
+      "start": {
+        "C": {
+          "rating": 1021,
+          "games": 3,
+          "wins": 2,
+          "losses": 1
+        },
+        "E": {
+          "rating": 999,
+          "games": 4,
+          "wins": 2,
+          "losses": 2
+        }
+      },
+      "end": {
+        "C": {
+          "rating": 1040,
+          "games": 6,
+          "wins": 4,
+          "losses": 2
+        },
+        "E": {
+          "rating": 980,
+          "games": 7,
+          "wins": 3,
+          "losses": 4
+        }
+      }
+    }
+  ],
+  "teams": [
+    {
+      "id": "C-r1-teams",
+      "persona": "C",
+      "session": "teams",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 14,
+      "screens": 3,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 46,
+      "statuses": {
+        "200": 400,
+        "204": 6
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": {
+        "decks": [
+          {
+            "id": "a5c56ba3",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "active": "a5c56ba3"
+      },
+      "end": {
+        "decks": [
+          {
+            "id": "d81fbae0",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "a5c56ba3",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "active": "d81fbae0"
+      }
+    }
+  ]
+}

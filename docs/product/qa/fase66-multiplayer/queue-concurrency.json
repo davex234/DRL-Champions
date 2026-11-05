@@ -1,0 +1,141 @@
+{
+  "realServer": {
+    "at": "2026-09-26T19:06:55.329Z",
+    "accounts": {
+      "A": "1ff2c0ef",
+      "B": "8c326e52",
+      "C": "40a1e10d"
+    },
+    "duplicateJoin": {
+      "requests": 10,
+      "statuses": {
+        "200": 10
+      },
+      "distinctEntryIds": 1,
+      "codes": [
+        "ALREADY_QUEUED",
+        "OK"
+      ],
+      "ok": true
+    },
+    "twoTabs": {
+      "sameEntry": true,
+      "states": [
+        [
+          "QUEUED",
+          "QUEUED"
+        ],
+        [
+          "QUEUED",
+          "QUEUED"
+        ],
+        [
+          "QUEUED",
+          "QUEUED"
+        ],
+        [
+          "QUEUED",
+          "QUEUED"
+        ],
+        [
+          "QUEUED",
+          "QUEUED"
+        ],
+        [
+          "QUEUED",
+          "QUEUED"
+        ]
+      ],
+      "selfMatched": false,
+      "ok": true
+    },
+    "joinLeaveRace": {
+      "races": [
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "QUEUED"
+        },
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "QUEUED"
+        },
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "CANCELLED"
+        },
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "QUEUED"
+        },
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "QUEUED"
+        },
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "QUEUED"
+        },
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "QUEUED"
+        },
+        {
+          "join": 200,
+          "cancel": 200,
+          "final": "QUEUED"
+        }
+      ],
+      "ok": true
+    },
+    "threeWay": {
+      "states": {
+        "A": {
+          "state": "MATCHED",
+          "matchId": "07e6e6e7"
+        },
+        "B": {
+          "state": "QUEUED",
+          "matchId": null
+        },
+        "C": {
+          "state": "MATCHED",
+          "matchId": "07e6e6e7"
+        }
+      },
+      "matchedPlayers": 2,
+      "distinctMatches": 1,
+      "ok": true
+    },
+    "alreadyInMatch": {
+      "status": 409,
+      "code": "ACTIVE_MATCH",
+      "ok": true
+    },
+    "matchForRanked": {
+      "id": "07e6e6e7-82e5-4c2a-b299-739267dc1e77",
+      "players": [
+        "A",
+        "C"
+      ]
+    }
+  },
+  "e2eQueueF5": {
+    "before": "d6117e4b",
+    "after": "d6117e4b",
+    "same": true
+  },
+  "soakDoubleAccept": 100,
+  "soakDoubleMatchGuard": {
+    "liveMatch": true,
+    "enqueueWhileInMatch": 409,
+    "code": "ACTIVE_MATCH",
+    "ok": true
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "at": "2026-09-30T14:35:05.599Z",
+  "results": [
+    {
+      "id": "PvP · emparejamiento ranked real de dos cuentas QA",
+      "ok": true,
+      "detail": "5286d239-16c4-4e60-b77e-a99546b1a509"
+    },
+    {
+      "id": "PvP · los dos ven el MISMO plazo",
+      "ok": true,
+      "detail": "1790778898549 / 1790778898549"
+    },
+    {
+      "id": "PvP · 30 s por decisión",
+      "ok": true,
+      "detail": "30000 ms"
+    },
+    {
+      "id": "PvP · el contador bajó hasta 00:00 en los dos lados",
+      "ok": true,
+      "detail": "decide: 00:20 00:19 00:18 00:17 00:16 00:15 00:14 00:13 00:12 00:11 00:10 00:09 00:08 00:07 00:06 00:05 00:04 00:03 00:02 00:01 00:00 00:30 00:29 | espera: 00:04 00:03 00:02 00:01 00:00 00:29"
+    },
+    {
+      "id": "PvP · al vencer, el servidor jugó por quien debía; la partida SIGUE",
+      "ok": true,
+      "detail": "{\"life\":\"IN_TURN\",\"v\":[0,1],\"to\":[{\"kind\":\"ATTACK\",\"side\":\"A\",\"turn\":1}]}"
+    },
+    {
+      "id": "PvP · A y B reciben EXACTAMENTE el mismo estado",
+      "ok": true,
+      "detail": "{\"v\":1,\"t\":1,\"p\":\"DEFENDER_CARD\",\"a\":[],\"b\":[],\"to\":[{\"kind\":\"ATTACK\",\"side\":\"A\",\"turn\":1}]} | {\"v\":1,\"t\":1,\"p\":\"DEFENDER_CARD\",\"a\":[],\"b\":[],\"to\":[{\"kind\":\"ATTACK\",\"side\":\"A\",\"turn\":1}]}"
+    },
+    {
+      "id": "PvP · aviso «Tiempo agotado» en el que esperaba, sin modal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "PvP · ahora decide el otro, con plazo nuevo",
+      "ok": true,
+      "detail": "1790778898549 → 1790778928811"
+    },
+    {
+      "id": "PvP · 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

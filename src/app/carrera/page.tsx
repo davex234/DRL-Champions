@@ -1,0 +1,164 @@
+"use client";
+
+/**
+ * CARRERA — el centro de DESARROLLO de los jugadores del entrenador.
+ *
+ * Muestra la evolución de cada titular (fichas de desarrollo + scouting), permite al
+ * entrenador ENTRENAR (qué/quién/intensidad) y CERRAR TEMPORADA (envejece a todos y
+ * progresa al resto del mundo). Solo CONECTA el Development Engine vía `useCareerStore`.
+ */
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { useGameStore } from "@/store/useGameStore";
+import { HydrationGate } from "@/components/layout/HydrationGate";
+import { useTeamStore } from "@/store/useTeamStore";
+import { useCareerStore } from "@/store/useCareerStore";
+import { useWorldStore } from "@/store/useWorldStore";
+import { buildHomeRoster } from "@/lib/match/roster";
+import { allPlayers } from "@/data/catalog";
+import {
+  deriveInnate, freshDevState, scoutPlayer, developmentBroadcast, developmentEventsBroadcast,
+  type TrainingSessionId, type TrainingIntensity,
+} from "@/development";
+import { DevelopmentCard } from "@/components/career/DevelopmentCard";
+import { TrainingPanel } from "@/components/career/TrainingPanel";
+import { CoachTrajectory } from "@/components/career/CoachTrajectory";
+import { primeAudio, playCue } from "@/lib/sound";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("carrera");
+
+/** F81.2 · plantilla (colección) y nivel (XP) salen del store: solo cuando son de esta cuenta o la demo de un visitante. */
+export default function CarreraPage() {
+  return <HydrationGate><Carrera /></HydrationGate>;
+}
+
+function Carrera() {
+  useLocale();
+  const ownedCards = useGameStore((s) => s.ownedCards);
+  const teams = useTeamStore((s) => s.teams);
+  const activeTeamId = useTeamStore((s) => s.activeTeamId);
+  const active = teams.find((t) => t.id === activeTeamId) ?? null;
+
+  const dev = useCareerStore((s) => s.dev);
+  const innate = useCareerStore((s) => s.innate);
+  const storeSeason = useCareerStore((s) => s.season);
+  const events = useCareerStore((s) => s.events);
+  const runTraining = useCareerStore((s) => s.runTraining);
+  const advanceSeason = useCareerStore((s) => s.advanceSeason);
+
+  // UNIVERSO ÚNICO (Consolidation F1.1): el desarrollo vive en el MUNDO; esta pantalla lo
+  // lee de ahí (fallback legacy local para ids fuera del mundo). Un solo reloj de temporada.
+  const worldObj = useWorldStore((s) => s.world);
+  useEffect(() => { useWorldStore.getState().ensure(); }, []);
+  const season = worldObj?.season ?? storeSeason;
+
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+
+  const players = useMemo(() => {
+    if (!active) return [];
+    return buildHomeRoster(active.starters, ownedCards).roster.map((e) => ({ id: e.meta?.playerId ?? e.name, name: e.name }));
+  }, [active, ownedCards]);
+
+  if (!active || players.length === 0) {
+    return (
+      <section className="animate-rise space-y-4">
+        <Header season={season} />
+        {/*
+          La trayectoria va TAMBIÉN aquí. Se pueden haber dirigido partidos y haber deshecho
+          el equipo después: esconder el expediente por no tener plantilla ahora mismo sería
+          borrar la carrera por un estado temporal.
+        */}
+        <CoachTrajectory season={season} />
+        <div className="mx-auto max-w-xl space-y-4 rounded-2xl border border-white/10 bg-base-700/40 p-8 text-center">
+          <p className="text-3xl">📈</p>
+          <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">{tr("Necesitas un equipo")}</h2>
+          <p className="text-sm text-white/55">{tr("Crea un equipo de 5 jugadores para seguir y desarrollar su carrera.")}</p>
+          <Link href="/entrenador/equipos" className="inline-block rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow">
+            {tr("Gestionar equipos ▸")}
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  const toggle = (id: string) => setSelected((s) => { const n = new Set(s); n.has(id) ? n.delete(id) : n.add(id); return n; });
+
+  const train = (sid: TrainingSessionId, intensity: TrainingIntensity) => {
+    if (selected.size === 0) return;
+    primeAudio(); playCue("ui");
+    runTraining([...selected], { id: sid, intensity });
+  };
+  const closeSeason = () => {
+    playCue("whoosh");
+    advanceSeason(allPlayers().map((p) => p.id)); // todos progresan (live esports)
+  };
+
+  const recentEvents = developmentEventsBroadcast(events).slice(0, 5);
+
+  return (
+    <section className="animate-rise space-y-4">
+      <Header season={season} onCloseSeason={closeSeason} />
+
+      {/*
+        PRIMERO lo que ha hecho el entrenador, DESPUÉS el desarrollo de sus jugadores. Es el
+        orden del recorrido que faltaba —partidos → resultados → progresión → carrera— y el
+        que responde antes a «¿cómo me está yendo?» que a «¿a quién entreno hoy?».
+      */}
+      <CoachTrajectory season={season} />
+
+      <TrainingPanel count={selected.size} onTrain={train} />
+
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {players.map((p) => {
+          const wp = worldObj?.players[p.id];
+          const inn = wp?.innate ?? innate[p.id] ?? deriveInnate(p.id);
+          const d = wp?.dev ?? dev[p.id];
+          const scout = scoutPlayer(inn, d ?? freshDevState(inn));
+          const info = d ? developmentBroadcast(d, inn, p.name) : null;
+          return (
+            <DevelopmentCard key={p.id} name={p.name} info={td(info)} scout={scout}
+              selected={selected.has(p.id)} onToggle={() => toggle(p.id)} />
+          );
+        })}
+      </div>
+
+      {recentEvents.length > 0 && (
+        <div className="rounded-2xl border border-white/10 bg-base-800/60 p-4">
+          <p className="mb-2 font-display text-[11px] uppercase tracking-widest text-white/45">{tr("Historias de desarrollo")}</p>
+          <ul className="space-y-1">
+            {recentEvents.map((e, i) => (
+              <li key={i} className="flex items-center gap-2 text-[12px] text-white/70">
+                <span className="rounded bg-drl/15 px-1.5 py-0.5 font-display text-[9px] uppercase tracking-wide text-drl">{e.type.replace(/_/g, " ")}</span>
+                <span className="text-white/80">{e.name ?? ""}</span>
+                <span className="text-white/45">{td(e.detail) ?? ""}</span>
+                <span className="ml-auto text-[10px] text-white/30">T{e.season}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function Header({ season, onCloseSeason }: { season: number; onCloseSeason?: () => void }) {
+  useLocale();
+  return (
+    <header className="flex items-center justify-between">
+      <div>
+        <h1 className="font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
+          <span className="text-drl">{tr("Carrera")}</span> {tr("· Temporada")} {season}
+        </h1>
+        <p className="mt-1 text-white/50">{tr("Desarrolla personas, no números.")} <strong className="text-white/70">{tr("Cada carrera es única.")}</strong></p>
+      </div>
+      {onCloseSeason && (
+        <button onClick={onCloseSeason}
+          className="rounded-lg border border-amber-400/40 bg-amber-400/10 px-4 py-2 font-display text-xs uppercase tracking-wide text-amber-200 transition hover:bg-amber-400/20">
+          {tr("Cerrar temporada ▸")}
+        </button>
+      )}
+    </header>
+  );
+}

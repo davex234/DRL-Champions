@@ -1,0 +1,938 @@
+{
+  "composiciones-editor-390": {
+    "vw": 390,
+    "scrollX": false,
+    "retratos": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 52,
+        "h": 70,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "probe",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 52,
+        "h": 70,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 52,
+        "h": 70,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 52,
+        "h": 70,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 52,
+        "h": 70,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      },
+      {
+        "agent": "haze",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "probe",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "pulse",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "blitz",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "tripwire",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "specter",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      }
+    ],
+    "rotas": 0,
+    "veil": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 52,
+        "h": 70,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      }
+    ],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "composiciones-editor-768": {
+    "vw": 768,
+    "scrollX": false,
+    "retratos": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 120,
+        "h": 160,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "probe",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 120,
+        "h": 160,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 120,
+        "h": 160,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 120,
+        "h": 160,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 120,
+        "h": 160,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      },
+      {
+        "agent": "haze",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "probe",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "pulse",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "blitz",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "tripwire",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "specter",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      }
+    ],
+    "rotas": 0,
+    "veil": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 120,
+        "h": 160,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      }
+    ],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "composiciones-editor-1024": {
+    "vw": 1024,
+    "scrollX": false,
+    "retratos": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "probe",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      },
+      {
+        "agent": "haze",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "probe",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "pulse",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "blitz",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "tripwire",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "specter",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      }
+    ],
+    "rotas": 0,
+    "veil": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      }
+    ],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "composiciones-editor-1440": {
+    "vw": 1440,
+    "scrollX": false,
+    "retratos": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "probe",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      },
+      {
+        "agent": "haze",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "probe",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "pulse",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "blitz",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "tripwire",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "specter",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      }
+    ],
+    "rotas": 0,
+    "veil": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      }
+    ],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "composiciones-editor-1920": {
+    "vw": 1920,
+    "scrollX": false,
+    "retratos": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "probe",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "portrait",
+        "art": "glyph",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      },
+      {
+        "agent": "haze",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "probe",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "pulse",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "spear",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "blitz",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "warden",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "tripwire",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "specter",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      },
+      {
+        "agent": "echo",
+        "variant": "avatar",
+        "art": "glyph",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": null
+      }
+    ],
+    "rotas": 0,
+    "veil": [
+      {
+        "agent": "veil",
+        "variant": "portrait",
+        "art": "image",
+        "w": 128,
+        "h": 171,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/portrait.webp",
+          "ok": true,
+          "natural": "480x640"
+        }
+      },
+      {
+        "agent": "veil",
+        "variant": "avatar",
+        "art": "image",
+        "w": 30,
+        "h": 30,
+        "fuera": false,
+        "img": {
+          "src": "/agents/veil/avatar.webp",
+          "ok": true,
+          "natural": "256x256"
+        }
+      }
+    ],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "composiciones-lista-1440": {
+    "vw": 1440,
+    "scrollX": false,
+    "retratos": [],
+    "rotas": 0,
+    "veil": [],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "pizarra-1440": {
+    "vw": 1440,
+    "scrollX": false,
+    "retratos": [],
+    "rotas": 0,
+    "veil": [],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "presentar-390": {
+    "vw": 390,
+    "scrollX": false,
+    "retratos": [],
+    "rotas": 0,
+    "veil": [],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  },
+  "presentar-1440": {
+    "vw": 1440,
+    "scrollX": false,
+    "retratos": [],
+    "rotas": 0,
+    "veil": [],
+    "otrosConImagen": 0,
+    "mapaConCaras": 0
+  }
+}

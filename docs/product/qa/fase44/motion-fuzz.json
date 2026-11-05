@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-10-07T10:01:29.902Z",
+  "transitions": 40000,
+  "moments": {
+    "sequences": 10000,
+    "violations": {
+      "stuckOverlay": 0,
+      "twoVisible": 0,
+      "queueOverflow": 0,
+      "neverExpires": 0
+    }
+  },
+  "reveal": {
+    "sequences": 10000,
+    "violations": {
+      "animationLock": 0,
+      "doubleRequest": 0,
+      "resultBeforeServer": 0,
+      "skipIgnored": 0,
+      "cannotLeaveSummary": 0
+    }
+  },
+  "draft": {
+    "sequences": 10000,
+    "violations": {
+      "stuck": 0,
+      "invalidIndex": 0
+    }
+  },
+  "xp": {
+    "timelines": 10000,
+    "violations": 0
+  },
+  "totalViolations": 0
+}

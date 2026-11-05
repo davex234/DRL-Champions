@@ -1,0 +1,22 @@
+{
+  "Comprobando tu sesión… vuelve a intentarlo en un momento.": "セッションを確認中… しばらくしてからもう一度お試しください。",
+  "Con tu cuenta iniciada, créditos, XP y cartas los lleva el servidor: este modo local no concede ni cobra nada.": "ログイン中は、クレジット、XP、カードはサーバーが管理します。このローカルモードでは何も付与も消費もされません。",
+  "Con tu cuenta, los sobres los abre el servidor. Estamos recuperando tu cuenta: vuelve a intentarlo en un momento.": "アカウントでは、パックはサーバーが開封します。アカウントを復元中です。しばらくしてからもう一度お試しください。",
+  "Cuenta online no configurada": "オンラインアカウントが未設定です",
+  "El mercado necesita una cuenta online": "マーケットにはオンラインアカウントが必要です",
+  "Inicia sesión para continuar": "続けるにはログインしてください",
+  "Inicia sesión para entrar en el mercado": "マーケットに入るにはログインしてください",
+  "La economía necesita una cuenta online": "経済にはオンラインアカウントが必要です",
+  "La sesión cambió durante la carga": "読み込み中にセッションが変わりました",
+  "Necesitas iniciar sesión": "ログインが必要です",
+  "Necesitas una cuenta": "アカウントが必要です",
+  "No hemos podido recuperar tu cuenta. Comprueba la conexión y vuelve a intentarlo.": "アカウントを復元できませんでした。接続を確認して、もう一度お試しください。",
+  "No se pudo cargar tu progreso": "進行状況を読み込めませんでした",
+  "No se pudo comprar el sobre": "パックを購入できませんでした",
+  "Resultado de apertura no válido": "開封結果が無効です",
+  "Sin conexión": "オフライン",
+  "Sin sesión": "セッションなし",
+  "{INVALID_OPEN_RESULT}: carta desconocida": "{INVALID_OPEN_RESULT}: 不明なカード",
+  "{INVALID_OPEN_RESULT}: carta sin identificador": "{INVALID_OPEN_RESULT}: 識別子のないカード",
+  "{INVALID_OPEN_RESULT}: sin cartas": "{INVALID_OPEN_RESULT}: カードなし"
+}

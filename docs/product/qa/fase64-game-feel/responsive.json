@@ -1,0 +1,30 @@
+{
+  "widths": [
+    1440,
+    1024,
+    390
+  ],
+  "overflowBefore": [
+    "pickems@390: LI 16..398;DIV 16..398;LI 16..398;DIV 16..398;LI 16..398"
+  ],
+  "overflowAfter": [],
+  "mobile390": {
+    "routes": 24,
+    "overflow": 0,
+    "hScroll": 0
+  },
+  "tablet1024": {
+    "routes": 24,
+    "overflow": 0
+  },
+  "desktop1440": {
+    "routes": 24,
+    "overflow": 0
+  },
+  "changes": [
+    "colección móvil compacta",
+    "min-w-0 en rejillas de progreso y Pick'ems",
+    "HUD móvil: ENTRAR sin sesión",
+    "dock móvil con pulsación y sonido"
+  ]
+}

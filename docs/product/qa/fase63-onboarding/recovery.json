@@ -1,0 +1,77 @@
+{
+  "live": [
+    {
+      "file": "new-user-e2e-1440.json",
+      "welcomeAfterF5": true,
+      "starterAfterF5": true,
+      "reloadDuringOpening": {
+        "cardsBefore": 5,
+        "cardsAfter": 10,
+        "packsOpened": 2,
+        "duplicated": false
+      },
+      "afterTeamF5": {
+        "decks": 1
+      },
+      "midMatchF5": {
+        "recovered": true,
+        "hintRepeated": false
+      },
+      "resultAfterF5": {
+        "shown": true,
+        "url": "/duelos/jugar?dificultad=EASY&primera=1&resultado=52e7b5e2-da48-4a67-a97f-009c2f2a4d93",
+        "noDuplicate": true
+      }
+    },
+    {
+      "file": "new-user-e2e-reduced-390.json",
+      "welcomeAfterF5": true,
+      "starterAfterF5": true,
+      "reloadDuringOpening": {
+        "cardsBefore": 5,
+        "cardsAfter": 10,
+        "packsOpened": 2,
+        "duplicated": false
+      },
+      "afterTeamF5": {
+        "decks": 1
+      },
+      "midMatchF5": {
+        "recovered": true,
+        "hintRepeated": false
+      },
+      "resultAfterF5": {
+        "shown": true,
+        "url": "/duelos/jugar?dificultad=EASY&primera=1&resultado=8a2e66f5-1746-4097-9b30-39d2afa05294",
+        "noDuplicate": true
+      }
+    },
+    {
+      "file": "new-user-e2e-1440-run1.json",
+      "welcomeAfterF5": true,
+      "starterAfterF5": true,
+      "reloadDuringOpening": {
+        "cardsBefore": 5,
+        "cardsAfter": 10,
+        "packsOpened": 2,
+        "duplicated": false
+      },
+      "afterTeamF5": {
+        "decks": 1
+      },
+      "midMatchF5": {
+        "recovered": true,
+        "hintRepeated": false
+      },
+      "resultAfterF5": {
+        "shown": true,
+        "url": "/duelos/jugar?dificultad=EASY&primera=1&resultado=0fea81af-c366-4424-be44-92a8a760f419",
+        "noDuplicate": true
+      }
+    }
+  ],
+  "tests": [
+    "onboarding.service.test.ts S05 (F5/pestañas → un solo equipo)",
+    "onboarding.test.ts D13/D14 (repetir callbacks = mismo estado)"
+  ]
+}

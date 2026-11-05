@@ -1,0 +1,332 @@
+{
+  "generatedAt": "2026-10-07T10:01:29.808Z",
+  "screens": [
+    {
+      "path": "/",
+      "screen": "Home · menú principal",
+      "immersive": true,
+      "exits": [
+        "/jugar",
+        "/boveda",
+        "/tienda"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/boveda",
+      "screen": "Bóveda · hub de inventario",
+      "immersive": false,
+      "exits": [
+        "/coleccion",
+        "/duelos/mazos",
+        "/colecciones",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/jugar",
+      "screen": "Selector de modos",
+      "immersive": false,
+      "exits": [
+        "/duelos/jugar",
+        "/duelos/competitivo",
+        "/jugar/road-to-champions",
+        "/jugar/draft-gauntlet",
+        "/social",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/duelos/jugar",
+      "screen": "PvE · preparación, partida y resultado",
+      "immersive": true,
+      "exits": [
+        "/duelos",
+        "/duelos/mazos",
+        "/jugar"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/duelos/pvp",
+      "screen": "PvP",
+      "immersive": true,
+      "exits": [
+        "/competitivo",
+        "/duelos"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/duelos/competitivo",
+      "screen": "Ranked",
+      "immersive": false,
+      "exits": [
+        "/duelos/pvp",
+        "/duelos/competitivo/historial",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/competitivo",
+      "screen": "Ranked",
+      "immersive": false,
+      "exits": [
+        "/duelos/pvp",
+        "/duelos/competitivo/historial",
+        "/temporada",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/jugar/road-to-champions",
+      "screen": "Road to Champions",
+      "immersive": false,
+      "exits": [
+        "/duelos/jugar",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/jugar/draft-gauntlet",
+      "screen": "Draft Gauntlet",
+      "immersive": false,
+      "exits": [
+        "/duelos/jugar",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/tienda",
+      "screen": "Sobres",
+      "immersive": false,
+      "exits": [
+        "/abrir",
+        "/inventario",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/inventario",
+      "screen": "Inventario de sobres",
+      "immersive": false,
+      "exits": [
+        "/abrir",
+        "/tienda",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/abrir",
+      "screen": "Apertura de sobre",
+      "immersive": true,
+      "exits": [
+        "/coleccion",
+        "/jugar",
+        "/tienda"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/coleccion",
+      "screen": "Colección",
+      "immersive": false,
+      "exits": [
+        "/coleccion/carta",
+        "/duelos/mazos",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/coleccion/carta",
+      "screen": "Ficha de carta",
+      "immersive": false,
+      "exits": [
+        "/coleccion",
+        "/duelos/mazos",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/duelos/mazos",
+      "screen": "Equipos",
+      "immersive": false,
+      "exits": [
+        "/duelos/jugar",
+        "/coleccion",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/temporada",
+      "screen": "Temporada",
+      "immersive": false,
+      "exits": [
+        "/logros",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/logros",
+      "screen": "Logros y pase",
+      "immersive": false,
+      "exits": [
+        "/temporada",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/progresion",
+      "screen": "Objetivos",
+      "immersive": false,
+      "exits": [
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/torneos",
+      "screen": "Eventos",
+      "immersive": false,
+      "exits": [
+        "/pickems",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/pickems",
+      "screen": "Pick'ems",
+      "immersive": false,
+      "exits": [
+        "/torneos",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/jugador/me",
+      "screen": "Perfil",
+      "immersive": false,
+      "exits": [
+        "/cuenta",
+        "/coleccion",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/cuenta",
+      "screen": "Cuenta y ajustes",
+      "immersive": false,
+      "exits": [
+        "/jugador/me",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    },
+    {
+      "path": "/social",
+      "screen": "Social",
+      "immersive": false,
+      "exits": [
+        "/duelos/pvp",
+        "/jugar",
+        "/"
+      ],
+      "deadEnd": false
+    }
+  ],
+  "deadEnds": 0,
+  "clickDepth": [
+    {
+      "goal": "Jugar (selector de modos)",
+      "path": [
+        "JUGAR (armazón)"
+      ],
+      "clicks": 1
+    },
+    {
+      "goal": "Jugar PvE",
+      "path": [
+        "JUGAR (armazón)",
+        "Partida rápida"
+      ],
+      "clicks": 2
+    },
+    {
+      "goal": "Jugar Ranked",
+      "path": [
+        "JUGAR (armazón)",
+        "Competitivo"
+      ],
+      "clicks": 2
+    },
+    {
+      "goal": "Road to Champions",
+      "path": [
+        "Modo del vestíbulo: Road to Champions"
+      ],
+      "clicks": 1
+    },
+    {
+      "goal": "Draft Gauntlet",
+      "path": [
+        "Modo del vestíbulo: Draft"
+      ],
+      "clicks": 1
+    },
+    {
+      "goal": "Abrir sobre propio",
+      "path": [
+        "ABRIR SOBRE (vestíbulo)"
+      ],
+      "clicks": 1
+    },
+    {
+      "goal": "Colección",
+      "path": [
+        "COLECCIÓN (armazón)"
+      ],
+      "clicks": 1
+    },
+    {
+      "goal": "Equipos",
+      "path": [
+        "EQUIPOS (armazón)"
+      ],
+      "clicks": 1
+    }
+  ]
+}

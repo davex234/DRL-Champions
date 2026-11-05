@@ -1,0 +1,15 @@
+{
+  "Carta inexistente": "Card does not exist",
+  "El listado ya no está disponible": "The listing is no longer available",
+  "Importe inválido": "Invalid amount",
+  "Instancia inválida": "Invalid instance",
+  "La oferta ya no está activa": "The offer is no longer active",
+  "Listado de usuario sin escrow": "User listing without escrow",
+  "Listado reservado a otro comprador": "Listing reserved for another buyer",
+  "No puedes cancelar un listado ajeno": "You cannot cancel someone else's listing",
+  "No puedes comprar tu propio listado": "You cannot buy your own listing",
+  "No puedes modificar un listado ajeno": "You cannot edit someone else's listing",
+  "No puedes ofertar en tu propio listado": "You cannot make an offer on your own listing",
+  "Precio inválido": "Invalid price",
+  "Vendido pero activo": "Sold but still active"
+}

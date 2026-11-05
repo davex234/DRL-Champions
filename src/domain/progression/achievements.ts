@@ -1,5 +1,7 @@
 import { CARDS, getPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
+import { bucketForRank } from "@/domain/packs/types";
+import { canonicalCardTeam } from "@/data/teamIdentities";
 
 /** Contexto que el store calcula para evaluar el progreso de logros. */
 export interface AchievementContext {
@@ -23,22 +25,25 @@ function ownedInSet(ids: string[], owned: Set<string>): number {
   return ids.reduce((n, id) => n + (owned.has(id) ? 1 : 0), 0);
 }
 
-const cardIdsForTeam = (team: string) =>
-  CARDS.filter((c) => getPlayer(c.playerId)?.team === team).map((c) => c.id);
+/** Cartas de un equipo CANÓNICO (el equipo de la carta: el impreso en el catálogo diseñado). */
+const cardIdsForTeam = (canonicalId: string) =>
+  CARDS.filter((c) => canonicalCardTeam(c, getPlayer(c.playerId)).key === canonicalId).map((c) => c.id);
 
 const cardIdsForRegion = (region: string) =>
   CARDS.filter((c) => getPlayer(c.playerId)?.region === region).map((c) => c.id);
 
-const HERETICS_IDS = cardIdsForTeam("Team Heretics");
-const EMEA_IDS = cardIdsForRegion("EMEA");
+// Los ids se resuelven PEREZOSAMENTE (nunca a import-time): el catálogo vivo cambia con cada
+// publish/import (rebuildCatalog) y estos logros deben ver siempre el catálogo vigente.
+const heretics = () => cardIdsForTeam("team-heretics"); // TH impreso: la plantilla entera, no un alias
+const emea = () => cardIdsForRegion("EMEA");
 
-function countOwnedByGroup(owned: Set<string>, group: string): number {
-  let n = 0;
+/** ¿Posee alguna carta que cumpla `f`? Sobre el catálogo vivo (una carta que ya no existe no cuenta). */
+function ownsAny(owned: Set<string>, f: (variantId: string) => boolean): boolean {
   for (const id of owned) {
     const card = CARDS.find((c) => c.id === id);
-    if (card && getVariant(card.variantId).group === group) n++;
+    if (card && f(card.variantId)) return true;
   }
-  return n;
+  return false;
 }
 
 export const ACHIEVEMENTS: AchievementDef[] = [
@@ -61,22 +66,26 @@ export const ACHIEVEMENTS: AchievementDef[] = [
     progress: (c) => c.packsOpened,
   },
   {
+    // Catálogo diseñado (2026-09-21): las cartas MVP ya no existen. Mismo escalón —la primera carta de
+    // torneo de rareza alta— con la edición que lo es ahora: Champions S (épica, 20 cartas). Id estable.
     id: "primer-mvp",
-    name: "Consigue un MVP",
-    description: "Obtén tu primera carta MVP.",
+    name: "Consigue una Champions S",
+    description: "Obtén tu primera carta Champions S.",
     icon: "⭐",
     reward: 3000,
     goal: 1,
-    progress: (c) => Math.min(1, countOwnedByGroup(c.ownedCardIds, "mvp")),
+    progress: (c) => (ownsAny(c.ownedCardIds, (v) => v === "champions-s") ? 1 : 0),
   },
   {
+    // Las Icon Series ya no existen. Equivalente: la cima de la rareza del catálogo diseñado, una
+    // legendaria (Record Breaker o Moments; el Sobre Icon la garantiza). Id estable.
     id: "primer-icon",
-    name: "Consigue un Icon",
-    description: "Obtén tu primera carta Icon Series.",
+    name: "Consigue una leyenda",
+    description: "Obtén tu primera carta legendaria (Record Breaker o Moments).",
     icon: "👑",
     reward: 10000,
     goal: 1,
-    progress: (c) => (c.ownedCardIds.has("scream__icon-series") || c.ownedCardIds.has("aspas__icon-series") || c.ownedCardIds.has("tenz__icon-series") ? 1 : 0),
+    progress: (c) => (ownsAny(c.ownedCardIds, (v) => bucketForRank(getVariant(v as never).rank) === "legendary") ? 1 : 0),
   },
   {
     id: "coleccionista",
@@ -93,8 +102,8 @@ export const ACHIEVEMENTS: AchievementDef[] = [
     description: "Consigue todas las cartas de Team Heretics.",
     icon: "🐉",
     reward: 8000,
-    goal: HERETICS_IDS.length,
-    progress: (c) => ownedInSet(HERETICS_IDS, c.ownedCardIds),
+    get goal() { return heretics().length; },
+    progress: (c) => ownedInSet(heretics(), c.ownedCardIds),
   },
   {
     id: "completa-emea",
@@ -102,7 +111,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
     description: "Consigue todas las cartas de la región EMEA.",
     icon: "🌍",
     reward: 15000,
-    goal: EMEA_IDS.length,
-    progress: (c) => ownedInSet(EMEA_IDS, c.ownedCardIds),
+    get goal() { return emea().length; },
+    progress: (c) => ownedInSet(emea(), c.ownedCardIds),
   },
 ];

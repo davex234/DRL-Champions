@@ -1,0 +1,60 @@
+{
+  "doubleClickConfirm": {
+    "historyBefore": 0,
+    "historyAfter": 1,
+    "turnAfter": 2
+  },
+  "resultReload": {
+    "url": "/duelos/jugar?resultado=06b8cc80-ae1f-4b04-bffd-b11029ee710a",
+    "screen": {
+      "scenes": [
+        "result"
+      ],
+      "beat": null,
+      "role": null,
+      "turn": null,
+      "moment": null,
+      "tiebreak": null,
+      "complete": null,
+      "result": "loss",
+      "recovered": false,
+      "leave": false,
+      "hand": 0
+    },
+    "creditsAfterFinish": 3630,
+    "creditsAfterReload": 3630
+  },
+  "playAgainAndAbandon": {
+    "clicked": true,
+    "newMatch": "f80ad2dc-896a-4a35-a67f-b7b9a5bb4fb0",
+    "freshTurn": 1,
+    "dialog": true,
+    "activeAfterAbandon": null,
+    "creditsAfterAbandon": 3630
+  },
+  "pvpRatingReload": {
+    "after": {
+      "rating": 946,
+      "position": 2,
+      "rankedTotal": 2,
+      "gamesPlayed": 3
+    },
+    "afterReload": {
+      "rating": 946,
+      "position": 2,
+      "rankedTotal": 2,
+      "gamesPlayed": 3
+    }
+  },
+  "server": [
+    "playTurn: partida terminada → 409 antes de pagar",
+    "award ref duel:<matchId> (índice único del libro mayor)",
+    "PvP: actionId + expectedVersion; rating liquidado por el servidor"
+  ],
+  "client": [
+    "inFlight (cerrojo de red)",
+    "closeReveal idempotente por matchId:turno",
+    "MatchEnding no salta dos pasos",
+    "el golpe final solo desde la revelación o la jugada final; el arranque (F5) nunca lo reproduce"
+  ]
+}

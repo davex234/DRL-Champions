@@ -1,0 +1,23 @@
+{
+  "abrir la entrada": "abrir la entrada",
+  "anclar el sitio": "anclar el sitio",
+  "cegar para abrir": "cegar para abrir",
+  "controlar la zona": "controlar la zona",
+  "corta visión": "corta visión",
+  "cortar visión": "cortar visión",
+  "crear espacio": "crear espacio",
+  "defender": "defender",
+  "humo móvil": "humo móvil",
+  "jugar el post-plant": "jugar el post-plant",
+  "proteger el espacio": "proteger el espacio",
+  "proteger el post-plant": "proteger el post-plant",
+  "ralentizar el avance": "ralentizar el avance",
+  "rompe línea": "rompe línea",
+  "sacar información": "sacar información",
+  "señuelo": "señuelo",
+  "suprimir el ángulo": "suprimir el ángulo",
+  "tomar espacio": "tomar espacio",
+  "vender una finta": "vender una finta",
+  "{preExec} utils en el execute": "{preExec} utils en el execute",
+  "{retakeUtil} utils en el retake": "{retakeUtil} utils en el retake"
+}

@@ -1,0 +1,18 @@
+{
+  "Capítulo {n}": "チャプター{n}",
+  "Cargando Road to Champions…": "Road to Championsを読み込み中…",
+  "Crear equipo": "チームを作成",
+  "Editar equipo": "チームを編集",
+  "Iniciar sesión": "ログイン",
+  "La run cambió en otra pestaña. Se ha actualizado.": "ランが別のタブで変更されたため、更新しました。",
+  "Necesitas un equipo válido (diez cartas, dos por rol) para jugar cualquier nodo.": "どのノードをプレイするにも、有効なチーム(10枚、ロールごとに2枚)が必要です。",
+  "No se pudo abandonar el nodo": "ノードを放棄できませんでした",
+  "No se pudo completar la acción": "操作を完了できませんでした",
+  "No se pudo leer Road to Champions": "Road to Championsを読み込めませんでした",
+  "Preparando Draft Gauntlet…": "Draft Gauntletを準備中…",
+  "Preparando modos de juego…": "プレイモードを準備中…",
+  "Retomar": "再開",
+  "Sin conexión. No se ha enviado nada.": "オフラインです。何も送信されていません。",
+  "jugar Draft Gauntlet": "Draft Gauntletをプレイ",
+  "«{name}» está en marcha. Termínalo o abandónalo antes de empezar otro nodo.": "「{name}」が進行中です。別のノードを始める前に、終了するか放棄してください。"
+}

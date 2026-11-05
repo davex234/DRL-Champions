@@ -1,0 +1,341 @@
+{
+ "at": "2026-10-06T19:32:36.785Z",
+ "base": "https://valorosters.com",
+ "cup": "qa-f86-mux2nqep",
+ "champion": "A",
+ "total": 66,
+ "pass": 66,
+ "fail": 0,
+ "rows": [
+  {
+   "id": "ready: cabeza ≥ 0069 por estado real y check «cups» en verde",
+   "ok": true,
+   "detail": "{\"head\":\"0073_pickems_launch_guard\",\"status\":\"ready\"}"
+  },
+  {
+   "id": "página /copas pública responde 200",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo → /api/admin/cups 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "usuario normal (B) → /api/admin/cups 401 (lectura y escritura)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel: validación (máximo 128 no soportado) → 400",
+   "ok": true,
+   "detail": "Máximo entre 4 y 64"
+  },
+  {
+   "id": "panel: crear BORRADOR no listado (nunca publica solo)",
+   "ok": true,
+   "detail": "{\"id\":\"fd366195-f307-4344-a825-f2e6c7278ed2\",\"slug\":\"qa-f86-mux2nqep\",\"version\":0}"
+  },
+  {
+   "id": "borrador invisible: ficha 404 (anónimo y jugador), fuera del hub",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "publicar con versión vieja → 409",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "publicar (admin, versión actual) → PUBLICADO + auditoría con actor",
+   "ok": true,
+   "detail": "{\"code\":\"PUBLISHED\"}"
+  },
+  {
+   "id": "publicado: cambiar el máximo → 409 (solo texto)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "publicado: corregir la descripción → 200",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo → inscribirse 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuerpo con «winner» / «seed» / «userId» → 400 (lista blanca)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "20 inscripciones simultáneas de B → 1 fila (1 REGISTERED + 19 ALREADY)",
+   "ok": true,
+   "detail": "REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED"
+  },
+  {
+   "id": "D se retira con la inscripción abierta y vuelve (misma fila)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "4 inscritos, contador = filas",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "no listado: B lo ve en «Mis torneos»; el hub público no lo lista",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cerrada: retirarse → 409 CLOSED",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "20 lecturas a la vez tras el cierre → UN cuadro (3 cruces, 2 rondas), una auditoría del sistema",
+   "ok": true,
+   "detail": "200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200"
+  },
+  {
+   "id": "foto de rating en cada inscrito (seed 1..4, rating = ranked o 1000)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuadro PÚBLICO sin ids de usuario ni correos; con #TAG; nombres de ronda verdaderos",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "R1·0: «listo» A → WAITING; B → STARTED; A otra vez → la MISMA partida",
+   "ok": true,
+   "detail": "{\"r1\":\"WAITING\",\"r2\":\"STARTED\",\"same\":true}"
+  },
+  {
+   "id": "R1·0: partida del motor PVP_PRIVATE, UNA por cruce, cruce EN JUEGO",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "R1·0: abandono de A → gana B (cierre canónico del motor), ABANDON",
+   "ok": true,
+   "detail": "COMPLETED|24e88122-3775-47fc-841b-5962143ba1ba|ABANDON"
+  },
+  {
+   "id": "R1·0: la arena sabe que es un cruce de torneo (sin revancha); el cara a cara social NO lo cuenta",
+   "ok": true,
+   "detail": "{\"slug\":\"qa-f86-mux2nqep\",\"name\":\"QA F86 (no listado)\",\"round\":1,\"roundName\":\"Semifinal\",\"outcome\":\"ADVANCED\",\"nextRoundName\":\"Final\"}"
+  },
+  {
+   "id": "20 lecturas más (red de liquidación) → el cuadro no cambia: un solo avance",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "el ganador está en la final (lado A), una vez",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "R1·1: «listo» A → WAITING; B → STARTED; A otra vez → la MISMA partida",
+   "ok": true,
+   "detail": "{\"r1\":\"WAITING\",\"r2\":\"STARTED\",\"same\":true}"
+  },
+  {
+   "id": "R1·1: partida del motor PVP_PRIVATE, UNA por cruce, cruce EN JUEGO",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "R1·1: abandono de A → gana B (cierre canónico del motor), ABANDON",
+   "ok": true,
+   "detail": "COMPLETED|505585ec-5e36-4ad5-a564-c082ee3d6c04|ABANDON"
+  },
+  {
+   "id": "R1·1: la arena sabe que es un cruce de torneo (sin revancha); el cara a cara social NO lo cuenta",
+   "ok": true,
+   "detail": "{\"slug\":\"qa-f86-mux2nqep\",\"name\":\"QA F86 (no listado)\",\"round\":1,\"roundName\":\"Semifinal\",\"outcome\":\"ADVANCED\",\"nextRoundName\":\"Final\"}"
+  },
+  {
+   "id": "final con los dos finalistas → READY",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "R2·0: «listo» A → WAITING; B → STARTED; A otra vez → la MISMA partida",
+   "ok": true,
+   "detail": "{\"r1\":\"WAITING\",\"r2\":\"STARTED\",\"same\":true}"
+  },
+  {
+   "id": "R2·0: partida del motor PVP_PRIVATE, UNA por cruce, cruce EN JUEGO",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "R2·0: abandono de A → gana B (cierre canónico del motor), ABANDON",
+   "ok": true,
+   "detail": "COMPLETED|505585ec-5e36-4ad5-a564-c082ee3d6c04|ABANDON"
+  },
+  {
+   "id": "R2·0: la arena sabe que es un cruce de torneo (sin revancha); el cara a cara social NO lo cuenta",
+   "ok": true,
+   "detail": "{\"slug\":\"qa-f86-mux2nqep\",\"name\":\"QA F86 (no listado)\",\"round\":2,\"roundName\":\"Final\",\"outcome\":\"CHAMPION\",\"nextRoundName\":null}"
+  },
+  {
+   "id": "final → torneo COMPLETADO, campeón = ganador de la final, UN trofeo con referencia al torneo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "colocaciones guardadas: campeón, subcampeón y dos semifinalistas",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "rating, colocación y pico de los 4 jugadores INTACTOS",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 eventos de rating nuevos (ni Top 500, ni tope de parejas, ni récord competitivo)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 misiones contadas por las partidas de torneo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 amistades creadas por el torneo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "Sala de Trofeos del campeón: trofeo TOURNAMENT «Campeón · QA F86 (no listado)» con fecha",
+   "ok": true,
+   "detail": "{\"id\":\"insignia:torneo:qa-f86-mux2nqep\",\"label\":\"Campeón · QA F86 (no listado)\",\"kind\":\"TOURNAMENT\",\"logo\":null,\"color\":\"#ffce4f\",\"caption\":\"Torneo · 6 oct 2026\",\"setId\":null}"
+  },
+  {
+   "id": "ficha final pública: FINALIZADO + campeón con #TAG",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "resolver un cruce de un torneo terminado → 409",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cancelar sin motivo → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cancelar con inscritos (motivo) → CANCELADO, auditado; ya nadie se inscribe",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "navegador QA_A @1440 · /copas · sin desbordamiento y contenido",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tree\":false,\"tabs\":false,\"champion\":false}"
+  },
+  {
+   "id": "navegador QA_A @1440 · /copas · consola limpia",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "navegador QA_A @1440 · /copas/qa-f86-mux2nqep · sin desbordamiento y contenido",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tree\":true,\"tabs\":false,\"champion\":true}"
+  },
+  {
+   "id": "navegador QA_A @1440 · /copas/qa-f86-mux2nqep · consola limpia",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "navegador QA_A @1024 · /copas · sin desbordamiento y contenido",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tree\":false,\"tabs\":false,\"champion\":false}"
+  },
+  {
+   "id": "navegador QA_A @1024 · /copas · consola limpia",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "navegador QA_A @1024 · /copas/qa-f86-mux2nqep · sin desbordamiento y contenido",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tree\":true,\"tabs\":false,\"champion\":true}"
+  },
+  {
+   "id": "navegador QA_A @1024 · /copas/qa-f86-mux2nqep · consola limpia",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "navegador QA_A @390 · /copas · sin desbordamiento y contenido",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tree\":false,\"tabs\":false,\"champion\":false}"
+  },
+  {
+   "id": "navegador QA_A @390 · /copas · consola limpia",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "navegador QA_A @390 · /copas/qa-f86-mux2nqep · sin desbordamiento y contenido",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tree\":false,\"tabs\":true,\"champion\":true}"
+  },
+  {
+   "id": "navegador QA_A @390 · /copas/qa-f86-mux2nqep · consola limpia",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "navegador QA_A @1440 · /admin/copas · sin desbordamiento y contenido",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"tree\":false,\"tabs\":false,\"champion\":false}"
+  },
+  {
+   "id": "navegador QA_A @1440 · /admin/copas · consola limpia",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "cambio de cuenta B → C: nunca se marca a B como «tú» con la sesión de C",
+   "ok": true,
+   "detail": "{\"youB\":2,\"seen\":[\"4🎮qa_ux2_c_24e8#8WFWG5M✓ Gana\",\"4🎮qa_ux2_c_24e8#8WFWG5M\",\"4\\n🎮\\nQA_UX2_C_24E8#8WFWG5M\"]}"
+  },
+  {
+   "id": "«Valorosters Open #1» ya existía: sigue en BORRADOR",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "limpieza: A ya no es admin; admins = exactamente las 2 cuentas reales",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "cuentas reales INTACTAS (davex, ValoRosters): mismo #TAG, siguen admin, 0 inscripciones, 0 cruces, 0 trofeos de torneo, rating y créditos/XP iguales",
+   "ok": true,
+   "detail": "{\"before\":[\"NB2Z9BM\",\"true\",\"0\",\"0\",\"0\"],\"after\":[\"NB2Z9BM\",\"true\",\"0\",\"0\",\"0\"]}"
+  },
+  {
+   "id": "Temporada 2 sigue en BORRADOR",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

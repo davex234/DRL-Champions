@@ -1,0 +1,465 @@
+{
+  "what": "Ronda 2 tras los arreglos + pasada final (cuenta nueva, vuelta, ranked) sobre la build final y la definitiva (drl-0.1.1-1-9792433c).",
+  "sessions": [
+    {
+      "id": "A-final-auth",
+      "persona": "A",
+      "session": "auth",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 10,
+      "screens": 4,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 3,
+      "api": 14,
+      "statuses": {
+        "200": 260,
+        "204": 5
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "A-final2-auth",
+      "persona": "A",
+      "session": "auth",
+      "tag": "final2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 10,
+      "screens": 4,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 3,
+      "api": 14,
+      "statuses": {
+        "200": 261,
+        "204": 5
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "B-r2-pve",
+      "persona": "B",
+      "session": "pve",
+      "tag": "r2",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 141,
+      "actions": 135,
+      "screens": 2,
+      "checks": {
+        "pass": 7,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 98,
+      "statuses": {
+        "200": 450,
+        "204": 6
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "CE-final-ranked",
+      "checks": {
+        "pass": 8,
+        "fail": []
+      }
+    },
+    {
+      "id": "CE-r2-ranked",
+      "checks": {
+        "pass": 11,
+        "fail": []
+      }
+    },
+    {
+      "id": "CF-r2-switch",
+      "persona": "C",
+      "session": "switch",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 80,
+      "actions": 33,
+      "screens": 22,
+      "checks": {
+        "pass": 8,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 199,
+      "statuses": {
+        "200": 1898,
+        "204": 23
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "D-r2-explorer",
+      "persona": "D",
+      "session": "explorer",
+      "tag": "r2",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 232,
+      "actions": 160,
+      "screens": 20,
+      "checks": {
+        "pass": 4,
+        "fail": []
+      },
+      "consoleErrors": 4,
+      "api": 269,
+      "statuses": {
+        "200": 2084,
+        "204": 33,
+        "400": 1,
+        "404": 2
+      },
+      "bad": [
+        "404 /api/game/duel",
+        "404 /api/game/player",
+        "400 /api/game/competitive"
+      ],
+      "notes": []
+    },
+    {
+      "id": "D-r2-progress",
+      "persona": "D",
+      "session": "progress",
+      "tag": "r2",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 45,
+      "actions": 12,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": [
+          "FAIL HUD al día tras reclamar (sin recargar)"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 71,
+      "statuses": {
+        "200": 512,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-final-return",
+      "persona": "E",
+      "session": "return",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 22,
+      "actions": 9,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 578,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-final2-return",
+      "persona": "E",
+      "session": "return",
+      "tag": "final2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 22,
+      "actions": 9,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 578,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r2-perf",
+      "persona": "E",
+      "session": "perf",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 106,
+      "actions": 4,
+      "screens": 23,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 1,
+      "api": 220,
+      "statuses": {
+        "200": 2007,
+        "204": 29
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r2-progress",
+      "persona": "E",
+      "session": "progress",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 40,
+      "actions": 9,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 524,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "E-r2-return",
+      "persona": "E",
+      "session": "return",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 22,
+      "actions": 9,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 578,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "F-r2-keyboard",
+      "persona": "F",
+      "session": "keyboard",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 27,
+      "actions": 43,
+      "screens": 5,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 50,
+      "statuses": {
+        "200": 535,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "F-r2-new",
+      "persona": "F",
+      "session": "new",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 164,
+      "actions": 128,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 209,
+      "statuses": {
+        "200": 1073,
+        "204": 26
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "G-r2-multitab-same",
+      "persona": "G",
+      "session": "multitabsame",
+      "tag": "r2",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 6,
+      "screens": 2,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 23,
+      "statuses": {
+        "200": 161,
+        "204": 3
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "G-r2-new",
+      "persona": "G",
+      "session": "new",
+      "tag": "r2",
+      "width": 390,
+      "reduced": true,
+      "durationSec": 144,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 203,
+      "statuses": {
+        "200": 857,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "G-r2-slownet",
+      "persona": "G",
+      "session": "slownet",
+      "tag": "r2",
+      "width": 390,
+      "reduced": true,
+      "durationSec": 63,
+      "actions": 50,
+      "screens": 6,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 9,
+      "api": 85,
+      "statuses": {
+        "0": 9,
+        "200": 549,
+        "204": 8
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "H-final-new",
+      "persona": "H",
+      "session": "new",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 163,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 11,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 199,
+      "statuses": {
+        "200": 1056,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "I-final-new",
+      "persona": "I",
+      "session": "new",
+      "tag": "final",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 163,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 11,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 207,
+      "statuses": {
+        "200": 1071,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "J-definitive-new",
+      "persona": "J",
+      "session": "new",
+      "tag": "definitive",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 165,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 11,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 205,
+      "statuses": {
+        "200": 1065,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    }
+  ]
+}

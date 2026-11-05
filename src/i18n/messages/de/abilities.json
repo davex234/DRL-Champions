@@ -1,0 +1,23 @@
+{
+  "abrir la entrada": "Eingang öffnen",
+  "anclar el sitio": "Site halten",
+  "cegar para abrir": "blenden zum Öffnen",
+  "controlar la zona": "Zone kontrollieren",
+  "corta visión": "blockt Sicht",
+  "cortar visión": "Sicht blocken",
+  "crear espacio": "Raum schaffen",
+  "defender": "verteidigen",
+  "humo móvil": "mobiler Smoke",
+  "jugar el post-plant": "Post-Plant spielen",
+  "proteger el espacio": "Raum sichern",
+  "proteger el post-plant": "Post-Plant sichern",
+  "ralentizar el avance": "Vorstoß verlangsamen",
+  "rompe línea": "bricht die Linie",
+  "sacar información": "Infos holen",
+  "señuelo": "Köder",
+  "suprimir el ángulo": "Winkel unterdrücken",
+  "tomar espacio": "Raum nehmen",
+  "vender una finta": "Fake verkaufen",
+  "{preExec} utils en el execute": "{preExec} Utils im Execute",
+  "{retakeUtil} utils en el retake": "{retakeUtil} Utils im Retake"
+}

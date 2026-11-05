@@ -1,0 +1,40 @@
+{
+  "at": "2026-09-30T15:22:22.977Z",
+  "baseUrl": "http://127.0.0.1:3005 (build de producción)",
+  "intercepted": false,
+  "pass": 3,
+  "fail": 0,
+  "results": [
+    {
+      "id": "RATIOS · sobres servidos = aprobados",
+      "ok": true,
+      "detail": "{\"pack-estandar-premium\":4,\"pack-premium-oro\":2,\"pack-oro-masters\":2,\"pack-masters-champions\":3,\"pack-champions-icon\":2}"
+    },
+    {
+      "id": "RATIOS · cartas servidas = aprobadas",
+      "ok": true,
+      "detail": "{\"card-base-plata\":7,\"card-plata-oro\":3,\"card-oro-masters\":8,\"card-masters-champions\":14,\"card-champions-prime\":10}"
+    },
+    {
+      "id": "RATIOS · Prime → Icon NO se ofrece (DISABLED)",
+      "ok": true,
+      "detail": "card-base-plata,card-plata-oro,card-oro-masters,card-masters-champions,card-champions-prime"
+    }
+  ],
+  "served": {
+    "packs": {
+      "pack-estandar-premium": 4,
+      "pack-premium-oro": 2,
+      "pack-oro-masters": 2,
+      "pack-masters-champions": 3,
+      "pack-champions-icon": 2
+    },
+    "cards": {
+      "card-base-plata": 7,
+      "card-plata-oro": 3,
+      "card-oro-masters": 8,
+      "card-masters-champions": 14,
+      "card-champions-prime": 10
+    }
+  }
+}

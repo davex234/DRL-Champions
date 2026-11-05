@@ -1,0 +1,14 @@
+{
+  "Cerrada · el servidor ya no admite cambios": "Geschlossen · der Server nimmt keine Änderungen mehr an",
+  "Cerrada · ya no admite cambios": "Geschlossen · keine Änderungen mehr möglich",
+  "Error al guardar · {msg}": "Fehler beim Speichern · {msg}",
+  "Guardando…": "Wird gespeichert…",
+  "No se pudieron cargar las predicciones": "Tipps konnten nicht geladen werden",
+  "No se pudo guardar": "Speichern fehlgeschlagen",
+  "Predicción guardada": "Tipp gespeichert",
+  "Sin conexión · la predicción no se ha enviado": "Offline · der Tipp wurde nicht gesendet",
+  "hace un momento": "gerade eben",
+  "hace {d} d": "vor {d} T",
+  "hace {h} h": "vor {h} h",
+  "hace {m} min": "vor {m} Min"
+}

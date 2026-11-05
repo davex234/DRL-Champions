@@ -1,0 +1,339 @@
+{
+  "phase": "F68",
+  "total": 14,
+  "bySeverity": {
+    "BLOCKER": {
+      "total": 0,
+      "fixed": 0,
+      "open": 0
+    },
+    "CRITICAL": {
+      "total": 0,
+      "fixed": 0,
+      "open": 0
+    },
+    "MAJOR": {
+      "total": 2,
+      "fixed": 1,
+      "open": 1
+    },
+    "MINOR": {
+      "total": 7,
+      "fixed": 7,
+      "open": 0
+    },
+    "POLISH": {
+      "total": 5,
+      "fixed": 2,
+      "open": 3
+    }
+  },
+  "bugs": [
+    {
+      "id": "F68-001",
+      "severity": "MAJOR",
+      "journey": "Primera sesión (F63) · sobres de bienvenida",
+      "reproduction": "Cuenta nueva → guía → abrir el primer Sobre Inicial → en el resumen pulsar «Abrir el siguiente sobre».",
+      "expected": "Se abre la ceremonia del siguiente Sobre Inicial.",
+      "actual": "No pasa nada: el botón era un enlace a /abrir/inicial, la misma URL; Next no vuelve a montar la página y el resumen se queda. La guía quedaba atascada (salida: volver a la portada).",
+      "evidence": [
+        "raw/A-r1-new.json (FRICTION «la guía no avanza en /abrir/inicial»)",
+        "raw/B-r1-new.json, raw/C-r1-new.json (BUG F68-001 + rodeo por la portada)",
+        "screenshots/B-r1-new-guide-dead-cta-*"
+      ],
+      "rootCause": "OnboardingPackNext/FirstCardLesson pintaban siempre <Link href=next.href>; cuando el paso siguiente es otro sobre DEL MISMO TIPO, next.href = ruta actual. El instrumento de F63 lo tapaba navegando por URL (goto) en vez de pulsar el botón.",
+      "fix": "OnboardingCta acepta `here` (ruta actual + acción local). Si next.href es la ruta actual, pinta un botón que ejecuta `openAnother` (el bucle «abrir otro» que ya tenía la ceremonia). PackOpeningExperience pasa su bucle a las dos piezas de la guía.",
+      "files": [
+        "src/components/onboarding/OnboardingKit.tsx",
+        "src/components/onboarding/FirstCardLesson.tsx",
+        "src/components/packs/PackOpeningExperience.tsx"
+      ],
+      "regressionTest": "src/components/onboarding/f68.beta.render.test.tsx (5 tests)",
+      "status": "FIXED",
+      "verifiedLive": [
+        "raw/F-r2-new.json",
+        "raw/G-r2-new.json",
+        "raw/H-final-new.json",
+        "raw/I-final-new.json",
+        "raw/J-definitive-new.json"
+      ]
+    },
+    {
+      "id": "F68-002",
+      "severity": "MINOR",
+      "journey": "Tienda · compra",
+      "reproduction": "Tienda → Comprar → dos clics en la MISMA tarea sobre «Confirmar · 1.000».",
+      "expected": "Una compra.",
+      "actual": "Dos compras: −2.000 créditos y 2 sobres (libro coherente: dos cargos con dos claves). Con doble clic humano (60 ms) ya salía una sola.",
+      "evidence": [
+        "raw/B-r1-store.json",
+        "raw/C-r1-store.json",
+        "SQL: dos buy_pack a las 10:14:50.164 con claves distintas"
+      ],
+      "rootCause": "La guardia era `busy` (estado de React: el segundo clic lee el mismo false) y cada llamada generaba una clave de idempotencia nueva (newGesture()), así que el servidor no podía reconocer el segundo envío.",
+      "fix": "Guardia síncrona (useRef) + UNA clave por gesto de compra (al abrir el diálogo), la misma en el reintento; buyPackOnline/usePackPurchase aceptan `ref`. Misma guardia en /packs/[id].",
+      "files": [
+        "src/app/tienda/page.tsx",
+        "src/app/packs/[packId]/page.tsx",
+        "src/lib/game/sync.ts",
+        "src/lib/game/usePackPurchase.ts"
+      ],
+      "regressionTest": "src/app/tienda/f68.purchase.contract.test.ts (5 tests)",
+      "status": "FIXED",
+      "verifiedLive": [
+        "raw/B-fix-store.json (5.580 → 4.580, +1 sobre)"
+      ]
+    },
+    {
+      "id": "F68-003",
+      "severity": "MINOR",
+      "journey": "Equipos · crear",
+      "reproduction": "Mis equipos → Nuevo equipo → Autocompletar → dos clics en la MISMA tarea sobre «Guardar equipo».",
+      "expected": "Un equipo.",
+      "actual": "Dos equipos iguales («Equipo 1» ×2). Con doble clic humano (60 ms) ya salía uno.",
+      "evidence": [
+        "raw/D-r1-teams.json"
+      ],
+      "rootCause": "Guardia `saving` = estado de React; un equipo nuevo no tiene versión que el servidor compare.",
+      "fix": "savingRef (useRef) levantado antes de la primera await y liberado en finally.",
+      "files": [
+        "src/components/duel/DeckBuilder.tsx"
+      ],
+      "regressionTest": "src/components/duel/f68.deckSave.contract.test.ts (2 tests)",
+      "status": "FIXED",
+      "verifiedLive": [
+        "scripts/_fase68-diag8.ts: 3 → 4 equipos (uno)"
+      ]
+    },
+    {
+      "id": "F68-004",
+      "severity": "MINOR",
+      "journey": "Auth · errores",
+      "reproduction": "/cuenta → contraseña incorrecta (o registro con correo existente).",
+      "expected": "Mensaje útil en español, sin fugas.",
+      "actual": "Texto crudo de GoTrue en inglés: «Invalid login credentials», «User already registered».",
+      "evidence": [
+        "raw/A-r1-auth.json",
+        "screenshots/A-r1-auth-01-password-mal-1440.png"
+      ],
+      "rootCause": "auth.tsx devolvía error.message tal cual en entrar, registro, recuperar y cambiar contraseña.",
+      "fix": "authErrorMessage(): traducción por code/mensaje; lo desconocido sale como mensaje neutro (nunca crudo). Mismo texto exista o no la cuenta.",
+      "files": [
+        "src/lib/supabase/authErrors.ts",
+        "src/lib/supabase/auth.tsx"
+      ],
+      "regressionTest": "src/lib/supabase/authErrors.test.ts",
+      "status": "FIXED",
+      "verifiedLive": [
+        "raw/A-fix-auth.json",
+        "raw/A-final2-auth.json"
+      ]
+    },
+    {
+      "id": "F68-005",
+      "severity": "MINOR",
+      "journey": "Tactical Coach · partido",
+      "reproduction": "Entrenador → Quick Play → partido completo.",
+      "expected": "0 recursos internos perdidos.",
+      "actual": "212 respuestas 404 a /players/<id>.png en un partido (~11 por jugador): public/players no tiene retratos.",
+      "evidence": [
+        "raw/D-coach-play.json (ronda 1)",
+        "raw/D-r1-explorer.json"
+      ],
+      "rootCause": "playerMapper.resolveImage y PlayerPhoto pedían SIEMPRE /players/<id>.png; PlayerStatusCard/MatchCeremony lo ocultaban con onError y lo volvían a pedir en cada montaje.",
+      "fix": "PLAYER_PHOTOS_AVAILABLE (patrón F64 TEAM_LOGOS_AVAILABLE, test contra la carpeta): sin retrato publicado no se pide; resolveImage devuelve '' (los consumidores ya lo comprueban). SimPlayerMeta (motor) intacto.",
+      "files": [
+        "src/data/playerPhotos.ts",
+        "src/components/cards/layers/PlayerPhoto.tsx",
+        "src/lib/match/playerMapper.ts"
+      ],
+      "regressionTest": "src/components/cards/layers/f68.playerPhoto.test.tsx (5 tests)",
+      "status": "FIXED",
+      "verifiedLive": [
+        "raw/D-coach-play.json (verificación: 0 × 404, 0 errores)",
+        "raw/D-r2-explorer.json"
+      ]
+    },
+    {
+      "id": "F68-006",
+      "severity": "POLISH",
+      "journey": "Tactical Coach · ceremonia",
+      "reproduction": "Perder un partido del Coach con pocas rondas ganadas y poco control.",
+      "expected": "Narrativa coherente con la derrota.",
+      "actual": "«Ganasteis a pesar de ceder el control» en una derrota 1–13.",
+      "evidence": [
+        "screenshots/D-coach-final (ronda 1)"
+      ],
+      "rootCause": "utilityStory() narra las RONDAS ganadas pero conjugaba «Ganasteis» sin mirar el resultado del partido.",
+      "fix": "Con el partido perdido, la frase habla de «las rondas que ganasteis».",
+      "files": [
+        "src/lib/match/moments.ts"
+      ],
+      "regressionTest": "src/lib/match/f68.moments.test.ts",
+      "status": "FIXED",
+      "verifiedLive": [
+        "test"
+      ]
+    },
+    {
+      "id": "F68-007",
+      "severity": "MINOR",
+      "journey": "Varias pestañas",
+      "reproduction": "Pestaña 1 y 2 del mismo navegador → comprar en la 1 → volver a la 2 (foco) y navegar dentro de la app.",
+      "expected": "La 2 se pone al día razonablemente.",
+      "actual": "La 2 seguía con 5.310 créditos (servidor 2.810) hasta recargar.",
+      "evidence": [
+        "raw/C-r1-multitab-same.json"
+      ],
+      "rootCause": "CloudSync solo sincronizaba al iniciar sesión/cargar; volver a la pestaña no releía el servidor.",
+      "fix": "CloudSync relee el estado (una lectura idempotente) al recuperar foco / volver a ser visible, con freno de 5 s.",
+      "files": [
+        "src/components/sync/CloudSync.tsx"
+      ],
+      "regressionTest": "src/components/sync/f68.cloudSync.test.ts",
+      "status": "FIXED",
+      "verifiedLive": [
+        "raw/E-fix-multitab-same.json",
+        "raw/G-r2-multitab-same.json"
+      ]
+    },
+    {
+      "id": "F68-008",
+      "severity": "MINOR",
+      "journey": "Progresión · reclamar",
+      "reproduction": "Progreso → Reclamar todo (+3.430 créditos).",
+      "expected": "El HUD enseña el saldo nuevo.",
+      "actual": "El HUD seguía en 6.000 hasta recargar (el servidor ya tenía 9.430).",
+      "evidence": [
+        "raw/D-r2-progress.json",
+        "screenshots/D-r2-progress-02b-hud-tras-reclamar-1024.png"
+      ],
+      "rootCause": "useClaims y /logros releían la foto de progresión; el saldo del HUD vive en el store de juego y nadie lo actualizaba.",
+      "fix": "Tras un reclamo cobrado, syncFromServer() (una lectura) en useClaims (hub + post-partida) y en /logros.",
+      "files": [
+        "src/lib/progression/claims.ts",
+        "src/app/logros/page.tsx"
+      ],
+      "regressionTest": "src/lib/progression/f68.claimsSync.test.ts",
+      "status": "FIXED",
+      "verifiedLive": [
+        "raw/H-final-new.json",
+        "raw/I-final-new.json",
+        "raw/J-definitive-new.json"
+      ]
+    },
+    {
+      "id": "F68-009",
+      "severity": "MINOR",
+      "journey": "Auth · recuperar contraseña",
+      "reproduction": "Abrir /cuenta#error=access_denied&error_code=otp_expired (enlace de correo caducado o usado).",
+      "expected": "Explicar qué pasó y cómo seguir.",
+      "actual": "Formulario normal de entrar, sin ningún aviso.",
+      "evidence": [
+        "raw/A-final-auth.json"
+      ],
+      "rootCause": "Nadie leía el error que GoTrue deja en la URL (auth-js lo detecta pero no lo expone ni lo borra).",
+      "fix": "authLinkError() + AuthForms: abre «Recuperar» con «El enlace ha caducado o ya se usó…» y limpia el #.",
+      "files": [
+        "src/lib/supabase/authErrors.ts",
+        "src/components/auth/AuthForms.tsx"
+      ],
+      "regressionTest": "src/lib/supabase/authErrors.test.ts (B009)",
+      "status": "FIXED",
+      "verifiedLive": [
+        "raw/A-final2-auth.json"
+      ]
+    },
+    {
+      "id": "F68-010",
+      "severity": "MAJOR",
+      "journey": "Tactical Coach · recompensa",
+      "reproduction": "Jugar un partido del Coach con sesión.",
+      "expected": "Recompensa real o ninguna promesa.",
+      "actual": "El HUD suma créditos/nivel del partido (6.000 → 6.800 y 6.650; 9.430 → 10.080) que NO existen en el servidor (libro sin apunte) y desaparecen al sincronizar.",
+      "evidence": [
+        "raw/D-coach-play.json",
+        "raw/D-r2-explorer.json",
+        "SQL de solo lectura: libro de D sin apuntes del Coach"
+      ],
+      "rootCause": "Preexistente (P1 de 2026-09-11): grantMatchOutcomeReward aplica la recompensa solo en el store local; el simulador corre en el navegador y el servidor no puede verificar el marcador.",
+      "fix": null,
+      "status": "OPEN — BLOQUEADO POR DECISIÓN DE ECONOMÍA",
+      "blockedBy": "F57.6 congelada y regla F68 «no retune»; las tres opciones (simular en servidor, premio acotado server-side, dejar de prometer recompensa con sesión) son decisión del usuario. La memoria del proyecto prohíbe ocultarlo con un cambio de texto sin esa decisión.",
+      "regressionTest": null
+    },
+    {
+      "id": "F68-011",
+      "severity": "POLISH",
+      "journey": "Tactical Coach · sala táctica",
+      "reproduction": "Ronda 1 (pistola).",
+      "expected": "Recomendación coherente con la ronda pistola.",
+      "actual": "La IA recomienda SAVE/ECO («tu economía está tocada») con 800/jug. en la ronda pistola.",
+      "evidence": [
+        "screenshots/coach (ronda 1)"
+      ],
+      "rootCause": "Lógica del recomendador del simulador del Coach (economía BROKEN a 800).",
+      "fix": null,
+      "status": "OPEN (fuera de alcance: lógica del simulador; F68 no cambia reglas)",
+      "regressionTest": null
+    },
+    {
+      "id": "F68-012",
+      "severity": "POLISH",
+      "journey": "Tactical Coach · compra",
+      "reproduction": "Fase de compra de cualquier ronda.",
+      "expected": "Una acción principal.",
+      "actual": "Dos CTA para lo mismo: «Comprar y empezar ronda» y «Jugar la ronda».",
+      "evidence": [
+        "captura de la fase de compra"
+      ],
+      "fix": null,
+      "status": "OPEN (rediseño menor, no trivial)",
+      "regressionTest": null
+    },
+    {
+      "id": "F68-013",
+      "severity": "POLISH",
+      "journey": "Perfil / cuenta",
+      "reproduction": "/cuenta de una cuenta con puntos.",
+      "expected": "Un solo concepto de «rango».",
+      "actual": "«BRONCE I» (rango por puntos de F11, que suman duelos y Pick'ems) convive con la escalera Elo sin tiers de /competitivo (F55). Dos «rangos» distintos para el jugador.",
+      "evidence": [
+        "raw/AB-r1-switch.json",
+        "raw/CF-r2-switch.json"
+      ],
+      "fix": null,
+      "status": "OPEN (decisión de producto; sistemas preexistentes)",
+      "regressionTest": null
+    },
+    {
+      "id": "F68-014",
+      "severity": "POLISH",
+      "journey": "Navegación · URL inválida",
+      "reproduction": "/duelos/competitivo/partida/nope",
+      "expected": "Estado «no encontrada» con salida.",
+      "actual": "«Algo ha fallado · Reintentar» (400): reintentar no arregla un enlace roto.",
+      "evidence": [
+        "raw/D-r1-explorer.json"
+      ],
+      "rootCause": "La página solo trataba 404 como «no encontrada».",
+      "fix": "400 = 404 para el jugador: «Partida no encontrada» con «Volver al competitivo».",
+      "files": [
+        "src/app/duelos/competitivo/partida/[matchId]/page.tsx"
+      ],
+      "regressionTest": "src/app/duelos/competitivo/f68.matchDetail.test.ts",
+      "status": "FIXED",
+      "verifiedLive": [
+        "test"
+      ]
+    }
+  ],
+  "harnessFalsePositives": [
+    "Delta ranked «FAIL» en ronda 1: el arnés juntaba las cifras de «ANTES 1000 → DESPUÉS 1021 +21»; la interfaz era correcta (parser corregido).",
+    "Reclamar todo «8 → 2 botones»: el arnés miró a los 3,5 s y la tanda cobra en serie (~5 s); a los pocos segundos quedaban 0.",
+    "Letras «s» que faltaban en textos del Coach/Social: regex del propio arnés escrito sin barra (\\\\s → s); la interfaz se lee bien.",
+    "Resto de la capa «DERROTA» sobre el resultado a 390: animación de salida; a +2 s no queda nada (medido).",
+    "«De vuelta en A: HUD» FAIL: el token de API del arnés quedó revocado por el logout global; con token nuevo, HUD = servidor.",
+    "Draft/Coach «atascados» en ronda 1: el arnés no confirmaba elección / no contestaba las decisiones del entrenador."
+  ]
+}

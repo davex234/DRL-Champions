@@ -1,0 +1,4011 @@
+{
+ "base": "http://127.0.0.1:3087",
+ "at": "2026-10-05T11:19:48.866Z",
+ "total": 348,
+ "passed": 348,
+ "failed": 0,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 643.296875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 542.296875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 596.296875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 650.296875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 716.296875
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "colocación X/5 sin rango",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 815.9375,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 571.296875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 501.296875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 755.09375,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 654.09375
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 708.09375
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 762.09375
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 828.09375
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 643.296875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 542.296875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 596.296875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 650.296875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 716.296875
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "colocación X/5 sin rango",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 815.9375,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 571.296875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 501.296875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 755.09375,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 654.09375
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 708.09375
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 762.09375
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 828.09375
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 797.671875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 712.671875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 766.671875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 820.671875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 886.671875
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 579.421875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 494.421875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 548.421875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 602.421875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 668.421875
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 797.671875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 712.671875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 766.671875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 820.671875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 886.671875
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "colocación X/5 sin rango",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "own-placement",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 799.453125,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 539.421875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 469.421875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "public-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 701.265625,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 616.265625
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 670.265625
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 724.265625
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 790.265625
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 643.296875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 542.296875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 596.296875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 650.296875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 716.296875
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "colocación X/5 sin rango",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 815.9375,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 571.296875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 501.296875,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 755.09375,
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 654.09375
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 708.09375
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 762.09375
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 828.09375
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 643.296875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 542.296875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 596.296875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 650.296875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 716.296875
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 861.546875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 760.546875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 814.546875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 868.546875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 934.546875
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "colocación X/5 sin rango",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 815.9375,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 571.296875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 501.296875,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 755.09375,
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 654.09375
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 708.09375
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 762.09375
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 828.09375
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 797.671875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 712.671875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 766.671875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 820.671875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 886.671875
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 579.421875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 494.421875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 548.421875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 602.421875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 668.421875
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 797.671875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 712.671875
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 766.671875
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 820.671875
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 886.671875
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "colocación X/5 sin rango",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "own-placement",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 799.453125,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "rango (emblema + rango + rating) y equipo favorito",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 539.421875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 469.421875,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #K7M2QXA. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "ajeno: acciones sociales F85 y NINGUNA de cuenta",
+   "ok": true,
+   "detail": [
+    "add",
+    "compare",
+    "more"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "sin rango ni equipo: no se pinta nada vacío",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "public-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "sin desbordamiento horizontal (también el nombre)",
+   "ok": true,
+   "detail": {
+    "o": 0,
+    "n": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "una tarjeta de identidad, sin dashboard",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "tarjeta compacta (≤ 1,35 pantallas incluso en 390)",
+   "ok": true,
+   "detail": {
+    "cardH": 701.265625,
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "miembro desde visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "tag bajo el nombre, dentro de pantalla y con nombre accesible",
+   "ok": true,
+   "detail": {
+    "below": true,
+    "right": true,
+    "left": true,
+    "label": "Identificador de cuenta #7K4M92X. Pulsa para copiarlo",
+    "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN (en ese orden), sin sociales",
+   "ok": true,
+   "detail": [
+    "edit",
+    "account",
+    "trophy-room",
+    "sign-out"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "acciones táctiles ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "a": "edit",
+     "t": "Editar perfil",
+     "h": 44,
+     "bottom": 616.265625
+    },
+    {
+     "a": "account",
+     "t": "Cuenta y ajustes",
+     "h": 44,
+     "bottom": 670.265625
+    },
+    {
+     "a": "trophy-room",
+     "t": "Sala de Trofeos",
+     "h": 44,
+     "bottom": 724.265625
+    },
+    {
+     "a": "sign-out",
+     "t": "Cerrar sesión",
+     "h": 44,
+     "bottom": 790.265625
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  }
+ ]
+}

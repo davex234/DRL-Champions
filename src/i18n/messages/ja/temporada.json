@@ -1,0 +1,15 @@
+{
+  "El pase se lee del servidor.": "パスはサーバーから読み込まれます。",
+  "La recompensa del nivel {level} ya era tuya.": "レベル{level}の報酬はすでに受け取り済みでした。",
+  "Leyendo el pase…": "パスを読み込み中…",
+  "No se pudo leer el pase": "パスを読み込めませんでした",
+  "No se pudo reclamar": "受け取れませんでした",
+  "No se pudo reclamar. Inténtalo de nuevo.": "受け取れませんでした。もう一度お試しください。",
+  "Pase no disponible sin conexión": "オフラインではパスを利用できません",
+  "Próxima temporada:": "次のシーズン：",
+  "Recompensa del nivel {level} reclamada": "レベル{level}の報酬を受け取りました",
+  "Recompensa del nivel {level} reclamada.": "レベル{level}の報酬を受け取りました。",
+  "Volver a Temporada": "シーズンに戻る",
+  "tu pase de batalla": "あなたのバトルパス",
+  "{titulo} {nombre} empieza en {tiempo}.": "{titulo}{nombre}は{tiempo}後に開始します。"
+}

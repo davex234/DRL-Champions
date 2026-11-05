@@ -1,0 +1,16 @@
+{
+  "Cuenta": "アカウント",
+  "Dar feedback": "フィードバックを送る",
+  "El nombre de jugador necesita al menos {SIGNUP_NAME_MIN} caracteres.": "プレイヤー名は{SIGNUP_NAME_MIN}文字以上にしてください。",
+  "El nombre de jugador no puede ser un correo.": "プレイヤー名にメールアドレスは使えません。",
+  "El nombre de jugador puede tener como mucho {SIGNUP_NAME_MAX} caracteres.": "プレイヤー名は{SIGNUP_NAME_MAX}文字以内にしてください。",
+  "Elige un nombre de jugador: así te verán los demás.": "プレイヤー名を決めましょう。他のプレイヤーにはこの名前で表示されます。",
+  "Identificador de cuenta {tag}": "アカウントID {tag}",
+  "La contraseña necesita al menos {SIGNUP_PASSWORD_MIN} caracteres.": "パスワードは{SIGNUP_PASSWORD_MIN}文字以上にしてください。",
+  "Mi cuenta": "マイアカウント",
+  "Perfil": "プロフィール",
+  "Progresión": "進行状況",
+  "Secciones de Mi cuenta": "マイアカウントのセクション",
+  "Tu opinión llega al equipo ligada a tu cuenta (nunca con tu correo).": "ご意見はアカウントに紐づいてチームに届きます(メールアドレスは送信されません)。",
+  "Usa solo letras, números, guion, punto o guion bajo (sin espacios).": "使えるのは英数字、ハイフン、ピリオド、アンダースコアのみです(スペース不可)。"
+}

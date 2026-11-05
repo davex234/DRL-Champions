@@ -1,0 +1,16 @@
+{
+  "Cuenta": "Account",
+  "Dar feedback": "Give feedback",
+  "El nombre de jugador necesita al menos {SIGNUP_NAME_MIN} caracteres.": "Player name needs at least {SIGNUP_NAME_MIN} characters.",
+  "El nombre de jugador no puede ser un correo.": "Player name can't be an email address.",
+  "El nombre de jugador puede tener como mucho {SIGNUP_NAME_MAX} caracteres.": "Player name can be at most {SIGNUP_NAME_MAX} characters.",
+  "Elige un nombre de jugador: así te verán los demás.": "Choose a player name: it's how others will see you.",
+  "Identificador de cuenta {tag}": "Account ID {tag}",
+  "La contraseña necesita al menos {SIGNUP_PASSWORD_MIN} caracteres.": "Password needs at least {SIGNUP_PASSWORD_MIN} characters.",
+  "Mi cuenta": "My account",
+  "Perfil": "Profile",
+  "Progresión": "Progression",
+  "Secciones de Mi cuenta": "My account sections",
+  "Tu opinión llega al equipo ligada a tu cuenta (nunca con tu correo).": "Your feedback reaches the team linked to your account (never with your email).",
+  "Usa solo letras, números, guion, punto o guion bajo (sin espacios).": "Use only letters, numbers, hyphens, periods or underscores (no spaces)."
+}

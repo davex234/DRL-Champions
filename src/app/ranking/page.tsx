@@ -1,120 +1,465 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
-import { formatCredits, cn } from "@/lib/format";
+/**
+ * CLASIFICACIÓN — global, regional y por torneo.
+ *
+ * Las tres ordenan por datos que SOLO escribe el servidor: `profiles.points` (que
+ * reparte el corrector de Pick'ems) y `pickem_scores`. Las clasificaciones antiguas
+ * ordenaban por columnas que subía el propio cliente, así que eran falsificables; se
+ * retiraron en lugar de dejarlas obsoletas.
+ *
+ * Fase 9D — el ámbito REGIONAL. Un puesto 4.812 del mundo no le dice nada a nadie;
+ * «#12 de Europa» sí. La región la declara el usuario en su perfil: quien no la haya
+ * declarado sigue contando en la global y esta pestaña se lo explica en lugar de
+ * colocarlo en una región que no es la suya.
+ */
+import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import {
+  fetchGlobalRanking, fetchRegionalRanking, fetchTournamentRanking, fetchPickemOptions,
+  fetchMyRankPosition, fetchMyRegionalPosition,
+  type RankingRow, type TournamentRankingRow,
+} from "@/lib/game/client";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { useAuth } from "@/lib/supabase/auth";
+import {
+  rankDisplay, rankProgress, RANK_REGIONS, REGION_LABEL, EUROPE_REGION,
+  type RankRegion,
+} from "@/domain/progression/rank";
+import { RankBadge } from "@/components/progression/RankBadge";
+import { RankEmblem, rankLadder } from "@/components/progression/RankEmblem";
+import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
+import { Plate, Recessed } from "@/components/ui/Surface";
+import { SectionTitle } from "@/components/ui/SectionTitle";
+import { cn } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
 
-type Tab = "level" | "collection" | "market" | "rarities";
+const t = ns("ranking");
 
-const TABS: [Tab, string, string][] = [
-  ["level", "Top Nivel", "ranking_level"],
-  ["collection", "Top Colección", "ranking_collection"],
-  ["market", "Top Mercado", "ranking_market"],
-  ["rarities", "Top Rarezas", "ranking_rarities"],
-];
-
-interface Row {
-  id: string;
-  username: string;
-  avatar: string;
-  level?: number;
-  xp?: number;
-  collection_value?: number;
-  distinct_cards?: number;
-  market_volume?: number;
-  rarest_rank?: number;
-}
+type Tab = "global" | "region" | "torneo";
 
 export default function RankingPage() {
+  useLocale();
   const configured = isSupabaseConfigured();
-  const [tab, setTab] = useState<Tab>("level");
-  const [rows, setRows] = useState<Row[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { user, profile } = useAuth();
+
+  const [tab, setTab] = useState<Tab>("global");
+  const [global, setGlobal] = useState<RankingRow[]>([]);
+  const [options, setOptions] = useState<{ id: string; label: string }[]>([]);
+  const [selected, setSelected] = useState<string>("");
+  const [tournament, setTournament] = useState<TournamentRankingRow[]>([]);
+  const [myPos, setMyPos] = useState<number | null>(null);
+  // Ámbito regional. Arranca en la región del usuario; si no tiene, en Europa, que es
+  // la que la Fase 9 pide que esté siempre disponible.
+  const [scope, setScope] = useState<RankRegion>(EUROPE_REGION);
+  const [regional, setRegional] = useState<RankingRow[]>([]);
+  const [myRegionPos, setMyRegionPos] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true); setError(null);
+    try {
+      const [g, opts] = await Promise.all([fetchGlobalRanking(), fetchPickemOptions()]);
+      setGlobal(g);
+      setOptions(opts);
+      if (opts.length > 0) setSelected((s) => s || opts[0].id);
+      if (profile) {
+        const [pos, rpos] = await Promise.all([
+          fetchMyRankPosition(profile.points ?? 0),
+          fetchMyRegionalPosition(profile.points ?? 0, profile.region ?? null),
+        ]);
+        setMyPos(pos);
+        setMyRegionPos(rpos);
+        if (profile.region) setScope(profile.region);
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : t("No se pudo cargar la clasificación"));
+    } finally {
+      setLoading(false);
+    }
+  }, [profile]);
+
+  useEffect(() => { if (configured) load(); else setLoading(false); }, [configured, load]);
+
+  // La clasificación regional se recarga sola al cambiar de región.
+  useEffect(() => {
+    let alive = true;
+    fetchRegionalRanking(scope)
+      .then((r) => { if (alive) setRegional(r); })
+      .catch(() => { if (alive) setRegional([]); });
+    return () => { alive = false; };
+  }, [scope]);
 
   useEffect(() => {
-    if (!configured) return;
-    const view = TABS.find((t) => t[0] === tab)![2];
-    setLoading(true);
-    getSupabase()!
-      .from(view)
-      .select("*")
-      .then(({ data }) => {
-        setRows((data as Row[]) ?? []);
-        setLoading(false);
-      });
-  }, [tab, configured]);
+    if (!selected) return;
+    let alive = true;
+    fetchTournamentRanking(selected)
+      .then((r) => { if (alive) setTournament(r); })
+      .catch(() => { if (alive) setTournament([]); });
+    return () => { alive = false; };
+  }, [selected]);
 
-  function metric(r: Row): string {
-    switch (tab) {
-      case "level":
-        return `Nv ${r.level} · ${formatCredits(r.xp ?? 0)} XP`;
-      case "collection":
-        return `🪙 ${formatCredits(r.collection_value ?? 0)} · ${r.distinct_cards ?? 0} cartas`;
-      case "market":
-        return `🪙 ${formatCredits(r.market_volume ?? 0)}`;
-      case "rarities":
-        return `Rareza máx ${r.rarest_rank ?? 0} · ${r.distinct_cards ?? 0} cartas`;
-    }
-  }
+  const inTop = global.some((r) => r.id === user?.id);
+  const inRegionTop = regional.some((r) => r.id === user?.id);
 
   return (
     <section className="animate-rise">
       <header className="mb-6">
-        <h1 className="font-display text-3xl font-bold uppercase tracking-wide text-white">
-          Clasificaciones
+        <span className="nx-label">{t("Progreso")}</span>
+        <h1 className="mt-1 font-display text-[clamp(28px,5vw,44px)] font-bold uppercase leading-none text-white">
+          {t("Clasificación")}
         </h1>
-        <p className="mt-1 text-white/50">Los mejores coleccionistas de DRL Champions.</p>
+        <p className="mt-2 text-[15px] text-white/55">
+          {t("Clasificación por puntos: Pick'ems y duelos contra el bot. El ranked PvP tiene su propia escalera por rating en Competitivo.")}
+        </p>
       </header>
 
       {!configured ? (
-        <div className="rounded-2xl border border-white/10 bg-base-700/40 p-8 text-center text-white/55">
-          Las clasificaciones requieren cuenta online (Supabase). Estás en modo local.
-        </div>
+        <NeedsAccount what={t("La clasificación")} />
+      ) : loading ? (
+        <Loading label={t("Cargando clasificación")} />
+      ) : error ? (
+        <ErrorState message={td(error)} onRetry={load} />
       ) : (
         <>
-          <div className="mb-5 flex gap-1 overflow-x-auto rounded-xl border border-white/10 bg-base-700/40 p-1">
-            {TABS.map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => setTab(id)}
-                className={cn(
-                  "shrink-0 rounded-lg px-4 py-2 font-display text-sm uppercase tracking-wide transition",
-                  tab === id ? "bg-drl text-white shadow-glow" : "text-white/55 hover:text-white",
-                )}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {loading ? (
-            <div className="grid min-h-[20vh] place-items-center">
-              <div className="h-7 w-7 animate-spin rounded-full border-2 border-drl border-t-transparent" />
-            </div>
-          ) : rows.length === 0 ? (
-            <p className="py-12 text-center text-white/40">Aún no hay datos en esta clasificación.</p>
-          ) : (
-            <div className="space-y-2">
-              {rows.map((r, i) => (
-                <div
-                  key={r.id}
-                  className={cn(
-                    "flex items-center gap-3 rounded-xl border px-4 py-3",
-                    i < 3 ? "border-drl-gold/30 bg-drl-gold/5" : "border-white/10 bg-base-700/50",
-                  )}
-                >
-                  <span className="w-8 text-center font-display text-lg font-bold text-white/60">
-                    {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}
-                  </span>
-                  <span className="grid h-10 w-10 place-items-center rounded-lg bg-base-800 text-xl">{r.avatar}</span>
-                  <span className="min-w-0 flex-1 truncate font-display font-bold text-white">{r.username}</span>
-                  <span className="shrink-0 font-display text-sm text-drl-gold">{metric(r)}</span>
-                </div>
-              ))}
+          {/* ── Mi rango ── */}
+          {user && profile && (
+            <div className="mb-6">
+              <RankBadge
+                points={profile.points ?? 0}
+                position={myPos}
+                regionPosition={myRegionPos}
+                region={profile.region ?? null}
+                action={{ href: "/pickems", label: t("Sumar puntos") }}
+              />
             </div>
           )}
+
+          {/*
+            ── Pestañas ──
+            FASE 11 · La activa era una CÁPSULA roja de 450 px con resplandor: la píldora
+            decorativa que el lenguaje de la casa no usa. Ahora son tres controles con el
+            chaflán del sistema dentro de una superficie hundida, con 44 px de alto y la
+            semántica de pestaña (`role="tab"` y `aria-selected`), que antes no tenían.
+          */}
+          <Recessed depth="sm" className="mb-5 flex gap-1 p-1" role="tablist" aria-label={t("Ámbito de la clasificación")}>
+            {([["global", t("Global")], ["region", t("Por región")], ["torneo", t("Por torneo")]] as [Tab, string][]).map(([id, label]) => (
+              <button
+                key={id}
+                role="tab"
+                aria-selected={tab === id}
+                onClick={() => setTab(id)}
+                disabled={id === "torneo" && options.length === 0}
+                className={cn(
+                  "nx-clip-sm min-h-[44px] flex-1 px-4 font-display text-sm uppercase tracking-wide transition duration-fast",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl",
+                  "disabled:cursor-not-allowed disabled:opacity-40",
+                  tab === id
+                    ? "bg-drl text-white"
+                    : "text-ink-muted hover:text-white",
+                )}
+              >
+                {td(label)}
+              </button>
+            ))}
+          </Recessed>
+
+          {tab === "global" ? (
+            global.length === 0 ? (
+              <EmptyState icon="🏅" title={t("Todavía no hay clasificación")}
+                hint={t("Haz tus predicciones en un torneo: en cuanto se corrijan, aparecerás aquí.")}
+                action={{ href: "/torneos", label: t("Ir a los torneos") }} />
+            ) : (
+              <>
+                <div className="space-y-2">
+                  {global.map((r, i) => (
+                    <Row
+                      key={r.id}
+                      position={i + 1}
+                      avatar={r.avatar}
+                      username={r.username}
+                      points={r.points}
+                      isMe={r.id === user?.id}
+                    />
+                  ))}
+                </div>
+
+                {/* El usuario, si está fuera del top mostrado. */}
+                {user && profile && !inTop && myPos && (
+                  <>
+                    <p className="my-2 text-center text-white/25">···</p>
+                    <Row
+                      position={myPos}
+                      avatar={profile.avatar}
+                      username={profile.username}
+                      points={profile.points ?? 0}
+                      isMe
+                    />
+                  </>
+                )}
+              </>
+            )
+          ) : tab === "region" ? (
+            <>
+              {/* Selector de región. No es un filtro del ranking global: cada región
+                  tiene su propia tabla y su propio primero. */}
+              <div className="mb-4 flex flex-wrap gap-1.5" role="group" aria-label={t("Región")}>
+                {RANK_REGIONS.map((rg) => (
+                  <button
+                    key={rg}
+                    type="button"
+                    onClick={() => setScope(rg)}
+                    aria-pressed={scope === rg}
+                    className={cn(
+                      "nx-clip-sm min-h-[44px] px-3.5 font-display text-[12px] font-bold uppercase tracking-wide transition duration-fast",
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl-cyan",
+                      scope === rg
+                        ? "bg-drl-cyan/10 text-drl-cyan shadow-[inset_0_0_0_1px_rgb(25_227_255_/_0.6)]"
+                        : "text-ink-muted shadow-[inset_0_0_0_1px_rgba(255,255,255,0.12)] hover:text-white",
+                    )}
+                  >
+                    {td(REGION_LABEL[rg])}
+                  </button>
+                ))}
+              </div>
+
+              {user && profile && !profile.region && (
+                <p className="nx-rail nx-clip-sm mb-4 px-4 py-3 text-[13px] text-white/70">
+                  {t("No has declarado tu región, así que no apareces en ninguna clasificación regional —sí en la global.")}{" "}
+                  <Link href="/cuenta" className="text-drl underline-offset-2 hover:underline">
+                    {t("Elígela en tu perfil")}
+                  </Link>.
+                </p>
+              )}
+
+              {regional.length === 0 ? (
+                <EmptyState icon="🌍" title={t("Todavía no hay clasificación en {v}", { v: td(REGION_LABEL[scope]) })}
+                  hint={t("Aparecerá en cuanto alguien de esa región puntúe en un torneo.")}
+                  action={{ href: "/pickems", label: t("Ver Pick'ems") }} />
+              ) : (
+                <>
+                  <div className="space-y-2">
+                    {regional.map((r, i) => (
+                      <Row
+                        key={r.id}
+                        position={i + 1}
+                        avatar={r.avatar}
+                        username={r.username}
+                        points={r.points}
+                        isMe={r.id === user?.id}
+                      />
+                    ))}
+                  </div>
+
+                  {user && profile && profile.region === scope && !inRegionTop && myRegionPos && (
+                    <>
+                      <p className="my-2 text-center text-white/25">···</p>
+                      <Row
+                        position={myRegionPos}
+                        avatar={profile.avatar}
+                        username={profile.username}
+                        points={profile.points ?? 0}
+                        isMe
+                      />
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              {options.length > 1 && (
+                /*
+                  FASE 11 · Era el único `<select>` nativo de la sección. Un desplegable del
+                  sistema operativo dentro de una clasificación competitiva rompe el idioma
+                  y en móvil abre una rueda nativa encima de la tabla. Mismos torneos, mismo
+                  estado, con la geometría de la casa y 44 px de objetivo táctil.
+                */
+                <div className="mb-4">
+                  <SectionTitle as="h2">{t("Torneo")}</SectionTitle>
+                  <Recessed depth="sm" className="flex max-w-full gap-1 overflow-x-auto p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label={t("Torneo")}>
+                    {options.map((o) => (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setSelected(o.id)}
+                        aria-pressed={selected === o.id}
+                        className={cn(
+                          "nx-clip-sm min-h-[44px] shrink-0 px-3.5 font-display text-[12px] font-bold uppercase tracking-wide transition duration-fast",
+                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-drl",
+                          selected === o.id ? "bg-drl text-white" : "text-ink-muted hover:text-white",
+                        )}
+                      >
+                        {td(o.label)}
+                      </button>
+                    ))}
+                  </Recessed>
+                </div>
+              )}
+
+              {tournament.length === 0 ? (
+                <EmptyState icon="🗳️" title={t("Este torneo aún no tiene clasificación")}
+                  hint={t("Aparecerá cuando se corrijan las primeras predicciones.")}
+                  action={{ href: "/pickems", label: t("Ver Pick'ems") }} />
+              ) : (
+                <div className="space-y-2">
+                  {tournament.map((r, i) => (
+                    <Row
+                      key={r.user_id}
+                      position={i + 1}
+                      avatar={r.avatar}
+                      username={r.username}
+                      points={r.points}
+                      detail={`${r.correct}/${r.total} aciertos`}
+                      isMe={r.user_id === user?.id}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          {/*
+            ═══ LA ESCALERA ═══
+            La pieza que faltaba entera. El sistema de rangos existía —nueve escalones,
+            divisiones, cúspide posicional— pero el jugador solo veía el suyo: no había
+            forma de saber qué hay por encima ni cuánto cuesta. Un rango que no se puede
+            ver no se persigue.
+
+            Se dibujan los OCHO escalones reales; «Sin clasificar» no sale porque es un
+            estado, no una meta, y enseñarlo aquí sugeriría que hay algo que ganar por no
+            haber jugado.
+          */}
+          <section className="mt-10" aria-label={t("Los rangos de puntos")}>
+            <div className="mb-3 flex items-baseline justify-between gap-3">
+              <h2 className="font-display text-xl font-bold uppercase tracking-[0.06em] text-white">
+                {t("Rangos de puntos")}
+              </h2>
+              <span className="nx-label">{t("Ocho rangos · tres divisiones cada uno")}</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 xl:grid-cols-8">
+              {rankLadder().map((tier) => {
+                const mine = profile ? rankProgress(profile.points ?? 0).tier.id === tier.id : false;
+                const reached = profile ? (profile.points ?? 0) >= tier.min : false;
+                return (
+                  <div
+                    key={tier.id}
+                    className="nx-clip-sm relative flex flex-col items-center border px-3 py-4 text-center transition duration-fast"
+                    style={{
+                      borderColor: mine ? tier.color : reached ? `${tier.color}44` : "rgba(255,255,255,0.08)",
+                      background: mine ? `${tier.color}14` : "rgba(255,255,255,0.02)",
+                    }}
+                  >
+                    {mine && (
+                      <span
+                        className="absolute -top-px left-1/2 -translate-x-1/2 px-2 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.14em]"
+                        style={{ background: tier.color, color: "#06070d" }}
+                      >
+                        {t("Tu rango")}
+                      </span>
+                    )}
+                    <RankEmblem
+                      tierId={tier.id}
+                      color={tier.color}
+                      size={62}
+                      className={cn("mt-1", !reached && "opacity-35")}
+                    />
+                    <b
+                      className="mt-2 font-display text-[13px] font-bold uppercase tracking-[0.08em]"
+                      style={{ color: reached ? tier.color : "rgba(255,255,255,0.4)" }}
+                    >
+                      {td(tier.label)}
+                    </b>
+                    <span className="nx-readout mt-0.5 text-[11px] text-white/35">
+                      {tier.min === 1 ? t("1 pt") : t("{min} pts", { min: tier.min })}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <p className="mt-3 text-[13px] text-white/40">
+              {fill(t("La cúspide, {rango}, no se alcanza por puntos: la ocupa quien va primero del mundo dentro de Nexus. Solo puede haber uno.", slots("rango")), { rango: <b className="text-drl-gold">{t("Champion")}</b> })}
+            </p>
+          </section>
+
+          {/*
+            FASE 11 · El enlace del pie medía 119 × 15 px: el único control de la sección por
+            debajo de 32. Sigue siendo una frase, pero su parte pulsable es un objetivo de 44.
+          */}
+          <p className="mt-8 flex flex-wrap items-center justify-center gap-x-1 text-center text-xs text-white/30">
+            {t("Los puntos los reparte el servidor: al corregir cada torneo de Pick'ems y al terminar cada duelo contra el bot.")}
+            <Link href="/pickems" className="nx-action !text-drl">{t("Haz tus predicciones →")}</Link>
+          </p>
         </>
       )}
     </section>
+  );
+}
+
+function Row({
+  position, avatar, username, points, detail, isMe,
+}: {
+  position: number;
+  avatar: string;
+  username: string;
+  points: number;
+  detail?: string;
+  isMe?: boolean;
+}) {
+  useLocale();
+  // La etiqueta lleva división («Oro II»), y el primero del mundo aparece como Champion.
+  const display = rankDisplay(points, position);
+  return (
+    <Plate
+      tone={isMe ? "primary" : position <= 3 ? "gold" : "neutral"}
+      className="flex items-center gap-3 px-4 py-3"
+    >
+      {/*
+        Placa de puesto. Antes los tres primeros llevaban 🥇🥈🥉: emoji del sistema, que cambia
+        de dibujo en cada plataforma y desentona con todo lo demas. El podio se marca con
+        el color de la placa, que ademas funciona en blanco y negro.
+      */}
+      <span
+        className="nx-clip-sm grid h-10 w-11 shrink-0 place-items-center border font-display text-[15px] font-bold tabular-nums"
+        style={{
+          borderColor: position <= 3 ? "rgba(255,211,92,0.45)" : "rgba(255,255,255,0.1)",
+          background: position <= 3 ? "rgba(255,211,92,0.1)" : "rgba(255,255,255,0.03)",
+          color: position === 1 ? "#ffd35c" : position === 2 ? "#c8d2dc" : position === 3 ? "#cd7f32" : "rgba(255,255,255,0.5)",
+          ["--nx-chamfer-sm" as string]: "7px",
+        }}
+      >
+        {position}
+      </span>
+      <span className="nx-clip-sm grid h-11 w-11 shrink-0 place-items-center bg-base-800 text-xl">
+        {avatar}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-display font-bold text-white">
+          {username}
+          {isMe && <span className="ml-2 text-xs font-normal text-drl">{t("tú")}</span>}
+        </span>
+        {detail && <span className="block text-[11px] text-white/40">{td(detail)}</span>}
+      </span>
+      {/* El emblema del rango, no solo su nombre: la escalera se ve tambien en la lista. */}
+      <RankEmblem
+        tierId={display.champion ? "nexus" : rankProgress(points).tier.id}
+        color={display.color}
+        champion={display.champion}
+        size={26}
+        className="shrink-0 opacity-85"
+      />
+      <span className="hidden shrink-0 font-display text-[11px] uppercase tracking-wider sm:block"
+        style={{ color: display.color }}>
+        {td(display.label)}
+      </span>
+      <span className="w-20 shrink-0 text-right font-display text-sm font-bold tabular-nums text-drl-gold">
+        {points} {t("pts")}
+      </span>
+    </Plate>
   );
 }

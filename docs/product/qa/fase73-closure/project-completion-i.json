@@ -1,0 +1,35 @@
+{
+  "at": "2026-09-30T19:32:05.377Z",
+  "intercepted": false,
+  "pass": 2,
+  "fail": 0,
+  "results": [
+    {
+      "id": "PARTIDA 2 (humana) → dependiente 1/1 completada y partidas 2/5",
+      "ok": true,
+      "detail": "1/1 CLAIMED · 2/5 ACTIVE"
+    },
+    {
+      "id": "PROYECTO · COMPLETED (2/2 misiones)",
+      "ok": true,
+      "detail": "{\"id\":\"qa-f73-proyecto-r4\",\"name\":\"QA · F73 Proyecto de carta r4\",\"description\":\"Configuración QA de la validación F73 en producción (se retira al terminar).\",\"targetCardId\":\"darker__base\",\"state\":\"COMPLETED\",\"completed\":2,\"total\":2,\"missionIds\":[\"qa-f73-equipo-tr-r4\",\"qa-f73-tras-equipo-r4\"],\"sortOrder\":0}"
+    }
+  ],
+  "i2": {
+    "played": 10,
+    "status": "COMPLETED",
+    "evidence": {
+      "won": false,
+      "auto": 0,
+      "draw": false,
+      "mode": "PVE",
+      "human": 10,
+      "counts": true,
+      "finished": true,
+      "missions": [
+        "qa-f73-partidas-r4",
+        "qa-f73-tras-equipo-r4"
+      ]
+    }
+  }
+}

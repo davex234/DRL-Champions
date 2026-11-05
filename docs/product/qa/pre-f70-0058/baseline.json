@@ -1,0 +1,187 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "at": "2026-09-28T11:55:06.892903+00:00",
+  "method": "SQL de solo lectura (PGOPTIONS default_transaction_read_only=on) por ssh; solo recuentos y metadatos, ninguna fila privada (raw/baseline.sql)",
+  "migrationHead": {
+    "code": "0057_admin_cms",
+    "db": "0057 (sonda app_admin_schema_probe: 12 claves en verde; supabase_migrations solo registra hasta 0025, deuda OPS-MIGRATION-REGISTRY conocida)"
+  },
+  "schemaProbe": {
+    "0053_draft_runs": true,
+    "0057_content_packs": true,
+    "0055_user_sanctions": true,
+    "0057_entity_version": true,
+    "0050_duel_active_deck": true,
+    "0057_agents_lifecycle": true,
+    "0040_content_audit_log": true,
+    "0051_campaign_progress": true,
+    "0054_user_compositions": true,
+    "0057_card_presentation": true,
+    "0055_admin_event_drafts": true,
+    "0052_user_card_favorites": true
+  },
+  "registryMax": "0025",
+  "counts": {
+    "auth_users": 30,
+    "profiles": 30,
+    "user_cards": 769,
+    "user_packs": 72,
+    "user_game": 30,
+    "user_pass": 21,
+    "user_achievements": 11,
+    "credit_transactions": 297,
+    "economy_ops": 358,
+    "duel_decks": 27,
+    "duel_matches": 243,
+    "duel_pvp_ratings": 12,
+    "coach_matches": 9,
+    "content_cards": 331,
+    "agents": 29,
+    "pickem_questions": 43,
+    "pickem_answers": 2,
+    "pickem_submissions": 3,
+    "duel_pvp_rating_events": 84,
+    "duel_match_actions": 2555,
+    "assets": 0,
+    "sum_credits": 1319890,
+    "sum_ledger_delta": 1319890
+  },
+  "cards": 331,
+  "agents": 29,
+  "ledgerConsistent": true,
+  "profiles": {
+    "rls": true,
+    "grants": [
+      {
+        "grantee": "anon",
+        "priv": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "priv": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "priv": "REFERENCES"
+      },
+      {
+        "grantee": "anon",
+        "priv": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "priv": "TRIGGER"
+      },
+      {
+        "grantee": "anon",
+        "priv": "TRUNCATE"
+      },
+      {
+        "grantee": "authenticated",
+        "priv": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "priv": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "priv": "REFERENCES"
+      },
+      {
+        "grantee": "authenticated",
+        "priv": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "priv": "TRIGGER"
+      },
+      {
+        "grantee": "authenticated",
+        "priv": "TRUNCATE"
+      },
+      {
+        "grantee": "service_role",
+        "priv": "DELETE"
+      },
+      {
+        "grantee": "service_role",
+        "priv": "INSERT"
+      },
+      {
+        "grantee": "service_role",
+        "priv": "REFERENCES"
+      },
+      {
+        "grantee": "service_role",
+        "priv": "SELECT"
+      },
+      {
+        "grantee": "service_role",
+        "priv": "TRIGGER"
+      },
+      {
+        "grantee": "service_role",
+        "priv": "TRUNCATE"
+      },
+      {
+        "grantee": "service_role",
+        "priv": "UPDATE"
+      }
+    ],
+    "columnSelect": {
+      "anon": 20,
+      "authenticated": 20
+    },
+    "policies": [
+      {
+        "name": "crea tu perfil",
+        "cmd": "INSERT",
+        "roles": [
+          "public"
+        ]
+      },
+      {
+        "name": "edita tu perfil",
+        "cmd": "UPDATE",
+        "roles": [
+          "public"
+        ]
+      },
+      {
+        "name": "perfiles visibles para todos",
+        "cmd": "SELECT",
+        "roles": [
+          "public"
+        ]
+      }
+    ]
+  },
+  "truncateGrantsForClients": "85 objetos (68 tablas + 17 vistas)",
+  "activity": {
+    "matchesInProgress": 19,
+    "matchesInProgressUpdated15m": 0,
+    "inProgressByMode": {
+      "PVP_PRIVATE": 9,
+      "PVP": 10
+    },
+    "pvpQueue": 102,
+    "profilesSeen15m": 0,
+    "ledgerLast15m": 0,
+    "queueByState": {
+      "CANCELLED": 18,
+      "MATCHED": 84,
+      "live": 0
+    },
+    "inProgressLastUpdate": "2026-09-26T19:43:06Z",
+    "reading": "Sin actividad real: 0 entradas vivas en la cola, 0 perfiles vistos y 0 apuntes en 15 min; los 19 duelos IN_PROGRESS son PVP/PVP_PRIVATE abandonados del soak de F66 (último cambio 2026-09-26). 0058 solo cambia privilegios y la app usa service_role: ninguna partida se interrumpe."
+  },
+  "app": {
+    "health": "200 ok",
+    "ready": "ready · 0057_admin_cms · 331/331",
+    "build": "drl-0.1.1-1-7e223fed",
+    "listener": "127.0.0.1:3005"
+  },
+  "marketplace": "OFF",
+  "payments": "OFF"
+}

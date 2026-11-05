@@ -1,0 +1,174 @@
+{
+  "at": "2026-10-13T08:48:44.482Z",
+  "flags": [
+    "--app",
+    "--vps"
+  ],
+  "summary": {
+    "PASS": 26,
+    "WARN": 1,
+    "FAIL": 5
+  },
+  "results": [
+    {
+      "id": "env",
+      "level": "PASS",
+      "detail": "OPTIONAL ANTHROPIC_API_KEY: falta: predicciones con heurística · OPTIONAL NEXT_PUBLIC_VLR_API: falta: fuente VLR desactivada"
+    },
+    {
+      "id": "node",
+      "level": "PASS",
+      "detail": "v24.15.0 (engines >=22.12.0 <25, recomendado 24.15.0)"
+    },
+    {
+      "id": "build",
+      "level": "FAIL",
+      "detail": "no hay .next/BUILD_ID: ejecuta npm run build"
+    },
+    {
+      "id": "migrations",
+      "level": "PASS",
+      "detail": "73 ficheros, última 0073_pickems_launch_guard.sql (esperada 0073_pickems_launch_guard)"
+    },
+    {
+      "id": "migrations-startup",
+      "level": "PASS",
+      "detail": "la app NO aplica migraciones al arrancar"
+    },
+    {
+      "id": "flags",
+      "level": "PASS",
+      "detail": "GLOBAL_MARKET_ENABLED=false PAYMENTS_ENABLED=false (constantes de código, no conmutables desde el cliente)"
+    },
+    {
+      "id": "catalog",
+      "level": "PASS",
+      "detail": "331 cartas en código"
+    },
+    {
+      "id": "card-art",
+      "level": "PASS",
+      "detail": "331/331 imágenes presentes"
+    },
+    {
+      "id": "agent-art",
+      "level": "PASS",
+      "detail": "29 agentes, sin carpeta de arte: ninguno"
+    },
+    {
+      "id": "pack-art",
+      "level": "PASS",
+      "detail": "33 sobres, 20 con arte, rotos: ninguno"
+    },
+    {
+      "id": "maps",
+      "level": "PASS",
+      "detail": "13 entradas en public/maps"
+    },
+    {
+      "id": "security-headers",
+      "level": "PASS",
+      "detail": "CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP, HSTS, sin X-Powered-By"
+    },
+    {
+      "id": "edge-guards",
+      "level": "PASS",
+      "detail": "tamaño de cuerpo, arneses QA ocultos, x-request-id"
+    },
+    {
+      "id": "robots",
+      "level": "PASS",
+      "detail": "beta cerrada: noindex"
+    },
+    {
+      "id": "sharp",
+      "level": "PASS",
+      "detail": "sharp es dependencia directa"
+    },
+    {
+      "id": "client-secrets",
+      "level": "PASS",
+      "detail": "ningún secreto del servidor en .next/static ni public/"
+    },
+    {
+      "id": "source-maps",
+      "level": "PASS",
+      "detail": "sin source maps públicos del navegador"
+    },
+    {
+      "id": "app-health",
+      "level": "PASS",
+      "detail": "https://valorosters.com/api/health → 200"
+    },
+    {
+      "id": "app-ready",
+      "level": "PASS",
+      "detail": "ready · config:ok database:ok schema:ok crafting:ok forge:ok collections:ok seasons:ok profile:ok social:ok account_tag:ok cups:ok pickems_launch_guard:ok pickems_cutover:ok pickems:ok alpha:ok admins:ok ranked:ok privacy:ok catalog:ok storage:ok"
+    },
+    {
+      "id": "app-migration-head",
+      "level": "PASS",
+      "detail": "la app informa 0073_pickems_launch_guard (esperada 0073_pickems_launch_guard)"
+    },
+    {
+      "id": "db-migration-head",
+      "level": "PASS",
+      "detail": "estado real de la BD: 0073_pickems_launch_guard (esperada 0073_pickems_launch_guard)"
+    },
+    {
+      "id": "app-vs-db-head",
+      "level": "PASS",
+      "detail": "app 0073_pickems_launch_guard · BD 0073_pickems_launch_guard"
+    },
+    {
+      "id": "backup-daily-db",
+      "level": "PASS",
+      "detail": "último dump diario hace 4 h (cron 04:30, retención 14 días)"
+    },
+    {
+      "id": "backup-daily-storage",
+      "level": "PASS",
+      "detail": "último tar de Storage hace 4 h"
+    },
+    {
+      "id": "backup-verified",
+      "level": "PASS",
+      "detail": "último backup con manifiesto: /opt/nexus/backups/supabase-drlcards/pre-i18n-icon/20261013T083307Z (hace 0 h, 32 unidades) · SHA256SUMS ok"
+    },
+    {
+      "id": "backup-log",
+      "level": "PASS",
+      "detail": "7 líneas FALLO en el histórico · [20261013T043001Z] fin. fallos=1  total=55G"
+    },
+    {
+      "id": "backup-disk",
+      "level": "PASS",
+      "detail": "313209 MB libres en /opt/nexus/backups; backups de DRLCards ocupan 236 MB (15 dumps diarios)"
+    },
+    {
+      "id": "backup-offsite",
+      "level": "FAIL",
+      "detail": "NOT_CONFIGURED · OFFSITE BACKUP NOT CONFIGURED: las copias viven en el MISMO disco del VPS (BLOCKED externo: falta destino + credenciales)"
+    },
+    {
+      "id": "backup-offsite-drill",
+      "level": "FAIL",
+      "detail": "NO_REMOTE_DRILL · ningún simulacro de restauración desde el destino off-site registrado"
+    },
+    {
+      "id": "backup-schedule",
+      "level": "FAIL",
+      "detail": "sin programación off-site (se instala tras la primera copia + simulacro desde B2)"
+    },
+    {
+      "id": "f78-offsite-dr",
+      "level": "FAIL",
+      "detail": "F78 incompleto: offsite:NOT_CONFIGURED · drill:NO_REMOTE_DRILL · schedule:NOT_INSTALLED"
+    },
+    {
+      "id": "auth-email",
+      "level": "WARN",
+      "detail": "BLOCKED para release pública: autoconfirmación ON (registro sin verificar correo)"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "checks": 105,
+  "findings": [
+    {
+      "route": "/admin",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/assets",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/card-review",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/control",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/data-engine",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/live",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/releases",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/torneos",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "route": "/admin/tournament-control",
+      "mode": "sesión",
+      "severity": "P2",
+      "kind": "peticion",
+      "detail": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "definition": "No hay presencia en tiempo real (sin WebSocket). «Desconectado» = el cliente deja de sondear/actuar. El servidor no lo detecta como evento: el RELOJ DEL TURNO (90 s, turn_deadline_at) es lo único que corre. Si el que debía mover no lo hace, la partida VENCE (EXPIRED) en el primer sondeo del rival, en el siguiente alta en cola de cualquiera de los dos, o por el barrido oportunista (duel_pvp_expired_candidates). Cerrar la pestaña no depende de beforeunload (no existe ninguno).",
+  "temporaryDisconnect": {
+    "rivalPlayed": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}",
+    "whileOffline": {
+      "syncing": true,
+      "text": "RANKED · RATING EN JUEGO 🎮contra qa_campaign_352_8c32 · jugador real Reconectando… sincronizando partida con el servidor TURNO DEL RIVAL qa_campaign_352_8c32"
+    },
+    "recovered": true
+  }
+}

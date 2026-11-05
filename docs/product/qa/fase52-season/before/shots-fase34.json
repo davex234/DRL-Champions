@@ -1,0 +1,31 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase34",
+  "generated": "2026-09-22T16:09:07.655Z",
+  "rows": [
+    {
+      "file": "pass-1440x900.png",
+      "scene": "pass",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "daily-1440x900.png",
+      "scene": "daily",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "anonymous-1440x900.png",
+      "scene": "anonymous",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "new-player-1440x900.png",
+      "scene": "new-player",
+      "size": "1440x900",
+      "errors": []
+    }
+  ]
+}

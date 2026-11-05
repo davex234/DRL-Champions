@@ -1,0 +1,15 @@
+{
+  "El pase se lee del servidor.": "Le passe est lu depuis le serveur.",
+  "La recompensa del nivel {level} ya era tuya.": "La récompense du niveau {level} était déjà à toi.",
+  "Leyendo el pase…": "Lecture du passe…",
+  "No se pudo leer el pase": "Impossible de lire le passe",
+  "No se pudo reclamar": "Impossible de récupérer",
+  "No se pudo reclamar. Inténtalo de nuevo.": "Impossible de récupérer. Réessaie.",
+  "Pase no disponible sin conexión": "Passe non disponible hors ligne",
+  "Próxima temporada:": "Saison suivante :",
+  "Recompensa del nivel {level} reclamada": "Récompense du niveau {level} récupérée",
+  "Recompensa del nivel {level} reclamada.": "Récompense du niveau {level} récupérée.",
+  "Volver a Temporada": "Retour à la Saison",
+  "tu pase de batalla": "ton passe de combat",
+  "{titulo} {nombre} empieza en {tiempo}.": "{titulo} {nombre} commence dans {tiempo}."
+}

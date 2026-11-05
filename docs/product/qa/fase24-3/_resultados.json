@@ -1,0 +1,457 @@
+[
+  {
+    "label": "/pickems @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/pickems/historial @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/ranking @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/torneos @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/coleccion @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/inventario @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/packs @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/duelos @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/progresion @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/tienda @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @1440 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @1024 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "/mercado @390 carga, sin excepciones de la app, sin desbordamiento",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "fixture single: formato SINGLE_ELIMINATION, 3 rondas, 2 aristas verificadas, fiable",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single @1440: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática single @1440: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática single @1440: líneas dibujadas = aristas del modelo",
+    "ok": true,
+    "detail": "2 / 2"
+  },
+  {
+    "label": "estática single @1024: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática single @1024: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática single @390: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: false"
+  },
+  {
+    "label": "estática single @390: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática single @390: reparto móvil (selector de ronda + tarjetas verticales), sin «Guardando…» fantasma",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «cuartos»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «semifinal»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «final»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «por definir»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «en juego»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «acertada»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «fallada»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «tu pick»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «quién será campeón»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «elige un ganador»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «+15 pts»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single muestra «conexiones verificadas»",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática single: solo los partidos abiertos con equipos tienen filas seleccionables (qf4 + sf1 = 4 botones)",
+    "ok": true,
+    "detail": "4"
+  },
+  {
+    "label": "fixture double: formato DOUBLE_ELIMINATION, 8 rondas, 12 aristas verificadas, fiable",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática double @1440: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática double @1440: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática double @1440: líneas dibujadas = aristas del modelo",
+    "ok": true,
+    "detail": "12 / 12"
+  },
+  {
+    "label": "estática double @1024: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática double @1024: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática double @390: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: false"
+  },
+  {
+    "label": "estática double @390: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática double @390: reparto móvil (selector de ronda + tarjetas verticales), sin «Guardando…» fantasma",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "fixture gsl: formato SINGLE_ELIMINATION, 4 rondas, 6 aristas verificadas, fiable",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática gsl @1440: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática gsl @1440: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática gsl @1440: líneas dibujadas = aristas del modelo",
+    "ok": true,
+    "detail": "6 / 6"
+  },
+  {
+    "label": "estática gsl @1024: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática gsl @1024: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática gsl @390: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: false"
+  },
+  {
+    "label": "estática gsl @390: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática gsl @390: reparto móvil (selector de ronda + tarjetas verticales), sin «Guardando…» fantasma",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "fixture mixed: formato GROUP_PLAYOFF, 5 rondas, 2 aristas verificadas, fiable",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática mixed @1440: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática mixed @1440: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática mixed @1440: líneas dibujadas = aristas del modelo",
+    "ok": true,
+    "detail": "2 / 2"
+  },
+  {
+    "label": "estática mixed @1024: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática mixed @1024: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática mixed @390: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: false"
+  },
+  {
+    "label": "estática mixed @390: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática mixed @390: reparto móvil (selector de ronda + tarjetas verticales), sin «Guardando…» fantasma",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "fixture historial: formato SINGLE_ELIMINATION, 3 rondas, 2 aristas verificadas, fiable",
+    "ok": true,
+    "detail": ""
+  },
+  {
+    "label": "estática historial @1440: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática historial @1440: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática historial @1440: líneas dibujadas = aristas del modelo",
+    "ok": true,
+    "detail": "2 / 2"
+  },
+  {
+    "label": "estática historial @1024: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: true"
+  },
+  {
+    "label": "estática historial @1024: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática historial @390: la página no desborda (el cuadro se desplaza dentro de su área)",
+    "ok": true,
+    "detail": "0px · área desplazable: false"
+  },
+  {
+    "label": "estática historial @390: botones ≥ 44px",
+    "ok": true,
+    "detail": "0 por debajo"
+  },
+  {
+    "label": "estática historial @390: reparto móvil (selector de ronda + tarjetas verticales), sin «Guardando…» fantasma",
+    "ok": true,
+    "detail": ""
+  }
+]

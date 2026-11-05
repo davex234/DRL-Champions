@@ -1,0 +1,58 @@
+{
+  "at": "2026-09-30T19:24:53.808Z",
+  "intercepted": false,
+  "pass": 10,
+  "fail": 0,
+  "results": [
+    {
+      "id": "CUENTA NORMAL · no puede crear misión (401)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "CUENTA NORMAL · no puede crear proyecto (401)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "CUENTA NORMAL · no puede modificar receta (401)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "CUENTA NORMAL · no lee el panel (401)",
+      "ok": true,
+      "detail": "401"
+    },
+    {
+      "id": "CUENTA NORMAL · /admin/crafting en el navegador = acceso restringido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "CRUCE · B (sin completar) no reclama el proyecto que I y K completaron (409)",
+      "ok": true,
+      "detail": "409 NOT_COMPLETED"
+    },
+    {
+      "id": "ADMIN TEMPORAL · por PostgREST solo ve SU progreso (no el de I/K)",
+      "ok": true,
+      "detail": "200 n=0"
+    },
+    {
+      "id": "ADMIN TEMPORAL · por PostgREST no ve reclamos ajenos",
+      "ok": true,
+      "detail": "200 n=0"
+    },
+    {
+      "id": "ADMIN TEMPORAL · mission_events no es legible",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "ADMIN TEMPORAL · /api/game/missions es el SUYO (0/5, sin progreso de I)",
+      "ok": true,
+      "detail": "0/5 ACTIVE"
+    }
+  ]
+}

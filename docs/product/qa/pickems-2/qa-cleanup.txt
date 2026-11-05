@@ -1,0 +1,12 @@
+a borrar|19
+después|2|2|0|1
+COMMIT
+2
+davex_234_3bef #NB2Z9BM admin=true, ValoRosters_b7cc #H5ND8K7 admin=true
+champions-2026-playoffs|DRAFT|DRAFT
+ledger reales hoy|0|-
+copas QA hoy|8|CANCELLED/UNLISTED,CANCELLED/UNLISTED,COMPLETED/UNLISTED,COMPLETED/UNLISTED,COMPLETED/UNLISTED,CANCELLED/UNLISTED,CANCELLED/UNLISTED,COMPLETED/UNLISTED
+pickem v1|3|63|1|1
+alpha_feedback|0
+cosmeticos reales|0
+packs reales|oro:0,estandar:0,inicial:0,estandar:0,inicial:0

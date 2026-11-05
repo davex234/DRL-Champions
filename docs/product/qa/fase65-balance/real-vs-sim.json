@@ -1,0 +1,81 @@
+{
+  "status": "BLOCKED",
+  "reason": "La lectura directa de la BD del VPS (psql por ssh) fue denegada por el control de permisos de esta sesión. No se buscó otra vía.",
+  "howToUnblock": "Ejecutar real-telemetry-query.sql (solo lectura, agregado, sin user_id) y comparar con los valores de `simulated`.",
+  "simulated": {
+    "PvE": [
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "EASY",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.8064,
+          "lo": 0.7976,
+          "hi": 0.8149
+        },
+        "drawRate": 0,
+        "meanBotOvrMinusPlayer": 0.04,
+        "decidedBy": {
+          "OVR_TIEBREAK": 902,
+          "SCORE": 6845,
+          "STAT_MARGIN": 253
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "NORMAL",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.4645,
+          "lo": 0.4536,
+          "hi": 0.4754
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.04,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 1379,
+          "SCORE": 6174,
+          "STAT_MARGIN": 443
+        }
+      },
+      {
+        "deck": "RANDOM",
+        "playerPolicy": "NORMAL",
+        "botDifficulty": "HARD",
+        "playerWin": {
+          "n": 8000,
+          "rate": 0.2273,
+          "lo": 0.2182,
+          "hi": 0.2366
+        },
+        "drawRate": 0.0005,
+        "meanBotOvrMinusPlayer": 0.05,
+        "decidedBy": {
+          "NONE": 4,
+          "OVR_TIEBREAK": 1100,
+          "SCORE": 6546,
+          "STAT_MARGIN": 350
+        }
+      }
+    ],
+    "fieldHARD": {
+      "firstAttackerWin": {
+        "n": 299983,
+        "rate": 0.4575,
+        "lo": 0.4557,
+        "hi": 0.4593
+      },
+      "drawRate": 0.0001,
+      "decidedBy": {
+        "NONE": 17,
+        "OVR_TIEBREAK": 70153,
+        "SCORE": 228501,
+        "STAT_MARGIN": 1329
+      },
+      "stompRate": 0.1012
+    }
+  }
+}

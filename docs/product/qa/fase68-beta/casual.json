@@ -1,0 +1,833 @@
+{
+  "sessions": [
+    {
+      "id": "B-r1-new",
+      "persona": "B",
+      "session": "new",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 213,
+      "actions": 131,
+      "screens": 7,
+      "checks": {
+        "pass": 8,
+        "fail": [
+          "FAIL 2.ª partida termina con resultado visible",
+          "FAIL resultado ofrece siguiente paso (Jugar otra / lobby)"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 198,
+      "statuses": {
+        "200": 940,
+        "204": 26
+      },
+      "bad": [],
+      "notes": [
+        {
+          "t": 34,
+          "kind": "bug",
+          "text": "F68-001 · «ABRIR EL SIGUIENTE SOBRE» no hace nada en /abrir/inicial: salida por la portada"
+        }
+      ],
+      "guide": {
+        "path": [
+          {
+            "step": 0,
+            "where": "/",
+            "did": "EMPEZAR"
+          },
+          {
+            "step": 1,
+            "where": "/",
+            "did": "abrir primer sobre"
+          },
+          {
+            "step": 2,
+            "where": "/abrir/estandar",
+            "did": "abrir sobre (5 cartas, 2906 ms)"
+          },
+          {
+            "step": 3,
+            "where": "/abrir/estandar",
+            "did": "ver mi colección"
+          },
+          {
+            "step": 4,
+            "where": "/coleccion",
+            "did": "cta (ABRIR EL SIGUIENTE SOBRE)"
+          },
+          {
+            "step": 5,
+            "where": "/abrir/inicial",
+            "did": "abrir sobre (5 cartas, 4334 ms)"
+          },
+          {
+            "step": 6,
+            "where": "/abrir/inicial",
+            "did": "cta (ABRIR EL SIGUIENTE SOBRE)"
+          },
+          {
+            "step": 7,
+            "where": "/abrir/inicial",
+            "did": "cta (ABRIR EL SIGUIENTE SOBRE)"
+          },
+          {
+            "step": 9,
+            "where": "/",
+            "did": "cta (ABRIR EL SIGUIENTE SOBRE)"
+          },
+          {
+            "step": 10,
+            "where": "/abrir/inicial",
+            "did": "abrir sobre (5 cartas, 2869 ms)"
+          },
+          {
+            "step": 11,
+            "where": "/abrir/inicial",
+            "did": "cta (UN MOMENTO…)"
+          },
+          {
+            "step": 12,
+            "where": "/",
+            "did": "cta ()"
+          },
+          {
+            "step": 13,
+            "where": "/duelos/jugar",
+            "did": "Comenzar duelo"
+          },
+          {
+            "step": 14,
+            "where": "/duelos/jugar",
+            "did": "partida {\"winner\":\"YOU\",\"you\":6,\"rival\":5,\"decidedBy\":null} turns=10",
+            "match": {
+              "matchId": "d1c0f02f-179e-4d9e-a694-3c9bd2fb3c3a",
+              "shown": true,
+              "turns": 10,
+              "ms": 52661,
+              "stuck": 10,
+              "status": "COMPLETED",
+              "result": {
+                "winner": "YOU",
+                "you": 6,
+                "rival": 5,
+                "decidedBy": null
+              },
+              "difficulty": "EASY"
+            }
+          },
+          {
+            "step": 15,
+            "where": "/duelos/jugar",
+            "did": "ver mi progreso"
+          },
+          {
+            "step": 16,
+            "where": "/progresion",
+            "did": "SEGUIR JUGANDO (fin guía)"
+          }
+        ],
+        "matches": 1,
+        "packs": 3,
+        "final": {
+          "credits": 6120,
+          "xp": 474,
+          "level": null,
+          "packsOpened": 3,
+          "unopenedPacks": {
+            "inicial": 1
+          },
+          "ownedCards": 15,
+          "decks": [
+            {
+              "id": "1e653754",
+              "name": "Mi primer equipo",
+              "valid": true,
+              "cards": 10
+            }
+          ],
+          "activeDeckId": "1e653754",
+          "onboarding": {
+            "status": "COMPLETED",
+            "current": null
+          },
+          "rating": 1000,
+          "rankedGames": 0,
+          "pass": null,
+          "progressionKeys": [
+            "serverNow",
+            "season",
+            "level",
+            "xp",
+            "xpIntoLevel",
+            "xpForNext",
+            "progress",
+            "premium",
+            "competitiveUnlocked",
+            "competitiveMinPoints",
+            "points",
+            "equipped",
+            "tracks",
+            "missions",
+            "achievements",
+            "cosmetics"
+          ]
+        }
+      },
+      "guideSeconds": 113,
+      "start": {
+        "credits": 6000,
+        "xp": 0,
+        "level": null,
+        "packsOpened": 0,
+        "unopenedPacks": {
+          "inicial": 3,
+          "estandar": 1
+        },
+        "ownedCards": 0,
+        "decks": [],
+        "activeDeckId": null,
+        "onboarding": {
+          "status": "NOT_STARTED",
+          "current": "welcome"
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      },
+      "end": {
+        "credits": 9600,
+        "xp": 474,
+        "level": null,
+        "packsOpened": 3,
+        "unopenedPacks": {
+          "inicial": 1
+        },
+        "ownedCards": 15,
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "1e653754",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      }
+    },
+    {
+      "id": "B-r1-pve",
+      "persona": "B",
+      "session": "pve",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 235,
+      "actions": 223,
+      "screens": 4,
+      "checks": {
+        "pass": 9,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 167,
+      "statuses": {
+        "200": 756,
+        "204": 11
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": {
+        "credits": 9600,
+        "xp": 474,
+        "level": null,
+        "packsOpened": 3,
+        "unopenedPacks": {
+          "inicial": 1
+        },
+        "ownedCards": 15,
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "1e653754",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      },
+      "end": {
+        "credits": 10080,
+        "xp": 734,
+        "level": null,
+        "packsOpened": 3,
+        "unopenedPacks": {
+          "inicial": 1
+        },
+        "ownedCards": 15,
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "1e653754",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      }
+    },
+    {
+      "id": "B-r2-pve",
+      "persona": "B",
+      "session": "pve",
+      "tag": "r2",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 141,
+      "actions": 135,
+      "screens": 2,
+      "checks": {
+        "pass": 7,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 98,
+      "statuses": {
+        "200": 450,
+        "204": 6
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": {
+        "credits": 4800,
+        "xp": 1696,
+        "level": null,
+        "packsOpened": 8,
+        "unopenedPacks": {},
+        "ownedCards": 41,
+        "decks": [
+          {
+            "id": "341ebf73",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "341ebf73",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      },
+      "end": {
+        "credits": 5200,
+        "xp": 1906,
+        "level": null,
+        "packsOpened": 8,
+        "unopenedPacks": {},
+        "ownedCards": 41,
+        "decks": [
+          {
+            "id": "341ebf73",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "341ebf73",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      }
+    },
+    {
+      "id": "B-r1-store",
+      "persona": "B",
+      "session": "store",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 25,
+      "screens": 6,
+      "checks": {
+        "pass": 5,
+        "fail": [
+          "FAIL doble clic en comprar cobra UNA vez",
+          "FAIL doble clic en comprar añade UN sobre"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 86,
+      "statuses": {
+        "200": 472,
+        "204": 13
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": {
+        "credits": 10080,
+        "xp": 734,
+        "level": null,
+        "packsOpened": 3,
+        "unopenedPacks": {
+          "inicial": 1
+        },
+        "ownedCards": 15,
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "1e653754",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      },
+      "end": {
+        "credits": 8080,
+        "xp": 1034,
+        "level": null,
+        "packsOpened": 5,
+        "unopenedPacks": {
+          "estandar": 1
+        },
+        "ownedCards": 25,
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "1e653754",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      }
+    },
+    {
+      "id": "B-fix-store",
+      "persona": "B",
+      "session": "store",
+      "tag": "fix",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 58,
+      "actions": 29,
+      "screens": 7,
+      "checks": {
+        "pass": 9,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 110,
+      "statuses": {
+        "200": 605,
+        "204": 16
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": {
+        "credits": 5580,
+        "xp": 1034,
+        "level": null,
+        "packsOpened": 5,
+        "unopenedPacks": {
+          "estandar": 1,
+          "premium": 1
+        },
+        "ownedCards": 25,
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "1e653754",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      },
+      "end": {
+        "credits": 4580,
+        "xp": 1586,
+        "level": null,
+        "packsOpened": 8,
+        "unopenedPacks": {},
+        "ownedCards": 41,
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "1e653754",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      }
+    },
+    {
+      "id": "B-r1-collection",
+      "persona": "B",
+      "session": "collection",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 27,
+      "actions": 11,
+      "screens": 3,
+      "checks": {
+        "pass": 4,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 51,
+      "statuses": {
+        "200": 367,
+        "204": 5
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": null,
+      "end": null
+    },
+    {
+      "id": "B-r1-progress",
+      "persona": "B",
+      "session": "progress",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 39,
+      "actions": 9,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 436,
+        "204": 7
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": null,
+      "end": null
+    },
+    {
+      "id": "B-fix-teams",
+      "persona": "B",
+      "session": "teams",
+      "tag": "fix",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 15,
+      "screens": 3,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 45,
+      "statuses": {
+        "200": 348,
+        "204": 6
+      },
+      "bad": [],
+      "notes": [],
+      "guide": null,
+      "guideSeconds": null,
+      "start": {
+        "decks": [
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "active": "1e653754"
+      },
+      "end": {
+        "decks": [
+          {
+            "id": "341ebf73",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "1e653754",
+            "name": "Mi primer equipo",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "active": "341ebf73"
+      }
+    }
+  ]
+}

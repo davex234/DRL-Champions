@@ -1,0 +1,7 @@
+872f5449d8c2e918459a0cf8244dac1dd887db020c066ab3128d464fe13d0e34  dist/worker.cjs
+357da0f1e74b24a980d77f1f564a85c6b5fa4910a6b541d6c52a6cbed0d769d6  MANIFEST.txt
+##### hashes-vps
+dist/worker.cjs: OK
+MANIFEST.txt: OK
+872f5449d8c2e918459a0cf8244dac1dd887db020c066ab3128d464fe13d0e34  dist/worker.cjs
+##### env-keys

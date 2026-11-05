@@ -1,0 +1,23 @@
+{
+  "Ascenso a {rank}": "Aufstieg zu {rank}",
+  "Colocación {played} / {total} · {sign}": "Platzierung {played} / {total} · {sign}",
+  "Colocación {played}/{total}": "Platzierung {played}/{total}",
+  "Completa tu colocación": "Schließe deine Platzierung ab",
+  "Descenso a {rank}": "Abstieg zu {rank}",
+  "Juega una partida (actividad en los últimos {activeDays} días)": "Spiele ein Match (Aktivität in den letzten {activeDays} Tagen)",
+  "Juega {left} {v} más esta temporada": "Spiele diese Saison noch {left} {v}",
+  "Rango obtenido: {rank}": "Rang erreicht: {rank}",
+  "Rating {sign}": "Rating {sign}",
+  "Sin clasificar": "Ohne Rang",
+  "divisionWidth debe ser un entero positivo": "divisionWidth muss eine positive ganze Zahl sein",
+  "el primer tier debe empezar en 0": "das erste Tier muss bei 0 beginnen",
+  "el primer tier no tiene sitio para sus divisiones": "das erste Tier hat keinen Platz für seine Divisionen",
+  "el último tier (élite) no debe tener divisiones": "das letzte Tier (Elite) darf keine Divisionen haben",
+  "hacen falta al menos dos tiers": "es braucht mindestens zwei Tiers",
+  "hueco o solape en {id}: {v} ≠ {v2}": "Lücke oder Überlappung in {id}: {v} ≠ {v2}",
+  "partida": "Match",
+  "partidas": "Matches",
+  "solo el último tier puede no tener divisiones ({id})": "nur das letzte Tier darf ohne Divisionen sein ({id})",
+  "suelos no crecientes: {id} → {id2}": "Untergrenzen nicht aufsteigend: {id} → {id2}",
+  "versión vacía": "leere Version"
+}

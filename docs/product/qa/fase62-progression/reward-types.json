@@ -1,0 +1,52 @@
+{
+  "deliverable": [
+    {
+      "kind": "credits",
+      "route": "app_grant_reward p_credits",
+      "visual": "DrlCoin (moneda real)"
+    },
+    {
+      "kind": "accountXp",
+      "route": "app_grant_reward p_xp",
+      "visual": "chip «XP de cuenta» (cian)"
+    },
+    {
+      "kind": "pack",
+      "route": "app_grant_reward p_pack_id/p_pack_count → user_packs",
+      "visual": "arte real packArtwork; «Abrir sobre» → /abrir/<id> (F57)"
+    },
+    {
+      "kind": "card",
+      "route": "app_grant_reward p_card_ids → user_cards",
+      "visual": "CardArt con la imagen del catálogo"
+    },
+    {
+      "kind": "cosmetic",
+      "route": "app_grant_reward p_cosmetics → user_cosmetics",
+      "visual": "texto (sin asset propio)"
+    },
+    {
+      "kind": "points",
+      "route": "app_grant_reward p_points",
+      "visual": "«puntos de rango»"
+    },
+    {
+      "kind": "seasonXp",
+      "route": "PassEngine al reclamar misión (no es asiento del libro mayor)",
+      "visual": "chip «XP de temporada» (oro)"
+    }
+  ],
+  "notDeliverable": [
+    {
+      "kind": "materials",
+      "reason": "sin tabla ni RPC en servidor: `unsupportedFields` lo registra; validateReward lo marca NO_DELIVERY"
+    }
+  ],
+  "duplicateCards": "una carta concreta se concede como ejemplar nuevo (serial propio); no hay auto-salvage (no existe) — F62 no lo inventa",
+  "tiers": {
+    "minor": "XP, créditos < 500, puntos",
+    "standard": "1 sobre, ≥ 500 créditos, cosmético",
+    "major": "carta, ≥ 2 sobres, ≥ 2.000 créditos"
+  },
+  "component": "src/components/rewards/RewardDisplay.tsx (+ domain/rewards/display.ts)"
+}

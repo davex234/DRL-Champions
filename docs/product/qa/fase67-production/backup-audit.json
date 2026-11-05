@@ -1,0 +1,36 @@
+{
+  "existing": {
+    "script": "/opt/nexus/scripts/nexus-backup.sh (cron 30 4 * * *)",
+    "db": "pg_dump -Fc de supabase_db_DRLCards, validado con pg_restore -l, .sha256, retención KEEP_DAYS=14 (16 ficheros hoy)",
+    "storage": "tar.gz del volumen supabase_storage_DRLCards + .sha256, 14 días",
+    "config": "tar de /opt/nexus/projects (incluye env de servicios) 600",
+    "lastRun": "2026-09-26 04:30 ok (fallos=0)",
+    "location": "/opt/nexus/backups en el MISMO disco del VPS",
+    "encryption": "no (permisos 600/700, usuario nexusadmin)",
+    "offsite": "NO — el propio script lo declara el riesgo abierto más importante"
+  },
+  "f60Debt": "«Storage fuera de la copia diaria» YA NO es cierto: nexus-backup.sh incluye el volumen desde 2026-09-12. Pero el volumen está VACÍO (0 ficheros; storage.objects = 0; bucket «assets» público).",
+  "f67Added": {
+    "script": "scripts/ops/backup-drlcards.sh (por ssh, sin copiar nada al VPS)",
+    "adds": [
+      "manifest.json",
+      "table-counts.tsv (25 recuentos exactos)",
+      "storage-files.sha256 (por fichero)",
+      "storage-objects.tsv (inventario BD)",
+      "SHA256SUMS verificado",
+      "marcador COMPLETE",
+      "exit≠0 ante destino/permisos/disco/contenedor"
+    ],
+    "run": "/opt/nexus/backups/supabase-drlcards/f67/20260926T204632Z (7 s)"
+  },
+  "failureTests": {
+    "destino sin permisos": "exit 1",
+    "contenedor inexistente": "exit 1",
+    "disco insuficiente": "exit 1"
+  },
+  "defectsFoundInOwnScript": [
+    "`docker exec -i` se tragaba el resto del script por stdin → exit 0 sin backup (corregido: </dev/null y marcador BACKUP_OK/COMPLETE)",
+    "psql imprimía SET y corrompía el JSON (corregido: PGOPTIONS)"
+  ],
+  "leftovers": "f67/20260926T204528Z (INCOMPLETE) y f67/20260926T204554Z (SUPERSEDED): marcados, no borrados"
+}

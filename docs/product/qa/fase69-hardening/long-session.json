@@ -1,0 +1,324 @@
+{
+  "phase": "F69",
+  "instrument": "scripts/_fase68-beta.ts long (40+ pantallas, 2 partidas, vueltas de foco, muestras de heap/oyentes/nodos, avisos duplicados, audio)",
+  "runs": [
+    {
+      "id": "E-f69-long",
+      "at": "2026-09-27T22:30:21.467Z",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 1384,
+      "pass": 3,
+      "fail": [],
+      "checks": [
+        "PASS sesión larga: la sesión sigue autenticada",
+        "PASS sesión larga: sin crecimiento desbocado de memoria/oyentes",
+        "PASS sin avisos duplicados en el resultado"
+      ],
+      "consoleErrors": 80,
+      "network": {
+        "status": {
+          "200": 746,
+          "204": 44,
+          "500": 80
+        },
+        "bad": [
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel",
+          "500 /api/game/duel"
+        ]
+      },
+      "build": "F69 antes de F69-F",
+      "matches": [
+        {
+          "result": null,
+          "ms": 638808
+        },
+        {
+          "result": null,
+          "ms": 639427
+        }
+      ],
+      "finding": "F69-F: la partida rápida retomaba un duelo PVP_PRIVATE sin terminar de E → 80 × 500 y dos partidas colgadas ~640 s"
+    },
+    {
+      "id": "E-f69final-long",
+      "at": "2026-09-28T10:51:46.827Z",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 163,
+      "pass": 3,
+      "fail": [],
+      "checks": [
+        "PASS sesión larga: la sesión sigue autenticada",
+        "PASS sesión larga: sin crecimiento desbocado de memoria/oyentes",
+        "PASS sin avisos duplicados en el resultado"
+      ],
+      "consoleErrors": 0,
+      "network": {
+        "status": {
+          "200": 807,
+          "204": 44
+        },
+        "bad": []
+      },
+      "build": "d74dc352 (con F69-F)",
+      "matches": [
+        {
+          "result": {
+            "winner": "RIVAL",
+            "you": 4,
+            "rival": 6,
+            "decidedBy": null
+          },
+          "ms": 33684
+        },
+        {
+          "result": {
+            "winner": "RIVAL",
+            "you": 3,
+            "rival": 6,
+            "decidedBy": null
+          },
+          "ms": 30496
+        }
+      ],
+      "samples": [
+        {
+          "i": 10,
+          "heapMB": 10.1,
+          "listeners": 548,
+          "nodes": 893,
+          "docs": 1
+        },
+        {
+          "i": 20,
+          "heapMB": 10.5,
+          "listeners": 548,
+          "nodes": 893,
+          "docs": 1
+        },
+        {
+          "i": 30,
+          "heapMB": 11.1,
+          "listeners": 548,
+          "nodes": 893,
+          "docs": 1
+        },
+        {
+          "i": 40,
+          "heapMB": 11.2,
+          "listeners": 548,
+          "nodes": 893,
+          "docs": 1
+        },
+        {
+          "i": "after-matches",
+          "heapMB": 14.2,
+          "listeners": 589,
+          "nodes": 1147,
+          "docs": 1
+        }
+      ],
+      "growth": {
+        "heapMB": 4.1,
+        "listeners": 41,
+        "nodes": 254
+      },
+      "toasts": [
+        {
+          "n": 0,
+          "dup": 0,
+          "list": []
+        },
+        {
+          "n": 0,
+          "dup": 0,
+          "list": []
+        }
+      ],
+      "audio": {
+        "audioEls": 0
+      }
+    },
+    {
+      "id": "A-f69final-long",
+      "at": "2026-09-28T11:14:08.917Z",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 164,
+      "pass": 3,
+      "fail": [],
+      "checks": [
+        "PASS sesión larga: la sesión sigue autenticada",
+        "PASS sesión larga: sin crecimiento desbocado de memoria/oyentes",
+        "PASS sin avisos duplicados en el resultado"
+      ],
+      "consoleErrors": 0,
+      "network": {
+        "status": {
+          "200": 794,
+          "204": 44
+        },
+        "bad": []
+      },
+      "build": "10683a89 (final)",
+      "matches": [
+        {
+          "result": {
+            "winner": "RIVAL",
+            "you": 2,
+            "rival": 7,
+            "decidedBy": null
+          },
+          "ms": 32768
+        },
+        {
+          "result": {
+            "winner": "RIVAL",
+            "you": 3,
+            "rival": 7,
+            "decidedBy": null
+          },
+          "ms": 33115
+        }
+      ],
+      "samples": [
+        {
+          "i": 10,
+          "heapMB": 9.8,
+          "listeners": 496,
+          "nodes": 471,
+          "docs": 1
+        },
+        {
+          "i": 20,
+          "heapMB": 10.2,
+          "listeners": 496,
+          "nodes": 471,
+          "docs": 1
+        },
+        {
+          "i": 30,
+          "heapMB": 10.7,
+          "listeners": 496,
+          "nodes": 471,
+          "docs": 1
+        },
+        {
+          "i": 40,
+          "heapMB": 10.9,
+          "listeners": 496,
+          "nodes": 471,
+          "docs": 1
+        },
+        {
+          "i": "after-matches",
+          "heapMB": 14,
+          "listeners": 587,
+          "nodes": 1152,
+          "docs": 1
+        }
+      ],
+      "growth": {
+        "heapMB": 4.2,
+        "listeners": 91,
+        "nodes": 681
+      },
+      "toasts": [
+        {
+          "n": 0,
+          "dup": 0,
+          "list": []
+        },
+        {
+          "n": 0,
+          "dup": 0,
+          "list": []
+        }
+      ],
+      "audio": {
+        "audioEls": 0
+      }
+    }
+  ],
+  "alsoLong": "explorador D (263 s, partido completo del Coach incluido) y prueba del Coach (366 s, 25 rondas) sin errores de consola ni crecimiento anómalo",
+  "verdict": "PASS — sesión autenticada al final, sin avisos/sonidos duplicados, crecimiento de heap ≤ 5 MB y de oyentes acotado tras dos partidas; HUD sin valores viejos"
+}

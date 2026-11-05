@@ -1,0 +1,8 @@
+{
+  "file": "supabase/migrations/0059_crafting_missions.sql",
+  "sha256": "5b1205bb96f0009d603bb62f7fa5ed19995c0a89acf8e123202fcb0365c2124d",
+  "dryRunCopySha256": "5b1205bb96f0009d603bb62f7fa5ed19995c0a89acf8e123202fcb0365c2124d",
+  "identicalToDryRun": true,
+  "dryRunEvidence": "docs/product/qa/fase73/migration-dryrun.txt (BEGIN → aplicar → sondas → rollback documentado → reaplicar ×2 → ROLLBACK)",
+  "method": "SHA-256 del fichero actual frente a la primera copia embebida en el SQL del dry-run (f73-dryrun.sql, scratchpad de la sesión)"
+}

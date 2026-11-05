@@ -1,0 +1,16 @@
+{
+  "authority": "verifyAdmin: GoTrue getUser(Bearer) + profiles.is_admin con service_role. Sin emails fijos, sin flags de cliente, sin allowlist por env.",
+  "columnProtection": "is_admin no editable: GRANT UPDATE solo (username, region, avatar) + disparador profiles_guard_protected_columns",
+  "routes": "23 rutas /api/admin/*: todas con runAdmin o verifyAdmin; 0 server actions",
+  "edge": "middleware: 401 a /api/admin/* sin Bearer; no-store + noindex en /admin",
+  "live": {
+    "anon /api/admin/system": 401,
+    "anon /api/admin/users": 401,
+    "QA normal /api/admin/system": 401,
+    "QA normal ajustar créditos": 401,
+    "RPC app_admin_adjust_credits como usuario": 404,
+    "RPC app_grant_reward como usuario": 404
+  },
+  "uiGate": "NEXT_PUBLIC_ADMIN solo muestra/oculta el panel; los datos no dependen de él",
+  "f58Tests": "adminControlCenter.test (16) verdes"
+}

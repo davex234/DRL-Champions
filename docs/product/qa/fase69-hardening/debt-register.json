@@ -1,0 +1,587 @@
+{
+ "phase": "F69",
+ "at": "2026-09-27",
+ "method": "Fuentes: bugs.json y known-issues.json de F68, informes F55–F68 (secciones de deuda/limitaciones), barrido de marcadores (TODO:/FIXME/HACK/XXX/workaround/temporal) en src, scripts, docs/product y docs/operations, auditorías vivas de F69. En código NO hay marcadores de deuda reales: los 1.009 «TODO» de src son la palabra española «todo» en mayúsculas; FIXME 0; HACK 5 (ids de prueba «HACK» en tests/verificadores); XXX 0 en código; el único TODO(server) histórico (src/platform/crash.ts) ya está resuelto y documentado como tal.",
+ "categories": [
+  "PRODUCT BUG",
+  "SECURITY",
+  "OPERATIONS",
+  "BALANCE PROPOSAL",
+  "EXTERNAL RELEASE BLOCKER",
+  "HISTORICAL/RESOLVED"
+ ],
+ "summary": {
+  "PRODUCT BUG": {
+   "open": 0,
+   "fixedInF69": 12
+  },
+  "SECURITY": {
+   "open": 4,
+   "releaseBlocking": 0
+  },
+  "OPERATIONS": {
+   "open": 8,
+   "releaseBlocking": 1
+  },
+  "BALANCE PROPOSAL": {
+   "open": 6,
+   "releaseBlocking": 0
+  },
+  "EXTERNAL RELEASE BLOCKER": {
+   "open": 5,
+   "releaseBlocking": 5
+  },
+  "HISTORICAL/RESOLVED": {
+   "entries": 7,
+   "issuesCovered": 15
+  }
+ },
+ "items": [
+  {
+   "id": "F68-010",
+   "category": "PRODUCT BUG",
+   "source": "docs/product/qa/fase68-beta/bugs.json",
+   "description": "El Tactical Coach sumaba créditos/XP/nivel solo en el store local (HUD 9.430 → 12.280, nivel 3 → 6) que el servidor nunca abonaba.",
+   "currentRelevance": "Cerrado en F69 según la decisión de producto (el Coach es entrenamiento).",
+   "severity": "MAJOR",
+   "action": "Eliminada la recompensa local; ceremonia con cifras reales del partido + «Partido de entrenamiento: no suma créditos ni XP».",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "coach-authority.json",
+    "raw/coach-D-repro.json",
+    "raw/coach-D-final.json",
+    "src/lib/match/f69.coachAuthority.test.ts"
+   ]
+  },
+  {
+   "id": "F68-011",
+   "category": "PRODUCT BUG",
+   "source": "bugs.json F68",
+   "description": "La IA del Coach recomendaba SAVE/ECO en la ronda pistola.",
+   "currentRelevance": "Cerrado.",
+   "severity": "POLISH",
+   "action": "Ronda 1: SAVE → plan por defecto con la nota «Ronda pistola»; «su economía está tocada» ya no sale en la ronda 1.",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "coach-pistol.json",
+    "src/coach/f69.pistol.test.ts"
+   ]
+  },
+  {
+   "id": "F68-012",
+   "category": "PRODUCT BUG",
+   "source": "bugs.json F68",
+   "description": "Dos CTA equivalentes en la compra del Coach («Comprar y empezar ronda» y «Jugar la ronda») y, por la misma causa, en la preparación.",
+   "currentRelevance": "Cerrado.",
+   "severity": "POLISH",
+   "action": "Una CTA: la del pie anclado. Los botones internos solo existen si el panel se usa aislado (onConfirm opcional).",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "coach-cta.json",
+    "src/components/coach/f69.coachCta.test.tsx"
+   ]
+  },
+  {
+   "id": "F68-013",
+   "category": "PRODUCT BUG",
+   "source": "bugs.json F68",
+   "description": "/cuenta y Competitivo llamaban «rango» a dos sistemas distintos (rangos por puntos vs escalera Elo).",
+   "currentRelevance": "Cerrado.",
+   "severity": "POLISH",
+   "action": "«Rango de puntos» (Pick'ems + duelos contra el bot) vs «Rating ranked (Elo)» y «Puesto ranked»; sin tiers con nombre para el Elo (contrato F55).",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "competitive-terminology.json",
+    "src/domain/progression/f69.rankTerms.test.ts"
+   ]
+  },
+  {
+   "id": "F69-A",
+   "category": "PRODUCT BUG",
+   "source": "Auditoría de autoridad del HUD (F69 §60)",
+   "description": "Modos locales que movían saldo/cartas en el store con cuenta: reclamo de /colecciones, Forja de /coleccion, salas locales de /mercado, logros de /manager, simulador de Pick'ems del admin.",
+   "currentRelevance": "Mismo defecto que F68-010 en otras pantallas.",
+   "severity": "MINOR",
+   "action": "Con cuenta (o sesión resolviéndose) ningún modo local concede ni cobra (useServerEconomy); lista cerrada de mutadores en test.",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "optimistic-state-audit.json",
+    "src/lib/game/f69.serverEconomy.test.ts"
+   ]
+  },
+  {
+   "id": "F69-B",
+   "category": "PRODUCT BUG",
+   "source": "Auditoría de autoridad del HUD (F69 §61)",
+   "description": "Tienda, tarjeta de sobre, compra rápida, apertura y desguace caían al camino LOCAL durante el instante en que la sesión aún se resolvía (online=false sin usuario todavía).",
+   "currentRelevance": "Ventana de milisegundos, pero inventaba saldo/cartas si se pulsaba.",
+   "severity": "MINOR",
+   "action": "Guardia SESSION_PENDING en las 5 ramas locales.",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "optimistic-state-audit.json",
+    "src/lib/game/f69.serverEconomy.test.ts (último test)"
+   ]
+  },
+  {
+   "id": "F69-C",
+   "category": "PRODUCT BUG",
+   "source": "Barrido de copy de errores (F69 §43)",
+   "description": "Unas 20 pantallas pintaban `{error}` crudo (textos técnicos o en inglés de PostgREST/red).",
+   "currentRelevance": "Cerrado.",
+   "severity": "MINOR",
+   "action": "playerMessage() en todas; el patrón técnico cubre además load failed, jwt, permission denied, violates, duplicate key, row-level security.",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "copy-sweep.json"
+   ]
+  },
+  {
+   "id": "F69-D",
+   "category": "PRODUCT BUG",
+   "source": "Barrido de terminología (F69 §44)",
+   "description": "«Mazo» en textos visibles (22 ficheros), «plantilla» para el equipo de duelo, «cobrar» junto a «reclamar».",
+   "currentRelevance": "Cerrado.",
+   "severity": "POLISH",
+   "action": "Equipo / reclamar / XP de cuenta en todo lo visible; «plantilla» queda solo para el Coach (sus 5 jugadores).",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "copy-sweep.json"
+   ]
+  },
+  {
+   "id": "F69-E",
+   "category": "PRODUCT BUG",
+   "source": "Auditoría de autoridad (F69)",
+   "description": "buyPackOnline: si la compra se cobraba pero la relectura fallaba, la interfaz decía «no se pudo comprar».",
+   "currentRelevance": "Cerrado.",
+   "severity": "MINOR",
+   "action": "La relectura es best-effort; el HUD se pone al día con CloudSync. Reintentar con la misma clave no cobra dos veces (F68-002).",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "src/lib/game/sync.ts"
+   ]
+  },
+  {
+   "id": "F69-F",
+   "category": "PRODUCT BUG",
+   "source": "Sesión larga de la regresión F69 (E-f69-long, 2026-09-27)",
+   "description": "La partida rápida (servicio PvE) retomaba un duelo PVP/PVP_PRIVATE en curso del mismo jugador A (misma tabla duel_matches): cada jugada pedía al bot PvE responder por el rival humano → 80 × 500 «El oponente no pudo responder»; abandonar desde el PvE podía BORRAR el duelo PvP.",
+   "currentRelevance": "Solo con un duelo PvP sin terminar del mismo jugador; bloqueaba la partida rápida (journey principal).",
+   "severity": "MAJOR",
+   "action": "Servicio PvE: un duelo PvP no existe para él (404 uniforme) en getActiveMatch/getMatch/playTurn/abandonMatch y nunca se borra.",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "src/server/services/duels.ts",
+    "src/server/services/f69.pveModeIsolation.service.test.ts (4)",
+    "journeys/raw/E-f69-long.json (antes: 2 partidas colgadas ~640 s, 80 × 500)",
+    "journeys/raw/E-f69final-long.json (después: 2 partidas en ~32 s, 0 errores, 0 respuestas malas)"
+   ]
+  },
+  {
+   "id": "F69-G",
+   "category": "PRODUCT BUG",
+   "source": "Reanudación F69: re-medición de /cuenta sobre la build final",
+   "description": "/cuenta: CLS 0,139 a 1440 (el estado de carga era más corto que la pantalla y el pie saltaba; la tira de cifras se sustituía por un cargador de otra altura) y tres «rango» sueltos (pie de privacidad y tope de la barra) que no decían de qué sistema eran.",
+   "currentRelevance": "Pulido de F68-013 y del CLS de F64.",
+   "severity": "POLISH",
+   "action": "La carga reserva la altura de la pantalla; la tira de cifras se pinta siempre con «—» mientras carga (aria-busy); «Rango de puntos máximo» y «rating ranked».",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "src/app/cuenta/page.tsx",
+    "src/components/f69.polish.test.tsx (+1)",
+    "src/domain/progression/f69.rankTerms.test.ts (ampliado)",
+    "raw/cls-B-_cuenta-1440.json",
+    "raw/probe-B.json"
+   ]
+  },
+  {
+   "id": "F69-H",
+   "category": "PRODUCT BUG",
+   "source": "Reanudación F69: sondeo responsive a 390 (probe-B-390)",
+   "description": "/mundo a 390: las tarjetas «Clasificación» y «Periódico» medían 10 px más que la pantalla y se recortaban (ítem de rejilla con min-width:auto heredando el ancho mínimo de la fila de clasificación).",
+   "currentRelevance": "Contenido recortado en móvil.",
+   "severity": "MINOR",
+   "action": "min-w-0 en Panel; test en f69.polish.test.tsx; re-medido sobre 7e223fed: ya no aparece.",
+   "status": "FIXED",
+   "release_blocking": false,
+   "evidence": [
+    "src/app/mundo/page.tsx",
+    "src/components/f69.polish.test.tsx",
+    "responsive.json"
+   ]
+  },
+  {
+   "id": "SEC-0058",
+   "category": "SECURITY",
+   "source": "F67 propuesta 0058; revisión F69 (0058-review.json)",
+   "description": "Grants históricos: anon lee profiles entero; authenticated lee credits/xp/is_admin/last_seen_at de cualquiera; INSERT/DELETE/TRUNCATE de clientes; vistas auto-actualizables escribibles por anon (Pick'ems/fotos); helpers SECURITY DEFINER ejecutables por anon (uno mueve créditos); vistas heredadas con datos privados.",
+   "currentRelevance": "No alcanzable desde Internet hoy (Kong solo en 127.0.0.1 del VPS), sí el día que la API se publique.",
+   "severity": "CRITICAL si la API es pública; MAJOR hoy",
+   "action": "0058 v3 preparada y probada (dry-run aislado + comprobación viva de solo lectura). Aplicar SOLO con autorización, DESPUÉS de servir la build F69.",
+   "status": "APPLIED + VERIFIED (2026-09-28)",
+   "release_blocking": false,
+   "operationalUpdate": {
+    "at": "2026-09-28",
+    "status": "APPLIED + VERIFIED",
+    "evidence": "docs/product/qa/pre-f70-0058/",
+    "summary": "Aplicada con autorización explícita el 2026-09-28 (~11:58Z) tras backup verificado (pre-0058/20260928T115532Z), huella comprobada en el VPS (sha256 ad5f9e5a…), preflight OK y sin deriva; una transacción, una vez. Postflight todo ok; RLS 27/27; anon 401; otra cuenta solo ve las 6 columnas públicas; 0 cambios en 23 recuentos."
+   }
+  },
+  {
+   "id": "SEC-REG-ENUM",
+   "category": "SECURITY",
+   "source": "F68 known-issues",
+   "description": "El registro con un correo ya usado dice «Ya hay una cuenta con ese correo» (GoTrue con autoconfirmación).",
+   "currentRelevance": "Enumeración de cuentas en el registro; el login no enumera.",
+   "severity": "MINOR",
+   "action": "Se resuelve con SMTP real + confirmación de correo (acción externa).",
+   "status": "OPEN (depende de EXT-SMTP)",
+   "release_blocking": false
+  },
+  {
+   "id": "SEC-INT-2",
+   "category": "SECURITY",
+   "source": "F65/F66 INT-2",
+   "description": "Cuerpos de ruta no estrictos (campos extra ignorados).",
+   "currentRelevance": "Sin efecto sobre resultados (smoke: «API créditos con campos extra» → 4xx).",
+   "severity": "P3",
+   "action": "Documentado; no bloquea.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "SEC-NPM",
+   "category": "SECURITY",
+   "source": "npm audit (F69)",
+   "description": "6 avisos: 5 de herramientas de desarrollo (eslint, @eslint/plugin-kit, brace-expansion, js-yaml, browserslist) y 1 moderado en producción (baseline-browser-mapping, datos de navegadores que usa next en el build).",
+   "currentRelevance": "Ninguno alcanzable desde una petición de usuario; Next 16.3.6 sin avisos.",
+   "severity": "LOW",
+   "action": "Sin `audit fix --force`. Actualizar eslint/browserslist en el próximo mantenimiento de dependencias.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "OPS-MIGRATION-REGISTRY",
+   "category": "OPERATIONS",
+   "source": "memoria vps-drlcards-topologia; F69",
+   "description": "supabase_migrations.schema_migrations solo registra 0001–0025; 0026–0057 están aplicadas a mano sin registro.",
+   "currentRelevance": "/api/ready comprueba la cabeza por estado real (0057), pero una RC reproducible necesita el registro o un manifiesto.",
+   "severity": "MAJOR (reproducibilidad)",
+   "action": "F70: registrar 0026–0057 (o manifiesto firmado) con backup previo; decisión del usuario.",
+   "status": "OPEN",
+   "release_blocking": true
+  },
+  {
+   "id": "OPS-VPS-RESTART-LOOP",
+   "category": "OPERATIONS",
+   "source": "memoria 2026-09-15; medido F69",
+   "description": "supabase_vector_DRLCards y supabase_edge_runtime_DRLCards en bucle de reinicio.",
+   "currentRelevance": "El producto no usa edge functions ni el colector de logs; ruido de CPU/logs.",
+   "severity": "MINOR",
+   "action": "Pararlos o arreglarlos en el mantenimiento del VPS (fuera de F69: no se tocó el VPS).",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "OPS-SINGLE-HOST",
+   "category": "OPERATIONS",
+   "source": "F67/F68",
+   "description": "Una sola instancia de la app en un PC Windows sin gestor de procesos, dependiente del túnel SSH (~60 RPS).",
+   "currentRelevance": "Válido para beta cerrada; no para público.",
+   "severity": "MAJOR para release pública",
+   "action": "Hosting de la app (VPS o PaaS) con gestor de procesos: parte del despliegue de F70+.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "OPS-FLAKY-GATES",
+   "category": "OPERATIONS",
+   "source": "memoria verificaciones-entorno / temporada",
+   "description": "economy:verify inestable (2/5), runtime-review:verify 37/40 por entorno, pack:verify con flake conocido.",
+   "currentRelevance": "Verificadores fuera de `npm test`.",
+   "severity": "MINOR",
+   "action": "Documentado.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "OPS-LINT-WARN",
+   "category": "OPERATIONS",
+   "source": "npm run lint",
+   "description": "27 avisos de ESLint (directivas eslint-disable sin uso y similares), 0 errores.",
+   "currentRelevance": "Higiene.",
+   "severity": "POLISH",
+   "action": "Limpieza en mantenimiento.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "OPS-TELEMETRY-REAL",
+   "category": "OPERATIONS",
+   "source": "F65 §61",
+   "description": "Comparación real-vs-simulado de balance BLOQUEADA (consulta lista, no ejecutada).",
+   "currentRelevance": "Útil para el próximo parche de balance.",
+   "severity": "MINOR",
+   "action": "Ejecutar la consulta agregada de solo lectura en la próxima fase de balance.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "OPS-ESPORTS-AGENTS",
+   "category": "OPERATIONS",
+   "source": "F59 §8",
+   "description": "Datos esports (src/data/esports/agents.ts y sync VLR) con 27 agentes: Miks/Veto salen «—» en el Match Center.",
+   "currentRelevance": "Pick'ems/worker intocables en F69.",
+   "severity": "POLISH",
+   "action": "Cambio de datos del importador en una fase de esports.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "OPS-REQ-BUDGET",
+   "category": "OPERATIONS",
+   "source": "J-f69-perf (F69)",
+   "description": "Media de peticiones /api por pantalla 10,4 (F68 9,4; umbral del arnés 10,5): el +1 es GET /api/game/me, que sustituye la lectura REST directa del perfil.",
+   "currentRelevance": "Sin regresión del total de peticiones del navegador; margen estrecho al umbral.",
+   "severity": "LOW",
+   "action": "F70+: servir el perfil propio junto a /api/game/state o compartir la lectura para volver a ~9,4.",
+   "status": "OPEN",
+   "release_blocking": false
+  },
+  {
+   "id": "BAL-P1",
+   "category": "BALANCE PROPOSAL",
+   "source": "F65",
+   "description": "P-1 desempate (OVR decide el 23 % de los desempates).",
+   "currentRelevance": "Sin aplicar a propósito.",
+   "severity": "n/a",
+   "action": "Futura temporada/parche de balance.",
+   "status": "PROPOSED",
+   "release_blocking": false
+  },
+  {
+   "id": "BAL-P2",
+   "category": "BALANCE PROPOSAL",
+   "source": "F65",
+   "description": "P-2 desventaja del primer atacante (−8,6 pp).",
+   "currentRelevance": "Sin aplicar.",
+   "severity": "n/a",
+   "action": "Futuro parche.",
+   "status": "PROPOSED",
+   "release_blocking": false
+  },
+  {
+   "id": "BAL-P3",
+   "category": "BALANCE PROPOSAL",
+   "source": "F65",
+   "description": "P-3 autocompletar / modelo de poder PvE.",
+   "currentRelevance": "Sin aplicar; F68 lo confirmó (válido, no óptimo).",
+   "severity": "n/a",
+   "action": "Futuro parche.",
+   "status": "PROPOSED",
+   "release_blocking": false
+  },
+  {
+   "id": "BAL-P4",
+   "category": "BALANCE PROPOSAL",
+   "source": "F65",
+   "description": "P-4 contrajuego.",
+   "currentRelevance": "Sin aplicar.",
+   "severity": "n/a",
+   "action": "Futuro parche.",
+   "status": "PROPOSED",
+   "release_blocking": false
+  },
+  {
+   "id": "ECO-LEGEND-ACH",
+   "category": "BALANCE PROPOSAL",
+   "source": "F68 known-issues economyObservations",
+   "description": "Un sobre de bienvenida puede traer una leyenda y el logro «Consigue una leyenda» paga 10.000 (6.160 → 19.790 en la primera sesión).",
+   "currentRelevance": "Diseño F57.6 congelado, no una fuente nueva.",
+   "severity": "n/a",
+   "action": "Próxima revisión de economía (F57.6 intacta en F69).",
+   "status": "OBSERVATION",
+   "release_blocking": false
+  },
+  {
+   "id": "PROD-RANK-TIERS",
+   "category": "BALANCE PROPOSAL",
+   "source": "F55",
+   "description": "Tiers con nombre sobre el rating Elo: decisión de producto pendiente (contrato F28/F55: sin tiers).",
+   "currentRelevance": "F69 NO los inventa; aclara la terminología (F68-013).",
+   "severity": "n/a",
+   "action": "Decisión de producto futura.",
+   "status": "PROPOSED",
+   "release_blocking": false
+  },
+  {
+   "id": "EXT-OFFSITE-BACKUP",
+   "category": "EXTERNAL RELEASE BLOCKER",
+   "source": "F67 production:check",
+   "description": "Backups solo en el mismo disco del VPS (RPO 24 h; pérdida del VPS = pérdida total).",
+   "currentRelevance": "Único FAIL esperado de production:check.",
+   "severity": "BLOCKER (release pública)",
+   "action": "Definir destino externo (bucket/otro host) y credenciales; el script ya admite DEST configurable.",
+   "status": "BLOCKED (externo)",
+   "release_blocking": true
+  },
+  {
+   "id": "EXT-DOMAIN-HTTPS",
+   "category": "EXTERNAL RELEASE BLOCKER",
+   "source": "F67",
+   "description": "Sin dominio ni TLS (HSTS/COOP ya se emiten).",
+   "currentRelevance": "Sin cambio.",
+   "severity": "BLOCKER (release pública)",
+   "action": "Dominio + proxy TLS; no se tocó DNS.",
+   "status": "BLOCKED (externo)",
+   "release_blocking": true
+  },
+  {
+   "id": "EXT-SMTP",
+   "category": "EXTERNAL RELEASE BLOCKER",
+   "source": "F67 CFG-7; F69 auth-email",
+   "description": "GoTrue: SMTP=Inbucket local, SITE_URL/allow-list=127.0.0.1:3000, autoconfirmación ON.",
+   "currentRelevance": "Seguro en beta cerrada (Inbucket, Kong y Postgres solo en 127.0.0.1 del VPS); production:check ahora lo marca (WARN en beta, FAIL con indexación pública).",
+   "severity": "BLOCKER (release pública)",
+   "action": "Proveedor SMTP real, SITE_URL/allow-list al dominio, confirmación de correo ON.",
+   "status": "BLOCKED (externo)",
+   "release_blocking": true
+  },
+  {
+   "id": "EXT-SOURCE-CONTROL",
+   "category": "EXTERNAL RELEASE BLOCKER",
+   "source": "F69 release-file-inventory",
+   "description": "HEAD 48dac2a + 302 modificados + 9.454 sin seguimiento. 2,39 GB de PNG de evidencia QA y 0,74 GB de arte original (cartas/sobres/mapas) no deberían entrar en git tal cual.",
+   "currentRelevance": "Una RC necesita un estado de fuente reproducible.",
+   "severity": "BLOCKER (RC)",
+   "action": "F70: commit/etiqueta con el inventario de F69 como lista; decidir LFS/archivo externo para PNG de QA y arte original.",
+   "status": "BLOCKED (decisión del usuario)",
+   "release_blocking": true
+  },
+  {
+   "id": "EXT-0058-APPLY",
+   "category": "EXTERNAL RELEASE BLOCKER",
+   "source": "F69 0058-review",
+   "description": "Aplicar 0058 v3 en la BD viva.",
+   "currentRelevance": "Preparada, probada en réplica, pre/postflight y pruebas RLS vivas en modo lectura/ROLLBACK.",
+   "severity": "BLOCKER (RC)",
+   "action": "Autorización explícita → build F69 servida → backup verificado → aplicar → postflight → RLS → smoke.",
+   "status": "APPLIED + VERIFIED (2026-09-28)",
+   "release_blocking": false,
+   "operationalUpdate": {
+    "at": "2026-09-28",
+    "status": "APPLIED + VERIFIED",
+    "evidence": "docs/product/qa/pre-f70-0058/",
+    "summary": "Aplicada con autorización explícita el 2026-09-28 (~11:58Z) tras backup verificado (pre-0058/20260928T115532Z), huella comprobada en el VPS (sha256 ad5f9e5a…), preflight OK y sin deriva; una transacción, una vez. Postflight todo ok; RLS 27/27; anon 401; otra cuenta solo ve las 6 columnas públicas; 0 cambios en 23 recuentos."
+   }
+  },
+  {
+   "id": "EXT-ART-LICENSE",
+   "category": "EXTERNAL RELEASE BLOCKER",
+   "source": "F57 (arte de sobres con marca de Valorant), F59 (arte de agentes aportado por el usuario)",
+   "description": "Arte de terceros (Riot) en sobres/agentes integrado por decisión explícita del usuario.",
+   "currentRelevance": "Aceptable en beta cerrada; una release pública necesita licencia o sustitución.",
+   "severity": "BLOCKER (release pública, legal)",
+   "action": "Decisión/licencia del propietario.",
+   "status": "BLOCKED (externo)",
+   "release_blocking": true
+  },
+  {
+   "id": "HIST-F68-001-009-014",
+   "category": "HISTORICAL/RESOLVED",
+   "source": "bugs.json F68",
+   "description": "F68-001…009 y F68-014 (guía atascada, doble compra, doble equipo, GoTrue en inglés, 404 de retratos, narrativa, multipestaña, HUD tras reclamar, enlace caducado, partida inválida).",
+   "currentRelevance": "Re-verificados en F69 (f68-bugs-recheck.json).",
+   "severity": "varias",
+   "action": "Ninguna.",
+   "status": "RESOLVED",
+   "release_blocking": false
+  },
+  {
+   "id": "HIST-GARANTIZADA",
+   "category": "HISTORICAL/RESOLVED",
+   "source": "F57.2 §5",
+   "description": "«Garantizada» en rarezas por debajo de la garantía.",
+   "currentRelevance": "Ya corregido (src/domain/packs/odds.ts).",
+   "severity": "POLISH",
+   "action": "Ninguna.",
+   "status": "RESOLVED",
+   "release_blocking": false
+  },
+  {
+   "id": "HIST-INT-1",
+   "category": "HISTORICAL/RESOLVED",
+   "source": "F65 INT-1",
+   "description": "PvE `play` sin control de concurrencia.",
+   "currentRelevance": "Resuelto en F67 (expectedVersion/stateVersion).",
+   "severity": "P2",
+   "action": "Ninguna.",
+   "status": "RESOLVED",
+   "release_blocking": false
+  },
+  {
+   "id": "HIST-PORTADA-404",
+   "category": "HISTORICAL/RESOLVED",
+   "source": "F62/F63",
+   "description": "3 × 404 del vídeo de fondo en la portada.",
+   "currentRelevance": "Resuelto en F63.",
+   "severity": "MINOR",
+   "action": "Ninguna.",
+   "status": "RESOLVED",
+   "release_blocking": false
+  },
+  {
+   "id": "HIST-SHARP",
+   "category": "HISTORICAL/RESOLVED",
+   "source": "F60 §7",
+   "description": "sharp como dependencia transitiva no declarada.",
+   "currentRelevance": "Resuelto en F67 (dependencia directa ^0.35.4).",
+   "severity": "MINOR",
+   "action": "Ninguna.",
+   "status": "RESOLVED",
+   "release_blocking": false
+  },
+  {
+   "id": "HIST-STORAGE-BACKUP",
+   "category": "HISTORICAL/RESOLVED",
+   "source": "F60 → F67 §35",
+   "description": "Storage fuera de la copia diaria.",
+   "currentRelevance": "Ya incluido en nexus-backup.sh.",
+   "severity": "MINOR",
+   "action": "Ninguna.",
+   "status": "RESOLVED",
+   "release_blocking": false
+  },
+  {
+   "id": "HIST-NEXT-RCE",
+   "category": "HISTORICAL/RESOLVED",
+   "source": "F67",
+   "description": "Next 16.2.9 con RCE en Windows.",
+   "currentRelevance": "16.3.6 instalado; npm audit de producción sin avisos de next.",
+   "severity": "CRITICAL",
+   "action": "Ninguna.",
+   "status": "RESOLVED",
+   "release_blocking": false
+  }
+ ],
+ "notInF69Scope": [
+  "Pick'ems worker/cron/importer (intocables)",
+  "economía F57.6 (congelada)",
+  "balance (propuestas F65)",
+  "catálogo 331 / agentes 29"
+ ],
+ "resumedAt": "2026-09-28 (tercer pase: +F69-F, +F69-G, +F69-H, +OPS-REQ-BUDGET)",
+ "operationalUpdate": "PRE-F70 · 2026-09-28: 0058 aplicada y verificada"
+}

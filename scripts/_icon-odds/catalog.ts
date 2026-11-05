@@ -1,0 +1,10 @@
+import { CARDS } from "@/data/catalog";
+import { packCardClass } from "@/domain/packs/packClass";
+import { marketValue } from "@/domain/economy/pricing";
+const icons = CARDS.filter((c) => packCardClass(c) === "icon");
+console.log("icon cards:", icons.length);
+const rows = icons.map((c) => ({ id: c.id, v: c.variantId, ovr: c.ovr, rar: (c as any).rarity, mv: marketValue(c) }));
+rows.sort((a, b) => a.mv - b.mv || a.ovr - b.ovr || a.id.localeCompare(b.id));
+for (const r of rows) console.log(JSON.stringify(r));
+const byOvr: Record<string, number> = {}; for (const r of rows) byOvr[`${r.v}:${r.ovr}:${r.mv}`] = (byOvr[`${r.v}:${r.ovr}:${r.mv}`] ?? 0) + 1;
+console.log(byOvr);

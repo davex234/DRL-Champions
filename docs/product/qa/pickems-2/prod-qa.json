@@ -1,0 +1,188 @@
+{
+ "base": "https://valorosters.com",
+ "at": "2026-10-06T09:50:12.976Z",
+ "total": 36,
+ "passed": 36,
+ "rows": [
+  {
+   "id": "cuentas QA (@example.invalid, no reales)",
+   "ok": true,
+   "detail": "fc7f15fb · 114fc54f"
+  },
+  {
+   "id": "anónimo · lista 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "anónimo · cache pública breve",
+   "ok": true,
+   "detail": "public, max-age=0, s-maxage=15, stale-while-revalidate=30"
+  },
+  {
+   "id": "anónimo · ningún BORRADOR en la lista",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "anónimo · ficha de un BORRADOR → 404",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "anónimo · slug inválido → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · POST → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "sesión · lista 200 privada (no-store)",
+   "ok": true,
+   "detail": "200 private, no-store"
+  },
+  {
+   "id": "sesión · sin UUID ni correos en la respuesta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "sesión · ficha de un BORRADOR → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "campo extra (userId de otro) → 400",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "campo extra (puntos) → 400",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "sin revisión → 400",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "predecir en un BORRADOR → 404 (no existe para jugadores)",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "reclamar en un BORRADOR → 404",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "reclamo con campos de pick → 400",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "partido con inyección → 400",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "acción desconocida → 400",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "admin GET con cuenta normal → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin POST (activar recompensas) con cuenta normal → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin POST (liquidar) anónimo → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "REST pickem_brackets con sesión → denegado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "REST pickem_bracket_picks con sesión → denegado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "REST pickem_bracket_entries con sesión → denegado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "REST pickem_bracket_claims con sesión → denegado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "REST pickem_bracket_matches con sesión → denegado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "REST insert de pick para OTRO usuario → denegado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "RPC app_pickem_save_pick con sesión → denegada",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "RPC app_pickem_claim con sesión → denegada",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "RPC app_pickem_admin_settle con sesión → denegada",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "RPC app_pickem_admin_set_rewards con sesión → denegada",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "RPC pickem_match_locked con sesión → denegada",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "página /pickems → 200",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "página /pickems/cuadro/champions-2026-playoffs → 200",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "página /admin/pickems → 200",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "arnés /design-system/f87 oculto en producción (404)",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

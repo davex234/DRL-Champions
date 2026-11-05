@@ -1,0 +1,15 @@
+{
+  "El pase se lee del servidor.": "Der Pass wird vom Server gelesen.",
+  "La recompensa del nivel {level} ya era tuya.": "Die Belohnung für Level {level} gehörte dir bereits.",
+  "Leyendo el pase…": "Pass wird geladen…",
+  "No se pudo leer el pase": "Pass konnte nicht gelesen werden",
+  "No se pudo reclamar": "Abholen fehlgeschlagen",
+  "No se pudo reclamar. Inténtalo de nuevo.": "Abholen fehlgeschlagen. Versuch es erneut.",
+  "Pase no disponible sin conexión": "Pass offline nicht verfügbar",
+  "Próxima temporada:": "Nächste Saison:",
+  "Recompensa del nivel {level} reclamada": "Belohnung für Level {level} abgeholt",
+  "Recompensa del nivel {level} reclamada.": "Belohnung für Level {level} abgeholt.",
+  "Volver a Temporada": "Zurück zur Saison",
+  "tu pase de batalla": "dein Battle Pass",
+  "{titulo} {nombre} empieza en {tiempo}.": "{titulo} {nombre} beginnt in {tiempo}."
+}

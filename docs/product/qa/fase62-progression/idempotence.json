@@ -1,0 +1,76 @@
+{
+  "server": [
+    "claimMission ref mission:<temporada>:<id>:<tanda>:<baseline>",
+    "claimPassLevel ref pass:<temporada>:<carril>:<nivel>",
+    "claimAchievement ref achievement:<id> + PK user_achievements",
+    "duelo ref duel:<matchId> (una partida terminada rechaza jugadas con 409 antes de pagar)"
+  ],
+  "tests": [
+    "F62 IDEMPOT 01 (mismo reclamo ×10 → 1 pago, XP de temporada una vez)",
+    "F62 IDEMPOT 02 (partida pagada ×10 → 1 concesión)",
+    "F62 IDEMPOT 03 (5 lecturas → 0 escrituras)",
+    "F41 ráfaga ×5 misma misión → 1 pago"
+  ],
+  "realQa": {
+    "run1DoubleClickClaimAll": {
+      "offered": 4,
+      "serverPending": 4,
+      "keys": [
+        "mission:d-duelo-1",
+        "mission:w-victorias",
+        "mission:w-cartas-5",
+        "mission:s-mazo"
+      ],
+      "creditsDelta": 4550,
+      "expectedCredits": 4550,
+      "passXpDelta": 1100,
+      "expectedSeasonXp": 2900,
+      "season": [
+        0,
+        1
+      ],
+      "pendingAfter": [
+        "mission:w-victorias",
+        "mission:s-mazo",
+        "level:1"
+      ]
+    },
+    "run1SecondClaimAll": {
+      "offered": 3,
+      "keys": [
+        "mission:w-victorias",
+        "mission:s-mazo",
+        "level:1"
+      ],
+      "expectedCredits": 3060,
+      "creditsDelta": 260,
+      "pendingAfter": [
+        "level:2"
+      ],
+      "season": 2
+    },
+    "run2": {
+      "offered": 1,
+      "serverPending": 1,
+      "keys": [
+        "level:2"
+      ],
+      "creditsDelta": 270,
+      "expectedCredits": 270,
+      "passXpDelta": 0,
+      "expectedSeasonXp": 0,
+      "season": [
+        2,
+        2
+      ],
+      "pendingAfter": []
+    },
+    "refreshCounts": [
+      0,
+      0,
+      0
+    ],
+    "dbDuplicateRefs": 0,
+    "db": "live/db-verify.txt"
+  }
+}

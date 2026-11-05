@@ -1,0 +1,14 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "found": {
+    "migrationHead": "0059_crafting_missions (aplicada 2026-09-30 ~14:59Z)",
+    "0059sha256": "5b1205bb96f0009d603bb62f7fa5ed19995c0a89acf8e123202fcb0365c2124d",
+    "drift": "ninguna (schema.json)",
+    "missionsPublished": 0,
+    "projectsPublished": 0,
+    "qaResidue": "8 misiones y 2 proyectos QA en RETIRED (pasadas canceladas); 3 filas de progreso QA; 0 reclamos",
+    "craftOps": "7 (todas de la QA de producción de F73)",
+    "f73Files": "todos sin trackear (trabajo F73 previo); 0059 byte a byte igual al dry-run",
+    "salvageRace": "REAL (ver migration-audit.json)"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-01T11:36:38.846Z",
+  "rows": [
+    {
+      "persona": "C",
+      "user": "d4133641",
+      "base": "http://127.0.0.1:3006",
+      "dbBefore": {
+        "id": "48b9adff",
+        "match": "3aab86d7",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-28T12:25:12.331507+00:00"
+      },
+      "liveBefore": 0,
+      "api": {
+        "status": 200,
+        "code": "IDLE",
+        "matchId": null
+      },
+      "matchLifecycle": null,
+      "dbAfter": {
+        "id": "48b9adff",
+        "match": "3aab86d7",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": "COMPLETED",
+        "updated": "2026-09-28T12:25:12.331507+00:00"
+      },
+      "liveAfter": 0,
+      "bug": false
+    },
+    {
+      "persona": "G",
+      "user": "00eb4ea1",
+      "base": "http://127.0.0.1:3006",
+      "dbBefore": {
+        "id": "7a37345a",
+        "match": null,
+        "state": "CANCELLED",
+        "reason": "USER",
+        "mclosed": null,
+        "mstatus": null,
+        "updated": "2026-10-01T11:22:07.998315+00:00"
+      },
+      "liveBefore": 0,
+      "api": {
+        "status": 200,
+        "code": "OK",
+        "entryState": "CANCELLED",
+        "matchId": null
+      },
+      "matchLifecycle": null,
+      "dbAfter": {
+        "id": "7a37345a",
+        "match": null,
+        "state": "CANCELLED",
+        "reason": "USER",
+        "mclosed": null,
+        "mstatus": null,
+        "updated": "2026-10-01T11:22:07.998315+00:00"
+      },
+      "liveAfter": 0,
+      "bug": false
+    }
+  ]
+}

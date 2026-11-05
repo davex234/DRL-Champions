@@ -1,0 +1,1239 @@
+{
+  "generatedAt": "2026-10-07T10:01:29.933Z",
+  "source": "after/shots.json",
+  "screens": [
+    {
+      "id": "home",
+      "path": "/",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "play",
+      "path": "/jugar",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "duels",
+      "path": "/duelos",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "ranked",
+      "path": "/duelos/competitivo",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "campaign",
+      "path": "/jugar/road-to-champions",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "draft",
+      "path": "/jugar/draft-gauntlet",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "shop",
+      "path": "/tienda",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "packs",
+      "path": "/packs",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "inventory",
+      "path": "/inventario",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "collection",
+      "path": "/coleccion",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "card-detail",
+      "path": "/coleccion/carta/aspas__americas-winner",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "decks",
+      "path": "/duelos/mazos",
+      "size": "desktop",
+      "playInView": 3,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "season",
+      "path": "/temporada",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "pass",
+      "path": "/logros",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "progression",
+      "path": "/progresion",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "events",
+      "path": "/torneos",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "pickems",
+      "path": "/pickems",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "profile",
+      "path": "/jugador/me",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "account",
+      "path": "/cuenta",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "social",
+      "path": "/social",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "rewards",
+      "path": "/recompensas",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "not-found",
+      "path": "/esta-ruta-no-existe",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "home",
+      "path": "/",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "play",
+      "path": "/jugar",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "duels",
+      "path": "/duelos",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "ranked",
+      "path": "/duelos/competitivo",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "campaign",
+      "path": "/jugar/road-to-champions",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "draft",
+      "path": "/jugar/draft-gauntlet",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "shop",
+      "path": "/tienda",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "packs",
+      "path": "/packs",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "inventory",
+      "path": "/inventario",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "collection",
+      "path": "/coleccion",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "card-detail",
+      "path": "/coleccion/carta/aspas__americas-winner",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "decks",
+      "path": "/duelos/mazos",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "season",
+      "path": "/temporada",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "pass",
+      "path": "/logros",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "progression",
+      "path": "/progresion",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "events",
+      "path": "/torneos",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "pickems",
+      "path": "/pickems",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "profile",
+      "path": "/jugador/me",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "account",
+      "path": "/cuenta",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "social",
+      "path": "/social",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "rewards",
+      "path": "/recompensas",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "not-found",
+      "path": "/esta-ruta-no-existe",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "home",
+      "path": "/",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "play",
+      "path": "/jugar",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "duels",
+      "path": "/duelos",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "ranked",
+      "path": "/duelos/competitivo",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "campaign",
+      "path": "/jugar/road-to-champions",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "draft",
+      "path": "/jugar/draft-gauntlet",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "shop",
+      "path": "/tienda",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "packs",
+      "path": "/packs",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "inventory",
+      "path": "/inventario",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "collection",
+      "path": "/coleccion",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "card-detail",
+      "path": "/coleccion/carta/aspas__americas-winner",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "decks",
+      "path": "/duelos/mazos",
+      "size": "desktop",
+      "playInView": 3,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "season",
+      "path": "/temporada",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "pass",
+      "path": "/logros",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "progression",
+      "path": "/progresion",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "events",
+      "path": "/torneos",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "pickems",
+      "path": "/pickems",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "profile",
+      "path": "/jugador/me",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "account",
+      "path": "/cuenta",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "social",
+      "path": "/social",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "rewards",
+      "path": "/recompensas",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "not-found",
+      "path": "/esta-ruta-no-existe",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "home",
+      "path": "/",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "play",
+      "path": "/jugar",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "duels",
+      "path": "/duelos",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "ranked",
+      "path": "/duelos/competitivo",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "campaign",
+      "path": "/jugar/road-to-champions",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "draft",
+      "path": "/jugar/draft-gauntlet",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "shop",
+      "path": "/tienda",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "packs",
+      "path": "/packs",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "inventory",
+      "path": "/inventario",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "collection",
+      "path": "/coleccion",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "card-detail",
+      "path": "/coleccion/carta/aspas__americas-winner",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "decks",
+      "path": "/duelos/mazos",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "season",
+      "path": "/temporada",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "pass",
+      "path": "/logros",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "progression",
+      "path": "/progresion",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "events",
+      "path": "/torneos",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "pickems",
+      "path": "/pickems",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "profile",
+      "path": "/jugador/me",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "account",
+      "path": "/cuenta",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "social",
+      "path": "/social",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "rewards",
+      "path": "/recompensas",
+      "size": "mobile",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "not-found",
+      "path": "/esta-ruta-no-existe",
+      "size": "mobile",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "home",
+      "path": "/",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "play",
+      "path": "/jugar",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "duels",
+      "path": "/duelos",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "ranked",
+      "path": "/duelos/competitivo",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "campaign",
+      "path": "/jugar/road-to-champions",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "draft",
+      "path": "/jugar/draft-gauntlet",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "shop",
+      "path": "/tienda",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "packs",
+      "path": "/packs",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "inventory",
+      "path": "/inventario",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "collection",
+      "path": "/coleccion",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "card-detail",
+      "path": "/coleccion/carta/aspas__americas-winner",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "decks",
+      "path": "/duelos/mazos",
+      "size": "desktop",
+      "playInView": 3,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "season",
+      "path": "/temporada",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "pass",
+      "path": "/logros",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "progression",
+      "path": "/progresion",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "events",
+      "path": "/torneos",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "pickems",
+      "path": "/pickems",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "profile",
+      "path": "/jugador/me",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "account",
+      "path": "/cuenta",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "social",
+      "path": "/social",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "rewards",
+      "path": "/recompensas",
+      "size": "desktop",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "not-found",
+      "path": "/esta-ruta-no-existe",
+      "size": "desktop",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "home",
+      "path": "/",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "play",
+      "path": "/jugar",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "duels",
+      "path": "/duelos",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "ranked",
+      "path": "/duelos/competitivo",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "campaign",
+      "path": "/jugar/road-to-champions",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "draft",
+      "path": "/jugar/draft-gauntlet",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "shop",
+      "path": "/tienda",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "packs",
+      "path": "/packs",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "inventory",
+      "path": "/inventario",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "collection",
+      "path": "/coleccion",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "card-detail",
+      "path": "/coleccion/carta/aspas__americas-winner",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "decks",
+      "path": "/duelos/mazos",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "season",
+      "path": "/temporada",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "pass",
+      "path": "/logros",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "progression",
+      "path": "/progresion",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "events",
+      "path": "/torneos",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "pickems",
+      "path": "/pickems",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "profile",
+      "path": "/jugador/me",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "account",
+      "path": "/cuenta",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "social",
+      "path": "/social",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "rewards",
+      "path": "/recompensas",
+      "size": "tablet",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "not-found",
+      "path": "/esta-ruta-no-existe",
+      "size": "tablet",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "home",
+      "path": "/",
+      "size": "wide",
+      "playInView": 2,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "play",
+      "path": "/jugar",
+      "size": "wide",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "duels",
+      "path": "/duelos",
+      "size": "wide",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "ranked",
+      "path": "/duelos/competitivo",
+      "size": "wide",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "campaign",
+      "path": "/jugar/road-to-champions",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "draft",
+      "path": "/jugar/draft-gauntlet",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "shop",
+      "path": "/tienda",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "packs",
+      "path": "/packs",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "inventory",
+      "path": "/inventario",
+      "size": "wide",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "collection",
+      "path": "/coleccion",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "card-detail",
+      "path": "/coleccion/carta/aspas__americas-winner",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "decks",
+      "path": "/duelos/mazos",
+      "size": "wide",
+      "playInView": 3,
+      "playCount": 3,
+      "ok": true
+    },
+    {
+      "id": "season",
+      "path": "/temporada",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "pass",
+      "path": "/logros",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "progression",
+      "path": "/progresion",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "events",
+      "path": "/torneos",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "pickems",
+      "path": "/pickems",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "profile",
+      "path": "/jugador/me",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "account",
+      "path": "/cuenta",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "social",
+      "path": "/social",
+      "size": "wide",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    },
+    {
+      "id": "rewards",
+      "path": "/recompensas",
+      "size": "wide",
+      "playInView": 1,
+      "playCount": 1,
+      "ok": true
+    },
+    {
+      "id": "not-found",
+      "path": "/esta-ruta-no-existe",
+      "size": "wide",
+      "playInView": 2,
+      "playCount": 2,
+      "ok": true
+    }
+  ],
+  "failing": 0
+}

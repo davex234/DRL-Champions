@@ -1,0 +1,270 @@
+{
+  "at": "2026-09-30T20:54:55.443Z",
+  "results": [
+    {
+      "id": "[1440] PRODUCCIÓN sin 0059: misiones y crafteo dicen «todavía no disponible», sin botones falsos",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "id": "[1440] MISIONES: estados del servidor (2/3 activa, completada con recompensa, dependiente bloqueada)",
+      "ok": true,
+      "detail": "{\"qa-open2\":\"COMPLETED\",\"qa-win3\":\"ACTIVE\",\"qa-craft1\":\"ACTIVE\",\"qa-play5\":\"LOCKED\"}"
+    },
+    {
+      "id": "[1440] MISIONES: reclamar → CLAIMED y UNA recompensa en el ledger",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] MISIONES: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] CRAFTING HOME: dos entradas con arte real (sobres y cartas)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SOBRES: teclado abre la confirmación compacta (ENTREGAS 4 × Bronce · RECIBES 1 × Plata)",
+      "ok": true,
+      "detail": "CRAFTING · SOBRES CONFIRMAR CRAFTEO ENTREGAS 4 × Sobre Bronce RECIBES 1 × Sobre Plata CANCELAR CONFIRMAR CRAFTEO"
+    },
+    {
+      "id": "[1440] SOBRES: Escape cancela sin craftear",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SOBRES: CRAFT COMPLETADO +1 Plata; doble clic = UNA operación; inventario del servidor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SOBRES: F5 → 5 / 4 (no se repite el crafteo)",
+      "ok": true,
+      "detail": "SOBRE BRONCE 5 / 4 TIENES 5 NECESITAS 4 ↓ CRAFTEAR ↓ RECIBES 1 × SOBRE PLATA"
+    },
+    {
+      "id": "[1440] SOBRES: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] INTERCAMBIO: selección táctil de duplicados hasta 7 / 7 (arte real, copias visibles)",
+      "ok": true,
+      "detail": "7 / 7"
+    },
+    {
+      "id": "[1440] INTERCAMBIO: 1 carta Plata aleatoria (decidida en servidor) revelada con su arte",
+      "ok": true,
+      "detail": "wayne__base"
+    },
+    {
+      "id": "[1440] INTERCAMBIO: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] PROYECTO: 2 / 3 (abrir y el intercambio que acabas de hacer cuentan; ganar con 3 del mismo país no)",
+      "ok": true,
+      "detail": "2 / 3"
+    },
+    {
+      "id": "[1440] PROYECTO: RECLAMAR CARTA entrega la carta configurada UNA vez (doble clic)",
+      "ok": true,
+      "detail": "copias=1"
+    },
+    {
+      "id": "[1440] PROYECTO: F5 conserva «Reclamada» y no hay botón de reclamar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] PROYECTO: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] MISIONES: estados del servidor (2/3 activa, completada con recompensa, dependiente bloqueada)",
+      "ok": true,
+      "detail": "{\"qa-open2\":\"COMPLETED\",\"qa-win3\":\"ACTIVE\",\"qa-craft1\":\"ACTIVE\",\"qa-play5\":\"LOCKED\"}"
+    },
+    {
+      "id": "[1024] MISIONES: reclamar → CLAIMED y UNA recompensa en el ledger",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] MISIONES: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] CRAFTING HOME: dos entradas con arte real (sobres y cartas)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SOBRES: teclado abre la confirmación compacta (ENTREGAS 4 × Bronce · RECIBES 1 × Plata)",
+      "ok": true,
+      "detail": "CRAFTING · SOBRES CONFIRMAR CRAFTEO ENTREGAS 4 × Sobre Bronce RECIBES 1 × Sobre Plata CANCELAR CONFIRMAR CRAFTEO"
+    },
+    {
+      "id": "[1024] SOBRES: Escape cancela sin craftear",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SOBRES: CRAFT COMPLETADO +1 Plata; doble clic = UNA operación; inventario del servidor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SOBRES: F5 → 5 / 4 (no se repite el crafteo)",
+      "ok": true,
+      "detail": "SOBRE BRONCE 5 / 4 TIENES 5 NECESITAS 4 ↓ CRAFTEAR ↓ RECIBES 1 × SOBRE PLATA"
+    },
+    {
+      "id": "[1024] SOBRES: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] INTERCAMBIO: selección táctil de duplicados hasta 7 / 7 (arte real, copias visibles)",
+      "ok": true,
+      "detail": "7 / 7"
+    },
+    {
+      "id": "[1024] INTERCAMBIO: 1 carta Plata aleatoria (decidida en servidor) revelada con su arte",
+      "ok": true,
+      "detail": "kingg__base"
+    },
+    {
+      "id": "[1024] INTERCAMBIO: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] PROYECTO: 2 / 3 (abrir y el intercambio que acabas de hacer cuentan; ganar con 3 del mismo país no)",
+      "ok": true,
+      "detail": "2 / 3"
+    },
+    {
+      "id": "[1024] PROYECTO: RECLAMAR CARTA entrega la carta configurada UNA vez (doble clic)",
+      "ok": true,
+      "detail": "copias=1"
+    },
+    {
+      "id": "[1024] PROYECTO: F5 conserva «Reclamada» y no hay botón de reclamar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] PROYECTO: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] MISIONES: estados del servidor (2/3 activa, completada con recompensa, dependiente bloqueada)",
+      "ok": true,
+      "detail": "{\"qa-open2\":\"COMPLETED\",\"qa-win3\":\"ACTIVE\",\"qa-craft1\":\"ACTIVE\",\"qa-play5\":\"LOCKED\"}"
+    },
+    {
+      "id": "[390] MISIONES: reclamar → CLAIMED y UNA recompensa en el ledger",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] MISIONES: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] CRAFTING HOME: dos entradas con arte real (sobres y cartas)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SOBRES: teclado abre la confirmación compacta (ENTREGAS 4 × Bronce · RECIBES 1 × Plata)",
+      "ok": true,
+      "detail": "CRAFTING · SOBRES CONFIRMAR CRAFTEO ENTREGAS 4 × Sobre Bronce RECIBES 1 × Sobre Plata CANCELAR CONFIRMAR CRAFTEO"
+    },
+    {
+      "id": "[390] SOBRES: Escape cancela sin craftear",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SOBRES: CRAFT COMPLETADO +1 Plata; doble clic = UNA operación; inventario del servidor",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SOBRES: F5 → 5 / 4 (no se repite el crafteo)",
+      "ok": true,
+      "detail": "SOBRE BRONCE 5 / 4 TIENES 5 NECESITAS 4 ↓ CRAFTEAR ↓ RECIBES 1 × SOBRE PLATA"
+    },
+    {
+      "id": "[390] SOBRES: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] INTERCAMBIO: selección táctil de duplicados hasta 7 / 7 (arte real, copias visibles)",
+      "ok": true,
+      "detail": "7 / 7"
+    },
+    {
+      "id": "[390] INTERCAMBIO: 1 carta Plata aleatoria (decidida en servidor) revelada con su arte",
+      "ok": true,
+      "detail": "ruxic__base"
+    },
+    {
+      "id": "[390] INTERCAMBIO: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] PROYECTO: 2 / 3 (abrir y el intercambio que acabas de hacer cuentan; ganar con 3 del mismo país no)",
+      "ok": true,
+      "detail": "2 / 3"
+    },
+    {
+      "id": "[390] PROYECTO: RECLAMAR CARTA entrega la carta configurada UNA vez (doble clic)",
+      "ok": true,
+      "detail": "copias=1"
+    },
+    {
+      "id": "[390] PROYECTO: F5 conserva «Reclamada» y no hay botón de reclamar",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] PROYECTO: sin scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] MOVIMIENTO REDUCIDO: la página lo detecta y el resultado aparece sin animación pesada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

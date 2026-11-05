@@ -1,0 +1,15 @@
+== WORKER ANTES (F87.2) · 2026-10-06T15:43:17Z
+cron: */2 * * * * /opt/nexus/projects/drlcards-sync/bin/run-sync.sh >/dev/null 2>&1
+release: rel-20260914T093113Z-996d06fd
+bundle sha256 872f5449d8c2e918459a0cf8244dac1dd887db020c066ab3128d464fe13d0e34
+ESPORTS_AUTO_SYNC_ENABLED=true
+exit≠0 en las últimas 200: 0
+[esports-sync-worker] event=run run_id=20261006154201-i9u86y mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=582 status=success
+pickem_events 3 (LEGACY_V1 3)
+pickem_questions 63
+pickem_submissions 1
+pickem_scores 1
+pagos legacy 1 / 500
+events 3
+matches 101 · ids duplicados 0
+sync_state 4 max 2026-10-06 15:42:02.044545+00

@@ -1,0 +1,323 @@
+{
+ "at": "2026-10-02T18:34:32.132Z",
+ "base": "http://127.0.0.1:3081",
+ "seconds": 44,
+ "fails": 0,
+ "rows": [
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · fases intro→tensión→hero en orden",
+   "ok": true,
+   "detail": "[\"opening\",\"buildup\",\"buildup\",\"hero\",\"hero_hold\"]"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · hero = la esperada (mayor OVR; desempate fijo)",
+   "ok": true,
+   "detail": "{\"heroUid\":\"f81-qa-normal-3\",\"expected\":\"f81-qa-normal-3\",\"tied\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · abrir → hero quieta ≤ 4,5 s (intro+tensión ≤ 4 s + giro)",
+   "ok": true,
+   "detail": "2679 ms"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · hero entera en pantalla, CONTINUAR accesible (≥44 px), sin overflow",
+   "ok": true,
+   "detail": "{\"card\":{\"l\":45,\"t\":119,\"r\":345,\"b\":539,\"w\":300,\"h\":420},\"cont\":{\"l\":35,\"t\":616,\"r\":355,\"b\":672,\"w\":320,\"h\":56},\"vw\":390,\"vh\":844,\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · ficha legible (OVR, jugador) y arte real cargado",
+   "ok": true,
+   "detail": "{\"info\":\"COMÚN BASE NUEVA EN TU COLECCIÓN KROSTALY·74 OVR·FLEX·FUT\",\"img\":{\"complete\":true,\"nw\":750,\"src\":\"/cards/krostaly__base.webp\"}}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · movimiento reduced: sin energía/zoom; halo quieto",
+   "ok": true,
+   "detail": "{\"energy\":false,\"still\":true}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · DOM acotado",
+   "ok": true,
+   "detail": "70 nodos"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · doble clic en CONTINUAR → resto (no encadena al resumen)",
+   "ok": true,
+   "detail": "rest"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · resto = el sobre sin la hero, por OVR descendente, sin overflow",
+   "ok": true,
+   "detail": "{\"restUids\":4,\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · resumen: TODAS las cartas, hero primero y marcada, orden de presentación",
+   "ok": true,
+   "detail": "{\"n\":5,\"hero\":\"f81-qa-normal-3\",\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · una sola apertura",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · F5 en el resumen: mismas cartas y misma hero, sin reabrir",
+   "ok": true,
+   "detail": "{\"phase\":\"summary\",\"hero\":\"f81-qa-normal-3\",\"opens\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "normal · 0 errores de consola / hidratación",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · fases intro→tensión→hero en orden",
+   "ok": true,
+   "detail": "[\"opening\",\"buildup\",\"buildup\",\"hero\",\"hero_hold\"]"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · hero = la esperada (mayor OVR; desempate fijo)",
+   "ok": true,
+   "detail": "{\"heroUid\":\"f81-qa-tie2-1\",\"expected\":\"f81-qa-tie2-1\",\"tied\":2}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · abrir → hero quieta ≤ 4,5 s (intro+tensión ≤ 4 s + giro)",
+   "ok": true,
+   "detail": "2648 ms"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · hero entera en pantalla, CONTINUAR accesible (≥44 px), sin overflow",
+   "ok": true,
+   "detail": "{\"card\":{\"l\":45,\"t\":119,\"r\":345,\"b\":539,\"w\":300,\"h\":420},\"cont\":{\"l\":35,\"t\":616,\"r\":355,\"b\":672,\"w\":320,\"h\":56},\"vw\":390,\"vh\":844,\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · ficha legible (OVR, jugador) y arte real cargado",
+   "ok": true,
+   "detail": "{\"info\":\"POCO COMÚN MASTERS L NUEVA EN TU COLECCIÓN JINGGG·95 OVR·FLEX·PAPER REX\",\"img\":{\"complete\":true,\"nw\":750,\"src\":\"/cards/jinggg__masters-l.webp\"}}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · movimiento reduced: sin energía/zoom; halo quieto",
+   "ok": true,
+   "detail": "{\"energy\":false,\"still\":true}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · DOM acotado",
+   "ok": true,
+   "detail": "70 nodos"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · doble clic en CONTINUAR → resto (no encadena al resumen)",
+   "ok": true,
+   "detail": "rest"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · resto = el sobre sin la hero, por OVR descendente, sin overflow",
+   "ok": true,
+   "detail": "{\"restUids\":4,\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · resumen: TODAS las cartas, hero primero y marcada, orden de presentación",
+   "ok": true,
+   "detail": "{\"n\":5,\"hero\":\"f81-qa-tie2-1\",\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · una sola apertura",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · F5 en el resumen: mismas cartas y misma hero, sin reabrir",
+   "ok": true,
+   "detail": "{\"phase\":\"summary\",\"hero\":\"f81-qa-tie2-1\",\"opens\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "tie2 · 0 errores de consola / hidratación",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · fases intro→tensión→hero en orden",
+   "ok": true,
+   "detail": "[\"opening\",\"buildup\",\"buildup\",\"hero\",\"hero_hold\"]"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · hero = la esperada (mayor OVR; desempate fijo)",
+   "ok": true,
+   "detail": "{\"heroUid\":\"f81-qa-high-2\",\"expected\":\"f81-qa-high-2\",\"tied\":3}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · abrir → hero quieta ≤ 4,5 s (intro+tensión ≤ 4 s + giro)",
+   "ok": true,
+   "detail": "2628 ms"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · hero entera en pantalla, CONTINUAR accesible (≥44 px), sin overflow",
+   "ok": true,
+   "detail": "{\"card\":{\"l\":45,\"t\":119,\"r\":345,\"b\":539,\"w\":300,\"h\":420},\"cont\":{\"l\":35,\"t\":616,\"r\":355,\"b\":672,\"w\":320,\"h\":56},\"vw\":390,\"vh\":844,\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · ficha legible (OVR, jugador) y arte real cargado",
+   "ok": true,
+   "detail": "{\"info\":\"RARA FUTURE STAR NUEVA EN TU COLECCIÓN XROSS·95 OVR·INICIADOR·NS\",\"img\":{\"complete\":true,\"nw\":750,\"src\":\"/cards/xross__future-star.webp\"}}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · movimiento reduced: sin energía/zoom; halo quieto",
+   "ok": true,
+   "detail": "{\"energy\":false,\"still\":true}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · DOM acotado",
+   "ok": true,
+   "detail": "70 nodos"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · doble clic en CONTINUAR → resto (no encadena al resumen)",
+   "ok": true,
+   "detail": "rest"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · resto = el sobre sin la hero, por OVR descendente, sin overflow",
+   "ok": true,
+   "detail": "{\"restUids\":2,\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · resumen: TODAS las cartas, hero primero y marcada, orden de presentación",
+   "ok": true,
+   "detail": "{\"n\":3,\"hero\":\"f81-qa-high-2\",\"ox\":0}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · una sola apertura",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · F5 en el resumen: mismas cartas y misma hero, sin reabrir",
+   "ok": true,
+   "detail": "{\"phase\":\"summary\",\"hero\":\"f81-qa-high-2\",\"opens\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "high · 0 errores de consola / hidratación",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "OMITIR inmediato (×3): resumen con las MISMAS cartas y la MISMA hero; una apertura",
+   "ok": true,
+   "detail": "{\"hero\":\"f81-qa-tie2-1\",\"opens\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "doble clic en ABRIR: una petición, una apertura",
+   "ok": true,
+   "detail": "{\"requests\":\"1\",\"opens\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "F5 durante la intro: resumen recuperado, misma hero, 0 aperturas nuevas",
+   "ok": true,
+   "detail": "{\"phase\":\"summary\",\"opens\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "F5 con la hero (empate): la misma de las empatadas, sin reabrir",
+   "ok": true,
+   "detail": "{\"before\":\"f81-qa-tie2-1\",\"after\":\"f81-qa-tie2-1\",\"opens\":1}"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "toque en la intro adelanta a la HERO, no al resumen",
+   "ok": true,
+   "detail": "hero"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "id": "casos límite · 0 errores de consola",
+   "ok": true,
+   "detail": "[]"
+  }
+ ]
+}

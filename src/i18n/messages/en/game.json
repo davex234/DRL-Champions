@@ -1,0 +1,22 @@
+{
+  "Comprobando tu sesión… vuelve a intentarlo en un momento.": "Checking your session… try again in a moment.",
+  "Con tu cuenta iniciada, créditos, XP y cartas los lleva el servidor: este modo local no concede ni cobra nada.": "While you're logged in, the server handles credits, XP and cards: this local mode doesn't grant or charge anything.",
+  "Con tu cuenta, los sobres los abre el servidor. Estamos recuperando tu cuenta: vuelve a intentarlo en un momento.": "With your account, the server opens the packs. We're recovering your account: try again in a moment.",
+  "Cuenta online no configurada": "Online account not configured",
+  "El mercado necesita una cuenta online": "The market needs an online account",
+  "Inicia sesión para continuar": "Log in to continue",
+  "Inicia sesión para entrar en el mercado": "Log in to enter the market",
+  "La economía necesita una cuenta online": "The economy needs an online account",
+  "La sesión cambió durante la carga": "The session changed while loading",
+  "Necesitas iniciar sesión": "You need to log in",
+  "Necesitas una cuenta": "You need an account",
+  "No hemos podido recuperar tu cuenta. Comprueba la conexión y vuelve a intentarlo.": "We couldn't recover your account. Check your connection and try again.",
+  "No se pudo cargar tu progreso": "Couldn't load your progress",
+  "No se pudo comprar el sobre": "Couldn't buy the pack",
+  "Resultado de apertura no válido": "Invalid opening result",
+  "Sin conexión": "Offline",
+  "Sin sesión": "No session",
+  "{INVALID_OPEN_RESULT}: carta desconocida": "{INVALID_OPEN_RESULT}: unknown card",
+  "{INVALID_OPEN_RESULT}: carta sin identificador": "{INVALID_OPEN_RESULT}: card without an identifier",
+  "{INVALID_OPEN_RESULT}: sin cartas": "{INVALID_OPEN_RESULT}: no cards"
+}

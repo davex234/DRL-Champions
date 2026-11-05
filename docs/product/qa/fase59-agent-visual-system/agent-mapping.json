@@ -1,0 +1,339 @@
+{
+ "canonicalAgents": 29,
+ "source": "src/domain/tactics/roster.ts (TACTICAL_AGENTS)",
+ "renamed": [
+  {
+   "kind": "face",
+   "file": "Omen.webp",
+   "agentId": "omen",
+   "via": "case"
+  },
+  {
+   "kind": "full",
+   "file": "geko.avif",
+   "agentId": "gekko",
+   "via": "alias"
+  }
+ ],
+ "mapping": [
+  {
+   "agentId": "astra",
+   "displayName": "Astra",
+   "faceSource": "personajes/cara/astra.webp",
+   "fullSource": "personajes/entero/astra.avif",
+   "faceAsset": "/agents/astra/face.webp?v=236536e6d3",
+   "fullAsset": "/agents/astra/full.webp?v=8bee91dbe3",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "breach",
+   "displayName": "Breach",
+   "faceSource": "personajes/cara/breach.webp",
+   "fullSource": "personajes/entero/breach.avif",
+   "faceAsset": "/agents/breach/face.webp?v=6f8da100de",
+   "fullAsset": "/agents/breach/full.webp?v=2bc89f8785",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "brimstone",
+   "displayName": "Brimstone",
+   "faceSource": "personajes/cara/brimstone.webp",
+   "fullSource": "personajes/entero/brimstone.avif",
+   "faceAsset": "/agents/brimstone/face.webp?v=b67d60990e",
+   "fullAsset": "/agents/brimstone/full.webp?v=19346d92fe",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "chamber",
+   "displayName": "Chamber",
+   "faceSource": "personajes/cara/chamber.webp",
+   "fullSource": "personajes/entero/chamber.avif",
+   "faceAsset": "/agents/chamber/face.webp?v=caffb6d9a1",
+   "fullAsset": "/agents/chamber/full.webp?v=be1bbff3d8",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "clove",
+   "displayName": "Clove",
+   "faceSource": "personajes/cara/clove.webp",
+   "fullSource": "personajes/entero/clove.avif",
+   "faceAsset": "/agents/clove/face.webp?v=9f47fb305f",
+   "fullAsset": "/agents/clove/full.webp?v=62884a287d",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "cypher",
+   "displayName": "Cypher",
+   "faceSource": "personajes/cara/cypher.webp",
+   "fullSource": "personajes/entero/cypher.avif",
+   "faceAsset": "/agents/cypher/face.webp?v=b7fc279e2a",
+   "fullAsset": "/agents/cypher/full.webp?v=729304df09",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "deadlock",
+   "displayName": "Deadlock",
+   "faceSource": "personajes/cara/deadlock.webp",
+   "fullSource": "personajes/entero/deadlock.avif",
+   "faceAsset": "/agents/deadlock/face.webp?v=fc3d43ee56",
+   "fullAsset": "/agents/deadlock/full.webp?v=8e0295cf4e",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "fade",
+   "displayName": "Fade",
+   "faceSource": "personajes/cara/fade.jpeg",
+   "fullSource": "personajes/entero/fade.avif",
+   "faceAsset": "/agents/fade/face.webp?v=5d201e8de7",
+   "fullAsset": "/agents/fade/full.webp?v=b68d685454",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": true
+  },
+  {
+   "agentId": "gekko",
+   "displayName": "Gekko",
+   "faceSource": "personajes/cara/gekko.webp",
+   "fullSource": "personajes/entero/geko.avif",
+   "faceAsset": "/agents/gekko/face.webp?v=2fc31f51d7",
+   "fullAsset": "/agents/gekko/full.webp?v=b33d8fad58",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "harbor",
+   "displayName": "Harbor",
+   "faceSource": "personajes/cara/harbor.webp",
+   "fullSource": "personajes/entero/harbor.avif",
+   "faceAsset": "/agents/harbor/face.webp?v=15597131cc",
+   "fullAsset": "/agents/harbor/full.webp?v=15513ab7c0",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "iso",
+   "displayName": "Iso",
+   "faceSource": "personajes/cara/iso.jpeg",
+   "fullSource": "personajes/entero/iso.avif",
+   "faceAsset": "/agents/iso/face.webp?v=10f4f7f69e",
+   "fullAsset": "/agents/iso/full.webp?v=946fb272e2",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": true
+  },
+  {
+   "agentId": "jett",
+   "displayName": "Jett",
+   "faceSource": "personajes/cara/jett.png",
+   "fullSource": "personajes/entero/jett.avif",
+   "faceAsset": "/agents/jett/face.webp?v=5292a0501f",
+   "fullAsset": "/agents/jett/full.webp?v=15796b3c3b",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "kayo",
+   "displayName": "KAY/O",
+   "faceSource": "personajes/cara/kayo.webp",
+   "fullSource": "personajes/entero/kayo.avif",
+   "faceAsset": "/agents/kayo/face.webp?v=82d39e4658",
+   "fullAsset": "/agents/kayo/full.webp?v=eaa1db905d",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "killjoy",
+   "displayName": "Killjoy",
+   "faceSource": "personajes/cara/killjoy.jpeg",
+   "fullSource": "personajes/entero/killjoy.png",
+   "faceAsset": "/agents/killjoy/face.webp?v=782cfd29e5",
+   "fullAsset": "/agents/killjoy/full.webp?v=ebfea2305f",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": true
+  },
+  {
+   "agentId": "miks",
+   "displayName": "Miks",
+   "faceSource": "personajes/cara/miks.webp",
+   "fullSource": "personajes/entero/miks.avif",
+   "faceAsset": "/agents/miks/face.webp?v=e4e15d6e03",
+   "fullAsset": "/agents/miks/full.webp?v=94d05be564",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "neon",
+   "displayName": "Neon",
+   "faceSource": "personajes/cara/neon.webp",
+   "fullSource": "personajes/entero/neon.avif",
+   "faceAsset": "/agents/neon/face.webp?v=f88c1dc607",
+   "fullAsset": "/agents/neon/full.webp?v=8ce47d13d1",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "omen",
+   "displayName": "Omen",
+   "faceSource": "personajes/cara/Omen.webp",
+   "fullSource": "personajes/entero/omen.avif",
+   "faceAsset": "/agents/omen/face.webp?v=d7e6ffe052",
+   "fullAsset": "/agents/omen/full.webp?v=8f897e7b31",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "phoenix",
+   "displayName": "Phoenix",
+   "faceSource": "personajes/cara/phoenix.webp",
+   "fullSource": "personajes/entero/phoenix.avif",
+   "faceAsset": "/agents/phoenix/face.webp?v=d3026fe9d6",
+   "fullAsset": "/agents/phoenix/full.webp?v=38ac418e04",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "raze",
+   "displayName": "Raze",
+   "faceSource": "personajes/cara/raze.webp",
+   "fullSource": "personajes/entero/raze.avif",
+   "faceAsset": "/agents/raze/face.webp?v=45ee35e26f",
+   "fullAsset": "/agents/raze/full.webp?v=33fee8a168",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "reyna",
+   "displayName": "Reyna",
+   "faceSource": "personajes/cara/reyna.webp",
+   "fullSource": "personajes/entero/reyna.avif",
+   "faceAsset": "/agents/reyna/face.webp?v=b34d7717b8",
+   "fullAsset": "/agents/reyna/full.webp?v=29b6233a3f",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "sage",
+   "displayName": "Sage",
+   "faceSource": "personajes/cara/sage.webp",
+   "fullSource": "personajes/entero/sage.avif",
+   "faceAsset": "/agents/sage/face.webp?v=232d4031bf",
+   "fullAsset": "/agents/sage/full.webp?v=1384123bac",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "skye",
+   "displayName": "Skye",
+   "faceSource": "personajes/cara/skye.png",
+   "fullSource": "personajes/entero/skye.avif",
+   "faceAsset": "/agents/skye/face.webp?v=c065220f11",
+   "fullAsset": "/agents/skye/full.webp?v=a2aab04808",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "sova",
+   "displayName": "Sova",
+   "faceSource": "personajes/cara/sova.webp",
+   "fullSource": "personajes/entero/sova.avif",
+   "faceAsset": "/agents/sova/face.webp?v=b290d35afb",
+   "fullAsset": "/agents/sova/full.webp?v=ccdf925afc",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "tejo",
+   "displayName": "Tejo",
+   "faceSource": "personajes/cara/tejo.webp",
+   "fullSource": "personajes/entero/tejo.avif",
+   "faceAsset": "/agents/tejo/face.webp?v=4bf8439b24",
+   "fullAsset": "/agents/tejo/full.webp?v=6dcb919c05",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "veto",
+   "displayName": "Veto",
+   "faceSource": "personajes/cara/veto.webp",
+   "fullSource": "personajes/entero/veto.avif",
+   "faceAsset": "/agents/veto/face.webp?v=78a08f2095",
+   "fullAsset": "/agents/veto/full.webp?v=f4945cec11",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "viper",
+   "displayName": "Viper",
+   "faceSource": "personajes/cara/viper.webp",
+   "fullSource": "personajes/entero/viper.avif",
+   "faceAsset": "/agents/viper/face.webp?v=9cc19d3b95",
+   "fullAsset": "/agents/viper/full.webp?v=33ff516e00",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "vyse",
+   "displayName": "Vyse",
+   "faceSource": "personajes/cara/vyse.webp",
+   "fullSource": "personajes/entero/vyse.avif",
+   "faceAsset": "/agents/vyse/face.webp?v=89c657a0a9",
+   "fullAsset": "/agents/vyse/full.webp?v=aa3fda9de0",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "waylay",
+   "displayName": "Waylay",
+   "faceSource": "personajes/cara/waylay.webp",
+   "fullSource": "personajes/entero/waylay.avif",
+   "faceAsset": "/agents/waylay/face.webp?v=342c076769",
+   "fullAsset": "/agents/waylay/full.webp?v=07088dd83e",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  },
+  {
+   "agentId": "yoru",
+   "displayName": "Yoru",
+   "faceSource": "personajes/cara/yoru.png",
+   "fullSource": "personajes/entero/yoru.avif",
+   "faceAsset": "/agents/yoru/face.webp?v=97a55e33e4",
+   "fullAsset": "/agents/yoru/full.webp?v=0584c8fa9a",
+   "hasFace": true,
+   "hasFull": true,
+   "faceBackdropRemoved": false
+  }
+ ]
+}

@@ -1,0 +1,31 @@
+{
+  "actor": "QA C 40a1e10d",
+  "victim": "QA B 8c326e52",
+  "channel": "PostgREST directo con clave anon + JWT de C (lo que podría hacer un cliente malicioso)",
+  "reads": {
+    "user_cards": "0 filas",
+    "user_game": "0 filas",
+    "user_pass": "0 filas",
+    "user_packs": "0 filas",
+    "credit_transactions": "0 filas",
+    "economy_ops": "0 filas",
+    "duel_decks": "0 filas",
+    "duel_matches (403)": "0 filas",
+    "user_achievements": "0 filas",
+    "game_state": "0 filas",
+    "duel_pvp_queue (403)": "0 filas",
+    "duel_active_deck (403)": "0 filas",
+    "user_sanctions (403)": "0 filas",
+    "payments": "0 filas"
+  },
+  "publicProfile": "visible por diseño; expone columnas de más (RLS-1)",
+  "writes": {
+    "renombrar a B": "0 filas",
+    "borrar perfil de B": "0 filas",
+    "ganar partida propia": "403",
+    "insertar cartas": "403",
+    "asiento de créditos": "403"
+  },
+  "f66": "IDOR de partidas: 404 idéntico para ajena/inexistente (vigente, e2e-f67-regress verde)",
+  "result": "aislamiento correcto; única exposición = columnas públicas de profiles"
+}

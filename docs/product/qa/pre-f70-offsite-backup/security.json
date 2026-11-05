@@ -1,0 +1,125 @@
+{
+  "phase": "PRE-F70",
+  "checks": {
+    "pathTraversal": {
+      "config-invalid-traversal": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID DRL_OFFSITE_REMOTE no puede contener .."
+      },
+      "refused-outside-root": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_REFUSED la unidad está fuera de <T>/root"
+      },
+      "refused-traversal-path": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_REFUSED la unidad está fuera de <T>/root"
+      },
+      "refused-bad-name": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_REFUSED nombre de unidad no válido"
+      }
+    },
+    "symlinks": {
+      "refused-symlink-inside": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_REFUSED la unidad contiene enlaces o directorios"
+      },
+      "refused-symlinked-unit": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_REFUSED la unidad es un enlace simbólico"
+      },
+      "config-invalid-symlink-config": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID el fichero de configuración es un enlace simbólico"
+      }
+    },
+    "foreignFiles": {
+      "refused-foreign-file": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_REFUSED fichero ajeno a SHA256SUMS: intruso.txt"
+      }
+    },
+    "commandInjection": {
+      "config-invalid-metachar": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID valor con metacaracteres en la línea 7"
+      },
+      "config-invalid-unknown-key": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID clave desconocida en la línea 7"
+      },
+      "code": "configuración parseada (nunca source/eval); argumentos de rclone como array; identificadores validados por regex (TS, remoto nombre:ruta); sin credenciales en la línea de órdenes (van en rclone.conf montado en solo lectura)"
+    },
+    "insecureTransport": {
+      "config-invalid-http-endpoint": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID endpoint en claro (http://) no permitido"
+      },
+      "config-invalid-ftp-plain": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID FTP sin TLS no está permitido"
+      },
+      "config-invalid-sftp-no-known-hosts": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID sftp exige known_hosts_file = /config/known_hosts"
+      }
+    },
+    "supplyChain": {
+      "config-invalid-mutable-tag": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID DRL_OFFSITE_RCLONE_IMAGE debe ir fijada por digest (@sha256:…)"
+      }
+    },
+    "encryption": {
+      "remote-plaintext-free": {
+        "result": "PASS",
+        "detail": "el .cms no es un tar legible ni contiene la cabecera PGDMP del dump"
+      }
+    },
+    "credentialLeak": {
+      "no-credential-leak": {
+        "result": "PASS",
+        "detail": "log y marcadores sin claves, contraseñas (en claro u ofuscadas) ni material privado"
+      },
+      "log-has-no-destination": {
+        "result": "PASS",
+        "detail": "el registro nombra el remoto (nombre:) y el tipo, no el endpoint ni la ruta"
+      }
+    },
+    "permissions": {
+      "local-markers-private": {
+        "result": "PASS",
+        "detail": "OFFSITE_VERIFIED 600, sin IN_PROGRESS, directorio de trabajo vacío"
+      },
+      "config-invalid-world-readable": {
+        "result": "PASS",
+        "detail": "exit=2 OFFSITE_CONFIG_INVALID configuración con permisos 644 (se exige 600 o 400)"
+      },
+      "rule": "umask 077; configuración y rclone.conf 600/400 exigidos; directorio de trabajo 700 y borrado"
+    }
+  },
+  "secretAudit": {
+    "files": [
+      "scripts/ops/backup-offsite.sh",
+      "scripts/ops/backup-drlcards.sh",
+      "scripts/ops/backup-status.sh",
+      "scripts/ops/offsite-harness.sh",
+      "src/domain/ops/backup.ts",
+      "src/domain/ops/backup.test.ts",
+      "docs/operations/*.md (cambios)",
+      "docs/product/qa/pre-f70-offsite-backup/**"
+    ],
+    "result": "0 credenciales: las del arnés se generan en /tmp, son falsas y se borran; el registro guardado no las contiene (grep: 0)"
+  },
+  "newPublicEndpoints": 0,
+  "readinessDependsOnOffsite": false,
+  "encryption": {
+    "artifact": "CMS AES-256-GCM (openssl) para un certificado tuyo; la clave privada NO vive en el VPS → ni el proveedor ni un VPS comprometido pueden leer las copias",
+    "inTransit": "TLS/SSH obligatorios (http y ftp en claro rechazados; sftp con known_hosts)",
+    "atRest": "el del proveedor (requisito) + el cifrado del artefacto",
+    "localUnits": "sin cifrar, mismo límite de confianza que los volúmenes del VPS (patrón ya usado por Schola)"
+  },
+  "accessControl": "credencial del backup SOLO para el prefijo/bucket de DRLCards; con retention=provider basta escribir+leer+listar (sin borrar); nunca una cuenta admin del proveedor",
+  "immutability": "RECOMENDADO (no activo): versionado u object lock / WORM del proveedor sobre el prefijo, con la retención aplicada por el proveedor",
+  "ransomware": "un VPS comprometido tiene la credencial de subida: por eso (1) credencial sin borrado, (2) inmutabilidad/versionado del proveedor, (3) clave de descifrado fuera del VPS, (4) cuenta del proveedor con 2FA y credenciales de administración FUERA del VPS"
+}

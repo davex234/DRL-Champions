@@ -1,0 +1,1349 @@
+{
+  "base": "https://valorosters.com",
+  "session": true,
+  "at": "2026-10-07T14:43:18.519Z",
+  "total": 122,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "hub",
+      "w": 1440,
+      "name": "Temporada → exactamente Pase de batalla · Objetivos · Crafteo, con sus destinos",
+      "ok": true,
+      "detail": {
+        "areas": [
+          "PASE DE BATALLA",
+          "OBJETIVOS",
+          "CRAFTEO"
+        ],
+        "ctas": [
+          "/temporada/pase",
+          "/misiones",
+          "/misiones/crafting"
+        ],
+        "over": 0
+      }
+    },
+    {
+      "id": "hub",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "hub",
+      "w": 1440,
+      "name": "las tarjetas son enlaces enfocables (teclado)",
+      "ok": true,
+      "detail": {
+        "id": "season-area-cta-PASS",
+        "outline": "none",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 3px inset, rgba(5, 6, 12, 0.92) 0px 0px 0px 6px inset"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "tarjeta PASE DE BATALLA → pase canónico; premium «próximamente»; nunca «comprado»",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "la Tienda no enlaza al Centro de eventos; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1440,
+      "name": "icono de usuario visible arriba a la derecha (aria-label/title «Mi cuenta», SVG, 44 px)",
+      "ok": true,
+      "detail": {
+        "label": "Mi cuenta",
+        "title": "Mi cuenta",
+        "svg": true,
+        "w": 44,
+        "visible": true
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1440,
+      "name": "pulsarlo abre Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta"
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "Mi cuenta → Perfil (por defecto): pestañas PERFIL · PROGRESIÓN · CUENTA; tu identidad con editar y cerrar sesión",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "botón DAR FEEDBACK en la cabecera; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "Progresión dentro de Mi cuenta: centro de reclamos, progreso y enlace al historial",
+      "ok": true,
+      "detail": {
+        "url": "/cuenta?seccion=progresion",
+        "claims": "0",
+        "hero": true,
+        "history": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "Cuenta: los ajustes de siempre (avatar, región, sonido)",
+      "ok": true,
+      "detail": "/cuenta?seccion=cuenta"
+    },
+    {
+      "id": "feedback",
+      "w": 1440,
+      "name": "Dar feedback abre el formulario real dentro de Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback"
+    },
+    {
+      "id": "redirect",
+      "w": 1440,
+      "name": "/progresion → Mi cuenta → Progresión",
+      "ok": true,
+      "detail": "/cuenta?seccion=progresion"
+    },
+    {
+      "id": "redirect",
+      "w": 1440,
+      "name": "/feedback?desde=cup → Mi cuenta → Dar feedback (conserva el origen)",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback&desde=cup"
+    },
+    {
+      "id": "objetivos",
+      "w": 1440,
+      "name": "Objetivos: objetivos del pase por tipo + misiones especiales; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "groups": 4,
+        "title": "OBJETIVOS",
+        "pickem": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "pase",
+      "w": 1440,
+      "name": "Pase de batalla: la pantalla canónica de temporada (no el hub); sin «comprado»; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1440,
+      "name": "Crafteo: SOLO Cartas · Sobres",
+      "ok": true,
+      "detail": {
+        "opts": [
+          "/misiones/crafting/cartas",
+          "/misiones/crafting/sobres"
+        ],
+        "avanzado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1440,
+      "name": "Crafteo → Cartas: intercambio · proyectos y acceso a Recetas avanzadas",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "crafteo",
+      "w": 1440,
+      "name": "Crafteo → Sobres: la forja de sobres canónica (no la compra)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "publico",
+      "w": 1440,
+      "name": "/jugador/me → /jugador/<id>: el perfil sigue funcionando",
+      "ok": true,
+      "detail": "/jugador/c28ce82b-dff7-4723-b3b9-3290eaab33c8"
+    },
+    {
+      "id": "hub",
+      "w": 1440,
+      "name": "Temporada → exactamente Pase de batalla · Objetivos · Crafteo, con sus destinos",
+      "ok": true,
+      "detail": {
+        "areas": [
+          "PASE DE BATALLA",
+          "OBJETIVOS",
+          "CRAFTEO"
+        ],
+        "ctas": [
+          "/temporada/pase",
+          "/misiones",
+          "/misiones/crafting"
+        ],
+        "over": 0
+      }
+    },
+    {
+      "id": "hub",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "hub",
+      "w": 1440,
+      "name": "las tarjetas son enlaces enfocables (teclado)",
+      "ok": true,
+      "detail": {
+        "id": "season-area-cta-PASS",
+        "outline": "none",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 3px inset, rgba(5, 6, 12, 0.92) 0px 0px 0px 6px inset"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "tarjeta PASE DE BATALLA → pase canónico; premium «próximamente»; nunca «comprado»",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "la Tienda no enlaza al Centro de eventos; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1440,
+      "name": "icono de usuario visible arriba a la derecha (aria-label/title «Mi cuenta», SVG, 44 px)",
+      "ok": true,
+      "detail": {
+        "label": "Mi cuenta",
+        "title": "Mi cuenta",
+        "svg": true,
+        "w": 44,
+        "visible": true
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1440,
+      "name": "pulsarlo abre Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta"
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "Mi cuenta → Perfil (por defecto): pestañas PERFIL · PROGRESIÓN · CUENTA; tu identidad con editar y cerrar sesión",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "botón DAR FEEDBACK en la cabecera; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "Progresión dentro de Mi cuenta: centro de reclamos, progreso y enlace al historial",
+      "ok": true,
+      "detail": {
+        "url": "/cuenta?seccion=progresion",
+        "claims": "0",
+        "hero": true,
+        "history": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1440,
+      "name": "Cuenta: los ajustes de siempre (avatar, región, sonido)",
+      "ok": true,
+      "detail": "/cuenta?seccion=cuenta"
+    },
+    {
+      "id": "feedback",
+      "w": 1440,
+      "name": "Dar feedback abre el formulario real dentro de Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback"
+    },
+    {
+      "id": "redirect",
+      "w": 1440,
+      "name": "/progresion → Mi cuenta → Progresión",
+      "ok": true,
+      "detail": "/cuenta?seccion=progresion"
+    },
+    {
+      "id": "redirect",
+      "w": 1440,
+      "name": "/feedback?desde=cup → Mi cuenta → Dar feedback (conserva el origen)",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback&desde=cup"
+    },
+    {
+      "id": "objetivos",
+      "w": 1440,
+      "name": "Objetivos: objetivos del pase por tipo + misiones especiales; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "groups": 4,
+        "title": "OBJETIVOS",
+        "pickem": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "pase",
+      "w": 1440,
+      "name": "Pase de batalla: la pantalla canónica de temporada (no el hub); sin «comprado»; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1440,
+      "name": "Crafteo: SOLO Cartas · Sobres",
+      "ok": true,
+      "detail": {
+        "opts": [
+          "/misiones/crafting/cartas",
+          "/misiones/crafting/sobres"
+        ],
+        "avanzado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1440,
+      "name": "Crafteo → Cartas: intercambio · proyectos y acceso a Recetas avanzadas",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "crafteo",
+      "w": 1440,
+      "name": "Crafteo → Sobres: la forja de sobres canónica (no la compra)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "publico",
+      "w": 1440,
+      "name": "/jugador/me → /jugador/<id>: el perfil sigue funcionando",
+      "ok": true,
+      "detail": "/jugador/c28ce82b-dff7-4723-b3b9-3290eaab33c8"
+    },
+    {
+      "id": "hub",
+      "w": 1024,
+      "name": "Temporada → exactamente Pase de batalla · Objetivos · Crafteo, con sus destinos",
+      "ok": true,
+      "detail": {
+        "areas": [
+          "PASE DE BATALLA",
+          "OBJETIVOS",
+          "CRAFTEO"
+        ],
+        "ctas": [
+          "/temporada/pase",
+          "/misiones",
+          "/misiones/crafting"
+        ],
+        "over": 0
+      }
+    },
+    {
+      "id": "hub",
+      "w": 1024,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "hub",
+      "w": 1024,
+      "name": "las tarjetas son enlaces enfocables (teclado)",
+      "ok": true,
+      "detail": {
+        "id": "season-area-cta-PASS",
+        "outline": "none",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 3px inset, rgba(5, 6, 12, 0.92) 0px 0px 0px 6px inset"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "tarjeta PASE DE BATALLA → pase canónico; premium «próximamente»; nunca «comprado»",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "la Tienda no enlaza al Centro de eventos; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1024,
+      "name": "icono de usuario visible arriba a la derecha (aria-label/title «Mi cuenta», SVG, 44 px)",
+      "ok": true,
+      "detail": {
+        "label": "Mi cuenta",
+        "title": "Mi cuenta",
+        "svg": true,
+        "w": 44,
+        "visible": true
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1024,
+      "name": "pulsarlo abre Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta"
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "Mi cuenta → Perfil (por defecto): pestañas PERFIL · PROGRESIÓN · CUENTA; tu identidad con editar y cerrar sesión",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "botón DAR FEEDBACK en la cabecera; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "Progresión dentro de Mi cuenta: centro de reclamos, progreso y enlace al historial",
+      "ok": true,
+      "detail": {
+        "url": "/cuenta?seccion=progresion",
+        "claims": "0",
+        "hero": true,
+        "history": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "Cuenta: los ajustes de siempre (avatar, región, sonido)",
+      "ok": true,
+      "detail": "/cuenta?seccion=cuenta"
+    },
+    {
+      "id": "feedback",
+      "w": 1024,
+      "name": "Dar feedback abre el formulario real dentro de Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback"
+    },
+    {
+      "id": "redirect",
+      "w": 1024,
+      "name": "/progresion → Mi cuenta → Progresión",
+      "ok": true,
+      "detail": "/cuenta?seccion=progresion"
+    },
+    {
+      "id": "redirect",
+      "w": 1024,
+      "name": "/feedback?desde=cup → Mi cuenta → Dar feedback (conserva el origen)",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback&desde=cup"
+    },
+    {
+      "id": "objetivos",
+      "w": 1024,
+      "name": "Objetivos: objetivos del pase por tipo + misiones especiales; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "groups": 4,
+        "title": "OBJETIVOS",
+        "pickem": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "pase",
+      "w": 1024,
+      "name": "Pase de batalla: la pantalla canónica de temporada (no el hub); sin «comprado»; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1024,
+      "name": "Crafteo: SOLO Cartas · Sobres",
+      "ok": true,
+      "detail": {
+        "opts": [
+          "/misiones/crafting/cartas",
+          "/misiones/crafting/sobres"
+        ],
+        "avanzado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1024,
+      "name": "Crafteo → Cartas: intercambio · proyectos y acceso a Recetas avanzadas",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "crafteo",
+      "w": 1024,
+      "name": "Crafteo → Sobres: la forja de sobres canónica (no la compra)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "publico",
+      "w": 1024,
+      "name": "/jugador/me → /jugador/<id>: el perfil sigue funcionando",
+      "ok": true,
+      "detail": "/jugador/c28ce82b-dff7-4723-b3b9-3290eaab33c8"
+    },
+    {
+      "id": "hub",
+      "w": 1024,
+      "name": "Temporada → exactamente Pase de batalla · Objetivos · Crafteo, con sus destinos",
+      "ok": true,
+      "detail": {
+        "areas": [
+          "PASE DE BATALLA",
+          "OBJETIVOS",
+          "CRAFTEO"
+        ],
+        "ctas": [
+          "/temporada/pase",
+          "/misiones",
+          "/misiones/crafting"
+        ],
+        "over": 0
+      }
+    },
+    {
+      "id": "hub",
+      "w": 1024,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "hub",
+      "w": 1024,
+      "name": "las tarjetas son enlaces enfocables (teclado)",
+      "ok": true,
+      "detail": {
+        "id": "season-area-cta-PASS",
+        "outline": "none",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 3px inset, rgba(5, 6, 12, 0.92) 0px 0px 0px 6px inset"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "tarjeta PASE DE BATALLA → pase canónico; premium «próximamente»; nunca «comprado»",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "la Tienda no enlaza al Centro de eventos; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1024,
+      "name": "icono de usuario visible arriba a la derecha (aria-label/title «Mi cuenta», SVG, 44 px)",
+      "ok": true,
+      "detail": {
+        "label": "Mi cuenta",
+        "title": "Mi cuenta",
+        "svg": true,
+        "w": 44,
+        "visible": true
+      }
+    },
+    {
+      "id": "icono",
+      "w": 1024,
+      "name": "pulsarlo abre Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta"
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "Mi cuenta → Perfil (por defecto): pestañas PERFIL · PROGRESIÓN · CUENTA; tu identidad con editar y cerrar sesión",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "botón DAR FEEDBACK en la cabecera; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "Progresión dentro de Mi cuenta: centro de reclamos, progreso y enlace al historial",
+      "ok": true,
+      "detail": {
+        "url": "/cuenta?seccion=progresion",
+        "claims": "0",
+        "hero": true,
+        "history": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 1024,
+      "name": "Cuenta: los ajustes de siempre (avatar, región, sonido)",
+      "ok": true,
+      "detail": "/cuenta?seccion=cuenta"
+    },
+    {
+      "id": "feedback",
+      "w": 1024,
+      "name": "Dar feedback abre el formulario real dentro de Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback"
+    },
+    {
+      "id": "redirect",
+      "w": 1024,
+      "name": "/progresion → Mi cuenta → Progresión",
+      "ok": true,
+      "detail": "/cuenta?seccion=progresion"
+    },
+    {
+      "id": "redirect",
+      "w": 1024,
+      "name": "/feedback?desde=cup → Mi cuenta → Dar feedback (conserva el origen)",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback&desde=cup"
+    },
+    {
+      "id": "objetivos",
+      "w": 1024,
+      "name": "Objetivos: objetivos del pase por tipo + misiones especiales; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "groups": 4,
+        "title": "OBJETIVOS",
+        "pickem": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "pase",
+      "w": 1024,
+      "name": "Pase de batalla: la pantalla canónica de temporada (no el hub); sin «comprado»; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1024,
+      "name": "Crafteo: SOLO Cartas · Sobres",
+      "ok": true,
+      "detail": {
+        "opts": [
+          "/misiones/crafting/cartas",
+          "/misiones/crafting/sobres"
+        ],
+        "avanzado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 1024,
+      "name": "Crafteo → Cartas: intercambio · proyectos y acceso a Recetas avanzadas",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "crafteo",
+      "w": 1024,
+      "name": "Crafteo → Sobres: la forja de sobres canónica (no la compra)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "publico",
+      "w": 1024,
+      "name": "/jugador/me → /jugador/<id>: el perfil sigue funcionando",
+      "ok": true,
+      "detail": "/jugador/c28ce82b-dff7-4723-b3b9-3290eaab33c8"
+    },
+    {
+      "id": "hub",
+      "w": 390,
+      "name": "Temporada → exactamente Pase de batalla · Objetivos · Crafteo, con sus destinos",
+      "ok": true,
+      "detail": {
+        "areas": [
+          "PASE DE BATALLA",
+          "OBJETIVOS",
+          "CRAFTEO"
+        ],
+        "ctas": [
+          "/temporada/pase",
+          "/misiones",
+          "/misiones/crafting"
+        ],
+        "over": 0
+      }
+    },
+    {
+      "id": "hub",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "hub",
+      "w": 390,
+      "name": "las tarjetas son enlaces enfocables (teclado)",
+      "ok": true,
+      "detail": {
+        "id": "season-area-cta-PASS",
+        "outline": "none",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 3px inset, rgba(5, 6, 12, 0.92) 0px 0px 0px 6px inset"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 390,
+      "name": "tarjeta PASE DE BATALLA → pase canónico; premium «próximamente»; nunca «comprado»",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 390,
+      "name": "la Tienda no enlaza al Centro de eventos; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "menu",
+      "w": 390,
+      "name": "hoja «Menú»: sin Centro de eventos, Progresión, Mi perfil ni Dar feedback; con Pase de batalla",
+      "ok": true,
+      "detail": {
+        "tiendaEventos": false,
+        "pase": true,
+        "prog": false,
+        "feedback": false,
+        "perfil": false
+      }
+    },
+    {
+      "id": "icono",
+      "w": 390,
+      "name": "icono de usuario visible arriba a la derecha (aria-label/title «Mi cuenta», SVG, 44 px)",
+      "ok": true,
+      "detail": {
+        "label": "Mi cuenta",
+        "title": "Mi cuenta",
+        "svg": true,
+        "w": 44,
+        "visible": true
+      }
+    },
+    {
+      "id": "icono",
+      "w": 390,
+      "name": "pulsarlo abre Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta"
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "Mi cuenta → Perfil (por defecto): pestañas PERFIL · PROGRESIÓN · CUENTA; tu identidad con editar y cerrar sesión",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "botón DAR FEEDBACK en la cabecera; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "Progresión dentro de Mi cuenta: centro de reclamos, progreso y enlace al historial",
+      "ok": true,
+      "detail": {
+        "url": "/cuenta?seccion=progresion",
+        "claims": "0",
+        "hero": true,
+        "history": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "Cuenta: los ajustes de siempre (avatar, región, sonido)",
+      "ok": true,
+      "detail": "/cuenta?seccion=cuenta"
+    },
+    {
+      "id": "feedback",
+      "w": 390,
+      "name": "Dar feedback abre el formulario real dentro de Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback"
+    },
+    {
+      "id": "redirect",
+      "w": 390,
+      "name": "/progresion → Mi cuenta → Progresión",
+      "ok": true,
+      "detail": "/cuenta?seccion=progresion"
+    },
+    {
+      "id": "redirect",
+      "w": 390,
+      "name": "/feedback?desde=cup → Mi cuenta → Dar feedback (conserva el origen)",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback&desde=cup"
+    },
+    {
+      "id": "objetivos",
+      "w": 390,
+      "name": "Objetivos: objetivos del pase por tipo + misiones especiales; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "groups": 4,
+        "title": "OBJETIVOS",
+        "pickem": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "pase",
+      "w": 390,
+      "name": "Pase de batalla: la pantalla canónica de temporada (no el hub); sin «comprado»; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 390,
+      "name": "Crafteo: SOLO Cartas · Sobres",
+      "ok": true,
+      "detail": {
+        "opts": [
+          "/misiones/crafting/cartas",
+          "/misiones/crafting/sobres"
+        ],
+        "avanzado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 390,
+      "name": "Crafteo → Cartas: intercambio · proyectos y acceso a Recetas avanzadas",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "crafteo",
+      "w": 390,
+      "name": "Crafteo → Sobres: la forja de sobres canónica (no la compra)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "publico",
+      "w": 390,
+      "name": "/jugador/me → /jugador/<id>: el perfil sigue funcionando",
+      "ok": true,
+      "detail": "/jugador/c28ce82b-dff7-4723-b3b9-3290eaab33c8"
+    },
+    {
+      "id": "hub",
+      "w": 390,
+      "name": "Temporada → exactamente Pase de batalla · Objetivos · Crafteo, con sus destinos",
+      "ok": true,
+      "detail": {
+        "areas": [
+          "PASE DE BATALLA",
+          "OBJETIVOS",
+          "CRAFTEO"
+        ],
+        "ctas": [
+          "/temporada/pase",
+          "/misiones",
+          "/misiones/crafting"
+        ],
+        "over": 0
+      }
+    },
+    {
+      "id": "hub",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "hub",
+      "w": 390,
+      "name": "las tarjetas son enlaces enfocables (teclado)",
+      "ok": true,
+      "detail": {
+        "id": "season-area-cta-PASS",
+        "outline": "none",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 3px inset, rgba(5, 6, 12, 0.92) 0px 0px 0px 6px inset"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 390,
+      "name": "tarjeta PASE DE BATALLA → pase canónico; premium «próximamente»; nunca «comprado»",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 390,
+      "name": "la Tienda no enlaza al Centro de eventos; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "pass": "/temporada/pase?desde=tienda",
+        "line": "Pase premium · 5,99 € · próximamente",
+        "eventos": false,
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "menu",
+      "w": 390,
+      "name": "hoja «Menú»: sin Centro de eventos, Progresión, Mi perfil ni Dar feedback; con Pase de batalla",
+      "ok": true,
+      "detail": {
+        "tiendaEventos": false,
+        "pase": true,
+        "prog": false,
+        "feedback": false,
+        "perfil": false
+      }
+    },
+    {
+      "id": "icono",
+      "w": 390,
+      "name": "icono de usuario visible arriba a la derecha (aria-label/title «Mi cuenta», SVG, 44 px)",
+      "ok": true,
+      "detail": {
+        "label": "Mi cuenta",
+        "title": "Mi cuenta",
+        "svg": true,
+        "w": 44,
+        "visible": true
+      }
+    },
+    {
+      "id": "icono",
+      "w": 390,
+      "name": "pulsarlo abre Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta"
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "Mi cuenta → Perfil (por defecto): pestañas PERFIL · PROGRESIÓN · CUENTA; tu identidad con editar y cerrar sesión",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "botón DAR FEEDBACK en la cabecera; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "tabs": [
+          "PERFIL",
+          "PROGRESIÓN",
+          "CUENTA"
+        ],
+        "cur": "account-tab-perfil",
+        "profile": true,
+        "edit": true,
+        "signout": true,
+        "feedback": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "Progresión dentro de Mi cuenta: centro de reclamos, progreso y enlace al historial",
+      "ok": true,
+      "detail": {
+        "url": "/cuenta?seccion=progresion",
+        "claims": "0",
+        "hero": true,
+        "history": true,
+        "over": 0
+      }
+    },
+    {
+      "id": "cuenta",
+      "w": 390,
+      "name": "Cuenta: los ajustes de siempre (avatar, región, sonido)",
+      "ok": true,
+      "detail": "/cuenta?seccion=cuenta"
+    },
+    {
+      "id": "feedback",
+      "w": 390,
+      "name": "Dar feedback abre el formulario real dentro de Mi cuenta",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback"
+    },
+    {
+      "id": "redirect",
+      "w": 390,
+      "name": "/progresion → Mi cuenta → Progresión",
+      "ok": true,
+      "detail": "/cuenta?seccion=progresion"
+    },
+    {
+      "id": "redirect",
+      "w": 390,
+      "name": "/feedback?desde=cup → Mi cuenta → Dar feedback (conserva el origen)",
+      "ok": true,
+      "detail": "/cuenta?seccion=feedback&desde=cup"
+    },
+    {
+      "id": "objetivos",
+      "w": 390,
+      "name": "Objetivos: objetivos del pase por tipo + misiones especiales; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "groups": 4,
+        "title": "OBJETIVOS",
+        "pickem": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "pase",
+      "w": 390,
+      "name": "Pase de batalla: la pantalla canónica de temporada (no el hub); sin «comprado»; sin desbordamiento",
+      "ok": true,
+      "detail": {
+        "comprado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 390,
+      "name": "Crafteo: SOLO Cartas · Sobres",
+      "ok": true,
+      "detail": {
+        "opts": [
+          "/misiones/crafting/cartas",
+          "/misiones/crafting/sobres"
+        ],
+        "avanzado": false,
+        "over": 0
+      }
+    },
+    {
+      "id": "crafteo",
+      "w": 390,
+      "name": "Crafteo → Cartas: intercambio · proyectos y acceso a Recetas avanzadas",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "crafteo",
+      "w": 390,
+      "name": "Crafteo → Sobres: la forja de sobres canónica (no la compra)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "publico",
+      "w": 390,
+      "name": "/jugador/me → /jugador/<id>: el perfil sigue funcionando",
+      "ok": true,
+      "detail": "/jugador/c28ce82b-dff7-4723-b3b9-3290eaab33c8"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Valorosters (DRLCards) — stack de PRODUCCIÓN (F75).
+#
+# Vive en /opt/nexus/projects/valorosters/ del VPS, proyecto Compose
+# `valorosters`. Aislado del resto de proyectos NEXUS: red propia, nombres
+# propios, conector Cloudflare propio. Ningún puerto publicado hacia Internet.
+#
+#   valorosters-app     Next.js (`next start`) sobre la release de ./current
+#   valorosters-tunnel  Conector del túnel Cloudflare «drlcards» (801a8447…)
+#
+# Redes:
+#   edge                    app ↔ túnel (salida a Internet para cloudflared).
+#   supabase-drlcards_interna  red EXTERNA del stack supabase-drlcards: la app
+#                           habla con Kong como http://supabase_kong_DRLCards:8000.
+#                           Postgres y Kong siguen sin publicarse fuera de loopback.
+#
+# La release se compila con `bin/build.sh <release>` y se activa moviendo el
+# enlace `current`. Secretos: ./secrets/app.env (600). Túnel: ./tunnel (700).
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: valorosters
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  valorosters-app:
+    image: node:24.15.0-bookworm-slim
+    container_name: valorosters-app
+    restart: unless-stopped
+    init: true
+    user: "1000:1000"
+    working_dir: /app
+    command: ["node", "node_modules/next/dist/bin/next", "start", "-H", "0.0.0.0", "-p", "3005"]
+    env_file: ./secrets/app.env
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+      HOME: /tmp
+      NODE_OPTIONS: --max-old-space-size=1536
+    volumes:
+      # rw: `next start` escribe .next/cache (imágenes optimizadas, ISR).
+      - ./current:/app
+    tmpfs:
+      - /tmp:size=256m
+    networks:
+      - edge
+      - supabase
+    # Solo loopback del VPS, para sondas y operación por SSH. El tráfico
+    # público entra EXCLUSIVAMENTE por el túnel.
+    ports:
+      - "127.0.0.1:3005:3005"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    stop_grace_period: 20s
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3005/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 2g
+    logging: *logging
+
+  valorosters-tunnel:
+    image: cloudflare/cloudflared:2026.9.0@sha256:b269e8abd07a5bf6f3f4be65d5050b2174eca89c56a0241a8ff32a16aec454e4
+    container_name: valorosters-tunnel
+    restart: unless-stopped
+    user: "1000:1000"
+    command: ["tunnel", "--no-autoupdate", "--metrics", "0.0.0.0:2000", "--config", "/etc/cloudflared/config.yml", "run"]
+    volumes:
+      - ./tunnel:/etc/cloudflared:ro
+    depends_on:
+      - valorosters-app
+    networks:
+      - edge
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 256m
+    logging: *logging
+
+networks:
+  edge:
+    name: valorosters_edge
+  supabase:
+    name: supabase-drlcards_interna
+    external: true

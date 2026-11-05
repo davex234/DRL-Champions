@@ -1,0 +1,74 @@
+{
+  "GLOBAL_MARKET_ENABLED": false,
+  "PAYMENTS_ENABLED": false,
+  "anchorBand": {
+    "min": 0.2,
+    "max": 2.5
+  },
+  "anchorRatios": {
+    "common": 1.03,
+    "uncommon": 0.65,
+    "rare": 1.83,
+    "epic": 1.12,
+    "legendary": 1.2
+  },
+  "salvageBelowReference": {
+    "ok": true,
+    "worst": {
+      "bucket": "common",
+      "ratio": 0.1
+    }
+  },
+  "criteria": [
+    {
+      "id": "ownership",
+      "status": "unknown",
+      "detail": "Sin comprobar en esta ejecución: lo decide npm run economy:verify"
+    },
+    {
+      "id": "atomic",
+      "status": "unknown",
+      "detail": "Sin comprobar en esta ejecución: lo decide npm run economy:verify"
+    },
+    {
+      "id": "idempotent",
+      "status": "unknown",
+      "detail": "Sin comprobar en esta ejecución: lo decide npm run economy:verify"
+    },
+    {
+      "id": "balance-safe",
+      "status": "unknown",
+      "detail": "Sin comprobar en esta ejecución: lo decide npm run economy:verify"
+    },
+    {
+      "id": "price-safe",
+      "status": "unknown",
+      "detail": "Sin comprobar en esta ejecución: lo decide npm run economy:verify"
+    },
+    {
+      "id": "fee",
+      "status": "unknown",
+      "detail": "Sin comprobar en esta ejecución: lo decide npm run economy:verify"
+    },
+    {
+      "id": "no-double-spend",
+      "status": "unknown",
+      "detail": "Sin comprobar en esta ejecución: lo decide npm run economy:verify"
+    },
+    {
+      "id": "anchor-calibrated",
+      "status": "met",
+      "detail": "Las 5 rarezas caen en la banda 0.2–2.5× del coste de tirada (la más alejada: rare 1.83×)"
+    },
+    {
+      "id": "salvage-safe",
+      "status": "met",
+      "detail": "El peor caso es una carta common: su desguace es el 10 % de su valor de referencia"
+    },
+    {
+      "id": "player-mass",
+      "status": "unknown",
+      "detail": "No se puede saber desde el repositorio: hace falta la telemetría de producción"
+    }
+  ]
+}

@@ -1,0 +1,458 @@
+[
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "0-pack",
+    "t": "0.75",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-0-pack-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "0-open",
+    "t": "1.25",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-0-open-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "A-darkness",
+    "t": "1.75",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-A-darkness-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "B-human",
+    "t": "3.00",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-B-human-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "C-flag",
+    "t": "3.80",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-C-flag-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "D-role",
+    "t": "4.75",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-D-role-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "E-team",
+    "t": "5.62",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-E-team-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "F0-ovr-first",
+    "t": "7.35",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-F0-ovr-first-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "F-ovr",
+    "t": "8.15",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-F-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "F2-flash",
+    "t": "8.65",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-F2-flash-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "G-player",
+    "t": "9.25",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-G-player-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "name": "H-final",
+    "t": "10.50",
+    "stage": "3d",
+    "status": "done",
+    "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+    "file": "future-star-WALKOUT-motion-H-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": false,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "name": "C-flag",
+    "t": "0.40",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-C-flag-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "name": "D-role",
+    "t": "0.90",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-D-role-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "name": "E-team",
+    "t": "1.40",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-E-team-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "name": "F-ovr",
+    "t": "2.45",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-F-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "name": "G-player",
+    "t": "2.80",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-G-player-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "name": "H-final",
+    "t": "3.30",
+    "stage": "2d",
+    "status": "done",
+    "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+    "file": "future-star-WALKOUT-reduced-H-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "reduced": true,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "0-pack",
+    "t": "0.75",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-0-pack-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "0-open",
+    "t": "1.25",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-0-open-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "A-darkness",
+    "t": "1.75",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-A-darkness-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "B-human",
+    "t": "3.00",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-B-human-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "C-flag",
+    "t": "3.80",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-C-flag-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "D-role",
+    "t": "4.75",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-D-role-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "E-team",
+    "t": "5.62",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-E-team-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "F0-ovr-first",
+    "t": "7.35",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-F0-ovr-first-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "F-ovr",
+    "t": "8.15",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-F-ovr-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "F2-flash",
+    "t": "8.65",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-F2-flash-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "G-player",
+    "t": "9.25",
+    "stage": "3d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-motion-G-player-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "name": "H-final",
+    "t": "10.50",
+    "stage": "3d",
+    "status": "done",
+    "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+    "file": "future-star-WALKOUT-motion-H-final-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": false,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "name": "C-flag",
+    "t": "0.40",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-C-flag-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "name": "D-role",
+    "t": "0.90",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-D-role-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "name": "E-team",
+    "t": "1.40",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-E-team-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "name": "F-ovr",
+    "t": "2.45",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-F-ovr-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "name": "G-player",
+    "t": "2.80",
+    "stage": "2d",
+    "status": "paused",
+    "summary": null,
+    "file": "future-star-WALKOUT-reduced-G-player-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "name": "H-final",
+    "t": "3.30",
+    "stage": "2d",
+    "status": "done",
+    "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+    "file": "future-star-WALKOUT-reduced-H-final-390.png"
+  },
+  {
+    "width": 390,
+    "reduced": true,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

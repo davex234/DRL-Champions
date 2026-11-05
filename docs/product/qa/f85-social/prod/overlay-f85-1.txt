@@ -1,0 +1,13 @@
+src/app/api/game/social/route.ts
+src/app/duelos/pvp/page.tsx
+src/app/social/page.tsx
+src/components/layout/GameShell.tsx
+src/components/social/SocialLive.tsx
+src/components/social/f85.social.render.test.tsx
+src/domain/social/f85.social.test.ts
+src/domain/social/social.contract.test.ts
+src/domain/social/social.test.ts
+src/domain/social/social.ts
+src/lib/social/client.ts
+src/server/services/rateLimit.ts
+src/server/services/social.ts

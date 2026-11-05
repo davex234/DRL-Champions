@@ -1,0 +1,250 @@
+{
+  "account": "8c326e52",
+  "base": "http://127.0.0.1:3005",
+  "at": "2026-09-16T21:19:15.486Z",
+  "kind": "REAL",
+  "fp0": {
+    "credits": "6630",
+    "cards": "40",
+    "matches": "7",
+    "ledger": "17/6630"
+  },
+  "analysis": {
+    "deck": "Equipo 2",
+    "active": true,
+    "orientation": "Perfil mixto",
+    "shape": "CONSISTENT",
+    "means": {
+      "ovr": 81.3,
+      "stronghold": 73.3,
+      "gamesense": 65.5,
+      "entryfrag": 66
+    },
+    "percentiles": {
+      "ovr": 99.1125,
+      "stronghold": 98.7075,
+      "gamesense": 88.4875,
+      "entryfrag": 96.25
+    },
+    "strengths": [
+      "Stronghold alto: P99 respecto a equipos legales simulados.",
+      "Entryfrag alto: P96 respecto a equipos legales simulados.",
+      "Gamesense alto: P88 respecto a equipos legales simulados."
+    ],
+    "weaknesses": [
+      "Gamesense es tu eje más bajo (P88).",
+      "Los dos Centinelas están por debajo de la media del equipo en Gamesense."
+    ]
+  },
+  "alternatives": [
+    "Iniciador:4",
+    "Iniciador:4",
+    "Centinela:2",
+    "Centinela:2",
+    "Flex:1",
+    "Flex:1",
+    "Controlador:7",
+    "Controlador:6",
+    "Duelista:16",
+    "Duelista:16"
+  ],
+  "suggestions": [
+    {
+      "objective": "BALANCED",
+      "ok": true,
+      "orientation": "Equilibrado",
+      "legal": true
+    },
+    {
+      "objective": "stronghold",
+      "ok": true,
+      "orientation": "Perfil mixto",
+      "legal": true
+    },
+    {
+      "objective": "gamesense",
+      "ok": true,
+      "orientation": "Orientado a Gamesense",
+      "legal": true
+    },
+    {
+      "objective": "entryfrag",
+      "ok": true,
+      "orientation": "Orientado a Entryfrag",
+      "legal": true
+    }
+  ],
+  "compare": [],
+  "saveRevert": {
+    "swapped": "RieNs → eeiu",
+    "save": 200,
+    "stale": 409,
+    "revert": 200,
+    "restored": true
+  },
+  "match": {
+    "id": "431fac3f",
+    "result": {
+      "you": 7,
+      "rival": 3,
+      "decidedBy": "SCORE"
+    },
+    "axes": [
+      {
+        "axis": "stronghold",
+        "n": 5,
+        "w": 4,
+        "l": 1,
+        "t": 0
+      },
+      {
+        "axis": "gamesense",
+        "n": 1,
+        "w": 1,
+        "l": 0,
+        "t": 0
+      },
+      {
+        "axis": "entryfrag",
+        "n": 4,
+        "w": 2,
+        "l": 2,
+        "t": 0
+      }
+    ],
+    "insights": [
+      "Ganaste 4 de 5 comparaciones de Stronghold.",
+      "7 de tus 10 cartas ganaron su turno."
+    ]
+  },
+  "matchDelta": [
+    "credits: 6630 → 6750",
+    "xp: 1438 → 1498",
+    "points: 32 → 40",
+    "matches: 7/2026-09-16 16:22:03.935627+00 → 8/2026-09-16 21:20:10.493639+00",
+    "ledger: 17/6630 → 18/6750",
+    "ops: 12 → 14"
+  ],
+  "fpFinal": {
+    "credits": "6750",
+    "decksRestored": true
+  },
+  "shots": [
+    {
+      "file": "real-01-lab-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente",
+      "size": "1440"
+    },
+    {
+      "file": "real-02-lab-1024.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente",
+      "size": "1024"
+    },
+    {
+      "file": "real-03-lab-390.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente",
+      "size": "390"
+    },
+    {
+      "file": "real-04-lab-panel-390.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-05-card-focus-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-06-alternatives-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-07-swap-preview-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-08-swap-impact-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-09-suggest-gamesense-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-10-pareto-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-11-compare-decks-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": false,
+      "orientation": null
+    },
+    {
+      "file": "real-12-prematch-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": false,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-13-prematch-390.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": false,
+      "orientation": "Perfil mixto · Consistente"
+    },
+    {
+      "file": "real-14-replay-reading-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": false,
+      "orientation": null
+    },
+    {
+      "file": "real-15-replay-reading-390.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": false,
+      "orientation": null
+    },
+    {
+      "file": "real-16-adjust-deck-context-1440.png",
+      "kind": "REAL",
+      "overflow": false,
+      "lab": true,
+      "orientation": "Perfil mixto · Consistente"
+    }
+  ],
+  "failures": 1
+}

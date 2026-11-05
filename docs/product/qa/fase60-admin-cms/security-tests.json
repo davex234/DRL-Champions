@@ -1,0 +1,76 @@
+{
+ "at": "2026-09-24T19:28:57.520Z",
+ "suite": "npm test (node:test) — ver fase-60-admin-cms.md §Gates",
+ "tests": [
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "AUTH · todas las familias del CMS: anónimo 401, usuario normal 401 (mismo mensaje), admin 2xx"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "AUTH · la RPC se niega aunque alguien saltara la ruta (actor no admin ⇒ NOT_ADMIN)"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "MASS ASSIGNMENT · campos fuera de la lista blanca ⇒ 400, en el cuerpo y dentro de `patch`"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "AGENTE · XSS y reglas: <script> en el nombre, id de legado, habilidades incompletas ⇒ 400"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SUBIDAS · PNG falso, doble extensión, traversal, MIME falso, SVG, corrupto, tipo no admitido ⇒ rechazados; el válido entra"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SUBIDAS · por la RUTA: tamaño antes de leer, campos no permitidos, fichero enorme ⇒ 413; duplicado ⇒ mismo asset (idempotente)"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SUBIDAS · compensación: fallo de Storage a mitad o de la auditoría ⇒ ni objetos ni fila"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SUBIDAS · reemplazo = nueva versión del grupo (la anterior queda como historial); huérfano detectado y limpieza explícita; en uso ⇒ no"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "IDOR · ids manipulados: un usuario normal no lee ni escribe nada; el admin recibe 404/400 limpios (sin detalle interno)"
+  },
+  {
+   "file": "src/domain/cms/cms.domain.test.ts",
+   "test": "FIRMAS · se detecta por BYTES (PNG/WEBP/JPEG/AVIF); texto, SVG y HTML no son imágenes"
+  },
+  {
+   "file": "src/domain/cms/cms.domain.test.ts",
+   "test": "REGLAS DE SUBIDA · tamaño, doble extensión, MIME, formato por tipo, dimensiones y proporción"
+  },
+  {
+   "file": "src/domain/cms/cms.domain.test.ts",
+   "test": "MATRIZ · economía, flags y roles NUNCA editables desde el CMS; el contenido sí"
+  }
+ ],
+ "extra": [
+  "tests/admin: adminControlCenter.test.ts recorre TODAS las rutas /api/admin/** (recursivo) y exige verifyAdmin",
+  "ruta legada /api/admin/assets endurecida: firma por bytes, 20 MB, upsert:false, errores genéricos"
+ ],
+ "production": [
+  {
+   "step": "agent · subir cara (sharp real, Storage real)",
+   "ok": true
+  },
+  {
+   "step": "agent · Storage sirve original y derivados",
+   "ok": true
+  },
+  {
+   "step": "card · ficha: imagen de Storage renderizable",
+   "ok": true
+  },
+  {
+   "step": "cleanup · Storage ya no sirve ningún fichero QA",
+   "ok": true
+  }
+ ]
+}

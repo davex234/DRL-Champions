@@ -1,0 +1,20 @@
+## 2026-10-06T08:45:21Z · worker esports (solo lectura)
+*/2 * * * * /opt/nexus/projects/drlcards-sync/bin/run-sync.sh >/dev/null 2>&1
+release: releases/rel-20260914T093113Z-996d06fd
+872f5449d8c2e918459a0cf8244dac1dd887db020c066ab3128d464fe13d0e34  /opt/nexus/projects/drlcards-sync/current/dist/worker.cjs
+ESPORTS_AUTO_SYNC_ENABLED=true
+ESPORTS_SYNC_ORIGIN=worker-vps
+--- últimas 6 pasadas
+[esports-sync-worker] event=run mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=439 status=success
+[esports-sync-worker] event=run mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=469 status=success
+[esports-sync-worker] event=run mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=1 events_synced=1 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=16674 status=success
+[esports-sync-worker] event=run mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=592 status=success
+[esports-sync-worker] event=run mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=513 status=success
+[esports-sync-worker] event=run mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=447 status=success
+--- errores en las últimas 500 líneas: 0
+Field separator is " ".
+sync_state ok 2026-10-06 08:44:01.693+00 2026-10-06 08:44:01.720618+00 -
+counts 3 6 101 37 3 63 1
+dup_question_keys 0
+dup_stage_slugs 0
+vlr-2766 matches 34 20 2026-09-14 09:10:34.720514+00

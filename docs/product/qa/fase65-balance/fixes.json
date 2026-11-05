@@ -1,0 +1,23 @@
+{
+  "policy": "F65 solo arregla BUGS DE IMPLEMENTACIÓN probados. Nada de balance impreso (stats, OVR, roles, ediciones) ni de reglas se cambia: eso va como propuesta.",
+  "applied": [
+    {
+      "id": "FIX-1",
+      "kind": "BUG DE IMPLEMENTACIÓN (integridad de mazo en PvP)",
+      "file": "src/server/services/duelsPvp.ts",
+      "before": "loadOwned propio sin paginar: PostgREST corta en 1.000 filas → cartas propias más allá de la fila 1.000 = «no pertenece a tu colección»; un equipo legal no entraba en cola PvP.",
+      "after": "reutiliza el loadOwned paginado de duels.ts (el mismo que PvE y el constructor usan desde que se corrigió allí).",
+      "evidence": "src/server/services/duelsPvp.owned.service.test.ts: ROJO con el código anterior (409 «Ese mazo no es legal: Esa carta no pertenece a tu colección.»), VERDE con el arreglo.",
+      "engineGoldenHash": "sin cambios (el motor no se toca)",
+      "migration": "ninguna"
+    }
+  ],
+  "examinedNotBugs": [
+    { "id": "EX-1", "what": "El primer atacante gana 45,8 % (efecto emparejado −8,6 pp)", "verdict": "Regla, no bug: con ataque alterno el segundo jugador defiende siempre con una carta MÁS entre la que elegir (10/8/6/4/2 frente a 9/7/5/3/1) y el defensor es quien decide viendo el valor. El servidor sortea el primer atacante con crypto.randomInt, así que la esperanza es 50/50. Propuesta en rule-change-proposal.md." },
+    { "id": "EX-2", "what": "El 23,4 % de las partidas lo decide la suma de OVR IMPRESO; en el 32 % de esas gana el mazo con menos combate", "verdict": "Regla literal del PDF (resolver.ts). Propuesta con simulación en sombra en rule-change-proposal.md." },
+    { "id": "EX-3", "what": "Dos ediciones del mismo jugador tienen combate idéntico pero distinto OVR: la de más OVR mejora el resultado +2,6 pp solo por el desempate", "verdict": "Consecuencia de EX-2 (statBoost = 0 en todas las ediciones por diseño del catálogo)." },
+    { "id": "EX-4", "what": "El autocompletar (máximo OVR) pierde 71–92 % contra otro equipo de la MISMA colección elegido por pico de estadística", "verdict": "Comportamiento documentado («Mejor OVR disponible para este hueco»). Propuesta P-3." },
+    { "id": "EX-5", "what": "PvE `play` sin control de concurrencia (última escritura gana)", "verdict": "Bug real pero sin ventaja explotable ni efecto en balance; deuda P2 (INT-1) con arreglo descrito, sin migración." },
+    { "id": "EX-6", "what": "Integridad del motor en 1,43 M partidas", "verdict": "0 partidas con integrityOk=false; 0 discrepancias entre el desempate en sombra CURRENT y el motor; 6/6 ataques de mazo inválido rechazados por el validador canónico." }
+  ]
+}

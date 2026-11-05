@@ -1,0 +1,18 @@
+{
+  "Clasificado": "Eingestuft",
+  "Colocación {placementPlayed}/{placementTotal}": "Platzierung {placementPlayed}/{placementTotal}",
+  "Completar equipo": "Team vervollständigen",
+  "Continuar": "Weiter",
+  "Continuar partida": "Match fortsetzen",
+  "Crear equipo": "Team erstellen",
+  "Draft {pick}/10": "Draft {pick}/10",
+  "Entrar · {fee}": "Teilnehmen · {fee}",
+  "Jugar": "Spielen",
+  "Preparando…": "Wird vorbereitet…",
+  "Rating {rating}": "Rating {rating}",
+  "Rating {rating}{v}": "Rating {rating}{v}",
+  "Sin clasificar": "Ohne Rang",
+  "Te faltan {v} créditos": "Dir fehlen {v} Credits",
+  "Ver competitivo": "Kompetitiv ansehen",
+  "{wins}/{total} victorias": "{wins}/{total} Siege"
+}

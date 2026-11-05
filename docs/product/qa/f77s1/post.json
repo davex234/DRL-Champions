@@ -1,0 +1,226 @@
+{
+  "at": "2026-10-01T17:34:11.797Z",
+  "qa": {
+    "S": "0a18e389",
+    "T": "9d53b3bd"
+  },
+  "pass": 41,
+  "fail": 2,
+  "results": [
+    {
+      "id": "BUNDLE · la anon que sirve valorosters.com CAMBIÓ tras la rotación",
+      "ok": true,
+      "detail": "{\"before\":\"bf1725a8\",\"after\":\"0c16dccc\"}"
+    },
+    {
+      "id": "SESIÓN EXISTENTE · token previo es ES256/asimétrico con kid",
+      "ok": true,
+      "detail": "{\"alg\":\"ES256\",\"kidPresent\":true}"
+    },
+    {
+      "id": "SESIÓN EXISTENTE · /auth/v1/user con el token PREVIO → 200 (sobrevive)",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "SESIÓN EXISTENTE · /api/game/me con el token PREVIO → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "SESIÓN EXISTENTE · REST con el token PREVIO (perfil propio) → 200 y 1 fila",
+      "ok": true,
+      "detail": "{\"status\":200,\"rows\":1}"
+    },
+    {
+      "id": "SESIÓN EXISTENTE · refresh con el refresh_token PREVIO (lo que hace el navegador al F5) → token nuevo",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "SESIÓN EXISTENTE · operación autenticada con el token refrescado → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "ALTA · signup QA T después de rotar → sesión",
+      "ok": true,
+      "detail": "{\"status\":200,\"user\":\"9d53b3bd\"}"
+    },
+    {
+      "id": "LOGIN · contraseña de T → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "LOGOUT · /auth/v1/logout → 204",
+      "ok": true,
+      "detail": "204"
+    },
+    {
+      "id": "LOGOUT · el refresh_token de esa sesión ya no sirve",
+      "ok": true,
+      "detail": "400"
+    },
+    {
+      "id": "LOGIN de nuevo tras logout → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "LOGIN · contraseña incorrecta → 400 sin sesión",
+      "ok": true,
+      "detail": "400"
+    },
+    {
+      "id": "RLS · S NO lee las cartas de T (0 filas)",
+      "ok": true,
+      "detail": "{\"status\":200,\"rows\":0}"
+    },
+    {
+      "id": "RLS · S NO lee columnas privadas del perfil de T",
+      "ok": true,
+      "detail": "403"
+    },
+    {
+      "id": "RLS · S NO modifica el perfil de T",
+      "ok": true,
+      "detail": "{\"status\":403,\"rows\":\"-\"}"
+    },
+    {
+      "id": "ADMIN · un usuario normal NO puede hacerse admin (PATCH is_admin rechazado y BD = false)",
+      "ok": true,
+      "detail": "{\"status\":403,\"isAdmin\":false}"
+    },
+    {
+      "id": "RLS · el nombre de T sigue intacto en BD",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · admins en BD = 1",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "id": "ANON · user_cards sin filas privadas",
+      "ok": true,
+      "detail": "{\"status\":200,\"rows\":0}"
+    },
+    {
+      "id": "ANON · economy_ops sin filas privadas",
+      "ok": true,
+      "detail": "{\"status\":200,\"rows\":0}"
+    },
+    {
+      "id": "ANON · profiles sin filas privadas",
+      "ok": true,
+      "detail": "{\"status\":401,\"rows\":\"-\"}"
+    },
+    {
+      "id": "ANON · user_packs sin filas privadas",
+      "ok": true,
+      "detail": "{\"status\":200,\"rows\":0}"
+    },
+    {
+      "id": "ANON NUEVA · lectura pública permitida (agents) → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "LOGIN QA A (1ff2c0ef)",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "LOGIN QA B (8c326e52)",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "LOGIN QA C (40a1e10d)",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/me → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/collection → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/packs → 200",
+      "ok": false,
+      "detail": "405"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/missions → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/crafting → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/competitive → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/duels → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "PRODUCTO · GET /api/game/daily-loop → 200",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "RANKED · la cuenta QA tiene un equipo válido",
+      "ok": true,
+      "detail": "d6e00a4c"
+    },
+    {
+      "id": "RANKED F76 · enqueue → 200",
+      "ok": true,
+      "detail": "{\"status\":200}"
+    },
+    {
+      "id": "RANKED F76 · cancel → 200",
+      "ok": true,
+      "detail": "{\"status\":200}"
+    },
+    {
+      "id": "PVE · la cuenta QA A tiene un equipo válido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "PVE · start → 200 con partida",
+      "ok": true,
+      "detail": "{\"status\":200}"
+    },
+    {
+      "id": "F72.8 · la decisión nace con plazo del servidor (turnDeadlineAt futuro)",
+      "ok": true,
+      "detail": "{\"inMs\":28949}"
+    },
+    {
+      "id": "PVE · una jugada legal → 200 y la versión avanza",
+      "ok": true,
+      "detail": "{\"status\":200,\"v\":[0,1]}"
+    },
+    {
+      "id": "PVE · abandon → 200 (partida QA cerrada)",
+      "ok": true,
+      "detail": "200"
+    }
+  ]
+}

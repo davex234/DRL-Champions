@@ -1,0 +1,501 @@
+{
+  "top20Increases": [
+    {
+      "player": "Lar0k",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 24,
+      "proposedPosition": 3,
+      "changePct": 434.27
+    },
+    {
+      "player": "Sato",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 25,
+      "proposedPosition": 4,
+      "changePct": 434.27
+    },
+    {
+      "player": "Xross",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 26,
+      "proposedPosition": 5,
+      "changePct": 434.27
+    },
+    {
+      "player": "Timotino",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 94,
+      "currentValue": 3375,
+      "proposedValue": 16900,
+      "currentPosition": 28,
+      "proposedPosition": 8,
+      "changePct": 400.74
+    },
+    {
+      "player": "Sayonara",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 94,
+      "currentValue": 3375,
+      "proposedValue": 16900,
+      "currentPosition": 27,
+      "proposedPosition": 7,
+      "changePct": 400.74
+    },
+    {
+      "player": "Neon",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 93,
+      "currentValue": 3175,
+      "proposedValue": 15000,
+      "currentPosition": 29,
+      "proposedPosition": 9,
+      "changePct": 372.44
+    },
+    {
+      "player": "Veqaj",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 92,
+      "currentValue": 3000,
+      "proposedValue": 13200,
+      "currentPosition": 32,
+      "proposedPosition": 12,
+      "changePct": 340
+    },
+    {
+      "player": "alym",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 92,
+      "currentValue": 3000,
+      "proposedValue": 13200,
+      "currentPosition": 30,
+      "proposedPosition": 10,
+      "changePct": 340
+    },
+    {
+      "player": "spike",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 92,
+      "currentValue": 3000,
+      "proposedValue": 13200,
+      "currentPosition": 31,
+      "proposedPosition": 11,
+      "changePct": 340
+    },
+    {
+      "player": "Loita",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 91,
+      "currentValue": 2825,
+      "proposedValue": 11700,
+      "currentPosition": 34,
+      "proposedPosition": 14,
+      "changePct": 314.16
+    },
+    {
+      "player": "Dantedeu5",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 91,
+      "currentValue": 2825,
+      "proposedValue": 11700,
+      "currentPosition": 33,
+      "proposedPosition": 13,
+      "changePct": 314.16
+    },
+    {
+      "player": "echo",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 35,
+      "proposedPosition": 17,
+      "changePct": 288.79
+    },
+    {
+      "player": "s0pp",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 37,
+      "proposedPosition": 19,
+      "changePct": 288.79
+    },
+    {
+      "player": "Reduxx",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 36,
+      "proposedPosition": 18,
+      "changePct": 288.79
+    },
+    {
+      "player": "wayne",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 38,
+      "proposedPosition": 20,
+      "changePct": 288.79
+    },
+    {
+      "player": "blowz",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 89,
+      "currentValue": 2525,
+      "proposedValue": 9200,
+      "currentPosition": 39,
+      "proposedPosition": 22,
+      "changePct": 264.36
+    },
+    {
+      "player": "koshmaras",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 89,
+      "currentValue": 2525,
+      "proposedValue": 9200,
+      "currentPosition": 40,
+      "proposedPosition": 23,
+      "changePct": 264.36
+    },
+    {
+      "player": "primmie",
+      "edition": "masters-l",
+      "class": "masters",
+      "ovr": 95,
+      "currentValue": 1175,
+      "proposedValue": 4250,
+      "currentPosition": 45,
+      "proposedPosition": 37,
+      "changePct": 261.7
+    },
+    {
+      "player": "Jinggg",
+      "edition": "masters-l",
+      "class": "masters",
+      "ovr": 95,
+      "currentValue": 1175,
+      "proposedValue": 4250,
+      "currentPosition": 44,
+      "proposedPosition": 36,
+      "changePct": 261.7
+    },
+    {
+      "player": "Darker",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 88,
+      "currentValue": 2375,
+      "proposedValue": 8100,
+      "currentPosition": 41,
+      "proposedPosition": 25,
+      "changePct": 241.05
+    }
+  ],
+  "top20Decreases": [
+    {
+      "player": "SiuFatBB",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 80,
+      "currentValue": 4550,
+      "proposedValue": 1700,
+      "currentPosition": 23,
+      "proposedPosition": 105,
+      "changePct": -62.64
+    },
+    {
+      "player": "KROSTALY",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "currentValue": 5725,
+      "proposedValue": 2750,
+      "currentPosition": 21,
+      "proposedPosition": 63,
+      "changePct": -51.97
+    },
+    {
+      "player": "sociablEE",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "currentValue": 5725,
+      "proposedValue": 2750,
+      "currentPosition": 22,
+      "proposedPosition": 64,
+      "changePct": -51.97
+    },
+    {
+      "player": "Erv",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "currentValue": 5725,
+      "proposedValue": 2750,
+      "currentPosition": 20,
+      "proposedPosition": 62,
+      "changePct": -51.97
+    },
+    {
+      "player": "SSeeS",
+      "edition": "base",
+      "class": "base",
+      "ovr": 70,
+      "currentValue": 100,
+      "proposedValue": 50,
+      "currentPosition": 331,
+      "proposedPosition": 331,
+      "changePct": -50
+    },
+    {
+      "player": "Scales",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 85,
+      "currentValue": 6075,
+      "proposedValue": 3150,
+      "currentPosition": 19,
+      "proposedPosition": 51,
+      "changePct": -48.15
+    },
+    {
+      "player": "Lakia",
+      "edition": "base",
+      "class": "base",
+      "ovr": 71,
+      "currentValue": 100,
+      "proposedValue": 55,
+      "currentPosition": 330,
+      "proposedPosition": 330,
+      "changePct": -45
+    },
+    {
+      "player": "JessieVash",
+      "edition": "base",
+      "class": "base",
+      "ovr": 71,
+      "currentValue": 100,
+      "proposedValue": 55,
+      "currentPosition": 329,
+      "proposedPosition": 329,
+      "changePct": -45
+    },
+    {
+      "player": "xeus",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "currentValue": 6825,
+      "proposedValue": 4000,
+      "currentPosition": 18,
+      "proposedPosition": 40,
+      "changePct": -41.39
+    },
+    {
+      "player": "BABYBAY",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "currentValue": 6825,
+      "proposedValue": 4000,
+      "currentPosition": 16,
+      "proposedPosition": 38,
+      "changePct": -41.39
+    },
+    {
+      "player": "Munchkin",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "currentValue": 6825,
+      "proposedValue": 4000,
+      "currentPosition": 17,
+      "proposedPosition": 39,
+      "changePct": -41.39
+    },
+    {
+      "player": "valyn",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 88,
+      "currentValue": 7250,
+      "proposedValue": 4500,
+      "currentPosition": 15,
+      "proposedPosition": 35,
+      "changePct": -37.93
+    },
+    {
+      "player": "stax",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 88,
+      "currentValue": 7250,
+      "proposedValue": 4500,
+      "currentPosition": 14,
+      "proposedPosition": 34,
+      "changePct": -37.93
+    },
+    {
+      "player": "KROSTALY",
+      "edition": "base",
+      "class": "base",
+      "ovr": 74,
+      "currentValue": 125,
+      "proposedValue": 80,
+      "currentPosition": 322,
+      "proposedPosition": 322,
+      "changePct": -36
+    },
+    {
+      "player": "mwzera",
+      "edition": "base",
+      "class": "base",
+      "ovr": 74,
+      "currentValue": 125,
+      "proposedValue": 80,
+      "currentPosition": 323,
+      "proposedPosition": 323,
+      "changePct": -36
+    },
+    {
+      "player": "TenTen",
+      "edition": "base",
+      "class": "base",
+      "ovr": 74,
+      "currentValue": 125,
+      "proposedValue": 80,
+      "currentPosition": 324,
+      "proposedPosition": 324,
+      "changePct": -36
+    },
+    {
+      "player": "Rosé",
+      "edition": "base",
+      "class": "base",
+      "ovr": 72,
+      "currentValue": 100,
+      "proposedValue": 65,
+      "currentPosition": 327,
+      "proposedPosition": 327,
+      "changePct": -35
+    },
+    {
+      "player": "C1ndeR",
+      "edition": "base",
+      "class": "base",
+      "ovr": 72,
+      "currentValue": 100,
+      "proposedValue": 65,
+      "currentPosition": 326,
+      "proposedPosition": 326,
+      "changePct": -35
+    },
+    {
+      "player": "SyouTa",
+      "edition": "base",
+      "class": "base",
+      "ovr": 72,
+      "currentValue": 100,
+      "proposedValue": 65,
+      "currentPosition": 328,
+      "proposedPosition": 328,
+      "changePct": -35
+    },
+    {
+      "player": "PatMen",
+      "edition": "record-breaker",
+      "class": "icon",
+      "ovr": 92,
+      "currentValue": 27875,
+      "proposedValue": 18400,
+      "currentPosition": 3,
+      "proposedPosition": 6,
+      "changePct": -33.99
+    }
+  ],
+  "checks": {
+    "nonPositive": [],
+    "nonFinite": [],
+    "maxValue": 26500,
+    "overflowRisk": false,
+    "perOvrStepRatio": {
+      "base": {
+        "min": 1.08,
+        "max": 1.2,
+        "nonIncreasing": []
+      },
+      "plata": {
+        "min": 1.08,
+        "max": 1.2,
+        "nonIncreasing": []
+      },
+      "oro": {
+        "min": 1.08,
+        "max": 1.2,
+        "nonIncreasing": []
+      },
+      "masters": {
+        "min": 1.08,
+        "max": 1.17,
+        "nonIncreasing": []
+      },
+      "champions": {
+        "min": 1.11,
+        "max": 1.15,
+        "nonIncreasing": []
+      },
+      "prime": {
+        "min": 1.11,
+        "max": 1.15,
+        "nonIncreasing": []
+      },
+      "icon": {
+        "min": 1.12,
+        "max": 1.14,
+        "nonIncreasing": []
+      }
+    },
+    "baseEditionCuts": {
+      "81→82": 1.16,
+      "85→86": 1.13
+    },
+    "nearIdenticalInversions": [],
+    "extremeChanges": [
+      "timotino__future-star 3375→16900",
+      "lar0k__future-star 3575→19100",
+      "sato__future-star 3575→19100",
+      "xross__future-star 3575→19100",
+      "sayonara__future-star 3375→16900"
+    ]
+  }
+}

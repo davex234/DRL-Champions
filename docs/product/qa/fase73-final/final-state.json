@@ -1,0 +1,35 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "migrationHead": "0060_salvage_last_copy_atomic",
+  "migrations": {
+    "0059": "aplicada 2026-09-30 ~14:59Z",
+    "0060": "aplicada 2026-09-30 19:04:11Z (autorizada; backup pre-0060/20260930T190336Z)"
+  },
+  "published": {
+    "missions": 0,
+    "projects": 0
+  },
+  "admins": 1,
+  "qaAdmin": false,
+  "cards": 331,
+  "agents": 29,
+  "craftOps": {
+    "craft_card": 2,
+    "craft_pack": 5
+  },
+  "marketplace": "GLOBAL_MARKET_ENABLED=false",
+  "payments": "PAYMENTS_ENABLED=false",
+  "qaResidue": {
+    "missionsRetired": 16,
+    "projectsRetired": 4,
+    "why": "retiradas por el panel (auditado); el panel no tiene borrado y no se borra a mano en producción"
+  },
+  "closedAt": "2026-09-30T20:27:48.023Z",
+  "queuesOpenQA": 0,
+  "qaMatchesInProgress": 0,
+  "tasks": {
+    "DRLCards": "Running",
+    "DRLCards-Tunnel": "Running"
+  },
+  "nextBind": "127.0.0.1:3005"
+}

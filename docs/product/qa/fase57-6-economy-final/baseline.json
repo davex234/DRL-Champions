@@ -1,0 +1,137 @@
+{
+  "catalog": 331,
+  "mainPrices": {
+    "estandar": [
+      1000,
+      5
+    ],
+    "premium": [
+      2500,
+      6
+    ],
+    "oro": [
+      4000,
+      5
+    ],
+    "masters": [
+      5000,
+      5
+    ],
+    "champions": [
+      8000,
+      5
+    ],
+    "icon": [
+      12500,
+      3
+    ]
+  },
+  "classDistribution": {
+    "estandar": {
+      "base": 50,
+      "plata": 25,
+      "oro": 10,
+      "masters": 7,
+      "champions": 4,
+      "prime": 3,
+      "icon": 1
+    },
+    "premium": {
+      "base": 0,
+      "plata": 50,
+      "oro": 25,
+      "masters": 10,
+      "champions": 7,
+      "prime": 5,
+      "icon": 3
+    },
+    "oro": {
+      "base": 0,
+      "plata": 0,
+      "oro": 50,
+      "masters": 23,
+      "champions": 10,
+      "prime": 10,
+      "icon": 7
+    },
+    "masters": {
+      "base": 0,
+      "plata": 0,
+      "oro": 25,
+      "masters": 40,
+      "champions": 15,
+      "prime": 12,
+      "icon": 8
+    },
+    "champions": {
+      "base": 0,
+      "plata": 0,
+      "oro": 15,
+      "masters": 20,
+      "champions": 30,
+      "prime": 20,
+      "icon": 15
+    },
+    "icon": {
+      "base": 0,
+      "plata": 0,
+      "oro": 0,
+      "masters": 0,
+      "champions": 0,
+      "prime": 70,
+      "icon": 30
+    }
+  },
+  "marketValueAnchors": {
+    "base70": 50,
+    "masters95": 4250,
+    "champions95": 10600,
+    "prime95": 19100,
+    "icon95": 26500
+  },
+  "salvage": {
+    "rate": 0.06,
+    "floor": 5
+  },
+  "GLOBAL_MARKET_ENABLED": false,
+  "PAYMENTS_ENABLED": false,
+  "gates": {
+    "tests": "5036/5036",
+    "tscWeb": "0 errores",
+    "tscScripts": "0 errores"
+  },
+  "pricesBefore": {
+    "inicial": 0,
+    "estandar": 1000,
+    "premium": 2500,
+    "oro": 4000,
+    "masters": 5000,
+    "champions": 8000,
+    "ewc": 6000,
+    "emea": 3000,
+    "americas": 3000,
+    "pacific": 3000,
+    "china": 3000,
+    "team-heretics": 3000,
+    "team-fnatic": 3000,
+    "team-navi": 3000,
+    "team-g2": 3000,
+    "prime": 10000,
+    "icon": 12500,
+    "team-loud": 3000,
+    "team-blg": 3000,
+    "team-te": 3000,
+    "team-jdg": 3000,
+    "team-liquid": 3000,
+    "team-tyl": 3000,
+    "team-karmine": 3000,
+    "team-m8": 3000,
+    "team-fut": 3000,
+    "team-100t": 3000,
+    "team-prx": 3000,
+    "team-ns": 3000,
+    "team-ge": 3000,
+    "team-xlg": 3000,
+    "team-lev": 3000
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "at": "2026-09-29T20:31:46.705Z",
+  "tests": {
+    "total": null,
+    "pass": null,
+    "fail": null
+  },
+  "tscWeb": "0",
+  "tscScripts": "0",
+  "lint": "0 errores · 27 warnings (mismo recuento que antes)",
+  "build": {
+    "exit": 0,
+    "buildId": "drl-0.1.1-1-c641ce42",
+    "note": "mismo aviso Edge de process.exit que en F72.3"
+  },
+  "smoke": {
+    "total": 74,
+    "failed": 0
+  },
+  "productionCheck": {
+    "PASS": 17,
+    "WARN": 0,
+    "FAIL": 0
+  },
+  "gateBrowser": {
+    "pass": 56,
+    "total": 56,
+    "note": "56 vs 57 de F72.3: «F71 stat elegida» solo corre si la QA ataca en el turno 1 (lado aleatorio); esta vez defendió. Ningún check falla.",
+    "store": [
+      {
+        "id": "direct /tienda",
+        "ok": true,
+        "detail": "url=/tienda status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=CHAMPIONS S | SOBRES | CAJAS | CARTAS DESTACADAS | PACKS ESPECIALES"
+      },
+      {
+        "id": "direct /tienda/creditos",
+        "ok": true,
+        "detail": "url=/tienda/creditos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DRL CREDITS | PAQUETES | STARTER | BASIC | POPULAR | LARGE | ULTIMATE | TUS MOVI"
+      },
+      {
+        "id": "click /tienda",
+        "ok": true,
+        "detail": "url=/tienda status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=CHAMPIONS S | SOBRES | CAJAS | CARTAS DESTACADAS | PACKS ESPECIALES"
+      },
+      {
+        "id": "compra Sobre Bronce",
+        "ok": true,
+        "detail": "modalBronce=true precio=1000 créditos 3490→2490→(recarga)2490 sobres 1→2 fetchFails=0"
+      },
+      {
+        "id": "390 /tienda/creditos",
+        "ok": true,
+        "detail": "url=/tienda/creditos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DRL CREDITS | PAQUETES | STARTER | BASIC | POPULAR | LARGE | ULTIMATE | TUS MOVI"
+      }
+    ]
+  },
+  "health": 200,
+  "ready": {
+    "status": "ready",
+    "migrationHead": "0058_hardening_grants"
+  },
+  "supervisor": [
+    "tarea: Running",
+    "supervisor: 27360",
+    "puerto 3005: 127.0.0.1 pid=29700",
+    "puerto 54521: ::1 pid=20220",
+    "  GET / -> 200",
+    "  GET /api/health -> 200",
+    "  /api/ready -> ready (head 0058_hardening_grants)",
+    "  build servida -> drl-0.1.1-1-c641ce42 (en disco: drl-0.1.1-1-c641ce42)"
+  ],
+  "browserQa": {
+    "pass": 93,
+    "total": 93
+  },
+  "purchase": {
+    "pass": 7,
+    "total": 7
+  }
+}

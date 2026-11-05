@@ -1,0 +1,25 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase32",
+  "generated": "2026-09-22T09:41:02.470Z",
+  "rows": [
+    {
+      "file": "collection-1440x900.png",
+      "scene": "collection",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "builder-partial-1440x900.png",
+      "scene": "builder-partial",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "compare-1440x900.png",
+      "scene": "compare",
+      "size": "1440x900",
+      "errors": []
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+[
+  {
+    "persona": "I",
+    "runs": 2,
+    "entryRows": 2,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": [
+      {
+        "id": "ac811d30",
+        "status": "ABANDONED",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": {
+          "wins": 0,
+          "credits": 0,
+          "granted": true
+        },
+        "rewardRows": 0
+      },
+      {
+        "id": "41b73d3c",
+        "status": "DRAFTING",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": null,
+        "rewardRows": 0
+      }
+    ]
+  },
+  {
+    "persona": "J",
+    "runs": 5,
+    "entryRows": 5,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": [
+      {
+        "id": "5d477510",
+        "status": "ABANDONED",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": {
+          "wins": 0,
+          "credits": 0,
+          "granted": true
+        },
+        "rewardRows": 0
+      },
+      {
+        "id": "1dd43293",
+        "status": "ABANDONED",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": {
+          "wins": 0,
+          "credits": 0,
+          "granted": true
+        },
+        "rewardRows": 0
+      },
+      {
+        "id": "3584c2c5",
+        "status": "ABANDONED",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": {
+          "wins": 0,
+          "credits": 0,
+          "granted": true
+        },
+        "rewardRows": 0
+      },
+      {
+        "id": "0265abb3",
+        "status": "ABANDONED",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": {
+          "wins": 0,
+          "credits": 0,
+          "granted": true
+        },
+        "rewardRows": 0
+      },
+      {
+        "id": "0e3033b9",
+        "status": "DRAFTING",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": null,
+        "rewardRows": 0
+      }
+    ]
+  },
+  {
+    "persona": "D",
+    "runs": 1,
+    "entryRows": 1,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": [
+      {
+        "id": "7edf10c6",
+        "status": "DRAFTING",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": null,
+        "rewardRows": 0
+      }
+    ]
+  },
+  {
+    "persona": "F",
+    "runs": 1,
+    "entryRows": 1,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": [
+      {
+        "id": "26500623",
+        "status": "DRAFTING",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": null,
+        "rewardRows": 0
+      }
+    ]
+  },
+  {
+    "persona": "G",
+    "runs": 1,
+    "entryRows": 1,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": [
+      {
+        "id": "abb313fe",
+        "status": "ABANDONED",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": {
+          "wins": 0,
+          "credits": 0,
+          "granted": true
+        },
+        "rewardRows": 0
+      }
+    ]
+  },
+  {
+    "persona": "H",
+    "runs": 1,
+    "entryRows": 1,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": [
+      {
+        "id": "488f8f88",
+        "status": "COMPLETED",
+        "entries": 1,
+        "paidFlag": true,
+        "reward": {
+          "wins": 5,
+          "credits": 2100,
+          "granted": true
+        },
+        "rewardRows": 1
+      }
+    ]
+  },
+  {
+    "persona": "C",
+    "runs": 0,
+    "entryRows": 0,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": []
+  },
+  {
+    "persona": "A",
+    "runs": 0,
+    "entryRows": 0,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": []
+  },
+  {
+    "persona": "E",
+    "runs": 0,
+    "entryRows": 0,
+    "orphanEntries": 0,
+    "ok": true,
+    "perRun": []
+  }
+]

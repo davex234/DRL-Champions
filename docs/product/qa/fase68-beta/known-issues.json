@@ -1,0 +1,87 @@
+{
+  "betaLimitations": [
+    "Correo: GoTrue con SMTP Inbucket y autoconfirmación: los enlaces de recuperación/confirmación no llegan a un buzón real (la pantalla dice «Te enviamos un enlace»).",
+    "Registro con un correo ya usado dice «Ya hay una cuenta con ese correo» (GoTrue con autoconfirmación revela existencia en el registro; el login no enumera).",
+    "Una sola instancia de la app en un PC con Windows, sin gestor de procesos; depende del túnel SSH.",
+    "Carga limitada por el túnel (~60 RPS medidos en F67).",
+    "Marketplace y pagos desactivados por diseño (flags de código).",
+    "Pick'ems depende del worker esports del VPS (cron); predicciones solo en eventos abiertos."
+  ],
+  "publicReleaseBlockers": [
+    "Copia de backups fuera del VPS (production:check FAIL backup-offsite)",
+    "Dominio + HTTPS",
+    "SMTP real + callbacks/SITE_URL de GoTrue",
+    "Consolidar el trabajo en commits/etiqueta (árbol con >1.300 cambios sin commit)",
+    "Decisión sobre la propuesta 0058 (profiles legible por anon con todas sus columnas)"
+  ],
+  "balanceProposals": [
+    "F65 P-1…P-4 sin aplicar (F68 no cambia balance). Evidencia beta: Coach Normal con decisiones al azar → 0–13 y 1–13; PvE Difícil gana con claridad al jugador casual (2–8, 3–7); autocompletar sigue siendo válido pero no óptimo (F65)."
+  ],
+  "economyObservations": [
+    "Un sobre de bienvenida puede traer una carta legendaria y el logro «Consigue una leyenda» paga 10.000 (cuenta I: 6.160 → 19.790 en la primera sesión). Es diseño F57.6, no una fuente nueva; se anota para la próxima revisión de economía."
+  ],
+  "bugsOpen": [
+    {
+      "id": "F68-010",
+      "severity": "MAJOR",
+      "journey": "Tactical Coach · recompensa",
+      "reproduction": "Jugar un partido del Coach con sesión.",
+      "expected": "Recompensa real o ninguna promesa.",
+      "actual": "El HUD suma créditos/nivel del partido (6.000 → 6.800 y 6.650; 9.430 → 10.080) que NO existen en el servidor (libro sin apunte) y desaparecen al sincronizar.",
+      "evidence": [
+        "raw/D-coach-play.json",
+        "raw/D-r2-explorer.json",
+        "SQL de solo lectura: libro de D sin apuntes del Coach"
+      ],
+      "rootCause": "Preexistente (P1 de 2026-09-11): grantMatchOutcomeReward aplica la recompensa solo en el store local; el simulador corre en el navegador y el servidor no puede verificar el marcador.",
+      "fix": null,
+      "status": "OPEN — BLOQUEADO POR DECISIÓN DE ECONOMÍA",
+      "blockedBy": "F57.6 congelada y regla F68 «no retune»; las tres opciones (simular en servidor, premio acotado server-side, dejar de prometer recompensa con sesión) son decisión del usuario. La memoria del proyecto prohíbe ocultarlo con un cambio de texto sin esa decisión.",
+      "regressionTest": null
+    },
+    {
+      "id": "F68-011",
+      "severity": "POLISH",
+      "journey": "Tactical Coach · sala táctica",
+      "reproduction": "Ronda 1 (pistola).",
+      "expected": "Recomendación coherente con la ronda pistola.",
+      "actual": "La IA recomienda SAVE/ECO («tu economía está tocada») con 800/jug. en la ronda pistola.",
+      "evidence": [
+        "screenshots/coach (ronda 1)"
+      ],
+      "rootCause": "Lógica del recomendador del simulador del Coach (economía BROKEN a 800).",
+      "fix": null,
+      "status": "OPEN (fuera de alcance: lógica del simulador; F68 no cambia reglas)",
+      "regressionTest": null
+    },
+    {
+      "id": "F68-012",
+      "severity": "POLISH",
+      "journey": "Tactical Coach · compra",
+      "reproduction": "Fase de compra de cualquier ronda.",
+      "expected": "Una acción principal.",
+      "actual": "Dos CTA para lo mismo: «Comprar y empezar ronda» y «Jugar la ronda».",
+      "evidence": [
+        "captura de la fase de compra"
+      ],
+      "fix": null,
+      "status": "OPEN (rediseño menor, no trivial)",
+      "regressionTest": null
+    },
+    {
+      "id": "F68-013",
+      "severity": "POLISH",
+      "journey": "Perfil / cuenta",
+      "reproduction": "/cuenta de una cuenta con puntos.",
+      "expected": "Un solo concepto de «rango».",
+      "actual": "«BRONCE I» (rango por puntos de F11, que suman duelos y Pick'ems) convive con la escalera Elo sin tiers de /competitivo (F55). Dos «rangos» distintos para el jugador.",
+      "evidence": [
+        "raw/AB-r1-switch.json",
+        "raw/CF-r2-switch.json"
+      ],
+      "fix": null,
+      "status": "OPEN (decisión de producto; sistemas preexistentes)",
+      "regressionTest": null
+    }
+  ]
+}

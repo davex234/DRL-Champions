@@ -1,0 +1,6 @@
+{
+  "capa {i} es {kind}, esperada {v}": "il livello {i} è {kind}, atteso {v}",
+  "elemento sin referencia: {id}": "elemento senza riferimento: {id}",
+  "la ref de {id} no es una referencia de asset": "il ref di {id} non è un riferimento a un asset",
+  "layout fuera de rango en {id}": "layout fuori intervallo in {id}"
+}

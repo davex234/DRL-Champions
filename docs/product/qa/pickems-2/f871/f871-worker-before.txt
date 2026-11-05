@@ -1,0 +1,27 @@
+== WORKER ANTES · 2026-10-06T11:59:14Z
+cron: */2 * * * * /opt/nexus/projects/drlcards-sync/bin/run-sync.sh >/dev/null 2>&1
+release: rel-20260914T093113Z-996d06fd
+últimas ejecuciones:
+2026-10-06T11:54:01Z [wrapper] exit=0 duration_ms=575
+2026-10-06T11:56:01Z [wrapper] start release=releases/rel-20260914T093113Z-996d06fd args=
+2026-10-06T11:56:01Z [wrapper] exit=0 duration_ms=610
+2026-10-06T11:58:01Z [wrapper] start release=releases/rel-20260914T093113Z-996d06fd args=
+2026-10-06T11:58:02Z [wrapper] exit=0 duration_ms=651
+exit≠0 en las últimas 200: 100
+notas pickem_lifecycle (últimas):
+  pickems: 0 evento(s) corregido(s) · 0 rectificación(es) · 0 usuarios puntuados
+[esports-sync-worker] event=run run_id=20261006115601-ar6fdy mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=442 status=success
+  pickems: 0 evento(s) corregido(s) · 0 rectificación(es) · 0 usuarios puntuados
+[esports-sync-worker] event=run run_id=20261006115801-p8tnrd mode=scheduled origin=worker-vps dry_run=false events_checked=2 events_due=0 events_synced=0 events_changed=0 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=483 status=success
+  pickems: 0 evento(s) corregido(s) · 0 rectificación(es) · 0 usuarios puntuados
+pickem_events 3
+pickem_questions 63
+pickem_submissions 1
+pickem_scores 1
+pagos legacy 1 / 500
+events 3
+matches 101
+sync_state 4 max 2026-10-06 11:58:02.336296+00
+bundle dist/worker.cjs sha256 872f5449d8c2e918459a0cf8244dac1dd887db020c066ab3128d464fe13d0e34
+env sha256 c66b7edaf6ada036 · ESPORTS_AUTO_SYNC_ENABLED=true
+exit≠0 en las últimas 200 ejecuciones: 0

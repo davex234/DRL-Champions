@@ -1,0 +1,294 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-22T12:47:18.161Z",
+  "note": "sesión simulada + fixtures + semilla local (ver cabecera de scripts/_fase51-1-shots.ts)",
+  "rows": [
+    {
+      "file": "01-hub-jugar-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "01-hub-jugar-1920.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "01-hub-jugar-390.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "02-sin-equipo-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "03-plantilla-cartas-1024.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "03-plantilla-cartas-1366.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "03-plantilla-cartas-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "03-plantilla-cartas-1920.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "03-plantilla-cartas-390.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "03-plantilla-cartas-768.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "04-coleccion-selector-1024.png",
+      "gestos": [
+        true,
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "04-coleccion-selector-1366.png",
+      "gestos": [
+        true,
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "04-coleccion-selector-1440.png",
+      "gestos": [
+        true,
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "04-coleccion-selector-1920.png",
+      "gestos": [
+        true,
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "04-coleccion-selector-390.png",
+      "gestos": [
+        true,
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "04-coleccion-selector-768.png",
+      "gestos": [
+        true,
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "05-equipo-completo-1024.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "05-equipo-completo-1366.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "05-equipo-completo-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "05-equipo-completo-1920.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "05-equipo-completo-390.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "05-equipo-completo-768.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "05b-equipo-incompleto-1440.png",
+      "gestos": [
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "06-selector-mapas-1024.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "06-selector-mapas-1366.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "06-selector-mapas-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "06-selector-mapas-1920.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "06-selector-mapas-390.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "06-selector-mapas-768.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "07-ascent-selected-1440.png",
+      "gestos": [
+        true
+      ],
+      "errors": []
+    },
+    {
+      "file": "08-composicion-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "08b-sin-composicion-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "09-prematch-1024.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "09-prematch-1366.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "09-prematch-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "09-prematch-1920.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "09-prematch-390.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "09-prematch-768.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "10-partido-ascent-1024.png",
+      "gestos": [
+        "ascent:/maps/ascent.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "10-partido-ascent-1366.png",
+      "gestos": [
+        "ascent:/maps/ascent.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "10-partido-ascent-1440.png",
+      "gestos": [
+        "ascent:/maps/ascent.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "10-partido-ascent-1920.png",
+      "gestos": [
+        "ascent:/maps/ascent.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "10-partido-ascent-390.png",
+      "gestos": [
+        "ascent:/maps/ascent.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "10-partido-ascent-768.png",
+      "gestos": [
+        "ascent:/maps/ascent.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "11-partido-bind-1440.png",
+      "gestos": [
+        "bind:/maps/bind.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "12-partido-haven-1440.png",
+      "gestos": [
+        "haven:/maps/haven.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "13-partido-lotus-1440.png",
+      "gestos": [
+        "lotus:/maps/lotus.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "14-partido-sunset-1440.png",
+      "gestos": [
+        "sunset:/maps/sunset.png"
+      ],
+      "errors": []
+    },
+    {
+      "file": "16-mapa-invalido-1440.png",
+      "gestos": [],
+      "errors": []
+    }
+  ]
+}

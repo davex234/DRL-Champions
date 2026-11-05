@@ -1,0 +1,2961 @@
+{
+ "base": "http://127.0.0.1:3087",
+ "at": "2026-10-06T21:02:45.056Z",
+ "total": 222,
+ "passed": 222,
+ "failed": 0,
+ "checks": [
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "normal",
+   "name": "atacando: aún no hay carta rival comprometida",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "D",
+   "w": 1440,
+   "motion": "normal",
+   "name": "rol en TEXTO (respaldo) en los reversos del rival",
+   "ok": true,
+   "detail": [
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    }
+   ]
+  },
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "normal",
+   "name": "la carta comprometida va BOCA ABAJO (sin cara ni nombre de la carta)",
+   "ok": true,
+   "detail": {
+    "hidden": "true",
+    "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+    "imgs": 0,
+    "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+    "hintOk": true,
+    "role": "CEN",
+    "text": ""
+   }
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "normal",
+   "name": "AJUSTE · el reverso lleva la pista (mismo asset que arriba, cargado) y el rol",
+   "ok": true,
+   "detail": {
+    "c": {
+     "hidden": "true",
+     "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+     "imgs": 0,
+     "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+     "hintOk": true,
+     "role": "CEN",
+     "text": ""
+    },
+    "top": 10
+   }
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "normal",
+   "name": "stats del rival: declarada pero oculta",
+   "ok": true,
+   "detail": [
+    "declared-hidden",
+    "hidden",
+    "hidden"
+   ]
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "normal",
+   "name": "revelación con giro corto",
+   "ok": true,
+   "detail": true
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 807.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 807.6875
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rango",
+    "top": 608.6875,
+    "bottom": 659.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "normal",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 807.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 807.6875
+     }
+    ],
+    "vh": 900
+   }
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "normal",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp",
+    "points"
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 845.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 845.6875
+    }
+   ]
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 570.6875,
+    "bottom": 697.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sobre (arte REAL cargado ×2), carta e insignia",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 570.6875,
+    "bottom": 697.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 807.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 807.6875
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+40 créditos+25 XP de cuenta",
+    "top": 608.6875,
+    "bottom": 659.6875,
+    "kinds": [
+     "credits",
+     "accountXp"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "normal",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 807.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 807.6875
+     }
+    ],
+    "vh": 900
+   }
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "normal",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp"
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "normal",
+   "name": "tono de derrota",
+   "ok": true,
+   "detail": "loss"
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 766.1875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 766.1875
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "normal",
+   "name": "cero recompensas → NO hay sección",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "normal",
+   "name": "atacando: aún no hay carta rival comprometida",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "D",
+   "w": 1024,
+   "motion": "normal",
+   "name": "rol en TEXTO (respaldo) en los reversos del rival",
+   "ok": true,
+   "detail": [
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    }
+   ]
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "normal",
+   "name": "la carta comprometida va BOCA ABAJO (sin cara ni nombre de la carta)",
+   "ok": true,
+   "detail": {
+    "hidden": "true",
+    "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+    "imgs": 0,
+    "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+    "hintOk": true,
+    "role": "CEN",
+    "text": ""
+   }
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "normal",
+   "name": "AJUSTE · el reverso lleva la pista (mismo asset que arriba, cargado) y el rol",
+   "ok": true,
+   "detail": {
+    "c": {
+     "hidden": "true",
+     "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+     "imgs": 0,
+     "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+     "hintOk": true,
+     "role": "CEN",
+     "text": ""
+    },
+    "top": 10
+   }
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "normal",
+   "name": "stats del rival: declarada pero oculta",
+   "ok": true,
+   "detail": [
+    "declared-hidden",
+    "hidden",
+    "hidden"
+   ]
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "normal",
+   "name": "revelación con giro corto",
+   "ok": true,
+   "detail": true
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 741.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 741.6875
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rango",
+    "top": 542.6875,
+    "bottom": 593.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "normal",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 741.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 741.6875
+     }
+    ],
+    "vh": 768
+   }
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "normal",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp",
+    "points"
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 790.390625
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 790.390625
+    }
+   ]
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 515.390625,
+    "bottom": 642.390625,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sobre (arte REAL cargado ×2), carta e insignia",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 515.390625,
+    "bottom": 642.390625,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 741.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 741.6875
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+40 créditos+25 XP de cuenta",
+    "top": 542.6875,
+    "bottom": 593.6875,
+    "kinds": [
+     "credits",
+     "accountXp"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "normal",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 741.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 741.6875
+     }
+    ],
+    "vh": 768
+   }
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "normal",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp"
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "normal",
+   "name": "tono de derrota",
+   "ok": true,
+   "detail": "loss"
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 700.1875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 700.1875
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "normal",
+   "name": "cero recompensas → NO hay sección",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "normal",
+   "name": "atacando: aún no hay carta rival comprometida",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "D",
+   "w": 390,
+   "motion": "normal",
+   "name": "rol en TEXTO (respaldo) en los reversos del rival",
+   "ok": true,
+   "detail": [
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    }
+   ]
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "normal",
+   "name": "la carta comprometida va BOCA ABAJO (sin cara ni nombre de la carta)",
+   "ok": true,
+   "detail": {
+    "hidden": "true",
+    "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+    "imgs": 0,
+    "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+    "hintOk": true,
+    "role": "CEN",
+    "text": ""
+   }
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "normal",
+   "name": "AJUSTE · el reverso lleva la pista (mismo asset que arriba, cargado) y el rol",
+   "ok": true,
+   "detail": {
+    "c": {
+     "hidden": "true",
+     "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+     "imgs": 0,
+     "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+     "hintOk": true,
+     "role": "CEN",
+     "text": ""
+    },
+    "top": 10
+   }
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "normal",
+   "name": "stats del rival: declarada pero oculta",
+   "ok": true,
+   "detail": [
+    "declared-hidden",
+    "hidden",
+    "hidden"
+   ]
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "normal",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "normal",
+   "name": "revelación con giro corto",
+   "ok": true,
+   "detail": true
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 676.828125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 740.828125
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rango",
+    "top": 493.828125,
+    "bottom": 544.828125,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "normal",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 676.828125
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 740.828125
+     }
+    ],
+    "vh": 844
+   }
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "normal",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp",
+    "points"
+   ]
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 729.078125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 793.078125
+    }
+   ]
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 441.578125,
+    "bottom": 597.078125,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "normal",
+   "name": "sobre (arte REAL cargado ×2), carta e insignia",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 441.578125,
+    "bottom": 597.078125,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 676.828125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 740.828125
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "normal",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+40 créditos+25 XP de cuenta",
+    "top": 493.828125,
+    "bottom": 544.828125,
+    "kinds": [
+     "credits",
+     "accountXp"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "normal",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 676.828125
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 740.828125
+     }
+    ],
+    "vh": 844
+   }
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "normal",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp"
+   ]
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "normal",
+   "name": "tono de derrota",
+   "ok": true,
+   "detail": "loss"
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "normal",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "normal",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 635.328125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 699.328125
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "normal",
+   "name": "cero recompensas → NO hay sección",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "normal",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "atacando: aún no hay carta rival comprometida",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "D",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "rol en TEXTO (respaldo) en los reversos del rival",
+   "ok": true,
+   "detail": [
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    }
+   ]
+  },
+  {
+   "id": "A",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "la carta comprometida va BOCA ABAJO (sin cara ni nombre de la carta)",
+   "ok": true,
+   "detail": {
+    "hidden": "true",
+    "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+    "imgs": 0,
+    "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+    "hintOk": true,
+    "role": "CEN",
+    "text": ""
+   }
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "AJUSTE · el reverso lleva la pista (mismo asset que arriba, cargado) y el rol",
+   "ok": true,
+   "detail": {
+    "c": {
+     "hidden": "true",
+     "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+     "imgs": 0,
+     "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+     "hintOk": true,
+     "role": "CEN",
+     "text": ""
+    },
+    "top": 10
+   }
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "stats del rival: declarada pero oculta",
+   "ok": true,
+   "detail": [
+    "declared-hidden",
+    "hidden",
+    "hidden"
+   ]
+  },
+  {
+   "id": "B",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "reducido: revelación SIN giro (fundido)",
+   "ok": true,
+   "detail": false
+  },
+  {
+   "id": "C",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 807.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 807.6875
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rango",
+    "top": 608.6875,
+    "bottom": 659.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 807.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 807.6875
+     }
+    ],
+    "vh": 900
+   }
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp",
+    "points"
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 845.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 845.6875
+    }
+   ]
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 570.6875,
+    "bottom": 697.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sobre (arte REAL cargado ×2), carta e insignia",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 570.6875,
+    "bottom": 697.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 807.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 807.6875
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+40 créditos+25 XP de cuenta",
+    "top": 608.6875,
+    "bottom": 659.6875,
+    "kinds": [
+     "credits",
+     "accountXp"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 807.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 807.6875
+     }
+    ],
+    "vh": 900
+   }
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp"
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "tono de derrota",
+   "ok": true,
+   "detail": "loss"
+  },
+  {
+   "id": "F",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 766.1875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 766.1875
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "cero recompensas → NO hay sección",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "G",
+   "w": 1440,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "atacando: aún no hay carta rival comprometida",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "D",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "rol en TEXTO (respaldo) en los reversos del rival",
+   "ok": true,
+   "detail": [
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    }
+   ]
+  },
+  {
+   "id": "A",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "la carta comprometida va BOCA ABAJO (sin cara ni nombre de la carta)",
+   "ok": true,
+   "detail": {
+    "hidden": "true",
+    "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+    "imgs": 0,
+    "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+    "hintOk": true,
+    "role": "CEN",
+    "text": ""
+   }
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "AJUSTE · el reverso lleva la pista (mismo asset que arriba, cargado) y el rol",
+   "ok": true,
+   "detail": {
+    "c": {
+     "hidden": "true",
+     "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+     "imgs": 0,
+     "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+     "hintOk": true,
+     "role": "CEN",
+     "text": ""
+    },
+    "top": 10
+   }
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "stats del rival: declarada pero oculta",
+   "ok": true,
+   "detail": [
+    "declared-hidden",
+    "hidden",
+    "hidden"
+   ]
+  },
+  {
+   "id": "B",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "reducido: revelación SIN giro (fundido)",
+   "ok": true,
+   "detail": false
+  },
+  {
+   "id": "C",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 741.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 741.6875
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rango",
+    "top": 542.6875,
+    "bottom": 593.6875,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 741.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 741.6875
+     }
+    ],
+    "vh": 768
+   }
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp",
+    "points"
+   ]
+  },
+  {
+   "id": "E",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 790.390625
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 790.390625
+    }
+   ]
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 515.390625,
+    "bottom": 642.390625,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sobre (arte REAL cargado ×2), carta e insignia",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 515.390625,
+    "bottom": 642.390625,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 741.6875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 741.6875
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+40 créditos+25 XP de cuenta",
+    "top": 542.6875,
+    "bottom": 593.6875,
+    "kinds": [
+     "credits",
+     "accountXp"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 741.6875
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 741.6875
+     }
+    ],
+    "vh": 768
+   }
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp"
+   ]
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "tono de derrota",
+   "ok": true,
+   "detail": "loss"
+  },
+  {
+   "id": "F",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 700.1875
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 700.1875
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "cero recompensas → NO hay sección",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "G",
+   "w": 1024,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "reduced",
+   "name": "atacando: aún no hay carta rival comprometida",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "D",
+   "w": 390,
+   "motion": "reduced",
+   "name": "rol en TEXTO (respaldo) en los reversos del rival",
+   "ok": true,
+   "detail": [
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Iniciador",
+     "text": "INI"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Centinela",
+     "text": "CEN"
+    },
+    {
+     "kind": "text",
+     "role": "Duelista",
+     "text": "DUE"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Flex",
+     "text": "FLX"
+    },
+    {
+     "kind": "text",
+     "role": "Controlador",
+     "text": "CON"
+    }
+   ]
+  },
+  {
+   "id": "A",
+   "w": 390,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "reduced",
+   "name": "la carta comprometida va BOCA ABAJO (sin cara ni nombre de la carta)",
+   "ok": true,
+   "detail": {
+    "hidden": "true",
+    "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+    "imgs": 0,
+    "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+    "hintOk": true,
+    "role": "CEN",
+    "text": ""
+   }
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "reduced",
+   "name": "AJUSTE · el reverso lleva la pista (mismo asset que arriba, cargado) y el rol",
+   "ok": true,
+   "detail": {
+    "c": {
+     "hidden": "true",
+     "label": "Carta del rival, boca abajo hasta que respondas; pista de equipo: Dragon Ranger Gaming; rol Centinela",
+     "imgs": 0,
+     "hint": "http://127.0.0.1:3087/hints/teams/dragon-ranger-gaming.png",
+     "hintOk": true,
+     "role": "CEN",
+     "text": ""
+    },
+    "top": 10
+   }
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "reduced",
+   "name": "stats del rival: declarada pero oculta",
+   "ok": true,
+   "detail": [
+    "declared-hidden",
+    "hidden",
+    "hidden"
+   ]
+  },
+  {
+   "id": "B",
+   "w": 390,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "reduced",
+   "name": "PvE: ningún reloj de decisión en pantalla",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "reduced",
+   "name": "reducido: revelación SIN giro (fundido)",
+   "ok": true,
+   "detail": false
+  },
+  {
+   "id": "C",
+   "w": 390,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 676.828125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 740.828125
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rango",
+    "top": 493.828125,
+    "bottom": 544.828125,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "reduced",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 676.828125
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 740.828125
+     }
+    ],
+    "vh": 844
+   }
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "reduced",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp",
+    "points"
+   ]
+  },
+  {
+   "id": "E",
+   "w": 390,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 729.078125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 793.078125
+    }
+   ]
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 441.578125,
+    "bottom": 597.078125,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sobre (arte REAL cargado ×2), carta e insignia",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+220 créditos+110 XP de cuenta+14 puntos de rangoASUNA×22 × Sobre InicialCosmético · Torneo",
+    "top": 441.578125,
+    "bottom": 597.078125,
+    "kinds": [
+     "credits",
+     "accountXp",
+     "points",
+     "card",
+     "pack",
+     "cosmetic"
+    ],
+    "packArt": [
+     {
+      "src": "/packs/pack-inicial.webp",
+      "ok": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "E2",
+   "w": 390,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 676.828125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 740.828125
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "reduced",
+   "name": "«Recompensas obtenidas» desde el recibo",
+   "ok": true,
+   "detail": {
+    "text": "Recompensas obtenidas+40 créditos+25 XP de cuenta",
+    "top": 493.828125,
+    "bottom": 544.828125,
+    "kinds": [
+     "credits",
+     "accountXp"
+    ],
+    "packArt": []
+   }
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "reduced",
+   "name": "botones en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "a": [
+     {
+      "text": "Seguir jugando",
+      "bottom": 676.828125
+     },
+     {
+      "text": "Volver al menú principal",
+      "bottom": 740.828125
+     }
+    ],
+    "vh": 844
+   }
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "reduced",
+   "name": "créditos + XP de cuenta",
+   "ok": true,
+   "detail": [
+    "credits",
+    "accountXp"
+   ]
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "reduced",
+   "name": "tono de derrota",
+   "ok": true,
+   "detail": "loss"
+  },
+  {
+   "id": "F",
+   "w": 390,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "reduced",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "reduced",
+   "name": "resultado mínimo con sus DOS botones",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "bottom": 635.328125
+    },
+    {
+     "text": "Volver al menú principal",
+     "bottom": 699.328125
+    }
+   ]
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "reduced",
+   "name": "cero recompensas → NO hay sección",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "id": "G",
+   "w": 390,
+   "motion": "reduced",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  }
+ ]
+}

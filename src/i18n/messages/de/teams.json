@@ -1,0 +1,9 @@
+{
+  "Carta inexistente en tu colección ({uid}).": "Karte nicht in deiner Sammlung ({uid}).",
+  "Demasiados titulares: {length}/{MAX_STARTERS}.": "Zu viele Stammspieler: {length}/{MAX_STARTERS}.",
+  "El equipo necesita un nombre.": "Das Team braucht einen Namen.",
+  "Faltan titulares: {length}/{MAX_STARTERS}.": "Stammspieler fehlen: {length}/{MAX_STARTERS}.",
+  "No puedes alinear dos cartas del mismo jugador.": "Du kannst nicht zwei Karten desselben Spielers aufstellen.",
+  "No puedes alinear la misma carta dos veces.": "Du kannst dieselbe Karte nicht zweimal aufstellen.",
+  "Un titular no puede estar también en suplentes.": "Ein Stammspieler kann nicht zugleich Ersatzspieler sein."
+}

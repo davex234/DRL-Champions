@@ -1,0 +1,134 @@
+{
+ "base": "https://valorosters.com",
+ "at": "2026-10-05T10:43:04.011Z",
+ "accounts": {
+  "A": "1ff2c0ef",
+  "B": "8c326e52",
+  "C": "40a1e10d"
+ },
+ "total": 24,
+ "passed": 24,
+ "failed": 0,
+ "rows": [
+  {
+   "id": "1440 · /jugador/me → /jugador/<id> con la tarjeta PROPIA de A",
+   "ok": true,
+   "detail": "{\"url\":\"/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865\",\"view\":\"SELF\"}"
+  },
+  {
+   "id": "1440 · propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN; sin sociales",
+   "ok": true,
+   "detail": "[\"edit\",\"account\",\"trophy-room\",\"sign-out\"]"
+  },
+  {
+   "id": "1440 · rango y equipo SOLO si la foto del servidor los trae (rango: true, equipo: false)",
+   "ok": true,
+   "detail": "{\"rank\":true,\"team\":false}"
+  },
+  {
+   "id": "1440 · sin dashboard y sin desbordamiento; tarjeta compacta",
+   "ok": true,
+   "detail": "{\"o\":0,\"h\":735.546875,\"vh\":900}"
+  },
+  {
+   "id": "1440 · perfil de B: identidad + acciones sociales F85; NINGUNA acción de cuenta",
+   "ok": true,
+   "detail": "[\"add\",\"compare\",\"more\"]"
+  },
+  {
+   "id": "1024 · /jugador/me → /jugador/<id> con la tarjeta PROPIA de A",
+   "ok": true,
+   "detail": "{\"url\":\"/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865\",\"view\":\"SELF\"}"
+  },
+  {
+   "id": "1024 · propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN; sin sociales",
+   "ok": true,
+   "detail": "[\"edit\",\"account\",\"trophy-room\",\"sign-out\"]"
+  },
+  {
+   "id": "1024 · rango y equipo SOLO si la foto del servidor los trae (rango: true, equipo: false)",
+   "ok": true,
+   "detail": "{\"rank\":true,\"team\":false}"
+  },
+  {
+   "id": "1024 · sin dashboard y sin desbordamiento; tarjeta compacta",
+   "ok": true,
+   "detail": "{\"o\":0,\"h\":735.546875,\"vh\":768}"
+  },
+  {
+   "id": "1024 · perfil de B: identidad + acciones sociales F85; NINGUNA acción de cuenta",
+   "ok": true,
+   "detail": "[\"add\",\"compare\",\"more\"]"
+  },
+  {
+   "id": "390 · /jugador/me → /jugador/<id> con la tarjeta PROPIA de A",
+   "ok": true,
+   "detail": "{\"url\":\"/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865\",\"view\":\"SELF\"}"
+  },
+  {
+   "id": "390 · propio: EDITAR · CUENTA · TROFEOS · CERRAR SESIÓN; sin sociales",
+   "ok": true,
+   "detail": "[\"edit\",\"account\",\"trophy-room\",\"sign-out\"]"
+  },
+  {
+   "id": "390 · rango y equipo SOLO si la foto del servidor los trae (rango: true, equipo: false)",
+   "ok": true,
+   "detail": "{\"rank\":true,\"team\":false}"
+  },
+  {
+   "id": "390 · sin dashboard y sin desbordamiento; tarjeta compacta",
+   "ok": true,
+   "detail": "{\"o\":0,\"h\":671.671875,\"vh\":844}"
+  },
+  {
+   "id": "390 · perfil de B: identidad + acciones sociales F85; NINGUNA acción de cuenta",
+   "ok": true,
+   "detail": "[\"add\",\"compare\",\"more\"]"
+  },
+  {
+   "id": "CERRAR SESIÓN (doble clic) → /cuenta con el formulario de entrada; sesión local borrada",
+   "ok": true,
+   "detail": "{\"leftover\":[]}"
+  },
+  {
+   "id": "tras pulsar, ningún fotograma vuelve a pintar la tarjeta PROPIA (ni en /cuenta)",
+   "ok": true,
+   "detail": "[\"/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865|-\",\"/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865|-\",\"/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865|-\",\"/cuenta|-\",\"/cuenta|-\",\"/cuenta|-\"]"
+  },
+  {
+   "id": "/cuenta tras salir: nada de A (nombre)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "ATRÁS tras salir: como mucho el perfil PÚBLICO (sin editar, cuenta ni cerrar sesión)",
+   "ok": true,
+   "detail": "{\"url\":\"/jugador/8c326e52-776a-43f4-ba05-3ad7945c40c3\",\"view\":\"PUBLIC\",\"acts\":[]}"
+  },
+  {
+   "id": "F5 en el perfil de A sin sesión: vista pública, sin acciones de cuenta",
+   "ok": true,
+   "detail": "{\"view\":\"PUBLIC\",\"acts\":[]}"
+  },
+  {
+   "id": "A sale → B entra → «mi perfil»: es el de B y NUNCA se pinta la tarjeta propia de A",
+   "ok": true,
+   "detail": "{\"seen\":[\"-\",\"B\"]}"
+  },
+  {
+   "id": "dos pestañas del mismo navegador con el perfil PROPIO de C",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cerrar sesión en la pestaña 1 → la pestaña 2 deja de ser «tu perfil» SOLA (sin recargar): sin editar ni cerrar sesión",
+   "ok": true,
+   "detail": "{\"t2\":\"/jugador/40a1e10d-c1d3-4c38-9114-3d021ddb119e -\"}"
+  },
+  {
+   "id": "sesión revocada en otro dispositivo → al recargar, sin perfil propio ni acciones de cuenta",
+   "ok": true,
+   "detail": "{\"logout\":204,\"view\":\"PUBLIC\",\"acts\":[]}"
+  }
+ ]
+}

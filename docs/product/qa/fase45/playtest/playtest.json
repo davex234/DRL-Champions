@@ -1,0 +1,672 @@
+{
+  "userId": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "base": "http://127.0.0.1:3005",
+  "inicio": "2026-09-18T09:24:21.784Z",
+  "scrollLobby": {
+    "puedeDesplazarse": true,
+    "overflowBody": "clip visible",
+    "overflowHtml": "clip visible",
+    "scrollY": 0
+  },
+  "audioLobby": {
+    "elementos": 0,
+    "sonando": 0
+  },
+  "playHub": {
+    "modos": [
+      "ROAD_TO_CHAMPIONS",
+      "QUICK",
+      "RANKED",
+      "FRIEND",
+      "DRAFT_GAUNTLET"
+    ],
+    "tieneRapida": true,
+    "ctas": 3
+  },
+  "prematch": {
+    "hayDificultad": true,
+    "hayComenzar": true,
+    "textoCorto": "‹ DUELOS\n?\nPREPARACIÓN\n\nElige con qué mazo juegas y a quién te enfrentas.\n\nTU MAZO\nQA F45\nFUERZA\nΣ 791\nTU EQUIPO\nQA F45\nAL\n87\nCON\nTH\n\nALERT\n\nPACIFIC\n\nSH\n76\nGS\n99\nEF\n49\nDE\n85\nDUE\nFI\n#17\n\nDERKE\n\nMASTERS WINNER\n\nSH\n65\nGS\n61\nEF\n92\nIN\n84\nINI\nPH\n\nINVY\n\nORO\n\nSH\n81\nGS"
+  },
+  "intro": {
+    "hayIntro": true
+  },
+  "arenaInicial": {
+    "turno": 1,
+    "atacas": false,
+    "defiendes": true,
+    "marcadorTu": 0,
+    "marcadorRival": 0,
+    "terminada": false,
+    "ejeVisible": true,
+    "hayRecinto": true,
+    "atacante": "rival",
+    "finalTurno": "false"
+  },
+  "audioMatch": {
+    "elementos": 0,
+    "sonando": 0
+  },
+  "turnos": [
+    {
+      "i": 1,
+      "fin": false,
+      "turnoAntes": 1,
+      "turnoDespues": 2,
+      "ataca": false,
+      "cartaElegida": "Cryocells, Centinela, OVR 82",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 2,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 0,
+        "marcadorRival": 1,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "you",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 2,
+      "fin": false,
+      "turnoAntes": 2,
+      "turnoDespues": 3,
+      "ataca": true,
+      "cartaElegida": "nephh, Controlador, OVR 82",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 3,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 0,
+        "marcadorRival": 2,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "rival",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 3,
+      "fin": false,
+      "turnoAntes": 3,
+      "turnoDespues": 4,
+      "ataca": false,
+      "cartaElegida": "stew, Duelista, OVR 81",
+      "pulsaciones": 3,
+      "revelacion": true,
+      "mesa": {
+        "turno": 4,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 0,
+        "marcadorRival": 3,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "you",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 4,
+      "fin": false,
+      "turnoAntes": 4,
+      "turnoDespues": 5,
+      "ataca": true,
+      "cartaElegida": "Bati, Flex, OVR 61",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 5,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 0,
+        "marcadorRival": 4,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "rival",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 5,
+      "fin": false,
+      "turnoAntes": 5,
+      "turnoDespues": 6,
+      "ataca": false,
+      "cartaElegida": "Derke, Duelista, OVR 85",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 6,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 0,
+        "marcadorRival": 5,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "you",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 6,
+      "fin": false,
+      "turnoAntes": 6,
+      "turnoDespues": 7,
+      "ataca": true,
+      "cartaElegida": "invy, Iniciador, OVR 84",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 7,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 1,
+        "marcadorRival": 5,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "rival",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 7,
+      "fin": false,
+      "turnoAntes": 7,
+      "turnoDespues": 8,
+      "ataca": false,
+      "cartaElegida": "stax, Iniciador, OVR 82",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 8,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 2,
+        "marcadorRival": 5,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "you",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 8,
+      "fin": false,
+      "turnoAntes": 8,
+      "turnoDespues": 9,
+      "ataca": true,
+      "cartaElegida": "Scales, Centinela, OVR 79",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 9,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 3,
+        "marcadorRival": 5,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "rival",
+        "finalTurno": "false"
+      }
+    },
+    {
+      "i": 9,
+      "fin": false,
+      "turnoAntes": 9,
+      "turnoDespues": 10,
+      "ataca": false,
+      "cartaElegida": "Zellsis, Flex, OVR 68",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 10,
+        "atacas": true,
+        "defiendes": true,
+        "marcadorTu": 3,
+        "marcadorRival": 6,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "you",
+        "finalTurno": "true"
+      }
+    },
+    {
+      "i": 10,
+      "fin": false,
+      "turnoAntes": 10,
+      "turnoDespues": 10,
+      "ataca": true,
+      "cartaElegida": "aLerT, Controlador, OVR 87",
+      "pulsaciones": 1,
+      "revelacion": true,
+      "mesa": {
+        "turno": 10,
+        "atacas": true,
+        "defiendes": false,
+        "marcadorTu": 4,
+        "marcadorRival": 6,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "none",
+        "finalTurno": "false"
+      }
+    }
+  ],
+  "resultado": {
+    "veredicto": "DERROTA",
+    "marcadorTu": 4,
+    "marcadorRival": 6,
+    "creditos": 40,
+    "xpTexto": "+40\nEXPERIENCIA",
+    "jugarOtra": "Revancha",
+    "accionesVisibles": [
+      "Ver progreso",
+      "Revancha",
+      "Cambiar rival o mazo",
+      "Ver la partida",
+      "Mis mazos",
+      "Volver al lobby",
+      "Salir a Duelos",
+      "Haz tu predicción",
+      "Ajustar equipo",
+      "✕T1Cryocells 90‹99 dgzin0–1",
+      "✕T2nephh 67‹68 Francis0–2",
+      "✕T3stew 63‹81 DeadInk0–3",
+      "✕T4Bati 20‹58 eeiu0–4",
+      "✕T5Derke 61‹73 KovaQ0–5"
+    ]
+  },
+  "audioResult": {
+    "elementos": 0,
+    "sonando": 0
+  },
+  "bucleRevancha": {
+    "revancha": {
+      "encontrado": true
+    },
+    "trasRevancha": {
+      "turno": 1,
+      "atacas": false,
+      "defiendes": true,
+      "marcadorTu": 0,
+      "marcadorRival": 0,
+      "terminada": false,
+      "ejeVisible": true,
+      "hayRecinto": true,
+      "atacante": "rival",
+      "finalTurno": "false"
+    }
+  },
+  "trasRefresco": {
+    "veredicto": null,
+    "marcadorTu": 0,
+    "marcadorRival": 0,
+    "creditos": null,
+    "xpTexto": null,
+    "jugarOtra": null,
+    "accionesVisibles": [
+      "?",
+      "⛶",
+      "Salir",
+      "✕",
+      "Elige una carta",
+      "CR82CENUSCryocellsAmericasSH90GS58EF59",
+      "NE82CONSGnephhChinaSH67GS89EF46",
+      "ST81DUEKRstewChinaSH67GS74EF63",
+      "BA61FLXPTBatiBronceSH20GS65EF23",
+      "IN84INIPHinvyOroSH81GS82EF53",
+      "ST82INIKRstaxPlataSH81GS83EF40",
+      "SC79CENCNScalesPlataSH74GS61EF62",
+      "ZE68FLXUSZellsisBronceSH45GS59EF43",
+      "AL87CONTHaLerTPacificSH76GS99EF49"
+    ]
+  },
+  "scrollTrasPartida": {
+    "puedeDesplazarse": true,
+    "overflowBody": "clip visible",
+    "overflowHtml": "clip visible",
+    "scrollY": 0
+  },
+  "audioTrasPartida": {
+    "elementos": 0,
+    "sonando": 0
+  },
+  "jugarOtra": {
+    "pulsó": {
+      "encontrado": false
+    },
+    "trasJugarOtra": {
+      "turno": 1,
+      "atacas": false,
+      "defiendes": true,
+      "marcadorTu": 0,
+      "marcadorRival": 0,
+      "terminada": false,
+      "ejeVisible": true,
+      "hayRecinto": true,
+      "atacante": "rival",
+      "finalTurno": "false"
+    }
+  },
+  "fin": "2026-09-18T09:26:00.267Z",
+  "capturas": 17,
+  "bitacora": [
+    {
+      "paso": "sesión iniciada",
+      "detalle": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+      "instante": "2026-09-18T09:24:27.628Z"
+    },
+    {
+      "paso": "vestíbulo",
+      "detalle": {
+        "scroll": {
+          "puedeDesplazarse": true,
+          "overflowBody": "clip visible",
+          "overflowHtml": "clip visible",
+          "scrollY": 0
+        },
+        "audio": {
+          "elementos": 0,
+          "sonando": 0
+        }
+      },
+      "instante": "2026-09-18T09:24:35.516Z"
+    },
+    {
+      "paso": "play hub",
+      "detalle": {
+        "modos": [
+          "ROAD_TO_CHAMPIONS",
+          "QUICK",
+          "RANKED",
+          "FRIEND",
+          "DRAFT_GAUNTLET"
+        ],
+        "tieneRapida": true,
+        "ctas": 3
+      },
+      "instante": "2026-09-18T09:24:43.860Z"
+    },
+    {
+      "paso": "preparación",
+      "detalle": {
+        "hayDificultad": true,
+        "hayComenzar": true,
+        "textoCorto": "‹ DUELOS\n?\nPREPARACIÓN\n\nElige con qué mazo juegas y a quién te enfrentas.\n\nTU MAZO\nQA F45\nFUERZA\nΣ 791\nTU EQUIPO\nQA F45\nAL\n87\nCON\nTH\n\nALERT\n\nPACIFIC\n\nSH\n76\nGS\n99\nEF\n49\nDE\n85\nDUE\nFI\n#17\n\nDERKE\n\nMASTERS WINNER\n\nSH\n65\nGS\n61\nEF\n92\nIN\n84\nINI\nPH\n\nINVY\n\nORO\n\nSH\n81\nGS"
+      },
+      "instante": "2026-09-18T09:24:54.578Z"
+    },
+    {
+      "paso": "intro",
+      "detalle": {
+        "hayIntro": true
+      },
+      "instante": "2026-09-18T09:24:56.903Z"
+    },
+    {
+      "paso": "arena, turno 1",
+      "detalle": {
+        "turno": 1,
+        "atacas": false,
+        "defiendes": true,
+        "marcadorTu": 0,
+        "marcadorRival": 0,
+        "terminada": false,
+        "ejeVisible": true,
+        "hayRecinto": true,
+        "atacante": "rival",
+        "finalTurno": "false"
+      },
+      "instante": "2026-09-18T09:24:59.195Z"
+    },
+    {
+      "paso": "audio en partida",
+      "detalle": {
+        "elementos": 0,
+        "sonando": 0
+      },
+      "instante": "2026-09-18T09:24:59.195Z"
+    },
+    {
+      "paso": "turno 1",
+      "detalle": {
+        "ataca": false,
+        "pulsaciones": 1,
+        "marcador": "0-1",
+        "siguiente": 2
+      },
+      "instante": "2026-09-18T09:25:00.871Z"
+    },
+    {
+      "paso": "turno 2",
+      "detalle": {
+        "ataca": true,
+        "pulsaciones": 1,
+        "marcador": "0-2",
+        "siguiente": 3
+      },
+      "instante": "2026-09-18T09:25:03.294Z"
+    },
+    {
+      "paso": "turno 3",
+      "detalle": {
+        "ataca": false,
+        "pulsaciones": 3,
+        "marcador": "0-3",
+        "siguiente": 4
+      },
+      "instante": "2026-09-18T09:25:04.780Z"
+    },
+    {
+      "paso": "turno 4",
+      "detalle": {
+        "ataca": true,
+        "pulsaciones": 1,
+        "marcador": "0-4",
+        "siguiente": 5
+      },
+      "instante": "2026-09-18T09:25:07.186Z"
+    },
+    {
+      "paso": "turno 5",
+      "detalle": {
+        "ataca": false,
+        "pulsaciones": 1,
+        "marcador": "0-5",
+        "siguiente": 6
+      },
+      "instante": "2026-09-18T09:25:08.750Z"
+    },
+    {
+      "paso": "turno 6",
+      "detalle": {
+        "ataca": true,
+        "pulsaciones": 1,
+        "marcador": "1-5",
+        "siguiente": 7
+      },
+      "instante": "2026-09-18T09:25:11.145Z"
+    },
+    {
+      "paso": "turno 7",
+      "detalle": {
+        "ataca": false,
+        "pulsaciones": 1,
+        "marcador": "2-5",
+        "siguiente": 8
+      },
+      "instante": "2026-09-18T09:25:12.906Z"
+    },
+    {
+      "paso": "turno 8",
+      "detalle": {
+        "ataca": true,
+        "pulsaciones": 1,
+        "marcador": "3-5",
+        "siguiente": 9
+      },
+      "instante": "2026-09-18T09:25:14.709Z"
+    },
+    {
+      "paso": "turno 9",
+      "detalle": {
+        "ataca": false,
+        "pulsaciones": 1,
+        "marcador": "3-6",
+        "siguiente": 10
+      },
+      "instante": "2026-09-18T09:25:16.214Z"
+    },
+    {
+      "paso": "turno 10",
+      "detalle": {
+        "ataca": true,
+        "pulsaciones": 1,
+        "marcador": "4-6",
+        "siguiente": 10
+      },
+      "instante": "2026-09-18T09:25:18.819Z"
+    },
+    {
+      "paso": "turno 11 · fin",
+      "detalle": {
+        "fin": true,
+        "motivo": "sin boton de confirmar"
+      },
+      "instante": "2026-09-18T09:25:19.888Z"
+    },
+    {
+      "paso": "RESULTADO",
+      "detalle": {
+        "veredicto": "DERROTA",
+        "marcadorTu": 4,
+        "marcadorRival": 6,
+        "creditos": 40,
+        "xpTexto": "+40\nEXPERIENCIA",
+        "jugarOtra": "Revancha",
+        "accionesVisibles": [
+          "Ver progreso",
+          "Revancha",
+          "Cambiar rival o mazo",
+          "Ver la partida",
+          "Mis mazos",
+          "Volver al lobby",
+          "Salir a Duelos",
+          "Haz tu predicción",
+          "Ajustar equipo",
+          "✕T1Cryocells 90‹99 dgzin0–1",
+          "✕T2nephh 67‹68 Francis0–2",
+          "✕T3stew 63‹81 DeadInk0–3",
+          "✕T4Bati 20‹58 eeiu0–4",
+          "✕T5Derke 61‹73 KovaQ0–5"
+        ]
+      },
+      "instante": "2026-09-18T09:25:23.956Z"
+    },
+    {
+      "paso": "audio en resultado",
+      "detalle": {
+        "elementos": 0,
+        "sonando": 0
+      },
+      "instante": "2026-09-18T09:25:23.956Z"
+    },
+    {
+      "paso": "RESULTADO → REVANCHA",
+      "detalle": {
+        "revancha": {
+          "encontrado": true
+        },
+        "trasRevancha": {
+          "turno": 1,
+          "atacas": false,
+          "defiendes": true,
+          "marcadorTu": 0,
+          "marcadorRival": 0,
+          "terminada": false,
+          "ejeVisible": true,
+          "hayRecinto": true,
+          "atacante": "rival",
+          "finalTurno": "false"
+        }
+      },
+      "instante": "2026-09-18T09:25:28.216Z"
+    },
+    {
+      "paso": "tras refrescar",
+      "detalle": {
+        "veredicto": null,
+        "marcadorTu": 0,
+        "marcadorRival": 0,
+        "creditos": null,
+        "xpTexto": null,
+        "jugarOtra": null,
+        "accionesVisibles": [
+          "?",
+          "⛶",
+          "Salir",
+          "✕",
+          "Elige una carta",
+          "CR82CENUSCryocellsAmericasSH90GS58EF59",
+          "NE82CONSGnephhChinaSH67GS89EF46",
+          "ST81DUEKRstewChinaSH67GS74EF63",
+          "BA61FLXPTBatiBronceSH20GS65EF23",
+          "IN84INIPHinvyOroSH81GS82EF53",
+          "ST82INIKRstaxPlataSH81GS83EF40",
+          "SC79CENCNScalesPlataSH74GS61EF62",
+          "ZE68FLXUSZellsisBronceSH45GS59EF43",
+          "AL87CONTHaLerTPacificSH76GS99EF49"
+        ]
+      },
+      "instante": "2026-09-18T09:25:38.940Z"
+    },
+    {
+      "paso": "scroll tras la partida",
+      "detalle": {
+        "puedeDesplazarse": true,
+        "overflowBody": "clip visible",
+        "overflowHtml": "clip visible",
+        "scrollY": 0
+      },
+      "instante": "2026-09-18T09:25:46.994Z"
+    },
+    {
+      "paso": "JUGAR OTRA",
+      "detalle": {
+        "pulsó": {
+          "encontrado": false
+        },
+        "trasJugarOtra": {
+          "turno": 1,
+          "atacas": false,
+          "defiendes": true,
+          "marcadorTu": 0,
+          "marcadorRival": 0,
+          "terminada": false,
+          "ejeVisible": true,
+          "hayRecinto": true,
+          "atacante": "rival",
+          "finalTurno": "false"
+        }
+      },
+      "instante": "2026-09-18T09:25:59.620Z"
+    }
+  ]
+}

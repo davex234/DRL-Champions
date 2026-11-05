@@ -1,0 +1,2056 @@
+{
+  "at": "2026-09-29T20:24:19.925Z",
+  "persona": "A",
+  "pass": 93,
+  "total": 93,
+  "results": [
+    {
+      "width": 1440,
+      "id": "catálogo: tarjetas SOLO imagen + nombre + precio + CTA (sin %, nº de cartas, €, rarezas ni contenido)",
+      "ok": true,
+      "detail": "18 tarjetas"
+    },
+    {
+      "width": 1440,
+      "id": "catálogo: texto por tarjeta ≤ 9 palabras",
+      "ok": true,
+      "detail": "max=9 1 SIN ABRIR SOBRE BRONCE 1.000 DRL Credits COMPRAR"
+    },
+    {
+      "width": 1440,
+      "id": "catálogo: el arte ocupa ≥ 50 % de la altura de cada tarjeta",
+      "ok": true,
+      "detail": "min=0.64"
+    },
+    {
+      "width": 1440,
+      "id": "catálogo: arte entero, sin recortar (sobre, caja y carta caben en su zona)",
+      "ok": true,
+      "detail": "0 recortados"
+    },
+    {
+      "width": 1440,
+      "id": "catálogo: ningún nombre cortado",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "width": 1440,
+      "id": "catálogo: alturas iguales en cada fila",
+      "ok": true,
+      "detail": "filas desiguales=0"
+    },
+    {
+      "width": 1440,
+      "id": "catálogo: varios productos a la vista por fila",
+      "ok": true,
+      "detail": "sobres por fila=4"
+    },
+    {
+      "width": 1440,
+      "id": "sin scroll horizontal",
+      "ok": true,
+      "detail": "overflowX=0"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-oro: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "340,126→1100,774 vw=1440 vh=900"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-oro: probabilidades = fuente del servidor (class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro:oro\",\"pct\":\"50 %\"},{\"key\":\"oro:masters\",\"pct\":\"23 %\"},{\"key\":\"oro:champions\",\"pct\":\"10 %\"},{\"key\":\"oro:prime\",\"pct\":\"10 %\"},{\"key\":\"oro:icon\",\"pct\":\"7 %\"}]"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-oro: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.490"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-oro: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-regional: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "340,120→1100,780 vw=1440 vh=900"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-regional: probabilidades = fuente del servidor (measured)",
+      "ok": true,
+      "detail": "[{\"key\":\"emea:common\",\"pct\":\"35 %\"},{\"key\":\"emea:uncommon\",\"pct\":\"40 %\"},{\"key\":\"emea:rare\",\"pct\":\"18 %\"},{\"key\":\"emea:epic\",\"pct\":\"6 %\"},{\"key\":\"emea:legendary\",\"pct\":\"1 %\"}]"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-regional: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.990"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-regional: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-equipo: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "340,90→1100,810 vw=1440 vh=900"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-equipo: probabilidades = fuente del servidor (measured)",
+      "ok": true,
+      "detail": "[{\"key\":\"team-heretics:common\",\"pct\":\"35 %\"},{\"key\":\"team-heretics:uncommon\",\"pct\":\"40 %\"},{\"key\":\"team-heretics:rare\",\"pct\":\"18 %\"},{\"key\":\"team-heretics:epic\",\"pct\":\"6 %\"},{\"key\":\"team-heretics:lege"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-equipo: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.990"
+    },
+    {
+      "width": 1440,
+      "id": "detalle sobre-equipo: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1440,
+      "id": "detalle caja: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "340,121→1100,779 vw=1440 vh=900"
+    },
+    {
+      "width": 1440,
+      "id": "detalle caja: probabilidades = fuente del servidor (class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"estandar:base\",\"pct\":\"50 %\"},{\"key\":\"estandar:plata\",\"pct\":\"25 %\"},{\"key\":\"estandar:oro\",\"pct\":\"10 %\"},{\"key\":\"estandar:masters\",\"pct\":\"7 %\"},{\"key\":\"estandar:champions\",\"pct\":\"4 %\"},{\"key\":\""
+    },
+    {
+      "width": 1440,
+      "id": "detalle caja: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1440,
+      "id": "detalle carta: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "340,260→1100,640 vw=1440 vh=900"
+    },
+    {
+      "width": 1440,
+      "id": "detalle carta: edición, rareza, OVR y equipo SOLO en el detalle",
+      "ok": true,
+      "detail": "CARTA DE LA TIENDA MADA Moments · Legendaria · OVR 95 · NRG · Duelista Una carta concreta vendida por NEXUS. No es el Marketplace. DRL CREDITS Por anunciar · Aú"
+    },
+    {
+      "width": 1440,
+      "id": "detalle carta: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1440,
+      "id": "detalle pack: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "340,24→1100,947 vw=1440 vh=900"
+    },
+    {
+      "width": 1440,
+      "id": "detalle pack: probabilidades = fuente del servidor (class-table,class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"estandar:base\",\"pct\":\"50 %\"},{\"key\":\"estandar:plata\",\"pct\":\"25 %\"},{\"key\":\"estandar:oro\",\"pct\":\"10 %\"},{\"key\":\"estandar:masters\",\"pct\":\"7 %\"},{\"key\":\"estandar:champions\",\"pct\":\"4 %\"},{\"key\":\""
+    },
+    {
+      "width": 1440,
+      "id": "detalle pack: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1440,
+      "id": "teclado: Enter en COMPRAR abre el detalle (no compra)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "width": 1440,
+      "id": "0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "width": 1024,
+      "id": "catálogo: tarjetas SOLO imagen + nombre + precio + CTA (sin %, nº de cartas, €, rarezas ni contenido)",
+      "ok": true,
+      "detail": "18 tarjetas"
+    },
+    {
+      "width": 1024,
+      "id": "catálogo: texto por tarjeta ≤ 9 palabras",
+      "ok": true,
+      "detail": "max=9 1 SIN ABRIR SOBRE BRONCE 1.000 DRL Credits COMPRAR"
+    },
+    {
+      "width": 1024,
+      "id": "catálogo: el arte ocupa ≥ 50 % de la altura de cada tarjeta",
+      "ok": true,
+      "detail": "min=0.64"
+    },
+    {
+      "width": 1024,
+      "id": "catálogo: arte entero, sin recortar (sobre, caja y carta caben en su zona)",
+      "ok": true,
+      "detail": "0 recortados"
+    },
+    {
+      "width": 1024,
+      "id": "catálogo: ningún nombre cortado",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "width": 1024,
+      "id": "catálogo: alturas iguales en cada fila",
+      "ok": true,
+      "detail": "filas desiguales=0"
+    },
+    {
+      "width": 1024,
+      "id": "catálogo: varios productos a la vista por fila",
+      "ok": true,
+      "detail": "sobres por fila=4"
+    },
+    {
+      "width": 1024,
+      "id": "sin scroll horizontal",
+      "ok": true,
+      "detail": "overflowX=0"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-oro: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "132,60→892,708 vw=1024 vh=768"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-oro: probabilidades = fuente del servidor (class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro:oro\",\"pct\":\"50 %\"},{\"key\":\"oro:masters\",\"pct\":\"23 %\"},{\"key\":\"oro:champions\",\"pct\":\"10 %\"},{\"key\":\"oro:prime\",\"pct\":\"10 %\"},{\"key\":\"oro:icon\",\"pct\":\"7 %\"}]"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-oro: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.490"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-oro: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-regional: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "132,54→892,714 vw=1024 vh=768"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-regional: probabilidades = fuente del servidor (measured)",
+      "ok": true,
+      "detail": "[{\"key\":\"emea:common\",\"pct\":\"35 %\"},{\"key\":\"emea:uncommon\",\"pct\":\"40 %\"},{\"key\":\"emea:rare\",\"pct\":\"18 %\"},{\"key\":\"emea:epic\",\"pct\":\"6 %\"},{\"key\":\"emea:legendary\",\"pct\":\"1 %\"}]"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-regional: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.990"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-regional: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-equipo: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "132,24→892,745 vw=1024 vh=768"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-equipo: probabilidades = fuente del servidor (measured)",
+      "ok": true,
+      "detail": "[{\"key\":\"team-heretics:common\",\"pct\":\"35 %\"},{\"key\":\"team-heretics:uncommon\",\"pct\":\"40 %\"},{\"key\":\"team-heretics:rare\",\"pct\":\"18 %\"},{\"key\":\"team-heretics:epic\",\"pct\":\"6 %\"},{\"key\":\"team-heretics:lege"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-equipo: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.990"
+    },
+    {
+      "width": 1024,
+      "id": "detalle sobre-equipo: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1024,
+      "id": "detalle caja: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "132,55→892,713 vw=1024 vh=768"
+    },
+    {
+      "width": 1024,
+      "id": "detalle caja: probabilidades = fuente del servidor (class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"estandar:base\",\"pct\":\"50 %\"},{\"key\":\"estandar:plata\",\"pct\":\"25 %\"},{\"key\":\"estandar:oro\",\"pct\":\"10 %\"},{\"key\":\"estandar:masters\",\"pct\":\"7 %\"},{\"key\":\"estandar:champions\",\"pct\":\"4 %\"},{\"key\":\""
+    },
+    {
+      "width": 1024,
+      "id": "detalle caja: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1024,
+      "id": "detalle carta: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "132,194→892,574 vw=1024 vh=768"
+    },
+    {
+      "width": 1024,
+      "id": "detalle carta: edición, rareza, OVR y equipo SOLO en el detalle",
+      "ok": true,
+      "detail": "CARTA DE LA TIENDA MADA Moments · Legendaria · OVR 95 · NRG · Duelista Una carta concreta vendida por NEXUS. No es el Marketplace. DRL CREDITS Por anunciar · Aú"
+    },
+    {
+      "width": 1024,
+      "id": "detalle carta: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1024,
+      "id": "detalle pack: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "132,24→892,947 vw=1024 vh=768"
+    },
+    {
+      "width": 1024,
+      "id": "detalle pack: probabilidades = fuente del servidor (class-table,class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"estandar:base\",\"pct\":\"50 %\"},{\"key\":\"estandar:plata\",\"pct\":\"25 %\"},{\"key\":\"estandar:oro\",\"pct\":\"10 %\"},{\"key\":\"estandar:masters\",\"pct\":\"7 %\"},{\"key\":\"estandar:champions\",\"pct\":\"4 %\"},{\"key\":\""
+    },
+    {
+      "width": 1024,
+      "id": "detalle pack: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 1024,
+      "id": "teclado: Enter en COMPRAR abre el detalle (no compra)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "width": 1024,
+      "id": "0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "width": 390,
+      "id": "catálogo: tarjetas SOLO imagen + nombre + precio + CTA (sin %, nº de cartas, €, rarezas ni contenido)",
+      "ok": true,
+      "detail": "18 tarjetas"
+    },
+    {
+      "width": 390,
+      "id": "catálogo: texto por tarjeta ≤ 9 palabras",
+      "ok": true,
+      "detail": "max=9 1 SIN ABRIR SOBRE BRONCE 1.000 DRL Credits COMPRAR"
+    },
+    {
+      "width": 390,
+      "id": "catálogo: el arte ocupa ≥ 50 % de la altura de cada tarjeta",
+      "ok": true,
+      "detail": "min=0.53"
+    },
+    {
+      "width": 390,
+      "id": "catálogo: arte entero, sin recortar (sobre, caja y carta caben en su zona)",
+      "ok": true,
+      "detail": "0 recortados"
+    },
+    {
+      "width": 390,
+      "id": "catálogo: ningún nombre cortado",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "width": 390,
+      "id": "catálogo: alturas iguales en cada fila",
+      "ok": true,
+      "detail": "filas desiguales=0"
+    },
+    {
+      "width": 390,
+      "id": "catálogo: varios productos a la vista por fila",
+      "ok": true,
+      "detail": "sobres por fila=2"
+    },
+    {
+      "width": 390,
+      "id": "sin scroll horizontal",
+      "ok": true,
+      "detail": "overflowX=0"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-oro: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "12,12→378,850 vw=390 vh=844"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-oro: probabilidades = fuente del servidor (class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"oro:oro\",\"pct\":\"50 %\"},{\"key\":\"oro:masters\",\"pct\":\"23 %\"},{\"key\":\"oro:champions\",\"pct\":\"10 %\"},{\"key\":\"oro:prime\",\"pct\":\"10 %\"},{\"key\":\"oro:icon\",\"pct\":\"7 %\"}]"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-oro: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.490"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-oro: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-regional: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "12,12→378,840 vw=390 vh=844"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-regional: probabilidades = fuente del servidor (measured)",
+      "ok": true,
+      "detail": "[{\"key\":\"emea:common\",\"pct\":\"35 %\"},{\"key\":\"emea:uncommon\",\"pct\":\"40 %\"},{\"key\":\"emea:rare\",\"pct\":\"18 %\"},{\"key\":\"emea:epic\",\"pct\":\"6 %\"},{\"key\":\"emea:legendary\",\"pct\":\"1 %\"}]"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-regional: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.990"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-regional: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-equipo: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "12,12→378,914 vw=390 vh=844"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-equipo: probabilidades = fuente del servidor (measured)",
+      "ok": true,
+      "detail": "[{\"key\":\"team-heretics:common\",\"pct\":\"35 %\"},{\"key\":\"team-heretics:uncommon\",\"pct\":\"40 %\"},{\"key\":\"team-heretics:rare\",\"pct\":\"18 %\"},{\"key\":\"team-heretics:epic\",\"pct\":\"6 %\"},{\"key\":\"team-heretics:lege"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-equipo: precio, nº de cartas, saldo y saldo después",
+      "ok": true,
+      "detail": "5.490 → 1.990"
+    },
+    {
+      "width": 390,
+      "id": "detalle sobre-equipo: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 390,
+      "id": "detalle caja: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "12,18→378,826 vw=390 vh=844"
+    },
+    {
+      "width": 390,
+      "id": "detalle caja: probabilidades = fuente del servidor (class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"estandar:base\",\"pct\":\"50 %\"},{\"key\":\"estandar:plata\",\"pct\":\"25 %\"},{\"key\":\"estandar:oro\",\"pct\":\"10 %\"},{\"key\":\"estandar:masters\",\"pct\":\"7 %\"},{\"key\":\"estandar:champions\",\"pct\":\"4 %\"},{\"key\":\""
+    },
+    {
+      "width": 390,
+      "id": "detalle caja: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 390,
+      "id": "detalle carta: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "12,131→378,713 vw=390 vh=844"
+    },
+    {
+      "width": 390,
+      "id": "detalle carta: edición, rareza, OVR y equipo SOLO en el detalle",
+      "ok": true,
+      "detail": "CARTA DE LA TIENDA MADA Moments · Legendaria · OVR 95 · NRG · Duelista Una carta concreta vendida por NEXUS. No es el Marketplace. DRL CREDITS Por anunciar · Aú"
+    },
+    {
+      "width": 390,
+      "id": "detalle carta: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 390,
+      "id": "detalle pack: se abre al pulsar (no compra), dentro del viewport, foco dentro",
+      "ok": true,
+      "detail": "12,12→378,1105 vw=390 vh=844"
+    },
+    {
+      "width": 390,
+      "id": "detalle pack: probabilidades = fuente del servidor (class-table,class-table)",
+      "ok": true,
+      "detail": "[{\"key\":\"estandar:base\",\"pct\":\"50 %\"},{\"key\":\"estandar:plata\",\"pct\":\"25 %\"},{\"key\":\"estandar:oro\",\"pct\":\"10 %\"},{\"key\":\"estandar:masters\",\"pct\":\"7 %\"},{\"key\":\"estandar:champions\",\"pct\":\"4 %\"},{\"key\":\""
+    },
+    {
+      "width": 390,
+      "id": "detalle pack: Escape cierra y el foco vuelve a su tarjeta",
+      "ok": true,
+      "detail": "closed=true refocus=true"
+    },
+    {
+      "width": 390,
+      "id": "teclado: Enter en COMPRAR abre el detalle (no compra)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "width": 390,
+      "id": "0 errores de consola",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "byWidth": {
+    "390": {
+      "width": 390,
+      "cards": {
+        "sobres": [
+          {
+            "clipped": false,
+            "text": "1 SIN ABRIR SOBRE BRONCE 1.000 DRL Credits COMPRAR",
+            "h": 327,
+            "w": 173,
+            "top": 835,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "DESTACADO SOBRE PLATA 2.500 DRL Credits COMPRAR",
+            "h": 327,
+            "w": 173,
+            "top": 835,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE ORO 4.000 DRL Credits COMPRAR",
+            "h": 327,
+            "w": 173,
+            "top": 1174,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "NUEVO SOBRE CHAMPIONS 8.000 DRL Credits COMPRAR",
+            "h": 327,
+            "w": 173,
+            "top": 1174,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE ICON 12.500 DRL Credits COMPRAR",
+            "h": 327,
+            "w": 173,
+            "top": 1513,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE MASTERS 5.000 DRL Credits COMPRAR",
+            "h": 327,
+            "w": 173,
+            "top": 1513,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE EWC 6.000 DRL Credits COMPRAR",
+            "h": 327,
+            "w": 173,
+            "top": 1852,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE INICIAL Gratis DRL Credits CONSEGUIR",
+            "h": 327,
+            "w": 173,
+            "top": 1852,
+            "artH": 176
+          }
+        ],
+        "cajas": [
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA ESTÁNDAR PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 2293,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA PREMIUM PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 2293,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA MASTERS PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 2634,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "DESTACADO PRÓXIMAMENTE CAJA CHAMPIONS PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 2634,
+            "artH": 176
+          }
+        ],
+        "cartas": [
+          {
+            "clipped": false,
+            "text": "DESTACADO PRÓXIMAMENTE MADA PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 3052,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE LEAF PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 3052,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE XROSS PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 3393,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE JINGGG PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 3393,
+            "artH": 176
+          }
+        ],
+        "packs": [
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE PACK INICIO PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 3811,
+            "artH": 176
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE PACK COLECCIONISTA PRECIO POR ANUNCIAR VER",
+            "h": 329,
+            "w": 173,
+            "top": 3811,
+            "artH": 176
+          }
+        ]
+      },
+      "modals": {
+        "sobre-oro": {
+          "text": "SOBRE SOBRE ORO 5 cartas · Acceso real a cartas muy buenas: desde Oro hacia arriba. PROBABILIDADES ORO · Edición base, OVR 86–92 50 % MASTERS · Masters L y Masters SDC 23 % CHAMPIONS · Champions S 10 % PRIME · Future Star 10 % ICON · Record Breaker y Moments 7 % Probabilidad de cada carta del sobre. DRL CREDITS PRECIO 4.000 TU SALDO 5.490 DESPUÉS 1.490 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 4.000",
+          "top": 12,
+          "bottom": 850,
+          "left": 12,
+          "right": 378,
+          "vw": 390,
+          "vh": 844,
+          "scrollH": 836,
+          "clientH": 836,
+          "odds": [
+            {
+              "key": "oro:oro",
+              "pct": "50 %",
+              "text": "ORO · Edición base, OVR 86–92 50 %"
+            },
+            {
+              "key": "oro:masters",
+              "pct": "23 %",
+              "text": "MASTERS · Masters L y Masters SDC 23 %"
+            },
+            {
+              "key": "oro:champions",
+              "pct": "10 %",
+              "text": "CHAMPIONS · Champions S 10 %"
+            },
+            {
+              "key": "oro:prime",
+              "pct": "10 %",
+              "text": "PRIME · Future Star 10 %"
+            },
+            {
+              "key": "oro:icon",
+              "pct": "7 %",
+              "text": "ICON · Record Breaker y Moments 7 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": "5.490",
+          "after": "1.490",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 4.000",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "sobre-regional": {
+          "text": "SOBRE SOBRE EMEA 5 cartas · Solo jugadores de la región EMEA. PROBABILIDADES COMÚN 35 % POCO COMÚN 40 % RARA 18 % ÉPICA 6 % LEGENDARIA 1 % Probabilidad de cada carta, medida con el motor real (20.000 aperturas). DRL CREDITS PRECIO 3.500 TU SALDO 5.490 DESPUÉS 1.990 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 3.500",
+          "top": 12,
+          "bottom": 840,
+          "left": 12,
+          "right": 378,
+          "vw": 390,
+          "vh": 844,
+          "scrollH": 826,
+          "clientH": 826,
+          "odds": [
+            {
+              "key": "emea:common",
+              "pct": "35 %",
+              "text": "COMÚN 35 %"
+            },
+            {
+              "key": "emea:uncommon",
+              "pct": "40 %",
+              "text": "POCO COMÚN 40 %"
+            },
+            {
+              "key": "emea:rare",
+              "pct": "18 %",
+              "text": "RARA 18 %"
+            },
+            {
+              "key": "emea:epic",
+              "pct": "6 %",
+              "text": "ÉPICA 6 %"
+            },
+            {
+              "key": "emea:legendary",
+              "pct": "1 %",
+              "text": "LEGENDARIA 1 %"
+            }
+          ],
+          "oddsSource": "measured",
+          "balance": "5.490",
+          "after": "1.990",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 3.500",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "sobre-equipo": {
+          "text": "SOBRE SOBRE TEAM HERETICS 5 cartas · Más probabilidad de cartas de Team Heretics. Sortea entre jugadores de EMEA. PROBABILIDADES COMÚN 35 % POCO COMÚN 40 % RARA 18 % ÉPICA 6 % LEGENDARIA 1 % Probabilidad de cada carta, medida con el motor real (20.000 aperturas). Probabilidad aumentada de jugadores de Team Heretics: 11 cartas del equipo pueden salir y son más probables que el resto, pero no están garantizadas. DRL CREDITS PRECIO 3.500 TU SALDO 5.490 DESPUÉS 1.990 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 3.500",
+          "top": 12,
+          "bottom": 914,
+          "left": 12,
+          "right": 378,
+          "vw": 390,
+          "vh": 844,
+          "scrollH": 900,
+          "clientH": 900,
+          "odds": [
+            {
+              "key": "team-heretics:common",
+              "pct": "35 %",
+              "text": "COMÚN 35 %"
+            },
+            {
+              "key": "team-heretics:uncommon",
+              "pct": "40 %",
+              "text": "POCO COMÚN 40 %"
+            },
+            {
+              "key": "team-heretics:rare",
+              "pct": "18 %",
+              "text": "RARA 18 %"
+            },
+            {
+              "key": "team-heretics:epic",
+              "pct": "6 %",
+              "text": "ÉPICA 6 %"
+            },
+            {
+              "key": "team-heretics:legendary",
+              "pct": "1 %",
+              "text": "LEGENDARIA 1 %"
+            }
+          ],
+          "oddsSource": "measured",
+          "balance": "5.490",
+          "after": "1.990",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 3.500",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "caja": {
+          "text": "×10 CAJA · 10 SOBRES CAJA ESTÁNDAR 10 × Sobre Bronce (50 cartas) Los 10 sobres se añaden a tu inventario sin abrir: tú decides cuándo abrirlos. PROBABILIDADES · SOBRE BRONCE BASE · Edición base, OVR 70–81 50 % PLATA · Edición base, OVR 82–85 25 % ORO · Edición base, OVR 86–92 10 % MASTERS · Masters L y Masters SDC 7 % CHAMPIONS · Champions S 4 % PRIME · Future Star 3 % ICON · Record Breaker y Moments 1 % Probabilidad de cada carta del sobre. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 18,
+          "bottom": 826,
+          "left": 12,
+          "right": 378,
+          "vw": 390,
+          "vh": 844,
+          "scrollH": 807,
+          "clientH": 807,
+          "odds": [
+            {
+              "key": "estandar:base",
+              "pct": "50 %",
+              "text": "BASE · Edición base, OVR 70–81 50 %"
+            },
+            {
+              "key": "estandar:plata",
+              "pct": "25 %",
+              "text": "PLATA · Edición base, OVR 82–85 25 %"
+            },
+            {
+              "key": "estandar:oro",
+              "pct": "10 %",
+              "text": "ORO · Edición base, OVR 86–92 10 %"
+            },
+            {
+              "key": "estandar:masters",
+              "pct": "7 %",
+              "text": "MASTERS · Masters L y Masters SDC 7 %"
+            },
+            {
+              "key": "estandar:champions",
+              "pct": "4 %",
+              "text": "CHAMPIONS · Champions S 4 %"
+            },
+            {
+              "key": "estandar:prime",
+              "pct": "3 %",
+              "text": "PRIME · Future Star 3 %"
+            },
+            {
+              "key": "estandar:icon",
+              "pct": "1 %",
+              "text": "ICON · Record Breaker y Moments 1 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        },
+        "carta": {
+          "text": "CARTA DE LA TIENDA MADA Moments · Legendaria · OVR 95 · NRG · Duelista Una carta concreta vendida por NEXUS. No es el Marketplace. DRL CREDITS Por anunciar · Aún no tiene precio. Lo anunciaremos aquí. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 131,
+          "bottom": 713,
+          "left": 12,
+          "right": 378,
+          "vw": 390,
+          "vh": 844,
+          "scrollH": 580,
+          "clientH": 580,
+          "odds": [],
+          "oddsSource": null,
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        },
+        "pack": {
+          "text": "PACK ESPECIAL PACK INICIO 5 × Sobre Bronce (25 cartas) 1 × Sobre Plata (6 cartas) 2.000 DRL Credits PROBABILIDADES · SOBRE BRONCE BASE · Edición base, OVR 70–81 50 % PLATA · Edición base, OVR 82–85 25 % ORO · Edición base, OVR 86–92 10 % MASTERS · Masters L y Masters SDC 7 % CHAMPIONS · Champions S 4 % PRIME · Future Star 3 % ICON · Record Breaker y Moments 1 % Probabilidad de cada carta del sobre. PROBABILIDADES · SOBRE PLATA PLATA · Edición base, OVR 82–85 50 % ORO · Edición base, OVR 86–92 25 % MASTERS · Masters L y Masters SDC 10 % CHAMPIONS · Champions S 7 % PRIME · Future Star 5 % ICON · Record Breaker y Moments 3 % Probabilidad de cada carta del sobre. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 12,
+          "bottom": 1105,
+          "left": 12,
+          "right": 378,
+          "vw": 390,
+          "vh": 844,
+          "scrollH": 1091,
+          "clientH": 1091,
+          "odds": [
+            {
+              "key": "estandar:base",
+              "pct": "50 %",
+              "text": "BASE · Edición base, OVR 70–81 50 %"
+            },
+            {
+              "key": "estandar:plata",
+              "pct": "25 %",
+              "text": "PLATA · Edición base, OVR 82–85 25 %"
+            },
+            {
+              "key": "estandar:oro",
+              "pct": "10 %",
+              "text": "ORO · Edición base, OVR 86–92 10 %"
+            },
+            {
+              "key": "estandar:masters",
+              "pct": "7 %",
+              "text": "MASTERS · Masters L y Masters SDC 7 %"
+            },
+            {
+              "key": "estandar:champions",
+              "pct": "4 %",
+              "text": "CHAMPIONS · Champions S 4 %"
+            },
+            {
+              "key": "estandar:prime",
+              "pct": "3 %",
+              "text": "PRIME · Future Star 3 %"
+            },
+            {
+              "key": "estandar:icon",
+              "pct": "1 %",
+              "text": "ICON · Record Breaker y Moments 1 %"
+            },
+            {
+              "key": "premium:plata",
+              "pct": "50 %",
+              "text": "PLATA · Edición base, OVR 82–85 50 %"
+            },
+            {
+              "key": "premium:oro",
+              "pct": "25 %",
+              "text": "ORO · Edición base, OVR 86–92 25 %"
+            },
+            {
+              "key": "premium:masters",
+              "pct": "10 %",
+              "text": "MASTERS · Masters L y Masters SDC 10 %"
+            },
+            {
+              "key": "premium:champions",
+              "pct": "7 %",
+              "text": "CHAMPIONS · Champions S 7 %"
+            },
+            {
+              "key": "premium:prime",
+              "pct": "5 %",
+              "text": "PRIME · Future Star 5 %"
+            },
+            {
+              "key": "premium:icon",
+              "pct": "3 %",
+              "text": "ICON · Record Breaker y Moments 3 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        }
+      },
+      "overflowX": 0
+    },
+    "1024": {
+      "width": 1024,
+      "cards": {
+        "sobres": [
+          {
+            "clipped": false,
+            "text": "1 SIN ABRIR SOBRE BRONCE 1.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 231,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "DESTACADO SOBRE PLATA 2.500 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 231,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE ORO 4.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 231,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "NUEVO SOBRE CHAMPIONS 8.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 231,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE ICON 12.500 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 231,
+            "top": 1083,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE MASTERS 5.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 231,
+            "top": 1083,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE EWC 6.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 231,
+            "top": 1083,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE INICIAL Gratis DRL Credits CONSEGUIR",
+            "h": 369,
+            "w": 231,
+            "top": 1083,
+            "artH": 236
+          }
+        ],
+        "cajas": [
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA ESTÁNDAR PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 1578,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA PREMIUM PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 1578,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA MASTERS PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 1578,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "DESTACADO PRÓXIMAMENTE CAJA CHAMPIONS PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 1578,
+            "artH": 236
+          }
+        ],
+        "cartas": [
+          {
+            "clipped": false,
+            "text": "DESTACADO PRÓXIMAMENTE MADA PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 2031,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE LEAF PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 2031,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE XROSS PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 2031,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE JINGGG PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 2031,
+            "artH": 236
+          }
+        ],
+        "packs": [
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE PACK INICIO PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 2484,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE PACK COLECCIONISTA PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 231,
+            "top": 2484,
+            "artH": 236
+          }
+        ]
+      },
+      "modals": {
+        "sobre-oro": {
+          "text": "SOBRE SOBRE ORO 5 cartas · Acceso real a cartas muy buenas: desde Oro hacia arriba. PROBABILIDADES ORO · Edición base, OVR 86–92 50 % MASTERS · Masters L y Masters SDC 23 % CHAMPIONS · Champions S 10 % PRIME · Future Star 10 % ICON · Record Breaker y Moments 7 % Probabilidad de cada carta del sobre. DRL CREDITS PRECIO 4.000 TU SALDO 5.490 DESPUÉS 1.490 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 4.000",
+          "top": 60,
+          "bottom": 708,
+          "left": 132,
+          "right": 892,
+          "vw": 1024,
+          "vh": 768,
+          "scrollH": 645,
+          "clientH": 645,
+          "odds": [
+            {
+              "key": "oro:oro",
+              "pct": "50 %",
+              "text": "ORO · Edición base, OVR 86–92 50 %"
+            },
+            {
+              "key": "oro:masters",
+              "pct": "23 %",
+              "text": "MASTERS · Masters L y Masters SDC 23 %"
+            },
+            {
+              "key": "oro:champions",
+              "pct": "10 %",
+              "text": "CHAMPIONS · Champions S 10 %"
+            },
+            {
+              "key": "oro:prime",
+              "pct": "10 %",
+              "text": "PRIME · Future Star 10 %"
+            },
+            {
+              "key": "oro:icon",
+              "pct": "7 %",
+              "text": "ICON · Record Breaker y Moments 7 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": "5.490",
+          "after": "1.490",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 4.000",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "sobre-regional": {
+          "text": "SOBRE SOBRE EMEA 5 cartas · Solo jugadores de la región EMEA. PROBABILIDADES COMÚN 35 % POCO COMÚN 40 % RARA 18 % ÉPICA 6 % LEGENDARIA 1 % Probabilidad de cada carta, medida con el motor real (20.000 aperturas). DRL CREDITS PRECIO 3.500 TU SALDO 5.490 DESPUÉS 1.990 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 3.500",
+          "top": 54,
+          "bottom": 714,
+          "left": 132,
+          "right": 892,
+          "vw": 1024,
+          "vh": 768,
+          "scrollH": 657,
+          "clientH": 657,
+          "odds": [
+            {
+              "key": "emea:common",
+              "pct": "35 %",
+              "text": "COMÚN 35 %"
+            },
+            {
+              "key": "emea:uncommon",
+              "pct": "40 %",
+              "text": "POCO COMÚN 40 %"
+            },
+            {
+              "key": "emea:rare",
+              "pct": "18 %",
+              "text": "RARA 18 %"
+            },
+            {
+              "key": "emea:epic",
+              "pct": "6 %",
+              "text": "ÉPICA 6 %"
+            },
+            {
+              "key": "emea:legendary",
+              "pct": "1 %",
+              "text": "LEGENDARIA 1 %"
+            }
+          ],
+          "oddsSource": "measured",
+          "balance": "5.490",
+          "after": "1.990",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 3.500",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "sobre-equipo": {
+          "text": "SOBRE SOBRE TEAM HERETICS 5 cartas · Más probabilidad de cartas de Team Heretics. Sortea entre jugadores de EMEA. PROBABILIDADES COMÚN 35 % POCO COMÚN 40 % RARA 18 % ÉPICA 6 % LEGENDARIA 1 % Probabilidad de cada carta, medida con el motor real (20.000 aperturas). Probabilidad aumentada de jugadores de Team Heretics: 11 cartas del equipo pueden salir y son más probables que el resto, pero no están garantizadas. DRL CREDITS PRECIO 3.500 TU SALDO 5.490 DESPUÉS 1.990 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 3.500",
+          "top": 24,
+          "bottom": 745,
+          "left": 132,
+          "right": 892,
+          "vw": 1024,
+          "vh": 768,
+          "scrollH": 719,
+          "clientH": 719,
+          "odds": [
+            {
+              "key": "team-heretics:common",
+              "pct": "35 %",
+              "text": "COMÚN 35 %"
+            },
+            {
+              "key": "team-heretics:uncommon",
+              "pct": "40 %",
+              "text": "POCO COMÚN 40 %"
+            },
+            {
+              "key": "team-heretics:rare",
+              "pct": "18 %",
+              "text": "RARA 18 %"
+            },
+            {
+              "key": "team-heretics:epic",
+              "pct": "6 %",
+              "text": "ÉPICA 6 %"
+            },
+            {
+              "key": "team-heretics:legendary",
+              "pct": "1 %",
+              "text": "LEGENDARIA 1 %"
+            }
+          ],
+          "oddsSource": "measured",
+          "balance": "5.490",
+          "after": "1.990",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 3.500",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "caja": {
+          "text": "×10 CAJA · 10 SOBRES CAJA ESTÁNDAR 10 × Sobre Bronce (50 cartas) Los 10 sobres se añaden a tu inventario sin abrir: tú decides cuándo abrirlos. PROBABILIDADES · SOBRE BRONCE BASE · Edición base, OVR 70–81 50 % PLATA · Edición base, OVR 82–85 25 % ORO · Edición base, OVR 86–92 10 % MASTERS · Masters L y Masters SDC 7 % CHAMPIONS · Champions S 4 % PRIME · Future Star 3 % ICON · Record Breaker y Moments 1 % Probabilidad de cada carta del sobre. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 55,
+          "bottom": 713,
+          "left": 132,
+          "right": 892,
+          "vw": 1024,
+          "vh": 768,
+          "scrollH": 656,
+          "clientH": 656,
+          "odds": [
+            {
+              "key": "estandar:base",
+              "pct": "50 %",
+              "text": "BASE · Edición base, OVR 70–81 50 %"
+            },
+            {
+              "key": "estandar:plata",
+              "pct": "25 %",
+              "text": "PLATA · Edición base, OVR 82–85 25 %"
+            },
+            {
+              "key": "estandar:oro",
+              "pct": "10 %",
+              "text": "ORO · Edición base, OVR 86–92 10 %"
+            },
+            {
+              "key": "estandar:masters",
+              "pct": "7 %",
+              "text": "MASTERS · Masters L y Masters SDC 7 %"
+            },
+            {
+              "key": "estandar:champions",
+              "pct": "4 %",
+              "text": "CHAMPIONS · Champions S 4 %"
+            },
+            {
+              "key": "estandar:prime",
+              "pct": "3 %",
+              "text": "PRIME · Future Star 3 %"
+            },
+            {
+              "key": "estandar:icon",
+              "pct": "1 %",
+              "text": "ICON · Record Breaker y Moments 1 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        },
+        "carta": {
+          "text": "CARTA DE LA TIENDA MADA Moments · Legendaria · OVR 95 · NRG · Duelista Una carta concreta vendida por NEXUS. No es el Marketplace. DRL CREDITS Por anunciar · Aún no tiene precio. Lo anunciaremos aquí. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 194,
+          "bottom": 574,
+          "left": 132,
+          "right": 892,
+          "vw": 1024,
+          "vh": 768,
+          "scrollH": 379,
+          "clientH": 379,
+          "odds": [],
+          "oddsSource": null,
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        },
+        "pack": {
+          "text": "PACK ESPECIAL PACK INICIO 5 × Sobre Bronce (25 cartas) 1 × Sobre Plata (6 cartas) 2.000 DRL Credits PROBABILIDADES · SOBRE BRONCE BASE · Edición base, OVR 70–81 50 % PLATA · Edición base, OVR 82–85 25 % ORO · Edición base, OVR 86–92 10 % MASTERS · Masters L y Masters SDC 7 % CHAMPIONS · Champions S 4 % PRIME · Future Star 3 % ICON · Record Breaker y Moments 1 % Probabilidad de cada carta del sobre. PROBABILIDADES · SOBRE PLATA PLATA · Edición base, OVR 82–85 50 % ORO · Edición base, OVR 86–92 25 % MASTERS · Masters L y Masters SDC 10 % CHAMPIONS · Champions S 7 % PRIME · Future Star 5 % ICON · Record Breaker y Moments 3 % Probabilidad de cada carta del sobre. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 24,
+          "bottom": 947,
+          "left": 132,
+          "right": 892,
+          "vw": 1024,
+          "vh": 768,
+          "scrollH": 921,
+          "clientH": 921,
+          "odds": [
+            {
+              "key": "estandar:base",
+              "pct": "50 %",
+              "text": "BASE · Edición base, OVR 70–81 50 %"
+            },
+            {
+              "key": "estandar:plata",
+              "pct": "25 %",
+              "text": "PLATA · Edición base, OVR 82–85 25 %"
+            },
+            {
+              "key": "estandar:oro",
+              "pct": "10 %",
+              "text": "ORO · Edición base, OVR 86–92 10 %"
+            },
+            {
+              "key": "estandar:masters",
+              "pct": "7 %",
+              "text": "MASTERS · Masters L y Masters SDC 7 %"
+            },
+            {
+              "key": "estandar:champions",
+              "pct": "4 %",
+              "text": "CHAMPIONS · Champions S 4 %"
+            },
+            {
+              "key": "estandar:prime",
+              "pct": "3 %",
+              "text": "PRIME · Future Star 3 %"
+            },
+            {
+              "key": "estandar:icon",
+              "pct": "1 %",
+              "text": "ICON · Record Breaker y Moments 1 %"
+            },
+            {
+              "key": "premium:plata",
+              "pct": "50 %",
+              "text": "PLATA · Edición base, OVR 82–85 50 %"
+            },
+            {
+              "key": "premium:oro",
+              "pct": "25 %",
+              "text": "ORO · Edición base, OVR 86–92 25 %"
+            },
+            {
+              "key": "premium:masters",
+              "pct": "10 %",
+              "text": "MASTERS · Masters L y Masters SDC 10 %"
+            },
+            {
+              "key": "premium:champions",
+              "pct": "7 %",
+              "text": "CHAMPIONS · Champions S 7 %"
+            },
+            {
+              "key": "premium:prime",
+              "pct": "5 %",
+              "text": "PRIME · Future Star 5 %"
+            },
+            {
+              "key": "premium:icon",
+              "pct": "3 %",
+              "text": "ICON · Record Breaker y Moments 3 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        }
+      },
+      "overflowX": 0
+    },
+    "1440": {
+      "width": 1440,
+      "cards": {
+        "sobres": [
+          {
+            "clipped": false,
+            "text": "1 SIN ABRIR SOBRE BRONCE 1.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 335,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "DESTACADO SOBRE PLATA 2.500 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 335,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE ORO 4.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 335,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "NUEVO SOBRE CHAMPIONS 8.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 335,
+            "top": 702,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE ICON 12.500 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 335,
+            "top": 1083,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE MASTERS 5.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 335,
+            "top": 1083,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE EWC 6.000 DRL Credits COMPRAR",
+            "h": 369,
+            "w": 335,
+            "top": 1083,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "SOBRE INICIAL Gratis DRL Credits CONSEGUIR",
+            "h": 369,
+            "w": 335,
+            "top": 1083,
+            "artH": 236
+          }
+        ],
+        "cajas": [
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA ESTÁNDAR PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 1581,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA PREMIUM PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 1581,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE CAJA MASTERS PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 1581,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "DESTACADO PRÓXIMAMENTE CAJA CHAMPIONS PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 1581,
+            "artH": 236
+          }
+        ],
+        "cartas": [
+          {
+            "clipped": false,
+            "text": "DESTACADO PRÓXIMAMENTE MADA PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 2038,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE LEAF PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 2038,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE XROSS PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 2038,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE JINGGG PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 2038,
+            "artH": 236
+          }
+        ],
+        "packs": [
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE PACK INICIO PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 2494,
+            "artH": 236
+          },
+          {
+            "clipped": false,
+            "text": "PRÓXIMAMENTE PACK COLECCIONISTA PRECIO POR ANUNCIAR VER",
+            "h": 371,
+            "w": 335,
+            "top": 2494,
+            "artH": 236
+          }
+        ]
+      },
+      "modals": {
+        "sobre-oro": {
+          "text": "SOBRE SOBRE ORO 5 cartas · Acceso real a cartas muy buenas: desde Oro hacia arriba. PROBABILIDADES ORO · Edición base, OVR 86–92 50 % MASTERS · Masters L y Masters SDC 23 % CHAMPIONS · Champions S 10 % PRIME · Future Star 10 % ICON · Record Breaker y Moments 7 % Probabilidad de cada carta del sobre. DRL CREDITS PRECIO 4.000 TU SALDO 5.490 DESPUÉS 1.490 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 4.000",
+          "top": 126,
+          "bottom": 774,
+          "left": 340,
+          "right": 1100,
+          "vw": 1440,
+          "vh": 900,
+          "scrollH": 645,
+          "clientH": 645,
+          "odds": [
+            {
+              "key": "oro:oro",
+              "pct": "50 %",
+              "text": "ORO · Edición base, OVR 86–92 50 %"
+            },
+            {
+              "key": "oro:masters",
+              "pct": "23 %",
+              "text": "MASTERS · Masters L y Masters SDC 23 %"
+            },
+            {
+              "key": "oro:champions",
+              "pct": "10 %",
+              "text": "CHAMPIONS · Champions S 10 %"
+            },
+            {
+              "key": "oro:prime",
+              "pct": "10 %",
+              "text": "PRIME · Future Star 10 %"
+            },
+            {
+              "key": "oro:icon",
+              "pct": "7 %",
+              "text": "ICON · Record Breaker y Moments 7 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": "5.490",
+          "after": "1.490",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 4.000",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "sobre-regional": {
+          "text": "SOBRE SOBRE EMEA 5 cartas · Solo jugadores de la región EMEA. PROBABILIDADES COMÚN 35 % POCO COMÚN 40 % RARA 18 % ÉPICA 6 % LEGENDARIA 1 % Probabilidad de cada carta, medida con el motor real (20.000 aperturas). DRL CREDITS PRECIO 3.500 TU SALDO 5.490 DESPUÉS 1.990 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 3.500",
+          "top": 120,
+          "bottom": 780,
+          "left": 340,
+          "right": 1100,
+          "vw": 1440,
+          "vh": 900,
+          "scrollH": 657,
+          "clientH": 657,
+          "odds": [
+            {
+              "key": "emea:common",
+              "pct": "35 %",
+              "text": "COMÚN 35 %"
+            },
+            {
+              "key": "emea:uncommon",
+              "pct": "40 %",
+              "text": "POCO COMÚN 40 %"
+            },
+            {
+              "key": "emea:rare",
+              "pct": "18 %",
+              "text": "RARA 18 %"
+            },
+            {
+              "key": "emea:epic",
+              "pct": "6 %",
+              "text": "ÉPICA 6 %"
+            },
+            {
+              "key": "emea:legendary",
+              "pct": "1 %",
+              "text": "LEGENDARIA 1 %"
+            }
+          ],
+          "oddsSource": "measured",
+          "balance": "5.490",
+          "after": "1.990",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 3.500",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "sobre-equipo": {
+          "text": "SOBRE SOBRE TEAM HERETICS 5 cartas · Más probabilidad de cartas de Team Heretics. Sortea entre jugadores de EMEA. PROBABILIDADES COMÚN 35 % POCO COMÚN 40 % RARA 18 % ÉPICA 6 % LEGENDARIA 1 % Probabilidad de cada carta, medida con el motor real (20.000 aperturas). Probabilidad aumentada de jugadores de Team Heretics: 11 cartas del equipo pueden salir y son más probables que el resto, pero no están garantizadas. DRL CREDITS PRECIO 3.500 TU SALDO 5.490 DESPUÉS 1.990 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR CONFIRMAR COMPRA · 3.500",
+          "top": 90,
+          "bottom": 810,
+          "left": 340,
+          "right": 1100,
+          "vw": 1440,
+          "vh": 900,
+          "scrollH": 719,
+          "clientH": 719,
+          "odds": [
+            {
+              "key": "team-heretics:common",
+              "pct": "35 %",
+              "text": "COMÚN 35 %"
+            },
+            {
+              "key": "team-heretics:uncommon",
+              "pct": "40 %",
+              "text": "POCO COMÚN 40 %"
+            },
+            {
+              "key": "team-heretics:rare",
+              "pct": "18 %",
+              "text": "RARA 18 %"
+            },
+            {
+              "key": "team-heretics:epic",
+              "pct": "6 %",
+              "text": "ÉPICA 6 %"
+            },
+            {
+              "key": "team-heretics:legendary",
+              "pct": "1 %",
+              "text": "LEGENDARIA 1 %"
+            }
+          ],
+          "oddsSource": "measured",
+          "balance": "5.490",
+          "after": "1.990",
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "CONFIRMAR COMPRA · 3.500",
+              "disabled": false
+            }
+          ],
+          "focusInside": true
+        },
+        "caja": {
+          "text": "×10 CAJA · 10 SOBRES CAJA ESTÁNDAR 10 × Sobre Bronce (50 cartas) Los 10 sobres se añaden a tu inventario sin abrir: tú decides cuándo abrirlos. PROBABILIDADES · SOBRE BRONCE BASE · Edición base, OVR 70–81 50 % PLATA · Edición base, OVR 82–85 25 % ORO · Edición base, OVR 86–92 10 % MASTERS · Masters L y Masters SDC 7 % CHAMPIONS · Champions S 4 % PRIME · Future Star 3 % ICON · Record Breaker y Moments 1 % Probabilidad de cada carta del sobre. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 121,
+          "bottom": 779,
+          "left": 340,
+          "right": 1100,
+          "vw": 1440,
+          "vh": 900,
+          "scrollH": 656,
+          "clientH": 656,
+          "odds": [
+            {
+              "key": "estandar:base",
+              "pct": "50 %",
+              "text": "BASE · Edición base, OVR 70–81 50 %"
+            },
+            {
+              "key": "estandar:plata",
+              "pct": "25 %",
+              "text": "PLATA · Edición base, OVR 82–85 25 %"
+            },
+            {
+              "key": "estandar:oro",
+              "pct": "10 %",
+              "text": "ORO · Edición base, OVR 86–92 10 %"
+            },
+            {
+              "key": "estandar:masters",
+              "pct": "7 %",
+              "text": "MASTERS · Masters L y Masters SDC 7 %"
+            },
+            {
+              "key": "estandar:champions",
+              "pct": "4 %",
+              "text": "CHAMPIONS · Champions S 4 %"
+            },
+            {
+              "key": "estandar:prime",
+              "pct": "3 %",
+              "text": "PRIME · Future Star 3 %"
+            },
+            {
+              "key": "estandar:icon",
+              "pct": "1 %",
+              "text": "ICON · Record Breaker y Moments 1 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        },
+        "carta": {
+          "text": "CARTA DE LA TIENDA MADA Moments · Legendaria · OVR 95 · NRG · Duelista Una carta concreta vendida por NEXUS. No es el Marketplace. DRL CREDITS Por anunciar · Aún no tiene precio. Lo anunciaremos aquí. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 260,
+          "bottom": 640,
+          "left": 340,
+          "right": 1100,
+          "vw": 1440,
+          "vh": 900,
+          "scrollH": 379,
+          "clientH": 379,
+          "odds": [],
+          "oddsSource": null,
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        },
+        "pack": {
+          "text": "PACK ESPECIAL PACK INICIO 5 × Sobre Bronce (25 cartas) 1 × Sobre Plata (6 cartas) 2.000 DRL Credits PROBABILIDADES · SOBRE BRONCE BASE · Edición base, OVR 70–81 50 % PLATA · Edición base, OVR 82–85 25 % ORO · Edición base, OVR 86–92 10 % MASTERS · Masters L y Masters SDC 7 % CHAMPIONS · Champions S 4 % PRIME · Future Star 3 % ICON · Record Breaker y Moments 1 % Probabilidad de cada carta del sobre. PROBABILIDADES · SOBRE PLATA PLATA · Edición base, OVR 82–85 50 % ORO · Edición base, OVR 86–92 25 % MASTERS · Masters L y Masters SDC 10 % CHAMPIONS · Champions S 7 % PRIME · Future Star 5 % ICON · Record Breaker y Moments 3 % Probabilidad de cada carta del sobre. DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR PRÓXIMAMENTE",
+          "top": 24,
+          "bottom": 947,
+          "left": 340,
+          "right": 1100,
+          "vw": 1440,
+          "vh": 900,
+          "scrollH": 921,
+          "clientH": 921,
+          "odds": [
+            {
+              "key": "estandar:base",
+              "pct": "50 %",
+              "text": "BASE · Edición base, OVR 70–81 50 %"
+            },
+            {
+              "key": "estandar:plata",
+              "pct": "25 %",
+              "text": "PLATA · Edición base, OVR 82–85 25 %"
+            },
+            {
+              "key": "estandar:oro",
+              "pct": "10 %",
+              "text": "ORO · Edición base, OVR 86–92 10 %"
+            },
+            {
+              "key": "estandar:masters",
+              "pct": "7 %",
+              "text": "MASTERS · Masters L y Masters SDC 7 %"
+            },
+            {
+              "key": "estandar:champions",
+              "pct": "4 %",
+              "text": "CHAMPIONS · Champions S 4 %"
+            },
+            {
+              "key": "estandar:prime",
+              "pct": "3 %",
+              "text": "PRIME · Future Star 3 %"
+            },
+            {
+              "key": "estandar:icon",
+              "pct": "1 %",
+              "text": "ICON · Record Breaker y Moments 1 %"
+            },
+            {
+              "key": "premium:plata",
+              "pct": "50 %",
+              "text": "PLATA · Edición base, OVR 82–85 50 %"
+            },
+            {
+              "key": "premium:oro",
+              "pct": "25 %",
+              "text": "ORO · Edición base, OVR 86–92 25 %"
+            },
+            {
+              "key": "premium:masters",
+              "pct": "10 %",
+              "text": "MASTERS · Masters L y Masters SDC 10 %"
+            },
+            {
+              "key": "premium:champions",
+              "pct": "7 %",
+              "text": "CHAMPIONS · Champions S 7 %"
+            },
+            {
+              "key": "premium:prime",
+              "pct": "5 %",
+              "text": "PRIME · Future Star 5 %"
+            },
+            {
+              "key": "premium:icon",
+              "pct": "3 %",
+              "text": "ICON · Record Breaker y Moments 3 %"
+            }
+          ],
+          "oddsSource": "class-table",
+          "balance": null,
+          "after": null,
+          "confirm": [
+            {
+              "text": "CANCELAR",
+              "disabled": false
+            },
+            {
+              "text": "PRÓXIMAMENTE",
+              "disabled": true
+            }
+          ],
+          "focusInside": true
+        }
+      },
+      "overflowX": 0
+    }
+  }
+}

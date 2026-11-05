@@ -1,0 +1,1023 @@
+{
+  "n": 20000,
+  "packs": [
+    {
+      "id": "inicial",
+      "estado": "EN_VENTA",
+      "price": 0,
+      "priceHead": 0,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": null,
+      "measured": {
+        "common": 0.7052,
+        "uncommon": 0.2553,
+        "rare": 0.0345,
+        "epic": 0.005,
+        "legendary": 0
+      },
+      "maxDiff": 0,
+      "impossible": null,
+      "artwork": "/packs/pack-inicial.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "estandar",
+      "estado": "EN_VENTA",
+      "price": 750,
+      "priceHead": 750,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.5526,
+        "uncommon": 0.3481,
+        "rare": 0.0797,
+        "epic": 0.0176,
+        "legendary": 0.002
+      },
+      "measured": {
+        "common": 0.5565,
+        "uncommon": 0.3457,
+        "rare": 0.077,
+        "epic": 0.0187,
+        "legendary": 0.002
+      },
+      "maxDiff": 0.0039,
+      "impossible": [],
+      "artwork": "/packs/pack-estandar.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "premium",
+      "estado": "EN_VENTA",
+      "price": 2500,
+      "priceHead": 2500,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.2522,
+        "uncommon": 0.3744,
+        "rare": 0.2684,
+        "epic": 0.09,
+        "legendary": 0.015
+      },
+      "measured": {
+        "common": 0.2527,
+        "uncommon": 0.3742,
+        "rare": 0.2697,
+        "epic": 0.0891,
+        "legendary": 0.0142
+      },
+      "maxDiff": 0.0013,
+      "impossible": [],
+      "artwork": "/packs/pack-premium.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "masters",
+      "estado": "EN_VENTA",
+      "price": 5000,
+      "priceHead": 5000,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.0809,
+        "uncommon": 0.3217,
+        "rare": 0.2393,
+        "epic": 0.3039,
+        "legendary": 0.0542
+      },
+      "measured": {
+        "common": 0.0821,
+        "uncommon": 0.3239,
+        "rare": 0.2377,
+        "epic": 0.3007,
+        "legendary": 0.0556
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-masters.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "champions",
+      "estado": "EN_VENTA",
+      "price": 8000,
+      "priceHead": 8000,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.0405,
+        "uncommon": 0.241,
+        "rare": 0.2806,
+        "epic": 0.3209,
+        "legendary": 0.117
+      },
+      "measured": {
+        "common": 0.0428,
+        "uncommon": 0.2405,
+        "rare": 0.2836,
+        "epic": 0.3173,
+        "legendary": 0.1158
+      },
+      "maxDiff": 0.0036,
+      "impossible": [],
+      "artwork": "/packs/pack-champions.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "ewc",
+      "estado": "EN_VENTA",
+      "price": 6000,
+      "priceHead": 6000,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.0653,
+        "uncommon": 0.3044,
+        "rare": 0.256,
+        "epic": 0.323,
+        "legendary": 0.0513
+      },
+      "measured": {
+        "common": 0.0663,
+        "uncommon": 0.3083,
+        "rare": 0.2533,
+        "epic": 0.3195,
+        "legendary": 0.0527
+      },
+      "maxDiff": 0.0039,
+      "impossible": [],
+      "artwork": "/packs/pack-ewc.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "emea",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": 3000,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-emea.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "americas",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": 3000,
+      "pool": 100,
+      "persisted": 100,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-americas.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "pacific",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": 3000,
+      "pool": 97,
+      "persisted": 97,
+      "buckets": [
+        "common",
+        "uncommon",
+        "legendary",
+        "rare",
+        "epic"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-pacific.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "china",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": 3000,
+      "pool": 34,
+      "persisted": 34,
+      "buckets": [
+        "uncommon",
+        "epic"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "maxDiff": 0,
+      "impossible": [
+        "common",
+        "rare"
+      ],
+      "artwork": "/packs/pack-china.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "team-heretics",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-team-heretics.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "team-fnatic",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-team-fnatic.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "team-navi",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-team-navi.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "team-g2",
+      "estado": "EN_VENTA",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 100,
+      "persisted": 100,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": "/packs/pack-team-g2.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "prime",
+      "estado": "RETIRADO",
+      "price": 10000,
+      "priceHead": 10000,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 0.1886,
+        "rare": 0.2629,
+        "epic": 0.4125,
+        "legendary": 0.1359
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 0.1883,
+        "rare": 0.2636,
+        "epic": 0.4119,
+        "legendary": 0.1363
+      },
+      "maxDiff": 0.0007,
+      "impossible": [],
+      "artwork": "/packs/pack-prime.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "icon",
+      "estado": "EN_VENTA",
+      "price": 20000,
+      "priceHead": 20000,
+      "pool": 329,
+      "persisted": 329,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 0,
+        "rare": 0.201,
+        "epic": 0.2994,
+        "legendary": 0.4996
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 0,
+        "rare": 0.2014,
+        "epic": 0.2996,
+        "legendary": 0.499
+      },
+      "maxDiff": 0.0006,
+      "impossible": [],
+      "artwork": "/packs/pack-icon.webp",
+      "artworkOk": true
+    },
+    {
+      "id": "team-loud",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 100,
+      "persisted": 100,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-blg",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 34,
+      "persisted": 34,
+      "buckets": [
+        "uncommon",
+        "epic"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "maxDiff": 0,
+      "impossible": [
+        "common",
+        "rare"
+      ],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-te",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 34,
+      "persisted": 34,
+      "buckets": [
+        "uncommon",
+        "epic"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "maxDiff": 0,
+      "impossible": [
+        "common",
+        "rare"
+      ],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-jdg",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 34,
+      "persisted": 34,
+      "buckets": [
+        "uncommon",
+        "epic"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "maxDiff": 0,
+      "impossible": [
+        "common",
+        "rare"
+      ],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-liquid",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-tyl",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 34,
+      "persisted": 34,
+      "buckets": [
+        "uncommon",
+        "epic"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "maxDiff": 0,
+      "impossible": [
+        "common",
+        "rare"
+      ],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-karmine",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-m8",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-fut",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 98,
+      "persisted": 98,
+      "buckets": [
+        "uncommon",
+        "common",
+        "rare",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-100t",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 100,
+      "persisted": 100,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-prx",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 97,
+      "persisted": 97,
+      "buckets": [
+        "common",
+        "uncommon",
+        "legendary",
+        "rare",
+        "epic"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-ns",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 97,
+      "persisted": 97,
+      "buckets": [
+        "common",
+        "uncommon",
+        "legendary",
+        "rare",
+        "epic"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-ge",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 97,
+      "persisted": 97,
+      "buckets": [
+        "common",
+        "uncommon",
+        "legendary",
+        "rare",
+        "epic"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-xlg",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 34,
+      "persisted": 34,
+      "buckets": [
+        "uncommon",
+        "epic"
+      ],
+      "shop": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "measured": {
+        "common": 0,
+        "uncommon": 1,
+        "rare": 0,
+        "epic": 0,
+        "legendary": 0
+      },
+      "maxDiff": 0,
+      "impossible": [
+        "common",
+        "rare"
+      ],
+      "artwork": null,
+      "artworkOk": true
+    },
+    {
+      "id": "team-lev",
+      "estado": "DRAFT",
+      "price": 3000,
+      "priceHead": null,
+      "pool": 100,
+      "persisted": 100,
+      "buckets": [
+        "common",
+        "rare",
+        "uncommon",
+        "epic",
+        "legendary"
+      ],
+      "shop": {
+        "common": 0.3521,
+        "uncommon": 0.3999,
+        "rare": 0.1782,
+        "epic": 0.0597,
+        "legendary": 0.0101
+      },
+      "measured": {
+        "common": 0.3515,
+        "uncommon": 0.4018,
+        "rare": 0.1794,
+        "epic": 0.0565,
+        "legendary": 0.0107
+      },
+      "maxDiff": 0.0032,
+      "impossible": [],
+      "artwork": null,
+      "artworkOk": true
+    }
+  ],
+  "fails": 0
+}

@@ -1,0 +1,118 @@
+{
+  "at": "2026-09-30T17:29:32.153Z",
+  "intercepted": false,
+  "pass": 5,
+  "fail": 10,
+  "results": [
+    {
+      "id": "RECHAZO · receta inválida (Plata → Plata, no sube de clase)",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · cantidad 0",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · sobre inexistente",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · receta circular (Bronce → Bronce)",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · receta que baja de categoría (Plata → Bronce)",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · económica: Bronce → Plata a 3 (suelo 4) ACTIVA",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · económica: activar Prime → Icon (salida escasa)",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · carta inexistente (proyecto)",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · carta inexistente (condición USE_CARD)",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · recompensa inexistente (sobre no-existe)",
+      "ok": true,
+      "detail": "▲ El sobre de recompensa no existe"
+    },
+    {
+      "id": "RECHAZO · recompensa fuera de tope (999.999 créditos)",
+      "ok": false,
+      "detail": "¡SE GUARDÓ!"
+    },
+    {
+      "id": "RECHAZO · objetivo 0",
+      "ok": true,
+      "detail": "▲ Objetivo de 1 a 500"
+    },
+    {
+      "id": "RECHAZO · dependencia circular (Turquía ↔ tras Turquía)",
+      "ok": true,
+      "detail": "▲ Dependencia circular"
+    },
+    {
+      "id": "RECHAZO · versión obsoleta (STALE_CONTENT) → 409",
+      "ok": true,
+      "detail": "409 Alguien lo cambió antes: recarga (STALE_CONTENT)"
+    },
+    {
+      "id": "BD · ningún rechazo escribió nada: recetas (cantidad, estado y versión) idénticas, 0 filas qa-f73-rej",
+      "ok": true,
+      "detail": "{\"recipes\":{\"pack-estandar-premium\":\"4:ACTIVE:v1\",\"pack-premium-oro\":\"2:ACTIVE:v1\",\"pack-oro-masters\":\"2:ACTIVE:v1\",\"pack-masters-champions\":\"3:ACTIVE:v1\",\"pack-champions-icon\":\"2:ACTIVE:v1\",\"card-base-plata\":\"7:ACTIVE:v1\",\"card-plata-oro\":\"3:ACTIVE:v1\",\"card-oro-masters\":\"8:ACTIVE:v1\",\"card-masters-champions\":\"14:ACTIVE:v1\",\"card-champions-prime\":\"10:ACTIVE:v1\",\"card-prime-icon\":\"5:DISABLED:v1\"},\"missions\":8,\"projects\":2,\"rej\":0}"
+    }
+  ],
+  "before": {
+    "recipes": {
+      "pack-estandar-premium": "4:ACTIVE:v1",
+      "pack-premium-oro": "2:ACTIVE:v1",
+      "pack-oro-masters": "2:ACTIVE:v1",
+      "pack-masters-champions": "3:ACTIVE:v1",
+      "pack-champions-icon": "2:ACTIVE:v1",
+      "card-base-plata": "7:ACTIVE:v1",
+      "card-plata-oro": "3:ACTIVE:v1",
+      "card-oro-masters": "8:ACTIVE:v1",
+      "card-masters-champions": "14:ACTIVE:v1",
+      "card-champions-prime": "10:ACTIVE:v1",
+      "card-prime-icon": "5:DISABLED:v1"
+    },
+    "missions": 8,
+    "projects": 2
+  },
+  "after": {
+    "recipes": {
+      "pack-estandar-premium": "4:ACTIVE:v1",
+      "pack-premium-oro": "2:ACTIVE:v1",
+      "pack-oro-masters": "2:ACTIVE:v1",
+      "pack-masters-champions": "3:ACTIVE:v1",
+      "pack-champions-icon": "2:ACTIVE:v1",
+      "card-base-plata": "7:ACTIVE:v1",
+      "card-plata-oro": "3:ACTIVE:v1",
+      "card-oro-masters": "8:ACTIVE:v1",
+      "card-masters-champions": "14:ACTIVE:v1",
+      "card-champions-prime": "10:ACTIVE:v1",
+      "card-prime-icon": "5:DISABLED:v1"
+    },
+    "missions": 8,
+    "projects": 2,
+    "rej": 0
+  }
+}

@@ -1,0 +1,386 @@
+{
+  "source": {
+    "package": "flag-icons",
+    "version": "7.5.0",
+    "license": "MIT",
+    "variant": "4x3",
+    "repo": "https://github.com/lipis/flag-icons",
+    "npmTarball": "flag-icons-7.5.0.tgz",
+    "tarballSha1": "66462df3e8bc5ef3a283322a46bb9dde1b290505",
+    "npmIntegrity": "sha512-kd+MNXviFIg5hijH766tt+3x76ele1AXlo4zDdCxIvqWZhKt4T83bOtxUOOMlTx/EcFdUMH5yvQgYlFh1EqqFg==",
+    "copyright": "Copyright (c) 2013 Panayiotis Lipiridis",
+    "licenseFile": "public/flags/LICENSE-flag-icons.txt"
+  },
+  "runtimeExternalDependency": false,
+  "files": [
+    {
+      "iso": "AR",
+      "file": "public/flags/ar.svg",
+      "exists": true,
+      "sha256": "da39bfbe83fd35fae781f605c4a297b632f03ccf72d4cb0499e86dac8370663d",
+      "cards": 6,
+      "hintEligible": true,
+      "name": "Argentina"
+    },
+    {
+      "iso": "AU",
+      "file": "public/flags/au.svg",
+      "exists": true,
+      "sha256": "cbb2206c5e59a25d79228306af973666a191e163f0ae337681f447977e6edb18",
+      "cards": 2,
+      "hintEligible": true,
+      "name": "Australia"
+    },
+    {
+      "iso": "BE",
+      "file": "public/flags/be.svg",
+      "exists": true,
+      "sha256": "d6aff6fa4c913404eafd53f91c0a9b240fcecaddc8f0ac2160d362e38469342c",
+      "cards": 1,
+      "hintEligible": true,
+      "name": "Bélgica"
+    },
+    {
+      "iso": "BR",
+      "file": "public/flags/br.svg",
+      "exists": true,
+      "sha256": "b0a912826c3ffd7287435ebed66e18fe058e992309c00dc10b430dd41a29ba91",
+      "cards": 19,
+      "hintEligible": true,
+      "name": "Brasil"
+    },
+    {
+      "iso": "CA",
+      "file": "public/flags/ca.svg",
+      "exists": true,
+      "sha256": "345ec9dac057e203f1331b2d3f9f473789864edaee1182a26bc261356bcf72f1",
+      "cards": 12,
+      "hintEligible": true,
+      "name": "Canadá"
+    },
+    {
+      "iso": "CL",
+      "file": "public/flags/cl.svg",
+      "exists": true,
+      "sha256": "bcf0ccdf0999a1cd82061202988e1f6088c2070e3e76794d67cb375ef325ef76",
+      "cards": 3,
+      "hintEligible": true,
+      "name": "Chile"
+    },
+    {
+      "iso": "CN",
+      "file": "public/flags/cn.svg",
+      "exists": true,
+      "sha256": "981da9bdf82d48e31691f20578cefcb26cf7d0bd95e4ebd5c0df00bdfe988c1a",
+      "cards": 20,
+      "hintEligible": true,
+      "name": "China"
+    },
+    {
+      "iso": "CO",
+      "file": "public/flags/co.svg",
+      "exists": true,
+      "sha256": "6bab3c96c1657510c6e49354dd40203c69401bee54da497392ab9267334e5fd4",
+      "cards": 2,
+      "hintEligible": true,
+      "name": "Colombia"
+    },
+    {
+      "iso": "CZ",
+      "file": "public/flags/cz.svg",
+      "exists": true,
+      "sha256": "d601fcc2e5b1fd48b79d53c55108af4c0e90793f146db51f3ee449d8d69512bc",
+      "cards": 5,
+      "hintEligible": true,
+      "name": "Chequia"
+    },
+    {
+      "iso": "DE",
+      "file": "public/flags/de.svg",
+      "exists": true,
+      "sha256": "efd480af5a154a7651f29da23ee0d09dbc892410fb4041898ddf8face336c575",
+      "cards": 2,
+      "hintEligible": true,
+      "name": "Alemania"
+    },
+    {
+      "iso": "DO",
+      "file": "public/flags/do.svg",
+      "exists": true,
+      "sha256": "02e5f5efbc60a73716f754ecb3f112dcccfeab1da925cb7b8a1764736a3a3ebd",
+      "cards": 1,
+      "hintEligible": true,
+      "name": "República Dominicana"
+    },
+    {
+      "iso": "EG",
+      "file": "public/flags/eg.svg",
+      "exists": true,
+      "sha256": "3f85d1d2bdb03692ad68f84efff36be2f5b1b5b7438b7b7be50def3837bf532f",
+      "cards": 1,
+      "hintEligible": true,
+      "name": "Egipto"
+    },
+    {
+      "iso": "FI",
+      "file": "public/flags/fi.svg",
+      "exists": true,
+      "sha256": "012edd984cf1879463c2855b7df02dea2f7de7f7a66b244fb1e22b4227f7aa65",
+      "cards": 4,
+      "hintEligible": true,
+      "name": "Finlandia"
+    },
+    {
+      "iso": "FR",
+      "file": "public/flags/fr.svg",
+      "exists": true,
+      "sha256": "8cdacc8d79bcf210cdca2777a2c0de1f9e5862526877bd3026c9d59ecdcd4578",
+      "cards": 2,
+      "hintEligible": true,
+      "name": "Francia"
+    },
+    {
+      "iso": "GB",
+      "file": "public/flags/gb.svg",
+      "exists": true,
+      "sha256": "c8be1e7208798a4ae692ee1e937065d498bb29e741943f6172b29118b8ed8066",
+      "cards": 6,
+      "hintEligible": true,
+      "name": "Reino Unido"
+    },
+    {
+      "iso": "HK",
+      "file": "public/flags/hk.svg",
+      "exists": true,
+      "sha256": "d9d142b2b97ec3b8190bff3802072c1b4f15573a679eead89a0ce59986dcad0c",
+      "cards": 3,
+      "hintEligible": true,
+      "name": "RAE de Hong Kong (China)"
+    },
+    {
+      "iso": "ID",
+      "file": "public/flags/id.svg",
+      "exists": true,
+      "sha256": "5cd3acc4939dd7eae6318c8d75df8c0d1733f650e2504a2635b0dbf3dfabb040",
+      "cards": 7,
+      "hintEligible": true,
+      "name": "Indonesia"
+    },
+    {
+      "iso": "IT",
+      "file": "public/flags/it.svg",
+      "exists": true,
+      "sha256": "9fa88118818d9b64838f578e2babcca3d0630aed21b5c33b34aff7ac5ce506bc",
+      "cards": 2,
+      "hintEligible": true,
+      "name": "Italia"
+    },
+    {
+      "iso": "JP",
+      "file": "public/flags/jp.svg",
+      "exists": true,
+      "sha256": "bfea80baf9989383dc4bf7ca594ed95be0df0ff125bfc88d0bfa878eb0198022",
+      "cards": 9,
+      "hintEligible": true,
+      "name": "Japón"
+    },
+    {
+      "iso": "KG",
+      "file": "public/flags/kg.svg",
+      "exists": true,
+      "sha256": "b0cf3e6806af23d8712a7007a27e8669403c00aef75faa2d7a15d183fc3d0587",
+      "cards": 3,
+      "hintEligible": true,
+      "name": "Kirguistán"
+    },
+    {
+      "iso": "KH",
+      "file": "public/flags/kh.svg",
+      "exists": true,
+      "sha256": "21a9681682a2158cab294bd1826a2dda2e3edf17aff891d692c6c976c3d9c874",
+      "cards": 4,
+      "hintEligible": true,
+      "name": "Camboya"
+    },
+    {
+      "iso": "KR",
+      "file": "public/flags/kr.svg",
+      "exists": true,
+      "sha256": "7a6cd5b51d0e2841ed8b79b1147ad8a66cf3c09f6344d4a63b5e4413ffa5d15b",
+      "cards": 47,
+      "hintEligible": true,
+      "name": "Corea del Sur"
+    },
+    {
+      "iso": "KZ",
+      "file": "public/flags/kz.svg",
+      "exists": true,
+      "sha256": "381b22e4c287b13e191c208bccfc2cfb9156cd657de248f033b920a0c713a1f3",
+      "cards": 1,
+      "hintEligible": true,
+      "name": "Kazajistán"
+    },
+    {
+      "iso": "LT",
+      "file": "public/flags/lt.svg",
+      "exists": true,
+      "sha256": "dc0401993f6e14b3a58fa496d874b95dfcb58614052a868b14492166782c1006",
+      "cards": 6,
+      "hintEligible": true,
+      "name": "Lituania"
+    },
+    {
+      "iso": "MA",
+      "file": "public/flags/ma.svg",
+      "exists": true,
+      "sha256": "28cfcdecf9675b0a14fbfae176324aea03711edab1a13592cfb7d58e6772b25c",
+      "cards": 3,
+      "hintEligible": true,
+      "name": "Marruecos"
+    },
+    {
+      "iso": "MD",
+      "file": "public/flags/md.svg",
+      "exists": true,
+      "sha256": "987ca12a752ec2b3594c115923d50160343a7d30af8ea5e316ae04fb12b8e9dd",
+      "cards": 3,
+      "hintEligible": true,
+      "name": "Moldavia"
+    },
+    {
+      "iso": "MX",
+      "file": "public/flags/mx.svg",
+      "exists": true,
+      "sha256": "9dbc8ad8b35e52ce7cb686d5cd93bd95e4c0dd8505c184186a740148ffd34901",
+      "cards": 2,
+      "hintEligible": true,
+      "name": "México"
+    },
+    {
+      "iso": "MY",
+      "file": "public/flags/my.svg",
+      "exists": true,
+      "sha256": "bb30e84a099d2d9dc286ab091bdd40ae7a8e332eb49827f2df4f11803e613667",
+      "cards": 3,
+      "hintEligible": true,
+      "name": "Malasia"
+    },
+    {
+      "iso": "PH",
+      "file": "public/flags/ph.svg",
+      "exists": true,
+      "sha256": "c3bd5e08ddc5f6dbdfa899af9efb45577e3841402e6a7f5d00fef754816b2884",
+      "cards": 12,
+      "hintEligible": true,
+      "name": "Filipinas"
+    },
+    {
+      "iso": "PL",
+      "file": "public/flags/pl.svg",
+      "exists": true,
+      "sha256": "369bb3e14ee718df1ee15fd2fb3ad0dae713f78f622e277710fb2b30a313f2aa",
+      "cards": 11,
+      "hintEligible": true,
+      "name": "Polonia"
+    },
+    {
+      "iso": "RO",
+      "file": "public/flags/ro.svg",
+      "exists": true,
+      "sha256": "17a3a747fc5e63302aaa670a667e5812f3676f46768e5a3e87b254bd41762840",
+      "cards": 1,
+      "hintEligible": true,
+      "name": "Rumanía"
+    },
+    {
+      "iso": "RS",
+      "file": "public/flags/rs.svg",
+      "exists": true,
+      "sha256": "b6e08e2eca1ec4c287e5d5d7c36d7d4ad9503ad030133b04cf315f95ab49961c",
+      "cards": 1,
+      "hintEligible": true,
+      "name": "Serbia"
+    },
+    {
+      "iso": "RU",
+      "file": "public/flags/ru.svg",
+      "exists": true,
+      "sha256": "7100aaae51ff3b6a2bf0ca932b3bc518bdc760814725e7cca31d821a26c3dd7c",
+      "cards": 17,
+      "hintEligible": true,
+      "name": "Rusia"
+    },
+    {
+      "iso": "SG",
+      "file": "public/flags/sg.svg",
+      "exists": true,
+      "sha256": "25de9044c2e2775f7ccf9c1df02dd02342f915715b22c43248452b7ae24079a5",
+      "cards": 6,
+      "hintEligible": true,
+      "name": "Singapur"
+    },
+    {
+      "iso": "TH",
+      "file": "public/flags/th.svg",
+      "exists": true,
+      "sha256": "329cc0d520536d6eb4b9304105f23650c2d02bbdba8f8696e996dbf166de6f2e",
+      "cards": 10,
+      "hintEligible": true,
+      "name": "Tailandia"
+    },
+    {
+      "iso": "TR",
+      "file": "public/flags/tr.svg",
+      "exists": true,
+      "sha256": "256a1d6afbedb9f731566982331a1cd1ad14aba211b8a61d338855879505e74f",
+      "cards": 41,
+      "hintEligible": true,
+      "name": "Turquía"
+    },
+    {
+      "iso": "TW",
+      "file": "public/flags/tw.svg",
+      "exists": true,
+      "sha256": "931757f06b9ee751fd1a0cc8dd7cf862e21fdcaf894d10ed7bcc68dabcca59ad",
+      "cards": 6,
+      "hintEligible": true,
+      "name": "Taiwán"
+    },
+    {
+      "iso": "UN",
+      "file": "public/flags/un.svg",
+      "exists": true,
+      "sha256": "c7632022c033930994c65e495eeb49c34e28f4716e34563eacc36ccbc4da20ae",
+      "cards": 1,
+      "hintEligible": false,
+      "name": "Naciones Unidas"
+    },
+    {
+      "iso": "US",
+      "file": "public/flags/us.svg",
+      "exists": true,
+      "sha256": "e7be4240cf57987926673708f09233be1ab6bdf35acc7b86bd32a263f197a2a7",
+      "cards": 43,
+      "hintEligible": true,
+      "name": "Estados Unidos"
+    },
+    {
+      "iso": "VN",
+      "file": "public/flags/vn.svg",
+      "exists": true,
+      "sha256": "2355037201315d74581ab0ad60b5587a29a087d26b0525bdeb8676e64fae5b86",
+      "cards": 3,
+      "hintEligible": true,
+      "name": "Vietnam"
+    }
+  ],
+  "nonNationality": [
+    "UN",
+    "EU",
+    "ZZ",
+    "XX"
+  ],
+  "neededBy331": 40,
+  "missingFor331": [],
+  "externalSrcFor331": []
+}

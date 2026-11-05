@@ -1,0 +1,1074 @@
+{
+  "captures": 106,
+  "widths": [
+    1440,
+    1024,
+    390
+  ],
+  "horizontalOverflow": 0,
+  "brokenImages": 0,
+  "consoleErrors": 0,
+  "reducedMotion": 24,
+  "list": [
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "01-bienvenida",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "01-bienvenida",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "01-bienvenida",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "02-recursos",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "02-recursos",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "02-recursos",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "03-primer-sobre-sellado",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "04-primera-carta",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "04-primera-carta",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "04-primera-carta",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "05-coleccion",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "05-coleccion",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "05-coleccion",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "06-siguiente-sobre-sellado",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "07-resumen-siguiente",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "08-crear-equipo",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "08-crear-equipo",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "08-crear-equipo",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "09-equipo-listo",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "09-equipo-listo",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "09-equipo-listo",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "10-preparacion",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "11-intro",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "12-ayuda-turno-1",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "12-ayuda-turno-1",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "12-ayuda-turno-1",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "14-comparacion",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "13-ayuda-defend",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "15-resultado",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "15-resultado",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "15-resultado",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "16-progreso",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "16-progreso",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "16-progreso",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "17-ya-estas-listo",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "17-ya-estas-listo",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "17-ya-estas-listo",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "18-libre-jugar",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440.json",
+      "name": "19-portada-normal",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "00-directo-jugar",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "00-directo-duelos-mazos",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "00-directo-coleccion",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "00-directo-progresion",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "00-directo-tienda",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "01-bienvenida",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "02-recursos",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "03-primer-sobre-sellado",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "04-primera-carta",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "05-coleccion",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "06-siguiente-sobre-sellado",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "07-resumen-siguiente",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "08-crear-equipo",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "09-equipo-listo",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "10-preparacion",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "11-intro",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "12-ayuda-turno-1",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "14-comparacion",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "13-ayuda-defend",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "15-resultado",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "16-progreso",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "17-ya-estas-listo",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "18-libre-jugar",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-reduced-390.json",
+      "name": "19-portada-normal",
+      "w": 390,
+      "reduced": true,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "01-bienvenida",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "01-bienvenida",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "01-bienvenida",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "02-recursos",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "02-recursos",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "02-recursos",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "03-primer-sobre-sellado",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "04-primera-carta",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "04-primera-carta",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "04-primera-carta",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "05-coleccion",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "05-coleccion",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "05-coleccion",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "06-siguiente-sobre-sellado",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "07-resumen-siguiente",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "08-crear-equipo",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "08-crear-equipo",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "08-crear-equipo",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "09-equipo-listo",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "09-equipo-listo",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "09-equipo-listo",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "10-preparacion",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "11-intro",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "12-ayuda-turno-1",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "12-ayuda-turno-1",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "12-ayuda-turno-1",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "14-comparacion",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "13-ayuda-defend",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "15-resultado",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "15-resultado",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "15-resultado",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "16-progreso",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "16-progreso",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "16-progreso",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "17-ya-estas-listo",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "17-ya-estas-listo",
+      "w": 1024,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "17-ya-estas-listo",
+      "w": 390,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "18-libre-jugar",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "new-user-e2e-1440-run1.json",
+      "name": "19-portada-normal",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "skip-live-1440.json",
+      "name": "20-saltar-confirmacion",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "skip-live-1440.json",
+      "name": "21-tras-saltar",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "skip-live-1440.json",
+      "name": "22-como-jugar-retomar",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    },
+    {
+      "run": "skip-live-1440.json",
+      "name": "23-retomado",
+      "w": 1440,
+      "reduced": false,
+      "over": 0,
+      "hScroll": false,
+      "broken": 0,
+      "errors": 0
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+{
+  "phase": "F69",
+  "instrument": "scripts/_fase69-probe.ts (rastreo desde 24 pantallas principales con sesión QA B + perfil propio; GET de cada href interno sin seguir redirecciones)",
+  "builds": {
+    "390": "7e223fed",
+    "1024": "10683a89",
+    "1440": "10683a89"
+  },
+  "internalLinks": 63,
+  "linksNot2xx3xx": [],
+  "links": [
+    {
+      "href": "/",
+      "status": 200
+    },
+    {
+      "href": "/carrera",
+      "status": 200
+    },
+    {
+      "href": "/coleccion",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/alym__future-star",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/echo__future-star",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/happywei__masters-l",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/jinggg__masters-l",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/mada__base",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/meteor__champions-s",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/splash__champions-s",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/carta/zmjjkk__masters-sdc",
+      "status": 200
+    },
+    {
+      "href": "/coleccion/equipos",
+      "status": 200
+    },
+    {
+      "href": "/colecciones",
+      "status": 200
+    },
+    {
+      "href": "/competitivo",
+      "status": 200
+    },
+    {
+      "href": "/cuenta",
+      "status": 200
+    },
+    {
+      "href": "/duelos",
+      "status": 200
+    },
+    {
+      "href": "/duelos/competitivo",
+      "status": 307,
+      "location": "/competitivo"
+    },
+    {
+      "href": "/duelos/jugar",
+      "status": 200
+    },
+    {
+      "href": "/duelos/mazos",
+      "status": 200
+    },
+    {
+      "href": "/duelos/pvp",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/1aaae267-9230-421b-ba85-5b75a30538c0",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/21c4c109-c753-463e-b5f0-7b0479a04bc9",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/603e3e1c-f3e8-4626-a98e-615a058f4828",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/6b6a248e-8486-4446-9f14-75d9c9ce166a",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/7226f965-6bfa-43ed-92a1-4bc430f5b4da",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/8389300e-1fc8-41b7-9811-e6d51e79dbc3",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/d0c51afa-82b8-495c-a87c-3a07b43615b7",
+      "status": 200
+    },
+    {
+      "href": "/duelos/replay/d7cf6eee-1bd2-43d1-a5bd-5918cfbcfd22",
+      "status": 200
+    },
+    {
+      "href": "/entrenador",
+      "status": 200
+    },
+    {
+      "href": "/entrenador/composiciones",
+      "status": 200
+    },
+    {
+      "href": "/entrenador/equipos",
+      "status": 200
+    },
+    {
+      "href": "/entrenador/jugar",
+      "status": 200
+    },
+    {
+      "href": "/entrenador/mapas",
+      "status": 200
+    },
+    {
+      "href": "/entrenador/partidos",
+      "status": 200
+    },
+    {
+      "href": "/entrenador/plan",
+      "status": 200
+    },
+    {
+      "href": "/entrenador/strats",
+      "status": 200
+    },
+    {
+      "href": "/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+      "status": 200
+    },
+    {
+      "href": "/jugador/40a1e10d-c1d3-4c38-9114-3d021ddb119e",
+      "status": 200
+    },
+    {
+      "href": "/jugador/8c326e52-776a-43f4-ba05-3ad7945c40c3",
+      "status": 200
+    },
+    {
+      "href": "/jugador/a9a86124-2421-47d8-bf79-eb4f1c3a5df2",
+      "status": 200
+    },
+    {
+      "href": "/jugador/d4133641-6c49-4f97-889d-6ea669991594",
+      "status": 200
+    },
+    {
+      "href": "/jugador/d8eb622b-568e-4ab1-9d61-04a8591a36b6",
+      "status": 200
+    },
+    {
+      "href": "/jugador/me",
+      "status": 200
+    },
+    {
+      "href": "/jugar",
+      "status": 200
+    },
+    {
+      "href": "/jugar/draft-gauntlet",
+      "status": 200
+    },
+    {
+      "href": "/jugar/road-to-champions",
+      "status": 200
+    },
+    {
+      "href": "/logros",
+      "status": 200
+    },
+    {
+      "href": "/mundo",
+      "status": 200
+    },
+    {
+      "href": "/packs",
+      "status": 200
+    },
+    {
+      "href": "/pickems",
+      "status": 200
+    },
+    {
+      "href": "/pickems/historial",
+      "status": 200
+    },
+    {
+      "href": "/pickems/historial/8c7b9a5e-d74d-4f58-966b-c72f1822671a",
+      "status": 200
+    },
+    {
+      "href": "/progresion",
+      "status": 200
+    },
+    {
+      "href": "/ranking",
+      "status": 200
+    },
+    {
+      "href": "/recompensas",
+      "status": 200
+    },
+    {
+      "href": "/social",
+      "status": 200
+    },
+    {
+      "href": "/temporada",
+      "status": 200
+    },
+    {
+      "href": "/temporadas",
+      "status": 200
+    },
+    {
+      "href": "/tienda",
+      "status": 200
+    },
+    {
+      "href": "/torneos",
+      "status": 200
+    },
+    {
+      "href": "/torneos/demo-masters-madrid-2026",
+      "status": 200
+    },
+    {
+      "href": "/torneos/vlr-2766",
+      "status": 200
+    },
+    {
+      "href": "/torneos/vlr-2976-emea-stage-2",
+      "status": 200
+    }
+  ],
+  "invalidRoutes": "explorador D-f69final: /duelos/replay/<id inventado>, /jugador/<id inventado>, /coleccion/carta/no-existe, /abrir/no-existe y /esta-ruta-no-existe → pantalla «no encontrada» con salida al juego (404 deliberados)",
+  "verdict": "PASS — 0 enlaces internos rotos (63 distintos)"
+}

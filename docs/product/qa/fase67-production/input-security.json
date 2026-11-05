@@ -1,0 +1,25 @@
+{
+  "requestSize": {
+    "before": "≈25 rutas con `await req.json()` sin límite",
+    "after": "middleware: 413 por Content-Length (juego 256 KB, admin 1 MB, subidas 25 MB); verificado 300 KB → 413",
+    "limitation": "un cuerpo sin Content-Length (chunked) lo acotan las propias rutas"
+  },
+  "massAssignment": "ninguna ruta vuelca el cuerpo en insert/update; /api/game/credits rechaza campos del servidor (400 «El cliente no decide credits»); escaladas por REST: todas rechazadas (smoke)",
+  "xss": {
+    "live": "nombre <img src=x onerror=…> guardado y renderizado como TEXTO en /jugador/<id>, no ejecutado; restaurado",
+    "code": "solo 1 dangerouslySetInnerHTML (logo estático); sin HTML/markdown de usuario"
+  },
+  "sqlInjection": "sin SQL crudo; filtros .or()/ilike construidos con entrada limpiada (solo admin salvo búsqueda social con normalizeQuery)",
+  "pathTraversal": "lecturas de fichero por entrada solo en admin (releases con rechazo de / \\ ..; cards por manifiesto)",
+  "openRedirect": "no hay parámetros next/returnTo/redirect; los redirectTo de Auth son el propio origen",
+  "uploads": {
+    "cms": "firma+extensión+MIME+tamaño+dimensiones, decodificación completa con sharp (limitInputPixels), sha256 dedupe, ruta UUID, upsert:false",
+    "legacyAssets": "F67: el campo url solo acepta http(s) o ruta propia; + cubeta upload_write",
+    "cardArtwork": "png/webp por firma, 12 MB, sin decodificación (deuda menor)"
+  },
+  "errorLeakage": {
+    "before": "≈20 rutas devolvían error.message de BD/excepción en 500",
+    "after": "internalError(): «Algo ha fallado en el servidor. Código: XXXXXX» + log estructurado con el mismo código; social/matchmaking/sync/admin incluidos",
+    "test": "ops.test + smoke (JSON roto, 401/404 sin detalles)"
+  }
+}

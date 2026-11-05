@@ -1,0 +1,93 @@
+[
+  {
+    "id": "estandar",
+    "url": "/packs/estandar",
+    "title": "Sobre Bronce",
+    "description": "El sobre de cada día: cartas de nivel bajo y medio.",
+    "capAttr": "85",
+    "capText": "OVR 85 como máximo · Cartas de nivel bajo y medio.",
+    "impossible": "No contiene rara ni legendaria: no hay cartas de esa rareza para este sobre.",
+    "rows": [
+      "Común60 % por carta99 % ≥1 por sobre",
+      "Poco común38 % por carta91 % ≥1 por sobre",
+      "Épica2 % por carta9 % ≥1 por sobre"
+    ]
+  },
+  {
+    "id": "premium",
+    "url": "/packs/premium",
+    "title": "Sobre Plata",
+    "description": "Un escalón por encima de Bronce. Carta rara o superior garantizada.",
+    "capAttr": "89",
+    "capText": "OVR 89 como máximo · Mejor que Bronce, sin el tramo alto.",
+    "impossible": "No contiene legendaria: no hay cartas de esa rareza para este sobre.",
+    "rows": [
+      "Común25 % por cartaGarantizada",
+      "Poco común38 % por cartaGarantizada",
+      "Rara27 % por cartaGarantizada",
+      "Épica9 % por carta44 % ≥1 por sobre"
+    ]
+  },
+  {
+    "id": "oro",
+    "url": "/packs/oro",
+    "title": "Sobre Oro",
+    "description": "Acceso real a cartas muy buenas. Épica o superior garantizada.",
+    "capAttr": "93",
+    "capText": "OVR 93 como máximo · Acceso real a cartas muy buenas.",
+    "impossible": null,
+    "rows": [
+      "Común8 % por cartaGarantizada",
+      "Poco común32 % por cartaGarantizada",
+      "Rara24 % por cartaGarantizada",
+      "Épica30 % por cartaGarantizada",
+      "Legendaria5 % por carta24 % ≥1 por sobre"
+    ]
+  },
+  {
+    "id": "icon",
+    "url": "/packs/icon",
+    "title": "Sobre Icon",
+    "description": "La élite: legendaria garantizada (Record Breaker o Moments).",
+    "capAttr": "none",
+    "capText": "Sin límite de OVR · Sin techo: puede traer las mejores cartas del catálogo.",
+    "impossible": "No contiene común ni poco común: no hay cartas de esa rareza para este sobre.",
+    "rows": [
+      "Rara20 % por cartaGarantizada",
+      "Épica30 % por cartaGarantizada",
+      "Legendaria50 % por cartaGarantizada"
+    ]
+  },
+  {
+    "id": "team-heretics",
+    "url": "/packs/team-heretics",
+    "title": "Sobre Team Heretics",
+    "description": "Más probabilidad de cartas de Team Heretics. Sortea entre jugadores de EMEA.",
+    "capAttr": null,
+    "capText": null,
+    "impossible": null,
+    "rows": [
+      "Común35 % por carta89 % ≥1 por sobre",
+      "Poco común40 % por carta92 % ≥1 por sobre",
+      "Rara18 % por carta63 % ≥1 por sobre",
+      "Épica6 % por carta26 % ≥1 por sobre",
+      "Legendaria1 % por carta5 % ≥1 por sobre"
+    ]
+  },
+  {
+    "id": "masters",
+    "url": "/packs/masters",
+    "title": "Sobre Masters",
+    "description": "El sobre del evento Masters: sus poco comunes son Masters L y SDC. Épica garantizada.",
+    "capAttr": null,
+    "capText": null,
+    "impossible": null,
+    "rows": [
+      "Común8 % por cartaGarantizada",
+      "Poco común32 % por cartaGarantizada",
+      "Rara24 % por cartaGarantizada",
+      "Épica30 % por cartaGarantizada",
+      "Legendaria5 % por carta24 % ≥1 por sobre"
+    ]
+  }
+]

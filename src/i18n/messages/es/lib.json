@@ -1,0 +1,14 @@
+{
+  "Cerrada · el servidor ya no admite cambios": "Cerrada · el servidor ya no admite cambios",
+  "Cerrada · ya no admite cambios": "Cerrada · ya no admite cambios",
+  "Error al guardar · {msg}": "Error al guardar · {msg}",
+  "Guardando…": "Guardando…",
+  "No se pudieron cargar las predicciones": "No se pudieron cargar las predicciones",
+  "No se pudo guardar": "No se pudo guardar",
+  "Predicción guardada": "Predicción guardada",
+  "Sin conexión · la predicción no se ha enviado": "Sin conexión · la predicción no se ha enviado",
+  "hace un momento": "hace un momento",
+  "hace {d} d": "hace {d} d",
+  "hace {h} h": "hace {h} h",
+  "hace {m} min": "hace {m} min"
+}

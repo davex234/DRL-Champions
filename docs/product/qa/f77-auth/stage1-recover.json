@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-01T18:47:45.510Z",
+  "account": "QA davidrololl0+f77qa (alias)",
+  "results": [
+    {
+      "id": "pre · logged out",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "D · recover tab available",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "D · FORGOT PASSWORD submitted via the real form (ONE request)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "D · confirmation shown to the user",
+      "ok": true,
+      "detail": "Te enviamos un enlace para elegir una contraseña nueva."
+    },
+    {
+      "id": "D · still logged out while waiting for the email",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

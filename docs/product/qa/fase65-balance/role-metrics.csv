@@ -1,0 +1,6 @@
+role,cards,players,meanOvr,meanStronghold,meanGamesense,meanEntryfrag,meanCombatSum,meanPeak,top10pctCombat,meanImpact,impactSd,attackWinRate,defenseWinRate
+Duelista,73,48,87.49,54.53,51.62,80.48,186.63,80.77,5,-0.0024,0.0636,0.7483,0.2611
+Controlador,61,43,83.62,65.66,78.26,49.74,193.66,79.64,4,0.0016,0.0623,0.7248,0.3257
+Iniciador,63,40,82.52,71.24,71.05,48.81,191.1,75.97,8,-0.001,0.0733,0.719,0.2741
+Centinela,64,45,84.72,69.8,58.48,61.73,190.02,74.98,6,0.0001,0.0635,0.7038,0.2513
+Flex,70,52,85.44,62.94,61.89,67.47,192.3,75.7,11,-0.0002,0.0695,0.6978,0.2948

@@ -1,0 +1,2888 @@
+{
+  "formula": "salvageValue = max(5, redondeo(6 % × marketValue)); redondeo a 5 bajo 100, a 10 bajo 1.000, a 50 por encima",
+  "byClassBefore": {
+    "base": {
+      "n": 75,
+      "min": 30,
+      "p10": 30,
+      "p25": 30,
+      "median": 30,
+      "mean": 30,
+      "p75": 30,
+      "p90": 30,
+      "p95": 30,
+      "max": 30,
+      "sd": 0,
+      "ovrMin": 70,
+      "ovrMean": 77.57,
+      "ovrMax": 81
+    },
+    "plata": {
+      "n": 60,
+      "min": 30,
+      "p10": 30,
+      "p25": 30,
+      "median": 30,
+      "mean": 30,
+      "p75": 30,
+      "p90": 30,
+      "p95": 30,
+      "max": 30,
+      "sd": 0,
+      "ovrMin": 82,
+      "ovrMean": 83.53,
+      "ovrMax": 85
+    },
+    "oro": {
+      "n": 34,
+      "min": 30,
+      "p10": 30,
+      "p25": 30,
+      "median": 30,
+      "mean": 30,
+      "p75": 30,
+      "p90": 30,
+      "p95": 30,
+      "max": 30,
+      "sd": 0,
+      "ovrMin": 86,
+      "ovrMean": 87.82,
+      "ovrMax": 92
+    },
+    "masters": {
+      "n": 119,
+      "min": 70,
+      "p10": 70,
+      "p25": 70,
+      "median": 70,
+      "mean": 70,
+      "p75": 70,
+      "p90": 70,
+      "p95": 70,
+      "max": 70,
+      "sd": 0,
+      "ovrMin": 78,
+      "ovrMean": 87.34,
+      "ovrMax": 95
+    },
+    "champions": {
+      "n": 20,
+      "min": 600,
+      "p10": 600,
+      "p25": 600,
+      "median": 600,
+      "mean": 600,
+      "p75": 600,
+      "p90": 600,
+      "p95": 600,
+      "max": 600,
+      "sd": 0,
+      "ovrMin": 80,
+      "ovrMean": 88.7,
+      "ovrMax": 95
+    },
+    "prime": {
+      "n": 20,
+      "min": 200,
+      "p10": 200,
+      "p25": 200,
+      "median": 200,
+      "mean": 200,
+      "p75": 200,
+      "p90": 200,
+      "p95": 200,
+      "max": 200,
+      "sd": 0,
+      "ovrMin": 87,
+      "ovrMean": 91.25,
+      "ovrMax": 95
+    },
+    "icon": {
+      "n": 3,
+      "min": 1600,
+      "p10": 1600,
+      "p25": 1600,
+      "median": 1600,
+      "mean": 1600,
+      "p75": 1600,
+      "p90": 1600,
+      "p95": 1600,
+      "max": 1600,
+      "sd": 0,
+      "ovrMin": 92,
+      "ovrMean": 94,
+      "ovrMax": 95
+    }
+  },
+  "byClassAfter": {
+    "base": {
+      "n": 75,
+      "min": 5,
+      "p10": 5,
+      "p25": 5,
+      "median": 10,
+      "mean": 7.87,
+      "p75": 10,
+      "p90": 10,
+      "p95": 10,
+      "max": 10,
+      "sd": 2.47,
+      "ovrMin": 70,
+      "ovrMean": 77.57,
+      "ovrMax": 81
+    },
+    "plata": {
+      "n": 60,
+      "min": 15,
+      "p10": 15,
+      "p25": 15,
+      "median": 15,
+      "mean": 16,
+      "p75": 15,
+      "p90": 20,
+      "p95": 20,
+      "max": 20,
+      "sd": 2,
+      "ovrMin": 82,
+      "ovrMean": 83.53,
+      "ovrMax": 85
+    },
+    "oro": {
+      "n": 34,
+      "min": 20,
+      "p10": 20,
+      "p25": 25,
+      "median": 25,
+      "mean": 26.62,
+      "p75": 30,
+      "p90": 35,
+      "p95": 40,
+      "max": 45,
+      "sd": 5.91,
+      "ovrMin": 86,
+      "ovrMean": 87.82,
+      "ovrMax": 92
+    },
+    "masters": {
+      "n": 119,
+      "min": 30,
+      "p10": 50,
+      "p25": 75,
+      "median": 110,
+      "mean": 112.73,
+      "p75": 140,
+      "p90": 200,
+      "p95": 230,
+      "max": 260,
+      "sd": 54.34,
+      "ovrMin": 78,
+      "ovrMean": 87.34,
+      "ovrMax": 95
+    },
+    "champions": {
+      "n": 20,
+      "min": 100,
+      "p10": 170,
+      "p25": 240,
+      "median": 310,
+      "mean": 332.5,
+      "p75": 440,
+      "p90": 640,
+      "p95": 640,
+      "max": 640,
+      "sd": 156.87,
+      "ovrMin": 80,
+      "ovrMean": 88.7,
+      "ovrMax": 95
+    },
+    "prime": {
+      "n": 20,
+      "min": 430,
+      "p10": 490,
+      "p25": 620,
+      "median": 700,
+      "mean": 755.5,
+      "p75": 1000,
+      "p90": 1150,
+      "p95": 1150,
+      "max": 1150,
+      "sd": 226.04,
+      "ovrMin": 87,
+      "ovrMean": 91.25,
+      "ovrMax": 95
+    },
+    "icon": {
+      "n": 3,
+      "min": 1100,
+      "p10": 1100,
+      "p25": 1100,
+      "median": 1600,
+      "mean": 1433.33,
+      "p75": 1600,
+      "p90": 1600,
+      "p95": 1600,
+      "max": 1600,
+      "sd": 235.7,
+      "ovrMin": 92,
+      "ovrMean": 94,
+      "ovrMax": 95
+    }
+  },
+  "orderAfter": {
+    "medians": true,
+    "means": true
+  },
+  "maxSalvageOverValue": 0.1,
+  "nonPositive": [],
+  "atOrAboveValue": [],
+  "cards": [
+    {
+      "cardId": "asuna__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "bang__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "timotino__future-star",
+      "class": "prime",
+      "ovr": 94,
+      "marketValue": 16900,
+      "salvageBefore": 200,
+      "salvageAfter": 1000
+    },
+    {
+      "cardId": "timotino__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "vora__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "au1__masters-sdc",
+      "class": "masters",
+      "ovr": 79,
+      "marketValue": 600,
+      "salvageBefore": 70,
+      "salvageAfter": 35
+    },
+    {
+      "cardId": "f4ngeer__masters-sdc",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "iamgrq__masters-sdc",
+      "class": "masters",
+      "ovr": 83,
+      "marketValue": 980,
+      "salvageBefore": 70,
+      "salvageAfter": 60
+    },
+    {
+      "cardId": "k1ra__masters-sdc",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "shr1mp__masters-sdc",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "crewen__masters-sdc",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "crewen__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "lar0k__future-star",
+      "class": "prime",
+      "ovr": 95,
+      "marketValue": 19100,
+      "salvageBefore": 200,
+      "salvageAfter": 1150
+    },
+    {
+      "cardId": "lar0k__masters-sdc",
+      "class": "masters",
+      "ovr": 91,
+      "marketValue": 2600,
+      "salvageBefore": 70,
+      "salvageAfter": 160
+    },
+    {
+      "cardId": "lar0k__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "loita__future-star",
+      "class": "prime",
+      "ovr": 91,
+      "marketValue": 11700,
+      "salvageBefore": 200,
+      "salvageAfter": 700
+    },
+    {
+      "cardId": "loita__masters-sdc",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "loita__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "lovers-rock__masters-sdc",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "lovers-rock__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "rosa__masters-sdc",
+      "class": "masters",
+      "ovr": 82,
+      "marketValue": 870,
+      "salvageBefore": 70,
+      "salvageAfter": 50
+    },
+    {
+      "cardId": "rosa__base",
+      "class": "base",
+      "ovr": 72,
+      "marketValue": 65,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "oxy__base",
+      "class": "oro",
+      "ovr": 86,
+      "marketValue": 350,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "penny__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "v1c__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "xeppaa__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "zellsis__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "akame__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "caedye__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "meiy__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "ssees__base",
+      "class": "base",
+      "ovr": 70,
+      "marketValue": 50,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "yatsuka__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "flex1n__masters-l",
+      "class": "masters",
+      "ovr": 80,
+      "marketValue": 680,
+      "salvageBefore": 70,
+      "salvageAfter": 40
+    },
+    {
+      "cardId": "life__masters-l",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "nicc__masters-l",
+      "class": "masters",
+      "ovr": 83,
+      "marketValue": 980,
+      "salvageBefore": 70,
+      "salvageAfter": 60
+    },
+    {
+      "cardId": "spiritz1__masters-l",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "vo0kashu__masters-l",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "beyn__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "free1ng__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "hermes__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "hyunmin__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "mako__base",
+      "class": "oro",
+      "ovr": 86,
+      "marketValue": 350,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "cb__masters-sdc",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "chichoo__masters-l",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "chichoo__masters-sdc",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "nobody__masters-l",
+      "class": "masters",
+      "ovr": 79,
+      "marketValue": 600,
+      "salvageBefore": 70,
+      "salvageAfter": 35
+    },
+    {
+      "cardId": "nobody__masters-sdc",
+      "class": "masters",
+      "ovr": 80,
+      "marketValue": 680,
+      "salvageBefore": 70,
+      "salvageAfter": 40
+    },
+    {
+      "cardId": "smoggy__masters-l",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "smoggy__masters-sdc",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "zmjjkk__masters-l",
+      "class": "masters",
+      "ovr": 94,
+      "marketValue": 3750,
+      "salvageBefore": 70,
+      "salvageAfter": 230
+    },
+    {
+      "cardId": "zmjjkk__masters-sdc",
+      "class": "masters",
+      "ovr": 91,
+      "marketValue": 2600,
+      "salvageBefore": 70,
+      "salvageAfter": 160
+    },
+    {
+      "cardId": "audaz__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "echo__future-star",
+      "class": "prime",
+      "ovr": 90,
+      "marketValue": 10400,
+      "salvageBefore": 200,
+      "salvageAfter": 620
+    },
+    {
+      "cardId": "echo__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "favian__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "nekky__base",
+      "class": "base",
+      "ovr": 75,
+      "marketValue": 90,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "bao__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "c0m__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "dgzin__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "okeanos__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "supamen__base",
+      "class": "base",
+      "ovr": 75,
+      "marketValue": 90,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "eggsterr__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "p0ppin__base",
+      "class": "base",
+      "ovr": 76,
+      "marketValue": 100,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "alfajer__base",
+      "class": "oro",
+      "ovr": 90,
+      "marketValue": 580,
+      "salvageBefore": 30,
+      "salvageAfter": 35
+    },
+    {
+      "cardId": "boaster__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "crashies__base",
+      "class": "oro",
+      "ovr": 86,
+      "marketValue": 350,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "kaajak__base",
+      "class": "oro",
+      "ovr": 91,
+      "marketValue": 650,
+      "salvageBefore": 30,
+      "salvageAfter": 40
+    },
+    {
+      "cardId": "veqaj__future-star",
+      "class": "prime",
+      "ovr": 92,
+      "marketValue": 13200,
+      "salvageBefore": 200,
+      "salvageAfter": 790
+    },
+    {
+      "cardId": "veqaj__base",
+      "class": "base",
+      "ovr": 80,
+      "marketValue": 170,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "crws__masters-l",
+      "class": "masters",
+      "ovr": 78,
+      "marketValue": 530,
+      "salvageBefore": 70,
+      "salvageAfter": 30
+    },
+    {
+      "cardId": "jitboys__masters-l",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "jitboys__base",
+      "class": "base",
+      "ovr": 80,
+      "marketValue": 170,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "killua__masters-l",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "killua__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "leviathan__masters-l",
+      "class": "masters",
+      "ovr": 82,
+      "marketValue": 870,
+      "salvageBefore": 70,
+      "salvageAfter": 50
+    },
+    {
+      "cardId": "leviathan__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "primmie__masters-l",
+      "class": "masters",
+      "ovr": 95,
+      "marketValue": 4250,
+      "salvageBefore": 70,
+      "salvageAfter": 260
+    },
+    {
+      "cardId": "primmie__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "thyy__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "alym__future-star",
+      "class": "prime",
+      "ovr": 92,
+      "marketValue": 13200,
+      "salvageBefore": 200,
+      "salvageAfter": 790
+    },
+    {
+      "cardId": "alym__masters-sdc",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "alym__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "artzin__masters-sdc",
+      "class": "masters",
+      "ovr": 82,
+      "marketValue": 870,
+      "salvageBefore": 70,
+      "salvageAfter": 50
+    },
+    {
+      "cardId": "artzin__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "eeiu__masters-sdc",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "eeiu__base",
+      "class": "base",
+      "ovr": 80,
+      "marketValue": 170,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "koalanoob__masters-sdc",
+      "class": "masters",
+      "ovr": 91,
+      "marketValue": 2600,
+      "salvageBefore": 70,
+      "salvageAfter": 160
+    },
+    {
+      "cardId": "koalanoob__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "nerve__masters-sdc",
+      "class": "masters",
+      "ovr": 81,
+      "marketValue": 770,
+      "salvageBefore": 70,
+      "salvageAfter": 45
+    },
+    {
+      "cardId": "nerve__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "krostaly__champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "marketValue": 2750,
+      "salvageBefore": 600,
+      "salvageAfter": 170
+    },
+    {
+      "cardId": "krostaly__masters-l",
+      "class": "masters",
+      "ovr": 79,
+      "marketValue": 600,
+      "salvageBefore": 70,
+      "salvageAfter": 35
+    },
+    {
+      "cardId": "krostaly__base",
+      "class": "base",
+      "ovr": 74,
+      "marketValue": 80,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "sociablee__champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "marketValue": 2750,
+      "salvageBefore": 600,
+      "salvageAfter": 170
+    },
+    {
+      "cardId": "sociablee__masters-l",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "s0pp__champions-s",
+      "class": "champions",
+      "ovr": 94,
+      "marketValue": 9400,
+      "salvageBefore": 600,
+      "salvageAfter": 560
+    },
+    {
+      "cardId": "s0pp__future-star",
+      "class": "prime",
+      "ovr": 90,
+      "marketValue": 10400,
+      "salvageBefore": 200,
+      "salvageAfter": 620
+    },
+    {
+      "cardId": "s0pp__masters-l",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "s0pp__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "xeus__champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "marketValue": 4000,
+      "salvageBefore": 600,
+      "salvageAfter": 240
+    },
+    {
+      "cardId": "xeus__masters-l",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "xeus__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "yetujey__champions-s",
+      "class": "champions",
+      "ovr": 89,
+      "marketValue": 5100,
+      "salvageBefore": 600,
+      "salvageAfter": 310
+    },
+    {
+      "cardId": "yetujey__masters-l",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "yetujey__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "babybay__champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "marketValue": 4000,
+      "salvageBefore": 600,
+      "salvageAfter": 240
+    },
+    {
+      "cardId": "babybay__masters-l",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "babybay__masters-sdc",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "babybay__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "jawgemo__champions-s",
+      "class": "champions",
+      "ovr": 89,
+      "marketValue": 5100,
+      "salvageBefore": 600,
+      "salvageAfter": 310
+    },
+    {
+      "cardId": "jawgemo__masters-l",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "jawgemo__masters-sdc",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "jawgemo__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "leaf__champions-s",
+      "class": "champions",
+      "ovr": 92,
+      "marketValue": 7350,
+      "salvageBefore": 600,
+      "salvageAfter": 440
+    },
+    {
+      "cardId": "leaf__masters-l",
+      "class": "masters",
+      "ovr": 91,
+      "marketValue": 2600,
+      "salvageBefore": 70,
+      "salvageAfter": 160
+    },
+    {
+      "cardId": "leaf__masters-sdc",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "leaf__base",
+      "class": "oro",
+      "ovr": 89,
+      "marketValue": 510,
+      "salvageBefore": 30,
+      "salvageAfter": 30
+    },
+    {
+      "cardId": "trent__champions-s",
+      "class": "champions",
+      "ovr": 92,
+      "marketValue": 7350,
+      "salvageBefore": 600,
+      "salvageAfter": 440
+    },
+    {
+      "cardId": "trent__masters-l",
+      "class": "masters",
+      "ovr": 93,
+      "marketValue": 3350,
+      "salvageBefore": 70,
+      "salvageAfter": 200
+    },
+    {
+      "cardId": "trent__masters-sdc",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "trent__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "valyn__champions-s",
+      "class": "champions",
+      "ovr": 88,
+      "marketValue": 4500,
+      "salvageBefore": 600,
+      "salvageAfter": 270
+    },
+    {
+      "cardId": "valyn__masters-l",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "valyn__masters-sdc",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "valyn__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "autumn__masters-l",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "autumn__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "kr1stal__masters-l",
+      "class": "masters",
+      "ovr": 82,
+      "marketValue": 870,
+      "salvageBefore": 70,
+      "salvageAfter": 50
+    },
+    {
+      "cardId": "kr1stal__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "patmen__masters-l",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "patmen__record-breaker",
+      "class": "icon",
+      "ovr": 92,
+      "marketValue": 18400,
+      "salvageBefore": 1600,
+      "salvageAfter": 1100
+    },
+    {
+      "cardId": "patmen__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "udotan__masters-l",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "udotan__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "xavi8k__masters-l",
+      "class": "masters",
+      "ovr": 81,
+      "marketValue": 770,
+      "salvageBefore": 70,
+      "salvageAfter": 45
+    },
+    {
+      "cardId": "xavi8k__base",
+      "class": "base",
+      "ovr": 80,
+      "marketValue": 170,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "bipo__masters-sdc",
+      "class": "masters",
+      "ovr": 87,
+      "marketValue": 1600,
+      "salvageBefore": 70,
+      "salvageAfter": 95
+    },
+    {
+      "cardId": "bipo__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "glyph__masters-sdc",
+      "class": "masters",
+      "ovr": 80,
+      "marketValue": 680,
+      "salvageBefore": 70,
+      "salvageAfter": 40
+    },
+    {
+      "cardId": "glyph__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "marteen__masters-sdc",
+      "class": "masters",
+      "ovr": 94,
+      "marketValue": 3750,
+      "salvageBefore": 70,
+      "salvageAfter": 230
+    },
+    {
+      "cardId": "marteen__record-breaker",
+      "class": "icon",
+      "ovr": 95,
+      "marketValue": 26500,
+      "salvageBefore": 1600,
+      "salvageAfter": 1600
+    },
+    {
+      "cardId": "marteen__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "minny__masters-sdc",
+      "class": "masters",
+      "ovr": 91,
+      "marketValue": 2600,
+      "salvageBefore": 70,
+      "salvageAfter": 160
+    },
+    {
+      "cardId": "minny__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "starxo__masters-sdc",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "starxo__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "ara__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "cloud__base",
+      "class": "oro",
+      "ovr": 86,
+      "marketValue": 350,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "flickless__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "grubinho__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "westside__base",
+      "class": "oro",
+      "ovr": 86,
+      "marketValue": 350,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "ash__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "karon__base",
+      "class": "oro",
+      "ovr": 86,
+      "marketValue": 350,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "lakia__base",
+      "class": "base",
+      "ovr": 71,
+      "marketValue": 55,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "t3xture__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "zynx__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "avez__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "dos9__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "lewn__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "suygetsu__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "dantedeu5__future-star",
+      "class": "prime",
+      "ovr": 91,
+      "marketValue": 11700,
+      "salvageBefore": 200,
+      "salvageAfter": 700
+    },
+    {
+      "cardId": "dantedeu5__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "less__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "mwzera__base",
+      "class": "base",
+      "ovr": 74,
+      "marketValue": 80,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "saadhak__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "silentzz__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "blowz__future-star",
+      "class": "prime",
+      "ovr": 89,
+      "marketValue": 9200,
+      "salvageBefore": 200,
+      "salvageAfter": 550
+    },
+    {
+      "cardId": "blowz__masters-l",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "blowz__base",
+      "class": "base",
+      "ovr": 80,
+      "marketValue": 170,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "kingg__masters-l",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "kingg__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "neon__future-star",
+      "class": "prime",
+      "ovr": 93,
+      "marketValue": 15000,
+      "salvageBefore": 200,
+      "salvageAfter": 900
+    },
+    {
+      "cardId": "neon__masters-l",
+      "class": "masters",
+      "ovr": 93,
+      "marketValue": 3350,
+      "salvageBefore": 70,
+      "salvageAfter": 200
+    },
+    {
+      "cardId": "neon__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "sato__future-star",
+      "class": "prime",
+      "ovr": 95,
+      "marketValue": 19100,
+      "salvageBefore": 200,
+      "salvageAfter": 1150
+    },
+    {
+      "cardId": "sato__masters-l",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "sato__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "spike__future-star",
+      "class": "prime",
+      "ovr": 92,
+      "marketValue": 13200,
+      "salvageBefore": 200,
+      "salvageAfter": 790
+    },
+    {
+      "cardId": "spike__masters-l",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "spike__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "cauanzin__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "darker__future-star",
+      "class": "prime",
+      "ovr": 88,
+      "marketValue": 8100,
+      "salvageBefore": 200,
+      "salvageAfter": 490
+    },
+    {
+      "cardId": "darker__base",
+      "class": "base",
+      "ovr": 80,
+      "marketValue": 170,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "lukxo__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "virtyy__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "aspas__base",
+      "class": "oro",
+      "ovr": 90,
+      "marketValue": 580,
+      "salvageBefore": 30,
+      "salvageAfter": 35
+    },
+    {
+      "cardId": "mazino__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "tex__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "verno__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "zekken__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "filu__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "hiro__base",
+      "class": "plata",
+      "ovr": 83,
+      "marketValue": 240,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "ruxic__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "sociablee__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "brawk__masters-l",
+      "class": "masters",
+      "ovr": 93,
+      "marketValue": 3350,
+      "salvageBefore": 70,
+      "salvageAfter": 200
+    },
+    {
+      "cardId": "brawk__masters-sdc",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "brawk__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "ethan__masters-l",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "ethan__masters-sdc",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "ethan__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "keiko__masters-l",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "keiko__masters-sdc",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "keiko__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "mada__masters-l",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "mada__masters-sdc",
+      "class": "masters",
+      "ovr": 91,
+      "marketValue": 2600,
+      "salvageBefore": 70,
+      "salvageAfter": 160
+    },
+    {
+      "cardId": "mada__moments",
+      "class": "icon",
+      "ovr": 95,
+      "marketValue": 26500,
+      "salvageBefore": 1600,
+      "salvageAfter": 1600
+    },
+    {
+      "cardId": "mada__base",
+      "class": "oro",
+      "ovr": 90,
+      "marketValue": 580,
+      "salvageBefore": 30,
+      "salvageAfter": 35
+    },
+    {
+      "cardId": "skuba__masters-l",
+      "class": "masters",
+      "ovr": 87,
+      "marketValue": 1600,
+      "salvageBefore": 70,
+      "salvageAfter": 95
+    },
+    {
+      "cardId": "skuba__masters-sdc",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "skuba__base",
+      "class": "oro",
+      "ovr": 86,
+      "marketValue": 350,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "dambi__masters-sdc",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "dambi__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "francis__masters-sdc",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "francis__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "ivy__masters-sdc",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "ivy__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "rb__masters-sdc",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "rb__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "xross__future-star",
+      "class": "prime",
+      "ovr": 95,
+      "marketValue": 19100,
+      "salvageBefore": 200,
+      "salvageAfter": 1150
+    },
+    {
+      "cardId": "xross__masters-sdc",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "xross__base",
+      "class": "base",
+      "ovr": 76,
+      "marketValue": 100,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "al0rante__base",
+      "class": "base",
+      "ovr": 79,
+      "marketValue": 150,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "cned__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "ninja__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "qpert__base",
+      "class": "base",
+      "ovr": 73,
+      "marketValue": 70,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "seven__future-star",
+      "class": "prime",
+      "ovr": 88,
+      "marketValue": 8100,
+      "salvageBefore": 200,
+      "salvageAfter": 490
+    },
+    {
+      "cardId": "seven__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "d4v41__masters-l",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "d4v41__masters-sdc",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "d4v41__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "f0rsaken__masters-l",
+      "class": "masters",
+      "ovr": 93,
+      "marketValue": 3350,
+      "salvageBefore": 70,
+      "salvageAfter": 200
+    },
+    {
+      "cardId": "f0rsaken__masters-sdc",
+      "class": "masters",
+      "ovr": 94,
+      "marketValue": 3750,
+      "salvageBefore": 70,
+      "salvageAfter": 230
+    },
+    {
+      "cardId": "f0rsaken__base",
+      "class": "oro",
+      "ovr": 92,
+      "marketValue": 740,
+      "salvageBefore": 30,
+      "salvageAfter": 45
+    },
+    {
+      "cardId": "invy__masters-l",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "invy__masters-sdc",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "invy__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "jinggg__masters-l",
+      "class": "masters",
+      "ovr": 95,
+      "marketValue": 4250,
+      "salvageBefore": 70,
+      "salvageAfter": 260
+    },
+    {
+      "cardId": "jinggg__masters-sdc",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "jinggg__base",
+      "class": "oro",
+      "ovr": 89,
+      "marketValue": 510,
+      "salvageBefore": 30,
+      "salvageAfter": 30
+    },
+    {
+      "cardId": "something__masters-l",
+      "class": "masters",
+      "ovr": 94,
+      "marketValue": 3750,
+      "salvageBefore": 70,
+      "salvageAfter": 230
+    },
+    {
+      "cardId": "something__masters-sdc",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "something__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "crazyguy__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "jemkin__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "kushy__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "monyet__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "cortezia__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "johnqt__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "n4rrate__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "reduxx__future-star",
+      "class": "prime",
+      "ovr": 90,
+      "marketValue": 10400,
+      "salvageBefore": 200,
+      "salvageAfter": 620
+    },
+    {
+      "cardId": "reduxx__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "buzz__champions-s",
+      "class": "champions",
+      "ovr": 93,
+      "marketValue": 8300,
+      "salvageBefore": 600,
+      "salvageAfter": 500
+    },
+    {
+      "cardId": "buzz__masters-sdc",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "buzz__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "izu__champions-s",
+      "class": "champions",
+      "ovr": 89,
+      "marketValue": 5100,
+      "salvageBefore": 600,
+      "salvageAfter": 310
+    },
+    {
+      "cardId": "izu__masters-sdc",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "izu__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "meteor__champions-s",
+      "class": "champions",
+      "ovr": 92,
+      "marketValue": 7350,
+      "salvageBefore": 600,
+      "salvageAfter": 440
+    },
+    {
+      "cardId": "meteor__masters-sdc",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "meteor__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "munchkin__champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "marketValue": 4000,
+      "salvageBefore": 600,
+      "salvageAfter": 240
+    },
+    {
+      "cardId": "munchkin__masters-sdc",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "munchkin__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "stax__champions-s",
+      "class": "champions",
+      "ovr": 88,
+      "marketValue": 4500,
+      "salvageBefore": 600,
+      "salvageAfter": 270
+    },
+    {
+      "cardId": "stax__masters-sdc",
+      "class": "masters",
+      "ovr": 83,
+      "marketValue": 980,
+      "salvageBefore": 70,
+      "salvageAfter": 60
+    },
+    {
+      "cardId": "stax__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "benjy__masters-l",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "benjy__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "boo__masters-l",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "boo__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "comeback__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "koshmaras__future-star",
+      "class": "prime",
+      "ovr": 89,
+      "marketValue": 9200,
+      "salvageBefore": 200,
+      "salvageAfter": 550
+    },
+    {
+      "cardId": "koshmaras__masters-l",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "riens__masters-l",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "riens__base",
+      "class": "oro",
+      "ovr": 89,
+      "marketValue": 510,
+      "salvageBefore": 30,
+      "salvageAfter": 30
+    },
+    {
+      "cardId": "wo0t__masters-l",
+      "class": "masters",
+      "ovr": 93,
+      "marketValue": 3350,
+      "salvageBefore": 70,
+      "salvageAfter": 200
+    },
+    {
+      "cardId": "wo0t__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "kamo__masters-sdc",
+      "class": "masters",
+      "ovr": 87,
+      "marketValue": 1600,
+      "salvageBefore": 70,
+      "salvageAfter": 95
+    },
+    {
+      "cardId": "kamo__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "miniboo__masters-sdc",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "miniboo__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "nats__masters-sdc",
+      "class": "masters",
+      "ovr": 90,
+      "marketValue": 2300,
+      "salvageBefore": 70,
+      "salvageAfter": 140
+    },
+    {
+      "cardId": "nats__base",
+      "class": "oro",
+      "ovr": 88,
+      "marketValue": 450,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "purp0__masters-sdc",
+      "class": "masters",
+      "ovr": 80,
+      "marketValue": 680,
+      "salvageBefore": 70,
+      "salvageAfter": 40
+    },
+    {
+      "cardId": "purp0__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "wayne__future-star",
+      "class": "prime",
+      "ovr": 90,
+      "marketValue": 10400,
+      "salvageBefore": 200,
+      "salvageAfter": 620
+    },
+    {
+      "cardId": "wayne__masters-sdc",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "wayne__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "berserx__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "jessievash__base",
+      "class": "base",
+      "ovr": 71,
+      "marketValue": 55,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "kellys__base",
+      "class": "base",
+      "ovr": 75,
+      "marketValue": 90,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "sylvan__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "tenten__base",
+      "class": "base",
+      "ovr": 74,
+      "marketValue": 80,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "erv__champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "marketValue": 2750,
+      "salvageBefore": 600,
+      "salvageAfter": 170
+    },
+    {
+      "cardId": "scales__champions-s",
+      "class": "champions",
+      "ovr": 85,
+      "marketValue": 3150,
+      "salvageBefore": 600,
+      "salvageAfter": 190
+    },
+    {
+      "cardId": "siufatbb__champions-s",
+      "class": "champions",
+      "ovr": 80,
+      "marketValue": 1700,
+      "salvageBefore": 600,
+      "salvageAfter": 100
+    },
+    {
+      "cardId": "slowly__champions-s",
+      "class": "champions",
+      "ovr": 95,
+      "marketValue": 10600,
+      "salvageBefore": 600,
+      "salvageAfter": 640
+    },
+    {
+      "cardId": "splash__champions-s",
+      "class": "champions",
+      "ovr": 95,
+      "marketValue": 10600,
+      "salvageBefore": 600,
+      "salvageAfter": 640
+    },
+    {
+      "cardId": "chronicle__masters-l",
+      "class": "masters",
+      "ovr": 91,
+      "marketValue": 2600,
+      "salvageBefore": 70,
+      "salvageAfter": 160
+    },
+    {
+      "cardId": "chronicle__base",
+      "class": "oro",
+      "ovr": 90,
+      "marketValue": 580,
+      "salvageBefore": 30,
+      "salvageAfter": 35
+    },
+    {
+      "cardId": "derke__masters-l",
+      "class": "masters",
+      "ovr": 88,
+      "marketValue": 1800,
+      "salvageBefore": 70,
+      "salvageAfter": 110
+    },
+    {
+      "cardId": "derke__base",
+      "class": "oro",
+      "ovr": 87,
+      "marketValue": 400,
+      "salvageBefore": 30,
+      "salvageAfter": 25
+    },
+    {
+      "cardId": "jamppi__masters-l",
+      "class": "masters",
+      "ovr": 87,
+      "marketValue": 1600,
+      "salvageBefore": 70,
+      "salvageAfter": 95
+    },
+    {
+      "cardId": "jamppi__base",
+      "class": "plata",
+      "ovr": 82,
+      "marketValue": 220,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "profek__masters-l",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "profek__base",
+      "class": "plata",
+      "ovr": 85,
+      "marketValue": 310,
+      "salvageBefore": 30,
+      "salvageAfter": 20
+    },
+    {
+      "cardId": "sayonara__future-star",
+      "class": "prime",
+      "ovr": 94,
+      "marketValue": 16900,
+      "salvageBefore": 200,
+      "salvageAfter": 1000
+    },
+    {
+      "cardId": "sayonara__masters-l",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "sayonara__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "c1nder__base",
+      "class": "base",
+      "ovr": 72,
+      "marketValue": 65,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "klaus__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "oonzmlp__base",
+      "class": "base",
+      "ovr": 78,
+      "marketValue": 130,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "xuna__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "zexy__base",
+      "class": "base",
+      "ovr": 81,
+      "marketValue": 190,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "happywei__masters-l",
+      "class": "masters",
+      "ovr": 92,
+      "marketValue": 2950,
+      "salvageBefore": 70,
+      "salvageAfter": 180
+    },
+    {
+      "cardId": "happywei__masters-sdc",
+      "class": "masters",
+      "ovr": 93,
+      "marketValue": 3350,
+      "salvageBefore": 70,
+      "salvageAfter": 200
+    },
+    {
+      "cardId": "lysoar__masters-l",
+      "class": "masters",
+      "ovr": 85,
+      "marketValue": 1250,
+      "salvageBefore": 70,
+      "salvageAfter": 75
+    },
+    {
+      "cardId": "lysoar__masters-sdc",
+      "class": "masters",
+      "ovr": 82,
+      "marketValue": 870,
+      "salvageBefore": 70,
+      "salvageAfter": 50
+    },
+    {
+      "cardId": "noman__masters-l",
+      "class": "masters",
+      "ovr": 81,
+      "marketValue": 770,
+      "salvageBefore": 70,
+      "salvageAfter": 45
+    },
+    {
+      "cardId": "noman__masters-sdc",
+      "class": "masters",
+      "ovr": 83,
+      "marketValue": 980,
+      "salvageBefore": 70,
+      "salvageAfter": 60
+    },
+    {
+      "cardId": "rarga__masters-l",
+      "class": "masters",
+      "ovr": 87,
+      "marketValue": 1600,
+      "salvageBefore": 70,
+      "salvageAfter": 95
+    },
+    {
+      "cardId": "rarga__masters-sdc",
+      "class": "masters",
+      "ovr": 89,
+      "marketValue": 2050,
+      "salvageBefore": 70,
+      "salvageAfter": 120
+    },
+    {
+      "cardId": "wsleo__masters-l",
+      "class": "masters",
+      "ovr": 86,
+      "marketValue": 1400,
+      "salvageBefore": 70,
+      "salvageAfter": 85
+    },
+    {
+      "cardId": "wsleo__masters-sdc",
+      "class": "masters",
+      "ovr": 84,
+      "marketValue": 1100,
+      "salvageBefore": 70,
+      "salvageAfter": 65
+    },
+    {
+      "cardId": "absol__future-star",
+      "class": "prime",
+      "ovr": 87,
+      "marketValue": 7200,
+      "salvageBefore": 200,
+      "salvageAfter": 430
+    },
+    {
+      "cardId": "absol__base",
+      "class": "base",
+      "ovr": 80,
+      "marketValue": 170,
+      "salvageBefore": 30,
+      "salvageAfter": 10
+    },
+    {
+      "cardId": "eko__base",
+      "class": "plata",
+      "ovr": 84,
+      "marketValue": 280,
+      "salvageBefore": 30,
+      "salvageAfter": 15
+    },
+    {
+      "cardId": "sugarz3ro__base",
+      "class": "base",
+      "ovr": 77,
+      "marketValue": 120,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "syouta__base",
+      "class": "base",
+      "ovr": 72,
+      "marketValue": 65,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    },
+    {
+      "cardId": "xdll__base",
+      "class": "base",
+      "ovr": 76,
+      "marketValue": 100,
+      "salvageBefore": 30,
+      "salvageAfter": 5
+    }
+  ]
+}

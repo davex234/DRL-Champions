@@ -1,0 +1,28 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "doubleClick": "pack-craft (1 ref), reclamo de misión y de proyecto por la UI con doble clic → 1",
+  "f5Relogin": "pack-craft, mission-real-match (1/5 tras F5 y relogin), project-claim-ui (F5 sin botón, N+1)",
+  "retries": "misma ref ×10 (sobres y cartas) → repeated; reproceso de partida ×5 → 409 y 1 fila en mission_events",
+  "twoTabs": {
+    "pass": 3,
+    "fail": 0,
+    "source": "docs/product/qa/fase73-production/pack-idempotency.json",
+    "results": [
+      {
+        "id": "DOS PESTAÑAS · exactamente una muestra el resultado",
+        "ok": true,
+        "detail": "[false,true]"
+      },
+      {
+        "id": "DOS PESTAÑAS · el servidor aplicó UN crafteo (Bronce −4, Plata +1)",
+        "ok": true,
+        "detail": "{\"inicial\":1,\"estandar\":4,\"premium\":1} → {\"inicial\":1,\"estandar\":0,\"premium\":2}"
+      },
+      {
+        "id": "DOS PESTAÑAS · la otra pestaña ve un error de negocio legible (sin crafteo fantasma)",
+        "ok": true,
+        "detail": "CRAFTING · SOBRES CONFIRMAR CRAFTEO ENTREGAS 4 × Sobre Bronce RECIBES 1 × Sobre Plata No tienes sobres suficientes CANCELAR CONFIRMAR CRAFTEO || CRAFTING · SOBRES LISTO CRAFT COMPLETADO +1 SOBRE PLATA CERRAR"
+      }
+    ]
+  }
+}

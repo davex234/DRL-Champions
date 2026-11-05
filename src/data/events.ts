@@ -1,4 +1,9 @@
-import type { EventDef, EventType, MissionDef, ShopItemDef, WeeklyTaskDef } from "@/domain/events/types";
+import type { EventDef, EventType, MissionDef, WeeklyTaskDef } from "@/domain/events/types";
+import { EVENT_EDITIONS } from "@/domain/events/editions";
+import { availableMissions, LIVE_MISSION_FLAGS, type MissionFlags } from "@/domain/progression/missionAvailability";
+import { ns, td } from "@/i18n/runtime";
+
+const tr = ns("data");
 
 /** Nombre legible del torneo. */
 function tName(type: EventType): string {
@@ -9,25 +14,16 @@ function tName(type: EventType): string {
 function missions(type: EventType): MissionDef[] {
   const t = tName(type);
   return [
-    { id: "open10", label: "Abre 10 sobres", metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500, tokens: 20 } },
-    { id: "open50", label: "Abre 50 sobres", metric: "open_packs", goal: 50, passXp: 300, reward: { packId: "premium", packCount: 1, tokens: 60 } },
-    { id: "eventpacks", label: `Abre 5 Sobres ${t}`, metric: "open_event_packs", goal: 5, passXp: 200, reward: { tokens: 80 } },
-    { id: "getcard", label: `Consigue una carta ${t}`, metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000, tokens: 30 } },
-    { id: "getmvp", label: "Consigue un MVP", metric: "get_mvp", goal: 1, passXp: 250, reward: { tokens: 100 } },
-    { id: "getwinner", label: "Consigue un Winner", metric: "get_winner", goal: 1, passXp: 200, reward: { tokens: 70 } },
-    { id: "buy", label: "Compra una carta del mercado", metric: "market_buy", goal: 1, passXp: 80, reward: { credits: 1000 } },
-    { id: "sell", label: "Vende una carta", metric: "market_sell", goal: 1, passXp: 80, reward: { credits: 800, tokens: 15 } },
-  ];
-}
-
-/** Tienda estándar del evento. */
-function shop(type: EventType, packId: string, mvpCardId: string, mvpName: string): ShopItemDef[] {
-  const t = tName(type);
-  return [
-    { id: "pack", label: `Sobre ${t} extra`, description: "Otro tiro a la suerte.", cost: 120, reward: { packId, packCount: 1 } },
-    { id: "mvp", label: `${mvpName} ${t} MVP`, description: "Carta exclusiva del evento.", cost: 650, reward: { cardId: mvpCardId }, stock: 1 },
-    { id: "credits", label: "Paquete de 5.000 créditos", cost: 150, reward: { credits: 5000 } },
-    { id: "cosmetic", label: `Marco ${t} (cosmético)`, description: "Insignia de coleccionista del evento.", cost: 200, reward: {}, cosmetic: true, stock: 1 },
+    { id: "open10", label: tr("Abre 10 sobres"), metric: "open_packs", goal: 10, passXp: 120, reward: { credits: 1500} },
+    { id: "open50", label: tr("Abre 50 sobres"), metric: "open_packs", goal: 50, passXp: 300, reward: { packId: "premium", packCount: 1} },
+    { id: "eventpacks", label: tr("Abre 5 Sobres {t}", { t: td(t) }), metric: "open_event_packs", goal: 5, passXp: 200, reward: {} },
+    // «Carta del evento» solo si el catálogo tiene una edición de ese torneo (EWC no la tiene: no se ofrece).
+    ...(EVENT_EDITIONS[type].length ? [{ id: "getcard", label: tr("Consigue una carta {t}", { t: td(t) }), metric: "get_event_card", goal: 1, passXp: 150, reward: { credits: 2000} } satisfies MissionDef] : []),
+    // Ids estables; las condiciones son las del catálogo diseñado (ver `domain/events/editions`).
+    { id: "getmvp", label: tr("Consigue una carta legendaria"), metric: "get_legendary", goal: 1, passXp: 250, reward: {} },
+    { id: "getwinner", label: tr("Consigue una carta épica o superior"), metric: "get_epic", goal: 1, passXp: 200, reward: {} },
+    { id: "buy", label: tr("Compra una carta del mercado"), metric: "market_buy", goal: 1, passXp: 80, reward: { credits: 1000 } },
+    { id: "sell", label: tr("Vende una carta"), metric: "market_sell", goal: 1, passXp: 80, reward: { credits: 800} },
   ];
 }
 
@@ -48,14 +44,13 @@ export const EVENTS: EventDef[] = [
     startOffsetDays: 0,
     durationDays: 30,
     packIds: ["masters"],
-    tokensPerPack: 8,
     missions: missions("masters"),
-    shop: shop("masters", "masters", "zekken__masters-mvp", "zekken"),
     passLevels: 50,
     passXpPerLevel: 100,
     passRewards: {
-      25: { packId: "masters", packCount: 1, tokens: 60 },
-      50: { cardId: "derke__masters-mvp", tokens: 120 },
+      25: { packId: "masters", packCount: 1},
+      // Catálogo diseñado: las MVP ya no existen. Mismo escalón —una legendaria concreta— por región de sede.
+      50: { cardId: "mada__moments"},
     },
   },
   {
@@ -67,14 +62,13 @@ export const EVENTS: EventDef[] = [
     startOffsetDays: 18,
     durationDays: 30,
     packIds: ["ewc"],
-    tokensPerPack: 9,
     missions: missions("ewc"),
-    shop: shop("ewc", "ewc", "wo0t__ewc-mvp", "Wo0t"),
     passLevels: 50,
     passXpPerLevel: 100,
     passRewards: {
-      25: { packId: "ewc", packCount: 1, tokens: 60 },
-      50: { cardId: "wo0t__ewc-mvp", tokens: 120 },
+      25: { packId: "ewc", packCount: 1},
+      // La legendaria que queda (Pacific): EWC no tiene edición ni legendaria propia.
+      50: { cardId: "patmen__record-breaker"},
     },
   },
   {
@@ -86,24 +80,34 @@ export const EVENTS: EventDef[] = [
     startOffsetDays: 36,
     durationDays: 45,
     packIds: ["champions"],
-    tokensPerPack: 10,
     missions: missions("champions"),
-    shop: shop("champions", "champions", "demon1__champions-mvp", "Demon1"),
     passLevels: 50,
     passXpPerLevel: 110,
     passRewards: {
-      25: { packId: "champions", packCount: 1, tokens: 70 },
-      50: { cardId: "aspas__champions-mvp", tokens: 150 },
+      25: { packId: "champions", packCount: 1},
+      50: { cardId: "marteen__record-breaker"}, // legendaria de EMEA, sede del evento
     },
   },
 ];
 
 /** Tareas semanales globales (se reinician cada semana, recompensas mayores). */
 export const WEEKLY_TASKS: WeeklyTaskDef[] = [
-  { id: "w_open", label: "Abre 20 sobres esta semana", metric: "open_packs", goal: 20, passXp: 0, reward: { credits: 3000, tokens: 50 } },
+  { id: "w_open", label: "Abre 20 sobres esta semana", metric: "open_packs", goal: 20, passXp: 0, reward: { credits: 3000} },
   { id: "w_buy", label: "Compra 3 cartas en el mercado", metric: "market_buy", goal: 3, passXp: 0, reward: { credits: 2500 } },
-  { id: "w_mvp", label: "Consigue 2 cartas MVP", metric: "get_mvp", goal: 2, passXp: 0, reward: { packId: "prime", packCount: 1, tokens: 80 } },
+  // Antes «2 cartas MVP» (ya no existen): mismo escalón con la rareza que ocupaban, épica o superior.
+  { id: "w_mvp", label: "Consigue 2 cartas épicas o superiores", metric: "get_epic", goal: 2, passXp: 0, reward: { packId: "prime", packCount: 1} },
 ];
+
+/**
+ * Las misiones de un evento y las tareas semanales que se OFRECEN hoy. Las definiciones de arriba se conservan
+ * enteras; las que piden el Marketplace solo se ofrecen con él abierto (`missionAvailability`).
+ */
+export function eventMissions(ev: EventDef, flags: MissionFlags = LIVE_MISSION_FLAGS): MissionDef[] {
+  return availableMissions(ev.missions, flags);
+}
+export function weeklyTasks(flags: MissionFlags = LIVE_MISSION_FLAGS): WeeklyTaskDef[] {
+  return availableMissions(WEEKLY_TASKS, flags);
+}
 
 export const EVENT_BY_ID = new Map(EVENTS.map((e) => [e.id, e]));
 export function getEvent(id: string): EventDef | undefined {

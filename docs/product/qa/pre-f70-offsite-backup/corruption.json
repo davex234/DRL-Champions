@@ -1,0 +1,26 @@
+{
+  "phase": "PRE-F70",
+  "harness": {
+    "script": "scripts/ops/offsite-harness.sh",
+    "where": "VPS, directorio temporal mktemp (077) borrado al terminar; destino SIMULADO = backend local de rclone montado en el contenedor",
+    "run": "2026-09-28T13:29Z–13:35Z (quinta ejecución; las cuatro anteriores destaparon 3 defectos reales, ver design.json)",
+    "cases": 52,
+    "pass": 52,
+    "raw": "raw/harness-run.txt"
+  },
+  "cases": {
+    "corruption-detected": {
+      "result": "PASS",
+      "detail": "exit=1 HASH_MISMATCH"
+    },
+    "corruption-healed-by-push": {
+      "result": "PASS",
+      "detail": "push=0 verify=0 (una copia remota que no verifica se vuelve a subir)"
+    },
+    "marker-tamper-detected": {
+      "result": "PASS",
+      "detail": "exit=1 MARKER_MISMATCH"
+    }
+  },
+  "reading": "Un byte cambiado en el .cms remoto → HASH_MISMATCH; un marcador con otro hash → MARKER_MISMATCH. El siguiente push ve que la copia no verifica, la purga y la vuelve a subir."
+}

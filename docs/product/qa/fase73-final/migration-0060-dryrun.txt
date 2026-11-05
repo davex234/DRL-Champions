@@ -1,0 +1,14 @@
+BEGIN
+CREATE FUNCTION
+REVOKE
+GRANT
+DO
+NOTICE:  SONDA 1 desguazar las 2 copias → rechazado LAST_COPY: t
+NOTICE:  SONDA 2 carrera (Y ya consumida) → desguace de X rechazado LAST_COPY: t
+NOTICE:  SONDA 2b X sigue existiendo: t
+DO
+NOTICE:  SONDA 3 duplicado real → ok salvaged=1 paid=7 saldo +7: t
+NOTICE:  SONDA 4 misma ref → repeated: t
+permisos anon=false authenticated=false service_role=true
+ROLLBACK
+tras ROLLBACK: guardia 0060 en producción = false · md5 7a2fc3651c1063dd2a4a89f92747b224

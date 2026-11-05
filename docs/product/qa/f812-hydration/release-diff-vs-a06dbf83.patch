@@ -1,0 +1,551 @@
+--- a06dbf83/src/lib/game/localEconomy.ts	2026-10-02 18:31:42.000000000 +0200
++++ src/lib/game/localEconomy.ts	2026-10-02 19:19:06.101755100 +0200
+@@ -54,3 +54,61 @@
+   if (storedSessionPresent(opts.storage === undefined ? browserStorage() : opts.storage)) return LOCAL_ECONOMY_BLOCKED;
+   return null;
+ }
++
++/* ───────────────────── F81.2 · ¿QUÉ INVENTARIO PUEDE VERSE AHORA? ───────────────────── */
++
++/**
++ * F81.2 · VISTA DE LA ECONOMÍA. El store persistido (`drl-champions`) arranca con lo último guardado o con el
++ * inventario de demostración (6.000 créditos, sobres de inicio); `hydrated` solo dice que Zustand ya leyó esa caché, no
++ * que sea de esta cuenta. Medido en producción: un jugador con sesión veía 6.000 créditos y sobres de demo hasta que
++ * llegaba su estado (2.120). Tres estados que NUNCA se confunden:
++ *
++ *   · `unknown`    — la sesión o el estado del servidor aún no se conocen: NADA de cifras (ni demo ni caché).
++ *   · `server`     — hay usuario y el store contiene SU estado, leído del servidor en esta carga.
++ *   · `guest`      — visitante confirmado (sesión resuelta, ningún usuario y ningún rastro de sesión): modo demo.
++ *
++ * y dos salidas que tampoco enseñan cifras, para no cargar para siempre:
++ *
++ *   · `error`      — hay usuario pero su estado no se pudo leer: reintento.
++ *   · `unverified` — no hay usuario pero queda una sesión guardada (refresco de token fallido sin borrarla): reintento.
++ *
++ * `null` en `userId` mientras `loading` NO significa «visitante»: ese es exactamente el error que se cierra aquí.
++ */
++export type EconomyView = "unknown" | "server" | "guest" | "error" | "unverified";
++
++export interface EconomyFacts {
++  configured: boolean;
++  /** La sesión de Supabase aún se está resolviendo. */
++  loading: boolean;
++  userId: string | null;
++  /** Dueño del estado de servidor volcado en el store EN ESTA CARGA (no se persiste). */
++  serverOwner: string | null;
++  /** Dueño del estado guardado en la caché persistida (null = demo o nunca hubo cuenta). */
++  cacheOwner: string | null;
++  /** Hay claves `sb-*-auth-token` guardadas. */
++  sessionStored: boolean;
++  /** Fallo de la última lectura del estado de servidor (null = sin fallo). */
++  syncError: string | null;
++}
++
++export function economyView(f: EconomyFacts): EconomyView {
++  if (!f.configured) return "guest"; // build sin backend: el modo local es el único que hay
++  if (f.loading) return "unknown";
++  if (f.userId) {
++    if (f.serverOwner === f.userId) return "server";
++    return f.syncError ? "error" : "unknown";
++  }
++  if (f.sessionStored) return "unverified";
++  // Visitante confirmado con la caché de una cuenta anterior: se limpia (CloudSync) antes de enseñar la demo.
++  if (f.cacheOwner) return "unknown";
++  return "guest";
++}
++
++/** F81.2 · dueño de una caché anterior a F81.2 encontrada junto a una sesión guardada (ver `mergePersisted`). */
++export const LEGACY_CACHE_OWNER = "legacy-cache";
++
++/** ¿Puede pintarse el inventario del store (saldo, XP, sobres, cartas) en esta vista? */
++export const economyVisible = (v: EconomyView): boolean => v === "server" || v === "guest";
++
++/** Lo que se ve cuando la cuenta no se pudo recuperar (nunca el texto técnico). */
++export const ECONOMY_UNAVAILABLE = "No hemos podido recuperar tu cuenta. Comprueba la conexión y vuelve a intentarlo.";
+--- a06dbf83/src/lib/game/serverEconomy.ts	2026-09-27 23:18:44.000000000 +0200
++++ src/lib/game/serverEconomy.ts	2026-10-02 19:07:19.199976900 +0200
+@@ -13,6 +13,8 @@
+  * inventar saldo (hallazgo transversal de F69).
+  */
+ import { useAuth } from "@/lib/supabase/auth";
++import { useGameStore } from "@/store/useGameStore";
++import { economyView, storedSessionPresent, type EconomyView } from "./localEconomy";
+ 
+ export function useServerEconomy(): boolean {
+   const { user, loading, configured } = useAuth();
+@@ -28,3 +30,18 @@
+ /** Motivo, escrito una vez, de por qué un modo local no concede ni cobra con cuenta. */
+ export const SERVER_ECONOMY_ONLY =
+   "Con tu cuenta iniciada, créditos, XP y cartas los lleva el servidor: este modo local no concede ni cobra nada.";
++
++/**
++ * F81.2 · la vista de la economía para pintar (ver `economyView`): un único criterio para el HUD, las pantallas con
++ * inventario y la portada. Mientras no sea `server` o `guest`, ninguna cifra del store se enseña.
++ */
++export function useEconomyView(): EconomyView {
++  const { user, loading, configured } = useAuth();
++  const serverOwner = useGameStore((s) => s.serverOwner);
++  const cacheOwner = useGameStore((s) => s.cacheOwner);
++  const syncError = useGameStore((s) => s.syncError);
++  return economyView({
++    configured, loading, userId: user?.id ?? null, serverOwner, cacheOwner, syncError,
++    sessionStored: configured && !loading && !user ? storedSessionPresent() : false,
++  });
++}
+--- a06dbf83/src/store/useGameStore.ts	2026-10-02 18:31:53.000000000 +0200
++++ src/store/useGameStore.ts	2026-10-02 19:19:06.101755100 +0200
+@@ -14,7 +14,7 @@
+ import { salvageValue } from "@/domain/economy/salvage";
+ import { xpForCardRank } from "@/domain/progression/levels";
+ import { seedFrom } from "@/sim/rng";
+-import { LocalEconomyBlockedError, localEconomyBlockReason } from "@/lib/game/localEconomy";
++import { LEGACY_CACHE_OWNER, LocalEconomyBlockedError, localEconomyBlockReason, storedSessionPresent } from "@/lib/game/localEconomy";
+ import { ACHIEVEMENTS, type AchievementContext } from "@/domain/progression/achievements";
+ 
+ /** Resultado de revelar una carta al abrir un sobre. */
+@@ -43,6 +43,16 @@
+ 
+ interface GameState {
+   hydrated: boolean;
++  /**
++   * F81.2 · de QUIÉN es el estado de servidor volcado en el store EN ESTA CARGA (id de usuario; null = ninguno todavía).
++   * No se persiste: una recarga empieza sin dueño y nada del store se pinta hasta que el servidor responda (ver
++   * `lib/game/localEconomy.economyView`).
++   */
++  serverOwner: string | null;
++  /** F81.2 · de quién es la caché persistida (null = demo local). Un visitante confirmado nunca ve la de otra cuenta. */
++  cacheOwner: string | null;
++  /** F81.2 · fallo de la última lectura del estado de servidor (null = sin fallo). */
++  syncError: string | null;
+   credits: number;
+   xp: number;
+   ownedCards: OwnedCard[];
+@@ -120,7 +130,7 @@
+     origins: Record<string, CardOrigin>; lockedUids: string[];
+     unopenedPacks: Record<string, number>; pityState: PityState;
+     packsOpened: number; mintCounts: Record<string, number>;
+-  }) => void;
++  }, ownerId?: string | null) => void;
+   /** Marca el resultado de una apertura de servidor para la pantalla de revelado. */
+   setLastOpened: (results: OpenedResult[]) => void;
+ 
+@@ -206,13 +216,31 @@
+     craftedCount: num(p.craftedCount, 0),
+     claimedAchievements: arr<string>(p.claimedAchievements),
+     record: p.record && typeof p.record === "object" ? { ...ZERO_RECORD, ...(p.record as Partial<MatchRecord>) } : { ...ZERO_RECORD },
++    // F81.2 · el dueño de la caché sobrevive a la migración (si no lo había, `mergePersisted` decide).
++    ...(typeof p.cacheOwner === "string" ? { cacheOwner: p.cacheOwner } : {}),
+   };
+ }
+ 
++/**
++ * F81.2 · CACHÉ SIN DUEÑO + SESIÓN GUARDADA. Una caché escrita antes de F81.2 no dice de quién es; si además queda una
++ * sesión guardada, puede ser la de esa cuenta (sesión caducada, refresco a medias). Se marca `LEGACY_CACHE_OWNER`: si la
++ * sesión resulta válida el servidor la sustituye con su dueño; si se confirma visitante, se limpia a la demo de inicio
++ * (nunca se enseña como «demo» el saldo o las cartas de una cuenta). Sin sesión guardada es la demo de un visitante.
++ */
++function mergePersisted(persisted: unknown, current: GameState): GameState {
++  if (!persisted || typeof persisted !== "object") return current;
++  const p = persisted as Partial<GameState>;
++  const owner = typeof p.cacheOwner === "string" ? p.cacheOwner : storedSessionPresent() ? LEGACY_CACHE_OWNER : null;
++  return { ...current, ...p, cacheOwner: owner };
++}
++
+ export const useGameStore = create<GameState>()(
+   persist(
+     (set, get) => ({
+       hydrated: false,
++      serverOwner: null,
++      cacheOwner: null,
++      syncError: null,
+       credits: STARTER_CREDITS,
+       xp: 0,
+       ownedCards: [],
+@@ -390,8 +418,10 @@
+ 
+       clearLastOpened: () => set({ lastOpened: null }),
+ 
+-      applyServerState: (s) =>
++      applyServerState: (s, ownerId) =>
+         set({
++          // F81.2 · sin dueño (llamadas antiguas/tests) el estado se vuelca igual, pero no cuenta como «de esta cuenta».
++          ...(ownerId ? { serverOwner: ownerId, cacheOwner: ownerId, syncError: null } : {}),
+           credits: s.credits,
+           xp: s.xp,
+           ownedCards: s.ownedCards,
+@@ -447,6 +477,8 @@
+ 
+       resetGame: () =>
+         set({
++          serverOwner: null,
++          cacheOwner: null,
+           credits: STARTER_CREDITS,
+           xp: 0,
+           ownedCards: [],
+@@ -469,6 +501,7 @@
+       version: GAME_SCHEMA_VERSION,
+       storage: createJSONStorage(() => localStorage),
+       migrate: (persisted) => migrateGameState(persisted),
++      merge: (persisted, current) => mergePersisted(persisted, current),
+       partialize: (s) => ({
+         credits: s.credits,
+         xp: s.xp,
+@@ -484,6 +517,7 @@
+         craftedCount: s.craftedCount,
+         claimedAchievements: s.claimedAchievements,
+         record: s.record,
++        cacheOwner: s.cacheOwner,
+       }),
+     },
+   ),
+--- a06dbf83/src/lib/game/client.ts	2026-10-02 18:32:25.000000000 +0200
++++ src/lib/game/client.ts	2026-10-02 19:07:43.627554000 +0200
+@@ -20,6 +20,8 @@
+ import { positionAmong, type AnswerMap } from "@/domain/pickems/progress";
+ 
+ export interface ServerGameState {
++  /** F81.2 · id del usuario dueño de este estado (lo añade `fetchGameState`, no el servidor). */
++  ownerId?: string;
+   credits: number;
+   xp: number;
+   ownedCards: OwnedCard[];
+@@ -91,9 +93,20 @@
+     cache: "no-store",
+   });
+   if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? "No se pudo cargar tu progreso");
+-  return (await res.json()) as ServerGameState;
++  const state = (await res.json()) as ServerGameState;
++  /*
++   * F81.2 · el estado se etiqueta con su DUEÑO. Si la sesión cambió mientras viajaba la lectura (salir/entrar con otra
++   * cuenta, otra pestaña), la respuesta es de otra persona: se descarta en vez de pintarla bajo la cuenta nueva.
++   */
++  const owner = data.session.user.id;
++  const now = (await sb.auth.getSession()).data.session?.user?.id ?? null;
++  if (now !== owner) throw new Error(STALE_GAME_STATE);
++  return { ...state, ownerId: owner };
+ }
+ 
++/** F81.2 · la lectura del estado terminó con OTRA sesión activa (se descarta, nunca se pinta). */
++export const STALE_GAME_STATE = "La sesión cambió durante la carga";
++
+ /* ────────────────────────────────── Sobres ────────────────────────────────── */
+ 
+ /**
+--- a06dbf83/src/lib/game/sync.ts	2026-10-02 18:32:25.000000000 +0200
++++ src/lib/game/sync.ts	2026-10-02 19:07:43.627554000 +0200
+@@ -51,10 +51,30 @@
+     pityState: state.pity,
+     packsOpened: state.packsOpened,
+     mintCounts: state.mintCounts,
+-  });
++  }, state.ownerId ?? null);
+   return true;
+ }
+ 
++/**
++ * F81.2 · la carga de la cuenta al iniciar sesión/recargar (CloudSync) y su reintento: deja en el store el estado del
++ * servidor CON dueño, o el motivo del fallo (`syncError`) para que la pantalla ofrezca reintentar en vez de cargar para
++ * siempre o caer a la demo. `isCurrent` = la petición sigue siendo la vigente (no la de una sesión anterior).
++ */
++export async function hydrateAccount(isCurrent: () => boolean = () => true): Promise<boolean> {
++  if (isCurrent()) useGameStore.setState({ syncError: null });
++  try {
++    const ok = await syncFromServer();
++    if (!ok && isCurrent()) useGameStore.setState({ syncError: "Sin sesión" });
++    return ok;
++  } catch (e) {
++    if (isCurrent()) {
++      console.error("[sync] no se pudo cargar el estado del servidor:", e);
++      useGameStore.setState({ syncError: e instanceof Error ? e.message : String(e) });
++    }
++    return false;
++  }
++}
++
+ /** F81.1 · resultado del servidor que no se puede presentar sin inventar o esconder nada. */
+ export const INVALID_OPEN_RESULT = "Resultado de apertura no válido";
+ 
+--- a06dbf83/src/components/sync/CloudSync.tsx	2026-09-27 13:22:03.000000000 +0200
++++ src/components/sync/CloudSync.tsx	2026-10-02 19:07:53.467536500 +0200
+@@ -2,7 +2,8 @@
+ 
+ import { useEffect } from "react";
+ import { useAuth } from "@/lib/supabase/auth";
+-import { syncFromServer } from "@/lib/game/sync";
++import { hydrateAccount, syncFromServer } from "@/lib/game/sync";
++import { storedSessionPresent } from "@/lib/game/localEconomy";
+ import { useGameStore } from "@/store/useGameStore";
+ 
+ /**
+@@ -20,20 +21,15 @@
+  * Sin sesión no hace nada: el juego sigue en modo local de un solo jugador.
+  */
+ export function CloudSync() {
+-  const { user, configured } = useAuth();
++  const { user, loading, configured } = useAuth();
+ 
+   useEffect(() => {
+     if (!configured || !user) return;
+     let cancelled = false;
+ 
+     (async () => {
+-      try {
+-        await syncFromServer();
+-      } catch (e) {
+-        // No romper la app por un fallo de red: la UI mostrará su propio estado
+-        // de error donde corresponda y el usuario puede reintentar.
+-        console.error("[sync] no se pudo cargar el estado del servidor:", e);
+-      }
++      // F81.2 · un fallo NO rompe la app ni cae a la demo: queda en `syncError` y las pantallas ofrecen reintentar.
++      await hydrateAccount(() => !cancelled);
+       if (!cancelled) useGameStore.setState({ hydrated: true });
+     })();
+ 
+@@ -41,6 +37,20 @@
+   }, [user, configured]);
+ 
+   /*
++   * F81.2 · VISITANTE CONFIRMADO (sesión resuelta, sin usuario y sin rastro de sesión) con la caché de una cuenta
++   * (salió, o su sesión caducó): esa caché NO es su demo. Se vuelve al inventario de demostración antes de enseñar nada
++   * (`economyView` responde `unknown` mientras `cacheOwner` siga puesto).
++   */
++  useEffect(() => {
++    if (!configured || loading || user || storedSessionPresent()) return;
++    const s = useGameStore.getState();
++    if (s.cacheOwner || s.serverOwner) {
++      s.resetGame();
++      useGameStore.setState({ syncError: null });
++    }
++  }, [configured, loading, user]);
++
++  /*
+    * F68 · VOLVER A LA PESTAÑA. Con dos pestañas abiertas, lo que se compra o se reclama en una no llegaba a la otra
+    * hasta recargar (medido en la beta: la 2.ª seguía con 5.310 créditos cuando el servidor ya tenía 2.810, también tras
+    * navegar dentro de la app). Al recuperar el foco o volver a ser visible se relee el estado del servidor —una sola
+--- a06dbf83/src/components/layout/HydrationGate.tsx	2026-09-17 11:21:15.000000000 +0200
++++ src/components/layout/HydrationGate.tsx	2026-10-02 19:08:10.314028600 +0200
+@@ -1,7 +1,12 @@
+ "use client";
+ 
++import { usePathname } from "next/navigation";
+ import { useGameStore } from "@/store/useGameStore";
+ import { GameLoader } from "@/components/ui/game/GameLoader";
++import { GamePanelState } from "@/components/ui/game/GameStates";
++import { useEconomyView } from "@/lib/game/serverEconomy";
++import { ECONOMY_UNAVAILABLE } from "@/lib/game/localEconomy";
++import { hydrateAccount } from "@/lib/game/sync";
+ 
+ /**
+  * Evita el desajuste de hidratación SSR/cliente: no renderiza los hijos
+@@ -9,11 +14,35 @@
+  * ha rehidratado en el cliente.
+  *
+  * Fase 44 · mientras tanto, el cargador de juego (marca NEXUS), no un spinner.
++ *
++ * F81.2 · y hasta saber DE QUIÉN es el inventario: con sesión (o sesión resolviéndose) los hijos no se pintan con la
++ * caché ni con la demo, solo con el estado del servidor de esta cuenta (`useEconomyView`); el visitante confirmado sigue
++ * en su modo demo. Si la cuenta no se puede recuperar: reintento, nunca carga infinita ni cifras inventadas. El panel
++ * de administración no lleva CloudSync (otro armazón) ni inventario: solo espera a la rehidratación.
+  */
+ export function HydrationGate({ children }: { children: React.ReactNode }) {
+   const hydrated = useGameStore((s) => s.hydrated);
++  const view = useEconomyView();
++  const pathname = usePathname() ?? "";
++  const admin = pathname === "/admin" || pathname.startsWith("/admin/");
+ 
+   if (!hydrated) return <GameLoader label="Cargando NEXUS" />;
++  if (admin || view === "server" || view === "guest") return <>{children}</>;
++  if (view === "unknown") return <GameLoader label="Cargando tu cuenta" />;
+ 
+-  return <>{children}</>;
++  return (
++    <GamePanelState
++      role="alert"
++      testId="economy-unavailable"
++      glyph="alert"
++      tone="key"
++      eyebrow="Tu cuenta"
++      title="No se ha podido cargar"
++      hint={ECONOMY_UNAVAILABLE}
++      primary={view === "error"
++        ? { label: "Reintentar", onClick: () => void hydrateAccount() }
++        : { label: "Reintentar", onClick: () => window.location.reload() }}
++      secondary={[{ label: "Volver al lobby", href: "/" }]}
++    />
++  );
+ }
+--- a06dbf83/src/components/layout/GameShell.tsx	2026-09-26 18:42:05.000000000 +0200
++++ src/components/layout/GameShell.tsx	2026-10-02 19:08:18.334119900 +0200
+@@ -39,6 +39,8 @@
+ import { PageTransition } from "./PageTransition";
+ import { CloudSync } from "@/components/sync/CloudSync";
+ import { useAuth } from "@/lib/supabase/auth";
++import { useEconomyView } from "@/lib/game/serverEconomy";
++import { economyVisible } from "@/lib/game/localEconomy";
+ import { useSocialBadge } from "@/lib/social/client";
+ import { useLiveBadge } from "@/lib/liveEvents/client";
+ import { UpdateWatcher } from "@/components/launcher/UpdateWatcher";
+@@ -447,7 +449,9 @@
+  * moneda. Ahora hay UNA sola moneda, y vive en el servidor.
+  */
+ function Wallet() {
+-  const hydrated = useGameStore((s) => s.hydrated);
++  // F81.2 · «rehidratado» no basta: la caché o la demo NO son de esta cuenta hasta que llegue su estado del servidor.
++  const view = useEconomyView();
++  const hydrated = useGameStore((s) => s.hydrated) && economyVisible(view);
+   const credits = useGameStore((s) => s.credits);
+   const xp = useGameStore((s) => s.xp);
+   const level = levelFromXp(xp);
+--- a06dbf83/src/app/page.tsx	2026-09-26 18:37:02.000000000 +0200
++++ src/app/page.tsx	2026-10-02 19:08:27.206508700 +0200
+@@ -35,6 +35,8 @@
+ import { useAuth } from "@/lib/supabase/auth";
+ import { isSupabaseConfigured } from "@/lib/supabase/client";
+ import { useGameStore } from "@/store/useGameStore";
++import { useEconomyView } from "@/lib/game/serverEconomy";
++import { economyVisible } from "@/lib/game/localEconomy";
+ import { CARDS, getCard, getPlayer, TOTAL_CARDS } from "@/data/catalog";
+ import { getVariant } from "@/domain/cards/variants";
+ import { levelFromXp } from "@/domain/progression/levels";
+@@ -60,9 +62,18 @@
+   const configured = isSupabaseConfigured();
+   const { user, loading: authLoading } = useAuth();
+   const loop = useDailyLoop({ enabled: configured && !authLoading, userKey: user?.id ?? null });
+-  const ownedCards = useGameStore((s) => s.ownedCards);
+-  const credits = useGameStore((s) => s.credits);
+-  const xp = useGameStore((s) => s.xp);
++  /*
++   * F81.2 · el store solo cuenta cuando es DE ESTA CUENTA (o la demo de un visitante confirmado): mientras tanto, ni
++   * saldo, ni nivel, ni «la mejor carta que posees» sacados de la caché o de la demo.
++   */
++  const economy = useEconomyView();
++  const visible = economyVisible(economy);
++  const storeCards = useGameStore((s) => s.ownedCards);
++  const ownedCards = useMemo(() => (visible ? storeCards : []), [visible, storeCards]);
++  const storeCredits = useGameStore((s) => s.credits);
++  const storeXp = useGameStore((s) => s.xp);
++  const credits = visible ? storeCredits : null;
++  const xp = visible ? storeXp : null;
+ 
+   // Repinta la cuenta atrás cada 30 s desde el reloj del servidor (no decide nada).
+   const [, setTick] = useState(0);
+@@ -93,7 +104,7 @@
+     if (user && loop.snap?.onboarding) publishOnboarding(loop.snap.onboarding, user.id);
+   }, [user, loop.snap?.onboarding]);
+ 
+-  if (configured && (authLoading || (loop.status === "loading" && !loop.snap))) return <DailyLobbySkeleton />;
++  if (configured && (authLoading || economy === "unknown" || (loop.status === "loading" && !loop.snap))) return <DailyLobbySkeleton />;
+ 
+   const snap = local ?? loop.snap ?? buildDailyLoop(unknownFacts(!!user));
+   const network: LobbyNetwork = !configured ? "online" : loop.status === "offline" ? "offline" : loop.status === "error" ? "error" : "online";
+--- a06dbf83/src/app/cuenta/page.tsx	2026-09-28 12:49:36.000000000 +0200
++++ src/app/cuenta/page.tsx	2026-10-02 19:08:39.390899900 +0200
+@@ -31,6 +31,7 @@
+ import { AuthForms } from "@/components/auth/AuthForms";
+ import { getSupabase, isSupabaseConfigured } from "@/lib/supabase/client";
+ import { useGameStore } from "@/store/useGameStore";
++import { useEconomyView } from "@/lib/game/serverEconomy";
+ import { Toast } from "@/components/ui/Toast";
+ import { AudioSettingsPanel } from "@/components/ui/game/AudioSettingsPanel";
+ import { useToast } from "@/lib/useToast";
+@@ -67,12 +68,17 @@
+ 
+ interface PickemSummary { events: number; points: number; correct: number; total: number }
+ 
++const NO_CARDS: ReturnType<typeof useGameStore.getState>["ownedCards"] = [];
++
+ export default function CuentaPage() {
+   const { configured, loading, user, profile, signOut, refreshProfile, recovering } = useAuth();
+   const { toast, notify } = useToast();
+   const [savingAvatar, setSavingAvatar] = useState<string | null>(null);
+ 
+-  const ownedCards = useGameStore((s) => s.ownedCards);
++  // F81.2 · la colección del store solo es de esta cuenta cuando su estado del servidor ya está volcado (ni caché, ni demo).
++  const collectionReady = useEconomyView() === "server";
++  const storeCards = useGameStore((s) => s.ownedCards);
++  const ownedCards = collectionReady ? storeCards : NO_CARDS;
+ 
+   const [position, setPosition] = useState<number | null>(null);
+   const [regionPosition, setRegionPosition] = useState<number | null>(null);
+@@ -413,8 +419,8 @@
+           />
+           <Readout label="Recompensas" value={statsLoading ? "—" : String(rewards)} href="/recompensas" />
+           <Readout
+-            label="Colección" value={String(distinct)} suffix={`/${TOTAL_CARDS}`}
+-            foot={`${ownedCards.length} cartas`} accent="#7b5cff" href="/coleccion"
++            label="Colección" value={collectionReady ? String(distinct) : "—"} suffix={`/${TOTAL_CARDS}`}
++            foot={collectionReady ? `${ownedCards.length} cartas` : undefined} accent="#7b5cff" href="/coleccion"
+           />
+           <Readout label="Sobres" value={statsLoading ? "—" : String(packs)} href={!statsLoading && packs > 0 ? "/inventario" : "/tienda"} />
+           <Readout label="DRL Credits" value={formatCredits(profile.credits)} accent="#ffd35c" />
+--- a06dbf83/src/app/carrera/page.tsx	2026-09-10 23:34:13.000000000 +0200
++++ src/app/carrera/page.tsx	2026-10-02 19:09:01.561388800 +0200
+@@ -10,6 +10,7 @@
+ import { useEffect, useMemo, useState } from "react";
+ import Link from "next/link";
+ import { useGameStore } from "@/store/useGameStore";
++import { HydrationGate } from "@/components/layout/HydrationGate";
+ import { useTeamStore } from "@/store/useTeamStore";
+ import { useCareerStore } from "@/store/useCareerStore";
+ import { useWorldStore } from "@/store/useWorldStore";
+@@ -24,7 +25,12 @@
+ import { CoachTrajectory } from "@/components/career/CoachTrajectory";
+ import { primeAudio, playCue } from "@/lib/sound";
+ 
++/** F81.2 · plantilla (colección) y nivel (XP) salen del store: solo cuando son de esta cuenta o la demo de un visitante. */
+ export default function CarreraPage() {
++  return <HydrationGate><Carrera /></HydrationGate>;
++}
++
++function Carrera() {
+   const ownedCards = useGameStore((s) => s.ownedCards);
+   const teams = useTeamStore((s) => s.teams);
+   const activeTeamId = useTeamStore((s) => s.activeTeamId);
+--- a06dbf83/src/app/entrenador/partido/page.tsx	2026-09-27 21:38:20.000000000 +0200
++++ src/app/entrenador/partido/page.tsx	2026-10-02 19:09:01.561388800 +0200
+@@ -54,6 +54,7 @@
+ import { prepBroadcastContext } from "@/preparation";
+ import { loadoutBroadcastContext } from "@/buy";
+ import { useGameStore } from "@/store/useGameStore";
++import { HydrationGate } from "@/components/layout/HydrationGate";
+ import { useTeamStore, resolveCardRef } from "@/store/useTeamStore";
+ import { validateTeam } from "@/domain/teams/types";
+ import { buildHomeRoster, buildRivalRoster, buildDefaultHomeRoster, type RivalDifficulty } from "@/lib/match/roster";
+@@ -98,7 +99,8 @@
+ export default function EntrenadorPage() {
+   return (
+     <Suspense fallback={null}>
+-      <DirigirPartido />
++      {/* F81.2 · la plantilla sale de la colección del store: solo cuando es la de esta cuenta (o la demo de un visitante). */}
++      <HydrationGate><DirigirPartido /></HydrationGate>
+     </Suspense>
+   );
+ }
+--- a06dbf83/src/app/jugador/[id]/page.tsx	2026-09-26 18:43:01.000000000 +0200
++++ src/app/jugador/[id]/page.tsx	2026-10-02 19:09:05.064892300 +0200
+@@ -9,11 +9,12 @@
+  * sociales son las de la Fase 29 y se apagan solas si el social no está operativo (0048 sin aplicar).
+  * Editar la vitrina, los logros y el avatar valida en servidor; `?editar=1` abre el editor.
+  */
+-import { use, useCallback, useEffect, useState } from "react";
++import { use, useCallback, useEffect, useMemo, useState } from "react";
+ import { useRouter } from "next/navigation";
+ import { useAuth } from "@/lib/supabase/auth";
+ import { isSupabaseConfigured } from "@/lib/supabase/client";
+ import { useGameStore } from "@/store/useGameStore";
++import { useEconomyView } from "@/lib/game/serverEconomy";
+ import { useToast } from "@/lib/useToast";
+ import { Toast } from "@/components/ui/Toast";
+ import { Loading, ErrorState, EmptyState, NeedsAccount } from "@/components/ui/States";
+@@ -31,7 +32,10 @@
+   const router = useRouter();
+   const { user, loading, refreshProfile } = useAuth();
+   const online = isSupabaseConfigured();
+-  const owned = useGameStore((s) => s.ownedCards);
++  // F81.2 · el editor de vitrina elige entre las cartas de ESTA cuenta: nunca las de la caché o la demo mientras carga.
++  const ownedReady = useEconomyView() === "server";
++  const storeOwned = useGameStore((s) => s.ownedCards);
++  const owned = useMemo(() => (ownedReady ? storeOwned : []), [ownedReady, storeOwned]);
+   const { toast, notify } = useToast(2600);
+   const [snap, setSnap] = useState<PlayerIdentitySnapshot | null>(null);
+   const [error, setError] = useState<{ message: string; status: number } | null>(null);

@@ -1,0 +1,83 @@
+{
+  "source": "leído del código (no de documentación)",
+  "deck": {
+    "size": 10,
+    "composition": {
+      "Duelista": 2,
+      "Controlador": 2,
+      "Iniciador": 2,
+      "Centinela": 2,
+      "Flex": 2
+    },
+    "roles": [
+      "Duelista",
+      "Controlador",
+      "Iniciador",
+      "Centinela",
+      "Flex"
+    ],
+    "allowSamePlayerTwice": false,
+    "file": "src/domain/cardgame/deck.ts · validateDuelDeck"
+  },
+  "match": {
+    "turns": 10,
+    "orchestrator": "duel-turns-2",
+    "attackerAlternates": true,
+    "firstAttacker": "crypto.randomInt en el servidor (PvE duels.ts launchPve · PvP duelsPvp.ts)",
+    "turnOrder": [
+      "atacante elige carta",
+      "atacante elige eje (stronghold|gamesense|entryfrag)",
+      "defensor VE carta, eje y valor del atacante",
+      "defensor elige carta; su eje lo impone la tabla",
+      "se confirma"
+    ],
+    "matchup": {
+      "stronghold": "entryfrag",
+      "gamesense": "gamesense",
+      "entryfrag": "stronghold"
+    },
+    "encounter": "gana el valor mayor; igualdad = nadie puntúa (NO_POINT)",
+    "cardsSpentOncePerMatch": true
+  },
+  "result": {
+    "current": {
+      "version": "duel-combat-2",
+      "encounterTie": "NO_POINT",
+      "finalTiebreak": "STAT_MARGIN",
+      "terminal": "DRAW"
+    },
+    "known": [
+      "duel-combat-1",
+      "duel-combat-2"
+    ],
+    "ladder": [
+      "marcador de enfrentamientos",
+      "suma de OVR IMPRESO de las 10 cartas (+1 punto al marcador)",
+      "margen de estadística declarada (sin punto)",
+      "DRAW explícito"
+    ],
+    "file": "src/domain/cardgame/combat/resolver.ts · resolveCombat"
+  },
+  "cardPower": {
+    "combat": "playerCombatBase(player).combat + statBoost de la edición (hoy 0 en todas las ediciones)",
+    "printedOvr": "del manifiesto; distinto por edición",
+    "file": "src/data/catalog.ts · cardFromManifest"
+  },
+  "bots": {
+    "profiles": {
+      "EASY": {
+        "heuristicRate": 0,
+        "perfectInformation": false
+      },
+      "NORMAL": {
+        "heuristicRate": 0.5,
+        "perfectInformation": false
+      },
+      "HARD": {
+        "heuristicRate": 0.85,
+        "perfectInformation": false
+      }
+    },
+    "file": "src/domain/cardgame/opponent/bots.ts"
+  }
+}

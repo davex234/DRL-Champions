@@ -1,0 +1,29 @@
+== asientos de hoy (QA A) ==
+    t     | delta |     reason     |                     ref                      
+----------+-------+----------------+----------------------------------------------
+ 11:00:14 |   250 | mission_reward | mission:nexus-s1:d-duelo-1:1790294400000:9
+ 11:00:14 |  1800 | mission_reward | mission:nexus-s1:w-victorias:1789948800000:0
+ 11:00:15 |  1000 | mission_reward | mission:nexus-s1:s-mazo:1789721869003:0
+ 11:00:15 |  1500 | mission_reward | mission:nexus-s1:w-cartas-5:1789948800000:0
+ 11:00:25 |   260 | pass_reward    | pass:nexus-s1:free:1
+ 11:06:13 |    40 | duel_loss      | duel:43a206a0-4ae8-4538-9e9e-e1d2a2ed88fa
+ 11:06:22 |   270 | pass_reward    | pass:nexus-s1:free:2
+(7 rows)
+
+== refs duplicadas (debe ser 0 filas) ==
+ ref | count 
+-----+-------
+(0 rows)
+
+== pase ==
+ pass_xp | claimed_free | missions_claimed 
+---------+--------------+------------------
+    2900 | [1, 2]       |                4
+(1 row)
+
+== perfil ==
+  xp  | credits 
+------+---------
+ 2064 |    8750
+(1 row)
+

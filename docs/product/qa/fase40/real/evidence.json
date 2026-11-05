@@ -1,0 +1,33 @@
+{
+  "match": {
+    "mode": "PVE",
+    "diff": "EASY",
+    "rules": "duel-combat-2",
+    "orch": "duel-turns-2",
+    "turns": "10",
+    "status": "COMPLETED",
+    "outcome": "win",
+    "score": "7-3",
+    "uiTurns": 10
+  },
+  "final": {
+    "credits": "6120",
+    "xp": "1090",
+    "points": "8",
+    "packs": "",
+    "packs_opened": "7",
+    "cards": "35",
+    "cards_origin": "pack",
+    "decks": "1",
+    "active_deck": "598cee7e-c6e5-4d39-928a-1cda5a44aa0b",
+    "matches": "1",
+    "rating_rows": "1",
+    "pass_rows": "1",
+    "pass_xp": "0",
+    "achievements": "0",
+    "campaign": "0:0",
+    "draft_runs": "0",
+    "ledger": "starter_grant:6000,buy_pack:inicial:0,buy_pack:inicial:0,buy_pack:inicial:0,duel_win:120",
+    "economy_ops": "open_pack,open_pack,open_pack,open_pack,buy_pack,open_pack,buy_pack,open_pack,buy_pack,open_pack"
+  }
+}

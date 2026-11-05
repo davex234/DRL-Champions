@@ -1,0 +1,121 @@
+{
+ "kind": "f70-offsite-recovery-config",
+ "decision": "B (autorizada por David en el prompt F70)",
+ "harness": "scripts/ops/offsite-harness.sh (VPS, /tmp aislado, stack FALSO con secreto sintético)",
+ "result": "60/60 PASS",
+ "done": "HARNESS_DONE fails=0 secs=357",
+ "newCases": [
+  {
+   "id": "default-no-recovery",
+   "result": "PASS",
+   "detail": "sin DRL_OFFSITE_RECOVERY_DIR el manifiesto dice false"
+  },
+  {
+   "id": "recovery-check-config",
+   "result": "PASS",
+   "detail": "recoveryConfig=on"
+  },
+  {
+   "id": "recovery-push",
+   "result": "PASS",
+   "detail": "exit=0"
+  },
+  {
+   "id": "recovery-no-plaintext",
+   "result": "PASS",
+   "detail": "el secreto falso no aparece en el destino, log, stdout, estado ni unidad local; trabajo vacío"
+  },
+  {
+   "id": "recovery-fetch-restore",
+   "result": "PASS",
+   "detail": "exit=0 idénticos=1 permisosMal=0"
+  },
+  {
+   "id": "recovery-unit-still-restorable",
+   "result": "PASS",
+   "detail": "exit=0 DRILL_OK drlcards-restore-drill-20260928T155453Z en 25s"
+  },
+  {
+   "id": "recovery-refuses-symlink",
+   "result": "PASS",
+   "detail": "exit=2"
+  },
+  {
+   "id": "recovery-refuses-traversal",
+   "result": "PASS",
+   "detail": "exit=2"
+  }
+ ],
+ "allCases": [
+  "full-flow PASS",
+  "remote-plaintext-free PASS",
+  "local-markers-private PASS",
+  "idempotency PASS",
+  "config-missing PASS",
+  "config-disabled PASS",
+  "config-invalid-world-readable PASS",
+  "config-invalid-unknown-key PASS",
+  "config-invalid-metachar PASS",
+  "config-invalid-traversal PASS",
+  "config-invalid-mutable-tag PASS",
+  "config-invalid-http-endpoint PASS",
+  "config-invalid-ftp-plain PASS",
+  "config-invalid-sftp-no-known-hosts PASS",
+  "config-invalid-symlink-config PASS",
+  "config-invalid-undefined-remote PASS",
+  "config-invalid-bad-cert PASS",
+  "check-config-ok PASS",
+  "refused-incomplete PASS",
+  "refused-tampered PASS",
+  "refused-symlink-inside PASS",
+  "refused-foreign-file PASS",
+  "refused-outside-root PASS",
+  "refused-traversal-path PASS",
+  "refused-bad-name PASS",
+  "refused-symlinked-unit PASS",
+  "partial-transfer PASS",
+  "local-intact-after-failure PASS",
+  "verify-partial-fails PASS",
+  "abort-before-marker PASS",
+  "verify-no-marker-fails PASS",
+  "status-records-failure PASS",
+  "retry-success PASS",
+  "corruption-detected PASS",
+  "corruption-healed-by-push PASS",
+  "marker-tamper-detected PASS",
+  "network-timeout PASS",
+  "destination-refused PASS",
+  "wrong-credentials PASS",
+  "remote-disk-full PASS",
+  "no-credential-leak PASS",
+  "log-has-no-destination PASS",
+  "concurrency-lock PASS",
+  "retention-empty-safe PASS",
+  "retention-policy PASS",
+  "retention-provider-default PASS",
+  "local-retention PASS",
+  "local-offsite-not-configured PASS",
+  "fetch-decrypt PASS",
+  "fetch-refuses-existing-dest PASS",
+  "restore-drill-from-offsite PASS",
+  "storage-nonempty-chain PASS",
+  "default-no-recovery PASS",
+  "recovery-check-config PASS",
+  "recovery-push PASS",
+  "recovery-no-plaintext PASS",
+  "recovery-fetch-restore PASS",
+  "recovery-unit-still-restorable PASS",
+  "recovery-refuses-symlink PASS",
+  "recovery-refuses-traversal PASS"
+ ],
+ "realStackFiles": [
+  "compose.yml",
+  "kong/kong.yml",
+  "kong/localhost.crt",
+  "kong/localhost.key",
+  "snippets/ (vacío)"
+ ],
+ "realStackBytes": "~84 KB",
+ "activation": "pendiente del destino off-site; DRL_OFFSITE_RECOVERY_DIR=/opt/nexus/projects/supabase-drlcards, DRL_OFFSITE_RECOVERY_PATHS=\"compose.yml kong snippets\"",
+ "secretsInEvidence": "ninguno: solo nombres de ficheros; el contenido real del stack NO se leyó ni se copió en esta sesión"
+}

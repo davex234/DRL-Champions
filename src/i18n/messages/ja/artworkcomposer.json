@@ -1,0 +1,6 @@
+{
+  "capa {i} es {kind}, esperada {v}": "レイヤー{i}は{kind}ですが、想定は{v}です",
+  "elemento sin referencia: {id}": "参照のない要素:{id}",
+  "la ref de {id} no es una referencia de asset": "{id}のrefはアセット参照ではありません",
+  "layout fuera de rango en {id}": "{id}のレイアウトが範囲外です"
+}

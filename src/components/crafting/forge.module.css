@@ -1,0 +1,253 @@
+/*
+ * F74 · NEXUS FORGE — lenguaje visual del crafteo (solo presentación).
+ * Todo es CSS: gradientes, máscaras, SVG de interfaz y transform/opacity. Ningún asset nuevo; el arte real (sobres y
+ * cartas) nunca se tapa ni se tiñe. Con `prefers-reduced-motion: reduce` no hay bucles ni desplazamientos.
+ */
+
+/* ── Escenario: luz ambiental, retícula y partículas ── */
+.stage {
+  position: relative;
+  isolation: isolate;
+}
+.stage::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: -40px calc(50% - 50vw) -80px;
+  background:
+    radial-gradient(60% 55% at 50% 0%, rgba(255, 46, 99, 0.16), transparent 70%),
+    radial-gradient(45% 40% at 90% 30%, rgba(25, 227, 255, 0.10), transparent 70%),
+    radial-gradient(40% 35% at 5% 70%, rgba(255, 196, 74, 0.07), transparent 70%),
+    linear-gradient(180deg, #07080e 0%, #0a0b14 55%, #07080e 100%);
+  pointer-events: none;
+}
+.stage::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -40px calc(50% - 50vw) -80px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(70% 60% at 50% 20%, #000 20%, transparent 80%);
+  pointer-events: none;
+}
+.particles {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(50% - 50vw);
+  overflow: hidden;
+  pointer-events: none;
+}
+.particles i {
+  position: absolute;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 120, 150, 0.7);
+  box-shadow: 0 0 8px rgba(255, 46, 99, 0.9);
+  animation: rise 11s linear infinite;
+  opacity: 0;
+}
+.particles i:nth-child(3n) { background: rgba(120, 240, 255, 0.7); box-shadow: 0 0 8px rgba(25, 227, 255, 0.9); animation-duration: 14s; }
+.particles i:nth-child(4n) { width: 2px; height: 2px; animation-duration: 9s; }
+@keyframes rise {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* ── Paneles HUD: superficie metálica, chaflán y esquinas ── */
+.panel {
+  position: relative;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012) 45%, rgba(0, 0, 0, 0.25)),
+    rgba(10, 11, 19, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.corners::before,
+.corners::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: rgba(255, 46, 99, 0.7);
+  pointer-events: none;
+}
+.corners::before { top: 8px; left: 8px; border-top: 2px solid; border-left: 2px solid; }
+.corners::after { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; }
+.ready { border-color: rgba(255, 46, 99, 0.55); box-shadow: inset 0 0 0 1px rgba(255, 46, 99, 0.25), 0 0 40px -10px rgba(255, 46, 99, 0.55); }
+.done { border-color: rgba(62, 224, 143, 0.5); box-shadow: inset 0 0 0 1px rgba(62, 224, 143, 0.2), 0 0 36px -12px rgba(62, 224, 143, 0.6); }
+.muted { filter: saturate(0.55); }
+
+/* ── Haz de energía (horizontal por defecto, vertical en móvil) ── */
+.beam {
+  position: relative;
+  height: 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+.beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--forge-glow, #ff2e63), transparent);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.beamOn { background: color-mix(in srgb, var(--forge-glow, #ff2e63) 55%, transparent); box-shadow: 0 0 10px var(--forge-glow, #ff2e63), 0 0 26px color-mix(in srgb, var(--forge-glow, #ff2e63) 60%, transparent); }
+.beamOn::after { opacity: 1; animation: flow 1.6s ease-in-out infinite; }
+.beamV { width: 6px; height: 40px; }
+.beamV::after { background: linear-gradient(180deg, transparent, var(--forge-glow, #ff2e63), transparent); transform: translateY(-100%); }
+.beamV.beamOn::after { animation-name: flowV; }
+@keyframes flow { to { transform: translateX(100%); } }
+@keyframes flowV { to { transform: translateY(100%); } }
+
+/* ── Núcleo de la forja ── */
+.core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  color: rgba(255, 255, 255, 0.35);
+}
+.core svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.coreOn { color: var(--forge-glow, #ff2e63); filter: drop-shadow(0 0 14px var(--forge-glow, #ff2e63)); }
+.coreOn .spin { animation: spin 8s linear infinite; transform-origin: 50% 50%; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Halo del arte protagonista (detrás del arte: nunca lo tiñe) ── */
+.halo { position: relative; isolation: isolate; }
+.halo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -18% -22%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--forge-glow, #ff2e63) 55%, transparent), transparent 75%);
+  opacity: 0.55;
+}
+.haloLive::before { animation: breathe 2.6s ease-in-out infinite; opacity: 0.9; }
+@keyframes breathe { 0%, 100% { transform: scale(0.94); opacity: 0.65; } 50% { transform: scale(1.06); opacity: 1; } }
+
+/* ── Llamada a la acción lista ── */
+.ctaReady { animation: pulse 2.2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 46, 99, 0.55); } 50% { box-shadow: 0 0 0 10px rgba(255, 46, 99, 0); } }
+
+/* ── Barra de progreso segmentada ── */
+.bar {
+  position: relative;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+  overflow: hidden;
+}
+.bar > span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: linear-gradient(90deg, #19e3ff, #7ef3ff);
+  box-shadow: 0 0 12px rgba(25, 227, 255, 0.7);
+  transition: width 0.6s ease;
+}
+.barDone > span { background: linear-gradient(90deg, #22c77a, #3ee08f); box-shadow: 0 0 12px rgba(62, 224, 143, 0.7); }
+.bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(7, 8, 14, 0.9) calc(10% - 2px) 10%);
+  pointer-events: none;
+}
+
+/* ── Hueco de carta (slot) ── */
+.slot {
+  position: relative;
+  aspect-ratio: 5 / 7;
+  border: 1.5px dashed rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.025);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.slotFilled { border-style: solid; border-color: var(--forge-glow, #19e3ff); box-shadow: 0 0 12px -2px var(--forge-glow, #19e3ff); }
+
+/* ── Carta misteriosa (salida aleatoria de una clase) ── */
+.mystery {
+  position: relative;
+  aspect-ratio: 5 / 7;
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    radial-gradient(70% 55% at 50% 45%, color-mix(in srgb, var(--forge-glow, #ffce4f) 45%, transparent), transparent 70%),
+    linear-gradient(160deg, #1a1c2b, #07080e 75%);
+  border: 1.5px solid color-mix(in srgb, var(--forge-glow, #ffce4f) 70%, transparent);
+  box-shadow: 0 0 34px -6px var(--forge-glow, #ffce4f), inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+.mystery::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.16) 45%, transparent 60%);
+  transform: translateX(-120%);
+  animation: shine 3.2s ease-in-out infinite;
+}
+@keyframes shine { 60%, 100% { transform: translateX(120%); } }
+
+/* ── Tarjeta seleccionable (duplicado) ── */
+.pick { transition: transform 0.18s ease, filter 0.18s ease; }
+.pick:hover { transform: translateY(-4px); }
+.picked { filter: drop-shadow(0 0 12px rgba(25, 227, 255, 0.85)); }
+
+/* ── Destello del resultado ── */
+.flash {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.95), color-mix(in srgb, var(--forge-glow, #ff2e63) 60%, transparent) 30%, transparent 65%);
+  pointer-events: none;
+}
+
+/* ── Escaparate del hub: el arte se desplaza un poco al pasar ── */
+.branch .branchArt { transition: transform 0.35s ease; }
+.branch:hover .branchArt, .branch:focus-visible .branchArt { transform: translateY(-8px) scale(1.03); }
+.branch:hover, .branch:focus-visible { border-color: rgba(255, 46, 99, 0.6); box-shadow: 0 0 60px -18px rgba(255, 46, 99, 0.7); }
+
+@media (prefers-reduced-motion: reduce) {
+  .particles, .beam::after, .mystery::before { display: none; }
+  .coreOn .spin, .haloLive::before, .ctaReady { animation: none; }
+  .pick, .pick:hover, .branch .branchArt, .branch:hover .branchArt { transform: none; transition: none; }
+  .bar > span { transition: none; }
+}
+
+/* ── Placa con chaflán (pestañas del hub, CTA de rama) ── */
+.plate { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px)); }
+
+/* ── Carril de forja de sobres: móvil = origen → núcleo → destino en una fila, marcador y CTA debajo; escritorio = horizontal ── */
+.lane {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-areas: "in core out" "counts counts counts" "cta cta cta";
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 14px;
+}
+.laneIn { grid-area: in; }
+.laneCore { grid-area: core; }
+.laneOut { grid-area: out; }
+.laneCounts { grid-area: counts; }
+.laneCta { grid-area: cta; }
+@media (min-width: 768px) {
+  .lane {
+    grid-template-areas: "in core out" "counts cta out";
+    column-gap: 24px;
+    row-gap: 10px;
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "Brillo de carta": "Card shine",
+  "Fondo base de carta": "Card base background",
+  "Foto de {playerId}": "Photo of {playerId}",
+  "Logo de {slug}": "{slug} logo",
+  "Logo del torneo {tournamentId}": "Logo of tournament {tournamentId}",
+  "alias \"{alias}\" ya pertenece a {owner}": "alias \"{alias}\" already belongs to {owner}",
+  "categoría sin placeholder oficial: {category}": "category with no official placeholder: {category}",
+  "dimensiones no válidas: {width}x{height}": "invalid dimensions: {width}x{height}",
+  "formato {format} no permitido para {category}": "format {format} not allowed for {category}",
+  "resolución inválida {width}x{height} para {format}": "invalid resolution {width}x{height} for {format}",
+  "ruta inválida: \"{path}\" (esperada /, http(s), data: o css:)": "invalid path: \"{path}\" (expected /, http(s), data: or css:)",
+  "sin lector inyectado para cargar: {path}": "no reader injected to load: {path}"
+}

@@ -1,0 +1,11 @@
+### dry run desde el VPS (manual, cero escrituras) · 09:32Z
+before: 3|101|37|3|23|0|1|47|4|4|2026-09-14 09:12:03.609102+00|56  (events|matches|teams|pickem_events|pickem_questions|pickem_answers|pickem_scores|credit_transactions|notifications|sync_state|max(sync_state.updated_at)|sum(profiles.points))
+after:  3|101|37|3|23|0|1|47|4|4|2026-09-14 09:12:03.609102+00|56
+wall=16.159s user=0.703s sys=0.195s max_rss_kb=158800 exit=0
+  eventos: 2 comprobados · 0 tocaban · 0 ok · 0 con cambios · 0 con error · 0 omitidos
+  duración: 274 ms · siguiente: 2026-09-14T15:12:04.504Z
+  eventos: 2 comprobados · 1 tocaban · 1 ok · 0 con cambios · 0 con error · 0 omitidos
+  duración: 15358 ms · siguiente: 2026-09-14T15:39:21.488Z
+  policy: intervalo 21600 s · siguiente 2026-09-14T15:39:21.488Z · clase future
+  eventos: 2 comprobados · 0 tocaban · 0 ok · 0 con cambios · 0 con error · 0 omitidos
+  duración: 438 ms · siguiente: 2026-09-14T15:39:21.488Z

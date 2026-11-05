@@ -1,0 +1,114 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "build": "drl-0.1.1-1-85f24d2b",
+  "gates": {
+    "tests": "5405/5405 (antes 5402: +3 de readiness 0058; 8 tests de cabeza de migraciones actualizados a 0058 y el de F69 «0058 NO está» reescrito como «0058 aplicada = byte a byte la validada»)",
+    "tscWeb": "PASS",
+    "tscScripts": "PASS",
+    "lint": "0 errores · 27 avisos (los mismos)",
+    "build": "PASS drl-0.1.1-1-85f24d2b",
+    "engineGoldenHash": "PASS (F61 MOTOR 01 · huella dorada)"
+  },
+  "journeys": [
+    {
+      "id": "B-pre70-pve",
+      "pass": 8,
+      "fail": [],
+      "checks": [
+        "PASS PvE 1: resultado visible",
+        "PASS F5 en el resultado no paga otra vez",
+        "PASS PvE 2: resultado visible",
+        "PASS F5 a mitad de partida recupera la partida",
+        "PASS PvE 3: resultado visible",
+        "PASS PvE 4: resultado visible",
+        "PASS se jugaron las tres dificultades",
+        "PASS sin partida PvE viva tras terminar"
+      ],
+      "consoleErrors": 0,
+      "networkBad": []
+    },
+    {
+      "id": "AB-pre70-switch",
+      "pass": 8,
+      "fail": [],
+      "checks": [
+        "PASS logout",
+        "PASS tras logout el HUD no enseña el saldo de A",
+        "PASS HUD cambia al saldo de B",
+        "PASS cuenta: el nombre de A no aparece para B",
+        "PASS localStorage de B no contiene el id de A",
+        "PASS equipos de A no aparecen en B",
+        "PASS de vuelta en A: HUD de A",
+        "PASS de vuelta en A: nada de B en localStorage"
+      ],
+      "consoleErrors": 0,
+      "networkBad": []
+    },
+    {
+      "id": "FK-pre70-social",
+      "pass": 2,
+      "fail": [],
+      "checks": [
+        "PASS social: la búsqueda encuentra al otro jugador y envía la solicitud",
+        "PASS social: el otro jugador ve la solicitud y la acepta"
+      ],
+      "consoleErrors": 0,
+      "networkBad": []
+    },
+    {
+      "id": "D-pre70-explorer",
+      "pass": 4,
+      "fail": [],
+      "checks": [
+        "PASS Coach: partido completo con resultado y guardado en el historial",
+        "PASS Coach: los agentes reales se ven con su arte",
+        "PASS atrás/adelante recorre el historial",
+        "PASS 404 con salida al juego"
+      ],
+      "consoleErrors": 4,
+      "networkBad": [
+        "404 /api/game/duel",
+        "404 /api/game/player",
+        "400 /api/game/competitive"
+      ]
+    }
+  ],
+  "multiplayer": {
+    "id": "CE-pre70-ranked",
+    "checks": {
+      "pass": 5,
+      "fail": []
+    },
+    "match": [
+      {
+        "score": "6-5",
+        "C": [
+          1104,
+          6,
+          1110
+        ],
+        "E": [
+          921,
+          -6,
+          915
+        ]
+      }
+    ],
+    "consoleErrors": {
+      "a": [],
+      "b": []
+    },
+    "reading": "cola, emparejamiento, partida en dos navegadores, Elo una vez y perfil/competitivo con el rating real"
+  },
+  "explainedConsole": "D-pre70-explorer: 4 errores = sondas deliberadas de ids inválidos (replay/jugador inexistentes → 404, partida «nope» → 400) y la ruta 404 a propósito; igual que en F69",
+  "probe": "raw/probe-B-after.json: terminologyOk, 0 enlaces rotos, 0 imágenes rotas, CLS /cuenta 0,061, trampa de foco correcta. La primera ejecución dentro del runner no dejó salida (rc 0 sin fichero nuevo); se repitió aislada a las 12:27Z y es la que cuenta.",
+  "accountSwitch": "8/8: HUD, saldo, nombre, equipos y localStorage sin fugas A→B→A",
+  "fiveXX": 0,
+  "unexplainedConsoleErrors": 0,
+  "economyChanged": false,
+  "cards": 331,
+  "agents": 29,
+  "marketplace": "OFF",
+  "payments": "OFF",
+  "status": "PASS"
+}

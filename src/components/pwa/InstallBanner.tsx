@@ -1,6 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { GameGlyph } from "@/components/ui/game/GameGlyph";
+import { BrandMark } from "@/branding/Logo";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+import { fill, slots } from "@/i18n/rich";
+
+const t = ns("pwa");
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -11,6 +18,7 @@ const DISMISS_KEY = "drl-install-dismissed";
 
 /** Banner para instalar la PWA (con instrucciones específicas para iOS). */
 export function InstallBanner() {
+  useLocale();
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [isIOS, setIsIOS] = useState(false);
   const [show, setShow] = useState(false);
@@ -59,33 +67,45 @@ export function InstallBanner() {
   }
 
   return (
-    <div className="mb-4 flex items-center gap-3 rounded-2xl border border-drl/30 bg-gradient-to-r from-drl/15 to-transparent px-4 py-3">
-      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-drl to-[#7b1733] font-display text-lg font-bold text-white shadow-glow">
-        D
-      </div>
+    /* F64 · placa de la casa (chaflán, filo de color), no la caja redondeada de web; el icono es la MARCA real, no una «D». */
+    <div className="nx-f63-coach mb-4 flex items-center gap-3 px-4 py-2.5" data-testid="install-banner">
+      <BrandMark size={34} className="shrink-0 drop-shadow-[0_0_10px_rgba(255,46,99,0.35)]" />
       <div className="min-w-0 flex-1">
         <p className="font-display text-sm font-bold uppercase tracking-wide text-white">
-          Instalar DRL Champions
+          {t("Instalar NEXUS")}
         </p>
         {isIOS && !deferred ? (
           <p className="text-xs text-white/55">
-            Pulsa <span className="text-white">Compartir</span> y luego{" "}
-            <span className="text-white">«Añadir a pantalla de inicio»</span>.
+            {fill(t("Pulsa {compartir} y luego {accion}.", slots("compartir", "accion")), {
+              compartir: <span className="text-white">{t("Compartir")}</span>,
+              accion: <span className="text-white">{t("«Añadir a pantalla de inicio»")}</span>,
+            })}
           </p>
         ) : (
-          <p className="text-xs text-white/55">Juega como una app, también sin conexión.</p>
+          <p className="text-xs text-white/55">{t("Juega como una app, también sin conexión.")}</p>
         )}
       </div>
       {deferred && (
         <button
           onClick={install}
-          className="shrink-0 rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-4 py-2 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
+          /*
+            FASE 12 · 44 px y chaflán. Este aviso se pinta en LAS DIECISIETE zonas del
+            producto, así que sus dos controles eran 34 de los 57 objetivos táctiles por
+            debajo del mínimo en toda la aplicación: una sola pieza, arreglada una vez.
+          */
+          className="nx-focus nx-clip-sm nx-press min-h-[44px] shrink-0 bg-drl px-4 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
         >
-          Instalar
+          {t("Instalar")}
         </button>
       )}
-      <button onClick={dismiss} className="shrink-0 px-1 text-white/40 hover:text-white" aria-label="Cerrar">
-        ✕
+      {/* 44x44 no: pero por debajo de 32 el pulgar falla, y este aspa está en casi todas
+          las pantallas del producto. */}
+      <button
+        onClick={dismiss}
+        className="nx-focus nx-clip-sm grid h-11 w-11 shrink-0 place-items-center text-white/40 transition duration-fast hover:bg-white/[0.08] hover:text-white"
+        aria-label={t("Cerrar")}
+      >
+        <GameGlyph name="close" className="h-4 w-4" />
       </button>
     </div>
   );

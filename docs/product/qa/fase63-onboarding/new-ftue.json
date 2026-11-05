@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "stateModel": "NOT_STARTED / IN_PROGRESS / COMPLETED derivado de hechos reales (JourneyFacts F40) + 3 acuses en auth.users.app_metadata.nx_onboarding (startedAt, skippedAt, finishedAt), escritos SOLO por el servidor",
+  "completion": [
+    "FINISHED (SEGUIR JUGANDO)",
+    "SKIPPED (Saltar tutorial)",
+    "SELF_GUIDED (partidas sin haber pulsado EMPEZAR: cuentas anteriores)",
+    "PLAYING (2+ partidas)"
+  ],
+  "steps": [
+    {
+      "index": 1,
+      "id": "welcome",
+      "title": "Bienvenida",
+      "objective": "Saber qué es NEXUS y qué tienes para empezar.",
+      "doneWhen": "Pulsar EMPEZAR o haber hecho algo en el juego.",
+      "resume": "/"
+    },
+    {
+      "index": 2,
+      "id": "open",
+      "title": "Tu primer sobre",
+      "objective": "Abrir un sobre que ya es tuyo.",
+      "doneWhen": "Un sobre abierto o cartas en la colección.",
+      "resume": "/abrir/<primer sobre>"
+    },
+    {
+      "index": 3,
+      "id": "collection",
+      "title": "Tu colección",
+      "objective": "Reunir dos jugadores distintos de cada rol.",
+      "doneWhen": "Tus cartas ya forman un equipo legal.",
+      "resume": "/coleccion?tener=owned"
+    },
+    {
+      "index": 4,
+      "id": "deck",
+      "title": "Tu primer equipo",
+      "objective": "Tener un equipo de 10 cartas guardado.",
+      "doneWhen": "Un equipo guardado y legal.",
+      "resume": "/"
+    },
+    {
+      "index": 5,
+      "id": "match",
+      "title": "Tu primera partida",
+      "objective": "Jugar una partida contra un bot.",
+      "doneWhen": "Una partida terminada (ganar, perder o empatar).",
+      "resume": "/duelos/jugar?dificultad=EASY&primera=1"
+    },
+    {
+      "index": 6,
+      "id": "progress",
+      "title": "Tu progreso",
+      "objective": "Ver qué ha avanzado con tu partida.",
+      "doneWhen": "Pulsar SEGUIR JUGANDO o jugar una segunda partida.",
+      "resume": "/progresion"
+    }
+  ],
+  "firstPack": "estandar (Bronce) y luego Iniciales — decisión por simulación, ver starter-contract.json",
+  "matchHints": {
+    "attack": {
+      "title": "Atacas",
+      "lines": [
+        "Elige una carta y una de sus tres estadísticas de combate: SH, GS o EF.",
+        "Comparamos esa estadística con la del rival. El valor más alto gana el turno."
+      ]
+    },
+    "defend": {
+      "title": "Defiendes",
+      "lines": [
+        "El rival ya eligió estadística. Tú respondes con la que marca la tabla: SH contra EF, GS contra GS.",
+        "Elige la carta que mejor la defienda. Si empatáis, nadie puntúa."
+      ]
+    }
+  },
+  "endpoints": {
+    "GET /api/game/onboarding": "vista (lectura)",
+    "POST /api/game/onboarding": "{ action: start|skip|resume|finish|first-team }",
+    "GET /api/game/daily-loop": "añade `onboarding` (sin créditos: contrato F36)"
+  },
+  "surfaces": [
+    "portada (bienvenida, recursos, continúa tu inicio)",
+    "/abrir (tu primera carta / siguiente paso)",
+    "/coleccion (tus cartas)",
+    "portada (crear equipo → equipo listo)",
+    "/duelos/jugar (ayuda atacas/defiendes + resultado → progreso)",
+    "/progresion (así avanzas + ya estás listo)",
+    "franja «Tu inicio» en el resto de pantallas",
+    "/como-jugar (guía sin estado)"
+  ]
+}

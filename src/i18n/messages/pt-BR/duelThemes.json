@@ -1,0 +1,9 @@
+{
+  "El tema por defecto no lleva fechas": "O tema padrão não tem datas",
+  "Estado inválido": "Status inválido",
+  "Fecha inválida": "Data inválida",
+  "La fecha de fin debe ser posterior a la de inicio": "A data de término deve ser posterior à de início",
+  "Nombre inválido (2–60 caracteres)": "Nome inválido (2–60 caracteres)",
+  "Prioridad inválida (0–1000)": "Prioridade inválida (0–1000)",
+  "Slug inválido (a-z, 0-9 y guiones; «default» está reservado)": "Slug inválido (a-z, 0-9 e hífens; «default» é reservado)"
+}

@@ -1,0 +1,211 @@
+{
+  "generatedAt": "2026-09-17T19:12:07.787Z",
+  "base": "http://127.0.0.1:3005",
+  "rows": [
+    {
+      "path": "/",
+      "count": 1,
+      "variant": "lobby",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 28,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/coleccion",
+      "count": 1,
+      "variant": "collection",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 20,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/tienda",
+      "count": 1,
+      "variant": "packs",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 24,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/inventario",
+      "count": 1,
+      "variant": "packs",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 24,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/duelos/mazos",
+      "count": 1,
+      "variant": "loadout",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 0,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/jugar/road-to-champions",
+      "count": 1,
+      "variant": "campaign",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 18,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/jugar/draft-gauntlet",
+      "count": 1,
+      "variant": "draft",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 16,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/duelos/competitivo",
+      "count": 1,
+      "variant": "ranked",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 0,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/temporada",
+      "count": 1,
+      "variant": "season",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 22,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/jugador/me",
+      "count": 1,
+      "variant": "profile",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 12,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/jugar",
+      "count": 1,
+      "variant": "lobby",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 28,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    },
+    {
+      "path": "/logros",
+      "count": 1,
+      "variant": "season",
+      "pointer": "none",
+      "position": "fixed",
+      "z": "-10",
+      "ariaHidden": "true",
+      "hitIsEnv": false,
+      "motion": "ambient",
+      "particles": 22,
+      "bodyBg": "rgba(0, 0, 0, 0)",
+      "parallaxVar": "0.861"
+    }
+  ],
+  "tints": [
+    {
+      "mode": "quick",
+      "found": true,
+      "focus": "quick",
+      "opacity": 1
+    },
+    {
+      "mode": "campaign",
+      "found": true,
+      "focus": "campaign",
+      "opacity": 1
+    },
+    {
+      "mode": "ranked",
+      "found": true,
+      "focus": "ranked",
+      "opacity": 1
+    },
+    {
+      "mode": "draft",
+      "found": true,
+      "focus": "draft",
+      "opacity": 1
+    }
+  ],
+  "released": "none",
+  "reduced": {
+    "motion": "static",
+    "animations": [],
+    "sweep": false,
+    "parallaxVar": "0"
+  },
+  "chamber": {
+    "rest": 0.21,
+    "dim": 0.63
+  }
+}

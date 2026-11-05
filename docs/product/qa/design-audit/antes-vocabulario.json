@@ -1,0 +1,1933 @@
+{
+  "1440·00-lobby": {
+    "superficies": 269,
+    "fondos": 39,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 19,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 14,
+    "tamanosLista": [
+      10,
+      11,
+      12,
+      12.5,
+      13,
+      15,
+      16,
+      18,
+      19,
+      26,
+      30,
+      34,
+      36,
+      88
+    ],
+    "bordes": 5,
+    "chaflan": 35,
+    "redondeado": 27,
+    "nodos": 663,
+    "overflowX": -10,
+    "alto": 2229
+  },
+  "1440·01-duelos": {
+    "superficies": 38,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      13,
+      14,
+      16,
+      30,
+      48
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 5,
+    "nodos": 153,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·02-mazos": {
+    "superficies": 38,
+    "fondos": 8,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 6,
+    "tamanosLista": [
+      11,
+      13,
+      14,
+      16,
+      20,
+      36
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 6,
+    "nodos": 147,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·03-coleccion": {
+    "superficies": 1343,
+    "fondos": 36,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 22,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      44
+    ],
+    "bordes": 3,
+    "chaflan": 148,
+    "redondeado": 52,
+    "nodos": 3423,
+    "overflowX": -10,
+    "alto": 3560
+  },
+  "1440·04-colecciones": {
+    "superficies": 53,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      30
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 11,
+    "nodos": 195,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·05-inventario": {
+    "superficies": 64,
+    "fondos": 14,
+    "radios": 4,
+    "radiosLista": [
+      "10px",
+      "22px",
+      "40px",
+      "9999px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 4,
+    "tamanosLista": [
+      13,
+      15,
+      16,
+      44
+    ],
+    "bordes": 4,
+    "chaflan": 2,
+    "redondeado": 11,
+    "nodos": 226,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·06-tienda": {
+    "superficies": 283,
+    "fondos": 35,
+    "radios": 6,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "40px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      11.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      46
+    ],
+    "bordes": 16,
+    "chaflan": 16,
+    "redondeado": 61,
+    "nodos": 595,
+    "overflowX": -10,
+    "alto": 2829
+  },
+  "1440·07-mercado": {
+    "superficies": 1405,
+    "fondos": 29,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 13,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      44
+    ],
+    "bordes": 3,
+    "chaflan": 111,
+    "redondeado": 80,
+    "nodos": 3377,
+    "overflowX": -10,
+    "alto": 3833
+  },
+  "1440·08-torneos": {
+    "superficies": 50,
+    "fondos": 11,
+    "radios": 1,
+    "radiosLista": [
+      "10px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 6,
+    "tamanosLista": [
+      13,
+      14,
+      15,
+      16,
+      44,
+      46
+    ],
+    "bordes": 4,
+    "chaflan": 4,
+    "redondeado": 2,
+    "nodos": 182,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·09-pickems": {
+    "superficies": 44,
+    "fondos": 10,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "9999px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 4,
+    "tamanosLista": [
+      13,
+      16,
+      18,
+      30
+    ],
+    "bordes": 3,
+    "chaflan": 1,
+    "redondeado": 5,
+    "nodos": 178,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·10-eventos": {
+    "superficies": 149,
+    "fondos": 29,
+    "radios": 8,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px",
+      "22px",
+      "24px",
+      "40px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 10,
+    "tamanosLista": [
+      11,
+      11.5,
+      12,
+      13,
+      14,
+      16,
+      18,
+      20,
+      36,
+      44
+    ],
+    "bordes": 9,
+    "chaflan": 4,
+    "redondeado": 55,
+    "nodos": 433,
+    "overflowX": -10,
+    "alto": 2625
+  },
+  "1440·11-recompensas": {
+    "superficies": 81,
+    "fondos": 15,
+    "radios": 4,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 10,
+    "tamanosLista": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      20,
+      24,
+      26,
+      30
+    ],
+    "bordes": 7,
+    "chaflan": 2,
+    "redondeado": 14,
+    "nodos": 235,
+    "overflowX": -10,
+    "alto": 1168
+  },
+  "1440·12-logros": {
+    "superficies": 230,
+    "fondos": 14,
+    "radios": 2,
+    "radiosLista": [
+      "10px",
+      "9999px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 6,
+    "tamanosLista": [
+      10,
+      12,
+      13,
+      16,
+      20,
+      54
+    ],
+    "bordes": 8,
+    "chaflan": 93,
+    "redondeado": 3,
+    "nodos": 742,
+    "overflowX": -10,
+    "alto": 2705
+  },
+  "1440·13-ranking": {
+    "superficies": 91,
+    "fondos": 16,
+    "radios": 4,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      20,
+      26,
+      44
+    ],
+    "bordes": 6,
+    "chaflan": 19,
+    "redondeado": 9,
+    "nodos": 439,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·14-perfil": {
+    "superficies": 191,
+    "fondos": 30,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 18,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      12,
+      13,
+      16,
+      18,
+      20,
+      30,
+      52
+    ],
+    "bordes": 6,
+    "chaflan": 14,
+    "redondeado": 30,
+    "nodos": 461,
+    "overflowX": -10,
+    "alto": 1136
+  },
+  "1440·15-mundo": {
+    "superficies": 70,
+    "fondos": 12,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      15,
+      16,
+      44
+    ],
+    "bordes": 6,
+    "chaflan": 0,
+    "redondeado": 27,
+    "nodos": 288,
+    "overflowX": -10,
+    "alto": 1189
+  },
+  "1440·16-entrenador": {
+    "superficies": 148,
+    "fondos": 18,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "6px",
+      "8px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 9,
+    "tamanosLista": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20,
+      24,
+      48
+    ],
+    "bordes": 5,
+    "chaflan": 1,
+    "redondeado": 28,
+    "nodos": 312,
+    "overflowX": -10,
+    "alto": 2472
+  },
+  "1440·17-carrera": {
+    "superficies": 38,
+    "fondos": 8,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      13,
+      14,
+      16,
+      20,
+      30
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 4,
+    "nodos": 148,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·18-noticias": {
+    "superficies": 38,
+    "fondos": 8,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      30
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 5,
+    "nodos": 146,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "1440·19-manager": {
+    "superficies": 96,
+    "fondos": 12,
+    "radios": 4,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      13,
+      14,
+      16,
+      24,
+      30
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 48,
+    "nodos": 236,
+    "overflowX": -10,
+    "alto": 1366
+  },
+  "1366·00-lobby": {
+    "superficies": 180,
+    "fondos": 38,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 18,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 10,
+    "tamanosLista": [
+      10,
+      11,
+      13,
+      15,
+      16,
+      18,
+      30,
+      34,
+      36,
+      88
+    ],
+    "bordes": 4,
+    "chaflan": 21,
+    "redondeado": 22,
+    "nodos": 471,
+    "overflowX": -10,
+    "alto": 1442
+  },
+  "1366·01-duelos": {
+    "superficies": 38,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      13,
+      14,
+      16,
+      30,
+      48
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 5,
+    "nodos": 153,
+    "overflowX": 0,
+    "alto": 768
+  },
+  "1366·03-coleccion": {
+    "superficies": 1041,
+    "fondos": 36,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 22,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      44
+    ],
+    "bordes": 3,
+    "chaflan": 148,
+    "redondeado": 52,
+    "nodos": 2634,
+    "overflowX": -10,
+    "alto": 3560
+  },
+  "1366·04-colecciones": {
+    "superficies": 53,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      30
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 11,
+    "nodos": 195,
+    "overflowX": 0,
+    "alto": 768
+  },
+  "1366·06-tienda": {
+    "superficies": 283,
+    "fondos": 35,
+    "radios": 6,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "40px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      11.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      46
+    ],
+    "bordes": 16,
+    "chaflan": 16,
+    "redondeado": 61,
+    "nodos": 595,
+    "overflowX": -10,
+    "alto": 2829
+  },
+  "1366·08-torneos": {
+    "superficies": 50,
+    "fondos": 11,
+    "radios": 1,
+    "radiosLista": [
+      "10px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 6,
+    "tamanosLista": [
+      13,
+      14,
+      15,
+      16,
+      44,
+      46
+    ],
+    "bordes": 4,
+    "chaflan": 4,
+    "redondeado": 2,
+    "nodos": 182,
+    "overflowX": -10,
+    "alto": 777
+  },
+  "1366·14-perfil": {
+    "superficies": 191,
+    "fondos": 30,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 18,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      12,
+      13,
+      16,
+      18,
+      20,
+      30,
+      52
+    ],
+    "bordes": 6,
+    "chaflan": 14,
+    "redondeado": 30,
+    "nodos": 461,
+    "overflowX": -10,
+    "alto": 1136
+  },
+  "1366·16-entrenador": {
+    "superficies": 148,
+    "fondos": 18,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "6px",
+      "8px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 9,
+    "tamanosLista": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20,
+      24,
+      48
+    ],
+    "bordes": 5,
+    "chaflan": 1,
+    "redondeado": 28,
+    "nodos": 312,
+    "overflowX": -10,
+    "alto": 2417
+  },
+  "1280·00-lobby": {
+    "superficies": 270,
+    "fondos": 39,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 19,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 14,
+    "tamanosLista": [
+      10,
+      11,
+      12,
+      12.5,
+      13,
+      15,
+      16,
+      18,
+      19,
+      26,
+      30,
+      34,
+      36,
+      88
+    ],
+    "bordes": 5,
+    "chaflan": 35,
+    "redondeado": 27,
+    "nodos": 663,
+    "overflowX": -10,
+    "alto": 2229
+  },
+  "1280·01-duelos": {
+    "superficies": 38,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      13,
+      14,
+      16,
+      30,
+      48
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 5,
+    "nodos": 153,
+    "overflowX": 0,
+    "alto": 720
+  },
+  "1280·03-coleccion": {
+    "superficies": 1343,
+    "fondos": 36,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 22,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      44
+    ],
+    "bordes": 3,
+    "chaflan": 148,
+    "redondeado": 52,
+    "nodos": 3423,
+    "overflowX": -10,
+    "alto": 3560
+  },
+  "1280·04-colecciones": {
+    "superficies": 53,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      30
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 11,
+    "nodos": 195,
+    "overflowX": 0,
+    "alto": 720
+  },
+  "1280·06-tienda": {
+    "superficies": 283,
+    "fondos": 35,
+    "radios": 6,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "40px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      11.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      46
+    ],
+    "bordes": 16,
+    "chaflan": 16,
+    "redondeado": 61,
+    "nodos": 595,
+    "overflowX": -10,
+    "alto": 2829
+  },
+  "1280·08-torneos": {
+    "superficies": 50,
+    "fondos": 11,
+    "radios": 1,
+    "radiosLista": [
+      "10px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 6,
+    "tamanosLista": [
+      13,
+      14,
+      15,
+      16,
+      44,
+      46
+    ],
+    "bordes": 4,
+    "chaflan": 4,
+    "redondeado": 2,
+    "nodos": 182,
+    "overflowX": -10,
+    "alto": 777
+  },
+  "1280·14-perfil": {
+    "superficies": 191,
+    "fondos": 30,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 18,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      12,
+      13,
+      16,
+      18,
+      20,
+      30,
+      52
+    ],
+    "bordes": 6,
+    "chaflan": 14,
+    "redondeado": 30,
+    "nodos": 461,
+    "overflowX": -10,
+    "alto": 1136
+  },
+  "1280·16-entrenador": {
+    "superficies": 148,
+    "fondos": 18,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "6px",
+      "8px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 9,
+    "tamanosLista": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20,
+      24,
+      48
+    ],
+    "bordes": 5,
+    "chaflan": 1,
+    "redondeado": 28,
+    "nodos": 312,
+    "overflowX": -10,
+    "alto": 2352
+  },
+  "1024·00-lobby": {
+    "superficies": 267,
+    "fondos": 39,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 19,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 13,
+    "tamanosLista": [
+      10,
+      11,
+      12,
+      13,
+      15,
+      16,
+      18,
+      19,
+      26,
+      30,
+      34,
+      36,
+      88
+    ],
+    "bordes": 5,
+    "chaflan": 35,
+    "redondeado": 27,
+    "nodos": 663,
+    "overflowX": -10,
+    "alto": 2321
+  },
+  "1024·01-duelos": {
+    "superficies": 38,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      13,
+      14,
+      16,
+      30,
+      48
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 5,
+    "nodos": 153,
+    "overflowX": 0,
+    "alto": 768
+  },
+  "1024·03-coleccion": {
+    "superficies": 1343,
+    "fondos": 36,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 22,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      44
+    ],
+    "bordes": 3,
+    "chaflan": 148,
+    "redondeado": 52,
+    "nodos": 3423,
+    "overflowX": -10,
+    "alto": 3806
+  },
+  "1024·04-colecciones": {
+    "superficies": 53,
+    "fondos": 9,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      30
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 11,
+    "nodos": 195,
+    "overflowX": 0,
+    "alto": 768
+  },
+  "1024·06-tienda": {
+    "superficies": 280,
+    "fondos": 35,
+    "radios": 6,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "40px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      11.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      46
+    ],
+    "bordes": 16,
+    "chaflan": 16,
+    "redondeado": 61,
+    "nodos": 595,
+    "overflowX": -10,
+    "alto": 3710
+  },
+  "1024·08-torneos": {
+    "superficies": 50,
+    "fondos": 11,
+    "radios": 1,
+    "radiosLista": [
+      "10px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 6,
+    "tamanosLista": [
+      13,
+      14,
+      15,
+      16,
+      44,
+      46
+    ],
+    "bordes": 4,
+    "chaflan": 4,
+    "redondeado": 2,
+    "nodos": 182,
+    "overflowX": -10,
+    "alto": 777
+  },
+  "1024·14-perfil": {
+    "superficies": 191,
+    "fondos": 30,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 18,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      12,
+      13,
+      16,
+      18,
+      20,
+      30,
+      52
+    ],
+    "bordes": 6,
+    "chaflan": 14,
+    "redondeado": 30,
+    "nodos": 461,
+    "overflowX": -10,
+    "alto": 1136
+  },
+  "1024·16-entrenador": {
+    "superficies": 147,
+    "fondos": 18,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "6px",
+      "8px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 9,
+    "tamanosLista": [
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      20,
+      24,
+      48
+    ],
+    "bordes": 5,
+    "chaflan": 1,
+    "redondeado": 28,
+    "nodos": 312,
+    "overflowX": -10,
+    "alto": 3069
+  },
+  "768·00-lobby": {
+    "superficies": 264,
+    "fondos": 39,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 19,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 14,
+    "tamanosLista": [
+      10,
+      11,
+      12,
+      12.5,
+      13,
+      15,
+      16,
+      18,
+      19,
+      26,
+      30,
+      30.72,
+      36,
+      69.12
+    ],
+    "bordes": 5,
+    "chaflan": 35,
+    "redondeado": 27,
+    "nodos": 663,
+    "overflowX": -10,
+    "alto": 2959
+  },
+  "768·01-duelos": {
+    "superficies": 33,
+    "fondos": 8,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 4,
+    "tamanosLista": [
+      14,
+      16,
+      30,
+      48
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 5,
+    "nodos": 153,
+    "overflowX": 0,
+    "alto": 1024
+  },
+  "768·03-coleccion": {
+    "superficies": 1338,
+    "fondos": 35,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 22,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      12,
+      13,
+      14,
+      16,
+      38.4
+    ],
+    "bordes": 3,
+    "chaflan": 148,
+    "redondeado": 52,
+    "nodos": 3423,
+    "overflowX": -10,
+    "alto": 4291
+  },
+  "768·04-colecciones": {
+    "superficies": 48,
+    "fondos": 8,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 4,
+    "tamanosLista": [
+      12,
+      14,
+      16,
+      30
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 11,
+    "nodos": 195,
+    "overflowX": 0,
+    "alto": 1024
+  },
+  "768·06-tienda": {
+    "superficies": 280,
+    "fondos": 34,
+    "radios": 6,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "40px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      11.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      38.4
+    ],
+    "bordes": 16,
+    "chaflan": 16,
+    "redondeado": 61,
+    "nodos": 595,
+    "overflowX": -10,
+    "alto": 3821
+  },
+  "768·08-torneos": {
+    "superficies": 45,
+    "fondos": 10,
+    "radios": 1,
+    "radiosLista": [
+      "10px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      14,
+      15,
+      16,
+      38.4,
+      42.24
+    ],
+    "bordes": 4,
+    "chaflan": 4,
+    "redondeado": 2,
+    "nodos": 182,
+    "overflowX": 0,
+    "alto": 1024
+  },
+  "768·14-perfil": {
+    "superficies": 187,
+    "fondos": 29,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 18,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      12,
+      13,
+      16,
+      18,
+      20,
+      30,
+      46.08
+    ],
+    "bordes": 6,
+    "chaflan": 14,
+    "redondeado": 30,
+    "nodos": 461,
+    "overflowX": -10,
+    "alto": 1203
+  },
+  "768·16-entrenador": {
+    "superficies": 145,
+    "fondos": 17,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "6px",
+      "8px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 10,
+    "tamanosLista": [
+      10,
+      11,
+      12.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      24,
+      38.4
+    ],
+    "bordes": 5,
+    "chaflan": 1,
+    "redondeado": 28,
+    "nodos": 312,
+    "overflowX": -10,
+    "alto": 2807
+  },
+  "390·00-lobby": {
+    "superficies": 261,
+    "fondos": 38,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 19,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 14,
+    "tamanosLista": [
+      10,
+      11,
+      12,
+      12.5,
+      13,
+      14,
+      15,
+      16,
+      18,
+      19,
+      22,
+      30,
+      36,
+      46
+    ],
+    "bordes": 5,
+    "chaflan": 35,
+    "redondeado": 26,
+    "nodos": 663,
+    "overflowX": 0,
+    "alto": 4079
+  },
+  "390·01-duelos": {
+    "superficies": 31,
+    "fondos": 7,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px"
+    ],
+    "sombras": 1,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 4,
+    "tamanosLista": [
+      14,
+      16,
+      30,
+      36
+    ],
+    "bordes": 3,
+    "chaflan": 0,
+    "redondeado": 4,
+    "nodos": 153,
+    "overflowX": 0,
+    "alto": 844
+  },
+  "390·03-coleccion": {
+    "superficies": 1337,
+    "fondos": 34,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 22,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 6,
+    "tamanosLista": [
+      12,
+      12.5,
+      13,
+      14,
+      16,
+      28
+    ],
+    "bordes": 3,
+    "chaflan": 148,
+    "redondeado": 51,
+    "nodos": 3423,
+    "overflowX": 0,
+    "alto": 8001
+  },
+  "390·04-colecciones": {
+    "superficies": 45,
+    "fondos": 7,
+    "radios": 3,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "8px"
+    ],
+    "sombras": 2,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 4,
+    "tamanosLista": [
+      12,
+      14,
+      16,
+      30
+    ],
+    "bordes": 2,
+    "chaflan": 0,
+    "redondeado": 10,
+    "nodos": 195,
+    "overflowX": 0,
+    "alto": 1021
+  },
+  "390·06-tienda": {
+    "superficies": 277,
+    "fondos": 33,
+    "radios": 6,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "40px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 8,
+    "tamanosLista": [
+      11,
+      11.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      30
+    ],
+    "bordes": 16,
+    "chaflan": 16,
+    "redondeado": 60,
+    "nodos": 595,
+    "overflowX": 0,
+    "alto": 6917
+  },
+  "390·08-torneos": {
+    "superficies": 42,
+    "fondos": 9,
+    "radios": 1,
+    "radiosLista": [
+      "10px"
+    ],
+    "sombras": 3,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 5,
+    "tamanosLista": [
+      14,
+      15,
+      16,
+      26,
+      28
+    ],
+    "bordes": 4,
+    "chaflan": 4,
+    "redondeado": 1,
+    "nodos": 182,
+    "overflowX": 0,
+    "alto": 900
+  },
+  "390·14-perfil": {
+    "superficies": 192,
+    "fondos": 31,
+    "radios": 6,
+    "radiosLista": [
+      "10px",
+      "12px",
+      "16px",
+      "22px",
+      "8px",
+      "9999px"
+    ],
+    "sombras": 19,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 9,
+    "tamanosLista": [
+      11,
+      12,
+      13,
+      14,
+      16,
+      18,
+      20,
+      28,
+      30
+    ],
+    "bordes": 7,
+    "chaflan": 14,
+    "redondeado": 32,
+    "nodos": 468,
+    "overflowX": 0,
+    "alto": 2000
+  },
+  "390·16-entrenador": {
+    "superficies": 152,
+    "fondos": 16,
+    "radios": 5,
+    "radiosLista": [
+      "10px",
+      "16px",
+      "22px",
+      "6px",
+      "8px"
+    ],
+    "sombras": 4,
+    "fuentes": [
+      "Inter",
+      "Rajdhani"
+    ],
+    "tamanos": 10,
+    "tamanosLista": [
+      10,
+      11,
+      12.5,
+      13,
+      14,
+      15,
+      16,
+      20,
+      24,
+      30
+    ],
+    "bordes": 5,
+    "chaflan": 1,
+    "redondeado": 27,
+    "nodos": 312,
+    "overflowX": 0,
+    "alto": 4068
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase38",
+  "generated": "2026-09-22T09:45:51.232Z",
+  "rows": [
+    {
+      "file": "reveal-epic-1440x900.png",
+      "scene": "reveal-epic",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "reveal-epic-390x844.png",
+      "scene": "reveal-epic",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "reveal-serial-one-1440x900.png",
+      "scene": "reveal-serial-one",
+      "size": "1440x900",
+      "errors": [
+        "TypeError: Cannot read properties of undefined (reading 'uid')\n    at J (http://127.0.0.1:3005/_next/static/chunks/3gln6ymncyf2t.js:4:19760)\n    at ay (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:63875)\n    at oJ (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:84132)\n    at iu (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:95734)\n    at sd (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:138974)\n    at http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:138819\n    at sf (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.",
+        "[nexus] pantalla Cannot read properties of undefined (reading 'uid')"
+      ]
+    },
+    {
+      "file": "reveal-serial-one-390x844.png",
+      "scene": "reveal-serial-one",
+      "size": "390x844",
+      "errors": [
+        "TypeError: Cannot read properties of undefined (reading 'uid')\n    at J (http://127.0.0.1:3005/_next/static/chunks/3gln6ymncyf2t.js:4:19760)\n    at ay (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:63875)\n    at oJ (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:84132)\n    at iu (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:95734)\n    at sd (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:138974)\n    at http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.js:1:138819\n    at sf (http://127.0.0.1:3005/_next/static/chunks/0uy1-6r0ls_nh.",
+        "[nexus] pantalla Cannot read properties of undefined (reading 'uid')"
+      ]
+    }
+  ]
+}

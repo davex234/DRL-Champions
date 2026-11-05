@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-02T18:18:40.968Z",
+  "base": "http://127.0.0.1:3082",
+  "ms": 14482,
+  "pass": 3,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "S3 MULTI-PESTAÑA (recarga con otra pestaña autenticada abierta) · /coleccion · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "5:L[—] 3172:[2.120]"
+    },
+    {
+      "id": "S3 MULTI-PESTAÑA (recarga con otra pestaña autenticada abierta) · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3172,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":true}"
+    },
+    {
+      "id": "S3 · la otra pestaña sigue abierta y con la sesión",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

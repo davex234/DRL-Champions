@@ -1,0 +1,175 @@
+{
+  "generatedAt": "2026-10-09T18:06:25.931Z",
+  "seedFormula": "(i * 2654435761 + 90210) >>> 0",
+  "n": 100000,
+  "packs": {
+    "estandar": {
+      "packs": 100000,
+      "cardsPerPack": 5,
+      "configured": 0.01,
+      "observed": 0.01011,
+      "z": 0.34960294939004727,
+      "ci9999": [
+        0.008776040074185433,
+        0.011223959925814568
+      ],
+      "compatible": true,
+      "maxIconsInAPack": 1,
+      "iconsOutsideFeatured": 0,
+      "meanValuePerPack": 1371,
+      "valuePerCredit": 0.5485,
+      "iconsPerPack": 0.01011,
+      "iconShareOfIconCards": {
+        "mada__moments": 0.20969,
+        "marteen__record-breaker": 0.22057,
+        "patmen__record-breaker": 0.56973
+      },
+      "packsWithAnIcon95": 0.00435,
+      "ms": 1110
+    },
+    "premium": {
+      "packs": 100000,
+      "cardsPerPack": 6,
+      "configured": 0.05,
+      "observed": 0.05035,
+      "z": 0.5078333750770025,
+      "ci9999": [
+        0.04731900251771846,
+        0.05268099748228155
+      ],
+      "compatible": true,
+      "maxIconsInAPack": 1,
+      "iconsOutsideFeatured": 0,
+      "meanValuePerPack": 4098,
+      "valuePerCredit": 0.683,
+      "iconsPerPack": 0.05035,
+      "iconShareOfIconCards": {
+        "mada__moments": 0.26375,
+        "marteen__record-breaker": 0.26038,
+        "patmen__record-breaker": 0.47587
+      },
+      "packsWithAnIcon95": 0.02639,
+      "ms": 1147
+    },
+    "oro": {
+      "packs": 100000,
+      "cardsPerPack": 5,
+      "configured": 0.1,
+      "observed": 0.0999,
+      "z": -0.105409255338949,
+      "ci9999": [
+        0.0963096219705835,
+        0.10369037802941651
+      ],
+      "compatible": true,
+      "maxIconsInAPack": 1,
+      "iconsOutsideFeatured": 0,
+      "meanValuePerPack": 8877,
+      "valuePerCredit": 0.7397,
+      "iconsPerPack": 0.0999,
+      "iconShareOfIconCards": {
+        "mada__moments": 0.29479,
+        "marteen__record-breaker": 0.28448,
+        "patmen__record-breaker": 0.42072
+      },
+      "packsWithAnIcon95": 0.05787,
+      "ms": 968
+    },
+    "masters": {
+      "packs": 100000,
+      "cardsPerPack": 5,
+      "configured": 0.15,
+      "observed": 0.14937,
+      "z": -0.5579373778902527,
+      "ci9999": [
+        0.1456075715714425,
+        0.1543924284285575
+      ],
+      "compatible": true,
+      "maxIconsInAPack": 1,
+      "iconsOutsideFeatured": 0,
+      "meanValuePerPack": 15804,
+      "valuePerCredit": 0.7902,
+      "iconsPerPack": 0.14937,
+      "iconShareOfIconCards": {
+        "mada__moments": 0.32456,
+        "marteen__record-breaker": 0.31794,
+        "patmen__record-breaker": 0.3575
+      },
+      "packsWithAnIcon95": 0.09597,
+      "ms": 1077
+    },
+    "champions": {
+      "packs": 100000,
+      "cardsPerPack": 5,
+      "configured": 0.2,
+      "observed": 0.20004,
+      "z": 0.03162277660167153,
+      "ci9999": [
+        0.195079495960778,
+        0.20492050403922202
+      ],
+      "compatible": true,
+      "maxIconsInAPack": 1,
+      "iconsOutsideFeatured": 0,
+      "meanValuePerPack": 27672,
+      "valuePerCredit": 0.7906,
+      "iconsPerPack": 0.20004,
+      "iconShareOfIconCards": {
+        "mada__moments": 0.33678,
+        "marteen__record-breaker": 0.33018,
+        "patmen__record-breaker": 0.33303
+      },
+      "packsWithAnIcon95": 0.13342,
+      "ms": 487
+    },
+    "icon-single": {
+      "packs": 100000,
+      "cardsPerPack": 1,
+      "configured": 1,
+      "observed": 1,
+      "z": 0,
+      "ci9999": [
+        1,
+        1
+      ],
+      "compatible": true,
+      "maxIconsInAPack": 1,
+      "iconsOutsideFeatured": 0,
+      "meanValuePerPack": 21215,
+      "valuePerCredit": 0.7072,
+      "iconsPerPack": 1,
+      "iconShareOfIconCards": {
+        "mada__moments": 0.17294,
+        "marteen__record-breaker": 0.17459,
+        "patmen__record-breaker": 0.65247
+      },
+      "packsWithAnIcon95": 0.34753,
+      "ms": 281
+    },
+    "icon": {
+      "packs": 100000,
+      "cardsPerPack": 3,
+      "configured": 1,
+      "observed": 1,
+      "z": 0,
+      "ci9999": [
+        1,
+        1
+      ],
+      "compatible": true,
+      "maxIconsInAPack": 3,
+      "iconsOutsideFeatured": 200000,
+      "meanValuePerPack": 63691,
+      "valuePerCredit": 1.0615,
+      "iconsPerPack": 3,
+      "iconShareOfIconCards": {
+        "mada__moments": 0.175,
+        "marteen__record-breaker": 0.17445,
+        "patmen__record-breaker": 0.65056
+      },
+      "packsWithAnIcon95": 0.72482,
+      "ms": 355
+    }
+  }
+}

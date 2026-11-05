@@ -1,0 +1,57 @@
+PASS [s6-contexto-perdido-1440] 1.ª especial: escenario 2d (WEBGL_CONTEXT_LOST) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"2d","why":"WEBGL_CONTEXT_LOST","pref":"cinematic","code":"CAN","status":"playing","t":"8.65","cele":"HYPE_JUMP","mode":null,"three":10}
+PASS [s6-contexto-perdido-1440] 1.ª especial = mada__moments · CAN {"card":"mada__moments","code":"CAN","intensity":"MEGA_WALKOUT"}
+PASS [s6-contexto-perdido-1440] especial 1/3 = mada__moments · CAN {"card":"mada__moments","code":"CAN","stage":"2d","why":"WEBGL_CONTEXT_LOST"}
+PASS [s6-contexto-perdido-1440] especial 2/3 = lar0k__future-star · TUR {"card":"lar0k__future-star","code":"TUR","arena":"TUR","stage":"3d","why":"WEBGL"}
+PASS [s6-contexto-perdido-1440] especial 3/3 = patmen__record-breaker · PHL {"card":"patmen__record-breaker","code":"PHL","arena":"PHL","stage":"3d","why":"WEBGL"}
+PASS [s6-contexto-perdido-1440] resumen alcanzado, 1 sola apertura {"phase":"summary","opens":"1"}
+PASS [s6-contexto-perdido-1440] consola sin errores (salvo la BD ausente del contenedor de QA) []
+PASS [s7-modelo-falla-1440] 1.ª especial: escenario 2d (MODEL_LOAD_FAILED) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"2d","why":"MODEL_LOAD_FAILED","pref":"cinematic","code":"CAN","status":"playing","t":"4.10","cele":"SHUSH","mode":null,"three":1}
+PASS [s7-modelo-falla-1440] 1.ª especial = mada__moments · CAN {"card":"mada__moments","code":"CAN","intensity":"MEGA_WALKOUT"}
+PASS [s7-modelo-falla-1440] especial 1/3 = mada__moments · CAN {"card":"mada__moments","code":"CAN","stage":"2d","why":"MODEL_LOAD_FAILED"}
+PASS [s7-modelo-falla-1440] especial 2/3 = lar0k__future-star · TUR {"card":"lar0k__future-star","code":"TUR","stage":"2d","why":"MODEL_LOAD_FAILED"}
+PASS [s7-modelo-falla-1440] especial 3/3 = patmen__record-breaker · PHL {"card":"patmen__record-breaker","code":"PHL","stage":"2d","why":"MODEL_LOAD_FAILED"}
+PASS [s7-modelo-falla-1440] resumen alcanzado, 1 sola apertura {"phase":"summary","opens":"1"}
+PASS [s7-modelo-falla-1440] consola sin errores (salvo la BD ausente del contenedor de QA) []
+PASS [s1-reducido-auto-1440] 1.ª especial: escenario 2d (REDUCED_MOTION) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"2d","why":"REDUCED_MOTION","pref":"auto","code":"CAN","status":"playing","t":"0.00","cele":"","mode":"Ver en 3D","three":0}
+PASS [s1-reducido-auto-1440] 1.ª especial = mada__moments · CAN {"card":"mada__moments","code":"CAN","intensity":"MEGA_WALKOUT"}
+PASS [s1-reducido-auto-1440] sin descargar three.js ni el modelo {"three":0}
+PASS [s1-reducido-auto-1440] el reproductor ofrece «Ver en 3D» Ver en 3D
+PASS [s1-reducido-auto-1440] «Ver en 3D» → persona 3D en la arena de SU país, preferencia guardada (Cinemática) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"3d","why":"WEBGL","pref":"cinematic","code":"CAN","status":"playing","t":"6.15","cele":"POINT_SKY","arena":"CAN","human":"ready","mode":"Ver en 2D","three":10}
+PASS [s1-reducido-auto-1440] especial 1/3 = mada__moments · CAN {"card":"mada__moments","code":"CAN","arena":"CAN","stage":"3d","why":"WEBGL"}
+PASS [s1-reducido-auto-1440] especial 2/3 = lar0k__future-star · TUR {"card":"lar0k__future-star","code":"TUR","arena":"TUR","stage":"3d","why":"WEBGL"}
+PASS [s1-reducido-auto-1440] especial 3/3 = patmen__record-breaker · PHL {"card":"patmen__record-breaker","code":"PHL","arena":"PHL","stage":"3d","why":"WEBGL"}
+PASS [s1-reducido-auto-1440] resumen alcanzado, 1 sola apertura {"phase":"summary","opens":"1"}
+PASS [s1-reducido-auto-1440] consola sin errores (salvo la BD ausente del contenedor de QA) []
+PASS [s2-reducido-cinematica-1440] 1.ª especial: escenario 3d (WEBGL) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"3d","why":"WEBGL","pref":"cinematic","code":"CAN","status":"playing","t":"5.95","cele":"ARMS_CROSSED","arena":"CAN","human":"ready","mode":"Ver en 2D","three":10}
+PASS [s2-reducido-cinematica-1440] 1.ª especial = mada__moments · CAN {"card":"mada__moments","code":"CAN","arena":"CAN","intensity":"MEGA_WALKOUT"}
+PASS [s2-reducido-cinematica-1440] la persona camina, celebra (ARMS_CROSSED) y la carta se revela (fin a t=14.6 s) {"done":"1","cele":"ARMS_CROSSED","maxT":14.6}
+PASS [s2-reducido-cinematica-1440] REPETIR = misma carta, 1 apertura {"card":"mada__moments","opens":"1"}
+PASS [s2-reducido-cinematica-1440] especial 1/3 = mada__moments · CAN {"card":"mada__moments","code":"CAN","arena":"CAN","stage":"3d","why":"WEBGL"}
+PASS [s2-reducido-cinematica-1440] especial 2/3 = lar0k__future-star · TUR {"card":"lar0k__future-star","code":"TUR","arena":"TUR","stage":"3d","why":"WEBGL"}
+PASS [s2-reducido-cinematica-1440] especial 3/3 = patmen__record-breaker · PHL {"card":"patmen__record-breaker","code":"PHL","arena":"PHL","stage":"3d","why":"WEBGL"}
+PASS [s2-reducido-cinematica-1440] resumen alcanzado, 1 sola apertura {"phase":"summary","opens":"1"}
+PASS [s2-reducido-cinematica-1440] consola sin errores (salvo la BD ausente del contenedor de QA) []
+PASS [s3-nopref-auto-390] 1.ª especial: escenario 3d (WEBGL) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"3d","why":"WEBGL","pref":"auto","code":"CAN","status":"playing","t":"2.58","cele":"HYPE_JUMP","arena":"CAN","human":"ready","mode":"Ver en 2D","three":10}
+PASS [s3-nopref-auto-390] 1.ª especial = mada__moments · CAN {"card":"mada__moments","code":"CAN","arena":"CAN","intensity":"MEGA_WALKOUT"}
+PASS [s3-nopref-auto-390] la persona camina, celebra (HYPE_JUMP) y la carta se revela (fin a t=14.6 s) {"done":"1","cele":"HYPE_JUMP","maxT":14.6}
+PASS [s3-nopref-auto-390] REPETIR = misma carta, 1 apertura {"card":"mada__moments","opens":"1"}
+PASS [s3-nopref-auto-390] especial 1/3 = mada__moments · CAN {"card":"mada__moments","code":"CAN","arena":"CAN","stage":"3d","why":"WEBGL"}
+PASS [s3-nopref-auto-390] especial 2/3 = lar0k__future-star · TUR {"card":"lar0k__future-star","code":"TUR","arena":"TUR","stage":"3d","why":"WEBGL"}
+PASS [s3-nopref-auto-390] especial 3/3 = patmen__record-breaker · PHL {"card":"patmen__record-breaker","code":"PHL","arena":"PHL","stage":"3d","why":"WEBGL"}
+PASS [s3-nopref-auto-390] resumen alcanzado, 1 sola apertura {"phase":"summary","opens":"1"}
+PASS [s3-nopref-auto-390] consola sin errores (salvo la BD ausente del contenedor de QA) []
+PASS [s4-reducidas-1440] 1.ª especial: escenario 2d (REDUCED_MOTION) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"2d","why":"REDUCED_MOTION","pref":"reduced","code":"CAN","status":"idle","t":"0.00","cele":"","mode":"Ver en 3D","three":0}
+PASS [s4-reducidas-1440] 1.ª especial = mada__moments · CAN {"card":"mada__moments","code":"CAN","intensity":"MEGA_WALKOUT"}
+PASS [s4-reducidas-1440] sin descargar three.js ni el modelo {"three":0}
+PASS [s4-reducidas-1440] especial 1/3 = mada__moments · CAN {"card":"mada__moments","code":"CAN","stage":"2d","why":"REDUCED_MOTION"}
+PASS [s4-reducidas-1440] especial 2/3 = lar0k__future-star · TUR {"card":"lar0k__future-star","code":"TUR","stage":"2d","why":"REDUCED_MOTION"}
+PASS [s4-reducidas-1440] especial 3/3 = patmen__record-breaker · PHL {"card":"patmen__record-breaker","code":"PHL","stage":"2d","why":"REDUCED_MOTION"}
+PASS [s4-reducidas-1440] resumen alcanzado, 1 sola apertura {"phase":"summary","opens":"1"}
+PASS [s4-reducidas-1440] consola sin errores (salvo la BD ausente del contenedor de QA) []
+PASS [s5-sinwebgl-cinematica-1440] 1.ª especial: escenario 2d (WEBGL_UNAVAILABLE) {"phase":"walkout","walkouts":"3","opens":"1","idx":"0","card":"mada__moments","intensity":"MEGA_WALKOUT","done":"0","stage":"2d","why":"WEBGL_UNAVAILABLE","pref":"cinematic","code":"CAN","status":"playing","t":"1.72","cele":"SHUSH","mode":null,"three":1}
+PASS [s5-sinwebgl-cinematica-1440] 1.ª especial = mada__moments · CAN {"card":"mada__moments","code":"CAN","intensity":"MEGA_WALKOUT"}
+PASS [s5-sinwebgl-cinematica-1440] especial 1/3 = mada__moments · CAN {"card":"mada__moments","code":"CAN","stage":"2d","why":"WEBGL_UNAVAILABLE"}
+PASS [s5-sinwebgl-cinematica-1440] especial 2/3 = lar0k__future-star · TUR {"card":"lar0k__future-star","code":"TUR","stage":"2d","why":"WEBGL_UNAVAILABLE"}
+PASS [s5-sinwebgl-cinematica-1440] especial 3/3 = patmen__record-breaker · PHL {"card":"patmen__record-breaker","code":"PHL","stage":"2d","why":"WEBGL_UNAVAILABLE"}
+PASS [s5-sinwebgl-cinematica-1440] resumen alcanzado, 1 sola apertura {"phase":"summary","opens":"1"}
+PASS [s5-sinwebgl-cinematica-1440] consola sin errores (salvo la BD ausente del contenedor de QA) []

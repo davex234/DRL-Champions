@@ -1,0 +1,239 @@
+{
+  "phase": "F69",
+  "at": "2026-09-28",
+  "rule": "Cada elemento conocido en UNA categoría; no hay cubo «known issue» ambiguo.",
+  "productBugs": {
+    "open": [],
+    "openBySeverity": {
+      "BLOCKER": 0,
+      "CRITICAL": 0,
+      "MAJOR": 0,
+      "MINOR": 0,
+      "POLISH": 0
+    },
+    "fixedInF69": [
+      "F68-010",
+      "F68-011",
+      "F68-012",
+      "F68-013",
+      "F69-A",
+      "F69-B",
+      "F69-C",
+      "F69-D",
+      "F69-E",
+      "F69-F",
+      "F69-G",
+      "F69-H"
+    ]
+  },
+  "security": [
+    {
+      "id": "SEC-0058",
+      "severity": "CRITICAL si la API es pública; MAJOR hoy",
+      "status": "APPLIED + VERIFIED (2026-09-28)",
+      "releaseBlocking": false,
+      "description": "Grants históricos: anon lee profiles entero; authenticated lee credits/xp/is_admin/last_seen_at de cualquiera; INSERT/DELETE/TRUNCATE de clientes; vistas auto-actualizables escribibles por anon (Pick'ems/fotos); helpers SECURITY DEFINER ejecutables por anon (uno mueve créditos); vistas heredadas con datos privados.",
+      "nextAction": "0058 v3 preparada y probada (dry-run aislado + comprobación viva de solo lectura). Aplicar SOLO con autorización, DESPUÉS de servir la build F69."
+    },
+    {
+      "id": "SEC-REG-ENUM",
+      "severity": "MINOR",
+      "status": "OPEN (depende de EXT-SMTP)",
+      "releaseBlocking": false,
+      "description": "El registro con un correo ya usado dice «Ya hay una cuenta con ese correo» (GoTrue con autoconfirmación).",
+      "nextAction": "Se resuelve con SMTP real + confirmación de correo (acción externa)."
+    },
+    {
+      "id": "SEC-INT-2",
+      "severity": "P3",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "Cuerpos de ruta no estrictos (campos extra ignorados).",
+      "nextAction": "Documentado; no bloquea."
+    },
+    {
+      "id": "SEC-NPM",
+      "severity": "LOW",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "6 avisos: 5 de herramientas de desarrollo (eslint, @eslint/plugin-kit, brace-expansion, js-yaml, browserslist) y 1 moderado en producción (baseline-browser-mapping, datos de navegadores que usa next en el build).",
+      "nextAction": "Sin `audit fix --force`. Actualizar eslint/browserslist en el próximo mantenimiento de dependencias."
+    }
+  ],
+  "balanceProposals": [
+    {
+      "id": "BAL-P1",
+      "severity": "n/a",
+      "status": "PROPOSED",
+      "releaseBlocking": false,
+      "description": "P-1 desempate (OVR decide el 23 % de los desempates).",
+      "nextAction": "Futura temporada/parche de balance."
+    },
+    {
+      "id": "BAL-P2",
+      "severity": "n/a",
+      "status": "PROPOSED",
+      "releaseBlocking": false,
+      "description": "P-2 desventaja del primer atacante (−8,6 pp).",
+      "nextAction": "Futuro parche."
+    },
+    {
+      "id": "BAL-P3",
+      "severity": "n/a",
+      "status": "PROPOSED",
+      "releaseBlocking": false,
+      "description": "P-3 autocompletar / modelo de poder PvE.",
+      "nextAction": "Futuro parche."
+    },
+    {
+      "id": "BAL-P4",
+      "severity": "n/a",
+      "status": "PROPOSED",
+      "releaseBlocking": false,
+      "description": "P-4 contrajuego.",
+      "nextAction": "Futuro parche."
+    },
+    {
+      "id": "ECO-LEGEND-ACH",
+      "severity": "n/a",
+      "status": "OBSERVATION",
+      "releaseBlocking": false,
+      "description": "Un sobre de bienvenida puede traer una leyenda y el logro «Consigue una leyenda» paga 10.000 (6.160 → 19.790 en la primera sesión).",
+      "nextAction": "Próxima revisión de economía (F57.6 intacta en F69)."
+    },
+    {
+      "id": "PROD-RANK-TIERS",
+      "severity": "n/a",
+      "status": "PROPOSED",
+      "releaseBlocking": false,
+      "description": "Tiers con nombre sobre el rating Elo: decisión de producto pendiente (contrato F28/F55: sin tiers).",
+      "nextAction": "Decisión de producto futura."
+    }
+  ],
+  "externalReleaseBlockers": [
+    {
+      "id": "EXT-OFFSITE-BACKUP",
+      "severity": "BLOCKER (release pública)",
+      "status": "BLOCKED (externo)",
+      "releaseBlocking": true,
+      "description": "Backups solo en el mismo disco del VPS (RPO 24 h; pérdida del VPS = pérdida total).",
+      "nextAction": "Definir destino externo (bucket/otro host) y credenciales; el script ya admite DEST configurable."
+    },
+    {
+      "id": "EXT-DOMAIN-HTTPS",
+      "severity": "BLOCKER (release pública)",
+      "status": "BLOCKED (externo)",
+      "releaseBlocking": true,
+      "description": "Sin dominio ni TLS (HSTS/COOP ya se emiten).",
+      "nextAction": "Dominio + proxy TLS; no se tocó DNS."
+    },
+    {
+      "id": "EXT-SMTP",
+      "severity": "BLOCKER (release pública)",
+      "status": "BLOCKED (externo)",
+      "releaseBlocking": true,
+      "description": "GoTrue: SMTP=Inbucket local, SITE_URL/allow-list=127.0.0.1:3000, autoconfirmación ON.",
+      "nextAction": "Proveedor SMTP real, SITE_URL/allow-list al dominio, confirmación de correo ON."
+    },
+    {
+      "id": "EXT-SOURCE-CONTROL",
+      "severity": "BLOCKER (RC)",
+      "status": "BLOCKED (decisión del usuario)",
+      "releaseBlocking": true,
+      "description": "HEAD 48dac2a + 302 modificados + 9.454 sin seguimiento. 2,39 GB de PNG de evidencia QA y 0,74 GB de arte original (cartas/sobres/mapas) no deberían entrar en git tal cual.",
+      "nextAction": "F70: commit/etiqueta con el inventario de F69 como lista; decidir LFS/archivo externo para PNG de QA y arte original."
+    },
+    {
+      "id": "EXT-0058-APPLY",
+      "severity": "BLOCKER (RC)",
+      "status": "APPLIED + VERIFIED (2026-09-28)",
+      "releaseBlocking": false,
+      "description": "Aplicar 0058 v3 en la BD viva.",
+      "nextAction": "Autorización explícita → build F69 servida → backup verificado → aplicar → postflight → RLS → smoke."
+    },
+    {
+      "id": "EXT-ART-LICENSE",
+      "severity": "BLOCKER (release pública, legal)",
+      "status": "BLOCKED (externo)",
+      "releaseBlocking": true,
+      "description": "Arte de terceros (Riot) en sobres/agentes integrado por decisión explícita del usuario.",
+      "nextAction": "Decisión/licencia del propietario."
+    }
+  ],
+  "operations": [
+    {
+      "id": "OPS-MIGRATION-REGISTRY",
+      "severity": "MAJOR (reproducibilidad)",
+      "status": "OPEN",
+      "releaseBlocking": true,
+      "description": "supabase_migrations.schema_migrations solo registra 0001–0025; 0026–0057 están aplicadas a mano sin registro.",
+      "nextAction": "F70: registrar 0026–0057 (o manifiesto firmado) con backup previo; decisión del usuario."
+    },
+    {
+      "id": "OPS-VPS-RESTART-LOOP",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "supabase_vector_DRLCards y supabase_edge_runtime_DRLCards en bucle de reinicio.",
+      "nextAction": "Pararlos o arreglarlos en el mantenimiento del VPS (fuera de F69: no se tocó el VPS)."
+    },
+    {
+      "id": "OPS-SINGLE-HOST",
+      "severity": "MAJOR para release pública",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "Una sola instancia de la app en un PC Windows sin gestor de procesos, dependiente del túnel SSH (~60 RPS).",
+      "nextAction": "Hosting de la app (VPS o PaaS) con gestor de procesos: parte del despliegue de F70+."
+    },
+    {
+      "id": "OPS-FLAKY-GATES",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "economy:verify inestable (2/5), runtime-review:verify 37/40 por entorno, pack:verify con flake conocido.",
+      "nextAction": "Documentado."
+    },
+    {
+      "id": "OPS-LINT-WARN",
+      "severity": "POLISH",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "27 avisos de ESLint (directivas eslint-disable sin uso y similares), 0 errores.",
+      "nextAction": "Limpieza en mantenimiento."
+    },
+    {
+      "id": "OPS-TELEMETRY-REAL",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "Comparación real-vs-simulado de balance BLOQUEADA (consulta lista, no ejecutada).",
+      "nextAction": "Ejecutar la consulta agregada de solo lectura en la próxima fase de balance."
+    },
+    {
+      "id": "OPS-ESPORTS-AGENTS",
+      "severity": "POLISH",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "Datos esports (src/data/esports/agents.ts y sync VLR) con 27 agentes: Miks/Veto salen «—» en el Match Center.",
+      "nextAction": "Cambio de datos del importador en una fase de esports."
+    },
+    {
+      "id": "OPS-REQ-BUDGET",
+      "severity": "LOW",
+      "status": "OPEN",
+      "releaseBlocking": false,
+      "description": "Media de peticiones /api por pantalla 10,4 (F68 9,4; umbral del arnés 10,5): el +1 es GET /api/game/me, que sustituye la lectura REST directa del perfil.",
+      "nextAction": "F70+: servir el perfil propio junto a /api/game/state o compartir la lectura para volver a ~9,4."
+    }
+  ],
+  "resolvedHistorical": [
+    "HIST-F68-001-009-014",
+    "HIST-GARANTIZADA",
+    "HIST-INT-1",
+    "HIST-PORTADA-404",
+    "HIST-SHARP",
+    "HIST-STORAGE-BACKUP",
+    "HIST-NEXT-RCE",
+    "F68-001…009, F68-014 (siguen arreglados: f68-bugs-recheck.json)"
+  ]
+}

@@ -1,0 +1,214 @@
+{
+ "base": "https://valorosters.com",
+ "at": "2026-10-05T11:27:26.949Z",
+ "release": "drl-0.1.1-1-c2ccec7f",
+ "tags": {
+  "A": "Y68Y5NS",
+  "B": "UZ7TJ2C",
+  "C": "6WJUJKQ"
+ },
+ "total": 39,
+ "passed": 39,
+ "failed": 0,
+ "rows": [
+  {
+   "id": "perfil PROPIO: player.tag = el tag canónico de la cuenta (7 símbolos válidos)",
+   "ok": true,
+   "detail": "{\"tag\":\"Y68Y5NS\"}"
+  },
+  {
+   "id": "perfil PÚBLICO (visto por otra cuenta): el MISMO tag, sin correo ni privados",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F85 #TAG exacto → EXACTAMENTE esa cuenta, con tag y sin correo",
+   "ok": true,
+   "detail": "{\"n\":1,\"q\":\"#Y68Y5NS\"}"
+  },
+  {
+   "id": "F85 #tag en minúsculas → normalizado, misma cuenta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F85 #TAG sin cuenta → vacío",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F85 #TAG inválido (corto / ambiguo / trozo) → 400, sin difuso",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F85 el propio tag no se encuentra a sí mismo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F85 búsqueda por NOMBRE intacta (y trae el tag)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "REST directo: la propia cuenta intenta cambiar su tag → rechazado y sin cambio",
+   "ok": true,
+   "detail": "{\"status\":403,\"body\":\"{\\\"code\\\":\\\"42501\\\",\\\"details\\\":null,\\\"hint\\\":\\\"Grant the required privileges to the current role with: GRANT\"}"
+  },
+  {
+   "id": "REST anónimo → rechazado y sin cambio",
+   "ok": true,
+   "detail": "401"
+  },
+  {
+   "id": "REST: ni leer tags en masa, ni leer/insertar en el registro (anti-enumeración por la BD)",
+   "ok": true,
+   "detail": "{\"tag\":403,\"reg\":403,\"ins\":403}"
+  },
+  {
+   "id": "edición del perfil con un campo extra public_tag → 400 y el tag no cambia",
+   "ok": true,
+   "detail": "400"
+  },
+  {
+   "id": "alta eligiendo public_tag=AAAAAAA → la BD le da OTRO tag válido",
+   "ok": true,
+   "detail": "{\"status\":200,\"tag\":\"NUEQHMN\"}"
+  },
+  {
+   "id": "borrar esa cuenta QA: el perfil desaparece, el registro CONSERVA su tag (nunca se reutiliza)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "/admin/admins #tag (minúsculas) → EXACTAMENTE B, con tag, sin correo",
+   "ok": true,
+   "detail": "[{\"userId\":\"8c326e52-776a-43f4-ba05-3ad7945c40c3\",\"username\":\"qa_campaign_352_8c32\",\"avatar\":\"🎮\",\"isAdmin\":false,\"tag\":\"UZ7TJ2C\"}]"
+  },
+  {
+   "id": "/admin/users #TAG (entrada a sanciones) → EXACTAMENTE B con su tag",
+   "ok": true,
+   "detail": "{\"n\":1}"
+  },
+  {
+   "id": "usuario NORMAL buscando #TAG en el panel → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "confirmar con el NOMBRE ya no vale (400) y no cambia nada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "confirmar con el tag de OTRA cuenta → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "confirmar con el #TAG (minúsculas) → GRANTED; la respuesta lleva el tag",
+   "ok": true,
+   "detail": "{\"code\":\"GRANTED\",\"userId\":\"8c326e52-776a-43f4-ba05-3ad7945c40c3\",\"username\":\"qa_campaign_352_8c32\",\"tag\":\"UZ7TJ2C\",\"isAdmin\":true,\"admins\":3}"
+  },
+  {
+   "id": "auditoría GRANT_ADMIN: entity_id = id interno, detail.target_tag = tag, nombre",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "quitar con el #TAG → REVOKED; B vuelve a no-admin",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "1440 · perfil propio: #TAG bajo el nombre, dentro de pantalla, accesible",
+   "ok": true,
+   "detail": "{\"tag\":\"Y68Y5NS\",\"text\":\"#Y68Y5NS⧉\",\"label\":\"Identificador de cuenta #Y68Y5NS. Pulsa para copiarlo\",\"below\":true,\"inside\":true,\"overflow\":0}"
+  },
+  {
+   "id": "1440 · copiar → escribe «#Y68Y5NS» y avisa «Tag copiado» (role=status)",
+   "ok": true,
+   "detail": "{\"clip\":\"#Y68Y5NS\"}"
+  },
+  {
+   "id": "1440 · perfil PÚBLICO de B con su #TAG",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "1440 · /social: buscar #tag → una sola fila, la de B, con su tag",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "1440 · /admin/admins: #TAG encuentra a B; el diálogo enseña Cuenta + Tag y solo se habilita escribiendo el #TAG (no el nombre)",
+   "ok": true,
+   "detail": "{\"d\":{\"text\":\"Cuentaqa_campaign_352_8c32Tag#UZ7TJ2C\",\"disabled\":true,\"hint\":\"Motivo (opcional, queda en la auditoría)\"},\"byName\":true,\"byTag\":true} · CORREGIDO: el selector del instrumento tomó la 1.ª etiqueta del diálogo (la del «Motivo»). Lo que sí mide: el diálogo enseña Cuenta+Tag, sigue deshabilitado escribiendo el NOMBRE (byName=true) y se habilita SOLO con el #TAG exacto (byTag=true), que es exactamente typeToConfirm.",
+   "correctedAfterRun": true
+  },
+  {
+   "id": "1024 · perfil propio: #TAG bajo el nombre, dentro de pantalla, accesible",
+   "ok": true,
+   "detail": "{\"tag\":\"Y68Y5NS\",\"text\":\"#Y68Y5NS⧉\",\"label\":\"Identificador de cuenta #Y68Y5NS. Pulsa para copiarlo\",\"below\":true,\"inside\":true,\"overflow\":0}"
+  },
+  {
+   "id": "1024 · copiar → escribe «#Y68Y5NS» y avisa «Tag copiado» (role=status)",
+   "ok": true,
+   "detail": "{\"clip\":\"#Y68Y5NS\"}"
+  },
+  {
+   "id": "1024 · perfil PÚBLICO de B con su #TAG",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "390 · perfil propio: #TAG bajo el nombre, dentro de pantalla, accesible",
+   "ok": true,
+   "detail": "{\"tag\":\"Y68Y5NS\",\"text\":\"#Y68Y5NS⧉\",\"label\":\"Identificador de cuenta #Y68Y5NS. Pulsa para copiarlo\",\"below\":true,\"inside\":true,\"overflow\":0}"
+  },
+  {
+   "id": "390 · copiar → escribe «#Y68Y5NS» y avisa «Tag copiado» (role=status)",
+   "ok": true,
+   "detail": "{\"clip\":\"#Y68Y5NS\"}"
+  },
+  {
+   "id": "390 · perfil PÚBLICO de B con su #TAG",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "390 · /social: buscar #tag → una sola fila, la de B, con su tag",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "390 · /admin/admins: #TAG encuentra a B; el diálogo enseña Cuenta + Tag y solo se habilita escribiendo el #TAG (no el nombre)",
+   "ok": true,
+   "detail": "{\"d\":{\"text\":\"Cuentaqa_campaign_352_8c32Tag#UZ7TJ2C\",\"disabled\":true,\"hint\":\"Motivo (opcional, queda en la auditoría)\"},\"byName\":true,\"byTag\":true} · CORREGIDO: el selector del instrumento tomó la 1.ª etiqueta del diálogo (la del «Motivo»). Lo que sí mide: el diálogo enseña Cuenta+Tag, sigue deshabilitado escribiendo el NOMBRE (byName=true) y se habilita SOLO con el #TAG exacto (byTag=true), que es exactamente typeToConfirm.",
+   "correctedAfterRun": true
+  },
+  {
+   "id": "A sale → B entra → «mi perfil»: aparece #TAG de B y NUNCA el de A",
+   "ok": true,
+   "detail": "{\"seen\":[\"-\",\"B\"]}"
+  },
+  {
+   "id": "limpieza: el ÚNICO admin vuelve a ser la cuenta personal; QA A/B/C sin admin",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anti-enumeración: ≥ 25 búsquedas por #TAG pasan y después 429",
+   "ok": true,
+   "detail": "{\"firstLimited\":30}"
+  },
+  {
+   "id": "cuenta personal: perfil idéntico (solo tiene su tag) y sigue siendo admin",
+   "ok": true,
+   "detail": "CORREGIDO: la comprobación buscaba «|t» y psql -At concatena booleanos como «true». Verificado aparte: updated_at de la cuenta personal de hace 4,9 días (cualquier UPDATE lo movería), 0 movimientos de créditos y 0 auditoría sobre ella hoy, is_admin=true y tag #9KZAWPC.",
+   "correctedAfterRun": true
+  }
+ ],
+ "note": "3 comprobaciones del instrumento corregidas tras la pasada (selector de etiqueta y booleano de psql); ver correctedAfterRun."
+}

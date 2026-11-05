@@ -1,0 +1,323 @@
+{
+  "phase": "F69",
+  "finalBuild": "drl-0.1.1-1-7e223fed",
+  "gates": {
+    "tests": {
+      "beforeResume": 5400,
+      "final": 5402,
+      "fail": 0,
+      "note": "F68 cerró en 5364; el primer pase de F69 dejó 5384; el segundo 5400; la reanudación +2 (CLS /cuenta, /mundo) y amplía 1 (rango)"
+    },
+    "tscWeb": "PASS",
+    "tscScripts": "PASS",
+    "lint": "0 errores / 27 avisos (los mismos de F68)",
+    "build": "PASS drl-0.1.1-1-7e223fed",
+    "productionCheck": "24 PASS · 1 WARN (auth-email BLOCKED) · 1 FAIL (backup-offsite BLOCKED)",
+    "smoke": "68/68",
+    "health": "200",
+    "ready": "ready · 0057_admin_cms · 331/331"
+  },
+  "phases": {
+    "F61": {
+      "what": "partido PvE completo, UX del partido, huella dorada del motor",
+      "evidence": [
+        "B-f69final-pve (4 partidas, 8/8)",
+        "K-f69final-resume-new",
+        "test «F61 MOTOR 01 · huella dorada» PASS"
+      ],
+      "verdict": "PASS"
+    },
+    "F62": {
+      "what": "progresión + reclamo",
+      "evidence": [
+        "I-f69-progress (revisitar/reclamar dos veces no paga)",
+        "K/L-new «HUD al día tras reclamar»",
+        "progression.json"
+      ],
+      "verdict": "PASS"
+    },
+    "F63": {
+      "what": "onboarding con cuenta nueva",
+      "evidence": [
+        "K-f69-new (1440)",
+        "L-f69-new (390, reducido)",
+        "K-f69final-resume-new (390)"
+      ],
+      "verdict": "PASS"
+    },
+    "F64": {
+      "what": "game feel, presupuesto de peticiones, consola/red",
+      "evidence": [
+        "J-f69-perf: media 10,4 peticiones /api por pantalla (F68: 9,4; umbral del arnés ≤ 10,5), portada 7 (F68: 6), 0 × 429/5xx/404 en 22 rutas",
+        "El +1 por pantalla es /api/game/me (F69): sustituye la lectura REST directa de profiles contra Supabase, que no contaba como /api. Mismo número total de peticiones del navegador; una más al servidor de la app. Margen al umbral: 0,1 — anotado para F70 (compartir la lectura con /api/game/state reduciría la cifra)."
+      ],
+      "verdict": "PASS (margen estrecho, explicado)"
+    },
+    "F65": {
+      "what": "huella dorada del motor y propuestas sin aplicar",
+      "evidence": [
+        "test F61 MOTOR 01 PASS",
+        "P-1…P-4 siguen PROPOSED (debt-register)"
+      ],
+      "verdict": "PASS"
+    },
+    "F66": {
+      "what": "multijugador reducido",
+      "evidence": [
+        "CE-f69-ranked: 3 partidas ranked reales, Elo una vez por partida (11/11)",
+        "f69.pveModeIsolation (4) + suite PvP completa en npm test",
+        "servicio PvP sin cambios; no se repite el soak de 100 partidas"
+      ],
+      "verdict": "PASS"
+    },
+    "F67": {
+      "what": "producción",
+      "evidence": [
+        "production-check.json",
+        "smoke.json",
+        "/api/health 200, /api/ready ready",
+        "backup diario y verificado PASS"
+      ],
+      "verdict": "PASS (FAIL/WARN externos esperados)"
+    },
+    "F68": {
+      "what": "journeys que encontraron bugs",
+      "evidence": [
+        "first session K/L/K-resume",
+        "store B",
+        "claim I/K",
+        "multi-tab C (misma y distinta sesión)",
+        "account switch AB ×2",
+        "Coach D ×3 (dedicado + 2 exploradores)"
+      ],
+      "verdict": "PASS"
+    }
+  },
+  "journeys": [
+    {
+      "id": "A-f69-auth",
+      "build": "2026-09-27T21:39:28.938Z",
+      "pass": 3,
+      "fail": 0,
+      "consoleErrors": 3,
+      "bad": 0
+    },
+    {
+      "id": "A-f69final-long",
+      "build": "2026-09-28T11:14:08.917Z",
+      "pass": 3,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "AB-f69-switch",
+      "build": "2026-09-27T21:58:46.514Z",
+      "pass": 8,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "AB-f69final-switch",
+      "build": "2026-09-28T10:58:18.595Z",
+      "pass": 8,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "B-f69-pve",
+      "build": "2026-09-27T22:01:53.618Z",
+      "pass": 8,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "B-f69-store",
+      "build": "2026-09-27T21:40:05.292Z",
+      "pass": 7,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "B-f69final-pve",
+      "build": "2026-09-28T10:49:03.066Z",
+      "pass": 8,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "C-f69-multitab-same",
+      "build": "2026-09-27T21:56:45.134Z",
+      "pass": 2,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "C-f69-multitab",
+      "build": "2026-09-27T21:57:26.247Z",
+      "pass": 1,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "CE-f69-ranked",
+      "pass": 11,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "D-f69-explorer",
+      "build": "2026-09-27T21:55:30.620Z",
+      "pass": 3,
+      "fail": 1,
+      "consoleErrors": 4,
+      "bad": 3
+    },
+    {
+      "id": "D-f69-teams",
+      "build": "2026-09-27T21:40:52.277Z",
+      "pass": 6,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "D-f69final-explorer",
+      "build": "2026-09-28T10:56:10.836Z",
+      "pass": 4,
+      "fail": 0,
+      "consoleErrors": 4,
+      "bad": 3
+    },
+    {
+      "id": "D-f69final-teams",
+      "build": "2026-09-28T10:56:57.864Z",
+      "pass": 6,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "E-f69-long",
+      "build": "2026-09-27T22:30:21.467Z",
+      "pass": 3,
+      "fail": 0,
+      "consoleErrors": 80,
+      "bad": 80
+    },
+    {
+      "id": "E-f69-return",
+      "build": "2026-09-27T22:07:16.181Z",
+      "pass": 10,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "E-f69final-long",
+      "build": "2026-09-28T10:51:46.827Z",
+      "pass": 3,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "F-f69-draft",
+      "build": "2026-09-27T22:05:58.137Z",
+      "pass": 5,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "F-f69-pickems",
+      "build": "2026-09-27T22:06:17.786Z",
+      "pass": 2,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "FK-f69-social",
+      "build": "2026-09-27T22:06:53.062Z",
+      "pass": 2,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "G-f69-collection",
+      "build": "2026-09-27T22:02:21.122Z",
+      "pass": 4,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "G-f69-slownet",
+      "build": "2026-09-27T22:03:21.494Z",
+      "pass": 3,
+      "fail": 0,
+      "consoleErrors": 9,
+      "bad": 0
+    },
+    {
+      "id": "H-f69-keyboard",
+      "build": "2026-09-27T22:03:49.437Z",
+      "pass": 6,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "I-f69-progress",
+      "build": "2026-09-27T21:56:15.845Z",
+      "pass": 2,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "J-f69-perf",
+      "build": "2026-09-27T22:32:10.004Z",
+      "pass": 2,
+      "fail": 0,
+      "consoleErrors": 1,
+      "bad": 0
+    },
+    {
+      "id": "K-f69-new",
+      "build": "2026-09-27T21:36:21.759Z",
+      "pass": 11,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "K-f69final-resume-new",
+      "build": "2026-09-28T11:01:09.584Z",
+      "pass": 11,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    },
+    {
+      "id": "L-f69-new",
+      "build": "2026-09-27T21:38:59.924Z",
+      "pass": 11,
+      "fail": 0,
+      "consoleErrors": 0,
+      "bad": 0
+    }
+  ],
+  "knownNonProductConsole": "A-f69-auth (400/422 esperados: contraseña mala, correo existente), G-f69-slownet (ERR_INTERNET_DISCONNECTED provocado), D-explorer y J-perf (sondas 404/400 deliberadas), E-f69-long (el bug F69-F, ya arreglado: E-f69final-long 0)",
+  "fiveXX": "0 en los journeys finales (el único 5xx de F69 fue F69-F, antes del arreglo)"
+}

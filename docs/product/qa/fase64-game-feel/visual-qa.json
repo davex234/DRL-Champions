@@ -1,0 +1,33 @@
+{
+  "before": {
+    "captures": 72,
+    "overflow": 1,
+    "brokenImages": 0,
+    "consoleErrors": 94,
+    "errors429": 40,
+    "internal404": 51,
+    "emoji": 345,
+    "legacyTerms": 27
+  },
+  "after": {
+    "captures": 100,
+    "reducedCaptures": 28,
+    "overflow": 0,
+    "brokenImages": 0,
+    "consoleErrors": 0,
+    "errors429": 0,
+    "internal404": 0,
+    "emoji": 57,
+    "legacyTerms": 6
+  },
+  "remainingEmoji": [
+    "competitive: ✓ 🎮",
+    "team-builder: ✦ ➤",
+    "profile: 🎮",
+    "account: 🎮 🦅 🐉 🔥 👑 ⚡"
+  ],
+  "remainingLegacy": [
+    "coach: plantilla"
+  ],
+  "note404": "La ruta /esta-ruta-no-existe responde 404 a propósito (1 error de consola por ser el documento): no es una petición interna rota."
+}

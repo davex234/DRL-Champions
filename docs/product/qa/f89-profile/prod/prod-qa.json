@@ -1,0 +1,425 @@
+{
+ "at": "2026-10-03T21:24:21.840Z",
+ "base": "https://valorosters.com",
+ "k": "91cb8a2c",
+ "qa": "1ff2c0ef",
+ "pass": 82,
+ "fail": 1,
+ "rows": [
+  {
+   "id": "ready + cabeza 0063",
+   "ok": true,
+   "detail": "{\"s\":200,\"head\":\"0063_profile_favorite_team\",\"checks\":[]}"
+  },
+  {
+   "id": "check «profile» (0063) en verde",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · perfil propio 200 SELF",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "anónimo · perfil público 200 PUBLIC",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «email»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «credits»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «xpIntoLevel»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «packsOpened»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «privateDuels»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «showcaseUids»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «featuredBadgeIds»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «ownedBadges»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «version»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «is_admin»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «createdAt»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin «token»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · sin duelos privados en carrera ni historial",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · miembro desde = primer día del mes",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo · mutación → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "usuario inexistente → 404 sin datos",
+   "ok": true,
+   "detail": "{\"error\":\"Jugador no encontrado\"}"
+  },
+  {
+   "id": "id mal formado → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "carrera PÚBLICA = BD (jugadas, V, D, E)",
+   "ok": true,
+   "detail": "{\"api\":[12,5,7,0],\"db\":[12,5,7,0]}"
+  },
+  {
+   "id": "% de victorias = V / (V+D+E)",
+   "ok": true,
+   "detail": "{\"played\":12,\"wins\":5,\"losses\":7,\"draws\":0,\"winrate\":42}"
+  },
+  {
+   "id": "carrera PROPIA = BD (incluye privados)",
+   "ok": true,
+   "detail": "{\"api\":[12,5,7,0],\"db\":[12,5,7,0]}"
+  },
+  {
+   "id": "colecciones = F82 en BD (completadas, publicadas, insignias)",
+   "ok": true,
+   "detail": "{\"api\":[1,6,1],\"db\":[1,6,1]}"
+  },
+  {
+   "id": "copias / distintas = inventario en BD",
+   "ok": true,
+   "detail": "{\"api\":[31,30],\"db\":[31,30]}"
+  },
+  {
+   "id": "historial · página 2 por cursor, sin repetidos",
+   "ok": true,
+   "detail": "{\"p1\":10,\"p2\":2}"
+  },
+  {
+   "id": "historial · parámetro ajeno (?userId=) → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "historial · cursor inválido → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · guardar equipo «team-heretics» → SAVED",
+   "ok": true,
+   "detail": "{\"code\":\"SAVED\",\"version\":4}"
+  },
+  {
+   "id": "K · BD: favorite_team_id persistido",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · mismo equipo → UNCHANGED",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · versión vieja → 409 CONFLICT",
+   "ok": true,
+   "detail": "{\"error\":\"Tu perfil cambió en otra pestaña: se ha recargado la versión actual\",\"code\":\"CONFLICT\"}"
+  },
+  {
+   "id": "K · dos pestañas, misma versión → 1 SAVED + 1 CONFLICT",
+   "ok": true,
+   "detail": "[{\"code\":\"SAVED\",\"version\":5},{\"error\":\"Tu perfil cambió en otra pestaña: se ha recargado la versión actual\",\"code\":\"CONFLICT\"}]"
+  },
+  {
+   "id": "K · BD: queda SOLO el ganador",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · equipo inválido (inexistente) → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Ese equipo no existe en Valorosters\",\"code\":\"UNKNOWN_TEAM\"}"
+  },
+  {
+   "id": "K · equipo inválido (nombre) → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Equipo no válido\",\"code\":\"BAD_BODY\"}"
+  },
+  {
+   "id": "K · equipo inválido (URL) → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Equipo no válido\",\"code\":\"BAD_BODY\"}"
+  },
+  {
+   "id": "K · equipo inválido (logo) → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Equipo no válido\",\"code\":\"BAD_BODY\"}"
+  },
+  {
+   "id": "K · equipo inválido (número) → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Equipo no válido\",\"code\":\"BAD_BODY\"}"
+  },
+  {
+   "id": "K · equipo inválido (identidad sin fijar) → 400",
+   "ok": true,
+   "detail": "{\"error\":\"Ese equipo no existe en Valorosters\",\"code\":\"UNKNOWN_TEAM\"}"
+  },
+  {
+   "id": "K · campo extra (userId) → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA ve el equipo de K con logo del SISTEMA",
+   "ok": true,
+   "detail": "{\"id\":\"leviatan\",\"name\":\"Leviatán\",\"tag\":\"LEV\",\"region\":\"Americas\",\"logo\":\"/hints/teams/leviatan.png\"}"
+  },
+  {
+   "id": "QA ve el perfil de K como PUBLIC (sin controles ni datos propios)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA · su mutación solo toca SU fila (K intacto)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · destacar la copia de QA → 403 NOT_OWNED",
+   "ok": true,
+   "detail": "{\"error\":\"Esa carta no es tuya\",\"code\":\"NOT_OWNED\"}"
+  },
+  {
+   "id": "K · uid inventado → 403",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · uid mal formado → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · uid repetido → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · destacar SU copia → SAVED",
+   "ok": true,
+   "detail": "{\"code\":\"SAVED\",\"version\":6}"
+  },
+  {
+   "id": "anónimo ve la carta destacada de K (instancia real)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · insignia bloqueada (G2) → 403 LOCKED",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · perfil propio 1440: sin desbordamiento",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · perfil propio 1440: equipo favorito y controles de propietario",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · «Cargar más» añade partidas",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · editor: pestaña «Equipo favorito» con equipos reales",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · perfil propio 1024: sin desbordamiento",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · perfil propio 1024: equipo favorito y controles de propietario",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "K · perfil propio 390: sin desbordamiento",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "K · perfil propio 390: equipo favorito y controles de propietario",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA → perfil de K 1440: público, sin controles de edición",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA → perfil de K 1440: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA → perfil de K 390: público, sin controles de edición",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "QA → perfil de K 390: sin desbordamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "anónimo → perfil de K: se ve, sin controles",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cambio de cuenta · K ve su perfil",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cambio de cuenta K → QA (SPA): el perfil es el de QA y nunca se pinta K",
+   "ok": true,
+   "detail": "{\"who\":\"1ff2c0ef\",\"seen\":false,\"spa\":true}"
+  },
+  {
+   "id": "K · restaurado (equipo y vitrina iniciales)",
+   "ok": false,
+   "detail": "{\"after\":\"leviatan|{5a64ff0e-4b99-4950-bac3-9606174484d0}\",\"rt\":{\"error\":\"No autenticado\"},\"rs\":{\"error\":\"No autenticado\"}}"
+  },
+  {
+   "id": "página / → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /coleccion/trofeos → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /tienda → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /misiones/crafting → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /competitivo → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /progresion → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "página /jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7 → 200",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/state (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/me (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/competitive (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/forge (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/missions (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/crafting (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "API /api/game/collection-sets (QA) → 2xx",
+   "ok": true,
+   "detail": "200"
+  }
+ ]
+}

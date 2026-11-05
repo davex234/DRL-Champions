@@ -1,0 +1,311 @@
+{
+  "generatedAt": "2026-09-17T10:58:20.423Z",
+  "account": "8c326e52",
+  "fp0": {
+    "credits": null,
+    "xp": 6750,
+    "cards": 1498,
+    "packs": 40,
+    "matches": 0,
+    "txCount": 8,
+    "txSum": 18
+  },
+  "fp1": {
+    "credits": null,
+    "xp": 6410,
+    "cards": 1912,
+    "packs": 45,
+    "matches": 0,
+    "txCount": 11,
+    "txSum": 23
+  },
+  "checks": [
+    {
+      "path": "·",
+      "label": "sesión QA por el formulario real",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "Home: lobby montado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "Home: JUGAR visible y un único dominante en el lobby",
+      "ok": true,
+      "detail": "{\"stage\":true,\"heroTier\":\"context\",\"shellPlay\":\"Jugar\",\"primaries\":1}"
+    },
+    {
+      "path": "A",
+      "label": "play-status real (sin partida abierta) → JUGAR",
+      "ok": true,
+      "detail": "{\"serverNow\":1789642390840,\"resume\":null,\"unknown\":false}"
+    },
+    {
+      "path": "A",
+      "label": "JUGAR → selector de modos (1 clic)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "Partida rápida → preparación",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "PvE Fácil real jugada entera por la interfaz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "Resultado: acciones antes de la historia, XP de juego, JUGAR OTRA y volver al lobby",
+      "ok": true,
+      "detail": "{\"kind\":\"win\",\"actionsBeforeStory\":true,\"xp\":true,\"again\":true,\"lobby\":true,\"actionsTop\":560}"
+    },
+    {
+      "path": "A",
+      "label": "Resultado → lobby",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "partida PvE abierta (API normal de juego)",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "path": "A",
+      "label": "play-status real → CONTINUAR PARTIDA a /duelos/jugar",
+      "ok": true,
+      "detail": "{\"id\":\"resume-pve\",\"label\":\"Continuar partida\",\"href\":\"/duelos/jugar\",\"eyebrow\":\"Partida rápida · en curso\",\"title\":\"Contra el bot · Fácil\"}"
+    },
+    {
+      "path": "A",
+      "label": "el armazón dice CONTINUAR PARTIDA en otra pantalla",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "CONTINUAR PARTIDA entra en la arena de ESA partida",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "la partida retomada termina por la interfaz",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "A",
+      "label": "al terminar, play-status vuelve a JUGAR",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "Sobres desde el armazón",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "compra legítima de un Sobre Estándar (API de compra normal)",
+      "ok": true,
+      "detail": "200 {\"qty\":1,\"packId\":\"estandar\",\"credits\":6240}"
+    },
+    {
+      "path": "B",
+      "label": "Inventario: ABRIR SOBRE domina",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "ceremonia lista",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "servidor primero: la mano llega con el resultado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "resumen del sobre",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "resumen: dock de acciones visible sin desplazar, un dominante, 5 cartas",
+      "ok": true,
+      "detail": "{\"visible\":true,\"primary\":1,\"cards\":5}"
+    },
+    {
+      "path": "B",
+      "label": "apertura real: +5 cartas y sobre consumido",
+      "ok": false,
+      "detail": "1618→1852 · sobres 40→45"
+    },
+    {
+      "path": "B",
+      "label": "→ ficha de la carta destacada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "→ colección",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "B",
+      "label": "→ equipos desde el armazón",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "C",
+      "label": "laboratorio de equipo real",
+      "ok": true,
+      "detail": "Equipo 2"
+    },
+    {
+      "path": "C",
+      "label": "JUGAR con este equipo → preparación",
+      "ok": false,
+      "detail": ""
+    },
+    {
+      "path": "D",
+      "label": "Road to Champions desde el lobby (1 clic)",
+      "ok": true,
+      "detail": "tile del lobby"
+    },
+    {
+      "path": "D",
+      "label": "campaña real con siguiente nodo",
+      "ok": true,
+      "detail": "c1-n2 · completados 1"
+    },
+    {
+      "path": "D",
+      "label": "nodo → preparación de campaña",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "D",
+      "label": "partida de campaña real terminada",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "D",
+      "label": "resultado de campaña coherente con el servidor",
+      "ok": true,
+      "detail": "nodo superado · 1→2 · siguiente c1-n3"
+    },
+    {
+      "path": "E",
+      "label": "Draft Gauntlet desde el lobby",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "E",
+      "label": "Draft: NUEVA RUN disponible (no se inicia: la elección se prueba en el arnés sin dejar una run abierta)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "F",
+      "label": "Temporada desde el armazón",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "F",
+      "label": "desde objetivos, JUGAR a un toque",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "F",
+      "label": "Objetivo → JUGAR → modos",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "R",
+      "label": "Ranked: JUGAR RANKED como acción de juego",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "path": "R",
+      "label": "Eventos: ningún evento DEMO dice «En directo»",
+      "ok": true,
+      "detail": "[{\"demo\":true,\"live\":false},{\"demo\":false,\"live\":false},{\"demo\":false,\"live\":false}]"
+    },
+    {
+      "path": "R",
+      "label": "economía coherente: Δcréditos = Δ suma del libro de transacciones",
+      "ok": false,
+      "detail": "NaN vs 5"
+    }
+  ],
+  "shots": [
+    "real-01-A-home.png",
+    "real-02-A-modes.png",
+    "real-03-A-prematch.png",
+    "real-04-A-intro.png",
+    "real-05-A-match-turn1.png",
+    "real-06-A-match-turn5.png",
+    "real-07-A-result.png",
+    "real-08-A-result-xp.png",
+    "real-09-A-lobby-after-match.png",
+    "real-10-A-continue-shell.png",
+    "real-11-A-continue-arena.png",
+    "real-12-A-continue-turn1.png",
+    "real-13-A-continue-turn5.png",
+    "real-14-A-continue-result.png",
+    "real-15-B-shop.png",
+    "real-16-B-inventory.png",
+    "real-17-B-pack-ready.png",
+    "real-18-B-pack-hand.png",
+    "real-19-B-pack-reveal-1.png",
+    "real-20-B-pack-summary.png",
+    "real-21-B-card-detail.png",
+    "real-22-B-collection.png",
+    "real-23-B-decks.png",
+    "real-24-C-builder-lab.png",
+    "real-25-C-prematch.png",
+    "real-26-D-map.png",
+    "real-27-D-prematch.png",
+    "real-28-D-match-turn1.png",
+    "real-29-D-match-turn5.png",
+    "real-30-D-result.png",
+    "real-31-D-map-after.png",
+    "real-32-E-draft-landing.png",
+    "real-33-E-harness-pick.png",
+    "real-34-F-season.png",
+    "real-35-F-objectives.png",
+    "real-36-R-ranked.png",
+    "real-37-R-events.png"
+  ],
+  "ok": 37,
+  "ko": 4
+}

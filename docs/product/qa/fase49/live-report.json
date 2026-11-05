@@ -1,0 +1,296 @@
+{
+ "at": "2026-09-21T21:08:29.689Z",
+ "results": [
+  {
+   "caso": "estado inicial leído",
+   "ok": true,
+   "detalle": {
+    "credits": 5760,
+    "estandar": 2
+   }
+  },
+  {
+   "caso": "sin sesión → 401",
+   "ok": true,
+   "detalle": {
+    "status": 401,
+    "body": {
+     "error": "No autenticado"
+    }
+   }
+  },
+  {
+   "caso": "campo manipulado price → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Campo no permitido"
+    }
+   }
+  },
+  {
+   "caso": "campo manipulado qty → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Campo no permitido"
+    }
+   }
+  },
+  {
+   "caso": "campo manipulado quantity → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Campo no permitido"
+    }
+   }
+  },
+  {
+   "caso": "campo manipulado cardId → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Campo no permitido"
+    }
+   }
+  },
+  {
+   "caso": "campo manipulado contents → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Campo no permitido"
+    }
+   }
+  },
+  {
+   "caso": "campo manipulado credits → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Campo no permitido"
+    }
+   }
+  },
+  {
+   "caso": "campo manipulado userId → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Campo no permitido"
+    }
+   }
+  },
+  {
+   "caso": "productId inexistente → 404",
+   "ok": true,
+   "detalle": {
+    "status": 404,
+    "body": {
+     "error": "Producto no encontrado"
+    }
+   }
+  },
+  {
+   "caso": "productId con forma inválida → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Producto inválido"
+    }
+   }
+  },
+  {
+   "caso": "TYL (DRAFT) por la tienda → 404",
+   "ok": true,
+   "detalle": {
+    "status": 404,
+    "body": {
+     "error": "Producto no encontrado"
+    }
+   }
+  },
+  {
+   "caso": "TYL (DRAFT) por la ruta de sobres → 404",
+   "ok": true,
+   "detalle": {
+    "status": 404,
+    "body": {
+     "error": "Sobre no encontrado"
+    }
+   }
+  },
+  {
+   "caso": "XLG (DRAFT) por la ruta de sobres → 404",
+   "ok": true,
+   "detalle": {
+    "status": 404,
+    "body": {
+     "error": "Sobre no encontrado"
+    }
+   }
+  },
+  {
+   "caso": "caja con dinero real sin pasarela → 503 (nada concedido)",
+   "ok": true,
+   "detalle": {
+    "status": 503,
+    "body": {
+     "error": "El pago con dinero real llegará pronto"
+    }
+   }
+  },
+  {
+   "caso": "caja con créditos (método no ofrecido) → 400",
+   "ok": true,
+   "detalle": {
+    "status": 400,
+    "body": {
+     "error": "Este producto no se vende por ese método"
+    }
+   }
+  },
+  {
+   "caso": "carta sin precio → 409",
+   "ok": true,
+   "detalle": {
+    "status": 409,
+    "body": {
+     "error": "Este producto todavía no tiene precio"
+    }
+   }
+  },
+  {
+   "caso": "pack especial con dinero real → 503",
+   "ok": true,
+   "detalle": {
+    "status": 503,
+    "body": {
+     "error": "El pago con dinero real llegará pronto"
+    }
+   }
+  },
+  {
+   "caso": "sobre con dinero real → 503",
+   "ok": true,
+   "detalle": {
+    "status": 503,
+    "body": {
+     "error": "El pago con dinero real llegará pronto"
+    }
+   }
+  },
+  {
+   "caso": "saldo insuficiente (Icon 20.000) → rechazo",
+   "ok": true,
+   "detalle": {
+    "status": 409,
+    "body": {
+     "error": "Créditos insuficientes"
+    }
+   }
+  },
+  {
+   "caso": "tras los rechazos: saldo y sobres intactos",
+   "ok": true,
+   "detalle": {
+    "s0": {
+     "credits": 5760,
+     "estandar": 2
+    },
+    "s1": {
+     "credits": 5760,
+     "estandar": 2
+    }
+   }
+  },
+  {
+   "caso": "compra con créditos por la tienda → 200 y saldo − 750",
+   "ok": true,
+   "detalle": {
+    "a": {
+     "status": 200,
+     "body": {
+      "kind": "PACK_PURCHASED",
+      "productId": "pack:estandar",
+      "qty": 3,
+      "packId": "estandar",
+      "credits": 5010
+     }
+    },
+    "s2": {
+     "credits": 5010,
+     "estandar": 3
+    }
+   }
+  },
+  {
+   "caso": "replay del mismo gesto → no cobra dos veces",
+   "ok": true,
+   "detalle": {
+    "b": {
+     "status": 200,
+     "body": {
+      "kind": "PACK_PURCHASED",
+      "productId": "pack:estandar",
+      "qty": 3,
+      "packId": "estandar",
+      "credits": 5010,
+      "repeated": true
+     }
+    }
+   }
+  },
+  {
+   "caso": "interfaz: modal con saldo antes/después",
+   "ok": true,
+   "detalle": {
+    "modal0": "SOBRE SOBRE ESTÁNDAR 5 cartas aleatorias · El sobre de cada día. Equilibrado y asequible. ◆ Común ◆ Poco común ◆ Rara ◆ Épica ◆ Legendaria DRL CREDITS PRECIO 750 TU SALDO 5.010 DESPUÉS 4.260 DINERO REAL Por anunciar PRÓX"
+   }
+  },
+  {
+   "caso": "interfaz: compra confirmada, saldo − 750 en el servidor y +1 sobre",
+   "ok": true,
+   "detalle": {
+    "s3": {
+     "credits": 4260,
+     "estandar": 4
+    },
+    "modal1": "SOBRE SOBRE ESTÁNDAR 5 cartas aleatorias · El sobre de cada día. Equilibrado y asequible. ◆ Común ◆ Poco común ◆ Rara ◆ Épica ◆ Legendaria Sobre añadido a tu inventario. Saldo: 4.260 DRL Credits. SEGU"
+   }
+  },
+  {
+   "caso": "interfaz: la cabecera refleja el saldo del servidor",
+   "ok": true,
+   "detalle": {
+    "header0": "NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 5 NIVEL 96% 5.010 DRL Credits MÁS 1 JUGAR",
+    "header1": "NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 5 NIVEL 96% 4.260 DRL Credits MÁS 1 JUGAR"
+   }
+  },
+  {
+   "caso": "abrir posteriormente: /abrir/estandar carga con el sobre listo",
+   "ok": true,
+   "detalle": {
+    "path": "/abrir/estandar",
+    "texto": "✕ NEXUS SOBRE ESTÁNDAR 5 CARTAS ABRIR SOBRE o arrastra sobre la costura →"
+   }
+  },
+  {
+   "caso": "interfaz: 0 errores de consola",
+   "ok": false,
+   "detalle": [
+    "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the",
+    "A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:\n\n- A server/client branch `if (typeof window !== 'undefined')`.\n- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.\n- Date formatting in a user's locale which doesn't match the server.\n- External changing data without sending a snapshot of it along with the HTML.\n- Invalid HTML tag nesting.\n\nIt can also happen if the client has a browser extension installed which messes with the"
+   ]
+  }
+ ]
+}

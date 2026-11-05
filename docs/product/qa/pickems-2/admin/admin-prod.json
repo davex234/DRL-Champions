@@ -1,0 +1,112 @@
+{
+ "at": "2026-10-06T09:50:43.528Z",
+ "total": 21,
+ "passed": 21,
+ "rows": [
+  {
+   "id": "antes: admins = davex y ValoRosters",
+   "ok": true,
+   "detail": "3befce61#NB2Z9BM,b7ccff02#H5ND8K7"
+  },
+  {
+   "id": "login QA (admin temporal)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin · lista con el borrador real",
+   "ok": true,
+   "detail": "{\"status\":200,\"draft\":{\"id\":\"617033f4-3e8b-4e4c-91f7-2cb478b676b7\",\"slug\":\"champions-2026-playoffs\",\"title\":\"Champions 2026 · Playoffs\",\"eventId\":\"vlr-2766\",\"status\":\"DRAFT\",\"formatLabel\":\"Doble eliminación\",\"nodes\":14,\"rewardsStatus\":\"DRAFT\",\"participants\":0,\"version\":1,\"updatedAt\":\"2026-10-06T08:54:10.980733+00:00\"}}"
+  },
+  {
+   "id": "admin · estado del worker visible (último éxito reciente)",
+   "ok": true,
+   "detail": "2026-10-06T09:50:18.516+00:00"
+  },
+  {
+   "id": "admin · validador: 6 perdedores sin destino + 4 huecos del cuadro bajo",
+   "ok": true,
+   "detail": "[\"SLOT_UNKNOWN\",\"SLOT_UNKNOWN\",\"SLOT_UNKNOWN\",\"SLOT_UNKNOWN\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\",\"LOSER_MISSING\"]"
+  },
+  {
+   "id": "admin · no publicable",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin · deriva: lo guardado = lo que hoy dice la fuente",
+   "ok": true,
+   "detail": "{\"checksumNow\":\"471c35b2dea91e9cbd5673146dc472c190143efbd23d83c22bcd3f0735e11d70\",\"changed\":false,\"notes\":[],\"affectedPicks\":0}"
+  },
+  {
+   "id": "admin · economía: escalones y pasivo (1.000 jugadores = 20.000.000)",
+   "ok": true,
+   "detail": "[{\"id\":\"PARTICIPATION\",\"label\":\"Participación\",\"value\":2500},{\"id\":\"GOOD\",\"label\":\"Buen resultado\",\"value\":6000},{\"id\":\"GREAT\",\"label\":\"Gran resultado\",\"value\":12000},{\"id\":\"ELITE\",\"label\":\"Élite\",\"value\":20000},{\"id\":\"PERFECT\",\"label\":\"Pick'em perfecto\",\"value\":20000}]"
+  },
+  {
+   "id": "admin · cuadro incompleto: SIN simulación engañosa y con aviso explícito",
+   "ok": true,
+   "detail": "[\"La simulación del valor esperado necesita el cuadro completo: corrige antes los errores del validador.\"]"
+  },
+  {
+   "id": "PUERTA · publicar con el validador en rojo → 409 (sin publicar)",
+   "ok": true,
+   "detail": "{\"error\":\"El validador lo bloquea: Ronda 1 · baja (754738): 2 hueco(s) sin origen conocido. · Ronda 1 · baja (754739): 2 hueco(s) sin origen conocido. · Ronda 2 · baja (754740): 1 hueco(s) sin origen conocido.\"}"
+  },
+  {
+   "id": "PUERTA · sigue en BORRADOR",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "vista previa (NO guarda) con 6 aristas de prueba: el validador queda limpio",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "vista previa no guardó nada (checksum intacto)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "admin no puede contradecir a la fuente (ADMIN_CONTRADICTS_SOURCE)",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "panel 1440: sin desbordamiento de página",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "panel 1440: errores del validador visibles y «Publicar» deshabilitado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 1024: sin desbordamiento de página",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "panel 1024: errores del validador visibles y «Publicar» deshabilitado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "panel 390: sin desbordamiento de página",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "panel 390: errores del validador visibles y «Publicar» deshabilitado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "después: admin QA revocado; admins = davex y ValoRosters",
+   "ok": true,
+   "detail": "3befce61#NB2Z9BM,b7ccff02#H5ND8K7"
+  }
+ ]
+}

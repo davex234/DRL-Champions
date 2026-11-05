@@ -1,0 +1,31 @@
+{
+  "at": "2026-09-28",
+  "source": "ssh nexusadmin@212.95.40.144 'bash -s' < scripts/ops/auth-config-status.sh (lista blanca sin secretos: docker inspect supabase_auth_DRLCards)",
+  "secretsPrinted": false,
+  "gotrue": {
+    "GOTRUE_SITE_URL": "http://127.0.0.1:3000",
+    "GOTRUE_URI_ALLOW_LIST": "https://127.0.0.1:3000",
+    "GOTRUE_SMTP_HOST": "supabase_inbucket_DRLCards",
+    "GOTRUE_SMTP_PORT": "1025",
+    "GOTRUE_MAILER_AUTOCONFIRM": "true",
+    "GOTRUE_EXTERNAL_EMAIL_ENABLED": "true",
+    "GOTRUE_DISABLE_SIGNUP": "false"
+  },
+  "verdict": {
+    "emailConfirmation": "OFF (autoconfirmación: el registro no verifica el correo)",
+    "smtp": "Inbucket (buzón local del stack): no entrega correo real",
+    "siteUrl": "local (http://127.0.0.1:3000) y distinto del puerto real de la app (:3005)",
+    "allowList": "solo https://127.0.0.1:3000: los enlaces a /cuenta de cualquier dominio público serían rechazados y GoTrue caería a SITE_URL",
+    "passwordRecovery": "Código listo (resetPasswordForEmail con redirectTo = <origen>/cuenta; evento PASSWORD_RECOVERY → formulario de nueva contraseña con updateUser). En la práctica el correo acaba en Inbucket: NO usable por jugadores.",
+    "publicRelease": "BLOCKED: faltan dominio, proveedor SMTP y credenciales (datos del usuario; no se inventan)"
+  },
+  "appCallbacks": [
+    { "flow": "signUp (confirmación de correo)", "code": "src/lib/supabase/auth.tsx", "redirect": "${window.location.origin}/cuenta" },
+    { "flow": "resetPasswordForEmail (recuperación)", "code": "src/lib/supabase/auth.tsx", "redirect": "${window.location.origin}/cuenta" }
+  ],
+  "requiredForPublic": {
+    "vpsGotrueEnv": ["GOTRUE_SITE_URL=https://<dominio>", "GOTRUE_URI_ALLOW_LIST=https://<dominio>/cuenta,https://<dominio>/**", "API_EXTERNAL_URL=https://<host-api-supabase>", "GOTRUE_MAILER_AUTOCONFIRM=false", "GOTRUE_SMTP_HOST", "GOTRUE_SMTP_PORT", "GOTRUE_SMTP_USER", "GOTRUE_SMTP_PASS", "GOTRUE_SMTP_ADMIN_EMAIL", "GOTRUE_SMTP_SENDER_NAME"],
+    "appEnv": ["DRL_PUBLIC_RELEASE=1", "NEXT_PUBLIC_SITE_URL=https://<dominio>", "NEXT_PUBLIC_SUPABASE_URL=https://<host-api-supabase>"]
+  },
+  "enforcement": "DRL_PUBLIC_RELEASE=1 → validateEnv CRÍTICO (arranque aborta en producción) y production:check --vps FAIL en auth-email/backup-offsite"
+}

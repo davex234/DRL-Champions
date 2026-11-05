@@ -1,0 +1,180 @@
+{
+ "coleccion equipo-bbl 1440": {
+  "cartas": [
+   "lar0k__future-star",
+   "lovers-rock__masters-sdc",
+   "loita__future-star",
+   "lar0k__masters-sdc",
+   "loita__masters-sdc",
+   "crewen__masters-sdc",
+   "lar0k__base",
+   "rosa__masters-sdc",
+   "lovers-rock__base",
+   "loita__base",
+   "crewen__base",
+   "rosa__base"
+  ],
+  "rosa": [
+   "rosa__masters-sdc",
+   "rosa__base"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "coleccion bbl-base 1440": {
+  "cartas": [
+   "lar0k__base",
+   "lovers-rock__base",
+   "loita__base",
+   "crewen__base",
+   "rosa__base"
+  ],
+  "rosa": [
+   "rosa__base"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "coleccion bbl-masters-sdc 1440": {
+  "cartas": [
+   "lovers-rock__masters-sdc",
+   "lar0k__masters-sdc",
+   "loita__masters-sdc",
+   "crewen__masters-sdc",
+   "rosa__masters-sdc"
+  ],
+  "rosa": [
+   "rosa__masters-sdc"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "coleccion texto-rose 1440": {
+  "cartas": [
+   "rosa__masters-sdc",
+   "rosa__base"
+  ],
+  "rosa": [
+   "rosa__masters-sdc",
+   "rosa__base"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "ficha rosa__base 1440": {
+  "nick": true,
+  "mojibake": false,
+  "equipo": true,
+  "edicion": true,
+  "rareza": true,
+  "ovr": true,
+  "rol": true,
+  "stats": false,
+  "fks": false,
+  "imagen": true,
+  "texto": "Saltar al contenido\nNEXUS\nLOBBY\nCOLECCIÓN\nEQUIPOS\nSOBRES\nTEMPORADA\nMUNDO\n1\nNIVEL\n0%\n6.000\nDRL Credits\nMÁS\nJUGAR\n← Colección\n/\nRosé\nNEXUS\nCOMÚN\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nBase\n\nOVR\n72\nSH\n42\nGS\n48\nEF\n45\n\nrosa__base\n\nGIRAR LA CARTA\n\nCOMÚN\nBASE\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nOVR\n72\n\nSTATS DE COMBATE\nSH\nStronghold\n42\nGS\nGamesense\n48\nEF\nEntryfrag\n45\nCOMPARAR\nVER EN EL ÁLBUM\n\nInicia sesión para ver tus copias, sus números de serie y añadirla a tu equipo.\n\nVARIANTES DE ROSÉ · 2\nBase\n72\nMasters SDC\n82\nDÓNDE PUEDE SALIR\n\nPuede salir en estos 11 sobres a la venta. No es una garantía: "
+ },
+ "ficha rosa__masters-sdc 1440": {
+  "nick": true,
+  "mojibake": false,
+  "equipo": true,
+  "edicion": true,
+  "rareza": true,
+  "ovr": true,
+  "rol": true,
+  "stats": false,
+  "fks": false,
+  "imagen": true,
+  "texto": "Saltar al contenido\nNEXUS\nLOBBY\nCOLECCIÓN\nEQUIPOS\nSOBRES\nTEMPORADA\nMUNDO\n1\nNIVEL\n0%\n6.000\nDRL Credits\nMÁS\nJUGAR\n← Colección\n/\nRosé\nNEXUS\nPOCO COMÚN\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nMasters SDC\n\nOVR\n82\nSH\n42\nGS\n48\nEF\n45\n\nrosa__masters-sdc\n\nGIRAR LA CARTA\n\nPOCO COMÚN\nMASTERS SDC\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nOVR\n82\n\nSTATS DE COMBATE\nSH\nStronghold\n42\nGS\nGamesense\n48\nEF\nEntryfrag\n45\nCOMPARAR\nVER EN EL ÁLBUM\n\nInicia sesión para ver tus copias, sus números de serie y añadirla a tu equipo.\n\nVARIANTES DE ROSÉ · 2\nBase\n72\nMasters SDC\n82\nDÓNDE PUEDE SALIR\n\nPuede salir en estos 11 sobres a"
+ },
+ "errores 1440": [],
+ "coleccion equipo-bbl 390": {
+  "cartas": [
+   "lar0k__future-star",
+   "lovers-rock__masters-sdc",
+   "loita__future-star",
+   "lar0k__masters-sdc",
+   "loita__masters-sdc",
+   "crewen__masters-sdc",
+   "lar0k__base",
+   "rosa__masters-sdc",
+   "lovers-rock__base",
+   "loita__base",
+   "crewen__base",
+   "rosa__base"
+  ],
+  "rosa": [
+   "rosa__masters-sdc",
+   "rosa__base"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "coleccion bbl-base 390": {
+  "cartas": [
+   "lar0k__base",
+   "lovers-rock__base",
+   "loita__base",
+   "crewen__base",
+   "rosa__base"
+  ],
+  "rosa": [
+   "rosa__base"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "coleccion bbl-masters-sdc 390": {
+  "cartas": [
+   "lovers-rock__masters-sdc",
+   "lar0k__masters-sdc",
+   "loita__masters-sdc",
+   "crewen__masters-sdc",
+   "rosa__masters-sdc"
+  ],
+  "rosa": [
+   "rosa__masters-sdc"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "coleccion texto-rose 390": {
+  "cartas": [
+   "rosa__masters-sdc",
+   "rosa__base"
+  ],
+  "rosa": [
+   "rosa__masters-sdc",
+   "rosa__base"
+  ],
+  "mojibake": false,
+  "imgRota": 0
+ },
+ "ficha rosa__base 390": {
+  "nick": true,
+  "mojibake": false,
+  "equipo": true,
+  "edicion": true,
+  "rareza": true,
+  "ovr": true,
+  "rol": true,
+  "stats": false,
+  "fks": false,
+  "imagen": true,
+  "texto": "Saltar al contenido\n6.000\nDRL Credits\n← Colección\n/\nRosé\nNEXUS\nCOMÚN\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nBase\n\nOVR\n72\nSH\n42\nGS\n48\nEF\n45\n\nrosa__base\n\nGIRAR LA CARTA\n\nCOMÚN\nBASE\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nOVR\n72\n\nSTATS DE COMBATE\nSH\nStronghold\n42\nGS\nGamesense\n48\nEF\nEntryfrag\n45\nCOMPARAR\nVER EN EL ÁLBUM\n\nInicia sesión para ver tus copias, sus números de serie y añadirla a tu equipo.\n\nVARIANTES DE ROSÉ · 2\nBase\n72\nMasters SDC\n82\nDÓNDE PUEDE SALIR\n\nPuede salir en estos 11 sobres a la venta. No es una garantía: depende del sorteo de cada sobre.\n\nSOBRE CHAMPIONS\nSOBRE EMEA\nSOBRE ESTÁND"
+ },
+ "ficha rosa__masters-sdc 390": {
+  "nick": true,
+  "mojibake": false,
+  "equipo": true,
+  "edicion": true,
+  "rareza": true,
+  "ovr": true,
+  "rol": true,
+  "stats": false,
+  "fks": false,
+  "imagen": true,
+  "texto": "Saltar al contenido\n6.000\nDRL Credits\n← Colección\n/\nRosé\nNEXUS\nPOCO COMÚN\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nMasters SDC\n\nOVR\n82\nSH\n42\nGS\n48\nEF\n45\n\nrosa__masters-sdc\n\nGIRAR LA CARTA\n\nPOCO COMÚN\nMASTERS SDC\n\nROSÉ\n\nBBL Esports · Iniciador · EMEA\n\nOVR\n82\n\nSTATS DE COMBATE\nSH\nStronghold\n42\nGS\nGamesense\n48\nEF\nEntryfrag\n45\nCOMPARAR\nVER EN EL ÁLBUM\n\nInicia sesión para ver tus copias, sus números de serie y añadirla a tu equipo.\n\nVARIANTES DE ROSÉ · 2\nBase\n72\nMasters SDC\n82\nDÓNDE PUEDE SALIR\n\nPuede salir en estos 11 sobres a la venta. No es una garantía: depende del sorteo de cada sobre.\n\nSOBRE CH"
+ },
+ "errores 390": []
+}

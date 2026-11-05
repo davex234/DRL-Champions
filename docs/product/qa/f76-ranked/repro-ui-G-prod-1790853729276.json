@@ -1,0 +1,459 @@
+{
+  "persona": "G",
+  "user": "00eb4ea1",
+  "base": "https://valorosters.com",
+  "clicked": true,
+  "dbBefore": {
+    "live": 0,
+    "entries": [
+      {
+        "id": "10d954c3",
+        "match": "d9ae6004",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": "ABANDONED",
+        "mstatus": "IN_PROGRESS",
+        "updated": "2026-09-30T20:19:07.540371+00:00"
+      },
+      {
+        "id": "6345c180",
+        "match": "0364b10b",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": "ABANDONED",
+        "mstatus": "IN_PROGRESS",
+        "updated": "2026-09-30T20:17:58.836824+00:00"
+      },
+      {
+        "id": "bf1ad54f",
+        "match": null,
+        "state": "CANCELLED",
+        "reason": "USER",
+        "mclosed": null,
+        "mstatus": null,
+        "updated": "2026-09-30T18:30:33.4621+00:00"
+      },
+      {
+        "id": "295511a3",
+        "match": "7ff07c5f",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": "ABANDONED",
+        "mstatus": "IN_PROGRESS",
+        "updated": "2026-09-30T15:32:12.936224+00:00"
+      }
+    ]
+  },
+  "apiBefore": {
+    "code": "OK",
+    "state": "MATCHED",
+    "matchId": "d9ae6004"
+  },
+  "samples": [
+    {
+      "t": 2,
+      "url": "/duelos/pvp",
+      "searching": false,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "← VOLVER A COMPETITIVO\nDUELO PVP\n\nContra otra per ona. El rival lo elige el  ervidor  egún tu rating.\n\nTU RATING PVP\n1081\nTU EQUIPO\nMI PRIMER EQUIPO\nSH\n54\nGS\n38",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 3,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:00\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 4,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:02\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 6,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:02\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 7,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:05\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 8,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:07\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 10,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:07\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 11,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:09\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 12,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:09\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 13,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:11\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 14,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:11\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 16,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:14\nTU RATING\n1081\nRIVALES ACEPTABLES\n±150\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 18,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:16\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 19,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:16\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 20,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:18\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 22,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:18\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 23,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:20\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 24,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:20\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 25,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:23\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 26,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:25\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 27,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:25\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 29,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:27\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 30,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:27\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 31,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:29\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 33,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:29\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 34,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:32\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 35,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:32\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 36,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:34\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot",
+      "db": {
+        "latest": {
+          "id": "7a37345a",
+          "match": null,
+          "state": "QUEUED",
+          "reason": null,
+          "mclosed": null,
+          "mstatus": null,
+          "updated": "2026-10-01T11:21:28.595763+00:00"
+        },
+        "live": 1
+      }
+    },
+    {
+      "t": 37,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:36\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    },
+    {
+      "t": 38,
+      "url": "/duelos/pvp",
+      "searching": true,
+      "result": false,
+      "syncingMatch": "d9ae6004",
+      "head": "RANKED · DUELO PVP\n\nBUSCANDO RIVAL\nEN COLA\n00:36\nTU RATING\n1081\nRIVALES ACEPTABLES\n±300\nESPERAN MÁS QUE TÚ\n0\n\nSolo jugadore  reale : la cola ranked no tiene bot"
+    }
+  ],
+  "dbAfter": {
+    "live": 1,
+    "entries": [
+      {
+        "id": "7a37345a",
+        "match": null,
+        "state": "QUEUED",
+        "reason": null,
+        "mclosed": null,
+        "mstatus": null,
+        "updated": "2026-10-01T11:21:28.595763+00:00"
+      },
+      {
+        "id": "10d954c3",
+        "match": "d9ae6004",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": "ABANDONED",
+        "mstatus": "IN_PROGRESS",
+        "updated": "2026-09-30T20:19:07.540371+00:00"
+      },
+      {
+        "id": "6345c180",
+        "match": "0364b10b",
+        "state": "MATCHED",
+        "reason": null,
+        "mclosed": "ABANDONED",
+        "mstatus": "IN_PROGRESS",
+        "updated": "2026-09-30T20:17:58.836824+00:00"
+      },
+      {
+        "id": "bf1ad54f",
+        "match": null,
+        "state": "CANCELLED",
+        "reason": "USER",
+        "mclosed": null,
+        "mstatus": null,
+        "updated": "2026-09-30T18:30:33.4621+00:00"
+      }
+    ]
+  },
+  "apiAfter": {
+    "code": "OK",
+    "state": "QUEUED"
+  }
+}

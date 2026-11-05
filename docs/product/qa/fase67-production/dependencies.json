@@ -1,0 +1,27 @@
+{
+  "CRITICAL": [
+    "Node 22.12–24.x",
+    "Postgres (supabase_db_DRLCards) vía PostgREST/Kong",
+    "GoTrue (Auth) — sin él nadie inicia sesión",
+    "env: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY",
+    "build .next (BUILD_ID = huella del código)",
+    "public/ (arte de cartas/agentes/sobres)"
+  ],
+  "DEGRADED": [
+    "Storage (subidas del CMS; 0 objetos hoy)",
+    "SYNC_SECRET (sync esports manual)",
+    "worker esports (datos de torneos se quedan quietos)",
+    "red a Google Fonts (tipografía de respaldo)"
+  ],
+  "OPTIONAL": [
+    "ANTHROPIC_API_KEY (heurística)",
+    "NEXT_PUBLIC_VLR_API",
+    "Realtime (no usado)",
+    "analytics/vector/edge_runtime del stack"
+  ],
+  "generatedAtBuild": [
+    "src/data/catalog (manifiesto de cartas en código)",
+    "agents snapshot (agents:snapshot)",
+    "robots.txt (según NEXUS_PUBLIC_INDEXING)"
+  ]
+}

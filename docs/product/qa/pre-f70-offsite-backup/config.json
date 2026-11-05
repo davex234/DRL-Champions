@@ -1,0 +1,80 @@
+{
+  "phase": "PRE-F70",
+  "file": "/opt/nexus/projects/supabase-drlcards/backup/offsite.env (600; ruta sobreescribible con DRL_OFFSITE_CONFIG). Se PARSEA (KEY=VALUE, claves permitidas, sin metacaracteres), nunca se ejecuta.",
+  "variables": {
+    "DRL_OFFSITE_ENABLED": "1 para activar (0/ausente = desactivado)",
+    "DRL_OFFSITE_REMOTE": "nombre:ruta del remoto rclone, p. ej. drloffsite:<bucket>/drlcards (sin «..» ni espacios)",
+    "DRL_OFFSITE_RCLONE_CONFIG": "ruta absoluta a rclone.conf (600, no enlace) con las CREDENCIALES del proveedor",
+    "DRL_OFFSITE_RECIPIENT_CRT": "certificado X.509 PÚBLICO de cifrado (la clave privada fuera del VPS)",
+    "DRL_OFFSITE_SSH_KNOWN_HOSTS": "obligatorio si el remoto es sftp (rclone.conf: known_hosts_file = /config/known_hosts)",
+    "DRL_OFFSITE_RCLONE_IMAGE": "opcional; solo por digest",
+    "DRL_OFFSITE_RETENTION": "provider (defecto) | script",
+    "DRL_OFFSITE_KEEP_DAILY": "14",
+    "DRL_OFFSITE_KEEP_WEEKLY": "8",
+    "DRL_OFFSITE_KEEP_MONTHLY": "6",
+    "DRL_OFFSITE_CONTIMEOUT": "15s",
+    "DRL_OFFSITE_IOTIMEOUT": "120s",
+    "DRL_OFFSITE_BWLIMIT": "opcional",
+    "DRL_OFFSITE_DECRYPT_KEY": "SOLO en la máquina de recuperación (nunca en el VPS)"
+  },
+  "credentialsLiveIn": "rclone.conf (formato del proveedor: access_key_id/secret_access_key, user/key_file/pass ofuscado…). Nada en el repo, el registro ni la evidencia.",
+  "validationTests": {
+    "config-missing": {
+      "result": "PASS",
+      "detail": "exit=0"
+    },
+    "config-disabled": {
+      "result": "PASS",
+      "detail": "exit=0"
+    },
+    "config-invalid-world-readable": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID configuración con permisos 644 (se exige 600 o 400)"
+    },
+    "config-invalid-unknown-key": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID clave desconocida en la línea 7"
+    },
+    "config-invalid-metachar": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID valor con metacaracteres en la línea 7"
+    },
+    "config-invalid-traversal": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID DRL_OFFSITE_REMOTE no puede contener .."
+    },
+    "config-invalid-mutable-tag": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID DRL_OFFSITE_RCLONE_IMAGE debe ir fijada por digest (@sha256:…)"
+    },
+    "config-invalid-http-endpoint": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID endpoint en claro (http://) no permitido"
+    },
+    "config-invalid-ftp-plain": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID FTP sin TLS no está permitido"
+    },
+    "config-invalid-sftp-no-known-hosts": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID sftp exige known_hosts_file = /config/known_hosts"
+    },
+    "config-invalid-symlink-config": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID el fichero de configuración es un enlace simbólico"
+    },
+    "config-invalid-undefined-remote": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID el remoto «nodefined» no está definido en el rclone.conf"
+    },
+    "config-invalid-bad-cert": {
+      "result": "PASS",
+      "detail": "exit=2 OFFSITE_CONFIG_INVALID DRL_OFFSITE_RECIPIENT_CRT no es un certificado X.509 vigente"
+    },
+    "check-config-ok": {
+      "result": "PASS",
+      "detail": "OFFSITE_CONFIG_OK type=local remote=harness: retention=provider"
+    }
+  },
+  "safeDefault": "sin fichero de configuración: backup-offsite.sh → OFFSITE_NOT_CONFIGURED (exit 0) y backup-drlcards.sh → OFFSITE_NOT_CONFIGURED sin intento; production:check → FAIL NOT_CONFIGURED"
+}

@@ -1,0 +1,162 @@
+{
+  "perMatch": [
+    {
+      "idx": 1,
+      "chaos": true,
+      "A": null,
+      "B": null,
+      "idleAfterResult": {
+        "byPath": {},
+        "total": 0,
+        "byStatus": {},
+        "notFound": []
+      }
+    },
+    {
+      "idx": 2,
+      "chaos": false,
+      "A": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 3,
+          "/api/game/competitive": 3,
+          "/api/game/duel/pvp": 32,
+          "/api/game/daily-loop": 1
+        },
+        "total": 39,
+        "byStatus": {
+          "200": 39
+        },
+        "notFound": []
+      },
+      "B": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 2,
+          "/api/game/duel/pvp": 33,
+          "/api/game/competitive": 3,
+          "/api/game/daily-loop": 1
+        },
+        "total": 39,
+        "byStatus": {
+          "200": 39
+        },
+        "notFound": []
+      },
+      "idleAfterResult": {
+        "byPath": {},
+        "total": 0,
+        "byStatus": {},
+        "notFound": []
+      }
+    },
+    {
+      "idx": 3,
+      "chaos": false,
+      "A": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 3,
+          "/api/game/competitive": 3,
+          "/api/game/duel/pvp": 32,
+          "/api/game/daily-loop": 1
+        },
+        "total": 39,
+        "byStatus": {
+          "200": 39
+        },
+        "notFound": []
+      },
+      "B": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 2,
+          "/api/game/duel/pvp": 33,
+          "/api/game/competitive": 3,
+          "/api/game/daily-loop": 1
+        },
+        "total": 39,
+        "byStatus": {
+          "200": 39
+        },
+        "notFound": []
+      },
+      "idleAfterResult": {
+        "byPath": {},
+        "total": 0,
+        "byStatus": {},
+        "notFound": []
+      }
+    },
+    {
+      "idx": 4,
+      "chaos": false,
+      "A": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 10,
+          "/api/game/competitive": 3,
+          "/api/game/duel/pvp": 31,
+          "/api/game/daily-loop": 1
+        },
+        "total": 45,
+        "byStatus": {
+          "200": 45
+        },
+        "notFound": []
+      },
+      "B": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 9,
+          "/api/game/duel/pvp": 34,
+          "/api/game/competitive": 3,
+          "/api/game/daily-loop": 1
+        },
+        "total": 47,
+        "byStatus": {
+          "200": 47
+        },
+        "notFound": []
+      },
+      "idleAfterResult": {
+        "byPath": {},
+        "total": 0,
+        "byStatus": {},
+        "notFound": []
+      }
+    },
+    {
+      "idx": 5,
+      "chaos": false,
+      "A": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 10,
+          "/api/game/competitive": 3,
+          "/api/game/duel/pvp": 33,
+          "/api/game/daily-loop": 1
+        },
+        "total": 47,
+        "byStatus": {
+          "200": 47
+        },
+        "notFound": []
+      },
+      "B": {
+        "byPath": {
+          "/api/game/duel/matchmaking": 10,
+          "/api/game/duel/pvp": 31,
+          "/api/game/competitive": 3,
+          "/api/game/daily-loop": 1
+        },
+        "total": 45,
+        "byStatus": {
+          "200": 45
+        },
+        "notFound": []
+      },
+      "idleAfterResult": {
+        "byPath": {},
+        "total": 0,
+        "byStatus": {},
+        "notFound": []
+      }
+    }
+  ],
+  "pollingPolicy": "partida: 1,2 s turno rival · 2,5 s turno propio · 15 s pestaña oculta · backoff 1-10 s; cola: 2 s / 6 s oculta; una sola petición en vuelo; se para al terminar",
+  "note": "la partida caos recarga la página (los contadores se reinician): el perfil representativo es el de las partidas 2…N"
+}

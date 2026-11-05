@@ -1,0 +1,250 @@
+{
+  "at": "2026-09-27T21:13:37.539Z",
+  "engine": "PostgreSQL 17.5 on aarch64-unknown-linux-gnu, compiled by emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 3.1.74 (1092ec30a3fb1d46b1782ff1b4db5094d3d06ae5), 32-bit",
+  "steps": [
+    {
+      "name": "fixture (privilegios medidos en 0057)",
+      "ok": true,
+      "rows": []
+    },
+    {
+      "name": "preflight",
+      "ok": true,
+      "rows": [
+        "firma recompute_standings(text) | ok",
+        "firma recompute_team_stats(text,text) | ok",
+        "firma recompute_player_event_stats(text) | ok",
+        "firma expire_offers() | ok",
+        "firma _release_listing_offers(uuid,uuid) | ok",
+        "firma _check_wash(uuid,uuid) | ok",
+        "firma _check_rate(text,integer) | ok",
+        "firma _check_price_band(text,bigint) | ok",
+        "firma _price_anchor(text) | ok",
+        "firma _asset_refresh_best(text,text,text) | ok",
+        "vistas actualizables = las conocidas | ok",
+        "política «crea tu perfil» presente | ok",
+        "trigger handle_new_user en auth.users | ok",
+        "guardián de columnas de profiles | ok",
+        "service_role con BYPASSRLS | ok"
+      ]
+    },
+    {
+      "name": "pruebas RLS · ANTES de 0058",
+      "ok": true,
+      "rows": [
+        "11111111-1111-1111-1111-111111111111",
+        "{\"sub\" : \"11111111-1111-1111-1111-111111111111\", \"role\" : \"authenticated\"}",
+        "anon lee profiles | FALLA: legible",
+        "anon lee ranking_points | ok",
+        "anon lee pickem_questions_public | ok",
+        "anon escribe pickem_questions_public | FALLA: permitido",
+        "anon borra card_photos | FALLA: permitido",
+        "anon ejecuta recompute_standings | FALLA: permitido",
+        "anon ejecuta _release_listing_offers | FALLA: permitido",
+        "anon lee vista heredada ranking_collection | FALLA: legible",
+        "auth lee su perfil | ok",
+        "auth cuenta posiciones por puntos | ok",
+        "auth edita su avatar | ok",
+        "auth se sube créditos | ok",
+        "auth edita perfil ajeno | ok",
+        "auth inserta perfil | ok",
+        "auth borra profiles | FALLA: permitido",
+        "auth escribe pickem_questions_public | FALLA: permitido",
+        "auth ejecuta expire_offers | FALLA: permitido",
+        "auth lee credits de otra cuenta | FALLA: legible",
+        "auth lee is_admin | FALLA: legible",
+        "auth lee last_seen_at | FALLA: legible",
+        "auth select * de profiles | FALLA: legible",
+        "auth lee columnas públicas (posición regional) | ok",
+        "auth lee nombre/avatar/nivel ajenos | ok",
+        "auth edita su región | ok",
+        "auth tiene TRUNCATE en profiles | FALLA: concedido",
+        "service_role ejecuta recompute_standings | ok",
+        "service_role lee profiles | ok"
+      ]
+    },
+    {
+      "name": "exploit H5 · ANTES (anon PATCH vía vista)",
+      "ok": true,
+      "rows": [
+        "puntos en la tabla base tras el PATCH de anon: 999"
+      ]
+    },
+    {
+      "name": "exploit H4 · ANTES (anon libera ofertas y mueve créditos)",
+      "ok": true,
+      "rows": [
+        "",
+        "créditos del comprador tras la llamada de anon: 6500"
+      ]
+    },
+    {
+      "name": "APLICAR 0058 v3",
+      "ok": true,
+      "rows": []
+    },
+    {
+      "name": "postflight · DESPUÉS",
+      "ok": true,
+      "rows": [
+        "H1 anon no lee profiles | ok",
+        "H1 authenticated sigue leyendo profiles | ok",
+        "H6 authenticated: columnas legibles | ok",
+        "H6 authenticated no lee credits/is_admin/last_seen_at | ok",
+        "H7 vistas heredadas fuera de clientes | 0 (esperado 0)",
+        "H1 authenticated conserva UPDATE de columnas | ok",
+        "H2 sin INSERT/DELETE de cliente en profiles | ok",
+        "H2 política «crea tu perfil» retirada | ok",
+        "H3 tablas con TRUNCATE para clientes | 0 (esperado 0)",
+        "H5 vistas escribibles por clientes | 0 (esperado 0)",
+        "H5 vistas públicas siguen legibles | ok",
+        "H4 helpers ejecutables por anon | 0 (esperado 0)",
+        "H4 service_role conserva recompute_* | ok",
+        "funciones de mercado con auth.uid() intactas | ok"
+      ]
+    },
+    {
+      "name": "pruebas RLS · DESPUÉS de 0058",
+      "ok": true,
+      "rows": [
+        "11111111-1111-1111-1111-111111111111",
+        "{\"sub\" : \"11111111-1111-1111-1111-111111111111\", \"role\" : \"authenticated\"}",
+        "anon lee profiles | ok",
+        "anon lee ranking_points | ok",
+        "anon lee pickem_questions_public | ok",
+        "anon escribe pickem_questions_public | ok",
+        "anon borra card_photos | ok",
+        "anon ejecuta recompute_standings | ok",
+        "anon ejecuta _release_listing_offers | ok",
+        "anon lee vista heredada ranking_collection | ok",
+        "auth lee su perfil | ok",
+        "auth cuenta posiciones por puntos | ok",
+        "auth edita su avatar | ok",
+        "auth se sube créditos | ok",
+        "auth edita perfil ajeno | ok",
+        "auth inserta perfil | ok",
+        "auth borra profiles | ok",
+        "auth escribe pickem_questions_public | ok",
+        "auth ejecuta expire_offers | ok",
+        "auth lee credits de otra cuenta | ok",
+        "auth lee is_admin | ok",
+        "auth lee last_seen_at | ok",
+        "auth select * de profiles | ok",
+        "auth lee columnas públicas (posición regional) | ok",
+        "auth lee nombre/avatar/nivel ajenos | ok",
+        "auth edita su región | ok",
+        "auth tiene TRUNCATE en profiles | ok",
+        "service_role ejecuta recompute_standings | ok",
+        "service_role lee profiles | ok"
+      ]
+    },
+    {
+      "name": "exploit H5 · DESPUÉS",
+      "ok": true,
+      "rows": [
+        "puntos en la tabla base: 10"
+      ]
+    },
+    {
+      "name": "llamador SECURITY DEFINER sigue funcionando (buy_listing → _release_listing_offers)",
+      "ok": true,
+      "rows": [
+        "{\"sub\":\"22222222-2222-2222-2222-222222222222\",\"role\":\"authenticated\"}",
+        "",
+        "créditos del comprador tras la compra legítima: 6500"
+      ]
+    },
+    {
+      "name": "cliente F68 · select(\"*\") del perfil propio DESPUÉS (esperado: denegado)",
+      "ok": true,
+      "rows": [
+        "{\"sub\":\"11111111-1111-1111-1111-111111111111\",\"role\":\"authenticated\"}",
+        "select * propio: denegado (la build F68 no es compatible con 0058)"
+      ]
+    },
+    {
+      "name": "cliente F69 · lecturas/escrituras REST DESPUÉS (esperado: todas ok)",
+      "ok": true,
+      "rows": [
+        "{\"sub\":\"11111111-1111-1111-1111-111111111111\",\"role\":\"authenticated\"}",
+        "posición global (count points>40): 0",
+        "posición regional (count EMEA points>40): 0",
+        "avatar/región propios tras editar: 🐺 / Pacific"
+      ]
+    },
+    {
+      "name": "clasificación pública (anon) sigue viva",
+      "ok": true,
+      "rows": [
+        "filas ranking_points visibles para anon: 1"
+      ]
+    },
+    {
+      "name": "ROLLBACK de 0058",
+      "ok": true,
+      "rows": []
+    },
+    {
+      "name": "postflight · tras ROLLBACK (esperado «pendiente»)",
+      "ok": true,
+      "rows": [
+        "H1 anon no lee profiles | pendiente",
+        "H1 authenticated sigue leyendo profiles | ok",
+        "H6 authenticated: columnas legibles | pendiente",
+        "H6 authenticated no lee credits/is_admin/last_seen_at | pendiente",
+        "H7 vistas heredadas fuera de clientes | 4 (esperado 0)",
+        "H1 authenticated conserva UPDATE de columnas | ok",
+        "H2 sin INSERT/DELETE de cliente en profiles | pendiente",
+        "H2 política «crea tu perfil» retirada | pendiente",
+        "H3 tablas con TRUNCATE para clientes | 5 (esperado 0)",
+        "H5 vistas escribibles por clientes | 8 (esperado 0)",
+        "H5 vistas públicas siguen legibles | ok",
+        "H4 helpers ejecutables por anon | 10 (esperado 0)",
+        "H4 service_role conserva recompute_* | ok",
+        "funciones de mercado con auth.uid() intactas | ok"
+      ]
+    },
+    {
+      "name": "pruebas RLS · tras ROLLBACK (= ANTES)",
+      "ok": true,
+      "rows": [
+        "11111111-1111-1111-1111-111111111111",
+        "{\"sub\" : \"11111111-1111-1111-1111-111111111111\", \"role\" : \"authenticated\"}",
+        "anon lee profiles | FALLA: legible",
+        "anon lee ranking_points | ok",
+        "anon lee pickem_questions_public | ok",
+        "anon escribe pickem_questions_public | FALLA: permitido",
+        "anon borra card_photos | FALLA: permitido",
+        "anon ejecuta recompute_standings | FALLA: permitido",
+        "anon ejecuta _release_listing_offers | FALLA: permitido",
+        "anon lee vista heredada ranking_collection | FALLA: legible",
+        "auth lee su perfil | ok",
+        "auth cuenta posiciones por puntos | ok",
+        "auth edita su avatar | ok",
+        "auth se sube créditos | ok",
+        "auth edita perfil ajeno | ok",
+        "auth inserta perfil | ok",
+        "auth borra profiles | FALLA: permitido",
+        "auth escribe pickem_questions_public | FALLA: permitido",
+        "auth ejecuta expire_offers | FALLA: permitido",
+        "auth lee credits de otra cuenta | FALLA: legible",
+        "auth lee is_admin | FALLA: legible",
+        "auth lee last_seen_at | FALLA: legible",
+        "auth select * de profiles | FALLA: legible",
+        "auth lee columnas públicas (posición regional) | ok",
+        "auth lee nombre/avatar/nivel ajenos | ok",
+        "auth edita su región | ok",
+        "auth tiene TRUNCATE en profiles | FALLA: concedido",
+        "service_role ejecuta recompute_standings | ok",
+        "service_role lee profiles | ok"
+      ]
+    }
+  ],
+  "summary": {
+    "beforeFailures": 14,
+    "afterFailures": 0,
+    "rollbackFailures": 14,
+    "rollbackRestoresExactly": true,
+    "stepErrors": []
+  }
+}

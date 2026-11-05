@@ -1,0 +1,17 @@
+{
+  "at": "2026-09-30T20:27:48.023Z",
+  "fullSuite": "5629/5629 PASS, 0 cancelled (tras el arreglo de award)",
+  "tscWeb": 0,
+  "tscScripts": 0,
+  "lint": "0 errores · 27 avisos previos",
+  "build": "drl-0.1.1-1-3191f545 (servida en :3005 y en valorosters.com)",
+  "browserGate": {
+    "run1": "50/56 con cuenta QA D — el túnel SSH se relanzó 3 veces DURANTE el gate (20:06:29, 20:07:17, 20:09:31) → ENVIRONMENT",
+    "run2": "56/56 con cuenta QA B, 0 caídas del túnel"
+  },
+  "productionCheck": "17 PASS · 0 WARN · 0 FAIL (migraciones: última 0060, esperada 0060)",
+  "smoke": "74/74",
+  "authority": "authority-final.json 11/11",
+  "publicDomain": "public-browser-final.json PASS",
+  "memory": "libre 3,2 GB al empezar → 3,3 GB al acabar; 0 procesos huérfanos, 0 Chrome QA"
+}

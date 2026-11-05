@@ -1,0 +1,21 @@
+{
+  "at": "2026-09-30T19:08:53.600Z",
+  "account": "QA F",
+  "card": "stax__base",
+  "copies": [
+    2,
+    1
+  ],
+  "credits": [
+    6080,
+    6090
+  ],
+  "paid": 10,
+  "previewEach": 10,
+  "status": 200,
+  "retry": {
+    "status": 200,
+    "repeated": true
+  },
+  "pass": true
+}

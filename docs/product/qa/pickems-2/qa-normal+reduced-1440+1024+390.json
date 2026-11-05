@@ -1,0 +1,2262 @@
+{
+ "base": "http://127.0.0.1:3087",
+ "at": "2026-10-06T08:38:26.007Z",
+ "total": 286,
+ "passed": 286,
+ "failed": 0,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "pick previo marcado (aria-pressed) en cuartos",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "propagación: NRG y Paper Rex son los participantes predichos de la semi",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "pick directo: T1 queda elegido",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "aviso: «posterior(es) quitada(s)»",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "invalidación: la semi ya no tiene pick",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "propagación: T1 aparece en la semi",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "independiente intacto: el otro cuarto conserva su pick",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "teclado: los picks son enfocables con anillo visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "anónimo: sin botones de pick",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 24
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1328,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "✓ y ✕ con PALABRAS",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "reclamo visible al liquidar",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 24
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1328,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 6
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "single",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1360,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "void",
+   "name": "VOID dicho con texto",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "pick previo marcado (aria-pressed) en cuartos",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "propagación: NRG y Paper Rex son los participantes predichos de la semi",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "pick directo: T1 queda elegido",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "aviso: «posterior(es) quitada(s)»",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "invalidación: la semi ya no tiene pick",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "propagación: T1 aparece en la semi",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "independiente intacto: el otro cuarto conserva su pick",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "teclado: los picks son enfocables con anillo visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "anónimo: sin botones de pick",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 24
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1132,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "✓ y ✕ con PALABRAS",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "reclamo visible al liquidar",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 24
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1132,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 6
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "single",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 944,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "void",
+   "name": "VOID dicho con texto",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "móvil: pestañas Cuadro alto / bajo / Gran final",
+   "ok": true,
+   "detail": [
+    "Cuadro alto",
+    "Cuadro bajo",
+    "Gran final"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "móvil: la pestaña del cuadro bajo muestra sus rondas",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "pick previo marcado (aria-pressed) en cuartos",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "pick directo: T1 queda elegido",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "aviso: «posterior(es) quitada(s)»",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs",
+   "name": "teclado: los picks son enfocables con anillo visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-anon",
+   "name": "anónimo: sin botones de pick",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "playoffs-progress",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "✓ y ✕ con PALABRAS",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups",
+   "name": "reclamo visible al liquidar",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "groups-claimed",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "single",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "single",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "single",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "single",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "single",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "single",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "single",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "rr",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "void",
+   "name": "VOID dicho con texto",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "movimiento reducido: animación del pick ≈ 0",
+   "ok": true,
+   "detail": "1e-05s"
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 24
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1328,
+    "cw": 1328
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "movimiento reducido: animación del pick ≈ 0",
+   "ok": true,
+   "detail": "0s"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 20
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1536,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "movimiento reducido: animación del pick ≈ 0",
+   "ok": true,
+   "detail": "1e-05s"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "reparto escritorio",
+   "ok": true,
+   "detail": "desktop"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "conectores dibujados",
+   "ok": true,
+   "detail": 24
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "el cuadro se desplaza por DENTRO de su área (o cabe)",
+   "ok": true,
+   "detail": {
+    "sw": 1132,
+    "cw": 912
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "movimiento reducido: animación del pick ≈ 0",
+   "ok": true,
+   "detail": "0s"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "playoffs",
+   "name": "movimiento reducido: animación del pick ≈ 0",
+   "ok": true,
+   "detail": "1e-05s"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "sin desbordamiento horizontal de la PÁGINA",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "toda imagen con alt",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "reparto móvil",
+   "ok": true,
+   "detail": "mobile"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "botones de pick con aria-label",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "groups",
+   "name": "movimiento reducido: animación del pick ≈ 0",
+   "ok": true,
+   "detail": "0s"
+  }
+ ]
+}
