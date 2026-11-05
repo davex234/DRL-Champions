@@ -107,25 +107,15 @@ test("pLabel y fmt1: formato español y extremos sin saturar a P100/P0", () => {
 
 /* ───────── laboratorio ───────── */
 
-test("StrategyLabPanel: identidad, balance, ejes, fortalezas/debilidades, roles y detalles plegados", () => {
+test("StrategyLabPanel reducido: solo encabezado, etiqueta de perfil y frase de balance", () => {
   const h = html(<StrategyLabPanel analysis={A} />);
-  for (const id of ["strategy-lab", "deck-orientation", "deck-balance", "axis-bars", "lab-roles", "lab-advanced"]) assert.ok(h.includes(`data-testid="${id}"`), id);
-  assert.ok(h.includes("<details"));
-  assert.ok((h.match(/data-metric=/g) ?? []).length === 4);
-});
-test("StrategyLabPanel: jerarquía sin sobrecarga (≤3 fortalezas y ≤3 debilidades visibles)", () => {
-  const h = html(<StrategyLabPanel analysis={A} />);
-  const s = /data-testid="lab-strengths"[\s\S]*?<\/ul>/.exec(h)?.[0] ?? "";
-  const w = /data-testid="lab-weaknesses"[\s\S]*?<\/ul>/.exec(h)?.[0] ?? "";
-  assert.ok((s.match(/<li/g) ?? []).length <= 3 && (w.match(/<li/g) ?? []).length <= 3);
+  for (const id of ["strategy-lab", "deck-orientation", "deck-balance"]) assert.ok(h.includes(`data-testid="${id}"`), id);
+  for (const id of ["axis-bars", "lab-strengths", "lab-weaknesses", "lab-roles", "lab-advanced", "lab-context"]) assert.ok(!h.includes(`data-testid="${id}"`), id);
+  assert.ok(!h.includes("<details") && !h.includes("data-metric="));
 });
 test("StrategyLabPanel incompleto: aviso de 10 cartas y sin percentiles", () => {
   const h = html(<StrategyLabPanel analysis={analyzeDeck(cardsOf(BAL.slice(0, 8)), ctx)} />);
   assert.ok(h.includes("8/10: la orientación se calcula con las 10 cartas.") && !/P\d+ respecto/.test(h));
-});
-test("StrategyLabPanel con contexto de partida: lo dice como contexto, no como orden", () => {
-  const h = html(<StrategyLabPanel analysis={A} contextAxis="gamesense" onDismissContext={() => {}} />);
-  assert.ok(h.includes('data-testid="lab-context"') && text(h).includes("no es una recomendación") && h.includes("Quitar contexto"));
 });
 test("IdentityBadge: data-kind y texto (no solo color)", () => {
   const h = html(<IdentityBadge analysis={A} />);
@@ -303,7 +293,6 @@ test("DeckBuilder: carta no poseída ⇒ comparación informativa sin confirmar"
   const h = builder({ explore: def.cardId });
   assert.ok(h.includes('data-testid="explore-card"') && h.includes('data-informative="true"') && text(h).includes("no se puede aplicar al equipo"));
 });
-test("DeckBuilder: contexto de eje desde una partida", () => { assert.ok(builder({ focusAxis: "entryfrag" }).includes('data-testid="lab-context"')); });
 test("DeckBuilder: «Deshacer cambios» solo con borrador modificado", () => {
   assert.ok(!builder().includes('data-testid="revert-draft"'));
   assert.ok(builder({ uids: BAL.slice(0, 9) }).includes('data-testid="revert-draft"'));
@@ -342,12 +331,12 @@ test("favoritos no son señal estratégica", () => {
 /* ───────── accesibilidad, movimiento y rendimiento ───────── */
 
 test("accesibilidad: botones de la capa estratégica ≥ 44 px", () => {
-  const buttons = STRAT_UI.match(/<button[^>]*className="[^"]*"/g) ?? [];
+  const buttons = STRAT_UI.match(/<button\b[\s\S]*?className=(?:\{cn\()?"[^"]*"/g) ?? [];
   assert.ok(buttons.length > 0);
   for (const b of buttons) assert.ok(/min-h-\[44px\]/.test(b), b.slice(0, 120));
 });
 test("accesibilidad: resúmenes <details> con objetivo ≥ 44 px y tablas con caption", () => {
-  assert.ok((STRAT_UI.match(/<summary[^>]*min-h-\[44px\]/g) ?? []).length >= 2);
+  assert.ok((STRAT_UI.match(/<summary[^>]*min-h-\[44px\]/g) ?? []).length >= 1);
   assert.ok((STRAT_UI.match(/<caption/g) ?? []).length >= 4);
 });
 test("movimiento reducido: transiciones con motion-reduce y sin animación en bucle", () => {

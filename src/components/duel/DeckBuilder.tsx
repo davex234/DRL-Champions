@@ -147,7 +147,6 @@ export function DeckBuilder(props: DeckBuilderProps) {
   /** F68 · guardia SÍNCRONA del guardado: dos clics en la misma tarea leían `saving=false` y creaban DOS equipos nuevos. */
   const savingRef = useRef(false);
   const [announce, setAnnounce] = useState("");
-  const [contextAxis, setContextAxis] = useState<Axis | null>(init.focusAxis ?? null);
   const [altSort, setAltSort] = useState<AlternativeSort>(init.altSort ?? init.focusAxis ?? "ovr");
   const [explore, setExplore] = useState<string | null>(init.explore ?? null);
 
@@ -526,7 +525,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
       {/* ══ Colección · Tablero · Análisis ══ */}
       <div className="mt-4 grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_300px] xl:grid-cols-[300px_minmax(0,1fr)_300px]">
         <aside className="hidden xl:block" aria-label={t("Tu colección")}>
-          <div className="nx-clip max-h-[calc(100vh-140px)] overflow-y-auto border border-white/10 bg-white/[0.02] p-3">{collectionPanel}</div>
+          <div className="nx-clip border border-white/10 bg-white/[0.02] p-3">{collectionPanel}</div>
         </aside>
 
         <section aria-label={t("Tu equipo")} className="min-w-0">
@@ -564,12 +563,7 @@ export function DeckBuilder(props: DeckBuilderProps) {
             onIssue={(uid) => { const key = board.slots.find((s) => s.uid === uid)?.key; if (key) focusSlot(key); }}
             saved={!!deck && !dirty}
             strategy={
-              <StrategyLabPanel
-                analysis={analysis}
-                contextAxis={contextAxis}
-                onDismissContext={() => { setContextAxis(null); setAltSort("ovr"); }}
-                onFocusCard={(uid) => { const s = board.slots.find((x) => x.uid === uid); if (s) setSlotKeyOpen(s.key); }}
-              />
+              <StrategyLabPanel analysis={analysis} />
             }
             extra={
               <SuggestSection

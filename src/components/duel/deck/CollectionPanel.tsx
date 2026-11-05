@@ -4,8 +4,8 @@
  * PANEL DE COLECCIÓN DEL CONSTRUCTOR (Fase 32). Solo cartas que el SERVIDOR dice que son tuyas.
  *
  * El filtro es el de Collection 2.0 (`applyFilter`, vía `filterPool`): buscar, rol, OVR mínima; más
- * equipo, rareza y «solo repetidas». Orden: OVR, nombre, rareza, más recientes. Se pintan 36 cartas y
- * «Ver más»: nunca cien cartas ricas a la vez.
+ * equipo, rareza y «solo repetidas». Orden: OVR, nombre, rareza, más recientes. La lista enseña seis cartas
+ * a la vez y tiene scroll propio; se pintan por tandas de 36 al acercarse al final: nunca cien cartas ricas a la vez.
  *
  * Pulsar una carta hace lo que dice su etiqueta, calculada con `actionForCard`:
  *   + AÑADIR       → entra en el primer hueco libre de su rol;
@@ -13,7 +13,7 @@
  *   ✓ EN EL EQUIPO → lleva a su hueco;
  *   NO COMPATIBLE  → no es un botón; debajo se lee por qué.
  */
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/format";
 import { DUEL_ROLES } from "@/domain/cardgame";
@@ -32,6 +32,8 @@ import { fill, slots } from "@/i18n/rich";
 const tr = ns("duel");
 
 const PAGE = 36;
+/** Cartas visibles a la vez: la lista mide lo que ocupan las seis primeras y el resto se recorre con scroll propio. */
+const VISIBLE_CARDS = 6;
 const OVR_STEPS = [0, 70, 75, 80, 85];
 
 export interface CollectionPanelProps {
@@ -62,6 +64,29 @@ export function CollectionPanel(p: CollectionPanelProps) {
   );
   const set = (patch: Partial<PoolFilter>) => { setShown(PAGE); p.onFilter({ ...p.filter, ...patch }); };
   const missing = p.check.validation.missingByRole;
+
+  // Altura de la lista = hasta el final de la fila que contiene la sexta carta (se recalcula al cambiar el ancho).
+  const listRef = useRef<HTMLUListElement>(null);
+  const [listMax, setListMax] = useState<number | null>(null);
+  useLayoutEffect(() => {
+    const ul = listRef.current;
+    if (!ul) { setListMax(null); return; }
+    const measure = () => {
+      const items = Array.from(ul.children) as HTMLElement[];
+      if (items.length <= VISIBLE_CARDS) { setListMax(null); return; }
+      const lastTop = items[VISIBLE_CARDS - 1].offsetTop;
+      const bottom = Math.max(...items.filter((li) => li.offsetTop <= lastTop).map((li) => li.offsetTop + li.offsetHeight));
+      setListMax(bottom + 8);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(ul);
+    return () => ro.disconnect();
+  }, [visible.length]);
+  const onListScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    if (list.length > shown && el.scrollTop + el.clientHeight >= el.scrollHeight - 200) setShown((s) => s + PAGE);
+  };
 
   return (
     <div data-testid="collection-panel">
@@ -138,8 +163,13 @@ export function CollectionPanel(p: CollectionPanelProps) {
           )}
         </div>
       ) : (
-        <>
-          <ul className="mt-3 grid grid-cols-3 gap-x-2 gap-y-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-3" aria-label={tr("Cartas de tu colección")}>
+        <div
+          className="mt-3 -mx-1 overflow-y-auto overscroll-contain px-1 pt-1"
+          style={listMax ? { maxHeight: listMax } : undefined}
+          onScroll={onListScroll}
+          data-testid="collection-scroll"
+        >
+          <ul ref={listRef} className="relative grid grid-cols-3 gap-x-2 gap-y-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-2 xl:gap-x-3" aria-label={tr("Cartas de tu colección")}>
             {visible.map((c) => {
               const a = actions.get(c.uid)!;
               const n = copies.get(c.cardId) ?? 1;
@@ -173,7 +203,7 @@ export function CollectionPanel(p: CollectionPanelProps) {
               {tr("Ver más ({n})", { n: list.length - shown })}
             </button>
           )}
-        </>
+        </div>
       )}
     </div>
   );
