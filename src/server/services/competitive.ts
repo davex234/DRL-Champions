@@ -25,7 +25,8 @@ import { INITIAL_RATING, isProvisional, type DuelRating, type RatingEvent } from
 import { serverCatalog, serverCatalogSync } from "@/server/catalog";
 import { buildMatchView } from "@/lib/duel/matchView";
 import type { DuelMatchView } from "@/lib/duel/types";
-import { getRatingHistory } from "./duelsRating";
+import { getLatestRankMovement, getRatingHistory } from "./duelsRating";
+import type { RankMovement } from "@/domain/ranked/standing";
 import { isMissingRelation } from "./f73Config";
 import { peekProgression, type PassTrackLevelView } from "./progression";
 // Fase 55 · la temporada se lee por la MISMA puerta que `/temporada` (contrato «una sola fuente»).
@@ -149,6 +150,12 @@ export interface CompetitiveSnapshot {
   season: CompetitiveSeason | null;
   /** F84 · temporada competitiva, colocación, rango y elegibilidad. */
   competitive: CompetitiveBlock;
+  /**
+   * RESULTADO ÚNICO · movimiento de rango de la ÚLTIMA partida clasificatoria liquidada (del asiento; solo lectura), para
+   * que el centro Competitivo enseñe la ceremonia una vez. `null` si no hay asiento o la lectura falla (no se inventa).
+   * Opcional: los fixtures QA anteriores no lo traen.
+   */
+  lastRanked?: { matchId: string; at: number; movement: RankMovement } | null;
 }
 
 export interface CompetitiveSeason {
@@ -487,7 +494,7 @@ export async function getCompetitiveSnapshot(sb: SupabaseClient, userId: string,
     const topSize = cseason ? cseason.top.size : 0;
     const top = Math.min(clampLimit(opts.top, LIMITS.top, LIMITS.topMax), Math.max(1, topSize));
 
-    const [mine, eligible, topRows, matches, history, highest, prog, season, own] = await Promise.all([
+    const [mine, eligible, topRows, matches, history, highest, prog, season, own, lastRanked] = await Promise.all([
       cseason ? topPositionOf(sb, cseason, userId) : Promise.resolve({ position: null, row: null }),
       cseason ? eligibleTotal(sb, cseason.id) : Promise.resolve(0),
       cseason ? ladderSlice(sb, cseason.id, 0, top) : Promise.resolve([] as LadderViewRow[]),
@@ -497,6 +504,7 @@ export async function getCompetitiveSnapshot(sb: SupabaseClient, userId: string,
       peekProgression(sb, userId).catch(() => null),
       readSeason(sb, userId, now),
       standingOf(sb, cseason, userId, rating.rating),
+      getLatestRankMovement(sb, userId).catch(() => null),
     ]);
     const position = mine.position;
     const total = Math.min(eligible, topSize);
@@ -557,6 +565,7 @@ export async function getCompetitiveSnapshot(sb: SupabaseClient, userId: string,
         eligibility: cseason ? topEligibility(own.standing, lastMatchAt, cseason.top, now) : null,
         lastMatchAt, eligibleTotal: eligible,
       },
+      lastRanked,
     });
   } catch (e) {
     return fail(500, e instanceof Error ? e.message : "No se pudo leer el competitivo");

@@ -343,7 +343,7 @@ test("44 · en privado no se pide el asiento de rating ni se fotografía la esca
   assert.ok(PVP_PAGE.includes("outcome=1"));
   assert.ok(/if \(!terminal \|\| !matchId\) return;\s*if \(privada\) return;/.test(code(PVP_PAGE)));
   assert.ok(PVP_PAGE.includes('if (snap.mode === "PVP_PRIVATE") return;'));
-  assert.ok(PVP_PAGE.includes("void beginLadder();") && PVP_PAGE.includes("void endLadder();"));
+  assert.ok(PVP_PAGE.includes("void beginLadder();") && PVP_PAGE.includes("void endLadder().then((d) => savePositionDelta(cuenta, id, positionDeltaFrom(d)));") /* RESULTADO ÚNICO: la segunda foto deja el cambio de puesto en la sesión, de ESTA cuenta, para Competitivo */);
 });
 
 test("45 · el veredicto privado por abandono/tiempo viene del servidor como BANDO (closedBySide), nunca como id", () => {

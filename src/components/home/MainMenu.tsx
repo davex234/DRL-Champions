@@ -43,6 +43,7 @@ import type { OnboardingView } from "@/domain/onboarding";
 import { ns, td, getIntlLocale } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 import { fill, slots } from "@/i18n/rich";
+import { FirstSessionDiscovery } from "./FirstSessionDiscovery";
 
 const t = ns("home");
 
@@ -106,8 +107,10 @@ function Icono({ id, className }: { id: "play" | "vault" | "store"; className?: 
 }
 
 export function MainMenu({
-  snap, cards, hero, heroOwnedLabel, username, level, credits, signedIn, network = "online",
+  snap, cards, hero, heroOwnedLabel, username, level, credits, signedIn, network = "online", userKey = null,
 }: {
+  /** RESULTADO ÚNICO · id de la cuenta, solo para la marca «ya vista» de «Primera sesión completada». */
+  userKey?: string | null;
   /**
    * Estado de la lectura del Daily Loop. Existe por una razón concreta: al rehacer la Home me dejé
    * este aviso por el camino, y una pantalla preciosa que NO dice que está sin datos miente. Si el
@@ -382,6 +385,8 @@ export function MainMenu({
       </footer>
 
       <MoreMenu open={more} onClose={() => setMore(false)} signedIn={signedIn} />
+      {/* RESULTADO ÚNICO · «Primera sesión completada» (antes al pie del primer resultado): una vez, con la misma foto. */}
+      {signedIn && <FirstSessionDiscovery snap={snap} userKey={userKey} offline={network !== "online"} />}
     </main>
   );
 }

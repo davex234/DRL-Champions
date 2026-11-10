@@ -21,6 +21,7 @@ import { RankedLadder } from "./RankedLadder";
 import { CompetitiveRewards } from "@/components/competitive/CompetitiveRewards";
 import { RatingChart } from "@/components/competitive/RatingChart";
 import { RankLegend } from "./RankLegend";
+import { LastRankedResult } from "./LastRankedResult";
 import { ns } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 
@@ -36,14 +37,18 @@ export interface RankedCenterProps {
   deckError?: string | null;
   onRetryDecks?: () => void;
   loadLadderPage?: (offset: number) => Promise<CompetitiveLadderPage | null>;
+  /** RESULTADO ÚNICO · cuenta de la sesión: la ceremonia y el cambio de puesto pendientes son suyos. Sin ella, no se enseñan. */
+  userKey?: string | null;
 }
 
-export function RankedCenter({ snap, gate, legalDecks, onChooseDeck, resumeHref, loadingDecks, deckError, onRetryDecks, loadLadderPage }: RankedCenterProps) {
+export function RankedCenter({ snap, gate, legalDecks, onChooseDeck, resumeHref, loadingDecks, deckError, onRetryDecks, loadLadderPage, userKey = null }: RankedCenterProps) {
   useLocale();
   const rows: StandingEntry[] = [...snap.leaderboardTop, ...snap.aroundMe].map((e) => ({ position: e.position, rating: e.rating, username: e.username, isSelf: e.isSelf }));
   const recent = snap.recentMatches.slice(0, 5);
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6 px-0 sm:space-y-8" data-scene="ranked-center">
+      {/* RESULTADO ÚNICO · la ceremonia de rango y el cambio de puesto de la última clasificatoria, una vez por partida. */}
+      <LastRankedResult last={snap.lastRanked} serverNow={snap.serverNow} userKey={userKey} />
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-stretch xl:grid-cols-[minmax(0,1fr)_380px]">
         <RankedHero self={snap.self} stats={snap.stats} rows={rows} competitive={snap.competitive} />
         <RankedPlayPanel gate={gate} legalDecks={legalDecks} onChoose={onChooseDeck} resumeHref={resumeHref} loadingDecks={loadingDecks} deckError={deckError} onRetryDecks={onRetryDecks} />

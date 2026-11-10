@@ -51,7 +51,9 @@ import { PvpLobby } from "@/components/duel/pvp/PvpLobby";
 import { PvpArena } from "@/components/duel/pvp/PvpArena";
 import { PvpOutcome, type PvpVerdict } from "@/components/duel/pvp/PvpOutcome";
 import { ArenaEnvironment } from "@/components/duel/arena/ArenaEnvironment";
+import { positionDeltaFrom, savePositionDelta } from "@/lib/competitive/positionDelta";
 import { RankedSearch } from "@/components/duel/pvp/RankedSearch";
+import { useAuth } from "@/lib/supabase/auth";
 import { RankedMatchFound } from "@/components/duel/pvp/RankedMatchFound";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
 import { fetchPrivateMatchInfo, createChallenge, announceSocialChange, type PrivateMatchInfo } from "@/lib/social/client";
@@ -134,6 +136,8 @@ function Arena() {
    * falso, su bucle se desmonta y solo queda el de la partida.
    */
   const cola = usePvpQueue(cuenta === "yes" && fijado === null);
+  /* RESULTADO ÚNICO · la cuenta de la sesión: el cambio de puesto se guarda SOLO para ella (sesión del navegador). */
+  const { user: yo } = useAuth();
   const deLaCola = cola.matchId !== null && cola.matchId !== visto ? cola.matchId : null;
   const matchId = fijado ?? deLaCola;
 
@@ -296,8 +300,11 @@ function Arena() {
   useEffect(() => {
     if (!terminal || !matchId || !outcome.event || liquidada.current === matchId) return;
     liquidada.current = matchId;
-    void endLadder();
-  }, [terminal, matchId, outcome.event, endLadder]);
+    // RESULTADO ÚNICO · el cambio de puestos ya no se pinta aquí: se deja en la SESIÓN, asociado a la partida, y lo
+    // enseña el centro Competitivo una vez. Sin las dos fotos no se guarda nada.
+    const id = matchId, cuenta = yo?.id ?? null;
+    void endLadder().then((d) => savePositionDelta(cuenta, id, positionDeltaFrom(d)));
+  }, [terminal, matchId, outcome.event, endLadder, yo?.id]);
 
   // ── Acciones ──
   /*

@@ -87,25 +87,33 @@ export function useDailyLoop({ enabled, userKey }: { enabled: boolean; userKey: 
   const [status, setStatus] = useState<DailyLoopStatus>("loading");
   const [stale, setStale] = useState(false);
   const last = useRef(0);
-  const inflight = useRef(false);
+  /*
+   * La foto va ATADA A LA CUENTA que la pidió (mismo patrón que Competitivo, F84): el cerrojo de «una lectura en vuelo»
+   * es por cuenta, y una respuesta que llega cuando la sesión ya es de OTRA cuenta se descarta. Sin esto, una lectura de
+   * la cuenta anterior aún en vuelo bloqueaba la de la nueva y acababa pintada como suya.
+   */
+  const inflight = useRef<string | null | undefined>(undefined);
+  const owner = useRef(userKey);
+  owner.current = userKey;
   const alive = useRef(true);
 
   const load = useCallback(async () => {
-    if (!enabled || inflight.current) return;
+    const key = owner.current;
+    if (!enabled || inflight.current === key) return;
     if (typeof navigator !== "undefined" && navigator.onLine === false) { setStatus("offline"); setStale(true); return; }
-    inflight.current = true;
+    inflight.current = key;
     last.current = Date.now();
     try {
       const r = await fetchDailyLoop();
-      if (!alive.current) return;
+      if (!alive.current || owner.current !== key) return;
       setSnap(r.data); setClock(r.clock); setStatus("ready"); setStale(false);
     } catch (e) {
-      if (!alive.current) return;
+      if (!alive.current || owner.current !== key) return;
       const offline = typeof navigator !== "undefined" && navigator.onLine === false;
       setStatus(offline || (e instanceof DailyLoopError && e.code === "NETWORK") ? "offline" : "error");
       setStale(true);
     } finally {
-      inflight.current = false;
+      if (inflight.current === key) inflight.current = undefined;
     }
   }, [enabled]);
 

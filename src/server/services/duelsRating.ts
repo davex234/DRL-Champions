@@ -149,6 +149,44 @@ export async function getRatingHistory(
  * `null` cuando la partida todavía no se ha liquidado — que es lo normal durante la partida y
  * durante los milisegundos que hay entre el cierre y la liquidación.
  */
+/** Campos del asiento de rating que fijan el movimiento de rango (los escribió la liquidación; aquí solo se leen). */
+interface RankEventFacts {
+  old_rating: number; new_rating: number;
+  competitive_season_id?: string | null; season_match_number?: number | null; rule?: string | null;
+}
+
+/**
+ * F84 · RANGO ANTES → DESPUÉS, del ASIENTO (no de la ficha actual): dos pestañas, una recarga o un F5 una hora después
+ * calculan exactamente lo mismo. La temporada del asiento fija la versión de fronteras y las partidas de colocación.
+ * SOLO LECTURA: no toca el rating ni la liquidación; usa la misma función pura (`rankMovement`) para todos los llamadores.
+ */
+async function rankMovementOfEvent(sb: SupabaseClient, r: RankEventFacts): Promise<RankMovement> {
+  let season: { placementGames: number; rankConfigVersion: string } | null = null;
+  if (r.competitive_season_id) {
+    const s = await sb.from("competitive_seasons").select("placement_games, rank_config_version").eq("id", r.competitive_season_id).maybeSingle();
+    const row = s.data as { placement_games: number; rank_config_version: string } | null;
+    if (row) season = { placementGames: row.placement_games, rankConfigVersion: row.rank_config_version };
+  }
+  return rankMovement({ oldRating: r.old_rating, newRating: r.new_rating, seasonMatchNumber: r.season_match_number ?? null, rule: r.rule ?? null }, season);
+}
+
+/**
+ * RESULTADO ÚNICO · el movimiento de rango de la ÚLTIMA partida clasificatoria liquidada de este usuario, para que el
+ * centro Competitivo enseñe la ceremonia que ya no está en el resultado del duelo. Lectura pura del último asiento de
+ * `duel_pvp_rating_events` (los asientos solo existen para partidas clasificatorias). `null` si no hay ninguno.
+ */
+export async function getLatestRankMovement(
+  sb: SupabaseClient, userId: string,
+): Promise<{ matchId: string; at: number; movement: RankMovement } | null> {
+  const { data, error } = await sb.from("duel_pvp_rating_events")
+    .select("match_id, old_rating, new_rating, created_at, competitive_season_id, season_match_number, rule")
+    .eq("user_id", userId).order("created_at", { ascending: false }).limit(1).maybeSingle();
+  if (error) throw new Error(error.message);
+  const r = data as (RankEventFacts & { match_id: string; created_at: string }) | null;
+  if (!r) return null;
+  return { matchId: r.match_id, at: Date.parse(r.created_at) || 0, movement: await rankMovementOfEvent(sb, r) };
+}
+
 export async function getMatchRatingOutcome(
   sb: SupabaseClient, userId: string, matchId: string,
 ): Promise<PvpResult<{ outcome: RatingEvent | null; rating: number; rank: RankMovement | null }>> {
@@ -176,17 +214,7 @@ export async function getMatchRatingOutcome(
     opponent_rating: number; k_factor: number; result: string; created_at: string;
     competitive_season_id?: string | null; season_match_number?: number | null; rule?: string | null;
   };
-  /*
-   * F84 · RANGO ANTES → DESPUÉS, del ASIENTO (no de la ficha actual): dos pestañas, una recarga o un F5 una hora después
-   * calculan exactamente lo mismo. La temporada del asiento fija la versión de fronteras y las partidas de colocación.
-   */
-  let season: { placementGames: number; rankConfigVersion: string } | null = null;
-  if (r.competitive_season_id) {
-    const s = await sb.from("competitive_seasons").select("placement_games, rank_config_version").eq("id", r.competitive_season_id).maybeSingle();
-    const row = s.data as { placement_games: number; rank_config_version: string } | null;
-    if (row) season = { placementGames: row.placement_games, rankConfigVersion: row.rank_config_version };
-  }
-  const rank = rankMovement({ oldRating: r.old_rating, newRating: r.new_rating, seasonMatchNumber: r.season_match_number ?? null, rule: r.rule ?? null }, season);
+  const rank = await rankMovementOfEvent(sb, r);
   return done({
     rank,
     outcome: {

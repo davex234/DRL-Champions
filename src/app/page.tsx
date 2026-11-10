@@ -125,6 +125,7 @@ export default function HomePage() {
       level={nivel}
       credits={user || !configured ? credits ?? null : null}
       signedIn={!!user}
+      userKey={user?.id ?? null}
       network={network}
     />
   );

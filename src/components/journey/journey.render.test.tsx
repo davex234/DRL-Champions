@@ -223,8 +223,9 @@ test("JC10 · sin migración nueva sin encargo: la cabeza es 0058 (F60: 0057 CMS
 test("JC11 · la arena no tapa la partida: el coach va en la pre-partida y el resultado no apila el recorrido", () => {
   const arena = read("src/app/duelos/jugar/page.tsx");
   assert.ok(arena.includes("intro={firstMatch ? <FirstMatchCoach"));
-  // RESULTADO ÚNICO · «Primera sesión completada» ya no se apila en el resultado. PENDIENTE: hoy no se enseña en ninguna
-  // otra pantalla de producción (`DailyLobby` solo vive en arneses QA); su traslado está propuesto, no hecho.
+  // RESULTADO ÚNICO · «Primera sesión completada» ya no se apila en el resultado: la enseña el lobby (`MainMenu` →
+  // `FirstSessionDiscovery`, una vez por cuenta; ver `src/components/home/firstSession.render.test.tsx`).
+  assert.ok(read("src/components/home/MainMenu.tsx").includes("<FirstSessionDiscovery"));
   assert.ok(!arena.includes("<JourneyDiscovery") && !arena.includes("loopAfter"));
   const board = read("src/components/duel/MatchBoard.tsx");
   assert.ok(!/Journey|FirstMatchCoach/.test(board));

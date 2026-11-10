@@ -105,7 +105,7 @@ test("30+31 · el rating del post-partida es el asiento de la liquidación (old 
 });
 
 test("32+33 · posición actual siempre; cambio de puestos SOLO con foto antes y después", () => {
-  assert.ok(PVP_PAGE.includes("void beginLadder();") && PVP_PAGE.includes("void endLadder();"));
+  assert.ok(PVP_PAGE.includes("void beginLadder();") && PVP_PAGE.includes("void endLadder().then((d) => savePositionDelta(cuenta, id, positionDeltaFrom(d)));") /* RESULTADO ÚNICO: la segunda foto deja el cambio de puesto en la sesión, de ESTA cuenta, para Competitivo */);
   assert.ok(PVP_PAGE.includes("if (!terminal || !matchId || !outcome.event || liquidada.current === matchId) return;"), "la foto «después» espera al asiento");
   assert.ok(CLIENT.includes("positions: positionDelta(before.current?.position ?? null, after.position)"));
   // RESULTADO ÚNICO · la posición y el cambio de puestos viven en Competitivo; el resultado de la partida no los apila.
