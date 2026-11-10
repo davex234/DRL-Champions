@@ -1,0 +1,2 @@
+import { login, validDeck, mm, rating } from "./_qa";
+(async () => { for (const n of ["A", "B", "C", "D", "E", "F", "G"]) { try { const w = await login(n); const d = await validDeck(w); const q = (await mm(w)).json?.entry; console.log(n, w.userId.slice(0, 8), "deck", !!d, "queue", q?.state ?? null, JSON.stringify(await rating(w))); } catch (e) { console.log(n, "ERR", String(e).slice(0, 120)); } } })();

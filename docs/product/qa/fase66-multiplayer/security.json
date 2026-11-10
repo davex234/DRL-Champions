@@ -1,0 +1,38 @@
+{
+  "realServer": {
+    "at": "2026-09-26T19:07:20.347Z",
+    "idor": {
+      "get": 404,
+      "outcome": 404,
+      "play": 404,
+      "abandon": 404,
+      "inventedId": 404,
+      "noSession": 401,
+      "replay": 404,
+      "bodies": {
+        "foreign": {
+          "error": "Partida no encontrada"
+        },
+        "invented": {
+          "error": "Partida no encontrada"
+        }
+      },
+      "sameAnswerForForeignAndInvented": true,
+      "ok": true
+    },
+    "tamper": {
+      "futureVersion": 409,
+      "rivalCard": 409,
+      "badStat": 400,
+      "notYourTurn": 409,
+      "forgedFieldsInLegalPlay": {
+        "status": 200,
+        "versionAdvancedByOne": true,
+        "turnsResolved": 0,
+        "noResult": true
+      },
+      "ok": true
+    }
+  },
+  "unit": "duelsPvp.concurrency.service.test.ts (IDOR, turno ajeno, versión vieja/futura)"
+}

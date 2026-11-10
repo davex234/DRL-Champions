@@ -1,0 +1,383 @@
+{
+  "generated": "2026-10-07T09:21:53.153Z",
+  "n": 200000,
+  "proposed": [
+    {
+      "pack": "estandar",
+      "name": "Sobre Bronce",
+      "price": 2500,
+      "cards": 5,
+      "packs": 200000,
+      "ovr": {
+        "mean": 78.23,
+        "median": 78
+      },
+      "best": {
+        "mean": 84.56,
+        "p50": 84,
+        "p90": 88,
+        "p95": 89,
+        "p99": 92
+      },
+      "specialsPerPack": 0.151,
+      "pPackBest": {
+        "ge90": 4.084,
+        "ge93": 0.534,
+        "ge95": 0.338
+      },
+      "pMulti": {
+        "two90": 0.036,
+        "three90": 0.001,
+        "two88": 0.45,
+        "twoSpecials": 0
+      },
+      "jackpotRate": 1.981,
+      "absurdRate": 0,
+      "refLikeRate": 0,
+      "ev": {
+        "mean": 1253.36,
+        "p50": 860,
+        "p90": 1530,
+        "perCredit": 0.501,
+        "salvagePerPack": 76.9
+      },
+      "dupCardsInPackPct": 2.653,
+      "classPct": {
+        "base": 62.557,
+        "plata": 28.042,
+        "oro": 6.385,
+        "masters": 2.018,
+        "champions": 0.601,
+        "prime": 0.295,
+        "icon": 0.101
+      },
+      "bucketPct": {
+        "common": 96.984,
+        "uncommon": 2.018,
+        "epic": 0.601,
+        "rare": 0.295,
+        "legendary": 0.101
+      },
+      "editionPct": {
+        "base": 96.984,
+        "masters-sdc": 1.015,
+        "masters-l": 1.004,
+        "champions-s": 0.601,
+        "future-star": 0.295,
+        "record-breaker": 0.078,
+        "moments": 0.023
+      }
+    },
+    {
+      "pack": "premium",
+      "name": "Sobre Plata",
+      "price": 6000,
+      "cards": 6,
+      "packs": 200000,
+      "ovr": {
+        "mean": 84.21,
+        "median": 84
+      },
+      "best": {
+        "mean": 87.58,
+        "p50": 87,
+        "p90": 90,
+        "p95": 92,
+        "p99": 95
+      },
+      "specialsPerPack": 0.601,
+      "pPackBest": {
+        "ge90": 18.085,
+        "ge93": 2.323,
+        "ge95": 1.065
+      },
+      "pMulti": {
+        "two90": 1.16,
+        "three90": 0.033,
+        "two88": 10.046,
+        "twoSpecials": 6.883
+      },
+      "jackpotRate": 5.95,
+      "absurdRate": 0.199,
+      "refLikeRate": 0.003,
+      "ev": {
+        "mean": 3227.31,
+        "p50": 2090,
+        "p90": 5370,
+        "perCredit": 0.538,
+        "salvagePerPack": 194.5
+      },
+      "dupCardsInPackPct": 2.406,
+      "classPct": {
+        "plata": 70.812,
+        "oro": 19.171,
+        "masters": 7.366,
+        "champions": 1.659,
+        "prime": 0.827,
+        "icon": 0.164
+      },
+      "bucketPct": {
+        "common": 89.983,
+        "uncommon": 7.366,
+        "epic": 1.659,
+        "rare": 0.827,
+        "legendary": 0.164
+      },
+      "editionPct": {
+        "base": 89.983,
+        "masters-sdc": 3.807,
+        "masters-l": 3.558,
+        "champions-s": 1.659,
+        "future-star": 0.827,
+        "record-breaker": 0.121,
+        "moments": 0.043
+      }
+    },
+    {
+      "pack": "oro",
+      "name": "Sobre Oro",
+      "price": 12000,
+      "cards": 5,
+      "packs": 200000,
+      "ovr": {
+        "mean": 87.05,
+        "median": 87
+      },
+      "best": {
+        "mean": 90.41,
+        "p50": 90,
+        "p90": 94,
+        "p95": 95,
+        "p99": 95
+      },
+      "specialsPerPack": 2.001,
+      "pPackBest": {
+        "ge90": 61.852,
+        "ge93": 16.116,
+        "ge95": 8.275
+      },
+      "pMulti": {
+        "two90": 20.456,
+        "three90": 3.611,
+        "two88": 69.689,
+        "twoSpecials": 67.694
+      },
+      "jackpotRate": 23.044,
+      "absurdRate": 20.172,
+      "refLikeRate": 4.006,
+      "ev": {
+        "mean": 8491.07,
+        "p50": 5730,
+        "p90": 20000,
+        "perCredit": 0.708,
+        "salvagePerPack": 509
+      },
+      "dupCardsInPackPct": 2.279,
+      "classPct": {
+        "oro": 59.987,
+        "masters": 28.623,
+        "champions": 6.781,
+        "prime": 3.012,
+        "icon": 1.597
+      },
+      "bucketPct": {
+        "common": 59.987,
+        "uncommon": 28.623,
+        "epic": 6.781,
+        "rare": 3.012,
+        "legendary": 1.597
+      },
+      "editionPct": {
+        "base": 59.987,
+        "masters-sdc": 14.77,
+        "masters-l": 13.854,
+        "champions-s": 6.781,
+        "future-star": 3.012,
+        "record-breaker": 1.117,
+        "moments": 0.48
+      }
+    },
+    {
+      "pack": "masters",
+      "name": "Sobre Masters",
+      "price": 20000,
+      "cards": 5,
+      "packs": 200000,
+      "ovr": {
+        "mean": 87.75,
+        "median": 88
+      },
+      "best": {
+        "mean": 92.07,
+        "p50": 92,
+        "p90": 95,
+        "p95": 95,
+        "p99": 95
+      },
+      "specialsPerPack": 3.603,
+      "pPackBest": {
+        "ge90": 83.957,
+        "ge93": 41.995,
+        "ge95": 21.784
+      },
+      "pMulti": {
+        "two90": 46.666,
+        "three90": 15.119,
+        "two88": 84.627,
+        "twoSpecials": 98.542
+      },
+      "jackpotRate": 39.935,
+      "absurdRate": 30.042,
+      "refLikeRate": 7.179,
+      "ev": {
+        "mean": 15752.34,
+        "p50": 13710,
+        "p90": 29950,
+        "perCredit": 0.788,
+        "salvagePerPack": 947.2
+      },
+      "dupCardsInPackPct": 1.059,
+      "classPct": {
+        "masters": 47.623,
+        "oro": 27.947,
+        "champions": 16.443,
+        "prime": 4.971,
+        "icon": 3.016
+      },
+      "bucketPct": {
+        "uncommon": 47.623,
+        "common": 27.947,
+        "epic": 16.443,
+        "rare": 4.971,
+        "legendary": 3.016
+      },
+      "editionPct": {
+        "base": 27.947,
+        "masters-sdc": 24.255,
+        "masters-l": 23.367,
+        "champions-s": 16.443,
+        "future-star": 4.971,
+        "record-breaker": 2.038,
+        "moments": 0.977
+      }
+    },
+    {
+      "pack": "champions",
+      "name": "Sobre Champions",
+      "price": 35000,
+      "cards": 5,
+      "packs": 200000,
+      "ovr": {
+        "mean": 88.85,
+        "median": 89
+      },
+      "best": {
+        "mean": 93.3,
+        "p50": 94,
+        "p90": 95,
+        "p95": 95,
+        "p99": 95
+      },
+      "specialsPerPack": 4.202,
+      "pPackBest": {
+        "ge90": 94.152,
+        "ge93": 64.898,
+        "ge95": 42.834
+      },
+      "pMulti": {
+        "two90": 68.832,
+        "three90": 32.193,
+        "two88": 94.329,
+        "twoSpecials": 99.858
+      },
+      "jackpotRate": 77.578,
+      "absurdRate": 61.714,
+      "refLikeRate": 17.072,
+      "ev": {
+        "mean": 28825.07,
+        "p50": 27930,
+        "p90": 43400,
+        "perCredit": 0.824,
+        "salvagePerPack": 1732.9
+      },
+      "dupCardsInPackPct": 1.802,
+      "classPct": {
+        "champions": 38.01,
+        "masters": 26.417,
+        "oro": 15.957,
+        "prime": 14.013,
+        "icon": 5.603
+      },
+      "bucketPct": {
+        "epic": 38.01,
+        "uncommon": 26.417,
+        "common": 15.957,
+        "rare": 14.013,
+        "legendary": 5.603
+      },
+      "editionPct": {
+        "champions-s": 38.01,
+        "base": 15.957,
+        "future-star": 14.013,
+        "masters-sdc": 13.31,
+        "masters-l": 13.107,
+        "record-breaker": 3.724,
+        "moments": 1.879
+      }
+    },
+    {
+      "pack": "icon",
+      "name": "Sobre Icon",
+      "price": 60000,
+      "cards": 3,
+      "packs": 200000,
+      "ovr": {
+        "mean": 92.22,
+        "median": 92
+      },
+      "best": {
+        "mean": 94.23,
+        "p50": 95,
+        "p90": 95,
+        "p95": 95,
+        "p99": 95
+      },
+      "specialsPerPack": 3,
+      "pPackBest": {
+        "ge90": 99.591,
+        "ge93": 81.58,
+        "ge95": 70.556
+      },
+      "pMulti": {
+        "two90": 93.062,
+        "three90": 58.883,
+        "two88": 99.691,
+        "twoSpecials": 100
+      },
+      "jackpotRate": 100,
+      "absurdRate": 0,
+      "refLikeRate": 0,
+      "ev": {
+        "mean": 49732.14,
+        "p50": 48900,
+        "p90": 64000,
+        "perCredit": 0.829,
+        "salvagePerPack": 2985.7
+      },
+      "dupCardsInPackPct": 5.855,
+      "classPct": {
+        "prime": 64.659,
+        "icon": 35.341
+      },
+      "bucketPct": {
+        "rare": 64.659,
+        "legendary": 35.341
+      },
+      "editionPct": {
+        "future-star": 64.659,
+        "record-breaker": 23.545,
+        "moments": 11.796
+      }
+    }
+  ]
+}

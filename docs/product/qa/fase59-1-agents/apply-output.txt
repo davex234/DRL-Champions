@@ -1,0 +1,15 @@
+BEGIN
+apply_in_txn_before|28
+INSERT 0 1
+INSERT 0 0
+UPDATE 1
+chk_total|29
+chk_miks|1|Miks|controller
+chk_veto|1|veto|Veto|sentinel|icon_null=true
+chk_others_digest|8ad25e3c077174a4d62531529670debc
+chk_veto_refs|6|247f20d26be82515b38faebdca4623e1
+chk_objects|120|127
+chk_cards|331
+DO
+NOTICE:  CHECKS_OK
+COMMIT

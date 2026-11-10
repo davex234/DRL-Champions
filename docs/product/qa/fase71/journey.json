@@ -1,0 +1,78 @@
+{
+  "persona": "K",
+  "at": "2026-09-28T19:37:06.220Z",
+  "pass": 14,
+  "total": 14,
+  "steps": [
+    {
+      "id": "login",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "home",
+      "ok": true,
+      "detail": "/ h=[] broken=0"
+    },
+    {
+      "id": "pack-store",
+      "ok": true,
+      "detail": "/tienda h=[\"CHAMPIONS S\",\"SOBRES\"] broken=0"
+    },
+    {
+      "id": "collection",
+      "ok": true,
+      "detail": "/coleccion h=[\"MI COLECCIÓN\",\"TUS CARTAS DE MAYOR OVR\"] broken=0"
+    },
+    {
+      "id": "team",
+      "ok": true,
+      "detail": "/duelos/mazos h=[\"MIS EQUIPOS\",\"MI PRIMER EQUIPO\"] broken=0"
+    },
+    {
+      "id": "pve",
+      "ok": true,
+      "detail": "plays=played,played active=true"
+    },
+    {
+      "id": "progression",
+      "ok": true,
+      "detail": "/progresion h=[\"TU PROGRESO\",\"OBJETIVOS\"] broken=0"
+    },
+    {
+      "id": "competitive",
+      "ok": true,
+      "detail": "/competitivo h=[\"SIN CLASIFICAR\",\"ÚLTIMAS PARTIDAS\"] broken=0"
+    },
+    {
+      "id": "coach",
+      "ok": true,
+      "detail": "/entrenador h=[\"TACTICAL COACH\",\"PREPARACIÓN\"] broken=0"
+    },
+    {
+      "id": "public-profile",
+      "ok": true,
+      "detail": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7 h=[\"QAF68K105820_91CB\",\"EXPÓN TUS CARTAS FAVORITAS\"] broken=0"
+    },
+    {
+      "id": "profile-no-private",
+      "ok": true,
+      "detail": "el perfil no muestra el email"
+    },
+    {
+      "id": "logout",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "relogin",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "console-errors",
+      "ok": true,
+      "detail": "errores=0 "
+    }
+  ]
+}

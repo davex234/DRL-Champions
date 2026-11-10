@@ -1,0 +1,43 @@
+{
+  "at": "2026-09-30T17:26:39.744Z",
+  "intercepted": false,
+  "pass": 7,
+  "fail": 0,
+  "results": [
+    {
+      "id": "PROYECTO · la carta objetivo es REAL del catálogo",
+      "ok": true,
+      "detail": "darker__base clase=base ovr=80"
+    },
+    {
+      "id": "ADMIN · panel abierto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · crear proyecto QA (DRAFT) con carta real",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA MATCH_PLAY ×5 (PvE)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA CRAFT_PACK ×1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA DECK_MIN_COUNTRY TR ≥ 3 en el proyecto",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "ADMIN · misión QA dependiente (MATCH_PLAY ×1 tras la de Turquía) en el proyecto",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

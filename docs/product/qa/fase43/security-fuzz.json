@@ -1,0 +1,22 @@
+{
+  "phase": 43,
+  "kind": "security-fuzz",
+  "cases": 100000,
+  "byAttack": {
+    "foreign-deck": 10000,
+    "foreign-uid": 10000,
+    "hidden-opponent": 10000,
+    "fake-stats": 10000,
+    "fake-ovr": 10000,
+    "fake-role": 10000,
+    "fake-serial-bonus": 10000,
+    "arbitrary-userId": 10000,
+    "path-traversal": 10000,
+    "oversized": 10000
+  },
+  "mutate": null,
+  "violations": 0,
+  "byInvariant": {},
+  "sample": [],
+  "ms": 262807
+}

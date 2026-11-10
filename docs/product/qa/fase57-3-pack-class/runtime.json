@@ -1,0 +1,301 @@
+{
+  "estandar@1440": {
+    "title": "Sobre Bronce",
+    "body": "← SobresNexus1 sin abrirSobre BronceEl sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase.Precio750créditosContiene5cartasTu saldo6.000créditosQué puede salirProbabilidad por carta · 5 cartas por sobreBaseEdición base, OVR 70–8150 %97 % ≥1PlataEdición base, OVR 82–8525 %76 % ≥1OroEdición base, OVR 86–9210 %41 % ≥1MastersMasters L y Masters SDC7 %30 % ≥1ChampionsChampions S4 %18 % ≥1PrimeFuture Star3 %14 % ≥1IconRecord Breaker y Moments1 %5 % ≥1Cada carta se sortea por separado con esta tabla. «≥1» es la probabilidad de que el sobre traiga al menos una de esa clase.Abrir sobreDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "class-distribution",
+    "guarantee": null,
+    "classRows": [
+      "base | BaseEdición base, OVR 70–8150 %97 % ≥1",
+      "plata | PlataEdición base, OVR 82–8525 %76 % ≥1",
+      "oro | OroEdición base, OVR 86–9210 %41 % ≥1",
+      "masters | MastersMasters L y Masters SDC7 %30 % ≥1",
+      "champions | ChampionsChampions S4 %18 % ≥1",
+      "prime | PrimeFuture Star3 %14 % ≥1",
+      "icon | IconRecord Breaker y Moments1 %5 % ≥1"
+    ],
+    "rows": [
+      "BaseEdición base, OVR 70–8150 %97 % ≥1",
+      "PlataEdición base, OVR 82–8525 %76 % ≥1",
+      "OroEdición base, OVR 86–9210 %41 % ≥1",
+      "MastersMasters L y Masters SDC7 %30 % ≥1",
+      "ChampionsChampions S4 %18 % ≥1",
+      "PrimeFuture Star3 %14 % ≥1",
+      "IconRecord Breaker y Moments1 %5 % ≥1"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre"
+  },
+  "premium@1440": {
+    "title": "Sobre Plata",
+    "body": "← SobresNexusSobre PlataUn escalón por encima de Bronce: sin cartas Base, sobre todo Plata y Oro.Precio2.500créditosContiene6cartasTu saldo6.000créditosQué puede salirProbabilidad por carta · 6 cartas por sobrePlataEdición base, OVR 82–8550 %98 % ≥1OroEdición base, OVR 86–9225 %82 % ≥1MastersMasters L y Masters SDC10 %47 % ≥1ChampionsChampions S7 %35 % ≥1PrimeFuture Star5 %26 % ≥1IconRecord Breaker y Moments3 %17 % ≥1Cada carta se sortea por separado con esta tabla. «≥1» es la probabilidad de que el sobre traiga al menos una de esa clase.Comprar y abrirDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "class-distribution",
+    "guarantee": null,
+    "classRows": [
+      "plata | PlataEdición base, OVR 82–8550 %98 % ≥1",
+      "oro | OroEdición base, OVR 86–9225 %82 % ≥1",
+      "masters | MastersMasters L y Masters SDC10 %47 % ≥1",
+      "champions | ChampionsChampions S7 %35 % ≥1",
+      "prime | PrimeFuture Star5 %26 % ≥1",
+      "icon | IconRecord Breaker y Moments3 %17 % ≥1"
+    ],
+    "rows": [
+      "PlataEdición base, OVR 82–8550 %98 % ≥1",
+      "OroEdición base, OVR 86–9225 %82 % ≥1",
+      "MastersMasters L y Masters SDC10 %47 % ≥1",
+      "ChampionsChampions S7 %35 % ≥1",
+      "PrimeFuture Star5 %26 % ≥1",
+      "IconRecord Breaker y Moments3 %17 % ≥1"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 6 cartas por sobre"
+  },
+  "oro@1440": {
+    "title": "Sobre Oro",
+    "body": "← SobresNexusSobre OroAcceso real a cartas muy buenas: desde Oro hacia arriba.Precio5.000créditosContiene5cartasTu saldo6.000créditosQué puede salirProbabilidad por carta · 5 cartas por sobreOroEdición base, OVR 86–9250 %97 % ≥1MastersMasters L y Masters SDC23 %73 % ≥1ChampionsChampions S10 %41 % ≥1PrimeFuture Star10 %41 % ≥1IconRecord Breaker y Moments7 %30 % ≥1Cada carta se sortea por separado con esta tabla. «≥1» es la probabilidad de que el sobre traiga al menos una de esa clase.Comprar y abrirDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "class-distribution",
+    "guarantee": null,
+    "classRows": [
+      "oro | OroEdición base, OVR 86–9250 %97 % ≥1",
+      "masters | MastersMasters L y Masters SDC23 %73 % ≥1",
+      "champions | ChampionsChampions S10 %41 % ≥1",
+      "prime | PrimeFuture Star10 %41 % ≥1",
+      "icon | IconRecord Breaker y Moments7 %30 % ≥1"
+    ],
+    "rows": [
+      "OroEdición base, OVR 86–9250 %97 % ≥1",
+      "MastersMasters L y Masters SDC23 %73 % ≥1",
+      "ChampionsChampions S10 %41 % ≥1",
+      "PrimeFuture Star10 %41 % ≥1",
+      "IconRecord Breaker y Moments7 %30 % ≥1"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre"
+  },
+  "masters@1440": {
+    "title": "Sobre Masters",
+    "body": "← SobresEventoSobre MastersEl sobre del evento Masters: la clase Masters (Masters L y SDC) es la que más sale.Precio5.000créditosContiene5cartasTu saldo6.000créditosQué puede salirProbabilidad por carta · 5 cartas por sobreOroEdición base, OVR 86–9225 %76 % ≥1MastersMasters L y Masters SDC40 %92 % ≥1ChampionsChampions S15 %56 % ≥1PrimeFuture Star12 %47 % ≥1IconRecord Breaker y Moments8 %34 % ≥1Cada carta se sortea por separado con esta tabla. «≥1» es la probabilidad de que el sobre traiga al menos una de esa clase.Ver en eventosEste sobre se obtiene en el Centro de Eventos, no se compra aquí.DInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "class-distribution",
+    "guarantee": null,
+    "classRows": [
+      "oro | OroEdición base, OVR 86–9225 %76 % ≥1",
+      "masters | MastersMasters L y Masters SDC40 %92 % ≥1",
+      "champions | ChampionsChampions S15 %56 % ≥1",
+      "prime | PrimeFuture Star12 %47 % ≥1",
+      "icon | IconRecord Breaker y Moments8 %34 % ≥1"
+    ],
+    "rows": [
+      "OroEdición base, OVR 86–9225 %76 % ≥1",
+      "MastersMasters L y Masters SDC40 %92 % ≥1",
+      "ChampionsChampions S15 %56 % ≥1",
+      "PrimeFuture Star12 %47 % ≥1",
+      "IconRecord Breaker y Moments8 %34 % ≥1"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre"
+  },
+  "champions@1440": {
+    "title": "Sobre Champions",
+    "body": "← SobresEventoSobre ChampionsLos mejores del mundo: la clase Champions (Champions S) es la que más sale.Precio8.000créditosContiene5cartasTu saldo6.000créditosQué puede salirProbabilidad por carta · 5 cartas por sobreOroEdición base, OVR 86–9215 %56 % ≥1MastersMasters L y Masters SDC20 %67 % ≥1ChampionsChampions S30 %83 % ≥1PrimeFuture Star20 %67 % ≥1IconRecord Breaker y Moments15 %56 % ≥1Cada carta se sortea por separado con esta tabla. «≥1» es la probabilidad de que el sobre traiga al menos una de esa clase.Ver en eventosEste sobre se obtiene en el Centro de Eventos, no se compra aquí.DInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "class-distribution",
+    "guarantee": null,
+    "classRows": [
+      "oro | OroEdición base, OVR 86–9215 %56 % ≥1",
+      "masters | MastersMasters L y Masters SDC20 %67 % ≥1",
+      "champions | ChampionsChampions S30 %83 % ≥1",
+      "prime | PrimeFuture Star20 %67 % ≥1",
+      "icon | IconRecord Breaker y Moments15 %56 % ≥1"
+    ],
+    "rows": [
+      "OroEdición base, OVR 86–9215 %56 % ≥1",
+      "MastersMasters L y Masters SDC20 %67 % ≥1",
+      "ChampionsChampions S30 %83 % ≥1",
+      "PrimeFuture Star20 %67 % ≥1",
+      "IconRecord Breaker y Moments15 %56 % ≥1"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 5 cartas por sobre"
+  },
+  "icon@1440": {
+    "title": "Sobre Icon",
+    "body": "← SobresIconoSobre IconLa élite, en una sola carta: Prime (Future Star) o Icon (Record Breaker o Moments).Precio20.000créditosContiene1cartaTu saldo6.000créditosQué puede salirProbabilidad por carta · 1 carta por sobrePrime o Icon garantizadaPrimeFuture Star70 %IconRecord Breaker y Moments30 %Una sola carta: primero se sortea la clase con esta tabla y después una carta de esa clase.Créditos insuficientesTe faltan 14.000 créditos. Se ganan jugando: partidas, misiones, logros y eventos. Ver misionesDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "class-distribution",
+    "guarantee": "Prime o Icon garantizada",
+    "classRows": [
+      "prime | PrimeFuture Star70 %",
+      "icon | IconRecord Breaker y Moments30 %"
+    ],
+    "rows": [
+      "PrimeFuture Star70 %",
+      "IconRecord Breaker y Moments30 %"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 1 carta por sobre"
+  },
+  "ewc@1440": {
+    "title": "Sobre EWC",
+    "body": "← SobresEventoSobre EWCEl sobre del evento EWC. Épica garantizada.Precio6.000créditosContiene5cartasTu saldo6.000créditosQué puede salirMedido con el motor real · 5 cartas por sobreComún7 % por carta29 % ≥1 por sobrePoco común30 % por carta84 % ≥1 por sobreRara26 % por carta77 % ≥1 por sobreÉpica32 % por carta86 % ≥1 por sobreLegendaria5 % por carta23 % ≥1 por sobreGarantiza al menos una carta épica o superior en la última carta. «≥1 por sobre» es aproximado: se calcula carta a carta.Ver en eventosEste sobre se obtiene en el Centro de Eventos, no se compra aquí.DInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "rarity-weights",
+    "guarantee": null,
+    "classRows": [],
+    "rows": [
+      "Común7 % por carta29 % ≥1 por sobre",
+      "Poco común30 % por carta84 % ≥1 por sobre",
+      "Rara26 % por carta77 % ≥1 por sobre",
+      "Épica32 % por carta86 % ≥1 por sobre",
+      "Legendaria5 % por carta23 % ≥1 por sobre"
+    ],
+    "header": "Qué puede salirMedido con el motor real · 5 cartas por sobre"
+  },
+  "emea@1440": {
+    "title": "Sobre EMEA",
+    "body": "← SobresRegionalSobre EMEASolo jugadores de la región EMEA.Precio3.000créditosContiene5cartasTu saldo6.000créditosQué puede salirMedido con el motor real · 5 cartas por sobreComún35 % por carta89 % ≥1 por sobrePoco común40 % por carta92 % ≥1 por sobreRara18 % por carta63 % ≥1 por sobreÉpica6 % por carta26 % ≥1 por sobreLegendaria1 % por carta5 % ≥1 por sobreComprar y abrirDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "rarity-weights",
+    "guarantee": null,
+    "classRows": [],
+    "rows": [
+      "Común35 % por carta89 % ≥1 por sobre",
+      "Poco común40 % por carta92 % ≥1 por sobre",
+      "Rara18 % por carta63 % ≥1 por sobre",
+      "Épica6 % por carta26 % ≥1 por sobre",
+      "Legendaria1 % por carta5 % ≥1 por sobre"
+    ],
+    "header": "Qué puede salirMedido con el motor real · 5 cartas por sobre"
+  },
+  "china@1440": {
+    "title": "Sobre China",
+    "body": "← SobresRegionalSobre ChinaSolo jugadores de la región China. Con el catálogo actual todas sus cartas son poco comunes (Masters L y SDC).Precio3.000créditosContiene5cartasTu saldo6.000créditosQué puede salirMedido con el motor real · 5 cartas por sobrePoco común100 % por carta100 % ≥1 por sobreNo contiene común ni rara ni épica ni legendaria: no hay cartas de esa rareza para este sobre.Comprar y abrirDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "rarity-weights",
+    "guarantee": null,
+    "classRows": [],
+    "rows": [
+      "Poco común100 % por carta100 % ≥1 por sobre"
+    ],
+    "header": "Qué puede salirMedido con el motor real · 5 cartas por sobre"
+  },
+  "team-heretics@1440": {
+    "title": "Sobre Team Heretics",
+    "body": "← SobresEquipoTHSobre Team HereticsMás probabilidad de cartas de Team Heretics. Sortea entre jugadores de EMEA.Precio3.000créditosContiene5cartasTu saldo6.000créditosQué puede salirMedido con el motor real · 5 cartas por sobreComún35 % por carta89 % ≥1 por sobrePoco común40 % por carta92 % ≥1 por sobreRara18 % por carta63 % ≥1 por sobreÉpica6 % por carta26 % ≥1 por sobreLegendaria1 % por carta5 % ≥1 por sobreProbabilidad aumentada · Probabilidad aumentada de jugadores de Team Heretics: 11 cartas del equipo pueden salir y son más probables que el resto, pero no están garantizadas.Comprar y abrirDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "rarity-weights",
+    "guarantee": null,
+    "classRows": [],
+    "rows": [
+      "Común35 % por carta89 % ≥1 por sobre",
+      "Poco común40 % por carta92 % ≥1 por sobre",
+      "Rara18 % por carta63 % ≥1 por sobre",
+      "Épica6 % por carta26 % ≥1 por sobre",
+      "Legendaria1 % por carta5 % ≥1 por sobre"
+    ],
+    "header": "Qué puede salirMedido con el motor real · 5 cartas por sobre"
+  },
+  "team-fnatic@1440": {
+    "title": "Sobre Fnatic",
+    "body": "← SobresEquipoFNCSobre FnaticMás probabilidad de cartas de Fnatic. Sortea entre jugadores de EMEA.Precio3.000créditosContiene5cartasTu saldo6.000créditosQué puede salirMedido con el motor real · 5 cartas por sobreComún35 % por carta89 % ≥1 por sobrePoco común40 % por carta92 % ≥1 por sobreRara18 % por carta63 % ≥1 por sobreÉpica6 % por carta26 % ≥1 por sobreLegendaria1 % por carta5 % ≥1 por sobreProbabilidad aumentada · Probabilidad aumentada de jugadores de Fnatic: 6 cartas del equipo pueden salir y son más probables que el resto, pero no están garantizadas.Comprar y abrirDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "rarity-weights",
+    "guarantee": null,
+    "classRows": [],
+    "rows": [
+      "Común35 % por carta89 % ≥1 por sobre",
+      "Poco común40 % por carta92 % ≥1 por sobre",
+      "Rara18 % por carta63 % ≥1 por sobre",
+      "Épica6 % por carta26 % ≥1 por sobre",
+      "Legendaria1 % por carta5 % ≥1 por sobre"
+    ],
+    "header": "Qué puede salirMedido con el motor real · 5 cartas por sobre"
+  },
+  "inicial@1440": {
+    "title": "Sobre Inicial",
+    "body": "← SobresBienvenida3 sin abrirSobre InicialTu primer paso: cinco cartas de todas las ediciones para empezar tu colección.PrecioGratisContiene5cartasTu saldo6.000créditosQué puede salirSegún los pesos del sobre · 5 cartas por sobreComún70 % por carta100 % ≥1 por sobrePoco común26 % por carta78 % ≥1 por sobreRara4 % por carta16 % ≥1 por sobreÉpica<1 % por carta2 % ≥1 por sobreLegendaria0 % por carta0 % ≥1 por sobreAbrir sobreDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "rarity-weights",
+    "guarantee": null,
+    "classRows": [],
+    "rows": [
+      "Común70 % por carta100 % ≥1 por sobre",
+      "Poco común26 % por carta78 % ≥1 por sobre",
+      "Rara4 % por carta16 % ≥1 por sobre",
+      "Épica<1 % por carta2 % ≥1 por sobre",
+      "Legendaria0 % por carta0 % ≥1 por sobre"
+    ],
+    "header": "Qué puede salirSegún los pesos del sobre · 5 cartas por sobre"
+  },
+  "scene:01-sealed@1440": {
+    "scene": "01-sealed",
+    "cardBacks": 0,
+    "revealAll": false,
+    "text": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR SOBRE ICON 1 CARTA REVELAR NEXUS SOBRE ICON 1 CARTA ABRIR SOBRE Toca · Espacio · Enter — o arrastra sobre la costura → QA SYNTHETIC · Fase 57 · sobre sellado · Icon (arte oficial) D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕"
+  },
+  "scene:04-emerging@1440": {
+    "scene": "04-emerging",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR SOBRE ICON 1 CARTA NEXUS REVELAR QA SYNTHETIC · Fase 57 · la carta sale del sobre D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕"
+  },
+  "scene:05-face-down@1440": {
+    "scene": "05-face-down",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR SOBRE ICON 1 CARTA NEXUS REVELAR QA SYNTHETIC · Fase 57 · una única carta boca abajo (legendaria: corona) D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕"
+  },
+  "scene:06a-idle@1440": {
+    "scene": "06a-idle",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR Carta 1 de 1. Revelando. NEXUS TOCA LA CARTA O PULSA ESPACIO PARA REVELARLA QA SYNTHETIC · Fase 57 · carta boca abajo esperando el gesto D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕"
+  },
+  "scene:09-reveal-max@1440": {
+    "scene": "09-reveal-max",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR Carta 1 de 1. PatMen. Legendaria. OVR 92. Nueva en tu colección. NEXUS NUEVA EN TU COLECCIÓN LEGENDARIA RECORD BREAKER PATMEN·92 OVR·FLEX·GE SH 70 · GS 64 · EF 73 TOCA O PULSA ENTER PARA VER EL RESUMEN QA SYNTHETIC · Fase 57 · legendaria revelada (momento máximo) D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕"
+  },
+  "scene:10-summary@1440": {
+    "scene": "10-summary",
+    "cardBacks": 0,
+    "revealAll": false,
+    "text": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 1 NIVEL 0% 6.000 DRL Credits MÁS JUGAR SOBRE ICON RESULTADO DEL SOBRE PATMEN92 LEGENDARIA · RECORD BREAKER NUEVA Destacada · Mayor rareza; a igualdad, mayor OVR y después serial más bajo. CARTAS 1 NUEVAS 1 DUPLICADAS 0 MEJOR RAREZA Legendaria PRIMERA LEGENDARIA TU COLECCIÓN 20 → 21 / 331 6,0 % → 6,3 % 1 carta nueva en tu colección. GE 0/11 → 1/11 PACIFIC 6/97 → 7/97 RECORD BREAKER 0/2 → 1/2 TODAS LAS CARTAS PATMEN92 LEGENDARIA · RECORD BREAKER NUEVA VER CARTA → ABRIR OTRO SOBRE · 2 VER EN MI COLECCIÓN JUGAR Te quedan 2 un"
+  },
+  "icon@390": {
+    "title": "Sobre Icon",
+    "body": "← SobresIconoSobre IconLa élite, en una sola carta: Prime (Future Star) o Icon (Record Breaker o Moments).Precio20.000créditosContiene1cartaTu saldo6.000créditosQué puede salirProbabilidad por carta · 1 carta por sobrePrime o Icon garantizadaPrimeFuture Star70 %IconRecord Breaker y Moments30 %Una sola carta: primero se sortea la clase con esta tabla y después una carta de esa clase.Créditos insuficientesTe faltan 14.000 créditos. Se ganan jugando: partidas, misiones, logros y eventos. Ver misionesDInstalar NEXUSJuega como una app, también sin conexión.Instalar✕",
+    "drawMode": "class-distribution",
+    "guarantee": "Prime o Icon garantizada",
+    "classRows": [
+      "prime | PrimeFuture Star70 %",
+      "icon | IconRecord Breaker y Moments30 %"
+    ],
+    "rows": [
+      "PrimeFuture Star70 %",
+      "IconRecord Breaker y Moments30 %"
+    ],
+    "header": "Qué puede salirProbabilidad por carta · 1 carta por sobre"
+  },
+  "scene:01-sealed@390": {
+    "scene": "01-sealed",
+    "cardBacks": 0,
+    "revealAll": false,
+    "text": "Saltar al contenido 6.000 DRL Credits SOBRE ICON 1 CARTA REVELAR NEXUS SOBRE ICON 1 CARTA ABRIR SOBRE Toca · Espacio · Enter — o arrastra sobre la costura → QA SYNTHETIC · Fase 57 · sobre sellado · Icon (arte oficial) D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕ INICIO CARTAS JUGAR TIENDA 1 PERFIL"
+  },
+  "scene:04-emerging@390": {
+    "scene": "04-emerging",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido 6.000 DRL Credits SOBRE ICON 1 CARTA NEXUS REVELAR QA SYNTHETIC · Fase 57 · la carta sale del sobre D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕ INICIO CARTAS JUGAR TIENDA 1 PERFIL"
+  },
+  "scene:05-face-down@390": {
+    "scene": "05-face-down",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido 6.000 DRL Credits SOBRE ICON 1 CARTA NEXUS REVELAR QA SYNTHETIC · Fase 57 · una única carta boca abajo (legendaria: corona) D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕ INICIO CARTAS JUGAR TIENDA 1 PERFIL"
+  },
+  "scene:06a-idle@390": {
+    "scene": "06a-idle",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido 6.000 DRL Credits Carta 1 de 1. Revelando. NEXUS TOCA LA CARTA O PULSA ESPACIO PARA REVELARLA QA SYNTHETIC · Fase 57 · carta boca abajo esperando el gesto D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕ INICIO CARTAS JUGAR TIENDA 1 PERFIL"
+  },
+  "scene:09-reveal-max@390": {
+    "scene": "09-reveal-max",
+    "cardBacks": 1,
+    "revealAll": false,
+    "text": "Saltar al contenido 6.000 DRL Credits Carta 1 de 1. PatMen. Legendaria. OVR 92. Nueva en tu colección. NEXUS NUEVA EN TU COLECCIÓN LEGENDARIA RECORD BREAKER PATMEN·92 OVR·FLEX·GE SH 70 · GS 64 · EF 73 TOCA O PULSA ENTER PARA VER EL RESUMEN QA SYNTHETIC · Fase 57 · legendaria revelada (momento máximo) D INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR ✕ INICIO CARTAS JUGAR TIENDA 1 PERFIL"
+  },
+  "scene:10-summary@390": {
+    "scene": "10-summary",
+    "cardBacks": 0,
+    "revealAll": false,
+    "text": "Saltar al contenido 6.000 DRL Credits SOBRE ICON RESULTADO DEL SOBRE PATMEN92 LEGENDARIA · RECORD BREAKER NUEVA Destacada · Mayor rareza; a igualdad, mayor OVR y después serial más bajo. CARTAS 1 NUEVAS 1 DUPLICADAS 0 MEJOR RAREZA Legendaria PRIMERA LEGENDARIA TU COLECCIÓN 20 → 21 / 331 6,0 % → 6,3 % 1 carta nueva en tu colección. GE 0/11 → 1/11 PACIFIC 6/97 → 7/97 RECORD BREAKER 0/2 → 1/2 TODAS LAS CARTAS PATMEN92 LEGENDARIA · RECORD BREAKER NUEVA VER CARTA → ABRIR OTRO SOBRE · 2 VER EN MI COLECCIÓN JUGAR Te quedan 2 unidades de «Sobre Icon» sin abrir. AÑADIR AL EQUIPO VOLVER A SOBRES QA SYNT"
+  }
+}

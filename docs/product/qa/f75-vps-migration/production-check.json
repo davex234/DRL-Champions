@@ -1,0 +1,144 @@
+{
+  "at": "2026-10-01T11:03:05.820Z",
+  "flags": [
+    "--app",
+    "--vps"
+  ],
+  "summary": {
+    "PASS": 24,
+    "WARN": 1,
+    "FAIL": 1
+  },
+  "results": [
+    {
+      "id": "env",
+      "level": "PASS",
+      "detail": "OPTIONAL ANTHROPIC_API_KEY: falta: predicciones con heurística · OPTIONAL NEXT_PUBLIC_VLR_API: falta: fuente VLR desactivada"
+    },
+    {
+      "id": "node",
+      "level": "PASS",
+      "detail": "v24.15.0 (engines >=22.12.0 <25, recomendado 24.15.0)"
+    },
+    {
+      "id": "build",
+      "level": "PASS",
+      "detail": "BUILD_ID drl-0.1.1-1-08943cb7 = huella del código actual"
+    },
+    {
+      "id": "migrations",
+      "level": "PASS",
+      "detail": "60 ficheros, última 0060_salvage_last_copy_atomic.sql (esperada 0060_salvage_last_copy_atomic)"
+    },
+    {
+      "id": "migrations-startup",
+      "level": "PASS",
+      "detail": "la app NO aplica migraciones al arrancar"
+    },
+    {
+      "id": "flags",
+      "level": "PASS",
+      "detail": "GLOBAL_MARKET_ENABLED=false PAYMENTS_ENABLED=false (constantes de código, no conmutables desde el cliente)"
+    },
+    {
+      "id": "catalog",
+      "level": "PASS",
+      "detail": "331 cartas en código"
+    },
+    {
+      "id": "card-art",
+      "level": "PASS",
+      "detail": "331/331 imágenes presentes"
+    },
+    {
+      "id": "agent-art",
+      "level": "PASS",
+      "detail": "29 agentes, sin carpeta de arte: ninguno"
+    },
+    {
+      "id": "pack-art",
+      "level": "PASS",
+      "detail": "32 sobres, 19 con arte, rotos: ninguno"
+    },
+    {
+      "id": "maps",
+      "level": "PASS",
+      "detail": "13 entradas en public/maps"
+    },
+    {
+      "id": "security-headers",
+      "level": "PASS",
+      "detail": "CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP, HSTS, sin X-Powered-By"
+    },
+    {
+      "id": "edge-guards",
+      "level": "PASS",
+      "detail": "tamaño de cuerpo, arneses QA ocultos, x-request-id"
+    },
+    {
+      "id": "robots",
+      "level": "PASS",
+      "detail": "beta cerrada: noindex"
+    },
+    {
+      "id": "sharp",
+      "level": "PASS",
+      "detail": "sharp es dependencia directa"
+    },
+    {
+      "id": "client-secrets",
+      "level": "PASS",
+      "detail": "ningún secreto del servidor en .next/static ni public/"
+    },
+    {
+      "id": "source-maps",
+      "level": "PASS",
+      "detail": "sin source maps públicos del navegador"
+    },
+    {
+      "id": "app-health",
+      "level": "PASS",
+      "detail": "https://valorosters.com/api/health → 200"
+    },
+    {
+      "id": "app-ready",
+      "level": "PASS",
+      "detail": "ready · config:ok database:ok schema:ok crafting:ok privacy:ok catalog:ok storage:ok"
+    },
+    {
+      "id": "backup-daily-db",
+      "level": "PASS",
+      "detail": "último dump diario hace 6 h (cron 04:30, retención 14 días)"
+    },
+    {
+      "id": "backup-daily-storage",
+      "level": "PASS",
+      "detail": "último tar de Storage hace 6 h"
+    },
+    {
+      "id": "backup-verified",
+      "level": "PASS",
+      "detail": "último backup con manifiesto: /opt/nexus/backups/supabase-drlcards/pre-0059/20260930T145720Z (hace 20 h, 3 unidades) · SHA256SUMS ok"
+    },
+    {
+      "id": "backup-log",
+      "level": "PASS",
+      "detail": "1 líneas FALLO en el histórico · [20261001T043001Z] fin. fallos=0  total=2.6G"
+    },
+    {
+      "id": "backup-disk",
+      "level": "PASS",
+      "detail": "469735 MB libres en /opt/nexus/backups; backups de DRLCards ocupan 91 MB (15 dumps diarios)"
+    },
+    {
+      "id": "backup-offsite",
+      "level": "FAIL",
+      "detail": "NOT_CONFIGURED · OFFSITE BACKUP NOT CONFIGURED: las copias viven en el MISMO disco del VPS (BLOCKED externo: falta destino + credenciales)"
+    },
+    {
+      "id": "auth-email",
+      "level": "WARN",
+      "detail": "BLOCKED para release pública: SMTP=supabase_inbucket_DRLCards (no entrega correo real) · allow-list=https://valorosters.com,https://valorosters.com/**,http://127.0.0.1:3005/** · autoconfirmación ON (registro sin verificar correo)"
+    }
+  ]
+}

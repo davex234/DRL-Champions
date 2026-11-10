@@ -1,0 +1,68 @@
+FAIL ready: cabeza 0069_player_cups por estado real y check «cups» en verde {"head":"0071_pickems_bracket","status":"ready"}
+PASS página /copas pública responde 200 
+PASS anónimo → /api/admin/cups 401 
+PASS usuario normal (B) → /api/admin/cups 401 (lectura y escritura) 
+PASS panel: validación (máximo 128 no soportado) → 400 Máximo entre 4 y 64
+PASS panel: crear BORRADOR no listado (nunca publica solo) {"id":"499eb495-456d-4d83-9312-314cf94407b7","slug":"qa-f86-muwgvqy8","version":0}
+PASS borrador invisible: ficha 404 (anónimo y jugador), fuera del hub 
+PASS publicar con versión vieja → 409 
+PASS publicar (admin, versión actual) → PUBLICADO + auditoría con actor {"code":"PUBLISHED"}
+PASS publicado: cambiar el máximo → 409 (solo texto) 
+PASS publicado: corregir la descripción → 200 
+PASS anónimo → inscribirse 401 
+PASS cuerpo con «winner» / «seed» / «userId» → 400 (lista blanca) 
+PASS 20 inscripciones simultáneas de B → 1 fila (1 REGISTERED + 19 ALREADY) REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,ALREADY_REGISTERED,
+PASS D se retira con la inscripción abierta y vuelve (misma fila) 
+PASS 4 inscritos, contador = filas 
+PASS no listado: B lo ve en «Mis torneos»; el hub público no lo lista 
+PASS cerrada: retirarse → 409 CLOSED 
+PASS 20 lecturas a la vez tras el cierre → UN cuadro (3 cruces, 2 rondas), una auditoría del sistema 200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200
+PASS foto de rating en cada inscrito (seed 1..4, rating = ranked o 1000) 
+PASS cuadro PÚBLICO sin ids de usuario ni correos; con #TAG; nombres de ronda verdaderos 
+PASS R1·0: «listo» A → WAITING; B → STARTED; A otra vez → la MISMA partida {"r1":"WAITING","r2":"STARTED","same":true}
+PASS R1·0: partida del motor PVP_PRIVATE, UNA por cruce, cruce EN JUEGO 
+PASS R1·0: abandono de A → gana B (cierre canónico del motor), ABANDON COMPLETED|1adb5533-474b-4131-95c5-e973491822c2|ABANDON
+PASS R1·0: la arena sabe que es un cruce de torneo (sin revancha); el cara a cara social NO lo cuenta {"slug":"qa-f86-muwgvqy8","name":"QA F86 (no listado)","round":1,"roundName":"Semifinal","outcome":"ADVANCED","nextRoundName":"Final"}
+PASS 20 lecturas más (red de liquidación) → el cuadro no cambia: un solo avance 
+PASS el ganador está en la final (lado A), una vez 
+PASS R1·1: «listo» A → WAITING; B → STARTED; A otra vez → la MISMA partida {"r1":"WAITING","r2":"STARTED","same":true}
+PASS R1·1: partida del motor PVP_PRIVATE, UNA por cruce, cruce EN JUEGO 
+PASS R1·1: abandono de A → gana B (cierre canónico del motor), ABANDON COMPLETED|b671deb0-a05d-49a2-bda7-206d6bb5d096|ABANDON
+PASS R1·1: la arena sabe que es un cruce de torneo (sin revancha); el cara a cara social NO lo cuenta {"slug":"qa-f86-muwgvqy8","name":"QA F86 (no listado)","round":1,"roundName":"Semifinal","outcome":"ADVANCED","nextRoundName":"Final"}
+PASS final con los dos finalistas → READY 
+PASS R2·0: «listo» A → WAITING; B → STARTED; A otra vez → la MISMA partida {"r1":"WAITING","r2":"STARTED","same":true}
+PASS R2·0: partida del motor PVP_PRIVATE, UNA por cruce, cruce EN JUEGO 
+PASS R2·0: abandono de A → gana B (cierre canónico del motor), ABANDON COMPLETED|b671deb0-a05d-49a2-bda7-206d6bb5d096|ABANDON
+PASS R2·0: la arena sabe que es un cruce de torneo (sin revancha); el cara a cara social NO lo cuenta {"slug":"qa-f86-muwgvqy8","name":"QA F86 (no listado)","round":2,"roundName":"Final","outcome":"CHAMPION","nextRoundName":null}
+PASS final → torneo COMPLETADO, campeón = ganador de la final, UN trofeo con referencia al torneo 
+PASS colocaciones guardadas: campeón, subcampeón y dos semifinalistas 
+PASS rating, colocación y pico de los 4 jugadores INTACTOS 
+PASS 0 eventos de rating nuevos (ni Top 500, ni tope de parejas, ni récord competitivo) 
+PASS 0 misiones contadas por las partidas de torneo 
+PASS 0 amistades creadas por el torneo 
+PASS Sala de Trofeos del campeón: trofeo TOURNAMENT «Campeón · QA F86 (no listado)» con fecha {"id":"insignia:torneo:qa-f86-muwgvqy8","label":"Campeón · QA F86 (no listado)","kind":"TOURNAMENT","logo":null,"color":"#ffce4f","caption":"Torneo · 6 oct 2026","setId":null}
+PASS ficha final pública: FINALIZADO + campeón con #TAG 
+PASS resolver un cruce de un torneo terminado → 409 
+PASS cancelar sin motivo → 400 
+PASS cancelar con inscritos (motivo) → CANCELADO, auditado; ya nadie se inscribe 
+PASS navegador QA_B @1440 · /copas · sin desbordamiento y contenido {"overflow":0,"tree":false,"tabs":false,"champion":false}
+PASS navegador QA_B @1440 · /copas · consola limpia []
+PASS navegador QA_B @1440 · /copas/qa-f86-muwgvqy8 · sin desbordamiento y contenido {"overflow":0,"tree":true,"tabs":false,"champion":true}
+PASS navegador QA_B @1440 · /copas/qa-f86-muwgvqy8 · consola limpia []
+PASS navegador QA_B @1024 · /copas · sin desbordamiento y contenido {"overflow":0,"tree":false,"tabs":false,"champion":false}
+PASS navegador QA_B @1024 · /copas · consola limpia []
+PASS navegador QA_B @1024 · /copas/qa-f86-muwgvqy8 · sin desbordamiento y contenido {"overflow":0,"tree":true,"tabs":false,"champion":true}
+PASS navegador QA_B @1024 · /copas/qa-f86-muwgvqy8 · consola limpia []
+PASS navegador QA_B @390 · /copas · sin desbordamiento y contenido {"overflow":0,"tree":false,"tabs":false,"champion":false}
+PASS navegador QA_B @390 · /copas · consola limpia []
+PASS navegador QA_B @390 · /copas/qa-f86-muwgvqy8 · sin desbordamiento y contenido {"overflow":0,"tree":false,"tabs":true,"champion":true}
+PASS navegador QA_B @390 · /copas/qa-f86-muwgvqy8 · consola limpia []
+PASS navegador QA_A @1440 · /admin/copas · sin desbordamiento y contenido {"overflow":0,"tree":false,"tabs":false,"champion":false}
+PASS navegador QA_A @1440 · /admin/copas · consola limpia []
+PASS cambio de cuenta B → C: nunca se marca a B como «tú» con la sesión de C {"youB":3,"seen":["2🎮qa_f87_c_5713#CYY4FFD","2\n🎮\nQA_F87_C_5713#CYY4FFD"]}
+PASS «Valorosters Open #1» ya existía: sigue en BORRADOR 
+FAIL limpieza: A ya no es admin; el único admin es la cuenta personal 200
+FAIL cuenta personal INTACTA: mismo #TAG, sigue admin, 0 inscripciones, 0 cruces, 0 trofeos de torneo, rating y créditos/XP iguales {"before":[""],"after":[""]}
+PASS Temporada 2 sigue en BORRADOR 
+
+F86 PRODUCTION QA: 63/66

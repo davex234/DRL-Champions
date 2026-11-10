@@ -1,0 +1,52 @@
+{
+  "phase": "PRE-F70",
+  "principle": "El backup local sigue siendo la fuente de creación; el off-site es una COPIA VERIFICADA de la misma unidad canónica (ni otro formato, ni otro manifiesto, ni otro motor de restauración).",
+  "pipeline": [
+    "PRODUCTION DATA → backup-drlcards.sh → unidad local COMPLETE (SHA256SUMS verificado)",
+    "→ backup-offsite.sh push: valida la unidad → tar SOLO de lo listado en SHA256SUMS → cifra (CMS AES-256-GCM) → sube a <remoto>/<TS>/ sin marcador",
+    "→ VERIFICACIÓN REMOTA: descarga de vuelta y compara el sha256 del .cms, su .sha256, offsite.json y el tamaño",
+    "→ REMOTE_VERIFIED (último fichero) → verificación del marcador → OFFSITE_VERIFIED local + offsite-status",
+    "→ retención (por defecto la del PROVEEDOR; opcional por script con protecciones)",
+    "→ FRESCURA: backup-status.sh + offsiteVerdict() en production:check"
+  ],
+  "files": {
+    "new": [
+      "scripts/ops/backup-offsite.sh (etapa off-site)",
+      "scripts/ops/offsite-harness.sh (arnés, fuera de CI)",
+      "src/domain/ops/backup.ts + backup.test.ts (parseo y veredicto puros)"
+    ],
+    "extended": [
+      "scripts/ops/backup-drlcards.sh: candado flock, LOCAL_KEEP (0 = no borra), etapa off-site en el MISMO flujo, códigos 0/1/3/75, cabeza esperada 0058",
+      "scripts/ops/backup-status.sh: todas las unidades verificadas (antes solo f67/), estado off-site sin volcar la configuración, raíz sobreescribible para el arnés",
+      "scripts/ops/production-check.ts: backup-offsite desde offsiteVerdict() (antes FAIL fijo), edad y recuento en backup-verified"
+    ]
+  },
+  "transport": {
+    "tool": "rclone v1.75.1 en contenedor efímero fijado por digest (rclone/rclone@sha256:45401ad7…)",
+    "why": "UN solo adaptador para S3-compatibles, SFTP/SSH, B2, WebDAV, SMB…; nada instalado en el host (el VPS no tiene aws ni rclone); ninguna dependencia npm; imagen descargada al VPS (130 MB) y fijada por digest",
+    "rejected": [
+      "rsync+ssh: no cubre S3/R2/B2",
+      "tres adaptadores a mano: justo el sistema paralelo que había que evitar"
+    ]
+  },
+  "states": {
+    "local": "COMPLETE → OFFSITE_IN_PROGRESS → OFFSITE_VERIFIED | OFFSITE_FAILED (JSON con etapa y hora; 600)",
+    "remote": "<TS>/ con unit.tar.cms + unit.tar.cms.sha256 + offsite.json; válida SOLO con REMOTE_VERIFIED cuyo hash coincide",
+    "summary": "<raíz>/offsite-status: verified <TS> <hora> | failed <TS> <hora> <etapa>"
+  },
+  "atomicity": "subida a <TS>/ sin marcador → verificación por descarga → marcador el ÚLTIMO; una copia a medias (sin marcador o con hash distinto) nunca es válida y se purga en el siguiente intento",
+  "idempotency": "si ya hay copia VERIFICADA de la misma unidad (mismo sha256 de SHA256SUMS), se re-verifica descargándola y no se sube nada; si no verifica, se purga y se vuelve a subir",
+  "exitCodes": {
+    "backup-offsite.sh": "0 ok/desactivado · 1 fallo de transferencia/verificación · 2 configuración o unidad rechazada · 75 candado ocupado",
+    "backup-drlcards.sh": "0 ok · 1 fallo local · 3 local OK + off-site KO · 75 candado ocupado"
+  },
+  "cron": "UN solo cron nuevo en la activación (backup-drlcards.sh a las 05:10, después del compartido de las 04:30) que crea la unidad Y la envía; hoy no se instala nada",
+  "concurrency": "flock no bloqueante sobre /opt/nexus/backups/supabase-drlcards/.backup.lock, compartido por backup-drlcards.sh y backup-offsite.sh (el envío hereda el candado del backup: sin deadlock)",
+  "defectsFoundByHarness": [
+    "«local ts=$1 … d=…$ts» en una sola declaración: $ts aún no existía y set -u mataba el script EN SILENCIO (sin OFFSITE_FAILED) → corregido + red de seguridad en la trampa EXIT",
+    "«for …; do [ … ] && …; done | sort» con pipefail + set -e abortaba backup-drlcards.sh DESPUÉS de crear la unidad si la última no tenía marcador → bucles con if",
+    "con set -E la trampa ERR se heredaba en <(…) y su salida («FAIL…») se leía como nombres de unidad en la retención → el manejador solo actúa en el proceso principal"
+  ],
+  "adminSystem": "/admin/system NO muestra backups (la app corre en el PC y no ve el disco del VPS): no se crea otro panel; la fuente operativa es production:check --vps",
+  "readiness": "/api/ready NO cambia ni depende del off-site (test)"
+}

@@ -1,0 +1,20 @@
+{
+  "at": "2026-09-30T18:01:25.318Z",
+  "npmTest": "5621/5621 (4 nuevos: src/lib/supabase/serverUrl.test.ts)",
+  "tscWeb": 0,
+  "tscScripts": 0,
+  "lint": "0 errores (27 avisos previos)",
+  "smoke": "74/74 (auth por el proxy mismo-origen)",
+  "browserGate": "56/56 (cuenta QA E; login por formulario → /auth/v1 del mismo origen)",
+  "productionCheck": "17 PASS · 0 WARN · 0 FAIL",
+  "health": 200,
+  "ready": "ready, cabeza 0059",
+  "notes": [
+    "1.ª pasada del gate 55/57: el check de Supabase miraba la URL configurada y no el origen real del navegador (corregido el check); la cola ranked de E tenía estado previo (limpiado por la API)"
+  ],
+  "publicGate": "55/57 contra https://valorosters.com (cuenta QA G): los 2 FAIL son el bug PREVIO de cola ranked (ver blockers.json)",
+  "smokeAfterAuth": "74/74",
+  "productionCheckAfterAuth": "17 PASS · 0 WARN · 0 FAIL",
+  "publicE2E": "29/29 (scripts/_vr-public-e2e.ts)",
+  "updatedAt": "2026-09-30T18:31:43.689Z"
+}

@@ -1,0 +1,856 @@
+{
+  "at": "2026-09-30T14:35:56.544Z",
+  "persona": "A",
+  "scale": 4,
+  "byWidth": {
+    "1440": {
+      "width": 1440,
+      "harness": [
+        {
+          "tag": "arnes",
+          "i": 0,
+          "asset": "us",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 211,
+          "allMean": 0.09,
+          "areaShift": 0.8,
+          "areaOriginal": "#ac8695",
+          "areaRendered": "#ab8695",
+          "offset": [
+            -6,
+            -2
+          ],
+          "exactShare": 0.9858,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#bd3d44",
+              "rendered": "#bd3d44",
+              "shift": 0,
+              "px": 105
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 105
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 1,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 2297,
+          "allMean": 11.84,
+          "areaShift": 1.41,
+          "areaOriginal": "#ccc5cd",
+          "areaRendered": "#cbc3cc",
+          "offset": [
+            0,
+            -2
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1991
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "shift": 0.019230769230766498,
+              "px": 156
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "shift": 0,
+              "px": 150
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 2,
+          "asset": "fnatic",
+          "shape": "logo",
+          "size": "39x39",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 152,
+          "H": 152,
+          "n": 444,
+          "allMean": 0.26,
+          "areaShift": 3.02,
+          "areaOriginal": "#ff5900",
+          "areaRendered": "#fc5800",
+          "offset": [
+            -4,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ff5900",
+              "rendered": "#ff5900",
+              "shift": 0,
+              "px": 444
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 3,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 3668,
+          "allMean": 0.44,
+          "areaShift": 0.19,
+          "areaOriginal": "#ef2324",
+          "areaRendered": "#ef2324",
+          "offset": [
+            -4,
+            -2
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#ee1c25",
+              "shift": 0,
+              "px": 3664
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 4,
+          "asset": "tr",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 3366,
+          "allMean": 0.11,
+          "areaShift": 0.05,
+          "areaOriginal": "#e51d29",
+          "areaRendered": "#e51d29",
+          "offset": [
+            -2,
+            -2
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#e30a17",
+              "rendered": "#e30a17",
+              "shift": 0,
+              "px": 3349
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 17
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 5,
+          "asset": "c9",
+          "shape": "logo",
+          "size": "39x39",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 152,
+          "H": 152,
+          "n": 260,
+          "allMean": 0,
+          "areaShift": 3.86,
+          "areaOriginal": "#26ace2",
+          "areaRendered": "#25a9de",
+          "offset": [
+            -4,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#26ace2",
+              "rendered": "#26ace2",
+              "shift": 0,
+              "px": 260
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 6,
+          "asset": "jp",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 3604,
+          "allMean": 1.12,
+          "areaShift": 1.61,
+          "areaOriginal": "#eebec9",
+          "areaRendered": "#edbcc8",
+          "offset": [
+            0,
+            -2
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 2822
+            },
+            {
+              "original": "#bc002d",
+              "rendered": "#bc002d",
+              "shift": 0,
+              "px": 782
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 7,
+          "asset": "id",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 3848,
+          "allMean": 0,
+          "areaShift": 2.28,
+          "areaOriginal": "#f38088",
+          "areaRendered": "#f37d86",
+          "offset": [
+            -8,
+            -2
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#e70011",
+              "rendered": "#e70011",
+              "shift": 0,
+              "px": 1924
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1924
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 8,
+          "asset": "g2",
+          "shape": "logo",
+          "size": "39x39",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 152,
+          "H": 152,
+          "n": 165,
+          "allMean": 1.11,
+          "areaShift": 0.92,
+          "areaOriginal": "#b1b0b0",
+          "areaRendered": "#b2b1b1",
+          "offset": [
+            -4,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 165
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "arnes",
+          "i": 9,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "39x39",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 152,
+          "H": 152,
+          "n": 218,
+          "allMean": 0,
+          "areaShift": 12.74,
+          "areaOriginal": "#ffffff",
+          "areaRendered": "#f2f2f3",
+          "offset": [
+            -2,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 218
+            }
+          ],
+          "verdict": "PASS"
+        }
+      ],
+      "game": [
+        {
+          "tag": "partida",
+          "i": 0,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 2297,
+          "allMean": 0.19,
+          "areaShift": 0.03,
+          "areaOriginal": "#ccc5cd",
+          "areaRendered": "#ccc5cd",
+          "offset": [
+            -2,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1991
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "shift": 0.019230769230766498,
+              "px": 156
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "shift": 0,
+              "px": 150
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 1,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 2297,
+          "allMean": 11.84,
+          "areaShift": 1.41,
+          "areaOriginal": "#ccc5cd",
+          "areaRendered": "#cbc3cc",
+          "offset": [
+            2,
+            0
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1991
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "shift": 0.019230769230766498,
+              "px": 156
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "shift": 0,
+              "px": 150
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 2,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 2297,
+          "allMean": 11.84,
+          "areaShift": 1.4,
+          "areaOriginal": "#ccc5cd",
+          "areaRendered": "#cbc3cc",
+          "offset": [
+            4,
+            -4
+          ],
+          "exactShare": 0.9991,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1991
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "shift": 0.019230769230766498,
+              "px": 156
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "shift": 0,
+              "px": 150
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 3,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 2297,
+          "allMean": 11.86,
+          "areaShift": 1.4,
+          "areaOriginal": "#ccc5cd",
+          "areaRendered": "#cbc3cc",
+          "offset": [
+            0,
+            0
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1991
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "shift": 0.019230769230766498,
+              "px": 156
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "shift": 0,
+              "px": 150
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 4,
+          "asset": "cn",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 3668,
+          "allMean": 0.01,
+          "areaShift": 0.01,
+          "areaOriginal": "#ef2324",
+          "areaRendered": "#ef2324",
+          "offset": [
+            -2,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ee1c25",
+              "rendered": "#ee1c25",
+              "shift": 0,
+              "px": 3664
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 5,
+          "asset": "ru",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 3648,
+          "allMean": 0,
+          "areaShift": 0,
+          "areaOriginal": "#967497",
+          "areaRendered": "#967497",
+          "offset": [
+            -2,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1216
+            },
+            {
+              "original": "#0039a6",
+              "rendered": "#0039a6",
+              "shift": 0,
+              "px": 1216
+            },
+            {
+              "original": "#d52b1e",
+              "rendered": "#d52b1e",
+              "shift": 0,
+              "px": 1216
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 6,
+          "asset": "giantx",
+          "shape": "logo",
+          "size": "39x39",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 152,
+          "H": 152,
+          "n": 218,
+          "allMean": 1.85,
+          "areaShift": 10.41,
+          "areaOriginal": "#ffffff",
+          "areaRendered": "#f5f5f5",
+          "offset": [
+            0,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 218
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 7,
+          "asset": "us",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 211,
+          "allMean": 4.31,
+          "areaShift": 0.65,
+          "areaOriginal": "#ac8695",
+          "areaRendered": "#ab8695",
+          "offset": [
+            -6,
+            -4
+          ],
+          "exactShare": 0.981,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#bd3d44",
+              "rendered": "#bd3d44",
+              "shift": 0,
+              "px": 105
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 105
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 8,
+          "asset": "us",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 209,
+          "allMean": 4.3,
+          "areaShift": 0.06,
+          "areaOriginal": "#ac8695",
+          "areaRendered": "#ac8795",
+          "offset": [
+            -8,
+            -4
+          ],
+          "exactShare": 0.9809,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#bd3d44",
+              "rendered": "#bd3d44",
+              "shift": 0,
+              "px": 104
+            },
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 104
+            }
+          ],
+          "verdict": "PASS"
+        },
+        {
+          "tag": "partida",
+          "i": 9,
+          "asset": "kr",
+          "shape": "flag",
+          "size": "40x30",
+          "clean": true,
+          "top": [
+            true,
+            true,
+            true
+          ],
+          "W": 160,
+          "H": 120,
+          "n": 2297,
+          "allMean": 0.15,
+          "areaShift": 0.04,
+          "areaOriginal": "#ccc5cd",
+          "areaRendered": "#ccc5cd",
+          "offset": [
+            0,
+            -4
+          ],
+          "exactShare": 1,
+          "p50": 0,
+          "p95": 0,
+          "colors": [
+            {
+              "original": "#ffffff",
+              "rendered": "#ffffff",
+              "shift": 0,
+              "px": 1991
+            },
+            {
+              "original": "#cd2e3a",
+              "rendered": "#cd2e3a",
+              "shift": 0.019230769230766498,
+              "px": 156
+            },
+            {
+              "original": "#0047a0",
+              "rendered": "#0047a0",
+              "shift": 0,
+              "px": 150
+            }
+          ],
+          "verdict": "PASS"
+        }
+      ],
+      "errors": []
+    }
+  },
+  "pass": true
+}

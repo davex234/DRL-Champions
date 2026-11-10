@@ -1,0 +1,72 @@
+{
+  "lab-sm": {
+    "nodos": 623,
+    "mixBlend": 8,
+    "animados": 3,
+    "cartas": 15,
+    "overflowX": 0
+  },
+  "lab-lg": {
+    "nodos": 866,
+    "mixBlend": 14,
+    "animados": 51,
+    "cartas": 15,
+    "overflowX": 0
+  },
+  "1440·home": {
+    "nodos": 459,
+    "mixBlend": 2,
+    "animados": 12,
+    "cartas": 3,
+    "overflowX": -10
+  },
+  "1440·coleccion": {
+    "nodos": 2603,
+    "mixBlend": 7,
+    "animados": 32,
+    "cartas": 48,
+    "overflowX": -10
+  },
+  "1440·inventario": {
+    "nodos": 384,
+    "mixBlend": 2,
+    "animados": 11,
+    "cartas": 3,
+    "overflowX": -10
+  },
+  "1440·mercado": {
+    "nodos": 3087,
+    "mixBlend": 39,
+    "animados": 85,
+    "cartas": 54,
+    "overflowX": -10
+  },
+  "390·home": {
+    "nodos": 651,
+    "mixBlend": 2,
+    "animados": 15,
+    "cartas": 3,
+    "overflowX": 0
+  },
+  "390·coleccion": {
+    "nodos": 3079,
+    "mixBlend": 7,
+    "animados": 51,
+    "cartas": 48,
+    "overflowX": 0
+  },
+  "390·inventario": {
+    "nodos": 384,
+    "mixBlend": 2,
+    "animados": 11,
+    "cartas": 3,
+    "overflowX": 0
+  },
+  "390·mercado": {
+    "nodos": 2880,
+    "mixBlend": 41,
+    "animados": 79,
+    "cartas": 54,
+    "overflowX": 0
+  }
+}

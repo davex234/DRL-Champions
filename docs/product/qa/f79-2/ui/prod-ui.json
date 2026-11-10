@@ -1,0 +1,521 @@
+{
+  "at": "2026-10-02T09:08:40.575Z",
+  "base": "https://valorosters.com",
+  "results": [
+    {
+      "id": "[390] FORGE HOME · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting"
+    },
+    {
+      "id": "[390] FORGE HOME · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] FORGE HOME · nivel, XP (ARIA), 4 ramas de maestría, zonas y actividad desde el servidor",
+      "ok": true,
+      "detail": "{\"level\":\"1\",\"xp\":\"20\",\"xpMax\":\"100\",\"tiles\":4,\"entries\":4,\"activity\":true}"
+    },
+    {
+      "id": "[390] AVANZADO (contenido DRAFT) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/avanzado"
+    },
+    {
+      "id": "[390] AVANZADO (contenido DRAFT) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] AVANZADO · contenido nuevo en DRAFT: ninguna receta avanzada visible al jugador",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] HISTORIAL · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/historial"
+    },
+    {
+      "id": "[390] HISTORIAL · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] HISTORIAL · entradas reales del libro mayor, o el estado vacío correcto si la cuenta nunca forjó",
+      "ok": true,
+      "detail": "{\"n\":1,\"empty\":false,\"who\":\"D\"}"
+    },
+    {
+      "id": "[390] SOBRES (F73) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/sobres"
+    },
+    {
+      "id": "[390] SOBRES (F73) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] SOBRES · escalera 4/2/2/3/2 intacta",
+      "ok": true,
+      "detail": "pack-estandar-premium:0/4TienesNecesitas | pack-premium-oro:2/2✓TienesNecesitas | pack-oro-masters:0/2TienesNecesitas | pack-masters-champions:0/3TienesNecesitas | pack-champions-icon:0/2TienesNecesitas"
+    },
+    {
+      "id": "[390] INTERCAMBIO + SELECTOR · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[390] INTERCAMBIO + SELECTOR · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] INTERCAMBIO · escalera de cartas visible",
+      "ok": true,
+      "detail": "Base → Plata7copias0 libres | Plata → Oro3copias0 libres | Oro → Masters8copias0 libres | Masters → Champions14copias0 libres | Champions → Prime10copias0 libres"
+    },
+    {
+      "id": "[390] AUTO-SELECCIONAR · nunca elige copias protegidas",
+      "ok": true,
+      "detail": "{\"prot\":0,\"picked\":0}"
+    },
+    {
+      "id": "[390] PROYECTOS · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[390] PROYECTOS · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] INVENTARIO / DESGUACE · carga con datos reales",
+      "ok": true,
+      "detail": "/inventario"
+    },
+    {
+      "id": "[390] INVENTARIO / DESGUACE · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] DESGUACE · botón con lo desguazable (sin protegidas)",
+      "ok": true,
+      "detail": "(sin duplicados libres)"
+    },
+    {
+      "id": "[390] CONFIRMACIÓN · (la cuenta QA no tiene 4 sobres estándar)",
+      "ok": true,
+      "detail": "SKIP"
+    },
+    {
+      "id": "[390] ADMIN · usuario normal → «Acceso restringido», sin panel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] TECLADO · el foco recorre controles y es visible",
+      "ok": true,
+      "detail": "{\"tag\":\"A\",\"outline\":\"none 3px\",\"shadow\":\"rgba(0, 0, 0, 0) 0px 0px 0px 0px\"}"
+    },
+    {
+      "id": "[390] CONSOLA · sin errores de hidratación",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] CONSOLA · sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] FORGE HOME · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting"
+    },
+    {
+      "id": "[1024] FORGE HOME · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1024] FORGE HOME · nivel, XP (ARIA), 4 ramas de maestría, zonas y actividad desde el servidor",
+      "ok": true,
+      "detail": "{\"level\":\"1\",\"xp\":\"20\",\"xpMax\":\"100\",\"tiles\":4,\"entries\":4,\"activity\":true}"
+    },
+    {
+      "id": "[1024] AVANZADO (contenido DRAFT) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/avanzado"
+    },
+    {
+      "id": "[1024] AVANZADO (contenido DRAFT) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1024] AVANZADO · contenido nuevo en DRAFT: ninguna receta avanzada visible al jugador",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] HISTORIAL · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/historial"
+    },
+    {
+      "id": "[1024] HISTORIAL · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1024] HISTORIAL · entradas reales del libro mayor, o el estado vacío correcto si la cuenta nunca forjó",
+      "ok": true,
+      "detail": "{\"n\":1,\"empty\":false,\"who\":\"D\"}"
+    },
+    {
+      "id": "[1024] SOBRES (F73) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/sobres"
+    },
+    {
+      "id": "[1024] SOBRES (F73) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1024] SOBRES · escalera 4/2/2/3/2 intacta",
+      "ok": true,
+      "detail": "pack-estandar-premium:0/4TienesNecesitas | pack-premium-oro:2/2✓TienesNecesitas | pack-oro-masters:0/2TienesNecesitas | pack-masters-champions:0/3TienesNecesitas | pack-champions-icon:0/2TienesNecesitas"
+    },
+    {
+      "id": "[1024] INTERCAMBIO + SELECTOR · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[1024] INTERCAMBIO + SELECTOR · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1024] INTERCAMBIO · escalera de cartas visible",
+      "ok": true,
+      "detail": "Base → Plata7copias0 libres | Plata → Oro3copias0 libres | Oro → Masters8copias0 libres | Masters → Champions14copias0 libres | Champions → Prime10copias0 libres"
+    },
+    {
+      "id": "[1024] AUTO-SELECCIONAR · nunca elige copias protegidas",
+      "ok": true,
+      "detail": "{\"prot\":0,\"picked\":0}"
+    },
+    {
+      "id": "[1024] PROYECTOS · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[1024] PROYECTOS · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1024] INVENTARIO / DESGUACE · carga con datos reales",
+      "ok": true,
+      "detail": "/inventario"
+    },
+    {
+      "id": "[1024] INVENTARIO / DESGUACE · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1024] DESGUACE · botón con lo desguazable (sin protegidas)",
+      "ok": true,
+      "detail": "(sin duplicados libres)"
+    },
+    {
+      "id": "[1024] CONFIRMACIÓN · (la cuenta QA no tiene 4 sobres estándar)",
+      "ok": true,
+      "detail": "SKIP"
+    },
+    {
+      "id": "[1024] ADMIN · usuario normal → «Acceso restringido», sin panel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] TECLADO · el foco recorre controles y es visible",
+      "ok": true,
+      "detail": "{\"tag\":\"BUTTON\",\"outline\":\"solid 2px\",\"shadow\":\"none\"}"
+    },
+    {
+      "id": "[1024] CONSOLA · sin errores de hidratación",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] CONSOLA · sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1440] FORGE HOME · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting"
+    },
+    {
+      "id": "[1440] FORGE HOME · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1440] FORGE HOME · nivel, XP (ARIA), 4 ramas de maestría, zonas y actividad desde el servidor",
+      "ok": true,
+      "detail": "{\"level\":\"1\",\"xp\":\"20\",\"xpMax\":\"100\",\"tiles\":4,\"entries\":4,\"activity\":true}"
+    },
+    {
+      "id": "[1440] AVANZADO (contenido DRAFT) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/avanzado"
+    },
+    {
+      "id": "[1440] AVANZADO (contenido DRAFT) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1440] AVANZADO · contenido nuevo en DRAFT: ninguna receta avanzada visible al jugador",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] HISTORIAL · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/historial"
+    },
+    {
+      "id": "[1440] HISTORIAL · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1440] HISTORIAL · entradas reales del libro mayor, o el estado vacío correcto si la cuenta nunca forjó",
+      "ok": true,
+      "detail": "{\"n\":1,\"empty\":false,\"who\":\"D\"}"
+    },
+    {
+      "id": "[1440] SOBRES (F73) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/sobres"
+    },
+    {
+      "id": "[1440] SOBRES (F73) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1440] SOBRES · escalera 4/2/2/3/2 intacta",
+      "ok": true,
+      "detail": "pack-estandar-premium:0/4TienesNecesitas | pack-premium-oro:2/2✓TienesNecesitas | pack-oro-masters:0/2TienesNecesitas | pack-masters-champions:0/3TienesNecesitas | pack-champions-icon:0/2TienesNecesitas"
+    },
+    {
+      "id": "[1440] INTERCAMBIO + SELECTOR · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[1440] INTERCAMBIO + SELECTOR · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1440] INTERCAMBIO · escalera de cartas visible",
+      "ok": true,
+      "detail": "Base → Plata7copias0 libres | Plata → Oro3copias0 libres | Oro → Masters8copias0 libres | Masters → Champions14copias0 libres | Champions → Prime10copias0 libres"
+    },
+    {
+      "id": "[1440] AUTO-SELECCIONAR · nunca elige copias protegidas",
+      "ok": true,
+      "detail": "{\"prot\":0,\"picked\":0}"
+    },
+    {
+      "id": "[1440] PROYECTOS · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[1440] PROYECTOS · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1440] INVENTARIO / DESGUACE · carga con datos reales",
+      "ok": true,
+      "detail": "/inventario"
+    },
+    {
+      "id": "[1440] INVENTARIO / DESGUACE · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[1440] DESGUACE · botón con lo desguazable (sin protegidas)",
+      "ok": true,
+      "detail": "(sin duplicados libres)"
+    },
+    {
+      "id": "[1440] CONFIRMACIÓN · (la cuenta QA no tiene 4 sobres estándar)",
+      "ok": true,
+      "detail": "SKIP"
+    },
+    {
+      "id": "[1440] ADMIN · usuario normal → «Acceso restringido», sin panel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] TECLADO · el foco recorre controles y es visible",
+      "ok": true,
+      "detail": "{\"tag\":\"A\",\"outline\":\"solid 2px\",\"shadow\":\"none\"}"
+    },
+    {
+      "id": "[1440] CONSOLA · sin errores de hidratación",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1440] CONSOLA · sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] FORGE HOME · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting"
+    },
+    {
+      "id": "[390] FORGE HOME · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] FORGE HOME · nivel, XP (ARIA), 4 ramas de maestría, zonas y actividad desde el servidor",
+      "ok": true,
+      "detail": "{\"level\":\"1\",\"xp\":\"60\",\"xpMax\":\"100\",\"tiles\":4,\"entries\":4,\"activity\":true}"
+    },
+    {
+      "id": "[390] AVANZADO (contenido DRAFT) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/avanzado"
+    },
+    {
+      "id": "[390] AVANZADO (contenido DRAFT) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] AVANZADO · contenido nuevo en DRAFT: ninguna receta avanzada visible al jugador",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] HISTORIAL · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/historial"
+    },
+    {
+      "id": "[390] HISTORIAL · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] HISTORIAL · entradas reales del libro mayor, o el estado vacío correcto si la cuenta nunca forjó",
+      "ok": true,
+      "detail": "{\"n\":2,\"empty\":false,\"who\":\"C\"}"
+    },
+    {
+      "id": "[390] SOBRES (F73) · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/sobres"
+    },
+    {
+      "id": "[390] SOBRES (F73) · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] SOBRES · escalera 4/2/2/3/2 intacta",
+      "ok": true,
+      "detail": "pack-estandar-premium:0/4TienesNecesitas | pack-premium-oro:0/2TienesNecesitas | pack-oro-masters:0/2TienesNecesitas | pack-masters-champions:0/3TienesNecesitas | pack-champions-icon:0/2TienesNecesitas"
+    },
+    {
+      "id": "[390] INTERCAMBIO + SELECTOR · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[390] INTERCAMBIO + SELECTOR · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] INTERCAMBIO · escalera de cartas visible",
+      "ok": true,
+      "detail": "Base → Plata7copias1 libres | Plata → Oro3copias5 libres | Oro → Masters8copias3 libres | Masters → Champions14copias1 libres | Champions → Prime10copias0 libres"
+    },
+    {
+      "id": "[390] AUTO-SELECCIONAR · nunca elige copias protegidas",
+      "ok": true,
+      "detail": "{\"prot\":0,\"picked\":0}"
+    },
+    {
+      "id": "[390] PROYECTOS · carga con datos reales",
+      "ok": true,
+      "detail": "/misiones/crafting/cartas"
+    },
+    {
+      "id": "[390] PROYECTOS · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] INVENTARIO / DESGUACE · carga con datos reales",
+      "ok": true,
+      "detail": "/inventario"
+    },
+    {
+      "id": "[390] INVENTARIO / DESGUACE · sin scroll horizontal, sin CTA recortados, sin imágenes rotas, sin JSON crudo, botones con nombre",
+      "ok": true,
+      "detail": "{\"over\":false,\"clipped\":[],\"imgs\":[],\"rawJson\":false,\"unnamed\":0}"
+    },
+    {
+      "id": "[390] DESGUACE · botón con lo desguazable (sin protegidas)",
+      "ok": true,
+      "detail": "Desguazar 10 · 310 créditos"
+    },
+    {
+      "id": "[390] ADMIN · usuario normal → «Acceso restringido», sin panel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] TECLADO · el foco recorre controles y es visible",
+      "ok": true,
+      "detail": "{\"tag\":\"A\",\"outline\":\"none 3px\",\"shadow\":\"rgba(0, 0, 0, 0) 0px 0px 0px 0px\"}"
+    },
+    {
+      "id": "[390] CONSOLA · sin errores de hidratación",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] CONSOLA · sin errores de consola",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

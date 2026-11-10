@@ -1,0 +1,113 @@
+{
+  "at": "2026-09-30T15:40:55.471Z",
+  "db": {
+    "ops_since_backup_non_qa": 0,
+    "ops_since_backup_qa": 9,
+    "ops_since_backup_by_kind": {
+      "buy_pack": 1,
+      "craft_card": 2,
+      "craft_pack": 4,
+      "duel_cap_match": 1,
+      "duel_cap_slot": 1
+    },
+    "user_account": {
+      "credits": 971495,
+      "is_admin": true,
+      "cards": 357
+    },
+    "admins": 1,
+    "counts": {
+      "content_cards": 331,
+      "agents": 29,
+      "profiles": 30
+    }
+  },
+  "ready": {
+    "status": "ready",
+    "checkedAt": "2026-09-30T15:40:40.508Z",
+    "migrationHead": "0059_crafting_missions",
+    "checks": [
+      {
+        "id": "config",
+        "ok": true,
+        "critical": true
+      },
+      {
+        "id": "database",
+        "ok": true,
+        "critical": true,
+        "ms": 104
+      },
+      {
+        "id": "schema",
+        "ok": true,
+        "critical": true,
+        "ms": 102,
+        "detail": "0059_crafting_missions"
+      },
+      {
+        "id": "crafting",
+        "ok": true,
+        "critical": false,
+        "ms": 123,
+        "detail": "0059 aplicada (crafteo y misiones)"
+      },
+      {
+        "id": "privacy",
+        "ok": true,
+        "critical": false,
+        "ms": 96,
+        "detail": "anon sin acceso a profiles (0058)"
+      },
+      {
+        "id": "catalog",
+        "ok": true,
+        "critical": false,
+        "ms": 115,
+        "detail": "331/331"
+      },
+      {
+        "id": "storage",
+        "ok": true,
+        "critical": false,
+        "ms": 109
+      }
+    ]
+  },
+  "health": 200,
+  "qaBalancesBefore": [
+    "A|qaf68a095730_d529|cr=1010|packs=estandar:2|cards=20",
+    "B|qaf68b100206_d8eb|cr=5065|packs=|cards=46",
+    "C|qaf68c101756_d413|cr=810|packs=estandar:1|cards=46",
+    "D|qaf68d101756_225e|cr=5430|packs=estandar:2|cards=20",
+    "E|qaf63n154122_a9a8|cr=7205|packs=inicial:1,estandar:2,premium:1|cards=15",
+    "F|qaf68f113708_def9|cr=6070|packs=|cards=20",
+    "G|qaf68g113708_00eb|cr=6625|packs=inicial:1,estandar:1|cards=15",
+    "H|qaf68h115751_dbcb|cr=365|packs=inicial:1,estandar:3,masters:1|cards=15",
+    "I|qaf68i120413_be24|cr=570|packs=inicial:1,estandar:8|cards=15",
+    "J|qaf68j122055_fd4a|cr=2025|packs=inicial:1|cards=15",
+    "K|qaf68k105820_91cb|cr=605|packs=premium:1,estandar:6|cards=20",
+    "L|qaf68l213625_471e|cr=4265|packs=estandar:1|cards=20",
+    "Q|qa_campaign_352_8c32|cr=1320|packs=|cards=35"
+  ],
+  "qaBalancesAfter": [
+    "A|qaf68a095730_d529|cr=1230|admin=false|packs=estandar:2|cards=20|dupcards=0|dupcopies=0|decks=1",
+    "B|qaf68b100206_d8eb|cr=5065|admin=false|packs=|cards=44|dupcards=1|dupcopies=1|decks=2",
+    "C|qaf68c101756_d413|cr=810|admin=false|packs=estandar:1|cards=44|dupcards=3|dupcopies=3|decks=2",
+    "D|qaf68d101756_225e|cr=5430|admin=false|packs=estandar:2|cards=20|dupcards=0|dupcopies=0|decks=6",
+    "E|qaf63n154122_a9a8|cr=7205|admin=false|packs=inicial:1,estandar:2,premium:1|cards=15|dupcards=0|dupcopies=0|decks=1",
+    "F|qaf68f113708_def9|cr=6070|admin=false|packs=|cards=20|dupcards=2|dupcopies=2|decks=1",
+    "G|qaf68g113708_00eb|cr=6625|admin=false|packs=inicial:1,estandar:1|cards=15|dupcards=0|dupcopies=0|decks=1",
+    "H|qaf68h115751_dbcb|cr=365|admin=false|packs=inicial:1,estandar:3,masters:1|cards=15|dupcards=0|dupcopies=0|decks=1",
+    "I|qaf68i120413_be24|cr=570|admin=false|packs=inicial:1,premium:2|cards=15|dupcards=0|dupcopies=0|decks=1",
+    "J|qaf68j122055_fd4a|cr=2025|admin=false|packs=inicial:1|cards=15|dupcards=1|dupcopies=1|decks=1",
+    "K|qaf68k105820_91cb|cr=605|admin=false|packs=estandar:2,oro:1|cards=20|dupcards=1|dupcopies=1|decks=1",
+    "L|qaf68l213625_471e|cr=1265|admin=false|packs=estandar:2|cards=20|dupcards=0|dupcopies=0|decks=1",
+    "Q|qa_campaign_352_8c32|cr=1320|admin=false|packs=|cards=35|dupcards=2|dupcopies=2|decks=1"
+  ],
+  "notes": [
+    "0 operaciones en cuentas NO QA desde el backup; cuenta del usuario sin tocar",
+    "sin recarga de saldo QA (no existe vía segura): L 4265→1265 tras el gate",
+    "sin datos QA de misiones/proyectos que limpiar (no se pudieron crear)"
+  ]
+}

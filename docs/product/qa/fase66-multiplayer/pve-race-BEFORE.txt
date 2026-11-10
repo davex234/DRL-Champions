@@ -1,0 +1,67 @@
+[content-catalog] repliegue al catálogo generado en código (content_cards vacía o ilegible). La EXISTENCIA de las cartas no está saliendo de la base de datos. Ejecuta `npm run content-catalog:migrate` para materializarlo.
+✖ F66 PvE · dos jugadas simultáneas del MISMO turno: exactamente una se aplica, la otra es 409 con el estado real (18.4401ms)
+✖ F66 PvE · diez jugadas concurrentes (doble clic, Enter+clic, dos pestañas): un turno, nunca dos (5.4051ms)
+✔ F66 PvE · reintento tras respuesta perdida: la misma jugada repetida no se aplica dos veces (5.474ms)
+✔ F66 PvE · jugar contra abandonar a la vez: o se jugó o se abandonó, nunca un híbrido que pague (17.1504ms)
+✖ F66 PvE · abandonar una partida TERMINADA no la borra (ni su repetición ni su pago) (41.0683ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 2
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 439.0195
+
+✖ failing tests:
+
+test at src\server\services\duels.concurrency.service.test.ts:2:2402
+✖ F66 PvE · dos jugadas simultáneas del MISMO turno: exactamente una se aplica, la otra es 409 con el estado real (18.4401ms)
+  AssertionError [ERR_ASSERTION]: una sola jugada gana
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (C:\NEXUS-CENTRAL\DRLCards\src\server\services\duels.concurrency.service.test.ts:58:10)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at src\server\services\duels.concurrency.service.test.ts:2:3304
+✖ F66 PvE · diez jugadas concurrentes (doble clic, Enter+clic, dos pestañas): un turno, nunca dos (5.4051ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  10 !== 1
+  
+      at TestContext.<anonymous> (C:\NEXUS-CENTRAL\DRLCards\src\server\services\duels.concurrency.service.test.ts:73:10)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at src\server\services\duels.concurrency.service.test.ts:2:5233
+✖ F66 PvE · abandonar una partida TERMINADA no la borra (ni su repetición ni su pago) (41.0683ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (C:\NEXUS-CENTRAL\DRLCards\src\server\services\duels.concurrency.service.test.ts:110:10)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

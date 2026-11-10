@@ -1,0 +1,170 @@
+{
+  "phase": "F69",
+  "at": "2026-09-28T11:01:30.539Z",
+  "source": "journeys/reconcile-f69.json + journeys I-f69-progress, K/L-f69-new, K-f69final-resume-new",
+  "rule": "ninguna misión ni logro reclamado sin completar; XP de cuenta y XP del pase (dos XP distintas) coherentes con el servidor; reclamar dos veces no paga",
+  "accounts": [
+    {
+      "persona": "A",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 1,
+      "seasonXp": 1300,
+      "accountXp": 638
+    },
+    {
+      "persona": "B",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 2,
+      "seasonXp": 2050,
+      "accountXp": 2381
+    },
+    {
+      "persona": "C",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 1,
+      "seasonXp": 1450,
+      "accountXp": 1298
+    },
+    {
+      "persona": "D",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 2,
+      "seasonXp": 2000,
+      "accountXp": 552
+    },
+    {
+      "persona": "E",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 4,
+      "seasonXp": 4200,
+      "accountXp": 431
+    },
+    {
+      "persona": "F",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 1,
+      "seasonXp": 1300,
+      "accountXp": 469
+    },
+    {
+      "persona": "G",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 2,
+      "seasonXp": 2050,
+      "accountXp": 432
+    },
+    {
+      "persona": "H",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 0,
+      "seasonXp": 950,
+      "accountXp": 502
+    },
+    {
+      "persona": "I",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 2,
+      "seasonXp": 2150,
+      "accountXp": 547
+    },
+    {
+      "persona": "J",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 1,
+      "seasonXp": 1850,
+      "accountXp": 478
+    },
+    {
+      "persona": "K",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 1,
+      "seasonXp": 1850,
+      "accountXp": 496
+    },
+    {
+      "persona": "L",
+      "missionsClaimedNotComplete": [],
+      "achievementsClaimedNotComplete": [],
+      "ok": true,
+      "seasonLevel": 0,
+      "seasonXp": 950,
+      "accountXp": 592
+    }
+  ],
+  "journeys": [
+    {
+      "id": "I-f69-progress",
+      "at": "2026-09-27T21:56:15.845Z",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 41,
+      "pass": 2,
+      "fail": [],
+      "checks": [
+        "PASS revisitar no vuelve a pagar",
+        "PASS reclamar por API una misión ya cobrada no paga"
+      ],
+      "consoleErrors": 0,
+      "network": {
+        "status": {
+          "200": 530,
+          "204": 7
+        },
+        "bad": []
+      }
+    },
+    {
+      "id": "K-f69final-resume-new",
+      "at": "2026-09-28T11:01:09.584Z",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 170,
+      "pass": 11,
+      "fail": [],
+      "checks": [
+        "PASS bienvenida visible tras registrarse",
+        "PASS F5 a mitad de partida recupera la partida",
+        "PASS la guía acaba (SEGUIR JUGANDO)",
+        "PASS onboarding COMPLETED en el servidor",
+        "PASS tiene equipo válido y activo",
+        "PASS portada sin guía tras terminar",
+        "PASS JUGAR lleva al hub de modos",
+        "PASS 2.ª partida termina con resultado visible",
+        "PASS resultado ofrece siguiente paso (Jugar otra / lobby)",
+        "PASS HUD al día tras reclamar (sin recargar)",
+        "PASS colección carga con cartas"
+      ],
+      "consoleErrors": 0,
+      "network": {
+        "status": {
+          "200": 889,
+          "204": 26
+        },
+        "bad": []
+      }
+    }
+  ],
+  "verdict": "PASS"
+}

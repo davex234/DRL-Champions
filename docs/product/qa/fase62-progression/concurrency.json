@@ -1,0 +1,31 @@
+{
+  "foundInRealQa": "Doble clic en «Reclamar todo» lanzó dos tandas: conflictos optimistas del pase (409); los pagos de w-victorias y s-mazo quedaron hechos (idempotentes) pero su XP de temporada no se guardó hasta reclamar de nuevo. Nunca se pagó dos veces (BD: 0 refs duplicadas).",
+  "fixes": [
+    "servidor: withPassRetry (hasta 3 reintentos del reclamo entero; misma clave de pago)",
+    "cliente: una tanda a la vez (useClaims.running) y botón bloqueado durante la tanda encadenada"
+  ],
+  "tests": [
+    "F62 CONCURR 01 (dos pestañas «Reclamar todo» a la vez → todo reclamado en una ronda, XP de temporada exacta, 0 claves repetidas)",
+    "F62 CONCURR 02 (dos concesiones distintas a la vez suman ambas; SQL `xp = xp + p_xp`)",
+    "F41 misiones distintas simultáneas / nivel del pase ×2"
+  ],
+  "afterFix": {
+    "realQa": {
+      "offered": 1,
+      "serverPending": 1,
+      "keys": [
+        "level:2"
+      ],
+      "creditsDelta": 270,
+      "expectedCredits": 270,
+      "passXpDelta": 0,
+      "expectedSeasonXp": 0,
+      "season": [
+        2,
+        2
+      ],
+      "pendingAfter": []
+    },
+    "consoleConflicts": 0
+  }
+}

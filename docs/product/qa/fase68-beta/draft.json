@@ -1,0 +1,785 @@
+{
+  "sessions": [
+    {
+      "id": "D-r1-draft",
+      "persona": "D",
+      "session": "draft",
+      "tag": "r1",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 85,
+      "actions": 90,
+      "screens": 2,
+      "checks": {
+        "pass": 5,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 77,
+      "statuses": {
+        "200": 312,
+        "204": 7
+      },
+      "bad": [],
+      "notes": [],
+      "runs": [
+        {
+          "steps": [
+            {
+              "picks": 0,
+              "tids": [],
+              "buttons": [
+                "?",
+                "",
+                "⛶",
+                "SALIR",
+                "SALTAR",
+                "SH 66 GS 59 EF 64",
+                "SH 57 GS 60 EF 40",
+                "SH 69 GS 68 EF 46",
+                "SH 35 GS 51 EF 49",
+                "SH 85 GS 78 EF 86",
+                "SH 72 GS 80 EF 50",
+                "SH 57 GS 44 EF 74",
+                "SH 62 GS 63 EF 51",
+                "SH 68 GS 73 EF 44",
+                "SH 68 GS 88 EF 64"
+              ],
+              "url": "/duelos/jugar"
+            }
+          ],
+          "entry": {
+            "url": "/duelos/jugar?draft=1",
+            "h": [
+              "TURNO 1 DE 10"
+            ],
+            "buttons": [
+              "?",
+              "⛶",
+              "SALIR",
+              "SALTAR",
+              "RESOLVIENDO…",
+              "HISTORIAL"
+            ]
+          },
+          "started": "retoma la partida del gauntlet en curso",
+          "match": {
+            "matchId": null,
+            "shown": true,
+            "turns": 10,
+            "ms": 25512,
+            "stuck": 0,
+            "status": "COMPLETED",
+            "result": {
+              "winner": "win",
+              "you": null,
+              "rival": null,
+              "decidedBy": null
+            },
+            "difficulty": null,
+            "uiOnly": true
+          },
+          "backToGauntlet": true,
+          "afterMatch": {
+            "url": "/jugar/draft-gauntlet",
+            "title": "DRL Champions — Manager de esports de Valorant",
+            "h": [
+              "COMBATE 2/5"
+            ],
+            "testids": [
+              "env-particles",
+              "shell-play-menu",
+              "shell-play",
+              "shell-menu",
+              "draft-screen",
+              "draft-header",
+              "draft-title",
+              "draft-detail",
+              "draft-abandon",
+              "draft-gauntlet",
+              "gauntlet-map",
+              "gauntlet-node",
+              "draft-start-match",
+              "draft-roster",
+              "draft-roster-slot",
+              "install-banner",
+              "game-moment-region",
+              "dock-play"
+            ],
+            "buttons": [
+              "MÁS 1",
+              "ABANDONAR RUN",
+              "JUGAR COMBATE 02",
+              "INSTALAR"
+            ],
+            "links": [
+              "#contenido",
+              "/",
+              "/coleccion",
+              "/duelos/mazos",
+              "/tienda",
+              "/temporada",
+              "/mundo",
+              "/jugar"
+            ],
+            "text": "DRAFT GAUNTLET · RUN COMBATE 2/5 PLANTILLA COMPLETA. EL RIVAL TE ESPERA. ABANDONAR RUN 01 NEXUS CHALLENGER FÁCIL SUPERADO · 5–4 02 NEXUS CONTENDER NORMAL SIGUIENTE 03 NEXUS VANGUARD NORMAL BLOQUEADO 04 NEXUS ELITE DIFÍCIL BLOQUEADO FINAL NEXUS APEX DIFÍCIL BLOQUEADO SIGUIENTE COMBATE COMBATE 02 · NEXUS CONTENDER JUGAR COMBATE 02 TU EQUIPO BABYBAY NERVE BEYN THYY MARTEEN VALYN ECHO LEVIATHAN KROSTALY ASUNA INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR",
+            "hScroll": false,
+            "broken": []
+          },
+          "server": {
+            "status": "READY",
+            "keys": [
+              "available",
+              "unavailableReason",
+              "mode",
+              "run",
+              "lastRun",
+              "cards",
+              "history",
+              "reward",
+              "serverNow"
+            ]
+          }
+        },
+        {
+          "steps": [
+            {
+              "picks": 0,
+              "tids": [
+                "draft-screen",
+                "draft-header",
+                "draft-title",
+                "draft-detail",
+                "draft-abandon",
+                "draft-gauntlet",
+                "draft-start-match",
+                "draft-roster",
+                "draft-roster-slot"
+              ],
+              "buttons": [
+                "MÁS 1",
+                "ABANDONAR RUN",
+                "JUGAR COMBATE 02",
+                "INSTALAR",
+                ""
+              ],
+              "url": "/jugar/draft-gauntlet"
+            },
+            {
+              "picks": 0,
+              "tids": [],
+              "buttons": [
+                "?",
+                "",
+                "⛶",
+                "SALIR",
+                "SALTAR",
+                "HISTORIAL"
+              ],
+              "url": "/duelos/jugar"
+            }
+          ],
+          "entry": {
+            "url": "/jugar/draft-gauntlet",
+            "h": [
+              "COMBATE 2/5"
+            ],
+            "buttons": [
+              "MÁS 1",
+              "ABANDONAR RUN",
+              "JUGAR COMBATE 02",
+              "INSTALAR"
+            ]
+          },
+          "started": "retoma la run en curso",
+          "match": {
+            "matchId": null,
+            "shown": true,
+            "turns": 10,
+            "ms": 27478,
+            "stuck": 0,
+            "status": "COMPLETED",
+            "result": {
+              "winner": "loss",
+              "you": null,
+              "rival": null,
+              "decidedBy": null
+            },
+            "difficulty": null,
+            "uiOnly": true
+          },
+          "backToGauntlet": true,
+          "afterMatch": {
+            "url": "/jugar/draft-gauntlet",
+            "title": "DRL Champions — Manager de esports de Valorant",
+            "h": [
+              "DRAFT GAUNTLET"
+            ],
+            "testids": [
+              "env-particles",
+              "shell-play-menu",
+              "shell-play",
+              "shell-menu",
+              "draft-screen",
+              "draft-landing",
+              "draft-start",
+              "draft-last-run",
+              "gauntlet-map",
+              "gauntlet-node",
+              "draft-roster",
+              "draft-roster-slot",
+              "draft-history",
+              "install-banner",
+              "game-moment-region",
+              "dock-play"
+            ],
+            "buttons": [
+              "MÁS 1",
+              "NUEVA RUN",
+              "INSTALAR"
+            ],
+            "links": [
+              "#contenido",
+              "/",
+              "/coleccion",
+              "/duelos/mazos",
+              "/tienda",
+              "/temporada",
+              "/mundo",
+              "/jugar"
+            ],
+            "text": "NEXUS · MODO PVE DRAFT GAUNTLET CONSTRUYE. ADÁPTATE. SOBREVIVE. · 10 elecciones, 3 cartas reales por elección. · Dos por rol: Duelista, Controlador, Iniciador, Centinela y Flex. · 5 rivales seguidos. Pierdes o empatas y la run termina. · Las cartas del draft no entran en tu colección. Sin recompensas en esta versión. NUEVA RUN ÚLTIMA RUN RUN TERMINADA Llegaste al combate 2 de 5. · 1/5 victorias 01 NEXUS CHALLENGER FÁCIL SUPERADO · 5–4 02 NEXUS CONTENDER NORMAL DERROTA · 2–8 03 NEXUS VANGUARD NORMAL BLOQUEADO 04 NEXUS ELITE DIFÍCIL BLOQUEADO FINAL NEXUS APEX DIFÍCIL BLOQUEADO BABYBAY NERVE BEYN THYY MARTEEN VALYN ECHO LEVIATHAN KROSTALY ASUNA HISTORIAL TERMINADA 1/5 victorias 27/9/2026 INSTAL",
+            "hScroll": false,
+            "broken": []
+          },
+          "server": {
+            "status": null,
+            "keys": [
+              "available",
+              "unavailableReason",
+              "mode",
+              "run",
+              "lastRun",
+              "cards",
+              "history",
+              "reward",
+              "serverNow"
+            ]
+          }
+        }
+      ],
+      "serverAfter": {
+        "status": null,
+        "lastRun": {
+          "status": "FAILED",
+          "wins": 1
+        },
+        "reward": {
+          "credits": 0,
+          "packs": 0,
+          "cards": 0,
+          "xp": 0,
+          "passXp": 0,
+          "rating": 0
+        }
+      },
+      "start": {
+        "credits": 6000,
+        "xp": 552,
+        "level": null,
+        "packsOpened": 4,
+        "unopenedPacks": {},
+        "ownedCards": 20,
+        "decks": [
+          {
+            "id": "44a9f42e",
+            "name": "Equipo 2",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "31653b1f",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "ba06ee82",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "31653b1f",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      },
+      "end": {
+        "credits": 6000,
+        "xp": 552,
+        "level": null,
+        "packsOpened": 4,
+        "unopenedPacks": {},
+        "ownedCards": 20,
+        "decks": [
+          {
+            "id": "44a9f42e",
+            "name": "Equipo 2",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "31653b1f",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          },
+          {
+            "id": "ba06ee82",
+            "name": "Equipo 1",
+            "valid": true,
+            "cards": 10
+          }
+        ],
+        "activeDeckId": "31653b1f",
+        "onboarding": {
+          "status": "COMPLETED",
+          "current": null
+        },
+        "rating": 1000,
+        "rankedGames": 0,
+        "pass": null,
+        "progressionKeys": [
+          "serverNow",
+          "season",
+          "level",
+          "xp",
+          "xpIntoLevel",
+          "xpForNext",
+          "progress",
+          "premium",
+          "competitiveUnlocked",
+          "competitiveMinPoints",
+          "points",
+          "equipped",
+          "tracks",
+          "missions",
+          "achievements",
+          "cosmetics"
+        ]
+      }
+    }
+  ],
+  "explorerR2": {
+    "steps": [
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 3,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-room",
+          "draft-options",
+          "draft-option",
+          "draft-option-nick",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "",
+          "",
+          "",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 0,
+        "tids": [
+          "draft-screen",
+          "draft-header",
+          "draft-title",
+          "draft-detail",
+          "draft-abandon",
+          "draft-gauntlet",
+          "draft-complete",
+          "draft-start-match",
+          "draft-roster",
+          "draft-roster-slot"
+        ],
+        "buttons": [
+          "MÁS 2",
+          "ABANDONAR RUN",
+          "JUGAR COMBATE 01",
+          "INSTALAR",
+          ""
+        ],
+        "url": "/jugar/draft-gauntlet"
+      },
+      {
+        "picks": 0,
+        "tids": [],
+        "buttons": [
+          "?",
+          "",
+          "⛶",
+          "SALIR",
+          "SALTAR",
+          "HISTORIAL"
+        ],
+        "url": "/duelos/jugar"
+      }
+    ],
+    "entry": {
+      "url": "/jugar/draft-gauntlet",
+      "h": [
+        "DRAFT GAUNTLET"
+      ],
+      "buttons": [
+        "MÁS 2",
+        "NUEVA RUN",
+        "INSTALAR"
+      ]
+    },
+    "started": "nueva run",
+    "match": {
+      "matchId": null,
+      "shown": true,
+      "turns": 10,
+      "ms": 24805,
+      "stuck": 0,
+      "status": "COMPLETED",
+      "result": {
+        "winner": "win",
+        "you": null,
+        "rival": null,
+        "decidedBy": null
+      },
+      "difficulty": null,
+      "uiOnly": true
+    },
+    "backToGauntlet": true,
+    "afterMatch": {
+      "url": "/jugar/draft-gauntlet",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "COMBATE 2/5"
+      ],
+      "testids": [
+        "env-particles",
+        "shell-play-menu",
+        "shell-play",
+        "shell-menu",
+        "draft-screen",
+        "draft-header",
+        "draft-title",
+        "draft-detail",
+        "draft-abandon",
+        "draft-gauntlet",
+        "gauntlet-map",
+        "gauntlet-node",
+        "draft-start-match",
+        "draft-roster",
+        "draft-roster-slot",
+        "install-banner",
+        "game-moment-region",
+        "dock-play"
+      ],
+      "buttons": [
+        "MÁS 2",
+        "ABANDONAR RUN",
+        "JUGAR COMBATE 02",
+        "INSTALAR"
+      ],
+      "links": [
+        "#contenido",
+        "/",
+        "/coleccion",
+        "/duelos/mazos",
+        "/tienda",
+        "/temporada",
+        "/mundo",
+        "/jugar"
+      ],
+      "text": "DRAFT GAUNTLET · RUN COMBATE 2/5 PLANTILLA COMPLETA. EL RIVAL TE ESPERA. ABANDONAR RUN 01 NEXUS CHALLENGER FÁCIL SUPERADO · 6–5 02 NEXUS CONTENDER NORMAL SIGUIENTE 03 NEXUS VANGUARD NORMAL BLOQUEADO 04 NEXUS ELITE DIFÍCIL BLOQUEADO FINAL NEXUS APEX DIFÍCIL BLOQUEADO SIGUIENTE COMBATE COMBATE 02 · NEXUS CONTENDER JUGAR COMBATE 02 TU EQUIPO F4NGEER IVY SEVEN CRASHIES LAKIA LYSOAR VIRTYY YATSUKA MARTEEN SUGARZ3RO INSTALAR NEXUS Juega como una app, también sin conexión. INSTALAR",
+      "hScroll": false,
+      "broken": []
+    },
+    "server": {
+      "status": "READY",
+      "keys": [
+        "available",
+        "unavailableReason",
+        "mode",
+        "run",
+        "lastRun",
+        "cards",
+        "history",
+        "reward",
+        "serverNow"
+      ]
+    }
+  }
+}

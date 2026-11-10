@@ -1,0 +1,9 @@
+{
+  "at": "2026-09-26T19:07:30.011Z",
+  "bursts": {
+    "mmStatus60": {
+      "200": 60
+    }
+  },
+  "note": "60 sondeos de cola simultáneos de un usuario: la cubeta mm_status (90/min) no corta un uso normal; el abuso sostenido sí (Retry-After)."
+}

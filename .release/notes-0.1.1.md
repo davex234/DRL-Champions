@@ -1,0 +1,26 @@
+DRL Champions v0.1.1+1 (stable)
+
+Cambios:
+• Brain Engine (12 archivos)
+• Utility Engine (4 archivos)
+• Agent Engine (7 archivos)
+• Tactical Engine (11 archivos)
+• Spatial Engine (7 archivos)
+• Narrative Engine (13 archivos)
+• Match Engine (37 archivos)
+• Coach (13 archivos)
+• Economy Engine (12 archivos)
+• Live Esports (27 archivos)
+• Card system (14 archivos)
+• Launcher & Updater (70 archivos)
+• Broadcast (9 archivos)
+• Branding (2 archivos)
+• Desktop runtime (7 archivos)
+• Game state (9 archivos)
+• UI / Pages (29 archivos)
+• UI components (29 archivos)
+• Assets (25 archivos)
+• Dependencies & Config (8 archivos)
+• Otros (136 archivos)
+
+481 archivos · 2026-06-29

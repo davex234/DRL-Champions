@@ -1,0 +1,16 @@
+5,6c5,6
+< probe_0057_content_packs|false
+< probe_0057_agents_lifecycle|false
+---
+> probe_0057_content_packs|true
+> probe_0057_agents_lifecycle|true
+21,22c21,22
+< public_tables|120
+< public_functions|127
+---
+> public_tables|122
+> public_functions|149
+24c24
+< agents_policy|lectura publica agents=true
+---
+> agents_policy|lectura publica agents=(lifecycle <> 'DRAFT'::text)

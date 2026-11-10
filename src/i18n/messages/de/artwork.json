@@ -1,0 +1,14 @@
+{
+  "Brillo de carta": "Kartenglanz",
+  "Fondo base de carta": "Basis-Kartenhintergrund",
+  "Foto de {playerId}": "Foto von {playerId}",
+  "Logo de {slug}": "Logo von {slug}",
+  "Logo del torneo {tournamentId}": "Logo des Turniers {tournamentId}",
+  "alias \"{alias}\" ya pertenece a {owner}": "Alias \"{alias}\" gehört bereits zu {owner}",
+  "categoría sin placeholder oficial: {category}": "Kategorie ohne offiziellen Placeholder: {category}",
+  "dimensiones no válidas: {width}x{height}": "ungültige Abmessungen: {width}x{height}",
+  "formato {format} no permitido para {category}": "Format {format} für {category} nicht erlaubt",
+  "resolución inválida {width}x{height} para {format}": "ungültige Auflösung {width}x{height} für {format}",
+  "ruta inválida: \"{path}\" (esperada /, http(s), data: o css:)": "ungültiger Pfad: \"{path}\" (erwartet /, http(s), data: oder css:)",
+  "sin lector inyectado para cargar: {path}": "kein Reader injiziert zum Laden von: {path}"
+}

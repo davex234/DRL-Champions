@@ -1,0 +1,1461 @@
+{
+ "base": "http://127.0.0.1:3082",
+ "at": "2026-10-03T12:13:08.663Z",
+ "total": 114,
+ "passed": 111,
+ "failed": 3,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "rejilla: 25 sets reales (23 equipos + 2 ediciones), 4 estados, orden «más cerca» empieza por lo reclamable",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "states": [
+     "CLAIMABLE",
+     "IN_PROGRESS",
+     "LOCKED",
+     "COMPLETED"
+    ],
+    "first": "team-team-heretics-v1",
+    "firstState": "CLAIMABLE",
+    "stats": 4,
+    "logos": 23,
+    "logoAlt": 23,
+    "banner": true,
+    "ariaTiles": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "rejilla: logos reales con alt «Escudo de …», tarjetas con aria-label de progreso, banner de reclamables, 4 estadísticas",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "states": [
+     "CLAIMABLE",
+     "IN_PROGRESS",
+     "LOCKED",
+     "COMPLETED"
+    ],
+    "first": "team-team-heretics-v1",
+    "firstState": "CLAIMABLE",
+    "stats": 4,
+    "logos": 23,
+    "logoAlt": 23,
+    "banner": true,
+    "ariaTiles": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "rejilla: sin overflow horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "búsqueda «heretics» → solo Team Heretics",
+   "ok": true,
+   "detail": [
+    "team-team-heretics-v1"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "filtro Completadas → solo COMPLETED (incluida la que hoy no tiene entera)",
+   "ok": true,
+   "detail": [
+    "COMPLETED",
+    "COMPLETED"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "tipo Ediciones → 2 sets de edición",
+   "ok": true,
+   "detail": 2
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "rejilla: consola limpia",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "0 %: los 25 objetivos siguen visibles (LOCKED, descubribles), insignias vacías explicadas",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "locked": 25,
+    "badgesEmpty": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-progress: estado IN_PROGRESS, 4 tiene / 1 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-progress: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-progress: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "variantes poseídas listadas (2 jugadores con 2 variantes)",
+   "ok": false,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-progress: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-claimable: estado CLAIMABLE, 6 tiene / 0 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-claimable: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-claimable: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-claimable: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-completed: estado COMPLETED, 3 tiene / 1 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-completed: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-completed: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-completed: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-edition: estado IN_PROGRESS, 7 tiene / 13 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-edition: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-edition: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "detail-edition: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "momento: diálogo modal con título, foco dentro, escudo real; movimiento normal",
+   "ok": true,
+   "detail": {
+    "open": true,
+    "reduced": "0",
+    "role": true,
+    "labelled": true,
+    "focusIn": true,
+    "logo": true,
+    "title": "Team Heretics"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "momento: Escape lo cierra",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "momento: consola limpia",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "profile-own: 3 insignias destacadas grandes (logo real en las de equipo), ninguna bloqueada, acceso a elegir",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 3,
+    "logos": 2,
+    "locked": 0,
+    "edit": true,
+    "size": 128
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "profile-own: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "profile-public: 3 insignias destacadas grandes (logo real en las de equipo), ninguna bloqueada, sin edición",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 3,
+    "logos": 2,
+    "locked": 0,
+    "edit": false,
+    "size": 128
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "profile-public: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "perfil propio sin destacadas: invita a elegir (sin insignias falsas)",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 0,
+    "logos": 0,
+    "locked": 0,
+    "edit": true,
+    "size": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "profile-empty: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "editor: 3 huecos llenos, opciones = insignias desbloqueadas, las no elegidas deshabilitadas al tope (límite 3)",
+   "ok": true,
+   "detail": {
+    "panel": true,
+    "slots": 3,
+    "filled": 3,
+    "options": 4,
+    "disabled": 1,
+    "save": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "editor: reordenar (bajar la 1.ª) cambia el orden y habilita Guardar",
+   "ok": true,
+   "detail": [
+    "insignia:coleccion:team-karmine-corp",
+    "insignia:coleccion:team-fnatic",
+    "insignia:equipo:g2-medio"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "editor: quitar una libera el tope (ninguna opción deshabilitada)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "name": "editor: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "rejilla: 25 sets reales (23 equipos + 2 ediciones), 4 estados, orden «más cerca» empieza por lo reclamable",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "states": [
+     "CLAIMABLE",
+     "IN_PROGRESS",
+     "LOCKED",
+     "COMPLETED"
+    ],
+    "first": "team-team-heretics-v1",
+    "firstState": "CLAIMABLE",
+    "stats": 4,
+    "logos": 23,
+    "logoAlt": 23,
+    "banner": true,
+    "ariaTiles": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "rejilla: logos reales con alt «Escudo de …», tarjetas con aria-label de progreso, banner de reclamables, 4 estadísticas",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "states": [
+     "CLAIMABLE",
+     "IN_PROGRESS",
+     "LOCKED",
+     "COMPLETED"
+    ],
+    "first": "team-team-heretics-v1",
+    "firstState": "CLAIMABLE",
+    "stats": 4,
+    "logos": 23,
+    "logoAlt": 23,
+    "banner": true,
+    "ariaTiles": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "rejilla: sin overflow horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "búsqueda «heretics» → solo Team Heretics",
+   "ok": true,
+   "detail": [
+    "team-team-heretics-v1"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "filtro Completadas → solo COMPLETED (incluida la que hoy no tiene entera)",
+   "ok": true,
+   "detail": [
+    "COMPLETED",
+    "COMPLETED"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "tipo Ediciones → 2 sets de edición",
+   "ok": true,
+   "detail": 2
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "rejilla: consola limpia",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "0 %: los 25 objetivos siguen visibles (LOCKED, descubribles), insignias vacías explicadas",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "locked": 25,
+    "badgesEmpty": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-progress: estado IN_PROGRESS, 4 tiene / 1 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-progress: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-progress: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "variantes poseídas listadas (2 jugadores con 2 variantes)",
+   "ok": false,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-progress: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-claimable: estado CLAIMABLE, 6 tiene / 0 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-claimable: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-claimable: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-claimable: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-completed: estado COMPLETED, 3 tiene / 1 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-completed: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-completed: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-completed: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-edition: estado IN_PROGRESS, 7 tiene / 13 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-edition: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-edition: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "detail-edition: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "momento: diálogo modal con título, foco dentro, escudo real; movimiento normal",
+   "ok": true,
+   "detail": {
+    "open": true,
+    "reduced": "0",
+    "role": true,
+    "labelled": true,
+    "focusIn": true,
+    "logo": true,
+    "title": "Team Heretics"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "momento: Escape lo cierra",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "momento: consola limpia",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "profile-own: 3 insignias destacadas grandes (logo real en las de equipo), ninguna bloqueada, acceso a elegir",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 3,
+    "logos": 2,
+    "locked": 0,
+    "edit": true,
+    "size": 128
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "profile-own: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "profile-public: 3 insignias destacadas grandes (logo real en las de equipo), ninguna bloqueada, sin edición",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 3,
+    "logos": 2,
+    "locked": 0,
+    "edit": false,
+    "size": 128
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "profile-public: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "perfil propio sin destacadas: invita a elegir (sin insignias falsas)",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 0,
+    "logos": 0,
+    "locked": 0,
+    "edit": true,
+    "size": 0
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "profile-empty: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "editor: 3 huecos llenos, opciones = insignias desbloqueadas, las no elegidas deshabilitadas al tope (límite 3)",
+   "ok": true,
+   "detail": {
+    "panel": true,
+    "slots": 3,
+    "filled": 3,
+    "options": 4,
+    "disabled": 1,
+    "save": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "editor: reordenar (bajar la 1.ª) cambia el orden y habilita Guardar",
+   "ok": true,
+   "detail": [
+    "insignia:coleccion:team-karmine-corp",
+    "insignia:coleccion:team-fnatic",
+    "insignia:equipo:g2-medio"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "editor: quitar una libera el tope (ninguna opción deshabilitada)",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "name": "editor: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "rejilla: 25 sets reales (23 equipos + 2 ediciones), 4 estados, orden «más cerca» empieza por lo reclamable",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "states": [
+     "CLAIMABLE",
+     "IN_PROGRESS",
+     "LOCKED",
+     "COMPLETED"
+    ],
+    "first": "team-team-heretics-v1",
+    "firstState": "CLAIMABLE",
+    "stats": 4,
+    "logos": 23,
+    "logoAlt": 23,
+    "banner": true,
+    "ariaTiles": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "rejilla: logos reales con alt «Escudo de …», tarjetas con aria-label de progreso, banner de reclamables, 4 estadísticas",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "states": [
+     "CLAIMABLE",
+     "IN_PROGRESS",
+     "LOCKED",
+     "COMPLETED"
+    ],
+    "first": "team-team-heretics-v1",
+    "firstState": "CLAIMABLE",
+    "stats": 4,
+    "logos": 23,
+    "logoAlt": 23,
+    "banner": true,
+    "ariaTiles": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "rejilla: sin overflow horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "búsqueda «heretics» → solo Team Heretics",
+   "ok": true,
+   "detail": [
+    "team-team-heretics-v1"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "filtro Completadas → solo COMPLETED (incluida la que hoy no tiene entera)",
+   "ok": true,
+   "detail": [
+    "COMPLETED",
+    "COMPLETED"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "tipo Ediciones → 2 sets de edición",
+   "ok": true,
+   "detail": 2
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "rejilla: consola limpia",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "0 %: los 25 objetivos siguen visibles (LOCKED, descubribles), insignias vacías explicadas",
+   "ok": true,
+   "detail": {
+    "tiles": 25,
+    "locked": 25,
+    "badgesEmpty": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-progress: estado IN_PROGRESS, 4 tiene / 1 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-progress: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-progress: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "variantes poseídas listadas (2 jugadores con 2 variantes)",
+   "ok": false,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 1,
+    "have": 4,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 5,
+    "artsAlt": 5,
+    "where": 1,
+    "variants": 3,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-progress: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-claimable: estado CLAIMABLE, 6 tiene / 0 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-claimable: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-claimable: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "CLAIMABLE",
+    "missing": 0,
+    "have": 6,
+    "claim": 1,
+    "claimH": 52,
+    "arts": 6,
+    "artsAlt": 6,
+    "where": 0,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-claimable: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-completed: estado COMPLETED, 3 tiene / 1 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-completed: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-completed: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "COMPLETED",
+    "missing": 1,
+    "have": 3,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 4,
+    "artsAlt": 4,
+    "where": 1,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-completed: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-edition: estado IN_PROGRESS, 7 tiene / 13 falta(n), textos «Conseguido/Te falta» (no solo color)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-edition: CardArt real por requisito con alt; «dónde conseguirla» en cada falta",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-edition: RECLAMAR solo si CLAIMABLE (≥44 px)",
+   "ok": true,
+   "detail": {
+    "state": "IN_PROGRESS",
+    "missing": 13,
+    "have": 7,
+    "claim": 0,
+    "claimH": 0,
+    "arts": 20,
+    "artsAlt": 20,
+    "where": 13,
+    "variants": 0,
+    "marks": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "detail-edition: sin overflow y consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "momento: diálogo modal con título, foco dentro, escudo real; movimiento normal",
+   "ok": true,
+   "detail": {
+    "open": true,
+    "reduced": "0",
+    "role": true,
+    "labelled": true,
+    "focusIn": true,
+    "logo": true,
+    "title": "Team Heretics"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "momento: Escape lo cierra",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "momento: consola limpia",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "profile-own: 3 insignias destacadas grandes (logo real en las de equipo), ninguna bloqueada, acceso a elegir",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 3,
+    "logos": 2,
+    "locked": 0,
+    "edit": true,
+    "size": 128
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "profile-own: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "profile-public: 3 insignias destacadas grandes (logo real en las de equipo), ninguna bloqueada, sin edición",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 3,
+    "logos": 2,
+    "locked": 0,
+    "edit": false,
+    "size": 128
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "profile-public: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "perfil propio sin destacadas: invita a elegir (sin insignias falsas)",
+   "ok": true,
+   "detail": {
+    "section": true,
+    "count": 0,
+    "logos": 0,
+    "locked": 0,
+    "edit": true,
+    "size": 0
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "profile-empty: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "editor: 3 huecos llenos, opciones = insignias desbloqueadas, las no elegidas deshabilitadas al tope (límite 3)",
+   "ok": true,
+   "detail": {
+    "panel": true,
+    "slots": 3,
+    "filled": 3,
+    "options": 4,
+    "disabled": 1,
+    "save": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "editor: reordenar (bajar la 1.ª) cambia el orden y habilita Guardar",
+   "ok": true,
+   "detail": [
+    "insignia:coleccion:team-karmine-corp",
+    "insignia:coleccion:team-fnatic",
+    "insignia:equipo:g2-medio"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "editor: quitar una libera el tope (ninguna opción deshabilitada)",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "name": "editor: sin overflow, consola limpia",
+   "ok": true,
+   "detail": 0
+  }
+ ]
+}

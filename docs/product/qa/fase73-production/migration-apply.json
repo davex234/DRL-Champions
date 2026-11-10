@@ -1,0 +1,17 @@
+{
+  "file": "supabase/migrations/0059_crafting_missions.sql",
+  "sha256": "5b1205bb96f0009d603bb62f7fa5ed19995c0a89acf8e123202fcb0365c2124d",
+  "method": "psql -v ON_ERROR_STOP=1 \u00b7 BEGIN; <0059 exacta>; COMMIT; (una sola vez)",
+  "startedAt": "2026-09-30T14:59:06Z",
+  "psqlExit": 0,
+  "output": [
+    "BEGIN",
+    "CREATE TABLE",
+    "INSERT 0 11",
+    "\u2026",
+    "COMMIT",
+    "NOTICE:  function public.app_mission_apply(uuid,text,text,jsonb,jsonb) does not exist, skipping"
+  ],
+  "otherMigrationsApplied": [],
+  "verdict": "PASS"
+}

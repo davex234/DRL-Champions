@@ -1,0 +1,17 @@
+/                                      antes 200  después 200
+/tienda                                antes 200  después 200
+/abrir/estandar                        antes 200  después 200
+/abrir/icon                            antes 200  después 200
+/coleccion                             antes 200  después 200
+/login                                 antes 404  después 404
+/api/health                            antes 200  después 200
+/api/ready                             antes 200  después 200
+/api/content/agents                    antes 200  después 200
+/api/content/packs                     antes 200  después 200
+/api/content/duel-theme                antes 200  después 200
+/design-system                         antes 404  después 404
+/design-system/fase81                  antes 404  después 404
+/design-system/pack-walkout            antes 404  después 404
+/admin                                 antes 200  después 200
+/admin/walkout                         antes 404  después 200
+/walkout/human/rocketbox-player.gltf   antes 404  después 200

@@ -1,0 +1,15 @@
+{
+  "Carta inexistente": "Carte inexistante",
+  "El listado ya no está disponible": "L'annonce n'est plus disponible",
+  "Importe inválido": "Montant invalide",
+  "Instancia inválida": "Exemplaire invalide",
+  "La oferta ya no está activa": "L'offre n'est plus active",
+  "Listado de usuario sin escrow": "Annonce d'utilisateur sans escrow",
+  "Listado reservado a otro comprador": "Annonce réservée à un autre acheteur",
+  "No puedes cancelar un listado ajeno": "Tu ne peux pas annuler l'annonce d'un autre",
+  "No puedes comprar tu propio listado": "Tu ne peux pas acheter ta propre annonce",
+  "No puedes modificar un listado ajeno": "Tu ne peux pas modifier l'annonce d'un autre",
+  "No puedes ofertar en tu propio listado": "Tu ne peux pas faire d'offre sur ta propre annonce",
+  "Precio inválido": "Prix invalide",
+  "Vendido pero activo": "Vendu mais toujours actif"
+}

@@ -1,0 +1,317 @@
+{
+  "generatedAt": "2026-10-07T10:01:29.947Z",
+  "bundle": {
+    "before": {
+      "buildId": "drl-0.1.1-1-e51e5954",
+      "measuredAt": "2026-09-17T09:52:37.760Z",
+      "jsBytes": 8122969,
+      "cssBytes": 142186,
+      "jsFiles": 185
+    },
+    "after": {
+      "buildId": "drl-0.1.1-1-8ba48889",
+      "measuredAt": "2026-09-17T11:15:44.603Z",
+      "jsBytes": 8035876,
+      "cssBytes": 155278,
+      "jsFiles": 181
+    },
+    "jsPct": -1.1
+  },
+  "pages": [
+    {
+      "id": "home",
+      "before": {
+        "id": "home",
+        "path": "/",
+        "real": true,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0744,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 605,
+        "jsBytes": 664426,
+        "heapMb": 16
+      },
+      "after": {
+        "id": "home",
+        "path": "/",
+        "real": true,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0746,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 683,
+        "jsBytes": 831836,
+        "heapMb": 16
+      },
+      "jsBytesPct": 25.2,
+      "domPct": 12.9,
+      "longTaskMsDelta": 0,
+      "clsDelta": 0.0002,
+      "slowFramesDelta": 0
+    },
+    {
+      "id": "collection",
+      "before": {
+        "id": "collection",
+        "path": "/coleccion",
+        "real": true,
+        "longTasks": 1,
+        "longTaskMs": 64,
+        "cls": 0.1077,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 4115,
+        "jsBytes": 563517,
+        "heapMb": 29
+      },
+      "after": {
+        "id": "collection",
+        "path": "/coleccion",
+        "real": true,
+        "longTasks": 1,
+        "longTaskMs": 54,
+        "cls": 0.0006,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 4147,
+        "jsBytes": 637190,
+        "heapMb": 39
+      },
+      "jsBytesPct": 13.1,
+      "domPct": 0.8,
+      "longTaskMsDelta": -10,
+      "clsDelta": -0.1071,
+      "slowFramesDelta": 0
+    },
+    {
+      "id": "deck-builder",
+      "before": {
+        "id": "deck-builder",
+        "path": "/duelos/mazos",
+        "real": true,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0001,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 588,
+        "jsBytes": 718819,
+        "heapMb": 18
+      },
+      "after": {
+        "id": "deck-builder",
+        "path": "/duelos/mazos",
+        "real": true,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0006,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 615,
+        "jsBytes": 732404,
+        "heapMb": 11
+      },
+      "jsBytesPct": 1.9,
+      "domPct": 4.6,
+      "longTaskMsDelta": 0,
+      "clsDelta": 0.0005,
+      "slowFramesDelta": 0
+    },
+    {
+      "id": "campaign",
+      "before": {
+        "id": "campaign",
+        "path": "/jugar/road-to-champions",
+        "real": true,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0647,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 664,
+        "jsBytes": 569235,
+        "heapMb": 15
+      },
+      "after": {
+        "id": "campaign",
+        "path": "/jugar/road-to-champions",
+        "real": true,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0577,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 692,
+        "jsBytes": 642146,
+        "heapMb": 19
+      },
+      "jsBytesPct": 12.8,
+      "domPct": 4.2,
+      "longTaskMsDelta": 0,
+      "clsDelta": -0.007,
+      "slowFramesDelta": 0
+    },
+    {
+      "id": "pack-legendary",
+      "before": {
+        "id": "pack-legendary",
+        "path": "/design-system/fase38?scene=reveal-legendary",
+        "real": false,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.6251,
+        "slowFrames": 0,
+        "frames": 181,
+        "worstFrameMs": 17,
+        "domNodes": 356,
+        "jsBytes": 579376,
+        "heapMb": 13
+      },
+      "after": {
+        "id": "pack-legendary",
+        "path": "/design-system/fase38?scene=reveal-legendary",
+        "real": false,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0006,
+        "slowFrames": 0,
+        "frames": 181,
+        "worstFrameMs": 17,
+        "domNodes": 389,
+        "jsBytes": 651365,
+        "heapMb": 16
+      },
+      "jsBytesPct": 12.4,
+      "domPct": 9.3,
+      "longTaskMsDelta": 0,
+      "clsDelta": -0.6245,
+      "slowFramesDelta": 0
+    },
+    {
+      "id": "pack-summary",
+      "before": {
+        "id": "pack-summary",
+        "path": "/design-system/fase38?scene=summary-open-another",
+        "real": false,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.4472,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 616,
+        "jsBytes": 579376,
+        "heapMb": 16
+      },
+      "after": {
+        "id": "pack-summary",
+        "path": "/design-system/fase38?scene=summary-open-another",
+        "real": false,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0006,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 652,
+        "jsBytes": 651365,
+        "heapMb": 17
+      },
+      "jsBytesPct": 12.4,
+      "domPct": 5.8,
+      "longTaskMsDelta": 0,
+      "clsDelta": -0.4466,
+      "slowFramesDelta": 0
+    },
+    {
+      "id": "combat",
+      "before": {
+        "id": "combat",
+        "path": "/design-system/fase33?scene=turn1-attack",
+        "real": false,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0001,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 1066,
+        "jsBytes": 644764,
+        "heapMb": 17
+      },
+      "after": {
+        "id": "combat",
+        "path": "/design-system/fase33?scene=turn1-attack",
+        "real": false,
+        "longTasks": 1,
+        "longTaskMs": 72,
+        "cls": 0.0006,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 1098,
+        "jsBytes": 717596,
+        "heapMb": 18
+      },
+      "jsBytesPct": 11.3,
+      "domPct": 3,
+      "longTaskMsDelta": 72,
+      "clsDelta": 0.0005,
+      "slowFramesDelta": 0
+    },
+    {
+      "id": "result",
+      "before": {
+        "id": "result",
+        "path": "/design-system/fase33?scene=match-win",
+        "real": false,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "cls": 0.0001,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 1991,
+        "jsBytes": 661813,
+        "heapMb": 18
+      },
+      "after": {
+        "id": "result",
+        "path": "/design-system/fase33?scene=match-win",
+        "real": false,
+        "longTasks": 1,
+        "longTaskMs": 57,
+        "cls": 0.0006,
+        "slowFrames": 0,
+        "frames": 182,
+        "worstFrameMs": 17,
+        "domNodes": 2025,
+        "jsBytes": 744106,
+        "heapMb": 19
+      },
+      "jsBytesPct": 12.4,
+      "domPct": 1.7,
+      "longTaskMsDelta": 57,
+      "clsDelta": 0.0005,
+      "slowFramesDelta": 0
+    }
+  ],
+  "regressions": [],
+  "justified": [
+    {
+      "id": "home",
+      "reason": "prefetch de rutas enlazadas por el lobby (docs/product/qa/fase44/prefetch-evidence.json)"
+    }
+  ]
+}

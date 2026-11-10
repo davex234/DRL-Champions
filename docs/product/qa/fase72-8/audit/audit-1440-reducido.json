@@ -1,0 +1,307 @@
+{
+  "reduced": true,
+  "rect": [
+    676.2568969726562,
+    94.09043884277344,
+    38.81500244140625,
+    38.81504821777344
+  ],
+  "art": "<span aria-hidden=\"true\" data-hint-art=\"logo\" class=\"absolute left-1/2 top-[44%] block -translate-x-1/2 -translate-y-1/2 bg-contain bg-center bg-no-repeat w-[80%] drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]\" style=\"aspect-ratio: 1 / 1; background-image: url(&quot;/hints/teams/giantx.png&quot;); background-size: contain;\"></span>",
+  "chain": [
+    {
+      "el": "span.absolute.left-1/2.top-[44%].block",
+      "position": "absolute",
+      "filter": "drop-shadow(rgba(0, 0, 0, 0.9) 0px 2px 6px)",
+      "transform": "matrix(1, 0, 0, 1, -19.2734, -19.2734)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "url(\"http://127.0.0.1:3005/hints/teams/giantx.png\")"
+    },
+    {
+      "el": "div.relative.aspect-[5/7].overflow-hidden.rounded-[10%/7%]",
+      "position": "relative",
+      "backgroundBlendMode": "normal, normal, normal",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(80% 60% at 50% 45%, rgba(255, 46, 99, 0.3), rgba(0, 0, 0, 0) 70%), repeati"
+    },
+    {
+      "el": "div.w-[54px].shrink-0.!w-[clamp(26px,min(5.8vh,6.6vw),56px)]",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.shrink-0.origin-top",
+      "zIndex": "4",
+      "transform": "matrix(0.999976, 0.00698126, -0.00698126, 0.999976, -0.000209438, 0.0299993)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.flex.min-h-[clamp(20px,2.8vh,32px)].items-start.justify-center",
+      "filter": "drop-shadow(rgba(255, 46, 99, 0.45) 0px 0px 8px) drop-shadow(rgba(0, 0, 0, 0.6) 0px 8px 14px)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.mb-1.grid.grid-cols-[1fr_auto_1fr].items-start",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "section.nx-a50-zone.relative.px-[calc(var(--pos-pad)*1.6)].py-[clamp(4px,0.9vh,10px)]",
+      "position": "relative",
+      "isolation": "isolate",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.nx-a50-stage.relative.isolate.mx-auto",
+      "position": "relative",
+      "isolation": "isolate",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.nx-arena-stage.w-full.lg:col-start-2",
+      "position": "relative",
+      "isolation": "isolate",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.flex.min-w-0.flex-col.items-center",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.relative.z-10.lg:[container-type:inline-size]",
+      "position": "relative",
+      "zIndex": "10",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.relative",
+      "position": "relative",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.mx-auto.w-full.max-w-[1320px].flex-1",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div.flex.min-h-screen.flex-col",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "div",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "body",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none"
+    },
+    {
+      "el": "html",
+      "backgroundBlendMode": "normal, normal, normal",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(1200px 600px at 50% -10%, rgba(255, 46, 99, 0.12), rgba(0, 0, 0, 0) 60%), "
+    }
+  ],
+  "over": [
+    {
+      "el": "div.nx-env.pointer-events-none.fixed.inset-0",
+      "after": false,
+      "fixed": true,
+      "position": "fixed",
+      "zIndex": "-10",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(140% 100% at 50% 0%, rgb(22, 6, 13), rgb(4, 4, 9) 72%)",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-env-light.nx-env-light-a",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(closest-side, rgba(255, 46, 99, 0.34), rgba(0, 0, 0, 0))",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.absolute.inset-0",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(120% 90% at 50% 40%, rgba(0, 0, 0, 0) 55%, rgba(3, 4, 8, 0.78) 100%)",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-env-dim",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "opacity": "0.12",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none",
+      "bgc": "rgb(0, 0, 0)"
+    },
+    {
+      "el": "span.nx-arena-env-sky",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "backgroundBlendMode": "normal, normal, normal",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(90% 60% at 50% 0%, rgba(255, 46, 99, 0.16), rgba(0, 0, 0, 0) 70%), radial-",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-arena-env-stage",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "transform": "matrix(1.015, 0, 0, 1.015, 0, 0)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "url(\"http://127.0.0.1:3005/game/arenas/nexus-champions/stage-1920.webp\")",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-arena-env-light.nx-arena-env-light-rival",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "backgroundBlendMode": "normal, normal",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(70% 80% at 50% -12%, rgba(255, 46, 99, 0.3), rgba(214, 40, 160, 0.1) 46%, ",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-arena-env-beam.nx-arena-env-beam-rival-l",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "opacity": "0.55",
+      "transform": "matrix(0.927184, -0.374607, 0.374607, 0.927184, 0, 0)",
+      "clipPath": "polygon(46% 0px, 54% 0px, 100% 100%, 0px 100%)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "linear-gradient(rgba(255, 46, 99, 0.34), rgba(255, 46, 99, 0.09) 44%, rgba(0, 0, 0, 0) 82%",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-arena-env-roof",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "opacity": "0.55",
+      "backgroundBlendMode": "normal, normal",
+      "transform": "matrix3d(1, 0, 0, 0, 0, 0.374607, -0.927184, 0.00121998, 0, 0.927184, 0.374607, -0.000492903, 0, 0, 0, 1)",
+      "maskImage": "linear-gradient(rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0.5) 46%, rgba(0, 0, 0, 0.9) 100%)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "linear-gradient(rgba(30, 120, 255, 0.16) 1px, rgba(0, 0, 0, 0) 1px), linear-gradient(90deg",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-arena-env-wash",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(90% 55% at 50% 118%, rgba(47, 224, 255, 0.2), rgba(0, 0, 0, 0) 66%)",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-arena-env-vignette",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "backgroundBlendMode": "normal, normal",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(130% 90%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.46) 84%, rgba(0, 0, 0, 0.7",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-a50-plate",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "zIndex": "-1",
+      "filter": "drop-shadow(rgba(255, 46, 99, 0.55) 0px 0px 9px) drop-shadow(rgba(0, 0, 0, 0.7) 0px 22px 26px)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "div.absolute.inset-[26%]",
+      "after": false,
+      "fixed": false,
+      "position": "absolute",
+      "filter": "drop-shadow(rgba(255, 46, 99, 0.9) 0px 0px 6px)",
+      "opacity": "0.22",
+      "maskImage": "url(\"http://127.0.0.1:3005/branding/icon/icon-mono.svg\")",
+      "color": "rgb(238, 241, 248)",
+      "bg": "none",
+      "bgc": "rgb(255, 79, 126)"
+    }
+  ],
+  "pseudo": [
+    {
+      "el": "span.nx-arena-env-stage::after",
+      "ancestor": false,
+      "fixed": false,
+      "position": "absolute",
+      "backgroundBlendMode": "normal, normal",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(62% 46% at 50% 54%, rgba(3, 4, 10, 0.66) 0%, rgba(3, 4, 10, 0.42) 55%, rgb",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "div.nx-arena-stage.w-full.lg:col-start-2::before",
+      "ancestor": true,
+      "fixed": false,
+      "position": "absolute",
+      "zIndex": "-1",
+      "filter": "blur(2px)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(60% 100% at 50% 100%, rgba(47, 224, 255, 0.16), rgba(0, 0, 0, 0) 70%)",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "div.nx-arena-stage.w-full.lg:col-start-2::after",
+      "ancestor": true,
+      "fixed": false,
+      "position": "absolute",
+      "zIndex": "-1",
+      "opacity": "0.9",
+      "color": "rgb(238, 241, 248)",
+      "bg": "radial-gradient(70% 42% at 50% 112%, rgba(47, 224, 255, 0.2), rgba(0, 0, 0, 0) 68%)",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-a50-plate::before",
+      "ancestor": false,
+      "fixed": false,
+      "position": "absolute",
+      "clipPath": "polygon(3.2% 0px, 96.8% 0px, 100% 100%, 0px 100%)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "linear-gradient(rgba(255, 46, 99, 0.95), rgba(255, 46, 99, 0.45) 60%, rgba(255, 46, 99, 0.",
+      "bgc": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "el": "span.nx-a50-plate::after",
+      "ancestor": false,
+      "fixed": false,
+      "position": "absolute",
+      "backgroundBlendMode": "normal, normal, normal",
+      "clipPath": "polygon(3.2% 0px, 96.8% 0px, 100% 100%, 0px 100%)",
+      "color": "rgb(238, 241, 248)",
+      "bg": "linear-gradient(rgba(255, 46, 99, 0.2), rgba(255, 46, 99, 0.04) 55%, rgba(255, 46, 99, 0.1",
+      "bgc": "rgba(0, 0, 0, 0)"
+    }
+  ]
+}

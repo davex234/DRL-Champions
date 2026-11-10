@@ -1,0 +1,292 @@
+[
+  {
+    "width": 1440,
+    "name": "0-arena-vacia",
+    "t": "3.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "999",
+    "file": "base-WALKOUT-ES-preview-0-arena-vacia-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "1-figura-al-fondo",
+    "t": "2.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1035",
+    "file": "base-WALKOUT-ES-preview-1-figura-al-fondo-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "2-inicio-caminata",
+    "t": "3.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1042",
+    "file": "base-WALKOUT-ES-preview-2-inicio-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "3-bandera",
+    "t": "4.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1232",
+    "file": "base-WALKOUT-ES-preview-3-bandera-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "4-mitad-caminata",
+    "t": "5.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1298",
+    "file": "base-WALKOUT-ES-preview-4-mitad-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "5-impacto-escudo",
+    "t": "6.25",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1037",
+    "file": "base-WALKOUT-ES-preview-5-impacto-escudo-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "5b-logo-en-pantallas",
+    "t": "7.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1039",
+    "file": "base-WALKOUT-ES-preview-5b-logo-en-pantallas-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "6-deteniendose",
+    "t": "8.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "985",
+    "file": "base-WALKOUT-ES-preview-6-deteniendose-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7a-celebracion",
+    "t": "8.75",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "979",
+    "file": "base-WALKOUT-ES-preview-7a-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7b-celebracion",
+    "t": "9.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1044",
+    "file": "base-WALKOUT-ES-preview-7b-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7c-celebracion",
+    "t": "10.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "972",
+    "file": "base-WALKOUT-ES-preview-7c-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "8-ovr",
+    "t": "10.50",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1010",
+    "file": "base-WALKOUT-ES-preview-8-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "9-transicion",
+    "t": "11.15",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "990",
+    "file": "base-WALKOUT-ES-preview-9-transicion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "12.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1063",
+    "file": "base-WALKOUT-ES-preview-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 390,
+    "name": "0-arena-vacia",
+    "t": "3.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "821",
+    "file": "base-WALKOUT-ES-preview-0-arena-vacia-390.png"
+  },
+  {
+    "width": 390,
+    "name": "1-figura-al-fondo",
+    "t": "2.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "889",
+    "file": "base-WALKOUT-ES-preview-1-figura-al-fondo-390.png"
+  },
+  {
+    "width": 390,
+    "name": "2-inicio-caminata",
+    "t": "3.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "779",
+    "file": "base-WALKOUT-ES-preview-2-inicio-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "3-bandera",
+    "t": "4.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "843",
+    "file": "base-WALKOUT-ES-preview-3-bandera-390.png"
+  },
+  {
+    "width": 390,
+    "name": "4-mitad-caminata",
+    "t": "5.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "705",
+    "file": "base-WALKOUT-ES-preview-4-mitad-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "5-impacto-escudo",
+    "t": "6.25",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "721",
+    "file": "base-WALKOUT-ES-preview-5-impacto-escudo-390.png"
+  },
+  {
+    "width": 390,
+    "name": "5b-logo-en-pantallas",
+    "t": "7.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "780",
+    "file": "base-WALKOUT-ES-preview-5b-logo-en-pantallas-390.png"
+  },
+  {
+    "width": 390,
+    "name": "6-deteniendose",
+    "t": "8.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "719",
+    "file": "base-WALKOUT-ES-preview-6-deteniendose-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7a-celebracion",
+    "t": "8.75",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "733",
+    "file": "base-WALKOUT-ES-preview-7a-celebracion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7b-celebracion",
+    "t": "9.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "696",
+    "file": "base-WALKOUT-ES-preview-7b-celebracion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7c-celebracion",
+    "t": "10.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "749",
+    "file": "base-WALKOUT-ES-preview-7c-celebracion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "8-ovr",
+    "t": "10.50",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "878",
+    "file": "base-WALKOUT-ES-preview-8-ovr-390.png"
+  },
+  {
+    "width": 390,
+    "name": "9-transicion",
+    "t": "11.15",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "712",
+    "file": "base-WALKOUT-ES-preview-9-transicion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "10-carta-final",
+    "t": "12.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "777",
+    "file": "base-WALKOUT-ES-preview-10-carta-final-390.png"
+  },
+  {
+    "width": 390,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

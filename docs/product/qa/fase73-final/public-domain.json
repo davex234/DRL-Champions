@@ -1,0 +1,10 @@
+{
+  "at": "2026-09-30T19:39:07.160Z",
+  "url": "https://valorosters.com",
+  "build": "drl-0.1.1-1-3191f545",
+  "ready": "ready, migrationHead 0060_salvage_last_copy_atomic",
+  "pages": "/, /misiones, /misiones/crafting, /misiones/crafting/sobres, /misiones/crafting/cartas, /cuenta → 200",
+  "security": "/.env, /.git/config → 404; /api/admin/cms/crafting sin sesión → 401",
+  "www": "308 → https://valorosters.com",
+  "browserE2E": "docs/product/qa/valorosters-hosting/public-url.json (29/29) + fase73-closure (flujos F73 reales contra :3005 del mismo servidor que sirve el dominio)"
+}

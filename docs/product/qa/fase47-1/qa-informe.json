@@ -1,0 +1,237 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "inicio": "2026-09-20T20:31:52.173Z",
+  "colocados": [
+    {
+      "abbr": "DUE",
+      "nx": 63,
+      "ny": 38
+    },
+    {
+      "abbr": "CON",
+      "nx": 50,
+      "ny": 50
+    },
+    {
+      "abbr": "INI",
+      "nx": 43,
+      "ny": 45
+    },
+    {
+      "abbr": "CEN",
+      "nx": 29,
+      "ny": 41
+    },
+    {
+      "abbr": "FLX",
+      "nx": 53,
+      "ny": 63
+    }
+  ],
+  "agentes": 5,
+  "dibujado": {
+    "flecha": true,
+    "zona": true,
+    "humo": true,
+    "nota": true
+  },
+  "pasos": 3,
+  "fichasAntes": [
+    {
+      "etiqueta": "Centinela · Warden (Centinela)",
+      "x": 29,
+      "y": 41,
+      "visible": true
+    },
+    {
+      "etiqueta": "Controlador · Veil (Controlador)",
+      "x": 50,
+      "y": 50,
+      "visible": true
+    },
+    {
+      "etiqueta": "Duelista · Spear (Duelista)",
+      "x": 63,
+      "y": 38,
+      "visible": true
+    },
+    {
+      "etiqueta": "Flex · Echo (Flex)",
+      "x": 53,
+      "y": 63,
+      "visible": true
+    },
+    {
+      "etiqueta": "Iniciador · Probe (Iniciador)",
+      "x": 43,
+      "y": 45,
+      "visible": true
+    }
+  ],
+  "guardado": "ESTRATEGIA GUARDADA",
+  "reabierta": {
+    "nombre": "__QA_F471_STRAT__"
+  },
+  "fichasDespues": [
+    {
+      "etiqueta": "Centinela · Warden (Centinela)",
+      "x": 29,
+      "y": 41,
+      "visible": true
+    },
+    {
+      "etiqueta": "Controlador · Veil (Controlador)",
+      "x": 50,
+      "y": 50,
+      "visible": true
+    },
+    {
+      "etiqueta": "Duelista · Spear (Duelista)",
+      "x": 63,
+      "y": 38,
+      "visible": true
+    },
+    {
+      "etiqueta": "Flex · Echo (Flex)",
+      "x": 53,
+      "y": 63,
+      "visible": true
+    },
+    {
+      "etiqueta": "Iniciador · Probe (Iniciador)",
+      "x": 43,
+      "y": 45,
+      "visible": true
+    }
+  ],
+  "coordenadas": {
+    "768": [
+      {
+        "etiqueta": "Centinela · Warden (Centinela)",
+        "x": 29,
+        "y": 41,
+        "visible": true
+      },
+      {
+        "etiqueta": "Controlador · Veil (Controlador)",
+        "x": 50,
+        "y": 50,
+        "visible": true
+      },
+      {
+        "etiqueta": "Duelista · Spear (Duelista)",
+        "x": 63,
+        "y": 38,
+        "visible": true
+      },
+      {
+        "etiqueta": "Flex · Echo (Flex)",
+        "x": 53,
+        "y": 63,
+        "visible": true
+      },
+      {
+        "etiqueta": "Iniciador · Probe (Iniciador)",
+        "x": 43,
+        "y": 45,
+        "visible": true
+      }
+    ],
+    "1024": [
+      {
+        "etiqueta": "Centinela · Warden (Centinela)",
+        "x": 29,
+        "y": 41,
+        "visible": true
+      },
+      {
+        "etiqueta": "Controlador · Veil (Controlador)",
+        "x": 50,
+        "y": 50,
+        "visible": true
+      },
+      {
+        "etiqueta": "Duelista · Spear (Duelista)",
+        "x": 63,
+        "y": 38,
+        "visible": true
+      },
+      {
+        "etiqueta": "Flex · Echo (Flex)",
+        "x": 53,
+        "y": 63,
+        "visible": true
+      },
+      {
+        "etiqueta": "Iniciador · Probe (Iniciador)",
+        "x": 43,
+        "y": 45,
+        "visible": true
+      }
+    ],
+    "1440": [
+      {
+        "etiqueta": "Centinela · Warden (Centinela)",
+        "x": 29,
+        "y": 41,
+        "visible": true
+      },
+      {
+        "etiqueta": "Controlador · Veil (Controlador)",
+        "x": 50,
+        "y": 50,
+        "visible": true
+      },
+      {
+        "etiqueta": "Duelista · Spear (Duelista)",
+        "x": 63,
+        "y": 38,
+        "visible": true
+      },
+      {
+        "etiqueta": "Flex · Echo (Flex)",
+        "x": 53,
+        "y": 63,
+        "visible": true
+      },
+      {
+        "etiqueta": "Iniciador · Probe (Iniciador)",
+        "x": 43,
+        "y": 45,
+        "visible": true
+      }
+    ],
+    "1920": [
+      {
+        "etiqueta": "Centinela · Warden (Centinela)",
+        "x": 29,
+        "y": 41,
+        "visible": true
+      },
+      {
+        "etiqueta": "Controlador · Veil (Controlador)",
+        "x": 50,
+        "y": 50,
+        "visible": true
+      },
+      {
+        "etiqueta": "Duelista · Spear (Duelista)",
+        "x": 63,
+        "y": 38,
+        "visible": true
+      },
+      {
+        "etiqueta": "Flex · Echo (Flex)",
+        "x": 53,
+        "y": 63,
+        "visible": true
+      },
+      {
+        "etiqueta": "Iniciador · Probe (Iniciador)",
+        "x": 43,
+        "y": 45,
+        "visible": true
+      }
+    ]
+  }
+}

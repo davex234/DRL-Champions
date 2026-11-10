@@ -1,0 +1,43 @@
+{
+  "at": "2026-09-30T18:01:13.880Z",
+  "exposedSupabaseApis": [
+    "/auth/v1/*",
+    "/rest/v1/* (RLS)",
+    "/storage/v1/*"
+  ],
+  "notExposed": {
+    "/pg/*": 404,
+    "/graphql/v1": 404,
+    "/functions/v1/*": 404,
+    "/realtime/v1/*": 404,
+    "/analytics/v1/*": 404
+  },
+  "anon": {
+    "rest profiles": 401,
+    "rest craft_recipes": 401,
+    "auth admin users": 401,
+    "storage bucket list": "[]",
+    "storage upload": "403 RLS"
+  },
+  "appApiCors": "sin cabeceras CORS (solo mismo origen)",
+  "proxiedSupabaseCors": "Kong responde ACAO * (defecto de Supabase). Autenticación por Bearer explícito, sin cookies: no permite actuar por otro usuario. Acotarlo exige cambiar Kong en el VPS o un proxy propio: documentado, no cambiado.",
+  "sensitivePaths": "404: /.env, /.env.local, /.git/config, /package.json, /next.config.mjs, /docs/**, /scripts/**, /logs/**, /design-system/**, *.map",
+  "admin": "API 401 sin sesión / no admin (sin oráculo); página /admin = guardia «Acceso restringido»",
+  "sync": "/api/internal/esports/sync, /api/esports/{sync,predict}: 401 sin secreto",
+  "health": "{status,uptimeS,version,node}",
+  "ready": "checks sin secretos, sin IP, sin cadenas de conexión",
+  "bundle": {
+    "54521": 0,
+    "serviceRoleKey": 0,
+    "localhostRefs": "solo valores por defecto de supabase-js (no son peticiones)"
+  },
+  "indexing": "noindex (NEXUS_PUBLIC_INDEXING sin definir)",
+  "publicRelease": "DRL_PUBLIC_RELEASE sin activar (beta privada)",
+  "publicAudit": "desde Internet: .env/.git/docs/scripts/logs/design-system/*.map → 404; APIs admin → 401; sync → 405 GET/401 POST; pg/graphql/functions/realtime/analytics → 404; anon REST → [] o 42501; usuario autenticado → solo filas propias; profiles → 42501",
+  "browserHosts": [
+    "valorosters.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com"
+  ],
+  "updatedAt": "2026-09-30T18:31:43.689Z"
+}

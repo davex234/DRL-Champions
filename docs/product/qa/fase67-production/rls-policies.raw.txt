@@ -1,0 +1,53 @@
+coach_match_strats | coach_match_strats_delete_own | DELETE | roles=public | using=(auth.uid() = user_id) | check=-
+coach_match_strats | coach_match_strats_insert_own | INSERT | roles=public | using=- | check=(auth.uid() = user_id)
+coach_match_strats | coach_match_strats_update_own | UPDATE | roles=public | using=(auth.uid() = user_id) | check=(auth.uid() = user_id)
+game_state | tu estado (rw) | ALL | roles=public | using=(auth.uid() = user_id) | check=(auth.uid() = user_id)
+pickems | tus pickems | ALL | roles=public | using=(auth.uid() = user_id) | check=(auth.uid() = user_id)
+profiles | crea tu perfil | INSERT | roles=public | using=- | check=(auth.uid() = id)
+profiles | edita tu perfil | UPDATE | roles=public | using=(auth.uid() = id) | check=(auth.uid() = id)
+user_compositions | user_compositions_insert_own | INSERT | roles=public | using=- | check=(auth.uid() = user_id)
+user_compositions | user_compositions_update_own | UPDATE | roles=public | using=(auth.uid() = user_id) | check=(auth.uid() = user_id)
+user_compositions | user_compositions_delete_own | DELETE | roles=public | using=(auth.uid() = user_id) | check=-
+user_strats | user_strats_update_own | UPDATE | roles=authenticated | using=(user_id = auth.uid()) | check=(user_id = auth.uid())
+user_strats | user_strats_insert_own | INSERT | roles=authenticated | using=- | check=(user_id = auth.uid())
+user_strats | user_strats_delete_own | DELETE | roles=authenticated | using=(user_id = auth.uid()) | check=-
+==select_true_on_private
+coach_matches | coach_matches_select_own | authenticated | (user_id = auth.uid())
+credit_transactions | tus transacciones de credito (lectura) | public | (auth.uid() = user_id)
+duel_decks | duel_decks_select_own | authenticated | (user_id = auth.uid())
+economy_ops | tus operaciones (lectura) | public | (auth.uid() = user_id)
+inventory | tu inventario (lectura) | public | (auth.uid() = user_id)
+payments | tus pagos (lectura) | public | (auth.uid() = user_id)
+pickem_answers | tus respuestas | public | (EXISTS ( SELECT 1
+   FROM pickem_submissions s
+  WHERE ((s.id = pickem_answers.
+pickem_submissions | tus envios | public | (auth.uid() = user_id)
+profiles | perfiles visibles para todos | public | true
+user_achievements | user_achievements_select_own | authenticated | (user_id = auth.uid())
+user_cards | tus cartas (lectura) | public | (auth.uid() = user_id)
+user_cosmetics | user_cosmetics_select_own | authenticated | (user_id = auth.uid())
+user_game | tu estado de juego (lectura) | public | (auth.uid() = user_id)
+user_packs | tus sobres (lectura) | public | (auth.uid() = user_id)
+user_pass | user_pass_select_own | authenticated | (user_id = auth.uid())
+user_strats | user_strats_select_own | authenticated | (user_id = auth.uid())
+==storage_policies
+==security_definer_exec_by_anon
+_asset_refresh_best
+_check_price_band
+_check_rate
+_check_wash
+_content_versions_immutable
+_price_anchor
+_release_listing_offers
+_stamp_minted_version
+assets_touch_best
+cancel_listing
+cancel_offer
+expire_offers
+handle_new_user
+market_on_transaction
+recompute_player_event_stats
+recompute_standings
+recompute_team_stats
+search_listings
+user_strats_limit

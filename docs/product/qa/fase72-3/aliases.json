@@ -1,0 +1,347 @@
+{
+  "example": {
+    "TH": "team-heretics",
+    "Team Heretics": "team-heretics"
+  },
+  "identities": [
+    {
+      "canonicalId": "team-heretics",
+      "resolves": {
+        "Team Heretics": "team-heretics",
+        "TH": "team-heretics"
+      }
+    },
+    {
+      "canonicalId": "fnatic",
+      "resolves": {
+        "Fnatic": "fnatic",
+        "FNC": "fnatic"
+      }
+    },
+    {
+      "canonicalId": "team-liquid",
+      "resolves": {
+        "Team Liquid": "team-liquid",
+        "TL": "team-liquid"
+      }
+    },
+    {
+      "canonicalId": "karmine-corp",
+      "resolves": {
+        "Karmine Corp": "karmine-corp",
+        "KC": "karmine-corp"
+      }
+    },
+    {
+      "canonicalId": "m8",
+      "resolves": {
+        "M8": "m8"
+      }
+    },
+    {
+      "canonicalId": "fut",
+      "resolves": {
+        "FUT": "fut"
+      }
+    },
+    {
+      "canonicalId": "g2",
+      "resolves": {
+        "G2": "g2"
+      }
+    },
+    {
+      "canonicalId": "leviatan",
+      "resolves": {
+        "Leviatán": "leviatan",
+        "LEV": "leviatan"
+      }
+    },
+    {
+      "canonicalId": "nrg",
+      "resolves": {
+        "NRG": "nrg"
+      }
+    },
+    {
+      "canonicalId": "100t",
+      "resolves": {
+        "100T": "100t"
+      }
+    },
+    {
+      "canonicalId": "loud",
+      "resolves": {
+        "LOUD": "loud"
+      }
+    },
+    {
+      "canonicalId": "sentinels",
+      "resolves": {
+        "Sentinels": "sentinels",
+        "SEN": "sentinels"
+      }
+    },
+    {
+      "canonicalId": "navi",
+      "resolves": {
+        "NAVI": "navi"
+      }
+    },
+    {
+      "canonicalId": "c9",
+      "resolves": {
+        "Cloud9": "c9",
+        "C9": "c9"
+      }
+    },
+    {
+      "canonicalId": "eg",
+      "resolves": {
+        "Evil Geniuses": "eg",
+        "EG": "eg"
+      }
+    },
+    {
+      "canonicalId": "envy",
+      "resolves": {
+        "ENVY": "envy"
+      }
+    },
+    {
+      "canonicalId": "furia",
+      "resolves": {
+        "FURIA": "furia",
+        "FUR": "furia"
+      }
+    },
+    {
+      "canonicalId": "kru",
+      "resolves": {
+        "KRÜ Esports": "kru",
+        "KRÜ": "kru"
+      }
+    },
+    {
+      "canonicalId": "mibr",
+      "resolves": {
+        "MIBR": "mibr"
+      }
+    },
+    {
+      "canonicalId": "bbl",
+      "resolves": {
+        "BBL Esports": "bbl",
+        "BBL": "bbl"
+      }
+    },
+    {
+      "canonicalId": "eternal-fire",
+      "resolves": {
+        "Eternal Fire": "eternal-fire",
+        "EF": "eternal-fire"
+      }
+    },
+    {
+      "canonicalId": "giantx",
+      "resolves": {
+        "GIANTX": "giantx",
+        "GX": "giantx"
+      }
+    },
+    {
+      "canonicalId": "pcific",
+      "resolves": {
+        "PCIFIC Esports": "pcific",
+        "PCF": "pcific"
+      }
+    },
+    {
+      "canonicalId": "vitality",
+      "resolves": {
+        "Team Vitality": "vitality",
+        "VIT": "vitality"
+      }
+    },
+    {
+      "canonicalId": "dragon-ranger-gaming",
+      "resolves": {
+        "Dragon Ranger Gaming": "dragon-ranger-gaming",
+        "DRG": "dragon-ranger-gaming"
+      }
+    }
+  ],
+  "rosterVsPrinted": {
+    "note": "F72.3 corrige: antes la pista usaba Player.team (roster actual); 11 cartas con logo habrían enseñado el logo de OTRO equipo",
+    "cards": [
+      {
+        "cardId": "beyn__base",
+        "rosterTeam": "KRX",
+        "rosterId": "krx",
+        "printedId": "drx",
+        "hint": null
+      },
+      {
+        "cardId": "free1ng__base",
+        "rosterTeam": "KRX",
+        "rosterId": "krx",
+        "printedId": "drx",
+        "hint": null
+      },
+      {
+        "cardId": "hermes__base",
+        "rosterTeam": "KRX",
+        "rosterId": "krx",
+        "printedId": "drx",
+        "hint": null
+      },
+      {
+        "cardId": "hyunmin__base",
+        "rosterTeam": "KRX",
+        "rosterId": "krx",
+        "printedId": "drx",
+        "hint": null
+      },
+      {
+        "cardId": "c0m__base",
+        "rosterTeam": "FUR",
+        "rosterId": "furia",
+        "printedId": "eg",
+        "hint": "eg"
+      },
+      {
+        "cardId": "cloud__base",
+        "rosterTeam": "FNC",
+        "rosterId": "fnatic",
+        "printedId": "giantx",
+        "hint": "giantx"
+      },
+      {
+        "cardId": "ash__base",
+        "rosterTeam": "GEN",
+        "rosterId": "gen",
+        "printedId": "gen-g",
+        "hint": null
+      },
+      {
+        "cardId": "karon__base",
+        "rosterTeam": "GEN",
+        "rosterId": "gen",
+        "printedId": "gen-g",
+        "hint": null
+      },
+      {
+        "cardId": "lakia__base",
+        "rosterTeam": "GEN",
+        "rosterId": "gen",
+        "printedId": "gen-g",
+        "hint": null
+      },
+      {
+        "cardId": "zynx__base",
+        "rosterTeam": "GEN",
+        "rosterId": "gen",
+        "printedId": "gen-g",
+        "hint": null
+      },
+      {
+        "cardId": "zekken__base",
+        "rosterTeam": "Sentinels",
+        "rosterId": "sentinels",
+        "printedId": "mibr",
+        "hint": "mibr"
+      },
+      {
+        "cardId": "sociablee__base",
+        "rosterTeam": "FUT",
+        "rosterId": "fut",
+        "printedId": "navi",
+        "hint": "navi"
+      },
+      {
+        "cardId": "n4rrate__base",
+        "rosterTeam": "KC",
+        "rosterId": "karmine-corp",
+        "printedId": "sentinels",
+        "hint": "sentinels"
+      },
+      {
+        "cardId": "buzz__champions-s",
+        "rosterTeam": "DRX",
+        "rosterId": "drx",
+        "printedId": "t1",
+        "hint": null
+      },
+      {
+        "cardId": "buzz__masters-sdc",
+        "rosterTeam": "DRX",
+        "rosterId": "drx",
+        "printedId": "t1",
+        "hint": null
+      },
+      {
+        "cardId": "buzz__base",
+        "rosterTeam": "DRX",
+        "rosterId": "drx",
+        "printedId": "t1",
+        "hint": null
+      },
+      {
+        "cardId": "meteor__champions-s",
+        "rosterTeam": "Gen.G",
+        "rosterId": "gen-g",
+        "printedId": "t1",
+        "hint": null
+      },
+      {
+        "cardId": "meteor__masters-sdc",
+        "rosterTeam": "Gen.G",
+        "rosterId": "gen-g",
+        "printedId": "t1",
+        "hint": null
+      },
+      {
+        "cardId": "meteor__base",
+        "rosterTeam": "Gen.G",
+        "rosterId": "gen-g",
+        "printedId": "t1",
+        "hint": null
+      },
+      {
+        "cardId": "comeback__base",
+        "rosterTeam": "NAVI",
+        "rosterId": "navi",
+        "printedId": "team-heretics",
+        "hint": "team-heretics"
+      },
+      {
+        "cardId": "chronicle__masters-l",
+        "rosterTeam": "Fnatic",
+        "rosterId": "fnatic",
+        "printedId": "vitality",
+        "hint": "vitality"
+      },
+      {
+        "cardId": "chronicle__base",
+        "rosterTeam": "Fnatic",
+        "rosterId": "fnatic",
+        "printedId": "vitality",
+        "hint": "vitality"
+      },
+      {
+        "cardId": "derke__masters-l",
+        "rosterTeam": "Fnatic",
+        "rosterId": "fnatic",
+        "printedId": "vitality",
+        "hint": "vitality"
+      },
+      {
+        "cardId": "derke__base",
+        "rosterTeam": "Fnatic",
+        "rosterId": "fnatic",
+        "printedId": "vitality",
+        "hint": "vitality"
+      }
+    ]
+  }
+}

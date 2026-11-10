@@ -1,0 +1,111 @@
+{
+  "phase": 42,
+  "kind": "return-state",
+  "states": 100000,
+  "horizons": [
+    "0h",
+    "6h",
+    "24h",
+    "72h",
+    "168h",
+    "336h",
+    "720h"
+  ],
+  "violations": 0,
+  "byInvariant": {},
+  "byHorizon": {
+    "6h": {
+      "states": 14286,
+      "withReturning": 0,
+      "factsMax": 0,
+      "primary": {
+        "claim": 9354,
+        "resume-draft-run": 1290,
+        "objective": 321,
+        "campaign": 1305,
+        "resume-pve": 1470,
+        "open": 546
+      }
+    },
+    "24h": {
+      "states": 14286,
+      "withReturning": 4267,
+      "factsMax": 3,
+      "primary": {
+        "claim": 8554,
+        "open": 752,
+        "campaign": 1770,
+        "resume-pve": 1430,
+        "resume-draft-run": 1259,
+        "objective": 521
+      }
+    },
+    "72h": {
+      "states": 14286,
+      "withReturning": 5014,
+      "factsMax": 3,
+      "primary": {
+        "campaign": 2504,
+        "resume-pve": 1433,
+        "claim": 7489,
+        "objective": 550,
+        "open": 1005,
+        "resume-draft-run": 1305
+      }
+    },
+    "168h": {
+      "states": 14286,
+      "withReturning": 6246,
+      "factsMax": 3,
+      "primary": {
+        "campaign": 3524,
+        "resume-pve": 1432,
+        "claim": 6101,
+        "resume-draft-run": 1240,
+        "objective": 533,
+        "open": 1456
+      }
+    },
+    "336h": {
+      "states": 14286,
+      "withReturning": 8181,
+      "factsMax": 3,
+      "primary": {
+        "claim": 4884,
+        "open": 1896,
+        "resume-pve": 1437,
+        "campaign": 4413,
+        "objective": 390,
+        "resume-draft-run": 1266
+      }
+    },
+    "720h": {
+      "states": 14285,
+      "withReturning": 10499,
+      "factsMax": 3,
+      "primary": {
+        "campaign": 5268,
+        "claim": 3918,
+        "open": 2251,
+        "resume-draft-run": 1240,
+        "resume-pve": 1446,
+        "objective": 162
+      }
+    },
+    "0h": {
+      "states": 14285,
+      "withReturning": 0,
+      "factsMax": 0,
+      "primary": {
+        "claim": 9780,
+        "open": 468,
+        "resume-draft-run": 1263,
+        "resume-pve": 1461,
+        "campaign": 1086,
+        "objective": 227
+      }
+    }
+  },
+  "sample": [],
+  "ms": 6123
+}

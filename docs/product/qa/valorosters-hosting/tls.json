@@ -1,0 +1,24 @@
+{
+  "at": "2026-09-30T18:01:13.880Z",
+  "status": "OK",
+  "plan": "certificado Universal de Cloudflare en el borde (automático al existir el registro proxied); el origen no necesita TLS (túnel saliente cifrado)",
+  "httpToHttps": "http://valorosters.com/jugar → 308 https://valorosters.com/jugar",
+  "www": "https://www.valorosters.com/cuenta?x=1 → 308 https://valorosters.com/cuenta?x=1; http://www → 308 https://valorosters.com/",
+  "hsts": "max-age=63072000; includeSubDomains; preload (ya existía)",
+  "certificate": {
+    "subject": "CN=valorosters.com",
+    "san": [
+      "valorosters.com",
+      "*.valorosters.com"
+    ],
+    "issuer": "Let's Encrypt YE2 (Cloudflare Universal)",
+    "notAfter": "2026-12-29"
+  },
+  "protocols": {
+    "TLSv1.3": true,
+    "TLSv1.2": true,
+    "TLSv1.1": false
+  },
+  "headers": "HSTS, CSP, X-Frame-Options DENY, noindex",
+  "updatedAt": "2026-09-30T18:31:43.689Z"
+}

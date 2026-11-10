@@ -1,0 +1,1385 @@
+{
+  "generatedFor": "NEXUS VALORANT CARDS — Duel Gameplay · Product Preview",
+  "deckMine": {
+    "name": "Mazo 1",
+    "sumOvr": 901,
+    "dataVersion": "VCT-2026",
+    "cards": [
+      {
+        "uid": "deck-m1-u0",
+        "nick": "Kachoww",
+        "team": "FF",
+        "teamTag": "FF",
+        "teamColor": "#333",
+        "country": "TR",
+        "role": "Duelista",
+        "variantId": "emea",
+        "variantLabel": "EMEA",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 93,
+        "combat": {
+          "stronghold": 84,
+          "gamesense": 74,
+          "entryfrag": 99
+        }
+      },
+      {
+        "uid": "deck-m1-u1",
+        "nick": "aspas",
+        "team": "MIBR",
+        "teamTag": "MIBR",
+        "teamColor": "#1f2a44",
+        "country": "BR",
+        "role": "Duelista",
+        "variantId": "icon-series",
+        "variantLabel": "Icon Series",
+        "palette": {
+          "primary": "#f5f0e6",
+          "secondary": "#ffffff",
+          "text": "#1a1408",
+          "background": "linear-gradient(160deg,#2b2b2b 0%,#d9cfae 35%,#fffaf0 55%,#bfb38f 80%,#1a1a1a 100%)"
+        },
+        "serialized": true,
+        "serial": null,
+        "ovr": 92,
+        "combat": {
+          "stronghold": 85,
+          "gamesense": 74,
+          "entryfrag": 94
+        }
+      },
+      {
+        "uid": "deck-m1-u2",
+        "nick": "Neon",
+        "team": "LEV",
+        "teamTag": "LEV",
+        "teamColor": "#333",
+        "country": "AR",
+        "role": "Controlador",
+        "variantId": "americas",
+        "variantLabel": "Americas",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 92,
+        "combat": {
+          "stronghold": 99,
+          "gamesense": 75,
+          "entryfrag": 77
+        }
+      },
+      {
+        "uid": "deck-m1-u3",
+        "nick": "xenom",
+        "team": "2G",
+        "teamTag": "2G",
+        "teamColor": "#333",
+        "country": "BR",
+        "role": "Controlador",
+        "variantId": "americas",
+        "variantLabel": "Americas",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 92,
+        "combat": {
+          "stronghold": 98,
+          "gamesense": 77,
+          "entryfrag": 77
+        }
+      },
+      {
+        "uid": "deck-m1-u4",
+        "nick": "trent",
+        "team": "G2",
+        "teamTag": "G2",
+        "teamColor": "#333",
+        "country": "US",
+        "role": "Iniciador",
+        "variantId": "americas",
+        "variantLabel": "Americas",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 90,
+        "combat": {
+          "stronghold": 93,
+          "gamesense": 91,
+          "entryfrag": 54
+        }
+      },
+      {
+        "uid": "deck-m1-u5",
+        "nick": "trexx",
+        "team": "TL",
+        "teamTag": "TL",
+        "teamColor": "#333",
+        "country": "RU",
+        "role": "Iniciador",
+        "variantId": "emea",
+        "variantLabel": "EMEA",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 90,
+        "combat": {
+          "stronghold": 92,
+          "gamesense": 99,
+          "entryfrag": 45
+        }
+      },
+      {
+        "uid": "deck-m1-u6",
+        "nick": "vo0kashu",
+        "team": "DRG",
+        "teamTag": "DRG",
+        "teamColor": "#333",
+        "country": "RU",
+        "role": "Centinela",
+        "variantId": "china",
+        "variantLabel": "China",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 88,
+        "combat": {
+          "stronghold": 99,
+          "gamesense": 70,
+          "entryfrag": 64
+        }
+      },
+      {
+        "uid": "deck-m1-u7",
+        "nick": "Alfajer",
+        "team": "Fnatic",
+        "teamTag": "FNC",
+        "teamColor": "#ff5900",
+        "country": "TR",
+        "role": "Centinela",
+        "variantId": "prime",
+        "variantLabel": "Prime",
+        "palette": {
+          "primary": "#7b5cff",
+          "secondary": "#c9bcff",
+          "text": "#120526",
+          "background": "linear-gradient(160deg,#2a1066 0%,#7b5cff 50%,#1a0a40 100%)"
+        },
+        "serialized": true,
+        "serial": null,
+        "ovr": 84,
+        "combat": {
+          "stronghold": 70,
+          "gamesense": 44,
+          "entryfrag": 97
+        }
+      },
+      {
+        "uid": "deck-m1-u8",
+        "nick": "basic",
+        "team": "FUR",
+        "teamTag": "FUR",
+        "teamColor": "#333",
+        "country": "BR",
+        "role": "Flex",
+        "variantId": "americas",
+        "variantLabel": "Americas",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 90,
+        "combat": {
+          "stronghold": 86,
+          "gamesense": 93,
+          "entryfrag": 64
+        }
+      },
+      {
+        "uid": "deck-m1-u9",
+        "nick": "Veqaj",
+        "team": "FNC",
+        "teamTag": "FNC",
+        "teamColor": "#333",
+        "country": "FR",
+        "role": "Flex",
+        "variantId": "emea",
+        "variantLabel": "EMEA",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 90,
+        "combat": {
+          "stronghold": 85,
+          "gamesense": 84,
+          "entryfrag": 76
+        }
+      }
+    ]
+  },
+  "deckRival": {
+    "name": "Rival",
+    "sumOvr": 879,
+    "cards": [
+      {
+        "uid": "rival::deck-m2-u0",
+        "nick": "marteen",
+        "team": "M8",
+        "teamTag": "M8",
+        "teamColor": "#333",
+        "country": "CZ",
+        "role": "Duelista",
+        "variantId": "emea",
+        "variantLabel": "EMEA",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 92,
+        "combat": {
+          "stronghold": 87,
+          "gamesense": 80,
+          "entryfrag": 88
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u1",
+        "nick": "primmie",
+        "team": "FS",
+        "teamTag": "FS",
+        "teamColor": "#333",
+        "country": "TH",
+        "role": "Duelista",
+        "variantId": "pacific",
+        "variantLabel": "Pacific",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 91,
+        "combat": {
+          "stronghold": 87,
+          "gamesense": 63,
+          "entryfrag": 97
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u2",
+        "nick": "azury",
+        "team": "SGE",
+        "teamTag": "SGE",
+        "teamColor": "#333",
+        "country": "DE",
+        "role": "Controlador",
+        "variantId": "gold",
+        "variantLabel": "Oro",
+        "palette": {
+          "primary": "#ffce4f",
+          "secondary": "#fff1b0",
+          "text": "#3a2c00",
+          "background": "linear-gradient(160deg,#b8860b 0%,#ffd95c 50%,#9c6f08 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 90,
+        "combat": {
+          "stronghold": 86,
+          "gamesense": 99,
+          "entryfrag": 52
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u3",
+        "nick": "Erv",
+        "team": "TYL",
+        "teamTag": "TYL",
+        "teamColor": "#333",
+        "country": "CN",
+        "role": "Controlador",
+        "variantId": "china",
+        "variantLabel": "China",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 88,
+        "combat": {
+          "stronghold": 79,
+          "gamesense": 95,
+          "entryfrag": 55
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u4",
+        "nick": "blowz",
+        "team": "LEV",
+        "teamTag": "LEV",
+        "teamColor": "#333",
+        "country": "BR",
+        "role": "Iniciador",
+        "variantId": "americas",
+        "variantLabel": "Americas",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 89,
+        "combat": {
+          "stronghold": 93,
+          "gamesense": 95,
+          "entryfrag": 47
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u5",
+        "nick": "iZu",
+        "team": "T1",
+        "teamTag": "T1",
+        "teamColor": "#333",
+        "country": "KR",
+        "role": "Iniciador",
+        "variantId": "pacific",
+        "variantLabel": "Pacific",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 89,
+        "combat": {
+          "stronghold": 98,
+          "gamesense": 66,
+          "entryfrag": 71
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u6",
+        "nick": "Cryocells",
+        "team": "100T",
+        "teamTag": "100",
+        "teamColor": "#333",
+        "country": "US",
+        "role": "Centinela",
+        "variantId": "americas",
+        "variantLabel": "Americas",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 82,
+        "combat": {
+          "stronghold": 90,
+          "gamesense": 58,
+          "entryfrag": 59
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u7",
+        "nick": "Raxcal",
+        "team": "GEN",
+        "teamTag": "GEN",
+        "teamColor": "#333",
+        "country": "KR",
+        "role": "Centinela",
+        "variantId": "pacific",
+        "variantLabel": "Pacific",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 82,
+        "combat": {
+          "stronghold": 78,
+          "gamesense": 76,
+          "entryfrag": 52
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u8",
+        "nick": "slowly",
+        "team": "TYL",
+        "teamTag": "TYL",
+        "teamColor": "#333",
+        "country": "CN",
+        "role": "Flex",
+        "variantId": "china",
+        "variantLabel": "China",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 89,
+        "combat": {
+          "stronghold": 86,
+          "gamesense": 71,
+          "entryfrag": 83
+        }
+      },
+      {
+        "uid": "rival::deck-m2-u9",
+        "nick": "N4RRATE",
+        "team": "KC",
+        "teamTag": "KC",
+        "teamColor": "#333",
+        "country": "US",
+        "role": "Flex",
+        "variantId": "emea",
+        "variantLabel": "EMEA",
+        "palette": {
+          "primary": "#19e3ff",
+          "secondary": "#a8f6ff",
+          "text": "#021b22",
+          "background": "linear-gradient(160deg,#0a3d4a 0%,#16c2db 50%,#062a33 100%)"
+        },
+        "serialized": false,
+        "serial": null,
+        "ovr": 87,
+        "combat": {
+          "stronghold": 84,
+          "gamesense": 71,
+          "entryfrag": 76
+        }
+      }
+    ]
+  },
+  "invalidDeck": {
+    "status": "INVALID",
+    "roleCounts": {
+      "Duelista": 4,
+      "Controlador": 2,
+      "Iniciador": 2,
+      "Centinela": 2,
+      "Flex": 0
+    },
+    "errors": [
+      {
+        "code": "ROLE_COUNT",
+        "role": "Duelista",
+        "expected": 2,
+        "actual": 4,
+        "text": "Solo puedes llevar 2 de Duelista; ahora tienes 4."
+      },
+      {
+        "code": "ROLE_COUNT",
+        "role": "Flex",
+        "expected": 2,
+        "actual": 0,
+        "text": "Necesitas 2 cartas de Flex; ahora tienes 0."
+      }
+    ]
+  },
+  "match": {
+    "id": "showcase",
+    "orchestratorVersion": "duel-turns-2",
+    "combatRulesVersion": "duel-combat-2",
+    "status": "COMPLETED",
+    "scoreA": 5,
+    "scoreB": 4,
+    "winner": "A",
+    "isDraw": false,
+    "tiedEncounters": 1,
+    "decidedBy": "SCORE",
+    "reason": "Ganó más enfrentamientos (5-4).",
+    "audit": "FINAL RESULT\n\nScore:\n5-4\n\nOVR:\nno aplicado\n\nStat total:\n851-773\n\nRules:\nduel-combat-2\n\nResult:\nA WIN\n\nReason:\nGanó más enfrentamientos (5-4).",
+    "sumOvrA": null,
+    "sumOvrB": null,
+    "statTotalA": 851,
+    "statTotalB": 773,
+    "plan": 10,
+    "turns": [
+      {
+        "number": 1,
+        "attacker": "A",
+        "outcome": "B",
+        "scoreAfterA": 0,
+        "scoreAfterB": 1,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u0",
+          "nick": "Kachoww",
+          "stat": "gamesense",
+          "value": 74,
+          "role": "Duelista",
+          "team": "FF"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u3",
+          "nick": "Erv",
+          "stat": "gamesense",
+          "value": 95,
+          "role": "Controlador",
+          "team": "TYL"
+        },
+        "reason": "Kachoww Gamesense 74 < Erv Gamesense 95"
+      },
+      {
+        "number": 2,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 0,
+        "scoreAfterB": 2,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u9",
+          "nick": "Veqaj",
+          "stat": "entryfrag",
+          "value": 76,
+          "role": "Flex",
+          "team": "FNC"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u9",
+          "nick": "N4RRATE",
+          "stat": "stronghold",
+          "value": 84,
+          "role": "Flex",
+          "team": "KC"
+        },
+        "reason": "Veqaj Entryfrag 76 < N4RRATE Stronghold 84"
+      },
+      {
+        "number": 3,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 1,
+        "scoreAfterB": 2,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u2",
+          "nick": "Neon",
+          "stat": "stronghold",
+          "value": 99,
+          "role": "Controlador",
+          "team": "LEV"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u4",
+          "nick": "blowz",
+          "stat": "entryfrag",
+          "value": 47,
+          "role": "Iniciador",
+          "team": "LEV"
+        },
+        "reason": "Neon Stronghold 99 > blowz Entryfrag 47"
+      },
+      {
+        "number": 4,
+        "attacker": "B",
+        "outcome": "A",
+        "scoreAfterA": 2,
+        "scoreAfterB": 2,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u7",
+          "nick": "Alfajer",
+          "stat": "stronghold",
+          "value": 70,
+          "role": "Centinela",
+          "team": "Fnatic"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u7",
+          "nick": "Raxcal",
+          "stat": "entryfrag",
+          "value": 52,
+          "role": "Centinela",
+          "team": "GEN"
+        },
+        "reason": "Alfajer Stronghold 70 > Raxcal Entryfrag 52"
+      },
+      {
+        "number": 5,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 3,
+        "scoreAfterB": 2,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u8",
+          "nick": "basic",
+          "stat": "gamesense",
+          "value": 93,
+          "role": "Flex",
+          "team": "FUR"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u5",
+          "nick": "iZu",
+          "stat": "gamesense",
+          "value": 66,
+          "role": "Iniciador",
+          "team": "T1"
+        },
+        "reason": "basic Gamesense 93 > iZu Gamesense 66"
+      },
+      {
+        "number": 6,
+        "attacker": "B",
+        "outcome": "TIE",
+        "scoreAfterA": 3,
+        "scoreAfterB": 2,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u5",
+          "nick": "trexx",
+          "stat": "gamesense",
+          "value": 99,
+          "role": "Iniciador",
+          "team": "TL"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u2",
+          "nick": "azury",
+          "stat": "gamesense",
+          "value": 99,
+          "role": "Controlador",
+          "team": "SGE"
+        },
+        "reason": "trexx Gamesense 99 = azury Gamesense 99"
+      },
+      {
+        "number": 7,
+        "attacker": "A",
+        "outcome": "B",
+        "scoreAfterA": 3,
+        "scoreAfterB": 3,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u4",
+          "nick": "trent",
+          "stat": "stronghold",
+          "value": 93,
+          "role": "Iniciador",
+          "team": "G2"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u1",
+          "nick": "primmie",
+          "stat": "entryfrag",
+          "value": 97,
+          "role": "Duelista",
+          "team": "FS"
+        },
+        "reason": "trent Stronghold 93 < primmie Entryfrag 97"
+      },
+      {
+        "number": 8,
+        "attacker": "B",
+        "outcome": "A",
+        "scoreAfterA": 4,
+        "scoreAfterB": 3,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u1",
+          "nick": "aspas",
+          "stat": "stronghold",
+          "value": 85,
+          "role": "Duelista",
+          "team": "MIBR"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u6",
+          "nick": "Cryocells",
+          "stat": "entryfrag",
+          "value": 59,
+          "role": "Centinela",
+          "team": "100T"
+        },
+        "reason": "aspas Stronghold 85 > Cryocells Entryfrag 59"
+      },
+      {
+        "number": 9,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 5,
+        "scoreAfterB": 3,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u3",
+          "nick": "xenom",
+          "stat": "stronghold",
+          "value": 98,
+          "role": "Controlador",
+          "team": "2G"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u0",
+          "nick": "marteen",
+          "stat": "entryfrag",
+          "value": 88,
+          "role": "Duelista",
+          "team": "M8"
+        },
+        "reason": "xenom Stronghold 98 > marteen Entryfrag 88"
+      },
+      {
+        "number": 10,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 5,
+        "scoreAfterB": 4,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u6",
+          "nick": "vo0kashu",
+          "stat": "entryfrag",
+          "value": 64,
+          "role": "Centinela",
+          "team": "DRG"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u8",
+          "nick": "slowly",
+          "stat": "stronghold",
+          "value": 86,
+          "role": "Flex",
+          "team": "TYL"
+        },
+        "reason": "vo0kashu Entryfrag 64 < slowly Stronghold 86"
+      }
+    ]
+  },
+  "matchDefeat": {
+    "id": "showcase",
+    "orchestratorVersion": "duel-turns-2",
+    "combatRulesVersion": "duel-combat-2",
+    "status": "COMPLETED",
+    "scoreA": 4,
+    "scoreB": 6,
+    "winner": "B",
+    "isDraw": false,
+    "tiedEncounters": 0,
+    "decidedBy": "SCORE",
+    "reason": "Ganó más enfrentamientos (4-6).",
+    "audit": "FINAL RESULT\n\nScore:\n4-6\n\nOVR:\nno aplicado\n\nStat total:\n820-821\n\nRules:\nduel-combat-2\n\nResult:\nB WIN\n\nReason:\nGanó más enfrentamientos (4-6).",
+    "sumOvrA": null,
+    "sumOvrB": null,
+    "statTotalA": 820,
+    "statTotalB": 821,
+    "plan": 10,
+    "turns": [
+      {
+        "number": 1,
+        "attacker": "A",
+        "outcome": "B",
+        "scoreAfterA": 0,
+        "scoreAfterB": 1,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u9",
+          "nick": "Veqaj",
+          "stat": "stronghold",
+          "value": 85,
+          "role": "Flex",
+          "team": "FNC"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u0",
+          "nick": "marteen",
+          "stat": "entryfrag",
+          "value": 88,
+          "role": "Duelista",
+          "team": "M8"
+        },
+        "reason": "Veqaj Stronghold 85 < marteen Entryfrag 88"
+      },
+      {
+        "number": 2,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 0,
+        "scoreAfterB": 2,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u7",
+          "nick": "Alfajer",
+          "stat": "gamesense",
+          "value": 44,
+          "role": "Centinela",
+          "team": "Fnatic"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u2",
+          "nick": "azury",
+          "stat": "gamesense",
+          "value": 99,
+          "role": "Controlador",
+          "team": "SGE"
+        },
+        "reason": "Alfajer Gamesense 44 < azury Gamesense 99"
+      },
+      {
+        "number": 3,
+        "attacker": "A",
+        "outcome": "B",
+        "scoreAfterA": 0,
+        "scoreAfterB": 3,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u1",
+          "nick": "aspas",
+          "stat": "entryfrag",
+          "value": 94,
+          "role": "Duelista",
+          "team": "MIBR"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u5",
+          "nick": "iZu",
+          "stat": "stronghold",
+          "value": 98,
+          "role": "Iniciador",
+          "team": "T1"
+        },
+        "reason": "aspas Entryfrag 94 < iZu Stronghold 98"
+      },
+      {
+        "number": 4,
+        "attacker": "B",
+        "outcome": "A",
+        "scoreAfterA": 1,
+        "scoreAfterB": 3,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u0",
+          "nick": "Kachoww",
+          "stat": "entryfrag",
+          "value": 99,
+          "role": "Duelista",
+          "team": "FF"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u9",
+          "nick": "N4RRATE",
+          "stat": "stronghold",
+          "value": 84,
+          "role": "Flex",
+          "team": "KC"
+        },
+        "reason": "Kachoww Entryfrag 99 > N4RRATE Stronghold 84"
+      },
+      {
+        "number": 5,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 2,
+        "scoreAfterB": 3,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u2",
+          "nick": "Neon",
+          "stat": "stronghold",
+          "value": 99,
+          "role": "Controlador",
+          "team": "LEV"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u4",
+          "nick": "blowz",
+          "stat": "entryfrag",
+          "value": 47,
+          "role": "Iniciador",
+          "team": "LEV"
+        },
+        "reason": "Neon Stronghold 99 > blowz Entryfrag 47"
+      },
+      {
+        "number": 6,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 2,
+        "scoreAfterB": 4,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u5",
+          "nick": "trexx",
+          "stat": "entryfrag",
+          "value": 45,
+          "role": "Iniciador",
+          "team": "TL"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u6",
+          "nick": "Cryocells",
+          "stat": "stronghold",
+          "value": 90,
+          "role": "Centinela",
+          "team": "100T"
+        },
+        "reason": "trexx Entryfrag 45 < Cryocells Stronghold 90"
+      },
+      {
+        "number": 7,
+        "attacker": "A",
+        "outcome": "B",
+        "scoreAfterA": 2,
+        "scoreAfterB": 5,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u6",
+          "nick": "vo0kashu",
+          "stat": "gamesense",
+          "value": 70,
+          "role": "Centinela",
+          "team": "DRG"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u3",
+          "nick": "Erv",
+          "stat": "gamesense",
+          "value": 95,
+          "role": "Controlador",
+          "team": "TYL"
+        },
+        "reason": "vo0kashu Gamesense 70 < Erv Gamesense 95"
+      },
+      {
+        "number": 8,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 2,
+        "scoreAfterB": 6,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u4",
+          "nick": "trent",
+          "stat": "stronghold",
+          "value": 93,
+          "role": "Iniciador",
+          "team": "G2"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u1",
+          "nick": "primmie",
+          "stat": "entryfrag",
+          "value": 97,
+          "role": "Duelista",
+          "team": "FS"
+        },
+        "reason": "trent Stronghold 93 < primmie Entryfrag 97"
+      },
+      {
+        "number": 9,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 3,
+        "scoreAfterB": 6,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u8",
+          "nick": "basic",
+          "stat": "gamesense",
+          "value": 93,
+          "role": "Flex",
+          "team": "FUR"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u8",
+          "nick": "slowly",
+          "stat": "gamesense",
+          "value": 71,
+          "role": "Flex",
+          "team": "TYL"
+        },
+        "reason": "basic Gamesense 93 > slowly Gamesense 71"
+      },
+      {
+        "number": 10,
+        "attacker": "B",
+        "outcome": "A",
+        "scoreAfterA": 4,
+        "scoreAfterB": 6,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u3",
+          "nick": "xenom",
+          "stat": "stronghold",
+          "value": 98,
+          "role": "Controlador",
+          "team": "2G"
+        },
+        "b": {
+          "uid": "rival::deck-m2-u7",
+          "nick": "Raxcal",
+          "stat": "entryfrag",
+          "value": 52,
+          "role": "Centinela",
+          "team": "GEN"
+        },
+        "reason": "xenom Stronghold 98 > Raxcal Entryfrag 52"
+      }
+    ]
+  },
+  "matchDraw": {
+    "id": "showcase",
+    "orchestratorVersion": "duel-turns-2",
+    "combatRulesVersion": "duel-combat-2",
+    "status": "DRAW",
+    "scoreA": 5,
+    "scoreB": 5,
+    "winner": null,
+    "isDraw": true,
+    "tiedEncounters": 0,
+    "decidedBy": "NONE",
+    "reason": "Empate en enfrentamientos (5-5), en suma de medias (901) y en estadística total declarada (837). Empate.",
+    "audit": "FINAL RESULT\n\nScore:\n5-5\n\nOVR:\n901-901\n\nStat total:\n837-837\n\nRules:\nduel-combat-2\n\nResult:\nDRAW\n\nReason:\nEmpate en enfrentamientos (5-5), en suma de medias (901) y en estadística total declarada (837). Empate.",
+    "sumOvrA": 901,
+    "sumOvrB": 901,
+    "statTotalA": 837,
+    "statTotalB": 837,
+    "plan": 10,
+    "turns": [
+      {
+        "number": 1,
+        "attacker": "A",
+        "outcome": "B",
+        "scoreAfterA": 0,
+        "scoreAfterB": 1,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u0",
+          "nick": "Kachoww",
+          "stat": "gamesense",
+          "value": 74,
+          "role": "Duelista",
+          "team": "FF"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u2",
+          "nick": "Neon",
+          "stat": "gamesense",
+          "value": 75,
+          "role": "Controlador",
+          "team": "LEV"
+        },
+        "reason": "Kachoww Gamesense 74 < Neon Gamesense 75"
+      },
+      {
+        "number": 2,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 0,
+        "scoreAfterB": 2,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u7",
+          "nick": "Alfajer",
+          "stat": "stronghold",
+          "value": 70,
+          "role": "Centinela",
+          "team": "Fnatic"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u0",
+          "nick": "Kachoww",
+          "stat": "entryfrag",
+          "value": 99,
+          "role": "Duelista",
+          "team": "FF"
+        },
+        "reason": "Alfajer Stronghold 70 < Kachoww Entryfrag 99"
+      },
+      {
+        "number": 3,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 1,
+        "scoreAfterB": 2,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u4",
+          "nick": "trent",
+          "stat": "stronghold",
+          "value": 93,
+          "role": "Iniciador",
+          "team": "G2"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u6",
+          "nick": "vo0kashu",
+          "stat": "entryfrag",
+          "value": 64,
+          "role": "Centinela",
+          "team": "DRG"
+        },
+        "reason": "trent Stronghold 93 > vo0kashu Entryfrag 64"
+      },
+      {
+        "number": 4,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 1,
+        "scoreAfterB": 3,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u6",
+          "nick": "vo0kashu",
+          "stat": "gamesense",
+          "value": 70,
+          "role": "Centinela",
+          "team": "DRG"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u5",
+          "nick": "trexx",
+          "stat": "gamesense",
+          "value": 99,
+          "role": "Iniciador",
+          "team": "TL"
+        },
+        "reason": "vo0kashu Gamesense 70 < trexx Gamesense 99"
+      },
+      {
+        "number": 5,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 2,
+        "scoreAfterB": 3,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u2",
+          "nick": "Neon",
+          "stat": "stronghold",
+          "value": 99,
+          "role": "Controlador",
+          "team": "LEV"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u3",
+          "nick": "xenom",
+          "stat": "entryfrag",
+          "value": 77,
+          "role": "Controlador",
+          "team": "2G"
+        },
+        "reason": "Neon Stronghold 99 > xenom Entryfrag 77"
+      },
+      {
+        "number": 6,
+        "attacker": "B",
+        "outcome": "A",
+        "scoreAfterA": 3,
+        "scoreAfterB": 3,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u3",
+          "nick": "xenom",
+          "stat": "stronghold",
+          "value": 98,
+          "role": "Controlador",
+          "team": "2G"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u7",
+          "nick": "Alfajer",
+          "stat": "entryfrag",
+          "value": 97,
+          "role": "Centinela",
+          "team": "Fnatic"
+        },
+        "reason": "xenom Stronghold 98 > Alfajer Entryfrag 97"
+      },
+      {
+        "number": 7,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 4,
+        "scoreAfterB": 3,
+        "attackerStat": "gamesense",
+        "defenderStat": "gamesense",
+        "a": {
+          "uid": "deck-m1-u5",
+          "nick": "trexx",
+          "stat": "gamesense",
+          "value": 99,
+          "role": "Iniciador",
+          "team": "TL"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u8",
+          "nick": "basic",
+          "stat": "gamesense",
+          "value": 93,
+          "role": "Flex",
+          "team": "FUR"
+        },
+        "reason": "trexx Gamesense 99 > basic Gamesense 93"
+      },
+      {
+        "number": 8,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 4,
+        "scoreAfterB": 4,
+        "attackerStat": "entryfrag",
+        "defenderStat": "stronghold",
+        "a": {
+          "uid": "deck-m1-u1",
+          "nick": "aspas",
+          "stat": "stronghold",
+          "value": 85,
+          "role": "Duelista",
+          "team": "MIBR"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u1",
+          "nick": "aspas",
+          "stat": "entryfrag",
+          "value": 94,
+          "role": "Duelista",
+          "team": "MIBR"
+        },
+        "reason": "aspas Stronghold 85 < aspas Entryfrag 94"
+      },
+      {
+        "number": 9,
+        "attacker": "A",
+        "outcome": "A",
+        "scoreAfterA": 5,
+        "scoreAfterB": 4,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u9",
+          "nick": "Veqaj",
+          "stat": "stronghold",
+          "value": 85,
+          "role": "Flex",
+          "team": "FNC"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u4",
+          "nick": "trent",
+          "stat": "entryfrag",
+          "value": 54,
+          "role": "Iniciador",
+          "team": "G2"
+        },
+        "reason": "Veqaj Stronghold 85 > trent Entryfrag 54"
+      },
+      {
+        "number": 10,
+        "attacker": "B",
+        "outcome": "B",
+        "scoreAfterA": 5,
+        "scoreAfterB": 5,
+        "attackerStat": "stronghold",
+        "defenderStat": "entryfrag",
+        "a": {
+          "uid": "deck-m1-u8",
+          "nick": "basic",
+          "stat": "entryfrag",
+          "value": 64,
+          "role": "Flex",
+          "team": "FUR"
+        },
+        "b": {
+          "uid": "espejo::deck-m1-u9",
+          "nick": "Veqaj",
+          "stat": "stronghold",
+          "value": 85,
+          "role": "Flex",
+          "team": "FNC"
+        },
+        "reason": "basic Entryfrag 64 < Veqaj Stronghold 85"
+      }
+    ]
+  }
+}

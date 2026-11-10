@@ -1,0 +1,79 @@
+{
+  "country": {
+    "found": 40,
+    "total": 40,
+    "missing": [],
+    "source": "flagSrc() → flagcdn PNG (mismas banderas de las cartas)"
+  },
+  "role": {
+    "found": [],
+    "missing": [
+      "duelist",
+      "controller",
+      "initiator",
+      "sentinel"
+    ]
+  },
+  "region": {
+    "found": [],
+    "missing": [
+      "americas",
+      "emea",
+      "pacific",
+      "china"
+    ]
+  },
+  "team": {
+    "found": [],
+    "identities": 47,
+    "missing": [
+      "team-heretics (TH)",
+      "fnatic (FNC)",
+      "team-liquid (TL)",
+      "karmine-corp (KC)",
+      "m8 (M8)",
+      "fut (FUT)",
+      "g2 (G2)",
+      "leviatan (LEV)",
+      "nrg (NRG)",
+      "100t (100T)",
+      "loud (LOUD)",
+      "sentinels (SEN)",
+      "paper-rex (PRX)",
+      "t1 (T1)",
+      "ns (NS)",
+      "gen-g (GENG)",
+      "gen (GEN)",
+      "drx (DRX)",
+      "ge (GE)",
+      "edward-gaming (EDG)",
+      "tyl (TYL)",
+      "blg (BLG)",
+      "xlg (XLG)",
+      "te (TE)",
+      "jdg (JDG)",
+      "navi (NAVI)",
+      "g2-gozen (G2)",
+      "c9 (C9)",
+      "eg (EG)",
+      "envy (ENVY)",
+      "furia (FUR)",
+      "kru (KRÜ)",
+      "mibr (MIBR)",
+      "bbl (BBL)",
+      "eternal-fire (EF)",
+      "giantx (GX)",
+      "pcific (PCF)",
+      "vitality (VIT)",
+      "detonation-focusme (DFM)",
+      "full-sense (FS)",
+      "krx (KRX)",
+      "rrq (RRQ)",
+      "team-secret (TS)",
+      "vl (VL)",
+      "zeta-division (ZETA)",
+      "all-gamers (AG)",
+      "dragon-ranger-gaming (DRG)"
+    ]
+  }
+}

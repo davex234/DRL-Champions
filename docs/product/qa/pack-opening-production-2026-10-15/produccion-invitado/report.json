@@ -1,0 +1,98 @@
+{
+  "base": "https://valorosters.com",
+  "at": "2026-10-15T20:29:56.323Z",
+  "pass": 18,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "390 · normal · producción sirve la apertura NUEVA (capa de sala presente; sobre cerrado, sin abrir)",
+      "ok": true,
+      "detail": "{\"phase\":\"ready\",\"open\":true,\"canvas\":0,\"atm\":\"none\"}"
+    },
+    {
+      "id": "390 · normal · sin monigote: 0 <canvas>/walkout en la apertura y 0 chunks del walkout",
+      "ok": true,
+      "detail": "{\"canvas\":0,\"walkoutChunks\":0}"
+    },
+    {
+      "id": "390 · normal · consola limpia y sin respuestas ≥ 400",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "390 · reduced · producción sirve la apertura NUEVA (capa de sala presente; sobre cerrado, sin abrir)",
+      "ok": true,
+      "detail": "{\"phase\":\"ready\",\"open\":true,\"canvas\":0,\"atm\":\"none\"}"
+    },
+    {
+      "id": "390 · reduced · sin monigote: 0 <canvas>/walkout en la apertura y 0 chunks del walkout",
+      "ok": true,
+      "detail": "{\"canvas\":0,\"walkoutChunks\":0}"
+    },
+    {
+      "id": "390 · reduced · consola limpia y sin respuestas ≥ 400",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "768 · normal · producción sirve la apertura NUEVA (capa de sala presente; sobre cerrado, sin abrir)",
+      "ok": true,
+      "detail": "{\"phase\":\"ready\",\"open\":true,\"canvas\":0,\"atm\":\"none\"}"
+    },
+    {
+      "id": "768 · normal · sin monigote: 0 <canvas>/walkout en la apertura y 0 chunks del walkout",
+      "ok": true,
+      "detail": "{\"canvas\":0,\"walkoutChunks\":0}"
+    },
+    {
+      "id": "768 · normal · consola limpia y sin respuestas ≥ 400",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "768 · reduced · producción sirve la apertura NUEVA (capa de sala presente; sobre cerrado, sin abrir)",
+      "ok": true,
+      "detail": "{\"phase\":\"ready\",\"open\":true,\"canvas\":0,\"atm\":\"none\"}"
+    },
+    {
+      "id": "768 · reduced · sin monigote: 0 <canvas>/walkout en la apertura y 0 chunks del walkout",
+      "ok": true,
+      "detail": "{\"canvas\":0,\"walkoutChunks\":0}"
+    },
+    {
+      "id": "768 · reduced · consola limpia y sin respuestas ≥ 400",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "1440 · normal · producción sirve la apertura NUEVA (capa de sala presente; sobre cerrado, sin abrir)",
+      "ok": true,
+      "detail": "{\"phase\":\"ready\",\"open\":true,\"canvas\":0,\"atm\":\"none\"}"
+    },
+    {
+      "id": "1440 · normal · sin monigote: 0 <canvas>/walkout en la apertura y 0 chunks del walkout",
+      "ok": true,
+      "detail": "{\"canvas\":0,\"walkoutChunks\":0}"
+    },
+    {
+      "id": "1440 · normal · consola limpia y sin respuestas ≥ 400",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "1440 · reduced · producción sirve la apertura NUEVA (capa de sala presente; sobre cerrado, sin abrir)",
+      "ok": true,
+      "detail": "{\"phase\":\"ready\",\"open\":true,\"canvas\":0,\"atm\":\"none\"}"
+    },
+    {
+      "id": "1440 · reduced · sin monigote: 0 <canvas>/walkout en la apertura y 0 chunks del walkout",
+      "ok": true,
+      "detail": "{\"canvas\":0,\"walkoutChunks\":0}"
+    },
+    {
+      "id": "1440 · reduced · consola limpia y sin respuestas ≥ 400",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

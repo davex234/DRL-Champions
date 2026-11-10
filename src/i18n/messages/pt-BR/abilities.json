@@ -1,0 +1,23 @@
+{
+  "abrir la entrada": "abrir a entrada",
+  "anclar el sitio": "ancorar o bomb site",
+  "cegar para abrir": "cegar para abrir",
+  "controlar la zona": "controlar a zona",
+  "corta visión": "bloqueia a visão",
+  "cortar visión": "bloquear a visão",
+  "crear espacio": "criar espaço",
+  "defender": "defender",
+  "humo móvil": "fumaça móvel",
+  "jugar el post-plant": "jogar o post-plant",
+  "proteger el espacio": "proteger o espaço",
+  "proteger el post-plant": "proteger o post-plant",
+  "ralentizar el avance": "retardar o avanço",
+  "rompe línea": "quebra a linha",
+  "sacar información": "obter informações",
+  "señuelo": "isca",
+  "suprimir el ángulo": "suprimir o ângulo",
+  "tomar espacio": "tomar espaço",
+  "vender una finta": "vender uma finta",
+  "{preExec} utils en el execute": "{preExec} utilitários no execute",
+  "{retakeUtil} utils en el retake": "{retakeUtil} utilitários no retake"
+}

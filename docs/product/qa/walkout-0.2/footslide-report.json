@@ -1,0 +1,81 @@
+{
+ "samples": 378,
+ "l": {
+  "ballMinY": 0.0129,
+  "contacts": [
+   {
+    "from": 2.88,
+    "to": 3.3,
+    "slide": 0.0073,
+    "maxSpeed": 0.132
+   },
+   {
+    "from": 4.05,
+    "to": 4.37,
+    "slide": 0.0072,
+    "maxSpeed": 0.342
+   },
+   {
+    "from": 5.18,
+    "to": 5.5,
+    "slide": 0.0057,
+    "maxSpeed": 0.144
+   },
+   {
+    "from": 6.28,
+    "to": 6.6,
+    "slide": 0.0051,
+    "maxSpeed": 0.156
+   },
+   {
+    "from": 7.38,
+    "to": 8.78,
+    "slide": 0.0067,
+    "maxSpeed": 0.264
+   }
+  ]
+ },
+ "r": {
+  "ballMinY": 0.0134,
+  "contacts": [
+   {
+    "from": 2.5,
+    "to": 2.75,
+    "slide": 0.0308,
+    "maxSpeed": 0.684
+   },
+   {
+    "from": 3.52,
+    "to": 3.97,
+    "slide": 0.0086,
+    "maxSpeed": 0.27
+   },
+   {
+    "from": 4.6,
+    "to": 5.1,
+    "slide": 0.0263,
+    "maxSpeed": 1.008
+   },
+   {
+    "from": 5.73,
+    "to": 6.2,
+    "slide": 0.0295,
+    "maxSpeed": 0.918
+   },
+   {
+    "from": 6.83,
+    "to": 7.3,
+    "slide": 0.028,
+    "maxSpeed": 1.578
+   },
+   {
+    "from": 8.18,
+    "to": 8.78,
+    "slide": 0.0029,
+    "maxSpeed": 0.174
+   }
+  ]
+ },
+ "pelvisMaxSpeed": 3.564,
+ "pelvisMaxSpeedAt": 4.57
+}

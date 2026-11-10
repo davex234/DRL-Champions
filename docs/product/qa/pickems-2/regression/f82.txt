@@ -1,0 +1,76 @@
+PASS health {"status":"ok","uptimeS":830,"version":"0.1.1","node":"v24.15.0"}
+PASS ready + 0062 aplicada (cabeza ≥ 0062 y sonda «collections» en verde) {"status":200,"head":"0071_pickems_bracket","collections":{"id":"collections","ok":true,"critical":false,"ms":14,"detail":"0062 aplicada (Collection Sets e insignias)"}}
+PASS anónimo GET sala → 401 
+PASS anónimo reclamo → 401 
+PASS anónimo panel → 401 
+PASS QA · sala 200 200
+PASS QA · solo los 6 publicados (ningún borrador) ["team-eternal-fire-v1","team-fnatic-v1","team-g2-v1","team-leviatan-v1","team-team-heretics-v1","team-team-liquid-v1"]
+PASS QA · progreso por set {"team-eternal-fire-v1":"0/4:LOCKED","team-fnatic-v1":"0/5:LOCKED","team-g2-v1":"0/5:LOCKED","team-leviatan-v1":"0/5:LOCKED","team-team-heretics-v1":"0/6:LOCKED","team-team-liquid-v1":"0/5:LOCKED"}
+FAIL QA · G2 en progreso con «qué falta» {"owned":0,"missing":5,"faltan":["BABYBAY","jawgemo","leaf","trent","valyn"]}
+PASS QA · requisitos sin satisfacer listan cartas elegibles 
+PASS QA · reclamar incompleto → 409 INCOMPLETE {"error":"Te faltan 5 para completarla","code":"INCOMPLETE"}
+PASS QA · reclamar BORRADOR → 404 (invisible) {"error":"Esa colección no existe","code":"NOT_FOUND"}
+PASS QA · id mal formado → 400 
+PASS QA · «tengo todas» (campo extra) → 400 FIELD_NOT_ALLOWED {"error":"Campo no permitido","code":"FIELD_NOT_ALLOWED"}
+PASS QA · reclamar en nombre de otro (userId) → 400 {"error":"Campo no permitido","code":"FIELD_NOT_ALLOWED"}
+PASS QA · parámetro en la URL → 400 
+PASS QA · destacar insignia NO poseída → 403 LOCKED {"error":"Solo puedes destacar insignias que ya has desbloqueado","code":"LOCKED"}
+PASS QA · destacar id inventado → 403 LOCKED {"error":"Solo puedes destacar insignias que ya has desbloqueado","code":"LOCKED"}
+PASS QA · 4 insignias → 400 {"error":"Insignias no válidas (máximo 3)","code":"BAD_BODY"}
+PASS QA · un cosmético que no es insignia → 400 {"error":"Insignias no válidas (máximo 3)","code":"BAD_BODY"}
+PASS QA · panel de sets como usuario normal → 401/403 401
+PASS QA · generar borradores como usuario normal → 401/403 401
+PASS FX · cuenta nueva registrada por el formulario real 3e21e0d6
+PASS FX · Eternal Fire sin completar al nacer (le faltan cartas; ni reclamable ni completado) {"state":"LOCKED","missing":4,"needed":["audaz__base","echo__base","favian__base","nekky__base"]}
+FAIL FX · cartas concedidas por /api/admin/users (auditado) y admin QA revocado al momento [200,200,200,200]
+PASS K · Eternal Fire CLAIMABLE con sus cartas reales {"owned":4,"required":4,"state":"CLAIMABLE"}
+PASS K · insignia de EF todavía bloqueada (en «locked», no en «unlocked») 
+PASS K · insignia de EF con el logo REAL del equipo {"id":"insignia:coleccion:team-eternal-fire","label":"Eternal Fire","kind":"TEAM","logo":"/hints/teams/eternal-fire.png","color":"#19e3ff","caption":"Equipo completado","setId":"team-eternal-fire-v1"}
+PASS K · login UI 
+PASS K · UI sala: banner «lista para reclamar» 
+PASS K · UI sala: 6 colecciones 
+PASS K · UI: momento de colección completada {"text":"EQUIPO COMPLETADO\n\nEternal Fire\nETERNAL FIRE\n\nInsignia desbloqueada: Eternal Fire\n\nDESTACAR EN MI PERFIL\nCONTINUAR","reduced":"0","logo":true}
+PASS K · carrera: 6 API + doble clic UI → exactamente 1 COMPLETED {"api":[{"status":200,"outcome":"ALREADY"},{"status":200,"outcome":"ALREADY"},{"status":200,"outcome":"ALREADY"},{"status":200,"outcome":"ALREADY"},{"status":200,"outcome":"ALREADY"},{"status":200,"outcome":"ALREADY"}],"ui":{"text":"EQUIPO 
+PASS K · UI: botón DESTACAR EN MI PERFIL presente 
+PASS K · UI detalle: ya no hay botón de reclamar 
+PASS K · F5: sigue COMPLETADO, sin reclamar otra vez 
+PASS K · perfil propio: tarjeta de identidad simple (sin vitrina de insignias, Profile 2.0) 
+PASS K · room 1024: sin desbordamiento horizontal 0
+PASS K · detail-completed 1024: sin desbordamiento horizontal 0
+PASS K · profile-own 1024: sin desbordamiento horizontal 0
+PASS K · room 390: sin desbordamiento horizontal 0
+PASS K · detail-completed 390: sin desbordamiento horizontal 0
+PASS K · profile-own 390: sin desbordamiento horizontal 0
+PASS K · EF COMPLETED con fecha {"state":"COMPLETED","at":"2026-10-06T09:05:42.226633+00:00"}
+PASS K · insignia en «unlocked», fuera de «locked» 
+PASS K · compleciones recientes incluye EF 
+PASS K · reintento → 200 ALREADY ALREADY
+PASS K · destacar EF + una bloqueada (G2) → 403 LOCKED {"error":"Solo puedes destacar insignias que ya has desbloqueado","code":"LOCKED"}
+PASS K · featuredBadgeIds tras EQUIP = [EF] ["insignia:coleccion:team-eternal-fire"]
+PASS K · mismo contenido → UNCHANGED {"code":"UNCHANGED","version":1}
+PASS K · quitar → SAVED {"code":"SAVED","version":2}
+PASS K · versión vieja (otra pestaña) → 409 CONFLICT {"error":"Tu perfil cambió en otra pestaña: se ha recargado la versión actual","code":"CONFLICT"}
+PASS K · volver a destacar → SAVED {"code":"SAVED","version":3}
+PASS K · perfil SELF: destacadas [EF] + lista propia para el editor {"badges":["insignia:coleccion:team-eternal-fire"],"owned":1}
+PASS perfil PÚBLICO de K visto por QA: insignia con logo real [{"id":"insignia:coleccion:team-eternal-fire","label":"Eternal Fire","kind":"TEAM","logo":"/hints/teams/eternal-fire.png","color":"#19e3ff","caption":"Equipo completado","setId":"team-eternal-fire-v1"}]
+PASS perfil PÚBLICO: sin lista de insignias propias ni bloqueadas 
+PASS QA · login UI 
+PASS QA · UI 390: lista «te falta» + sin botón de reclamar 
+PASS QA · UI 390 sin desbordamiento 
+PASS QA · UI: un borrador no aparece en la sala 
+PASS página / → 200 200
+PASS página /coleccion → 200 200
+PASS página /coleccion/trofeos → 200 200
+PASS página /tienda → 200 200
+PASS página /misiones/crafting → 200 200
+PASS página /competitivo → 200 200
+PASS página /progresion → 200 200
+PASS página /admin/collection-sets → 200 200
+PASS API /api/game/state (QA) → 2xx 200
+PASS API /api/game/me (QA) → 2xx 200
+PASS API /api/game/competitive (QA) → 2xx 200
+PASS API /api/game/forge (QA) → 2xx 200
+PASS API /api/game/missions (QA) → 2xx 200
+PASS API /api/game/crafting (QA) → 2xx 200
+
+TOTAL 72/74

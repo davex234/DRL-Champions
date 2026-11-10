@@ -1,0 +1,40 @@
+== WORKER DESPUÉS (F87.2) · 2026-10-06T17:46:24Z
+cron: 1 línea
+release: rel-20260914T093113Z-996d06fd · bundle 872f5449d8c2e918
+ESPORTS_AUTO_SYNC_ENABLED=true
+ejecuciones desde 0073 (15:43:48Z): 62 · exit≠0: 0 · status≠success: 0
+errores/PICKEM_ en su log desde 0073: 124
+
+== APP (release final, desde 16:29:30Z)
+running reinicios=0
+líneas de error: 1
+
+== POSTGRES desde 16:29:30Z
+     22 ERROR:  permission denied for table profiles
+     11 ERROR:  NOT_ADMIN
+      7 ERROR:  duplicate key value violates unique constraint "duel_matches_pkey"
+      2 ERROR:  STALE_CUP
+      2 ERROR:  REASON_REQUIRED
+      2 ERROR:  permission denied for table pickem_bracket_picks
+      2 ERROR:  permission denied for table duel_matches
+      2 ERROR:  permission denied for table duel_friendships
+      2 ERROR:  permission denied for table duel_challenges
+      2 ERROR:  permission denied for table cup_matches
+      2 ERROR:  permission denied for table alpha_feedback
+      2 ERROR:  permission denied for function social_friend_request
+      2 ERROR:  CUP_NOT_IN_PROGRESS
+      2 ERROR:  CONFIRM_MISMATCH
+      1 ERROR:  permission denied for view ranking_collection
+      1 ERROR:  permission denied for table user_sanctions
+      1 ERROR:  permission denied for table user_cards
+      1 ERROR:  permission denied for table pickem_brackets
+      1 ERROR:  permission denied for table pickem_bracket_matches
+      1 ERROR:  permission denied for table pickem_bracket_entries
+pickem_events 3 (LEGACY_V1 3)
+pickem_questions 63
+pickem_submissions 1
+pickem_scores 1
+pagos legacy 1 / 500
+events 3
+matches 101 · ids duplicados 0
+sync_state 4 max 2026-10-06 17:46:01.699123+00

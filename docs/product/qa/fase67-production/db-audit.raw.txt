@@ -1,0 +1,356 @@
+==size
+41 MB
+==tables
+telemetry_events=7681
+content_pool_entries=5027
+duel_match_actions=2316
+map_player_stats=1600
+player_stats=660
+market_audit=595
+user_cards=497
+content_audit_log=477
+content_players=379
+content_cards=331
+content_card_versions=331
+economy_ops=195
+duel_matches=176
+credit_transactions=162
+match_maps=160
+players=146
+player_event_stats=144
+duel_challenges=101
+matches=101
+duel_pvp_queue=78
+duel_pvp_rating_events=60
+api_rate_limits=52
+content_pools=51
+content_pack_pools=51
+user_packs=45
+standings=44
+pickem_questions=38
+teams=37
+agents=29
+team_stats=28
+profiles=18
+user_game=18
+game_state=18
+maps=13
+circuits=11
+notifications=10
+duel_pvp_ratings=9
+user_achievements=9
+duel_decks=8
+user_pass=8
+==storage
+buckets=1
+bucket assets public=true size_limit=none mimes=any
+==schema
+migrations_registered=25 max=0025
+has_duel_matches=true
+has_duel_match_actions=true
+has_duel_pvp_queue=true
+has_duel_pvp_ratings=true
+has_duel_friendships=true
+has_duel_challenges=true
+has_duel_active_deck=true
+has_draft_gauntlet_runs=false
+has_user_favorites=false
+has_user_sanctions=true
+has_content_audit_log=true
+has_admin_event_drafts=true
+has_agents=true
+has_content_cards=true
+has_content_packs=true
+has_content_assets=false
+has_app_rate_limits=false
+public_tables=122
+functions_app_admin=24
+==rls
+admin_event_drafts rls=true policies=0
+agents rls=true policies=1
+api_rate_limits rls=true policies=0
+asset_best rls=true policies=1
+assets rls=true policies=1
+campaign_attempts rls=true policies=0
+campaign_progress rls=true policies=0
+card_generation_rules rls=true policies=1
+card_generations rls=true policies=1
+card_mints rls=true policies=1
+card_photos_legacy rls=true policies=1
+card_price_daily rls=true policies=1
+card_price_stats rls=true policies=1
+card_reference rls=true policies=1
+circuits rls=true policies=1
+coach_match_strats rls=true policies=4
+coach_matches rls=true policies=1
+collection_items rls=true policies=1
+collections rls=true policies=1
+content_audit_log rls=true policies=0
+content_card_market_anchor rls=true policies=0
+content_card_versions rls=true policies=0
+content_cards rls=true policies=0
+content_catalog_version rls=true policies=0
+content_distribution_version rls=true policies=0
+content_entity_version rls=true policies=0
+content_pack_pools rls=true policies=0
+content_packs rls=true policies=0
+content_players rls=true policies=0
+content_pool_entries rls=true policies=0
+content_pools rls=true policies=0
+credit_transactions rls=true policies=1
+draft_run_matches rls=true policies=0
+draft_runs rls=true policies=0
+duel_active_deck rls=true policies=0
+duel_challenges rls=true policies=0
+duel_decks rls=true policies=1
+duel_friendships rls=true policies=0
+duel_match_actions rls=true policies=0
+duel_matches rls=true policies=0
+duel_pvp_queue rls=true policies=0
+duel_pvp_rating_events rls=true policies=0
+duel_pvp_ratings rls=true policies=0
+economy_ops rls=true policies=1
+events rls=true policies=1
+game_state rls=true policies=1
+generated_cards rls=true policies=1
+generated_events rls=true policies=1
+inventory rls=true policies=1
+map_player_stats rls=true policies=1
+maps rls=true policies=1
+market_audit rls=true policies=0
+market_config rls=true policies=1
+market_flags rls=true policies=0
+market_listings rls=true policies=2
+market_offers rls=true policies=1
+match_maps rls=true policies=1
+matches rls=true policies=1
+notifications rls=true policies=0
+payments rls=true policies=1
+pickem_answers rls=true policies=1
+pickem_events rls=true policies=1
+pickem_questions rls=true policies=0
+pickem_scores rls=true policies=1
+pickem_submissions rls=true policies=1
+pickems rls=true policies=1
+player_cards rls=true policies=1
+player_event_stats rls=true policies=1
+player_profile_customization rls=true policies=0
+player_stats rls=true policies=1
+players rls=true policies=1
+prediction_players rls=true policies=1
+predictions rls=true policies=1
+profiles rls=true policies=3
+roster_changes rls=true policies=1
+scheduler_jobs rls=true policies=0
+seasons rls=true policies=1
+special_cards rls=true policies=1
+stages rls=true policies=1
+standings rls=true policies=1
+sync_state rls=true policies=0
+team_ratings rls=true policies=1
+team_stats rls=true policies=1
+teams rls=true policies=1
+telemetry_events rls=true policies=0
+tournament_players rls=true policies=1
+tournament_teams rls=true policies=1
+tournaments rls=true policies=1
+transactions rls=true policies=1
+user_achievements rls=true policies=1
+user_card_favorites rls=true policies=1
+user_cards rls=true policies=1
+user_compositions rls=true policies=4
+user_cosmetics rls=true policies=1
+user_game rls=true policies=1
+user_packs rls=true policies=1
+user_pass rls=true policies=1
+user_sanctions rls=true policies=0
+user_strats rls=true policies=4
+==grants_anon_authenticated_write
+agents anon TRUNCATE,DELETE,UPDATE,INSERT
+agents authenticated TRUNCATE,DELETE,UPDATE,INSERT
+asset_best anon TRUNCATE,DELETE,UPDATE,INSERT
+asset_best authenticated INSERT,UPDATE,TRUNCATE,DELETE
+assets anon UPDATE,TRUNCATE,DELETE,INSERT
+assets authenticated INSERT,TRUNCATE,DELETE,UPDATE
+card_generation_rules anon DELETE,TRUNCATE,UPDATE,INSERT
+card_generation_rules authenticated TRUNCATE,INSERT,UPDATE,DELETE
+card_generations anon DELETE,INSERT,UPDATE,TRUNCATE
+card_generations authenticated INSERT,UPDATE,DELETE,TRUNCATE
+card_mints anon TRUNCATE
+card_mints authenticated TRUNCATE
+card_photos anon INSERT,UPDATE,DELETE,TRUNCATE
+card_photos authenticated TRUNCATE,INSERT,UPDATE,DELETE
+card_photos_legacy anon INSERT,UPDATE,DELETE,TRUNCATE
+card_photos_legacy authenticated UPDATE,TRUNCATE,DELETE,INSERT
+card_price_daily anon DELETE,UPDATE,INSERT,TRUNCATE
+card_price_daily authenticated DELETE,TRUNCATE,INSERT,UPDATE
+card_price_stats anon INSERT,TRUNCATE,DELETE,UPDATE
+card_price_stats authenticated INSERT,TRUNCATE,DELETE,UPDATE
+card_reference anon INSERT,TRUNCATE,DELETE,UPDATE
+card_reference authenticated UPDATE,TRUNCATE,INSERT,DELETE
+circuits anon DELETE,UPDATE,INSERT,TRUNCATE
+circuits authenticated TRUNCATE,INSERT,UPDATE,DELETE
+coach_match_strats anon UPDATE,INSERT,TRUNCATE,DELETE
+coach_match_strats authenticated TRUNCATE,UPDATE,INSERT,DELETE
+collection_items anon DELETE,UPDATE,INSERT,TRUNCATE
+collection_items authenticated DELETE,UPDATE,TRUNCATE,INSERT
+collections anon TRUNCATE,INSERT,UPDATE,DELETE
+collections authenticated TRUNCATE,INSERT,UPDATE,DELETE
+credit_transactions anon TRUNCATE
+credit_transactions authenticated TRUNCATE
+duel_decks anon TRUNCATE
+duel_decks authenticated TRUNCATE
+economy_ops anon TRUNCATE
+economy_ops authenticated TRUNCATE
+events anon INSERT,UPDATE,DELETE,TRUNCATE
+events authenticated UPDATE,INSERT,TRUNCATE,DELETE
+game_state anon DELETE,UPDATE,INSERT,TRUNCATE
+game_state authenticated UPDATE,INSERT,TRUNCATE,DELETE
+generated_cards anon UPDATE,TRUNCATE,DELETE,INSERT
+generated_cards authenticated DELETE,TRUNCATE,INSERT,UPDATE
+generated_events anon UPDATE,INSERT,TRUNCATE,DELETE
+generated_events authenticated TRUNCATE,INSERT,UPDATE,DELETE
+inventory anon INSERT,TRUNCATE,DELETE,UPDATE
+inventory authenticated DELETE,INSERT,UPDATE,TRUNCATE
+map_player_stats anon DELETE,TRUNCATE,INSERT,UPDATE
+map_player_stats authenticated TRUNCATE,DELETE,UPDATE,INSERT
+maps anon INSERT,TRUNCATE,DELETE,UPDATE
+maps authenticated INSERT,TRUNCATE,DELETE,UPDATE
+market_audit anon UPDATE,TRUNCATE,DELETE,INSERT
+market_audit authenticated UPDATE,INSERT,DELETE,TRUNCATE
+market_config anon TRUNCATE,UPDATE,DELETE,INSERT
+market_config authenticated DELETE,INSERT,UPDATE,TRUNCATE
+market_flags anon DELETE,TRUNCATE,INSERT,UPDATE
+market_flags authenticated UPDATE,DELETE,TRUNCATE,INSERT
+market_listings anon INSERT,TRUNCATE,DELETE,UPDATE
+market_listings authenticated TRUNCATE,INSERT,UPDATE,DELETE
+market_offers anon INSERT,TRUNCATE,DELETE,UPDATE
+market_offers authenticated INSERT,TRUNCATE,DELETE,UPDATE
+match_maps anon TRUNCATE,DELETE,INSERT,UPDATE
+match_maps authenticated INSERT,DELETE,TRUNCATE,UPDATE
+matches anon DELETE,INSERT,UPDATE,TRUNCATE
+matches authenticated INSERT,TRUNCATE,DELETE,UPDATE
+notifications anon TRUNCATE,INSERT,UPDATE,DELETE
+notifications authenticated TRUNCATE,INSERT,DELETE,UPDATE
+payments anon TRUNCATE
+payments authenticated TRUNCATE
+pickem_answers anon TRUNCATE
+pickem_answers authenticated TRUNCATE
+pickem_events anon TRUNCATE
+pickem_events authenticated TRUNCATE
+pickem_questions anon TRUNCATE
+pickem_questions authenticated TRUNCATE
+pickem_questions_public anon INSERT,TRUNCATE,DELETE,UPDATE
+pickem_questions_public authenticated DELETE,UPDATE,INSERT,TRUNCATE
+pickem_scores anon TRUNCATE
+pickem_scores authenticated TRUNCATE
+pickem_submissions anon TRUNCATE
+pickem_submissions authenticated TRUNCATE
+pickems anon DELETE,INSERT,UPDATE,TRUNCATE
+pickems authenticated TRUNCATE,DELETE,UPDATE,INSERT
+player_cards anon TRUNCATE,INSERT,UPDATE,DELETE
+player_cards authenticated UPDATE,TRUNCATE,DELETE,INSERT
+player_event_stats anon TRUNCATE,DELETE,UPDATE,INSERT
+player_event_stats authenticated TRUNCATE,DELETE,UPDATE,INSERT
+player_stats anon INSERT,UPDATE,DELETE,TRUNCATE
+player_stats authenticated UPDATE,INSERT,TRUNCATE,DELETE
+players anon UPDATE,TRUNCATE,DELETE,INSERT
+players authenticated TRUNCATE,INSERT,UPDATE,DELETE
+prediction_players anon UPDATE,DELETE,TRUNCATE,INSERT
+prediction_players authenticated INSERT,DELETE,TRUNCATE,UPDATE
+predictions anon INSERT,TRUNCATE,DELETE,UPDATE
+predictions authenticated INSERT,TRUNCATE,DELETE,UPDATE
+profiles anon TRUNCATE,DELETE,INSERT
+profiles authenticated TRUNCATE,DELETE,INSERT
+ranking_collection anon INSERT,DELETE,TRUNCATE,UPDATE
+ranking_collection authenticated TRUNCATE,DELETE,UPDATE,INSERT
+ranking_level anon INSERT,UPDATE,DELETE,TRUNCATE
+ranking_level authenticated INSERT,UPDATE,DELETE,TRUNCATE
+ranking_market anon DELETE,INSERT,TRUNCATE,UPDATE
+ranking_market authenticated DELETE,TRUNCATE,UPDATE,INSERT
+ranking_pickem_event anon DELETE,INSERT,TRUNCATE,UPDATE
+ranking_pickem_event authenticated INSERT,TRUNCATE,UPDATE,DELETE
+ranking_points anon DELETE,TRUNCATE,INSERT,UPDATE
+ranking_points authenticated TRUNCATE,UPDATE,INSERT,DELETE
+ranking_points_region anon DELETE,UPDATE,INSERT,TRUNCATE
+ranking_points_region authenticated DELETE,INSERT,TRUNCATE,UPDATE
+ranking_rarities anon TRUNCATE,INSERT,UPDATE,DELETE
+ranking_rarities authenticated TRUNCATE,INSERT,UPDATE,DELETE
+roster_changes anon INSERT,UPDATE,DELETE,TRUNCATE
+roster_changes authenticated TRUNCATE,INSERT,DELETE,UPDATE
+scheduler_jobs anon INSERT,TRUNCATE,DELETE,UPDATE
+scheduler_jobs authenticated TRUNCATE,UPDATE,DELETE,INSERT
+seasons anon TRUNCATE
+seasons authenticated TRUNCATE
+special_cards anon INSERT,DELETE,TRUNCATE,UPDATE
+special_cards authenticated TRUNCATE,INSERT,UPDATE,DELETE
+stages anon TRUNCATE,INSERT,DELETE,UPDATE
+stages authenticated TRUNCATE,UPDATE,INSERT,DELETE
+standings anon DELETE,TRUNCATE,INSERT,UPDATE
+standings authenticated UPDATE,TRUNCATE,DELETE,INSERT
+sync_state anon TRUNCATE,DELETE,UPDATE,INSERT
+sync_state authenticated INSERT,UPDATE,TRUNCATE,DELETE
+team_ratings anon INSERT,UPDATE,DELETE,TRUNCATE
+team_ratings authenticated INSERT,UPDATE,DELETE,TRUNCATE
+team_stats anon UPDATE,INSERT,DELETE,TRUNCATE
+team_stats authenticated TRUNCATE,DELETE,UPDATE,INSERT
+teams anon UPDATE,INSERT,DELETE,TRUNCATE
+teams authenticated UPDATE,INSERT,TRUNCATE,DELETE
+tournament_players anon DELETE,INSERT,UPDATE,TRUNCATE
+tournament_players authenticated TRUNCATE,DELETE,UPDATE,INSERT
+tournament_teams anon UPDATE,TRUNCATE,DELETE,INSERT
+tournament_teams authenticated TRUNCATE,DELETE,UPDATE,INSERT
+tournaments anon TRUNCATE,INSERT,UPDATE,DELETE
+tournaments authenticated DELETE,INSERT,UPDATE,TRUNCATE
+transactions anon INSERT,TRUNCATE,DELETE,UPDATE
+transactions authenticated TRUNCATE,INSERT,UPDATE,DELETE
+user_achievements anon TRUNCATE
+user_achievements authenticated TRUNCATE
+user_cards anon TRUNCATE
+user_cards authenticated TRUNCATE
+user_compositions anon UPDATE,INSERT,TRUNCATE,DELETE
+user_compositions authenticated INSERT,TRUNCATE,DELETE,UPDATE
+user_cosmetics anon TRUNCATE
+user_cosmetics authenticated TRUNCATE
+user_game anon TRUNCATE
+user_game authenticated TRUNCATE
+user_packs anon TRUNCATE
+user_packs authenticated TRUNCATE
+user_pass anon TRUNCATE
+user_pass authenticated TRUNCATE
+user_strats anon TRUNCATE,INSERT,UPDATE,DELETE
+user_strats authenticated UPDATE,TRUNCATE,DELETE,INSERT
+v_asset_duplicates anon INSERT,TRUNCATE,DELETE,UPDATE
+v_asset_duplicates authenticated DELETE,INSERT,UPDATE,TRUNCATE
+v_market_rarity_stats anon TRUNCATE,INSERT,UPDATE,DELETE
+v_market_rarity_stats authenticated DELETE,INSERT,UPDATE,TRUNCATE
+v_market_top_cards anon TRUNCATE,INSERT,UPDATE,DELETE
+v_market_top_cards authenticated TRUNCATE,INSERT,UPDATE,DELETE
+v_model_accuracy anon TRUNCATE,INSERT,UPDATE,DELETE
+v_model_accuracy authenticated DELETE,TRUNCATE,INSERT,UPDATE
+v_player_leaderboard anon DELETE,INSERT,TRUNCATE,UPDATE
+v_player_leaderboard authenticated TRUNCATE,INSERT,UPDATE,DELETE
+v_prediction_accuracy anon INSERT,DELETE,UPDATE,TRUNCATE
+v_prediction_accuracy authenticated TRUNCATE,INSERT,DELETE,UPDATE
+v_recent_results anon INSERT,TRUNCATE,UPDATE,DELETE
+v_recent_results authenticated INSERT,TRUNCATE,UPDATE,DELETE
+v_upcoming_matches anon TRUNCATE,UPDATE,INSERT,DELETE
+v_upcoming_matches authenticated INSERT,DELETE,UPDATE,TRUNCATE
+==integrity
+negative_credits=0
+admins=1
+user_cards_unknown_card=0
+duplicate_serials=0
+users_in_two_live_pvp=0
+live_pvp_overdue_5min=0
+self_matches=0
+finished_without_result=0
+pvp_settled_twice=0
+ledger_dup_ref=0
+queue_matched_orphan=0
+queue_active_per_user_gt1=0
+active_deck_missing=0
+pve_in_progress_older_7d=0
+==users
+auth_users=18
+qa_like_users=17

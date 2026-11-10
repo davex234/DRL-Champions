@@ -1,0 +1,630 @@
+{
+  "generatedAt": "2026-09-30T13:43:46.298Z",
+  "method": {
+    "premium": 1.25,
+    "maxInput": 40,
+    "sims": 3000,
+    "packStatsSample": 20000,
+    "rule": "X = max(2, ceil(1,25·salida/entrada)) en coste, valor (entrada peor caso) y desguace, a la vez"
+  },
+  "frozenInputs": {
+    "mainLine": [
+      {
+        "id": "estandar",
+        "price": 1000,
+        "cards": 5,
+        "meanValue": 5673,
+        "meanSalvage": 341,
+        "distribution": {
+          "base": 50,
+          "plata": 25,
+          "oro": 10,
+          "masters": 7,
+          "champions": 4,
+          "prime": 3,
+          "icon": 1
+        }
+      },
+      {
+        "id": "premium",
+        "price": 2500,
+        "cards": 6,
+        "meanValue": 12922,
+        "meanSalvage": 777,
+        "distribution": {
+          "base": 0,
+          "plata": 50,
+          "oro": 25,
+          "masters": 10,
+          "champions": 7,
+          "prime": 5,
+          "icon": 3
+        }
+      },
+      {
+        "id": "oro",
+        "price": 4000,
+        "cards": 5,
+        "meanValue": 20542,
+        "meanSalvage": 1234,
+        "distribution": {
+          "base": 0,
+          "plata": 0,
+          "oro": 50,
+          "masters": 23,
+          "champions": 10,
+          "prime": 10,
+          "icon": 7
+        }
+      },
+      {
+        "id": "masters",
+        "price": 5000,
+        "cards": 5,
+        "meanValue": 25402,
+        "meanSalvage": 1527,
+        "distribution": {
+          "base": 0,
+          "plata": 0,
+          "oro": 25,
+          "masters": 40,
+          "champions": 15,
+          "prime": 12,
+          "icon": 8
+        }
+      },
+      {
+        "id": "champions",
+        "price": 8000,
+        "cards": 5,
+        "meanValue": 40768,
+        "meanSalvage": 2451,
+        "distribution": {
+          "base": 0,
+          "plata": 0,
+          "oro": 15,
+          "masters": 20,
+          "champions": 30,
+          "prime": 20,
+          "icon": 15
+        }
+      },
+      {
+        "id": "icon",
+        "price": 12500,
+        "cards": 3,
+        "meanValue": 47797,
+        "meanSalvage": 2868,
+        "distribution": {
+          "base": 0,
+          "plata": 0,
+          "oro": 0,
+          "masters": 0,
+          "champions": 0,
+          "prime": 70,
+          "icon": 30
+        }
+      }
+    ],
+    "classStats": {
+      "base": {
+        "cards": 75,
+        "marketMin": 50,
+        "marketMean": 132,
+        "marketMax": 190,
+        "salvageMin": 5,
+        "salvageMean": 8,
+        "salvageMax": 10,
+        "directCostPerCard": 400,
+        "directBestPack": "estandar"
+      },
+      "plata": {
+        "cards": 60,
+        "marketMin": 220,
+        "marketMean": 264,
+        "marketMax": 310,
+        "salvageMin": 15,
+        "salvageMean": 16,
+        "salvageMax": 20,
+        "directCostPerCard": 800,
+        "directBestPack": "estandar"
+      },
+      "oro": {
+        "cards": 34,
+        "marketMin": 350,
+        "marketMean": 450,
+        "marketMax": 740,
+        "salvageMin": 20,
+        "salvageMean": 27,
+        "salvageMax": 45,
+        "directCostPerCard": 1600,
+        "directBestPack": "oro"
+      },
+      "masters": {
+        "cards": 119,
+        "marketMin": 530,
+        "marketMean": 1869,
+        "marketMax": 4250,
+        "salvageMin": 30,
+        "salvageMean": 113,
+        "salvageMax": 260,
+        "directCostPerCard": 2500,
+        "directBestPack": "masters"
+      },
+      "champions": {
+        "cards": 20,
+        "marketMin": 1700,
+        "marketMean": 5518,
+        "marketMax": 10600,
+        "salvageMin": 100,
+        "salvageMean": 333,
+        "salvageMax": 640,
+        "directCostPerCard": 5000,
+        "directBestPack": "estandar"
+      },
+      "prime": {
+        "cards": 20,
+        "marketMin": 7200,
+        "marketMean": 12625,
+        "marketMax": 19100,
+        "salvageMin": 430,
+        "salvageMean": 756,
+        "salvageMax": 1150,
+        "directCostPerCard": 5952,
+        "directBestPack": "icon"
+      },
+      "icon": {
+        "cards": 3,
+        "marketMin": 18400,
+        "marketMean": 23800,
+        "marketMax": 26500,
+        "salvageMin": 1100,
+        "salvageMean": 1433,
+        "salvageMax": 1600,
+        "directCostPerCard": 10667,
+        "directBestPack": "champions"
+      }
+    }
+  },
+  "packRecipes": [
+    {
+      "id": "pack-estandar-premium",
+      "kind": "PACK",
+      "input": "estandar",
+      "output": "premium",
+      "byCost": 4,
+      "byValue": 3,
+      "bySalvage": 3,
+      "ratio": 4,
+      "lossCost": 0.375,
+      "lossValue": 0.4305,
+      "lossSalvage": 0.4304,
+      "viable": true,
+      "inputSide": {
+        "cost": 1000,
+        "value": 5673,
+        "salvage": 341
+      },
+      "outputSide": {
+        "cost": 2500,
+        "value": 12922,
+        "salvage": 777
+      },
+      "simulation": {
+        "cycles": 3000,
+        "creditsSpent": 12000000,
+        "creditsBack": 2397315,
+        "netPerCycle": -3201,
+        "bestCycleNet": 415,
+        "worstCycleNet": -3910,
+        "meanValueCrafted": 13299,
+        "meanValueOpeningInputs": 23193,
+        "profitable": false
+      }
+    },
+    {
+      "id": "pack-premium-oro",
+      "kind": "PACK",
+      "input": "premium",
+      "output": "oro",
+      "byCost": 2,
+      "byValue": 2,
+      "bySalvage": 2,
+      "ratio": 2,
+      "lossCost": 0.2,
+      "lossValue": 0.2052,
+      "lossSalvage": 0.2059,
+      "viable": true,
+      "inputSide": {
+        "cost": 2500,
+        "value": 12922,
+        "salvage": 777
+      },
+      "outputSide": {
+        "cost": 4000,
+        "value": 20542,
+        "salvage": 1234
+      },
+      "simulation": {
+        "cycles": 3000,
+        "creditsSpent": 15000000,
+        "creditsBack": 3806205,
+        "netPerCycle": -3731,
+        "bestCycleNet": 325,
+        "worstCycleNet": -4890,
+        "meanValueCrafted": 21120,
+        "meanValueOpeningInputs": 25971,
+        "profitable": false
+      }
+    },
+    {
+      "id": "pack-oro-masters",
+      "kind": "PACK",
+      "input": "oro",
+      "output": "masters",
+      "byCost": 2,
+      "byValue": 2,
+      "bySalvage": 2,
+      "ratio": 2,
+      "lossCost": 0.375,
+      "lossValue": 0.3817,
+      "lossSalvage": 0.3813,
+      "viable": true,
+      "inputSide": {
+        "cost": 4000,
+        "value": 20542,
+        "salvage": 1234
+      },
+      "outputSide": {
+        "cost": 5000,
+        "value": 25402,
+        "salvage": 1527
+      },
+      "simulation": {
+        "cycles": 3000,
+        "creditsSpent": 24000000,
+        "creditsBack": 4636245,
+        "netPerCycle": -6455,
+        "bestCycleNet": -1580,
+        "worstCycleNet": -7885,
+        "meanValueCrafted": 25711,
+        "meanValueOpeningInputs": 41366,
+        "profitable": false
+      }
+    },
+    {
+      "id": "pack-masters-champions",
+      "kind": "PACK",
+      "input": "masters",
+      "output": "champions",
+      "byCost": 2,
+      "byValue": 3,
+      "bySalvage": 3,
+      "ratio": 3,
+      "lossCost": 0.4667,
+      "lossValue": 0.465,
+      "lossSalvage": 0.465,
+      "viable": true,
+      "inputSide": {
+        "cost": 5000,
+        "value": 25402,
+        "salvage": 1527
+      },
+      "outputSide": {
+        "cost": 8000,
+        "value": 40768,
+        "salvage": 2451
+      },
+      "simulation": {
+        "cycles": 3000,
+        "creditsSpent": 45000000,
+        "creditsBack": 7421100,
+        "netPerCycle": -12526,
+        "bestCycleNet": -8360,
+        "worstCycleNet": -14860,
+        "meanValueCrafted": 41154,
+        "meanValueOpeningInputs": 76694,
+        "profitable": false
+      }
+    },
+    {
+      "id": "pack-champions-icon",
+      "kind": "PACK",
+      "input": "champions",
+      "output": "icon",
+      "byCost": 2,
+      "byValue": 2,
+      "bySalvage": 2,
+      "ratio": 2,
+      "lossCost": 0.2188,
+      "lossValue": 0.4138,
+      "lossSalvage": 0.4149,
+      "viable": true,
+      "inputSide": {
+        "cost": 8000,
+        "value": 40768,
+        "salvage": 2451
+      },
+      "outputSide": {
+        "cost": 12500,
+        "value": 47797,
+        "salvage": 2868
+      },
+      "simulation": {
+        "cycles": 3000,
+        "creditsSpent": 48000000,
+        "creditsBack": 8675880,
+        "netPerCycle": -13108,
+        "bestCycleNet": -11200,
+        "worstCycleNet": -14590,
+        "meanValueCrafted": 48187,
+        "meanValueOpeningInputs": 81051,
+        "profitable": false
+      }
+    }
+  ],
+  "cardRecipes": [
+    {
+      "id": "card-base-plata",
+      "kind": "CARD",
+      "input": "base",
+      "output": "plata",
+      "byCost": 3,
+      "byValue": 7,
+      "bySalvage": 4,
+      "ratio": 7,
+      "lossCost": 0.7143,
+      "lossValue": 0.2457,
+      "lossSalvage": 0.5429,
+      "viable": true,
+      "inputSide": {
+        "cost": 400,
+        "value": 50,
+        "salvage": 5
+      },
+      "outputSide": {
+        "cost": 800,
+        "value": 264,
+        "salvage": 16
+      },
+      "outputPoolSize": 60,
+      "scarceOutput": false,
+      "proposedStatus": "ACTIVE",
+      "simulation": {
+        "cycles": 3000,
+        "inputCard": "ssees__base",
+        "salvageInputs": 35,
+        "salvageOutputMean": 16,
+        "salvageOutputMax": 20,
+        "valueInputs": 350,
+        "valueOutputMean": 264,
+        "creditsBuyingInputsViaPacks": 2800,
+        "directCostOutputViaPacks": 800,
+        "salvageLoopProfitable": false,
+        "cheaperThanBuying": false
+      }
+    },
+    {
+      "id": "card-plata-oro",
+      "kind": "CARD",
+      "input": "plata",
+      "output": "oro",
+      "byCost": 3,
+      "byValue": 3,
+      "bySalvage": 3,
+      "ratio": 3,
+      "lossCost": 0.3333,
+      "lossValue": 0.3182,
+      "lossSalvage": 0.4,
+      "viable": true,
+      "inputSide": {
+        "cost": 800,
+        "value": 220,
+        "salvage": 15
+      },
+      "outputSide": {
+        "cost": 1600,
+        "value": 450,
+        "salvage": 27
+      },
+      "outputPoolSize": 34,
+      "scarceOutput": false,
+      "proposedStatus": "ACTIVE",
+      "simulation": {
+        "cycles": 3000,
+        "inputCard": "lovers-rock__base",
+        "salvageInputs": 45,
+        "salvageOutputMean": 26,
+        "salvageOutputMax": 45,
+        "valueInputs": 660,
+        "valueOutputMean": 447,
+        "creditsBuyingInputsViaPacks": 2400,
+        "directCostOutputViaPacks": 1600,
+        "salvageLoopProfitable": false,
+        "cheaperThanBuying": false
+      }
+    },
+    {
+      "id": "card-oro-masters",
+      "kind": "CARD",
+      "input": "oro",
+      "output": "masters",
+      "byCost": 2,
+      "byValue": 7,
+      "bySalvage": 8,
+      "ratio": 8,
+      "lossCost": 0.8047,
+      "lossValue": 0.3325,
+      "lossSalvage": 0.2937,
+      "viable": true,
+      "inputSide": {
+        "cost": 1600,
+        "value": 350,
+        "salvage": 20
+      },
+      "outputSide": {
+        "cost": 2500,
+        "value": 1869,
+        "salvage": 113
+      },
+      "outputPoolSize": 119,
+      "scarceOutput": false,
+      "proposedStatus": "ACTIVE",
+      "simulation": {
+        "cycles": 3000,
+        "inputCard": "oxy__base",
+        "salvageInputs": 160,
+        "salvageOutputMean": 113,
+        "salvageOutputMax": 260,
+        "valueInputs": 2800,
+        "valueOutputMean": 1869,
+        "creditsBuyingInputsViaPacks": 12800,
+        "directCostOutputViaPacks": 2500,
+        "salvageLoopProfitable": false,
+        "cheaperThanBuying": false
+      }
+    },
+    {
+      "id": "card-masters-champions",
+      "kind": "CARD",
+      "input": "masters",
+      "output": "champions",
+      "byCost": 3,
+      "byValue": 14,
+      "bySalvage": 14,
+      "ratio": 14,
+      "lossCost": 0.8571,
+      "lossValue": 0.2563,
+      "lossSalvage": 0.2071,
+      "viable": true,
+      "inputSide": {
+        "cost": 2500,
+        "value": 530,
+        "salvage": 30
+      },
+      "outputSide": {
+        "cost": 5000,
+        "value": 5518,
+        "salvage": 333
+      },
+      "outputPoolSize": 20,
+      "scarceOutput": false,
+      "proposedStatus": "ACTIVE",
+      "simulation": {
+        "cycles": 3000,
+        "inputCard": "crws__masters-l",
+        "salvageInputs": 420,
+        "salvageOutputMean": 337,
+        "salvageOutputMax": 640,
+        "valueInputs": 7420,
+        "valueOutputMean": 5590,
+        "creditsBuyingInputsViaPacks": 35000,
+        "directCostOutputViaPacks": 5000,
+        "salvageLoopProfitable": false,
+        "cheaperThanBuying": false
+      }
+    },
+    {
+      "id": "card-champions-prime",
+      "kind": "CARD",
+      "input": "champions",
+      "output": "prime",
+      "byCost": 2,
+      "byValue": 10,
+      "bySalvage": 10,
+      "ratio": 10,
+      "lossCost": 0.881,
+      "lossValue": 0.2574,
+      "lossSalvage": 0.244,
+      "viable": true,
+      "inputSide": {
+        "cost": 5000,
+        "value": 1700,
+        "salvage": 100
+      },
+      "outputSide": {
+        "cost": 5952,
+        "value": 12625,
+        "salvage": 756
+      },
+      "outputPoolSize": 20,
+      "scarceOutput": false,
+      "proposedStatus": "ACTIVE",
+      "simulation": {
+        "cycles": 3000,
+        "inputCard": "siufatbb__champions-s",
+        "salvageInputs": 1000,
+        "salvageOutputMean": 753,
+        "salvageOutputMax": 1150,
+        "valueInputs": 17000,
+        "valueOutputMean": 12587,
+        "creditsBuyingInputsViaPacks": 50000,
+        "directCostOutputViaPacks": 5952,
+        "salvageLoopProfitable": false,
+        "cheaperThanBuying": false
+      }
+    },
+    {
+      "id": "card-prime-icon",
+      "kind": "CARD",
+      "input": "prime",
+      "output": "icon",
+      "byCost": 3,
+      "byValue": 5,
+      "bySalvage": 5,
+      "ratio": 5,
+      "lossCost": 0.6416,
+      "lossValue": 0.3389,
+      "lossSalvage": 0.3335,
+      "viable": true,
+      "inputSide": {
+        "cost": 5952,
+        "value": 7200,
+        "salvage": 430
+      },
+      "outputSide": {
+        "cost": 10667,
+        "value": 23800,
+        "salvage": 1433
+      },
+      "outputPoolSize": 3,
+      "scarceOutput": true,
+      "proposedStatus": "DISABLED",
+      "simulation": {
+        "cycles": 3000,
+        "inputCard": "absol__future-star",
+        "salvageInputs": 2150,
+        "salvageOutputMean": 1433,
+        "salvageOutputMax": 1600,
+        "valueInputs": 36000,
+        "valueOutputMean": 23795,
+        "creditsBuyingInputsViaPacks": 29760,
+        "directCostOutputViaPacks": 10667,
+        "salvageLoopProfitable": false,
+        "cheaperThanBuying": false
+      }
+    }
+  ],
+  "freeSources": {
+    "signup": {
+      "packs": {
+        "inicial": 3,
+        "estandar": 1
+      },
+      "credits": 6000,
+      "note": "Una vez por cuenta. 1 Bronce no alcanza para ninguna receta (mínimo X del primer escalón)."
+    },
+    "starterAssist": {
+      "pack": "inicial",
+      "maxClaims": 8,
+      "note": "`inicial` NO es entrada de ninguna receta: no se puede convertir."
+    },
+    "missionsF73": {
+      "note": "Misiones F73 NO repetibles: cada una se completa una vez por usuario (sin rotación). Recompensa acotada por el admin (validación: créditos ≤ 5.000, sobres ≤ 3, carta = la del proyecto)."
+    }
+  },
+  "exploitChecks": {
+    "exploits": [],
+    "pass": true
+  }
+}

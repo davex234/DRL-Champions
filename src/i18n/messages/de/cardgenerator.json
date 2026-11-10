@@ -1,0 +1,12 @@
+{
+  "Primera carta del jugador": "Erste Karte des Spielers",
+  "alias \"{alias}\" no existe en el roster": "Alias \"{alias}\" existiert nicht im Roster",
+  "jugador nuevo (draft)": "neuer Spieler (draft)",
+  "líder del torneo en {kind} ({best})": "Turnierbester in {kind} ({best})",
+  "muestra estadística baja": "kleine statistische Stichprobe",
+  "muestra estadística media": "mittlere statistische Stichprobe",
+  "país sin resolver": "Land nicht aufgelöst",
+  "sin foto": "ohne Foto",
+  "ya emitida en la temporada {season}": "bereits in Saison {season} ausgegeben",
+  "{length} jugadores con nick \"{nick}\" — requiere alias": "{length} Spieler mit Nick \"{nick}\" — Alias erforderlich"
+}

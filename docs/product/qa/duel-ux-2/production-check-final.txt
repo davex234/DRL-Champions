@@ -1,0 +1,34 @@
+PASS env                    OPTIONAL ANTHROPIC_API_KEY: falta: predicciones con heurística · OPTIONAL NEXT_PUBLIC_VLR_API: falta: fuente VLR desactivada
+PASS node                   v24.15.0 (engines >=22.12.0 <25, recomendado 24.15.0)
+PASS build                  BUILD_ID drl-0.1.1-1-a8387598 = huella del código actual
+PASS migrations             73 ficheros, última 0073_pickems_launch_guard.sql (esperada 0073_pickems_launch_guard)
+PASS migrations-startup     la app NO aplica migraciones al arrancar
+PASS flags                  GLOBAL_MARKET_ENABLED=false PAYMENTS_ENABLED=false (constantes de código, no conmutables desde el cliente)
+PASS catalog                331 cartas en código
+PASS card-art               331/331 imágenes presentes
+PASS agent-art              29 agentes, sin carpeta de arte: ninguno
+PASS pack-art               32 sobres, 19 con arte, rotos: ninguno
+PASS maps                   13 entradas en public/maps
+PASS security-headers       CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP, HSTS, sin X-Powered-By
+PASS edge-guards            tamaño de cuerpo, arneses QA ocultos, x-request-id
+PASS robots                 beta cerrada: noindex
+PASS sharp                  sharp es dependencia directa
+PASS client-secrets         ningún secreto del servidor en .next/static ni public/
+PASS source-maps            sin source maps públicos del navegador
+PASS app-health             https://valorosters.com/api/health → 200
+PASS app-ready              ready · config:ok database:ok schema:ok crafting:ok forge:ok collections:ok seasons:ok profile:ok social:ok account_tag:ok cups:ok pickems_launch_guard:ok pickems_cutover:ok pickems:ok alpha:ok admins:ok ranked:ok privacy:ok catalog:ok storage:ok
+PASS app-migration-head     la app informa 0073_pickems_launch_guard (esperada 0073_pickems_launch_guard)
+PASS db-migration-head      estado real de la BD: 0073_pickems_launch_guard (esperada 0073_pickems_launch_guard)
+PASS app-vs-db-head         app 0073_pickems_launch_guard · BD 0073_pickems_launch_guard
+PASS backup-daily-db        último dump diario hace 15 h (cron 04:30, retención 14 días)
+PASS backup-daily-storage   último tar de Storage hace 15 h
+PASS backup-verified        último backup con manifiesto: /opt/nexus/backups/supabase-drlcards/pre-duelux2-qa-cleanup/20261006T200330Z (hace 0 h, 26 unidades) · SHA256SUMS ok
+PASS backup-log             1 líneas FALLO en el histórico · [20261006T043001Z] fin. fallos=0  total=38G
+PASS backup-disk            389527 MB libres en /opt/nexus/backups; backups de DRLCards ocupan 177 MB (15 dumps diarios)
+FAIL backup-offsite         NOT_CONFIGURED · OFFSITE BACKUP NOT CONFIGURED: las copias viven en el MISMO disco del VPS (BLOCKED externo: falta destino + credenciales)
+FAIL backup-offsite-drill   NO_REMOTE_DRILL · ningún simulacro de restauración desde el destino off-site registrado
+FAIL backup-schedule        sin programación off-site (se instala tras la primera copia + simulacro desde B2)
+FAIL f78-offsite-dr         F78 incompleto: offsite:NOT_CONFIGURED · drill:NO_REMOTE_DRILL · schedule:NOT_INSTALLED
+WARN auth-email             BLOCKED para release pública: autoconfirmación ON (registro sin verificar correo)
+
+27 PASS · 1 WARN · 4 FAIL

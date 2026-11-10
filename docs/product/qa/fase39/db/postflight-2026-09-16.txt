@@ -1,0 +1,19 @@
+post_tables|t|t
+post_rls|draft_run_matches|t
+post_rls|draft_runs|t
+post_policies|0
+post_grants_anon_auth|f|f|f|f
+post_grants_service|t|t
+post_indexes|draft_run_matches_match_id_key
+post_indexes|draft_run_matches_pkey
+post_indexes|draft_run_matches_user_idx
+post_indexes|draft_runs_one_active
+post_indexes|draft_runs_pkey
+post_indexes|draft_runs_user_idx
+post_mode_check|CHECK ((mode = ANY (ARRAY['PVE'::text, 'PVP'::text, 'PVP_PRIVATE'::text, 'DRAFT_GAUNTLET'::text])))
+post_mode_shape|CHECK ((((mode = ANY (ARRAY['PVE'::text, 'DRAFT_GAUNTLET'::text])) AND (player_b_id IS NULL) AND (deck_b_id IS NULL)) OR ((mode = ANY (ARRAY['PVP'::text, 'PVP_PRIVATE'::text])) AND (player_b_id IS NOT NULL) AND (deck_b_id IS NOT NULL) AND (player_b_id <> user_id))))
+post_rows|0|0
+duel_matches_by_mode|PVE|7
+fp_counts|135|54|7|3|1|2|10|0
+fp_public_tables|93
+fp_policies|68

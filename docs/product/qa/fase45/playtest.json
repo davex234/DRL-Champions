@@ -1,0 +1,189 @@
+{
+  "generado": "2026-09-18T09:40:00.222Z",
+  "userId": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+  "matches": [
+    {
+      "id": "2682fca7-7326-4888-8e27-c808187eedec",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "B",
+      "result": {
+        "credits": 40,
+        "verdict": "LOSS"
+      }
+    },
+    {
+      "id": "f5330cfe-28fe-493d-8195-1e46d61e1cab",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "B",
+      "result": {
+        "credits": 40,
+        "verdict": "LOSS"
+      }
+    },
+    {
+      "id": "5ca81279-d486-4f45-afd3-d3613fbdbe3c",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "A",
+      "result": {
+        "credits": 220,
+        "verdict": "WIN"
+      }
+    },
+    {
+      "id": "f75c3c95-86bd-4a47-94c6-0aee418883a4",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "A",
+      "result": {
+        "credits": 220,
+        "verdict": "WIN"
+      }
+    },
+    {
+      "id": "8c6fd3c7-9c49-4026-84b4-51de9cdb8559",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "B",
+      "result": {
+        "credits": 40,
+        "verdict": "LOSS"
+      }
+    },
+    {
+      "id": "8c3b2994-075d-4568-92eb-3ab29dfff4df",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "A",
+      "result": {
+        "credits": 220,
+        "verdict": "WIN"
+      }
+    },
+    {
+      "id": "89491bae-ac7e-46ba-ae31-557008f126b7",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "A",
+      "result": {
+        "credits": 220,
+        "verdict": "WIN"
+      }
+    },
+    {
+      "id": "f765e82e-552b-4fd5-a721-bb496bc7666b",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "A",
+      "result": {
+        "credits": 220,
+        "verdict": "WIN"
+      }
+    },
+    {
+      "id": "e328e326-165d-49a6-a373-adb04f98ae70",
+      "turns": 10,
+      "ok": true,
+      "difficulty": "NORMAL",
+      "winner": "B",
+      "result": {
+        "credits": 40,
+        "verdict": "LOSS"
+      }
+    }
+  ],
+  "doubleClick": {
+    "pulsaciones": 3,
+    "turnoAntes": 3,
+    "turnoDespues": 4,
+    "extraTurns": 0
+  },
+  "fingerprint": {
+    "before": {
+      "_userId": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+      "_fase": "before",
+      "_instante": "2026-09-18T09:05:46.388Z",
+      "_etiqueta": "tras arranque real, justo antes de la partida",
+      "creditos": 6000,
+      "nivel": 1,
+      "xpCuenta": 648,
+      "puntos": 0,
+      "packsAbiertosPerfil": 0,
+      "packsAbiertosJuego": 4,
+      "cartas": 20,
+      "sobresHash": "5f929e4ad45e9b8f722e055ab2d55dca",
+      "sobresTotal": 0,
+      "mazos": 1,
+      "mazoActivo": "c39eebc7-ad97-4c83-9be0-212e77cf5a58",
+      "partidas": 0,
+      "partidasGanadas": 0,
+      "partidasPerdidas": 0,
+      "partidasCerradas": 0,
+      "accionesDeTurno": 0,
+      "asientosCredito": 1,
+      "sumaCredito": 6000,
+      "paseHash": null,
+      "logros": 0,
+      "ratingHash": null,
+      "eventosRating": 0,
+      "campanaHash": null,
+      "intentosCampana": 0,
+      "draftRuns": 0,
+      "favoritos": 0
+    },
+    "after": {
+      "_userId": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+      "_fase": "after",
+      "_instante": "2026-09-18T09:26:39.987Z",
+      "_etiqueta": "tras todo el playtest: 4 partidas cerradas + 1 abierta",
+      "creditos": 6560,
+      "nivel": 1,
+      "xpCuenta": 943,
+      "puntos": 28,
+      "packsAbiertosPerfil": 0,
+      "packsAbiertosJuego": 4,
+      "cartas": 20,
+      "sobresHash": "5f929e4ad45e9b8f722e055ab2d55dca",
+      "sobresTotal": 0,
+      "mazos": 1,
+      "mazoActivo": "c39eebc7-ad97-4c83-9be0-212e77cf5a58",
+      "partidas": 6,
+      "partidasGanadas": 2,
+      "partidasPerdidas": 3,
+      "partidasCerradas": 5,
+      "accionesDeTurno": 0,
+      "asientosCredito": 6,
+      "sumaCredito": 6560,
+      "paseHash": null,
+      "logros": 0,
+      "ratingHash": null,
+      "eventosRating": 0,
+      "campanaHash": null,
+      "intentosCampana": 0,
+      "draftRuns": 0,
+      "favoritos": 0
+    },
+    "changed": [
+      "creditos",
+      "xpCuenta",
+      "puntos",
+      "partidas",
+      "partidasGanadas",
+      "partidasPerdidas",
+      "partidasCerradas",
+      "asientosCredito",
+      "sumaCredito"
+    ],
+    "note": "Una partida real crea su fila en duel_matches y abona créditos/XP: eso es lo que debe cambiar. Nada más."
+  }
+}

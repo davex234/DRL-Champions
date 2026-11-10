@@ -1,0 +1,349 @@
+{
+  "question": "¿Atacar primero da ventaja? ¿Hay ventaja de lado A/B?",
+  "mirror": {
+    "HARD": {
+      "matches": 25000,
+      "firstAttackerWin": {
+        "n": 23958,
+        "rate": 0.5277,
+        "lo": 0.5214,
+        "hi": 0.534
+      },
+      "drawRate": 0.0417,
+      "sideA": {
+        "n": 25000,
+        "rate": 0.4996,
+        "lo": 0.4934,
+        "hi": 0.5058
+      },
+      "encounter": {
+        "attackerWin": {
+          "n": 250000,
+          "rate": 0.8017,
+          "lo": 0.8002,
+          "hi": 0.8033
+        },
+        "tieRate": 0.0222,
+        "firstAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.8003,
+          "lo": 0.7981,
+          "hi": 0.8025
+        },
+        "secondAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.8032,
+          "lo": 0.801,
+          "hi": 0.8054
+        }
+      },
+      "decidedBy": {
+        "NONE": 1042,
+        "SCORE": 16491,
+        "STAT_MARGIN": 7467
+      }
+    },
+    "NORMAL": {
+      "matches": 25000,
+      "firstAttackerWin": {
+        "n": 24933,
+        "rate": 0.478,
+        "lo": 0.4718,
+        "hi": 0.4842
+      },
+      "drawRate": 0.0027,
+      "sideA": {
+        "n": 25000,
+        "rate": 0.5048,
+        "lo": 0.4986,
+        "hi": 0.511
+      },
+      "encounter": {
+        "attackerWin": {
+          "n": 250000,
+          "rate": 0.5883,
+          "lo": 0.5864,
+          "hi": 0.5903
+        },
+        "tieRate": 0.0295,
+        "firstAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.5777,
+          "lo": 0.5749,
+          "hi": 0.5804
+        },
+        "secondAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.599,
+          "lo": 0.5963,
+          "hi": 0.6017
+        }
+      },
+      "decidedBy": {
+        "NONE": 67,
+        "SCORE": 19302,
+        "STAT_MARGIN": 5631
+      }
+    },
+    "SMART": {
+      "matches": 25000,
+      "firstAttackerWin": {
+        "n": 13233,
+        "rate": 0.9269,
+        "lo": 0.9224,
+        "hi": 0.9312
+      },
+      "drawRate": 0.4707,
+      "sideA": {
+        "n": 25000,
+        "rate": 0.4968,
+        "lo": 0.4906,
+        "hi": 0.503
+      },
+      "encounter": {
+        "attackerWin": {
+          "n": 250000,
+          "rate": 0.9765,
+          "lo": 0.9759,
+          "hi": 0.9771
+        },
+        "tieRate": 0.0235,
+        "firstAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.9975,
+          "lo": 0.9972,
+          "hi": 0.9978
+        },
+        "secondAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.9556,
+          "lo": 0.9544,
+          "hi": 0.9567
+        }
+      },
+      "decidedBy": {
+        "NONE": 11767,
+        "SCORE": 5278,
+        "STAT_MARGIN": 7955
+      }
+    },
+    "RANDOM": {
+      "matches": 25000,
+      "firstAttackerWin": {
+        "n": 24932,
+        "rate": 0.4976,
+        "lo": 0.4914,
+        "hi": 0.5038
+      },
+      "drawRate": 0.0027,
+      "sideA": {
+        "n": 25000,
+        "rate": 0.5005,
+        "lo": 0.4943,
+        "hi": 0.5067
+      },
+      "encounter": {
+        "attackerWin": {
+          "n": 250000,
+          "rate": 0.4745,
+          "lo": 0.4726,
+          "hi": 0.4765
+        },
+        "tieRate": 0.0502,
+        "firstAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.4739,
+          "lo": 0.4711,
+          "hi": 0.4767
+        },
+        "secondAttackerAttacks": {
+          "n": 125000,
+          "rate": 0.4752,
+          "lo": 0.4724,
+          "hi": 0.478
+        }
+      },
+      "decidedBy": {
+        "NONE": 68,
+        "SCORE": 20275,
+        "STAT_MARGIN": 4657
+      }
+    }
+  },
+  "pairedSideSwap": {
+    "method": "misma pareja de mazos y misma semilla; solo cambia quién ataca primero (HARD vs HARD)",
+    "effectOnFirstAttackerScore": {
+      "pairs": 50000,
+      "mean": -0.08634,
+      "sd": 0.50378,
+      "se": 0.00225,
+      "lo": -0.09076,
+      "hi": -0.08192
+    },
+    "firstAttackerWin": {
+      "n": 99996,
+      "rate": 0.4568,
+      "lo": 0.4537,
+      "hi": 0.4599
+    },
+    "sideA": {
+      "n": 100000,
+      "rate": 0.4988,
+      "lo": 0.4957,
+      "hi": 0.5019
+    }
+  },
+  "field": {
+    "HARD": {
+      "firstAttackerWin": {
+        "n": 299983,
+        "rate": 0.4575,
+        "lo": 0.4557,
+        "hi": 0.4593
+      },
+      "sideA": {
+        "n": 300000,
+        "rate": 0.5012,
+        "lo": 0.4994,
+        "hi": 0.503
+      },
+      "encounter": {
+        "attackerWin": {
+          "n": 3000000,
+          "rate": 0.7166,
+          "lo": 0.7161,
+          "hi": 0.7172
+        },
+        "tieRate": 0.006,
+        "firstAttackerAttacks": {
+          "n": 1500000,
+          "rate": 0.699,
+          "lo": 0.6982,
+          "hi": 0.6997
+        },
+        "secondAttackerAttacks": {
+          "n": 1500000,
+          "rate": 0.7343,
+          "lo": 0.7336,
+          "hi": 0.735
+        }
+      },
+      "perTurn": [
+        {
+          "turn": 1,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.6643,
+            "lo": 0.6626,
+            "hi": 0.666
+          },
+          "tieRate": 0.0018
+        },
+        {
+          "turn": 2,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.7365,
+            "lo": 0.7349,
+            "hi": 0.738
+          },
+          "tieRate": 0.0018
+        },
+        {
+          "turn": 3,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.6748,
+            "lo": 0.6731,
+            "hi": 0.6765
+          },
+          "tieRate": 0.0024
+        },
+        {
+          "turn": 4,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.7224,
+            "lo": 0.7208,
+            "hi": 0.724
+          },
+          "tieRate": 0.0023
+        },
+        {
+          "turn": 5,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.6941,
+            "lo": 0.6924,
+            "hi": 0.6957
+          },
+          "tieRate": 0.0029
+        },
+        {
+          "turn": 6,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.7277,
+            "lo": 0.7261,
+            "hi": 0.7293
+          },
+          "tieRate": 0.0029
+        },
+        {
+          "turn": 7,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.7171,
+            "lo": 0.7155,
+            "hi": 0.7187
+          },
+          "tieRate": 0.0034
+        },
+        {
+          "turn": 8,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.7427,
+            "lo": 0.7412,
+            "hi": 0.7443
+          },
+          "tieRate": 0.0035
+        },
+        {
+          "turn": 9,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.7446,
+            "lo": 0.743,
+            "hi": 0.7462
+          },
+          "tieRate": 0.005
+        },
+        {
+          "turn": 10,
+          "attackerWin": {
+            "n": 300000,
+            "rate": 0.7423,
+            "lo": 0.7407,
+            "hi": 0.7438
+          },
+          "tieRate": 0.034
+        }
+      ]
+    },
+    "NORMAL": {
+      "firstAttackerWin": {
+        "n": 59991,
+        "rate": 0.4727,
+        "lo": 0.4687,
+        "hi": 0.4767
+      },
+      "sideA": {
+        "n": 60000,
+        "rate": 0.5005,
+        "lo": 0.4965,
+        "hi": 0.5045
+      }
+    }
+  }
+}

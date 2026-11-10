@@ -1,0 +1,4 @@
+ucc K|0
+cos K|0
+cards K|31|30
+ucc all|0

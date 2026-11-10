@@ -1,0 +1,14 @@
+{
+  "twoDevices": {
+    "dev1": 200,
+    "dev2": 200
+  },
+  "logoutStatus": 204,
+  "afterLogout": {
+    "dev1": 200,
+    "dev2": 401,
+    "dev2Pvp": 401
+  },
+  "relogin": 200,
+  "note": "getSession valida el Bearer contra GoTrue: un token de una sesión cerrada responde 401; el otro dispositivo sigue; volver a entrar recupera la partida (el estado está en el servidor)."
+}

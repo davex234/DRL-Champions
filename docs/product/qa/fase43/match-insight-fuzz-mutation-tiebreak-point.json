@@ -1,0 +1,147 @@
+{
+  "phase": 43,
+  "kind": "match-insight-fuzz",
+  "histories": 5000,
+  "engineMatches": 2000,
+  "decidedBySynthetic": {
+    "SCORE": 4266,
+    "OVR_TIEBREAK": 501,
+    "STAT_MARGIN": 232,
+    "NONE": 1
+  },
+  "decidedByEngine": {
+    "SCORE": 1718,
+    "OVR_TIEBREAK": 254,
+    "STAT_MARGIN": 27,
+    "NONE": 1
+  },
+  "mutate": "tiebreak-point",
+  "violations": 242,
+  "byInvariant": {
+    "no-wrong-points": 121,
+    "consistent": 121
+  },
+  "sample": [
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-176"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-176"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-196"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-196"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-242"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-242"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-255"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-255"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-259"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-259"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-325"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-325"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-335"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-335"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-376"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-376"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-390"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-390"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-400"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-400"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-448"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-448"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-479"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-479"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-480"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-480"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-524"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-524"
+    },
+    {
+      "inv": "no-wrong-points",
+      "detail": "synthetic-541"
+    },
+    {
+      "inv": "consistent",
+      "detail": "synthetic-541"
+    }
+  ],
+  "ms": 321
+}

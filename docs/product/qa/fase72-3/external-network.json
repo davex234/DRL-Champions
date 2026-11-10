@@ -1,0 +1,57 @@
+{
+  "at": "2026-09-29T19:13:13.982Z",
+  "method": "Resource Timing de toda la sesión (login, tablero, recarga, reconexión) + fuentes de las pistas; el asset de la pista es CSS background, así que también cuenta",
+  "byWidth": {
+    "390": {
+      "foreign": [
+        "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap",
+        "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FvOreec.woff2",
+        "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      ],
+      "hintAssets": [
+        "http://127.0.0.1:3005/flags/cn.svg",
+        "http://127.0.0.1:3005/flags/kr.svg",
+        "http://127.0.0.1:3005/flags/pl.svg",
+        "http://127.0.0.1:3005/hints/teams/c9.png",
+        "http://127.0.0.1:3005/hints/teams/fnatic.png",
+        "http://127.0.0.1:3005/hints/teams/giantx.png"
+      ]
+    },
+    "1024": {
+      "foreign": [
+        "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap",
+        "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FvOreec.woff2",
+        "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      ],
+      "hintAssets": [
+        "http://127.0.0.1:3005/flags/cn.svg",
+        "http://127.0.0.1:3005/flags/kr.svg",
+        "http://127.0.0.1:3005/flags/pl.svg",
+        "http://127.0.0.1:3005/hints/teams/c9.png",
+        "http://127.0.0.1:3005/hints/teams/fnatic.png",
+        "http://127.0.0.1:3005/hints/teams/giantx.png"
+      ]
+    },
+    "1440": {
+      "foreign": [
+        "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap",
+        "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FvOreec.woff2",
+        "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&display=swap",
+        "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2",
+        "https://fonts.gstatic.com/s/rajdhani/v17/LDI2apCSOBg7S-QT7pa8FvOreec.woff2"
+      ],
+      "hintAssets": [
+        "http://127.0.0.1:3005/flags/cn.svg",
+        "http://127.0.0.1:3005/flags/kr.svg",
+        "http://127.0.0.1:3005/flags/pl.svg",
+        "http://127.0.0.1:3005/hints/teams/c9.png",
+        "http://127.0.0.1:3005/hints/teams/fnatic.png",
+        "http://127.0.0.1:3005/hints/teams/giantx.png"
+      ]
+    }
+  },
+  "foreignTotal": 14
+}

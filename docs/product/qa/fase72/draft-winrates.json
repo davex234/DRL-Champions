@@ -1,0 +1,98 @@
+{
+  "runs": 5000,
+  "dataVersion": "VCT-2026",
+  "stageDifficulty": [
+    "EASY",
+    "NORMAL",
+    "NORMAL",
+    "HARD",
+    "HARD"
+  ],
+  "profiles": {
+    "CASUAL": {
+      "label": "elige al azar y juega al azar",
+      "policy": "RANDOM",
+      "winsDistribution": [
+        0.336,
+        0.567,
+        0.0752,
+        0.0214,
+        0.0004,
+        0
+      ],
+      "stageWinRate": [
+        0.664,
+        0.1461,
+        0.2247,
+        0.0183,
+        0
+      ],
+      "meanWins": 0.783,
+      "drawShare": 0
+    },
+    "REGULAR": {
+      "label": "elige por OVR y juega como el bot NORMAL",
+      "policy": "NORMAL",
+      "winsDistribution": [
+        0.0248,
+        0.2606,
+        0.1774,
+        0.37,
+        0.112,
+        0.0552
+      ],
+      "stageWinRate": [
+        0.9752,
+        0.7328,
+        0.7517,
+        0.3112,
+        0.3301
+      ],
+      "meanWins": 2.449,
+      "drawShare": 0.0002
+    },
+    "SKILLED": {
+      "label": "elige por pico de stat y juega con heurística completa (SMART)",
+      "policy": "SMART",
+      "winsDistribution": [
+        0,
+        0.0174,
+        0.0116,
+        0.1682,
+        0.1352,
+        0.6676
+      ],
+      "stageWinRate": [
+        1,
+        0.9826,
+        0.9882,
+        0.8268,
+        0.8316
+      ],
+      "meanWins": 4.424,
+      "drawShare": 0
+    },
+    "ORACLE": {
+      "label": "cota superior: pico de stat + ve el mazo rival (imposible para un humano)",
+      "policy": "ORACLE",
+      "winsDistribution": [
+        0,
+        0.0054,
+        0.0052,
+        0.0924,
+        0.0762,
+        0.8208
+      ],
+      "stageWinRate": [
+        1,
+        0.9946,
+        0.9948,
+        0.9066,
+        0.9151
+      ],
+      "meanWins": 4.702,
+      "drawShare": 0
+    }
+  },
+  "elapsedMs": 16056
+}

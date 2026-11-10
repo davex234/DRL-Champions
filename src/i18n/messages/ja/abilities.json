@@ -1,0 +1,23 @@
+{
+  "abrir la entrada": "エントリーを開く",
+  "anclar el sitio": "サイトを固める",
+  "cegar para abrir": "フラッシュでエントリー",
+  "controlar la zona": "エリアをコントロール",
+  "corta visión": "視界を遮る",
+  "cortar visión": "視界を遮断",
+  "crear espacio": "スペースを作る",
+  "defender": "守る",
+  "humo móvil": "移動式スモーク",
+  "jugar el post-plant": "ポストプラントをプレイ",
+  "proteger el espacio": "スペースを守る",
+  "proteger el post-plant": "ポストプラントを守る",
+  "ralentizar el avance": "進行を遅らせる",
+  "rompe línea": "ラインを崩す",
+  "sacar información": "情報を集める",
+  "señuelo": "デコイ",
+  "suprimir el ángulo": "アングルを制圧",
+  "tomar espacio": "スペースを取る",
+  "vender una finta": "フェイクを仕掛ける",
+  "{preExec} utils en el execute": "エグゼクで{preExec}個のユーティリティ",
+  "{retakeUtil} utils en el retake": "リテイクで{retakeUtil}個のユーティリティ"
+}

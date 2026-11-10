@@ -1,0 +1,2520 @@
+{
+ "base": "http://127.0.0.1:3086",
+ "at": "2026-10-05T09:12:59.144Z",
+ "total": 189,
+ "passed": 189,
+ "failed": 0,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 327.796875,
+     "bottom": 439.796875,
+     "left": 380,
+     "right": 1060
+    },
+    "s": {
+     "top": 463.796875,
+     "bottom": 570.1875,
+     "left": 380,
+     "right": 1060
+    },
+    "r": {
+     "top": 594.1875,
+     "bottom": 618.1875,
+     "left": 432,
+     "right": 1008
+    },
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "win",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 327.796875,
+     "bottom": 439.796875,
+     "left": 380,
+     "right": 1060
+    },
+    "s": {
+     "top": 463.796875,
+     "bottom": 570.1875,
+     "left": 380,
+     "right": 1060
+    },
+    "r": {
+     "top": 594.1875,
+     "bottom": 618.1875,
+     "left": 432,
+     "right": 1008
+    },
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 315.796875,
+     "bottom": 427.796875,
+     "left": 380,
+     "right": 1060
+    },
+    "s": {
+     "top": 451.796875,
+     "bottom": 558.1875,
+     "left": 380,
+     "right": 1060
+    },
+    "r": {
+     "top": 582.1875,
+     "bottom": 630.1875,
+     "left": 432,
+     "right": 1008
+    },
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "AISLAMIENTO: campaña = resultado COMPLETO (no el mínimo)",
+   "ok": true,
+   "detail": "QA SYNTHETIC · Mi equipo · dificultad NormalVictoria6–4Ganó más enfrentamientos (6-4).RecompensaPuntos de rango+14Ver cl"
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 261.796875,
+     "bottom": 373.796875,
+     "left": 172,
+     "right": 852
+    },
+    "s": {
+     "top": 397.796875,
+     "bottom": 504.1875,
+     "left": 172,
+     "right": 852
+    },
+    "r": {
+     "top": 528.1875,
+     "bottom": 552.1875,
+     "left": 224,
+     "right": 800
+    },
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "win",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 261.796875,
+     "bottom": 373.796875,
+     "left": 172,
+     "right": 852
+    },
+    "s": {
+     "top": 397.796875,
+     "bottom": 504.1875,
+     "left": 172,
+     "right": 852
+    },
+    "r": {
+     "top": 528.1875,
+     "bottom": 552.1875,
+     "left": 224,
+     "right": 800
+    },
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 249.796875,
+     "bottom": 361.796875,
+     "left": 172,
+     "right": 852
+    },
+    "s": {
+     "top": 385.796875,
+     "bottom": 492.1875,
+     "left": 172,
+     "right": 852
+    },
+    "r": {
+     "top": 516.1875,
+     "bottom": 564.1875,
+     "left": 224,
+     "right": 800
+    },
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "AISLAMIENTO: campaña = resultado COMPLETO (no el mínimo)",
+   "ok": true,
+   "detail": "QA SYNTHETIC · Mi equipo · dificultad NormalVictoria6–4Ganó más enfrentamientos (6-4).RecompensaPuntos de rango+14Ver cl"
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 322.671875,
+     "bottom": 377.265625,
+     "left": 52,
+     "right": 338
+    },
+    "s": {
+     "top": 401.265625,
+     "bottom": 456.828125,
+     "left": 52,
+     "right": 338
+    },
+    "r": {
+     "top": 480.828125,
+     "bottom": 503.328125,
+     "left": 52,
+     "right": 338
+    },
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "390: botones apilados",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "win",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 322.671875,
+     "bottom": 377.265625,
+     "left": 52,
+     "right": 338
+    },
+    "s": {
+     "top": 401.265625,
+     "bottom": 456.828125,
+     "left": 52,
+     "right": 338
+    },
+    "r": {
+     "top": 480.828125,
+     "bottom": 503.328125,
+     "left": 52,
+     "right": 338
+    },
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "390: botones apilados",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "loss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 300.171875,
+     "bottom": 354.765625,
+     "left": 52,
+     "right": 338
+    },
+    "s": {
+     "top": 378.765625,
+     "bottom": 434.328125,
+     "left": 52,
+     "right": 338
+    },
+    "r": {
+     "top": 458.328125,
+     "bottom": 525.828125,
+     "left": 52,
+     "right": 338
+    },
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 605.828125,
+     "bottom": 657.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 669.828125,
+     "bottom": 721.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "390: botones apilados",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 605.828125,
+     "bottom": 657.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 669.828125,
+     "bottom": 721.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "draw",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "AISLAMIENTO: campaña = resultado COMPLETO (no el mínimo)",
+   "ok": true,
+   "detail": "QA SYNTHETIC · Mi equipo · dificultad NormalVictoria6–4Ganó más enfrentamientos (6-4).RecompensaPuntos de rango+14Ver cl"
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "campaign",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 327.796875,
+     "bottom": 439.796875,
+     "left": 380,
+     "right": 1060
+    },
+    "s": {
+     "top": 463.796875,
+     "bottom": 570.1875,
+     "left": 380,
+     "right": 1060
+    },
+    "r": {
+     "top": 594.1875,
+     "bottom": 618.1875,
+     "left": 432,
+     "right": 1008
+    },
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 327.796875,
+     "bottom": 439.796875,
+     "left": 380,
+     "right": 1060
+    },
+    "s": {
+     "top": 463.796875,
+     "bottom": 570.1875,
+     "left": 380,
+     "right": 1060
+    },
+    "r": {
+     "top": 594.1875,
+     "bottom": 618.1875,
+     "left": 432,
+     "right": 1008
+    },
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 714.1875,
+     "bottom": 766.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 315.796875,
+     "bottom": 427.796875,
+     "left": 380,
+     "right": 1060
+    },
+    "s": {
+     "top": 451.796875,
+     "bottom": 558.1875,
+     "left": 380,
+     "right": 1060
+    },
+    "r": {
+     "top": 582.1875,
+     "bottom": 630.1875,
+     "left": 432,
+     "right": 1008
+    },
+    "vh": 900
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 432,
+     "right": 714,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 726.1875,
+     "bottom": 778.1875,
+     "left": 726,
+     "right": 1008,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "AISLAMIENTO: campaña = resultado COMPLETO (no el mínimo)",
+   "ok": true,
+   "detail": "QA SYNTHETIC · Mi equipo · dificultad NormalVictoria6–4Ganó más enfrentamientos (6-4).RecompensaPuntos de rango+14Ver cl"
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 261.796875,
+     "bottom": 373.796875,
+     "left": 172,
+     "right": 852
+    },
+    "s": {
+     "top": 397.796875,
+     "bottom": 504.1875,
+     "left": 172,
+     "right": 852
+    },
+    "r": {
+     "top": 528.1875,
+     "bottom": 552.1875,
+     "left": 224,
+     "right": 800
+    },
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 261.796875,
+     "bottom": 373.796875,
+     "left": 172,
+     "right": 852
+    },
+    "s": {
+     "top": 397.796875,
+     "bottom": 504.1875,
+     "left": 172,
+     "right": 852
+    },
+    "r": {
+     "top": 528.1875,
+     "bottom": 552.1875,
+     "left": 224,
+     "right": 800
+    },
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 648.1875,
+     "bottom": 700.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 249.796875,
+     "bottom": 361.796875,
+     "left": 172,
+     "right": 852
+    },
+    "s": {
+     "top": 385.796875,
+     "bottom": 492.1875,
+     "left": 172,
+     "right": 852
+    },
+    "r": {
+     "top": 516.1875,
+     "bottom": 564.1875,
+     "left": 224,
+     "right": 800
+    },
+    "vh": 768
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "escritorio: botones lado a lado",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 224,
+     "right": 506,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 660.1875,
+     "bottom": 712.1875,
+     "left": 518,
+     "right": 800,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "AISLAMIENTO: campaña = resultado COMPLETO (no el mínimo)",
+   "ok": true,
+   "detail": "QA SYNTHETIC · Mi equipo · dificultad NormalVictoria6–4Ganó más enfrentamientos (6-4).RecompensaPuntos de rango+14Ver cl"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 322.671875,
+     "bottom": 377.265625,
+     "left": 52,
+     "right": 338
+    },
+    "s": {
+     "top": 401.265625,
+     "bottom": 456.828125,
+     "left": 52,
+     "right": 338
+    },
+    "r": {
+     "top": 480.828125,
+     "bottom": 503.328125,
+     "left": 52,
+     "right": 338
+    },
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "390: botones apilados",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "win",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 322.671875,
+     "bottom": 377.265625,
+     "left": 52,
+     "right": 338
+    },
+    "s": {
+     "top": 401.265625,
+     "bottom": 456.828125,
+     "left": 52,
+     "right": 338
+    },
+    "r": {
+     "top": 480.828125,
+     "bottom": 503.328125,
+     "left": 52,
+     "right": 338
+    },
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "390: botones apilados",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 583.328125,
+     "bottom": 635.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 647.328125,
+     "bottom": 699.328125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "loss",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "resultado mínimo",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "veredicto, marcador y motivo visibles en la primera pantalla",
+   "ok": true,
+   "detail": {
+    "v": {
+     "top": 300.171875,
+     "bottom": 354.765625,
+     "left": 52,
+     "right": 338
+    },
+    "s": {
+     "top": 378.765625,
+     "bottom": 434.328125,
+     "left": 52,
+     "right": 338
+    },
+    "r": {
+     "top": 458.328125,
+     "bottom": 525.828125,
+     "left": 52,
+     "right": 338
+    },
+    "vh": 844
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "exactamente DOS botones (Seguir jugando · Volver al menú principal)",
+   "ok": true,
+   "detail": [
+    "Seguir jugando",
+    "Volver al menú principal"
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "los botones caben en la primera pantalla y miden ≥ 44 px",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 605.828125,
+     "bottom": 657.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 669.828125,
+     "bottom": 721.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "390: botones apilados",
+   "ok": true,
+   "detail": [
+    {
+     "text": "Seguir jugando",
+     "top": 605.828125,
+     "bottom": 657.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    },
+    {
+     "text": "Volver al menú principal",
+     "top": 669.828125,
+     "bottom": 721.828125,
+     "left": 32,
+     "right": 358,
+     "h": 52
+    }
+   ]
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "nada de recompensas, progreso, objetivos, logros, temporada ni misiones",
+   "ok": true,
+   "detail": null
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "la pantalla acaba en los botones (ningún panel después)",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "movimiento reducido: sin barrido de luz",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "draw",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "AISLAMIENTO: campaña = resultado COMPLETO (no el mínimo)",
+   "ok": true,
+   "detail": "QA SYNTHETIC · Mi equipo · dificultad NormalVictoria6–4Ganó más enfrentamientos (6-4).RecompensaPuntos de rango+14Ver cl"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "campaign",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  }
+ ]
+}

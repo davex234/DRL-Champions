@@ -1,0 +1,53 @@
+{
+  "phase": "F69",
+  "bug": "F68-012",
+  "reproduction": {
+    "build": "F68",
+    "buyPhaseButtons": [
+      "COMPRAR Y EMPEZAR RONDA ▸",
+      "JUGAR LA RONDA"
+    ]
+  },
+  "analysis": "Los dos botones ejecutaban loop.confirmBuy(tier) con el nivel marcado (misma semántica). Igual en la preparación: «Confirmar plan → Fase de compra» del panel y «Comenzar fase de compra» del pie hacían confirmPreparation(input). La CTA canónica es la del pie anclado (siempre visible, compra exactamente lo marcado).",
+  "fix": "BuyPhasePanel y CoachTacticalPanel: onConfirm opcional; en el partido no se pasa → solo existe la CTA del pie. En uso aislado el botón se conserva (no se pierde ninguna acción distinta).",
+  "after": {
+    "build": "F69",
+    "buyPhaseButtons": [
+      "JUGAR LA RONDA"
+    ],
+    "prepClicks": [
+      "COMENZAR FASE DE COMPRA",
+      "JUGAR LA RONDA",
+      "SIGUIENTE RONDA",
+      "VER RESULTADO DEL PARTIDO",
+      "decisión: CONFÍO EN MI IGL",
+      "decisión: JUEGA POR PICKS (PACIENCIA)",
+      "decisión: JUGAR POR PICKS",
+      "decisión: REAGRUPAR",
+      "decisión: RUSH AL SITIO",
+      "decisión: SALVA EL ARMA",
+      "decisión: SALVAR EL ARMAMENTO",
+      "decisión: ¡EXECUTE YA!"
+    ],
+    "reading": "En 15 rondas la preparación solo ofreció «Comenzar fase de compra» (el arnés prioriza «Confirmar plan» y nunca lo encontró) y la compra solo «Jugar la ronda»."
+  },
+  "screenshots": [
+    "screenshots/coach-D-final-D-final-buy-1440.png",
+    "screenshots/coach-D-final-D-final-prep-r1-1440.png",
+    "screenshots/coach-D-repro-D-repro-buy-1440.png"
+  ],
+  "tests": [
+    "src/components/coach/f69.coachCta.test.tsx (3)"
+  ],
+  "status": "FIXED — VERIFIED ON FINAL BUILD",
+  "finalLiveRunResumed": {
+    "at": "2026-09-28T10:35:43.175Z",
+    "build": "d74dc352",
+    "buyPhaseButtons": [
+      "JUGAR LA RONDA"
+    ],
+    "allBuyObservations": [
+      "JUGAR LA RONDA"
+    ]
+  }
+}

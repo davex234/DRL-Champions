@@ -1,0 +1,32 @@
+{
+  "at": "2026-09-30T18:52:29.917Z",
+  "0059": {
+    "file": "supabase/migrations/0059_crafting_missions.sql",
+    "sha256": "5b1205bb96f0009d603bb62f7fa5ed19995c0a89acf8e123202fcb0365c2124d",
+    "identicalToDryRun": true,
+    "applied": "2026-09-30 ~14:59Z (BEGIN/COMMIT, psql exit 0; evidencia docs/product/qa/fase73-production/migration-apply.json)",
+    "partial": false,
+    "drift": "ninguna: cuerpos de las 3 RPC idénticos por md5, columnas/políticas/índices/disparadores = SQL (schema.json)"
+  },
+  "salvageRace": {
+    "finding": "REAL y afecta al crafteo: app_salvage_cards (0019, igual en producción: md5 7a2fc365…) bloquea solo los ejemplares elegidos y la regla «queda una copia» vive en Node. La copia conservada es determinista (uid menor), así que desguace+desguace NO puede dejarte a 0; desguace del sobrante + intercambio F73 que consume la copia conservada SÍ.",
+    "control": "sin 0060: las dos operaciones OK y 0 copias (scripts/_f73f-race-control.ts)",
+    "fix": "0060_salvage_last_copy_atomic.sql: mismas filas bloqueadas que app_craft_card + LAST_COPY dentro de la RPC; firma, importe, idempotencia y permisos sin cambios",
+    "dryRun": "docs/product/qa/fase73-final/migration-0060-dryrun.txt (4 sondas PASS, ROLLBACK, producción intacta)",
+    "tests": "src/server/services/f73.salvageRace.test.ts 5/5 (con barrera de entrelazado real)",
+    "status": "AUTORIZADA Y APLICADA",
+    "application": {
+      "authorizedBy": "usuario (respuesta explícita, 2026-09-30)",
+      "sha256": "e4820de4cbede3f93a43c01c022a909ae74b7a2e63d12ac97078246ac7321429",
+      "backup": "/opt/nexus/backups/supabase-drlcards/pre-0060/20260930T190336Z (COMPLETE, SHA256SUMS OK, pg_restore -l 2034)",
+      "preflight": "cuerpo vivo = 0019 (md5 7a2fc365…), sin guardia; tablas de 0059 presentes; admins=1",
+      "applied": "2026-09-30T19:04:11Z, una vez, BEGIN/COMMIT, psql exit 0",
+      "postflight": "md5 del cuerpo vivo 79b03776… = el del SQL; LAST_COPY presente; SECURITY DEFINER; solo service_role",
+      "integrity": "antes = después (790 copias, 444 ops, suma de créditos 1257115, md5 de uids idéntico)",
+      "liveProbe": "migration-0060-live-probe.txt (4 sondas PASS dentro de ROLLBACK)",
+      "realSalvage": "salvage-real-0060.json (F: pago = preview, queda 1 copia, reintento repeated)"
+    },
+    "nuance": "Desguace + desguace NO podía dejar 0 copias (la copia conservada es determinista: uid menor). El riesgo real era desguace + intercambio F73. La deuda anterior lo describía de más."
+  },
+  "pins": "11 tests que fijan la cabeza de migraciones actualizados a 0060 (autorizada y aplicada), sin relajar ninguna aserción; release.ts MIGRATION_HEAD=0060; backup EXPECTED_HEAD=0060"
+}

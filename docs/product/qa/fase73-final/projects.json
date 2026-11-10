@@ -1,0 +1,28 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "published": 0,
+  "rows": [
+    {
+      "id": "qa-f73-proyecto",
+      "status": "RETIRED",
+      "card": "darker__base"
+    },
+    {
+      "id": "qa-f73-proyecto-r2",
+      "status": "RETIRED",
+      "card": "darker__base"
+    },
+    {
+      "id": "qa-f73-proyecto-r3",
+      "status": "RETIRED",
+      "card": "darker__base"
+    },
+    {
+      "id": "qa-f73-proyecto-r4",
+      "status": "RETIRED",
+      "card": "darker__base"
+    }
+  ],
+  "claims": 3,
+  "note": "0 proyectos publicados; los 4 son QA retirados. Carta objetivo QA: darker__base (REAL del catálogo)."
+}

@@ -1,0 +1,29 @@
+{
+  "model": {
+    "pvp": "actionId (UUID por gesto) + PK (match_id, action_id); reintento = éxito idempotente, también si llega a la vez que el original (F66)",
+    "pve": "state_version condicionada + carta de un solo uso: el reintento de una jugada ya aplicada se rechaza (409) y nunca se aplica dos veces",
+    "queue": "índice único parcial por usuario (10 JOIN = 1 entrada)",
+    "rating": "índice único duel_pvp_rating_events_once",
+    "rewards": "ref duel:<matchId> en el libro mayor + cupo diario atómico"
+  },
+  "realServer": {
+    "at": "2026-09-26T19:07:20.347Z",
+    "sameActionIdFive": {
+      "statuses": {
+        "200": 1,
+        "409": 4
+      },
+      "lateRetry": 200,
+      "versionBefore": 2,
+      "versionAfter": 3,
+      "ok": true
+    }
+  },
+  "pveLostResponse": {
+    "historyBefore": 1,
+    "afterAbort": 1,
+    "retryStatus": 200,
+    "afterRetry": 2,
+    "ok": true
+  }
+}

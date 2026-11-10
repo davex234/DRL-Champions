@@ -1,0 +1,113 @@
+{
+ "expectedLocalSalvage": 3900,
+ "tienda-1440": {
+  "scrollX": 0,
+  "prices": [],
+  "desguace": [],
+  "texto6": false,
+  "vender": false,
+  "errors": []
+ },
+ "packs-1440": {
+  "scrollX": 0,
+  "prices": [
+   "5.000 créditos",
+   "3.500 créditos",
+   "1.000 créditos",
+   "3.500 créditos",
+   "1.000créditos",
+   "2.500créditos",
+   "4.000créditos",
+   "12.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.000créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "5.000créditos",
+   "8.000créditos",
+   "6.000créditos"
+  ],
+  "desguace": [],
+  "texto6": false,
+  "vender": false,
+  "errors": []
+ },
+ "inventario-1440": {
+  "scrollX": 0,
+  "prices": [],
+  "desguace": [
+   "DESGUAZAR 3 · 🪙 3.900"
+  ],
+  "texto6": true,
+  "vender": false,
+  "errors": []
+ },
+ "coleccion-1440": {
+  "scrollX": 0,
+  "prices": [],
+  "desguace": [],
+  "texto6": false,
+  "vender": false,
+  "errors": []
+ },
+ "tienda-390": {
+  "scrollX": 0,
+  "prices": [],
+  "desguace": [],
+  "texto6": false,
+  "vender": false,
+  "errors": []
+ },
+ "packs-390": {
+  "scrollX": 0,
+  "prices": [
+   "5.000 créditos",
+   "3.500 créditos",
+   "1.000 créditos",
+   "3.500 créditos",
+   "1.000créditos",
+   "2.500créditos",
+   "4.000créditos",
+   "12.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.000créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "3.500créditos",
+   "5.000créditos",
+   "8.000créditos",
+   "6.000créditos"
+  ],
+  "desguace": [],
+  "texto6": false,
+  "vender": false,
+  "errors": []
+ },
+ "inventario-390": {
+  "scrollX": 0,
+  "prices": [],
+  "desguace": [
+   "DESGUAZAR 3 · 🪙 3.900"
+  ],
+  "texto6": true,
+  "vender": false,
+  "errors": []
+ },
+ "coleccion-390": {
+  "scrollX": 0,
+  "prices": [],
+  "desguace": [],
+  "texto6": false,
+  "vender": false,
+  "errors": []
+ }
+}

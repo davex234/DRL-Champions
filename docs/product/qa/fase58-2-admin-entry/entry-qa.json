@@ -1,0 +1,62 @@
+[
+ {
+  "width": 1440,
+  "who": "anon",
+  "seenDuringLoad": 0,
+  "visibleInMenu": false,
+  "manualAdmin": {
+   "panel": false,
+   "text": "ACCESO RESTRINGIDO"
+  }
+ },
+ {
+  "width": 1440,
+  "who": "user",
+  "seenDuringLoad": 0,
+  "visibleInMenu": false,
+  "manualAdmin": {
+   "panel": false,
+   "text": "ACCESO RESTRINGIDO"
+  }
+ },
+ {
+  "width": 1440,
+  "who": "admin",
+  "seenDuringLoad": 0,
+  "visibleInMenu": true,
+  "afterClickPath": "/admin",
+  "panelShown": true,
+  "backHref": "/temporada",
+  "afterBackPath": "/temporada"
+ },
+ {
+  "width": 390,
+  "who": "anon",
+  "seenDuringLoad": 0,
+  "visibleInMenu": false,
+  "manualAdmin": {
+   "panel": false,
+   "text": "ACCESO RESTRINGIDO"
+  }
+ },
+ {
+  "width": 390,
+  "who": "user",
+  "seenDuringLoad": 0,
+  "visibleInMenu": false,
+  "manualAdmin": {
+   "panel": false,
+   "text": "ACCESO RESTRINGIDO"
+  }
+ },
+ {
+  "width": 390,
+  "who": "admin",
+  "seenDuringLoad": 0,
+  "visibleInMenu": true,
+  "afterClickPath": "/admin",
+  "panelShown": true,
+  "backHref": "/temporada",
+  "afterBackPath": "/temporada"
+ }
+]

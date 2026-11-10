@@ -1,0 +1,75 @@
+{
+  "phase": "F69",
+  "build": "10683a89 (final)",
+  "layers": {
+    "smokeProduction": "68/68 OK (cabeceras, 401/413, aislamiento REST de 14 tablas, escalada: créditos/admin/xp/renombrar/insertar cartas/libro/ganar partida/borrar perfil, RPC de recompensa) — smoke.json",
+    "securitySmoke": {
+      "file": "journeys/raw/security-smoke.json",
+      "pass": 22,
+      "fail": [],
+      "probes": [
+        "PASS cruce: C no ve la partida PvE de B",
+        "PASS IDOR: B no puede leer una partida ranked ajena (404 idéntico a inexistente)",
+        "PASS replay propio accesible (control)",
+        "PASS replay ajeno: C no ve la repetición de B",
+        "PASS admin: /api/admin/overview rechazado a un usuario normal",
+        "PASS admin: /api/admin/system rechazado a un usuario normal",
+        "PASS admin: /api/admin/cms/cards rechazado a un usuario normal",
+        "PASS recompensa falsa: misión sin completar → rechazada",
+        "PASS recompensa falsa: logro sin completar → rechazado",
+        "PASS recompensa falsa: nivel 30 del pase → rechazado",
+        "PASS tienda: precio del cliente → «Campo no permitido»",
+        "PASS créditos: cantidad del cliente → rechazada",
+        "PASS sobres: abrir un sobre que no se tiene → rechazado",
+        "PASS recompensa falsa: saldo, XP e inventario de H sin cambios",
+        "PASS REST: C no lee user_cards de B",
+        "PASS REST: C no lee user_packs de B",
+        "PASS REST: C no lee credit_transactions de B",
+        "PASS REST: C no lee user_game de B",
+        "PASS REST: C no lee duel_decks de B",
+        "PASS REST: C no lee user_pass de B",
+        "PASS REST: C no lee economy_ops de B",
+        "PASS las sondas no cambiaron nada en B ni en C"
+      ]
+    },
+    "rls": "rls.json (27 casos de BD como roles reales; 14 abiertos antes de 0058, 0 tras 0058 en la réplica)",
+    "clientBundle": "production:check client-secrets PASS (ningún secreto de servidor en .next/static ni public/) + raw/client-bundle-scan.json",
+    "debugExposure": "/design-system y /design-system/* → 404 en producción (smoke + curl); arneses QA solo con NEXUS_QA_HARNESS=1; sin rutas de seed/chaos/balance en src/app/api (los arneses son scripts offline)"
+  },
+  "harnessNote": "La primera pasada de security-smoke dio 3 FAIL con 400 «Partida no válida» (incluido el CONTROL de replay propio): el instrumento buscaba la partida de B en la evidencia de F68 (B-r2-pve) y con F68_OUT en F69 no existía → id vacío. Corregido para leer también B-f69*-pve; repetida: 22/22.",
+  "currentProfileExposure": {
+    "anonStatus": 200,
+    "columnsVisibleToAnon": [
+      "avatar",
+      "collection_value",
+      "created_at",
+      "credits",
+      "distinct_cards",
+      "equipped",
+      "id",
+      "is_admin",
+      "last_seen_at",
+      "level",
+      "market_volume",
+      "packs_opened",
+      "points",
+      "rarest_rank",
+      "region",
+      "taxes_paid",
+      "tokens",
+      "updated_at",
+      "username",
+      "xp"
+    ],
+    "note": "RLS-1 de F67: SELECT de profiles para anon/authenticated; la propuesta 0058 lo limita y NO está aplicada"
+  },
+  "openFindings": [
+    {
+      "id": "SEC-0058",
+      "status": "READY_TO_APPLY, NO aplicada",
+      "reachability": "Kong/PostgREST solo en 127.0.0.1 del VPS: no alcanzable desde Internet hoy",
+      "releaseBlocking": true
+    }
+  ],
+  "verdict": "PASS para beta cerrada; RC bloqueada hasta aplicar 0058 (autorización)"
+}

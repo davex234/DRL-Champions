@@ -1,0 +1,94 @@
+{
+  "generated": "2026-09-23T12:56:37.841Z",
+  "accounts": "QA A 8c326e52 · QA B 1ff2c0ef",
+  "publicB": {
+    "status": 200,
+    "view": "PUBLIC",
+    "self": null,
+    "name": "qa_f45_085748_1ff2",
+    "rating": 980,
+    "position": 2,
+    "standing": {
+      "state": "PLACEMENT",
+      "placement": {
+        "played": 1,
+        "total": 10,
+        "remaining": 9
+      },
+      "above": {
+        "userId": "8c326e52-776a-43f4-ba05-3ad7945c40c3",
+        "username": "qa_campaign_352_8c32",
+        "position": 1,
+        "rating": 1020,
+        "gap": 41
+      },
+      "below": null
+    },
+    "season": {
+      "games": 1,
+      "wins": 0,
+      "losses": 1,
+      "draws": 0,
+      "net": -20,
+      "best": 980
+    },
+    "cardsSummary": 15,
+    "showcase": 0
+  },
+  "anonB": {
+    "status": 200,
+    "view": "PUBLIC",
+    "h2h": null
+  },
+  "publicAbyB": {
+    "status": 200,
+    "view": "PUBLIC"
+  },
+  "meA": {
+    "status": 200,
+    "view": "SELF",
+    "hasSelf": true
+  },
+  "malformed": 400,
+  "nonexistent": 404,
+  "writeUnauth": 401,
+  "writeOtherUserField": {
+    "status": 400,
+    "code": "BAD_BODY"
+  },
+  "showcaseOthersCard": {
+    "status": 403,
+    "code": "NOT_OWNED"
+  },
+  "showcaseDuplicate": {
+    "status": 400,
+    "code": "DUPLICATE"
+  },
+  "showcaseBadUid": {
+    "status": 400,
+    "code": "BAD_UID"
+  },
+  "badAvatar": {
+    "status": 400,
+    "code": "BAD_AVATAR"
+  },
+  "browserOther": {
+    "clicked": "/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+    "path": "/jugador/1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+    "view": "PUBLIC",
+    "edit": false,
+    "share": true,
+    "standing": "PLACEMENT",
+    "season": true,
+    "email": false
+  },
+  "browserBack": "/competitivo",
+  "browserOwn": {
+    "path": "/jugador/8c326e52-776a-43f4-ba05-3ad7945c40c3",
+    "view": "SELF",
+    "edit": true,
+    "seasonCta": true
+  },
+  "consoleErrors": [],
+  "leaks": []
+}

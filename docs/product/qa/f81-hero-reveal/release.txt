@@ -1,0 +1,5 @@
+release drl-0.1.1-1-cd3dd830
+tar sha256 72778e0b37f0732b246ffe20299e67ae3c2f0bc8d9b1d07127b7bf2e698f20d9
+base: releases/drl-0.1.1-1-581be959 (F80) + 23 ficheros F81
+verificado: 3518/3518 no-F81 idénticos a producción; F78 = versión de producción; F81 = local
+rollback: bin/deploy.sh --activate drl-0.1.1-1-581be959

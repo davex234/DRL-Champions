@@ -1,0 +1,2103 @@
+{
+  "mode": "down",
+  "base": "http://127.0.0.1:3005",
+  "at": "2026-09-28T17:41:34.115Z",
+  "routes": [
+    {
+      "requested": "/",
+      "finalUrl": "/",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": true,
+      "loginForm": false,
+      "failedText": false,
+      "text": "PLAY COLLECT COMPETE BELONG NEXUS NEXUS 3 QAF68K105820 NIVEL 3 SIN CONEXIÓN 9025 JUGAR ENTRA EN LA ARENA INVENTARIO TUS CARTAS, TU PODER TIENDA SOBRES Y CONTENI",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/daily-loop",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/cuenta",
+      "finalUrl": "/cuenta",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "TU CUENTA DE JUGADOR",
+        "ENTRA EN NEXUS"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": true,
+      "failedText": false,
+      "text": "NEXUS TU CUENTA DE JUGADOR CUENTA NEXUS ENTRA EN NEXUS Tu colección, tus equipos y tu progreso te esperan en el servidor. ENTRAR REGISTRO RECUPERAR CORREO ELECT",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/prestige",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/cuenta",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+      "finalUrl": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": true,
+      "text": "ALGO HA FALLADO NO SE HA PODIDO CARGAR La conexión con el servidor ha fallado. Tu progreso está a salvo: vuelve a intentarlo en unos segundos. REINTENTAR VOLVER",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/player",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/coleccion",
+      "finalUrl": "/coleccion",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "MI COLECCIÓN",
+        "TUS CARTAS DE MAYOR OVR",
+        "COMPLETA TUS SETS",
+        "ÁLBUM"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "Sin conexión: enseñamos tu colección tal como la teníamos. Favoritos, vitrina y equipos vuelven con la red. COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 19 / ",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/meta",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/collection",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/mastery",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/prestige",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/zmjjkk__masters-sdc",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/equipos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/riens__base",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/jawgemo__masters-sdc",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/something__base",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/jemkin__base",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/lewn__base",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/suygetsu__base",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion/carta/comeback__base",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/coleccion",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/inventario",
+      "finalUrl": "/inventario",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "MIS SOBRES",
+        "SOBRES SIN ABRIR",
+        "DUPLICADOS · 1"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": true,
+      "loginForm": false,
+      "failedText": false,
+      "text": "COLECCIÓN · INVENTARIO MIS SOBRES Tus sobres sin abrir y tus cartas repetidas. Todas tus cartas están en tu colección. SOBRES 0 DUPLICADOS 1 SOBRES SIN ABRIR NO",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/economy",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/inventario",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/duelos/mazos",
+      "finalUrl": "/duelos/mazos",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": true,
+      "text": "ALGO HA FALLADO NO SE HA PODIDO CARGAR La conexión con el servidor ha fallado. Tu progreso está a salvo: vuelve a intentarlo en unos segundos. REINTENTAR VOLVER",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/duels",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/duelos/mazos",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/tienda",
+      "finalUrl": "/tienda",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "CHAMPIONS S",
+        "SOBRES",
+        "CAJAS",
+        "CARTAS DESTACADAS"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": true,
+      "loginForm": false,
+      "failedText": false,
+      "text": "DESTACADO CHAMPIONS S · ÉPICA · 20 CARTAS CHAMPIONS S NUEVAS CARTAS. NUEVAS LEYENDAS. Las épicas de la temporada: los mejores del circuito en su mejor versión. ",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/tienda/creditos",
+      "finalUrl": "/tienda/creditos",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "DRL CREDITS",
+        "PAQUETES",
+        "STARTER",
+        "BASIC"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": true,
+      "text": "TIENDA DRL CREDITS IMPULSA TU COLECCIÓN La moneda de NEXUS: compra sobres y todo lo que la tienda tenga a la venta. Cuantos más créditos, más cartas. TU SALDO —",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/credits",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/tienda/creditos",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/progresion",
+      "finalUrl": "/progresion",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "TU PROGRESO",
+        "CÓMO SE PROGRESA"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": true,
+      "text": "PROGRESO TU PROGRESO Nivel 3. Qué estás progresando, qué puedes recoger ya, qué hacer hoy y qué te falta para la siguiente recompensa. LOGROS Y PASE COMPLETOS →",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/meta",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/logros",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/progresion",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/mundo",
+      "finalUrl": "/mundo",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "EL MUNDO"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "SIMULACIÓN · TEMPORADA 1 EL MUNDO El circuito que corre aunque tú no juegues: equipos, fichajes, campeones y crónica. Aquí no se colecciona ni se compite —se co",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/mundo",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/competitivo",
+      "finalUrl": "/competitivo",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": true,
+      "text": "ALGO HA FALLADO NO SE HA PODIDO CARGAR La conexión con el servidor ha fallado. Tu progreso está a salvo: vuelve a intentarlo en unos segundos. REINTENTAR VOLVER",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/competitive",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/duels",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/competitivo",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/entrenador",
+      "finalUrl": "/entrenador",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "TACTICAL COACH",
+        "PREPARACIÓN",
+        "ANÁLISIS",
+        "PREPARA CADA PARTIDO"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "TACTICAL COACH CENTRO JUGAR COMPOSICIONES PIZARRA PLAN MAPAS PARTIDOS PLANTILLA A B NEXUS · CENTRO TÁCTICO TACTICAL COACH PREPARA · ANALIZA · DOMINA Prepara est",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/compositions",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/coach-matches",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/strats",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador/composiciones",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador/strats",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador/plan",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador/mapas",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador/partidos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador/equipos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/entrenador",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    },
+    {
+      "requested": "/jugar",
+      "finalUrl": "/jugar",
+      "title": "DRL Champions — Manager de esports de Valorant",
+      "h": [
+        "JUGAR",
+        "ROAD TO CHAMPIONS",
+        "TACTICAL COACH",
+        "DESAFÍOS DEL DÍA"
+      ],
+      "fromServiceWorker": true,
+      "swControlled": true,
+      "responseStatus": 200,
+      "hubSignature": false,
+      "loginForm": false,
+      "failedText": false,
+      "text": "NEXUS · MODOS DE JUEGO JUGAR ELIGE TU PRÓXIMO DESAFÍO CAMPAÑA PVE · DESTACADO NO DISPONIBLE ROAD TO CHAMPIONS Quince nodos contra rosters reales del circuito. T",
+      "fetchFails": [
+        {
+          "url": "/api/content/agents",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/content/packs",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/telemetry",
+          "method": "POST",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/coleccion",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/mazos",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/tienda",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/state",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/meta",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/play-status",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/live-events",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/onboarding",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/draft-gauntlet",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "/api/game/campaign",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugador/me",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/temporada",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/mundo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar/road-to-champions",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/jugar",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/duelos/competitivo",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/social",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/jugar/draft-gauntlet",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        },
+        {
+          "url": "http://127.0.0.1:3005/entrenador",
+          "method": "GET",
+          "origin": "http://127.0.0.1:3005",
+          "page": "/jugar",
+          "error": "Failed to fetch"
+        }
+      ],
+      "console": [
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+      ]
+    }
+  ],
+  "login": null
+}

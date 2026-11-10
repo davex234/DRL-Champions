@@ -7,6 +7,10 @@ import { useMarketStore } from "@/store/useMarketStore";
 import { getCard, getPlayer } from "@/data/catalog";
 import { getVariant } from "@/domain/cards/variants";
 import { formatCredits, formatRelative } from "@/lib/format";
+import { ns, td } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const t = ns("market");
 
 export function MarketDetail({
   cardId,
@@ -17,6 +21,7 @@ export function MarketDetail({
   onClose: () => void;
   onBuy: (listingId: string) => void;
 }) {
+  useLocale();
   const listings = useMarketStore((s) => s.listings);
   const record = useMarketStore((s) => s.priceHistory[cardId]);
   const def = getCard(cardId);
@@ -52,7 +57,7 @@ export function MarketDetail({
             <div>
               <h3 className="font-display text-2xl font-bold uppercase text-white">{player?.nick}</h3>
               <p className="text-sm" style={{ color: variant.palette.primary }}>
-                {variant.label} · OVR {def.ovr} · {player?.team} · {player?.region}
+                {td(variant.label)} {t("· OVR")} {def.ovr} · {player?.team} · {td(player?.region)}
               </p>
             </div>
             <button onClick={onClose} className="text-white/50 hover:text-white">
@@ -65,19 +70,19 @@ export function MarketDetail({
             <TrendBadge record={record} />
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <PriceStat label="Última venta" value={record?.lastSale} />
-            <PriceStat label="Precio medio" value={record?.avg} />
-            <PriceStat label="Mínimo" value={record?.min} accent="#37e6a0" />
-            <PriceStat label="Máximo" value={record?.max} accent="#ff5c8a" />
+            <PriceStat label={t("Última venta")} value={record?.lastSale} />
+            <PriceStat label={t("Precio medio")} value={record?.avg} />
+            <PriceStat label={t("Mínimo")} value={record?.min} accent="#37e6a0" />
+            <PriceStat label={t("Máximo")} value={record?.max} accent="#ff5c8a" />
           </div>
 
           {/* Listados a la venta */}
           <p className="mt-5 text-[10px] uppercase tracking-widest text-white/40">
-            A la venta ahora ({forSale.length})
+            {t("A la venta ahora (")}{forSale.length})
           </p>
           <div className="mt-2 space-y-2">
             {forSale.length === 0 && (
-              <p className="text-sm text-white/40">Nadie vende esta carta ahora mismo.</p>
+              <p className="text-sm text-white/40">{t("Nadie vende esta carta ahora mismo.")}</p>
             )}
             {forSale.slice(0, 6).map((l) => (
               <div
@@ -85,14 +90,14 @@ export function MarketDetail({
                 className="flex items-center justify-between rounded-lg border border-white/10 bg-base-700/50 px-3 py-2"
               >
                 <span className="font-display text-sm text-white">
-                  {l.serial != null ? `#${l.serial}/${variant.serialLimit}` : "Sin serie"}
+                  {l.serial != null ? `#${l.serial}/${variant.serialLimit}` : t("Sin serie")}
                   <span className="ml-2 text-xs text-white/40">{formatRelative(l.listedAt)}</span>
                 </span>
                 <button
                   onClick={() => onBuy(l.id)}
                   className="rounded-lg bg-gradient-to-r from-drl to-[#7b1733] px-3 py-1 font-display text-xs font-bold uppercase text-white shadow-glow transition hover:brightness-110"
                 >
-                  Comprar 🪙 {formatCredits(l.price)}
+                  {t("Comprar 🪙")} {formatCredits(l.price)}
                 </button>
               </div>
             ))}
@@ -104,9 +109,10 @@ export function MarketDetail({
 }
 
 function PriceStat({ label, value, accent = "#ffffff" }: { label: string; value?: number; accent?: string }) {
+  useLocale();
   return (
     <div className="rounded-lg border border-white/10 bg-base-700/40 px-3 py-2">
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
+      <p className="text-[10px] uppercase tracking-widest text-white/40">{td(label)}</p>
       <p className="font-display text-lg font-bold" style={{ color: accent }}>
         🪙 {value != null ? formatCredits(value) : "—"}
       </p>

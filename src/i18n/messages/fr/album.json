@@ -1,0 +1,20 @@
+{
+  "Abrir sobres": "Ouvrir des packs",
+  "Aquí abajo está el catálogo entero. Las cartas que consigas ocuparán su hueco; las que no, se quedan a la vista para que sepas qué buscar.": "Tout le catalogue est juste en dessous. Les cartes que tu obtiens prennent leur place ; les autres restent visibles pour que tu saches quoi chercher.",
+  "Carta de {id}": "Carte de {id}",
+  "Equipo": "Équipe",
+  "Ir a la tienda": "Aller à la boutique",
+  "Limpiar filtros": "Effacer les filtres",
+  "Ninguna carta del álbum coincide con lo que has pedido. Prueba con otro nombre o quita alguna condición.": "Aucune carte de l'album ne correspond à ta recherche. Essaie un autre nom ou retire un filtre.",
+  "No conseguida": "Non obtenue",
+  "Sin resultados": "Aucun résultat",
+  "Tienes {packs} {v}. Cada carta que consigas ocupará su hueco aquí abajo, y las que aún no tienes se quedan a la vista para que sepas qué buscar.": "Tu as {packs} {v}. Chaque carte que tu obtiens prendra sa place ici en dessous, et celles que tu n'as pas encore restent visibles pour que tu saches quoi chercher.",
+  "Tu álbum está vacío": "Ton album est vide",
+  "Ver {id}": "Voir {id}",
+  "Ver {n} cartas más": "Voir {n} cartes de plus",
+  "Vitrina": "Vitrine",
+  "quedan": "restantes",
+  "sobre sin abrir": "pack non ouvert",
+  "sobres sin abrir": "packs non ouverts",
+  "{id} — todavía no la tienes": "{id} — tu ne l'as pas encore"
+}

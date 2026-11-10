@@ -1,0 +1,15 @@
+{
+  "result": "DRILL_OK",
+  "backup": "/opt/nexus/backups/supabase-drlcards/f67/20260926T204632Z (backup-drlcards.sh, manifest + SHA256SUMS verificados)",
+  "isolation": "contenedor desechable con la MISMA imagen de producción (public.ecr.aws/supabase/postgres:17.6.1.165), --network none, sin puertos publicados, contraseña aleatoria efímera, borrado al terminar (trap). Producción no se toca.",
+  "procedure": ["verificar SHA256SUMS + marcador COMPLETE", "arrancar Postgres desechable y esperar al FINAL del init de la imagen (3 conexiones seguidas)", "drop schema auth/storage creados por la imagen (versión mínima antigua)", "pg_restore --no-owner sobre base nueva (sin --clean)", "comparar 25 recuentos con table-counts.tsv", "extraer storage.tgz y comparar sha256 fichero a fichero"],
+  "timings": { "secondsToPostgresReady": 16, "secondsRestore": 6, "secondsValidate": 5, "secondsStorage": 1, "secondsTotal": 28 },
+  "validation": { "tablesCompared": 25, "tableMismatches": 0, "authUsers": "18/18", "contentCards": 331, "agents": 29, "admins": 1, "schemaProbe": "12/12 claves en verde (igual que producción, cabeza 0057)", "storageFiles": 0, "storageChecksumsMatch": true },
+  "pgRestoreMessages": { "total": 23, "alreadyExists": 21, "missingRoles": ["supabase_realtime_admin", "supabase_functions_admin"], "impact": "ninguno para DRLCards: objetos que la imagen ya trae y roles de servicios (realtime, edge functions) que el stack completo crea al arrancar" },
+  "attemptsBeforeGreen": [
+    { "problem": "el restore empezaba durante el Postgres TEMPORAL del init de la imagen → «terminating connection due to administrator command» y 2011 errores", "fix": "esperar a «init process complete» + 3 conexiones seguidas" },
+    { "problem": "--clean chocaba con los event triggers de la imagen", "fix": "base nueva sin --clean" },
+    { "problem": "auth.users 18 → 0: la imagen crea una tabla auth.users antigua sin las columnas de GoTrue", "fix": "drop schema auth/storage en la base nueva antes del restore (paso incluido en el runbook de DR)" }
+  ],
+  "containerLeftovers": 0
+}

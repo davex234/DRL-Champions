@@ -1,0 +1,22 @@
+{
+  "Abre 10 sobres": "Open 10 packs",
+  "Abre 5 Sobres {label}": "Open 5 {label} Packs",
+  "Aprobación requerida ({Math}%): {playerNick} {kind} · {name}": "Approval required ({Math}%): {playerNick} {kind} · {name}",
+  "Consigue una carta legendaria": "Get a legendary card",
+  "Consigue una carta {label}": "Get a {label} card",
+  "Consigue una carta épica o superior": "Get an epic or better card",
+  "Error generando cartas de {name}: {message}": "Error generating cards for {name}: {message}",
+  "Error obteniendo datos de {name}: {message}": "Error fetching data for {name}: {message}",
+  "Evento generado automáticamente por DRL Data Engine.": "Event generated automatically by DRL Data Engine.",
+  "Fallo del engine: {message}": "Engine failure: {message}",
+  "Foto no encontrada (se usará silueta): {nick}": "Photo not found (a silhouette will be used): {nick}",
+  "Logo de equipo no encontrado: {tname}": "Team logo not found: {tname}",
+  "MVP deducido por ACS (no confirmado por la fuente)": "MVP inferred from ACS (not confirmed by the source)",
+  "MVP indicado por la fuente no aparece en las estadísticas": "MVP given by the source does not appear in the stats",
+  "Mock (fixtures)": "Mock (fixtures)",
+  "No se pudo identificar al MVP": "Could not identify the MVP",
+  "País no resuelto: {v}": "Unresolved country: {v}",
+  "Sin resultados de {name}: {message}": "No results for {name}: {message}",
+  "VLR no configurado (NEXT_PUBLIC_VLR_API)": "VLR not configured (NEXT_PUBLIC_VLR_API)",
+  "{name} marcado finalizado pero sin resultados.": "{name} marked as finished but with no results."
+}

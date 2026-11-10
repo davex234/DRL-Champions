@@ -1,0 +1,5 @@
+release drl-0.1.1-1-581be959
+tar sha256 e394980f585fc69c1bf766e542997e2679f10a037994f8693fcafbf1a227d076 (81213440 B)
+base: releases/drl-0.1.1-1-bb759037 (sin node_modules/.next/tsbuildinfo/next-env.d.ts) + 20 ficheros F80
+verificado: 3516/3516 no-F80 idénticos a producción; 7 F78 = versión de producción; 20 F80 = local
+rollback: bin/deploy.sh --activate drl-0.1.1-1-bb759037

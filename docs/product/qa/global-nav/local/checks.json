@@ -1,0 +1,3772 @@
+{
+  "base": "http://127.0.0.1:3011",
+  "at": "2026-10-07T08:47:39.220Z",
+  "total": 133,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 155,
+        "right": 395,
+        "vw": 1440,
+        "items": [
+          {
+            "href": "/coleccion",
+            "label": "MIS CARTAS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/coleccion/trofeos",
+            "label": "COLECCIONES",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/inventario",
+            "label": "INVENTARIO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "opciones = MIS CARTAS · COLECCIONES · INVENTARIO",
+      "ok": true,
+      "detail": [
+        "MIS CARTAS",
+        "COLECCIONES",
+        "INVENTARIO"
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "MIS CARTAS",
+          0,
+          0
+        ],
+        [
+          "COLECCIONES",
+          0,
+          0
+        ],
+        [
+          "INVENTARIO",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 155,
+        "r": 395,
+        "vw": 1440,
+        "clip": []
+      }
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        "page",
+        null,
+        null
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1440,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/coleccion"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 362,
+        "right": 602,
+        "vw": 1440,
+        "items": [
+          {
+            "href": "/packs",
+            "label": "CATÁLOGO DE SOBRES",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/tienda",
+            "label": "TIENDA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/tienda/creditos",
+            "label": "DRL CREDITS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/eventos",
+            "label": "CENTRO DE EVENTOS",
+            "badge": "1",
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "opciones = CATÁLOGO DE SOBRES · TIENDA · DRL CREDITS · CENTRO DE EVENTOS",
+      "ok": true,
+      "detail": [
+        "CATÁLOGO DE SOBRES",
+        "TIENDA",
+        "DRL CREDITS",
+        "CENTRO DE EVENTOS"
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "CATÁLOGO DE SOBRES",
+          0,
+          0
+        ],
+        [
+          "TIENDA",
+          0,
+          0
+        ],
+        [
+          "DRL CREDITS",
+          0,
+          0
+        ],
+        [
+          "CENTRO DE EVENTOS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 362,
+        "r": 602,
+        "vw": 1440,
+        "clip": []
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        null,
+        "page",
+        null,
+        null
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "CENTRO DE EVENTOS conserva su insignia si la hay (sin texto extra)",
+      "ok": true,
+      "detail": {
+        "href": "/eventos",
+        "label": "CENTRO DE EVENTOS",
+        "badge": "1",
+        "extra": [],
+        "h": 44,
+        "dx": 0,
+        "dy": 0,
+        "clipped": false,
+        "current": null
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/tienda"
+      }
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 446,
+        "right": 686,
+        "vw": 1440,
+        "items": [
+          {
+            "href": "/temporada",
+            "label": "TEMPORADA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/jugador/me",
+            "label": "MI PERFIL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/cuenta",
+            "label": "CUENTA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/feedback",
+            "label": "DAR FEEDBACK",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/progresion",
+            "label": "PROGRESIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/ranking",
+            "label": "CLASIFICACIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/logros",
+            "label": "LOGROS Y PASE",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/misiones",
+            "label": "MISIONES Y CRAFTEO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/recompensas",
+            "label": "RECOMPENSAS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "opciones = TEMPORADA · MI PERFIL · CUENTA · DAR FEEDBACK · PROGRESIÓN · CLASIFICACIÓN · LOGROS Y PASE · MISIONES Y CRAFTEO · RECOMPENSAS",
+      "ok": true,
+      "detail": [
+        "TEMPORADA",
+        "MI PERFIL",
+        "CUENTA",
+        "DAR FEEDBACK",
+        "PROGRESIÓN",
+        "CLASIFICACIÓN",
+        "LOGROS Y PASE",
+        "MISIONES Y CRAFTEO",
+        "RECOMPENSAS"
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "TEMPORADA",
+          0,
+          0
+        ],
+        [
+          "MI PERFIL",
+          0,
+          0
+        ],
+        [
+          "CUENTA",
+          0,
+          0
+        ],
+        [
+          "DAR FEEDBACK",
+          0,
+          0
+        ],
+        [
+          "PROGRESIÓN",
+          0,
+          0
+        ],
+        [
+          "CLASIFICACIÓN",
+          0,
+          0
+        ],
+        [
+          "LOGROS Y PASE",
+          0,
+          0
+        ],
+        [
+          "MISIONES Y CRAFTEO",
+          0,
+          0
+        ],
+        [
+          "RECOMPENSAS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 446,
+        "r": 686,
+        "vw": 1440,
+        "clip": []
+      }
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        "page",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/temporada"
+      }
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 564,
+        "right": 804,
+        "vw": 1440,
+        "items": [
+          {
+            "href": "/mundo",
+            "label": "EL MUNDO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/noticias",
+            "label": "NOTICIAS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "opciones = EL MUNDO · NOTICIAS",
+      "ok": true,
+      "detail": [
+        "EL MUNDO",
+        "NOTICIAS"
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "EL MUNDO",
+          0,
+          0
+        ],
+        [
+          "NOTICIAS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 564,
+        "r": 804,
+        "vw": 1440,
+        "clip": []
+      }
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        "page",
+        null
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1440,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/mundo"
+      }
+    },
+    {
+      "id": "mas",
+      "w": 1440,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 1010,
+        "right": 1250,
+        "vw": 1440,
+        "items": [
+          {
+            "href": "/jugar",
+            "label": "MODOS DE JUEGO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/duelos",
+            "label": "DUELOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/competitivo",
+            "label": "COMPETITIVO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/social",
+            "label": "SOCIAL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/torneos",
+            "label": "EVENTOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/copas",
+            "label": "TORNEOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/entrenador",
+            "label": "ENTRENADOR",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "mas",
+      "w": 1440,
+      "name": "opciones = MODOS DE JUEGO · DUELOS · COMPETITIVO · SOCIAL · EVENTOS · TORNEOS · ENTRENADOR",
+      "ok": true,
+      "detail": [
+        "MODOS DE JUEGO",
+        "DUELOS",
+        "COMPETITIVO",
+        "SOCIAL",
+        "EVENTOS",
+        "TORNEOS",
+        "ENTRENADOR"
+      ]
+    },
+    {
+      "id": "mas",
+      "w": 1440,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "mas",
+      "w": 1440,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "MODOS DE JUEGO",
+          0,
+          0
+        ],
+        [
+          "DUELOS",
+          0,
+          0
+        ],
+        [
+          "COMPETITIVO",
+          0,
+          0
+        ],
+        [
+          "SOCIAL",
+          0,
+          0
+        ],
+        [
+          "EVENTOS",
+          0,
+          0
+        ],
+        [
+          "TORNEOS",
+          0,
+          0
+        ],
+        [
+          "ENTRENADOR",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "mas",
+      "w": 1440,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "mas",
+      "w": 1440,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 1010,
+        "r": 1250,
+        "vw": 1440,
+        "clip": []
+      }
+    },
+    {
+      "id": "mas",
+      "w": 1440,
+      "name": "aria-expanded=true",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "id": "tienda",
+      "w": 1440,
+      "name": "Enter en DRL CREDITS navega a /tienda/creditos",
+      "ok": true,
+      "detail": "/tienda/creditos"
+    },
+    {
+      "id": "equipos",
+      "w": 1440,
+      "name": "EQUIPOS es enlace directo (sin desplegable ni aria-expanded)",
+      "ok": true
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 92,
+        "right": 332,
+        "vw": 1024,
+        "items": [
+          {
+            "href": "/coleccion",
+            "label": "MIS CARTAS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/coleccion/trofeos",
+            "label": "COLECCIONES",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/inventario",
+            "label": "INVENTARIO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "opciones = MIS CARTAS · COLECCIONES · INVENTARIO",
+      "ok": true,
+      "detail": [
+        "MIS CARTAS",
+        "COLECCIONES",
+        "INVENTARIO"
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "MIS CARTAS",
+          0,
+          0
+        ],
+        [
+          "COLECCIONES",
+          0,
+          0
+        ],
+        [
+          "INVENTARIO",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 92,
+        "r": 332,
+        "vw": 1024,
+        "clip": []
+      }
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        "page",
+        null,
+        null
+      ]
+    },
+    {
+      "id": "coleccion",
+      "w": 1024,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/coleccion"
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 247,
+        "right": 487,
+        "vw": 1024,
+        "items": [
+          {
+            "href": "/packs",
+            "label": "CATÁLOGO DE SOBRES",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/tienda",
+            "label": "TIENDA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/tienda/creditos",
+            "label": "DRL CREDITS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/eventos",
+            "label": "CENTRO DE EVENTOS",
+            "badge": "1",
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "opciones = CATÁLOGO DE SOBRES · TIENDA · DRL CREDITS · CENTRO DE EVENTOS",
+      "ok": true,
+      "detail": [
+        "CATÁLOGO DE SOBRES",
+        "TIENDA",
+        "DRL CREDITS",
+        "CENTRO DE EVENTOS"
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "CATÁLOGO DE SOBRES",
+          0,
+          0
+        ],
+        [
+          "TIENDA",
+          0,
+          0
+        ],
+        [
+          "DRL CREDITS",
+          0,
+          0
+        ],
+        [
+          "CENTRO DE EVENTOS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 247,
+        "r": 487,
+        "vw": 1024,
+        "clip": []
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        null,
+        "page",
+        null,
+        null
+      ]
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "CENTRO DE EVENTOS conserva su insignia si la hay (sin texto extra)",
+      "ok": true,
+      "detail": {
+        "href": "/eventos",
+        "label": "CENTRO DE EVENTOS",
+        "badge": "1",
+        "extra": [],
+        "h": 44,
+        "dx": 0,
+        "dy": 0,
+        "clipped": false,
+        "current": null
+      }
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/tienda"
+      }
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 308,
+        "right": 548,
+        "vw": 1024,
+        "items": [
+          {
+            "href": "/temporada",
+            "label": "TEMPORADA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/jugador/me",
+            "label": "MI PERFIL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/cuenta",
+            "label": "CUENTA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/feedback",
+            "label": "DAR FEEDBACK",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/progresion",
+            "label": "PROGRESIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/ranking",
+            "label": "CLASIFICACIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/logros",
+            "label": "LOGROS Y PASE",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/misiones",
+            "label": "MISIONES Y CRAFTEO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/recompensas",
+            "label": "RECOMPENSAS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "opciones = TEMPORADA · MI PERFIL · CUENTA · DAR FEEDBACK · PROGRESIÓN · CLASIFICACIÓN · LOGROS Y PASE · MISIONES Y CRAFTEO · RECOMPENSAS",
+      "ok": true,
+      "detail": [
+        "TEMPORADA",
+        "MI PERFIL",
+        "CUENTA",
+        "DAR FEEDBACK",
+        "PROGRESIÓN",
+        "CLASIFICACIÓN",
+        "LOGROS Y PASE",
+        "MISIONES Y CRAFTEO",
+        "RECOMPENSAS"
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "TEMPORADA",
+          0,
+          0
+        ],
+        [
+          "MI PERFIL",
+          0,
+          0
+        ],
+        [
+          "CUENTA",
+          0,
+          0
+        ],
+        [
+          "DAR FEEDBACK",
+          0,
+          0
+        ],
+        [
+          "PROGRESIÓN",
+          0,
+          0
+        ],
+        [
+          "CLASIFICACIÓN",
+          0,
+          0
+        ],
+        [
+          "LOGROS Y PASE",
+          0,
+          0
+        ],
+        [
+          "MISIONES Y CRAFTEO",
+          0,
+          0
+        ],
+        [
+          "RECOMPENSAS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 308,
+        "r": 548,
+        "vw": 1024,
+        "clip": []
+      }
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        "page",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1024,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/temporada"
+      }
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 398,
+        "right": 638,
+        "vw": 1024,
+        "items": [
+          {
+            "href": "/mundo",
+            "label": "EL MUNDO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/noticias",
+            "label": "NOTICIAS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "opciones = EL MUNDO · NOTICIAS",
+      "ok": true,
+      "detail": [
+        "EL MUNDO",
+        "NOTICIAS"
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "EL MUNDO",
+          0,
+          0
+        ],
+        [
+          "NOTICIAS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 398,
+        "r": 638,
+        "vw": 1024,
+        "clip": []
+      }
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        "page",
+        null
+      ]
+    },
+    {
+      "id": "mundo",
+      "w": 1024,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/mundo"
+      }
+    },
+    {
+      "id": "mas",
+      "w": 1024,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 626,
+        "right": 866,
+        "vw": 1024,
+        "items": [
+          {
+            "href": "/jugar",
+            "label": "MODOS DE JUEGO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/duelos",
+            "label": "DUELOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/competitivo",
+            "label": "COMPETITIVO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/social",
+            "label": "SOCIAL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/torneos",
+            "label": "EVENTOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/copas",
+            "label": "TORNEOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/entrenador",
+            "label": "ENTRENADOR",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "mas",
+      "w": 1024,
+      "name": "opciones = MODOS DE JUEGO · DUELOS · COMPETITIVO · SOCIAL · EVENTOS · TORNEOS · ENTRENADOR",
+      "ok": true,
+      "detail": [
+        "MODOS DE JUEGO",
+        "DUELOS",
+        "COMPETITIVO",
+        "SOCIAL",
+        "EVENTOS",
+        "TORNEOS",
+        "ENTRENADOR"
+      ]
+    },
+    {
+      "id": "mas",
+      "w": 1024,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "mas",
+      "w": 1024,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "MODOS DE JUEGO",
+          0,
+          0
+        ],
+        [
+          "DUELOS",
+          0,
+          0
+        ],
+        [
+          "COMPETITIVO",
+          0,
+          0
+        ],
+        [
+          "SOCIAL",
+          0,
+          0
+        ],
+        [
+          "EVENTOS",
+          0,
+          0
+        ],
+        [
+          "TORNEOS",
+          0,
+          0
+        ],
+        [
+          "ENTRENADOR",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "mas",
+      "w": 1024,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "mas",
+      "w": 1024,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 626,
+        "r": 866,
+        "vw": 1024,
+        "clip": []
+      }
+    },
+    {
+      "id": "mas",
+      "w": 1024,
+      "name": "aria-expanded=true",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "id": "tienda",
+      "w": 1024,
+      "name": "Enter en DRL CREDITS navega a /tienda/creditos",
+      "ok": true,
+      "detail": "/tienda/creditos"
+    },
+    {
+      "id": "equipos",
+      "w": 1024,
+      "name": "EQUIPOS es enlace directo (sin desplegable ni aria-expanded)",
+      "ok": true
+    },
+    {
+      "id": "admin:progreso",
+      "w": 1440,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "left": 446,
+        "right": 686,
+        "vw": 1440,
+        "items": [
+          {
+            "href": "/temporada",
+            "label": "TEMPORADA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/jugador/me",
+            "label": "MI PERFIL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/cuenta",
+            "label": "CUENTA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/feedback",
+            "label": "DAR FEEDBACK",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/progresion",
+            "label": "PROGRESIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/ranking",
+            "label": "CLASIFICACIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/logros",
+            "label": "LOGROS Y PASE",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/misiones",
+            "label": "MISIONES Y CRAFTEO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/recompensas",
+            "label": "RECOMPENSAS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/admin",
+            "label": "ADMINISTRACIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "admin:progreso",
+      "w": 1440,
+      "name": "opciones = TEMPORADA · MI PERFIL · CUENTA · DAR FEEDBACK · PROGRESIÓN · CLASIFICACIÓN · LOGROS Y PASE · MISIONES Y CRAFTEO · RECOMPENSAS · ADMINISTRACIÓN",
+      "ok": true,
+      "detail": [
+        "TEMPORADA",
+        "MI PERFIL",
+        "CUENTA",
+        "DAR FEEDBACK",
+        "PROGRESIÓN",
+        "CLASIFICACIÓN",
+        "LOGROS Y PASE",
+        "MISIONES Y CRAFTEO",
+        "RECOMPENSAS",
+        "ADMINISTRACIÓN"
+      ]
+    },
+    {
+      "id": "admin:progreso",
+      "w": 1440,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "admin:progreso",
+      "w": 1440,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "TEMPORADA",
+          0,
+          0
+        ],
+        [
+          "MI PERFIL",
+          0,
+          0
+        ],
+        [
+          "CUENTA",
+          0,
+          0
+        ],
+        [
+          "DAR FEEDBACK",
+          0,
+          0
+        ],
+        [
+          "PROGRESIÓN",
+          0,
+          0
+        ],
+        [
+          "CLASIFICACIÓN",
+          0,
+          0
+        ],
+        [
+          "LOGROS Y PASE",
+          0,
+          0
+        ],
+        [
+          "MISIONES Y CRAFTEO",
+          0,
+          0
+        ],
+        [
+          "RECOMPENSAS",
+          0,
+          0
+        ],
+        [
+          "ADMINISTRACIÓN",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "admin:progreso",
+      "w": 1440,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "admin:progreso",
+      "w": 1440,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 240,
+        "l": 446,
+        "r": 686,
+        "vw": 1440,
+        "clip": []
+      }
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "foco de teclado en la primera opción (↓)",
+      "ok": true
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "activa marcada con aria-current",
+      "ok": true,
+      "detail": [
+        "page",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": "progreso",
+      "w": 1440,
+      "name": "Escape cierra y devuelve el foco",
+      "ok": true,
+      "detail": {
+        "open": false,
+        "focus": "/temporada"
+      }
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 350,
+        "left": 20,
+        "right": 370,
+        "vw": 390,
+        "items": [
+          {
+            "href": "/jugar",
+            "label": "MODOS DE JUEGO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/duelos",
+            "label": "DUELOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/competitivo",
+            "label": "COMPETITIVO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/social",
+            "label": "SOCIAL",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/torneos",
+            "label": "EVENTOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/copas",
+            "label": "TORNEOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/entrenador",
+            "label": "ENTRENADOR",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/coleccion",
+            "label": "MIS CARTAS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/coleccion/trofeos",
+            "label": "COLECCIONES",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/inventario",
+            "label": "INVENTARIO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/duelos/mazos",
+            "label": "MIS EQUIPOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/packs",
+            "label": "CATÁLOGO DE SOBRES",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/tienda",
+            "label": "TIENDA",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/tienda/creditos",
+            "label": "DRL CREDITS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/eventos",
+            "label": "CENTRO DE EVENTOS",
+            "badge": "1",
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/temporada",
+            "label": "TEMPORADA",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/jugador/me",
+            "label": "MI PERFIL",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/cuenta",
+            "label": "CUENTA",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/feedback",
+            "label": "DAR FEEDBACK",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/progresion",
+            "label": "PROGRESIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/ranking",
+            "label": "CLASIFICACIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/logros",
+            "label": "LOGROS Y PASE",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/misiones",
+            "label": "MISIONES Y CRAFTEO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/recompensas",
+            "label": "RECOMPENSAS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/mundo",
+            "label": "EL MUNDO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/noticias",
+            "label": "NOTICIAS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "opciones = MODOS DE JUEGO · DUELOS · COMPETITIVO · SOCIAL · EVENTOS · TORNEOS · ENTRENADOR · MIS CARTAS · COLECCIONES · INVENTARIO · MIS EQUIPOS · CATÁLOGO DE SOBRES · TIENDA · DRL CREDITS · CENTRO DE EVENTOS · TEMPORADA · MI PERFIL · CUENTA · DAR FEEDBACK · PROGRESIÓN · CLASIFICACIÓN · LOGROS Y PASE · MISIONES Y CRAFTEO · RECOMPENSAS · EL MUNDO · NOTICIAS",
+      "ok": true,
+      "detail": [
+        "MODOS DE JUEGO",
+        "DUELOS",
+        "COMPETITIVO",
+        "SOCIAL",
+        "EVENTOS",
+        "TORNEOS",
+        "ENTRENADOR",
+        "MIS CARTAS",
+        "COLECCIONES",
+        "INVENTARIO",
+        "MIS EQUIPOS",
+        "CATÁLOGO DE SOBRES",
+        "TIENDA",
+        "DRL CREDITS",
+        "CENTRO DE EVENTOS",
+        "TEMPORADA",
+        "MI PERFIL",
+        "CUENTA",
+        "DAR FEEDBACK",
+        "PROGRESIÓN",
+        "CLASIFICACIÓN",
+        "LOGROS Y PASE",
+        "MISIONES Y CRAFTEO",
+        "RECOMPENSAS",
+        "EL MUNDO",
+        "NOTICIAS"
+      ]
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "MODOS DE JUEGO",
+          0,
+          0
+        ],
+        [
+          "DUELOS",
+          0,
+          0
+        ],
+        [
+          "COMPETITIVO",
+          0,
+          0
+        ],
+        [
+          "SOCIAL",
+          0,
+          0
+        ],
+        [
+          "EVENTOS",
+          0,
+          0
+        ],
+        [
+          "TORNEOS",
+          0,
+          0
+        ],
+        [
+          "ENTRENADOR",
+          0,
+          0
+        ],
+        [
+          "MIS CARTAS",
+          0,
+          0
+        ],
+        [
+          "COLECCIONES",
+          0,
+          0
+        ],
+        [
+          "INVENTARIO",
+          0,
+          0
+        ],
+        [
+          "MIS EQUIPOS",
+          0,
+          0
+        ],
+        [
+          "CATÁLOGO DE SOBRES",
+          0,
+          0
+        ],
+        [
+          "TIENDA",
+          0,
+          0
+        ],
+        [
+          "DRL CREDITS",
+          0,
+          0
+        ],
+        [
+          "CENTRO DE EVENTOS",
+          0,
+          0
+        ],
+        [
+          "TEMPORADA",
+          0,
+          0
+        ],
+        [
+          "MI PERFIL",
+          0,
+          0
+        ],
+        [
+          "CUENTA",
+          0,
+          0
+        ],
+        [
+          "DAR FEEDBACK",
+          0,
+          0
+        ],
+        [
+          "PROGRESIÓN",
+          0,
+          0
+        ],
+        [
+          "CLASIFICACIÓN",
+          0,
+          0
+        ],
+        [
+          "LOGROS Y PASE",
+          0,
+          0
+        ],
+        [
+          "MISIONES Y CRAFTEO",
+          0,
+          0
+        ],
+        [
+          "RECOMPENSAS",
+          0,
+          0
+        ],
+        [
+          "EL MUNDO",
+          0,
+          0
+        ],
+        [
+          "NOTICIAS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "filas compactas 48–52 px",
+      "ok": true,
+      "detail": [
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48
+      ]
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 350,
+        "l": 20,
+        "r": 370,
+        "vw": 390,
+        "clip": []
+      }
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "activa (TIENDA) marcada",
+      "ok": true,
+      "detail": [
+        "TIENDA"
+      ]
+    },
+    {
+      "id": "admin:movil",
+      "w": 390,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 350,
+        "left": 20,
+        "right": 370,
+        "vw": 390,
+        "items": [
+          {
+            "href": "/jugar",
+            "label": "MODOS DE JUEGO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/duelos",
+            "label": "DUELOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/competitivo",
+            "label": "COMPETITIVO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/social",
+            "label": "SOCIAL",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/torneos",
+            "label": "EVENTOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/copas",
+            "label": "TORNEOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/entrenador",
+            "label": "ENTRENADOR",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/coleccion",
+            "label": "MIS CARTAS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/coleccion/trofeos",
+            "label": "COLECCIONES",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/inventario",
+            "label": "INVENTARIO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/duelos/mazos",
+            "label": "MIS EQUIPOS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/packs",
+            "label": "CATÁLOGO DE SOBRES",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/tienda",
+            "label": "TIENDA",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": "page"
+          },
+          {
+            "href": "/tienda/creditos",
+            "label": "DRL CREDITS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/eventos",
+            "label": "CENTRO DE EVENTOS",
+            "badge": "1",
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/temporada",
+            "label": "TEMPORADA",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/jugador/me",
+            "label": "MI PERFIL",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/cuenta",
+            "label": "CUENTA",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/feedback",
+            "label": "DAR FEEDBACK",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/progresion",
+            "label": "PROGRESIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/ranking",
+            "label": "CLASIFICACIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/logros",
+            "label": "LOGROS Y PASE",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/misiones",
+            "label": "MISIONES Y CRAFTEO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/recompensas",
+            "label": "RECOMPENSAS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/mundo",
+            "label": "EL MUNDO",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/noticias",
+            "label": "NOTICIAS",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "admin:movil",
+      "w": 390,
+      "name": "opciones = MODOS DE JUEGO · DUELOS · COMPETITIVO · SOCIAL · EVENTOS · TORNEOS · ENTRENADOR · MIS CARTAS · COLECCIONES · INVENTARIO · MIS EQUIPOS · CATÁLOGO DE SOBRES · TIENDA · DRL CREDITS · CENTRO DE EVENTOS · TEMPORADA · MI PERFIL · CUENTA · DAR FEEDBACK · PROGRESIÓN · CLASIFICACIÓN · LOGROS Y PASE · MISIONES Y CRAFTEO · RECOMPENSAS · EL MUNDO · NOTICIAS",
+      "ok": true,
+      "detail": [
+        "MODOS DE JUEGO",
+        "DUELOS",
+        "COMPETITIVO",
+        "SOCIAL",
+        "EVENTOS",
+        "TORNEOS",
+        "ENTRENADOR",
+        "MIS CARTAS",
+        "COLECCIONES",
+        "INVENTARIO",
+        "MIS EQUIPOS",
+        "CATÁLOGO DE SOBRES",
+        "TIENDA",
+        "DRL CREDITS",
+        "CENTRO DE EVENTOS",
+        "TEMPORADA",
+        "MI PERFIL",
+        "CUENTA",
+        "DAR FEEDBACK",
+        "PROGRESIÓN",
+        "CLASIFICACIÓN",
+        "LOGROS Y PASE",
+        "MISIONES Y CRAFTEO",
+        "RECOMPENSAS",
+        "EL MUNDO",
+        "NOTICIAS"
+      ]
+    },
+    {
+      "id": "admin:movil",
+      "w": 390,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "admin:movil",
+      "w": 390,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "MODOS DE JUEGO",
+          0,
+          0
+        ],
+        [
+          "DUELOS",
+          0,
+          0
+        ],
+        [
+          "COMPETITIVO",
+          0,
+          0
+        ],
+        [
+          "SOCIAL",
+          0,
+          0
+        ],
+        [
+          "EVENTOS",
+          0,
+          0
+        ],
+        [
+          "TORNEOS",
+          0,
+          0
+        ],
+        [
+          "ENTRENADOR",
+          0,
+          0
+        ],
+        [
+          "MIS CARTAS",
+          0,
+          0
+        ],
+        [
+          "COLECCIONES",
+          0,
+          0
+        ],
+        [
+          "INVENTARIO",
+          0,
+          0
+        ],
+        [
+          "MIS EQUIPOS",
+          0,
+          0
+        ],
+        [
+          "CATÁLOGO DE SOBRES",
+          0,
+          0
+        ],
+        [
+          "TIENDA",
+          0,
+          0
+        ],
+        [
+          "DRL CREDITS",
+          0,
+          0
+        ],
+        [
+          "CENTRO DE EVENTOS",
+          0,
+          0
+        ],
+        [
+          "TEMPORADA",
+          0,
+          0
+        ],
+        [
+          "MI PERFIL",
+          0,
+          0
+        ],
+        [
+          "CUENTA",
+          0,
+          0
+        ],
+        [
+          "DAR FEEDBACK",
+          0,
+          0
+        ],
+        [
+          "PROGRESIÓN",
+          0,
+          0
+        ],
+        [
+          "CLASIFICACIÓN",
+          0,
+          0
+        ],
+        [
+          "LOGROS Y PASE",
+          0,
+          0
+        ],
+        [
+          "MISIONES Y CRAFTEO",
+          0,
+          0
+        ],
+        [
+          "RECOMPENSAS",
+          0,
+          0
+        ],
+        [
+          "EL MUNDO",
+          0,
+          0
+        ],
+        [
+          "NOTICIAS",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "admin:movil",
+      "w": 390,
+      "name": "filas compactas 48–52 px",
+      "ok": true,
+      "detail": [
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48,
+        48
+      ]
+    },
+    {
+      "id": "admin:movil",
+      "w": 390,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 350,
+        "l": 20,
+        "r": 370,
+        "vw": 390,
+        "clip": []
+      }
+    },
+    {
+      "id": "movil",
+      "w": 390,
+      "name": "activa (TIENDA) marcada",
+      "ok": true,
+      "detail": [
+        "TIENDA"
+      ]
+    },
+    {
+      "id": "admin:movil-entry",
+      "w": 390,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 350,
+        "left": 20,
+        "right": 370,
+        "vw": 390,
+        "items": [
+          {
+            "href": "/admin",
+            "label": "ADMINISTRACIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 48,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "admin:movil-entry",
+      "w": 390,
+      "name": "opciones = ADMINISTRACIÓN",
+      "ok": true,
+      "detail": [
+        "ADMINISTRACIÓN"
+      ]
+    },
+    {
+      "id": "admin:movil-entry",
+      "w": 390,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "admin:movil-entry",
+      "w": 390,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "ADMINISTRACIÓN",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "admin:movil-entry",
+      "w": 390,
+      "name": "filas compactas 48–52 px",
+      "ok": true,
+      "detail": [
+        48
+      ]
+    },
+    {
+      "id": "admin:movil-entry",
+      "w": 390,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 350,
+        "l": 20,
+        "r": 370,
+        "vw": 390,
+        "clip": []
+      }
+    },
+    {
+      "id": "portada-mas",
+      "w": 1440,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 360,
+        "left": 1080,
+        "right": 1440,
+        "vw": 1440,
+        "items": [
+          {
+            "href": "/temporada",
+            "label": "TEMPORADA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/progresion",
+            "label": "PROGRESIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/logros",
+            "label": "LOGROS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/competitivo",
+            "label": "COMPETITIVO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/copas",
+            "label": "TORNEOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/torneos",
+            "label": "EVENTOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/pickems",
+            "label": "PICK'EMS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/social",
+            "label": "SOCIAL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/jugador/me",
+            "label": "MI PERFIL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/cuenta",
+            "label": "CUENTA Y AJUSTES",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/feedback",
+            "label": "DAR FEEDBACK",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/como-jugar",
+            "label": "CÓMO JUGAR",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "portada-mas",
+      "w": 1440,
+      "name": "opciones = TEMPORADA · PROGRESIÓN · LOGROS · COMPETITIVO · TORNEOS · EVENTOS · PICK'EMS · SOCIAL · MI PERFIL · CUENTA Y AJUSTES · DAR FEEDBACK · CÓMO JUGAR",
+      "ok": true,
+      "detail": [
+        "TEMPORADA",
+        "PROGRESIÓN",
+        "LOGROS",
+        "COMPETITIVO",
+        "TORNEOS",
+        "EVENTOS",
+        "PICK'EMS",
+        "SOCIAL",
+        "MI PERFIL",
+        "CUENTA Y AJUSTES",
+        "DAR FEEDBACK",
+        "CÓMO JUGAR"
+      ]
+    },
+    {
+      "id": "portada-mas",
+      "w": 1440,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "portada-mas",
+      "w": 1440,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "TEMPORADA",
+          0,
+          0
+        ],
+        [
+          "PROGRESIÓN",
+          0,
+          0
+        ],
+        [
+          "LOGROS",
+          0,
+          0
+        ],
+        [
+          "COMPETITIVO",
+          0,
+          0
+        ],
+        [
+          "TORNEOS",
+          0,
+          0
+        ],
+        [
+          "EVENTOS",
+          0,
+          0
+        ],
+        [
+          "PICK'EMS",
+          0,
+          0
+        ],
+        [
+          "SOCIAL",
+          0,
+          0
+        ],
+        [
+          "MI PERFIL",
+          0,
+          0
+        ],
+        [
+          "CUENTA Y AJUSTES",
+          0,
+          0
+        ],
+        [
+          "DAR FEEDBACK",
+          0,
+          0
+        ],
+        [
+          "CÓMO JUGAR",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "portada-mas",
+      "w": 1440,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "portada-mas",
+      "w": 1440,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 360,
+        "l": 1080,
+        "r": 1440,
+        "vw": 1440,
+        "clip": []
+      }
+    },
+    {
+      "id": "portada-mas",
+      "w": 390,
+      "name": "abre",
+      "ok": true,
+      "detail": {
+        "w": 360,
+        "left": 30,
+        "right": 390,
+        "vw": 390,
+        "items": [
+          {
+            "href": "/temporada",
+            "label": "TEMPORADA",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/progresion",
+            "label": "PROGRESIÓN",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/logros",
+            "label": "LOGROS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/competitivo",
+            "label": "COMPETITIVO",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/copas",
+            "label": "TORNEOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/torneos",
+            "label": "EVENTOS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/pickems",
+            "label": "PICK'EMS",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/social",
+            "label": "SOCIAL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/jugador/me",
+            "label": "MI PERFIL",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/cuenta",
+            "label": "CUENTA Y AJUSTES",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/feedback",
+            "label": "DAR FEEDBACK",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          },
+          {
+            "href": "/como-jugar",
+            "label": "CÓMO JUGAR",
+            "badge": null,
+            "extra": [],
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "clipped": false,
+            "current": null
+          }
+        ],
+        "overflow": 0
+      }
+    },
+    {
+      "id": "portada-mas",
+      "w": 390,
+      "name": "opciones = TEMPORADA · PROGRESIÓN · LOGROS · COMPETITIVO · TORNEOS · EVENTOS · PICK'EMS · SOCIAL · MI PERFIL · CUENTA Y AJUSTES · DAR FEEDBACK · CÓMO JUGAR",
+      "ok": true,
+      "detail": [
+        "TEMPORADA",
+        "PROGRESIÓN",
+        "LOGROS",
+        "COMPETITIVO",
+        "TORNEOS",
+        "EVENTOS",
+        "PICK'EMS",
+        "SOCIAL",
+        "MI PERFIL",
+        "CUENTA Y AJUSTES",
+        "DAR FEEDBACK",
+        "CÓMO JUGAR"
+      ]
+    },
+    {
+      "id": "portada-mas",
+      "w": 390,
+      "name": "0 subtítulos visibles (solo nombre e insignia)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "portada-mas",
+      "w": 390,
+      "name": "centradas en horizontal y vertical (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          "TEMPORADA",
+          0,
+          0
+        ],
+        [
+          "PROGRESIÓN",
+          0,
+          0
+        ],
+        [
+          "LOGROS",
+          0,
+          0
+        ],
+        [
+          "COMPETITIVO",
+          0,
+          0
+        ],
+        [
+          "TORNEOS",
+          0,
+          0
+        ],
+        [
+          "EVENTOS",
+          0,
+          0
+        ],
+        [
+          "PICK'EMS",
+          0,
+          0
+        ],
+        [
+          "SOCIAL",
+          0,
+          0
+        ],
+        [
+          "MI PERFIL",
+          0,
+          0
+        ],
+        [
+          "CUENTA Y AJUSTES",
+          0,
+          0
+        ],
+        [
+          "DAR FEEDBACK",
+          0,
+          0
+        ],
+        [
+          "CÓMO JUGAR",
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "portada-mas",
+      "w": 390,
+      "name": "filas compactas 44–52 px",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "portada-mas",
+      "w": 390,
+      "name": "sin recortes ni desbordamiento (panel dentro del viewport)",
+      "ok": true,
+      "detail": {
+        "w": 360,
+        "l": 30,
+        "r": 390,
+        "vw": 390,
+        "clip": []
+      }
+    }
+  ]
+}

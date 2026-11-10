@@ -1,0 +1,145 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-22T15:51:44.635Z",
+  "note": "sesión simulada + fixtures + semilla local (ver cabecera de scripts/_fase51-1-shots.ts)",
+  "rows": [
+    {
+      "file": "01-ascent-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "02-bind-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "03-haven-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "04-lotus-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "05-sunset-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "06-abyss-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "07-breeze-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "08-corrode-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "09-fracture-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "10-icebox-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "11-pearl-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "12-split-path-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "13-ascent-wall-avoidance-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "14-live-round-1920.png",
+      "gestos": [
+        "ascent rutas=3 marcador=[175,264,734,1186] aviso=[275,369,736,1184] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "14-live-round-1440.png",
+      "gestos": [
+        "ascent rutas=4 marcador=[175,264,494,946] aviso=[275,369,496,944] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "15-broadcast-1920.png",
+      "gestos": [
+        "haven rutas=5 marcador=[175,264,734,1186] aviso=[275,369,736,1184] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "15-broadcast-1440.png",
+      "gestos": [
+        "haven rutas=4 marcador=[175,264,494,946] aviso=[275,369,496,944] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "15-broadcast-1366.png",
+      "gestos": [
+        "haven rutas=4 marcador=[175,264,457,909] aviso=[275,369,459,907] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "15-broadcast-1024.png",
+      "gestos": [
+        "haven rutas=4 marcador=[175,264,286,738] aviso=[275,369,288,736] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "15-broadcast-768.png",
+      "gestos": [
+        "haven rutas=5 marcador=[160,249,158,610] aviso=[260,354,160,608] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "15-broadcast-390.png",
+      "gestos": [
+        "haven rutas=4 marcador=[193,264,14,376] aviso=[297,399,28,362] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "17-mobile-390.png",
+      "gestos": [
+        "lotus rutas=4 marcador=[193,264,14,376] aviso=[297,399,28,362] solapa=false"
+      ],
+      "errors": []
+    },
+    {
+      "file": "18-navigation-debug-1440.png",
+      "gestos": [],
+      "errors": []
+    },
+    {
+      "file": "19-debug-1440.png",
+      "gestos": [],
+      "errors": []
+    }
+  ]
+}

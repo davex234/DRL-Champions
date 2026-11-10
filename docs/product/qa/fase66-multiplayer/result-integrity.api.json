@@ -1,0 +1,17 @@
+{
+  "at": "2026-09-26T19:07:20.348Z",
+  "lifecycle": "FINISHED",
+  "sameResultBothSides": true,
+  "recomputed": {
+    "winner": "B",
+    "decidedBy": "SCORE",
+    "scoreA": 4,
+    "scoreB": 6,
+    "agrees": true
+  },
+  "finishedAbandonAttempts": {
+    "409": 10
+  },
+  "outcomeReadsIdentical": true,
+  "ok": true
+}

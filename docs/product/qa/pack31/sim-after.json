@@ -1,0 +1,454 @@
+{
+  "generated": "2026-10-07T11:48:46.680Z",
+  "n": 200000,
+  "rows": [
+    {
+      "pack": "ewc",
+      "name": "Sobre EWC",
+      "price": 8500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 83.61,
+      "best": {
+        "p50": 87,
+        "p90": 90,
+        "p99": 95
+      },
+      "pBest": {
+        "ge90": 13.793,
+        "ge93": 2.452,
+        "ge95": 1.195
+      },
+      "pMulti": {
+        "two90": 0.754,
+        "three90": 0.021
+      },
+      "specialsPerPack": 1.159,
+      "primeIconRate": 0.983,
+      "ev": 4544,
+      "evPerCredit": 0.535,
+      "salvagePerPack": 274,
+      "salvageOverPrice": 0.0323,
+      "distinctSeen": 311,
+      "effectiveCards": 83.8,
+      "dupInPackPct": 1.1
+    },
+    {
+      "pack": "emea",
+      "name": "Sobre EMEA",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 79.89,
+      "best": {
+        "p50": 86,
+        "p90": 89,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 9.968,
+        "ge93": 0.563,
+        "ge95": 0.318
+      },
+      "pMulti": {
+        "two90": 0.313,
+        "three90": 0.006
+      },
+      "specialsPerPack": 0.344,
+      "primeIconRate": 1.367,
+      "ev": 1541,
+      "evPerCredit": 0.44,
+      "salvagePerPack": 93,
+      "salvageOverPrice": 0.0267,
+      "distinctSeen": 100,
+      "effectiveCards": 30.1,
+      "dupInPackPct": 5.85
+    },
+    {
+      "pack": "americas",
+      "name": "Sobre Americas",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 80.62,
+      "best": {
+        "p50": 86,
+        "p90": 89,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 7.242,
+        "ge93": 0.601,
+        "ge95": 0.309
+      },
+      "pMulti": {
+        "two90": 0.129,
+        "three90": 0.001
+      },
+      "specialsPerPack": 0.318,
+      "primeIconRate": 1.183,
+      "ev": 1574,
+      "evPerCredit": 0.45,
+      "salvagePerPack": 94,
+      "salvageOverPrice": 0.0267,
+      "distinctSeen": 100,
+      "effectiveCards": 42.2,
+      "dupInPackPct": 4.29
+    },
+    {
+      "pack": "pacific",
+      "name": "Sobre Pacific",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 79.19,
+      "best": {
+        "p50": 87,
+        "p90": 88,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 3.852,
+        "ge93": 0.704,
+        "ge95": 0.22
+      },
+      "pMulti": {
+        "two90": 0.026,
+        "three90": 0.001
+      },
+      "specialsPerPack": 0.367,
+      "primeIconRate": 1.96,
+      "ev": 1603,
+      "evPerCredit": 0.458,
+      "salvagePerPack": 99,
+      "salvageOverPrice": 0.0282,
+      "distinctSeen": 97,
+      "effectiveCards": 36.5,
+      "dupInPackPct": 4.96
+    },
+    {
+      "pack": "china",
+      "name": "Sobre China",
+      "price": 9500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 81.81,
+      "best": {
+        "p50": 85,
+        "p90": 90,
+        "p99": 93
+      },
+      "pBest": {
+        "ge90": 13.358,
+        "ge93": 1.875,
+        "ge95": 0.085
+      },
+      "pMulti": {
+        "two90": 0.745,
+        "three90": 0.021
+      },
+      "specialsPerPack": 5,
+      "primeIconRate": 0,
+      "ev": 4640,
+      "evPerCredit": 0.488,
+      "salvagePerPack": 276,
+      "salvageOverPrice": 0.029,
+      "distinctSeen": 34,
+      "effectiveCards": 13,
+      "dupInPackPct": 13.9
+    },
+    {
+      "pack": "team-heretics",
+      "name": "Sobre Team Heretics",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 79.98,
+      "best": {
+        "p50": 86,
+        "p90": 89,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 7.353,
+        "ge93": 0.715,
+        "ge95": 0.306
+      },
+      "pMulti": {
+        "two90": 0.156,
+        "three90": 0.002
+      },
+      "specialsPerPack": 0.344,
+      "primeIconRate": 1.367,
+      "ev": 1581,
+      "evPerCredit": 0.452,
+      "salvagePerPack": 96,
+      "salvageOverPrice": 0.0274,
+      "distinctSeen": 100,
+      "effectiveCards": 27,
+      "dupInPackPct": 6.54
+    },
+    {
+      "pack": "team-fnatic",
+      "name": "Sobre Fnatic",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 80.04,
+      "best": {
+        "p50": 86,
+        "p90": 90,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 16.457,
+        "ge93": 0.55,
+        "ge95": 0.311
+      },
+      "pMulti": {
+        "two90": 0.881,
+        "three90": 0.021
+      },
+      "specialsPerPack": 0.344,
+      "primeIconRate": 1.367,
+      "ev": 1561,
+      "evPerCredit": 0.446,
+      "salvagePerPack": 95,
+      "salvageOverPrice": 0.027,
+      "distinctSeen": 100,
+      "effectiveCards": 28.5,
+      "dupInPackPct": 6.17
+    },
+    {
+      "pack": "team-g2",
+      "name": "Sobre G2",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 80.8,
+      "best": {
+        "p50": 87,
+        "p90": 89,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 6.258,
+        "ge93": 0.73,
+        "ge95": 0.309
+      },
+      "pMulti": {
+        "two90": 0.073,
+        "three90": 0
+      },
+      "specialsPerPack": 0.318,
+      "primeIconRate": 1.183,
+      "ev": 1649,
+      "evPerCredit": 0.471,
+      "salvagePerPack": 99,
+      "salvageOverPrice": 0.0283,
+      "distinctSeen": 100,
+      "effectiveCards": 38,
+      "dupInPackPct": 4.73
+    },
+    {
+      "pack": "team-liquid",
+      "name": "Sobre Team Liquid",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 79.96,
+      "best": {
+        "p50": 86,
+        "p90": 88,
+        "p99": 91
+      },
+      "pBest": {
+        "ge90": 6.936,
+        "ge93": 0.455,
+        "ge95": 0.308
+      },
+      "pMulti": {
+        "two90": 0.135,
+        "three90": 0.001
+      },
+      "specialsPerPack": 0.344,
+      "primeIconRate": 1.367,
+      "ev": 1522,
+      "evPerCredit": 0.435,
+      "salvagePerPack": 92,
+      "salvageOverPrice": 0.0262,
+      "distinctSeen": 100,
+      "effectiveCards": 25.3,
+      "dupInPackPct": 6.91
+    },
+    {
+      "pack": "team-karmine",
+      "name": "Sobre Karmine Corp",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": true,
+      "lifecycle": "ACTIVE",
+      "ovrMean": 79.99,
+      "best": {
+        "p50": 86,
+        "p90": 89,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 9.968,
+        "ge93": 0.563,
+        "ge95": 0.318
+      },
+      "pMulti": {
+        "two90": 0.313,
+        "three90": 0.006
+      },
+      "specialsPerPack": 0.344,
+      "primeIconRate": 1.367,
+      "ev": 1557,
+      "evPerCredit": 0.445,
+      "salvagePerPack": 94,
+      "salvageOverPrice": 0.0269,
+      "distinctSeen": 100,
+      "effectiveCards": 29,
+      "dupInPackPct": 6.1
+    },
+    {
+      "pack": "team-xlg",
+      "name": "Sobre XLG",
+      "price": 9500,
+      "cards": 5,
+      "purchasable": false,
+      "lifecycle": "DRAFT",
+      "ovrMean": 82.53,
+      "best": {
+        "p50": 85,
+        "p90": 90,
+        "p99": 93
+      },
+      "pBest": {
+        "ge90": 10.986,
+        "ge93": 2.923,
+        "ge95": 0.085
+      },
+      "pMulti": {
+        "two90": 0.505,
+        "three90": 0.01
+      },
+      "specialsPerPack": 5,
+      "primeIconRate": 0,
+      "ev": 5008,
+      "evPerCredit": 0.527,
+      "salvagePerPack": 297,
+      "salvageOverPrice": 0.0313,
+      "distinctSeen": 34,
+      "effectiveCards": 11.5,
+      "dupInPackPct": 15.34
+    },
+    {
+      "pack": "team-ns",
+      "name": "Sobre NS",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": false,
+      "lifecycle": "DRAFT",
+      "ovrMean": 79.51,
+      "best": {
+        "p50": 87,
+        "p90": 88,
+        "p99": 92
+      },
+      "pBest": {
+        "ge90": 4.363,
+        "ge93": 0.897,
+        "ge95": 0.509
+      },
+      "pMulti": {
+        "two90": 0.03,
+        "three90": 0.001
+      },
+      "specialsPerPack": 0.367,
+      "primeIconRate": 1.96,
+      "ev": 1670,
+      "evPerCredit": 0.477,
+      "salvagePerPack": 103,
+      "salvageOverPrice": 0.0294,
+      "distinctSeen": 97,
+      "effectiveCards": 30.4,
+      "dupInPackPct": 5.9
+    },
+    {
+      "pack": "team-prx",
+      "name": "Sobre Paper Rex",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": false,
+      "lifecycle": "DRAFT",
+      "ovrMean": 79.27,
+      "best": {
+        "p50": 87,
+        "p90": 89,
+        "p99": 93
+      },
+      "pBest": {
+        "ge90": 7.271,
+        "ge93": 1.361,
+        "ge95": 0.324
+      },
+      "pMulti": {
+        "two90": 0.13,
+        "three90": 0.002
+      },
+      "specialsPerPack": 0.367,
+      "primeIconRate": 1.96,
+      "ev": 1678,
+      "evPerCredit": 0.479,
+      "salvagePerPack": 104,
+      "salvageOverPrice": 0.0296,
+      "distinctSeen": 97,
+      "effectiveCards": 27.9,
+      "dupInPackPct": 6.42
+    },
+    {
+      "pack": "team-fut",
+      "name": "Sobre FUT",
+      "price": 3500,
+      "cards": 5,
+      "purchasable": false,
+      "lifecycle": "DRAFT",
+      "ovrMean": 79.81,
+      "best": {
+        "p50": 86,
+        "p90": 89,
+        "p99": 91
+      },
+      "pBest": {
+        "ge90": 9.348,
+        "ge93": 0.441,
+        "ge95": 0.308
+      },
+      "pMulti": {
+        "two90": 0.29,
+        "three90": 0.007
+      },
+      "specialsPerPack": 0.344,
+      "primeIconRate": 1.367,
+      "ev": 1500,
+      "evPerCredit": 0.429,
+      "salvagePerPack": 90,
+      "salvageOverPrice": 0.0258,
+      "distinctSeen": 100,
+      "effectiveCards": 18.7,
+      "dupInPackPct": 8.85
+    }
+  ]
+}

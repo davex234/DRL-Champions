@@ -1,0 +1,81 @@
+{
+  "at": "2026-10-02T08:22:43.016Z",
+  "base": "https://valorosters.com",
+  "rows": [
+    {
+      "id": "auth · login QA C por la API pública",
+      "ok": true,
+      "detail": "40a1e10d"
+    },
+    {
+      "id": "estado",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "packs · comprar y abrir (estandar)",
+      "ok": true,
+      "detail": "200 {\"opened\":[{\"uid\":\"fde9e249-e275-491b-bf12-3cfe1daa5d09\",\"cardId\":\"ninja__base\",\"serial\":null,\"mintedVersion\":1,\"isNew\":"
+    },
+    {
+      "id": "crafteo · estado disponible",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "crafteo · escalera de intercambio intacta",
+      "ok": true,
+      "detail": "card-base-plata:7,card-plata-oro:3,card-oro-masters:8,card-masters-champions:14,card-champions-prime:10"
+    },
+    {
+      "id": "crafteo · intercambio card-plata-oro (3 copias) por la app desplegada",
+      "ok": true,
+      "detail": "200 [{\"uid\":\"8eaac250-87ac-4e1b-9be5-62ba6ac66b4b\",\"cardId\":\"brawk__base\"}]"
+    },
+    {
+      "id": "crafteo · reintento con el mismo gesto = misma carta, nada más consumido",
+      "ok": true,
+      "detail": "200 repeated=true"
+    },
+    {
+      "id": "desguace · vista previa",
+      "ok": true,
+      "detail": "200 4 duplicados"
+    },
+    {
+      "id": "desguace · un duplicado",
+      "ok": true,
+      "detail": "200 {\"credits\":9225,\"salvaged\":1,\"paid\":5,\"repeated\":false}"
+    },
+    {
+      "id": "desguace · reintento = mismo resultado, un solo cobro",
+      "ok": true,
+      "detail": "200 repeated=true"
+    },
+    {
+      "id": "lectura · /api/game/missions",
+      "ok": true,
+      "detail": "200 194ms"
+    },
+    {
+      "id": "lectura · /api/game/competitive",
+      "ok": true,
+      "detail": "200 335ms"
+    },
+    {
+      "id": "lectura · /api/game/season",
+      "ok": true,
+      "detail": "200 370ms"
+    },
+    {
+      "id": "lectura · /api/game/collection",
+      "ok": true,
+      "detail": "200 261ms"
+    },
+    {
+      "id": "créditos coherentes (nunca negativos)",
+      "ok": true,
+      "detail": "17220 → 9225"
+    }
+  ]
+}

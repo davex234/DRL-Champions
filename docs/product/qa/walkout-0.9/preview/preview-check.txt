@@ -1,0 +1,23 @@
+PASS la URL de entrega abre la escena 3D con el panel {"panel":true,"info":"build drl-0.1.1-1-e5db60b6 · persona caee2db51936… · clips Walk_Loop, Walk_Stop, Idle_Loop, Cheer_04, Cheer_05, TouchFace_01, Idle_FoldArms_Loop, Jump_Start, Jump_Land","tt":"t = 2.60 s · celebración a 8.3 s · reproduciendo","t":"2.60","cele":"POINT_SKY","stage":"3d","human":"ready","card":false}
+PASS panel: build 0.9 y clips nuevos build drl-0.1.1-1-e5db60b6 · persona caee2db51936… · clips Walk_Loop, Walk_Stop, Idle_Loop, Cheer_04, Cheer_05, TouchFace_01, Idle_FoldArms_Loop, Jump_Start, Jump_Land
+PASS se reproduce sola desde el inicio (camina) {"t1":5.4,"t2":7.38}
+PASS pausa congela el instante {"p1":8.6,"p2":8.6}
+PASS reanudar sigue desde ese instante (no vuelve al principio) {"p2":8.6,"r1":10.05}
+PASS POINT_SKY: seleccionada y en 3D {"cele":"POINT_SKY","stage":"3d"}
+PASS POINT_SKY vista frente: retoma en el mismo instante, en pausa {"t":"9.38","tt":"t = 9.38 s · celebración a 8.3 s · en pausa"}
+PASS POINT_SKY vista lateral: retoma en el mismo instante, en pausa {"t":"9.38","tt":"t = 9.38 s · celebración a 8.3 s · en pausa"}
+PASS POINT_SKY vista tres: retoma en el mismo instante, en pausa {"t":"9.38","tt":"t = 9.38 s · celebración a 8.3 s · en pausa"}
+PASS SHUSH: seleccionada y en 3D {"cele":"SHUSH","stage":"3d"}
+PASS SHUSH vista frente: retoma en el mismo instante, en pausa {"t":"9.55","tt":"t = 9.55 s · celebración a 8.3 s · en pausa"}
+PASS SHUSH vista lateral: retoma en el mismo instante, en pausa {"t":"9.55","tt":"t = 9.55 s · celebración a 8.3 s · en pausa"}
+PASS SHUSH vista tres: retoma en el mismo instante, en pausa {"t":"9.55","tt":"t = 9.55 s · celebración a 8.3 s · en pausa"}
+PASS HYPE_JUMP: seleccionada y en 3D {"cele":"HYPE_JUMP","stage":"3d"}
+PASS HYPE_JUMP vista frente: retoma en el mismo instante, en pausa {"t":"9.30","tt":"t = 9.30 s · celebración a 8.3 s · en pausa"}
+PASS HYPE_JUMP vista lateral: retoma en el mismo instante, en pausa {"t":"9.30","tt":"t = 9.30 s · celebración a 8.3 s · en pausa"}
+PASS HYPE_JUMP vista tres: retoma en el mismo instante, en pausa {"t":"9.30","tt":"t = 9.30 s · celebración a 8.3 s · en pausa"}
+PASS ARMS_CROSSED: seleccionada y en 3D {"cele":"ARMS_CROSSED","stage":"3d"}
+PASS ARMS_CROSSED vista frente: retoma en el mismo instante, en pausa {"t":"9.20","tt":"t = 9.20 s · celebración a 8.3 s · en pausa"}
+PASS ARMS_CROSSED vista lateral: retoma en el mismo instante, en pausa {"t":"9.20","tt":"t = 9.20 s · celebración a 8.3 s · en pausa"}
+PASS ARMS_CROSSED vista tres: retoma en el mismo instante, en pausa {"t":"9.20","tt":"t = 9.20 s · celebración a 8.3 s · en pausa"}
+PASS ir al revelado: la persona se disuelve y sale la carta {"panel":true,"info":"build drl-0.1.1-1-e5db60b6 · persona caee2db51936… · clips Walk_Loop, Walk_Stop, Idle_Loop, Cheer_04, Cheer_05, TouchFace_01, Idle_FoldArms_Loop, Jump_Start, Jump_Land","tt":"t = 12.60 s · celebración a 8.3 s · en pausa","t":"12.60","cele":"ARMS_CROSSED","stage":"3d","human":"ready","card":true}
+PASS sin errores de consola []

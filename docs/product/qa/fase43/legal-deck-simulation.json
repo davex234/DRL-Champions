@@ -1,0 +1,173 @@
+{
+  "phase": 43,
+  "kind": "legal-deck-simulation",
+  "decks": 1000000,
+  "seed": 430000,
+  "dataVersion": "VCT-2026",
+  "sampling": "2 jugadores distintos por rol elegidos uniformemente; una definición uniforme de cada jugador; una calibración",
+  "distributions": {
+    "ovr": {
+      "mean": 76.6357,
+      "sd": 2.0368,
+      "percentiles": {
+        "P1": 71.8,
+        "P5": 73.2,
+        "P10": 74,
+        "P25": 75.3,
+        "P50": 76.7,
+        "P75": 78,
+        "P90": 79.2,
+        "P95": 79.9,
+        "P99": 81.2
+      }
+    },
+    "stronghold": {
+      "mean": 62.8372,
+      "sd": 4.7562,
+      "percentiles": {
+        "P1": 51.5,
+        "P5": 54.9,
+        "P10": 56.7,
+        "P25": 59.7,
+        "P50": 62.9,
+        "P75": 66.1,
+        "P90": 68.9,
+        "P95": 70.6,
+        "P99": 73.6
+      }
+    },
+    "gamesense": {
+      "mean": 60.3693,
+      "sd": 4.2646,
+      "percentiles": {
+        "P1": 50.3,
+        "P5": 53.3,
+        "P10": 54.9,
+        "P25": 57.5,
+        "P50": 60.4,
+        "P75": 63.3,
+        "P90": 65.8,
+        "P95": 67.3,
+        "P99": 70
+      }
+    },
+    "entryfrag": {
+      "mean": 59.5158,
+      "sd": 3.5595,
+      "percentiles": {
+        "P1": 51.6,
+        "P5": 53.8,
+        "P10": 55,
+        "P25": 57.1,
+        "P50": 59.4,
+        "P75": 61.9,
+        "P90": 64.1,
+        "P95": 65.5,
+        "P99": 68.1
+      }
+    }
+  },
+  "dispersion": {
+    "percentiles": {
+      "P1": 2.9749,
+      "P5": 3.763,
+      "P10": 4.2202,
+      "P25": 5.0488,
+      "P50": 6.0572,
+      "P75": 7.1169,
+      "P90": 8.0554,
+      "P95": 8.593,
+      "P99": 9.5791
+    }
+  },
+  "calibrationSample": {
+    "size": 20000,
+    "seed": 43043,
+    "check": {
+      "ovr": {
+        "maxPercentileGap": 1.385,
+        "meanDiff": -0.0149,
+        "sdDiff": -0.0024
+      },
+      "stronghold": {
+        "maxPercentileGap": 1.075,
+        "meanDiff": -0.049,
+        "sdDiff": 0.0122
+      },
+      "gamesense": {
+        "maxPercentileGap": 1.035,
+        "meanDiff": -0.0172,
+        "sdDiff": 0.0021
+      },
+      "entryfrag": {
+        "maxPercentileGap": 0.575,
+        "meanDiff": 0.0012,
+        "sdDiff": 0.0056
+      }
+    }
+  },
+  "orientation": {
+    "MIXED": {
+      "count": 634410,
+      "pct": 63.441
+    },
+    "ORIENTED_stronghold": {
+      "count": 38300,
+      "pct": 3.83
+    },
+    "BALANCED": {
+      "count": 95405,
+      "pct": 9.5405
+    },
+    "ORIENTED_gamesense": {
+      "count": 97502,
+      "pct": 9.7502
+    },
+    "ORIENTED_entryfrag": {
+      "count": 134383,
+      "pct": 13.4383
+    }
+  },
+  "shape": {
+    "REGULAR": {
+      "count": 800186,
+      "pct": 80.0186
+    },
+    "POLARIZED": {
+      "count": 100297,
+      "pct": 10.0297
+    },
+    "CONSISTENT": {
+      "count": 99517,
+      "pct": 9.9517
+    }
+  },
+  "dominance": {
+    "cardLevelCorrelationOvrAxis": {
+      "stronghold": 0.7961,
+      "gamesense": 0.5984,
+      "entryfrag": 0.3781
+    },
+    "deckLevelCorrelationOvrAxis": {
+      "stronghold": 0.8724,
+      "gamesense": 0.6992,
+      "entryfrag": 0.5194
+    },
+    "deckLevelR2OvrExplainsAxis": {
+      "stronghold": 0.7611,
+      "gamesense": 0.4889,
+      "entryfrag": 0.2698
+    },
+    "paretoDiversity": {
+      "collections": 120,
+      "avgOptions": 4.8667,
+      "sameAsOvrMax": {
+        "stronghold": 0,
+        "gamesense": 0,
+        "entryfrag": 0
+      }
+    },
+    "verdict": "OVR NO domina por completo: al menos un eje queda mayoritariamente sin explicar por el OVR medio (hay decisiones reales entre ejes)."
+  },
+  "ms": 16473
+}

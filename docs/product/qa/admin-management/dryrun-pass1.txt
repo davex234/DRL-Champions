@@ -1,0 +1,71 @@
+NOTICE:  drop cascades to 8 other objects
+DETAIL:  drop cascades to table users
+drop cascades to table refresh_tokens
+drop cascades to table instances
+drop cascades to table audit_log_entries
+drop cascades to table schema_migrations
+drop cascades to function uid()
+drop cascades to function role()
+drop cascades to function email()
+== restaurado (23 errores de pg_restore, conocidos: roles de Supabase ausentes)
+PASS copia en 0066: social_blocks existe (t)
+PASS copia sin rastro de 0067 (t)
+== admins antes: 1
+PASS 0067 aplica en UNA transacción (exit) (0)
+   tiempo: 191 ms
+PASS 0067 no cambia ningún perfil (huella de profiles) (40:20b0381debb70a896bc4c7c18af406d0)
+PASS los administradores siguen siendo exactamente los mismos (2f86cbe8-f663-40fb-a87c-4896b9a45b62)
+PASS 0067 no escribe auditoría al aplicarse (536)
+PASS privilegios: anon/authenticated SIN execute en app_admin_set_admin (0)
+PASS privilegios: service_role SÍ (t)
+FAIL authenticated no lee is_admin (0058 intacta) (esperado «f», obtenido «t»)
+PASS usuarios sintéticos nacen sin admin (5)
+== escalada directa (sin la RPC)
+PASS superusuario/service_role: UPDATE suelto de is_admin → ADMIN_WRITE_FORBIDDEN (1)
+PASS … y no cambió nada (f)
+PASS authenticated (su propio perfil, RLS «edita tu perfil»): UPDATE is_admin → rechazado (1)
+PASS authenticated: ejecutar la RPC directamente → permiso denegado (1)
+PASS anon: ejecutar la RPC → permiso denegado (1)
+PASS INSERT de un perfil con is_admin = true → ADMIN_WRITE_FORBIDDEN (1)
+== operador (arranque de un admin de prueba, auditado a mano)
+PASS operador con la bandera: X es admin (t)
+PASS la bandera es local a la transacción: después, un UPDATE suelto vuelve a chocar (1)
+== RPC
+PASS un NO admin no se concede admin a sí mismo (NOT_ADMIN) (1)
+PASS un NO admin no concede admin a otro (NOT_ADMIN) (1)
+PASS actor nulo → NOT_ADMIN (1)
+PASS usuario inexistente → USER_NOT_FOUND (1)
+PASS admin X concede a Y → GRANTED (GRANTED)
+PASS auditoría: GRANT_ADMIN con actor X, afectado Y, hora y nombre (GRANT_ADMIN|true|user|true|true|true)
+PASS repetir → ALREADY_ADMIN y SIN nueva auditoría (ALREADY_ADMIN|1)
+PASS motivo de > 300 caracteres → BAD_REASON (1)
+PASS cuenta con sanción vigente → TARGET_SANCTIONED (1)
+== concurrencia: 20 concesiones X→Z a la vez
+PASS 20 a la vez → 1 GRANTED + 19 ALREADY_ADMIN (1|19)
+PASS … y UNA sola auditoría (1)
+PASS revocar a Z → REVOKED; repetir → ALREADY_NOT_ADMIN (REVOKED|ALREADY_NOT_ADMIN)
+PASS auditoría REVOKE_ADMIN (REVOKE_ADMIN)
+PASS Z ya no es admin: no puede conceder (1)
+== último administrador (en la COPIA se retiran los admins reales por operador para quedarnos con X e Y)
+PASS copia: admins = X e Y (2)
+PASS X se quita a sí mismo con otro admin presente → REVOKED (autorretirada permitida si queda alguien) (REVOKED)
+PASS … y la auditoría lo marca como autorretirada (true)
+PASS Y (último) se quita a sí mismo → LAST_ADMIN (1)
+PASS … y sigue siendo admin (t)
+PASS X (ya no admin) no puede revocar a Y → NOT_ADMIN (1)
+PASS Y vuelve a conceder a X → GRANTED (GRANTED)
+PASS ronda 1: revocación mutua simultánea → exactamente 1 admin queda
+PASS ronda 2: revocación mutua simultánea → exactamente 1 admin queda
+PASS ronda 3: revocación mutua simultánea → exactamente 1 admin queda
+PASS ronda 4: revocación mutua simultánea → exactamente 1 admin queda
+PASS ronda 5: revocación mutua simultánea → exactamente 1 admin queda
+PASS SUELO en BD: un operador que deja 0 admins (con la bandera) → LAST_ADMIN y se deshace todo (1|2)
+PASS SUELO en BD: borrar la cuenta del ÚLTIMO admin → LAST_ADMIN (1|1)
+PASS borrar una cuenta NO admin sigue funcionando (0)
+== rollback
+PASS rollback aplica (exit) (0)
+PASS rollback → sin RPC ni disparadores de 0067 (true0)
+PASS 0067 se re-aplica tras el rollback (0)
+PASS 0067 es re-ejecutable (0)
+== 1 fallos
+DRYRUN_FAIL

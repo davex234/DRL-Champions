@@ -1,0 +1,133 @@
+{
+  "phase": "F69",
+  "widths": [
+    390,
+    1024,
+    1440
+  ],
+  "instrument": "scripts/_fase69-probe.ts B <ancho> (ampliado en la reanudación: scroll horizontal de página y elementos fuera del viewport por ruta) + journeys a 390/1024/1440",
+  "routes": [
+    "/",
+    "/jugar",
+    "/coleccion",
+    "/duelos/mazos",
+    "/tienda",
+    "/progresion",
+    "/temporada",
+    "/competitivo",
+    "/cuenta",
+    "/entrenador",
+    "/social",
+    "/logros",
+    "/ranking",
+    "/pickems",
+    "/inventario",
+    "/eventos",
+    "/torneos",
+    "/como-jugar",
+    "/boveda",
+    "/mundo",
+    "/duelos",
+    "/duelos/pvp",
+    "/entrenador/jugar",
+    "/jugador/d8eb622b-568e-4ab1-9d61-04a8591a36b6"
+  ],
+  "perWidth": {
+    "390": {
+      "pages": 24,
+      "pageHorizontalScroll": [],
+      "elementsOutsideViewport": [
+        {
+          "page": "/entrenador",
+          "n": 5
+        },
+        {
+          "page": "/eventos",
+          "n": 1
+        },
+        {
+          "page": "/entrenador/jugar",
+          "n": 5
+        }
+      ]
+    },
+    "1024": {
+      "pages": 24,
+      "pageHorizontalScroll": [],
+      "elementsOutsideViewport": [
+        {
+          "page": "/eventos",
+          "n": 1
+        }
+      ]
+    },
+    "1440": {
+      "pages": 24,
+      "pageHorizontalScroll": [],
+      "elementsOutsideViewport": [
+        {
+          "page": "/eventos",
+          "n": 1
+        }
+      ]
+    }
+  },
+  "classified": [
+    {
+      "page": "/entrenador, /entrenador/jugar (390)",
+      "what": "pestañas del Coach (Pizarra, Plan, Mapas, Partidos, Plantilla)",
+      "verdict": "OK — carril con overflow-x:auto propio (se desliza)"
+    },
+    {
+      "page": "/eventos (todos)",
+      "what": "brillo decorativo vacío (absolute, opacidad 0,25)",
+      "verdict": "OK — decorativo, recortado por html overflow-x:clip"
+    },
+    {
+      "page": "/mundo (390)",
+      "what": "tarjetas «Clasificación» y «Periódico» 10 px más anchas que la pantalla (recortadas)",
+      "verdict": "BUG MINOR → ARREGLADO en la reanudación (min-w-0 en Panel; test en f69.polish); re-medido a 390 sobre 7e223fed: ya no aparece"
+    }
+  ],
+  "journeysByWidth": {
+    "390": [
+      "L-f69-new (reducido)",
+      "B-f69-store",
+      "B-f69-pve",
+      "B-f69final-pve",
+      "G-f69-collection",
+      "G-f69-slownet",
+      "K-f69final-resume-new",
+      "CE ranked B"
+    ],
+    "1024": [
+      "D-f69-teams",
+      "D-f69final-teams",
+      "D-f69-explorer",
+      "D-f69final-explorer"
+    ],
+    "1440": [
+      "K-f69-new",
+      "A-f69-auth",
+      "I-f69-progress",
+      "C multitab",
+      "AB switch",
+      "E/A long",
+      "J perf",
+      "CE ranked A",
+      "coach-D-final3"
+    ]
+  },
+  "teamBuilder": "F69 corrigió el constructor a 1024 (el rol partía «CONTRO/LADOR»); D-f69final-teams a 1024: 6/6 PASS. A 390 el constructor es de una columna (sin problema de densidad medido).",
+  "cuentaCls": {
+    "before": {
+      "1440": 0.222
+    },
+    "after": {
+      "390": 0,
+      "1024": 0.079,
+      "1440": 0.061
+    }
+  },
+  "verdict": "PASS"
+}

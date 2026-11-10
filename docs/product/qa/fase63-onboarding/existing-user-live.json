@@ -1,0 +1,99 @@
+{
+  "at": "2026-09-26T16:00:59.197Z",
+  "account": "1ff2c0ef",
+  "onboarding": {
+    "status": "COMPLETED",
+    "reason": "SELF_GUIDED",
+    "current": null,
+    "progress": "6/6",
+    "next": null,
+    "context": {
+      "firstPackId": null,
+      "unopenedPacks": 0,
+      "ownedCards": 25,
+      "packsOpened": 9,
+      "matchesCompleted": 15,
+      "readiness": {
+        "ready": true,
+        "roles": [
+          {
+            "role": "Duelista",
+            "need": 2,
+            "have": 2
+          },
+          {
+            "role": "Controlador",
+            "need": 2,
+            "have": 2
+          },
+          {
+            "role": "Iniciador",
+            "need": 2,
+            "have": 2
+          },
+          {
+            "role": "Centinela",
+            "need": 2,
+            "have": 2
+          },
+          {
+            "role": "Flex",
+            "need": 2,
+            "have": 2
+          }
+        ],
+        "shortages": []
+      },
+      "readyDeck": {
+        "id": "bb5e6f05-36a7-4155-9ec7-690a7d9e2efe",
+        "name": "QA F55 Ranked",
+        "cardIds": [
+          "eggsterr__base",
+          "s0pp__base",
+          "loita__masters-sdc",
+          "monyet__base",
+          "starxo__masters-sdc",
+          "vora__base",
+          "neon__base",
+          "bao__base",
+          "leaf__base",
+          "seven__future-star"
+        ],
+        "active": false
+      },
+      "hasInvalidDeck": false
+    }
+  },
+  "screens": {
+    "landing": "/cuenta",
+    "/": {
+      "onboardingUi": false,
+      "errors": 0
+    },
+    "/coleccion": {
+      "onboardingUi": false,
+      "errors": 0
+    },
+    "/jugar": {
+      "onboardingUi": false,
+      "errors": 0
+    },
+    "/progresion": {
+      "onboardingUi": false,
+      "errors": 0
+    }
+  },
+  "unchanged": true,
+  "before": {
+    "credits": 8750,
+    "xp": 2064,
+    "cards": 25,
+    "decks": 1
+  },
+  "after": {
+    "credits": 8750,
+    "xp": 2064,
+    "cards": 25,
+    "decks": 1
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "packs10": "pack-craft.json: K 10 gestos distintos, inventario para 1 → 1 × 200 + 9 × 409",
+  "openVsCraft": {
+    "pass": 3,
+    "fail": 0,
+    "source": "docs/product/qa/fase73-production/pack-race.json",
+    "results": [
+      {
+        "id": "CARRERA · exactamente UNA gana (abrir o craftear)",
+        "ok": true,
+        "detail": "open=409 craft=200/ok"
+      },
+      {
+        "id": "CARRERA · ganó el crafteo: Plata 2→0, Oro +1, sin cartas nuevas",
+        "ok": true,
+        "detail": "{\"estandar\":2,\"premium\":2,\"inicial\":0} → {\"estandar\":2,\"premium\":0,\"oro\":1,\"inicial\":0} cartas 20→20"
+      },
+      {
+        "id": "CARRERA · la perdedora responde 4xx, nunca 500",
+        "ok": true,
+        "detail": ""
+      }
+    ]
+  },
+  "salvageVsCraftSameCopy": {
+    "pass": 4,
+    "fail": 0,
+    "source": "docs/product/qa/fase73-production/salvage-craft-race.json",
+    "results": [
+      {
+        "id": "CARRERA · exactamente UNA de las dos operaciones gasta la copia X",
+        "ok": true,
+        "detail": "salvage=409/Ninguna de esas cartas se puede desguazar craft=200/ok"
+      },
+      {
+        "id": "CARRERA · X ya no existe y NO se duplicó nada",
+        "ok": true,
+        "detail": ""
+      },
+      {
+        "id": "CARRERA · recuento de copias coherente con la ganadora",
+        "ok": true,
+        "detail": "46 → 44 (esperado 44)"
+      },
+      {
+        "id": "CARRERA · créditos coherentes (solo cambian si ganó el desguace)",
+        "ok": true,
+        "detail": "5065 → 5065"
+      }
+    ]
+  },
+  "salvageVsCraftDifferentCopies": "0060 (migration-audit.json): test con barrera 5/5 + control sin 0060 = 0 copias + sondas en la función viva",
+  "missionClaim10": "project-race.json (r4): 10 reclamos de misión → +10 XP una vez, 0 × 500 (antes 1 × 500: arreglado en award())",
+  "projectClaim10": "project-race.json (r4): 10 reclamos → +1 copia, 1 reclamo + 1 concesión, 0 × 500"
+}

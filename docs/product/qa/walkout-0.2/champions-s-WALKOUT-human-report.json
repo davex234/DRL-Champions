@@ -1,0 +1,204 @@
+[
+  {
+    "width": 1440,
+    "name": "1-figura-al-fondo",
+    "t": "2.70",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "536",
+    "file": "champions-s-WALKOUT-1-figura-al-fondo-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "2-inicio-caminata",
+    "t": "3.20",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "587",
+    "file": "champions-s-WALKOUT-2-inicio-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "3-bandera",
+    "t": "4.25",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "481",
+    "file": "champions-s-WALKOUT-3-bandera-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "4-mitad-caminata",
+    "t": "5.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "493",
+    "file": "champions-s-WALKOUT-4-mitad-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "5-impacto-escudo",
+    "t": "6.15",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "497",
+    "file": "champions-s-WALKOUT-5-impacto-escudo-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "6-deteniendose",
+    "t": "7.90",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "525",
+    "file": "champions-s-WALKOUT-6-deteniendose-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7-ovr",
+    "t": "8.95",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "548",
+    "file": "champions-s-WALKOUT-7-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "8-transicion",
+    "t": "9.55",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "596",
+    "file": "champions-s-WALKOUT-8-transicion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "9-transicion-b",
+    "t": "10.05",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "510",
+    "file": "champions-s-WALKOUT-9-transicion-b-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "11.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "492",
+    "file": "champions-s-WALKOUT-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 390,
+    "name": "1-figura-al-fondo",
+    "t": "2.70",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "383",
+    "file": "champions-s-WALKOUT-1-figura-al-fondo-390.png"
+  },
+  {
+    "width": 390,
+    "name": "2-inicio-caminata",
+    "t": "3.20",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "391",
+    "file": "champions-s-WALKOUT-2-inicio-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "3-bandera",
+    "t": "4.25",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "326",
+    "file": "champions-s-WALKOUT-3-bandera-390.png"
+  },
+  {
+    "width": 390,
+    "name": "4-mitad-caminata",
+    "t": "5.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "349",
+    "file": "champions-s-WALKOUT-4-mitad-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "5-impacto-escudo",
+    "t": "6.15",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "328",
+    "file": "champions-s-WALKOUT-5-impacto-escudo-390.png"
+  },
+  {
+    "width": 390,
+    "name": "6-deteniendose",
+    "t": "7.90",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "364",
+    "file": "champions-s-WALKOUT-6-deteniendose-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7-ovr",
+    "t": "8.95",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "349",
+    "file": "champions-s-WALKOUT-7-ovr-390.png"
+  },
+  {
+    "width": 390,
+    "name": "8-transicion",
+    "t": "9.55",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "347",
+    "file": "champions-s-WALKOUT-8-transicion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "9-transicion-b",
+    "t": "10.05",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "327",
+    "file": "champions-s-WALKOUT-9-transicion-b-390.png"
+  },
+  {
+    "width": 390,
+    "name": "10-carta-final",
+    "t": "11.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "336",
+    "file": "champions-s-WALKOUT-10-carta-final-390.png"
+  },
+  {
+    "width": 390,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

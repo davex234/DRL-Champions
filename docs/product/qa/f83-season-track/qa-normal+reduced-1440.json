@@ -1,0 +1,713 @@
+{
+ "base": "http://127.0.0.1:3083",
+ "at": "2026-10-03T22:18:43.464Z",
+ "total": 84,
+ "passed": 84,
+ "failed": 0,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "carril: 40 niveles, se desplaza por DENTRO y es enfocable",
+   "ok": true,
+   "detail": {
+    "sw": 5670,
+    "cw": 1152,
+    "focusable": true,
+    "nodes": 40
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "un botón RECLAMAR por nivel disponible",
+   "ok": true,
+   "detail": {
+    "claims": 2,
+    "avail": 2
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "active",
+   "name": "el nivel actual queda visible dentro del carril",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "carril: 40 niveles, se desplaza por DENTRO y es enfocable",
+   "ok": true,
+   "detail": {
+    "sw": 5670,
+    "cw": 1152,
+    "focusable": true,
+    "nodes": 40
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "un botón RECLAMAR por nivel disponible",
+   "ok": true,
+   "detail": {
+    "claims": 3,
+    "avail": 3
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "claim",
+   "name": "reclamar: estado «Reclamando…» y botones bloqueados (sin doble clic)",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "fresh",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "fresh",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "fresh",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "fresh",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "fresh",
+   "name": "carril: 40 niveles, se desplaza por DENTRO y es enfocable",
+   "ok": true,
+   "detail": {
+    "sw": 5670,
+    "cw": 1152,
+    "focusable": true,
+    "nodes": 40
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "fresh",
+   "name": "un botón RECLAMAR por nivel disponible",
+   "ok": true,
+   "detail": {
+    "claims": 0,
+    "avail": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "fresh",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "max",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "max",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "max",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "max",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "max",
+   "name": "carril: 40 niveles, se desplaza por DENTRO y es enfocable",
+   "ok": true,
+   "detail": {
+    "sw": 5670,
+    "cw": 1152,
+    "focusable": true,
+    "nodes": 40
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "max",
+   "name": "un botón RECLAMAR por nivel disponible",
+   "ok": true,
+   "detail": {
+    "claims": 1,
+    "avail": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "max",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "grace",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "grace",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "grace",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "grace",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "grace",
+   "name": "carril: 40 niveles, se desplaza por DENTRO y es enfocable",
+   "ok": true,
+   "detail": {
+    "sw": 5670,
+    "cw": 1152,
+    "focusable": true,
+    "nodes": 40
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "grace",
+   "name": "un botón RECLAMAR por nivel disponible",
+   "ok": true,
+   "detail": {
+    "claims": 8,
+    "avail": 8
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "grace",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "carril: 40 niveles, se desplaza por DENTRO y es enfocable",
+   "ok": true,
+   "detail": {
+    "sw": 5670,
+    "cw": 1152,
+    "focusable": true,
+    "nodes": 40
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "un botón RECLAMAR por nivel disponible",
+   "ok": true,
+   "detail": {
+    "claims": 0,
+    "avail": 0
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "scheduled",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "none",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "none",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "none",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "postmatch",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "postmatch",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "postmatch",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "levelup",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "levelup",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "levelup",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "levelup",
+   "name": "subida de nivel: un diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "levelup",
+   "name": "foco dentro del diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "levelup",
+   "name": "Escape cierra",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "multilevel",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "multilevel",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "multilevel",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "multilevel",
+   "name": "subida de nivel: un diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "multilevel",
+   "name": "foco dentro del diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "multilevel",
+   "name": "varios niveles: «+3 niveles» en UNA celebración",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "multilevel",
+   "name": "Escape cierra",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "un solo h1",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "carril: 40 niveles, se desplaza por DENTRO y es enfocable",
+   "ok": true,
+   "detail": {
+    "sw": 5670,
+    "cw": 1152,
+    "focusable": true,
+    "nodes": 40
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "un botón RECLAMAR por nivel disponible",
+   "ok": true,
+   "detail": {
+    "claims": 2,
+    "avail": 2
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "objetivos táctiles ≥ 44 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "active",
+   "name": "el nivel actual queda visible dentro del carril",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "levelup",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "levelup",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "levelup",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "levelup",
+   "name": "subida de nivel: un diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "levelup",
+   "name": "foco dentro del diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "levelup",
+   "name": "Escape cierra",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "multilevel",
+   "name": "sin desbordamiento horizontal de la página",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "multilevel",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "multilevel",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "multilevel",
+   "name": "subida de nivel: un diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "multilevel",
+   "name": "foco dentro del diálogo",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "multilevel",
+   "name": "varios niveles: «+3 niveles» en UNA celebración",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "multilevel",
+   "name": "Escape cierra",
+   "ok": true
+  }
+ ]
+}

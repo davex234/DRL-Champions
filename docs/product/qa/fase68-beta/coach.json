@@ -1,0 +1,373 @@
+{
+  "playVerification": {
+    "clicks": 63,
+    "historyGrew": true,
+    "agentFaces": 5,
+    "ms": 113395,
+    "final": "Saltar al contenido NEXUS LOBBY COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 4 NIVEL 49% 6.650 DRL Credits MÁS 1 JUGAR TACTICAL COACH CENTRO JUGAR COMPOSICIONES PIZARRA PLAN MAPAS PARTIDOS PLANTILLA DERROTA RIVAL (NORMAL) 0–13 Equipo NEXUS vs Rival (Normal) · 13 rondas Paliza MVP DEL PARTIDO LOVERS ROCK 32 bajas REVELACIÓN IZZY dominó el mapa NOTA DEL ENTRENADOR D Partido para olvidar Táctica C · 0% r"
+  },
+  "network": {
+    "api": 25,
+    "all": 234,
+    "byPath": {
+      "/api/content/agents": 2,
+      "/api/content/packs": 2,
+      "/api/telemetry": 4,
+      "/api/game/prestige": 1,
+      "/api/game/live-events": 2,
+      "/api/game/state": 2,
+      "/api/game/social": 4,
+      "/api/game/play-status": 2,
+      "/api/game/onboarding": 2,
+      "/api/game/competitive": 1,
+      "/api/game/player": 1,
+      "/api/game/compositions": 1,
+      "/api/game/coach-matches": 1
+    },
+    "status": {
+      "200": 230,
+      "204": 4
+    },
+    "bad": [],
+    "slow": []
+  },
+  "errors": [],
+  "explorerR2": {
+    "rounds": [
+      {
+        "r": 0,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 1,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 3,
+        "clicked": "decisión: JUGAR POR PICKS"
+      },
+      {
+        "r": 4,
+        "clicked": "decisión: SALVA EL ARMA"
+      },
+      {
+        "r": 5,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 6,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 7,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 8,
+        "clicked": "decisión: REAGRUPAR"
+      },
+      {
+        "r": 9,
+        "clicked": "decisión: SALVA EL ARMA"
+      },
+      {
+        "r": 10,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 11,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 12,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 13,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 14,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 15,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 16,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 17,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 18,
+        "clicked": "decisión: JUGAR POR PICKS"
+      },
+      {
+        "r": 19,
+        "clicked": "decisión: SALVA EL ARMA"
+      },
+      {
+        "r": 20,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 21,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 22,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 23,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 24,
+        "clicked": "decisión: SALVA EL ARMA"
+      },
+      {
+        "r": 25,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 26,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 27,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 28,
+        "clicked": "decisión: SALVAR EL ARMAMENTO"
+      },
+      {
+        "r": 29,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 30,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 31,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 32,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 33,
+        "clicked": "decisión: SALVAR EL ARMAMENTO"
+      },
+      {
+        "r": 34,
+        "clicked": "decisión: JUEGA POR PICKS (PACIENCIA)"
+      },
+      {
+        "r": 35,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 36,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 37,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 38,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 39,
+        "clicked": "decisión: SALVA EL ARMA"
+      },
+      {
+        "r": 40,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 41,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 42,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 43,
+        "clicked": "decisión: JUGAR POR PICKS"
+      },
+      {
+        "r": 44,
+        "clicked": "decisión: SALVA EL ARMA"
+      },
+      {
+        "r": 45,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 46,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 47,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 48,
+        "clicked": "decisión: JUGAR POR PICKS"
+      },
+      {
+        "r": 49,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 50,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 51,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 52,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 53,
+        "clicked": "decisión: JUGAR POR PICKS"
+      },
+      {
+        "r": 54,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 55,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 56,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 57,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 58,
+        "clicked": "decisión: JUGAR POR PICKS"
+      },
+      {
+        "r": 59,
+        "clicked": "decisión: CONFÍO EN MI IGL"
+      },
+      {
+        "r": 60,
+        "clicked": "SIGUIENTE RONDA"
+      },
+      {
+        "r": 61,
+        "clicked": "CONFIRMAR PLAN → FASE DE COMPRA ▸"
+      },
+      {
+        "r": 62,
+        "clicked": "COMPRAR Y EMPEZAR RONDA ▸"
+      },
+      {
+        "r": 63,
+        "clicked": "decisión: JUGAR POR PICKS"
+      },
+      {
+        "r": 64,
+        "clicked": "decisión: JUEGA POR PICKS (PACIENCIA)"
+      },
+      {
+        "r": 65,
+        "clicked": "VER RESULTADO DEL PARTIDO"
+      }
+    ],
+    "clicks": 65,
+    "before": 2,
+    "agentFaces": 5,
+    "final": "Saltar al contenido COLECCIÓN EQUIPOS TIENDA TEMPORADA MUNDO 10.080 DRL Credits MÁS 2 JUGAR TACTICAL COACH CENTRO JUGAR COMPOSICIONES PIZARRA PLAN MAPAS PARTIDOS PLANTILLA DERROTA RIVAL (NORMAL) 0–13 Equipo NEXUS vs Rival (Normal) · 13 rondas Paliza MVP DEL PARTIDO FENGF 65 bajas REVELACIÓN FENGF 13 aces NOTA DEL ENTRENADOR D Partido para olvidar Táctica C · 0% rondas · 4 estrategias MOMENTUM DEL ",
+    "after": {
+      "matches": [
+        {
+          "id": "d69665ed-f65b-4f6d-b9cd-3baff74a2e0a",
+          "seed": 251932239,
+          "teamName": "Equipo NEXUS",
+          "rivalName": "Rival (Normal)",
+          "difficulty": "normal",
+          "mapId": "fracture",
+          "mapSite": "A",
+          "startSide": "ATK",
+          "scoreHome": 0,
+          "scoreAway": 13,
+          "won": false,
+          "rounds": 13,
+          "durationSeconds": 73,
+          "mvp": null,
+          "finishedAt": "2026-09-27T11:50:10.08291+00:00"
+        },
+        {
+          "id": "ac3e24da-3c34-4a93-b865-41cd8744549e",
+          "seed": 428171962,
+          "teamName": "Equipo NEXUS",
+          "rivalName": "Rival (Normal)",
+          "difficulty": "normal",
+          "mapId": "fracture",
+          "mapSite": "A",
+          "startSide": "ATK",
+          "scoreHome": 0,
+          "scoreAway": 13,
+          "won": false,
+          "rounds": 13,
+          "durationSeconds": 289,
+          "mvp": null,
+          "finishedAt": "2026-09-27T11:34:12.016471+00:00"
+        },
+        {
+          "id": "4296788a-4704-4763-8860-b0103af5842d",
+          "seed": 1906911177,
+          "teamName": "Equipo NEXUS",
+          "rivalName": "Rival (Normal)",
+          "difficulty": "normal",
+          "mapId": "fracture",
+          "mapSite": "A",
+          "startSide": "ATK",
+          "scoreHome": 1,
+          "scoreAway": 13,
+          "won": false,
+          "rounds": 14,
+          "durationSeconds": 215,
+          "mvp": null,
+          "finishedAt": "2026-09-27T10:55:32.566024+00:00"
+        }
+      ],
+      "record": {
+        "jugados": 3,
+        "ganados": 0,
+        "perdidos": 3,
+        "diferencialRondas": -38,
+        "racha": -3
+      },
+      "total": 3
+    },
+    "historyGrew": true,
+    "ms": 88592
+  },
+  "openIssues": [
+    "F68-010",
+    "F68-011",
+    "F68-012"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "Abre 10 sobres": "パックを10個開封",
+  "Abre 5 Sobres {label}": "{label}パックを5個開封",
+  "Aprobación requerida ({Math}%): {playerNick} {kind} · {name}": "承認が必要です({Math}%): {playerNick} {kind} · {name}",
+  "Consigue una carta legendaria": "レジェンダリーカードを1枚入手",
+  "Consigue una carta {label}": "{label}カードを1枚入手",
+  "Consigue una carta épica o superior": "エピック以上のカードを1枚入手",
+  "Error generando cartas de {name}: {message}": "{name}のカード生成エラー: {message}",
+  "Error obteniendo datos de {name}: {message}": "{name}のデータ取得エラー: {message}",
+  "Evento generado automáticamente por DRL Data Engine.": "DRL Data Engineが自動生成したイベント。",
+  "Fallo del engine: {message}": "エンジンの失敗: {message}",
+  "Foto no encontrada (se usará silueta): {nick}": "写真が見つかりません(シルエットを使用): {nick}",
+  "Logo de equipo no encontrado: {tname}": "チームロゴが見つかりません: {tname}",
+  "MVP deducido por ACS (no confirmado por la fuente)": "ACSからMVPを推定(情報源では未確認)",
+  "MVP indicado por la fuente no aparece en las estadísticas": "情報源が示したMVPが統計に見当たりません",
+  "Mock (fixtures)": "Mock (fixtures)",
+  "No se pudo identificar al MVP": "MVPを特定できませんでした",
+  "País no resuelto: {v}": "国を解決できません: {v}",
+  "Sin resultados de {name}: {message}": "{name}の結果なし: {message}",
+  "VLR no configurado (NEXT_PUBLIC_VLR_API)": "VLRが未設定です(NEXT_PUBLIC_VLR_API)",
+  "{name} marcado finalizado pero sin resultados.": "{name}は終了としてマークされていますが、結果がありません。"
+}

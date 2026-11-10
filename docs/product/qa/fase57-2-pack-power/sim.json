@@ -1,0 +1,395 @@
+{
+  "generated": "2026-09-23T14:46:52.818Z",
+  "n": 100000,
+  "rules": {
+    "estandar": {
+      "tier": "bronze",
+      "maxOvr": 85,
+      "blurb": "Cartas de nivel bajo y medio: OVR 85 como máximo."
+    },
+    "premium": {
+      "tier": "silver",
+      "maxOvr": 89,
+      "blurb": "Mejor que Bronce: hasta OVR 89, sin el tramo alto."
+    },
+    "oro": {
+      "tier": "gold",
+      "maxOvr": 93,
+      "blurb": "Acceso real a cartas muy buenas: hasta OVR 93."
+    },
+    "icon": {
+      "tier": "icon",
+      "maxOvr": null,
+      "blurb": "El techo del catálogo: puede traer las mejores cartas de su pool."
+    }
+  },
+  "estandar": {
+    "name": "Sobre Bronce",
+    "price": 750,
+    "cardCount": 5,
+    "rule": {
+      "tier": "bronze",
+      "maxOvr": 85,
+      "blurb": "Cartas de nivel bajo y medio: OVR 85 como máximo."
+    },
+    "after": {
+      "packs": 100000,
+      "cards": 500000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 70,
+        "mean": 81.27,
+        "median": 82,
+        "p90": 85,
+        "p95": 85,
+        "p99": 85,
+        "max": 85
+      },
+      "perCardAtLeast": {
+        ">=80": 70.537,
+        ">=85": 16.859,
+        ">=90": 0,
+        ">=95": 0
+      },
+      "perPackAtLeastOne": {
+        ">=80": 99.788,
+        ">=85": 60.426,
+        ">=90": 0,
+        ">=95": 0
+      },
+      "rarityPct": {
+        "common": 60.02,
+        "uncommon": 38.03,
+        "epic": 1.95
+      },
+      "editionPct": {
+        "base": 60.02,
+        "masters-sdc": 21.31,
+        "masters-l": 16.72,
+        "champions-s": 1.95
+      },
+      "dupCardsPct": 1.269
+    },
+    "before": {
+      "packs": 100000,
+      "cards": 500000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 70,
+        "mean": 84.61,
+        "median": 85,
+        "p90": 92,
+        "p95": 93,
+        "p99": 95,
+        "max": 95
+      },
+      "perCardAtLeast": {
+        ">=80": 79.916,
+        ">=85": 51.071,
+        ">=90": 20.25,
+        ">=95": 2.051
+      },
+      "perPackAtLeastOne": {
+        ">=80": 99.967,
+        ">=85": 97.149,
+        ">=90": 67.682,
+        ">=95": 9.825
+      },
+      "rarityPct": {
+        "common": 55.14,
+        "uncommon": 34.93,
+        "rare": 7.94,
+        "epic": 1.81,
+        "legendary": 0.18
+      },
+      "editionPct": {
+        "base": 55.14,
+        "masters-sdc": 17.64,
+        "masters-l": 17.29,
+        "future-star": 7.94,
+        "champions-s": 1.81,
+        "record-breaker": 0.12,
+        "moments": 0.06
+      },
+      "dupCardsPct": 0.638
+    },
+    "ms": 1261
+  },
+  "premium": {
+    "name": "Sobre Plata",
+    "price": 2500,
+    "cardCount": 6,
+    "rule": {
+      "tier": "silver",
+      "maxOvr": 89,
+      "blurb": "Mejor que Bronce: hasta OVR 89, sin el tramo alto."
+    },
+    "after": {
+      "packs": 100000,
+      "cards": 600000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 70,
+        "mean": 85.16,
+        "median": 86,
+        "p90": 89,
+        "p95": 89,
+        "p99": 89,
+        "max": 89
+      },
+      "perCardAtLeast": {
+        ">=80": 89.153,
+        ">=85": 64.392,
+        ">=90": 0,
+        ">=95": 0
+      },
+      "perPackAtLeastOne": {
+        ">=80": 100,
+        ">=85": 99.905,
+        ">=90": 0,
+        ">=95": 0
+      },
+      "rarityPct": {
+        "uncommon": 37.87,
+        "rare": 27.74,
+        "common": 25.26,
+        "epic": 9.13
+      },
+      "editionPct": {
+        "future-star": 27.74,
+        "base": 25.26,
+        "masters-sdc": 20.33,
+        "masters-l": 17.54,
+        "champions-s": 9.13
+      },
+      "dupCardsPct": 3.871
+    },
+    "before": {
+      "packs": 100000,
+      "cards": 600000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 70,
+        "mean": 87.23,
+        "median": 88,
+        "p90": 94,
+        "p95": 95,
+        "p99": 95,
+        "max": 95
+      },
+      "perCardAtLeast": {
+        ">=80": 90.201,
+        ">=85": 71,
+        ">=90": 38.245,
+        ">=95": 6.638
+      },
+      "perPackAtLeastOne": {
+        ">=80": 100,
+        ">=85": 99.987,
+        ">=90": 95.35,
+        ">=95": 34.079
+      },
+      "rarityPct": {
+        "uncommon": 37.49,
+        "rare": 27.09,
+        "common": 25.01,
+        "epic": 8.94,
+        "legendary": 1.47
+      },
+      "editionPct": {
+        "future-star": 27.09,
+        "base": 25.01,
+        "masters-sdc": 18.85,
+        "masters-l": 18.64,
+        "champions-s": 8.94,
+        "record-breaker": 0.98,
+        "moments": 0.49
+      },
+      "dupCardsPct": 1.28
+    },
+    "ms": 1427
+  },
+  "oro": {
+    "name": "Sobre Oro",
+    "price": 5000,
+    "cardCount": 5,
+    "rule": {
+      "tier": "gold",
+      "maxOvr": 93,
+      "blurb": "Acceso real a cartas muy buenas: hasta OVR 93."
+    },
+    "after": {
+      "packs": 100000,
+      "cards": 500000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 70,
+        "mean": 87.79,
+        "median": 89,
+        "p90": 92,
+        "p95": 93,
+        "p99": 93,
+        "max": 93
+      },
+      "perCardAtLeast": {
+        ">=80": 96.183,
+        ">=85": 78.817,
+        ">=90": 38.182,
+        ">=95": 0
+      },
+      "perPackAtLeastOne": {
+        ">=80": 100,
+        ">=85": 99.958,
+        ">=90": 90.966,
+        ">=95": 0
+      },
+      "rarityPct": {
+        "uncommon": 32.13,
+        "epic": 30.71,
+        "rare": 23.92,
+        "common": 7.9,
+        "legendary": 5.34
+      },
+      "editionPct": {
+        "champions-s": 30.71,
+        "future-star": 23.92,
+        "masters-sdc": 16.46,
+        "masters-l": 15.67,
+        "base": 7.9,
+        "record-breaker": 5.34
+      },
+      "dupCardsPct": 2.202
+    },
+    "before": {
+      "packs": 100000,
+      "cards": 500000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 70,
+        "mean": 88.61,
+        "median": 89,
+        "p90": 95,
+        "p95": 95,
+        "p99": 95,
+        "max": 95
+      },
+      "perCardAtLeast": {
+        ">=80": 96.233,
+        ">=85": 80.315,
+        ">=90": 44.891,
+        ">=95": 10.818
+      },
+      "perPackAtLeastOne": {
+        ">=80": 100,
+        ">=85": 99.968,
+        ">=90": 94.964,
+        ">=95": 43.888
+      },
+      "rarityPct": {
+        "uncommon": 32.13,
+        "epic": 30.71,
+        "rare": 23.92,
+        "common": 7.9,
+        "legendary": 5.34
+      },
+      "editionPct": {
+        "champions-s": 30.71,
+        "future-star": 23.92,
+        "masters-sdc": 16.11,
+        "masters-l": 16.01,
+        "base": 7.9,
+        "record-breaker": 3.57,
+        "moments": 1.77
+      },
+      "dupCardsPct": 1.606
+    },
+    "ms": 1291
+  },
+  "icon": {
+    "name": "Sobre Icon",
+    "price": 20000,
+    "cardCount": 3,
+    "rule": {
+      "tier": "icon",
+      "maxOvr": null,
+      "blurb": "El techo del catálogo: puede traer las mejores cartas de su pool."
+    },
+    "after": {
+      "packs": 100000,
+      "cards": 300000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 80,
+        "mean": 91.87,
+        "median": 92,
+        "p90": 95,
+        "p95": 95,
+        "p99": 95,
+        "max": 95
+      },
+      "perCardAtLeast": {
+        ">=80": 100,
+        ">=85": 94.024,
+        ">=90": 75.566,
+        ">=95": 39.394
+      },
+      "perPackAtLeastOne": {
+        ">=80": 100,
+        ">=85": 100,
+        ">=90": 100,
+        ">=95": 81.659
+      },
+      "rarityPct": {
+        "legendary": 50.08,
+        "epic": 30,
+        "rare": 19.93
+      },
+      "editionPct": {
+        "record-breaker": 33.38,
+        "champions-s": 30,
+        "future-star": 19.93,
+        "moments": 16.7
+      },
+      "dupCardsPct": 6.582
+    },
+    "before": {
+      "packs": 100000,
+      "cards": 300000,
+      "incompletePacks": 0,
+      "ovr": {
+        "min": 80,
+        "mean": 91.87,
+        "median": 92,
+        "p90": 95,
+        "p95": 95,
+        "p99": 95,
+        "max": 95
+      },
+      "perCardAtLeast": {
+        ">=80": 100,
+        ">=85": 94.024,
+        ">=90": 75.566,
+        ">=95": 39.394
+      },
+      "perPackAtLeastOne": {
+        ">=80": 100,
+        ">=85": 100,
+        ">=90": 100,
+        ">=95": 81.659
+      },
+      "rarityPct": {
+        "legendary": 50.08,
+        "epic": 30,
+        "rare": 19.93
+      },
+      "editionPct": {
+        "record-breaker": 33.38,
+        "champions-s": 30,
+        "future-star": 19.93,
+        "moments": 16.7
+      },
+      "dupCardsPct": 6.582
+    },
+    "ms": 839
+  }
+}

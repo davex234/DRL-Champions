@@ -1,0 +1,66 @@
+{
+  "method": "F5 real (Page.reload) en el cliente de Chrome durante la partida caos, más lecturas de estado por API",
+  "rows": [
+    {
+      "when": "cola",
+      "result": {
+        "before": "d6117e4b",
+        "after": "d6117e4b",
+        "same": true
+      },
+      "expectation": "misma entrada, sin ticket nuevo"
+    },
+    {
+      "when": "turno 3 (cliente B)",
+      "result": {
+        "arena": true,
+        "intro": false,
+        "moment": false,
+        "turn": "TURNO 4 DE 10",
+        "hand": 7,
+        "outcome": false,
+        "syncing": false,
+        "text": "RANKED · RATING EN JUEGO 🎮contra qa_f45_085748_1ff2 · jugador real TU TURNO TU TIEMPO 01:26 ? ⛶ SALIR ABANDONAR TURNO 4 DE 10 ATACAS ELIGE CARTA TÚ0–2RIVAL TU"
+      },
+      "expectation": "vuelve a la misma partida y turno"
+    },
+    {
+      "when": "acción en vuelo (cliente A)",
+      "result": {
+        "r": "reload-in-flight fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false} 3512ms",
+        "versionBefore": 8,
+        "versionAfter": 8,
+        "appliedAtMostOnce": true
+      },
+      "expectation": "la jugada aparece como mucho UNA vez"
+    },
+    {
+      "when": "resultado",
+      "result": {
+        "ratingUnchanged": true,
+        "screen": {
+          "arena": false,
+          "intro": false,
+          "moment": false,
+          "turn": null,
+          "hand": 0,
+          "outcome": true,
+          "syncing": false,
+          "text": "DUELO PVP · CONTRA QA_CAMPAIGN_352_8C32 DERROTA TÚ 4 – RIVAL 5 Marcador final · Por turnos ganados ÚLTIMO TURNO · 10PUNTO PARA EL RIVALStronghold 83 del riva"
+        }
+      },
+      "expectation": "no se repite Elo/recompensa"
+    },
+    {
+      "when": "PvE `active` tras F5",
+      "result": {
+        "sameMatch": true,
+        "sameTurn": true,
+        "ok": true
+      }
+    }
+  ],
+  "notCoveredByAutomation": [
+    "F5 exactamente en VS / presentación de equipo / desempate: cubiertos por F61 (?resultado=, recuperación desde servidor) y por la regla general: el cliente no guarda estado de partida, todo sale de GET"
+  ]
+}

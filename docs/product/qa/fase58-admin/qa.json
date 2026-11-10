@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-24",
+  "baseline": { "tests": "5050/5050", "catalog": 331, "migrationHead": "0054_tactical_compositions", "GLOBAL_MARKET_ENABLED": false, "PAYMENTS_ENABLED": false, "workingTree": "1215 entradas sucias previas (no tocadas salvo patch quirúrgico)" },
+  "final": { "tests": "5066/5066", "tscWeb": "0 errores", "tscScripts": "0 errores", "eslint": "0 errores · 27 avisos (los mismos)", "build": "PASS", "migrationHead": "0055_admin_control_center (aplicada en el VPS 2026-09-24T11:06Z, backup pre-0055 verificado)" },
+  "authorization": {
+    "unit": "adminControlCenter.test.ts: anónimo y usuario normal → 401 en 10 GET + 5 POST, sin escrituras; admin → 200; las rutas reales montan verifyAdmin",
+    "live": "9 endpoints nuevos: anónimo 401 · token falsificado 401 · POST anónimo 401",
+    "db": "probe BEGIN/ROLLBACK en el VPS: no-admin rechazado, auto-sanción, doble sanción, revocar, créditos idempotentes/saldo viejo/suelo 0, auditoría append-only (UPDATE/DELETE rechazados), publicar/doble publicar, grants de anon/authenticated = false"
+  },
+  "functional_live_chrome_admin": [
+    { "check": "15 GET del panel + listado de cartas con la sesión admin", "result": "200 en todos" },
+    { "check": "dashboard / sistema / usuarios / ficha 360 (cuenta QA)", "result": "datos reales, sin secretos" },
+    { "check": "ajuste de créditos QA +1 y −1", "result": "1320 → 1321 → 1320; 2 asientos admin:credits:* en el libro mayor; 2 auditorías" },
+    { "check": "suspensión QA 1 h con confirmación escrita", "result": "activa; POST /api/game/packs y matchmaking → 403 «sanción activa»; GET no bloqueado; otro usuario no afectado" },
+    { "check": "revocar suspensión", "result": "revocada; tras la TTL (15 s) el borde ya no bloquea" },
+    { "check": "asistente de evento (5 pasos) → borrador → cancelar", "result": "borrador creado (public.events sin cambios: 0 eventos admin) y cancelado; 2 auditorías" },
+    { "check": "paleta Ctrl+K", "result": "abre y encuentra usuarios reales" },
+    { "check": "salud del sistema", "result": "BD/migraciones/catálogo/economía/competitivo/auth/storage/temporadas en OK; AVISO real: el Sobre Oro no tiene pool vinculado en content_pack_pools" }
+  ],
+  "visual": { "runner": "scripts/_fase58-shots.ts (headless, fixtures reales generados por los handlers)", "captures": 51, "widths": [1440, 1024, 768], "routes": 17, "horizontalOverflow": 0, "consoleErrors": 0, "report": "visual-qa.json" },
+  "toolingIssues": [
+    "La extensión de Chrome no aplica resize_window (viewport 1920) → anchos validados en headless.",
+    "Iframes bloqueados por la política anti-framing de la app (bien).",
+    "Refs de `find` caducan tras re-render y la captura se congela si la ventana pierde el foco → se usaron coordenadas/form_input y comprobación por JS.",
+    "El filtro de privacidad de la extensión bloquea extraer JSON con parámetros de URL: no se intentó rodearlo."
+  ],
+  "accountsTouched": { "owner NEXUSDemo_2f86": "NO (939.575 créditos, 0 sanciones, antes y después)", "qa_campaign_352_8c32": "sí, reversible y auditado: créditos netos 0, suspensión revocada" }
+}

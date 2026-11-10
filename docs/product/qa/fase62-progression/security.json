@@ -1,0 +1,15 @@
+{
+  "clientSends": "solo ids (missionId / level+track / achievementId); nunca cantidades, XP ni «completado»",
+  "serverChecks": [
+    "misión completa con métricas del servidor (loadFacts)",
+    "nivel alcanzado y carril abierto (PassEngine.claimReward)",
+    "logro completo con serverProgressFor",
+    "nivel fuera de 1..30 → 400"
+  ],
+  "tests": [
+    "F62 SEGURIDAD 01 (id inventado, nivel no alcanzado/999/premium, logro incompleto/inventado → 0 créditos, 0 asientos, 0 XP)",
+    "F62 SEGURIDAD 02 (la ruta no lee credits/xp/reward/complete/amount/userId)",
+    "F62 · /progresion no concede XP y reclama solo por los reclamos existentes"
+  ],
+  "admin": "sin rutas nuevas de concesión; /admin/system solo LEE la salud de progresión"
+}

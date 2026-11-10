@@ -1,0 +1,42 @@
+PASS ready + 0064 aplicada (cabeza ≥ 0064) + check «seasons» {"head":"0069_player_cups"}
+PASS anónimo → 401 
+PASS QA · vista 200 200
+PASS QA · sin temporada de la ruta activa: phase NONE (la T2 es borrador e invisible) {"phase":"NONE"}
+PASS QA · explica el pase heredado en curso {"name":"Temporada 1 · Ascenso","endsAt":1795996800000}
+PASS QA · nada de XP, ni retos, ni reclamables inventados 
+PASS parámetro en la URL → 400 
+PASS reclamar en la T2 (borrador/no empezada) → 404 {"error":"Esa temporada no existe o no ha empezado","code":"NOT_FOUND"}
+PASS reclamar nivel inválido → 400 
+PASS reclamar temporada mal formada → 400 
+PASS «dame XP» (acción inexistente) → 400 
+PASS campo extra (userId/amount) → 400 
+PASS panel de temporadas como usuario normal → 401 
+PASS publicar como usuario normal → 401 
+PASS perfil de K: sin nivel de temporada (no hay temporada activa) 
+PASS BD: temporada-2 DRAFT; 0 eventos, 0 XP, 0 reclamos temporada-2:DRAFT|0|0|0
+PASS /temporada 1440: sigue el hub del pase heredado (sin ruta F83 activa) 
+PASS /temporada 1440: sin desbordamiento 
+PASS portada 1440: sin acceso de temporada inventado 
+PASS /temporada 390: sigue el hub del pase heredado (sin ruta F83 activa) 
+PASS /temporada 390: sin desbordamiento 
+PASS portada 390: sin acceso de temporada inventado 
+PASS página / → 200 200
+PASS página /temporada → 200 200
+PASS página /coleccion → 200 200
+PASS página /coleccion/trofeos → 200 200
+PASS página /tienda → 200 200
+PASS página /misiones/crafting → 200 200
+PASS página /competitivo → 200 200
+PASS página /progresion → 200 200
+PASS página /admin/seasons → 200 200
+PASS página /jugador/91cb8a2c-9884-4f95-b650-5aa7afe8c7f7 → 200 200
+PASS API /api/game/state (K) → 2xx 200
+PASS API /api/game/me (K) → 2xx 200
+PASS API /api/game/competitive (K) → 2xx 200
+PASS API /api/game/forge (K) → 2xx 200
+PASS API /api/game/missions (K) → 2xx 200
+PASS API /api/game/crafting (K) → 2xx 200
+PASS API /api/game/collection-sets (K) → 2xx 200
+PASS API /api/game/daily-loop (K) → 2xx 200
+
+TOTAL 40/40

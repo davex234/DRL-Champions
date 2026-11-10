@@ -1,0 +1,5460 @@
+{
+ "base": "http://127.0.0.1:3085",
+ "at": "2026-10-05T08:24:18.809Z",
+ "total": 600,
+ "passed": 600,
+ "failed": 0,
+ "checks": [
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 7,
+    "worded": 7
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "vacío de amigos con CTA útil",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 1,
+    "worded": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 20,
+    "worded": 20
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 100,
+    "worded": 100
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "200+ amigos: primera página acotada + «Ver más»",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 200,
+    "worded": 200
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 6,
+    "worded": 6
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search",
+   "name": "resultados sin correo ni UUID visibles",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "búsqueda sin resultados con mensaje",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "reto enviado: «esperando respuesta» visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "amigo con reto suyo pendiente: ACEPTAR RETO/RECHAZAR, sin AÑADIR ni RETAR duplicado",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "BLOQUEAR no es botón principal",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "teclado: menú «más» enfocable",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "bloquear en menú contextual (no botón principal)",
+   "ok": true,
+   "detail": {
+    "menu": 1,
+    "items": 2,
+    "block": true
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "desconocido: AÑADIR AMIGO, sin RETAR",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "pendiente: «Solicitud enviada»",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "bloqueado por mí: solo DESBLOQUEAR",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "comparar: tabla lado a lado presente",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "comparar: sin puntuación compuesta ni «quién es mejor»",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "comparar: tabla lado a lado presente",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "comparar: sin puntuación compuesta ni «quién es mejor»",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "revancha rotulada como tal",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 7,
+    "worded": 7
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "vacío de amigos con CTA útil",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 1,
+    "worded": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 20,
+    "worded": 20
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 100,
+    "worded": 100
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "200+ amigos: primera página acotada + «Ver más»",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 200,
+    "worded": 200
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 6,
+    "worded": 6
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search",
+   "name": "resultados sin correo ni UUID visibles",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "búsqueda sin resultados con mensaje",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "reto enviado: «esperando respuesta» visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "amigo con reto suyo pendiente: ACEPTAR RETO/RECHAZAR, sin AÑADIR ni RETAR duplicado",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "BLOQUEAR no es botón principal",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "teclado: menú «más» enfocable",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "bloquear en menú contextual (no botón principal)",
+   "ok": true,
+   "detail": {
+    "menu": 1,
+    "items": 2,
+    "block": true
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "desconocido: AÑADIR AMIGO, sin RETAR",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "pendiente: «Solicitud enviada»",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "bloqueado por mí: solo DESBLOQUEAR",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "comparar: tabla lado a lado presente",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "comparar: sin puntuación compuesta ni «quién es mejor»",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "comparar: tabla lado a lado presente",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "comparar: sin puntuación compuesta ni «quién es mejor»",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "revancha rotulada como tal",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "hub",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 7,
+    "worded": 7
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-0",
+   "name": "vacío de amigos con CTA útil",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-1",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 1,
+    "worded": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-20",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 20,
+    "worded": 20
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 100,
+    "worded": 100
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200",
+   "name": "200+ amigos: primera página acotada + «Ver más»",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "friends-200-more",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 200,
+    "worded": 200
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "long-names",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 6,
+    "worded": 6
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "requests",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search",
+   "name": "resultados sin correo ni UUID visibles",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-more",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "search-empty",
+   "name": "búsqueda sin resultados con mensaje",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "recent",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "challenges",
+   "name": "reto enviado: «esperando respuesta» visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "amigo con reto suyo pendiente: ACEPTAR RETO/RECHAZAR, sin AÑADIR ni RETAR duplicado",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "BLOQUEAR no es botón principal",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend",
+   "name": "teclado: menú «más» enfocable",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-friend-menu",
+   "name": "bloquear en menú contextual (no botón principal)",
+   "ok": true,
+   "detail": {
+    "menu": 1,
+    "items": 2,
+    "block": true
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-stranger",
+   "name": "desconocido: AÑADIR AMIGO, sin RETAR",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-sent",
+   "name": "pendiente: «Solicitud enviada»",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-blocked",
+   "name": "bloqueado por mí: solo DESBLOQUEAR",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "profile-long",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "comparar: tabla lado a lado presente",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare",
+   "name": "comparar: sin puntuación compuesta ni «quién es mejor»",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "comparar: tabla lado a lado presente",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "compare-sparse",
+   "name": "comparar: sin puntuación compuesta ni «quién es mejor»",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-rematch",
+   "name": "revancha rotulada como tal",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "QA_NombreMuyLargoDeJugadorQueNoCabe te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-long",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "normal",
+   "scene": "incoming-busy",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 7,
+    "worded": 7
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "reto enviado: «esperando respuesta» visible",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "amigo con reto suyo pendiente: ACEPTAR RETO/RECHAZAR, sin AÑADIR ni RETAR duplicado",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "BLOQUEAR no es botón principal",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "teclado: menú «más» enfocable",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "movimiento reducido: aparece sin desplazamiento",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 900,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "revancha rotulada como tal",
+   "ok": true
+  },
+  {
+   "w": 1440,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "movimiento reducido: aparece sin desplazamiento",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 7,
+    "worded": 7
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "reto enviado: «esperando respuesta» visible",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "amigo con reto suyo pendiente: ACEPTAR RETO/RECHAZAR, sin AÑADIR ni RETAR duplicado",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "BLOQUEAR no es botón principal",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "teclado: menú «más» enfocable",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "movimiento reducido: aparece sin desplazamiento",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 145,
+    "bottom": 326,
+    "vh": 768,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "revancha rotulada como tal",
+   "ok": true
+  },
+  {
+   "w": 1024,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "movimiento reducido: aparece sin desplazamiento",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "hub",
+   "name": "presencia con palabra en cada amigo (no solo color)",
+   "ok": true,
+   "detail": {
+    "rows": 7,
+    "worded": 7
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "ARIA de pestañas (tablist, 1 seleccionada, panel)",
+   "ok": true,
+   "detail": {
+    "list": 1,
+    "tabs": 5,
+    "selected": 1,
+    "panel": 1
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "challenges",
+   "name": "reto enviado: «esperando respuesta» visible",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "amigo con reto suyo pendiente: ACEPTAR RETO/RECHAZAR, sin AÑADIR ni RETAR duplicado",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "BLOQUEAR no es botón principal",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "profile-friend",
+   "name": "teclado: menú «más» enfocable",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Kaelis te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming",
+   "name": "movimiento reducido: aparece sin desplazamiento",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "sin desbordamiento horizontal",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "consola limpia",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "toda imagen con alt",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "objetivos táctiles ≥ 40 px",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "ningún botón con texto desbordado",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "reto recibido dentro de la pantalla",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "ACEPTAR/RECHAZAR ≥ 44 px",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "región con etiqueta y aria-live",
+   "ok": true,
+   "detail": {
+    "top": 183.78125,
+    "bottom": 381.28125,
+    "vh": 844,
+    "acc": 44,
+    "dec": 44,
+    "label": "Sable te reta a un duelo amistoso",
+    "live": "polite"
+   }
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "dice que es amistoso: sin rating ni colocación",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "revancha rotulada como tal",
+   "ok": true
+  },
+  {
+   "w": 390,
+   "motion": "reduced",
+   "scene": "incoming-rematch",
+   "name": "movimiento reducido: aparece sin desplazamiento",
+   "ok": true,
+   "detail": "none"
+  }
+ ]
+}

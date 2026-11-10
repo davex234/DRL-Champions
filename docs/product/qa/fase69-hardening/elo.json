@@ -1,0 +1,124 @@
+{
+  "phase": "F69",
+  "source": "journeys/raw/CE-f69-ranked.json (C contra E, 3 partidas ranked reales por la interfaz de dos navegadores)",
+  "build": "F69 (el servicio PvP no cambió después: el arreglo F69-F solo toca el servicio PvE)",
+  "start": {
+    "C": {
+      "rating": 1072,
+      "games": 8,
+      "wins": 6,
+      "losses": 2
+    },
+    "E": {
+      "rating": 948,
+      "games": 9,
+      "wins": 3,
+      "losses": 6
+    }
+  },
+  "end": {
+    "C": {
+      "rating": 1104,
+      "games": 11,
+      "wins": 9,
+      "losses": 2
+    },
+    "E": {
+      "rating": 921,
+      "games": 12,
+      "wins": 3,
+      "losses": 9
+    }
+  },
+  "matches": [
+    {
+      "i": 1,
+      "matchId": "f2728887",
+      "score": "7-3",
+      "winner": "A",
+      "a": {
+        "before": 1072,
+        "delta": 13,
+        "after": 1085
+      },
+      "b": {
+        "before": 948,
+        "delta": -13,
+        "after": 935
+      },
+      "gamesA": [
+        8,
+        9
+      ],
+      "gamesB": [
+        9,
+        10
+      ]
+    },
+    {
+      "i": 2,
+      "matchId": "468ad1b0",
+      "score": "2-8",
+      "winner": "B",
+      "a": {
+        "before": 1085,
+        "delta": 12,
+        "after": 1097
+      },
+      "b": {
+        "before": 935,
+        "delta": -7,
+        "after": 928
+      },
+      "gamesA": [
+        9,
+        10
+      ],
+      "gamesB": [
+        10,
+        11
+      ]
+    },
+    {
+      "i": 3,
+      "matchId": "9f606730",
+      "score": "7-3",
+      "winner": "A",
+      "a": {
+        "before": 1097,
+        "delta": 7,
+        "after": 1104
+      },
+      "b": {
+        "before": 928,
+        "delta": -7,
+        "after": 921
+      },
+      "gamesA": [
+        10,
+        11
+      ],
+      "gamesB": [
+        11,
+        12
+      ]
+    }
+  ],
+  "reconciliation": {
+    "C": {
+      "before": 1072,
+      "sumDeltas": 32,
+      "after": 1104
+    },
+    "E": {
+      "before": 948,
+      "sumDeltas": -27,
+      "after": 921
+    }
+  },
+  "checks": {
+    "pass": 11,
+    "fail": []
+  },
+  "verdict": "PASS — antes + Σdelta = después en las dos cuentas; cada partida mueve el Elo UNA vez (partidas +1 por partida); la interfaz enseña el delta real, también negativo"
+}

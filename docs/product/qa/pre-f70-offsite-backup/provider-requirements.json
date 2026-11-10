@@ -1,0 +1,29 @@
+{
+  "phase": "PRE-F70",
+  "mustHave": [
+    "compatible con rclone por un protocolo CIFRADO: S3-compatible (HTTPS), SFTP/SSH (con huella de host) o WebDAV sobre HTTPS",
+    "credencial restringida a un bucket/prefijo (idealmente escribir+leer+listar SIN borrar)",
+    "cifrado en reposo del proveedor (el artefacto ya va cifrado por nosotros)",
+    "infraestructura/cuenta distinta del VPS (ni el mismo proveedor de la máquina ni el mismo disco)"
+  ],
+  "niceToHave": [
+    "versionado u object lock (inmutabilidad) + reglas de ciclo de vida para la retención",
+    "región UE (datos personales de usuarios de la UE: facilita el RGPD)",
+    "2FA en la cuenta; alertas de uso"
+  ],
+  "measuredInputs": {
+    "unitEncryptedBytes": 3331819,
+    "dailyUploadMB": 3.3,
+    "monthlyUploadGB": 0.1,
+    "retainedUnitsDefault": "14 diarias + 8 semanales + 6 mensuales ≈ 28 unidades",
+    "storedGBWithDefaultRetention": 0.1,
+    "growthObserved": "el dump creció 0,99 MB en 14 días de beta (≈ 71 KB/día); no se extrapola más allá de lo medido",
+    "downloads": "raras (recuperación o verificación de restauración)",
+    "bandwidth": "≈ 3,3 MB/día de subida + la misma descarga de verificación (read-back)"
+  },
+  "youProvide": [
+    "destino (proveedor) y sus credenciales en un rclone.conf",
+    "un certificado de cifrado (tú guardas la clave privada, fuera del VPS)"
+  ],
+  "noProviderChosen": true
+}

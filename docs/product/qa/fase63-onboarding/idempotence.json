@@ -1,0 +1,97 @@
+{
+  "starterGrant": "Lo concede SOLO handle_new_user al insertar en auth.users (una vez por cuenta). Ninguna ruta de F63 toca user_packs, profiles.credits, credit_transactions, user_cards ni economy_ops (test D24 + S02 + S08).",
+  "tests": [
+    "S02 · EMPEZAR ×1/×2/×10/paralelo ×10 → 0 escrituras en tablas del juego, 1 acuse",
+    "S03 · TERMINAR repetido → mismo estado",
+    "S05 · primer equipo ×2 y ×10 en paralelo → 1 equipo",
+    "D13 · acuse escrito una vez"
+  ],
+  "live": {
+    "parallelStart": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "parallelFirstTeamIdempotent": [
+      {
+        "status": 200,
+        "deck": "aa7c7726",
+        "created": false
+      },
+      {
+        "status": 200,
+        "deck": "aa7c7726",
+        "created": false
+      },
+      {
+        "status": 200,
+        "deck": "aa7c7726",
+        "created": false
+      },
+      {
+        "status": 200,
+        "deck": "aa7c7726",
+        "created": false
+      },
+      {
+        "status": 200,
+        "deck": "aa7c7726",
+        "created": false
+      }
+    ],
+    "parallelFirstTeamRace": {
+      "at": "2026-09-26T15:59:07.532Z",
+      "account": "0692cbd0",
+      "deleted": [
+        {
+          "id": "aa7c7726",
+          "status": 200
+        }
+      ],
+      "parallel": [
+        {
+          "status": 200,
+          "deck": "75c32b45",
+          "created": false
+        },
+        {
+          "status": 200,
+          "deck": "75c32b45",
+          "created": false
+        },
+        {
+          "status": 200,
+          "deck": "75c32b45",
+          "created": false
+        },
+        {
+          "status": 200,
+          "deck": "75c32b45",
+          "created": true
+        },
+        {
+          "status": 200,
+          "deck": "75c32b45",
+          "created": false
+        }
+      ],
+      "decksAfter": [
+        {
+          "id": "75c32b45",
+          "name": "Mi primer equipo",
+          "valid": true,
+          "active": true
+        }
+      ],
+      "activeDeckId": "75c32b45",
+      "oneTeam": true
+    }
+  }
+}

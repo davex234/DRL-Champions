@@ -1,0 +1,42 @@
+PASS [1440-icon] sin ninguna clave de prueba del walkout en el navegador 
+PASS [1440-icon] apertura real lista y sin 3D descargado antes de abrir {"phase":"ready","three":false}
+PASS [1440-icon] resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [1440-icon] un walkout por cada especial sorteada (Champions S / Future Star / Record Breaker / Moments) {"walkouts":3,"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [1440-icon] cada walkout = carta, intensidad e identidad reales [{"card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","stage":"3d","arena":"CZE"},{"card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","stage":"3d","arena":"CAN"},{"card":"loita__future-star","intensity":"WALKOUT","code":"TUR","stage":"3d","arena":"TUR"}]
+PASS [1440-icon] → 3D (persona y arena del país) ["3d","3d","3d"]
+PASS [1440-icon] sin errores de consola []
+PASS [1440-reduced-icon-auto] sin ninguna clave de prueba del walkout en el navegador 
+PASS [1440-reduced-icon-auto] apertura real lista y sin 3D descargado antes de abrir {"phase":"ready","three":false}
+PASS [1440-reduced-icon-auto] resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [1440-reduced-icon-auto] un walkout por cada especial sorteada (Champions S / Future Star / Record Breaker / Moments) {"walkouts":3,"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [1440-reduced-icon-auto] cada walkout = carta, intensidad e identidad reales [{"card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","stage":"2d"},{"card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","stage":"2d"},{"card":"loita__future-star","intensity":"WALKOUT","code":"TUR","stage":"2d"}]
+PASS [1440-reduced-icon-auto] → 2D ["2d","2d","2d"]
+PASS [1440-reduced-icon-auto] sin errores de consola []
+PASS [1440-reduced-icon-cinematic] sin ninguna clave de prueba del walkout en el navegador 
+PASS [1440-reduced-icon-cinematic] apertura real lista y sin 3D descargado antes de abrir {"phase":"ready","three":false}
+PASS [1440-reduced-icon-cinematic] resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [1440-reduced-icon-cinematic] un walkout por cada especial sorteada (Champions S / Future Star / Record Breaker / Moments) {"walkouts":3,"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [1440-reduced-icon-cinematic] cada walkout = carta, intensidad e identidad reales [{"card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","stage":"3d","arena":"CZE"},{"card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","stage":"3d","arena":"CAN"},{"card":"loita__future-star","intensity":"WALKOUT","code":"TUR","stage":"3d","arena":"TUR"}]
+PASS [1440-reduced-icon-cinematic] → 3D (persona y arena del país) ["3d","3d","3d"]
+PASS [1440-reduced-icon-cinematic] sin errores de consola []
+PASS [390-reduced-icon-cinematic] sin ninguna clave de prueba del walkout en el navegador 
+PASS [390-reduced-icon-cinematic] apertura real lista y sin 3D descargado antes de abrir {"phase":"ready","three":false}
+PASS [390-reduced-icon-cinematic] resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [390-reduced-icon-cinematic] un walkout por cada especial sorteada (Champions S / Future Star / Record Breaker / Moments) {"walkouts":3,"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [390-reduced-icon-cinematic] cada walkout = carta, intensidad e identidad reales [{"card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","stage":"3d","arena":"CZE"},{"card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","stage":"3d","arena":"CAN"},{"card":"loita__future-star","intensity":"WALKOUT","code":"TUR","stage":"3d","arena":"TUR"}]
+PASS [390-reduced-icon-cinematic] → 3D (persona y arena del país) ["3d","3d","3d"]
+PASS [390-reduced-icon-cinematic] sin errores de consola []
+PASS [1440-icon-reduced] sin ninguna clave de prueba del walkout en el navegador 
+PASS [1440-icon-reduced] apertura real lista y sin 3D descargado antes de abrir {"phase":"ready","three":false}
+PASS [1440-icon-reduced] resumen con las cartas sorteadas ["marteen__record-breaker","timotino__future-star","loita__future-star"]
+PASS [1440-icon-reduced] un walkout por cada especial sorteada (Champions S / Future Star / Record Breaker / Moments) {"walkouts":3,"specials":["marteen__record-breaker","timotino__future-star","loita__future-star"]}
+PASS [1440-icon-reduced] cada walkout = carta, intensidad e identidad reales [{"card":"marteen__record-breaker","intensity":"MEGA_WALKOUT","code":"CZE","stage":"2d"},{"card":"timotino__future-star","intensity":"WALKOUT","code":"CAN","stage":"2d"},{"card":"loita__future-star","intensity":"WALKOUT","code":"TUR","stage":"2d"}]
+PASS [1440-icon-reduced] → 2D ["2d","2d","2d"]
+PASS [1440-icon-reduced] sin errores de consola []
+PASS [1440-estandar] sin ninguna clave de prueba del walkout en el navegador 
+PASS [1440-estandar] apertura real lista y sin 3D descargado antes de abrir {"phase":"ready","three":false}
+PASS [1440-estandar] resumen con las cartas sorteadas ["invy__base","nerve__base","kellys__base","ssees__base","ssees__base"]
+PASS [1440-estandar] un walkout por cada especial sorteada (Champions S / Future Star / Record Breaker / Moments) {"walkouts":0,"specials":[]}
+PASS [1440-estandar] cada walkout = carta, intensidad e identidad reales []
+PASS [1440-estandar] → 3D (persona y arena del país) []
+PASS [1440-estandar] sin errores de consola []

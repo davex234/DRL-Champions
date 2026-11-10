@@ -1,0 +1,14 @@
+{
+  "Cerrada · el servidor ya no admite cambios": "Chiuso · il server non accetta più modifiche",
+  "Cerrada · ya no admite cambios": "Chiuso · non accetta più modifiche",
+  "Error al guardar · {msg}": "Errore di salvataggio · {msg}",
+  "Guardando…": "Salvataggio…",
+  "No se pudieron cargar las predicciones": "Impossibile caricare i pronostici",
+  "No se pudo guardar": "Impossibile salvare",
+  "Predicción guardada": "Pronostico salvato",
+  "Sin conexión · la predicción no se ha enviado": "Offline · il pronostico non è stato inviato",
+  "hace un momento": "un attimo fa",
+  "hace {d} d": "{d} g fa",
+  "hace {h} h": "{h} h fa",
+  "hace {m} min": "{m} min fa"
+}

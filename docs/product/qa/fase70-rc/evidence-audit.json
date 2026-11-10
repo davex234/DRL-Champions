@@ -1,0 +1,1582 @@
+{
+ "at": "2026-09-28T15:50:54.338Z",
+ "head": "48dac2a",
+ "instrument": "scratch f70-inv.mjs (no escribe fuera de fase70-rc)",
+ "note": "Nada borrado. Clases: KEEP_SMALL (json/md/txt/csv/sql <=512KB y fuera de raw/), ARCHIVE_EXTERNAL (capturas QA, raw/, >512KB, arte fuente), GENERATED (reproducible), TEMPORARY (logs), IGNORE (ya ignorado).",
+ "docsTotal": {
+  "files": 1219,
+  "bytes": 119503524,
+  "mb": 114
+ },
+ "docsByClass": {
+  "KEEP_SMALL": {
+   "files": 1164,
+   "bytes": 89567009,
+   "mb": 85.4
+  },
+  "ARCHIVE_EXTERNAL": {
+   "files": 55,
+   "bytes": 29936515,
+   "mb": 28.5
+  }
+ },
+ "gitignoreAddedF70": [
+  "docs/**/raw/",
+  "docs/product/qa/**/screenshots/",
+  "docs/product/qa/**/*.png",
+  "docs/product/qa/**/*.jpg",
+  "docs/product/qa/**/*.jpeg",
+  "docs/product/qa/**/*.webp",
+  "docs/product/qa/**/*.gif",
+  "docs/product/qa/**/_qa-*.html",
+  "docs/cards/qa/**/*.png",
+  "docs/cards/qa/**/*.jpg",
+  "docs/cards/qa/**/*.webp",
+  "*.mp4",
+  "*.webm",
+  "*.mov",
+  "*.mkv",
+  "*.trace",
+  "*.trace.zip",
+  "trace.zip",
+  "*.har",
+  "*.log",
+  "backups/",
+  "*.dump",
+  "*.sql.gz",
+  "*.bak",
+  "*.tmp",
+  "/tmp/",
+  "/temp/",
+  "/deploy/",
+  "*.pem",
+  "*.key",
+  "*.p12",
+  "*.pfx",
+  "*.jks",
+  "*.keystore",
+  "/cartas/",
+  "/sobres/",
+  "/personajes/",
+  "/referencia*.png",
+  "/inventario.png",
+  "!.env.*.example"
+ ],
+ "docsGroups": [
+  {
+   "group": "docs/product/visual",
+   "files": 251,
+   "mb": 65,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 232,
+     "mb": 54.1
+    },
+    "ARCHIVE_EXTERNAL": {
+     "files": 19,
+     "mb": 10.9
+    }
+   }
+  },
+  {
+   "group": "docs/product/ux",
+   "files": 63,
+   "mb": 10,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 63,
+     "mb": 10
+    }
+   }
+  },
+  {
+   "group": "docs/product/launcher",
+   "files": 13,
+   "mb": 7.3,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 7,
+     "mb": 5.2
+    },
+    "KEEP_SMALL": {
+     "files": 6,
+     "mb": 2.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/preview",
+   "files": 32,
+   "mb": 6.5,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 32,
+     "mb": 6.5
+    }
+   }
+  },
+  {
+   "group": "docs/product",
+   "files": 141,
+   "mb": 6,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 3.5
+    },
+    "KEEP_SMALL": {
+     "files": 140,
+     "mb": 2.4
+    }
+   }
+  },
+  {
+   "group": "docs/product/art",
+   "files": 24,
+   "mb": 3.7,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 21,
+     "mb": 1.7
+    },
+    "ARCHIVE_EXTERNAL": {
+     "files": 3,
+     "mb": 2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase58-1-gold-pool",
+   "files": 6,
+   "mb": 1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 6,
+     "mb": 1
+    }
+   }
+  },
+  {
+   "group": "docs/cards",
+   "files": 21,
+   "mb": 0.7,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 21,
+     "mb": 0.7
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/13-reveal-1440.png",
+   "files": 1,
+   "mb": 0.7,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.7
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/11-duelo-turno1-1440.png",
+   "files": 1,
+   "mb": 0.6,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.6
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/12-duelo-defendiendo-1440.png",
+   "files": 1,
+   "mb": 0.6,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.6
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase57-6-economy-final",
+   "files": 9,
+   "mb": 0.6,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 9,
+     "mb": 0.6
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase44",
+   "files": 26,
+   "mb": 0.5,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 26,
+     "mb": 0.5
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/05-constructor-a-medias-1440.png",
+   "files": 1,
+   "mb": 0.5,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.5
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase44-1",
+   "files": 13,
+   "mb": 0.5,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 13,
+     "mb": 0.5
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/12-duelo-defendiendo-768.png",
+   "files": 1,
+   "mb": 0.4,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.4
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase68-beta",
+   "files": 35,
+   "mb": 0.4,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 35,
+     "mb": 0.4
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/04-constructor-vacio-1440.png",
+   "files": 1,
+   "mb": 0.4,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.4
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/11-duelo-turno1-768.png",
+   "files": 1,
+   "mb": 0.4,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.4
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/13-reveal-768.png",
+   "files": 1,
+   "mb": 0.4,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.4
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase65-balance",
+   "files": 23,
+   "mb": 0.3,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 23,
+     "mb": 0.3
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase41",
+   "files": 10,
+   "mb": 0.3,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 10,
+     "mb": 0.3
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/14-resultado-1440.png",
+   "files": 1,
+   "mb": 0.3,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.3
+    }
+   }
+  },
+  {
+   "group": "docs/product/catalog-replace",
+   "files": 2,
+   "mb": 0.3,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0.3
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/14-resultado-768.png",
+   "files": 1,
+   "mb": 0.3,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.3
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase45",
+   "files": 13,
+   "mb": 0.3,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 13,
+     "mb": 0.3
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/02-constructor-sin-cartas-1440.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/11-duelo-turno1-390.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/12-duelo-defendiendo-390.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase57-5-card-value",
+   "files": 9,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 9,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/13-reveal-390.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase69-hardening",
+   "files": 37,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 37,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase63-onboarding",
+   "files": 19,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 19,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase57-5-card-value-implementation",
+   "files": 7,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 7,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase60-admin-cms",
+   "files": 23,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 23,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/10-preparacion-1440.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/15-replay-1440.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase66-multiplayer",
+   "files": 38,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 38,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase64-game-feel",
+   "files": 15,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 15,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase70-rc",
+   "files": 3,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/06-mis-mazos-1440.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/10-preparacion-768.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/pvp",
+   "files": 8,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 8,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/fonts",
+   "files": 8,
+   "mb": 0.2,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 8,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/01-hub-sin-mazos-1440.png",
+   "files": 1,
+   "mb": 0.2,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.2
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/03-lobby-sin-mazo-1440.png",
+   "files": 1,
+   "mb": 0.1,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/15-replay-768.png",
+   "files": 1,
+   "mb": 0.1,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/telemetry",
+   "files": 8,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 8,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase62-progression",
+   "files": 13,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 13,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase51-tactical-coach",
+   "files": 1,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/14-resultado-390.png",
+   "files": 1,
+   "mb": 0.1,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase43",
+   "files": 16,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 16,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs",
+   "files": 10,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 10,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase42",
+   "files": 10,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 10,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/15-replay-390.png",
+   "files": 1,
+   "mb": 0.1,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/10-preparacion-390.png",
+   "files": 1,
+   "mb": 0.1,
+   "classes": {
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase67-production",
+   "files": 41,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 41,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/pre-f70-0058",
+   "files": 17,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 17,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase59-agent-visual-system",
+   "files": 8,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 8,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/design-audit",
+   "files": 2,
+   "mb": 0.1,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0.1
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase40",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase61-match",
+   "files": 11,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 11,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase57-4-pack-economy",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/operations",
+   "files": 8,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 8,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase39",
+   "files": 7,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 6,
+     "mb": 0
+    },
+    "ARCHIVE_EXTERNAL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase59-1-agents",
+   "files": 13,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 13,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase57-3-pack-class",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/pre-f70-offsite-backup",
+   "files": 16,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 16,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/catalog-post-replace",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase48c",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase48b",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/operations/proposals",
+   "files": 5,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 5,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase58-admin",
+   "files": 7,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 7,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase57-pack-opening",
+   "files": 5,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 5,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/game-loop",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase24-4",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase47-1",
+   "files": 4,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 4,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase37-1",
+   "files": 8,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 8,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase24-8",
+   "files": 14,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 14,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase35-1",
+   "files": 4,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 4,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase38",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase36-1",
+   "files": 7,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 7,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase36",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase48",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/polish",
+   "files": 6,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 6,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase37",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase49",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase35-2",
+   "files": 3,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 3,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase5133-pack-art",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase49-1",
+   "files": 4,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 4,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase24-3",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase24-7",
+   "files": 4,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 4,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/card-cleanup",
+   "files": 11,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 11,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase57-2-pack-power",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase33",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase50",
+   "files": 5,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 5,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/card-polish",
+   "files": 8,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 8,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase24-2",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase35",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase24-5",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase55-competitive",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase34",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/rose-import",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase56-profile",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase51-1-coach-flow",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase24-6",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/catalog-replace",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase51-3-quickplay",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase32",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase30",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase31",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/roster-real",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase51-2-navigation",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase29",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase26",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase52-season",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase28",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase27",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/card-audit",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase25",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/token-arrow",
+   "files": 2,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 2,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase47",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  },
+  {
+   "group": "docs/product/qa/fase58-2-admin-entry",
+   "files": 1,
+   "mb": 0,
+   "classes": {
+    "KEEP_SMALL": {
+     "files": 1,
+     "mb": 0
+    }
+   }
+  }
+ ],
+ "otherNonSourceDirs": [
+  {
+   "path": "src-tauri/target",
+   "class": "GENERATED",
+   "files": 4125,
+   "mb": 1688.1,
+   "note": "Rust/Tauri build output; ya ignorado"
+  },
+  {
+   "path": "src-tauri/gen",
+   "class": "GENERATED",
+   "files": 4,
+   "mb": 0.9,
+   "note": "Tauri gen; ya ignorado"
+  },
+  {
+   "path": "cartas",
+   "class": "ARCHIVE_EXTERNAL",
+   "files": 343,
+   "mb": 651.7,
+   "note": "PNG fuente del catálogo diseñado (importado a public/); pesado, fuera del repo"
+  },
+  {
+   "path": "sobres",
+   "class": "ARCHIVE_EXTERNAL",
+   "files": 17,
+   "mb": 36.8,
+   "note": "arte fuente de sobres (productos ya en public/)"
+  },
+  {
+   "path": "personajes",
+   "class": "ARCHIVE_EXTERNAL",
+   "files": 58,
+   "mb": 2.6,
+   "note": "arte fuente de agentes (agent-art:import -> public/)"
+  },
+  {
+   "path": "mapas",
+   "class": "KEEP_SMALL",
+   "files": 26,
+   "mb": 13,
+   "note": "PNG de mapas: 22 trackeados + 4 nuevos en finalizados/ (fuente de grafos de navegación F51.2)"
+  },
+  {
+   "path": "out",
+   "class": "GENERATED",
+   "files": 421,
+   "mb": 5.3,
+   "note": "export estático; ya ignorado"
+  },
+  {
+   "path": "output",
+   "class": "GENERATED",
+   "files": 54,
+   "mb": 4.5,
+   "note": "Artwork Renderer; ya ignorado"
+  },
+  {
+   "path": "deploy",
+   "class": "GENERATED",
+   "files": 4,
+   "mb": 0.9,
+   "note": "bundle worker; ya ignorado (deploy/drlcards-sync)"
+  },
+  {
+   "path": "dist",
+   "class": "GENERATED",
+   "files": 7,
+   "mb": 0.1,
+   "note": "release firmada; ya ignorado"
+  },
+  {
+   "path": "supabase/.temp",
+   "class": "TEMPORARY",
+   "files": 2,
+   "mb": 0,
+   "note": "CLI supabase; ya ignorado"
+  },
+  {
+   "path": "supabase/.branches",
+   "class": "TEMPORARY",
+   "files": 1,
+   "mb": 0,
+   "note": "CLI supabase; ya ignorado"
+  }
+ ],
+ "rootLooseFiles": [
+  {
+   "path": "PropuestaJuego (1).pdf",
+   "mb": 4.7,
+   "tracked": true,
+   "class": "ARCHIVE_EXTERNAL"
+  },
+  {
+   "path": "referencia-apertura.png",
+   "mb": 2.3,
+   "tracked": false,
+   "class": "ARCHIVE_EXTERNAL"
+  },
+  {
+   "path": "referencia_tienda.png",
+   "mb": 2.1,
+   "tracked": false,
+   "class": "ARCHIVE_EXTERNAL"
+  },
+  {
+   "path": "referencia_tienda2.png",
+   "mb": 2,
+   "tracked": false,
+   "class": "ARCHIVE_EXTERNAL"
+  },
+  {
+   "path": "referencia-tablero.png",
+   "mb": 2.1,
+   "tracked": false,
+   "class": "ARCHIVE_EXTERNAL"
+  },
+  {
+   "path": "inventario.png",
+   "mb": 1.9,
+   "tracked": false,
+   "class": "ARCHIVE_EXTERNAL"
+  },
+  {
+   "path": ".next-server.log",
+   "mb": 0.2,
+   "tracked": true,
+   "class": "TEMPORARY"
+  },
+  {
+   "path": "tsconfig.tsbuildinfo",
+   "mb": 0.6,
+   "tracked": false,
+   "class": "GENERATED"
+  },
+  {
+   "path": "tsconfig.scripts.tsbuildinfo",
+   "mb": 0.4,
+   "tracked": false,
+   "class": "GENERATED"
+  }
+ ]
+}

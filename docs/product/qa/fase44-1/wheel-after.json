@@ -1,0 +1,255 @@
+{
+  "generatedAt": "2026-09-17T19:08:37.859Z",
+  "base": "http://127.0.0.1:3005",
+  "rows": [
+    {
+      "path": "/",
+      "max": 1981,
+      "wheelDown": 900,
+      "wheelUp": -900,
+      "trackpad": 240,
+      "pageDown": 787,
+      "arrowDown": 40,
+      "mobileMax": 3475,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/coleccion",
+      "max": 3162,
+      "wheelDown": 900,
+      "wheelUp": -900,
+      "trackpad": 240,
+      "pageDown": 787,
+      "arrowDown": 40,
+      "mobileMax": 9736,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/tienda",
+      "max": 724,
+      "wheelDown": 724,
+      "wheelUp": -724,
+      "trackpad": 240,
+      "pageDown": 724,
+      "arrowDown": 40,
+      "mobileMax": 2209,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/inventario",
+      "max": 9,
+      "wheelDown": 9,
+      "wheelUp": -9,
+      "trackpad": 9,
+      "pageDown": 9,
+      "arrowDown": 9,
+      "mobileMax": 293,
+      "touch": 293,
+      "short": {
+        "viewport": "1440x560",
+        "max": 349,
+        "wheelDown": 349,
+        "wheelUp": -349
+      },
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/duelos/mazos",
+      "max": 0,
+      "wheelDown": 0,
+      "wheelUp": 0,
+      "trackpad": 0,
+      "pageDown": 0,
+      "arrowDown": 0,
+      "mobileMax": 574,
+      "touch": 574,
+      "short": {
+        "viewport": "1440x560",
+        "max": 303,
+        "wheelDown": 303,
+        "wheelUp": -303
+      },
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/jugar/road-to-champions",
+      "max": 884,
+      "wheelDown": 884,
+      "wheelUp": -884,
+      "trackpad": 240,
+      "pageDown": 787,
+      "arrowDown": 40,
+      "mobileMax": 1892,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/jugar/draft-gauntlet",
+      "max": 153,
+      "wheelDown": 153,
+      "wheelUp": -153,
+      "trackpad": 153,
+      "pageDown": 153,
+      "arrowDown": 40,
+      "mobileMax": 782,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/duelos/competitivo",
+      "max": 506,
+      "wheelDown": 506,
+      "wheelUp": -506,
+      "trackpad": 240,
+      "pageDown": 506,
+      "arrowDown": 40,
+      "mobileMax": 1028,
+      "touch": 600,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/temporada",
+      "max": 2258,
+      "wheelDown": 900,
+      "wheelUp": -900,
+      "trackpad": 240,
+      "pageDown": 787,
+      "arrowDown": 40,
+      "mobileMax": 4297,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/jugador/me",
+      "max": 575,
+      "wheelDown": 575,
+      "wheelUp": -575,
+      "trackpad": 240,
+      "pageDown": 575,
+      "arrowDown": 40,
+      "mobileMax": 1484,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/jugar",
+      "max": 603,
+      "wheelDown": 603,
+      "wheelUp": -603,
+      "trackpad": 240,
+      "pageDown": 603,
+      "arrowDown": 40,
+      "mobileMax": 1547,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    },
+    {
+      "path": "/logros",
+      "max": 1873,
+      "wheelDown": 900,
+      "wheelUp": -900,
+      "trackpad": 240,
+      "pageDown": 787,
+      "arrowDown": 40,
+      "mobileMax": 3752,
+      "touch": 425,
+      "short": null,
+      "overflow": {
+        "html": "visible",
+        "inline": "",
+        "body": ""
+      },
+      "ok": true,
+      "touchOk": true
+    }
+  ],
+  "nested": {
+    "found": true,
+    "pageDelta": 720,
+    "railLeftDelta": 0,
+    "rail": {
+      "x": 720,
+      "y": 449.890625,
+      "scrollW": 1376,
+      "w": 1376
+    }
+  }
+}

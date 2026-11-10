@@ -1,0 +1,31 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase37",
+  "generated": "2026-09-22T09:48:48.395Z",
+  "rows": [
+    {
+      "file": "album-owned-1440x900.png",
+      "scene": "album-owned",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "album-owned-390x844.png",
+      "scene": "album-owned",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "album-missing-1440x900.png",
+      "scene": "album-missing",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "album-missing-390x844.png",
+      "scene": "album-missing",
+      "size": "390x844",
+      "errors": []
+    }
+  ]
+}

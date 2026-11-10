@@ -1,0 +1,1094 @@
+{
+  "at": "2026-09-26T15:55:50.216Z",
+  "base": "http://127.0.0.1:3005",
+  "reduced": true,
+  "width": 390,
+  "evidence": {
+    "account": "344349b7",
+    "landingAfterRegister": "/",
+    "initial": {
+      "onboarding": {
+        "status": "NOT_STARTED",
+        "reason": null,
+        "current": "welcome",
+        "progress": "1/6",
+        "next": {
+          "cta": "Empezar",
+          "href": "/",
+          "command": "start"
+        },
+        "context": {
+          "firstPackId": "estandar",
+          "unopenedPacks": 4,
+          "ownedCards": 0,
+          "packsOpened": 0,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": false,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ],
+            "shortages": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ]
+          },
+          "readyDeck": null,
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 0,
+      "packsOpened": 0,
+      "unopenedPacks": {
+        "inicial": 3,
+        "estandar": 1
+      },
+      "ownedCards": 0,
+      "decks": [],
+      "activeDeckId": null
+    },
+    "direct": {
+      "/jugar": {
+        "rail": true,
+        "railCta": "/",
+        "errors": 0,
+        "text": "TU INICIO · 1/6 BIENVENIDA A NEXUS CONTINUAR → NEXUS · MODOS DE JUEGO JUGAR ELIGE TU PRÓXIMO DESAFÍO CAMPAÑA PVE · DESTACADO EQUIPO NO VÁLIDO ROAD TO CHAMPIONS "
+      },
+      "/duelos/mazos": {
+        "rail": true,
+        "railCta": "/",
+        "errors": 0,
+        "text": "TU INICIO · 1/6 BIENVENIDA A NEXUS CONTINUAR → ‹ DUELOS NEXUS TEAM BUILDER MIS EQUIPOS 10 cartas · 2 Duelistas, 2 Controladores, 2 Iniciadores, 2 Centinelas, 2 "
+      },
+      "/coleccion": {
+        "rail": false,
+        "railCta": null,
+        "errors": 0,
+        "text": "COLECCIÓN GUARDADA EN EL SERVIDOR MI COLECCIÓN 0 / 331 cartas 0,0 % COPIAS 0 DUPLICADAS 0 OVR MÁS ALTO — SERIAL MÁS BAJO — LEGENDARIA 0/3 ÉPICA 0/20 RARA 0/20 P"
+      },
+      "/progresion": {
+        "rail": false,
+        "railCta": null,
+        "errors": 0,
+        "text": "PROGRESO TU PROGRESO Nivel 1. Qué estás progresando, qué puedes recoger ya, qué hacer hoy y qué te falta para la siguiente recompensa. LOGROS Y PASE COMPLETOS →"
+      },
+      "/tienda": {
+        "rail": true,
+        "railCta": "/",
+        "errors": 0,
+        "text": "TU INICIO · 1/6 BIENVENIDA A NEXUS CONTINUAR → DESTACADO CHAMPIONS S · ÉPICA · 20 CARTAS CHAMPIONS S NUEVAS CARTAS. NUEVAS LEYENDAS. Las épicas de la temporada:"
+      }
+    },
+    "welcomeShown": true,
+    "welcomeAfterF5": true,
+    "starterShown": true,
+    "afterStart": {
+      "onboarding": {
+        "status": "IN_PROGRESS",
+        "reason": null,
+        "current": "open",
+        "progress": "2/6",
+        "next": {
+          "cta": "Abrir mi primer sobre",
+          "href": "/abrir/estandar",
+          "command": null
+        },
+        "context": {
+          "firstPackId": "estandar",
+          "unopenedPacks": 4,
+          "ownedCards": 0,
+          "packsOpened": 0,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": false,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ],
+            "shortages": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 0
+              }
+            ]
+          },
+          "readyDeck": null,
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 0,
+      "packsOpened": 0,
+      "unopenedPacks": {
+        "inicial": 3,
+        "estandar": 1
+      },
+      "ownedCards": 0,
+      "decks": [],
+      "activeDeckId": null
+    },
+    "starterAfterF5": true,
+    "firstPackRoute": "/abrir/estandar",
+    "firstCardShown": true,
+    "firstCard": "kr1stal__masters-l",
+    "firstCardInSummary": true,
+    "afterFirstPack": {
+      "onboarding": {
+        "status": "IN_PROGRESS",
+        "reason": null,
+        "current": "collection",
+        "progress": "3/6",
+        "next": {
+          "cta": "Abrir el siguiente sobre",
+          "href": "/abrir/inicial",
+          "command": null
+        },
+        "context": {
+          "firstPackId": "inicial",
+          "unopenedPacks": 3,
+          "ownedCards": 5,
+          "packsOpened": 1,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": false,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 1
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 1
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 1
+              }
+            ],
+            "shortages": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 0
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 1
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 1
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 1
+              }
+            ]
+          },
+          "readyDeck": null,
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 114,
+      "packsOpened": 1,
+      "unopenedPacks": {
+        "inicial": 3
+      },
+      "ownedCards": 5,
+      "decks": [],
+      "activeDeckId": null
+    },
+    "collectionCoach": true,
+    "reloadDuringOpening": {
+      "cardsBefore": 5,
+      "cardsAfter": 10,
+      "packsOpened": 2,
+      "duplicated": false
+    },
+    "packsLoop": 2,
+    "afterPacks": {
+      "onboarding": {
+        "status": "IN_PROGRESS",
+        "reason": null,
+        "current": "deck",
+        "progress": "4/6",
+        "next": {
+          "cta": "Crear mi primer equipo",
+          "href": "/",
+          "command": "first-team"
+        },
+        "context": {
+          "firstPackId": "inicial",
+          "unopenedPacks": 1,
+          "ownedCards": 15,
+          "packsOpened": 3,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": true,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 2
+              }
+            ],
+            "shortages": []
+          },
+          "readyDeck": null,
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 318,
+      "packsOpened": 3,
+      "unopenedPacks": {
+        "inicial": 1
+      },
+      "ownedCards": 15,
+      "decks": [],
+      "activeDeckId": null
+    },
+    "teamReady": true,
+    "afterTeam": {
+      "onboarding": {
+        "status": "IN_PROGRESS",
+        "reason": null,
+        "current": "match",
+        "progress": "5/6",
+        "next": {
+          "cta": "Jugar mi primera partida",
+          "href": "/duelos/jugar?dificultad=EASY&primera=1",
+          "command": null
+        },
+        "context": {
+          "firstPackId": "inicial",
+          "unopenedPacks": 1,
+          "ownedCards": 15,
+          "packsOpened": 3,
+          "matchesCompleted": 0,
+          "readiness": {
+            "ready": true,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 2
+              }
+            ],
+            "shortages": []
+          },
+          "readyDeck": {
+            "id": "38e83f75-1bb6-49a0-9f10-ee67517a9253",
+            "name": "Mi primer equipo",
+            "cardIds": [
+              "timotino__base",
+              "dantedeu5__base",
+              "f0rsaken__base",
+              "bang__base",
+              "beyn__base",
+              "kr1stal__masters-l",
+              "karon__base",
+              "suygetsu__base",
+              "francis__masters-sdc",
+              "asuna__base"
+            ],
+            "active": true
+          },
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6000,
+      "xp": 318,
+      "packsOpened": 3,
+      "unopenedPacks": {
+        "inicial": 1
+      },
+      "ownedCards": 15,
+      "decks": [
+        {
+          "id": "38e83f75-1bb6-49a0-9f10-ee67517a9253",
+          "name": "Mi primer equipo",
+          "valid": true,
+          "cards": 10,
+          "sumOvr": 846
+        }
+      ],
+      "activeDeckId": "38e83f75-1bb6-49a0-9f10-ee67517a9253"
+    },
+    "afterTeamF5": {
+      "decks": 1
+    },
+    "hints": [
+      "attack",
+      "defend"
+    ],
+    "match": {
+      "id": "8a2e66f5-1746-4097-9b30-39d2afa05294",
+      "difficulty": "EASY",
+      "rival": null
+    },
+    "midMatchF5": {
+      "recovered": true,
+      "hintRepeated": false
+    },
+    "matchTurns": 10,
+    "afterMatchShown": true,
+    "result": {
+      "kind": "loss",
+      "text": "MI PRIMER EQUIPO · DIFICULTAD FÁCIL DERROTA 3 – 7 Ganó más enfrentamientos (3-7). RECOMPENSA PUNTOS DE RANGO — El rango solo sube ganando CRÉDITOS +25 XP DE CUENTA +15 VER PROGRESO NIVEL 3 30 / 277 XP+15 XP JUGAR OTRA REVANCHA · MISMO EQUIPO Y RIVAL CAMBIAR RIVAL O EQUIPO VER LA PARTIDA MIS EQUIPOS VOLVER AL LOBBY SALIR A DUELOS SH 82 GS 88 EF 43 CARTA DESTACADA BANG Ganó el turno 1: Stronghold 82 contra 58 (+24). TU INICIO · 6/6 TU PRIMERA PARTIDA YA CUENTA Ganes, pierdas o empates, tus partidas suman XP de cuenta y avanzan tus objetivos. Al reclamar objetivos ganas XP de temporada. Lo que ha"
+    },
+    "afterMatch": {
+      "onboarding": {
+        "status": "IN_PROGRESS",
+        "reason": null,
+        "current": "progress",
+        "progress": "6/6",
+        "next": {
+          "cta": "Ver mi progreso",
+          "href": "/progresion",
+          "command": null
+        },
+        "context": {
+          "firstPackId": "inicial",
+          "unopenedPacks": 1,
+          "ownedCards": 15,
+          "packsOpened": 3,
+          "matchesCompleted": 1,
+          "readiness": {
+            "ready": true,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 2
+              }
+            ],
+            "shortages": []
+          },
+          "readyDeck": {
+            "id": "38e83f75-1bb6-49a0-9f10-ee67517a9253",
+            "name": "Mi primer equipo",
+            "cardIds": [
+              "timotino__base",
+              "dantedeu5__base",
+              "f0rsaken__base",
+              "bang__base",
+              "beyn__base",
+              "kr1stal__masters-l",
+              "karon__base",
+              "suygetsu__base",
+              "francis__masters-sdc",
+              "asuna__base"
+            ],
+            "active": true
+          },
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6025,
+      "xp": 333,
+      "packsOpened": 3,
+      "unopenedPacks": {
+        "inicial": 1
+      },
+      "ownedCards": 15,
+      "decks": [
+        {
+          "id": "38e83f75-1bb6-49a0-9f10-ee67517a9253",
+          "name": "Mi primer equipo",
+          "valid": true,
+          "cards": 10,
+          "sumOvr": 846
+        }
+      ],
+      "activeDeckId": "38e83f75-1bb6-49a0-9f10-ee67517a9253"
+    },
+    "matchStillActive": false,
+    "resultAfterF5": {
+      "shown": true,
+      "url": "/duelos/jugar?dificultad=EASY&primera=1&resultado=8a2e66f5-1746-4097-9b30-39d2afa05294",
+      "noDuplicate": true
+    },
+    "progressCoach": true,
+    "final": {
+      "onboarding": {
+        "status": "COMPLETED",
+        "reason": "FINISHED",
+        "current": null,
+        "progress": "6/6",
+        "next": null,
+        "context": {
+          "firstPackId": "inicial",
+          "unopenedPacks": 1,
+          "ownedCards": 15,
+          "packsOpened": 3,
+          "matchesCompleted": 1,
+          "readiness": {
+            "ready": true,
+            "roles": [
+              {
+                "role": "Duelista",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Controlador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Iniciador",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Centinela",
+                "need": 2,
+                "have": 2
+              },
+              {
+                "role": "Flex",
+                "need": 2,
+                "have": 2
+              }
+            ],
+            "shortages": []
+          },
+          "readyDeck": {
+            "id": "38e83f75-1bb6-49a0-9f10-ee67517a9253",
+            "name": "Mi primer equipo",
+            "cardIds": [
+              "timotino__base",
+              "dantedeu5__base",
+              "f0rsaken__base",
+              "bang__base",
+              "beyn__base",
+              "kr1stal__masters-l",
+              "karon__base",
+              "suygetsu__base",
+              "francis__masters-sdc",
+              "asuna__base"
+            ],
+            "active": true
+          },
+          "hasInvalidDeck": false
+        }
+      },
+      "credits": 6025,
+      "xp": 333,
+      "packsOpened": 3,
+      "unopenedPacks": {
+        "inicial": 1
+      },
+      "ownedCards": 15,
+      "decks": [
+        {
+          "id": "38e83f75-1bb6-49a0-9f10-ee67517a9253",
+          "name": "Mi primer equipo",
+          "valid": true,
+          "cards": 10,
+          "sumOvr": 846
+        }
+      ],
+      "activeDeckId": "38e83f75-1bb6-49a0-9f10-ee67517a9253"
+    },
+    "homeAfter": {
+      "onboardingShown": false,
+      "progressDock": true
+    },
+    "timeline": [
+      {
+        "at": 6,
+        "step": "registro enviado"
+      },
+      {
+        "at": 48,
+        "step": "EMPEZAR"
+      },
+      {
+        "at": 54,
+        "step": "primer sobre /abrir/estandar"
+      },
+      {
+        "at": 61,
+        "step": "colección"
+      },
+      {
+        "at": 81,
+        "step": "colección completa"
+      },
+      {
+        "at": 86,
+        "step": "equipo creado"
+      },
+      {
+        "at": 92,
+        "step": "partida empieza"
+      },
+      {
+        "at": 130,
+        "step": "resultado"
+      },
+      {
+        "at": 139,
+        "step": "SEGUIR JUGANDO"
+      }
+    ],
+    "secondsToFirstMatch": 92
+  },
+  "captures": [
+    {
+      "name": "00-directo-jugar",
+      "w": 390,
+      "reduced": true,
+      "url": "/jugar",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 0,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "00-directo-duelos-mazos",
+      "w": 390,
+      "reduced": true,
+      "url": "/duelos/mazos",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 0,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "00-directo-coleccion",
+      "w": 390,
+      "reduced": true,
+      "url": "/coleccion",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 48,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "00-directo-progresion",
+      "w": 390,
+      "reduced": true,
+      "url": "/progresion",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 3,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "00-directo-tienda",
+      "w": 390,
+      "reduced": true,
+      "url": "/tienda",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 19,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "01-bienvenida",
+      "w": 390,
+      "reduced": true,
+      "url": "/",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 7,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "02-recursos",
+      "w": 390,
+      "reduced": true,
+      "url": "/",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 9,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "03-primer-sobre-sellado",
+      "w": 390,
+      "reduced": true,
+      "url": "/abrir/estandar",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 1,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "04-primera-carta",
+      "w": 390,
+      "reduced": true,
+      "url": "/abrir/estandar",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 7,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "05-coleccion",
+      "w": 390,
+      "reduced": true,
+      "url": "/coleccion?tener=owned",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 11,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "06-siguiente-sobre-sellado",
+      "w": 390,
+      "reduced": true,
+      "url": "/abrir/inicial",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 1,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "07-resumen-siguiente",
+      "w": 390,
+      "reduced": true,
+      "url": "/abrir/inicial",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 6,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "08-crear-equipo",
+      "w": 390,
+      "reduced": true,
+      "url": "/",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 7,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "09-equipo-listo",
+      "w": 390,
+      "reduced": true,
+      "url": "/",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 17,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "10-preparacion",
+      "w": 390,
+      "reduced": true,
+      "url": "/duelos/jugar?dificultad=EASY&primera=1",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 20,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "11-intro",
+      "w": 390,
+      "reduced": true,
+      "url": "/duelos/jugar?dificultad=EASY&primera=1",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 10,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "12-ayuda-turno-1",
+      "w": 390,
+      "reduced": true,
+      "url": "/duelos/jugar?dificultad=EASY&primera=1",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 10,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "14-comparacion",
+      "w": 390,
+      "reduced": true,
+      "url": "/duelos/jugar?dificultad=EASY&primera=1",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 14,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "13-ayuda-defend",
+      "w": 390,
+      "reduced": true,
+      "url": "/duelos/jugar?dificultad=EASY&primera=1",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 12,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "15-resultado",
+      "w": 390,
+      "reduced": true,
+      "url": "/duelos/jugar?dificultad=EASY&primera=1&resultado=8a2e66f5-1746-4097-9b30-39d2afa05294",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 41,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "16-progreso",
+      "w": 390,
+      "reduced": true,
+      "url": "/progresion",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 3,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "17-ya-estas-listo",
+      "w": 390,
+      "reduced": true,
+      "url": "/progresion",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 3,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "18-libre-jugar",
+      "w": 390,
+      "reduced": true,
+      "url": "/jugar",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 0,
+        "broken": []
+      },
+      "errors": []
+    },
+    {
+      "name": "19-portada-normal",
+      "w": 390,
+      "reduced": true,
+      "url": "/",
+      "measure": {
+        "docScrollW": 390,
+        "W": 390,
+        "hScroll": false,
+        "over": 0,
+        "list": [],
+        "images": 7,
+        "broken": []
+      },
+      "errors": []
+    }
+  ]
+}

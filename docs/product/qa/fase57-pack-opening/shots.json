@@ -1,0 +1,311 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-23T13:42:07.770Z",
+  "note": "arnés /design-system/fase57 · QA SYNTHETIC; sobres y cartas reales del catálogo",
+  "rows": [
+    {
+      "name": "01-sealed",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "01b-sealed-oro",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "01c-sealed-team",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "01d-sealed-procedural",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "02-anticipation",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "03-tearing",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "04-emerging",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "05-face-down",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "05b-face-down-6",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "06a-idle",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "06-reveal-common",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "07-reveal-rare",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "08a-epic-charging",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "08-reveal-epic",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "09a-max-charging",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "09-reveal-max",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "10-summary",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "11-duplicate",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "11b-summary-duplicates",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "12-mobile-sealed",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "12b-mobile-face-down",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "12c-mobile-reveal-max",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "12d-mobile-summary",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "13-reduced-sealed",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "13b-reduced-hand",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "13c-reduced-reveal",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-sealed-1920",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-hand-1920",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-reveal-1920",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-sealed-1366",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-hand-1366",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-reveal-1366",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-sealed-1024",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-hand-1024",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-reveal-1024",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-sealed-768",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-hand-768",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    },
+    {
+      "name": "r-reveal-768",
+      "errors": [],
+      "check": {
+        "hscroll": false,
+        "out": []
+      }
+    }
+  ]
+}

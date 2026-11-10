@@ -1,0 +1,23 @@
+{
+  "Ascenso a {rank}": "Promoted to {rank}",
+  "Colocación {played} / {total} · {sign}": "Placement {played} / {total} · {sign}",
+  "Colocación {played}/{total}": "Placement {played}/{total}",
+  "Completa tu colocación": "Complete your placement",
+  "Descenso a {rank}": "Demoted to {rank}",
+  "Juega una partida (actividad en los últimos {activeDays} días)": "Play a match (activity in the last {activeDays} days)",
+  "Juega {left} {v} más esta temporada": "Play {left} more {v} this season",
+  "Rango obtenido: {rank}": "Rank earned: {rank}",
+  "Rating {sign}": "Rating {sign}",
+  "Sin clasificar": "Unranked",
+  "divisionWidth debe ser un entero positivo": "divisionWidth must be a positive integer",
+  "el primer tier debe empezar en 0": "the first tier must start at 0",
+  "el primer tier no tiene sitio para sus divisiones": "the first tier has no room for its divisions",
+  "el último tier (élite) no debe tener divisiones": "the last tier (elite) must not have divisions",
+  "hacen falta al menos dos tiers": "at least two tiers are required",
+  "hueco o solape en {id}: {v} ≠ {v2}": "gap or overlap at {id}: {v} ≠ {v2}",
+  "partida": "match",
+  "partidas": "matches",
+  "solo el último tier puede no tener divisiones ({id})": "only the last tier may have no divisions ({id})",
+  "suelos no crecientes: {id} → {id2}": "non-increasing floors: {id} → {id2}",
+  "versión vacía": "empty version"
+}

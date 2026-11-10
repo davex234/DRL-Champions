@@ -1,0 +1,190 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "rowCounts": {
+    "before": {
+      "at": "2026-09-28T11:55:06.892903+00:00",
+      "auth_users": 30,
+      "profiles": 30,
+      "user_cards": 769,
+      "user_packs": 72,
+      "user_game": 30,
+      "user_pass": 21,
+      "user_achievements": 11,
+      "credit_transactions": 297,
+      "economy_ops": 358,
+      "duel_decks": 27,
+      "duel_matches": 243,
+      "duel_pvp_ratings": 12,
+      "coach_matches": 9,
+      "content_cards": 331,
+      "agents": 29,
+      "pickem_questions": 43,
+      "pickem_answers": 2,
+      "pickem_submissions": 3,
+      "duel_pvp_rating_events": 84,
+      "duel_match_actions": 2555,
+      "assets": 0,
+      "sum_credits": 1319890,
+      "sum_ledger_delta": 1319890
+    },
+    "afterApply": {
+      "at": "2026-09-28T11:58:56.968844+00:00",
+      "auth_users": 30,
+      "profiles": 30,
+      "user_cards": 769,
+      "user_packs": 72,
+      "user_game": 30,
+      "user_pass": 21,
+      "user_achievements": 11,
+      "credit_transactions": 297,
+      "economy_ops": 358,
+      "duel_decks": 27,
+      "duel_matches": 243,
+      "duel_pvp_ratings": 12,
+      "coach_matches": 9,
+      "content_cards": 331,
+      "agents": 29,
+      "pickem_questions": 43,
+      "pickem_answers": 2,
+      "pickem_submissions": 3,
+      "duel_pvp_rating_events": 84,
+      "duel_match_actions": 2555,
+      "assets": 0,
+      "sum_credits": 1319890,
+      "sum_ledger_delta": 1319890
+    },
+    "diffs": [],
+    "reading": "Recuentos tomados justo antes y justo después de aplicar (antes de la regresión): 23 recuentos idénticos, incluidos auth.users 30, profiles 30, user_cards 769, credit_transactions 297, economy_ops 358, duel_matches 243, content_cards 331, agents 29; suma de créditos = suma del libro (1.319.890) antes y después."
+  },
+  "schemaProbe": {
+    "unchanged": true
+  },
+  "reconciliation": {
+    "before": {
+      "source": "fase69-hardening/journeys/reconcile-f69.json (2026-09-28T11:01Z, antes de 0058)",
+      "accounts": 12,
+      "allOk": true,
+      "negativePacks": 0
+    },
+    "after": {
+      "source": "reconcile-after.json (2026-09-28T12:26Z, tras 0058 y la regresión)",
+      "accounts": 12,
+      "allOk": true,
+      "negativePacks": 0
+    },
+    "perAccountAfter": [
+      {
+        "persona": "A",
+        "ledger": true,
+        "final": 8190,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "B",
+        "ledger": true,
+        "final": 5065,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "C",
+        "ledger": true,
+        "final": 810,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "D",
+        "ledger": true,
+        "final": 9430,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "E",
+        "ledger": true,
+        "final": 7205,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "F",
+        "ledger": true,
+        "final": 8070,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "G",
+        "ledger": true,
+        "final": 8625,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "H",
+        "ledger": true,
+        "final": 7265,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "I",
+        "ledger": true,
+        "final": 19790,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "J",
+        "ledger": true,
+        "final": 12025,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "K",
+        "ledger": true,
+        "final": 9025,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      },
+      {
+        "persona": "L",
+        "ledger": true,
+        "final": 7265,
+        "chainBreaks": 0,
+        "inventory": true,
+        "cards": true,
+        "progression": true
+      }
+    ],
+    "expectedChangesFromRegression": "B jugó 4 partidas PvE (créditos 4.900 → 5.065, liquidados por el servidor con su apunte; su libro cuadra) y C/E 1 ranked (Elo 1.104 → 1.110 / 921 → 915; el PvP no da créditos): cambios legítimos del juego, no de la migración."
+  },
+  "newAnomalies": 0,
+  "dataLoss": false,
+  "status": "PASS"
+}

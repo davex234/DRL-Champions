@@ -1,0 +1,14 @@
+{
+  "Cerrada · el servidor ya no admite cambios": "Verrouillé · le serveur n'accepte plus de modifications",
+  "Cerrada · ya no admite cambios": "Verrouillé · plus de modifications possibles",
+  "Error al guardar · {msg}": "Échec de l'enregistrement · {msg}",
+  "Guardando…": "Enregistrement…",
+  "No se pudieron cargar las predicciones": "Impossible de charger les pronostics",
+  "No se pudo guardar": "Impossible d'enregistrer",
+  "Predicción guardada": "Pronostic enregistré",
+  "Sin conexión · la predicción no se ha enviado": "Hors ligne · ton pronostic n'a pas été envoyé",
+  "hace un momento": "à l'instant",
+  "hace {d} d": "il y a {d} j",
+  "hace {h} h": "il y a {h} h",
+  "hace {m} min": "il y a {m} min"
+}

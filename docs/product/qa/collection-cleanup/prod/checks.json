@@ -1,0 +1,791 @@
+{
+  "base": "https://valorosters.com",
+  "at": "2026-10-07T08:22:30.779Z",
+  "total": 65,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "A",
+      "w": 1440,
+      "name": "la sala carga (con sesión: foto del servidor)",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "room": true,
+        "access": "server",
+        "top": true,
+        "topCards": 8,
+        "cards": 48,
+        "book": false,
+        "near": false,
+        "objectives": false,
+        "mastery": false,
+        "forbidden": null,
+        "trophyLink": true,
+        "albumBottomToDocEnd": 168,
+        "docH": 3033
+      }
+    },
+    {
+      "id": "A",
+      "w": 1440,
+      "name": "TUS CARTAS DE MAYOR OVR con cartas reales",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "id": "A",
+      "w": 1440,
+      "name": "el álbum enseña cartas",
+      "ok": true,
+      "detail": 48
+    },
+    {
+      "id": "A",
+      "w": 1440,
+      "name": "sin libro de sets, «Casi completos», Maestría ni objetivos",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "room": true,
+        "access": "server",
+        "top": true,
+        "topCards": 8,
+        "cards": 48,
+        "book": false,
+        "near": false,
+        "objectives": false,
+        "mastery": false,
+        "forbidden": null,
+        "trophyLink": true,
+        "albumBottomToDocEnd": 168,
+        "docH": 3033
+      }
+    },
+    {
+      "id": "A",
+      "w": 1440,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "A",
+      "w": 1440,
+      "name": "enlace a la Sala de Trofeos presente",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "id": "C",
+      "w": 1440,
+      "name": "el álbum cierra la página (hueco hasta el final: solo pie/barra inferior del armazón; ≤ 260 px, ≤ 320 en móvil)",
+      "ok": true,
+      "detail": 168
+    },
+    {
+      "id": "A",
+      "w": 1440,
+      "name": "consola sin errores",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "A",
+      "w": 1024,
+      "name": "la sala carga (con sesión: foto del servidor)",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "room": true,
+        "access": "server",
+        "top": true,
+        "topCards": 8,
+        "cards": 48,
+        "book": false,
+        "near": false,
+        "objectives": false,
+        "mastery": false,
+        "forbidden": null,
+        "trophyLink": true,
+        "albumBottomToDocEnd": 168,
+        "docH": 3935
+      }
+    },
+    {
+      "id": "A",
+      "w": 1024,
+      "name": "TUS CARTAS DE MAYOR OVR con cartas reales",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "id": "A",
+      "w": 1024,
+      "name": "el álbum enseña cartas",
+      "ok": true,
+      "detail": 48
+    },
+    {
+      "id": "A",
+      "w": 1024,
+      "name": "sin libro de sets, «Casi completos», Maestría ni objetivos",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "room": true,
+        "access": "server",
+        "top": true,
+        "topCards": 8,
+        "cards": 48,
+        "book": false,
+        "near": false,
+        "objectives": false,
+        "mastery": false,
+        "forbidden": null,
+        "trophyLink": true,
+        "albumBottomToDocEnd": 168,
+        "docH": 3935
+      }
+    },
+    {
+      "id": "A",
+      "w": 1024,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "A",
+      "w": 1024,
+      "name": "enlace a la Sala de Trofeos presente",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "id": "C",
+      "w": 1024,
+      "name": "el álbum cierra la página (hueco hasta el final: solo pie/barra inferior del armazón; ≤ 260 px, ≤ 320 en móvil)",
+      "ok": true,
+      "detail": 168
+    },
+    {
+      "id": "A",
+      "w": 1024,
+      "name": "consola sin errores",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "A",
+      "w": 390,
+      "name": "la sala carga (con sesión: foto del servidor)",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "room": true,
+        "access": "server",
+        "top": true,
+        "topCards": 8,
+        "cards": 48,
+        "book": false,
+        "near": false,
+        "objectives": false,
+        "mastery": false,
+        "forbidden": null,
+        "trophyLink": true,
+        "albumBottomToDocEnd": 272,
+        "docH": 7551
+      }
+    },
+    {
+      "id": "A",
+      "w": 390,
+      "name": "TUS CARTAS DE MAYOR OVR con cartas reales",
+      "ok": true,
+      "detail": 8
+    },
+    {
+      "id": "A",
+      "w": 390,
+      "name": "el álbum enseña cartas",
+      "ok": true,
+      "detail": 48
+    },
+    {
+      "id": "A",
+      "w": 390,
+      "name": "sin libro de sets, «Casi completos», Maestría ni objetivos",
+      "ok": true,
+      "detail": {
+        "overflow": 0,
+        "room": true,
+        "access": "server",
+        "top": true,
+        "topCards": 8,
+        "cards": 48,
+        "book": false,
+        "near": false,
+        "objectives": false,
+        "mastery": false,
+        "forbidden": null,
+        "trophyLink": true,
+        "albumBottomToDocEnd": 272,
+        "docH": 7551
+      }
+    },
+    {
+      "id": "A",
+      "w": 390,
+      "name": "sin desbordamiento horizontal",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "A",
+      "w": 390,
+      "name": "enlace a la Sala de Trofeos presente",
+      "ok": true,
+      "detail": true
+    },
+    {
+      "id": "C",
+      "w": 390,
+      "name": "el álbum cierra la página (hueco hasta el final: solo pie/barra inferior del armazón; ≤ 260 px, ≤ 320 en móvil)",
+      "ok": true,
+      "detail": 272
+    },
+    {
+      "id": "A",
+      "w": 390,
+      "name": "consola sin errores",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "el desplegable abre con ↓",
+      "ok": true,
+      "detail": {
+        "style": "nav",
+        "w": 240,
+        "items": [
+          {
+            "href": "/coleccion",
+            "text": "MIS CARTAS",
+            "shown": "MIS CARTAS",
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "spans": 1,
+            "current": "page",
+            "focused": true,
+            "outline": "none rgb(255, 46, 99) 0px 0px 0px 2px inset, "
+          },
+          {
+            "href": "/coleccion/trofeos",
+            "text": "COLECCIONES",
+            "shown": "COLECCIONES",
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "spans": 1,
+            "current": null,
+            "focused": false,
+            "outline": "none none"
+          },
+          {
+            "href": "/inventario",
+            "text": "INVENTARIO",
+            "shown": "INVENTARIO",
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "spans": 1,
+            "current": null,
+            "focused": false,
+            "outline": "none none"
+          }
+        ],
+        "text": "MIS CARTAS\nCOLECCIONES\nINVENTARIO"
+      }
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "MIS CARTAS · COLECCIONES · INVENTARIO",
+      "ok": true,
+      "detail": [
+        "MIS CARTAS",
+        "COLECCIONES",
+        "INVENTARIO"
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "destinos: /coleccion · /coleccion/trofeos · /inventario",
+      "ok": true,
+      "detail": [
+        "/coleccion",
+        "/coleccion/trofeos",
+        "/inventario"
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "sin subtítulos (ni texto ni nodo)",
+      "ok": true,
+      "detail": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "estilo de navegación compacto (≥44 y ≤ 52 px por opción)",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "texto centrado horizontal y verticalmente (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "foco de teclado en la primera opción",
+      "ok": true,
+      "detail": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "estado activo: MIS CARTAS con aria-current=page en /coleccion",
+      "ok": true,
+      "detail": [
+        "page",
+        null,
+        null
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "Tab pasa a COLECCIONES",
+      "ok": true,
+      "detail": [
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "Escape cierra y devuelve el foco a «Colección»",
+      "ok": true,
+      "detail": {
+        "menu": false,
+        "focus": "/coleccion"
+      }
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "abre con el ratón (hover)",
+      "ok": true,
+      "detail": 3
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "hover visible en COLECCIONES",
+      "ok": true,
+      "detail": "rgba(255, 255, 255, 0.07)"
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "COLECCIONES navega a /coleccion/trofeos",
+      "ok": true,
+      "detail": "/coleccion/trofeos"
+    },
+    {
+      "id": "D",
+      "w": 1440,
+      "name": "en la Sala de Trofeos la activa es COLECCIONES",
+      "ok": true,
+      "detail": [
+        null,
+        "page",
+        null
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "el desplegable abre con ↓",
+      "ok": true,
+      "detail": {
+        "style": "nav",
+        "w": 240,
+        "items": [
+          {
+            "href": "/coleccion",
+            "text": "MIS CARTAS",
+            "shown": "MIS CARTAS",
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "spans": 1,
+            "current": "page",
+            "focused": true,
+            "outline": "none rgb(255, 46, 99) 0px 0px 0px 2px inset, "
+          },
+          {
+            "href": "/coleccion/trofeos",
+            "text": "COLECCIONES",
+            "shown": "COLECCIONES",
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "spans": 1,
+            "current": null,
+            "focused": false,
+            "outline": "none none"
+          },
+          {
+            "href": "/inventario",
+            "text": "INVENTARIO",
+            "shown": "INVENTARIO",
+            "h": 44,
+            "dx": 0,
+            "dy": 0,
+            "spans": 1,
+            "current": null,
+            "focused": false,
+            "outline": "none none"
+          }
+        ],
+        "text": "MIS CARTAS\nCOLECCIONES\nINVENTARIO"
+      }
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "MIS CARTAS · COLECCIONES · INVENTARIO",
+      "ok": true,
+      "detail": [
+        "MIS CARTAS",
+        "COLECCIONES",
+        "INVENTARIO"
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "destinos: /coleccion · /coleccion/trofeos · /inventario",
+      "ok": true,
+      "detail": [
+        "/coleccion",
+        "/coleccion/trofeos",
+        "/inventario"
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "sin subtítulos (ni texto ni nodo)",
+      "ok": true,
+      "detail": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "estilo de navegación compacto (≥44 y ≤ 52 px por opción)",
+      "ok": true,
+      "detail": [
+        44,
+        44,
+        44
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "texto centrado horizontal y verticalmente (±2 px)",
+      "ok": true,
+      "detail": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "foco de teclado en la primera opción",
+      "ok": true,
+      "detail": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "estado activo: MIS CARTAS con aria-current=page en /coleccion",
+      "ok": true,
+      "detail": [
+        "page",
+        null,
+        null
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "Tab pasa a COLECCIONES",
+      "ok": true,
+      "detail": [
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "Escape cierra y devuelve el foco a «Colección»",
+      "ok": true,
+      "detail": {
+        "menu": false,
+        "focus": "/coleccion"
+      }
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "abre con el ratón (hover)",
+      "ok": true,
+      "detail": 3
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "hover visible en COLECCIONES",
+      "ok": true,
+      "detail": "rgba(255, 255, 255, 0.07)"
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "COLECCIONES navega a /coleccion/trofeos",
+      "ok": true,
+      "detail": "/coleccion/trofeos"
+    },
+    {
+      "id": "D",
+      "w": 1024,
+      "name": "en la Sala de Trofeos la activa es COLECCIONES",
+      "ok": true,
+      "detail": [
+        null,
+        "page",
+        null
+      ]
+    },
+    {
+      "id": "D",
+      "w": 390,
+      "name": "menú móvil: Colección = Mis cartas · Colecciones · Inventario",
+      "ok": true,
+      "detail": [
+        {
+          "href": "/coleccion",
+          "text": "MIS CARTAS",
+          "spans": 0
+        },
+        {
+          "href": "/coleccion/trofeos",
+          "text": "COLECCIONES",
+          "spans": 0
+        },
+        {
+          "href": "/inventario",
+          "text": "INVENTARIO",
+          "spans": 0
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "w": 390,
+      "name": "menú móvil: sin subtítulos de Colección",
+      "ok": true,
+      "detail": [
+        {
+          "href": "/coleccion",
+          "text": "MIS CARTAS",
+          "spans": 0
+        },
+        {
+          "href": "/coleccion/trofeos",
+          "text": "COLECCIONES",
+          "spans": 0
+        },
+        {
+          "href": "/inventario",
+          "text": "INVENTARIO",
+          "spans": 0
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "w": 390,
+      "name": "menú móvil sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "E",
+      "w": 1440,
+      "name": "Sala de Trofeos: sets F82 con progreso",
+      "ok": true,
+      "detail": {
+        "room": true,
+        "sets": 6,
+        "mastery": true,
+        "masteryText": "MAESTRÍA\n\n44 conjuntos sobre las cartas que ya tienes. Pagan insignias, no créditos.\n\nCOMPLETOS\n0\nINSIGNIAS\n0\nEQUIPO\nCLOUD9\n2/5\nFaltan 1 para Cloud9 · a medias\n",
+        "overflow": 0
+      }
+    },
+    {
+      "id": "E",
+      "w": 1440,
+      "name": "Sala de Trofeos: Maestría (conjuntos que pagan insignias) presente",
+      "ok": true,
+      "detail": "MAESTRÍA\n\n44 conjuntos sobre las cartas que ya tienes. Pagan insignias, no créditos.\n\nCOMPLETOS\n0\nINSIGNIAS\n0\nEQUIPO\nCLOUD9\n2/5\nFaltan 1 para Cloud9 · a medias\n"
+    },
+    {
+      "id": "E",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "F",
+      "w": 1440,
+      "name": "Progresión: objetivo «Reúne 50 cartas distintas» presente",
+      "ok": true,
+      "detail": {
+        "obj": true,
+        "ach": true,
+        "overflow": 0
+      }
+    },
+    {
+      "id": "F",
+      "w": 1440,
+      "name": "Logros: logros de colección presentes (Coleccionista / leyenda / Champions S)",
+      "ok": true,
+      "detail": {
+        "ach": true,
+        "overflow": 0
+      }
+    },
+    {
+      "id": "E",
+      "w": 390,
+      "name": "Sala de Trofeos: sets F82 con progreso",
+      "ok": true,
+      "detail": {
+        "room": true,
+        "sets": 6,
+        "mastery": true,
+        "masteryText": "MAESTRÍA\n\n44 conjuntos sobre las cartas que ya tienes. Pagan insignias, no créditos.\n\nCOMPLETOS\n0\nINSIGNIAS\n0\nEQUIPO\nCLOUD9\n2/5\nFaltan 1 para Cloud9 · a medias\n",
+        "overflow": 0
+      }
+    },
+    {
+      "id": "E",
+      "w": 390,
+      "name": "Sala de Trofeos: Maestría (conjuntos que pagan insignias) presente",
+      "ok": true,
+      "detail": "MAESTRÍA\n\n44 conjuntos sobre las cartas que ya tienes. Pagan insignias, no créditos.\n\nCOMPLETOS\n0\nINSIGNIAS\n0\nEQUIPO\nCLOUD9\n2/5\nFaltan 1 para Cloud9 · a medias\n"
+    },
+    {
+      "id": "E",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "F",
+      "w": 390,
+      "name": "Progresión: objetivo «Reúne 50 cartas distintas» presente",
+      "ok": true,
+      "detail": {
+        "obj": true,
+        "ach": true,
+        "overflow": 0
+      }
+    },
+    {
+      "id": "F",
+      "w": 390,
+      "name": "Logros: logros de colección presentes (Coleccionista / leyenda / Champions S)",
+      "ok": true,
+      "detail": {
+        "ach": true,
+        "overflow": 0
+      }
+    }
+  ]
+}

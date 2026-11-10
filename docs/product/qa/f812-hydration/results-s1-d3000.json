@@ -1,0 +1,99 @@
+{
+  "at": "2026-10-02T18:23:12.393Z",
+  "base": "http://127.0.0.1:3082",
+  "ms": 55821,
+  "pass": 18,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /tienda · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "17:L[—] 3303:[2.120]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3303,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":true}"
+    },
+    {
+      "id": "S1 @1440 d3000 · la caché queda etiquetada con su dueño",
+      "ok": true,
+      "detail": "f812qa00-0000-4000-8000-000000000001"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /coleccion · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "5:L[—] 3301:[2.120]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /coleccion · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3301,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":false}"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /packs/estandar · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "7:L[—] 3093:[2.120]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /packs/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3093,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":false}"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /abrir/estandar · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "5:L[] 3082:[]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /abrir/estandar · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3082,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"ready\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · / · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "4:S[] 4074:[]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · / · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":4074,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":false}"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /packs · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "7:L[—] 3097:[2.120]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /packs · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3097,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":true}"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /inventario · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "5:L[—] 3094:[2.120]"
+    },
+    {
+      "id": "S1 sesión guardada + servidor lento 3000 ms @1440 · /inventario · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3094,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":false}"
+    },
+    {
+      "id": "S2 HARD REFRESH (caché de la cuenta, servidor a 3 s) @1440 · /tienda · NUNCA demo/caché (2 estados)",
+      "ok": true,
+      "detail": "5:L[—] 3155:[2.120]"
+    },
+    {
+      "id": "S2 HARD REFRESH (caché de la cuenta, servidor a 3 s) @1440 · /tienda · NEUTRAL → REAL",
+      "ok": true,
+      "detail": "{\"t\":3155,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":true}"
+    },
+    {
+      "id": "S1/S2 @1440 · consola: 0 errores inesperados (ni hidratación ni React)",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

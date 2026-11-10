@@ -1,0 +1,14 @@
+# FASE 35.1 · Matriz de migraciones
+
+Aplicadas una a una, cada una en su transacción (`\set ON_ERROR_STOP 1`, `begin`, `lock_timeout 5s`, `statement_timeout 60s`, SQL, `commit`), con verificación inmediata tras cada commit. Registro `schema_migrations` **no modificado** (sigue 0001–0025): el SQL aplicado físicamente y el registro son cosas distintas.
+
+| MIGRATION | PURPOSE | PRE-STATE | ACTION | POST-STATE | RESULT |
+|---|---|---|---|---|---|
+| 0046 `telemetry_flows_progression` | Ampliar el CHECK cerrado de `telemetry_events.flow` con los 9 flows reservados por las fases 27–35 | CHECK con 4 flows; 642 filas, todas compatibles | drop + add `telemetry_events_flow_check` (13 flows, sigue cerrado) · 11:57:37Z · 1016 ms | CHECK con 13 flows, `convalidated=t`, 642 filas; probe: 13/13 admitidos, flow inventado rechazado (rollback) | **APPLIED + VERIFIED** |
+| 0047 `pvp_ladder_indexes` | Índices de escalera PvP e historial por jugador | 3 índices ausentes; 1 rating, 5 partidas | 3 `create index if not exists` · 11:57:38Z · 677 ms | 3 índices válidos (`indisvalid`), definiciones exactas; conteos iguales | **APPLIED + VERIFIED** |
+| 0048 `social_friends_private_duels` | Presencia, amistades, retos, modo `PVP_PRIVATE`, RPC sociales | Tablas y funciones sociales ausentes; CHECK de modo `(PVE,PVP)`; 0 filas incompatibles | **Corregida en local** (`duel_pvp_expire_turn` = cuerpo vivo de 0035 + modo) → aplicada · 11:58:24Z · 1193 ms | `last_seen_at`; 2 tablas RLS sin políticas ni grants de cliente; 9 índices; trigger; 14 funciones SECURITY DEFINER solo service_role; semántica 0035 preservada; `settle` sigue exigiendo PVP; probes 19/19 | **APPLIED + VERIFIED** |
+| 0049 `player_profile_customization` | Vitrina (3 cartas reales) y 3 logros destacados con versión | Ausente | **Endurecida en local** (revoke de ayudantes) → aplicada · 11:59:00Z · 647 ms | Tabla RLS sin políticas ni grants de cliente; 6 CHECK + PK/FK; `player_profile_set` SECURITY DEFINER solo service_role; ayudantes solo service_role; probes 9/9 + permisos | **APPLIED + VERIFIED** |
+| 0050 `duel_active_deck` | Equipo activo por usuario con concurrencia por `updated_at` | Ausente (la tabla real se llama `duel_active_deck`, singular) | Aplicada sin cambios · 12:00:10Z · 1210 ms | PK `user_id` (uno por usuario), `deck_id` único, FK cascade; RPC OK/NOT_FOUND/CONFLICT; 0 equipos activos inventados; probes 9/9 | **APPLIED + VERIFIED** |
+| 0051 `campaign_road_to_champions` | Progreso e intentos de Road to Champions, solo servidor | Ausente | Aplicada sin cambios · 12:02:13Z · 1177 ms | 2 tablas RLS sin políticas ni grants de cliente; PK por nodo, `match_id` único, un intento abierto, primera victoria única, CHECK de estados; probes 18/18 + permisos | **APPLIED + VERIFIED** |
+
+Bloqueadas: **ninguna**. Parcialmente aplicadas: **ninguna** (cada una en una transacción con commit único).

@@ -1,0 +1,23 @@
+{
+  "phase": "PRE-F70",
+  "command": "npm run production:check -- --app --vps",
+  "build": "drl-0.1.1-1-0cc2ffe2",
+  "summary": "24 PASS · 1 WARN · 1 FAIL",
+  "backupOffsite": "FAIL backup-offsite         NOT_CONFIGURED · OFFSITE BACKUP NOT CONFIGURED: las copias viven en el MISMO disco del VPS (BLOCKED externo: falta destino + credenciales)",
+  "expected": {
+    "FAIL": "backup-offsite NOT_CONFIGURED (BLOCKED externo: falta destino + credenciales) — CORRECTO sin proveedor",
+    "WARN": "auth-email (BLOCKED externo)"
+  },
+  "changed": [
+    "backup-offsite: veredicto real (offsiteVerdict), ya no un FAIL fijo",
+    "backup-verified: reconoce todas las unidades verificadas (pre-0058), con edad y recuento"
+  ],
+  "futurePass": [
+    "configuración presente y DRL_OFFSITE_ENABLED=1",
+    "credenciales válidas (check-config OK)",
+    "al menos un push con REMOTE_VERIFIED (descarga y hash)",
+    "última copia verificada de ≤ 26 h",
+    "el último envío no falló (si falló: WARN)"
+  ],
+  "raw": "raw/production-check.txt"
+}

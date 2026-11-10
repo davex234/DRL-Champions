@@ -6,32 +6,91 @@ import type { CardDef, OwnedCard } from "@/domain/cards/types";
 import { getVariant } from "@/domain/cards/variants";
 import { getCard } from "@/data/catalog";
 import { getPack } from "@/data/packs";
-import { openPack } from "@/domain/packs/openPack";
-import { quickSellValue, instanceValue } from "@/domain/economy/pricing";
+import { PackEngine, freshPity, type PityState, type OpenResult } from "@/pack";
+import { CraftEngine, freshMaterials, migrateMaterials, addMaterials as addMats, type Materials, type CraftResult, type CraftIssue } from "@/craft";
+import { runtimePackEngine, runtimeCraftEngine } from "@/publisher/runtime";
+import { getRecipe } from "@/data/recipes";
+import type { CardOrigin } from "@/collection";
+import { salvageValue } from "@/domain/economy/salvage";
 import { xpForCardRank } from "@/domain/progression/levels";
+import { seedFrom } from "@/sim/rng";
+import { LEGACY_CACHE_OWNER, LocalEconomyBlockedError, localEconomyBlockReason, storedSessionPresent } from "@/lib/game/localEconomy";
 import { ACHIEVEMENTS, type AchievementContext } from "@/domain/progression/achievements";
+import { ns } from "@/i18n/runtime";
+
+const t = ns("store");
 
 /** Resultado de revelar una carta al abrir un sobre. */
 export interface OpenedResult {
   uid: string;
   card: CardDef;
   serial?: number;
+  /** Fase 38 · versión acuñada persistida (con sesión). */
+  mintedVersion?: number | null;
   /** Si es la primera copia de esta carta que obtiene el usuario. */
   isNew: boolean;
   value: number;
 }
 
+/** Récord de carrera del entrenador (alimenta el hub y la ceremonia). */
+export interface MatchRecord {
+  played: number;
+  won: number;
+  lost: number;
+  /** Racha de victorias actual (0 al perder). */
+  streak: number;
+  /** Mejor racha histórica. */
+  best: number;
+}
+const ZERO_RECORD: MatchRecord = { played: 0, won: 0, lost: 0, streak: 0, best: 0 };
+
 interface GameState {
   hydrated: boolean;
+  /**
+   * F81.2 · de QUIÉN es el estado de servidor volcado en el store EN ESTA CARGA (id de usuario; null = ninguno todavía).
+   * No se persiste: una recarga empieza sin dueño y nada del store se pinta hasta que el servidor responda (ver
+   * `lib/game/localEconomy.economyView`).
+   */
+  serverOwner: string | null;
+  /** F81.2 · de quién es la caché persistida (null = demo local). Un visitante confirmado nunca ve la de otra cuenta. */
+  cacheOwner: string | null;
+  /** F81.2 · fallo de la última lectura del estado de servidor (null = sin fallo). */
+  syncError: string | null;
   credits: number;
   xp: number;
+  /**
+   * Ejemplares en memoria. COLECCIONES ILIMITADAS · con cuenta NO es la colección entera: es el mejor ejemplar de cada
+   * carta (más los que se hayan pedido por `uid`, p. ej. los de un equipo). Sirve para «¿tengo esta carta?» y para
+   * pintarla; para CONTAR copias se usa `ownedCounts` (ver `copiesByCard` / `ownedTotalOf` en `store/selectors`).
+   * Sin cuenta (demo local) sí es la colección entera y `ownedCounts` es `null`.
+   */
   ownedCards: OwnedCard[];
+  /** Copias por carta según el servidor. `null` = demo local: se cuentan los ejemplares de `ownedCards`. */
+  ownedCounts: Record<string, number> | null;
+  /** Copias totales según el servidor. `null` = demo local. */
+  ownedTotal: number | null;
+  /** Copias en venta por carta según el servidor (`null` = demo local). */
+  lockedCounts: Record<string, number> | null;
   /** Sobres sin abrir en el inventario. packId -> cantidad. */
   unopenedPacks: Record<string, number>;
   /** Contador de acuñación por carta serializada (para nº de serie). */
   mintCounts: Record<string, number>;
+  /** Estado de pity del Pack/Drop Engine (garantías por acumulación). */
+  pityState: PityState;
+  /** Origen de cada instancia (uid -> origen). Sellado por el Pack/Drop Engine. */
+  cardOrigins: Record<string, CardOrigin>;
+  /** Materiales de crafting (polvo por rareza). Único recurso nuevo del Craft Engine. */
+  materials: Materials;
+  /** uids bloqueados (anti-venta / anti-salvage). */
+  lockedUids: string[];
+  /** Cosméticos de cuenta (títulos/iconos/avatares/marcos…). Ids con prefijo. Battle Pass. */
+  cosmetics: string[];
   packsOpened: number;
+  /** Nº de operaciones de crafting realizadas (métrica real para misiones del Battle Pass). */
+  craftedCount: number;
   claimedAchievements: string[];
+  /** Récord de carrera del entrenador (partidos jugados/ganados/racha). */
+  record: MatchRecord;
   /** Resultado de la última apertura (transitorio, para la pantalla de reveal). */
   lastOpened: OpenedResult[] | null;
 
@@ -41,22 +100,68 @@ interface GameState {
   buyAndOpen: (packId: string) => OpenedResult[] | null;
   quickSell: (uid: string) => void;
   quickSellMany: (uids: string[]) => void;
-  claimAchievement: (id: string) => void;
+  /*
+   * `claimAchievement` se RETIRÓ en la Fase 9E. Sumaba créditos en `localStorage`, que es
+   * justo lo que prohíbe §25 —la economía no puede depender del navegador— y además se
+   * revertía en la siguiente sincronización con el servidor. Los logros los concede ahora
+   * `/api/game/progression`, con su asiento en `credit_transactions`.
+   * `claimedAchievements` se conserva: es progreso ya guardado de partidas anteriores y
+   * borrarlo perdería historial.
+   */
   addCredits: (amount: number) => void;
   /** Resta créditos si hay saldo suficiente. Devuelve true si se cobró. */
   spendCredits: (amount: number) => boolean;
-  /** Añade una carta a la colección (compras de mercado). Devuelve el uid. */
-  addOwnedCard: (cardId: string, serial?: number) => string;
+  /** Añade una carta a la colección (compras de mercado), sellando su origen. Devuelve el uid. */
+  addOwnedCard: (cardId: string, serial?: number, origin?: CardOrigin) => string;
   /** Quita una instancia por uid y la devuelve (al poner en venta). */
   removeOwnedCard: (uidToRemove: string) => OwnedCard | null;
+  /** Devuelve una instancia exacta a la colección (uid preservado). */
+  restoreOwnedCard: (owned: OwnedCard) => void;
   /** Otorga sobres al inventario (recompensas de eventos). */
   grantPack: (packId: string, count?: number) => void;
   /** Suma XP de cuenta (recompensas de eventos/misiones). */
   addXp: (amount: number) => void;
-  /** Otorga una carta concreta, acuñando nº de serie si procede. */
-  grantCard: (cardId: string) => string | null;
+  /** Suma materiales de crafting (recompensas del Battle Pass). */
+  addMaterials: (delta: Partial<Materials>) => void;
+  /** Otorga cosméticos de cuenta (Battle Pass). Ignora duplicados. */
+  addCosmetics: (ids: string[]) => void;
+  /** Registra el resultado de un partido jugado (récord/racha). */
+  recordMatch: (won: boolean) => void;
+  /** Otorga una carta concreta (misma ruta de acuñación que los sobres), sellando su origen. */
+  grantCard: (cardId: string, origin?: CardOrigin) => string | null;
   clearLastOpened: () => void;
   resetGame: () => void;
+
+  /**
+   * Vuelca el estado REAL del servidor sobre el store (Fase B).
+   *
+   * Con sesión iniciada, el servidor es la autoridad: este store pasa a ser una
+   * CACHÉ de UI. Las acciones locales de economía (`buyPack`, `openPackFromInventory`,
+   * `quickSell`…) siguen existiendo para el modo local sin cuenta, pero la UI online
+   * no las usa: llama a `/api/game/*` y refresca con esta función.
+   */
+  applyServerState: (s: {
+    credits: number; xp: number; ownedCards: OwnedCard[];
+    ownedCounts?: Record<string, number> | null; ownedTotal?: number | null; lockedCounts?: Record<string, number> | null;
+    origins: Record<string, CardOrigin>; lockedUids: string[];
+    unopenedPacks: Record<string, number>; pityState: PityState;
+    packsOpened: number; mintCounts: Record<string, number>;
+  }, ownerId?: string | null) => void;
+  /**
+   * COLECCIONES ILIMITADAS · añade a la memoria ejemplares concretos pedidos aparte (los de un sobre recién abierto, los
+   * de un equipo). No toca los recuentos: esos los da el servidor. El siguiente estado del servidor vuelve a empezar.
+   */
+  addOwnedInstances: (list: OwnedCard[], origins?: Record<string, CardOrigin>) => void;
+  /** Marca el resultado de una apertura de servidor para la pantalla de revelado. */
+  setLastOpened: (results: OpenedResult[]) => void;
+
+  // ── Crafting / Evolution (Collection Fase 4/7) ──
+  /** Bloquea/desbloquea una instancia (evita venta/salvage accidental). */
+  lockCard: (uid: string) => void;
+  unlockCard: (uid: string) => void;
+  isLocked: (uid: string) => boolean;
+  /** Ejecuta una receta de crafting (evoluciona cartas). Aplica el PLAN puro del Craft Engine. */
+  craft: (recipeId: string, selection?: string[]) => { ok: boolean; issues?: CraftIssue[]; result?: CraftResult; error?: string };
 }
 
 const STARTER_CREDITS = 6000;
@@ -67,24 +172,126 @@ function uid(): string {
   return `c_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e9).toString(36)}`;
 }
 
+/**
+ * ÚNICO motor de apertura/drop y de crafting. Antes eran singletons congelados en
+ * import-time (su CardRegistry quedaba obsoleto tras rebuildCatalog); desde el Publisher
+ * (Card Generator F7) se obtienen del runtime, que los recrea automáticamente cuando el
+ * catálogo vivo cambia — publicaciones, rollbacks e imports del admin incluidos.
+ */
+const packEngine = (): PackEngine => runtimePackEngine();
+const craftEngine = (): CraftEngine => runtimeCraftEngine();
+
+/**
+ * RUTA ÚNICA de entrada de cartas al store. Toda instancia acuñada por el Pack Engine (abriendo un
+ * sobre O concedida por grant) se persiste AQUÍ: asigna uid + obtainedAt en el borde, funde
+ * mintCounts/pity y sella el origen. Devuelve el parche de estado + los resultados (para el reveal).
+ * Tanto `openPackFromInventory` como `grantCard` pasan por esta función (sin lógica duplicada).
+ */
+function ingestAcquired(s: GameState, r: OpenResult, now: number): { patch: Partial<GameState>; results: OpenedResult[] } {
+  const newOwned: OwnedCard[] = [];
+  const origins: Record<string, CardOrigin> = { ...s.cardOrigins };
+  const results: OpenedResult[] = r.instances.map((ins) => {
+    const u = uid();
+    newOwned.push({ uid: u, cardId: ins.cardId, serial: ins.serial ?? undefined, obtainedAt: now });
+    origins[u] = ins.origin;
+    return { uid: u, card: ins.card, serial: ins.serial ?? undefined, isNew: ins.isNew, value: ins.value };
+  });
+  return {
+    patch: {
+      ownedCards: [...s.ownedCards, ...newOwned],
+      mintCounts: { ...s.mintCounts, ...r.mintDelta },
+      pityState: r.pityAfter,
+      cardOrigins: origins,
+    },
+    results,
+  };
+}
+
+/**
+ * Versión de esquema de persistencia de la economía (créditos/cartas/pity/materiales/origins).
+ * Los saves antiguos NO tenían versión → zustand los trata como versión 0 y pasan por `migrateGameState`.
+ */
+export const GAME_SCHEMA_VERSION = 1;
+
+/**
+ * Normaliza CUALQUIER estado persistido previo (incl. saves sin versión = 0) rellenando defaults sin
+ * descartar datos del usuario. Es idempotente y defensivo: nunca rompe un save existente ni pierde cartas.
+ */
+function migrateGameState(persisted: unknown): Partial<GameState> {
+  const p = (persisted && typeof persisted === "object" ? persisted : {}) as Record<string, unknown>;
+  const num = (v: unknown, d: number): number => (typeof v === "number" && Number.isFinite(v) ? v : d);
+  const arr = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : []);
+  const rec = <T,>(v: unknown): Record<string, T> => (v && typeof v === "object" ? { ...(v as Record<string, T>) } : {});
+  return {
+    credits: num(p.credits, STARTER_CREDITS),
+    xp: num(p.xp, 0),
+    ownedCards: arr<OwnedCard>(p.ownedCards),
+    ownedCounts: p.ownedCounts && typeof p.ownedCounts === "object" ? rec<number>(p.ownedCounts) : null,
+    ownedTotal: typeof p.ownedTotal === "number" && Number.isFinite(p.ownedTotal) ? p.ownedTotal : null,
+    lockedCounts: p.lockedCounts && typeof p.lockedCounts === "object" ? rec<number>(p.lockedCounts) : null,
+    unopenedPacks: rec<number>(p.unopenedPacks),
+    mintCounts: rec<number>(p.mintCounts),
+    pityState: p.pityState && typeof p.pityState === "object" ? (p.pityState as PityState) : freshPity(),
+    cardOrigins: rec<CardOrigin>(p.cardOrigins),
+    materials: migrateMaterials(p.materials),
+    cosmetics: arr<string>(p.cosmetics),
+    lockedUids: arr<string>(p.lockedUids),
+    packsOpened: num(p.packsOpened, 0),
+    craftedCount: num(p.craftedCount, 0),
+    claimedAchievements: arr<string>(p.claimedAchievements),
+    record: p.record && typeof p.record === "object" ? { ...ZERO_RECORD, ...(p.record as Partial<MatchRecord>) } : { ...ZERO_RECORD },
+    // F81.2 · el dueño de la caché sobrevive a la migración (si no lo había, `mergePersisted` decide).
+    ...(typeof p.cacheOwner === "string" ? { cacheOwner: p.cacheOwner } : {}),
+  };
+}
+
+/**
+ * F81.2 · CACHÉ SIN DUEÑO + SESIÓN GUARDADA. Una caché escrita antes de F81.2 no dice de quién es; si además queda una
+ * sesión guardada, puede ser la de esa cuenta (sesión caducada, refresco a medias). Se marca `LEGACY_CACHE_OWNER`: si la
+ * sesión resulta válida el servidor la sustituye con su dueño; si se confirma visitante, se limpia a la demo de inicio
+ * (nunca se enseña como «demo» el saldo o las cartas de una cuenta). Sin sesión guardada es la demo de un visitante.
+ */
+function mergePersisted(persisted: unknown, current: GameState): GameState {
+  if (!persisted || typeof persisted !== "object") return current;
+  const p = persisted as Partial<GameState>;
+  const owner = typeof p.cacheOwner === "string" ? p.cacheOwner : storedSessionPresent() ? LEGACY_CACHE_OWNER : null;
+  return { ...current, ...p, cacheOwner: owner };
+}
+
 export const useGameStore = create<GameState>()(
   persist(
     (set, get) => ({
       hydrated: false,
+      serverOwner: null,
+      cacheOwner: null,
+      syncError: null,
       credits: STARTER_CREDITS,
       xp: 0,
       ownedCards: [],
+      ownedCounts: null,
+      ownedTotal: null,
+      lockedCounts: null,
       unopenedPacks: { ...STARTER_PACKS },
       mintCounts: {},
+      pityState: freshPity(),
+      cardOrigins: {},
+      materials: freshMaterials(),
+      lockedUids: [],
+      cosmetics: [],
       packsOpened: 0,
+      craftedCount: 0,
       claimedAchievements: [],
+      record: { ...ZERO_RECORD },
       lastOpened: null,
 
       buyPack: (packId) => {
+        // F81.1 · barrera estructural: con backend y sesión guardada, el motor local NO compra (ver lib/game/localEconomy).
+        const blocked = localEconomyBlockReason();
+        if (blocked) return { ok: false, error: blocked };
         const pack = getPack(packId);
-        if (!pack) return { ok: false, error: "Sobre no encontrado" };
+        if (!pack) return { ok: false, error: t("Sobre no encontrado") };
         const { credits } = get();
-        if (credits < pack.price) return { ok: false, error: "Créditos insuficientes" };
+        if (credits < pack.price) return { ok: false, error: t("Créditos insuficientes") };
         set((s) => ({
           credits: s.credits - pack.price,
           unopenedPacks: {
@@ -96,44 +303,32 @@ export const useGameStore = create<GameState>()(
       },
 
       openPackFromInventory: (packId) => {
+        // F81.1 · barrera estructural: con backend y sesión guardada NINGUNA apertura se genera en el navegador. Lanza
+        // (no devuelve null): quien llame no puede confundirlo con «no tienes ese sobre» ni recibir cartas.
+        if (localEconomyBlockReason()) throw new LocalEconomyBlockedError();
         const pack = getPack(packId);
         const state = get();
         if (!pack || (state.unopenedPacks[packId] ?? 0) <= 0) return null;
 
-        const draws = openPack(pack);
-        const results = mintDraws(draws, state);
+        // El Drop Engine DECIDE qué cae (determinista); el store solo persiste el resultado.
+        const now = Date.now();
+        const seed = seedFrom(`${packId}|${state.packsOpened}|${state.ownedCards.length}`);
+        const result = packEngine().open(pack, {
+          seed, owned: state.ownedCards, mintCounts: state.mintCounts, pity: state.pityState, now,
+        });
 
         set((s) => {
-          const owned = new Set(s.ownedCards.map((o) => o.cardId));
-          const newOwned: OwnedCard[] = results.map((r) => ({
-            uid: r.uid,
-            cardId: r.card.id,
-            serial: r.serial,
-            obtainedAt: Date.now(),
-          }));
-          const gainedXp = results.reduce(
-            (sum, r) => sum + xpForCardRank(getVariant(r.card.variantId).rank),
-            0,
-          );
-          const nextUnopened = { ...s.unopenedPacks, [packId]: s.unopenedPacks[packId] - 1 };
-          // marca isNew según lo que ya había antes de añadir
-          for (const r of results) r.isNew = !owned.has(r.card.id);
+          const { patch, results } = ingestAcquired(s, result, now);
+          const gainedXp = result.instances.reduce((sum, ins) => sum + xpForCardRank(getVariant(ins.card.variantId).rank), 0);
           return {
-            ownedCards: [...s.ownedCards, ...newOwned],
-            unopenedPacks: nextUnopened,
-            mintCounts: results.reduce(
-              (acc, r) => {
-                if (r.serial != null) acc[r.card.id] = r.serial;
-                return acc;
-              },
-              { ...s.mintCounts } as Record<string, number>,
-            ),
-            xp: s.xp + gainedXp,
+            ...patch,
+            unopenedPacks: { ...s.unopenedPacks, [packId]: s.unopenedPacks[packId] - 1 },
             packsOpened: s.packsOpened + 1,
+            xp: s.xp + gainedXp,
             lastOpened: results,
           };
         });
-        return results;
+        return get().lastOpened;
       },
 
       buyAndOpen: (packId) => {
@@ -148,7 +343,8 @@ export const useGameStore = create<GameState>()(
         if (!card) return;
         const def = getCard(card.cardId);
         if (!def) return;
-        const value = quickSellValue(def, card.serial);
+        // F57.6 — misma liquidación que el desguace del servidor (antes 80 % del valor: abrir y vender daba beneficio).
+        const value = salvageValue(def);
         set((s) => ({
           credits: s.credits + value,
           ownedCards: s.ownedCards.filter((o) => o.uid !== uidToSell),
@@ -162,24 +358,11 @@ export const useGameStore = create<GameState>()(
         for (const o of ownedCards) {
           if (!set_.has(o.uid)) continue;
           const def = getCard(o.cardId);
-          if (def) gained += quickSellValue(def, o.serial);
+          if (def) gained += salvageValue(def);
         }
         set((s) => ({
           credits: s.credits + gained,
           ownedCards: s.ownedCards.filter((o) => !set_.has(o.uid)),
-        }));
-      },
-
-      claimAchievement: (id) => {
-        const def = ACHIEVEMENTS.find((a) => a.id === id);
-        if (!def) return;
-        const state = get();
-        if (state.claimedAchievements.includes(id)) return;
-        const ctx = buildAchievementContext(state);
-        if (def.progress(ctx) < def.goal) return; // todavía no completado
-        set((s) => ({
-          credits: s.credits + def.reward,
-          claimedAchievements: [...s.claimedAchievements, id],
         }));
       },
 
@@ -191,13 +374,16 @@ export const useGameStore = create<GameState>()(
         return true;
       },
 
-      addOwnedCard: (cardId, serial) => {
+      addOwnedCard: (cardId, serial, origin = "market") => {
         const newUid = uid();
         set((s) => ({
           ownedCards: [
             ...s.ownedCards,
             { uid: newUid, cardId, serial, obtainedAt: Date.now() },
           ],
+          // Sella el origen: mantiene el invariante "toda instancia de la colección tiene origen"
+          // (igual que sobres/grant/craft vía ingestAcquired). Antes las compras de mercado no lo hacían.
+          cardOrigins: { ...s.cardOrigins, [newUid]: origin },
         }));
         return newUid;
       },
@@ -207,6 +393,10 @@ export const useGameStore = create<GameState>()(
         if (card) set((s) => ({ ownedCards: s.ownedCards.filter((o) => o.uid !== uidToRemove) }));
         return card;
       },
+
+      /** Devuelve una instancia EXACTA a la colección (uid preservado) — cancelar/expirar un listado. */
+      restoreOwnedCard: (owned) =>
+        set((s) => (s.ownedCards.some((o) => o.uid === owned.uid) ? s : { ownedCards: [...s.ownedCards, owned] })),
 
       grantPack: (packId, count = 1) =>
         set((s) => ({
@@ -218,79 +408,165 @@ export const useGameStore = create<GameState>()(
 
       addXp: (amount) => set((s) => ({ xp: s.xp + amount })),
 
-      grantCard: (cardId) => {
-        const def = getCard(cardId);
-        if (!def) return null;
-        const variant = getVariant(def.variantId);
-        const newUid = uid();
-        let serial: number | undefined;
+      addMaterials: (delta) => set((s) => ({ materials: addMats(s.materials, delta) })),
+      addCosmetics: (ids) => set((s) => ({ cosmetics: [...s.cosmetics, ...ids.filter((id) => !s.cosmetics.includes(id))] })),
+
+      recordMatch: (won) =>
         set((s) => {
-          if (variant.serialized && variant.serialLimit) {
-            const minted = s.mintCounts[cardId] ?? 0;
-            serial = Math.min(minted + 1, variant.serialLimit);
-          }
+          const streak = won ? s.record.streak + 1 : 0;
           return {
-            ownedCards: [
-              ...s.ownedCards,
-              { uid: newUid, cardId, serial, obtainedAt: Date.now() },
-            ],
-            mintCounts:
-              serial != null ? { ...s.mintCounts, [cardId]: serial } : s.mintCounts,
+            record: {
+              played: s.record.played + 1,
+              won: s.record.won + (won ? 1 : 0),
+              lost: s.record.lost + (won ? 0 : 1),
+              streak,
+              best: Math.max(s.record.best, streak),
+            },
           };
+        }),
+
+      grantCard: (cardId, origin = "reward") => {
+        if (!getCard(cardId)) return null;
+        // MISMA ruta de acuñación (packEngine.grant → Minter) e ingreso (ingestAcquired) que los sobres.
+        const now = Date.now();
+        const s0 = get();
+        const r = packEngine().grant([cardId], origin, {
+          seed: 0, owned: s0.ownedCards, mintCounts: s0.mintCounts, pity: s0.pityState, now,
+        });
+        if (!r.instances.length) return null;
+        let newUid: string | null = null;
+        set((s) => {
+          const { patch, results } = ingestAcquired(s, r, now);
+          newUid = results[0].uid;
+          return patch;   // no toca lastOpened/xp: un grant no es una apertura de sobre
         });
         return newUid;
       },
 
       clearLastOpened: () => set({ lastOpened: null }),
 
+      applyServerState: (s, ownerId) =>
+        set({
+          // F81.2 · sin dueño (llamadas antiguas/tests) el estado se vuelca igual, pero no cuenta como «de esta cuenta».
+          ...(ownerId ? { serverOwner: ownerId, cacheOwner: ownerId, syncError: null } : {}),
+          credits: s.credits,
+          xp: s.xp,
+          ownedCards: s.ownedCards,
+          // COLECCIONES ILIMITADAS · los recuentos los da el servidor; un estado antiguo sin ellos (caché, tests) se cuenta de los ejemplares.
+          ownedCounts: s.ownedCounts ?? null,
+          ownedTotal: s.ownedTotal ?? null,
+          lockedCounts: s.lockedCounts ?? null,
+          cardOrigins: s.origins,
+          lockedUids: s.lockedUids,
+          unopenedPacks: s.unopenedPacks,
+          pityState: s.pityState,
+          packsOpened: s.packsOpened,
+          mintCounts: s.mintCounts,
+        }),
+
+      addOwnedInstances: (list, origins) =>
+        set((s) => {
+          const have = new Set(s.ownedCards.map((o) => o.uid));
+          const fresh = list.filter((o) => !have.has(o.uid));
+          if (fresh.length === 0) return s;
+          return { ownedCards: [...s.ownedCards, ...fresh], cardOrigins: origins ? { ...s.cardOrigins, ...origins } : s.cardOrigins };
+        }),
+
+      setLastOpened: (results) => set({ lastOpened: results }),
+
+      lockCard: (uid) => set((s) => (s.lockedUids.includes(uid) ? s : { lockedUids: [...s.lockedUids, uid] })),
+      unlockCard: (uid) => set((s) => ({ lockedUids: s.lockedUids.filter((u) => u !== uid) })),
+      isLocked: (uid) => get().lockedUids.includes(uid),
+
+      craft: (recipeId, selection) => {
+        const recipe = getRecipe(recipeId);
+        if (!recipe) return { ok: false, error: t("Receta inexistente") };
+        const s0 = get();
+        const now = Date.now();
+        const seed = seedFrom(`craft|${recipeId}|${s0.ownedCards.length}|${s0.credits}`);
+        // El Craft Engine DECIDE y ACUÑA (vía el único Minter); el store solo aplica el plan puro.
+        const res = craftEngine().craft(recipe, {
+          owned: s0.ownedCards, materials: s0.materials, credits: s0.credits,
+          mintCounts: s0.mintCounts, locks: new Set(s0.lockedUids), selection, seed, now,
+        });
+        if (!res.ok) return { ok: false, issues: res.issues };
+
+        const removed = new Set(res.removedUids);
+        set((s) => {
+          const survived = s.ownedCards.filter((o) => !removed.has(o.uid));
+          // Reutiliza la MISMA ruta de ingreso que sobres/grant (sin duplicar); pity intacto.
+          const { patch } = ingestAcquired(
+            { ...s, ownedCards: survived },
+            { packId: `craft:${recipeId}`, instances: res.instances, events: [], pityAfter: s.pityState, mintDelta: res.mintDelta },
+            now,
+          );
+          const origins = { ...(patch.cardOrigins ?? s.cardOrigins) };
+          for (const uid of res.removedUids) delete origins[uid];
+          return {
+            ...patch,
+            cardOrigins: origins,
+            materials: res.materialsAfter,
+            credits: res.creditsAfter,
+            lockedUids: s.lockedUids.filter((u) => !removed.has(u)),
+            craftedCount: s.craftedCount + 1,
+          };
+        });
+        return { ok: true, result: res };
+      },
+
       resetGame: () =>
         set({
+          serverOwner: null,
+          cacheOwner: null,
           credits: STARTER_CREDITS,
           xp: 0,
           ownedCards: [],
+          ownedCounts: null,
+          ownedTotal: null,
+          lockedCounts: null,
           unopenedPacks: { ...STARTER_PACKS },
           mintCounts: {},
+          pityState: freshPity(),
+          cardOrigins: {},
+          materials: freshMaterials(),
+          lockedUids: [],
+          cosmetics: [],
           packsOpened: 0,
+          craftedCount: 0,
           claimedAchievements: [],
+          record: { ...ZERO_RECORD },
           lastOpened: null,
         }),
     }),
     {
       name: "drl-champions",
+      version: GAME_SCHEMA_VERSION,
       storage: createJSONStorage(() => localStorage),
+      migrate: (persisted) => migrateGameState(persisted),
+      merge: (persisted, current) => mergePersisted(persisted, current),
       partialize: (s) => ({
         credits: s.credits,
         xp: s.xp,
         ownedCards: s.ownedCards,
+        ownedCounts: s.ownedCounts,
+        ownedTotal: s.ownedTotal,
+        lockedCounts: s.lockedCounts,
         unopenedPacks: s.unopenedPacks,
         mintCounts: s.mintCounts,
+        pityState: s.pityState,
+        cardOrigins: s.cardOrigins,
+        materials: s.materials,
+        cosmetics: s.cosmetics,
+        lockedUids: s.lockedUids,
         packsOpened: s.packsOpened,
+        craftedCount: s.craftedCount,
         claimedAchievements: s.claimedAchievements,
+        record: s.record,
+        cacheOwner: s.cacheOwner,
       }),
     },
   ),
 );
-
-/** Asigna nº de serie y valor a cada carta del sorteo (sin mutar el store). */
-function mintDraws(draws: CardDef[], state: GameState): OpenedResult[] {
-  const localMint: Record<string, number> = { ...state.mintCounts };
-  return draws.map((card) => {
-    const variant = getVariant(card.variantId);
-    let serial: number | undefined;
-    if (variant.serialized && variant.serialLimit) {
-      const minted = localMint[card.id] ?? 0;
-      serial = Math.min(minted + 1, variant.serialLimit);
-      localMint[card.id] = serial;
-    }
-    return {
-      uid: uid(),
-      card,
-      serial,
-      isNew: false, // se recalcula en set()
-      value: instanceValue(card, serial),
-    };
-  });
-}
 
 export function buildAchievementContext(state: GameState): AchievementContext {
   return {

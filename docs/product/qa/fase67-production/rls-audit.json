@@ -1,0 +1,39 @@
+{
+  "method": "pg_class/pg_policies/role_table_grants en la BD real, sesión read-only (db-audit.raw.txt, rls-policies.raw.txt)",
+  "rlsEnabled": "todas las tablas public con RLS activo",
+  "denyAllTables": "duel_matches, duel_match_actions, duel_pvp_*, duel_friendships, duel_challenges, duel_active_deck, content_* (CMS), user_sanctions, content_audit_log, campaign_*, draft_* … (0 políticas → solo service_role)",
+  "ownRowPolicies": "user_cards, user_game, user_pass, user_packs, credit_transactions, economy_ops, duel_decks, user_achievements, payments, inventory, pickem_*: SELECT auth.uid() = user_id",
+  "clientWritePolicies": [
+    "profiles UPDATE propio (columnas username/region/avatar) + INSERT propio",
+    "game_state ALL propio (estado local legado, el servidor no confía en él)",
+    "pickems ALL propio (legado)",
+    "user_strats / user_compositions / coach_match_strats propios"
+  ],
+  "findings": [
+    {
+      "id": "RLS-1",
+      "severity": "MEDIUM",
+      "what": "profiles SELECT true para anon/authenticated con TODAS las columnas (credits, xp, is_admin, last_seen_at…)",
+      "proposal": "0058 H1"
+    },
+    {
+      "id": "RLS-2",
+      "severity": "LOW",
+      "what": "INSERT en profiles concedido (mitigado por handle_new_user: PK ya ocupada)",
+      "proposal": "0058 H2"
+    },
+    {
+      "id": "RLS-3",
+      "severity": "LOW",
+      "what": "TRUNCATE concedido a anon/authenticated (no pasa por RLS; no alcanzable vía PostgREST, Postgres en 127.0.0.1)",
+      "proposal": "0058 H3"
+    },
+    {
+      "id": "RLS-4",
+      "severity": "LOW",
+      "what": "SECURITY DEFINER ejecutables por anon sin auth.uid(): recompute_standings/team_stats/player_event_stats, expire_offers",
+      "proposal": "0058 H4"
+    }
+  ],
+  "proposalFile": "docs/operations/proposals/0058_hardening_grants.PROPOSAL.sql (NO aplicada, con rollback)"
+}

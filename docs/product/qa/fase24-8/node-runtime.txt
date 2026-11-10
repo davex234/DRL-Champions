@@ -1,0 +1,5 @@
+##### node-runtime
+v22.23.2
+node-v22.23.2-linux-x64
+tarball verificado contra SHASUMS256.txt oficial de nodejs.org (v22.23.2 linux-x64)
+##### hashes-vps

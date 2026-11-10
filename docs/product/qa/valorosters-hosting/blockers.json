@@ -1,0 +1,26 @@
+{
+  "at": "2026-09-30T18:31:43.689Z",
+  "preexistingBugFound": {
+    "title": "Cola ranked: una entrada MATCHED antigua se devuelve como estado actual",
+    "where": "RPC duel_pvp_status (sin entrada QUEUED/PAIRING devuelve la última por updated_at) + la UI que navega a /duelos/pvp con MATCHED",
+    "repro": "cuenta que ya jugó una PvP cuya entrada quedó MATCHED → JUGAR ranked → antes de que aterrice el enqueue el sondeo devuelve el MATCHED viejo → la UI va a /duelos/pvp de una partida cerrada; la entrada QUEUED nueva queda en cola",
+    "seenWith": [
+      "QA E (localhost)",
+      "QA G (https://valorosters.com)"
+    ],
+    "relatedToHosting": false,
+    "fixed": false,
+    "why": "cambio de lógica de juego fuera de esta operación"
+  },
+  "open": [
+    "cola ranked (arriba)",
+    "SMTP real (recuperar contraseña no funciona: inbucket)",
+    "autoconfirmación ON: cualquiera con el enlace puede registrarse",
+    "off-site backup",
+    "licencias (logos/Riot/VCT/agentes/cartas)",
+    "Google Fonts (tercero en el navegador)",
+    "el sitio solo está en línea con este PC encendido y con sesión iniciada",
+    "F73 QA final pendiente (cancelada)",
+    "2 CNAME erróneos en la zona nexusclipflow.com (borrar en Cloudflare)"
+  ]
+}

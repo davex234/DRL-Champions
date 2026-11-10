@@ -1,0 +1,333 @@
+{
+  "match1": {
+    "chaosLog": [
+      {
+        "queueF5": {
+          "before": "d6117e4b",
+          "after": "d6117e4b",
+          "same": true
+        }
+      },
+      {
+        "turn": 1,
+        "actor": "A",
+        "latencyA": 0,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 1,
+        "actor": "B",
+        "latencyA": 0,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 2,
+        "actor": "B",
+        "latencyA": 100,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 2,
+        "actor": "A",
+        "latencyA": 100,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 3,
+        "actor": "A",
+        "latencyA": 300,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 3,
+        "actor": "B",
+        "latencyA": 300,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "f5B": {
+          "arena": true,
+          "intro": false,
+          "moment": false,
+          "turn": "TURNO 4 DE 10",
+          "hand": 7,
+          "outcome": false,
+          "syncing": false,
+          "text": "RANKED · RATING EN JUEGO 🎮contra qa_f45_085748_1ff2 · jugador real TU TURNO TU TIEMPO 01:26 ? ⛶ SALIR ABANDONAR TURNO 4 DE 10 ATACAS ELIGE CARTA TÚ0–2RIVAL TU"
+        }
+      },
+      {
+        "turn": 4,
+        "actor": "B",
+        "latencyA": 800,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 4,
+        "actor": "A",
+        "latencyA": 800,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "pendingActionF5": {
+          "r": "reload-in-flight fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false} 3512ms",
+          "versionBefore": 8,
+          "versionAfter": 8,
+          "appliedAtMostOnce": true
+        }
+      },
+      {
+        "turn": 5,
+        "actor": "A",
+        "latencyA": 1500,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 5,
+        "actor": "B",
+        "latencyA": 1500,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 6,
+        "actor": "B",
+        "latencyA": 0,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 6,
+        "actor": "A",
+        "latencyA": 0,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 7,
+        "actor": "A",
+        "latencyA": 100,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "tempDisconnect": {
+          "rivalPlayed": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}",
+          "whileOffline": {
+            "syncing": true,
+            "text": "RANKED · RATING EN JUEGO 🎮contra qa_campaign_352_8c32 · jugador real Reconectando… sincronizando partida con el servidor TURNO DEL RIVAL qa_campaign_352_8c32"
+          },
+          "recovered": true
+        }
+      },
+      {
+        "turn": 8,
+        "actor": "B",
+        "latencyA": 300,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 8,
+        "actor": "A",
+        "latencyA": 300,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "staleTab": {
+          "status": 409,
+          "resync": 16
+        }
+      },
+      {
+        "turn": 9,
+        "actor": "A",
+        "latencyA": 800,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 9,
+        "actor": "B",
+        "latencyA": 800,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 10,
+        "actor": "B",
+        "latencyA": 1500,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      },
+      {
+        "turn": 10,
+        "actor": "A",
+        "latencyA": 1500,
+        "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+      }
+    ],
+    "turns": [
+      {
+        "turn": 1,
+        "sameServerFacts": true,
+        "version": 2,
+        "score": "0-1",
+        "uiTurn": [
+          "TURNO 1 DE 10",
+          "TURNO 2 DE 10"
+        ]
+      },
+      {
+        "turn": 2,
+        "sameServerFacts": true,
+        "version": 4,
+        "score": "0-2",
+        "uiTurn": [
+          "TURNO 3 DE 10",
+          "TURNO 3 DE 10"
+        ]
+      },
+      {
+        "turn": 3,
+        "sameServerFacts": true,
+        "version": 6,
+        "score": "0-2",
+        "uiTurn": [
+          "TURNO 3 DE 10",
+          "TURNO 4 DE 10"
+        ]
+      },
+      {
+        "turn": 4,
+        "sameServerFacts": true,
+        "version": 8,
+        "score": "1-2",
+        "uiTurn": [
+          "TURNO 5 DE 10",
+          "TURNO 4 DE 10"
+        ]
+      },
+      {
+        "turn": 5,
+        "sameServerFacts": true,
+        "version": 10,
+        "score": "1-3",
+        "uiTurn": [
+          "TURNO 5 DE 10",
+          "TURNO 6 DE 10"
+        ]
+      },
+      {
+        "turn": 6,
+        "sameServerFacts": true,
+        "version": 12,
+        "score": "2-3",
+        "uiTurn": [
+          "TURNO 7 DE 10",
+          "TURNO 6 DE 10"
+        ]
+      },
+      {
+        "turn": 7,
+        "sameServerFacts": true,
+        "version": 14,
+        "score": "3-3",
+        "uiTurn": [
+          "TURNO 8 DE 10",
+          "TURNO 8 DE 10"
+        ]
+      },
+      {
+        "turn": 8,
+        "sameServerFacts": true,
+        "version": 16,
+        "score": "4-3",
+        "uiTurn": [
+          "TURNO 9 DE 10",
+          "TURNO 8 DE 10"
+        ]
+      },
+      {
+        "turn": 9,
+        "sameServerFacts": true,
+        "version": 18,
+        "score": "4-4",
+        "uiTurn": [
+          "TURNO 9 DE 10",
+          "TURNO 10 DE 10"
+        ]
+      },
+      {
+        "turn": 10,
+        "sameServerFacts": true,
+        "version": 20,
+        "score": "5-4",
+        "uiTurn": [
+          "TURNO 10 DE 10",
+          null
+        ]
+      }
+    ],
+    "final": {
+      "lifecycle": "FINISHED",
+      "sameFacts": true,
+      "result": {
+        "winner": "A",
+        "score": "5-4",
+        "decidedBy": "SCORE"
+      },
+      "recomputed": {
+        "winner": "A",
+        "decidedBy": "SCORE",
+        "scoreA": 5,
+        "scoreB": 4,
+        "agrees": true
+      },
+      "turnsPlayed": 10,
+      "elo": {
+        "before": {
+          "A": {
+            "rating": 935,
+            "games": 23
+          },
+          "B": {
+            "rating": 1039,
+            "games": 22
+          }
+        },
+        "after": {
+          "A": {
+            "rating": 926,
+            "games": 24
+          },
+          "B": {
+            "rating": 1048,
+            "games": 23
+          }
+        },
+        "outcomeA": {
+          "matchId": "cb654be0-c13c-425b-9051-85d38cc67426",
+          "oldRating": 935,
+          "delta": -9,
+          "newRating": 926,
+          "opponentRating": 1039,
+          "kFactor": 24,
+          "result": "LOSS",
+          "createdAt": 1790452110233
+        },
+        "outcomeB": {
+          "matchId": "cb654be0-c13c-425b-9051-85d38cc67426",
+          "oldRating": 1039,
+          "delta": 9,
+          "newRating": 1048,
+          "opponentRating": 935,
+          "kFactor": 24,
+          "result": "WIN",
+          "createdAt": 1790452110233
+        },
+        "once": true
+      }
+    },
+    "allTurnsConsistent": true
+  },
+  "soakChaos": {
+    "sameId2": 217,
+    "dup3": 290,
+    "stale": 128,
+    "abandon": 4,
+    "play-vs-abandon": 5
+  }
+}

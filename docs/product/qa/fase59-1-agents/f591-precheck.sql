@@ -1,0 +1,21 @@
+-- F59.1 · PRECHECK 0056 — SOLO LECTURA (ningún INSERT/UPDATE/DELETE/DDL).
+select 'db|' || current_database() || '|' || current_user || '|' || split_part(version(), ' ', 2);
+select 'txn_read_only_default|' || current_setting('default_transaction_read_only');
+select 'registered_max|' || coalesce(max(version), 'none') from supabase_migrations.schema_migrations;
+select 'probe_0054_user_compositions|' || (to_regclass('public.user_compositions') is not null);
+select 'probe_0055_user_sanctions|' || (to_regclass('public.user_sanctions') is not null);
+select 'probe_0055_admin_event_drafts|' || (to_regclass('public.admin_event_drafts') is not null);
+select 'probe_0055_schema_probe_fn|' || (to_regprocedure('public.app_admin_schema_probe()') is not null);
+select 'probe_0056_marker_rows|' || count(*) from public.agents where id in ('miks', 'veto');
+select 'content_cards|' || count(*) from public.content_cards;
+select 'agents_count|' || count(*) from public.agents;
+select 'agents_miks|' || count(*) from public.agents where id = 'miks';
+select 'agents_veto|' || count(*) from public.agents where id = 'veto';
+select 'agents_digest|' || md5(string_agg(id || ':' || name || ':' || role || ':' || coalesce(icon, '∅'), ',' order by id)) from public.agents;
+select 'agent|' || id || '|' || name || '|' || role || '|' || coalesce(icon, '') from public.agents order by id;
+select 'public_tables|' || count(*) from information_schema.tables where table_schema = 'public';
+select 'public_functions|' || count(*) from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public';
+select 'agents_columns|' || string_agg(column_name || ':' || data_type, ',' order by ordinal_position) from information_schema.columns where table_schema = 'public' and table_name = 'agents';
+select 'agents_triggers|' || count(*) from pg_trigger where tgrelid = 'public.agents'::regclass and not tgisinternal;
+select 'mps_null_agent|' || count(*) from public.map_player_stats where agent_id is null;
+select 'mps_total|' || count(*) from public.map_player_stats;

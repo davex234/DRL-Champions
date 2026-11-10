@@ -1,0 +1,20 @@
+{
+  "phase": 43,
+  "kind": "swap-fuzz",
+  "swaps": 100000,
+  "legalSwaps": 18130,
+  "illegalAttempts": 81870,
+  "fullAlternativeLists": 250,
+  "alternativesTimingMs": {
+    "n": 250,
+    "p50": 8.8362,
+    "p95": 35.1582,
+    "p99": 45.5865,
+    "max": 61.8634
+  },
+  "mutate": null,
+  "violations": 0,
+  "byInvariant": {},
+  "sample": [],
+  "ms": 14108
+}

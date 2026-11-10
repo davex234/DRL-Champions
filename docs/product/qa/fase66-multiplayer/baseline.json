@@ -1,0 +1,38 @@
+{
+  "measuredAt": "2026-09-26 (antes de editar)",
+  "git": {
+    "branch": "arch/stabilization",
+    "head": "48dac2a",
+    "workingTree": "muy sucio (trabajo de fases previas sin commit); cada fichero se leyó y se parcheó quirúrgicamente"
+  },
+  "tests": {
+    "before": 5298,
+    "source": "gates F65"
+  },
+  "catalog": {
+    "cards": 331,
+    "agents": 29
+  },
+  "migrationHead": "0057_admin_cms",
+  "flags": {
+    "GLOBAL_MARKET_ENABLED": false,
+    "PAYMENTS_ENABLED": false
+  },
+  "runtime": {
+    ":3005": "200 (build F65, node next start)",
+    "tunnel": "ssh 54521/54522 abierto"
+  },
+  "architecture": {
+    "transport": "HTTP + sondeo (sin WebSocket/Realtime/SSE: comprobado, 0 .channel( en src)",
+    "pvp": "duelsPvp.ts: estado en duel_matches.state (jsonb) + state_version (0031) + libro duel_match_actions; proyección projectMatchFor; turno 90 s con vencimiento en Postgres",
+    "queue": "duelsMatchmaking.ts + RPC 0032/0033 (índice único parcial, skip locked, advisory lock, arrendamiento, barrido oportunista)",
+    "pve": "duels.ts: playTurn lee fila → orquestador + bot → persist() SIN condición (race F65 INT-1)",
+    "rewards": "PvE: awardMatchOutcome (ref duel:<id>, cupo diario atómico) · PvP ranked: duel_pvp_settle_match (una vez por partida) · privado: nada",
+    "rateLimits": "pvp_sync 150/min, pvp_action 40/min, mm_status 90/min, mm_write 20/min (app_rate_take)",
+    "auth": "Bearer → getSession; el usuario nunca sale del cuerpo"
+  },
+  "knownBefore": [
+    "F65 INT-1: PvE play sin control de concurrencia",
+    "F65 INT-2: cuerpos no estrictos (claves desconocidas se ignoran)"
+  ]
+}

@@ -1,0 +1,76 @@
+
+> drl-champions@0.1.1 lint
+> eslint src
+
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\admin\assets\legacy\page.tsx
+  384:11  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+  483:20  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\admin\card-review\page.tsx
+  251:9  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\admin\releases\page.tsx
+  84:9  warning  The 'releases' logical expression could make the dependencies of useMemo Hook (at line 91) change on every render. To fix this, wrap the initialization of 'releases' in its own useMemo() Hook  react-hooks/exhaustive-deps
+  84:9  warning  The 'releases' logical expression could make the dependencies of useMemo Hook (at line 93) change on every render. To fix this, wrap the initialization of 'releases' in its own useMemo() Hook  react-hooks/exhaustive-deps
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\admin\roster\page.tsx
+  125:101  warning  React Hook useMemo has an unnecessary dependency: 'version'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+  142:58   warning  React Hook useMemo has an unnecessary dependency: 'version'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\admin\tournament-control\page.tsx
+  62:104  warning  React Hook useMemo has an unnecessary dependency: 'ledger'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\api\game\match-strats\route.ts
+  57:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\cuenta\page.tsx
+  139:6  warning  React Hook useCallback has a missing dependency: 'profile?.region'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\NEXUS-CENTRAL\DRLCards\src\app\layout.tsx
+  62:9  warning  Custom fonts not added in `pages/_document.js` will only load for a single page. This is discouraged. See: https://nextjs.org/docs/messages/no-page-custom-font  @next/next/no-page-custom-font
+
+C:\NEXUS-CENTRAL\DRLCards\src\components\admin\cards\CardArtifacts.tsx
+  237:22  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+
+C:\NEXUS-CENTRAL\DRLCards\src\components\broadcast\ProPlayerStrip.tsx
+  80:19  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+
+C:\NEXUS-CENTRAL\DRLCards\src\components\coach\MatchCeremony.tsx
+  279:11  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+
+C:\NEXUS-CENTRAL\DRLCards\src\components\coach\PlayerStatusCard.tsx
+  37:13  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+
+C:\NEXUS-CENTRAL\DRLCards\src\lib\duel\usePvpSync.ts
+  106:6  warning  React Hook useCallback has an unnecessary dependency: 'matchId'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+  110:5  warning  React Hook useCallback has an unnecessary dependency: 'matchId'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\NEXUS-CENTRAL\DRLCards\src\lib\esports\ai\batch.ts
+  42:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+  56:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\lib\esports\ai\claude.ts
+  69:9  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\lib\esports\autosync\testing\fakeSupabase.ts
+  307:3  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\lib\esports\repos\predictions.ts
+  21:5  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\platform\env.ts
+  9:1  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\platform\log.ts
+  7:1  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\platform\paths.ts
+  9:1  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+C:\NEXUS-CENTRAL\DRLCards\src\platform\store.ts
+  7:1  warning  Unused eslint-disable directive (no problems were reported from '@typescript-eslint/no-explicit-any')
+
+✖ 26 problems (0 errors, 26 warnings)
+  0 errors and 17 warnings potentially fixable with the `--fix` option.
+

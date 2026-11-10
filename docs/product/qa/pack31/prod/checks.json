@@ -1,0 +1,592 @@
+{
+  "base": "https://valorosters.com",
+  "at": "2026-10-07T12:08:45.861Z",
+  "total": 72,
+  "failed": 0,
+  "checks": [
+    {
+      "id": "ewc",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 10 % · Plata 58 % · Oro 28 % · Masters 4 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nChampions 99 % · Icon",
+        "best": "Mejor carta del sobre: OVR 90+ 14 % · 93+ 2,5 % · 95 1,2 %"
+      }
+    },
+    {
+      "id": "ewc",
+      "w": 1440,
+      "name": "precio 8.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEVENTO\nSOBRE EWC\n\nEl sobre del evento EWC. Champions S (o Icon) garantizada en la carta destacada.\n\nPRECIO\n8.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por"
+    },
+    {
+      "id": "ewc",
+      "w": 1440,
+      "name": "garantía de EWC en la carta destacada",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "ewc",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "china",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nMasters 100 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nMasters 94 % · Champions 6 %",
+        "best": "Mejor carta del sobre: OVR 90+ 13 % · 93+ 1,9 % · 95 0,09 %"
+      }
+    },
+    {
+      "id": "china",
+      "w": 1440,
+      "name": "precio 9.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE CHINA\n\nSolo jugadores de la región China. Con el catálogo actual sus cartas son Masters L, Masters SDC y Champions S.\n\nPRECIO\n9.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCR"
+    },
+    {
+      "id": "china",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "emea",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 10 % · 93+ 0,57 % · 95 0,33 %"
+      }
+    },
+    {
+      "id": "emea",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE EMEA\n\nSolo jugadores de la región EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · 5 cartas por sobre\n\nBASE\nEdición ba"
+    },
+    {
+      "id": "emea",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "americas",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 62 % · Plata 30 % · Oro 7,5 % · Masters 0,5 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 32 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 7,2 % · 93+ 0,61 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "americas",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE AMERICAS\n\nSolo jugadores de la región Americas.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · 5 cartas por sobre\n\nBASE\nEd"
+    },
+    {
+      "id": "americas",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "pacific",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 60 % · Plata 30 % · Oro 9 % · Masters 1 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 30 % · Oro 37 % ",
+        "best": "Mejor carta del sobre: OVR 90+ 3,8 % · 93+ 0,68 % · 95 0,22 %"
+      }
+    },
+    {
+      "id": "pacific",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE PACIFIC\n\nSolo jugadores de la región Pacific.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · 5 cartas por sobre\n\nBASE\nEdic"
+    },
+    {
+      "id": "pacific",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-heretics",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 7,4 % · 93+ 0,76 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-heretics",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nTH\nSOBRE TEAM HERETICS\n\nMás probabilidad de cartas de Team Heretics. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\n"
+    },
+    {
+      "id": "team-heretics",
+      "w": 1440,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-heretics",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-fnatic",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 17 % · 93+ 0,56 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-fnatic",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nFNC\nSOBRE FNATIC\n\nMás probabilidad de cartas de Fnatic. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por car"
+    },
+    {
+      "id": "team-fnatic",
+      "w": 1440,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-fnatic",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-g2",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 62 % · Plata 30 % · Oro 7,5 % · Masters 0,5 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 32 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 6,3 % · 93+ 0,74 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-g2",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nG2\nSOBRE G2\n\nMás probabilidad de cartas de G2. Sortea entre jugadores de Americas.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · "
+    },
+    {
+      "id": "team-g2",
+      "w": 1440,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-g2",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-liquid",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 6,9 % · 93+ 0,47 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-liquid",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nTL\nSOBRE TEAM LIQUID\n\nMás probabilidad de cartas de Team Liquid. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedi"
+    },
+    {
+      "id": "team-liquid",
+      "w": 1440,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-liquid",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-karmine",
+      "w": 1440,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 10 % · 93+ 0,57 % · 95 0,33 %"
+      }
+    },
+    {
+      "id": "team-karmine",
+      "w": 1440,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nKC\nSOBRE KARMINE CORP\n\nMás probabilidad de cartas de Karmine Corp. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMe"
+    },
+    {
+      "id": "team-karmine",
+      "w": 1440,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-karmine",
+      "w": 1440,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "ewc",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 10 % · Plata 58 % · Oro 28 % · Masters 4 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nChampions 99 % · Icon",
+        "best": "Mejor carta del sobre: OVR 90+ 14 % · 93+ 2,5 % · 95 1,2 %"
+      }
+    },
+    {
+      "id": "ewc",
+      "w": 390,
+      "name": "precio 8.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEVENTO\nSOBRE EWC\n\nEl sobre del evento EWC. Champions S (o Icon) garantizada en la carta destacada.\n\nPRECIO\n8.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por"
+    },
+    {
+      "id": "ewc",
+      "w": 390,
+      "name": "garantía de EWC en la carta destacada",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "ewc",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "china",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nMasters 100 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nMasters 94 % · Champions 6 %",
+        "best": "Mejor carta del sobre: OVR 90+ 13 % · 93+ 1,9 % · 95 0,09 %"
+      }
+    },
+    {
+      "id": "china",
+      "w": 390,
+      "name": "precio 9.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE CHINA\n\nSolo jugadores de la región China. Con el catálogo actual sus cartas son Masters L, Masters SDC y Champions S.\n\nPRECIO\n9.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCR"
+    },
+    {
+      "id": "china",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "emea",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 10 % · 93+ 0,57 % · 95 0,33 %"
+      }
+    },
+    {
+      "id": "emea",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE EMEA\n\nSolo jugadores de la región EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · 5 cartas por sobre\n\nBASE\nEdición ba"
+    },
+    {
+      "id": "emea",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "americas",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 62 % · Plata 30 % · Oro 7,5 % · Masters 0,5 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 32 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 7,2 % · 93+ 0,61 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "americas",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE AMERICAS\n\nSolo jugadores de la región Americas.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · 5 cartas por sobre\n\nBASE\nEd"
+    },
+    {
+      "id": "americas",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "pacific",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 60 % · Plata 30 % · Oro 9 % · Masters 1 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 30 % · Oro 37 % ",
+        "best": "Mejor carta del sobre: OVR 90+ 3,8 % · 93+ 0,68 % · 95 0,22 %"
+      }
+    },
+    {
+      "id": "pacific",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nREGIONAL\nSOBRE PACIFIC\n\nSolo jugadores de la región Pacific.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · 5 cartas por sobre\n\nBASE\nEdic"
+    },
+    {
+      "id": "pacific",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-heretics",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 7,4 % · 93+ 0,76 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-heretics",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nTH\nSOBRE TEAM HERETICS\n\nMás probabilidad de cartas de Team Heretics. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\n"
+    },
+    {
+      "id": "team-heretics",
+      "w": 390,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-heretics",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-fnatic",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 17 % · 93+ 0,56 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-fnatic",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nFNC\nSOBRE FNATIC\n\nMás probabilidad de cartas de Fnatic. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por car"
+    },
+    {
+      "id": "team-fnatic",
+      "w": 390,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-fnatic",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-g2",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 62 % · Plata 30 % · Oro 7,5 % · Masters 0,5 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 32 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 6,3 % · 93+ 0,74 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-g2",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nG2\nSOBRE G2\n\nMás probabilidad de cartas de G2. Sortea entre jugadores de Americas.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedia por carta · "
+    },
+    {
+      "id": "team-g2",
+      "w": 390,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-g2",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-liquid",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 6,9 % · 93+ 0,47 % · 95 0,32 %"
+      }
+    },
+    {
+      "id": "team-liquid",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nTL\nSOBRE TEAM LIQUID\n\nMás probabilidad de cartas de Team Liquid. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMedi"
+    },
+    {
+      "id": "team-liquid",
+      "w": 390,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-liquid",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    },
+    {
+      "id": "team-karmine",
+      "w": 390,
+      "name": "ficha por PLAN: ranuras normal/destacada + mejor carta exacta",
+      "ok": true,
+      "detail": {
+        "mode": "class-distribution",
+        "slots": "4 CARTAS NORMALES\n\nBase 61 % · Plata 30 % · Oro 8,2 % · Masters 0,8 %\n\nCARTA DESTACADA · 1 POR SOBRE\n\nPlata 31 % · Oro 3",
+        "best": "Mejor carta del sobre: OVR 90+ 10 % · 93+ 0,57 % · 95 0,33 %"
+      }
+    },
+    {
+      "id": "team-karmine",
+      "w": 390,
+      "name": "precio 3.500 en la ficha",
+      "ok": true,
+      "detail": "← Sobres\nEQUIPO\nKC\nSOBRE KARMINE CORP\n\nMás probabilidad de cartas de Karmine Corp. Sortea entre jugadores de EMEA.\n\nPRECIO\n3.500\nCRÉDITOS\nCONTIENE\n5\nCARTAS\nTU SALDO\n6.000\nCRÉDITOS\n\nQUÉ PUEDE SALIR\n\nMe"
+    },
+    {
+      "id": "team-karmine",
+      "w": 390,
+      "name": "sesgo de equipo dicho con honestidad (probabilidad aumentada, no garantía)",
+      "ok": true,
+      "detail": null
+    },
+    {
+      "id": "team-karmine",
+      "w": 390,
+      "name": "sin desbordamiento",
+      "ok": true,
+      "detail": 0
+    }
+  ]
+}

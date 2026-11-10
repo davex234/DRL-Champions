@@ -1,0 +1,7 @@
+{"at":"2026-10-05T08:40Z","base":"https://valorosters.com","account":"QA A (f45)","note":"latencia extremo a extremo desde el PC (España) a través de Cloudflare; p50/p90 de 8–10 muestras","rows":[
+{"label":"GET /social (foto agregada)","p50":227,"p90":356,"n":10,"bytes":23519},
+{"label":"POST pulse","p50":207,"p90":223,"n":10,"bytes":110},
+{"label":"GET ?q= (búsqueda 'qa')","p50":208,"p90":262,"n":8,"bytes":2686},
+{"label":"GET ?friends=1 (página)","p50":210,"p90":243,"n":10,"bytes":51},
+{"label":"GET ?player= (perfil social)","p50":236,"p90":324,"n":10,"bytes":1032},
+{"label":"GET ?compare=","p50":382,"p90":463,"n":10,"bytes":631}]}

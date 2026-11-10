@@ -1,0 +1,31 @@
+{
+  "f73Objects": {
+    "craft_recipes": false,
+    "content_card_projects": false,
+    "content_missions": false,
+    "user_mission_progress": false,
+    "mission_events": false,
+    "user_project_claims": false,
+    "app_craft_pack": false,
+    "app_craft_card": false,
+    "app_mission_apply": false
+  },
+  "deps": {
+    "auth_users": true,
+    "user_packs_pk": true,
+    "user_packs_qty_check": true,
+    "user_cards_origin_allows_craft": true,
+    "duel_decks_card_uids_type": "uuid[]",
+    "economy_ops_ref_pk": true,
+    "app_grant_reward": false,
+    "service_role": true,
+    "head_0058_privacy": true,
+    "unexpected_0060_like": 0
+  },
+  "appGrantRewardRealSignature": "app_grant_reward(uuid,text,text,bigint,integer,bigint,text,integer,integer,text[],text[])",
+  "note": "app_grant_reward existe (la sonda us\u00f3 otra firma); 0059 no depende de ella",
+  "unexpected0060": 0,
+  "head0058": true,
+  "dryRunEarlier": "PASS (docs/product/qa/fase73/migration-dryrun.txt)",
+  "verdict": "PASS"
+}

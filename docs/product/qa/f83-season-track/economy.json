@@ -1,0 +1,116 @@
+{
+ "season": {
+  "id": "temporada-2",
+  "name": "Temporada 2 · Asalto",
+  "days": 84,
+  "maxLevel": 40,
+  "totalXp": 99000,
+  "curve": {
+   "base": 1500,
+   "step": 50
+  },
+  "xp": {
+   "match": {
+    "PVE": 40,
+    "DRAFT": 50,
+    "RANKED": 60,
+    "winBonus": 30,
+    "dailyCap": 600
+   },
+   "craft": {
+    "amount": 50,
+    "dailyCap": 100
+   },
+   "collection": 300
+  },
+  "dailyAvgXp": 489,
+  "weeklyAvgXp": 2750
+ },
+ "totals": {
+  "credits": 6400,
+  "packs": [
+   {
+    "packId": "estandar",
+    "count": 2,
+    "unitPrice": 2500
+   },
+   {
+    "packId": "premium",
+    "count": 2,
+    "unitPrice": 6000
+   }
+  ],
+  "packValue": 17000,
+  "badges": [
+   "insignia:temporada:temporada-2-plata",
+   "insignia:temporada:temporada-2-oro"
+  ],
+  "rewardLevels": 24,
+  "totalValue": 23400
+ },
+ "perDayMaxValue": 279,
+ "legacyFreeTrack": {
+  "credits": 15900,
+  "packs": {
+   "estandar": 3,
+   "premium": 3
+  },
+  "packValue": 25500,
+  "totalValue": 41400
+ },
+ "ratioVsLegacy": 0.57,
+ "simulation": [
+  {
+   "id": "casual",
+   "label": "Casual",
+   "xpPerDay": 330,
+   "xpPerWeek": 2309,
+   "xpSeason": 27713,
+   "levelAtEnd": 14,
+   "daysToMax": null,
+   "credits": 1900,
+   "packs": 1,
+   "packValue": 2500,
+   "badges": 0
+  },
+  {
+   "id": "regular",
+   "label": "Regular",
+   "xpPerDay": 969,
+   "xpPerWeek": 6781,
+   "xpSeason": 81677,
+   "levelAtEnd": 34,
+   "daysToMax": null,
+   "credits": 5100,
+   "packs": 3,
+   "packValue": 11000,
+   "badges": 1
+  },
+  {
+   "id": "high",
+   "label": "Muy activo",
+   "xpPerDay": 1581,
+   "xpPerWeek": 11070,
+   "xpSeason": 133440,
+   "levelAtEnd": 40,
+   "daysToMax": 63,
+   "credits": 6400,
+   "packs": 4,
+   "packValue": 17000,
+   "badges": 2
+  },
+  {
+   "id": "max",
+   "label": "Máximo legítimo",
+   "xpPerDay": 1581,
+   "xpPerWeek": 11070,
+   "xpSeason": 134640,
+   "levelAtEnd": 40,
+   "daysToMax": 62,
+   "credits": 6400,
+   "packs": 4,
+   "packValue": 17000,
+   "badges": 2
+  }
+ ]
+}

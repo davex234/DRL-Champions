@@ -8,8 +8,8 @@ export const DAILY_REWARDS: Reward[] = [
   { credits: 500 },
   { credits: 1000 },
   { packId: "inicial", packCount: 1 },
-  { credits: 1500, tokens: 20 },
-  { tokens: 60 },
+  { credits: 1500},
+  {},
   { credits: 2500 },
   { packId: "premium", packCount: 1 },
 ];

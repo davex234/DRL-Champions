@@ -1,0 +1,18 @@
+{
+  "at": "2026-09-29T17:37:01.878Z",
+  "section": "poor",
+  "pass": 2,
+  "total": 2,
+  "results": [
+    {
+      "id": "saldo insuficiente: ENTRAR desactivado y dice cuánto falta",
+      "ok": true,
+      "detail": "{\"ui\":{\"disabled\":true,\"short\":\"Te faltan 1.190 créditos\"},\"c0\":810}"
+    },
+    {
+      "id": "saldo insuficiente (API directa): 402, sin run y sin asiento",
+      "ok": true,
+      "detail": "status=402 asientos=0 runs=0"
+    }
+  ]
+}

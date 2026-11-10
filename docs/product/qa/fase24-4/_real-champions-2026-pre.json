@@ -1,0 +1,349 @@
+{
+  "url": "https://www.vlr.gg/event/2766/valorant-champions-2026",
+  "meta": {
+    "sourceUrl": "https://www.vlr.gg/event/2766/valorant-champions-2026",
+    "eventId": "2766",
+    "slug": "valorant-champions-2026",
+    "pagesFetched": 3,
+    "matchesListed": 34,
+    "matchDetailsFetched": 0,
+    "mapsParsed": 0,
+    "structure": {
+      "present": true,
+      "edges": 12,
+      "qualification": 8,
+      "unknown": 0,
+      "conflicts": 0
+    },
+    "mapStatRows": 0
+  },
+  "warnings": [],
+  "edges": [
+    {
+      "from": "753455",
+      "to": "753456",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "753454",
+      "to": "753456",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "753460",
+      "to": "753461",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "753459",
+      "to": "753461",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "753449",
+      "to": "753451",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "753450",
+      "to": "753451",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "753444",
+      "to": "753446",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "753445",
+      "to": "753446",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "753456",
+      "to": "qual:qualified:groupc:winners",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753461",
+      "to": "qual:qualified:groupd:winners",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753446",
+      "to": "qual:qualified:groupa:winners",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753451",
+      "to": "qual:qualified:groupb:winners",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753457",
+      "to": "753458",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753462",
+      "to": "753463",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753447",
+      "to": "753448",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753452",
+      "to": "753453",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753458",
+      "to": "qual:qualified:groupc:decider",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753463",
+      "to": "qual:qualified:groupd:decider",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753448",
+      "to": "qual:qualified:groupa:decider",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "753453",
+      "to": "qual:qualified:groupb:decider",
+      "source": "WINNER",
+      "slot": null
+    }
+  ],
+  "edgeMeta": {
+    "753455>753456:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753454>753456:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753460>753461:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753459>753461:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753449>753451:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753450>753451:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753444>753446:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753445>753446:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753456>qual:qualified:groupc:winners:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    },
+    "753461>qual:qualified:groupd:winners:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    },
+    "753446>qual:qualified:groupa:winners:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    },
+    "753451>qual:qualified:groupb:winners:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    },
+    "753457>753458:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753462>753463:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753447>753448:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753452>753453:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "753458>qual:qualified:groupc:decider:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    },
+    "753463>qual:qualified:groupd:decider:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    },
+    "753448>qual:qualified:groupa:decider:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    },
+    "753453>qual:qualified:groupb:decider:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "qualification"
+    }
+  },
+  "qualificationNodes": [
+    {
+      "id": "qual:qualified:groupc:winners",
+      "key": "qualified:groupc:winners",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753456",
+      "source": "WINNER",
+      "team": null
+    },
+    {
+      "id": "qual:qualified:groupd:winners",
+      "key": "qualified:groupd:winners",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753461",
+      "source": "WINNER",
+      "team": null
+    },
+    {
+      "id": "qual:qualified:groupa:winners",
+      "key": "qualified:groupa:winners",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753446",
+      "source": "WINNER",
+      "team": null
+    },
+    {
+      "id": "qual:qualified:groupb:winners",
+      "key": "qualified:groupb:winners",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753451",
+      "source": "WINNER",
+      "team": null
+    },
+    {
+      "id": "qual:qualified:groupc:decider",
+      "key": "qualified:groupc:decider",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753458",
+      "source": "WINNER",
+      "team": null
+    },
+    {
+      "id": "qual:qualified:groupd:decider",
+      "key": "qualified:groupd:decider",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753463",
+      "source": "WINNER",
+      "team": null
+    },
+    {
+      "id": "qual:qualified:groupa:decider",
+      "key": "qualified:groupa:decider",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753448",
+      "source": "WINNER",
+      "team": null
+    },
+    {
+      "id": "qual:qualified:groupb:decider",
+      "key": "qualified:groupb:decider",
+      "label": "Qualified",
+      "stageId": "st-group-stage",
+      "side": "single",
+      "fromMatchId": "753453",
+      "source": "WINNER",
+      "team": null
+    }
+  ],
+  "conflicts": [],
+  "issues": []
+}

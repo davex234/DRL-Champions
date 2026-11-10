@@ -1,0 +1,6 @@
+##### cron
+30 3 * * * /opt/nexus/scripts/nexuscore-pg-backup.sh >/dev/null 2>&1
+30 4 * * * /opt/nexus/scripts/nexus-backup.sh >/dev/null 2>&1
+# NEXUS DRLCards · esports auto-sync worker (Fase 24.8): despierta cada 2 min; la policy interna decide si toca VLR
+*/2 * * * * /opt/nexus/projects/drlcards-sync/bin/run-sync.sh >/dev/null 2>&1
+##### health

@@ -1,0 +1,327 @@
+{
+ "at": "2026-10-06T17:44:52.502Z",
+ "base": "https://valorosters.com",
+ "fixtureSlug": "qa-f871-switch",
+ "a": "8b464fce",
+ "b": "963f8f1d",
+ "total": 28,
+ "pass": 28,
+ "rows": [
+  {
+   "id": "REAL · lista pública de cuadros: 0 publicados",
+   "ok": true,
+   "detail": "{\"brackets\":[]}"
+  },
+  {
+   "id": "REAL · el borrador de Champions no se ve (404)",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "REAL · el Pick'em QA del fixture NO existe en producción (404)",
+   "ok": true,
+   "detail": "404"
+  },
+  {
+   "id": "A · login REAL por /cuenta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · la sesión es la de A",
+   "ok": true,
+   "detail": "8b464fce"
+  },
+  {
+   "id": "A · cuadro cargado (fixture)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · 3 picks guardados en el servidor (revisión 3)",
+   "ok": true,
+   "detail": "{\"rev\":3,\"n\":3,\"labels\":[\"Elegir NRG como ganador de Cuartos · alta frente a T1\",\"Elegir Paper Rex como ganador de Cuartos · alta frente a LOUD\",\"Elegir 100 Thieves como ganador de Cuartos · alta frente a G2 Esports\"]}"
+  },
+  {
+   "id": "A · la pantalla muestra exactamente sus 3",
+   "ok": true,
+   "detail": "[\"Quitar NRG como ganador de Cuartos · alta frente a T1\",\"Quitar Paper Rex como ganador de Cuartos · alta frente a LOUD\",\"Quitar 100 Thieves como ganador de Cuartos · alta frente a G2 Esports\"]"
+  },
+  {
+   "id": "A · F5: recupera sus 3 del servidor",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · navegación directa por URL: sus 3",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · 2.ª pestaña (mismo perfil, misma sesión) ve sus 3",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · 2.ª pestaña guarda un 4.º (revisión 4)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · 1.ª pestaña con revisión vieja → STALE y muestra lo del servidor",
+   "ok": true,
+   "detail": "{\"stale\":1,\"shown\":4}"
+  },
+  {
+   "id": "A · logout REAL en la 1.ª pestaña",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "logout cruzado · la 2.ª pestaña (sin recargar) deja de mostrar los picks de A",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "id": "logout · ningún token de A queda en el almacenamiento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B · login REAL en la 1.ª pestaña",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B · la sesión es la de B",
+   "ok": true,
+   "detail": "963f8f1d"
+  },
+  {
+   "id": "B · durante la carga lenta y después: NUNCA un pick pintado (0 desde la navegación)",
+   "ok": true,
+   "detail": "{\"midLoad\":{\"maxPressed\":0,\"seen\":[\"963f8f1d:0\"]},\"s1\":{\"maxPressed\":0,\"seen\":[\"963f8f1d:0\"]}}"
+  },
+  {
+   "id": "B · la 2.ª pestaña (ya con la sesión de B) tampoco pinta nada de A",
+   "ok": true,
+   "detail": "{\"maxPressed\":0,\"seen\":[\"963f8f1d:0\"]}"
+  },
+  {
+   "id": "B · todas las peticiones con la sesión de B llevan SU token (ninguna de A)",
+   "ok": true,
+   "detail": "t2:GET:963f8f1d t1:GET:963f8f1d t1:GET:963f8f1d t2:GET:963f8f1d t2:GET:963f8f1d"
+  },
+  {
+   "id": "B · almacenamiento sin rastro de A (ni id ni sesión)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B · elige 1 → guardado en SU estado (A intacta)",
+   "ok": true,
+   "detail": "{\"b\":\"Elegir T1 como ganador de Cuartos · alta frente a NRG\"}"
+  },
+  {
+   "id": "B · logout REAL",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · login de nuevo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A · recupera EXACTAMENTE sus 4 del servidor",
+   "ok": true,
+   "detail": "{\"shown\":4,\"server\":4,\"s3\":{\"maxPressed\":4,\"seen\":[\"8b464fce:0\",\"8b464fce:4\"]}}"
+  },
+  {
+   "id": "A · el pick de B (rival contrario en el mismo cuarto) no aparece en la vista de A",
+   "ok": true,
+   "detail": "{\"bLabel\":\"Elegir T1 como ganador de Cuartos · alta frente a NRG\",\"aShown\":[\"Quitar NRG como ganador de Cuartos · alta frente a T1\",\"Quitar Paper Rex como ganador de Cuartos · alta frente a LOUD\",\"Quitar 100 Thieves como ganador de Cuartos · alta frente a G2 Esports\",\"Quitar Team Vitality como ganador de Cuartos · alta frente a Nongshim RedForce\"]}"
+  },
+  {
+   "id": "A · F5 final: sus 4",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "requests": [
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "POST",
+   "who": "8b464fce",
+   "action": "pick",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "POST",
+   "who": "8b464fce",
+   "action": "pick",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "POST",
+   "who": "8b464fce",
+   "action": "pick",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "POST",
+   "who": "8b464fce",
+   "action": "pick",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "POST",
+   "who": "8b464fce",
+   "action": "pick",
+   "status": 409
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "anon",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "963f8f1d",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "963f8f1d",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "963f8f1d",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "963f8f1d",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "963f8f1d",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "POST",
+   "who": "963f8f1d",
+   "action": "pick",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "anon",
+   "status": 200
+  },
+  {
+   "tab": "t2",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  },
+  {
+   "tab": "t1",
+   "method": "GET",
+   "who": "8b464fce",
+   "status": 200
+  }
+ ]
+}

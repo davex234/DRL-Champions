@@ -1,0 +1,41 @@
+PASS torneo QA no listado publicado con 4 cuentas QA 
+cruce 1: QA_A vs QA_D · cruce 2: QA_B vs QA_C
+PASS carga: fuera de la espera (cruce jugable sin nadie listo) la pestaña ajena lee estado ~cada 5 s, no cada 1 s {"peticiones en 20 s":4}
+PASS A pulsa JUGAR UNA vez → «✓ Listo · esperando a <rival>» (no parece que no pasó nada) {"ms":328}
+PASS carga: esperando, la pestaña lee el estado ligero ~cada 3 s (no el cuadro) {"peticiones en 15 s":4}
+PASS F5 mientras espera → sigue «esperando al rival» (estado del servidor, no local) 1
+PASS 20 «listo» simultáneos del mismo jugador (doble clic / otro dispositivo) → todos WAITING, 0 partidas WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING
+PASS B ve «Tu rival ya está listo» (≤ ~5 s) 
+PASS B listo → UNA partida (PVP_PRIVATE) para ESE cruce; A y B en la MISMA 
+PASS A entra SOLO (sin segundo clic) en ≤ 5 s desde que nace la partida {"load_warm_per_min":12,"waiting_shown_ms":328,"load_hot_per_min":16,"notice_before_match":"♜ TU PARTIDA DE TORNEO ESTÁ LISTA\n\nQA F86.1 (no listado) · Semifinal contra qa_f871_d_b6a0 #ARA3U7M\n\nJUGAR\nAhora no","T0_B_ready_confirmed":494
+PASS otro dispositivo de A (en /coleccion): aviso global «ha empezado · Entrar», sin navegar solo {"ms":4008,"href":"/coleccion"}
+PASS resultado del motor → cruce COMPLETADO → el ganador ve «✓ Has avanzado a Final» en la arena {"load_warm_per_min":12,"waiting_shown_ms":328,"load_hot_per_min":16,"notice_before_match":"♜ TU PARTIDA DE TORNEO ESTÁ LISTA\n\nQA F86.1 (no listado) · Semifinal contra qa_f871_d_b6a0 #ARA3U7M\n\nJUGAR\nAhora no","T0_B_ready_confirmed":494
+PASS de vuelta al torneo: «✓ Has ganado Semifinal · avanzas a Final» y estado del siguiente cruce claro PENDING
+PASS FOCO · W pulsa JUGAR con su panel cargado y su «listo» llega al servidor W entró (Z aún listo)
+PASS FOCO: pestaña oculta mientras espera, el rival se pone listo; al volver, entra en ≤ 2 s {"hidden":"hidden","stillHref":"/copas/qa-f861-muwoaz5r","ms":888}
+PASS cruce 2: una sola partida aunque Z estuviera oculto dc2e1ca6-68b9-43d1-90e1-3a5a88cbc4f8
+PASS plazo vencido mientras espera → deja de decir «esperando» y explica «en revisión» (≤ ~3 s) 3526
+PASS plazo vencido: nadie gana solo (sin ganador, sin sorteo) 
+PASS listo en un cruce AJENO → 404 
+PASS listo con el equipo de OTRO → 404 
+PASS campos falsos (ganador, rival, partida, usuario) → 400 
+PASS estado ligero sin sesión → 401 
+PASS resolver como usuario normal → 401 
+PASS resolver con un #TAG falso → 400 
+PASS REST directo sobre cup_matches → rechazado 403
+PASS admin resuelve la final con el #TAG exacto (motivo, auditado) → campeón 
+PASS trofeo UNA vez 
+PASS el campeón ve su momento de campeón /copas/qa-f861-muwoaz5r
+PASS logout: sin aviso de torneo ni navegación a la partida {"href":"/coleccion","waiting":null,"state":null,"opp":null,"text":"","arena":false,"notice":null,"outcome":null}
+PASS cambio de cuenta: la nueva cuenta no hereda el aviso, el cruce ni la navegación de la anterior {"href":"/coleccion","waiting":null,"state":null,"opp":null,"text":"","arena":false,"notice":null,"outcome":null}
+PASS rating, créditos, XP, sobres y cartas de los 4 jugadores INTACTOS 
+PASS 0 eventos de rating nuevos (colocación, Top 500, tope de parejas) 
+PASS 0 misiones contadas por partidas de este torneo 
+PASS 0 amistades creadas 
+PASS carrera propia: el cruce es TOURNAMENT («Torneo»), no «Duelo privado» 
+PASS limpieza: A sin admin; admins = exactamente las 2 cuentas reales 
+PASS cuentas reales INTACTAS (#NB2Z9BM y #H5ND8K7, admin, 0 torneos, rating/créditos/XP iguales) 
+PASS Valorosters Open #1 sigue en BORRADOR; Temporada 2 en DRAFT 
+
+TIEMPOS {"load_warm_per_min":12,"waiting_shown_ms":328,"load_hot_per_min":16,"notice_before_match":"♜ TU PARTIDA DE TORNEO ESTÁ LISTA\n\nQA F86.1 (no listado) · Semifinal contra qa_f871_d_b6a0 #ARA3U7M\n\nJUGAR\nAhora no","T0_B_ready_confirmed":494,"T1_match_created":-40,"T2_A_detects":2674,"T3_A_in_arena":3980,"T4_B_in_arena":3982,"A_detection_after_creation_ms":2714,"global_notice_other_device_ms":4008,"R_abandon_response_ms":1144,"R_result_persisted_ms":1031,"R_winner_sees_advance_ms":1144,"focus_hidden_state":"hidden","focus_w":"W entró (Z aún listo)","focus_detect_ms":888,"deadline_detect_ms":3526}
+F86.1 PRODUCTION QA: 37/37

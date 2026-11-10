@@ -1,0 +1,17 @@
+== 1. fichero
+sha256 OK 1e2068cd2f4be04d55129c51e01616b9100a091264dbfc6b0af2c02fa9df9e04
+== 2. cabeza = 0067 por estado real, sin rastro de 0068
+perfiles: 40 · admins: 2f86cbe8 · huellas de 20 tablas
+== 3. aplicar (una transacción)
+exit=0 en 203 ms · 2026-10-05T11:20:37Z
+== 4. después
+DATOS_INTACTOS (todo igual salvo el tag; updated_at incluido)
+tags: 40 perfiles · nulos 0 · duplicados 0 · formato inválido 0
+registro: 40 filas (debe = 40)
+ADMINS_IGUALES
+CUENTA_PERSONAL: solo recibe el tag (resto idéntico)
+TAG_CUENTA_PERSONAL=#9KZAWPC
+privilegios de cliente (auth select/update tag, anon select tag, auth select/insert registro, anon select registro): falsefalsefalsefalsefalsefalse
+disparadores: account_tag_registry_append_only,profiles_account_tag_immutable,profiles_account_tag_insert
+F83 temporada-2: DRAFT
+APPLY_OK 0068

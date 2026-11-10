@@ -1,0 +1,25 @@
+VM-4b2a3727-cfa7-48e3-ad08-9fca50df0ade
+db|postgres|17.6
+registered_max|0025
+probe_0056|2
+probe_0057_content_packs|false
+probe_0057_agents_lifecycle|false
+agents|29
+agents_digest|30e7c54247e3802e9d46ed1120359683
+cards|331|PUBLISHED
+cards_origin|seed-generator=331
+cards_digest|99f51d86a088f2426b6d5bd90b617356
+players|379|6839a1797b3f7c600d78597796e73d75
+pools|51|entries=5027|bindings=51
+assets|0
+events|3
+event_drafts|1
+audit_rows|451
+user_packs|33|33
+catalog_version|784
+distribution_version|946
+public_tables|120
+public_functions|127
+storage_objects|0
+agents_policy|lectura publica agents=true
+profiles_admins|1

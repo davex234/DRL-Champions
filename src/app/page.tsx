@@ -1,174 +1,131 @@
 "use client";
 
-import Link from "next/link";
+/**
+ * NEXUS · VESTÍBULO — DAILY GAME LOOP 2.0 (Fase 36).
+ *
+ * ══════════════════════════ DE DÓNDE VIENE ══════════════════════════
+ *
+ * El vestíbulo de las Fases 4–35 componía cinco piezas (escenario, tira del bucle, NextUp, temporada,
+ * evento, modos, circuito) con ~12 lecturas desde el navegador y TRES ideas distintas de «qué hacer»:
+ * la acción del escenario (decidida en esta página), `continueCta` sobre `todayActions` y el orden
+ * numérico de `loop.ts`. Además `GET /api/game/loop` escribía al leer (`ensureRating` creaba la ficha
+ * ranked 1000/0 y `getProgression` rotaba misiones y abría el carril competitivo).
+ *
+ * ══════════════════════════ QUÉ HACE AHORA ══════════════════════════
+ *
+ * UNA lectura personal (`GET /api/game/daily-loop`, sin escrituras) trae la foto con la acción principal
+ * ya decidida por la prioridad única (`orderToday`). Esta página no decide nada: estima el reloj del
+ * servidor, pasa la foto a `DailyLobby` y enseña el esqueleto mientras no hay nada que enseñar.
+ *
+ *   · Sin Supabase configurado (modo local): la foto anónima calculada con el mismo dominio puro.
+ *   · Sin respuesta y sin foto previa: un vestíbulo degradado honesto (todo marcado como no disponible,
+ *     acción «Jugar» al hub de modos, que funciona sin esta lectura). Con foto previa: se conserva.
+ *
+ * ══════════════════════════ FASE 46 · LA HOME ES UN MENÚ PRINCIPAL ══════════════════════════
+ *
+ * La composición cambia, la lectura NO. `DailyLobby` —seis bloques apilados— se sustituye por
+ * `MainMenu`: tres acciones (JUGAR, INVENTARIO, TIENDA) sobre una escena a pantalla completa. Se
+ * sigue usando exactamente la misma foto de `GET /api/game/daily-loop`, que sigue siendo de sólo
+ * lectura: esta página no decide nada y no escribe nada, igual que antes.
+ *
+ * `DailyLobby` NO se borra: sigue siendo la vista del arnés de QA de la Fase 36 y la referencia de
+ * la composición anterior.
+ */
+import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/lib/supabase/auth";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
 import { useGameStore } from "@/store/useGameStore";
-import { HydrationGate } from "@/components/layout/HydrationGate";
-import { PlayerCard } from "@/components/cards/PlayerCard";
+import { useEconomyView } from "@/lib/game/serverEconomy";
+import { economyVisible } from "@/lib/game/localEconomy";
+import { CARDS, getCard, getPlayer, TOTAL_CARDS } from "@/data/catalog";
+import { getVariant } from "@/domain/cards/variants";
 import { levelFromXp } from "@/domain/progression/levels";
-import { collectionStats, squadRating } from "@/store/selectors";
-import { getCard } from "@/data/catalog";
-import { PACKS } from "@/data/packs";
-import { formatCredits } from "@/lib/format";
+import { estimateServerNow } from "@/domain/season/time";
+import { buildDailyLoop, type DailyLoopFacts } from "@/domain/dailyLoop";
+import { useDailyLoop } from "@/lib/dailyLoop/client";
+import { useJourneyDismissed } from "@/lib/journey/preference";
+import { welcomeCards } from "@/lib/journey/presentation";
+import { DailyLobbySkeleton, type LobbyNetwork } from "@/components/dailyLoop/DailyLobby";
+import { MainMenu } from "@/components/home/MainMenu";
+import { pickHallCards, pickHeroCard } from "@/lib/home/selection";
+import { publish as publishOnboarding } from "@/lib/onboarding/client";
+import { ns } from "@/i18n/runtime";
+import { useLocale } from "@/i18n/react";
+
+const tr = ns("app");
+
+/** Hechos cuando no se sabe nada del servidor: nada personal, nada inventado. */
+function unknownFacts(signedIn: boolean): DailyLoopFacts {
+  return {
+    now: 0, signedIn, catalogSize: TOTAL_CARDS, matches: null, social: null, progression: null, pickems: null, packs: null,
+    decks: null, campaign: null, competitive: null, live: signedIn ? null : [], season: null,
+  };
+}
 
 export default function HomePage() {
-  return (
-    <HydrationGate>
-      <Dashboard />
-    </HydrationGate>
+  useLocale();
+  const configured = isSupabaseConfigured();
+  const { user, loading: authLoading } = useAuth();
+  const loop = useDailyLoop({ enabled: configured && !authLoading, userKey: user?.id ?? null });
+  /*
+   * F81.2 · el store solo cuenta cuando es DE ESTA CUENTA (o la demo de un visitante confirmado): mientras tanto, ni
+   * saldo, ni nivel, ni «la mejor carta que posees» sacados de la caché o de la demo.
+   */
+  const economy = useEconomyView();
+  const visible = economyVisible(economy);
+  const storeCards = useGameStore((s) => s.ownedCards);
+  const ownedCards = useMemo(() => (visible ? storeCards : []), [visible, storeCards]);
+  const storeCredits = useGameStore((s) => s.credits);
+  const storeXp = useGameStore((s) => s.xp);
+  const credits = visible ? storeCredits : null;
+  const xp = visible ? storeXp : null;
+
+  // Repinta la cuenta atrás cada 30 s desde el reloj del servidor (no decide nada).
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => setTick((t) => t + 1), 30_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  /*
+   * LA CARTA DESTACADA Y LAS QUE VUELAN.
+   *
+   * No existe un sistema «Héroe del día» en el producto, así que NO se inventa uno: ni rotación, ni
+   * recompensa, ni nada que prometa algo. La regla es determinista y sale de datos reales —la mejor
+   * carta que el jugador POSEE (rareza, y a igualdad, media); si aún no tiene ninguna, la mejor del
+   * catálogo—, de modo que la misma cuenta ve siempre la misma carta hasta que su colección cambie.
+   */
+  const hero = useMemo(() => pickHeroCard(ownedCards, getCard, getVariant, CARDS), [ownedCards]);
+  const hallCards = useMemo(() => pickHallCards(ownedCards, getCard, getVariant, CARDS, hero), [ownedCards, hero]);
+  const heroOwned = useMemo(
+    () => (hero && ownedCards.some((o) => o.cardId === hero.id) ? tr("En tu colección") : null),
+    [hero, ownedCards],
   );
-}
 
-function Dashboard() {
-  const xp = useGameStore((s) => s.xp);
-  const credits = useGameStore((s) => s.credits);
-  const ownedCards = useGameStore((s) => s.ownedCards);
-  const unopenedPacks = useGameStore((s) => s.unopenedPacks);
-  const packsOpened = useGameStore((s) => s.packsOpened);
+  const local = useMemo(() => (configured ? null : buildDailyLoop(unknownFacts(false))), [configured]);
 
-  const level = levelFromXp(xp);
-  const stats = collectionStats(ownedCards);
-  const squad = squadRating(ownedCards);
-  const totalUnopened = Object.values(unopenedPacks).reduce((a, b) => a + b, 0);
+  /* F63 · la guía llega en la misma foto: se comparte con el resto de pantallas (cero lecturas extra al salir de aquí). */
+  useEffect(() => {
+    if (user && loop.snap?.onboarding) publishOnboarding(loop.snap.onboarding, user.id);
+  }, [user, loop.snap?.onboarding]);
 
-  const recent = [...ownedCards]
-    .sort((a, b) => b.obtainedAt - a.obtainedAt)
-    .slice(0, 6)
-    .map((o) => ({ o, def: getCard(o.cardId) }))
-    .filter((x) => x.def);
+  if (configured && (authLoading || economy === "unknown" || (loop.status === "loading" && !loop.snap))) return <DailyLobbySkeleton />;
 
-  const featured = PACKS.filter((p) => ["premium", "prime", "icon"].includes(p.id));
+  const snap = local ?? loop.snap ?? buildDailyLoop(unknownFacts(!!user));
+  const network: LobbyNetwork = !configured ? "online" : loop.status === "offline" ? "offline" : loop.status === "error" ? "error" : "online";
+  const nivel = xp != null ? levelFromXp(xp).level : null;
 
   return (
-    <div className="animate-rise space-y-8">
-      {/* HERO */}
-      <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-base-700/80 to-base-800/80 p-6 md:p-10">
-        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-drl/20 blur-3xl" />
-        <div className="absolute -bottom-24 left-10 h-64 w-64 rounded-full bg-drl-cyan/10 blur-3xl" />
-        <div className="relative">
-          <p className="font-display text-sm uppercase tracking-[0.3em] text-drl">
-            Bienvenido, Champion
-          </p>
-          <h1 className="mt-2 max-w-xl font-display text-4xl font-bold uppercase leading-tight text-white md:text-5xl">
-            Colecciona a las leyendas de <span className="text-drl text-glow">Valorant</span>
-          </h1>
-          <p className="mt-3 max-w-lg text-white/60">
-            Abre sobres, consigue cartas legendarias, completa colecciones y domina el mercado.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/tienda"
-              className="rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-6 py-3 font-display text-sm font-bold uppercase tracking-wide text-white shadow-glow transition hover:brightness-110"
-            >
-              Abrir sobres
-            </Link>
-            <Link
-              href="/coleccion"
-              className="rounded-xl border border-white/15 bg-white/5 px-6 py-3 font-display text-sm uppercase tracking-wide text-white transition hover:bg-white/10"
-            >
-              Mi colección
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
-        <StatCard label="Nivel" value={String(level.level)} sub={`${Math.round(level.progress * 100)}% al ${level.level + 1}`} accent="#19e3ff" progress={level.progress} />
-        <StatCard label="Colección" value={`${stats.percent}%`} sub={`${stats.distinct} / ${stats.total} cartas`} accent="#37e6a0" progress={stats.percent / 100} />
-        <StatCard label="OVR Plantilla" value={squad ? String(squad) : "—"} sub="media de tus cartas" accent="#ffd35c" />
-        <StatCard label="Sobres" value={String(totalUnopened)} sub={`${packsOpened} abiertos`} accent="#ff2e63" />
-      </section>
-
-      {/* RECIENTES */}
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-display text-xl font-bold uppercase tracking-wide text-white">
-            Últimas cartas
-          </h2>
-          <Link href="/coleccion" className="text-sm text-drl hover:underline">
-            Ver todas →
-          </Link>
-        </div>
-        {recent.length === 0 ? (
-          <EmptyState />
-        ) : (
-          <div className="flex flex-wrap gap-4">
-            {recent.map(({ o, def }) => (
-              <PlayerCard key={o.uid} card={def!} size="sm" serial={o.serial} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* SOBRES DESTACADOS */}
-      <section>
-        <h2 className="mb-4 font-display text-xl font-bold uppercase tracking-wide text-white">
-          Sobres destacados
-        </h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {featured.map((pack) => (
-            <Link
-              key={pack.id}
-              href="/tienda"
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-base-700/50 p-5 transition hover:-translate-y-1"
-            >
-              <div
-                className="absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-20 blur-2xl transition-opacity group-hover:opacity-40"
-                style={{ background: pack.accent }}
-              />
-              <h3 className="font-display text-lg font-bold uppercase text-white">{pack.name}</h3>
-              <p className="mt-1 text-sm text-white/50">{pack.description}</p>
-              <p className="mt-3 font-display font-bold text-drl-gold">
-                {pack.price === 0 ? "GRATIS" : `🪙 ${formatCredits(pack.price)}`}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
-function StatCard({
-  label,
-  value,
-  sub,
-  accent,
-  progress,
-}: {
-  label: string;
-  value: string;
-  sub: string;
-  accent: string;
-  progress?: number;
-}) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-base-700/50 p-4">
-      <p className="text-[10px] uppercase tracking-widest text-white/40">{label}</p>
-      <p className="mt-1 font-display text-3xl font-bold" style={{ color: accent }}>
-        {value}
-      </p>
-      <p className="text-xs text-white/45">{sub}</p>
-      {progress != null && (
-        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
-          <div className="h-full rounded-full" style={{ width: `${progress * 100}%`, background: accent }} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function EmptyState() {
-  return (
-    <div className="rounded-2xl border border-dashed border-white/15 bg-base-700/30 p-10 text-center">
-      <p className="text-white/50">Todavía no tienes cartas.</p>
-      <Link
-        href="/tienda"
-        className="mt-3 inline-block rounded-xl bg-gradient-to-r from-drl to-[#7b1733] px-5 py-2.5 font-display text-sm uppercase tracking-wide text-white shadow-glow"
-      >
-        Abre tu primer sobre gratis
-      </Link>
-    </div>
+    <MainMenu
+      snap={snap}
+      cards={hallCards}
+      hero={hero}
+      heroOwnedLabel={heroOwned}
+      username={(user?.user_metadata?.username as string | undefined) ?? null}
+      level={nivel}
+      credits={user || !configured ? credits ?? null : null}
+      signedIn={!!user}
+      network={network}
+    />
   );
 }

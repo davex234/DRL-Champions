@@ -1,0 +1,5 @@
+{
+  "status": "BLOCKED",
+  "reason": "La lectura directa de la BD del VPS (psql por ssh) fue denegada por el control de permisos de esta sesión. No se buscó otra vía.",
+  "howToUnblock": "Ejecutar real-telemetry-query.sql (solo lectura, agregado, sin user_id) y comparar con los valores de `simulated`."
+}

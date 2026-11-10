@@ -1,0 +1,40 @@
+{
+  "phase": "F69",
+  "principle": "Minimización: un perfil público enseña solo lo que el producto necesita enseñar en público. Nunca is_admin, saldo, última conexión precisa ni contadores internos a otra persona.",
+  "codeContract": "src/lib/supabase/profileExposure.ts (AUTHENTICATED_PROFILE_COLUMNS, OWN_PROFILE_COLUMNS, PRIVATE_PROFILE_COLUMNS) — la misma lista que concede 0058 v3 (test src/lib/supabase/f69.profileExposure.test.ts)",
+  "columnsMeasured": ["id", "username", "avatar", "level", "xp", "credits", "tokens", "collection_value", "distinct_cards", "rarest_rank", "market_volume", "packs_opened", "created_at", "updated_at", "taxes_paid", "is_admin", "points", "region", "equipped", "last_seen_at"],
+  "contract": {
+    "anonymous": {
+      "restProfilesTable": "nada (tras 0058)",
+      "publicViews": { "ranking_points / ranking_points_region": "id, username, avatar, points, xp, level, region (solo quien tiene puntos; clasificación pública)", "ranking_pickem_event": "username, avatar y puntos del evento" },
+      "api": "GET /api/game/player?id=… proyección PUBLIC de F31: nombre, avatar, nivel, vitrina, logros públicos, resumen competitivo (rating/puesto), sin saldo ni conexión exacta"
+    },
+    "authenticatedOtherUser": {
+      "restProfilesTable": "id, username, avatar, level, points, region (tras 0058; hoy las 20 columnas)",
+      "api": "igual que anónimo (proyección PUBLIC)"
+    },
+    "self": {
+      "restProfilesTable": "las mismas columnas públicas + UPDATE de username, region, avatar (sin cambios)",
+      "api": "GET /api/game/me → id, username, avatar, level, xp, credits, collection_value, distinct_cards, rarest_rank, market_volume, packs_opened, points, region, is_admin, created_at, updated_at; GET /api/game/state → saldo/XP/inventario; proyección SELF de /jugador/[id]"
+    },
+    "admin": {
+      "restProfilesTable": "como cualquier authenticated (el flag no da privilegios de BD)",
+      "api": "/api/admin/* con service_role y verifyAdmin en cada ruta (usuarios, saldo, sanciones, auditoría)"
+    }
+  },
+  "currentState": {
+    "before0058": "anon y authenticated leen las 20 columnas de todas las filas (medido 2026-09-27: raw/live-profiles-audit.sql)",
+    "after0058": "anon 0 columnas; authenticated 6 columnas públicas; privadas solo por el servidor"
+  },
+  "acceptedPublicFields": {
+    "xp": "Solo a través de ranking_points (desempate de la clasificación pública, junto al nivel que ya es público). No es saldo.",
+    "level": "Público en perfil y clasificaciones.",
+    "points/region": "Son la clasificación pública."
+  },
+  "clientReadsAudit": {
+    "before": ["auth.tsx: profiles select(\"*\") (propio)", "useAdminSession: profiles select(\"is_admin\") (propio)", "client.ts fetchMyProfile: points, xp, credits, username, avatar (propio, sin llamadores)"],
+    "after": ["los tres por GET /api/game/me (una lectura compartida 2 s entre auth y admin: mismo número de peticiones)", "client.ts fetchMyRankPosition/fetchMyRegionalPosition: count sobre id/points/region (públicas)", "setMyRegion / avatar: UPDATE de columnas concedidas"],
+    "serverOnly": "src/server/** y verifyAdmin usan service_role (no dependen de los grants)"
+  },
+  "tests": ["src/lib/supabase/f69.profileExposure.test.ts (6)", "docs/operations/proposals/0058_rls_tests.sql (27 casos)"]
+}

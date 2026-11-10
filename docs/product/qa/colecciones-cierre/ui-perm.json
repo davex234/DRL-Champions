@@ -1,0 +1,43 @@
+{
+ "base": "http://127.0.0.1:3027",
+ "at": "2026-10-14T08:33:22.864Z",
+ "fase": "perm",
+ "rows": [
+  {
+   "scope": "PERMANENCIA",
+   "id": "4 · sin una sola carta de China: progreso 0, insignia desbloqueada y permanente",
+   "ok": true,
+   "detail": "{\"region\":\"China\",\"teams\":5,\"teamsCompleted\":0,\"configured\":true,\"completeNow\":false,\"permanent\":true,\"unlockedAt\":\"2026-10-14T08:11:31.391442+00:00\",\"unlocked\":true,\"total\":34,\"owned\":0,\"missing\":34,\"complete\":false,\"pct\":0}"
+  },
+  {
+   "scope": "PERMANENCIA",
+   "id": "los equipos de China vuelven a «sin empezar», pero conservan su primera compleción y sus XP",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "PERMANENCIA",
+   "id": "liquidar otra vez no quita ni concede nada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "scope": "PERMANENCIA",
+   "id": "sigue siendo destacable y destacada en el perfil",
+   "ok": true,
+   "detail": "{\"destacadas\":[\"insignia:regional:china\"]}"
+  },
+  {
+   "scope": "PERMANENCIA",
+   "id": "pantalla: China desbloqueada con 0 cartas y su fecha",
+   "ok": true,
+   "detail": "{\"region\":\"China\",\"unlocked\":true,\"permanent\":true,\"progress\":\"0/34\",\"since\":true}"
+  },
+  {
+   "scope": "PERMANENCIA",
+   "id": "perfil: la insignia sigue destacada",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

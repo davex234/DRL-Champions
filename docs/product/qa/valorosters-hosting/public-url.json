@@ -1,0 +1,193 @@
+{
+  "at": "2026-09-30T18:24:09.760Z",
+  "url": "https://valorosters.com",
+  "qaAccount": {
+    "userId": "684cbad4",
+    "note": "cuenta QA nueva registrada por el formulario público; credenciales solo en el scratchpad local"
+  },
+  "pass": 29,
+  "fail": 0,
+  "results": [
+    {
+      "id": "REGISTRO público por el formulario → sesión con usuario nuevo",
+      "ok": true,
+      "detail": "user=684cbad4 username=qaf68v182100"
+    },
+    {
+      "id": "SESIÓN · supabase-js guarda la sesión con la clave del dominio público",
+      "ok": true,
+      "detail": "sb-valorosters-auth-token"
+    },
+    {
+      "id": "API /api/game/me con la sesión pública → 200",
+      "ok": true,
+      "detail": "{\"profile\":{\"id\":\"684cbad4-0bd7-43ca-a5aa-a72fd196e552\",\"username\":\"qaf68v182100_684c\",\"avatar\":\"🎮\",\"level\":1,\"xp\":0,\"credits\":6000,\"collection_value\":0,\"distinct_cards\":0,\"rarest_rank\":0,\"market_vol"
+    },
+    {
+      "id": "USUARIO NUEVO · is_admin = false",
+      "ok": true,
+      "detail": "{\"is_admin\":false}"
+    },
+    {
+      "id": "USUARIO NUEVO · saldo = el valor por defecto oficial de la BD, 0 cartas, 0 misiones, sin operaciones previas",
+      "ok": true,
+      "detail": "{\"is_admin\":false,\"credits\":6000,\"xp\":0,\"points\":0,\"level\":1,\"cards\":0,\"packs\":{\"inicial\":3,\"estandar\":1},\"ops\":[],\"missions\":0,\"app_meta\":{\"provider\":\"email\",\"providers\":[\"email\"]}}"
+    },
+    {
+      "id": "USUARIO NUEVO · sin flags de rol/QA en app_metadata",
+      "ok": true,
+      "detail": "{\"provider\":\"email\",\"providers\":[\"email\"]}"
+    },
+    {
+      "id": "USUARIO NUEVO · /admin → acceso restringido",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "USUARIO NUEVO · APIs admin → 401 (sin oráculo)",
+      "ok": true,
+      "detail": "{\"/api/admin/users\":401,\"/api/admin/dashboard\":401,\"/api/admin/cms/crafting\":401,\"/api/admin/system\":401,\"POST saveRecipe\":401}"
+    },
+    {
+      "id": "F5 · la sesión sigue (me → 200)",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "LOGOUT · sesión cerrada de verdad (sin token, con formulario)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "LOGIN de nuevo por el formulario público",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] 12 páginas cargan en el dominio público (ruta correcta, sin scroll horizontal, 0 imágenes rotas)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1440] 0 peticiones del navegador a localhost / 127.0.0.1",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1440] 0 contenido mixto (http://)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1440] 0 Failed to fetch / peticiones fallidas",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1440] 0 errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1440] 0 respuestas ≥ 400 inesperadas",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] 12 páginas cargan en el dominio público (ruta correcta, sin scroll horizontal, 0 imágenes rotas)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] 0 peticiones del navegador a localhost / 127.0.0.1",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] 0 contenido mixto (http://)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] 0 Failed to fetch / peticiones fallidas",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] 0 errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[1024] 0 respuestas ≥ 400 inesperadas",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] 12 páginas cargan en el dominio público (ruta correcta, sin scroll horizontal, 0 imágenes rotas)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] 0 peticiones del navegador a localhost / 127.0.0.1",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] 0 contenido mixto (http://)",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] 0 Failed to fetch / peticiones fallidas",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] 0 errores de consola",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "[390] 0 respuestas ≥ 400 inesperadas",
+      "ok": true,
+      "detail": "[]"
+    }
+  ],
+  "officialDefaults": {
+    "credits": "6000",
+    "xp": "0"
+  },
+  "newUser": {
+    "is_admin": false,
+    "credits": 6000,
+    "xp": 0,
+    "points": 0,
+    "level": 1,
+    "cards": 0,
+    "packs": {
+      "inicial": 3,
+      "estandar": 1
+    },
+    "ops": [],
+    "missions": 0,
+    "app_meta": {
+      "provider": "email",
+      "providers": [
+        "email"
+      ]
+    }
+  },
+  "authNet": {
+    "hosts": {
+      "valorosters.com": 646,
+      "fonts.googleapis.com": 6,
+      "fonts.gstatic.com": 17
+    },
+    "localhost": [],
+    "failed": [],
+    "bad": [],
+    "mixed": []
+  },
+  "authConsole": []
+}

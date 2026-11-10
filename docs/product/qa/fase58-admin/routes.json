@@ -1,0 +1,281 @@
+{
+  "ui": [
+    {
+      "id": "dashboard",
+      "label": "Dashboard",
+      "href": "/admin",
+      "icon": "◈",
+      "group": "Operación",
+      "description": "KPIs reales, alertas y actividad reciente"
+    },
+    {
+      "id": "cards",
+      "label": "Cartas",
+      "href": "/admin/cards",
+      "icon": "▦",
+      "group": "Contenido",
+      "description": "Catálogo: listado, alta, edición, publicación y exportación"
+    },
+    {
+      "id": "players",
+      "label": "Jugadores",
+      "href": "/admin/players",
+      "icon": "◉",
+      "group": "Contenido",
+      "description": "Jugadores del catálogo y sus cartas"
+    },
+    {
+      "id": "teams",
+      "label": "Equipos",
+      "href": "/admin/teams",
+      "icon": "⬡",
+      "group": "Contenido",
+      "description": "Identidades de equipo, plantilla y sobres"
+    },
+    {
+      "id": "packs",
+      "label": "Sobres",
+      "href": "/admin/packs",
+      "icon": "▣",
+      "group": "Contenido",
+      "description": "Economía por sobre, probabilidades y simulación"
+    },
+    {
+      "id": "events",
+      "label": "Eventos",
+      "href": "/admin/events",
+      "icon": "✦",
+      "group": "Contenido",
+      "description": "Borradores y eventos del juego"
+    },
+    {
+      "id": "users",
+      "label": "Usuarios",
+      "href": "/admin/users",
+      "icon": "◎",
+      "group": "Jugadores",
+      "description": "Búsqueda y ficha 360"
+    },
+    {
+      "id": "moderation",
+      "label": "Moderación",
+      "href": "/admin/moderation",
+      "icon": "⛨",
+      "group": "Jugadores",
+      "description": "Sanciones activas e historial"
+    },
+    {
+      "id": "economy",
+      "label": "Economía",
+      "href": "/admin/economy",
+      "icon": "¤",
+      "group": "Juego",
+      "description": "Observabilidad y salud de la economía"
+    },
+    {
+      "id": "seasons",
+      "label": "Temporadas",
+      "href": "/admin/seasons",
+      "icon": "◷",
+      "group": "Juego",
+      "description": "Calendario y pase"
+    },
+    {
+      "id": "competitive",
+      "label": "Competitivo",
+      "href": "/admin/competitive",
+      "icon": "♛",
+      "group": "Juego",
+      "description": "Rating, partidas y anomalías"
+    },
+    {
+      "id": "rewards",
+      "label": "Recompensas",
+      "href": "/admin/rewards",
+      "icon": "✚",
+      "group": "Juego",
+      "description": "Fuentes de recompensa reales"
+    },
+    {
+      "id": "audit",
+      "label": "Auditoría",
+      "href": "/admin/audit",
+      "icon": "≣",
+      "group": "Control",
+      "description": "Registro inmutable de acciones admin"
+    },
+    {
+      "id": "system",
+      "label": "Sistema",
+      "href": "/admin/system",
+      "icon": "⚙",
+      "group": "Control",
+      "description": "Salud, versión, migraciones y flags"
+    },
+    {
+      "id": "pools",
+      "label": "Pools",
+      "href": "/admin/pools",
+      "icon": "◫",
+      "group": "Herramientas",
+      "description": "Distribución de cartas por sobre"
+    },
+    {
+      "id": "releases",
+      "label": "Releases",
+      "href": "/admin/releases",
+      "icon": "⇪",
+      "group": "Herramientas",
+      "description": "Publicación de contenido"
+    },
+    {
+      "id": "operations",
+      "label": "Operaciones",
+      "href": "/admin/operations",
+      "icon": "∿",
+      "group": "Herramientas",
+      "description": "Telemetría agregada"
+    },
+    {
+      "id": "tournaments",
+      "label": "Torneos",
+      "href": "/admin/torneos",
+      "icon": "⚑",
+      "group": "Herramientas",
+      "description": "Torneos esports"
+    },
+    {
+      "id": "assets",
+      "label": "Assets",
+      "href": "/admin/assets",
+      "icon": "▤",
+      "group": "Herramientas",
+      "description": "Biblioteca de medios"
+    },
+    {
+      "id": "roster",
+      "label": "Roster local",
+      "href": "/admin/roster",
+      "icon": "☰",
+      "group": "Herramientas",
+      "description": "Editor de roster del dispositivo (heredado, sin servidor)"
+    }
+  ],
+  "extraUi": [
+    "/admin/cards/new → /admin/cartas/nueva",
+    "/admin/cards/[id] → /admin/cartas/[id]",
+    "/admin/events/new",
+    "/admin/events/[id]",
+    "/admin/users/[id]",
+    "/admin/players/[id]",
+    "/admin/teams/[id]",
+    "/admin/packs/[id]",
+    "/admin/roster (editor local heredado)"
+  ],
+  "api": [
+    {
+      "path": "/api/admin/dashboard",
+      "methods": {
+        "GET": "admin_read"
+      }
+    },
+    {
+      "path": "/api/admin/search",
+      "methods": {
+        "GET": "admin_read"
+      }
+    },
+    {
+      "path": "/api/admin/users",
+      "methods": {
+        "GET": "admin_read",
+        "POST": "admin_write (adjust_credits · grant)"
+      }
+    },
+    {
+      "path": "/api/admin/moderation",
+      "methods": {
+        "GET": "admin_read",
+        "POST": "admin_write (sanction · revoke)"
+      }
+    },
+    {
+      "path": "/api/admin/events",
+      "methods": {
+        "GET": "admin_read",
+        "POST": "admin_write (preview · create · update · cancel · publish)"
+      }
+    },
+    {
+      "path": "/api/admin/audit",
+      "methods": {
+        "GET": "admin_read (sin escritura HTTP)"
+      }
+    },
+    {
+      "path": "/api/admin/system",
+      "methods": {
+        "GET": "admin_read"
+      }
+    },
+    {
+      "path": "/api/admin/catalog",
+      "methods": {
+        "GET": "admin_read (players · player · teams · team · seasons · competitive · rewards)",
+        "POST": "admin_read (import_dry_run: solo valida)"
+      }
+    },
+    {
+      "path": "/api/admin/packs",
+      "methods": {
+        "GET": "admin_read (lista · ficha · economy)",
+        "POST": "admin_write (simulate: solo lectura, CPU)"
+      }
+    },
+    {
+      "path": "/api/admin/cards",
+      "methods": {
+        "POST": "existente (verifyAdmin): list · facets · create · updateDraft · publish · lifecycle · artwork…"
+      }
+    },
+    {
+      "path": "/api/admin/pools",
+      "methods": {
+        "POST": "existente (verifyAdmin)"
+      }
+    },
+    {
+      "path": "/api/admin/{assets,operations,releases,tournaments,session}",
+      "methods": {
+        "*": "existentes (verifyAdmin)"
+      }
+    }
+  ],
+  "palette": [
+    {
+      "id": "new-card",
+      "label": "Crear carta (borrador)",
+      "href": "/admin/cartas/nueva"
+    },
+    {
+      "id": "new-event",
+      "label": "Crear evento (borrador)",
+      "href": "/admin/events/new"
+    },
+    {
+      "id": "find-user",
+      "label": "Buscar usuario",
+      "href": "/admin/users"
+    },
+    {
+      "id": "health",
+      "label": "Ver salud del sistema",
+      "href": "/admin/system"
+    },
+    {
+      "id": "audit",
+      "label": "Abrir registro de auditoría",
+      "href": "/admin/audit"
+    }
+  ]
+}

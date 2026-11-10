@@ -1,0 +1,141 @@
+{
+  "accounts": {
+    "A": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+    "B": "8c326e52-776a-43f4-ba05-3ad7945c40c3"
+  },
+  "matches": [
+    "b8b253ff-40d4-405b-824f-380d2ddc73ae",
+    "641afa0d-448b-426c-bf51-07b1df780e0b"
+  ],
+  "run2": {
+    "matchFound": true,
+    "introFrom": "LINEUP",
+    "endSequenceA": [
+      "last-turn",
+      "complete:LOSS",
+      "outcome"
+    ],
+    "final": {
+      "A": {
+        "lifecycle": "FINISHED",
+        "winner": "B",
+        "isDraw": false,
+        "decidedBy": "SCORE",
+        "score": [
+          3,
+          7
+        ],
+        "yourSide": "A"
+      },
+      "B": {
+        "lifecycle": "FINISHED",
+        "winner": "B",
+        "isDraw": false,
+        "decidedBy": "SCORE",
+        "score": [
+          3,
+          7
+        ],
+        "yourSide": "B"
+      },
+      "ratingEventA": null,
+      "ratingEventB": null
+    },
+    "ratingBefore": {
+      "A": {
+        "rating": 962,
+        "position": 2,
+        "rankedTotal": 2,
+        "gamesPlayed": 2
+      },
+      "B": {
+        "rating": 1038,
+        "position": 1,
+        "rankedTotal": 2,
+        "gamesPlayed": 2
+      }
+    },
+    "ratingAfter": {
+      "A": {
+        "rating": 946,
+        "position": 2,
+        "rankedTotal": 2,
+        "gamesPlayed": 3
+      },
+      "B": {
+        "rating": 1054,
+        "position": 1,
+        "rankedTotal": 2,
+        "gamesPlayed": 3
+      }
+    },
+    "consoleErrors": []
+  },
+  "consistency": {
+    "polls": 21,
+    "mismatches": 0,
+    "run1Polls": 21,
+    "run1Mismatches": 0,
+    "rule": "mismo turno, mismo marcador absoluto, nunca los dos con el turno"
+  },
+  "run1": {
+    "final": {
+      "A": {
+        "lifecycle": "FINISHED",
+        "winner": "B",
+        "isDraw": false,
+        "decidedBy": "SCORE",
+        "score": [
+          3,
+          7
+        ],
+        "yourSide": "A"
+      },
+      "B": {
+        "lifecycle": "FINISHED",
+        "winner": "B",
+        "isDraw": false,
+        "decidedBy": "SCORE",
+        "score": [
+          3,
+          7
+        ],
+        "yourSide": "B"
+      },
+      "ratingEventA": null,
+      "ratingEventB": null
+    },
+    "ratingBefore": {
+      "A": {
+        "rating": 980,
+        "position": 2,
+        "rankedTotal": 2,
+        "gamesPlayed": 1
+      },
+      "B": {
+        "rating": 1020,
+        "position": 1,
+        "rankedTotal": 2,
+        "gamesPlayed": 1
+      }
+    },
+    "ratingAfter": {
+      "A": {
+        "rating": 962,
+        "position": 2,
+        "rankedTotal": 2,
+        "gamesPlayed": 2
+      },
+      "B": {
+        "rating": 1038,
+        "position": 1,
+        "rankedTotal": 2,
+        "gamesPlayed": 2
+      }
+    }
+  },
+  "notDone": [
+    "B jugó por API (no por navegador): se verificó su VISTA por API, no su pantalla",
+    "no se provocó una desconexión forzada"
+  ]
+}

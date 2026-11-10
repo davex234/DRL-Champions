@@ -1,0 +1,506 @@
+{
+  "currentTop25": [
+    {
+      "player": "mada",
+      "edition": "moments",
+      "class": "icon",
+      "ovr": 95,
+      "currentValue": 33200,
+      "proposedValue": 26500,
+      "currentPosition": 1,
+      "proposedPosition": 1
+    },
+    {
+      "player": "marteen",
+      "edition": "record-breaker",
+      "class": "icon",
+      "ovr": 95,
+      "currentValue": 33200,
+      "proposedValue": 26500,
+      "currentPosition": 2,
+      "proposedPosition": 2
+    },
+    {
+      "player": "PatMen",
+      "edition": "record-breaker",
+      "class": "icon",
+      "ovr": 92,
+      "currentValue": 27875,
+      "proposedValue": 18400,
+      "currentPosition": 3,
+      "proposedPosition": 6
+    },
+    {
+      "player": "slowly",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 95,
+      "currentValue": 10900,
+      "proposedValue": 10600,
+      "currentPosition": 4,
+      "proposedPosition": 15
+    },
+    {
+      "player": "splash",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 95,
+      "currentValue": 10900,
+      "proposedValue": 10600,
+      "currentPosition": 5,
+      "proposedPosition": 16
+    },
+    {
+      "player": "s0pp",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 94,
+      "currentValue": 10275,
+      "proposedValue": 9400,
+      "currentPosition": 6,
+      "proposedPosition": 21
+    },
+    {
+      "player": "BuZz",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 93,
+      "currentValue": 9700,
+      "proposedValue": 8300,
+      "currentPosition": 7,
+      "proposedPosition": 24
+    },
+    {
+      "player": "leaf",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 92,
+      "currentValue": 9150,
+      "proposedValue": 7350,
+      "currentPosition": 8,
+      "proposedPosition": 27
+    },
+    {
+      "player": "Meteor",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 92,
+      "currentValue": 9150,
+      "proposedValue": 7350,
+      "currentPosition": 9,
+      "proposedPosition": 28
+    },
+    {
+      "player": "trent",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 92,
+      "currentValue": 9150,
+      "proposedValue": 7350,
+      "currentPosition": 10,
+      "proposedPosition": 29
+    },
+    {
+      "player": "iZu",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 89,
+      "currentValue": 7675,
+      "proposedValue": 5100,
+      "currentPosition": 11,
+      "proposedPosition": 31
+    },
+    {
+      "player": "jawgemo",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 89,
+      "currentValue": 7675,
+      "proposedValue": 5100,
+      "currentPosition": 12,
+      "proposedPosition": 32
+    },
+    {
+      "player": "yetujey",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 89,
+      "currentValue": 7675,
+      "proposedValue": 5100,
+      "currentPosition": 13,
+      "proposedPosition": 33
+    },
+    {
+      "player": "stax",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 88,
+      "currentValue": 7250,
+      "proposedValue": 4500,
+      "currentPosition": 14,
+      "proposedPosition": 34
+    },
+    {
+      "player": "valyn",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 88,
+      "currentValue": 7250,
+      "proposedValue": 4500,
+      "currentPosition": 15,
+      "proposedPosition": 35
+    },
+    {
+      "player": "BABYBAY",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "currentValue": 6825,
+      "proposedValue": 4000,
+      "currentPosition": 16,
+      "proposedPosition": 38
+    },
+    {
+      "player": "Munchkin",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "currentValue": 6825,
+      "proposedValue": 4000,
+      "currentPosition": 17,
+      "proposedPosition": 39
+    },
+    {
+      "player": "xeus",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 87,
+      "currentValue": 6825,
+      "proposedValue": 4000,
+      "currentPosition": 18,
+      "proposedPosition": 40
+    },
+    {
+      "player": "Scales",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 85,
+      "currentValue": 6075,
+      "proposedValue": 3150,
+      "currentPosition": 19,
+      "proposedPosition": 51
+    },
+    {
+      "player": "Erv",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "currentValue": 5725,
+      "proposedValue": 2750,
+      "currentPosition": 20,
+      "proposedPosition": 62
+    },
+    {
+      "player": "KROSTALY",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "currentValue": 5725,
+      "proposedValue": 2750,
+      "currentPosition": 21,
+      "proposedPosition": 63
+    },
+    {
+      "player": "sociablEE",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 84,
+      "currentValue": 5725,
+      "proposedValue": 2750,
+      "currentPosition": 22,
+      "proposedPosition": 64
+    },
+    {
+      "player": "SiuFatBB",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 80,
+      "currentValue": 4550,
+      "proposedValue": 1700,
+      "currentPosition": 23,
+      "proposedPosition": 105
+    },
+    {
+      "player": "Lar0k",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 24,
+      "proposedPosition": 3
+    },
+    {
+      "player": "Sato",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 25,
+      "proposedPosition": 4
+    }
+  ],
+  "proposedTop25": [
+    {
+      "player": "mada",
+      "edition": "moments",
+      "class": "icon",
+      "ovr": 95,
+      "currentValue": 33200,
+      "proposedValue": 26500,
+      "currentPosition": 1,
+      "proposedPosition": 1
+    },
+    {
+      "player": "marteen",
+      "edition": "record-breaker",
+      "class": "icon",
+      "ovr": 95,
+      "currentValue": 33200,
+      "proposedValue": 26500,
+      "currentPosition": 2,
+      "proposedPosition": 2
+    },
+    {
+      "player": "Lar0k",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 24,
+      "proposedPosition": 3
+    },
+    {
+      "player": "Sato",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 25,
+      "proposedPosition": 4
+    },
+    {
+      "player": "Xross",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 95,
+      "currentValue": 3575,
+      "proposedValue": 19100,
+      "currentPosition": 26,
+      "proposedPosition": 5
+    },
+    {
+      "player": "PatMen",
+      "edition": "record-breaker",
+      "class": "icon",
+      "ovr": 92,
+      "currentValue": 27875,
+      "proposedValue": 18400,
+      "currentPosition": 3,
+      "proposedPosition": 6
+    },
+    {
+      "player": "Sayonara",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 94,
+      "currentValue": 3375,
+      "proposedValue": 16900,
+      "currentPosition": 27,
+      "proposedPosition": 7
+    },
+    {
+      "player": "Timotino",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 94,
+      "currentValue": 3375,
+      "proposedValue": 16900,
+      "currentPosition": 28,
+      "proposedPosition": 8
+    },
+    {
+      "player": "Neon",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 93,
+      "currentValue": 3175,
+      "proposedValue": 15000,
+      "currentPosition": 29,
+      "proposedPosition": 9
+    },
+    {
+      "player": "alym",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 92,
+      "currentValue": 3000,
+      "proposedValue": 13200,
+      "currentPosition": 30,
+      "proposedPosition": 10
+    },
+    {
+      "player": "spike",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 92,
+      "currentValue": 3000,
+      "proposedValue": 13200,
+      "currentPosition": 31,
+      "proposedPosition": 11
+    },
+    {
+      "player": "Veqaj",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 92,
+      "currentValue": 3000,
+      "proposedValue": 13200,
+      "currentPosition": 32,
+      "proposedPosition": 12
+    },
+    {
+      "player": "Dantedeu5",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 91,
+      "currentValue": 2825,
+      "proposedValue": 11700,
+      "currentPosition": 33,
+      "proposedPosition": 13
+    },
+    {
+      "player": "Loita",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 91,
+      "currentValue": 2825,
+      "proposedValue": 11700,
+      "currentPosition": 34,
+      "proposedPosition": 14
+    },
+    {
+      "player": "slowly",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 95,
+      "currentValue": 10900,
+      "proposedValue": 10600,
+      "currentPosition": 4,
+      "proposedPosition": 15
+    },
+    {
+      "player": "splash",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 95,
+      "currentValue": 10900,
+      "proposedValue": 10600,
+      "currentPosition": 5,
+      "proposedPosition": 16
+    },
+    {
+      "player": "echo",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 35,
+      "proposedPosition": 17
+    },
+    {
+      "player": "Reduxx",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 36,
+      "proposedPosition": 18
+    },
+    {
+      "player": "s0pp",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 37,
+      "proposedPosition": 19
+    },
+    {
+      "player": "wayne",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 90,
+      "currentValue": 2675,
+      "proposedValue": 10400,
+      "currentPosition": 38,
+      "proposedPosition": 20
+    },
+    {
+      "player": "s0pp",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 94,
+      "currentValue": 10275,
+      "proposedValue": 9400,
+      "currentPosition": 6,
+      "proposedPosition": 21
+    },
+    {
+      "player": "blowz",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 89,
+      "currentValue": 2525,
+      "proposedValue": 9200,
+      "currentPosition": 39,
+      "proposedPosition": 22
+    },
+    {
+      "player": "koshmaras",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 89,
+      "currentValue": 2525,
+      "proposedValue": 9200,
+      "currentPosition": 40,
+      "proposedPosition": 23
+    },
+    {
+      "player": "BuZz",
+      "edition": "champions-s",
+      "class": "champions",
+      "ovr": 93,
+      "currentValue": 9700,
+      "proposedValue": 8300,
+      "currentPosition": 7,
+      "proposedPosition": 24
+    },
+    {
+      "player": "Darker",
+      "edition": "future-star",
+      "class": "prime",
+      "ovr": 88,
+      "currentValue": 2375,
+      "proposedValue": 8100,
+      "currentPosition": 41,
+      "proposedPosition": 25
+    }
+  ]
+}

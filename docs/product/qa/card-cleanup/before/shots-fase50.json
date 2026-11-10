@@ -1,0 +1,31 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "harness": "fase50",
+  "generated": "2026-09-22T09:38:39.474Z",
+  "rows": [
+    {
+      "file": "start-1440x900.png",
+      "scene": "start",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "start-390x844.png",
+      "scene": "start",
+      "size": "390x844",
+      "errors": []
+    },
+    {
+      "file": "both-1440x900.png",
+      "scene": "both",
+      "size": "1440x900",
+      "errors": []
+    },
+    {
+      "file": "both-390x844.png",
+      "scene": "both",
+      "size": "390x844",
+      "errors": []
+    }
+  ]
+}

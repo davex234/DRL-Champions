@@ -1,0 +1,87 @@
+{
+  "at": "2026-09-29T20:49:26.671Z",
+  "persona": "A",
+  "matchId": "0c5d7b64-d8b1-4bd5-a450-a1e465b40226",
+  "pass": 13,
+  "total": 13,
+  "results": [
+    {
+      "width": 1440,
+      "id": "partida rápida real abierta",
+      "ok": true,
+      "detail": "0c5d7b64-d8b1-4bd5-a450-a1e465b40226"
+    },
+    {
+      "width": 1440,
+      "id": "RTC dice RETOMAR PARTIDA (lógica intacta)",
+      "ok": true,
+      "detail": "RETOMAR PARTIDA"
+    },
+    {
+      "width": 1440,
+      "id": "RETOMAR PARTIDA en UNA línea, sin corte, misma altura",
+      "ok": true,
+      "detail": "líneas=1 h=68"
+    },
+    {
+      "width": 1440,
+      "id": "banda «Continuar partida» intacta (su propio botón, no el de las tarjetas)",
+      "ok": true,
+      "detail": "RETOMAR PARTIDA"
+    },
+    {
+      "width": 1440,
+      "id": "0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "width": 1024,
+      "id": "RTC dice RETOMAR PARTIDA (lógica intacta)",
+      "ok": true,
+      "detail": "RETOMAR PARTIDA"
+    },
+    {
+      "width": 1024,
+      "id": "RETOMAR PARTIDA en UNA línea, sin corte, misma altura",
+      "ok": true,
+      "detail": "líneas=1 h=68"
+    },
+    {
+      "width": 1024,
+      "id": "banda «Continuar partida» intacta (su propio botón, no el de las tarjetas)",
+      "ok": true,
+      "detail": "RETOMAR PARTIDA"
+    },
+    {
+      "width": 1024,
+      "id": "0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "width": 390,
+      "id": "RTC dice RETOMAR PARTIDA (lógica intacta)",
+      "ok": true,
+      "detail": "RETOMAR PARTIDA"
+    },
+    {
+      "width": 390,
+      "id": "RETOMAR PARTIDA en UNA línea, sin corte, misma altura",
+      "ok": true,
+      "detail": "líneas=1 h=64"
+    },
+    {
+      "width": 390,
+      "id": "banda «Continuar partida» intacta (su propio botón, no el de las tarjetas)",
+      "ok": true,
+      "detail": "RETOMAR PARTIDA"
+    },
+    {
+      "width": 390,
+      "id": "0 errores de consola",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

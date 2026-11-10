@@ -1,0 +1,62 @@
+{
+  "at": "2026-09-30T19:23:11.362Z",
+  "intercepted": false,
+  "pass": 5,
+  "fail": 0,
+  "results": [
+    {
+      "id": "CASO B · partida terminada SOLO por el reloj (0 humanas, todas automáticas)",
+      "ok": true,
+      "detail": "{\"won\":true,\"auto\":10,\"draw\":false,\"mode\":\"PVE\",\"human\":0,\"counts\":false,\"finished\":true,\"missions\":[]}"
+    },
+    {
+      "id": "CASO B · NO CUENTA: counts=false, sin misiones y progreso idéntico",
+      "ok": true,
+      "detail": "{\"p\":1,\"done\":false,\"claimed\":false} → {\"p\":1,\"done\":false,\"claimed\":false}"
+    },
+    {
+      "id": "CASO B2 · 4 humanas + automáticas → NO CUENTA (el reloj no se hace pasar por humano)",
+      "ok": true,
+      "detail": "{\"won\":true,\"auto\":6,\"draw\":false,\"mode\":\"PVE\",\"human\":4,\"counts\":false,\"finished\":true,\"missions\":[]}"
+    },
+    {
+      "id": "CASO C · abandono aceptado",
+      "ok": true,
+      "detail": "200"
+    },
+    {
+      "id": "CASO C · NO CUENTA: sin evento de misión y progreso idéntico",
+      "ok": true,
+      "detail": "eventos=0"
+    }
+  ],
+  "caseB": {
+    "played": 0,
+    "status": "COMPLETED",
+    "ms": 327012,
+    "evidence": {
+      "won": true,
+      "auto": 10,
+      "draw": false,
+      "mode": "PVE",
+      "human": 0,
+      "counts": false,
+      "finished": true,
+      "missions": []
+    }
+  },
+  "caseB2": {
+    "played": 4,
+    "status": "COMPLETED",
+    "evidence": {
+      "won": true,
+      "auto": 6,
+      "draw": false,
+      "mode": "PVE",
+      "human": 4,
+      "counts": false,
+      "finished": true,
+      "missions": []
+    }
+  }
+}

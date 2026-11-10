@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-01T17:24:18.402Z",
+  "qaUser": "0a18e389",
+  "accessTokenHeader": {
+    "alg": "ES256",
+    "kidPresent": true
+  },
+  "publicAnonHash8": "bf1725a8",
+  "results": [
+    {
+      "id": "PRE · alta QA S por la API pública (autoconfirm) → sesión",
+      "ok": true,
+      "detail": "{\"status\":200,\"user\":\"0a18e389\"}"
+    },
+    {
+      "id": "PRE · la sesión de usuario se firma con clave asimétrica (no HS256)",
+      "ok": true,
+      "detail": "{\"alg\":\"ES256\",\"kidPresent\":true}"
+    },
+    {
+      "id": "PRE · /api/game/me con la sesión de S → 200",
+      "ok": true,
+      "detail": "200"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "at": "2026-09-29T19:15:00.235Z",
+  "flags": [],
+  "summary": {
+    "PASS": 17,
+    "WARN": 0,
+    "FAIL": 0
+  },
+  "results": [
+    {
+      "id": "env",
+      "level": "PASS",
+      "detail": "OPTIONAL ANTHROPIC_API_KEY: falta: predicciones con heurística · OPTIONAL NEXT_PUBLIC_VLR_API: falta: fuente VLR desactivada"
+    },
+    {
+      "id": "node",
+      "level": "PASS",
+      "detail": "v24.15.0 (engines >=22.12.0 <25, recomendado 24.15.0)"
+    },
+    {
+      "id": "build",
+      "level": "PASS",
+      "detail": "BUILD_ID drl-0.1.1-1-1288b7f9 = huella del código actual"
+    },
+    {
+      "id": "migrations",
+      "level": "PASS",
+      "detail": "58 ficheros, última 0058_hardening_grants.sql (esperada 0058_hardening_grants)"
+    },
+    {
+      "id": "migrations-startup",
+      "level": "PASS",
+      "detail": "la app NO aplica migraciones al arrancar"
+    },
+    {
+      "id": "flags",
+      "level": "PASS",
+      "detail": "GLOBAL_MARKET_ENABLED=false PAYMENTS_ENABLED=false (constantes de código, no conmutables desde el cliente)"
+    },
+    {
+      "id": "catalog",
+      "level": "PASS",
+      "detail": "331 cartas en código"
+    },
+    {
+      "id": "card-art",
+      "level": "PASS",
+      "detail": "331/331 imágenes presentes"
+    },
+    {
+      "id": "agent-art",
+      "level": "PASS",
+      "detail": "29 agentes, sin carpeta de arte: ninguno"
+    },
+    {
+      "id": "pack-art",
+      "level": "PASS",
+      "detail": "32 sobres, 19 con arte, rotos: ninguno"
+    },
+    {
+      "id": "maps",
+      "level": "PASS",
+      "detail": "13 entradas en public/maps"
+    },
+    {
+      "id": "security-headers",
+      "level": "PASS",
+      "detail": "CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP, HSTS, sin X-Powered-By"
+    },
+    {
+      "id": "edge-guards",
+      "level": "PASS",
+      "detail": "tamaño de cuerpo, arneses QA ocultos, x-request-id"
+    },
+    {
+      "id": "robots",
+      "level": "PASS",
+      "detail": "beta cerrada: noindex"
+    },
+    {
+      "id": "sharp",
+      "level": "PASS",
+      "detail": "sharp es dependencia directa"
+    },
+    {
+      "id": "client-secrets",
+      "level": "PASS",
+      "detail": "ningún secreto del servidor en .next/static ni public/"
+    },
+    {
+      "id": "source-maps",
+      "level": "PASS",
+      "detail": "sin source maps públicos del navegador"
+    }
+  ]
+}

@@ -2,6 +2,9 @@
  * Mapa de código ISO (2 letras) → nombre del país en español.
  * Usado en la vista de inspección y para banderas reales.
  */
+import { DEFAULT_LOCALE } from "@/i18n/config";
+import { getIntlLocale, getLocale } from "@/i18n/runtime";
+
 export const COUNTRIES: Record<string, string> = {
   GB: "Reino Unido",
   ES: "España",
@@ -23,7 +26,22 @@ export const COUNTRIES: Record<string, string> = {
 };
 
 export function countryName(iso: string): string {
-  return COUNTRIES[iso?.toUpperCase()] ?? iso;
+  return localizedCountryName(iso) ?? COUNTRIES[iso?.toUpperCase()] ?? iso;
+}
+
+/**
+ * i18n · nombre del país en el idioma ACTIVO cuando no es español (`Intl.DisplayNames`: los 249 códigos, sin catálogo).
+ * En español devuelve `null`: manda la tabla de arriba, que es la que fijan los datos y los tests.
+ */
+const regionNamesByLocale = new Map<string, Intl.DisplayNames | null>();
+export function localizedCountryName(iso: string): string | null {
+  const code = (iso ?? "").toUpperCase();
+  if (getLocale() === DEFAULT_LOCALE || !/^[A-Z]{2}$/.test(code) || code === "ZZ") return null;
+  const tag = getIntlLocale();
+  let names = regionNamesByLocale.get(tag);
+  if (names === undefined) { try { names = new Intl.DisplayNames([tag], { type: "region" }); } catch { names = null; } regionNamesByLocale.set(tag, names); }
+  const name = names?.of(code);
+  return name && name !== code && !/unknown|unbekannt|sconosciut/i.test(name) ? name : null;
 }
 
 /** Nombres de país (es/en) → código ISO, para importadores. */

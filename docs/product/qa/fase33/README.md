@@ -1,0 +1,155 @@
+# QA visual · Fase 33 — Match Experience 3.0
+
+QA SYNTHETIC: partidas del MOTOR REAL (dos bots, cartas reales del catálogo) proyectadas con `projectMatchFor` + `buildMatchView`; jugadores, amistades y asientos de rating inventados. Sin servidor, sin Supabase, sin Docker.
+Generadas con `npx tsx scripts/_fase33-visual-qa.ts` contra la app en :3005, escenas de `/design-system/fase33?scene=…`. Las escenas 10, 12, 13, 26, 59, 65 y 66 se INTERACTÚAN (clic en carta/eje, detalle de turno, teclado, silencio). Movimiento activado salvo `07-*` y `67-*` (prefers-reduced-motion). `68`, `70`, `70b` son rutas reales sin sesión.
+Si una escena muestra la franja «QA SYNTHETIC · … fabricado», ese resultado no salió de ninguna semilla y se fabricó con la forma exacta de `DuelResultView`.
+
+| captura | ancho | escena | comprobaciones |
+|---|---|---|---|
+| `01-prematch-pve-1440.png` | 1440 | scene=prematch-pve |  |
+| `01-prematch-pve-1024.png` | 1024 | scene=prematch-pve |  |
+| `01-prematch-pve-390.png` | 390 | scene=prematch-pve |  |
+| `02-prematch-ranked-1440.png` | 1440 | scene=prematch-ranked |  |
+| `02-prematch-ranked-390.png` | 390 | scene=prematch-ranked |  |
+| `03-prematch-private-1440.png` | 1440 | scene=prematch-private |  |
+| `03-prematch-private-390.png` | 390 | scene=prematch-private |  |
+| `04-rival-hidden-1440.png` | 1440 | scene=rival-hidden |  |
+| `04-rival-hidden-390.png` | 390 | scene=rival-hidden |  |
+| `05-own-team-1440.png` | 1440 | scene=own-team |  |
+| `05-own-team-390.png` | 390 | scene=own-team |  |
+| `06-match-intro-1440.png` | 1440 | scene=intro |  |
+| `06-match-intro-1024.png` | 1024 | scene=intro |  |
+| `06-match-intro-390.png` | 390 | scene=intro |  |
+| `07-intro-reduced-motion-1440.png` | 1440 | scene=intro · reduced-motion |  |
+| `07-intro-reduced-motion-390.png` | 390 | scene=intro · reduced-motion |  |
+| `08-turn1-attack-1440.png` | 1440 | scene=turn1-attack | fase SELECT_CARD |
+| `08-turn1-attack-1024.png` | 1024 | scene=turn1-attack | fase SELECT_CARD |
+| `08-turn1-attack-390.png` | 390 | scene=turn1-attack | fase SELECT_CARD |
+| `09-turn-defense-1440.png` | 1440 | scene=turn-defense | fase SELECT_CARD |
+| `09-turn-defense-1024.png` | 1024 | scene=turn-defense | fase SELECT_CARD |
+| `09-turn-defense-390.png` | 390 | scene=turn-defense | fase SELECT_CARD |
+| `10-axis-selection-1440.png` | 1440 | scene=axis-selection | fase SELECT_STAT |
+| `10-axis-selection-390.png` | 390 | scene=axis-selection | fase SELECT_STAT |
+| `11-server-imposed-axis-1440.png` | 1440 | scene=server-axis | fase SELECT_CARD |
+| `11-server-imposed-axis-390.png` | 390 | scene=server-axis | fase SELECT_CARD |
+| `12-card-selection-defense-1440.png` | 1440 | scene=card-selection | fase CONFIRM |
+| `12-card-selection-defense-390.png` | 390 | scene=card-selection | fase CONFIRM |
+| `13-selected-card-confirm-1440.png` | 1440 | scene=selected-card | fase CONFIRM |
+| `13-selected-card-confirm-390.png` | 390 | scene=selected-card | fase CONFIRM |
+| `14-locked-action-1440.png` | 1440 | scene=locked | fase LOCKED |
+| `14-locked-action-390.png` | 390 | scene=locked | fase LOCKED |
+| `15-waiting-opponent-1440.png` | 1440 | scene=waiting | fase WAITING_RIVAL |
+| `15-waiting-opponent-390.png` | 390 | scene=waiting | fase WAITING_RIVAL |
+| `16-rival-reveal-1440.png` | 1440 | scene=rival-reveal | fase SELECT_CARD |
+| `16-rival-reveal-390.png` | 390 | scene=rival-reveal | fase SELECT_CARD |
+| `17-card-vs-card-1440.png` | 1440 | scene=card-vs-card | fase REVEAL |
+| `17-card-vs-card-1024.png` | 1024 | scene=card-vs-card | fase REVEAL |
+| `17-card-vs-card-390.png` | 390 | scene=card-vs-card | fase REVEAL |
+| `18-stat-reveal-midway-1440.png` | 1440 | scene=stat-reveal | fase REVEAL |
+| `18-stat-reveal-midway-390.png` | 390 | scene=stat-reveal | fase REVEAL |
+| `19-player-wins-turn-1440.png` | 1440 | scene=turn-win | fase REVEAL |
+| `19-player-wins-turn-390.png` | 390 | scene=turn-win | fase REVEAL |
+| `20-rival-wins-turn-1440.png` | 1440 | scene=turn-loss | fase REVEAL |
+| `20-rival-wins-turn-390.png` | 390 | scene=turn-loss | fase REVEAL |
+| `21-turn-draw-1440.png` | 1440 | scene=turn-draw | fase REVEAL |
+| `21-turn-draw-390.png` | 390 | scene=turn-draw | fase REVEAL |
+| `22-ovr-tiebreak-1440.png` | 1440 | scene=ovr-tiebreak |  |
+| `22-ovr-tiebreak-390.png` | 390 | scene=ovr-tiebreak |  |
+| `23-total-stat-tiebreak-1440.png` | 1440 | scene=stat-tiebreak |  |
+| `23-total-stat-tiebreak-390.png` | 390 | scene=stat-tiebreak |  |
+| `24-score-update-1440.png` | 1440 | scene=score-update | fase SELECT_CARD |
+| `24-score-update-390.png` | 390 | scene=score-update | fase SELECT_CARD |
+| `25-timeline-partial-1440.png` | 1440 | scene=timeline-partial | fase SELECT_CARD |
+| `25-timeline-partial-390.png` | 390 | scene=timeline-partial | fase SELECT_CARD |
+| `26-previous-turn-detail-1440.png` | 1440 | scene=turn-detail | fase SELECT_CARD |
+| `26-previous-turn-detail-390.png` | 390 | scene=turn-detail | fase SELECT_CARD |
+| `27-turn5-1440.png` | 1440 | scene=turn5 | fase SELECT_CARD |
+| `27-turn5-390.png` | 390 | scene=turn5 | fase SELECT_CARD |
+| `28-turn9-1440.png` | 1440 | scene=turn9 | fase SELECT_CARD |
+| `28-turn9-390.png` | 390 | scene=turn9 | fase SELECT_CARD |
+| `29-final-turn-1440.png` | 1440 | scene=final-turn | fase SELECT_CARD |
+| `29-final-turn-1024.png` | 1024 | scene=final-turn | fase SELECT_CARD |
+| `29-final-turn-390.png` | 390 | scene=final-turn | fase SELECT_CARD |
+| `29b-match-point-1440.png` | 1440 | scene=match-point | fase SELECT_CARD |
+| `29b-match-point-390.png` | 390 | scene=match-point | fase SELECT_CARD |
+| `30-match-win-1440.png` | 1440 | scene=match-win |  |
+| `30-match-win-1024.png` | 1024 | scene=match-win |  |
+| `30-match-win-390.png` | 390 | scene=match-win |  |
+| `31-match-loss-1440.png` | 1440 | scene=match-loss |  |
+| `31-match-loss-390.png` | 390 | scene=match-loss |  |
+| `32-match-draw-1440.png` | 1440 | scene=match-draw |  |
+| `32-match-draw-390.png` | 390 | scene=match-draw |  |
+| `33-ranked-result-1440.png` | 1440 | scene=ranked-result |  |
+| `33-ranked-result-1024.png` | 1024 | scene=ranked-result |  |
+| `33-ranked-result-390.png` | 390 | scene=ranked-result |  |
+| `34-rating-delta-positive-1440.png` | 1440 | scene=rating-positive |  |
+| `34-rating-delta-positive-390.png` | 390 | scene=rating-positive |  |
+| `35-rating-delta-negative-1440.png` | 1440 | scene=rating-negative |  |
+| `35-rating-delta-negative-390.png` | 390 | scene=rating-negative |  |
+| `36-provisional-player-1440.png` | 1440 | scene=provisional |  |
+| `36-provisional-player-390.png` | 390 | scene=provisional |  |
+| `36b-rating-event-unavailable-1440.png` | 1440 | scene=rating-pending |  |
+| `37-pve-result-story-1440.png` | 1440 | scene=pve-result |  |
+| `37-pve-result-story-390.png` | 390 | scene=pve-result |  |
+| `38-private-result-1440.png` | 1440 | scene=private-result |  |
+| `38-private-result-390.png` | 390 | scene=private-result |  |
+| `39-card-of-the-match-1440.png` | 1440 | scene=mvp |  |
+| `39-card-of-the-match-390.png` | 390 | scene=mvp |  |
+| `40-no-card-of-the-match-1440.png` | 1440 | scene=no-mvp |  |
+| `41-rewards-present-1440.png` | 1440 | scene=rewards |  |
+| `41-rewards-present-390.png` | 390 | scene=rewards |  |
+| `42-no-reward-pvp-1440.png` | 1440 | scene=no-reward |  |
+| `43-private-rematch-1440.png` | 1440 | scene=rematch |  |
+| `43-private-rematch-390.png` | 390 | scene=rematch |  |
+| `44-search-another-rival-1440.png` | 1440 | scene=search-another |  |
+| `44-search-another-rival-390.png` | 390 | scene=search-another |  |
+| `45-replay-1440.png` | 1440 | scene=replay |  |
+| `45-replay-1024.png` | 1024 | scene=replay |  |
+| `45-replay-390.png` | 390 | scene=replay |  |
+| `46-replay-turn1-1440.png` | 1440 | scene=replay-turn1 |  |
+| `47-replay-middle-1440.png` | 1440 | scene=replay-middle |  |
+| `48-replay-final-1440.png` | 1440 | scene=replay-final |  |
+| `48-replay-final-390.png` | 390 | scene=replay-final |  |
+| `49-replay-partial-1440.png` | 1440 | scene=replay-partial |  |
+| `49-replay-partial-390.png` | 390 | scene=replay-partial |  |
+| `50-replay-unavailable-1440.png` | 1440 | scene=replay-unavailable |  |
+| `50-replay-unavailable-390.png` | 390 | scene=replay-unavailable |  |
+| `51-offline-1440.png` | 1440 | scene=offline | fase OFFLINE |
+| `51-offline-390.png` | 390 | scene=offline | fase OFFLINE |
+| `52-reconnecting-1440.png` | 1440 | scene=reconnecting | fase RESYNC |
+| `52-reconnecting-390.png` | 390 | scene=reconnecting | fase RESYNC |
+| `53-resync-1440.png` | 1440 | scene=resync | fase SELECT_CARD |
+| `53-resync-390.png` | 390 | scene=resync | fase SELECT_CARD |
+| `54-stale-version-1440.png` | 1440 | scene=stale | fase RESYNC |
+| `54-stale-version-390.png` | 390 | scene=stale | fase RESYNC |
+| `55-opponent-timeout-1440.png` | 1440 | scene=timeout | fase WAITING_RIVAL |
+| `55-opponent-timeout-390.png` | 390 | scene=timeout | fase WAITING_RIVAL |
+| `56-match-finished-on-reconnect-1440.png` | 1440 | scene=finished-reconnect |  |
+| `56-match-finished-on-reconnect-390.png` | 390 | scene=finished-reconnect |  |
+| `57-backend-error-1440.png` | 1440 | scene=backend-error |  |
+| `57-backend-error-390.png` | 390 | scene=backend-error |  |
+| `58-mobile-attack-390.png` | 390 | scene=pvp-attack | fase SELECT_CARD |
+| `59-mobile-defense-390.png` | 390 | scene=turn-defense | fase CONFIRM |
+| `60-mobile-reveal-390.png` | 390 | scene=stat-reveal | fase REVEAL |
+| `61-mobile-resolution-390.png` | 390 | scene=turn-win | fase REVEAL |
+| `62-mobile-result-390.png` | 390 | scene=ranked-result |  |
+| `63-mobile-replay-390.png` | 390 | scene=replay-final |  |
+| `64-tablet-1024.png` | 1024 | scene=tablet | fase SELECT_CARD |
+| `65-keyboard-flow-1440.png` | 1440 | scene=keyboard (Enter elige carta, Shift+Tab + Enter elige eje, Tab al botón) | fase CONFIRM · teclado |
+| `66-sound-off-1440.png` | 1440 | scene=sound-off | fase SELECT_CARD |
+| `67-reduced-motion-reveal-1440.png` | 1440 | scene=turn-win · reduced-motion | fase REVEAL |
+| `67-reduced-motion-reveal-390.png` | 390 | scene=turn-win · reduced-motion | fase REVEAL |
+| `68-no-session-1440.png` | 1440 | ruta real /duelos/jugar sin sesión |  |
+| `68-no-session-390.png` | 390 | ruta real /duelos/jugar sin sesión |  |
+| `69-invalid-match-1440.png` | 1440 | scene=invalid-match |  |
+| `69-invalid-match-390.png` | 390 | scene=invalid-match |  |
+| `70-real-route-smoke-1440.png` | 1440 | ruta real /duelos |  |
+| `70-real-route-smoke-390.png` | 390 | ruta real /duelos |  |
+| `70b-real-route-pvp-1440.png` | 1440 | ruta real /duelos/pvp sin sesión |  |
+| `71-history-to-replay-1440.png` | 1440 | scene=history-detail |  |
+| `71-history-to-replay-390.png` | 390 | scene=history-detail |  |
+| `72-private-arena-1440.png` | 1440 | scene=private-arena | fase WAITING_RIVAL |
+| `72-private-arena-390.png` | 390 | scene=private-arena | fase WAITING_RIVAL |
+| `73-intro-pvp-identity-1440.png` | 1440 | scene=intro-pvp |  |
+
+Errores de consola propios (sin 404 de fotos ni Supabase ausente): 0.

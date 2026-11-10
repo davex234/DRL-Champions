@@ -1,0 +1,9 @@
+{
+  "cors": "ninguna ruta, middleware ni config emite Access-Control-Allow-*: solo mismo origen (correcto; la app y la API son el mismo origen)",
+  "csp": {
+    "scriptUnsafeInline": "necesario: Next App Router inyecta scripts inline de hidratación sin nonce; con nonce habría que renderizar dinámicamente todo (sin beneficio con 0 HTML de usuario)",
+    "styleUnsafeInline": "necesario: estilos inline de React/framer-motion y variables CSS por atributo",
+    "unsafeEval": "solo en dev",
+    "violations": "0 errores de consola en 26 pantallas × 2 anchos (F64 regress)"
+  }
+}

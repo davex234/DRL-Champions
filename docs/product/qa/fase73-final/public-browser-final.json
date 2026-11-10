@@ -1,0 +1,49 @@
+{
+  "at": "2026-09-30T21:33:43.085Z",
+  "url": "https://valorosters.com",
+  "account": "QA L (existente)",
+  "logged": true,
+  "pages": [
+    {
+      "path": "/",
+      "ok": true,
+      "broken": 0
+    },
+    {
+      "path": "/misiones",
+      "ok": true,
+      "broken": 0
+    },
+    {
+      "path": "/misiones/crafting",
+      "ok": true,
+      "broken": 0
+    },
+    {
+      "path": "/misiones/crafting/sobres",
+      "ok": true,
+      "broken": 0
+    },
+    {
+      "path": "/misiones/crafting/cartas",
+      "ok": true,
+      "broken": 0
+    },
+    {
+      "path": "/coleccion",
+      "ok": true,
+      "broken": 0
+    }
+  ],
+  "hosts": {
+    "valorosters.com": 666,
+    "fonts.googleapis.com": 7,
+    "fonts.gstatic.com": 16
+  },
+  "localhost": [],
+  "mixed": [],
+  "failed": [],
+  "bad": [],
+  "console": [],
+  "pass": true
+}

@@ -1,0 +1,22 @@
+{
+  " (falló en {failedStage})": " ({failedStage}で失敗)",
+  "approve-generation: {length} carta(s)": "approve-generation：{length}枚",
+  "el run no llegó a generar cartas{v}": "ランはカードを生成する段階に到達しませんでした{v}",
+  "generación ya registrada: {generationId}": "生成はすでに記録されています：{generationId}",
+  "la revisión de {recordId} no está abierta": "{recordId}のレビューは開いていません",
+  "la revisión de {recordId} no está abierta: la publicación solo pasa por publishApproved": "{recordId}のレビューは開いていません：公開はpublishApprovedのみを経由します",
+  "la revisión de {recordId} ya está abierta": "{recordId}のレビューはすでに開いています",
+  "modelo canónico inválido: {length} error(es)": "無効な正規モデル：{length}件のエラー",
+  "nada que reabrir (ninguna carta en approved/rejected/hidden/blocked)": "再オープンするものがありません（approved/rejected/hidden/blockedのカードなし）",
+  "ninguna transición aplicable": "適用できる遷移がありません",
+  "publicación directa del Orchestrator (runtime v{runtimeVersion})": "Orchestratorによる直接公開（runtime v{runtimeVersion}）",
+  "publicación no aplicada": "公開は適用されませんでした",
+  "revisión R{revision} de {root}": "{root}のリビジョンR{revision}",
+  "revisión ya existente: {dupId}": "リビジョンはすでに存在します：{dupId}",
+  "sin cartas en review que aprobar": "承認できるreview中のカードがありません",
+  "torneo ya procesado por el ledger del generador: {tournamentId}": "トーナメントはジェネレーターの台帳で処理済みです：{tournamentId}",
+  "{action}: {length} carta(s)": "{action}：{length}枚",
+  "{length} carta(s) de vuelta a review": "{length}枚をreviewに戻しました",
+  "{length} cartas (sin publicar)": "{length}枚（未公開）",
+  "{length} cartas en review": "review中のカード{length}枚"
+}

@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-09-28",
+  "doc": "docs/operations/drlcards-art-release-inventory.md",
+  "public": { "files": 500, "approxMB": 52, "byExt": { "webp": 462, "png": 19, "svg": 13, "ico": 1, "js": 1, "md": 4 } },
+  "classes": {
+    "OWNED_CREATED": { "groups": 7, "files": 34 },
+    "USER_SUPPLIED": { "groups": 4, "files": 461 },
+    "THIRD_PARTY": { "groups": 1, "files": 0 },
+    "UNKNOWN": { "groups": 0, "files": 0 }
+  },
+  "groups": [
+    { "path": "public/cards/*.webp", "files": 331, "class": "USER_SUPPLIED", "pendingLegal": true },
+    { "path": "public/agents/<29 Valorant agents>/", "files": 87, "class": "USER_SUPPLIED", "pendingLegal": true },
+    { "path": "public/agents/veil/", "files": 2, "class": "OWNED_CREATED", "pendingLegal": false },
+    { "path": "public/maps/*.png + public/maps/thumbs/", "files": 24, "class": "USER_SUPPLIED", "pendingLegal": true },
+    { "path": "public/packs/ (arte oficial)", "files": 19, "class": "USER_SUPPLIED", "pendingLegal": true },
+    { "path": "public/packs/ (master vectorial: prime, mvps, team-navi)", "files": 3, "class": "OWNED_CREATED", "pendingLegal": "team-navi (escudo NAVI)" },
+    { "path": "public/game/arenas/nexus-champions/", "files": 2, "class": "OWNED_CREATED", "pendingLegal": false },
+    { "path": "public/store/credits/", "files": 6, "class": "OWNED_CREATED", "pendingLegal": false },
+    { "path": "public/branding/**, public/icons/, favicons", "files": 21, "class": "OWNED_CREATED", "pendingLegal": false },
+    { "path": "audio (Web Audio procedural)", "files": 0, "class": "OWNED_CREATED", "pendingLegal": false },
+    { "path": "dorsos/troqueles/glyphs en código", "files": 0, "class": "OWNED_CREATED", "pendingLegal": false },
+    { "path": "Google Fonts Rajdhani + Inter (src/app/layout.tsx)", "files": 0, "class": "THIRD_PARTY", "pendingLegal": "bajo" }
+  ],
+  "blocksTechnicalBuild": false,
+  "blocksPublicRelease": true,
+  "pendingConfirmationBy": "David"
+}

@@ -1,0 +1,469 @@
+--- a/src/components/packs/PackOpeningExperience.tsx (antes de 0.5)
++++ b/src/components/packs/PackOpeningExperience.tsx
+@@ -69,6 +69,27 @@
+ import { NextUpAfter } from "@/components/liveService/NextUpAfter";
+ import { PackStatus } from "./PackStatus";
+ import { useServerEconomy, SESSION_PENDING } from "@/lib/game/serverEconomy";
++import dynamic from "next/dynamic";
++import { PACK_WALKOUT_3D_ENABLED } from "@/config/features";
++import { PACK_WALKOUT_DEV_KEY, packWalkoutAllowed, packWalkoutQueue, walkoutFlow, type PackWalkoutItem } from "@/domain/walkout/packWalkout";
++import { useAdminSession } from "@/lib/supabase/useAdminSession";
++
++/*
++ * WALKOUT 0.5 · el walkout se carga BAJO DEMANDA (solo si esta apertura trae una carta especial y el despliegue lo
++ * permite); three.js, a su vez, solo si su escenario 3D llega a montarse. Mientras llega el código, un fondo oscuro.
++ */
++const loadPackWalkout = () => import("./PackWalkout");
++const PackWalkout = dynamic(() => loadPackWalkout().then((m) => m.PackWalkout), {
++  ssr: false,
++  loading: () => <div className="absolute inset-0 z-surface grid place-items-center bg-[#030409] font-display text-label font-bold uppercase tracking-wide2 text-white/60" role="status">Preparando…</div>,
++});
++
++/** Pregunta al servidor si la cuenta es admin SOLO cuando el despliegue es «admins» (con «off» no se monta: 0 peticiones). */
++function AdminProbe({ onResult }: { onResult: (g: ReturnType<typeof useAdminSession>) => void }) {
++  const gate = useAdminSession();
++  useEffect(() => { onResult(gate); }, [gate, onResult]);
++  return null;
++}
+ 
+ const CUT_DISTANCE = 220; // px de deslizamiento para abrir
+ const CATALOG = { cards: CARDS, getCard, getPlayer };
+@@ -86,13 +107,15 @@
+   return false;
+ }
+ 
+-export function PackOpeningExperience({ packId, qaOpen }: {
++export function PackOpeningExperience({ packId, qaOpen, qaWalkout }: {
+   packId: string;
+   /**
+    * F81 · SOLO arneses QA (`/design-system/fase81`, 404 en producción): un resultado FIJO en lugar del servidor/motor,
+    * para probar la ceremonia real de forma determinista. La ruta pública (`/abrir/[packId]`) nunca lo pasa.
+    */
+   qaOpen?: (packId: string) => OpenedResult[];
++  /** WALKOUT 0.5 · SOLO arneses QA (fuera de producción no cuenta): presenta el walkout aunque el despliegue esté en «off». */
++  qaWalkout?: boolean;
+ }) {
+   const router = useRouter();
+   const reduced = !!useReducedMotion();
+@@ -132,6 +155,18 @@
+   useMusicDuck(packMusicDuck(phase));
+   useEffect(() => () => { if (phaseRef.current === "summary") clearOpenReveal(); }, []);
+   const [results, setResults] = useState<OpenedResult[]>([]);
++  /*
++   * WALKOUT 0.5 · ¿se presenta el walkout a este jugador? (despliegue + veredicto del servidor + prueba local). La cola se
++   * FIJA al recibir el resultado: un veredicto que llegue tarde no cambia una ceremonia ya empezada.
++   */
++  const [adminGate, setAdminGate] = useState<ReturnType<typeof useAdminSession> | null>(null);
++  const [devOptIn, setDevOptIn] = useState(false);
++  useEffect(() => {
++    if (process.env.NODE_ENV === "production") return;
++    try { setDevOptIn(window.localStorage.getItem(PACK_WALKOUT_DEV_KEY) === "1"); } catch { /* sin almacenamiento: apagado */ }
++  }, []);
++  const walkoutOn = packWalkoutAllowed({ rollout: PACK_WALKOUT_3D_ENABLED, admin: adminGate, devOptIn, production: process.env.NODE_ENV === "production", qa: qaWalkout });
++  const [walkoutItems, setWalkoutItems] = useState<PackWalkoutItem[]>([]);
+   const [before, setBefore] = useState<OwnedInstanceFact[] | null>(null);
+   const [cutProgress, setCutProgress] = useState(0);
+   /** Fase 25 · «Añadir al equipo» desde el resumen: la carta elegida para el mazo. */
+@@ -162,6 +197,19 @@
+    * Abre el sobre. Con sesión iniciada la tirada la DECIDE EL SERVIDOR (`/api/game/packs`), y aquí solo se presenta
+    * el resultado que devuelve. Sin sesión se usa el motor local (modo de un solo jugador).
+    */
++  /**
++   * WALKOUT 0.5 · qué especiales de ESTE resultado (ya persistido) se presentan con un walkout y cómo encaja en el ritmo.
++   * Solo lee: ni una carta, ni un orden del contenido, ni una petición. Con el despliegue apagado → 0 walkouts.
++   */
++  const ceremonyFlow = useCallback((res: readonly OpenedResult[]) => {
++    if (!walkoutOn) { setWalkoutItems([]); return {}; }
++    const p = buildRevealPlan(toOpenedInstances(res), null, CATALOG);
++    const queue = packWalkoutQueue(p.order);
++    setWalkoutItems(queue);
++    if (queue.length > 0) void loadPackWalkout().catch(() => undefined);   // el código del walkout, mientras se rasga el sobre
++    return walkoutFlow(res.length, p.hero.ok ? p.hero.hero.uid : null, queue);
++  }, [walkoutOn]);
++
+   const triggerOpen = useCallback(async () => {
+     if (opened.current) return;
+     opened.current = true;
+@@ -204,9 +252,9 @@
+     saveOpenReveal(packId, res);
+     if (!repeated) useEventsStore.getState().recordPackOpened(packId, res);
+     trackFlow("pack_ceremony", `pack_opened:${packId}:${res.length}`);
+-    dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res) });
++    dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res), ...ceremonyFlow(res) });
+     playBurst();
+-  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, qaOpen]);
++  }, [online, serverEconomy, openFromInventory, packId, beginProgression, currentFacts, qaOpen, ceremonyFlow]);
+ 
+   /* F81 · INTRO (el sobre se rasga y suelta sus cartas) → TENSIÓN. Los relojes solo avisan; manda la máquina. */
+   useEffect(() => {
+@@ -286,6 +334,7 @@
+   const onBuildupDone = useCallback(() => dispatch({ type: "BUILDUP_DONE" }), []);
+   const onHeroShown = useCallback(() => dispatch({ type: "HERO_SHOWN" }), []);
+   const onRestDone = useCallback(() => dispatch({ type: "REST_DONE" }), []);
++  const onWalkoutDone = useCallback(() => dispatch({ type: "WALKOUT_DONE" }), []);
+   const advance = useCallback(() => { primeAudio(); dispatch({ type: "ADVANCE" }); }, []);
+   const continueFromHero = useCallback(() => { trackFlow("pack_ceremony", "hero_continue"); dispatch({ type: "CONTINUE" }); }, []);
+ 
+@@ -310,6 +359,7 @@
+     clearOpenReveal();
+     nextBefore.current = before ? [...before, ...openedInstances.map(toInstanceFact)] : undefined;
+     setResults([]);
++    setWalkoutItems([]);
+     setCutProgress(0);
+     resetProgression(); // Fase 27: los deltas eran de la apertura anterior.
+     personal.refresh();
+@@ -345,6 +395,7 @@
+         const out = await openPackOutcome(packId);
+         setResults(out.results);
+         saveOpenReveal(packId, out.results);
++        // (una recuperación va al resumen directo: el walkout no se repite tras recargar)
+         dispatch({ type: "OPEN_SUCCEEDED", count: out.results.length, repeated: out.repeated, cinematic: heroIsPresentable(out.results) });
+       } catch (e) {
+         opened.current = false;
+@@ -372,6 +423,8 @@
+         return;
+       }
+       if (!hasResult(state) || phase === "summary") return;
++      // WALKOUT 0.5 · durante un walkout, Escape/Enter/Espacio/→ son SUYOS (saltar esta animación / continuar); «S» omite todo.
++      if (phase === "walkout") { if (k === "s" || k === "S") { e.preventDefault(); skipToSummary(); } return; }
+       if (k === "s" || k === "S" || k === "Escape") { e.preventDefault(); skipToSummary(); }
+       else if (k === "Enter" || k === " " || k === "ArrowRight") {
+         e.preventDefault();
+@@ -418,7 +471,9 @@
+ 
+   const best = plan.summary.featured;
+   const heroResult = best ? results.find((r) => r.uid === best.uid) : undefined;
+-  const restItems = plan.order.filter((i) => i.uid !== best?.uid);
++  const walkedUids = new Set(walkoutItems.map((w) => w.uid));
++  const restItems = plan.order.filter((i) => i.uid !== best?.uid && !walkedUids.has(i.uid));
++  const walkoutItem = phase === "walkout" ? walkoutItems[state.walkoutIndex] : undefined;
+   const slots: HandSlot[] = results.map((r) => ({ revealed: false, color: getVariant(r.card.variantId).palette.primary }));
+   const stageKind = phase === "ready" || phase === "requesting" || phase === "opening" ? phase : null;
+   const heroStage = phase === "buildup" || phase === "hero" || phase === "hero_hold" ? phase : null;
+@@ -426,7 +481,8 @@
+   const showSkip = hasResult(state) && phase !== "summary";
+ 
+   return (
+-    <div className="fixed inset-0 z-modal overflow-hidden bg-[#03040a]" data-testid="pack-opening" data-phase={phase} data-requests={state.requests} data-hero-uid={best?.uid ?? ""}>
++    <div className="fixed inset-0 z-modal overflow-hidden bg-[#03040a]" data-testid="pack-opening" data-phase={phase} data-requests={state.requests} data-hero-uid={best?.uid ?? ""} data-walkouts={state.walkouts}>
++      {PACK_WALKOUT_3D_ENABLED === "admins" && <AdminProbe onResult={setAdminGate} />}
+       <PackBackdrop
+         accent={accent}
+         ambient={phase === "ready" || phase === "requesting"}
+@@ -480,6 +536,11 @@
+         />
+       )}
+ 
++      {/* WALKOUT 0.5 · cada especial, su walkout (una escena por carta: se desmonta y libera antes de la siguiente) */}
++      {walkoutItem && (
++        <PackWalkout key={walkoutItem.uid} item={walkoutItem} index={state.walkoutIndex} total={walkoutItems.length} reduced={reduced} onDone={onWalkoutDone} />
++      )}
++
+       {phase === "rest" && <RestReveal items={restItems} reduced={reduced} onDone={onRestDone} onAdvance={advance} />}
+ 
+       {/*
+--- a/src/domain/packs/reveal.ts (antes de 0.5)
++++ b/src/domain/packs/reveal.ts
+@@ -418,7 +418,7 @@
+  * Un gesto (toque/Enter) AVANZA un paso sin saltarse la hero; OMITIR va directo al resumen de las MISMAS cartas. Sin
+  * hero válida (OVR corrupto) no hay cinemática: resumen directo y la inconsistencia se registra (`cinematic: false`).
+  */
+-export type RevealPhase = "ready" | "requesting" | "opening" | "buildup" | "hero" | "hero_hold" | "rest" | "summary" | "error" | "recovering" | "no_pack";
++export type RevealPhase = "ready" | "requesting" | "opening" | "walkout" | "buildup" | "hero" | "hero_hold" | "rest" | "summary" | "error" | "recovering" | "no_pack";
+ 
+ export interface RevealState {
+   phase: RevealPhase;
+@@ -431,11 +431,20 @@
+   /** false = el resultado no permite elegir hero (OVR inválido): se presenta el resumen sin cinemática. */
+   cinematic: boolean;
+   failure: OpenFailure | null;
++  /**
++   * WALKOUT 0.5 · cuántas cartas especiales se presentan con un walkout (0 = la ceremonia de siempre), cuál va ahora, si
++   * la hero es una de ellas (su walkout ES su presentación: no se repite) y cuántas quedan para el resto escalonado.
++   * Solo presentación: lo calcula la pantalla con el resultado YA guardado (`domain/walkout/packWalkout · walkoutFlow`).
++   */
++  walkouts: number;
++  walkoutIndex: number;
++  heroWalked: boolean;
++  rest: number;
+ }
+ 
+ export type RevealEvent =
+   | { type: "OPEN_REQUESTED" }
+-  | { type: "OPEN_SUCCEEDED"; count: number; repeated: boolean; cinematic?: boolean }
++  | { type: "OPEN_SUCCEEDED"; count: number; repeated: boolean; cinematic?: boolean; walkouts?: number; heroWalked?: boolean; rest?: number }
+   | { type: "OPEN_FAILED"; failure: OpenFailure }
+   | { type: "RECOVER_STARTED" }
+   | { type: "RECOVERED"; count: number }
+@@ -445,20 +454,26 @@
+   | { type: "ADVANCE" }
+   | { type: "CONTINUE" }
+   | { type: "REST_DONE" }
++  | { type: "WALKOUT_DONE" }
+   | { type: "SKIP" }
+   | { type: "DISMISS_ERROR" }
+   | { type: "RESET" };
+ 
+ export const INITIAL_REVEAL: RevealState = {
+   phase: "ready", count: 0, requests: 0, repeated: false, recovered: false, skipped: false, cinematic: true, failure: null,
++  walkouts: 0, walkoutIndex: 0, heroWalked: false, rest: 0,
+ };
+ 
+-const RESULT_PHASES: readonly RevealPhase[] = ["opening", "buildup", "hero", "hero_hold", "rest", "summary"];
++const RESULT_PHASES: readonly RevealPhase[] = ["opening", "walkout", "buildup", "hero", "hero_hold", "rest", "summary"];
+ /** Con resultado autoritativo en mano (se puede omitir, avanzar, ver el resumen). */
+ export const hasResult = (s: RevealState): boolean => s.count > 0 && RESULT_PHASES.includes(s.phase);
+ export const canOpen = (s: RevealState): boolean => s.phase === "ready";
+-/** Tras la hero: el resto escalonado solo si hay más cartas; con una sola, la hero ES el sobre. */
+-const afterHero = (s: RevealState): RevealState => (s.count > 1 ? { ...s, phase: "rest" } : { ...s, phase: "summary" });
++/** Tras la hero: el resto escalonado solo si quedan cartas (sin walkouts, las demás); con una sola, la hero ES el sobre. */
++const afterHero = (s: RevealState): RevealState => (s.rest > 0 ? { ...s, phase: "rest" } : { ...s, phase: "summary" });
++/** Tras la intro: los walkouts (si los hay) y después la hero de siempre. */
++const afterIntro = (s: RevealState): RevealState => (s.walkouts > 0 ? { ...s, phase: "walkout", walkoutIndex: 0 } : { ...s, phase: "buildup" });
++/** Tras el último walkout: la hero de siempre, salvo que la hero ya haya salido en su walkout. */
++const afterWalkouts = (s: RevealState): RevealState => (s.heroWalked ? afterHero(s) : { ...s, phase: "buildup" });
+ 
+ export function revealReducer(s: RevealState, e: RevealEvent): RevealState {
+   switch (e.type) {
+@@ -470,8 +485,13 @@
+       // Un sobre nunca trae 0 cartas: sin resultado no hay ceremonia falsa, hay error honesto.
+       if (e.count <= 0) return { ...s, phase: "error", failure: classifyOpenFailure("") };
+       const cinematic = e.cinematic !== false;
+-      if (s.phase === "recovering" || !cinematic) return { ...s, phase: "summary", count: e.count, repeated: e.repeated, recovered: s.phase === "recovering", cinematic };
+-      return { ...s, phase: "opening", count: e.count, repeated: e.repeated, cinematic };
++      // WALKOUT 0.5 · sin datos de walkout, la ceremonia de siempre: 0 walkouts y «resto» = las demás cartas
++      const walkouts = Math.max(0, Math.min(e.count, Math.floor(e.walkouts ?? 0)));
++      const heroWalked = walkouts > 0 && e.heroWalked === true;
++      const rest = Math.max(0, Math.min(e.count, Math.floor(e.rest ?? e.count - 1 - (walkouts - (heroWalked ? 1 : 0)))));
++      const flow = { walkouts, walkoutIndex: 0, heroWalked, rest };
++      if (s.phase === "recovering" || !cinematic) return { ...s, ...flow, phase: "summary", count: e.count, repeated: e.repeated, recovered: s.phase === "recovering", cinematic };
++      return { ...s, ...flow, phase: "opening", count: e.count, repeated: e.repeated, cinematic };
+     }
+     case "OPEN_FAILED":
+       if (s.phase !== "requesting" && s.phase !== "recovering") return s;
+@@ -481,13 +501,20 @@
+     case "RECOVERED":
+       return s.phase === "ready" || s.phase === "recovering" ? { ...s, phase: "summary", count: e.count, recovered: true } : s;
+     case "INTRO_DONE":
+-      return s.phase === "opening" ? { ...s, phase: "buildup" } : s;
++      return s.phase === "opening" ? afterIntro(s) : s;
++    case "WALKOUT_DONE":
++      // «Continuar» de un walkout: el siguiente o, tras el último, lo que quede de la ceremonia. Fuera de un walkout no hace nada.
++      if (s.phase !== "walkout") return s;
++      return s.walkoutIndex + 1 < s.walkouts ? { ...s, walkoutIndex: s.walkoutIndex + 1 } : afterWalkouts(s);
+     case "BUILDUP_DONE":
+       return s.phase === "buildup" ? { ...s, phase: "hero" } : s;
+     case "HERO_SHOWN":
+       return s.phase === "hero" ? { ...s, phase: "hero_hold" } : s;
+     case "ADVANCE":
+       // Un toque avanza UN paso y nunca se salta la hero: intro/tensión → hero; hero girando → quieta; quieta → resto.
++      // WALKOUT 0.5 · con walkouts, un toque en la intro lleva al PRIMERO (el walkout avanza con su propio «Continuar»).
++      if (s.phase === "opening" && s.walkouts > 0) return afterIntro(s);
++      if (s.phase === "walkout") return s;
+       if (s.phase === "opening" || s.phase === "buildup") return { ...s, phase: "hero" };
+       if (s.phase === "hero") return { ...s, phase: "hero_hold" };
+       if (s.phase === "hero_hold") return afterHero(s);
+--- a/src/design/environment.ts (antes de 0.5)
++++ b/src/design/environment.ts
+@@ -122,6 +122,8 @@
+     // F81 · la sala se apaga más al concentrarse la energía y deja la HERO sola en escena.
+     case "buildup": return 0.8;
+     case "hero": case "hero_hold": return 0.85;
++    // Walkout 0.5 · el walkout ocupa toda la pantalla con su propia arena: la sala, apagada del todo.
++    case "walkout": return 0.9;
+     case "rest": return 0.6;
+     case "summary": return 0.25;
+     default: return 0;
+--- a/src/lib/audio/music.ts (antes de 0.5)
++++ b/src/lib/audio/music.ts
+@@ -187,7 +187,7 @@
+ 
+ /** La apertura de sobre agacha la música mientras salen las cartas. */
+ /** F81 · la música se aparta durante toda la cinemática (intro → tensión → hero → resto) y vuelve en el resumen. */
+-export const packMusicDuck = (phase: string): boolean => ["opening", "buildup", "hero", "hero_hold", "rest"].includes(phase);
++export const packMusicDuck = (phase: string): boolean => ["opening", "walkout", "buildup", "hero", "hero_hold", "rest"].includes(phase);
+ 
+ /* ───────────── efectos: ritmo de los sonidos de paso ───────────── */
+ 
+--- a/src/lib/walkout/controller.ts (antes de 0.5)
++++ b/src/lib/walkout/controller.ts
+@@ -45,13 +45,18 @@
+   /** ¿Queda un fotograma programado? (los tests comprueban que no tras skip/dispose). */
+   get pending(): boolean { return this.raf !== null; }
+ 
+-  play(): void {
++  /**
++   * `from` (s, 0.5): empezar DESDE un instante (en la apertura real el sobre ya se rasgó en su propia escena: el walkout
++   * entra por el apagón). Los cues anteriores a `from` no suenan.
++   */
++  play(from = 0): void {
+     if (this.state === "disposed") return;
+     this.stop();
+     this.state = "playing";
+-    this.t = 0;
+-    this.listeners.onFrame?.(frameAt(this.tl, 0));
+-    this.raf = this.scheduler.request((now) => { this.startedAt = now; this.tick(now); });
++    const t0 = Math.max(0, Math.min(this.tl.duration, from));
++    this.t = t0;
++    this.listeners.onFrame?.(frameAt(this.tl, t0));
++    this.raf = this.scheduler.request((now) => { this.startedAt = now - t0 * 1000; this.tick(now); });
+   }
+ 
+   private tick(now: number): void {
+--- a/src/lib/walkout/audio.ts (antes de 0.5)
++++ b/src/lib/walkout/audio.ts
+@@ -36,7 +36,18 @@
+     this.live.clear();
+   }
+ 
++  /**
++   * 0.5 · NUNCA lanza: un audio roto (contexto que falla, nodo que no se crea, permiso denegado) deja la escena en
++   * silencio y la apertura sigue — el cue se llama desde el reloj de la animación y un error ahí la congelaría.
++   */
+   play(cue: WalkoutCue, opts: { intensity?: number; steps?: number; stepEvery?: number; stepTimes?: readonly number[]; crowd?: CrowdEnvelope; celebration?: string; landAt?: number } = {}): void {
++    try { this.playUnsafe(cue, opts); } catch { this.failed = true; }
++  }
++
++  /** ¿Falló el audio alguna vez en esta escena? (QA; la escena siguió igual). */
++  failed = false;
++
++  private playUnsafe(cue: WalkoutCue, opts: { intensity?: number; steps?: number; stepEvery?: number; stepTimes?: readonly number[]; crowd?: CrowdEnvelope; celebration?: string; landAt?: number }): void {
+     if (!this.enabled) return;
+     const ac = this.ctxProvider();
+     const gain = effectiveGain();
+--- a/src/components/walkout/WalkoutDirector.tsx (antes de 0.5)
++++ b/src/components/walkout/WalkoutDirector.tsx
+@@ -14,7 +14,7 @@
+  * player)}` y la intensidad que decida quien llama. Al desmontar no queda reloj, sonido ni contexto WebGL.
+  */
+ import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
+-import { buildTimeline, clamp01, frameAt, type WalkoutFrame, type WalkoutIntensity } from "@/domain/walkout/timeline";
++import { buildTimeline, clamp01, frameAt, type BeatId, type WalkoutFrame, type WalkoutIntensity } from "@/domain/walkout/timeline";
+ import { PARTICLE_CAP, editionPreset, type WalkoutInput } from "@/domain/walkout/input";
+ import { footfalls, footfallsWithStop } from "@/domain/walkout/walk";
+ import { HYPE_TIMES, SHUSH, celebrationForIntensity, pickCelebration, type CelebrationChoice, type CelebrationId } from "@/domain/walkout/celebration";
+@@ -48,6 +48,11 @@
+   celebration?: CelebrationChoice;
+   /** Empieza sola al estar lista (la QA); por defecto espera a `play()`. */
+   autoPlay?: boolean;
++  /**
++   * 0.5 · empezar (y repetir) desde un beat: en la apertura real el sobre ya se rasgó en su propia escena, así que el
++   * walkout entra por el apagón (`"blackout"`) en vez de volver a enseñar un sobre.
++   */
++  startAtBeat?: BeatId | null;
+   onStatus?: (s: { status: string; t: number; stage: StageKind | null; stageWhy: string }) => void;
+   onComplete?: () => void;
+ }
+@@ -121,9 +126,10 @@
+ }
+ 
+ export const WalkoutDirector = forwardRef<WalkoutHandle, WalkoutDirectorProps>(function WalkoutDirector(
+-  { input, intensity, reduced, packArt = null, forceStage = null, audioOn = true, celebration = "RANDOM", autoPlay = false, onStatus, onComplete }, ref,
++  { input, intensity, reduced, packArt = null, forceStage = null, audioOn = true, celebration = "RANDOM", autoPlay = false, startAtBeat = null, onStatus, onComplete }, ref,
+ ) {
+   const tl = useMemo(() => buildTimeline(intensity, { reduced }), [intensity, reduced]);
++  const from = startAtBeat ? tl.beats.find((b) => b.id === startAtBeat)?.at ?? 0 : 0;
+   const preset = editionPreset(input.edition.id);
+   const particles = Math.min(preset.particles, PARTICLE_CAP[intensity] ?? 60);
+   const drama = intensity === "MEGA_WALKOUT" ? 1 : intensity === "WALKOUT" ? 0.6 : 0.3;
+@@ -189,9 +195,9 @@
+     return () => { signal.dead = true; window.clearTimeout(slow); };
+   }, [input]);
+ 
+-  const play = useCallback(() => { audio.stopAll(); reroll(); ctlRef.current?.play(); setStatus("playing"); }, [audio, reroll]);
++  const play = useCallback(() => { audio.stopAll(); reroll(); ctlRef.current?.play(from); setStatus("playing"); }, [audio, reroll, from]);
+   const skip = useCallback(() => { audio.stopAll(); ctlRef.current?.skip(); }, [audio]);
+-  const replay = useCallback(() => { audio.stopAll(); reroll(); ctlRef.current?.reset(); ctlRef.current?.play(); setStatus("playing"); }, [audio, reroll]);
++  const replay = useCallback(() => { audio.stopAll(); reroll(); ctlRef.current?.reset(); ctlRef.current?.play(from); setStatus("playing"); }, [audio, reroll, from]);
+   const seek = useCallback((t: number) => { audio.stopAll(); ctlRef.current?.seek(t); setStatus(t >= tl.duration ? "done" : "paused"); }, [audio, tl.duration]);
+   useImperativeHandle(ref, () => ({ play, skip, replay, seek }), [play, skip, replay, seek]);
+ 
+--- a/src/config/features.ts (antes de 0.5)
++++ b/src/config/features.ts
+@@ -32,3 +32,19 @@
+  * siguen en el repositorio.
+  */
+ export const GLOBAL_MARKET_ENABLED = false;
++
++/**
++ * PACK WALKOUT 3D (Walkout 0.5) — la entrada humana en 3D DENTRO de la apertura real de sobres. APAGADO.
++ *
++ * Es solo PRESENTACIÓN: el servidor decide y guarda las cartas antes de que empiece ninguna animación; esto únicamente
++ * cambia cómo se enseñan las especiales (Champions S breve, Future Star walkout, Record Breaker/Moments mega). Con
++ * «off» la apertura es exactamente la de siempre (hero + resto + resumen): ese es también el ROLLBACK.
++ *
++ *   "off"     nadie (estado de producción).
++ *   "admins"  solo las cuentas con `profiles.is_admin` (cuentas autorizadas explícitamente; veredicto del servidor).
++ *   "all"     todos los jugadores.
++ *
++ * En `next dev`, un navegador puede activarlo SOLO para sí con `localStorage["drl:walkout3d"] = "1"`; en una build de
++ * producción esa vía no existe (ver `domain/walkout/packWalkout · packWalkoutAllowed`).
++ */
++export const PACK_WALKOUT_3D_ENABLED: "off" | "admins" | "all" = "off";
+--- a/src/app/design-system/fase81/page.tsx (antes de 0.5)
++++ b/src/app/design-system/fase81/page.tsx
+@@ -8,6 +8,10 @@
+  *
+  *   scene = normal | high | tie2 | tieall | dup | single | invalid      (movimiento reducido: emulación del navegador)
+  *   &reset=1  borra el revelado guardado en la pestaña (la recuperación tras F5 se prueba SIN él)
++ *
++ * WALKOUT 0.5 · `scene = w-tr | w-jp | w-us | w-kr | w-mega | w-dup | w-std` (cartas especiales reales) presenta el walkout
++ * aunque el despliegue esté en «off» (`qaWalkout`, solo fuera de producción); `&walkout=0` lo apaga para comparar con la
++ * apertura de siempre, `&walkout=1` lo enciende en cualquier escena.
+  */
+ import { useEffect, useMemo, useState } from "react";
+ import { useGameStore } from "@/store/useGameStore";
+@@ -18,6 +22,7 @@
+ 
+ export default function Fase81Harness() {
+   const [scene, setScene] = useState<F81Scene | null>(null);
++  const [walkout, setWalkout] = useState(false);
+   useEffect(() => {
+     const q = new URLSearchParams(window.location.search);
+     const s = (q.get("scene") ?? "normal") as F81Scene;
+@@ -32,6 +37,7 @@
+     const { packId } = f81Scene(sc);
+     // Solo el store LOCAL del navegador: sin servidor ni economía.
+     useGameStore.setState((st) => ({ unopenedPacks: { ...st.unopenedPacks, [packId]: Math.max(9, st.unopenedPacks[packId] ?? 0) } }));
++    setWalkout(q.get("walkout") === "1" || (sc.startsWith("w-") && q.get("walkout") !== "0"));
+     setScene(sc);
+   }, []);
+   // Cuenta las «aperturas» en la pestaña (sobrevive a F5): la QA demuestra que recargar/omitir/doble clic no reabre.
+@@ -41,8 +47,8 @@
+   } : undefined), [scene]);
+   if (!scene || !qa) return <p className="p-6 text-ink-muted" data-testid="f81-loading">Cargando escena…</p>;
+   return (
+-    <div data-testid="f81-harness" data-scene={scene}>
+-      <PackOpeningExperience key={scene} packId={f81Scene(scene).packId} qaOpen={qa} />
++    <div data-testid="f81-harness" data-scene={scene} data-walkout={walkout ? "1" : "0"}>
++      <PackOpeningExperience key={scene} packId={f81Scene(scene).packId} qaOpen={qa} qaWalkout={walkout} />
+     </div>
+   );
+ }
+--- a/src/components/packs/f57.packOpening.test.tsx (antes de 0.5)
++++ b/src/components/packs/f57.packOpening.test.tsx
+@@ -66,7 +66,10 @@
+ 
+ test("A4 · la ceremonia sigue pidiendo UNA apertura al servidor y guarda el resultado antes de animar", () => {
+   assert.ok(EXP.includes("const out = await openPackOutcome(packId);"));
+-  assert.ok(EXP.indexOf("saveOpenReveal(packId, res);") < EXP.indexOf('dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res) });'), "el resultado se guarda antes de la ceremonia");
++  // Walkout 0.5 · el éxito lleva además el ritmo de los walkouts (`ceremonyFlow`, solo presentación del resultado YA guardado)
++  const success = 'dispatch({ type: "OPEN_SUCCEEDED", count: res.length, repeated, cinematic: heroIsPresentable(res), ...ceremonyFlow(res) });';
++  assert.ok(EXP.includes(success), "la ceremonia arranca con el resultado recibido");
++  assert.ok(EXP.indexOf("saveOpenReveal(packId, res);") < EXP.indexOf(success), "el resultado se guarda antes de la ceremonia");
+ });
+ 
+ /* ═══════════════════ revelado: gesto por carta, saltar, revelar todas ═══════════════════ */
+--- a/src/components/packs/packOpening.behavior.test.ts (antes de 0.5)
++++ b/src/components/packs/packOpening.behavior.test.ts
+@@ -82,7 +82,9 @@
+   // F81 · la hero es una instancia del resultado real (por uid) y su plan; el resto, el orden de presentación del plan.
+   assert.match(SRC, /const heroResult = best \? results\.find\(\(r\) => r\.uid === best\.uid\) : undefined;/, "la hero sale del resultado real");
+   assert.match(SRC, /item=\{best\}/, "con el plan de esa carta");
+-  assert.match(SRC, /plan\.order\.filter\(\(i\) => i\.uid !== best\?\.uid\)/, "el resto: el resultado sin la hero");
++  // Walkout 0.5 · el resto: el resultado sin la hero y sin las especiales que ya salieron en su walkout (nada más)
++  assert.match(SRC, /plan\.order\.filter\(\(i\) => i\.uid !== best\?\.uid && !walkedUids\.has\(i\.uid\)\)/, "el resto: el resultado sin la hero");
++  assert.match(SRC, /const walkedUids = new Set\(walkoutItems\.map\(\(w\) => w\.uid\)\);/, "solo las ya presentadas en un walkout");
+   assert.match(SUMMARY, /serial=\{it\.serial \?\? undefined\}/, "el resumen muestra el serial devuelto");
+   // La marca va en TEXTO bajo cada carta (la cinta sobre la carta tapaba el OVR). Pack Opening 3.0: una insignia pequeña
+   // con la MISMA semántica — nueva variante ≠ nueva ≠ duplicada ×N (según la colección de antes).

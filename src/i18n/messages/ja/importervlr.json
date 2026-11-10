@@ -1,0 +1,17 @@
+{
+  "autoarista en {fromMatchId}": "{fromMatchId}で自己辺",
+  "cuadro: conflicto con resultados — {c}": "トーナメント表: 結果と矛盾 — {c}",
+  "cuadro: transición no afirmada — {u}": "トーナメント表: 未確認の遷移 — {u}",
+  "el ganador de {fromMatchId} tiene dos destinos": "{fromMatchId}の勝者に行き先が2つあります",
+  "la página de VLR no parece un torneo (sin título de evento): {overview}": "VLRのページがトーナメントに見えません(イベントタイトルなし): {overview}",
+  "partido {vlrId}: página de detalle no disponible ({v}); mapas omitidos": "マッチ{vlrId}: 詳細ページが利用できません({v})。マップは省略しました",
+  "solo se descargaron {maxMatchPages}/{length} páginas de partido (maxMatchPages)": "マッチページは{length}件中{maxMatchPages}件のみ取得しました(maxMatchPages)",
+  "{mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.": "マップを{mapsParsed}件読み取りましたが、scoreboardの行が1つもありません。マッチページのマークアップが変わった可能性があります。この行がないと、プレイヤーごとの統計はすべて0になります。",
+  "{tag}: clasificación no unívoca ({length} alimentadores, {length2} cajas)": "{tag}: 進出が一意でありません(フィーダー{length}件、ボックス{length2}件)",
+  "{tag}: el ganador «{w}» de {fromMatchId} no juega {toMatchId}": "{tag}: {fromMatchId}の勝者「{w}」は{toMatchId}に出場しません",
+  "{tag}: el ganador «{w}» no es el clasificado «{q}»": "{tag}: 勝者「{w}」は進出チーム「{q}」ではありません",
+  "{tag}: parejas sin el patrón (down, up)": "{tag}: ペアが(down, up)のパターンではありません",
+  "{tag}: sin destinos": "{tag}: 行き先なし",
+  "{tag}: {length} alimentadores para {length2} destinos": "{tag}: フィーダー{length}件に対して行き先{length2}件",
+  "{tag}: «{w}» no ocupa el hueco {toSlot} de {toMatchId}": "{tag}: 「{w}」は{toMatchId}のスロット{toSlot}を占めていません"
+}

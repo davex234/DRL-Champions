@@ -1,0 +1,113 @@
+{
+ "retratos": 15,
+ "porAgente": [
+  {
+   "agente": "veil",
+   "variante": "portrait",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "probe",
+   "variante": "portrait",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "spear",
+   "variante": "portrait",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "warden",
+   "variante": "portrait",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "echo",
+   "variante": "portrait",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "veil",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "haze",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "probe",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "pulse",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "spear",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "blitz",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "warden",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "tripwire",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "specter",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  },
+  {
+   "agente": "echo",
+   "variante": "avatar",
+   "arte": "glyph",
+   "sigilo": true,
+   "imagen": false
+  }
+ ],
+ "imagenesRotas": 0,
+ "imagenesVivas": 0,
+ "altVisible": false
+}

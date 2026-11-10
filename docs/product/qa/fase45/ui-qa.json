@@ -1,0 +1,81 @@
+{
+  "generado": "2026-09-18T09:39:59.611Z",
+  "base": "http://127.0.0.1:3005",
+  "arena": [
+    {
+      "environment": "match",
+      "stage": true,
+      "recinto": true,
+      "attacker": "rival",
+      "finalTurn": "false",
+      "turno": "6",
+      "musicContext": "MATCH",
+      "capasActivas": 0
+    },
+    {
+      "environment": "match",
+      "stage": true,
+      "recinto": true,
+      "attacker": "you",
+      "finalTurn": "false",
+      "turno": "7",
+      "musicContext": "MATCH",
+      "capasActivas": 0
+    },
+    {
+      "environment": "match",
+      "stage": true,
+      "recinto": true,
+      "attacker": "rival",
+      "finalTurn": "false",
+      "turno": "8",
+      "musicContext": "MATCH",
+      "capasActivas": 0
+    },
+    {
+      "environment": "match",
+      "stage": true,
+      "recinto": true,
+      "attacker": "you",
+      "finalTurn": "false",
+      "turno": "9",
+      "musicContext": "MATCH",
+      "capasActivas": 0
+    },
+    {
+      "environment": "match",
+      "stage": true,
+      "recinto": true,
+      "attacker": "rival",
+      "finalTurn": "true",
+      "turno": "10",
+      "musicContext": "MATCH",
+      "capasActivas": 0
+    },
+    {
+      "environment": "match",
+      "stage": true,
+      "recinto": true,
+      "attacker": "none",
+      "finalTurn": "false",
+      "turno": "10",
+      "musicContext": "MATCH",
+      "capasActivas": 0
+    }
+  ],
+  "resultado": {
+    "environment": "match",
+    "stage": false,
+    "recinto": false,
+    "attacker": null,
+    "finalTurn": null,
+    "turno": null,
+    "musicContext": "RESULT",
+    "capasActivas": 0
+  },
+  "audio": {
+    "match": "MATCH",
+    "result": "RESULT",
+    "maxActiveLayers": 0
+  }
+}

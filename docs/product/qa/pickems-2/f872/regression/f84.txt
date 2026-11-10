@@ -1,0 +1,52 @@
+PASS ready + 0065 aplicada (cabeza ≥ 0065) + check «ranked» {"head":"0073_pickems_launch_guard","status":"ready"}
+PASS anónimo → 401 
+PASS POST al competitivo → 405 (solo lectura) 
+PASS A · centro competitivo 200 200
+PASS A · temporada competitiva 1 activa (rank-v1, 5 de colocación, Top 500, abierta) {"id":"competitiva-1","number":1,"name":"Temporada competitiva 1","startsAt":1791135221374,"endsAt":null,"rankConfigVersion":"rank-v1","formulaVersion":"ranked-rating-v1","placementGames":5,"top":{"size":500,"minSeasonMa
+PASS A · rating = el canónico de la BD (una sola fuente) {"api":1000,"db":1000}
+PASS A · estado coherente con sus partidas de temporada (rango solo tras 5) {"state":"UNRANKED","seasonMatches":0}
+PASS A · sin correos ni datos privados en el cable 
+PASS clasificación = elegibles reales de la vista (nunca filas fabricadas) {"total":0,"eligible":0}
+PASS clasificación: tamaño de página acotado aunque se pida 5000 
+PASS foto barata: posición, partidas de temporada y etiqueta {"rating":1000,"position":null,"rankedTotal":0,"gamesPlayed":0,"seasonMatches":0,"rankLabel":"Sin clasificar"}
+PASS perfil competitivo público (K mira a A): estado de temporada y sin datos privados {"state":"UNRANKED"}
+PASS perfil F89 (K mira a A): bloque competitivo sin versión ni correo {"seasonName":"Temporada competitiva 1","state":"UNRANKED","rank":null,"placement":{"played":0,"total":5},"peakRank":null,"rating":1000,"record":{"matches":0,"wins":0,"losses":0,"draws":0,"winrate":null}}
+PASS duelo privado: sin rating ni rango {"status":200,"outcome":null}
+PASS parámetros de cliente ignorados (?rating=9999 no cambia nada) 
+PASS /competitivo 1440: héroe con estado y emblema accesible {"state":"UNRANKED","emblem":"Sin clasificar"}
+PASS /competitivo 1440: sin desbordamiento 
+PASS perfil propio 1440: bloque ranked ausente según el estado del servidor (null) {"stNow":null,"hasRank":false,"hasCard":true}
+PASS /duelos ranked: tarjeta con emblema competitivo 
+PASS /competitivo 1024: héroe con estado y emblema accesible {"state":"UNRANKED","emblem":"Sin clasificar"}
+PASS /competitivo 1024: sin desbordamiento 
+PASS perfil propio 1024: bloque ranked ausente según el estado del servidor (null) {"stNow":null,"hasRank":false,"hasCard":true}
+PASS /competitivo 390: héroe con estado y emblema accesible {"state":"UNRANKED","emblem":"Sin clasificar"}
+PASS /competitivo 390: sin desbordamiento 
+PASS perfil propio 390: bloque ranked ausente según el estado del servidor (null) {"stNow":null,"hasRank":false,"hasCard":true}
+PASS página / → 200 200
+PASS página /competitivo → 200 200
+PASS página /duelos → 200 200
+PASS página /temporada → 200 200
+PASS página /coleccion → 200 200
+PASS página /coleccion/trofeos → 200 200
+PASS página /tienda → 200 200
+PASS página /misiones/crafting → 200 200
+PASS página /progresion → 200 200
+PASS página /admin/competitive → 200 200
+PASS página /jugador/68524df4-d13e-4875-9c75-f4ee08a5a245 → 200 200
+PASS API /api/game/state (K) → 2xx 200
+PASS API /api/game/me (K) → 2xx 200
+PASS API /api/game/competitive (K) → 2xx 200
+PASS API /api/game/forge (K) → 2xx 200
+PASS API /api/game/missions (K) → 2xx 200
+PASS API /api/game/crafting (K) → 2xx 200
+PASS API /api/game/collection-sets (K) → 2xx 200
+PASS API /api/game/daily-loop (K) → 2xx 200
+PASS API /api/game/season-track (K) → 2xx 200
+PASS API /api/game/duel/matchmaking (K) → 2xx 200
+PASS Ranked no toca la economía (invariantes, no hashes): la liquidación exige ranked y solo escribe rating/temporada competitiva; los servicios ranked no importan economía, sobres, forja, tienda, crafteo, misiones, sets ni escritura de temporada {"tablas":"_competitive_season_record,competitive_active_season,competitive_season_players,competitive_seasons,duel_matches,duel_pvp_ensure_rating,duel_pvp_expected_score,duel_pvp_k_factor,duel_pvp_rating_events,duel_pvp
+PASS F80 · los seis precios en el fichero de sobres activo 
+PASS F83 T2 DRAFT, 0 XP de temporada; F84 sin ajustes ni fotos (nada otorgado ni reiniciado) DRAFT|0|0|0
+PASS health 200 
+
+TOTAL 50/50

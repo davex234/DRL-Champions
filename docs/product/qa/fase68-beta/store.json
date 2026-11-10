@@ -1,0 +1,175 @@
+{
+  "sessions": [
+    {
+      "id": "B-r1-store",
+      "persona": "B",
+      "session": "store",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 25,
+      "screens": 6,
+      "checks": {
+        "pass": 5,
+        "fail": [
+          "FAIL doble clic en comprar cobra UNA vez",
+          "FAIL doble clic en comprar añade UN sobre"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 86,
+      "statuses": {
+        "200": 472,
+        "204": 13
+      },
+      "bad": [],
+      "notes": [],
+      "buys": [
+        {
+          "opened": true,
+          "price": 1000,
+          "dbl": true,
+          "credits": [
+            10080,
+            8080
+          ],
+          "packs": [
+            {},
+            {
+              "estandar": 2
+            }
+          ],
+          "modalAfter": "SOBRE SOBRE BRONCE 5 cartas aleatorias · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. ◆ Base 50 % ◆ Plata 25 % ◆ Oro 10 % ◆ Masters 7 % ◆ Champions 4 % ◆ Prime 3 % ◆ Ic"
+        }
+      ],
+      "insufficient": null,
+      "openNow": {
+        "ok": true,
+        "cards": [
+          "boo__base",
+          "crazyguy__base",
+          "patmen__base",
+          "starxo__base",
+          "echo__future-star"
+        ],
+        "ms": 2857
+      }
+    },
+    {
+      "id": "C-r1-store",
+      "persona": "C",
+      "session": "store",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 68,
+      "actions": 36,
+      "screens": 7,
+      "checks": {
+        "pass": 9,
+        "fail": [
+          "FAIL doble clic en comprar cobra UNA vez",
+          "FAIL doble clic en comprar añade UN sobre"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 132,
+      "statuses": {
+        "200": 866,
+        "204": 20
+      },
+      "bad": [],
+      "notes": [],
+      "buys": [
+        {
+          "opened": true,
+          "price": 1000,
+          "dbl": true,
+          "credits": [
+            2810,
+            810
+          ],
+          "packs": [
+            {},
+            {
+              "estandar": 2
+            }
+          ],
+          "modalAfter": "SOBRE SOBRE BRONCE 5 cartas aleatorias · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. ◆ Base 50 % ◆ Plata 25 % ◆ Oro 10 % ◆ Masters 7 % ◆ Champions 4 % ◆ Prime 3 % ◆ Ic"
+        }
+      ],
+      "insufficient": {
+        "text": "SOBRE SOBRE PLATA 6 cartas aleatorias · Un escalón por encima de Bronce: sin cartas Base, sobre todo Plata y Oro. ◆ Plata 50 % ◆ Oro 25 % ◆ Masters 10 % ◆ Champions 7 % ◆ Prime 5 % ◆ Icon 3 % DRL CREDITS PRECIO 2.500 TU SALDO 810 DESPUÉS — Saldo insuficiente: te faltan 1.690 DRL Credits. DINERO REAL",
+        "confirmDisabled": true
+      },
+      "openNow": {
+        "ok": true,
+        "cards": [
+          "beyn__base",
+          "cned__base",
+          "eko__base",
+          "karon__base",
+          "sugarz3ro__base"
+        ],
+        "ms": 2836
+      }
+    },
+    {
+      "id": "B-fix-store",
+      "persona": "B",
+      "session": "store",
+      "tag": "fix",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 58,
+      "actions": 29,
+      "screens": 7,
+      "checks": {
+        "pass": 9,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 110,
+      "statuses": {
+        "200": 605,
+        "204": 16
+      },
+      "bad": [],
+      "notes": [],
+      "buys": [
+        {
+          "opened": true,
+          "price": 1000,
+          "dbl": true,
+          "credits": [
+            5580,
+            4580
+          ],
+          "packs": [
+            {},
+            {
+              "estandar": 1
+            }
+          ],
+          "modalAfter": "SOBRE SOBRE BRONCE 5 cartas aleatorias · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. ◆ Base 50 % ◆ Plata 25 % ◆ Oro 10 % ◆ Masters 7 % ◆ Champions 4 % ◆ Prime 3 % ◆ Ic"
+        }
+      ],
+      "insufficient": {
+        "text": "SOBRE SOBRE CHAMPIONS 5 cartas aleatorias · Los mejores del mundo: la clase Champions (Champions S) es la que más sale. ◆ Oro 15 % ◆ Masters 20 % ◆ Champions 30 % ◆ Prime 20 % ◆ Icon 15 % DRL CREDITS PRECIO 8.000 TU SALDO 4.580 DESPUÉS — Saldo insuficiente: te faltan 3.420 DRL Credits. DINERO REAL P",
+        "confirmDisabled": true
+      },
+      "openNow": {
+        "ok": true,
+        "cards": [
+          "crashies__base",
+          "jessievash__base",
+          "n4rrate__base",
+          "sayonara__base",
+          "stax__base"
+        ],
+        "ms": 2854
+      }
+    }
+  ]
+}

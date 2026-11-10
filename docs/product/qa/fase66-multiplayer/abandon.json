@@ -1,0 +1,68 @@
+{
+  "rules": "PvP: abandonar = derrota (ranked mueve rating una vez; privado sin rating); la fila se conserva con closed_by. PvE: abandonar en curso borra la fila (sin pago); F66: una partida TERMINADA ya no se borra (409).",
+  "realServer": {
+    "finishedAbandonTen": {
+      "409": 10
+    },
+    "pveFinished": {
+      "200": 5,
+      "409": 8
+    }
+  },
+  "soak": {
+    "lifecycles": {
+      "FINISHED": 92,
+      "ABANDONED": 8
+    },
+    "chaos": {
+      "sameId2": 217,
+      "dup3": 290,
+      "stale": 128,
+      "abandon": 4,
+      "play-vs-abandon": 5
+    },
+    "playVsAbandon": [
+      {
+        "match": "3899abfb",
+        "statuses": [
+          409,
+          200
+        ],
+        "final": "ABANDONED"
+      },
+      {
+        "match": "07672011",
+        "statuses": [
+          409,
+          200
+        ],
+        "final": "ABANDONED"
+      },
+      {
+        "match": "6a83a972",
+        "statuses": [
+          409,
+          200
+        ],
+        "final": "ABANDONED"
+      },
+      {
+        "match": "47c60b5b",
+        "statuses": [
+          200,
+          409
+        ],
+        "final": "FINISHED"
+      },
+      {
+        "match": "4c687858",
+        "statuses": [
+          409,
+          200
+        ],
+        "final": "ABANDONED"
+      }
+    ]
+  },
+  "unit": "duelsPvp.concurrency: jugar contra abandonar ×8 y abandonar ×10 concurrentes"
+}

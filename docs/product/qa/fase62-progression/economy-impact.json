@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-09-25T11:10:55.742Z",
+  "newSources": {
+    "credits": 0,
+    "packs": 0,
+    "cards": 0,
+    "note": "F62 no añade recompensas: ni por nivel de cuenta, ni logros nuevos, ni hitos de colección con premio."
+  },
+  "existingCeilings": {
+    "missionsPerDay": {
+      "credits": 850,
+      "seasonXp": 650,
+      "batch": 3
+    },
+    "missionsPerWeek": {
+      "credits": 9250,
+      "seasonXp": 6450,
+      "weeklyBatch": 2,
+      "weeklyCredits": 3300
+    },
+    "duelsPerDay": {
+      "bestCreditsPerDuel": 350,
+      "cap": 20,
+      "credits": 7000
+    },
+    "freeTrackSeason": {
+      "credits": 15900,
+      "packs": [
+        "estandar",
+        "premium",
+        "estandar",
+        "premium",
+        "estandar",
+        "premium"
+      ],
+      "levels": 30,
+      "seasonXpToMax": 30000,
+      "weeksAtDailyMax": 4.65
+    },
+    "achievementsLifetime": {
+      "credits": 67500,
+      "count": 7
+    }
+  },
+  "packPrices": {
+    "estandar": 1000,
+    "premium": 2500,
+    "bronce": null,
+    "plata": null,
+    "oro": 4000
+  },
+  "creditEquivalent": {
+    "maxDailyRecurring": 8810,
+    "parts": {
+      "dailyMissions": 850,
+      "duels": 7000,
+      "weeklyAmortized": 471,
+      "freeTrackAmortized": 488
+    },
+    "estandarPacksPerDay": 8.81
+  },
+  "f41Reference": {
+    "maxRecurringPerDay": 10330,
+    "ceiling": 11150,
+    "source": "memoria/economy-fase41 (simulador 1M, salud 12/12)"
+  },
+  "verdict": "Sin cambio de techo: 8810 créditos/día recurrentes ≤ techo F41 11150. F62 solo reduce la fricción para cobrar lo que ya existía."
+}

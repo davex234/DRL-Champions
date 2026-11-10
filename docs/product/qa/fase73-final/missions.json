@@ -1,0 +1,153 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "published": {
+    "missions": 0,
+    "projects": 0
+  },
+  "rows": [
+    {
+      "id": "qa-f73-abrir-r3",
+      "status": "RETIRED",
+      "type": "OPEN_PACK",
+      "project": null
+    },
+    {
+      "id": "qa-f73-abrir-r4",
+      "status": "RETIRED",
+      "type": "OPEN_PACK",
+      "project": null
+    },
+    {
+      "id": "qa-f73-craftear",
+      "status": "RETIRED",
+      "type": "CRAFT_PACK",
+      "project": null
+    },
+    {
+      "id": "qa-f73-craftear-r2",
+      "status": "RETIRED",
+      "type": "CRAFT_PACK",
+      "project": null
+    },
+    {
+      "id": "qa-f73-equipo-tr",
+      "status": "RETIRED",
+      "type": "DECK_MIN_COUNTRY",
+      "project": "qa-f73-proyecto"
+    },
+    {
+      "id": "qa-f73-equipo-tr-r2",
+      "status": "RETIRED",
+      "type": "DECK_MIN_COUNTRY",
+      "project": "qa-f73-proyecto-r2"
+    },
+    {
+      "id": "qa-f73-equipo-tr-r3",
+      "status": "RETIRED",
+      "type": "DECK_MIN_COUNTRY",
+      "project": "qa-f73-proyecto-r3"
+    },
+    {
+      "id": "qa-f73-equipo-tr-r4",
+      "status": "RETIRED",
+      "type": "DECK_MIN_COUNTRY",
+      "project": "qa-f73-proyecto-r4"
+    },
+    {
+      "id": "qa-f73-partidas",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": null
+    },
+    {
+      "id": "qa-f73-partidas-r2",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": null
+    },
+    {
+      "id": "qa-f73-partidas-r3",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": null
+    },
+    {
+      "id": "qa-f73-partidas-r4",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": null
+    },
+    {
+      "id": "qa-f73-tras-equipo",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": "qa-f73-proyecto"
+    },
+    {
+      "id": "qa-f73-tras-equipo-r2",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": "qa-f73-proyecto-r2"
+    },
+    {
+      "id": "qa-f73-tras-equipo-r3",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": "qa-f73-proyecto-r3"
+    },
+    {
+      "id": "qa-f73-tras-equipo-r4",
+      "status": "RETIRED",
+      "type": "MATCH_PLAY",
+      "project": "qa-f73-proyecto-r4"
+    }
+  ],
+  "note": "Producción queda con 0 misiones publicadas: solo configuración QA retirada. El contenido real lo crea el equipo desde /admin/crafting.",
+  "conditionsAudit": {
+    "supported": [
+      "MATCH_PLAY",
+      "MATCH_WIN",
+      "WIN_STREAK",
+      "TURN_WIN",
+      "USE_CARD",
+      "USE_PLAYER",
+      "USE_TEAM",
+      "USE_COUNTRY",
+      "USE_ROLE",
+      "DECK_CONTAINS_PLAYER",
+      "DECK_MIN_TEAM",
+      "DECK_MIN_COUNTRY",
+      "DECK_MIN_ROLE",
+      "WIN_WITH_PLAYER",
+      "WIN_WITH_TEAM_COUNT",
+      "WIN_WITH_COUNTRY_COUNT",
+      "WIN_WITH_ROLE_COUNT",
+      "WIN_PVE",
+      "WIN_PVP (=ranked)",
+      "WIN_COMPETITIVE (=ranked)",
+      "WIN_DRAFT",
+      "CRAFT_PACK",
+      "CRAFT_CARD",
+      "OPEN_PACK (packId opcional)",
+      "dependencias (cadenas)"
+    ],
+    "mapping": {
+      "ganar X duelos": "MATCH_WIN",
+      "jugar X duelos": "MATCH_PLAY",
+      "ganar PvP / competitivo": "WIN_PVP / WIN_COMPETITIVE (solo ranked real; PvP privado nunca cuenta)",
+      "X seguidas": "WIN_STREAK",
+      "cartas de un país / varias del mismo país": "WIN_WITH_COUNTRY_COUNT (con o sin country)",
+      "varias del mismo equipo": "WIN_WITH_TEAM_COUNT (equipo IMPRESO en la carta)",
+      "una carta concreta": "USE_CARD",
+      "abrir X sobres / un sobre concreto": "OPEN_PACK (+packId)",
+      "craftear X sobres / cartas": "CRAFT_PACK / CRAFT_CARD",
+      "completar otra misión / cadena": "dependsOn (con validación de ciclos)"
+    },
+    "gaps": {
+      "varias cartas concretas en UNA misión": "se expresa con misiones USE_CARD encadenadas (no se inventó condición nueva)",
+      "tener X cartas de un tipo en la COLECCIÓN": "no existe (las condiciones miran el equipo de la partida, DECK_MIN_*); sería una condición nueva = decisión de producto"
+    },
+    "team": "canonicalCardTeam (equipo impreso en la carta)",
+    "country": "país del jugador de la carta"
+  }
+}

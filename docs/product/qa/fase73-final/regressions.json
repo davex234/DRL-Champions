@@ -1,0 +1,17 @@
+{
+  "at": "2026-09-30T20:27:48.023Z",
+  "build": "drl-0.1.1-1-3191f545",
+  "sequential": true,
+  "f728": {
+    "timer1440": "20/20 (pasada anterior, misma build; detenida después por memoria del sistema)",
+    "timer1024": "14/14 (timer-1024.log)",
+    "timer390": "14/14 (timer-390.log, movimiento reducido)",
+    "pvp": "1.ª 8/9: el fotograma 00:00 del lado que decide duró menos que el intervalo de muestreo (00:01 → 00:30; el servidor resolvió en el plazo, el otro lado vio 00:00) · repetición 9/9 (timer-pvp-2.log) → FLAKE de muestreo del arnés, no del producto",
+    "colors": "59/59 (banderas y logos sin tinte, limpio=true, p50/p95=0, 1440/1024/390)",
+    "hints": "40/40",
+    "hiddenInfo": "suite: F50 10 mano rival = dorsos, F71.2 V6 rival oculto sin cifras, B2 vista PvP redactada, D6 recuento",
+    "determinism": "suite: F61 MOTOR 01 huella dorada + «motor de combate intacto»"
+  },
+  "f73UiFinal": "18/18 (final-ui.log): /misiones, /misiones/crafting, sobres, cartas, pestaña proyectos × 1440/1024/390 (390 con movimiento reducido); proyecto completo real: fase73-closure/project-claim-ui.json 11/11",
+  "tunnel": "0 caídas del túnel SSH durante estas pruebas"
+}

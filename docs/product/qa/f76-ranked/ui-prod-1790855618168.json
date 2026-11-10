@@ -1,0 +1,92 @@
+{
+  "base": "https://valorosters.com",
+  "total": 17,
+  "failed": 0,
+  "results": [
+    {
+      "id": "U0 · estado roto construido: H MATCHED → partida terminal",
+      "ok": true,
+      "detail": "{\"id\":\"5dca96f2\",\"match\":\"f4342c88\",\"state\":\"MATCHED\",\"reason\":null,\"mclosed\":\"ABANDONED\",\"mstatus\":\"IN_PROGRESS\",\"updated\":\"2026-10-01T11:52:27.87351+00:00\"}"
+    },
+    {
+      "id": "U1 · MATCHED muerto + JUGAR → «Buscando rival» en cola NUEVA; nunca sincroniza la partida muerta; sin jerga",
+      "ok": true,
+      "detail": "{\"before\":{\"id\":\"5dca96f2\",\"match\":\"f4342c88\",\"state\":\"MATCHED\",\"reason\":null,\"mclosed\":\"ABANDONED\",\"mstatus\":\"IN_PROGRESS\",\"updated\":\"2026-10-01T11:52:27.87351+00:00\"},\"screen\":{\"url\":\"/duelos/pvp\",\"searching\":true,\"arena\":false,\"result\":false,\"technical\":false,\"syncing\":null},\"live\":1}"
+    },
+    {
+      "id": "U1b · consola sin errores",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "P1 · doble clic en JUGAR → una sola búsqueda viva",
+      "ok": true,
+      "detail": "{\"live\":1}"
+    },
+    {
+      "id": "O2 · cancelada desde otra sesión: la pantalla deja de buscar sola (sondeo), sin error",
+      "ok": true,
+      "detail": "{\"url\":\"/duelos/pvp\",\"searching\":false,\"arena\":false,\"result\":false,\"technical\":false,\"syncing\":null}"
+    },
+    {
+      "id": "Q1 · dos sesiones JUGAR a la vez → UNA búsqueda; las dos pantallas la muestran",
+      "ok": true,
+      "detail": "{\"a\":true,\"b\":true,\"live\":1}"
+    },
+    {
+      "id": "L4 · emparejado: la sesión entra en la partida VIVA",
+      "ok": true,
+      "detail": "{\"enq\":\"OK\",\"mid\":\"b30c7116\",\"syncing\":\"b30c7116\"}"
+    },
+    {
+      "id": "AD1 · F5 durante la partida ACTIVA → la MISMA partida (no cola nueva)",
+      "ok": true,
+      "detail": "{\"url\":\"/duelos/pvp\",\"searching\":false,\"arena\":true,\"result\":false,\"technical\":false,\"syncing\":\"b30c7116-30fa-461f-a957-0eeb4920f5f8\"}"
+    },
+    {
+      "id": "Q2 · la otra sesión también reconecta a ESA partida",
+      "ok": true,
+      "detail": "b30c7116"
+    },
+    {
+      "id": "N2 · D abandona",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "M1 · al terminar se ve el RESULTADO de esa partida",
+      "ok": true,
+      "detail": "{\"url\":\"/duelos/pvp?match=b30c7116-30fa-461f-a957-0eeb4920f5f8\",\"searching\":false,\"arena\":false,\"result\":true,\"technical\":false,\"syncing\":\"b30c7116-30fa-461f-a957-0eeb4920f5f8\"}"
+    },
+    {
+      "id": "AE1 · la URL fija la partida terminada (?match=) para que F5 conserve el resultado",
+      "ok": true,
+      "detail": "/duelos/pvp?match=b30c7116-30fa-461f-a957-0eeb4920f5f8"
+    },
+    {
+      "id": "AE2 · F5 en el resultado → mismo resultado, sin volver a buscar, sin presentarlo como activo",
+      "ok": true,
+      "detail": "{\"url\":\"/duelos/pvp?match=b30c7116-30fa-461f-a957-0eeb4920f5f8\",\"searching\":false,\"arena\":false,\"result\":true,\"technical\":false,\"syncing\":\"b30c7116-30fa-461f-a957-0eeb4920f5f8\"}"
+    },
+    {
+      "id": "J5 · otra sesión entra en /duelos/pvp después: antesala, NO el resultado viejo",
+      "ok": true,
+      "detail": "{\"url\":\"/duelos/pvp\",\"searching\":false,\"arena\":false,\"result\":false,\"technical\":false,\"syncing\":null}"
+    },
+    {
+      "id": "W3 · «Buscar otro rival» → búsqueda NUEVA (no la partida terminada)",
+      "ok": true,
+      "detail": "{\"clicked\":true,\"again\":{\"url\":\"/duelos/pvp\",\"searching\":true,\"arena\":false,\"result\":false,\"technical\":false,\"syncing\":\"b30c7116-30fa-461f-a957-0eeb4920f5f8\"}}"
+    },
+    {
+      "id": "Q3 · consola sin errores en las dos sesiones",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "Z3 · limpieza: 0 búsquedas vivas de QA",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+# VERIFY — gate de calidad en cada push/PR (rápido, sin Rust). Si algo falla, no continúa.
+name: verify
+
+on:
+  push:
+  pull_request:
+
+# Cancela ejecuciones anteriores del mismo ref (ahorra minutos).
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Architecture (Release System)
+        run: npm run release:arch
+
+      # Ejecuta TODOS los scripts/*-verify.ts (glob, sin lista manual) y falla si CUALQUIERA falla:
+      # cubre updater/cards/release-flow y todos los motores (gameplay/collection/career/online...).
+      - name: Engine verifies (all)
+        run: npm run verify:all

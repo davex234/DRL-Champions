@@ -1,0 +1,128 @@
+{
+ "at": "2026-10-06T16:17:30.447Z",
+ "base": "http://127.0.0.1:3011",
+ "total": 24,
+ "pass": 24,
+ "rows": [
+  {
+   "id": "1 · primera entrada: reglas visibles",
+   "ok": true,
+   "detail": "{\"state\":\"show\",\"rules\":true,\"stored\":\"1\"}"
+  },
+  {
+   "id": "1b · marcada como vista SOLO tras pintarse",
+   "ok": true,
+   "detail": "{\"state\":\"show\",\"rules\":true,\"stored\":\"1\"}"
+  },
+  {
+   "id": "2 · segunda entrada: SIN reglas",
+   "ok": true,
+   "detail": "{\"state\":\"hidden\",\"rules\":false,\"stored\":\"1\"}"
+  },
+  {
+   "id": "3 · F5: SIN reglas",
+   "ok": true,
+   "detail": "{\"state\":\"hidden\",\"rules\":false,\"stored\":\"1\"}"
+  },
+  {
+   "id": "4 · salir y volver: SIN reglas",
+   "ok": true,
+   "detail": "{\"state\":\"hidden\",\"rules\":false,\"stored\":\"1\"}"
+  },
+  {
+   "id": "5 · cerrar el navegador y nueva sesión: SIN reglas",
+   "ok": true,
+   "detail": "{\"state\":\"hidden\",\"rules\":false,\"stored\":\"1\"}"
+  },
+  {
+   "id": "6 · otra cuenta que nunca entró: reglas visibles",
+   "ok": true,
+   "detail": "{\"state\":\"show\",\"rules\":true,\"stored\":\"1\"}"
+  },
+  {
+   "id": "6b · volver a la primera cuenta: sigue sin reglas",
+   "ok": true,
+   "detail": "{\"state\":\"hidden\",\"rules\":false,\"stored\":\"1\"}"
+  },
+  {
+   "id": "7 · clic en EASY: única seleccionada",
+   "ok": true,
+   "detail": "[\"EASY\"]"
+  },
+  {
+   "id": "7 · clic en HARD: única seleccionada",
+   "ok": true,
+   "detail": "[\"HARD\"]"
+  },
+  {
+   "id": "7 · clic en NORMAL: única seleccionada",
+   "ok": true,
+   "detail": "[\"NORMAL\"]"
+  },
+  {
+   "id": "7b · teclado: foco en el botón y Enter selecciona Difícil",
+   "ok": true,
+   "detail": "{\"pressed\":\"HARD\",\"focused\":\"HARD\",\"outline\":\"none/rgb(255, 46, 99) 0px 0px 0px 2\"}"
+  },
+  {
+   "id": "7c · se ve FÁCIL · NORMAL · DIFÍCIL; el DOM conserva Fácil · Normal · Difícil",
+   "ok": true,
+   "detail": "{\"dom\":[\"Fácil\",\"Normal\",\"Difícil\"],\"shown\":[\"FÁCIL\",\"NORMAL\",\"DIFÍCIL\"]}"
+  },
+  {
+   "id": "7d · sin etiquetas, descripciones ni párrafo inferior",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "8 · «Comenzar duelo» funciona con la dificultad elegida",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "9 · 1440 con-reglas: sin desbordamiento, 3 en fila, mismo ancho, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"btns\":[{\"t\":1080,\"w\":325,\"h\":59,\"label\":\"Fácil\",\"shown\":\"FÁCIL\",\"pressed\":\"false\"},{\"t\":1080,\"w\":325,\"h\":59,\"label\":\"Normal\",\"shown\":\"NORMAL\",\"pressed\":\"true\"},{\"t\":1080,\"w\":325,\"h\":59,\"label\":\"Difícil\",\"shown\":\"DIFÍCIL\",\"pressed\":\"false\"}],\"rules\":true}"
+  },
+  {
+   "id": "9 · 1440 sin-reglas: sin desbordamiento, 3 en fila, mismo ancho, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"btns\":[{\"t\":1080,\"w\":325,\"h\":59,\"label\":\"Fácil\",\"shown\":\"FÁCIL\",\"pressed\":\"false\"},{\"t\":1080,\"w\":325,\"h\":59,\"label\":\"Normal\",\"shown\":\"NORMAL\",\"pressed\":\"true\"},{\"t\":1080,\"w\":325,\"h\":59,\"label\":\"Difícil\",\"shown\":\"DIFÍCIL\",\"pressed\":\"false\"}],\"rules\":false}"
+  },
+  {
+   "id": "9 · 1440 sin reglas: compacto (sin hueco antes de «Comenzar duelo»)",
+   "ok": true,
+   "detail": "{\"gap\":20}"
+  },
+  {
+   "id": "9 · 1024 con-reglas: sin desbordamiento, 3 en fila, mismo ancho, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"btns\":[{\"t\":1075,\"w\":304,\"h\":59,\"label\":\"Fácil\",\"shown\":\"FÁCIL\",\"pressed\":\"false\"},{\"t\":1075,\"w\":304,\"h\":59,\"label\":\"Normal\",\"shown\":\"NORMAL\",\"pressed\":\"true\"},{\"t\":1075,\"w\":304,\"h\":59,\"label\":\"Difícil\",\"shown\":\"DIFÍCIL\",\"pressed\":\"false\"}],\"rules\":true}"
+  },
+  {
+   "id": "9 · 1024 sin-reglas: sin desbordamiento, 3 en fila, mismo ancho, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"btns\":[{\"t\":1075,\"w\":304,\"h\":59,\"label\":\"Fácil\",\"shown\":\"FÁCIL\",\"pressed\":\"false\"},{\"t\":1075,\"w\":304,\"h\":59,\"label\":\"Normal\",\"shown\":\"NORMAL\",\"pressed\":\"true\"},{\"t\":1075,\"w\":304,\"h\":59,\"label\":\"Difícil\",\"shown\":\"DIFÍCIL\",\"pressed\":\"false\"}],\"rules\":false}"
+  },
+  {
+   "id": "9 · 1024 sin reglas: compacto (sin hueco antes de «Comenzar duelo»)",
+   "ok": true,
+   "detail": "{\"gap\":20}"
+  },
+  {
+   "id": "9 · 390 con-reglas: sin desbordamiento, 3 en fila, mismo ancho, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"btns\":[{\"t\":1337,\"w\":103,\"h\":56,\"label\":\"Fácil\",\"shown\":\"FÁCIL\",\"pressed\":\"false\"},{\"t\":1337,\"w\":103,\"h\":56,\"label\":\"Normal\",\"shown\":\"NORMAL\",\"pressed\":\"true\"},{\"t\":1337,\"w\":103,\"h\":56,\"label\":\"Difícil\",\"shown\":\"DIFÍCIL\",\"pressed\":\"false\"}],\"rules\":true}"
+  },
+  {
+   "id": "9 · 390 sin-reglas: sin desbordamiento, 3 en fila, mismo ancho, ≥ 44 px",
+   "ok": true,
+   "detail": "{\"overflow\":0,\"btns\":[{\"t\":1337,\"w\":103,\"h\":56,\"label\":\"Fácil\",\"shown\":\"FÁCIL\",\"pressed\":\"false\"},{\"t\":1337,\"w\":103,\"h\":56,\"label\":\"Normal\",\"shown\":\"NORMAL\",\"pressed\":\"true\"},{\"t\":1337,\"w\":103,\"h\":56,\"label\":\"Difícil\",\"shown\":\"DIFÍCIL\",\"pressed\":\"false\"}],\"rules\":false}"
+  },
+  {
+   "id": "9 · 390 sin reglas: compacto (sin hueco antes de «Comenzar duelo»)",
+   "ok": true,
+   "detail": "{\"gap\":20}"
+  }
+ ]
+}

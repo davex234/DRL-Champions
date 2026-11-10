@@ -1,0 +1,16 @@
+{
+  "Cuenta": "Konto",
+  "Dar feedback": "Feedback geben",
+  "El nombre de jugador necesita al menos {SIGNUP_NAME_MIN} caracteres.": "Der Spielername braucht mindestens {SIGNUP_NAME_MIN} Zeichen.",
+  "El nombre de jugador no puede ser un correo.": "Der Spielername darf keine E-Mail-Adresse sein.",
+  "El nombre de jugador puede tener como mucho {SIGNUP_NAME_MAX} caracteres.": "Der Spielername darf höchstens {SIGNUP_NAME_MAX} Zeichen haben.",
+  "Elige un nombre de jugador: así te verán los demás.": "Wähle einen Spielernamen: So sehen dich die anderen.",
+  "Identificador de cuenta {tag}": "Konto-ID {tag}",
+  "La contraseña necesita al menos {SIGNUP_PASSWORD_MIN} caracteres.": "Das Passwort braucht mindestens {SIGNUP_PASSWORD_MIN} Zeichen.",
+  "Mi cuenta": "Mein Konto",
+  "Perfil": "Profil",
+  "Progresión": "Fortschritt",
+  "Secciones de Mi cuenta": "Bereiche von Mein Konto",
+  "Tu opinión llega al equipo ligada a tu cuenta (nunca con tu correo).": "Dein Feedback geht mit deinem Konto verknüpft ans Team (nie mit deiner E-Mail).",
+  "Usa solo letras, números, guion, punto o guion bajo (sin espacios).": "Nutze nur Buchstaben, Zahlen, Bindestrich, Punkt oder Unterstrich (keine Leerzeichen)."
+}

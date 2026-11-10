@@ -1,0 +1,129 @@
+{
+  "at": "2026-09-29T20:25:43.213Z",
+  "persona": "D",
+  "pack": "estandar",
+  "price": 1000,
+  "initial": {
+    "credits": 6430,
+    "unopened": {
+      "estandar": 1
+    }
+  },
+  "detail": {
+    "text": "SOBRE SOBRE BRONCE 5 cartas · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. PROBABILIDADES BASE · Edición base, OVR 70–81 50 % PLATA · Edición base, OVR 82–85 25 % ORO · Edición base, OVR 86–92 10 % MASTERS · Masters L y Masters SDC 7 % CHAMPIONS · Champions S 4 % PRIME · Future Star 3 % ICON · Record Breaker y Moments 1 % Probabilidad de cada carta del sobre. DRL CREDITS PRECIO 1.000 TU SALDO 6.430 DESPUÉS 5.430 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR ABRIR UNO (1) CONFIRMAR COMPRA · 1.000",
+    "top": 80,
+    "bottom": 820,
+    "left": 340,
+    "right": 1100,
+    "vw": 1440,
+    "vh": 900,
+    "scrollH": 739,
+    "clientH": 739,
+    "odds": [
+      {
+        "key": "estandar:base",
+        "pct": "50 %",
+        "text": "BASE · Edición base, OVR 70–81 50 %"
+      },
+      {
+        "key": "estandar:plata",
+        "pct": "25 %",
+        "text": "PLATA · Edición base, OVR 82–85 25 %"
+      },
+      {
+        "key": "estandar:oro",
+        "pct": "10 %",
+        "text": "ORO · Edición base, OVR 86–92 10 %"
+      },
+      {
+        "key": "estandar:masters",
+        "pct": "7 %",
+        "text": "MASTERS · Masters L y Masters SDC 7 %"
+      },
+      {
+        "key": "estandar:champions",
+        "pct": "4 %",
+        "text": "CHAMPIONS · Champions S 4 %"
+      },
+      {
+        "key": "estandar:prime",
+        "pct": "3 %",
+        "text": "PRIME · Future Star 3 %"
+      },
+      {
+        "key": "estandar:icon",
+        "pct": "1 %",
+        "text": "ICON · Record Breaker y Moments 1 %"
+      }
+    ],
+    "oddsSource": "class-table",
+    "balance": "6.430",
+    "after": "5.430",
+    "confirm": [
+      {
+        "text": "CANCELAR",
+        "disabled": false
+      },
+      {
+        "text": "ABRIR UNO (1)",
+        "disabled": false
+      },
+      {
+        "text": "CONFIRMAR COMPRA · 1.000",
+        "disabled": false
+      }
+    ],
+    "focusInside": true
+  },
+  "afterBuy": {
+    "credits": 5430,
+    "unopened": {
+      "estandar": 2
+    }
+  },
+  "afterReload": {
+    "credits": 5430,
+    "unopened": {
+      "estandar": 2
+    }
+  },
+  "pass": 7,
+  "total": 7,
+  "results": [
+    {
+      "id": "abrir COMPRAR = detalle con precio, probabilidades, saldo y saldo después (sin cobrar)",
+      "ok": true,
+      "detail": "6.430 → 5.430 · 7 filas"
+    },
+    {
+      "id": "CANCELAR: saldo e inventario intactos",
+      "ok": true,
+      "detail": "6430 → 6430"
+    },
+    {
+      "id": "CONFIRMAR (2 clics + dblclick + Enter ×4): EXACTAMENTE un cargo",
+      "ok": true,
+      "detail": "6430 − 1000 = 5430; real 5430"
+    },
+    {
+      "id": "inventario +1 sobre",
+      "ok": true,
+      "detail": "1 → 2"
+    },
+    {
+      "id": "el modal enseña el saldo nuevo del servidor",
+      "ok": true,
+      "detail": "SOBRE SOBRE BRONCE 5 cartas · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. PROBABILIDADES BASE · Edición base, OVR 70–81 50 % PL"
+    },
+    {
+      "id": "recargar: saldo e inventario persisten (API y página)",
+      "ok": true,
+      "detail": "credits=5430 · tarjeta «2 SIN ABRIR SOBRE BRONCE 1.000 DRL Credits COMPRAR»"
+    },
+    {
+      "id": "0 errores de consola",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

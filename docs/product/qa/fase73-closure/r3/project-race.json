@@ -1,0 +1,106 @@
+{
+  "at": "2026-09-30T19:23:35.597Z",
+  "intercepted": false,
+  "pass": 5,
+  "fail": 6,
+  "results": [
+    {
+      "id": "CONTROL NEGATIVO · K con TR = 1 juega → Turquía sigue 0/1 (la condición mira el equipo)",
+      "ok": true,
+      "detail": "0/1 ACTIVE · 1/5 ACTIVE"
+    },
+    {
+      "id": "CRUCE · K no puede reclamar el proyecto que I tiene completado (409 NOT_COMPLETED)",
+      "ok": true,
+      "detail": "409 NOT_COMPLETED"
+    },
+    {
+      "id": "K · equipo con ≥ 3 turcos guardado por el camino real",
+      "ok": false,
+      "detail": "400 Campo no permitido TR=3"
+    },
+    {
+      "id": "K · proyecto COMPLETED por partidas reales (Turquía y dependiente)",
+      "ok": false,
+      "detail": "0/1 ACTIVE · 0/1 LOCKED"
+    },
+    {
+      "id": "K · equipo restaurado",
+      "ok": true,
+      "detail": "{\"status\":200,\"same\":true}"
+    },
+    {
+      "id": "10 RECLAMOS SIMULTÁNEOS · exactamente +1 copia",
+      "ok": false,
+      "detail": "0 → 0"
+    },
+    {
+      "id": "10 RECLAMOS · 1 aplicado y 9 repetidos, ningún 500",
+      "ok": false,
+      "detail": "409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED,409:NOT_COMPLETED"
+    },
+    {
+      "id": "10 RECLAMOS · BD: 1 reclamo y 1 concesión en el libro mayor",
+      "ok": false,
+      "detail": "{\"claims\":0,\"grants\":0}"
+    },
+    {
+      "id": "K · apertura real → misión OPEN_PACK COMPLETED",
+      "ok": true,
+      "detail": "200 1/1 COMPLETED"
+    },
+    {
+      "id": "10 RECLAMOS SIMULTÁNEOS DE MISIÓN · +10 XP exactos una sola vez, ningún 500",
+      "ok": false,
+      "detail": "200:ok,500:INTERNAL,200:R,200:R,200:R,200:R,200:R,200:R,200:R,200:R xp 756→904"
+    },
+    {
+      "id": "10 RECLAMOS DE MISIÓN · BD: una sola entrada en el libro mayor (credit_transactions por ref)",
+      "ok": true,
+      "detail": "{\"ledger\":1}"
+    }
+  ],
+  "concurrent": {
+    "statuses": [
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED",
+      "409:NOT_COMPLETED"
+    ],
+    "copies": [
+      0,
+      0
+    ],
+    "claims": {
+      "claims": 0,
+      "grants": 0
+    }
+  },
+  "missionClaims": {
+    "statuses": [
+      "200:ok",
+      "500:INTERNAL",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R",
+      "200:R"
+    ],
+    "xp": [
+      756,
+      904
+    ],
+    "db": {
+      "ledger": 1
+    }
+  }
+}

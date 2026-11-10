@@ -1,0 +1,20 @@
+{
+  "base": "http://127.0.0.1:3011",
+  "at": "2026-10-07T08:45:58.546Z",
+  "total": 2,
+  "failed": 2,
+  "checks": [
+    {
+      "id": "portada-mas",
+      "w": 1440,
+      "name": "abre",
+      "ok": false
+    },
+    {
+      "id": "portada-mas",
+      "w": 390,
+      "name": "abre",
+      "ok": false
+    }
+  ]
+}

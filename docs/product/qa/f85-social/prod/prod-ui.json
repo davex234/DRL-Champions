@@ -1,0 +1,128 @@
+{
+ "at": "2026-10-05T08:30:08.187Z",
+ "total": 24,
+ "passed": 24,
+ "failed": 0,
+ "rows": [
+  {
+   "id": "prep: C y A amigos (API)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "login UI de C (1440) y A (390, reducido)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "presencia entre navegadores: C ve a A «En línea»",
+   "ok": true,
+   "detail": "{\"ms\":1}"
+  },
+  {
+   "id": "390: hub sin desbordamiento horizontal",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "RETAR abre la hoja con un equipo legal preseleccionado",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "emisor: «Esperando respuesta…» visible",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "retado: aviso «te reta a un duelo amistoso» sin recargar",
+   "ok": true,
+   "detail": "{\"deliveryMs\":16832}"
+  },
+  {
+   "id": "390: aviso dentro de la pantalla, con nombre y «sin rating»",
+   "ok": true,
+   "detail": "{\"top\":567,\"bottom\":748,\"vh\":844}"
+  },
+  {
+   "id": "ACEPTAR → el retado entra en la partida sin navegar a mano",
+   "ok": true,
+   "detail": "/duelos/pvp?match=f614d5b1-4055-4a2e-a6dc-433d4bbc6834"
+  },
+  {
+   "id": "el retador entra solo («¡ha aceptado! Entrando…»)",
+   "ok": true,
+   "detail": "{\"ms\":5486,\"url\":\"/duelos/pvp?match=f614d5b1-4055-4a2e-a6dc-433d4bbc6834\"}"
+  },
+  {
+   "id": "los dos en la MISMA partida",
+   "ok": true,
+   "detail": "f614d5b1-4055-4a2e-a6dc-433d4bbc6834"
+  },
+  {
+   "id": "la arena rotula el duelo como AMISTOSO / privado (no Ranked)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "F5 en la partida: vuelve a la MISMA partida (sin crear otra)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "resultado del duelo amistoso con REVANCHA",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "REVANCHA = nuevo reto que el rival debe aceptar («te pide la revancha»)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "REVANCHA aceptada desde el resultado → los DOS entran en la MISMA partida NUEVA",
+   "ok": true,
+   "detail": "{\"y\":\"/duelos/pvp?match=5d138d64-66d7-42dd-84e6-97192a6ebd39\",\"x\":\"/duelos/pvp?match=5d138d64-66d7-42dd-84e6-97192a6ebd39\"}"
+  },
+  {
+   "id": "la arena se remonta: no queda el resultado de la partida anterior en pantalla",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "revancha cerrada (abandono de QA): ninguna partida viva",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil de un AMIGO: estado «Amigos», COMPARAR, menú (sin AÑADIR)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil de un DESCONOCIDO: AÑADIR AMIGO, sin RETAR",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "perfil PROPIO: nunca «añadirme» ni «retarme»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "COMPARAR con datos públicos reales",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cambio de cuenta A → K: ni amigos ni retos de A en ningún momento",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "limpieza: C y A ya no son amigos",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

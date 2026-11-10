@@ -1,0 +1,17 @@
+{
+  "CraftEngine apunta a un registry antiguo": "CraftEngineが古いレジストリを参照しています",
+  "PackEngine apunta a un registry antiguo": "PackEngineが古いレジストリを参照しています",
+  "alta no indexada: {id}": "新規エントリが未インデックスです：{id}",
+  "alta {id} ausente del pool runtime de {packId}": "追加分{id}が{packId}のランタイムプールにありません",
+  "catálogo vivo {v} ≠ build {length}": "稼働中のカタログ{v} ≠ ビルド{length}",
+  "catálogo {v} ≠ instantánea {length}": "カタログ{v} ≠ スナップショット{length}",
+  "colección no publicada: {id}": "コレクション未公開：{id}",
+  "engines sin recrear tras rollback": "ロールバック後にエンジンが再作成されていません",
+  "enlace de carta ausente: {cardId}": "カードのリンクがありません：{cardId}",
+  "entrada no publicada: {cardId}": "エントリ未公開：{cardId}",
+  "instantánea no encontrada": "スナップショットが見つかりません",
+  "noticia no publicada: {id}": "ニュース未公開：{id}",
+  "registry no construido sobre el catálogo vivo vigente": "レジストリが現行の稼働中カタログ上に構築されていません",
+  "ruta {from}→{to} irresoluble en el runtime": "ルート{from}→{to}をランタイムで解決できません",
+  "índice de búsqueda no publicado": "検索インデックスが未公開です"
+}

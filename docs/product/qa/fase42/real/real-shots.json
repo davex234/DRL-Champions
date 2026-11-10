@@ -1,0 +1,232 @@
+{
+  "account": "8c326e52",
+  "at": "2026-09-16T19:17:39.270Z",
+  "rows": [
+    {
+      "file": "real-01-home-1440.png",
+      "kind": "REAL",
+      "size": "1440x900",
+      "hero": "claim",
+      "heroReason": "Por qué: ›Ya está ganado: un toque y es tuyo.",
+      "heroDeadline": null,
+      "daily": {
+        "done": "true",
+        "rows": [
+          "CLAIMED",
+          "CLAIMED",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 h 44 min"
+      },
+      "weekly": {
+        "done": "false",
+        "rows": [
+          "IN_PROGRESS",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 d 4 h"
+      },
+      "expiring": [],
+      "returning": null,
+      "recent": 3,
+      "claimAll": false,
+      "streak": false,
+      "market": false,
+      "liveCta": false,
+      "overflow": false,
+      "small": 0
+    },
+    {
+      "file": "real-02-home-1440-today.png",
+      "kind": "REAL",
+      "size": "1440x900"
+    },
+    {
+      "file": "real-03-home-1440-season.png",
+      "kind": "REAL",
+      "size": "1440x900"
+    },
+    {
+      "file": "real-04-home-1024.png",
+      "kind": "REAL",
+      "size": "1024x800",
+      "hero": "claim",
+      "heroReason": "Por qué: ›Ya está ganado: un toque y es tuyo.",
+      "heroDeadline": null,
+      "daily": {
+        "done": "true",
+        "rows": [
+          "CLAIMED",
+          "CLAIMED",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 h 44 min"
+      },
+      "weekly": {
+        "done": "false",
+        "rows": [
+          "IN_PROGRESS",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 d 4 h"
+      },
+      "expiring": [],
+      "returning": null,
+      "recent": 3,
+      "claimAll": false,
+      "streak": false,
+      "market": false,
+      "liveCta": false,
+      "overflow": false,
+      "small": 0
+    },
+    {
+      "file": "real-05-home-1024-today.png",
+      "kind": "REAL",
+      "size": "1024x800"
+    },
+    {
+      "file": "real-06-home-1024-season.png",
+      "kind": "REAL",
+      "size": "1024x800"
+    },
+    {
+      "file": "real-07-home-390.png",
+      "kind": "REAL",
+      "size": "390x844",
+      "hero": "claim",
+      "heroReason": "Por qué: ›Ya está ganado: un toque y es tuyo.",
+      "heroDeadline": null,
+      "daily": {
+        "done": "true",
+        "rows": [
+          "CLAIMED",
+          "CLAIMED",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 h 44 min"
+      },
+      "weekly": {
+        "done": "false",
+        "rows": [
+          "IN_PROGRESS",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 d 4 h"
+      },
+      "expiring": [],
+      "returning": null,
+      "recent": 3,
+      "claimAll": false,
+      "streak": false,
+      "market": false,
+      "liveCta": false,
+      "overflow": false,
+      "small": 0
+    },
+    {
+      "file": "real-08-home-390-today.png",
+      "kind": "REAL",
+      "size": "390x844"
+    },
+    {
+      "file": "real-09-home-390-season.png",
+      "kind": "REAL",
+      "size": "390x844"
+    },
+    {
+      "file": "real-10-home-after-refresh-1440.png",
+      "kind": "REAL",
+      "hero": "claim",
+      "heroReason": "Por qué: ›Ya está ganado: un toque y es tuyo.",
+      "heroDeadline": null,
+      "daily": {
+        "done": "true",
+        "rows": [
+          "CLAIMED",
+          "CLAIMED",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 h 43 min"
+      },
+      "weekly": {
+        "done": "false",
+        "rows": [
+          "IN_PROGRESS",
+          "CLAIMED"
+        ],
+        "reset": "Se renueva en 4 d 4 h"
+      },
+      "expiring": [],
+      "returning": null,
+      "recent": 3,
+      "claimAll": false,
+      "streak": false,
+      "market": false,
+      "liveCta": false,
+      "overflow": false,
+      "small": 0
+    },
+    {
+      "file": "real-11-logros-1440.png",
+      "kind": "REAL",
+      "path": "/logros",
+      "size": "1440x900"
+    },
+    {
+      "file": "real-12-logros-390.png",
+      "kind": "REAL",
+      "path": "/logros",
+      "size": "390x844"
+    },
+    {
+      "file": "real-13-temporada-1440.png",
+      "kind": "REAL",
+      "path": "/temporada",
+      "size": "1440x900"
+    },
+    {
+      "file": "real-14-temporada-390.png",
+      "kind": "REAL",
+      "path": "/temporada",
+      "size": "390x844"
+    },
+    {
+      "file": "real-15-pickems-1440.png",
+      "kind": "REAL",
+      "path": "/pickems",
+      "size": "1440x900"
+    },
+    {
+      "file": "real-16-pickems-390.png",
+      "kind": "REAL",
+      "path": "/pickems",
+      "size": "390x844"
+    },
+    {
+      "file": "real-17-evento-champions-1440.png",
+      "kind": "REAL",
+      "path": "/torneos/vlr-2766",
+      "size": "1440x900"
+    },
+    {
+      "file": "real-18-evento-champions-390.png",
+      "kind": "REAL",
+      "path": "/torneos/vlr-2766",
+      "size": "390x844"
+    },
+    {
+      "file": "real-19-torneos-1440.png",
+      "kind": "REAL",
+      "path": "/torneos",
+      "size": "1440x900"
+    },
+    {
+      "file": "real-20-torneos-390.png",
+      "kind": "REAL",
+      "path": "/torneos",
+      "size": "390x844"
+    }
+  ],
+  "failures": 0
+}

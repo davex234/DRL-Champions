@@ -1,0 +1,132 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "file": "docs/operations/proposals/0058_preflight.sql (sha256 af85a408…)",
+  "mode": "begin read only … rollback",
+  "result": [
+    {
+      "check": "firma recompute_standings(text)",
+      "result": "ok"
+    },
+    {
+      "check": "firma recompute_team_stats(text,text)",
+      "result": "ok"
+    },
+    {
+      "check": "firma recompute_player_event_stats(text)",
+      "result": "ok"
+    },
+    {
+      "check": "firma expire_offers()",
+      "result": "ok"
+    },
+    {
+      "check": "firma _release_listing_offers(uuid,uuid)",
+      "result": "ok"
+    },
+    {
+      "check": "firma _check_wash(uuid,uuid)",
+      "result": "ok"
+    },
+    {
+      "check": "firma _check_rate(text,integer)",
+      "result": "ok"
+    },
+    {
+      "check": "firma _check_price_band(text,bigint)",
+      "result": "ok"
+    },
+    {
+      "check": "firma _price_anchor(text)",
+      "result": "ok"
+    },
+    {
+      "check": "firma _asset_refresh_best(text,text,text)",
+      "result": "ok"
+    },
+    {
+      "check": "vistas actualizables = las conocidas",
+      "result": "ok"
+    },
+    {
+      "check": "política «crea tu perfil» presente",
+      "result": "ok"
+    },
+    {
+      "check": "trigger handle_new_user en auth.users",
+      "result": "ok"
+    },
+    {
+      "check": "guardián de columnas de profiles",
+      "result": "ok"
+    },
+    {
+      "check": "service_role con BYPASSRLS",
+      "result": "ok"
+    }
+  ],
+  "allOk": true,
+  "driftCheck": {
+    "file": "0058_postflight.sql ejecutado ANTES (solo lectura)",
+    "result": [
+      {
+        "check": "H1 anon no lee profiles",
+        "result": "pendiente"
+      },
+      {
+        "check": "H1 authenticated sigue leyendo profiles",
+        "result": "ok"
+      },
+      {
+        "check": "H6 authenticated: columnas legibles",
+        "result": "pendiente"
+      },
+      {
+        "check": "H6 authenticated no lee credits/is_admin/last_seen_at",
+        "result": "pendiente"
+      },
+      {
+        "check": "H7 vistas heredadas fuera de clientes",
+        "result": "4 (esperado 0)"
+      },
+      {
+        "check": "H1 authenticated conserva UPDATE de columnas",
+        "result": "ok"
+      },
+      {
+        "check": "H2 sin INSERT/DELETE de cliente en profiles",
+        "result": "pendiente"
+      },
+      {
+        "check": "H2 política «crea tu perfil» retirada",
+        "result": "pendiente"
+      },
+      {
+        "check": "H3 tablas con TRUNCATE para clientes",
+        "result": "68 (esperado 0)"
+      },
+      {
+        "check": "H5 vistas escribibles por clientes",
+        "result": "17 (esperado 0)"
+      },
+      {
+        "check": "H5 vistas públicas siguen legibles",
+        "result": "ok"
+      },
+      {
+        "check": "H4 helpers ejecutables por anon",
+        "result": "10 (esperado 0)"
+      },
+      {
+        "check": "H4 service_role conserva recompute_*",
+        "result": "ok"
+      },
+      {
+        "check": "funciones de mercado con auth.uid() intactas",
+        "result": "ok"
+      }
+    ],
+    "reading": "idéntico a la comprobación viva de F69 (2026-09-27 21:14Z): H3 68, H5 17, H4 10, H7 4 pendientes → 0058 no aplicada y sin deriva"
+  },
+  "headCheck": "cabeza 0057 confirmada por la sonda de esquema (claves 0057_* en verde) y por los grants/políticas previos; ninguna marca de 0058 presente",
+  "status": "PASS"
+}

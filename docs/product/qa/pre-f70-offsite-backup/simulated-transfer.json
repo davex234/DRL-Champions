@@ -1,0 +1,30 @@
+{
+  "phase": "PRE-F70",
+  "harness": {
+    "script": "scripts/ops/offsite-harness.sh",
+    "where": "VPS, directorio temporal mktemp (077) borrado al terminar; destino SIMULADO = backend local de rclone montado en el contenedor",
+    "run": "2026-09-28T13:29Z–13:35Z (quinta ejecución; las cuatro anteriores destaparon 3 defectos reales, ver design.json)",
+    "cases": 52,
+    "pass": 52,
+    "raw": "raw/harness-run.txt"
+  },
+  "cases": {
+    "full-flow": {
+      "result": "PASS",
+      "detail": "exit=0 unit=20260928T132930Z secs=10 db=3169365 storage=87 cms=3331819 unitBytes=3320985 remoteFiles=offsite.json,REMOTE_VERIFIED,unit.tar.cms,unit.tar.cms.sha256,"
+    },
+    "remote-plaintext-free": {
+      "result": "PASS",
+      "detail": "el .cms no es un tar legible ni contiene la cabecera PGDMP del dump"
+    },
+    "local-markers-private": {
+      "result": "PASS",
+      "detail": "OFFSITE_VERIFIED 600, sin IN_PROGRESS, directorio de trabajo vacío"
+    },
+    "fetch-decrypt": {
+      "result": "PASS",
+      "detail": "exit=0 OFFSITE_FETCH_OK 20260928T132930Z"
+    }
+  },
+  "reading": "Datos REALES de producción (pg_dump y tar del volumen, en solo lectura, como el backup de siempre) → unidad local verificada (3.320.985 B) → cifrada (3.331.819 B) → destino simulado → descargada y comparada → REMOTE_VERIFIED → OFFSITE_VERIFIED, en 10 s."
+}

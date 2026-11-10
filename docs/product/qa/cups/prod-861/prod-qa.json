@@ -1,0 +1,215 @@
+{
+ "at": "2026-10-06T19:36:26.577Z",
+ "base": "https://valorosters.com",
+ "cup": "qa-f861-mux2sq3w",
+ "times": {
+  "load_warm_per_min": 12,
+  "waiting_shown_ms": 336,
+  "load_hot_per_min": 16,
+  "notice_before_match": "♜ TU PARTIDA DE TORNEO ESTÁ LISTA\n\nQA F86.1 (no listado) · Semifinal contra qa_ux2_b_f92e #ZMQ84X6\n\nJUGAR\nAhora no",
+  "T0_B_ready_confirmed": 497,
+  "T1_match_created": -6,
+  "T2_A_detects": 2074,
+  "T3_A_in_arena": 3503,
+  "T4_B_in_arena": 3503,
+  "A_detection_after_creation_ms": 2080,
+  "global_notice_other_device_ms": 3497,
+  "R_abandon_response_ms": 1399,
+  "R_result_persisted_ms": 1064,
+  "R_winner_sees_advance_ms": 1399,
+  "focus_hidden_state": "hidden",
+  "focus_w": "W entró (Z aún listo)",
+  "focus_detect_ms": 601,
+  "deadline_detect_ms": 3438
+ },
+ "total": 37,
+ "pass": 37,
+ "fail": 0,
+ "rows": [
+  {
+   "id": "torneo QA no listado publicado con 4 cuentas QA",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "carga: fuera de la espera (cruce jugable sin nadie listo) la pestaña ajena lee estado ~cada 5 s, no cada 1 s",
+   "ok": true,
+   "detail": "{\"peticiones en 20 s\":4}"
+  },
+  {
+   "id": "A pulsa JUGAR UNA vez → «✓ Listo · esperando a <rival>» (no parece que no pasó nada)",
+   "ok": true,
+   "detail": "{\"ms\":336}"
+  },
+  {
+   "id": "carga: esperando, la pestaña lee el estado ligero ~cada 3 s (no el cuadro)",
+   "ok": true,
+   "detail": "{\"peticiones en 15 s\":4}"
+  },
+  {
+   "id": "F5 mientras espera → sigue «esperando al rival» (estado del servidor, no local)",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "id": "20 «listo» simultáneos del mismo jugador (doble clic / otro dispositivo) → todos WAITING, 0 partidas",
+   "ok": true,
+   "detail": "WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING,WAITING"
+  },
+  {
+   "id": "B ve «Tu rival ya está listo» (≤ ~5 s)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "B listo → UNA partida (PVP_PRIVATE) para ESE cruce; A y B en la MISMA",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "A entra SOLO (sin segundo clic) en ≤ 5 s desde que nace la partida",
+   "ok": true,
+   "detail": "{\"load_warm_per_min\":12,\"waiting_shown_ms\":336,\"load_hot_per_min\":16,\"notice_before_match\":\"♜ TU PARTIDA DE TORNEO ESTÁ LISTA\\n\\nQA F86.1 (no listado) · Semifinal contra qa_ux2_b_f92e #ZMQ84X6\\n\\nJUGAR\\nAhora no\",\"T0_B_ready_confirmed\":497,\"T1_match_created\":-6,\"T2_A_detects\":2074,\"T3_A_in_arena\":3503,\"T4_B_in_arena\":3503,\"A_detection_after_creation_ms\":2080}"
+  },
+  {
+   "id": "otro dispositivo de A (en /coleccion): aviso global «ha empezado · Entrar», sin navegar solo",
+   "ok": true,
+   "detail": "{\"ms\":3497,\"href\":\"/coleccion\"}"
+  },
+  {
+   "id": "resultado del motor → cruce COMPLETADO → el ganador ve «✓ Has avanzado a Final» en la arena",
+   "ok": true,
+   "detail": "{\"load_warm_per_min\":12,\"waiting_shown_ms\":336,\"load_hot_per_min\":16,\"notice_before_match\":\"♜ TU PARTIDA DE TORNEO ESTÁ LISTA\\n\\nQA F86.1 (no listado) · Semifinal contra qa_ux2_b_f92e #ZMQ84X6\\n\\nJUGAR\\nAhora no\",\"T0_B_ready_confirmed\":497,\"T1_match_created\":-6,\"T2_A_detects\":2074,\"T3_A_in_arena\":3503,\"T4_B_in_arena\":3503,\"A_detection_after_creation_ms\":2080,\"global_notice_other_device_ms\":3497,\"R_abandon_response_ms\":1399,\"R_result_persisted_ms\":1064,\"R_winner_sees_advance_ms\":1399}"
+  },
+  {
+   "id": "de vuelta al torneo: «✓ Has ganado Semifinal · avanzas a Final» y estado del siguiente cruce claro",
+   "ok": true,
+   "detail": "PENDING"
+  },
+  {
+   "id": "FOCO · W pulsa JUGAR con su panel cargado y su «listo» llega al servidor",
+   "ok": true,
+   "detail": "W entró (Z aún listo)"
+  },
+  {
+   "id": "FOCO: pestaña oculta mientras espera, el rival se pone listo; al volver, entra en ≤ 2 s",
+   "ok": true,
+   "detail": "{\"hidden\":\"hidden\",\"stillHref\":\"/copas/qa-f861-mux2sq3w\",\"ms\":601}"
+  },
+  {
+   "id": "cruce 2: una sola partida aunque Z estuviera oculto",
+   "ok": true,
+   "detail": "4aa85318-1ee5-4695-9954-61b420a2b083"
+  },
+  {
+   "id": "plazo vencido mientras espera → deja de decir «esperando» y explica «en revisión» (≤ ~3 s)",
+   "ok": true,
+   "detail": "3438"
+  },
+  {
+   "id": "plazo vencido: nadie gana solo (sin ganador, sin sorteo)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "listo en un cruce AJENO → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "listo con el equipo de OTRO → 404",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "campos falsos (ganador, rival, partida, usuario) → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "estado ligero sin sesión → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "resolver como usuario normal → 401",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "resolver con un #TAG falso → 400",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "REST directo sobre cup_matches → rechazado",
+   "ok": true,
+   "detail": "403"
+  },
+  {
+   "id": "admin resuelve la final con el #TAG exacto (motivo, auditado) → campeón",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "trofeo UNA vez",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "el campeón ve su momento de campeón",
+   "ok": true,
+   "detail": "/copas/qa-f861-mux2sq3w"
+  },
+  {
+   "id": "logout: sin aviso de torneo ni navegación a la partida",
+   "ok": true,
+   "detail": "{\"href\":\"/coleccion\",\"waiting\":null,\"state\":null,\"opp\":null,\"text\":\"\",\"arena\":false,\"notice\":null,\"outcome\":null}"
+  },
+  {
+   "id": "cambio de cuenta: la nueva cuenta no hereda el aviso, el cruce ni la navegación de la anterior",
+   "ok": true,
+   "detail": "{\"href\":\"/coleccion\",\"waiting\":null,\"state\":null,\"opp\":null,\"text\":\"\",\"arena\":false,\"notice\":null,\"outcome\":null}"
+  },
+  {
+   "id": "rating, créditos, XP, sobres y cartas de los 4 jugadores INTACTOS",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 eventos de rating nuevos (colocación, Top 500, tope de parejas)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 misiones contadas por partidas de este torneo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "0 amistades creadas",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "carrera propia: el cruce es TOURNAMENT («Torneo»), no «Duelo privado»",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "limpieza: A sin admin; admins = exactamente las 2 cuentas reales",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "cuentas reales INTACTAS (#NB2Z9BM y #H5ND8K7, admin, 0 torneos, rating/créditos/XP iguales)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "Valorosters Open #1 sigue en BORRADOR; Temporada 2 en DRAFT",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

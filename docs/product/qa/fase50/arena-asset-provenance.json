@@ -1,0 +1,28 @@
+{
+  "arenaId": "nexus-champions",
+  "generator": "Z-Image-Turbo (Tongyi-MAI, licencia Apache-2.0), transformer GGUF Q8_0, local en RTX 3060 (pipeline docs/product/art/veil/pipeline/gen.py)",
+  "seed": 47,
+  "size": [
+    1920,
+    1088
+  ],
+  "steps": 9,
+  "prompt": "Cinematic wide-angle interior of a colossal futuristic esports stadium at night, seen from the center of the competition stage looking out. Monumental dark steel architecture with huge angular trusses and a vast domed roof. Massive tiered crowd stands curving around both sides, thousands of tiny spectators silhouetted, small glowing lights scattered in the crowd. Giant curved LED screens hang high above glowing with abstract crimson and magenta light patterns. Strong crimson red volumetric spotlight beams sweep down from the upper half. The lower half is a dark glossy stage floor with cyan and electric blue neon light strips and reflections, cool blue haze. Symmetrical composition, deep perspective, atmospheric haze, the center of the image is dark and empty. Moody, epic, high contrast, concept art, digital matte painting. No text, no letters, no logos, no symbols, no writing.",
+  "candidates": [
+    "stadium-a s11/s23/s47/s81",
+    "stadium-b s5/s19"
+  ],
+  "chosen": "stadium-a_s47 (simétrico: pantallas rojas arriba, grada a ambos lados, escenario con neón cian abajo)",
+  "postprocess": "recorte central 1920x1080; WebP q76 (1920) y q72 (960x540), Pillow",
+  "files": {
+    "public/game/arenas/nexus-champions/stage-1920.webp": {
+      "bytes": 138924,
+      "sha256": "3240c5a657afb7ab22034d3ca85db11d7f9c514d1b9db00b0db2aa7e6cec22b0"
+    },
+    "public/game/arenas/nexus-champions/stage-960.webp": {
+      "bytes": 49954,
+      "sha256": "98fa1ba96cbad2264d931f427864d172ff0e586c3da2075e236c39d573d8151f"
+    }
+  },
+  "rights": "Imagen generada para NEXUS; sin logos, texto ni assets de terceros (no Riot/Valorant). Revisada a ojo: sin texto legible ni marcas."
+}

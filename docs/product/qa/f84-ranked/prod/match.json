@@ -1,0 +1,37 @@
+{
+ "matchId": "477ffed2-4443-4cbd-8df1-1bd03c8746a0",
+ "before": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865:885:30,8c326e52-776a-43f4-ba05-3ad7945c40c3:1089:29",
+ "after": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865:879:31,8c326e52-776a-43f4-ba05-3ad7945c40c3:1095:30",
+ "ledger": "2|competitiva-1|ranked-rating-v1|STANDARD,STANDARD",
+ "csp": "1,1",
+ "rankA": {
+  "oldRating": 885,
+  "newRating": 879,
+  "delta": -6,
+  "pairCapped": false,
+  "kind": "PLACEMENT_PROGRESS",
+  "before": null,
+  "after": null,
+  "tierChange": false,
+  "steps": 0,
+  "placement": {
+   "played": 1,
+   "total": 5
+  }
+ },
+ "rankB": {
+  "oldRating": 1089,
+  "newRating": 1095,
+  "delta": 6,
+  "pairCapped": false,
+  "kind": "PLACEMENT_PROGRESS",
+  "before": null,
+  "after": null,
+  "tierChange": false,
+  "steps": 0,
+  "placement": {
+   "played": 1,
+   "total": 5
+  }
+ }
+}

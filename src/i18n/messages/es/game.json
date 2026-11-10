@@ -1,0 +1,22 @@
+{
+  "Comprobando tu sesión… vuelve a intentarlo en un momento.": "Comprobando tu sesión… vuelve a intentarlo en un momento.",
+  "Con tu cuenta iniciada, créditos, XP y cartas los lleva el servidor: este modo local no concede ni cobra nada.": "Con tu cuenta iniciada, créditos, XP y cartas los lleva el servidor: este modo local no concede ni cobra nada.",
+  "Con tu cuenta, los sobres los abre el servidor. Estamos recuperando tu cuenta: vuelve a intentarlo en un momento.": "Con tu cuenta, los sobres los abre el servidor. Estamos recuperando tu cuenta: vuelve a intentarlo en un momento.",
+  "Cuenta online no configurada": "Cuenta online no configurada",
+  "El mercado necesita una cuenta online": "El mercado necesita una cuenta online",
+  "Inicia sesión para continuar": "Inicia sesión para continuar",
+  "Inicia sesión para entrar en el mercado": "Inicia sesión para entrar en el mercado",
+  "La economía necesita una cuenta online": "La economía necesita una cuenta online",
+  "La sesión cambió durante la carga": "La sesión cambió durante la carga",
+  "Necesitas iniciar sesión": "Necesitas iniciar sesión",
+  "Necesitas una cuenta": "Necesitas una cuenta",
+  "No hemos podido recuperar tu cuenta. Comprueba la conexión y vuelve a intentarlo.": "No hemos podido recuperar tu cuenta. Comprueba la conexión y vuelve a intentarlo.",
+  "No se pudo cargar tu progreso": "No se pudo cargar tu progreso",
+  "No se pudo comprar el sobre": "No se pudo comprar el sobre",
+  "Resultado de apertura no válido": "Resultado de apertura no válido",
+  "Sin conexión": "Sin conexión",
+  "Sin sesión": "Sin sesión",
+  "{INVALID_OPEN_RESULT}: carta desconocida": "{INVALID_OPEN_RESULT}: carta desconocida",
+  "{INVALID_OPEN_RESULT}: carta sin identificador": "{INVALID_OPEN_RESULT}: carta sin identificador",
+  "{INVALID_OPEN_RESULT}: sin cartas": "{INVALID_OPEN_RESULT}: sin cartas"
+}

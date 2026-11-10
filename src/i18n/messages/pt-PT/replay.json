@@ -1,0 +1,5 @@
+{
+  "checksum inválido (replay corrupto)": "checksum inválido (replay corrompido)",
+  "divergencia de reconstrucción (el estado final no coincide)": "divergência de reconstrução (o estado final não coincide)",
+  "versión incompatible ({version})": "versão incompatível ({version})"
+}

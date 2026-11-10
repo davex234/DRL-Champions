@@ -1,0 +1,286 @@
+{
+  "at": "2026-10-02T08:31:45.873Z",
+  "base": "http://127.0.0.1:3011",
+  "results": [
+    {
+      "id": "[1440] ADMIN · el panel de crafteo carga (servidor confirma admin)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] CARGA · la configuración existente (versión 1) aparece",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] ESTADO · todo el contenido nuevo se ve en DRAFT (nada ACTIVO) y el pity desactivado",
+      "ok": true,
+      "detail": "{\"draft\":14,\"active\":0}"
+    },
+    {
+      "id": "[1440] POLÍTICA · el panel explica qué cambios bajarían la progresión",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SIN scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] JSON INVÁLIDO · aviso legible y GUARDAR desactivado",
+      "ok": true,
+      "detail": "{\"alert\":true,\"disabled\":true}"
+    },
+    {
+      "id": "[1440] JSON que no es un objeto · también bloqueado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] JSON inválido · el servidor no recibió nada y el documento sigue en la versión 1",
+      "ok": true,
+      "detail": "{\"saves\":0,\"v\":1}"
+    },
+    {
+      "id": "[1440] VALIDACIÓN · errores comprensibles (ruta + motivo), sin guardar",
+      "ok": true,
+      "detail": "POST 200 {\"regressions\":[{\"code\":\"CURVE_HARDER\",\"path\":\"curve\",\"message\":\"Llegar al nivel 3 costaría 1000 XP en vez de 222\"}],\"impact\":{\"players\":1,\"levelDrops\":0,\"maxDrop\":0,\"levelGains\":0},\"problems\":[{\"code"
+    },
+    {
+      "id": "[1440] REGRESIVO · aviso de que BAJARÍA la progresión, con el impacto real (1 de 1 jugador)",
+      "ok": true,
+      "detail": "Impacto calculado sobre el historial real: 1 de 1 jugadores con progreso bajarían de nivel (hasta 1 nivel); 0 subirían. Los planos y recetas que dependen del nivel también podrían volver a bloquearse."
+    },
+    {
+      "id": "[1440] REGRESIVO · RECALCULAR desactivado sin la palabra y el motivo; nada guardado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] REGRESIVO · con la palabra pero SIN motivo, sigue desactivado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] REGRESIVO · confirmado: guardado (versión 2) y AUDITADO como recálculo con su impacto",
+      "ok": true,
+      "detail": "[\"f79_forge_progression_recalc\"]"
+    },
+    {
+      "id": "[1440] MONÓTONO · más XP se guarda sin confirmación extra (versión 3)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] NADA PUBLICADO · después de todo, ninguna receta/cadena/objetivo/logro ACTIVO",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SECRETOS · ni claves ni tokens ni contraseñas en la página",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] SIN scroll horizontal (tras guardar)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1440] TECLADO · Tab recorre motivo → acciones del documento",
+      "ok": true,
+      "detail": "<button type=\"button\" data-testid=\"admin-forge-save\" class=\"nx-focus inline-flex"
+    },
+    {
+      "id": "[1024] ADMIN · el panel de crafteo carga (servidor confirma admin)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] CARGA · la configuración existente (versión 1) aparece",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] ESTADO · todo el contenido nuevo se ve en DRAFT (nada ACTIVO) y el pity desactivado",
+      "ok": true,
+      "detail": "{\"draft\":14,\"active\":0}"
+    },
+    {
+      "id": "[1024] POLÍTICA · el panel explica qué cambios bajarían la progresión",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SIN scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] JSON INVÁLIDO · aviso legible y GUARDAR desactivado",
+      "ok": true,
+      "detail": "{\"alert\":true,\"disabled\":true}"
+    },
+    {
+      "id": "[1024] JSON que no es un objeto · también bloqueado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] JSON inválido · el servidor no recibió nada y el documento sigue en la versión 1",
+      "ok": true,
+      "detail": "{\"saves\":0,\"v\":1}"
+    },
+    {
+      "id": "[1024] VALIDACIÓN · errores comprensibles (ruta + motivo), sin guardar",
+      "ok": true,
+      "detail": "POST 200 {\"regressions\":[{\"code\":\"CURVE_HARDER\",\"path\":\"curve\",\"message\":\"Llegar al nivel 3 costaría 1000 XP en vez de 222\"}],\"impact\":{\"players\":1,\"levelDrops\":0,\"maxDrop\":0,\"levelGains\":0},\"problems\":[{\"code"
+    },
+    {
+      "id": "[1024] REGRESIVO · aviso de que BAJARÍA la progresión, con el impacto real (1 de 1 jugador)",
+      "ok": true,
+      "detail": "Impacto calculado sobre el historial real: 1 de 1 jugadores con progreso bajarían de nivel (hasta 1 nivel); 0 subirían. Los planos y recetas que dependen del nivel también podrían volver a bloquearse."
+    },
+    {
+      "id": "[1024] REGRESIVO · RECALCULAR desactivado sin la palabra y el motivo; nada guardado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] REGRESIVO · con la palabra pero SIN motivo, sigue desactivado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] REGRESIVO · confirmado: guardado (versión 2) y AUDITADO como recálculo con su impacto",
+      "ok": true,
+      "detail": "[\"f79_forge_progression_recalc\"]"
+    },
+    {
+      "id": "[1024] MONÓTONO · más XP se guarda sin confirmación extra (versión 3)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] NADA PUBLICADO · después de todo, ninguna receta/cadena/objetivo/logro ACTIVO",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SECRETOS · ni claves ni tokens ni contraseñas en la página",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] SIN scroll horizontal (tras guardar)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[1024] TECLADO · Tab recorre motivo → acciones del documento",
+      "ok": true,
+      "detail": "<button type=\"button\" data-testid=\"admin-forge-save\" class=\"nx-focus inline-flex"
+    },
+    {
+      "id": "[390] ADMIN · el panel de crafteo carga (servidor confirma admin)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] CARGA · la configuración existente (versión 1) aparece",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] ESTADO · todo el contenido nuevo se ve en DRAFT (nada ACTIVO) y el pity desactivado",
+      "ok": true,
+      "detail": "{\"draft\":14,\"active\":0}"
+    },
+    {
+      "id": "[390] POLÍTICA · el panel explica qué cambios bajarían la progresión",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SIN scroll horizontal",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] JSON INVÁLIDO · aviso legible y GUARDAR desactivado",
+      "ok": true,
+      "detail": "{\"alert\":true,\"disabled\":true}"
+    },
+    {
+      "id": "[390] JSON que no es un objeto · también bloqueado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] JSON inválido · el servidor no recibió nada y el documento sigue en la versión 1",
+      "ok": true,
+      "detail": "{\"saves\":0,\"v\":1}"
+    },
+    {
+      "id": "[390] VALIDACIÓN · errores comprensibles (ruta + motivo), sin guardar",
+      "ok": true,
+      "detail": "POST 200 {\"regressions\":[{\"code\":\"CURVE_HARDER\",\"path\":\"curve\",\"message\":\"Llegar al nivel 3 costaría 1000 XP en vez de 222\"}],\"impact\":{\"players\":1,\"levelDrops\":0,\"maxDrop\":0,\"levelGains\":0},\"problems\":[{\"code"
+    },
+    {
+      "id": "[390] REGRESIVO · aviso de que BAJARÍA la progresión, con el impacto real (1 de 1 jugador)",
+      "ok": true,
+      "detail": "Impacto calculado sobre el historial real: 1 de 1 jugadores con progreso bajarían de nivel (hasta 1 nivel); 0 subirían. Los planos y recetas que dependen del nivel también podrían volver a bloquearse."
+    },
+    {
+      "id": "[390] REGRESIVO · RECALCULAR desactivado sin la palabra y el motivo; nada guardado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] REGRESIVO · con la palabra pero SIN motivo, sigue desactivado",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] REGRESIVO · confirmado: guardado (versión 2) y AUDITADO como recálculo con su impacto",
+      "ok": true,
+      "detail": "[\"f79_forge_progression_recalc\"]"
+    },
+    {
+      "id": "[390] MONÓTONO · más XP se guarda sin confirmación extra (versión 3)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] NADA PUBLICADO · después de todo, ninguna receta/cadena/objetivo/logro ACTIVO",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SECRETOS · ni claves ni tokens ni contraseñas en la página",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] SIN scroll horizontal (tras guardar)",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] TECLADO · Tab recorre motivo → acciones del documento",
+      "ok": true,
+      "detail": "<button type=\"button\" data-testid=\"admin-forge-save\" class=\"nx-focus inline-flex"
+    },
+    {
+      "id": "[390] NO ADMIN · «Acceso restringido» y ningún panel",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "[390] NO ADMIN · la API devuelve 401 idéntico a anónimo (sin oráculo) y no escribe",
+      "ok": true,
+      "detail": "{\"g\":401,\"p\":401,\"body\":\"{\\\"error\\\":\\\"No autorizado\\\"}\"}"
+    }
+  ]
+}

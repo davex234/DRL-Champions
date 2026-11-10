@@ -1,0 +1,13 @@
+{
+  "note": "F84 · distribución REAL del rating ranked en producción ANTES de F84 (2026-10-04, consultas agregadas de solo lectura; sin usuarios ni ids). Fuente: duel_pvp_ratings / duel_pvp_rating_events.",
+  "playersWithRating": 20,
+  "playersWithGames": 10,
+  "ratingWithGames": { "min": 885, "max": 1110, "mean": 999.7, "sd": 74.6, "p10": 912, "p25": 930.5, "p50": 1004.5, "p75": 1067.25, "p90": 1091.1, "p95": 1100.55, "p99": 1108.11 },
+  "gamesPlayed": { "p10": 3.8, "p50": 7.5, "p90": 29.1 },
+  "ledger": { "events": 116, "matches": 58, "firstEvent": "2026-09-23", "lastEvent": "2026-10-02", "netDeltaAllEvents": -3, "perMatchDeltaSum": { "min": -8, "max": 5 }, "kFactor40": 72, "kFactor24": 44 },
+  "integrity": { "chainBreaks(old != previous new)": 0, "firstEventNot1000": 0, "ratingNotEqualLastEvent": 0, "countersMismatch": 0, "deltaNotReproducible": 0 },
+  "pairs": { "distinctPairs": 8, "maxRatedMatchesSamePairRolling24h": 26, "note": "las dos cuentas QA de F55/F66 jugándose entre sí; motivo del tope de pareja (5/24 h)" },
+  "matchesByModeStatus": { "PVP COMPLETED": 33, "PVP IN_PROGRESS+ABANDONED": 20, "PVP IN_PROGRESS+EXPIRED": 5, "PVP_PRIVATE COMPLETED": 92, "PVP_PRIVATE ABANDONED": 9, "PVE COMPLETED": 131, "DRAFT_GAUNTLET": 16 },
+  "rankV1Mapping": { "Cantera": 0, "Promesa": 3, "Titular": 4, "Veterano": 3, "Capitán": 0, "Estrella": 0, "Cumbre": 0 },
+  "personalAccountHasRating": false
+}

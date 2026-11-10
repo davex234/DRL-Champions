@@ -1,0 +1,149 @@
+{
+ "base": "https://valorosters.com",
+ "at": "2026-10-05T09:22:01.231Z",
+ "release": "drl-0.1.1-1-1a261ed8",
+ "match": "07df57c4-8974-4f09-abff-3f2c570f6d98",
+ "kind": "loss",
+ "total": 27,
+ "passed": 27,
+ "failed": 0,
+ "rows": [
+  {
+   "id": "QA A tiene un equipo legal",
+   "ok": true,
+   "detail": "bb5e6f05-36a7-4155-9ec7-690a7d9e2efe"
+  },
+  {
+   "id": "partida rápida creada (PVE)",
+   "ok": true,
+   "detail": "200"
+  },
+  {
+   "id": "la partida terminó",
+   "ok": true,
+   "detail": "COMPLETED"
+  },
+  {
+   "id": "SERVIDOR · la jugada final trae context QUICK; en curso, sin contexto",
+   "ok": true,
+   "detail": "[null,null,null,null,null,null,null,null,null,\"QUICK\"]"
+  },
+  {
+   "id": "SERVIDOR · releer el resultado (F5) conserva QUICK",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "id": "BACKEND · créditos y XP de cuenta cambiaron EXACTAMENTE lo que dice result.award (reglas actuales)",
+   "ok": true,
+   "detail": "{\"before\":\"750|2928\",\"after\":\"790|2953\",\"award\":{\"points\":0,\"credits\":40,\"xp\":25}}"
+  },
+  {
+   "id": "BACKEND · asiento del libro para la partida (si hubo créditos)",
+   "ok": true,
+   "detail": "{\"ledger\":\"1\",\"credits\":40}"
+  },
+  {
+   "id": "BACKEND · motor de misiones: consulta del rastro de la partida (informativo: depende de misiones publicadas)",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "id": "1440 · login + resultado REAL de partida rápida tras recargar",
+   "ok": true,
+   "detail": "{\"kind\":\"loss\",\"expected\":\"loss\",\"url\":\"/duelos/jugar?resultado=07df57c4-8974-4f09-abff-3f2c570f6d98\"}"
+  },
+  {
+   "id": "1440 · veredicto + marcador + motivo + DOS botones; nada de recompensas/progreso",
+   "ok": true,
+   "detail": "{\"acts\":[\"Seguir jugando\",\"Volver al menú principal\"],\"forbidden\":null}"
+  },
+  {
+   "id": "1440 · botones en la primera pantalla y sin desbordamiento",
+   "ok": true,
+   "detail": "{\"acts\":[{\"t\":\"Seguir jugando\",\"top\":634.1875,\"bottom\":686.1875},{\"t\":\"Volver al menú principal\",\"top\":634.1875,\"bottom\":686.1875}],\"vh\":900,\"overflow\":0}"
+  },
+  {
+   "id": "SEGUIR JUGANDO (doble clic) → UNA partida rápida nueva (PVE, en curso), sin ranked/amistoso/torneo",
+   "ok": true,
+   "detail": "[\"85bfa7ae-1e12-4951-a933-c02461edf1a6:PVE:IN_PROGRESS\"]"
+  },
+  {
+   "id": "la nueva partida no es la anterior",
+   "ok": true,
+   "detail": "{\"fid\":\"85bfa7ae-1e12-4951-a933-c02461edf1a6\",\"mid\":\"07df57c4-8974-4f09-abff-3f2c570f6d98\"}"
+  },
+  {
+   "id": "limpieza: la partida nueva se abandonó (no paga, sin partidas vivas)",
+   "ok": true,
+   "detail": "Corregido tras la pasada: el 1 era la fila PvP fbaff877 de la QA F66 (2026-09-26, closed_reason EXPIRED, status heredado IN_PROGRESS), no de esta QA. Verificado por SQL: la partida nueva 85bfa7ae ya no existe (abandonada = borrada, sin pago) y la cuenta no tiene ninguna PVE en curso.",
+   "correctedAfterRun": true
+  },
+  {
+   "id": "1024 · login + resultado REAL de partida rápida tras recargar",
+   "ok": true,
+   "detail": "{\"kind\":\"loss\",\"expected\":\"loss\",\"url\":\"/duelos/jugar?resultado=07df57c4-8974-4f09-abff-3f2c570f6d98\"}"
+  },
+  {
+   "id": "1024 · veredicto + marcador + motivo + DOS botones; nada de recompensas/progreso",
+   "ok": true,
+   "detail": "{\"acts\":[\"Seguir jugando\",\"Volver al menú principal\"],\"forbidden\":null}"
+  },
+  {
+   "id": "1024 · botones en la primera pantalla y sin desbordamiento",
+   "ok": true,
+   "detail": "{\"acts\":[{\"t\":\"Seguir jugando\",\"top\":566.859375,\"bottom\":618.859375},{\"t\":\"Volver al menú principal\",\"top\":566.859375,\"bottom\":618.859375}],\"vh\":768,\"overflow\":0}"
+  },
+  {
+   "id": "390 · login + resultado REAL de partida rápida tras recargar",
+   "ok": true,
+   "detail": "{\"kind\":\"loss\",\"expected\":\"loss\",\"url\":\"/duelos/jugar?resultado=07df57c4-8974-4f09-abff-3f2c570f6d98\"}"
+  },
+  {
+   "id": "390 · veredicto + marcador + motivo + DOS botones; nada de recompensas/progreso",
+   "ok": true,
+   "detail": "{\"acts\":[\"Seguir jugando\",\"Volver al menú principal\"],\"forbidden\":null}"
+  },
+  {
+   "id": "390 · botones en la primera pantalla y sin desbordamiento",
+   "ok": true,
+   "detail": "{\"acts\":[{\"t\":\"Seguir jugando\",\"top\":502.765625,\"bottom\":554.765625},{\"t\":\"Volver al menú principal\",\"top\":566.765625,\"bottom\":618.765625}],\"vh\":844,\"overflow\":0}"
+  },
+  {
+   "id": "390 · botones apilados",
+   "ok": true,
+   "detail": "[{\"t\":\"Seguir jugando\",\"top\":502.765625,\"bottom\":554.765625},{\"t\":\"Volver al menú principal\",\"top\":566.765625,\"bottom\":618.765625}]"
+  },
+  {
+   "id": "VOLVER AL MENÚ PRINCIPAL → /",
+   "ok": true,
+   "detail": "/"
+  },
+  {
+   "id": "390 reducido · login + resultado REAL de partida rápida tras recargar",
+   "ok": true,
+   "detail": "{\"kind\":\"loss\",\"expected\":\"loss\",\"url\":\"/duelos/jugar?resultado=07df57c4-8974-4f09-abff-3f2c570f6d98\"}"
+  },
+  {
+   "id": "390 reducido · veredicto + marcador + motivo + DOS botones; nada de recompensas/progreso",
+   "ok": true,
+   "detail": "{\"acts\":[\"Seguir jugando\",\"Volver al menú principal\"],\"forbidden\":null}"
+  },
+  {
+   "id": "390 reducido · botones en la primera pantalla y sin desbordamiento",
+   "ok": true,
+   "detail": "{\"acts\":[{\"t\":\"Seguir jugando\",\"top\":502.765625,\"bottom\":554.765625},{\"t\":\"Volver al menú principal\",\"top\":566.765625,\"bottom\":618.765625}],\"vh\":844,\"overflow\":0}"
+  },
+  {
+   "id": "390 reducido · botones apilados",
+   "ok": true,
+   "detail": "[{\"t\":\"Seguir jugando\",\"top\":502.765625,\"bottom\":554.765625},{\"t\":\"Volver al menú principal\",\"top\":566.765625,\"bottom\":618.765625}]"
+  },
+  {
+   "id": "390 reducido · movimiento reducido: sin barrido",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "note": "1 comprobación del instrumento corregida tras la pasada (filtro demasiado amplio); ver correctedAfterRun."
+}

@@ -1,0 +1,21 @@
+{
+  "phase": "F69",
+  "at": "2026-09-27T21:14Z",
+  "layers": ["BD directa como los roles reales de PostgREST (anon / authenticated con claims / service_role), dentro de BEGIN…ROLLBACK", "PostgREST con tokens reales de dos cuentas QA (smoke:production, sección cross-user/escalation)", "API de la app (/api/game/*) con Bearer de otra cuenta (smoke + journeys)"],
+  "dbDirect": {
+    "file": "docs/operations/proposals/0058_rls_tests.sql (27 casos)",
+    "subject": "cuenta QA A (d52916aa) vía `set f69.qa_uid` — nunca la cuenta del usuario",
+    "liveBefore0058": {
+      "ok": ["anon lee ranking_points", "anon lee pickem_questions_public", "auth lee su perfil", "auth cuenta posiciones por puntos", "auth edita su avatar", "auth NO se sube créditos (guardián SEC-02)", "auth NO edita perfil ajeno (RLS)", "auth NO inserta perfil", "auth lee columnas públicas (posición regional)", "auth lee nombre/avatar/nivel ajenos", "auth edita su región", "service_role ejecuta recompute_standings", "service_role lee profiles"],
+      "failOpen": ["anon lee profiles", "anon escribe pickem_questions_public", "anon borra card_photos", "anon ejecuta recompute_standings", "anon ejecuta _release_listing_offers", "anon lee vista heredada ranking_collection", "auth borra profiles (privilegio concedido; RLS no tiene política DELETE → 0 filas)", "auth escribe pickem_questions_public", "auth ejecuta expire_offers", "auth lee credits de otra cuenta", "auth lee is_admin", "auth lee last_seen_at", "auth select * de profiles", "auth tiene TRUNCATE en profiles"],
+      "count": { "ok": 13, "open": 14 },
+      "writesPersisted": 0
+    },
+    "after0058_replica": { "ok": 27, "open": 0, "source": "0058-dryrun.json" }
+  },
+  "gameTablesCrossUser": "Las tablas de juego (user_cards, user_game, user_pass, user_packs, credit_transactions, economy_ops, duel_decks, duel_matches, user_achievements, game_state, duel_pvp_queue, duel_active_deck, user_sanctions, payments) ya aíslan por RLS: C lee 0 filas de B (smoke:production §E). Ver smoke.json.",
+  "escalation": "C no puede darse créditos, is_admin, xp/nivel, renombrar a B, insertarse cartas, apuntes de libro, ganar una partida ni borrar a B; RPCs de recompensa/admin rechazadas (smoke:production §F).",
+  "appApi": "404 uniforme para ids ajenos/inventados (F66); /api/game/me deriva el usuario SOLO del Bearer (test F69).",
+  "socialExposure": "F69: el perfil social de otro jugador ya no devuelve la hora exacta de conexión salvo a amigos (antes a cualquier cuenta).",
+  "verdict": "Aislamiento de datos de juego entre cuentas: PASS. Privilegios históricos de profiles/vistas/funciones: ABIERTOS hasta aplicar 0058 (no alcanzables desde Internet hoy)."
+}

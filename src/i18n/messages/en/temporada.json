@@ -1,0 +1,15 @@
+{
+  "El pase se lee del servidor.": "The pass is read from the server.",
+  "La recompensa del nivel {level} ya era tuya.": "The level {level} reward was already yours.",
+  "Leyendo el pase…": "Reading the pass…",
+  "No se pudo leer el pase": "Couldn't read the pass",
+  "No se pudo reclamar": "Couldn't claim",
+  "No se pudo reclamar. Inténtalo de nuevo.": "Couldn't claim. Try again.",
+  "Pase no disponible sin conexión": "Pass not available offline",
+  "Próxima temporada:": "Next season:",
+  "Recompensa del nivel {level} reclamada": "Level {level} reward claimed",
+  "Recompensa del nivel {level} reclamada.": "Level {level} reward claimed.",
+  "Volver a Temporada": "Back to Season",
+  "tu pase de batalla": "Your Battle Pass",
+  "{titulo} {nombre} empieza en {tiempo}.": "{titulo} {nombre} starts in {tiempo}."
+}

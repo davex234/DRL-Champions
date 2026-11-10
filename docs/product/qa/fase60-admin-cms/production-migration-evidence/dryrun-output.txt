@@ -1,0 +1,151 @@
+BEGIN
+CREATE TABLE
+INSERT 0 3
+ALTER TABLE
+REVOKE
+GRANT
+CREATE FUNCTION
+CREATE FUNCTION
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+CREATE INDEX
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+UPDATE 29
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+DROP POLICY
+CREATE POLICY
+CREATE FUNCTION
+CREATE FUNCTION
+NOTICE:  constraint "agents_lifecycle_check" of relation "agents" does not exist, skipping
+NOTICE:  constraint "agents_origin_check" of relation "agents" does not exist, skipping
+NOTICE:  constraint "agents_id_format_check" of relation "agents" does not exist, skipping
+NOTICE:  constraint "agents_name_check" of relation "agents" does not exist, skipping
+NOTICE:  constraint "agents_code_check" of relation "agents" does not exist, skipping
+NOTICE:  constraint "agents_abilities_check" of relation "agents" does not exist, skipping
+NOTICE:  constraint "agents_published_complete_check" of relation "agents" does not exist, skipping
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE TABLE
+CREATE INDEX
+ALTER TABLE
+REVOKE
+GRANT
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+NOTICE:  constraint "content_cards_presentation_check" of relation "content_cards" does not exist, skipping
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+DROP TRIGGER
+NOTICE:  trigger "content_card_publish_guard" for relation "public.content_cards" does not exist, skipping
+CREATE TRIGGER
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+ALTER TABLE
+ALTER TABLE
+NOTICE:  constraint "events_description_check" of relation "events" does not exist, skipping
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+GRANT
+COMMENT
+COMMENT
+chk_agents|29|published=29|complete=29
+chk_agents_identity_digest|30e7c54247e3802e9d46ed1120359683
+chk_cards_digest|99f51d86a088f2426b6d5bd90b617356|presentation_nonnull=0
+chk_players|379|6839a1797b3f7c600d78597796e73d75
+chk_content_packs|0
+chk_entity_versions|agents=1,packs=1,players=1
+chk_probe|0040_content_audit_log=true,0050_duel_active_deck=true,0051_campaign_progress=true,0052_user_card_favorites=true,0053_draft_runs=true,0054_user_compositions=true,0055_admin_event_drafts=true,0055_user_sanctions=true,0057_agents_lifecycle=true,0057_card_presentation=true,0057_content_packs=true,0057_entity_version=true
+chk_policy|lectura publica agents=(lifecycle <> 'DRAFT'::text)
+chk_objects|122|149
+DO
+NOTICE:  CHECKS_OK
+INSERT 0 1
+UPDATE 1
+INSERT 0 1
+NOTICE:  SMOKE_OK
+DO
+smoke_audit_rows|11
+t
+SET
+anon_sees_draft|0
+anon_sees_published|29
+RESET
+ROLLBACK

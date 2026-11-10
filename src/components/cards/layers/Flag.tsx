@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { flagSrc } from "@/lib/assets";
 
 /**
- * Bandera real del país (imagen). Fallback: chip con el código ISO.
+ * Bandera real del país (imagen LOCAL, F72.3). Fallback: chip con el código ISO (si no hay bandera local o no carga).
  */
 export function Flag({ iso, width = 22 }: { iso: string; width?: number }) {
   const src = flagSrc(iso);
@@ -12,7 +12,7 @@ export function Flag({ iso, width = 22 }: { iso: string; width?: number }) {
 
   useEffect(() => setFailed(false), [src]);
 
-  if (!failed) {
+  if (src && !failed) {
     return (
       <img
         src={src}

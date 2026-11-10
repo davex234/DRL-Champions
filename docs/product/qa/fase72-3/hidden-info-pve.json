@@ -1,0 +1,68 @@
+{
+  "at": "2026-09-29T19:14:25.764Z",
+  "method": "vista real proyectada como en servidor (qaView/projectMatchFor + visualHintValue) sobre una partida de QA en curso; detector de fugas + control negativo",
+  "runs": [
+    {
+      "side": "A",
+      "mode": "PVE",
+      "hiddenCards": 7,
+      "hints": [
+        {
+          "type": "COUNTRY",
+          "value": "US"
+        },
+        {
+          "type": "COUNTRY",
+          "value": "US"
+        },
+        {
+          "type": "TEAM",
+          "value": "leviatan"
+        },
+        {
+          "type": "TEAM",
+          "value": "m8"
+        },
+        {
+          "type": "TEAM",
+          "value": "team-heretics"
+        },
+        {
+          "type": "COUNTRY",
+          "value": "CN"
+        },
+        {
+          "type": "TEAM",
+          "value": "g2"
+        }
+      ],
+      "hintTypes": [
+        "COUNTRY",
+        "TEAM"
+      ],
+      "hintKeys": [
+        "type,value"
+      ],
+      "onlyTypeValue": true,
+      "forbiddenFieldsChecked": [
+        "uid",
+        "cardId",
+        "playerId",
+        "nick"
+      ],
+      "leaks": [],
+      "ovrOrStatsInHints": false,
+      "negativeControl": {
+        "injected": [
+          "cardId",
+          "uid"
+        ],
+        "detected": [
+          "uid:qa-b-u0",
+          "sato__future-star"
+        ]
+      }
+    }
+  ],
+  "pass": true
+}

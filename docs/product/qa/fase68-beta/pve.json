@@ -1,0 +1,266 @@
+{
+  "sessions": [
+    {
+      "id": "B-r1-pve",
+      "persona": "B",
+      "session": "pve",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 235,
+      "actions": 223,
+      "screens": 4,
+      "checks": {
+        "pass": 9,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 167,
+      "statuses": {
+        "200": 756,
+        "204": 11
+      },
+      "bad": [],
+      "notes": [],
+      "matches": [
+        {
+          "i": 0,
+          "wanted": "Fácil",
+          "matchId": "29ea95d9-08c7-4031-b03d-331f7997fe4e",
+          "shown": true,
+          "turns": 10,
+          "ms": 30822,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "RIVAL",
+            "you": 4,
+            "rival": 5,
+            "decidedBy": null
+          },
+          "difficulty": "NORMAL",
+          "credits": [
+            9600,
+            9640
+          ],
+          "xp": [
+            474,
+            499
+          ]
+        },
+        {
+          "i": 1,
+          "wanted": "Normal",
+          "matchId": "4307cd13-96d3-41c1-97b8-f848b0093430",
+          "shown": true,
+          "turns": 10,
+          "ms": 30934,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "YOU",
+            "you": 7,
+            "rival": 3,
+            "decidedBy": null
+          },
+          "difficulty": "NORMAL",
+          "credits": [
+            9640,
+            9860
+          ],
+          "xp": [
+            499,
+            609
+          ]
+        },
+        {
+          "i": 2,
+          "wanted": "Difícil",
+          "matchId": "74dd0e8c-4900-4ef8-9d2c-a336ac66c7df",
+          "shown": true,
+          "turns": 10,
+          "ms": 35759,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "RIVAL",
+            "you": 2,
+            "rival": 8,
+            "decidedBy": null
+          },
+          "difficulty": "HARD",
+          "credits": [
+            9860,
+            9920
+          ],
+          "xp": [
+            609,
+            649
+          ]
+        },
+        {
+          "i": 3,
+          "wanted": "Normal",
+          "matchId": "30d32cb5-6827-447d-9ad6-31178ea80716",
+          "shown": true,
+          "turns": 10,
+          "ms": 32680,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "RIVAL",
+            "you": 2,
+            "rival": 7,
+            "decidedBy": null
+          },
+          "difficulty": "NORMAL",
+          "credits": [
+            9920,
+            9960
+          ],
+          "xp": [
+            649,
+            674
+          ]
+        },
+        {
+          "i": 4,
+          "wanted": "Fácil",
+          "matchId": "bac26ba6-4746-41ff-b939-7653212b5082",
+          "shown": true,
+          "turns": 10,
+          "ms": 33337,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "YOU",
+            "you": 6,
+            "rival": 5,
+            "decidedBy": null
+          },
+          "difficulty": "EASY",
+          "credits": [
+            9960,
+            10080
+          ],
+          "xp": [
+            674,
+            734
+          ]
+        }
+      ],
+      "outcomes": [
+        "RIVAL",
+        "YOU",
+        "RIVAL",
+        "RIVAL",
+        "YOU"
+      ]
+    },
+    {
+      "id": "B-r2-pve",
+      "persona": "B",
+      "session": "pve",
+      "tag": "r2",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 141,
+      "actions": 135,
+      "screens": 2,
+      "checks": {
+        "pass": 7,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 98,
+      "statuses": {
+        "200": 450,
+        "204": 6
+      },
+      "bad": [],
+      "notes": [],
+      "matches": [
+        {
+          "i": 0,
+          "wanted": "Fácil",
+          "matchId": "304253e3-d2d5-425b-9e62-b7ab65d3064b",
+          "shown": true,
+          "turns": 10,
+          "ms": 33096,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "YOU",
+            "you": 6,
+            "rival": 5,
+            "decidedBy": null
+          },
+          "difficulty": "EASY",
+          "credits": [
+            4800,
+            4920
+          ],
+          "xp": [
+            1696,
+            1756
+          ]
+        },
+        {
+          "i": 1,
+          "wanted": "Normal",
+          "matchId": "160a1f69-513d-44cf-9ef0-2ad41e119c52",
+          "shown": true,
+          "turns": 10,
+          "ms": 30517,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "YOU",
+            "you": 6,
+            "rival": 5,
+            "decidedBy": null
+          },
+          "difficulty": "NORMAL",
+          "credits": [
+            4920,
+            5140
+          ],
+          "xp": [
+            1756,
+            1866
+          ]
+        },
+        {
+          "i": 2,
+          "wanted": "Difícil",
+          "matchId": "a06abb38-d72f-436e-80b5-0fca35da9e2e",
+          "shown": true,
+          "turns": 10,
+          "ms": 35801,
+          "stuck": 0,
+          "status": "COMPLETED",
+          "result": {
+            "winner": "RIVAL",
+            "you": 3,
+            "rival": 7,
+            "decidedBy": null
+          },
+          "difficulty": "HARD",
+          "credits": [
+            5140,
+            5200
+          ],
+          "xp": [
+            1866,
+            1906
+          ]
+        }
+      ],
+      "outcomes": [
+        "YOU",
+        "YOU",
+        "RIVAL"
+      ]
+    }
+  ]
+}

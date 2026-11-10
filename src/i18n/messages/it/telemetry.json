@@ -1,0 +1,5 @@
+{
+  "flow_started no lleva severity ni source": "flow_started non ha severity né source",
+  "session_started no lleva flow, severity ni source": "session_started non ha flow, severity né source",
+  "zone_entered no lleva severity ni source": "zone_entered non ha severity né source"
+}

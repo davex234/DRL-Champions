@@ -1,0 +1,20 @@
+{
+  "Abrir sobres": "Open packs",
+  "Aquí abajo está el catálogo entero. Las cartas que consigas ocuparán su hueco; las que no, se quedan a la vista para que sepas qué buscar.": "The whole catalog is down here. The cards you get will fill their slot; the ones you don't stay visible so you know what to look for.",
+  "Carta de {id}": "{id} card",
+  "Equipo": "Team",
+  "Ir a la tienda": "Go to the shop",
+  "Limpiar filtros": "Clear filters",
+  "Ninguna carta del álbum coincide con lo que has pedido. Prueba con otro nombre o quita alguna condición.": "No card in the album matches your search. Try another name or remove a filter.",
+  "No conseguida": "Not owned",
+  "Sin resultados": "No results",
+  "Tienes {packs} {v}. Cada carta que consigas ocupará su hueco aquí abajo, y las que aún no tienes se quedan a la vista para que sepas qué buscar.": "You have {packs} {v}. Every card you get will fill its slot down here, and the ones you don't have yet stay visible so you know what to look for.",
+  "Tu álbum está vacío": "Your album is empty",
+  "Ver {id}": "View {id}",
+  "Ver {n} cartas más": "Show {n} more cards",
+  "Vitrina": "Showcase",
+  "quedan": "remaining",
+  "sobre sin abrir": "unopened pack",
+  "sobres sin abrir": "unopened packs",
+  "{id} — todavía no la tienes": "{id} — you don't have it yet"
+}

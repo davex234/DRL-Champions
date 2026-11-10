@@ -1,0 +1,15 @@
+PASS / carga {"title":"DRL Champions — Manager de esports de Valorant","h":null,"err":false}
+PASS / no descarga el motor 3D ni modelos []
+PASS /tienda carga {"title":"DRL Champions — Manager de esports de Valorant","h":"Champions S","err":false}
+PASS /tienda no descarga el motor 3D ni modelos []
+PASS /inventario carga {"title":"DRL Champions — Manager de esports de Valorant","h":"Mis sobres","err":false}
+PASS /inventario no descarga el motor 3D ni modelos []
+PASS /cuenta carga {"title":"DRL Champions — Manager de esports de Valorant","h":"Tu cuenta de jugador","err":false}
+PASS /cuenta no descarga el motor 3D ni modelos []
+PASS /coleccion carga {"title":"DRL Champions — Manager de esports de Valorant","h":"El álbum de NEXUS","err":false}
+PASS /coleccion no descarga el motor 3D ni modelos []
+PASS /abrir/estandar · la apertura de siempre está lista (invitado) {"phase":"ready","walkouts":"0","open":true,"openDisabled":false}
+PASS apertura de invitado · 0 walkouts con el interruptor en off (y localStorage no lo enciende) {"phase":"buildup","walkouts":"0","w":false}
+PASS apertura de invitado · llega al resumen summary
+PASS /abrir · ni el motor 3D ni los modelos se descargan con el interruptor en off []
+PASS sin errores de consola en el recorrido público []

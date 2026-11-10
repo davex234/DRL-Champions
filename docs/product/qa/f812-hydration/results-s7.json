@@ -1,0 +1,99 @@
+{
+  "at": "2026-10-02T18:20:42.611Z",
+  "base": "http://127.0.0.1:3082",
+  "ms": 46179,
+  "pass": 18,
+  "fail": 0,
+  "rows": [
+    {
+      "id": "S7 LOGIN @1440 · la demo se esconde en la transición (nunca 6.000 como saldo de la cuenta)",
+      "ok": true,
+      "detail": "2706:I[] 3251:[—] 3337:[—] 6292:[2.120]"
+    },
+    {
+      "id": "S7 LOGIN @1440 · después, el saldo real",
+      "ok": true,
+      "detail": "{\"t\":6292,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":false}"
+    },
+    {
+      "id": "S7 LOGOUT @1440 · nunca el saldo de la cuenta como visitante; HUD «Entrar»",
+      "ok": true,
+      "detail": "9525:[2.120] 9530:I[]"
+    },
+    {
+      "id": "S7 LOGOUT @1440 · la caché de la cuenta pasa a la demo de inicio (no a «demo con mis cartas»)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"cards\":0,\"owner\":null,\"session\":false}"
+    },
+    {
+      "id": "S7 LOGOUT @1440 · /coleccion de visitante montada (demo de inicio, sin cargador ni reintento)",
+      "ok": true,
+      "detail": "{\"t\":166,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":true,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S7 @1440 · consola limpia",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "S7 LOGIN @1024 · la demo se esconde en la transición (nunca 6.000 como saldo de la cuenta)",
+      "ok": true,
+      "detail": "2714:I[] 3160:[—] 3217:[—] 6194:[2.120]"
+    },
+    {
+      "id": "S7 LOGIN @1024 · después, el saldo real",
+      "ok": true,
+      "detail": "{\"t\":6194,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":false}"
+    },
+    {
+      "id": "S7 LOGOUT @1024 · nunca el saldo de la cuenta como visitante; HUD «Entrar»",
+      "ok": true,
+      "detail": "9090:I[]"
+    },
+    {
+      "id": "S7 LOGOUT @1024 · la caché de la cuenta pasa a la demo de inicio (no a «demo con mis cartas»)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"cards\":0,\"owner\":null,\"session\":false}"
+    },
+    {
+      "id": "S7 LOGOUT @1024 · /coleccion de visitante montada (demo de inicio, sin cargador ni reintento)",
+      "ok": true,
+      "detail": "{\"t\":140,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":true,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S7 @1024 · consola limpia",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "id": "S7 LOGIN @390 · la demo se esconde en la transición (nunca 6.000 como saldo de la cuenta)",
+      "ok": true,
+      "detail": "2702:I[] 3119:[—] 3171:[—] 6191:[2.120]"
+    },
+    {
+      "id": "S7 LOGIN @390 · después, el saldo real",
+      "ok": true,
+      "detail": "{\"t\":6191,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":false,\"hud\":\"2.120\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":true,\"demoCredits\":false}"
+    },
+    {
+      "id": "S7 LOGOUT @390 · nunca el saldo de la cuenta como visitante; HUD «Entrar»",
+      "ok": true,
+      "detail": "8864:I[]"
+    },
+    {
+      "id": "S7 LOGOUT @390 · la caché de la cuenta pasa a la demo de inicio (no a «demo con mis cartas»)",
+      "ok": true,
+      "detail": "{\"credits\":6000,\"cards\":0,\"owner\":null,\"session\":false}"
+    },
+    {
+      "id": "S7 LOGOUT @390 · /coleccion de visitante montada (demo de inicio, sin cargador ni reintento)",
+      "ok": true,
+      "detail": "{\"t\":121,\"loader\":false,\"skel\":false,\"unavailable\":false,\"signin\":true,\"hud\":\"\",\"demoText\":[],\"six\":false,\"pack\":\"\",\"realText\":false,\"demoCredits\":false}"
+    },
+    {
+      "id": "S7 @390 · consola limpia",
+      "ok": true,
+      "detail": "[]"
+    }
+  ]
+}

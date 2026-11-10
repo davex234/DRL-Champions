@@ -1,0 +1,41 @@
+{
+  "phase": "F69 (sesión reanudada)",
+  "at": "2026-09-28",
+  "rule": "Solo se borra lo que se demuestra resto de F69; lo preexistente sin uso se documenta, no se toca.",
+  "f69Exports": {
+    "method": "Por cada export nuevo o renombrado por F69: ficheros de producción y de test que lo usan (rg -w).",
+    "results": {
+      "useServerEconomy": "9 módulos de producción + test",
+      "SESSION_PENDING": "5 módulos + test",
+      "SERVER_ECONOMY_ONLY": "3 módulos",
+      "fetchOwnProfile": "auth.tsx, useAdminSession.ts, client.ts + test",
+      "OWN_PROFILE_COLUMNS": "/api/game/me + test",
+      "AUTHENTICATED_PROFILE_COLUMNS / PRIVATE_PROFILE_COLUMNS": "contrato fijado por test contra la SQL de 0058 v3 (consumidor legítimo: la guardia que impide que la propuesta y el código diverjan)",
+      "recordCoachMatch / CoachMatchSummary / summarizeMatch / summarizeRound": "useCoachMatch, MatchCeremony, página del partido, verificadores fusion/playable",
+      "isPvpMode (duels.ts)": "4 guardas del servicio PvE",
+      "playerMessage (ampliado)": "17 pantallas + test"
+    },
+    "unused": 0
+  },
+  "removedByF69": {
+    "grantMatchOutcomeReward, computeMatchOutcomeReward, grantMatchReward, computeMatchReward, MatchReward": "eliminados (no quedan en paralelo); el test f69.coachAuthority fija que no vuelvan",
+    "botón duplicado de BuyPhasePanel/CoachTacticalPanel en el partido": "no se borró el componente: onConfirm pasó a opcional (en uso aislado se conserva)"
+  },
+  "abandonedAttempts": {
+    "searched": ["ficheros *V2/*New/*Fixed/*Final/*2 creados tras F68", "módulos F69 sin importadores", "copias .bak en el repo"],
+    "found": "ninguno en el repo. Las copias de seguridad de la sesión anterior (.bak, bak/) están en su scratchpad, fuera del árbol.",
+    "instrumentDuplicate": "el bucle copiado en _fase69-coach.ts (ver duplicate-code-audit.json) — consolidado."
+  },
+  "preexistingDeadCode": [
+    {
+      "symbol": "fetchMyProfile (src/lib/game/client.ts)",
+      "status": "sin llamadores desde ANTES de F69 (profile-exposure.json lo registra así); F69 solo cambió su lectura a /api/game/me para que no dependa de columnas privadas por REST",
+      "action": "NO se borra en F69 (preexistente, API exportada); candidato para la limpieza de F70+"
+    }
+  ],
+  "fileTimestampsExplained": {
+    "src/design/tokens.ts": "mtime 00:39 = lo reescribe buildid.test al ejecutar la suite (trampa conocida de F67); contenido sin cambios de F69",
+    "public/sw.js": "mtime sin cambio de contenido (git no lo marca modificado)"
+  },
+  "summary": { "f69DeadCodeFound": 0, "f69DuplicatesConsolidated": 1, "preexistingDeadDocumented": 1 }
+}

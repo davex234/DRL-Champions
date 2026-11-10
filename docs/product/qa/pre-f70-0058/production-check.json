@@ -1,0 +1,149 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "command": "npm run production:check -- --app --vps",
+  "build": "drl-0.1.1-1-85f24d2b",
+  "summary": "24 PASS · 1 WARN · 1 FAIL",
+  "exit": 1,
+  "checks": [
+    {
+      "status": "PASS",
+      "id": "env",
+      "detail": "OPTIONAL ANTHROPIC_API_KEY: falta: predicciones con heurística · OPTIONAL NEXT_PUBLIC_VLR_API: falta: fuente VLR desactivada"
+    },
+    {
+      "status": "PASS",
+      "id": "node",
+      "detail": "v24.15.0 (engines >=22.12.0 <25, recomendado 24.15.0)"
+    },
+    {
+      "status": "PASS",
+      "id": "build",
+      "detail": "BUILD_ID drl-0.1.1-1-85f24d2b = huella del código actual"
+    },
+    {
+      "status": "PASS",
+      "id": "migrations",
+      "detail": "58 ficheros, última 0058_hardening_grants.sql (esperada 0058_hardening_grants)"
+    },
+    {
+      "status": "PASS",
+      "id": "migrations-startup",
+      "detail": "la app NO aplica migraciones al arrancar"
+    },
+    {
+      "status": "PASS",
+      "id": "flags",
+      "detail": "GLOBAL_MARKET_ENABLED=false PAYMENTS_ENABLED=false (constantes de código, no conmutables desde el cliente)"
+    },
+    {
+      "status": "PASS",
+      "id": "catalog",
+      "detail": "331 cartas en código"
+    },
+    {
+      "status": "PASS",
+      "id": "card-art",
+      "detail": "331/331 imágenes presentes"
+    },
+    {
+      "status": "PASS",
+      "id": "agent-art",
+      "detail": "29 agentes, sin carpeta de arte: ninguno"
+    },
+    {
+      "status": "PASS",
+      "id": "pack-art",
+      "detail": "32 sobres, 19 con arte, rotos: ninguno"
+    },
+    {
+      "status": "PASS",
+      "id": "maps",
+      "detail": "13 entradas en public/maps"
+    },
+    {
+      "status": "PASS",
+      "id": "security-headers",
+      "detail": "CSP, X-Frame-Options, nosniff, Referrer-Policy, Permissions-Policy, COOP, HSTS, sin X-Powered-By"
+    },
+    {
+      "status": "PASS",
+      "id": "edge-guards",
+      "detail": "tamaño de cuerpo, arneses QA ocultos, x-request-id"
+    },
+    {
+      "status": "PASS",
+      "id": "robots",
+      "detail": "beta cerrada: noindex"
+    },
+    {
+      "status": "PASS",
+      "id": "sharp",
+      "detail": "sharp es dependencia directa"
+    },
+    {
+      "status": "PASS",
+      "id": "client-secrets",
+      "detail": "ningún secreto del servidor en .next/static ni public/"
+    },
+    {
+      "status": "PASS",
+      "id": "source-maps",
+      "detail": "sin source maps públicos del navegador"
+    },
+    {
+      "status": "PASS",
+      "id": "app-health",
+      "detail": "http://127.0.0.1:3005/api/health → 200"
+    },
+    {
+      "status": "PASS",
+      "id": "app-ready",
+      "detail": "ready · config:ok database:ok schema:ok privacy:ok catalog:ok storage:ok"
+    },
+    {
+      "status": "PASS",
+      "id": "backup-daily-db",
+      "detail": "último dump diario hace 8 h (cron 04:30, retención 14 días)"
+    },
+    {
+      "status": "PASS",
+      "id": "backup-daily-storage",
+      "detail": "último tar de Storage hace 8 h"
+    },
+    {
+      "status": "PASS",
+      "id": "backup-verified",
+      "detail": "último backup con manifiesto: /opt/nexus/backups/supabase-drlcards/f67/20260926T204632Z/ · SHA256SUMS ok"
+    },
+    {
+      "status": "PASS",
+      "id": "backup-log",
+      "detail": "1 líneas FALLO en el histórico · [20260928T043001Z] fin. fallos=0  total=2.5G"
+    },
+    {
+      "status": "PASS",
+      "id": "backup-disk",
+      "detail": "471904 MB libres en /opt/nexus/backups; backups de DRLCards ocupan 80 MB (15 dumps diarios)"
+    },
+    {
+      "status": "FAIL",
+      "id": "backup-offsite",
+      "detail": "las copias viven en el MISMO disco del VPS: la pérdida del VPS las pierde (BLOCKED: falta destino externo)"
+    },
+    {
+      "status": "WARN",
+      "id": "auth-email",
+      "detail": "BLOCKED para release pública: SMTP=supabase_inbucket_DRLCards (no entrega correo real) · SITE_URL=http://127.0.0.1:3000 · allow-list=https://127.0.0.1:3000 · autoconfirmación ON (registro sin verificar correo)"
+    }
+  ],
+  "changedExpectations": [
+    "migrations: esperada 0058_hardening_grants (MIGRATION_HEAD, fuente única src/server/ops/release.ts) — antes 0057",
+    "app-ready incluye la nueva sonda «privacy» (0058 vigente)"
+  ],
+  "expectedNonPass": {
+    "FAIL": "backup-offsite (BLOCKED externo — SIGUIENTE BLOCKER)",
+    "WARN": "auth-email (BLOCKED externo para release pública)"
+  },
+  "weakened": "nada: ninguna comprobación se relajó ni se forzó a PASS",
+  "note": "backup-verified sigue citando el último backup del directorio f67; el backup inmediato pre-0058 (pre-0058/20260928T115532Z) se verificó aparte (backup.json)"
+}

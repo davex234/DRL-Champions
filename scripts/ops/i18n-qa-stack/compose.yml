@@ -1,0 +1,153 @@
+# =============================================================================
+# ValoRosters · STACK DE QA AISLADO (i18n, 2026-10-11)
+# =============================================================================
+# Supabase mínimo (db + auth + rest + storage + kong) SOLO para QA autenticada con datos sintéticos.
+#
+#   · Proyecto, red, volúmenes y secretos PROPIOS: no comparte nada con `supabase-drlcards` (producción).
+#   · Secretos generados en el VPS por `up.sh` (secrets/qa.env, 600): las claves de producción no sirven aquí ni
+#     las de aquí en producción.
+#   · Puertos solo en 127.0.0.1 (54621 API, 54622 Postgres): se llega por túnel SSH.
+#   · El esquema sale de `supabase/migrations` del repo; los datos, de cuentas QA creadas a propósito.
+#   · `down.sh` lo borra entero (contenedores, red y volúmenes).
+# =============================================================================
+name: valorosters-i18n-qa
+
+x-log: &log
+  driver: json-file
+  options: { max-size: "5m", max-file: "2" }
+
+services:
+  db:
+    container_name: vrqa_db
+    image: public.ecr.aws/supabase/postgres:17.6.1.165
+    restart: "no"
+    logging: *log
+    environment:
+      POSTGRES_USER: supabase_admin
+      POSTGRES_PASSWORD: ${QA_DB_PASSWORD}
+      POSTGRES_HOST: /var/run/postgresql
+      JWT_SECRET: ${QA_JWT_SECRET}
+      JWT_EXP: "3600"
+      POSTGRES_DB: postgres
+    volumes:
+      - vrqa_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h 127.0.0.1 -p 5432"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    ports:
+      - "127.0.0.1:54622:5432"
+    networks: [qa]
+    mem_limit: 2g
+    security_opt: ["no-new-privileges:true"]
+
+  auth:
+    container_name: vrqa_auth
+    image: public.ecr.aws/supabase/gotrue:v2.196.0
+    restart: "no"
+    logging: *log
+    profiles: ["services"]
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: "9999"
+      API_EXTERNAL_URL: http://127.0.0.1:54621
+      GOTRUE_DB_DRIVER: postgres
+      GOTRUE_DB_DATABASE_URL: postgres://supabase_auth_admin:${QA_DB_PASSWORD}@db:5432/postgres
+      GOTRUE_SITE_URL: http://127.0.0.1:3027
+      GOTRUE_URI_ALLOW_LIST: http://127.0.0.1:3027,http://localhost:3027
+      GOTRUE_DISABLE_SIGNUP: "false"
+      GOTRUE_JWT_ADMIN_ROLES: service_role
+      GOTRUE_JWT_AUD: authenticated
+      GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+      GOTRUE_JWT_EXP: "3600"
+      GOTRUE_JWT_SECRET: ${QA_JWT_SECRET}
+      GOTRUE_JWT_ISSUER: http://127.0.0.1:54621/auth/v1
+      GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
+      GOTRUE_EXTERNAL_ANONYMOUS_USERS_ENABLED: "false"
+      GOTRUE_MAILER_AUTOCONFIRM: "true"
+      GOTRUE_SMTP_HOST: 127.0.0.1
+      GOTRUE_SMTP_PORT: "2500"
+      GOTRUE_SMTP_ADMIN_EMAIL: qa@example.invalid
+      GOTRUE_MAILER_URLPATHS_CONFIRMATION: /auth/v1/verify
+      GOTRUE_PASSWORD_MIN_LENGTH: "6"
+      GOTRUE_RATE_LIMIT_EMAIL_SENT: "1000"
+      GOTRUE_SECURITY_REFRESH_TOKEN_ROTATION_ENABLED: "true"
+      GOTRUE_SECURITY_REFRESH_TOKEN_REUSE_INTERVAL: "10"
+    networks: [qa]
+    mem_limit: 512m
+    security_opt: ["no-new-privileges:true"]
+
+  storage:
+    container_name: vrqa_storage
+    image: public.ecr.aws/supabase/storage-api:v1.70.3
+    restart: "no"
+    logging: *log
+    profiles: ["services"]
+    environment:
+      ANON_KEY: ${QA_ANON_KEY}
+      SERVICE_KEY: ${QA_SERVICE_KEY}
+      AUTH_JWT_SECRET: ${QA_JWT_SECRET}
+      PGRST_JWT_SECRET: ${QA_JWT_SECRET}
+      POSTGREST_URL: http://rest:3000
+      DATABASE_URL: postgres://supabase_storage_admin:${QA_DB_PASSWORD}@db:5432/postgres
+      FILE_SIZE_LIMIT: "52428800"
+      STORAGE_BACKEND: file
+      FILE_STORAGE_BACKEND_PATH: /mnt
+      TENANT_ID: stub
+      REGION: stub
+      GLOBAL_S3_BUCKET: stub
+      ENABLE_IMAGE_TRANSFORMATION: "false"
+      DB_INSTALL_ROLES: "false"
+    volumes:
+      - vrqa_storage:/mnt
+    networks: [qa]
+    mem_limit: 768m
+    security_opt: ["no-new-privileges:true"]
+
+  rest:
+    container_name: vrqa_rest
+    image: public.ecr.aws/supabase/postgrest:v16.1
+    restart: "no"
+    logging: *log
+    profiles: ["api"]
+    environment:
+      PGRST_DB_URI: postgres://authenticator:${QA_DB_PASSWORD}@db:5432/postgres
+      PGRST_DB_SCHEMAS: public,graphql_public
+      PGRST_DB_EXTRA_SEARCH_PATH: public,extensions
+      PGRST_DB_MAX_ROWS: "1000"
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: ${QA_JWT_SECRET}
+      PGRST_ADMIN_SERVER_PORT: "3001"
+    networks: [qa]
+    mem_limit: 512m
+    security_opt: ["no-new-privileges:true"]
+
+  kong:
+    container_name: vrqa_kong
+    image: public.ecr.aws/supabase/kong:2.8.1
+    restart: "no"
+    logging: *log
+    profiles: ["api"]
+    environment:
+      KONG_DATABASE: "off"
+      KONG_NGINX_WORKER_PROCESSES: "2"
+      KONG_DECLARATIVE_CONFIG: /home/kong/kong.yml
+      KONG_DNS_ORDER: LAST,A,CNAME
+      KONG_PLUGINS: request-transformer,cors,key-auth,acl
+      KONG_NGINX_PROXY_PROXY_BUFFER_SIZE: 160k
+      KONG_NGINX_PROXY_PROXY_BUFFERS: 64 160k
+    volumes:
+      - ./kong/kong.yml:/home/kong/kong.yml:ro
+    ports:
+      - "127.0.0.1:54621:8000"
+    networks: [qa]
+    mem_limit: 1g
+
+volumes:
+  vrqa_db:
+  vrqa_storage:
+
+networks:
+  qa:
+    name: valorosters-i18n-qa

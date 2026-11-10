@@ -1,0 +1,132 @@
+{
+ "at": "2026-09-24T19:28:57.520Z",
+ "suite": "npm test (node:test) — ver fase-60-admin-cms.md §Gates",
+ "tests": [
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "AGENTE · borrador → editar → cara y cuerpo → publicar (sólo completo) → runtime sin reiniciar → retirar → histórico"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "AGENTE · dependencias reales: un borrador usado por una composición NO se borra; sin referencias sí (y sin residuos)"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "AGENTE · XSS y reglas: <script> en el nombre, id de legado, habilidades incompletas ⇒ 400"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SOBRE · borrador desde plantilla (economía heredada) → pool → simulación sin escrituras → puerta → publicar → runtime → retirar"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SOBRE · ECONOMÍA congelada tras publicar; la RPC exige arte + simulación + pool ACTIVO para publicar"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SOBRE · la simulación no escribe NADA en la BD"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "CARTA · alta atómica en borrador (arte obligatorio), fuera del juego, puerta de publicación, impreso inmutable, retiro histórico"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "CARTA · una carta del panel sin presentación NO se publica (red en la BD, entre por donde entre)"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "CARTA · las 331 del catálogo diseñado siguen saliendo del manifiesto (presentación NULL no las toca)"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "JUGADOR · alta, edición con concurrencia, validación y retiro por estado (sin borrado)"
+  },
+  {
+   "file": "src/server/cms/cms.test.ts",
+   "test": "SUBIDAS · reemplazo = nueva versión del grupo (la anterior queda como historial); huérfano detectado y limpieza explícita; en uso ⇒ no"
+  }
+ ],
+ "production": [
+  {
+   "step": "agent · crear borrador",
+   "ok": true
+  },
+  {
+   "step": "agent · subir cara (sharp real, Storage real)",
+   "ok": true
+  },
+  {
+   "step": "agent · subir cuerpo entero",
+   "ok": true
+  },
+  {
+   "step": "agent · asignar arte + editar",
+   "ok": true
+  },
+  {
+   "step": "agent · ficha: checklist completo (listo para publicar, NO se publica)",
+   "ok": true
+  },
+  {
+   "step": "agent · borrar borrador (sin referencias)",
+   "ok": true
+  },
+  {
+   "step": "card · subir arte de carta",
+   "ok": true
+  },
+  {
+   "step": "card · crear BORRADOR atómico",
+   "ok": true
+  },
+  {
+   "step": "card · borrar borrador sin historia",
+   "ok": true
+  },
+  {
+   "step": "pack · crear borrador (economía heredada de Bronce)",
+   "ok": true
+  },
+  {
+   "step": "pack · subir arte del sobre",
+   "ok": true
+  },
+  {
+   "step": "pack · asignar arte",
+   "ok": true
+  },
+  {
+   "step": "pack · borrar borrador + su pool dedicado",
+   "ok": true
+  },
+  {
+   "step": "asset · subir + reemplazar = versión 2 del grupo",
+   "ok": true
+  },
+  {
+   "step": "cleanup · borrar asset 8d70beb7",
+   "ok": true
+  },
+  {
+   "step": "cleanup · borrar asset ff810c4b",
+   "ok": true
+  },
+  {
+   "step": "cleanup · borrar asset c28c5216",
+   "ok": true
+  },
+  {
+   "step": "cleanup · borrar asset c3b3beff",
+   "ok": true
+  },
+  {
+   "step": "cleanup · borrar asset 643a87ea",
+   "ok": true
+  },
+  {
+   "step": "cleanup · borrar asset a2e8f543",
+   "ok": true
+  }
+ ]
+}

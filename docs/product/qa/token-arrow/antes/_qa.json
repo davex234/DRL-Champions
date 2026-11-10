@@ -1,0 +1,41 @@
+{
+  "flecha dibujada": {
+    "ok": true,
+    "dibujos": 1
+  },
+  "ficha colocada sobre el inicio de la flecha": {
+    "ok": true,
+    "t1": [
+      550,
+      596
+    ],
+    "A": [
+      550,
+      596
+    ],
+    "radio": 16
+  },
+  "clic en la ficha → ficha": {
+    "ok": false,
+    "seleccion": "DIBUJO · Flecha"
+  },
+  "arrastre de la ficha desde encima de la flecha": {
+    "ok": false,
+    "movidaA": [
+      550,
+      596
+    ],
+    "vuelta": [
+      550,
+      596
+    ]
+  },
+  "clic en el tramo libre → flecha": {
+    "ok": true,
+    "seleccion": "DIBUJO · Flecha"
+  },
+  "quitar la flecha seleccionada (la ficha no se toca)": {
+    "ok": true,
+    "quedan": 0
+  }
+}

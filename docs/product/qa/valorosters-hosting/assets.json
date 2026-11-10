@@ -1,0 +1,10 @@
+{
+  "at": "2026-09-30T18:01:25.318Z",
+  "status": "OK",
+  "local": "gate: 0 assets rotos, 0 Failed to fetch, 0 errores de consola",
+  "bundle": "sin 127.0.0.1:54521 ni claves de servidor",
+  "storageUrls": "el servidor genera URL públicas https://valorosters.com/storage/v1/... (desde localhost solo cargan cuando exista el DNS)",
+  "public": "0 imágenes rotas en 12 páginas × 3 anchuras; arte de cartas/sobres/banderas/logos desde public/",
+  "storage": "API alcanzable por el dominio (/storage/v1/status 200); bucket público assets con 0 objetos",
+  "updatedAt": "2026-09-30T18:31:43.689Z"
+}

@@ -1,0 +1,148 @@
+BEGIN
+=== APLICAR 0059
+CREATE TABLE
+INSERT 0 11
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+REVOKE
+REVOKE
+GRANT
+DROP POLICY
+NOTICE:  policy "tu progreso de misiones" for relation "public.user_mission_progress" does not exist, skipping
+CREATE POLICY
+DROP POLICY
+NOTICE:  policy "tus proyectos reclamados" for relation "public.user_project_claims" does not exist, skipping
+CREATE POLICY
+NOTICE:  function public.app_craft_pack(uuid,text,text) does not exist, skipping
+NOTICE:  function public.app_craft_card(uuid,text,uuid[],jsonb,text,text) does not exist, skipping
+DROP FUNCTION
+CREATE FUNCTION
+DROP FUNCTION
+CREATE FUNCTION
+DROP FUNCTION
+NOTICE:  function public.app_mission_apply(uuid,text,text,jsonb,jsonb) does not exist, skipping
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+DO
+=== SONDAS
+NOTICE:  P1 OK insuficiente → INSUFFICIENT_PACKS
+NOTICE:  P2/P3 OK 4 Bronce → 1 Plata, repetido no duplica, ledger 1 fila: {"kind": "PACK", "inputs": [{"qty": 4, "packId": "estandar"}], "outputs": [{"qty": 1, "packId": "premium"}], "recipeId": "pack-estandar-premium", "inventory": {"premium": 1, "estandar": 0}}
+NOTICE:  P7 OK receta desactivada rechazada
+NOTICE:  C OK intercambio 7 → 1 (origen craft), última copia protegida, idempotente, ajenas rechazadas
+NOTICE:  M OK evento una vez, tope y completada
+NOTICE:  SEC OK privilegios
+DO
+=== ROLLBACK DOCUMENTADO
+DROP FUNCTION
+DROP FUNCTION
+DROP FUNCTION
+DROP TABLE
+DO
+=== REAPLICAR 0059
+NOTICE:  ROLLBACK OK: tablas y funciones de 0059 retiradas
+CREATE TABLE
+INSERT 0 11
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+CREATE TABLE
+CREATE INDEX
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+REVOKE
+REVOKE
+GRANT
+NOTICE:  policy "tu progreso de misiones" for relation "public.user_mission_progress" does not exist, skipping
+DROP POLICY
+CREATE POLICY
+DROP POLICY
+NOTICE:  policy "tus proyectos reclamados" for relation "public.user_project_claims" does not exist, skipping
+CREATE POLICY
+DROP FUNCTION
+NOTICE:  function public.app_craft_pack(uuid,text,text) does not exist, skipping
+CREATE FUNCTION
+DROP FUNCTION
+NOTICE:  function public.app_craft_card(uuid,text,uuid[],jsonb,text,text) does not exist, skipping
+CREATE FUNCTION
+DROP FUNCTION
+NOTICE:  function public.app_mission_apply(uuid,text,text,jsonb,jsonb) does not exist, skipping
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+DO
+=== REAPLICAR OTRA VEZ (idempotencia)
+CREATE TABLE
+NOTICE:  relation "craft_recipes" already exists, skipping
+INSERT 0 0
+CREATE TABLE
+NOTICE:  relation "content_card_projects" already exists, skipping
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE TABLE
+NOTICE:  relation "content_missions" already exists, skipping
+NOTICE:  relation "content_missions_project_idx" already exists, skipping
+NOTICE:  relation "content_missions_status_idx" already exists, skipping
+NOTICE:  relation "user_mission_progress" already exists, skipping
+CREATE TABLE
+CREATE INDEX
+NOTICE:  relation "mission_events" already exists, skipping
+NOTICE:  relation "mission_events_user_idx" already exists, skipping
+NOTICE:  relation "user_project_claims" already exists, skipping
+CREATE TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+ALTER TABLE
+REVOKE
+REVOKE
+GRANT
+DROP POLICY
+CREATE POLICY
+DROP POLICY
+CREATE POLICY
+DROP FUNCTION
+CREATE FUNCTION
+DROP FUNCTION
+CREATE FUNCTION
+DROP FUNCTION
+CREATE FUNCTION
+REVOKE
+REVOKE
+REVOKE
+GRANT
+GRANT
+GRANT
+DO
+10
+ROLLBACK

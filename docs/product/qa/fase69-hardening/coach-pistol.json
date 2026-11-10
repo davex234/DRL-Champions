@@ -1,0 +1,136 @@
+{
+  "phase": "F69",
+  "bug": "F68-011",
+  "rootCause": "aiConcept() (src/coach/ai.ts) endosa el plan automático: en la ronda 1 los dos equipos parten del dinero inicial (rules.start), el tramo es «eco» por definición y el plan salía con entryType eco_rush/stack → concepto SAVE («SAVE / ECO»). Además coachIntel/coachLive decían «Su economía está tocada» porque el poder de compra del rival es bajo en la pistola.",
+  "fix": "Regla mínima con el modelo que YA existe: si plan.round === 1 y el concepto es SAVE → plan por defecto + nota «pistol_round». «Economía tocada» solo desde la ronda 2. La compra (tier) la sigue decidiendo el motor económico. No se tocó ninguna otra ronda.",
+  "whyOnlyRound1": "El motor de partido NO reinicia el dinero en el cambio de lado (onSideSwitch solo cambia lados; la economía se arrastra), así que la ronda 13 no es una pistola en este modelo; inventar esa regla sería cambiar el juego.",
+  "scope": "aiConcept solo decide el entrenador LOCAL en modo IA (engine.ts:runCoach con s.config.coach); el rival no lo usa. Cambia la recomendación y el plan IA de la ronda 1 del Coach; NO el motor de duelos de cartas (huella dorada F61 intacta).",
+  "before": {
+    "persona": "D",
+    "round1": {
+      "round": "1",
+      "pistol": true,
+      "recommendsSave": true,
+      "recommendation": "RECOMENDACIÓN IA 50% confianza SAVE / ECO › La lectura automática es sólida; el plan se mantiene",
+      "economyBroken": true,
+      "buyButtons": [],
+      "rewardCopy": false
+    }
+  },
+  "after": {
+    "persona": "D",
+    "build": "F69",
+    "round1": {
+      "round": "1",
+      "pistol": true,
+      "recommendsSave": false,
+      "recommendation": "RECOMENDACIÓN IA 50% confianza DEFAULT › Ronda pistola: nadie tiene nada que guardar; se juega el plan con lo que da el presupuesto inicial",
+      "economyBroken": false,
+      "buyButtons": [],
+      "rewardCopy": false
+    },
+    "allRounds": [
+      {
+        "round": "1",
+        "pistolBanner": true,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 50% confianza DEFAULT › Ronda pistola: nadie tiene nada que guardar; se juega el plan con lo que da el presupuesto inicial"
+      },
+      {
+        "round": "2",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 88% confianza JUGAR POR PICKS › El equipo está inspirado: ejecuta con decisión"
+      },
+      {
+        "round": "3",
+        "pistolBanner": false,
+        "recommendsSave": true,
+        "recommendation": "RECOMENDACIÓN IA 90% confianza SAVE / ECO › La lectura automática es sólida; el plan se mantiene"
+      },
+      {
+        "round": "4",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 47% confianza DEFAULT › La lectura automática es sólida; el plan se mantiene"
+      },
+      {
+        "round": "5",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 16% confianza RETAKE › Venimos de varias derrotas: toca cambiar el enfoque"
+      },
+      {
+        "round": "6",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 60% confianza DEFAULT › La lectura automática es sólida; el plan se mantiene"
+      },
+      {
+        "round": "7",
+        "pistolBanner": false,
+        "recommendsSave": true,
+        "recommendation": "RECOMENDACIÓN IA 90% confianza SAVE / ECO › La lectura automática es sólida; el plan se mantiene"
+      },
+      {
+        "round": "8",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 75% confianza JUGAR POR PICKS › El equipo está inspirado: ejecuta con decisión"
+      },
+      {
+        "round": "9",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 90% confianza JUGAR POR PICKS › El equipo está inspirado: ejecuta con decisión"
+      },
+      {
+        "round": "10",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 90% confianza JUGAR POR PICKS › El equipo está inspirado: ejecuta con decisión"
+      },
+      {
+        "round": "11",
+        "pistolBanner": false,
+        "recommendsSave": true,
+        "recommendation": "RECOMENDACIÓN IA 90% confianza SAVE / ECO › La lectura automática es sólida; el plan se mantiene"
+      },
+      {
+        "round": "12",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 90% confianza JUGAR POR PICKS › El equipo está inspirado: ejecuta con decisión"
+      },
+      {
+        "round": "13",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 90% confianza EXPLODE B › El equipo está inspirado: ejecuta con decisión"
+      },
+      {
+        "round": "14",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 75% confianza EXPLODE A › El equipo está inspirado: ejecuta con decisión"
+      },
+      {
+        "round": "15",
+        "pistolBanner": false,
+        "recommendsSave": false,
+        "recommendation": "RECOMENDACIÓN IA 85% confianza EXPLODE B › El equipo está inspirado: ejecuta con decisión"
+      }
+    ]
+  },
+  "readingAfter": "Ronda 1: DEFAULT con «Ronda pistola: nadie tiene nada que guardar…». SAVE/ECO aparece en rondas 3, 7 y 11 (tras perder rondas: legítimo). Ronda 13 (cambio de lado): EXPLODE B.",
+  "tests": [
+    "src/coach/f69.pistol.test.ts (3: motor completo en ataque y defensa, regla mínima, compra intacta)"
+  ],
+  "status": "FIXED — VERIFIED ON FINAL BUILD",
+  "finalLiveRunResumed": {
+    "at": "2026-09-28T10:35:43.175Z",
+    "build": "d74dc352",
+    "roundsWithRecommendation": 25,
+    "saveInPistol": false
+  }
+}

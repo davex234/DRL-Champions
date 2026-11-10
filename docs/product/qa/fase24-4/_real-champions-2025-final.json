@@ -1,0 +1,556 @@
+{
+  "url": "https://www.vlr.gg/event/2283/valorant-champions-2025",
+  "meta": {
+    "sourceUrl": "https://www.vlr.gg/event/2283/valorant-champions-2025",
+    "eventId": "2283",
+    "slug": "valorant-champions-2025",
+    "pagesFetched": 3,
+    "matchesListed": 34,
+    "matchDetailsFetched": 0,
+    "mapsParsed": 0,
+    "structure": {
+      "present": true,
+      "edges": 11,
+      "qualification": 0,
+      "unknown": 0,
+      "conflicts": 0
+    },
+    "mapStatRows": 0
+  },
+  "warnings": [],
+  "edges": [
+    {
+      "from": "542265",
+      "to": "542268",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542264",
+      "to": "542268",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542266",
+      "to": "542269",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542267",
+      "to": "542269",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542273",
+      "to": "542276",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "542274",
+      "to": "542277",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "542268",
+      "to": "542270",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542269",
+      "to": "542270",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542277",
+      "to": "542278",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542276",
+      "to": "542278",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542278",
+      "to": "542279",
+      "source": "WINNER",
+      "slot": null
+    },
+    {
+      "from": "542195",
+      "to": "542197",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542195",
+      "to": "542198",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542196",
+      "to": "542197",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542196",
+      "to": "542198",
+      "source": "LOSER",
+      "slot": "b"
+    },
+    {
+      "from": "542197",
+      "to": "542199",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542198",
+      "to": "542199",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542200",
+      "to": "542202",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542200",
+      "to": "542203",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542201",
+      "to": "542202",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542201",
+      "to": "542203",
+      "source": "LOSER",
+      "slot": "b"
+    },
+    {
+      "from": "542202",
+      "to": "542204",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542203",
+      "to": "542204",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542205",
+      "to": "542208",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542205",
+      "to": "542209",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542207",
+      "to": "542208",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542207",
+      "to": "542209",
+      "source": "LOSER",
+      "slot": "b"
+    },
+    {
+      "from": "542208",
+      "to": "542210",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542209",
+      "to": "542210",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542211",
+      "to": "542213",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542211",
+      "to": "542214",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542212",
+      "to": "542213",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542212",
+      "to": "542214",
+      "source": "LOSER",
+      "slot": "b"
+    },
+    {
+      "from": "542213",
+      "to": "542215",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542214",
+      "to": "542215",
+      "source": "WINNER",
+      "slot": "b"
+    },
+    {
+      "from": "542264",
+      "to": "542273",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542265",
+      "to": "542273",
+      "source": "LOSER",
+      "slot": "b"
+    },
+    {
+      "from": "542266",
+      "to": "542274",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542267",
+      "to": "542274",
+      "source": "LOSER",
+      "slot": "b"
+    },
+    {
+      "from": "542268",
+      "to": "542277",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542269",
+      "to": "542276",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542270",
+      "to": "542272",
+      "source": "WINNER",
+      "slot": "a"
+    },
+    {
+      "from": "542270",
+      "to": "542279",
+      "source": "LOSER",
+      "slot": "a"
+    },
+    {
+      "from": "542279",
+      "to": "542272",
+      "source": "WINNER",
+      "slot": "b"
+    }
+  ],
+  "edgeMeta": {
+    "542265>542268:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542264>542268:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542266>542269:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542267>542269:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542273>542276:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542274>542277:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542268>542270:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542269>542270:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542277>542278:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542276>542278:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542278>542279:WINNER": {
+      "kind": "STRUCTURAL",
+      "evidence": "SOURCE_STRUCTURED_HTML",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542195>542197:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542195>542198:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542196>542197:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542196>542198:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542197>542199:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542198>542199:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542200>542202:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542200>542203:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542201>542202:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542201>542203:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542202>542204:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542203>542204:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542205>542208:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542205>542209:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542207>542208:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542207>542209:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542208>542210:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542209>542210:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542211>542213:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542211>542214:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542212>542213:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542212>542214:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542213>542215:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542214>542215:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542264>542273:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542265>542273:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542266>542274:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542267>542274:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542268>542277:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542269>542276:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542270>542272:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542270>542279:LOSER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    },
+    "542279>542272:WINNER": {
+      "kind": "RESULT_VERIFIED",
+      "evidence": "RESULT_VERIFIED",
+      "confidence": "CONFIRMED",
+      "toKind": "match"
+    }
+  },
+  "qualificationNodes": [],
+  "conflicts": [],
+  "issues": []
+}

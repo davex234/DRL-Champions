@@ -1,0 +1,48 @@
+/**
+ * FASE 44 · GAME EXPERIENCE MAP — el mapa que salió del recorrido BEFORE (capturas en docs/product/qa/fase44/before).
+ *
+ * Una fila por pantalla principal: para qué sirve, su acción principal y secundaria, el problema de «game feel»
+ * observado ANTES (medido o visto, no supuesto), la experiencia objetivo, el nivel de movimiento que le corresponde y
+ * qué se hizo. Es documentación con forma de dato para que el verificador compruebe que cada pantalla core tiene
+ * objetivo y salida, y para publicarla como `game-experience-map.json`.
+ */
+import type { MotionLevel } from "./motion";
+
+export interface ExperienceRow {
+  screen: string;
+  route: string;
+  purpose: string;
+  primaryAction: string;
+  secondaryAction: string;
+  gameFeelProblem: string;
+  targetExperience: string;
+  motionLevel: MotionLevel;
+  core: boolean;
+  change: string;
+}
+
+export const GAME_EXPERIENCE_MAP: ExperienceRow[] = [
+  { screen: "Armazón / navegación", route: "*", purpose: "Llegar a cualquier sitio y volver a jugar", primaryAction: "JUGAR / CONTINUAR PARTIDA", secondaryAction: "Colección, Equipos, Sobres, Temporada", gameFeelProblem: "JUGAR era un enlace de 13 px con letra espaciada entre cinco iguales; en móvil, una pestaña más; sin acceso móvil a Temporada/Eventos/Social", targetExperience: "Menú principal de juego: JUGAR grande y vivo a la derecha y en el centro elevado del dock; hoja «Menú» móvil", motionLevel: 1, core: true, change: "GameShell + PlayButton + /api/game/play-status + hoja Menú" },
+  { screen: "Home / lobby", route: "/", purpose: "Qué puedo jugar y qué importa hoy", primaryAction: "JUGAR (o CONTINUAR PARTIDA)", secondaryAction: "Acción del día del Live Service", gameFeelProblem: "El héroe era «Reclamar»; JUGAR no aparecía en el primer pantallazo (ni en móvil); bloques de igual peso", targetExperience: "Escenario JUGAR con equipo real y cuatro modos; la acción del día debajo con el mismo contenido", motionLevel: 2, core: true, change: "LobbyPlayStage + DailyHero tier stage/context" },
+  { screen: "Selector de modos", route: "/jugar", purpose: "Elegir modo", primaryAction: "Road to Champions / modo", secondaryAction: "Equipos, historial", gameFeelProblem: "Cuatro fichas pequeñas con botón de 36 px", targetExperience: "Tarjetas de modo grandes con arte y respuesta al apuntar/enfocar, bloqueos con motivo", motionLevel: 1, core: true, change: "ModeTile con arte, nx-mode, CTA de 52 px" },
+  { screen: "PvE · preparación", route: "/duelos/jugar", purpose: "Equipo vs rival antes de jugar", primaryAction: "Comenzar duelo", secondaryAction: "Cambiar equipo/dificultad", gameFeelProblem: "Ya era escena de juego (F33/F43); spinner genérico mientras carga", targetExperience: "Cargador de juego con la marca y la frase real", motionLevel: 2, core: true, change: "Loading → GameLoader (sin spinner)" },
+  { screen: "Combate", route: "/duelos/jugar", purpose: "Jugar turnos", primaryAction: "Elegir carta y eje", secondaryAction: "Ayuda, sonido", gameFeelProblem: "Sin problema web (F33): transiciones, revelado y punto de partida existentes", targetExperience: "Se conserva; sonido con ajustes de volumen", motionLevel: 2, core: true, change: "Sin cambios de motor ni presentación de turno" },
+  { screen: "Resultado", route: "/duelos/jugar", purpose: "Saber cómo acabó y seguir", primaryAction: "Revancha / Jugar otra", secondaryAction: "Volver al lobby, ver partida, equipos", gameFeelProblem: "Las acciones quedaban bajo la historia de la partida; la barra de XP era estática y al cruzar un nivel pintaba la barra entera como ganada", targetExperience: "Victoria con barrido de luz, XP del valor real anterior al nuevo con SUBIDA DE NIVEL real, acciones en el primer pantallazo", motionLevel: 3, core: true, change: "ResultScreen reordenado + XpProgress + nx-result-sweep" },
+  { screen: "Ranked", route: "/duelos/competitivo", purpose: "Rating y competir", primaryAction: "JUGAR RANKED", secondaryAction: "Historial, escalera", gameFeelProblem: "Cifra en una placa y botón estándar; parecía un panel de métricas", targetExperience: "Emblema de rating y JUGAR RANKED como botón de juego; delta antes→después animado", motionLevel: 3, core: true, change: "CompetitiveHero + RatingDelta" },
+  { screen: "Inventario de sobres", route: "/inventario", purpose: "Abrir lo que tengo", primaryAction: "ABRIR SOBRE", secondaryAction: "Conseguir sobres / jugar", gameFeelProblem: "Estados vacíos en cajas discontinuas, «toca para abrir» diminuto y enlace al Mercado cerrado", targetExperience: "Sobre como objeto con luz y ABRIR SOBRE dominante; vacío con Conseguir/Jugar", motionLevel: 1, core: true, change: "PackOpenStage + GameEmpty + fuera Mercado" },
+  { screen: "Tienda de sobres", route: "/tienda", purpose: "Conseguir sobres", primaryAction: "Comprar y abrir", secondaryAction: "Comprar sin abrir", gameFeelProblem: "Ya era escaparate de objeto (F9.6/F41); precio y probabilidades visibles", targetExperience: "Se conserva (sin patrones oscuros)", motionLevel: 1, core: true, change: "Sin cambios" },
+  { screen: "Apertura de sobre", route: "/abrir/[packId]", purpose: "El momento de abrir", primaryAction: "Abrir / siguiente carta", secondaryAction: "Saltar", gameFeelProblem: "Ceremonia buena (F38) pero ABRIR OTRO quedaba bajo el pliegue en el resumen; la legendaria no cambiaba la luz de la sala tras girar", targetExperience: "Dock fijo con ABRIR OTRO/COLECCIÓN/JUGAR; luz de sala nivel 4 para legendaria y serial #1", motionLevel: 4, core: true, change: "PackSummary dock + CardReveal nx-screen-light" },
+  { screen: "Colección", route: "/coleccion", purpose: "Ver mis cartas", primaryAction: "Abrir carta", secondaryAction: "Filtrar, comparar", gameFeelProblem: "Sala de colección ya de juego (F37); estados de carga genéricos", targetExperience: "Se conserva; cargador y vacío de juego", motionLevel: 1, core: true, change: "Estados compartidos" },
+  { screen: "Ficha de carta", route: "/coleccion/carta/[cardId]", purpose: "Inspeccionar", primaryAction: "Añadir al equipo / comparar", secondaryAction: "Favorita", gameFeelProblem: "Sin problema web grave (F37)", targetExperience: "Se conserva", motionLevel: 1, core: true, change: "Sin cambios" },
+  { screen: "Equipos", route: "/duelos/mazos", purpose: "Preparar el loadout", primaryAction: "Jugar con este equipo", secondaryAction: "Editar, activar", gameFeelProblem: "Guardar y activar solo daban un aviso breve", targetExperience: "PLANTILLA LISTA y EQUIPO ACTIVO como momento con el hecho del servidor", motionLevel: 3, core: true, change: "deckMoments + GameMoment" },
+  { screen: "Strategy Lab", route: "/duelos/mazos", purpose: "Decidir cambios", primaryAction: "Probar alternativa", secondaryAction: "Deshacer", gameFeelProblem: "Profundidad correcta (F43)", targetExperience: "Se conserva", motionLevel: 2, core: false, change: "Sin cambios" },
+  { screen: "Road to Champions", route: "/jugar/road-to-champions", purpose: "Campaña", primaryAction: "Continuar nodo", secondaryAction: "Mapa", gameFeelProblem: "Ya es mapa con ruta (F35)", targetExperience: "Se conserva", motionLevel: 2, core: true, change: "Sin cambios" },
+  { screen: "Draft Gauntlet", route: "/jugar/draft-gauntlet", purpose: "Draft y run", primaryAction: "Nueva run / elegir", secondaryAction: "Historial", gameFeelProblem: "Identidad propia (F39); carga con spinner", targetExperience: "Cargador de juego", motionLevel: 2, core: true, change: "Estados compartidos" },
+  { screen: "Temporada", route: "/temporada", purpose: "Tiempo, pase, objetivos", primaryAction: "Reclamar / jugar", secondaryAction: "Pase", gameFeelProblem: "Héroe de temporada correcto (F34)", targetExperience: "Se conserva; transición de familia «temporada»", motionLevel: 2, core: true, change: "Transición por familia" },
+  { screen: "Objetivos / misiones", route: "/progresion", purpose: "Qué avanzar", primaryAction: "Ir a jugar", secondaryAction: "Reclamar", gameFeelProblem: "Completar un objetivo solo se veía en el panel tras la partida", targetExperience: "OBJETIVO COMPLETADO / LOGRO / NIVEL como momento una vez por hecho", motionLevel: 3, core: false, change: "PostMatchProgress → GameMoment" },
+  { screen: "Pick'ems", route: "/pickems", purpose: "Predecir", primaryAction: "N predicciones pendientes", secondaryAction: "Completar ahora", gameFeelProblem: "Dos botones rojos compitiendo", targetExperience: "Un dominante; el segundo secundario", motionLevel: 1, core: false, change: "PendingPredictions secundario" },
+  { screen: "Perfil", route: "/jugador/me", purpose: "Identidad", primaryAction: "Editar perfil", secondaryAction: "Vitrina", gameFeelProblem: "Correcto (F31)", targetExperience: "Se conserva", motionLevel: 1, core: false, change: "Sin cambios" },
+  { screen: "Cuenta / ajustes", route: "/cuenta", purpose: "Ajustes", primaryAction: "Guardar ajuste", secondaryAction: "Cerrar sesión", gameFeelProblem: "Sin ajustes de sonido", targetExperience: "Sonido: general, efectos, silencio (local)", motionLevel: 1, core: false, change: "AudioSettingsPanel" },
+  { screen: "404", route: "/esta-ruta-no-existe", purpose: "Volver", primaryAction: "VOLVER AL LOBBY", secondaryAction: "Jugar", gameFeelProblem: "Página por defecto de Next en inglés: «This page could not be found.»", targetExperience: "Pantalla de juego «Esta zona no existe»", motionLevel: 0, core: false, change: "app/not-found.tsx" },
+  { screen: "Error de pantalla", route: "*", purpose: "Recuperarse", primaryAction: "REINTENTAR", secondaryAction: "VOLVER AL LOBBY", gameFeelProblem: "Sin error boundary: una excepción dejaba la pantalla de Next", targetExperience: "No se ha podido cargar + acciones; sin traza", motionLevel: 0, core: false, change: "app/error.tsx + app/global-error.tsx" },
+];

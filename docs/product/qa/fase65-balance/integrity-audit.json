@@ -1,0 +1,60 @@
+{
+  "method": "lectura de código (rutas → servicios → dominio), 2026-09-26; los ataques de mazo están además ejecutados en simulation-report.json (suite integrity) y en los tests del orquestador",
+  "clientSends": {
+    "PvE /api/game/duel": "start {deckId(uuid), difficulty∈EASY|NORMAL|HARD} · play {matchId, cardUid(uuid), stat?∈stronghold|gamesense|entryfrag} · state/replay/abandon {matchId}",
+    "PvP /api/game/duel/pvp": "play {matchId, actionId(uuid), expectedVersion(int≥0), cardUid, stat?} · abandon {matchId}",
+    "matchmaking": "enqueue {deckId} · cancel {}",
+    "neverAccepted": [
+      "seed",
+      "winner",
+      "score",
+      "reward",
+      "side",
+      "userId",
+      "defenderStat",
+      "deck snapshot"
+    ]
+  },
+  "serverDecides": {
+    "defenderStat": "requiredDefenderStat (duels.ts ~684 · duelsPvp.ts ~554); un stat enviado al defender se ignora",
+    "firstAttacker": "crypto.randomInt (duels.ts ~584 · duelsPvp.ts ~226)",
+    "seeds": "crypto.randomInt (duels.ts ~579-580, rival ~485)",
+    "opponentDeck": "PvE buildOpponentDeck en servidor · PvP emparejamiento en servidor",
+    "winner": "motor (confirmTurn → finishMatch → resolveCombat); se copia de m.result",
+    "rewards": "awardMatchOutcome desde m.result + duelAward(difficulty) + cupo diario atómico; ref única duel:<matchId>",
+    "rating": "RPC duel_pvp_settle_match con solo el id; PVP_PRIVATE no liquida"
+  },
+  "deckIntegrity": "el mazo se re-valida contra user_cards al empezar (PvE createPveMatch · PvP resolveDeckSnapshot) y se congela con checksum; startDuelMatch rechaza un snapshot alterado (SNAPSHOT_CHECKSUM_MISMATCH)",
+  "hiddenInformation": "PvP projectMatchFor oculta la mano no jugada del rival; en PvE y PvP el defensor VE carta, eje y valor del atacante (paridad humano/bot: el bot recibe attackerValue igual). Ningún perfil de bot ve cartas no jugadas (DIFFICULTY_PROFILE.perfectInformation=false en los tres).",
+  "guards": {
+    "outOfTurn": "PvE comprueba attacker/phase; PvP guardAction (modo, miembro, ciclo de vida, versión, plazo, turno)",
+    "cardReuse / notInSnapshot": "orquestador CARD_ALREADY_USED / CARD_NOT_IN_SNAPSHOT",
+    "finishedMatch": "PvE 409 · PvP MATCH_CLOSED",
+    "pvpDoubleSubmit": "actionId + update condicionado por state_version"
+  },
+  "findings": [
+    {
+      "id": "INT-1",
+      "severity": "P2",
+      "status": "DEUDA DOCUMENTADA (no arreglada en F65)",
+      "what": "PvE `play` no tiene control de concurrencia: `persist()` actualiza duel_matches sin condición de versión (duels.ts ~437-452). Dos `play` simultáneos del mismo turno cargan el mismo estado y gana la última escritura.",
+      "impact": "Sin ventaja explotable: las dos peticiones deben cargar antes de que cualquiera escriba, así que el jugador no puede elegir el resultado tras verlo; el pago es idempotente (ref duel:<id>). Consecuencia posible: una vista devuelta que no coincide con la guardada.",
+      "fix": "update condicionado por updated_at (o versión) y 409 si no afecta filas; sin migración. Fuera del alcance de balance y con MemSupabase que no filtra updates: se deja para una fase de integridad con su test."
+    },
+    {
+      "id": "INT-2",
+      "severity": "P3",
+      "status": "DEUDA DOCUMENTADA",
+      "what": "Los cuerpos de las rutas de duelo se leen como Record suelto: claves desconocidas se ignoran (no se rechazan).",
+      "impact": "Ninguno sobre el resultado (los campos peligrosos no se leen nunca)."
+    },
+    {
+      "id": "INT-3",
+      "severity": "P1",
+      "status": "ARREGLADO EN F65",
+      "what": "PvP loadOwned lee user_cards sin paginar (duelsPvp.ts ~121-133); PvE sí pagina (corte de PostgREST a 1.000 filas).",
+      "impact": "Con más de 1.000 ejemplares, cartas propias salían «Esa carta no pertenece a tu colección» y un equipo legal no podía entrar en cola PvP (reproducido en test con el tope de PostgREST).",
+      "fix": "duelsPvp.ts usa el loadOwned PAGINADO de duels.ts. Test: src/server/services/duelsPvp.owned.service.test.ts (rojo con el código anterior, verde con el arreglo)."
+    }
+  ]
+}

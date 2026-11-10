@@ -1,0 +1,17 @@
+{
+  "autoarista en {fromMatchId}": "auto-arête en {fromMatchId}",
+  "cuadro: conflicto con resultados — {c}": "tableau : conflit avec les résultats — {c}",
+  "cuadro: transición no afirmada — {u}": "tableau : transition non confirmée — {u}",
+  "el ganador de {fromMatchId} tiene dos destinos": "le vainqueur de {fromMatchId} a deux destinations",
+  "la página de VLR no parece un torneo (sin título de evento): {overview}": "la page VLR ne ressemble pas à un tournoi (sans titre d'événement) : {overview}",
+  "partido {vlrId}: página de detalle no disponible ({v}); mapas omitidos": "match {vlrId} : page de détail indisponible ({v}) ; cartes ignorées",
+  "solo se descargaron {maxMatchPages}/{length} páginas de partido (maxMatchPages)": "seulement {maxMatchPages}/{length} pages de match téléchargées (maxMatchPages)",
+  "{mapsParsed} mapas leídos y NINGUNA fila de scoreboard: el markup de la página de partido probablemente ha cambiado. Sin estas filas, todas las estadísticas por jugador serán cero.": "{mapsParsed} cartes lues et AUCUNE ligne de scoreboard : le markup de la page de match a probablement changé. Sans ces lignes, toutes les stats par joueur seront à zéro.",
+  "{tag}: clasificación no unívoca ({length} alimentadores, {length2} cajas)": "{tag} : qualification non univoque ({length} alimentateurs, {length2} cases)",
+  "{tag}: el ganador «{w}» de {fromMatchId} no juega {toMatchId}": "{tag} : le vainqueur « {w} » de {fromMatchId} ne joue pas {toMatchId}",
+  "{tag}: el ganador «{w}» no es el clasificado «{q}»": "{tag} : le vainqueur « {w} » n'est pas l'équipe qualifiée « {q} »",
+  "{tag}: parejas sin el patrón (down, up)": "{tag} : paires sans le motif (down, up)",
+  "{tag}: sin destinos": "{tag} : sans destinations",
+  "{tag}: {length} alimentadores para {length2} destinos": "{tag} : {length} alimentateurs pour {length2} destinations",
+  "{tag}: «{w}» no ocupa el hueco {toSlot} de {toMatchId}": "{tag} : « {w} » n'occupe pas l'emplacement {toSlot} de {toMatchId}"
+}

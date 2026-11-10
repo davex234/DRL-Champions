@@ -1,0 +1,65 @@
+{
+  "before": {
+    "counts": {
+      "auth_users": 30,
+      "profiles": 30,
+      "user_cards": 774,
+      "user_packs_rows": 74,
+      "user_packs_qty": 73,
+      "economy_ops": 423,
+      "credit_transactions": 364,
+      "duel_matches": 274,
+      "duel_decks": 27,
+      "content_cards": 331,
+      "agents": 29,
+      "agents_live": 29
+    },
+    "sums": {
+      "credits": 1256555,
+      "xp": 28506,
+      "points": 484
+    },
+    "fingerprints": {
+      "user_cards_md5": "6c323685ee9390dc4843a9ab9ceae66f",
+      "user_packs_md5": "a4e4e77e8492a943f96ec45a5b836563",
+      "economy_ops_md5": "014638f0a4ed879bed59ea6767260134",
+      "profiles_econ_md5": "a0ea5d912d34738d07463d30a2624db7",
+      "content_cards_md5": "32ce8b8966c0061ad5cbb144d9b0b941"
+    }
+  },
+  "after": {
+    "counts": {
+      "auth_users": 30,
+      "profiles": 30,
+      "user_cards": 774,
+      "user_packs_rows": 74,
+      "user_packs_qty": 73,
+      "economy_ops": 423,
+      "credit_transactions": 364,
+      "duel_matches": 274,
+      "duel_decks": 27,
+      "content_cards": 331,
+      "agents": 29,
+      "agents_live": 29
+    },
+    "sums": {
+      "credits": 1256555,
+      "xp": 28506,
+      "points": 484
+    },
+    "fingerprints": {
+      "user_cards_md5": "6c323685ee9390dc4843a9ab9ceae66f",
+      "user_packs_md5": "a4e4e77e8492a943f96ec45a5b836563",
+      "economy_ops_md5": "014638f0a4ed879bed59ea6767260134",
+      "profiles_econ_md5": "a0ea5d912d34738d07463d30a2624db7",
+      "content_cards_md5": "32ce8b8966c0061ad5cbb144d9b0b941"
+    }
+  },
+  "countsEqual": true,
+  "sumsEqual": true,
+  "fingerprintsEqual": true,
+  "cards": 331,
+  "agents": 29,
+  "recipesMatchEconomyAnalysis": true,
+  "verdict": "PASS"
+}

@@ -1,0 +1,634 @@
+{
+ "label": "after",
+ "base": "http://127.0.0.1:3006",
+ "note": "sesión simulada + fixtures reales de _fase51-fixtures.json; sin escrituras",
+ "rows": [
+  {
+   "scene": "01-hub",
+   "width": 390,
+   "file": "screenshots/after/01-hub-390.png",
+   "gestos": [],
+   "agentImages": 5,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "01-hub",
+   "width": 1024,
+   "file": "screenshots/after/01-hub-1024.png",
+   "gestos": [],
+   "agentImages": 5,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "01-hub",
+   "width": 1440,
+   "file": "screenshots/after/01-hub-1440.png",
+   "gestos": [],
+   "agentImages": 5,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "02-composiciones-lista",
+   "width": 390,
+   "file": "screenshots/after/02-composiciones-lista-390.png",
+   "gestos": [],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 10,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "02-composiciones-lista",
+   "width": 1024,
+   "file": "screenshots/after/02-composiciones-lista-1024.png",
+   "gestos": [],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 10,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "02-composiciones-lista",
+   "width": 1440,
+   "file": "screenshots/after/02-composiciones-lista-1440.png",
+   "gestos": [],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 10,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "03-selector-composicion",
+   "width": 390,
+   "file": "screenshots/after/03-selector-composicion-390.png",
+   "gestos": [
+    true,
+    29,
+    true
+   ],
+   "agentImages": 33,
+   "broken": [],
+   "faceNodes": 31,
+   "fullNodes": 2,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366,
+   "overflowX": false
+  },
+  {
+   "scene": "03-selector-composicion",
+   "width": 1024,
+   "file": "screenshots/after/03-selector-composicion-1024.png",
+   "gestos": [
+    true,
+    29,
+    true
+   ],
+   "agentImages": 33,
+   "broken": [],
+   "faceNodes": 31,
+   "fullNodes": 2,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 2
+   },
+   "bytes": 194670,
+   "overflowX": false
+  },
+  {
+   "scene": "03-selector-composicion",
+   "width": 1440,
+   "file": "screenshots/after/03-selector-composicion-1440.png",
+   "gestos": [
+    true,
+    29,
+    true
+   ],
+   "agentImages": 33,
+   "broken": [],
+   "faceNodes": 31,
+   "fullNodes": 2,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 2
+   },
+   "bytes": 194670,
+   "overflowX": false
+  },
+  {
+   "scene": "04-composicion-final",
+   "width": 390,
+   "file": "screenshots/after/04-composicion-final-390.png",
+   "gestos": [
+    true,
+    5,
+    true
+   ],
+   "agentImages": 39,
+   "broken": [],
+   "faceNodes": 34,
+   "fullNodes": 5,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366,
+   "overflowX": false
+  },
+  {
+   "scene": "04-composicion-final",
+   "width": 1024,
+   "file": "screenshots/after/04-composicion-final-1024.png",
+   "gestos": [
+    true,
+    5,
+    true
+   ],
+   "agentImages": 39,
+   "broken": [],
+   "faceNodes": 34,
+   "fullNodes": 5,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 265434,
+   "overflowX": false
+  },
+  {
+   "scene": "04-composicion-final",
+   "width": 1440,
+   "file": "screenshots/after/04-composicion-final-1440.png",
+   "gestos": [
+    true,
+    5,
+    true
+   ],
+   "agentImages": 39,
+   "broken": [],
+   "faceNodes": 34,
+   "fullNodes": 5,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 265434,
+   "overflowX": false
+  },
+  {
+   "scene": "05-jugar-elegir",
+   "width": 390,
+   "file": "screenshots/after/05-jugar-elegir-390.png",
+   "gestos": [],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 10,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "05-jugar-elegir",
+   "width": 1024,
+   "file": "screenshots/after/05-jugar-elegir-1024.png",
+   "gestos": [],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 10,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "05-jugar-elegir",
+   "width": 1440,
+   "file": "screenshots/after/05-jugar-elegir-1440.png",
+   "gestos": [],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 10,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "06-quickplay",
+   "width": 390,
+   "file": "screenshots/after/06-quickplay-390.png",
+   "gestos": [
+    5
+   ],
+   "agentImages": 34,
+   "broken": [],
+   "faceNodes": 34,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366,
+   "overflowX": false
+  },
+  {
+   "scene": "06-quickplay",
+   "width": 1024,
+   "file": "screenshots/after/06-quickplay-1024.png",
+   "gestos": [
+    5
+   ],
+   "agentImages": 34,
+   "broken": [],
+   "faceNodes": 34,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366,
+   "overflowX": false
+  },
+  {
+   "scene": "06-quickplay",
+   "width": 1440,
+   "file": "screenshots/after/06-quickplay-1440.png",
+   "gestos": [
+    5
+   ],
+   "agentImages": 34,
+   "broken": [],
+   "faceNodes": 34,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366,
+   "overflowX": false
+  },
+  {
+   "scene": "07-mapa-pizarra",
+   "width": 390,
+   "file": "screenshots/after/07-mapa-pizarra-390.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 5,
+   "requested": {
+    "face96": 10,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 46708,
+   "overflowX": false
+  },
+  {
+   "scene": "07-mapa-pizarra",
+   "width": 1024,
+   "file": "screenshots/after/07-mapa-pizarra-1024.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 5,
+   "requested": {
+    "face96": 10,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 46708,
+   "overflowX": false
+  },
+  {
+   "scene": "07-mapa-pizarra",
+   "width": 1440,
+   "file": "screenshots/after/07-mapa-pizarra-1440.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 5,
+   "requested": {
+    "face96": 10,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 46708,
+   "overflowX": false
+  },
+  {
+   "scene": "08-teatro",
+   "width": 390,
+   "file": "screenshots/after/08-teatro-390.png",
+   "gestos": [
+    true,
+    true
+   ],
+   "agentImages": 25,
+   "broken": [],
+   "faceNodes": 15,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 10,
+   "requested": {
+    "face96": 20,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 93416,
+   "overflowX": false
+  },
+  {
+   "scene": "08-teatro",
+   "width": 1024,
+   "file": "screenshots/after/08-teatro-1024.png",
+   "gestos": [
+    true,
+    true
+   ],
+   "agentImages": 25,
+   "broken": [],
+   "faceNodes": 15,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 10,
+   "requested": {
+    "face96": 20,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 93416,
+   "overflowX": false
+  },
+  {
+   "scene": "08-teatro",
+   "width": 1440,
+   "file": "screenshots/after/08-teatro-1440.png",
+   "gestos": [
+    true,
+    true
+   ],
+   "agentImages": 25,
+   "broken": [],
+   "faceNodes": 15,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 10,
+   "requested": {
+    "face96": 20,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 93416,
+   "overflowX": false
+  },
+  {
+   "scene": "09-preparacion-partido",
+   "width": 390,
+   "file": "screenshots/after/09-preparacion-partido-390.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 5,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354,
+   "overflowX": false
+  },
+  {
+   "scene": "09-preparacion-partido",
+   "width": 1024,
+   "file": "screenshots/after/09-preparacion-partido-1024.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 5,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 0,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 135068,
+   "overflowX": false
+  },
+  {
+   "scene": "09-preparacion-partido",
+   "width": 1440,
+   "file": "screenshots/after/09-preparacion-partido-1440.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 10,
+   "broken": [],
+   "faceNodes": 5,
+   "fullNodes": 5,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 0,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 135068,
+   "overflowX": false
+  },
+  {
+   "scene": "10-estadisticas-match-center",
+   "width": 390,
+   "file": "screenshots/after/10-estadisticas-match-center-390.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 40,
+   "broken": [],
+   "faceNodes": 40,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23778,
+   "overflowX": false
+  },
+  {
+   "scene": "10-estadisticas-match-center",
+   "width": 1024,
+   "file": "screenshots/after/10-estadisticas-match-center-1024.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 40,
+   "broken": [],
+   "faceNodes": 40,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23778,
+   "overflowX": false
+  },
+  {
+   "scene": "10-estadisticas-match-center",
+   "width": 1440,
+   "file": "screenshots/after/10-estadisticas-match-center-1440.png",
+   "gestos": [
+    true
+   ],
+   "agentImages": 40,
+   "broken": [],
+   "faceNodes": 40,
+   "fullNodes": 0,
+   "emblemFallbacks": 0,
+   "mapFaces": 0,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23778,
+   "overflowX": false
+  }
+ ]
+}

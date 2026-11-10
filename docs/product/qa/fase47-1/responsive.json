@@ -1,0 +1,224 @@
+{
+  "390x844": {
+    "pizarra": {
+      "desborde": 0,
+      "scrollPagina": 1907,
+      "mapa": {
+        "w": 385,
+        "h": 407,
+        "top": 267,
+        "bottom": 674
+      },
+      "porcentaje": 48,
+      "entero": true
+    },
+    "teatro": {
+      "abierto": true,
+      "fichas": 5,
+      "mapa": {
+        "w": 374,
+        "h": 625
+      },
+      "porcentaje": 71
+    },
+    "composiciones": {
+      "desborde": 0,
+      "scrollPagina": 225,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    },
+    "hub": {
+      "desborde": 0,
+      "scrollPagina": 2613,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    }
+  },
+  "768x1024": {
+    "pizarra": {
+      "desborde": 0,
+      "scrollPagina": 1574,
+      "mapa": {
+        "w": 704,
+        "h": 644,
+        "top": 215,
+        "bottom": 859
+      },
+      "porcentaje": 58,
+      "entero": true
+    },
+    "teatro": {
+      "abierto": true,
+      "fichas": 5,
+      "mapa": {
+        "w": 745,
+        "h": 788
+      },
+      "porcentaje": 75
+    },
+    "composiciones": {
+      "desborde": 0,
+      "scrollPagina": 0,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    },
+    "hub": {
+      "desborde": 0,
+      "scrollPagina": 1640,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    }
+  },
+  "1024x1366": {
+    "pizarra": {
+      "desborde": 0,
+      "scrollPagina": 1494,
+      "mapa": {
+        "w": 960,
+        "h": 986,
+        "top": 215,
+        "bottom": 1201
+      },
+      "porcentaje": 68,
+      "entero": true
+    },
+    "teatro": {
+      "abierto": true,
+      "fichas": 5,
+      "mapa": {
+        "w": 995,
+        "h": 1113
+      },
+      "porcentaje": 79
+    },
+    "composiciones": {
+      "desborde": 0,
+      "scrollPagina": 0,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    },
+    "hub": {
+      "desborde": 0,
+      "scrollPagina": 1568,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    }
+  },
+  "1440x900": {
+    "pizarra": {
+      "desborde": 0,
+      "scrollPagina": 247,
+      "mapa": {
+        "w": 647,
+        "h": 684,
+        "top": 215,
+        "bottom": 899
+      },
+      "porcentaje": 34,
+      "entero": true
+    },
+    "teatro": {
+      "abierto": true,
+      "fichas": 5,
+      "mapa": {
+        "w": 714,
+        "h": 755
+      },
+      "porcentaje": 42
+    },
+    "composiciones": {
+      "desborde": 0,
+      "scrollPagina": 0,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    },
+    "hub": {
+      "desborde": 0,
+      "scrollPagina": 1541,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    }
+  },
+  "1920x1080": {
+    "pizarra": {
+      "desborde": 0,
+      "scrollPagina": 247,
+      "mapa": {
+        "w": 817,
+        "h": 864,
+        "top": 215,
+        "bottom": 1079
+      },
+      "porcentaje": 34,
+      "entero": true
+    },
+    "teatro": {
+      "abierto": true,
+      "fichas": 5,
+      "mapa": {
+        "w": 873,
+        "h": 923
+      },
+      "porcentaje": 39
+    },
+    "composiciones": {
+      "desborde": 0,
+      "scrollPagina": 0,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    },
+    "hub": {
+      "desborde": 0,
+      "scrollPagina": 1391,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    }
+  },
+  "2560x1440": {
+    "pizarra": {
+      "desborde": 0,
+      "scrollPagina": 247,
+      "mapa": {
+        "w": 946,
+        "h": 1000,
+        "top": 215,
+        "bottom": 1215
+      },
+      "porcentaje": 26,
+      "entero": true
+    },
+    "teatro": {
+      "abierto": true,
+      "fichas": 5,
+      "mapa": {
+        "w": 1203,
+        "h": 1272
+      },
+      "porcentaje": 42
+    },
+    "composiciones": {
+      "desborde": 0,
+      "scrollPagina": 0,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    },
+    "hub": {
+      "desborde": 0,
+      "scrollPagina": 1031,
+      "mapa": null,
+      "porcentaje": 0,
+      "entero": false
+    }
+  }
+}

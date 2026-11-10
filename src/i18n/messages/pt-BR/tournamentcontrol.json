@@ -1,0 +1,22 @@
+{
+  " (falló en {failedStage})": " (falhou em {failedStage})",
+  "approve-generation: {length} carta(s)": "approve-generation: {length} carta(s)",
+  "el run no llegó a generar cartas{v}": "o run não chegou a gerar cartas{v}",
+  "generación ya registrada: {generationId}": "geração já registrada: {generationId}",
+  "la revisión de {recordId} no está abierta": "a revisão de {recordId} não está aberta",
+  "la revisión de {recordId} no está abierta: la publicación solo pasa por publishApproved": "a revisão de {recordId} não está aberta: a publicação só passa por publishApproved",
+  "la revisión de {recordId} ya está abierta": "a revisão de {recordId} já está aberta",
+  "modelo canónico inválido: {length} error(es)": "modelo canônico inválido: {length} erro(s)",
+  "nada que reabrir (ninguna carta en approved/rejected/hidden/blocked)": "nada para reabrir (nenhuma carta em approved/rejected/hidden/blocked)",
+  "ninguna transición aplicable": "nenhuma transição aplicável",
+  "publicación directa del Orchestrator (runtime v{runtimeVersion})": "publicação direta do Orchestrator (runtime v{runtimeVersion})",
+  "publicación no aplicada": "publicação não aplicada",
+  "revisión R{revision} de {root}": "revisão R{revision} de {root}",
+  "revisión ya existente: {dupId}": "revisão já existente: {dupId}",
+  "sin cartas en review que aprobar": "sem cartas em review para aprovar",
+  "torneo ya procesado por el ledger del generador: {tournamentId}": "torneio já processado pelo ledger do gerador: {tournamentId}",
+  "{action}: {length} carta(s)": "{action}: {length} carta(s)",
+  "{length} carta(s) de vuelta a review": "{length} carta(s) de volta para review",
+  "{length} cartas (sin publicar)": "{length} cartas (sem publicar)",
+  "{length} cartas en review": "{length} cartas em review"
+}

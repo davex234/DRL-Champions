@@ -1,0 +1,13 @@
+usuarios auth/perfiles | 2 | 2 | 0
+admins | 3befce61#NB2Z9BM:davex_234_3bef,b7ccff02#H5ND8K7:ValoRosters_b7cc
+VR 500 | 59f8d286-7b81-489b-9098-bb15ce6047a5|b7ccff02|500|pickem_reward:participacion|pickem:8c7b9a5e-d74d-4f58-966b-c72f1822671a:participacion|4840|2026-10-03 11:02:21.826395+00
+legacy | demo-masters-madrid-2026:LEGACY_V1:scored,vlr-2766:LEGACY_V1:scored,vlr-2976-emea-stage-2:LEGACY_V1:open | 'RETIRED'::text
+pickems 2.0 | 1 | 0 | 0 | champions-2026-playoffs:DRAFT/DRAFT
+entradas/reclamos 2.0 | 0 | 0
+copas | CANCELLED | UNLISTED | 19 | 
+copas | COMPLETED | UNLISTED | 19 | 
+copas | DRAFT | PUBLIC | 1 | Valorosters Open #1
+copas | DRAFT | UNLISTED | 1 | Valorosters Closed Alpha Cup
+temporadas | temporada-2 | DRAFT
+feedback | 0
+amistades | 0

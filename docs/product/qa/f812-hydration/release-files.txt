@@ -1,0 +1,14 @@
+src/lib/game/localEconomy.ts
+src/lib/game/serverEconomy.ts
+src/store/useGameStore.ts
+src/lib/game/client.ts
+src/lib/game/sync.ts
+src/components/sync/CloudSync.tsx
+src/components/layout/HydrationGate.tsx
+src/components/layout/GameShell.tsx
+src/app/page.tsx
+src/app/cuenta/page.tsx
+src/app/carrera/page.tsx
+src/app/entrenador/partido/page.tsx
+src/app/jugador/[id]/page.tsx
+src/lib/game/f812.hydration.test.ts

@@ -1,0 +1,203 @@
+{
+ "390": {
+  "scrollX": 0,
+  "overflow": [],
+  "imgs": 6,
+  "broken": [],
+  "lazy": 5,
+  "cards": [
+   {
+    "label": "Starter: 1.000 DRL Credits",
+    "img": "/store/credits/starter.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Basic: 2.800 DRL Credits",
+    "img": "/store/credits/basic.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Popular: 5.000 DRL Credits",
+    "img": "/store/credits/popular.webp",
+    "badge": "Más elegido",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Large: 13.500 DRL Credits",
+    "img": "/store/credits/large.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Ultimate: 28.000 DRL Credits",
+    "img": "/store/credits/ultimate.webp",
+    "badge": "Mayor paquete",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   }
+  ],
+  "saldo": "TU SALDO\n\n7.260 DRL CREDITS",
+  "header": "7.260\nDRL Credit ",
+  "tachados": 0,
+  "euros": [],
+  "navActive": [
+   "Tienda"
+  ]
+ },
+ "768": {
+  "scrollX": 0,
+  "overflow": [],
+  "imgs": 6,
+  "broken": [],
+  "lazy": 5,
+  "cards": [
+   {
+    "label": "Starter: 1.000 DRL Credits",
+    "img": "/store/credits/starter.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Basic: 2.800 DRL Credits",
+    "img": "/store/credits/basic.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Popular: 5.000 DRL Credits",
+    "img": "/store/credits/popular.webp",
+    "badge": "Más elegido",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Large: 13.500 DRL Credits",
+    "img": "/store/credits/large.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Ultimate: 28.000 DRL Credits",
+    "img": "/store/credits/ultimate.webp",
+    "badge": "Mayor paquete",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   }
+  ],
+  "saldo": "TU SALDO\n\n7.260 DRL CREDITS",
+  "header": "NEXUS\nLOBBY\n5\nNIVEL\n96%\n7.260\nDRL Credit ",
+  "tachados": 0,
+  "euros": [],
+  "navActive": [
+   "Tienda"
+  ]
+ },
+ "1024": {
+  "scrollX": 0,
+  "overflow": [],
+  "imgs": 6,
+  "broken": [],
+  "lazy": 5,
+  "cards": [
+   {
+    "label": "Starter: 1.000 DRL Credits",
+    "img": "/store/credits/starter.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Basic: 2.800 DRL Credits",
+    "img": "/store/credits/basic.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Popular: 5.000 DRL Credits",
+    "img": "/store/credits/popular.webp",
+    "badge": "Más elegido",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Large: 13.500 DRL Credits",
+    "img": "/store/credits/large.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Ultimate: 28.000 DRL Credits",
+    "img": "/store/credits/ultimate.webp",
+    "badge": "Mayor paquete",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   }
+  ],
+  "saldo": "TU SALDO\n\n7.260 DRL CREDITS",
+  "header": "COLECCIÓN\nEQUIPOS\nTIENDA\nTEMPORADA\nMUNDO\n7.260\nDRL Credit \nMÁS\n1\nJUGAR",
+  "tachados": 0,
+  "euros": [],
+  "navActive": [
+   "Tienda"
+  ]
+ },
+ "1440": {
+  "scrollX": 0,
+  "overflow": [],
+  "imgs": 6,
+  "broken": [],
+  "lazy": 5,
+  "cards": [
+   {
+    "label": "Starter: 1.000 DRL Credits",
+    "img": "/store/credits/starter.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Basic: 2.800 DRL Credits",
+    "img": "/store/credits/basic.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Popular: 5.000 DRL Credits",
+    "img": "/store/credits/popular.webp",
+    "badge": "Más elegido",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Large: 13.500 DRL Credits",
+    "img": "/store/credits/large.webp",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   },
+   {
+    "label": "Ultimate: 28.000 DRL Credits",
+    "img": "/store/credits/ultimate.webp",
+    "badge": "Mayor paquete",
+    "cta": "Próximamente",
+    "ctaDisabled": true
+   }
+  ],
+  "saldo": "TU SALDO\n\n7.260 DRL CREDITS",
+  "header": "NEXUS\nLOBBY\nCOLECCIÓN\nEQUIPOS\nTIENDA\nTEMPORADA\nMUNDO\n5\nNIVEL\n96%\n7.260\nDRL Credit \nMÁS\n1\nJUGAR",
+  "tachados": 0,
+  "euros": [],
+  "navActive": [
+   "Tienda"
+  ]
+ },
+ "1440 errores": [],
+ "1024 errores": [],
+ "768 errores": [],
+ "390 errores": [
+  "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+  "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+  "Failed to load resource: the server responded with a status of 429 (Too Many Requests)",
+  "Failed to load resource: the server responded with a status of 429 (Too Many Requests)"
+ ]
+}

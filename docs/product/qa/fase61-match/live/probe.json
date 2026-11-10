@@ -1,0 +1,81 @@
+{
+  "at": "2026-09-25T09:22:38.765Z",
+  "A": {
+    "userId": "1ff2c0ef-d469-494d-b5ee-e728f7fbc865",
+    "decks": [
+      {
+        "id": "bb5e6f05-36a7-4155-9ec7-690a7d9e2efe",
+        "name": "QA F55 Ranked",
+        "valid": true,
+        "sumOvr": 830
+      }
+    ],
+    "activeDeckId": null,
+    "activeMatch": null,
+    "credits": 3510,
+    "xp": 1964,
+    "position": {
+      "rating": 980,
+      "position": 2,
+      "rankedTotal": 2,
+      "gamesPlayed": 1
+    },
+    "queue": {
+      "code": "OK",
+      "entry": {
+        "entryId": "554772de-dd26-4015-a812-fd466f35647b",
+        "deckId": "bb5e6f05-36a7-4155-9ec7-690a7d9e2efe",
+        "state": "MATCHED",
+        "ratingSnapshot": 1000,
+        "matchId": "e405a857-a3b0-47f2-a1ea-46df903be5d7",
+        "reason": null,
+        "createdAt": 1790165366237,
+        "updatedAt": 1790165366552,
+        "expiresAt": 1790165966237,
+        "matchedAt": 1790165366552
+      },
+      "position": null,
+      "rating": 980,
+      "serverNow": 1790328156995
+    }
+  },
+  "B": {
+    "userId": "8c326e52-776a-43f4-ba05-3ad7945c40c3",
+    "decks": [
+      {
+        "id": "d6e00a4c-7407-4c19-a6b7-f4cddd2deae7",
+        "name": "QA F55 Ranked",
+        "valid": true,
+        "sumOvr": 872
+      }
+    ],
+    "activeDeckId": null,
+    "activeMatch": null,
+    "credits": 1320,
+    "xp": 3122,
+    "position": {
+      "rating": 1020,
+      "position": 1,
+      "rankedTotal": 2,
+      "gamesPlayed": 1
+    },
+    "queue": {
+      "code": "OK",
+      "entry": {
+        "entryId": "54f2fc1a-ad32-43fd-b931-e6ab864c4549",
+        "deckId": "d6e00a4c-7407-4c19-a6b7-f4cddd2deae7",
+        "state": "CANCELLED",
+        "ratingSnapshot": 1020,
+        "matchId": null,
+        "reason": "USER",
+        "createdAt": 1790165449677,
+        "updatedAt": 1790165455261,
+        "expiresAt": 1790166049677,
+        "matchedAt": null
+      },
+      "position": null,
+      "rating": 1020,
+      "serverNow": 1790328158721
+    }
+  }
+}

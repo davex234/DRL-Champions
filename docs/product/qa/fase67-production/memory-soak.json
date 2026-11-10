@@ -1,0 +1,319 @@
+{
+  "at": "2026-09-26T20:58:48.314Z",
+  "pid": 35544,
+  "seconds": 300,
+  "concurrency": 10,
+  "requests": 14109,
+  "rps": 47,
+  "p50": 206,
+  "p95": 650,
+  "p99": 774,
+  "statuses": {
+    "200": 11961,
+    "429": 2148
+  },
+  "errorRate": 0,
+  "rssFirstMinuteAvgMb": 285,
+  "rssLastMinuteAvgMb": 287,
+  "rssAfterIdleMb": 287,
+  "handlesStart": 301,
+  "handlesEnd": 295,
+  "handlesAfterIdle": 233,
+  "samples": [
+    {
+      "t": 5,
+      "rssMb": 285,
+      "handles": 301
+    },
+    {
+      "t": 10,
+      "rssMb": 285,
+      "handles": 306
+    },
+    {
+      "t": 15,
+      "rssMb": 284,
+      "handles": 332
+    },
+    {
+      "t": 20,
+      "rssMb": 283,
+      "handles": 317
+    },
+    {
+      "t": 25,
+      "rssMb": 285,
+      "handles": 304
+    },
+    {
+      "t": 30,
+      "rssMb": 285,
+      "handles": 325
+    },
+    {
+      "t": 35,
+      "rssMb": 285,
+      "handles": 311
+    },
+    {
+      "t": 40,
+      "rssMb": 286,
+      "handles": 319
+    },
+    {
+      "t": 45,
+      "rssMb": 283,
+      "handles": 314
+    },
+    {
+      "t": 50,
+      "rssMb": 285,
+      "handles": 325
+    },
+    {
+      "t": 55,
+      "rssMb": 285,
+      "handles": 305
+    },
+    {
+      "t": 60,
+      "rssMb": 286,
+      "handles": 328
+    },
+    {
+      "t": 65,
+      "rssMb": 286,
+      "handles": 328
+    },
+    {
+      "t": 70,
+      "rssMb": 286,
+      "handles": 322
+    },
+    {
+      "t": 75,
+      "rssMb": 287,
+      "handles": 311
+    },
+    {
+      "t": 80,
+      "rssMb": 288,
+      "handles": 361
+    },
+    {
+      "t": 85,
+      "rssMb": 286,
+      "handles": 341
+    },
+    {
+      "t": 90,
+      "rssMb": 284,
+      "handles": 305
+    },
+    {
+      "t": 95,
+      "rssMb": 286,
+      "handles": 309
+    },
+    {
+      "t": 100,
+      "rssMb": 286,
+      "handles": 326
+    },
+    {
+      "t": 105,
+      "rssMb": 286,
+      "handles": 326
+    },
+    {
+      "t": 110,
+      "rssMb": 287,
+      "handles": 327
+    },
+    {
+      "t": 115,
+      "rssMb": 286,
+      "handles": 307
+    },
+    {
+      "t": 120,
+      "rssMb": 285,
+      "handles": 309
+    },
+    {
+      "t": 125,
+      "rssMb": 286,
+      "handles": 308
+    },
+    {
+      "t": 130,
+      "rssMb": 285,
+      "handles": 302
+    },
+    {
+      "t": 135,
+      "rssMb": 285,
+      "handles": 316
+    },
+    {
+      "t": 140,
+      "rssMb": 286,
+      "handles": 305
+    },
+    {
+      "t": 145,
+      "rssMb": 287,
+      "handles": 299
+    },
+    {
+      "t": 150,
+      "rssMb": 286,
+      "handles": 314
+    },
+    {
+      "t": 155,
+      "rssMb": 286,
+      "handles": 294
+    },
+    {
+      "t": 160,
+      "rssMb": 286,
+      "handles": 305
+    },
+    {
+      "t": 165,
+      "rssMb": 286,
+      "handles": 326
+    },
+    {
+      "t": 170,
+      "rssMb": 286,
+      "handles": 314
+    },
+    {
+      "t": 175,
+      "rssMb": 286,
+      "handles": 318
+    },
+    {
+      "t": 180,
+      "rssMb": 287,
+      "handles": 348
+    },
+    {
+      "t": 185,
+      "rssMb": 287,
+      "handles": 339
+    },
+    {
+      "t": 190,
+      "rssMb": 287,
+      "handles": 327
+    },
+    {
+      "t": 195,
+      "rssMb": 286,
+      "handles": 313
+    },
+    {
+      "t": 200,
+      "rssMb": 287,
+      "handles": 346
+    },
+    {
+      "t": 205,
+      "rssMb": 286,
+      "handles": 331
+    },
+    {
+      "t": 210,
+      "rssMb": 288,
+      "handles": 319
+    },
+    {
+      "t": 215,
+      "rssMb": 287,
+      "handles": 319
+    },
+    {
+      "t": 220,
+      "rssMb": 286,
+      "handles": 343
+    },
+    {
+      "t": 225,
+      "rssMb": 287,
+      "handles": 328
+    },
+    {
+      "t": 230,
+      "rssMb": 287,
+      "handles": 308
+    },
+    {
+      "t": 235,
+      "rssMb": 286,
+      "handles": 306
+    },
+    {
+      "t": 240,
+      "rssMb": 287,
+      "handles": 317
+    },
+    {
+      "t": 245,
+      "rssMb": 287,
+      "handles": 327
+    },
+    {
+      "t": 250,
+      "rssMb": 288,
+      "handles": 311
+    },
+    {
+      "t": 255,
+      "rssMb": 288,
+      "handles": 287
+    },
+    {
+      "t": 260,
+      "rssMb": 286,
+      "handles": 347
+    },
+    {
+      "t": 265,
+      "rssMb": 286,
+      "handles": 335
+    },
+    {
+      "t": 270,
+      "rssMb": 287,
+      "handles": 317
+    },
+    {
+      "t": 275,
+      "rssMb": 287,
+      "handles": 315
+    },
+    {
+      "t": 280,
+      "rssMb": 287,
+      "handles": 310
+    },
+    {
+      "t": 285,
+      "rssMb": 287,
+      "handles": 305
+    },
+    {
+      "t": 290,
+      "rssMb": 287,
+      "handles": 322
+    },
+    {
+      "t": 295,
+      "rssMb": 287,
+      "handles": 295
+    }
+  ]
+}

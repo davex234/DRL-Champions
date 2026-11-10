@@ -1,0 +1,249 @@
+{
+  "at": "2026-09-26",
+  "source": "old-ftue-walk.json (cuenta QA 93915dc0 registrada por /cuenta, build anterior a F63)",
+  "whatExisted": {
+    "provisioning": "trigger handle_new_user (0011): perfil (6.000 créditos), user_game, user_packs inicial×3 + estandar×1, asiento starter_grant. Una vez por cuenta.",
+    "stateStorage": "ninguno: recorrido F40 DERIVADO de hechos (domain/journey) dentro del Daily Loop; sin banderas, sin created_at",
+    "ui": "JourneyMissionControl/JourneyStrip/JourneyDiscovery (F40) solo en DailyLobby; CollectionCoach en /coleccion; coach en el constructor; FirstMatchCoach en la pre-partida",
+    "assist": "Sobre Inicial gratis asistido (F41) mientras no se puede formar equipo; tope 8"
+  },
+  "findings": [
+    {
+      "id": "P0-1",
+      "what": "La guía F40 era código muerto en la portada: desde F46 la home es MainMenu y no pinta `journey` (el servidor calculaba `journey-open` y nadie lo enseñaba)."
+    },
+    {
+      "id": "P0-2",
+      "what": "Tras registrarse, la cuenta se quedaba en /cuenta (perfil), no en el juego."
+    },
+    {
+      "id": "P1-1",
+      "what": "JUGAR → /jugar con cuatro modos marcados «EQUIPO NO VÁLIDO» sin decir cómo empezar."
+    },
+    {
+      "id": "P1-2",
+      "what": "3 × 404 en cada visita a la portada (poster, webm y mp4 del vídeo pendiente de F46)."
+    },
+    {
+      "id": "P1-3",
+      "what": "deckReadiness contaba un jugador con cartas de dos roles en ambos: 0,02 % de cuentas nuevas «listas» sin poder formar equipo, y sin Sobre Inicial gratis (callejón sin salida)."
+    },
+    {
+      "id": "P2-1",
+      "what": "Terminología mezclada en el camino: «mazo» (pre-partida y resultado), «plantilla» (guía y reglas) y «equipo» (resto)."
+    },
+    {
+      "id": "P2-2",
+      "what": "El coach de la colección hablaba solo de SH/GS/EF; la carta imprime DMG·SCR·FKS·HS·AST·CLU y no se explicaba la diferencia."
+    },
+    {
+      "id": "P2-3",
+      "what": "Ninguna explicación de ATACAS/DEFIENDES dentro de la partida; tras la primera partida, ninguna puerta a la progresión (F62)."
+    }
+  ],
+  "screens": [
+    {
+      "name": "00-home-sin-sesion",
+      "url": "/",
+      "ctas": [
+        "NEXUS → /",
+        "Más opciones",
+        "JUGAR ENTRA EN LA ARENA",
+        "INVENTARIO TUS CARTAS, TU PODER",
+        "TIENDA SOBRES Y CONTENIDO",
+        "CARTA DESTACADA MARTEEN → /coleccion"
+      ],
+      "errors": 3
+    },
+    {
+      "name": "01-registro",
+      "url": "/cuenta",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "02-tras-registro",
+      "url": "/cuenta",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "03-home",
+      "url": "/",
+      "ctas": [
+        "NEXUS → /",
+        "Más opciones",
+        "JUGAR ENTRA EN LA ARENA",
+        "INVENTARIO TUS CARTAS, TU PODER",
+        "TIENDA SOBRES Y CONTENIDO",
+        "VER PROGRESO → → /progresion",
+        "CARTA DESTACADA MARTEEN → /coleccion",
+        "ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15 → /jugar/road-to-champions"
+      ],
+      "errors": 3
+    },
+    {
+      "name": "04-jugar",
+      "url": "/jugar",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "05-duelo-sin-equipo",
+      "url": "/duelos/jugar",
+      "ctas": [
+        "‹ DUELOS → /duelos",
+        "?",
+        "IR AL CONSTRUCTOR → /duelos/mazos"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "06-boveda",
+      "url": "/boveda",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "07-coleccion",
+      "url": "/coleccion",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "08-equipos",
+      "url": "/duelos/mazos",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "09-tienda",
+      "url": "/tienda",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "10-inventario",
+      "url": "/inventario",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS 1"
+      ],
+      "errors": 0
+    },
+    {
+      "name": "11-progresion",
+      "url": "/progresion",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS"
+      ],
+      "errors": 4
+    },
+    {
+      "name": "12-perfil",
+      "url": "/cuenta",
+      "ctas": [
+        "NEXUS LOBBY → /",
+        "COLECCIÓN → /coleccion",
+        "EQUIPOS → /duelos/mazos",
+        "TIENDA → /tienda",
+        "TEMPORADA → /temporada",
+        "MUNDO → /mundo",
+        "1 NIVEL 0% → /jugador/me",
+        "MÁS"
+      ],
+      "errors": 7
+    },
+    {
+      "name": "13-home-390",
+      "url": "/",
+      "ctas": [
+        "NEXUS → /",
+        "Más opciones",
+        "JUGAR ENTRA EN LA ARENA",
+        "INVENTARIO TUS CARTAS, TU PODER",
+        "TIENDA SOBRES Y CONTENIDO",
+        "VER PROGRESO → → /progresion",
+        "CARTA DESTACADA MARTEEN → /coleccion",
+        "ROAD TO CHAMPIONS CAPÍTULO 1 · 0/15 → /jugar/road-to-champions"
+      ],
+      "errors": 3
+    }
+  ]
+}

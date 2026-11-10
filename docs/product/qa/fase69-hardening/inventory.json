@@ -1,0 +1,433 @@
+{
+  "phase": "F69",
+  "at": "2026-09-28T11:01:30.539Z",
+  "source": "journeys/reconcile-f69.json",
+  "rule": "sobres: inicial + comprados + recompensa − abiertos = en inventario (≥ 0); aperturas en economy_ops = user_game.packs_opened; cartas del libro = cartas del estado; ninguna carta ajena en un equipo",
+  "negativePacks": 0,
+  "accounts": [
+    {
+      "persona": "A",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 3,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 4,
+      "userGameOpened": 4,
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "B",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 3,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 4,
+          "rewarded": 0,
+          "opened": 5,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "premium": {
+          "starter": 0,
+          "bought": 1,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 9,
+      "userGameOpened": 9,
+      "cards": {
+        "owned": 46,
+        "stateOwned": 46,
+        "decks": 2,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "C",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 3,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 5,
+          "rewarded": 0,
+          "opened": 5,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        "premium": {
+          "starter": 0,
+          "bought": 1,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 9,
+      "userGameOpened": 9,
+      "cards": {
+        "owned": 46,
+        "stateOwned": 46,
+        "decks": 2,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "D",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 3,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 4,
+      "userGameOpened": 4,
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 6,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "E",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 2,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 2,
+          "opened": 1,
+          "expected": 2,
+          "actual": 2,
+          "ok": true
+        },
+        "premium": {
+          "starter": 0,
+          "bought": 1,
+          "rewarded": 0,
+          "opened": 0,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        }
+      },
+      "openedOps": 3,
+      "userGameOpened": 3,
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "F",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 3,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 4,
+      "userGameOpened": 4,
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "G",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 2,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 1,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        }
+      },
+      "openedOps": 3,
+      "userGameOpened": 3,
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "H",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 2,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 3,
+      "userGameOpened": 3,
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "I",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 2,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 3,
+      "userGameOpened": 3,
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "J",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 2,
+          "expected": 1,
+          "actual": 1,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 3,
+      "userGameOpened": 3,
+      "cards": {
+        "owned": 15,
+        "stateOwned": 15,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "K",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 3,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 4,
+      "userGameOpened": 4,
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    },
+    {
+      "persona": "L",
+      "packs": {
+        "inicial": {
+          "starter": 3,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 3,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        },
+        "estandar": {
+          "starter": 1,
+          "bought": 0,
+          "rewarded": 0,
+          "opened": 1,
+          "expected": 0,
+          "actual": 0,
+          "ok": true
+        }
+      },
+      "openedOps": 4,
+      "userGameOpened": 4,
+      "cards": {
+        "owned": 20,
+        "stateOwned": 20,
+        "decks": 1,
+        "foreignInDecks": 0,
+        "ok": true
+      },
+      "ok": true
+    }
+  ],
+  "verdict": "PASS — 12/12 cuadran; 0 sobres negativos; 0 cartas ajenas en equipos"
+}

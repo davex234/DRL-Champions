@@ -1,0 +1,45 @@
+{
+  "measuredAt": "2026-09-26T18:12:16.202Z",
+  "gitHead": "48dac2a125fe04f5a1a36fa73af23118f757b922",
+  "branch": "arch/stabilization",
+  "workingTreeDirty": true,
+  "testsBeforeF65": {
+    "count": 5286,
+    "source": "gates de F64 (docs/product/fase-64-game-feel.md)"
+  },
+  "catalog": {
+    "cards": 331,
+    "playableCards": 331,
+    "players": 196,
+    "roles": {
+      "Flex": 70,
+      "Duelista": 73,
+      "Centinela": 64,
+      "Controlador": 61,
+      "Iniciador": 63
+    },
+    "ovr": [
+      70,
+      95
+    ],
+    "combatSum": [
+      101,
+      249
+    ]
+  },
+  "tacticalAgents": 29,
+  "migrations": {
+    "count": 57,
+    "head": "0057_admin_cms.sql"
+  },
+  "flags": {
+    "GLOBAL_MARKET_ENABLED": false,
+    "PAYMENTS_ENABLED": false
+  },
+  "engine": {
+    "orchestrator": "duel-turns-2",
+    "rules": "duel-combat-2",
+    "goldenDigestF61": "590d299795a9d5edc398ed23b942eef56bacef2664649641962a8022a8deca84",
+    "goldenTest": "src/lib/duel/f61.match.test.tsx · F61 MOTOR 01"
+  }
+}

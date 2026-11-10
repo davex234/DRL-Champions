@@ -1,0 +1,135 @@
+[
+  {
+    "paso": "login",
+    "detalle": {
+      "formulario": true
+    },
+    "at": "2026-09-21T17:09:55.130Z"
+  },
+  {
+    "paso": "compra estandar @768",
+    "detalle": {
+      "status": 200,
+      "body": "{\"qty\":1,\"packId\":\"estandar\",\"credits\":6510}"
+    },
+    "at": "2026-09-21T17:09:55.370Z"
+  },
+  {
+    "paso": "resumen @768",
+    "detalle": {
+      "revelarTodo": true,
+      "cartas": [
+        "darker__base",
+        "mada__base",
+        "leaf__masters-l",
+        "lysoar__masters-sdc",
+        "neon__masters-l"
+      ],
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:07.172Z"
+  },
+  {
+    "paso": "colección @768",
+    "detalle": {
+      "n": 57,
+      "rotas": 0,
+      "ejemplo": "/cards/neon__masters-l.webp",
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:14.051Z"
+  },
+  {
+    "paso": "detalle poseida @768",
+    "detalle": {
+      "d": {
+        "href": "/coleccion/carta/neon__masters-l",
+        "imgs": 1,
+        "rotas": 0,
+        "fks": false,
+        "com": true,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:20.936Z"
+  },
+  {
+    "paso": "detalle no-poseida @768",
+    "detalle": {
+      "d": {
+        "href": "/coleccion/carta/marteen__record-breaker",
+        "imgs": 1,
+        "rotas": 0,
+        "fks": false,
+        "com": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:27.674Z"
+  },
+  {
+    "paso": "compra estandar @390",
+    "detalle": {
+      "status": 200,
+      "body": "{\"qty\":1,\"packId\":\"estandar\",\"credits\":5760}"
+    },
+    "at": "2026-09-21T17:10:27.970Z"
+  },
+  {
+    "paso": "resumen @390",
+    "detalle": {
+      "revelarTodo": true,
+      "cartas": [
+        "alfajer__base",
+        "francis__masters-sdc",
+        "skuba__masters-sdc",
+        "veqaj__future-star",
+        "marteen__record-breaker"
+      ],
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:39.298Z"
+  },
+  {
+    "paso": "colección @390",
+    "detalle": {
+      "n": 57,
+      "rotas": 0,
+      "ejemplo": "/cards/marteen__record-breaker.webp",
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:46.005Z"
+  },
+  {
+    "paso": "detalle poseida @390",
+    "detalle": {
+      "d": {
+        "href": "/coleccion/carta/marteen__record-breaker",
+        "imgs": 1,
+        "rotas": 0,
+        "fks": false,
+        "com": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:52.716Z"
+  },
+  {
+    "paso": "detalle no-poseida @390",
+    "detalle": {
+      "d": {
+        "href": "/coleccion/carta/marteen__record-breaker",
+        "imgs": 1,
+        "rotas": 0,
+        "fks": false,
+        "com": false,
+        "overflowX": false
+      },
+      "errores": []
+    },
+    "at": "2026-09-21T17:10:59.387Z"
+  }
+]

@@ -1,0 +1,284 @@
+{
+  "sessions": [
+    {
+      "id": "B-r1-progress",
+      "persona": "B",
+      "session": "progress",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 39,
+      "actions": 9,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 436,
+        "204": 7
+      },
+      "bad": [],
+      "notes": [],
+      "before": {
+        "credits": 5580,
+        "xp": 1034,
+        "pass": null
+      },
+      "claim": "nada que reclamar",
+      "afterClaim": {
+        "credits": 5580,
+        "xp": 1034,
+        "pass": null
+      },
+      "hudAfterClaim": "",
+      "revisit": {
+        "again": "nada que reclamar",
+        "credits": 5580,
+        "xp": 1034
+      },
+      "reclaimApi": {
+        "status": 409,
+        "error": "Misión ya reclamada",
+        "paid": false
+      },
+      "season": {
+        "h": [
+          "NEXUS — TEMPORADA 1",
+          "Siguiente objetivo",
+          "CAMINO DE RECOMPENSAS",
+          "TUS MISIONES",
+          "¿QUÉ HAGO AHORA?",
+          "TU COMPETITIVO",
+          "EN DIRECTO EN NEXUS",
+          "TU COLECCIÓN"
+        ],
+        "level": "2\nNIVEL DE TEMPORADA\n\nNIVEL 2 / 30",
+        "next": "280\nSIGUIENTE · NIVEL 3\n280 CRÉDITOS"
+      },
+      "achievements": 14,
+      "profile": "🎮 TU PERFIL DE JUGADOR QAF68B100206_D8EB NIVEL 5 RATING — RANKED Sin clasificar Nivel de cuenta · progreso al 6 115 / 394 XP de cuenta EDITAR PERFIL COMPARTIR PERFIL CUENTA Y AJUSTES EDITAR EQUIPO EXPÓN TUS CARTAS FAVORITAS Elige hasta 3 cartas de tu colección —la copia concreta, con su serie— para enseñarlas en tu perfil. La primera será tu carta destacada. ELEGIR CARTAS COMPETITIVO Todavía no has jugado competitivo. Tu primera partida liquidada te pone en la escalera. IR A COMPETITIVO → TEMPO"
+    },
+    {
+      "id": "E-r1-progress",
+      "persona": "E",
+      "session": "progress",
+      "tag": "r1",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 42,
+      "actions": 12,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 72,
+      "statuses": {
+        "200": 546,
+        "204": 7
+      },
+      "bad": [],
+      "notes": [],
+      "before": {
+        "credits": 6025,
+        "xp": 381,
+        "pass": null
+      },
+      "claim": "botones reclamar 6 → 3 (claim-all=true)",
+      "afterClaim": {
+        "credits": 9625,
+        "xp": 381,
+        "pass": null
+      },
+      "hudAfterClaim": null,
+      "revisit": {
+        "again": "nada que reclamar",
+        "credits": 9625,
+        "xp": 381
+      },
+      "reclaimApi": {
+        "status": 409,
+        "error": "Misión ya reclamada",
+        "paid": false
+      },
+      "season": {
+        "h": [
+          "NEXUS — TEMPORADA 1",
+          "Siguiente objetivo",
+          "CAMINO DE RECOMPENSAS",
+          "TUS MISIONES",
+          "¿QUÉ HAGO AHORA?",
+          "TU COMPETITIVO",
+          "EN DIRECTO EN NEXUS",
+          "TU COLECCIÓN"
+        ],
+        "level": "4\nNIVEL DE TEMPORADA\n\nNIVEL 4 / 30",
+        "next": "600\nSIGUIENTE · NIVEL 5\nSOBRE BRONCE + 600 CRÉDITOS"
+      },
+      "achievements": 15,
+      "profile": "🎮 TU PERFIL DE JUGADOR QAF63N154122_A9A8 NIVEL 3 RANKED PROVISIONAL COLOCACIÓN #3 RATING 999 COLOCACIÓN 4 / 10 Nivel de cuenta · progreso al 4 78 / 277 XP de cuenta EDITAR PERFIL COMPARTIR PERFIL CUENTA Y AJUSTES EDITAR EQUIPO EXPÓN TUS CARTAS FAVORITAS Elige hasta 3 cartas de tu colección —la copia concreta, con su serie— para enseñarlas en tu perfil. La primera será tu carta destacada. ELEGIR CARTAS COMPETITIVO VER HISTORIAL → PARTIDAS DE COLOCACIÓN 4 / 10 Te faltan 6 para salir de colocación"
+    },
+    {
+      "id": "E-r2-progress",
+      "persona": "E",
+      "session": "progress",
+      "tag": "r2",
+      "width": 1440,
+      "reduced": false,
+      "durationSec": 40,
+      "actions": 9,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 524,
+        "204": 7
+      },
+      "bad": [],
+      "notes": [],
+      "before": {
+        "credits": 7125,
+        "xp": 381,
+        "pass": null
+      },
+      "claim": "nada que reclamar",
+      "afterClaim": {
+        "credits": 7125,
+        "xp": 381,
+        "pass": null
+      },
+      "hudAfterClaim": "7.125",
+      "revisit": {
+        "again": "nada que reclamar",
+        "credits": 7125,
+        "xp": 381
+      },
+      "reclaimApi": {
+        "status": 409,
+        "error": "Misión ya reclamada",
+        "paid": false
+      },
+      "season": {
+        "h": [
+          "NEXUS — TEMPORADA 1",
+          "Siguiente objetivo",
+          "CAMINO DE RECOMPENSAS",
+          "TUS MISIONES",
+          "¿QUÉ HAGO AHORA?",
+          "TU COMPETITIVO",
+          "EN DIRECTO EN NEXUS",
+          "TU COLECCIÓN"
+        ],
+        "level": "4\nNIVEL DE TEMPORADA\n\nNIVEL 4 / 30",
+        "next": "600\nSIGUIENTE · NIVEL 5\nSOBRE BRONCE + 600 CRÉDITOS"
+      },
+      "achievements": 15,
+      "profile": "🎮 TU PERFIL DE JUGADOR QAF63N154122_A9A8 NIVEL 3 RANKED PROVISIONAL COLOCACIÓN #4 RATING 980 COLOCACIÓN 7 / 10 Nivel de cuenta · progreso al 4 78 / 277 XP de cuenta EDITAR PERFIL COMPARTIR PERFIL CUENTA Y AJUSTES EDITAR EQUIPO EXPÓN TUS CARTAS FAVORITAS Elige hasta 3 cartas de tu colección —la copia concreta, con su serie— para enseñarlas en tu perfil. La primera será tu carta destacada. ELEGIR CARTAS COMPETITIVO VER HISTORIAL → PARTIDAS DE COLOCACIÓN 7 / 10 Te faltan 3 para salir de colocación"
+    },
+    {
+      "id": "D-r2-progress",
+      "persona": "D",
+      "session": "progress",
+      "tag": "r2",
+      "width": 1024,
+      "reduced": true,
+      "durationSec": 45,
+      "actions": 12,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": [
+          "FAIL HUD al día tras reclamar (sin recargar)"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 71,
+      "statuses": {
+        "200": 512,
+        "204": 7
+      },
+      "bad": [],
+      "notes": [],
+      "before": {
+        "credits": 6000,
+        "xp": 552,
+        "pass": null
+      },
+      "claim": "botones reclamar 8 → 2 (claim-all=true)",
+      "afterClaim": {
+        "credits": 9430,
+        "xp": 552,
+        "pass": null
+      },
+      "hudAfterClaim": "6.000",
+      "revisit": {
+        "again": "nada que reclamar",
+        "credits": 9430,
+        "xp": 552
+      },
+      "reclaimApi": {
+        "status": 409,
+        "error": "Misión ya reclamada",
+        "paid": false
+      },
+      "season": {
+        "h": [
+          "NEXUS — TEMPORADA 1",
+          "Siguiente objetivo",
+          "CAMINO DE RECOMPENSAS",
+          "TUS MISIONES",
+          "¿QUÉ HAGO AHORA?",
+          "TU COMPETITIVO",
+          "EN DIRECTO EN NEXUS",
+          "TU COLECCIÓN"
+        ],
+        "level": "2\nNIVEL DE TEMPORADA\n\nNIVEL 2 / 30",
+        "next": "280\nSIGUIENTE · NIVEL 3\n280 CRÉDITOS"
+      },
+      "achievements": 14,
+      "profile": "🎮 TU PERFIL DE JUGADOR QAF68D101756_225E NIVEL 3 RATING — RANKED Sin clasificar Nivel de cuenta · progreso al 4 249 / 277 XP de cuenta EDITAR PERFIL COMPARTIR PERFIL CUENTA Y AJUSTES EDITAR EQUIPO EXPÓN TUS CARTAS FAVORITAS Elige hasta 3 cartas de tu colección —la copia concreta, con su serie— para enseñarlas en tu perfil. La primera será tu carta destacada. ELEGIR CARTAS COMPETITIVO Todavía no has jugado competitivo. Tu primera partida liquidada te pone en la escalera. IR A COMPETITIVO → TEMPO"
+    }
+  ],
+  "pickemsMission": {
+    "missionBefore": {
+      "id": "d-pickem-1",
+      "label": "Haz una predicción",
+      "kind": "daily",
+      "current": 0,
+      "goal": 1,
+      "complete": false,
+      "claimed": false,
+      "rewardCredits": 200,
+      "xp": 150,
+      "metric": "picks_made",
+      "packId": null,
+      "packCount": 0,
+      "assignedAt": 1790467200000,
+      "expiresAt": 1790553600000
+    },
+    "missionAfter": {
+      "id": "d-pickem-1",
+      "label": "Haz una predicción",
+      "kind": "daily",
+      "current": 1,
+      "goal": 1,
+      "complete": true,
+      "claimed": false,
+      "rewardCredits": 200,
+      "xp": 150,
+      "metric": "picks_made",
+      "packId": null,
+      "packCount": 0,
+      "assignedAt": 1790467200000,
+      "expiresAt": 1790553600000
+    }
+  }
+}

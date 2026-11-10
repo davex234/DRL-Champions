@@ -1,0 +1,23 @@
+activa: drl-0.1.1-1-e919d780
+running desde 2026-10-06T12:09:43.715729774Z reinicios=0
+líneas de error en valorosters-app desde el despliegue: 0
+     19 ERROR:  permission denied for table profiles
+      8 ERROR:  NOT_ADMIN
+      4 ERROR:  duplicate key value violates unique constraint "duel_matches_pkey"
+      2 ERROR:  permission denied for table pickem_bracket_picks
+      2 ERROR:  permission denied for table duel_matches
+      2 ERROR:  permission denied for table alpha_feedback
+      1 ERROR:  STALE_CUP
+      1 ERROR:  REASON_REQUIRED
+      1 ERROR:  permission denied for view ranking_collection
+      1 ERROR:  permission denied for table user_sanctions
+      1 ERROR:  permission denied for table user_cards
+      1 ERROR:  permission denied for table pickem_brackets
+      1 ERROR:  permission denied for table pickem_bracket_matches
+      1 ERROR:  permission denied for table pickem_bracket_entries
+      1 ERROR:  permission denied for table pickem_bracket_claims
+      1 ERROR:  permission denied for table duel_pvp_queue
+      1 ERROR:  permission denied for table duel_friendships
+      1 ERROR:  permission denied for table duel_challenges
+      1 ERROR:  permission denied for table duel_active_deck
+      1 ERROR:  permission denied for table cup_matches

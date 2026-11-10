@@ -1,0 +1,82 @@
+OK   pages        /                                  200
+OK   pages        /jugar                             200
+OK   pages        /coleccion                         200
+OK   pages        /duelos/mazos                      200
+OK   pages        /inventario                        200
+OK   pages        /progresion                        200
+OK   pages        /duelos/jugar                      200
+OK   pages        /duelos/pvp                        200
+OK   pages        /competitivo                       200
+OK   pages        /cuenta                            200
+OK   pages        /como-jugar                        200
+OK   pages        /tienda                            200
+OK   pages        /temporada                         200
+OK   pages        /copas                             200
+OK   pages        /design-system (producción)        404 (404 salvo NEXUS_QA_HARNESS=1)
+OK   pages        /robots.txt                        User-Agent: * Disallow: / 
+OK   headers      CSP                                default-src 'self'; base-uri 'self'; object-src 'none'; fram
+OK   headers      X-Frame-Options                    DENY
+OK   headers      nosniff                            nosniff
+OK   headers      Referrer-Policy                    strict-origin-when-cross-origin
+OK   headers      COOP                               same-origin
+OK   headers      sin X-Powered-By                   null
+OK   headers      noindex (beta cerrada)             meta robots
+OK   api          /api/health                        200
+OK   api          /api/ready                         200 ready
+OK   api          x-request-id                       ea207bc3-d65d-4067-b1b9-724dc05ae473
+OK   api          anónimo /api/game/state            401
+OK   api          anónimo /api/game/duels            401
+OK   api          anónimo /api/admin/system          401
+OK   api          anónimo /api/admin/users           401
+OK   api          anónimo /api/admin/cups            401
+OK   api          anónimo GET /api/game/cups (público) 200
+OK   api          anónimo POST /api/game/cups → 401  401
+OK   api          cuerpo de 300 KB → 413             413
+OK   api          JSON roto sin fugas                401 {"error":"No autenticado"}
+OK   qa-read      /api/game/state                    200 280ms
+OK   qa-read      /api/game/duels                    200 295ms
+OK   qa-read      /api/game/collection               200 546ms
+OK   qa-read      /api/game/competitive              200 333ms
+OK   qa-read      /api/game/play-status              200 283ms
+OK   qa-read      /api/game/daily-loop               200 391ms
+OK   qa-read      /api/game/season                   200 365ms
+OK   qa-read      /api/game/onboarding               200 239ms
+OK   qa-read      /api/game/cups                     200 251ms
+OK   qa-read      /api/game/cups?badge=1             200 245ms
+OK   admin        usuario normal → /api/admin/system 401
+OK   admin        usuario normal → ajustar créditos  401
+OK   cross-user   C lee user_cards de B              200 filas=0
+OK   cross-user   C lee user_game de B               200 filas=0
+OK   cross-user   C lee user_pass de B               200 filas=0
+OK   cross-user   C lee user_packs de B              200 filas=0
+OK   cross-user   C lee credit_transactions de B     200 filas=0
+OK   cross-user   C lee economy_ops de B             200 filas=0
+OK   cross-user   C lee duel_decks de B              200 filas=0
+OK   cross-user   C lee duel_matches de B            403 filas=0
+OK   cross-user   C lee user_achievements de B       200 filas=0
+OK   cross-user   C lee game_state de B              200 filas=0
+OK   cross-user   C lee duel_pvp_queue de B          403 filas=0
+OK   cross-user   C lee duel_active_deck de B        403 filas=0
+OK   cross-user   C lee user_sanctions de B          403 filas=0
+OK   cross-user   C lee payments de B                200 filas=0
+OK   cross-user   perfil público de B (columnas)     visibles: 
+OK   cross-user   columnas privadas de B (credits/is_admin/last_seen_at) 403 filas=0
+OK   cross-user   columna privada xp de B            403
+OK   cross-user   columna privada equipped de B      403
+OK   cross-user   columna privada tokens de B        403
+OK   cross-user   columnas públicas de B (contrato)  200 avatar,id,level,points,region,username
+OK   cross-user   anónimo no lee profiles            401 filas=0
+OK   cross-user   anónimo no lee vistas heredadas (ranking_collection) 401
+OK   escalation   C se da créditos                   403 filas=0
+OK   escalation   C se hace admin                    403 filas=0
+OK   escalation   C sube su nivel/xp                 403 filas=0
+OK   escalation   C renombra a B                     403 filas=0
+OK   escalation   C se inserta cartas                403 filas=0
+OK   escalation   C se da un ledger                  403 filas=0
+OK   escalation   C gana una partida                 403 filas=0
+OK   escalation   C borra el perfil de B             403 filas=0
+OK   escalation   API créditos con campos extra      400 {"error":"El cliente no decide «credits»"}
+OK   escalation   RPC app_grant_reward como usuario  404
+OK   escalation   RPC admin como usuario             404
+
+80/80 OK

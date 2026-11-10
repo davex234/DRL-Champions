@@ -1,0 +1,13 @@
+{
+  "changes": [
+    "Campos de entrada con <label> visible y autocomplete (email, username, current/new-password); error con role=alert; aria-invalid",
+    "Pestañas de acceso con aria-pressed",
+    "Capa «Añadir al equipo»: foco dentro, Escape, tabulador atrapado, foco de vuelta (useDialogLayer)",
+    "Ficha de carta: foco a la ficha al abrir y de vuelta al origen al cerrar; aria-label",
+    "Carta: foco de teclado visible sobre el ARTE (drop-shadow), también sin movimiento",
+    "Glifos decorativos aria-hidden; con título → role=img + aria-label",
+    "Cierres a 44 px (ficha de carta, hoja de equipo)",
+    "cursor not-allowed en aria-disabled",
+    "Audio nunca necesario: todo aviso sonoro tiene texto"
+  ]
+}

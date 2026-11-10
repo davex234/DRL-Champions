@@ -1,0 +1,13 @@
+== 1. fichero
+sha256 OK 860be6be733263af75ba0afa6e6ed55a5ee2462cbb7b69da95173fe91f408115
+== 2. cabeza = 0066 por estado real, sin rastro de 0067
+admins antes: 2f86cbe8 · perfiles: 40:a965209833270a8662c2888e3e38727c · auditoría: 536
+== 3. aplicar (una transacción)
+exit=0 en 173 ms · 2026-10-05T09:49:15Z
+== 4. después
+ADMINS_IGUALES
+PERFILES_INTACTOS
+auditoría después: 536 (antes 536)
+disparadores: profiles_admin_floor_del,profiles_admin_floor_upd,profiles_admin_write_guard
+privilegios de cliente: execute=0 is_admin(auth select,update / anon select)=falsefalsefalse
+APPLY_OK 0067

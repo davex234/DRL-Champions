@@ -1,0 +1,48 @@
+{
+  "at": "2026-09-30T15:27:36.690Z",
+  "source": "Postgres del VPS, solo lectura",
+  "expect": "4 ops de crafteo (I sobre, K sobre, C carta, B carta ganadora de la carrera), 4 refs distintas, recetas = ratios aprobados, admins = 1",
+  "craft_ops_by_user": [
+    {
+      "user": "91cb8a2c",
+      "kind": "craft_pack",
+      "n": 1
+    },
+    {
+      "user": "be24f4ef",
+      "kind": "craft_pack",
+      "n": 1
+    },
+    {
+      "user": "d4133641",
+      "kind": "craft_card",
+      "n": 1
+    },
+    {
+      "user": "d8eb622b",
+      "kind": "craft_card",
+      "n": 1
+    }
+  ],
+  "craft_ops_total": 4,
+  "craft_refs_distinct": 4,
+  "user_cards_origin_craft": 2,
+  "mission_events": 4,
+  "progress_rows": 0,
+  "missions": 0,
+  "projects": 0,
+  "recipes": {
+    "pack-estandar-premium": "4:ACTIVE",
+    "pack-premium-oro": "2:ACTIVE",
+    "pack-oro-masters": "2:ACTIVE",
+    "pack-masters-champions": "3:ACTIVE",
+    "pack-champions-icon": "2:ACTIVE",
+    "card-base-plata": "7:ACTIVE",
+    "card-plata-oro": "3:ACTIVE",
+    "card-oro-masters": "8:ACTIVE",
+    "card-masters-champions": "14:ACTIVE",
+    "card-champions-prime": "10:ACTIVE",
+    "card-prime-icon": "5:DISABLED"
+  },
+  "admins": 1
+}

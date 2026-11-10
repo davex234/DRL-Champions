@@ -1,0 +1,14 @@
+{
+  "Cerrada · el servidor ya no admite cambios": "Locked · the server no longer accepts changes",
+  "Cerrada · ya no admite cambios": "Locked · no more changes allowed",
+  "Error al guardar · {msg}": "Save failed · {msg}",
+  "Guardando…": "Saving…",
+  "No se pudieron cargar las predicciones": "Could not load predictions",
+  "No se pudo guardar": "Couldn't save",
+  "Predicción guardada": "Prediction saved",
+  "Sin conexión · la predicción no se ha enviado": "Offline · your prediction was not sent",
+  "hace un momento": "just now",
+  "hace {d} d": "{d} d ago",
+  "hace {h} h": "{h} h ago",
+  "hace {m} min": "{m} min ago"
+}

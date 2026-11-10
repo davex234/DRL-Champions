@@ -1,0 +1,171 @@
+{
+  "mapa Ascent elegido": true,
+  "roster real de 29 agentes": {
+    "ok": true,
+    "n": 29,
+    "sinFicticios": true
+  },
+  "filtro de rol: los cuatro reales": {
+    "ok": true,
+    "roles": [
+      "Duelista",
+      "Iniciador",
+      "Controlador",
+      "Centinela"
+    ]
+  },
+  "buscador": {
+    "ok": true,
+    "busca": [
+      "kayo"
+    ]
+  },
+  "sin duplicados y tope de cinco": {
+    "ok": true,
+    "trasQuitar": 4,
+    "sextoDeshabilitado": true
+  },
+  "cinco huecos con agentes reales y su rol": {
+    "ok": true,
+    "slots": [
+      "Sova · Iniciador",
+      "Jett · Duelista",
+      "Killjoy · Centinela",
+      "KAY/O · Iniciador",
+      "Omen · Controlador"
+    ]
+  },
+  "guardada sin error": true,
+  "tras recargar siguen los cinco": {
+    "ok": true,
+    "tira": [
+      "Sova · Iniciador",
+      "Jett · Duelista",
+      "Killjoy · Centinela",
+      "KAY/O · Iniciador",
+      "Omen · Controlador"
+    ]
+  },
+  "composicion antigua (otro mapa o ésta)": [
+    "Veil · Modelo anterior",
+    "Haze · Modelo anterior",
+    "Probe · Modelo anterior",
+    "Pulse · Modelo anterior",
+    "Spear · Modelo anterior"
+  ],
+  "editor responsive 390": {
+    "ok": true,
+    "scrollX": false,
+    "fuera": 0,
+    "llenos": 5
+  },
+  "editor responsive 768": {
+    "ok": true,
+    "scrollX": false,
+    "fuera": 0,
+    "llenos": 5
+  },
+  "editor responsive 1024": {
+    "ok": true,
+    "scrollX": false,
+    "fuera": 0,
+    "llenos": 5
+  },
+  "editor responsive 1440": {
+    "ok": true,
+    "scrollX": false,
+    "fuera": 0,
+    "llenos": 5
+  },
+  "editor responsive 1920": {
+    "ok": true,
+    "scrollX": false,
+    "fuera": 0,
+    "llenos": 5
+  },
+  "cinco fichas en el mapa": {
+    "ok": true,
+    "tokens": 5
+  },
+  "las cinco fichas llevan agentes reales": {
+    "ok": true,
+    "nombres": [
+      "OMEN",
+      "SOVA",
+      "JETT",
+      "KILLJOY",
+      "KAY/O"
+    ]
+  },
+  "fichas del mapa: código del agente (sin retratos)": {
+    "ok": true,
+    "codigos": [
+      "OME",
+      "SOV",
+      "JET",
+      "KIL",
+      "KAY",
+      "JET",
+      "KAY",
+      "KIL",
+      "OME",
+      "SOV"
+    ],
+    "imgsAgente": 0
+  },
+  "habilidades reales de Omen (C/Q/E/X)": {
+    "ok": true,
+    "habs": [
+      "omen_c",
+      "omen_q",
+      "omen_e",
+      "omen_x"
+    ]
+  },
+  "habilidad real colocada (marca de humo elegida por el entrenador; persistencia verificada en BD aparte)": {
+    "ok": true,
+    "fichasYMarcas": 6,
+    "marcas": 7
+  },
+  "guardada y reabierta: agentes y habilidad intactos": {
+    "ok": true,
+    "abierta": true,
+    "tras": [
+      "OMEN",
+      "SOVA",
+      "JETT",
+      "KILLJOY",
+      "KAY/O"
+    ],
+    "habilidad": "Dark Cover (E)",
+    "pasos": ""
+  },
+  "Presentar lista los cinco reales": {
+    "ok": true,
+    "teatro": [
+      "Omen · Controlador",
+      "Sova · Iniciador",
+      "Jett · Duelista",
+      "Killjoy · Centinela",
+      "KAY/O · Iniciador"
+    ]
+  },
+  "jugada antigua: abre con sus agentes del modelo anterior identificados": {
+    "ok": true,
+    "nombresViejos": [
+      "SPEAR",
+      "VEIL",
+      "PROBE",
+      "WARDEN",
+      "ECHO"
+    ],
+    "nota": true
+  },
+  "Plan Táctico ve la composición real y la estrategia": {
+    "ok": true,
+    "comp": true,
+    "strat": true,
+    "reales": 15,
+    "legado": 5
+  }
+}

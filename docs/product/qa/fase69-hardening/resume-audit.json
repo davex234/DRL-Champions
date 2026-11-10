@@ -1,0 +1,65 @@
+{
+  "phase": "F69 · reanudación forense",
+  "resumedAt": "2026-09-28T10:20Z",
+  "sourceOfTruth": "el disco: mtime posterior al informe F68 (2026-09-27 14:31 local), evidencia en docs/product/qa/fase69-hardening/, marcas «F69» en código, y el scratchpad de la sesión anterior (110d56d1: run-journeys.sh, run-final.sh, journeys.log, bak/)",
+  "stateFound": {
+    "sessions": "F69 ya había tenido DOS pases: el primero (2026-09-27 19:21–20:07Z) y el segundo (110d56d1, hasta 22:43Z) que revisó el primero, lo completó y verificó en vivo. Este es el TERCER pase.",
+    "runtime": "Nada escuchando: ni :3005 ni el túnel 54521/54522 (la sesión se cerró con ellos caídos).",
+    "lastBuild": ".next/BUILD_ID drl-0.1.1-1-d74dc352 (22:42Z), compilada tras el último cambio de código (duels.ts 22:38Z). Recompilada al reanudar: MISMO id → el código no había cambiado desde entonces.",
+    "checkpoint": "run-final.sh (verificación final sobre la build definitiva) escrito a las 22:43Z y NUNCA ejecutado (no existía final.log). Ese era el punto exacto de corte.",
+    "testsAtResume": 5400,
+    "gatesAtResume": "tsc web PASS, tsc scripts PASS, lint 0 errores / 27 avisos (los de F68), tests 5400/5400"
+  },
+  "alreadyDoneBeforeResume": [
+    "F68-010 Coach sin créditos/XP/nivel (rewards.ts, useCoachMatch, MatchCeremony) + test + prueba viva (build 5e7960dd)",
+    "F68-011 pistola sin SAVE (src/coach/ai.ts, coachIntel, coachLive, src/economy/decide.ts) + test + prueba viva",
+    "F68-012 una sola CTA (BuyPhasePanel/CoachTacticalPanel onConfirm opcional) + test + prueba viva",
+    "F68-013 terminología «Rango de puntos» vs «Rating ranked (Elo)/Puesto ranked» + test",
+    "Auditoría de autoridad del HUD: useServerEconomy + SESSION_PENDING en 9 módulos, lista cerrada de mutadores (test)",
+    "buyPackOnline: relectura best-effort tras cobrar (F69-E)",
+    "playerMessage() en 14 pantallas; barrido de terminología (mazo→equipo, cobrar→reclamar, XP de cuenta)",
+    "Perfil propio por GET /api/game/me (ownProfile.ts, profileExposure.ts), perfil social sin hora exacta salvo amigos",
+    "0058 v3 (PROPOSAL/ROLLBACK/preflight/postflight/rls_tests), dry-run PGlite (14→0→14), comprobación viva de solo lectura",
+    "Aislamiento PvE↔PvP en duels.ts (hallado en la sesión larga: 80 × 500) + test",
+    "Pulido /cuenta (resúmenes con hueco reservado) y constructor a 1024 (rol sin partir) + test",
+    "production-check: comprobación auth-email (WARN BLOCKED) + scripts/ops/auth-config-status.sh; smoke: línea informativa de columnas privadas",
+    "Journeys F69 con el arnés F68 (21 recorridos), ranked 3 partidas, inventario de release, auditoría de secretos, npm audit, escaneo del bundle",
+    "Evidencia: baseline, coach-authority/-pistol/-cta, optimistic-state-audit, copy-sweep, profile-exposure, 0058-review/-dryrun, rls, debt-register, release-file-inventory, secret-precommit, gitignore-audit"
+  ],
+  "partialAtResume": [
+    { "item": "Sesión larga (E)", "why": "fue la que destapó el bug PvE↔PvP; el arreglo llegó DESPUÉS y el journey no se repitió" },
+    { "item": "CLS de /cuenta", "why": "medido 0,222 ANTES del arreglo de los resúmenes; nunca re-medido" },
+    { "item": "Sondeo de terminología/enlaces/foco (probe-J)", "why": "ejecutado antes de los últimos cambios de copy (terminologyOk=false entonces); nunca repetido" },
+    { "item": "Explorador D", "why": "su paso Coach falló porque el arnés esperaba el botón «Confirmar plan» que F68-012 quitó; el arnés se corrigió a las 21:54Z, el journey no se repitió" },
+    { "item": "Conciliación libro/inventario/progreso", "why": "prevista en run-final.sh (reconcile-f69), sin ejecutar" },
+    { "item": "Debt register", "why": "no recogía el bug PvE↔PvP (F69-F)" },
+    { "item": "Informe y evidencias finales", "why": "faltaban fase-69-beta-hardening.md y 22 JSON (resume-audit, f68-bugs-recheck, competitive-terminology, duplicate/dead-code, broken-links, assets, placeholder, accessibility, responsive, ledger, inventory, progression, elo, account-switch, long-session, security, regressions, production-check, smoke, known-issues-final, rc-readiness)" }
+  ],
+  "notStartedAtResume": [
+    "auditoría de duplicación y de código muerto de F69",
+    "security smoke de F68 (_fase68-security) sobre la build F69",
+    "production:check y smoke:production sobre la build definitiva"
+  ],
+  "finishedThisSession": [
+    "Consolidación: el bucle del Coach copiado en _fase69-coach.ts ahora es el de _fase68-coach2.ts con ganchos (onStep/finalShot)",
+    "/cuenta CLS: la carga reserva la pantalla y la tira de cifras ya no se cambia por un cargador de otra altura (+1 test en f69.polish.test.tsx)",
+    "Sondeo de foco: el menú del armazón se probaba en la portada (que no lo tiene) → falso «menuFocusTrap:false»; corregido el arnés y re-medido",
+    "run-final.sh ejecutado entero sobre la build definitiva; security smoke; production:check; smoke",
+    "F69-F añadido al registro de deuda; evidencias y informe completos"
+  ],
+  "verifiedWithoutChange": [
+    "F68-010/011/012 (prueba final del Coach con el instrumento consolidado: 9.430 cr / 552 XP / nivel 3 inmóviles, pistola DEFAULT, una CTA)",
+    "F68-013 (sondeo B: terminologyOk)",
+    "0058: revisión v3 y dry-run válidos; head sigue 0057; nada que cambiar",
+    "Tests f69.* sin duplicados; fixes F68-001…009/014 con su test",
+    "Next 16.3.6, sharp 0.35.4 directa, lockfile coherente; npm audit igual (1 moderado prod no alcanzable)"
+  ],
+  "duplicateWorkAvoided": [
+    "No se re-implementó ningún arreglo F68-010…013 ni la auditoría de autoridad: solo se re-verificaron",
+    "No se creó otra 0058 (ni v4 ni 0059): la v3 se validó tal cual",
+    "No se creó un rastreador de enlaces/assets: ya existía dentro de _fase69-probe.ts",
+    "No se repitieron los 21 journeys que ya habían pasado en la build F69: solo los que quedaron a medias o afectados por cambios posteriores (PvE, sesión larga, explorador, equipos, cambio de cuenta, alta nueva)",
+    "No se repitió el simulacro de restauración (código de backup sin cambios desde F67; production:check verifica manifiesto y SHA256SUMS)",
+    "No se repitió el ranked de 3 partidas: duels.ts solo cambió el servicio PvE (el PvP no se tocó) y CE-f69-ranked ya pasó 11/11"
+  ]
+}

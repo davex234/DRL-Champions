@@ -1,0 +1,332 @@
+{
+ "note": "Recursos /agents/ descargados por escena (Performance API, caché fría por escena salvo repetición en la misma sesión).",
+ "totals": {
+  "scenes": 30,
+  "brokenImages": 0,
+  "overflowX": 0
+ },
+ "perScene": [
+  {
+   "scene": "01-hub",
+   "width": 390,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "01-hub",
+   "width": 1024,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "01-hub",
+   "width": 1440,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "02-composiciones-lista",
+   "width": 390,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "02-composiciones-lista",
+   "width": 1024,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "02-composiciones-lista",
+   "width": 1440,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "03-selector-composicion",
+   "width": 390,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366
+  },
+  {
+   "scene": "03-selector-composicion",
+   "width": 1024,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 2
+   },
+   "bytes": 194670
+  },
+  {
+   "scene": "03-selector-composicion",
+   "width": 1440,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 2
+   },
+   "bytes": 194670
+  },
+  {
+   "scene": "04-composicion-final",
+   "width": 390,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366
+  },
+  {
+   "scene": "04-composicion-final",
+   "width": 1024,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 265434
+  },
+  {
+   "scene": "04-composicion-final",
+   "width": 1440,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 265434
+  },
+  {
+   "scene": "05-jugar-elegir",
+   "width": 390,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "05-jugar-elegir",
+   "width": 1024,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "05-jugar-elegir",
+   "width": 1440,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "06-quickplay",
+   "width": 390,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366
+  },
+  {
+   "scene": "06-quickplay",
+   "width": 1024,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366
+  },
+  {
+   "scene": "06-quickplay",
+   "width": 1440,
+   "requested": {
+    "face96": 29,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 130366
+  },
+  {
+   "scene": "07-mapa-pizarra",
+   "width": 390,
+   "requested": {
+    "face96": 10,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 46708
+  },
+  {
+   "scene": "07-mapa-pizarra",
+   "width": 1024,
+   "requested": {
+    "face96": 10,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 46708
+  },
+  {
+   "scene": "07-mapa-pizarra",
+   "width": 1440,
+   "requested": {
+    "face96": 10,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 46708
+  },
+  {
+   "scene": "08-teatro",
+   "width": 390,
+   "requested": {
+    "face96": 20,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 93416
+  },
+  {
+   "scene": "08-teatro",
+   "width": 1024,
+   "requested": {
+    "face96": 20,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 93416
+  },
+  {
+   "scene": "08-teatro",
+   "width": 1440,
+   "requested": {
+    "face96": 20,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 93416
+  },
+  {
+   "scene": "09-preparacion-partido",
+   "width": 390,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23354
+  },
+  {
+   "scene": "09-preparacion-partido",
+   "width": 1024,
+   "requested": {
+    "face96": 0,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 135068
+  },
+  {
+   "scene": "09-preparacion-partido",
+   "width": 1440,
+   "requested": {
+    "face96": 0,
+    "face": 0,
+    "full": 5
+   },
+   "bytes": 135068
+  },
+  {
+   "scene": "10-estadisticas-match-center",
+   "width": 390,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23778
+  },
+  {
+   "scene": "10-estadisticas-match-center",
+   "width": 1024,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23778
+  },
+  {
+   "scene": "10-estadisticas-match-center",
+   "width": 1440,
+   "requested": {
+    "face96": 5,
+    "face": 0,
+    "full": 0
+   },
+   "bytes": 23778
+  }
+ ],
+ "assets": {
+  "face.webp": {
+   "files": 29,
+   "totalBytes": 456570,
+   "avgBytes": 15744
+  },
+  "face-96.webp": {
+   "files": 29,
+   "totalBytes": 130366,
+   "avgBytes": 4495
+  },
+  "full.webp": {
+   "files": 29,
+   "totalBytes": 931246,
+   "avgBytes": 32112
+  }
+ },
+ "selectorBeforeSmallFace": {
+  "desktopBytes": 520874,
+  "mobileBytes": 456570,
+  "note": "primera pasada AFTER, sólo face.webp de 250 px"
+ }
+}

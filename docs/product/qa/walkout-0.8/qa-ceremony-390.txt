@@ -1,0 +1,35 @@
+PASS w-ph · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-ph · walkouts esperados 3 {"got":"3","exp":["mada__moments:MEGA_WALKOUT","lar0k__future-star:WALKOUT","patmen__record-breaker:MEGA_WALKOUT"]}
+PASS w-ph · walkout 1/3 carta e intensidad {"got":["mada__moments","MEGA_WALKOUT"],"exp":["mada__moments","MEGA_WALKOUT"]}
+PASS w-ph · walkout 1 identidad = carta (pieza y arena) {"code":"CAN","arena":"CAN","exp":"CAN","stage":"3d"}
+PASS w-ph · walkout 1 un solo lienzo 3D {"canvases":2}
+PASS w-ph · SALTAR → final de ESTA carta (sin reabrir) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-ph-2","wUid":"f81-qa-w-ph-2","wCard":"mada__moments","wInt":"MEGA_WALKOUT","wDone":"1","code":"CAN","card":"mada__moments","stage":"3d","arena":"CAN","human":"ready","canvases":2,"opens":"1","su
+PASS w-ph · REPETIR solo la animación (misma carta, 1 apertura) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-ph-2","wUid":"f81-qa-w-ph-2","wCard":"mada__moments","wInt":"MEGA_WALKOUT","wDone":"0","code":"CAN","card":"mada__moments","stage":"3d","arena":"CAN","human":"ready","canvases":2,"opens":"1","su
+PASS w-ph · walkout 2/3 carta e intensidad {"got":["lar0k__future-star","WALKOUT"],"exp":["lar0k__future-star","WALKOUT"]}
+PASS w-ph · walkout 2 identidad = carta (pieza y arena) {"code":"TUR","arena":"TUR","exp":"TUR","stage":"3d"}
+PASS w-ph · walkout 2 un solo lienzo 3D {"canvases":2}
+PASS w-ph · walkout 3/3 carta e intensidad {"got":["patmen__record-breaker","MEGA_WALKOUT"],"exp":["patmen__record-breaker","MEGA_WALKOUT"]}
+PASS w-ph · walkout 3 identidad = carta (pieza y arena) {"code":"PHL","arena":"PHL","exp":"PHL","stage":"3d"}
+PASS w-ph · walkout 3 un solo lienzo 3D {"canvases":2}
+PASS w-ph · tras los walkouts sigue la ceremonia {"phase":"summary"}
+PASS w-ph · resumen con las 3 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":4}
+PASS w-mega · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-mega · walkouts esperados 3 {"got":"3","exp":["mada__moments:MEGA_WALKOUT","xross__future-star:WALKOUT","marteen__record-breaker:MEGA_WALKOUT"]}
+PASS w-mega · walkout 1/3 carta e intensidad {"got":["mada__moments","MEGA_WALKOUT"],"exp":["mada__moments","MEGA_WALKOUT"]}
+PASS w-mega · walkout 1 identidad = carta (pieza y arena) {"code":"CAN","arena":"CAN","exp":"CAN","stage":"3d"}
+PASS w-mega · walkout 1 un solo lienzo 3D {"canvases":2}
+PASS w-mega · SALTAR → final de ESTA carta (sin reabrir) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-mega-2","wUid":"f81-qa-w-mega-2","wCard":"mada__moments","wInt":"MEGA_WALKOUT","wDone":"1","code":"CAN","card":"mada__moments","stage":"3d","arena":"CAN","human":"ready","canvases":2,"opens":"1"
+PASS w-mega · REPETIR solo la animación (misma carta, 1 apertura) {"phase":"walkout","walkouts":"3","requests":"1","hero":"f81-qa-w-mega-2","wUid":"f81-qa-w-mega-2","wCard":"mada__moments","wInt":"MEGA_WALKOUT","wDone":"0","code":"CAN","card":"mada__moments","stage":"3d","arena":"CAN","human":"ready","canvases":2,"opens":"1"
+PASS w-mega · walkout 2/3 carta e intensidad {"got":["xross__future-star","WALKOUT"],"exp":["xross__future-star","WALKOUT"]}
+PASS w-mega · walkout 2 identidad = carta (pieza y arena) {"code":"KOR","arena":"KOR","exp":"KOR","stage":"3d"}
+PASS w-mega · walkout 2 un solo lienzo 3D {"canvases":2}
+PASS w-mega · walkout 3/3 carta e intensidad {"got":["marteen__record-breaker","MEGA_WALKOUT"],"exp":["marteen__record-breaker","MEGA_WALKOUT"]}
+PASS w-mega · walkout 3 identidad = carta (pieza y arena) {"code":"CZE","arena":"CZE","exp":"CZE","stage":"3d"}
+PASS w-mega · walkout 3 un solo lienzo 3D {"canvases":2}
+PASS w-mega · tras los walkouts sigue la ceremonia {"phase":"summary"}
+PASS w-mega · resumen con las 3 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":4}
+PASS w-std · doble clic en ABRIR = 1 apertura {"requests":"1","opens":"1"}
+PASS w-std · walkouts esperados 0 {"got":"0","exp":[]}
+PASS w-std · tras los walkouts sigue la ceremonia {"phase":"opening"}
+PASS w-std · resumen con las 5 cartas, 1 apertura {"opens":"1","requests":"1","cardsLinks":6}
+PASS sin errores de consola []

@@ -1,0 +1,164 @@
+{
+  "tests": [
+    "D17 cuerpo estricto",
+    "D14 finish exige partida real",
+    "D24 el cliente de la guía no llama a sobres/recompensas; sin localStorage",
+    "D25 app_metadata (servidor), nunca user_metadata",
+    "S08 aislamiento entre cuentas",
+    "S03 partida en curso/Draft no cuentan"
+  ],
+  "live": {
+    "at": "2026-09-26T15:57:09.787Z",
+    "account": "0692cbd0",
+    "before": {
+      "status": "IN_PROGRESS",
+      "current": "open",
+      "credits": 6000,
+      "packs": {
+        "inicial": 3,
+        "estandar": 1
+      },
+      "cards": 0,
+      "decks": 0
+    },
+    "badBodies": [
+      {
+        "body": {
+          "action": "grant"
+        },
+        "status": 400
+      },
+      {
+        "body": {
+          "action": "start",
+          "userId": "00000000-0000-4000-8000-000000000000"
+        },
+        "status": 400
+      },
+      {
+        "body": {
+          "action": "finish",
+          "finishedAt": 1
+        },
+        "status": 400
+      },
+      {
+        "body": {
+          "action": "claim-starter"
+        },
+        "status": 400
+      },
+      {
+        "body": [],
+        "status": 400
+      },
+      {
+        "body": "start",
+        "status": 400
+      }
+    ],
+    "getWithParam": 400,
+    "noToken": 401,
+    "clientFakeCompletion": {
+      "updateUserError": null,
+      "statusAfter": "IN_PROGRESS",
+      "reason": null
+    },
+    "claimStarterAgain": {
+      "starterEligibility": {
+        "eligible": false,
+        "reason": "HAS_UNOPENED_STARTER",
+        "deckReady": false,
+        "unopenedStarter": 3,
+        "freeClaims": 0,
+        "maxFreeClaims": 8,
+        "missingRoles": [
+          {
+            "role": "Duelista",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Controlador",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Iniciador",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Centinela",
+            "have": 0,
+            "need": 2
+          },
+          {
+            "role": "Flex",
+            "have": 0,
+            "need": 2
+          }
+        ]
+      },
+      "buyInicialStatus": 409,
+      "buyInicialError": "Ya tienes un Sobre Inicial por abrir"
+    },
+    "finishNow": 409,
+    "openedViaApi": [
+      {
+        "pack": "inicial",
+        "status": 200
+      },
+      {
+        "pack": "estandar",
+        "status": 200
+      },
+      {
+        "pack": "inicial",
+        "status": 200
+      }
+    ],
+    "parallelStart": [
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200,
+      200
+    ],
+    "parallelFirstTeam": {
+      "statuses": [
+        200,
+        429,
+        429,
+        429,
+        429,
+        429
+      ],
+      "deckIds": [
+        "aa7c7726-6b94-4cd2-aa4c-89ad1794c93a"
+      ]
+    },
+    "after": {
+      "status": "IN_PROGRESS",
+      "current": "match",
+      "credits": 6000,
+      "packs": {
+        "inicial": 1
+      },
+      "cards": 15,
+      "decks": 1
+    },
+    "creditsUnchanged": true,
+    "packsOnlyDecreased": true
+  },
+  "notes": [
+    "«Marcar completado a mano»: el cliente SÍ puede escribir user_metadata (auth.updateUser); la guía solo lee app_metadata → estado sin cambios (probado en real).",
+    "«Reclamar el starter otra vez»: no existe acción; la única vía de sobres gratis es la compra del Sobre Inicial (F41) → 409 «Ya tienes un Sobre Inicial por abrir».",
+    "Sanciones (F58) siguen aplicando: POST /api/game/onboarding es una mutación bajo /api/game (getSession)."
+  ]
+}

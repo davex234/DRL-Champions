@@ -1,0 +1,132 @@
+{
+  "base": "http://127.0.0.1:3005",
+  "generated": "2026-09-22T17:52:47.308Z",
+  "note": "sesión simulada + /api/game/* fijo; no escribe en la BD",
+  "rows": [
+    {
+      "caso": "A-dos-comps-sin-plantilla",
+      "acciones": 3,
+      "pasos": [
+        "JUGAR (hub)",
+        "composición QA Lotus",
+        "JUGAR"
+      ],
+      "revelacion": true,
+      "mapaRevelado": "lotus",
+      "mapaEsperado": "lotus",
+      "mapaOk": true,
+      "imagenMapa": "/maps/lotus.png",
+      "arranco": true,
+      "msHastaPartido": 2014,
+      "url": "/entrenador/partido?map=lotus&comp=qa-513-lotus&auto=1&dif=normal",
+      "intro": false,
+      "teamGate": false,
+      "hud": "Equipo NEXUS",
+      "guardada": null,
+      "editorVisible": false,
+      "errores": 18,
+      "muestraErrores": [
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+      ]
+    },
+    {
+      "caso": "B-plantilla-incompleta",
+      "acciones": 3,
+      "pasos": [
+        "JUGAR (hub)",
+        "composición QA Lotus",
+        "JUGAR"
+      ],
+      "revelacion": true,
+      "mapaRevelado": "lotus",
+      "mapaEsperado": "lotus",
+      "mapaOk": true,
+      "imagenMapa": "/maps/lotus.png",
+      "arranco": true,
+      "msHastaPartido": 733,
+      "url": "/entrenador/partido?map=lotus&comp=qa-513-lotus&auto=1&dif=normal",
+      "intro": false,
+      "teamGate": false,
+      "hud": "Equipo NEXUS",
+      "guardada": null,
+      "editorVisible": false,
+      "errores": 18,
+      "muestraErrores": [
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+      ]
+    },
+    {
+      "caso": "C-plantilla-valida",
+      "acciones": 2,
+      "pasos": [
+        "JUGAR (hub)",
+        "JUGAR"
+      ],
+      "revelacion": true,
+      "mapaRevelado": "ascent",
+      "mapaEsperado": "ascent",
+      "mapaOk": true,
+      "imagenMapa": "/maps/ascent.png",
+      "arranco": true,
+      "msHastaPartido": 1761,
+      "url": "/entrenador/partido?map=ascent&comp=310ecd94-af68-477d-b285-ff7022724f50&auto=1&dif=normal",
+      "intro": false,
+      "teamGate": false,
+      "hud": "Equipo 1",
+      "guardada": null,
+      "editorVisible": false,
+      "errores": 18,
+      "muestraErrores": [
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+      ]
+    },
+    {
+      "caso": "D-cero-comps",
+      "acciones": 7,
+      "pasos": [
+        "JUGAR (hub)",
+        "agente jett",
+        "agente omen",
+        "agente sova",
+        "agente killjoy",
+        "agente kayo",
+        "GUARDAR Y JUGAR"
+      ],
+      "revelacion": true,
+      "mapaRevelado": "fracture",
+      "mapaEsperado": null,
+      "mapaOk": false,
+      "imagenMapa": "/maps/fracture.png",
+      "arranco": true,
+      "msHastaPartido": 1941,
+      "url": "/entrenador/partido?map=fracture&comp=qa-513-nueva&auto=1&dif=normal",
+      "intro": false,
+      "teamGate": false,
+      "hud": "Equipo NEXUS",
+      "guardada": "Composición rápida",
+      "editorVisible": false,
+      "errores": 18,
+      "muestraErrores": [
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+      ]
+    },
+    {
+      "caso": "E-api-caida",
+      "acciones": 1,
+      "pantalla": "error",
+      "reintentar": true,
+      "editor": false,
+      "creaTuPrimera": false,
+      "texto": "NO SE HA PODIDO CARGAR · ",
+      "errores": 13
+    }
+  ]
+}

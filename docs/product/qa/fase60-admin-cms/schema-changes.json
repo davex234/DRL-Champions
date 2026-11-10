@@ -1,0 +1,72 @@
+{
+ "migration": "supabase/migrations/0057_admin_cms.sql",
+ "appliedAt": "2026-09-24T19:13:56Z",
+ "registeredInSchemaMigrations": false,
+ "backup": "/opt/nexus/backups/supabase-drlcards/pre-0057/20260924T191344Z (1902 entradas, 10 tablas tocadas, CSV de agents, SHA256SUMS)",
+ "tablesAdded": [
+  "content_entity_version",
+  "content_packs"
+ ],
+ "columnsAdded": {
+  "agents": [
+   "code",
+   "abilities",
+   "lifecycle",
+   "face_asset_id (FK restrict)",
+   "full_asset_id (FK restrict)",
+   "origin",
+   "version",
+   "created_at",
+   "updated_at",
+   "published_at",
+   "retired_at"
+  ],
+  "content_cards": [
+   "presentation",
+   "presentation_rev"
+  ],
+  "content_players": [
+   "version",
+   "photo_asset_id"
+  ],
+  "events": [
+   "description"
+  ],
+  "admin_event_drafts": [
+   "image_asset_id"
+  ]
+ },
+ "checksExtended": [
+  "content_assets.kind += agent_face, agent_full, pack_art, event_art, map_art",
+  "content_assets.subject_type += agent, pack, event, map"
+ ],
+ "policies": [
+  "agents: lectura pública sólo lifecycle <> 'DRAFT'"
+ ],
+ "triggers": [
+  "content_card_publish_guard (carta del panel sin presentación completa no se publica)"
+ ],
+ "functions": [
+  "_bump_entity",
+  "_require_admin",
+  "app_admin_agent_save",
+  "app_admin_agent_lifecycle",
+  "app_admin_agent_references",
+  "app_admin_agent_delete_draft",
+  "app_admin_pack_save",
+  "app_admin_pack_lifecycle",
+  "app_admin_pack_references",
+  "app_admin_pack_delete_draft",
+  "app_admin_card_set_presentation",
+  "app_admin_card_create_draft",
+  "app_admin_card_delete_draft",
+  "app_admin_card_references",
+  "app_admin_player_save",
+  "app_admin_publish_event_v2",
+  "app_admin_schema_probe (v2)"
+ ],
+ "grants": "todas las RPC nuevas: sólo service_role (security definer + _require_admin(actor))",
+ "auditLog": "content_audit_log sin cambios de esquema; el trigger inmutable de F58 intacto",
+ "rollback": "probado en seco (BEGIN … ROLLBACK): 25 valores idénticos antes/después; plan de marcha atrás en docs/product/fase-60-admin-cms.md §Rollback",
+ "postCheck": "production-migration-evidence/before-vs-after.diff: sólo sondas 0057, +2 tablas (122), +22 funciones (149) y la política de agents"
+}

@@ -1,0 +1,39 @@
+BEGIN
+P_tables|t|t
+P_rls|draft_run_matches|t
+P_rls|draft_runs|t
+P_policies|0
+P_grants_anon|f|f|f|f
+P_grants_authenticated|f|f|f|f|f|f
+P_grants_service_role|t|t|t|t
+P_mode_check|CHECK ((mode = ANY (ARRAY['PVE'::text, 'PVP'::text, 'PVP_PRIVATE'::text, 'DRAFT_GAUNTLET'::text])))
+P_mode_shape|CHECK ((((mode = ANY (ARRAY['PVE'::text, 'DRAFT_GAUNTLET'::text])) AND (player_b_id IS NULL) AND (deck_b_id IS NULL)) OR ((mode = ANY (ARRAY['PVP'::text, 'PVP_PRIVATE'::text])) AND (player_b_id IS NOT NULL) AND (deck_b_id IS NOT NULL) AND (player_b_id <> user_id))))
+P_definer_functions|1
+NOTICE:  P_insert_run OK
+NOTICE:  P_one_active OK
+NOTICE:  P_status_check OK
+NOTICE:  P_final_needs_completed OK
+NOTICE:  P_finished_plus_active OK
+NOTICE:  P_seed_range OK
+NOTICE:  P_state_bounded OK
+NOTICE:  P_match_only_in_match OK
+NOTICE:  P_duel_mode_draft_insert OK
+NOTICE:  P_duel_mode_shape OK
+NOTICE:  P_duel_mode_check OK
+NOTICE:  P_insert_stage OK
+NOTICE:  P_stage_pk OK
+NOTICE:  P_match_unique OK
+NOTICE:  P_settled_needs_result OK
+NOTICE:  P_stage_range OK
+NOTICE:  P_match_set_null OK
+DO
+NOTICE:  P_cascade OK
+NOTICE:  P_existing_rows_valid OK
+NOTICE:  P_auth_select_own OK (permission denied)
+NOTICE:  P_auth_insert OK
+NOTICE:  P_auth_update OK
+NOTICE:  P_auth_matches_select OK
+DO
+ROLLBACK
+NOTICE:  P_anon_select OK
+post_rollback_rows|0|0

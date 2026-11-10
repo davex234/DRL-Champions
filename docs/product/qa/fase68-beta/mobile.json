@@ -1,0 +1,271 @@
+{
+  "width": 390,
+  "sessions": [
+    {
+      "id": "B-fix-store",
+      "persona": "B",
+      "session": "store",
+      "tag": "fix",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 58,
+      "actions": 29,
+      "screens": 7,
+      "checks": {
+        "pass": 9,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 110,
+      "statuses": {
+        "200": 605,
+        "204": 16
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "B-fix-teams",
+      "persona": "B",
+      "session": "teams",
+      "tag": "fix",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 15,
+      "screens": 3,
+      "checks": {
+        "pass": 6,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 45,
+      "statuses": {
+        "200": 348,
+        "204": 6
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "B-r1-collection",
+      "persona": "B",
+      "session": "collection",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 27,
+      "actions": 11,
+      "screens": 3,
+      "checks": {
+        "pass": 4,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 51,
+      "statuses": {
+        "200": 367,
+        "204": 5
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "B-r1-new",
+      "persona": "B",
+      "session": "new",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 213,
+      "actions": 131,
+      "screens": 7,
+      "checks": {
+        "pass": 8,
+        "fail": [
+          "FAIL 2.ª partida termina con resultado visible",
+          "FAIL resultado ofrece siguiente paso (Jugar otra / lobby)"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 198,
+      "statuses": {
+        "200": 940,
+        "204": 26
+      },
+      "bad": [],
+      "notes": [
+        {
+          "t": 34,
+          "kind": "bug",
+          "text": "F68-001 · «ABRIR EL SIGUIENTE SOBRE» no hace nada en /abrir/inicial: salida por la portada"
+        }
+      ]
+    },
+    {
+      "id": "B-r1-progress",
+      "persona": "B",
+      "session": "progress",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 39,
+      "actions": 9,
+      "screens": 5,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 60,
+      "statuses": {
+        "200": 436,
+        "204": 7
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "B-r1-pve",
+      "persona": "B",
+      "session": "pve",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 235,
+      "actions": 223,
+      "screens": 4,
+      "checks": {
+        "pass": 9,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 167,
+      "statuses": {
+        "200": 756,
+        "204": 11
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "B-r1-store",
+      "persona": "B",
+      "session": "store",
+      "tag": "r1",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 45,
+      "actions": 25,
+      "screens": 6,
+      "checks": {
+        "pass": 5,
+        "fail": [
+          "FAIL doble clic en comprar cobra UNA vez",
+          "FAIL doble clic en comprar añade UN sobre"
+        ]
+      },
+      "consoleErrors": 0,
+      "api": 86,
+      "statuses": {
+        "200": 472,
+        "204": 13
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "B-r2-pve",
+      "persona": "B",
+      "session": "pve",
+      "tag": "r2",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 141,
+      "actions": 135,
+      "screens": 2,
+      "checks": {
+        "pass": 7,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 98,
+      "statuses": {
+        "200": 450,
+        "204": 6
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "G-r2-multitab-same",
+      "persona": "G",
+      "session": "multitabsame",
+      "tag": "r2",
+      "width": 390,
+      "reduced": false,
+      "durationSec": 28,
+      "actions": 6,
+      "screens": 2,
+      "checks": {
+        "pass": 2,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 23,
+      "statuses": {
+        "200": 161,
+        "204": 3
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "G-r2-new",
+      "persona": "G",
+      "session": "new",
+      "tag": "r2",
+      "width": 390,
+      "reduced": true,
+      "durationSec": 144,
+      "actions": 123,
+      "screens": 6,
+      "checks": {
+        "pass": 10,
+        "fail": []
+      },
+      "consoleErrors": 0,
+      "api": 203,
+      "statuses": {
+        "200": 857,
+        "204": 24
+      },
+      "bad": [],
+      "notes": []
+    },
+    {
+      "id": "G-r2-slownet",
+      "persona": "G",
+      "session": "slownet",
+      "tag": "r2",
+      "width": 390,
+      "reduced": true,
+      "durationSec": 63,
+      "actions": 50,
+      "screens": 6,
+      "checks": {
+        "pass": 3,
+        "fail": []
+      },
+      "consoleErrors": 9,
+      "api": 85,
+      "statuses": {
+        "0": 9,
+        "200": 549,
+        "204": 8
+      },
+      "bad": [],
+      "notes": []
+    }
+  ]
+}

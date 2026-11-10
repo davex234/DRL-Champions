@@ -21,6 +21,19 @@ export interface RawMetrics {
   clutches?: number;
   /** KAST % (0-100). */
   kast?: number;
+  /** First kills (aperturas ganadas). */
+  fk?: number;
+  /** First deaths (aperturas perdidas). */
+  fd?: number;
+  /**
+   * Rondas jugadas. Es el DENOMINADOR de todas las métricas de recuento
+   * (`kills`, `deaths`, `assists`, `clutches`, `fk`, `fd`, `plusMinus`): sin él,
+   * un jugador que llega a la final parece mejor que uno eliminado en grupos
+   * solo por haber jugado más.
+   */
+  rounds?: number;
+  /** Diferencial de bajas (+/-). */
+  plusMinus?: number;
 }
 
 const clamp = (n: number) => Math.max(1, Math.min(99, Math.round(n)));

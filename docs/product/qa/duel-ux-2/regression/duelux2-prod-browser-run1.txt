@@ -1,0 +1,26 @@
+PASS login real por /cuenta
+PASS «Comenzar duelo»
+PASS tablero listo
+PASS ningún reloj de decisión en pantalla
+esperando 40 s sin tocar nada…
+PASS tras > 30 s: mismo turno, misma mano, sin reloj
+PASS tras > 30 s: el servidor tampoco movió nada
+PASS T2 · carta comprometida boca abajo (sin imagen ni texto)
+PASS T4 · carta comprometida boca abajo (sin imagen ni texto)
+PASS T6 · carta comprometida boca abajo (sin imagen ni texto)
+PASS T8 · carta comprometida boca abajo (sin imagen ni texto)
+PASS T10 · carta comprometida boca abajo (sin imagen ni texto)
+PASS la partida terminó
+PASS el bot comprometió al menos una carta durante la partida
+FAIL T2 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (0 claves) []
+FAIL T4 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (0 claves) []
+FAIL T6 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (0 claves) []
+FAIL T8 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (0 claves) []
+FAIL T10 · la carta luego revelada no estaba en DOM, árbol accesible ni almacenamiento (0 claves) []
+RECIBO {"matchId":"18fb6dd2-0a1e-4adb-8027-bcf4a9e59c6d","grants":[{"source":"MATCH","reward":{"credits":40,"xp":25},"points":0}],"capped":false} · UI {"has":true,"text":"Recompensas obtenidas+40 créditos+25 XP de cuenta","kind":"loss"}
+PASS «Recompensas obtenidas» con los créditos del recibo
+PASS F5: el resultado sigue enseñando el mismo recibo
+PASS 390: sin desbordamiento horizontal
+PASS consola limpia
+
+DUEL UX 2.0 PROD BROWSER: 17/22

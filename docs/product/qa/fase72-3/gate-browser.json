@@ -1,0 +1,293 @@
+{
+  "at": "2026-09-29T19:18:12.316Z",
+  "base": "http://127.0.0.1:3005",
+  "pass": 57,
+  "total": 57,
+  "results": [
+    {
+      "id": "server /api/health",
+      "ok": true,
+      "detail": "status=200"
+    },
+    {
+      "id": "server /api/ready",
+      "ok": true,
+      "detail": "status=200"
+    },
+    {
+      "id": "browser → API (/api/health)",
+      "ok": true,
+      "detail": "status=200"
+    },
+    {
+      "id": "browser → Supabase/Kong (auth health)",
+      "ok": true,
+      "detail": "origin del cliente=http://127.0.0.1:54521 status=200"
+    },
+    {
+      "id": "login (formulario → sesión → /api/game/me)",
+      "ok": true,
+      "detail": "form=true me=200"
+    },
+    {
+      "id": "sesión tras recargar",
+      "ok": true,
+      "detail": "me=200 login=false"
+    },
+    {
+      "id": "service worker controla la página (condición real del usuario)",
+      "ok": true,
+      "detail": "controller=true"
+    },
+    {
+      "id": "direct /coleccion",
+      "ok": true,
+      "detail": "url=/coleccion status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=MI COLECCIÓN | TUS CARTAS DE MAYOR OVR | COMPLETA TUS SETS | ÁLBUM | MAESTRÍA | "
+    },
+    {
+      "id": "direct /inventario",
+      "ok": true,
+      "detail": "url=/inventario status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=MIS SOBRES | SOBRES SIN ABRIR | DUPLICADOS · 0"
+    },
+    {
+      "id": "direct /duelos/mazos",
+      "ok": true,
+      "detail": "url=/duelos/mazos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=MIS EQUIPOS | MI PRIMER EQUIPO | OTROS EQUIPOS"
+    },
+    {
+      "id": "direct /tienda",
+      "ok": true,
+      "detail": "url=/tienda status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=CHAMPIONS S | SOBRES | CAJAS | CARTAS DESTACADAS | PACKS ESPECIALES"
+    },
+    {
+      "id": "direct /tienda/creditos",
+      "ok": true,
+      "detail": "url=/tienda/creditos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DRL CREDITS | PAQUETES | STARTER | BASIC | POPULAR | LARGE | ULTIMATE | TUS MOVI"
+    },
+    {
+      "id": "direct /progresion",
+      "ok": true,
+      "detail": "url=/progresion status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=TU PROGRESO | 2 RECOMPENSAS POR RECLAMAR | OBJETIVOS | CAMINO DE TEMPORADA | CÓM"
+    },
+    {
+      "id": "direct /mundo",
+      "ok": true,
+      "detail": "url=/mundo status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=EL MUNDO"
+    },
+    {
+      "id": "direct /competitivo",
+      "ok": true,
+      "detail": "url=/competitivo status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=SIN CLASIFICAR | ÚLTIMAS PARTIDAS | CLASIFICACIÓN | RECOMPENSAS COMPETITIVAS"
+    },
+    {
+      "id": "direct /entrenador",
+      "ok": true,
+      "detail": "url=/entrenador status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=TACTICAL COACH | PREPARACIÓN | ANÁLISIS | PREPARA CADA PARTIDO | EQUIPO"
+    },
+    {
+      "id": "direct /jugar",
+      "ok": true,
+      "detail": "url=/jugar status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=JUGAR | ROAD TO CHAMPIONS | DUELOS | TACTICAL COACH"
+    },
+    {
+      "id": "direct /duelos",
+      "ok": true,
+      "detail": "url=/duelos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DUELOS | PARTIDA RÁPIDA | COMPETITIVO | RETAR A UN AMIGO | DRAFT GAUNTLET"
+    },
+    {
+      "id": "direct /logros",
+      "ok": true,
+      "detail": "url=/logros status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=TEMPORADA 1 · ASCENSO | LIBRE | COMPETITIVO· BLOQUEADO | ASPECTO· BLOQUEADO | OB"
+    },
+    {
+      "id": "direct /jugador/[id]",
+      "ok": true,
+      "detail": "url=/jugador/d52916aa-c6a9-444d-a34a-5ac44662c7c5 status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=QAF68A095730_D529 | EXPÓN TUS CARTAS FAVORITAS | COMPETITIVO | TEMPORADA ACTUAL "
+    },
+    {
+      "id": "click /coleccion",
+      "ok": true,
+      "detail": "url=/coleccion status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=MI COLECCIÓN | TUS CARTAS DE MAYOR OVR | COMPLETA TUS SETS | ÁLBUM | MAESTRÍA | "
+    },
+    {
+      "id": "click /duelos/mazos",
+      "ok": true,
+      "detail": "url=/duelos/mazos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=MIS EQUIPOS | MI PRIMER EQUIPO | OTROS EQUIPOS"
+    },
+    {
+      "id": "click /tienda",
+      "ok": true,
+      "detail": "url=/tienda status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=CHAMPIONS S | SOBRES | CAJAS | CARTAS DESTACADAS | PACKS ESPECIALES"
+    },
+    {
+      "id": "click /mundo",
+      "ok": true,
+      "detail": "url=/mundo status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=EL MUNDO"
+    },
+    {
+      "id": "back",
+      "ok": true,
+      "detail": "url=/tienda status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=CHAMPIONS S | SOBRES | CAJAS | CARTAS DESTACADAS | PACKS ESPECIALES"
+    },
+    {
+      "id": "forward",
+      "ok": true,
+      "detail": "url=/mundo status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=EL MUNDO"
+    },
+    {
+      "id": "caché del SW sin HTML personal ni v2",
+      "ok": true,
+      "detail": "{\"keys\":[\"nexus-v3\"],\"html\":[\"/offline.html\"]}"
+    },
+    {
+      "id": "F71 /jugar: 3 áreas (RtC, Duelos, Coach)",
+      "ok": true,
+      "detail": "[\"/jugar/road-to-champions\",\"/duelos\",\"/entrenador\"]"
+    },
+    {
+      "id": "F71 entrada RTC",
+      "ok": true,
+      "detail": "url=/jugar/road-to-champions status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=ROAD TO CHAMPIONS | CLASIFICATORIO | CIRCUITO | CAMPEONES"
+    },
+    {
+      "id": "F71 entrada COACH",
+      "ok": true,
+      "detail": "url=/entrenador status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=TACTICAL COACH | PREPARACIÓN | ANÁLISIS | PREPARA CADA PARTIDO | EQUIPO"
+    },
+    {
+      "id": "F71 entrada DUELOS",
+      "ok": true,
+      "detail": "url=/duelos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DUELOS | PARTIDA RÁPIDA | COMPETITIVO | RETAR A UN AMIGO | DRAFT GAUNTLET"
+    },
+    {
+      "id": "F72 /duelos: 4 modos seleccionables, PARTIDA RÁPIDA elegida con UN CTA (JUGAR)",
+      "ok": true,
+      "detail": "{\"selectable\":[true,true,true,true],\"selected\":\"QUICK\",\"ctas\":1,\"quick\":\"JUGAR\"}"
+    },
+    {
+      "id": "F71 pista del rival en cada carta oculta (sin foto)",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"label\":\"Carta oculta · pista de país: Corea del Sur\",\"text\":\"\",\"img\":false,\"shape\":\"flag\",\"art\":\"url(\\\"/flags/kr.svg\\\")\"},{\"type\":\"COUNTRY\",\"label\":\"Carta oculta · pista de país: Corea del Sur\",\"text\":\"\",\"img\":false,\"shape\":\"flag\",\"art\":\"url(\\\"/flags/kr.svg\\\")\"},{\"type\":\"COUNTRY\""
+    },
+    {
+      "id": "F72.2 pistas visuales: sin texto visible, con imagen (bandera/icono/logo)",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"label\":\"Carta oculta · pista de país: Corea del Sur\",\"text\":\"\",\"img\":false,\"shape\":\"flag\",\"art\":\"url(\\\"/flags/kr.svg\\\")\"},{\"type\":\"COUNTRY\",\"label\":\"Carta oculta · pista de país: Corea del Sur\",\"text\":\"\",\"img\":false,\"shape\":\"flag\",\"art\":\"url(\\\"/flags/kr.svg\\\")\"},{\"type\":\"COUNTRY\""
+    },
+    {
+      "id": "F72.3 pistas visuales: asset local (sin flagcdn ni ningún host)",
+      "ok": true,
+      "detail": "[\"url(\\\"/flags/kr.svg\\\")\",\"url(\\\"/flags/kr.svg\\\")\",\"url(\\\"/flags/kr.svg\\\")\",\"url(\\\"/flags/kr.svg\\\")\"]"
+    },
+    {
+      "id": "F71 selector de stats: columna derecha, bloques grandes (3 al atacar / 1 obligada al defender)",
+      "ok": true,
+      "detail": "{\"x\":1175,\"w\":245,\"vw\":1440,\"opts\":[{\"id\":\"stat-option-SH\",\"tag\":\"BUTTON\",\"state\":\"idle\",\"text\":\"SH\\n60\",\"h\":190,\"w\":211},{\"id\":\"stat-option-GS\",\"tag\":\"BUTTON\",\"state\":\"idle\",\"text\":\"GS\\n53\",\"h\":190,\"w\":211},{\"id\":\"stat-option-EF\",\"tag\":\"BUTTON\",\"state\":\"idle\",\"text\":\"EF\\n78\",\"h\":190,\"w\":211}]}"
+    },
+    {
+      "id": "F71 stat elegida: marcada sin depender del color",
+      "ok": true,
+      "detail": "{\"state\":\"selected\",\"pressed\":\"true\",\"badge\":true}"
+    },
+    {
+      "id": "F71 el servidor resuelve el turno (0 fetch fallidos, 0 errores de consola)",
+      "ok": true,
+      "detail": "turn0=1/ATTACKER_CARD fetchFails=0 console=0 "
+    },
+    {
+      "id": "F72 JUGAR → DUELOS",
+      "ok": true,
+      "detail": "url=/duelos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DUELOS | PARTIDA RÁPIDA | COMPETITIVO | RETAR A UN AMIGO | DRAFT GAUNTLET"
+    },
+    {
+      "id": "F72 COMPETITIVO: rango y rating REALES dentro de /duelos (sin navegar)",
+      "ok": true,
+      "detail": "ui={\"state\":\"UNRANKED\",\"rank\":\"Sin clasificar\",\"rating\":\"Rating 1000\",\"href\":\"/duelos/pvp?buscar=1f0e1e3d-30e3-4068-813e-0dad85c3c084\",\"label\":\"Jugar\",\"path\":\"/duelos\",\"details\":\"/competitivo\"} api={\"rating\":1000,\"games\":0,\"position\":null}"
+    },
+    {
+      "id": "F72 COMPETITIVO: JUGAR → cola ranked directa, sin pasar por /competitivo",
+      "ok": true,
+      "detail": "queue={\"state\":\"QUEUED\",\"path\":\"/duelos/pvp\",\"searching\":true} nav=[\"/jugar\",\"/duelos\",\"/duelos/pvp\",\"/duelos/pvp\"]"
+    },
+    {
+      "id": "F72 COMPETITIVO: registro de navegación sin /competitivo",
+      "ok": true,
+      "detail": "[\"/jugar\",\"/duelos\",\"/duelos/pvp\",\"/duelos/pvp\"]"
+    },
+    {
+      "id": "F72 COMPETITIVO: búsqueda cancelada (el gate no deja a la cuenta QA en cola); 0 fetch fallidos, 0 errores",
+      "ok": true,
+      "detail": "cancel=200 console=0 fetch=0"
+    },
+    {
+      "id": "F72 JUGAR → DUELOS (draft)",
+      "ok": true,
+      "detail": "url=/duelos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DUELOS | PARTIDA RÁPIDA | COMPETITIVO | RETAR A UN AMIGO | DRAFT GAUNTLET"
+    },
+    {
+      "id": "F72 DRAFT: coste de entrada del servidor y escalera de premios en la tarjeta",
+      "ok": true,
+      "detail": "{\"fee\":\"2.000\",\"ladder\":6,\"cta\":\"Entrar · 2.000\",\"step\":\"enter\"} fee=2000"
+    },
+    {
+      "id": "F72 DRAFT: ENTRAR pide confirmación y todavía no cobra",
+      "ok": true,
+      "detail": "step=confirm saldo 8490→8490"
+    },
+    {
+      "id": "F72 DRAFT: confirmar → sala del draft y cobro EXACTO de la entrada, una vez",
+      "ok": true,
+      "detail": "room=true saldo 8490→6490 (−2000, entrada 2000) entry={\"fee\":2000,\"paid\":true}"
+    },
+    {
+      "id": "F72 DRAFT: 3 cartas con escenario y aura DETRÁS (la carta sigue siendo el botón)",
+      "ok": true,
+      "detail": "{\"options\":3,\"auras\":3,\"stage\":true,\"presence\":[\"common\",\"common\",\"common\"],\"cardOnTop\":3}"
+    },
+    {
+      "id": "F72 DRAFT: elegir marca UNA carta → CONFIRMAR → elección guardada",
+      "ok": true,
+      "detail": "{\"chosen\":{\"selected\":[\"true\",\"false\",\"false\"],\"confirm\":true},\"picked\":true}"
+    },
+    {
+      "id": "F72 DRAFT: recargar conserva la elección y NO cobra",
+      "ok": true,
+      "detail": "pick=1 saldo 6490→6490"
+    },
+    {
+      "id": "F72 DRAFT: run activa = CONTINUAR con su progreso real, sin segundo cobro",
+      "ok": true,
+      "detail": "{\"cta\":\"Continuar\",\"href\":\"/jugar/draft-gauntlet\",\"note\":\"Draft 1/10\"} esperado=Draft 1/10 → /jugar/draft-gauntlet saldo 6490→6490"
+    },
+    {
+      "id": "F72 DRAFT: 0 errores de consola y 0 fetch fallidos",
+      "ok": true,
+      "detail": "console=0 fetch=0"
+    },
+    {
+      "id": "compra Sobre Bronce",
+      "ok": true,
+      "detail": "modalBronce=true precio=1000 créditos 6490→5490→(recarga)5490 sobres 0→1 fetchFails=0"
+    },
+    {
+      "id": "390 /coleccion",
+      "ok": true,
+      "detail": "url=/coleccion status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=MI COLECCIÓN | TUS CARTAS DE MAYOR OVR | COMPLETA TUS SETS | ÁLBUM | MAESTRÍA | "
+    },
+    {
+      "id": "390 /tienda/creditos",
+      "ok": true,
+      "detail": "url=/tienda/creditos status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=DRL CREDITS | PAQUETES | STARTER | BASIC | POPULAR | LARGE | ULTIMATE | TUS MOVI"
+    },
+    {
+      "id": "390 /progresion",
+      "ok": true,
+      "detail": "url=/progresion status=200 offline=false login=false errorScreen=false fetchFails=0 console=0 head=TU PROGRESO | 2 RECOMPENSAS POR RECLAMAR | OBJETIVOS | CAMINO DE TEMPORADA | CÓM"
+    },
+    {
+      "id": "logout (sin token, 401, formulario)",
+      "ok": true,
+      "detail": "click=true token=false me=401 form=true"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "killedPid": 2220,
+  "newPid": 35544,
+  "downtimeMs": 2777,
+  "readyAfterMs": 1262,
+  "readyStatus": "ready",
+  "trafficDuringCrash": {
+    "0": 25,
+    "200": 4
+  },
+  "before": {
+    "rating": 998,
+    "games": 2,
+    "credits": 18075,
+    "xp": 881,
+    "queue": "MATCHED",
+    "decks": 1
+  },
+  "after": {
+    "rating": 998,
+    "games": 2,
+    "credits": 18075,
+    "xp": 881,
+    "queue": "MATCHED",
+    "decks": 1
+  },
+  "statePreserved": true,
+  "loginAfterRestart": true,
+  "note": "kill -9 (Stop-Process -Force) del proceso real que escuchaba en :3005, con tráfico QA de lectura. Todo el estado de juego vive en Postgres; el único estado en memoria (cachés de catálogo/sanción/readiness) se reconstruye solo.",
+  "killedAt": "2026-09-26T20:44:32.561Z"
+}

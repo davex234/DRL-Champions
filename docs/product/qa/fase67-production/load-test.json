@@ -1,0 +1,358 @@
+{
+  "at": "2026-09-26T20:52:42.813Z",
+  "base": "http://127.0.0.1:3005",
+  "pid": 35544,
+  "targets": [
+    "anon /api/health",
+    "anon /api/ready",
+    "anon /",
+    "QA /api/game/competitive",
+    "QA /api/game/state",
+    "QA /api/game/play-status"
+  ],
+  "writes": 0,
+  "topology": "app Next en el PC (Windows) → túnel SSH → Postgres del VPS: cada consulta paga el RTT del túnel",
+  "stages": [
+    {
+      "concurrency": 1,
+      "seconds": 15,
+      "requests": 83,
+      "rps": 5,
+      "p50": 234,
+      "p95": 534,
+      "p99": 668,
+      "statuses": {
+        "200": 83
+      },
+      "rateLimited429": 0,
+      "errorRate": 0,
+      "perTarget": {
+        "health": {
+          "n": 14,
+          "p50": 3,
+          "p95": 8,
+          "statuses": {
+            "200": 14
+          }
+        },
+        "ready": {
+          "n": 14,
+          "p50": 3,
+          "p95": 428,
+          "statuses": {
+            "200": 14
+          }
+        },
+        "home": {
+          "n": 14,
+          "p50": 3,
+          "p95": 7,
+          "statuses": {
+            "200": 14
+          }
+        },
+        "competitive": {
+          "n": 14,
+          "p50": 528,
+          "p95": 668,
+          "statuses": {
+            "200": 14
+          }
+        },
+        "state": {
+          "n": 14,
+          "p50": 283,
+          "p95": 317,
+          "statuses": {
+            "200": 14
+          }
+        },
+        "play-status": {
+          "n": 13,
+          "p50": 253,
+          "p95": 274,
+          "statuses": {
+            "200": 13
+          }
+        }
+      },
+      "rssMbBefore": 112,
+      "rssMbAfter": 144,
+      "handles": 250
+    },
+    {
+      "concurrency": 5,
+      "seconds": 15,
+      "requests": 404,
+      "rps": 27,
+      "p50": 204,
+      "p95": 563,
+      "p99": 593,
+      "statuses": {
+        "200": 364,
+        "429": 40
+      },
+      "rateLimited429": 40,
+      "errorRate": 0,
+      "perTarget": {
+        "health": {
+          "n": 66,
+          "p50": 2,
+          "p95": 4,
+          "statuses": {
+            "200": 66
+          }
+        },
+        "home": {
+          "n": 68,
+          "p50": 3,
+          "p95": 8,
+          "statuses": {
+            "200": 68
+          }
+        },
+        "ready": {
+          "n": 67,
+          "p50": 2,
+          "p95": 7,
+          "statuses": {
+            "200": 67
+          }
+        },
+        "state": {
+          "n": 67,
+          "p50": 297,
+          "p95": 328,
+          "statuses": {
+            "200": 67
+          }
+        },
+        "play-status": {
+          "n": 67,
+          "p50": 253,
+          "p95": 321,
+          "statuses": {
+            "200": 27,
+            "429": 40
+          }
+        },
+        "competitive": {
+          "n": 69,
+          "p50": 541,
+          "p95": 595,
+          "statuses": {
+            "200": 69
+          }
+        }
+      },
+      "rssMbBefore": 144,
+      "rssMbAfter": 268,
+      "handles": 286
+    },
+    {
+      "concurrency": 10,
+      "seconds": 15,
+      "requests": 753,
+      "rps": 49,
+      "p50": 221,
+      "p95": 631,
+      "p99": 671,
+      "statuses": {
+        "200": 630,
+        "429": 123
+      },
+      "rateLimited429": 123,
+      "errorRate": 0,
+      "perTarget": {
+        "home": {
+          "n": 128,
+          "p50": 2,
+          "p95": 8,
+          "statuses": {
+            "200": 128
+          }
+        },
+        "health": {
+          "n": 124,
+          "p50": 2,
+          "p95": 5,
+          "statuses": {
+            "200": 124
+          }
+        },
+        "ready": {
+          "n": 126,
+          "p50": 2,
+          "p95": 5,
+          "statuses": {
+            "200": 126
+          }
+        },
+        "play-status": {
+          "n": 123,
+          "p50": 270,
+          "p95": 318,
+          "statuses": {
+            "429": 123
+          }
+        },
+        "state": {
+          "n": 122,
+          "p50": 318,
+          "p95": 372,
+          "statuses": {
+            "200": 122
+          }
+        },
+        "competitive": {
+          "n": 130,
+          "p50": 606,
+          "p95": 672,
+          "statuses": {
+            "200": 130
+          }
+        }
+      },
+      "rssMbBefore": 268,
+      "rssMbAfter": 346,
+      "handles": 295
+    },
+    {
+      "concurrency": 25,
+      "seconds": 16,
+      "requests": 1003,
+      "rps": 64,
+      "p50": 362,
+      "p95": 1235,
+      "p99": 1452,
+      "statuses": {
+        "200": 874,
+        "429": 129
+      },
+      "rateLimited429": 129,
+      "errorRate": 0,
+      "perTarget": {
+        "health": {
+          "n": 161,
+          "p50": 3,
+          "p95": 7,
+          "statuses": {
+            "200": 161
+          }
+        },
+        "home": {
+          "n": 169,
+          "p50": 4,
+          "p95": 12,
+          "statuses": {
+            "200": 169
+          }
+        },
+        "ready": {
+          "n": 165,
+          "p50": 2,
+          "p95": 191,
+          "statuses": {
+            "200": 165
+          }
+        },
+        "play-status": {
+          "n": 169,
+          "p50": 520,
+          "p95": 716,
+          "statuses": {
+            "200": 40,
+            "429": 129
+          }
+        },
+        "state": {
+          "n": 167,
+          "p50": 618,
+          "p95": 812,
+          "statuses": {
+            "200": 167
+          }
+        },
+        "competitive": {
+          "n": 172,
+          "p50": 1103,
+          "p95": 1458,
+          "statuses": {
+            "200": 172
+          }
+        }
+      },
+      "rssMbBefore": 118,
+      "rssMbAfter": 341,
+      "handles": 361
+    },
+    {
+      "concurrency": 50,
+      "seconds": 17,
+      "requests": 995,
+      "rps": 59,
+      "p50": 349,
+      "p95": 3005,
+      "p99": 4181,
+      "statuses": {
+        "200": 837,
+        "429": 158
+      },
+      "rateLimited429": 158,
+      "errorRate": 0,
+      "perTarget": {
+        "health": {
+          "n": 156,
+          "p50": 3,
+          "p95": 18,
+          "statuses": {
+            "200": 156
+          }
+        },
+        "home": {
+          "n": 173,
+          "p50": 4,
+          "p95": 37,
+          "statuses": {
+            "200": 173
+          }
+        },
+        "ready": {
+          "n": 165,
+          "p50": 3,
+          "p95": 344,
+          "statuses": {
+            "200": 165
+          }
+        },
+        "play-status": {
+          "n": 158,
+          "p50": 845,
+          "p95": 1503,
+          "statuses": {
+            "429": 158
+          }
+        },
+        "state": {
+          "n": 162,
+          "p50": 1042,
+          "p95": 2347,
+          "statuses": {
+            "200": 162
+          }
+        },
+        "competitive": {
+          "n": 181,
+          "p50": 2501,
+          "p95": 4181,
+          "statuses": {
+            "200": 181
+          }
+        }
+      },
+      "rssMbBefore": 175,
+      "rssMbAfter": 270,
+      "handles": 416
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "Carta inexistente en tu colección ({uid}).": "Card does not exist in your collection ({uid}).",
+  "Demasiados titulares: {length}/{MAX_STARTERS}.": "Too many starters: {length}/{MAX_STARTERS}.",
+  "El equipo necesita un nombre.": "The team needs a name.",
+  "Faltan titulares: {length}/{MAX_STARTERS}.": "Starters missing: {length}/{MAX_STARTERS}.",
+  "No puedes alinear dos cartas del mismo jugador.": "You can't field two cards of the same player.",
+  "No puedes alinear la misma carta dos veces.": "You can't field the same card twice.",
+  "Un titular no puede estar también en suplentes.": "A starter can't also be on the bench."
+}

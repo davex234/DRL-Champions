@@ -1,0 +1,39 @@
+{
+ "390": {
+  "scrollX": 0,
+  "overflow": [
+   "w-full min-w-[520px] text-left text-[14px]",
+   "THEAD",
+   "border-b border-white/10 text-white/45",
+   "px-4 py-2.5 text-right font-display text-[11px] up",
+   "px-4 py-2.5 text-right font-display text-[11px] up",
+   "TBODY"
+  ],
+  "imgs": 0,
+  "broken": [],
+  "lazy": 0,
+  "cards": [],
+  "header": "7.260\nDRL Credit ",
+  "tachados": 5,
+  "euros": [],
+  "navActive": [
+   "Tienda"
+  ]
+ },
+ "1440": {
+  "scrollX": 0,
+  "overflow": [],
+  "imgs": 0,
+  "broken": [],
+  "lazy": 0,
+  "cards": [],
+  "header": "NEXUS\nLOBBY\nCOLECCIÓN\nEQUIPOS\nTIENDA\nTEMPORADA\nMUNDO\n5\nNIVEL\n96%\n7.260\nDRL Credit \nMÁS\n1\nJUGAR",
+  "tachados": 5,
+  "euros": [],
+  "navActive": [
+   "Tienda"
+  ]
+ },
+ "1440 errores": [],
+ "390 errores": []
+}

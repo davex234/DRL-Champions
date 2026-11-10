@@ -1,0 +1,47 @@
+{
+  "phase": "PRE-F70 · 0058",
+  "account": "QA C (y A/B/D/E/F/K en los journeys)",
+  "apiMe": {
+    "status": 200,
+    "ownRow": true,
+    "columns": [
+      "avatar",
+      "collection_value",
+      "created_at",
+      "credits",
+      "distinct_cards",
+      "id",
+      "is_admin",
+      "level",
+      "market_volume",
+      "packs_opened",
+      "points",
+      "rarest_rank",
+      "region",
+      "updated_at",
+      "username",
+      "xp"
+    ],
+    "hasPrivateOwn": true
+  },
+  "apiMeAnonymous": 401,
+  "restOwnPrivate": {
+    "before": 200,
+    "after": 403,
+    "note": "por REST ya no se leen ni las columnas privadas propias: van por /api/game/me (service_role filtrado por el Bearer), como diseñó F69"
+  },
+  "restOwnPublic": {
+    "status": 200,
+    "rows": 1,
+    "total": "1",
+    "columns": [
+      "id",
+      "points",
+      "region",
+      "username"
+    ],
+    "code": null
+  },
+  "ui": "/cuenta (probe B tras 0058: «Rango de puntos», «Rating ranked (Elo)», CLS 0,061), HUD de créditos/nivel en todos los journeys, AB-switch muestra el saldo propio de cada cuenta (4.900 / 8.110), editar avatar y región: pruebas RLS «auth edita su avatar/región» ok",
+  "status": "PASS"
+}

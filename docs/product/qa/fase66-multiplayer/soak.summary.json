@@ -1,0 +1,35 @@
+{
+  "mode": "PVP_PRIVATE (sin rating ni recompensa)",
+  "seconds": 1145,
+  "invariants": {
+    "played": 100,
+    "errors": 0,
+    "terminal": 100,
+    "monotonicVersions": 100,
+    "consistentBothSides": 100,
+    "possibleScores": 100,
+    "resultRecomputedAgrees": 100,
+    "tenTurnsWhenFinished": 100,
+    "zero5xx": 100,
+    "doubleAcceptOneMatch": 100,
+    "lifecycles": {
+      "FINISHED": 92,
+      "ABANDONED": 8
+    },
+    "chaosEvents": {
+      "sameId2": 217,
+      "dup3": 290,
+      "stale": 128,
+      "abandon": 4,
+      "play-vs-abandon": 5
+    },
+    "ratingUnchanged": true,
+    "creditsUnchanged": true
+  },
+  "doubleMatchGuard": {
+    "liveMatch": true,
+    "enqueueWhileInMatch": 409,
+    "code": "ACTIVE_MATCH",
+    "ok": true
+  }
+}

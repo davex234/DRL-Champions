@@ -1,0 +1,21 @@
+usuarios auth/perfiles | 2 | 2
+admins | 3befce61#NB2Z9BM:davex_234_3bef,b7ccff02#H5ND8K7:ValoRosters_b7cc
+economía real (huella del ensayo) | 3079232f267c9692f4829baebc4260ca
+perfiles reales | 3befce61 | NB2Z9BM | 6120 | 612 | 1 | 0
+perfiles reales | b7ccff02 | H5ND8K7 | 4840 | 896 | 1 | 0
+VR 500 | 59f8d286-7b81-489b-9098-bb15ce6047a5|b7ccff02…|500|pickem_reward:participacion|pickem:8c7b9a5e-d74d-4f58-966b-c72f1822671a:participacion|4840|2026-10-03 11:02:21.826395+00
+pagos legacy totales | 1 | 500
+pick'ems legacy | 3 | 3 | 'RETIRED'::text
+pick'ems 2.0 | 1 | 0 | 0 | champions-2026-playoffs:DRAFT/DRAFT
+entradas/picks/reclamos 2.0 | 0 | 0 | 0
+disparadores 0072 | 5
+ERROR:  column "listed" does not exist
+LINE 1: select 'copas', status, listed, count(*) from public.cups gr...
+                                ^
+alpha_feedback | 0
+temporadas | temporada-2 | DRAFT
+copas | CANCELLED | UNLISTED | 15 | 
+copas | COMPLETED | UNLISTED | 14 | 
+copas | DRAFT | PUBLIC | 1 | Valorosters Open #1=DRAFT
+copas | DRAFT | UNLISTED | 1 | Valorosters Closed Alpha Cup=DRAFT
+copas QA de esta continuación | 6 | CANCELLED,COMPLETED

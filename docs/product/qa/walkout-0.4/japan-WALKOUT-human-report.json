@@ -1,0 +1,292 @@
+[
+  {
+    "width": 1440,
+    "name": "0-arena-vacia",
+    "t": "3.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1854",
+    "file": "japan-WALKOUT-0-arena-vacia-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "1-figura-al-fondo",
+    "t": "2.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1952",
+    "file": "japan-WALKOUT-1-figura-al-fondo-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "2-inicio-caminata",
+    "t": "3.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "2142",
+    "file": "japan-WALKOUT-2-inicio-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "3-bandera",
+    "t": "4.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "2267",
+    "file": "japan-WALKOUT-3-bandera-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "4-mitad-caminata",
+    "t": "5.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "2006",
+    "file": "japan-WALKOUT-4-mitad-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "5-impacto-escudo",
+    "t": "6.25",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1962",
+    "file": "japan-WALKOUT-5-impacto-escudo-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "5b-logo-en-pantallas",
+    "t": "7.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1976",
+    "file": "japan-WALKOUT-5b-logo-en-pantallas-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "6-deteniendose",
+    "t": "8.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "2042",
+    "file": "japan-WALKOUT-6-deteniendose-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7a-celebracion",
+    "t": "8.75",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1915",
+    "file": "japan-WALKOUT-7a-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7b-celebracion",
+    "t": "9.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "2207",
+    "file": "japan-WALKOUT-7b-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7c-celebracion",
+    "t": "10.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "2137",
+    "file": "japan-WALKOUT-7c-celebracion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "8-ovr",
+    "t": "10.50",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1903",
+    "file": "japan-WALKOUT-8-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "9-transicion",
+    "t": "11.15",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "2008",
+    "file": "japan-WALKOUT-9-transicion-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "12.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1986",
+    "file": "japan-WALKOUT-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  },
+  {
+    "width": 390,
+    "name": "0-arena-vacia",
+    "t": "3.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1977",
+    "file": "japan-WALKOUT-0-arena-vacia-390.png"
+  },
+  {
+    "width": 390,
+    "name": "1-figura-al-fondo",
+    "t": "2.80",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1456",
+    "file": "japan-WALKOUT-1-figura-al-fondo-390.png"
+  },
+  {
+    "width": 390,
+    "name": "2-inicio-caminata",
+    "t": "3.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1342",
+    "file": "japan-WALKOUT-2-inicio-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "3-bandera",
+    "t": "4.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1324",
+    "file": "japan-WALKOUT-3-bandera-390.png"
+  },
+  {
+    "width": 390,
+    "name": "4-mitad-caminata",
+    "t": "5.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1366",
+    "file": "japan-WALKOUT-4-mitad-caminata-390.png"
+  },
+  {
+    "width": 390,
+    "name": "5-impacto-escudo",
+    "t": "6.25",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1326",
+    "file": "japan-WALKOUT-5-impacto-escudo-390.png"
+  },
+  {
+    "width": 390,
+    "name": "5b-logo-en-pantallas",
+    "t": "7.10",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1394",
+    "file": "japan-WALKOUT-5b-logo-en-pantallas-390.png"
+  },
+  {
+    "width": 390,
+    "name": "6-deteniendose",
+    "t": "8.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1380",
+    "file": "japan-WALKOUT-6-deteniendose-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7a-celebracion",
+    "t": "8.75",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1479",
+    "file": "japan-WALKOUT-7a-celebracion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7b-celebracion",
+    "t": "9.30",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1303",
+    "file": "japan-WALKOUT-7b-celebracion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "7c-celebracion",
+    "t": "10.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1327",
+    "file": "japan-WALKOUT-7c-celebracion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "8-ovr",
+    "t": "10.50",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1330",
+    "file": "japan-WALKOUT-8-ovr-390.png"
+  },
+  {
+    "width": 390,
+    "name": "9-transicion",
+    "t": "11.15",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1527",
+    "file": "japan-WALKOUT-9-transicion-390.png"
+  },
+  {
+    "width": 390,
+    "name": "10-carta-final",
+    "t": "12.60",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "1387",
+    "file": "japan-WALKOUT-10-carta-final-390.png"
+  },
+  {
+    "width": 390,
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+      "Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+    ]
+  }
+]

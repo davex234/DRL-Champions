@@ -24,6 +24,31 @@ export const STAT_META: Record<StatKey, { label: string; full: string }> = {
 
 export const STAT_ORDER: StatKey[] = ["dmg", "scr", "com", "hs", "ast", "clu"];
 
+/**
+ * Las 6 estadísticas IMPRESAS en las cartas del catálogo diseñado (Cartas\, 2026-09-21), en el
+ * orden en que aparecen en la carta. FKS (primeras bajas) ocupa el sitio de COM.
+ */
+export const PRINTED_STAT_ORDER: import("./types").PrintedStatKey[] = ["dmg", "scr", "fks", "hs", "ast", "clu"];
+
+export const PRINTED_STAT_META: Record<import("./types").PrintedStatKey, { label: string; full: string }> = {
+  dmg: { label: "DMG", full: "Daño" },
+  scr: { label: "SCR", full: "Puntuación" },
+  fks: { label: "FKS", full: "Primeras bajas" },
+  hs: { label: "HS", full: "Headshots" },
+  ast: { label: "AST", full: "Asistencias" },
+  clu: { label: "CLU", full: "Clutch" },
+};
+
+/** Estadísticas que ENSEÑA una carta: las impresas si las tiene, si no las de su jugador. */
+export function displayedStats(card: { stats: import("./types").PlayerStats; printed?: { stats: import("./types").PrintedStats } }):
+  { key: string; label: string; full: string; value: number }[] {
+  if (card.printed) {
+    const s = card.printed.stats;
+    return PRINTED_STAT_ORDER.map((k) => ({ key: k, ...PRINTED_STAT_META[k], value: s[k] }));
+  }
+  return STAT_ORDER.map((k) => ({ key: k, ...STAT_META[k], value: card.stats[k] }));
+}
+
 const clamp = (n: number) => Math.max(1, Math.min(99, Math.round(n)));
 
 /** Calcula el OVR (1-99) a partir de las 6 estadísticas. */

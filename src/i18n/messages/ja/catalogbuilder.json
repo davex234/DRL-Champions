@@ -1,0 +1,19 @@
+{
+  "Colección de torneo con {length} cartas.": "{length}枚のカードを含むトーナメントコレクション。",
+  "El catálogo incorpora {length} cartas nuevas ({length2} jugadores debutan).": "カタログに新カード{length}枚が追加されます({length2}人がデビュー)。",
+  "Nueva colección: {name}": "新コレクション: {name}",
+  "Se añaden {length} cartas de {colName}": "{colName}のカード{length}枚を追加",
+  "alta inexistente {id} en {packId}": "{packId}内に存在しない追加分 {id}",
+  "carta sin jugador: {id}": "選手のいないカード: {id}",
+  "catalogFingerprint inválido": "catalogFingerprintが無効です",
+  "enlace de carta inexistente: {cardId}": "存在しないカードリンク: {cardId}",
+  "entrada de carta inexistente: {cardId}": "存在しないカードエントリ: {cardId}",
+  "fila de carta inexistente: {ref}": "存在しないカード行: {ref}",
+  "item inexistente {cardId} en {id}": "{id}内に存在しないアイテム {cardId}",
+  "odds no normalizadas en {packId} ({oddsSum})": "{packId}のoddsが正規化されていません({oddsSum})",
+  "ruta con carta inexistente: {from}→{to}": "存在しないカードを含むルート: {from}→{to}",
+  "ruta vía receta inexistente: {via}": "存在しないレシピ経由のルート: {via}",
+  "versión no semántica: {catalogVersion}": "セマンティックでないバージョン: {catalogVersion}",
+  "{length} jugadores nuevos entran al catálogo": "新選手{length}人がカタログに登場",
+  "{n} carta(s) retiradas del catálogo": "カタログから{n}枚のカードが終了"
+}

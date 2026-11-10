@@ -1,0 +1,1596 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+ * FASE 44 · GAME EXPERIENCE 4.0 — primitivas visuales de juego.
+ *
+ * Se carga DESPUÉS de globals.css. No redefine el sistema: añade las piezas que faltaban para que el armazón,
+ * el botón JUGAR, los cargadores, los momentos y las hojas se lean como un videojuego.
+ *
+ * Presupuesto (motion.ts · MOTION_LEVELS): solo `transform` y `opacity` en lo que se repite; un único bucle
+ * infinito por pantalla (el barrido lento del botón JUGAR, 6 s) y ninguno con `prefers-reduced-motion`.
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-context="equipos"] { --nx-tint: 63 192 122; }
+
+/* ─────────────── Barra de desplazamiento: discreta, pero visible y usable ─────────────── */
+html { scrollbar-color: rgba(255, 255, 255, 0.22) #080a12; scrollbar-width: thin; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 0; border: 2px solid #080a12; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.34); }
+::-webkit-scrollbar-track { background: #080a12; }
+
+/* ─────────────── JUGAR · la acción del juego ─────────────── */
+.nx-play {
+  --play-rgb: 255 46 99;
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  overflow: hidden;
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 46%),
+    linear-gradient(100deg, rgb(var(--play-rgb)) 0%, #ff5c8a 52%, rgb(var(--play-rgb)) 100%);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 140ms var(--nx-out), filter 140ms var(--nx-out);
+  -webkit-user-select: none;
+  user-select: none;
+}
+.nx-play[data-kind="resume"] { --play-rgb: 25 227 255; color: #02202a; background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent 46%), linear-gradient(100deg, #19e3ff, #8ff3ff 52%, #19e3ff); }
+/* Halo por detrás: estático; se intensifica al apuntar (opacidad, sin repintar sombras). */
+.nx-play-halo {
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgb(var(--play-rgb) / 0.55), transparent);
+  filter: blur(14px);
+  opacity: 0.55;
+  transition: opacity 160ms var(--nx-out);
+}
+.nx-play-wrap { position: relative; isolation: isolate; }
+.nx-play-wrap:hover .nx-play-halo, .nx-play-wrap:focus-within .nx-play-halo { opacity: 1; }
+/* Barrido de luz lento: el ÚNICO bucle del armazón. */
+.nx-play::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.34) 50%, transparent 62%);
+  transform: translateX(-130%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nx-play::before { animation: nx-play-sweep 6s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+}
+@keyframes nx-play-sweep {
+  0%, 70% { transform: translateX(-130%); }
+  100% { transform: translateX(130%); }
+}
+.nx-play:hover { transform: translateY(-1px) scale(1.025); filter: brightness(1.08); }
+.nx-play:active { transform: translateY(1px) scale(0.965); filter: brightness(0.95); transition-duration: 60ms; }
+.nx-play:focus-visible { outline: 3px solid #fff; outline-offset: 3px; border-radius: 0; }
+.nx-play-icon { display: inline-block; transition: transform 160ms var(--nx-out); }
+.nx-play:hover .nx-play-icon { transform: translateX(3px); }
+.nx-play[data-size="bar"] { height: 46px; min-width: 150px; padding-inline: 22px; font-size: 18px; }
+.nx-play[data-size="hero"] { min-height: 76px; min-width: min(100%, 320px); padding: 0 34px; font-size: clamp(26px, 3.4vw, 38px); letter-spacing: 0.14em; clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
+.nx-play[data-size="dock"] { width: 72px; height: 72px; flex-direction: column; gap: 3px; padding: 0; font-size: 13px; letter-spacing: 0.1em; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.nx-play-hint { display: block; margin-top: 3px; font-size: 10px; letter-spacing: 0.14em; opacity: 0.8; }
+@media (prefers-reduced-motion: reduce) {
+  .nx-play, .nx-play-icon, .nx-play-halo { transition: none; }
+  .nx-play:hover, .nx-play:active { transform: none; }
+}
+
+/* ─────────────── Barra superior de juego ─────────────── */
+.nx-gamebar {
+  /* Fase 44.1 · con `overflow-x: clip` la barra vuelve a ser sticky de verdad y el contenido pasa por debajo: casi opaca. */
+  background: linear-gradient(180deg, rgba(8, 9, 16, 0.995), rgba(6, 7, 13, 0.985));
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 1px 0 rgb(var(--nx-tint) / 0.18), 0 12px 30px -18px rgba(0, 0, 0, 0.9);
+}
+.nx-gamebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  padding-inline: 16px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  transition: color 120ms var(--nx-out), background-color 120ms var(--nx-out);
+}
+.nx-gamebar-link:hover { color: #fff; background: rgba(255, 255, 255, 0.05); }
+.nx-gamebar-link[data-active="true"] { color: #fff; background: linear-gradient(180deg, transparent 20%, rgb(var(--nx-tint) / 0.18)); }
+.nx-gamebar-link[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 10px;
+  bottom: 0;
+  height: 3px;
+  background: rgb(var(--nx-tint));
+  box-shadow: 0 0 14px rgb(var(--nx-tint) / 0.9);
+  clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 100%, 0 100%);
+}
+
+/* ─────────────── Dock móvil ─────────────── */
+.nx-dock {
+  background: linear-gradient(0deg, rgba(6, 7, 13, 0.98), rgba(8, 9, 16, 0.9));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─────────────── Cargador de juego ─────────────── */
+.nx-loader-mark { position: relative; display: grid; place-items: center; }
+.nx-loader-ring { position: absolute; inset: -14px; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background: conic-gradient(from 0deg, rgb(var(--nx-tint) / 0.0), rgb(var(--nx-tint) / 0.5), rgb(var(--nx-tint) / 0.0) 40%); opacity: 0.55; }
+.nx-loader-bars { display: flex; gap: 5px; }
+.nx-loader-bars > i { display: block; width: 18px; height: 3px; background: rgb(var(--nx-tint)); opacity: 0.25; clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%); }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-loader-ring { animation: nx-loader-turn 2.4s linear infinite; }
+  .nx-loader-bars > i { animation: nx-loader-charge 1.4s ease-in-out infinite; }
+  .nx-loader-bars > i:nth-child(2) { animation-delay: 0.18s; }
+  .nx-loader-bars > i:nth-child(3) { animation-delay: 0.36s; }
+  .nx-loader-bars > i:nth-child(4) { animation-delay: 0.54s; }
+}
+@keyframes nx-loader-turn { to { transform: rotate(360deg); } }
+@keyframes nx-loader-charge { 0%, 100% { opacity: 0.2; } 45% { opacity: 1; } }
+
+/* ─────────────── Esqueletos contextuales ─────────────── */
+.nx-skel { position: relative; overflow: hidden; background: rgba(255, 255, 255, 0.045); }
+.nx-skel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.06) 50%, transparent 70%); transform: translateX(-100%); }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-skel::after { animation: nx-skel-sweep 1.6s ease-in-out infinite; }
+}
+@keyframes nx-skel-sweep { to { transform: translateX(100%); } }
+
+/* ─────────────── Momentos (nivel 2–3): rótulo con luz, sin capa ─────────────── */
+.nx-moment {
+  --m-rgb: 255 211 92;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  background:
+    radial-gradient(120% 160% at 0% 50%, rgb(var(--m-rgb) / 0.28), transparent 60%),
+    linear-gradient(180deg, rgba(20, 22, 36, 0.97), rgba(8, 9, 16, 0.97));
+  box-shadow: inset 0 0 0 1px rgb(var(--m-rgb) / 0.55);
+}
+.nx-moment[data-tone="cyan"] { --m-rgb: 25 227 255; }
+.nx-moment[data-tone="key"] { --m-rgb: 255 46 99; }
+.nx-moment[data-tone="ok"] { --m-rgb: 63 192 122; }
+.nx-moment-sweep { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(100deg, transparent 35%, rgb(var(--m-rgb) / 0.35) 50%, transparent 65%); transform: translateX(-120%); }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-moment-sweep { animation: nx-moment-sweep 900ms cubic-bezier(0.16, 1, 0.3, 1) 120ms 1 both; }
+}
+@keyframes nx-moment-sweep { to { transform: translateX(120%); } }
+
+/* ─────────────── Hojas y diálogos ─────────────── */
+.nx-scrim { background: radial-gradient(120% 90% at 50% 100%, rgba(6, 7, 13, 0.55), rgba(3, 4, 8, 0.86)); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.nx-sheet {
+  background: linear-gradient(180deg, rgba(23, 26, 43, 0.98), rgba(9, 10, 18, 0.99));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 -24px 60px -20px rgba(0, 0, 0, 0.9);
+  clip-path: polygon(0 18px, 18px 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+.nx-dialog {
+  background: linear-gradient(180deg, rgba(23, 26, 43, 0.98), rgba(9, 10, 18, 0.99));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 40px 90px -30px rgba(0, 0, 0, 0.95);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+/* ─────────────── Selector de modos: la tarjeta responde entera ─────────────── */
+.nx-mode { transition: transform 160ms var(--nx-out); }
+.nx-mode-art { transition: transform 320ms var(--nx-out), opacity 220ms var(--nx-out); transform-origin: 80% 20%; }
+.nx-mode:hover .nx-mode-art, .nx-mode:focus-within .nx-mode-art { transform: scale(1.06); opacity: 1; }
+.nx-mode:hover, .nx-mode:focus-within { transform: translateY(-3px); }
+.nx-mode-glow { opacity: 0.45; transition: opacity 200ms var(--nx-out); }
+.nx-mode:hover .nx-mode-glow, .nx-mode:focus-within .nx-mode-glow { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .nx-mode, .nx-mode-art, .nx-mode-glow { transition: none; }
+  .nx-mode:hover, .nx-mode:focus-within { transform: none; }
+  .nx-mode:hover .nx-mode-art, .nx-mode:focus-within .nx-mode-art { transform: none; }
+}
+
+/* ─────────────── F72.5 · CTA de los paneles de /jugar (`ModeCta`): sólido, del color del modo ─────────────── */
+.nx-mode-cta {
+  background: rgb(var(--cta-rgb));
+  color: var(--cta-ink);
+  /* Bisel: luz arriba, sombra abajo y un filete claro. Todo HACIA DENTRO: el chaflán (clip-path) recorta lo de fuera. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), inset 0 -3px 0 rgba(0, 0, 0, 0.24), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  transition: filter 140ms var(--nx-out), box-shadow 140ms var(--nx-out), transform 140ms var(--nx-out);
+}
+.nx-mode-cta::before { /* detalle técnico: dos cortes diagonales finos hacia la derecha */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 0 66%, rgba(255, 255, 255, 0.18) 66% 67.2%, transparent 67.2% 70%, rgba(255, 255, 255, 0.12) 70% 70.8%, transparent 70.8%);
+}
+.nx-mode-cta > * { position: relative; }
+.nx-mode-cta:hover { filter: brightness(1.1) saturate(1.06); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -3px 0 rgba(0, 0, 0, 0.24), inset 0 0 0 2px rgba(255, 255, 255, 0.5); }
+.nx-mode-cta:focus-visible { outline: none; box-shadow: inset 0 0 0 3px #ffffff, inset 0 0 0 6px rgba(5, 6, 12, 0.92); }
+.nx-mode-cta-ticks { display: flex; gap: 3px; opacity: 0.45; }
+.nx-mode-cta-ticks > i { display: block; width: 3px; height: 14px; background: currentColor; transform: skewX(-20deg); }
+.nx-mode-cta-arrow { transition: transform 160ms var(--nx-out); }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-mode-cta:hover { transform: translateY(-1px); }
+  .nx-mode-cta:hover .nx-mode-cta-arrow, .nx-mode-cta:focus-visible .nx-mode-cta-arrow { transform: translateX(5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-mode-cta, .nx-mode-cta-arrow { transition: none; }
+}
+
+/* ─────────────── Luz de pantalla (nivel 4: legendaria / serial #1) ─────────────── */
+.nx-screen-light { position: fixed; inset: 0; pointer-events: none; z-index: 1; background: radial-gradient(60% 55% at 50% 45%, rgb(var(--light-rgb, 255 211 92) / 0.32), transparent 70%); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-screen-light[data-on="true"] { animation: nx-screen-light 1100ms cubic-bezier(0.16, 1, 0.3, 1) 1 both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-screen-light[data-on="true"] { opacity: 0.35; }
+}
+@keyframes nx-screen-light { 0% { opacity: 0; } 25% { opacity: 1; } 100% { opacity: 0.18; } }
+
+/* ─────────────── Vestíbulo: escenario de JUGAR ─────────────── */
+.nx-lobby-stage { position: relative; isolation: isolate; overflow: hidden; }
+.nx-lobby-stage-lines { position: absolute; inset: 0; z-index: -1; opacity: 0.5; background-image: linear-gradient(115deg, transparent 0 48%, rgba(255, 46, 99, 0.18) 48% 48.4%, transparent 48.4% 100%), linear-gradient(115deg, transparent 0 62%, rgba(25, 227, 255, 0.12) 62% 62.3%, transparent 62.3% 100%); }
+
+/* ─────────────── Resultado: barrido de luz UNA vez (nivel 3) ─────────────── */
+.nx-result-sweep { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(100deg, transparent 32%, rgb(var(--sweep-rgb, 63, 192, 122) / 0) 40%, rgba(255, 255, 255, 0.10) 50%, transparent 60%); transform: translateX(-110%); }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-result-sweep { animation: nx-result-sweep 900ms cubic-bezier(0.16, 1, 0.3, 1) 380ms 1 both; }
+}
+@keyframes nx-result-sweep { to { transform: translateX(110%); } }
+
+/* ─────────────── Colección: la carta responde al apuntar/enfocar (nivel 1, solo transform) ─────────────── */
+.nx-card-lift { transition: transform 140ms var(--nx-out); }
+.nx-card-lift:hover, .nx-card-lift:focus-within { transform: translateY(-5px); }
+@media (prefers-reduced-motion: reduce) {
+  .nx-card-lift { transition: none; }
+  .nx-card-lift:hover, .nx-card-lift:focus-within { transform: none; }
+}
+
+/* ─────────────── Barra entre 1024 y 1279 px: compacta para que JUGAR nunca quede fuera (matriz responsive) ─────────────── */
+@media (min-width: 1024px) and (max-width: 1279.98px) {
+  .nx-gamebar-link { padding-inline: 10px; font-size: 13px; letter-spacing: 0.06em; }
+  .nx-play[data-size="bar"] { min-width: 118px; padding-inline: 16px; font-size: 16px; }
+}
+
+/* ═══════════════ FASE 44.1 · GAME ENVIRONMENT (capas del mundo detrás de la interfaz) ═══════════════ */
+.nx-env-layer { position: absolute; inset: -24px; transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+.nx-env-light { position: absolute; display: block; border-radius: 9999px; }
+.nx-env-light-a { width: 70vw; height: 70vw; max-width: 1100px; max-height: 1100px; left: -12vw; top: -22vw; }
+.nx-env-light-b { width: 60vw; height: 60vw; max-width: 980px; max-height: 980px; right: -14vw; top: 8vh; }
+.nx-env-light-c { width: 80vw; height: 50vw; left: 10vw; bottom: -30vw; }
+.nx-env-focus { position: absolute; inset: 0; transition: opacity 320ms cubic-bezier(0.16, 1, 0.3, 1); }
+.nx-env-sweep { position: absolute; left: 0; right: 0; top: -30vh; height: 30vh; }
+.nx-env-dim { position: absolute; inset: 0; background: #000; transition: opacity 500ms ease; }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-env-light-a { animation: nx-env-drift-a 38s ease-in-out infinite alternate; }
+  .nx-env-light-b { animation: nx-env-drift-b 46s ease-in-out infinite alternate; }
+  .nx-env-sweep { animation: nx-env-sweep 16s linear infinite; }
+}
+@keyframes nx-env-drift-a { to { transform: translate3d(6vw, 4vh, 0) scale(1.08); } }
+@keyframes nx-env-drift-b { to { transform: translate3d(-5vw, 6vh, 0) scale(0.94); } }
+@keyframes nx-env-sweep { to { transform: translate3d(0, 160vh, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .nx-env-layer, .nx-env-focus, .nx-env-dim { transition: none; }
+}
+
+/*
+ * FASE 44.1 · el mundo tiene que VERSE. `html, body` pintaban el mismo fondo opaco; en el orden de pintado el fondo de
+ * body va DESPUÉS de las capas con z-index negativo del contexto raíz, así que tapaba el ambiente entero. El fondo se
+ * queda en html (el lienzo) y body es transparente.
+ */
+body { background: transparent; }
+
+/* ═══════════════ FASE 44.1 · BÓVEDA DE LA COLECCIÓN (pieza de vitrina) ═══════════════ */
+.nx-vault-cone { background: linear-gradient(180deg, rgba(var(--vault-rgb), 0.30), rgba(var(--vault-rgb), 0.06) 70%, transparent); clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); filter: blur(6px); }
+.nx-vault-halo { border-radius: 9999px; background: radial-gradient(closest-side, rgba(var(--vault-rgb), 0.42), transparent); }
+.nx-vault-pedestal { filter: drop-shadow(0 0 18px rgba(var(--vault-rgb), 0.35)); }
+.nx-vault-float { position: relative; filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 22px rgba(var(--vault-rgb), 0.28)); }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-vault-float { animation: nx-vault-float 6s ease-in-out infinite; }
+  .nx-vault-halo { animation: nx-vault-breathe 6s ease-in-out infinite; }
+}
+@keyframes nx-vault-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -8px, 0); } }
+@keyframes nx-vault-breathe { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+
+/* ═══════════════ FASE 44.1 · BARRA SUPERIOR CON LUZ DE JUEGO ═══════════════ */
+/* Un foco bajo el texto que sigue al puntero (`--nx-lx`, escrito por GameShell sin re-render) y una marca que se
+   enciende desde el centro al apuntar. El activo conserva su barra; JUGAR sigue siendo la pieza dominante. */
+.nx-gamebar-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(110px 70px at var(--nx-lx, 50%) 100%, rgb(var(--nx-tint) / 0.30), transparent 70%);
+  opacity: 0;
+  transition: opacity 180ms var(--nx-out);
+}
+.nx-gamebar-link:hover::before, .nx-gamebar-link:focus-visible::before { opacity: 1; }
+.nx-gamebar-link:not([data-active="true"])::after {
+  content: "";
+  position: absolute;
+  inset-inline: 18px;
+  bottom: 0;
+  height: 2px;
+  background: rgb(var(--nx-tint) / 0.8);
+  transform: scaleX(0);
+  transition: transform 200ms var(--nx-out);
+}
+.nx-gamebar-link:not([data-active="true"]):hover::after, .nx-gamebar-link:not([data-active="true"]):focus-visible::after { transform: scaleX(1); }
+.nx-gamebar-link:hover { text-shadow: 0 0 18px rgb(var(--nx-tint) / 0.55); }
+@media (prefers-reduced-motion: reduce) {
+  .nx-gamebar-link::before, .nx-gamebar-link::after { transition: none; }
+}
+
+/* ═══════════════ FASE 44.1 · CARTAS CON PROFUNDIDAD (bóveda) ═══════════════ */
+/* Al apuntar, la carta sale de la pared: sube, proyecta sombra y la recorre un brillo. Solo transform/opacity/filter. */
+.nx-card-lift { transition: transform 180ms var(--nx-out), filter 180ms var(--nx-out); }
+.nx-card-lift::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.16) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  opacity: 0;
+  transition: opacity 180ms var(--nx-out), background-position 600ms var(--nx-out);
+}
+.nx-card-lift:hover, .nx-card-lift:focus-within { transform: translateY(-6px) scale(1.015); filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 16px rgba(123, 92, 255, 0.25)); }
+.nx-card-lift:hover::after, .nx-card-lift:focus-within::after { opacity: 1; background-position: -20% 0; }
+@media (prefers-reduced-motion: reduce) {
+  .nx-card-lift, .nx-card-lift::after { transition: none; }
+  .nx-card-lift:hover, .nx-card-lift:focus-within { transform: none; }
+  .nx-card-lift:hover::after, .nx-card-lift:focus-within::after { background-position: 50% 0; }
+}
+
+/* ═══════════════ FASE 45 · ESCENARIO DE LA ARENA ═══════════════ */
+/*
+ * La mesa estaba sobre la página: un rectángulo con el mundo asomando por los lados. Ahora se apoya en un suelo con
+ * luz propia, el bando que ataca se enciende y el último turno calienta el borde. Solo `opacity`/`filter` sobre
+ * pseudo-elementos: ni un nodo nuevo en el árbol del juego, ni una regla del combate tocada.
+ */
+.nx-arena-stage { position: relative; isolation: isolate; }
+.nx-arena-stage::before,
+.nx-arena-stage::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 320ms var(--nx-out), background 320ms var(--nx-out);
+}
+/* Suelo: la mesa proyecta luz sobre la arena. */
+.nx-arena-stage::before {
+  left: -8%;
+  right: -8%;
+  bottom: -6%;
+  height: 46%;
+  background: radial-gradient(60% 100% at 50% 100%, rgba(255, 46, 99, 0.20), transparent 70%);
+  filter: blur(2px);
+}
+/* Halo del bando que ataca: arriba el rival, abajo tú. */
+.nx-arena-stage::after {
+  inset: -10% -6% -10% -6%;
+  opacity: 0.9;
+  background: radial-gradient(70% 42% at 50% 112%, rgba(63, 192, 122, 0.22), transparent 68%);
+}
+[data-attacker="rival"] .nx-arena-stage::after { background: radial-gradient(70% 42% at 50% -12%, rgba(255, 46, 99, 0.24), transparent 68%); }
+[data-attacker="none"] .nx-arena-stage::after { opacity: 0; }
+/* Último turno: el canto de la mesa se calienta. */
+[data-final="true"] .nx-arena-stage [data-arena="mesa"] {
+  box-shadow: 0 50px 100px -34px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 211, 92, 0.45), 0 0 34px -6px rgba(255, 211, 92, 0.35);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-arena-stage::before, .nx-arena-stage::after { transition: none; }
+}
+/* Impacto del turno: la arena responde del color de quien ganó (una vez, 900 ms). */
+[data-hit="win"] .nx-arena-stage::after { background: radial-gradient(74% 46% at 50% 108%, rgba(63, 192, 122, 0.42), transparent 66%); }
+[data-hit="loss"] .nx-arena-stage::after { background: radial-gradient(74% 46% at 50% -8%, rgba(255, 46, 99, 0.42), transparent 66%); }
+[data-hit="tie"] .nx-arena-stage::after { background: radial-gradient(80% 60% at 50% 50%, rgba(255, 211, 92, 0.24), transparent 70%); }
+@media (prefers-reduced-motion: no-preference) {
+  [data-hit="win"] .nx-arena-stage [data-arena="mesa"],
+  [data-hit="loss"] .nx-arena-stage [data-arena="mesa"],
+  [data-hit="tie"] .nx-arena-stage [data-arena="mesa"] { animation: nx-arena-hit 420ms var(--nx-out) 1; }
+}
+@keyframes nx-arena-hit { 0% { transform: translateY(0); } 35% { transform: translateY(-3px); } 100% { transform: translateY(0); } }
+
+/* ═══════════════════════════ FASE 45 · EL RECINTO ═══════════════════════════
+ *
+ * El mundo detrás de la mesa. Siete planos, todos gradientes y transformaciones estáticas:
+ * ni WebGL, ni canvas, ni vídeo, ni blur animado. La profundidad sale de poner a la vez las
+ * cuatro señales que la producen en una imagen plana —convergencia, gradiente atmosférico,
+ * escala decreciente y oclusión—, no de una tercera dimensión real.
+ *
+ * Tinte por bando: `--env-tone` lo fija `[data-attacker]`. Todo lo demás lo hereda.
+ */
+.nx-arena-env {
+  --env-tone: 150, 190, 255;      /* aire neutro: nadie ataca todavía */
+  --env-tone-b: 120, 150, 220;
+  --env-horizon: 46%;             /* dónde muere el suelo */
+  z-index: 0;
+  contain: strict;                /* el recinto no puede forzar reflow de la partida */
+}
+.nx-arena-env > span { position: absolute; display: block; }
+
+[data-attacker="you"].nx-arena-env  { --env-tone: 63, 192, 122; --env-tone-b: 40, 150, 130; }
+[data-attacker="rival"].nx-arena-env { --env-tone: 255, 46, 99; --env-tone-b: 190, 40, 120; }
+
+/* El modo cambia la TEMPERATURA del recinto, no su estructura: una sola arena. */
+[data-arena-env="ranked"].nx-arena-env   { --env-tone-b: 190, 120, 255; }
+[data-arena-env="campaign"].nx-arena-env { --env-tone-b: 255, 170, 70; }
+[data-arena-env="draft"].nx-arena-env    { --env-tone-b: 90, 200, 255; }
+
+/* 1 · FONDO. El aire se aclara hacia el horizonte: eso solo lo hace la distancia. */
+.nx-arena-env-sky {
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 50% var(--env-horizon),
+      rgba(var(--env-tone-b), 0.16) 0%, rgba(var(--env-tone-b), 0.06) 30%, transparent 62%),
+    linear-gradient(180deg, #05070e 0%, #080b16 26%, #0b1020 44%, #070a13 62%, #04060c 100%);
+}
+
+/* 2 · TECHO. Retícula que huye hacia arriba: hay estructura encima del jugador. */
+.nx-arena-env-roof {
+  inset: 0 0 calc(100% - var(--env-horizon)) 0;
+  background-image:
+    linear-gradient(rgba(var(--env-tone-b), 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--env-tone-b), 0.16) 1px, transparent 1px);
+  background-size: 7vmin 7vmin;
+  transform: perspective(760px) rotateX(-68deg);
+  transform-origin: bottom center;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 4%, rgba(0,0,0,0.5) 46%, rgba(0,0,0,0.9) 100%);
+  mask-image: linear-gradient(to bottom, transparent 4%, rgba(0,0,0,0.5) 46%, rgba(0,0,0,0.9) 100%);
+  opacity: 0.55;
+}
+
+/* 4 · SUELO. La retícula converge en el horizonte: es el plano que construye el lugar. */
+.nx-arena-env-floor {
+  inset: var(--env-horizon) 0 0 0;
+  background-image:
+    linear-gradient(rgba(var(--env-tone), 0.26) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--env-tone), 0.22) 1px, transparent 1px);
+  background-size: 6vmin 6vmin;
+  transform: perspective(700px) rotateX(70deg);
+  transform-origin: top center;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.85) 28%, rgba(0,0,0,0.35) 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.85) 28%, rgba(0,0,0,0.35) 100%);
+}
+
+/* 3 · HORIZONTE. La costura. Late muy despacio, y sólo con movimiento permitido. */
+.nx-arena-env-horizon {
+  left: 0; right: 0;
+  top: calc(var(--env-horizon) - 24vh);
+  height: 48vh;
+  background: radial-gradient(60% 50% at 50% 50%, rgba(var(--env-tone), 0.42) 0%, rgba(var(--env-tone), 0.12) 38%, transparent 70%);
+  opacity: 0.8;
+}
+
+/* 5 · PILONAS. Dos columnas de luz en los flancos: el recinto tiene paredes. */
+.nx-arena-env-pylon {
+  top: 0; bottom: 0; width: 22vw;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9) 40%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9) 40%, transparent);
+}
+.nx-arena-env-pylon-l { left: -2vw;  background: linear-gradient(90deg, rgba(63, 192, 122, 0.20), transparent 78%); }
+.nx-arena-env-pylon-r { right: -2vw; background: linear-gradient(270deg, rgba(255, 46, 99, 0.13), transparent 78%); }
+
+/* 6 · BAÑO DEL ATACANTE. El bando que ataca lava la escena desde SU borde. */
+.nx-arena-env-wash {
+  inset: 0;
+  opacity: 0;
+  transition: opacity 420ms var(--nx-out), background 420ms var(--nx-out);
+}
+[data-attacker="you"] > .nx-arena-env-wash {
+  opacity: 1;
+  background: radial-gradient(90% 55% at 50% 118%, rgba(63, 192, 122, 0.22), transparent 66%);
+}
+[data-attacker="rival"] > .nx-arena-env-wash {
+  opacity: 1;
+  background: radial-gradient(90% 55% at 50% -18%, rgba(255, 46, 99, 0.22), transparent 66%);
+}
+
+/* El último turno calienta el recinto entero. Sutil: no finge una partida igualada. */
+[data-final="true"].nx-arena-env .nx-arena-env-horizon { opacity: 1; filter: saturate(1.25); }
+[data-final="true"].nx-arena-env .nx-arena-env-floor { opacity: 1.1; }
+
+/* La resolución sacude el mundo, no sólo la mesa. Verde, rojo y ámbar: tres respuestas. */
+[data-hit="win"] > .nx-arena-env-wash  { background: radial-gradient(100% 62% at 50% 112%, rgba(63, 192, 122, 0.36), transparent 64%); opacity: 1; }
+[data-hit="loss"] > .nx-arena-env-wash { background: radial-gradient(100% 62% at 50% -12%, rgba(255, 46, 99, 0.36), transparent 64%); opacity: 1; }
+[data-hit="tie"] > .nx-arena-env-wash  { background: radial-gradient(90% 70% at 50% 50%, rgba(255, 211, 92, 0.20), transparent 68%); opacity: 1; }
+
+/* MOTAS. Doce, contadas, con carril y fase propios. */
+.nx-arena-env-motes { inset: 0; }
+.nx-arena-env-mote {
+  position: absolute;
+  left: var(--m-x);
+  bottom: -6vh;
+  width: var(--m-s); height: var(--m-s);
+  border-radius: 999px;
+  background: rgba(var(--env-tone), 0.55);
+  box-shadow: 0 0 6px rgba(var(--env-tone), 0.45);
+  opacity: 0;
+}
+
+/* 7 · VIÑETA. Los bordes caen; el centro es lo único que manda. */
+.nx-arena-env-vignette {
+  inset: 0;
+  background:
+    radial-gradient(120% 78% at 50% 52%, transparent 44%, rgba(0,0,0,0.42) 78%, rgba(0,0,0,0.76) 100%);
+}
+
+/*
+ * MOVIMIENTO. Sólo dos animaciones en todo el recinto, las dos sobre `transform`/`opacity`.
+ * Bajo `reduce` no se declara ninguna: el lugar sigue estando ahí, quieto.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .nx-arena-env-mote { animation: nx-arena-mote var(--m-d) linear var(--m-delay) infinite; }
+  .nx-arena-env-horizon { animation: nx-arena-horizon 9s ease-in-out infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-arena-env-mote, .nx-arena-env-horizon { animation: none; }
+  .nx-arena-env-wash { transition: none; }
+}
+@keyframes nx-arena-mote {
+  0%   { transform: translateY(0); opacity: 0; }
+  12%  { opacity: 0.7; }
+  88%  { opacity: 0.5; }
+  100% { transform: translateY(-88vh); opacity: 0; }
+}
+@keyframes nx-arena-horizon {
+  0%, 100% { opacity: 0.72; }
+  50%      { opacity: 0.92; }
+}
+
+/*
+ * EL CHARCO DE LUZ DEL ENFRENTAMIENTO (Fase 45).
+ *
+ * La elipse que el foco cenital proyecta sobre el suelo, justo debajo de las dos cartas que
+ * pelean. Es lo que convierte «una banda iluminada» en «un sitio donde está pasando algo».
+ * Hereda `--env-tone` del recinto, así que se tiñe sola con el bando que ataca.
+ */
+.nx-clash-pool {
+  position: absolute;
+  left: 50%;
+  bottom: 4%;
+  z-index: -10;
+  width: min(78%, 620px);
+  height: 46%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 50%,
+    rgba(var(--env-tone, 150, 190, 255), 0.22) 0%,
+    rgba(var(--env-tone, 150, 190, 255), 0.07) 46%,
+    transparent 72%);
+  transition: background 420ms var(--nx-out);
+  filter: blur(6px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-clash-pool { transition: none; }
+}
+
+/* ═══════════════════════ FASE 50 · NEXUS ARENA — MATCH BOARD 4.0 ═══════════════════════
+ *
+ * La partida deja de ser una mesa sobre un fondo y pasa a ser un ESTADIO: la imagen propia de la
+ * arena (configurada en `lib/duel/arenas`), la luz de cada bando —rojo arriba, cian abajo—, cuatro
+ * focos, bruma, dos plataformas en perspectiva, una zona de duelo cruzada por una línea de energía
+ * y la mano como borde del escenario.
+ *
+ * REGLAS DE COSTE (las mismas de la Fase 44.1, medidas):
+ *   · todo lo que se mueve lo hace sobre `transform`/`opacity`;
+ *   · ningún filtro animado y ninguna capa de grano a pantalla completa;
+ *   · con `prefers-reduced-motion: reduce` no se mueve nada (bloque al final de esta sección).
+ *
+ * Todo es presentación: ningún selector de aquí depende de una regla del combate.
+ */
+:root {
+  --a50-ply: 47, 224, 255;     /* tú: cian */
+  --a50-ply-2: 30, 120, 255;   /* tú, tono profundo */
+  --a50-opp: 255, 46, 99;      /* rival: rojo */
+  --a50-mag: 214, 40, 160;     /* rival, tono magenta */
+  --a50-gold: 255, 211, 92;    /* empate / último turno */
+}
+
+/* ── EL RECINTO ─────────────────────────────────────────────────────────────── */
+/*
+ * Fijo al viewport y DEBAJO del contenido normal de la página (z-index −1 en la raíz de apilado):
+ * el estadio no se acaba donde se acaba el tablero, y ningún aviso de la página queda tapado.
+ */
+.nx-arena-env { z-index: -1; }
+[data-attacker="you"].nx-arena-env  { --env-tone: var(--a50-ply); --env-tone-b: var(--a50-ply-2); }
+[data-attacker="rival"].nx-arena-env { --env-tone: var(--a50-opp); --env-tone-b: var(--a50-mag); }
+
+.nx-arena-env-sky {
+  background:
+    radial-gradient(90% 60% at 50% 0%, rgba(var(--a50-opp), 0.16), transparent 70%),
+    radial-gradient(90% 60% at 50% 100%, rgba(var(--a50-ply-2), 0.18), transparent 70%),
+    linear-gradient(180deg, #0a0610 0%, #07080f 40%, #050a14 100%);
+}
+
+/* 2 · EL ESTADIO. La imagen de la arena, algo más grande que la pantalla para el parallax. */
+.nx-arena-env-stage {
+  inset: -3%;
+  background-image: var(--arena-bg-wide);
+  background-size: cover;
+  background-position: 50% 42%;
+  background-repeat: no-repeat;
+  transform: scale(1.015);
+  transform-origin: 50% 45%;
+}
+@media (max-width: 767px) {
+  .nx-arena-env-stage { background-image: var(--arena-bg-narrow); background-position: 50% 36%; }
+}
+/* El centro se oscurece: es donde se leen las cartas. Los bordes conservan el estadio. */
+.nx-arena-env-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(62% 46% at 50% 54%, rgba(3, 4, 10, 0.66) 0%, rgba(3, 4, 10, 0.42) 55%, rgba(3, 4, 10, 0.18) 100%),
+    linear-gradient(180deg, rgba(3, 4, 10, 0.20) 0%, rgba(3, 4, 10, 0.05) 30%, rgba(3, 4, 10, 0.30) 100%);
+}
+
+/* 3 · LA GRADA. Dos resplandores a los lados que laten muy despacio. */
+.nx-arena-env-crowd {
+  left: 0; right: 0; top: 30%; height: 46%;
+  background:
+    radial-gradient(38% 55% at 8% 62%, rgba(255, 110, 150, 0.16), transparent 72%),
+    radial-gradient(38% 55% at 92% 62%, rgba(255, 110, 150, 0.14), transparent 72%);
+  opacity: 0.8;
+}
+
+/* 4 y 5 · LA LUZ DE CADA BANDO. */
+.nx-arena-env-light { left: 0; right: 0; }
+.nx-arena-env-light-rival {
+  top: 0; height: 56%;
+  background:
+    radial-gradient(70% 80% at 50% -12%, rgba(var(--a50-opp), 0.30), rgba(var(--a50-mag), 0.10) 46%, transparent 76%),
+    linear-gradient(180deg, rgba(var(--a50-opp), 0.12), transparent 62%);
+}
+.nx-arena-env-light-tu {
+  bottom: 0; height: 52%;
+  background:
+    radial-gradient(76% 86% at 50% 114%, rgba(var(--a50-ply), 0.28), rgba(var(--a50-ply-2), 0.10) 48%, transparent 76%),
+    linear-gradient(0deg, rgba(var(--a50-ply), 0.10), transparent 58%);
+}
+
+/* 6 · LOS HACES. Cuñas de luz con bordes suaves (sin `filter: blur`: el gradiente ya es suave). */
+.nx-arena-env-beam {
+  width: 16vw;
+  height: 92vh;
+  opacity: 0.55;
+  transform: rotate(var(--b-rot));
+}
+.nx-arena-env-beam[data-lado="rival"] {
+  top: -8vh;
+  transform-origin: 50% 0;
+  background: linear-gradient(180deg, rgba(var(--a50-opp), 0.34), rgba(var(--a50-opp), 0.09) 44%, transparent 82%);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%);
+}
+.nx-arena-env-beam[data-lado="tu"] {
+  bottom: -8vh;
+  height: 66vh;
+  transform-origin: 50% 100%;
+  background: linear-gradient(0deg, rgba(var(--a50-ply), 0.30), rgba(var(--a50-ply), 0.07) 46%, transparent 84%);
+  clip-path: polygon(0 0, 100% 0, 54% 100%, 46% 100%);
+}
+.nx-arena-env-beam-rival-l { left: 12vw;  --b-rot: -22deg; --b-swing: 7deg; }
+.nx-arena-env-beam-rival-r { right: 12vw; --b-rot: 22deg;  --b-swing: -7deg; }
+.nx-arena-env-beam-tu-l    { left: 3vw;   --b-rot: 26deg;  --b-swing: -6deg; }
+.nx-arena-env-beam-tu-r    { right: 3vw;  --b-rot: -26deg; --b-swing: 6deg; }
+
+/* 7 · EL SUELO. Solo el primer plano: el escenario sobre el que estás, en cian. El techo reticulado se retira. */
+.nx-arena-env-floor {
+  inset: 66% 0 0 0;
+  background-image:
+    linear-gradient(rgba(var(--a50-ply), 0.20) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--a50-ply), 0.16) 1px, transparent 1px);
+  background-size: 5.5vmin 5.5vmin;
+  opacity: 0.55;
+}
+.nx-arena-env-roof { display: none; }
+
+/* 8 · EL HORIZONTE. La costura de luz entre los bandos, a la altura de la zona de duelo. */
+.nx-arena-env-horizon {
+  top: calc(50% - 18vh);
+  height: 36vh;
+  background: radial-gradient(56% 26% at 50% 50%, rgba(255, 255, 255, 0.10) 0%, rgba(var(--env-tone), 0.16) 42%, transparent 74%);
+}
+
+/* Paredes del recinto en los tonos de bando: cian a tu izquierda, rojo a la derecha. */
+.nx-arena-env-pylon-l { background: linear-gradient(90deg, rgba(var(--a50-ply), 0.14), transparent 80%); }
+.nx-arena-env-pylon-r { background: linear-gradient(270deg, rgba(var(--a50-opp), 0.14), transparent 80%); }
+
+/* 9 · LA BRUMA. */
+.nx-arena-env-haze {
+  left: -12%; right: -12%; bottom: 6%; height: 36%;
+  background:
+    radial-gradient(46% 48% at 28% 58%, rgba(150, 195, 255, 0.10), transparent 72%),
+    radial-gradient(40% 46% at 74% 50%, rgba(255, 150, 190, 0.07), transparent 72%);
+}
+
+/* 10 · EL BAÑO: quien ataca lava la escena desde su borde; el golpe del turno, del color de quien lo gana. */
+[data-attacker="you"] > .nx-arena-env-wash {
+  background: radial-gradient(90% 55% at 50% 118%, rgba(var(--a50-ply), 0.20), transparent 66%);
+}
+[data-hit="win"] > .nx-arena-env-wash  { background: radial-gradient(100% 62% at 50% 112%, rgba(var(--a50-ply), 0.40), transparent 64%); opacity: 1; }
+[data-hit="loss"] > .nx-arena-env-wash { background: radial-gradient(100% 62% at 50% -12%, rgba(var(--a50-opp), 0.40), transparent 64%); opacity: 1; }
+
+.nx-arena-env-vignette {
+  background:
+    radial-gradient(130% 90% at 50% 50%, transparent 52%, rgba(0, 0, 0, 0.46) 84%, rgba(0, 0, 0, 0.78) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 14%, transparent 86%, rgba(0, 0, 0, 0.45));
+}
+
+/* ── EL ESCENARIO Y SUS PLATAFORMAS ─────────────────────────────────────────── */
+
+/* La luz del bando que ataca y el golpe del turno, ahora con el cian del jugador. */
+.nx-arena-stage::before { background: radial-gradient(60% 100% at 50% 100%, rgba(var(--a50-ply), 0.16), transparent 70%); }
+.nx-arena-stage::after { background: radial-gradient(70% 42% at 50% 112%, rgba(var(--a50-ply), 0.20), transparent 68%); }
+[data-attacker="rival"] .nx-arena-stage::after { background: radial-gradient(70% 42% at 50% -12%, rgba(var(--a50-opp), 0.24), transparent 68%); }
+[data-hit="win"] .nx-arena-stage::after { background: radial-gradient(74% 46% at 50% 108%, rgba(var(--a50-ply), 0.42), transparent 66%); }
+
+/* El último turno ya no enmarca un rectángulo: calienta las dos plataformas. */
+[data-final="true"] .nx-arena-stage [data-arena="mesa"] { box-shadow: none; }
+[data-final="true"] .nx-a50-plate { --plate-glow: var(--a50-gold); }
+
+/* La tira del turno (móvil y PvP): una línea de luz, no una caja. */
+.nx-a50-edge {
+  background: linear-gradient(90deg, transparent, rgba(6, 9, 20, 0.78) 14%, rgba(6, 9, 20, 0.78) 86%, transparent);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+}
+
+/* LA PLATAFORMA. Trapecio con filo de neón del bando y suelo translúcido. */
+.nx-a50-zone { --side: var(--a50-opp); isolation: isolate; }
+.nx-a50-zone[data-side="jugador"] { --side: var(--a50-ply); }
+.nx-a50-plate {
+  --plate-glow: var(--side);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 9px rgba(var(--plate-glow), 0.55)) drop-shadow(0 22px 26px rgba(0, 0, 0, 0.7));
+}
+.nx-a50-plate::before,
+.nx-a50-plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(3.2% 0, 96.8% 0, 100% 100%, 0 100%);
+}
+.nx-a50-plate::before {
+  background: linear-gradient(180deg, rgba(var(--side), 0.95), rgba(var(--side), 0.45) 60%, rgba(var(--side), 0.85));
+}
+.nx-a50-plate::after {
+  inset: 2px;
+  background:
+    linear-gradient(180deg, rgba(var(--side), 0.20), rgba(var(--side), 0.04) 55%, rgba(var(--side), 0.14)),
+    repeating-linear-gradient(90deg, rgba(var(--side), 0.07) 0 1px, transparent 1px 34px),
+    linear-gradient(180deg, rgba(5, 7, 16, 0.84), rgba(5, 7, 16, 0.64));
+}
+/* Tu plataforma está en primer plano: más ancha abajo, más presencia. */
+.nx-a50-zone[data-side="jugador"] .nx-a50-plate::before,
+.nx-a50-zone[data-side="jugador"] .nx-a50-plate::after { clip-path: polygon(2% 0, 98% 0, 100% 100%, 0 100%); }
+
+/* Etiqueta del raíl: una placa pequeña con filos del bando. */
+.nx-a50-rail-tag {
+  background: linear-gradient(180deg, rgba(8, 11, 22, 0.92), rgba(4, 6, 14, 0.92));
+  border-top: 1px solid var(--tag);
+  border-bottom: 1px solid color-mix(in srgb, var(--tag) 45%, transparent);
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 8px 100%, 0 50%);
+}
+
+/* ── LA ZONA DE DUELO ─────────────────────────────────────────────────────── */
+.nx-a50-duel { isolation: isolate; }
+.nx-a50-duel-line {
+  position: absolute;
+  left: -4%; right: -4%;
+  top: 50%;
+  height: 2px;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(var(--a50-opp), 0.95) 16%, rgba(255, 255, 255, 0.95) 50%, rgba(var(--a50-ply), 0.95) 84%, transparent 100%);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.30), 0 0 34px rgba(var(--env-tone, 150, 190, 255), 0.35);
+  opacity: 0.7;
+}
+
+/* EL SELLO VS: tipografía itálica con el rojo entrando por la izquierda y el cian por la derecha. */
+.nx-a50-vs {
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  font-size: clamp(34px, 6.6vh, 80px);
+  background: linear-gradient(100deg, #ff6f95 0%, #ffffff 44%, #ffffff 56%, #7af4ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.65)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.28));
+  padding-right: 0.08em;
+}
+.nx-a50-vs[data-ready="true"] {
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.65)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 40px rgba(var(--env-tone, 150, 190, 255), 0.55));
+}
+/* El anillo de energía detrás del VS. Gira muy despacio (transform), se apaga con movimiento reducido. */
+.nx-a50-vs-ring {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 150%; aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  pointer-events: none;
+  background: conic-gradient(from 0deg, rgba(var(--a50-opp), 0) 0deg, rgba(var(--a50-opp), 0.55) 60deg, rgba(var(--a50-opp), 0) 120deg, rgba(var(--a50-ply), 0) 180deg, rgba(var(--a50-ply), 0.55) 240deg, rgba(var(--a50-ply), 0) 300deg);
+  -webkit-mask-image: radial-gradient(closest-side, transparent 78%, #000 80%, #000 86%, transparent 88%);
+  mask-image: radial-gradient(closest-side, transparent 78%, #000 80%, #000 86%, transparent 88%);
+  opacity: 0.75;
+}
+
+/* EL MARCADOR: un hexágono con filo del bando. */
+.nx-a50-score {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 8.2vh, 104px);
+  aspect-ratio: 1.12;
+  filter: drop-shadow(0 0 14px rgba(var(--side), 0.55));
+}
+.nx-a50-score::before,
+.nx-a50-score::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+.nx-a50-score::before { background: rgb(var(--side)); }
+.nx-a50-score::after {
+  inset: 2px;
+  background: radial-gradient(90% 90% at 50% 20%, rgba(var(--side), 0.30), rgba(5, 7, 16, 0.94) 70%);
+}
+.nx-a50-score > * { position: relative; z-index: 1; }
+
+/* ── LOS CONTROLES Y LA MANO ───────────────────────────────────────────────── */
+.nx-a50-controls {
+  background: linear-gradient(90deg, rgba(5, 8, 18, 0.2), rgba(5, 8, 18, 0.78) 16%, rgba(5, 8, 18, 0.78) 84%, rgba(5, 8, 18, 0.2));
+  box-shadow: inset 0 1px 0 rgba(var(--a50-ply), 0.22), inset 0 -1px 0 rgba(var(--a50-ply), 0.10);
+}
+/* El botón de la jugada: un botón de juego, cian, con chaflanes. */
+.nx-a50-cta {
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  background: linear-gradient(180deg, #6ef0ff 0%, #22b4f0 52%, #1277c8 100%);
+  color: #02121c;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.nx-a50-cta:hover:not(:disabled) { filter: brightness(1.1); }
+.nx-a50-cta:disabled {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.05));
+  color: rgba(255, 255, 255, 0.38);
+  text-shadow: none;
+}
+.nx-a50-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.nx-a50-hand {
+  background: linear-gradient(180deg, transparent 0%, rgba(3, 7, 16, 0.30) 36%, rgba(2, 5, 12, 0.72) 100%);
+}
+.nx-a50-hand-rail {
+  position: absolute;
+  left: 3%; right: 3%; top: 0;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(var(--a50-ply), 0.9) 18%, rgba(var(--a50-ply), 0.9) 82%, transparent);
+  box-shadow: 0 0 10px rgba(var(--a50-ply), 0.65), 0 0 34px rgba(var(--a50-ply), 0.28);
+}
+
+/* ── LA BARRA DE LA PARTIDA ──────────────────────────────────────────────────── */
+.nx-a50-topbar {
+  background: linear-gradient(180deg, rgba(4, 5, 12, 0.94) 0%, rgba(4, 5, 12, 0.72) 70%, rgba(4, 5, 12, 0.0) 100%);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+.nx-a50-seg {
+  height: 6px;
+  min-width: 0;
+  flex: 1 1 0;
+  background: rgba(255, 255, 255, 0.10);
+  clip-path: polygon(3px 0, 100% 0, calc(100% - 3px) 100%, 0 100%);
+}
+.nx-a50-seg[data-cell="WIN"] { background: rgb(var(--a50-ply)); }
+.nx-a50-seg[data-cell="LOSS"] { background: rgb(var(--a50-opp)); }
+.nx-a50-seg[data-cell="DRAW"] { background: rgba(var(--a50-gold), 0.85); }
+.nx-a50-seg[data-cell="CURRENT"] { background: rgba(255, 255, 255, 0.9); }
+
+/* ── LA RESOLUCIÓN, DENTRO DE LA ARENA ─────────────────────────────────────── */
+/* El velo deja ver el estadio: el centro se oscurece para leer, los bordes siguen siendo la arena. */
+.nx-a50-moment {
+  background:
+    radial-gradient(78% 72% at 50% 48%, rgba(3, 4, 10, 0.94) 0%, rgba(3, 4, 10, 0.88) 52%, rgba(3, 4, 10, 0.66) 100%);
+}
+.nx-a50-shock {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 60vmin; aspect-ratio: 1;
+  border-radius: 999px;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.2);
+  opacity: 0;
+  box-shadow: 0 0 0 2px var(--shock), 0 0 40px 6px var(--shock), inset 0 0 40px 2px var(--shock);
+}
+
+/* ── MOVIMIENTO ─────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .nx-arena-env-stage { animation: nx-a50-drift 46s ease-in-out infinite alternate; }
+  .nx-arena-env-beam { animation: nx-a50-beam 16s ease-in-out infinite; }
+  .nx-arena-env-beam-rival-r, .nx-arena-env-beam-tu-l { animation-duration: 21s; animation-delay: -6s; }
+  .nx-arena-env-haze { animation: nx-a50-haze 34s ease-in-out infinite alternate; }
+  .nx-arena-env-crowd { animation: nx-a50-crowd 7s ease-in-out infinite; }
+  .nx-a50-duel-line { animation: nx-a50-line 3.2s ease-in-out infinite; }
+  .nx-a50-vs-ring { animation: nx-a50-spin 18s linear infinite; }
+  .nx-a50-vs-pulse { animation: nx-a50-vs 2.8s ease-in-out infinite; }
+  .nx-a50-slot[data-active="true"] { animation: nx-a50-slot 2.2s ease-in-out infinite; }
+  .nx-a50-seg[data-cell="CURRENT"] { animation: nx-a50-slot 1.6s ease-in-out infinite; }
+  .nx-a50-shock { animation: nx-a50-shock 620ms var(--nx-out) var(--shock-delay, 0ms) 1 both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-arena-env-stage, .nx-arena-env-beam, .nx-arena-env-haze, .nx-arena-env-crowd,
+  .nx-a50-duel-line, .nx-a50-vs-ring, .nx-a50-vs-pulse, .nx-a50-slot, .nx-a50-seg, .nx-a50-shock { animation: none; }
+  .nx-a50-shock { display: none; }
+}
+@keyframes nx-a50-drift {
+  0%   { transform: scale(1.015) translate3d(0, 0, 0); }
+  100% { transform: scale(1.05) translate3d(-0.8%, -0.6%, 0); }
+}
+@keyframes nx-a50-beam {
+  0%, 100% { transform: rotate(var(--b-rot)); }
+  50%      { transform: rotate(calc(var(--b-rot) + var(--b-swing))); }
+}
+@keyframes nx-a50-haze {
+  0%   { transform: translate3d(-4%, 0, 0); opacity: 0.8; }
+  100% { transform: translate3d(4%, -1%, 0); opacity: 1; }
+}
+@keyframes nx-a50-crowd {
+  0%, 100% { opacity: 0.62; }
+  50%      { opacity: 0.95; }
+}
+@keyframes nx-a50-line {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.9; }
+}
+@keyframes nx-a50-spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes nx-a50-vs {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.045); }
+}
+@keyframes nx-a50-slot {
+  0%, 100% { opacity: 0.72; }
+  50%      { opacity: 1; }
+}
+@keyframes nx-a50-shock {
+  0%   { transform: translate(-50%, -50%) scale(0.2); opacity: 0.95; }
+  100% { transform: translate(-50%, -50%) scale(2.2); opacity: 0; }
+}
+
+/* ═══════════════════════ FASE 46 · EL VESTÍBULO NEXUS (MAIN MENU) ═══════════════════════
+ *
+ * La Home deja de ser un cuadro de mandos y pasa a ser el menú principal de un juego. Todo lo de
+ * aquí es fondo y cromo: no decide nada, no lee la partida y no escribe. La escena reproduce la
+ * referencia por CAPAS, sin WebGL, sin canvas y sin vídeo externo:
+ *
+ *     cielo → arquitectura del fondo → monolito → bruma → suelo → haces → pack → cartas → viñeta
+ *
+ * Cuando exista `/public/video/nexus-lobby.webm` el vídeo se pone DEBAJO de todo esto y las capas
+ * siguen funcionando encima como sombreado: no hay que rehacer nada.
+ */
+.nx-hall { position: absolute; inset: 0; overflow: hidden; contain: strict; }
+.nx-hall > * { position: absolute; }
+
+/* Tintes de la escena. `data-accent` los cambia cuando el jugador apunta un botón del menú. */
+.nx-hall {
+  --hall-magenta: 255, 46, 99;
+  --hall-cyan: 79, 195, 247;
+  --hall-gold: 255, 196, 77;
+  --hall-violet: 139, 92, 246;
+  --hall-play: 0;      /* refuerzo magenta  */
+  --hall-vault: 0;     /* refuerzo cian     */
+  --hall-store: 0;     /* refuerzo dorado   */
+  transition: none;
+}
+.nx-hall-tint { inset: 0; pointer-events: none; transition: opacity 260ms var(--nx-out); }
+
+/* 1 · CIELO. El aire se aclara hacia el horizonte: eso sólo lo hace la distancia. */
+/*
+ * CIELO. Primera versión: violeta al 20 % repartido por toda la pantalla. Resultado, una NIEBLA
+ * malva uniforme: sin negros de verdad no hay contraste, y sin contraste no hay profundidad. La
+ * referencia es casi negra con MUY pocos focos brillantes, y de ahí sale toda su fuerza.
+ * Ahora el aire está oscuro y la luz se concentra donde ocurre algo: el pack, a la derecha-abajo.
+ */
+.nx-hall-sky {
+  inset: 0;
+  background:
+    radial-gradient(48% 42% at 76% 74%, rgba(var(--hall-gold), 0.20) 0%, rgba(var(--hall-gold), 0.05) 40%, transparent 68%),
+    radial-gradient(64% 56% at 60% 40%, rgba(var(--hall-violet), 0.16) 0%, transparent 62%),
+    radial-gradient(44% 44% at 16% 42%, rgba(var(--hall-magenta), 0.09) 0%, transparent 64%),
+    linear-gradient(180deg, #02030a 0%, #04060f 26%, #070a18 46%, #04060e 70%, #010209 100%);
+}
+
+/* 2 · ARQUITECTURA. Monolitos verticales en fuga: el recinto tiene paredes y altura. */
+/*
+ * ARQUITECTURA. Estaba INVERTIDA: líneas claras sobre fondo oscuro, que se leen como una rejilla.
+ * En la referencia las torres son SILUETAS OSCURAS recortadas contra un fondo con bruma, con un
+ * filo fino de luz en el canto. Es lo que hace que parezca un sitio y no un papel pintado.
+ *
+ * Dos planos a distinta escala y opacidad: el lejano casi se funde con el aire (perspectiva
+ * atmosférica), el cercano recorta con fuerza. Ninguno se mueve.
+ */
+.nx-hall-arch {
+  inset: 0 0 46% 0;
+  background-image:
+    /* filo de luz del canto derecho de cada torre */
+    linear-gradient(90deg, transparent 0 11.4vw, rgba(var(--hall-cyan), 0.5) 11.4vw 11.5vw, transparent 11.5vw),
+    /* cuerpo opaco de la torre */
+    linear-gradient(90deg, rgba(2, 3, 9, 0.96) 0 11.4vw, transparent 11.4vw 15vw);
+  background-size: 15vw 100%;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.95) 46%, rgba(0,0,0,0.2) 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.95) 46%, rgba(0,0,0,0.2) 100%);
+}
+/* Plano LEJANO: torres más finas, más pálidas y más bajas. La distancia las come. */
+.nx-hall-arch-far {
+  inset: 0 0 52% 0;
+  background-image:
+    linear-gradient(90deg, transparent 0 5.6vw, rgba(var(--hall-violet), 0.34) 5.6vw 5.7vw, transparent 5.7vw),
+    linear-gradient(90deg, rgba(4, 6, 14, 0.8) 0 5.6vw, transparent 5.6vw 7.4vw);
+  background-size: 7.4vw 100%;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 52%, transparent 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 52%, transparent 100%);
+}
+/* Columnas de luz que suben por la arquitectura: cian a un lado, magenta al otro. */
+.nx-hall-beam { top: -6%; bottom: 40%; width: 10vw; filter: blur(2px); }
+.nx-hall-beam-a { left: 34%; background: linear-gradient(180deg, transparent, rgba(var(--hall-cyan), 0.22) 45%, transparent); }
+.nx-hall-beam-b { right: 14%; background: linear-gradient(180deg, transparent, rgba(var(--hall-magenta), 0.18) 50%, transparent); }
+.nx-hall-beam-c { left: 52%; width: 18vw; background: linear-gradient(180deg, transparent, rgba(var(--hall-violet), 0.26) 55%, transparent); }
+
+/* 4 · BRUMA. Lo que separa los planos: sin esto la profundidad no se lee. */
+.nx-hall-haze {
+  inset: 24% 0 18% 0;
+  background: radial-gradient(70% 60% at 58% 60%, rgba(180, 200, 255, 0.10), transparent 72%);
+  filter: blur(18px);
+}
+
+/* 5 · SUELO. Reflectante y en fuga hacia el horizonte. */
+.nx-hall-floor {
+  inset: 58% 0 0 0;
+  background-image:
+    linear-gradient(rgba(150, 190, 255, 0.20) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 190, 255, 0.15) 1px, transparent 1px);
+  background-size: 7vmin 7vmin;
+  transform: perspective(760px) rotateX(74deg);
+  transform-origin: top center;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 26%, rgba(0,0,0,0.25) 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 26%, rgba(0,0,0,0.25) 100%);
+}
+/* El charco: el suelo está mojado y devuelve las luces de la escena. */
+.nx-hall-wet {
+  inset: 58% 0 0 0;
+  background:
+    radial-gradient(50% 40% at 74% 18%, rgba(var(--hall-gold), 0.22), transparent 70%),
+    radial-gradient(40% 34% at 30% 26%, rgba(var(--hall-magenta), 0.12), transparent 72%);
+  filter: blur(26px);
+}
+
+/* 6 · HORIZONTE. La costura donde muere el suelo. */
+.nx-hall-horizon {
+  left: 0; right: 0; top: 46%; height: 26vh;
+  background: radial-gradient(56% 50% at 60% 50%, rgba(var(--hall-violet), 0.30), transparent 72%);
+}
+
+/* 7 · VIÑETA. Los bordes caen; el centro y el menú mandan. */
+.nx-hall-vignette {
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(1,2,7,0.96) 0%, rgba(1,2,7,0.78) 22%, rgba(1,2,7,0.32) 42%, transparent 58%),
+    linear-gradient(0deg, rgba(1,2,7,0.8) 0%, transparent 24%),
+    radial-gradient(120% 84% at 64% 52%, transparent 34%, rgba(0,0,0,0.55) 74%, rgba(0,0,0,0.9) 100%);
+}
+
+/* Refuerzos contextuales: apuntar un botón ilumina la escena SIN cambiarla. */
+.nx-hall-accent-play   { inset: 0; background: radial-gradient(60% 70% at 24% 50%, rgba(var(--hall-magenta), 0.30), transparent 68%); opacity: var(--hall-play); }
+.nx-hall-accent-vault  { inset: 0; background: radial-gradient(70% 70% at 62% 44%, rgba(var(--hall-cyan), 0.24), transparent 70%); opacity: var(--hall-vault); }
+.nx-hall-accent-store  { inset: 0; background: radial-gradient(56% 60% at 76% 72%, rgba(var(--hall-gold), 0.34), transparent 68%); opacity: var(--hall-store); }
+
+/* ── MOTAS. Dieciséis, contadas. No es un sistema de partículas. ── */
+.nx-hall-motes { inset: 0; }
+.nx-hall-mote {
+  position: absolute; left: var(--m-x); bottom: -4vh;
+  width: var(--m-s); height: var(--m-s); border-radius: 999px;
+  background: rgba(var(--hall-gold), 0.7); box-shadow: 0 0 7px rgba(var(--hall-gold), 0.6);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nx-hall-mote { animation: nx-hall-mote var(--m-d) linear var(--m-delay) infinite; }
+  .nx-hall-horizon { animation: nx-hall-pulse 11s ease-in-out infinite; }
+  .nx-hall-burst { animation: nx-hall-breathe 6s ease-in-out infinite; }
+  .nx-hall-rays { animation: nx-hall-spin 90s linear infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-hall-mote, .nx-hall-horizon, .nx-hall-burst, .nx-hall-rays { animation: none; }
+  .nx-hall-tint, .nx-card-float, .nx-menu-btn { transition: none !important; }
+}
+@keyframes nx-hall-mote {
+  0% { transform: translateY(0); opacity: 0; }
+  14% { opacity: 0.75; }
+  86% { opacity: 0.45; }
+  100% { transform: translateY(-92vh); opacity: 0; }
+}
+@keyframes nx-hall-pulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
+@keyframes nx-hall-breathe { 0%, 100% { transform: scale(1); opacity: 0.88; } 50% { transform: scale(1.07); opacity: 1; } }
+@keyframes nx-hall-spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════ EL PACK ABIERTO · protagonista de la derecha ═══════════════════
+ *
+ * Una caja angular NEXUS con la tapa abierta hacia atrás y luz saliendo de dentro. Se construye
+ * con cuatro piezas planas colocadas en perspectiva: no hay geometría 3D real, hay cuatro caras
+ * y una ley de sombras coherente. Es el mismo truco de un decorado de teatro.
+ */
+.nx-pack { position: absolute; transform-style: preserve-3d; perspective: 900px; pointer-events: none; }
+.nx-pack > * { position: absolute; }
+
+/*
+ * LA BOCA Y LA LUZ. El estallido nace DENTRO de la caja, no detrás: por eso se recorta con la boca
+ * y el labio va sobreexpuesto encima. Es lo que hace que la luz «salga de» en vez de «estar tras».
+ */
+.nx-pack-burst {
+  /*
+   * Centrado en LA BOCA (~50 % de alto) y creciendo hacia arriba. Antes nacía al 26 % y la cara
+   * frontal —que se pinta después— se lo comía: quedaba una banda dorada fina y la caja parecía un
+   * panel plegado. La luz tiene que ocupar más que la caja; si no, no es una caja que irradia.
+   */
+  left: 50%; top: -16%; width: 165%; height: 92%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(44% 40% at 50% 78%, rgba(255, 254, 250, 1) 0%, rgba(255, 246, 220, 0.96) 10%, rgba(255, 228, 160, 0.8) 24%, rgba(var(--hall-gold), 0.42) 42%, rgba(var(--hall-gold), 0.12) 62%, transparent 80%);
+  filter: blur(3px);
+}
+/* Haces volumétricos: un abanico cónico recortado en radial. Un nodo, sin partículas. */
+.nx-pack-rays {
+  left: 50%; top: -34%; width: 210%; aspect-ratio: 1; transform: translateX(-50%);
+  background: conic-gradient(from 212deg,
+    rgba(255,240,200,0.30) 0deg 2deg, transparent 2deg 9deg,
+    rgba(255,240,200,0.20) 9deg 11deg, transparent 11deg 23deg,
+    rgba(255,240,200,0.26) 23deg 26deg, transparent 26deg 38deg,
+    rgba(255,240,200,0.16) 38deg 40deg, transparent 40deg 55deg,
+    rgba(255,240,200,0.24) 55deg 58deg, transparent 58deg 74deg,
+    rgba(255,240,200,0.14) 74deg 76deg, transparent 76deg 360deg);
+  -webkit-mask-image: radial-gradient(closest-side, rgba(0,0,0,0.9) 8%, rgba(0,0,0,0.4) 38%, transparent 70%);
+  mask-image: radial-gradient(closest-side, rgba(0,0,0,0.9) 8%, rgba(0,0,0,0.4) 38%, transparent 70%);
+  opacity: 0.95;
+  mix-blend-mode: screen;
+}
+/* LA BOCA: el hueco oscuro del interior, para que la luz tenga de dónde salir. */
+.nx-pack-mouth {
+  left: 16%; right: 27%; top: 44%; height: 10%;
+  background: radial-gradient(60% 100% at 50% 100%, rgba(255, 250, 235, 0.9), rgba(var(--hall-gold), 0.35) 55%, rgba(4,5,12,0.9) 100%);
+  clip-path: polygon(6% 100%, 0% 0%, 100% 0%, 94% 100%);
+}
+/* CARA FRONTAL. Angular, sin una sola esquina redondeada. */
+.nx-pack-body {
+  left: 14%; right: 26%; top: 52%; bottom: 3%;
+  background: linear-gradient(176deg, rgba(26, 30, 52, 1) 0%, rgba(13, 16, 30, 1) 46%, rgba(5, 6, 13, 1) 100%);
+  clip-path: polygon(0% 0%, 100% 6%, 100% 100%, 0% 94%);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.14);
+}
+/* CARA LATERAL: la que da el volumen. Más oscura, porque la luz no le llega. */
+.nx-pack-side {
+  left: 72%; right: 8%; top: 54%; bottom: 9%;
+  background: linear-gradient(176deg, rgba(12, 15, 28, 1), rgba(3, 4, 9, 1));
+  clip-path: polygon(0% 6%, 100% 0%, 100% 88%, 0% 100%);
+  box-shadow: inset 1px 0 0 rgba(255,255,255,0.07);
+}
+/* TAPA abierta hacia atrás: en perspectiva y en contraluz. */
+.nx-pack-lid {
+  left: 20%; right: 16%; top: 20%; height: 22%;
+  background: linear-gradient(185deg, rgba(18, 22, 40, 0.99), rgba(6, 8, 16, 1));
+  clip-path: polygon(10% 100%, 0% 14%, 88% 0%, 100% 86%);
+  transform: rotateX(46deg) rotateZ(-6deg);
+  transform-origin: bottom center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+}
+/* LABIO: el canto superior de la caja, sobreexpuesto por la luz que sale. */
+.nx-pack-lip {
+  left: 14%; right: 26%; top: 50.5%; height: 3.2%;
+  background: linear-gradient(180deg, rgba(255, 255, 252, 1), rgba(255, 238, 190, 0.9) 60%, rgba(var(--hall-gold), 0.5));
+  clip-path: polygon(0% 0%, 100% 42%, 100% 100%, 0% 58%);
+  filter: blur(0.5px);
+  box-shadow: 0 0 26px 6px rgba(255, 232, 170, 0.75);
+}
+/* Filo violeta del canto: la caja es un objeto con aristas, no una silueta. */
+.nx-pack-edge {
+  left: 14%; right: 26%; top: 52%; bottom: 3%;
+  clip-path: polygon(0% 0%, 100% 6%, 100% 100%, 0% 94%);
+  box-shadow: inset 0 0 0 1px rgba(var(--hall-violet), 0.6), inset 0 0 40px -10px rgba(var(--hall-violet), 0.8);
+}
+/*
+ * EL VELO — y aquí está la clave del pack.
+ *
+ * Un estallido detrás de la caja NO se ve: la cara frontal se pinta después y lo tapa. Por eso las
+ * dos primeras versiones daban una losa oscura con una raya dorada. La luz que sale de una caja
+ * abierta se ve sobre todo como BLOOM en el aire, por delante del canto, y eso es lo que hace esto:
+ * va después del cuerpo, en `screen`, centrado justo en la boca. La caja deja de ser un cartón y
+ * pasa a ser un objeto que irradia.
+ */
+.nx-pack-veil {
+  left: 50%; top: -14%; width: 190%; height: 92%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(34% 30% at 50% 62%, rgba(255, 255, 252, 0.95) 0%, rgba(255, 248, 226, 0.7) 18%, rgba(255, 224, 150, 0.4) 36%, rgba(var(--hall-gold), 0.14) 58%, transparent 78%);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+/* Segundo velo, más estrecho y más caliente: el núcleo sobreexpuesto de la boca. */
+.nx-pack-core {
+  left: 50%; top: 28%; width: 82%; height: 30%;
+  transform: translateX(-50%);
+  background: radial-gradient(50% 50% at 50% 60%, rgba(255,255,255,0.98) 0%, rgba(255,246,214,0.8) 26%, transparent 72%);
+  filter: blur(6px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.nx-pack-mark {
+  left: 14%; right: 26%; top: 68%;
+  display: grid; place-items: center; gap: 7px;
+}
+
+/* ── CARTAS FLOTANDO ── */
+.nx-card-float {
+  position: absolute;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 18px 28px rgba(0,0,0,0.75));
+  transition: filter 240ms var(--nx-out);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nx-card-float { animation: nx-card-drift var(--c-d, 13s) ease-in-out var(--c-delay, 0s) infinite; }
+}
+@keyframes nx-card-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotateX(var(--c-rx, 6deg)) rotateY(var(--c-ry, -10deg)) rotateZ(var(--c-rz, -6deg)); }
+  50%      { transform: translate3d(0, -14px, 0) rotateX(calc(var(--c-rx, 6deg) * 0.5)) rotateY(calc(var(--c-ry, -10deg) * 1.15)) rotateZ(calc(var(--c-rz, -6deg) * 0.75)); }
+}
+/* La HERO CARD: más grande, más nítida y con montura dorada. */
+.nx-hero-card {
+  position: absolute;
+  filter: drop-shadow(0 0 42px rgba(var(--hall-gold), 0.45)) drop-shadow(0 26px 40px rgba(0,0,0,0.8));
+}
+.nx-hero-frame {
+  position: absolute; inset: -10px;
+  border-radius: 12px;
+  box-shadow: 0 0 0 2px rgba(var(--hall-gold), 0.85), 0 0 30px -4px rgba(var(--hall-gold), 0.75);
+  background: linear-gradient(160deg, rgba(var(--hall-gold), 0.22), transparent 55%);
+  pointer-events: none;
+}
+
+/* ═══════════════════ EL MENÚ PRINCIPAL · tres acciones y ninguna más ═══════════════════
+ *
+ * Botones ANGULARES, no rectángulos redondeados: el bisel es lo que separa «menú de juego» de
+ * «botón web». La forma sale de `clip-path`, el filo luminoso de un pseudo-elemento con el mismo
+ * recorte, y el color de `--k` (que pone cada botón). Una sola pieza, tres acentos.
+ */
+.nx-menu-btn {
+  --k: 255, 46, 99;
+  position: relative;
+  display: block;
+  width: 100%;
+  text-align: left;
+  /* Alto: la referencia da a cada botón ~17 % de la pantalla. Con 2,1vh salían a ~13 % y el menú no pesaba. */
+  padding: clamp(18px, 3.1vh, 40px) clamp(20px, 2.2vw, 34px);
+  clip-path: polygon(0 18px, 18px 0, calc(100% - 44px) 0, 100% 44px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 44px 100%, 0 calc(100% - 44px));
+  background:
+    linear-gradient(100deg, rgba(var(--k), 0.22) 0%, rgba(var(--k), 0.07) 42%, rgba(6, 8, 16, 0.42) 100%);
+  transition: transform 190ms var(--nx-out), background 190ms var(--nx-out), filter 190ms var(--nx-out);
+  will-change: transform;
+}
+/* El filo. Va en un pseudo-elemento porque `clip-path` recorta también el borde. */
+.nx-menu-btn::before {
+  content: "";
+  position: absolute; inset: 0;
+  clip-path: inherit;
+  box-shadow: inset 0 0 0 2px rgba(var(--k), 0.85), inset 0 0 30px -6px rgba(var(--k), 0.55);
+  pointer-events: none;
+  transition: box-shadow 190ms var(--nx-out);
+}
+/* Textura interna: sólo se intuye, y gana presencia al apuntar. */
+.nx-menu-btn::after {
+  content: "";
+  position: absolute; inset: 0;
+  clip-path: inherit;
+  background:
+    repeating-linear-gradient(115deg, rgba(var(--k), 0.10) 0 2px, transparent 2px 9px),
+    radial-gradient(70% 120% at 12% 50%, rgba(var(--k), 0.24), transparent 62%);
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 190ms var(--nx-out);
+}
+.nx-menu-btn:hover, .nx-menu-btn:focus-visible {
+  transform: translateX(10px);
+  filter: brightness(1.1);
+}
+.nx-menu-btn:hover::before, .nx-menu-btn:focus-visible::before {
+  box-shadow: inset 0 0 0 2px rgba(var(--k), 1), inset 0 0 44px -4px rgba(var(--k), 0.8), 0 0 28px -6px rgba(var(--k), 0.6);
+}
+.nx-menu-btn:hover::after, .nx-menu-btn:focus-visible::after { opacity: 0.75; }
+.nx-menu-btn:active { transform: translateX(6px) scale(0.993); }
+.nx-menu-btn:focus-visible { outline: 2px solid rgba(var(--k), 0.9); outline-offset: 4px; }
+/* La flecha avanza con el botón: el gesto se completa. */
+.nx-menu-btn .nx-menu-arrow { transition: transform 190ms var(--nx-out); }
+.nx-menu-btn:hover .nx-menu-arrow, .nx-menu-btn:focus-visible .nx-menu-arrow { transform: translateX(7px); }
+/* Las tres muescas del canto izquierdo de la referencia: detalle de conector, no decoración suelta. */
+.nx-menu-ticks { position: absolute; left: 6px; top: 50%; transform: translateY(-50%); display: grid; gap: 5px; }
+.nx-menu-ticks span { display: block; width: 3px; height: 9px; border-radius: 2px; background: rgba(var(--k), 0.75); }
+
+/* Accesos pequeños de abajo: existen, pero no compiten. */
+.nx-quick {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  clip-path: polygon(0 8px, 8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  background: rgba(8, 10, 20, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10);
+  transition: background 190ms var(--nx-out), box-shadow 190ms var(--nx-out);
+}
+.nx-quick:hover, .nx-quick:focus-visible { background: rgba(14, 18, 34, 0.9); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.24); }
+
+/* ═══════════════ EL VESTÍBULO EN PANTALLAS ESTRECHAS ═══════════════
+ *
+ * A 390 px la composición de escritorio no vale: la carta protagonista y las que vuelan caían
+ * ENCIMA de los tres botones y el menú dejaba de leerse. El encargo lo dice: en móvil la escena
+ * pasa a ser COMPOSICIÓN DE FONDO, no un elemento que compite.
+ *
+ * Así que a partir de aquí la protagonista se retira —a ese tamaño no aporta y tapa—, las cartas
+ * que vuelan bajan a un susurro detrás del menú, y el pack se va al pie, que es el único sitio
+ * donde cabe sin estorbar. Las tres acciones siguen siendo las tres acciones.
+ */
+@media (max-width: 900px) {
+  .nx-hero-card { display: none; }
+  .nx-card-float { opacity: 0.2; filter: blur(2px) !important; }
+  .nx-pack { left: 42% !important; top: 62% !important; width: 70vw !important; height: 34vh !important; }
+  /* El velo del menú se cierra: sobre una escena estrecha el texto blanco necesita más fondo. */
+  .nx-hall-vignette {
+    background:
+      linear-gradient(180deg, rgba(1,2,7,0.9) 0%, rgba(1,2,7,0.55) 30%, rgba(1,2,7,0.35) 55%, rgba(1,2,7,0.92) 100%),
+      radial-gradient(120% 70% at 50% 46%, transparent 30%, rgba(0,0,0,0.6) 76%, rgba(0,0,0,0.92) 100%);
+  }
+}
+/* Tablet: la protagonista vuelve, pero pequeña y pegada al borde para no invadir el menú. */
+@media (min-width: 901px) and (max-width: 1280px) {
+  .nx-hero-card { transform: scale(0.72); transform-origin: top right; }
+  .nx-card-float { opacity: 0.55; }
+}
+
+/* ═══════════════════════ FASE 61 · GAMEPLAY 5.0 — THE MATCH ═══════════════════════
+ * La partida con ritmo de juego: entrada (rival → VS → equipo), rol del turno en grande, eje revelado, clímax de
+ * los últimos turnos, desempate en escena y recompensas como fichas. Solo `transform`/`opacity`/sombras; sin
+ * desenfoque, sin grano, sin mezcla. Toda animación bajo `no-preference`; con `reduce` la escena se queda quieta
+ * y NADA se pierde (los componentes conservan los tiempos con fundidos).
+ */
+.nx-f61-entrance {
+  background:
+    radial-gradient(60% 70% at 18% 75%, rgba(47, 224, 255, 0.16), transparent 70%),
+    radial-gradient(60% 70% at 82% 25%, rgba(255, 46, 99, 0.18), transparent 70%),
+    linear-gradient(180deg, #04050b, #0a0d18 60%, #05060c);
+}
+.nx-f61-entrance-light {
+  position: absolute; pointer-events: none; width: 70vmax; height: 70vmax; border-radius: 50%; opacity: 0.55;
+}
+.nx-f61-entrance-light[data-side="you"] { left: -30vmax; bottom: -35vmax; background: radial-gradient(closest-side, rgba(47, 224, 255, 0.22), transparent); }
+.nx-f61-entrance-light[data-side="rival"] { right: -30vmax; top: -35vmax; background: radial-gradient(closest-side, rgba(255, 46, 99, 0.24), transparent); }
+.nx-f61-entrance-split {
+  position: absolute; left: 50%; top: -20%; width: 2px; height: 140%; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.55) 45%, rgba(255, 255, 255, 0.55) 55%, transparent);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
+  transform: translateX(-50%) rotate(14deg) scaleY(0.2); opacity: 0;
+}
+.nx-f61-entrance-split.is-open { transform: translateX(-50%) rotate(14deg) scaleY(1); opacity: 0.5; }
+.nx-f61-kicker {
+  font-size: clamp(40px, 8.6vw, 116px);
+  color: #fff;
+  text-shadow: 0 0 44px rgba(255, 46, 99, 0.55), 0 4px 0 rgba(0, 0, 0, 0.6);
+}
+.nx-f61-vs-name { font-size: clamp(22px, 4.4vw, 60px); text-shadow: 0 3px 0 rgba(0, 0, 0, 0.6); }
+
+/* El equipo que salta a la mesa: diez cartas reales, solapadas, las tres de más OVR delante y más grandes. */
+.nx-f61-lineup { gap: 0; padding: 0 4px; }
+.nx-f61-lineup-card { width: clamp(38px, 9.2vw, 118px); margin-left: calc(clamp(38px, 9.2vw, 118px) * -0.12); position: relative; }
+.nx-f61-lineup-card:first-child { margin-left: 0; }
+.nx-f61-lineup-card.is-star { z-index: 2; width: clamp(44px, 10.6vw, 136px); }
+
+/* El rol del turno, en el centro de la mesa. Icono + texto; el color acompaña, nunca sustituye. */
+.nx-f61-role { gap: 2px; text-align: center; }
+.nx-f61-role[data-role="ATTACK"] { color: #2fe0ff; text-shadow: 0 0 24px rgba(47, 224, 255, 0.55), 0 2px 0 rgba(0, 0, 0, 0.65); }
+.nx-f61-role[data-role="DEFENSE"] { color: #ff5c80; text-shadow: 0 0 24px rgba(255, 46, 99, 0.55), 0 2px 0 rgba(0, 0, 0, 0.65); }
+.nx-f61-role[data-role="WAIT"] { color: rgba(255, 255, 255, 0.8); }
+
+/* El tramo: recta final (turnos 8–9) sube la luz del escenario; el último turno ya tiene su oro (F45/F50). */
+[data-climax="LATE"] .nx-arena-stage [data-arena="mesa"] { box-shadow: 0 0 0 1px rgba(255, 211, 92, 0.18), 0 0 60px -18px rgba(255, 211, 92, 0.45); }
+[data-f61="moment"][data-climax="FINAL"] .nx-a50-vs { filter: drop-shadow(0 0 18px rgba(255, 211, 92, 0.65)); }
+
+/* El eje revelado en la resolución del turno. */
+.nx-f61-axis { padding: 4px 10px; border-radius: 6px; background: rgba(4, 6, 12, 0.72); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); }
+
+/* Los pasos del desempate. */
+.nx-f61-tb-step { background: rgba(6, 8, 14, 0.78); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); border-radius: 8px; }
+.nx-f61-tb-step.is-decisive { box-shadow: inset 0 0 0 1.5px var(--tb), 0 0 34px -10px var(--tb); }
+
+/* Las recompensas como fichas. */
+.nx-f61-reward-token {
+  min-width: 132px; padding: 10px 16px; text-align: center; border-radius: 10px;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(var(--reward-rgb, 47, 224, 255), 0.16), rgba(4, 6, 12, 0.7));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nx-f61-entrance-split { transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), opacity 420ms ease-out; }
+  .nx-f61-entrance-light { animation: nx-f61-breathe 3.2s ease-in-out infinite alternate; }
+  [data-climax="LATE"] .nx-arena-stage [data-arena="mesa"] { transition: box-shadow 600ms ease-out; }
+}
+@keyframes nx-f61-breathe { from { opacity: 0.4; } to { opacity: 0.65; } }
+@media (prefers-reduced-motion: reduce) {
+  .nx-f61-entrance-split, .nx-f61-entrance-light { transition: none; animation: none; }
+}
+/* F61 · móvil: el equipo en dos filas de cinco, cartas a ~18 vw (legibles), sin solape. */
+.nx-f61-lineup.is-narrow { row-gap: 8px; column-gap: 6px; max-width: 360px; margin-left: auto; margin-right: auto; }
+.nx-f61-lineup.is-narrow .nx-f61-lineup-card, .nx-f61-lineup.is-narrow .nx-f61-lineup-card.is-star { width: calc((100% - 24px) / 5); margin-left: 0; }
+
+/* ═══════════════════════ FASE 62 · PROGRESSION & REWARDS 5.0 ═══════════════════════
+ * El hub de progreso y el reclamo: paneles con filo, medallas de nivel (cuenta cian / temporada oro), carril en ventana
+ * y botones de juego. Sin desenfoque ni grano; animaciones solo bajo `no-preference`.
+ */
+.nx-f62-panel {
+  background: linear-gradient(180deg, rgba(10, 14, 24, 0.86), rgba(6, 9, 16, 0.9));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 18px 40px -28px rgba(0, 0, 0, 0.9);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.nx-f62-hero {
+  background: linear-gradient(135deg, rgba(10, 16, 28, 0.94), rgba(5, 8, 15, 0.94));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+.nx-f62-hero[data-kind="account"] { background-image: radial-gradient(90% 120% at 0% 0%, rgba(47, 224, 255, 0.18), transparent 60%), linear-gradient(135deg, rgba(10, 16, 28, 0.94), rgba(5, 8, 15, 0.94)); }
+.nx-f62-hero[data-kind="season"] { background-image: radial-gradient(90% 120% at 0% 0%, rgba(255, 211, 92, 0.18), transparent 60%), linear-gradient(135deg, rgba(10, 16, 28, 0.94), rgba(5, 8, 15, 0.94)); }
+.nx-f62-badge {
+  width: 72px; height: 80px; line-height: 1;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: radial-gradient(circle at 50% 30%, rgba(47, 224, 255, 0.45), rgba(8, 20, 34, 0.95) 70%);
+  box-shadow: inset 0 0 0 2px rgba(47, 224, 255, 0.7);
+}
+.nx-f62-badge.is-season { background: radial-gradient(circle at 50% 30%, rgba(255, 211, 92, 0.45), rgba(34, 24, 6, 0.95) 70%); box-shadow: inset 0 0 0 2px rgba(255, 211, 92, 0.75); }
+.nx-f62-claims {
+  background: radial-gradient(120% 140% at 0% 0%, rgba(255, 211, 92, 0.16), transparent 55%), linear-gradient(180deg, rgba(20, 16, 6, 0.92), rgba(8, 7, 4, 0.94));
+  box-shadow: inset 0 0 0 1px rgba(255, 211, 92, 0.45), 0 20px 50px -30px rgba(255, 211, 92, 0.5);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+.nx-f62-cta {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px;
+  font-family: var(--font-display, inherit); font-weight: 800; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #fff; background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.nx-f62-cta:hover:not(:disabled) { background: rgba(255, 255, 255, 0.16); }
+.nx-f62-cta:focus-visible { outline: 2px solid #2fe0ff; outline-offset: 2px; }
+.nx-f62-cta:disabled { opacity: 0.55; cursor: progress; }
+.nx-f62-cta.is-gold { color: #1a1204; background: linear-gradient(180deg, #ffe08a, #e0a93a); box-shadow: none; }
+.nx-f62-cta.is-gold:hover:not(:disabled) { background: linear-gradient(180deg, #fff0bf, #f0bb4a); }
+.nx-f62-node { border-radius: 8px; background: rgba(0, 0, 0, 0.3); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.6); }
+.nx-f62-node.is-claimable { box-shadow: inset 0 0 0 1.5px rgba(255, 211, 92, 0.85), 0 0 22px -8px rgba(255, 211, 92, 0.8); color: #ffe08a; }
+.nx-f62-node.is-next { box-shadow: inset 0 0 0 1.5px rgba(47, 224, 255, 0.8); color: #7ff0ff; }
+.nx-f62-node.is-claimed { opacity: 0.65; color: #6fe3a0; }
+.nx-f62-node.is-locked { opacity: 0.7; }
+/* Subida de nivel (F62): de → a. */
+.nx-f62-levelup-from { color: rgba(255, 255, 255, 0.45); }
+/* Sin brillo en bucle: animar sombras sin fin mantiene el compositor despierto (regla de rendimiento F44). */
+
+/* ═══════════════════════ FASE 63 · ONBOARDING 5.0 ═══════════════════════
+ * La primera sesión: bienvenida sobre la escena del menú, recursos iniciales con el arte real de los sobres, coach de
+ * paso con el contador «X/6» y la lección de la primera carta. Mismo lenguaje de filo que F62; nada se mueve en bucle y
+ * con movimiento reducido solo hay fundidos.
+ */
+.nx-f63-stage {
+  background:
+    radial-gradient(120% 90% at 0% 100%, rgba(255, 46, 99, 0.22), transparent 60%),
+    radial-gradient(90% 80% at 100% 0%, rgba(25, 227, 255, 0.14), transparent 62%),
+    linear-gradient(160deg, rgba(10, 13, 23, 0.9), rgba(5, 7, 13, 0.94));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 30px 80px -40px rgba(0, 0, 0, 0.95);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+.nx-f63-coach {
+  background: linear-gradient(135deg, rgba(255, 46, 99, 0.12), rgba(8, 11, 20, 0.92) 55%);
+  box-shadow: inset 3px 0 0 #ff2e63, inset 0 0 0 1px rgba(255, 46, 99, 0.32);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+.nx-f63-pill {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 28px; padding: 0 10px;
+  font-family: var(--font-display, inherit); font-weight: 800; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #ffd0dc; background: rgba(255, 46, 99, 0.14); box-shadow: inset 0 0 0 1px rgba(255, 46, 99, 0.45);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.nx-f63-dots { display: inline-flex; gap: 4px; }
+.nx-f63-dots > span { width: 14px; height: 4px; background: rgba(255, 255, 255, 0.18); }
+.nx-f63-dots > span[data-state="done"] { background: #3fc07a; }
+.nx-f63-dots > span[data-state="current"] { background: #ff2e63; }
+.nx-f63-stat { background: rgba(0, 0, 0, 0.32); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.nx-f63-callout { box-shadow: inset 0 0 0 1px rgba(25, 227, 255, 0.35); background: rgba(25, 227, 255, 0.06); }
+.nx-f63-hint {
+  background: linear-gradient(90deg, rgba(25, 227, 255, 0.14), rgba(8, 11, 20, 0.94) 60%);
+  box-shadow: inset 3px 0 0 #19e3ff, inset 0 0 0 1px rgba(25, 227, 255, 0.3);
+}
+.nx-f63-hint[data-hint="defend"] { background: linear-gradient(90deg, rgba(255, 196, 77, 0.14), rgba(8, 11, 20, 0.94) 60%); box-shadow: inset 3px 0 0 #ffc44d, inset 0 0 0 1px rgba(255, 196, 77, 0.3); }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-f63-rise { animation: nx-f63-rise 420ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .nx-f63-rise-2 { animation: nx-f63-rise 420ms 90ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .nx-f63-rise-3 { animation: nx-f63-rise 420ms 180ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nx-f63-rise, .nx-f63-rise-2, .nx-f63-rise-3 { animation: nx-f63-fade 260ms ease-out both; }
+}
+@keyframes nx-f63-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes nx-f63-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* ═══════════════════════ FASE 64 · GAME FEEL 5.0 — RESPUESTA ═══════════════════════
+ * Una sola primitiva de pulsación para todo lo que se pulsa (NxButton, CTA de progreso, accesos rápidos, enlaces de
+ * acción): baja 1 px y se encoge un 2 % en 70 ms. Con movimiento reducido NO desaparece el feedback: se ilumina en vez de
+ * moverse. Deshabilitado = cursor de prohibido y sin respuesta. Error de formulario = un temblor de 240 ms; con movimiento
+ * reducido NO hay animación (contrato F44: toda animación vive bajo `no-preference`) y el aviso es ESTÁTICO: borde rojo
+ * del campo (`aria-invalid`) + mensaje anunciado. Solo `transform`/`filter`/`opacity`.
+ */
+.nx-press, .nx-f62-cta, .nx-quick, .nx-action { transition: transform 90ms var(--nx-out), filter 120ms var(--nx-out), background-color 150ms var(--nx-out); }
+.nx-press:active:not(:disabled):not([aria-disabled="true"]),
+.nx-f62-cta:active:not(:disabled),
+.nx-quick:active,
+.nx-action:active { transform: translateY(1px) scale(0.98); filter: brightness(0.94); transition-duration: 60ms; }
+@media (prefers-reduced-motion: reduce) {
+  .nx-press:active:not(:disabled):not([aria-disabled="true"]),
+  .nx-f62-cta:active:not(:disabled),
+  .nx-quick:active,
+  .nx-action:active { transform: none; filter: brightness(1.25); }
+}
+:where(button, a, [role="button"])[aria-disabled="true"] { cursor: not-allowed; }
+.nx-quick:focus-visible, .nx-action:focus-visible { outline: 2px solid #2fe0ff; outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .nx-shake { animation: nx-shake 240ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+}
+@keyframes nx-shake { 20%, 60% { transform: translateX(-4px); } 40%, 80% { transform: translateX(4px); } }
+/* Campos de formulario de la casa (entrada, registro, ajustes): chaflán, no la caja redondeada de web. */
+.nx-field {
+  width: 100%; min-height: 48px; padding: 0 14px; color: #fff; font-size: 15px;
+  background: rgba(3, 5, 12, 0.72); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: box-shadow 150ms var(--nx-out), background-color 150ms var(--nx-out);
+}
+.nx-field::placeholder { color: rgba(255, 255, 255, 0.35); }
+.nx-field:focus { outline: none; background: rgba(8, 12, 24, 0.9); box-shadow: inset 0 0 0 2px #2fe0ff; }
+.nx-field[aria-invalid="true"] { box-shadow: inset 0 0 0 2px #ff4d5e; }
+/* F64 · LA CARTA RESPONDE SIN MOVERSE. Con movimiento reducido el giro 3D se apaga (Card3D), pero la carta no se queda
+ * muerta: al apuntarla o enfocarla con teclado se ilumina su silueta (el filtro va sobre el ARTE, nunca un marco HTML).
+ * El foco de teclado se ilumina SIEMPRE, también con movimiento: el giro es de ratón y el teclado también merece respuesta. */
+:where(a, button):focus-visible [data-card3d-face] { filter: brightness(1.08) drop-shadow(0 0 12px rgba(47, 224, 255, 0.55)) !important; }
+@media (prefers-reduced-motion: reduce) {
+  :where(a, button):hover [data-card3d-face] { filter: brightness(1.1) drop-shadow(0 0 10px rgba(47, 224, 255, 0.45)) !important; transition: filter 120ms linear; }
+}
+
+/* F71.1 · el panel de estadística entra suave desde la derecha al tocar declararla (solo escritorio y solo sin
+   movimiento reducido; con reducido aparece sin más). */
+@keyframes nx-stat-in { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 1024px) {
+    .nx-stat-panel[data-choosing="true"] [data-testid="stat-options"],
+    .nx-stat-panel[data-choosing="true"] [data-testid="stat-options-defense"] { animation: nx-stat-in 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+  }
+}
+
+/* F71.2 · el disparador del historial, al pie izquierdo de la COLUMNA CENTRAL (a la izquierda está el lateral del
+   rival). Misma fórmula que la rejilla de MatchBoard: ancho del lateral + hueco − lo que el lateral se sale al margen. */
+@media (min-width: 1024px) {
+  .nx-history-anchor {
+    left: calc(clamp(176px, 17vw, 300px) + clamp(10px, 1.2vw, 20px)
+      - min(calc(clamp(176px, 17vw, 300px) + clamp(10px, 1.2vw, 20px)), max(0px, calc((100vw - 100%) / 2 - 20px))) + 10px);
+  }
+}

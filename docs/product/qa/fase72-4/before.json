@@ -1,0 +1,429 @@
+{
+  "at": "2026-09-29T19:58:04.800Z",
+  "persona": "A",
+  "byWidth": {
+    "390": {
+      "texts": {
+        "sobres": [
+          {
+            "text": "1 SIN ABRIR SOBRE BRONCE NEXUS · 5 CARTAS ALEATORIAS Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % 1.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR O ABRIR",
+            "h": 407,
+            "w": 279,
+            "top": 912,
+            "artH": 160
+          },
+          {
+            "text": "DESTACADO SOBRE PLATA NEXUS · 6 CARTAS ALEATORIAS Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % 2.500 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 407,
+            "w": 279,
+            "top": 912,
+            "artH": 160
+          },
+          {
+            "text": "SOBRE ORO NEXUS · 5 CARTAS ALEATORIAS Oro 50 % Masters 23 % Champions 10 % Prime 10 % Icon 7 % 4.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 407,
+            "w": 279,
+            "top": 912,
+            "artH": 160
+          },
+          {
+            "text": "NUEVO SOBRE CHAMPIONS EVENTO · 5 CARTAS ALEATORIAS Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % 8.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 407,
+            "w": 279,
+            "top": 912,
+            "artH": 160
+          }
+        ],
+        "cajas": [
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA ESTÁNDAR 10 × Sobre Bronce · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 279,
+            "top": 1437,
+            "artH": 140
+          },
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA PREMIUM 10 × Sobre Plata · 60 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 279,
+            "top": 1437,
+            "artH": 140
+          },
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA MASTERS 10 × Sobre Masters · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Oro 25 % Masters 40 % Champions 15 % Prime 12 % Icon 8 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 279,
+            "top": 1437,
+            "artH": 140
+          },
+          {
+            "text": "DESTACADO PRÓXIMAMENTE ×10 CAJA CHAMPIONS 10 × Sobre Champions · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 279,
+            "top": 1437,
+            "artH": 140
+          }
+        ],
+        "cartas": [
+          {
+            "text": "DESTACADO MOMENTS · LEGENDARIA · NRG PRECIO POR ANUNCIAR",
+            "h": 300,
+            "w": 173,
+            "top": 1921,
+            "artH": 211
+          },
+          {
+            "text": "CHAMPIONS S · ÉPICA · G2 PRECIO POR ANUNCIAR",
+            "h": 300,
+            "w": 173,
+            "top": 1921,
+            "artH": 211
+          },
+          {
+            "text": "FUTURE STAR · RARA · NS PRECIO POR ANUNCIAR",
+            "h": 300,
+            "w": 173,
+            "top": 2234,
+            "artH": 211
+          },
+          {
+            "text": "MASTERS L · POCO COMÚN · PRX PRECIO POR ANUNCIAR",
+            "h": 300,
+            "w": 173,
+            "top": 2234,
+            "artH": 211
+          }
+        ],
+        "packs": [
+          {
+            "text": "PACK INICIO PRÓXIMAMENTE Para arrancar la colección con ventaja. ▸ 5 × Sobre Bronce (25 cartas) ▸ 1 × Sobre Plata (6 cartas) ▸ 2.000 DRL Credits PRECIO POR ANUNCIAR",
+            "h": 197,
+            "w": 358,
+            "top": 2624,
+            "artH": 119
+          },
+          {
+            "text": "PACK COLECCIONISTA PRÓXIMAMENTE Sobres de competición y una épica garantizada. ▸ 5 × Sobre Plata (30 cartas) ▸ 2 × Sobre Masters (10 cartas) ▸ Carta garantizada: trent · Champions S (Épica) ▸ 5.000 DRL Credits PRECIO POR ANUNCIAR",
+            "h": 260,
+            "w": 358,
+            "top": 2833,
+            "artH": 119
+          }
+        ]
+      },
+      "modal": {
+        "text": "SOBRE SOBRE BRONCE 5 cartas aleatorias · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. ◆ Base 50 % ◆ Plata 25 % ◆ Oro 10 % ◆ Masters 7 % ◆ Champions 4 % ◆ Prime 3 % ◆ Icon 1 % DRL CREDITS PRECIO 1.000 TU SALDO 5.490 DESPUÉS 4.490 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR ABRIR UNO (1) CONFIRMAR · 1.000",
+        "top": 45,
+        "bottom": 799,
+        "left": 12,
+        "right": 378,
+        "vw": 390,
+        "vh": 844,
+        "scrollH": 753,
+        "clientH": 753,
+        "odds": [],
+        "oddsSource": null,
+        "balance": null,
+        "after": null,
+        "confirm": [
+          {
+            "text": "CANCELAR",
+            "disabled": false
+          },
+          {
+            "text": "ABRIR UNO (1)",
+            "disabled": false
+          },
+          {
+            "text": "CONFIRMAR · 1.000",
+            "disabled": false
+          }
+        ],
+        "focusInside": true
+      },
+      "overflowX": 0
+    },
+    "1024": {
+      "texts": {
+        "sobres": [
+          {
+            "text": "1 SIN ABRIR SOBRE BRONCE NEXUS · 5 CARTAS ALEATORIAS Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % 1.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR O ABRIR",
+            "h": 448,
+            "w": 231,
+            "top": 743,
+            "artH": 176
+          },
+          {
+            "text": "DESTACADO SOBRE PLATA NEXUS · 6 CARTAS ALEATORIAS Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % 2.500 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 448,
+            "w": 231,
+            "top": 743,
+            "artH": 176
+          },
+          {
+            "text": "SOBRE ORO NEXUS · 5 CARTAS ALEATORIAS Oro 50 % Masters 23 % Champions 10 % Prime 10 % Icon 7 % 4.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 448,
+            "w": 231,
+            "top": 743,
+            "artH": 176
+          },
+          {
+            "text": "NUEVO SOBRE CHAMPIONS EVENTO · 5 CARTAS ALEATORIAS Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % 8.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 448,
+            "w": 231,
+            "top": 743,
+            "artH": 176
+          }
+        ],
+        "cajas": [
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA ESTÁNDAR 10 × Sobre Bronce · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 411,
+            "w": 231,
+            "top": 1322,
+            "artH": 140
+          },
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA PREMIUM 10 × Sobre Plata · 60 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 411,
+            "w": 231,
+            "top": 1322,
+            "artH": 140
+          },
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA MASTERS 10 × Sobre Masters · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Oro 25 % Masters 40 % Champions 15 % Prime 12 % Icon 8 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 411,
+            "w": 231,
+            "top": 1322,
+            "artH": 140
+          },
+          {
+            "text": "DESTACADO PRÓXIMAMENTE ×10 CAJA CHAMPIONS 10 × Sobre Champions · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 411,
+            "w": 231,
+            "top": 1322,
+            "artH": 140
+          }
+        ],
+        "cartas": [
+          {
+            "text": "DESTACADO MOMENTS · LEGENDARIA · NRG PRECIO POR ANUNCIAR",
+            "h": 381,
+            "w": 231,
+            "top": 1819,
+            "artH": 292
+          },
+          {
+            "text": "CHAMPIONS S · ÉPICA · G2 PRECIO POR ANUNCIAR",
+            "h": 381,
+            "w": 231,
+            "top": 1819,
+            "artH": 292
+          },
+          {
+            "text": "FUTURE STAR · RARA · NS PRECIO POR ANUNCIAR",
+            "h": 381,
+            "w": 231,
+            "top": 1819,
+            "artH": 292
+          },
+          {
+            "text": "MASTERS L · POCO COMÚN · PRX PRECIO POR ANUNCIAR",
+            "h": 381,
+            "w": 231,
+            "top": 1819,
+            "artH": 292
+          }
+        ],
+        "packs": [
+          {
+            "text": "PACK INICIO PRÓXIMAMENTE Para arrancar la colección con ventaja. ▸ 5 × Sobre Bronce (25 cartas) ▸ 1 × Sobre Plata (6 cartas) ▸ 2.000 DRL Credits PRECIO POR ANUNCIAR",
+            "h": 199,
+            "w": 474,
+            "top": 2275,
+            "artH": 119
+          },
+          {
+            "text": "PACK COLECCIONISTA PRÓXIMAMENTE Sobres de competición y una épica garantizada. ▸ 5 × Sobre Plata (30 cartas) ▸ 2 × Sobre Masters (10 cartas) ▸ Carta garantizada: trent · Champions S (Épica) ▸ 5.000 DRL Credits PRECIO POR ANUNCIAR",
+            "h": 199,
+            "w": 474,
+            "top": 2275,
+            "artH": 119
+          }
+        ]
+      },
+      "modal": {
+        "text": "SOBRE SOBRE BRONCE 5 cartas aleatorias · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. ◆ Base 50 % ◆ Plata 25 % ◆ Oro 10 % ◆ Masters 7 % ◆ Champions 4 % ◆ Prime 3 % ◆ Icon 1 % DRL CREDITS PRECIO 1.000 TU SALDO 5.490 DESPUÉS 4.490 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR ABRIR UNO (1) CONFIRMAR · 1.000",
+        "top": 149,
+        "bottom": 619,
+        "left": 152,
+        "right": 872,
+        "vw": 1024,
+        "vh": 768,
+        "scrollH": 468,
+        "clientH": 468,
+        "odds": [],
+        "oddsSource": null,
+        "balance": null,
+        "after": null,
+        "confirm": [
+          {
+            "text": "CANCELAR",
+            "disabled": false
+          },
+          {
+            "text": "ABRIR UNO (1)",
+            "disabled": false
+          },
+          {
+            "text": "CONFIRMAR · 1.000",
+            "disabled": false
+          }
+        ],
+        "focusInside": true
+      },
+      "overflowX": 0
+    },
+    "1440": {
+      "texts": {
+        "sobres": [
+          {
+            "text": "1 SIN ABRIR SOBRE BRONCE NEXUS · 5 CARTAS ALEATORIAS Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % 1.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR O ABRIR",
+            "h": 425,
+            "w": 335,
+            "top": 702,
+            "artH": 176
+          },
+          {
+            "text": "DESTACADO SOBRE PLATA NEXUS · 6 CARTAS ALEATORIAS Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % 2.500 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 425,
+            "w": 335,
+            "top": 702,
+            "artH": 176
+          },
+          {
+            "text": "SOBRE ORO NEXUS · 5 CARTAS ALEATORIAS Oro 50 % Masters 23 % Champions 10 % Prime 10 % Icon 7 % 4.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 425,
+            "w": 335,
+            "top": 702,
+            "artH": 176
+          },
+          {
+            "text": "NUEVO SOBRE CHAMPIONS EVENTO · 5 CARTAS ALEATORIAS Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % 8.000 DRL Credits € · POR ANUNCIAR en euros COMPRAR",
+            "h": 425,
+            "w": 335,
+            "top": 702,
+            "artH": 176
+          }
+        ],
+        "cajas": [
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA ESTÁNDAR 10 × Sobre Bronce · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Base 50 % Plata 25 % Oro 10 % Masters 7 % Champions 4 % Prime 3 % Icon 1 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 335,
+            "top": 1261,
+            "artH": 140
+          },
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA PREMIUM 10 × Sobre Plata · 60 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Plata 50 % Oro 25 % Masters 10 % Champions 7 % Prime 5 % Icon 3 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 335,
+            "top": 1261,
+            "artH": 140
+          },
+          {
+            "text": "PRÓXIMAMENTE ×10 CAJA MASTERS 10 × Sobre Masters · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Oro 25 % Masters 40 % Champions 15 % Prime 12 % Icon 8 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 335,
+            "top": 1261,
+            "artH": 140
+          },
+          {
+            "text": "DESTACADO PRÓXIMAMENTE ×10 CAJA CHAMPIONS 10 × Sobre Champions · 50 cartas SE GUARDAN SIN ABRIR EN TU INVENTARIO Oro 15 % Masters 20 % Champions 30 % Prime 20 % Icon 15 % € · POR ANUNCIAR en euros PRÓXIMAMENTE",
+            "h": 391,
+            "w": 335,
+            "top": 1261,
+            "artH": 140
+          }
+        ],
+        "cartas": [
+          {
+            "text": "DESTACADO MOMENTS · LEGENDARIA · NRG PRECIO POR ANUNCIAR",
+            "h": 308,
+            "w": 179,
+            "top": 1743,
+            "artH": 219
+          },
+          {
+            "text": "CHAMPIONS S · ÉPICA · G2 PRECIO POR ANUNCIAR",
+            "h": 308,
+            "w": 179,
+            "top": 1743,
+            "artH": 219
+          },
+          {
+            "text": "FUTURE STAR · RARA · NS PRECIO POR ANUNCIAR",
+            "h": 308,
+            "w": 179,
+            "top": 1743,
+            "artH": 219
+          },
+          {
+            "text": "MASTERS L · POCO COMÚN · PRX PRECIO POR ANUNCIAR",
+            "h": 308,
+            "w": 179,
+            "top": 1743,
+            "artH": 219
+          }
+        ],
+        "packs": [
+          {
+            "text": "PACK INICIO PRÓXIMAMENTE Para arrancar la colección con ventaja. ▸ 5 × Sobre Bronce (25 cartas) ▸ 1 × Sobre Plata (6 cartas) ▸ 2.000 DRL Credits PRECIO POR ANUNCIAR",
+            "h": 184,
+            "w": 601,
+            "top": 1743,
+            "artH": 119
+          },
+          {
+            "text": "PACK COLECCIONISTA PRÓXIMAMENTE Sobres de competición y una épica garantizada. ▸ 5 × Sobre Plata (30 cartas) ▸ 2 × Sobre Masters (10 cartas) ▸ Carta garantizada: trent · Champions S (Épica) ▸ 5.000 DRL Credits PRECIO POR ANUNCIAR",
+            "h": 199,
+            "w": 601,
+            "top": 1939,
+            "artH": 119
+          }
+        ]
+      },
+      "modal": {
+        "text": "SOBRE SOBRE BRONCE 5 cartas aleatorias · El sobre de cada día: sobre todo Base y Plata, con opción a cualquier clase. ◆ Base 50 % ◆ Plata 25 % ◆ Oro 10 % ◆ Masters 7 % ◆ Champions 4 % ◆ Prime 3 % ◆ Icon 1 % DRL CREDITS PRECIO 1.000 TU SALDO 5.490 DESPUÉS 4.490 DINERO REAL Por anunciar PRÓXIMAMENTE El pago con dinero real todavía no está activo. No se te cobrará nada. CANCELAR ABRIR UNO (1) CONFIRMAR · 1.000",
+        "top": 215,
+        "bottom": 685,
+        "left": 360,
+        "right": 1080,
+        "vw": 1440,
+        "vh": 900,
+        "scrollH": 468,
+        "clientH": 468,
+        "odds": [],
+        "oddsSource": null,
+        "balance": null,
+        "after": null,
+        "confirm": [
+          {
+            "text": "CANCELAR",
+            "disabled": false
+          },
+          {
+            "text": "ABRIR UNO (1)",
+            "disabled": false
+          },
+          {
+            "text": "CONFIRMAR · 1.000",
+            "disabled": false
+          }
+        ],
+        "focusInside": true
+      },
+      "overflowX": 0
+    }
+  }
+}

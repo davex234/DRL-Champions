@@ -1,0 +1,38 @@
+{
+  "phase": 42,
+  "kind": "priority",
+  "combinations": 100000,
+  "mutate": null,
+  "violations": 0,
+  "byInvariant": {},
+  "primaryDistribution": {
+    "resume-draft-run": 7412,
+    "sign-in": 3050,
+    "claim": 30662,
+    "resume-private": 6419,
+    "edit-team": 1823,
+    "challenge": 5161,
+    "create-team": 1759,
+    "open": 2406,
+    "resume-draft": 4715,
+    "resume-ranked": 10835,
+    "journey-open": 398,
+    "resume-pve": 3619,
+    "resume-campaign": 3610,
+    "predict": 7956,
+    "journey-collect": 5078,
+    "objective": 2754,
+    "campaign": 1586,
+    "play-hub": 434,
+    "ranked": 276,
+    "get-cards": 19,
+    "quick": 28
+  },
+  "coverage": {
+    "returning": 64570,
+    "expiring": 58666,
+    "primaryVerySoon": 7496
+  },
+  "sample": [],
+  "ms": 17008
+}

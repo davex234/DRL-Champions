@@ -1,0 +1,16 @@
+== 1. fichero
+sha256 79ab087be5badb720f7eef596c588637420962ce968980be74a96d0fa6431ef7
+== 2. antes
+alpha_feedback: ausente · admins: 2f86cbe8 · temporada-2: DRAFT · open1: DRAFT
+huella antes: ae2390a90f9697b897311ea32598ca07
+== 3. aplicar (una transacción)
+NOTICE:  trigger "alpha_feedback_guard" for relation "public.alpha_feedback" does not exist, skipping
+exit=0 en 705 ms · 2026-10-05T18:29:11Z
+== 4. después
+DATOS_INTACTOS (0070 no cambió ninguna fila existente)
+filas feedback: 0 · admins: 2f86cbe8 · tag personal: #9KZAWPC
+privilegios de cliente (auth select, anon select, auth insert, auth exec embudo, anon exec embudo): falsefalsefalsefalsefalse
+disparadores: alpha_feedback_guard
+temporada-2: DRAFT
+open1: DRAFT
+APPLY_OK 0070

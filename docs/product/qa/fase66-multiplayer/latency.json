@@ -1,0 +1,120 @@
+{
+  "method": "Network.emulateNetworkConditions en el cliente A (Chrome) rotando 0/100/300/800/1500 ms por turno",
+  "perTurn": [
+    {
+      "turn": 1,
+      "actor": "A",
+      "latencyA": 0,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 1,
+      "actor": "B",
+      "latencyA": 0,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 2,
+      "actor": "B",
+      "latencyA": 100,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 2,
+      "actor": "A",
+      "latencyA": 100,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 3,
+      "actor": "A",
+      "latencyA": 300,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 3,
+      "actor": "B",
+      "latencyA": 300,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 4,
+      "actor": "B",
+      "latencyA": 800,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 4,
+      "actor": "A",
+      "latencyA": 800,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 5,
+      "actor": "A",
+      "latencyA": 1500,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 5,
+      "actor": "B",
+      "latencyA": 1500,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 6,
+      "actor": "B",
+      "latencyA": 0,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 6,
+      "actor": "A",
+      "latencyA": 0,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 7,
+      "actor": "A",
+      "latencyA": 100,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 8,
+      "actor": "B",
+      "latencyA": 300,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 8,
+      "actor": "A",
+      "latencyA": 300,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 9,
+      "actor": "A",
+      "latencyA": 800,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 9,
+      "actor": "B",
+      "latencyA": 800,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 10,
+      "actor": "B",
+      "latencyA": 1500,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    },
+    {
+      "turn": 10,
+      "actor": "A",
+      "latencyA": 1500,
+      "res": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}"
+    }
+  ],
+  "note": "fb = estado del botón justo tras el clic: debe estar deshabilitado/«enviando» y sin ganador optimista"
+}

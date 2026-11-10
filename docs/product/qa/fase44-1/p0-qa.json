@@ -1,0 +1,224 @@
+{
+  "generatedAt": "2026-09-17T17:20:46.566Z",
+  "base": "http://127.0.0.1:3005",
+  "keys": [
+    {
+      "path": "/",
+      "max": 1981,
+      "end": 1981,
+      "pageUp": 787,
+      "home": 0,
+      "pageDown": 787,
+      "ok": true
+    },
+    {
+      "path": "/coleccion",
+      "max": 3162,
+      "end": 3162,
+      "pageUp": 787,
+      "home": 0,
+      "pageDown": 787,
+      "ok": true
+    },
+    {
+      "path": "/temporada",
+      "max": 2258,
+      "end": 2258,
+      "pageUp": 787,
+      "home": 0,
+      "pageDown": 787,
+      "ok": true
+    }
+  ],
+  "flows": [
+    {
+      "flow": "apertura de sobre (/abrir/premium → atrás)",
+      "mounted": {
+        "path": "/abrir/premium",
+        "text": "APERTURA DE SOBRES\nNO TIENES ESTE SOBRE\n\nNo queda ninguna unidad de «Sobre Premium» en tu inventario. Consigue uno en la",
+        "overflow": ""
+      },
+      "after": {
+        "path": "/coleccion",
+        "htmlInline": "",
+        "bodyInline": "",
+        "max": 3162,
+        "wheelDown": 900,
+        "wheelUp": -900,
+        "ok": true
+      }
+    },
+    {
+      "flow": "ceremonia (arnés F38) → colección",
+      "after": {
+        "path": "/coleccion",
+        "htmlInline": "",
+        "bodyInline": "",
+        "max": 3162,
+        "wheelDown": 900,
+        "wheelUp": -900,
+        "ok": true
+      }
+    },
+    {
+      "flow": "selector de modos (campaña → atrás)",
+      "clicked": true,
+      "modePath": "/jugar/road-to-champions",
+      "after": {
+        "path": "/",
+        "htmlInline": "",
+        "bodyInline": "",
+        "max": 1981,
+        "wheelDown": 900,
+        "wheelUp": -900,
+        "ok": true
+      }
+    },
+    {
+      "flow": "/jugar → atrás",
+      "after": {
+        "path": "/",
+        "htmlInline": "",
+        "bodyInline": "",
+        "max": 1981,
+        "wheelDown": 900,
+        "wheelUp": -900,
+        "ok": true
+      }
+    }
+  ],
+  "audio": {
+    "beforeGesture": {
+      "context": null,
+      "gain": 0
+    },
+    "lobby": {
+      "context": "LOBBY",
+      "gain": 0.4
+    },
+    "collection": {
+      "path": "/coleccion",
+      "plan": {
+        "context": "COLLECTION",
+        "gain": 0.4
+      }
+    },
+    "packs": {
+      "path": "/tienda",
+      "plan": {
+        "context": "PACKS",
+        "gain": 0.4
+      },
+      "layers": [
+        {
+          "context": "PACKS",
+          "stopping": false
+        }
+      ]
+    },
+    "hidden": {
+      "context": "PACKS",
+      "gain": 0
+    },
+    "visible": {
+      "context": "PACKS",
+      "gain": 0.4
+    },
+    "cuentaStart": {
+      "context": "COLLECTION",
+      "gain": 0.4
+    },
+    "musicMuted": {
+      "plan": {
+        "context": null,
+        "gain": 0
+      },
+      "stored": {
+        "master": 0.8,
+        "sfx": 0.8,
+        "muted": false,
+        "music": 0.5,
+        "musicMuted": true,
+        "sfxMuted": false
+      }
+    },
+    "musicUnmuted": {
+      "context": "COLLECTION",
+      "gain": 0.4
+    },
+    "musicVolume25": {
+      "engineVolume": 0.2,
+      "stored": {
+        "master": 0.8,
+        "sfx": 0.8,
+        "muted": false,
+        "music": 0.25,
+        "musicMuted": false,
+        "sfxMuted": false
+      }
+    },
+    "sfxVolume40": {
+      "master": 0.8,
+      "sfx": 0.4,
+      "muted": false,
+      "music": 0.25,
+      "musicMuted": false,
+      "sfxMuted": false
+    },
+    "sfxMuted": {
+      "stored": {
+        "master": 0.8,
+        "sfx": 0.4,
+        "muted": false,
+        "music": 0.25,
+        "musicMuted": false,
+        "sfxMuted": true
+      },
+      "musicPlan": {
+        "context": "COLLECTION",
+        "gain": 0.2
+      }
+    },
+    "globalMuted": {
+      "context": null,
+      "gain": 0
+    },
+    "globalUnmuted": {
+      "context": "COLLECTION",
+      "gain": 0.2
+    },
+    "persisted": {
+      "stored": {
+        "master": 0.8,
+        "sfx": 0.4,
+        "muted": false,
+        "music": 0.25,
+        "musicMuted": false,
+        "sfxMuted": false
+      },
+      "music": "25",
+      "sfx": "40"
+    },
+    "match": {
+      "path": "/duelos/jugar",
+      "plan": {
+        "context": "MATCH",
+        "gain": 0.2
+      }
+    },
+    "result": {
+      "plan": {
+        "context": "RESULT",
+        "gain": 0.2
+      },
+      "override": "RESULT",
+      "ducks": 0
+    },
+    "packDuck": {
+      "full": 0.2,
+      "ducked": 0.05,
+      "restored": 0.2
+    },
+    "jsErrors": []
+  }
+}

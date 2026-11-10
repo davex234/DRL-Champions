@@ -1,0 +1,260 @@
+{
+  "play: avanza en 3D": {
+    "ok": true,
+    "info": {
+      "status": "playing",
+      "stage": "3d",
+      "t": 2.22,
+      "summary": null,
+      "skip": true,
+      "canvases": 1,
+      "liveGl": 1,
+      "gl": 3,
+      "draws": 2415
+    }
+  },
+  "skip por teclado → final con resumen": {
+    "ok": true,
+    "info": {
+      "focused": "walkout-skip",
+      "end": {
+        "status": "done",
+        "stage": "3d",
+        "t": 12.6,
+        "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+        "skip": false,
+        "canvases": 1,
+        "liveGl": 1,
+        "gl": 3,
+        "draws": 2880
+      }
+    }
+  },
+  "tras saltar el escenario no dibuja más (sin reloj)": {
+    "ok": true,
+    "info": {
+      "d1": 2880,
+      "d2": 2880
+    }
+  },
+  "ninguna petición /api durante la escena": {
+    "ok": true,
+    "info": {
+      "during": [],
+      "shellAtLoad": [
+        "/api/telemetry"
+      ]
+    }
+  },
+  "repetir ×5: un lienzo del walkout, sin contextos nuevos vivos": {
+    "ok": true,
+    "info": {
+      "status": "playing",
+      "stage": "3d",
+      "t": 0,
+      "summary": null,
+      "skip": true,
+      "canvases": 1,
+      "liveGl": 1,
+      "gl": 3,
+      "draws": 3608
+    }
+  },
+  "cambiar edición ×3: un lienzo y los mismos contextos vivos (los anteriores liberados)": {
+    "ok": true,
+    "info": {
+      "liveBase": 1,
+      "afterSwitch": {
+        "status": "idle",
+        "stage": "3d",
+        "t": 0,
+        "summary": null,
+        "skip": false,
+        "canvases": 1,
+        "liveGl": 1,
+        "gl": 12,
+        "draws": 5265
+      }
+    }
+  },
+  "contexto perdido → escenario 2D y la escena sigue": {
+    "ok": true,
+    "info": {
+      "status": "playing",
+      "stage": "2d",
+      "t": 3.37,
+      "summary": null,
+      "skip": true,
+      "canvases": 0,
+      "liveGl": 0,
+      "gl": 12,
+      "draws": 6606
+    }
+  },
+  "sin errores de consola de la escena": {
+    "ok": true,
+    "info": []
+  },
+  "asset roto → respaldo y la escena termina": {
+    "ok": true,
+    "info": {
+      "s": {
+        "status": "done",
+        "stage": "3d",
+        "t": 12.6,
+        "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+        "skip": false,
+        "canvases": 1,
+        "liveGl": 1,
+        "gl": 3,
+        "draws": 7370
+      },
+      "fallback": {
+        "flagImg": false,
+        "teamImg": false,
+        "flagText": "EMEARegión",
+        "teamText": "BBLBBL Esports"
+      }
+    }
+  },
+  "reducido: termina en ≈3,3 s en 2D": {
+    "ok": true,
+    "info": {
+      "status": "done",
+      "stage": "2d",
+      "t": 3.3,
+      "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+      "skip": false,
+      "canvases": 0,
+      "liveGl": 0,
+      "gl": 2,
+      "draws": 0
+    }
+  },
+  "perfSwiftShader": {
+    "n": 181,
+    "p50": 16.7,
+    "p95": 250.1,
+    "max": 1400
+  },
+  "persona 3D no carga → escenario 2D y la escena termina": {
+    "ok": true,
+    "info": {
+      "status": "done",
+      "stage": "2d",
+      "t": 12.6,
+      "summary": "Lar0kMedia 95Equipo BBL EsportsRol FlexEdición Future StarPaís Turquía",
+      "skip": false,
+      "canvases": 0,
+      "liveGl": 0,
+      "gl": 3,
+      "draws": 604
+    }
+  },
+  "human-1440": {
+    "human": "ready",
+    "humanLoadMs": 4586,
+    "triangles": 1,
+    "calls": 1,
+    "geometries": 26,
+    "textures": 42,
+    "canvasPx": "1440x900",
+    "heapMB": 149,
+    "frameP50ms": 16.700000000000045,
+    "frameP95ms": 266.70000000000005,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "gpu": false,
+    "assets": [
+      "rocketbox-player.gltf:23285",
+      "rocketbox-player.bin:794636",
+      "rb-head-albedo.webp:302578",
+      "rb-head-normal.webp:95004",
+      "rb-body-albedo.webp:149282",
+      "rb-body-orm.webp:6982",
+      "rb-body-normal.webp:105118",
+      "rb-hair-alpha.webp:321572",
+      "rb-accent-mask.png:12851"
+    ]
+  },
+  "persona en escena (1440 px)": {
+    "ok": true,
+    "info": {
+      "human": "ready",
+      "humanLoadMs": 4586,
+      "triangles": 1,
+      "calls": 1,
+      "geometries": 26,
+      "textures": 42,
+      "canvasPx": "1440x900",
+      "heapMB": 149,
+      "frameP50ms": 16.700000000000045,
+      "frameP95ms": 266.70000000000005,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "gpu": false,
+      "assets": [
+        "rocketbox-player.gltf:23285",
+        "rocketbox-player.bin:794636",
+        "rb-head-albedo.webp:302578",
+        "rb-head-normal.webp:95004",
+        "rb-body-albedo.webp:149282",
+        "rb-body-orm.webp:6982",
+        "rb-body-normal.webp:105118",
+        "rb-hair-alpha.webp:321572",
+        "rb-accent-mask.png:12851"
+      ]
+    }
+  },
+  "human-390": {
+    "human": "ready",
+    "humanLoadMs": 2835,
+    "triangles": 1,
+    "calls": 1,
+    "geometries": 26,
+    "textures": 42,
+    "canvasPx": "487x1055",
+    "heapMB": 159,
+    "frameP50ms": 66.70000000000073,
+    "frameP95ms": 116.60000000000036,
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "gpu": false,
+    "assets": [
+      "rocketbox-player.gltf:23285",
+      "rocketbox-player.bin:794636",
+      "rb-head-albedo.webp:302578",
+      "rb-head-normal.webp:95004",
+      "rb-body-albedo.webp:149282",
+      "rb-body-orm.webp:6982",
+      "rb-body-normal.webp:105118",
+      "rb-hair-alpha.webp:321572",
+      "rb-accent-mask.png:12851"
+    ]
+  },
+  "persona en escena (390 px)": {
+    "ok": true,
+    "info": {
+      "human": "ready",
+      "humanLoadMs": 2835,
+      "triangles": 1,
+      "calls": 1,
+      "geometries": 26,
+      "textures": 42,
+      "canvasPx": "487x1055",
+      "heapMB": 159,
+      "frameP50ms": 66.70000000000073,
+      "frameP95ms": 116.60000000000036,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "gpu": false,
+      "assets": [
+        "rocketbox-player.gltf:23285",
+        "rocketbox-player.bin:794636",
+        "rb-head-albedo.webp:302578",
+        "rb-head-normal.webp:95004",
+        "rb-body-albedo.webp:149282",
+        "rb-body-orm.webp:6982",
+        "rb-body-normal.webp:105118",
+        "rb-hair-alpha.webp:321572",
+        "rb-accent-mask.png:12851"
+      ]
+    }
+  }
+}

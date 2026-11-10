@@ -1,0 +1,265 @@
+{
+  "rule": "comprar → abrir → desguazar TODO → comprar: EV de créditos recuperados / precio < 0,70 en TODOS los sobres de pago",
+  "mainLineSimulated": {
+    "estandar": {
+      "price": 1000,
+      "salvageEV": 344,
+      "salvageEVOverPrice": 0.34,
+      "p10": 50,
+      "p25": 65,
+      "p50": 125,
+      "p75": 465,
+      "p90": 1030,
+      "p95": 1350,
+      "p99": 1940,
+      "max": 4835,
+      "pSalvageAtLeastPrice": 10.25,
+      "salvageBeforeEVOverPrice": null
+    },
+    "premium": {
+      "price": 2500,
+      "salvageEV": 779,
+      "salvageEVOverPrice": 0.31,
+      "p10": 120,
+      "p25": 195,
+      "p50": 530,
+      "p75": 1195,
+      "p90": 1810,
+      "p95": 2225,
+      "p99": 3200,
+      "max": 6640,
+      "pSalvageAtLeastPrice": 3.03,
+      "salvageBeforeEVOverPrice": null
+    },
+    "oro": {
+      "price": 4000,
+      "salvageEV": 1240,
+      "salvageEVOverPrice": 0.31,
+      "p10": 245,
+      "p25": 460,
+      "p50": 1050,
+      "p75": 1810,
+      "p90": 2480,
+      "p95": 2960,
+      "p99": 3895,
+      "max": 6900,
+      "pSalvageAtLeastPrice": 0.8,
+      "salvageBeforeEVOverPrice": null
+    },
+    "masters": {
+      "price": 5000,
+      "salvageEV": 1533,
+      "salvageEVOverPrice": 0.31,
+      "p10": 450,
+      "p25": 780,
+      "p50": 1380,
+      "p75": 2095,
+      "p90": 2835,
+      "p95": 3325,
+      "p99": 4210,
+      "max": 7300,
+      "pSalvageAtLeastPrice": 0.21,
+      "salvageBeforeEVOverPrice": null
+    },
+    "champions": {
+      "price": 8000,
+      "salvageEV": 2462,
+      "salvageEVOverPrice": 0.31,
+      "p10": 1085,
+      "p25": 1640,
+      "p50": 2370,
+      "p75": 3165,
+      "p90": 3950,
+      "p95": 4430,
+      "p99": 5345,
+      "max": 8000,
+      "pSalvageAtLeastPrice": 0,
+      "salvageBeforeEVOverPrice": null
+    },
+    "icon": {
+      "price": 12500,
+      "salvageEV": 2877,
+      "salvageEVOverPrice": 0.23,
+      "p10": 2030,
+      "p25": 2370,
+      "p50": 2840,
+      "p75": 3320,
+      "p90": 3820,
+      "p95": 3990,
+      "p99": 4350,
+      "max": 4800,
+      "pSalvageAtLeastPrice": 0,
+      "salvageBeforeEVOverPrice": null
+    }
+  },
+  "allPaidPacksPackStats": {
+    "estandar": {
+      "price": 1000,
+      "meanSalvage": 341,
+      "overPrice": 0.34
+    },
+    "premium": {
+      "price": 2500,
+      "meanSalvage": 777,
+      "overPrice": 0.31
+    },
+    "oro": {
+      "price": 4000,
+      "meanSalvage": 1234,
+      "overPrice": 0.31
+    },
+    "masters": {
+      "price": 5000,
+      "meanSalvage": 1527,
+      "overPrice": 0.31
+    },
+    "champions": {
+      "price": 8000,
+      "meanSalvage": 2451,
+      "overPrice": 0.31
+    },
+    "ewc": {
+      "price": 6000,
+      "meanSalvage": 2044,
+      "overPrice": 0.34
+    },
+    "emea": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "americas": {
+      "price": 3000,
+      "meanSalvage": 1153,
+      "overPrice": 0.38
+    },
+    "pacific": {
+      "price": 3000,
+      "meanSalvage": 1110,
+      "overPrice": 0.37
+    },
+    "china": {
+      "price": 3000,
+      "meanSalvage": 486,
+      "overPrice": 0.16
+    },
+    "team-heretics": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "team-fnatic": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "team-navi": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "team-g2": {
+      "price": 3000,
+      "meanSalvage": 1153,
+      "overPrice": 0.38
+    },
+    "prime": {
+      "price": 10000,
+      "meanSalvage": 2206,
+      "overPrice": 0.22
+    },
+    "icon": {
+      "price": 12500,
+      "meanSalvage": 2868,
+      "overPrice": 0.23
+    },
+    "team-loud": {
+      "price": 3000,
+      "meanSalvage": 1153,
+      "overPrice": 0.38
+    },
+    "team-blg": {
+      "price": 3000,
+      "meanSalvage": 486,
+      "overPrice": 0.16
+    },
+    "team-te": {
+      "price": 3000,
+      "meanSalvage": 486,
+      "overPrice": 0.16
+    },
+    "team-jdg": {
+      "price": 3000,
+      "meanSalvage": 486,
+      "overPrice": 0.16
+    },
+    "team-liquid": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "team-tyl": {
+      "price": 3000,
+      "meanSalvage": 486,
+      "overPrice": 0.16
+    },
+    "team-karmine": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "team-m8": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "team-fut": {
+      "price": 3000,
+      "meanSalvage": 1074,
+      "overPrice": 0.36
+    },
+    "team-100t": {
+      "price": 3000,
+      "meanSalvage": 1153,
+      "overPrice": 0.38
+    },
+    "team-prx": {
+      "price": 3000,
+      "meanSalvage": 1110,
+      "overPrice": 0.37
+    },
+    "team-ns": {
+      "price": 3000,
+      "meanSalvage": 1110,
+      "overPrice": 0.37
+    },
+    "team-ge": {
+      "price": 3000,
+      "meanSalvage": 1110,
+      "overPrice": 0.37
+    },
+    "team-xlg": {
+      "price": 3000,
+      "meanSalvage": 486,
+      "overPrice": 0.16
+    },
+    "team-lev": {
+      "price": 3000,
+      "meanSalvage": 1153,
+      "overPrice": 0.38
+    }
+  },
+  "worstPaidPack": [
+    "americas",
+    {
+      "price": 3000,
+      "meanSalvage": 1153,
+      "overPrice": 0.38
+    }
+  ],
+  "marketFloorBand": {
+    "min_price_mult": 0.2,
+    "maxSalvageOverValue": 0.1
+  },
+  "note": "Solo se desguazan DUPLICADOS (se conserva una copia): la recuperación real es menor que este peor caso."
+}

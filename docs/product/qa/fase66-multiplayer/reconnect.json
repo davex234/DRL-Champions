@@ -1,0 +1,11 @@
+{
+  "e2e": {
+    "rivalPlayed": "played fb={\"disabled\":true,\"text\":\"Resolviendo…\",\"winnerShown\":false}",
+    "whileOffline": {
+      "syncing": true,
+      "text": "RANKED · RATING EN JUEGO 🎮contra qa_campaign_352_8c32 · jugador real Reconectando… sincronizando partida con el servidor TURNO DEL RIVAL qa_campaign_352_8c32"
+    },
+    "recovered": true
+  },
+  "client": "pvpPoller: fallos de red = STALE + backoff 1-10 s y sigue; al volver adopta el estado (versión estrictamente mayor). Cola: F66 sigue sondeando con backoff tras un fallo de red (antes se paraba)."
+}

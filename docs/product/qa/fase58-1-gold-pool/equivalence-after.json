@@ -1,0 +1,76 @@
+{
+  "label": "after",
+  "snapshotVersion": 946,
+  "samples": 200000,
+  "oroBoundInSnapshot": [
+    {
+      "pack_id": "oro",
+      "pool_id": "pack-oro",
+      "priority": 100
+    }
+  ],
+  "proposedPool": {
+    "id": "pack-oro",
+    "mode": "EXPLICIT",
+    "weight": 1,
+    "priority": 100,
+    "members": 331
+  },
+  "sameMembersAsOtherMainPacks": [
+    {
+      "pack": "estandar",
+      "size": 331,
+      "same": true
+    },
+    {
+      "pack": "premium",
+      "size": 331,
+      "same": true
+    },
+    {
+      "pack": "masters",
+      "size": 331,
+      "same": true
+    },
+    {
+      "pack": "champions",
+      "size": 331,
+      "same": true
+    },
+    {
+      "pack": "icon",
+      "size": 331,
+      "same": true
+    }
+  ],
+  "identicalOpenings": 200000,
+  "differentOpenings": 0,
+  "firstDiff": null,
+  "classPctWithoutPool": {
+    "base": 0,
+    "plata": 0,
+    "oro": 49.957,
+    "masters": 23.02,
+    "champions": 10.033,
+    "prime": 10.02,
+    "icon": 6.97
+  },
+  "classPctWithPool": {
+    "base": 0,
+    "plata": 0,
+    "oro": 49.957,
+    "masters": 23.02,
+    "champions": 10.033,
+    "prime": 10.02,
+    "icon": 6.97
+  },
+  "classTableF573": {
+    "base": 0,
+    "plata": 0,
+    "oro": 50,
+    "masters": 23,
+    "champions": 10,
+    "prime": 10,
+    "icon": 7
+  }
+}

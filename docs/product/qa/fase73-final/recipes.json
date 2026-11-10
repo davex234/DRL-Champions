@@ -1,0 +1,133 @@
+{
+  "at": "2026-09-30T19:35:48.527Z",
+  "source": "Postgres del VPS (solo lectura)",
+  "recipes": [
+    {
+      "id": "pack-estandar-premium",
+      "kind": "PACK",
+      "in": "estandar",
+      "out": "premium",
+      "qty": 4,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "pack-premium-oro",
+      "kind": "PACK",
+      "in": "premium",
+      "out": "oro",
+      "qty": 2,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "pack-oro-masters",
+      "kind": "PACK",
+      "in": "oro",
+      "out": "masters",
+      "qty": 2,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "pack-masters-champions",
+      "kind": "PACK",
+      "in": "masters",
+      "out": "champions",
+      "qty": 3,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "pack-champions-icon",
+      "kind": "PACK",
+      "in": "champions",
+      "out": "icon",
+      "qty": 2,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "card-base-plata",
+      "kind": "CARD",
+      "in": "base",
+      "out": "plata",
+      "qty": 7,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "card-plata-oro",
+      "kind": "CARD",
+      "in": "plata",
+      "out": "oro",
+      "qty": 3,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "card-oro-masters",
+      "kind": "CARD",
+      "in": "oro",
+      "out": "masters",
+      "qty": 8,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "card-masters-champions",
+      "kind": "CARD",
+      "in": "masters",
+      "out": "champions",
+      "qty": 14,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "card-champions-prime",
+      "kind": "CARD",
+      "in": "champions",
+      "out": "prime",
+      "qty": 10,
+      "status": "ACTIVE",
+      "version": 1
+    },
+    {
+      "id": "card-prime-icon",
+      "kind": "CARD",
+      "in": "prime",
+      "out": "icon",
+      "qty": 5,
+      "status": "DISABLED",
+      "version": 1
+    }
+  ],
+  "approved": {
+    "packs": "4/2/2/3/2",
+    "cards": "7/3/8/14/10",
+    "primeIcon": "DISABLED (pool 3)"
+  },
+  "changed": false,
+  "served": {
+    "pass": 3,
+    "fail": 0,
+    "source": "docs/product/qa/fase73-production/ratios-served.json",
+    "results": [
+      {
+        "id": "RATIOS · sobres servidos = aprobados",
+        "ok": true,
+        "detail": "{\"pack-estandar-premium\":4,\"pack-premium-oro\":2,\"pack-oro-masters\":2,\"pack-masters-champions\":3,\"pack-champions-icon\":2}"
+      },
+      {
+        "id": "RATIOS · cartas servidas = aprobadas",
+        "ok": true,
+        "detail": "{\"card-base-plata\":7,\"card-plata-oro\":3,\"card-oro-masters\":8,\"card-masters-champions\":14,\"card-champions-prime\":10}"
+      },
+      {
+        "id": "RATIOS · Prime → Icon NO se ofrece (DISABLED)",
+        "ok": true,
+        "detail": "card-base-plata,card-plata-oro,card-oro-masters,card-masters-champions,card-champions-prime"
+      }
+    ]
+  }
+}

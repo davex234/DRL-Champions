@@ -1,0 +1,33 @@
+[
+  {
+    "width": 1440,
+    "name": "4-mitad-caminata",
+    "t": "5.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "557",
+    "file": "record-breaker-WALKOUT-4-mitad-caminata-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "7-ovr",
+    "t": "8.95",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "548",
+    "file": "record-breaker-WALKOUT-7-ovr-1440.png"
+  },
+  {
+    "width": 1440,
+    "name": "10-carta-final",
+    "t": "11.00",
+    "stage": "3d",
+    "human": "ready",
+    "humanMs": "521",
+    "file": "record-breaker-WALKOUT-10-carta-final-1440.png"
+  },
+  {
+    "width": 1440,
+    "consoleErrors": []
+  }
+]

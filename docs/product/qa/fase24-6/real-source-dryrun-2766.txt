@@ -1,0 +1,62 @@
+# REAL SOURCE / DRY RUN · vlr.gg event 2766 · 2026-09-14T08:51:13.011Z
+
+Fuente: https://www.vlr.gg/event/2766
+Descarga: 11 páginas en 4309 ms (detalle de 8/34 partidos)
+Intentos: 11 (0 con error)
+
+Evento: Valorant Champions 2026 · estado fuente=upcoming · 2026-09-24 → 2026-10-18
+Equipos: 17 · jugadores: 80 · partidos: 34 · mapas: 24 · filas scoreboard: 240
+Partidos por estado: upcoming=34
+Primer partido: 2026-09-24T05:00:00Z
+Cuadro: presente=true · aristas=12 · clasificación=8 · desconocidas=0 · conflictos=0
+
+POLÍTICA: clase=future · elegible=true · intervalo=21600 s · prioridad=20 · nunca sincronizado
+
+Avisos del conector:
+  ⚠ solo se descargaron 8/34 páginas de partido (maxMatchPages)
+
+══════════════════════════════════════════════════════════════════════════
+  ESPORTS SYNC · DRY RUN · manual · 2026-09-14T08:-vel5xu
+══════════════════════════════════════════════════════════════════════════
+  eventos: 1 comprobados · 1 tocaban · 1 ok · 1 con cambios · 0 con error · 0 omitidos
+  partidos: 34 en fuente · +34 nuevos · 0 cambios · 0 terminados · 0 rechazados · 0 inválidos
+  pickems: 0 evento(s) corregido(s) · 0 rectificación(es) · 0 usuarios puntuados
+  lock: no adquirido
+  duración: 2 ms · siguiente: —
+
+Event: Valorant Champions 2026 (vlr-2766 · vlr 2766)
+  estado: dry-run — 34 nuevo(s), 0 cambio(s)
+  matches:
+    0    unchanged
+    34   would create
+    0    would update
+    0    would finish
+    0    invalid
+  bracket:
+    20   confirmed edges
+    8    qualification nodes
+    0    conflicts
+  pickems:
+    1 event would require lifecycle (questions/resolution/scoring)
+  identidades sin resolver: 24
+  ⚠ solo se descargaron 8/34 páginas de partido (maxMatchPages)
+══════════════════════════════════════════════════════════════════════════
+
+Escrituras: NINGUNA (sb=null, dryRun=true, lock no adquirido=true)
+Partidos (primeros 12):
+  753455   upcoming  2026-09-24T05:00:00Z     Team Liquid vs Paper Rex · Opening (C)
+  753454   upcoming  2026-09-24T08:00:00Z     TYLOO vs G2 Esports · Opening (C)
+  753460   upcoming  2026-09-25T05:00:00Z     Nongshim RedForce vs NRG · Opening (D)
+  753459   upcoming  2026-09-25T08:00:00Z     Karmine Corp vs Xi Lai Gaming · Opening (D)
+  753449   upcoming  2026-09-26T05:00:00Z     Global Esports vs Team Vitality · Opening (B)
+  753450   upcoming  2026-09-26T08:00:00Z     LOUD vs EDward Gaming · Opening (B)
+  753444   upcoming  2026-09-27T05:00:00Z     100 Thieves vs T1 · Opening (A)
+  753445   upcoming  2026-09-27T08:00:00Z     JD Gaming vs FUT Esports · Opening (A)
+  753456   upcoming  2026-09-29               TBD vs TBD · Winner's (C)
+  753461   upcoming  2026-09-29               TBD vs TBD · Winner's (D)
+  753446   upcoming  2026-09-30               TBD vs TBD · Winner's (A)
+  753451   upcoming  2026-09-30               TBD vs TBD · Winner's (B)
+
+Log estructurado:
+  [esports-sync] event=event_sync run_mode=manual dry_run=true event=vlr-2766 vlr_event=2766 class=null status=dry-run reason="34 nuevo(s), 0 cambio(s)" matches_changed=34 matches_finished=0 rejected=0 invalid=0 pickems_ran=false scored=false duration_ms=2
+  [esports-sync] event=run run_id=2026-09-14T08:-vel5xu mode=manual dry_run=true events_checked=1 events_due=1 events_synced=1 events_changed=1 events_failed=0 matches_finished=0 pickems_scored=0 duration_ms=2 status=success

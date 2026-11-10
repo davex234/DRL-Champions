@@ -1,0 +1,208 @@
+{
+  "at": "2026-09-29T18:14:28.974Z",
+  "persona": "A",
+  "pass": 40,
+  "total": 40,
+  "results": [
+    {
+      "id": "1440: tablero con pistas",
+      "ok": true,
+      "detail": "pistas=10"
+    },
+    {
+      "id": "1440: pistas SOLO imagen (0 caracteres visibles) y asset real",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/us.png\",\"w\":42,\"h\":29},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":42,\"h\":29},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":41,\"h\":28},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":41,\"h\":28}]"
+    },
+    {
+      "id": "1440: ningún rótulo prohibido en la mano del rival (PAC, TH, DRG, FLX, TR, US, INI, AB, DUE…)",
+      "ok": true,
+      "detail": "encontrados= texto=«»"
+    },
+    {
+      "id": "1440: reconocible en la carta pequeña (bandera ≥ 18 px de ancho)",
+      "ok": true,
+      "detail": "[42,42,41,41,41,41,41,41,42,42]"
+    },
+    {
+      "id": "1440: todos los assets de pista cargan (0 rotos)",
+      "ok": true,
+      "detail": "rotos=0"
+    },
+    {
+      "id": "1440: recargar da las mismas pistas",
+      "ok": true,
+      "detail": "[[\"COUNTRY\",\"https://flagcdn.com/w80/us.png\"],[\"COUNTRY\",\"https://flagcdn.com/w80/kr.png\"],[\"COUNTRY\",\"https://flagcdn.c"
+    },
+    {
+      "id": "1440: API — una entrada por carta oculta, cada una { type, value } o null",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"CN\"},{\"type\":\"COUNTRY\",\"value\":\"US\"}]"
+    },
+    {
+      "id": "1440: 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "1440-reduced: tablero con pistas",
+      "ok": true,
+      "detail": "pistas=10"
+    },
+    {
+      "id": "1440-reduced: pistas SOLO imagen (0 caracteres visibles) y asset real",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":42,\"h\":29},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/cn.png\",\"w\":42,\"h\":29},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/ru.png\",\"w\":41,\"h\":28},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":41,\"h\":28}]"
+    },
+    {
+      "id": "1440-reduced: ningún rótulo prohibido en la mano del rival (PAC, TH, DRG, FLX, TR, US, INI, AB, DUE…)",
+      "ok": true,
+      "detail": "encontrados= texto=«»"
+    },
+    {
+      "id": "1440-reduced: reconocible en la carta pequeña (bandera ≥ 18 px de ancho)",
+      "ok": true,
+      "detail": "[42,42,41,41,41,41,41,41,42,42]"
+    },
+    {
+      "id": "1440-reduced: todos los assets de pista cargan (0 rotos)",
+      "ok": true,
+      "detail": "rotos=0"
+    },
+    {
+      "id": "1440-reduced: recargar da las mismas pistas",
+      "ok": true,
+      "detail": "[[\"COUNTRY\",\"https://flagcdn.com/w80/kr.png\"],[\"COUNTRY\",\"https://flagcdn.com/w80/cn.png\"],[\"COUNTRY\",\"https://flagcdn.c"
+    },
+    {
+      "id": "1440-reduced: API — una entrada por carta oculta, cada una { type, value } o null",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"CN\"},{\"type\":\"COUNTRY\",\"value\":\"RU\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"}]"
+    },
+    {
+      "id": "1440-reduced: 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "1024: tablero con pistas",
+      "ok": true,
+      "detail": "pistas=10"
+    },
+    {
+      "id": "1024: pistas SOLO imagen (0 caracteres visibles) y asset real",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":35,\"h\":25},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/us.png\",\"w\":35,\"h\":24},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":35,\"h\":24},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":34,\"h\":23}]"
+    },
+    {
+      "id": "1024: ningún rótulo prohibido en la mano del rival (PAC, TH, DRG, FLX, TR, US, INI, AB, DUE…)",
+      "ok": true,
+      "detail": "encontrados= texto=«»"
+    },
+    {
+      "id": "1024: reconocible en la carta pequeña (bandera ≥ 18 px de ancho)",
+      "ok": true,
+      "detail": "[35,35,35,34,34,34,34,35,35,35]"
+    },
+    {
+      "id": "1024: todos los assets de pista cargan (0 rotos)",
+      "ok": true,
+      "detail": "rotos=0"
+    },
+    {
+      "id": "1024: recargar da las mismas pistas",
+      "ok": true,
+      "detail": "[[\"COUNTRY\",\"https://flagcdn.com/w80/kr.png\"],[\"COUNTRY\",\"https://flagcdn.com/w80/us.png\"],[\"COUNTRY\",\"https://flagcdn.c"
+    },
+    {
+      "id": "1024: API — una entrada por carta oculta, cada una { type, value } o null",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"}]"
+    },
+    {
+      "id": "1024: 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "390: tablero con pistas",
+      "ok": true,
+      "detail": "pistas=10"
+    },
+    {
+      "id": "390: pistas SOLO imagen (0 caracteres visibles) y asset real",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":19,\"h\":13},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":19,\"h\":13},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/us.png\",\"w\":19,\"h\":13},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":19,\"h\":13}]"
+    },
+    {
+      "id": "390: ningún rótulo prohibido en la mano del rival (PAC, TH, DRG, FLX, TR, US, INI, AB, DUE…)",
+      "ok": true,
+      "detail": "encontrados= texto=«»"
+    },
+    {
+      "id": "390: reconocible en la carta pequeña (bandera ≥ 18 px de ancho)",
+      "ok": true,
+      "detail": "[19,19,19,19,19,19,19,19,19,19]"
+    },
+    {
+      "id": "390: todos los assets de pista cargan (0 rotos)",
+      "ok": true,
+      "detail": "rotos=0"
+    },
+    {
+      "id": "390: recargar da las mismas pistas",
+      "ok": true,
+      "detail": "[[\"COUNTRY\",\"https://flagcdn.com/w80/kr.png\"],[\"COUNTRY\",\"https://flagcdn.com/w80/kr.png\"],[\"COUNTRY\",\"https://flagcdn.c"
+    },
+    {
+      "id": "390: API — una entrada por carta oculta, cada una { type, value } o null",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"}]"
+    },
+    {
+      "id": "390: 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "id": "390-reduced: tablero con pistas",
+      "ok": true,
+      "detail": "pistas=10"
+    },
+    {
+      "id": "390-reduced: pistas SOLO imagen (0 caracteres visibles) y asset real",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/pl.png\",\"w\":19,\"h\":13},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":19,\"h\":13},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/us.png\",\"w\":19,\"h\":13},{\"type\":\"COUNTRY\",\"shape\":\"flag\",\"text\":\"\",\"art\":\"https://flagcdn.com/w80/kr.png\",\"w\":19,\"h\":13}]"
+    },
+    {
+      "id": "390-reduced: ningún rótulo prohibido en la mano del rival (PAC, TH, DRG, FLX, TR, US, INI, AB, DUE…)",
+      "ok": true,
+      "detail": "encontrados= texto=«»"
+    },
+    {
+      "id": "390-reduced: reconocible en la carta pequeña (bandera ≥ 18 px de ancho)",
+      "ok": true,
+      "detail": "[19,19,19,19,19,19,19,19,19,19]"
+    },
+    {
+      "id": "390-reduced: todos los assets de pista cargan (0 rotos)",
+      "ok": true,
+      "detail": "rotos=0"
+    },
+    {
+      "id": "390-reduced: recargar da las mismas pistas",
+      "ok": true,
+      "detail": "[[\"COUNTRY\",\"https://flagcdn.com/w80/pl.png\"],[\"COUNTRY\",\"https://flagcdn.com/w80/kr.png\"],[\"COUNTRY\",\"https://flagcdn.c"
+    },
+    {
+      "id": "390-reduced: API — una entrada por carta oculta, cada una { type, value } o null",
+      "ok": true,
+      "detail": "[{\"type\":\"COUNTRY\",\"value\":\"PL\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"US\"},{\"type\":\"COUNTRY\",\"value\":\"KR\"},{\"type\":\"COUNTRY\",\"value\":\"CN\"},{\"type\":\"COUNTRY\",\"value\":\"US\"}]"
+    },
+    {
+      "id": "390-reduced: 0 errores de consola",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}

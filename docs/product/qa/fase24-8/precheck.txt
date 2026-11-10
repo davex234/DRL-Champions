@@ -1,0 +1,28 @@
+##### precheck
+host=VM-4b2a3727-cfa7-48e3-ad08-9fca50df0ade date=2026-09-14T09:40:11Z user=nexusadmin uid=1000
+ 09:40:11 up 2 days, 14:09,  2 users,  load average: 1.20, 1.67, 1.64
+sudo sin password: NO (se comprobó con sudo -n true)
+node en host: ninguno
+linger: Linger=no
+total 28
+drwxrwxr-x  7 nexusadmin nexusadmin 4096 Sep 14 09:31 .
+drwxr-xr-x 12 nexusadmin nexusadmin 4096 Sep 14 09:31 ..
+drwxrwxr-x  2 nexusadmin nexusadmin 4096 Sep 14 09:31 bin
+lrwxrwxrwx  1 nexusadmin nexusadmin   38 Sep 14 09:31 current -> releases/rel-20260914T093113Z-996d06fd
+drwx------  2 nexusadmin nexusadmin 4096 Sep 14 09:34 env
+drwxrwxr-x  2 nexusadmin nexusadmin 4096 Sep 14 09:39 logs
+drwxrwxr-x  3 nexusadmin nexusadmin 4096 Sep 14 09:31 releases
+drwxrwxr-x  3 nexusadmin nexusadmin 4096 Sep 14 09:31 runtime
+total 12
+drwxrwxr-x 3 nexusadmin nexusadmin 4096 Sep 14 09:31 .
+drwxrwxr-x 7 nexusadmin nexusadmin 4096 Sep 14 09:31 ..
+drwxrwxr-x 3 nexusadmin nexusadmin 4096 Sep 14 09:31 rel-20260914T093113Z-996d06fd
+releases/rel-20260914T093113Z-996d06fd
+/opt/nexus/projects/drlcards-sync/bin:
+total 4
+-rwxr-xr-x 1 nexusadmin nexusadmin 1050 Sep 14 09:31 run-sync.sh
+
+/opt/nexus/projects/drlcards-sync/env:
+total 4
+-rw------- 1 nexusadmin nexusadmin 301 Sep 14 09:34 esports-sync.env
+##### node-runtime
