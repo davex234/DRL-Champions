@@ -117,18 +117,21 @@ test("R1 · ascenso / descenso / clasificado / entrada: palabra, glifo y puestos
   assert.equal(html(<RankedMovement movement={MOVE_HOLD} rankedTotal={500} />), "");
 });
 
-test("R2 · resultado ranked: veredicto → rating antes/cambio/después del asiento → cambio de RANGO (F84); privado sin nada de eso", () => {
+test("R2 · resultado ranked (RESULTADO ÚNICO): veredicto y el CAMBIO de rating del asiento en la línea de recompensas; sin escalera ni ceremonia", () => {
   const ev = { matchId: "qa", oldRating: 1211, delta: 18, newRating: 1229, opponentRating: 1236, kFactor: 24, result: "WIN" as const, createdAt: QA_NOW };
   // Asiento del servidor: partida 9 de la temporada (ya clasificado) que cruza 1220 → ASCENSO Capitán I → Estrella III.
   const rank = rankMovement({ oldRating: 1211, newRating: 1229, seasonMatchNumber: 9, rule: "STANDARD" }, { placementGames: 5, rankConfigVersion: "rank-v1" });
   const h = html(<PvpOutcome verdict="WIN" lifecycle="FINISHED" view={null} rating={1229} outcome={ev} rank={rank}
     ladder={{ before: { position: 14 }, after: { position: 9, rankedTotal: 500 }, positions: 5, movement: MOVE_UP }} onAgain={() => {}} onBack={() => {}} backLabel="Volver a Competitivo" rivalName="Kaelis" />);
-  assert.ok(h.indexOf('data-testid="pvp-rating"') < h.indexOf('data-testid="rank-change"'));
-  assert.ok(h.includes('data-kind="PROMOTION"') && h.includes('data-tier-change="true"'));
+  assert.ok(h.includes('data-mode="PVP"') && h.includes('data-kind="win"'));
+  assert.ok(h.includes('data-field="rating"'));
   const t = text(h);
-  for (const s of ["1211", "1229", "+18", "Ascenso", "Estrella III", "desde Capitán I", "Subes 5 puestos en el Top (#9)", "Volver a Competitivo", "Buscar otro rival"]) assert.ok(t.includes(s), s);
-  const pending = text(html(<PvpOutcome verdict="LOSS" lifecycle="FINISHED" view={null} rating={1201} outcome={null} ladder={null} onAgain={() => {}} onBack={() => {}} />));
-  assert.match(pending, /Calculando el rating…/, "sin asiento no se inventa un número");
+  for (const s of ["Victoria", "+18", "Rating", "Jugar otra", "Volver al lobby"]) assert.ok(t.includes(s), s);
+  // El rango, la escalera y el rival viven en Competitivo / el perfil: el resultado no los apila.
+  assert.ok(!h.includes('data-testid="rank-change"') && !h.includes('data-testid="pvp-ladder"'));
+  for (const s of ["Ascenso", "Estrella III", "Subes 5 puestos", "Kaelis"]) assert.ok(!t.includes(s), s);
+  const pending = html(<PvpOutcome verdict="LOSS" lifecycle="FINISHED" view={null} rating={1201} outcome={null} ladder={null} onAgain={() => {}} onBack={() => {}} />);
+  assert.ok(pending.includes('data-field="rating-pending"') && !text(pending).includes("1201"), "sin asiento no se inventa un número");
 });
 
 test("H1 · historial: palabra de resultado, rival, antes→después y enlace al detalle; vacío honesto", () => {

@@ -1,10 +1,10 @@
 /**
- * DUEL GAMEPLAY UX 2.0 · «RECOMPENSAS OBTENIDAS» en el resultado mínimo.
+ * DUEL GAMEPLAY UX 2.0 → RESULTADO ÚNICO · las recompensas del resultado, en UNA línea compacta.
  *
- *   · se pinta SOLO desde el recibo del servidor (`result.rewards.grants`), con la pieza común `RewardDisplay`;
- *   · créditos (moneda real), XP de cuenta, sobre (arte real ×N), carta (CardArt) e insignia (texto);
- *   · cero recompensas (sin recibo, recibo vacío, partida topada) → la sección NO existe;
- *   · la tabla de premios (`award`) no se lee aquí.
+ *   · se pinta SOLO desde el recibo del servidor (`result.rewards.grants`); créditos y XP sumados por asiento;
+ *   · lo que no es créditos ni XP (sobre ×N con su arte real, carta, insignia) va en la misma línea con `RewardDisplay`;
+ *   · cero recompensas (sin recibo, recibo vacío, partida topada) → la línea NO existe;
+ *   · con recibo, la tabla de premios (`award`) no se lee.
  * Las cifras de ejemplo son FIXTURES de prueba, no premios del juego.
  */
 import { test } from "node:test";
@@ -31,14 +31,22 @@ const text = (h: string) => h.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
 const PACK = PACKS.find((p) => packArtwork(p.id))!;
 const CARD = CARDS.find((c) => c.image)!;
 
-test("UX2 QRR-1 · victoria con recibo: «Recompensas obtenidas» con créditos y XP de cuenta del recibo", () => {
+test("UX2 QRR-1 · victoria con recibo: una línea con los créditos y la XP del recibo", () => {
   const h = html(withReceipt(fx.win, { matchId: fx.win.matchId, capped: false, grants: [{ source: "MATCH", reward: { credits: 120, xp: 40 }, points: 0 }] }));
-  assert.ok(h.includes('data-testid="quick-result-rewards"'));
+  assert.ok(h.includes('data-testid="duel-result-rewards"'));
   const t = text(h);
-  assert.ok(/Recompensas obtenidas/i.test(t));
-  assert.ok(t.includes("+120") && h.includes('data-reward-item="credits"'));
-  assert.ok(h.includes('data-reward-item="accountXp"') && /XP de cuenta/.test(t), "XP siempre con su nombre");
-  assert.equal((h.match(/<(a|button)\b/g) ?? []).length, 2, "las recompensas no añaden acciones");
+  assert.ok(!/Recompensas obtenidas/i.test(t), "sin titular de bloque: la línea se explica sola");
+  assert.ok(t.includes("+120") && h.includes('data-field="credits"') && /Créditos/.test(t));
+  assert.ok(t.includes("+40") && h.includes('data-field="xp"') && /\bXP\b/.test(t));
+  assert.equal((h.match(/<(a|button)\b/g) ?? []).length, 3, "las recompensas no añaden acciones");
+});
+
+test("UX2 QRR-1b · varios asientos (partida + primera victoria de campaña): créditos sumados en una sola cifra", () => {
+  const h = html(withReceipt(fx.win, { matchId: fx.win.matchId, capped: false, grants: [
+    { source: "MATCH", reward: { credits: 120, xp: 40 }, points: 0 },
+    { source: "CAMPAIGN_FIRST_CLEAR", reward: { credits: 300 }, points: 0 },
+  ] }));
+  assert.ok(text(h).includes("+420"));
 });
 
 test("UX2 QRR-2 · sobre (arte REAL ×N), carta (CardArt) e insignia (texto)", () => {
@@ -54,7 +62,7 @@ test("UX2 QRR-2 · sobre (arte REAL ×N), carta (CardArt) e insignia (texto)", (
 
 test("UX2 QRR-3 · derrota con recibo: también se enseña lo concedido", () => {
   const h = html(withReceipt(fx.loss, { matchId: fx.loss.matchId, capped: false, grants: [{ source: "MATCH", reward: { credits: 25, xp: 10 }, points: 0 }] }));
-  assert.ok(h.includes('data-kind="loss"') && h.includes('data-testid="quick-result-rewards"'));
+  assert.ok(h.includes('data-kind="loss"') && h.includes('data-testid="duel-result-rewards"'));
 });
 
 for (const [name, rewards] of [
@@ -65,15 +73,17 @@ for (const [name, rewards] of [
 ] as const) {
   test(`UX2 QRR-4 · cero recompensas → NO hay sección: ${name}`, () => {
     const h = html(withReceipt(fx.win, rewards as MatchRewardReceipt | null | undefined));
-    assert.ok(!h.includes("quick-result-rewards"));
-    assert.ok(!/Recompensa/i.test(text(h)));
+    assert.ok(!h.includes("duel-result-rewards"));
+    assert.ok(!/Recompensa|Créditos/i.test(text(h)));
     assert.ok(!h.includes("Sin recompensa"));
   });
 }
 
-test("UX2 QRR-5 · la sección sale del recibo, nunca de la tabla (`award`)", () => {
+test("UX2 QRR-5 · la línea sale del recibo, nunca de la tabla (`award`)", () => {
   const h = html({ ...withReceipt(fx.win, null), result: { ...fx.win.result!, rewards: null, award: { points: 9, credits: 999, xp: 99 } } });
   assert.ok(!h.includes("999"), "una cifra de la tabla no se pinta");
-  const src = readFileSync(join(process.cwd(), "src", "components", "duel", "QuickMatchResult.tsx"), "utf8");
-  assert.ok(src.includes("r.rewards.grants") && !src.includes("award"));
+  const capped = html({ ...withReceipt(fx.win, null), result: { ...fx.win.result!, rewards: { matchId: "m", capped: true, grants: [] }, award: { points: 9, credits: 999, xp: 99 } } });
+  assert.ok(!capped.includes("999"), "partida topada: el recibo vacío manda");
+  const src = readFileSync(join(process.cwd(), "src", "lib", "duel", "resultSummary.ts"), "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "");
+  assert.ok(src.includes("r?.rewards?.grants") && !/\baward\b/.test(src));
 });

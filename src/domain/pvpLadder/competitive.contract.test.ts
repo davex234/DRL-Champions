@@ -108,7 +108,8 @@ test("32+33 · posición actual siempre; cambio de puestos SOLO con foto antes y
   assert.ok(PVP_PAGE.includes("void beginLadder();") && PVP_PAGE.includes("void endLadder();"));
   assert.ok(PVP_PAGE.includes("if (!terminal || !matchId || !outcome.event || liquidada.current === matchId) return;"), "la foto «después» espera al asiento");
   assert.ok(CLIENT.includes("positions: positionDelta(before.current?.position ?? null, after.position)"));
-  assert.ok(PVP_OUTCOME.includes('{ladder.after.position != null ? `#${ladder.after.position}` : tr("Sin clasificar")}'));
+  // RESULTADO ÚNICO · la posición y el cambio de puestos viven en Competitivo; el resultado de la partida no los apila.
+  assert.ok(!PVP_OUTCOME.includes('data-testid="pvp-ladder"') && !PVP_OUTCOME.includes("ladder.after"));
   assert.ok(!/#0\b/.test(code(PVP_OUTCOME) + code(HERO) + code(BOARD)), "nunca #0");
 });
 
@@ -235,7 +236,8 @@ test("telemetría: seis contextos con puerta; contrato intacto; 0046 admite `com
 test("accesibilidad: tabla semántica en escritorio, lista en móvil, aria-current propio, tendencia textual, sin live-region de rating", () => {
   assert.ok(BOARD.includes("<table") && BOARD.includes('scope="col"') && BOARD.includes('aria-current={e.isSelf ? "true" : undefined}'));
   assert.ok(BOARD.includes("min-h-[52px]") && BOARD.includes("← tú"));
-  assert.ok(HERO.includes("Subes") || PVP_OUTCOME.includes("Subes"), "el cambio de puestos se dice con palabras");
+  // RESULTADO ÚNICO · el resultado ya no habla de puestos; el rating se da con signo y cifra («+18 Rating»), sin animación de anuncio.
+  assert.ok(!PVP_OUTCOME.includes("Subes") && PVP_OUTCOME.includes("{ pending: false, delta: outcome.delta }"));
   for (const src of UI) assert.ok(!/aria-live/.test(src), "el rating no se anuncia en vivo");
   assert.ok(CHART.includes("useReducedMotion"));
 });

@@ -206,18 +206,18 @@ const fx = (() => {
 const withResult = (v: DuelMatchView, r: Partial<DuelResultView>): DuelMatchView => ({ ...v, result: { ...v.result!, ...r } });
 const result = (v: DuelMatchView, xp: number | null) => html(<ResultScreen view={v} xp={xp} onPlayAgain={noop} onChange={noop} onDecks={noop} onReplay={noop} />);
 
-test("VICTORIA · título, nivel 3, acciones ANTES de la historia de la partida", () => {
-  const h = result(withResult(fx.win, { award: { points: 14, credits: 220, xp: 110 } }), totalXpForLevel(6) + 300);
+test("VICTORIA · título, nivel 3, marcador, recompensas y acciones; sin historial apilado (RESULTADO ÚNICO)", () => {
+  const h = result(withResult(fx.win, { award: { points: 14, credits: 220, xp: 110 }, rewards: { matchId: "m", capped: false, grants: [{ source: "MATCH", reward: { credits: 220, xp: 110 }, points: 14 }] } }), totalXpForLevel(6) + 300);
   assert.match(h, /data-kind="win"[^>]*data-motion-level="3"/); assert.match(h, />Victoria</);
-  // La SECCIÓN del historial, no la frase: «Los diez turnos…» también aparece en la explicación de un desempate.
-  const historial = h.indexOf('aria-label="Historial completo"');
-  assert.ok(historial > 0, "la sección del historial existe");
-  assert.ok(h.indexOf('data-testid="result-actions"') < historial);
-  assert.match(h, /Revancha/); assert.match(h, /href="\/"[^>]*>Volver al lobby/);
+  assert.ok(!h.includes('aria-label="Historial completo"'), "el turno a turno vive en VER PARTIDA");
+  assert.ok(h.indexOf('data-testid="duel-result-score"') < h.indexOf('data-testid="duel-result-rewards"'));
+  assert.ok(h.indexOf('data-testid="duel-result-rewards"') < h.indexOf('data-testid="result-actions"'));
+  assert.match(h, /Jugar otra/); assert.match(h, /href="\/"[^>]*>Volver al lobby/);
 });
-test("DERROTA · presentación propia sin barrido de celebración, con progreso y siguiente acción", () => {
-  const h = result(withResult(fx.loss, { award: { points: 0, credits: 40, xp: 25 } }), totalXpForLevel(6) + 300);
-  assert.match(h, />Derrota</); assert.ok(!/nx-result-sweep/.test(h)); assert.match(h, /data-testid="xp-progress"/); assert.match(h, /Revancha/);
+test("DERROTA · presentación propia sin barrido de celebración, con lo ganado y la siguiente acción", () => {
+  const h = result(withResult(fx.loss, { award: { points: 0, credits: 40, xp: 25 }, rewards: { matchId: "m", capped: false, grants: [{ source: "MATCH", reward: { credits: 40, xp: 25 }, points: 0 }] } }), totalXpForLevel(6) + 300);
+  assert.match(h, />Derrota</); assert.ok(!/nx-result-sweep/.test(h)); assert.ok(!/data-testid="xp-progress"/.test(h), "la barra de XP no está en el resultado");
+  assert.match(h, /\+40/); assert.match(h, /Jugar otra/);
 });
 test("EMPATE · presentación propia (nivel 2)", () => {
   const h = result(withResult(fx.win, { isDraw: true, winner: null, decidedBy: "NONE", scoreYou: 5, scoreRival: 5 }), null);

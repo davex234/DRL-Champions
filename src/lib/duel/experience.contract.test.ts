@@ -70,7 +70,9 @@ test("84 · el resultado es textual", () => {
 });
 
 test("85 · movimiento reducido en intro, revelación, resultado, repetición, arena PvP y vibración", () => {
-  for (const f of ["src/components/duel/MatchIntro.tsx", "src/components/duel/DuelMoment.tsx", "src/components/duel/ResultScreen.tsx", REPLAY, END, STORY]) assert.ok(code(f).includes("useReducedMotion()"), f);
+  for (const f of ["src/components/duel/MatchIntro.tsx", "src/components/duel/DuelMoment.tsx", REPLAY, END, STORY]) assert.ok(code(f).includes("useReducedMotion()"), f);
+  // RESULTADO ÚNICO · la pantalla de resultados respeta el `MotionConfig reducedMotion="user"` de la arena.
+  assert.ok(code("src/components/duel/result/DuelResult.tsx").includes("useReducedMotionConfig()"), "resultado");
   assert.ok(code(STORY).includes("initial={reduced ? false :"), "el desempate paso a paso aparece ya puesto con movimiento reducido");
   assert.ok(code(ARENA).includes('<MotionConfig reducedMotion="user">'));
   assert.ok(code("src/lib/haptics.ts").includes("(prefers-reduced-motion: reduce)"));
@@ -153,9 +155,11 @@ test("máquina de presentación en la mesa: la fase la deriva `derivePhase` y en
 });
 
 test("final PvP/privado: transición con veredicto del servidor, sin rating inventado y sin «Revancha» en el ranked", () => {
+  // RESULTADO ÚNICO · el veredicto del servidor pasa tal cual a la pantalla común; la REVANCHA solo existe en el privado.
   const out = code(ARENA.replace("PvpArena", "PvpOutcome"));
-  assert.ok(out.includes("<MatchEndHero") && out.includes("verdict={verdict}"));
-  assert.ok(!/Revancha/.test(out));
+  assert.ok(out.includes("<DuelResult") && out.includes("kind={KIND[verdict]}") && out.includes("matchEndPresentation({ verdict, view })"));
+  assert.ok(out.includes('{ label: tr("Jugar otra"), onClick: onAgain, once: true, testId: "ranked-again" }'), "el ranked no ofrece revancha");
+  assert.equal((out.match(/Revancha/g) ?? []).length, 1, "«Revancha» aparece una sola vez: la rama del duelo privado");
   const hero = code(END);
   assert.ok(hero.includes("matchEndPresentation({ verdict, view })"));
   assert.ok(!/winner\s*===|scoreYou\s*[<>]|delta/.test(hero), "el héroe no compara ni calcula nada");

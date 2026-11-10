@@ -176,16 +176,14 @@ test("K1 · vitrina: cardId EXACTO de cada ejemplar (dos variantes del mismo jug
 
 /* ═══════════════════ enlaces a perfil ═══════════════════ */
 
-test("E1 · clasificación, historial y post-partida abren /jugador/[id] (el id público de la URL canónica)", () => {
+test("E1 · clasificación e historial abren /jugador/[id] (el id público de la URL canónica); el resultado ya no lo apila", () => {
   assert.ok(read("src", "components", "competitive", "Leaderboard.tsx").includes("playerHref(e.userId)"));
   const h = html(<RecentMatchCards matches={HISTORY.slice(0, 2)} />);
   assert.ok(h.includes(`href="/jugador/${HISTORY[0].rival.userId}"`) && h.includes('data-action="rival-profile"'));
   assert.ok(h.includes(`href="/duelos/competitivo/partida/${HISTORY[0].matchId}"`), "la ficha sigue abriendo el detalle");
+  // RESULTADO ÚNICO · el resultado de la partida no apila el perfil del rival: se llega desde el historial (arriba) y la clasificación.
   const out = html(<PvpOutcome verdict="WIN" lifecycle="FINISHED" view={null} rating={1} outcome={null} onAgain={noop} onBack={noop} rivalHref="/jugador/abc" />);
-  assert.ok(out.includes('data-testid="rival-profile"') && out.includes('href="/jugador/abc"'));
-  const none = html(<PvpOutcome verdict="WIN" lifecycle="FINISHED" view={null} rating={1} outcome={null} onAgain={noop} onBack={noop} />);
-  assert.ok(!none.includes('data-testid="rival-profile"'), "sin perfil accesible, no se ofrece");
-  assert.ok(read("src", "app", "duelos", "pvp", "page.tsx").includes("rivalHref={!privada && matchup && matchup.matchId === matchId ? playerHref(matchup.rival.userId) : null}"));
+  assert.ok(!out.includes('data-testid="rival-profile"') && !out.includes('href="/jugador/abc"'));
 });
 
 /* ═══════════════════ render: propio vs ajeno, responsive ═══════════════════ */

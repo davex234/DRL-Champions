@@ -108,17 +108,15 @@ test("14 · rotación diaria/semanal al leer, solo los tipos vencidos, sin cron"
 
 /* ═══════════════════ integraciones (33–37) ═══════════════════ */
 
-test("33+34 · el duelo alimenta el meta: lectura antes de empezar, lectura al terminar, y el resultado la enseña", () => {
-  assert.ok(JUGAR.includes("await beginProgression();") && JUGAR.includes("void endProgression();"));
-  // Fase 35: en campaña el hueco lleva ANTES el resultado del nodo; el progreso del meta sigue ahí.
-  // Fase 39: en Draft Gauntlet el hueco lleva el resultado de la run (el draft no da XP ni mueve el meta).
-  // Fase 42 · el draft además enseña «qué sigue» (`NextUpAfter`), sin tocar el progreso del duelo.
-  // FASE 62 · el progreso va en su propio hueco (`progress`), JUSTO tras las recompensas, no al final del resultado.
-  assert.ok(JUGAR.includes("progress={draftMode || !progression.delta ? null : <PostMatchProgress delta={progression.delta}"));
-  assert.ok(RESULT.includes("progress?: React.ReactNode") && RESULT.indexOf("{progress}") < RESULT.indexOf('data-testid="result-actions"'), "progreso antes de las acciones");
-  assert.ok(JUGAR.includes("fetchGameState().then((s) => setXp("), "la XP nueva se lee del servidor");
-  assert.ok(RESULT.includes("extra?: React.ReactNode") && RESULT.includes("{extra}"), "el resultado solo ofrece el hueco");
+test("33+34 · el duelo sigue alimentando el meta en el SERVIDOR; el resultado (RESULTADO ÚNICO) ya no enseña el progreso", () => {
+  // Lo que la partida mueve (XP, nivel, objetivos, temporada) lo liquida el servidor al terminar, igual que antes
+  // (`quickMatchResult.render.test.tsx` · QR-9). El resultado ya no pide fotos «antes/después» ni la XP total:
+  // el progreso se ve en Progresión y en el perfil.
+  for (const s of ["beginProgression", "endProgression", "<PostMatchProgress", "fetchGameState", "progress={"]) assert.ok(!JUGAR.includes(s), s);
+  assert.ok(!/<PostMatchProgress|\{progress\}|\{extra\}/.test(code(RESULT)), "el resultado no pinta huecos de progreso");
   assert.ok(!/objective|mission|misión/i.test(code(RESULT)), "el resultado no sabe de misiones");
+  // La pantalla de apertura de sobres conserva su progreso (no es un resultado de duelo).
+  assert.ok(read("src", "components", "packs", "PackOpeningExperience.tsx").includes("<PostMatchProgress delta={progression.delta}"));
 });
 
 test("35 · abrir un sobre alimenta el meta sin tocar la apertura: la misma operación de sync, lectura antes/después", () => {

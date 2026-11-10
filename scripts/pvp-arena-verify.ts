@@ -418,7 +418,7 @@ async function familia6(): Promise<void> {
 
   // S — vencimiento: la pantalla lo distingue del abandono
   check("S. la pantalla distingue EXPIRED de ABANDONED",
-    src(OUTCOME).includes('ABANDONED: "Por abandono"') && src(OUTCOME).includes('EXPIRED: "Tiempo agotado"'));
+    src(OUTCOME).includes('lifecycle === "ABANDONED" ? tr("Por abandono")') && src(OUTCOME).includes('lifecycle === "EXPIRED" ? tr("Tiempo agotado")'));
 
   // B — sin token
   check("B. sin token la API responde 401", (await http(null, "GET", MM)).status === 401);

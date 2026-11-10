@@ -263,8 +263,11 @@ test("35 · la revancha es un reto NUEVO con previous_match_id que debe pertenec
   assert.ok(SERVICE.includes("previous_match_id") || SERVICE.includes("p_previous_match: prev"));
   assert.ok(SERVICE.includes('if (!both) return fail(404, "Partida anterior no encontrada", "BAD_PREVIOUS");'));
   assert.ok(PVP_PAGE.includes("createChallenge(priv.rival.userId, deckIdElegido, matchId)"));
-  assert.ok(PANEL.includes("La revancha es un reto nuevo: tu rival tiene que aceptarlo."));
-  assert.ok(!/Revancha/.test(code(PVP_OUTCOME)), "el resultado ranked sigue sin prometer revancha");
+  // RESULTADO ÚNICO · la REVANCHA del duelo privado es la acción principal del resultado y abre el mismo reto nuevo.
+  assert.ok(PVP_OUTCOME.includes('privateDuel\n      ? { label: tr("Revancha"), onClick: privateDuel.onRematch'));
+  assert.ok(PVP_PAGE.includes("onRematch: () => { setRevanchaError(null); setRevancha(true); },"), "la revancha abre el reto (ChallengeSheet)");
+  // El ranked sigue sin prometer revancha: su acción principal es buscar OTRO rival.
+  assert.ok(PVP_OUTCOME.includes('{ label: tr("Jugar otra"), onClick: onAgain, once: true, testId: "ranked-again" }'), "el resultado ranked no promete revancha");
 });
 
 test("36 · la pantalla de retos y la bandeja usan estados EFECTIVOS y acciones del servidor; nada se decide en el cliente", () => {
@@ -350,15 +353,15 @@ test("45 · el veredicto privado por abandono/tiempo viene del servidor como BAN
   assert.ok(!/===\s*(userId|myId|session\.user)/.test(code(PVP_PAGE)));
 });
 
-test("46 · el resultado privado: VICTORIA/DERROTA/EMPATE, marcador, carta destacada y turno a turno iguales; sin rating ni escalera; con salidas sociales", () => {
+test("46 · el resultado privado: la MISMA pantalla única (veredicto, marcador, acciones); sin rating ni escalera; REVANCHA como acción principal", () => {
   assert.ok(PVP_OUTCOME.includes("privateDuel?: PrivateDuelPanelProps | null;"));
-  // F86 · un cruce de torneo también es PVP_PRIVATE y tampoco tiene rating: «sin rating» = duelo privado O torneo.
-  assert.ok(PVP_OUTCOME.includes("const unrated = !!privateDuel || !!cupMatch;"));
-  assert.ok(PVP_OUTCOME.includes('privateDuel ? tr("Duelo privado · sin rating") : tr("Duelo PvP")}'));
-  assert.ok(/\{!unrated && \(\s*<Plate className="mt-3 px-4 py-4" data-testid="pvp-rating">/.test(PVP_OUTCOME));
-  assert.ok(PVP_OUTCOME.includes("{!unrated && ladder && ("));
-  assert.ok(PVP_OUTCOME.includes("{privateDuel && <PrivateDuelPanel {...privateDuel} />}"));
-  assert.ok(PVP_OUTCOME.includes("<DecisionPanel result={view.result}") && PVP_OUTCOME.includes("<FeaturedCardPanel"));
+  // F86 · un cruce de torneo también es PVP_PRIVATE y tampoco tiene rating: solo el ranked (`PVP`) lleva rating.
+  assert.ok(PVP_OUTCOME.includes('const mode = cupMatch ? "CUP" : privateDuel ? "PVP_PRIVATE" : "PVP";'));
+  assert.ok(PVP_OUTCOME.includes('rating={mode === "PVP" ? (outcome ? { pending: false, delta: outcome.delta } : { pending: true }) : null}'));
+  assert.ok(PVP_OUTCOME.includes("<DuelResult"), "la misma pantalla que el resto de duelos");
+  // El cara a cara y las salidas sociales ya no se apilan en el resultado (viven en Social y en el perfil).
+  for (const s of ["<PrivateDuelPanel", "<DecisionPanel", "<FeaturedCardPanel", "<RoundStrip"]) assert.ok(!PVP_OUTCOME.includes(s), s);
+  // El panel sigue existiendo (lo usan otras pantallas y arneses) y sigue siendo presentación pura.
   for (const l of ["Revancha", "Volver a Social", "Ver perfil", "Otro reto"]) assert.ok(PANEL.includes(l), l);
   assert.ok(PANEL.includes('data-h2h={id}') && PANEL.includes('id="privados" label={t("Privados")}'));
   assert.ok(!/fetch\(|useEffect/.test(code(PANEL)), "el panel es presentación pura");
@@ -552,8 +555,9 @@ test("77 · 0046 reserva el flujo social junto a los anteriores y sigue sin apli
   assert.equal(isFlow(SOCIAL_FLOW), false, "no-op honesto hasta aplicar 0046 y abrir FLOWS");
 });
 
-test("78 · el resultado ranked no cambia: literales del contrato previo intactos", () => {
-  for (const s of ["Buscar otro rival", 'data-field="pending"', "{outcome.oldRating}", "{outcome.newRating}", "{outcome.delta}", 'ABANDONED: "Por abandono"', 'EXPIRED: "Tiempo agotado"']) assert.ok(PVP_OUTCOME.includes(s), s);
+test("78 · el resultado ranked: rating del asiento (sin cálculo), «…» mientras no llega, y las causas de cierre", () => {
+  // RESULTADO ÚNICO · el delta es el del asiento; `RatingDelta` (antes → después) se conserva para los arneses.
+  for (const s of ["{ pending: false, delta: outcome.delta }", "{ pending: true }", "{outcome.oldRating}", "{outcome.newRating}", "{outcome.delta}", 'tr("Por abandono")', 'tr("Tiempo agotado")']) assert.ok(PVP_OUTCOME.includes(s), s);
   assert.ok(PVP_ARENA.includes("waitingRival={!tuTurno && enJuego}") && PVP_ARENA.includes("busy={busy || !tuTurno}"));
 });
 

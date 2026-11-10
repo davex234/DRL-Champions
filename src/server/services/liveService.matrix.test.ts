@@ -370,7 +370,9 @@ L("post-partida: objetivo de duelos que avanzó + siguiente acción (la de la fo
   const m = afterActivityModel(withObjectives(), "match");
   assert.equal(m.progress[0].label, "Obj"); assert.match(m.progress[0].line, /1 partida más/);
   assert.ok(m.next && m.lobbyHref === "/");
-  assert.ok(read("src/app/duelos/jugar/page.tsx").includes('<NextUpAfter context={campaignMatchNode ? "campaign" : "match"}'));
+  // RESULTADO ÚNICO · el «qué sigue» ya no se apila en el resultado de un duelo. El progreso de objetivos se ve en
+  // Progresión; el lobby (`/`) no repite este bloque.
+  assert.ok(!read("src/app/duelos/jugar/page.tsx").includes("<NextUpAfter"));
 });
 L("post-sobre: solo objetivos de sobres/cartas", () => {
   const m = afterActivityModel(withObjectives(), "pack");
@@ -383,10 +385,9 @@ L("post-Draft: 0 economía (ningún objetivo avanza), solo su fase", () => {
   const m = afterActivityModel(s, "draft");
   assert.deepEqual(m.progress, []); assert.equal(m.draft, "Siguiente: fase 3 de 5.");
 });
-L("post-ranked: «qué sigue» dentro del resultado PvP (el delta de rating ya es real)", () => {
-  // F83 · el «qué sigue» sigue DENTRO del resultado PvP; ahora comparte el hueco con el +XP de temporada (solo ranked).
-  assert.ok(read("src/app/duelos/pvp/page.tsx").includes('<NextUpAfter context={privada ? "private" : "ranked"} className="mt-5" />'));
-  { const line = read("src/app/duelos/pvp/page.tsx").split("\n").find((l) => l.includes("extra={<>")) ?? ""; assert.ok(line.includes('<NextUpAfter context={privada ? "private" : "ranked"}'), "el «qué sigue» va en el MISMO extra del resultado"); }
+L("post-ranked: el modelo «qué sigue» existe; el resultado PvP (RESULTADO ÚNICO) ya no lo apila", () => {
+  const pvp = read("src/app/duelos/pvp/page.tsx");
+  assert.ok(!pvp.includes("<NextUpAfter") && !pvp.includes("extra={<>"), "ni «qué sigue» ni +XP de temporada en el resultado");
   assert.ok(afterActivityModel(withObjectives(), "ranked").progress.length >= 1);
 });
 L("sin segundo motor de prioridad: el «después» usa la acción principal de la foto", () => {

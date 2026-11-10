@@ -209,7 +209,8 @@ test("F86-R5 · resultado de un cruce: sin rating, sin escalera, SIN revancha; �
   const out = html(<PvpOutcome verdict="WIN" lifecycle="FINISHED" view={null} outcome={null} rating={null} onAgain={() => {}} onBack={() => {}}
     cupMatch={{ name: "Valorosters Open #1", roundName: "Semifinal", href: "/copas/valorosters-open-1" }} />);
   assert.ok(out.includes('data-mode="CUP"') && out.includes("Volver al torneo") && out.includes("Torneo · Semifinal"));
-  assert.ok(!out.includes("Rating PvP") && !out.includes("Revancha") && !out.includes("Buscar otro rival") && !out.includes("Escalera ranked"));
+  assert.ok(out.includes('href="/copas/valorosters-open-1"'), "VOLVER AL TORNEO lleva al cuadro");
+  assert.ok(!out.includes("Rating") && !out.includes("Revancha") && !out.includes("Jugar otra") && !out.includes("Escalera ranked"));
   assert.ok(read("src", "app", "duelos", "pvp", "page.tsx").includes("privateDuel={privada && !cupDeEsta ? {"), "el panel con revancha no aparece en un cruce");
 });
 

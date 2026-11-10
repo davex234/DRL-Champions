@@ -257,7 +257,9 @@ const UI_FILES = [
   "src/components/duel/TurnHistory.tsx",
   "src/components/duel/DuelMoment.tsx",
   "src/components/duel/ResultScreen.tsx",
-  // Resultado mínimo de PARTIDA RÁPIDA: veredicto, marcador y motivo del servidor + dos salidas. Presentación pura.
+  // RESULTADO ÚNICO de todos los duelos (veredicto, marcador, recompensas del servidor, tres acciones) y su adaptador de
+  // PARTIDA RÁPIDA. Presentación pura.
+  "src/components/duel/result/DuelResult.tsx",
   "src/components/duel/QuickMatchResult.tsx",
   "src/components/duel/DailyRewardSlot.tsx",
   "src/components/duel/ReplayViewer.tsx",

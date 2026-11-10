@@ -242,8 +242,9 @@ test("AUDIO 51 · efectos conectados a las pantallas reales (no solo definidos)"
     // Fase 49 · Tienda 4.0: elegir un producto (sobre, caja, carta o pack) suena como elegir un sobre.
     [["src", "app", "tienda", "page.tsx"], /function select\(p: ResolvedProduct\) \{\s*playSound\("pack\.select"\)/],
     [["src", "components", "duel", "MatchBoard.tsx"], /if \(view\.turn > 1\) playSound\("match\.turn"\)/],
-    [["src", "components", "duel", "ResultScreen.tsx"], /stingDuck\(\);[\s\S]*if \(kind === "draw"\) playSound\("match\.draw"\)/],
-    [["src", "components", "duel", "ResultScreen.tsx"], /useMusicOverride\(kind \? "RESULT" : null\)/],
+    // RESULTADO ÚNICO · el sonido del desenlace vive en la pantalla común de todos los duelos.
+    [["src", "components", "duel", "result", "DuelResult.tsx"], /stingDuck\(\);[\s\S]*if \(kind === "draw"\) playSound\("match\.draw"\)/],
+    [["src", "components", "duel", "result", "DuelResult.tsx"], /useMusicOverride\("RESULT"\)/],
     [["src", "components", "ui", "game", "XpProgress.tsx"], /playSound\("level\.up"\)/],
     [["src", "components", "packs", "CardReveal.tsx"], /playReveal\(/],
   ];

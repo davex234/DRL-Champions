@@ -251,9 +251,12 @@ test("K34 · arena en modo draft: sin revancha, sin abandonar la partida, sin el
   const quit = ARENA.slice(ARENA.indexOf("async function quit()"), ARENA.indexOf("function reset()"));
   assert.ok(quit.indexOf("if (draftMode)") < quit.indexOf("abandonDuel("));
   assert.ok(ARENA.includes("onPlayAgain={draftMode ? () => router.push(DRAFT_ROUTE) : rematch}"));
-  assert.ok(ARENA.includes("onChange={campaignMatchNode || draftMode ? undefined : change}"));
+  assert.ok(ARENA.includes('playAgainLabel={draftMode ? t("Volver al gauntlet") : undefined}'), "en draft la acción principal vuelve al gauntlet");
+  // RESULTADO ÚNICO · ya no hay «cambiar rival» en ningún resultado; el draft relee la run (reconcilia) y sale antes de lo demás.
+  assert.ok(!ARENA.includes("onChange="));
   const finish = ARENA.slice(ARENA.indexOf("const finish = useCallback"), ARENA.indexOf("const begin = useCallback"));
-  assert.ok(finish.indexOf("if (draftMode)") < finish.indexOf("loadXp()"));
+  assert.ok(finish.indexOf("if (draftMode) { fetchDraft().catch(() => undefined); return; }") >= 0);
+  assert.ok(finish.indexOf("if (draftMode)") < finish.indexOf("refreshCampaign()"));
 });
 
 test("K35 · hub: Draft Gauntlet es un modo más en /duelos (F71), sin entrada nueva en la navegación", () => {

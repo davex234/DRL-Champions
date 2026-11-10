@@ -1,12 +1,13 @@
 /**
- * RESULTADO DE PARTIDA RÁPIDA · pantalla mínima y AISLAMIENTO de modos.
+ * RESULTADO DE PARTIDA RÁPIDA · adaptador de la pantalla ÚNICA de resultados (`result/DuelResult`).
  *
- *   · la decisión pura: solo QUICK (servidor) + arena rápida (página); cualquier otra combinación → resultado completo;
- *   · la pantalla: veredicto, marcador, motivo y DOS botones; nada de progreso, objetivos, logros, temporada ni
- *     misiones (las recompensas, SOLO las del recibo del servidor: `quickResultRewards.render.test.tsx`); victoria/derrota/empate con su tono; movimiento reducido sin desplazamiento;
- *   · la página: SEGUIR JUGANDO = `rematch()` (creación canónica de partida rápida), VOLVER AL MENÚ = `/`; campaña y draft
- *     siguen con `ResultScreen`, que conserva intactas sus recompensas;
- *   · ranked, duelo amistoso y torneo viven en `/duelos/pvp` y no tocan nada de esto.
+ *   · la decisión pura: solo QUICK (servidor) + arena rápida (página) va por `QuickMatchResult`; el resto por `ResultScreen`
+ *     (campaña, draft) o `PvpOutcome` (ranked, privado, torneo): los TRES pintan la misma pantalla;
+ *   · la pantalla: veredicto, marcador, recompensas en una línea (SOLO las del recibo del servidor:
+ *     `quickResultRewards.render.test.tsx`) y TRES acciones (JUGAR OTRA, VER PARTIDA, VOLVER AL LOBBY); sin el motivo
+ *     redactado, sin progreso, objetivos, logros, temporada ni misiones; victoria/derrota/empate con su tono;
+ *   · la página: JUGAR OTRA = `rematch()` (creación canónica de partida rápida), VOLVER AL LOBBY = `/`.
+ *   · pantalla compartida en todos los modos: `duelResult.render.test.tsx`.
  */
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -46,20 +47,21 @@ test("QR-1 · SOLO partida rápida: contexto QUICK del servidor Y arena rápida"
 
 /* ───────────── pantalla ───────────── */
 
-const FORBIDDEN = [/Puntos de rango/i, /Créditos/i, /XP de cuenta/i, /\bXP\b/, /Ver progreso/i, /Nivel/i, /Objetivo/i, /Logro/i, /Reclamar/i, /Temporada/i, /Misi[oó]n/i, /Recompensa/i, /Carta destacada/i, /Turno a turno/i, /Revancha/i];
+const FORBIDDEN = [/Puntos de rango/i, /XP de cuenta/i, /Ver progreso/i, /Nivel/i, /Objetivo/i, /Logro/i, /Reclamar/i, /Temporada/i, /Misi[oó]n/i, /Carta destacada/i, /Turno a turno/i, /Revancha/i, /Road to Champions/i, /Recompensas obtenidas/i];
 
 for (const [name, v, title] of [["victoria", fx.win, "Victoria"], ["derrota", fx.loss, "Derrota"], ["empate", fx.draw, "Empate"]] as const) {
-  test(`QR-2 · ${name}: veredicto, marcador, motivo y DOS botones; nada más`, () => {
+  test(`QR-2 · ${name}: veredicto, marcador y TRES acciones; ni motivo ni bloques secundarios`, () => {
     const h = html(v);
     const t = text(h);
     assert.ok(t.includes(title), title);
-    assert.ok(h.includes('data-result="quick"'));
+    assert.ok(h.includes('data-result="duel"') && h.includes('data-mode="QUICK"'), "la pantalla única, en modo rápido");
     assert.ok(t.includes(`${v.result!.scoreYou}`) && t.includes(`${v.result!.scoreRival}`), "marcador final");
     assert.ok(h.includes(`Marcador final: tú ${v.result!.scoreYou}, rival ${v.result!.scoreRival}`), "marcador accesible");
-    if (v.result!.reason) assert.ok(t.includes(v.result!.reason), "el motivo del resolver");
-    assert.ok(/Seguir jugando/i.test(t) && /Volver al menú principal/i.test(t));
-    assert.equal((h.match(/<(a|button)\b/g) ?? []).length, 2, "exactamente dos acciones");
-    assert.ok(h.includes('href="/"'), "el menú principal es /");
+    if (v.result!.reason) assert.ok(!t.includes(v.result!.reason), "sin la explicación del resultado («Ganó más enfrentamientos»…)");
+    assert.ok(/Jugar otra/i.test(t) && /Ver partida/i.test(t) && /Volver al lobby/i.test(t));
+    assert.equal((h.match(/<(a|button)\b/g) ?? []).length, 3, "exactamente tres acciones");
+    assert.ok(h.includes('href="/"'), "el lobby es /");
+    assert.ok(h.includes(`href="/duelos/replay/${v.matchId}"`), "VER PARTIDA abre la repetición");
     for (const re of FORBIDDEN) assert.ok(!re.test(t), `no aparece ${re}`);
   });
 }
@@ -75,19 +77,23 @@ test("QR-4 · movimiento reducido: sin corona ni barrido", () => {
   assert.ok(!h.includes("nx-result-sweep") && !h.includes("conic-gradient"));
 });
 
-test("QR-5 · el componente no paga, no reclama y no lee progreso: solo veredicto y dos salidas", () => {
+test("QR-5 · el resultado no paga, no reclama y no lee progreso; un clic en JUGAR OTRA basta", () => {
   const c = read("src", "components", "duel", "QuickMatchResult.tsx");
-  for (const s of ["award", "PostMatchProgress", "SeasonPostMatch", "LevelProgressPanel", "NextUpAfter", "claim", "fetch(", "/api/"]) {
-    assert.ok(!c.includes(s), `QuickMatchResult no contiene «${s}»`);
+  const shared = read("src", "components", "duel", "result", "DuelResult.tsx");
+  for (const src of [c, shared]) {
+    for (const s of ["PostMatchProgress", "SeasonPostMatch", "LevelProgressPanel", "NextUpAfter", "claim", "fetch(", "/api/"]) {
+      assert.ok(!src.includes(s), `el resultado no contiene «${s}»`);
+    }
   }
-  assert.ok(c.includes("disabled={starting}") && c.includes("if (starting) return;"), "un clic basta: doble clic no lanza dos partidas");
+  assert.ok(c.includes("onClick: onContinue, once: true"), "JUGAR OTRA es de un solo clic");
+  assert.ok(shared.includes("disabled={primary.disabled || starting}") && shared.includes("if (starting) return;") && shared.includes("if (primary.once) setStarting(true);"), "un clic basta: doble clic no lanza dos partidas");
 });
 
 /* ───────────── página y aislamiento ───────────── */
 
 const PAGE = read("src", "app", "duelos", "jugar", "page.tsx");
 
-test("QR-6 · la página: rápida → QuickMatchResult con `rematch`; lo demás → ResultScreen de siempre", () => {
+test("QR-6 · la página: rápida → QuickMatchResult con `rematch`; lo demás → ResultScreen (misma pantalla única)", () => {
   assert.ok(PAGE.includes('isQuickMatchResult(view, arenaMode) && (\n        <QuickMatchResult key={view.matchId} view={view} onContinue={rematch} />'));
   assert.ok(PAGE.includes("!isQuickMatchResult(view, arenaMode) && (\n        <ResultScreen"), "campaña y draft conservan su resultado completo");
   assert.ok(PAGE.includes('const arenaMode: ArenaMode = draftMode ? "draft" : campaignMatchNode || campaignNodeId ? "campaign" : "quick";'));
@@ -104,11 +110,14 @@ test("QR-7 · RANKED / AMISTOSO / TORNEO no pasan por aquí: /duelos/pvp no cono
   assert.ok(!outcome.includes("QuickMatchResult"));
 });
 
-test("QR-8 · el resultado COMPLETO (campaña, draft) sigue enseñando sus recompensas y su progreso", () => {
+test("QR-8 · campaña y draft (`ResultScreen`) pintan la MISMA pantalla única, sin los bloques del resultado antiguo", () => {
   const h = renderToStaticMarkup(<ResultScreen view={fx.win} xp={4_200} onPlayAgain={noop} onDecks={noop} onReplay={noop} deckId="qa" />);
-  assert.ok(h.includes('data-testid="result-actions"'));
+  assert.ok(h.includes('data-testid="result-actions"') && h.includes('data-result="duel"'));
   const rs = read("src", "components", "duel", "ResultScreen.tsx");
-  for (const s of ["Puntos de rango", "Créditos", "XP de cuenta", "Ver progreso", "{progress}", "{extra}", "LevelProgressPanel"]) assert.ok(rs.includes(s), `ResultScreen conserva «${s}»`);
+  assert.ok(rs.includes("<DuelResult"), "ResultScreen es un adaptador de la pantalla única");
+  for (const s of ["{progress}", "{extra}", "LevelProgressPanel", "FeaturedCardPanel", "ResultStory", "MatchStrategyPanel", "TurnHistory"]) assert.ok(!rs.includes(s), `ResultScreen ya no pinta «${s}»`);
+  // El cupo diario solo aparece cuando explica la ausencia de recompensa (tope agotado).
+  assert.ok(rs.includes("dailyCapReached(r) ? <DailyRewardSlot"));
 });
 
 test("QR-9 · el servidor sigue pagando y liquidando al terminar (lo que no se enseña sigue ocurriendo)", () => {

@@ -29,7 +29,6 @@
  * entra directa a la arena. Recargar, cerrar la pestaña o volver mañana dan lo mismo: la verdad
  * está en el servidor y se pide. El `?match=` de la URL sirve como atajo y como enlace directo.
  */
-import { NextUpAfter } from "@/components/liveService/NextUpAfter";
 import { playerHref } from "@/lib/player/href";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -51,7 +50,7 @@ import type { RankMovement } from "@/domain/ranked/standing";
 import { PvpLobby } from "@/components/duel/pvp/PvpLobby";
 import { PvpArena } from "@/components/duel/pvp/PvpArena";
 import { PvpOutcome, type PvpVerdict } from "@/components/duel/pvp/PvpOutcome";
-import { SeasonPostMatch } from "@/components/seasonTrack/SeasonMoments"; // F83 · +XP de temporada (ranked; un duelo privado no da XP)
+import { ArenaEnvironment } from "@/components/duel/arena/ArenaEnvironment";
 import { RankedSearch } from "@/components/duel/pvp/RankedSearch";
 import { RankedMatchFound } from "@/components/duel/pvp/RankedMatchFound";
 import { Loading, ErrorState, NeedsAccount } from "@/components/ui/States";
@@ -463,21 +462,16 @@ function Arena() {
         {matchId && enVivo === matchId && finalVisto !== matchId && view?.result && (
           <MatchEnding view={view} onDone={() => setFinalVisto(matchId)} />
         )}
+        {/* RESULTADO ÚNICO · el mismo estadio de fondo que el resultado de los duelos contra la IA. */}
+        <ArenaEnvironment variant="ranked" />
         <PvpOutcome
           verdict={verdict}
           lifecycle={lifecycle!}
           view={view}
           outcome={outcome.event}
-          rating={outcome.rating}
-          ladder={ladder.delta}
-          rank={privada ? null : outcome.rank ?? null}
           onAgain={privada ? otra : otraRanked}
           onBack={() => router.push(cupDeEsta ? `/copas/${cupDeEsta.slug}` : privada ? "/duelos" : "/competitivo")}
-          backLabel={cupDeEsta ? t("Volver al torneo") : privada ? t("Volver a Duelos") : t("Volver a Competitivo")}
           cupMatch={cupDeEsta ? { name: cupDeEsta.name, roundName: cupDeEsta.roundName, href: `/copas/${cupDeEsta.slug}`, outcome: cupDeEsta.outcome, nextRoundName: cupDeEsta.nextRoundName } : null}
-          rivalName={privada ? null : matchup?.rival.username ?? null}
-          rivalHref={!privada && matchup && matchup.matchId === matchId ? playerHref(matchup.rival.userId) : null}
-          extra={<>{!privada && matchId && <SeasonPostMatch matchId={matchId} className="mt-5" />}<NextUpAfter context={privada ? "private" : "ranked"} className="mt-5" /></>}
           privateDuel={privada && !cupDeEsta ? {
             rival: priv?.rival ?? null,
             h2h: priv?.h2h ?? null,

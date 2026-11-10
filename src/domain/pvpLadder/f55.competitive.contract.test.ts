@@ -180,10 +180,10 @@ test("F2 · la página solo lee (competitivo, mazos, play-status) y deriva la pu
 
 test("F3 · flujo de la arena: buscando → rival encontrado → partida → resultado con ascenso/descenso", () => {
   assert.ok(PVP_PAGE.includes("<RankedSearch") && PVP_PAGE.includes("<RankedMatchFound") && PVP_PAGE.includes("skipIntro="));
-  // F84 · la ceremonia es de RANGO (colocación, ascenso, descenso, misma división) desde el asiento del servidor.
-  assert.ok(OUTCOME.includes("<RankChange movement={rank}"));
-  // El resultado competitivo va antes que la crónica de la partida.
-  assert.ok(OUTCOME.indexOf('data-testid="pvp-rating"') < OUTCOME.indexOf("<DecisionPanel"));
+  // RESULTADO ÚNICO · el resultado ranked es la pantalla común: veredicto, marcador, el cambio de rating del asiento en la
+  // línea de recompensas y JUGAR OTRA. La ceremonia de rango y la crónica ya no se apilan (viven en Competitivo y la repetición).
+  assert.ok(OUTCOME.includes("<DuelResult") && OUTCOME.includes("rating={mode === \"PVP\""));
+  assert.ok(!OUTCOME.includes("<RankChange") && !OUTCOME.includes("<DecisionPanel"));
   // Sin setTimeout/setInterval en la página PvP (contrato del 7.5).
   assert.ok(!/setTimeout|setInterval/.test(code(PVP_PAGE)));
 });
