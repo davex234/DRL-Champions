@@ -180,7 +180,17 @@ if (want("security")) {
   check("PvP exige identificador de acción y versión", read("src/app/duelos/pvp/page.tsx").includes("actionId: crypto.randomUUID()") && read("src/app/duelos/pvp/page.tsx").includes("expectedVersion: state.stateVersion"));
   check("la campaña no acepta primera victoria desde el cliente", !/body\.(firstClear|credits|reward)/.test(read("src/app/api/game/campaign/route.ts")));
   const uiFiles = walk(join(ROOT, "src/components/duel")).filter((p) => /\.tsx?$/.test(p) && !/\.test\./.test(p));
-  check("ninguna pieza de duelo importa el servidor ni el motor", uiFiles.every((p) => { const s2 = code(readFileSync(p, "utf8")); return !/from "@\/server\//.test(s2) && !/@\/domain\/cardgame\/(match|combat|opponent)/.test(s2); }));
+  /*
+   * El módulo tiene que terminar ahí (`"` o `/`): `@/domain/cardgame/matchmaking` (política de cola, dominio puro) no es
+   * el motor `@/domain/cardgame/match`. Antes el prefijo coincidía y daba un falso positivo con `RankedSearch.tsx`.
+   * La lista de los que fallan se informa para que un fallo real diga dónde está.
+   */
+  const ENGINE_IMPORT = /@\/domain\/cardgame\/(match|combat|opponent)(?=["/])/;
+  const engineImports = uiFiles.filter((p) => { const s2 = code(readFileSync(p, "utf8")); return /from "@\/server\//.test(s2) || ENGINE_IMPORT.test(s2); });
+  check("ninguna pieza de duelo importa el servidor ni el motor", engineImports.length === 0, engineImports.map((p) => p.replace(ROOT, "")).join(", "));
+  check("el detector del motor distingue match de matchmaking (y sigue viendo el motor)",
+    ENGINE_IMPORT.test('from "@/domain/cardgame/match"') && ENGINE_IMPORT.test('from "@/domain/cardgame/match/orchestrator"') && ENGINE_IMPORT.test('from "@/domain/cardgame/combat"')
+    && ENGINE_IMPORT.test('from "@/domain/cardgame/opponent/bots"') && !ENGINE_IMPORT.test('from "@/domain/cardgame/matchmaking"'));
   check("ninguna pieza de duelo guarda la partida en el navegador", uiFiles.every((p) => !/localStorage|sessionStorage/.test(readFileSync(p, "utf8"))));
   const play = evidence("playtest.json");
   check("navegador: el doble clic no produjo turnos dobles en partidas reales", !!play && play.doubleClick?.extraTurns === 0, play ? "" : "falta playtest.json");
