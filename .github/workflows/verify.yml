@@ -43,8 +43,9 @@ jobs:
   verify-slow:
     name: verify-slow (preparation-verify)
     runs-on: ubuntu-latest
-    # Medido: > 23 min en CI sin llegar a terminar. Margen holgado hasta tener la duración real; ajustar después.
-    timeout-minutes: 45
+    # Medido en CI (d51cf69): preparation-verify 2100,9 s (35,0 min); job completo 35,8 min. Entre runners de GitHub
+    # los mismos verifies varían hasta ×1,67 (35 × 1,67 ≈ 58,5 min): 60 min cubre esa variación.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
