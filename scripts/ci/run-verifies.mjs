@@ -6,33 +6,165 @@
  *
  * VERIFY_EXCLUDE="a-verify.ts,b-verify.ts" permite excluir verifies dependientes del entorno
  * (p. ej. los que requieren artefactos de build de escritorio).
+ *
+ * ────────────────────────── TIEMPO ──────────────────────────
+ *
+ * Antes se lanzaban los 134 en serie, en orden alfabético y con `npx tsx` a través de una shell. En CI el job se
+ * cancelaba a los 25 min sin haber ejecutado ~40 verifies: `preparation-verify` (simulación de solo CPU, ~20 min)
+ * caía en el puesto 93 y no dejaba sitio al resto. Ahora:
+ *   - cada verify se lanza con `node --import tsx` directamente (sin npx ni shell por verify);
+ *   - FASE 1 · EXCLUSIVA: los verifies que MIDEN TIEMPO (su código usa `performance.now()`, `process.hrtime` o resta
+ *     `Date.now()`) se ejecutan SOLOS y en serie, como siempre. Sus umbrales («< 2500 ms», «p95 < 20 ms»…) se
+ *     calibraron con la CPU para ellos; compartiéndola fallarían sin que nada haya empeorado (medido en CI:
+ *     `matchmaking-verify` pasó de PASS a FAIL con concurrencia 3). Se detectan por el código, no por una lista;
+ *   - FASE 2 · CONCURRENTE: el resto, varios a la vez en CI (VERIFY_CONCURRENCY; por defecto min(3, núcleos)). En
+ *     local, uno a uno salvo que se pida otra cosa: los equipos de desarrollo ya van justos de memoria. Los lentos
+ *     conocidos (SLOW_FIRST) arrancan primero;
+ *   - cada verify imprime una línea al EMPEZAR y otra al terminar con su duración (si GitHub corta el job, el log
+ *     dice qué estaba en curso); el resumen lista los más lentos y el tiempo de cada fase.
+ * La regla de aprobado NO cambia: cualquier verify con salida != 0 (o terminado por señal) es FAIL.
+ *
+ * Concurrencia revisada: los verifies que escriben ficheros usan directorios temporales únicos (`mkdtemp`); solo
+ * `game-experience-verify` escribe en el repo y solo `sw-verify` compila y levanta un servidor (puerto fijo 3123);
+ * los que abren Chrome usan perfil propio y un puerto de depuración aleatorio (9800–9979).
  */
-import { readdirSync } from "node:fs";
-import { spawnSync } from "node:child_process";
+import { readdirSync, readFileSync } from "node:fs";
+import { spawn } from "node:child_process";
+import { availableParallelism } from "node:os";
 import { join } from "node:path";
 
 const DIR = "scripts";
-const files = readdirSync(DIR).filter((f) => f.endsWith("-verify.ts")).sort();
+const ROOT = process.cwd();
+const IN_CI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
+
+/**
+ * JOB APARTE: verifies demasiado largos para el límite de 25 min del job `verify`. NO se omiten: `verify:all` los
+ * anuncia en el log y el job `verify-slow` de `.github/workflows/verify.yml` los ejecuta con `npm run verify:slow`
+ * (`--separate`), en su propio runner, con el mismo formato y la misma regla de aprobado. Esta lista es la única fuente.
+ *   - preparation-verify: simulación de solo CPU, 82 partidos (N=40). Más de 23 min en CI sin terminar.
+ */
+const SEPARATE_JOB = ["preparation-verify.ts"];
+const SEPARATE_MODE = process.argv.includes("--separate");
+
+/** Lentos medidos en CI (s, ejecución de 2026-11-10/11). Arrancan los primeros; el resto, en orden alfabético. */
+const SLOW_FIRST = [
+  "sw-verify.ts", // compila la app (`npm run build`) antes de probar
+  "combat-verify.ts", // 109–187
+  "platform-verify.ts", // 82–150
+  "buy-verify.ts", // 82–144
+  "career-transfermarket-verify.ts", // 85–113
+  "career-endgame-verify.ts", // 57–77
+  "pack-verify.ts", // 43–74
+  "online-verify.ts", // 35–64
+  "player-journey-verify.ts", // 32–52
+];
+
+const all = readdirSync(DIR).filter((f) => f.endsWith("-verify.ts")).sort();
 const exclude = new Set((process.env.VERIFY_EXCLUDE ?? "").split(",").map((s) => s.trim()).filter(Boolean));
+/** Mide tiempo de reloj ⇒ fase exclusiva. */
+const TIMED_RE = /performance\.now\(|process\.hrtime|Date\.now\(\)\s*-/;
+const isTimed = (f) => TIMED_RE.test(readFileSync(join(DIR, f), "utf8"));
+// Un verify de la lista que ya no existe (renombrado, borrado) no puede convertir el job lento en un «verde» vacío.
+const missingSeparate = SEPARATE_JOB.filter((f) => !all.includes(f));
+if (SEPARATE_MODE && missingSeparate.length) {
+  console.error(`[verify:slow] no existen: ${missingSeparate.join(", ")} — revisa SEPARATE_JOB en scripts/ci/run-verifies.mjs`);
+  process.exit(1);
+}
+const separated = SEPARATE_JOB.filter((f) => all.includes(f));
+const pool = SEPARATE_MODE ? separated : all.filter((f) => !separated.includes(f));
+const slow = SLOW_FIRST.filter((f) => pool.includes(f));
+const files = [...slow, ...pool.filter((f) => !slow.includes(f))];
+if (!SEPARATE_MODE) for (const f of separated) console.log(`↪  APARTE ${f} → job verify-slow (npm run verify:slow)`);
+
+const requested = Number.parseInt(process.env.VERIFY_CONCURRENCY ?? "", 10);
+const concurrency = Number.isInteger(requested) && requested >= 1
+  ? requested
+  : IN_CI ? Math.max(1, Math.min(3, availableParallelism())) : 1;
+
+const secs = (ms) => `${(ms / 1000).toFixed(1)} s`;
+const tail = (s) => s.split("\n").slice(-12).join("\n") + "\n";
 
 const failed = [];
 const skipped = [];
-for (const f of files) {
-  if (exclude.has(f)) { skipped.push(f); console.log(`⏭  SKIP  ${f}`); continue; }
-  const r = spawnSync("npx", ["tsx", join(DIR, f)], { encoding: "utf8", shell: true });
-  if (r.status === 0) {
-    console.log(`✓  PASS  ${f}`);
-  } else {
-    failed.push(f);
-    console.log(`✗  FAIL  ${f}`);
-    if (r.stdout) process.stdout.write(r.stdout.split("\n").slice(-12).join("\n") + "\n");
-    if (r.stderr) process.stderr.write(r.stderr.split("\n").slice(-12).join("\n") + "\n");
-  }
+const durations = [];
+const running = new Map(); // fichero → { child, start }
+const t0 = Date.now();
+
+function runOne(f) {
+  return new Promise((resolve) => {
+    const start = Date.now();
+    console.log(`▶  START ${f}`);
+    const child = spawn(process.execPath, ["--import", "tsx", join(DIR, f)], { cwd: ROOT, env: process.env, shell: false });
+    running.set(f, { child, start });
+    let out = "";
+    let err = "";
+    child.stdout.on("data", (d) => { out += d; });
+    child.stderr.on("data", (d) => { err += d; });
+    const finish = (code, signal, spawnError) => {
+      if (!running.has(f)) return;
+      running.delete(f);
+      const ms = Date.now() - start;
+      durations.push([f, ms]);
+      if (code === 0) {
+        console.log(`✓  PASS  ${f}  (${secs(ms)})`);
+      } else {
+        failed.push(f);
+        const why = spawnError ? ` — no arrancó: ${spawnError}` : signal ? ` — terminado por ${signal}` : "";
+        // Un solo write por verify: con varios a la vez, su bloque no se mezcla con el de otro.
+        process.stdout.write(`✗  FAIL  ${f}  (${secs(ms)})${why}\n` + (out ? tail(out) : ""));
+        if (err) process.stderr.write(tail(err));
+      }
+      resolve();
+    };
+    child.on("error", (e) => finish(null, null, e.code ?? e.message));
+    child.on("close", (code, signal) => finish(code, signal, null));
+  });
 }
 
+// Si el proceso recibe la señal (Ctrl+C en local; en GitHub puede no llegar), dejar dicho qué estaba en curso y qué no
+// llegó a empezar. Las líneas START cubren el caso en que el job se corta sin señal.
+let pending = [];
+for (const sig of ["SIGTERM", "SIGINT"]) {
+  process.on(sig, () => {
+    const now = Date.now();
+    console.log(`\n⏹  ${sig} a los ${secs(now - t0)} — verifies EN CURSO:`);
+    for (const [f, { start }] of running) console.log(`  - ${f} (${secs(now - start)})`);
+    console.log(`  sin empezar: ${pending.length}${pending.length ? ` (${pending.join(", ")})` : ""}`);
+    for (const { child } of running.values()) child.kill("SIGTERM");
+    process.exit(sig === "SIGINT" ? 130 : 143);
+  });
+}
+
+const toRun = files.filter((f) => {
+  if (!exclude.has(f)) return true;
+  skipped.push(f);
+  console.log(`⏭  SKIP  ${f}`);
+  return false;
+});
+const timed = toRun.filter(isTimed);
+const rest = toRun.filter((f) => !timed.includes(f));
+console.log(`[${SEPARATE_MODE ? "verify:slow" : "verify:all"}] ${toRun.length} verifies · fase 1 exclusiva (miden tiempo): ${timed.length} · fase 2 concurrencia ${concurrency}${IN_CI ? " (CI)" : ""}: ${rest.length} (lentos primero: ${slow.length})`);
+
+async function worker() {
+  while (pending.length) {
+    const f = pending.shift();
+    await runOne(f);
+  }
+}
+// FASE 1: solos, uno a uno. FASE 2: varios a la vez.
+pending = [...timed];
+const t1 = Date.now();
+await worker();
+const phase1 = Date.now() - t1;
+pending = [...rest];
+const t2 = Date.now();
+await Promise.all(Array.from({ length: concurrency }, worker));
+const phase2 = Date.now() - t2;
+
 const ran = files.length - skipped.length;
-console.log(`\n${failed.length === 0 ? "✅" : "❌"} verifies: ${ran - failed.length}/${ran} passed` + (skipped.length ? ` (${skipped.length} skipped)` : ""));
+console.log(`\n${failed.length === 0 ? "✅" : "❌"} verifies: ${ran - failed.length}/${ran} passed` + (skipped.length ? ` (${skipped.length} skipped)` : "") + (!SEPARATE_MODE && separated.length ? ` (${separated.length} en el job verify-slow)` : "") + ` · ${secs(Date.now() - t0)} en total (fase 1 ${secs(phase1)} · fase 2 ${secs(phase2)})`);
+console.log("Más lentos:\n" + durations.sort((a, b) => b[1] - a[1]).slice(0, 10).map(([f, ms]) => `  ${secs(ms).padStart(8)}  ${f}`).join("\n"));
 if (failed.length) {
-  console.log("FAILED:\n" + failed.map((f) => "  - " + f).join("\n"));
+  console.log("FAILED:\n" + [...failed].sort().map((f) => "  - " + f).join("\n"));
   process.exit(1);
 }
