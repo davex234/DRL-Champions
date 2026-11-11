@@ -139,7 +139,7 @@ async function main() {
     const antesDeRevancha = await tab.js<any>(`(() => {
       const t = document.body.innerText;
       const v = /VICTORIA/.test(t) ? "VICTORIA" : /DERROTA/.test(t) ? "DERROTA" : /EMPATE/.test(t) ? "EMPATE" : null;
-      const b = [...document.querySelectorAll('button, a')].find((x) => /^revancha$/i.test((x.textContent || '').trim()));
+      const b = (document.querySelector('[data-testid="result-play-again"]') ?? [...document.querySelectorAll('button, a')].find((x) => /^(jugar otra|revancha)$/i.test((x.textContent || '').trim())));
       return { veredicto: v, hayRevancha: !!b };
     })()`);
     console.log("· resultado alcanzado:", JSON.stringify(antesDeRevancha));
@@ -147,7 +147,7 @@ async function main() {
 
     // ── PULSAR REVANCHA ───────────────────────────────────────────────────
     if (antesDeRevancha.hayRevancha) {
-      await tab.js(`(() => { const b = [...document.querySelectorAll('button, a')].find((x) => /^revancha$/i.test((x.textContent || '').trim())); if (b) b.click(); })()`);
+      await tab.js(`(() => { const b = (document.querySelector('[data-testid="result-play-again"]') ?? [...document.querySelectorAll('button, a')].find((x) => /^(jugar otra|revancha)$/i.test((x.textContent || '').trim()))); if (b) b.click(); })()`);
       await waitFor(tab, `(() => [...document.querySelectorAll('button')].some((b) => /^(Elige una carta|Elige una estadística|Declarar y atacar|Responder)$/.test(b.textContent.trim())))()`, 40000);
       await sleep(1200);
       const tras = await tab.js<any>(`(() => {

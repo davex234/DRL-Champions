@@ -260,9 +260,11 @@ async function main() {
      * Esto se prueba ANTES de refrescar y SIN navegar, que es como lo vive el jugador: acaba la partida, pulsa la
      * acción dominante y vuelve a jugar. La primera versión de este instrumento se iba a otra ruta y volvía, y por
      * eso pulsaba «Comenzar duelo» desde la preparación en vez de «Revancha» desde el resultado: probaba otra cosa.
+     * RESULTADO ÚNICO: en PvE la acción dominante se rotula ahora «Jugar otra»; se localiza por `result-play-again` y,
+     * si falta, por el texto («Jugar otra» o, en builds anteriores, «Revancha»).
      */
     const revancha = await tab.js<any>(`(() => {
-      const b = [...document.querySelectorAll('button, a')].find((x) => /^revancha$/i.test((x.textContent || '').trim()));
+      const b = (document.querySelector('[data-testid="result-play-again"]') ?? [...document.querySelectorAll('button, a')].find((x) => /^(jugar otra|revancha)$/i.test((x.textContent || '').trim())));
       if (!b) return { encontrado: false };
       b.click();
       return { encontrado: true };
