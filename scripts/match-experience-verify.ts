@@ -51,6 +51,8 @@ const BOARD = read("src/components/duel/MatchBoard.tsx");
 const CSS = read("src/app/game-experience.css");
 const ARENA_PAGE = read("src/app/duelos/jugar/page.tsx");
 const RESULT_SRC = read("src/components/duel/ResultScreen.tsx");
+/* RESULTADO ÚNICO · la pantalla común de todos los duelos (sonido, música, recompensas); `ResultScreen` es su adaptador. */
+const DUEL_RESULT_SRC = read("src/components/duel/result/DuelResult.tsx");
 const board = (view: any, o: any = {}) => html(createElement(MatchBoard, { view, onPlay: noop, busy: false, error: null, onDismissError: noop, ...o }));
 
 /* ═════════════════════════ ARENA ═════════════════════════ */
@@ -128,12 +130,16 @@ if (want("result")) {
   check("la arena lo enseña ANTES del resultado", ARENA_PAGE.includes("setComplete(true);") && ARENA_PAGE.includes("<MatchComplete"));
   const res = (view: any) => html(createElement(ResultScreen, { view, xp: 4200, onPlayAgain: noop, onDecks: noop, onReplay: noop, deckId: "qa" }));
   check("victoria, derrota y empate se distinguen", res(fx.win).includes('data-kind="win"') && res(fx.loss).includes('data-kind="loss"') && res(fx.draw).includes('data-kind="draw"'));
-  check("las recompensas se revelan una a una y son las del servidor", (res(fx.win).match(/data-reward-item/g) ?? []).length === 3 && res(fx.win).includes(`+${fx.win.result!.award!.credits}`));
-  check("sin recompensa no se inventa ninguna", !res({ ...fx.loss, result: { ...fx.loss.result!, award: null } }).includes("data-reward-item"));
+  // RESULTADO ÚNICO · recompensas del RECIBO del servidor en una línea; sin recibo (o vacío) no hay bloque.
+  const { credits, xp } = fx.win.result!.award!;
+  const paid = { ...fx.win, result: { ...fx.win.result!, rewards: { matchId: fx.win.matchId, capped: false, grants: [{ source: "MATCH", reward: { credits, xp }, points: 0 }] } } };
+  check("las recompensas son las del servidor, en una línea", res(paid).includes('data-testid="duel-result-rewards"') && res(paid).includes(`+${credits}`) && res(paid).includes(`+${xp}`));
+  check("sin recompensa no se inventa ninguna", !res({ ...fx.loss, result: { ...fx.loss.result!, award: null } }).includes("duel-result-rewards") && !res(fx.win).includes("duel-result-rewards"));
   const acciones = res(fx.win).slice(res(fx.win).indexOf('data-testid="result-actions"'));
   check("«volver a jugar» es la acción dominante del resultado", acciones.includes('data-cta="primary"'));
-  check("la subida de nivel no se duplica en el resultado", RESULT_SRC.includes("<LevelProgressPanel xp={xp}") && !/level-up/.test(RESULT_SRC));
-  check("el draft sigue sin economía", RESULT_SRC.includes('deckId={mode === "DRAFT_GAUNTLET" ? null : deckId}'));
+  check("JUGAR OTRA, VER PARTIDA y VOLVER AL LOBBY, nada más", (acciones.match(/<(a|button)\b/g) ?? []).length === 3 && /Jugar otra/.test(acciones) && /Ver partida/.test(acciones) && /Volver al lobby/.test(acciones));
+  check("el nivel no se apila en el resultado", !RESULT_SRC.includes("LevelProgressPanel") && !/level-up/.test(RESULT_SRC + DUEL_RESULT_SRC));
+  check("el draft sigue sin economía ni análisis de equipo", !RESULT_SRC.includes("MatchStrategyPanel") && !RESULT_SRC.includes("deckId={"));
   const play = evidence("playtest.json");
   check("navegador: el resultado real enseñó recompensas del servidor", !!play && play.matches?.every((m: any) => m.result && typeof m.result.credits === "number"), play ? "" : "falta playtest.json");
 }
@@ -142,10 +148,10 @@ if (want("result")) {
 if (want("audio")) {
   console.log("\n## AUDIO · partida y resultado");
   check("la ruta de duelo suena a partida y el resultado a resultado", musicContextForPath("/duelos/jugar") === "MATCH" && musicContextForPath("/duelos/pvp") === "MATCH");
-  check("el resultado impone su contexto mientras está en pantalla", RESULT_SRC.includes('useMusicOverride(kind ? "RESULT" : null)'));
+  check("el resultado impone su contexto mientras está en pantalla", DUEL_RESULT_SRC.includes('useMusicOverride("RESULT")'));
   check("el turno tiene sus propios sonidos, distintos del desenlace", ["turn.win", "turn.loss", "turn.tie"].every((k) => k in SOUND_EVENTS) && SOUND_EVENTS["turn.win"].level <= 2);
   check("el tablero suena con el veredicto del servidor", BOARD.includes("playSound(impact.sound)"));
-  check("el desenlace mantiene su stinger y agacha la música", RESULT_SRC.includes("stingDuck();"));
+  check("el desenlace mantiene su stinger y agacha la música", DUEL_RESULT_SRC.includes("stingDuck();"));
   const rnd = lcg(2_000);
   let m = INITIAL_MUSIC; let bad = 0;
   for (let i = 0; i < 20_000; i++) {
@@ -174,7 +180,17 @@ if (want("security")) {
   check("PvP exige identificador de acción y versión", read("src/app/duelos/pvp/page.tsx").includes("actionId: crypto.randomUUID()") && read("src/app/duelos/pvp/page.tsx").includes("expectedVersion: state.stateVersion"));
   check("la campaña no acepta primera victoria desde el cliente", !/body\.(firstClear|credits|reward)/.test(read("src/app/api/game/campaign/route.ts")));
   const uiFiles = walk(join(ROOT, "src/components/duel")).filter((p) => /\.tsx?$/.test(p) && !/\.test\./.test(p));
-  check("ninguna pieza de duelo importa el servidor ni el motor", uiFiles.every((p) => { const s2 = code(readFileSync(p, "utf8")); return !/from "@\/server\//.test(s2) && !/@\/domain\/cardgame\/(match|combat|opponent)/.test(s2); }));
+  /*
+   * El módulo tiene que terminar ahí (`"` o `/`): `@/domain/cardgame/matchmaking` (política de cola, dominio puro) no es
+   * el motor `@/domain/cardgame/match`. Antes el prefijo coincidía y daba un falso positivo con `RankedSearch.tsx`.
+   * La lista de los que fallan se informa para que un fallo real diga dónde está.
+   */
+  const ENGINE_IMPORT = /@\/domain\/cardgame\/(match|combat|opponent)(?=["/])/;
+  const engineImports = uiFiles.filter((p) => { const s2 = code(readFileSync(p, "utf8")); return /from "@\/server\//.test(s2) || ENGINE_IMPORT.test(s2); });
+  check("ninguna pieza de duelo importa el servidor ni el motor", engineImports.length === 0, engineImports.map((p) => p.replace(ROOT, "")).join(", "));
+  check("el detector del motor distingue match de matchmaking (y sigue viendo el motor)",
+    ENGINE_IMPORT.test('from "@/domain/cardgame/match"') && ENGINE_IMPORT.test('from "@/domain/cardgame/match/orchestrator"') && ENGINE_IMPORT.test('from "@/domain/cardgame/combat"')
+    && ENGINE_IMPORT.test('from "@/domain/cardgame/opponent/bots"') && !ENGINE_IMPORT.test('from "@/domain/cardgame/matchmaking"'));
   check("ninguna pieza de duelo guarda la partida en el navegador", uiFiles.every((p) => !/localStorage|sessionStorage/.test(readFileSync(p, "utf8"))));
   const play = evidence("playtest.json");
   check("navegador: el doble clic no produjo turnos dobles en partidas reales", !!play && play.doubleClick?.extraTurns === 0, play ? "" : "falta playtest.json");

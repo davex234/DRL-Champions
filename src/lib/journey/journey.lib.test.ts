@@ -141,11 +141,10 @@ test("JL13 · «Primera sesión completada» en el resultado SOLO si el servidor
   assert.equal(showFirstSessionComplete({ isComplete: true, justCompleted: true }), true);
 });
 
-test("JL15 · el resultado relee el vestíbulo también si el primer combate se RETOMÓ (sin ?primera) y solo entonces", () => {
+test("JL15 · RESULTADO ÚNICO: el resultado ya no relee el vestíbulo; la guía se invalida para que el vestíbulo la relea", () => {
   const src = require("node:fs").readFileSync(require("node:path").join(process.cwd(), "src/app/duelos/jugar/page.tsx"), "utf8") as string;
-  assert.ok(src.includes("if (firstMatch || resumedAtBoot.current) fetchDailyLoop()"));
-  assert.ok(src.includes('resumedAtBoot.current = active.view.status === "IN_PROGRESS";'));
-  assert.ok(src.includes("showFirstSessionComplete(loopAfter.journey)"), "lo que se enseña lo decide el servidor");
+  assert.ok(!src.includes("fetchDailyLoop") && !src.includes("showFirstSessionComplete"), "el resultado no apila «Primera sesión completada»");
+  assert.ok(src.includes("invalidateOnboarding();"), "la partida terminada mueve la guía; las demás pantallas releen al volver");
 });
 
 test("JL14 · primer equipo: se activa solo si es el PRIMER legal y no hay activo; nunca un guardado inválido", () => {

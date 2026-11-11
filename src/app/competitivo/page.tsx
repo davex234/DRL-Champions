@@ -75,6 +75,7 @@ export default function CompetitivoPage() {
   return (
     <RankedCenter
       snap={snap}
+      userKey={uid}
       gate={gate}
       legalDecks={legalDecks}
       onChooseDeck={setChosen}

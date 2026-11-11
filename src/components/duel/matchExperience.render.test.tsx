@@ -30,6 +30,8 @@ const ARENA_PAGE = read("src", "app", "duelos", "jugar", "page.tsx");
 const COMPLETE = read("src", "components", "duel", "MatchComplete.tsx");
 const HUB = read("src", "components", "modes", "GameModesHub.tsx") + read("src", "components", "modes", "ModePanel.tsx");
 const RESULT = read("src", "components", "duel", "ResultScreen.tsx");
+/* RESULTADO ÚNICO · `ResultScreen` es un adaptador; la pantalla (animaciones, recompensas) vive aquí. */
+const DUEL_RESULT = read("src", "components", "duel", "result", "DuelResult.tsx");
 const CSS = read("src", "app", "game-experience.css");
 const HARNESS = read("src", "app", "design-system", "fase45", "page.tsx");
 
@@ -287,34 +289,45 @@ test("RESULT 04 · «volver a jugar» es la acción dominante", () => {
   assert.match(actions, /data-cta="primary"/);
 });
 
-test("RESULT 05 · las recompensas son las del servidor y se revelan una a una", () => {
-  const h = result(fx.win);
-  assert.match(h, /data-reward-item/);
-  assert.equal((h.match(/data-reward-item/g) ?? []).length, 3);
-  assert.match(h, new RegExp(`\\+${fx.win.result!.award!.credits}`));
-  assert.match(h, new RegExp(`\\+${fx.win.result!.award!.xp}`));
+test("RESULT 05 · las recompensas son las del recibo del servidor, en UNA línea: créditos y XP", () => {
+  const { credits, xp } = fx.win.result!.award!;
+  const h = result(withResult(fx.win, { rewards: { matchId: fx.win.matchId, capped: false, grants: [{ source: "MATCH", reward: { credits, xp }, points: 0 }] } }));
+  assert.match(h, /data-testid="duel-result-rewards"/);
+  assert.match(h, /data-field="credits"/);
+  assert.match(h, /data-field="xp"/);
+  assert.match(h, new RegExp(`\\+${credits}`));
+  assert.match(h, new RegExp(`\\+${xp}`));
 });
 
-test("RESULT 06 · sin recompensa no se inventa ninguna", () => {
-  const h = result(withResult(fx.loss, { award: null }));
-  assert.ok(!h.includes("data-reward-item"));
+test("RESULT 06 · sin recompensa no se inventa ninguna (y no queda un bloque vacío)", () => {
+  for (const r of [{ award: null }, { award: fx.win.result!.award, rewards: null }]) {
+    const h = result(withResult(fx.loss, r));
+    assert.ok(!h.includes("duel-result-rewards") && !h.includes('data-field="credits"'));
+  }
 });
 
-test("RESULT 07 · la subida de nivel vive en la barra de XP, no duplicada en el resultado", () => {
-  assert.ok(RESULT.includes("<LevelProgressPanel xp={xp}"));
-  assert.equal((RESULT.match(/level-up/g) ?? []).length, 0);
+test("RESULT 07 · el nivel y la barra de XP ya no están en el resultado (viven en Progresión)", () => {
+  for (const s of [RESULT, DUEL_RESULT]) {
+    assert.ok(!s.includes("LevelProgressPanel") && !s.includes("XpProgress"));
+    assert.equal((s.match(/level-up/g) ?? []).length, 0);
+  }
 });
 
 test("RESULT 08 · el resultado no habla de misiones (eso lo cuenta la progresión)", () => {
   assert.ok(!/objective|mission|misión/i.test(RESULT.replace(/\/\*[\s\S]*?\*\//g, "")));
 });
 
-test("RESULT 09 · el desempate por OVR se cuenta tal cual lo decidió el servidor", () => {
-  assert.match(result(fx.ovr), /data-decided="OVR_TIEBREAK"/);
+test("RESULT 09 · desempate por OVR: el resultado da el veredicto del servidor sin repetir la explicación", () => {
+  // El desempate se cuenta en escena ANTES del resultado (`TiebreakReveal`); el resultado no apila su panel.
+  const h = result(fx.ovr);
+  const kind = fx.ovr.result!.isDraw ? "draw" : fx.ovr.result!.winner === "YOU" ? "win" : "loss";
+  assert.match(h, new RegExp(`data-kind="${kind}"`));
+  assert.ok(!h.includes('data-decided="OVR_TIEBREAK"'));
 });
 
-test("RESULT 10 · la revelación de recompensas respeta el movimiento reducido", () => {
-  assert.ok(RESULT.includes("initial={reduced ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.96 }}"));
+test("RESULT 10 · la entrada de las recompensas respeta el movimiento reducido", () => {
+  assert.ok(DUEL_RESULT.includes("initial={reduced ? { opacity: 0 } : { opacity: 0, y: 8 }}"));
+  assert.ok(DUEL_RESULT.includes("const step = (d: number) => (reduced ? { duration: 0 }"));
 });
 
 /* ═══════════ INTRO ═══════════ */

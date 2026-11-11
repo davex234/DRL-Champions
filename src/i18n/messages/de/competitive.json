@@ -132,6 +132,7 @@
   "Tu rango competitivo": "Dein Kompetitiv-Rang",
   "Tu rango sale de tu {rating}: cada partida ranked lo sube o lo baja (el servidor lo calcula). Las {divisiones} (I es la más alta) y cada una ocupa {n} puntos. Al empezar una temporada competitiva juegas tus partidas de colocación y entonces se revela tu rango. La Cumbre no tiene divisiones: por encima, tu puesto en el Top.": "Dein Rang ergibt sich aus deinem {rating}: Jedes Ranked-Match hebt oder senkt es (der Server berechnet es). Die {divisiones} (I ist die höchste) und jede umfasst {n} Punkte. Zu Beginn einer Kompetitiv-Saison spielst du deine Platzierungsmatches, dann wird dein Rang enthüllt. Der Gipfel hat keine Divisionen: Darüber zählt dein Platz im Top.",
   "Tu zona": "Deine Zone",
+  "Tu última partida clasificatoria": "Dein letztes Ranglistenspiel",
   "Turno a turno": "Zug für Zug",
   "Tus cartas jugadas · {n}": "Deine gespielten Karten · {n}",
   "Tú": "Du",

@@ -74,7 +74,7 @@ async function main() {
       const t = document.body.innerText;
       return {
         texto: t.slice(0, 400),
-        hayRevancha: [...document.querySelectorAll('button, a')].some((x) => /^revancha$/i.test((x.textContent || '').trim())),
+        hayRevancha: !!(document.querySelector('[data-testid="result-play-again"]') ?? [...document.querySelectorAll('button, a')].find((x) => /^(jugar otra|revancha)$/i.test((x.textContent || '').trim()))),
         hayMesa: [...document.querySelectorAll('button')].some((b) => /^(Elige una carta|Elige una estadística|Declarar y atacar|Responder)$/.test(b.textContent.trim())),
       };
     })()`);
@@ -86,7 +86,7 @@ async function main() {
     }
 
     await tab.js(`window.__nxNet = []; window.__nxErr = [];`);
-    await tab.js(`(() => { const b = [...document.querySelectorAll('button, a')].find((x) => /^revancha$/i.test((x.textContent || '').trim())); b.click(); })()`);
+    await tab.js(`(() => { const b = (document.querySelector('[data-testid="result-play-again"]') ?? [...document.querySelectorAll('button, a')].find((x) => /^(jugar otra|revancha)$/i.test((x.textContent || '').trim()))); b.click(); })()`);
 
     for (let s = 1; s <= 10; s++) {
       await sleep(1000);

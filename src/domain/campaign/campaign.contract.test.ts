@@ -435,7 +435,12 @@ test("T131 · PvpOutcome y el cierre de partida de Fase 33 no se tocan desde la 
 
 test("T132 · la campaña reutiliza la experiencia de partida (MatchIntro, MatchBoard, DuelMoment, ResultScreen)", () => {
   const j = src("src/app/duelos/jugar/page.tsx");
-  for (const c of ["<MatchIntro", "<MatchBoard", "<DuelMoment", "<ResultScreen", "<CampaignPreMatch", "<CampaignResultBanner"]) assert.ok(j.includes(c), c);
+  for (const c of ["<MatchIntro", "<MatchBoard", "<DuelMoment", "<ResultScreen", "<CampaignPreMatch"]) assert.ok(j.includes(c), c);
+  // RESULTADO ÚNICO · el aviso del nodo ya no se apila en el resultado; la navegación de la campaña sí se conserva
+  // (VOLVER AL MAPA con el nodo abierto y, tras una victoria liquidada, SIGUIENTE NODO).
+  assert.ok(!j.includes("<CampaignResultBanner") && j.includes("campaign={campaignNav}"));
+  assert.ok(j.includes("mapHref: campaignNodeHref(campaignMatchNode), nextHref: next ? campaignPlayHref(next.id) : null"));
+  assert.ok(j.includes('settled?.result === "WIN" ? nextNodeAfter(campaign, node.id) : null'), "el siguiente nodo, solo tras la victoria que liquidó el servidor");
   assert.ok(src("src/components/campaign/CampaignPreMatch.tsx").includes("<PreMatchVersus"));
 });
 

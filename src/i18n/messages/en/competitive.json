@@ -132,6 +132,7 @@
   "Tu rango competitivo": "Your competitive rank",
   "Tu rango sale de tu {rating}: cada partida ranked lo sube o lo baja (el servidor lo calcula). Las {divisiones} (I es la más alta) y cada una ocupa {n} puntos. Al empezar una temporada competitiva juegas tus partidas de colocación y entonces se revela tu rango. La Cumbre no tiene divisiones: por encima, tu puesto en el Top.": "Your rank comes from your {rating}: every ranked match raises or lowers it (the server calculates it). The {divisiones} (I is the highest) and each one spans {n} points. When a competitive season starts you play your placement matches and then your rank is revealed. The Summit has no divisions: above it, your spot in the Top.",
   "Tu zona": "Your zone",
+  "Tu última partida clasificatoria": "Your last ranked match",
   "Turno a turno": "Turn by turn",
   "Tus cartas jugadas · {n}": "Your cards played · {n}",
   "Tú": "You",

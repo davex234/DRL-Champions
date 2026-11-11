@@ -34,6 +34,22 @@ const KEY = (matchId: string) => `drl:rank-ceremony:${matchId}`;
 function seen(matchId: string): boolean {
   try { return window.localStorage.getItem(KEY(matchId)) === "1"; } catch { return false; }
 }
+
+/**
+ * RESULTADO ÚNICO · el «ya visto» de la ceremonia para quien decide si ENSEÑARLA (centro Competitivo), con la misma clave
+ * pero por CUENTA: `drl:rank-ceremony:<usuario>:<partida>`. Dos cuentas que se enfrentaron comparten partida; así la que
+ * la ve antes en un navegador no se la oculta a la otra. La marca de la ANIMACIÓN (por partida, arriba) no cambia.
+ * Sin cuenta: se da por vista (no se enseña nada que no se pueda atribuir a nadie).
+ */
+const SHOWN_KEY = (userId: string, matchId: string) => `drl:rank-ceremony:${userId}:${matchId}`;
+export function rankCeremonySeen(userId: string | null | undefined, matchId: string): boolean {
+  if (!userId) return true;
+  try { return typeof window !== "undefined" && window.localStorage.getItem(SHOWN_KEY(userId, matchId)) === "1"; } catch { return false; }
+}
+export function markRankCeremonySeen(userId: string | null | undefined, matchId: string): void {
+  if (!userId) return;
+  try { window.localStorage.setItem(SHOWN_KEY(userId, matchId), "1"); } catch { /* sin almacenamiento: se volverá a enseñar */ }
+}
 function useCeremonyOnce(matchId: string | null, reduced: boolean): boolean {
   const [animate] = useState(() => typeof window !== "undefined" && !!matchId && !reduced && !seen(matchId));
   useEffect(() => {

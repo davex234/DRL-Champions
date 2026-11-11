@@ -125,7 +125,9 @@ test("F63 U08 · integración: portada (una lectura), sobre F57, colección, are
   const arena = read("src/app/duelos/jugar/page.tsx");
   assert.match(arena, /\{guidedMatch && !draftMode && stage === "match" && <FirstMatchHint view=\{view\} \/>\}\s*<MatchBoard/);
   assert.ok(!/FirstMatchHint|Onboarding/.test(read("src/components/duel/MatchBoard.tsx")), "el tablero de F61 no se toca");
-  assert.match(arena, /<OnboardingAfterMatch view=\{loopAfter\.onboarding\} \/>/);
+  // RESULTADO ÚNICO · el resultado ya no apila el aviso de la guía; la guía sigue en la franja (`OnboardingRail`) y en
+  // Progresión, y la partida terminada la invalida para que se relea.
+  assert.ok(!arena.includes("<OnboardingAfterMatch") && arena.includes("invalidateOnboarding();"));
   assert.match(read("src/components/progression/ProgressionScreen.tsx"), /<OnboardingProgressCoach view=\{onboarding\.view\} \/>/);
   assert.match(read("src/components/layout/GameShell.tsx"), /<OnboardingRail \/>/);
   assert.ok(railVisibleOn("/jugar", "open") && railVisibleOn("/duelos/mazos", "deck") && railVisibleOn("/tienda", "welcome"));

@@ -19,11 +19,17 @@ import { MOTION, MOTION_LEVELS, pageMotion, transitionFamily, type MotionLevel }
 import { GAME_EXPERIENCE_MAP } from "../src/design/gameExperienceMap";
 import { EMPTY_MOMENTS, MAX_QUEUE, MOMENT_COPY, momentsReducer, type MomentKind, type MomentState } from "../src/lib/gameExperience/moments";
 import { xpTimeline } from "../src/lib/gameExperience/xp";
-import { INITIAL_REVEAL, hasResult, revealReducer, type RevealEvent, type RevealState } from "../src/domain/packs/reveal";
+import { INITIAL_REVEAL, buildRevealPlan, hasResult, revealReducer, type RevealEvent, type RevealState } from "../src/domain/packs/reveal";
 import { pickUiReducer, type PickUi } from "../src/lib/draft/presentation";
 import { PackOpenStage } from "../src/components/packs/PackOpenStage";
 import { PlayButton } from "../src/components/ui/game/PlayButton";
 import { GameLoader } from "../src/components/ui/game/GameLoader";
+import { XpProgress } from "../src/components/ui/game/XpProgress";
+import { PackSummary } from "../src/components/packs/PackSummary";
+import { SCENES as PACK_SCENES } from "../src/app/design-system/fase38/fixtures";
+import { CARDS, getCard, getPlayer } from "../src/data/catalog";
+import { checkExpectedPrice, validExpectedPrice } from "../src/domain/packs/priceConfirm";
+import { totalXpForLevel } from "../src/domain/progression/levels";
 import { GameError, TECHNICAL_PATTERN } from "../src/components/ui/game/GameStates";
 import { PACKS } from "../src/data/packs";
 import { GLOBAL_MARKET_ENABLED } from "../src/config/features";
@@ -208,7 +214,23 @@ if (want("packs")) {
   }
   check(`ABRIR SOBRE dominante en los ${active.length} sobres activos`, stageOk === active.length);
   const summary = read("src/components/packs/PackSummary.tsx");
-  check("resumen: dock pegado con ABRIR OTRO, COLECCIÓN y JUGAR", summary.includes('className="sticky bottom-0') && summary.includes('data-testid="summary-open-another"') && summary.includes('data-testid="summary-play"'));
+  /*
+   * El resumen se RENDERIZA (antes se buscaba el literal `className="sticky bottom-0`, que dejó de existir en F63 cuando el
+   * dock pasó a ser estático SOLO con la guía de la primera sesión delante, porque en 390 px tapaba sus botones). Se exige:
+   * sin guía, dock PEGADO; con guía, dock en su sitio; y en los dos, ABRIR OTRO (si quedan), COLECCIÓN y JUGAR.
+   */
+  const scene = PACK_SCENES["summary-open-another"];
+  const docks = scene?.kind === "summary" ? (() => {
+    const plan = buildRevealPlan(scene.plan.opened, scene.plan.before, { cards: CARDS, getCard, getPlayer });
+    const props = { packName: "Sobre", plan, available: scene.available, packsLeft: scene.packsLeft, onOpenAnother: () => {}, onNavigate: () => {} };
+    return { sticky: renderToStaticMarkup(createElement(PackSummary, props)), guided: renderToStaticMarkup(createElement(PackSummary, { ...props, dockStatic: true, lead: "Guía" })) };
+  })() : null;
+  const dockActions = (h: string) => ["summary-open-another", "summary-view-collection", "summary-play"].every((id) => h.includes(`data-testid="${id}"`));
+  check("resumen: dock pegado con ABRIR OTRO, COLECCIÓN y JUGAR",
+    !!docks && /data-dock="sticky"/.test(docks.sticky) && /class="sticky bottom-0[^"]*"/.test(docks.sticky) && dockActions(docks.sticky),
+    docks ? "" : "falta la escena QA summary-open-another");
+  check("resumen con la guía de primera sesión: dock en su sitio (no tapa la guía) y las MISMAS acciones",
+    !!docks && /data-dock="static"/.test(docks.guided) && /class="relative bottom-0[^"]*"/.test(docks.guided) && dockActions(docks.guided) && docks.guided.includes('data-testid="summary-lead"'));
   check("resumen sin valor en monedas ni venta", !/quickSell|Vender|🪙|valor de mercado/i.test(code(summary)));
   const reveal = code(read("src/components/packs/CardReveal.tsx"));
   check("legendaria / serial #1: luz de sala nivel 4 SOLO tras revelar", reveal.includes('{revealed && (item?.rarity === "legendary" || numberOne) && ('));
@@ -216,7 +238,25 @@ if (want("packs")) {
   check("doble clic en ABRIR = 1 petición", s1.requests === 1);
   check("sin resultado del servidor no hay cartas que anticipar", !hasResult(s1) && s1.count === 0);
   const route = read("src/app/api/game/packs/route.ts");
-  check("ruta de sobres: solo POST y campos cerrados (sin cambios de autoridad)", /export async function POST\(/.test(route) && route.includes('const ALLOWED = ["action", "packId", "ref"];'));
+  /*
+   * ICON (2026-10-09) añadió `expectedPrice` (el precio que el jugador VIO). Sigue sin haber cambio de autoridad: el
+   * servidor cobra SIEMPRE su precio y `expectedPrice` solo puede BLOQUEAR el cobro (409 sin cobrar). Se comprueba eso,
+   * no una lista de campos de antes del cambio.
+   */
+  const packsSvc = read("src/server/services/packs.ts");
+  const buy = packsSvc.slice(packsSvc.indexOf("export async function buyPack("), packsSvc.indexOf('sb.rpc("app_buy_pack"'));
+  check("ruta de sobres: solo POST y campos cerrados (sin cambios de autoridad)",
+    /export async function POST\(/.test(route) && !/export async function (GET|PUT|PATCH|DELETE)\(/.test(route)
+    && route.includes('const ALLOWED = ["action", "packId", "ref", "expectedPrice"];') && route.includes("if (Object.keys(body).some((k) => !ALLOWED.includes(k))) {"));
+  check("expectedPrice solo bloquea: forma validada, prohibido al abrir, comprobado ANTES de cobrar y se cobra el precio del servidor",
+    route.includes('if (!validExpectedPrice(body.expectedPrice) || (action === "open" && body.expectedPrice !== undefined)) {')
+    && buy.includes("const seen = checkExpectedPrice(pack, opts.expectedPrice);") && buy.includes("if (!seen.ok) return fail(seen.error, seen.status);")
+    && packsSvc.includes("p_price: pack.price,") && !/p_price:\s*(opts\.)?expectedPrice/.test(packsSvc));
+  const icon = { id: "icon", price: 80_000 }, std = { id: "standard", price: 1_000 };
+  check("precio cambiado o sin confirmar en ICON → 409 sin cobrar; mismo precio → se cobra",
+    checkExpectedPrice(icon, 80_000).ok && !checkExpectedPrice(icon, 60_000).ok && (checkExpectedPrice(icon, 60_000) as { code?: string }).code === "PRICE_CHANGED"
+    && (checkExpectedPrice(icon, undefined) as { code?: string }).code === "PRICE_CONFIRMATION_REQUIRED" && checkExpectedPrice(std, undefined).ok
+    && !validExpectedPrice(-1) && !validExpectedPrice(1.5) && !validExpectedPrice("80000") && validExpectedPrice(undefined));
 }
 
 /* ═════════════════════════ PLAY ═════════════════════════ */
@@ -253,7 +293,19 @@ if (want("accessibility")) {
   check("momentos y toasts anunciados (aria-live)", read("src/components/ui/game/GameMoment.tsx").includes('aria-live="polite"') && read("src/components/ui/Toast.tsx").includes('aria-live="polite"'));
   const loader = renderToStaticMarkup(createElement(GameLoader, { label: "Cargando" }));
   check("cargador anunciado (role=status)", loader.includes('role="status"'));
-  check("XP y rating con texto además de animación", read("src/components/ui/game/XpProgress.tsx").includes("aria-label={`Nivel ${t.after.level}") && read("src/components/duel/pvp/PvpOutcome.tsx").includes('data-field="newRating"'));
+  /*
+   * La barra de XP se RENDERIZA y se lee su `aria-label` real (antes se buscaba una plantilla del código fuente, que dejó
+   * de existir al pasar el texto a i18n aunque la barra siguiera siendo accesible). Dos casos: subida de nivel y no.
+   */
+  const xpBar = (xp: number, gained: number) => renderToStaticMarkup(createElement(XpProgress, { xp, gained }));
+  const barLabel = (h: string) => /role="progressbar"[^>]*aria-label="([^"]*)"|aria-label="([^"]*)"[^>]*role="progressbar"/.exec(h);
+  const up = xpBar(totalXpForLevel(8) + 40, 110), flat = xpBar(totalXpForLevel(8) + 400, 110);
+  const upLabel = barLabel(up), flatLabel = barLabel(flat);
+  const said = (m: RegExpExecArray | null) => (m ? m[1] ?? m[2] ?? "" : "");
+  check("XP con texto además de animación: la barra dice nivel, % y si subiste",
+    /aria-valuenow="\d+"/.test(up) && /^Nivel 8, \d+% hacia el siguiente; has subido un nivel$/.test(said(upLabel)) && /^Nivel 8, \d+% hacia el siguiente$/.test(said(flatLabel)),
+    `«${said(upLabel)}» / «${said(flatLabel)}»`);
+  check("rating con texto además de animación", read("src/components/duel/pvp/PvpOutcome.tsx").includes('data-field="newRating"'));
   const matrix = evidence<{ flows: { name: string; ok: boolean }[]; blockers: number }>("accessibility-matrix.json");
   check("matriz de teclado medida en navegador", !!matrix, matrix ? `${matrix.flows.length} flujos` : "falta accessibility-matrix.json (scripts/_fase44-a11y.ts)");
   check("matriz de teclado sin bloqueos", !!matrix && matrix.blockers === 0, matrix ? String(matrix.blockers) : "");

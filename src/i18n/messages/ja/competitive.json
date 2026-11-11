@@ -132,6 +132,7 @@
   "Tu rango competitivo": "あなたのランク",
   "Tu rango sale de tu {rating}: cada partida ranked lo sube o lo baja (el servidor lo calcula). Las {divisiones} (I es la más alta) y cada una ocupa {n} puntos. Al empezar una temporada competitiva juegas tus partidas de colocación y entonces se revela tu rango. La Cumbre no tiene divisiones: por encima, tu puesto en el Top.": "ランクは{rating}で決まります。ランクマッチごとに上下します(サーバーが計算)。{divisiones}(Iが最上位)で、各ディビジョンは{n}ポイント幅です。ランクシーズンが始まると認定戦をプレイし、その後ランクが判明します。頂点にディビジョンはなく、それより上はTopでの順位になります。",
   "Tu zona": "あなたのゾーン",
+  "Tu última partida clasificatoria": "直近のランクマッチ",
   "Turno a turno": "ターンごと",
   "Tus cartas jugadas · {n}": "使用したカード · {n}",
   "Tú": "あなた",

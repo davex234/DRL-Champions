@@ -86,7 +86,17 @@ async function main() {
     const ui = ["PackOpeningExperience.tsx", "CardReveal.tsx", "PackStage.tsx", "PackSummary.tsx", "PackStatus.tsx"].map((f) => read(`src/components/packs/${f}`)).join("\n");
     check("ruta: solo POST", /export async function POST\(/.test(route) && !/export (async )?function (GET|PUT|PATCH|DELETE)/.test(route));
     check("ruta: usuario del token", route.includes("openPackForUser(session.admin, session.userId, packId, ref)") && !/body\.userId/.test(code(route)));
-    check("ruta: campos cerrados (action, packId, ref) y cuerpo ≤ 2 KB", route.includes('const ALLOWED = ["action", "packId", "ref"];') && route.includes("const MAX_BODY = 2_000;"));
+    /*
+     * ICON (2026-10-09) añadió `expectedPrice` (el precio que el jugador VIO): solo puede BLOQUEAR un cobro (409 sin
+     * cobrar), nunca fijarlo. Se exige la lista cerrada actual y que el campo esté validado y prohibido al abrir.
+     */
+    check("ruta: campos cerrados (action, packId, ref, expectedPrice) y cuerpo ≤ 2 KB",
+      route.includes('const ALLOWED = ["action", "packId", "ref", "expectedPrice"];') && route.includes("if (Object.keys(body).some((k) => !ALLOWED.includes(k))) {")
+      && route.includes("const MAX_BODY = 2_000;"));
+    check("ruta: expectedPrice validado, prohibido al abrir y comprobado antes de cobrar el precio del servidor",
+      route.includes('if (!validExpectedPrice(body.expectedPrice) || (action === "open" && body.expectedPrice !== undefined)) {')
+      && service.includes("const seen = checkExpectedPrice(pack, opts.expectedPrice);") && service.includes("p_price: pack.price,")
+      && !/p_price:\s*(opts\.)?expectedPrice/.test(service));
     check("ruta: sobre y clave con formato cerrado", route.includes("/^[\\w-]{1,64}$/.test(packId)") && route.includes("/^[\\w:-]{1,128}$/.test(body.ref)"));
     check("ruta: 5xx genérico", route.includes("if (result.status >= 500)") && !/error: e instanceof Error \? e\.message/.test(code(route)));
     check("servicio: semilla criptográfica y precio del catálogo", service.includes("randomInt(") && service.includes("p_price: pack.price"));

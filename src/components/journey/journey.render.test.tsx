@@ -220,10 +220,13 @@ test("JC10 · sin migración nueva sin encargo: la cabeza es 0058 (F60: 0057 CMS
   assert.equal(files[files.length - 1], "0076_team_identities_admin.sql"); // IDENTIDAD DE EQUIPOS NUEVOS · 0076 (alta desde el panel de clave, nombre, etiqueta y región de equipos impresos que el código no conoce; aditiva) es la última; antes COLECCIONES POR EQUIPO · 0075 (primeras compleciones e insignias regionales; aditiva: sin ella el servidor solo deja de guardarlas) es la última; antes F87.2 · 0073 (launch guard de Pick'ems: elegibilidad y puerta de tiempo) es la última; antes F87.1 · 0072, F87 · 0071 (Pick'ems 2.0: cuadros de predicción, cierre por partido, liquidación y reclamos; aditiva) es la última; antes F86.2 · 0070 (feedback de la Closed Alpha + embudo derivado) es la última; antes F86 · 0069 (torneos de jugadores) es la última del repositorio (cabeza = 0069; 0068 tag público de cuenta; 0067 gestión de admins, F85 añadió 0066, F84 añadió 0065, F83 0064, ops/release). F82 añadió 0062 y F89 0063.
 });
 
-test("JC11 · la arena no tapa la partida: el coach va en la pre-partida y el resultado solo lee el vestíbulo", () => {
+test("JC11 · la arena no tapa la partida: el coach va en la pre-partida y el resultado no apila el recorrido", () => {
   const arena = read("src/app/duelos/jugar/page.tsx");
   assert.ok(arena.includes("intro={firstMatch ? <FirstMatchCoach"));
-  assert.ok(arena.includes("showFirstSessionComplete(loopAfter.journey)"));
+  // RESULTADO ÚNICO · «Primera sesión completada» ya no se apila en el resultado: la enseña el lobby (`MainMenu` →
+  // `FirstSessionDiscovery`, una vez por cuenta; ver `src/components/home/firstSession.render.test.tsx`).
+  assert.ok(read("src/components/home/MainMenu.tsx").includes("<FirstSessionDiscovery"));
+  assert.ok(!arena.includes("<JourneyDiscovery") && !arena.includes("loopAfter"));
   const board = read("src/components/duel/MatchBoard.tsx");
   assert.ok(!/Journey|FirstMatchCoach/.test(board));
 });

@@ -316,14 +316,16 @@ test("F61 UI 14 · VICTORIA / DERROTA / EMPATE con el marcador final", () => {
   if (drawM) assert.match(html(<MatchComplete result={qaView(drawM).result!} onDone={noop} />), /data-verdict="DRAW"[\s\S]*>EMPATE</);
 });
 
-test("F61 UI 15 · resultado: JUGAR OTRA (revancha real), recompensas del servidor como fichas, salir al menú", () => {
-  const h = html(<ResultScreen view={win} xp={1200} onPlayAgain={noop} onDecks={noop} onReplay={noop} onChange={noop} />);
+test("F61 UI 15 · resultado (RESULTADO ÚNICO): JUGAR OTRA, VER PARTIDA y VOLVER AL LOBBY; recompensas del servidor en una línea", () => {
+  const paid = { ...win, result: { ...win.result!, rewards: { matchId: win.matchId, capped: false, grants: [{ source: "MATCH" as const, reward: { credits: win.result!.award!.credits, xp: win.result!.award!.xp }, points: 0 }] } } };
+  const h = html(<ResultScreen view={paid} xp={1200} onPlayAgain={noop} onDecks={noop} onReplay={noop} onChange={noop} />);
   const actions = h.slice(h.indexOf('data-testid="result-actions"'));
   assert.match(actions, /Jugar otra/);
-  assert.match(actions, /Revancha · mismo equipo y rival/);
-  assert.match(actions, /Cambiar rival o equipo/); // F63 · «equipo», terminología única del producto
+  assert.match(actions, /Ver partida/);
+  assert.ok(!/Cambiar rival o equipo|Mis equipos|Salir a Duelos/.test(actions), "sin acciones de más");
+  assert.equal((actions.match(/<(a|button)\b/g) ?? []).length, 3);
   assert.match(h, /href="\/"[^>]*>Volver al lobby/);
-  assert.equal((h.match(/nx-f61-reward-token/g) ?? []).length, 3);
+  assert.match(h, /data-field="credits"/);
   assert.match(h, new RegExp(`\\+${win.result!.award!.credits}`));
   // Draft: la acción principal es la suya, no «Jugar otra».
   const d = html(<ResultScreen view={win} onPlayAgain={noop} onDecks={noop} onReplay={noop} playAgainLabel="Volver al gauntlet" mode="DRAFT_GAUNTLET" />);
@@ -378,7 +380,7 @@ test("F61 SALIR 03 · modo partida enfocado: PvE y PvP sin armazón, y cada esta
   const arena = read("src", "components", "duel", "pvp", "PvpArena.tsx");
   assert.ok(arena.includes('data-testid="pvp-leave">{t("Salir")}</NxButton>'), "la partida con «Salir» → diálogo");
   const outcome = read("src", "components", "duel", "pvp", "PvpOutcome.tsx");
-  assert.ok(outcome.includes('data-testid="ranked-back"'), "el resultado con su vuelta");
+  assert.ok(outcome.includes('{ label: privateDuel ? tb("Volver a Duelos") : tb("Volver a Competitivo"), onClick: onBack, testId: "ranked-back" }'), "el resultado con su vuelta, rotulada por destino");
 });
 
 /* ═══════════════════════ AUTORIDAD ═══════════════════════ */

@@ -323,7 +323,8 @@ S("campaña intacta: sus servicios no conocen la capa estratégica", () => {
 });
 S("Draft intacto: sin análisis de equipo propio ni «Ajustar equipo»", () => {
   for (const f of ["src/domain/draft/rules.ts", "src/server/services/draftGauntlet.ts"].filter((x) => existsSync(join(ROOT, x)))) assert.ok(!/deckStrategy/.test(read(f)), f);
-  assert.ok(read("src/components/duel/ResultScreen.tsx").includes('deckId={mode === "DRAFT_GAUNTLET" ? null : deckId}'));
+  // RESULTADO ÚNICO · el resultado (también el de Draft) ya no lleva análisis de equipo ni «Ajustar equipo».
+  assert.ok(!read("src/components/duel/ResultScreen.tsx").includes("<MatchStrategyPanel"));
 });
 
 /* ───────── 83–96 · resumen de partida ───────── */

@@ -24,6 +24,9 @@ const BOARD = read("components", "duel", "MatchBoard.tsx");
 const STAT_SELECTOR = read("components", "duel", "arena", "StatSelector.tsx");
 const MOMENT = read("components", "duel", "DuelMoment.tsx");
 const RESULT = read("components", "duel", "ResultScreen.tsx");
+/* RESULTADO ÚNICO · la pantalla compartida por todos los duelos (los tres resultados son adaptadores de esta). */
+const DUEL_RESULT = read("components", "duel", "result", "DuelResult.tsx");
+const RESULT_SUMMARY = read("lib", "duel", "resultSummary.ts");
 const SUMMARY = read("components", "duel", "MatchSummary.tsx");
 const HELP = read("components", "duel", "HelpSheet.tsx");
 const SOUND_BTN = read("components", "duel", "SoundToggle.tsx");
@@ -118,8 +121,9 @@ test("A8 · la revelación nombra las estadísticas por su nombre real y el vere
 
 test("A9 · el desempate por OVR se explica SOLO cuando ocurre, con las cifras del servidor", () => {
   assert.ok(SUMMARY.includes("if (!d.tiebreak) return null;"));
-  assert.ok(RESULT.includes('<DecisionPanel result={r} className="mt-3" />'));
-  assert.ok(PVP_OUTCOME.includes("<DecisionPanel result={view.result}"));
+  // RESULTADO ÚNICO · el desempate se cuenta EN ESCENA antes del resultado (`TiebreakReveal`); el resultado no lo repite.
+  assert.ok(JUGAR.includes('<TiebreakReveal key="tiebreak" result={view.result} onDone={tiebreakDone} />'));
+  for (const src of [RESULT, PVP_OUTCOME, DUEL_RESULT]) assert.ok(!src.includes("<DecisionPanel"), "el resultado no apila el panel del desempate");
 });
 
 test("A10 · marcador e historial: pista de turnos, columna reservada y tira en miniatura", () => {
@@ -136,17 +140,23 @@ test("A10 · marcador e historial: pista de turnos, columna reservada y tira en 
   const played = readFileSync(join(process.cwd(), "src/components/duel/arena/PlayedRow.tsx"), "utf8");
   assert.ok(played.includes("min-h-[calc(var(--pos)*1.16)]"), "la fila de posiciones reserva su altura: la mesa no salta");
   assert.ok(!BOARD.includes("xl:grid-cols-[minmax(0,1fr)_300px]"), "la columna lateral fija ya no existe");
-  assert.ok(RESULT.includes("<RoundStrip history={view.history}"));
+  // RESULTADO ÚNICO · el turno a turno ya no se apila en el resultado: VER PARTIDA abre la repetición completa.
+  assert.ok(RESULT.includes("replayHref={`/duelos/replay/${view.matchId}`}"));
+  assert.ok(PVP_OUTCOME.includes("replayHref={view ? `/duelos/replay/${view.matchId}` : null}"));
+  assert.ok(!RESULT.includes("<RoundStrip") && !PVP_OUTCOME.includes("<RoundStrip"));
   assert.ok(SUMMARY.includes('aria-label={tr("Historial por turnos")}'));
 });
 
 test("A11 · el final: CARTA DESTACADA (nunca «MVP»), recompensa, XP y nivel salen de datos del servidor", () => {
   assert.ok(SUMMARY.includes("Carta destacada"));
-  assert.ok(!/\bMVP\b/.test(code(SUMMARY) + code(RESULT) + code(PVP_OUTCOME)), "en el código que se ejecuta no existe «MVP»");
-  assert.ok(RESULT.includes("r.award.credits") && RESULT.includes("r.award.xp") && RESULT.includes("r.award.points"));
-  assert.ok(!/award\.(credits|xp|points)\s*[+\-*\/]\s*\d/.test(code(RESULT)), "no se retoca la recompensa en el cliente");
-  assert.ok(RESULT.includes("<LevelProgressPanel xp={xp}"));
-  assert.ok(JUGAR.includes("fetchGameState().then((s) => setXp("), "la XP total se pide al servidor");
+  assert.ok(!/\bMVP\b/.test(code(SUMMARY) + code(RESULT) + code(PVP_OUTCOME) + code(DUEL_RESULT)), "en el código que se ejecuta no existe «MVP»");
+  // RESULTADO ÚNICO · créditos y XP salen SOLO del RECIBO del servidor (la tabla `award` no se lee); nunca se retocan.
+  assert.ok(RESULT.includes("earnings={resultEarnings(r)}"));
+  assert.ok(RESULT_SUMMARY.includes("g.reward.credits") && RESULT_SUMMARY.includes("g.reward.xp"));
+  assert.ok(!/\baward\b/.test(code(RESULT_SUMMARY) + code(RESULT) + code(DUEL_RESULT)), "la tabla de premios no se enseña");
+  assert.ok(!/(award|reward)\??\.(credits|xp|points)\s*[+\-*\/]\s*\d/.test(code(RESULT_SUMMARY) + code(DUEL_RESULT)), "no se retoca la recompensa en el cliente");
+  // La carta destacada y la barra de nivel ya no están en el resultado (viven en la repetición y en Progresión).
+  for (const s of ["FeaturedCardPanel", "LevelProgressPanel"]) assert.ok(!RESULT.includes(`<${s}`) && !PVP_OUTCOME.includes(`<${s}`), s);
   // Fase 44 · la barra anima del XP anterior real al nuevo real: el nivel sigue saliendo de la curva del dominio (`xpTimeline` → `levelFromXp`).
   assert.ok(SUMMARY.includes("<XpProgress xp={xp} gained={gained}"), "el panel de nivel usa la pieza de XP de juego");
   assert.ok(readFileSync(join(process.cwd(), "src/lib/gameExperience/xp.ts"), "utf8").includes("levelFromXp(after)"), "el nivel usa la curva del dominio de progresión");
@@ -154,7 +164,9 @@ test("A11 · el final: CARTA DESTACADA (nunca «MVP»), recompensa, XP y nivel s
 
 test("A12 · post-partida: revancha directa con el mismo mazo y rival, cambiar, ver la partida, salir", () => {
   // F63 · «equipo» (terminología única): antes «Cambiar rival o mazo».
-  assert.ok(RESULT.includes("Revancha") && RESULT.includes("Cambiar rival o equipo") && RESULT.includes("Ver la partida") && RESULT.includes("Salir a Duelos"));
+  // RESULTADO ÚNICO · tres acciones: JUGAR OTRA (la revancha: mismo equipo y rival), VER PARTIDA y VOLVER AL LOBBY.
+  assert.ok(RESULT.includes('t("Jugar otra")') && RESULT.includes("onClick: onPlayAgain") && DUEL_RESULT.includes('t("Ver partida")') && RESULT.includes('t("Volver al lobby")'));
+  assert.ok(!RESULT.includes("Cambiar rival o equipo") && !RESULT.includes("Salir a Duelos"), "sin acciones de más");
   assert.ok(JUGAR.includes("void begin(deckId, difficulty);"), "la revancha crea OTRA partida en el servidor");
   assert.ok(JUGAR.includes('trackDuel("rematch")'));
 });
@@ -214,9 +226,10 @@ test("B5 · doble envío y respuesta tardía: actionId único, expectedVersion y
 });
 
 test("B6 · sin revancha PvP (el backend no la tiene): «Buscar otro rival»; el rating se LEE", () => {
-  assert.ok(PVP_OUTCOME.includes("Buscar otro rival"));
-  assert.ok(!/Revancha/.test(code(PVP_OUTCOME)));
-  assert.ok(PVP_OUTCOME.includes('data-field="pending"'), "sin movimiento aún: se dice, no se inventa");
+  // RESULTADO ÚNICO · en ranked JUGAR OTRA = buscar OTRO rival (`onAgain`); la revancha solo existe en el duelo privado.
+  assert.ok(PVP_OUTCOME.includes('{ label: tr("Jugar otra"), onClick: onAgain, once: true, testId: "ranked-again" }'));
+  assert.ok(PVP_OUTCOME.includes('{ label: tr("Revancha"), onClick: privateDuel.onRematch'), "la revancha es la del duelo privado");
+  assert.ok(PVP_OUTCOME.includes("{ pending: true }") && DUEL_RESULT.includes('field="rating-pending"'), "sin movimiento aún: se dice, no se inventa");
   assert.ok(!/newRating\s*-\s*oldRating/.test(code(PVP_OUTCOME) + code(PVP_PAGE)));
   assert.ok(PVP_PAGE.includes("outcome=1"));
 });
@@ -252,13 +265,14 @@ test("C2 · móvil: la ayuda es hoja inferior, el historial en miniatura desplaz
 
 test("C3 · movimiento reducido: MotionConfig en la arena y `useReducedMotion` en intro, revelación y resultado", () => {
   assert.ok(JUGAR.includes('MotionConfig reducedMotion="user"'));
-  for (const [n, s] of [["intro", INTRO], ["momento", MOMENT], ["resultado", RESULT]] as const) assert.ok(s.includes("useReducedMotion()"), n);
+  for (const [n, s] of [["intro", INTRO], ["momento", MOMENT]] as const) assert.ok(s.includes("useReducedMotion()"), n);
+  assert.ok(DUEL_RESULT.includes("useReducedMotionConfig()"), "resultado (respeta el MotionConfig de la arena)");
 });
 
 test("C4 · sonido: cues en selección, confirmación, veredicto y final; el silencio existe y se respeta", () => {
   assert.ok(BOARD.includes('playCue("ui")') && BOARD.includes('playCue("whoosh")'));
   assert.ok(MOMENT.includes('"round_win" : "round_lose"'));
-  assert.ok(RESULT.includes('"victory" : kind === "loss" ? "defeat" : "ui"'));
+  assert.ok(DUEL_RESULT.includes('"victory" : kind === "loss" ? "defeat" : "ui"'));
   assert.ok(SOUND_BTN.includes("setMuted(next)") && SOUND_BTN.includes("isMuted()"));
   assert.ok(/if \(!ac \|\| muted( \|\| k <= 0)?\) return;/.test(SOUND), "silenciado (o volumen 0, Fase 44), ningún cue suena");
   assert.ok(JUGAR.includes("<SoundToggle") && PVP_ARENA.includes("<SoundToggle"));

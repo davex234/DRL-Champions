@@ -241,18 +241,19 @@ test("MatchStrategyPanel: aria por eje con comparaciones/ganadas/perdidas/empata
   const v = qaView(WIN);
   assert.match(html(<MatchStrategyPanel history={v.history} result={v.result} />), /aria-label="(Stronghold|Gamesense|Entryfrag): \d+ comparaciones, \d+ ganadas, \d+ perdidas, \d+ empatadas"/);
 });
-test("ResultScreen: incluye la lectura estratégica y el enlace al equipo usado", () => {
+test("ResultScreen (RESULTADO ÚNICO): la lectura estratégica ya no se apila en el resultado", () => {
   const v = qaView(WIN);
   const h = html(<ResultScreen view={v} deckId={D1.id} onPlayAgain={() => {}} onDecks={() => {}} onReplay={() => {}} />);
-  assert.ok(h.includes('data-testid="match-strategy"') && h.includes('data-testid="adjust-deck"'));
+  assert.ok(!h.includes('data-testid="match-strategy"') && !h.includes('data-testid="adjust-deck"'));
+  assert.ok(h.includes(`href="/duelos/replay/${v.matchId}"`), "la partida se revisa con VER PARTIDA");
 });
 test("ResultScreen en Draft: sin «Ajustar equipo» (no es un equipo propio)", () => {
   const v = qaView(WIN);
   assert.ok(!html(<ResultScreen view={v} deckId={D1.id} mode="DRAFT_GAUNTLET" onPlayAgain={() => {}} onDecks={() => {}} onReplay={() => {}} />).includes('data-testid="adjust-deck"'));
 });
-test("PvpOutcome: lectura estratégica solo desde la vista proyectada (sin equipo del rival)", () => {
+test("PvpOutcome (RESULTADO ÚNICO): sin lectura estratégica y sin ningún equipo (propio ni del rival)", () => {
   const src = read("src/components/duel/pvp/PvpOutcome.tsx");
-  assert.ok(src.includes("<MatchStrategyPanel history={view.history} result={view.result} className=\"mt-3\" />"));
+  assert.ok(!src.includes("<MatchStrategyPanel"));
   assert.ok(!src.includes("deckId={"));
 });
 test("ReplayViewer: lectura desde los turnos guardados y enlace solo con equipo propio", () => {

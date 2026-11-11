@@ -59,8 +59,6 @@ import { PreMatch } from "@/components/duel/PreMatch";
 import { ResultScreen } from "@/components/duel/ResultScreen";
 import { QuickMatchResult } from "@/components/duel/QuickMatchResult";
 import { isQuickMatchResult } from "@/lib/duel/quickResult";
-// F83 · +XP de temporada y retos tras la partida (lo lee del servidor; sin temporada activa no pinta nada).
-import { SeasonPostMatch } from "@/components/seasonTrack/SeasonMoments";
 import { MatchComplete } from "@/components/duel/MatchComplete";
 import { MatchTopBar } from "@/components/duel/arena/MatchTopBar";
 import { ArenaEnvironment } from "@/components/duel/arena/ArenaEnvironment";
@@ -72,28 +70,18 @@ import { useLeaveGuard } from "@/lib/duel/useLeaveGuard";
 import {
   fetchDuelDecks, fetchActiveDuel, fetchDuelState, startDuel, playDuelTurn, abandonDuel, DuelError,
 } from "@/lib/duel/client";
-import { fetchGameState } from "@/lib/game/client";
 import { trackDuel } from "@/lib/duel/telemetry";
-import { useProgressionDelta } from "@/lib/progression/meta";
-import { PostMatchProgress } from "@/components/progression/PostMatchProgress";
 import { pickStartableDeck } from "@/lib/duel/gameplayUx";
 import { CampaignPreMatch } from "@/components/campaign/CampaignPreMatch";
-import { CampaignResultBanner } from "@/components/campaign/CampaignResultBanner";
 import { fetchCampaign, startCampaignNode, syncCampaign, type CampaignSnapshot } from "@/lib/campaign/client";
 import { findNodeView } from "@/domain/campaign/snapshot";
-import { NODE_ID_PATTERN, campaignNodeHref, chapterOf, nextNodeAfter, resultCopy } from "@/lib/campaign/presentation";
+import { NODE_ID_PATTERN, campaignNodeHref, campaignPlayHref, chapterOf, nextNodeAfter } from "@/lib/campaign/presentation";
 import { trackCampaign } from "@/lib/campaign/telemetry";
-import { fetchDraft, type DraftSnapshot } from "@/lib/draft/client";
-import { draftResultCopy } from "@/lib/draft/presentation";
-import { DraftResultBanner } from "@/components/draft/DraftResultBanner";
+import { fetchDraft } from "@/lib/draft/client";
 import { DRAFT_ROUTE } from "@/domain/draft/rules";
-import { initialDifficulty, isFirstMatchContext, showFirstSessionComplete } from "@/lib/journey/arena";
-import { discoveryItems } from "@/lib/journey/presentation";
-import { fetchDailyLoop, type DailyLoopSnapshot } from "@/lib/dailyLoop/client";
+import { initialDifficulty, isFirstMatchContext } from "@/lib/journey/arena";
 import { FirstMatchCoach } from "@/components/journey/FirstMatchCoach";
-import { JourneyDiscovery } from "@/components/journey/JourneyDiscovery";
-import { NextUpAfter } from "@/components/liveService/NextUpAfter";
-import { FirstMatchHint, OnboardingAfterMatch } from "@/components/onboarding/FirstMatchHelp";
+import { FirstMatchHint } from "@/components/onboarding/FirstMatchHelp";
 import { invalidateOnboarding, useOnboarding } from "@/lib/onboarding/client";
 import {
   DIFFICULTY_INFO, type BotDifficulty, type CombatStatKey, type DuelDeckDTO,
@@ -147,10 +135,6 @@ function Play() {
   /** Reglas compactas de la preparación: solo la primera vez que esta cuenta entra (preferencia de presentación). */
   const rulesIntro = useDuelRulesIntro(me?.id ?? null);
   const guidedMatch = firstMatch || onboarding.view?.current === "match";
-  /** Fase 40 · la partida se retomó al entrar (p. ej. el primer combate continuado desde el vestíbulo, sin `?primera`). */
-  const resumedAtBoot = useRef(false);
-  /** Fase 40 · foto del vestíbulo tras el resultado del primer combate: «Primera sesión completada» solo si el servidor lo dice. */
-  const [loopAfter, setLoopAfter] = useState<DailyLoopSnapshot | null>(null);
   const [view, setView] = useState<DuelMatchView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [fatal, setFatal] = useState<string | null>(null);
@@ -159,8 +143,6 @@ function Play() {
   const [help, setHelp] = useState(false);
   /** La partida se retomó desde el servidor al entrar: se dice una vez. */
   const [recovered, setRecovered] = useState(false);
-  /** XP total de la cuenta tras la partida (servidor). `null` hasta pedirla. */
-  const [xp, setXp] = useState<number | null>(null);
   /*
    * ASENTANDO. El hueco entre «la carta ya está en el tablero» y «se abre la revelación».
    * Cerrojo de presentación: no se juega mientras se enseña un turno.
@@ -177,8 +159,6 @@ function Play() {
   const [campaignFailed, setCampaignFailed] = useState(false);
   /** Nodo de la partida EN PANTALLA (lanzada desde un nodo o retomada con su intento abierto). */
   const [campaignMatchNode, setCampaignMatchNode] = useState<string | null>(null);
-  /** El nodo ya estaba completado antes de esta partida: distingue primera victoria de rejugar. */
-  const [campaignWasCompleted, setCampaignWasCompleted] = useState(false);
   /** Nombre del rival real para el tablero (presentación: el servidor no lo guarda en la partida). */
   const campaignRival = useRef<string | null>(null);
   const decorate = useCallback((v: DuelMatchView): DuelMatchView => (campaignRival.current ? { ...v, rivalLabel: campaignRival.current } : v), []);
@@ -194,7 +174,6 @@ function Play() {
   const resultParam = params.get("resultado");
   /* Se lee UNA vez (al montar): quitarlo luego de la URL no debe volver a disparar el arranque. */
   const resultAtBoot = useRef(resultParam && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(resultParam) ? resultParam : null);
-  const [draftSnap, setDraftSnap] = useState<DraftSnapshot | null>(null);
 
   /** Evita el doble envío: una jugada en vuelo bloquea la siguiente. */
   const inFlight = useRef(false);
@@ -208,7 +187,6 @@ function Play() {
       if (draftMode) {
         // Fase 39 · el combate se recupera desde la run (la lectura ya reconcilia un combate terminado).
         const snap = await fetchDraft();
-        setDraftSnap(snap);
         const matchId = snap.run?.status === "IN_MATCH" ? snap.run.currentMatchId : null;
         if (!matchId) { router.replace(DRAFT_ROUTE); return; }
         const r = await fetchDuelState(matchId);
@@ -235,12 +213,10 @@ function Play() {
           const n = findNodeView(snap, open.nodeId);
           setCampaign(snap);
           setCampaignMatchNode(open.nodeId);
-          setCampaignWasCompleted(n?.status === "COMPLETED");
           campaignRival.current = n?.opponent.name ?? null;
         }
         setView(decorate(active.view));
         setRecovered(active.view.status === "IN_PROGRESS");
-        resumedAtBoot.current = active.view.status === "IN_PROGRESS";
         setStage(active.view.status === "IN_PROGRESS" ? "match" : "result");
         trackDuel("reconnect");
         return;
@@ -259,9 +235,6 @@ function Play() {
         if (done && done.status !== "IN_PROGRESS") {
           setView(decorate(done));
           setStage("result");
-          fetchGameState().then((s) => setXp(typeof s?.xp === "number" ? s.xp : null)).catch(() => setXp(null));
-          // F63 · recargar sobre el resultado de la primera partida conserva «Ver mi progreso» (lectura pura).
-          if (firstMatch) fetchDailyLoop().then((r) => setLoopAfter(r.data)).catch(() => undefined);
           return;
         }
       }
@@ -270,54 +243,40 @@ function Play() {
       setFatal(e instanceof Error ? e.message : t("No se pudo preparar el duelo"));
       setStage("prematch");
     }
-  }, [campaignNodeId, decorate, draftMode, router, firstMatch]);
+  }, [campaignNodeId, decorate, draftMode, router]);
 
   /** Fase 35 · tras la partida, el servidor reconcilia y devuelve el mapa (el banner lee el intento liquidado). */
   const refreshCampaign = useCallback(async () => {
-    try { setCampaign(await syncCampaign()); } catch { /* el banner ofrece «Actualizar progreso» */ }
+    try { setCampaign(await syncCampaign()); } catch { /* el mapa de la campaña vuelve a leerlo al entrar */ }
   }, []);
 
   useEffect(() => { void boot(); }, [boot]);
 
-  /** Pide la XP total al servidor al terminar (para el nivel). Si falla, no se enseña nivel. */
-  const loadXp = useCallback(() => {
-    fetchGameState().then((s) => setXp(typeof s?.xp === "number" ? s.xp : null)).catch(() => setXp(null));
-  }, []);
-
-  /*
-   * FASE 27 · EL DUELO ALIMENTA EL META. Lectura del servidor antes de empezar y otra al terminar:
-   * la diferencia (XP, nivel, objetivos que avanzaron o se completaron) se enseña en el resultado.
-   * Nada se calcula aquí como autoridad: son dos verdades del servidor y su distancia.
-   */
-  const progression = useProgressionDelta();
-  const { begin: beginProgression, end: endProgression, reset: resetProgression } = progression;
-
   /*
    * FASE 45 · el golpe de «partida terminada» va ANTES del resultado: se enciende aquí y lo apaga `MatchComplete`
-   * (solo o al saltarlo). La carga del resultado no espera a la animación: el XP y el meta se piden ya.
+   * (solo o al saltarlo). La carga del resultado no espera a la animación.
+   *
+   * RESULTADO ÚNICO · el resultado ya no enseña nivel, progreso del meta ni el vestíbulo: no se piden la XP total ni las
+   * fotos «antes/después» del meta. El servidor sigue concediendo y liquidando igual; se ven en Progresión y Perfil.
    */
   const [complete, setComplete] = useState(false);
   /* FASE 61 · el desempate en escena va ANTES del golpe final, y solo si el marcador no decidió (`endSequence`). */
   const [tiebreak, setTiebreak] = useState(false);
   const tiebreakDone = useCallback(() => setTiebreak(false), []);
 
-  /** Al entrar en resultado: XP del servidor, deltas del meta y telemetría. `result` = el que acaba de llegar. */
+  /** Al entrar en resultado: reconciliación del modo y telemetría. `result` = el que acaba de llegar. */
   const finish = useCallback((result?: DuelResultView | null) => {
     setStage("result");
     setTiebreak(endSequence(result ?? null, true).includes("TIEBREAK"));
     setComplete(true);
     trackDuel("match_completed");
-    // Fase 39 · el draft no da XP ni mueve el meta: solo se relee la run liquidada.
-    if (draftMode) { fetchDraft().then(setDraftSnap).catch(() => undefined); return; }
-    loadXp();
-    void endProgression();
+    // Fase 39 · el draft no da XP ni mueve el meta: se relee la run (la lectura reconcilia el combate terminado).
+    if (draftMode) { fetchDraft().catch(() => undefined); return; }
+    // Fase 35 · la campaña reconcilia el intento en el servidor (y deja la foto para «Siguiente nodo» y la telemetría).
     if (campaignMatchNode) void refreshCampaign();
-    // Una lectura PURA del vestíbulo, solo si pudo ser la primera partida (CTA del recorrido o partida retomada):
-    // «Primera sesión completada» se enseña únicamente si el servidor lo dice (`journey.justCompleted`).
-    if (firstMatch || resumedAtBoot.current) fetchDailyLoop().then((r) => setLoopAfter(r.data)).catch(() => undefined);
     // F63 · la partida terminada mueve la guía (paso 5 → 6): las demás pantallas releen al volver.
     invalidateOnboarding();
-  }, [loadXp, endProgression, campaignMatchNode, refreshCampaign, draftMode, firstMatch]);
+  }, [campaignMatchNode, refreshCampaign, draftMode]);
 
   const begin = useCallback(async (id: string | null, lv: BotDifficulty) => {
     if (!id || inFlight.current) return;
@@ -325,8 +284,6 @@ function Play() {
     setBusy(true);
     setError(null);
     try {
-      // Fase 27 · lectura «antes» del meta (solo lectura; si falla, no habrá deltas y ya está).
-      await beginProgression();
       // Fase 35 · un nodo (el del enlace o el de la partida que se rejuega) se lanza por la campaña.
       const nodeId = campaignNodeId ?? campaignMatchNode;
       const node = nodeId && campaign ? findNodeView(campaign, nodeId) : null;
@@ -334,13 +291,11 @@ function Play() {
       campaignRival.current = nodeId ? (node?.opponent.name ?? r.view.rivalLabel ?? null) : null;
       if (nodeId) {
         setCampaignMatchNode(nodeId);
-        setCampaignWasCompleted(node?.status === "COMPLETED");
         trackCampaign("campaign_match_start");
         if (node?.status === "COMPLETED") trackCampaign("campaign_replay");
       }
       setView(decorate(r.view));
       setRecovered(false);
-      setXp(null);
       trackDuel("match_start");
       setStage("intro");
     } catch (e) {
@@ -350,7 +305,7 @@ function Play() {
       inFlight.current = false;
       setBusy(false);
     }
-  }, [beginProgression, campaignNodeId, campaignMatchNode, campaign, decorate]);
+  }, [campaignNodeId, campaignMatchNode, campaign, decorate]);
 
   /* Fase 35 · telemetría del nodo liquidado, una vez por partida. */
   useEffect(() => {
@@ -500,7 +455,7 @@ function Play() {
    * se manifestaban con el mismo síntoma y que se arreglan aquí:
    *
    *   1. `reset()` pone `view = null`, pero NO toca `stage`, que sigue valiendo `"result"`. Entre esa línea y la
-   *      respuesta del servidor —dos viajes: `beginProgression()` y `startDuel()`— la pantalla de resultado se
+   *      respuesta del servidor (`startDuel()`) la pantalla de resultado se
    *      pintaba con una partida que ya no existía. Nada que enseñar: negro. Ahora el resultado ANTERIOR se queda
    *      en pantalla mientras se crea la partida nueva, y sólo se sustituye cuando `begin()` trae la vista buena.
    *      Se limpian igualmente la revelación, el error y la liquidación, que sí deben irse.
@@ -513,7 +468,6 @@ function Play() {
    */
   function rematch() {
     trackDuel("rematch");
-    resetProgression();
 
     if (!deckId) {
       reset();
@@ -528,16 +482,6 @@ function Play() {
     setError(null);
     setRecovered(false);
     void begin(deckId, difficulty);
-  }
-
-  /** Cambiar de rival o de mazo: vuelve a la pre-partida con los mazos frescos. */
-  function change() {
-    // Fase 35 · en campaña el rival no se cambia aquí: se vuelve al mapa, con el nodo abierto.
-    const nodeId = campaignNodeId ?? campaignMatchNode;
-    if (nodeId) { router.push(campaignNodeHref(nodeId)); return; }
-    reset();
-    setStage("prematch");
-    void boot();
   }
 
   if (stage === "loading") {
@@ -561,35 +505,17 @@ function Play() {
 
   /* Fase 35 · pre-partida y resultado del nodo. */
   const prematchNode = campaignNodeId && campaign ? findNodeView(campaign, campaignNodeId) : null;
-  const campaignResult = (() => {
-    if (!campaignMatchNode || !view || stage !== "result" || !campaign) return null;
-    const node = findNodeView(campaign, campaignMatchNode);
-    if (!node) return null;
-    const settled = campaign.lastAttempt && campaign.lastAttempt.matchId === view.matchId ? campaign.lastAttempt : null;
-    const chapter = chapterOf(campaign, node.id);
-    const copy = resultCopy({
-      outcome: settled?.result ?? null,
-      firstClear: !!settled?.firstClear,
-      wasCompleted: campaignWasCompleted,
-      chapterClosed: settled?.firstClear && chapter?.complete ? chapter : null,
-      campaignComplete: campaign.summary.complete,
-      credits: settled?.firstClear ? node.firstClearCredits : 0,
-      nodeName: node.name,
-    });
-    return <CampaignResultBanner copy={copy} node={node} next={settled?.result === "WIN" ? nextNodeAfter(campaign, node.id) : null} onRetrySync={() => void refreshCampaign()} />;
-  })();
-
-  /* Fase 39 · resultado del combate del draft, leído de la run liquidada por el servidor. */
-  const draftResult = (() => {
-    if (!draftMode || !view || stage !== "result") return null;
-    const copy = draftResultCopy(draftSnap?.run ?? draftSnap?.lastRun ?? null, view.matchId);
-    return (
-      <DraftResultBanner
-        copy={copy}
-        onBack={() => router.push(DRAFT_ROUTE)}
-        onRefresh={() => void fetchDraft().then(setDraftSnap).catch(() => undefined)}
-      />
-    );
+  /*
+   * Fase 35 · RESULTADO ÚNICO en campaña: el aviso del nodo ya no se pinta (el mapa lo cuenta), pero la navegación se
+   * conserva: VOLVER AL LOBBY lleva al mapa con el nodo abierto y, si el servidor liquidó una VICTORIA con nodo siguiente,
+   * la acción principal es SIGUIENTE NODO. Todo sale del intento liquidado por el servidor (`lastAttempt`).
+   */
+  const campaignNav = (() => {
+    if (!campaignMatchNode || !view || stage !== "result") return null;
+    const node = campaign ? findNodeView(campaign, campaignMatchNode) : null;
+    const settled = campaign?.lastAttempt && campaign.lastAttempt.matchId === view.matchId ? campaign.lastAttempt : null;
+    const next = campaign && node && settled?.result === "WIN" ? nextNodeAfter(campaign, node.id) : null;
+    return { mapHref: campaignNodeHref(campaignMatchNode), nextHref: next ? campaignPlayHref(next.id) : null };
   })();
 
   return (
@@ -709,9 +635,10 @@ function Play() {
       {stage === "result" && view && <ArenaEnvironment variant={arenaMode} />}
 
       {/*
-        PARTIDA RÁPIDA · resultado mínimo (veredicto, marcador, motivo, SEGUIR JUGANDO / VOLVER AL MENÚ PRINCIPAL). Solo si el
-        servidor dice QUICK y la arena es la rápida; campaña, draft o un contexto desconocido siguen con el resultado completo.
-        SEGUIR JUGANDO = `rematch()`: la misma creación canónica de partida rápida (mismo equipo y dificultad, cerrojo `inFlight`).
+        RESULTADO ÚNICO · todas las partidas de Duelos terminan en la MISMA pantalla (`result/DuelResult`): veredicto,
+        marcador, recompensas en una línea y JUGAR OTRA / VER PARTIDA / VOLVER AL LOBBY. Los adaptadores solo traducen el
+        modo a datos: partida rápida (QUICK del servidor + arena rápida) → `QuickMatchResult`; campaña, draft o contexto
+        desconocido → `ResultScreen`. JUGAR OTRA = `rematch()`: la creación canónica (mismo equipo y rival, cerrojo `inFlight`).
       */}
       {stage === "result" && view && isQuickMatchResult(view, arenaMode) && (
         <QuickMatchResult key={view.matchId} view={view} onContinue={rematch} />
@@ -719,18 +646,12 @@ function Play() {
 
       {stage === "result" && view && !isQuickMatchResult(view, arenaMode) && (
         <ResultScreen
+          key={view.matchId}
           view={view}
-          xp={xp}
           onPlayAgain={draftMode ? () => router.push(DRAFT_ROUTE) : rematch}
           playAgainLabel={draftMode ? t("Volver al gauntlet") : undefined}
           mode={draftMode ? "DRAFT_GAUNTLET" : "PVE"}
-          deckId={draftMode ? null : view.yourDeckId ?? null}
-          // Fase 35 · en campaña el rival lo fija el nodo: la salida es «Volver al mapa», en el propio resultado.
-          onChange={campaignMatchNode || draftMode ? undefined : change}
-          onDecks={() => router.push("/duelos/mazos")}
-          onReplay={() => router.push(`/duelos/replay/${view.matchId}`)}
-          progress={draftMode || !progression.delta ? null : <PostMatchProgress delta={progression.delta} className="mt-3" />}
-          extra={draftMode ? <><SeasonPostMatch matchId={view.matchId} className="mt-3" />{draftResult}<NextUpAfter context="draft" className="mt-3" /></> : <><SeasonPostMatch matchId={view.matchId} className="mt-3" />{campaignResult}{loopAfter?.onboarding?.active ? <OnboardingAfterMatch view={loopAfter.onboarding} /> : loopAfter && showFirstSessionComplete(loopAfter.journey) && <JourneyDiscovery items={discoveryItems(loopAfter)} className="mt-3" />}{!loopAfter?.onboarding?.active && <NextUpAfter context={campaignMatchNode ? "campaign" : "match"} className="mt-3" />}</>}
+          campaign={campaignNav}
         />
       )}
     </Arena>
