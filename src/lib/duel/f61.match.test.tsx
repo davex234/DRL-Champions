@@ -380,7 +380,7 @@ test("F61 SALIR 03 · modo partida enfocado: PvE y PvP sin armazón, y cada esta
   const arena = read("src", "components", "duel", "pvp", "PvpArena.tsx");
   assert.ok(arena.includes('data-testid="pvp-leave">{t("Salir")}</NxButton>'), "la partida con «Salir» → diálogo");
   const outcome = read("src", "components", "duel", "pvp", "PvpOutcome.tsx");
-  assert.ok(outcome.includes('{ label: tr("Volver al lobby"), onClick: onBack, testId: "ranked-back" }'), "el resultado con su vuelta");
+  assert.ok(outcome.includes('{ label: privateDuel ? tb("Volver a Duelos") : tb("Volver a Competitivo"), onClick: onBack, testId: "ranked-back" }'), "el resultado con su vuelta, rotulada por destino");
 });
 
 /* ═══════════════════════ AUTORIDAD ═══════════════════════ */

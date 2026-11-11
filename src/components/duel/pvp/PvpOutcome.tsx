@@ -33,6 +33,8 @@ import { ns, td } from "@/i18n/runtime";
 import { useLocale } from "@/i18n/react";
 
 const tr = ns("duel");
+/* Rótulos de vuelta por destino: viven en `duelos` (los 8 idiomas); en `duel` ya no existen. */
+const tb = ns("duelos");
 
 export type PvpVerdict = "WIN" | "LOSS" | "DRAW";
 
@@ -48,7 +50,7 @@ export interface PvpOutcomeProps {
   rating?: number | null;
   /** JUGAR OTRA (ranked): buscar otro rival. */
   onAgain: () => void;
-  /** VOLVER AL LOBBY: el lobby del modo (Competitivo para ranked, Duelos para el privado). */
+  /** VOLVER: el lobby del modo (Competitivo para ranked, Duelos para el privado); el rótulo nombra ese destino. */
   onBack: () => void;
   /** @deprecated Ya no se pinta en el resultado (vive en Competitivo). */
   ladder?: { before: { position: number | null } | null; after: { position: number | null; rankedTotal: number }; positions: number | null; movement?: Movement } | null;
@@ -92,7 +94,7 @@ export function PvpOutcome({ verdict, lifecycle, view, outcome, onAgain, onBack,
       : { label: tr("Jugar otra"), onClick: onAgain, once: true, testId: "ranked-again" };
   const lobby: DuelResultAction = cupMatch
     ? { label: tr("Volver al lobby"), href: MAIN_MENU_HREF }
-    : { label: tr("Volver al lobby"), onClick: onBack, testId: "ranked-back" };
+    : { label: privateDuel ? tb("Volver a Duelos") : tb("Volver a Competitivo"), onClick: onBack, testId: "ranked-back" };
 
   return (
     <div data-testid="pvp-outcome" data-mode={mode} className="w-full px-4">

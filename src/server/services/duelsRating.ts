@@ -136,19 +136,6 @@ export async function getRatingHistory(
   }));
 }
 
-/**
- * Lo que una partida le hizo al rating de QUIEN PREGUNTA (Bloque 7.5).
- *
- * La pantalla de resultado necesita enseñar «1000 → 1020». Ese dato existe en
- * `duel_pvp_rating_events` y es server-authoritative: `oldRating`, `delta` y `newRating` los
- * escribió la liquidación. **El cliente no calcula el delta**; lo pide.
- *
- * Solo se devuelve el movimiento DEL SOLICITANTE. El del rival no sale de aquí: saber cuánto ha
- * subido o bajado la otra persona no hace falta para jugar y es información suya.
- *
- * `null` cuando la partida todavía no se ha liquidado — que es lo normal durante la partida y
- * durante los milisegundos que hay entre el cierre y la liquidación.
- */
 /** Campos del asiento de rating que fijan el movimiento de rango (los escribió la liquidación; aquí solo se leen). */
 interface RankEventFacts {
   old_rating: number; new_rating: number;
@@ -187,6 +174,19 @@ export async function getLatestRankMovement(
   return { matchId: r.match_id, at: Date.parse(r.created_at) || 0, movement: await rankMovementOfEvent(sb, r) };
 }
 
+/**
+ * Lo que una partida le hizo al rating de QUIEN PREGUNTA (Bloque 7.5).
+ *
+ * La pantalla de resultado necesita enseñar «1000 → 1020». Ese dato existe en
+ * `duel_pvp_rating_events` y es server-authoritative: `oldRating`, `delta` y `newRating` los
+ * escribió la liquidación. **El cliente no calcula el delta**; lo pide.
+ *
+ * Solo se devuelve el movimiento DEL SOLICITANTE. El del rival no sale de aquí: saber cuánto ha
+ * subido o bajado la otra persona no hace falta para jugar y es información suya.
+ *
+ * `null` cuando la partida todavía no se ha liquidado — que es lo normal durante la partida y
+ * durante los milisegundos que hay entre el cierre y la liquidación.
+ */
 export async function getMatchRatingOutcome(
   sb: SupabaseClient, userId: string, matchId: string,
 ): Promise<PvpResult<{ outcome: RatingEvent | null; rating: number; rank: RankMovement | null }>> {
