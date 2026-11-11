@@ -80,6 +80,7 @@
     "seed:demo": "tsx scripts/seed-demo.ts",
     "demo:resolve": "tsx scripts/demo-resolve.ts",
     "verify:all": "node scripts/ci/run-verifies.mjs",
+    "verify:slow": "node scripts/ci/run-verifies.mjs --separate",
     "test": "node scripts/ci/run-tests.mjs",
     "i18n:extract": "tsx scripts/i18n/audit.ts --write && tsx scripts/i18n/bundles.ts",
     "i18n:audit": "tsx scripts/i18n/audit.ts",

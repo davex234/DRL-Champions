@@ -33,5 +33,28 @@ jobs:
 
       # Ejecuta TODOS los scripts/*-verify.ts (glob, sin lista manual) y falla si CUALQUIERA falla:
       # cubre updater/cards/release-flow y todos los motores (gameplay/collection/career/online...).
+      # Excepción: los de SEPARATE_JOB (scripts/ci/run-verifies.mjs) van al job `verify-slow`; el log lo anuncia.
       - name: Engine verifies (all)
         run: npm run verify:all
+
+  # Verifies demasiado largos para los 25 min de `verify` (hoy, preparation-verify: 82 partidos simulados, solo CPU).
+  # Runner propio y en paralelo: no comparte CPU ni memoria con `verify`, que termina por su cuenta. Misma cobertura
+  # (40 partidos), mismo runner de verifies y misma regla de aprobado; resultado y log en su propio check.
+  verify-slow:
+    name: verify-slow (preparation-verify)
+    runs-on: ubuntu-latest
+    # Medido: > 23 min en CI sin llegar a terminar. Margen holgado hasta tener la duración real; ajustar después.
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Slow verifies (job aparte)
+        run: npm run verify:slow

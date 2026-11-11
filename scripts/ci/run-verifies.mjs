@@ -37,9 +37,17 @@ const DIR = "scripts";
 const ROOT = process.cwd();
 const IN_CI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
 
+/**
+ * JOB APARTE: verifies demasiado largos para el límite de 25 min del job `verify`. NO se omiten: `verify:all` los
+ * anuncia en el log y el job `verify-slow` de `.github/workflows/verify.yml` los ejecuta con `npm run verify:slow`
+ * (`--separate`), en su propio runner, con el mismo formato y la misma regla de aprobado. Esta lista es la única fuente.
+ *   - preparation-verify: simulación de solo CPU, 82 partidos (N=40). Más de 23 min en CI sin terminar.
+ */
+const SEPARATE_JOB = ["preparation-verify.ts"];
+const SEPARATE_MODE = process.argv.includes("--separate");
+
 /** Lentos medidos en CI (s, ejecución de 2026-11-10/11). Arrancan los primeros; el resto, en orden alfabético. */
 const SLOW_FIRST = [
-  "preparation-verify.ts", // > 700 (no llegó a terminar)
   "sw-verify.ts", // compila la app (`npm run build`) antes de probar
   "combat-verify.ts", // 109–187
   "platform-verify.ts", // 82–150
@@ -56,8 +64,17 @@ const exclude = new Set((process.env.VERIFY_EXCLUDE ?? "").split(",").map((s) =>
 /** Mide tiempo de reloj ⇒ fase exclusiva. */
 const TIMED_RE = /performance\.now\(|process\.hrtime|Date\.now\(\)\s*-/;
 const isTimed = (f) => TIMED_RE.test(readFileSync(join(DIR, f), "utf8"));
-const slow = SLOW_FIRST.filter((f) => all.includes(f));
-const files = [...slow, ...all.filter((f) => !slow.includes(f))];
+// Un verify de la lista que ya no existe (renombrado, borrado) no puede convertir el job lento en un «verde» vacío.
+const missingSeparate = SEPARATE_JOB.filter((f) => !all.includes(f));
+if (SEPARATE_MODE && missingSeparate.length) {
+  console.error(`[verify:slow] no existen: ${missingSeparate.join(", ")} — revisa SEPARATE_JOB en scripts/ci/run-verifies.mjs`);
+  process.exit(1);
+}
+const separated = SEPARATE_JOB.filter((f) => all.includes(f));
+const pool = SEPARATE_MODE ? separated : all.filter((f) => !separated.includes(f));
+const slow = SLOW_FIRST.filter((f) => pool.includes(f));
+const files = [...slow, ...pool.filter((f) => !slow.includes(f))];
+if (!SEPARATE_MODE) for (const f of separated) console.log(`↪  APARTE ${f} → job verify-slow (npm run verify:slow)`);
 
 const requested = Number.parseInt(process.env.VERIFY_CONCURRENCY ?? "", 10);
 const concurrency = Number.isInteger(requested) && requested >= 1
@@ -126,7 +143,7 @@ const toRun = files.filter((f) => {
 });
 const timed = toRun.filter(isTimed);
 const rest = toRun.filter((f) => !timed.includes(f));
-console.log(`[verify:all] ${toRun.length} verifies · fase 1 exclusiva (miden tiempo): ${timed.length} · fase 2 concurrencia ${concurrency}${IN_CI ? " (CI)" : ""}: ${rest.length} (lentos primero: ${slow.length})`);
+console.log(`[${SEPARATE_MODE ? "verify:slow" : "verify:all"}] ${toRun.length} verifies · fase 1 exclusiva (miden tiempo): ${timed.length} · fase 2 concurrencia ${concurrency}${IN_CI ? " (CI)" : ""}: ${rest.length} (lentos primero: ${slow.length})`);
 
 async function worker() {
   while (pending.length) {
@@ -145,7 +162,7 @@ await Promise.all(Array.from({ length: concurrency }, worker));
 const phase2 = Date.now() - t2;
 
 const ran = files.length - skipped.length;
-console.log(`\n${failed.length === 0 ? "✅" : "❌"} verifies: ${ran - failed.length}/${ran} passed` + (skipped.length ? ` (${skipped.length} skipped)` : "") + ` · ${secs(Date.now() - t0)} en total (fase 1 ${secs(phase1)} · fase 2 ${secs(phase2)})`);
+console.log(`\n${failed.length === 0 ? "✅" : "❌"} verifies: ${ran - failed.length}/${ran} passed` + (skipped.length ? ` (${skipped.length} skipped)` : "") + (!SEPARATE_MODE && separated.length ? ` (${separated.length} en el job verify-slow)` : "") + ` · ${secs(Date.now() - t0)} en total (fase 1 ${secs(phase1)} · fase 2 ${secs(phase2)})`);
 console.log("Más lentos:\n" + durations.sort((a, b) => b[1] - a[1]).slice(0, 10).map(([f, ms]) => `  ${secs(ms).padStart(8)}  ${f}`).join("\n"));
 if (failed.length) {
   console.log("FAILED:\n" + [...failed].sort().map((f) => "  - " + f).join("\n"));
