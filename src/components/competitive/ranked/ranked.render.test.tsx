@@ -126,7 +126,7 @@ test("R2 · resultado ranked (RESULTADO ÚNICO): veredicto y el CAMBIO de rating
   assert.ok(h.includes('data-mode="PVP"') && h.includes('data-kind="win"'));
   assert.ok(h.includes('data-field="rating"'));
   const t = text(h);
-  for (const s of ["Victoria", "+18", "Rating", "Jugar otra", "Volver al lobby"]) assert.ok(t.includes(s), s);
+  for (const s of ["Victoria", "+18", "Rating", "Jugar otra", "Volver a Competitivo"]) assert.ok(t.includes(s), s);
   // El rango, la escalera y el rival viven en Competitivo / el perfil: el resultado no los apila.
   assert.ok(!h.includes('data-testid="rank-change"') && !h.includes('data-testid="pvp-ladder"'));
   for (const s of ["Ascenso", "Estrella III", "Subes 5 puestos", "Kaelis"]) assert.ok(!t.includes(s), s);
