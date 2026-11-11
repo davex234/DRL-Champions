@@ -56,6 +56,18 @@ test("sigue fallando: sin justificación (endorse_plan, sin notas, notas descono
   }
 });
 
+test("sigue fallando: notas contradictorias — endorse_plan junto a una justificación táctica", () => {
+  // `endorse_plan` dice «se juega el plan automático» (eco_rush); una justificación dice «se cambia». Si aparecen
+  // juntas, la decisión es incoherente y no autoriza la desviación.
+  for (const j of ECO_ENTRY_JUSTIFICATIONS) {
+    assert.deepEqual(checkEcoEntry(facts({ entryType: "default", coach: coach(["endorse_plan", j, "obeyed"]) })),
+      { applies: true, ok: false, reason: "contradictory" }, j);
+    // Con eco_rush no hay desviación que autorizar: sigue valiendo.
+    assert.deepEqual(checkEcoEntry(facts({ coach: coach(["endorse_plan", j, "obeyed"]) })),
+      { applies: true, ok: true, reason: "eco_rush" }, `${j} con eco_rush`);
+  }
+});
+
 test("sigue fallando: el equipo improvisó (aunque haya justificación)", () => {
   assert.deepEqual(checkEcoEntry(facts({ entryType: "default", coach: coach(["pistol_round", "improvised"], true) })),
     { applies: true, ok: false, reason: "improvised" });

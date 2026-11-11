@@ -7,8 +7,9 @@
  *        - `pistol_round`      ronda de pistola (1 y la primera tras el cambio de lado): se juega el plan por defecto;
  *        - `react_match_point` el rival tiene punto de partido: se fuerza;
  *        - `react_to_losses`   racha de derrotas / momentum muy negativo: se buscan picks.
- *   3. Sin esa justificación (p. ej. `endorse_plan`), o si el equipo IMPROVISÓ (desobedeció por su ADN y volvió a su
- *      lectura automática), la entrada debe seguir siendo `eco_rush`.
+ *   3. Sin esa justificación (p. ej. `endorse_plan`), si el equipo IMPROVISÓ (desobedeció por su ADN y volvió a su
+ *      lectura automática), o si las notas son contradictorias (`endorse_plan` junto a una justificación), la
+ *      entrada debe seguir siendo `eco_rush`.
  *   4. La compra del plan (que el entrenador copia del plan automático) debe ser la compra REAL de la ronda.
  *
  * Función pura sobre los hechos de UNA ronda (los que guarda el historial del partido); no decide nada del juego.
@@ -40,7 +41,7 @@ export interface EcoRoundFacts {
 export type EcoEntryVerdict =
   | { applies: false }
   | { applies: true; ok: true; reason: "eco_rush" | EcoEntryJustification }
-  | { applies: true; ok: false; reason: "buy_mismatch" | "no_real_buy" | "improvised" | "no_coach" | "unjustified" };
+  | { applies: true; ok: false; reason: "buy_mismatch" | "no_real_buy" | "improvised" | "no_coach" | "contradictory" | "unjustified" };
 
 export function checkEcoEntry(f: EcoRoundFacts): EcoEntryVerdict {
   if (f.side !== "ATK" || !ECO_TIERS.includes(f.planBuy)) return { applies: false };
@@ -53,5 +54,7 @@ export function checkEcoEntry(f: EcoRoundFacts): EcoEntryVerdict {
   if (!f.coach) return { applies: true, ok: false, reason: "no_coach" };
   if (f.coach.deviated || f.coach.notes.includes("improvised")) return { applies: true, ok: false, reason: "improvised" };
   const why = ECO_ENTRY_JUSTIFICATIONS.find((j) => f.coach!.notes.includes(j));
+  // `endorse_plan` (= jugar el plan automático) junto a una justificación es una decisión incoherente: no autoriza.
+  if (why && f.coach.notes.includes("endorse_plan")) return { applies: true, ok: false, reason: "contradictory" };
   return why ? { applies: true, ok: true, reason: why } : { applies: true, ok: false, reason: "unjustified" };
 }
